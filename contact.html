@@ -41,7 +41,6 @@
       text-decoration:none;
     }
 
-    /* CURSOR */
     .cursor{
       position:fixed;
       width:10px;
@@ -66,7 +65,6 @@
       opacity:.5;
     }
 
-    /* NAV */
     nav{
       position:fixed;
       top:0;
@@ -89,7 +87,6 @@
       font-style:italic;
       font-size:1.05rem;
       color:var(--ink);
-      text-decoration:none;
       font-weight:700;
       flex-shrink:0;
     }
@@ -105,7 +102,6 @@
     .nav-links a{
       font-size:.82rem;
       color:var(--ink2);
-      text-decoration:none;
       transition:color .18s;
     }
 
@@ -172,12 +168,10 @@
       padding:.85rem 0;
       border-bottom:1px solid rgba(92,61,44,.08);
       font-size:.95rem;
-      text-decoration:none;
     }
 
     .nav-mobile a:last-child{border-bottom:none;}
 
-    /* HERO */
     .hero{
       padding:5.5rem 4rem 4rem;
       background:
@@ -325,7 +319,6 @@
       line-height:1.6;
     }
 
-    /* MAIN */
     .contact-wrap{
       max-width:1200px;
       margin:0 auto;
@@ -339,7 +332,6 @@
       align-items:start;
     }
 
-    /* LEFT */
     .info-col{
       display:flex;
       flex-direction:column;
@@ -433,7 +425,6 @@
       font-weight:300;
     }
 
-    /* FORM */
     .form-card{
       background:var(--white);
       border:1.5px solid rgba(232,150,127,.15);
@@ -565,7 +556,6 @@
       box-shadow:0 14px 40px rgba(201,107,82,.34);
     }
 
-    /* FAQ STRIP */
     .faq-strip{
       max-width:1200px;
       margin:0 auto;
@@ -617,7 +607,6 @@
       font-weight:300;
     }
 
-    /* FOOTER */
     .site-footer{
       background:#1A0E08;
       padding:3.5rem 3rem 2rem;
@@ -643,7 +632,6 @@
       font-weight:700;
       display:block;
       margin-bottom:.7rem;
-      text-decoration:none;
     }
 
     .footer-brand p{
@@ -684,7 +672,6 @@
       display:block;
       font-size:.78rem;
       color:rgba(255,255,255,.35);
-      text-decoration:none;
       margin-bottom:.5rem;
       transition:color .18s;
       font-weight:300;
@@ -715,7 +702,6 @@
     .footer-bottom-links a{
       font-size:.72rem;
       color:rgba(255,255,255,.25);
-      text-decoration:none;
       transition:color .18s;
     }
 
@@ -820,23 +806,24 @@
   <div class="cursor-ring" id="ring"></div>
 
   <nav>
-    <a href="accueil.html" class="nav-logo">Laura Charron</a>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
 
     <div class="nav-links">
-      <a href="accueil.html">Accueil</a>
-      <a href="etre-une-femme.html">Être une femme</a>
-      <a href="symptomes.html">Symptômes</a>
-      <a href="arbre-de-vie.html">Arbre de vie</a>
-      <a href="frequence.html">Fréquence</a>
-      <a href="schema.html">Schéma</a>
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
       <a href="journal.html">Journal</a>
-      <a href="ressenti.html">Ressenti</a>
+      <a href="transgen.html">Transgénérationnel</a>
       <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html">Ma famille</a>
       <a href="contact.html" class="active">Contact</a>
-      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener" class="nav-book">📗 Le livre</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
     </div>
 
-    <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Ouvrir le menu">
+    <button class="nav-burger" id="burger" type="button" onclick="toggleMenu()" aria-label="Ouvrir le menu">
       <span></span>
       <span></span>
       <span></span>
@@ -844,17 +831,18 @@
   </nav>
 
   <div class="nav-mobile" id="nav-mobile">
-    <a href="accueil.html">🏠 Accueil</a>
-    <a href="etre-une-femme.html">🌙 Être une femme</a>
-    <a href="symptomes.html">💬 Symptômes</a>
-    <a href="arbre-de-vie.html">🌳 Arbre de vie</a>
-    <a href="frequence.html">💫 Fréquence</a>
-    <a href="schema.html">🧬 Schéma</a>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
     <a href="journal.html">📓 Journal</a>
-    <a href="ressenti.html">🫀 Ressenti</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
     <a href="genosociogramme.html">🌐 Génosociogramme</a>
-    <a href="contact.html" style="color:var(--rose2);font-weight:500;">✉️ Contact</a>
-    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">📗 Commander le livre</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html" style="color:var(--rose2);font-weight:600;">✉️ Contact</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
   </div>
 
   <section class="hero">
@@ -1013,16 +1001,16 @@
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="accueil.html" class="footer-logo">Laura Charron</a>
+          <a href="index.html" class="footer-logo">Laura Charron</a>
           <p>Auteure, chercheuse et guide sur le chemin des mémoires transgénérationnelles et de la libération intérieure.</p>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener" class="footer-book-link">📗 Commander le livre</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
         </div>
 
         <div class="footer-col">
           <h4>Explorer</h4>
           <a href="parcours.html">Mémoires de lignée</a>
-          <a href="arbre-de-vie.html">Arbre de Vie</a>
-          <a href="frequence.html">Ma fréquence</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="vibration.html">Ma fréquence</a>
           <a href="cycle.html">Mon cycle</a>
           <a href="symptomes.html">Mon corps parle</a>
         </div>
@@ -1032,16 +1020,15 @@
           <a href="transgen.html">Transgénérationnel</a>
           <a href="genosociogramme.html">Génosociogramme</a>
           <a href="arbre-famille.html">Ma famille</a>
-          <a href="liberation.html">Protocole LC</a>
           <a href="journal.html">Journal guidé</a>
         </div>
 
         <div class="footer-col">
           <h4>Laura Charron</h4>
           <a href="contact.html">Écrire à Laura</a>
-          <a href="accueil.html#about">À propos</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">Le livre Amazon</a>
-          <a href="accueil.html">Retour à l'accueil</a>
+          <a href="index.html#about">À propos</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Le livre Amazon</a>
+          <a href="index.html">Retour à l'accueil</a>
         </div>
       </div>
 
@@ -1049,7 +1036,7 @@
         <p>© Laura Charron 2026 · Tous droits réservés · <em>Ressens · Guéris · Vis</em></p>
         <div class="footer-bottom-links">
           <a href="contact.html">Contact</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">Commander le livre</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Commander le livre</a>
         </div>
       </div>
     </div>
