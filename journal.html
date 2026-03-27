@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Journal · Laura Charron</title>
   <meta name="description" content="Un journal guidé pour déposer tes ressentis, explorer tes mémoires, écrire à partir de ton corps, de ton cycle, de ta lignée et de ta fréquence intérieure.">
-  <link rel="canonical" href="https://www.lauracharron.com/journal.html">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
   <style>
@@ -36,113 +35,64 @@
       padding-top:68px;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
+    a{color:inherit;text-decoration:none;}
 
-    /* CURSOR */
     .cursor{
-      position:fixed;
-      width:10px;
-      height:10px;
-      background:var(--gold2);
-      border-radius:50%;
-      pointer-events:none;
-      z-index:9999;
-      transform:translate(-50%,-50%);
-      mix-blend-mode:multiply;
+      position:fixed;width:10px;height:10px;background:var(--gold2);
+      border-radius:50%;pointer-events:none;z-index:9999;
+      transform:translate(-50%,-50%);mix-blend-mode:multiply;
     }
-
     .cursor-ring{
-      position:fixed;
-      width:36px;
-      height:36px;
-      border:1.5px solid var(--gold2);
-      border-radius:50%;
-      pointer-events:none;
-      z-index:9998;
-      transform:translate(-50%,-50%);
-      opacity:.5;
+      position:fixed;width:36px;height:36px;border:1.5px solid var(--gold2);
+      border-radius:50%;pointer-events:none;z-index:9998;
+      transform:translate(-50%,-50%);opacity:.5;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:1000;
-      height:68px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1.2rem;
-      padding:0 2rem;
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      height:68px;display:flex;align-items:center;
+      justify-content:space-between;gap:1rem;
+      padding:0 1.5rem;
       background:rgba(253,245,236,.96);
       backdrop-filter:blur(14px);
       border-bottom:1px solid rgba(232,150,127,.15);
     }
 
     .nav-logo{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1.05rem;
-      color:var(--ink);
-      font-weight:700;
-      flex-shrink:0;
+      font-family:'Playfair Display',serif;font-style:italic;
+      font-size:1.05rem;color:var(--ink);font-weight:700;flex-shrink:0;
     }
 
     .nav-links{
-      display:flex;
-      align-items:center;
-      gap:1rem;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+      display:flex;align-items:center;gap:.7rem;
+      flex-wrap:nowrap;justify-content:flex-end;
     }
 
     .nav-links a{
-      font-size:.82rem;
-      color:var(--ink2);
-      transition:color .18s;
+      font-size:.76rem;color:var(--ink2);transition:color .18s;
+      white-space:nowrap;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active{
-      color:var(--gold2);
-    }
+    .nav-links a:hover,.nav-links a.active{color:var(--gold2);}
 
     .nav-book{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      padding:.45rem .85rem;
-      border-radius:100px;
+      display:inline-flex;align-items:center;gap:.3rem;
+      padding:.42rem .8rem;border-radius:100px;
       background:linear-gradient(135deg,#FF9900,#E47911);
-      color:white !important;
-      font-weight:500;
+      color:white !important;font-weight:500;font-size:.76rem !important;
+      white-space:nowrap;flex-shrink:0;
     }
 
     .nav-burger{
-      display:none;
-      width:44px;
-      height:44px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-      flex-shrink:0;
+      display:none;width:44px;height:44px;border:none;
+      background:transparent;cursor:pointer;flex-direction:column;
+      align-items:center;justify-content:center;gap:5px;flex-shrink:0;
     }
 
     .nav-burger span{
-      width:22px;
-      height:2px;
-      background:var(--ink);
-      border-radius:10px;
-      transition:.25s ease;
+      width:22px;height:2px;background:var(--ink);
+      border-radius:10px;transition:.25s ease;
     }
 
     .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -150,26 +100,18 @@
     .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
     .nav-mobile{
-      position:fixed;
-      top:68px;
-      left:0;
-      right:0;
-      background:rgba(255,250,244,.98);
-      backdrop-filter:blur(18px);
+      position:fixed;top:68px;left:0;right:0;
+      background:rgba(255,250,244,.98);backdrop-filter:blur(18px);
       border-bottom:1px solid rgba(232,150,127,.16);
-      display:none;
-      flex-direction:column;
-      padding:1rem 1.4rem 1.4rem;
-      z-index:999;
+      display:none;flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;z-index:999;
     }
 
     .nav-mobile.open{display:flex;}
 
     .nav-mobile a{
-      color:var(--ink2);
-      padding:.85rem 0;
-      border-bottom:1px solid rgba(92,61,44,.08);
-      font-size:.95rem;
+      color:var(--ink2);padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);font-size:.95rem;
     }
 
     .nav-mobile a:last-child{border-bottom:none;}
@@ -183,34 +125,19 @@
         var(--c);
     }
 
-    .hero-inner{
-      max-width:1200px;
-      margin:0 auto;
-    }
+    .hero-inner{max-width:1200px;margin:0 auto;}
 
     .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.6rem;
-      font-size:.7rem;
-      font-weight:500;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--gold2);
-      background:rgba(245,200,66,.1);
-      border:1px solid rgba(245,200,66,.25);
-      border-radius:100px;
-      padding:.4rem 1rem;
-      margin-bottom:1.4rem;
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-size:.7rem;font-weight:500;letter-spacing:.25em;
+      text-transform:uppercase;color:var(--gold2);
+      background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.25);
+      border-radius:100px;padding:.4rem 1rem;margin-bottom:1.4rem;
     }
 
     .hero-badge::before{
-      content:'';
-      width:6px;
-      height:6px;
-      background:var(--gold2);
-      border-radius:50%;
-      animation:dot 2s infinite;
+      content:'';width:6px;height:6px;background:var(--gold2);
+      border-radius:50%;animation:dot 2s infinite;
     }
 
     @keyframes dot{
@@ -220,95 +147,55 @@
 
     .hero h1{
       font-family:'Playfair Display',serif;
-      font-size:clamp(2.4rem,5vw,4.2rem);
-      font-weight:900;
-      line-height:1.04;
-      margin-bottom:1rem;
+      font-size:clamp(2.4rem,5vw,4.2rem);font-weight:900;
+      line-height:1.04;margin-bottom:1rem;
     }
 
-    .hero h1 em{
-      font-style:italic;
-      color:var(--gold2);
-    }
+    .hero h1 em{font-style:italic;color:var(--gold2);}
 
     .hero p{
-      max-width:700px;
-      font-size:.98rem;
-      line-height:1.9;
-      font-weight:300;
-      color:var(--ink2);
+      max-width:700px;font-size:.98rem;line-height:1.9;
+      font-weight:300;color:var(--ink2);
     }
 
-    /* MAIN LAYOUT */
+    /* LAYOUT */
     .journal-layout{
-      display:grid;
-      grid-template-columns:300px 1fr;
-      gap:2.5rem;
-      max-width:1200px;
-      margin:0 auto;
-      padding:3rem 4rem 6rem;
+      display:grid;grid-template-columns:300px 1fr;gap:2.5rem;
+      max-width:1200px;margin:0 auto;padding:3rem 4rem 6rem;
       align-items:start;
     }
 
-    /* SIDEBAR */
     .sidebar{
-      position:sticky;
-      top:90px;
-      display:flex;
-      flex-direction:column;
-      gap:1.5rem;
+      position:sticky;top:90px;
+      display:flex;flex-direction:column;gap:1.5rem;
     }
 
     .date-card{
       background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      border-radius:20px;
-      padding:1.5rem;
-      color:white;
+      border-radius:20px;padding:1.5rem;color:white;
     }
 
     .date-card .day{
-      font-family:'Playfair Display',serif;
-      font-size:1.1rem;
-      font-weight:700;
-      margin-bottom:.2rem;
-      text-transform:capitalize;
+      font-family:'Playfair Display',serif;font-size:1.1rem;
+      font-weight:700;margin-bottom:.2rem;text-transform:capitalize;
     }
 
-    .date-card .sub{
-      font-size:.78rem;
-      color:rgba(255,255,255,.7);
-      font-weight:300;
-    }
+    .date-card .sub{font-size:.78rem;color:rgba(255,255,255,.7);font-weight:300;}
 
     .sb-label{
-      font-size:.68rem;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--soft);
-      margin-bottom:.8rem;
-      font-weight:400;
+      font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;
+      color:var(--soft);margin-bottom:.8rem;font-weight:400;
     }
 
     .theme-btn{
-      display:flex;
-      align-items:center;
-      gap:.9rem;
-      width:100%;
-      background:var(--white);
-      border:1.5px solid rgba(232,150,127,.15);
-      border-radius:14px;
-      padding:.9rem 1rem;
-      cursor:pointer;
-      text-align:left;
-      margin-bottom:.5rem;
-      transition:all .2s;
+      display:flex;align-items:center;gap:.9rem;width:100%;
+      background:var(--white);border:1.5px solid rgba(232,150,127,.15);
+      border-radius:14px;padding:.9rem 1rem;cursor:pointer;
+      text-align:left;margin-bottom:.5rem;transition:all .2s;
       font-family:'DM Sans',sans-serif;
     }
 
-    .theme-btn:hover{
-      border-color:var(--orange);
-      background:#FFF8F3;
-    }
+    .theme-btn:hover{border-color:var(--orange);background:#FFF8F3;}
 
     .theme-btn.active{
       border-color:var(--gold2);
@@ -316,648 +203,306 @@
     }
 
     .th-icon{
-      font-size:1.1rem;
-      width:34px;
-      height:34px;
-      background:var(--c2);
-      border-radius:10px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-shrink:0;
-      transition:background .2s;
+      font-size:1.1rem;width:34px;height:34px;background:var(--c2);
+      border-radius:10px;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0;transition:background .2s;
     }
 
-    .theme-btn.active .th-icon{
-      background:rgba(232,168,0,.15);
-    }
+    .theme-btn.active .th-icon{background:rgba(232,168,0,.15);}
 
     .th-info{flex:1;}
+    .th-name{font-size:.88rem;font-weight:400;color:var(--ink);}
+    .th-sub{font-size:.7rem;color:var(--soft);font-weight:300;}
 
-    .th-name{
-      font-size:.88rem;
-      font-weight:400;
-      color:var(--ink);
-    }
-
-    .th-sub{
-      font-size:.7rem;
-      color:var(--soft);
-      font-weight:300;
-    }
-
-    .past-entries-wrap{
-      display:none;
-    }
+    .past-entries-wrap{display:none;}
 
     .past-entry{
-      background:var(--white);
-      border-radius:12px;
-      padding:.9rem 1rem;
-      margin-bottom:.5rem;
-      border:1px solid rgba(232,150,127,.12);
-      cursor:pointer;
-      transition:all .2s;
+      background:var(--white);border-radius:12px;padding:.9rem 1rem;
+      margin-bottom:.5rem;border:1px solid rgba(232,150,127,.12);
+      cursor:pointer;transition:all .2s;
     }
 
-    .past-entry:hover{
-      border-color:var(--orange);
-      transform:translateX(2px);
-    }
+    .past-entry:hover{border-color:var(--orange);transform:translateX(2px);}
 
-    .pe-date{
-      font-size:.7rem;
-      color:var(--soft);
-      margin-bottom:.3rem;
-    }
+    .pe-date{font-size:.7rem;color:var(--soft);margin-bottom:.3rem;}
 
     .pe-preview{
-      font-family:'Playfair Display',serif;
-      font-size:.88rem;
-      font-style:italic;
-      color:var(--ink);
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
-      line-height:1.4;
+      font-family:'Playfair Display',serif;font-size:.88rem;
+      font-style:italic;color:var(--ink);
+      display:-webkit-box;-webkit-line-clamp:2;
+      -webkit-box-orient:vertical;overflow:hidden;line-height:1.4;
     }
 
-    /* MAIN JOURNAL AREA */
     .question-card{
       background:linear-gradient(135deg,var(--white),#FFF8F0);
-      border:1.5px solid rgba(245,200,66,.2);
-      border-radius:24px;
-      padding:2.2rem;
-      margin-bottom:1.5rem;
-      position:relative;
-      overflow:hidden;
+      border:1.5px solid rgba(245,200,66,.2);border-radius:24px;
+      padding:2.2rem;margin-bottom:1.5rem;
+      position:relative;overflow:hidden;
     }
 
     .question-card::before{
-      content:'';
-      position:absolute;
-      top:0;
-      left:0;
-      right:0;
-      height:3px;
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
       background:linear-gradient(to right,var(--gold2),var(--orange));
     }
 
     .q-theme-label{
-      font-size:.68rem;
-      letter-spacing:.2em;
-      text-transform:uppercase;
-      color:var(--gold2);
-      margin-bottom:.8rem;
-      display:flex;
-      align-items:center;
-      gap:.5rem;
+      font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--gold2);margin-bottom:.8rem;
+      display:flex;align-items:center;gap:.5rem;
     }
 
     .question-text{
       font-family:'Playfair Display',serif;
-      font-size:clamp(1.2rem,2.5vw,1.75rem);
-      font-weight:700;
-      font-style:italic;
-      color:var(--ink);
-      line-height:1.4;
-      margin-bottom:1rem;
+      font-size:clamp(1.2rem,2.5vw,1.75rem);font-weight:700;
+      font-style:italic;color:var(--ink);line-height:1.4;margin-bottom:1rem;
     }
 
     .question-hint{
-      font-size:.85rem;
-      color:var(--soft);
-      line-height:1.65;
-      font-weight:300;
-      padding-top:1rem;
-      border-top:1px solid rgba(232,150,127,.15);
+      font-size:.85rem;color:var(--soft);line-height:1.65;font-weight:300;
+      padding-top:1rem;border-top:1px solid rgba(232,150,127,.15);
     }
 
     .new-q-btn{
-      position:absolute;
-      top:1.2rem;
-      right:1.2rem;
-      background:rgba(245,200,66,.12);
-      border:1px solid rgba(232,168,0,.25);
-      color:var(--gold2);
-      border-radius:100px;
-      padding:.35rem .9rem;
-      font-size:.72rem;
-      cursor:pointer;
-      font-family:'DM Sans',sans-serif;
+      position:absolute;top:1.2rem;right:1.2rem;
+      background:rgba(245,200,66,.12);border:1px solid rgba(232,168,0,.25);
+      color:var(--gold2);border-radius:100px;padding:.35rem .9rem;
+      font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;
       transition:all .2s;
     }
 
-    .new-q-btn:hover{
-      background:var(--gold);
-      color:var(--ink);
-    }
+    .new-q-btn:hover{background:var(--gold);color:var(--ink);}
 
-    .write-wrap{
-      position:relative;
-    }
+    .write-wrap{position:relative;}
 
     .write-area{
-      width:100%;
-      background:var(--white);
-      border:1.5px solid rgba(232,150,127,.18);
-      border-radius:22px;
-      padding:1.8rem;
-      font-family:'DM Serif Display',serif;
-      font-style:italic;
-      font-size:1.1rem;
-      color:var(--ink);
-      line-height:2;
-      resize:none;
-      min-height:300px;
-      outline:none;
-      transition:border-color .2s, box-shadow .2s;
+      width:100%;background:var(--white);
+      border:1.5px solid rgba(232,150,127,.18);border-radius:22px;
+      padding:1.8rem;font-family:'DM Serif Display',serif;
+      font-style:italic;font-size:1.1rem;color:var(--ink);
+      line-height:2;resize:none;min-height:300px;outline:none;
+      transition:border-color .2s,box-shadow .2s;
       box-shadow:0 4px 24px rgba(42,26,16,.05);
     }
 
     .write-area:focus{
-      border-color:var(--gold2);
-      box-shadow:0 8px 40px rgba(232,168,0,.1);
+      border-color:var(--gold2);box-shadow:0 8px 40px rgba(232,168,0,.1);
     }
 
-    .write-area::placeholder{
-      color:rgba(154,112,96,.35);
-      font-style:italic;
-    }
+    .write-area::placeholder{color:rgba(154,112,96,.35);font-style:italic;}
 
     .word-count{
-      font-size:.72rem;
-      color:var(--soft);
-      text-align:right;
-      margin-top:.5rem;
-      font-weight:300;
+      font-size:.72rem;color:var(--soft);text-align:right;
+      margin-top:.5rem;font-weight:300;
     }
 
     .journal-actions{
-      display:flex;
-      gap:.8rem;
-      margin-top:1.2rem;
-      flex-wrap:wrap;
+      display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;
     }
 
     .btn-save{
-      display:inline-flex;
-      align-items:center;
-      gap:.6rem;
+      display:inline-flex;align-items:center;gap:.6rem;
       background:linear-gradient(135deg,var(--gold2),var(--orange2));
-      color:white;
-      padding:.9rem 1.8rem;
-      border-radius:100px;
-      font-family:'DM Sans',sans-serif;
-      font-size:.88rem;
-      font-weight:500;
-      cursor:pointer;
-      border:none;
+      color:white;padding:.9rem 1.8rem;border-radius:100px;
+      font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;
+      cursor:pointer;border:none;
       transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
       box-shadow:0 8px 28px rgba(232,168,0,.3);
     }
 
-    .btn-save:hover{
-      transform:translateY(-2px);
-      box-shadow:0 14px 40px rgba(232,168,0,.4);
+    .btn-save:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(232,168,0,.4);}
+
+    .btn-clear,.btn-print{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:transparent;color:var(--soft);padding:.9rem 1.5rem;
+      border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.88rem;
+      cursor:pointer;border:1.5px solid rgba(92,61,44,.15);transition:all .2s;
     }
 
-    .btn-clear,
-    .btn-print{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      background:transparent;
-      color:var(--soft);
-      padding:.9rem 1.5rem;
-      border-radius:100px;
-      font-family:'DM Sans',sans-serif;
-      font-size:.88rem;
-      cursor:pointer;
-      border:1.5px solid rgba(92,61,44,.15);
-      transition:all .2s;
-    }
+    .btn-clear:hover{border-color:var(--rose);color:var(--rose2);}
+    .btn-print:hover{border-color:var(--gold2);color:var(--gold2);}
 
-    .btn-clear:hover{
-      border-color:var(--rose);
-      color:var(--rose2);
-    }
-
-    .btn-print:hover{
-      border-color:var(--gold2);
-      color:var(--gold2);
-    }
-
-    /* ENTRIES LIST */
-    .entries-section{
-      margin-top:3rem;
-      display:none;
-    }
+    .entries-section{margin-top:3rem;display:none;}
 
     .entries-title{
-      font-size:.7rem;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--soft);
-      margin-bottom:1.2rem;
+      font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+      color:var(--soft);margin-bottom:1.2rem;
     }
 
     .entry-card{
-      background:var(--white);
-      border-radius:18px;
-      padding:1.4rem 1.6rem;
-      margin-bottom:.8rem;
-      border:1px solid rgba(232,150,127,.12);
-      transition:all .2s;
-      cursor:pointer;
+      background:var(--white);border-radius:18px;padding:1.4rem 1.6rem;
+      margin-bottom:.8rem;border:1px solid rgba(232,150,127,.12);
+      transition:all .2s;cursor:pointer;
     }
 
-    .entry-card:hover{
-      border-color:var(--orange);
-      box-shadow:0 6px 24px rgba(42,26,16,.07);
-    }
+    .entry-card:hover{border-color:var(--orange);box-shadow:0 6px 24px rgba(42,26,16,.07);}
 
     .ec-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:.6rem;
-      gap:.5rem;
-      flex-wrap:wrap;
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:.6rem;gap:.5rem;flex-wrap:wrap;
     }
 
-    .ec-date{
-      font-size:.74rem;
-      color:var(--soft);
-      font-weight:300;
-    }
+    .ec-date{font-size:.74rem;color:var(--soft);font-weight:300;}
 
     .ec-theme{
-      font-size:.68rem;
-      background:var(--c2);
-      color:var(--soft);
-      padding:.2rem .7rem;
-      border-radius:100px;
+      font-size:.68rem;background:var(--c2);color:var(--soft);
+      padding:.2rem .7rem;border-radius:100px;
     }
 
     .ec-question{
-      font-size:.78rem;
-      color:var(--soft);
-      font-style:italic;
-      margin-bottom:.5rem;
-      font-family:'Playfair Display',serif;
+      font-size:.78rem;color:var(--soft);font-style:italic;
+      margin-bottom:.5rem;font-family:'Playfair Display',serif;
     }
 
     .ec-preview{
-      font-family:'Playfair Display',serif;
-      font-size:.95rem;
-      font-style:italic;
-      color:var(--ink);
-      line-height:1.5;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
+      font-family:'Playfair Display',serif;font-size:.95rem;
+      font-style:italic;color:var(--ink);line-height:1.5;
+      display:-webkit-box;-webkit-line-clamp:2;
+      -webkit-box-orient:vertical;overflow:hidden;
     }
 
     .ec-del{
-      background:none;
-      border:none;
-      color:rgba(122,92,80,.25);
-      cursor:pointer;
-      font-size:.8rem;
-      padding:.2rem;
-      transition:color .2s;
-      flex-shrink:0;
+      background:none;border:none;color:rgba(122,92,80,.25);
+      cursor:pointer;font-size:.8rem;padding:.2rem;
+      transition:color .2s;flex-shrink:0;
     }
 
-    .ec-del:hover{
-      color:var(--rose2);
-    }
+    .ec-del:hover{color:var(--rose2);}
 
-    /* TOAST */
     .toast{
-      position:fixed;
-      bottom:2rem;
-      right:2rem;
+      position:fixed;bottom:2rem;right:2rem;
       background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      color:white;
-      padding:.8rem 1.5rem;
-      border-radius:100px;
-      font-size:.85rem;
-      box-shadow:0 8px 30px rgba(201,107,82,.35);
-      transform:translateY(100px);
-      opacity:0;
-      transition:all .35s cubic-bezier(.34,1.56,.64,1);
-      z-index:300;
+      color:white;padding:.8rem 1.5rem;border-radius:100px;
+      font-size:.85rem;box-shadow:0 8px 30px rgba(201,107,82,.35);
+      transform:translateY(100px);opacity:0;
+      transition:all .35s cubic-bezier(.34,1.56,.64,1);z-index:300;
     }
 
-    .toast.show{
-      transform:translateY(0);
-      opacity:1;
-    }
+    .toast.show{transform:translateY(0);opacity:1;}
 
-    /* INSPIRATION SECTION */
-    .inspo{
-      background:var(--ink);
-      padding:7rem 4rem;
-    }
+    .inspo{background:var(--ink);padding:7rem 4rem;}
 
-    .inspo-inner{
-      max-width:1100px;
-      margin:0 auto;
-    }
+    .inspo-inner{max-width:1100px;margin:0 auto;}
 
     .inspo h2{
       font-family:'Playfair Display',serif;
-      font-size:clamp(1.8rem,3.5vw,2.6rem);
-      font-weight:700;
-      color:white;
-      text-align:center;
-      margin-bottom:.8rem;
+      font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;
+      color:white;text-align:center;margin-bottom:.8rem;
     }
 
-    .inspo h2 em{
-      font-style:italic;
-      color:var(--gold);
-    }
+    .inspo h2 em{font-style:italic;color:var(--gold);}
 
     .inspo-sub{
-      text-align:center;
-      font-size:.92rem;
-      color:rgba(255,255,255,.4);
-      max-width:520px;
-      margin:0 auto 3.5rem;
-      line-height:1.7;
+      text-align:center;font-size:.92rem;color:rgba(255,255,255,.4);
+      max-width:520px;margin:0 auto 3.5rem;line-height:1.7;
     }
 
-    .inspo-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:1.2rem;
-    }
+    .inspo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
 
     .inspo-card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:20px;
-      padding:2rem;
+      background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;padding:2rem;
     }
 
     .inspo-q{
-      font-family:'Playfair Display',serif;
-      font-size:.95rem;
-      font-weight:400;
-      font-style:italic;
-      color:rgba(255,255,255,.75);
-      line-height:1.55;
-      margin-bottom:.8rem;
+      font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400;
+      font-style:italic;color:rgba(255,255,255,.75);line-height:1.55;margin-bottom:.8rem;
     }
 
-    .inspo-theme{
-      font-size:.7rem;
-      color:rgba(255,255,255,.3);
-      letter-spacing:.15em;
-      text-transform:uppercase;
-    }
+    .inspo-theme{font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.15em;text-transform:uppercase;}
 
-    /* FOOTER */
-    .site-footer{
-      background:#1A0E08;
-      padding:3.5rem 3rem 2rem;
-    }
-
-    .footer-inner{
-      max-width:1200px;
-      margin:0 auto;
-    }
+    .site-footer{background:#1A0E08;padding:3.5rem 3rem 2rem;}
+    .footer-inner{max-width:1200px;margin:0 auto;}
 
     .footer-top{
-      display:grid;
-      grid-template-columns:1.8fr 1fr 1fr 1fr;
-      gap:2.5rem;
-      margin-bottom:2.5rem;
+      display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:2.5rem;margin-bottom:2.5rem;
     }
 
     .footer-brand .footer-logo{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1.3rem;
-      color:white;
-      font-weight:700;
-      display:block;
-      margin-bottom:.7rem;
-      text-decoration:none;
+      font-family:'Playfair Display',serif;font-style:italic;
+      font-size:1.3rem;color:white;font-weight:700;display:block;margin-bottom:.7rem;
     }
 
     .footer-brand p{
-      font-size:.8rem;
-      color:rgba(255,255,255,.38);
-      line-height:1.72;
-      font-weight:300;
-      max-width:260px;
+      font-size:.8rem;color:rgba(255,255,255,.38);line-height:1.72;
+      font-weight:300;max-width:260px;
     }
 
     .footer-book-link{
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      background:linear-gradient(135deg,#FF9900,#E47911);
-      color:white;
-      padding:.55rem 1.1rem;
-      border-radius:100px;
-      font-size:.76rem;
-      font-weight:500;
-      text-decoration:none;
-      margin-top:1.1rem;
-      transition:transform .18s;
+      display:inline-flex;align-items:center;gap:.45rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);color:white;
+      padding:.55rem 1.1rem;border-radius:100px;font-size:.76rem;
+      font-weight:500;margin-top:1.1rem;transition:transform .18s;
     }
 
-    .footer-book-link:hover{
-      transform:translateY(-1px);
-    }
+    .footer-book-link:hover{transform:translateY(-1px);}
 
     .footer-col h4{
-      font-size:.72rem;
-      font-weight:700;
-      color:rgba(255,255,255,.55);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin-bottom:.9rem;
+      font-size:.72rem;font-weight:700;color:rgba(255,255,255,.55);
+      letter-spacing:.12em;text-transform:uppercase;margin-bottom:.9rem;
     }
 
     .footer-col a{
-      display:block;
-      font-size:.78rem;
-      color:rgba(255,255,255,.35);
-      text-decoration:none;
-      margin-bottom:.5rem;
-      transition:color .18s;
-      font-weight:300;
+      display:block;font-size:.78rem;color:rgba(255,255,255,.35);
+      margin-bottom:.5rem;transition:color .18s;font-weight:300;
     }
 
-    .footer-col a:hover{
-      color:var(--gold);
-    }
+    .footer-col a:hover{color:var(--gold);}
 
     .footer-bottom{
-      border-top:1px solid rgba(255,255,255,.07);
-      padding-top:1.5rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:1rem;
+      border-top:1px solid rgba(255,255,255,.07);padding-top:1.5rem;
+      display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:1rem;
     }
 
-    .footer-bottom p{
-      font-size:.72rem;
-      color:rgba(255,255,255,.2);
-    }
+    .footer-bottom p{font-size:.72rem;color:rgba(255,255,255,.2);}
 
-    .footer-bottom-links{
-      display:flex;
-      gap:1.5rem;
-    }
+    .footer-bottom-links{display:flex;gap:1.5rem;}
 
     .footer-bottom-links a{
-      font-size:.72rem;
-      color:rgba(255,255,255,.25);
-      text-decoration:none;
-      transition:color .18s;
+      font-size:.72rem;color:rgba(255,255,255,.25);transition:color .18s;
     }
 
-    .footer-bottom-links a:hover{
-      color:var(--gold);
-    }
+    .footer-bottom-links a:hover{color:var(--gold);}
 
-    .reveal{
-      opacity:0;
-      transform:translateY(24px);
-      transition:opacity .6s ease,transform .6s ease;
-    }
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+    .reveal.revealed{opacity:1;transform:translateY(0);}
 
-    .reveal.revealed{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    @media(max-width:960px){
-      .hero{
-        padding:4.6rem 1.5rem 3rem;
-      }
-
-      .journal-layout{
-        grid-template-columns:1fr;
-        padding:2rem 1.5rem 4rem;
-      }
-
-      .sidebar{
-        position:static;
-      }
-
-      .inspo-grid{
-        grid-template-columns:1fr;
-      }
-
-      .inspo{
-        padding:5rem 1.5rem;
-      }
-
-      body{
-        cursor:auto;
-      }
-
-      .cursor,
-      .cursor-ring{
-        display:none;
-      }
+    @media(max-width:1100px){
+      .nav-links a{font-size:.7rem;}
+      .nav-links{gap:.5rem;}
     }
 
     @media(max-width:900px){
-      nav{
-        padding:0 1.2rem;
-        height:58px;
-      }
-
+      body{padding-top:58px;cursor:auto;}
+      nav{padding:0 1.2rem;height:58px;}
       .nav-links{display:none;}
       .nav-burger{display:flex;}
-
-      .nav-mobile{
-        top:58px;
-      }
-
-      body{
-        padding-top:58px;
-      }
-
-      .site-footer{
-        padding:2.5rem 1.5rem 1.5rem;
-      }
-
-      .footer-top{
-        grid-template-columns:1fr 1fr;
-        gap:1.8rem;
-      }
-
-      .footer-brand{
-        grid-column:span 2;
-      }
+      .nav-mobile{top:58px;}
+      .cursor,.cursor-ring{display:none;}
+      .hero{padding:4.6rem 1.5rem 3rem;}
+      .journal-layout{grid-template-columns:1fr;padding:2rem 1.5rem 4rem;}
+      .sidebar{position:static;}
+      .inspo-grid{grid-template-columns:1fr;}
+      .inspo{padding:5rem 1.5rem;}
+      .site-footer{padding:2.5rem 1.5rem 1.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem;}
+      .footer-brand{grid-column:span 2;}
     }
 
     @media(max-width:480px){
-      .footer-top{
-        grid-template-columns:1fr;
-      }
-
-      .footer-brand{
-        grid-column:span 1;
-      }
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
     }
 
     @media print{
-      nav,
-      .nav-mobile,
-      .sidebar,
-      .journal-actions,
-      .toast,
-      .inspo,
-      .site-footer,
-      .cursor,
-      .cursor-ring,
-      .new-q-btn{
-        display:none !important;
-      }
-
-      body{
-        padding-top:0;
-        background:white;
-        color:black;
-        cursor:auto;
-      }
-
-      .hero{
-        padding:0 0 1.5rem 0;
-        background:none;
-      }
-
-      .journal-layout{
-        display:block;
-        max-width:100%;
-        padding:0;
-      }
-
-      .question-card,
-      .write-area{
-        border:1px solid #ddd;
-        box-shadow:none;
-        background:white;
-      }
-
-      .write-area{
-        min-height:auto;
-      }
+      nav,.nav-mobile,.sidebar,.journal-actions,.toast,.inspo,
+      .site-footer,.cursor,.cursor-ring,.new-q-btn{display:none !important;}
+      body{padding-top:0;background:white;color:black;cursor:auto;}
+      .hero{padding:0 0 1.5rem 0;background:none;}
+      .journal-layout{display:block;max-width:100%;padding:0;}
+      .question-card,.write-area{border:1px solid #ddd;box-shadow:none;background:white;}
+      .write-area{min-height:auto;}
     }
   </style>
 </head>
@@ -966,41 +511,39 @@
   <div class="cursor-ring" id="ring"></div>
 
   <nav>
-    <a href="accueil.html" class="nav-logo">Laura Charron</a>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
 
     <div class="nav-links">
-      <a href="accueil.html">Accueil</a>
-      <a href="etre-une-femme.html">Être une femme</a>
-      <a href="symptomes.html">Symptômes</a>
-      <a href="arbre-de-vie.html">Arbre de vie</a>
-      <a href="frequence.html">Fréquence</a>
-      <a href="schema.html">Schéma</a>
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
       <a href="journal.html" class="active">Journal</a>
-      <a href="ressenti.html">Ressenti</a>
+      <a href="transgen.html">Transgénérationnel</a>
       <a href="genosociogramme.html">Génosociogramme</a>
       <a href="contact.html">Contact</a>
-      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener" class="nav-book">📗 Le livre</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
     </div>
 
-    <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Ouvrir le menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
     </button>
   </nav>
 
   <div class="nav-mobile" id="nav-mobile">
-    <a href="accueil.html">🏠 Accueil</a>
-    <a href="etre-une-femme.html">🌙 Être une femme</a>
-    <a href="symptomes.html">💬 Symptômes</a>
-    <a href="arbre-de-vie.html">🌳 Arbre de vie</a>
-    <a href="frequence.html">💫 Fréquence</a>
-    <a href="schema.html">🧬 Schéma</a>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
     <a href="journal.html" style="color:var(--gold2);font-weight:500;">📓 Journal</a>
-    <a href="ressenti.html">🫀 Ressenti</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
     <a href="genosociogramme.html">🌐 Génosociogramme</a>
     <a href="contact.html">✉️ Contact</a>
-    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">📗 Commander le livre</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
   </div>
 
   <section class="hero">
@@ -1008,7 +551,7 @@
       <div class="hero-badge">Journal · Écriture guidée · Introspection</div>
       <h1>Écris ce qui veut<br><em>venir à la surface</em></h1>
       <p>
-        Ce journal n’est pas là pour “bien écrire”. Il est là pour t’aider à déposer ce que tu ressens, à écouter ce qui remonte, et à faire de l’espace dans ton monde intérieur.
+        Ce journal n'est pas là pour "bien écrire". Il est là pour t'aider à déposer ce que tu ressens, à écouter ce qui remonte, et à faire de l'espace dans ton monde intérieur.
       </p>
     </div>
   </section>
@@ -1016,12 +559,12 @@
   <main class="journal-layout">
     <aside class="sidebar reveal">
       <div class="date-card">
-        <div class="day" id="todayLabel">Aujourd’hui</div>
+        <div class="day" id="todayLabel">Aujourd'hui</div>
         <div class="sub">Un espace pour revenir à toi</div>
       </div>
 
       <div>
-        <div class="sb-label">Choisir une porte d’entrée</div>
+        <div class="sb-label">Choisir une porte d'entrée</div>
 
         <button class="theme-btn active" data-theme="memoire" onclick="selectTheme('memoire', this)">
           <div class="th-icon">🧬</div>
@@ -1059,7 +602,7 @@
           <div class="th-icon">✨</div>
           <div class="th-info">
             <div class="th-name">Fréquence</div>
-            <div class="th-sub">Ce que tu vibres aujourd’hui</div>
+            <div class="th-sub">Ce que tu vibres aujourd'hui</div>
           </div>
         </button>
       </div>
@@ -1098,24 +641,21 @@
 
   <section class="inspo">
     <div class="inspo-inner">
-      <h2>D’autres portes pour <em>écrire</em></h2>
+      <h2>D'autres portes pour <em>écrire</em></h2>
       <p class="inspo-sub">
-        Quand les mots ne viennent pas, commence par une question simple. L’écriture ouvre souvent plus qu’elle n’explique.
+        Quand les mots ne viennent pas, commence par une question simple. L'écriture ouvre souvent plus qu'elle n'explique.
       </p>
-
       <div class="inspo-grid">
         <div class="inspo-card reveal">
-          <div class="inspo-q">“Qu’est-ce qui se répète dans ma vie et que je commence seulement à voir ?”</div>
+          <div class="inspo-q">"Qu'est-ce qui se répète dans ma vie et que je commence seulement à voir ?"</div>
           <div class="inspo-theme">Mémoire</div>
         </div>
-
         <div class="inspo-card reveal">
-          <div class="inspo-q">“Si mon corps pouvait parler aujourd’hui, qu’est-ce qu’il me demanderait ?”</div>
+          <div class="inspo-q">"Si mon corps pouvait parler aujourd'hui, qu'est-ce qu'il me demanderait ?"</div>
           <div class="inspo-theme">Corps</div>
         </div>
-
         <div class="inspo-card reveal">
-          <div class="inspo-q">“Quelle émotion revient souvent quand je pense à ma famille ou à mon histoire ?”</div>
+          <div class="inspo-q">"Quelle émotion revient souvent quand je pense à ma famille ou à mon histoire ?"</div>
           <div class="inspo-theme">Lignée</div>
         </div>
       </div>
@@ -1126,41 +666,36 @@
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="accueil.html" class="footer-logo">Laura Charron</a>
-          <p>Explorer les schémas répétitifs, les mémoires, le ressenti, le corps et les fréquences intérieures pour retrouver plus de clarté et de liberté.</p>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener" class="footer-book-link">📗 Commander le livre</a>
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Explorer les schémas répétitifs, les mémoires, le ressenti, le corps et les fréquences intérieures.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
         </div>
-
         <div class="footer-col">
           <h4>Explorer</h4>
-          <a href="etre-une-femme.html">Être une femme</a>
-          <a href="symptomes.html">Symptômes</a>
-          <a href="arbre-de-vie.html">Arbre de vie</a>
-          <a href="frequence.html">Fréquence</a>
-          <a href="schema.html">Schéma</a>
+          <a href="parcours.html">Mémoires</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="symptomes.html">Mon corps</a>
         </div>
-
         <div class="footer-col">
           <h4>Approfondir</h4>
+          <a href="vibration.html">Fréquence</a>
           <a href="journal.html">Journal</a>
-          <a href="ressenti.html">Ressenti</a>
+          <a href="transgen.html">Transgénérationnel</a>
           <a href="genosociogramme.html">Génosociogramme</a>
-          <a href="contact.html">Contact</a>
         </div>
-
         <div class="footer-col">
-          <h4>Navigation</h4>
-          <a href="accueil.html">Accueil</a>
-          <a href="contact.html">Me contacter</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">Livre</a>
+          <h4>Laura</h4>
+          <a href="contact.html">Contact</a>
+          <a href="index.html">Accueil</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Livre</a>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <p>© Laura Charron 2026 · lauracharron.com</p>
+        <p>© Laura Charron 2026 · Tous droits réservés</p>
         <div class="footer-bottom-links">
           <a href="contact.html">Contact</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener">Commander le livre</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Commander le livre</a>
         </div>
       </div>
     </div>
@@ -1174,120 +709,57 @@
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', e => {
-      mx = e.clientX;
-      my = e.clientY;
-      if(cur){
-        cur.style.left = mx + 'px';
-        cur.style.top = my + 'px';
-      }
+      mx = e.clientX; my = e.clientY;
+      if(cur){ cur.style.left = mx+'px'; cur.style.top = my+'px'; }
     });
 
     (function animateCursor(){
-      rx += (mx - rx) * .12;
-      ry += (my - ry) * .12;
-      if(ring){
-        ring.style.left = rx + 'px';
-        ring.style.top = ry + 'px';
-      }
+      rx += (mx-rx)*.12; ry += (my-ry)*.12;
+      if(ring){ ring.style.left = rx+'px'; ring.style.top = ry+'px'; }
       requestAnimationFrame(animateCursor);
     })();
 
-    function toggleMenu(){
+    document.getElementById('burger').addEventListener('click', () => {
       document.getElementById('nav-mobile').classList.toggle('open');
       document.getElementById('burger').classList.toggle('open');
-    }
+    });
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('revealed');
-          obs.unobserve(entry.target);
-        }
+        if(entry.isIntersecting){ entry.target.classList.add('revealed'); obs.unobserve(entry.target); }
       });
     }, { threshold:.1 });
-
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
     const questions = {
       memoire: [
-        {
-          q: "Qu’est-ce qui revient dans ma vie avec une insistance étrange, comme si quelque chose cherchait à être vu ?",
-          h: "Ne cherche pas à être logique. Note ce qui se répète, même si cela te semble flou au départ."
-        },
-        {
-          q: "Quel souvenir ou quelle période de ma vie continue à vivre en moi sans que je sache vraiment pourquoi ?",
-          h: "Tu peux commencer par une image, une sensation, une phrase ou un détail."
-        },
-        {
-          q: "Qu’est-ce que je sens ancien en moi, même si je ne sais pas encore d’où cela vient ?",
-          h: "Laisse venir les mots sans vouloir tout relier tout de suite."
-        }
+        { q: "Qu'est-ce qui revient dans ma vie avec une insistance étrange, comme si quelque chose cherchait à être vu ?", h: "Ne cherche pas à être logique. Note ce qui se répète, même si cela te semble flou au départ." },
+        { q: "Quel souvenir ou quelle période de ma vie continue à vivre en moi sans que je sache vraiment pourquoi ?", h: "Tu peux commencer par une image, une sensation, une phrase ou un détail." },
+        { q: "Qu'est-ce que je sens ancien en moi, même si je ne sais pas encore d'où cela vient ?", h: "Laisse venir les mots sans vouloir tout relier tout de suite." }
       ],
       corps: [
-        {
-          q: "Si mon corps pouvait parler aujourd’hui, qu’est-ce qu’il me dirait en premier ?",
-          h: "Pars d’une tension, d’une fatigue, d’un inconfort ou d’un lieu précis dans le corps."
-        },
-        {
-          q: "Quel symptôme, quelle sensation ou quelle fatigue essaie peut-être de me transmettre un message ?",
-          h: "Écris sans chercher à diagnostiquer. Reste dans l’écoute."
-        },
-        {
-          q: "Qu’est-ce que mon corps porte encore pour moi, à ma place ?",
-          h: "Tu peux écrire comme si ton corps écrivait directement."
-        }
+        { q: "Si mon corps pouvait parler aujourd'hui, qu'est-ce qu'il me dirait en premier ?", h: "Pars d'une tension, d'une fatigue, d'un inconfort ou d'un lieu précis dans le corps." },
+        { q: "Quel symptôme, quelle sensation ou quelle fatigue essaie peut-être de me transmettre un message ?", h: "Écris sans chercher à diagnostiquer. Reste dans l'écoute." },
+        { q: "Qu'est-ce que mon corps porte encore pour moi, à ma place ?", h: "Tu peux écrire comme si ton corps écrivait directement." }
       ],
       cycle: [
-        {
-          q: "Dans quelle phase intérieure suis-je aujourd’hui, et de quoi ai-je réellement besoin ?",
-          h: "Observe ton énergie, ton humeur, ton niveau d’ouverture ou de retrait."
-        },
-        {
-          q: "Qu’est-ce qui s’intensifie ou devient plus visible chez moi dans certaines périodes du mois ?",
-          h: "Note les répétitions émotionnelles, physiques ou mentales."
-        },
-        {
-          q: "Si j’écoutais mon rythme au lieu de lutter contre lui, qu’est-ce que je changerais ?",
-          h: "Laisse venir ce qui te fatigue, ce qui t’apaise, ce qui te demande du repos."
-        }
+        { q: "Dans quelle phase intérieure suis-je aujourd'hui, et de quoi ai-je réellement besoin ?", h: "Observe ton énergie, ton humeur, ton niveau d'ouverture ou de retrait." },
+        { q: "Qu'est-ce qui s'intensifie ou devient plus visible chez moi dans certaines périodes du mois ?", h: "Note les répétitions émotionnelles, physiques ou mentales." },
+        { q: "Si j'écoutais mon rythme au lieu de lutter contre lui, qu'est-ce que je changerais ?", h: "Laisse venir ce qui te fatigue, ce qui t'apaise, ce qui te demande du repos." }
       ],
       lignee: [
-        {
-          q: "Quelle émotion ou quelle histoire semble ne pas m’appartenir entièrement, et pourtant vivre en moi ?",
-          h: "Pense à ta mère, ton père, tes grands-parents, ou à un climat familial."
-        },
-        {
-          q: "Quel destin, quel schéma ou quelle souffrance ai-je l’impression de continuer malgré moi ?",
-          h: "Écris sans te censurer, même si ce n’est qu’une intuition."
-        },
-        {
-          q: "Si je regardais ma lignée avec honnêteté aujourd’hui, qu’est-ce qui me toucherait le plus ?",
-          h: "Parfois une phrase très simple suffit à ouvrir beaucoup."
-        }
+        { q: "Quelle émotion ou quelle histoire semble ne pas m'appartenir entièrement, et pourtant vivre en moi ?", h: "Pense à ta mère, ton père, tes grands-parents, ou à un climat familial." },
+        { q: "Quel destin, quel schéma ou quelle souffrance ai-je l'impression de continuer malgré moi ?", h: "Écris sans te censurer, même si ce n'est qu'une intuition." },
+        { q: "Si je regardais ma lignée avec honnêteté aujourd'hui, qu'est-ce qui me toucherait le plus ?", h: "Parfois une phrase très simple suffit à ouvrir beaucoup." }
       ],
       frequence: [
-        {
-          q: "Qu’est-ce que je vibre en ce moment, au fond, au-delà de ce que je montre ?",
-          h: "Observe ta fréquence intérieure : peur, résistance, ouverture, clarté, gratitude…"
-        },
-        {
-          q: "Quel état intérieur nourrit aujourd’hui ma façon de voir ma vie ?",
-          h: "Écris à partir de ton état réel, pas de celui que tu aimerais afficher."
-        },
-        {
-          q: "Qu’est-ce qui change dans ma vie quand je reviens à une vibration plus juste ?",
-          h: "Pense à ta qualité de présence, à ton énergie, à tes relations."
-        }
+        { q: "Qu'est-ce que je vibre en ce moment, au fond, au-delà de ce que je montre ?", h: "Observe ta fréquence intérieure : peur, résistance, ouverture, clarté, gratitude…" },
+        { q: "Quel état intérieur nourrit aujourd'hui ma façon de voir ma vie ?", h: "Écris à partir de ton état réel, pas de celui que tu aimerais afficher." },
+        { q: "Qu'est-ce qui change dans ma vie quand je reviens à une vibration plus juste ?", h: "Pense à ta qualité de présence, à ton énergie, à tes relations." }
       ]
     };
 
-    const themeLabels = {
-      memoire: "Mémoire",
-      corps: "Corps",
-      cycle: "Cycle",
-      lignee: "Lignée",
-      frequence: "Fréquence"
-    };
+    const themeLabels = { memoire:"Mémoire", corps:"Corps", cycle:"Cycle", lignee:"Lignée", frequence:"Fréquence" };
 
     let currentTheme = "memoire";
     let currentQuestionIndex = 0;
@@ -1306,12 +778,7 @@
 
     function updateToday(){
       const now = new Date();
-      const txt = now.toLocaleDateString('fr-FR', {
-        weekday:'long',
-        day:'numeric',
-        month:'long'
-      });
-      document.getElementById('todayLabel').textContent = txt;
+      document.getElementById('todayLabel').textContent = now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     }
 
     function renderQuestion(){
@@ -1322,16 +789,14 @@
     }
 
     function selectTheme(theme, btn){
-      currentTheme = theme;
-      currentQuestionIndex = 0;
+      currentTheme = theme; currentQuestionIndex = 0;
       document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderQuestion();
     }
 
     function newQuestion(){
-      const arr = questions[currentTheme];
-      currentQuestionIndex = (currentQuestionIndex + 1) % arr.length;
+      currentQuestionIndex = (currentQuestionIndex + 1) % questions[currentTheme].length;
       renderQuestion();
     }
 
@@ -1340,43 +805,25 @@
       wordCount.textContent = words + (words > 1 ? ' mots' : ' mot');
     });
 
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    }
+    function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2200); }
 
     function saveEntry(){
       const text = journalText.value.trim();
-      if(!text){
-        showToast('Écris quelques mots d’abord');
-        return;
-      }
-
+      if(!text){ showToast('Écris quelques mots d\'abord'); return; }
       const item = {
         id: Date.now(),
-        date: new Date().toLocaleDateString('fr-FR', {
-          day:'2-digit',
-          month:'2-digit',
-          year:'numeric'
-        }),
+        date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}),
         theme: themeLabels[currentTheme],
         question: questionText.textContent,
         text
       };
-
       entries.unshift(item);
       localStorage.setItem('laura_journal_entries', JSON.stringify(entries));
-      journalText.value = '';
-      wordCount.textContent = '0 mot';
-      renderEntries();
-      showToast('Entrée enregistrée');
+      journalText.value = ''; wordCount.textContent = '0 mot';
+      renderEntries(); showToast('Entrée enregistrée');
     }
 
-    function clearEntry(){
-      journalText.value = '';
-      wordCount.textContent = '0 mot';
-    }
+    function clearEntry(){ journalText.value = ''; wordCount.textContent = '0 mot'; }
 
     function deleteEntry(id){
       entries = entries.filter(e => e.id !== id);
@@ -1390,19 +837,12 @@
       journalText.value = item.text;
       const words = item.text.trim() ? item.text.trim().split(/\s+/).length : 0;
       wordCount.textContent = words + (words > 1 ? ' mots' : ' mot');
-      window.scrollTo({ top: 0, behavior:'smooth' });
+      window.scrollTo({ top:0, behavior:'smooth' });
     }
 
     function renderEntries(){
-      if(!entries.length){
-        entriesSection.style.display = 'none';
-        pastEntriesWrap.style.display = 'none';
-        return;
-      }
-
-      entriesSection.style.display = 'block';
-      pastEntriesWrap.style.display = 'block';
-
+      if(!entries.length){ entriesSection.style.display='none'; pastEntriesWrap.style.display='none'; return; }
+      entriesSection.style.display='block'; pastEntriesWrap.style.display='block';
       entriesList.innerHTML = entries.map(entry => `
         <div class="entry-card" onclick="loadEntry(${entry.id})">
           <div class="ec-header">
@@ -1416,8 +856,7 @@
           <div class="ec-preview">${entry.text}</div>
         </div>
       `).join('');
-
-      pastEntries.innerHTML = entries.slice(0, 4).map(entry => `
+      pastEntries.innerHTML = entries.slice(0,4).map(entry => `
         <div class="past-entry" onclick="loadEntry(${entry.id})">
           <div class="pe-date">${entry.date} · ${entry.theme}</div>
           <div class="pe-preview">${entry.text}</div>
@@ -1425,19 +864,14 @@
       `).join('');
     }
 
-    function loadEntries(){
-      try{
-        const saved = localStorage.getItem('laura_journal_entries');
-        entries = saved ? JSON.parse(saved) : [];
-      }catch(e){
-        entries = [];
-      }
-      renderEntries();
-    }
+    try {
+      const saved = localStorage.getItem('laura_journal_entries');
+      entries = saved ? JSON.parse(saved) : [];
+    } catch(e){ entries = []; }
 
     updateToday();
     renderQuestion();
-    loadEntries();
+    renderEntries();
   </script>
 </body>
 </html>
