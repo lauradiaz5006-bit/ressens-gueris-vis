@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arbre de Vie · Laura Charron</title>
+  <meta name="description" content="Découvre l’Arbre de Vie et les 10 Sephirot comme miroir de conscience, d’évolution intérieure et de schémas répétitifs.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/arbre-vie.html">
+  <meta property="og:title" content="Arbre de Vie · Laura Charron">
+  <meta property="og:description" content="Un quiz symbolique et un arbre interactif pour explorer les Sephirot, ta conscience et les dynamiques intérieures actives en ce moment.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c:#FDF5EC;
+      --c2:#F6E8D8;
+      --rose:#E8967F;
+      --rose2:#C96B52;
+      --orange:#F0A05A;
+      --orange2:#D97D2E;
+      --gold:#F5C842;
+      --gold2:#E8A800;
+      --ink:#2A1A10;
+      --ink2:#5C3D2C;
+      --soft:#9A7060;
+      --white:#FFFAF4;
+    }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--c);
+      color:var(--ink);
+      overflow-x:hidden;
+      padding-top:72px;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    .cursor{
+      position:fixed;
+      width:10px;
+      height:10px;
+      background:var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:multiply;
+    }
+
+    .cursor-ring{
+      position:fixed;
+      width:36px;
+      height:36px;
+      border:1.5px solid var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9998;
+      transform:translate(-50%,-50%);
+      opacity:.6;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
+      padding:0 2rem;
+      background:rgba(253,245,236,.94);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+    }
+
+    .nav-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1.1rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      font-size:.84rem;
+      color:var(--ink2);
+      transition:color .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--rose2);
+    }
+
+    .nav-book{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:#fff !important;
+      padding:.68rem 1rem;
+      border-radius:999px;
+      font-weight:500;
+      box-shadow:0 10px 24px rgba(201,107,82,.22);
+    }
+
+    .nav-burger{
+      display:none;
+      width:46px;
+      height:46px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+    }
+
+    .nav-burger span{
+      width:22px;
+      height:2px;
+      background:var(--ink);
+      border-radius:10px;
+      transition:.25s ease;
+    }
+
+    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    .nav-mobile{
+      position:fixed;
+      top:72px;
+      left:0;
+      right:0;
+      background:rgba(255,250,244,.98);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+      display:none;
+      flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;
+      z-index:999;
+    }
+
+    .nav-mobile.open{display:flex;}
+
+    .nav-mobile a{
+      color:var(--ink2);
+      padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);
+      font-size:.95rem;
+    }
+
+    .nav-mobile a:last-child{border-bottom:none;}
+
+    /* INTRO */
+    .sep-intro{
+      background:linear-gradient(160deg,var(--ink) 0%,#3A1808 100%);
+      padding:7rem 4rem 5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .sep-intro::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 50%,rgba(201,107,82,.14) 0%,transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%,rgba(245,200,66,.07) 0%,transparent 50%);
+      pointer-events:none;
+    }
+
+    .sep-intro-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:5rem;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .sep-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.68rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--rose);
+      background:rgba(201,107,82,.1);
+      border:1px solid rgba(201,107,82,.25);
+      border-radius:100px;
+      padding:.4rem 1rem;
+      margin-bottom:1.6rem;
+    }
+
+    .sep-eyebrow::before{
+      content:'';
+      width:5px;
+      height:5px;
+      background:var(--rose);
+      border-radius:50%;
+      animation:dot 2s infinite;
+    }
+
+    @keyframes dot{
+      0%,100%{opacity:.5;transform:scale(1);}
+      50%{opacity:1;transform:scale(1.4);}
+    }
+
+    .sep-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.2rem,4.5vw,3.8rem);
+      font-weight:900;
+      color:white;
+      line-height:1.05;
+      margin-bottom:1.2rem;
+    }
+
+    .sep-title em{font-style:italic;color:var(--rose);}
+
+    .sep-lead{
+      font-size:1rem;
+      color:rgba(255,255,255,.65);
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:1.2rem;
+    }
+
+    .sep-lead strong{
+      color:rgba(255,255,255,.9);
+      font-weight:500;
+    }
+
+    .sep-pillars{
+      display:flex;
+      flex-direction:column;
+      gap:.7rem;
+      margin-top:2rem;
+    }
+
+    .sep-pillar{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:.9rem 1.1rem;
+      display:flex;
+      align-items:flex-start;
+      gap:.85rem;
+    }
+
+    .sep-pillar-icon{
+      font-size:1.1rem;
+      flex-shrink:0;
+      margin-top:.05rem;
+    }
+
+    .sep-pillar-title{
+      font-size:.82rem;
+      font-weight:500;
+      color:white;
+      margin-bottom:.2rem;
+    }
+
+    .sep-pillar-desc{
+      font-size:.76rem;
+      color:rgba(255,255,255,.45);
+      line-height:1.55;
+      font-weight:300;
+    }
+
+    .sep-visual{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .sep-visual svg{
+      opacity:.55;
+      animation:treePulse 8s ease-in-out infinite;
+    }
+
+    @keyframes treePulse{
+      0%,100%{opacity:.55;}
+      50%{opacity:.75;}
+    }
+
+    /* BAND */
+    .sep-quotes{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      padding:1.4rem 4rem;
+      overflow:hidden;
+    }
+
+    .sep-quotes-track{
+      display:flex;
+      gap:0;
+      animation:marquee 30s linear infinite;
+      white-space:nowrap;
+    }
+
+    @keyframes marquee{
+      from{transform:translateX(0);}
+      to{transform:translateX(-50%);}
+    }
+
+    .sep-q-item{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.92rem;
+      color:rgba(255,255,255,.8);
+      padding:0 3rem;
+      display:inline-flex;
+      align-items:center;
+      gap:2rem;
+    }
+
+    .sep-q-dot{
+      width:3px;
+      height:3px;
+      background:rgba(255,255,255,.4);
+      border-radius:50%;
+    }
+
+    /* HERO */
+    .hero{
+      padding:5rem 4rem 3rem;
+      background:radial-gradient(ellipse 80% 60% at 65% 30%,rgba(201,107,82,.1) 0%,transparent 60%),var(--c);
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.7rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      background:rgba(201,107,82,.08);
+      border:1px solid rgba(201,107,82,.2);
+      border-radius:100px;
+      padding:.4rem 1rem;
+      margin-bottom:1.8rem;
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.2rem,5vw,4rem);
+      font-weight:900;
+      line-height:1.05;
+      margin-bottom:1rem;
+    }
+
+    .hero h1 em{font-style:italic;color:var(--rose2);}
+
+    .hero p{
+      font-size:1rem;
+      font-weight:300;
+      color:var(--ink2);
+      max-width:620px;
+      line-height:1.85;
+    }
+
+    .hero-sub{
+      margin-top:.5rem;
+      font-size:.85rem;
+      color:var(--soft);
+      font-weight:300;
+      font-style:italic;
+    }
+
+    /* MAIN */
+    .main{
+      display:grid;
+      grid-template-columns:480px 1fr;
+      gap:4rem;
+      max-width:1250px;
+      margin:0 auto;
+      padding:3rem 4rem 6rem;
+      align-items:start;
+    }
+
+    .tree-wrap{
+      position:sticky;
+      top:100px;
+    }
+
+    .tree-svg{
+      width:100%;
+      max-width:440px;
+      display:block;
+      margin:0 auto;
+    }
+
+    .s-node{cursor:pointer;}
+    .s-node circle.bg{transition:fill .25s,filter .25s;}
+    .s-node:hover circle.bg{filter:drop-shadow(0 0 10px rgba(201,107,82,.5));}
+    .s-node.active circle.bg{fill:var(--rose2)!important;filter:drop-shadow(0 0 18px rgba(201,107,82,.8));}
+    .s-node.active text{fill:white!important;}
+
+    .node-popup{
+      margin-top:1.5rem;
+      background:var(--white);
+      border-radius:20px;
+      padding:1.5rem;
+      border:1px solid rgba(232,150,127,.2);
+      box-shadow:0 8px 40px rgba(42,26,16,.1);
+      display:none;
+    }
+
+    .node-popup.show{
+      display:block;
+      animation:fadeUp .3s ease;
+    }
+
+    .popup-num{
+      font-size:.66rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.35rem;
+    }
+
+    .popup-name{
+      font-family:'Playfair Display',serif;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      margin-bottom:.28rem;
+    }
+
+    .popup-theme{
+      font-size:.78rem;
+      color:var(--soft);
+      margin-bottom:.7rem;
+    }
+
+    .popup-desc{
+      font-size:.86rem;
+      color:var(--ink2);
+      line-height:1.75;
+      font-weight:300;
+    }
+
+    /* QUIZ */
+    .prog-track{
+      height:4px;
+      background:var(--c2);
+      border-radius:100px;
+      margin-bottom:2.5rem;
+      overflow:hidden;
+    }
+
+    .prog-fill{
+      height:100%;
+      background:linear-gradient(to right,var(--rose),var(--gold));
+      border-radius:100px;
+      transition:width .6s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .q-step{
+      font-size:.7rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--soft);
+      margin-bottom:.65rem;
+    }
+
+    .q-text{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.2rem,2.4vw,1.75rem);
+      font-weight:700;
+      line-height:1.35;
+      color:var(--ink);
+      margin-bottom:1.8rem;
+    }
+
+    .opts{
+      display:flex;
+      flex-direction:column;
+      gap:.65rem;
+    }
+
+    .opt{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      background:var(--white);
+      border:1.5px solid rgba(232,150,127,.18);
+      border-radius:16px;
+      padding:1.05rem 1.2rem;
+      cursor:pointer;
+      text-align:left;
+      font-family:'DM Sans',sans-serif;
+      font-size:.88rem;
+      font-weight:300;
+      color:var(--ink);
+      transition:all .25s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .opt:hover{
+      border-color:var(--orange);
+      background:#FFF8F3;
+      transform:translateX(5px);
+    }
+
+    .opt.sel{
+      border-color:var(--rose2);
+      background:linear-gradient(135deg,#FFF2EC,#FFEAD8);
+      transform:translateX(5px);
+    }
+
+    .opt-k{
+      width:30px;
+      height:30px;
+      border-radius:9px;
+      background:var(--c2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.7rem;
+      font-weight:600;
+      color:var(--soft);
+      flex-shrink:0;
+      transition:all .2s;
+    }
+
+    .opt.sel .opt-k{
+      background:var(--rose2);
+      color:white;
+    }
+
+    .q-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:2rem;
+    }
+
+    .btn-back{
+      background:none;
+      border:none;
+      color:var(--soft);
+      font-size:.85rem;
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      transition:color .2s;
+    }
+
+    .btn-back:hover{color:var(--ink);}
+
+    .btn-next{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:white;
+      border:none;
+      padding:.9rem 2.2rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.9rem;
+      font-weight:500;
+      cursor:pointer;
+      transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+      box-shadow:0 8px 30px rgba(201,107,82,.3);
+    }
+
+    .btn-next:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 40px rgba(201,107,82,.4);
+    }
+
+    .btn-next:disabled{
+      opacity:.35;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    /* RESULT */
+    #res-wrap{display:none;}
+
+    .res-hero{
+      background:linear-gradient(160deg,var(--ink),#4A2010);
+      border-radius:28px;
+      padding:2.8rem 2.5rem;
+      text-align:center;
+      margin-bottom:1.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .res-hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(232,150,127,.2),transparent 60%);
+    }
+
+    .res-hero::after{
+      content:var(--res-glyph,'✦');
+      font-family:'Playfair Display',serif;
+      font-size:18rem;
+      color:rgba(255,255,255,.025);
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      line-height:1;
+      pointer-events:none;
+    }
+
+    .res-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.15);
+      color:rgba(255,255,255,.8);
+      border-radius:100px;
+      padding:.5rem 1.2rem;
+      font-size:.7rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      margin-bottom:1.2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .res-sephira-num{
+      font-size:.7rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.4);
+      margin-bottom:.5rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .res-name{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,3.5vw,2.8rem);
+      font-weight:900;
+      color:white;
+      margin-bottom:.3rem;
+      position:relative;
+      z-index:2;
+      line-height:1.1;
+    }
+
+    .res-sub{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.1rem;
+      color:var(--rose);
+      position:relative;
+      z-index:2;
+      margin-bottom:.8rem;
+    }
+
+    .res-keyword{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:rgba(245,200,66,.12);
+      border:1px solid rgba(245,200,66,.25);
+      color:var(--gold);
+      border-radius:100px;
+      padding:.35rem .9rem;
+      font-size:.72rem;
+      letter-spacing:.12em;
+      position:relative;
+      z-index:2;
+    }
+
+    .res-section-label{
+      font-size:.65rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    }
+
+    .res-section-label::before{content:'✦';font-size:.5rem;}
+
+    .res-intro-block{
+      background:linear-gradient(135deg,#FFF8F2,#FFF0E4);
+      border-radius:20px;
+      border:1px solid rgba(232,150,127,.15);
+      padding:1.6rem 1.8rem;
+      margin-bottom:1.2rem;
+    }
+
+    .res-intro-block p{
+      font-size:.95rem;
+      color:var(--ink2);
+      line-height:1.95;
+      font-weight:300;
+    }
+
+    .res-intro-block p + p{margin-top:.9rem;}
+    .res-intro-block strong{font-weight:500;color:var(--ink);}
+
+    .res-spiritual{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:20px;
+      padding:1.6rem 1.8rem;
+      margin-bottom:1.2rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .res-spiritual::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(232,150,127,.1) 0%,transparent 60%);
+      pointer-events:none;
+    }
+
+    .res-spiritual *{position:relative;z-index:1;}
+
+    .res-spiritual-label{
+      font-size:.64rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--rose);
+      margin-bottom:.7rem;
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+    }
+
+    .res-spiritual-label::before{content:'✦';font-size:.5rem;}
+
+    .res-spiritual p{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-style:italic;
+      color:rgba(255,255,255,.8);
+      line-height:1.75;
+    }
+
+    .res-spiritual p + p{
+      margin-top:.8rem;
+      font-family:'DM Sans',sans-serif;
+      font-size:.86rem;
+      font-style:normal;
+      color:rgba(255,255,255,.5);
+      line-height:1.75;
+    }
+
+    .res-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+      margin-bottom:1.2rem;
+    }
+
+    .res-card{
+      background:var(--white);
+      border-radius:18px;
+      padding:1.5rem;
+      border:1px solid rgba(232,150,127,.14);
+      box-shadow:0 4px 18px rgba(42,26,16,.05);
+    }
+
+    .res-card h4{
+      font-family:'Playfair Display',serif;
+      font-size:.92rem;
+      font-weight:700;
+      color:var(--rose2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+
+    .res-card p{
+      font-size:.84rem;
+      color:var(--ink2);
+      line-height:1.78;
+      font-weight:300;
+    }
+
+    .res-trans{
+      background:linear-gradient(135deg,rgba(93,202,165,.08),rgba(93,202,165,.04));
+      border:1px solid rgba(93,202,165,.2);
+      border-radius:18px;
+      padding:1.5rem 1.7rem;
+      margin-bottom:1.2rem;
+    }
+
+    .res-trans-label{
+      font-size:.64rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#2A9670;
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+    }
+
+    .res-trans-label::before{content:'●';font-size:.5rem;}
+
+    .res-trans p{
+      font-size:.88rem;
+      color:var(--ink2);
+      line-height:1.82;
+      font-weight:300;
+    }
+
+    .res-trans p + p{margin-top:.7rem;}
+    .res-trans strong{font-weight:500;color:var(--ink);}
+
+    .practice{
+      background:linear-gradient(135deg,#FFF5E8,#FFEADB);
+      border:1.5px solid rgba(201,107,82,.18);
+      border-radius:20px;
+      padding:1.8rem;
+      margin-bottom:1.2rem;
+    }
+
+    .practice-label{
+      font-size:.64rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+    }
+
+    .practice-label::before{content:'✦';font-size:.5rem;}
+
+    .practice h4{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--ink);
+      margin-bottom:.7rem;
+    }
+
+    .practice p{
+      font-size:.9rem;
+      color:var(--ink2);
+      line-height:1.85;
+      font-weight:300;
+    }
+
+    .practice p + p{margin-top:.6rem;}
+
+    .res-message{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.05rem;
+      color:var(--ink);
+      line-height:1.7;
+      padding:1.2rem 1.5rem;
+      border-left:3px solid var(--rose);
+      background:linear-gradient(135deg,#FFF8F4,#FFF2EA);
+      border-radius:0 16px 16px 0;
+      margin-bottom:1.5rem;
+    }
+
+    .res-actions{
+      display:flex;
+      gap:.8rem;
+      flex-wrap:wrap;
+      margin-top:1.5rem;
+    }
+
+    .btn-p{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:white;
+      padding:.85rem 1.7rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.85rem;
+      font-weight:500;
+      cursor:pointer;
+      border:none;
+      box-shadow:0 8px 28px rgba(201,107,82,.3);
+      transition:transform .2s;
+    }
+
+    .btn-p:hover{transform:translateY(-2px);}
+
+    .btn-g{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:transparent;
+      color:var(--ink2);
+      padding:.85rem 1.5rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.85rem;
+      cursor:pointer;
+      border:1.5px solid rgba(92,61,44,.2);
+      transition:all .2s;
+    }
+
+    .btn-g:hover{
+      border-color:var(--rose);
+      color:var(--rose2);
+    }
+
+    /* PILLARS */
+    .pillars{
+      background:var(--ink);
+      padding:6rem 4rem;
+    }
+
+    .pillars-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .pillars h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,3.5vw,2.5rem);
+      font-weight:700;
+      color:white;
+      text-align:center;
+      margin-bottom:3.5rem;
+    }
+
+    .pillars h2 em{font-style:italic;color:var(--rose);}
+
+    .pill-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+    }
+
+    .pill-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:2rem;
+      transition:background .2s,transform .2s;
+    }
+
+    .pill-card:hover{
+      background:rgba(255,255,255,.07);
+      transform:translateY(-4px);
+    }
+
+    .pill-icon{
+      font-size:1.8rem;
+      margin-bottom:1rem;
+    }
+
+    .pill-title{
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem;
+      font-weight:700;
+      color:white;
+      margin-bottom:.6rem;
+    }
+
+    .pill-desc{
+      font-size:.83rem;
+      color:rgba(255,255,255,.45);
+      line-height:1.7;
+      font-weight:300;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(16px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .6s ease,transform .6s ease;
+    }
+
+    .reveal.revealed{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* FOOTER */
+    .site-footer{
+      background:#1A0E08;
+      padding:4rem 4rem 2rem;
+    }
+
+    .footer-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:3rem;
+      margin-bottom:3rem;
+    }
+
+    .footer-brand .footer-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.4rem;
+      color:white;
+      font-weight:700;
+      display:block;
+      margin-bottom:.8rem;
+    }
+
+    .footer-brand p{
+      font-size:.82rem;
+      color:rgba(255,255,255,.4);
+      line-height:1.75;
+      font-weight:300;
+      max-width:280px;
+    }
+
+    .footer-brand .footer-book-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white;
+      padding:.6rem 1.2rem;
+      border-radius:100px;
+      font-size:.78rem;
+      font-weight:500;
+      margin-top:1.2rem;
+    }
+
+    .footer-col h4{
+      font-family:'Playfair Display',serif;
+      font-size:.82rem;
+      font-weight:700;
+      color:white;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+
+    .footer-col a{
+      display:block;
+      font-size:.8rem;
+      color:rgba(255,255,255,.4);
+      margin-bottom:.6rem;
+      transition:color .18s;
+      font-weight:300;
+    }
+
+    .footer-col a:hover{color:var(--rose);}
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding-top:1.8rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .footer-bottom p{
+      font-size:.74rem;
+      color:rgba(255,255,255,.22);
+    }
+
+    .footer-bottom-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-links a{
+      font-size:.74rem;
+      color:rgba(255,255,255,.28);
+    }
+
+    .footer-bottom-links a:hover{color:var(--rose);}
+
+    @media(max-width:960px){
+      .sep-intro{padding:5rem 1.5rem 3.5rem;}
+      .sep-intro-inner{grid-template-columns:1fr;gap:2rem;}
+      .sep-visual{display:none;}
+      .sep-quotes{padding:1.2rem 1.5rem;}
+      .hero{padding:4rem 1.5rem 2.5rem;}
+      .main{grid-template-columns:1fr;padding:2rem 1.5rem 4rem;gap:2rem;}
+      .tree-wrap{position:static;}
+      .res-grid{grid-template-columns:1fr;}
+      .pill-grid{grid-template-columns:1fr;}
+      .pillars{padding:4rem 1.5rem;}
+    }
+
+    @media(max-width:900px){
+      body{padding-top:60px;}
+      .cursor,.cursor-ring{display:none;}
+      nav{padding:0 1.2rem;height:60px;}
+      .nav-links{display:none;}
+      .nav-burger{display:flex;}
+      .nav-mobile{top:60px;}
+      .site-footer{padding:3rem 1.5rem 1.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+      .footer-brand{grid-column:span 2;}
+    }
+
+    @media(max-width:480px){
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
+    }
+
+    @media print{
+      nav,.nav-mobile,.cursor,.cursor-ring,.sep-quotes,.q-nav,.site-footer,.res-actions{display:none!important;}
+      body{padding-top:0;background:white;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html" class="active">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
+      <a href="journal.html">Journal</a>
+      <a href="transgen.html">Transgénérationnel</a>
+      <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html">Ma famille</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
+    <a href="journal.html">📓 Journal</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
+    <a href="genosociogramme.html">🌐 Génosociogramme</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html">✉️ Contact</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+  </div>
+
+  <section class="sep-intro">
+    <div class="sep-intro-inner">
+      <div>
+        <div class="sep-eyebrow">Arbre de Vie · Sephirot · Conscience</div>
+        <h1 class="sep-title">L’<em>Arbre de Vie</em> —<br>une carte symbolique de ton évolution</h1>
+        <p class="sep-lead">
+          L’Arbre de Vie est l’une des représentations les plus profondes de la conscience humaine. Dans la tradition kabbalistique, il décrit un mouvement : <strong>de la source invisible jusqu’à l’incarnation</strong>, du subtil jusqu’au concret, du ciel jusqu’au corps.
+        </p>
+        <p class="sep-lead">
+          Ses <strong>10 Sephirot</strong> sont comme 10 dimensions de l’être. Elles ne disent pas qu’une personne est “plus avancée” qu’une autre. Elles révèlent plutôt <strong>la qualité intérieure la plus active en ce moment</strong> : ce que tu traverses, ce que tu apprends, ce qui cherche à se rééquilibrer.
+        </p>
+        <p class="sep-lead">
+          Cette page n’est pas là pour te mettre dans une case. Elle est là pour t’offrir une lecture symbolique : <strong>où se concentre ton énergie aujourd’hui, et quelle sagesse cette étape peut t’apporter</strong>.
+        </p>
+
+        <div class="sep-pillars">
+          <div class="sep-pillar">
+            <div class="sep-pillar-icon">🌌</div>
+            <div>
+              <div class="sep-pillar-title">Du subtil au concret</div>
+              <div class="sep-pillar-desc">De Kether à Malkuth, l’Arbre parle de la manière dont une conscience invisible devient expérience vécue.</div>
+            </div>
+          </div>
+
+          <div class="sep-pillar">
+            <div class="sep-pillar-icon">⚖️</div>
+            <div>
+              <div class="sep-pillar-title">Des forces à équilibrer</div>
+              <div class="sep-pillar-desc">Amour et rigueur, intuition et structure, inspiration et incarnation : tout l’enjeu est l’équilibre.</div>
+            </div>
+          </div>
+
+          <div class="sep-pillar">
+            <div class="sep-pillar-icon">🌀</div>
+            <div>
+              <div class="sep-pillar-title">Une lecture vivante</div>
+              <div class="sep-pillar-desc">Tu ne traverses pas une seule fois ces dimensions. Tu les revisites à différents moments de ta vie.</div>
+            </div>
+          </div>
+
+          <div class="sep-pillar">
+            <div class="sep-pillar-icon">🧬</div>
+            <div>
+              <div class="sep-pillar-title">Un miroir intérieur</div>
+              <div class="sep-pillar-desc">L’Arbre peut aussi éclairer des schémas, des héritages, des mémoires et des répétitions qui se jouent en toi.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sep-visual">
+        <svg viewBox="0 0 260 460" width="260" fill="none">
+          <g stroke="rgba(232,150,127,.3)" stroke-width="1" fill="none">
+            <line x1="130" y1="35" x2="68" y2="96"/><line x1="130" y1="35" x2="192" y2="96"/>
+            <line x1="68" y1="96" x2="192" y2="96"/>
+            <line x1="68" y1="96" x2="42" y2="174"/><line x1="192" y1="96" x2="218" y2="174"/>
+            <line x1="68" y1="96" x2="130" y2="228"/><line x1="192" y1="96" x2="130" y2="228"/>
+            <line x1="42" y1="174" x2="130" y2="228"/><line x1="218" y1="174" x2="130" y2="228"/>
+            <line x1="130" y1="228" x2="68" y2="290"/><line x1="130" y1="228" x2="192" y2="290"/>
+            <line x1="68" y1="290" x2="192" y2="290"/>
+            <line x1="68" y1="290" x2="130" y2="352"/><line x1="192" y1="290" x2="130" y2="352"/>
+            <line x1="130" y1="352" x2="130" y2="422"/>
+            <line x1="130" y1="228" x2="130" y2="422" stroke-dasharray="4 3"/>
+          </g>
+          <circle cx="130" cy="35" r="22" fill="rgba(245,200,66,.15)" stroke="rgba(245,200,66,.6)" stroke-width="1.5"/>
+          <circle cx="68" cy="96" r="18" fill="rgba(232,150,127,.1)" stroke="rgba(232,150,127,.45)" stroke-width="1.2"/>
+          <circle cx="192" cy="96" r="18" fill="rgba(232,150,127,.1)" stroke="rgba(232,150,127,.45)" stroke-width="1.2"/>
+          <circle cx="42" cy="174" r="18" fill="rgba(240,160,90,.1)" stroke="rgba(240,160,90,.45)" stroke-width="1.2"/>
+          <circle cx="218" cy="174" r="18" fill="rgba(240,160,90,.1)" stroke="rgba(240,160,90,.45)" stroke-width="1.2"/>
+          <circle cx="130" cy="228" r="26" fill="rgba(201,107,82,.15)" stroke="rgba(201,107,82,.65)" stroke-width="2"/>
+          <circle cx="68" cy="290" r="18" fill="rgba(245,200,66,.1)" stroke="rgba(245,200,66,.45)" stroke-width="1.2"/>
+          <circle cx="192" cy="290" r="18" fill="rgba(245,200,66,.1)" stroke="rgba(245,200,66,.45)" stroke-width="1.2"/>
+          <circle cx="130" cy="352" r="20" fill="rgba(232,150,127,.12)" stroke="rgba(232,150,127,.5)" stroke-width="1.5"/>
+          <circle cx="130" cy="422" r="24" fill="rgba(201,107,82,.12)" stroke="rgba(201,107,82,.6)" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep-quotes">
+    <div class="sep-quotes-track">
+      <span class="sep-q-item">L’Arbre de Vie est une carte symbolique de l’âme<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Chaque Sephira éclaire une dimension de toi-même<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Ce que tu traverses aujourd’hui a un sens intérieur<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">On ne monte pas l’Arbre : on l’habite<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Le cœur relie le ciel et la terre<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">L’Arbre de Vie est une carte symbolique de l’âme<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Chaque Sephira éclaire une dimension de toi-même<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Ce que tu traverses aujourd’hui a un sens intérieur<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">On ne monte pas l’Arbre : on l’habite<span class="sep-q-dot"></span></span>
+      <span class="sep-q-item">Le cœur relie le ciel et la terre<span class="sep-q-dot"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">Quiz · 10 questions</div>
+    <h1>Où es-tu dans ton<br><em>Arbre de Vie ?</em></h1>
+    <p>Réponds selon ce que tu vis vraiment en ce moment. Puis clique sur les nœuds de l’Arbre pour explorer leur symbolique et comprendre ce qui résonne en toi aujourd’hui.</p>
+    <p class="hero-sub">Il n’y a pas de bonne ou de mauvaise réponse. Chaque Sephira porte une sagesse particulière.</p>
+  </div>
+
+  <div class="main">
+    <div class="tree-wrap reveal">
+      <svg class="tree-svg" viewBox="0 0 340 600" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="rgba(201,107,82,.22)" stroke-width="1.3" fill="none">
+          <line x1="170" y1="46" x2="88" y2="126"/><line x1="170" y1="46" x2="252" y2="126"/>
+          <line x1="88" y1="126" x2="252" y2="126"/>
+          <line x1="88" y1="126" x2="55" y2="226"/><line x1="252" y1="126" x2="285" y2="226"/>
+          <line x1="88" y1="126" x2="170" y2="296"/><line x1="252" y1="126" x2="170" y2="296"/>
+          <line x1="55" y1="226" x2="170" y2="296"/><line x1="285" y1="226" x2="170" y2="296"/>
+          <line x1="170" y1="296" x2="88" y2="376"/><line x1="170" y1="296" x2="252" y2="376"/>
+          <line x1="88" y1="376" x2="252" y2="376"/>
+          <line x1="88" y1="376" x2="170" y2="456"/><line x1="252" y1="376" x2="170" y2="456"/>
+          <line x1="170" y1="456" x2="170" y2="546"/>
+          <line x1="170" y1="296" x2="170" y2="546" stroke-dasharray="5 4"/>
+        </g>
+
+        <g class="s-node" id="n0" onclick="sClick(0)">
+          <circle cx="170" cy="46" r="30" class="bg" fill="#FFFBF4" stroke="rgba(245,200,66,.7)" stroke-width="1.8"/>
+          <text x="170" y="42" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8.5" fill="#B8860B" font-weight="700">KETHER</text>
+          <text x="170" y="53" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Couronne</text>
+        </g>
+        <g class="s-node" id="n1" onclick="sClick(1)">
+          <circle cx="88" cy="126" r="26" class="bg" fill="#FFFBF4" stroke="rgba(232,150,127,.55)" stroke-width="1.6"/>
+          <text x="88" y="122" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#C96B52" font-weight="700">CHOKMAH</text>
+          <text x="88" y="132" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Sagesse</text>
+        </g>
+        <g class="s-node" id="n2" onclick="sClick(2)">
+          <circle cx="252" cy="126" r="26" class="bg" fill="#FFFBF4" stroke="rgba(232,150,127,.55)" stroke-width="1.6"/>
+          <text x="252" y="122" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#C96B52" font-weight="700">BINAH</text>
+          <text x="252" y="132" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Compréhension</text>
+        </g>
+        <g class="s-node" id="n3" onclick="sClick(3)">
+          <circle cx="55" cy="226" r="26" class="bg" fill="#FFFBF4" stroke="rgba(240,160,90,.55)" stroke-width="1.6"/>
+          <text x="55" y="222" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#D97D2E" font-weight="700">CHESED</text>
+          <text x="55" y="232" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Amour</text>
+        </g>
+        <g class="s-node" id="n4" onclick="sClick(4)">
+          <circle cx="285" cy="226" r="26" class="bg" fill="#FFFBF4" stroke="rgba(240,160,90,.55)" stroke-width="1.6"/>
+          <text x="285" y="222" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#D97D2E" font-weight="700">GEBURAH</text>
+          <text x="285" y="232" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Force</text>
+        </g>
+        <g class="s-node" id="n5" onclick="sClick(5)">
+          <circle cx="170" cy="296" r="34" class="bg" fill="#FFFBF4" stroke="rgba(201,107,82,.75)" stroke-width="2.2"/>
+          <text x="170" y="291" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8.5" fill="#C96B52" font-weight="700">TIPHERETH</text>
+          <text x="170" y="302" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Beauté · Cœur</text>
+        </g>
+        <g class="s-node" id="n6" onclick="sClick(6)">
+          <circle cx="88" cy="376" r="26" class="bg" fill="#FFFBF4" stroke="rgba(245,200,66,.55)" stroke-width="1.6"/>
+          <text x="88" y="372" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#B8860B" font-weight="700">NETZACH</text>
+          <text x="88" y="382" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Victoire</text>
+        </g>
+        <g class="s-node" id="n7" onclick="sClick(7)">
+          <circle cx="252" cy="376" r="26" class="bg" fill="#FFFBF4" stroke="rgba(245,200,66,.55)" stroke-width="1.6"/>
+          <text x="252" y="372" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8" fill="#B8860B" font-weight="700">HOD</text>
+          <text x="252" y="382" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Splendeur</text>
+        </g>
+        <g class="s-node" id="n8" onclick="sClick(8)">
+          <circle cx="170" cy="456" r="28" class="bg" fill="#FFFBF4" stroke="rgba(232,150,127,.6)" stroke-width="1.8"/>
+          <text x="170" y="452" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8.5" fill="#C96B52" font-weight="700">YESOD</text>
+          <text x="170" y="463" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Fondation</text>
+        </g>
+        <g class="s-node" id="n9" onclick="sClick(9)">
+          <circle cx="170" cy="546" r="32" class="bg" fill="#FFFBF4" stroke="rgba(201,107,82,.75)" stroke-width="2.2"/>
+          <text x="170" y="542" text-anchor="middle" font-family="'Playfair Display',serif" font-size="8.5" fill="#C96B52" font-weight="700">MALKUTH</text>
+          <text x="170" y="553" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="7" fill="#9A7060">Royaume · Terre</text>
+        </g>
+      </svg>
+
+      <div class="node-popup" id="popup">
+        <div class="popup-num" id="p-num"></div>
+        <div class="popup-name" id="p-name"></div>
+        <div class="popup-theme" id="p-theme"></div>
+        <div class="popup-desc" id="p-desc"></div>
+      </div>
+    </div>
+
+    <div>
+      <div id="quiz-wrap">
+        <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+        <p class="q-step" id="q-step">Question 1 / 10</p>
+        <p class="q-text" id="q-text"></p>
+        <div class="opts" id="opts"></div>
+        <div class="q-nav">
+          <button class="btn-back" id="btn-back" onclick="prevQ()" style="visibility:hidden">← Retour</button>
+          <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Continuer →</button>
+        </div>
+      </div>
+
+      <div id="res-wrap">
+        <div class="res-hero" id="res-hero">
+          <div class="res-badge" id="r-badge"></div>
+          <div class="res-sephira-num" id="r-num"></div>
+          <div class="res-name" id="r-name"></div>
+          <div class="res-sub" id="r-sub"></div>
+          <div style="margin-top:.8rem" class="res-keyword" id="r-kw"></div>
+        </div>
+
+        <div class="res-intro-block" id="r-intro-block"></div>
+        <div class="res-spiritual" id="r-spiritual"></div>
+        <div class="res-grid" id="r-cards"></div>
+        <div class="res-trans" id="r-trans"></div>
+        <div class="practice" id="r-practice-block"></div>
+        <div class="res-message" id="r-message"></div>
+
+        <div class="res-actions">
+          <a href="parcours.html" class="btn-p">✦ Explorer mes mémoires</a>
+          <a href="journal.html" class="btn-g">Journal guidé →</a>
+          <button class="btn-g" onclick="window.print()">🖨 Imprimer</button>
+          <button class="btn-g" onclick="restart()">↺ Recommencer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="pillars">
+    <div class="pillars-inner">
+      <h2>Les 3 piliers de <em>l’Arbre</em></h2>
+      <div class="pill-grid">
+        <div class="pill-card reveal"><div class="pill-icon">⚡</div><div class="pill-title">Pilier de la force</div><div class="pill-desc">Rigueur, action, discernement, capacité à trancher et à poser des limites justes.</div></div>
+        <div class="pill-card reveal"><div class="pill-icon">💧</div><div class="pill-title">Pilier de l’ouverture</div><div class="pill-desc">Accueil, amour, réceptivité, compassion et circulation de la grâce.</div></div>
+        <div class="pill-card reveal"><div class="pill-icon">⚖️</div><div class="pill-title">Pilier central</div><div class="pill-desc">L’axe de l’équilibre : là où ciel et terre, esprit et matière, se rejoignent dans l’incarnation.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Explorer les schémas répétitifs, les mémoires de lignée, le corps, le ressenti et l’évolution intérieure à travers des outils symboliques et sensibles.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="parcours.html">Mémoires</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="vibration.html">Fréquence</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Approfondir</h4>
+          <a href="journal.html">Journal</a>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="arbre-famille.html">Ma famille</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Accueil</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="#quiz-wrap">Quiz</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · schema-repetitif-genetique.fr</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Livre</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const burger = document.getElementById('burger');
+      const mobile = document.getElementById('nav-mobile');
+      burger.classList.toggle('open');
+      mobile.classList.toggle('open');
+    }
+
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    if (window.innerWidth > 900) {
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (cur) {
+          cur.style.left = mx + 'px';
+          cur.style.top = my + 'px';
+        }
+      });
+
+      (function loop(){
+        rx += (mx - rx) * .12;
+        ry += (my - ry) * .12;
+        if (ring) {
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+        }
+        requestAnimationFrame(loop);
+      })();
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    const SD = [
+      {n:"Kether · La Couronne",num:"Sephira 1",theme:"Unité & Source",desc:"La source pure, l’unité avant la séparation. Une conscience très élevée qui dépasse les formes habituelles de la pensée."},
+      {n:"Chokmah · La Sagesse",num:"Sephira 2",theme:"Inspiration & Vision",desc:"L’éclair d’intuition, la vision immédiate, la sagesse vivante avant la structure."},
+      {n:"Binah · La Compréhension",num:"Sephira 3",theme:"Matrice & Structure",desc:"La profondeur qui contient, comprend et donne forme à ce qui a été pressenti."},
+      {n:"Chesed · L’Amour",num:"Sephira 4",theme:"Ouverture & Générosité",desc:"La grâce, l’abondance, l’amour qui s’ouvre largement et nourrit."},
+      {n:"Geburah · La Force",num:"Sephira 5",theme:"Limites & Courage",desc:"La capacité de trancher, de poser une limite juste et de protéger ce qui doit l’être."},
+      {n:"Tiphereth · Le Cœur",num:"Sephira 6",theme:"Beauté & Harmonie",desc:"Le centre, l’équilibre, la réconciliation entre les opposés. L’axe du cœur conscient."},
+      {n:"Netzach · La Victoire",num:"Sephira 7",theme:"Passion & Vie",desc:"Le mouvement, la sensibilité, la créativité, l’élan émotionnel vivant."},
+      {n:"Hod · La Splendeur",num:"Sephira 8",theme:"Pensée & Langage",desc:"La structure mentale, le verbe, les croyances, la logique et la compréhension symbolique."},
+      {n:"Yesod · La Fondation",num:"Sephira 9",theme:"Inconscient & Mémoire",desc:"Le monde des rêves, des images, des mémoires profondes et des filtres intérieurs."},
+      {n:"Malkuth · Le Royaume",num:"Sephira 10",theme:"Corps & Incarnation",desc:"La terre, le réel, le corps, la matière et la présence concrète dans la vie."}
+    ];
+
+    function sClick(i){
+      document.querySelectorAll('.s-node').forEach(n => n.classList.remove('active'));
+      document.getElementById('n' + i).classList.add('active');
+      const s = SD[i];
+      const p = document.getElementById('popup');
+      document.getElementById('p-num').textContent = s.num;
+      document.getElementById('p-name').textContent = s.n;
+      document.getElementById('p-theme').textContent = s.theme;
+      document.getElementById('p-desc').textContent = s.desc;
+      p.classList.add('show');
+    }
+
+    const QS = [
+      {t:"Comment décris-tu ton sentiment intérieur en ce moment ?",o:["Je me sens souvent en insécurité ou instable","Je ressens beaucoup mais c’est flou","Je comprends de mieux en mieux ce que je traverse","Je me sens globalement alignée"],s:[9,8,6,5]},
+      {t:"Ce qui te marque le plus actuellement, c’est…",o:["Le besoin de tenir dans le concret","Des émotions profondes et des rêves forts","Le besoin de comprendre et mettre du sens","Le désir d’équilibre et de paix"],s:[9,8,7,5]},
+      {t:"Dans ta façon d’aimer ou de te relier, tu observes plutôt…",o:["De la peur ou du manque","Beaucoup d’intensité émotionnelle","Une réflexion constante sur tes liens","Une vraie ouverture du cœur"],s:[9,6,7,3]},
+      {t:"Dans ton rapport à l’action, aujourd’hui…",o:["Je me sens ralentie ou lourde","Je sens qu’une limite doit être posée","Je vois quelque chose mais je n’arrive pas encore à le structurer","Je me sens appelée à agir avec clarté"],s:[9,4,1,5]},
+      {t:"Ce qui revient le plus dans ta vie en ce moment, c’est…",o:["La survie, le concret, l’ancrage","Les mémoires, les boucles, l’invisible","Les croyances et les histoires mentales","Le besoin d’aimer plus juste"],s:[9,8,7,3]},
+      {t:"Ton intuition aujourd’hui…",o:["Me semble lointaine","Est présente mais encore confuse","Me donne parfois des éclairs clairs","Me guide profondément"],s:[9,8,1,0]},
+      {t:"Face à un conflit, tu fais plutôt quoi ?",o:["Je me replie ou je subis","Je coupe ou je veux poser une vraie limite","J’analyse beaucoup","Je cherche à réconcilier"],s:[9,4,7,5]},
+      {t:"Ce qui te fait le plus grand bien en ce moment, c’est…",o:["Retrouver de la sécurité","Dormir, rêver, sentir","Comprendre, écrire, mettre des mots","Aimer, rayonner, partager"],s:[9,8,7,3]},
+      {t:"Quelle phrase résonne le plus ?",o:["J’ai besoin d’être plus ancrée","Je porte quelque chose de très ancien","Je suis en train de comprendre","Je sens qu’une harmonie cherche à naître"],s:[9,8,2,5]},
+      {t:"Au fond, ce que tu vis ressemble surtout à…",o:["Une question d’incarnation","Une traversée intérieure profonde","Une réorganisation de conscience","Une réunification de toi-même"],s:[9,8,7,5]}
+    ];
+
+    const RD = {
+      9:{glyph:'🌍',emoji:'🌍',full:'Malkuth · Le Royaume',num:'Sephira 10',kw:'Incarnation · Corps · Sécurité',
+        intro_p1:'Tu traverses une période où la question centrale est l’ancrage. Le réel, le corps, le quotidien, la sécurité et le droit d’exister prennent une place majeure.',
+        intro_p2:'Malkuth n’est pas une sphère “basse”. C’est au contraire l’endroit où tout doit enfin se vivre concrètement.',
+        intro_p3:'Ce que tu cherches, ce n’est pas seulement comprendre. C’est sentir que tu peux vraiment être là.',
+        spiritual_quote:'Le spirituel n’a de sens que s’il descend jusqu’au corps.',
+        spiritual_body:'Malkuth t’invite à réhabiter le concret. À faire confiance au sol. À laisser la vie devenir quelque chose que tu peux toucher, sentir, vivre.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La peur, le manque, l’insécurité, la difficulté à te sentir pleinement à ta place.',
+        light_title:'☀️ Ce qui s’ouvre',light:'La stabilité, le droit d’exister, la paix dans le corps, la réconciliation avec la matière.',
+        trans_p1:'Cette étape peut réveiller des mémoires de survie, de manque, d’exil ou de peur transmises dans la lignée.',
+        trans_p2:'Travailler Malkuth, c’est parfois dire à tout ton système : “Le danger est passé. Je peux vivre ici.”',
+        practice_title:'Ta pratique du jour',practice_p1:'Pieds au sol. Respire lentement. Sens le poids du corps. Répète : “Je suis ici.”',practice_p2:'Reviens plusieurs fois dans la journée à ce contact simple avec le sol.',
+        message:'Ton chemin passe d’abord par l’ancrage. La racine n’est pas une faiblesse : c’est ce qui permet tout le reste.'},
+      8:{glyph:'🌙',emoji:'🌙',full:'Yesod · La Fondation',num:'Sephira 9',kw:'Inconscient · Mémoire · Rêves',
+        intro_p1:'Tu es dans une phase où l’invisible est très actif. Rêves, intuitions, émotions profondes, impressions anciennes : beaucoup se joue dans les couches souterraines.',
+        intro_p2:'Yesod parle de ce qui filtre la réalité avant même que tu en aies conscience.',
+        intro_p3:'Ce moment te demande moins de contrôler que d’écouter.',
+        spiritual_quote:'L’invisible ne demande pas toujours à être compris tout de suite — parfois il demande d’abord à être accueilli.',
+        spiritual_body:'Yesod ouvre l’accès au monde symbolique, aux mémoires, aux cycles, aux images et aux ressentis qui précèdent les mots.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La confusion, les boucles émotionnelles, les peurs sans nom, les répétitions difficiles à expliquer.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une intelligence profonde du ressenti, des rêves, des signes et des mouvements invisibles en toi.',
+        trans_p1:'Cette sphère est souvent liée aux héritages émotionnels et aux mémoires familiales silencieuses.',
+        trans_p2:'Ce qui revient n’est pas forcément contre toi : cela cherche peut-être à être vu.',
+        practice_title:'Ta pratique du jour',practice_p1:'Au réveil, note ton rêve, ton humeur, une image ou une sensation.',practice_p2:'Demande-toi : qu’est-ce que mon inconscient essaie de m’approcher doucement ?',
+        message:'Ce qui remonte de l’ombre n’est pas là pour t’envahir, mais pour être reconnu.'},
+      7:{glyph:'☿',emoji:'☿',full:'Hod · La Splendeur',num:'Sephira 8',kw:'Pensée · Langage · Croyances',
+        intro_p1:'Tu es dans une période de mise en sens. Tu observes, tu analyses, tu cherches à comprendre et à relier les choses entre elles.',
+        intro_p2:'Hod parle du mental, mais aussi du pouvoir des mots et des histoires que tu te racontes.',
+        intro_p3:'Quelque chose te demande de revoir ton langage intérieur.',
+        spiritual_quote:'Les mots ne font pas que décrire le monde : ils participent à le créer.',
+        spiritual_body:'Hod est la sphère de l’intelligence, de la structure mentale, des symboles et des croyances actives.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'Le trop-plein mental, l’analyse sans fin, la difficulté à descendre de la tête dans le corps.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une pensée plus claire, des croyances plus justes, un langage intérieur plus libre.',
+        trans_p1:'Tu peux porter des phrases familiales devenues des programmes intérieurs.',
+        trans_p2:'Changer une croyance, c’est parfois interrompre une répétition ancienne.',
+        practice_title:'Ta pratique du jour',practice_p1:'Écris une croyance limitante récurrente.',practice_p2:'Demande-toi : est-ce ma voix — ou une voix héritée ?',
+        message:'Quand les mots changent, le monde intérieur commence déjà à se réorganiser.'},
+      6:{glyph:'🌿',emoji:'🌿',full:'Netzach · La Victoire',num:'Sephira 7',kw:'Élan · Créativité · Vie',
+        intro_p1:'Tu es dans une phase d’intensité émotionnelle, de désir de vie, de sensibilité créatrice et d’élan.',
+        intro_p2:'Netzach parle de ce qui veut vivre, aimer, créer, ressentir sans être éteint.',
+        intro_p3:'Cette énergie a besoin d’être reconnue, pas jugée.',
+        spiritual_quote:'La vie cherche toujours une voie pour circuler à nouveau.',
+        spiritual_body:'Netzach ouvre la porte des émotions vivantes, de la créativité et du lien à la beauté.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'Le débordement émotionnel, l’attachement, la difficulté à canaliser ce qui est intense.',
+        light_title:'☀️ Ce qui s’ouvre',light:'La joie, la créativité, la sensibilité assumée, le goût d’être pleinement vivante.',
+        trans_p1:'Dans certaines lignées, la passion a été réprimée. Dans d’autres, elle a débordé sans cadre.',
+        trans_p2:'Ici, l’enjeu est d’honorer ton élan sans t’y perdre.',
+        practice_title:'Ta pratique du jour',practice_p1:'Fais aujourd’hui quelque chose uniquement pour la beauté ou le plaisir.',practice_p2:'Observe ensuite ce que cela réveille dans ton corps.',
+        message:'Ce que tu ressens intensément peut devenir une force de création plutôt qu’un poids.'},
+      5:{glyph:'☀️',emoji:'☀️',full:'Tiphereth · Le Cœur',num:'Sephira 6',kw:'Cœur · Harmonie · Alignement',
+        intro_p1:'Le cœur devient central. Quelque chose cherche à s’unifier en toi.',
+        intro_p2:'Tiphereth est le point d’équilibre, de beauté, de cohérence entre ce que tu ressens, comprends et incarnes.',
+        intro_p3:'Tu n’es pas appelée à être parfaite, mais plus alignée.',
+        spiritual_quote:'Le cœur n’efface pas les opposés : il les réconcilie.',
+        spiritual_body:'Tiphereth relie, harmonise, met en cohérence. C’est souvent une étape de réalignement profond.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'Le sacrifice, la difficulté à rayonner sans culpabilité, la peur d’être vue dans ta lumière.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une présence plus paisible, plus claire, plus rayonnante et profondément reliée.',
+        trans_p1:'Cette sphère peut réveiller les blessures de cœur de la lignée : amour conditionnel, fermeture affective, manque de reconnaissance.',
+        trans_p2:'Tiphereth cherche à réconcilier là où la lignée a fragmenté.',
+        practice_title:'Ta pratique du jour',practice_p1:'Visualise un soleil doux au centre de ta poitrine pendant quelques minutes.',practice_p2:'Observe ensuite si ta façon d’être change légèrement dans la journée.',
+        message:'Quand le cœur se recentre, beaucoup de bruit intérieur cesse de diriger ta vie.'},
+      4:{glyph:'⚡',emoji:'⚡',full:'Geburah · La Force',num:'Sephira 5',kw:'Limites · Courage · Vérité',
+        intro_p1:'Tu es dans un moment où la vie te demande de la clarté, du courage et de la justesse.',
+        intro_p2:'Geburah parle de limite saine, de discernement, de non nécessaire, de coupure parfois libératrice.',
+        intro_p3:'Il ne s’agit pas d’être dure. Il s’agit d’être vraie.',
+        spiritual_quote:'La vraie force ne détruit pas : elle libère ce qui doit l’être.',
+        spiritual_body:'Geburah est la capacité d’agir avec justesse, de protéger ce qui est essentiel et de cesser ce qui épuise ou dévie.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La peur du conflit, la colère retenue, ou au contraire le contrôle trop rigide.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une autorité plus paisible, une vraie capacité à dire non et à rester alignée.',
+        trans_p1:'Cette étape peut être liée à des mémoires de violence, de domination ou au contraire d’effacement dans la lignée.',
+        trans_p2:'Ta difficulté avec la force n’est pas toujours personnelle : elle peut être héritée.',
+        practice_title:'Ta pratique du jour',practice_p1:'Regarde une situation où tu n’as pas posé de limite claire.',practice_p2:'Demande-toi : qu’est-ce qu’un non juste protégerait en moi ?',
+        message:'La douceur sans limite s’épuise. La force juste protège la vie.'},
+      3:{glyph:'💙',emoji:'💙',full:'Chesed · L’Amour',num:'Sephira 4',kw:'Grâce · Ouverture · Générosité',
+        intro_p1:'Tu touches une fréquence d’ouverture, de générosité et de cœur plus vaste.',
+        intro_p2:'Chesed parle de grâce, d’amour, de circulation généreuse, d’abondance intérieure.',
+        intro_p3:'Mais il demande aussi de ne pas te perdre dans le don.',
+        spiritual_quote:'L’ouverture véritable n’est pas une fuite de soi — c’est un rayonnement depuis un centre plein.',
+        spiritual_body:'Chesed ouvre à l’amour plus vaste, à la compassion, à la confiance et à la fécondité du cœur.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La naïveté, le don sans limite, l’oubli de toi dans l’ouverture à l’autre.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Un amour plus libre, une abondance intérieure, une présence qui nourrit sans s’épuiser.',
+        trans_p1:'Cette sphère peut venir réparer des manques d’amour anciens dans la lignée.',
+        trans_p2:'Elle demande de laisser l’amour circuler, sans en faire un sacrifice.',
+        practice_title:'Ta pratique du jour',practice_p1:'Offre aujourd’hui un geste gratuit, simple, sans attente de retour.',practice_p2:'Observe si cela t’épuise ou t’ouvre davantage.',
+        message:'L’amour juste ne te vide pas. Il te relie à une source plus grande que toi.'},
+      2:{glyph:'🌸',emoji:'🌸',full:'Binah · La Compréhension',num:'Sephira 3',kw:'Profondeur · Matrice · Sens',
+        intro_p1:'Tu es dans un temps de profondeur, de maturation et de compréhension intérieure lente.',
+        intro_p2:'Binah ne comprend pas vite : elle comprend profondément.',
+        intro_p3:'Quelque chose demande à être porté, contenu, traversé sans être précipité.',
+        spiritual_quote:'Tout ne s’ouvre pas dans l’éclair. Certaines vérités demandent du temps et du contenant.',
+        spiritual_body:'Binah parle de réceptivité profonde, de structure intérieure, de maturation lente et de sagesse contenante.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La lourdeur, la tristesse ancienne, le sentiment de porter beaucoup.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une vraie profondeur, une intelligence mature, une compréhension qui apaise.',
+        trans_p1:'Cette sphère touche souvent la lignée des mères, la question du féminin, du contenant, de la transmission silencieuse.',
+        trans_p2:'Comprendre ici, c’est parfois sentir dans le corps ce que les mots n’avaient jamais nommé.',
+        practice_title:'Ta pratique du jour',practice_p1:'Reste quelques minutes avec une question sans chercher à y répondre tout de suite.',practice_p2:'Observe ce que ton corps sait déjà.',
+        message:'La compréhension la plus profonde n’arrive pas toujours par le mental.'},
+      1:{glyph:'⚡',emoji:'⚡',full:'Chokmah · La Sagesse',num:'Sephira 2',kw:'Vision · Intuition · Éclair',
+        intro_p1:'Tu touches une qualité de vision et d’intuition vive. Quelque chose en toi voit vite, sent juste, comprend avant les mots.',
+        intro_p2:'Chokmah est l’éclair, l’élan premier, l’intuition fulgurante.',
+        intro_p3:'Le défi est ensuite de l’incarner.',
+        spiritual_quote:'L’intuition ne se fabrique pas. Elle se reçoit.',
+        spiritual_body:'Chokmah est liée à la vision, aux élans de sagesse immédiate, aux compréhensions soudaines.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'Le décalage entre ce que tu vois intérieurement et ce que tu arrives à manifester.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une vision claire, un sens profond de direction, une capacité à percevoir l’essentiel.',
+        trans_p1:'Cette sphère peut être liée à la lignée des pères, à l’autorité, à la transmission de la vision et du droit de savoir.',
+        trans_p2:'S’autoriser à voir clair peut parfois venir casser une loyauté ancienne.',
+        practice_title:'Ta pratique du jour',practice_p1:'Note une intuition récente que tu as minimisée ou laissée passer.',practice_p2:'Demande-toi ce qu’elle essayait vraiment de t’indiquer.',
+        message:'Ce que tu vois intérieurement mérite d’être respecté, même avant d’être parfaitement expliqué.'},
+      0:{glyph:'👑',emoji:'👑',full:'Kether · La Couronne',num:'Sephira 1',kw:'Source · Unité · Présence',
+        intro_p1:'Tu touches une fréquence très haute d’unité, de recul, de présence ou de conscience élargie.',
+        intro_p2:'Kether n’est pas un “niveau supérieur” à atteindre comme un trophée. C’est une expérience de proximité avec l’essentiel.',
+        intro_p3:'Le vrai défi est ensuite de redescendre cette qualité dans la vie ordinaire.',
+        spiritual_quote:'Le plus haut n’a de sens que s’il éclaire aussi le plus simple.',
+        spiritual_body:'Kether parle d’unité, de présence, de silence intérieur, d’une perception plus vaste de la réalité.',
+        shadow_title:'🌑 Ce qui pèse',shadow:'La tentation de rester dans le haut, dans l’abstrait, ou d’avoir du mal à redescendre dans l’ordinaire.',
+        light_title:'☀️ Ce qui s’ouvre',light:'Une paix profonde, une présence rare, une qualité d’être qui rayonne sans effort.',
+        trans_p1:'Cette sphère peut toucher des mémoires spirituelles anciennes dans la lignée — une relation à la lumière, à la foi ou à l’invisible.',
+        trans_p2:'Mais elle demande aussi de ne pas couper le lien avec la terre.',
+        practice_title:'Ta pratique du jour',practice_p1:'Assieds-toi quelques minutes en silence, sans rien chercher.',practice_p2:'Puis ramène cette qualité de présence dans un geste simple de ta journée.',
+        message:'Le plus haut n’est pas séparé du plus simple. La lumière cherche aussi à vivre dans l’ordinaire.'}
+    };
+
+    let cQ = 0, scores = {}, answers = [];
+    for(let i = 0; i < 10; i++) scores[i] = 0;
+
+    const quiz = QS;
+
+    function renderQ(){
+      const q = quiz[cQ];
+      document.getElementById('q-step').textContent = `Question ${cQ + 1} / ${quiz.length}`;
+      document.getElementById('q-text').textContent = q.t;
+      document.getElementById('prog').style.width = `${cQ / quiz.length * 100}%`;
+
+      const el = document.getElementById('opts');
+      el.innerHTML = '';
+
+      ['A','B','C','D'].forEach((l,i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt' + (answers[cQ] === i ? ' sel' : '');
+        b.innerHTML = `<span class="opt-k">${l}</span>${q.o[i]}`;
+        b.onclick = () => {
+          document.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
+          b.classList.add('sel');
+          answers[cQ] = i;
+          document.getElementById('btn-next').disabled = false;
+        };
+        el.appendChild(b);
+      });
+
+      document.getElementById('btn-next').disabled = answers[cQ] === undefined;
+      document.getElementById('btn-back').style.visibility = cQ === 0 ? 'hidden' : 'visible';
+      document.getElementById('btn-next').textContent = cQ === quiz.length - 1 ? 'Révéler ma Sephira ✦' : 'Continuer →';
+    }
+
+    function nextQ(){
+      if (answers[cQ] === undefined) return;
+      scores[quiz[cQ].s[answers[cQ]]]++;
+      if (cQ < quiz.length - 1) {
+        cQ++;
+        renderQ();
+      } else {
+        showResult();
+      }
+    }
+
+    function prevQ(){
+      if (cQ > 0) {
+        scores[quiz[cQ - 1].s[answers[cQ - 1]]]--;
+        cQ--;
+        renderQ();
+      }
+    }
+
+    function showResult(){
+      document.getElementById('prog').style.width = '100%';
+      const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+      const top = parseInt(sorted[0][0], 10);
+      const r = RD[top] || RD[9];
+
+      document.getElementById('quiz-wrap').style.display = 'none';
+      const rw = document.getElementById('res-wrap');
+      rw.style.display = 'block';
+
+      sClick(top);
+
+      document.getElementById('res-hero').style.setProperty('--res-glyph', `"${r.glyph}"`);
+      document.getElementById('r-badge').innerHTML = `${r.emoji} Sephira révélée`;
+      document.getElementById('r-num').textContent = r.num;
+      document.getElementById('r-name').textContent = r.full.split('·')[0].trim();
+      document.getElementById('r-sub').textContent = r.full;
+      document.getElementById('r-kw').textContent = r.kw;
+
+      document.getElementById('r-intro-block').innerHTML = `
+        <div class="res-section-label">Ce qui se joue en toi</div>
+        <p>${r.intro_p1}</p>
+        <p>${r.intro_p2}</p>
+        <p>${r.intro_p3}</p>
+      `;
+
+      document.getElementById('r-spiritual').innerHTML = `
+        <div class="res-spiritual-label">La dimension spirituelle</div>
+        <p>"${r.spiritual_quote}"</p>
+        <p>${r.spiritual_body}</p>
+      `;
+
+      document.getElementById('r-cards').innerHTML = `
+        <div class="res-card"><h4>${r.shadow_title}</h4><p>${r.shadow}</p></div>
+        <div class="res-card"><h4>${r.light_title}</h4><p>${r.light}</p></div>
+      `;
+
+      document.getElementById('r-trans').innerHTML = `
+        <div class="res-trans-label">Le lien intérieur et transgénérationnel</div>
+        <p>${r.trans_p1}</p>
+        <p>${r.trans_p2}</p>
+      `;
+
+      document.getElementById('r-practice-block').innerHTML = `
+        <div class="practice-label">Ta pratique pour aujourd’hui</div>
+        <h4>${r.practice_title}</h4>
+        <p>${r.practice_p1}</p>
+        <p>${r.practice_p2}</p>
+      `;
+
+      document.getElementById('r-message').textContent = r.message;
+
+      rw.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function restart(){
+      cQ = 0;
+      for(let i = 0; i < 10; i++) scores[i] = 0;
+      answers = [];
+      document.getElementById('res-wrap').style.display = 'none';
+      document.getElementById('quiz-wrap').style.display = 'block';
+      document.querySelectorAll('.s-node').forEach(n => n.classList.remove('active'));
+      document.getElementById('popup').classList.remove('show');
+      renderQ();
+    }
+
+    renderQ();
+  </script>
+</body>
+</html>

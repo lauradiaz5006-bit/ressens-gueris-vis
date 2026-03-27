@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ce que ton corps dit vraiment · Laura Charron</title>
+  <meta name="description" content="Décoder les symptômes du corps à travers la mémoire, le cycle, l'énergie et les schémas répétitifs.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/symptomes.html">
+  <meta property="og:title" content="Ce que ton corps dit vraiment · Laura Charron">
+  <meta property="og:description" content="Une lecture sensible des symptômes du corps à travers mémoire, lignée, énergie et cycle féminin.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c:#FDF5EC;
+      --c2:#F6E8D8;
+      --rose:#E8967F;
+      --rose2:#C96B52;
+      --orange:#F0A05A;
+      --orange2:#D97D2E;
+      --gold:#F5C842;
+      --gold2:#E8A800;
+      --ink:#2A1A10;
+      --ink2:#5C3D2C;
+      --soft:#9A7060;
+      --white:#FFFAF4;
+      --teal:#5DCAA5;
+    }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--c);
+      color:var(--ink);
+      overflow-x:hidden;
+      padding-top:72px;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    .cursor{
+      position:fixed;
+      width:10px;
+      height:10px;
+      background:var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:multiply;
+    }
+
+    .cursor-ring{
+      position:fixed;
+      width:36px;
+      height:36px;
+      border:1.5px solid var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9998;
+      transform:translate(-50%,-50%);
+      opacity:.5;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
+      padding:0 2rem;
+      background:rgba(253,245,236,.94);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+    }
+
+    .nav-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1.1rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      font-size:.84rem;
+      color:var(--ink2);
+      transition:color .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--rose2);
+    }
+
+    .nav-book{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:#fff !important;
+      padding:.68rem 1rem;
+      border-radius:999px;
+      font-weight:500;
+      box-shadow:0 10px 24px rgba(201,107,82,.22);
+    }
+
+    .nav-burger{
+      display:none;
+      width:46px;
+      height:46px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+    }
+
+    .nav-burger span{
+      width:22px;
+      height:2px;
+      background:var(--ink);
+      border-radius:10px;
+      transition:.25s ease;
+    }
+
+    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    .nav-mobile{
+      position:fixed;
+      top:72px;
+      left:0;
+      right:0;
+      background:rgba(255,250,244,.98);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+      display:none;
+      flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;
+      z-index:999;
+    }
+
+    .nav-mobile.open{display:flex;}
+
+    .nav-mobile a{
+      color:var(--ink2);
+      padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);
+      font-size:.95rem;
+    }
+
+    .nav-mobile a:last-child{border-bottom:none;}
+
+    /* HERO */
+    .hero{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      padding:7rem 4rem 5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 55% 60% at 75% 40%,rgba(232,150,127,.14) 0%,transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%,rgba(240,160,90,.09) 0%,transparent 55%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:5rem;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.67rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      border-radius:100px;
+      padding:.4rem 1rem;
+      margin-bottom:1.5rem;
+    }
+
+    .eyebrow.dark{
+      color:var(--rose);
+      background:rgba(232,150,127,.1);
+      border:1px solid rgba(232,150,127,.25);
+    }
+
+    .eyebrow.light{
+      color:var(--rose2);
+      background:rgba(201,107,82,.07);
+      border:1px solid rgba(201,107,82,.18);
+    }
+
+    .eyebrow.dark::before,
+    .eyebrow.light::before{
+      content:'✦';
+      font-size:.52rem;
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.4rem,5vw,4rem);
+      font-weight:900;
+      color:white;
+      line-height:1.05;
+      margin-bottom:1.2rem;
+    }
+
+    .hero h1 em{font-style:italic;color:var(--rose);}
+
+    .hero-lead{
+      font-size:.95rem;
+      color:rgba(255,255,255,.6);
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:.85rem;
+    }
+
+    .hero-lead strong{
+      color:rgba(255,255,255,.88);
+      font-weight:500;
+    }
+
+    .hero-quote{
+      border-left:2px solid rgba(232,150,127,.4);
+      padding-left:1.2rem;
+      margin:1.4rem 0;
+    }
+
+    .hero-quote p{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.95rem;
+      color:rgba(255,255,255,.55);
+      line-height:1.65;
+    }
+
+    /* BODY VISUAL */
+    .body-visual{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+
+    .body-zones{
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+      width:100%;
+    }
+
+    .bz{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:14px;
+      padding:.7rem 1rem;
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      transition:all .2s;
+    }
+
+    .bz:hover{
+      background:rgba(232,150,127,.08);
+      border-color:rgba(232,150,127,.25);
+    }
+
+    .bz-icon{
+      font-size:1.1rem;
+      flex-shrink:0;
+    }
+
+    .bz-text{
+      font-size:.8rem;
+      color:rgba(255,255,255,.55);
+    }
+
+    .bz-text strong{
+      font-weight:500;
+      color:rgba(255,255,255,.82);
+      display:block;
+      margin-bottom:.1rem;
+    }
+
+    /* BAND */
+    .band{
+      overflow:hidden;
+      padding:1.1rem 0;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+    }
+
+    .band-track{
+      display:flex;
+      gap:0;
+      animation:marquee 35s linear infinite;
+      white-space:nowrap;
+    }
+
+    @keyframes marquee{
+      from{transform:translateX(0);}
+      to{transform:translateX(-50%);}
+    }
+
+    .band-item{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.88rem;
+      color:rgba(255,255,255,.82);
+      padding:0 3rem;
+      display:inline-flex;
+      align-items:center;
+      gap:2rem;
+    }
+
+    .band-dot{
+      width:3px;
+      height:3px;
+      background:rgba(255,255,255,.4);
+      border-radius:50%;
+    }
+
+    /* SECTION */
+    .symp-section{
+      max-width:1150px;
+      margin:0 auto;
+      padding:5rem 4rem;
+    }
+
+    .symp-header{
+      text-align:center;
+      margin-bottom:3.5rem;
+    }
+
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4vw,3rem);
+      font-weight:900;
+      line-height:1.1;
+      margin-bottom:.8rem;
+    }
+
+    .section-title em{
+      font-style:italic;
+      color:var(--rose2);
+    }
+
+    .section-sub{
+      font-size:.93rem;
+      color:var(--soft);
+      font-weight:300;
+      line-height:1.8;
+      max-width:600px;
+      margin:0 auto;
+    }
+
+    /* FILTERS */
+    .filters{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      justify-content:center;
+      margin-bottom:2.5rem;
+    }
+
+    .filter{
+      padding:.4rem .9rem;
+      border-radius:100px;
+      font-size:.75rem;
+      font-weight:400;
+      cursor:pointer;
+      border:1.5px solid rgba(232,150,127,.2);
+      background:var(--white);
+      color:var(--soft);
+      transition:all .18s;
+    }
+
+    .filter:hover{
+      border-color:var(--rose);
+      color:var(--rose2);
+    }
+
+    .filter.on{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      border-color:transparent;
+      color:white;
+      font-weight:500;
+    }
+
+    /* CARDS */
+    .symp-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.2rem;
+    }
+
+    .symp-card{
+      background:var(--white);
+      border:1.5px solid rgba(232,150,127,.14);
+      border-radius:22px;
+      cursor:pointer;
+      transition:all .25s cubic-bezier(.34,1.56,.64,1);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .symp-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 16px 48px rgba(42,26,16,.12);
+      border-color:var(--rose);
+    }
+
+    .symp-card.open{
+      border-color:var(--rose2);
+      box-shadow:0 20px 60px rgba(42,26,16,.15);
+    }
+
+    .symp-card-top{
+      padding:1.4rem 1.5rem 1.1rem;
+      display:flex;
+      align-items:flex-start;
+      gap:.9rem;
+    }
+
+    .symp-icon{
+      font-size:1.6rem;
+      flex-shrink:0;
+      margin-top:.1rem;
+    }
+
+    .symp-tag{
+      font-size:.6rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--soft);
+      margin-bottom:.28rem;
+    }
+
+    .symp-name{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--ink);
+      line-height:1.2;
+    }
+
+    .symp-teaser{
+      font-size:.78rem;
+      color:var(--soft);
+      line-height:1.5;
+      margin-top:.3rem;
+      font-weight:300;
+    }
+
+    .symp-arrow{
+      position:absolute;
+      bottom:1rem;
+      right:1.2rem;
+      font-size:.75rem;
+      color:rgba(201,107,82,.45);
+      transition:transform .2s;
+    }
+
+    .symp-card.open .symp-arrow{
+      transform:rotate(180deg);
+    }
+
+    .symp-body{
+      display:none;
+      padding:0 1.5rem 1.5rem;
+      border-top:1px solid rgba(232,150,127,.1);
+      margin-top:0;
+    }
+
+    .symp-card.open .symp-body{
+      display:block;
+      animation:fadeDown .28s ease;
+    }
+
+    @keyframes fadeDown{
+      from{opacity:0;transform:translateY(-8px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .symp-dim{
+      border-radius:12px;
+      padding:.75rem .9rem;
+      margin-top:.65rem;
+    }
+
+    .symp-dim.corps{
+      background:linear-gradient(135deg,#FFF5F0,#FFE8DE);
+      border:1px solid rgba(232,150,127,.18);
+    }
+
+    .symp-dim.energie{
+      background:linear-gradient(135deg,#FFF9E8,#FFF0CC);
+      border:1px solid rgba(245,200,66,.2);
+    }
+
+    .symp-dim.adn{
+      background:linear-gradient(135deg,#F0FBF6,#DDF4EC);
+      border:1px solid rgba(93,202,165,.2);
+    }
+
+    .symp-dim.cycle{
+      background:linear-gradient(135deg,#F5F0FF,#EDE4FF);
+      border:1px solid rgba(155,137,212,.2);
+    }
+
+    .symp-dim-label{
+      font-size:.6rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:600;
+      margin-bottom:.3rem;
+      display:flex;
+      align-items:center;
+      gap:.38rem;
+    }
+
+    .corps .symp-dim-label{color:var(--rose2);}
+    .energie .symp-dim-label{color:var(--gold2);}
+    .adn .symp-dim-label{color:#2A9670;}
+    .cycle .symp-dim-label{color:#7B60C4;}
+
+    .symp-dim-label::before{
+      content:'→';
+      font-size:.55rem;
+    }
+
+    .symp-dim p{
+      font-size:.8rem;
+      color:var(--ink2);
+      line-height:1.72;
+      font-weight:300;
+    }
+
+    .symp-dim p strong{
+      font-weight:500;
+      color:var(--ink);
+    }
+
+    .symp-question{
+      background:var(--c2);
+      border-radius:10px;
+      padding:.65rem .9rem;
+      margin-top:.65rem;
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.82rem;
+      color:var(--rose2);
+      line-height:1.6;
+    }
+
+    .symp-pratique{
+      background:linear-gradient(135deg,var(--c),var(--c2));
+      border:1px solid rgba(232,150,127,.18);
+      border-radius:12px;
+      padding:.75rem .9rem;
+      margin-top:.65rem;
+    }
+
+    .symp-pratique-lbl{
+      font-size:.6rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:600;
+      color:var(--rose2);
+      margin-bottom:.3rem;
+    }
+
+    .symp-pratique p{
+      font-size:.79rem;
+      color:var(--ink2);
+      line-height:1.7;
+      font-weight:300;
+    }
+
+    /* QUIZ */
+    .quiz-section{
+      background:var(--ink);
+      padding:5rem 4rem;
+    }
+
+    .quiz-inner{
+      max-width:820px;
+      margin:0 auto;
+    }
+
+    .quiz-header{
+      text-align:center;
+      margin-bottom:3rem;
+    }
+
+    .prog-track{
+      height:4px;
+      background:rgba(255,255,255,.08);
+      border-radius:100px;
+      margin-bottom:2.5rem;
+      overflow:hidden;
+    }
+
+    .prog-fill{
+      height:100%;
+      background:linear-gradient(to right,var(--rose2),var(--orange2));
+      border-radius:100px;
+      transition:width .5s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .q-num{
+      font-size:.68rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.32);
+      margin-bottom:.6rem;
+    }
+
+    .q-text{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.2rem,2.4vw,1.65rem);
+      font-weight:700;
+      line-height:1.35;
+      color:white;
+      margin-bottom:1.7rem;
+    }
+
+    .q-hint{
+      font-size:.82rem;
+      color:rgba(255,255,255,.35);
+      margin-bottom:1.4rem;
+      font-style:italic;
+    }
+
+    .opts{
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+    }
+
+    .opt{
+      display:flex;
+      align-items:flex-start;
+      gap:1rem;
+      background:rgba(255,255,255,.04);
+      border:1.5px solid rgba(255,255,255,.07);
+      border-radius:14px;
+      padding:.9rem 1.1rem;
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      font-size:.86rem;
+      font-weight:300;
+      color:rgba(255,255,255,.65);
+      transition:all .2s;
+      text-align:left;
+    }
+
+    .opt:hover{
+      border-color:rgba(232,150,127,.35);
+      background:rgba(232,150,127,.06);
+      transform:translateX(4px);
+    }
+
+    .opt.sel{
+      border-color:var(--rose2);
+      background:rgba(201,107,82,.1);
+      color:white;
+    }
+
+    .opt-k{
+      width:26px;
+      height:26px;
+      border-radius:7px;
+      background:rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.66rem;
+      font-weight:600;
+      color:rgba(255,255,255,.28);
+      flex-shrink:0;
+      transition:all .18s;
+      margin-top:.05rem;
+    }
+
+    .opt.sel .opt-k{
+      background:var(--rose2);
+      color:white;
+    }
+
+    .q-nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:1.8rem;
+    }
+
+    .btn-back{
+      background:none;
+      border:none;
+      color:rgba(255,255,255,.28);
+      font-size:.84rem;
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      transition:color .18s;
+    }
+
+    .btn-back:hover{color:rgba(255,255,255,.65);}
+
+    .btn-next{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:white;
+      border:none;
+      padding:.88rem 2rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.9rem;
+      font-weight:500;
+      cursor:pointer;
+      box-shadow:0 8px 28px rgba(201,107,82,.3);
+      transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .18s;
+    }
+
+    .btn-next:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 38px rgba(201,107,82,.45);
+    }
+
+    .btn-next:disabled{
+      opacity:.3;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    #q-res{display:none;}
+
+    /* RESULT */
+    .qr-hero{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:28px;
+      padding:2.8rem 2.5rem;
+      text-align:center;
+      margin-bottom:1.4rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .qr-hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(232,150,127,.18),transparent 55%);
+    }
+
+    .qr-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.14);
+      color:rgba(255,255,255,.72);
+      border-radius:100px;
+      padding:.45rem 1.1rem;
+      font-size:.67rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      margin-bottom:1rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .qr-icon{
+      font-size:2.8rem;
+      margin-bottom:.4rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .qr-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.6rem,3.5vw,2.5rem);
+      font-weight:900;
+      color:white;
+      line-height:1.1;
+      position:relative;
+      z-index:2;
+    }
+
+    .qr-sub{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1rem;
+      color:var(--rose);
+      margin-top:.4rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .qr-block{
+      border-radius:20px;
+      padding:1.6rem 1.8rem;
+      margin-bottom:1.1rem;
+    }
+
+    .qr-block.warm{
+      background:linear-gradient(135deg,#FFF8F2,#FFF0E4);
+      border:1px solid rgba(232,150,127,.15);
+    }
+
+    .qr-block.dark{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+    }
+
+    .qr-block.green{
+      background:linear-gradient(135deg,#F0FBF6,#DDF4EC);
+      border:1px solid rgba(93,202,165,.18);
+    }
+
+    .qr-lbl{
+      font-size:.62rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+
+    .qr-lbl::before{
+      content:'✦';
+      font-size:.5rem;
+    }
+
+    .qr-lbl.rose{color:var(--rose2);}
+    .qr-lbl.white{color:rgba(255,255,255,.55);}
+    .qr-lbl.teal{color:#2A9670;}
+
+    .qr-block p{
+      font-size:.88rem;
+      line-height:1.88;
+      font-weight:300;
+    }
+
+    .qr-block.warm p,
+    .qr-block.green p{color:var(--ink2);}
+
+    .qr-block.dark p{color:rgba(255,255,255,.55);}
+
+    .qr-block p strong{font-weight:500;}
+
+    .qr-block.warm p strong,
+    .qr-block.green p strong{color:var(--ink);}
+
+    .qr-block.dark p strong{color:rgba(255,255,255,.85);}
+
+    .qr-message{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1rem;
+      color:var(--ink);
+      line-height:1.7;
+      padding:1.1rem 1.4rem;
+      border-left:3px solid var(--rose);
+      background:linear-gradient(135deg,#FFF8F4,#FFF2EA);
+      border-radius:0 14px 14px 0;
+      margin-bottom:1.4rem;
+    }
+
+    .qr-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.65rem;
+    }
+
+    .qr-btn{
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      border-radius:15px;
+      padding:.85rem 1rem;
+      text-decoration:none;
+      border:1.5px solid;
+      transition:all .18s;
+    }
+
+    .qr-btn.p{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      border-color:transparent;
+      color:white;
+      box-shadow:0 8px 26px rgba(201,107,82,.28);
+    }
+
+    .qr-btn.g{
+      background:rgba(255,255,255,.05);
+      border-color:rgba(255,255,255,.1);
+      color:rgba(255,255,255,.65);
+    }
+
+    .qr-btn:hover{transform:translateY(-2px);}
+
+    .qr-btn-icon{
+      font-size:1.1rem;
+      flex-shrink:0;
+    }
+
+    .qr-btn-t{
+      font-size:.83rem;
+      font-weight:500;
+      color:inherit;
+      display:block;
+    }
+
+    .qr-btn-s{
+      font-size:.7rem;
+      color:inherit;
+      opacity:.52;
+      display:block;
+      margin-top:.1rem;
+      line-height:1.35;
+    }
+
+    .result-tools{
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      margin-top:1rem;
+    }
+
+    .tool-btn{
+      background:transparent;
+      color:rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.12);
+      padding:.55rem 1rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.77rem;
+      cursor:pointer;
+    }
+
+    .tool-btn:hover{color:rgba(255,255,255,.65);}
+
+    .restart-q{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      margin-top:.9rem;
+      background:transparent;
+      color:rgba(255,255,255,.28);
+      border:1px solid rgba(255,255,255,.1);
+      padding:.5rem 1rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.77rem;
+      cursor:pointer;
+      transition:all .17s;
+    }
+
+    .restart-q:hover{color:rgba(255,255,255,.55);}
+
+    /* SCIENCE */
+    .science{
+      background:var(--c2);
+      padding:5rem 4rem;
+    }
+
+    .sci-inner{
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    .sci-quote{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:24px;
+      padding:2.2rem 2.5rem;
+      margin-bottom:2rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .sci-quote::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 55% 60% at 20% 50%,rgba(232,150,127,.12) 0%,transparent 60%);
+      pointer-events:none;
+    }
+
+    .sci-quote *{position:relative;z-index:1;}
+
+    .sci-quote p{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.05rem;
+      color:rgba(255,255,255,.78);
+      line-height:1.72;
+    }
+
+    .sci-quote p + p{
+      margin-top:.8rem;
+      font-family:'DM Sans',sans-serif;
+      font-size:.84rem;
+      font-style:normal;
+      color:rgba(255,255,255,.42);
+      line-height:1.72;
+    }
+
+    .sci-cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+    }
+
+    .sci-c{
+      background:var(--white);
+      border-radius:18px;
+      padding:1.5rem;
+      border:1px solid rgba(232,150,127,.12);
+    }
+
+    .sci-c-icon{
+      font-size:1.4rem;
+      margin-bottom:.6rem;
+    }
+
+    .sci-c-title{
+      font-family:'Playfair Display',serif;
+      font-size:.95rem;
+      font-weight:700;
+      color:var(--ink);
+      margin-bottom:.45rem;
+    }
+
+    .sci-c-body{
+      font-size:.82rem;
+      color:var(--soft);
+      line-height:1.72;
+      font-weight:300;
+    }
+
+    .sci-c-body strong{
+      font-weight:500;
+      color:var(--ink2);
+    }
+
+    /* FOOTER */
+    .site-footer{
+      background:#1A0E08;
+      padding:4rem 4rem 2rem;
+    }
+
+    .footer-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:3rem;
+      margin-bottom:3rem;
+    }
+
+    .footer-brand .footer-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.4rem;
+      color:white;
+      font-weight:700;
+      display:block;
+      margin-bottom:.8rem;
+    }
+
+    .footer-brand p{
+      font-size:.82rem;
+      color:rgba(255,255,255,.4);
+      line-height:1.75;
+      font-weight:300;
+      max-width:280px;
+    }
+
+    .footer-brand .footer-book-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white;
+      padding:.6rem 1.2rem;
+      border-radius:100px;
+      font-size:.78rem;
+      font-weight:500;
+      margin-top:1.2rem;
+    }
+
+    .footer-col h4{
+      font-family:'Playfair Display',serif;
+      font-size:.82rem;
+      font-weight:700;
+      color:white;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+
+    .footer-col a{
+      display:block;
+      font-size:.8rem;
+      color:rgba(255,255,255,.4);
+      margin-bottom:.6rem;
+      transition:color .18s;
+      font-weight:300;
+    }
+
+    .footer-col a:hover{color:var(--rose);}
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding-top:1.8rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .footer-bottom p{
+      font-size:.74rem;
+      color:rgba(255,255,255,.22);
+    }
+
+    .footer-bottom-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-links a{
+      font-size:.74rem;
+      color:rgba(255,255,255,.28);
+    }
+
+    .footer-bottom-links a:hover{color:var(--rose);}
+
+    .reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .6s ease,transform .6s ease;
+    }
+
+    .reveal.revealed{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:900px){
+      body{padding-top:60px;}
+      .cursor,.cursor-ring{display:none;}
+      nav{padding:0 1.2rem;height:60px;}
+      .nav-links{display:none;}
+      .nav-burger{display:flex;}
+      .nav-mobile{top:60px;}
+      .hero{padding:5rem 1.5rem 3.5rem;}
+      .hero-inner{grid-template-columns:1fr;gap:2rem;}
+      .body-visual{display:none;}
+      .symp-section,.quiz-section,.science{padding:4rem 1.5rem;}
+      .symp-grid,.sci-cards,.qr-actions{grid-template-columns:1fr;}
+      .site-footer{padding:3rem 1.5rem 1.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+      .footer-brand{grid-column:span 2;}
+    }
+
+    @media(max-width:480px){
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
+    }
+
+    @media print{
+      nav,.nav-mobile,.cursor,.cursor-ring,.band,.filters,.q-nav,.restart-q,.result-tools,.site-footer{display:none!important;}
+      body{padding-top:0;background:white;}
+      .quiz-section{background:white;padding:0;}
+      .qr-hero{background:white!important;color:black;border:1px solid #ddd;}
+      .qr-title,.qr-sub{color:black!important;}
+      .qr-block.dark{background:white!important;border:1px solid #ddd;}
+      .qr-block.dark p,.qr-lbl.white,.qr-btn.g{color:black!important;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html" class="active">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
+      <a href="journal.html">Journal</a>
+      <a href="transgen.html">Transgénérationnel</a>
+      <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html">Ma famille</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
+    <a href="journal.html">📓 Journal</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
+    <a href="genosociogramme.html">🌐 Génosociogramme</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html">✉️ Contact</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+  </div>
+
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow dark">Corps · Mémoire · Invisible</div>
+        <h1>Ton corps ne ment pas.<br><em>Il parle un langage<br>que personne ne t'a appris.</em></h1>
+        <p class="hero-lead">Chaque douleur chronique, chaque symptôme qui revient, chaque malaise sans explication médicale — <strong>ce sont des messages. Pas des pannes.</strong> Le corps encode ce que la conscience n'a pas pu traiter, ce que les mots n'ont pas pu dire, ce que la lignée n'a pas pu intégrer.</p>
+        <div class="hero-quote"><p>"La maladie est une tentative de guérison. Le symptôme n'est pas le problème — c'est la solution que le corps a trouvée pour porter ce qui ne peut pas encore être dit."</p></div>
+        <p class="hero-lead">Cette page est un dictionnaire du non-dit corporel. Non pour que tu te diagnostiques — <strong>mais pour que tu commences à écouter autrement.</strong> Ce que tu ressens dans ton corps est une information. Et les informations peuvent être comprises.</p>
+      </div>
+
+      <div class="body-visual">
+        <div class="body-zones">
+          <div class="bz"><span class="bz-icon">🧠</span><div class="bz-text"><strong>Tête · Mental · Contrôle</strong>Migraines, insomnies, brouillard mental</div></div>
+          <div class="bz"><span class="bz-icon">🗣️</span><div class="bz-text"><strong>Gorge · Parole · Expression</strong>Nœud, extinction de voix, thyroïde</div></div>
+          <div class="bz"><span class="bz-icon">🫀</span><div class="bz-text"><strong>Cœur · Lien · Appartenance</strong>Douleurs thoraciques, essoufflement</div></div>
+          <div class="bz"><span class="bz-icon">🌀</span><div class="bz-text"><strong>Ventre · Émotions · Intuition</strong>Digestif, colon, douleurs pelviennes</div></div>
+          <div class="bz"><span class="bz-icon">🦴</span><div class="bz-text"><strong>Dos · Charge · Soutien</strong>Lombaires, cervicales, douleurs articulaires</div></div>
+          <div class="bz"><span class="bz-icon">🛡️</span><div class="bz-text"><strong>Peau · Frontières · Identité</strong>Eczéma, psoriasis, allergies</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="band-track">
+      <span class="band-item">Le corps parle — apprenons à l'écouter<span class="band-dot"></span></span>
+      <span class="band-item">Chaque symptôme est une mémoire qui cherche une voix<span class="band-dot"></span></span>
+      <span class="band-item">Il n'y a pas de maladie sans signification<span class="band-dot"></span></span>
+      <span class="band-item">Ce qui ne peut pas se dire se montre<span class="band-dot"></span></span>
+      <span class="band-item">Le corps encode ce que l'esprit ne peut pas porter seul<span class="band-dot"></span></span>
+      <span class="band-item">Le corps parle — apprenons à l'écouter<span class="band-dot"></span></span>
+      <span class="band-item">Chaque symptôme est une mémoire qui cherche une voix<span class="band-dot"></span></span>
+      <span class="band-item">Il n'y a pas de maladie sans signification<span class="band-dot"></span></span>
+      <span class="band-item">Ce qui ne peut pas se dire se montre<span class="band-dot"></span></span>
+      <span class="band-item">Le corps encode ce que l'esprit ne peut pas porter seul<span class="band-dot"></span></span>
+    </div>
+  </div>
+
+  <section class="symp-section">
+    <div class="symp-header">
+      <div class="eyebrow light" style="justify-content:center">Le dictionnaire du non-dit</div>
+      <h2 class="section-title">Ce que ton corps <em>essaie de te dire</em></h2>
+      <p class="section-sub">Clique sur ce que tu vis — ou ce que tu portes depuis longtemps. Chaque fiche explore les 4 dimensions : corps physique, énergie, ADN/mémoire, et lien avec ton cycle.</p>
+    </div>
+
+    <div class="filters">
+      <div class="filter on" onclick="filterSymp('all',this)">Tout voir</div>
+      <div class="filter" onclick="filterSymp('tete',this)">🧠 Tête & Mental</div>
+      <div class="filter" onclick="filterSymp('gorge',this)">🗣️ Gorge & Voix</div>
+      <div class="filter" onclick="filterSymp('coeur',this)">🫀 Cœur & Liens</div>
+      <div class="filter" onclick="filterSymp('ventre',this)">🌀 Ventre & Émotions</div>
+      <div class="filter" onclick="filterSymp('dos',this)">🦴 Dos & Charge</div>
+      <div class="filter" onclick="filterSymp('peau',this)">🛡️ Peau & Frontières</div>
+      <div class="filter" onclick="filterSymp('energie',this)">⚡ Épuisement</div>
+      <div class="filter" onclick="filterSymp('cycle',this)">🌀 Cycle féminin</div>
+    </div>
+
+    <div class="symp-grid" id="symp-grid"></div>
+  </section>
+
+  <section class="quiz-section" id="quiz">
+    <div class="quiz-inner">
+      <div class="quiz-header">
+        <div class="eyebrow dark" style="justify-content:center;margin-bottom:.9rem">Mon corps parle · 8 questions</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:white;margin-bottom:.7rem;">Qu'est-ce que<br><em style="font-style:italic;color:var(--rose)">ton corps porte vraiment ?</em></h2>
+        <p style="font-size:.9rem;color:rgba(255,255,255,.38);font-weight:300;">Réponds selon ce que tu vis maintenant — pas ce que tu devrais vivre.</p>
+      </div>
+
+      <div id="q-wrap">
+        <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+        <p class="q-num" id="q-num"></p>
+        <p class="q-text" id="q-text"></p>
+        <p class="q-hint" id="q-hint"></p>
+        <div class="opts" id="opts"></div>
+        <div class="q-nav">
+          <button class="btn-back" id="btn-back" onclick="prevQ()" style="visibility:hidden">← Retour</button>
+          <button class="btn-next" id="btn-next" onclick="nextQ()" disabled>Continuer →</button>
+        </div>
+      </div>
+
+      <div id="q-res"></div>
+    </div>
+  </section>
+
+  <section class="science">
+    <div class="sci-inner">
+      <div class="eyebrow light" style="margin-bottom:.9rem">La science derrière le langage du corps</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem">Pourquoi le corps <em>porte la mémoire</em></h2>
+
+      <div class="sci-quote reveal">
+        <p>"Le corps garde les comptes. Ce que la conscience refuse de savoir, ce que les mots n'ont pas pu dire, ce que la famille n'a pas pu pleurer — le corps le garde. Il le porte, le comprime, le transforme en signal jusqu'à ce que quelqu'un l'écoute."</p>
+        <p>— Bessel van der Kolk, The Body Keeps the Score · confirmé par l'épigénétique, les neurosciences et la psychogénéalogie</p>
+      </div>
+
+      <div class="sci-cards">
+        <div class="sci-c reveal"><div class="sci-c-icon">🧬</div><div class="sci-c-title">L'épigénétique du trauma</div><div class="sci-c-body">Des études sur les descendants de survivants de conflits ou de traumas montrent des <strong>modifications dans l'expression des gènes du cortisol</strong> transmises biologiquement. Ton corps peut porter des mémoires de survie qui datent d'avant ta naissance.</div></div>
+        <div class="sci-c reveal"><div class="sci-c-icon">🧠</div><div class="sci-c-title">La mémoire somatique</div><div class="sci-c-body">L'amygdale encode les expériences émotionnelles intenses comme des "scénarios à répéter". <strong>Ces mémoires se stockent dans le corps</strong> — tensions musculaires, postures, douleurs chroniques — et rejouent jusqu'à intégration consciente.</div></div>
+        <div class="sci-c reveal"><div class="sci-c-icon">⚡</div><div class="sci-c-title">Le champ bioélectrique</div><div class="sci-c-body">Chaque cellule vibre à une fréquence mesurable. <strong>Les émotions non intégrées créent des zones de cohérence basse</strong> dans le champ bioélectrique du corps.</div></div>
+        <div class="sci-c reveal"><div class="sci-c-icon">🌀</div><div class="sci-c-title">Le cycle amplifie les mémoires</div><div class="sci-c-body">En phases lutéale et menstruelle, le voile entre conscient et inconscient s'amincit hormonalement. <strong>Les symptômes cycliques sont souvent des mémoires somatiques qui s'activent</strong> quand la vigilance du mental se relâche.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Explorer les schémas répétitifs, le corps, les mémoires de lignée et les liens invisibles entre ressenti, histoire familiale et évolution intérieure.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="parcours.html">Mémoires</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="vibration.html">Fréquence</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Approfondir</h4>
+          <a href="journal.html">Journal</a>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Accueil</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="#quiz">Quiz du corps</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · schema-repetitif-genetique.fr</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Livre</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const burger = document.getElementById('burger');
+      const mobile = document.getElementById('nav-mobile');
+      burger.classList.toggle('open');
+      mobile.classList.toggle('open');
+    }
+
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    if (window.innerWidth > 900) {
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        if (cur) {
+          cur.style.left = mx + 'px';
+          cur.style.top = my + 'px';
+        }
+      });
+
+      (function animateCursor(){
+        rx += (mx - rx) * .12;
+        ry += (my - ry) * .12;
+        if (ring) {
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+        }
+        requestAnimationFrame(animateCursor);
+      })();
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.1});
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    const SYMPS = [
+      {
+        id:'migraine',cat:'tete',icon:'🧠',tag:'Tête & Mental',name:'Migraines & Maux de tête récurrents',
+        teaser:'Le mental qui compresse ce qui ne peut pas se dire.',
+        corps:'Le cerveau déclenche des vasoconstrictions et vasodilatations intenses. Les migraines touchent plus souvent les femmes. <strong>Mais derrière la physiologie : une surcharge de traitement.</strong> Quand le mental doit tout contrôler, tout prévoir, tout retenir — la pression finit par exploser de l’intérieur.',
+        energie:'Les maux de tête chroniques correspondent souvent à une fréquence de contrôle et d’anxiété. Le champ bioélectrique de la tête est surchargé. L’énergie monte mais ne trouve pas de sortie vers le bas.',
+        adn:'<strong>Les secrets de famille, les non-dits qui “pèsent sur la tête”, les charges mentales transmises</strong> peuvent s’inscrire corporellement.',
+        cycle:'Les migraines autour des règles sont liées à la chute hormonale. Mais elles signalent aussi : qu’est-ce qui n’a pas pu être dit ou lâché ce mois-ci ?',
+        question:'Qu’est-ce que tu portes dans ta tête que tu n’as pas encore pu poser ?',
+        pratique:'3 expirations longues, bouche ouverte, comme si tu posais un fardeau invisible. Autorise-toi à ne rien contrôler pendant quelques minutes.'
+      },
+      {
+        id:'insomnie',cat:'tete',icon:'🌙',tag:'Tête & Mental',name:'Insomnie & Sommeil agité',
+        teaser:'La vigilance qui ne sait pas qu’il est temps de dormir.',
+        corps:'Le système nerveux reste en mode alerte même quand le corps est allongé. <strong>Biologiquement, c’est un système nerveux qui a appris que la nuit est dangereuse</strong> — ou que s’endormir, c’est perdre le contrôle.',
+        energie:'L’insomnie chronique vibre dans la fréquence de la peur et de la survie. Le corps dit “danger” alors que le danger réel est passé.',
+        adn:'<strong>Des générations qui ont survécu en restant vigilantes la nuit</strong> ont encodé cette vigilance comme une compétence de survie.',
+        cycle:'En phase prémenstruelle, le sommeil est naturellement plus fragile. Si l’insomnie s’intensifie : quelles peurs cherchent à remonter ?',
+        question:'Qu’est-ce que tu surveilles même en dormant ?',
+        pratique:'Main sur le ventre, main sur le cœur : “Le danger est passé. Cette nuit, je peux lâcher la garde.”'
+      },
+      {
+        id:'gorge',cat:'gorge',icon:'🗣️',tag:'Gorge & Voix',name:'Nœud dans la gorge & Aphonie récurrente',
+        teaser:'La parole retenue — la tienne ou celle de ta lignée.',
+        corps:'La gorge concentre expression, souffle et retenue. <strong>Tension chronique = système nerveux en mode “je retiens”.</strong>',
+        energie:'La gorge parle du droit à la vérité et à l’expression. Quand cette fréquence est bloquée, l’énergie s’accumule ailleurs.',
+        adn:'<strong>Les familles où l’on ne parlait pas, où se taire était une condition de survie</strong>, transmettent une mémoire corporelle du silence.',
+        cycle:'En phase de retrait, la gorge peut se contracter davantage. Si cela revient souvent : qu’est-ce qui cherche à être dit ?',
+        question:'Quelle vérité n’as-tu pas encore dite ?',
+        pratique:'Humme doucement 2 minutes puis dis à voix haute : “Ma voix compte.”'
+      },
+      {
+        id:'thyroide',cat:'gorge',icon:'⚙️',tag:'Gorge & Voix',name:'Dérèglements de la thyroïde',
+        teaser:'Le rythme de vie forcé — trop vite ou trop lent.',
+        corps:'La thyroïde régule le rythme du corps. <strong>Hyper = tout va trop vite. Hypo = le corps ralentit pour survivre.</strong>',
+        energie:'La question énergétique est : “Ai-je le droit d’exister à mon propre rythme ?”',
+        adn:'<strong>Des lignées entières ont vécu sous pression constante</strong> ou dans l’épuisement du sacrifice.',
+        cycle:'Le système thyroïdien est sensible aux variations hormonales et à la saturation émotionnelle.',
+        question:'Vis-tu à ton rythme — ou à celui attendu par les autres ?',
+        pratique:'Chaque matin, demande à ton corps : “À quel rythme as-tu envie d’aller aujourd’hui ?”'
+      },
+      {
+        id:'coeur',cat:'coeur',icon:'🫀',tag:'Cœur & Liens',name:'Douleurs thoraciques & Essoufflement sans cause',
+        teaser:'Le chagrin qui n’a pas encore eu le droit d’être pleuré.',
+        corps:'Les douleurs thoraciques fonctionnelles impliquent souvent la rétention émotionnelle. <strong>Retenir ses larmes contracte littéralement le diaphragme.</strong>',
+        energie:'Le cœur est l’antenne principale du corps. <strong>Un cœur qui porte un chagrin non exprimé</strong> envoie un signal dans tout le champ.',
+        adn:'<strong>Les deuils non faits dans la lignée</strong> s’inscrivent dans la mémoire corporelle.',
+        cycle:'En phase de retrait, le cœur est particulièrement perméable. Ce qui cherche à être pleuré revient souvent.',
+        question:'Y a-t-il un deuil que toi ou ta famille n’avez jamais vraiment traversé ?',
+        pratique:'Pose la main sur ton cœur. Dis : “Je t’entends. Tu peux te montrer.”'
+      },
+      {
+        id:'digestif',cat:'ventre',icon:'🌀',tag:'Ventre & Émotions',name:'Troubles digestifs chroniques',
+        teaser:'Ce qu’on n’a pas pu digérer — au sens littéral et émotionnel.',
+        corps:'L’intestin est un deuxième cerveau. <strong>Les troubles digestifs fonctionnels</strong> expriment souvent une surcharge émotionnelle.',
+        energie:'Le ventre garde la trace de ce qu’on a avalé sans pouvoir le transformer.',
+        adn:'<strong>Le microbiome, le stress, les habitudes émotionnelles familiales</strong> se transmettent en partie.',
+        cycle:'Avant et pendant les règles, le digestif réagit davantage. Le corps évacue à plusieurs niveaux.',
+        question:'Qu’as-tu avalé sans pouvoir le dire, le refuser ou le transformer ?',
+        pratique:'Après manger, 5 minutes de respiration abdominale sans téléphone ni écran.'
+      },
+      {
+        id:'pelvien',cat:'cycle',icon:'🌸',tag:'Cycle féminin',name:'Douleurs pelviennes & Endométriose',
+        teaser:'La féminité blessée — personnelle et ancestrale.',
+        corps:'L’endométriose associe douleur, inflammation et impact hormonal. <strong>Le bassin devient le lieu d’une mémoire profonde.</strong>',
+        energie:'Le bassin est le siège de la puissance créatrice féminine — et de ses blessures.',
+        adn:'<strong>Les mémoires de violence faite aux femmes</strong> peuvent se rejouer dans les organes reproducteurs sous d’autres formes.',
+        cycle:'C’est une maladie du cycle. Les douleurs culminent au moment où le corps demande écoute et retrait.',
+        question:'Quelle blessure liée à ta féminité n’a pas encore été entendue ?',
+        pratique:'Mains sur le bas-ventre. Envoie une chaleur douce et dis : “Je t’entends.”'
+      },
+      {
+        id:'lombaires',cat:'dos',icon:'🦴',tag:'Dos & Charge',name:'Douleurs lombaires chroniques',
+        teaser:'La charge portée — pour soi et pour la famille.',
+        corps:'Le bas du dos soutient tout le poids du corps. <strong>Douleurs lombaires = “je porte trop” ou “je ne me sens pas soutenue”.</strong>',
+        energie:'Le bas du dos parle du soutien, de la sécurité et de la survie matérielle.',
+        adn:'<strong>Des générations qui ont dû tenir, travailler, porter sans aide</strong> laissent une mémoire de charge.',
+        cycle:'En phase de saturation, les lombaires rappellent qu’il faut poser la charge.',
+        question:'Pour qui ou quoi portes-tu encore un poids qui n’est pas vraiment le tien ?',
+        pratique:'Allonge-toi, genoux pliés, et laisse le sol te soutenir quelques minutes.'
+      },
+      {
+        id:'cervicales',cat:'dos',icon:'🎯',tag:'Dos & Charge',name:'Tensions cervicales & Nuque bloquée',
+        teaser:'Le poids de ce qu’on doit voir, prévoir, contrôler.',
+        corps:'Les cervicales soutiennent la tête. <strong>La nuque bloquée parle souvent d’hyper-vigilance.</strong>',
+        energie:'La nuque est la frontière entre le mental et le ressenti. Quand elle se bloque, la circulation intérieure se fige.',
+        adn:'<strong>“Tiens-toi droite”, “avance”, “ne te retourne pas”</strong> deviennent parfois des postures transgénérationnelles.',
+        cycle:'Les tensions augmentent souvent quand le mental ne lâche rien.',
+        question:'À quoi restes-tu en train de te préparer en permanence ?',
+        pratique:'Laisse très lentement la tête tomber vers l’avant puis de côté, sans forcer.'
+      },
+      {
+        id:'peau',cat:'peau',icon:'🛡️',tag:'Peau & Frontières',name:'Eczéma, Psoriasis & Problèmes de peau',
+        teaser:'Les frontières — ce qui cherche à sortir ou à se protéger.',
+        corps:'La peau est la frontière entre toi et le monde. <strong>Quand une limite n’est pas dite, elle peut se marquer sur la peau.</strong>',
+        energie:'Les problèmes de peau parlent souvent de la protection, de l’irritation ou de l’invasion.',
+        adn:'<strong>Les générations qui n’ont pas pu se protéger</strong> transmettent parfois une mémoire de peau hypersensible.',
+        cycle:'Les poussées augmentent souvent quand les émotions refoulées cherchent une sortie.',
+        question:'Qu’est-ce qui t’irrite profondément sans que tu puisses encore le nommer ?',
+        pratique:'Au moment d’appliquer une crème : “Je te protège. J’ai le droit d’avoir des limites.”'
+      },
+      {
+        id:'fatigue',cat:'energie',icon:'⚡',tag:'Épuisement',name:'Fatigue chronique & Épuisement',
+        teaser:'Le sacrifice encodé — survivre en donnant tout.',
+        corps:'Le corps a fonctionné trop longtemps en mode urgence. <strong>Il coupe le chauffage pour survivre.</strong>',
+        energie:'L’épuisement profond n’est pas de la paresse. C’est un système de survie qui s’est vidé.',
+        adn:'<strong>Des lignées entières ont survécu par le travail constant et le sacrifice</strong>.',
+        cycle:'Si le retrait naturel du cycle n’est jamais respecté, la fatigue finit par devenir chronique.',
+        question:'Crois-tu vraiment que tu as le droit de te reposer sans l’avoir “mérité” ?',
+        pratique:'10 minutes de non-faire complet. Sans but. Sans utilité.'
+      },
+      {
+        id:'fibro',cat:'energie',icon:'🌊',tag:'Épuisement',name:'Fibromyalgie & Douleurs diffuses',
+        teaser:'Le trauma dans tout le corps — quand la souffrance n’a pas de localisation.',
+        corps:'Le système nerveux central amplifie les signaux. <strong>Le corps reste en état d’alerte global.</strong>',
+        energie:'La douleur diffuse parle d’une souffrance qui n’a pas encore trouvé de lieu, ni de mots.',
+        adn:'<strong>Les traumas non intégrés, diffus, sans récit clair</strong> peuvent se manifester comme une douleur elle-même diffuse.',
+        cycle:'Les poussées s’intensifient souvent quand les mémoires remontent davantage.',
+        question:'Y a-t-il dans ta famille une souffrance présente mais jamais vraiment nommée ?',
+        pratique:'Pose la main sur l’endroit le plus douloureux et dis : “Tu n’as pas à crier pour être entendu.”'
+      }
+    ];
+
+    function buildGrid(filter){
+      const grid = document.getElementById('symp-grid');
+      grid.innerHTML = '';
+      const show = filter === 'all' ? SYMPS : SYMPS.filter(s => s.cat === filter);
+
+      show.forEach(s => {
+        const card = document.createElement('div');
+        card.className = 'symp-card reveal';
+        card.id = 'sc-' + s.id;
+        card.innerHTML = `
+          <div class="symp-card-top" onclick="toggleCard('${s.id}')">
+            <span class="symp-icon">${s.icon}</span>
+            <div class="symp-head">
+              <div class="symp-tag">${s.tag}</div>
+              <div class="symp-name">${s.name}</div>
+              <div class="symp-teaser">${s.teaser}</div>
+            </div>
+          </div>
+          <div class="symp-body" id="sb-${s.id}">
+            <div class="symp-dim corps"><div class="symp-dim-label">Corps physique</div><p>${s.corps}</p></div>
+            <div class="symp-dim energie"><div class="symp-dim-label">Énergie & Fréquence</div><p>${s.energie}</p></div>
+            <div class="symp-dim adn"><div class="symp-dim-label">ADN & Mémoire de lignée</div><p>${s.adn}</p></div>
+            <div class="symp-dim cycle"><div class="symp-dim-label">Lien avec le cycle féminin</div><p>${s.cycle}</p></div>
+            <div class="symp-question">✦ Explorer — ${s.question}</div>
+            <div class="symp-pratique"><div class="symp-pratique-lbl">Pratique pour aujourd'hui</div><p>${s.pratique}</p></div>
+          </div>
+          <div class="symp-arrow">▼</div>
+        `;
+        grid.appendChild(card);
+        obs.observe(card);
+      });
+    }
+
+    function toggleCard(id){
+      const card = document.getElementById('sc-' + id);
+      const body = document.getElementById('sb-' + id);
+      const wasOpen = card.classList.contains('open');
+
+      document.querySelectorAll('.symp-card').forEach(c => c.classList.remove('open'));
+
+      if(!wasOpen){
+        card.classList.add('open');
+        card.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }
+    }
+
+    function filterSymp(f,el){
+      document.querySelectorAll('.filter').forEach(x => x.classList.remove('on'));
+      el.classList.add('on');
+      buildGrid(f);
+    }
+
+    buildGrid('all');
+
+    const QZS = [
+      {t:'Quand tu penses à ton corps en ce moment, la première image qui vient...',hint:'Ne réfléchis pas — laisse l’image venir.',o:[
+        'Un corps épuisé qui a trop porté, trop longtemps',
+        'Un corps tendu, qui surveille, qui retient',
+        'Un corps qui crie quelque chose que je n’arrive pas à entendre',
+        'Un corps qui veut se reposer mais ne sait plus comment'
+      ],s:['S','C','M','E']},
+      {t:'Le symptôme ou la sensation que tu vis le plus souvent...',hint:'',o:[
+        'Fatigue profonde, douleurs diffuses, sentiment de vide physique',
+        'Tensions, douleurs localisées — dos, nuque, gorge, mâchoire',
+        'Troubles digestifs, ballonnements, ventre noué',
+        'Maux de tête, insomnies, mental qui ne s’arrête pas'
+      ],s:['E','C','M','S']},
+      {t:'Quand tes symptômes s’aggravent, c’est souvent...',hint:'Remarque le contexte qui déclenche.',o:[
+        'Avant ou pendant mes règles',
+        'Quand je me sens incomprise ou non soutenue',
+        'Quand j’en fais trop, quand je ne m’arrête pas',
+        'Quand je dois dire quelque chose et que je ne le dis pas'
+      ],s:['M','E','S','C']},
+      {t:'Si ton corps pouvait parler, il dirait probablement...',hint:'',o:[
+        '“J’ai besoin qu’on s’arrête. Pour de vrai.”',
+        '“J’ai besoin d’être entendu avant d’exploser.”',
+        '“J’ai besoin de lâcher ce que je porte pour les autres.”',
+        '“J’ai besoin de dire ce que je tais depuis trop longtemps.”'
+      ],s:['E','M','S','C']},
+      {t:'Dans ta famille, les maladies ou la souffrance physique...',hint:'Laisse monter la première pensée.',o:[
+        'On n’en parlait pas — on tenait et on avançait',
+        'Elles étaient liées à l’épuisement — trop de travail, trop de sacrifice',
+        'Il y avait des douleurs mystérieuses ou sans explication',
+        'Les femmes souffraient souvent dans leur corps à certaines périodes'
+      ],s:['C','S','E','M']},
+      {t:'Ta relation à ton propre corps ressemble à...',hint:'',o:[
+        'Un inconnu dont j’ai du mal à comprendre le langage',
+        'Quelqu’un que j’essaie d’écouter mais qui s’exprime de façon trop intense',
+        'Un corps que j’ai appris à forcer, à dépasser, à ne pas écouter',
+        'Un corps très différent selon les phases du cycle'
+      ],s:['E','M','S','C']},
+      {t:'Ce que tu n’as jamais vraiment dit...',hint:'Laisse venir ce qui veut venir.',o:[
+        'Je suis épuisée de tenir. Je veux poser la charge.',
+        'Je souffre plus que ce que je montre.',
+        'J’ai peur de m’écouter vraiment.',
+        'Mon corps porte quelque chose de plus grand que moi.'
+      ],s:['S','E','C','M']},
+      {t:'Quelle phrase te touche le plus en ce moment ?',hint:'',o:[
+        '“Ce que ton corps porte, il peut aussi le libérer.”',
+        '“Tes douleurs ne sont pas des ennemies — ce sont des messagères.”',
+        '“Tu n’es pas obligée de tout porter seule.”',
+        '“Ce qui ne peut pas se dire peut s’apprendre à s’exprimer autrement.”'
+      ],s:['E','M','S','C']}
+    ];
+
+    const QRD = {
+      S:{icon:'🔥',title:'Le Corps qui Porte',sub:'La charge transgénérationnelle dans la chair',
+        who:'Ton corps porte une charge plus grande que ta seule vie. Quelque chose dans ton histoire familiale a appris que tenir coûte que coûte, donner sans compter, avancer sans s’arrêter était la condition pour être aimé(e) ou mériter sa place.',
+        corps:'Tes symptômes parlent d’un système nerveux en surrégime depuis trop longtemps. Le corps ne sait plus comment se déposer vraiment.',
+        adn:'<strong>Des générations de sacrifice et de don sans retour</strong> laissent une empreinte intérieure. Les programmes qui ont protégé la lignée à une époque t’épuisent aujourd’hui.',
+        pratique:'Commence par nommer la charge. Puis demande à ton corps ce dont il a besoin maintenant — et offre-lui au moins cela.',
+        message:'“Tu n’es pas censée tout porter. La lignée n’a pas besoin de ton sacrifice — elle a besoin de ta libération.”'
+      },
+      C:{icon:'🗣️',title:'Le Corps qui Retient',sub:'La tension de ce qui cherche à s’exprimer',
+        who:'Ton corps tient quelque chose. Une vérité non dite, une émotion comprimée, une frontière pas encore posée. Dire sa vérité a parfois coûté cher dans une histoire familiale.',
+        corps:'Les tensions localisées — gorge, nuque, mâchoire, dos — sont souvent les endroits où le corps retient ce que la parole n’a pas encore pu exprimer.',
+        adn:'<strong>Le silence comme protection familiale</strong> crée une mémoire de rétention. Tes muscles ont appris à retenir ce que ta bouche ne pouvait pas dire.',
+        pratique:'Choisis une vérité petite et sûre. D’abord dis-la à toi-même, à voix haute.',
+        message:'“Ce que tu retiens te coûte plus que ce que tu crois.”'
+      },
+      M:{icon:'🌀',title:'Le Corps qui Crie',sub:'L’intensité des mémoires qui cherchent une sortie',
+        who:'Ton corps parle fort. Les symptômes sont intenses, parfois déroutants. Ce n’est pas ton corps qui t’attaque — c’est ton corps qui estime que quelque chose est urgent.',
+        corps:'Le système nerveux amplifie les signaux. Douleurs, sensations, émotions — tout devient plus fort.',
+        adn:'<strong>Les traumas non intégrés</strong> se manifestent parfois comme une intensité qui déborde chez les descendants.',
+        pratique:'Pose la main sur l’endroit qui crie le plus fort et demande : “Qu’essaies-tu de me dire ?”',
+        message:'“Ton corps ne crie pas pour te détruire. Il crie parce qu’il a attendu trop longtemps d’être entendu.”'
+      },
+      E:{icon:'🌊',title:'Le Corps Cyclique',sub:'Les mémoires qui s’activent avec le cycle',
+        who:'Ton corps parle le langage du rythme. Certains symptômes reviennent de façon cyclique. Ce n’est pas de l’instabilité. C’est une intelligence intérieure.',
+        corps:'Les variations hormonales modifient la sensibilité, le système nerveux et la perception de la douleur.',
+        adn:'<strong>Les mémoires transgénérationnelles s’activent plus facilement</strong> quand le voile entre conscient et inconscient s’amincit.',
+        pratique:'Cartographie ton cycle sur 2 ou 3 mois : énergie, émotions, symptômes, ce qui remonte.',
+        message:'“Ton cycle n’est pas ta malédiction. C’est ton compas intérieur.”'
+      }
+    };
+
+    let cQ = 0, sc = {S:0,C:0,M:0,E:0}, ans = [];
+
+    function renderQ(){
+      const q = QZS[cQ];
+      document.getElementById('q-num').textContent = `Question ${cQ+1} / ${QZS.length}`;
+      document.getElementById('q-text').textContent = q.t;
+      document.getElementById('q-hint').textContent = q.hint || '';
+      document.getElementById('q-hint').style.display = q.hint ? 'block' : 'none';
+      document.getElementById('prog').style.width = `${cQ/QZS.length*100}%`;
+
+      const el = document.getElementById('opts');
+      el.innerHTML = '';
+
+      ['A','B','C','D'].forEach((l,i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt' + (ans[cQ]===i ? ' sel' : '');
+        b.innerHTML = `<span class="opt-k">${l}</span>${q.o[i]}`;
+        b.onclick = () => {
+          document.querySelectorAll('.opt').forEach(x => x.classList.remove('sel'));
+          b.classList.add('sel');
+          ans[cQ] = i;
+          document.getElementById('btn-next').disabled = false;
+        };
+        el.appendChild(b);
+      });
+
+      document.getElementById('btn-next').disabled = ans[cQ]===undefined;
+      document.getElementById('btn-back').style.visibility = cQ===0 ? 'hidden' : 'visible';
+      document.getElementById('btn-next').textContent = cQ===QZS.length-1 ? 'Révéler ce que mon corps porte ✦' : 'Continuer →';
+    }
+
+    function nextQ(){
+      if(ans[cQ]===undefined) return;
+      sc[QZS[cQ].s[ans[cQ]]]++;
+      if(cQ<QZS.length-1){
+        cQ++;
+        renderQ();
+      }else{
+        showQRes();
+      }
+    }
+
+    function prevQ(){
+      if(cQ>0){
+        sc[QZS[cQ-1].s[ans[cQ-1]]]--;
+        cQ--;
+        renderQ();
+      }
+    }
+
+    function showQRes(){
+      document.getElementById('prog').style.width='100%';
+      const top = Object.entries(sc).sort((a,b)=>b[1]-a[1])[0][0];
+      const r = QRD[top];
+      document.getElementById('q-wrap').style.display='none';
+      const res = document.getElementById('q-res');
+      res.style.display='block';
+      res.innerHTML = `
+        <div class="qr-hero">
+          <div class="qr-badge">✦ Ce que ton corps porte</div>
+          <div class="qr-icon">${r.icon}</div>
+          <div class="qr-title">${r.title}</div>
+          <div class="qr-sub">${r.sub}</div>
+        </div>
+        <div class="qr-block warm">
+          <div class="qr-lbl rose">Ce qui se joue en toi</div>
+          <p>${r.who}</p>
+        </div>
+        <div class="qr-block dark">
+          <div class="qr-lbl white">🧬 Corps & ADN</div>
+          <p>${r.corps}</p>
+          <p>${r.adn}</p>
+        </div>
+        <div class="qr-block green">
+          <div class="qr-lbl teal">✦ Pour commencer à écouter</div>
+          <p>${r.pratique}</p>
+        </div>
+        <div class="qr-message">${r.message}</div>
+        <div class="qr-actions">
+          <a href="parcours.html" class="qr-btn p">
+            <span class="qr-btn-icon">🧬</span>
+            <div><span class="qr-btn-t">Explorer mes mémoires</span><span class="qr-btn-s">Comprendre d’où vient ce que le corps porte</span></div>
+          </a>
+          <a href="cycle.html" class="qr-btn g">
+            <span class="qr-btn-icon">🌙</span>
+            <div><span class="qr-btn-t">Mon cycle</span><span class="qr-btn-s">Voir le lien avec le rythme et les phases</span></div>
+          </a>
+          <a href="genosociogramme.html" class="qr-btn g">
+            <span class="qr-btn-icon">🌳</span>
+            <div><span class="qr-btn-t">Génosociogramme</span><span class="qr-btn-s">Explorer les répétitions familiales</span></div>
+          </a>
+          <a href="journal.html" class="qr-btn g">
+            <span class="qr-btn-icon">✍️</span>
+            <div><span class="qr-btn-t">Journal</span><span class="qr-btn-s">Noter ce que le corps te révèle</span></div>
+          </a>
+        </div>
+        <div class="result-tools">
+          <button class="tool-btn" onclick="window.print()">🖨 Imprimer mon résultat</button>
+        </div>
+        <button class="restart-q" onclick="restartQ()">↺ Recommencer</button>
+      `;
+      res.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function restartQ(){
+      cQ = 0;
+      sc = {S:0,C:0,M:0,E:0};
+      ans = [];
+      document.getElementById('q-res').style.display='none';
+      document.getElementById('q-wrap').style.display='block';
+      renderQ();
+    }
+
+    renderQ();
+  </script>
+</body>
+</html>

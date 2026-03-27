@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ma Famille · 4 générations | Laura Charron</title>
+
+  <meta name="description" content="Explore ta famille sur 4 générations, note les événements marquants, détecte les répétitions et prépare ton génosociogramme.">
+  <meta name="keywords" content="famille 4 générations, arbre familial, transgénérationnel, répétitions familiales, génosociogramme">
+  <meta property="og:title" content="Ma Famille · 4 générations | Laura Charron">
+  <meta property="og:description" content="Une page pour noter les membres de ta lignée, leurs événements et faire apparaître les répétitions familiales.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c:#FDF5EC;--c2:#F6E8D8;--rose:#E8967F;--rose2:#C96B52;
+      --orange:#F0A05A;--orange2:#D97D2E;--gold:#F5C842;
+      --teal:#5DCAA5;--purple:#9B89D4;--ink:#2A1A10;--ink2:#5C3D2C;
+      --soft:#9A7060;--white:#FFFAF4;
+      --rp:#F0A05A;--rm:#E8967F;--ra:#E8A800;--rn:#5DCAA5;--rg:#C96B52;--re:#9B89D4;
+    }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--c);
+      color:var(--ink);
+      min-height:100vh;
+      cursor:none;
+      overflow-x:hidden;
+      padding-top:124px;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    .cursor{
+      position:fixed;
+      width:10px;height:10px;
+      background:var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:multiply;
+    }
+    .cursor-ring{
+      position:fixed;
+      width:34px;height:34px;
+      border:1.5px solid var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9998;
+      transform:translate(-50%,-50%);
+      opacity:.5;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;left:0;right:0;
+      z-index:1000;
+      height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.2rem;
+      padding:0 2rem;
+      background:rgba(253,245,236,.96);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.15);
+    }
+    .nav-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.05rem;
+      color:var(--ink);
+      text-decoration:none;
+      font-weight:700;
+      flex-shrink:0;
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav-links a{
+      font-size:.82rem;
+      color:var(--ink2);
+      text-decoration:none;
+      transition:color .18s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--rose2);
+    }
+    .nav-book{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      padding:.45rem .85rem;
+      border-radius:100px;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white !important;
+      font-weight:500;
+    }
+
+    .nav-burger{
+      display:none;
+      width:44px;
+      height:44px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+      flex-shrink:0;
+    }
+    .nav-burger span{
+      width:22px;
+      height:2px;
+      background:var(--ink);
+      border-radius:10px;
+      transition:.25s ease;
+    }
+    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    .nav-mobile{
+      position:fixed;
+      top:68px;
+      left:0;
+      right:0;
+      background:rgba(255,250,244,.98);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+      display:none;
+      flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;
+      z-index:999;
+    }
+    .nav-mobile.open{display:flex;}
+    .nav-mobile a{
+      color:var(--ink2);
+      padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);
+      font-size:.95rem;
+      text-decoration:none;
+    }
+    .nav-mobile a:last-child{border-bottom:none;}
+
+    /* TOP TOOLS BAR */
+    .topbar{
+      position:fixed;
+      top:68px;
+      left:0;
+      right:0;
+      z-index:200;
+      background:rgba(253,245,236,.97);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.14);
+      padding:.75rem 1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+    .topbar-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.92rem;
+      color:var(--ink);
+      text-decoration:none;
+    }
+    .topbar-nav{
+      display:flex;
+      gap:.5rem;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .topbar-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      border:1px solid rgba(232,150,127,.22);
+      border-radius:100px;
+      padding:.36rem .8rem;
+      font-size:.72rem;
+      color:var(--ink2);
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      text-decoration:none;
+      transition:all .15s;
+      background:transparent;
+    }
+    .topbar-btn:hover{
+      border-color:var(--rose);
+      color:var(--rose2);
+    }
+    .topbar-btn.primary{
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      border:none;
+      color:white;
+      font-weight:500;
+    }
+
+    /* PAGE */
+    .page{
+      max-width:900px;
+      margin:0 auto;
+      padding:2rem 1.5rem 4.5rem;
+    }
+
+    .eyebrow{
+      font-size:.65rem;
+      letter-spacing:.27em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.9rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.42rem;
+    }
+    .eyebrow::before{content:'✦';font-size:.55rem;}
+
+    .page-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.9rem,5vw,3rem);
+      font-weight:900;
+      line-height:1.1;
+      letter-spacing:-.02em;
+      margin-bottom:.7rem;
+    }
+    .page-title em{font-style:italic;color:var(--rose2);}
+    .page-sub{
+      font-size:.93rem;
+      color:var(--ink2);
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:2rem;
+      max-width:650px;
+    }
+
+    /* GENERATION BLOCKS */
+    .gen-section{margin-bottom:1.5rem;}
+    .gen-header{
+      display:flex;
+      align-items:center;
+      gap:.9rem;
+      padding:1rem 1.3rem;
+      background:var(--white);
+      border:1.5px solid rgba(232,150,127,.15);
+      border-radius:18px;
+      cursor:pointer;
+      transition:all .2s;
+      user-select:none;
+    }
+    .gen-header:hover{
+      border-color:var(--rose);
+      background:linear-gradient(135deg,#FFFAF5,#FFF3EC);
+    }
+    .gen-header.open{
+      border-color:var(--rose2);
+      border-radius:18px 18px 0 0;
+      background:linear-gradient(135deg,#FFF5EE,#FFEEE4);
+    }
+    .gen-avatar{
+      width:40px;height:40px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.15rem;
+      flex-shrink:0;
+    }
+    .gen-info{flex:1;}
+    .gen-label{
+      font-size:.62rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--soft);
+      margin-bottom:.15rem;
+    }
+    .gen-title{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--ink);
+    }
+    .gen-preview{
+      font-size:.74rem;
+      color:var(--soft);
+      margin-top:.12rem;
+      font-weight:300;
+    }
+    .gen-arrow{
+      font-size:.75rem;
+      color:var(--soft);
+      transition:transform .22s;
+      flex-shrink:0;
+    }
+    .gen-header.open .gen-arrow{transform:rotate(90deg);}
+    .gen-body{
+      display:none;
+      background:var(--white);
+      border:1.5px solid var(--rose2);
+      border-top:none;
+      border-radius:0 0 18px 18px;
+      padding:1.4rem 1.3rem 1.6rem;
+    }
+    .gen-body.open{
+      display:block;
+      animation:fadeDown .25s ease;
+    }
+    @keyframes fadeDown{
+      from{opacity:0;transform:translateY(-6px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    /* FORMS */
+    .pgrid2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem 1.2rem;}
+    .pgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;}
+    .fld label{
+      display:block;
+      font-size:.62rem;
+      letter-spacing:.11em;
+      color:var(--soft);
+      margin-bottom:.18rem;
+      text-transform:uppercase;
+    }
+    .fld input,.fld select,.fld textarea{
+      width:100%;
+      background:var(--c);
+      border:1px solid rgba(232,150,127,.18);
+      border-radius:8px;
+      padding:.42rem .65rem;
+      font-family:'DM Sans',sans-serif;
+      font-size:.82rem;
+      color:var(--ink);
+      outline:none;
+      transition:border-color .18s;
+    }
+    .fld input:focus,.fld select:focus,.fld textarea:focus{
+      border-color:var(--rose);
+      background:var(--white);
+    }
+    .fld input::placeholder,.fld textarea::placeholder{
+      color:rgba(154,112,96,.3);
+    }
+    .section-label{
+      font-size:.62rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--soft);
+      margin:.9rem 0 .45rem;
+      display:block;
+    }
+
+    /* EVENT CARD */
+    .ev-card{
+      background:var(--c);
+      border:1px solid rgba(232,150,127,.14);
+      border-radius:11px;
+      padding:.65rem .8rem;
+      position:relative;
+      margin-bottom:.42rem;
+    }
+    .ev-card-grid{
+      display:grid;
+      grid-template-columns:1fr 60px 78px 1fr 90px;
+      gap:.32rem;
+      align-items:end;
+    }
+    .ev-del{
+      position:absolute;
+      top:.28rem;
+      right:.38rem;
+      background:none;
+      border:none;
+      color:rgba(154,112,96,.25);
+      cursor:pointer;
+      font-size:.73rem;
+      padding:.06rem;
+    }
+    .ev-del:hover{color:var(--rose2);}
+    .btn-add{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:transparent;
+      color:var(--rose2);
+      border:1px dashed rgba(201,107,82,.25);
+      padding:.34rem .82rem;
+      border-radius:8px;
+      font-size:.72rem;
+      cursor:pointer;
+      font-family:'DM Sans',sans-serif;
+      transition:all .14s;
+      margin-top:.3rem;
+    }
+    .btn-add:hover{background:rgba(201,107,82,.05);}
+
+    .intens-wrap{
+      display:flex;
+      gap:.25rem;
+      align-items:center;
+      height:100%;
+      padding-bottom:.15rem;
+      flex-wrap:wrap;
+    }
+    .int-dot{
+      width:14px;height:14px;
+      border-radius:50%;
+      border:1.5px solid rgba(232,150,127,.25);
+      cursor:pointer;
+      transition:all .15s;
+      flex-shrink:0;
+    }
+    .int-dot.on{border-color:transparent;}
+    .int-dot[data-lv="1"].on{background:#C96B52;}
+    .int-dot[data-lv="2"].on{background:#E8A800;}
+    .int-dot[data-lv="3"].on{background:#5DCAA5;}
+    .int-lbl{
+      font-size:.6rem;
+      color:var(--soft);
+      white-space:nowrap;
+    }
+
+    /* SIMILITUDES */
+    .sim-section{margin-top:2.5rem;}
+    .sim-header-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:.7rem;
+      margin-bottom:1rem;
+    }
+    .sim-count{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      background:linear-gradient(135deg,var(--ink),#3A1808);
+      color:white;
+      padding:.4rem .9rem;
+      border-radius:100px;
+      font-size:.75rem;
+      font-weight:500;
+    }
+    .sim-count span{color:var(--rose);}
+    .sim-cat{margin-bottom:1.2rem;}
+    .sim-cat-title{
+      font-size:.63rem;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--soft);
+      margin-bottom:.55rem;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .sim-cat-title::after{
+      content:'';
+      flex:1;
+      height:1px;
+      background:rgba(232,150,127,.15);
+    }
+    .sim-card{
+      background:var(--white);
+      border:1px solid rgba(232,150,127,.13);
+      border-radius:13px;
+      padding:.82rem 1rem;
+      margin-bottom:.45rem;
+      display:flex;
+      align-items:flex-start;
+      gap:.7rem;
+      border-left:3px solid var(--rc,#E8967F);
+    }
+    .sim-dot{
+      width:8px;height:8px;
+      border-radius:50%;
+      background:var(--rc,#E8967F);
+      flex-shrink:0;
+      margin-top:.35rem;
+    }
+    .sim-name{
+      font-size:.83rem;
+      font-weight:500;
+      color:var(--ink);
+      margin-bottom:.18rem;
+    }
+    .sim-desc{
+      font-size:.76rem;
+      color:var(--soft);
+      line-height:1.6;
+      font-weight:300;
+    }
+    .sim-piste{
+      font-size:.73rem;
+      color:var(--rose2);
+      line-height:1.5;
+      margin-top:.22rem;
+      font-style:italic;
+    }
+    .sim-empty{
+      text-align:center;
+      padding:2rem;
+      font-size:.85rem;
+      color:rgba(154,112,96,.45);
+      font-style:italic;
+    }
+
+    /* CTA */
+    .cta-bar{
+      background:linear-gradient(135deg,var(--ink),#3A1808);
+      border-radius:22px;
+      padding:1.8rem 2rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.2rem;
+      flex-wrap:wrap;
+      margin-top:2rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta-bar::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 50% 60% at 20% 50%,rgba(232,150,127,.14),transparent);
+    }
+    .cta-bar *{position:relative;z-index:1;}
+    .cta-bar h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.2rem;
+      font-weight:700;
+      color:white;
+      margin-bottom:.3rem;
+    }
+    .cta-bar p{
+      font-size:.8rem;
+      color:rgba(255,255,255,.45);
+      line-height:1.65;
+    }
+    .btn-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:.55rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:white;
+      text-decoration:none;
+      padding:.9rem 1.8rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.88rem;
+      font-weight:500;
+      white-space:nowrap;
+      box-shadow:0 8px 26px rgba(201,107,82,.32);
+      transition:transform .2s;
+    }
+    .btn-cta:hover{transform:translateY(-2px);}
+
+    .divider{
+      height:1px;
+      background:linear-gradient(to right,transparent,rgba(232,150,127,.2),transparent);
+      margin:2rem 0;
+    }
+
+    /* FOOTER GLOBAL */
+    .site-footer{
+      background:#1A0E08;
+      padding:3.5rem 3rem 2rem;
+      margin-top:2rem;
+    }
+    .footer-inner{max-width:1200px;margin:0 auto;}
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:2.5rem;
+      margin-bottom:2.5rem;
+    }
+    .footer-brand .footer-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.3rem;
+      color:white;
+      font-weight:700;
+      display:block;
+      margin-bottom:.7rem;
+      text-decoration:none;
+    }
+    .footer-brand p{
+      font-size:.8rem;
+      color:rgba(255,255,255,.38);
+      line-height:1.72;
+      font-weight:300;
+      max-width:260px;
+    }
+    .footer-book-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white;
+      padding:.55rem 1.1rem;
+      border-radius:100px;
+      font-size:.76rem;
+      font-weight:500;
+      text-decoration:none;
+      margin-top:1.1rem;
+      transition:transform .18s;
+    }
+    .footer-book-link:hover{transform:translateY(-1px);}
+    .footer-col h4{
+      font-size:.72rem;
+      font-weight:700;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:.9rem;
+    }
+    .footer-col a{
+      display:block;
+      font-size:.78rem;
+      color:rgba(255,255,255,.35);
+      text-decoration:none;
+      margin-bottom:.5rem;
+      transition:color .18s;
+      font-weight:300;
+    }
+    .footer-col a:hover{color:var(--rose);}
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding-top:1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .footer-bottom p{
+      font-size:.72rem;
+      color:rgba(255,255,255,.2);
+    }
+    .footer-bottom-links{
+      display:flex;
+      gap:1.5rem;
+    }
+    .footer-bottom-links a{
+      font-size:.72rem;
+      color:rgba(255,255,255,.25);
+      text-decoration:none;
+      transition:color .18s;
+    }
+    .footer-bottom-links a:hover{color:var(--rose);}
+
+    @media(max-width:900px){
+      body{padding-top:114px;cursor:auto;}
+      .cursor,.cursor-ring{display:none;}
+      nav{padding:0 1.2rem;height:58px;}
+      .nav-links{display:none;}
+      .nav-burger{display:flex;}
+      .nav-mobile{top:58px;}
+      .topbar{top:58px;padding:.75rem 1rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem;}
+      .footer-brand{grid-column:span 2;}
+      .site-footer{padding:2.5rem 1.5rem 1.5rem;}
+    }
+
+    @media(max-width:640px){
+      .pgrid2,.pgrid3{grid-template-columns:1fr;}
+      .ev-card-grid{grid-template-columns:1fr 1fr;}
+      .page{padding:1.5rem 1rem 4rem;}
+    }
+
+    @media(max-width:480px){
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="crng"></div>
+
+  <nav>
+    <a href="accueil.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
+      <a href="journal.html">Journal</a>
+      <a href="transgen.html">Transgénérationnel</a>
+      <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html" class="active">Ma famille</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="accueil.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
+    <a href="journal.html">📓 Journal</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
+    <a href="genosociogramme.html">🌐 Génosociogramme</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html">✉️ Contact</a>
+  </div>
+
+  <div class="topbar">
+    <a href="parcours.html" class="topbar-logo">Parcours de lignée</a>
+    <div class="topbar-nav">
+      <a href="parcours.html" class="topbar-btn">← Retour au parcours</a>
+      <a href="genosociogramme.html" class="topbar-btn">🌳 Génosociogramme</a>
+      <a href="journal.html" class="topbar-btn">✍️ Journal</a>
+      <a href="liberation.html" class="topbar-btn primary">Protocole LC →</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <span class="eyebrow">Ma lignée</span>
+    <h1 class="page-title">Ma famille sur<br><em>4 générations</em></h1>
+    <p class="page-sub">
+      Note ici tout ce que tu sais — ou pressens — sur chaque membre de ta famille.
+      Tu n'as pas besoin de tout savoir. Une intuition, un prénom, un événement entendu vaguement : ça compte.
+      <strong style="color:var(--rose2);font-weight:500">Les âges et les dates sont essentiels</strong> :
+      ils permettront de détecter les répétitions automatiquement ci-dessous.
+    </p>
+
+    <div class="gen-section">
+      <div class="gen-header open" onclick="toggleGen('g0',this)">
+        <div class="gen-avatar" style="background:linear-gradient(135deg,var(--rose),var(--orange))">👤</div>
+        <div class="gen-info">
+          <div class="gen-label">Génération 1 — Toi</div>
+          <div class="gen-title">Moi</div>
+          <div class="gen-preview" id="prev-g0">Commence ici</div>
+        </div>
+        <span class="gen-arrow">▶</span>
+      </div>
+      <div class="gen-body open" id="g0">
+        <div class="pgrid3" style="margin-bottom:.9rem">
+          <div class="fld"><label>Prénom</label><input id="p-moi-prenom" oninput="refreshAll()" placeholder="Ton prénom"></div>
+          <div class="fld"><label>Nom de famille</label><input id="p-moi-nom" oninput="refreshAll()" placeholder="Nom de naissance"></div>
+          <div class="fld"><label>Date de naissance</label><input id="p-moi-naiss" type="date" oninput="refreshAll()"></div>
+        </div>
+        <div class="pgrid2" style="margin-bottom:.9rem">
+          <div class="fld"><label>Métier / Domaine</label><input id="p-moi-metier" oninput="refreshAll()" placeholder="Ex : thérapeute, commerçante..."></div>
+          <div class="fld"><label>Ville / Pays d'origine</label><input id="p-moi-lieu" oninput="refreshAll()" placeholder="Ex : Rennes, France..."></div>
+        </div>
+        <span class="section-label">Événements marquants de ma vie</span>
+        <div id="ev-moi"></div>
+        <button class="btn-add" onclick="addEv('moi')">+ Ajouter un événement</button>
+      </div>
+    </div>
+
+    <div class="gen-section">
+      <div class="gen-header" onclick="toggleGen('g1',this)">
+        <div class="gen-avatar" style="background:linear-gradient(135deg,#E8C4B8,#D4907A)">👨‍👩</div>
+        <div class="gen-info">
+          <div class="gen-label">Génération 2 — Parents</div>
+          <div class="gen-title">Ma mère · Mon père</div>
+          <div class="gen-preview" id="prev-g1">Clique pour compléter</div>
+        </div>
+        <span class="gen-arrow">▶</span>
+      </div>
+      <div class="gen-body" id="g1">
+        <div>
+          <p style="font-size:.72rem;font-weight:600;color:var(--rose2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem">Ma mère</p>
+          <div class="pgrid3" style="margin-bottom:.8rem">
+            <div class="fld"><label>Prénom</label><input id="p-mere-prenom" oninput="refreshAll()" placeholder="Prénom"></div>
+            <div class="fld"><label>Nom de naissance</label><input id="p-mere-nom" oninput="refreshAll()" placeholder="Nom"></div>
+            <div class="fld"><label>Date de naissance</label><input id="p-mere-naiss" type="date" oninput="refreshAll()"></div>
+          </div>
+          <div class="pgrid2" style="margin-bottom:.8rem">
+            <div class="fld"><label>Métier / Domaine</label><input id="p-mere-metier" oninput="refreshAll()" placeholder="Ex : secrétaire, agricultrice..."></div>
+            <div class="fld"><label>Ville / Pays d'origine</label><input id="p-mere-lieu" oninput="refreshAll()" placeholder="Ex : Bordeaux, Algérie..."></div>
+          </div>
+          <span class="section-label">Événements marquants de sa vie</span>
+          <div id="ev-mere"></div>
+          <button class="btn-add" onclick="addEv('mere')">+ Ajouter un événement</button>
+        </div>
+
+        <div class="divider" style="margin:1.2rem 0"></div>
+
+        <div>
+          <p style="font-size:.72rem;font-weight:600;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem">Mon père</p>
+          <div class="pgrid3" style="margin-bottom:.8rem">
+            <div class="fld"><label>Prénom</label><input id="p-pere-prenom" oninput="refreshAll()" placeholder="Prénom"></div>
+            <div class="fld"><label>Nom de famille</label><input id="p-pere-nom" oninput="refreshAll()" placeholder="Nom"></div>
+            <div class="fld"><label>Date de naissance</label><input id="p-pere-naiss" type="date" oninput="refreshAll()"></div>
+          </div>
+          <div class="pgrid2" style="margin-bottom:.8rem">
+            <div class="fld"><label>Métier / Domaine</label><input id="p-pere-metier" oninput="refreshAll()" placeholder="Ex : menuisier, militaire..."></div>
+            <div class="fld"><label>Ville / Pays d'origine</label><input id="p-pere-lieu" oninput="refreshAll()" placeholder="Ex : Paris, Italie..."></div>
+          </div>
+          <span class="section-label">Événements marquants de sa vie</span>
+          <div id="ev-pere"></div>
+          <button class="btn-add" onclick="addEv('pere')">+ Ajouter un événement</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gen-section">
+      <div class="gen-header" onclick="toggleGen('g2',this)">
+        <div class="gen-avatar" style="background:linear-gradient(135deg,#C8D4E8,#8A9CC4)">👴👵</div>
+        <div class="gen-info">
+          <div class="gen-label">Génération 3 — Grands-parents</div>
+          <div class="gen-title">4 grands-parents</div>
+          <div class="gen-preview" id="prev-g2">Clique pour compléter</div>
+        </div>
+        <span class="gen-arrow">▶</span>
+      </div>
+      <div class="gen-body" id="g2">
+        <div id="gp-blocks"></div>
+      </div>
+    </div>
+
+    <div class="gen-section">
+      <div class="gen-header" onclick="toggleGen('g3',this)">
+        <div class="gen-avatar" style="background:linear-gradient(135deg,#D4C8E8,#A48CC4)">🧓</div>
+        <div class="gen-info">
+          <div class="gen-label">Génération 4 — Arrière-grands-parents</div>
+          <div class="gen-title">Jusqu'à 8 personnes</div>
+          <div class="gen-preview" id="prev-g3">Optionnel — note ce que tu sais</div>
+        </div>
+        <span class="gen-arrow">▶</span>
+      </div>
+      <div class="gen-body" id="g3">
+        <p style="font-size:.78rem;color:var(--soft);margin-bottom:1rem;font-weight:300">
+          Le prénom seul, ou un événement entendu de loin, suffit déjà à détecter des répétitions.
+        </p>
+        <div id="agp-blocks"></div>
+      </div>
+    </div>
+
+    <div class="sim-section">
+      <div class="divider"></div>
+      <div class="sim-header-row">
+        <div>
+          <span class="eyebrow" style="margin-bottom:.3rem">Analyse automatique</span>
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--ink)">
+            Les répétitions <em style="font-style:italic;color:var(--rose2)">détectées</em>
+          </h2>
+        </div>
+        <div class="sim-count">
+          <span id="sim-total">0</span> similitude(s) détectée(s)
+        </div>
+      </div>
+      <p style="font-size:.84rem;color:var(--soft);font-weight:300;line-height:1.75;margin-bottom:1.5rem">
+        Ces répétitions se construisent en temps réel au fur et à mesure que tu remplis les informations.
+        Plus tu entres de données, plus le tableau s'enrichit.
+      </p>
+      <div id="sim-content">
+        <div class="sim-empty">Commence à remplir les informations ci-dessus — les répétitions apparaissent ici automatiquement.</div>
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <div>
+        <h3>Voir ces répétitions dans l'arbre</h3>
+        <p>Ton génosociogramme utilise toutes ces données pour les visualiser en couleur, génération par génération.</p>
+      </div>
+      <a href="genosociogramme.html" class="btn-cta">🌳 Ouvrir mon génosociogramme →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="accueil.html" class="footer-logo">Laura Charron</a>
+          <p>Auteure, chercheuse et guide sur le chemin des mémoires transgénérationnelles et de la libération intérieure.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" class="footer-book-link">📗 Commander le livre</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="parcours.html">Mémoires de lignée</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="vibration.html">Ma fréquence</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="symptomes.html">Mon corps parle</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Approfondir</h4>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="arbre-famille.html">Ma famille</a>
+          <a href="journal.html">Journal</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Laura Charron</h4>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank">Ressens · Guéris · Vis</a>
+          <a href="accueil.html#about">À propos</a>
+          <a href="contact.html">Contact</a>
+          <a href="accueil.html">Retour à l'accueil</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · Tous droits réservés · <em>Ressens · Guéris · Vis</em></p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank">Commander le livre</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cur = document.getElementById('cur');
+    const crng = document.getElementById('crng');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+      if(cur){
+        cur.style.left = mx + 'px';
+        cur.style.top = my + 'px';
+      }
+    });
+
+    (function loop(){
+      rx += (mx - rx) * .12;
+      ry += (my - ry) * .12;
+      if(crng){
+        crng.style.left = rx + 'px';
+        crng.style.top = ry + 'px';
+      }
+      requestAnimationFrame(loop);
+    })();
+
+    function toggleMenu(){
+      document.getElementById('nav-mobile').classList.toggle('open');
+      document.getElementById('burger').classList.toggle('open');
+    }
+
+    function toggleGen(id, hdr){
+      const body = document.getElementById(id);
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      hdr.classList.toggle('open', !isOpen);
+    }
+
+    const GP_DEFS = [
+      {id:'gmm',lbl:'Grand-mère maternelle',col:'#E8967F'},
+      {id:'gpm',lbl:'Grand-père maternel',col:'#9B89D4'},
+      {id:'gmp',lbl:'Grand-mère paternelle',col:'#5DCAA5'},
+      {id:'gpp',lbl:'Grand-père paternel',col:'#F0A05A'}
+    ];
+
+    const AGP_DEFS = [
+      {id:'agmm1',lbl:'Arrière-GM (mère côté mère)'},
+      {id:'agmm2',lbl:'Arrière-GP (mère côté mère)'},
+      {id:'agpm1',lbl:'Arrière-GM (mère côté père)'},
+      {id:'agpm2',lbl:'Arrière-GP (mère côté père)'},
+      {id:'agmp1',lbl:'Arrière-GM (père côté mère)'},
+      {id:'agmp2',lbl:'Arrière-GP (père côté mère)'},
+      {id:'agpp1',lbl:'Arrière-GM (père côté père)'},
+      {id:'agpp2',lbl:'Arrière-GP (père côté père)'}
+    ];
+
+    const ALL_IDS = ['moi','mere','pere','gmm','gpm','gmp','gpp','agmm1','agmm2','agpm1','agpm2','agmp1','agmp2','agpp1','agpp2'];
+
+    const LBL = {
+      moi:'Moi',mere:'Mère',pere:'Père',
+      gmm:'Grand-mère mat.',gpm:'Grand-père mat.',gmp:'Grand-mère pat.',gpp:'Grand-père pat.',
+      agmm1:'Arr.-GM (mère-mat.)',agmm2:'Arr.-GP (mère-mat.)',
+      agpm1:'Arr.-GM (mère-pat.)',agpm2:'Arr.-GP (mère-pat.)',
+      agmp1:'Arr.-GM (père-mat.)',agmp2:'Arr.-GP (père-mat.)',
+      agpp1:'Arr.-GM (père-pat.)',agpp2:'Arr.-GP (père-pat.)'
+    };
+
+    const EV_TYPES = `
+      <option value="">— Type —</option>
+      <optgroup label="Relations & famille">
+        <option value="mariage">Mariage</option>
+        <option value="divorce">Divorce / Séparation</option>
+        <option value="naissance">Naissance d'un enfant</option>
+        <option value="abandon">Abandon / Rejet</option>
+        <option value="trahison">Trahison</option>
+        <option value="abus">Violence / Abus</option>
+        <option value="secret">Secret de famille</option>
+      </optgroup>
+      <optgroup label="Deuils & pertes">
+        <option value="deuil">Deuil / Perte proche</option>
+        <option value="deces-precoce">Mort prématurée</option>
+        <option value="fausse-couche">Fausse couche / Enfant perdu</option>
+      </optgroup>
+      <optgroup label="Santé">
+        <option value="maladie-grave">Maladie grave</option>
+        <option value="accident">Accident grave</option>
+        <option value="handicap">Handicap</option>
+      </optgroup>
+      <optgroup label="Argent & travail">
+        <option value="ruine">Ruine / Faillite</option>
+        <option value="pauvrete">Pauvreté extrême</option>
+        <option value="perte-travail">Perte d'emploi</option>
+        <option value="succes">Succès / Réussite</option>
+      </optgroup>
+      <optgroup label="Déracinement">
+        <option value="exil">Exil / Émigration forcée</option>
+        <option value="demenagement">Déménagement brutal</option>
+        <option value="guerre">Guerre / Violence collective</option>
+      </optgroup>
+      <optgroup label="Autre">
+        <option value="honte">Honte publique / Humiliation</option>
+        <option value="injustice">Injustice subie</option>
+        <option value="autre">Autre événement</option>
+      </optgroup>
+    `;
+
+    const EV_LBL = {
+      mariage:'Mariage',divorce:'Divorce / Séparation',naissance:"Naissance d'un enfant",
+      abandon:'Abandon / Rejet',trahison:'Trahison',abus:'Violence / Abus',secret:'Secret de famille',
+      deuil:'Deuil / Perte','deces-precoce':'Mort prématurée','fausse-couche':"Perte d'enfant",
+      'maladie-grave':'Maladie grave',accident:'Accident grave',handicap:'Handicap',
+      ruine:'Ruine / Faillite',pauvrete:'Pauvreté','perte-travail':"Perte d'emploi",
+      succes:'Réussite',exil:'Exil / Émigration',demenagement:'Déménagement brutal',
+      guerre:'Guerre',honte:'Honte / Humiliation',injustice:'Injustice',autre:'Autre'
+    };
+
+    const RC_TYPES = {
+      prenom:'#F0A05A',
+      nom:'#D97D2E',
+      metier:'#E8967F',
+      age:'#E8A800',
+      anniv:'#5DCAA5',
+      ev:'#9B89D4',
+      lieu:'#7BA7D4'
+    };
+
+    const evCounts = {};
+
+    function addEv(pid, prefill){
+      const container = document.getElementById('ev-' + pid);
+      if(!container) return;
+
+      if(!evCounts[pid]) evCounts[pid] = 0;
+      const idx = evCounts[pid]++;
+      const eid = `ev-${pid}-${idx}`;
+
+      const d = document.createElement('div');
+      d.className = 'ev-card';
+      d.id = eid;
+      d.innerHTML = `
+        <button class="ev-del" onclick="document.getElementById('${eid}').remove();refreshAll()">✕</button>
+        <div class="ev-card-grid">
+          <div class="fld">
+            <label>Événement</label>
+            <select id="${eid}-type" onchange="refreshAll()">${EV_TYPES}</select>
+          </div>
+          <div class="fld">
+            <label>Âge</label>
+            <input id="${eid}-age" type="number" min="0" max="120" placeholder="8" oninput="refreshAll()">
+          </div>
+          <div class="fld">
+            <label>Année</label>
+            <input id="${eid}-date" type="text" placeholder="1978" oninput="refreshAll()">
+          </div>
+          <div class="fld">
+            <label>Description</label>
+            <input id="${eid}-note" type="text" placeholder="Ce qui s'est passé..." oninput="refreshAll()">
+          </div>
+          <div class="fld">
+            <label>Ressenti actuel</label>
+            <div class="intens-wrap" id="${eid}-intens">
+              <span class="int-dot" data-lv="1" onclick="setIntens('${eid}',1)" title="Encore fort"></span>
+              <span class="int-dot" data-lv="2" onclick="setIntens('${eid}',2)" title="Présent"></span>
+              <span class="int-dot" data-lv="3" onclick="setIntens('${eid}',3)" title="Intégré"></span>
+              <span class="int-lbl" id="${eid}-intens-lbl">—</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(d);
+
+      if(prefill){
+        if(prefill.type) document.getElementById(eid+'-type').value = prefill.type;
+        if(prefill.age !== null && prefill.age !== undefined && prefill.age !== '') document.getElementById(eid+'-age').value = prefill.age;
+        if(prefill.date) document.getElementById(eid+'-date').value = prefill.date;
+        if(prefill.note) document.getElementById(eid+'-note').value = prefill.note;
+        if(prefill.intens) setIntens(eid, prefill.intens);
+      }
+    }
+
+    function setIntens(eid, lv){
+      const wrap = document.getElementById(eid + '-intens');
+      if(!wrap) return;
+      wrap.querySelectorAll('.int-dot').forEach(d => {
+        d.classList.toggle('on', +d.dataset.lv <= lv);
+      });
+      const lbls = {1:'Encore fort',2:'Présent',3:'Intégré'};
+      const lbl = document.getElementById(eid+'-intens-lbl');
+      if(lbl) lbl.textContent = lbls[lv] || '—';
+      wrap.dataset.val = lv;
+      refreshAll();
+    }
+
+    function buildGPBlocks(){
+      const wrap = document.getElementById('gp-blocks');
+      if(wrap.children.length) return;
+      GP_DEFS.forEach((gp,i) => {
+        const div = document.createElement('div');
+        div.style.cssText = `margin-bottom:${i<3?'1.4rem':'0'};padding-bottom:${i<3?'1.4rem':'0'};border-bottom:${i<3?'1px solid rgba(232,150,127,.1)':'none'}`;
+        div.innerHTML = `
+          <p style="font-size:.72rem;font-weight:600;color:${gp.col};letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem">${gp.lbl}</p>
+          <div class="pgrid3" style="margin-bottom:.75rem">
+            <div class="fld"><label>Prénom</label><input id="p-${gp.id}-prenom" oninput="refreshAll()" placeholder="Prénom"></div>
+            <div class="fld"><label>Nom de naissance</label><input id="p-${gp.id}-nom" oninput="refreshAll()" placeholder="Nom"></div>
+            <div class="fld"><label>Date de naissance</label><input id="p-${gp.id}-naiss" type="date" oninput="refreshAll()"></div>
+          </div>
+          <div class="pgrid2" style="margin-bottom:.75rem">
+            <div class="fld"><label>Métier / Domaine</label><input id="p-${gp.id}-metier" oninput="refreshAll()" placeholder="Ex : fermier, couturière..."></div>
+            <div class="fld"><label>Ville / Pays d'origine</label><input id="p-${gp.id}-lieu" oninput="refreshAll()" placeholder="Ex : Bretagne, Portugal..."></div>
+          </div>
+          <span class="section-label">Événements marquants</span>
+          <div id="ev-${gp.id}"></div>
+          <button class="btn-add" onclick="addEv('${gp.id}')">+ Ajouter un événement</button>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function buildAGPBlocks(){
+      const wrap = document.getElementById('agp-blocks');
+      if(wrap.children.length) return;
+      AGP_DEFS.forEach((agp,i) => {
+        const div = document.createElement('div');
+        div.style.cssText = `margin-bottom:${i<7?'1.1rem':'0'};padding-bottom:${i<7?'1.1rem':'0'};border-bottom:${i<7?'1px solid rgba(232,150,127,.08)':'none'}`;
+        div.innerHTML = `
+          <p style="font-size:.7rem;font-weight:500;color:var(--soft);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem">${agp.lbl}</p>
+          <div class="pgrid3" style="margin-bottom:.6rem">
+            <div class="fld"><label>Prénom (si connu)</label><input id="p-${agp.id}-prenom" oninput="refreshAll()" placeholder="Prénom"></div>
+            <div class="fld"><label>Métier</label><input id="p-${agp.id}-metier" oninput="refreshAll()" placeholder="Facultatif"></div>
+            <div class="fld"><label>Année de naissance approx.</label><input id="p-${agp.id}-naiss" oninput="refreshAll()" placeholder="Ex : 1890"></div>
+          </div>
+          <div id="ev-${agp.id}"></div>
+          <button class="btn-add" onclick="addEv('${agp.id}')">+ Événement</button>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    buildGPBlocks();
+    buildAGPBlocks();
+
+    function gv(id){
+      const e = document.getElementById(id);
+      return e ? e.value.trim() : '';
+    }
+
+    function getAge(pid){
+      const naiss = gv('p-'+pid+'-naiss');
+      if(!naiss) return null;
+      const dt = new Date(naiss);
+      if(isNaN(dt.getTime())) return null;
+      return new Date().getFullYear() - dt.getFullYear();
+    }
+
+    function getBirthYear(pid){
+      const naiss = gv('p-'+pid+'-naiss');
+      if(!naiss) return null;
+
+      if(/^\d{4}$/.test(naiss)) return +naiss;
+
+      const dt = new Date(naiss);
+      if(!isNaN(dt.getTime())) return dt.getFullYear();
+
+      const m = naiss.match(/\d{4}/);
+      return m ? +m[0] : null;
+    }
+
+    function getEvs(pid){
+      const container = document.getElementById('ev-' + pid);
+      if(!container) return [];
+      const evs = [];
+      container.querySelectorAll('.ev-card').forEach(card => {
+        const eid = card.id;
+        const type = gv(eid+'-type');
+        const age = gv(eid+'-age');
+        const date = gv(eid+'-date');
+        const note = gv(eid+'-note');
+        const intensEl = document.getElementById(eid+'-intens');
+        const intens = intensEl ? (+intensEl.dataset.val || 0) : 0;
+        if(type || age || date || note){
+          evs.push({
+            type,
+            age: age ? +age : null,
+            date,
+            note,
+            intens
+          });
+        }
+      });
+      return evs;
+    }
+
+    function getPerson(pid){
+      return {
+        id:pid,
+        lbl:LBL[pid] || pid,
+        prenom:gv('p-'+pid+'-prenom'),
+        nom:gv('p-'+pid+'-nom'),
+        naissYear:getBirthYear(pid),
+        metier:gv('p-'+pid+'-metier'),
+        lieu:gv('p-'+pid+'-lieu'),
+        events:getEvs(pid)
+      };
+    }
+
+    const MG = {
+      sante:['médecin','infirmier','infirmière','soignant','chirurgien','pharmacien','sage-femme','kiné','thérapeute','aide-soignant'],
+      education:['enseignant','enseignante','professeur','instituteur','éducateur','directeur école'],
+      commerce:['commerçant','vendeur','vendeuse','marchand','épicier','boulanger','boucher','caissière'],
+      agri:['agriculteur','agricultrice','fermier','fermière','paysan','vigneron','éleveur','jardinier'],
+      artisan:['artisan','menuisier','charpentier','maçon','couturier','tailleur','cordonnier'],
+      militaire:['militaire','soldat','officier','gendarme','policier','pompier'],
+      domestique:['femme de ménage','bonne','servante','domestique']
+    };
+
+    const MG_LBL = {
+      sante:'Santé / Soin',
+      education:'Éducation',
+      commerce:'Commerce',
+      agri:'Agriculture',
+      artisan:'Artisanat',
+      militaire:'Militaire / Sécurité',
+      domestique:'Service domestique'
+    };
+
+    function mGrp(m){
+      if(!m) return null;
+      const ml = m.toLowerCase();
+      for(const [g,ws] of Object.entries(MG)){
+        if(ws.some(w => ml.includes(w))) return g;
+      }
+      return ml.slice(0,6) || null;
+    }
+
+    let simTimer = null;
+
+    function refreshAll(){
+      clearTimeout(simTimer);
+      simTimer = setTimeout(() => {
+        updatePreviews();
+        detectSims();
+        saveData();
+      }, 250);
+    }
+
+    function updatePreviews(){
+      const moi = getPerson('moi');
+      document.getElementById('prev-g0').textContent = moi.prenom ? `${moi.prenom} — ${moi.events.length} événement(s)` : 'Commence ici';
+
+      const mere = getPerson('mere');
+      const pere = getPerson('pere');
+      const g1names = [mere.prenom, pere.prenom].filter(Boolean).join(' · ');
+      document.getElementById('prev-g1').textContent = g1names || 'Clique pour compléter';
+
+      const gpNames = GP_DEFS.map(g => getPerson(g.id).prenom).filter(Boolean);
+      document.getElementById('prev-g2').textContent = gpNames.length ? gpNames.join(' · ') : 'Clique pour compléter';
+
+      const agpNames = AGP_DEFS.map(g => getPerson(g.id).prenom).filter(Boolean);
+      document.getElementById('prev-g3').textContent = agpNames.length ? `${agpNames.length} personne(s) notée(s)` : 'Optionnel — note ce que tu sais';
+    }
+
+    function detectSims(){
+      const people = ALL_IDS.map(id => getPerson(id)).filter(p => p.prenom || p.events.length || p.metier || p.lieu || p.nom);
+      const sims = {prenom:[],nom:[],metier:[],age:[],anniv:[],ev:[],lieu:[]};
+
+      const pm = {};
+      people.forEach(p => {
+        if(!p.prenom) return;
+        const k = p.prenom.toLowerCase().trim();
+        if(!pm[k]) pm[k] = [];
+        pm[k].push(p);
+      });
+      Object.entries(pm).forEach(([pn,g]) => {
+        if(g.length >= 2){
+          sims.prenom.push({
+            rc:RC_TYPES.prenom,
+            name:`Prénom répété : "${pn}"`,
+            desc:g.map(p => p.lbl).join(' · '),
+            piste:'Un prénom répété dans la lignée peut créer une résonance forte. Il peut y avoir une fidélité, une reprise symbolique, ou un destin à regarder de plus près.'
+          });
+        }
+      });
+
+      const nm = {};
+      people.forEach(p => {
+        if(!p.nom) return;
+        const k = p.nom.toLowerCase().trim();
+        if(!nm[k]) nm[k] = [];
+        nm[k].push(p);
+      });
+      Object.entries(nm).forEach(([n,g]) => {
+        if(g.length >= 2){
+          sims.nom.push({
+            rc:RC_TYPES.nom,
+            name:`Même nom de famille : "${n}"`,
+            desc:g.map(p => p.lbl).join(' · '),
+            piste:'Le nom porte la mémoire de l’appartenance. Quand il revient fortement, il peut souligner une fidélité familiale importante.'
+          });
+        }
+      });
+
+      const mm = {};
+      people.forEach(p => {
+        if(!p.metier) return;
+        const g = mGrp(p.metier);
+        if(!g) return;
+        if(!mm[g]) mm[g] = [];
+        mm[g].push(p);
+      });
+      Object.entries(mm).forEach(([g,grp]) => {
+        if(grp.length >= 2){
+          sims.metier.push({
+            rc:RC_TYPES.metier,
+            name:`Même domaine : ${MG_LBL[g] || g}`,
+            desc:grp.map(p => `${p.lbl}${p.metier ? ' ('+p.metier+')' : ''}`).join(' · '),
+            piste:'Une vocation qui se répète peut être un don de lignée — ou une fidélité inconsciente. La question est : est-ce libre ou hérité ?'
+          });
+        }
+      });
+
+      const lm = {};
+      people.forEach(p => {
+        if(!p.lieu) return;
+        const k = p.lieu.toLowerCase().trim();
+        if(!lm[k]) lm[k] = [];
+        lm[k].push(p);
+      });
+      Object.entries(lm).forEach(([l,g]) => {
+        if(g.length >= 2){
+          sims.lieu.push({
+            rc:RC_TYPES.lieu,
+            name:`Même lieu d'origine : "${l}"`,
+            desc:g.map(p => p.lbl).join(' · '),
+            piste:'Un lieu répété peut signaler des racines très fortes, un déracinement partagé, ou un ancrage qui revient de génération en génération.'
+          });
+        }
+      });
+
+      const agePairs = [];
+      people.forEach(p => p.events.forEach(ev => {
+        if(ev.age !== null && !isNaN(ev.age)){
+          agePairs.push({pid:p.id,lbl:p.lbl,age:ev.age,evType:ev.type || 'événement'});
+        }
+      }));
+      const ua = new Set();
+      for(let i=0;i<agePairs.length;i++){
+        for(let j=i+1;j<agePairs.length;j++){
+          if(Math.abs(agePairs[i].age - agePairs[j].age) <= 3){
+            const k = [agePairs[i].pid,agePairs[j].pid,agePairs[i].age,agePairs[j].age].sort().join('-');
+            if(ua.has(k)) continue;
+            ua.add(k);
+            sims.age.push({
+              rc:RC_TYPES.age,
+              name:`Même âge clé : ~${Math.round((agePairs[i].age + agePairs[j].age)/2)} ans`,
+              desc:`${agePairs[i].lbl} (${EV_LBL[agePairs[i].evType] || agePairs[i].evType}) · ${agePairs[j].lbl} (${EV_LBL[agePairs[j].evType] || agePairs[j].evType})`,
+              piste:'Quand des événements importants reviennent au même âge, cela peut signaler une répétition de temporalité très forte dans la lignée.'
+            });
+          }
+        }
+      }
+
+      const moiAge = getAge('moi');
+      if(moiAge){
+        people.filter(p => p.id !== 'moi').forEach(p => p.events.forEach(ev => {
+          if(ev.age !== null && Math.abs(ev.age - moiAge) <= 2){
+            sims.anniv.push({
+              rc:RC_TYPES.anniv,
+              name:'⚡ Syndrome anniversaire',
+              desc:`Tu as ${moiAge} ans — ${p.lbl} a vécu "${EV_LBL[ev.type] || ev.type || 'un événement'}" à ${ev.age} ans`,
+              piste:'Tu traverses peut-être l’âge où un autre membre de la lignée a vécu quelque chose de fort. Cette mémoire peut être particulièrement active maintenant.'
+            });
+          }
+        }));
+      }
+
+      const em = {};
+      people.forEach(p => p.events.forEach(ev => {
+        if(!ev.type || ev.type === 'autre') return;
+        if(!em[ev.type]) em[ev.type] = [];
+        if(!em[ev.type].some(x => x.pid === p.id)){
+          em[ev.type].push({pid:p.id,lbl:p.lbl,age:ev.age});
+        }
+      }));
+      Object.entries(em).forEach(([ev,g]) => {
+        if(g.length >= 2){
+          sims.ev.push({
+            rc:RC_TYPES.ev,
+            name:`Même épreuve répétée : ${EV_LBL[ev] || ev}`,
+            desc:g.map(p => `${p.lbl}${p.age ? ' ('+p.age+' ans)' : ''}`).join(' · '),
+            piste:'Quand une même épreuve se répète dans plusieurs générations, elle mérite d’être regardée comme un motif de lignée à transformer.'
+          });
+        }
+      });
+
+      renderSims(sims);
+    }
+
+    function renderSims(sims){
+      const total = Object.values(sims).reduce((s,a) => s + a.length, 0);
+      document.getElementById('sim-total').textContent = total;
+      const content = document.getElementById('sim-content');
+
+      if(total === 0){
+        content.innerHTML = '<div class="sim-empty">Continue à remplir les informations — les similitudes apparaissent ici automatiquement.</div>';
+        return;
+      }
+
+      const CATS = [
+        {key:'anniv',icon:'⚡',label:'Syndrome anniversaire (prioritaire)'},
+        {key:'age',icon:'🔔',label:"Même âge lors d'un événement"},
+        {key:'ev',icon:'🔁',label:'Même épreuve répétée'},
+        {key:'prenom',icon:'👤',label:'Prénom répété'},
+        {key:'nom',icon:'📛',label:'Nom de famille répété'},
+        {key:'metier',icon:'🛠',label:'Même métier / domaine'},
+        {key:'lieu',icon:'📍',label:"Même lieu d'origine"}
+      ];
+
+      content.innerHTML = CATS.filter(c => sims[c.key]?.length).map(c => `
+        <div class="sim-cat">
+          <div class="sim-cat-title">${c.icon} ${c.label}</div>
+          ${sims[c.key].map(s => `
+            <div class="sim-card" style="--rc:${s.rc}">
+              <div class="sim-dot" style="background:${s.rc}"></div>
+              <div>
+                <div class="sim-name">${s.name}</div>
+                <div class="sim-desc">${s.desc}</div>
+                <div class="sim-piste">${s.piste}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    function saveData(){
+      try{
+        const d = {};
+        ALL_IDS.forEach(id => {
+          d['pf_'+id] = {
+            prenom:gv('p-'+id+'-prenom'),
+            nom:gv('p-'+id+'-nom'),
+            naiss:gv('p-'+id+'-naiss'),
+            metier:gv('p-'+id+'-metier'),
+            lieu:gv('p-'+id+'-lieu')
+          };
+          d['evf_'+id] = getEvs(id);
+        });
+        localStorage.setItem('rgv-famille', JSON.stringify(d));
+
+        const v2 = JSON.parse(localStorage.getItem('rgv-v2') || '{}');
+        ALL_IDS.forEach(id => {
+          const p = d['pf_'+id];
+          if(!p) return;
+          v2['p_'+id] = {
+            prenom:p.prenom || '',
+            nom:p.nom || '',
+            metier:p.metier || '',
+            lieu:p.lieu || '',
+            naiss:p.naiss || ''
+          };
+          v2['ev_'+id] = (d['evf_'+id] || []).map(ev => ({
+            type:ev.type || '',
+            age:ev.age ? String(ev.age) : '',
+            date:ev.date || '',
+            note:ev.note || '',
+            intens:ev.intens || 0
+          }));
+        });
+        localStorage.setItem('rgv-v2', JSON.stringify(v2));
+      }catch(e){}
+    }
+
+    function loadData(){
+      try{
+        const raw = localStorage.getItem('rgv-famille');
+        if(!raw) return;
+        const d = JSON.parse(raw);
+
+        ALL_IDS.forEach(id => {
+          const p = d['pf_'+id];
+          if(!p) return;
+          ['prenom','nom','naiss','metier','lieu'].forEach(f => {
+            const el = document.getElementById('p-'+id+'-'+f);
+            if(el && p[f]) el.value = p[f];
+          });
+
+          const evs = d['evf_'+id] || [];
+          evs.forEach(ev => addEv(id, ev));
+        });
+
+        refreshAll();
+      }catch(e){}
+    }
+
+    loadData();
+    refreshAll();
+  </script>
+</body>
+</html>

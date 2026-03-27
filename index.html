@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération</title>
+  <meta name="description" content="Explore tes mémoires transgénérationnelles, ton corps, ta fréquence vibratoire et ton arbre de vie. Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
+  <meta name="keywords" content="mémoires transgénérationnelles, psychogénéalogie, arbre de vie, fréquence vibratoire, corps, lignée, génosociogramme, libération émotionnelle">
+  <meta property="og:title" content="Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération">
+  <meta property="og:description" content="Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération">
+  <meta name="twitter:description" content="Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c:#FDF5EC;
+      --c2:#F6E8D8;
+      --rose:#E8967F;
+      --rose2:#C96B52;
+      --orange:#F0A05A;
+      --orange2:#D97D2E;
+      --gold:#F5C842;
+      --gold2:#E8A800;
+      --ink:#2A1A10;
+      --ink2:#5C3D2C;
+      --soft:#9A7060;
+      --white:#FFFAF4;
+      --dark:#1A0E08;
+      --teal:#5DCAA5;
+      --purple:#9B89D4;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--c);
+      color:var(--ink);
+      overflow-x:hidden;
+      padding-top:72px;
+    }
+
+    a{color:inherit;}
+
+    /* CURSOR */
+    .cursor{
+      position:fixed;
+      width:10px;
+      height:10px;
+      background:var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:multiply;
+    }
+
+    .cursor-ring{
+      position:fixed;
+      width:36px;
+      height:36px;
+      border:1.5px solid var(--rose);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9998;
+      transform:translate(-50%,-50%);
+      opacity:.55;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
+      padding:0 2rem;
+      background:rgba(253,245,236,.94);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+    }
+
+    .nav-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      text-decoration:none;
+      white-space:nowrap;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1.2rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      font-size:.84rem;
+      color:var(--ink2);
+      transition:color .2s ease, opacity .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--rose2);
+    }
+
+    .nav-book{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:#fff !important;
+      padding:.68rem 1rem;
+      border-radius:999px;
+      font-weight:500;
+      box-shadow:0 10px 24px rgba(201,107,82,.22);
+    }
+
+    .nav-burger{
+      display:none;
+      width:46px;
+      height:46px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+    }
+
+    .nav-burger span{
+      width:22px;
+      height:2px;
+      background:var(--ink);
+      border-radius:10px;
+      transition:.25s ease;
+    }
+
+    .nav-burger.open span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .nav-burger.open span:nth-child(2){
+      opacity:0;
+    }
+
+    .nav-burger.open span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-mobile{
+      position:fixed;
+      top:72px;
+      left:0;
+      right:0;
+      background:rgba(255,250,244,.98);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+      display:none;
+      flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;
+      z-index:999;
+    }
+
+    .nav-mobile.open{
+      display:flex;
+    }
+
+    .nav-mobile a{
+      text-decoration:none;
+      color:var(--ink2);
+      padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);
+      font-size:.95rem;
+    }
+
+    .nav-mobile a:last-child{
+      border-bottom:none;
+    }
+
+    /* HERO */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:6.2rem 4rem 5rem;
+      background:
+        radial-gradient(ellipse 60% 50% at 75% 20%, rgba(232,150,127,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 35% at 15% 85%, rgba(245,200,66,.10) 0%, transparent 60%),
+        linear-gradient(160deg, #FFF8F1 0%, var(--c) 55%, #FFF6ED 100%);
+    }
+
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(201,107,82,.07) 0%, transparent 18%),
+        radial-gradient(circle at 80% 70%, rgba(245,200,66,.06) 0%, transparent 20%);
+    }
+
+    .hero-inner{
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:4rem;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.72rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      background:rgba(201,107,82,.08);
+      border:1px solid rgba(201,107,82,.18);
+      border-radius:100px;
+      padding:.45rem 1rem;
+      margin-bottom:1.6rem;
+    }
+
+    .hero-badge::before{
+      content:'';
+      width:6px;
+      height:6px;
+      background:var(--rose);
+      border-radius:50%;
+      animation:dot 2s infinite;
+    }
+
+    @keyframes dot{
+      0%,100%{opacity:.5;transform:scale(1);}
+      50%{opacity:1;transform:scale(1.4);}
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.8rem,6vw,5.2rem);
+      font-weight:900;
+      line-height:1.02;
+      letter-spacing:-.03em;
+      margin-bottom:1.15rem;
+    }
+
+    .hero h1 em{
+      font-style:italic;
+      color:var(--rose2);
+    }
+
+    .hero p{
+      font-size:1.03rem;
+      font-weight:300;
+      color:var(--ink2);
+      max-width:620px;
+      line-height:1.9;
+    }
+
+    .hero-subline{
+      margin-top:1.2rem;
+      font-size:.83rem;
+      color:var(--soft);
+      line-height:1.75;
+      font-style:italic;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:.85rem;
+      flex-wrap:wrap;
+      margin-top:2rem;
+    }
+
+    .btn-main{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:#fff;
+      padding:.95rem 1.9rem;
+      border-radius:100px;
+      text-decoration:none;
+      font-size:.88rem;
+      font-weight:500;
+      box-shadow:0 10px 32px rgba(201,107,82,.28);
+      transition:transform .2s, box-shadow .2s;
+    }
+
+    .btn-main:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(201,107,82,.34);
+    }
+
+    .btn-ghost{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:transparent;
+      color:var(--ink2);
+      padding:.95rem 1.6rem;
+      border-radius:100px;
+      text-decoration:none;
+      font-size:.88rem;
+      border:1.5px solid rgba(92,61,44,.16);
+      transition:all .2s;
+    }
+
+    .btn-ghost:hover{
+      border-color:var(--rose);
+      color:var(--rose2);
+      background:rgba(255,255,255,.45);
+    }
+
+    .hero-card{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:28px;
+      padding:2rem;
+      position:relative;
+      overflow:hidden;
+      min-height:460px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      box-shadow:0 18px 55px rgba(42,26,16,.18);
+    }
+
+    .hero-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 45% 35% at 75% 18%, rgba(232,150,127,.18), transparent 60%),
+        radial-gradient(ellipse 35% 25% at 20% 80%, rgba(245,200,66,.12), transparent 60%);
+      pointer-events:none;
+    }
+
+    .hero-card *{
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-card-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:1rem;
+      margin-bottom:1.8rem;
+    }
+
+    .hero-card-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:rgba(255,255,255,.78);
+      border-radius:100px;
+      padding:.45rem 1rem;
+      font-size:.68rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .hero-card-symbol{
+      font-size:2.2rem;
+      color:rgba(255,255,255,.18);
+      line-height:1;
+    }
+
+    .hero-card h2{
+      font-family:'Playfair Display',serif;
+      font-size:1.7rem;
+      font-weight:700;
+      line-height:1.2;
+      color:white;
+      margin-bottom:.8rem;
+    }
+
+    .hero-card p{
+      font-size:.9rem;
+      color:rgba(255,255,255,.55);
+      line-height:1.85;
+      font-weight:300;
+    }
+
+    .hero-card-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.75rem;
+      margin-top:1.4rem;
+    }
+
+    .mini-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      padding:1rem;
+    }
+
+    .mini-card strong{
+      display:block;
+      color:white;
+      font-size:.8rem;
+      margin-bottom:.25rem;
+      font-weight:500;
+    }
+
+    .mini-card span{
+      display:block;
+      font-size:.74rem;
+      color:rgba(255,255,255,.42);
+      line-height:1.6;
+      font-weight:300;
+    }
+
+    /* SECTIONS */
+    section{
+      padding:6rem 4rem;
+    }
+
+    .section-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .section-head{
+      max-width:760px;
+      margin:0 auto 3rem;
+      text-align:center;
+    }
+
+    .section-eyebrow{
+      font-size:.68rem;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.75rem;
+    }
+
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4vw,3rem);
+      font-weight:900;
+      line-height:1.1;
+      margin-bottom:.8rem;
+    }
+
+    .section-title em{
+      font-style:italic;
+      color:var(--rose2);
+    }
+
+    .section-sub{
+      font-size:.96rem;
+      color:var(--soft);
+      line-height:1.8;
+      font-weight:300;
+    }
+
+    /* PILLARS */
+    .pillars-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.2rem;
+    }
+
+    .pillar{
+      background:var(--white);
+      border:1px solid rgba(232,150,127,.14);
+      border-radius:24px;
+      padding:1.8rem;
+      box-shadow:0 4px 24px rgba(42,26,16,.05);
+      transition:transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .pillar:hover{
+      transform:translateY(-4px);
+      box-shadow:0 12px 34px rgba(42,26,16,.08);
+      border-color:rgba(201,107,82,.22);
+    }
+
+    .pillar-icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.3rem;
+      margin-bottom:1rem;
+      background:linear-gradient(135deg,#FFF2EA,#FFE6D8);
+    }
+
+    .pillar h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem;
+      font-weight:700;
+      margin-bottom:.5rem;
+      color:var(--ink);
+    }
+
+    .pillar p{
+      font-size:.84rem;
+      color:var(--ink2);
+      line-height:1.8;
+      font-weight:300;
+    }
+
+    /* PORTALS */
+    .portals{
+      background:linear-gradient(180deg,#FFF8F1 0%, var(--c) 100%);
+    }
+
+    .portal-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1rem;
+    }
+
+    .portal{
+      background:var(--white);
+      border:1px solid rgba(232,150,127,.14);
+      border-radius:24px;
+      padding:1.6rem;
+      text-decoration:none;
+      color:inherit;
+      box-shadow:0 4px 20px rgba(42,26,16,.05);
+      transition:transform .2s, border-color .2s, box-shadow .2s;
+      display:flex;
+      flex-direction:column;
+      min-height:255px;
+    }
+
+    .portal:hover{
+      transform:translateY(-4px);
+      border-color:rgba(201,107,82,.25);
+      box-shadow:0 12px 34px rgba(42,26,16,.08);
+    }
+
+    .portal-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      margin-bottom:1rem;
+    }
+
+    .portal-icon{
+      width:50px;
+      height:50px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.25rem;
+      background:linear-gradient(135deg,#FFF0E8,#FFE5D7);
+    }
+
+    .portal-tag{
+      font-size:.62rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--soft);
+    }
+
+    .portal h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.08rem;
+      font-weight:700;
+      margin-bottom:.45rem;
+      color:var(--ink);
+    }
+
+    .portal p{
+      font-size:.82rem;
+      color:var(--ink2);
+      line-height:1.76;
+      font-weight:300;
+      margin-bottom:1rem;
+      flex:1;
+    }
+
+    .portal span{
+      font-size:.78rem;
+      color:var(--rose2);
+      font-weight:500;
+    }
+
+    /* ABOUT */
+    .about{
+      background:var(--ink);
+      color:white;
+    }
+
+    .about-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:3rem;
+      align-items:center;
+    }
+
+    .about .section-head{
+      text-align:left;
+      margin:0 0 1.5rem 0;
+      max-width:none;
+    }
+
+    .about .section-title{
+      color:white;
+    }
+
+    .about .section-sub{
+      color:rgba(255,255,255,.45);
+    }
+
+    .about-copy p{
+      font-size:.9rem;
+      color:rgba(255,255,255,.62);
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:1rem;
+    }
+
+    .about-copy strong{
+      color:rgba(255,255,255,.9);
+      font-weight:500;
+    }
+
+    .about-block{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:1.8rem;
+    }
+
+    .about-block h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem;
+      font-weight:700;
+      color:white;
+      margin-bottom:.7rem;
+    }
+
+    .about-block p{
+      font-size:.84rem;
+      color:rgba(255,255,255,.46);
+      line-height:1.8;
+      font-weight:300;
+    }
+
+    .about-list{
+      display:flex;
+      flex-direction:column;
+      gap:.7rem;
+      margin-top:1rem;
+    }
+
+    .about-item{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:.9rem 1rem;
+      font-size:.8rem;
+      color:rgba(255,255,255,.7);
+      line-height:1.7;
+    }
+
+    /* PATH */
+    .path-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:1rem;
+    }
+
+    .path-step{
+      background:var(--white);
+      border:1px solid rgba(232,150,127,.14);
+      border-radius:22px;
+      padding:1.5rem;
+      min-height:220px;
+    }
+
+    .path-num{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'Playfair Display',serif;
+      font-weight:700;
+      font-size:.9rem;
+      color:white;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      margin-bottom:1rem;
+    }
+
+    .path-step h3{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:700;
+      margin-bottom:.45rem;
+      color:var(--ink);
+    }
+
+    .path-step p{
+      font-size:.82rem;
+      color:var(--ink2);
+      line-height:1.8;
+      font-weight:300;
+    }
+
+    /* CTA */
+    .cta{
+      padding-top:0;
+    }
+
+    .cta-box{
+      max-width:1100px;
+      margin:0 auto;
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:32px;
+      padding:3rem 2.4rem;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+
+    .cta-box::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 50% 45% at 20% 50%, rgba(232,150,127,.15), transparent 60%),
+        radial-gradient(ellipse 30% 25% at 80% 20%, rgba(245,200,66,.10), transparent 60%);
+      pointer-events:none;
+    }
+
+    .cta-box *{
+      position:relative;
+      z-index:1;
+    }
+
+    .cta-box .section-eyebrow{
+      color:var(--rose);
+    }
+
+    .cta-box h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4vw,3rem);
+      font-weight:900;
+      color:white;
+      line-height:1.1;
+      margin-bottom:.8rem;
+    }
+
+    .cta-box h2 em{
+      font-style:italic;
+      color:var(--rose);
+    }
+
+    .cta-box p{
+      max-width:700px;
+      margin:0 auto 1.8rem;
+      font-size:.96rem;
+      color:rgba(255,255,255,.5);
+      line-height:1.85;
+      font-weight:300;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#1A0E08;
+      padding:3.5rem 3rem 2rem;
+    }
+
+    .footer-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:2.5rem;
+      margin-bottom:2.5rem;
+    }
+
+    .footer-brand .footer-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.3rem;
+      color:white;
+      font-weight:700;
+      display:block;
+      margin-bottom:.7rem;
+      text-decoration:none;
+    }
+
+    .footer-brand p{
+      font-size:.8rem;
+      color:rgba(255,255,255,.38);
+      line-height:1.72;
+      font-weight:300;
+      max-width:260px;
+    }
+
+    .footer-book-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white;
+      padding:.55rem 1.1rem;
+      border-radius:100px;
+      font-size:.76rem;
+      font-weight:500;
+      text-decoration:none;
+      margin-top:1.1rem;
+      transition:transform .18s;
+    }
+
+    .footer-book-link:hover{
+      transform:translateY(-1px);
+    }
+
+    .footer-col h4{
+      font-size:.72rem;
+      font-weight:700;
+      color:rgba(255,255,255,.55);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:.9rem;
+    }
+
+    .footer-col a{
+      display:block;
+      font-size:.78rem;
+      color:rgba(255,255,255,.35);
+      text-decoration:none;
+      margin-bottom:.5rem;
+      transition:color .18s;
+      font-weight:300;
+    }
+
+    .footer-col a:hover{
+      color:var(--rose);
+    }
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding-top:1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .footer-bottom p{
+      font-size:.72rem;
+      color:rgba(255,255,255,.2);
+    }
+
+    .footer-bottom-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-links a{
+      font-size:.72rem;
+      color:rgba(255,255,255,.25);
+      text-decoration:none;
+      transition:color .18s;
+    }
+
+    .footer-bottom-links a:hover{
+      color:var(--rose);
+    }
+
+    /* REVEAL */
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.revealed{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width:1180px){
+      .nav-links{
+        gap:.9rem;
+      }
+
+      .nav-links a{
+        font-size:.78rem;
+      }
+    }
+
+    @media (max-width:980px){
+      .hero-inner,
+      .about-inner,
+      .pillars-grid,
+      .portal-grid,
+      .path-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero,
+      .portals,
+      .about,
+      section{
+        padding-left:1.5rem;
+        padding-right:1.5rem;
+      }
+
+      .hero{
+        padding-top:5rem;
+        padding-bottom:3.5rem;
+      }
+
+      .hero-card{
+        min-height:auto;
+      }
+    }
+
+    @media (max-width:900px){
+      body{
+        padding-top:62px;
+      }
+
+      nav{
+        height:62px;
+        padding:0 1.1rem;
+      }
+
+      .nav-links{
+        display:none;
+      }
+
+      .nav-burger{
+        display:flex;
+      }
+
+      .nav-mobile{
+        top:62px;
+      }
+
+      footer{
+        padding:2.5rem 1.5rem 1.5rem;
+      }
+
+      .footer-top{
+        grid-template-columns:1fr 1fr;
+        gap:1.8rem;
+      }
+
+      .footer-brand{
+        grid-column:span 2;
+      }
+
+      .cursor,
+      .cursor-ring{
+        display:none;
+      }
+    }
+
+    @media (max-width:480px){
+      .hero-actions,
+      .footer-bottom-links{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .footer-top{
+        grid-template-columns:1fr;
+      }
+
+      .footer-brand{
+        grid-column:span 1;
+      }
+
+      .hero-card-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media print{
+      nav,
+      .nav-mobile,
+      .cursor,
+      .cursor-ring,
+      footer,
+      .cta{
+        display:none !important;
+      }
+
+      body{
+        padding-top:0;
+      }
+
+      .hero,
+      section{
+        padding:1rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+
+    <div class="nav-links">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html">Fréquence</a>
+      <a href="journal.html">Journal</a>
+      <a href="transgen.html">Transgénérationnel</a>
+      <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html">Ma famille</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+    </div>
+
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- MENU MOBILE -->
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
+    <a href="journal.html">📖 Journal</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
+    <a href="genosociogramme.html">🌐 Génosociogramme</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html">✉️ Contact</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="hero-badge">Mémoires · Corps · Fréquence · Lignée</div>
+        <h1>Ce que ton histoire<br><em>cherche à te montrer</em></h1>
+        <p>
+          Certaines douleurs, certains blocages, certaines répétitions ne commencent pas avec toi.
+          Elles traversent le corps, les croyances, les relations, la lignée.
+          Ici, tu explores ce qui se rejoue — pour le comprendre, le ressentir, et commencer à le libérer.
+        </p>
+
+        <div class="hero-subline">
+          Un chemin entre mémoire transgénérationnelle, épigénétique, corps, conscience et transformation intérieure.
+        </div>
+
+        <div class="hero-actions">
+          <a href="parcours.html" class="btn-main">✦ Commencer l’exploration</a>
+          <a href="journal.html" class="btn-ghost">📖 Ouvrir le journal</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal">
+        <div>
+          <div class="hero-card-top">
+            <div class="hero-card-tag">Par où commencer</div>
+            <div class="hero-card-symbol">✦</div>
+          </div>
+
+          <h2>Un parcours en plusieurs portes</h2>
+          <p>
+            Tu peux entrer par le symptôme, par une émotion, par ton arbre, par ta fréquence,
+            ou par une répétition familiale. Chaque page t’amène vers la même chose :
+            voir plus clair sur ce que tu portes.
+          </p>
+        </div>
+
+        <div class="hero-card-grid">
+          <div class="mini-card">
+            <strong>🧬 Mémoires</strong>
+            <span>Identifier les schémas répétitifs et la logique de ta lignée.</span>
+          </div>
+          <div class="mini-card">
+            <strong>💬 Corps</strong>
+            <span>Écouter ce que le corps exprime quand les mots ne suffisent plus.</span>
+          </div>
+          <div class="mini-card">
+            <strong>💫 Fréquence</strong>
+            <span>Voir la vibration dans laquelle tu vis et ce qu’elle attire.</span>
+          </div>
+          <div class="mini-card">
+            <strong>🌳 Arbre</strong>
+            <span>Visualiser les répétitions à travers ton génosociogramme.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PILIERS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Le fondement du site</div>
+        <h2 class="section-title">Quatre portes pour <em>lire ta réalité</em></h2>
+        <p class="section-sub">
+          Le site repose sur une lecture croisée : ce que tu vis aujourd’hui peut se comprendre à travers le corps,
+          la mémoire familiale, les croyances et la fréquence à laquelle tu vibres.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar reveal">
+          <div class="pillar-icon">🧬</div>
+          <h3>La mémoire de lignée</h3>
+          <p>
+            Ce qui n’a pas été traversé, nommé ou pleuré dans une famille peut continuer à circuler.
+            Certaines répétitions sont des loyautés invisibles.
+          </p>
+        </div>
+
+        <div class="pillar reveal">
+          <div class="pillar-icon">💬</div>
+          <h3>Le corps comme langage</h3>
+          <p>
+            Le corps ne ment pas. Il garde les traces, les tensions, les peurs, les surcharges.
+            Il dit parfois ce que le mental ne sait pas encore formuler.
+          </p>
+        </div>
+
+        <div class="pillar reveal">
+          <div class="pillar-icon">✨</div>
+          <h3>La fréquence intérieure</h3>
+          <p>
+            Tes émotions, tes croyances et ton état intérieur créent un champ.
+            Ce champ influence ce que tu perçois, attires, répètes et autorises dans ta vie.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTALS -->
+  <section class="portals">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Explorer</div>
+        <h2 class="section-title">Choisis ta <em>porte d’entrée</em></h2>
+        <p class="section-sub">
+          Chaque page a sa fonction. L’ensemble forme un parcours cohérent.
+        </p>
+      </div>
+
+      <div class="portal-grid">
+        <a class="portal reveal" href="parcours.html">
+          <div class="portal-top">
+            <div class="portal-icon">🧬</div>
+            <div class="portal-tag">Parcours</div>
+          </div>
+          <h3>Mémoires de lignée</h3>
+          <p>
+            Comprends ce que tu portes, ce qui se répète et ce que ton histoire cherche à te montrer.
+          </p>
+          <span>Explorer →</span>
+        </a>
+
+        <a class="portal reveal" href="symptomes.html">
+          <div class="portal-top">
+            <div class="portal-icon">💬</div>
+            <div class="portal-tag">Corps</div>
+          </div>
+          <h3>Mon corps parle</h3>
+          <p>
+            Entre par le symptôme ou le ressenti physique pour décoder le message derrière le mal-être.
+          </p>
+          <span>Écouter →</span>
+        </a>
+
+        <a class="portal reveal" href="vibration.html">
+          <div class="portal-top">
+            <div class="portal-icon">💫</div>
+            <div class="portal-tag">Fréquence</div>
+          </div>
+          <h3>Ma fréquence</h3>
+          <p>
+            Observe où tu vibres aujourd’hui et comment cela influence ta perception, tes liens et tes choix.
+          </p>
+          <span>Mesurer →</span>
+        </a>
+
+        <a class="portal reveal" href="arbre-vie.html">
+          <div class="portal-top">
+            <div class="portal-icon">🌳</div>
+            <div class="portal-tag">Conscience</div>
+          </div>
+          <h3>Arbre de Vie</h3>
+          <p>
+            Identifie la sphère active dans ta vie en ce moment et la dynamique intérieure qu’elle révèle.
+          </p>
+          <span>Découvrir →</span>
+        </a>
+
+        <a class="portal reveal" href="cycle.html">
+          <div class="portal-top">
+            <div class="portal-icon">🌙</div>
+            <div class="portal-tag">Rythme</div>
+          </div>
+          <h3>Mon cycle</h3>
+          <p>
+            Relis tes phases, tes états intérieurs et ton énergie à un mouvement plus profond et plus naturel.
+          </p>
+          <span>Observer →</span>
+        </a>
+
+        <a class="portal reveal" href="journal.html">
+          <div class="portal-top">
+            <div class="portal-icon">📖</div>
+            <div class="portal-tag">Intégration</div>
+          </div>
+          <h3>Journal guidé</h3>
+          <p>
+            Dépose ce que tu comprends, ce que tu ressens, ce que tu vois émerger. L’écriture aide à intégrer.
+          </p>
+          <span>Écrire →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-copy reveal">
+        <div class="section-head">
+          <div class="section-eyebrow">À propos</div>
+          <h2 class="section-title">Une approche entre <em>science, mémoire et conscience</em></h2>
+          <p class="section-sub">
+            Le site relie plusieurs niveaux de lecture : biologie, épigénétique, système nerveux,
+            psychogénéalogie, symbolique et fréquence intérieure.
+          </p>
+        </div>
+
+        <p>
+          Ici, rien n’est abordé comme un dogme. L’idée est de <strong>mettre du sens</strong> sur ce que tu vis,
+          sans nier ni le corps, ni l’histoire, ni la mémoire familiale.
+        </p>
+        <p>
+          Ce que tu ressens peut être personnel, relationnel, familial, biologique, émotionnel ou fréquentiel —
+          et souvent, c’est <strong>tout cela à la fois</strong>.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="about-block">
+          <h3>Ce que tu trouveras ici</h3>
+          <p>
+            Un espace structuré pour observer les répétitions, comprendre leur origine,
+            repérer les échos dans la famille et avancer vers une libération plus consciente.
+          </p>
+
+          <div class="about-list">
+            <div class="about-item">✦ Des outils interactifs pour explorer tes schémas</div>
+            <div class="about-item">✦ Une lecture transgénérationnelle reliée au corps</div>
+            <div class="about-item">✦ Un arbre familial et un génosociogramme visuel</div>
+            <div class="about-item">✦ Des pages de conscience, de fréquence et d’écriture</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATH -->
+  <section id="transformation">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="section-eyebrow">Le chemin</div>
+        <h2 class="section-title">Comment avancer <em>sur le site</em></h2>
+        <p class="section-sub">
+          Tu peux suivre ce fil simple pour ne pas te perdre.
+        </p>
+      </div>
+
+      <div class="path-grid">
+        <div class="path-step reveal">
+          <div class="path-num">1</div>
+          <h3>Identifier</h3>
+          <p>
+            Pars d’un schéma, d’un symptôme, d’une émotion ou d’une répétition qui revient dans ta vie.
+          </p>
+        </div>
+
+        <div class="path-step reveal">
+          <div class="path-num">2</div>
+          <h3>Comprendre</h3>
+          <p>
+            Relie ce vécu à ton histoire, à ton système nerveux, à ta lignée et à tes croyances.
+          </p>
+        </div>
+
+        <div class="path-step reveal">
+          <div class="path-num">3</div>
+          <h3>Visualiser</h3>
+          <p>
+            Entre les données dans l’arbre familial et le génosociogramme pour voir les répétitions concrètement.
+          </p>
+        </div>
+
+        <div class="path-step reveal">
+          <div class="path-num">4</div>
+          <h3>Intégrer</h3>
+          <p>
+            Utilise le journal, le protocole et les pages-guides pour transformer ce que tu as vu.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-box reveal">
+      <div class="section-eyebrow">Commencer maintenant</div>
+      <h2>Tu n’as pas besoin de tout comprendre<br><em>pour commencer à libérer</em></h2>
+      <p>
+        Le plus important n’est pas d’avoir toutes les réponses tout de suite.
+        Le plus important est de voir ce qui se rejoue, de le nommer, et de reprendre ta place dans ton histoire.
+      </p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a href="parcours.html" class="btn-main">🧬 Explorer mes mémoires</a>
+        <a href="contact.html" class="btn-ghost" style="color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.16);">✉️ Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Auteure, chercheuse et guide sur le chemin des mémoires transgénérationnelles et de la libération intérieure.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="parcours.html">Mémoires de lignée</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="vibration.html">Ma fréquence</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="symptomes.html">Mon corps parle</a>
+          <a href="journal.html">Journal guidé</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Approfondir</h4>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="arbre-famille.html">Ma famille</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Laura Charron</h4>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Ressens · Guéris · Vis</a>
+          <a href="index.html#about">À propos</a>
+          <a href="journal.html">Journal</a>
+          <a href="contact.html">Contact</a>
+          <a href="index.html">Retour à l'accueil</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · Tous droits réservés · <em>Ressens · Guéris · Vis</em></p>
+        <div class="footer-bottom-links">
+          <a href="journal.html">Journal</a>
+          <a href="contact.html">Contact</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Commander le livre</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('nav-mobile');
+
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    if (window.innerWidth > 900) {
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+
+        if (cur) {
+          cur.style.left = mx + 'px';
+          cur.style.top = my + 'px';
+        }
+      });
+
+      (function animateCursor(){
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+
+        if (ring) {
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+        }
+
+        requestAnimationFrame(animateCursor);
+      })();
+    }
+
+    if (burger && mobileMenu) {
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          burger.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      revealElements.forEach(el => obs.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add('revealed'));
+    }
+
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.revealed)').forEach(el => {
+        el.classList.add('revealed');
+      });
+    }, 700);
+  </script>
+</body>
+</html>

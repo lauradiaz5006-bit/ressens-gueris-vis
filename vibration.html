@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ma Fréquence Vibratoire · Laura Charron</title>
+  <meta name="description" content="Découvre ta fréquence vibratoire actuelle, explore l’échelle de conscience de Hawkins, et comprends ce que ton état intérieur attire, amplifie ou transforme.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/vibration.html">
+  <meta property="og:title" content="Ma Fréquence Vibratoire · Laura Charron">
+  <meta property="og:description" content="Un calculateur inspiré de l’échelle de Hawkins pour explorer ta fréquence intérieure actuelle.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --c:#FDF5EC;
+      --c2:#F6E8D8;
+      --rose:#E8967F;
+      --rose2:#C96B52;
+      --orange:#F0A05A;
+      --orange2:#D97D2E;
+      --gold:#F5C842;
+      --gold2:#E8A800;
+      --ink:#2A1A10;
+      --ink2:#5C3D2C;
+      --soft:#9A7060;
+      --white:#FFFAF4;
+    }
+
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'DM Sans',sans-serif;
+      background:var(--c);
+      color:var(--ink);
+      overflow-x:hidden;
+      padding-top:72px;
+    }
+    a{color:inherit;text-decoration:none;}
+
+    .cursor{
+      position:fixed;
+      width:10px;
+      height:10px;
+      background:var(--gold);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9999;
+      transform:translate(-50%,-50%);
+      mix-blend-mode:multiply;
+    }
+
+    .cursor-ring{
+      position:fixed;
+      width:36px;
+      height:36px;
+      border:1.5px solid var(--gold);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:9998;
+      transform:translate(-50%,-50%);
+      opacity:.5;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:1000;
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.5rem;
+      padding:0 2rem;
+      background:rgba(253,245,236,.94);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+    }
+
+    .nav-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:1.1rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .nav-links a{
+      font-size:.84rem;
+      color:var(--ink2);
+      transition:color .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:var(--rose2);
+    }
+
+    .nav-book{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:#fff !important;
+      padding:.68rem 1rem;
+      border-radius:999px;
+      font-weight:500;
+      box-shadow:0 10px 24px rgba(201,107,82,.22);
+    }
+
+    .nav-burger{
+      display:none;
+      width:46px;
+      height:46px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:5px;
+    }
+
+    .nav-burger span{
+      width:22px;
+      height:2px;
+      background:var(--ink);
+      border-radius:10px;
+      transition:.25s ease;
+    }
+
+    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+    .nav-mobile{
+      position:fixed;
+      top:72px;
+      left:0;
+      right:0;
+      background:rgba(255,250,244,.98);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(232,150,127,.16);
+      display:none;
+      flex-direction:column;
+      padding:1rem 1.4rem 1.4rem;
+      z-index:999;
+    }
+
+    .nav-mobile.open{display:flex;}
+
+    .nav-mobile a{
+      color:var(--ink2);
+      padding:.85rem 0;
+      border-bottom:1px solid rgba(92,61,44,.08);
+      font-size:.95rem;
+    }
+
+    .nav-mobile a:last-child{border-bottom:none;}
+
+    /* INTRO HAWKINS */
+    .hawkins-intro{
+      background:linear-gradient(160deg,var(--ink),#3D1A05);
+      padding:7rem 4rem 5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hawkins-intro::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(ellipse 55% 60% at 80% 40%,rgba(245,200,66,.12) 0%,transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%,rgba(240,160,90,.08) 0%,transparent 50%);
+      pointer-events:none;
+    }
+
+    .hw-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:5rem;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .hw-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.67rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--gold);
+      background:rgba(245,200,66,.1);
+      border:1px solid rgba(245,200,66,.25);
+      border-radius:100px;
+      padding:.4rem 1rem;
+      margin-bottom:1.6rem;
+    }
+
+    .hw-eyebrow::before{
+      content:'';
+      width:5px;
+      height:5px;
+      background:var(--gold);
+      border-radius:50%;
+      animation:dot 2s infinite;
+    }
+
+    @keyframes dot{
+      0%,100%{opacity:.5;transform:scale(1);}
+      50%{opacity:1;transform:scale(1.4);}
+    }
+
+    .hw-title{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2rem,4.2vw,3.5rem);
+      font-weight:900;
+      color:white;
+      line-height:1.05;
+      margin-bottom:1.2rem;
+    }
+
+    .hw-title em{font-style:italic;color:var(--gold);}
+
+    .hw-lead{
+      font-size:.95rem;
+      color:rgba(255,255,255,.6);
+      line-height:1.9;
+      font-weight:300;
+      margin-bottom:.9rem;
+    }
+
+    .hw-lead strong{
+      color:rgba(255,255,255,.88);
+      font-weight:500;
+    }
+
+    .hw-quote{
+      border-left:2px solid rgba(245,200,66,.4);
+      padding-left:1.2rem;
+      margin:1.4rem 0;
+    }
+
+    .hw-quote p{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.95rem;
+      color:rgba(255,255,255,.65);
+      line-height:1.65;
+    }
+
+    /* Antenna visual */
+    .antenna-visual{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .antenna-wrap{
+      position:relative;
+      width:260px;
+      height:260px;
+    }
+
+    .antenna-ring{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:1px solid rgba(245,200,66,.15);
+      animation:ringPulse 3s ease-in-out infinite;
+    }
+
+    .antenna-ring:nth-child(1){width:260px;height:260px;animation-delay:0s;}
+    .antenna-ring:nth-child(2){width:200px;height:200px;animation-delay:.5s;border-color:rgba(245,200,66,.22);}
+    .antenna-ring:nth-child(3){width:140px;height:140px;animation-delay:1s;border-color:rgba(245,200,66,.3);}
+    .antenna-ring:nth-child(4){width:80px;height:80px;animation-delay:1.5s;border-color:rgba(245,200,66,.4);}
+
+    @keyframes ringPulse{
+      0%,100%{opacity:.4;transform:translate(-50%,-50%) scale(1);}
+      50%{opacity:1;transform:translate(-50%,-50%) scale(1.04);}
+    }
+
+    .antenna-core{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),var(--orange2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+      box-shadow:0 0 30px rgba(245,200,66,.4);
+    }
+
+    .antenna-labels{
+      margin-top:1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+    }
+
+    .ant-label{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:.55rem .9rem;
+      font-size:.78rem;
+      color:rgba(255,255,255,.55);
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+    }
+
+    .ant-label::before{
+      content:'→';
+      color:var(--gold);
+      font-size:.7rem;
+    }
+
+    /* QUOTES BAND */
+    .quotes-band{
+      background:linear-gradient(135deg,var(--gold2),var(--orange2));
+      padding:1.2rem 0;
+      overflow:hidden;
+    }
+
+    .qt-track{
+      display:flex;
+      gap:0;
+      animation:marquee 30s linear infinite;
+      white-space:nowrap;
+    }
+
+    @keyframes marquee{
+      from{transform:translateX(0);}
+      to{transform:translateX(-50%);}
+    }
+
+    .qt-item{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.9rem;
+      color:rgba(255,255,255,.85);
+      padding:0 3rem;
+      display:inline-flex;
+      align-items:center;
+      gap:2rem;
+    }
+
+    .qt-dot{
+      width:3px;
+      height:3px;
+      background:rgba(255,255,255,.4);
+      border-radius:50%;
+    }
+
+    .hero{
+      padding:5rem 4rem 3.5rem;
+      background:radial-gradient(ellipse 70% 55% at 60% 20%,rgba(245,200,66,.12) 0%,transparent 60%),var(--c);
+    }
+
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.7rem;
+      font-weight:500;
+      letter-spacing:.25em;
+      text-transform:uppercase;
+      color:var(--gold2);
+      background:rgba(245,200,66,.1);
+      border:1px solid rgba(245,200,66,.3);
+      border-radius:100px;
+      padding:.4rem 1rem;
+      margin-bottom:1.8rem;
+    }
+
+    .hero h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.5rem,5.5vw,4.5rem);
+      font-weight:900;
+      line-height:1.05;
+      margin-bottom:1rem;
+    }
+
+    .hero h1 em{
+      font-style:italic;
+      color:var(--gold2);
+    }
+
+    .hero p{
+      font-size:1rem;
+      font-weight:300;
+      color:var(--ink2);
+      max-width:560px;
+      line-height:1.85;
+    }
+
+    .main{
+      max-width:900px;
+      margin:0 auto;
+      padding:4rem 4rem 6rem;
+    }
+
+    .intro-card{
+      background:linear-gradient(135deg,#FFF8E8,#FFF0D4);
+      border:1.5px solid rgba(245,200,66,.25);
+      border-radius:24px;
+      padding:2rem;
+      margin-bottom:3rem;
+      display:flex;
+      gap:1.5rem;
+      align-items:flex-start;
+    }
+
+    .intro-icon{
+      font-size:2.5rem;
+      flex-shrink:0;
+    }
+
+    .intro-card p{
+      font-size:.92rem;
+      color:var(--ink2);
+      line-height:1.85;
+      font-weight:300;
+    }
+
+    .intro-card strong{
+      color:var(--ink);
+      font-weight:500;
+    }
+
+    .sliders-wrap{
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+      margin-bottom:2.5rem;
+    }
+
+    .slider-card{
+      background:var(--white);
+      border:1.5px solid rgba(232,150,127,.15);
+      border-radius:22px;
+      padding:1.8rem;
+      box-shadow:0 4px 24px rgba(42,26,16,.05);
+      transition:box-shadow .2s,border-color .2s;
+    }
+
+    .slider-card:hover{
+      box-shadow:0 8px 40px rgba(42,26,16,.09);
+      border-color:rgba(245,200,66,.3);
+    }
+
+    .slider-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:1rem;
+      margin-bottom:.8rem;
+    }
+
+    .slider-q{
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem;
+      font-weight:700;
+      color:var(--ink);
+      line-height:1.3;
+    }
+
+    .slider-val{
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem;
+      font-weight:900;
+      color:var(--gold2);
+      line-height:1;
+      min-width:2.5rem;
+      text-align:right;
+    }
+
+    .slider-poles{
+      display:flex;
+      justify-content:space-between;
+      font-size:.7rem;
+      color:var(--soft);
+      margin-bottom:.6rem;
+      font-weight:300;
+      gap:1rem;
+    }
+
+    input[type=range]{
+      width:100%;
+      -webkit-appearance:none;
+      height:6px;
+      border-radius:100px;
+      outline:none;
+      cursor:pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:white;
+      border:2.5px solid var(--gold2);
+      box-shadow:0 3px 12px rgba(232,168,0,.3);
+      transition:transform .15s;
+    }
+
+    input[type=range]::-webkit-slider-thumb:hover{
+      transform:scale(1.2);
+    }
+
+    .calc-btn{
+      width:100%;
+      background:linear-gradient(135deg,var(--gold2),var(--orange2));
+      color:white;
+      border:none;
+      padding:1.2rem 2rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:1rem;
+      font-weight:500;
+      cursor:pointer;
+      letter-spacing:.05em;
+      transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+      box-shadow:0 10px 35px rgba(232,168,0,.3);
+    }
+
+    .calc-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 18px 48px rgba(232,168,0,.4);
+    }
+
+    /* RESULT */
+    #res{
+      display:none;
+      animation:fadeUp .5s ease;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(16px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    .freq-hero{
+      background:linear-gradient(160deg,var(--ink),#3D1A05);
+      border-radius:32px;
+      padding:3.5rem 2.5rem;
+      text-align:center;
+      margin-bottom:1.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .freq-hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(245,200,66,.2),transparent 55%);
+    }
+
+    .freq-rings{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width:320px;
+      height:320px;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .freq-ring{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:1px solid rgba(245,200,66,.1);
+    }
+
+    .freq-num{
+      font-family:'Playfair Display',serif;
+      font-size:6rem;
+      font-weight:900;
+      color:white;
+      line-height:1;
+      position:relative;
+      z-index:2;
+    }
+
+    .freq-unit{
+      font-size:.68rem;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.45);
+      margin-top:.2rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .freq-name{
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem;
+      font-weight:400;
+      font-style:italic;
+      color:var(--gold);
+      margin-top:1rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .freq-emoji{
+      font-size:3rem;
+      margin-bottom:.5rem;
+      position:relative;
+      z-index:2;
+    }
+
+    .freq-hawkins{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:rgba(245,200,66,.1);
+      border:1px solid rgba(245,200,66,.2);
+      color:rgba(255,255,255,.6);
+      border-radius:100px;
+      padding:.35rem .9rem;
+      font-size:.7rem;
+      letter-spacing:.12em;
+      position:relative;
+      z-index:2;
+      margin-top:.8rem;
+    }
+
+    .scale-section{
+      background:var(--white);
+      border-radius:24px;
+      padding:2rem;
+      margin-bottom:1.5rem;
+      border:1px solid rgba(232,150,127,.15);
+    }
+
+    .scale-section h3{
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem;
+      font-weight:700;
+      color:var(--rose2);
+      margin-bottom:.4rem;
+    }
+
+    .scale-hawkins-note{
+      font-size:.76rem;
+      color:var(--soft);
+      font-weight:300;
+      margin-bottom:1.4rem;
+      line-height:1.55;
+    }
+
+    .scale-rows{
+      display:flex;
+      flex-direction:column;
+      gap:.48rem;
+    }
+
+    .scale-row{
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      padding:.58rem .8rem;
+      border-radius:12px;
+      transition:background .2s;
+    }
+
+    .scale-row.me{
+      background:linear-gradient(135deg,#FFF5E4,#FFEAD0);
+    }
+
+    .scale-em{
+      font-size:.95rem;
+      width:22px;
+      text-align:center;
+      flex-shrink:0;
+    }
+
+    .scale-lbl{
+      font-size:.8rem;
+      font-weight:300;
+      color:var(--ink2);
+      min-width:155px;
+    }
+
+    .scale-row.me .scale-lbl{
+      font-weight:500;
+      color:var(--ink);
+    }
+
+    .scale-bar-wrap{
+      flex:1;
+      height:6px;
+      background:#F0E4D8;
+      border-radius:100px;
+      overflow:hidden;
+    }
+
+    .scale-bar{
+      height:100%;
+      border-radius:100px;
+      transition:width .8s ease;
+    }
+
+    .scale-hz{
+      font-size:.76rem;
+      color:var(--soft);
+      white-space:nowrap;
+    }
+
+    .me-tag{
+      font-size:.66rem;
+      font-weight:600;
+      color:var(--orange2);
+      white-space:nowrap;
+    }
+
+    .res-section-lbl{
+      font-size:.63rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--gold2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+
+    .res-section-lbl::before{
+      content:'✦';
+      font-size:.5rem;
+    }
+
+    .res-main-block{
+      background:linear-gradient(135deg,#FFF8E8,#FFF2D8);
+      border:1px solid rgba(245,200,66,.2);
+      border-radius:22px;
+      padding:1.7rem 1.9rem;
+      margin-bottom:1.2rem;
+    }
+
+    .res-main-block p{
+      font-size:.93rem;
+      color:var(--ink2);
+      line-height:1.92;
+      font-weight:300;
+    }
+
+    .res-main-block p+p{margin-top:.85rem;}
+    .res-main-block strong{font-weight:500;color:var(--ink);}
+
+    .res-cocreator{
+      background:linear-gradient(160deg,var(--ink),#3A1808);
+      border-radius:22px;
+      padding:1.7rem 1.9rem;
+      margin-bottom:1.2rem;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .res-cocreator::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(245,200,66,.1) 0%,transparent 60%);
+      pointer-events:none;
+    }
+
+    .res-cocreator *{position:relative;z-index:1;}
+
+    .res-cocreator-lbl{
+      font-size:.63rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:.7rem;
+      display:flex;
+      align-items:center;
+      gap:.42em;
+    }
+
+    .res-cocreator-lbl::before{
+      content:'✦';
+      font-size:.5rem;
+    }
+
+    .res-cocreator-quote{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1rem;
+      color:rgba(255,255,255,.82);
+      line-height:1.7;
+      margin-bottom:.8rem;
+    }
+
+    .res-cocreator p{
+      font-size:.86rem;
+      color:rgba(255,255,255,.5);
+      line-height:1.82;
+      font-weight:300;
+    }
+
+    .res-cocreator p+p{margin-top:.6rem;}
+    .res-cocreator strong{color:rgba(255,255,255,.82);font-weight:500;}
+
+    .res-cards{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+      margin-bottom:1.2rem;
+    }
+
+    .res-card{
+      background:var(--white);
+      border-radius:20px;
+      padding:1.6rem;
+      border:1px solid rgba(232,150,127,.14);
+      box-shadow:0 4px 18px rgba(42,26,16,.05);
+    }
+
+    .res-card h4{
+      font-family:'Playfair Display',serif;
+      font-size:.92rem;
+      font-weight:700;
+      color:var(--gold2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+
+    .res-card p{
+      font-size:.86rem;
+      color:var(--ink2);
+      line-height:1.8;
+      font-weight:300;
+    }
+
+    .hygiene-block{
+      background:linear-gradient(135deg,#F0FBF6,#DDF4EC);
+      border:1px solid rgba(93,202,165,.2);
+      border-radius:22px;
+      padding:1.7rem 1.9rem;
+      margin-bottom:1.2rem;
+    }
+
+    .hygiene-lbl{
+      font-size:.63rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:#2A9670;
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.42em;
+    }
+
+    .hygiene-lbl::before{
+      content:'●';
+      font-size:.5rem;
+    }
+
+    .hygiene-title{
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--ink);
+      margin-bottom:.9rem;
+    }
+
+    .hygiene-list{
+      display:flex;
+      flex-direction:column;
+      gap:.55rem;
+    }
+
+    .hygiene-item{
+      display:flex;
+      align-items:flex-start;
+      gap:.75rem;
+      background:rgba(255,255,255,.65);
+      border-radius:12px;
+      padding:.65rem .85rem;
+    }
+
+    .hi-icon{
+      font-size:1rem;
+      flex-shrink:0;
+      margin-top:.05rem;
+    }
+
+    .hi-name{
+      font-size:.82rem;
+      font-weight:500;
+      color:var(--ink);
+      margin-bottom:.12rem;
+    }
+
+    .hi-desc{
+      font-size:.76rem;
+      color:var(--soft);
+      line-height:1.55;
+      font-weight:300;
+    }
+
+    .antenna-block{
+      background:linear-gradient(135deg,#FFF5F0,#FFE8DF);
+      border:1px solid rgba(232,150,127,.2);
+      border-radius:22px;
+      padding:1.7rem 1.9rem;
+      margin-bottom:1.5rem;
+    }
+
+    .antenna-lbl{
+      font-size:.63rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--rose2);
+      margin-bottom:.6rem;
+      display:flex;
+      align-items:center;
+      gap:.42em;
+    }
+
+    .antenna-lbl::before{
+      content:'✦';
+      font-size:.5rem;
+    }
+
+    .antenna-block p{
+      font-size:.88rem;
+      color:var(--ink2);
+      line-height:1.88;
+      font-weight:300;
+    }
+
+    .antenna-block p+p{margin-top:.7rem;}
+    .antenna-block strong{font-weight:500;color:var(--ink);}
+
+    .res-message{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.05rem;
+      color:var(--ink);
+      line-height:1.7;
+      padding:1.2rem 1.5rem;
+      border-left:3px solid var(--gold);
+      background:linear-gradient(135deg,#FFF8E8,#FFF3D8);
+      border-radius:0 16px 16px 0;
+      margin-bottom:1.5rem;
+    }
+
+    .res-actions{
+      display:flex;
+      gap:.8rem;
+      flex-wrap:wrap;
+      margin-top:1.5rem;
+    }
+
+    .btn-p{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,var(--gold2),var(--orange2));
+      color:white;
+      padding:.9rem 1.8rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.86rem;
+      font-weight:500;
+      cursor:pointer;
+      border:none;
+      box-shadow:0 8px 28px rgba(232,168,0,.3);
+      transition:transform .2s;
+    }
+
+    .btn-p:hover{transform:translateY(-2px);}
+
+    .btn-transgen{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,var(--rose2),var(--orange2));
+      color:white;
+      padding:.9rem 1.8rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.86rem;
+      font-weight:500;
+      cursor:pointer;
+      border:none;
+      box-shadow:0 8px 28px rgba(201,107,82,.28);
+      transition:transform .2s;
+    }
+
+    .btn-transgen:hover{transform:translateY(-2px);}
+
+    .btn-g{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:transparent;
+      color:var(--ink2);
+      padding:.9rem 1.6rem;
+      border-radius:100px;
+      font-family:'DM Sans',sans-serif;
+      font-size:.86rem;
+      cursor:pointer;
+      border:1.5px solid rgba(92,61,44,.2);
+      transition:all .2s;
+    }
+
+    .btn-g:hover{
+      border-color:var(--rose);
+      color:var(--rose2);
+    }
+
+    .laws-section{
+      background:var(--ink);
+      padding:7rem 4rem;
+    }
+
+    .laws-inner{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    .laws-inner h2{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,3.5vw,2.6rem);
+      font-weight:700;
+      color:white;
+      text-align:center;
+      margin-bottom:.8rem;
+    }
+
+    .laws-inner h2 em{
+      font-style:italic;
+      color:var(--gold);
+    }
+
+    .laws-sub{
+      text-align:center;
+      font-size:.92rem;
+      color:rgba(255,255,255,.42);
+      font-weight:300;
+      max-width:520px;
+      margin:0 auto 3.5rem;
+      line-height:1.7;
+    }
+
+    .laws-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.2rem;
+    }
+
+    .law{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;
+      padding:1.6rem;
+      transition:background .2s,transform .2s;
+    }
+
+    .law:hover{
+      background:rgba(255,255,255,.07);
+      transform:translateY(-3px);
+    }
+
+    .law-name{
+      font-family:'Playfair Display',serif;
+      font-size:.95rem;
+      font-weight:700;
+      color:white;
+      margin-bottom:.5rem;
+    }
+
+    .law-desc{
+      font-size:.8rem;
+      color:rgba(255,255,255,.38);
+      line-height:1.65;
+      font-weight:300;
+    }
+
+    .site-footer{
+      background:#1A0E08;
+      padding:4rem 4rem 2rem;
+    }
+
+    .footer-inner{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .footer-top{
+      display:grid;
+      grid-template-columns:1.8fr 1fr 1fr 1fr;
+      gap:3rem;
+      margin-bottom:3rem;
+    }
+
+    .footer-brand .footer-logo{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:1.4rem;
+      color:white;
+      font-weight:700;
+      display:block;
+      margin-bottom:.8rem;
+    }
+
+    .footer-brand p{
+      font-size:.82rem;
+      color:rgba(255,255,255,.4);
+      line-height:1.75;
+      font-weight:300;
+      max-width:280px;
+    }
+
+    .footer-brand .footer-book-link{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:linear-gradient(135deg,#FF9900,#E47911);
+      color:white;
+      padding:.6rem 1.2rem;
+      border-radius:100px;
+      font-size:.78rem;
+      font-weight:500;
+      margin-top:1.2rem;
+    }
+
+    .footer-col h4{
+      font-family:'Playfair Display',serif;
+      font-size:.82rem;
+      font-weight:700;
+      color:white;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+
+    .footer-col a{
+      display:block;
+      font-size:.8rem;
+      color:rgba(255,255,255,.4);
+      margin-bottom:.6rem;
+      transition:color .18s;
+      font-weight:300;
+    }
+
+    .footer-col a:hover{color:var(--rose);}
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding-top:1.8rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+
+    .footer-bottom p{
+      font-size:.74rem;
+      color:rgba(255,255,255,.22);
+    }
+
+    .footer-bottom-links{
+      display:flex;
+      gap:1.5rem;
+      flex-wrap:wrap;
+    }
+
+    .footer-bottom-links a{
+      font-size:.74rem;
+      color:rgba(255,255,255,.28);
+    }
+
+    .footer-bottom-links a:hover{color:var(--rose);}
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .6s ease,transform .6s ease;
+    }
+
+    .reveal.revealed{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media(max-width:900px){
+      .hawkins-intro,.laws-section{padding:5rem 1.5rem 4rem;}
+      .hw-inner{grid-template-columns:1fr;gap:2.5rem;}
+      .antenna-visual{display:none;}
+      .hero{padding:4rem 1.5rem 2.5rem;}
+      .main{padding:3rem 1.5rem 4rem;}
+      .res-cards{grid-template-columns:1fr;}
+      .laws-grid{grid-template-columns:1fr;}
+      body{padding-top:60px;}
+      .cursor,.cursor-ring{display:none;}
+      nav{padding:0 1.2rem;height:60px;}
+      .nav-links{display:none;}
+      .nav-burger{display:flex;}
+      .nav-mobile{top:60px;}
+      .site-footer{padding:3rem 1.5rem 1.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+      .footer-brand{grid-column:span 2;}
+    }
+
+    @media(max-width:480px){
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
+    }
+
+    @media print{
+      nav,.nav-mobile,.cursor,.cursor-ring,.quotes-band,.laws-section,.site-footer,.res-actions,.calc-btn{display:none!important;}
+      body{padding-top:0;background:white;}
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Mémoires</a>
+      <a href="cycle.html">Mon cycle</a>
+      <a href="arbre-vie.html">Arbre de Vie</a>
+      <a href="symptomes.html">Mon corps</a>
+      <a href="vibration.html" class="active">Fréquence</a>
+      <a href="journal.html">Journal</a>
+      <a href="transgen.html">Transgénérationnel</a>
+      <a href="genosociogramme.html">Génosociogramme</a>
+      <a href="arbre-famille.html">Ma famille</a>
+      <a href="contact.html">Contact</a>
+      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="parcours.html">🧬 Mémoires</a>
+    <a href="cycle.html">🌙 Mon cycle</a>
+    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
+    <a href="symptomes.html">💬 Mon corps</a>
+    <a href="vibration.html">💫 Fréquence</a>
+    <a href="journal.html">📓 Journal</a>
+    <a href="transgen.html">🔁 Transgénérationnel</a>
+    <a href="genosociogramme.html">🌐 Génosociogramme</a>
+    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
+    <a href="contact.html">✉️ Contact</a>
+    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+  </div>
+
+  <section class="hawkins-intro">
+    <div class="hw-inner">
+      <div>
+        <div class="hw-eyebrow">David Hawkins · Physique de la conscience</div>
+        <h1 class="hw-title">Reprends ta souveraineté.<br><em>Crée en conscience.</em></h1>
+        <p class="hw-lead">
+          Le Dr David Hawkins — psychiatre, chercheur et mystique — a consacré 20 ans à mesurer la fréquence des états de conscience humains. Ses recherches, publiées dans <em>Power vs Force</em>, ont mis en évidence quelque chose de fondamental : <strong>chaque émotion, chaque pensée, chaque croyance vibre à une fréquence précise et mesurable.</strong>
+        </p>
+        <p class="hw-lead">
+          Et cette fréquence n'est pas neutre. Elle agit comme une antenne — elle émet un signal dans ton environnement, et attire en retour ce qui vibre à la même fréquence.
+        </p>
+        <div class="hw-quote">
+          <p>"Nous ne vivons pas dans le monde. Nous vivons dans le monde que nous vibrons."</p>
+        </div>
+        <p class="hw-lead">
+          <strong>Ta fréquence n'est pas fixe.</strong> Elle évolue avec tes pensées, tes émotions, tes choix, tes pratiques et le niveau de libération intérieure que tu traverses.
+        </p>
+      </div>
+
+      <div class="antenna-visual">
+        <div>
+          <div class="antenna-wrap">
+            <div class="antenna-ring"></div>
+            <div class="antenna-ring"></div>
+            <div class="antenna-ring"></div>
+            <div class="antenna-ring"></div>
+            <div class="antenna-core">🫀</div>
+          </div>
+          <div class="antenna-labels">
+            <div class="ant-label">Ton cœur émet un champ électromagnétique mesurable</div>
+            <div class="ant-label">Ton cerveau se synchronise sur ton état intérieur</div>
+            <div class="ant-label">Tu résonnes avec ce qui vibre comme toi</div>
+            <div class="ant-label">Modifier l’intérieur transforme l’extérieur</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quotes-band">
+    <div class="qt-track">
+      <span class="qt-item">Tout est énergie en vibration<span class="qt-dot"></span></span>
+      <span class="qt-item">Tu attires ce que tu vibres<span class="qt-dot"></span></span>
+      <span class="qt-item">Le cœur est la première antenne<span class="qt-dot"></span></span>
+      <span class="qt-item">Changer l’intérieur change l’extérieur<span class="qt-dot"></span></span>
+      <span class="qt-item">La conscience élève ou contracte la vie<span class="qt-dot"></span></span>
+      <span class="qt-item">Tout est énergie en vibration<span class="qt-dot"></span></span>
+      <span class="qt-item">Tu attires ce que tu vibres<span class="qt-dot"></span></span>
+      <span class="qt-item">Le cœur est la première antenne<span class="qt-dot"></span></span>
+      <span class="qt-item">Changer l’intérieur change l’extérieur<span class="qt-dot"></span></span>
+      <span class="qt-item">La conscience élève ou contracte la vie<span class="qt-dot"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">Calculateur · 7 dimensions</div>
+    <h1>À quelle fréquence<br><em>vibres-tu ?</em></h1>
+    <p style="margin-top:1rem;">Réponds honnêtement. Ta fréquence actuelle n’est pas un verdict : c’est un point de départ pour mieux comprendre ce que tu vis et ce que tu peux transformer.</p>
+  </div>
+
+  <div class="main">
+    <div class="intro-card reveal">
+      <div class="intro-icon">💡</div>
+      <p>Réponds avec bienveillance envers toi-même. Il n'y a pas de bonne ou mauvaise réponse — <strong>seulement là où tu en es maintenant</strong>. En prendre conscience est déjà un premier déplacement intérieur.</p>
+    </div>
+
+    <div class="sliders-wrap" id="sliders-wrap">
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Lorsque tu penses à ton avenir, qu'est-ce qui domine ?</span><span class="slider-val" id="v0">5</span></div>
+        <div class="slider-poles"><span>Peur & doute profonds</span><span>Confiance & enthousiasme</span></div>
+        <input type="range" min="1" max="10" value="5" id="s0" oninput="upd(0,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Comment vis-tu tes émotions au quotidien ?</span><span class="slider-val" id="v1">5</span></div>
+        <div class="slider-poles"><span>Submergé(e)</span><span>Fluides & accueillies</span></div>
+        <input type="range" min="1" max="10" value="5" id="s1" oninput="upd(1,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Quelle est ta croyance la plus profonde sur toi-même ?</span><span class="slider-val" id="v2">5</span></div>
+        <div class="slider-poles"><span>Je ne suis pas assez</span><span>Je suis digne et capable</span></div>
+        <input type="range" min="1" max="10" value="5" id="s2" oninput="upd(2,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Ton niveau d'énergie vitale en ce moment :</span><span class="slider-val" id="v3">5</span></div>
+        <div class="slider-poles"><span>Épuisé(e)</span><span>Rayonnant(e)</span></div>
+        <input type="range" min="1" max="10" value="5" id="s3" oninput="upd(3,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Comment te sens-tu dans tes relations ?</span><span class="slider-val" id="v4">5</span></div>
+        <div class="slider-poles"><span>Fermé(e) ou méfiant(e)</span><span>Connecté(e) et ouvert(e)</span></div>
+        <input type="range" min="1" max="10" value="5" id="s4" oninput="upd(4,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Quelle est ta relation à la gratitude aujourd'hui ?</span><span class="slider-val" id="v5">5</span></div>
+        <div class="slider-poles"><span>Difficile à ressentir</span><span>Naturelle et profonde</span></div>
+        <input type="range" min="1" max="10" value="5" id="s5" oninput="upd(5,this)">
+      </div>
+      <div class="slider-card">
+        <div class="slider-top"><span class="slider-q">Ton rapport à ta vie telle qu'elle est maintenant :</span><span class="slider-val" id="v6">5</span></div>
+        <div class="slider-poles"><span>Résistance</span><span>Acceptation profonde</span></div>
+        <input type="range" min="1" max="10" value="5" id="s6" oninput="upd(6,this)">
+      </div>
+
+      <button class="calc-btn" onclick="calc()">✦ Révéler ma fréquence vibratoire</button>
+    </div>
+
+    <div id="res">
+      <div class="freq-hero">
+        <div class="freq-rings">
+          <div class="freq-ring" style="width:280px;height:280px;"></div>
+          <div class="freq-ring" style="width:210px;height:210px;border-color:rgba(245,200,66,.15);"></div>
+          <div class="freq-ring" style="width:140px;height:140px;border-color:rgba(245,200,66,.2);"></div>
+        </div>
+        <div class="freq-emoji" id="r-emoji"></div>
+        <div class="freq-num" id="r-hz"></div>
+        <div class="freq-unit">Hz · Échelle de Hawkins</div>
+        <div class="freq-name" id="r-name"></div>
+        <div class="freq-hawkins" id="r-hawkins-zone"></div>
+      </div>
+
+      <div class="scale-section">
+        <h3>🌡 Le spectre vibratoire</h3>
+        <p class="scale-hawkins-note">En dessous d’un certain seuil, les états intérieurs contractent et épuisent. Au-dessus, ils ouvrent, organisent, fluidifient et soutiennent la vie.</p>
+        <div class="scale-rows" id="scale-rows"></div>
+      </div>
+
+      <div class="res-main-block" id="r-main"></div>
+      <div class="res-cocreator" id="r-cocreator"></div>
+      <div class="res-cards" id="res-cards"></div>
+      <div class="hygiene-block" id="r-hygiene"></div>
+      <div class="antenna-block" id="r-antenna"></div>
+      <div class="res-message" id="r-message"></div>
+
+      <div class="res-actions">
+        <a href="parcours.html" class="btn-transgen">🧬 Explorer mes mémoires →</a>
+        <a href="journal.html" class="btn-p">✦ Travailler en journal</a>
+        <button class="btn-g" onclick="window.print()">🖨 Imprimer</button>
+        <button class="btn-g" onclick="reset()">↺ Recalculer</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="laws-section">
+    <div class="laws-inner">
+      <h2>Les lois <em>universelles</em></h2>
+      <p class="laws-sub">Ces lois ne sont pas là pour faire joli : elles t’aident à comprendre pourquoi certaines répétitions se maintiennent et comment l’état intérieur influence ce que tu vis.</p>
+      <div class="laws-grid">
+        <div class="law reveal"><div class="law-name">🧲 Loi de l'attraction</div><div class="law-desc">Ce qui vibre ensemble entre plus facilement en résonance. L’intérieur colore ce que tu perçois et ce que tu attires.</div></div>
+        <div class="law reveal"><div class="law-name">⚡ Loi de la vibration</div><div class="law-desc">Tout bouge, tout vibre, tout émet une qualité d’énergie particulière.</div></div>
+        <div class="law reveal"><div class="law-name">🎵 Loi de la résonance</div><div class="law-desc">Les états semblables se reconnaissent. Les schémas non intégrés appellent souvent des miroirs qui les réactivent.</div></div>
+        <div class="law reveal"><div class="law-name">🌱 Loi de cause à effet</div><div class="law-desc">Chaque pensée, choix, émotion et comportement participe à produire un effet dans ta vie.</div></div>
+        <div class="law reveal"><div class="law-name">🪞 Loi de correspondance</div><div class="law-desc">Le dehors reflète souvent quelque chose du dedans : croyances, peurs, ouvertures, attentes.</div></div>
+        <div class="law reveal"><div class="law-name">✨ Loi de transmutation</div><div class="law-desc">Une énergie ne disparaît pas forcément : elle peut être transformée, déplacée, intégrée, élevée.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Explorer les schémas répétitifs, les mémoires, le ressenti, le corps et les fréquences intérieures pour retrouver plus de clarté et de liberté.</p>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="parcours.html">Mémoires</a>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="vibration.html">Fréquence</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Approfondir</h4>
+          <a href="journal.html">Journal</a>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Accueil</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="#sliders-wrap">Calculateur</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · schema-repetitif-genetique.fr</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Livre</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu(){
+      const burger = document.getElementById('burger');
+      const mobile = document.getElementById('nav-mobile');
+      burger.classList.toggle('open');
+      mobile.classList.toggle('open');
+    }
+
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    if (window.innerWidth > 900) {
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX;
+        my = e.clientY;
+        if(cur){
+          cur.style.left = mx + 'px';
+          cur.style.top = my + 'px';
+        }
+      });
+
+      (function a(){
+        rx += (mx - rx) * .12;
+        ry += (my - ry) * .12;
+        if(ring){
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+        }
+        requestAnimationFrame(a);
+      })();
+    }
+
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        obs.unobserve(e.target);
+      }
+    }), {threshold:.1});
+
+    document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+    const vals = [5,5,5,5,5,5,5];
+
+    function upd(i,el){
+      vals[i] = parseInt(el.value,10);
+      document.getElementById('v'+i).textContent = el.value;
+      const pct = (vals[i]-1)/9*100;
+      el.style.background = `linear-gradient(to right,var(--gold2) 0%,var(--gold2) ${pct}%,#E8D8C4 ${pct}%,#E8D8C4 100%)`;
+    }
+
+    for(let i=0;i<7;i++){
+      const el = document.getElementById('s'+i);
+      el.style.background = 'linear-gradient(to right,var(--gold2) 0%,var(--gold2) 44.4%,#E8D8C4 44.4%,#E8D8C4 100%)';
+    }
+
+    const LV = [
+      {
+        name:'Honte & Culpabilité',hz:20,emoji:'🌑',color:'#7A3A3A',zone:'Zone de survie profonde',
+        main_p1:'Tu traverses une fréquence très contractée, souvent liée à une blessure d’indignité, de rejet ou de dévalorisation profonde.',
+        main_p2:'Ce niveau ne dit pas qui tu es. Il signale qu’une mémoire lourde ou ancienne occupe beaucoup d’espace dans ton système intérieur.',
+        cocreator_quote:'Tu n’es pas ce que tu traverses. Tu es aussi celui ou celle qui peut commencer à le transformer.',
+        cocreator_p1:'Quand la honte ou la culpabilité dominent, la vie se contracte. Le regard sur soi devient dur et le monde semble confirmer cette dureté.',
+        cocreator_p2:'Commencer à se parler autrement change déjà la fréquence. Le déplacement commence souvent par un tout petit acte de douceur.',
+        attract:'Des situations qui semblent confirmer le manque d’amour, la dévalorisation ou l’indignité.',
+        elevate:'Commence par t’adresser à toi comme à quelqu’un qui souffre réellement. La douceur n’est pas de la faiblesse ici : c’est un réaccordage.',
+        hygiene_intro:'Quand la fréquence est très basse, les gestes simples ont beaucoup de valeur.',
+        hygiene:[
+          {icon:'💧',name:'Hydratation consciente',desc:'Boire un verre d’eau lentement avec une vraie intention de soutien.'},
+          {icon:'🌿',name:'Prendre l’air',desc:'Le dehors aide à sortir de la compression intérieure.'},
+          {icon:'🫀',name:'Respiration calme',desc:'Quelques cycles lents aident déjà à détendre le système.'},
+          {icon:'✍️',name:'Écriture libre',desc:'Décharger ce qui tourne en boucle soulage le champ intérieur.'}
+        ],
+        antenna_p1:'Ton état intérieur agit comme un signal. Plus il est contracté, plus il rend visibles des situations qui réactivent la même blessure.',
+        antenna_p2:'Quand tu modifies même légèrement ta manière d’habiter ton ressenti, tu modifies déjà ce que tu émets et ce que tu renforces.',
+        message:'Tu n’es pas cassée. Tu traverses une fréquence qui demande de la sécurité, de la douceur et du temps.'
+      },
+      {
+        name:'Peur & Survie',hz:75,emoji:'🌘',color:'#C96B52',zone:'Mode survie actif',
+        main_p1:'Ton système intérieur semble en vigilance. Il y a de l’alerte, du stress, une difficulté à relâcher totalement.',
+        main_p2:'Souvent, ce n’est pas un manque de volonté : c’est un système nerveux qui n’a pas encore reçu le signal qu’il pouvait se poser.',
+        cocreator_quote:'Avant de vouloir tout changer, le corps a parfois juste besoin d’apprendre qu’il peut se relâcher.',
+        cocreator_p1:'En mode survie, on réagit beaucoup plus qu’on ne choisit. La priorité est de rétablir de la sécurité perçue.',
+        cocreator_p2:'Plus le corps se sent en sécurité, plus la conscience peut redevenir créatrice.',
+        attract:'Des urgences, des tensions, des contextes ou personnes qui entretiennent la vigilance.',
+        elevate:'Ancrage, respiration, rythme plus simple, réduction des surstimulations et sécurité corporelle.',
+        hygiene_intro:'Le système nerveux se régule d’abord par le corps.',
+        hygiene:[
+          {icon:'🦶',name:'Ancrage',desc:'Pieds au sol, respiration lente, sensation du poids du corps.'},
+          {icon:'🫀',name:'Cohérence cardiaque',desc:'Respirer de manière régulière quelques minutes change déjà le signal intérieur.'},
+          {icon:'🚶',name:'Marche',desc:'Le mouvement aide à sortir du figement ou de l’hypervigilance.'},
+          {icon:'😴',name:'Sommeil protégé',desc:'Un vrai rythme de repos soutient fortement la fréquence.'}
+        ],
+        antenna_p1:'Un état de peur émet un signal de contraction qui influence aussi la manière dont tu lis le monde autour de toi.',
+        antenna_p2:'Quand le corps reçoit davantage de sécurité, la perception change, et ce qui semblait menaçant peut se réorganiser.',
+        message:'Ce que tu ressens est réel. Mais cela ne signifie pas que tu es condamnée à rester en alerte.'
+      },
+      {
+        name:'Colère & Résistance',hz:150,emoji:'🌗',color:'#E8967F',zone:'Zone de transition',
+        main_p1:'La colère contient déjà plus d’énergie que l’effondrement. Elle montre qu’une part de toi refuse quelque chose qui ne lui convient plus.',
+        main_p2:'Le vrai enjeu est de ne pas laisser cette énergie tourner en boucle sans direction.',
+        cocreator_quote:'La colère devient précieuse quand elle se transforme en limite, en choix ou en action juste.',
+        cocreator_p1:'À ce niveau, l’énergie cherche une issue. Elle peut détruire, mais elle peut aussi ouvrir un vrai changement.',
+        cocreator_p2:'L’essentiel est de lui donner un canal plutôt qu’un ennemi permanent.',
+        attract:'Conflits, tensions, frictions, rapports de force ou répétitions qui activent l’injustice.',
+        elevate:'Bouger, écrire, clarifier ce qui doit changer, poser une limite, sortir de la simple réaction.',
+        hygiene_intro:'Cette énergie a besoin de circulation.',
+        hygiene:[
+          {icon:'🥊',name:'Décharge physique',desc:'Faire sortir l’intensité par le corps.'},
+          {icon:'✍️',name:'Lettre non envoyée',desc:'Mettre des mots aide à clarifier ce qui brûle.'},
+          {icon:'🌬️',name:'Expiration forte',desc:'Relâcher par la respiration permet d’ouvrir un espace.'},
+          {icon:'🎨',name:'Créer',desc:'La force émotionnelle peut devenir une matière de transformation.'}
+        ],
+        antenna_p1:'La colère est un signal puissant. Elle organise ton attention autour de ce qui résiste.',
+        antenna_p2:'Quand elle devient conscience, elle cesse d’attirer seulement de la lutte et devient une vraie force de repositionnement.',
+        message:'Ta colère peut devenir un levier. Elle n’a pas besoin de tout casser pour te montrer ce qui doit changer.'
+      },
+      {
+        name:'Acceptation & Ouverture',hz:250,emoji:'🌓',color:'#F0A05A',zone:'Seuil d’ouverture',
+        main_p1:'Tu es dans une zone charnière. Quelque chose en toi commence à relâcher la lutte permanente contre ce qui est.',
+        main_p2:'Cela ne veut pas dire que tout est simple. Cela veut dire que tu commences à regarder plus clairement.',
+        cocreator_quote:'Accepter ce qui est n’est pas abandonner. C’est enfin voir depuis un endroit plus juste.',
+        cocreator_p1:'À partir de cette fréquence, la conscience peut redevenir plus créatrice que défensive.',
+        cocreator_p2:'Le choix devient plus accessible. La réaction automatique diminue.',
+        attract:'Des prises de conscience, des ouvertures, des synchronicités, des appuis de croissance.',
+        elevate:'Continuer à stabiliser cette ouverture par la présence, la gratitude et l’observation consciente.',
+        hygiene_intro:'À ce niveau, la régularité compte plus que l’intensité.',
+        hygiene:[
+          {icon:'📓',name:'Journal de reconnaissance',desc:'Nommer ce qui aide, ce qui ouvre, ce qui soutient.'},
+          {icon:'🧘',name:'Présence quotidienne',desc:'Quelques minutes de recentrage suffisent à stabiliser l’ouverture.'},
+          {icon:'🌳',name:'Nature',desc:'Le vivant aide naturellement à réorganiser le champ intérieur.'},
+          {icon:'🎵',name:'Ambiances apaisantes',desc:'Le sonore, le rythme, la musique influencent aussi l’état global.'}
+        ],
+        antenna_p1:'Le signal intérieur devient plus lisible, moins chaotique, plus ouvert.',
+        antenna_p2:'Tu commences à attirer moins de répétitions purement défensives et davantage d’expériences de croissance.',
+        message:'L’acceptation est un seuil. Tu n’es plus exactement dans la lutte, mais pas encore au bout du chemin — et c’est déjà beaucoup.'
+      },
+      {
+        name:'Raison & Clarté',hz:350,emoji:'🌔',color:'#F5C842',zone:'Zone d’élévation',
+        main_p1:'La compréhension s’organise. Tu vois mieux les mécanismes, les patterns, les liens entre tes états intérieurs et ce que tu vis.',
+        main_p2:'Le risque ici est de rester trop dans la tête. Comprendre n’est pas encore intégrer.',
+        cocreator_quote:'Voir clair change déjà beaucoup. Mais la vraie transformation se confirme dans le corps et dans les choix.',
+        cocreator_p1:'Cette fréquence aide à sortir de la simple répétition inconsciente.',
+        cocreator_p2:'Tu peux commencer à agir à partir de conscience plus que de réflexe.',
+        attract:'Des échanges pertinents, des compréhensions, des rencontres qui font réfléchir, des avancées plus lucides.',
+        elevate:'Faire descendre la clarté dans le concret, le corps, les habitudes et les relations.',
+        hygiene_intro:'Il s’agit ici d’intégrer davantage.',
+        hygiene:[
+          {icon:'🧘',name:'Scan corporel',desc:'Ramener l’attention dans la matière, pas seulement dans la pensée.'},
+          {icon:'📖',name:'Comprendre puis appliquer',desc:'Chaque prise de conscience gagne à devenir un petit choix réel.'},
+          {icon:'🚶',name:'Marche consciente',desc:'Le mouvement aide à relier tête et corps.'},
+          {icon:'🌙',name:'Bilan du soir',desc:'Intégrer les prises de conscience au quotidien.'}
+        ],
+        antenna_p1:'Le signal intérieur devient plus organisé. Tu lis mieux ce qui se joue.',
+        antenna_p2:'Cette clarté change déjà la qualité de ce que tu renforces dans ta vie.',
+        message:'Comprendre ouvre une porte. L’habiter vraiment demande ensuite de l’incarnation.'
+      },
+      {
+        name:'Amour & Gratitude',hz:528,emoji:'🌕',color:'#E8967F',zone:'Zone de guérison',
+        main_p1:'Tu vibres dans une fréquence d’ouverture du cœur, de gratitude, de douceur et de rayonnement beaucoup plus élevée.',
+        main_p2:'À ce niveau, la vie peut être perçue avec plus de confiance, de beauté et de reliance.',
+        cocreator_quote:'L’amour cohérent n’a pas besoin de forcer. Il rayonne et réorganise naturellement.',
+        cocreator_p1:'Quand le cœur est plus cohérent, la manière de voir, de parler, de réagir et d’attirer change profondément.',
+        cocreator_p2:'Cette fréquence ne concerne pas seulement toi : elle influence aussi la qualité de l’espace autour de toi.',
+        attract:'De la beauté, des liens plus justes, des opportunités alignées, des rencontres nourrissantes.',
+        elevate:'Protéger cette fréquence, la nourrir et ne pas l’épuiser dans le don sans discernement.',
+        hygiene_intro:'Ici, l’enjeu est de préserver et nourrir l’ouverture.',
+        hygiene:[
+          {icon:'🌅',name:'Gratitude du matin',desc:'Commencer la journée depuis un état de reconnaissance change tout le ton intérieur.'},
+          {icon:'💛',name:'Présence du cœur',desc:'Respirer en revenant consciemment au cœur.'},
+          {icon:'🤝',name:'Acte de bonté',desc:'La générosité juste consolide cette qualité de fréquence.'},
+          {icon:'🎵',name:'Environnement nourrissant',desc:'Ce que tu entends, regardes et fréquentes compte énormément.'}
+        ],
+        antenna_p1:'Le cœur devient une antenne beaucoup plus cohérente. Ta présence peut apaiser sans même que tu cherches à le faire.',
+        antenna_p2:'Plus tu entretiens cette qualité, plus ton environnement tend à s’ordonner différemment autour de toi.',
+        message:'Prends soin de ce que tu vibres. Cet espace du cœur est précieux.'
+      },
+      {
+        name:'Joie & Paix Profonde',hz:700,emoji:'☀️',color:'#B8860B',zone:'Zone de rayonnement',
+        main_p1:'Tu touches une fréquence rare de paix, de recul, de joie profonde ou de rayonnement intérieur.',
+        main_p2:'Ce n’est pas forcément un état permanent, mais il indique un accès réel à une qualité de présence très élevée.',
+        cocreator_quote:'À cette fréquence, ce n’est plus seulement ce que tu fais qui transforme — c’est aussi ce que tu incarnes.',
+        cocreator_p1:'La conscience devient plus stable, moins réactive, plus rayonnante.',
+        cocreator_p2:'Le véritable enjeu est de rester incarnée et simple, sans quitter le réel.',
+        attract:'Des relations profondes, un sentiment de sens, plus de fluidité et une grande qualité de présence.',
+        elevate:'Continuer à relier le haut et le concret, la présence et l’incarnation.',
+        hygiene_intro:'Ici, l’hygiène énergétique consiste surtout à rester ancrée.',
+        hygiene:[
+          {icon:'🌍',name:'Ancrage',desc:'Même une grande ouverture a besoin d’un corps bien habité.'},
+          {icon:'🤲',name:'Service simple',desc:'L’ordinaire devient un lieu de rayonnement.'},
+          {icon:'🔇',name:'Silence',desc:'Le vide protège et renouvelle ce niveau de présence.'},
+          {icon:'💛',name:'Transmission humble',desc:'Partager sans imposer maintient la justesse.'}
+        ],
+        antenna_p1:'Un état profondément cohérent influence naturellement l’espace relationnel autour de toi.',
+        antenna_p2:'La présence devient elle-même un facteur de transformation.',
+        message:'Le plus haut n’a de sens que s’il se vit aussi dans le plus simple.'
+      }
+    ];
+
+    function calc(){
+      const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+      const idx = Math.min(Math.floor((avg-1)/9*LV.length),LV.length-1);
+      const lv = LV[idx];
+
+      document.getElementById('sliders-wrap').style.display='none';
+      const res = document.getElementById('res');
+      res.style.display='block';
+
+      document.getElementById('r-emoji').textContent = lv.emoji;
+      document.getElementById('r-hz').textContent = lv.hz;
+      document.getElementById('r-name').textContent = lv.name;
+      document.getElementById('r-hawkins-zone').textContent = lv.zone;
+
+      const sc = document.getElementById('scale-rows');
+      sc.innerHTML = '';
+      LV.forEach((l,i)=>{
+        const me = i===idx;
+        sc.innerHTML += `<div class="scale-row${me?' me':''}">
+          <span class="scale-em">${l.emoji}</span>
+          <span class="scale-lbl">${l.name}</span>
+          <div class="scale-bar-wrap"><div class="scale-bar" style="width:${Math.round((i+1)/LV.length*100)}%;background:${l.color};"></div></div>
+          <span class="scale-hz">${l.hz} Hz</span>
+          ${me?'<span class="me-tag">← toi</span>':''}
+        </div>`;
+      });
+
+      document.getElementById('r-main').innerHTML = `
+        <div class="res-section-lbl">Ce qui se joue en toi</div>
+        <p>${lv.main_p1}</p><p>${lv.main_p2}</p>`;
+
+      document.getElementById('r-cocreator').innerHTML = `
+        <div class="res-cocreator-lbl">Co-création consciente</div>
+        <div class="res-cocreator-quote">"${lv.cocreator_quote}"</div>
+        <p>${lv.cocreator_p1}</p><p>${lv.cocreator_p2}</p>`;
+
+      document.getElementById('res-cards').innerHTML = `
+        <div class="res-card"><h4>🔮 Ce que tu tends à attirer</h4><p>${lv.attract}</p></div>
+        <div class="res-card"><h4>✦ Pour élever ta vibration</h4><p>${lv.elevate}</p></div>`;
+
+      document.getElementById('r-hygiene').innerHTML = `
+        <div class="hygiene-lbl">Hygiène énergétique — pratiques immédiates</div>
+        <div class="hygiene-title">Comment soutenir ta fréquence</div>
+        <p style="font-size:.82rem;color:var(--soft);margin-bottom:.9rem;font-weight:300">${lv.hygiene_intro}</p>
+        <div class="hygiene-list">${lv.hygiene.map(h=>`
+          <div class="hygiene-item">
+            <div class="hi-icon">${h.icon}</div>
+            <div class="hi-body">
+              <div class="hi-name">${h.name}</div>
+              <div class="hi-desc">${h.desc}</div>
+            </div>
+          </div>`).join('')}</div>`;
+
+      document.getElementById('r-antenna').innerHTML = `
+        <div class="antenna-lbl">Tu es une antenne — cœur & conscience</div>
+        <p>${lv.antenna_p1}</p><p>${lv.antenna_p2}</p>`;
+
+      document.getElementById('r-message').textContent = lv.message;
+
+      res.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function reset(){
+      vals.fill(5);
+      for(let i=0;i<7;i++){
+        document.getElementById('s'+i).value = 5;
+        document.getElementById('v'+i).textContent = 5;
+        document.getElementById('s'+i).style.background = 'linear-gradient(to right,var(--gold2) 0%,var(--gold2) 44.4%,#E8D8C4 44.4%,#E8D8C4 100%)';
+      }
+      document.getElementById('res').style.display='none';
+      document.getElementById('sliders-wrap').style.display='flex';
+    }
+  </script>
+</body>
+</html>
