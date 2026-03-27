@@ -5,47 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Génosociogramme · Laura Charron</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
 <style>
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Laura Charron</a>
-
-  <div class="nav-links">
-    <a href="parcours.html">Mémoires</a>
-    <a href="cycle.html">Mon cycle</a>
-    <a href="arbre-vie.html">Arbre de Vie</a>
-    <a href="symptomes.html">Mon corps</a>
-    <a href="vibration.html">Fréquence</a>
-    <a href="journal.html">Journal</a>
-    <a href="transgen.html">Transgénérationnel</a>
-    <a href="genosociogramme.html">Génosociogramme</a>
-    <a href="arbre-famille.html">Ma famille</a>
-    <a href="contact.html">Contact</a>
-  </div>
-
-  <button class="nav-burger" id="burger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-</nav>
-
-<!-- MENU MOBILE -->
-<div class="nav-mobile" id="nav-mobile">
-  <a href="index.html">🏠 Accueil</a>
-  <a href="parcours.html">🧬 Mémoires</a>
-  <a href="cycle.html">🌙 Mon cycle</a>
-  <a href="arbre-vie.html">🌳 Arbre de Vie</a>
-  <a href="symptomes.html">💬 Mon corps</a>
-  <a href="vibration.html">💫 Fréquence</a>
-  <a href="journal.html">📓 Journal</a>
-  <a href="transgen.html">🔁 Transgénérationnel</a>
-  <a href="genosociogramme.html">🌐 Génosociogramme</a>
-  <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
-  <a href="contact.html">✉️ Contact</a>
-</div>
-  
 :root{
   --c:#FDF5EC;--c2:#F6E8D8;--rose:#E8967F;--rose2:#C96B52;
   --orange:#F0A05A;--orange2:#D97D2E;--gold:#F5C842;
@@ -55,368 +15,157 @@
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--c);
-  color:var(--ink);
-  overflow:hidden;
-  cursor:none;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--c);color:var(--ink);overflow:hidden;cursor:none;}
+a{color:inherit;text-decoration:none;}
 
-.cursor{
-  position:fixed;width:10px;height:10px;background:var(--rose);
-  border-radius:50%;pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);mix-blend-mode:multiply;
-}
-.cursor-ring{
-  position:fixed;width:34px;height:34px;border:1.5px solid var(--rose);
-  border-radius:50%;pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);opacity:.5;
-}
+.cursor{position:fixed;width:10px;height:10px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+.cursor-ring{position:fixed;width:34px;height:34px;border:1.5px solid var(--rose);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
 
 /* TOPBAR */
-.topbar{
-  position:fixed;top:0;left:0;right:0;height:56px;z-index:300;
-  background:rgba(253,245,236,.97);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(232,150,127,.15);
-  display:flex;align-items:center;padding:0 1.2rem;gap:1rem;
-}
-.tb-logo{
-  font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;
-  color:var(--ink);text-decoration:none;flex-shrink:0;font-weight:700;
-}
-.tb-title{
-  font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--soft);flex:1;text-align:center;white-space:nowrap;
-}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;z-index:300;background:rgba(253,245,236,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,150,127,.15);display:flex;align-items:center;padding:0 1.2rem;gap:1rem;}
+.tb-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--ink);text-decoration:none;flex-shrink:0;font-weight:700;}
+.tb-title{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);flex:1;text-align:center;white-space:nowrap;}
 .tb-nav{display:flex;gap:.45rem;flex-shrink:0;flex-wrap:wrap;}
-.tb-btn{
-  display:inline-flex;align-items:center;gap:.35rem;
-  border:1px solid rgba(232,150,127,.22);border-radius:100px;
-  padding:.32rem .8rem;font-size:.7rem;color:var(--ink2);
-  cursor:pointer;font-family:'DM Sans',sans-serif;background:transparent;
-  text-decoration:none;transition:all .18s;
-}
+.tb-btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid rgba(232,150,127,.22);border-radius:100px;padding:.32rem .8rem;font-size:.7rem;color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;background:transparent;text-decoration:none;transition:all .18s;}
 .tb-btn:hover{border-color:var(--rose);color:var(--rose2);}
-.tb-btn.primary{
-  background:linear-gradient(135deg,var(--rose2),var(--orange2));
-  border:none;color:white;font-weight:500;
-}
+.tb-btn.primary{background:linear-gradient(135deg,var(--rose2),var(--orange2));border:none;color:white;font-weight:500;}
 
 /* LAYOUT */
 .layout{display:flex;height:100vh;padding-top:56px;}
-.tree-area{
-  flex:1;position:relative;overflow:hidden;background:var(--c);
-}
-.tree-vp{
-  position:absolute;inset:0;transform-origin:0 0;
-}
-.lines-svg{
-  position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;
-}
+.tree-area{flex:1;position:relative;overflow:hidden;background:var(--c);}
+.tree-vp{position:absolute;inset:0;transform-origin:0 0;}
+.lines-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 .nodes-layer{position:absolute;inset:0;z-index:2;}
 
-/* generation labels */
-.gen-label{
-  position:absolute;left:12px;font-size:.62rem;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(154,112,96,.38);font-weight:400;
-  z-index:12;
-}
+.gen-label{position:absolute;left:12px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(154,112,96,.38);font-weight:400;z-index:12;}
 
-/* nodes */
-.node{
-  position:absolute;transform:translate(-50%,-50%);
-  cursor:pointer;z-index:2;transition:transform .2s ease;
-}
+.node{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:2;transition:transform .2s ease;}
 .node:hover{transform:translate(-50%,-50%) scale(1.05);}
 .node.selected{transform:translate(-50%,-50%) scale(1.08);}
 .node.dim{opacity:.28;}
-.node-card{
-  background:var(--white);border:2px solid rgba(232,150,127,.22);
-  border-radius:14px;padding:.55rem .75rem;text-align:center;
-  box-shadow:0 3px 16px rgba(42,26,16,.07);
-  transition:all .22s;min-width:84px;position:relative;
-}
+.node-card{background:var(--white);border:2px solid rgba(232,150,127,.22);border-radius:14px;padding:.55rem .75rem;text-align:center;box-shadow:0 3px 16px rgba(42,26,16,.07);transition:all .22s;min-width:84px;position:relative;}
 .node.sm .node-card{min-width:64px;padding:.42rem .55rem;border-radius:10px;}
 .node.md .node-card{min-width:76px;padding:.5rem .65rem;border-radius:12px;}
 .node.lg .node-card{min-width:92px;padding:.66rem .9rem;border-radius:16px;}
-.node.xl .node-card{
-  min-width:106px;padding:.78rem 1rem;border-radius:18px;
-  background:linear-gradient(135deg,#FFF8F2,#FFF2E8);
-}
+.node.xl .node-card{min-width:106px;padding:.78rem 1rem;border-radius:18px;background:linear-gradient(135deg,#FFF8F2,#FFF2E8);}
 .node.selected .node-card{border-color:var(--rose2);box-shadow:0 8px 28px rgba(201,107,82,.18);}
 .node.has-rep .node-card{border-color:var(--rep-col,var(--rose));}
 
-.node-shape{
-  width:28px;height:28px;margin:0 auto .3rem;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.7rem;color:var(--soft);border:2px solid rgba(232,150,127,.35);
-  background:linear-gradient(135deg,#FAEADC,#F0D5C5);
-}
+.node-shape{width:28px;height:28px;margin:0 auto .3rem;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--soft);border:2px solid rgba(232,150,127,.35);background:linear-gradient(135deg,#FAEADC,#F0D5C5);}
 .node.sm .node-shape{width:22px;height:22px;font-size:.58rem;}
 .node.lg .node-shape{width:32px;height:32px;font-size:.82rem;}
 .node.xl .node-shape{width:36px;height:36px;font-size:.92rem;}
 .node-shape.f{border-radius:50%;}
-.node-shape.m{
-  border-radius:4px;
-  background:linear-gradient(135deg,#E4EEF8,#D0E2F0);
-  border-color:rgba(123,167,212,.4);
-}
-.node-shape.u{
-  transform:rotate(45deg);
-  border-radius:3px;
-}
+.node-shape.m{border-radius:4px;background:linear-gradient(135deg,#E4EEF8,#D0E2F0);border-color:rgba(123,167,212,.4);}
+.node-shape.u{transform:rotate(45deg);border-radius:3px;}
 .node-shape.u span{transform:rotate(-45deg);display:inline-block;}
 
-.node-name{
-  font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;
-  color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;max-width:78px;
-}
+.node-name{font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78px;}
 .node.sm .node-name{font-size:.62rem;max-width:58px;}
 .node.lg .node-name{font-size:.8rem;max-width:88px;}
 .node.xl .node-name{font-size:.9rem;max-width:100px;}
 .node-role{font-size:.56rem;color:var(--soft);margin-top:.12rem;white-space:nowrap;}
 .node.sm .node-role{font-size:.5rem;}
-
-.node-badges{
-  display:flex;gap:3px;justify-content:center;margin-top:.28rem;flex-wrap:wrap;
-}
+.node-badges{display:flex;gap:3px;justify-content:center;margin-top:.28rem;flex-wrap:wrap;}
 .nb{width:7px;height:7px;border-radius:50%;}
-.node-evc{
-  position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;
-  background:var(--rose2);color:white;font-size:.55rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;border:1.5px solid white;
-}
-.node-remove{
-  position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-radius:50%;
-  background:rgba(201,107,82,.85);color:white;font-size:.6rem;
-  display:none;align-items:center;justify-content:center;cursor:pointer;
-  border:1.5px solid white;z-index:10;
-}
+.node-evc{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;background:var(--rose2);color:white;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
+.node-remove{position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-radius:50%;background:rgba(201,107,82,.85);color:white;font-size:.6rem;display:none;align-items:center;justify-content:center;cursor:pointer;border:1.5px solid white;z-index:10;}
 .node.extra:hover .node-remove{display:flex;}
 
-/* legend + actions */
-.legend{
-  position:absolute;bottom:1.1rem;left:1rem;background:rgba(253,245,236,.95);
-  backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.15);
-  border-radius:14px;padding:.78rem 1rem;z-index:10;
-}
-.legend-title{
-  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--soft);margin-bottom:.55rem;
-}
-.leg-row{
-  display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--ink2);
-  margin-bottom:.25rem;
-}
+.legend{position:absolute;bottom:1.1rem;left:1rem;background:rgba(253,245,236,.95);backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.15);border-radius:14px;padding:.78rem 1rem;z-index:10;}
+.legend-title{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.55rem;}
+.leg-row{display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--ink2);margin-bottom:.25rem;}
 .leg-dot,.leg-ci,.leg-sq{flex-shrink:0;}
 .leg-dot{width:8px;height:8px;border-radius:50%;}
 .leg-ci{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(154,112,96,.35);}
 .leg-sq{width:10px;height:10px;border-radius:2px;border:1.5px solid rgba(154,112,96,.35);}
 
-.tree-actions{
-  position:absolute;bottom:1.1rem;right:1rem;display:flex;gap:.45rem;z-index:10;
-  flex-wrap:wrap;justify-content:flex-end;
-}
-.act-btn{
-  display:inline-flex;align-items:center;gap:.38rem;background:rgba(253,245,236,.95);
-  backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.2);
-  border-radius:100px;padding:.38rem .85rem;font-size:.7rem;color:var(--ink2);
-  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;text-decoration:none;
-}
+.tree-actions{position:absolute;bottom:1.1rem;right:1rem;display:flex;gap:.45rem;z-index:10;flex-wrap:wrap;justify-content:flex-end;}
+.act-btn{display:inline-flex;align-items:center;gap:.38rem;background:rgba(253,245,236,.95);backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.2);border-radius:100px;padding:.38rem .85rem;font-size:.7rem;color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;text-decoration:none;}
 .act-btn:hover{border-color:var(--rose);color:var(--rose2);}
-.add-person-btn{
-  position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--rose2),var(--orange2));
-  color:white;border:none;border-radius:100px;padding:.52rem 1.2rem;font-size:.75rem;
-  font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;z-index:10;
-  box-shadow:0 6px 20px rgba(201,107,82,.28);transition:transform .2s;
-}
+.add-person-btn{position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--rose2),var(--orange2));color:white;border:none;border-radius:100px;padding:.52rem 1.2rem;font-size:.75rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;z-index:10;box-shadow:0 6px 20px rgba(201,107,82,.28);transition:transform .2s;}
 .add-person-btn:hover{transform:translateX(-50%) translateY(-2px);}
 
-/* side panel */
-.side-panel{
-  width:330px;flex-shrink:0;border-left:1px solid rgba(232,150,127,.14);
-  background:var(--white);display:flex;flex-direction:column;overflow:hidden;
-}
+.side-panel{width:330px;flex-shrink:0;border-left:1px solid rgba(232,150,127,.14);background:var(--white);display:flex;flex-direction:column;overflow:hidden;}
 .sp-tabs{display:flex;border-bottom:1px solid rgba(232,150,127,.12);flex-shrink:0;}
-.sp-tab{
-  flex:1;padding:.62rem .4rem;font-size:.66rem;letter-spacing:.06em;text-align:center;
-  cursor:pointer;color:var(--soft);border-bottom:2px solid transparent;transition:all .18s;user-select:none;
-}
+.sp-tab{flex:1;padding:.62rem .4rem;font-size:.66rem;letter-spacing:.06em;text-align:center;cursor:pointer;color:var(--soft);border-bottom:2px solid transparent;transition:all .18s;user-select:none;}
 .sp-tab.active{color:var(--rose2);border-bottom-color:var(--rose2);font-weight:500;}
-
 .sp-body{flex:1;overflow-y:auto;}
 .sp-body::-webkit-scrollbar{width:4px;}
 .sp-body::-webkit-scrollbar-thumb{background:rgba(232,150,127,.22);border-radius:2px;}
-
 .sp-sec{padding:.95rem 1.25rem;border-bottom:1px solid rgba(232,150,127,.09);}
 .sp-sec:last-child{border-bottom:none;}
-.sp-lbl{
-  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--soft);margin-bottom:.5rem;
-}
+.sp-lbl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.5rem;}
 .sp-empty{padding:2rem 1.3rem;text-align:center;color:var(--soft);}
 .sp-empty-icon{font-size:2.2rem;margin-bottom:.6rem;display:block;}
-.sp-empty-h{
-  font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
-  color:var(--ink);margin-bottom:.35rem;
-}
+.sp-empty-h{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
 .sp-empty-p{font-size:.76rem;line-height:1.7;font-weight:300;}
 
 .ph{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;}
-.ph-av{
-  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  color:white;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;
-  flex-shrink:0;background:linear-gradient(135deg,var(--rose),var(--orange));
-}
+.ph-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;flex-shrink:0;background:linear-gradient(135deg,var(--rose),var(--orange));}
 .ph-av.m{background:linear-gradient(135deg,#7BA7D4,#5B87B4);}
 .ph-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);}
 .ph-role{font-size:.67rem;color:var(--soft);}
-
 .badges{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.38rem;}
-.badge{
-  display:inline-flex;align-items:center;gap:.22rem;padding:.15rem .48rem;border-radius:100px;
-  font-size:.63rem;font-weight:500;
-}
+.badge{display:inline-flex;align-items:center;gap:.22rem;padding:.15rem .48rem;border-radius:100px;font-size:.63rem;font-weight:500;}
+
 .fld{margin-bottom:.42rem;}
-.fld label{
-  display:block;font-size:.59rem;letter-spacing:.1em;color:var(--soft);
-  margin-bottom:.16rem;text-transform:uppercase;
-}
-.fld input,.fld select,.fld textarea{
-  width:100%;background:var(--c);border:1px solid rgba(232,150,127,.18);
-  border-radius:7px;padding:.36rem .58rem;font-family:'DM Sans',sans-serif;
-  font-size:.78rem;color:var(--ink);outline:none;transition:border-color .18s;
-}
+.fld label{display:block;font-size:.59rem;letter-spacing:.1em;color:var(--soft);margin-bottom:.16rem;text-transform:uppercase;}
+.fld input,.fld select,.fld textarea{width:100%;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:7px;padding:.36rem .58rem;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--ink);outline:none;transition:border-color .18s;}
 .fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--rose);background:var(--white);}
 
-.ev-card{
-  background:var(--c);border:1px solid rgba(232,150,127,.14);border-radius:9px;
-  padding:.5rem .65rem;margin-bottom:.32rem;display:grid;
-  grid-template-columns:1fr 42px 58px auto;gap:.25rem;align-items:end;
-}
+.ev-card{background:var(--c);border:1px solid rgba(232,150,127,.14);border-radius:9px;padding:.5rem .65rem;margin-bottom:.32rem;display:grid;grid-template-columns:1fr 42px 58px auto;gap:.25rem;align-items:end;}
 .ev-card .fld{margin-bottom:0;}
-.ev-del{
-  background:none;border:none;color:rgba(154,112,96,.28);cursor:pointer;
-  font-size:.72rem;padding:.15rem;transition:color .15s;margin-bottom:.12rem;
-}
+.ev-del{background:none;border:none;color:rgba(154,112,96,.28);cursor:pointer;font-size:.72rem;padding:.15rem;transition:color .15s;margin-bottom:.12rem;}
 .ev-del:hover{color:var(--rose2);}
 
-.tags-wrap{
-  display:flex;flex-wrap:wrap;gap:.2rem;align-items:center;background:var(--c);
-  border:1px solid rgba(232,150,127,.18);border-radius:7px;padding:.22rem .4rem;min-height:28px;cursor:text;
-}
-.tags-wrap input{
-  border:none;background:transparent;font-size:.75rem;font-family:'DM Sans',sans-serif;
-  color:var(--ink);outline:none;flex:1;min-width:55px;
-}
-.tag{
-  display:inline-flex;align-items:center;gap:.16rem;background:rgba(232,150,127,.12);
-  border-radius:100px;padding:.08rem .38rem;font-size:.67rem;color:var(--rose2);
-}
-.tag button{
-  background:none;border:none;cursor:pointer;color:rgba(201,107,82,.38);
-  font-size:.6rem;line-height:1;
-}
+.tags-wrap{display:flex;flex-wrap:wrap;gap:.2rem;align-items:center;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:7px;padding:.22rem .4rem;min-height:28px;cursor:text;}
+.tags-wrap input{border:none;background:transparent;font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;flex:1;min-width:55px;}
+.tag{display:inline-flex;align-items:center;gap:.16rem;background:rgba(232,150,127,.12);border-radius:100px;padding:.08rem .38rem;font-size:.67rem;color:var(--rose2);}
+.tag button{background:none;border:none;cursor:pointer;color:rgba(201,107,82,.38);font-size:.6rem;line-height:1;}
 .tag button:hover{color:var(--rose2);}
 
-.btn-sm{
-  display:inline-flex;align-items:center;gap:.3rem;background:transparent;color:var(--rose2);
-  border:1px solid rgba(201,107,82,.2);padding:.28rem .68rem;border-radius:100px;
-  font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .14s;margin-top:.22rem;
-}
+.btn-sm{display:inline-flex;align-items:center;gap:.3rem;background:transparent;color:var(--rose2);border:1px solid rgba(201,107,82,.2);padding:.28rem .68rem;border-radius:100px;font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .14s;margin-top:.22rem;}
 .btn-sm:hover{background:rgba(201,107,82,.06);}
 
-.rep-card{
-  background:var(--ink);border-radius:11px;padding:.7rem .85rem;margin-bottom:.42rem;
-  position:relative;overflow:hidden;
-}
-.rep-card::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rc,#E8967F);
-}
+.rep-card{background:var(--ink);border-radius:11px;padding:.7rem .85rem;margin-bottom:.42rem;position:relative;overflow:hidden;}
+.rep-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rc,#E8967F);}
 .rep-card-name{font-size:.69rem;font-weight:500;margin-bottom:.12rem;}
 .rep-card-desc{font-size:.68rem;color:rgba(255,255,255,.44);line-height:1.5;}
 
-.schema-chip{
-  display:inline-flex;align-items:center;gap:.28rem;background:var(--c);
-  border:1.5px solid rgba(232,150,127,.14);border-radius:100px;padding:.3rem .65rem;
-  font-size:.68rem;color:var(--ink2);cursor:pointer;transition:all .18s;user-select:none;margin:.16rem;
-}
+.schema-chip{display:inline-flex;align-items:center;gap:.28rem;background:var(--c);border:1.5px solid rgba(232,150,127,.14);border-radius:100px;padding:.3rem .65rem;font-size:.68rem;color:var(--ink2);cursor:pointer;transition:all .18s;user-select:none;margin:.16rem;}
 .schema-chip:hover{border-color:var(--orange);}
 .schema-chip.on{font-weight:500;}
 
-.poc-ta{
-  width:100%;min-height:90px;background:var(--c);border:1px solid rgba(232,150,127,.18);
-  border-radius:10px;padding:.8rem .95rem;font-family:'Playfair Display',serif;
-  font-style:italic;font-size:.85rem;color:var(--ink);line-height:1.75;
-  resize:vertical;outline:none;transition:border-color .2s;
-}
+.poc-ta{width:100%;min-height:90px;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:10px;padding:.8rem .95rem;font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:var(--ink);line-height:1.75;resize:vertical;outline:none;transition:border-color .2s;}
 .poc-ta:focus{border-color:var(--rose);}
 .poc-ta::placeholder{color:rgba(154,112,96,.28);}
 
-.export-box{
-  margin:.95rem 1.25rem;background:linear-gradient(135deg,var(--ink),#3A1808);
-  border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;
-}
-.export-box::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(232,150,127,.12),transparent);
-  pointer-events:none;
-}
+.export-box{margin:.95rem 1.25rem;background:linear-gradient(135deg,var(--ink),#3A1808);border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;}
+.export-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(232,150,127,.12),transparent);pointer-events:none;}
 .export-box *{position:relative;z-index:1;}
-.export-box h4{
-  font-family:'Playfair Display',serif;font-size:.94rem;font-weight:700;color:white;margin-bottom:.28rem;
-}
+.export-box h4{font-family:'Playfair Display',serif;font-size:.94rem;font-weight:700;color:white;margin-bottom:.28rem;}
 .export-box p{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:.8rem;}
 .export-actions{display:flex;gap:.45rem;flex-wrap:wrap;}
-.export-actions button{
-  display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.08);
-  color:white;border:1px solid rgba(255,255,255,.14);padding:.55rem .9rem;border-radius:100px;
-  font-size:.74rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;
-}
+.export-actions button{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.08);color:white;border:1px solid rgba(255,255,255,.14);padding:.55rem .9rem;border-radius:100px;font-size:.74rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;}
 .export-actions button:hover{background:rgba(255,255,255,.14);}
 
-.tip{
-  position:fixed;background:rgba(42,26,16,.88);color:white;font-size:.7rem;
-  padding:.32rem .62rem;border-radius:8px;pointer-events:none;z-index:500;
-  white-space:nowrap;display:none;
-}
+.tip{position:fixed;background:rgba(42,26,16,.88);color:white;font-size:.7rem;padding:.32rem .62rem;border-radius:8px;pointer-events:none;z-index:500;white-space:nowrap;display:none;}
 
-/* modal */
-.modal-ov{
-  position:fixed;inset:0;background:rgba(42,26,16,.55);backdrop-filter:blur(6px);
-  z-index:600;display:none;align-items:center;justify-content:center;padding:1.5rem;
-}
+.modal-ov{position:fixed;inset:0;background:rgba(42,26,16,.55);backdrop-filter:blur(6px);z-index:600;display:none;align-items:center;justify-content:center;padding:1.5rem;}
 .modal-ov.open{display:flex;}
-.modal-card{
-  background:var(--white);border-radius:24px;padding:2rem;max-width:540px;width:100%;
-  box-shadow:0 20px 60px rgba(42,26,16,.18);
-}
-.modal-title{
-  font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:.4rem;
-}
+.modal-card{background:var(--white);border-radius:24px;padding:2rem;max-width:540px;width:100%;box-shadow:0 20px 60px rgba(42,26,16,.18);}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:.4rem;}
 .modal-sub{font-size:.8rem;color:var(--soft);font-weight:300;margin-bottom:1.4rem;line-height:1.65;}
 .add-types{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:1.2rem;}
-.add-type{
-  background:var(--c);border:1.5px solid rgba(232,150,127,.18);border-radius:14px;
-  padding:.85rem 1rem;cursor:pointer;transition:all .2s;text-align:left;
-}
+.add-type{background:var(--c);border:1.5px solid rgba(232,150,127,.18);border-radius:14px;padding:.85rem 1rem;cursor:pointer;transition:all .2s;text-align:left;}
 .add-type:hover{border-color:var(--rose2);background:linear-gradient(135deg,#FFF5EE,#FFE8D8);}
 .add-type-icon{font-size:1.2rem;margin-bottom:.3rem;}
-.add-type-name{
-  font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.12rem;
-}
+.add-type-name{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.12rem;}
 .add-type-sub{font-size:.7rem;color:var(--soft);font-weight:300;line-height:1.4;}
-.modal-close{
-  background:transparent;border:1.5px solid rgba(232,150,127,.22);color:var(--soft);
-  padding:.45rem 1.1rem;border-radius:100px;font-family:'DM Sans',sans-serif;
-  font-size:.78rem;cursor:pointer;transition:all .18s;
-}
+.modal-close{background:transparent;border:1.5px solid rgba(232,150,127,.22);color:var(--soft);padding:.45rem 1.1rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.78rem;cursor:pointer;transition:all .18s;}
 .modal-close:hover{border-color:var(--rose);color:var(--rose2);}
 
-/* PRINT */
 @media print{
   body,html{overflow:visible!important;height:auto!important;background:white!important;cursor:auto;}
   .cursor,.cursor-ring,.topbar,.side-panel,.legend,.tree-actions,.add-person-btn,.tip,.modal-ov,.gen-label{display:none!important;}
@@ -444,14 +193,16 @@ body{
 <div class="cursor-ring" id="crng"></div>
 <div class="tip" id="tip"></div>
 
+<!-- TOPBAR avec les bons liens -->
 <div class="topbar">
-  <a href="accueil.html" class="tb-logo">Laura Charron</a>
+  <a href="index.html" class="tb-logo">Laura Charron</a>
   <div class="tb-title">🌳 Génosociogramme · Visualiser les répétitions de la lignée</div>
   <div class="tb-nav">
-    <a href="arbre-famille.html" class="tb-btn">← Saisie famille</a>
+    <a href="transgen.html" class="tb-btn">← Transgénérationnel</a>
+    <a href="parcours.html" class="tb-btn">🧬 Mémoires</a>
     <button class="tb-btn" onclick="printTree()">🖨 Imprimer</button>
-    <button class="tb-btn" onclick="downloadTreeSVG()">⬇ Télécharger mon arbre</button>
-    <a href="liberation.html" class="tb-btn primary">Protocole LC →</a>
+    <button class="tb-btn" onclick="downloadTreeSVG()">⬇ Télécharger</button>
+    <a href="journal.html" class="tb-btn primary">✍️ Journal →</a>
   </div>
 </div>
 
@@ -486,6 +237,7 @@ body{
       <button class="act-btn" onclick="printTree()">🖨 Imprimer</button>
       <button class="act-btn" onclick="downloadTreeSVG()">⬇ SVG</button>
       <a href="journal.html" class="act-btn">✍️ Journal</a>
+      <a href="index.html" class="act-btn">🏠 Accueil</a>
     </div>
 
     <button class="add-person-btn" onclick="openModal()">＋ Ajouter une personne</button>
@@ -505,7 +257,7 @@ body{
 <div class="modal-ov" id="modal-ov" onclick="if(event.target===this)closeModal()">
   <div class="modal-card">
     <div class="modal-title">Ajouter une personne</div>
-    <div class="modal-sub">Elle sera placée automatiquement dans la bonne génération de l’arbre.</div>
+    <div class="modal-sub">Elle sera placée automatiquement dans la bonne génération de l'arbre.</div>
     <div class="add-types">
       <div class="add-type" onclick="addPerson('enfant')"><div class="add-type-icon">👶</div><div class="add-type-name">Enfant</div><div class="add-type-sub">Ton fils ou ta fille</div></div>
       <div class="add-type" onclick="addPerson('conjoint')"><div class="add-type-icon">💑</div><div class="add-type-name">Conjoint(e)</div><div class="add-type-sub">Partenaire de vie</div></div>
@@ -523,7 +275,6 @@ body{
 </div>
 
 <script>
-// CURSOR
 const cur=document.getElementById('cur'),crng=document.getElementById('crng');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{
@@ -536,43 +287,14 @@ document.addEventListener('mousemove',e=>{
   requestAnimationFrame(loop);
 })();
 
-// BASE IDS
 const BASE_TID=['moi','mere','pere','gmm','gpm','gmp','gpp','agmm1','agmm2','agpm1','agpm2','agmp1','agmp2','agpp1','agpp2'];
 let TID=[...BASE_TID];
 
-const LBL={
-  moi:'Moi',mere:'Ma mère',pere:'Mon père',
-  gmm:'Grand-mère maternelle',gpm:'Grand-père maternel',
-  gmp:'Grand-mère paternelle',gpp:'Grand-père paternel',
-  agmm1:'Arrière-GM maternelle',agmm2:'Arrière-GP maternel',
-  agpm1:'Arrière-GM maternelle',agpm2:'Arrière-GP maternel',
-  agmp1:'Arrière-GM paternelle',agmp2:'Arrière-GP paternel',
-  agpp1:'Arrière-GM paternelle',agpp2:'Arrière-GP paternel'
-};
-const SLBL={
-  moi:'Moi',mere:'Mère',pere:'Père',
-  gmm:'GM mat.',gpm:'GP mat.',gmp:'GM pat.',gpp:'GP pat.',
-  agmm1:'AGM',agmm2:'AGP',agpm1:'AGM',agpm2:'AGP',
-  agmp1:'AGM',agmp2:'AGP',agpp1:'AGM',agpp2:'AGP'
-};
-const SEX0={
-  moi:'u',mere:'f',pere:'m',
-  gmm:'f',gpm:'m',gmp:'f',gpp:'m',
-  agmm1:'f',agmm2:'m',agpm1:'f',agpm2:'m',
-  agmp1:'f',agmp2:'m',agpp1:'f',agpp2:'m'
-};
+const LBL={moi:'Moi',mere:'Ma mère',pere:'Mon père',gmm:'Grand-mère maternelle',gpm:'Grand-père maternel',gmp:'Grand-mère paternelle',gpp:'Grand-père paternel',agmm1:'Arrière-GM maternelle',agmm2:'Arrière-GP maternel',agpm1:'Arrière-GM maternelle',agpm2:'Arrière-GP maternel',agmp1:'Arrière-GM paternelle',agmp2:'Arrière-GP paternel',agpp1:'Arrière-GM paternelle',agpp2:'Arrière-GP paternel'};
+const SLBL={moi:'Moi',mere:'Mère',pere:'Père',gmm:'GM mat.',gpm:'GP mat.',gmp:'GM pat.',gpp:'GP pat.',agmm1:'AGM',agmm2:'AGP',agpm1:'AGM',agpm2:'AGP',agmp1:'AGM',agmp2:'AGP',agpp1:'AGM',agpp2:'AGP'};
+const SEX0={moi:'u',mere:'f',pere:'m',gmm:'f',gpm:'m',gmp:'f',gpp:'m',agmm1:'f',agmm2:'m',agpm1:'f',agpm2:'m',agmp1:'f',agmp2:'m',agpp1:'f',agpp2:'m'};
 
-const EVL={
-  mariage:'Mariage',divorce:'Divorce / séparation',naissance:"Naissance d'enfant",
-  abandon:'Abandon / rejet',trahison:'Trahison',abus:'Violence / abus',
-  secret:'Secret de famille',deuil:'Deuil / perte',deces-precoce:'Mort prématurée',
-  fausse-couche:'Perte d’enfant',maladie:'Maladie grave','maladie-grave':'Maladie grave',
-  accident:'Accident grave',handicap:'Handicap',ruine:'Ruine / faillite',
-  pauvrete:'Pauvreté',perte-travail:"Perte d'emploi",succes:'Réussite',
-  exil:'Exil',demenagement:'Déménagement brutal',guerre:'Guerre',
-  honte:'Honte / humiliation',injustice:'Injustice',rupture:'Rupture',autre:'Autre'
-};
-
+const EVL={mariage:'Mariage',divorce:'Divorce / séparation',naissance:"Naissance d'enfant",abandon:'Abandon / rejet',trahison:'Trahison',abus:'Violence / abus',secret:'Secret de famille',deuil:'Deuil / perte','deces-precoce':'Mort prématurée','fausse-couche':'Perte d\'enfant',maladie:'Maladie grave','maladie-grave':'Maladie grave',accident:'Accident grave',handicap:'Handicap',ruine:'Ruine / faillite',pauvrete:'Pauvreté','perte-travail':"Perte d'emploi",succes:'Réussite',exil:'Exil',demenagement:'Déménagement brutal',guerre:'Guerre',honte:'Honte / humiliation',injustice:'Injustice',rupture:'Rupture',autre:'Autre'};
 const RCRAW={prenom:'#F0A05A',metier:'#E8967F',age:'#E8A800',anniv:'#5DCAA5',gisant:'#C96B52',ev:'#9B89D4',lieu:'#7BA7D4',nom:'#D97D2E'};
 
 const EXTRA_TYPES={
@@ -589,116 +311,40 @@ const EXTRA_TYPES={
 };
 
 let people={};
-BASE_TID.forEach(id=>{
-  people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};
-});
+BASE_TID.forEach(id=>{people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};});
 
-let extras=[];
-let extraCounts={};
-let reps=[];
-let bmap={};
-let hlIds=new Set();
-let selectedId=null;
-let curTab='info';
-let nodeEls={},nodePos={},currentStruct={};
+let extras=[],extraCounts={},reps=[],bmap={},hlIds=new Set(),selectedId=null,curTab='info',nodeEls={},nodePos={},currentStruct={};
 
-// HELPERS
-function normalizeText(s){
-  return (s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-}
+function normalizeText(s){return(s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 function allIds(){return[...BASE_TID,...extras.map(e=>e.id)];}
 function gv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+function mergePerson(id,patch){if(!people[id])people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};people[id]={...people[id],...patch};}
 
-function mergePerson(id, patch){
-  if(!people[id]){
-    people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};
-  }
-  people[id]={...people[id],...patch};
-}
-
-// LOAD DATA FROM BOTH PAGES
 function loadData(){
   try{
     const rawFam=localStorage.getItem('rgv-famille');
     if(rawFam){
       const d=JSON.parse(rawFam);
       BASE_TID.forEach(id=>{
-        const pf=d['pf_'+id]||{};
-        const evs=d['evf_'+id]||[];
-        mergePerson(id,{
-          prenom:pf.prenom||'',
-          nom:pf.nom||'',
-          naiss:pf.naiss||'',
-          metier:pf.metier||'',
-          lieu:pf.lieu||'',
-          events:evs.map(ev=>({
-            type:ev.type||'',
-            age:ev.age||'',
-            date:ev.date||'',
-            note:ev.note||'',
-            intens:ev.intens||0
-          }))
-        });
+        const pf=d['pf_'+id]||{},evs=d['evf_'+id]||[];
+        mergePerson(id,{prenom:pf.prenom||'',nom:pf.nom||'',naiss:pf.naiss||'',metier:pf.metier||'',lieu:pf.lieu||'',events:evs.map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}))});
       });
     }
   }catch(e){}
-
   try{
     const raw=localStorage.getItem('rgv-v2');
     if(raw){
       const d=JSON.parse(raw);
-
       BASE_TID.forEach(id=>{
-        const p=d['p_'+id]||{};
-        const ev=d['ev_'+id]||[];
-        mergePerson(id,{
-          prenom:p.prenom||people[id].prenom||'',
-          nom:p.nom||people[id].nom||'',
-          age:p.age||people[id].age||'',
-          naiss:p.naiss||people[id].naiss||'',
-          metier:p.metier||people[id].metier||'',
-          lieu:p.lieu||people[id].lieu||'',
-          notes:p.notes||people[id].notes||'',
-          comp:p.comp||people[id].comp||[],
-          bless:p.bless||people[id].bless||[],
-          events:(ev.length?ev:people[id].events||[]).map(x=>({
-            type:x.type||'',
-            age:x.age||'',
-            date:x.date||'',
-            note:x.note||'',
-            intens:x.intens||0
-          }))
-        });
+        const p=d['p_'+id]||{},ev=d['ev_'+id]||[];
+        mergePerson(id,{prenom:p.prenom||people[id].prenom||'',nom:p.nom||people[id].nom||'',age:p.age||people[id].age||'',naiss:p.naiss||people[id].naiss||'',metier:p.metier||people[id].metier||'',lieu:p.lieu||people[id].lieu||'',notes:p.notes||people[id].notes||'',comp:p.comp||people[id].comp||[],bless:p.bless||people[id].bless||[],events:(ev.length?ev:people[id].events||[]).map(x=>({type:x.type||'',age:x.age||'',date:x.date||'',note:x.note||'',intens:x.intens||0}))});
       });
-
       const ex=d.__extras||[];
       ex.forEach(e=>{
-        extras.push(e);
-        TID.push(e.id);
-        extraCounts[e.type]=(extraCounts[e.type]||0)+1;
-        LBL[e.id]=e.lbl;
-        SLBL[e.id]=e.slbl||e.lbl;
-        SEX0[e.id]=e.sex0||'u';
-        const p=d['p_'+e.id]||{};
-        const ev=d['ev_'+e.id]||[];
-        people[e.id]={
-          prenom:p.prenom||'',
-          nom:p.nom||'',
-          age:p.age||'',
-          naiss:p.naiss||'',
-          metier:p.metier||'',
-          lieu:p.lieu||'',
-          notes:p.notes||'',
-          comp:p.comp||[],
-          bless:p.bless||[],
-          events:ev.map(x=>({
-            type:x.type||'',
-            age:x.age||'',
-            date:x.date||'',
-            note:x.note||'',
-            intens:x.intens||0
-          }))
-        };
+        extras.push(e);TID.push(e.id);extraCounts[e.type]=(extraCounts[e.type]||0)+1;
+        LBL[e.id]=e.lbl;SLBL[e.id]=e.slbl||e.lbl;SEX0[e.id]=e.sex0||'u';
+        const p=d['p_'+e.id]||{},ev=d['ev_'+e.id]||[];
+        people[e.id]={prenom:p.prenom||'',nom:p.nom||'',age:p.age||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||'',notes:p.notes||'',comp:p.comp||[],bless:p.bless||[],events:ev.map(x=>({type:x.type||'',age:x.age||'',date:x.date||'',note:x.note||'',intens:x.intens||0}))};
       });
     }
   }catch(e){}
@@ -706,314 +352,96 @@ function loadData(){
 
 function saveData(){
   try{
-    // save rgv-v2
-    let d={};
-    try{d=JSON.parse(localStorage.getItem('rgv-v2')||'{}');}catch(e){}
+    let d={};try{d=JSON.parse(localStorage.getItem('rgv-v2')||'{}');}catch(e){}
     allIds().forEach(id=>{
       const p=people[id]||{};
-      d['p_'+id]={
-        prenom:p.prenom||'',
-        nom:p.nom||'',
-        age:p.age||'',
-        naiss:p.naiss||'',
-        metier:p.metier||'',
-        lieu:p.lieu||'',
-        notes:p.notes||'',
-        comp:p.comp||[],
-        bless:p.bless||[]
-      };
-      d['ev_'+id]=(p.events||[]).map(ev=>({
-        type:ev.type||'',
-        age:ev.age||'',
-        date:ev.date||'',
-        note:ev.note||'',
-        intens:ev.intens||0
-      }));
+      d['p_'+id]={prenom:p.prenom||'',nom:p.nom||'',age:p.age||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||'',notes:p.notes||'',comp:p.comp||[],bless:p.bless||[]};
+      d['ev_'+id]=(p.events||[]).map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}));
     });
-    d.__extras=extras;
-    localStorage.setItem('rgv-v2',JSON.stringify(d));
-
-    // save family-compatible data for base ids
-    let f={};
-    try{f=JSON.parse(localStorage.getItem('rgv-famille')||'{}');}catch(e){}
+    d.__extras=extras;localStorage.setItem('rgv-v2',JSON.stringify(d));
+    let f={};try{f=JSON.parse(localStorage.getItem('rgv-famille')||'{}');}catch(e){}
     BASE_TID.forEach(id=>{
       const p=people[id]||{};
-      f['pf_'+id]={
-        prenom:p.prenom||'',
-        nom:p.nom||'',
-        naiss:p.naiss||'',
-        metier:p.metier||'',
-        lieu:p.lieu||''
-      };
-      f['evf_'+id]=(p.events||[]).map(ev=>({
-        type:ev.type||'',
-        age:ev.age||'',
-        date:ev.date||'',
-        note:ev.note||'',
-        intens:ev.intens||0
-      }));
+      f['pf_'+id]={prenom:p.prenom||'',nom:p.nom||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||''};
+      f['evf_'+id]=(p.events||[]).map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}));
     });
     localStorage.setItem('rgv-famille',JSON.stringify(f));
   }catch(e){}
 }
 
-// ADD / REMOVE EXTRA PERSON
 function openModal(){document.getElementById('modal-ov').classList.add('open');}
 function closeModal(){document.getElementById('modal-ov').classList.remove('open');}
 
 function addPerson(type){
-  const def=EXTRA_TYPES[type];
-  if(!def) return;
-  extraCounts[type]=(extraCounts[type]||0)+1;
-  const n=extraCounts[type];
-  const id=`${type}_${n}`;
-  const lbl=def.labelFn(n);
-  extras.push({id,type,lbl,slbl:lbl,sex0:def.sex});
-  TID.push(id);
-  LBL[id]=lbl;
-  SLBL[id]=lbl;
-  SEX0[id]=def.sex;
+  const def=EXTRA_TYPES[type];if(!def)return;
+  extraCounts[type]=(extraCounts[type]||0)+1;const n=extraCounts[type];
+  const id=`${type}_${n}`,lbl=def.labelFn(n);
+  extras.push({id,type,lbl,slbl:lbl,sex0:def.sex});TID.push(id);
+  LBL[id]=lbl;SLBL[id]=lbl;SEX0[id]=def.sex;
   people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};
-  closeModal();
-  detect();
-  buildTree();
-  saveData();
+  closeModal();detect();buildTree();saveData();
   setTimeout(()=>clickNode(id),80);
 }
 
 function removePerson(id){
-  if(!extras.find(e=>e.id===id)) return;
-  extras=extras.filter(e=>e.id!==id);
-  TID=TID.filter(x=>x!==id);
-  delete people[id];
-  delete LBL[id];
-  delete SLBL[id];
-  delete SEX0[id];
-  if(selectedId===id) selectedId=null;
-  detect();
-  buildTree();
-  saveData();
-  showTab('info');
+  if(!extras.find(e=>e.id===id))return;
+  extras=extras.filter(e=>e.id!==id);TID=TID.filter(x=>x!==id);
+  delete people[id];delete LBL[id];delete SLBL[id];delete SEX0[id];
+  if(selectedId===id)selectedId=null;
+  detect();buildTree();saveData();showTab('info');
 }
 
-// DETECTIONS
-const MG={
-  sante:['medecin','infirmier','infirmiere','soignant','pharmacien','sage-femme','kine','therapeute'],
-  education:['enseignant','enseignante','professeur','instituteur','educateur'],
-  commerce:['commercant','vendeur','vendeuse','marchand','boulanger','caissiere'],
-  agri:['agriculteur','agricultrice','fermier','fermiere','paysan','vigneron'],
-  artisan:['artisan','menuisier','charpentier','couturier','tailleur','cordonnier'],
-  militaire:['militaire','soldat','gendarme','policier','pompier']
-};
-function mGrp(m){
-  const ml=normalizeText(m);
-  for(const [g,ws] of Object.entries(MG)){
-    if(ws.some(w=>ml.includes(w))) return g;
-  }
-  return null;
-}
-function getAgeFromNaiss(id){
-  const naiss=people[id]?.naiss||'';
-  if(!naiss) return null;
-  if(/^\d{4}-\d{2}-\d{2}$/.test(naiss)){
-    const y=new Date(naiss).getFullYear();
-    return new Date().getFullYear()-y;
-  }
-  return null;
-}
+const MG={sante:['medecin','infirmier','infirmiere','soignant','pharmacien','sage-femme','kine','therapeute'],education:['enseignant','enseignante','professeur','instituteur','educateur'],commerce:['commercant','vendeur','vendeuse','marchand','boulanger','caissiere'],agri:['agriculteur','agricultrice','fermier','fermiere','paysan','vigneron'],artisan:['artisan','menuisier','charpentier','couturier','tailleur','cordonnier'],militaire:['militaire','soldat','gendarme','policier','pompier']};
+function mGrp(m){const ml=normalizeText(m);for(const[g,ws]of Object.entries(MG)){if(ws.some(w=>ml.includes(w)))return g;}return null;}
+function getAgeFromNaiss(id){const naiss=people[id]?.naiss||'';if(!naiss)return null;if(/^\d{4}-\d{2}-\d{2}$/.test(naiss)){const y=new Date(naiss).getFullYear();return new Date().getFullYear()-y;}return null;}
 
 function detect(){
   const ppl=allIds().map(id=>({id,lbl:SLBL[id]||LBL[id],...people[id]})).filter(p=>p.prenom||p.nom||p.metier||p.lieu||(p.events||[]).length);
-
-  reps=[];
-  const seen=new Set();
-
-  // same first name
-  const pm={};
-  ppl.forEach(p=>{
-    if(!p.prenom) return;
-    const k=normalizeText(p.prenom);
-    if(!pm[k]) pm[k]=[];
-    pm[k].push(p);
-  });
-  Object.entries(pm).forEach(([pn,g])=>{
-    if(g.length>=2){
-      reps.push({type:'prenom',raw:RCRAW.prenom,name:'Prénom répété',desc:`"${pn}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});
-    }
-  });
-
-  // same surname
-  const nm={};
-  ppl.forEach(p=>{
-    if(!p.nom) return;
-    const k=normalizeText(p.nom);
-    if(!nm[k]) nm[k]=[];
-    nm[k].push(p);
-  });
-  Object.entries(nm).forEach(([n,g])=>{
-    if(g.length>=2){
-      reps.push({type:'nom',raw:RCRAW.nom,name:'Nom répété',desc:`"${n}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});
-    }
-  });
-
-  // same profession group
-  const mm={};
-  ppl.forEach(p=>{
-    if(!p.metier) return;
-    const g=mGrp(p.metier);
-    if(!g) return;
-    if(!mm[g]) mm[g]=[];
-    mm[g].push(p);
-  });
-  Object.entries(mm).forEach(([g,grp])=>{
-    if(grp.length>=2){
-      reps.push({type:'metier',raw:RCRAW.metier,name:'Même domaine',desc:grp.map(p=>`${p.lbl}${p.metier?' ('+p.metier+')':''}`).join(' · '),ids:grp.map(p=>p.id)});
-    }
-  });
-
-  // same place
-  const lm={};
-  ppl.forEach(p=>{
-    if(!p.lieu) return;
-    const k=normalizeText(p.lieu);
-    if(!lm[k]) lm[k]=[];
-    lm[k].push(p);
-  });
-  Object.entries(lm).forEach(([l,g])=>{
-    if(g.length>=2){
-      reps.push({type:'lieu',raw:RCRAW.lieu,name:'Même lieu',desc:`"${l}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});
-    }
-  });
-
-  // same age event ±3
-  const ap=[];
-  ppl.forEach(p=>(p.events||[]).forEach(ev=>{
-    if(ev.age!==null && ev.age!=='' && !isNaN(+ev.age)){
-      ap.push({pid:p.id,lbl:p.lbl,age:+ev.age,evType:ev.type||'événement'});
-    }
-  }));
+  reps=[];const seen=new Set();
+  const pm={};ppl.forEach(p=>{if(!p.prenom)return;const k=normalizeText(p.prenom);if(!pm[k])pm[k]=[];pm[k].push(p);});
+  Object.entries(pm).forEach(([pn,g])=>{if(g.length>=2)reps.push({type:'prenom',raw:RCRAW.prenom,name:'Prénom répété',desc:`"${pn}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
+  const nm={};ppl.forEach(p=>{if(!p.nom)return;const k=normalizeText(p.nom);if(!nm[k])nm[k]=[];nm[k].push(p);});
+  Object.entries(nm).forEach(([n,g])=>{if(g.length>=2)reps.push({type:'nom',raw:RCRAW.nom,name:'Nom répété',desc:`"${n}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
+  const mm={};ppl.forEach(p=>{if(!p.metier)return;const g=mGrp(p.metier);if(!g)return;if(!mm[g])mm[g]=[];mm[g].push(p);});
+  Object.entries(mm).forEach(([g,grp])=>{if(grp.length>=2)reps.push({type:'metier',raw:RCRAW.metier,name:'Même domaine',desc:grp.map(p=>`${p.lbl}${p.metier?' ('+p.metier+')':''}`).join(' · '),ids:grp.map(p=>p.id)});});
+  const lm={};ppl.forEach(p=>{if(!p.lieu)return;const k=normalizeText(p.lieu);if(!lm[k])lm[k]=[];lm[k].push(p);});
+  Object.entries(lm).forEach(([l,g])=>{if(g.length>=2)reps.push({type:'lieu',raw:RCRAW.lieu,name:'Même lieu',desc:`"${l}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
+  const ap=[];ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(ev.age!==null&&ev.age!==''&&!isNaN(+ev.age))ap.push({pid:p.id,lbl:p.lbl,age:+ev.age,evType:ev.type||'événement'});}));
   const ua=new Set();
-  for(let i=0;i<ap.length;i++){
-    for(let j=i+1;j<ap.length;j++){
-      if(ap[i].pid!==ap[j].pid && Math.abs(ap[i].age-ap[j].age)<=3){
-        const k=[ap[i].pid,ap[j].pid].sort().join('-')+'-'+Math.round((ap[i].age+ap[j].age)/2);
-        if(ua.has(k)) continue;
-        ua.add(k);
-        reps.push({
-          type:'age',
-          raw:RCRAW.age,
-          name:'Même âge critique',
-          desc:`~${Math.round((ap[i].age+ap[j].age)/2)} ans : ${ap[i].lbl} et ${ap[j].lbl}`,
-          ids:[ap[i].pid,ap[j].pid]
-        });
-      }
-    }
-  }
-
-  // syndrome anniversaire
+  for(let i=0;i<ap.length;i++){for(let j=i+1;j<ap.length;j++){if(ap[i].pid!==ap[j].pid&&Math.abs(ap[i].age-ap[j].age)<=3){const k=[ap[i].pid,ap[j].pid].sort().join('-')+'-'+Math.round((ap[i].age+ap[j].age)/2);if(ua.has(k))continue;ua.add(k);reps.push({type:'age',raw:RCRAW.age,name:'Même âge critique',desc:`~${Math.round((ap[i].age+ap[j].age)/2)} ans : ${ap[i].lbl} et ${ap[j].lbl}`,ids:[ap[i].pid,ap[j].pid]});}}}
   const myAge=+(people.moi?.age||getAgeFromNaiss('moi')||0);
-  if(myAge>0){
-    ppl.filter(p=>p.id!=='moi').forEach(p=>(p.events||[]).forEach(ev=>{
-      if(ev.age!=='' && ev.age!==null && !isNaN(+ev.age) && Math.abs(+ev.age-myAge)<=2){
-        const k='anniv-'+p.id+'-'+ev.age;
-        if(seen.has(k)) return;
-        seen.add(k);
-        reps.push({
-          type:'anniv',
-          raw:RCRAW.anniv,
-          name:'⚡ Syndrome anniversaire',
-          desc:`Tu as ${myAge} ans — ${p.lbl} à ${ev.age} ans : ${EVL[ev.type]||'événement'}`,
-          ids:[p.id,'moi']
-        });
-      }
-    }));
-  }
-
-  // premature death
-  ppl.forEach(p=>(p.events||[]).forEach(ev=>{
-    if(ev.type==='deces-precoce'){
-      const k='gisant-'+p.id;
-      if(seen.has(k)) return;
-      seen.add(k);
-      reps.push({
-        type:'gisant',
-        raw:RCRAW.gisant,
-        name:'Mort prématurée',
-        desc:`${p.lbl}${p.prenom?' ('+p.prenom+')':''}`,
-        ids:[p.id]
-      });
-    }
-  }));
-
-  // same event type
-  const em={};
-  ppl.forEach(p=>(p.events||[]).forEach(ev=>{
-    if(!ev.type || ev.type==='autre') return;
-    if(!em[ev.type]) em[ev.type]=[];
-    if(!em[ev.type].some(x=>x.pid===p.id)) em[ev.type].push({pid:p.id,lbl:p.lbl});
-  }));
-  Object.entries(em).forEach(([ev,g])=>{
-    if(g.length>=2){
-      reps.push({
-        type:'ev',
-        raw:RCRAW.ev,
-        name:'Même épreuve',
-        desc:`"${EVL[ev]||ev}" — ${g.map(p=>p.lbl).join(' · ')}`,
-        ids:g.map(p=>p.pid)
-      });
-    }
-  });
-
-  // badge map
-  bmap={};
-  reps.forEach(r=>{
-    r.ids.forEach(id=>{
-      if(!bmap[id]) bmap[id]=[];
-      if(!bmap[id].some(x=>x.type===r.type)) bmap[id].push({raw:r.raw,type:r.type});
-    });
-  });
+  if(myAge>0){ppl.filter(p=>p.id!=='moi').forEach(p=>(p.events||[]).forEach(ev=>{if(ev.age!==''&&ev.age!==null&&!isNaN(+ev.age)&&Math.abs(+ev.age-myAge)<=2){const k='anniv-'+p.id+'-'+ev.age;if(seen.has(k))return;seen.add(k);reps.push({type:'anniv',raw:RCRAW.anniv,name:'⚡ Syndrome anniversaire',desc:`Tu as ${myAge} ans — ${p.lbl} à ${ev.age} ans : ${EVL[ev.type]||'événement'}`,ids:[p.id,'moi']});}}));}
+  ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(ev.type==='deces-precoce'){const k='gisant-'+p.id;if(seen.has(k))return;seen.add(k);reps.push({type:'gisant',raw:RCRAW.gisant,name:'Mort prématurée',desc:`${p.lbl}${p.prenom?' ('+p.prenom+')':''}`,ids:[p.id]});}}));
+  const em={};ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(!ev.type||ev.type==='autre')return;if(!em[ev.type])em[ev.type]=[];if(!em[ev.type].some(x=>x.pid===p.id))em[ev.type].push({pid:p.id,lbl:p.lbl});}));
+  Object.entries(em).forEach(([ev,g])=>{if(g.length>=2)reps.push({type:'ev',raw:RCRAW.ev,name:'Même épreuve',desc:`"${EVL[ev]||ev}" — ${g.map(p=>p.lbl).join(' · ')}`,ids:g.map(p=>p.pid)});});
+  bmap={};reps.forEach(r=>{r.ids.forEach(id=>{if(!bmap[id])bmap[id]=[];if(!bmap[id].some(x=>x.type===r.type))bmap[id].push({raw:r.raw,type:r.type});});});
 }
 
-// STRUCTURE
 const BASE_STRUCT={
   agmm1:[6.5,8,'sm'],agmm2:[14.5,8,'sm'],agpm1:[31,8,'sm'],agpm2:[38.5,8,'sm'],
   agmp1:[56,8,'sm'],agmp2:[63.5,8,'sm'],agpp1:[80,8,'sm'],agpp2:[87.5,8,'sm'],
   gmm:[10.5,30,'md'],gpm:[35,30,'md'],gmp:[60,30,'md'],gpp:[84,30,'md'],
-  mere:[23,56,'lg'],pere:[72,56,'lg'],
-  moi:[47.5,80,'xl']
+  mere:[23,56,'lg'],pere:[72,56,'lg'],moi:[47.5,80,'xl']
 };
 const ROW_Y={agp:8,gp:30,par:56,moi:80,child:93};
 
 function computeTreeStruct(){
   const S={...BASE_STRUCT};
-
   const moiRow=['moi',...extras.filter(e=>['frere','soeur','conjoint','cousin','autre'].includes(e.type)).map(e=>e.id)];
-  moiRow.forEach((id,i)=>{
-    const xPct=moiRow.length===1?47.5:8+(i/(moiRow.length-1))*84;
-    S[id]=[xPct,ROW_Y.moi,id==='moi'?'xl':'md'];
-  });
-
+  moiRow.forEach((id,i)=>{const xPct=moiRow.length===1?47.5:8+(i/(moiRow.length-1))*84;S[id]=[xPct,ROW_Y.moi,id==='moi'?'xl':'md'];});
   const parLeft=extras.filter(e=>['oncle_mat','tante_mat'].includes(e.type)).map(e=>e.id);
   const parRight=extras.filter(e=>['oncle_pat','tante_pat'].includes(e.type)).map(e=>e.id);
   parLeft.forEach((id,i)=>{S[id]=[Math.max(4,11-i*9),ROW_Y.par,'md'];});
   parRight.forEach((id,i)=>{S[id]=[Math.min(96,86+i*8),ROW_Y.par,'md'];});
-
   const children=extras.filter(e=>e.type==='enfant').map(e=>e.id);
-  children.forEach((id,i)=>{
-    const xPct=children.length===1?47.5:26+(i/Math.max(children.length-1,1))*48;
-    S[id]=[xPct,ROW_Y.child,'md'];
-  });
-
+  children.forEach((id,i)=>{const xPct=children.length===1?47.5:26+(i/Math.max(children.length-1,1))*48;S[id]=[xPct,ROW_Y.child,'md'];});
   return S;
 }
 
 const BASE_COUPLES=[
-  {p1:'agmm1',p2:'agmm2',child:'gmm'},
-  {p1:'agpm1',p2:'agpm2',child:'gpm'},
-  {p1:'agmp1',p2:'agmp2',child:'gmp'},
-  {p1:'agpp1',p2:'agpp2',child:'gpp'},
-  {p1:'gmm',p2:'gpm',child:'mere'},
-  {p1:'gmp',p2:'gpp',child:'pere'},
+  {p1:'agmm1',p2:'agmm2',child:'gmm'},{p1:'agpm1',p2:'agpm2',child:'gpm'},
+  {p1:'agmp1',p2:'agmp2',child:'gmp'},{p1:'agpp1',p2:'agpp2',child:'gpp'},
+  {p1:'gmm',p2:'gpm',child:'mere'},{p1:'gmp',p2:'gpp',child:'pere'},
   {p1:'mere',p2:'pere',child:'moi'}
 ];
 
@@ -1021,42 +449,30 @@ function guessSex(prenom,def){
   const f=['marie','anne','sophie','julie','emma','lea','laura','nathalie','isabelle','agnes','rose','helene','jeanne','lucie','claire','margot','pauline','alice','monique','simone','denise','madeleine','colette','martine','francoise','odette','brigitte','chantal','sylvie','catherine','valerie','sandrine','aurelie','caroline','amelie','manon','camille','sarah','ines','elise'];
   const m=['jean','pierre','paul','louis','michel','andre','charles','philippe','francois','georges','bernard','christian','patrick','alain','thierry','marc','nicolas','eric','sebastien','olivier','antoine','claude','rene','gaston','leon','armand','raymond','edouard','joseph','henri','robert','roger','albert','alfred','emile'];
   const pl=normalizeText(prenom||'');
-  if(f.some(n=>pl.startsWith(n))) return 'f';
-  if(m.some(n=>pl.startsWith(n))) return 'm';
+  if(f.some(n=>pl.startsWith(n)))return 'f';
+  if(m.some(n=>pl.startsWith(n)))return 'm';
   return def||'u';
 }
 
 function buildTree(){
   currentStruct=computeTreeStruct();
   const wrap=document.getElementById('nodes-wrap');
-  wrap.innerHTML='';
-  nodeEls={};
-
+  wrap.innerHTML='';nodeEls={};
   allIds().forEach(id=>{
-    const s=currentStruct[id];
-    if(!s) return;
-    const p=people[id]||{};
-    const [xp,yp,sz]=s;
-    const badges=bmap[id]||[];
+    const s=currentStruct[id];if(!s)return;
+    const p=people[id]||{},[xp,yp,sz]=s,badges=bmap[id]||[];
     const sex=p.prenom?guessSex(p.prenom,SEX0[id]||'u'):(SEX0[id]||'u');
     const hasData=!!(p.prenom||p.nom||p.metier||p.lieu||(p.events||[]).length);
     const label=p.prenom||(SLBL[id]||LBL[id]||id);
     const shortL=label.length>(sz==='sm'?7:sz==='md'?8:10)?label.slice(0,sz==='sm'?6:sz==='md'?7:9)+'…':label;
-    const evCount=(p.events||[]).length;
-    const isHL=hlIds.size===0||hlIds.has(id);
-
+    const evCount=(p.events||[]).length,isHL=hlIds.size===0||hlIds.has(id);
     const el=document.createElement('div');
     const extraClass=extras.find(e=>e.id===id)?' extra':'';
     el.className=`node ${sz}${selectedId===id?' selected':''}${hlIds.size>0&&!isHL?' dim':''}${badges.length?' has-rep':''}${extraClass}`;
-    el.id='node-'+id;
-    el.style.left=xp+'%';
-    el.style.top=yp+'%';
-    if(badges.length) el.style.setProperty('--rep-col',badges[0].raw);
-
-    const shapeClass=sex==='f'?'f':sex==='m'?'m':'u';
-    const shapeInner=sex==='u'?'<span>◆</span>':'';
+    el.id='node-'+id;el.style.left=xp+'%';el.style.top=yp+'%';
+    if(badges.length)el.style.setProperty('--rep-col',badges[0].raw);
+    const shapeClass=sex==='f'?'f':sex==='m'?'m':'u',shapeInner=sex==='u'?'<span>◆</span>':'';
     const badgesHTML=badges.map(b=>`<div class="nb" style="background:${b.raw}"></div>`).join('');
-
     el.innerHTML=`
       <div class="node-card">
         ${extras.find(e=>e.id===id)?`<div class="node-remove" onclick="event.stopPropagation();removePerson('${id}')">×</div>`:''}
@@ -1065,179 +481,88 @@ function buildTree(){
         ${sz!=='sm'?`<div class="node-role">${SLBL[id]||''}</div>`:''}
         ${badges.length?`<div class="node-badges">${badgesHTML}</div>`:''}
         ${evCount>0?`<div class="node-evc">${evCount}</div>`:''}
-      </div>
-    `;
-
+      </div>`;
     el.onclick=()=>clickNode(id);
-    el.onmouseenter=(e)=>{
-      const tip=document.getElementById('tip');
-      let txt=`${p.prenom||LBL[id]}`;
-      if(p.metier) txt+=` · ${p.metier}`;
-      if((p.events||[]).length) txt+=` · ${(p.events||[]).length} événement(s)`;
-      tip.style.display='block';
-      tip.style.left=(e.clientX+14)+'px';
-      tip.style.top=(e.clientY-8)+'px';
-      tip.textContent=txt;
-    };
+    el.onmouseenter=(e)=>{const tip=document.getElementById('tip');let txt=`${p.prenom||LBL[id]}`;if(p.metier)txt+=` · ${p.metier}`;if((p.events||[]).length)txt+=` · ${(p.events||[]).length} événement(s)`;tip.style.display='block';tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-8)+'px';tip.textContent=txt;};
     el.onmouseleave=()=>{document.getElementById('tip').style.display='none';};
-
-    wrap.appendChild(el);
-    nodeEls[id]=el;
+    wrap.appendChild(el);nodeEls[id]=el;
   });
-
-  setTimeout(()=>{
-    computeNodePositions();
-    drawLines();
-    updateGenLabels();
-  },20);
+  setTimeout(()=>{computeNodePositions();drawLines();updateGenLabels();},20);
 }
 
 function computeNodePositions(){
-  const area=document.getElementById('tree-area');
-  const W=area.clientWidth,H=area.clientHeight;
+  const area=document.getElementById('tree-area'),W=area.clientWidth,H=area.clientHeight;
   nodePos={};
-  Object.keys(currentStruct).forEach(id=>{
-    const s=currentStruct[id];
-    if(!s) return;
-    nodePos[id]={x:s[0]/100*W,y:s[1]/100*H};
-  });
+  Object.keys(currentStruct).forEach(id=>{const s=currentStruct[id];if(!s)return;nodePos[id]={x:s[0]/100*W,y:s[1]/100*H};});
 }
 
 function updateGenLabels(){
-  const map=[
-    {id:'agmm1',el:'gl-agp'},
-    {id:'gmm',el:'gl-gp'},
-    {id:'mere',el:'gl-par'},
-    {id:'moi',el:'gl-moi'}
-  ];
-  map.forEach(r=>{
-    const pos=nodePos[r.id];
-    if(pos) document.getElementById(r.el).style.top=(pos.y-12)+'px';
-  });
-
-  const childPos=extras.find(e=>e.type==='enfant') ? nodePos[extras.find(e=>e.type==='enfant').id] : null;
+  [{id:'agmm1',el:'gl-agp'},{id:'gmm',el:'gl-gp'},{id:'mere',el:'gl-par'},{id:'moi',el:'gl-moi'}].forEach(r=>{const pos=nodePos[r.id];if(pos)document.getElementById(r.el).style.top=(pos.y-12)+'px';});
+  const childPos=extras.find(e=>e.type==='enfant')?nodePos[extras.find(e=>e.type==='enfant').id]:null;
   const glChild=document.getElementById('gl-child');
-  if(childPos){
-    glChild.style.display='block';
-    glChild.style.top=(childPos.y-12)+'px';
-  }else{
-    glChild.style.display='none';
-  }
+  if(childPos){glChild.style.display='block';glChild.style.top=(childPos.y-12)+'px';}else{glChild.style.display='none';}
 }
 
 function drawLines(){
-  const svg=document.getElementById('lines-svg');
-  svg.innerHTML='';
-  const area=document.getElementById('tree-area');
-  const W=area.clientWidth,H=area.clientHeight;
-  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-
+  const svg=document.getElementById('lines-svg'),area=document.getElementById('tree-area'),W=area.clientWidth,H=area.clientHeight;
+  svg.innerHTML='';svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   BASE_COUPLES.forEach(({p1,p2,child})=>{
-    const a=nodePos[p1],b=nodePos[p2],c=nodePos[child];
-    if(!a||!b||!c) return;
+    const a=nodePos[p1],b=nodePos[p2],c=nodePos[child];if(!a||!b||!c)return;
     const isHL=hlIds.size===0||[p1,p2,child].some(id=>hlIds.has(id));
-    const col=isHL?'rgba(201,107,82,.28)':'rgba(201,107,82,.1)';
-    const barY=(a.y+b.y)/2;
-    const mx=(a.x+b.x)/2;
-
-    drawLine(svg,a.x,a.y,mx,barY,col,1.4);
-    drawLine(svg,b.x,b.y,mx,barY,col,1.4);
+    const col=isHL?'rgba(201,107,82,.28)':'rgba(201,107,82,.1)',barY=(a.y+b.y)/2,mx=(a.x+b.x)/2;
+    drawLine(svg,a.x,a.y,mx,barY,col,1.4);drawLine(svg,b.x,b.y,mx,barY,col,1.4);
     drawLine(svg,a.x,barY,b.x,barY,isHL?'rgba(201,107,82,.46)':'rgba(201,107,82,.15)',2);
-
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    const d=`M ${mx} ${barY} C ${mx} ${barY+(c.y-barY)*.5} ${c.x} ${c.y-(c.y-barY)*.3} ${c.x} ${c.y}`;
-    path.setAttribute('d',d);
-    path.setAttribute('stroke',col);
-    path.setAttribute('stroke-width','1.5');
-    path.setAttribute('fill','none');
-    path.setAttribute('stroke-linecap','round');
+    path.setAttribute('d',`M ${mx} ${barY} C ${mx} ${barY+(c.y-barY)*.5} ${c.x} ${c.y-(c.y-barY)*.3} ${c.x} ${c.y}`);
+    path.setAttribute('stroke',col);path.setAttribute('stroke-width','1.5');path.setAttribute('fill','none');path.setAttribute('stroke-linecap','round');
     svg.appendChild(path);
   });
-
-  const anchorMap={
-    frere:'moi',soeur:'moi',conjoint:'moi',cousin:'moi',autre:'moi',
-    oncle_mat:'mere',tante_mat:'mere',oncle_pat:'pere',tante_pat:'pere',enfant:'moi'
-  };
-
+  const anchorMap={frere:'moi',soeur:'moi',conjoint:'moi',cousin:'moi',autre:'moi',oncle_mat:'mere',tante_mat:'mere',oncle_pat:'pere',tante_pat:'pere',enfant:'moi'};
   extras.forEach(e=>{
-    const a=nodePos[e.id];
-    const b=nodePos[anchorMap[e.type]];
-    if(!a||!b) return;
+    const a=nodePos[e.id],b=nodePos[anchorMap[e.type]];if(!a||!b)return;
     const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1',a.x);line.setAttribute('y1',a.y);
-    line.setAttribute('x2',b.x);line.setAttribute('y2',b.y);
-    line.setAttribute('stroke','rgba(201,107,82,.24)');
-    line.setAttribute('stroke-width','1.2');
-    line.setAttribute('stroke-dasharray','5 4');
-    line.setAttribute('stroke-linecap','round');
+    line.setAttribute('x1',a.x);line.setAttribute('y1',a.y);line.setAttribute('x2',b.x);line.setAttribute('y2',b.y);
+    line.setAttribute('stroke','rgba(201,107,82,.24)');line.setAttribute('stroke-width','1.2');line.setAttribute('stroke-dasharray','5 4');line.setAttribute('stroke-linecap','round');
     svg.appendChild(line);
   });
 }
 function drawLine(svg,x1,y1,x2,y2,col,w=1.5){
   const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1',x1);line.setAttribute('y1',y1);
-  line.setAttribute('x2',x2);line.setAttribute('y2',y2);
-  line.setAttribute('stroke',col);line.setAttribute('stroke-width',w);
-  line.setAttribute('stroke-linecap','round');
+  line.setAttribute('x1',x1);line.setAttribute('y1',y1);line.setAttribute('x2',x2);line.setAttribute('y2',y2);
+  line.setAttribute('stroke',col);line.setAttribute('stroke-width',w);line.setAttribute('stroke-linecap','round');
   svg.appendChild(line);
 }
 
-// INTERACTION
-function clickNode(id){
-  selectedId=id;
-  buildTree();
-  showTab('info');
-}
+function clickNode(id){selectedId=id;buildTree();showTab('info');}
 
 function showTab(t){
   curTab=t;
-  ['info','reps','poc','export'].forEach(x=>{
-    document.getElementById('st-'+x)?.classList.toggle('active',x===t);
-  });
-  if(t==='info') renderInfoTab();
-  if(t==='reps') renderRepsTab();
-  if(t==='poc') renderPocTab();
-  if(t==='export') renderExportTab();
+  ['info','reps','poc','export'].forEach(x=>{document.getElementById('st-'+x)?.classList.toggle('active',x===t);});
+  if(t==='info')renderInfoTab();if(t==='reps')renderRepsTab();if(t==='poc')renderPocTab();if(t==='export')renderExportTab();
 }
 
-// INFO TAB
 function renderInfoTab(){
   const body=document.getElementById('sp-body');
-  if(!selectedId){
-    body.innerHTML=`
-      <div class="sp-empty">
-        <span class="sp-empty-icon">👆</span>
-        <div class="sp-empty-h">Clique sur une personne</div>
-        <div class="sp-empty-p">Ses informations s’affichent ici. Ce que tu renseignes est sauvegardé et remis directement sur l’arbre.</div>
-      </div>
-    `;
-    return;
-  }
+  if(!selectedId){body.innerHTML=`<div class="sp-empty"><span class="sp-empty-icon">👆</span><div class="sp-empty-h">Clique sur une personne</div><div class="sp-empty-p">Ses informations s'affichent ici pour que tu puisses les compléter.</div></div>`;return;}
   openPerson(selectedId);
 }
 
 function openPerson(id){
-  const p=people[id]||{};
-  const body=document.getElementById('sp-body');
+  const p=people[id]||{},body=document.getElementById('sp-body');
   const sex=p.prenom?guessSex(p.prenom,SEX0[id]):SEX0[id];
   const badges=bmap[id]||[];
   const BNAME={prenom:'Prénom répété',metier:'Même domaine',age:'Âge critique',anniv:'Syndrome anniversaire',gisant:'Mort prématurée',ev:'Épreuve répétée',lieu:'Même lieu',nom:'Nom répété'};
-
   body.innerHTML=`
     <div class="sp-sec">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div class="ph">
-          <div class="ph-av${sex==='m'?' m':''}">${p.prenom ? p.prenom[0].toUpperCase() : '?'}</div>
-          <div>
-            <div class="ph-name" id="ph-name">${p.prenom||LBL[id]}</div>
-            <div class="ph-role">${LBL[id]||''}</div>
-          </div>
+          <div class="ph-av${sex==='m'?' m':''}">${p.prenom?p.prenom[0].toUpperCase():'?'}</div>
+          <div><div class="ph-name" id="ph-name">${p.prenom||LBL[id]}</div><div class="ph-role">${LBL[id]||''}</div></div>
         </div>
         <button onclick="selectedId=null;buildTree();renderInfoTab()" style="background:none;border:none;color:var(--soft);cursor:pointer;font-size:1.1rem;padding:.2rem;line-height:1;margin-top:.2rem">×</button>
       </div>
       ${badges.length?`<div class="badges">${badges.map(b=>`<span class="badge" style="background:${b.raw}22;color:${b.raw}">${BNAME[b.type]}</span>`).join('')}</div>`:''}
     </div>
-
     <div class="sp-sec">
       <div class="sp-lbl">Identité</div>
       <div class="fld"><label>Prénom</label><input type="text" value="${p.prenom||''}" oninput="up('${id}','prenom',this.value)" placeholder="Prénom"></div>
@@ -1247,71 +572,49 @@ function openPerson(id){
       <div class="fld"><label>Métier / domaine</label><input type="text" value="${p.metier||''}" oninput="up('${id}','metier',this.value)" placeholder="Ex : infirmière..."></div>
       <div class="fld"><label>Ville / origine</label><input type="text" value="${p.lieu||''}" oninput="up('${id}','lieu',this.value)" placeholder="Ex : Rennes, Italie..."></div>
     </div>
-
     <div class="sp-sec">
       <div class="sp-lbl">Événements marquants</div>
-      <p style="font-size:.67rem;color:rgba(154,112,96,.4);margin-bottom:.5rem">L’âge aide à détecter les répétitions</p>
+      <p style="font-size:.67rem;color:rgba(154,112,96,.4);margin-bottom:.5rem">L'âge aide à détecter les répétitions</p>
       <div id="ev-list-${id}"></div>
       <button class="btn-sm" onclick="addEv('${id}')">+ Événement</button>
     </div>
-
     <div class="sp-sec">
       <div class="sp-lbl">Comportements récurrents</div>
       <div class="tags-wrap" id="tc-${id}" onclick="this.querySelector('input').focus()">
         <input placeholder="perfectionnisme… (Entrée)" onkeydown="addTag(event,'${id}','comp')">
       </div>
     </div>
-
     <div class="sp-sec">
       <div class="sp-lbl">Symptômes / maladies</div>
       <div class="tags-wrap" id="tb-${id}" onclick="this.querySelector('input').focus()">
         <input placeholder="migraines, dos… (Entrée)" onkeydown="addTag(event,'${id}','bless')">
       </div>
     </div>
-
     <div class="sp-sec">
       <div class="sp-lbl">Histoire · Non-dits</div>
-      <div class="fld">
-        <textarea rows="4" placeholder="Ce qu'on dit… Un secret pressenti… Une sensation forte…" oninput="up('${id}','notes',this.value)">${p.notes||''}</textarea>
-      </div>
-    </div>
-  `;
-
-  renderEvList(id);
-  setTags(id,'comp',p.comp||[]);
-  setTags(id,'bless',p.bless||[]);
+      <div class="fld"><textarea rows="4" placeholder="Ce qu'on dit… Un secret pressenti…" oninput="up('${id}','notes',this.value)">${p.notes||''}</textarea></div>
+    </div>`;
+  renderEvList(id);setTags(id,'comp',p.comp||[]);setTags(id,'bless',p.bless||[]);
 }
 
-function up(id,field,val){
-  mergePerson(id,{[field]:val});
-  schedule();
-}
+function up(id,field,val){mergePerson(id,{[field]:val});schedule();}
 
 let utimer=null;
 function schedule(){
   clearTimeout(utimer);
   utimer=setTimeout(()=>{
-    detect();
-    buildTree();
-    saveData();
-    if(curTab==='info' && selectedId){
-      const el=document.getElementById('ph-name');
-      if(el) el.textContent=people[selectedId]?.prenom||LBL[selectedId];
-    }
-    if(curTab==='reps') renderRepsTab();
+    detect();buildTree();saveData();
+    if(curTab==='info'&&selectedId){const el=document.getElementById('ph-name');if(el)el.textContent=people[selectedId]?.prenom||LBL[selectedId];}
+    if(curTab==='reps')renderRepsTab();
   },220);
 }
 
 function renderEvList(id){
-  const el=document.getElementById('ev-list-'+id);
-  if(!el) return;
-  el.innerHTML='';
+  const el=document.getElementById('ev-list-'+id);if(!el)return;el.innerHTML='';
   (people[id]?.events||[]).forEach((ev,i)=>{
-    const d=document.createElement('div');
-    d.className='ev-card';
+    const d=document.createElement('div');d.className='ev-card';
     d.innerHTML=`
-      <div class="fld">
-        <label>Événement</label>
+      <div class="fld"><label>Événement</label>
         <select onchange="upEv('${id}',${i},'type',this.value)">
           <option value="">—</option>
           <option value="deuil">Deuil / perte</option>
@@ -1330,69 +633,30 @@ function renderEvList(id){
       </div>
       <div class="fld"><label>Âge</label><input type="number" min="0" max="120" value="${ev?.age||''}" oninput="upEv('${id}',${i},'age',this.value)" placeholder="25"></div>
       <div class="fld"><label>Année</label><input type="text" value="${ev?.date||''}" oninput="upEv('${id}',${i},'date',this.value)" placeholder="1952"></div>
-      <button class="ev-del" onclick="delEv('${id}',${i})">✕</button>
-    `;
-    el.appendChild(d);
-    if(ev?.type){
-      const sel=d.querySelector('select');
-      if(sel) sel.value=ev.type;
-    }
+      <button class="ev-del" onclick="delEv('${id}',${i})">✕</button>`;
+    el.appendChild(d);if(ev?.type){const sel=d.querySelector('select');if(sel)sel.value=ev.type;}
   });
 }
-function addEv(id){
-  mergePerson(id,{events:[...(people[id]?.events||[]),{type:'',age:'',date:'',note:'',intens:0}]});
-  renderEvList(id);
-  schedule();
-}
-function delEv(id,i){
-  const arr=[...(people[id]?.events||[])];
-  arr.splice(i,1);
-  mergePerson(id,{events:arr});
-  renderEvList(id);
-  schedule();
-}
-function upEv(id,i,field,val){
-  const arr=[...(people[id]?.events||[])];
-  if(!arr[i]) return;
-  arr[i][field]=val;
-  mergePerson(id,{events:arr});
-  schedule();
-}
+function addEv(id){mergePerson(id,{events:[...(people[id]?.events||[]),{type:'',age:'',date:'',note:'',intens:0}]});renderEvList(id);schedule();}
+function delEv(id,i){const arr=[...(people[id]?.events||[])];arr.splice(i,1);mergePerson(id,{events:arr});renderEvList(id);schedule();}
+function upEv(id,i,field,val){const arr=[...(people[id]?.events||[])];if(!arr[i])return;arr[i][field]=val;mergePerson(id,{events:arr});schedule();}
 
 function setTags(id,type,vals){
-  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);
-  if(!el) return;
+  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);if(!el)return;
   el.querySelectorAll('.tag').forEach(t=>t.remove());
-  vals.forEach(v=>{
-    const sp=document.createElement('span');
-    sp.className='tag';
-    sp.dataset.val=v;
-    sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;
-    el.insertBefore(sp,el.querySelector('input'));
-  });
+  vals.forEach(v=>{const sp=document.createElement('span');sp.className='tag';sp.dataset.val=v;sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;el.insertBefore(sp,el.querySelector('input'));});
 }
 function addTag(e,id,type){
-  if(e.key!=='Enter') return;
-  e.preventDefault();
-  const v=e.target.value.trim();
-  if(!v) return;
+  if(e.key!=='Enter')return;e.preventDefault();const v=e.target.value.trim();if(!v)return;
   const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);
-  const sp=document.createElement('span');
-  sp.className='tag';
-  sp.dataset.val=v;
-  sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;
-  el.insertBefore(sp,e.target);
-  e.target.value='';
-  syncTags(id,type);
+  const sp=document.createElement('span');sp.className='tag';sp.dataset.val=v;sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;
+  el.insertBefore(sp,e.target);e.target.value='';syncTags(id,type);
 }
 function syncTags(id,type){
-  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);
-  if(!el) return;
-  mergePerson(id,{[type]:Array.from(el.querySelectorAll('.tag')).map(t=>t.dataset.val)});
-  schedule();
+  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);if(!el)return;
+  mergePerson(id,{[type]:Array.from(el.querySelectorAll('.tag')).map(t=>t.dataset.val)});schedule();
 }
 
-// REPS TAB
 const SCHEMAS=[
   {id:'abandon',lbl:'Abandon / rejet',evs:['abandon','rupture'],col:'#E8967F'},
   {id:'deuil',lbl:'Deuils non faits',evs:['deuil','deces-precoce'],col:'#C96B52'},
@@ -1407,299 +671,133 @@ let activeSchemas=new Set();
 
 function renderRepsTab(){
   const body=document.getElementById('sp-body');
-  const uniq=[];
-  const seen=new Set();
-  reps.forEach(r=>{
-    const k=r.type+'|'+r.desc;
-    if(seen.has(k)) return;
-    seen.add(k);
-    uniq.push(r);
-  });
-
-  const repsHTML=uniq.length
-    ? uniq.map(r=>`
-      <div class="rep-card" style="--rc:${r.raw}">
-        <div class="rep-card-name" style="color:${r.raw}">${r.name}</div>
-        <div class="rep-card-desc">${r.desc}</div>
-      </div>
-    `).join('')
-    : `<p style="font-size:.78rem;color:var(--soft);font-weight:300;line-height:1.7;margin-bottom:1rem">Continue à remplir l’arbre — les répétitions apparaissent ici automatiquement.</p>`;
-
+  const uniq=[],seen=new Set();
+  reps.forEach(r=>{const k=r.type+'|'+r.desc;if(seen.has(k))return;seen.add(k);uniq.push(r);});
+  const repsHTML=uniq.length?uniq.map(r=>`<div class="rep-card" style="--rc:${r.raw}"><div class="rep-card-name" style="color:${r.raw}">${r.name}</div><div class="rep-card-desc">${r.desc}</div></div>`).join(''):`<p style="font-size:.78rem;color:var(--soft);font-weight:300;line-height:1.7;margin-bottom:1rem">Continue à remplir l'arbre — les répétitions apparaissent ici automatiquement.</p>`;
   body.innerHTML=`
-    <div class="sp-sec">
-      <div class="sp-lbl">Répétitions détectées</div>
-      ${repsHTML}
-    </div>
+    <div class="sp-sec"><div class="sp-lbl">Répétitions détectées</div>${repsHTML}</div>
     <div class="sp-sec">
       <div class="sp-lbl" style="margin-bottom:.6rem">Mettre en surbrillance un schéma</div>
-      <div id="schema-chips">
-        ${SCHEMAS.map(s=>`
-          <span class="schema-chip${activeSchemas.has(s.id)?' on':''}"
-            style="${activeSchemas.has(s.id)?`border-color:${s.col};background:${s.col}22;color:${s.col}`:''}"
-            onclick="toggleSchema('${s.id}',this,'${s.col}')">
-            <span style="width:6px;height:6px;border-radius:50%;background:${s.col};display:inline-block;flex-shrink:0"></span>${s.lbl}
-          </span>
-        `).join('')}
-      </div>
+      <div id="schema-chips">${SCHEMAS.map(s=>`<span class="schema-chip${activeSchemas.has(s.id)?' on':''}" style="${activeSchemas.has(s.id)?`border-color:${s.col};background:${s.col}22;color:${s.col}`:''}" onclick="toggleSchema('${s.id}',this,'${s.col}')"><span style="width:6px;height:6px;border-radius:50%;background:${s.col};display:inline-block;flex-shrink:0"></span>${s.lbl}</span>`).join('')}</div>
       <div id="schema-info" style="display:${activeSchemas.size?'block':'none'};margin-top:.8rem;padding:.6rem .8rem;background:rgba(232,150,127,.08);border-left:2px solid var(--rose);border-radius:10px;font-size:.75rem;color:var(--ink2);line-height:1.65;font-style:italic">${getSchemaInfo()}</div>
-    </div>
-  `;
+    </div>`;
 }
 
 function toggleSchema(id,el,col){
-  if(activeSchemas.has(id)){
-    activeSchemas.delete(id);
-    el.classList.remove('on');
-    el.style.cssText='';
-  }else{
-    activeSchemas.add(id);
-    el.classList.add('on');
-    el.style.cssText=`border-color:${col};background:${col}22;color:${col}`;
-  }
+  if(activeSchemas.has(id)){activeSchemas.delete(id);el.classList.remove('on');el.style.cssText='';}
+  else{activeSchemas.add(id);el.classList.add('on');el.style.cssText=`border-color:${col};background:${col}22;color:${col}`;}
   updateHL();
 }
 
 function getSchemaInfo(){
-  if(!activeSchemas.size) return '';
+  if(!activeSchemas.size)return '';
   const matches=[];
-  allIds().forEach(id=>{
-    const p=people[id]||{};
-    activeSchemas.forEach(sid=>{
-      const s=SCHEMAS.find(x=>x.id===sid);
-      if(!s) return;
-      (p.events||[]).forEach(ev=>{
-        if(s.evs.includes(ev.type)){
-          const n=p.prenom||SLBL[id]||LBL[id];
-          if(!matches.includes(n)) matches.push(n);
-        }
-      });
-    });
-  });
-  return matches.length ? `Ce schéma apparaît chez : ${matches.join(', ')}.` : `Aucune correspondance trouvée pour l’instant.`;
+  allIds().forEach(id=>{const p=people[id]||{};activeSchemas.forEach(sid=>{const s=SCHEMAS.find(x=>x.id===sid);if(!s)return;(p.events||[]).forEach(ev=>{if(s.evs.includes(ev.type)){const n=p.prenom||SLBL[id]||LBL[id];if(!matches.includes(n))matches.push(n);}});});});
+  return matches.length?`Ce schéma apparaît chez : ${matches.join(', ')}.`:`Aucune correspondance trouvée pour l'instant.`;
 }
 
 function updateHL(){
   hlIds.clear();
-  if(activeSchemas.size){
-    allIds().forEach(id=>{
-      const p=people[id]||{};
-      activeSchemas.forEach(sid=>{
-        const s=SCHEMAS.find(x=>x.id===sid);
-        if(!s) return;
-        (p.events||[]).forEach(ev=>{
-          if(s.evs.includes(ev.type)) hlIds.add(id);
-        });
-      });
-    });
-  }
-  buildTree();
-  if(curTab==='reps') renderRepsTab();
+  if(activeSchemas.size){allIds().forEach(id=>{const p=people[id]||{};activeSchemas.forEach(sid=>{const s=SCHEMAS.find(x=>x.id===sid);if(!s)return;(p.events||[]).forEach(ev=>{if(s.evs.includes(ev.type))hlIds.add(id);});});});}
+  buildTree();if(curTab==='reps')renderRepsTab();
 }
 
-// POC TAB
 function renderPocTab(){
   const body=document.getElementById('sp-body');
   body.innerHTML=`
     <div class="sp-sec" style="border-bottom:none">
       <div class="sp-lbl">Ma prise de conscience</div>
-      <p style="font-size:.75rem;color:var(--soft);line-height:1.65;font-weight:300;margin-bottom:.8rem">
-        Ce que je vois en regardant cet arbre... Ce que je porte qui n’est peut-être pas le mien...
-      </p>
-      <textarea class="poc-ta" id="poc-ta" placeholder="Je vois que...&#10;Ce qui me frappe c’est...&#10;Je porte peut-être..." oninput="savePoc()"></textarea>
+      <p style="font-size:.75rem;color:var(--soft);line-height:1.65;font-weight:300;margin-bottom:.8rem">Ce que je vois en regardant cet arbre...</p>
+      <textarea class="poc-ta" id="poc-ta" placeholder="Je vois que...&#10;Ce qui me frappe c'est...&#10;Je porte peut-être..." oninput="savePoc()"></textarea>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.55rem">
         <span style="font-size:.65rem;color:rgba(154,112,96,.35)">Sauvegardé automatiquement</span>
         <button class="btn-sm" onclick="exportPoc()">⬇ Exporter le texte</button>
       </div>
-    </div>
-  `;
+    </div>`;
   try{document.getElementById('poc-ta').value=localStorage.getItem('rgv-poc')||'';}catch(e){}
 }
-function savePoc(){
-  try{
-    localStorage.setItem('rgv-poc',document.getElementById('poc-ta')?.value||'');
-  }catch(e){}
-}
-function exportPoc(){
-  const txt=document.getElementById('poc-ta')?.value||'';
-  if(!txt) return;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));
-  a.download='prise-de-conscience.txt';
-  a.click();
-}
+function savePoc(){try{localStorage.setItem('rgv-poc',document.getElementById('poc-ta')?.value||'');}catch(e){}}
+function exportPoc(){const txt=document.getElementById('poc-ta')?.value||'';if(!txt)return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download='prise-de-conscience.txt';a.click();}
 
-// EXPORT TAB
 function renderExportTab(){
   const body=document.getElementById('sp-body');
   body.innerHTML=`
-    <div class="sp-sec">
-      <div class="sp-lbl">Exporter mon génosociogramme</div>
-      <p style="font-size:.76rem;color:var(--soft);line-height:1.7;font-weight:300">
-        Ici, tu exportes directement <strong style="color:var(--ink)">ton arbre actuel</strong> — pas un autre modèle.
-      </p>
-    </div>
-
+    <div class="sp-sec"><div class="sp-lbl">Exporter mon génosociogramme</div><p style="font-size:.76rem;color:var(--soft);line-height:1.7;font-weight:300">Ton arbre actuel avec toutes les informations saisies.</p></div>
     <div class="export-box">
       <h4>Mon arbre personnel</h4>
-      <p>Imprime-le directement ou télécharge-le en SVG pour le garder, l’envoyer ou l’annoter.</p>
+      <p>Imprime-le directement ou télécharge-le en SVG.</p>
       <div class="export-actions">
         <button onclick="printTree()">🖨 Imprimer</button>
-        <button onclick="downloadTreeSVG()">⬇ Télécharger l’arbre</button>
+        <button onclick="downloadTreeSVG()">⬇ Télécharger l'arbre</button>
       </div>
     </div>
-
     <div class="sp-sec" style="border-bottom:none">
-      <div class="sp-lbl">Conseil</div>
-      <p style="font-size:.74rem;color:var(--soft);line-height:1.7;font-weight:300">
-        Tu peux d’abord surligner un schéma dans l’onglet <strong style="color:var(--ink)">Répétitions</strong>, puis imprimer : l’arbre mettra visuellement en avant ce motif de lignée.
-      </p>
-    </div>
-  `;
+      <div class="sp-lbl">Navigation</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.4rem">
+        <a href="index.html" class="act-btn" style="justify-content:center">🏠 Accueil</a>
+        <a href="parcours.html" class="act-btn" style="justify-content:center">🧬 Mémoires</a>
+        <a href="transgen.html" class="act-btn" style="justify-content:center">🔁 Transgénérationnel</a>
+        <a href="journal.html" class="act-btn" style="justify-content:center">✍️ Journal</a>
+        <a href="contact.html" class="act-btn" style="justify-content:center">✉️ Contact</a>
+      </div>
+    </div>`;
 }
 
-// PRINT + DOWNLOAD
-function printTree(){
-  window.print();
-}
+function printTree(){window.print();}
 
-function getLogicalPos(id,w,h){
-  const s=currentStruct[id];
-  if(!s) return null;
-  return {x:s[0]/100*w,y:s[1]/100*h,size:s[2]};
-}
+function getLogicalPos(id,w,h){const s=currentStruct[id];if(!s)return null;return{x:s[0]/100*w,y:s[1]/100*h,size:s[2]};}
 
 function svgNodeShape(x,y,sex,size){
   const base=size==='sm'?10:size==='md'?12:size==='lg'?14:16;
-  if(sex==='f'){
-    return `<circle cx="${x}" cy="${y}" r="${base}" fill="#FAEADC" stroke="rgba(232,150,127,.6)" stroke-width="2"/>`;
-  }
-  if(sex==='m'){
-    return `<rect x="${x-base}" y="${y-base}" width="${base*2}" height="${base*2}" rx="4" fill="#E4EEF8" stroke="rgba(123,167,212,.65)" stroke-width="2"/>`;
-  }
+  if(sex==='f')return`<circle cx="${x}" cy="${y}" r="${base}" fill="#FAEADC" stroke="rgba(232,150,127,.6)" stroke-width="2"/>`;
+  if(sex==='m')return`<rect x="${x-base}" y="${y-base}" width="${base*2}" height="${base*2}" rx="4" fill="#E4EEF8" stroke="rgba(123,167,212,.65)" stroke-width="2"/>`;
   const pts=`${x},${y-base} ${x+base},${y} ${x},${y+base} ${x-base},${y}`;
-  return `<polygon points="${pts}" fill="#F6E8D8" stroke="rgba(154,112,96,.55)" stroke-width="2"/>`;
+  return`<polygon points="${pts}" fill="#F6E8D8" stroke="rgba(154,112,96,.55)" stroke-width="2"/>`;
 }
 
 function svgNodeBox(x,y,size,hasRep,repColor,selected){
   const dims=size==='sm'?[74,42,10]:size==='md'?[90,50,12]:size==='lg'?[110,62,16]:[124,72,18];
-  const [w,h,r]=dims;
-  const fill=size==='xl'?'#FFF5EE':'#FFFAF4';
-  const stroke=hasRep?(repColor||'#E8967F'):(selected?'#C96B52':'rgba(232,150,127,.35)');
-  return {
-    w,h,r,
-    svg:`<rect x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${selected?3:2}"/>`
-  };
+  const[w,h,r]=dims,fill=size==='xl'?'#FFF5EE':'#FFFAF4',stroke=hasRep?(repColor||'#E8967F'):(selected?'#C96B52':'rgba(232,150,127,.35)');
+  return{w,h,r,svg:`<rect x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${selected?3:2}"/>`};
 }
 
 function buildExportSVG(){
-  const W=1600,H=1100;
-  let svgParts=[];
+  const W=1600,H=1100;let svgParts=[];
   svgParts.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`);
   svgParts.push(`<rect width="100%" height="100%" fill="#FDF5EC"/>`);
-
-  // labels
   const labelStyle=`font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; fill: rgba(154,112,96,.65);`;
-  const labelMap=[
-    ['Arrière-grands-parents',8],
-    ['Grands-parents',30],
-    ['Parents',56],
-    ['Toi',80]
-  ];
-  labelMap.forEach(([txt,y])=>{
-    svgParts.push(`<text x="20" y="${H*y/100 - 18}" style="${labelStyle}">${txt}</text>`);
-  });
-  if(extras.some(e=>e.type==='enfant')){
-    svgParts.push(`<text x="20" y="${H*93/100 - 18}" style="${labelStyle}">Descendance</text>`);
-  }
-
-  // base lines
+  [['Arrière-grands-parents',8],['Grands-parents',30],['Parents',56],['Toi',80]].forEach(([txt,y])=>{svgParts.push(`<text x="20" y="${H*y/100-18}" style="${labelStyle}">${txt}</text>`);});
+  if(extras.some(e=>e.type==='enfant'))svgParts.push(`<text x="20" y="${H*93/100-18}" style="${labelStyle}">Descendance</text>`);
   BASE_COUPLES.forEach(({p1,p2,child})=>{
-    const a=getLogicalPos(p1,W,H), b=getLogicalPos(p2,W,H), c=getLogicalPos(child,W,H);
-    if(!a||!b||!c) return;
-    const col='rgba(201,107,82,.35)';
-    const barY=(a.y+b.y)/2;
-    const mx=(a.x+b.x)/2;
+    const a=getLogicalPos(p1,W,H),b=getLogicalPos(p2,W,H),c=getLogicalPos(child,W,H);if(!a||!b||!c)return;
+    const col='rgba(201,107,82,.35)',barY=(a.y+b.y)/2,mx=(a.x+b.x)/2;
     svgParts.push(`<line x1="${a.x}" y1="${a.y}" x2="${mx}" y2="${barY}" stroke="${col}" stroke-width="2"/>`);
     svgParts.push(`<line x1="${b.x}" y1="${b.y}" x2="${mx}" y2="${barY}" stroke="${col}" stroke-width="2"/>`);
     svgParts.push(`<line x1="${a.x}" y1="${barY}" x2="${b.x}" y2="${barY}" stroke="rgba(201,107,82,.52)" stroke-width="2.5"/>`);
     svgParts.push(`<path d="M ${mx} ${barY} C ${mx} ${barY+(c.y-barY)*.5} ${c.x} ${c.y-(c.y-barY)*.3} ${c.x} ${c.y}" fill="none" stroke="${col}" stroke-width="2"/>`);
   });
-
-  // extra lines
   const anchorMap={frere:'moi',soeur:'moi',conjoint:'moi',cousin:'moi',autre:'moi',oncle_mat:'mere',tante_mat:'mere',oncle_pat:'pere',tante_pat:'pere',enfant:'moi'};
-  extras.forEach(e=>{
-    const a=getLogicalPos(e.id,W,H),b=getLogicalPos(anchorMap[e.type],W,H);
-    if(!a||!b) return;
-    svgParts.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="rgba(201,107,82,.28)" stroke-width="1.8" stroke-dasharray="6 5"/>`);
-  });
-
-  // nodes
+  extras.forEach(e=>{const a=getLogicalPos(e.id,W,H),b=getLogicalPos(anchorMap[e.type],W,H);if(!a||!b)return;svgParts.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="rgba(201,107,82,.28)" stroke-width="1.8" stroke-dasharray="6 5"/>`);});
   allIds().forEach(id=>{
-    const pos=getLogicalPos(id,W,H);
-    if(!pos) return;
-    const p=people[id]||{};
-    const sex=p.prenom?guessSex(p.prenom,SEX0[id]||'u'):(SEX0[id]||'u');
-    const badges=bmap[id]||[];
-    const label=(p.prenom||SLBL[id]||LBL[id]||id);
-    const short=label.length>(pos.size==='sm'?9:12)?label.slice(0,pos.size==='sm'?8:11)+'…':label;
+    const pos=getLogicalPos(id,W,H);if(!pos)return;
+    const p=people[id]||{},sex=p.prenom?guessSex(p.prenom,SEX0[id]||'u'):(SEX0[id]||'u'),badges=bmap[id]||[];
+    const label=(p.prenom||SLBL[id]||LBL[id]||id),short=label.length>(pos.size==='sm'?9:12)?label.slice(0,pos.size==='sm'?8:11)+'…':label;
     const box=svgNodeBox(pos.x,pos.y,pos.size,badges.length,badges[0]?.raw,selectedId===id);
-
-    svgParts.push(box.svg);
-    svgParts.push(svgNodeShape(pos.x, pos.y-(box.h/2)+18, sex, pos.size));
+    svgParts.push(box.svg);svgParts.push(svgNodeShape(pos.x,pos.y-(box.h/2)+18,sex,pos.size));
     svgParts.push(`<text x="${pos.x}" y="${pos.y+8}" text-anchor="middle" style="font-family:'Playfair Display',serif;font-size:${pos.size==='sm'?13:pos.size==='md'?14:pos.size==='lg'?15:17}px;font-weight:700;fill:#2A1A10">${escapeXML(short)}</text>`);
-    if(pos.size!=='sm'){
-      svgParts.push(`<text x="${pos.x}" y="${pos.y+22}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#9A7060">${escapeXML(SLBL[id]||'')}</text>`);
-    }
-    if((p.events||[]).length){
-      svgParts.push(`<circle cx="${pos.x+box.w/2-4}" cy="${pos.y-box.h/2+4}" r="10" fill="#C96B52" stroke="#ffffff" stroke-width="2"/>`);
-      svgParts.push(`<text x="${pos.x+box.w/2-4}" y="${pos.y-box.h/2+8}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;fill:white">${(p.events||[]).length}</text>`);
-    }
-    if(badges.length){
-      badges.forEach((b,idx)=>{
-        svgParts.push(`<circle cx="${pos.x-(badges.length-1)*6+idx*12}" cy="${pos.y+box.h/2-8}" r="4.5" fill="${b.raw}"/>`);
-      });
-    }
+    if(pos.size!=='sm')svgParts.push(`<text x="${pos.x}" y="${pos.y+22}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#9A7060">${escapeXML(SLBL[id]||'')}</text>`);
+    if((p.events||[]).length){svgParts.push(`<circle cx="${pos.x+box.w/2-4}" cy="${pos.y-box.h/2+4}" r="10" fill="#C96B52" stroke="#ffffff" stroke-width="2"/>`);svgParts.push(`<text x="${pos.x+box.w/2-4}" y="${pos.y-box.h/2+8}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;fill:white">${(p.events||[]).length}</text>`);}
+    if(badges.length)badges.forEach((b,idx)=>{svgParts.push(`<circle cx="${pos.x-(badges.length-1)*6+idx*12}" cy="${pos.y+box.h/2-8}" r="4.5" fill="${b.raw}"/>`);});
   });
-
-  svgParts.push(`</svg>`);
-  return svgParts.join('');
+  svgParts.push(`</svg>`);return svgParts.join('');
 }
-function escapeXML(str){
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function downloadTreeSVG(){
-  const svg=buildExportSVG();
-  const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download='genosociogramme-laura-charron.svg';
-  a.click();
-  URL.revokeObjectURL(url);
-}
+function escapeXML(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function downloadTreeSVG(){const svg=buildExportSVG();const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='genosociogramme-laura-charron.svg';a.click();URL.revokeObjectURL(url);}
 
-// INIT
-function clickNode(id){
-  selectedId=id;
-  buildTree();
-  showTab('info');
-}
+document.addEventListener('scroll',()=>{document.getElementById('tip').style.display='none';},{passive:true});
+window.addEventListener('resize',()=>{setTimeout(()=>{computeNodePositions();drawLines();updateGenLabels();},120);});
 
-function updateTooltipHide(){document.getElementById('tip').style.display='none';}
-document.addEventListener('scroll',updateTooltipHide,{passive:true});
-window.addEventListener('resize',()=>{
-  setTimeout(()=>{
-    computeNodePositions();
-    drawLines();
-    updateGenLabels();
-  },120);
-});
-
-loadData();
-detect();
-buildTree();
-showTab('info');
+loadData();detect();buildTree();showTab('info');
 </script>
 </body>
 </html>
-
