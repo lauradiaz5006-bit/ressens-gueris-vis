@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/index.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/parcours.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/contact.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/symptomes.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/arbre-famille.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/arbre-vie.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/cycle.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/genosociogramme.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/journal.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/transgen.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/vibration.html</loc>
+    <lastmod>2026-04-20</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>
