@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon espace · Laura Charron</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --cream:#F4EDE4;--cream3:#FFFAF5;--terra:#C65D3B;--terra-dark:#A14A3C;
+  --brown:#6B3E2E;--ink:#3A1F12;--soft:#9A7060;--white:#FFFCF8;
+  --line:rgba(107,62,46,.15);--red:#C0392B;
+}
+body{font-family:'Jost',sans-serif;background:var(--cream3);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
+a{color:inherit;text-decoration:none;}
+button{font-family:'Jost',sans-serif;cursor:pointer;border:none;}
+
+nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:24px;flex-shrink:0;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--ink);margin-right:auto;}
+.nav-link{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:500;transition:color .2s;}
+.nav-link:hover{color:var(--terra);}
+
+.page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;
+  background:linear-gradient(160deg,#FFFAF5 0%,#F4EDE4 100%);}
+
+.card{background:var(--white);border-radius:22px;padding:40px;width:100%;max-width:420px;
+  box-shadow:0 20px 60px rgba(58,31,18,.1);border:1px solid var(--line);}
+
+.card-logo{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-style:italic;font-weight:700;
+  color:var(--ink);text-align:center;margin-bottom:6px;}
+.card-sub{font-size:.8rem;color:var(--soft);text-align:center;margin-bottom:32px;line-height:1.6;}
+
+.tabs{display:flex;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:28px;gap:4px;}
+.tab{flex:1;padding:.42rem;border-radius:7px;font-size:.78rem;font-weight:500;color:var(--soft);
+  background:none;border:none;cursor:pointer;transition:all .18s;font-family:'Jost',sans-serif;}
+.tab.on{background:var(--white);color:var(--terra);box-shadow:0 2px 8px rgba(58,31,18,.08);}
+
+.fg{margin-bottom:14px;}
+.fl{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:5px;}
+.fi{width:100%;background:var(--cream3);border:1px solid rgba(107,62,46,.15);border-radius:9px;
+  padding:.5rem .7rem;font-family:'Jost',sans-serif;font-size:.85rem;color:var(--ink);outline:none;transition:border-color .15s;}
+.fi:focus{border-color:var(--terra);background:var(--white);}
+
+.btn-main{width:100%;background:var(--terra);color:white;border-radius:100px;padding:.6rem;
+  font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:'Jost',sans-serif;
+  transition:background .18s;margin-top:6px;}
+.btn-main:hover{background:var(--terra-dark);}
+.btn-main:disabled{background:var(--soft);cursor:not-allowed;}
+
+.msg{padding:10px 14px;border-radius:9px;font-size:.78rem;margin-bottom:14px;display:none;line-height:1.5;}
+.msg.err{background:rgba(192,57,43,.08);color:var(--red);border:1px solid rgba(192,57,43,.2);}
+.msg.ok{background:rgba(39,174,96,.08);color:#27AE60;border:1px solid rgba(39,174,96,.2);}
+
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--soft);font-size:.72rem;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line);}
+
+.btn-google{width:100%;background:var(--white);color:var(--ink);border:1px solid var(--line);border-radius:100px;
+  padding:.55rem;font-size:.82rem;font-weight:500;cursor:pointer;font-family:'Jost',sans-serif;
+  transition:all .18s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-google:hover{border-color:var(--terra);color:var(--terra);}
+
+.footer-note{font-size:.68rem;color:var(--soft);text-align:center;margin-top:20px;line-height:1.6;}
+.footer-note a{color:var(--terra);}
+
+/* already logged in state */
+.logged-card{text-align:center;}
+.logged-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--brown));
+  color:white;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.logged-name{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.logged-email{font-size:.76rem;color:var(--soft);margin-bottom:24px;}
+.btn-go{display:block;background:var(--terra);color:white;border-radius:100px;padding:.6rem 1.4rem;
+  font-size:.82rem;font-weight:600;text-align:center;transition:background .18s;margin-bottom:10px;}
+.btn-go:hover{background:var(--terra-dark);}
+.btn-logout{background:none;border:1px solid var(--line);color:var(--soft);border-radius:100px;
+  padding:.45rem 1.2rem;font-size:.75rem;cursor:pointer;font-family:'Jost',sans-serif;transition:all .15s;}
+.btn-logout:hover{border-color:var(--soft);}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Laura Charron</span>
+  <a class="nav-link" href="index.html">Accueil</a>
+  <a class="nav-link" href="comprendre.html">Comprendre</a>
+  <a class="nav-link" href="genosociogramme.html">Mon Arbre</a>
+  <a class="nav-link" href="contact.html">Accompagnement</a>
+</nav>
+
+<div class="page">
+  <div class="card" id="auth-card">
+    <div class="card-logo">Mon Espace</div>
+    <div class="card-sub">Accédez à votre arbre généalogique et votre parcours,<br>sauvegardés en sécurité.</div>
+
+    <div class="tabs">
+      <button class="tab on" id="tab-login" onclick="switchTab('login')">Se connecter</button>
+      <button class="tab" id="tab-signup" onclick="switchTab('signup')">Créer un compte</button>
+    </div>
+
+    <div id="msg" class="msg"></div>
+
+    <div id="form-login">
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="l-email" type="email" placeholder="votre@email.com" autocomplete="email"></div>
+      <div class="fg"><label class="fl">Mot de passe</label><input class="fi" id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="btn-main" id="btn-login" onclick="doLogin()">Se connecter</button>
+      <div style="text-align:center;margin-top:12px">
+        <a href="#" onclick="showReset()" style="font-size:.72rem;color:var(--soft);">Mot de passe oublié ?</a>
+      </div>
+    </div>
+
+    <div id="form-signup" style="display:none">
+      <div class="fg"><label class="fl">Prénom</label><input class="fi" id="s-name" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="s-email" type="email" placeholder="votre@email.com" autocomplete="email"></div>
+      <div class="fg"><label class="fl">Mot de passe</label><input class="fi" id="s-pass" type="password" placeholder="8 caractères minimum" autocomplete="new-password"></div>
+      <button class="btn-main" id="btn-signup" onclick="doSignup()">Créer mon compte</button>
+    </div>
+
+    <div id="form-reset" style="display:none">
+      <p style="font-size:.8rem;color:var(--soft);margin-bottom:14px;line-height:1.6">Entrez votre email pour recevoir un lien de réinitialisation.</p>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="r-email" type="email" placeholder="votre@email.com"></div>
+      <button class="btn-main" onclick="doReset()">Envoyer le lien</button>
+      <div style="text-align:center;margin-top:10px">
+        <a href="#" onclick="switchTab('login')" style="font-size:.72rem;color:var(--soft);">← Retour</a>
+      </div>
+    </div>
+
+    <div class="footer-note">En créant un compte, vous acceptez que vos données soient stockées de manière sécurisée pour vous permettre d'accéder à votre arbre.</div>
+  </div>
+
+  <!-- Already logged in -->
+  <div class="card logged-card" id="logged-card" style="display:none">
+    <div class="logged-avatar" id="logged-avatar">?</div>
+    <div class="logged-name" id="logged-name">Bonjour</div>
+    <div class="logged-email" id="logged-email"></div>
+    <a href="genosociogramme.html" class="btn-go">→ Mon Génosociogramme</a>
+    <a href="parcours.html" class="btn-go" style="background:var(--brown)">→ Mon Parcours</a>
+    <button class="btn-logout" onclick="doLogout()">Se déconnecter</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
+var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+var sb = supabase.createClient(SB_URL, SB_KEY);
+
+function showMsg(txt, type) {
+  var el = document.getElementById('msg');
+  el.textContent = txt; el.className = 'msg ' + type; el.style.display = 'block';
+  if (type === 'ok') setTimeout(function(){ el.style.display='none'; }, 4000);
+}
+function hideMsg(){ document.getElementById('msg').style.display='none'; }
+
+function switchTab(t) {
+  hideMsg();
+  document.getElementById('tab-login').classList.toggle('on', t==='login');
+  document.getElementById('tab-signup').classList.toggle('on', t==='signup');
+  document.getElementById('form-login').style.display = t==='login'?'block':'none';
+  document.getElementById('form-signup').style.display = t==='signup'?'block':'none';
+  document.getElementById('form-reset').style.display = 'none';
+}
+
+function showReset() {
+  hideMsg();
+  document.getElementById('form-login').style.display='none';
+  document.getElementById('form-reset').style.display='block';
+}
+
+async function doLogin() {
+  var email = document.getElementById('l-email').value.trim();
+  var pass  = document.getElementById('l-pass').value;
+  if (!email || !pass) { showMsg('Veuillez remplir tous les champs.', 'err'); return; }
+  var btn = document.getElementById('btn-login');
+  btn.disabled = true; btn.textContent = 'Connexion...';
+  var { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+  btn.disabled = false; btn.textContent = 'Se connecter';
+  if (error) { showMsg(error.message === 'Invalid login credentials' ? 'Email ou mot de passe incorrect.' : error.message, 'err'); return; }
+  showConnected(data.user);
+}
+
+async function doSignup() {
+  var name  = document.getElementById('s-name').value.trim();
+  var email = document.getElementById('s-email').value.trim();
+  var pass  = document.getElementById('s-pass').value;
+  if (!email || !pass) { showMsg('Veuillez remplir tous les champs.', 'err'); return; }
+  if (pass.length < 8) { showMsg('Le mot de passe doit faire au moins 8 caractères.', 'err'); return; }
+  var btn = document.getElementById('btn-signup');
+  btn.disabled = true; btn.textContent = 'Création...';
+  var { data, error } = await sb.auth.signUp({ email, password: pass, options: { data: { full_name: name } } });
+  btn.disabled = false; btn.textContent = 'Créer mon compte';
+  if (error) { showMsg(error.message, 'err'); return; }
+  if (data.user && !data.session) {
+    showMsg('Vérifiez vos emails pour confirmer votre inscription.', 'ok');
+  } else if (data.user) {
+    showConnected(data.user);
+  }
+}
+
+async function doReset() {
+  var email = document.getElementById('r-email').value.trim();
+  if (!email) { showMsg('Entrez votre email.', 'err'); return; }
+  var { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
+  if (error) { showMsg(error.message, 'err'); return; }
+  showMsg('Lien envoyé ! Vérifiez vos emails.', 'ok');
+  setTimeout(function(){ switchTab('login'); }, 2500);
+}
+
+async function doLogout() {
+  await sb.auth.signOut();
+  document.getElementById('logged-card').style.display = 'none';
+  document.getElementById('auth-card').style.display = 'block';
+  switchTab('login');
+}
+
+function showConnected(user) {
+  document.getElementById('auth-card').style.display = 'none';
+  document.getElementById('logged-card').style.display = 'block';
+  var name = user.user_metadata?.full_name || user.email.split('@')[0];
+  document.getElementById('logged-name').textContent = 'Bonjour, ' + name;
+  document.getElementById('logged-email').textContent = user.email;
+  document.getElementById('logged-avatar').textContent = name[0].toUpperCase();
+}
+
+// Check if already logged in
+(async function() {
+  var { data } = await sb.auth.getSession();
+  if (data.session) showConnected(data.session.user);
+})();
+
+// Enter key support
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('form-login').style.display !== 'none') doLogin();
+  else if (document.getElementById('form-signup').style.display !== 'none') doSignup();
+});
+</script>
+</body>
+</html>
