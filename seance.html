@@ -1,109 +1,79 @@
-from pathlib import Path
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Séance · Laura Charron</title>
+  <meta name="description" content="Réserver une séance individuelle avec Laura Charron. Accompagnement personnalisé en psychogénéalogie, schémas répétitifs et mémoires familiales." />
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/seance.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cream:#F4EDE4;--cream2:#E9D8C9;--cream3:#FFFAF5;--terra:#C65D3B;--terra-dark:#A14A3C;--terra-light:#D88C6A;--brown:#6B3E2E;--ink:#3A1F12;--ink2:#5C3420;--soft:#9A7060;--white:#FFFCF8;--line:rgba(107,62,46,.13);--shadow:0 18px 55px rgba(58,31,18,.08);--shadow2:0 24px 70px rgba(58,31,18,.14);--dark:#1A0E08}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;padding-top:68px}a{color:inherit;text-decoration:none}h1,h2,h3{font-family:'Cormorant Garamond',serif}
+    nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(244,237,228,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;font-weight:600;white-space:nowrap}.nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end;flex-wrap:wrap}.nav-links a{font-size:.8rem;color:var(--ink2);letter-spacing:.03em;transition:.18s}.nav-links a:hover,.nav-links a.active{color:var(--terra)}
+    .nav-cta{display:inline-flex;align-items:center;padding:.62rem 1.1rem;border-radius:4px;background:var(--terra);color:#fff!important;text-transform:uppercase;font-size:.72rem;font-weight:500;letter-spacing:.07em;box-shadow:0 8px 24px rgba(161,74,60,.22)}
+    .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s}.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.nav-burger.open span:nth-child(2){opacity:0}.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:999;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav-mobile.open{display:flex}.nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.92rem;color:var(--ink2)}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.revealed{opacity:1;transform:translateY(0)}
+    .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:1rem}
+    .hero{position:relative;overflow:hidden;padding:6.3rem 4rem 5rem;background:radial-gradient(ellipse 48% 45% at 82% 25%,rgba(198,93,59,.14),transparent 64%),radial-gradient(ellipse 38% 28% at 8% 80%,rgba(107,62,46,.08),transparent 60%),linear-gradient(160deg,#FFFAF5 0%,#F4EDE4 58%,#E9D8C9 100%)}
+    .hero::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.43;background-image:linear-gradient(rgba(107,62,46,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(107,62,46,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,black 0%,transparent 72%)}
+    .hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}.hero h1{font-size:clamp(3.1rem,7vw,5.8rem);font-weight:600;line-height:.98;letter-spacing:-.015em;margin-bottom:1.15rem}.hero h1 em{font-style:italic;color:var(--terra);font-weight:400}.hero-text{font-size:1rem;line-height:1.95;color:var(--ink2);font-weight:300;max-width:600px}.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;margin-top:2rem}
+    .btn-main,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:4px;transition:.2s;padding:.98rem 1.75rem;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500}.btn-main{background:var(--terra);color:#fff;border:1px solid var(--terra);box-shadow:0 10px 30px rgba(161,74,60,.22)}.btn-main:hover{background:var(--terra-dark);transform:translateY(-2px)}.btn-secondary{border:1px solid rgba(107,62,46,.24);color:var(--ink2);background:rgba(255,255,255,.25)}.btn-secondary:hover{border-color:var(--terra);color:var(--terra);background:rgba(255,252,248,.65)}
+    .portal-card{position:relative;overflow:hidden;min-height:470px;border-radius:8px;padding:2.3rem;background:linear-gradient(158deg,var(--brown),#2A1208);box-shadow:var(--shadow2);display:flex;align-items:center;justify-content:center}.portal-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 58% 48% at 50% 40%,rgba(216,140,106,.2),transparent 62%)}.portal-card svg{position:relative;z-index:1;width:100%;max-width:420px}.portal-caption{position:absolute;z-index:2;left:2rem;right:2rem;bottom:2rem}.portal-caption h2{font-size:1.45rem;color:white;line-height:1.15;margin-bottom:.5rem}.portal-caption p{font-size:.82rem;line-height:1.75;color:rgba(255,255,255,.58);font-weight:300}
+    section{padding:5.5rem 4rem}.section-inner{max-width:1180px;margin:0 auto}.section-head{max-width:720px;margin-bottom:2.5rem}.section-head.center{text-align:center;margin-left:auto;margin-right:auto}.section-title{font-size:clamp(2.15rem,4.4vw,3.55rem);font-weight:600;line-height:1.05;margin-bottom:.8rem;letter-spacing:-.01em}.section-title em{font-style:italic;color:var(--terra);font-weight:400}.section-sub{font-size:.94rem;line-height:1.9;color:var(--soft);font-weight:300}
+    .forwho,.faq{background:var(--cream3)}.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.card{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:8px;padding:1.45rem;box-shadow:0 10px 28px rgba(58,31,18,.045);min-height:190px;transition:.22s}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(198,93,59,.22)}.mini-icon{width:42px;height:42px;margin-bottom:1rem;color:var(--terra)}.card h3{font-size:1.25rem;font-weight:600;line-height:1.15;margin-bottom:.55rem}.card p{font-size:.82rem;line-height:1.78;color:var(--soft);font-weight:300}
+    .process{background:radial-gradient(ellipse 48% 42% at 90% 15%,rgba(216,140,106,.1),transparent 60%),var(--cream)}.path{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}.step{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:8px;padding:1.4rem;box-shadow:var(--shadow)}.step-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--terra);margin-bottom:.8rem}.step h3{font-size:1.25rem;margin-bottom:.5rem}.step p{font-size:.81rem;line-height:1.75;color:var(--soft);font-weight:300}
+    .booking{background:var(--cream2)}.booking-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:2rem;align-items:start}.booking-info{background:linear-gradient(158deg,var(--brown),#2A1208);border-radius:10px;padding:2rem;color:white;position:relative;overflow:hidden;box-shadow:var(--shadow2)}.booking-info::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 85% 10%,rgba(216,140,106,.18),transparent 62%)}.booking-info *{position:relative;z-index:1}.booking-info h2{font-size:2.4rem;line-height:1.05;margin-bottom:.9rem}.booking-info p{font-size:.9rem;line-height:1.9;color:rgba(255,255,255,.62);font-weight:300}.infos{display:grid;gap:.7rem;margin-top:1.5rem}.info-line{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);border-radius:6px;padding:.85rem;font-size:.8rem;line-height:1.55;color:rgba(255,255,255,.75)}
+    .calendly-card{background:var(--white);border:1px solid rgba(107,62,46,.12);border-radius:10px;padding:1rem;box-shadow:var(--shadow2);min-height:760px}.calendly-inline-widget{min-width:320px;height:720px;border-radius:8px;overflow:hidden}.note{margin-top:1.2rem;padding:1rem 1.2rem;border-radius:6px;background:rgba(161,74,60,.07);border:1px solid rgba(161,74,60,.14);font-size:.82rem;line-height:1.75;color:var(--ink2)}
+    .faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}.faq-item{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:8px;padding:1.35rem;box-shadow:0 8px 26px rgba(58,31,18,.045)}.faq-item h3{font-size:1.2rem;margin-bottom:.5rem}.faq-item p{font-size:.82rem;line-height:1.75;color:var(--soft);font-weight:300}
+    footer{background:#1A0E08;padding:3.5rem 3rem 2rem}.footer-inner{max-width:1200px;margin:0 auto}.footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}.footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:white;font-weight:600;display:block;margin-bottom:.7rem}.footer-brand p{font-size:.78rem;line-height:1.72;color:rgba(255,255,255,.36);font-weight:300;max-width:270px}.footer-col h4{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:.9rem}.footer-col a{display:block;font-size:.76rem;color:rgba(255,255,255,.34);margin-bottom:.5rem;font-weight:300;transition:.18s}.footer-col a:hover{color:var(--terra-light)}.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}.footer-bottom p,.footer-bottom a{font-size:.7rem;color:rgba(255,255,255,.22)}.footer-bottom-links{display:flex;gap:1.4rem;flex-wrap:wrap}
+    @media(max-width:1060px){.hero-inner,.booking-grid{grid-template-columns:1fr}.path{grid-template-columns:repeat(2,1fr)}}@media(max-width:900px){body{padding-top:62px}nav{height:62px;padding:0 1.1rem}.nav-links{display:none}.nav-burger{display:flex}.nav-mobile{top:62px}.hero,section{padding-left:1.5rem;padding-right:1.5rem}.hero{padding-top:4.7rem}.cards-grid,.faq-grid{grid-template-columns:1fr 1fr}.footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}.footer-brand{grid-column:span 2}footer{padding:2.5rem 1.5rem 1.5rem}}@media(max-width:640px){.cards-grid,.path,.faq-grid{grid-template-columns:1fr}.hero-actions{flex-direction:column;align-items:flex-start}.btn-main,.btn-secondary{width:100%;max-width:360px}.calendly-card{padding:.4rem;min-height:720px}.calendly-inline-widget{height:690px}}@media(max-width:480px){.footer-top{grid-template-columns:1fr}.footer-brand{grid-column:span 1}.footer-bottom{align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links"><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html" class="nav-cta active">Réserver</a></div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile"><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html" style="color:var(--terra);font-weight:600;">Réserver une séance</a></div>
 
-path = Path("/mnt/data/seance.html")
-html = path.read_text(encoding="utf-8")
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="eyebrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/><circle cx="6" cy="6" r="1.4" fill="currentColor"/></svg>Séance individuelle</div>
+        <h1>Franchir le passage,<br><em>avec un regard extérieur.</em></h1>
+        <p class="hero-text">Avant toute séance, vous pouvez réserver un échange gratuit de 15 minutes. Ce premier temps permet d’expliquer ce que vous traversez, de poser vos questions et de voir ensemble si un accompagnement peut être juste pour vous.</p>
+        <div class="hero-actions"><a href="#reservation" class="btn-main">Réserver l’appel gratuit</a><a href="genosociogramme.html" class="btn-secondary">Remplir mon génosociogramme</a></div>
+      </div>
+      <div class="portal-card reveal" aria-hidden="true">
+        <svg viewBox="0 0 430 430" fill="none"><circle cx="215" cy="215" r="170" stroke="rgba(255,252,248,.26)" stroke-width="1"/><circle cx="215" cy="215" r="122" stroke="rgba(255,252,248,.16)" stroke-width="1"/><path d="M130 340 V180 C130 128 168 88 215 88 C262 88 300 128 300 180 V340" stroke="#D88C6A" stroke-width="1.7"/><path d="M160 340 V190 C160 154 184 126 215 126 C246 126 270 154 270 190 V340" stroke="rgba(255,252,248,.32)" stroke-width="1"/><path d="M190 340 V205 C190 178 201 158 215 158 C229 158 240 178 240 205 V340" fill="rgba(216,140,106,.08)" stroke="rgba(255,252,248,.24)" stroke-width="1"/><path d="M70 340 H360" stroke="rgba(255,252,248,.28)" stroke-width="1"/><path d="M215 50 V22 M215 408 V378 M50 215 H22 M408 215 H378" stroke="rgba(255,252,248,.22)" stroke-width="1"/></svg>
+        <div class="portal-caption"><h2>Un premier échange gratuit pour faire le point.</h2><p>15 minutes pour expliquer votre situation, sentir le cadre et voir si nous pouvons travailler ensemble.</p></div>
+      </div>
+    </div>
+  </header>
 
-html = html.replace(
-"Une séance permet d'explorer ce qui se répète dans votre vie, de mettre du sens sur votre histoire familiale et de retrouver une direction intérieure plus claire. Vous n'avez pas besoin d'avoir toutes les réponses pour commencer.",
-"Avant toute séance, vous pouvez réserver un échange gratuit de 15 minutes. Ce premier temps permet d’expliquer ce que vous traversez, de poser vos questions et de voir ensemble si un accompagnement peut être juste pour vous."
-)
+  <section class="forwho">
+    <div class="section-inner">
+      <div class="section-head reveal"><div class="eyebrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 L7.1 4.9 L10.5 6 L7.1 7.1 L6 10.5 L4.9 7.1 L1.5 6 L4.9 4.9 Z" fill="currentColor"/></svg>Pour qui ?</div><h2 class="section-title">Cet accompagnement peut vous aider si <em>vous vous reconnaissez</em>.</h2><p class="section-sub">L’objectif n’est pas de poser un diagnostic, mais de faire le tri ensemble : ce qui se répète, ce que votre histoire familiale peut éclairer, et ce qui demande à être libéré.</p></div>
+      <div class="cards-grid">
+        <div class="card reveal"><svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M12 24 C12 16 18 10 24 10 C30 10 36 16 36 24 C36 32 30 38 24 38 C18 38 12 32 12 24Z" stroke="currentColor" stroke-width="1.5"/><path d="M17 24 H31 M24 17 V31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><h3>Vous vivez des répétitions</h3><p>Relations, argent, travail, famille : certains scénarios semblent revenir malgré vos efforts.</p></div>
+        <div class="card reveal"><svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 8 C24 8 14 18 14 28 C14 35 18.5 40 24 40 C29.5 40 34 35 34 28 C34 18 24 8 24 8Z" stroke="currentColor" stroke-width="1.5"/></svg><h3>Vous portez un poids</h3><p>Une tristesse, une peur, une culpabilité ou une sensation de porter pour les autres.</p></div>
+        <div class="card reveal"><svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 6 V42 M24 15 C18 12 13 14 10 20 C15 20 20 22 24 28 M24 20 C30 16 36 17 39 24 C33 24 28 27 24 34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Votre lignée vous questionne</h3><p>Vous sentez que certains événements, places ou blessures se répètent dans votre famille.</p></div>
+      </div>
+    </div>
+  </section>
 
-html = html.replace(
-'<a href="#reservation" class="btn-main">Réserver en ligne</a><a href="explorer.html" class="btn-secondary">Explorer d\'abord</a>',
-'<a href="#reservation" class="btn-main">Réserver l’appel gratuit</a><a href="genosociogramme.html" class="btn-secondary">Remplir mon génosociogramme</a>'
-)
-
-html = html.replace(
-"<h2>Un espace pour déposer, relier et comprendre.</h2><p>La séance n'est pas un interrogatoire. C'est un passage accompagné, à votre rythme.</p>",
-"<h2>Un premier échange gratuit pour faire le point.</h2><p>15 minutes pour expliquer votre situation, sentir le cadre et voir si nous pouvons travailler ensemble.</p>"
-)
-
-html = html.replace(
-"Cette séance peut vous aider si <em>vous vous reconnaissez</em>.",
-"Cet accompagnement peut vous aider si <em>vous vous reconnaissez</em>."
-)
-
-html = html.replace(
-"L'objectif n'est pas de poser un diagnostic, mais de regarder ensemble ce qui revient dans votre vie et ce que cela peut raconter de votre histoire.",
-"L’objectif n’est pas de poser un diagnostic, mais de faire le tri ensemble : ce qui se répète, ce que votre histoire familiale peut éclairer, et ce qui demande à être libéré."
-)
-
-html = html.replace(
-"Vous expliquez ce qui vous amène : une répétition, une émotion, une question familiale.",
-"Nous commençons par un échange gratuit de 15 minutes pour comprendre votre demande et voir si l’accompagnement est adapté."
-)
-
-html = html.replace(
-"Nous observons les liens possibles entre votre vécu, votre lignée et vos schémas actuels.",
-"Vous pouvez remplir votre génosociogramme et vos informations en ligne, puis nous les reprenons ensemble en séance."
-)
-
-html = html.replace(
-"Nous mettons du sens sur ce qui se répète, sans forcer ni tirer de conclusion trop rapide.",
-"En séance, nous faisons le tri dans ce qui revient : dates, places, événements, blessures, loyautés ou schémas familiaux."
-)
-
-html = html.replace(
-"Vous repartez avec une compréhension plus claire et des pistes concrètes à intégrer.",
-"Nous avançons ensuite avec différents outils pour libérer la mémoire présente, selon votre rythme et ce qui émerge."
-)
-
-html = html.replace(
-"Choisissez votre créneau.",
-"Réservez votre échange gratuit."
-)
-
-html = html.replace(
-"La réservation se fait directement via Calendly. Sélectionnez un créneau disponible, puis renseignez les informations demandées pour confirmer votre rendez-vous.",
-"Le premier rendez-vous est un échange gratuit de 15 minutes. Il sert à expliquer votre problématique, poser vos questions et voir ensemble si nous pouvons travailler ensemble."
-)
-
-html = html.replace(
-'<div class="info-line">Séance individuelle d\'accompagnement personnalisé.</div><div class="info-line">Vous recevez automatiquement la confirmation après réservation.</div><div class="info-line">Vous pouvez venir même si tout n\'est pas encore clair.</div>',
-'<div class="info-line">Premier appel gratuit : 15 minutes pour faire le point.</div><div class="info-line">Séance d’accompagnement : 1 heure · 60 €.</div><div class="info-line">Le nombre de séances dépend de la personne et de ce qu’elle a à libérer.</div><div class="info-line">Vous pouvez préparer votre génosociogramme en ligne avant la séance.</div>'
-)
-
-html = html.replace(
-"Cette démarche ne remplace pas un suivi médical, psychologique ou psychiatrique lorsque celui-ci est nécessaire.",
-"Cette démarche ne remplace pas un suivi médical, psychologique ou psychiatrique lorsque celui-ci est nécessaire. Elle vient en complément d’un travail de compréhension personnelle."
-)
-
-html = html.replace(
-"Quelques repères <em>utiles</em>.",
-"Ce qu’il faut savoir <em>avant de réserver</em>."
-)
-
-html = html.replace(
-"<h3>Dois-je connaître toute mon histoire familiale ?</h3><p>Non. Vous pouvez venir avec ce que vous savez déjà, même si c'est incomplet.</p>",
-"<h3>Dois-je avoir déjà rempli mon génosociogramme ?</h3><p>Non, mais c’est utile. Vous pouvez le remplir en ligne avant la séance, puis nous le reprenons ensemble.</p>"
-)
-
-html = html.replace(
-"<h3>Est-ce une séance médicale ?</h3><p>Non. Il s'agit d'un accompagnement personnel autour de votre histoire, vos ressentis et vos répétitions.</p>",
-"<h3>Combien coûte une séance ?</h3><p>L’appel de 15 minutes est gratuit. Une séance d’accompagnement dure 1 heure et coûte 60 €.</p>"
-)
-
-html = html.replace(
-"<h3>Puis-je venir si je ne sais pas formuler mon problème ?</h3><p>Oui. Une sensation, une question ou une situation qui revient suffit pour commencer.</p>",
-"<h3>Combien de séances faut-il prévoir ?</h3><p>Il n’y a pas de nombre fixe. Cela dépend de votre histoire, de ce qui émerge et de ce qui demande à être libéré.</p>"
-)
-
-html = html.replace(
-"<h3>Que se passe-t-il après la réservation ?</h3><p>Calendly vous envoie une confirmation avec les informations nécessaires pour votre rendez-vous.</p>",
-"<h3>Que fait-on pendant la séance ?</h3><p>Nous regardons ce qui se répète, nous faisons le tri ensemble, puis nous avançons avec les outils adaptés pour libérer la mémoire présente.</p>"
-)
-
-# replace title in process section
-html = html.replace(
-"Comment se passe une séance ?",
-"Comment se déroule l'accompagnement ?"
-)
-
-# add dedicated pricing card section before booking maybe append after process section
-insert_after = """</section>
-
-  <section class="booking" id="reservation">"""
-pricing = """</section>
+  <section class="process">
+    <div class="section-inner">
+      <div class="section-head center reveal"><div class="eyebrow" style="justify-content:center"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.2" stroke="currentColor" stroke-width="1.1"/><path d="M6 1.8 V10.2 M1.8 6 H10.2" stroke="currentColor" stroke-width="1.1"/></svg>Comment se déroule l'accompagnement ?</div><h2 class="section-title">Un chemin simple, <em>sans pression</em>.</h2><p class="section-sub">Vous venez avec ce qui est là. Nous avançons à partir de votre histoire, de vos ressentis et des liens qui émergent.</p></div>
+      <div class="path"><div class="step reveal"><div class="step-num">01</div><h3>Déposer</h3><p>Nous commençons par un échange gratuit de 15 minutes pour comprendre votre demande et voir si l’accompagnement est adapté.</p></div><div class="step reveal"><div class="step-num">02</div><h3>Relier</h3><p>Vous pouvez remplir votre génosociogramme et vos informations en ligne, puis nous les reprenons ensemble en séance.</p></div><div class="step reveal"><div class="step-num">03</div><h3>Comprendre</h3><p>En séance, nous faisons le tri dans ce qui revient : dates, places, événements, blessures, loyautés ou schémas familiaux.</p></div><div class="step reveal"><div class="step-num">04</div><h3>Repartir</h3><p>Nous avançons ensuite avec différents outils pour libérer la mémoire présente, selon votre rythme et ce qui émerge.</p></div></div>
+    </div>
+  </section>
 
   <section class="forwho">
     <div class="section-inner">
@@ -129,8 +99,29 @@ pricing = """</section>
     </div>
   </section>
 
-  <section class="booking" id="reservation">"""
-html = html.replace(insert_after, pricing)
+  <section class="booking" id="reservation">
+    <div class="section-inner"><div class="booking-grid">
+      <div class="booking-info reveal"><div class="eyebrow" style="color:var(--terra-light)"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/></svg>Réservation en ligne</div><h2>Réservez votre échange gratuit.</h2><p>Le premier rendez-vous est un échange gratuit de 15 minutes. Il sert à expliquer votre problématique, poser vos questions et voir ensemble si nous pouvons travailler ensemble.</p><div class="infos"><div class="info-line">Premier appel gratuit : 15 minutes pour faire le point.</div><div class="info-line">Séance d’accompagnement : 1 heure · 60 €.</div><div class="info-line">Le nombre de séances dépend de la personne et de ce qu’elle a à libérer.</div><div class="info-line">Vous pouvez préparer votre génosociogramme en ligne avant la séance.</div></div><div class="note" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.66)">Cette démarche ne remplace pas un suivi médical, psychologique ou psychiatrique lorsque celui-ci est nécessaire. Elle vient en complément d’un travail de compréhension personnelle.</div></div>
+      <div class="calendly-card reveal"><div class="calendly-inline-widget" data-url="https://calendly.com/sorsdelaboucle/accompagnement-personalise"></div></div>
+    </div></div>
+  </section>
 
-path.write_text(html, encoding="utf-8")
-print(path)
+  <section class="faq">
+    <div class="section-inner">
+      <div class="section-head reveal"><div class="eyebrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 H10 M6 2 V10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Avant de réserver</div><h2 class="section-title">Ce qu’il faut savoir <em>avant de réserver</em>.</h2></div>
+      <div class="faq-grid"><div class="faq-item reveal"><h3>Dois-je avoir déjà rempli mon génosociogramme ?</h3><p>Non, mais c’est utile. Vous pouvez le remplir en ligne avant la séance, puis nous le reprenons ensemble.</p></div><div class="faq-item reveal"><h3>Combien coûte une séance ?</h3><p>L’appel de 15 minutes est gratuit. Une séance d’accompagnement dure 1 heure et coûte 60 €.</p></div><div class="faq-item reveal"><h3>Combien de séances faut-il prévoir ?</h3><p>Il n’y a pas de nombre fixe. Cela dépend de votre histoire, de ce qui émerge et de ce qui demande à être libéré.</p></div><div class="faq-item reveal"><h3>Que fait-on pendant la séance ?</h3><p>Nous regardons ce qui se répète, nous faisons le tri ensemble, puis nous avançons avec les outils adaptés pour libérer la mémoire présente.</p></div></div>
+    </div>
+  </section>
+
+  <footer><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><a href="index.html" class="footer-logo">Laura Charron</a><p>Un voyage intérieur pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p></div><div class="footer-col"><h4>Le Voyage</h4><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html">Réserver</a></div><div class="footer-col"><h4>Les Archives</h4><a href="livre.html">Le Guide audio</a><a href="arbre-famille.html">Les Racines</a><a href="genosociogramme.html">La Carte familiale</a><a href="contact.html">Contact</a></div><div class="footer-col"><h4>Informations</h4><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cookies.html">Cookies</a><a href="contact.html">Écrire à Laura</a></div></div><div class="footer-bottom"><p>© Laura Charron 2026 · Tous droits réservés</p><div class="footer-bottom-links"><a href="contact.html">Contact</a><a href="mentions-legales.html">Mentions légales</a></div></div></div></footer>
+
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script>
+    const burger=document.getElementById('burger'),mobile=document.getElementById('nav-mobile');
+    burger.addEventListener('click',()=>{burger.classList.toggle('open');mobile.classList.toggle('open')});
+    mobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');mobile.classList.remove('open')}));
+    const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');obs.unobserve(entry.target)}})},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
