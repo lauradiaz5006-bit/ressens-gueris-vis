@@ -3,1467 +3,649 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explorer mes Mémoires de Lignée · Laura Charron</title>
-  <meta name="description" content="Parcours interactif pour identifier un ressenti, comprendre sa fréquence, repérer les schémas répétitifs et préparer l’exploration transgénérationnelle." />
+  <title>Commencer le voyage · Laura Charron</title>
+  <meta name="description" content="Un parcours guidé pour comprendre les répétitions, les blocages et les mémoires familiales qui peuvent se rejouer dans votre vie." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --c:#FDF5EC;
-      --c2:#F6E8D8;
-      --rose:#E8967F;
-      --rose2:#C96B52;
-      --orange:#F0A05A;
-      --orange2:#D97D2E;
-      --gold:#F5C842;
-      --teal:#5DCAA5;
-      --purple:#9B89D4;
-      --ink:#2A1A10;
-      --ink2:#5C3D2C;
+      --cream:#F4EDE4;
+      --cream2:#E9D8C9;
+      --cream3:#FFFAF5;
+      --terra-dark:#A14A3C;
+      --terra:#C65D3B;
+      --terra-light:#D88C6A;
+      --brown:#6B3E2E;
+      --ink:#3A1F12;
+      --ink2:#5C3420;
       --soft:#9A7060;
-      --white:#FFFAF4;
-      --line:rgba(232,150,127,.16);
+      --line:rgba(107,62,46,.14);
+      --white:#FFFCF8;
+      --night:#20120C;
+      --shadow:0 18px 55px rgba(58,31,18,.10);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'DM Sans',sans-serif;
-      background:var(--c);
+      font-family:'Jost',sans-serif;
+      background:
+        radial-gradient(ellipse 50% 35% at 10% 5%,rgba(216,140,106,.14),transparent 58%),
+        radial-gradient(ellipse 45% 38% at 95% 20%,rgba(107,62,46,.09),transparent 60%),
+        linear-gradient(165deg,var(--cream3) 0%,var(--cream) 55%,var(--cream2) 100%);
       color:var(--ink);
+      min-height:100vh;
       overflow-x:hidden;
-      padding-top:72px;
+      padding-top:68px;
     }
-
-    a{text-decoration:none;color:inherit}
-    button{font:inherit}
-
-    /* NAV */
-    nav{
+    body::before{
+      content:"";
       position:fixed;
-      top:0; left:0; right:0;
-      height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        linear-gradient(rgba(107,62,46,.13) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(107,62,46,.10) 1px,transparent 1px);
+      background-size:72px 72px;
+      mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 80%,transparent 100%);
+    }
+    a{color:inherit;text-decoration:none}
+    button,input,textarea,select{font:inherit}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
       padding:0 2rem;
-      z-index:1000;
-      background:rgba(253,245,236,.94);
-      backdrop-filter:blur(14px);
+      background:rgba(244,237,228,.96);
+      backdrop-filter:blur(16px);
       border-bottom:1px solid var(--line);
     }
-
     .nav-logo{
-      font-family:'Playfair Display',serif;
+      font-family:'Cormorant Garamond',serif;
       font-style:italic;
-      font-size:1.18rem;
-      font-weight:700;
+      font-size:1.38rem;
+      font-weight:600;
+      letter-spacing:.02em;
       white-space:nowrap;
     }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:1rem;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .nav-links a{
-      font-size:.84rem;
-      color:var(--ink2);
-      transition:.2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active{
-      color:var(--rose2);
-    }
-
-    .nav-book{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      padding:.68rem 1rem;
-      border-radius:999px;
-      color:#fff !important;
-      background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      box-shadow:0 10px 24px rgba(201,107,82,.22);
+    .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end}
+    .nav-links a{font-size:.82rem;color:var(--ink2);transition:.2s ease}
+    .nav-links a:hover,.nav-links a.active{color:var(--terra)}
+    .nav-cta{
+      background:var(--terra-dark);
+      color:white!important;
+      padding:.7rem 1.2rem;
+      border-radius:4px;
+      font-size:.76rem!important;
+      letter-spacing:.06em;
+      text-transform:uppercase;
       font-weight:500;
+      box-shadow:0 8px 24px rgba(161,74,60,.2);
     }
-
-    .nav-burger{
-      display:none;
-      width:46px;
-      height:46px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-    }
-
-    .nav-burger span{
-      width:22px;
-      height:2px;
-      background:var(--ink);
-      border-radius:10px;
-      transition:.25s ease;
-    }
-
-    .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+    .nav-burger span{width:21px;height:1.5px;border-radius:99px;background:var(--ink);transition:.25s ease}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
     .nav-burger.open span:nth-child(2){opacity:0}
-    .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     .nav-mobile{
-      position:fixed;
-      top:72px;
-      left:0; right:0;
-      display:none;
-      flex-direction:column;
-      padding:1rem 1.4rem 1.4rem;
-      background:rgba(255,250,244,.98);
+      position:fixed;top:68px;left:0;right:0;z-index:999;
+      background:rgba(255,250,245,.98);
       backdrop-filter:blur(18px);
       border-bottom:1px solid var(--line);
-      z-index:999;
+      display:none;flex-direction:column;
+      padding:1rem 1.4rem 1.3rem;
     }
-
     .nav-mobile.open{display:flex}
+    .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.94rem;color:var(--ink2)}
+    .nav-mobile a:last-child{border-bottom:0;color:var(--terra-dark);font-weight:600}
 
-    .nav-mobile a{
-      padding:.85rem 0;
-      font-size:.95rem;
-      color:var(--ink2);
-      border-bottom:1px solid rgba(92,61,44,.08);
-    }
-
-    .nav-mobile a:last-child{border-bottom:none}
-
-    /* PROGRESS */
-    .prog-wrap{
-      position:sticky;
-      top:72px;
-      z-index:120;
-      display:flex;
-      align-items:center;
-      gap:1rem;
-      padding:.9rem 1.4rem;
-      background:rgba(253,245,236,.92);
+    .journey-bar{
+      position:sticky;top:68px;z-index:60;
+      background:rgba(255,250,245,.88);
       backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(232,150,127,.12);
+      border-bottom:1px solid rgba(107,62,46,.10);
+      padding:.85rem 1.3rem;
     }
+    .journey-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+    .step-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+    .steps{display:flex;gap:.4rem;flex:1}
+    .step-dot{height:5px;border-radius:999px;background:rgba(107,62,46,.14);flex:1;transition:.25s ease}
+    .step-dot.done{background:var(--terra-light)}
+    .step-dot.active{background:linear-gradient(90deg,var(--terra-dark),var(--terra-light))}
 
-    .prog-logo{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:.92rem;
-      white-space:nowrap;
-      flex-shrink:0;
-    }
-
-    .prog-bar{
-      display:flex;
-      gap:.35rem;
-      flex:1;
-    }
-
-    .prog-step{
-      flex:1;
-      height:4px;
-      border-radius:999px;
-      background:var(--c2);
-      transition:.25s ease;
-    }
-
-    .prog-step.done{background:var(--rose)}
-    .prog-step.active{background:linear-gradient(to right,var(--rose),var(--gold))}
-
-    .prog-label{
-      font-size:.72rem;
-      color:var(--soft);
-      white-space:nowrap;
-      flex-shrink:0;
-    }
-
-    /* SCREENS */
+    .page{position:relative;z-index:2}
     .screen{
       display:none;
-      max-width:860px;
+      max-width:1040px;
       margin:0 auto;
-      padding:3rem 1.4rem 4.5rem;
-      min-height:calc(100vh - 144px);
+      padding:4.5rem 1.5rem 5rem;
+      min-height:calc(100vh - 130px);
     }
+    .screen.active{display:block;animation:rise .35s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-    .screen.active{
-      display:block;
-      animation:fadeUp .35s ease;
-    }
-
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(14px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
+    .intro-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:3rem;align-items:center}
     .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      margin-bottom:1rem;
-      font-size:.66rem;
-      letter-spacing:.28em;
-      text-transform:uppercase;
-      color:var(--rose2);
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--terra-dark);font-weight:500;margin-bottom:1rem;
     }
-
-    .eyebrow::before{
-      content:'✦';
-      font-size:.55rem;
+    .sigil{width:20px;height:20px;display:inline-flex}
+    h1,h2{
+      font-family:'Cormorant Garamond',serif;
+      font-weight:600;
+      line-height:1.04;
+      letter-spacing:-.015em;
     }
-
-    .screen-title{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(1.9rem,5vw,3rem);
-      line-height:1.1;
-      font-weight:900;
-      letter-spacing:-.02em;
-      margin-bottom:.75rem;
-    }
-
-    .screen-title em{
+    h1{font-size:clamp(3rem,7vw,5.7rem);margin-bottom:1rem}
+    h2{font-size:clamp(2.2rem,5vw,3.8rem);margin-bottom:.85rem}
+    em{font-style:italic;color:var(--terra);font-weight:400}
+    .lead{font-size:1rem;line-height:1.9;color:var(--ink2);font-weight:300;max-width:640px}
+    .quote{
+      margin-top:1.25rem;
+      padding:1rem 1.1rem;
+      border-left:3px solid var(--terra);
+      background:rgba(255,252,248,.62);
+      color:var(--soft);
+      font-family:'Cormorant Garamond',serif;
       font-style:italic;
-      color:var(--rose2);
+      font-size:1.12rem;
+      line-height:1.62;
     }
 
-    .screen-sub{
-      max-width:640px;
-      margin-bottom:1.8rem;
-      font-size:.96rem;
-      line-height:1.9;
-      color:var(--ink2);
-      font-weight:300;
+    .portal-card{
+      position:relative;overflow:hidden;
+      background:linear-gradient(160deg,var(--night),#4A2115);
+      border-radius:10px;padding:2.4rem;
+      box-shadow:var(--shadow);
+      min-height:460px;
+      display:flex;flex-direction:column;justify-content:space-between;
     }
+    .portal-card::before{
+      content:"";position:absolute;inset:-20%;
+      background:
+        radial-gradient(ellipse 42% 35% at 50% 30%,rgba(216,140,106,.28),transparent 62%),
+        radial-gradient(ellipse 55% 40% at 50% 75%,rgba(255,252,248,.06),transparent 62%);
+    }
+    .portal-svg{position:relative;z-index:1;margin:0 auto;display:block;max-width:250px;width:72%;opacity:.92}
+    .portal-text{position:relative;z-index:1;color:rgba(255,255,255,.70);font-size:.88rem;line-height:1.8;font-weight:300}
+    .portal-title{color:white;font-family:'Cormorant Garamond',serif;font-size:1.8rem;line-height:1.15;margin-bottom:.6rem}
+
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+    .choice{
+      text-align:left;border:1px solid rgba(107,62,46,.13);
+      background:rgba(255,252,248,.78);
+      border-radius:10px;padding:1.25rem;
+      cursor:pointer;transition:.22s ease;
+      min-height:180px;
+    }
+    .choice:hover,.choice.sel{
+      transform:translateY(-3px);
+      border-color:rgba(198,93,59,.42);
+      box-shadow:0 16px 35px rgba(58,31,18,.08);
+      background:var(--white);
+    }
+    .choice.sel{outline:2px solid rgba(198,93,59,.15)}
+    .choice svg{width:34px;height:34px;margin-bottom:.9rem;color:var(--terra-dark)}
+    .choice-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.35rem}
+    .choice-text{font-size:.84rem;line-height:1.65;color:var(--soft);font-weight:300}
 
     .card{
+      background:rgba(255,252,248,.80);
+      border:1px solid rgba(107,62,46,.13);
+      border-radius:10px;
+      padding:1.7rem;
+      margin-top:1.1rem;
+      box-shadow:0 8px 28px rgba(58,31,18,.05);
+    }
+    .card-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;margin-bottom:.55rem}
+    .card-sub{font-size:.9rem;line-height:1.82;color:var(--soft);font-weight:300}
+    .emotions{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.2rem}
+    .pill{
+      border:1px solid rgba(107,62,46,.16);
+      background:rgba(255,250,245,.78);
+      color:var(--ink2);
+      border-radius:6px;
+      padding:.85rem .8rem;
+      cursor:pointer;
+      transition:.2s ease;
+      text-align:center;
+      font-size:.86rem;
+    }
+    .pill:hover,.pill.sel{border-color:var(--terra);background:rgba(198,93,59,.08);color:var(--terra-dark);font-weight:500}
+    .intensity{margin-top:1.4rem;display:none}
+    .range-line{display:flex;align-items:center;gap:.8rem;margin-top:.8rem}
+    input[type=range]{width:100%;accent-color:var(--terra-dark)}
+    .range-value{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--terra-dark);min-width:46px;text-align:right}
+
+    textarea{
+      width:100%;min-height:130px;margin-top:1rem;
+      border:1px solid rgba(107,62,46,.17);
+      border-radius:8px;
       background:var(--white);
-      border:1.5px solid rgba(232,150,127,.14);
-      border-radius:28px;
-      padding:2rem;
-      margin-bottom:1rem;
-      box-shadow:0 4px 18px rgba(42,26,16,.045);
-    }
-
-    .card-title{
-      font-family:'Playfair Display',serif;
-      font-size:1.08rem;
-      font-weight:700;
-      margin-bottom:.55rem;
-    }
-
-    .card-sub{
-      font-size:.88rem;
-      line-height:1.8;
-      color:var(--soft);
-      font-weight:300;
-    }
-
-    .btn-row{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:.75rem;
-      margin-top:1.7rem;
-    }
-
-    .btn-main{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.55rem;
-      min-width:190px;
-      border:none;
-      border-radius:999px;
-      padding:1rem 1.7rem;
-      background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      color:#fff;
-      font-size:.92rem;
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:0 10px 30px rgba(201,107,82,.26);
-      transition:.22s ease;
-    }
-
-    .btn-main:hover{
-      transform:translateY(-2px);
-      box-shadow:0 14px 38px rgba(201,107,82,.34);
-    }
-
-    .btn-main[disabled]{
-      opacity:.45;
-      cursor:not-allowed;
-      transform:none;
-      box-shadow:none;
-    }
-
-    .btn-ghost{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.5rem;
-      border:1.5px solid rgba(92,61,44,.18);
-      border-radius:999px;
-      padding:.9rem 1.45rem;
-      background:transparent;
-      color:var(--soft);
-      cursor:pointer;
-      transition:.2s ease;
-    }
-
-    .btn-ghost:hover{
-      border-color:var(--rose);
-      color:var(--rose2);
-    }
-
-    /* STEP 0 */
-    .es-tabs{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:.8rem;
-      margin:1.2rem 0 1rem;
-    }
-
-    .es-tab{
-      border:2px solid rgba(232,150,127,.18);
-      border-radius:26px;
-      background:transparent;
-      padding:1.05rem 1rem;
-      text-align:center;
-      cursor:pointer;
-      transition:.2s ease;
-      color:var(--ink2);
-    }
-
-    .es-tab:hover{border-color:var(--orange)}
-
-    .es-tab.active{
-      background:rgba(201,107,82,.08);
-      border-color:var(--rose2);
-      color:var(--rose2);
-    }
-
-    .es-tab strong{
-      display:block;
-      font-size:.92rem;
-      margin-bottom:.2rem;
-    }
-
-    .es-tab span{
-      font-size:.76rem;
-      color:var(--soft);
-      font-weight:300;
-      line-height:1.5;
-    }
-
-    .es-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:.8rem;
-      margin-bottom:1rem;
-    }
-
-    .es-chip{
-      border:2px solid rgba(232,150,127,.14);
-      border-radius:22px;
-      background:transparent;
-      padding:1rem .8rem;
-      text-align:center;
-      cursor:pointer;
-      transition:.2s ease;
-      font-size:.88rem;
-      color:var(--ink2);
-    }
-
-    .es-chip:hover{border-color:var(--orange)}
-
-    .es-chip.sel{
-      border-color:var(--rose2);
-      background:rgba(201,107,82,.08);
-      color:var(--rose2);
-      font-weight:600;
-    }
-
-    .es-selected-display{
-      min-height:58px;
-      display:flex;
-      align-items:center;
-      padding:.95rem 1.1rem;
-      border-radius:18px;
-      background:#EFE1CF;
+      padding:1rem 1.05rem;
       color:var(--ink);
-      font-size:.95rem;
-      margin-top:.4rem;
-    }
-
-    .es-placeholder{
-      font-style:italic;
-      color:rgba(154,112,96,.55);
-    }
-
-    .hawkins-card,
-    .cycle-section{
-      display:none;
-    }
-
-    .hawkins-wrap{margin-top:1.1rem}
-    .hawkins-label{
-      font-size:.66rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--soft);
-      margin-bottom:.7rem;
-    }
-
-    .gauge-track{
-      position:relative;
-      height:22px;
-      border-radius:999px;
-      background:linear-gradient(to right,#5B2A24,#9C4C34,#D97D2E,#E8B85C,#9DCD8F,#5DCAA5,#3A8A68);
-      overflow:hidden;
-      cursor:pointer;
-      margin-bottom:.55rem;
-    }
-
-    .gauge-thumb{
-      position:absolute;
-      top:50%;
-      left:40%;
-      transform:translate(-50%,-50%);
-      width:26px;
-      height:26px;
-      border-radius:50%;
-      background:#fff;
-      border:2.5px solid var(--ink);
-      box-shadow:0 2px 10px rgba(0,0,0,.25);
-      pointer-events:none;
-    }
-
-    .gauge-labels{
-      display:flex;
-      justify-content:space-between;
-      gap:.5rem;
-      font-size:.64rem;
-      color:var(--soft);
-    }
-
-    .hawkins-value{
-      text-align:center;
-      margin-top:.8rem;
-    }
-
-    .hawkins-freq{
-      font-family:'Playfair Display',serif;
-      font-size:1.15rem;
-      font-weight:700;
-      color:var(--rose2);
-    }
-
-    .hawkins-desc{
-      font-size:.78rem;
-      color:var(--soft);
-      margin-top:.15rem;
-    }
-
-    .hawkins-zone{
-      display:inline-block;
-      margin-top:.3rem;
-      padding:.18rem .58rem;
-      border-radius:999px;
-      font-size:.66rem;
-      font-weight:600;
-    }
-
-    .zone-survie{background:rgba(201,107,82,.12);color:#A5533E}
-    .zone-boucle{background:rgba(240,160,90,.14);color:#C46B21}
-    .zone-ouverture{background:rgba(93,202,165,.14);color:#278B6B}
-
-    .cycle-cards{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:.8rem;
-      margin-top:.8rem;
-    }
-
-    .cycle-card{
-      background:var(--white);
-      border:2px solid rgba(232,150,127,.15);
-      border-radius:20px;
-      padding:1.15rem;
-      cursor:pointer;
-      transition:.2s ease;
-    }
-
-    .cycle-card:hover{border-color:var(--orange)}
-
-    .cycle-card.sel{
-      background:rgba(201,107,82,.06);
-      border-color:var(--rose2);
-    }
-
-    .cycle-card.c2.sel{
-      background:rgba(93,202,165,.08);
-      border-color:var(--teal);
-    }
-
-    .cycle-card-num{
-      font-size:.64rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      font-weight:700;
-      margin-bottom:.4rem;
-      color:var(--rose2);
-    }
-
-    .cycle-card.c2 .cycle-card-num{color:var(--teal)}
-
-    .cycle-card-title{
-      font-family:'Playfair Display',serif;
-      font-size:.98rem;
-      font-weight:700;
-      margin-bottom:.35rem;
-    }
-
-    .cycle-card-sub{
-      font-size:.77rem;
-      line-height:1.65;
-      color:var(--soft);
-      font-weight:300;
-    }
-
-    .cycle-note{
-      display:none;
-      margin-top:.8rem;
-      padding:.8rem .95rem;
-      border-radius:12px;
-      background:var(--c);
-      color:var(--soft);
-      font-size:.78rem;
-      font-style:italic;
-      line-height:1.65;
-    }
-
-    /* STEP 1 */
-    .themes{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.55rem;
-      margin-top:1rem;
-    }
-
-    .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      padding:.58rem 1rem;
-      border-radius:999px;
-      background:var(--white);
-      border:1.5px solid rgba(232,150,127,.16);
-      cursor:pointer;
-      font-size:.84rem;
-      color:var(--ink2);
-      transition:.2s ease;
-      user-select:none;
-    }
-
-    .chip:hover{border-color:var(--orange)}
-
-    .chip.sel{
-      border-color:var(--rose2);
-      background:rgba(201,107,82,.08);
-      color:var(--rose2);
-      font-weight:600;
-    }
-
-    .big-ta{
-      width:100%;
-      min-height:130px;
-      margin-top:1.2rem;
-      padding:1.15rem 1.2rem;
-      border-radius:18px;
-      border:1.5px solid rgba(232,150,127,.18);
-      background:var(--white);
       outline:none;
       resize:vertical;
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1rem;
-      line-height:1.8;
-      color:var(--ink);
-    }
-
-    .big-ta:focus{border-color:var(--rose)}
-
-    .transition-card{
-      display:none;
-      margin-top:1.2rem;
-      border-radius:22px;
-      padding:1.5rem;
-      background:linear-gradient(135deg,#2A1A10,#4A2010);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .transition-card::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(232,150,127,.14),transparent 70%);
-    }
-
-    .transition-card p{
-      position:relative;
-      z-index:1;
-      color:rgba(255,255,255,.86);
-      font-family:'Playfair Display',serif;
-      font-style:italic;
       line-height:1.7;
-      font-size:1.02rem;
     }
-
-    /* STEP 2 */
-    .insight{
-      background:linear-gradient(135deg,#FFF8F0,#FFF0E4);
-      border:1px solid rgba(232,150,127,.18);
-      border-left:3px solid var(--rose);
-      border-radius:16px;
-      padding:1.1rem 1.3rem;
-      margin:1rem 0 1.2rem;
-    }
-
-    .insight p{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      line-height:1.7;
-      font-size:.98rem;
-    }
-
-    .lvc{
-      border-radius:18px;
-      padding:1.2rem 1.3rem;
-      margin-bottom:.8rem;
-      border:1.5px solid transparent;
-    }
-
-    .lvc.corps{background:linear-gradient(135deg,#FFF5F0,#FFE8DF);border-color:rgba(232,150,127,.2)}
-    .lvc.adn{background:linear-gradient(135deg,#F2F9F5,#E0F4EC);border-color:rgba(93,202,165,.2)}
-    .lvc.energie{background:linear-gradient(135deg,#F5F2FF,#EAE4FF);border-color:rgba(155,137,212,.2)}
-
-    .lvc-icon{
-      display:block;
-      margin-bottom:.35rem;
-      font-size:1rem;
-    }
-
-    .lvc-title{
-      font-size:.64rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      font-weight:700;
-      margin-bottom:.4rem;
-    }
-
-    .lvc.corps .lvc-title{color:var(--rose2)}
-    .lvc.adn .lvc-title{color:var(--teal)}
-    .lvc.energie .lvc-title{color:var(--purple)}
-
-    .lvc p{
-      font-size:.84rem;
-      line-height:1.82;
-      color:var(--ink2);
-      font-weight:300;
-    }
-
-    .lvc strong{font-weight:600;color:var(--ink)}
-
-    /* STEP 3 */
-    .cols3{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:1.1rem;
-    }
-
-    .col-head{
-      font-size:.64rem;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--soft);
-      margin-bottom:.75rem;
-    }
-
-    .chk-group{
-      display:flex;
-      flex-direction:column;
-      gap:.45rem;
-    }
-
-    .chk{
-      display:flex;
-      align-items:flex-start;
-      gap:.72rem;
-      padding:.72rem .9rem;
-      border-radius:14px;
-      background:var(--white);
-      border:1.5px solid rgba(232,150,127,.12);
-      cursor:pointer;
-      transition:.2s ease;
-      user-select:none;
-    }
-
-    .chk:hover{border-color:var(--orange)}
-
-    .chk.on{
-      border-color:var(--rose2);
-      background:linear-gradient(135deg,#FFF8F4,#FFF0E8);
-    }
-
-    .chk-box{
-      width:18px;
-      height:18px;
-      border-radius:5px;
-      border:1.5px solid rgba(122,92,80,.24);
-      flex-shrink:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-top:1px;
-    }
-
-    .chk.on .chk-box{
-      background:var(--rose2);
-      border-color:var(--rose2);
-    }
-
-    .chk.on .chk-box::after{
-      content:'✓';
-      color:#fff;
-      font-size:10px;
-      font-weight:700;
-    }
-
-    .chk-lbl{
-      font-size:.83rem;
-      line-height:1.5;
-      color:var(--ink);
-      font-weight:300;
-    }
-
-    .divider{
-      height:1px;
-      margin:1.4rem 0;
-      background:linear-gradient(to right,transparent,rgba(232,150,127,.2),transparent);
-    }
-
-    .schemas-section,
-    .corr-section{
-      display:none;
-      margin-top:1.7rem;
-    }
-
-    .schemas-list{
-      display:flex;
-      flex-direction:column;
-      gap:.55rem;
-      margin-top:1rem;
-    }
-
-    .schema-item{
-      display:flex;
-      align-items:flex-start;
-      gap:.75rem;
-      padding:.9rem 1rem;
-      border-radius:14px;
-      background:var(--white);
-      border:1.5px solid rgba(232,150,127,.15);
-      border-left:3px solid var(--rose2);
-    }
-
-    .schema-dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      flex-shrink:0;
-      margin-top:.35rem;
-      background:var(--rose2);
-    }
-
-    .schema-name{
-      font-size:.84rem;
-      font-weight:600;
-      color:var(--ink);
-      margin-bottom:.18rem;
-    }
-
-    .schema-sym{
-      font-size:.77rem;
-      line-height:1.58;
-      color:var(--soft);
-      font-weight:300;
-    }
-
-    .cycle-mini-info{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.7rem;
-      margin-bottom:.8rem;
-    }
-
-    .cyc-mini{
-      flex:1;
-      min-width:170px;
-      background:var(--c);
-      border:1px solid rgba(232,150,127,.14);
-      border-radius:12px;
-      padding:.65rem .8rem;
-    }
-
-    .cyc-mini-t{
-      font-size:.62rem;
-      letter-spacing:.15em;
-      text-transform:uppercase;
-      font-weight:700;
-      margin-bottom:.22rem;
-      color:var(--rose2);
-    }
-
-    .cyc-mini.c2 .cyc-mini-t{color:var(--teal)}
-
-    .cyc-mini p{
-      font-size:.74rem;
-      line-height:1.6;
-      color:var(--soft);
-      font-weight:300;
-    }
-
-    .corr-table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:.7rem;
-      font-size:.81rem;
-    }
-
-    .corr-table th{
-      text-align:left;
-      padding:.45rem .55rem;
-      font-size:.6rem;
-      letter-spacing:.13em;
-      text-transform:uppercase;
-      color:var(--soft);
-      font-weight:500;
-      border-bottom:2px solid rgba(232,150,127,.13);
-      white-space:nowrap;
-    }
-
-    .corr-table td{
-      padding:.34rem .4rem;
-      border-bottom:1px solid rgba(232,150,127,.08);
-      vertical-align:middle;
-    }
-
-    .corr-table tr:last-child td{border-bottom:none}
-
-    .corr-table tr.auto-row{background:rgba(232,150,127,.03)}
-
-    .corr-signal{
-      color:var(--rose2);
-      font-weight:500;
-      font-size:.8rem;
-    }
-
-    .corr-inp,
-    .corr-sel{
-      width:100%;
-      border:none;
-      background:transparent;
-      outline:none;
-      font-size:.8rem;
-      color:var(--ink);
-      font-family:'DM Sans',sans-serif;
-      padding:.28rem .2rem;
-    }
-
-    .corr-inp:focus{
-      background:rgba(232,150,127,.06);
-      border-radius:6px;
-    }
-
-    .corr-add{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      margin-top:.65rem;
-      padding:.46rem .95rem;
-      border-radius:9px;
-      border:1px dashed rgba(201,107,82,.22);
-      background:none;
-      color:var(--rose2);
-      cursor:pointer;
-      font-size:.73rem;
-    }
-
-    .corr-add:hover{background:rgba(201,107,82,.05)}
-
-    .ev-del-mini{
-      background:none;
-      border:none;
-      color:rgba(154,112,96,.45);
-      cursor:pointer;
-      font-size:.8rem;
-    }
-
-    /* STEP 4 */
-    .recap-box{
-      background:linear-gradient(135deg,var(--ink),#3A1808);
-      border-radius:24px;
-      padding:1.8rem;
-      position:relative;
-      overflow:hidden;
-      margin-top:1rem;
-    }
-
-    .recap-box::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:radial-gradient(ellipse 50% 40% at 50% 0%,rgba(232,150,127,.15),transparent 60%);
-    }
-
-    .recap-box *{position:relative;z-index:1}
-
-    .recap-line{
-      display:flex;
-      gap:.65rem;
-      padding:.72rem .95rem;
+    textarea:focus{border-color:var(--terra)}
+    .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
+    .check-col h3{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500;margin-bottom:.7rem}
+    .check{
+      display:flex;align-items:flex-start;gap:.65rem;
+      border:1px solid rgba(107,62,46,.12);
+      background:rgba(255,252,248,.78);
+      border-radius:8px;
+      padding:.8rem;
       margin-bottom:.55rem;
-      border-radius:12px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.07);
+      cursor:pointer;transition:.18s ease;
+      font-size:.86rem;line-height:1.45;color:var(--ink2);
+    }
+    .check:hover,.check.on{border-color:rgba(198,93,59,.38);background:rgba(198,93,59,.07)}
+    .box{width:17px;height:17px;border:1.5px solid rgba(107,62,46,.28);border-radius:3px;flex-shrink:0;margin-top:.08rem;display:grid;place-items:center}
+    .check.on .box{background:var(--terra-dark);border-color:var(--terra-dark)}
+    .check.on .box::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translateY(-1px)}
+
+    .reveal-box{
+      background:linear-gradient(150deg,var(--night),#4B2115);
+      color:white;border-radius:10px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;
+    }
+    .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(216,140,106,.2),transparent 55%)}
+    .reveal-box *{position:relative;z-index:1}
+    .reveal-line{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+    .reveal-line:last-child{border-bottom:0}
+    .reveal-dot{width:7px;height:7px;border-radius:50%;background:var(--terra-light);margin-top:.55rem;flex-shrink:0}
+    .reveal-line p{color:rgba(255,255,255,.72);font-size:.9rem;line-height:1.65}
+    .reveal-line strong{color:white}
+
+    .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
+    .insight-card{
+      background:rgba(255,252,248,.78);
+      border:1px solid rgba(107,62,46,.13);
+      border-radius:10px;padding:1.25rem;
+    }
+    .insight-card svg{width:34px;height:34px;color:var(--terra-dark);margin-bottom:.85rem}
+    .insight-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.4rem}
+    .insight-card p{font-size:.84rem;line-height:1.7;color:var(--soft);font-weight:300}
+
+    .map-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.84rem}
+    .map-table th{text-align:left;color:var(--soft);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:.55rem;border-bottom:1px solid rgba(107,62,46,.13)}
+    .map-table td{padding:.45rem .55rem;border-bottom:1px solid rgba(107,62,46,.08);vertical-align:middle}
+    .map-table input,.map-table select{width:100%;border:0;background:transparent;color:var(--ink2);outline:0;padding:.35rem .2rem}
+    .map-table input:focus,.map-table select:focus{background:rgba(198,93,59,.06);border-radius:4px}
+    .add-row{
+      border:1px dashed rgba(198,93,59,.35);
+      background:transparent;color:var(--terra-dark);
+      border-radius:6px;padding:.55rem .9rem;
+      margin-top:.8rem;cursor:pointer;font-size:.8rem;
     }
 
-    .recap-dot{
-      width:6px;
-      height:6px;
-      border-radius:50%;
-      background:var(--rose);
-      flex-shrink:0;
-      margin-top:.45rem;
+    .btn-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+    .btn-main,.btn-ghost{
+      display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+      min-height:46px;padding:.88rem 1.45rem;border-radius:4px;
+      cursor:pointer;transition:.2s ease;font-size:.84rem;
     }
-
-    .recap-txt{
-      font-size:.83rem;
-      line-height:1.62;
-      color:rgba(255,255,255,.68);
+    .btn-main{
+      border:0;background:var(--terra-dark);color:white;
+      box-shadow:0 10px 25px rgba(161,74,60,.22);
+      font-weight:500;letter-spacing:.04em;
     }
+    .btn-main:hover{transform:translateY(-2px);background:var(--terra)}
+    .btn-main:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .btn-ghost{border:1px solid rgba(107,62,46,.22);background:transparent;color:var(--ink2)}
+    .btn-ghost:hover{border-color:var(--terra);color:var(--terra-dark);background:rgba(255,252,248,.55)}
 
-    .recap-txt strong{
-      color:rgba(255,255,255,.94);
-      font-weight:600;
+    .final-options{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}
+    .final-card{
+      background:var(--white);border:1px solid rgba(107,62,46,.13);
+      border-radius:10px;padding:1.35rem;transition:.2s ease;
     }
+    .final-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(58,31,18,.08);border-color:rgba(198,93,59,.35)}
+    .final-card svg{width:32px;height:32px;color:var(--terra-dark);margin-bottom:.8rem}
+    .final-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.35rem}
+    .final-card p{font-size:.84rem;color:var(--soft);line-height:1.65;font-weight:300}
 
-    .site-footer{
-      margin-top:2rem;
-      background:#1A0E08;
-      padding:3.5rem 3rem 2rem;
+    footer{background:#1A0E08;padding:3.5rem 3rem 2rem;position:relative;z-index:2}
+    .footer-inner{max-width:1180px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2.2rem}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;color:white;font-size:1.35rem;display:block;margin-bottom:.7rem}
+    .footer-brand p{color:rgba(255,255,255,.38);font-size:.82rem;line-height:1.7;max-width:280px;font-weight:300}
+    .footer-col h4{color:rgba(255,255,255,.55);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem}
+    .footer-col a{display:block;color:rgba(255,255,255,.35);font-size:.78rem;margin-bottom:.5rem;font-weight:300}
+    .footer-col a:hover{color:var(--terra-light)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.3rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .footer-bottom p,.footer-bottom a{color:rgba(255,255,255,.22);font-size:.72rem}
+    .footer-bottom-links{display:flex;gap:1.3rem;flex-wrap:wrap}
+
+    @media(max-width:980px){
+      .intro-grid,.choice-grid,.check-grid,.insight-grid,.final-options,.footer-top{grid-template-columns:1fr}
+      .portal-card{min-height:360px}
+      .emotions{grid-template-columns:repeat(2,1fr)}
+      .footer-brand{grid-column:auto}
     }
-
-    .footer-inner{max-width:1200px;margin:0 auto}
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.8fr 1fr 1fr 1fr;
-      gap:2.5rem;
-      margin-bottom:2.5rem;
-    }
-
-    .footer-brand .footer-logo{
-      display:block;
-      margin-bottom:.7rem;
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1.3rem;
-      color:#fff;
-      font-weight:700;
-    }
-
-    .footer-brand p{
-      max-width:260px;
-      font-size:.8rem;
-      line-height:1.72;
-      color:rgba(255,255,255,.38);
-      font-weight:300;
-    }
-
-    .footer-book-link{
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      margin-top:1.1rem;
-      padding:.55rem 1.1rem;
-      border-radius:999px;
-      background:linear-gradient(135deg,#FF9900,#E47911);
-      color:#fff;
-      font-size:.76rem;
-      font-weight:500;
-    }
-
-    .footer-col h4{
-      margin-bottom:.9rem;
-      font-size:.72rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.55);
-    }
-
-    .footer-col a{
-      display:block;
-      margin-bottom:.5rem;
-      font-size:.78rem;
-      color:rgba(255,255,255,.35);
-      font-weight:300;
-    }
-
-    .footer-col a:hover{color:var(--rose)}
-
-    .footer-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:1rem;
-      padding-top:1.5rem;
-      border-top:1px solid rgba(255,255,255,.07);
-    }
-
-    .footer-bottom p{
-      font-size:.72rem;
-      color:rgba(255,255,255,.2);
-    }
-
-    .footer-bottom-links{
-      display:flex;
-      gap:1.5rem;
-      flex-wrap:wrap;
-    }
-
-    .footer-bottom-links a{
-      font-size:.72rem;
-      color:rgba(255,255,255,.25);
-    }
-
-    .footer-bottom-links a:hover{color:var(--rose)}
-
-    @media (max-width:1180px){
-      .nav-links{gap:.9rem}
-      .nav-links a{font-size:.78rem}
-    }
-
-    @media (max-width:900px){
+    @media(max-width:900px){
       body{padding-top:62px}
-      nav{height:62px;padding:0 1.2rem}
+      nav{height:62px;padding:0 1.1rem}
       .nav-links{display:none}
       .nav-burger{display:flex}
       .nav-mobile{top:62px}
-      .prog-wrap{top:62px;padding:.85rem 1rem}
-      .prog-logo{display:none}
-      .prog-label{font-size:.68rem}
-      .cols3,.cycle-cards{grid-template-columns:1fr}
-      .es-grid{grid-template-columns:1fr 1fr}
-      .es-tabs{grid-template-columns:1fr}
-      .screen{padding:2rem 1rem 3.2rem}
-      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}
-      .footer-brand{grid-column:span 2}
-      .site-footer{padding:2.5rem 1.5rem 1.5rem}
+      .journey-bar{top:62px}
+      .step-label{display:none}
+      .screen{padding:3rem 1rem 4rem}
+      footer{padding:2.6rem 1.5rem 1.5rem}
     }
-
-    @media (max-width:640px){
-      .es-grid{grid-template-columns:1fr}
-      .prog-label{display:none}
-      .card{padding:1.35rem}
-    }
-
-    @media (max-width:480px){
-      .footer-top{grid-template-columns:1fr}
-      .footer-brand{grid-column:span 1}
+    @media(max-width:540px){
+      h1{font-size:3rem}
+      .emotions{grid-template-columns:1fr}
+      .card,.portal-card{padding:1.35rem}
+      .btn-row{flex-direction:column;align-items:stretch}
+      .btn-main,.btn-ghost{width:100%}
     }
   </style>
 </head>
-<body>
 
+<body>
   <nav>
     <a href="index.html" class="nav-logo">Laura Charron</a>
-
     <div class="nav-links">
       <a href="index.html">Accueil</a>
-      <a href="parcours.html" class="active">Mémoires</a>
-      <a href="cycle.html">Mon cycle</a>
-      <a href="arbre-vie.html">Arbre de Vie</a>
-      <a href="symptomes.html">Mon corps</a>
-      <a href="vibration.html">Fréquence</a>
-      <a href="journal.html">Journal</a>
-      <a href="transgen.html">Transgénérationnel</a>
-      <a href="genosociogramme.html">Génosociogramme</a>
-      <a href="arbre-famille.html">Ma famille</a>
-      <a href="contact.html">Contact</a>
-      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+      <a href="parcours.html" class="active">Commencer</a>
+      <a href="outils.html">Explorer</a>
+      <a href="livre-audio.html">Comprendre</a>
+      <a href="contact.html" class="nav-cta">Être accompagné</a>
     </div>
-
     <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <div class="nav-mobile" id="nav-mobile">
-    <a href="index.html">🏠 Accueil</a>
-    <a href="parcours.html">🧬 Mémoires</a>
-    <a href="cycle.html">🌙 Mon cycle</a>
-    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
-    <a href="symptomes.html">💬 Mon corps</a>
-    <a href="vibration.html">💫 Fréquence</a>
-    <a href="journal.html">📓 Journal</a>
-    <a href="transgen.html">🔁 Transgénérationnel</a>
-    <a href="genosociogramme.html">🌐 Génosociogramme</a>
-    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
-    <a href="contact.html">✉️ Contact</a>
-    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+    <a href="index.html">Accueil</a>
+    <a href="parcours.html">Commencer</a>
+    <a href="outils.html">Explorer</a>
+    <a href="livre-audio.html">Comprendre</a>
+    <a href="contact.html">Être accompagné</a>
   </div>
 
-  <div class="prog-wrap">
-    <a href="index.html" class="prog-logo">Laura Charron</a>
-    <div class="prog-bar">
-      <div class="prog-step active" id="ps0"></div>
-      <div class="prog-step" id="ps1"></div>
-      <div class="prog-step" id="ps2"></div>
-      <div class="prog-step" id="ps3"></div>
-      <div class="prog-step" id="ps4"></div>
+  <div class="journey-bar" aria-label="Progression du voyage">
+    <div class="journey-inner">
+      <div class="step-label" id="step-label">Le Seuil · 1/5</div>
+      <div class="steps">
+        <div class="step-dot active" id="dot0"></div>
+        <div class="step-dot" id="dot1"></div>
+        <div class="step-dot" id="dot2"></div>
+        <div class="step-dot" id="dot3"></div>
+        <div class="step-dot" id="dot4"></div>
+      </div>
     </div>
-    <div class="prog-label" id="prog-lbl">Ce que je ressens · 1/5</div>
   </div>
 
-  <!-- STEP 0 -->
-  <section class="screen active" id="s0">
-    <span class="eyebrow">Parcours de libération</span>
-    <h1 class="screen-title">Ce que tu <em>ressens</em><br>en ce moment</h1>
-    <p class="screen-sub">
-      Avant de nommer une situation, nommons d’abord ce qui vibre en toi.
-      Ce que tu ressens est déjà une information précieuse.
-    </p>
+  <main class="page">
+    <section class="screen active" id="s0">
+      <div class="intro-grid">
+        <div>
+          <div class="eyebrow">
+            <span class="sigil"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            Le Seuil
+          </div>
+          <h1>Commencer<br><em>le voyage</em></h1>
+          <p class="lead">
+            Vous arrivez peut-être avec un mal-être, une répétition, une fatigue ou une question que vous ne parvenez pas à expliquer. Ce parcours vous aide à poser les premiers repères, sans jargon, sans obligation de tout comprendre.
+          </p>
+          <div class="quote">Toutes les portes ne s’ouvrent pas avec une réponse. Certaines s’ouvrent avec une prise de conscience.</div>
+          <div class="btn-row">
+            <button class="btn-main" type="button" onclick="showStep(1)">Franchir la première porte</button>
+            <a class="btn-ghost" href="livre-audio.html">Ouvrir le guide audio</a>
+          </div>
+        </div>
 
-    <div class="card">
-      <div class="card-title">Émotion ou sentiment ?</div>
-      <p class="card-sub">
-        Une <strong style="color:var(--rose2)">émotion</strong> est une réaction physiologique immédiate et courte.
-        Un <strong style="color:var(--teal)">sentiment</strong> est un état plus durable, coloré par ton histoire.
-      </p>
+        <div class="portal-card" aria-hidden="true">
+          <svg class="portal-svg" viewBox="0 0 260 320" fill="none">
+            <path d="M45 285V128C45 80 82 40 130 40s85 40 85 88v157" stroke="rgba(255,252,248,.55)" stroke-width="2"/>
+            <path d="M70 285V133c0-35 27-64 60-64s60 29 60 64v152" stroke="rgba(216,140,106,.75)" stroke-width="1.4"/>
+            <path d="M95 285V141c0-21 15-39 35-39s35 18 35 39v144" stroke="rgba(255,252,248,.28)" stroke-width="1.2"/>
+            <circle cx="130" cy="160" r="38" stroke="rgba(216,140,106,.45)" stroke-width="1"/>
+            <circle cx="130" cy="160" r="7" fill="rgba(216,140,106,.85)"/>
+            <path d="M38 285h184M70 245h120M96 210h68" stroke="rgba(255,252,248,.16)" stroke-width="1"/>
+          </svg>
+          <div>
+            <div class="portal-title">La première porte</div>
+            <p class="portal-text">Un espace simple pour transformer une sensation floue en premiers indices concrets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <div class="es-tabs">
-        <button class="es-tab active" type="button" data-type="emotion">
-          <strong>🔥 C’est une émotion</strong>
-          <span>Réaction immédiate, dans le corps</span>
+    <section class="screen" id="s1">
+      <div class="eyebrow">
+        <span class="sigil"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c4 4 6 7 6 10.5A6 6 0 1 1 6 13.5C6 10 8 7 12 3Z" stroke="currentColor" stroke-width="1.4"/><path d="M12 9v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></span>
+        La Première Porte
+      </div>
+      <h2>Qu’est-ce qui<br><em>vous amène ici ?</em></h2>
+      <p class="lead">Choisissez la situation qui ressemble le plus à ce que vous vivez. Vous pourrez préciser ensuite.</p>
+
+      <div class="choice-grid" id="theme-grid">
+        <button class="choice" type="button" data-theme="relations">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 29s-10-6.2-10-14a5.5 5.5 0 0 1 10-3.2A5.5 5.5 0 0 1 28 15c0 7.8-10 14-10 14Z" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div class="choice-title">Les relations</div>
+          <div class="choice-text">Les mêmes liens, les mêmes blessures, les mêmes déceptions reviennent.</div>
         </button>
-        <button class="es-tab" type="button" data-type="sentiment">
-          <strong>💭 C’est un sentiment</strong>
-          <span>État durable, coloré par l’histoire</span>
+        <button class="choice" type="button" data-theme="argent">
+          <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" stroke="currentColor" stroke-width="1.6"/><path d="M21 13.5c-1-.9-5-.9-5 1.2 0 3 6 1.7 6 5 0 2.5-4.2 2.6-6.5 1.1M18 10v16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="choice-title">L’argent</div>
+          <div class="choice-text">Recevoir, garder, vendre ou demander vous semble chargé ou bloqué.</div>
+        </button>
+        <button class="choice" type="button" data-theme="energie">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M20 3 9 20h8l-1 13 11-18h-8l1-12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div class="choice-title">L’épuisement</div>
+          <div class="choice-text">Vous portez beaucoup, vous tenez, mais votre énergie ne suit plus.</div>
+        </button>
+        <button class="choice" type="button" data-theme="confiance">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5 29 11v8c0 7-5 11-11 13C12 30 7 26 7 19v-8l11-6Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 18l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="choice-title">La confiance</div>
+          <div class="choice-text">Vous doutez de votre valeur, de votre place ou de votre légitimité.</div>
+        </button>
+        <button class="choice" type="button" data-theme="famille">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3ZM18 23c-4-2.5-7-1.2-9 2.5 4 .8 7-.1 9-2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="choice-title">La famille</div>
+          <div class="choice-text">Vous sentez que votre histoire familiale pèse encore dans le présent.</div>
+        </button>
+        <button class="choice" type="button" data-theme="corps">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5c5 5 8 9 8 15a8 8 0 0 1-16 0c0-6 3-10 8-15Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="choice-title">Le corps</div>
+          <div class="choice-text">Des tensions, douleurs, somatisations ou signaux reviennent régulièrement.</div>
         </button>
       </div>
 
-      <div id="es-grid-emotion" class="es-grid">
-        <button class="es-chip" type="button" data-val="Peur" data-freq="100">😰 Peur</button>
-        <button class="es-chip" type="button" data-val="Colère" data-freq="150">😤 Colère</button>
-        <button class="es-chip" type="button" data-val="Tristesse" data-freq="75">😢 Tristesse</button>
-        <button class="es-chip" type="button" data-val="Dégoût" data-freq="150">😖 Dégoût</button>
-        <button class="es-chip" type="button" data-val="Joie" data-freq="540">😊 Joie</button>
-        <button class="es-chip" type="button" data-val="Surprise" data-freq="175">😲 Surprise</button>
+      <textarea id="theme-note" placeholder="Vous pouvez ajouter quelques mots : depuis quand, ce qui revient, ce que vous ne comprenez pas encore..."></textarea>
+
+      <div class="btn-row">
+        <button class="btn-ghost" type="button" onclick="showStep(0)">Revenir au seuil</button>
+        <button class="btn-main" id="btn-s1" type="button" disabled onclick="showStep(2)">Poursuivre le voyage</button>
       </div>
+    </section>
 
-      <div id="es-grid-sentiment" class="es-grid" style="display:none">
-        <button class="es-chip" type="button" data-val="Honte" data-freq="20">😔 Honte</button>
-        <button class="es-chip" type="button" data-val="Culpabilité" data-freq="30">😣 Culpabilité</button>
-        <button class="es-chip" type="button" data-val="Apathie" data-freq="50">😶 Apathie</button>
-        <button class="es-chip" type="button" data-val="Chagrin" data-freq="75">😿 Chagrin</button>
-        <button class="es-chip" type="button" data-val="Anxiété" data-freq="100">😰 Anxiété</button>
-        <button class="es-chip" type="button" data-val="Désir / Manque" data-freq="125">🌊 Désir</button>
-        <button class="es-chip" type="button" data-val="Frustration" data-freq="150">😤 Frustration</button>
-        <button class="es-chip" type="button" data-val="Orgueil blessé" data-freq="175">🫀 Orgueil blessé</button>
-        <button class="es-chip" type="button" data-val="Neutralité" data-freq="250">😐 Neutralité</button>
-        <button class="es-chip" type="button" data-val="Acceptation" data-freq="350">🌿 Acceptation</button>
-        <button class="es-chip" type="button" data-val="Amour" data-freq="500">💛 Amour</button>
-        <button class="es-chip" type="button" data-val="Paix intérieure" data-freq="600">🌸 Paix intérieure</button>
+    <section class="screen" id="s2">
+      <div class="eyebrow">
+        <span class="sigil"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.4"/><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        La Salle des Reflets
       </div>
+      <h2>Que ressentez-vous<br><em>le plus souvent ?</em></h2>
+      <p class="lead">Ne cherchez pas la réponse parfaite. Choisissez simplement le mot qui s’approche le plus de votre état intérieur.</p>
 
-      <div class="es-selected-display">
-        <span class="es-placeholder" id="es-val-lbl">Clique sur ce que tu ressens…</span>
-      </div>
-    </div>
-
-    <div class="card hawkins-card" id="hawkins-card">
-      <div class="card-title">Ta fréquence vibratoire</div>
-      <p class="card-sub">
-        C’est un repère symbolique pour situer ton état intérieur du moment.
-      </p>
-
-      <div class="hawkins-wrap">
-        <div class="hawkins-label">Intensité ressentie</div>
-        <div class="gauge-track" id="gauge-track">
-          <div class="gauge-thumb" id="gauge-thumb"></div>
-        </div>
-        <div class="gauge-labels">
-          <span>Bas</span>
-          <span>Moyen</span>
-          <span>Élevé</span>
-        </div>
-
-        <div class="hawkins-value">
-          <div class="hawkins-freq" id="hawk-freq">Fréquence : 100</div>
-          <div class="hawkins-desc" id="hawk-desc">Peur — mode survie actif</div>
-          <span class="hawkins-zone zone-survie" id="hawk-zone">Zone de survie</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="cycle-section" id="cycle-section">
       <div class="card">
-        <div class="card-title">Ce ressenti — il vient d’où ?</div>
-        <p class="card-sub">
-          Deux origines possibles, parfois mêlées. Choisis ce qui résonne le plus.
-        </p>
+        <div class="card-title">Nommer le ressenti</div>
+        <p class="card-sub">Un ressenti nommé devient déjà moins confus. Il devient un indice.</p>
+        <div class="emotions" id="emotion-grid">
+          <button class="pill" type="button" data-emotion="Peur" data-level="35">Peur</button>
+          <button class="pill" type="button" data-emotion="Colère" data-level="45">Colère</button>
+          <button class="pill" type="button" data-emotion="Tristesse" data-level="30">Tristesse</button>
+          <button class="pill" type="button" data-emotion="Honte" data-level="20">Honte</button>
+          <button class="pill" type="button" data-emotion="Culpabilité" data-level="25">Culpabilité</button>
+          <button class="pill" type="button" data-emotion="Anxiété" data-level="38">Anxiété</button>
+          <button class="pill" type="button" data-emotion="Vide intérieur" data-level="22">Vide intérieur</button>
+          <button class="pill" type="button" data-emotion="Fatigue profonde" data-level="28">Fatigue profonde</button>
+        </div>
 
-        <div class="cycle-cards">
-          <div class="cycle-card c1" id="cyc1" data-cycle="1">
-            <div class="cycle-card-num">Mémoire héritée · Lignée</div>
-            <div class="cycle-card-title">Porté depuis avant toi</div>
-            <div class="cycle-card-sub">
-              Cela semble plus grand que ta propre histoire.
-            </div>
-          </div>
-
-          <div class="cycle-card c2" id="cyc2" data-cycle="2">
-            <div class="cycle-card-num">Mémoire vécue · Histoire personnelle</div>
-            <div class="cycle-card-title">Construit dans ta vie</div>
-            <div class="cycle-card-sub">
-              Cela paraît lié à ton vécu, tes relations, ton parcours.
-            </div>
+        <div class="intensity" id="intensity">
+          <div class="card-sub" style="margin-top:1rem">Quelle intensité ressentez-vous aujourd’hui ?</div>
+          <div class="range-line">
+            <input type="range" id="range" min="1" max="10" value="5">
+            <span class="range-value" id="range-val">5</span>
           </div>
         </div>
-
-        <div class="cycle-note" id="cycle-note"></div>
       </div>
-    </div>
 
-    <div class="btn-row">
-      <button class="btn-main" id="btn-next-s0" type="button" disabled>Continuer →</button>
-    </div>
-  </section>
-
-  <!-- STEP 1 -->
-  <section class="screen" id="s1">
-    <span class="eyebrow">Identifier le domaine</span>
-    <h1 class="screen-title">Dans quel <em>domaine</em><br>cela se manifeste ?</h1>
-    <p class="screen-sub">
-      Le ressenti identifié se joue dans une ou plusieurs dimensions de ta vie.
-    </p>
-
-    <div class="themes" id="themes-wrap">
-      <div class="chip" data-theme="relations">💛 Relations · Liens</div>
-      <div class="chip" data-theme="argent">🌿 Argent · Abondance</div>
-      <div class="chip" data-theme="sante">🌊 Santé · Corps</div>
-      <div class="chip" data-theme="confiance">✨ Confiance en moi</div>
-      <div class="chip" data-theme="famille">🌳 Famille · Lignée</div>
-      <div class="chip" data-theme="travail">🎯 Travail · Mission</div>
-      <div class="chip" data-theme="solitude">🌙 Solitude · Appartenance</div>
-      <div class="chip" data-theme="energie">🔥 Épuisement · Énergie</div>
-    </div>
-
-    <textarea class="big-ta" id="ressenti-ta" placeholder="Décris en quelques mots ce qui revient souvent, ce que tu vis, ce qui te pèse…"></textarea>
-
-    <div class="transition-card" id="transition-card">
-      <p id="transition-txt"></p>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn-ghost" type="button" id="back-1">← Retour</button>
-      <button class="btn-main" type="button" id="btn-next-s1" disabled>Comprendre ce qui se passe →</button>
-    </div>
-  </section>
-
-  <!-- STEP 2 -->
-  <section class="screen" id="s2">
-    <span class="eyebrow">Comprendre ce qui se passe</span>
-    <h1 class="screen-title" id="s2-title">Un programme <em>actif</em></h1>
-
-    <div class="insight">
-      <p id="s2-reflet"></p>
-    </div>
-
-    <p class="screen-sub" style="margin-bottom:1.2rem">
-      Ce que tu vis se joue simultanément sur trois plans.
-    </p>
-
-    <div class="lvc corps">
-      <span class="lvc-icon">🧬</span>
-      <div class="lvc-title">Plan 1 · Corps physique</div>
-      <p id="lv-corps"></p>
-    </div>
-
-    <div class="lvc adn">
-      <span class="lvc-icon">🌿</span>
-      <div class="lvc-title">Plan 2 · ADN &amp; transgénérationnel</div>
-      <p id="lv-adn"></p>
-    </div>
-
-    <div class="lvc energie">
-      <span class="lvc-icon">⚡</span>
-      <div class="lvc-title">Plan 3 · Énergétique &amp; fréquentiel</div>
-      <p id="lv-energie"></p>
-    </div>
-
-    <div class="insight">
-      <p>“Ce n’est pas toi qui es cassée. C’est une fréquence encodée dans ton système — et les fréquences peuvent se transformer.”</p>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn-ghost" type="button" id="back-2">← Retour</button>
-      <button class="btn-main" type="button" id="btn-next-s2">Identifier les signaux →</button>
-    </div>
-  </section>
-
-  <!-- STEP 3 -->
-  <section class="screen" id="s3">
-    <span class="eyebrow">Les signaux &amp; schémas</span>
-    <h1 class="screen-title">Reconnais<br><em>les traces</em></h1>
-    <p class="screen-sub">
-      Coche ce que tu reconnais. Tes sélections vont générer des schémas répétitifs.
-    </p>
-
-    <div class="cols3">
-      <div>
-        <p class="col-head">Dans le corps</p>
-        <div class="chk-group" id="cg-corps"></div>
+      <div class="btn-row">
+        <button class="btn-ghost" type="button" onclick="showStep(1)">Revenir sur mes pas</button>
+        <button class="btn-main" id="btn-s2" type="button" disabled onclick="showStep(3)">Ouvrir les premiers indices</button>
       </div>
-      <div>
-        <p class="col-head">Dans les émotions</p>
-        <div class="chk-group" id="cg-emotions"></div>
+    </section>
+
+    <section class="screen" id="s3">
+      <div class="eyebrow">
+        <span class="sigil"><svg viewBox="0 0 24 24" fill="none"><path d="M4 17c6-10 10-10 16 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 13h8M12 7v10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        Les Indices
       </div>
-      <div>
-        <p class="col-head">Dans la vie</p>
-        <div class="chk-group" id="cg-vie"></div>
-      </div>
-    </div>
+      <h2>Ce que votre histoire<br><em>laisse apparaître</em></h2>
+      <p class="lead">Cochez les signaux qui résonnent. Ils ne sont pas un diagnostic, mais des portes d’exploration.</p>
 
-    <div class="schemas-section" id="schemas-section">
-      <div class="divider"></div>
-      <span class="eyebrow" style="margin-bottom:.6rem">Schémas répétitifs identifiés</span>
-      <div class="schemas-list" id="schemas-list"></div>
-    </div>
-
-    <div class="corr-section" id="corr-section">
-      <div class="divider"></div>
-      <span class="eyebrow" style="margin-bottom:.6rem">Tableau de correspondances</span>
-
-      <div class="cycle-mini-info">
-        <div class="cyc-mini">
-          <div class="cyc-mini-t">Mémoire héritée</div>
-          <p>Ce qui semble venir de la lignée, d’une répétition familiale ou d’une mémoire transmise.</p>
+      <div class="check-grid">
+        <div class="check-col">
+          <h3>Dans le corps</h3>
+          <div id="checks-body"></div>
         </div>
-        <div class="cyc-mini c2">
-          <div class="cyc-mini-t">Mémoire vécue</div>
-          <p>Ce qui semble venir de ton histoire personnelle et de ton vécu direct.</p>
+        <div class="check-col">
+          <h3>Dans les émotions</h3>
+          <div id="checks-emotion"></div>
+        </div>
+        <div class="check-col">
+          <h3>Dans la vie</h3>
+          <div id="checks-life"></div>
         </div>
       </div>
 
-      <div class="card" style="padding:1rem 1.2rem">
+      <div class="card" id="map-card" style="display:none">
+        <div class="card-title">Les traces à relier</div>
+        <p class="card-sub">Vous pouvez commencer à relier un signal à une personne, un âge, une période ou une répétition familiale.</p>
         <div style="overflow-x:auto">
-          <table class="corr-table">
+          <table class="map-table">
             <thead>
               <tr>
-                <th>Signal identifié</th>
-                <th>Origine</th>
-                <th>Qui dans ma famille ?</th>
+                <th>Indice</th>
+                <th>Origine possible</th>
+                <th>Dans ma famille</th>
                 <th>Âge / période</th>
-                <th></th>
               </tr>
             </thead>
-            <tbody id="corr-tbody"></tbody>
+            <tbody id="map-body"></tbody>
           </table>
         </div>
-
-        <button class="corr-add" id="corr-add-btn" type="button">＋ Ajouter une ligne libre</button>
+        <button class="add-row" type="button" onclick="addFreeRow()">Ajouter une trace libre</button>
       </div>
-    </div>
 
-    <div class="btn-row">
-      <button class="btn-ghost" type="button" id="back-3">← Retour</button>
-      <button class="btn-main" type="button" id="btn-next-s3">Voir ma synthèse →</button>
-    </div>
-  </section>
+      <div class="btn-row">
+        <button class="btn-ghost" type="button" onclick="showStep(2)">Revenir aux reflets</button>
+        <button class="btn-main" type="button" onclick="showStep(4)">Voir ma synthèse</button>
+      </div>
+    </section>
 
-  <!-- STEP 4 -->
-  <section class="screen" id="s4">
-    <span class="eyebrow">Synthèse</span>
-    <h1 class="screen-title">Ta <em>synthèse</em><br>de départ</h1>
-    <p class="screen-sub">
-      Voici une base claire pour poursuivre le travail sur ta lignée et tes répétitions.
-    </p>
+    <section class="screen" id="s4">
+      <div class="eyebrow">
+        <span class="sigil"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 4 7v6c0 5 3.4 7.5 8 9 4.6-1.5 8-4 8-9V7l-8-4Z" stroke="currentColor" stroke-width="1.4"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+        Le Passage
+      </div>
+      <h2>Vous avez franchi<br><em>la première porte</em></h2>
+      <p class="lead">Cette synthèse n’enferme rien. Elle vous donne seulement une première carte pour continuer à comprendre ce qui se répète.</p>
 
-    <div class="recap-box" id="recap-box"></div>
+      <div class="reveal-box" id="summary-box"></div>
 
-    <div class="btn-row">
-      <button class="btn-ghost" type="button" id="back-4">← Retour</button>
-      <a href="arbre-famille.html" class="btn-main">Passer à ma famille →</a>
-      <a href="genosociogramme.html" class="btn-ghost">Voir mon génosociogramme</a>
-    </div>
-  </section>
+      <div class="insight-grid">
+        <div class="insight-card">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Ce que votre corps raconte</h3>
+          <p>Les tensions, fatigues ou blocages peuvent devenir des messages à écouter plutôt que des ennemis à combattre.</p>
+        </div>
+        <div class="insight-card">
+          <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="27" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M18 12v6M18 18 9 22M18 18l9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <h3>Ce que la lignée transmet</h3>
+          <p>Certaines répétitions prennent sens lorsque l’on regarde les places, les loyautés et les silences familiaux.</p>
+        </div>
+        <div class="insight-card">
+          <svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="18" r="10" stroke="currentColor" stroke-width="1.2" opacity=".65"/><circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="1" opacity=".35"/></svg>
+          <h3>Ce qui peut évoluer</h3>
+          <p>Une prise de conscience peut ouvrir un nouveau mouvement : moins de boucle, plus de choix, plus de présence.</p>
+        </div>
+      </div>
 
-  <footer class="site-footer">
+      <div class="final-options">
+        <a class="final-card" href="arbre-famille.html">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <h3>Explorer mes racines</h3>
+          <p>Passer à l’arbre familial pour repérer les répétitions dans la lignée.</p>
+        </a>
+        <a class="final-card" href="livre-audio.html">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M10 7h11a5 5 0 0 1 5 5v17H15a5 5 0 0 0-5-5V7Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 24V7" stroke="currentColor" stroke-width="1.5"/><path d="M15 13h7M15 18h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <h3>Ouvrir les Archives</h3>
+          <p>Écouter gratuitement le livre audio et avancer avec le PDF compagnon.</p>
+        </a>
+        <a class="final-card" href="contact.html">
+          <svg viewBox="0 0 36 36" fill="none"><path d="M18 4c4 4 7 7.5 7 13a7 7 0 1 1-14 0c0-5.5 3-9 7-13Z" stroke="currentColor" stroke-width="1.5"/><path d="M14 22c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <h3>Être accompagné</h3>
+          <p>Prendre contact pour une séance individuelle à distance ou à domicile.</p>
+        </a>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-ghost" type="button" onclick="showStep(3)">Revenir aux indices</button>
+        <button class="btn-main" type="button" onclick="restart()">Recommencer le voyage</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Laura Charron</a>
-          <p>Explorer les mémoires de lignée, le corps, les répétitions et les fréquences intérieures pour retrouver plus de clarté.</p>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+          <a class="footer-logo" href="index.html">Laura Charron</a>
+          <p>Un voyage guidé pour comprendre les répétitions, explorer les mémoires familiales et retrouver sa propre voie.</p>
         </div>
-
         <div class="footer-col">
-          <h4>Explorer</h4>
-          <a href="parcours.html">Mémoires</a>
-          <a href="cycle.html">Mon cycle</a>
-          <a href="arbre-vie.html">Arbre de Vie</a>
-          <a href="symptomes.html">Mon corps</a>
-          <a href="vibration.html">Fréquence</a>
+          <h4>Le voyage</h4>
+          <a href="index.html">Accueil</a>
+          <a href="parcours.html">Commencer</a>
+          <a href="outils.html">Explorer</a>
+          <a href="livre-audio.html">Comprendre</a>
         </div>
-
         <div class="footer-col">
-          <h4>Approfondir</h4>
-          <a href="transgen.html">Transgénérationnel</a>
-          <a href="genosociogramme.html">Génosociogramme</a>
-          <a href="arbre-famille.html">Ma famille</a>
-          <a href="journal.html">Journal</a>
+          <h4>Les outils</h4>
+          <a href="arbre-famille.html">Les Racines</a>
+          <a href="genosociogramme.html">La Carte des Mémoires</a>
+          <a href="journal.html">Carnet d’Exploration</a>
+          <a href="symptomes.html">Les Messages du Corps</a>
+          <a href="vibration.html">Le Compas Intérieur</a>
+          <a href="cycle.html">Les Cycles du Vivant</a>
+          <a href="arbre-vie.html">Les Sphères de Vie</a>
         </div>
-
         <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="contact.html">Écrire à Laura</a>
-          <a href="index.html">Retour à l’accueil</a>
+          <h4>Accompagnement</h4>
+          <a href="contact.html">Prendre contact</a>
+          <a href="seance.html">Les séances</a>
+          <a href="avis.html">Témoignages</a>
+          <a href="mentions-legales.html">Mentions légales</a>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>© Laura Charron 2026 · Tous droits réservés</p>
         <div class="footer-bottom-links">
           <a href="contact.html">Contact</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Livre</a>
+          <a href="politique-confidentialite.html">Confidentialité</a>
         </div>
       </div>
     </div>
@@ -1471,500 +653,205 @@
 
   <script>
     const state = {
-      currentStep: 0,
-      type: "emotion",
-      emotion: "",
-      freq: 100,
-      cycle: "",
-      themes: [],
-      note: "",
-      checkedSignals: [],
-      corrRows: []
+      step:0,
+      theme:"",
+      note:"",
+      emotion:"",
+      level:5,
+      checks:[]
     };
 
-    const progressLabels = [
-      "Ce que je ressens · 1/5",
-      "Le domaine · 2/5",
-      "Comprendre · 3/5",
-      "Les signaux · 4/5",
-      "La synthèse · 5/5"
+    const stepNames = [
+      "Le Seuil · 1/5",
+      "La Première Porte · 2/5",
+      "La Salle des Reflets · 3/5",
+      "Les Indices · 4/5",
+      "Le Passage · 5/5"
     ];
 
-    const explanationMap = {
-      relations: {
-        title: "Un programme actif dans les liens",
-        reflet: "Ce que tu ressens dans tes relations n’est peut-être pas seulement une réaction du présent. Cela peut être une manière ancienne de te protéger, de te taire, d’attendre ou de survivre dans le lien.",
-        corps: "Le corps peut rester en vigilance dans les liens : gorge serrée, cœur tendu, ventre noué, fatigue relationnelle. Le système apprend à se protéger avant même que tu y penses.",
-        adn: "Certaines dynamiques relationnelles peuvent être héritées : abandon, silence, rejet, trahison, place impossible, loyautés invisibles dans la famille.",
-        energie: "La fréquence des relations colore ce que tu attires et ce que tu acceptes. Quand le signal intérieur change, la qualité du lien change aussi."
-      },
-      argent: {
-        title: "Un programme actif autour de l’abondance",
-        reflet: "Ce que tu ressens avec l’argent peut venir d’un ancien programme de manque, de peur, de sacrifice ou de survie transmis dans la lignée.",
-        corps: "Le corps peut associer l’argent à l’alerte : tension, insécurité, crispation dans le ventre, difficulté à recevoir ou à garder.",
-        adn: "Dans certaines lignées, l’argent a été lié à la honte, au danger, à la dette, à la culpabilité ou à la perte.",
-        energie: "La fréquence intérieure autour de la sécurité influence la circulation. Plus la peur est active, plus le mouvement se bloque."
-      },
-      sante: {
-        title: "Un programme actif dans le corps",
-        reflet: "Le corps ne raconte pas seulement le présent. Il peut aussi porter des mémoires de stress, de silence, de fatigue ou de survie.",
-        corps: "Le signal est direct : douleurs, tensions, somatisation, fatigue, troubles cycliques ou répétitifs.",
-        adn: "Certaines vulnérabilités ou façons de réagir peuvent être héritées, non seulement biologiquement mais aussi émotionnellement et symboliquement.",
-        energie: "Quand une fréquence reste bloquée longtemps, le corps finit souvent par la traduire dans la matière."
-      },
-      confiance: {
-        title: "Un programme actif dans la confiance",
-        reflet: "Le manque de confiance n’est pas toujours un défaut personnel. Il peut venir d’un système qui a appris qu’il valait mieux se cacher, se taire ou ne pas prendre de place.",
-        corps: "Le corps se replie : poitrine fermée, voix coupée, hésitation, fatigue d’exposition, peur d’être vue.",
-        adn: "Dans certaines lignées, se montrer pouvait coûter cher. Le doute devient alors une protection transmise.",
-        energie: "La fréquence de l’estime influe sur ce que tu oses, ce que tu émets et ce que tu attires."
-      },
-      famille: {
-        title: "Un programme actif dans la lignée",
-        reflet: "Ce que tu ressens semble très directement relié au système familial. Il y a peut-être une fidélité invisible, une place répétée ou une mémoire non digérée.",
-        corps: "Le corps se charge souvent quand il porte pour le clan : fatigue, tristesse sans raison claire, pression intérieure, surcharge.",
-        adn: "La lignée peut transmettre des scénarios : deuil, secret, effacement, sacrifice, exclusion, répétitions d’âge ou de destin.",
-        energie: "Quand le système familial pèse, la fréquence personnelle peine à se stabiliser."
-      },
-      travail: {
-        title: "Un programme actif dans la mission",
-        reflet: "Ce que tu vis dans le travail ou la mission peut rejouer une ancienne logique de mérite, de sacrifice ou de non-légitimité.",
-        corps: "Le corps peut répondre par fatigue, pression mentale, peur de l’échec, blocage ou suradaptation.",
-        adn: "Dans certaines familles, le travail était survie, devoir, réparation ou dette. Cela peut encore agir aujourd’hui.",
-        energie: "La fréquence de légitimité influe sur l’élan, la visibilité et la capacité à recevoir."
-      },
-      solitude: {
-        title: "Un programme actif dans l’appartenance",
-        reflet: "Le sentiment de solitude ou de décalage peut venir d’une mémoire d’exclusion, d’exil, de silence ou d’incompréhension dans la lignée.",
-        corps: "Le corps se met à distance, se coupe, se fige ou se tait pour éviter une nouvelle douleur de rejet.",
-        adn: "Certains clans transmettent la peur d’être dehors, de déranger, ou au contraire la nécessité d’être seule pour survivre.",
-        energie: "La fréquence d’appartenance conditionne la manière dont tu entres en lien avec le monde."
-      },
-      energie: {
-        title: "Un programme actif dans l’énergie vitale",
-        reflet: "L’épuisement ou la baisse d’élan peuvent être plus qu’un simple manque de repos. Cela peut être un signal de surcharge ancienne.",
-        corps: "Le corps coupe, ralentit, fatigue, somatise, se vide quand le système a trop porté trop longtemps.",
-        adn: "Dans certaines lignées, survivre signifiait tenir sans fin. L’épuisement devient alors un langage transmis.",
-        energie: "Quand la fréquence de survie domine, l’énergie vitale n’a plus d’espace pour circuler librement."
-      }
+    const checkData = {
+      body:["Tension dans le ventre","Boule dans la gorge","Oppression dans la poitrine","Fatigue récurrente","Sommeil perturbé","Douleurs qui reviennent"],
+      emotion:["Peur de perdre","Tristesse sans cause claire","Colère contenue","Honte ou culpabilité","Anxiété de fond","Difficulté à recevoir"],
+      life:["Relations qui se répètent","Blocage avec l’argent","Impression de porter trop","Sentiment de ne pas avoir ma place","Besoin de prouver ma valeur","Ruptures ou échecs récurrents"]
     };
 
-    const signalPresets = {
-      corps: [
-        "Tensions dans le ventre",
-        "Boule dans la gorge",
-        "Fatigue récurrente",
-        "Oppression thoracique",
-        "Sommeil perturbé",
-        "Douleurs cycliques"
-      ],
-      emotions: [
-        "Peur de perdre",
-        "Tristesse sans raison claire",
-        "Colère contenue",
-        "Honte ou culpabilité",
-        "Anxiété de fond",
-        "Difficulté à recevoir"
-      ],
-      vie: [
-        "Toujours les mêmes relations",
-        "Blocage financier",
-        "Impression de porter trop",
-        "Sentiment de ne pas avoir ma place",
-        "Peu de reconnaissance",
-        "Répétition d’échec ou de rupture"
-      ]
+    const themeTexts = {
+      relations:"Les liens peuvent devenir une scène où se rejouent d’anciens attachements, des peurs de perte ou des places familiales.",
+      argent:"L’argent peut porter des mémoires de manque, de dette, de culpabilité, de mérite ou de danger.",
+      energie:"L’épuisement peut être le signe d’un système qui a trop porté, trop tenu ou trop compensé.",
+      confiance:"Le manque de confiance peut parfois venir d’une ancienne interdiction intérieure : ne pas se montrer, ne pas prendre trop de place.",
+      famille:"La famille peut transmettre des places, des silences, des loyautés invisibles et des répétitions de destin.",
+      corps:"Le corps peut devenir la porte d’entrée d’une mémoire qui n’a pas encore trouvé de mots."
     };
 
-    function saveState() {
-      localStorage.setItem("parcours-memoires", JSON.stringify(state));
+    function iconCheck(){
+      return '<div class="box"></div>';
     }
 
-    function updateProgress() {
-      for (let i = 0; i < 5; i++) {
-        const el = document.getElementById("ps" + i);
-        if (!el) continue;
-        el.classList.remove("done", "active");
-        if (i < state.currentStep) el.classList.add("done");
-        if (i === state.currentStep) el.classList.add("active");
-      }
-      document.getElementById("prog-lbl").textContent = progressLabels[state.currentStep];
-    }
-
-    function showStep(index) {
-      document.querySelectorAll(".screen").forEach((screen, i) => {
-        screen.classList.toggle("active", i === index);
+    function initChecks(){
+      const zones = [
+        ["checks-body", checkData.body],
+        ["checks-emotion", checkData.emotion],
+        ["checks-life", checkData.life]
+      ];
+      zones.forEach(([id, arr])=>{
+        const wrap = document.getElementById(id);
+        wrap.innerHTML = "";
+        arr.forEach(label=>{
+          const el = document.createElement("div");
+          el.className = "check";
+          el.innerHTML = iconCheck() + '<span>' + label + '</span>';
+          el.addEventListener("click", ()=>{
+            el.classList.toggle("on");
+            syncChecks();
+          });
+          wrap.appendChild(el);
+        });
       });
-      state.currentStep = index;
+    }
+
+    function showStep(n){
+      document.querySelectorAll(".screen").forEach((s,i)=>s.classList.toggle("active",i===n));
+      state.step = n;
       updateProgress();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      if (index === 2) populateStep2();
-      if (index === 3) populateStep3();
-      if (index === 4) populateStep4();
-
-      saveState();
+      if(n===3) initChecks();
+      if(n===4) buildSummary();
+      window.scrollTo({top:0,behavior:"smooth"});
+      save();
     }
 
-    function enableBtn(id, enabled) {
-      const btn = document.getElementById(id);
-      if (!btn) return;
-      btn.disabled = !enabled;
-    }
-
-    function toggleMenu() {
-      document.getElementById("nav-mobile").classList.toggle("open");
-      document.getElementById("burger").classList.toggle("open");
-    }
-
-    document.getElementById("burger").addEventListener("click", toggleMenu);
-
-    // STEP 0
-    document.querySelectorAll(".es-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".es-tab").forEach(t => t.classList.remove("active"));
-        tab.classList.add("active");
-
-        state.type = tab.dataset.type;
-        document.getElementById("es-grid-emotion").style.display = state.type === "emotion" ? "grid" : "none";
-        document.getElementById("es-grid-sentiment").style.display = state.type === "sentiment" ? "grid" : "none";
-
-        document.querySelectorAll(".es-chip").forEach(c => c.classList.remove("sel"));
-        state.emotion = "";
-        document.getElementById("es-val-lbl").innerHTML = '<span class="es-placeholder">Clique sur ce que tu ressens…</span>';
-        document.getElementById("hawkins-card").style.display = "none";
-        document.getElementById("cycle-section").style.display = "none";
-        enableBtn("btn-next-s0", false);
-        saveState();
-      });
-    });
-
-    function updateGauge(freq) {
-      const min = 20;
-      const max = 600;
-      const pct = ((freq - min) / (max - min)) * 100;
-      document.getElementById("gauge-thumb").style.left = pct + "%";
-
-      document.getElementById("hawk-freq").textContent = "Fréquence : " + freq;
-      let desc = "";
-      let zoneText = "";
-      let zoneClass = "";
-
-      if (freq <= 120) {
-        desc = state.emotion + " — mode survie actif";
-        zoneText = "Zone de survie";
-        zoneClass = "zone-survie";
-      } else if (freq <= 250) {
-        desc = state.emotion + " — boucle émotionnelle";
-        zoneText = "Zone de boucle";
-        zoneClass = "zone-boucle";
-      } else {
-        desc = state.emotion + " — ouverture possible";
-        zoneText = "Zone d’ouverture";
-        zoneClass = "zone-ouverture";
+    function updateProgress(){
+      document.getElementById("step-label").textContent = stepNames[state.step];
+      for(let i=0;i<5;i++){
+        const dot = document.getElementById("dot"+i);
+        dot.classList.remove("active","done");
+        if(i < state.step) dot.classList.add("done");
+        if(i === state.step) dot.classList.add("active");
       }
-
-      document.getElementById("hawk-desc").textContent = desc;
-      const zone = document.getElementById("hawk-zone");
-      zone.textContent = zoneText;
-      zone.className = "hawkins-zone " + zoneClass;
     }
 
-    document.querySelectorAll(".es-chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".es-chip").forEach(c => c.classList.remove("sel"));
-        chip.classList.add("sel");
-
-        state.emotion = chip.dataset.val;
-        state.freq = parseInt(chip.dataset.freq, 10);
-
-        document.getElementById("es-val-lbl").textContent = state.emotion;
-        document.getElementById("hawkins-card").style.display = "block";
-        document.getElementById("cycle-section").style.display = "block";
-        updateGauge(state.freq);
-        enableBtn("btn-next-s0", true);
-        saveState();
-      });
-    });
-
-    document.getElementById("gauge-track").addEventListener("click", (e) => {
-      if (!state.emotion) return;
-      const rect = e.currentTarget.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      state.freq = Math.round(20 + pct * (600 - 20));
-      updateGauge(state.freq);
-      saveState();
-    });
-
-    document.querySelectorAll(".cycle-card").forEach(card => {
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".cycle-card").forEach(c => c.classList.remove("sel"));
-        card.classList.add("sel");
-        state.cycle = card.dataset.cycle;
-
-        const note = document.getElementById("cycle-note");
-        note.style.display = "block";
-        note.textContent = state.cycle === "1"
-          ? "Tu sens que ce ressenti dépasse ton histoire personnelle. Cela oriente vers une mémoire de lignée."
-          : "Tu sens que ce ressenti s’est surtout construit dans ton vécu direct. Cela oriente vers une mémoire personnelle.";
-
-        saveState();
-      });
-    });
-
-    document.getElementById("btn-next-s0").addEventListener("click", () => showStep(1));
-
-    // STEP 1
-    document.querySelectorAll(".chip").forEach(chip => {
-      chip.addEventListener("click", () => {
-        chip.classList.toggle("sel");
-        state.themes = Array.from(document.querySelectorAll(".chip.sel")).map(c => c.dataset.theme);
-        enableBtn("btn-next-s1", state.themes.length > 0);
-
-        const box = document.getElementById("transition-card");
-        const txt = document.getElementById("transition-txt");
-
-        if (state.themes.length > 0) {
-          box.style.display = "block";
-          txt.textContent = "Ce que tu ressens cherche maintenant un espace clair pour être compris : " + state.themes.join(", ") + ".";
-        } else {
-          box.style.display = "none";
-          txt.textContent = "";
-        }
-
-        saveState();
-      });
-    });
-
-    document.getElementById("ressenti-ta").addEventListener("input", (e) => {
-      state.note = e.target.value;
-      saveState();
-    });
-
-    document.getElementById("back-1").addEventListener("click", () => showStep(0));
-    document.getElementById("btn-next-s1").addEventListener("click", () => showStep(2));
-
-    // STEP 2
-    function populateStep2() {
-      const theme = state.themes[0] || "famille";
-      const data = explanationMap[theme] || explanationMap.famille;
-
-      document.getElementById("s2-title").innerHTML = data.title.replace("programme", "programme <em>") + "</em>";
-      document.getElementById("s2-reflet").textContent = data.reflet;
-      document.getElementById("lv-corps").textContent = data.corps;
-      document.getElementById("lv-adn").textContent = data.adn;
-      document.getElementById("lv-energie").textContent = data.energie;
-    }
-
-    document.getElementById("back-2").addEventListener("click", () => showStep(1));
-    document.getElementById("btn-next-s2").addEventListener("click", () => showStep(3));
-
-    // STEP 3
-    function createCheckItem(label) {
-      const row = document.createElement("div");
-      row.className = "chk";
-      row.innerHTML = `
-        <div class="chk-box"></div>
-        <div class="chk-lbl">${label}</div>
-      `;
-      row.addEventListener("click", () => {
-        row.classList.toggle("on");
-        syncSignals();
-      });
-      return row;
-    }
-
-    function populateStep3() {
-      const corpsWrap = document.getElementById("cg-corps");
-      const emoWrap = document.getElementById("cg-emotions");
-      const vieWrap = document.getElementById("cg-vie");
-
-      if (!corpsWrap.dataset.loaded) {
-        signalPresets.corps.forEach(s => corpsWrap.appendChild(createCheckItem(s)));
-        signalPresets.emotions.forEach(s => emoWrap.appendChild(createCheckItem(s)));
-        signalPresets.vie.forEach(s => vieWrap.appendChild(createCheckItem(s)));
-        corpsWrap.dataset.loaded = "1";
-      }
-
-      syncSignals();
-    }
-
-    function syncSignals() {
-      const selected = Array.from(document.querySelectorAll(".chk.on .chk-lbl")).map(el => el.textContent);
-      state.checkedSignals = selected;
-
-      const schemasSection = document.getElementById("schemas-section");
-      const corrSection = document.getElementById("corr-section");
-      const list = document.getElementById("schemas-list");
-
-      list.innerHTML = "";
-
-      if (selected.length === 0) {
-        schemasSection.style.display = "none";
-        corrSection.style.display = "none";
+    function syncChecks(){
+      state.checks = Array.from(document.querySelectorAll(".check.on span")).map(x=>x.textContent);
+      const card = document.getElementById("map-card");
+      const body = document.getElementById("map-body");
+      body.innerHTML = "";
+      if(!state.checks.length){
+        card.style.display = "none";
+        save();
         return;
       }
-
-      schemasSection.style.display = "block";
-      corrSection.style.display = "block";
-
-      const schemas = buildSchemas(selected);
-      schemas.forEach(item => {
-        const el = document.createElement("div");
-        el.className = "schema-item";
-        el.innerHTML = `
-          <div class="schema-dot"></div>
-          <div>
-            <div class="schema-name">${item.title}</div>
-            <div class="schema-sym">${item.text}</div>
-          </div>
-        `;
-        list.appendChild(el);
-      });
-
-      buildCorrTable(selected);
-      saveState();
+      card.style.display = "block";
+      state.checks.forEach(signal=>addMapRow(signal));
+      save();
     }
 
-    function buildSchemas(selected) {
-      const out = [];
-
-      if (selected.some(s => /gorge|taire|reconnaissance|place|solitude/i.test(s))) {
-        out.push({
-          title: "Schéma de non-expression",
-          text: "Tu pourrais porter une difficulté à dire, demander, prendre ta place ou te sentir entendue."
-        });
-      }
-
-      if (selected.some(s => /fatigue|porter trop|épuisement|sommeil/i.test(s))) {
-        out.push({
-          title: "Schéma de surcharge",
-          text: "Quelque chose en toi semble tenir trop, porter trop, ou rester en alerte depuis longtemps."
-        });
-      }
-
-      if (selected.some(s => /rupture|relations|perdre|abandon|tristesse/i.test(s))) {
-        out.push({
-          title: "Schéma d’insécurité affective",
-          text: "Il peut y avoir une mémoire de perte, d’absence ou de lien instable qui se rejoue."
-        });
-      }
-
-      if (selected.some(s => /argent|blocage financier|manque/i.test(s))) {
-        out.push({
-          title: "Schéma de manque",
-          text: "La sécurité matérielle semble liée à une tension ancienne ou à un programme de rareté."
-        });
-      }
-
-      if (out.length === 0) {
-        out.push({
-          title: "Schéma à explorer",
-          text: "Tes signaux montrent un terrain sensible. Il mérite d’être relié à ton histoire et à ta lignée."
-        });
-      }
-
-      return out;
-    }
-
-    function buildCorrTable(signals) {
-      const tbody = document.getElementById("corr-tbody");
-      tbody.innerHTML = "";
-
-      signals.forEach(signal => {
-        const tr = document.createElement("tr");
-        tr.className = "auto-row";
-        tr.innerHTML = `
-          <td class="corr-signal">${signal}</td>
-          <td>
-            <select class="corr-sel">
-              <option value="lignée" ${state.cycle === "1" ? "selected" : ""}>Lignée</option>
-              <option value="personnelle" ${state.cycle === "2" ? "selected" : ""}>Personnelle</option>
-              <option value="mixte">Mixte</option>
-            </select>
-          </td>
-          <td><input class="corr-inp" type="text" placeholder="Ex : ma mère, mon grand-père"></td>
-          <td><input class="corr-inp" type="text" placeholder="Ex : 32 ans / adolescence"></td>
-          <td><button type="button" class="ev-del-mini">—</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function addManualCorrRow() {
-      const tbody = document.getElementById("corr-tbody");
+    function addMapRow(signal){
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><input class="corr-inp" type="text" placeholder="Signal libre"></td>
+        <td>${signal}</td>
         <td>
-          <select class="corr-sel">
-            <option value="lignée">Lignée</option>
-            <option value="personnelle">Personnelle</option>
-            <option value="mixte">Mixte</option>
+          <select>
+            <option>À explorer</option>
+            <option>Histoire personnelle</option>
+            <option>Mémoire familiale</option>
+            <option>Les deux</option>
           </select>
         </td>
-        <td><input class="corr-inp" type="text" placeholder="Qui dans ma famille ?"></td>
-        <td><input class="corr-inp" type="text" placeholder="Âge / période"></td>
-        <td><button type="button" class="ev-del-mini">✕</button></td>
+        <td><input type="text" placeholder="Ex : mère, père, grand-parent"></td>
+        <td><input type="text" placeholder="Ex : 7 ans, 35 ans, adolescence"></td>
       `;
-      tbody.appendChild(tr);
-
-      tr.querySelector(".ev-del-mini").addEventListener("click", () => tr.remove());
+      document.getElementById("map-body").appendChild(tr);
     }
 
-    document.getElementById("corr-add-btn").addEventListener("click", addManualCorrRow);
-    document.getElementById("back-3").addEventListener("click", () => showStep(2));
-    document.getElementById("btn-next-s3").addEventListener("click", () => showStep(4));
+    function addFreeRow(){
+      addMapRow('<input type="text" placeholder="Trace libre">');
+    }
 
-    // STEP 4
-    function populateStep4() {
-      const box = document.getElementById("recap-box");
-
-      const themesText = state.themes.length ? state.themes.join(", ") : "non précisé";
-      const cycleText = state.cycle === "1"
-        ? "Mémoire héritée / lignée"
-        : state.cycle === "2"
-          ? "Mémoire vécue / personnelle"
-          : "Origine non précisée";
-
-      const schemas = buildSchemas(state.checkedSignals);
+    function buildSummary(){
+      const box = document.getElementById("summary-box");
+      const theme = state.theme || "non précisé";
+      const themeLabel = document.querySelector('.choice.sel .choice-title')?.textContent || "non précisé";
+      const intro = themeTexts[theme] || "Ce que vous vivez peut devenir un point de départ pour mieux comprendre votre histoire.";
+      const checks = state.checks.length ? state.checks.join(", ") : "aucun indice coché pour le moment";
 
       box.innerHTML = `
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Ressenti principal :</strong> ${state.emotion || "non précisé"} · fréquence symbolique ${state.freq}</div>
+        <div class="reveal-line">
+          <div class="reveal-dot"></div>
+          <p><strong>Votre porte d’entrée :</strong> ${themeLabel}</p>
         </div>
-
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Origine ressentie :</strong> ${cycleText}</div>
+        <div class="reveal-line">
+          <div class="reveal-dot"></div>
+          <p><strong>Ressenti principal :</strong> ${state.emotion || "non précisé"} · intensité ${state.level}/10</p>
         </div>
-
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Domaine concerné :</strong> ${themesText}</div>
+        <div class="reveal-line">
+          <div class="reveal-dot"></div>
+          <p><strong>Première lecture :</strong> ${intro}</p>
         </div>
-
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Ce que tu décris :</strong> ${state.note ? state.note : "Aucune précision ajoutée."}</div>
+        <div class="reveal-line">
+          <div class="reveal-dot"></div>
+          <p><strong>Indices repérés :</strong> ${checks}</p>
         </div>
-
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Schémas repérés :</strong> ${schemas.map(s => s.title).join(" · ")}</div>
-        </div>
-
-        <div class="recap-line">
-          <div class="recap-dot"></div>
-          <div class="recap-txt"><strong>Signaux cochés :</strong> ${state.checkedSignals.length ? state.checkedSignals.join(" · ") : "Aucun signal sélectionné."}</div>
+        <div class="reveal-line">
+          <div class="reveal-dot"></div>
+          <p><strong>Prochaine étape :</strong> continuer avec l’arbre familial, écouter le guide audio ou demander un accompagnement si vous souhaitez aller plus loin.</p>
         </div>
       `;
     }
 
-    document.getElementById("back-4").addEventListener("click", () => showStep(3));
+    function restart(){
+      localStorage.removeItem("voyage-laura");
+      state.step=0; state.theme=""; state.note=""; state.emotion=""; state.level=5; state.checks=[];
+      document.querySelectorAll(".sel,.on").forEach(x=>x.classList.remove("sel","on"));
+      document.getElementById("btn-s1").disabled = true;
+      document.getElementById("btn-s2").disabled = true;
+      document.getElementById("intensity").style.display = "none";
+      showStep(0);
+    }
 
-    // INIT
+    function save(){
+      localStorage.setItem("voyage-laura", JSON.stringify(state));
+    }
+
+    document.getElementById("burger").addEventListener("click",()=>{
+      document.getElementById("nav-mobile").classList.toggle("open");
+      document.getElementById("burger").classList.toggle("open");
+    });
+
+    document.querySelectorAll(".choice").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".choice").forEach(x=>x.classList.remove("sel"));
+        btn.classList.add("sel");
+        state.theme = btn.dataset.theme;
+        document.getElementById("btn-s1").disabled = false;
+        save();
+      });
+    });
+
+    document.getElementById("theme-note").addEventListener("input",(e)=>{
+      state.note = e.target.value;
+      save();
+    });
+
+    document.querySelectorAll(".pill").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".pill").forEach(x=>x.classList.remove("sel"));
+        btn.classList.add("sel");
+        state.emotion = btn.dataset.emotion;
+        state.level = parseInt(btn.dataset.level || "5",10);
+        document.getElementById("range").value = Math.max(1, Math.min(10, Math.round(state.level / 10)));
+        document.getElementById("range-val").textContent = document.getElementById("range").value;
+        document.getElementById("intensity").style.display = "block";
+        document.getElementById("btn-s2").disabled = false;
+        save();
+      });
+    });
+
+    document.getElementById("range").addEventListener("input",(e)=>{
+      state.level = e.target.value;
+      document.getElementById("range-val").textContent = e.target.value;
+      save();
+    });
+
     updateProgress();
   </script>
 </body>
