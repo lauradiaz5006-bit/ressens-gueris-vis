@@ -4,800 +4,1639 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Génosociogramme · Laura Charron</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<meta name="description" content="Construisez votre arbre généalogique interactif et découvrez les schémas répétitifs de votre lignée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --c:#FDF5EC;--c2:#F6E8D8;--rose:#E8967F;--rose2:#C96B52;
-  --orange:#F0A05A;--orange2:#D97D2E;--gold:#F5C842;
-  --teal:#5DCAA5;--purple:#9B89D4;--ink:#2A1A10;--ink2:#5C3D2C;
-  --soft:#9A7060;--white:#FFFAF4;
-  --rp:#F0A05A;--rm:#E8967F;--ra:#E8A800;--rn:#5DCAA5;--rg:#C96B52;--re:#9B89D4;--rl:#7BA7D4;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{font-family:'DM Sans',sans-serif;background:var(--c);color:var(--ink);overflow:hidden;cursor:none;}
-a{color:inherit;text-decoration:none;}
-
-.cursor{position:fixed;width:10px;height:10px;background:var(--rose);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
-.cursor-ring{position:fixed;width:34px;height:34px;border:1.5px solid var(--rose);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
-
-/* TOPBAR */
-.topbar{position:fixed;top:0;left:0;right:0;height:56px;z-index:300;background:rgba(253,245,236,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(232,150,127,.15);display:flex;align-items:center;padding:0 1.2rem;gap:1rem;}
-.tb-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--ink);text-decoration:none;flex-shrink:0;font-weight:700;}
-.tb-title{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--soft);flex:1;text-align:center;white-space:nowrap;}
-.tb-nav{display:flex;gap:.45rem;flex-shrink:0;flex-wrap:wrap;}
-.tb-btn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid rgba(232,150,127,.22);border-radius:100px;padding:.32rem .8rem;font-size:.7rem;color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;background:transparent;text-decoration:none;transition:all .18s;}
-.tb-btn:hover{border-color:var(--rose);color:var(--rose2);}
-.tb-btn.primary{background:linear-gradient(135deg,var(--rose2),var(--orange2));border:none;color:white;font-weight:500;}
-
-/* LAYOUT */
-.layout{display:flex;height:100vh;padding-top:56px;}
-.tree-area{flex:1;position:relative;overflow:hidden;background:var(--c);}
-.tree-vp{position:absolute;inset:0;transform-origin:0 0;}
-.lines-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
-.nodes-layer{position:absolute;inset:0;z-index:2;}
-
-.gen-label{position:absolute;left:12px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(154,112,96,.38);font-weight:400;z-index:12;}
-
-.node{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:2;transition:transform .2s ease;}
-.node:hover{transform:translate(-50%,-50%) scale(1.05);}
-.node.selected{transform:translate(-50%,-50%) scale(1.08);}
-.node.dim{opacity:.28;}
-.node-card{background:var(--white);border:2px solid rgba(232,150,127,.22);border-radius:14px;padding:.55rem .75rem;text-align:center;box-shadow:0 3px 16px rgba(42,26,16,.07);transition:all .22s;min-width:84px;position:relative;}
-.node.sm .node-card{min-width:64px;padding:.42rem .55rem;border-radius:10px;}
-.node.md .node-card{min-width:76px;padding:.5rem .65rem;border-radius:12px;}
-.node.lg .node-card{min-width:92px;padding:.66rem .9rem;border-radius:16px;}
-.node.xl .node-card{min-width:106px;padding:.78rem 1rem;border-radius:18px;background:linear-gradient(135deg,#FFF8F2,#FFF2E8);}
-.node.selected .node-card{border-color:var(--rose2);box-shadow:0 8px 28px rgba(201,107,82,.18);}
-.node.has-rep .node-card{border-color:var(--rep-col,var(--rose));}
-
-.node-shape{width:28px;height:28px;margin:0 auto .3rem;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--soft);border:2px solid rgba(232,150,127,.35);background:linear-gradient(135deg,#FAEADC,#F0D5C5);}
-.node.sm .node-shape{width:22px;height:22px;font-size:.58rem;}
-.node.lg .node-shape{width:32px;height:32px;font-size:.82rem;}
-.node.xl .node-shape{width:36px;height:36px;font-size:.92rem;}
-.node-shape.f{border-radius:50%;}
-.node-shape.m{border-radius:4px;background:linear-gradient(135deg,#E4EEF8,#D0E2F0);border-color:rgba(123,167,212,.4);}
-.node-shape.u{transform:rotate(45deg);border-radius:3px;}
-.node-shape.u span{transform:rotate(-45deg);display:inline-block;}
-
-.node-name{font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78px;}
-.node.sm .node-name{font-size:.62rem;max-width:58px;}
-.node.lg .node-name{font-size:.8rem;max-width:88px;}
-.node.xl .node-name{font-size:.9rem;max-width:100px;}
-.node-role{font-size:.56rem;color:var(--soft);margin-top:.12rem;white-space:nowrap;}
-.node.sm .node-role{font-size:.5rem;}
-.node-badges{display:flex;gap:3px;justify-content:center;margin-top:.28rem;flex-wrap:wrap;}
-.nb{width:7px;height:7px;border-radius:50%;}
-.node-evc{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;background:var(--rose2);color:white;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:1.5px solid white;}
-.node-remove{position:absolute;top:-6px;left:-6px;width:16px;height:16px;border-radius:50%;background:rgba(201,107,82,.85);color:white;font-size:.6rem;display:none;align-items:center;justify-content:center;cursor:pointer;border:1.5px solid white;z-index:10;}
-.node.extra:hover .node-remove{display:flex;}
-
-.legend{position:absolute;bottom:1.1rem;left:1rem;background:rgba(253,245,236,.95);backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.15);border-radius:14px;padding:.78rem 1rem;z-index:10;}
-.legend-title{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.55rem;}
-.leg-row{display:flex;align-items:center;gap:.4rem;font-size:.67rem;color:var(--ink2);margin-bottom:.25rem;}
-.leg-dot,.leg-ci,.leg-sq{flex-shrink:0;}
-.leg-dot{width:8px;height:8px;border-radius:50%;}
-.leg-ci{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(154,112,96,.35);}
-.leg-sq{width:10px;height:10px;border-radius:2px;border:1.5px solid rgba(154,112,96,.35);}
-
-.tree-actions{position:absolute;bottom:1.1rem;right:1rem;display:flex;gap:.45rem;z-index:10;flex-wrap:wrap;justify-content:flex-end;}
-.act-btn{display:inline-flex;align-items:center;gap:.38rem;background:rgba(253,245,236,.95);backdrop-filter:blur(8px);border:1px solid rgba(232,150,127,.2);border-radius:100px;padding:.38rem .85rem;font-size:.7rem;color:var(--ink2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;text-decoration:none;}
-.act-btn:hover{border-color:var(--rose);color:var(--rose2);}
-.add-person-btn{position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.45rem;background:linear-gradient(135deg,var(--rose2),var(--orange2));color:white;border:none;border-radius:100px;padding:.52rem 1.2rem;font-size:.75rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;z-index:10;box-shadow:0 6px 20px rgba(201,107,82,.28);transition:transform .2s;}
-.add-person-btn:hover{transform:translateX(-50%) translateY(-2px);}
-
-.side-panel{width:330px;flex-shrink:0;border-left:1px solid rgba(232,150,127,.14);background:var(--white);display:flex;flex-direction:column;overflow:hidden;}
-.sp-tabs{display:flex;border-bottom:1px solid rgba(232,150,127,.12);flex-shrink:0;}
-.sp-tab{flex:1;padding:.62rem .4rem;font-size:.66rem;letter-spacing:.06em;text-align:center;cursor:pointer;color:var(--soft);border-bottom:2px solid transparent;transition:all .18s;user-select:none;}
-.sp-tab.active{color:var(--rose2);border-bottom-color:var(--rose2);font-weight:500;}
-.sp-body{flex:1;overflow-y:auto;}
-.sp-body::-webkit-scrollbar{width:4px;}
-.sp-body::-webkit-scrollbar-thumb{background:rgba(232,150,127,.22);border-radius:2px;}
-.sp-sec{padding:.95rem 1.25rem;border-bottom:1px solid rgba(232,150,127,.09);}
-.sp-sec:last-child{border-bottom:none;}
-.sp-lbl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.5rem;}
-.sp-empty{padding:2rem 1.3rem;text-align:center;color:var(--soft);}
-.sp-empty-icon{font-size:2.2rem;margin-bottom:.6rem;display:block;}
-.sp-empty-h{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);margin-bottom:.35rem;}
-.sp-empty-p{font-size:.76rem;line-height:1.7;font-weight:300;}
-
-.ph{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem;}
-.ph-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;flex-shrink:0;background:linear-gradient(135deg,var(--rose),var(--orange));}
-.ph-av.m{background:linear-gradient(135deg,#7BA7D4,#5B87B4);}
-.ph-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);}
-.ph-role{font-size:.67rem;color:var(--soft);}
-.badges{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.38rem;}
-.badge{display:inline-flex;align-items:center;gap:.22rem;padding:.15rem .48rem;border-radius:100px;font-size:.63rem;font-weight:500;}
-
-.fld{margin-bottom:.42rem;}
-.fld label{display:block;font-size:.59rem;letter-spacing:.1em;color:var(--soft);margin-bottom:.16rem;text-transform:uppercase;}
-.fld input,.fld select,.fld textarea{width:100%;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:7px;padding:.36rem .58rem;font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--ink);outline:none;transition:border-color .18s;}
-.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--rose);background:var(--white);}
-
-.ev-card{background:var(--c);border:1px solid rgba(232,150,127,.14);border-radius:9px;padding:.5rem .65rem;margin-bottom:.32rem;display:grid;grid-template-columns:1fr 42px 58px auto;gap:.25rem;align-items:end;}
-.ev-card .fld{margin-bottom:0;}
-.ev-del{background:none;border:none;color:rgba(154,112,96,.28);cursor:pointer;font-size:.72rem;padding:.15rem;transition:color .15s;margin-bottom:.12rem;}
-.ev-del:hover{color:var(--rose2);}
-
-.tags-wrap{display:flex;flex-wrap:wrap;gap:.2rem;align-items:center;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:7px;padding:.22rem .4rem;min-height:28px;cursor:text;}
-.tags-wrap input{border:none;background:transparent;font-size:.75rem;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;flex:1;min-width:55px;}
-.tag{display:inline-flex;align-items:center;gap:.16rem;background:rgba(232,150,127,.12);border-radius:100px;padding:.08rem .38rem;font-size:.67rem;color:var(--rose2);}
-.tag button{background:none;border:none;cursor:pointer;color:rgba(201,107,82,.38);font-size:.6rem;line-height:1;}
-.tag button:hover{color:var(--rose2);}
-
-.btn-sm{display:inline-flex;align-items:center;gap:.3rem;background:transparent;color:var(--rose2);border:1px solid rgba(201,107,82,.2);padding:.28rem .68rem;border-radius:100px;font-size:.68rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .14s;margin-top:.22rem;}
-.btn-sm:hover{background:rgba(201,107,82,.06);}
-
-.rep-card{background:var(--ink);border-radius:11px;padding:.7rem .85rem;margin-bottom:.42rem;position:relative;overflow:hidden;}
-.rep-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rc,#E8967F);}
-.rep-card-name{font-size:.69rem;font-weight:500;margin-bottom:.12rem;}
-.rep-card-desc{font-size:.68rem;color:rgba(255,255,255,.44);line-height:1.5;}
-
-.schema-chip{display:inline-flex;align-items:center;gap:.28rem;background:var(--c);border:1.5px solid rgba(232,150,127,.14);border-radius:100px;padding:.3rem .65rem;font-size:.68rem;color:var(--ink2);cursor:pointer;transition:all .18s;user-select:none;margin:.16rem;}
-.schema-chip:hover{border-color:var(--orange);}
-.schema-chip.on{font-weight:500;}
-
-.poc-ta{width:100%;min-height:90px;background:var(--c);border:1px solid rgba(232,150,127,.18);border-radius:10px;padding:.8rem .95rem;font-family:'Playfair Display',serif;font-style:italic;font-size:.85rem;color:var(--ink);line-height:1.75;resize:vertical;outline:none;transition:border-color .2s;}
-.poc-ta:focus{border-color:var(--rose);}
-.poc-ta::placeholder{color:rgba(154,112,96,.28);}
-
-.export-box{margin:.95rem 1.25rem;background:linear-gradient(135deg,var(--ink),#3A1808);border-radius:16px;padding:1.2rem;position:relative;overflow:hidden;}
-.export-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(232,150,127,.12),transparent);pointer-events:none;}
-.export-box *{position:relative;z-index:1;}
-.export-box h4{font-family:'Playfair Display',serif;font-size:.94rem;font-weight:700;color:white;margin-bottom:.28rem;}
-.export-box p{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:.8rem;}
-.export-actions{display:flex;gap:.45rem;flex-wrap:wrap;}
-.export-actions button{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.08);color:white;border:1px solid rgba(255,255,255,.14);padding:.55rem .9rem;border-radius:100px;font-size:.74rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;}
-.export-actions button:hover{background:rgba(255,255,255,.14);}
-
-.tip{position:fixed;background:rgba(42,26,16,.88);color:white;font-size:.7rem;padding:.32rem .62rem;border-radius:8px;pointer-events:none;z-index:500;white-space:nowrap;display:none;}
-
-.modal-ov{position:fixed;inset:0;background:rgba(42,26,16,.55);backdrop-filter:blur(6px);z-index:600;display:none;align-items:center;justify-content:center;padding:1.5rem;}
-.modal-ov.open{display:flex;}
-.modal-card{background:var(--white);border-radius:24px;padding:2rem;max-width:540px;width:100%;box-shadow:0 20px 60px rgba(42,26,16,.18);}
-.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--ink);margin-bottom:.4rem;}
-.modal-sub{font-size:.8rem;color:var(--soft);font-weight:300;margin-bottom:1.4rem;line-height:1.65;}
-.add-types{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:1.2rem;}
-.add-type{background:var(--c);border:1.5px solid rgba(232,150,127,.18);border-radius:14px;padding:.85rem 1rem;cursor:pointer;transition:all .2s;text-align:left;}
-.add-type:hover{border-color:var(--rose2);background:linear-gradient(135deg,#FFF5EE,#FFE8D8);}
-.add-type-icon{font-size:1.2rem;margin-bottom:.3rem;}
-.add-type-name{font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.12rem;}
-.add-type-sub{font-size:.7rem;color:var(--soft);font-weight:300;line-height:1.4;}
-.modal-close{background:transparent;border:1.5px solid rgba(232,150,127,.22);color:var(--soft);padding:.45rem 1.1rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.78rem;cursor:pointer;transition:all .18s;}
-.modal-close:hover{border-color:var(--rose);color:var(--rose2);}
-
-@media print{
-  body,html{overflow:visible!important;height:auto!important;background:white!important;cursor:auto;}
-  .cursor,.cursor-ring,.topbar,.side-panel,.legend,.tree-actions,.add-person-btn,.tip,.modal-ov,.gen-label{display:none!important;}
-  .layout{display:block!important;padding-top:0!important;height:auto!important;}
-  .tree-area{overflow:visible!important;height:auto!important;min-height:1100px!important;background:white!important;}
-  .tree-vp{position:relative!important;inset:auto!important;transform:none!important;}
-  .lines-svg{position:absolute!important;inset:0!important;width:100%!important;height:1100px!important;}
-  .node{break-inside:avoid;}
+:root {
+  --cream: #F4EDE4;
+  --cream2: #E9D8C9;
+  --cream3: #FFFAF5;
+  --terra-dark: #A14A3C;
+  --terra: #C65D3B;
+  --terra-light: #D88C6A;
+  --brown: #6B3E2E;
+  --ink: #3A1F12;
+  --ink2: #5C3420;
+  --soft: #9A7060;
+  --white: #FFFCF8;
+  --line: rgba(107,62,46,.13);
+  --red-rep: #C0392B;
+  --orange-rep: #E67E22;
+  --gold-rep: #D4AC0D;
+  --blue-rep: #2980B9;
+  --green-rep: #27AE60;
+  --purple-rep: #8E44AD;
 }
 
-@media(max-width:980px){
-  .side-panel{width:290px;}
-  .legend{display:none;}
-  body{cursor:auto;}
-  .cursor,.cursor-ring{display:none;}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+body { font-family: 'Jost', sans-serif; background: var(--cream3); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font-family: 'Jost', sans-serif; cursor: pointer; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,252,248,.96); backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+  height: 64px; display: flex; align-items: center; padding: 0 40px;
+  gap: 36px;
 }
-@media(max-width:760px){
-  .tb-title{display:none;}
-  .side-panel{width:260px;}
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
+  font-weight: 600; font-style: italic; color: var(--ink); margin-right: auto;
+}
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--soft); font-weight: 500; transition: color .2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--terra); }
+.nav-cta {
+  background: var(--terra); color: white; border: none;
+  padding: .45rem 1.1rem; border-radius: 100px; font-size: .78rem;
+  font-weight: 500; letter-spacing: .04em; cursor: pointer;
+  transition: background .2s;
+}
+.nav-cta:hover { background: var(--terra-dark); }
+
+/* ── PAGE LAYOUT ── */
+.page-wrap {
+  padding-top: 64px;
+  display: flex; flex-direction: column; height: 100vh;
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  background: var(--white); border-bottom: 1px solid var(--line);
+  padding: .55rem 28px; display: flex; align-items: center;
+  gap: 10px; flex-wrap: wrap; flex-shrink: 0;
+}
+.toolbar-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+  font-style: italic; color: var(--ink2); margin-right: auto;
+}
+.tb-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  border: 1px solid var(--line); border-radius: 100px;
+  padding: .32rem .85rem; font-size: .72rem; color: var(--ink2);
+  background: transparent; transition: all .18s; white-space: nowrap;
+}
+.tb-btn:hover { border-color: var(--terra); color: var(--terra); }
+.tb-btn.accent {
+  background: var(--terra); color: white; border-color: var(--terra);
+}
+.tb-btn.accent:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+.tb-sep { width: 1px; height: 22px; background: var(--line); flex-shrink: 0; }
+
+/* ── LEGEND BAR ── */
+.legend-bar {
+  background: var(--cream); border-bottom: 1px solid var(--line);
+  padding: .38rem 28px; display: flex; align-items: center;
+  gap: 20px; flex-shrink: 0; flex-wrap: wrap;
+}
+.legend-bar-title {
+  font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--soft); margin-right: 4px;
+}
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: .68rem; color: var(--ink2); }
+.leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.leg-line { width: 20px; height: 2px; flex-shrink: 0; }
+
+/* ── CANVAS AREA ── */
+.canvas-wrap {
+  flex: 1; overflow: hidden; position: relative;
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 40%, rgba(244,237,228,.6), transparent),
+    var(--cream3);
+  cursor: grab;
+}
+.canvas-wrap.panning { cursor: grabbing; }
+#canvas-svg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+.canvas-inner {
+  position: absolute; top: 0; left: 0;
+  transform-origin: 0 0;
+}
+
+/* ── NODE CARDS ── */
+.gnode {
+  position: absolute; transform: translate(-50%, -50%);
+  cursor: pointer; user-select: none;
+}
+.gnode-card {
+  background: var(--white); border: 1.5px solid var(--line);
+  border-radius: 14px; padding: 10px 13px 9px;
+  min-width: 110px; max-width: 148px;
+  box-shadow: 0 4px 18px rgba(58,31,18,.07);
+  transition: all .22s; position: relative;
+  text-align: center;
+}
+.gnode:hover .gnode-card { box-shadow: 0 8px 28px rgba(58,31,18,.13); transform: translateY(-2px); }
+.gnode.selected .gnode-card { border-color: var(--terra); box-shadow: 0 8px 28px rgba(198,93,59,.22); }
+.gnode.has-rep .gnode-card { border-color: var(--red-rep); }
+.gnode.is-me .gnode-card {
+  background: linear-gradient(135deg, #FFF5EE, #FFE8D8);
+  border-color: var(--terra); border-width: 2px;
+}
+
+.gnode-sex-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 5px; font-size: .75rem;
+  background: linear-gradient(135deg, var(--cream2), var(--cream));
+  border: 1.5px solid var(--line);
+}
+.gnode-sex-icon.male { background: linear-gradient(135deg, #E4EEF8, #D0E2F0); border-color: rgba(100,140,180,.35); border-radius: 4px; }
+.gnode-sex-icon.female { border-radius: 50%; }
+.gnode-sex-icon.unknown { transform: rotate(45deg); border-radius: 3px; }
+.gnode-sex-icon.unknown span { transform: rotate(-45deg); display: inline-block; }
+
+.gnode-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .92rem; font-weight: 700; color: var(--ink);
+  line-height: 1.2; margin-bottom: 2px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gnode-dates { font-size: .62rem; color: var(--soft); margin-bottom: 3px; }
+.gnode-job { font-size: .63rem; color: var(--terra-light); font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gnode-role { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(154,112,96,.55); margin-top: 4px; }
+
+.gnode-badges {
+  display: flex; gap: 3px; justify-content: center;
+  flex-wrap: wrap; margin-top: 5px;
+}
+.gnode-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 2px 6px; border-radius: 100px;
+  font-size: .56rem; font-weight: 600; letter-spacing: .04em;
+}
+
+.gnode-rep-indicator {
+  position: absolute; top: -6px; right: -6px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--red-rep); color: white;
+  font-size: .6rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid white; box-shadow: 0 2px 6px rgba(192,57,43,.35);
+}
+
+/* ── ADD BUTTONS on nodes ── */
+.add-btns { position: absolute; pointer-events: none; }
+.add-btn {
+  position: absolute; width: 22px; height: 22px;
+  background: var(--terra); color: white;
+  border: 2px solid white; border-radius: 50%;
+  font-size: .8rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; pointer-events: all;
+  box-shadow: 0 2px 8px rgba(198,93,59,.35);
+  transition: transform .15s, background .15s;
+  z-index: 10;
+}
+.add-btn:hover { transform: scale(1.2); background: var(--terra-dark); }
+.add-btn[data-dir="top"] { top: -11px; left: 50%; transform: translateX(-50%); }
+.add-btn[data-dir="top"]:hover { transform: translateX(-50%) scale(1.2); }
+.add-btn[data-dir="bottom"] { bottom: -11px; left: 50%; transform: translateX(-50%); }
+.add-btn[data-dir="bottom"]:hover { transform: translateX(-50%) scale(1.2); }
+.add-btn[data-dir="left"] { left: -11px; top: 50%; transform: translateY(-50%); }
+.add-btn[data-dir="left"]:hover { transform: translateY(-50%) scale(1.2); }
+.add-btn[data-dir="right"] { right: -11px; top: 50%; transform: translateY(-50%); }
+.add-btn[data-dir="right"]:hover { transform: translateY(-50%) scale(1.2); }
+
+/* ── ZOOM CONTROLS ── */
+.zoom-controls {
+  position: absolute; bottom: 20px; right: 20px;
+  display: flex; flex-direction: column; gap: 6px; z-index: 50;
+}
+.zoom-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--white); border: 1px solid var(--line);
+  font-size: 1rem; color: var(--ink2);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(58,31,18,.08);
+  transition: all .15s;
+}
+.zoom-btn:hover { border-color: var(--terra); color: var(--terra); }
+
+/* ── REPETITIONS PANEL ── */
+.rep-panel {
+  position: absolute; left: 16px; top: 16px;
+  max-width: 270px; z-index: 50;
+  background: rgba(255,252,248,.96); backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: 16px;
+  overflow: hidden;
+}
+.rep-panel-header {
+  padding: 10px 14px 8px; background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.rep-panel-title {
+  font-family: 'Cormorant Garamond', serif; font-size: .95rem;
+  font-weight: 700; color: var(--ink);
+}
+.rep-panel-count {
+  background: var(--red-rep); color: white; font-size: .62rem;
+  font-weight: 700; padding: 2px 7px; border-radius: 100px;
+}
+.rep-panel-body { padding: 8px; max-height: 260px; overflow-y: auto; }
+.rep-panel-body::-webkit-scrollbar { width: 3px; }
+.rep-panel-body::-webkit-scrollbar-thumb { background: rgba(154,112,96,.25); border-radius: 2px; }
+.rep-item {
+  padding: 7px 9px; border-radius: 10px; margin-bottom: 5px;
+  border-left: 3px solid var(--col, #C0392B);
+  background: rgba(var(--col-rgb, 192,57,43),.06);
+  cursor: pointer; transition: background .15s;
+}
+.rep-item:hover { background: rgba(var(--col-rgb, 192,57,43),.12); }
+.rep-item-type {
+  font-size: .62rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--col, #C0392B); margin-bottom: 3px;
+}
+.rep-item-desc { font-size: .7rem; color: var(--ink2); line-height: 1.5; }
+.rep-none { padding: 12px 10px; font-size: .75rem; color: var(--soft); font-style: italic; text-align: center; }
+
+/* ── MODAL OVERLAY ── */
+.modal-ov {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(58,31,18,.45); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-ov.open { display: flex; }
+.modal-box {
+  background: var(--white); border-radius: 22px;
+  width: 100%; max-width: 520px;
+  max-height: 92vh; overflow-y: auto;
+  box-shadow: 0 24px 70px rgba(58,31,18,.18);
+}
+.modal-box::-webkit-scrollbar { width: 4px; }
+.modal-box::-webkit-scrollbar-thumb { background: rgba(154,112,96,.2); }
+.modal-head {
+  padding: 22px 24px 0; position: sticky; top: 0;
+  background: var(--white); z-index: 2; border-radius: 22px 22px 0 0;
+}
+.modal-head-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); }
+.modal-close-btn {
+  background: none; border: 1px solid var(--line);
+  border-radius: 50%; width: 30px; height: 30px;
+  font-size: .9rem; color: var(--soft); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px; transition: all .15s;
+}
+.modal-close-btn:hover { border-color: var(--terra); color: var(--terra); }
+.modal-body { padding: 0 24px 24px; }
+
+/* ── FORM FIELDS ── */
+.field-group { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field-label {
+  display: block; font-size: .65rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--soft); margin-bottom: 5px;
+}
+.field-input, .field-select, .field-textarea {
+  width: 100%; background: var(--cream3);
+  border: 1px solid rgba(107,62,46,.15); border-radius: 9px;
+  padding: .46rem .7rem; font-family: 'Jost', sans-serif;
+  font-size: .83rem; color: var(--ink); outline: none;
+  transition: border-color .18s, background .18s;
+}
+.field-input:focus, .field-select:focus, .field-textarea:focus {
+  border-color: var(--terra); background: var(--white);
+}
+.field-textarea { resize: vertical; min-height: 72px; line-height: 1.65; }
+.field-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239A7060' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+.sex-toggle { display: flex; gap: 8px; }
+.sex-opt {
+  flex: 1; padding: .4rem; border: 1.5px solid var(--line);
+  border-radius: 8px; text-align: center; font-size: .75rem;
+  color: var(--soft); cursor: pointer; transition: all .15s;
+}
+.sex-opt.on { border-color: var(--terra); color: var(--terra); background: rgba(198,93,59,.07); font-weight: 600; }
+
+.modal-section-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+  font-weight: 600; color: var(--ink2); margin: 18px 0 10px;
+  padding-top: 14px; border-top: 1px solid var(--line);
+}
+
+/* traits / schemas tags */
+.tags-wrap {
+  display: flex; flex-wrap: wrap; gap: 5px; align-items: center;
+  background: var(--cream3); border: 1px solid rgba(107,62,46,.15);
+  border-radius: 9px; padding: 5px 8px; cursor: text; min-height: 36px;
+}
+.tags-wrap input {
+  border: none; background: transparent; outline: none;
+  font-family: 'Jost', sans-serif; font-size: .8rem; color: var(--ink);
+  flex: 1; min-width: 80px;
+}
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(198,93,59,.1); border-radius: 100px;
+  padding: 2px 8px; font-size: .68rem; color: var(--terra-dark);
+}
+.tag-chip button {
+  background: none; border: none; color: rgba(198,93,59,.45);
+  font-size: .65rem; line-height: 1; padding: 0; cursor: pointer;
+}
+.tag-chip button:hover { color: var(--terra); }
+
+.modal-actions {
+  display: flex; gap: 10px; margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.btn-save {
+  flex: 1; background: var(--terra); color: white; border: none;
+  border-radius: 100px; padding: .55rem 1.2rem; font-size: .82rem;
+  font-weight: 500; transition: background .18s;
+}
+.btn-save:hover { background: var(--terra-dark); }
+.btn-delete {
+  background: none; border: 1px solid rgba(192,57,43,.25);
+  color: var(--red-rep); border-radius: 100px;
+  padding: .55rem .9rem; font-size: .78rem; transition: all .15s;
+}
+.btn-delete:hover { background: rgba(192,57,43,.08); border-color: var(--red-rep); }
+.btn-cancel {
+  background: none; border: 1px solid var(--line);
+  color: var(--soft); border-radius: 100px;
+  padding: .55rem .9rem; font-size: .78rem; transition: all .15s;
+}
+.btn-cancel:hover { border-color: var(--soft); color: var(--ink2); }
+
+/* ── ADD RELATION MODAL ── */
+.rel-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.rel-choice {
+  background: var(--cream3); border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 12px 10px; text-align: center;
+  cursor: pointer; transition: all .18s;
+}
+.rel-choice:hover { border-color: var(--terra); background: rgba(198,93,59,.05); }
+.rel-choice-icon { font-size: 1.5rem; display: block; margin-bottom: 4px; }
+.rel-choice-name { font-size: .78rem; font-weight: 600; color: var(--ink); }
+.rel-choice-sub { font-size: .65rem; color: var(--soft); margin-top: 2px; }
+
+/* ── SVG LINES ── */
+.tree-line { fill: none; stroke-linecap: round; }
+.couple-line { stroke: rgba(107,62,46,.28); stroke-width: 2; }
+.parent-line { stroke: rgba(107,62,46,.22); stroke-width: 1.8; }
+.rep-line { stroke-width: 2.5; stroke-dasharray: 6 4; opacity: .75; }
+.rep-line-gisant { stroke: var(--red-rep); }
+.rep-line-prenom { stroke: var(--orange-rep); }
+.rep-line-metier { stroke: var(--blue-rep); }
+.rep-line-schema { stroke: var(--purple-rep); }
+.rep-line-event { stroke: var(--gold-rep); }
+
+/* ── IMPORT MODAL ── */
+.import-drop {
+  border: 2px dashed rgba(107,62,46,.22); border-radius: 14px;
+  padding: 32px 20px; text-align: center; cursor: pointer;
+  transition: border-color .18s, background .18s; margin-top: 12px;
+}
+.import-drop:hover { border-color: var(--terra); background: rgba(198,93,59,.04); }
+.import-drop p { font-size: .82rem; color: var(--soft); margin-top: 6px; }
+.import-drop span { font-size: 2rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+  nav { padding: 0 16px; gap: 16px; }
+  .nav-links { display: none; }
+  .toolbar { padding: .5rem 12px; }
+  .rep-panel { max-width: 200px; }
+}
+
+/* ── PRINT ── */
+@media print {
+  nav, .toolbar, .legend-bar, .zoom-controls, .rep-panel,
+  .add-btns, .modal-ov { display: none !important; }
+  .page-wrap { padding-top: 0; height: auto; }
+  .canvas-wrap { overflow: visible; height: 900px; cursor: default; }
+  body { background: white; }
 }
 </style>
 </head>
 <body>
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="crng"></div>
-<div class="tip" id="tip"></div>
 
-<!-- TOPBAR avec les bons liens -->
-<div class="topbar">
-  <a href="index.html" class="tb-logo">Laura Charron</a>
-  <div class="tb-title">🌳 Génosociogramme · Visualiser les répétitions de la lignée</div>
-  <div class="tb-nav">
-    <a href="transgen.html" class="tb-btn">← Transgénérationnel</a>
-    <a href="parcours.html" class="tb-btn">🧬 Mémoires</a>
-    <button class="tb-btn" onclick="printTree()">🖨 Imprimer</button>
-    <button class="tb-btn" onclick="downloadTreeSVG()">⬇ Télécharger</button>
-    <a href="journal.html" class="tb-btn primary">✍️ Journal →</a>
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Laura Charron</span>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="commencer.html">Commencer</a>
+    <a href="explorer.html">Explorer</a>
+    <a href="comprendre.html">Comprendre</a>
+    <a href="genosociogramme.html" class="active">Arbre</a>
+    <a href="contact.html">Être accompagné</a>
+  </div>
+  <button class="nav-cta" onclick="openExportModal()">Sauvegarder</button>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <span class="toolbar-title">Mon Génosociogramme</span>
+    <button class="tb-btn" onclick="centerView()">⊙ Centrer</button>
+    <button class="tb-btn" onclick="zoomIn()">＋ Zoom</button>
+    <button class="tb-btn" onclick="zoomOut()">－ Zoom</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn" onclick="openExportModal()">⬇ Télécharger</button>
+    <button class="tb-btn" onclick="openImportModal()">⬆ Importer</button>
+    <button class="tb-btn" onclick="window.print()">🖨 Imprimer</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn accent" id="add-root-btn" onclick="addRoot()">＋ Commencer</button>
+  </div>
+
+  <!-- LEGEND BAR -->
+  <div class="legend-bar">
+    <span class="legend-bar-title">Répétitions :</span>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red-rep)"></div> Syndrome du gisant / mort prématurée</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--purple-rep)"></div> Schéma transgénérationnel</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--orange-rep)"></div> Prénom répété</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--blue-rep)"></div> Métier répété</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--gold-rep)"></div> Événement répété</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green-rep)"></div> Âge critique / syndrome anniversaire</div>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="canvas-wrap" id="canvas-wrap">
+    <svg id="lines-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible;"></svg>
+    <div class="canvas-inner" id="canvas-inner" style="z-index:2;position:absolute;top:0;left:0;width:0;height:0;"></div>
+
+    <!-- REPETITIONS PANEL -->
+    <div class="rep-panel" id="rep-panel">
+      <div class="rep-panel-header">
+        <span class="rep-panel-title">Répétitions</span>
+        <span class="rep-panel-count" id="rep-count">0</span>
+      </div>
+      <div class="rep-panel-body" id="rep-list">
+        <div class="rep-none">Ajoutez des personnes pour voir apparaître les répétitions</div>
+      </div>
+    </div>
+
+    <!-- ZOOM CONTROLS -->
+    <div class="zoom-controls">
+      <button class="zoom-btn" onclick="zoomIn()">＋</button>
+      <button class="zoom-btn" onclick="centerView()">⊙</button>
+      <button class="zoom-btn" onclick="zoomOut()">－</button>
+    </div>
   </div>
 </div>
 
-<div class="layout">
-  <div class="tree-area" id="tree-area">
-    <div class="tree-vp" id="tree-vp">
-      <svg class="lines-svg" id="lines-svg"></svg>
-      <div class="nodes-layer" id="nodes-wrap"></div>
+<!-- PERSON MODAL -->
+<div class="modal-ov" id="person-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-head-top">
+        <div class="modal-title" id="pm-title">Nouvelle personne</div>
+        <button class="modal-close-btn" onclick="closePersonModal()">×</button>
+      </div>
     </div>
+    <div class="modal-body">
+      <div class="field-group">
+        <label class="field-label">Sexe</label>
+        <div class="sex-toggle">
+          <div class="sex-opt" id="sex-f" onclick="setSex('f')">♀ Femme</div>
+          <div class="sex-opt" id="sex-m" onclick="setSex('m')">♂ Homme</div>
+          <div class="sex-opt on" id="sex-u" onclick="setSex('u')">◇ Inconnu</div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Prénom</label>
+          <input class="field-input" id="pm-prenom" placeholder="Prénom">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Nom de famille</label>
+          <input class="field-input" id="pm-nom" placeholder="Nom">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Date de naissance</label>
+          <input class="field-input" id="pm-naiss" type="date">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Date de décès</label>
+          <input class="field-input" id="pm-deces" type="date">
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Métier / domaine d'activité</label>
+        <input class="field-input" id="pm-metier" placeholder="Ex : agricultrice, instituteur, commerçant...">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Lieu de vie / origine</label>
+        <input class="field-input" id="pm-lieu" placeholder="Ex : Bretagne, Portugal, Lyon...">
+      </div>
 
-    <div class="gen-label" id="gl-agp">Arrière-grands-parents</div>
-    <div class="gen-label" id="gl-gp">Grands-parents</div>
-    <div class="gen-label" id="gl-par">Parents</div>
-    <div class="gen-label" id="gl-moi">Toi</div>
-    <div class="gen-label" id="gl-child" style="display:none">Descendance</div>
+      <div class="modal-section-title">Traits de caractère &amp; comportements</div>
+      <div class="field-group">
+        <label class="field-label">Traits (appuyer Entrée pour valider)</label>
+        <div class="tags-wrap" id="pm-traits-wrap" onclick="this.querySelector('input').focus()">
+          <input id="pm-traits-input" placeholder="perfectionniste, généreux, anxieux..." onkeydown="addTagFromInput(event,'traits')">
+        </div>
+      </div>
 
-    <div class="legend">
-      <div class="legend-title">Légende</div>
-      <div class="leg-row"><div class="leg-ci"></div>Femme</div>
-      <div class="leg-row"><div class="leg-sq"></div>Homme</div>
-      <div style="height:4px"></div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--rp)"></div>Prénom répété</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--rm)"></div>Même métier</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--ra)"></div>Même âge clé</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--rn)"></div>Syndrome anniversaire</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--rg)"></div>Mort prématurée</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--re)"></div>Même épreuve</div>
-      <div class="leg-row"><div class="leg-dot" style="background:var(--rl)"></div>Même lieu</div>
+      <div class="modal-section-title">Événements marquants</div>
+      <div class="field-group">
+        <label class="field-label">Type d'événement principal</label>
+        <select class="field-select" id="pm-event">
+          <option value="">— Aucun —</option>
+          <option value="deuil">Deuil / perte</option>
+          <option value="deces-precoce">Mort prématurée (avant 50 ans)</option>
+          <option value="maladie">Maladie grave</option>
+          <option value="abandon">Abandon / rejet</option>
+          <option value="trahison">Trahison</option>
+          <option value="secret">Secret de famille</option>
+          <option value="sacrifice">Sacrifice de soi / femme effacée</option>
+          <option value="pauvrete">Pauvreté / manque</option>
+          <option value="guerre">Guerre / exil</option>
+          <option value="abus">Violence / abus</option>
+          <option value="rupture">Rupture douloureuse</option>
+          <option value="succes-soudain">Réussite ou chute soudaine</option>
+          <option value="honte">Honte / humiliation</option>
+          <option value="injustice">Injustice vécue</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">Âge lors de l'événement</label>
+          <input class="field-input" id="pm-event-age" type="number" min="0" max="120" placeholder="Ex : 34">
+        </div>
+        <div class="field-group">
+          <label class="field-label">Année de l'événement</label>
+          <input class="field-input" id="pm-event-year" placeholder="Ex : 1962">
+        </div>
+      </div>
+
+      <div class="modal-section-title">Histoire &amp; non-dits</div>
+      <div class="field-group">
+        <label class="field-label">Ce qu'on sait de cette personne</label>
+        <textarea class="field-textarea" id="pm-notes" placeholder="Ce qu'on dit d'elle, un secret pressenti, une phrase qu'elle répétait..."></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-save" onclick="savePerson()">Enregistrer</button>
+        <button class="btn-cancel" onclick="closePersonModal()">Annuler</button>
+        <button class="btn-delete" id="pm-delete-btn" style="display:none" onclick="deletePerson()">Supprimer</button>
+      </div>
     </div>
-
-    <div class="tree-actions">
-      <button class="act-btn" onclick="printTree()">🖨 Imprimer</button>
-      <button class="act-btn" onclick="downloadTreeSVG()">⬇ SVG</button>
-      <a href="journal.html" class="act-btn">✍️ Journal</a>
-      <a href="index.html" class="act-btn">🏠 Accueil</a>
-    </div>
-
-    <button class="add-person-btn" onclick="openModal()">＋ Ajouter une personne</button>
-  </div>
-
-  <div class="side-panel">
-    <div class="sp-tabs">
-      <div class="sp-tab active" id="st-info" onclick="showTab('info')">Personne</div>
-      <div class="sp-tab" id="st-reps" onclick="showTab('reps')">Répétitions</div>
-      <div class="sp-tab" id="st-poc" onclick="showTab('poc')">Conscience</div>
-      <div class="sp-tab" id="st-export" onclick="showTab('export')">Export</div>
-    </div>
-    <div class="sp-body" id="sp-body"></div>
   </div>
 </div>
 
-<div class="modal-ov" id="modal-ov" onclick="if(event.target===this)closeModal()">
-  <div class="modal-card">
-    <div class="modal-title">Ajouter une personne</div>
-    <div class="modal-sub">Elle sera placée automatiquement dans la bonne génération de l'arbre.</div>
-    <div class="add-types">
-      <div class="add-type" onclick="addPerson('enfant')"><div class="add-type-icon">👶</div><div class="add-type-name">Enfant</div><div class="add-type-sub">Ton fils ou ta fille</div></div>
-      <div class="add-type" onclick="addPerson('conjoint')"><div class="add-type-icon">💑</div><div class="add-type-name">Conjoint(e)</div><div class="add-type-sub">Partenaire de vie</div></div>
-      <div class="add-type" onclick="addPerson('frere')"><div class="add-type-icon">👦</div><div class="add-type-name">Frère</div><div class="add-type-sub">Même génération que toi</div></div>
-      <div class="add-type" onclick="addPerson('soeur')"><div class="add-type-icon">👧</div><div class="add-type-name">Sœur</div><div class="add-type-sub">Même génération que toi</div></div>
-      <div class="add-type" onclick="addPerson('oncle_mat')"><div class="add-type-icon">👨</div><div class="add-type-name">Oncle maternel</div><div class="add-type-sub">Frère de ta mère</div></div>
-      <div class="add-type" onclick="addPerson('tante_mat')"><div class="add-type-icon">👩</div><div class="add-type-name">Tante maternelle</div><div class="add-type-sub">Sœur de ta mère</div></div>
-      <div class="add-type" onclick="addPerson('oncle_pat')"><div class="add-type-icon">👨</div><div class="add-type-name">Oncle paternel</div><div class="add-type-sub">Frère de ton père</div></div>
-      <div class="add-type" onclick="addPerson('tante_pat')"><div class="add-type-icon">👩</div><div class="add-type-name">Tante paternelle</div><div class="add-type-sub">Sœur de ton père</div></div>
-      <div class="add-type" onclick="addPerson('cousin')"><div class="add-type-icon">🧒</div><div class="add-type-name">Cousin(e)</div><div class="add-type-sub">Même génération que toi</div></div>
-      <div class="add-type" onclick="addPerson('autre')"><div class="add-type-icon">👤</div><div class="add-type-name">Autre membre</div><div class="add-type-sub">Lien libre à définir</div></div>
+<!-- ADD RELATION MODAL -->
+<div class="modal-ov" id="rel-modal">
+  <div class="modal-box" style="max-width:400px">
+    <div class="modal-head">
+      <div class="modal-head-top">
+        <div class="modal-title">Ajouter un lien</div>
+        <button class="modal-close-btn" onclick="closeRelModal()">×</button>
+      </div>
     </div>
-    <button class="modal-close" onclick="closeModal()">Annuler</button>
+    <div class="modal-body">
+      <div id="rel-context" style="font-size:.8rem;color:var(--soft);margin-bottom:2px;font-style:italic"></div>
+      <div class="rel-choices" id="rel-choices"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT MODAL -->
+<div class="modal-ov" id="export-modal">
+  <div class="modal-box" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-head-top">
+        <div class="modal-title">Sauvegarder mon arbre</div>
+        <button class="modal-close-btn" onclick="closeExportModal()">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.82rem;color:var(--soft);line-height:1.7;margin-bottom:16px">Votre arbre est sauvegardé automatiquement dans votre navigateur. Téléchargez un fichier pour le garder et le réimporter plus tard (ou sur un autre appareil).</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="btn-save" onclick="downloadJSON()">⬇ Télécharger mon arbre (.json)</button>
+        <button class="btn-save" style="background:var(--brown)" onclick="downloadSVGExport()">⬇ Télécharger en image (.svg)</button>
+        <button class="btn-save" style="background:var(--ink)" onclick="window.print()">🖨 Imprimer</button>
+      </div>
+      <div style="margin-top:14px;padding:10px 12px;background:rgba(198,93,59,.07);border-radius:10px;font-size:.72rem;color:var(--terra-dark);line-height:1.65">
+        ✓ Sauvegarde automatique activée — vos données sont conservées dans ce navigateur.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT MODAL -->
+<div class="modal-ov" id="import-modal">
+  <div class="modal-box" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-head-top">
+        <div class="modal-title">Importer un arbre</div>
+        <button class="modal-close-btn" onclick="closeImportModal()">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.82rem;color:var(--soft);line-height:1.7">Sélectionnez un fichier .json précédemment téléchargé.</p>
+      <div class="import-drop" onclick="document.getElementById('import-file').click()">
+        <span>📂</span>
+        <p>Cliquez pour choisir un fichier .json</p>
+      </div>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)">
+      <button class="btn-cancel" style="margin-top:12px;width:100%;text-align:center" onclick="closeImportModal()">Annuler</button>
+    </div>
   </div>
 </div>
 
 <script>
-const cur=document.getElementById('cur'),crng=document.getElementById('crng');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let people = {};       // id → person object
+let relations = [];    // [{from, to, type}]  type: couple|parent
+let nextId = 1;
+let selectedId = null;
+let editingId = null;
+let currentSex = 'u';
+let currentTraits = [];
+let pendingRelSource = null;   // {fromId, dir, relType}
+let zoom = 1;
+let panX = 0, panY = 0;
+let isPanning = false;
+let panStartX = 0, panStartY = 0;
+let panStartPX = 0, panStartPY = 0;
+let nodePositions = {};  // id → {x,y}
+
+// ═══════════════════════════════════════════════════════
+//  PERSON OBJECT
+// ═══════════════════════════════════════════════════════
+function mkPerson(overrides = {}) {
+  return {
+    id: 'p' + (nextId++),
+    prenom: '', nom: '', sex: 'u',
+    naiss: '', deces: '',
+    metier: '', lieu: '',
+    traits: [],
+    event: '', eventAge: '', eventYear: '',
+    notes: '',
+    role: '',
+    ...overrides
+  };
+}
+
+// ═══════════════════════════════════════════════════════
+//  STORAGE
+// ═══════════════════════════════════════════════════════
+function save() {
+  try {
+    localStorage.setItem('geno-v3', JSON.stringify({ people, relations, nextId, nodePositions }));
+  } catch(e) {}
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem('geno-v3');
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    people = d.people || {};
+    relations = d.relations || [];
+    nextId = d.nextId || 1;
+    nodePositions = d.nodePositions || {};
+    // Re-assign initial positions if missing
+    Object.keys(people).forEach(id => {
+      if (!nodePositions[id]) nodePositions[id] = { x: 0, y: 0 };
+    });
+    return Object.keys(people).length > 0;
+  } catch(e) { return false; }
+}
+
+// ═══════════════════════════════════════════════════════
+//  VIEWPORT / PAN / ZOOM
+// ═══════════════════════════════════════════════════════
+function applyTransform() {
+  const inner = document.getElementById('canvas-inner');
+  const svg = document.getElementById('lines-svg');
+  inner.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
+  // SVG lines need same transform
+  svg.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
+  svg.style.transformOrigin = '0 0';
+}
+
+function zoomIn() { zoom = Math.min(zoom * 1.2, 3); applyTransform(); }
+function zoomOut() { zoom = Math.max(zoom / 1.2, 0.3); applyTransform(); }
+
+function centerView() {
+  const ids = Object.keys(people);
+  if (!ids.length) { panX = 0; panY = 0; zoom = 1; applyTransform(); return; }
+  const wrap = document.getElementById('canvas-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  ids.forEach(id => {
+    const p = nodePositions[id] || { x: 0, y: 0 };
+    minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+  });
+  const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+  panX = W / 2 - cx * zoom;
+  panY = H / 2 - cy * zoom;
+  applyTransform();
+}
+
+// Pan
+const canvasWrap = document.getElementById('canvas-wrap');
+canvasWrap.addEventListener('mousedown', e => {
+  if (e.target.classList.contains('canvas-wrap') || e.target === document.getElementById('lines-svg')) {
+    isPanning = true;
+    panStartX = e.clientX; panStartY = e.clientY;
+    panStartPX = panX; panStartPY = panY;
+    canvasWrap.classList.add('panning');
+  }
 });
-(function loop(){
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-  if(crng){crng.style.left=rx+'px';crng.style.top=ry+'px';}
-  requestAnimationFrame(loop);
-})();
+window.addEventListener('mousemove', e => {
+  if (!isPanning) return;
+  panX = panStartPX + (e.clientX - panStartX);
+  panY = panStartPY + (e.clientY - panStartY);
+  applyTransform();
+});
+window.addEventListener('mouseup', () => { isPanning = false; canvasWrap.classList.remove('panning'); });
 
-const BASE_TID=['moi','mere','pere','gmm','gpm','gmp','gpp','agmm1','agmm2','agpm1','agpm2','agmp1','agmp2','agpp1','agpp2'];
-let TID=[...BASE_TID];
+canvasWrap.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = canvasWrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  const delta = e.deltaY > 0 ? 0.9 : 1.1;
+  const newZoom = Math.min(Math.max(zoom * delta, 0.3), 3);
+  panX = mx - (mx - panX) * (newZoom / zoom);
+  panY = my - (my - panY) * (newZoom / zoom);
+  zoom = newZoom;
+  applyTransform();
+}, { passive: false });
 
-const LBL={moi:'Moi',mere:'Ma mère',pere:'Mon père',gmm:'Grand-mère maternelle',gpm:'Grand-père maternel',gmp:'Grand-mère paternelle',gpp:'Grand-père paternel',agmm1:'Arrière-GM maternelle',agmm2:'Arrière-GP maternel',agpm1:'Arrière-GM maternelle',agpm2:'Arrière-GP maternel',agmp1:'Arrière-GM paternelle',agmp2:'Arrière-GP paternel',agpp1:'Arrière-GM paternelle',agpp2:'Arrière-GP paternel'};
-const SLBL={moi:'Moi',mere:'Mère',pere:'Père',gmm:'GM mat.',gpm:'GP mat.',gmp:'GM pat.',gpp:'GP pat.',agmm1:'AGM',agmm2:'AGP',agpm1:'AGM',agpm2:'AGP',agmp1:'AGM',agmp2:'AGP',agpp1:'AGM',agpp2:'AGP'};
-const SEX0={moi:'u',mere:'f',pere:'m',gmm:'f',gpm:'m',gmp:'f',gpp:'m',agmm1:'f',agmm2:'m',agpm1:'f',agpm2:'m',agmp1:'f',agmp2:'m',agpp1:'f',agpp2:'m'};
-
-const EVL={mariage:'Mariage',divorce:'Divorce / séparation',naissance:"Naissance d'enfant",abandon:'Abandon / rejet',trahison:'Trahison',abus:'Violence / abus',secret:'Secret de famille',deuil:'Deuil / perte','deces-precoce':'Mort prématurée','fausse-couche':'Perte d\'enfant',maladie:'Maladie grave','maladie-grave':'Maladie grave',accident:'Accident grave',handicap:'Handicap',ruine:'Ruine / faillite',pauvrete:'Pauvreté','perte-travail':"Perte d'emploi",succes:'Réussite',exil:'Exil',demenagement:'Déménagement brutal',guerre:'Guerre',honte:'Honte / humiliation',injustice:'Injustice',rupture:'Rupture',autre:'Autre'};
-const RCRAW={prenom:'#F0A05A',metier:'#E8967F',age:'#E8A800',anniv:'#5DCAA5',gisant:'#C96B52',ev:'#9B89D4',lieu:'#7BA7D4',nom:'#D97D2E'};
-
-const EXTRA_TYPES={
-  enfant:{row:'child',labelFn:n=>`Enfant ${n}`,sex:'u'},
-  conjoint:{row:'moi',labelFn:n=>'Conjoint(e)',sex:'u'},
-  frere:{row:'moi',labelFn:n=>`Frère${n>1?' '+n:''}`,sex:'m'},
-  soeur:{row:'moi',labelFn:n=>`Sœur${n>1?' '+n:''}`,sex:'f'},
-  oncle_mat:{row:'par',labelFn:n=>`Oncle mat.${n>1?' '+n:''}`,sex:'m'},
-  tante_mat:{row:'par',labelFn:n=>`Tante mat.${n>1?' '+n:''}`,sex:'f'},
-  oncle_pat:{row:'par',labelFn:n=>`Oncle pat.${n>1?' '+n:''}`,sex:'m'},
-  tante_pat:{row:'par',labelFn:n=>`Tante pat.${n>1?' '+n:''}`,sex:'f'},
-  cousin:{row:'moi',labelFn:n=>`Cousin(e)${n>1?' '+n:''}`,sex:'u'},
-  autre:{row:'moi',labelFn:n=>`Membre ${n}`,sex:'u'}
-};
-
-let people={};
-BASE_TID.forEach(id=>{people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};});
-
-let extras=[],extraCounts={},reps=[],bmap={},hlIds=new Set(),selectedId=null,curTab='info',nodeEls={},nodePos={},currentStruct={};
-
-function normalizeText(s){return(s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
-function allIds(){return[...BASE_TID,...extras.map(e=>e.id)];}
-function gv(id){const e=document.getElementById(id);return e?e.value.trim():'';}
-function mergePerson(id,patch){if(!people[id])people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};people[id]={...people[id],...patch};}
-
-function loadData(){
-  try{
-    const rawFam=localStorage.getItem('rgv-famille');
-    if(rawFam){
-      const d=JSON.parse(rawFam);
-      BASE_TID.forEach(id=>{
-        const pf=d['pf_'+id]||{},evs=d['evf_'+id]||[];
-        mergePerson(id,{prenom:pf.prenom||'',nom:pf.nom||'',naiss:pf.naiss||'',metier:pf.metier||'',lieu:pf.lieu||'',events:evs.map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}))});
-      });
-    }
-  }catch(e){}
-  try{
-    const raw=localStorage.getItem('rgv-v2');
-    if(raw){
-      const d=JSON.parse(raw);
-      BASE_TID.forEach(id=>{
-        const p=d['p_'+id]||{},ev=d['ev_'+id]||[];
-        mergePerson(id,{prenom:p.prenom||people[id].prenom||'',nom:p.nom||people[id].nom||'',age:p.age||people[id].age||'',naiss:p.naiss||people[id].naiss||'',metier:p.metier||people[id].metier||'',lieu:p.lieu||people[id].lieu||'',notes:p.notes||people[id].notes||'',comp:p.comp||people[id].comp||[],bless:p.bless||people[id].bless||[],events:(ev.length?ev:people[id].events||[]).map(x=>({type:x.type||'',age:x.age||'',date:x.date||'',note:x.note||'',intens:x.intens||0}))});
-      });
-      const ex=d.__extras||[];
-      ex.forEach(e=>{
-        extras.push(e);TID.push(e.id);extraCounts[e.type]=(extraCounts[e.type]||0)+1;
-        LBL[e.id]=e.lbl;SLBL[e.id]=e.slbl||e.lbl;SEX0[e.id]=e.sex0||'u';
-        const p=d['p_'+e.id]||{},ev=d['ev_'+e.id]||[];
-        people[e.id]={prenom:p.prenom||'',nom:p.nom||'',age:p.age||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||'',notes:p.notes||'',comp:p.comp||[],bless:p.bless||[],events:ev.map(x=>({type:x.type||'',age:x.age||'',date:x.date||'',note:x.note||'',intens:x.intens||0}))};
-      });
-    }
-  }catch(e){}
+// ═══════════════════════════════════════════════════════
+//  RENDER NODE
+// ═══════════════════════════════════════════════════════
+function displayName(p) {
+  const parts = [p.prenom, p.nom].filter(Boolean);
+  if (!parts.length) return p.role || '(Sans nom)';
+  return parts.join(' ');
 }
 
-function saveData(){
-  try{
-    let d={};try{d=JSON.parse(localStorage.getItem('rgv-v2')||'{}');}catch(e){}
-    allIds().forEach(id=>{
-      const p=people[id]||{};
-      d['p_'+id]={prenom:p.prenom||'',nom:p.nom||'',age:p.age||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||'',notes:p.notes||'',comp:p.comp||[],bless:p.bless||[]};
-      d['ev_'+id]=(p.events||[]).map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}));
+function shortName(p) {
+  const n = displayName(p);
+  return n.length > 16 ? n.slice(0, 15) + '…' : n;
+}
+
+function formatDates(p) {
+  const b = p.naiss ? p.naiss.slice(0, 4) : '';
+  const d = p.deces ? p.deces.slice(0, 4) : '';
+  if (b && d) return `${b} — ${d}`;
+  if (b) return `né${p.sex === 'f' ? 'e' : ''} ${b}`;
+  if (d) return `† ${d}`;
+  return '';
+}
+
+function getRepBadges(id) {
+  const allReps = detectRepetitions();
+  return allReps.filter(r => r.ids.includes(id));
+}
+
+function renderNode(id) {
+  const p = people[id];
+  if (!p) return;
+  const inner = document.getElementById('canvas-inner');
+  let el = document.getElementById('gn-' + id);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'gn-' + id;
+    el.className = 'gnode';
+    inner.appendChild(el);
+  }
+
+  const pos = nodePositions[id] || { x: 0, y: 0 };
+  el.style.left = pos.x + 'px';
+  el.style.top = pos.y + 'px';
+
+  const reps = getRepBadges(id);
+  const isMe = p.role === 'moi';
+  const isSelected = selectedId === id;
+
+  let classes = 'gnode';
+  if (isMe) classes += ' is-me';
+  if (isSelected) classes += ' selected';
+  if (reps.length) classes += ' has-rep';
+  el.className = classes;
+
+  const sexClass = p.sex === 'f' ? 'female' : p.sex === 'm' ? 'male' : 'unknown';
+  const sexEmoji = p.sex === 'f' ? '♀' : p.sex === 'm' ? '♂' : '◇';
+
+  const badgesHTML = reps.slice(0, 3).map(r =>
+    `<span class="gnode-badge" style="background:${r.col}22;color:${r.col}">${r.shortLabel}</span>`
+  ).join('');
+
+  const repIndicator = reps.length ? `<div class="gnode-rep-indicator">${reps.length}</div>` : '';
+
+  // Add buttons (shown when selected or hovered)
+  const canAddParent = !hasParents(id);
+  const canAddCouple = !hasCouple(id);
+  const showAddBtns = isSelected;
+
+  const addBtnsHTML = showAddBtns ? `
+    <div class="add-btns" style="position:absolute;inset:-12px;">
+      ${canAddParent ? `<button class="add-btn" data-dir="top" title="Ajouter un parent" onclick="event.stopPropagation();openRelModal('${id}','parent')">+</button>` : ''}
+      ${canAddCouple ? `<button class="add-btn" data-dir="right" title="Ajouter un(e) conjoint(e)" onclick="event.stopPropagation();openRelModal('${id}','couple')">+</button>` : ''}
+      <button class="add-btn" data-dir="bottom" title="Ajouter un enfant" onclick="event.stopPropagation();openRelModal('${id}','child')">+</button>
+      <button class="add-btn" data-dir="left" title="Ajouter un frère/sœur" onclick="event.stopPropagation();openRelModal('${id}','sibling')">+</button>
+    </div>` : '';
+
+  el.innerHTML = `
+    ${addBtnsHTML}
+    <div class="gnode-card">
+      ${repIndicator}
+      <div class="gnode-sex-icon ${sexClass}"><span>${sexEmoji}</span></div>
+      <div class="gnode-name">${shortName(p)}</div>
+      ${formatDates(p) ? `<div class="gnode-dates">${formatDates(p)}</div>` : ''}
+      ${p.metier ? `<div class="gnode-job">${p.metier}</div>` : ''}
+      <div class="gnode-role">${p.role || ''}</div>
+      ${badgesHTML ? `<div class="gnode-badges">${badgesHTML}</div>` : ''}
+    </div>`;
+
+  el.onclick = (e) => { e.stopPropagation(); selectNode(id); };
+}
+
+function selectNode(id) {
+  selectedId = (selectedId === id) ? null : id;
+  renderAll();
+}
+
+canvasWrap.addEventListener('click', e => {
+  if (e.target === canvasWrap || e.target === document.getElementById('lines-svg')) {
+    selectedId = null;
+    renderAll();
+  }
+});
+
+// ═══════════════════════════════════════════════════════
+//  LAYOUT HELPERS
+// ═══════════════════════════════════════════════════════
+const NODE_W = 148, NODE_H = 90, H_GAP = 40, V_GAP = 90;
+
+function hasParents(id) {
+  return relations.some(r => r.type === 'parent' && r.to === id);
+}
+function hasCouple(id) {
+  return relations.some(r => r.type === 'couple' && (r.from === id || r.to === id));
+}
+function getCouplePartner(id) {
+  const r = relations.find(r => r.type === 'couple' && (r.from === id || r.to === id));
+  if (!r) return null;
+  return r.from === id ? r.to : r.from;
+}
+function getChildren(id) {
+  // direct children
+  const coupleId = getCouplePartner(id);
+  const childRels = relations.filter(r => r.type === 'parent' && (r.from === id || r.from === coupleId));
+  return [...new Set(childRels.map(r => r.to))];
+}
+function getParents(id) {
+  return relations.filter(r => r.type === 'parent' && r.to === id).map(r => r.from);
+}
+
+function autoLayout() {
+  // BFS from root (moi), assign generation rows
+  const moiId = Object.keys(people).find(id => people[id].role === 'moi');
+  if (!moiId) return;
+  const wrap = document.getElementById('canvas-wrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+  const gen = {}; // id → generation (0 = moi, -1 parents, -2 gp...)
+  const queue = [moiId];
+  gen[moiId] = 0;
+  const visited = new Set([moiId]);
+
+  // BFS upward (parents) and downward (children)
+  while (queue.length) {
+    const cur = queue.shift();
+    const g = gen[cur];
+    // parents
+    getParents(cur).forEach(pid => {
+      if (!visited.has(pid)) { visited.add(pid); gen[pid] = g - 1; queue.push(pid); }
+      const partner = getCouplePartner(pid);
+      if (partner && !visited.has(partner)) { visited.add(partner); gen[partner] = g - 1; queue.push(partner); }
     });
-    d.__extras=extras;localStorage.setItem('rgv-v2',JSON.stringify(d));
-    let f={};try{f=JSON.parse(localStorage.getItem('rgv-famille')||'{}');}catch(e){}
-    BASE_TID.forEach(id=>{
-      const p=people[id]||{};
-      f['pf_'+id]={prenom:p.prenom||'',nom:p.nom||'',naiss:p.naiss||'',metier:p.metier||'',lieu:p.lieu||''};
-      f['evf_'+id]=(p.events||[]).map(ev=>({type:ev.type||'',age:ev.age||'',date:ev.date||'',note:ev.note||'',intens:ev.intens||0}));
+    // children
+    getChildren(cur).forEach(cid => {
+      if (!visited.has(cid)) { visited.add(cid); gen[cid] = g + 1; queue.push(cid); }
     });
-    localStorage.setItem('rgv-famille',JSON.stringify(f));
-  }catch(e){}
-}
+    // couple partner same gen
+    const partner = getCouplePartner(cur);
+    if (partner && !visited.has(partner)) { visited.add(partner); gen[partner] = g; queue.push(partner); }
+  }
 
-function openModal(){document.getElementById('modal-ov').classList.add('open');}
-function closeModal(){document.getElementById('modal-ov').classList.remove('open');}
+  // Any unvisited get gen 0
+  Object.keys(people).forEach(id => { if (gen[id] === undefined) gen[id] = 0; });
 
-function addPerson(type){
-  const def=EXTRA_TYPES[type];if(!def)return;
-  extraCounts[type]=(extraCounts[type]||0)+1;const n=extraCounts[type];
-  const id=`${type}_${n}`,lbl=def.labelFn(n);
-  extras.push({id,type,lbl,slbl:lbl,sex0:def.sex});TID.push(id);
-  LBL[id]=lbl;SLBL[id]=lbl;SEX0[id]=def.sex;
-  people[id]={prenom:'',nom:'',age:'',naiss:'',metier:'',lieu:'',notes:'',comp:[],bless:[],events:[]};
-  closeModal();detect();buildTree();saveData();
-  setTimeout(()=>clickNode(id),80);
-}
-
-function removePerson(id){
-  if(!extras.find(e=>e.id===id))return;
-  extras=extras.filter(e=>e.id!==id);TID=TID.filter(x=>x!==id);
-  delete people[id];delete LBL[id];delete SLBL[id];delete SEX0[id];
-  if(selectedId===id)selectedId=null;
-  detect();buildTree();saveData();showTab('info');
-}
-
-const MG={sante:['medecin','infirmier','infirmiere','soignant','pharmacien','sage-femme','kine','therapeute'],education:['enseignant','enseignante','professeur','instituteur','educateur'],commerce:['commercant','vendeur','vendeuse','marchand','boulanger','caissiere'],agri:['agriculteur','agricultrice','fermier','fermiere','paysan','vigneron'],artisan:['artisan','menuisier','charpentier','couturier','tailleur','cordonnier'],militaire:['militaire','soldat','gendarme','policier','pompier']};
-function mGrp(m){const ml=normalizeText(m);for(const[g,ws]of Object.entries(MG)){if(ws.some(w=>ml.includes(w)))return g;}return null;}
-function getAgeFromNaiss(id){const naiss=people[id]?.naiss||'';if(!naiss)return null;if(/^\d{4}-\d{2}-\d{2}$/.test(naiss)){const y=new Date(naiss).getFullYear();return new Date().getFullYear()-y;}return null;}
-
-function detect(){
-  const ppl=allIds().map(id=>({id,lbl:SLBL[id]||LBL[id],...people[id]})).filter(p=>p.prenom||p.nom||p.metier||p.lieu||(p.events||[]).length);
-  reps=[];const seen=new Set();
-  const pm={};ppl.forEach(p=>{if(!p.prenom)return;const k=normalizeText(p.prenom);if(!pm[k])pm[k]=[];pm[k].push(p);});
-  Object.entries(pm).forEach(([pn,g])=>{if(g.length>=2)reps.push({type:'prenom',raw:RCRAW.prenom,name:'Prénom répété',desc:`"${pn}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
-  const nm={};ppl.forEach(p=>{if(!p.nom)return;const k=normalizeText(p.nom);if(!nm[k])nm[k]=[];nm[k].push(p);});
-  Object.entries(nm).forEach(([n,g])=>{if(g.length>=2)reps.push({type:'nom',raw:RCRAW.nom,name:'Nom répété',desc:`"${n}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
-  const mm={};ppl.forEach(p=>{if(!p.metier)return;const g=mGrp(p.metier);if(!g)return;if(!mm[g])mm[g]=[];mm[g].push(p);});
-  Object.entries(mm).forEach(([g,grp])=>{if(grp.length>=2)reps.push({type:'metier',raw:RCRAW.metier,name:'Même domaine',desc:grp.map(p=>`${p.lbl}${p.metier?' ('+p.metier+')':''}`).join(' · '),ids:grp.map(p=>p.id)});});
-  const lm={};ppl.forEach(p=>{if(!p.lieu)return;const k=normalizeText(p.lieu);if(!lm[k])lm[k]=[];lm[k].push(p);});
-  Object.entries(lm).forEach(([l,g])=>{if(g.length>=2)reps.push({type:'lieu',raw:RCRAW.lieu,name:'Même lieu',desc:`"${l}" — ${g.map(p=>p.lbl).join(', ')}`,ids:g.map(p=>p.id)});});
-  const ap=[];ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(ev.age!==null&&ev.age!==''&&!isNaN(+ev.age))ap.push({pid:p.id,lbl:p.lbl,age:+ev.age,evType:ev.type||'événement'});}));
-  const ua=new Set();
-  for(let i=0;i<ap.length;i++){for(let j=i+1;j<ap.length;j++){if(ap[i].pid!==ap[j].pid&&Math.abs(ap[i].age-ap[j].age)<=3){const k=[ap[i].pid,ap[j].pid].sort().join('-')+'-'+Math.round((ap[i].age+ap[j].age)/2);if(ua.has(k))continue;ua.add(k);reps.push({type:'age',raw:RCRAW.age,name:'Même âge critique',desc:`~${Math.round((ap[i].age+ap[j].age)/2)} ans : ${ap[i].lbl} et ${ap[j].lbl}`,ids:[ap[i].pid,ap[j].pid]});}}}
-  const myAge=+(people.moi?.age||getAgeFromNaiss('moi')||0);
-  if(myAge>0){ppl.filter(p=>p.id!=='moi').forEach(p=>(p.events||[]).forEach(ev=>{if(ev.age!==''&&ev.age!==null&&!isNaN(+ev.age)&&Math.abs(+ev.age-myAge)<=2){const k='anniv-'+p.id+'-'+ev.age;if(seen.has(k))return;seen.add(k);reps.push({type:'anniv',raw:RCRAW.anniv,name:'⚡ Syndrome anniversaire',desc:`Tu as ${myAge} ans — ${p.lbl} à ${ev.age} ans : ${EVL[ev.type]||'événement'}`,ids:[p.id,'moi']});}}));}
-  ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(ev.type==='deces-precoce'){const k='gisant-'+p.id;if(seen.has(k))return;seen.add(k);reps.push({type:'gisant',raw:RCRAW.gisant,name:'Mort prématurée',desc:`${p.lbl}${p.prenom?' ('+p.prenom+')':''}`,ids:[p.id]});}}));
-  const em={};ppl.forEach(p=>(p.events||[]).forEach(ev=>{if(!ev.type||ev.type==='autre')return;if(!em[ev.type])em[ev.type]=[];if(!em[ev.type].some(x=>x.pid===p.id))em[ev.type].push({pid:p.id,lbl:p.lbl});}));
-  Object.entries(em).forEach(([ev,g])=>{if(g.length>=2)reps.push({type:'ev',raw:RCRAW.ev,name:'Même épreuve',desc:`"${EVL[ev]||ev}" — ${g.map(p=>p.lbl).join(' · ')}`,ids:g.map(p=>p.pid)});});
-  bmap={};reps.forEach(r=>{r.ids.forEach(id=>{if(!bmap[id])bmap[id]=[];if(!bmap[id].some(x=>x.type===r.type))bmap[id].push({raw:r.raw,type:r.type});});});
-}
-
-const BASE_STRUCT={
-  agmm1:[6.5,8,'sm'],agmm2:[14.5,8,'sm'],agpm1:[31,8,'sm'],agpm2:[38.5,8,'sm'],
-  agmp1:[56,8,'sm'],agmp2:[63.5,8,'sm'],agpp1:[80,8,'sm'],agpp2:[87.5,8,'sm'],
-  gmm:[10.5,30,'md'],gpm:[35,30,'md'],gmp:[60,30,'md'],gpp:[84,30,'md'],
-  mere:[23,56,'lg'],pere:[72,56,'lg'],moi:[47.5,80,'xl']
-};
-const ROW_Y={agp:8,gp:30,par:56,moi:80,child:93};
-
-function computeTreeStruct(){
-  const S={...BASE_STRUCT};
-  const moiRow=['moi',...extras.filter(e=>['frere','soeur','conjoint','cousin','autre'].includes(e.type)).map(e=>e.id)];
-  moiRow.forEach((id,i)=>{const xPct=moiRow.length===1?47.5:8+(i/(moiRow.length-1))*84;S[id]=[xPct,ROW_Y.moi,id==='moi'?'xl':'md'];});
-  const parLeft=extras.filter(e=>['oncle_mat','tante_mat'].includes(e.type)).map(e=>e.id);
-  const parRight=extras.filter(e=>['oncle_pat','tante_pat'].includes(e.type)).map(e=>e.id);
-  parLeft.forEach((id,i)=>{S[id]=[Math.max(4,11-i*9),ROW_Y.par,'md'];});
-  parRight.forEach((id,i)=>{S[id]=[Math.min(96,86+i*8),ROW_Y.par,'md'];});
-  const children=extras.filter(e=>e.type==='enfant').map(e=>e.id);
-  children.forEach((id,i)=>{const xPct=children.length===1?47.5:26+(i/Math.max(children.length-1,1))*48;S[id]=[xPct,ROW_Y.child,'md'];});
-  return S;
-}
-
-const BASE_COUPLES=[
-  {p1:'agmm1',p2:'agmm2',child:'gmm'},{p1:'agpm1',p2:'agpm2',child:'gpm'},
-  {p1:'agmp1',p2:'agmp2',child:'gmp'},{p1:'agpp1',p2:'agpp2',child:'gpp'},
-  {p1:'gmm',p2:'gpm',child:'mere'},{p1:'gmp',p2:'gpp',child:'pere'},
-  {p1:'mere',p2:'pere',child:'moi'}
-];
-
-function guessSex(prenom,def){
-  const f=['marie','anne','sophie','julie','emma','lea','laura','nathalie','isabelle','agnes','rose','helene','jeanne','lucie','claire','margot','pauline','alice','monique','simone','denise','madeleine','colette','martine','francoise','odette','brigitte','chantal','sylvie','catherine','valerie','sandrine','aurelie','caroline','amelie','manon','camille','sarah','ines','elise'];
-  const m=['jean','pierre','paul','louis','michel','andre','charles','philippe','francois','georges','bernard','christian','patrick','alain','thierry','marc','nicolas','eric','sebastien','olivier','antoine','claude','rene','gaston','leon','armand','raymond','edouard','joseph','henri','robert','roger','albert','alfred','emile'];
-  const pl=normalizeText(prenom||'');
-  if(f.some(n=>pl.startsWith(n)))return 'f';
-  if(m.some(n=>pl.startsWith(n)))return 'm';
-  return def||'u';
-}
-
-function buildTree(){
-  currentStruct=computeTreeStruct();
-  const wrap=document.getElementById('nodes-wrap');
-  wrap.innerHTML='';nodeEls={};
-  allIds().forEach(id=>{
-    const s=currentStruct[id];if(!s)return;
-    const p=people[id]||{},[xp,yp,sz]=s,badges=bmap[id]||[];
-    const sex=p.prenom?guessSex(p.prenom,SEX0[id]||'u'):(SEX0[id]||'u');
-    const hasData=!!(p.prenom||p.nom||p.metier||p.lieu||(p.events||[]).length);
-    const label=p.prenom||(SLBL[id]||LBL[id]||id);
-    const shortL=label.length>(sz==='sm'?7:sz==='md'?8:10)?label.slice(0,sz==='sm'?6:sz==='md'?7:9)+'…':label;
-    const evCount=(p.events||[]).length,isHL=hlIds.size===0||hlIds.has(id);
-    const el=document.createElement('div');
-    const extraClass=extras.find(e=>e.id===id)?' extra':'';
-    el.className=`node ${sz}${selectedId===id?' selected':''}${hlIds.size>0&&!isHL?' dim':''}${badges.length?' has-rep':''}${extraClass}`;
-    el.id='node-'+id;el.style.left=xp+'%';el.style.top=yp+'%';
-    if(badges.length)el.style.setProperty('--rep-col',badges[0].raw);
-    const shapeClass=sex==='f'?'f':sex==='m'?'m':'u',shapeInner=sex==='u'?'<span>◆</span>':'';
-    const badgesHTML=badges.map(b=>`<div class="nb" style="background:${b.raw}"></div>`).join('');
-    el.innerHTML=`
-      <div class="node-card">
-        ${extras.find(e=>e.id===id)?`<div class="node-remove" onclick="event.stopPropagation();removePerson('${id}')">×</div>`:''}
-        <div class="node-shape ${shapeClass}">${shapeInner}</div>
-        <div class="node-name" style="${!hasData?'color:rgba(154,112,96,.45)':''}">${shortL}</div>
-        ${sz!=='sm'?`<div class="node-role">${SLBL[id]||''}</div>`:''}
-        ${badges.length?`<div class="node-badges">${badgesHTML}</div>`:''}
-        ${evCount>0?`<div class="node-evc">${evCount}</div>`:''}
-      </div>`;
-    el.onclick=()=>clickNode(id);
-    el.onmouseenter=(e)=>{const tip=document.getElementById('tip');let txt=`${p.prenom||LBL[id]}`;if(p.metier)txt+=` · ${p.metier}`;if((p.events||[]).length)txt+=` · ${(p.events||[]).length} événement(s)`;tip.style.display='block';tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-8)+'px';tip.textContent=txt;};
-    el.onmouseleave=()=>{document.getElementById('tip').style.display='none';};
-    wrap.appendChild(el);nodeEls[id]=el;
+  // Group by generation
+  const byGen = {};
+  Object.keys(people).forEach(id => {
+    const g = gen[id];
+    if (!byGen[g]) byGen[g] = [];
+    byGen[g].push(id);
   });
-  setTimeout(()=>{computeNodePositions();drawLines();updateGenLabels();},20);
-}
 
-function computeNodePositions(){
-  const area=document.getElementById('tree-area'),W=area.clientWidth,H=area.clientHeight;
-  nodePos={};
-  Object.keys(currentStruct).forEach(id=>{const s=currentStruct[id];if(!s)return;nodePos[id]={x:s[0]/100*W,y:s[1]/100*H};});
-}
+  const gens = Object.keys(byGen).map(Number).sort((a, b) => a - b);
+  const totalH = gens.length * (NODE_H + V_GAP);
+  const startY = H / 2 - totalH / 2;
 
-function updateGenLabels(){
-  [{id:'agmm1',el:'gl-agp'},{id:'gmm',el:'gl-gp'},{id:'mere',el:'gl-par'},{id:'moi',el:'gl-moi'}].forEach(r=>{const pos=nodePos[r.id];if(pos)document.getElementById(r.el).style.top=(pos.y-12)+'px';});
-  const childPos=extras.find(e=>e.type==='enfant')?nodePos[extras.find(e=>e.type==='enfant').id]:null;
-  const glChild=document.getElementById('gl-child');
-  if(childPos){glChild.style.display='block';glChild.style.top=(childPos.y-12)+'px';}else{glChild.style.display='none';}
-}
-
-function drawLines(){
-  const svg=document.getElementById('lines-svg'),area=document.getElementById('tree-area'),W=area.clientWidth,H=area.clientHeight;
-  svg.innerHTML='';svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  BASE_COUPLES.forEach(({p1,p2,child})=>{
-    const a=nodePos[p1],b=nodePos[p2],c=nodePos[child];if(!a||!b||!c)return;
-    const isHL=hlIds.size===0||[p1,p2,child].some(id=>hlIds.has(id));
-    const col=isHL?'rgba(201,107,82,.28)':'rgba(201,107,82,.1)',barY=(a.y+b.y)/2,mx=(a.x+b.x)/2;
-    drawLine(svg,a.x,a.y,mx,barY,col,1.4);drawLine(svg,b.x,b.y,mx,barY,col,1.4);
-    drawLine(svg,a.x,barY,b.x,barY,isHL?'rgba(201,107,82,.46)':'rgba(201,107,82,.15)',2);
-    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d',`M ${mx} ${barY} C ${mx} ${barY+(c.y-barY)*.5} ${c.x} ${c.y-(c.y-barY)*.3} ${c.x} ${c.y}`);
-    path.setAttribute('stroke',col);path.setAttribute('stroke-width','1.5');path.setAttribute('fill','none');path.setAttribute('stroke-linecap','round');
-    svg.appendChild(path);
+  gens.forEach((g, gi) => {
+    const row = byGen[g];
+    const totalW = row.length * NODE_W + (row.length - 1) * H_GAP;
+    let startX = W / 2 - totalW / 2;
+    row.forEach((id, i) => {
+      nodePositions[id] = {
+        x: startX + i * (NODE_W + H_GAP) + NODE_W / 2,
+        y: startY + gi * (NODE_H + V_GAP) + NODE_H / 2
+      };
+    });
   });
-  const anchorMap={frere:'moi',soeur:'moi',conjoint:'moi',cousin:'moi',autre:'moi',oncle_mat:'mere',tante_mat:'mere',oncle_pat:'pere',tante_pat:'pere',enfant:'moi'};
-  extras.forEach(e=>{
-    const a=nodePos[e.id],b=nodePos[anchorMap[e.type]];if(!a||!b)return;
-    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-    line.setAttribute('x1',a.x);line.setAttribute('y1',a.y);line.setAttribute('x2',b.x);line.setAttribute('y2',b.y);
-    line.setAttribute('stroke','rgba(201,107,82,.24)');line.setAttribute('stroke-width','1.2');line.setAttribute('stroke-dasharray','5 4');line.setAttribute('stroke-linecap','round');
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER ALL
+// ═══════════════════════════════════════════════════════
+function renderAll() {
+  Object.keys(people).forEach(id => renderNode(id));
+  // Remove stale nodes
+  document.getElementById('canvas-inner').querySelectorAll('.gnode').forEach(el => {
+    const id = el.id.replace('gn-', '');
+    if (!people[id]) el.remove();
+  });
+  drawLines();
+  renderRepPanel();
+  applyTransform();
+}
+
+// ═══════════════════════════════════════════════════════
+//  LINES
+// ═══════════════════════════════════════════════════════
+function drawLines() {
+  const svg = document.getElementById('lines-svg');
+  svg.innerHTML = '';
+
+  const reps = detectRepetitions();
+
+  // Draw couple lines
+  relations.filter(r => r.type === 'couple').forEach(r => {
+    const a = nodePositions[r.from], b = nodePositions[r.to];
+    if (!a || !b) return;
+    const line = mkLine(a.x, a.y, b.x, b.y, 'rgba(107,62,46,.32)', 2);
+    line.style.strokeDasharray = '4 4';
     svg.appendChild(line);
   });
-}
-function drawLine(svg,x1,y1,x2,y2,col,w=1.5){
-  const line=document.createElementNS('http://www.w3.org/2000/svg','line');
-  line.setAttribute('x1',x1);line.setAttribute('y1',y1);line.setAttribute('x2',x2);line.setAttribute('y2',y2);
-  line.setAttribute('stroke',col);line.setAttribute('stroke-width',w);line.setAttribute('stroke-linecap','round');
-  svg.appendChild(line);
-}
 
-function clickNode(id){selectedId=id;buildTree();showTab('info');}
+  // Draw parent lines
+  relations.filter(r => r.type === 'parent').forEach(r => {
+    const a = nodePositions[r.from], b = nodePositions[r.to];
+    if (!a || !b) return;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const midY = (a.y + b.y) / 2;
+    path.setAttribute('d', `M ${a.x} ${a.y} C ${a.x} ${midY} ${b.x} ${midY} ${b.x} ${b.y}`);
+    path.setAttribute('stroke', 'rgba(107,62,46,.25)');
+    path.setAttribute('stroke-width', '1.8');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(path);
+  });
 
-function showTab(t){
-  curTab=t;
-  ['info','reps','poc','export'].forEach(x=>{document.getElementById('st-'+x)?.classList.toggle('active',x===t);});
-  if(t==='info')renderInfoTab();if(t==='reps')renderRepsTab();if(t==='poc')renderPocTab();if(t==='export')renderExportTab();
-}
-
-function renderInfoTab(){
-  const body=document.getElementById('sp-body');
-  if(!selectedId){body.innerHTML=`<div class="sp-empty"><span class="sp-empty-icon">👆</span><div class="sp-empty-h">Clique sur une personne</div><div class="sp-empty-p">Ses informations s'affichent ici pour que tu puisses les compléter.</div></div>`;return;}
-  openPerson(selectedId);
-}
-
-function openPerson(id){
-  const p=people[id]||{},body=document.getElementById('sp-body');
-  const sex=p.prenom?guessSex(p.prenom,SEX0[id]):SEX0[id];
-  const badges=bmap[id]||[];
-  const BNAME={prenom:'Prénom répété',metier:'Même domaine',age:'Âge critique',anniv:'Syndrome anniversaire',gisant:'Mort prématurée',ev:'Épreuve répétée',lieu:'Même lieu',nom:'Nom répété'};
-  body.innerHTML=`
-    <div class="sp-sec">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div class="ph">
-          <div class="ph-av${sex==='m'?' m':''}">${p.prenom?p.prenom[0].toUpperCase():'?'}</div>
-          <div><div class="ph-name" id="ph-name">${p.prenom||LBL[id]}</div><div class="ph-role">${LBL[id]||''}</div></div>
-        </div>
-        <button onclick="selectedId=null;buildTree();renderInfoTab()" style="background:none;border:none;color:var(--soft);cursor:pointer;font-size:1.1rem;padding:.2rem;line-height:1;margin-top:.2rem">×</button>
-      </div>
-      ${badges.length?`<div class="badges">${badges.map(b=>`<span class="badge" style="background:${b.raw}22;color:${b.raw}">${BNAME[b.type]}</span>`).join('')}</div>`:''}
-    </div>
-    <div class="sp-sec">
-      <div class="sp-lbl">Identité</div>
-      <div class="fld"><label>Prénom</label><input type="text" value="${p.prenom||''}" oninput="up('${id}','prenom',this.value)" placeholder="Prénom"></div>
-      <div class="fld"><label>Nom</label><input type="text" value="${p.nom||''}" oninput="up('${id}','nom',this.value)" placeholder="Nom de famille"></div>
-      <div class="fld"><label>Âge / situation</label><input type="text" value="${p.age||''}" oninput="up('${id}','age',this.value)" placeholder="Ex : 72 ans"></div>
-      <div class="fld"><label>Date de naissance</label><input type="date" value="${p.naiss||''}" oninput="up('${id}','naiss',this.value)"></div>
-      <div class="fld"><label>Métier / domaine</label><input type="text" value="${p.metier||''}" oninput="up('${id}','metier',this.value)" placeholder="Ex : infirmière..."></div>
-      <div class="fld"><label>Ville / origine</label><input type="text" value="${p.lieu||''}" oninput="up('${id}','lieu',this.value)" placeholder="Ex : Rennes, Italie..."></div>
-    </div>
-    <div class="sp-sec">
-      <div class="sp-lbl">Événements marquants</div>
-      <p style="font-size:.67rem;color:rgba(154,112,96,.4);margin-bottom:.5rem">L'âge aide à détecter les répétitions</p>
-      <div id="ev-list-${id}"></div>
-      <button class="btn-sm" onclick="addEv('${id}')">+ Événement</button>
-    </div>
-    <div class="sp-sec">
-      <div class="sp-lbl">Comportements récurrents</div>
-      <div class="tags-wrap" id="tc-${id}" onclick="this.querySelector('input').focus()">
-        <input placeholder="perfectionnisme… (Entrée)" onkeydown="addTag(event,'${id}','comp')">
-      </div>
-    </div>
-    <div class="sp-sec">
-      <div class="sp-lbl">Symptômes / maladies</div>
-      <div class="tags-wrap" id="tb-${id}" onclick="this.querySelector('input').focus()">
-        <input placeholder="migraines, dos… (Entrée)" onkeydown="addTag(event,'${id}','bless')">
-      </div>
-    </div>
-    <div class="sp-sec">
-      <div class="sp-lbl">Histoire · Non-dits</div>
-      <div class="fld"><textarea rows="4" placeholder="Ce qu'on dit… Un secret pressenti…" oninput="up('${id}','notes',this.value)">${p.notes||''}</textarea></div>
-    </div>`;
-  renderEvList(id);setTags(id,'comp',p.comp||[]);setTags(id,'bless',p.bless||[]);
-}
-
-function up(id,field,val){mergePerson(id,{[field]:val});schedule();}
-
-let utimer=null;
-function schedule(){
-  clearTimeout(utimer);
-  utimer=setTimeout(()=>{
-    detect();buildTree();saveData();
-    if(curTab==='info'&&selectedId){const el=document.getElementById('ph-name');if(el)el.textContent=people[selectedId]?.prenom||LBL[selectedId];}
-    if(curTab==='reps')renderRepsTab();
-  },220);
-}
-
-function renderEvList(id){
-  const el=document.getElementById('ev-list-'+id);if(!el)return;el.innerHTML='';
-  (people[id]?.events||[]).forEach((ev,i)=>{
-    const d=document.createElement('div');d.className='ev-card';
-    d.innerHTML=`
-      <div class="fld"><label>Événement</label>
-        <select onchange="upEv('${id}',${i},'type',this.value)">
-          <option value="">—</option>
-          <option value="deuil">Deuil / perte</option>
-          <option value="deces-precoce">Mort prématurée</option>
-          <option value="maladie">Maladie grave</option>
-          <option value="rupture">Rupture</option>
-          <option value="abandon">Abandon</option>
-          <option value="trahison">Trahison</option>
-          <option value="pauvrete">Pauvreté</option>
-          <option value="guerre">Guerre</option>
-          <option value="exil">Exil</option>
-          <option value="demenagement">Déménagement</option>
-          <option value="secret">Secret</option>
-          <option value="abus">Violence</option>
-        </select>
-      </div>
-      <div class="fld"><label>Âge</label><input type="number" min="0" max="120" value="${ev?.age||''}" oninput="upEv('${id}',${i},'age',this.value)" placeholder="25"></div>
-      <div class="fld"><label>Année</label><input type="text" value="${ev?.date||''}" oninput="upEv('${id}',${i},'date',this.value)" placeholder="1952"></div>
-      <button class="ev-del" onclick="delEv('${id}',${i})">✕</button>`;
-    el.appendChild(d);if(ev?.type){const sel=d.querySelector('select');if(sel)sel.value=ev.type;}
+  // Draw repetition lines
+  reps.forEach(r => {
+    for (let i = 0; i < r.ids.length - 1; i++) {
+      for (let j = i + 1; j < r.ids.length; j++) {
+        const a = nodePositions[r.ids[i]], b = nodePositions[r.ids[j]];
+        if (!a || !b) continue;
+        const line = mkLine(a.x, a.y, b.x, b.y, r.col, 2.5);
+        line.style.strokeDasharray = '7 5';
+        line.style.opacity = '.65';
+        svg.appendChild(line);
+      }
+    }
   });
 }
-function addEv(id){mergePerson(id,{events:[...(people[id]?.events||[]),{type:'',age:'',date:'',note:'',intens:0}]});renderEvList(id);schedule();}
-function delEv(id,i){const arr=[...(people[id]?.events||[])];arr.splice(i,1);mergePerson(id,{events:arr});renderEvList(id);schedule();}
-function upEv(id,i,field,val){const arr=[...(people[id]?.events||[])];if(!arr[i])return;arr[i][field]=val;mergePerson(id,{events:arr});schedule();}
 
-function setTags(id,type,vals){
-  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);if(!el)return;
-  el.querySelectorAll('.tag').forEach(t=>t.remove());
-  vals.forEach(v=>{const sp=document.createElement('span');sp.className='tag';sp.dataset.val=v;sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;el.insertBefore(sp,el.querySelector('input'));});
-}
-function addTag(e,id,type){
-  if(e.key!=='Enter')return;e.preventDefault();const v=e.target.value.trim();if(!v)return;
-  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);
-  const sp=document.createElement('span');sp.className='tag';sp.dataset.val=v;sp.innerHTML=`${v}<button onclick="this.parentElement.remove();syncTags('${id}','${type}')">×</button>`;
-  el.insertBefore(sp,e.target);e.target.value='';syncTags(id,type);
-}
-function syncTags(id,type){
-  const el=type==='comp'?document.getElementById('tc-'+id):document.getElementById('tb-'+id);if(!el)return;
-  mergePerson(id,{[type]:Array.from(el.querySelectorAll('.tag')).map(t=>t.dataset.val)});schedule();
+function mkLine(x1, y1, x2, y2, stroke, sw) {
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+  line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+  line.setAttribute('stroke', stroke);
+  line.setAttribute('stroke-width', sw);
+  line.setAttribute('stroke-linecap', 'round');
+  return line;
 }
 
-const SCHEMAS=[
-  {id:'abandon',lbl:'Abandon / rejet',evs:['abandon','rupture'],col:'#E8967F'},
-  {id:'deuil',lbl:'Deuils non faits',evs:['deuil','deces-precoce'],col:'#C96B52'},
-  {id:'secret',lbl:'Secrets',evs:['secret'],col:'#7BA7D4'},
-  {id:'violence',lbl:'Violence',evs:['abus','guerre'],col:'#D97D2E'},
-  {id:'exil',lbl:'Déracinement',evs:['exil','demenagement','guerre'],col:'#9B89D4'},
-  {id:'pauvrete',lbl:'Manque',evs:['pauvrete'],col:'#E8A800'},
-  {id:'maladie',lbl:'Maladies',evs:['maladie'],col:'#5DCAA5'},
-  {id:'trahison',lbl:'Trahison',evs:['trahison'],col:'#F0A05A'}
+// ═══════════════════════════════════════════════════════
+//  REPETITION DETECTION
+// ═══════════════════════════════════════════════════════
+const REP_COLORS = {
+  gisant: '#C0392B',
+  schema: '#8E44AD',
+  prenom: '#E67E22',
+  metier: '#2980B9',
+  event: '#D4AC0D',
+  anniversaire: '#27AE60',
+  sacrifice: '#8E44AD'
+};
+
+function norm(s) {
+  return (s || '').toLowerCase().trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function getBirthYear(p) {
+  if (p.naiss && /\d{4}/.test(p.naiss)) return parseInt(p.naiss.slice(0,4));
+  return null;
+}
+
+function getDeathYear(p) {
+  if (p.deces && /\d{4}/.test(p.deces)) return parseInt(p.deces.slice(0,4));
+  return null;
+}
+
+function getAgeAtDeath(p) {
+  const b = getBirthYear(p), d = getDeathYear(p);
+  if (b && d) return d - b;
+  return null;
+}
+
+// Metier grouping
+const METIER_GROUPS = {
+  sante: ['medecin','infirmier','infirmiere','soignant','pharmacien','kine','therapeute','chirurgien','sage-femme','aide-soignant'],
+  education: ['enseignant','professeur','instituteur','educateur','formateur','directeur ecole'],
+  commerce: ['commercant','vendeur','vendeuse','boulanger','boucher','epicier','marchand','caissier'],
+  agriculture: ['agriculteur','agricultrice','fermier','vigneron','paysan','eleveur','maraicher'],
+  artisan: ['artisan','menuisier','charpentier','couturier','tailleur','cordonnier','maçon','plombier'],
+  militaire: ['militaire','soldat','gendarme','policier','pompier','officier'],
+  justice: ['avocat','juge','notaire','juriste','magistrat'],
+  art: ['artiste','peintre','musicien','acteur','ecrivain','chanteur','comedien'],
+  religion: ['pretre','pasteur','religieux','religieuse','cure','moine'],
+  domestique: ['femme au foyer','menagere','domestique','bonne']
+};
+
+function getMetierGroup(metier) {
+  const m = norm(metier);
+  for (const [g, words] of Object.entries(METIER_GROUPS)) {
+    if (words.some(w => m.includes(norm(w)))) return g;
+  }
+  return null;
+}
+
+// Schema patterns — transgenerational
+const SCHEMAS = [
+  {
+    id: 'femme-sacrifiee',
+    label: 'Femme sacrifiée / effacée',
+    col: '#8E44AD',
+    detect: (p) => p.sex === 'f' && (
+      p.event === 'sacrifice' ||
+      norm(p.traits.join(' ')).includes('sacrifice') ||
+      norm(p.notes).includes('sacrifi') ||
+      norm(p.traits.join(' ')).includes('effac') ||
+      (getMetierGroup(p.metier) === 'domestique')
+    )
+  },
+  {
+    id: 'deuil-non-fait',
+    label: 'Deuil non élaboré',
+    col: '#8E44AD',
+    detect: (p) => p.event === 'deuil' && (norm(p.notes).includes('jamais') || norm(p.notes).includes('silence') || norm(p.notes).includes('pleur'))
+  },
+  {
+    id: 'homme-absent',
+    label: 'Père / mari absent',
+    col: '#8E44AD',
+    detect: (p) => p.sex === 'm' && (
+      p.event === 'abandon' ||
+      norm(p.notes).includes('absent') ||
+      norm(p.notes).includes('parti') ||
+      norm(p.notes).includes('disparu')
+    )
+  },
+  {
+    id: 'aine-responsable',
+    label: 'Aîné parentifié',
+    col: '#8E44AD',
+    detect: (p) => norm(p.traits.join(' ')).includes('responsab') || norm(p.notes).includes('ainee') || norm(p.notes).includes('aine')
+  },
+  {
+    id: 'honte-cachee',
+    label: 'Honte / secret caché',
+    col: '#8E44AD',
+    detect: (p) => p.event === 'honte' || p.event === 'secret' || norm(p.notes).includes('secret') || norm(p.notes).includes('honte')
+  },
+  {
+    id: 'violence-repetee',
+    label: 'Violence répétée',
+    col: '#8E44AD',
+    detect: (p) => p.event === 'abus' || norm(p.notes).includes('violen') || norm(p.traits.join(' ')).includes('coler')
+  }
 ];
-let activeSchemas=new Set();
 
-function renderRepsTab(){
-  const body=document.getElementById('sp-body');
-  const uniq=[],seen=new Set();
-  reps.forEach(r=>{const k=r.type+'|'+r.desc;if(seen.has(k))return;seen.add(k);uniq.push(r);});
-  const repsHTML=uniq.length?uniq.map(r=>`<div class="rep-card" style="--rc:${r.raw}"><div class="rep-card-name" style="color:${r.raw}">${r.name}</div><div class="rep-card-desc">${r.desc}</div></div>`).join(''):`<p style="font-size:.78rem;color:var(--soft);font-weight:300;line-height:1.7;margin-bottom:1rem">Continue à remplir l'arbre — les répétitions apparaissent ici automatiquement.</p>`;
-  body.innerHTML=`
-    <div class="sp-sec"><div class="sp-lbl">Répétitions détectées</div>${repsHTML}</div>
-    <div class="sp-sec">
-      <div class="sp-lbl" style="margin-bottom:.6rem">Mettre en surbrillance un schéma</div>
-      <div id="schema-chips">${SCHEMAS.map(s=>`<span class="schema-chip${activeSchemas.has(s.id)?' on':''}" style="${activeSchemas.has(s.id)?`border-color:${s.col};background:${s.col}22;color:${s.col}`:''}" onclick="toggleSchema('${s.id}',this,'${s.col}')"><span style="width:6px;height:6px;border-radius:50%;background:${s.col};display:inline-block;flex-shrink:0"></span>${s.lbl}</span>`).join('')}</div>
-      <div id="schema-info" style="display:${activeSchemas.size?'block':'none'};margin-top:.8rem;padding:.6rem .8rem;background:rgba(232,150,127,.08);border-left:2px solid var(--rose);border-radius:10px;font-size:.75rem;color:var(--ink2);line-height:1.65;font-style:italic">${getSchemaInfo()}</div>
-    </div>`;
+function detectRepetitions() {
+  const plist = Object.values(people);
+  const reps = [];
+  const seen = new Set();
+
+  // 1. Syndrome du gisant (mort prématurée, même âge ou même contexte)
+  const gisList = plist.filter(p => {
+    const age = getAgeAtDeath(p);
+    return (p.event === 'deces-precoce') || (age !== null && age < 50);
+  });
+  if (gisList.length >= 2) {
+    reps.push({
+      type: 'gisant', col: REP_COLORS.gisant,
+      label: 'Syndrome du gisant',
+      shortLabel: '⚰',
+      desc: `Morts prématurées : ${gisList.map(p => displayName(p)).join(', ')}`,
+      ids: gisList.map(p => p.id)
+    });
+  }
+  // Even one gisant with same-age living person
+  const moiP = plist.find(p => p.role === 'moi');
+  if (moiP) {
+    const moiAge = moiP.naiss ? (2026 - parseInt(moiP.naiss.slice(0,4))) : null;
+    if (moiAge) {
+      gisList.forEach(gisant => {
+        const gAge = getAgeAtDeath(gisant);
+        if (gAge && Math.abs(gAge - moiAge) <= 3) {
+          const k = 'anniv-gisant-' + gisant.id;
+          if (!seen.has(k)) {
+            seen.add(k);
+            reps.push({
+              type: 'anniversaire', col: REP_COLORS.anniversaire,
+              label: '⚡ Syndrome anniversaire',
+              shortLabel: '⚡',
+              desc: `Tu as ${moiAge} ans — ${displayName(gisant)} est décédé(e) à ${gAge} ans`,
+              ids: [moiP.id, gisant.id]
+            });
+          }
+        }
+      });
+    }
+  }
+
+  // 2. Schémas transgénérationnels
+  SCHEMAS.forEach(schema => {
+    const matched = plist.filter(p => schema.detect(p));
+    if (matched.length >= 2) {
+      const k = 'schema-' + schema.id;
+      if (!seen.has(k)) {
+        seen.add(k);
+        reps.push({
+          type: 'schema', col: schema.col,
+          label: schema.label,
+          shortLabel: '◈',
+          desc: matched.map(p => `${displayName(p)} (${p.role || 'ancêtre'})`).join(' · '),
+          ids: matched.map(p => p.id)
+        });
+      }
+    }
+  });
+
+  // 3. Prénom répété
+  const prenomMap = {};
+  plist.forEach(p => {
+    if (!p.prenom) return;
+    const k = norm(p.prenom);
+    if (!prenomMap[k]) prenomMap[k] = [];
+    prenomMap[k].push(p);
+  });
+  Object.entries(prenomMap).forEach(([k, group]) => {
+    if (group.length >= 2) {
+      const key = 'prenom-' + k;
+      if (!seen.has(key)) {
+        seen.add(key);
+        reps.push({
+          type: 'prenom', col: REP_COLORS.prenom,
+          label: `Prénom répété : "${group[0].prenom}"`,
+          shortLabel: '✦',
+          desc: group.map(p => `${displayName(p)} (${p.role || ''})`).join(', '),
+          ids: group.map(p => p.id)
+        });
+      }
+    }
+  });
+
+  // 4. Métier / domaine répété
+  const metierMap = {};
+  plist.forEach(p => {
+    if (!p.metier) return;
+    const g = getMetierGroup(p.metier) || norm(p.metier);
+    if (!metierMap[g]) metierMap[g] = [];
+    metierMap[g].push(p);
+  });
+  Object.entries(metierMap).forEach(([g, group]) => {
+    if (group.length >= 2) {
+      const key = 'metier-' + g;
+      if (!seen.has(key)) {
+        seen.add(key);
+        reps.push({
+          type: 'metier', col: REP_COLORS.metier,
+          label: `Même domaine : ${g}`,
+          shortLabel: '⚒',
+          desc: group.map(p => `${displayName(p)} — ${p.metier}`).join(' · '),
+          ids: group.map(p => p.id)
+        });
+      }
+    }
+  });
+
+  // 5. Événements répétés
+  const eventMap = {};
+  plist.forEach(p => {
+    if (!p.event) return;
+    if (!eventMap[p.event]) eventMap[p.event] = [];
+    eventMap[p.event].push(p);
+  });
+  Object.entries(eventMap).forEach(([ev, group]) => {
+    if (group.length >= 2) {
+      const key = 'event-' + ev;
+      if (!seen.has(key)) {
+        seen.add(key);
+        const evLabels = {
+          'deuil': 'Deuil répété', 'abandon': 'Abandon répété',
+          'trahison': 'Trahison répétée', 'pauvrete': 'Pauvreté répétée',
+          'guerre': 'Guerre / exil répété', 'abus': 'Violence répétée',
+          'maladie': 'Maladie grave répétée', 'sacrifice': 'Sacrifice de soi répété',
+          'honte': 'Honte / humiliation répétée', 'secret': 'Secret de famille répété',
+          'rupture': 'Rupture répétée', 'injustice': 'Injustice répétée'
+        };
+        reps.push({
+          type: 'event', col: REP_COLORS.event,
+          label: evLabels[ev] || `Événement répété : ${ev}`,
+          shortLabel: '●',
+          desc: group.map(p => displayName(p)).join(', '),
+          ids: group.map(p => p.id)
+        });
+      }
+    }
+  });
+
+  // 6. Syndrome anniversaire (même âge événement)
+  if (moiP && moiP.naiss) {
+    const moiAge = 2026 - parseInt(moiP.naiss.slice(0,4));
+    plist.filter(p => p.id !== moiP.id && p.eventAge).forEach(p => {
+      const ea = parseInt(p.eventAge);
+      if (!isNaN(ea) && Math.abs(ea - moiAge) <= 2) {
+        const k = 'anniv-ev-' + p.id;
+        if (!seen.has(k)) {
+          seen.add(k);
+          reps.push({
+            type: 'anniversaire', col: REP_COLORS.anniversaire,
+            label: '⚡ Syndrome anniversaire',
+            shortLabel: '⚡',
+            desc: `Tu as ${moiAge} ans — ${displayName(p)} a vécu ${p.event || 'un événement'} à ${ea} ans`,
+            ids: [moiP.id, p.id]
+          });
+        }
+      }
+    });
+  }
+
+  return reps;
 }
 
-function toggleSchema(id,el,col){
-  if(activeSchemas.has(id)){activeSchemas.delete(id);el.classList.remove('on');el.style.cssText='';}
-  else{activeSchemas.add(id);el.classList.add('on');el.style.cssText=`border-color:${col};background:${col}22;color:${col}`;}
-  updateHL();
-}
-
-function getSchemaInfo(){
-  if(!activeSchemas.size)return '';
-  const matches=[];
-  allIds().forEach(id=>{const p=people[id]||{};activeSchemas.forEach(sid=>{const s=SCHEMAS.find(x=>x.id===sid);if(!s)return;(p.events||[]).forEach(ev=>{if(s.evs.includes(ev.type)){const n=p.prenom||SLBL[id]||LBL[id];if(!matches.includes(n))matches.push(n);}});});});
-  return matches.length?`Ce schéma apparaît chez : ${matches.join(', ')}.`:`Aucune correspondance trouvée pour l'instant.`;
-}
-
-function updateHL(){
-  hlIds.clear();
-  if(activeSchemas.size){allIds().forEach(id=>{const p=people[id]||{};activeSchemas.forEach(sid=>{const s=SCHEMAS.find(x=>x.id===sid);if(!s)return;(p.events||[]).forEach(ev=>{if(s.evs.includes(ev.type))hlIds.add(id);});});});}
-  buildTree();if(curTab==='reps')renderRepsTab();
-}
-
-function renderPocTab(){
-  const body=document.getElementById('sp-body');
-  body.innerHTML=`
-    <div class="sp-sec" style="border-bottom:none">
-      <div class="sp-lbl">Ma prise de conscience</div>
-      <p style="font-size:.75rem;color:var(--soft);line-height:1.65;font-weight:300;margin-bottom:.8rem">Ce que je vois en regardant cet arbre...</p>
-      <textarea class="poc-ta" id="poc-ta" placeholder="Je vois que...&#10;Ce qui me frappe c'est...&#10;Je porte peut-être..." oninput="savePoc()"></textarea>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.55rem">
-        <span style="font-size:.65rem;color:rgba(154,112,96,.35)">Sauvegardé automatiquement</span>
-        <button class="btn-sm" onclick="exportPoc()">⬇ Exporter le texte</button>
-      </div>
-    </div>`;
-  try{document.getElementById('poc-ta').value=localStorage.getItem('rgv-poc')||'';}catch(e){}
-}
-function savePoc(){try{localStorage.setItem('rgv-poc',document.getElementById('poc-ta')?.value||'');}catch(e){}}
-function exportPoc(){const txt=document.getElementById('poc-ta')?.value||'';if(!txt)return;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain;charset=utf-8'}));a.download='prise-de-conscience.txt';a.click();}
-
-function renderExportTab(){
-  const body=document.getElementById('sp-body');
-  body.innerHTML=`
-    <div class="sp-sec"><div class="sp-lbl">Exporter mon génosociogramme</div><p style="font-size:.76rem;color:var(--soft);line-height:1.7;font-weight:300">Ton arbre actuel avec toutes les informations saisies.</p></div>
-    <div class="export-box">
-      <h4>Mon arbre personnel</h4>
-      <p>Imprime-le directement ou télécharge-le en SVG.</p>
-      <div class="export-actions">
-        <button onclick="printTree()">🖨 Imprimer</button>
-        <button onclick="downloadTreeSVG()">⬇ Télécharger l'arbre</button>
-      </div>
+function renderRepPanel() {
+  const reps = detectRepetitions();
+  const countEl = document.getElementById('rep-count');
+  const listEl = document.getElementById('rep-list');
+  countEl.textContent = reps.length;
+  if (!reps.length) {
+    listEl.innerHTML = '<div class="rep-none">Continuez à remplir l\'arbre — les répétitions apparaissent ici automatiquement.</div>';
+    return;
+  }
+  listEl.innerHTML = reps.map(r => `
+    <div class="rep-item" style="--col:${r.col}; --col-rgb:${hexToRgb(r.col)}" onclick="highlightRep(${JSON.stringify(r.ids)})">
+      <div class="rep-item-type">${r.label}</div>
+      <div class="rep-item-desc">${r.desc}</div>
     </div>
-    <div class="sp-sec" style="border-bottom:none">
-      <div class="sp-lbl">Navigation</div>
-      <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.4rem">
-        <a href="index.html" class="act-btn" style="justify-content:center">🏠 Accueil</a>
-        <a href="parcours.html" class="act-btn" style="justify-content:center">🧬 Mémoires</a>
-        <a href="transgen.html" class="act-btn" style="justify-content:center">🔁 Transgénérationnel</a>
-        <a href="journal.html" class="act-btn" style="justify-content:center">✍️ Journal</a>
-        <a href="contact.html" class="act-btn" style="justify-content:center">✉️ Contact</a>
-      </div>
-    </div>`;
+  `).join('');
 }
 
-function printTree(){window.print();}
-
-function getLogicalPos(id,w,h){const s=currentStruct[id];if(!s)return null;return{x:s[0]/100*w,y:s[1]/100*h,size:s[2]};}
-
-function svgNodeShape(x,y,sex,size){
-  const base=size==='sm'?10:size==='md'?12:size==='lg'?14:16;
-  if(sex==='f')return`<circle cx="${x}" cy="${y}" r="${base}" fill="#FAEADC" stroke="rgba(232,150,127,.6)" stroke-width="2"/>`;
-  if(sex==='m')return`<rect x="${x-base}" y="${y-base}" width="${base*2}" height="${base*2}" rx="4" fill="#E4EEF8" stroke="rgba(123,167,212,.65)" stroke-width="2"/>`;
-  const pts=`${x},${y-base} ${x+base},${y} ${x},${y+base} ${x-base},${y}`;
-  return`<polygon points="${pts}" fill="#F6E8D8" stroke="rgba(154,112,96,.55)" stroke-width="2"/>`;
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
 }
 
-function svgNodeBox(x,y,size,hasRep,repColor,selected){
-  const dims=size==='sm'?[74,42,10]:size==='md'?[90,50,12]:size==='lg'?[110,62,16]:[124,72,18];
-  const[w,h,r]=dims,fill=size==='xl'?'#FFF5EE':'#FFFAF4',stroke=hasRep?(repColor||'#E8967F'):(selected?'#C96B52':'rgba(232,150,127,.35)');
-  return{w,h,r,svg:`<rect x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${selected?3:2}"/>`};
-}
-
-function buildExportSVG(){
-  const W=1600,H=1100;let svgParts=[];
-  svgParts.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`);
-  svgParts.push(`<rect width="100%" height="100%" fill="#FDF5EC"/>`);
-  const labelStyle=`font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; fill: rgba(154,112,96,.65);`;
-  [['Arrière-grands-parents',8],['Grands-parents',30],['Parents',56],['Toi',80]].forEach(([txt,y])=>{svgParts.push(`<text x="20" y="${H*y/100-18}" style="${labelStyle}">${txt}</text>`);});
-  if(extras.some(e=>e.type==='enfant'))svgParts.push(`<text x="20" y="${H*93/100-18}" style="${labelStyle}">Descendance</text>`);
-  BASE_COUPLES.forEach(({p1,p2,child})=>{
-    const a=getLogicalPos(p1,W,H),b=getLogicalPos(p2,W,H),c=getLogicalPos(child,W,H);if(!a||!b||!c)return;
-    const col='rgba(201,107,82,.35)',barY=(a.y+b.y)/2,mx=(a.x+b.x)/2;
-    svgParts.push(`<line x1="${a.x}" y1="${a.y}" x2="${mx}" y2="${barY}" stroke="${col}" stroke-width="2"/>`);
-    svgParts.push(`<line x1="${b.x}" y1="${b.y}" x2="${mx}" y2="${barY}" stroke="${col}" stroke-width="2"/>`);
-    svgParts.push(`<line x1="${a.x}" y1="${barY}" x2="${b.x}" y2="${barY}" stroke="rgba(201,107,82,.52)" stroke-width="2.5"/>`);
-    svgParts.push(`<path d="M ${mx} ${barY} C ${mx} ${barY+(c.y-barY)*.5} ${c.x} ${c.y-(c.y-barY)*.3} ${c.x} ${c.y}" fill="none" stroke="${col}" stroke-width="2"/>`);
+function highlightRep(ids) {
+  // Flash highlight the nodes
+  ids.forEach(id => {
+    const el = document.getElementById('gn-' + id);
+    if (el) {
+      el.style.transition = 'transform .2s';
+      el.style.transform = 'translate(-50%,-50%) scale(1.1)';
+      setTimeout(() => { el.style.transform = 'translate(-50%,-50%)'; }, 700);
+    }
   });
-  const anchorMap={frere:'moi',soeur:'moi',conjoint:'moi',cousin:'moi',autre:'moi',oncle_mat:'mere',tante_mat:'mere',oncle_pat:'pere',tante_pat:'pere',enfant:'moi'};
-  extras.forEach(e=>{const a=getLogicalPos(e.id,W,H),b=getLogicalPos(anchorMap[e.type],W,H);if(!a||!b)return;svgParts.push(`<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="rgba(201,107,82,.28)" stroke-width="1.8" stroke-dasharray="6 5"/>`);});
-  allIds().forEach(id=>{
-    const pos=getLogicalPos(id,W,H);if(!pos)return;
-    const p=people[id]||{},sex=p.prenom?guessSex(p.prenom,SEX0[id]||'u'):(SEX0[id]||'u'),badges=bmap[id]||[];
-    const label=(p.prenom||SLBL[id]||LBL[id]||id),short=label.length>(pos.size==='sm'?9:12)?label.slice(0,pos.size==='sm'?8:11)+'…':label;
-    const box=svgNodeBox(pos.x,pos.y,pos.size,badges.length,badges[0]?.raw,selectedId===id);
-    svgParts.push(box.svg);svgParts.push(svgNodeShape(pos.x,pos.y-(box.h/2)+18,sex,pos.size));
-    svgParts.push(`<text x="${pos.x}" y="${pos.y+8}" text-anchor="middle" style="font-family:'Playfair Display',serif;font-size:${pos.size==='sm'?13:pos.size==='md'?14:pos.size==='lg'?15:17}px;font-weight:700;fill:#2A1A10">${escapeXML(short)}</text>`);
-    if(pos.size!=='sm')svgParts.push(`<text x="${pos.x}" y="${pos.y+22}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;fill:#9A7060">${escapeXML(SLBL[id]||'')}</text>`);
-    if((p.events||[]).length){svgParts.push(`<circle cx="${pos.x+box.w/2-4}" cy="${pos.y-box.h/2+4}" r="10" fill="#C96B52" stroke="#ffffff" stroke-width="2"/>`);svgParts.push(`<text x="${pos.x+box.w/2-4}" y="${pos.y-box.h/2+8}" text-anchor="middle" style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;fill:white">${(p.events||[]).length}</text>`);}
-    if(badges.length)badges.forEach((b,idx)=>{svgParts.push(`<circle cx="${pos.x-(badges.length-1)*6+idx*12}" cy="${pos.y+box.h/2-8}" r="4.5" fill="${b.raw}"/>`);});
-  });
-  svgParts.push(`</svg>`);return svgParts.join('');
 }
-function escapeXML(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function downloadTreeSVG(){const svg=buildExportSVG();const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='genosociogramme-laura-charron.svg';a.click();URL.revokeObjectURL(url);}
 
-document.addEventListener('scroll',()=>{document.getElementById('tip').style.display='none';},{passive:true});
-window.addEventListener('resize',()=>{setTimeout(()=>{computeNodePositions();drawLines();updateGenLabels();},120);});
+// ═══════════════════════════════════════════════════════
+//  ADD ROOT / RELATIONS
+// ═══════════════════════════════════════════════════════
+function addRoot() {
+  if (Object.keys(people).length > 0) { alert('Un arbre existe déjà. Cliquez sur une personne pour en ajouter d\'autres.'); return; }
+  const p = mkPerson({ role: 'moi', prenom: '' });
+  people[p.id] = p;
+  const wrap = document.getElementById('canvas-wrap');
+  nodePositions[p.id] = { x: wrap.clientWidth / 2, y: wrap.clientHeight / 2 };
+  document.getElementById('add-root-btn').style.display = 'none';
+  save();
+  openPersonModal(p.id, true);
+  renderAll();
+}
 
-loadData();detect();buildTree();showTab('info');
-</script>
-</body>
-</html>
+function openRelModal(fromId, relType) {
+  pendingRelSource = { fromId, relType };
+  const p = people[fromId];
+  const name = displayName(p);
+  document.getElementById('rel-context').textContent = `Pour : ${name}`;
+
+  const choices = getRelChoices(relType, p);
+  document.getElementById('rel-choices').innerHTML = choices.map(c =>
+    `<div class="rel-choice" onclick="createRelation('${c.type}','${c.sex||'u'}','${c.role||''}')">
+      <span class="rel-choice-icon">${c.icon}</span>
+      <div class="rel-choice-name">${c.name}</div>
+      <div class="rel-choice-sub">${c.sub}</div>
+    </div>`
+  ).join('');
+
+  document.getElementById('rel-modal').classList.add('open');
+}
+
+function getRelChoices(relType, fromPerson) {
+  if (relType === 'parent') return [
+    { type: 'parent-f', sex: 'f', role: 'mère', icon: '👩', name: 'Mère', sub: 'Côté maternel' },
+    { type: 'parent-m', sex: 'm', role: 'père', icon: '👨', name: 'Père', sub: 'Côté paternel' },
+    { type: 'parent-u', sex: 'u', role: 'parent', icon: '👤', name: 'Parent inconnu', sub: 'Lien non précisé' }
+  ];
+  if (relType === 'couple') return [
+    { type: 'couple-f', sex: 'f', role: 'conjointe', icon: '👩', name: 'Femme / conjointe', sub: 'Partenaire de vie' },
+    { type: 'couple-m', sex: 'm', role: 'conjoint', icon: '👨', name: 'Mari / conjoint', sub: 'Partenaire de vie' }
+  ];
+  if (relType === 'child') return [
+    { type: 'child-f', sex: 'f', role: 'fille', icon: '👧', name: 'Fille', sub: 'Descendante directe' },
+    { type: 'child-m', sex: 'm', role: 'fils', icon: '👦', name: 'Fils', sub: 'Descendant direct' },
+    { type: 'child-u', sex: 'u', role: 'enfant', icon: '🧒', name: 'Enfant', sub: 'Sexe non précisé' }
+  ];
+  if (relType === 'sibling') return [
+    { type: 'sibling-f', sex: 'f', role: 'sœur', icon: '👧', name: 'Sœur', sub: 'Même génération' },
+    { type: 'sibling-m', sex: 'm', role: 'frère', icon: '👦', name: 'Frère', sub: 'Même génération' }
+  ];
+  return [];
+}
+
+function closeRelModal() {
+  document.getElementById('rel-modal').classList.remove('open');
+  pendingRelSource = null;
+}
+
+function createRelation(choiceType, sex, role) {
+  if (!pendingRelSource) return;
+  const { fromId, relType } = pendingRelSource;
+  const fromPos = nodePositions[fromId] || { x: 400, y: 400 };
+
+  const newP = mkPerson({ sex, role });
+  people[newP.id] = newP;
+
+  // Position new node
+  const offsets = {
+    parent: { x: (Math.random() > .5 ? -1 : 1) * (NODE_W + H_GAP), y: -(NODE_H + V_GAP) },
+    couple: { x: NODE_W + H_GAP + 20, y: 0 },
+    child: { x: 0, y: NODE_H + V_GAP },
+    sibling: { x: -(NODE_W + H_GAP + 20), y: 0 }
+  };
+  const off = offsets[relType] || { x: 160, y: 0 };
+  nodePositions[newP.id] = { x: fromPos.x + off.x, y: fromPos.y + off.y };
+
+  // Create relation
+  if (relType === 'parent') {
+    relations.push({ from: newP.id, to: fromId, type: 'parent' });
+  } else if (relType === 'couple') {
+    relations.push({ from: fromId, to: newP.id, type: 'couple' });
+  } else if (relType === 'child') {
+    relations.push({ from: fromId, to: newP.id, type: 'parent' });
+  } else if (relType === 'sibling') {
+    // siblings share parents
+    const parents = getParents(fromId);
+    parents.forEach(pid => relations.push({ from: pid, to: newP.id, type: 'parent' }));
+    if (!parents.length) {
+      // same position y, offset x
+      nodePositions[newP.id] = { x: fromPos.x - (NODE_W + H_GAP + 20), y: fromPos.y };
+    }
+  }
+
+  closeRelModal();
+  save();
+  renderAll();
+  selectedId = newP.id;
+  renderAll();
+  setTimeout(() => openPersonModal(newP.id, true), 80);
+}
+
+// ═══════════════════════════════════════════════════════
+//  PERSON MODAL
+// ═══════════════════════════════════════════════════════
+function openPersonModal(id, isNew = false) {
+  editingId = id;
+  const p = people[id];
+  document.getElementById('pm-title').textContent = isNew
+    ? `Nouvelle personne — ${p.role || ''}`
+    : `Modifier — ${displayName(p)}`;
+
+  setSex(p.sex || 'u');
+  document.getElementById('pm-prenom').value = p.prenom || '';
+  document.getElementById('pm-nom').value = p.nom || '';
+  document.getElementById('pm-naiss').value = p.naiss || '';
+  document.getElementById('pm-deces').value = p.deces || '';
+  document.getElementById('pm-metier').value = p.metier || '';
+  document.getElementById('pm-lieu').value = p.lieu || '';
+  document.getElementById('pm-event').value = p.event || '';
+  document.getElementById('pm-event-age').value = p.eventAge || '';
+  document.getElementById('pm-event-year').value = p.eventYear || '';
+  document.getElementById('pm-notes').value = p.notes || '';
+
+  currentTraits = [...(p.traits || [])];
+  renderTraits();
+
+  document.getElementById('pm-delete-btn').style.display = isNew ? 'none' : 'block';
+  document.getElementById('person-modal').classList.add('open');
+}
+
+function closePersonModal() {
+  document.getElementById('person-modal').classList.remove('open');
+  editingId = null;
+}
+
+function setSex(s) {
+  currentSex = s;
+  ['f','m','u'].forEach(x => {
+    document.getElementById('sex-' + x).classList.toggle('on', x === s);
+  });
+}
+
+function renderTraits() {
+  const wrap = document.getElementById('pm-traits-wrap');
+  wrap.querySelectorAll('.tag-chip').forEach(el => el.remove());
+  const input = document.getElementById('pm-traits-input');
+  currentTraits.forEach(t => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `${t}<button onclick="removeTrait('${t}')">×</button>`;
+    wrap.insertBefore(chip, input);
+  });
+}
+
+function addTagFromInput(e, type) {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  const v = e.target.value.trim();
+  if (!v) return;
+  if (type === 'traits') { currentTraits.push(v); e.target.value = ''; renderTraits(); }
+}
+
+function removeTrait(t) {
+  currentTraits = currentTraits.filter(x => x !== t);
+  renderTraits();
+}
+
+function savePerson() {
+  if (!editingId) return;
+  const p = people[editingId];
+  p.sex = currentSex;
+  p.prenom = document.getElementById('pm-prenom').value.trim();
+  p.nom = document.getElementById('pm-nom').value.trim();
+  p.naiss = document.getElementById('pm-naiss').value;
+  p.deces = document.getElementById('pm-deces').value;
+  p.metier = document.getElementById('pm-metier').value.trim();
+  p.lieu = document.getElementById('pm-lieu').value.trim();
+  p.event = document.getElementById('pm-event').value;
+  p.eventAge = document.getElementById('pm-event-age').value;
+  p.eventYear = document.getElementById('pm-event-year').value;
+  p.notes = document.getElementById('pm-notes').value.trim();
+  p.traits = [...currentTraits];
+  closePersonModal();
+  save();
+  renderAll();
+  // After saving moi, also do auto-layout
+  autoLayout();
+  renderAll();
+}
+
+function deletePerson() {
+  if (!editingId) return;
+  if (!confirm(`Supprimer ${displayName(people[editingId])} ? Cette action est irréversible.`)) return;
+  const id = editingId;
+  delete people[id];
+  delete nodePositions[id];
+  relations = relations.filter(r => r.from !== id && r.to !== id);
+  closePersonModal();
+  selectedId = null;
+  save();
+  renderAll();
+}
+
+// Double-click to open modal
+document.getElementById('canvas-inner').addEventListener('dblclick', e => {
+  const node = e.target.closest('.gnode');
+  if (node) {
+    const id = node.id.replace('gn-', '');
+    openPersonModal(id, false);
+  }
+});
+
+// ═══════════════════════════════════════════════════════
+//  EXPORT / IMPORT
+// ═══════════════════════════════════════════════════════
+function openExportModal() { document.getElementById('export-modal').classList.add('open'); }
+function closeExportModal() { document.getElementById('export-modal').classList.remove('open'); }
+function openImportModal() { document.getElementById('import-modal').classList.add('open'); }
+function closeImportModal() { document.getElementById('import-modal').classList.remove('open'); }
+
+function downloadJSON() {
+  const data = JSON.stringify({ people, relations, nextId, nodePositions }, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'genosociogramme-' + new Date().toISOString().slice(0, 10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const d = JSON.parse(ev.target.result);
+      people = d.people || {};
+      relations = d.relations || [];
+      nextId = d.nextId || 1;
+      nodePositions = d.nodePositions || {};
+      save();
+      closeImportModal();
+      renderAll();
+      centerView();
+      if (Object.keys(people).length > 0) document.getElementById('add-root-btn').style.display = 'none';
+    } catch(err) { alert('Fichier invalide.'); }
+  };
+  reader.readAsText(file);
+}
+
+function downloadSVGExport() {
+  // Build a basic SVG export
+  const W = 1600, H = 1000;
+  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`];
+  parts.push(`<rect width="${W}" height="${H}" fill="#FFFCF8"/>`);
+
+  // Scale positions to fit
+  const ids = Object.keys(people);
+  if (!ids.length) { alert('Arbre vide.'); return; }
+  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+  ids.forEach(id => {
+    const p = nodePositions[id] || { x: 0, y: 0 };
+    minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+  });
+  const scaleX = (W - 120) / Math.max(maxX - minX, 1);
+  const scaleY = (H - 120) / Math.max(maxY - minY, 1);
+  const scale = Math.min(scaleX, scaleY, 1.5);
+  const ox = 60 - minX * scale + (W - (maxX - minX) * scale) / 2;
+  const oy = 60 - minY * scale + (H - (maxY - minY) * scale) / 2;
+  const sx = id => (nodePositions[id]?.x || 0) * scale + ox;
+  const sy = id => (nodePositions[id]?.y || 0) * scale + oy;
+
+  // Lines
+  relations.forEach(r => {
+    const ax = sx(r.from), ay = sy(r.from), bx = sx(r.to), by = sy(r.to);
+    if (r.type === 'couple') {
+      parts.push(`<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" stroke="rgba(107,62,46,.3)" stroke-width="2" stroke-dasharray="5 4"/>`);
+    } else {
+      const my = (ay + by) / 2;
+      parts.push(`<path d="M ${ax} ${ay} C ${ax} ${my} ${bx} ${my} ${bx} ${by}" fill="none" stroke="rgba(107,62,46,.25)" stroke-width="1.8"/>`);
+    }
+  });
+
+  // Nodes
+  ids.forEach(id => {
+    const p = people[id];
+    const x = sx(id), y = sy(id);
+    const nw = 110 * Math.min(scale, 1), nh = 70 * Math.min(scale, 1);
+    const isMe = p.role === 'moi';
+    const fill = isMe ? '#FFF5EE' : '#FFFCF8';
+    const stroke = isMe ? '#C65D3B' : 'rgba(107,62,46,.22)';
+    parts.push(`<rect x="${x-nw/2}" y="${y-nh/2}" width="${nw}" height="${nh}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="${isMe?2:
