@@ -49,38 +49,29 @@ html = r'''<!DOCTYPE html>
     .cursor{position:fixed;width:8px;height:8px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
     .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--terra);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.42}
 
-    nav{
-      position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;
-      display:flex;align-items:center;justify-content:space-between;gap:1rem;
-      padding:0 2rem;
-      background:rgba(244,237,228,.96);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-logo{
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic;font-size:1.35rem;font-weight:600;white-space:nowrap;
-    }
-    .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end;flex-wrap:wrap}
-    .nav-links a{font-size:.8rem;color:var(--ink2);letter-spacing:.03em;transition:.18s}
-    .nav-links a:hover,.nav-links a.active{color:var(--terra)}
-    .nav-cta{
-      display:inline-flex;align-items:center;gap:.45rem;
-      padding:.62rem 1.1rem;border-radius:4px;
-      background:var(--terra);color:#fff!important;
-      text-transform:uppercase;font-size:.72rem;font-weight:500;letter-spacing:.07em;
-      box-shadow:0 8px 24px rgba(161,74,60,.22);
-    }
-    .nav-cta:hover{background:var(--terra-dark);transform:translateY(-1px)}
-    .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
-    .nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s}
-    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-    .nav-burger.open span:nth-child(2){opacity:0}
-    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:999;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-    .nav-mobile.open{display:flex}
-    .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.92rem;color:var(--ink2)}
-    .nav-mobile a:last-child{border-bottom:0}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(255,252,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;text-decoration:none;}
+.nav-links{display:flex;align-items:center;gap:1.1rem;justify-content:flex-end;}
+.nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;text-decoration:none;}
+.nav-links a:hover,.nav-links a.active{color:var(--terra);}
+.nav-cta{background:var(--terra)!important;color:white!important;padding:.48rem 1.1rem;border-radius:4px;font-size:.74rem!important;font-weight:600!important;letter-spacing:.06em;text-transform:uppercase;}
+.nav-cta:hover{background:var(--terra-dark)!important;color:white!important;}
+.nav-espace{font-size:.74rem!important;color:var(--soft)!important;border:1px solid var(--line);border-radius:100px;padding:.38rem .85rem;}
+.nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
+.nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s;}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;text-decoration:none;}
+.nav-mobile a:last-child{border-bottom:none;}
+
+@media(max-width:960px){
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
+}
 
     .portal-icon{width:100%;max-width:420px;margin:auto;display:block}
     .portal-line{stroke:rgba(255,252,248,.38);stroke-width:1;fill:none}
@@ -300,6 +291,40 @@ html = r'''<!DOCTYPE html>
 </head>
 
 <body>
+  <nav>
+  <a href="index.html" class="nav-logo">Laura Charron</a>
+  <div class="nav-links">
+    <a href="comprendre.html">Comprendre</a>
+    <a href="seance.html" class="active">Séances</a>
+    <a href="contact.html">Contact</a>
+    <a href="a-propos.html">Qui suis-je</a>
+    <a href="outils.html">Outils gratuits</a>
+    <a href="genosociogramme.html">Mon arbre</a>
+    <a href="login.html" class="nav-espace">Mon espace</a>
+    <a href="seance.html#reservation" class="nav-cta">Réserver →</a>
+  </div>
+  <button class="nav-burger" id="burger" type="button" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile" id="nav-mobile">
+  <a href="comprendre.html">Comprendre</a>
+  <a href="seance.html" class="active">Séances</a>
+  <a href="contact.html">Contact</a>
+  <a href="a-propos.html">Qui suis-je</a>
+  <a href="outils.html">Outils gratuits</a>
+  <a href="genosociogramme.html">Mon arbre</a>
+  <a href="login.html">Mon espace</a>
+  <a href="seance.html#reservation" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
+</div>
+
+<script>
+document.getElementById('burger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('nav-mobile').classList.toggle('open');
+});
+</script>
   <div class="cursor" id="cur"></div>
   <div class="cursor-ring" id="ring"></div>
 
