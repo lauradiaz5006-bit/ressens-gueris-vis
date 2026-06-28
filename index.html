@@ -3,1037 +3,445 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération</title>
-  <meta name="description" content="Explore tes mémoires transgénérationnelles, ton corps, ta fréquence vibratoire et ton arbre de vie. Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
-  <meta name="keywords" content="mémoires transgénérationnelles, psychogénéalogie, arbre de vie, fréquence vibratoire, corps, lignée, génosociogramme, libération émotionnelle">
-  <meta property="og:title" content="Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération">
-  <meta property="og:description" content="Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
+  <title>Laura Charron · Psychogénéalogie & Mémoires transgénérationnelles</title>
+  <meta name="description" content="Séances de psychogénéalogie à distance et à domicile. Libérez les schémas familiaux répétitifs avec Laura Charron.">
+  <meta property="og:title" content="Laura Charron · Psychogénéalogie & Mémoires transgénérationnelles">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Laura Charron · Mémoires transgénérationnelles, corps, fréquence et libération">
-  <meta name="twitter:description" content="Un parcours guidé pour comprendre, ressentir et libérer ce qui se rejoue dans ta lignée.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --c:#FDF5EC;
-      --c2:#F6E8D8;
-      --rose:#E8967F;
-      --rose2:#C96B52;
-      --orange:#F0A05A;
-      --orange2:#D97D2E;
-      --gold:#F5C842;
-      --gold2:#E8A800;
-      --ink:#2A1A10;
-      --ink2:#5C3D2C;
+      --cream:#F4EDE4;
+      --cream2:#E9D8C9;
+      --cream3:#FFFAF5;
+      --terra-fonce:#A14A3C;
+      --terra:#C65D3B;
+      --terra-clair:#D88C6A;
+      --brun:#6B3E2E;
+      --sable:#E9D8C9;
+      --ink:#3A1F12;
+      --ink2:#5C3420;
       --soft:#9A7060;
-      --white:#FFFAF4;
-      --dark:#1A0E08;
-      --teal:#5DCAA5;
-      --purple:#9B89D4;
+      --jungle:#6B3E2E;
+      --jungle2:#A14A3C;
+      --jungle-pale:#F4EDE4;
+      --white:#FFFAF5;
+      --border:#D9C4B5;
+      --shadow:0 15px 40px rgba(107,62,46,.08);
     }
 
     *{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
     body{
-      font-family:'DM Sans',sans-serif;
-      background:var(--c);
+      font-family:'Jost',sans-serif;
+      background:var(--cream);
       color:var(--ink);
       overflow-x:hidden;
-      padding-top:72px;
+      padding-top:68px;
     }
-
-    a{color:inherit;}
+    a{color:inherit;text-decoration:none;}
 
     /* CURSOR */
-    .cursor{
-      position:fixed;
-      width:10px;
-      height:10px;
-      background:var(--rose);
-      border-radius:50%;
-      pointer-events:none;
-      z-index:9999;
-      transform:translate(-50%,-50%);
-      mix-blend-mode:multiply;
-    }
-
-    .cursor-ring{
-      position:fixed;
-      width:36px;
-      height:36px;
-      border:1.5px solid var(--rose);
-      border-radius:50%;
-      pointer-events:none;
-      z-index:9998;
-      transform:translate(-50%,-50%);
-      opacity:.55;
-    }
+    .cursor{position:fixed;width:8px;height:8px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
+    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--terra);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
 
     /* NAV */
     nav{
-      position:fixed;
-      top:0;
-      left:0;
-      right:0;
-      z-index:1000;
-      height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1.5rem;
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
       padding:0 2rem;
-      background:rgba(253,245,236,.94);
+      background:rgba(244,237,228,.97);
       backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(232,150,127,.16);
+      border-bottom:1px solid rgba(198,93,59,.1);
     }
-
     .nav-logo{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1.2rem;
-      font-weight:700;
-      color:var(--ink);
-      text-decoration:none;
-      white-space:nowrap;
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1.35rem;font-weight:600;color:var(--ink);white-space:nowrap;letter-spacing:.02em;
     }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:1.2rem;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+    .nav-links{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;justify-content:flex-end;}
+    .nav-links a{font-size:.78rem;color:var(--ink2);transition:color .18s;letter-spacing:.02em;font-weight:400;}
+    .nav-links a:hover,.nav-links a.active{color:var(--terra);}
+    .nav-cta{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:var(--terra);color:#fff !important;
+      padding:.58rem 1.1rem;border-radius:4px;
+      font-weight:500;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;
+      transition:background .18s,transform .18s;
     }
+    .nav-cta:hover{background:var(--terra-fonce);transform:translateY(-1px);}
+    .nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+    .nav-burger span{width:20px;height:1.5px;background:var(--ink);border-radius:10px;transition:.25s ease;}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .nav-mobile{position:fixed;top:68px;left:0;right:0;background:rgba(244,237,228,.99);backdrop-filter:blur(18px);border-bottom:1px solid rgba(198,93,59,.1);display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;z-index:999;}
+    .nav-mobile.open{display:flex;}
+    .nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.92rem;}
+    .nav-mobile a:last-child{border-bottom:none;}
 
-    .nav-links a{
-      text-decoration:none;
-      font-size:.84rem;
-      color:var(--ink2);
-      transition:color .2s ease, opacity .2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active{
-      color:var(--rose2);
-    }
-
-    .nav-book{
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      color:#fff !important;
-      padding:.68rem 1rem;
-      border-radius:999px;
-      font-weight:500;
-      box-shadow:0 10px 24px rgba(201,107,82,.22);
-    }
-
-    .nav-burger{
-      display:none;
-      width:46px;
-      height:46px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:5px;
-    }
-
-    .nav-burger span{
-      width:22px;
-      height:2px;
-      background:var(--ink);
-      border-radius:10px;
-      transition:.25s ease;
-    }
-
-    .nav-burger.open span:nth-child(1){
-      transform:translateY(7px) rotate(45deg);
-    }
-
-    .nav-burger.open span:nth-child(2){
-      opacity:0;
-    }
-
-    .nav-burger.open span:nth-child(3){
-      transform:translateY(-7px) rotate(-45deg);
-    }
-
-    .nav-mobile{
-      position:fixed;
-      top:72px;
-      left:0;
-      right:0;
-      background:rgba(255,250,244,.98);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(232,150,127,.16);
-      display:none;
-      flex-direction:column;
-      padding:1rem 1.4rem 1.4rem;
-      z-index:999;
-    }
-
-    .nav-mobile.open{
-      display:flex;
-    }
-
-    .nav-mobile a{
-      text-decoration:none;
-      color:var(--ink2);
-      padding:.85rem 0;
-      border-bottom:1px solid rgba(92,61,44,.08);
-      font-size:.95rem;
-    }
-
-    .nav-mobile a:last-child{
-      border-bottom:none;
-    }
-
-    /* HERO */
+    /* ── HERO ── */
     .hero{
-      position:relative;
-      overflow:hidden;
-      padding:6.2rem 4rem 5rem;
+      position:relative;overflow:hidden;
+      padding:6rem 4rem 5.5rem;
       background:
-        radial-gradient(ellipse 60% 50% at 75% 20%, rgba(232,150,127,.12) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 35% at 15% 85%, rgba(245,200,66,.10) 0%, transparent 60%),
-        linear-gradient(160deg, #FFF8F1 0%, var(--c) 55%, #FFF6ED 100%);
+        radial-gradient(ellipse 50% 55% at 90% 10%, rgba(216,140,106,.14) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 5% 90%, rgba(61,107,90,.08) 0%, transparent 55%),
+        linear-gradient(160deg,#FFFAF5 0%,var(--cream) 55%,#E9D8C9 100%);
     }
-
-    .hero::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(201,107,82,.07) 0%, transparent 18%),
-        radial-gradient(circle at 80% 70%, rgba(245,200,66,.06) 0%, transparent 20%);
-    }
-
-    .hero-inner{
-      max-width:1200px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:4rem;
-      align-items:center;
-      position:relative;
-      z-index:2;
-    }
+    .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2;}
 
     .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.6rem;
-      font-size:.72rem;
-      font-weight:500;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--rose2);
-      background:rgba(201,107,82,.08);
-      border:1px solid rgba(201,107,82,.18);
-      border-radius:100px;
-      padding:.45rem 1rem;
-      margin-bottom:1.6rem;
+      display:inline-flex;align-items:center;gap:.6rem;
+      font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--jungle);background:rgba(216,140,106,.12);
+      border:1px solid rgba(61,107,90,.18);border-radius:2px;
+      padding:.4rem .95rem;margin-bottom:1.9rem;
     }
-
-    .hero-badge::before{
-      content:'';
-      width:6px;
-      height:6px;
-      background:var(--rose);
-      border-radius:50%;
-      animation:dot 2s infinite;
-    }
-
-    @keyframes dot{
-      0%,100%{opacity:.5;transform:scale(1);}
-      50%{opacity:1;transform:scale(1.4);}
-    }
+    .hero-badge svg{flex-shrink:0;}
 
     .hero h1{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2.8rem,6vw,5.2rem);
-      font-weight:900;
-      line-height:1.02;
-      letter-spacing:-.03em;
-      margin-bottom:1.15rem;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(3.2rem,6vw,5.4rem);
+      font-weight:600;line-height:1.05;letter-spacing:-.01em;
+      margin-bottom:1.3rem;
     }
+    .hero h1 em{font-style:italic;color:var(--terra);font-weight:400;}
 
-    .hero h1 em{
-      font-style:italic;
-      color:var(--rose2);
+    .hero-sub{
+      font-size:.96rem;font-weight:300;color:var(--ink2);
+      max-width:480px;line-height:1.9;margin-bottom:.85rem;
     }
-
-    .hero p{
-      font-size:1.03rem;
-      font-weight:300;
-      color:var(--ink2);
-      max-width:620px;
-      line-height:1.9;
+    .hero-italic{
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1.05rem;color:var(--soft);line-height:1.65;
+      max-width:440px;margin-bottom:2.2rem;font-weight:400;
     }
+    .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
 
-    .hero-subline{
-      margin-top:1.2rem;
-      font-size:.83rem;
-      color:var(--soft);
-      line-height:1.75;
-      font-style:italic;
+    .btn-primary{
+      display:inline-flex;align-items:center;gap:.55rem;
+      background:var(--terra);color:#fff;
+      padding:.95rem 1.9rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+      transition:background .18s,transform .18s,box-shadow .18s;
+      box-shadow:0 6px 24px rgba(161,74,60,.22);
     }
+    .btn-primary:hover{background:var(--terra-fonce);transform:translateY(-2px);box-shadow:0 12px 34px rgba(161,74,60,.3);}
 
-    .hero-actions{
-      display:flex;
-      gap:.85rem;
-      flex-wrap:wrap;
-      margin-top:2rem;
+    .btn-secondary{
+      display:inline-flex;align-items:center;gap:.55rem;
+      background:transparent;color:var(--ink2);
+      padding:.95rem 1.6rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
+      border:1px solid rgba(107,62,46,.22);
+      transition:all .18s;
     }
+    .btn-secondary:hover{border-color:var(--jungle);color:var(--jungle);background:rgba(216,140,106,.12);}
 
-    .btn-main{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      color:#fff;
-      padding:.95rem 1.9rem;
-      border-radius:100px;
-      text-decoration:none;
-      font-size:.88rem;
-      font-weight:500;
-      box-shadow:0 10px 32px rgba(201,107,82,.28);
-      transition:transform .2s, box-shadow .2s;
-    }
-
-    .btn-main:hover{
-      transform:translateY(-2px);
-      box-shadow:0 16px 40px rgba(201,107,82,.34);
-    }
-
-    .btn-ghost{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      background:transparent;
-      color:var(--ink2);
-      padding:.95rem 1.6rem;
-      border-radius:100px;
-      text-decoration:none;
-      font-size:.88rem;
-      border:1.5px solid rgba(92,61,44,.16);
-      transition:all .2s;
-    }
-
-    .btn-ghost:hover{
-      border-color:var(--rose);
-      color:var(--rose2);
-      background:rgba(255,255,255,.45);
-    }
-
+    /* HERO CARD côté droit */
     .hero-card{
-      background:linear-gradient(160deg,var(--ink),#3A1808);
-      border-radius:28px;
-      padding:2rem;
-      position:relative;
-      overflow:hidden;
-      min-height:460px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      box-shadow:0 18px 55px rgba(42,26,16,.18);
+      background:linear-gradient(158deg,var(--brun),#3A1F12);
+      border-radius:6px;padding:2.2rem;
+      box-shadow:0 24px 65px rgba(107,62,46,.20);
+      position:relative;overflow:hidden;
     }
-
     .hero-card::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(ellipse 45% 35% at 75% 18%, rgba(232,150,127,.18), transparent 60%),
-        radial-gradient(ellipse 35% 25% at 20% 80%, rgba(245,200,66,.12), transparent 60%);
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 55% 45% at 80% 15%,rgba(216,140,106,.16),transparent 60%);
       pointer-events:none;
     }
+    .hero-card *{position:relative;z-index:1;}
+    .hc-tag{
+      display:inline-flex;align-items:center;gap:.45rem;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+      color:rgba(255,255,255,.65);border-radius:2px;
+      padding:.32rem .78rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+      margin-bottom:1.4rem;
+    }
+    .hc-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.55rem;font-weight:600;color:white;line-height:1.25;margin-bottom:.75rem;
+    }
+    .hc-desc{font-size:.82rem;color:rgba(255,255,255,.52);line-height:1.85;font-weight:300;margin-bottom:1.5rem;}
+    .hc-items{display:flex;flex-direction:column;gap:.5rem;}
+    .hc-item{
+      display:flex;align-items:center;gap:.75rem;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+      border-radius:4px;padding:.68rem .9rem;
+    }
+    .hc-item-icon{flex-shrink:0;opacity:.7;}
+    .hc-item span{font-size:.78rem;color:rgba(255,255,255,.62);line-height:1.4;}
 
-    .hero-card *{
-      position:relative;
-      z-index:1;
+    /* TRUST STRIP */
+    .trust{
+      background:var(--brun);
+      padding:.85rem 2rem;
+      display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+    }
+    .trust-item{
+      display:flex;align-items:center;gap:.55rem;
+      font-size:.72rem;color:rgba(255,255,255,.75);font-weight:400;
+      letter-spacing:.06em;white-space:nowrap;
     }
 
-    .hero-card-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:1rem;
-      margin-bottom:1.8rem;
+    /* LAYOUT commun */
+    .section-inner{max-width:1100px;margin:0 auto;}
+    .eyebrow{
+      font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--terra);margin-bottom:.9rem;
+      display:flex;align-items:center;gap:.5rem;font-weight:500;
     }
-
-    .hero-card-tag{
-      display:inline-flex;
-      align-items:center;
-      gap:.5rem;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:rgba(255,255,255,.78);
-      border-radius:100px;
-      padding:.45rem 1rem;
-      font-size:.68rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-    }
-
-    .hero-card-symbol{
-      font-size:2.2rem;
-      color:rgba(255,255,255,.18);
-      line-height:1;
-    }
-
-    .hero-card h2{
-      font-family:'Playfair Display',serif;
-      font-size:1.7rem;
-      font-weight:700;
-      line-height:1.2;
-      color:white;
-      margin-bottom:.8rem;
-    }
-
-    .hero-card p{
-      font-size:.9rem;
-      color:rgba(255,255,255,.55);
-      line-height:1.85;
-      font-weight:300;
-    }
-
-    .hero-card-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:.75rem;
-      margin-top:1.4rem;
-    }
-
-    .mini-card{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;
-      padding:1rem;
-    }
-
-    .mini-card strong{
-      display:block;
-      color:white;
-      font-size:.8rem;
-      margin-bottom:.25rem;
-      font-weight:500;
-    }
-
-    .mini-card span{
-      display:block;
-      font-size:.74rem;
-      color:rgba(255,255,255,.42);
-      line-height:1.6;
-      font-weight:300;
-    }
-
-    /* SECTIONS */
-    section{
-      padding:6rem 4rem;
-    }
-
-    .section-inner{
-      max-width:1200px;
-      margin:0 auto;
-    }
-
-    .section-head{
-      max-width:760px;
-      margin:0 auto 3rem;
-      text-align:center;
-    }
-
-    .section-eyebrow{
-      font-size:.68rem;
-      letter-spacing:.25em;
-      text-transform:uppercase;
-      color:var(--rose2);
-      margin-bottom:.75rem;
-    }
-
     .section-title{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2rem,4vw,3rem);
-      font-weight:900;
-      line-height:1.1;
-      margin-bottom:.8rem;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.08;margin-bottom:.75rem;letter-spacing:-.01em;
     }
-
-    .section-title em{
-      font-style:italic;
-      color:var(--rose2);
-    }
-
-    .section-sub{
-      font-size:.96rem;
-      color:var(--soft);
-      line-height:1.8;
-      font-weight:300;
-    }
-
-    /* PILLARS */
-    .pillars-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:1.2rem;
-    }
-
-    .pillar{
-      background:var(--white);
-      border:1px solid rgba(232,150,127,.14);
-      border-radius:24px;
-      padding:1.8rem;
-      box-shadow:0 4px 24px rgba(42,26,16,.05);
-      transition:transform .2s, box-shadow .2s, border-color .2s;
-    }
-
-    .pillar:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 34px rgba(42,26,16,.08);
-      border-color:rgba(201,107,82,.22);
-    }
-
-    .pillar-icon{
-      width:52px;
-      height:52px;
-      border-radius:16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1.3rem;
-      margin-bottom:1rem;
-      background:linear-gradient(135deg,#FFF2EA,#FFE6D8);
-    }
-
-    .pillar h3{
-      font-family:'Playfair Display',serif;
-      font-size:1.05rem;
-      font-weight:700;
-      margin-bottom:.5rem;
-      color:var(--ink);
-    }
-
-    .pillar p{
-      font-size:.84rem;
-      color:var(--ink2);
-      line-height:1.8;
-      font-weight:300;
-    }
-
-    /* PORTALS */
-    .portals{
-      background:linear-gradient(180deg,#FFF8F1 0%, var(--c) 100%);
-    }
-
-    .portal-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:1rem;
-    }
-
-    .portal{
-      background:var(--white);
-      border:1px solid rgba(232,150,127,.14);
-      border-radius:24px;
-      padding:1.6rem;
-      text-decoration:none;
-      color:inherit;
-      box-shadow:0 4px 20px rgba(42,26,16,.05);
-      transition:transform .2s, border-color .2s, box-shadow .2s;
-      display:flex;
-      flex-direction:column;
-      min-height:255px;
-    }
-
-    .portal:hover{
-      transform:translateY(-4px);
-      border-color:rgba(201,107,82,.25);
-      box-shadow:0 12px 34px rgba(42,26,16,.08);
-    }
-
-    .portal-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-      margin-bottom:1rem;
-    }
-
-    .portal-icon{
-      width:50px;
-      height:50px;
-      border-radius:16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:1.25rem;
-      background:linear-gradient(135deg,#FFF0E8,#FFE5D7);
-    }
-
-    .portal-tag{
-      font-size:.62rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--soft);
-    }
-
-    .portal h3{
-      font-family:'Playfair Display',serif;
-      font-size:1.08rem;
-      font-weight:700;
-      margin-bottom:.45rem;
-      color:var(--ink);
-    }
-
-    .portal p{
-      font-size:.82rem;
-      color:var(--ink2);
-      line-height:1.76;
-      font-weight:300;
-      margin-bottom:1rem;
-      flex:1;
-    }
-
-    .portal span{
-      font-size:.78rem;
-      color:var(--rose2);
-      font-weight:500;
-    }
+    .section-title em{font-style:italic;color:var(--terra);font-weight:400;}
+    .section-sub{font-size:.9rem;color:var(--soft);line-height:1.85;font-weight:300;}
 
     /* ABOUT */
-    .about{
-      background:var(--ink);
-      color:white;
+    .about{padding:5.5rem 4rem;}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;}
+    .about-copy p{font-size:.88rem;color:var(--ink2);line-height:1.92;font-weight:300;margin-bottom:.9rem;}
+    .about-copy p:last-of-type{margin-bottom:0;}
+    .about-copy strong{color:var(--ink);font-weight:500;}
+    .about-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.3rem;}
+    .about-tag{
+      font-size:.66rem;background:transparent;
+      border:1px solid rgba(61,107,90,.22);color:var(--jungle);
+      border-radius:2px;padding:.28rem .7rem;letter-spacing:.05em;
     }
-
-    .about-inner{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:3rem;
-      align-items:center;
+    .about-visual{
+      background:linear-gradient(158deg,var(--brun),var(--terra-fonce));
+      border-radius:6px;padding:2.2rem;
+      position:relative;overflow:hidden;
     }
-
-    .about .section-head{
-      text-align:left;
-      margin:0 0 1.5rem 0;
-      max-width:none;
-    }
-
-    .about .section-title{
-      color:white;
-    }
-
-    .about .section-sub{
-      color:rgba(255,255,255,.45);
-    }
-
-    .about-copy p{
-      font-size:.9rem;
-      color:rgba(255,255,255,.62);
-      line-height:1.9;
-      font-weight:300;
-      margin-bottom:1rem;
-    }
-
-    .about-copy strong{
-      color:rgba(255,255,255,.9);
-      font-weight:500;
-    }
-
-    .about-block{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:24px;
-      padding:1.8rem;
-    }
-
-    .about-block h3{
-      font-family:'Playfair Display',serif;
-      font-size:1.1rem;
-      font-weight:700;
-      color:white;
-      margin-bottom:.7rem;
-    }
-
-    .about-block p{
-      font-size:.84rem;
-      color:rgba(255,255,255,.46);
-      line-height:1.8;
-      font-weight:300;
-    }
-
-    .about-list{
-      display:flex;
-      flex-direction:column;
-      gap:.7rem;
-      margin-top:1rem;
-    }
-
-    .about-item{
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:14px;
-      padding:.9rem 1rem;
-      font-size:.8rem;
-      color:rgba(255,255,255,.7);
-      line-height:1.7;
-    }
-
-    /* PATH */
-    .path-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:1rem;
-    }
-
-    .path-step{
-      background:var(--white);
-      border:1px solid rgba(232,150,127,.14);
-      border-radius:22px;
-      padding:1.5rem;
-      min-height:220px;
-    }
-
-    .path-num{
-      width:34px;
-      height:34px;
-      border-radius:50%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:'Playfair Display',serif;
-      font-weight:700;
-      font-size:.9rem;
-      color:white;
-      background:linear-gradient(135deg,var(--rose2),var(--orange2));
-      margin-bottom:1rem;
-    }
-
-    .path-step h3{
-      font-family:'Playfair Display',serif;
-      font-size:1rem;
-      font-weight:700;
-      margin-bottom:.45rem;
-      color:var(--ink);
-    }
-
-    .path-step p{
-      font-size:.82rem;
-      color:var(--ink2);
-      line-height:1.8;
-      font-weight:300;
-    }
-
-    /* CTA */
-    .cta{
-      padding-top:0;
-    }
-
-    .cta-box{
-      max-width:1100px;
-      margin:0 auto;
-      background:linear-gradient(160deg,var(--ink),#3A1808);
-      border-radius:32px;
-      padding:3rem 2.4rem;
-      position:relative;
-      overflow:hidden;
-      text-align:center;
-    }
-
-    .cta-box::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(ellipse 50% 45% at 20% 50%, rgba(232,150,127,.15), transparent 60%),
-        radial-gradient(ellipse 30% 25% at 80% 20%, rgba(245,200,66,.10), transparent 60%);
+    .about-visual::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(216,140,106,.13),transparent 60%);
       pointer-events:none;
     }
-
-    .cta-box *{
-      position:relative;
-      z-index:1;
+    .about-visual *{position:relative;z-index:1;}
+    .av-deco{margin-bottom:1.2rem;opacity:.35;}
+    .av-quote{
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1.12rem;color:rgba(255,255,255,.85);line-height:1.68;margin-bottom:1.5rem;font-weight:400;
     }
-
-    .cta-box .section-eyebrow{
-      color:var(--rose);
+    .av-list{display:flex;flex-direction:column;gap:.5rem;}
+    .av-item{
+      display:flex;align-items:center;gap:.65rem;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
+      border-radius:3px;padding:.65rem .9rem;
+      font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.45;
     }
+    .av-item svg{flex-shrink:0;opacity:.6;}
 
+    /* SEANCE */
+    .seance{padding:5.5rem 4rem;background:var(--cream2);}
+    .seance-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start;margin-top:2.5rem;}
+    .seance-card{
+      background:var(--white);border-radius:6px;padding:2.4rem;
+      border:1px solid rgba(198,93,59,.14);
+      box-shadow:var(--shadow);
+    }
+    .sc-tag{
+      display:inline-flex;align-items:center;gap:.45rem;
+      background:rgba(198,93,59,.08);border:1px solid rgba(198,93,59,.16);
+      color:var(--terra);border-radius:2px;padding:.3rem .75rem;
+      font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:500;
+    }
+    .sc-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.7rem;font-weight:600;color:var(--ink);line-height:1.18;margin-bottom:.75rem;
+    }
+    .sc-desc{font-size:.86rem;color:var(--ink2);line-height:1.88;font-weight:300;margin-bottom:1.3rem;}
+    .sc-modes{display:flex;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap;}
+    .sc-mode{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:rgba(216,140,106,.12);border:1px solid rgba(61,107,90,.16);
+      color:var(--jungle);border-radius:2px;padding:.3rem .72rem;font-size:.72rem;font-weight:500;letter-spacing:.03em;
+    }
+    .sc-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
+    .sc-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.82rem;color:var(--ink2);line-height:1.6;}
+    .sc-item svg{flex-shrink:0;margin-top:.18rem;}
+    .sc-price{font-size:.78rem;color:var(--soft);margin-bottom:1.4rem;font-style:italic;}
+    .seance-aside{display:flex;flex-direction:column;gap:.9rem;}
+    .aside-card{
+      background:var(--white);border-radius:4px;padding:1.3rem 1.4rem;
+      border:1px solid rgba(61,107,90,.1);
+    }
+    .aside-icon-wrap{margin-bottom:.55rem;}
+    .aside-title{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;
+    }
+    .aside-body{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;}
+
+    /* AVIS */
+    .avis{padding:5.5rem 4rem;}
+    .avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.5rem;}
+    .avis-card{
+      background:var(--white);border-radius:5px;padding:1.8rem;
+      border:1px solid rgba(107,62,46,.1);
+      box-shadow:0 12px 32px rgba(107,62,46,.06);
+    }
+    .avis-deco{margin-bottom:1rem;}
+    .avis-text{
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1rem;color:var(--ink);line-height:1.72;margin-bottom:1.1rem;font-weight:400;
+    }
+    .avis-sep{width:28px;height:1px;background:rgba(198,93,59,.3);margin-bottom:1rem;}
+    .avis-author{display:flex;align-items:center;gap:.7rem;}
+    .avis-av{
+      width:33px;height:33px;border-radius:50%;
+      background:linear-gradient(135deg,var(--terra-clair),var(--terra));
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Cormorant Garamond',serif;font-size:1rem;color:white;font-weight:600;flex-shrink:0;
+    }
+    .avis-name{font-size:.78rem;font-weight:500;color:var(--ink);}
+    .avis-label{font-size:.68rem;color:var(--soft);}
+
+    /* OUTILS */
+    .outils{padding:5.5rem 4rem;background:var(--cream2);}
+    .outils-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:2.5rem;}
+    .outil{
+      background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:5px;
+      padding:1.4rem;text-decoration:none;color:inherit;
+      display:flex;flex-direction:column;
+      transition:transform .2s,border-color .2s,box-shadow .2s;
+    }
+    .outil:hover{transform:translateY(-3px);border-color:rgba(198,93,59,.2);box-shadow:0 10px 28px rgba(58,31,18,.08);}
+    .outil-icon{margin-bottom:.85rem;}
+    .outil-tag{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.3rem;font-weight:400;}
+    .outil h3{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--ink);margin-bottom:.38rem;}
+    .outil p{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;flex:1;margin-bottom:.85rem;}
+    .outil-arrow{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--terra);font-weight:500;letter-spacing:.03em;}
+
+    /* LIVRE */
+    .livre{padding:5.5rem 4rem;}
+    .livre-box{
+      background:linear-gradient(158deg,var(--brun),#3A1F12);
+      border-radius:6px;padding:3rem 3.5rem;
+      display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;
+      position:relative;overflow:hidden;
+    }
+    .livre-box::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 45% 55% at 88% 50%,rgba(216,140,106,.13),transparent 60%);
+      pointer-events:none;
+    }
+    .livre-box *{position:relative;z-index:1;}
+    .livre-eyebrow{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(228,205,185,.6);margin-bottom:.8rem;display:flex;align-items:center;gap:.45rem;font-weight:500;}
+    .livre-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;color:white;line-height:1.1;margin-bottom:.8rem;}
+    .livre-title em{font-style:italic;color:var(--terra-clair);font-weight:400;}
+    .livre-desc{font-size:.84rem;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-bottom:1.7rem;}
+    .livre-btn{
+      display:inline-flex;align-items:center;gap:.55rem;
+      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+      color:rgba(255,255,255,.88);padding:.88rem 1.7rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+      transition:all .2s;
+    }
+    .livre-btn:hover{background:rgba(255,255,255,.18);}
+    .livre-chapters{display:flex;flex-direction:column;gap:.55rem;}
+    .lc{
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+      border-radius:3px;padding:.78rem 1rem;
+      display:flex;align-items:center;gap:.75rem;
+    }
+    .lc-num{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.3);flex-shrink:0;width:20px;}
+    .lc-text{font-size:.78rem;color:rgba(255,255,255,.58);line-height:1.42;font-weight:300;}
+
+    /* CTA FINAL */
+    .cta-final{padding:5.5rem 4rem 6rem;}
+    .cta-box{
+      max-width:980px;margin:0 auto;
+      background:linear-gradient(158deg,var(--terra),var(--terra-fonce));
+      border-radius:6px;padding:3.5rem 3rem;text-align:center;
+      position:relative;overflow:hidden;
+    }
+    .cta-box::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 50% 55% at 25% 55%,rgba(255,255,255,.07),transparent 60%);
+      pointer-events:none;
+    }
+    .cta-box *{position:relative;z-index:1;}
+    .cta-deco{margin:0 auto 1.4rem;display:block;opacity:.35;}
     .cta-box h2{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(2rem,4vw,3rem);
-      font-weight:900;
-      color:white;
-      line-height:1.1;
-      margin-bottom:.8rem;
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;color:white;line-height:1.06;margin-bottom:.85rem;
     }
-
-    .cta-box h2 em{
-      font-style:italic;
-      color:var(--rose);
+    .cta-box h2 em{font-style:italic;font-weight:400;}
+    .cta-box p{font-size:.9rem;color:rgba(255,255,255,.68);line-height:1.82;max-width:560px;margin:0 auto 2rem;font-weight:300;}
+    .cta-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+    .btn-white{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:white;color:var(--terra);
+      padding:.95rem 1.9rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+      transition:transform .2s,box-shadow .2s;
+      box-shadow:0 6px 24px rgba(0,0,0,.12);
     }
-
-    .cta-box p{
-      max-width:700px;
-      margin:0 auto 1.8rem;
-      font-size:.96rem;
-      color:rgba(255,255,255,.5);
-      line-height:1.85;
-      font-weight:300;
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.18);}
+    .btn-outline-white{
+      display:inline-flex;align-items:center;gap:.5rem;
+      background:transparent;color:rgba(255,255,255,.85);
+      padding:.95rem 1.7rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
+      border:1px solid rgba(255,255,255,.3);
+      transition:all .2s;
     }
+    .btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
 
     /* FOOTER */
-    footer{
-      background:#1A0E08;
-      padding:3.5rem 3rem 2rem;
-    }
-
-    .footer-inner{
-      max-width:1200px;
-      margin:0 auto;
-    }
-
-    .footer-top{
-      display:grid;
-      grid-template-columns:1.8fr 1fr 1fr 1fr;
-      gap:2.5rem;
-      margin-bottom:2.5rem;
-    }
-
-    .footer-brand .footer-logo{
-      font-family:'Playfair Display',serif;
-      font-style:italic;
-      font-size:1.3rem;
-      color:white;
-      font-weight:700;
-      display:block;
-      margin-bottom:.7rem;
-      text-decoration:none;
-    }
-
-    .footer-brand p{
-      font-size:.8rem;
-      color:rgba(255,255,255,.38);
-      line-height:1.72;
-      font-weight:300;
-      max-width:260px;
-    }
-
-    .footer-book-link{
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      background:linear-gradient(135deg,#FF9900,#E47911);
-      color:white;
-      padding:.55rem 1.1rem;
-      border-radius:100px;
-      font-size:.76rem;
-      font-weight:500;
-      text-decoration:none;
-      margin-top:1.1rem;
-      transition:transform .18s;
-    }
-
-    .footer-book-link:hover{
-      transform:translateY(-1px);
-    }
-
-    .footer-col h4{
-      font-size:.72rem;
-      font-weight:700;
-      color:rgba(255,255,255,.55);
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      margin-bottom:.9rem;
-    }
-
-    .footer-col a{
-      display:block;
-      font-size:.78rem;
-      color:rgba(255,255,255,.35);
-      text-decoration:none;
-      margin-bottom:.5rem;
-      transition:color .18s;
-      font-weight:300;
-    }
-
-    .footer-col a:hover{
-      color:var(--rose);
-    }
-
-    .footer-bottom{
-      border-top:1px solid rgba(255,255,255,.07);
-      padding-top:1.5rem;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:1rem;
-    }
-
-    .footer-bottom p{
-      font-size:.72rem;
-      color:rgba(255,255,255,.2);
-    }
-
-    .footer-bottom-links{
-      display:flex;
-      gap:1.5rem;
-      flex-wrap:wrap;
-    }
-
-    .footer-bottom-links a{
-      font-size:.72rem;
-      color:rgba(255,255,255,.25);
-      text-decoration:none;
-      transition:color .18s;
-    }
-
-    .footer-bottom-links a:hover{
-      color:var(--rose);
-    }
+    footer{background:#3A1F12;padding:3.5rem 3rem 2rem;}
+    .footer-inner{max-width:1200px;margin:0 auto;}
+    .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:white;font-weight:600;display:block;margin-bottom:.65rem;letter-spacing:.02em;}
+    .footer-brand p{font-size:.76rem;color:rgba(255,255,255,.32);line-height:1.72;font-weight:300;max-width:230px;}
+    .footer-col h4{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem;}
+    .footer-col a{display:block;font-size:.74rem;color:rgba(255,255,255,.28);margin-bottom:.46rem;transition:color .18s;font-weight:300;}
+    .footer-col a:hover{color:var(--terra-clair);}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .footer-bottom p{font-size:.68rem;color:rgba(255,255,255,.16);}
+    .footer-bottom-links{display:flex;gap:1.4rem;}
+    .footer-bottom-links a{font-size:.68rem;color:rgba(255,255,255,.2);transition:color .18s;}
+    .footer-bottom-links a:hover{color:var(--terra-clair);}
 
     /* REVEAL */
-    .reveal{
-      opacity:0;
-      transform:translateY(24px);
-      transition:opacity .6s ease, transform .6s ease;
-    }
-
-    .reveal.revealed{
-      opacity:1;
-      transform:translateY(0);
-    }
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.revealed{opacity:1;transform:translateY(0);}
 
     /* RESPONSIVE */
-    @media (max-width:1180px){
-      .nav-links{
-        gap:.9rem;
-      }
-
-      .nav-links a{
-        font-size:.78rem;
-      }
+    @media(max-width:980px){
+      .hero-inner,.about-grid,.seance-grid,.livre-box,.footer-top{grid-template-columns:1fr;}
+      .avis-grid,.outils-grid{grid-template-columns:1fr 1fr;}
+      .hero,.about,.seance,.avis,.outils,.livre,.cta-final,footer{padding-left:1.5rem;padding-right:1.5rem;}
+      .hero{padding-top:5rem;padding-bottom:4rem;}
+      .livre-box{padding:2rem 1.8rem;}
     }
-
-    @media (max-width:980px){
-      .hero-inner,
-      .about-inner,
-      .pillars-grid,
-      .portal-grid,
-      .path-grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero,
-      .portals,
-      .about,
-      section{
-        padding-left:1.5rem;
-        padding-right:1.5rem;
-      }
-
-      .hero{
-        padding-top:5rem;
-        padding-bottom:3.5rem;
-      }
-
-      .hero-card{
-        min-height:auto;
-      }
+    @media(max-width:760px){
+      .avis-grid,.outils-grid{grid-template-columns:1fr;}
+      .trust{gap:1.2rem;}
     }
-
-    @media (max-width:900px){
-      body{
-        padding-top:62px;
-      }
-
-      nav{
-        height:62px;
-        padding:0 1.1rem;
-      }
-
-      .nav-links{
-        display:none;
-      }
-
-      .nav-burger{
-        display:flex;
-      }
-
-      .nav-mobile{
-        top:62px;
-      }
-
-      footer{
-        padding:2.5rem 1.5rem 1.5rem;
-      }
-
-      .footer-top{
-        grid-template-columns:1fr 1fr;
-        gap:1.8rem;
-      }
-
-      .footer-brand{
-        grid-column:span 2;
-      }
-
-      .cursor,
-      .cursor-ring{
-        display:none;
-      }
+    @media(max-width:900px){
+      body{padding-top:62px;}
+      nav{height:62px;padding:0 1.1rem;}
+      .nav-links{display:none;}
+      .nav-burger{display:flex;}
+      .nav-mobile{top:62px;}
+      .cursor,.cursor-ring{display:none;}
+      footer{padding:2.5rem 1.5rem 1.5rem;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem;}
+      .footer-brand{grid-column:span 2;}
     }
-
-    @media (max-width:480px){
-      .hero-actions,
-      .footer-bottom-links{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .footer-top{
-        grid-template-columns:1fr;
-      }
-
-      .footer-brand{
-        grid-column:span 1;
-      }
-
-      .hero-card-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media print{
-      nav,
-      .nav-mobile,
-      .cursor,
-      .cursor-ring,
-      footer,
-      .cta{
-        display:none !important;
-      }
-
-      body{
-        padding-top:0;
-      }
-
-      .hero,
-      section{
-        padding:1rem 0;
-      }
+    @media(max-width:480px){
+      .hero-actions,.cta-actions{flex-direction:column;align-items:flex-start;}
+      .cta-actions{align-items:center;}
+      .footer-top{grid-template-columns:1fr;}
+      .footer-brand{grid-column:span 1;}
     }
   </style>
 </head>
@@ -1044,7 +452,6 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Laura Charron</a>
-
     <div class="nav-links">
       <a href="index.html" class="active">Accueil</a>
       <a href="parcours.html">Mémoires</a>
@@ -1057,443 +464,476 @@
       <a href="genosociogramme.html">Génosociogramme</a>
       <a href="arbre-famille.html">Ma famille</a>
       <a href="contact.html">Contact</a>
-      <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="nav-book">📗 Le livre</a>
+      <a href="contact.html" class="nav-cta">Réserver une séance</a>
     </div>
-
-    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
+      <span></span><span></span><span></span>
     </button>
   </nav>
-
-  <!-- MENU MOBILE -->
   <div class="nav-mobile" id="nav-mobile">
-    <a href="index.html">🏠 Accueil</a>
-    <a href="parcours.html">🧬 Mémoires</a>
-    <a href="cycle.html">🌙 Mon cycle</a>
-    <a href="arbre-vie.html">🌳 Arbre de Vie</a>
-    <a href="symptomes.html">💬 Mon corps</a>
-    <a href="vibration.html">💫 Fréquence</a>
-    <a href="journal.html">📖 Journal</a>
-    <a href="transgen.html">🔁 Transgénérationnel</a>
-    <a href="genosociogramme.html">🌐 Génosociogramme</a>
-    <a href="arbre-famille.html">👨‍👩‍👧‍👦 Ma famille</a>
-    <a href="contact.html">✉️ Contact</a>
-    <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">📗 Commander le livre</a>
+    <a href="index.html">Accueil</a>
+    <a href="parcours.html">Mémoires</a>
+    <a href="cycle.html">Mon cycle</a>
+    <a href="arbre-vie.html">Arbre de Vie</a>
+    <a href="symptomes.html">Mon corps</a>
+    <a href="vibration.html">Fréquence</a>
+    <a href="journal.html">Journal</a>
+    <a href="transgen.html">Transgénérationnel</a>
+    <a href="genosociogramme.html">Génosociogramme</a>
+    <a href="arbre-famille.html">Ma famille</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" style="color:var(--terra);font-weight:600;">Réserver une séance</a>
   </div>
 
   <!-- HERO -->
   <header class="hero">
     <div class="hero-inner">
       <div class="reveal">
-        <div class="hero-badge">Mémoires · Corps · Fréquence · Lignée</div>
-        <h1>Ce que ton histoire<br><em>cherche à te montrer</em></h1>
-        <p>
-          Certaines douleurs, certains blocages, certaines répétitions ne commencent pas avec toi.
-          Elles traversent le corps, les croyances, les relations, la lignée.
-          Ici, tu explores ce qui se rejoue — pour le comprendre, le ressentir, et commencer à le libérer.
-        </p>
-
-        <div class="hero-subline">
-          Un chemin entre mémoire transgénérationnelle, épigénétique, corps, conscience et transformation intérieure.
+        <div class="hero-badge">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#6B3E2E" stroke-width="1.2"/><circle cx="5" cy="5" r="1.5" fill="#6B3E2E"/></svg>
+          Psychogénéalogie · À distance &amp; à domicile
         </div>
-
+        <h1>Ce qui se répète<br>dans ta vie a peut-être<br><em>commencé avant toi</em></h1>
+        <p class="hero-sub">
+          Les schémas familiaux, les blocages qui reviennent, les émotions sans explication —
+          ils ont souvent une origine plus ancienne que ta propre histoire.
+          La psychogénéalogie permet de les voir, de les comprendre et de les libérer.
+        </p>
+        <p class="hero-italic">
+          Séances individuelles avec Laura Charron — en visio ou à votre domicile.
+        </p>
         <div class="hero-actions">
-          <a href="parcours.html" class="btn-main">✦ Commencer l’exploration</a>
-          <a href="journal.html" class="btn-ghost">📖 Ouvrir le journal</a>
+          <a href="contact.html" class="btn-primary">Réserver une séance</a>
+          <a href="parcours.html" class="btn-secondary">Explorer gratuitement</a>
         </div>
       </div>
 
       <div class="hero-card reveal">
-        <div>
-          <div class="hero-card-top">
-            <div class="hero-card-tag">Par où commencer</div>
-            <div class="hero-card-symbol">✦</div>
-          </div>
-
-          <h2>Un parcours en plusieurs portes</h2>
-          <p>
-            Tu peux entrer par le symptôme, par une émotion, par ton arbre, par ta fréquence,
-            ou par une répétition familiale. Chaque page t’amène vers la même chose :
-            voir plus clair sur ce que tu portes.
-          </p>
+        <div class="hc-tag">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1 L4 7 M1 4 L7 4" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Par où commencer
         </div>
-
-        <div class="hero-card-grid">
-          <div class="mini-card">
-            <strong>🧬 Mémoires</strong>
-            <span>Identifier les schémas répétitifs et la logique de ta lignée.</span>
+        <div class="hc-title">Un accompagnement pour libérer ce que la lignée a transmis</div>
+        <div class="hc-desc">Chaque répétition dans ta vie porte une information. Ensemble, nous remontons le fil.</div>
+        <div class="hc-items">
+          <div class="hc-item">
+            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 C8 2 4 5 4 9 C4 11.2 5.8 13 8 13 C10.2 13 12 11.2 12 9 C12 5 8 2 8 2Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 13 L8 14.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Identifier les schémas familiaux invisibles</span>
           </div>
-          <div class="mini-card">
-            <strong>💬 Corps</strong>
-            <span>Écouter ce que le corps exprime quand les mots ne suffisent plus.</span>
+          <div class="hc-item">
+            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2"/><path d="M5.5 8 C6.5 6 9.5 6 10.5 8 C9.5 10 6.5 10 5.5 8Z" stroke="rgba(216,140,106,.9)" stroke-width="1" fill="none"/></svg>
+            <span>Comprendre l'origine des répétitions émotionnelles</span>
           </div>
-          <div class="mini-card">
-            <strong>💫 Fréquence</strong>
-            <span>Voir la vibration dans laquelle tu vis et ce qu’elle attire.</span>
+          <div class="hc-item">
+            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3 Q11 6 11 9 Q11 12 8 13 Q5 12 5 9 Q5 6 8 3Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 3 L8 13" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-dasharray="1.5 1.5"/></svg>
+            <span>Libérer les mémoires héritées de la lignée</span>
           </div>
-          <div class="mini-card">
-            <strong>🌳 Arbre</strong>
-            <span>Visualiser les répétitions à travers ton génosociogramme.</span>
+          <div class="hc-item">
+            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13 Q8 3 13 13" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5.5 9 L10.5 9" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-linecap="round"/></svg>
+            <span>Reprendre ta place dans ton propre récit</span>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- PILIERS -->
-  <section>
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Séances individuelles
+    </div>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      À distance en visio
+    </div>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      À votre domicile
+    </div>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Livre audio gratuit
+    </div>
+    <div class="trust-item">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Outils interactifs inclus
+    </div>
+  </div>
+
+  <!-- QUI EST LAURA -->
+  <section class="about">
     <div class="section-inner">
-      <div class="section-head reveal">
-        <div class="section-eyebrow">Le fondement du site</div>
-        <h2 class="section-title">Quatre portes pour <em>lire ta réalité</em></h2>
-        <p class="section-sub">
-          Le site repose sur une lecture croisée : ce que tu vis aujourd’hui peut se comprendre à travers le corps,
-          la mémoire familiale, les croyances et la fréquence à laquelle tu vibres.
-        </p>
-      </div>
-
-      <div class="pillars-grid">
-        <div class="pillar reveal">
-          <div class="pillar-icon">🧬</div>
-          <h3>La mémoire de lignée</h3>
-          <p>
-            Ce qui n’a pas été traversé, nommé ou pleuré dans une famille peut continuer à circuler.
-            Certaines répétitions sont des loyautés invisibles.
-          </p>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <div class="eyebrow">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
+            À propos
+          </div>
+          <h2 class="section-title">Une approche qui<br><em>relie le passé au présent</em></h2>
+          <p>Je suis Laura Charron, praticienne en psychogénéalogie et thérapie brève. <strong>Mon travail consiste à explorer avec vous les mémoires familiales qui continuent d'agir dans votre vie</strong> — à travers vos relations, votre corps, vos répétitions émotionnelles.</p>
+          <p>Ce n'est pas de la généalogie classique. C'est une lecture vivante de votre arbre familial pour comprendre <strong>pourquoi certaines choses se répètent de génération en génération</strong> — et comment vous pouvez être celle qui brise la chaîne.</p>
+          <p>Mon approche croise psychogénéalogie, hypnose thérapeutique, épigénétique et lecture du corps. Chaque séance est unique, adaptée à ce que vous traversez.</p>
+          <div class="about-tags">
+            <span class="about-tag">Psychogénéalogie</span>
+            <span class="about-tag">Hypnose thérapeutique</span>
+            <span class="about-tag">Thérapie brève</span>
+            <span class="about-tag">Mémoires transgénérationnelles</span>
+            <span class="about-tag">Épigénétique</span>
+          </div>
         </div>
-
-        <div class="pillar reveal">
-          <div class="pillar-icon">💬</div>
-          <h3>Le corps comme langage</h3>
-          <p>
-            Le corps ne ment pas. Il garde les traces, les tensions, les peurs, les surcharges.
-            Il dit parfois ce que le mental ne sait pas encore formuler.
-          </p>
-        </div>
-
-        <div class="pillar reveal">
-          <div class="pillar-icon">✨</div>
-          <h3>La fréquence intérieure</h3>
-          <p>
-            Tes émotions, tes croyances et ton état intérieur créent un champ.
-            Ce champ influence ce que tu perçois, attires, répètes et autorises dans ta vie.
-          </p>
+        <div class="about-visual reveal">
+          <div class="av-deco">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <path d="M24 4 C24 4 12 14 12 26 C12 34 17.4 40 24 40 C30.6 40 36 34 36 26 C36 14 24 4 24 4Z" stroke="rgba(216,140,106,.7)" stroke-width="1.4" fill="none"/>
+              <path d="M24 40 L24 44" stroke="rgba(216,140,106,.5)" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M18 22 C20 18 28 18 30 22" stroke="rgba(216,140,106,.4)" stroke-width="1" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+          <div class="av-quote">"Certaines blessures ne viennent pas de ta vie. Elles viennent de ceux qui t'ont précédée — et tu as le pouvoir de les libérer."</div>
+          <div class="av-list">
+            <div class="av-item">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Identifier les schémas familiaux invisibles
+            </div>
+            <div class="av-item">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Comprendre l'origine de tes répétitions
+            </div>
+            <div class="av-item">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Libérer les mémoires héritées
+            </div>
+            <div class="av-item">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Reprendre ta place dans ton histoire
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PORTALS -->
-  <section class="portals">
+  <!-- SÉANCE -->
+  <section class="seance">
     <div class="section-inner">
-      <div class="section-head reveal">
-        <div class="section-eyebrow">Explorer</div>
-        <h2 class="section-title">Choisis ta <em>porte d’entrée</em></h2>
-        <p class="section-sub">
-          Chaque page a sa fonction. L’ensemble forme un parcours cohérent.
-        </p>
-      </div>
-
-      <div class="portal-grid">
-        <a class="portal reveal" href="parcours.html">
-          <div class="portal-top">
-            <div class="portal-icon">🧬</div>
-            <div class="portal-tag">Parcours</div>
-          </div>
-          <h3>Mémoires de lignée</h3>
-          <p>
-            Comprends ce que tu portes, ce qui se répète et ce que ton histoire cherche à te montrer.
-          </p>
-          <span>Explorer →</span>
-        </a>
-
-        <a class="portal reveal" href="symptomes.html">
-          <div class="portal-top">
-            <div class="portal-icon">💬</div>
-            <div class="portal-tag">Corps</div>
-          </div>
-          <h3>Mon corps parle</h3>
-          <p>
-            Entre par le symptôme ou le ressenti physique pour décoder le message derrière le mal-être.
-          </p>
-          <span>Écouter →</span>
-        </a>
-
-        <a class="portal reveal" href="vibration.html">
-          <div class="portal-top">
-            <div class="portal-icon">💫</div>
-            <div class="portal-tag">Fréquence</div>
-          </div>
-          <h3>Ma fréquence</h3>
-          <p>
-            Observe où tu vibres aujourd’hui et comment cela influence ta perception, tes liens et tes choix.
-          </p>
-          <span>Mesurer →</span>
-        </a>
-
-        <a class="portal reveal" href="arbre-vie.html">
-          <div class="portal-top">
-            <div class="portal-icon">🌳</div>
-            <div class="portal-tag">Conscience</div>
-          </div>
-          <h3>Arbre de Vie</h3>
-          <p>
-            Identifie la sphère active dans ta vie en ce moment et la dynamique intérieure qu’elle révèle.
-          </p>
-          <span>Découvrir →</span>
-        </a>
-
-        <a class="portal reveal" href="cycle.html">
-          <div class="portal-top">
-            <div class="portal-icon">🌙</div>
-            <div class="portal-tag">Rythme</div>
-          </div>
-          <h3>Mon cycle</h3>
-          <p>
-            Relis tes phases, tes états intérieurs et ton énergie à un mouvement plus profond et plus naturel.
-          </p>
-          <span>Observer →</span>
-        </a>
-
-        <a class="portal reveal" href="journal.html">
-          <div class="portal-top">
-            <div class="portal-icon">📖</div>
-            <div class="portal-tag">Intégration</div>
-          </div>
-          <h3>Journal guidé</h3>
-          <p>
-            Dépose ce que tu comprends, ce que tu ressens, ce que tu vois émerger. L’écriture aide à intégrer.
-          </p>
-          <span>Écrire →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-inner">
-      <div class="about-copy reveal">
-        <div class="section-head">
-          <div class="section-eyebrow">À propos</div>
-          <h2 class="section-title">Une approche entre <em>science, mémoire et conscience</em></h2>
-          <p class="section-sub">
-            Le site relie plusieurs niveaux de lecture : biologie, épigénétique, système nerveux,
-            psychogénéalogie, symbolique et fréquence intérieure.
-          </p>
-        </div>
-
-        <p>
-          Ici, rien n’est abordé comme un dogme. L’idée est de <strong>mettre du sens</strong> sur ce que tu vis,
-          sans nier ni le corps, ni l’histoire, ni la mémoire familiale.
-        </p>
-        <p>
-          Ce que tu ressens peut être personnel, relationnel, familial, biologique, émotionnel ou fréquentiel —
-          et souvent, c’est <strong>tout cela à la fois</strong>.
-        </p>
-      </div>
-
       <div class="reveal">
-        <div class="about-block">
-          <h3>Ce que tu trouveras ici</h3>
-          <p>
-            Un espace structuré pour observer les répétitions, comprendre leur origine,
-            repérer les échos dans la famille et avancer vers une libération plus consciente.
-          </p>
-
-          <div class="about-list">
-            <div class="about-item">✦ Des outils interactifs pour explorer tes schémas</div>
-            <div class="about-item">✦ Une lecture transgénérationnelle reliée au corps</div>
-            <div class="about-item">✦ Un arbre familial et un génosociogramme visuel</div>
-            <div class="about-item">✦ Des pages de conscience, de fréquence et d’écriture</div>
+        <div class="eyebrow">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
+          Séance de psychogénéalogie
+        </div>
+        <h2 class="section-title">Un accompagnement<br><em>sur mesure</em></h2>
+        <p class="section-sub" style="max-width:520px">Pour explorer ta lignée, identifier ce qui se répète et commencer à le transformer.</p>
+      </div>
+      <div class="seance-grid reveal">
+        <div class="seance-card">
+          <div class="sc-tag">Séance individuelle</div>
+          <div class="sc-title">Psychogénéalogie &amp; Libération des mémoires</div>
+          <div class="sc-modes">
+            <span class="sc-mode">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="3" width="9" height="6" rx="1.5" stroke="#6B3E2E" stroke-width="1.2"/><path d="M8 6 L10.5 4.5 L10.5 7.5 Z" fill="#6B3E2E"/></svg>
+              En visio
+            </span>
+            <span class="sc-mode">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 C4.3 1.5 3 2.8 3 4.5 C3 7 6 10.5 6 10.5 C6 10.5 9 7 9 4.5 C9 2.8 7.7 1.5 6 1.5Z" stroke="#6B3E2E" stroke-width="1.2" fill="none"/><circle cx="6" cy="4.5" r="1.2" fill="#6B3E2E"/></svg>
+              À domicile
+            </span>
+          </div>
+          <div class="sc-desc">Chaque séance part de ce que vous traversez — une répétition, un blocage, une relation difficile, une fatigue inexplicable. Ensemble, nous remontons le fil de votre lignée pour mettre des mots sur ce qui agit dans l'ombre.</div>
+          <div class="sc-list">
+            <div class="sc-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Exploration de votre arbre familial et des schémas répétitifs
+            </div>
+            <div class="sc-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Identification des mémoires transgénérationnelles actives
+            </div>
+            <div class="sc-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Travail sur le corps, les émotions et les croyances héritées
+            </div>
+            <div class="sc-item">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Protocoles de libération adaptés à votre situation
+            </div>
+          </div>
+          <div class="sc-price">Tarif sur demande · Première prise de contact sans engagement</div>
+          <a href="contact.html" class="btn-primary" style="width:100%;justify-content:center;">Prendre contact</a>
+        </div>
+        <div class="seance-aside">
+          <div class="aside-card">
+            <div class="aside-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4 C14 4 8 9 8 15 C8 18.3 10.7 21 14 21 C17.3 21 20 18.3 20 15 C20 9 14 4 14 4Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 21 L14 24" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round"/></svg>
+            </div>
+            <div class="aside-title">Pour qui ?</div>
+            <div class="aside-body">Pour toute personne qui ressent des répétitions dans ses relations, ses émotions ou sa vie — et qui veut comprendre d'où elles viennent.</div>
+          </div>
+          <div class="aside-card">
+            <div class="aside-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14 C7 10.1 10.1 7 14 7 C17.9 7 21 10.1 21 14 C21 17.9 17.9 21 14 21 C10.1 21 7 17.9 7 14Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 10 L14 14 L17 16" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="aside-title">À domicile ou à distance</div>
+            <div class="aside-body">Laura se déplace chez vous ou vous accompagne en visio. Chaque format permet un travail intérieur dans les meilleures conditions.</div>
+          </div>
+          <div class="aside-card">
+            <div class="aside-icon-wrap">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 21 C6 21 8 10 14 7 C20 10 22 21 22 21" stroke="#6B3E2E" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M10 16 C11 14 17 14 18 16" stroke="#6B3E2E" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="aside-title">Comment ça se passe ?</div>
+            <div class="aside-body">Un premier échange par message pour comprendre votre situation. Puis une ou plusieurs séances selon ce qui émerge. Le rythme est le vôtre.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PATH -->
-  <section id="transformation">
+  <!-- AVIS -->
+  <section class="avis">
     <div class="section-inner">
-      <div class="section-head reveal">
-        <div class="section-eyebrow">Le chemin</div>
-        <h2 class="section-title">Comment avancer <em>sur le site</em></h2>
-        <p class="section-sub">
-          Tu peux suivre ce fil simple pour ne pas te perdre.
-        </p>
+      <div class="reveal" style="text-align:center">
+        <div class="eyebrow" style="justify-content:center">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
+          Témoignages
+        </div>
+        <h2 class="section-title">Ce qu'en disent<br><em>celles qui ont consulté</em></h2>
       </div>
-
-      <div class="path-grid">
-        <div class="path-step reveal">
-          <div class="path-num">1</div>
-          <h3>Identifier</h3>
-          <p>
-            Pars d’un schéma, d’un symptôme, d’une émotion ou d’une répétition qui revient dans ta vie.
-          </p>
+      <div class="avis-grid">
+        <div class="avis-card reveal">
+          <div class="avis-deco">
+            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
+          </div>
+          <div class="avis-text">"Dès le lendemain, confrontée à la même situation habituellement problématique, je ne la pensais plus de la même manière. Et donc mes réactions ont été différentes."</div>
+          <div class="avis-sep"></div>
+          <div class="avis-author">
+            <div class="avis-av">S</div>
+            <div>
+              <div class="avis-name">Sophie</div>
+              <div class="avis-label">Patiente vérifiée · 2018</div>
+            </div>
+          </div>
         </div>
-
-        <div class="path-step reveal">
-          <div class="path-num">2</div>
-          <h3>Comprendre</h3>
-          <p>
-            Relie ce vécu à ton histoire, à ton système nerveux, à ta lignée et à tes croyances.
-          </p>
+        <div class="avis-card reveal">
+          <div class="avis-deco">
+            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
+          </div>
+          <div class="avis-text">"La justesse de ses propos a balayé toutes mes craintes. Je recommande chaudement Laura pour son écoute, ses axes de réflexion et la qualité de son contact."</div>
+          <div class="avis-sep"></div>
+          <div class="avis-author">
+            <div class="avis-av">T</div>
+            <div>
+              <div class="avis-name">Thierry</div>
+              <div class="avis-label">Patient vérifié · 2018</div>
+            </div>
+          </div>
         </div>
-
-        <div class="path-step reveal">
-          <div class="path-num">3</div>
-          <h3>Visualiser</h3>
-          <p>
-            Entre les données dans l’arbre familial et le génosociogramme pour voir les répétitions concrètement.
-          </p>
-        </div>
-
-        <div class="path-step reveal">
-          <div class="path-num">4</div>
-          <h3>Intégrer</h3>
-          <p>
-            Utilise le journal, le protocole et les pages-guides pour transformer ce que tu as vu.
-          </p>
+        <div class="avis-card reveal">
+          <div class="avis-deco">
+            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
+          </div>
+          <div class="avis-text">"J'ai pu comprendre d'où provenaient mes angoisses. Mme Charron est très professionnelle et humaine. Je la recommande vivement pour son écoute attentive et la pertinence de ses remarques."</div>
+          <div class="avis-sep"></div>
+          <div class="avis-author">
+            <div class="avis-av">S</div>
+            <div>
+              <div class="avis-name">Sonia</div>
+              <div class="avis-label">Patiente vérifiée · 2018</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="cta">
+  <!-- OUTILS GRATUITS -->
+  <section class="outils">
+    <div class="section-inner">
+      <div class="reveal" style="text-align:center">
+        <div class="eyebrow" style="justify-content:center">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
+          Ressources gratuites
+        </div>
+        <h2 class="section-title">Explorer par toi-même,<br><em>à ton rythme</em></h2>
+        <p class="section-sub" style="max-width:500px;margin:0 auto">Des outils interactifs pour commencer l'exploration de ta lignée, de ton corps et de tes schémas — sans engagement, directement dans ton navigateur.</p>
+      </div>
+      <div class="outils-grid">
+        <a class="outil reveal" href="genosociogramme.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="7" r="3.5" stroke="#6B3E2E" stroke-width="1.3"/><circle cx="7" cy="22" r="3" stroke="#6B3E2E" stroke-width="1.3"/><circle cx="25" cy="22" r="3" stroke="#6B3E2E" stroke-width="1.3"/><path d="M16 10.5 L16 16 L7 19" stroke="#6B3E2E" stroke-width="1.2" stroke-linecap="round"/><path d="M16 16 L25 19" stroke="#6B3E2E" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="outil-tag">Visualisation</div>
+          <h3>Génosociogramme</h3>
+          <p>Construis ton arbre familial interactif et visualise les répétitions sur 4 générations.</p>
+          <div class="outil-arrow">
+            Créer mon arbre
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+        <a class="outil reveal" href="arbre-famille.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 4 L16 28" stroke="#6B3E2E" stroke-width="1.3" stroke-linecap="round"/><path d="M16 10 C16 10 10 8 8 13" stroke="#6B3E2E" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M16 16 C16 16 22 14 24 19" stroke="#6B3E2E" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M16 7 C16 7 20 5 22 9" stroke="#6B3E2E" stroke-width="1.3" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="outil-tag">Exploration</div>
+          <h3>Ma famille</h3>
+          <p>Note les événements marquants de ta lignée et détecte automatiquement les schémas.</p>
+          <div class="outil-arrow">
+            Explorer ma lignée
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+        <a class="outil reveal" href="parcours.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="10" stroke="#6B3E2E" stroke-width="1.3"/><path d="M16 8 C20 11 20 21 16 24 C12 21 12 11 16 8Z" stroke="#6B3E2E" stroke-width="1" fill="none"/><path d="M6 16 L26 16" stroke="#6B3E2E" stroke-width="1" stroke-dasharray="2 2"/></svg>
+          </div>
+          <div class="outil-tag">Parcours guidé</div>
+          <h3>Mémoires de lignée</h3>
+          <p>Un parcours pas à pas pour identifier ce que tu portes et comprendre son origine.</p>
+          <div class="outil-arrow">
+            Commencer
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+        <a class="outil reveal" href="symptomes.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 5 C16 5 10 10 10 18 C10 22.4 12.7 26 16 26 C19.3 26 22 22.4 22 18 C22 10 16 5 16 5Z" stroke="#6B3E2E" stroke-width="1.3" fill="none"/><path d="M13 17 C14 15 18 15 19 17" stroke="#6B3E2E" stroke-width="1" stroke-linecap="round" fill="none"/></svg>
+          </div>
+          <div class="outil-tag">Corps</div>
+          <h3>Mon corps parle</h3>
+          <p>Décoder les symptômes physiques à travers le prisme des mémoires et du cycle.</p>
+          <div class="outil-arrow">
+            Écouter mon corps
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+        <a class="outil reveal" href="journal.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="8" y="6" width="16" height="20" rx="2" stroke="#6B3E2E" stroke-width="1.3"/><path d="M12 12 L20 12 M12 16 L20 16 M12 20 L17 20" stroke="#6B3E2E" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="outil-tag">Écriture</div>
+          <h3>Journal guidé</h3>
+          <p>Des questions pour déposer ce qui remonte et intégrer ce que tu traverses.</p>
+          <div class="outil-arrow">
+            Ouvrir le journal
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+        <a class="outil reveal" href="vibration.html">
+          <div class="outil-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="3.5" fill="#6B3E2E" opacity=".6"/><circle cx="16" cy="16" r="7" stroke="#6B3E2E" stroke-width="1" opacity=".4"/><circle cx="16" cy="16" r="11" stroke="#6B3E2E" stroke-width=".8" opacity=".2"/></svg>
+          </div>
+          <div class="outil-tag">Fréquence</div>
+          <h3>Ma fréquence</h3>
+          <p>Calculer ta fréquence vibratoire actuelle et comprendre ce qu'elle attire dans ta vie.</p>
+          <div class="outil-arrow">
+            Calculer
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVRE AUDIO -->
+  <section class="livre">
+    <div class="section-inner">
+      <div class="livre-box reveal">
+        <div>
+          <div class="livre-eyebrow">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="rgba(228,205,185,.6)"/></svg>
+            Livre audio · Gratuit
+          </div>
+          <h2 class="livre-title">Ressens · Guéris · <em>Vis</em></h2>
+          <p class="livre-desc">Le livre qui accompagne ce site — disponible gratuitement en audio. 10 chapitres pour comprendre les boucles psychologiques, les mémoires transgénérationnelles, l'énergie et les outils concrets de libération.</p>
+          <a href="parcours.html" class="livre-btn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/><path d="M6.5 5.5 L11 8 L6.5 10.5 Z" fill="rgba(255,255,255,.7)"/></svg>
+            Écouter gratuitement
+          </a>
+        </div>
+        <div class="livre-chapters">
+          <div class="lc"><span class="lc-num">01</span><span class="lc-text">Briser la boucle — comprendre les schémas répétitifs</span></div>
+          <div class="lc"><span class="lc-num">02</span><span class="lc-text">Le voyage de la conscience et la transformation</span></div>
+          <div class="lc"><span class="lc-num">03</span><span class="lc-text">Les 9 étapes clés d'intégration du Cycle 1</span></div>
+          <div class="lc"><span class="lc-num">04</span><span class="lc-text">La programmation inconsciente — Cycle 2</span></div>
+          <div class="lc"><span class="lc-num">05</span><span class="lc-text">Comprendre l'énergie et la vibration</span></div>
+          <div class="lc"><span class="lc-num">+5</span><span class="lc-text">Outils pratiques et protocoles de libération</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
     <div class="cta-box reveal">
-      <div class="section-eyebrow">Commencer maintenant</div>
-      <h2>Tu n’as pas besoin de tout comprendre<br><em>pour commencer à libérer</em></h2>
-      <p>
-        Le plus important n’est pas d’avoir toutes les réponses tout de suite.
-        Le plus important est de voir ce qui se rejoue, de le nommer, et de reprendre ta place dans ton histoire.
-      </p>
-      <div class="hero-actions" style="justify-content:center;">
-        <a href="parcours.html" class="btn-main">🧬 Explorer mes mémoires</a>
-        <a href="contact.html" class="btn-ghost" style="color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.16);">✉️ Me contacter</a>
+      <svg class="cta-deco" width="60" height="60" viewBox="0 0 60 60" fill="none">
+        <path d="M30 8 C30 8 16 20 16 34 C16 42 22.3 48 30 48 C37.7 48 44 42 44 34 C44 20 30 8 30 8Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
+        <path d="M30 48 L30 53" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M22 28 C24 24 36 24 38 28" stroke="rgba(255,255,255,.3)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <h2>Tu reconnais ces<br><em>schémas dans ta vie ?</em></h2>
+      <p>Une séance de psychogénéalogie peut être le premier pas pour mettre des mots sur ce qui se rejoue — et commencer à t'en libérer.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-white">Réserver une séance</a>
+        <a href="contact.html" class="btn-outline-white">Écrire à Laura</a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="site-footer">
+  <footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
           <a href="index.html" class="footer-logo">Laura Charron</a>
-          <p>Auteure, chercheuse et guide sur le chemin des mémoires transgénérationnelles et de la libération intérieure.</p>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer" class="footer-book-link">📗 Commander le livre</a>
+          <p>Praticienne en psychogénéalogie et thérapie brève. Séances à distance et à domicile.</p>
         </div>
-
         <div class="footer-col">
-          <h4>Explorer</h4>
+          <h4>Séances</h4>
+          <a href="contact.html">Réserver une séance</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="index.html#about">À propos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Outils gratuits</h4>
           <a href="parcours.html">Mémoires de lignée</a>
-          <a href="arbre-vie.html">Arbre de Vie</a>
-          <a href="vibration.html">Ma fréquence</a>
-          <a href="cycle.html">Mon cycle</a>
-          <a href="symptomes.html">Mon corps parle</a>
-          <a href="journal.html">Journal guidé</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Approfondir</h4>
-          <a href="transgen.html">Transgénérationnel</a>
           <a href="genosociogramme.html">Génosociogramme</a>
           <a href="arbre-famille.html">Ma famille</a>
-          <a href="contact.html">Contact</a>
+          <a href="journal.html">Journal guidé</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="vibration.html">Ma fréquence</a>
         </div>
-
         <div class="footer-col">
-          <h4>Laura Charron</h4>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Ressens · Guéris · Vis</a>
-          <a href="index.html#about">À propos</a>
-          <a href="journal.html">Journal</a>
-          <a href="contact.html">Contact</a>
-          <a href="index.html">Retour à l'accueil</a>
+          <h4>Explorer</h4>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="parcours.html">Livre audio gratuit</a>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <p>© Laura Charron 2026 · Tous droits réservés · <em>Ressens · Guéris · Vis</em></p>
+        <p>© Laura Charron 2026 · Tous droits réservés · Ressens · Guéris · Vis</p>
         <div class="footer-bottom-links">
-          <a href="journal.html">Journal</a>
           <a href="contact.html">Contact</a>
-          <a href="https://amzn.eu/d/0dLcN69W" target="_blank" rel="noopener noreferrer">Commander le livre</a>
+          <a href="parcours.html">Livre audio</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    const cur = document.getElementById('cur');
-    const ring = document.getElementById('ring');
-    const burger = document.getElementById('burger');
-    const mobileMenu = document.getElementById('nav-mobile');
-
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    if (window.innerWidth > 900) {
-      document.addEventListener('mousemove', (e) => {
-        mx = e.clientX;
-        my = e.clientY;
-
-        if (cur) {
-          cur.style.left = mx + 'px';
-          cur.style.top = my + 'px';
-        }
-      });
-
-      (function animateCursor(){
-        rx += (mx - rx) * 0.12;
-        ry += (my - ry) * 0.12;
-
-        if (ring) {
-          ring.style.left = rx + 'px';
-          ring.style.top = ry + 'px';
-        }
-
-        requestAnimationFrame(animateCursor);
-      })();
+    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+    const burger=document.getElementById('burger'),mobileMenu=document.getElementById('nav-mobile');
+    let mx=0,my=0,rx=0,ry=0;
+    if(window.innerWidth>900){
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}});
+      (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(loop);})();
     }
-
-    if (burger && mobileMenu) {
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('open');
-        mobileMenu.classList.toggle('open');
-      });
-
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          burger.classList.remove('open');
-          mobileMenu.classList.remove('open');
-        });
-      });
+    if(burger&&mobileMenu){
+      burger.addEventListener('click',()=>{burger.classList.toggle('open');mobileMenu.classList.toggle('open');});
+      mobileMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{burger.classList.remove('open');mobileMenu.classList.remove('open');}));
     }
-
-    const revealElements = document.querySelectorAll('.reveal');
-
-    if ('IntersectionObserver' in window) {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      revealElements.forEach(el => obs.observe(el));
-    } else {
-      revealElements.forEach(el => el.classList.add('revealed'));
-    }
-
-    setTimeout(() => {
-      document.querySelectorAll('.reveal:not(.revealed)').forEach(el => {
-        el.classList.add('revealed');
-      });
-    }, 700);
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    setTimeout(()=>document.querySelectorAll('.reveal:not(.revealed)').forEach(el=>el.classList.add('revealed')),800);
   </script>
 </body>
 </html>
