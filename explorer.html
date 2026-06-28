@@ -1,0 +1,637 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Explorer · Laura Charron</title>
+  <meta name="description" content="Explorez vos racines, vos répétitions et les premières traces de votre histoire familiale avec les outils gratuits de Laura Charron." />
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/explorer.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --cream:#F4EDE4;
+      --cream2:#E9D8C9;
+      --cream3:#FFFAF5;
+      --terra-dark:#A14A3C;
+      --terra:#C65D3B;
+      --terra-light:#D88C6A;
+      --brown:#6B3E2E;
+      --ink:#3A1F12;
+      --ink2:#5C3420;
+      --soft:#9A7060;
+      --white:#FFFCF8;
+      --line:rgba(107,62,46,.13);
+      --shadow:0 18px 55px rgba(58,31,18,.08);
+      --shadow2:0 24px 70px rgba(58,31,18,.14);
+      --dark:#1A0E08;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Jost',sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      overflow-x:hidden;
+      padding-top:68px;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+
+    .cursor{position:fixed;width:8px;height:8px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply}
+    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--terra);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.42}
+
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;
+      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      padding:0 2rem;
+      background:rgba(244,237,228,.96);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-logo{
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic;font-size:1.35rem;font-weight:600;white-space:nowrap;
+    }
+    .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end;flex-wrap:wrap}
+    .nav-links a{font-size:.8rem;color:var(--ink2);letter-spacing:.03em;transition:.18s}
+    .nav-links a:hover,.nav-links a.active{color:var(--terra)}
+    .nav-cta{
+      display:inline-flex;align-items:center;gap:.45rem;
+      padding:.62rem 1.1rem;border-radius:4px;
+      background:var(--terra);color:#fff!important;
+      text-transform:uppercase;font-size:.72rem;font-weight:500;letter-spacing:.07em;
+      box-shadow:0 8px 24px rgba(161,74,60,.22);
+    }
+    .nav-cta:hover{background:var(--terra-dark);transform:translateY(-1px)}
+    .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+    .nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .nav-burger.open span:nth-child(2){opacity:0}
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:999;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav-mobile.open{display:flex}
+    .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.92rem;color:var(--ink2)}
+    .nav-mobile a:last-child{border-bottom:0}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.revealed{opacity:1;transform:translateY(0)}
+
+    h1,h2,h3{font-family:'Cormorant Garamond',serif}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:.55rem;
+      font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--terra);font-weight:500;margin-bottom:1rem;
+    }
+
+    .hero{
+      position:relative;overflow:hidden;
+      padding:6.4rem 4rem 5.5rem;
+      background:
+        radial-gradient(ellipse 50% 48% at 82% 32%, rgba(198,93,59,.14), transparent 62%),
+        radial-gradient(ellipse 38% 30% at 8% 72%, rgba(107,62,46,.08), transparent 60%),
+        linear-gradient(160deg,#FFFAF5 0%,#F4EDE4 58%,#E9D8C9 100%);
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;opacity:.4;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(107,62,46,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(107,62,46,.045) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:radial-gradient(ellipse at center, black 0%, transparent 72%);
+    }
+    .map-lines{position:absolute;inset:0;opacity:.55;pointer-events:none}
+    .map-lines svg{width:100%;height:100%;display:block}
+
+    .hero-inner{position:relative;z-index:2;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+    .hero h1{font-size:clamp(3.2rem,7vw,5.8rem);font-weight:600;line-height:.98;letter-spacing:-.015em;margin-bottom:1.15rem}
+    .hero h1 em{font-style:italic;color:var(--terra);font-weight:400}
+    .hero-text{font-size:1rem;line-height:1.95;color:var(--ink2);font-weight:300;max-width:590px}
+    .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;margin-top:2rem}
+    .btn-main,.btn-secondary,.btn-light{
+      display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+      border-radius:4px;transition:.2s;text-decoration:none;cursor:pointer;
+      padding:.98rem 1.75rem;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500;
+    }
+    .btn-main{background:var(--terra);color:#fff;border:1px solid var(--terra);box-shadow:0 10px 30px rgba(161,74,60,.22)}
+    .btn-main:hover{background:var(--terra-dark);transform:translateY(-2px)}
+    .btn-secondary{border:1px solid rgba(107,62,46,.24);color:var(--ink2);background:rgba(255,255,255,.25)}
+    .btn-secondary:hover{border-color:var(--terra);color:var(--terra);background:rgba(255,252,248,.65)}
+    .btn-light{background:#fff;color:var(--terra);border:1px solid #fff}
+    .btn-light:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.16)}
+
+    .map-card{
+      position:relative;overflow:hidden;
+      background:linear-gradient(158deg,var(--brown),#2A1208);
+      border-radius:8px;padding:2.3rem;
+      box-shadow:var(--shadow2);
+      min-height:470px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .map-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 58% 48% at 50% 40%,rgba(216,140,106,.2),transparent 62%)}
+    .map-card svg{position:relative;z-index:1;width:100%;max-width:430px}
+    .map-card-caption{position:absolute;z-index:2;left:2rem;right:2rem;bottom:2rem}
+    .map-card-caption h2{font-size:1.45rem;color:#fff;line-height:1.15;margin-bottom:.5rem}
+    .map-card-caption p{font-size:.82rem;line-height:1.75;color:rgba(255,255,255,.58);font-weight:300}
+
+    section{padding:5.5rem 4rem}
+    .section-inner{max-width:1180px;margin:0 auto}
+    .section-head{max-width:720px;margin-bottom:2.5rem}
+    .section-head.center{text-align:center;margin-left:auto;margin-right:auto}
+    .section-title{font-size:clamp(2.15rem,4.4vw,3.55rem);font-weight:600;line-height:1.05;margin-bottom:.8rem;letter-spacing:-.01em}
+    .section-title em{font-style:italic;color:var(--terra);font-weight:400}
+    .section-sub{font-size:.94rem;line-height:1.9;color:var(--soft);font-weight:300}
+
+    .orientation{background:var(--cream3)}
+    .orientation-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .orient-card{
+      background:var(--white);border:1px solid rgba(107,62,46,.1);
+      border-radius:8px;padding:1.35rem;box-shadow:0 10px 28px rgba(58,31,18,.045);
+      transition:.22s;min-height:205px;
+    }
+    .orient-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(198,93,59,.2)}
+    .mini-icon{width:44px;height:44px;color:var(--terra);margin-bottom:1rem}
+    .orient-card h3{font-size:1.25rem;line-height:1.1;margin-bottom:.5rem}
+    .orient-card p{font-size:.81rem;line-height:1.75;color:var(--soft);font-weight:300}
+    .orient-card a{display:inline-flex;margin-top:.8rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);font-weight:500}
+
+    .exploration{
+      background:
+        radial-gradient(ellipse 48% 42% at 90% 15%, rgba(216,140,106,.1), transparent 60%),
+        var(--cream);
+    }
+    .tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+    .tool-card{
+      position:relative;overflow:hidden;
+      background:var(--white);border:1px solid rgba(107,62,46,.1);
+      border-radius:9px;padding:1.7rem;box-shadow:var(--shadow);
+      min-height:300px;display:flex;flex-direction:column;
+    }
+    .tool-card::before{content:'';position:absolute;width:170px;height:170px;border:1px solid rgba(198,93,59,.09);border-radius:50%;right:-55px;top:-60px}
+    .tool-card > *{position:relative;z-index:1}
+    .tool-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:.7rem}
+    .tool-card h3{font-size:1.55rem;line-height:1.08;margin-bottom:.65rem}
+    .tool-card p{font-size:.84rem;line-height:1.8;color:var(--soft);font-weight:300;flex:1}
+    .tool-link{margin-top:1.2rem;display:inline-flex;align-items:center;gap:.45rem;color:var(--terra);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+
+    .ritual{background:var(--dark);color:white;position:relative;overflow:hidden}
+    .ritual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 48% 50% at 50% 0%,rgba(216,140,106,.13),transparent 60%)}
+    .ritual .section-inner{position:relative;z-index:1}
+    .ritual .eyebrow{color:var(--terra-light)}
+    .ritual .section-sub{color:rgba(255,255,255,.55)}
+    .ritual-path{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-top:2.5rem}
+    .ritual-step{
+      border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.045);
+      border-radius:8px;padding:1.35rem;min-height:210px;
+    }
+    .ritual-num{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--terra-light);margin-bottom:.75rem}
+    .ritual-step h3{font-size:1.25rem;margin-bottom:.5rem;color:#fff}
+    .ritual-step p{font-size:.8rem;line-height:1.75;color:rgba(255,255,255,.55);font-weight:300}
+
+    .deepening{background:var(--cream2)}
+    .deep-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem;align-items:center}
+    .deep-card{
+      background:linear-gradient(158deg,var(--brown),#2A1208);
+      color:white;border-radius:10px;padding:2rem;box-shadow:var(--shadow2);
+      position:relative;overflow:hidden
+    }
+    .deep-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 85% 10%,rgba(216,140,106,.18),transparent 62%)}
+    .deep-card *{position:relative;z-index:1}
+    .deep-card h2{font-size:2.35rem;line-height:1.05;margin-bottom:.8rem}
+    .deep-card p{font-size:.9rem;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300}
+    .deep-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .deep-item{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:8px;padding:1.25rem;box-shadow:0 8px 26px rgba(58,31,18,.045)}
+    .deep-item h3{font-size:1.18rem;margin-bottom:.45rem}
+    .deep-item p{font-size:.8rem;line-height:1.72;color:var(--soft);font-weight:300}
+
+    .cta{background:var(--cream3);text-align:center}
+    .cta-box{
+      max-width:980px;margin:0 auto;
+      background:linear-gradient(158deg,var(--terra),var(--terra-dark));
+      color:#fff;border-radius:10px;padding:3.4rem 2rem;position:relative;overflow:hidden;box-shadow:var(--shadow2)
+    }
+    .cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 50% 10%,rgba(255,255,255,.12),transparent 62%)}
+    .cta-box *{position:relative;z-index:1}
+    .cta-box h2{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.04;margin-bottom:.8rem}
+    .cta-box p{max-width:600px;margin:0 auto 1.7rem;font-size:.92rem;line-height:1.82;color:rgba(255,255,255,.72);font-weight:300}
+
+    footer{background:#1A0E08;padding:3.5rem 3rem 2rem}
+    .footer-inner{max-width:1200px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;color:white;font-weight:600;display:block;margin-bottom:.7rem}
+    .footer-brand p{font-size:.78rem;line-height:1.72;color:rgba(255,255,255,.36);font-weight:300;max-width:270px}
+    .footer-col h4{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.52);margin-bottom:.9rem}
+    .footer-col a{display:block;font-size:.76rem;color:rgba(255,255,255,.34);margin-bottom:.5rem;font-weight:300;transition:.18s}
+    .footer-col a:hover{color:var(--terra-light)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+    .footer-bottom p,.footer-bottom a{font-size:.7rem;color:rgba(255,255,255,.22)}
+    .footer-bottom-links{display:flex;gap:1.4rem;flex-wrap:wrap}
+
+    @media(max-width:1060px){
+      .nav-links{gap:.75rem}.nav-links a{font-size:.76rem}
+      .hero-inner,.deep-grid{grid-template-columns:1fr}
+      .orientation-grid,.ritual-path{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:900px){
+      body{padding-top:62px}
+      nav{height:62px;padding:0 1.1rem}.nav-links{display:none}.nav-burger{display:flex}.nav-mobile{top:62px}
+      .cursor,.cursor-ring{display:none}
+      .hero,section{padding-left:1.5rem;padding-right:1.5rem}
+      .hero{padding-top:4.7rem}
+      .tool-grid{grid-template-columns:1fr 1fr}
+      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}.footer-brand{grid-column:span 2}
+      footer{padding:2.5rem 1.5rem 1.5rem}
+    }
+    @media(max-width:640px){
+      .orientation-grid,.tool-grid,.ritual-path,.deep-list{grid-template-columns:1fr}
+      .hero-actions{flex-direction:column;align-items:flex-start}
+      .btn-main,.btn-secondary,.btn-light{width:100%;max-width:360px}
+      .map-card{min-height:390px;padding:1.5rem}
+    }
+    @media(max-width:480px){
+      .footer-top{grid-template-columns:1fr}.footer-brand{grid-column:span 1}
+      .footer-bottom{align-items:flex-start;flex-direction:column}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="ring"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="index.html">Accueil</a>
+      <a href="parcours.html">Commencer</a>
+      <a href="explorer.html" class="active">Explorer</a>
+      <a href="comprendre.html">Comprendre</a>
+      <a href="contact.html" class="nav-cta">Être accompagné</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">Accueil</a>
+    <a href="parcours.html">Commencer</a>
+    <a href="explorer.html" style="color:var(--terra);font-weight:600;">Explorer</a>
+    <a href="comprendre.html">Comprendre</a>
+    <a href="contact.html">Être accompagné</a>
+  </div>
+
+  <header class="hero">
+    <div class="map-lines">
+      <svg viewBox="0 0 1200 640" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M-80 470 C160 390 280 520 470 420 C700 300 780 120 1000 180 C1130 215 1210 130 1300 70" fill="none" stroke="rgba(161,74,60,.15)" stroke-width="1"/>
+        <path d="M-100 160 C120 220 260 90 440 180 C620 270 760 350 970 285 C1120 240 1200 280 1300 330" fill="none" stroke="rgba(107,62,46,.10)" stroke-width="1"/>
+        <circle cx="170" cy="410" r="3" fill="rgba(198,93,59,.28)"/>
+        <circle cx="470" cy="420" r="3" fill="rgba(198,93,59,.28)"/>
+        <circle cx="780" cy="120" r="3" fill="rgba(198,93,59,.28)"/>
+        <circle cx="1000" cy="180" r="3" fill="rgba(198,93,59,.28)"/>
+      </svg>
+    </div>
+
+    <div class="hero-inner">
+      <div class="reveal">
+        <div class="eyebrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/><circle cx="6" cy="6" r="1.4" fill="currentColor"/></svg>
+          Explorer
+        </div>
+        <h1>Suivre les traces qui mènent aux <em>racines</em>.</h1>
+        <p class="hero-text">
+          Explorer, ce n'est pas tout comprendre d'un coup. C'est apprendre à lire les indices : une répétition, un âge, une émotion, une tension du corps, une place familiale, un silence.
+          Cette page rassemble les portes d'exploration pour avancer dans votre histoire sans vous perdre.
+        </p>
+        <div class="hero-actions">
+          <a href="#outils" class="btn-main">Ouvrir la carte</a>
+          <a href="parcours.html" class="btn-secondary">Commencer d'abord</a>
+        </div>
+      </div>
+
+      <div class="map-card reveal" aria-hidden="true">
+        <svg viewBox="0 0 430 430" fill="none">
+          <circle cx="215" cy="215" r="168" stroke="rgba(255,252,248,.28)" stroke-width="1"/>
+          <circle cx="215" cy="215" r="115" stroke="rgba(255,252,248,.18)" stroke-width="1"/>
+          <path d="M76 296 C118 224 152 262 190 205 C226 151 270 167 354 94" stroke="#D88C6A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M94 116 C146 140 160 92 222 126 C284 160 277 226 344 248" stroke="rgba(255,252,248,.25)" stroke-width="1"/>
+          <path d="M118 340 C168 315 204 334 236 286 C276 226 318 296 358 272" stroke="rgba(255,252,248,.18)" stroke-width="1"/>
+          <circle cx="76" cy="296" r="6" fill="#D88C6A"/>
+          <circle cx="190" cy="205" r="6" fill="#D88C6A"/>
+          <circle cx="354" cy="94" r="6" fill="#D88C6A"/>
+          <circle cx="222" cy="126" r="4" fill="rgba(255,252,248,.45)"/>
+          <circle cx="344" cy="248" r="4" fill="rgba(255,252,248,.45)"/>
+          <path d="M215 44 V15 M215 415 V386 M44 215 H15 M415 215 H386" stroke="rgba(255,252,248,.25)" stroke-width="1"/>
+          <path d="M215 174 L229 215 L215 256 L201 215 Z" stroke="#D88C6A" stroke-width="1.2" fill="rgba(216,140,106,.08)"/>
+        </svg>
+        <div class="map-card-caption">
+          <h2>Votre histoire possède une carte.</h2>
+          <p>Chaque indice retrouvé vous rapproche d'une compréhension plus fine de ce qui se répète.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="orientation">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 L7.1 4.9 L10.5 6 L7.1 7.1 L6 10.5 L4.9 7.1 L1.5 6 L4.9 4.9 Z" fill="currentColor"/></svg>
+          Choisir une porte
+        </div>
+        <h2 class="section-title">Par où commencer <em>l'exploration</em> ?</h2>
+        <p class="section-sub">Chaque porte répond à une question différente. Vous pouvez en ouvrir une seule, ou avancer de l'une à l'autre.</p>
+      </div>
+
+      <div class="orientation-grid">
+        <div class="orient-card reveal">
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 7 V41 M24 16 C18 12 12 15 10 21 M24 22 C31 16 37 19 39 26" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <h3>Mes Racines</h3>
+          <p>Pour relier ce que vous vivez à votre histoire familiale et aux transmissions possibles.</p>
+          <a href="arbre-famille.html">Ouvrir</a>
+        </div>
+
+        <div class="orient-card reveal">
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="33" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="35" cy="33" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M24 14 V22 L13 29 M24 22 L35 29" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <h3>La Carte familiale</h3>
+          <p>Pour visualiser les liens, les répétitions, les places et les événements marquants.</p>
+          <a href="genosociogramme.html">Ouvrir</a>
+        </div>
+
+        <div class="orient-card reveal">
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><rect x="12" y="8" width="24" height="32" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M17 17 H31 M17 24 H31 M17 31 H27" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <h3>Le Carnet</h3>
+          <p>Pour déposer vos observations, vos questions et les phrases qui reviennent souvent.</p>
+          <a href="journal.html">Ouvrir</a>
+        </div>
+
+        <div class="orient-card reveal">
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 8 C24 8 14 18 14 28 C14 35 18.5 40 24 40 C29.5 40 34 35 34 28 C34 18 24 8 24 8Z" stroke="currentColor" stroke-width="1.5"/><path d="M20 26 C22 23 26 23 28 26" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <h3>Le Corps</h3>
+          <p>Pour observer les tensions, les messages physiques et les zones sensibles.</p>
+          <a href="symptomes.html">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="exploration" id="outils">
+    <div class="section-inner">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/><path d="M6 1.5 V10.5 M1.5 6 H10.5" stroke="currentColor" stroke-width="1.1"/></svg>
+          Instruments de navigation
+        </div>
+        <h2 class="section-title">Les outils gratuits pour <em>explorer</em>.</h2>
+        <p class="section-sub">Ces outils ne remplacent pas une séance. Ils permettent d'ouvrir des pistes, de repérer des indices et de préparer le travail plus profond.</p>
+      </div>
+
+      <div class="tool-grid">
+        <a href="arbre-famille.html" class="tool-card reveal">
+          <div class="tool-label">Les Racines</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 6 V42 M24 16 C18 12 12 15 10 21 M24 21 C31 16 37 19 39 26 M24 30 C19 30 15 34 13 40 M24 30 C29 30 33 34 35 40" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <h3>Arbre familial</h3>
+          <p>Construisez une première lecture de votre famille sur plusieurs générations et notez les événements importants.</p>
+          <span class="tool-link">Explorer mes racines <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="genosociogramme.html" class="tool-card reveal">
+          <div class="tool-label">La Carte</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="10" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="13" cy="34" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="35" cy="34" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M24 14 V22 L13 30 M24 22 L35 30" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <h3>Génosociogramme</h3>
+          <p>Visualisez les liens, les places, les tensions et les répétitions sous forme de carte familiale.</p>
+          <span class="tool-link">Voir la carte <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="journal.html" class="tool-card reveal">
+          <div class="tool-label">Le Carnet</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><rect x="13" y="8" width="22" height="32" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M18 17 H30 M18 24 H30 M18 31 H26" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <h3>Carnet de voyage</h3>
+          <p>Répondez à des questions guidées pour mettre de l'ordre dans ce qui se répète et ce que vous ressentez.</p>
+          <span class="tool-link">Ouvrir le carnet <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="symptomes.html" class="tool-card reveal">
+          <div class="tool-label">Le Corps</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M24 8 C24 8 14 18 14 28 C14 35 18.5 40 24 40 C29.5 40 34 35 34 28 C34 18 24 8 24 8Z" stroke="currentColor" stroke-width="1.5"/></svg>
+          <h3>Messages du corps</h3>
+          <p>Observez les zones du corps qui parlent souvent avant même que le mental ait compris.</p>
+          <span class="tool-link">Écouter le corps <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="vibration.html" class="tool-card reveal">
+          <div class="tool-label">Le Compas</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="1.5"/><path d="M24 13 L29 29 L24 26 L19 29 Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          <h3>Compas intérieur</h3>
+          <p>Un outil symbolique pour situer votre état intérieur et observer ce qui vous tire vers le bas ou vous élève.</p>
+          <span class="tool-link">Lire le compas <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+
+        <a href="cycle.html" class="tool-card reveal">
+          <div class="tool-label">Les Cycles</div>
+          <svg class="mini-icon" viewBox="0 0 48 48" fill="none"><path d="M35 16 C32 10 25 7 18 10 C11 13 8 21 11 28 C14 35 22 38 29 35 C33 33 36 29 37 25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M34 9 V16 H41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Cycles du vivant</h3>
+          <p>Explorez les phases intérieures, les rythmes et les passages qui structurent votre chemin.</p>
+          <span class="tool-link">Explorer les cycles <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 H11 M8 4 L11 7 L8 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ritual">
+    <div class="section-inner">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 L10 3.3 V6 C10 8.4 8.4 10.1 6 10.8 C3.6 10.1 2 8.4 2 6 V3.3 Z" stroke="currentColor" stroke-width="1.1"/></svg>
+          Méthode douce
+        </div>
+        <h2 class="section-title">Explorer sans se perdre dans <em>l'histoire</em>.</h2>
+        <p class="section-sub">L'exploration doit rester claire. Voici un fil simple à suivre lorsque vous utilisez les outils.</p>
+      </div>
+
+      <div class="ritual-path">
+        <div class="ritual-step reveal">
+          <div class="ritual-num">01</div>
+          <h3>Nommer</h3>
+          <p>Choisissez une situation précise : ce qui revient, ce qui bloque, ce qui vous touche.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <div class="ritual-num">02</div>
+          <h3>Observer</h3>
+          <p>Regardez ce que votre corps, vos émotions et vos réactions racontent.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <div class="ritual-num">03</div>
+          <h3>Relier</h3>
+          <p>Cherchez les échos dans la famille : dates, destins, places, absences, silences.</p>
+        </div>
+        <div class="ritual-step reveal">
+          <div class="ritual-num">04</div>
+          <h3>Noter</h3>
+          <p>Gardez les indices sans conclure trop vite. Une carte se révèle toujours par étapes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="deepening">
+    <div class="section-inner">
+      <div class="deep-grid">
+        <div class="deep-card reveal">
+          <div class="eyebrow" style="color:var(--terra-light)">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/></svg>
+            Après l'exploration
+          </div>
+          <h2>Ce que vous découvrez mérite parfois d'être accompagné.</h2>
+          <p>
+            Les outils ouvrent des pistes. Une séance permet de les approfondir, de les relier et d'avancer avec un regard extérieur.
+          </p>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn-light">Être accompagné</a>
+          </div>
+        </div>
+
+        <div class="deep-list">
+          <div class="deep-item reveal">
+            <h3>Si les indices se répètent</h3>
+            <p>Notez les dates, les âges, les prénoms, les situations qui reviennent.</p>
+          </div>
+          <div class="deep-item reveal">
+            <h3>Si le corps réagit fort</h3>
+            <p>Ralentissez. L'exploration n'est pas une enquête à forcer.</p>
+          </div>
+          <div class="deep-item reveal">
+            <h3>Si une émotion surgit</h3>
+            <p>Elle peut être une messagère. Accueillez-la avant de chercher à l'expliquer.</p>
+          </div>
+          <div class="deep-item reveal">
+            <h3>Si tout devient flou</h3>
+            <p>Revenez au point de départ : une situation, une question, une sensation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-box reveal">
+      <h2>La carte ne donne pas toutes les réponses.</h2>
+      <p>Elle vous montre seulement où regarder. Le reste du chemin se révèle en avançant.</p>
+      <div class="hero-actions" style="justify-content:center">
+        <a href="comprendre.html" class="btn-light">Comprendre la suite</a>
+        <a href="contact.html" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.35)">Être accompagné</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo">Laura Charron</a>
+          <p>Un voyage intérieur pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Le Voyage</h4>
+          <a href="index.html">Accueil</a>
+          <a href="parcours.html">Commencer</a>
+          <a href="explorer.html">Explorer</a>
+          <a href="comprendre.html">Comprendre</a>
+          <a href="contact.html">Être accompagné</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Les Archives</h4>
+          <a href="livre.html">Le Guide audio</a>
+          <a href="journal.html">Carnet de voyage</a>
+          <a href="arbre-famille.html">Les Racines</a>
+          <a href="genosociogramme.html">La Carte familiale</a>
+          <a href="symptomes.html">Messages du corps</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Comprendre</h4>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="cycle.html">Cycles du vivant</a>
+          <a href="arbre-vie.html">Sphères de vie</a>
+          <a href="vibration.html">Compas intérieur</a>
+          <a href="contact.html">Écrire à Laura</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© Laura Charron 2026 · Tous droits réservés · Ressens · Guéris · Vis</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+      if(cur){
+        cur.style.left = mx + 'px';
+        cur.style.top = my + 'px';
+      }
+    });
+
+    (function animateCursor(){
+      rx += (mx - rx) * .12;
+      ry += (my - ry) * .12;
+      if(ring){
+        ring.style.left = rx + 'px';
+        ring.style.top = ry + 'px';
+      }
+      requestAnimationFrame(animateCursor);
+    })();
+
+    const burger = document.getElementById('burger');
+    const mobile = document.getElementById('nav-mobile');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobile.classList.toggle('open');
+    });
+
+    mobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobile.classList.remove('open');
+      });
+    });
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
+'''
+
+path = Path('/mnt/data/explorer-laura.html')
+path.write_text(html, encoding='utf-8')
+path
