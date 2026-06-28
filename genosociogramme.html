@@ -130,6 +130,14 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
 .tchip{display:inline-flex;align-items:center;gap:3px;background:rgba(198,93,59,.1);border-radius:100px;padding:2px 8px;font-size:.65rem;color:var(--terra-dark);}
 .tchip button{background:none;border:none;color:rgba(198,93,59,.4);font-size:.6rem;cursor:pointer;line-height:1;padding:0;}
 .tchip button:hover{color:var(--terra);}
+.ev-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;}
+.ev-row{display:grid;grid-template-columns:1fr 56px 64px 22px;gap:5px;align-items:center;}
+.ev-row .fs{padding:.36rem .26rem .36rem .5rem;font-size:.74rem;}
+.ev-row .fi{padding:.36rem .48rem;font-size:.74rem;}
+.ev-add-btn{width:100%;background:none;border:1px dashed rgba(198,93,59,.35);border-radius:8px;color:var(--terra);font-size:.72rem;padding:.3rem .7rem;cursor:pointer;transition:all .15s;font-family:'Jost',sans-serif;margin-top:2px;}
+.ev-add-btn:hover{background:rgba(198,93,59,.06);border-color:var(--terra);}
+.ev-del-btn{background:none;border:none;color:rgba(154,112,96,.35);font-size:.9rem;cursor:pointer;padding:0;line-height:1;transition:color .15s;}
+.ev-del-btn:hover{color:var(--red);}
 .mactions{display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--line);margin-top:14px;}
 .mbtn-save{flex:1;background:var(--terra);color:white;border-radius:100px;padding:.5rem;font-size:.8rem;font-weight:500;cursor:pointer;border:none;font-family:'Jost',sans-serif;transition:background .15s;}
 .mbtn-save:hover{background:var(--terra-dark);}
@@ -171,6 +179,18 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
   <button class="tb" onclick="triggerImport()">⬆ Importer</button>
   <button class="tb" onclick="window.print()">🖨 Imprimer</button>
   <input type="file" id="file-import" accept=".json" style="display:none" onchange="doImport(event)">
+  <div class="tb-sep"></div>
+  <!-- Login prompt -->
+  <div id="login-prompt" style="display:none;align-items:center;gap:8px;">
+    <span style="font-size:.68rem;color:var(--soft);">Non connecté —</span>
+    <a href="login.html" class="tb" style="background:var(--terra);color:white;border-color:var(--terra);">Se connecter</a>
+  </div>
+  <!-- User bar -->
+  <div id="user-bar" style="display:none;align-items:center;gap:8px;">
+    <span style="font-size:.68rem;color:var(--soft);">☁ Sauvegarde auto ·</span>
+    <span id="user-bar-name" style="font-size:.72rem;font-weight:600;color:var(--terra)"></span>
+    <a href="login.html" class="tb">Mon espace</a>
+  </div>
 </div>
 
 <div class="leg-bar">
@@ -247,29 +267,15 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
           <input id="traits-input" placeholder="généreux, anxieux, perfectionniste..." onkeydown="addTrait(event)">
         </div>
       </div>
-      <div class="msec">Événement marquant</div>
-      <div class="fg"><label class="fl">Type d'événement</label>
-        <select class="fs" id="f-event">
-          <option value="">— Aucun —</option>
-          <option value="deces-precoce">Mort prématurée (avant 50 ans)</option>
-          <option value="deuil">Deuil / perte</option>
-          <option value="maladie">Maladie grave</option>
-          <option value="abandon">Abandon / rejet</option>
-          <option value="trahison">Trahison</option>
-          <option value="sacrifice">Sacrifice de soi / effacement</option>
-          <option value="secret">Secret de famille</option>
-          <option value="pauvrete">Pauvreté / manque</option>
-          <option value="guerre">Guerre / exil</option>
-          <option value="abus">Violence / abus</option>
-          <option value="rupture">Rupture douloureuse</option>
-          <option value="honte">Honte / humiliation</option>
-          <option value="injustice">Injustice vécue</option>
-        </select>
+      <div class="msec">Événements marquants</div>
+      <div style="display:grid;grid-template-columns:1fr 56px 64px 22px;gap:5px;margin-bottom:4px;">
+        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Type</span>
+        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Âge</span>
+        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Année</span>
+        <span></span>
       </div>
-      <div class="frow">
-        <div class="fg"><label class="fl">Âge lors de l'événement</label><input class="fi" id="f-evage" type="number" min="0" max="120" placeholder="34"></div>
-        <div class="fg"><label class="fl">Année</label><input class="fi" id="f-evyear" placeholder="1952"></div>
-      </div>
+      <div class="ev-list" id="ev-list"></div>
+      <button class="ev-add-btn" onclick="addEvRow()">+ Ajouter un événement</button>
       <div class="msec">Histoire</div>
       <div class="fg"><label class="fl">Ce qu'on sait de cette personne</label>
         <textarea class="fta" id="f-notes" placeholder="Un secret pressenti, une phrase qu'elle répétait, ce qu'on dit de lui..."></textarea>
@@ -320,7 +326,85 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// ─── SUPABASE ─────────────────────────────────────────────────────────
+var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
+var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+var sb = supabase.createClient(SB_URL, SB_KEY);
+var currentUser = null;
+var saveTimer = null;
+
+async function initAuth() {
+  var { data } = await sb.auth.getSession();
+  if (data.session) {
+    currentUser = data.session.user;
+    showUserBar(currentUser);
+    await loadFromSupabase();
+  } else {
+    // Still allow local use but show login prompt
+    showLoginPrompt();
+    load(); // fallback localStorage
+    if (Object.keys(people).length) {
+      document.getElementById('empty-state').style.display = 'none';
+      renderAll(); setTimeout(centerView, 80);
+    }
+  }
+  sb.auth.onAuthStateChange(function(event, session) {
+    if (session) { currentUser = session.user; showUserBar(currentUser); }
+    else { currentUser = null; }
+  });
+}
+
+function showUserBar(user) {
+  var name = (user.user_metadata && user.user_metadata.full_name) ? user.user_metadata.full_name : user.email.split('@')[0];
+  var bar = document.getElementById('user-bar');
+  bar.style.display = 'flex';
+  document.getElementById('user-bar-name').textContent = name;
+  document.getElementById('login-prompt').style.display = 'none';
+}
+
+function showLoginPrompt() {
+  document.getElementById('login-prompt').style.display = 'flex';
+  document.getElementById('user-bar').style.display = 'none';
+}
+
+async function loadFromSupabase() {
+  if (!currentUser) return;
+  var { data, error } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
+  if (error && error.code !== 'PGRST116') { console.error(error); return; }
+  if (data && data.data) {
+    var d = data.data;
+    people = d.people || {}; rels = d.rels || []; nid = d.nid || 1; nodePos = d.nodePos || {};
+    if (Object.keys(people).length) {
+      document.getElementById('empty-state').style.display = 'none';
+      renderAll(); setTimeout(centerView, 80);
+    }
+  } else {
+    // Try localStorage migration
+    load();
+    if (Object.keys(people).length) {
+      document.getElementById('empty-state').style.display = 'none';
+      renderAll(); setTimeout(centerView, 80);
+      await saveToSupabase(); // migrate to cloud
+    }
+  }
+}
+
+async function saveToSupabase() {
+  if (!currentUser) { save(); return; } // fallback localStorage
+  var payload = { people: people, rels: rels, nid: nid, nodePos: nodePos };
+  // Upsert
+  var { error } = await sb.from('arbres').upsert({ user_id: currentUser.id, data: payload, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+  if (error) { console.error('Supabase save error:', error); save(); } // fallback
+  else save(); // also keep localStorage as backup
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToSupabase, 1200);
+}
+
 // ─── STATE ───────────────────────────────────────────────────────────
 var people = {};
 var rels = [];   // {from, to, type: 'couple'|'parent'}
@@ -341,7 +425,7 @@ function uid(){ return 'p'+(nid++); }
 function norm(s){ return (s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function mkPerson(o){
-  return Object.assign({id:uid(),prenom:'',nom:'',sex:'u',naiss:'',deces:'',metier:'',lieu:'',traits:[],event:'',evage:'',evyear:'',notes:'',role:''},o||{});
+  return Object.assign({id:uid(),prenom:'',nom:'',sex:'u',naiss:'',deces:'',metier:'',lieu:'',traits:[],events:[],notes:'',role:''},o||{});
 }
 function dname(p){ var n=(p.prenom+' '+p.nom).trim(); return n||p.role||'(Sans nom)'; }
 function short(p){ var n=dname(p); return n.length>16?n.slice(0,15)+'…':n; }
@@ -567,19 +651,21 @@ function mgrp(m){
   return null;
 }
 
+function hasEv(p,type){ return (p.events||[]).some(function(ev){return ev.type===type;}); }
+
 var SCHEMAS=[
   {id:'sacrifiee',label:'Femme sacrifiée / effacée',col:'#8E44AD',
-    test:function(p){return p.sex==='f'&&(p.event==='sacrifice'||norm(p.traits.join(' ')).indexOf('sacrifi')>=0||norm(p.traits.join(' ')).indexOf('effac')>=0||norm(p.notes).indexOf('sacrifi')>=0||mgrp(p.metier)==='domestique');}},
+    test:function(p){return p.sex==='f'&&(hasEv(p,'sacrifice')||norm(p.traits.join(' ')).indexOf('sacrifi')>=0||norm(p.traits.join(' ')).indexOf('effac')>=0||norm(p.notes).indexOf('sacrifi')>=0||mgrp(p.metier)==='domestique');}},
   {id:'absent',label:'Père / figure absente',col:'#8E44AD',
-    test:function(p){return p.sex==='m'&&(p.event==='abandon'||norm(p.notes).indexOf('absent')>=0||norm(p.notes).indexOf('disparu')>=0);}},
+    test:function(p){return p.sex==='m'&&(hasEv(p,'abandon')||norm(p.notes).indexOf('absent')>=0||norm(p.notes).indexOf('disparu')>=0);}},
   {id:'aine',label:'Aîné parentifié',col:'#8E44AD',
     test:function(p){return norm(p.traits.join(' ')).indexOf('responsab')>=0||norm(p.notes).indexOf('ainee')>=0||norm(p.notes).indexOf('aine ')>=0;}},
   {id:'secret',label:'Secret / honte cachée',col:'#8E44AD',
-    test:function(p){return p.event==='secret'||p.event==='honte'||norm(p.notes).indexOf('secret')>=0||norm(p.notes).indexOf('honte')>=0;}},
+    test:function(p){return hasEv(p,'secret')||hasEv(p,'honte')||norm(p.notes).indexOf('secret')>=0||norm(p.notes).indexOf('honte')>=0;}},
   {id:'violence',label:'Violence transgénérationnelle',col:'#8E44AD',
-    test:function(p){return p.event==='abus'||norm(p.notes).indexOf('violen')>=0||norm(p.traits.join(' ')).indexOf('coler')>=0;}},
+    test:function(p){return hasEv(p,'abus')||norm(p.notes).indexOf('violen')>=0||norm(p.traits.join(' ')).indexOf('coler')>=0;}},
   {id:'deuil',label:'Deuil non élaboré',col:'#8E44AD',
-    test:function(p){return p.event==='deuil'&&(norm(p.notes).indexOf('jamais')>=0||norm(p.notes).indexOf('silence')>=0);}}
+    test:function(p){return hasEv(p,'deuil')&&(norm(p.notes).indexOf('jamais')>=0||norm(p.notes).indexOf('silence')>=0);}}
 ];
 
 function detectReps(){
@@ -588,7 +674,7 @@ function detectReps(){
   var seen={};
 
   // 1. Gisant
-  var gisants=plist.filter(function(p){ var a=agedeath(p); return p.event==='deces-precoce'||(a!==null&&a<50); });
+  var gisants=plist.filter(function(p){ var a=agedeath(p); return hasEv(p,'deces-precoce')||(a!==null&&a<50); });
   if(gisants.length>=2) reps.push({type:'gisant',col:'#C0392B',label:'Syndrome du gisant',ids:gisants.map(function(p){return p.id;}),desc:'Morts prématurées : '+gisants.map(function(p){return dname(p);}).join(', ')});
 
   // 2. Anniversaire (gisant vs moi)
@@ -602,13 +688,16 @@ function detectReps(){
         reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,g.id],desc:'Tu as '+moiAge+' ans — '+dname(g)+' est décédé(e) à '+ga+' ans'});
       }
     });
-    // event age
-    plist.filter(function(p){return p.id!==moi.id&&p.evage;}).forEach(function(p){
-      var ea=parseInt(p.evage);
-      if(!isNaN(ea)&&Math.abs(ea-moiAge)<=2&&!seen['anniv-ev-'+p.id]){
-        seen['anniv-ev-'+p.id]=1;
-        reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,p.id],desc:'Tu as '+moiAge+' ans — '+dname(p)+' a vécu un événement à '+ea+' ans'});
-      }
+    // event age — check all events
+    plist.filter(function(p){return p.id!==moi.id;}).forEach(function(p){
+      (p.events||[]).forEach(function(ev){
+        if(!ev.age)return;
+        var ea=parseInt(ev.age);
+        if(!isNaN(ea)&&Math.abs(ea-moiAge)<=2&&!seen['anniv-ev-'+p.id+'-'+ea]){
+          seen['anniv-ev-'+p.id+'-'+ea]=1;
+          reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,p.id],desc:'Tu as '+moiAge+' ans — '+dname(p)+' a vécu un événement à '+ea+' ans'});
+        }
+      });
     });
   }
 
@@ -639,9 +728,17 @@ function detectReps(){
     }
   });
 
-  // 6. Événements
+  // 6. Événements répétés
   var em={};
-  plist.forEach(function(p){ if(p.event&&!seen['ev-pre-'+p.id]){if(!em[p.event])em[p.event]=[];em[p.event].push(p);} });
+  plist.forEach(function(p){
+    (p.events||[]).forEach(function(ev){
+      if(!ev.type)return;
+      var k='ev-'+p.id+'-'+ev.type;
+      if(seen[k])return; seen[k]=1;
+      if(!em[ev.type])em[ev.type]=[];
+      if(!em[ev.type].some(function(x){return x.id===p.id;})) em[ev.type].push(p);
+    });
+  });
   Object.keys(em).forEach(function(k){
     var g=em[k]; if(g.length>=2&&!seen['ev-'+k]){ seen['ev-'+k]=1;
       reps.push({type:'event',col:'#D4AC0D',label:'Même épreuve répétée',ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p);}).join(', ')});
@@ -691,7 +788,7 @@ document.getElementById('start-btn').addEventListener('click', function(){
   var cv=document.getElementById('canvas');
   nodePos[p.id]={x:cv.clientWidth/2, y:cv.clientHeight/2};
   document.getElementById('empty-state').style.display='none';
-  save();
+  scheduleSave();
   renderAll();
   selId=p.id;
   renderAll();
@@ -756,7 +853,7 @@ function createRel(idx){
   }
 
   closeRM();
-  save();
+  scheduleSave();
   selId=newP.id;
   renderAll();
   setTimeout(function(){ openPM(newP.id,true); },60);
@@ -778,6 +875,8 @@ function openPM(id, isNew){
   document.getElementById('f-evage').value=p.evage||'';
   document.getElementById('f-evyear').value=p.evyear||'';
   document.getElementById('f-notes').value=p.notes||'';
+  document.getElementById('ev-list').innerHTML='';
+  (p.events||[]).forEach(function(ev){ addEvRow(ev.type,ev.age,ev.year); });
   curTraits=[].concat(p.traits||[]);
   renderTraits();
   document.getElementById('pm-del').style.display=isNew?'none':'block';
@@ -810,6 +909,42 @@ function renderTraits(){
   });
 }
 
+// ─── EVENTS LIST ──────────────────────────────────────────────────────
+var EV_OPTS='<option value="">— Type —</option>'
+  +'<option value="deces-precoce">Mort prématurée</option>'
+  +'<option value="deuil">Deuil / perte</option>'
+  +'<option value="maladie">Maladie grave</option>'
+  +'<option value="abandon">Abandon / rejet</option>'
+  +'<option value="trahison">Trahison</option>'
+  +'<option value="sacrifice">Sacrifice / effacement</option>'
+  +'<option value="secret">Secret de famille</option>'
+  +'<option value="pauvrete">Pauvreté / manque</option>'
+  +'<option value="guerre">Guerre / exil</option>'
+  +'<option value="abus">Violence / abus</option>'
+  +'<option value="rupture">Rupture</option>'
+  +'<option value="honte">Honte / humiliation</option>'
+  +'<option value="injustice">Injustice</option>';
+
+function addEvRow(type,age,year){
+  var list=document.getElementById('ev-list');
+  var row=document.createElement('div');
+  row.className='ev-row';
+  row.innerHTML='<select class="fs" data-ev="type">'+EV_OPTS+'</select>'
+    +'<input class="fi" data-ev="age" type="number" min="0" max="120" placeholder="Âge">'
+    +'<input class="fi" data-ev="year" placeholder="Année">'
+    +'<button class="ev-del-btn" onclick="this.parentElement.remove()">×</button>';
+  list.appendChild(row);
+  if(type) row.querySelector('[data-ev="type"]').value=type;
+  if(age)  row.querySelector('[data-ev="age"]').value=age;
+  if(year) row.querySelector('[data-ev="year"]').value=year;
+}
+
+function getEvRows(){
+  return Array.from(document.getElementById('ev-list').children).map(function(row){
+    return {type:row.querySelector('[data-ev="type"]').value, age:row.querySelector('[data-ev="age"]').value, year:row.querySelector('[data-ev="year"]').value};
+  }).filter(function(ev){return ev.type;});
+}
+
 function savePM(){
   if(!editId)return;
   var p=people[editId];
@@ -820,13 +955,11 @@ function savePM(){
   p.deces=document.getElementById('f-deces').value;
   p.metier=document.getElementById('f-metier').value.trim();
   p.lieu=document.getElementById('f-lieu').value.trim();
-  p.event=document.getElementById('f-event').value;
-  p.evage=document.getElementById('f-evage').value;
-  p.evyear=document.getElementById('f-evyear').value;
   p.notes=document.getElementById('f-notes').value.trim();
+  p.events=getEvRows();
   p.traits=[].concat(curTraits);
   closePM();
-  save();
+  scheduleSave();
   renderAll();
 }
 
@@ -836,7 +969,7 @@ function delPM(){
   var id=editId;
   delete people[id]; delete nodePos[id];
   rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
-  closePM(); selId=null; save(); renderAll();
+  closePM(); selId=null; scheduleSave(); renderAll();
   if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
 }
 
@@ -858,7 +991,7 @@ function doImport(e){
     try{
       var d=JSON.parse(ev.target.result);
       people=d.people||{}; rels=d.rels||[]; nid=d.nid||1; nodePos=d.nodePos||{};
-      save(); renderAll(); centerView();
+      scheduleSave(); renderAll(); centerView();
       if(Object.keys(people).length) document.getElementById('empty-state').style.display='none';
     }catch(err){ alert('Fichier invalide.'); }
   };
@@ -918,7 +1051,7 @@ document.addEventListener('keydown',function(e){
     if(confirm('Supprimer '+dname(people[id])+' ?')){
       delete people[id]; delete nodePos[id];
       rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
-      selId=null; save(); renderAll();
+      selId=null; scheduleSave(); renderAll();
       if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
     }
   }
@@ -927,12 +1060,7 @@ document.addEventListener('keydown',function(e){
 // ─── INIT ─────────────────────────────────────────────────────────────
 (function init(){
   panX=0; panY=0; zoom=1;
-  var loaded=load();
-  if(loaded){
-    document.getElementById('empty-state').style.display='none';
-    renderAll();
-    setTimeout(centerView,80);
-  }
+  initAuth();
 })();
 </script>
 </body>
