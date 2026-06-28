@@ -1,0 +1,136 @@
+from pathlib import Path
+
+path = Path("/mnt/data/seance.html")
+html = path.read_text(encoding="utf-8")
+
+html = html.replace(
+"Une séance permet d'explorer ce qui se répète dans votre vie, de mettre du sens sur votre histoire familiale et de retrouver une direction intérieure plus claire. Vous n'avez pas besoin d'avoir toutes les réponses pour commencer.",
+"Avant toute séance, vous pouvez réserver un échange gratuit de 15 minutes. Ce premier temps permet d’expliquer ce que vous traversez, de poser vos questions et de voir ensemble si un accompagnement peut être juste pour vous."
+)
+
+html = html.replace(
+'<a href="#reservation" class="btn-main">Réserver en ligne</a><a href="explorer.html" class="btn-secondary">Explorer d\'abord</a>',
+'<a href="#reservation" class="btn-main">Réserver l’appel gratuit</a><a href="genosociogramme.html" class="btn-secondary">Remplir mon génosociogramme</a>'
+)
+
+html = html.replace(
+"<h2>Un espace pour déposer, relier et comprendre.</h2><p>La séance n'est pas un interrogatoire. C'est un passage accompagné, à votre rythme.</p>",
+"<h2>Un premier échange gratuit pour faire le point.</h2><p>15 minutes pour expliquer votre situation, sentir le cadre et voir si nous pouvons travailler ensemble.</p>"
+)
+
+html = html.replace(
+"Cette séance peut vous aider si <em>vous vous reconnaissez</em>.",
+"Cet accompagnement peut vous aider si <em>vous vous reconnaissez</em>."
+)
+
+html = html.replace(
+"L'objectif n'est pas de poser un diagnostic, mais de regarder ensemble ce qui revient dans votre vie et ce que cela peut raconter de votre histoire.",
+"L’objectif n’est pas de poser un diagnostic, mais de faire le tri ensemble : ce qui se répète, ce que votre histoire familiale peut éclairer, et ce qui demande à être libéré."
+)
+
+html = html.replace(
+"Vous expliquez ce qui vous amène : une répétition, une émotion, une question familiale.",
+"Nous commençons par un échange gratuit de 15 minutes pour comprendre votre demande et voir si l’accompagnement est adapté."
+)
+
+html = html.replace(
+"Nous observons les liens possibles entre votre vécu, votre lignée et vos schémas actuels.",
+"Vous pouvez remplir votre génosociogramme et vos informations en ligne, puis nous les reprenons ensemble en séance."
+)
+
+html = html.replace(
+"Nous mettons du sens sur ce qui se répète, sans forcer ni tirer de conclusion trop rapide.",
+"En séance, nous faisons le tri dans ce qui revient : dates, places, événements, blessures, loyautés ou schémas familiaux."
+)
+
+html = html.replace(
+"Vous repartez avec une compréhension plus claire et des pistes concrètes à intégrer.",
+"Nous avançons ensuite avec différents outils pour libérer la mémoire présente, selon votre rythme et ce qui émerge."
+)
+
+html = html.replace(
+"Choisissez votre créneau.",
+"Réservez votre échange gratuit."
+)
+
+html = html.replace(
+"La réservation se fait directement via Calendly. Sélectionnez un créneau disponible, puis renseignez les informations demandées pour confirmer votre rendez-vous.",
+"Le premier rendez-vous est un échange gratuit de 15 minutes. Il sert à expliquer votre problématique, poser vos questions et voir ensemble si nous pouvons travailler ensemble."
+)
+
+html = html.replace(
+'<div class="info-line">Séance individuelle d\'accompagnement personnalisé.</div><div class="info-line">Vous recevez automatiquement la confirmation après réservation.</div><div class="info-line">Vous pouvez venir même si tout n\'est pas encore clair.</div>',
+'<div class="info-line">Premier appel gratuit : 15 minutes pour faire le point.</div><div class="info-line">Séance d’accompagnement : 1 heure · 60 €.</div><div class="info-line">Le nombre de séances dépend de la personne et de ce qu’elle a à libérer.</div><div class="info-line">Vous pouvez préparer votre génosociogramme en ligne avant la séance.</div>'
+)
+
+html = html.replace(
+"Cette démarche ne remplace pas un suivi médical, psychologique ou psychiatrique lorsque celui-ci est nécessaire.",
+"Cette démarche ne remplace pas un suivi médical, psychologique ou psychiatrique lorsque celui-ci est nécessaire. Elle vient en complément d’un travail de compréhension personnelle."
+)
+
+html = html.replace(
+"Quelques repères <em>utiles</em>.",
+"Ce qu’il faut savoir <em>avant de réserver</em>."
+)
+
+html = html.replace(
+"<h3>Dois-je connaître toute mon histoire familiale ?</h3><p>Non. Vous pouvez venir avec ce que vous savez déjà, même si c'est incomplet.</p>",
+"<h3>Dois-je avoir déjà rempli mon génosociogramme ?</h3><p>Non, mais c’est utile. Vous pouvez le remplir en ligne avant la séance, puis nous le reprenons ensemble.</p>"
+)
+
+html = html.replace(
+"<h3>Est-ce une séance médicale ?</h3><p>Non. Il s'agit d'un accompagnement personnel autour de votre histoire, vos ressentis et vos répétitions.</p>",
+"<h3>Combien coûte une séance ?</h3><p>L’appel de 15 minutes est gratuit. Une séance d’accompagnement dure 1 heure et coûte 60 €.</p>"
+)
+
+html = html.replace(
+"<h3>Puis-je venir si je ne sais pas formuler mon problème ?</h3><p>Oui. Une sensation, une question ou une situation qui revient suffit pour commencer.</p>",
+"<h3>Combien de séances faut-il prévoir ?</h3><p>Il n’y a pas de nombre fixe. Cela dépend de votre histoire, de ce qui émerge et de ce qui demande à être libéré.</p>"
+)
+
+html = html.replace(
+"<h3>Que se passe-t-il après la réservation ?</h3><p>Calendly vous envoie une confirmation avec les informations nécessaires pour votre rendez-vous.</p>",
+"<h3>Que fait-on pendant la séance ?</h3><p>Nous regardons ce qui se répète, nous faisons le tri ensemble, puis nous avançons avec les outils adaptés pour libérer la mémoire présente.</p>"
+)
+
+# replace title in process section
+html = html.replace(
+"Comment se passe une séance ?",
+"Comment se déroule l'accompagnement ?"
+)
+
+# add dedicated pricing card section before booking maybe append after process section
+insert_after = """</section>
+
+  <section class="booking" id="reservation">"""
+pricing = """</section>
+
+  <section class="forwho">
+    <div class="section-inner">
+      <div class="section-head reveal">
+        <div class="eyebrow">Tarifs & cadre</div>
+        <h2 class="section-title">Un premier échange gratuit,<br><em>puis un accompagnement clair.</em></h2>
+        <p class="section-sub">Le premier appel permet de vérifier ensemble si l’accompagnement correspond à votre besoin, sans engagement.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card reveal">
+          <h3>Appel découverte</h3>
+          <p><strong>15 minutes · gratuit.</strong><br>Vous expliquez votre problématique et nous voyons si nous pouvons travailler ensemble.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Séance individuelle</h3>
+          <p><strong>1 heure · 60 €.</strong><br>Nous reprenons votre histoire, votre génosociogramme et ce qui se répète actuellement.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Nombre de séances</h3>
+          <p>Il dépend de la personne, de la mémoire présente et de ce qui est prêt à être libéré.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="booking" id="reservation">"""
+html = html.replace(insert_after, pricing)
+
+path.write_text(html, encoding="utf-8")
+print(path)
