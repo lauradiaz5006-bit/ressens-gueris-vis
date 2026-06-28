@@ -4,1639 +4,936 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Génosociogramme · Laura Charron</title>
-<meta name="description" content="Construisez votre arbre généalogique interactif et découvrez les schémas répétitifs de votre lignée.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --cream: #F4EDE4;
-  --cream2: #E9D8C9;
-  --cream3: #FFFAF5;
-  --terra-dark: #A14A3C;
-  --terra: #C65D3B;
-  --terra-light: #D88C6A;
-  --brown: #6B3E2E;
-  --ink: #3A1F12;
-  --ink2: #5C3420;
-  --soft: #9A7060;
-  --white: #FFFCF8;
-  --line: rgba(107,62,46,.13);
-  --red-rep: #C0392B;
-  --orange-rep: #E67E22;
-  --gold-rep: #D4AC0D;
-  --blue-rep: #2980B9;
-  --green-rep: #27AE60;
-  --purple-rep: #8E44AD;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --cream:#F4EDE4;--cream3:#FFFAF5;--terra:#C65D3B;--terra-dark:#A14A3C;
+  --terra-light:#D88C6A;--brown:#6B3E2E;--ink:#3A1F12;--soft:#9A7060;
+  --white:#FFFCF8;--line:rgba(107,62,46,.15);
+  --red:#C0392B;--orange:#E67E22;--blue:#2980B9;--purple:#8E44AD;--gold:#D4AC0D;--green:#27AE60;
 }
+body{font-family:'Jost',sans-serif;background:var(--cream3);color:var(--ink);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
+button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;}
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { font-size: 16px; }
-body { font-family: 'Jost', sans-serif; background: var(--cream3); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
-a { color: inherit; text-decoration: none; }
-button { font-family: 'Jost', sans-serif; cursor: pointer; }
+/* NAV */
+nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:24px;flex-shrink:0;z-index:100;position:relative;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--ink);margin-right:auto;}
+.nav-link{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:500;text-decoration:none;transition:color .2s;}
+.nav-link:hover,.nav-link.active{color:var(--terra);}
+.nav-cta{background:var(--terra);color:white;border-radius:100px;padding:.38rem 1rem;font-size:.75rem;font-weight:500;transition:background .2s;}
+.nav-cta:hover{background:var(--terra-dark);}
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  background: rgba(255,252,248,.96); backdrop-filter: blur(18px);
-  border-bottom: 1px solid var(--line);
-  height: 64px; display: flex; align-items: center; padding: 0 40px;
-  gap: 36px;
-}
-.nav-logo {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
-  font-weight: 600; font-style: italic; color: var(--ink); margin-right: auto;
-}
-.nav-links { display: flex; gap: 28px; align-items: center; }
-.nav-links a {
-  font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--soft); font-weight: 500; transition: color .2s;
-}
-.nav-links a:hover, .nav-links a.active { color: var(--terra); }
-.nav-cta {
-  background: var(--terra); color: white; border: none;
-  padding: .45rem 1.1rem; border-radius: 100px; font-size: .78rem;
-  font-weight: 500; letter-spacing: .04em; cursor: pointer;
-  transition: background .2s;
-}
-.nav-cta:hover { background: var(--terra-dark); }
+/* TOOLBAR */
+.toolbar{height:46px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:8px;flex-shrink:0;}
+.toolbar-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink2);margin-right:auto;}
+.tb{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:100px;padding:.28rem .75rem;font-size:.7rem;color:var(--ink);background:transparent;transition:all .15s;cursor:pointer;font-family:'Jost',sans-serif;}
+.tb:hover{border-color:var(--terra);color:var(--terra);}
+.tb.primary{background:var(--terra);color:white;border-color:var(--terra);font-weight:500;}
+.tb.primary:hover{background:var(--terra-dark);}
+.tb-sep{width:1px;height:18px;background:var(--line);}
 
-/* ── PAGE LAYOUT ── */
-.page-wrap {
-  padding-top: 64px;
-  display: flex; flex-direction: column; height: 100vh;
-}
+/* CANVAS */
+.canvas-area{flex:1;position:relative;overflow:hidden;background:var(--cream3);}
+#svg-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
+#nodes-container{position:absolute;top:0;left:0;width:0;height:0;}
 
-/* ── TOOLBAR ── */
-.toolbar {
-  background: var(--white); border-bottom: 1px solid var(--line);
-  padding: .55rem 28px; display: flex; align-items: center;
-  gap: 10px; flex-wrap: wrap; flex-shrink: 0;
+/* NODE */
+.gnode{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:10;}
+.gnode-inner{
+  background:var(--white);border:1.5px solid var(--line);border-radius:13px;
+  padding:10px 12px 8px;min-width:115px;max-width:145px;text-align:center;
+  box-shadow:0 3px 14px rgba(58,31,18,.07);transition:box-shadow .2s,border-color .2s,transform .2s;
+  position:relative;user-select:none;
 }
-.toolbar-title {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-  font-style: italic; color: var(--ink2); margin-right: auto;
-}
-.tb-btn {
-  display: inline-flex; align-items: center; gap: .35rem;
-  border: 1px solid var(--line); border-radius: 100px;
-  padding: .32rem .85rem; font-size: .72rem; color: var(--ink2);
-  background: transparent; transition: all .18s; white-space: nowrap;
-}
-.tb-btn:hover { border-color: var(--terra); color: var(--terra); }
-.tb-btn.accent {
-  background: var(--terra); color: white; border-color: var(--terra);
-}
-.tb-btn.accent:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
-.tb-sep { width: 1px; height: 22px; background: var(--line); flex-shrink: 0; }
+.gnode:hover .gnode-inner{box-shadow:0 7px 24px rgba(58,31,18,.13);transform:translateY(-2px);}
+.gnode.sel .gnode-inner{border-color:var(--terra);box-shadow:0 6px 22px rgba(198,93,59,.2);}
+.gnode.me .gnode-inner{background:linear-gradient(135deg,#FFF5EE,#FFE8D8);border-color:var(--terra);border-width:2px;}
+.gnode.hasrep .gnode-inner{border-color:var(--red);}
 
-/* ── LEGEND BAR ── */
-.legend-bar {
-  background: var(--cream); border-bottom: 1px solid var(--line);
-  padding: .38rem 28px; display: flex; align-items: center;
-  gap: 20px; flex-shrink: 0; flex-wrap: wrap;
-}
-.legend-bar-title {
-  font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--soft); margin-right: 4px;
-}
-.leg-item { display: flex; align-items: center; gap: 5px; font-size: .68rem; color: var(--ink2); }
-.leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.leg-line { width: 20px; height: 2px; flex-shrink: 0; }
+.nsex{width:26px;height:26px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:.72rem;background:linear-gradient(135deg,var(--cream),#E9D8C9);border:1.5px solid var(--line);}
+.nsex.m{border-radius:4px;background:linear-gradient(135deg,#E4EEF8,#D0E2F0);border-color:rgba(100,140,180,.3);}
+.nname{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
+.ndates{font-size:.6rem;color:var(--soft);margin-top:2px;}
+.njob{font-size:.61rem;color:var(--terra-light);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;margin-top:1px;}
+.nrole{font-size:.56rem;letter-spacing:.07em;text-transform:uppercase;color:rgba(154,112,96,.5);margin-top:3px;}
+.nreps{display:flex;gap:3px;justify-content:center;margin-top:4px;flex-wrap:wrap;}
+.nrep-dot{width:7px;height:7px;border-radius:50%;}
+.nrep-badge{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:var(--red);color:white;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid white;}
 
-/* ── CANVAS AREA ── */
-.canvas-wrap {
-  flex: 1; overflow: hidden; position: relative;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 40%, rgba(244,237,228,.6), transparent),
-    var(--cream3);
-  cursor: grab;
-}
-.canvas-wrap.panning { cursor: grabbing; }
-#canvas-svg {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  overflow: visible;
-}
-.canvas-inner {
-  position: absolute; top: 0; left: 0;
-  transform-origin: 0 0;
-}
+/* ADD BUTTONS */
+.nadd{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--terra);color:white;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 7px rgba(198,93,59,.4);cursor:pointer;z-index:20;transition:transform .15s,background .15s;line-height:1;}
+.nadd:hover{transform:scale(1.25);background:var(--terra-dark);}
+.nadd-top{top:-10px;left:50%;transform:translateX(-50%);}
+.nadd-top:hover{transform:translateX(-50%) scale(1.25);}
+.nadd-right{right:-10px;top:50%;transform:translateY(-50%);}
+.nadd-right:hover{transform:translateY(-50%) scale(1.25);}
+.nadd-bottom{bottom:-10px;left:50%;transform:translateX(-50%);}
+.nadd-bottom:hover{transform:translateX(-50%) scale(1.25);}
+.nadd-left{left:-10px;top:50%;transform:translateY(-50%);}
+.nadd-left:hover{transform:translateY(-50%) scale(1.25);}
 
-/* ── NODE CARDS ── */
-.gnode {
-  position: absolute; transform: translate(-50%, -50%);
-  cursor: pointer; user-select: none;
-}
-.gnode-card {
-  background: var(--white); border: 1.5px solid var(--line);
-  border-radius: 14px; padding: 10px 13px 9px;
-  min-width: 110px; max-width: 148px;
-  box-shadow: 0 4px 18px rgba(58,31,18,.07);
-  transition: all .22s; position: relative;
-  text-align: center;
-}
-.gnode:hover .gnode-card { box-shadow: 0 8px 28px rgba(58,31,18,.13); transform: translateY(-2px); }
-.gnode.selected .gnode-card { border-color: var(--terra); box-shadow: 0 8px 28px rgba(198,93,59,.22); }
-.gnode.has-rep .gnode-card { border-color: var(--red-rep); }
-.gnode.is-me .gnode-card {
-  background: linear-gradient(135deg, #FFF5EE, #FFE8D8);
-  border-color: var(--terra); border-width: 2px;
-}
+/* REP PANEL */
+.rep-panel{position:absolute;left:14px;top:14px;width:255px;background:rgba(255,252,248,.97);border:1px solid var(--line);border-radius:14px;overflow:hidden;z-index:50;}
+.rph{background:var(--cream);border-bottom:1px solid var(--line);padding:9px 13px;display:flex;align-items:center;justify-content:space-between;}
+.rph-title{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:var(--ink);}
+.rph-count{background:var(--red);color:white;font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:100px;}
+.rpb{padding:7px;max-height:240px;overflow-y:auto;}
+.rpb::-webkit-scrollbar{width:3px;}
+.rpb::-webkit-scrollbar-thumb{background:rgba(154,112,96,.2);border-radius:2px;}
+.ri{padding:7px 9px;border-radius:9px;margin-bottom:4px;border-left:3px solid #ccc;cursor:pointer;transition:opacity .15s;}
+.ri:hover{opacity:.8;}
+.ri-type{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px;}
+.ri-desc{font-size:.67rem;color:var(--ink);line-height:1.5;}
+.ri-none{padding:12px;font-size:.73rem;color:var(--soft);font-style:italic;text-align:center;line-height:1.6;}
 
-.gnode-sex-icon {
-  width: 28px; height: 28px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 5px; font-size: .75rem;
-  background: linear-gradient(135deg, var(--cream2), var(--cream));
-  border: 1.5px solid var(--line);
-}
-.gnode-sex-icon.male { background: linear-gradient(135deg, #E4EEF8, #D0E2F0); border-color: rgba(100,140,180,.35); border-radius: 4px; }
-.gnode-sex-icon.female { border-radius: 50%; }
-.gnode-sex-icon.unknown { transform: rotate(45deg); border-radius: 3px; }
-.gnode-sex-icon.unknown span { transform: rotate(-45deg); display: inline-block; }
+/* ZOOM */
+.zoom-wrap{position:absolute;bottom:16px;right:16px;display:flex;flex-direction:column;gap:5px;z-index:50;}
+.zbtn{width:34px;height:34px;border-radius:50%;background:var(--white);border:1px solid var(--line);font-size:.95rem;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(58,31,18,.08);cursor:pointer;transition:all .15s;}
+.zbtn:hover{border-color:var(--terra);color:var(--terra);}
 
-.gnode-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: .92rem; font-weight: 700; color: var(--ink);
-  line-height: 1.2; margin-bottom: 2px;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.gnode-dates { font-size: .62rem; color: var(--soft); margin-bottom: 3px; }
-.gnode-job { font-size: .63rem; color: var(--terra-light); font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gnode-role { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(154,112,96,.55); margin-top: 4px; }
+/* EMPTY STATE */
+.empty-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;pointer-events:none;}
+.empty-state h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-style:italic;color:var(--ink);font-weight:700;}
+.empty-state p{font-size:.85rem;color:var(--soft);text-align:center;max-width:320px;line-height:1.7;}
+.empty-start-btn{pointer-events:all;background:var(--terra);color:white;border-radius:100px;padding:.65rem 1.8rem;font-size:.88rem;font-weight:600;font-family:'Jost',sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(198,93,59,.3);transition:all .2s;border:none;}
+.empty-start-btn:hover{background:var(--terra-dark);transform:translateY(-2px);}
 
-.gnode-badges {
-  display: flex; gap: 3px; justify-content: center;
-  flex-wrap: wrap; margin-top: 5px;
-}
-.gnode-badge {
-  display: inline-flex; align-items: center; gap: 3px;
-  padding: 2px 6px; border-radius: 100px;
-  font-size: .56rem; font-weight: 600; letter-spacing: .04em;
-}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(58,31,18,.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;}
+.modal-bg.open{display:flex;}
+.mbox{background:var(--white);border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(58,31,18,.2);}
+.mbox::-webkit-scrollbar{width:4px;}
+.mbox::-webkit-scrollbar-thumb{background:rgba(154,112,96,.2);}
+.mhead{padding:20px 22px 0;position:sticky;top:0;background:var(--white);z-index:2;border-radius:20px 20px 0 0;}
+.mhead-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.mtitle{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
+.mclose{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);color:var(--soft);font-size:.85rem;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .15s;background:none;}
+.mclose:hover{border-color:var(--terra);color:var(--terra);}
+.mbody{padding:4px 22px 22px;}
 
-.gnode-rep-indicator {
-  position: absolute; top: -6px; right: -6px;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: var(--red-rep); color: white;
-  font-size: .6rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid white; box-shadow: 0 2px 6px rgba(192,57,43,.35);
-}
+/* FORM */
+.fg{margin-bottom:12px;}
+.fl{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:4px;}
+.fi,.fs,.fta{width:100%;background:var(--cream3);border:1px solid rgba(107,62,46,.15);border-radius:8px;padding:.42rem .65rem;font-family:'Jost',sans-serif;font-size:.82rem;color:var(--ink);outline:none;transition:border-color .15s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--terra);background:var(--white);}
+.fta{resize:vertical;min-height:68px;line-height:1.6;}
+.fs{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239A7060' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:26px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.msec{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:var(--ink2);padding-top:12px;margin:12px 0 8px;border-top:1px solid var(--line);}
+.sex-row{display:flex;gap:7px;}
+.sopt{flex:1;padding:.38rem;border:1.5px solid var(--line);border-radius:7px;text-align:center;font-size:.73rem;color:var(--soft);cursor:pointer;transition:all .15s;background:none;font-family:'Jost',sans-serif;}
+.sopt.on{border-color:var(--terra);color:var(--terra);background:rgba(198,93,59,.07);font-weight:600;}
+.tags-box{display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:var(--cream3);border:1px solid rgba(107,62,46,.15);border-radius:8px;padding:4px 8px;min-height:34px;cursor:text;}
+.tags-box input{border:none;background:transparent;outline:none;font-family:'Jost',sans-serif;font-size:.78rem;color:var(--ink);flex:1;min-width:70px;}
+.tchip{display:inline-flex;align-items:center;gap:3px;background:rgba(198,93,59,.1);border-radius:100px;padding:2px 8px;font-size:.65rem;color:var(--terra-dark);}
+.tchip button{background:none;border:none;color:rgba(198,93,59,.4);font-size:.6rem;cursor:pointer;line-height:1;padding:0;}
+.tchip button:hover{color:var(--terra);}
+.mactions{display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--line);margin-top:14px;}
+.mbtn-save{flex:1;background:var(--terra);color:white;border-radius:100px;padding:.5rem;font-size:.8rem;font-weight:500;cursor:pointer;border:none;font-family:'Jost',sans-serif;transition:background .15s;}
+.mbtn-save:hover{background:var(--terra-dark);}
+.mbtn-del{background:none;border:1px solid rgba(192,57,43,.25);color:var(--red);border-radius:100px;padding:.5rem .85rem;font-size:.75rem;cursor:pointer;font-family:'Jost',sans-serif;transition:all .15s;}
+.mbtn-del:hover{background:rgba(192,57,43,.07);}
+.mbtn-cancel{background:none;border:1px solid var(--line);color:var(--soft);border-radius:100px;padding:.5rem .85rem;font-size:.75rem;cursor:pointer;font-family:'Jost',sans-serif;transition:all .15s;}
+.mbtn-cancel:hover{border-color:var(--soft);}
 
-/* ── ADD BUTTONS on nodes ── */
-.add-btns { position: absolute; pointer-events: none; }
-.add-btn {
-  position: absolute; width: 22px; height: 22px;
-  background: var(--terra); color: white;
-  border: 2px solid white; border-radius: 50%;
-  font-size: .8rem; line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; pointer-events: all;
-  box-shadow: 0 2px 8px rgba(198,93,59,.35);
-  transition: transform .15s, background .15s;
-  z-index: 10;
-}
-.add-btn:hover { transform: scale(1.2); background: var(--terra-dark); }
-.add-btn[data-dir="top"] { top: -11px; left: 50%; transform: translateX(-50%); }
-.add-btn[data-dir="top"]:hover { transform: translateX(-50%) scale(1.2); }
-.add-btn[data-dir="bottom"] { bottom: -11px; left: 50%; transform: translateX(-50%); }
-.add-btn[data-dir="bottom"]:hover { transform: translateX(-50%) scale(1.2); }
-.add-btn[data-dir="left"] { left: -11px; top: 50%; transform: translateY(-50%); }
-.add-btn[data-dir="left"]:hover { transform: translateY(-50%) scale(1.2); }
-.add-btn[data-dir="right"] { right: -11px; top: 50%; transform: translateY(-50%); }
-.add-btn[data-dir="right"]:hover { transform: translateY(-50%) scale(1.2); }
+/* REL MODAL */
+.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.rchoice{background:var(--cream3);border:1.5px solid var(--line);border-radius:11px;padding:11px 10px;text-align:center;cursor:pointer;transition:all .18s;border:1.5px solid var(--line);}
+.rchoice:hover{border-color:var(--terra);background:rgba(198,93,59,.05);}
+.rchoice-icon{font-size:1.4rem;display:block;margin-bottom:3px;}
+.rchoice-name{font-size:.78rem;font-weight:600;color:var(--ink);}
+.rchoice-sub{font-size:.62rem;color:var(--soft);margin-top:1px;}
 
-/* ── ZOOM CONTROLS ── */
-.zoom-controls {
-  position: absolute; bottom: 20px; right: 20px;
-  display: flex; flex-direction: column; gap: 6px; z-index: 50;
-}
-.zoom-btn {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--white); border: 1px solid var(--line);
-  font-size: 1rem; color: var(--ink2);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 8px rgba(58,31,18,.08);
-  transition: all .15s;
-}
-.zoom-btn:hover { border-color: var(--terra); color: var(--terra); }
-
-/* ── REPETITIONS PANEL ── */
-.rep-panel {
-  position: absolute; left: 16px; top: 16px;
-  max-width: 270px; z-index: 50;
-  background: rgba(255,252,248,.96); backdrop-filter: blur(14px);
-  border: 1px solid var(--line); border-radius: 16px;
-  overflow: hidden;
-}
-.rep-panel-header {
-  padding: 10px 14px 8px; background: var(--cream);
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.rep-panel-title {
-  font-family: 'Cormorant Garamond', serif; font-size: .95rem;
-  font-weight: 700; color: var(--ink);
-}
-.rep-panel-count {
-  background: var(--red-rep); color: white; font-size: .62rem;
-  font-weight: 700; padding: 2px 7px; border-radius: 100px;
-}
-.rep-panel-body { padding: 8px; max-height: 260px; overflow-y: auto; }
-.rep-panel-body::-webkit-scrollbar { width: 3px; }
-.rep-panel-body::-webkit-scrollbar-thumb { background: rgba(154,112,96,.25); border-radius: 2px; }
-.rep-item {
-  padding: 7px 9px; border-radius: 10px; margin-bottom: 5px;
-  border-left: 3px solid var(--col, #C0392B);
-  background: rgba(var(--col-rgb, 192,57,43),.06);
-  cursor: pointer; transition: background .15s;
-}
-.rep-item:hover { background: rgba(var(--col-rgb, 192,57,43),.12); }
-.rep-item-type {
-  font-size: .62rem; font-weight: 600; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--col, #C0392B); margin-bottom: 3px;
-}
-.rep-item-desc { font-size: .7rem; color: var(--ink2); line-height: 1.5; }
-.rep-none { padding: 12px 10px; font-size: .75rem; color: var(--soft); font-style: italic; text-align: center; }
-
-/* ── MODAL OVERLAY ── */
-.modal-ov {
-  position: fixed; inset: 0; z-index: 500;
-  background: rgba(58,31,18,.45); backdrop-filter: blur(8px);
-  display: none; align-items: center; justify-content: center;
-  padding: 20px;
-}
-.modal-ov.open { display: flex; }
-.modal-box {
-  background: var(--white); border-radius: 22px;
-  width: 100%; max-width: 520px;
-  max-height: 92vh; overflow-y: auto;
-  box-shadow: 0 24px 70px rgba(58,31,18,.18);
-}
-.modal-box::-webkit-scrollbar { width: 4px; }
-.modal-box::-webkit-scrollbar-thumb { background: rgba(154,112,96,.2); }
-.modal-head {
-  padding: 22px 24px 0; position: sticky; top: 0;
-  background: var(--white); z-index: 2; border-radius: 22px 22px 0 0;
-}
-.modal-head-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
-.modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); }
-.modal-close-btn {
-  background: none; border: 1px solid var(--line);
-  border-radius: 50%; width: 30px; height: 30px;
-  font-size: .9rem; color: var(--soft); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 2px; transition: all .15s;
-}
-.modal-close-btn:hover { border-color: var(--terra); color: var(--terra); }
-.modal-body { padding: 0 24px 24px; }
-
-/* ── FORM FIELDS ── */
-.field-group { margin-bottom: 14px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.field-label {
-  display: block; font-size: .65rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--soft); margin-bottom: 5px;
-}
-.field-input, .field-select, .field-textarea {
-  width: 100%; background: var(--cream3);
-  border: 1px solid rgba(107,62,46,.15); border-radius: 9px;
-  padding: .46rem .7rem; font-family: 'Jost', sans-serif;
-  font-size: .83rem; color: var(--ink); outline: none;
-  transition: border-color .18s, background .18s;
-}
-.field-input:focus, .field-select:focus, .field-textarea:focus {
-  border-color: var(--terra); background: var(--white);
-}
-.field-textarea { resize: vertical; min-height: 72px; line-height: 1.65; }
-.field-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239A7060' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
-
-.sex-toggle { display: flex; gap: 8px; }
-.sex-opt {
-  flex: 1; padding: .4rem; border: 1.5px solid var(--line);
-  border-radius: 8px; text-align: center; font-size: .75rem;
-  color: var(--soft); cursor: pointer; transition: all .15s;
-}
-.sex-opt.on { border-color: var(--terra); color: var(--terra); background: rgba(198,93,59,.07); font-weight: 600; }
-
-.modal-section-title {
-  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
-  font-weight: 600; color: var(--ink2); margin: 18px 0 10px;
-  padding-top: 14px; border-top: 1px solid var(--line);
-}
-
-/* traits / schemas tags */
-.tags-wrap {
-  display: flex; flex-wrap: wrap; gap: 5px; align-items: center;
-  background: var(--cream3); border: 1px solid rgba(107,62,46,.15);
-  border-radius: 9px; padding: 5px 8px; cursor: text; min-height: 36px;
-}
-.tags-wrap input {
-  border: none; background: transparent; outline: none;
-  font-family: 'Jost', sans-serif; font-size: .8rem; color: var(--ink);
-  flex: 1; min-width: 80px;
-}
-.tag-chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: rgba(198,93,59,.1); border-radius: 100px;
-  padding: 2px 8px; font-size: .68rem; color: var(--terra-dark);
-}
-.tag-chip button {
-  background: none; border: none; color: rgba(198,93,59,.45);
-  font-size: .65rem; line-height: 1; padding: 0; cursor: pointer;
-}
-.tag-chip button:hover { color: var(--terra); }
-
-.modal-actions {
-  display: flex; gap: 10px; margin-top: 20px; padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.btn-save {
-  flex: 1; background: var(--terra); color: white; border: none;
-  border-radius: 100px; padding: .55rem 1.2rem; font-size: .82rem;
-  font-weight: 500; transition: background .18s;
-}
-.btn-save:hover { background: var(--terra-dark); }
-.btn-delete {
-  background: none; border: 1px solid rgba(192,57,43,.25);
-  color: var(--red-rep); border-radius: 100px;
-  padding: .55rem .9rem; font-size: .78rem; transition: all .15s;
-}
-.btn-delete:hover { background: rgba(192,57,43,.08); border-color: var(--red-rep); }
-.btn-cancel {
-  background: none; border: 1px solid var(--line);
-  color: var(--soft); border-radius: 100px;
-  padding: .55rem .9rem; font-size: .78rem; transition: all .15s;
-}
-.btn-cancel:hover { border-color: var(--soft); color: var(--ink2); }
-
-/* ── ADD RELATION MODAL ── */
-.rel-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-.rel-choice {
-  background: var(--cream3); border: 1.5px solid var(--line);
-  border-radius: 12px; padding: 12px 10px; text-align: center;
-  cursor: pointer; transition: all .18s;
-}
-.rel-choice:hover { border-color: var(--terra); background: rgba(198,93,59,.05); }
-.rel-choice-icon { font-size: 1.5rem; display: block; margin-bottom: 4px; }
-.rel-choice-name { font-size: .78rem; font-weight: 600; color: var(--ink); }
-.rel-choice-sub { font-size: .65rem; color: var(--soft); margin-top: 2px; }
-
-/* ── SVG LINES ── */
-.tree-line { fill: none; stroke-linecap: round; }
-.couple-line { stroke: rgba(107,62,46,.28); stroke-width: 2; }
-.parent-line { stroke: rgba(107,62,46,.22); stroke-width: 1.8; }
-.rep-line { stroke-width: 2.5; stroke-dasharray: 6 4; opacity: .75; }
-.rep-line-gisant { stroke: var(--red-rep); }
-.rep-line-prenom { stroke: var(--orange-rep); }
-.rep-line-metier { stroke: var(--blue-rep); }
-.rep-line-schema { stroke: var(--purple-rep); }
-.rep-line-event { stroke: var(--gold-rep); }
-
-/* ── IMPORT MODAL ── */
-.import-drop {
-  border: 2px dashed rgba(107,62,46,.22); border-radius: 14px;
-  padding: 32px 20px; text-align: center; cursor: pointer;
-  transition: border-color .18s, background .18s; margin-top: 12px;
-}
-.import-drop:hover { border-color: var(--terra); background: rgba(198,93,59,.04); }
-.import-drop p { font-size: .82rem; color: var(--soft); margin-top: 6px; }
-.import-drop span { font-size: 2rem; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 720px) {
-  nav { padding: 0 16px; gap: 16px; }
-  .nav-links { display: none; }
-  .toolbar { padding: .5rem 12px; }
-  .rep-panel { max-width: 200px; }
-}
-
-/* ── PRINT ── */
-@media print {
-  nav, .toolbar, .legend-bar, .zoom-controls, .rep-panel,
-  .add-btns, .modal-ov { display: none !important; }
-  .page-wrap { padding-top: 0; height: auto; }
-  .canvas-wrap { overflow: visible; height: 900px; cursor: default; }
-  body { background: white; }
-}
+/* LEGEND */
+.leg-bar{height:32px;background:var(--cream);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 16px;gap:16px;flex-shrink:0;overflow-x:auto;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:.63rem;color:var(--ink);white-space:nowrap;}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <span class="nav-logo">Laura Charron</span>
-  <div class="nav-links">
-    <a href="index.html">Accueil</a>
-    <a href="commencer.html">Commencer</a>
-    <a href="explorer.html">Explorer</a>
-    <a href="comprendre.html">Comprendre</a>
-    <a href="genosociogramme.html" class="active">Arbre</a>
-    <a href="contact.html">Être accompagné</a>
-  </div>
-  <button class="nav-cta" onclick="openExportModal()">Sauvegarder</button>
+  <a class="nav-link" href="index.html">Accueil</a>
+  <a class="nav-link" href="comprendre.html">Comprendre</a>
+  <a class="nav-link active" href="genosociogramme.html">Mon Arbre</a>
+  <a class="nav-link" href="contact.html">Accompagnement</a>
+  <button class="nav-cta" onclick="openExport()">Sauvegarder</button>
 </nav>
 
-<div class="page-wrap">
+<div class="toolbar">
+  <span class="toolbar-title">Génosociogramme</span>
+  <button class="tb" onclick="centerView()">⊙ Centrer</button>
+  <div class="tb-sep"></div>
+  <button class="tb" onclick="openExport()">⬇ Télécharger</button>
+  <button class="tb" onclick="triggerImport()">⬆ Importer</button>
+  <button class="tb" onclick="window.print()">🖨 Imprimer</button>
+  <input type="file" id="file-import" accept=".json" style="display:none" onchange="doImport(event)">
+</div>
 
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <span class="toolbar-title">Mon Génosociogramme</span>
-    <button class="tb-btn" onclick="centerView()">⊙ Centrer</button>
-    <button class="tb-btn" onclick="zoomIn()">＋ Zoom</button>
-    <button class="tb-btn" onclick="zoomOut()">－ Zoom</button>
-    <div class="tb-sep"></div>
-    <button class="tb-btn" onclick="openExportModal()">⬇ Télécharger</button>
-    <button class="tb-btn" onclick="openImportModal()">⬆ Importer</button>
-    <button class="tb-btn" onclick="window.print()">🖨 Imprimer</button>
-    <div class="tb-sep"></div>
-    <button class="tb-btn accent" id="add-root-btn" onclick="addRoot()">＋ Commencer</button>
+<div class="leg-bar">
+  <span style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-right:4px">Répétitions :</span>
+  <div class="leg-item"><div class="ldot" style="background:var(--red)"></div>Syndrome du gisant</div>
+  <div class="leg-item"><div class="ldot" style="background:var(--purple)"></div>Schéma transmis</div>
+  <div class="leg-item"><div class="ldot" style="background:var(--orange)"></div>Prénom répété</div>
+  <div class="leg-item"><div class="ldot" style="background:var(--blue)"></div>Même métier</div>
+  <div class="leg-item"><div class="ldot" style="background:var(--gold)"></div>Même épreuve</div>
+  <div class="leg-item"><div class="ldot" style="background:var(--green)"></div>Syndrome anniversaire</div>
+</div>
+
+<div class="canvas-area" id="canvas">
+  <svg id="svg-lines"></svg>
+  <div id="nodes-container"></div>
+
+  <div id="empty-state" class="empty-state">
+    <h2>Votre arbre vous attend</h2>
+    <p>Commencez par vous — ajoutez ensuite vos parents, grands-parents et ancêtres en cliquant sur les boutons qui apparaissent.</p>
+    <button class="empty-start-btn" id="start-btn">+ Me placer au centre</button>
   </div>
 
-  <!-- LEGEND BAR -->
-  <div class="legend-bar">
-    <span class="legend-bar-title">Répétitions :</span>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--red-rep)"></div> Syndrome du gisant / mort prématurée</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--purple-rep)"></div> Schéma transgénérationnel</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--orange-rep)"></div> Prénom répété</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--blue-rep)"></div> Métier répété</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--gold-rep)"></div> Événement répété</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--green-rep)"></div> Âge critique / syndrome anniversaire</div>
+  <div class="rep-panel">
+    <div class="rph">
+      <span class="rph-title">Répétitions détectées</span>
+      <span class="rph-count" id="rep-count">0</span>
+    </div>
+    <div class="rpb" id="rep-list">
+      <div class="ri-none">Remplissez l'arbre — les répétitions s'affichent ici automatiquement.</div>
+    </div>
   </div>
 
-  <!-- CANVAS -->
-  <div class="canvas-wrap" id="canvas-wrap">
-    <svg id="lines-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible;"></svg>
-    <div class="canvas-inner" id="canvas-inner" style="z-index:2;position:absolute;top:0;left:0;width:0;height:0;"></div>
-
-    <!-- REPETITIONS PANEL -->
-    <div class="rep-panel" id="rep-panel">
-      <div class="rep-panel-header">
-        <span class="rep-panel-title">Répétitions</span>
-        <span class="rep-panel-count" id="rep-count">0</span>
-      </div>
-      <div class="rep-panel-body" id="rep-list">
-        <div class="rep-none">Ajoutez des personnes pour voir apparaître les répétitions</div>
-      </div>
-    </div>
-
-    <!-- ZOOM CONTROLS -->
-    <div class="zoom-controls">
-      <button class="zoom-btn" onclick="zoomIn()">＋</button>
-      <button class="zoom-btn" onclick="centerView()">⊙</button>
-      <button class="zoom-btn" onclick="zoomOut()">－</button>
-    </div>
+  <div class="zoom-wrap">
+    <button class="zbtn" onclick="zoomIn()">+</button>
+    <button class="zbtn" onclick="centerView()">⊙</button>
+    <button class="zbtn" onclick="zoomOut()">−</button>
   </div>
 </div>
 
 <!-- PERSON MODAL -->
-<div class="modal-ov" id="person-modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-head-top">
-        <div class="modal-title" id="pm-title">Nouvelle personne</div>
-        <button class="modal-close-btn" onclick="closePersonModal()">×</button>
+<div class="modal-bg" id="pm">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="mhead-row">
+        <div class="mtitle" id="pm-title">Nouvelle personne</div>
+        <button class="mclose" onclick="closePM()">×</button>
       </div>
     </div>
-    <div class="modal-body">
-      <div class="field-group">
-        <label class="field-label">Sexe</label>
-        <div class="sex-toggle">
-          <div class="sex-opt" id="sex-f" onclick="setSex('f')">♀ Femme</div>
-          <div class="sex-opt" id="sex-m" onclick="setSex('m')">♂ Homme</div>
-          <div class="sex-opt on" id="sex-u" onclick="setSex('u')">◇ Inconnu</div>
+    <div class="mbody">
+      <div class="fg">
+        <label class="fl">Sexe</label>
+        <div class="sex-row">
+          <button class="sopt" id="sx-f" onclick="setSex('f')">♀ Femme</button>
+          <button class="sopt" id="sx-m" onclick="setSex('m')">♂ Homme</button>
+          <button class="sopt on" id="sx-u" onclick="setSex('u')">◇ Non précisé</button>
         </div>
       </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label class="field-label">Prénom</label>
-          <input class="field-input" id="pm-prenom" placeholder="Prénom">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Nom de famille</label>
-          <input class="field-input" id="pm-nom" placeholder="Nom">
-        </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Prénom</label><input class="fi" id="f-prenom" placeholder="Prénom"></div>
+        <div class="fg"><label class="fl">Nom de famille</label><input class="fi" id="f-nom" placeholder="Nom"></div>
       </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label class="field-label">Date de naissance</label>
-          <input class="field-input" id="pm-naiss" type="date">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Date de décès</label>
-          <input class="field-input" id="pm-deces" type="date">
-        </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Naissance</label><input class="fi" id="f-naiss" type="date"></div>
+        <div class="fg"><label class="fl">Décès</label><input class="fi" id="f-deces" type="date"></div>
       </div>
-      <div class="field-group">
-        <label class="field-label">Métier / domaine d'activité</label>
-        <input class="field-input" id="pm-metier" placeholder="Ex : agricultrice, instituteur, commerçant...">
+      <div class="frow">
+        <div class="fg"><label class="fl">Métier</label><input class="fi" id="f-metier" placeholder="Agricultrice, médecin..."></div>
+        <div class="fg"><label class="fl">Lieu / origine</label><input class="fi" id="f-lieu" placeholder="Bretagne, Italie..."></div>
       </div>
-      <div class="field-group">
-        <label class="field-label">Lieu de vie / origine</label>
-        <input class="field-input" id="pm-lieu" placeholder="Ex : Bretagne, Portugal, Lyon...">
-      </div>
-
-      <div class="modal-section-title">Traits de caractère &amp; comportements</div>
-      <div class="field-group">
-        <label class="field-label">Traits (appuyer Entrée pour valider)</label>
-        <div class="tags-wrap" id="pm-traits-wrap" onclick="this.querySelector('input').focus()">
-          <input id="pm-traits-input" placeholder="perfectionniste, généreux, anxieux..." onkeydown="addTagFromInput(event,'traits')">
+      <div class="msec">Traits &amp; comportements</div>
+      <div class="fg">
+        <label class="fl">Traits de caractère (Entrée pour valider)</label>
+        <div class="tags-box" id="traits-box" onclick="document.getElementById('traits-input').focus()">
+          <input id="traits-input" placeholder="généreux, anxieux, perfectionniste..." onkeydown="addTrait(event)">
         </div>
       </div>
-
-      <div class="modal-section-title">Événements marquants</div>
-      <div class="field-group">
-        <label class="field-label">Type d'événement principal</label>
-        <select class="field-select" id="pm-event">
+      <div class="msec">Événement marquant</div>
+      <div class="fg"><label class="fl">Type d'événement</label>
+        <select class="fs" id="f-event">
           <option value="">— Aucun —</option>
-          <option value="deuil">Deuil / perte</option>
           <option value="deces-precoce">Mort prématurée (avant 50 ans)</option>
+          <option value="deuil">Deuil / perte</option>
           <option value="maladie">Maladie grave</option>
           <option value="abandon">Abandon / rejet</option>
           <option value="trahison">Trahison</option>
+          <option value="sacrifice">Sacrifice de soi / effacement</option>
           <option value="secret">Secret de famille</option>
-          <option value="sacrifice">Sacrifice de soi / femme effacée</option>
           <option value="pauvrete">Pauvreté / manque</option>
           <option value="guerre">Guerre / exil</option>
           <option value="abus">Violence / abus</option>
           <option value="rupture">Rupture douloureuse</option>
-          <option value="succes-soudain">Réussite ou chute soudaine</option>
           <option value="honte">Honte / humiliation</option>
           <option value="injustice">Injustice vécue</option>
         </select>
       </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label class="field-label">Âge lors de l'événement</label>
-          <input class="field-input" id="pm-event-age" type="number" min="0" max="120" placeholder="Ex : 34">
-        </div>
-        <div class="field-group">
-          <label class="field-label">Année de l'événement</label>
-          <input class="field-input" id="pm-event-year" placeholder="Ex : 1962">
-        </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Âge lors de l'événement</label><input class="fi" id="f-evage" type="number" min="0" max="120" placeholder="34"></div>
+        <div class="fg"><label class="fl">Année</label><input class="fi" id="f-evyear" placeholder="1952"></div>
       </div>
-
-      <div class="modal-section-title">Histoire &amp; non-dits</div>
-      <div class="field-group">
-        <label class="field-label">Ce qu'on sait de cette personne</label>
-        <textarea class="field-textarea" id="pm-notes" placeholder="Ce qu'on dit d'elle, un secret pressenti, une phrase qu'elle répétait..."></textarea>
+      <div class="msec">Histoire</div>
+      <div class="fg"><label class="fl">Ce qu'on sait de cette personne</label>
+        <textarea class="fta" id="f-notes" placeholder="Un secret pressenti, une phrase qu'elle répétait, ce qu'on dit de lui..."></textarea>
       </div>
-
-      <div class="modal-actions">
-        <button class="btn-save" onclick="savePerson()">Enregistrer</button>
-        <button class="btn-cancel" onclick="closePersonModal()">Annuler</button>
-        <button class="btn-delete" id="pm-delete-btn" style="display:none" onclick="deletePerson()">Supprimer</button>
+      <div class="mactions">
+        <button class="mbtn-save" onclick="savePM()">Enregistrer</button>
+        <button class="mbtn-cancel" onclick="closePM()">Annuler</button>
+        <button class="mbtn-del" id="pm-del" style="display:none" onclick="delPM()">Supprimer</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ADD RELATION MODAL -->
-<div class="modal-ov" id="rel-modal">
-  <div class="modal-box" style="max-width:400px">
-    <div class="modal-head">
-      <div class="modal-head-top">
-        <div class="modal-title">Ajouter un lien</div>
-        <button class="modal-close-btn" onclick="closeRelModal()">×</button>
+<!-- REL MODAL -->
+<div class="modal-bg" id="rm">
+  <div class="mbox" style="max-width:380px">
+    <div class="mhead">
+      <div class="mhead-row">
+        <div class="mtitle">Ajouter un lien</div>
+        <button class="mclose" onclick="closeRM()">×</button>
       </div>
     </div>
-    <div class="modal-body">
-      <div id="rel-context" style="font-size:.8rem;color:var(--soft);margin-bottom:2px;font-style:italic"></div>
-      <div class="rel-choices" id="rel-choices"></div>
+    <div class="mbody">
+      <div style="font-size:.78rem;color:var(--soft);font-style:italic;margin-bottom:4px" id="rm-ctx"></div>
+      <div class="rel-grid" id="rm-choices"></div>
     </div>
   </div>
 </div>
 
 <!-- EXPORT MODAL -->
-<div class="modal-ov" id="export-modal">
-  <div class="modal-box" style="max-width:420px">
-    <div class="modal-head">
-      <div class="modal-head-top">
-        <div class="modal-title">Sauvegarder mon arbre</div>
-        <button class="modal-close-btn" onclick="closeExportModal()">×</button>
+<div class="modal-bg" id="em">
+  <div class="mbox" style="max-width:400px">
+    <div class="mhead">
+      <div class="mhead-row">
+        <div class="mtitle">Sauvegarder mon arbre</div>
+        <button class="mclose" onclick="document.getElementById('em').classList.remove('open')">×</button>
       </div>
     </div>
-    <div class="modal-body">
-      <p style="font-size:.82rem;color:var(--soft);line-height:1.7;margin-bottom:16px">Votre arbre est sauvegardé automatiquement dans votre navigateur. Téléchargez un fichier pour le garder et le réimporter plus tard (ou sur un autre appareil).</p>
+    <div class="mbody">
+      <p style="font-size:.8rem;color:var(--soft);line-height:1.7;margin-bottom:14px">L'arbre est sauvegardé automatiquement dans ce navigateur. Téléchargez un fichier .json pour le conserver ou le partager.</p>
       <div style="display:flex;flex-direction:column;gap:8px">
-        <button class="btn-save" onclick="downloadJSON()">⬇ Télécharger mon arbre (.json)</button>
-        <button class="btn-save" style="background:var(--brown)" onclick="downloadSVGExport()">⬇ Télécharger en image (.svg)</button>
-        <button class="btn-save" style="background:var(--ink)" onclick="window.print()">🖨 Imprimer</button>
+        <button class="mbtn-save" onclick="doExportJSON()">⬇ Télécharger (.json)</button>
+        <button class="mbtn-save" style="background:var(--brown)" onclick="doExportSVG()">⬇ Exporter en image (.svg)</button>
+        <button class="mbtn-save" style="background:var(--ink)" onclick="window.print()">🖨 Imprimer</button>
       </div>
-      <div style="margin-top:14px;padding:10px 12px;background:rgba(198,93,59,.07);border-radius:10px;font-size:.72rem;color:var(--terra-dark);line-height:1.65">
-        ✓ Sauvegarde automatique activée — vos données sont conservées dans ce navigateur.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- IMPORT MODAL -->
-<div class="modal-ov" id="import-modal">
-  <div class="modal-box" style="max-width:420px">
-    <div class="modal-head">
-      <div class="modal-head-top">
-        <div class="modal-title">Importer un arbre</div>
-        <button class="modal-close-btn" onclick="closeImportModal()">×</button>
-      </div>
-    </div>
-    <div class="modal-body">
-      <p style="font-size:.82rem;color:var(--soft);line-height:1.7">Sélectionnez un fichier .json précédemment téléchargé.</p>
-      <div class="import-drop" onclick="document.getElementById('import-file').click()">
-        <span>📂</span>
-        <p>Cliquez pour choisir un fichier .json</p>
-      </div>
-      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)">
-      <button class="btn-cancel" style="margin-top:12px;width:100%;text-align:center" onclick="closeImportModal()">Annuler</button>
+      <div style="margin-top:12px;padding:9px 11px;background:rgba(198,93,59,.07);border-radius:9px;font-size:.7rem;color:var(--terra-dark);line-height:1.6">✓ Sauvegarde automatique activée dans ce navigateur.</div>
     </div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════════════
-let people = {};       // id → person object
-let relations = [];    // [{from, to, type}]  type: couple|parent
-let nextId = 1;
-let selectedId = null;
-let editingId = null;
-let currentSex = 'u';
-let currentTraits = [];
-let pendingRelSource = null;   // {fromId, dir, relType}
-let zoom = 1;
-let panX = 0, panY = 0;
-let isPanning = false;
-let panStartX = 0, panStartY = 0;
-let panStartPX = 0, panStartPY = 0;
-let nodePositions = {};  // id → {x,y}
+// ─── STATE ───────────────────────────────────────────────────────────
+var people = {};
+var rels = [];   // {from, to, type: 'couple'|'parent'}
+var nid = 1;
+var selId = null;
+var editId = null;
+var curSex = 'u';
+var curTraits = [];
+var pendRel = null;
+var zoom = 1, panX = 0, panY = 0;
+var panning = false, px0 = 0, py0 = 0, ppx = 0, ppy = 0;
+var nodePos = {};  // id → {x,y}
 
-// ═══════════════════════════════════════════════════════
-//  PERSON OBJECT
-// ═══════════════════════════════════════════════════════
-function mkPerson(overrides = {}) {
-  return {
-    id: 'p' + (nextId++),
-    prenom: '', nom: '', sex: 'u',
-    naiss: '', deces: '',
-    metier: '', lieu: '',
-    traits: [],
-    event: '', eventAge: '', eventYear: '',
-    notes: '',
-    role: '',
-    ...overrides
-  };
+var NW = 145, NH = 100;
+
+// ─── HELPERS ─────────────────────────────────────────────────────────
+function uid(){ return 'p'+(nid++); }
+function norm(s){ return (s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function mkPerson(o){
+  return Object.assign({id:uid(),prenom:'',nom:'',sex:'u',naiss:'',deces:'',metier:'',lieu:'',traits:[],event:'',evage:'',evyear:'',notes:'',role:''},o||{});
 }
-
-// ═══════════════════════════════════════════════════════
-//  STORAGE
-// ═══════════════════════════════════════════════════════
-function save() {
-  try {
-    localStorage.setItem('geno-v3', JSON.stringify({ people, relations, nextId, nodePositions }));
-  } catch(e) {}
-}
-
-function load() {
-  try {
-    const raw = localStorage.getItem('geno-v3');
-    if (!raw) return false;
-    const d = JSON.parse(raw);
-    people = d.people || {};
-    relations = d.relations || [];
-    nextId = d.nextId || 1;
-    nodePositions = d.nodePositions || {};
-    // Re-assign initial positions if missing
-    Object.keys(people).forEach(id => {
-      if (!nodePositions[id]) nodePositions[id] = { x: 0, y: 0 };
-    });
-    return Object.keys(people).length > 0;
-  } catch(e) { return false; }
-}
-
-// ═══════════════════════════════════════════════════════
-//  VIEWPORT / PAN / ZOOM
-// ═══════════════════════════════════════════════════════
-function applyTransform() {
-  const inner = document.getElementById('canvas-inner');
-  const svg = document.getElementById('lines-svg');
-  inner.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
-  // SVG lines need same transform
-  svg.style.transform = `translate(${panX}px,${panY}px) scale(${zoom})`;
-  svg.style.transformOrigin = '0 0';
-}
-
-function zoomIn() { zoom = Math.min(zoom * 1.2, 3); applyTransform(); }
-function zoomOut() { zoom = Math.max(zoom / 1.2, 0.3); applyTransform(); }
-
-function centerView() {
-  const ids = Object.keys(people);
-  if (!ids.length) { panX = 0; panY = 0; zoom = 1; applyTransform(); return; }
-  const wrap = document.getElementById('canvas-wrap');
-  const W = wrap.clientWidth, H = wrap.clientHeight;
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  ids.forEach(id => {
-    const p = nodePositions[id] || { x: 0, y: 0 };
-    minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
-    minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
-  });
-  const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
-  panX = W / 2 - cx * zoom;
-  panY = H / 2 - cy * zoom;
-  applyTransform();
-}
-
-// Pan
-const canvasWrap = document.getElementById('canvas-wrap');
-canvasWrap.addEventListener('mousedown', e => {
-  if (e.target.classList.contains('canvas-wrap') || e.target === document.getElementById('lines-svg')) {
-    isPanning = true;
-    panStartX = e.clientX; panStartY = e.clientY;
-    panStartPX = panX; panStartPY = panY;
-    canvasWrap.classList.add('panning');
-  }
-});
-window.addEventListener('mousemove', e => {
-  if (!isPanning) return;
-  panX = panStartPX + (e.clientX - panStartX);
-  panY = panStartPY + (e.clientY - panStartY);
-  applyTransform();
-});
-window.addEventListener('mouseup', () => { isPanning = false; canvasWrap.classList.remove('panning'); });
-
-canvasWrap.addEventListener('wheel', e => {
-  e.preventDefault();
-  const rect = canvasWrap.getBoundingClientRect();
-  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-  const delta = e.deltaY > 0 ? 0.9 : 1.1;
-  const newZoom = Math.min(Math.max(zoom * delta, 0.3), 3);
-  panX = mx - (mx - panX) * (newZoom / zoom);
-  panY = my - (my - panY) * (newZoom / zoom);
-  zoom = newZoom;
-  applyTransform();
-}, { passive: false });
-
-// ═══════════════════════════════════════════════════════
-//  RENDER NODE
-// ═══════════════════════════════════════════════════════
-function displayName(p) {
-  const parts = [p.prenom, p.nom].filter(Boolean);
-  if (!parts.length) return p.role || '(Sans nom)';
-  return parts.join(' ');
-}
-
-function shortName(p) {
-  const n = displayName(p);
-  return n.length > 16 ? n.slice(0, 15) + '…' : n;
-}
-
-function formatDates(p) {
-  const b = p.naiss ? p.naiss.slice(0, 4) : '';
-  const d = p.deces ? p.deces.slice(0, 4) : '';
-  if (b && d) return `${b} — ${d}`;
-  if (b) return `né${p.sex === 'f' ? 'e' : ''} ${b}`;
-  if (d) return `† ${d}`;
+function dname(p){ var n=(p.prenom+' '+p.nom).trim(); return n||p.role||'(Sans nom)'; }
+function short(p){ var n=dname(p); return n.length>16?n.slice(0,15)+'…':n; }
+function byear(p){ return p.naiss&&/\d{4}/.test(p.naiss)?parseInt(p.naiss):null; }
+function dyear(p){ return p.deces&&/\d{4}/.test(p.deces)?parseInt(p.deces):null; }
+function agedeath(p){ var b=byear(p),d=dyear(p); return(b&&d)?d-b:null; }
+function dates(p){
+  var b=p.naiss?p.naiss.slice(0,4):'', d=p.deces?p.deces.slice(0,4):'';
+  if(b&&d)return b+' — '+d;
+  if(b)return 'né'+(p.sex==='f'?'e':'')+' '+b;
+  if(d)return '† '+d;
   return '';
 }
 
-function getRepBadges(id) {
-  const allReps = detectRepetitions();
-  return allReps.filter(r => r.ids.includes(id));
+// ─── SAVE / LOAD ─────────────────────────────────────────────────────
+function save(){
+  try{ localStorage.setItem('geno4',JSON.stringify({people:people,rels:rels,nid:nid,nodePos:nodePos})); }catch(e){}
+}
+function load(){
+  try{
+    var raw=localStorage.getItem('geno4');
+    if(!raw)return false;
+    var d=JSON.parse(raw);
+    people=d.people||{}; rels=d.rels||[]; nid=d.nid||1; nodePos=d.nodePos||{};
+    return Object.keys(people).length>0;
+  }catch(e){ return false; }
 }
 
-function renderNode(id) {
-  const p = people[id];
-  if (!p) return;
-  const inner = document.getElementById('canvas-inner');
-  let el = document.getElementById('gn-' + id);
-  if (!el) {
-    el = document.createElement('div');
-    el.id = 'gn-' + id;
-    el.className = 'gnode';
-    inner.appendChild(el);
-  }
-
-  const pos = nodePositions[id] || { x: 0, y: 0 };
-  el.style.left = pos.x + 'px';
-  el.style.top = pos.y + 'px';
-
-  const reps = getRepBadges(id);
-  const isMe = p.role === 'moi';
-  const isSelected = selectedId === id;
-
-  let classes = 'gnode';
-  if (isMe) classes += ' is-me';
-  if (isSelected) classes += ' selected';
-  if (reps.length) classes += ' has-rep';
-  el.className = classes;
-
-  const sexClass = p.sex === 'f' ? 'female' : p.sex === 'm' ? 'male' : 'unknown';
-  const sexEmoji = p.sex === 'f' ? '♀' : p.sex === 'm' ? '♂' : '◇';
-
-  const badgesHTML = reps.slice(0, 3).map(r =>
-    `<span class="gnode-badge" style="background:${r.col}22;color:${r.col}">${r.shortLabel}</span>`
-  ).join('');
-
-  const repIndicator = reps.length ? `<div class="gnode-rep-indicator">${reps.length}</div>` : '';
-
-  // Add buttons (shown when selected or hovered)
-  const canAddParent = !hasParents(id);
-  const canAddCouple = !hasCouple(id);
-  const showAddBtns = isSelected;
-
-  const addBtnsHTML = showAddBtns ? `
-    <div class="add-btns" style="position:absolute;inset:-12px;">
-      ${canAddParent ? `<button class="add-btn" data-dir="top" title="Ajouter un parent" onclick="event.stopPropagation();openRelModal('${id}','parent')">+</button>` : ''}
-      ${canAddCouple ? `<button class="add-btn" data-dir="right" title="Ajouter un(e) conjoint(e)" onclick="event.stopPropagation();openRelModal('${id}','couple')">+</button>` : ''}
-      <button class="add-btn" data-dir="bottom" title="Ajouter un enfant" onclick="event.stopPropagation();openRelModal('${id}','child')">+</button>
-      <button class="add-btn" data-dir="left" title="Ajouter un frère/sœur" onclick="event.stopPropagation();openRelModal('${id}','sibling')">+</button>
-    </div>` : '';
-
-  el.innerHTML = `
-    ${addBtnsHTML}
-    <div class="gnode-card">
-      ${repIndicator}
-      <div class="gnode-sex-icon ${sexClass}"><span>${sexEmoji}</span></div>
-      <div class="gnode-name">${shortName(p)}</div>
-      ${formatDates(p) ? `<div class="gnode-dates">${formatDates(p)}</div>` : ''}
-      ${p.metier ? `<div class="gnode-job">${p.metier}</div>` : ''}
-      <div class="gnode-role">${p.role || ''}</div>
-      ${badgesHTML ? `<div class="gnode-badges">${badgesHTML}</div>` : ''}
-    </div>`;
-
-  el.onclick = (e) => { e.stopPropagation(); selectNode(id); };
+// ─── PAN / ZOOM ───────────────────────────────────────────────────────
+function applyT(){
+  var c=document.getElementById('nodes-container');
+  var s=document.getElementById('svg-lines');
+  c.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
+  c.style.transformOrigin='0 0';
+  s.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
+  s.style.transformOrigin='0 0';
+}
+function zoomIn(){ zoom=Math.min(zoom*1.18,3); applyT(); }
+function zoomOut(){ zoom=Math.max(zoom/1.18,0.25); applyT(); }
+function centerView(){
+  var ids=Object.keys(people); if(!ids.length){panX=0;panY=0;zoom=1;applyT();return;}
+  var cv=document.getElementById('canvas');
+  var W=cv.clientWidth,H=cv.clientHeight;
+  var mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
+  ids.forEach(function(id){
+    var p=nodePos[id]||{x:0,y:0};
+    mnx=Math.min(mnx,p.x);mxx=Math.max(mxx,p.x);
+    mny=Math.min(mny,p.y);mxy=Math.max(mxy,p.y);
+  });
+  var cx=(mnx+mxx)/2,cy=(mny+mxy)/2;
+  panX=W/2-cx*zoom; panY=H/2-cy*zoom;
+  applyT();
 }
 
-function selectNode(id) {
-  selectedId = (selectedId === id) ? null : id;
-  renderAll();
-}
-
-canvasWrap.addEventListener('click', e => {
-  if (e.target === canvasWrap || e.target === document.getElementById('lines-svg')) {
-    selectedId = null;
-    renderAll();
+var canvas=document.getElementById('canvas');
+canvas.addEventListener('mousedown',function(e){
+  if(e.target===canvas||e.target.id==='svg-lines'){
+    panning=true; px0=e.clientX; py0=e.clientY; ppx=panX; ppy=panY;
+    canvas.style.cursor='grabbing';
   }
 });
+window.addEventListener('mousemove',function(e){
+  if(!panning)return;
+  panX=ppx+(e.clientX-px0); panY=ppy+(e.clientY-py0); applyT();
+});
+window.addEventListener('mouseup',function(){ panning=false; canvas.style.cursor=''; });
+canvas.addEventListener('wheel',function(e){
+  e.preventDefault();
+  var r=canvas.getBoundingClientRect();
+  var mx=e.clientX-r.left,my=e.clientY-r.top;
+  var delta=e.deltaY>0?0.88:1.14;
+  var nz=Math.min(Math.max(zoom*delta,0.25),3);
+  panX=mx-(mx-panX)*(nz/zoom); panY=my-(my-panY)*(nz/zoom);
+  zoom=nz; applyT();
+},{passive:false});
 
-// ═══════════════════════════════════════════════════════
-//  LAYOUT HELPERS
-// ═══════════════════════════════════════════════════════
-const NODE_W = 148, NODE_H = 90, H_GAP = 40, V_GAP = 90;
+// ─── TOUCH SUPPORT ────────────────────────────────────────────────────
+var t0=null,ptpx=0,ptpy=0;
+canvas.addEventListener('touchstart',function(e){
+  if(e.touches.length===1){
+    t0=e.touches[0]; ptpx=panX; ptpy=panY;
+  }
+},{passive:true});
+canvas.addEventListener('touchmove',function(e){
+  if(e.touches.length===1&&t0){
+    panX=ptpx+(e.touches[0].clientX-t0.clientX);
+    panY=ptpy+(e.touches[0].clientY-t0.clientY);
+    applyT();
+  }
+},{passive:true});
 
-function hasParents(id) {
-  return relations.some(r => r.type === 'parent' && r.to === id);
-}
-function hasCouple(id) {
-  return relations.some(r => r.type === 'couple' && (r.from === id || r.to === id));
-}
-function getCouplePartner(id) {
-  const r = relations.find(r => r.type === 'couple' && (r.from === id || r.to === id));
-  if (!r) return null;
-  return r.from === id ? r.to : r.from;
-}
-function getChildren(id) {
-  // direct children
-  const coupleId = getCouplePartner(id);
-  const childRels = relations.filter(r => r.type === 'parent' && (r.from === id || r.from === coupleId));
-  return [...new Set(childRels.map(r => r.to))];
-}
-function getParents(id) {
-  return relations.filter(r => r.type === 'parent' && r.to === id).map(r => r.from);
-}
+// ─── RENDER NODE ──────────────────────────────────────────────────────
+function renderNode(id){
+  var p=people[id]; if(!p)return;
+  var cont=document.getElementById('nodes-container');
+  var el=document.getElementById('gn-'+id);
+  if(!el){
+    el=document.createElement('div');
+    el.id='gn-'+id;
+    el.className='gnode';
+    cont.appendChild(el);
+  }
+  var pos=nodePos[id]||{x:0,y:0};
+  el.style.left=pos.x+'px';
+  el.style.top=pos.y+'px';
 
-function autoLayout() {
-  // BFS from root (moi), assign generation rows
-  const moiId = Object.keys(people).find(id => people[id].role === 'moi');
-  if (!moiId) return;
-  const wrap = document.getElementById('canvas-wrap');
-  const W = wrap.clientWidth, H = wrap.clientHeight;
-  const gen = {}; // id → generation (0 = moi, -1 parents, -2 gp...)
-  const queue = [moiId];
-  gen[moiId] = 0;
-  const visited = new Set([moiId]);
+  var reps=getRepBadges(id);
+  var cls='gnode';
+  if(p.role==='moi')cls+=' me';
+  if(id===selId)cls+=' sel';
+  if(reps.length)cls+=' hasrep';
+  el.className=cls;
 
-  // BFS upward (parents) and downward (children)
-  while (queue.length) {
-    const cur = queue.shift();
-    const g = gen[cur];
-    // parents
-    getParents(cur).forEach(pid => {
-      if (!visited.has(pid)) { visited.add(pid); gen[pid] = g - 1; queue.push(pid); }
-      const partner = getCouplePartner(pid);
-      if (partner && !visited.has(partner)) { visited.add(partner); gen[partner] = g - 1; queue.push(partner); }
-    });
-    // children
-    getChildren(cur).forEach(cid => {
-      if (!visited.has(cid)) { visited.add(cid); gen[cid] = g + 1; queue.push(cid); }
-    });
-    // couple partner same gen
-    const partner = getCouplePartner(cur);
-    if (partner && !visited.has(partner)) { visited.add(partner); gen[partner] = g; queue.push(partner); }
+  var sexCls=p.sex==='f'?'':'m';
+  var sexIco=p.sex==='f'?'♀':p.sex==='m'?'♂':'◇';
+
+  var dotsHTML=reps.slice(0,4).map(function(r){
+    return '<div class="nrep-dot" style="background:'+r.col+'" title="'+r.label+'"></div>';
+  }).join('');
+
+  var addHTML='';
+  if(id===selId){
+    var hasParents=getParents(id).length>0;
+    var hasCouple=getCouple(id)!==null;
+    if(!hasParents) addHTML+='<button class="nadd nadd-top" title="Ajouter un parent" onclick="event.stopPropagation();openRM(\''+id+'\',\'parent\')">+</button>';
+    if(!hasCouple)  addHTML+='<button class="nadd nadd-right" title="Ajouter un(e) conjoint(e)" onclick="event.stopPropagation();openRM(\''+id+'\',\'couple\')">+</button>';
+    addHTML+='<button class="nadd nadd-bottom" title="Ajouter un enfant" onclick="event.stopPropagation();openRM(\''+id+'\',\'child\')">+</button>';
+    addHTML+='<button class="nadd nadd-left" title="Ajouter un frère/sœur" onclick="event.stopPropagation();openRM(\''+id+'\',\'sibling\')">+</button>';
   }
 
-  // Any unvisited get gen 0
-  Object.keys(people).forEach(id => { if (gen[id] === undefined) gen[id] = 0; });
+  var repBadge=reps.length?'<div class="nrep-badge">'+reps.length+'</div>':'';
 
-  // Group by generation
-  const byGen = {};
-  Object.keys(people).forEach(id => {
-    const g = gen[id];
-    if (!byGen[g]) byGen[g] = [];
-    byGen[g].push(id);
-  });
+  el.innerHTML=
+    addHTML+
+    '<div class="gnode-inner">'+
+      repBadge+
+      '<div class="nsex '+sexCls+'">'+sexIco+'</div>'+
+      '<div class="nname">'+esc(short(p))+'</div>'+
+      (dates(p)?'<div class="ndates">'+esc(dates(p))+'</div>':'')+
+      (p.metier?'<div class="njob">'+esc(p.metier)+'</div>':'')+
+      (p.role?'<div class="nrole">'+esc(p.role)+'</div>':'')+
+      (dotsHTML?'<div class="nreps">'+dotsHTML+'</div>':'')+
+    '</div>';
 
-  const gens = Object.keys(byGen).map(Number).sort((a, b) => a - b);
-  const totalH = gens.length * (NODE_H + V_GAP);
-  const startY = H / 2 - totalH / 2;
-
-  gens.forEach((g, gi) => {
-    const row = byGen[g];
-    const totalW = row.length * NODE_W + (row.length - 1) * H_GAP;
-    let startX = W / 2 - totalW / 2;
-    row.forEach((id, i) => {
-      nodePositions[id] = {
-        x: startX + i * (NODE_W + H_GAP) + NODE_W / 2,
-        y: startY + gi * (NODE_H + V_GAP) + NODE_H / 2
-      };
-    });
-  });
+  el.onclick=function(e){ e.stopPropagation(); selId=(selId===id)?null:id; renderAll(); };
 }
 
-// ═══════════════════════════════════════════════════════
-//  RENDER ALL
-// ═══════════════════════════════════════════════════════
-function renderAll() {
-  Object.keys(people).forEach(id => renderNode(id));
-  // Remove stale nodes
-  document.getElementById('canvas-inner').querySelectorAll('.gnode').forEach(el => {
-    const id = el.id.replace('gn-', '');
-    if (!people[id]) el.remove();
+canvas.addEventListener('click',function(e){
+  if(e.target===canvas||e.target.id==='svg-lines'){ selId=null; renderAll(); }
+});
+
+// double click to edit
+document.getElementById('nodes-container').addEventListener('dblclick',function(e){
+  var nd=e.target.closest('.gnode');
+  if(nd){ var id=nd.id.replace('gn-',''); openPM(id,false); }
+});
+
+// ─── LINES ────────────────────────────────────────────────────────────
+function drawLines(){
+  var svg=document.getElementById('svg-lines');
+  svg.innerHTML='';
+  // couple lines
+  rels.filter(function(r){return r.type==='couple';}).forEach(function(r){
+    var a=nodePos[r.from],b=nodePos[r.to]; if(!a||!b)return;
+    svg.appendChild(mkline(a.x,a.y,b.x,b.y,'rgba(107,62,46,.3)',2,'5 4'));
   });
-  drawLines();
-  renderRepPanel();
-  applyTransform();
-}
-
-// ═══════════════════════════════════════════════════════
-//  LINES
-// ═══════════════════════════════════════════════════════
-function drawLines() {
-  const svg = document.getElementById('lines-svg');
-  svg.innerHTML = '';
-
-  const reps = detectRepetitions();
-
-  // Draw couple lines
-  relations.filter(r => r.type === 'couple').forEach(r => {
-    const a = nodePositions[r.from], b = nodePositions[r.to];
-    if (!a || !b) return;
-    const line = mkLine(a.x, a.y, b.x, b.y, 'rgba(107,62,46,.32)', 2);
-    line.style.strokeDasharray = '4 4';
-    svg.appendChild(line);
-  });
-
-  // Draw parent lines
-  relations.filter(r => r.type === 'parent').forEach(r => {
-    const a = nodePositions[r.from], b = nodePositions[r.to];
-    if (!a || !b) return;
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const midY = (a.y + b.y) / 2;
-    path.setAttribute('d', `M ${a.x} ${a.y} C ${a.x} ${midY} ${b.x} ${midY} ${b.x} ${b.y}`);
-    path.setAttribute('stroke', 'rgba(107,62,46,.25)');
-    path.setAttribute('stroke-width', '1.8');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke-linecap', 'round');
+  // parent lines
+  rels.filter(function(r){return r.type==='parent';}).forEach(function(r){
+    var a=nodePos[r.from],b=nodePos[r.to]; if(!a||!b)return;
+    var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    var my=(a.y+b.y)/2;
+    path.setAttribute('d','M '+a.x+' '+a.y+' C '+a.x+' '+my+' '+b.x+' '+my+' '+b.x+' '+b.y);
+    path.setAttribute('stroke','rgba(107,62,46,.26)');
+    path.setAttribute('stroke-width','1.8');
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke-linecap','round');
     svg.appendChild(path);
   });
-
-  // Draw repetition lines
-  reps.forEach(r => {
-    for (let i = 0; i < r.ids.length - 1; i++) {
-      for (let j = i + 1; j < r.ids.length; j++) {
-        const a = nodePositions[r.ids[i]], b = nodePositions[r.ids[j]];
-        if (!a || !b) continue;
-        const line = mkLine(a.x, a.y, b.x, b.y, r.col, 2.5);
-        line.style.strokeDasharray = '7 5';
-        line.style.opacity = '.65';
-        svg.appendChild(line);
+  // rep lines
+  detectReps().forEach(function(r){
+    for(var i=0;i<r.ids.length-1;i++){
+      for(var j=i+1;j<r.ids.length;j++){
+        var a=nodePos[r.ids[i]],b=nodePos[r.ids[j]]; if(!a||!b)continue;
+        svg.appendChild(mkline(a.x,a.y,b.x,b.y,r.col,2.5,'7 5'));
       }
     }
   });
 }
-
-function mkLine(x1, y1, x2, y2, stroke, sw) {
-  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-  line.setAttribute('x2', x2); line.setAttribute('y2', y2);
-  line.setAttribute('stroke', stroke);
-  line.setAttribute('stroke-width', sw);
-  line.setAttribute('stroke-linecap', 'round');
-  return line;
+function mkline(x1,y1,x2,y2,stroke,sw,dash){
+  var l=document.createElementNS('http://www.w3.org/2000/svg','line');
+  l.setAttribute('x1',x1);l.setAttribute('y1',y1);
+  l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+  l.setAttribute('stroke',stroke);
+  l.setAttribute('stroke-width',sw);
+  l.setAttribute('stroke-linecap','round');
+  if(dash)l.setAttribute('stroke-dasharray',dash);
+  l.setAttribute('opacity','0.7');
+  return l;
 }
 
-// ═══════════════════════════════════════════════════════
-//  REPETITION DETECTION
-// ═══════════════════════════════════════════════════════
-const REP_COLORS = {
-  gisant: '#C0392B',
-  schema: '#8E44AD',
-  prenom: '#E67E22',
-  metier: '#2980B9',
-  event: '#D4AC0D',
-  anniversaire: '#27AE60',
-  sacrifice: '#8E44AD'
+// ─── RELATION HELPERS ─────────────────────────────────────────────────
+function getParents(id){ return rels.filter(function(r){return r.type==='parent'&&r.to===id;}).map(function(r){return r.from;}); }
+function getChildren(id){ return rels.filter(function(r){return r.type==='parent'&&r.from===id;}).map(function(r){return r.to;}); }
+function getCouple(id){
+  var r=rels.find(function(r){return r.type==='couple'&&(r.from===id||r.to===id);});
+  return r?(r.from===id?r.to:r.from):null;
+}
+
+// ─── DETECTION ────────────────────────────────────────────────────────
+var MGROUPS={
+  sante:['medecin','infirmier','infirmiere','soignant','pharmacien','kine','therapeute','chirurgien','sage-femme'],
+  education:['enseignant','professeur','instituteur','educateur','formateur'],
+  commerce:['commercant','vendeur','vendeuse','boulanger','boucher','epicier','marchand'],
+  agriculture:['agriculteur','agricultrice','fermier','vigneron','paysan','eleveur'],
+  artisan:['artisan','menuisier','charpentier','couturier','tailleur','cordonnier','maçon'],
+  militaire:['militaire','soldat','gendarme','policier','pompier'],
+  domestique:['femme au foyer','menagere','domestique'],
+  religion:['pretre','pasteur','religieux','religieuse','cure','moine']
 };
-
-function norm(s) {
-  return (s || '').toLowerCase().trim()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-}
-
-function getBirthYear(p) {
-  if (p.naiss && /\d{4}/.test(p.naiss)) return parseInt(p.naiss.slice(0,4));
+function mgrp(m){
+  var ml=norm(m);
+  for(var g in MGROUPS){ if(MGROUPS[g].some(function(w){return ml.indexOf(norm(w))>=0;})) return g; }
   return null;
 }
 
-function getDeathYear(p) {
-  if (p.deces && /\d{4}/.test(p.deces)) return parseInt(p.deces.slice(0,4));
-  return null;
-}
-
-function getAgeAtDeath(p) {
-  const b = getBirthYear(p), d = getDeathYear(p);
-  if (b && d) return d - b;
-  return null;
-}
-
-// Metier grouping
-const METIER_GROUPS = {
-  sante: ['medecin','infirmier','infirmiere','soignant','pharmacien','kine','therapeute','chirurgien','sage-femme','aide-soignant'],
-  education: ['enseignant','professeur','instituteur','educateur','formateur','directeur ecole'],
-  commerce: ['commercant','vendeur','vendeuse','boulanger','boucher','epicier','marchand','caissier'],
-  agriculture: ['agriculteur','agricultrice','fermier','vigneron','paysan','eleveur','maraicher'],
-  artisan: ['artisan','menuisier','charpentier','couturier','tailleur','cordonnier','maçon','plombier'],
-  militaire: ['militaire','soldat','gendarme','policier','pompier','officier'],
-  justice: ['avocat','juge','notaire','juriste','magistrat'],
-  art: ['artiste','peintre','musicien','acteur','ecrivain','chanteur','comedien'],
-  religion: ['pretre','pasteur','religieux','religieuse','cure','moine'],
-  domestique: ['femme au foyer','menagere','domestique','bonne']
-};
-
-function getMetierGroup(metier) {
-  const m = norm(metier);
-  for (const [g, words] of Object.entries(METIER_GROUPS)) {
-    if (words.some(w => m.includes(norm(w)))) return g;
-  }
-  return null;
-}
-
-// Schema patterns — transgenerational
-const SCHEMAS = [
-  {
-    id: 'femme-sacrifiee',
-    label: 'Femme sacrifiée / effacée',
-    col: '#8E44AD',
-    detect: (p) => p.sex === 'f' && (
-      p.event === 'sacrifice' ||
-      norm(p.traits.join(' ')).includes('sacrifice') ||
-      norm(p.notes).includes('sacrifi') ||
-      norm(p.traits.join(' ')).includes('effac') ||
-      (getMetierGroup(p.metier) === 'domestique')
-    )
-  },
-  {
-    id: 'deuil-non-fait',
-    label: 'Deuil non élaboré',
-    col: '#8E44AD',
-    detect: (p) => p.event === 'deuil' && (norm(p.notes).includes('jamais') || norm(p.notes).includes('silence') || norm(p.notes).includes('pleur'))
-  },
-  {
-    id: 'homme-absent',
-    label: 'Père / mari absent',
-    col: '#8E44AD',
-    detect: (p) => p.sex === 'm' && (
-      p.event === 'abandon' ||
-      norm(p.notes).includes('absent') ||
-      norm(p.notes).includes('parti') ||
-      norm(p.notes).includes('disparu')
-    )
-  },
-  {
-    id: 'aine-responsable',
-    label: 'Aîné parentifié',
-    col: '#8E44AD',
-    detect: (p) => norm(p.traits.join(' ')).includes('responsab') || norm(p.notes).includes('ainee') || norm(p.notes).includes('aine')
-  },
-  {
-    id: 'honte-cachee',
-    label: 'Honte / secret caché',
-    col: '#8E44AD',
-    detect: (p) => p.event === 'honte' || p.event === 'secret' || norm(p.notes).includes('secret') || norm(p.notes).includes('honte')
-  },
-  {
-    id: 'violence-repetee',
-    label: 'Violence répétée',
-    col: '#8E44AD',
-    detect: (p) => p.event === 'abus' || norm(p.notes).includes('violen') || norm(p.traits.join(' ')).includes('coler')
-  }
+var SCHEMAS=[
+  {id:'sacrifiee',label:'Femme sacrifiée / effacée',col:'#8E44AD',
+    test:function(p){return p.sex==='f'&&(p.event==='sacrifice'||norm(p.traits.join(' ')).indexOf('sacrifi')>=0||norm(p.traits.join(' ')).indexOf('effac')>=0||norm(p.notes).indexOf('sacrifi')>=0||mgrp(p.metier)==='domestique');}},
+  {id:'absent',label:'Père / figure absente',col:'#8E44AD',
+    test:function(p){return p.sex==='m'&&(p.event==='abandon'||norm(p.notes).indexOf('absent')>=0||norm(p.notes).indexOf('disparu')>=0);}},
+  {id:'aine',label:'Aîné parentifié',col:'#8E44AD',
+    test:function(p){return norm(p.traits.join(' ')).indexOf('responsab')>=0||norm(p.notes).indexOf('ainee')>=0||norm(p.notes).indexOf('aine ')>=0;}},
+  {id:'secret',label:'Secret / honte cachée',col:'#8E44AD',
+    test:function(p){return p.event==='secret'||p.event==='honte'||norm(p.notes).indexOf('secret')>=0||norm(p.notes).indexOf('honte')>=0;}},
+  {id:'violence',label:'Violence transgénérationnelle',col:'#8E44AD',
+    test:function(p){return p.event==='abus'||norm(p.notes).indexOf('violen')>=0||norm(p.traits.join(' ')).indexOf('coler')>=0;}},
+  {id:'deuil',label:'Deuil non élaboré',col:'#8E44AD',
+    test:function(p){return p.event==='deuil'&&(norm(p.notes).indexOf('jamais')>=0||norm(p.notes).indexOf('silence')>=0);}}
 ];
 
-function detectRepetitions() {
-  const plist = Object.values(people);
-  const reps = [];
-  const seen = new Set();
+function detectReps(){
+  var plist=Object.values(people);
+  var reps=[];
+  var seen={};
 
-  // 1. Syndrome du gisant (mort prématurée, même âge ou même contexte)
-  const gisList = plist.filter(p => {
-    const age = getAgeAtDeath(p);
-    return (p.event === 'deces-precoce') || (age !== null && age < 50);
-  });
-  if (gisList.length >= 2) {
-    reps.push({
-      type: 'gisant', col: REP_COLORS.gisant,
-      label: 'Syndrome du gisant',
-      shortLabel: '⚰',
-      desc: `Morts prématurées : ${gisList.map(p => displayName(p)).join(', ')}`,
-      ids: gisList.map(p => p.id)
+  // 1. Gisant
+  var gisants=plist.filter(function(p){ var a=agedeath(p); return p.event==='deces-precoce'||(a!==null&&a<50); });
+  if(gisants.length>=2) reps.push({type:'gisant',col:'#C0392B',label:'Syndrome du gisant',ids:gisants.map(function(p){return p.id;}),desc:'Morts prématurées : '+gisants.map(function(p){return dname(p);}).join(', ')});
+
+  // 2. Anniversaire (gisant vs moi)
+  var moi=plist.find(function(p){return p.role==='moi';});
+  if(moi&&moi.naiss){
+    var moiAge=2026-parseInt(moi.naiss);
+    gisants.forEach(function(g){
+      var ga=agedeath(g);
+      if(ga&&Math.abs(ga-moiAge)<=3&&!seen['anniv-'+g.id]){
+        seen['anniv-'+g.id]=1;
+        reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,g.id],desc:'Tu as '+moiAge+' ans — '+dname(g)+' est décédé(e) à '+ga+' ans'});
+      }
     });
-  }
-  // Even one gisant with same-age living person
-  const moiP = plist.find(p => p.role === 'moi');
-  if (moiP) {
-    const moiAge = moiP.naiss ? (2026 - parseInt(moiP.naiss.slice(0,4))) : null;
-    if (moiAge) {
-      gisList.forEach(gisant => {
-        const gAge = getAgeAtDeath(gisant);
-        if (gAge && Math.abs(gAge - moiAge) <= 3) {
-          const k = 'anniv-gisant-' + gisant.id;
-          if (!seen.has(k)) {
-            seen.add(k);
-            reps.push({
-              type: 'anniversaire', col: REP_COLORS.anniversaire,
-              label: '⚡ Syndrome anniversaire',
-              shortLabel: '⚡',
-              desc: `Tu as ${moiAge} ans — ${displayName(gisant)} est décédé(e) à ${gAge} ans`,
-              ids: [moiP.id, gisant.id]
-            });
-          }
-        }
-      });
-    }
-  }
-
-  // 2. Schémas transgénérationnels
-  SCHEMAS.forEach(schema => {
-    const matched = plist.filter(p => schema.detect(p));
-    if (matched.length >= 2) {
-      const k = 'schema-' + schema.id;
-      if (!seen.has(k)) {
-        seen.add(k);
-        reps.push({
-          type: 'schema', col: schema.col,
-          label: schema.label,
-          shortLabel: '◈',
-          desc: matched.map(p => `${displayName(p)} (${p.role || 'ancêtre'})`).join(' · '),
-          ids: matched.map(p => p.id)
-        });
-      }
-    }
-  });
-
-  // 3. Prénom répété
-  const prenomMap = {};
-  plist.forEach(p => {
-    if (!p.prenom) return;
-    const k = norm(p.prenom);
-    if (!prenomMap[k]) prenomMap[k] = [];
-    prenomMap[k].push(p);
-  });
-  Object.entries(prenomMap).forEach(([k, group]) => {
-    if (group.length >= 2) {
-      const key = 'prenom-' + k;
-      if (!seen.has(key)) {
-        seen.add(key);
-        reps.push({
-          type: 'prenom', col: REP_COLORS.prenom,
-          label: `Prénom répété : "${group[0].prenom}"`,
-          shortLabel: '✦',
-          desc: group.map(p => `${displayName(p)} (${p.role || ''})`).join(', '),
-          ids: group.map(p => p.id)
-        });
-      }
-    }
-  });
-
-  // 4. Métier / domaine répété
-  const metierMap = {};
-  plist.forEach(p => {
-    if (!p.metier) return;
-    const g = getMetierGroup(p.metier) || norm(p.metier);
-    if (!metierMap[g]) metierMap[g] = [];
-    metierMap[g].push(p);
-  });
-  Object.entries(metierMap).forEach(([g, group]) => {
-    if (group.length >= 2) {
-      const key = 'metier-' + g;
-      if (!seen.has(key)) {
-        seen.add(key);
-        reps.push({
-          type: 'metier', col: REP_COLORS.metier,
-          label: `Même domaine : ${g}`,
-          shortLabel: '⚒',
-          desc: group.map(p => `${displayName(p)} — ${p.metier}`).join(' · '),
-          ids: group.map(p => p.id)
-        });
-      }
-    }
-  });
-
-  // 5. Événements répétés
-  const eventMap = {};
-  plist.forEach(p => {
-    if (!p.event) return;
-    if (!eventMap[p.event]) eventMap[p.event] = [];
-    eventMap[p.event].push(p);
-  });
-  Object.entries(eventMap).forEach(([ev, group]) => {
-    if (group.length >= 2) {
-      const key = 'event-' + ev;
-      if (!seen.has(key)) {
-        seen.add(key);
-        const evLabels = {
-          'deuil': 'Deuil répété', 'abandon': 'Abandon répété',
-          'trahison': 'Trahison répétée', 'pauvrete': 'Pauvreté répétée',
-          'guerre': 'Guerre / exil répété', 'abus': 'Violence répétée',
-          'maladie': 'Maladie grave répétée', 'sacrifice': 'Sacrifice de soi répété',
-          'honte': 'Honte / humiliation répétée', 'secret': 'Secret de famille répété',
-          'rupture': 'Rupture répétée', 'injustice': 'Injustice répétée'
-        };
-        reps.push({
-          type: 'event', col: REP_COLORS.event,
-          label: evLabels[ev] || `Événement répété : ${ev}`,
-          shortLabel: '●',
-          desc: group.map(p => displayName(p)).join(', '),
-          ids: group.map(p => p.id)
-        });
-      }
-    }
-  });
-
-  // 6. Syndrome anniversaire (même âge événement)
-  if (moiP && moiP.naiss) {
-    const moiAge = 2026 - parseInt(moiP.naiss.slice(0,4));
-    plist.filter(p => p.id !== moiP.id && p.eventAge).forEach(p => {
-      const ea = parseInt(p.eventAge);
-      if (!isNaN(ea) && Math.abs(ea - moiAge) <= 2) {
-        const k = 'anniv-ev-' + p.id;
-        if (!seen.has(k)) {
-          seen.add(k);
-          reps.push({
-            type: 'anniversaire', col: REP_COLORS.anniversaire,
-            label: '⚡ Syndrome anniversaire',
-            shortLabel: '⚡',
-            desc: `Tu as ${moiAge} ans — ${displayName(p)} a vécu ${p.event || 'un événement'} à ${ea} ans`,
-            ids: [moiP.id, p.id]
-          });
-        }
+    // event age
+    plist.filter(function(p){return p.id!==moi.id&&p.evage;}).forEach(function(p){
+      var ea=parseInt(p.evage);
+      if(!isNaN(ea)&&Math.abs(ea-moiAge)<=2&&!seen['anniv-ev-'+p.id]){
+        seen['anniv-ev-'+p.id]=1;
+        reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,p.id],desc:'Tu as '+moiAge+' ans — '+dname(p)+' a vécu un événement à '+ea+' ans'});
       }
     });
   }
+
+  // 3. Schémas
+  SCHEMAS.forEach(function(sch){
+    var matched=plist.filter(function(p){return sch.test(p);});
+    if(matched.length>=2&&!seen['sch-'+sch.id]){
+      seen['sch-'+sch.id]=1;
+      reps.push({type:'schema',col:'#8E44AD',label:sch.label,ids:matched.map(function(p){return p.id;}),desc:matched.map(function(p){return dname(p)+(p.role?' ('+p.role+')':'');}).join(' · ')});
+    }
+  });
+
+  // 4. Prénom
+  var pm={};
+  plist.forEach(function(p){ if(p.prenom){var k=norm(p.prenom);if(!pm[k])pm[k]=[];pm[k].push(p);} });
+  Object.keys(pm).forEach(function(k){
+    var g=pm[k]; if(g.length>=2&&!seen['pn-'+k]){ seen['pn-'+k]=1;
+      reps.push({type:'prenom',col:'#E67E22',label:'Prénom répété : "'+g[0].prenom+'"',ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p);}).join(', ')});
+    }
+  });
+
+  // 5. Métier
+  var mm={};
+  plist.forEach(function(p){ if(p.metier){var g=mgrp(p.metier)||norm(p.metier);if(!mm[g])mm[g]=[];mm[g].push(p);} });
+  Object.keys(mm).forEach(function(k){
+    var g=mm[k]; if(g.length>=2&&!seen['mt-'+k]){ seen['mt-'+k]=1;
+      reps.push({type:'metier',col:'#2980B9',label:'Même domaine : '+k,ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p)+(p.metier?' — '+p.metier:'');}).join(' · ')});
+    }
+  });
+
+  // 6. Événements
+  var em={};
+  plist.forEach(function(p){ if(p.event&&!seen['ev-pre-'+p.id]){if(!em[p.event])em[p.event]=[];em[p.event].push(p);} });
+  Object.keys(em).forEach(function(k){
+    var g=em[k]; if(g.length>=2&&!seen['ev-'+k]){ seen['ev-'+k]=1;
+      reps.push({type:'event',col:'#D4AC0D',label:'Même épreuve répétée',ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p);}).join(', ')});
+    }
+  });
 
   return reps;
 }
 
-function renderRepPanel() {
-  const reps = detectRepetitions();
-  const countEl = document.getElementById('rep-count');
-  const listEl = document.getElementById('rep-list');
-  countEl.textContent = reps.length;
-  if (!reps.length) {
-    listEl.innerHTML = '<div class="rep-none">Continuez à remplir l\'arbre — les répétitions apparaissent ici automatiquement.</div>';
-    return;
-  }
-  listEl.innerHTML = reps.map(r => `
-    <div class="rep-item" style="--col:${r.col}; --col-rgb:${hexToRgb(r.col)}" onclick="highlightRep(${JSON.stringify(r.ids)})">
-      <div class="rep-item-type">${r.label}</div>
-      <div class="rep-item-desc">${r.desc}</div>
-    </div>
-  `).join('');
+function getRepBadges(id){ return detectReps().filter(function(r){return r.ids.indexOf(id)>=0;}); }
+
+function renderRepPanel(){
+  var reps=detectReps();
+  document.getElementById('rep-count').textContent=reps.length;
+  var el=document.getElementById('rep-list');
+  if(!reps.length){ el.innerHTML='<div class="ri-none">Continuez à remplir l\'arbre — les répétitions s\'affichent automatiquement.</div>'; return; }
+  el.innerHTML=reps.map(function(r){
+    return '<div class="ri" style="border-left-color:'+r.col+';background:'+r.col+'11" onclick="highlight('+JSON.stringify(r.ids)+')"><div class="ri-type" style="color:'+r.col+'">'+esc(r.label)+'</div><div class="ri-desc">'+esc(r.desc)+'</div></div>';
+  }).join('');
 }
 
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return `${r},${g},${b}`;
-}
-
-function highlightRep(ids) {
-  // Flash highlight the nodes
-  ids.forEach(id => {
-    const el = document.getElementById('gn-' + id);
-    if (el) {
-      el.style.transition = 'transform .2s';
-      el.style.transform = 'translate(-50%,-50%) scale(1.1)';
-      setTimeout(() => { el.style.transform = 'translate(-50%,-50%)'; }, 700);
-    }
+function highlight(ids){
+  ids.forEach(function(id){
+    var el=document.getElementById('gn-'+id); if(!el)return;
+    el.style.transition='transform .15s';
+    el.style.transform='translate(-50%,-50%) scale(1.12)';
+    setTimeout(function(){el.style.transform='translate(-50%,-50%)';},600);
   });
 }
 
-// ═══════════════════════════════════════════════════════
-//  ADD ROOT / RELATIONS
-// ═══════════════════════════════════════════════════════
-function addRoot() {
-  if (Object.keys(people).length > 0) { alert('Un arbre existe déjà. Cliquez sur une personne pour en ajouter d\'autres.'); return; }
-  const p = mkPerson({ role: 'moi', prenom: '' });
-  people[p.id] = p;
-  const wrap = document.getElementById('canvas-wrap');
-  nodePositions[p.id] = { x: wrap.clientWidth / 2, y: wrap.clientHeight / 2 };
-  document.getElementById('add-root-btn').style.display = 'none';
-  save();
-  openPersonModal(p.id, true);
-  renderAll();
-}
-
-function openRelModal(fromId, relType) {
-  pendingRelSource = { fromId, relType };
-  const p = people[fromId];
-  const name = displayName(p);
-  document.getElementById('rel-context').textContent = `Pour : ${name}`;
-
-  const choices = getRelChoices(relType, p);
-  document.getElementById('rel-choices').innerHTML = choices.map(c =>
-    `<div class="rel-choice" onclick="createRelation('${c.type}','${c.sex||'u'}','${c.role||''}')">
-      <span class="rel-choice-icon">${c.icon}</span>
-      <div class="rel-choice-name">${c.name}</div>
-      <div class="rel-choice-sub">${c.sub}</div>
-    </div>`
-  ).join('');
-
-  document.getElementById('rel-modal').classList.add('open');
-}
-
-function getRelChoices(relType, fromPerson) {
-  if (relType === 'parent') return [
-    { type: 'parent-f', sex: 'f', role: 'mère', icon: '👩', name: 'Mère', sub: 'Côté maternel' },
-    { type: 'parent-m', sex: 'm', role: 'père', icon: '👨', name: 'Père', sub: 'Côté paternel' },
-    { type: 'parent-u', sex: 'u', role: 'parent', icon: '👤', name: 'Parent inconnu', sub: 'Lien non précisé' }
-  ];
-  if (relType === 'couple') return [
-    { type: 'couple-f', sex: 'f', role: 'conjointe', icon: '👩', name: 'Femme / conjointe', sub: 'Partenaire de vie' },
-    { type: 'couple-m', sex: 'm', role: 'conjoint', icon: '👨', name: 'Mari / conjoint', sub: 'Partenaire de vie' }
-  ];
-  if (relType === 'child') return [
-    { type: 'child-f', sex: 'f', role: 'fille', icon: '👧', name: 'Fille', sub: 'Descendante directe' },
-    { type: 'child-m', sex: 'm', role: 'fils', icon: '👦', name: 'Fils', sub: 'Descendant direct' },
-    { type: 'child-u', sex: 'u', role: 'enfant', icon: '🧒', name: 'Enfant', sub: 'Sexe non précisé' }
-  ];
-  if (relType === 'sibling') return [
-    { type: 'sibling-f', sex: 'f', role: 'sœur', icon: '👧', name: 'Sœur', sub: 'Même génération' },
-    { type: 'sibling-m', sex: 'm', role: 'frère', icon: '👦', name: 'Frère', sub: 'Même génération' }
-  ];
-  return [];
-}
-
-function closeRelModal() {
-  document.getElementById('rel-modal').classList.remove('open');
-  pendingRelSource = null;
-}
-
-function createRelation(choiceType, sex, role) {
-  if (!pendingRelSource) return;
-  const { fromId, relType } = pendingRelSource;
-  const fromPos = nodePositions[fromId] || { x: 400, y: 400 };
-
-  const newP = mkPerson({ sex, role });
-  people[newP.id] = newP;
-
-  // Position new node
-  const offsets = {
-    parent: { x: (Math.random() > .5 ? -1 : 1) * (NODE_W + H_GAP), y: -(NODE_H + V_GAP) },
-    couple: { x: NODE_W + H_GAP + 20, y: 0 },
-    child: { x: 0, y: NODE_H + V_GAP },
-    sibling: { x: -(NODE_W + H_GAP + 20), y: 0 }
-  };
-  const off = offsets[relType] || { x: 160, y: 0 };
-  nodePositions[newP.id] = { x: fromPos.x + off.x, y: fromPos.y + off.y };
-
-  // Create relation
-  if (relType === 'parent') {
-    relations.push({ from: newP.id, to: fromId, type: 'parent' });
-  } else if (relType === 'couple') {
-    relations.push({ from: fromId, to: newP.id, type: 'couple' });
-  } else if (relType === 'child') {
-    relations.push({ from: fromId, to: newP.id, type: 'parent' });
-  } else if (relType === 'sibling') {
-    // siblings share parents
-    const parents = getParents(fromId);
-    parents.forEach(pid => relations.push({ from: pid, to: newP.id, type: 'parent' }));
-    if (!parents.length) {
-      // same position y, offset x
-      nodePositions[newP.id] = { x: fromPos.x - (NODE_W + H_GAP + 20), y: fromPos.y };
-    }
-  }
-
-  closeRelModal();
-  save();
-  renderAll();
-  selectedId = newP.id;
-  renderAll();
-  setTimeout(() => openPersonModal(newP.id, true), 80);
-}
-
-// ═══════════════════════════════════════════════════════
-//  PERSON MODAL
-// ═══════════════════════════════════════════════════════
-function openPersonModal(id, isNew = false) {
-  editingId = id;
-  const p = people[id];
-  document.getElementById('pm-title').textContent = isNew
-    ? `Nouvelle personne — ${p.role || ''}`
-    : `Modifier — ${displayName(p)}`;
-
-  setSex(p.sex || 'u');
-  document.getElementById('pm-prenom').value = p.prenom || '';
-  document.getElementById('pm-nom').value = p.nom || '';
-  document.getElementById('pm-naiss').value = p.naiss || '';
-  document.getElementById('pm-deces').value = p.deces || '';
-  document.getElementById('pm-metier').value = p.metier || '';
-  document.getElementById('pm-lieu').value = p.lieu || '';
-  document.getElementById('pm-event').value = p.event || '';
-  document.getElementById('pm-event-age').value = p.eventAge || '';
-  document.getElementById('pm-event-year').value = p.eventYear || '';
-  document.getElementById('pm-notes').value = p.notes || '';
-
-  currentTraits = [...(p.traits || [])];
-  renderTraits();
-
-  document.getElementById('pm-delete-btn').style.display = isNew ? 'none' : 'block';
-  document.getElementById('person-modal').classList.add('open');
-}
-
-function closePersonModal() {
-  document.getElementById('person-modal').classList.remove('open');
-  editingId = null;
-}
-
-function setSex(s) {
-  currentSex = s;
-  ['f','m','u'].forEach(x => {
-    document.getElementById('sex-' + x).classList.toggle('on', x === s);
+// ─── RENDER ALL ───────────────────────────────────────────────────────
+function renderAll(){
+  Object.keys(people).forEach(renderNode);
+  // remove orphans
+  document.getElementById('nodes-container').querySelectorAll('.gnode').forEach(function(el){
+    var id=el.id.replace('gn-',''); if(!people[id])el.remove();
   });
+  drawLines();
+  renderRepPanel();
+  applyT();
 }
 
-function renderTraits() {
-  const wrap = document.getElementById('pm-traits-wrap');
-  wrap.querySelectorAll('.tag-chip').forEach(el => el.remove());
-  const input = document.getElementById('pm-traits-input');
-  currentTraits.forEach(t => {
-    const chip = document.createElement('span');
-    chip.className = 'tag-chip';
-    chip.innerHTML = `${t}<button onclick="removeTrait('${t}')">×</button>`;
-    wrap.insertBefore(chip, input);
-  });
-}
-
-function addTagFromInput(e, type) {
-  if (e.key !== 'Enter') return;
-  e.preventDefault();
-  const v = e.target.value.trim();
-  if (!v) return;
-  if (type === 'traits') { currentTraits.push(v); e.target.value = ''; renderTraits(); }
-}
-
-function removeTrait(t) {
-  currentTraits = currentTraits.filter(x => x !== t);
-  renderTraits();
-}
-
-function savePerson() {
-  if (!editingId) return;
-  const p = people[editingId];
-  p.sex = currentSex;
-  p.prenom = document.getElementById('pm-prenom').value.trim();
-  p.nom = document.getElementById('pm-nom').value.trim();
-  p.naiss = document.getElementById('pm-naiss').value;
-  p.deces = document.getElementById('pm-deces').value;
-  p.metier = document.getElementById('pm-metier').value.trim();
-  p.lieu = document.getElementById('pm-lieu').value.trim();
-  p.event = document.getElementById('pm-event').value;
-  p.eventAge = document.getElementById('pm-event-age').value;
-  p.eventYear = document.getElementById('pm-event-year').value;
-  p.notes = document.getElementById('pm-notes').value.trim();
-  p.traits = [...currentTraits];
-  closePersonModal();
+// ─── ADD ROOT ─────────────────────────────────────────────────────────
+document.getElementById('start-btn').addEventListener('click', function(){
+  var p=mkPerson({role:'moi'});
+  people[p.id]=p;
+  var cv=document.getElementById('canvas');
+  nodePos[p.id]={x:cv.clientWidth/2, y:cv.clientHeight/2};
+  document.getElementById('empty-state').style.display='none';
   save();
   renderAll();
-  // After saving moi, also do auto-layout
-  autoLayout();
+  selId=p.id;
   renderAll();
-}
-
-function deletePerson() {
-  if (!editingId) return;
-  if (!confirm(`Supprimer ${displayName(people[editingId])} ? Cette action est irréversible.`)) return;
-  const id = editingId;
-  delete people[id];
-  delete nodePositions[id];
-  relations = relations.filter(r => r.from !== id && r.to !== id);
-  closePersonModal();
-  selectedId = null;
-  save();
-  renderAll();
-}
-
-// Double-click to open modal
-document.getElementById('canvas-inner').addEventListener('dblclick', e => {
-  const node = e.target.closest('.gnode');
-  if (node) {
-    const id = node.id.replace('gn-', '');
-    openPersonModal(id, false);
-  }
+  openPM(p.id,true);
 });
 
-// ═══════════════════════════════════════════════════════
-//  EXPORT / IMPORT
-// ═══════════════════════════════════════════════════════
-function openExportModal() { document.getElementById('export-modal').classList.add('open'); }
-function closeExportModal() { document.getElementById('export-modal').classList.remove('open'); }
-function openImportModal() { document.getElementById('import-modal').classList.add('open'); }
-function closeImportModal() { document.getElementById('import-modal').classList.remove('open'); }
+// ─── RELATION MODAL ───────────────────────────────────────────────────
+var REL_CHOICES={
+  parent:[
+    {sex:'f',role:'mère',icon:'👩',name:'Mère',sub:'Côté maternel'},
+    {sex:'m',role:'père',icon:'👨',name:'Père',sub:'Côté paternel'},
+    {sex:'u',role:'parent',icon:'👤',name:'Parent inconnu',sub:''}
+  ],
+  couple:[
+    {sex:'f',role:'conjointe',icon:'👩',name:'Femme / conjointe',sub:''},
+    {sex:'m',role:'conjoint',icon:'👨',name:'Mari / conjoint',sub:''}
+  ],
+  child:[
+    {sex:'f',role:'fille',icon:'👧',name:'Fille',sub:''},
+    {sex:'m',role:'fils',icon:'👦',name:'Fils',sub:''},
+    {sex:'u',role:'enfant',icon:'🧒',name:'Enfant',sub:'Sexe non précisé'}
+  ],
+  sibling:[
+    {sex:'f',role:'sœur',icon:'👧',name:'Sœur',sub:''},
+    {sex:'m',role:'frère',icon:'👦',name:'Frère',sub:''}
+  ]
+};
 
-function downloadJSON() {
-  const data = JSON.stringify({ people, relations, nextId, nodePositions }, null, 2);
-  const blob = new Blob([data], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'genosociogramme-' + new Date().toISOString().slice(0, 10) + '.json';
-  a.click();
+function openRM(fromId, relType){
+  pendRel={fromId:fromId, relType:relType};
+  var p=people[fromId];
+  document.getElementById('rm-ctx').textContent='Pour : '+dname(p);
+  var choices=REL_CHOICES[relType]||[];
+  document.getElementById('rm-choices').innerHTML=choices.map(function(c,i){
+    return '<div class="rchoice" onclick="createRel('+i+')"><span class="rchoice-icon">'+c.icon+'</span><div class="rchoice-name">'+c.name+'</div><div class="rchoice-sub">'+c.sub+'</div></div>';
+  }).join('');
+  document.getElementById('rm').classList.add('open');
+}
+function closeRM(){ document.getElementById('rm').classList.remove('open'); pendRel=null; }
+
+function createRel(idx){
+  if(!pendRel)return;
+  var fromId=pendRel.fromId, relType=pendRel.relType;
+  var choices=REL_CHOICES[relType];
+  var c=choices[idx];
+  var fromPos=nodePos[fromId]||{x:400,y:300};
+
+  var newP=mkPerson({sex:c.sex, role:c.role});
+  people[newP.id]=newP;
+
+  // Position
+  var off={parent:{x:(Math.random()>0.5?-1:1)*(NW+50),y:-(NH+80)}, couple:{x:NW+60,y:0}, child:{x:0,y:NH+80}, sibling:{x:-(NW+60),y:0}};
+  var o=off[relType]||{x:160,y:0};
+  nodePos[newP.id]={x:fromPos.x+o.x, y:fromPos.y+o.y};
+
+  if(relType==='parent')     rels.push({from:newP.id, to:fromId, type:'parent'});
+  else if(relType==='couple')rels.push({from:fromId, to:newP.id, type:'couple'});
+  else if(relType==='child') rels.push({from:fromId, to:newP.id, type:'parent'});
+  else if(relType==='sibling'){
+    var parents=getParents(fromId);
+    parents.forEach(function(pid){ rels.push({from:pid,to:newP.id,type:'parent'}); });
+  }
+
+  closeRM();
+  save();
+  selId=newP.id;
+  renderAll();
+  setTimeout(function(){ openPM(newP.id,true); },60);
+}
+
+// ─── PERSON MODAL ─────────────────────────────────────────────────────
+function openPM(id, isNew){
+  editId=id;
+  var p=people[id];
+  document.getElementById('pm-title').textContent=isNew?'Nouvelle personne — '+p.role:dname(p);
+  setSex(p.sex||'u');
+  document.getElementById('f-prenom').value=p.prenom||'';
+  document.getElementById('f-nom').value=p.nom||'';
+  document.getElementById('f-naiss').value=p.naiss||'';
+  document.getElementById('f-deces').value=p.deces||'';
+  document.getElementById('f-metier').value=p.metier||'';
+  document.getElementById('f-lieu').value=p.lieu||'';
+  document.getElementById('f-event').value=p.event||'';
+  document.getElementById('f-evage').value=p.evage||'';
+  document.getElementById('f-evyear').value=p.evyear||'';
+  document.getElementById('f-notes').value=p.notes||'';
+  curTraits=[].concat(p.traits||[]);
+  renderTraits();
+  document.getElementById('pm-del').style.display=isNew?'none':'block';
+  document.getElementById('pm').classList.add('open');
+  setTimeout(function(){ document.getElementById('f-prenom').focus(); },80);
+}
+function closePM(){ document.getElementById('pm').classList.remove('open'); editId=null; }
+
+function setSex(s){
+  curSex=s;
+  ['f','m','u'].forEach(function(x){ document.getElementById('sx-'+x).classList.toggle('on',x===s); });
+}
+
+function addTrait(e){
+  if(e.key!=='Enter')return;
+  e.preventDefault();
+  var v=e.target.value.trim(); if(!v)return;
+  curTraits.push(v); e.target.value='';
+  renderTraits();
+}
+function removeTrait(t){ curTraits=curTraits.filter(function(x){return x!==t;}); renderTraits(); }
+function renderTraits(){
+  var box=document.getElementById('traits-box');
+  box.querySelectorAll('.tchip').forEach(function(el){el.remove();});
+  var inp=document.getElementById('traits-input');
+  curTraits.forEach(function(t){
+    var ch=document.createElement('span'); ch.className='tchip';
+    ch.innerHTML=esc(t)+'<button onclick="removeTrait(\''+esc(t)+'\')">×</button>';
+    box.insertBefore(ch,inp);
+  });
+}
+
+function savePM(){
+  if(!editId)return;
+  var p=people[editId];
+  p.sex=curSex;
+  p.prenom=document.getElementById('f-prenom').value.trim();
+  p.nom=document.getElementById('f-nom').value.trim();
+  p.naiss=document.getElementById('f-naiss').value;
+  p.deces=document.getElementById('f-deces').value;
+  p.metier=document.getElementById('f-metier').value.trim();
+  p.lieu=document.getElementById('f-lieu').value.trim();
+  p.event=document.getElementById('f-event').value;
+  p.evage=document.getElementById('f-evage').value;
+  p.evyear=document.getElementById('f-evyear').value;
+  p.notes=document.getElementById('f-notes').value.trim();
+  p.traits=[].concat(curTraits);
+  closePM();
+  save();
+  renderAll();
+}
+
+function delPM(){
+  if(!editId)return;
+  if(!confirm('Supprimer '+dname(people[editId])+' ?'))return;
+  var id=editId;
+  delete people[id]; delete nodePos[id];
+  rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
+  closePM(); selId=null; save(); renderAll();
+  if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
+}
+
+// ─── EXPORT / IMPORT ──────────────────────────────────────────────────
+function openExport(){ document.getElementById('em').classList.add('open'); }
+function triggerImport(){ document.getElementById('file-import').click(); }
+
+function doExportJSON(){
+  var data=JSON.stringify({people:people,rels:rels,nid:nid,nodePos:nodePos},null,2);
+  var url=URL.createObjectURL(new Blob([data],{type:'application/json'}));
+  var a=document.createElement('a'); a.href=url; a.download='genosociogramme-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
   URL.revokeObjectURL(url);
 }
 
-function importJSON(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    try {
-      const d = JSON.parse(ev.target.result);
-      people = d.people || {};
-      relations = d.relations || [];
-      nextId = d.nextId || 1;
-      nodePositions = d.nodePositions || {};
-      save();
-      closeImportModal();
-      renderAll();
-      centerView();
-      if (Object.keys(people).length > 0) document.getElementById('add-root-btn').style.display = 'none';
-    } catch(err) { alert('Fichier invalide.'); }
+function doImport(e){
+  var f=e.target.files[0]; if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var d=JSON.parse(ev.target.result);
+      people=d.people||{}; rels=d.rels||[]; nid=d.nid||1; nodePos=d.nodePos||{};
+      save(); renderAll(); centerView();
+      if(Object.keys(people).length) document.getElementById('empty-state').style.display='none';
+    }catch(err){ alert('Fichier invalide.'); }
   };
-  reader.readAsText(file);
+  r.readAsText(f);
 }
 
-function downloadSVGExport() {
-  // Build a basic SVG export
-  const W = 1600, H = 1000;
-  const parts = [`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`];
-  parts.push(`<rect width="${W}" height="${H}" fill="#FFFCF8"/>`);
-
-  // Scale positions to fit
-  const ids = Object.keys(people);
-  if (!ids.length) { alert('Arbre vide.'); return; }
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  ids.forEach(id => {
-    const p = nodePositions[id] || { x: 0, y: 0 };
-    minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
-    minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+function doExportSVG(){
+  var ids=Object.keys(people); if(!ids.length){alert('Arbre vide.');return;}
+  var W=1600,H=1000;
+  var mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
+  ids.forEach(function(id){ var p=nodePos[id]||{x:0,y:0}; mnx=Math.min(mnx,p.x);mxx=Math.max(mxx,p.x);mny=Math.min(mny,p.y);mxy=Math.max(mxy,p.y); });
+  var sx=Math.min((W-120)/Math.max(mxx-mnx,1),2.5);
+  var sy=Math.min((H-120)/Math.max(mxy-mny,1),2.5);
+  var sc=Math.min(sx,sy);
+  var ox=60-mnx*sc+(W-(mxx-mnx)*sc)/2;
+  var oy=60-mny*sc+(H-(mxy-mny)*sc)/2;
+  var px=function(id){return(nodePos[id]?nodePos[id].x:0)*sc+ox;};
+  var py=function(id){return(nodePos[id]?nodePos[id].y:0)*sc+oy;};
+  var parts=['<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'">'];
+  parts.push('<rect width="'+W+'" height="'+H+'" fill="#FFFAF5"/>');
+  rels.forEach(function(r){
+    var ax=px(r.from),ay=py(r.from),bx=px(r.to),by=py(r.to);
+    if(r.type==='couple') parts.push('<line x1="'+ax+'" y1="'+ay+'" x2="'+bx+'" y2="'+by+'" stroke="rgba(107,62,46,.3)" stroke-width="2" stroke-dasharray="5 4"/>');
+    else{ var my=(ay+by)/2; parts.push('<path d="M '+ax+' '+ay+' C '+ax+' '+my+' '+bx+' '+my+' '+bx+' '+by+'" fill="none" stroke="rgba(107,62,46,.25)" stroke-width="2"/>'); }
   });
-  const scaleX = (W - 120) / Math.max(maxX - minX, 1);
-  const scaleY = (H - 120) / Math.max(maxY - minY, 1);
-  const scale = Math.min(scaleX, scaleY, 1.5);
-  const ox = 60 - minX * scale + (W - (maxX - minX) * scale) / 2;
-  const oy = 60 - minY * scale + (H - (maxY - minY) * scale) / 2;
-  const sx = id => (nodePositions[id]?.x || 0) * scale + ox;
-  const sy = id => (nodePositions[id]?.y || 0) * scale + oy;
+  detectReps().forEach(function(r){
+    for(var i=0;i<r.ids.length-1;i++){ for(var j=i+1;j<r.ids.length;j++){
+      parts.push('<line x1="'+px(r.ids[i])+'" y1="'+py(r.ids[i])+'" x2="'+px(r.ids[j])+'" y2="'+py(r.ids[j])+'" stroke="'+r.col+'" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.65"/>');
+    }}
+  });
+  ids.forEach(function(id){
+    var p=people[id],x=px(id),y=py(id);
+    var nw=110*Math.min(sc,1),nh=70*Math.min(sc,1);
+    var fill=p.role==='moi'?'#FFF5EE':'#FFFCF8';
+    var str=p.role==='moi'?'#C65D3B':'rgba(107,62,46,.22)';
+    parts.push('<rect x="'+(x-nw/2)+'" y="'+(y-nh/2)+'" width="'+nw+'" height="'+nh+'" rx="10" fill="'+fill+'" stroke="'+str+'" stroke-width="'+(p.role==='moi'?2:1.5)+'"/>');
+    parts.push('<text x="'+x+'" y="'+(y-6)+'" text-anchor="middle" font-family="Georgia,serif" font-size="'+(Math.max(11,Math.round(14*Math.min(sc,1))))+'" font-weight="700" fill="#3A1F12">'+esc(short(p))+'</text>');
+    if(dates(p)) parts.push('<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#9A7060">'+esc(dates(p))+'</text>');
+    if(p.metier) parts.push('<text x="'+x+'" y="'+(y+24)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#D88C6A" font-style="italic">'+esc(p.metier)+'</text>');
+  });
+  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#3A1F12">Génosociogramme — Laura Charron</text>');
+  parts.push('</svg>');
+  var url=URL.createObjectURL(new Blob([parts.join('')],{type:'image/svg+xml'}));
+  var a=document.createElement('a'); a.href=url; a.download='genosociogramme.svg'; a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('em').classList.remove('open');
+}
 
-  // Lines
-  relations.forEach(r => {
-    const ax = sx(r.from), ay = sy(r.from), bx = sx(r.to), by = sy(r.to);
-    if (r.type === 'couple') {
-      parts.push(`<line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}" stroke="rgba(107,62,46,.3)" stroke-width="2" stroke-dasharray="5 4"/>`);
-    } else {
-      const my = (ay + by) / 2;
-      parts.push(`<path d="M ${ax} ${ay} C ${ax} ${my} ${bx} ${my} ${bx} ${by}" fill="none" stroke="rgba(107,62,46,.25)" stroke-width="1.8"/>`);
+// ─── KEYBOARD ─────────────────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-bg.open').forEach(function(m){m.classList.remove('open');});
+    selId=null; renderAll();
+  }
+  if(e.key==='Delete'&&selId&&!document.querySelector('.modal-bg.open')){
+    var id=selId;
+    if(confirm('Supprimer '+dname(people[id])+' ?')){
+      delete people[id]; delete nodePos[id];
+      rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
+      selId=null; save(); renderAll();
+      if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
     }
-  });
+  }
+});
 
-  // Nodes
-  ids.forEach(id => {
-    const p = people[id];
-    const x = sx(id), y = sy(id);
-    const nw = 110 * Math.min(scale, 1), nh = 70 * Math.min(scale, 1);
-    const isMe = p.role === 'moi';
-    const fill = isMe ? '#FFF5EE' : '#FFFCF8';
-    const stroke = isMe ? '#C65D3B' : 'rgba(107,62,46,.22)';
-    parts.push(`<rect x="${x-nw/2}" y="${y-nh/2}" width="${nw}" height="${nh}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="${isMe?2:
+// ─── INIT ─────────────────────────────────────────────────────────────
+(function init(){
+  panX=0; panY=0; zoom=1;
+  var loaded=load();
+  if(loaded){
+    document.getElementById('empty-state').style.display='none';
+    renderAll();
+    setTimeout(centerView,80);
+  }
+})();
+</script>
+</body>
+</html>
