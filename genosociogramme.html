@@ -17,29 +17,13 @@ body{font-family:'Jost',sans-serif;background:var(--cream3);color:var(--ink);hei
 button{font-family:'Jost',sans-serif;cursor:pointer;border:none;background:none;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(255,252,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;text-decoration:none;}
-.nav-links{display:flex;align-items:center;gap:1.1rem;justify-content:flex-end;}
-.nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;text-decoration:none;}
-.nav-links a:hover,.nav-links a.active{color:var(--terra);}
-.nav-cta{background:var(--terra)!important;color:white!important;padding:.48rem 1.1rem;border-radius:4px;font-size:.74rem!important;font-weight:600!important;letter-spacing:.06em;text-transform:uppercase;}
-.nav-cta:hover{background:var(--terra-dark)!important;color:white!important;}
-.nav-espace{font-size:.74rem!important;color:var(--soft)!important;border:1px solid var(--line);border-radius:100px;padding:.38rem .85rem;}
-.nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
-.nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
-.nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s;}
-.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.nav-burger.open span:nth-child(2){opacity:0;}
-.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;text-decoration:none;}
-.nav-mobile a:last-child{border-bottom:none;}
+nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:24px;flex-shrink:0;z-index:100;position:relative;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--ink);margin-right:auto;}
+.nav-link{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:500;text-decoration:none;transition:color .2s;}
+.nav-link:hover,.nav-link.active{color:var(--terra);}
+.nav-cta{background:var(--terra);color:white;border-radius:100px;padding:.38rem 1rem;font-size:.75rem;font-weight:500;transition:background .2s;}
+.nav-cta:hover{background:var(--terra-dark);}
 
-@media(max-width:960px){
-  .nav-links{display:none;}
-  .nav-burger{display:flex;}
-}
   /* COOKIE BANNER */
 .cookie-banner{
   position:fixed;
@@ -235,41 +219,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;ali
 </style>
 </head>
 <body>
-
-  <nav>
-  <a href="index.html" class="nav-logo">Laura Charron</a>
-  <div class="nav-links">
-    <a href="comprendre.html">Comprendre</a>
-    <a href="seance.html">Séances</a>
-    <a href="contact.html">Contact</a>
-    <a href="a-propos.html">Qui suis-je</a>
-    <a href="outils.html">Outils gratuits</a>
-    <a href="genosociogramme.html"class="active">Mon arbre</a>
-    <a href="login.html" class="nav-espace">Mon espace</a>
-    <a href="seance.html#reservation" class="nav-cta">Réserver →</a>
-  </div>
-  <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="nav-mobile" id="nav-mobile">
-  <a href="comprendre.html">Comprendre</a>
-  <a href="seance.html">Séances</a>
-  <a href="contact.html">Contact</a>
-  <a href="a-propos.html">Qui suis-je</a>
-  <a href="outils.html">Outils gratuits</a>
-  <a href="genosociogramme.html"class="active">Mon arbre</a>
-  <a href="login.html">Mon espace</a>
-  <a href="seance.html#reservation" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
-</div>
-
-<script>
-document.getElementById('burger').addEventListener('click',function(){
-  this.classList.toggle('open');
-  document.getElementById('nav-mobile').classList.toggle('open');
-});
-</script>
 
   <!-- COOKIE BANNER -->
 <div class="cookie-banner" id="cookie-banner">
