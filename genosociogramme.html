@@ -24,6 +24,64 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
 .nav-cta{background:var(--terra);color:white;border-radius:100px;padding:.38rem 1rem;font-size:.75rem;font-weight:500;transition:background .2s;}
 .nav-cta:hover{background:var(--terra-dark);}
 
+  /* COOKIE BANNER */
+.cookie-banner{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:5000;
+  background:var(--ink);
+  padding:1rem 2rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  box-shadow:0 -4px 24px rgba(58,31,18,.18);
+}
+.cookie-banner.hidden{display:none;}
+.cookie-text{
+  font-size:.76rem;
+  color:rgba(255,255,255,.7);
+  line-height:1.6;
+  max-width:680px;
+}
+.cookie-text a{
+  color:var(--terra-light);
+  text-decoration:underline;
+}
+.cookie-actions{
+  display:flex;
+  gap:.6rem;
+  flex-shrink:0;
+}
+.cookie-accept{
+  background:var(--terra);
+  color:white;
+  border:none;
+  border-radius:4px;
+  padding:.45rem 1.1rem;
+  font-size:.76rem;
+  font-weight:500;
+  font-family:'Jost',sans-serif;
+  cursor:pointer;
+}
+.cookie-refuse{
+  background:transparent;
+  color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:4px;
+  padding:.45rem .9rem;
+  font-size:.76rem;
+  font-family:'Jost',sans-serif;
+  cursor:pointer;
+}
+@media(max-width:480px){
+  .cookie-actions{width:100%;}
+  .cookie-accept,.cookie-refuse{flex:1;text-align:center;}
+}
+
 /* TOOLBAR */
 .toolbar{height:46px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:8px;flex-shrink:0;}
 .toolbar-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink2);margin-right:auto;}
@@ -161,6 +219,19 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
 </style>
 </head>
 <body>
+
+  <!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner">
+  <p class="cookie-text">
+    Ce site utilise des cookies nécessaires au bon fonctionnement du parcours, notamment pour mémoriser vos choix et vos sauvegardes locales.
+    Aucun cookie publicitaire n'est utilisé.
+    <a href="cookies.html">En savoir plus</a>.
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-refuse" onclick="closeCookie()">Refuser</button>
+    <button class="cookie-accept" onclick="acceptCookie()">J'accepte</button>
+  </div>
+</div>
 
 <nav>
   <span class="nav-logo">Laura Charron</span>
@@ -1062,6 +1133,26 @@ document.addEventListener('keydown',function(e){
   panX=0; panY=0; zoom=1;
   initAuth();
 })();
+</script>
+  <script>
+function acceptCookie(){
+  localStorage.setItem('lc-cookies','accepted');
+  const banner = document.getElementById('cookie-banner');
+  if(banner) banner.classList.add('hidden');
+}
+
+function closeCookie(){
+  localStorage.setItem('lc-cookies','refused');
+  const banner = document.getElementById('cookie-banner');
+  if(banner) banner.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.getElementById('cookie-banner');
+  if(localStorage.getItem('lc-cookies') && banner){
+    banner.classList.add('hidden');
+  }
+});
 </script>
 </body>
 </html>
