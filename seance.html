@@ -17,6 +17,8 @@
     .nav-cta{display:inline-flex;align-items:center;padding:.62rem 1.1rem;border-radius:4px;background:var(--terra);color:#fff!important;text-transform:uppercase;font-size:.72rem;font-weight:500;letter-spacing:.07em;box-shadow:0 8px 24px rgba(161,74,60,.22)}
     .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}.nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s}.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.nav-burger.open span:nth-child(2){opacity:0}.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:999;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav-mobile.open{display:flex}.nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.92rem;color:var(--ink2)}
+    .nav-espace{font-size:.74rem!important;color:var(--soft)!important;border:1px solid var(--line);border-radius:100px;padding:.38rem .85rem;transition:all .18s}.nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important}
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:#3A1F12;border-top:1px solid rgba(216,140,106,.18);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -8px 32px rgba(58,31,18,.18);transition:transform .35s ease,opacity .35s ease}.cookie-banner.hidden{transform:translateY(100%);opacity:0;pointer-events:none}.cookie-text{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300;max-width:760px}.cookie-text a{color:var(--terra-light);text-decoration:underline;text-underline-offset:3px}.cookie-actions{display:flex;gap:.65rem;flex-shrink:0;flex-wrap:wrap}.cookie-accept{background:var(--terra);color:white;border:none;padding:.55rem 1.2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .18s}.cookie-accept:hover{background:var(--terra-dark)}.cookie-decline{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.15);padding:.55rem 1rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;cursor:pointer;transition:all .18s}.cookie-decline:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.65)}
     .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.revealed{opacity:1;transform:translateY(0)}
     .eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);font-weight:500;margin-bottom:1rem}
     .hero{position:relative;overflow:hidden;padding:6.3rem 4rem 5rem;background:radial-gradient(ellipse 48% 45% at 82% 25%,rgba(198,93,59,.14),transparent 64%),radial-gradient(ellipse 38% 28% at 8% 80%,rgba(107,62,46,.08),transparent 60%),linear-gradient(160deg,#FFFAF5 0%,#F4EDE4 58%,#E9D8C9 100%)}
@@ -37,10 +39,31 @@
 <body>
   <nav>
     <a href="index.html" class="nav-logo">Laura Charron</a>
-    <div class="nav-links"><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html" class="nav-cta active">Réserver</a></div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="comprendre.html">Comprendre</a>
+      <a href="a-propos.html">Qui suis-je</a>
+      <a href="seance.html" class="active">Séances</a>
+      <a href="outils.html">Outils gratuits</a>
+      <a href="genosociogramme.html">Mon arbre</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="nav-espace">Mon espace</a>
+      <a href="contact.html" class="nav-cta">Réserver</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
-  <div class="nav-mobile" id="nav-mobile"><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html" style="color:var(--terra);font-weight:600;">Réserver une séance</a></div>
+
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="comprendre.html">Comprendre</a>
+    <a href="a-propos.html">Qui suis-je</a>
+    <a href="seance.html" style="color:var(--terra);font-weight:600;">Séances</a>
+    <a href="outils.html">Outils gratuits</a>
+    <a href="genosociogramme.html">Mon arbre</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Mon espace</a>
+    <a href="contact.html" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
+  </div>
 
   <header class="hero">
     <div class="hero-inner">
@@ -113,7 +136,55 @@
     </div>
   </section>
 
-  <footer><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><a href="index.html" class="footer-logo">Laura Charron</a><p>Un voyage intérieur pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p></div><div class="footer-col"><h4>Le Voyage</h4><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a><a href="seance.html">Réserver</a></div><div class="footer-col"><h4>Les Archives</h4><a href="livre.html">Le Guide audio</a><a href="arbre-famille.html">Les Racines</a><a href="genosociogramme.html">La Carte familiale</a><a href="contact.html">Contact</a></div><div class="footer-col"><h4>Informations</h4><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="cookies.html">Cookies</a><a href="contact.html">Écrire à Laura</a></div></div><div class="footer-bottom"><p>© Laura Charron 2026 · Tous droits réservés</p><div class="footer-bottom-links"><a href="contact.html">Contact</a><a href="mentions-legales.html">Mentions légales</a></div></div></div></footer>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html">Laura Charron</a>
+          <p>Praticienne en psychogénéalogie et thérapie brève. Séances à distance et à domicile.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Séances</h4>
+          <a href="seance.html">Réserver une séance</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Outils gratuits</h4>
+          <a href="parcours.html">Commencer le voyage</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="arbre-famille.html">Ma famille</a>
+          <a href="journal.html">Journal guidé</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="vibration.html">Ma fréquence</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="comprendre.html">Comprendre</a>
+          <a href="faq.html">Questions fréquentes</a>
+          <a href="articles.html">Articles</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Laura Charron · Tous droits réservés</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" id="cookie-banner">
+    <p class="cookie-text">Ce site utilise des données stockées localement pour améliorer votre navigation. Le module de réservation Calendly peut également traiter certaines données nécessaires à la prise de rendez-vous. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="cookie-actions">
+      <button class="cookie-accept" id="cookie-accept">J'ai compris</button>
+      <button class="cookie-decline" id="cookie-decline">Fermer</button>
+    </div>
+  </div>
 
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script>
@@ -122,6 +193,11 @@
     mobile.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('open');mobile.classList.remove('open')}));
     const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');obs.unobserve(entry.target)}})},{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+    const cookieBanner=document.getElementById('cookie-banner');
+    if(localStorage.getItem('lc_cookies')){cookieBanner.classList.add('hidden')}
+    document.getElementById('cookie-accept').addEventListener('click',()=>{localStorage.setItem('lc_cookies','accepted');cookieBanner.classList.add('hidden')});
+    document.getElementById('cookie-decline').addEventListener('click',()=>{localStorage.setItem('lc_cookies','closed');cookieBanner.classList.add('hidden')});
   </script>
 </body>
 </html>
