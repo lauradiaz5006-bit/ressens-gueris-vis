@@ -11,8 +11,8 @@
   <style>
     :root{
       --cream:#F4EDE4;--cream2:#E9D8C9;--cream3:#FFFAF5;
-      --terra-dark:#A14A3C;--terra:#C65D3B;--terra-light:#D88C6A;
-      --brown:#6B3E2E;--ink:#3A1F12;--ink2:#5C3420;--soft:#9A7060;
+      --terra-fonce:#A14A3C;--terra:#C65D3B;--terra-clair:#D88C6A;
+      --brun:#6B3E2E;--ink:#3A1F12;--ink2:#5C3420;--soft:#9A7060;
       --line:rgba(107,62,46,.14);--white:#FFFCF8;--night:#20120C;
       --shadow:0 18px 55px rgba(58,31,18,.10);
     }
@@ -27,27 +27,32 @@
     a{color:inherit;text-decoration:none}
     button,input,textarea,select{font:inherit}
 
-    nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(244,237,228,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.38rem;font-weight:600;letter-spacing:.02em;white-space:nowrap;}
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(244,237,228,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
     .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end}
-    .nav-links a{font-size:.82rem;color:var(--ink2);transition:.2s ease}
+    .nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:.18s}
     .nav-links a:hover,.nav-links a.active{color:var(--terra)}
-    .nav-cta{background:var(--terra-dark);color:white!important;padding:.7rem 1.2rem;border-radius:4px;font-size:.76rem!important;letter-spacing:.06em;text-transform:uppercase;font-weight:500;box-shadow:0 8px 24px rgba(161,74,60,.2);}
+    .nav-cta{background:var(--terra)!important;color:white!important;padding:.48rem 1.1rem;border-radius:4px;font-size:.74rem!important;font-weight:600!important;letter-spacing:.06em;text-transform:uppercase;transition:background .18s;}
+    .nav-cta:hover{background:var(--terra-fonce)!important;}
+    .nav-espace{font-size:.74rem!important;color:var(--soft)!important;border:1px solid var(--line);border-radius:100px;padding:.38rem .85rem;transition:all .18s;}
+    .nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
     .nav-burger{display:none;width:42px;height:42px;border:0;background:transparent;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
     .nav-burger span{width:21px;height:1.5px;border-radius:99px;background:var(--ink);transition:.25s ease}
     .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
     .nav-burger.open span:nth-child(2){opacity:0}
     .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:999;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:none;flex-direction:column;padding:1rem 1.4rem 1.3rem;}
+    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:none;flex-direction:column;padding:1rem 1.4rem 1.3rem;}
     .nav-mobile.open{display:flex}
     .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.94rem;color:var(--ink2)}
-    .nav-mobile a:last-child{border-bottom:0;color:var(--terra-dark);font-weight:600}
+    .nav-mobile a:last-child{border-bottom:0;color:var(--terra);font-weight:600}
+    @media(max-width:960px){.nav-links{display:none}.nav-burger{display:flex}}
 
     /* SYNC BANNER */
     .sync-banner{position:sticky;top:68px;z-index:61;background:rgba(198,93,59,.08);border-bottom:1px solid rgba(198,93,59,.18);padding:.55rem 1.3rem;display:none;align-items:center;justify-content:space-between;gap:1rem;}
     .sync-banner.show{display:flex;}
-    .sync-banner p{font-size:.75rem;color:var(--terra-dark);line-height:1.5;}
-    .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-dark);border:1px solid rgba(198,93,59,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
+    .sync-banner p{font-size:.75rem;color:var(--terra-fonce);line-height:1.5;}
+    .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-fonce);border:1px solid rgba(198,93,59,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
     .sync-banner a:hover{background:rgba(198,93,59,.1);}
     .sync-ok{background:rgba(39,174,96,.07);border-color:rgba(39,174,96,.2);}
     .sync-ok p{color:#27AE60;}
@@ -57,8 +62,8 @@
     .step-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
     .steps{display:flex;gap:.4rem;flex:1}
     .step-dot{height:5px;border-radius:999px;background:rgba(107,62,46,.14);flex:1;transition:.25s ease}
-    .step-dot.done{background:var(--terra-light)}
-    .step-dot.active{background:linear-gradient(90deg,var(--terra-dark),var(--terra-light))}
+    .step-dot.done{background:var(--terra-clair)}
+    .step-dot.active{background:linear-gradient(90deg,var(--terra-fonce),var(--terra-clair))}
 
     .page{position:relative;z-index:2}
     .screen{display:none;max-width:1040px;margin:0 auto;padding:4.5rem 1.5rem 5rem;min-height:calc(100vh - 130px);}
@@ -66,7 +71,7 @@
     @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
     .intro-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:3rem;align-items:center}
-    .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra-dark);font-weight:500;margin-bottom:1rem;}
+    .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra-fonce);font-weight:500;margin-bottom:1rem;}
     .sigil{width:20px;height:20px;display:inline-flex}
     h1,h2{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.04;letter-spacing:-.015em;}
     h1{font-size:clamp(3rem,7vw,5.7rem);margin-bottom:1rem}
@@ -75,53 +80,53 @@
     .lead{font-size:1rem;line-height:1.9;color:var(--ink2);font-weight:300;max-width:640px}
     .quote{margin-top:1.25rem;padding:1rem 1.1rem;border-left:3px solid var(--terra);background:rgba(255,252,248,.62);color:var(--soft);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.12rem;line-height:1.62;}
 
-    .portal-card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--night),#4A2115);border-radius:10px;padding:2.4rem;box-shadow:var(--shadow);min-height:460px;display:flex;flex-direction:column;justify-content:space-between;}
+    .portal-card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--night),#4A2115);border-radius:6px;padding:2.4rem;box-shadow:var(--shadow);min-height:460px;display:flex;flex-direction:column;justify-content:space-between;}
     .portal-card::before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse 42% 35% at 50% 30%,rgba(216,140,106,.28),transparent 62%),radial-gradient(ellipse 55% 40% at 50% 75%,rgba(255,252,248,.06),transparent 62%);}
     .portal-svg{position:relative;z-index:1;margin:0 auto;display:block;max-width:250px;width:72%;opacity:.92}
     .portal-text{position:relative;z-index:1;color:rgba(255,255,255,.70);font-size:.88rem;line-height:1.8;font-weight:300}
     .portal-title{color:white;font-family:'Cormorant Garamond',serif;font-size:1.8rem;line-height:1.15;margin-bottom:.6rem}
 
     .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-    .choice{text-align:left;border:1px solid rgba(107,62,46,.13);background:rgba(255,252,248,.78);border-radius:10px;padding:1.25rem;cursor:pointer;transition:.22s ease;min-height:180px;}
+    .choice{text-align:left;border:1px solid rgba(107,62,46,.13);background:rgba(255,252,248,.78);border-radius:6px;padding:1.25rem;cursor:pointer;transition:.22s ease;min-height:180px;}
     .choice:hover,.choice.sel{transform:translateY(-3px);border-color:rgba(198,93,59,.42);box-shadow:0 16px 35px rgba(58,31,18,.08);background:var(--white);}
     .choice.sel{outline:2px solid rgba(198,93,59,.15)}
-    .choice svg{width:34px;height:34px;margin-bottom:.9rem;color:var(--terra-dark)}
+    .choice svg{width:34px;height:34px;margin-bottom:.9rem;color:var(--terra-fonce)}
     .choice-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.35rem}
     .choice-text{font-size:.84rem;line-height:1.65;color:var(--soft);font-weight:300}
 
-    .card{background:rgba(255,252,248,.80);border:1px solid rgba(107,62,46,.13);border-radius:10px;padding:1.7rem;margin-top:1.1rem;box-shadow:0 8px 28px rgba(58,31,18,.05);}
+    .card{background:rgba(255,252,248,.80);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.7rem;margin-top:1.1rem;box-shadow:0 8px 28px rgba(58,31,18,.05);}
     .card-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;margin-bottom:.55rem}
     .card-sub{font-size:.9rem;line-height:1.82;color:var(--soft);font-weight:300}
     .emotions{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.2rem}
-    .pill{border:1px solid rgba(107,62,46,.16);background:rgba(255,250,245,.78);color:var(--ink2);border-radius:6px;padding:.85rem .8rem;cursor:pointer;transition:.2s ease;text-align:center;font-size:.86rem;}
-    .pill:hover,.pill.sel{border-color:var(--terra);background:rgba(198,93,59,.08);color:var(--terra-dark);font-weight:500}
+    .pill{border:1px solid rgba(107,62,46,.16);background:rgba(255,250,245,.78);color:var(--ink2);border-radius:4px;padding:.85rem .8rem;cursor:pointer;transition:.2s ease;text-align:center;font-size:.86rem;}
+    .pill:hover,.pill.sel{border-color:var(--terra);background:rgba(198,93,59,.08);color:var(--terra-fonce);font-weight:500}
     .intensity{margin-top:1.4rem;display:none}
     .range-line{display:flex;align-items:center;gap:.8rem;margin-top:.8rem}
-    input[type=range]{width:100%;accent-color:var(--terra-dark)}
-    .range-value{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--terra-dark);min-width:46px;text-align:right}
+    input[type=range]{width:100%;accent-color:var(--terra-fonce)}
+    .range-value{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--terra-fonce);min-width:46px;text-align:right}
 
-    textarea{width:100%;min-height:130px;margin-top:1rem;border:1px solid rgba(107,62,46,.17);border-radius:8px;background:var(--white);padding:1rem 1.05rem;color:var(--ink);outline:none;resize:vertical;line-height:1.7;}
+    textarea{width:100%;min-height:130px;margin-top:1rem;border:1px solid rgba(107,62,46,.17);border-radius:6px;background:var(--white);padding:1rem 1.05rem;color:var(--ink);outline:none;resize:vertical;line-height:1.7;}
     textarea:focus{border-color:var(--terra)}
     .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
     .check-col h3{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500;margin-bottom:.7rem}
-    .check{display:flex;align-items:flex-start;gap:.65rem;border:1px solid rgba(107,62,46,.12);background:rgba(255,252,248,.78);border-radius:8px;padding:.8rem;margin-bottom:.55rem;cursor:pointer;transition:.18s ease;font-size:.86rem;line-height:1.45;color:var(--ink2);}
+    .check{display:flex;align-items:flex-start;gap:.65rem;border:1px solid rgba(107,62,46,.12);background:rgba(255,252,248,.78);border-radius:5px;padding:.8rem;margin-bottom:.55rem;cursor:pointer;transition:.18s ease;font-size:.86rem;line-height:1.45;color:var(--ink2);}
     .check:hover,.check.on{border-color:rgba(198,93,59,.38);background:rgba(198,93,59,.07)}
     .box{width:17px;height:17px;border:1.5px solid rgba(107,62,46,.28);border-radius:3px;flex-shrink:0;margin-top:.08rem;display:grid;place-items:center}
-    .check.on .box{background:var(--terra-dark);border-color:var(--terra-dark)}
+    .check.on .box{background:var(--terra-fonce);border-color:var(--terra-fonce)}
     .check.on .box::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translateY(-1px)}
 
-    .reveal-box{background:linear-gradient(150deg,var(--night),#4B2115);color:white;border-radius:10px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
+    .reveal-box{background:linear-gradient(150deg,var(--night),#4B2115);color:white;border-radius:6px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
     .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(216,140,106,.2),transparent 55%)}
     .reveal-box *{position:relative;z-index:1}
     .reveal-line{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
     .reveal-line:last-child{border-bottom:0}
-    .reveal-dot{width:7px;height:7px;border-radius:50%;background:var(--terra-light);margin-top:.55rem;flex-shrink:0}
+    .reveal-dot{width:7px;height:7px;border-radius:50%;background:var(--terra-clair);margin-top:.55rem;flex-shrink:0}
     .reveal-line p{color:rgba(255,255,255,.72);font-size:.9rem;line-height:1.65}
     .reveal-line strong{color:white}
 
     .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
-    .insight-card{background:rgba(255,252,248,.78);border:1px solid rgba(107,62,46,.13);border-radius:10px;padding:1.25rem;}
-    .insight-card svg{width:34px;height:34px;color:var(--terra-dark);margin-bottom:.85rem}
+    .insight-card{background:rgba(255,252,248,.78);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.25rem;}
+    .insight-card svg{width:34px;height:34px;color:var(--terra-fonce);margin-bottom:.85rem}
     .insight-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.4rem}
     .insight-card p{font-size:.84rem;line-height:1.7;color:var(--soft);font-weight:300}
 
@@ -130,65 +135,83 @@
     .map-table td{padding:.45rem .55rem;border-bottom:1px solid rgba(107,62,46,.08);vertical-align:middle}
     .map-table input,.map-table select{width:100%;border:0;background:transparent;color:var(--ink2);outline:0;padding:.35rem .2rem}
     .map-table input:focus,.map-table select:focus{background:rgba(198,93,59,.06);border-radius:4px}
-    .add-row{border:1px dashed rgba(198,93,59,.35);background:transparent;color:var(--terra-dark);border-radius:6px;padding:.55rem .9rem;margin-top:.8rem;cursor:pointer;font-size:.8rem;}
+    .add-row{border:1px dashed rgba(198,93,59,.35);background:transparent;color:var(--terra-fonce);border-radius:4px;padding:.55rem .9rem;margin-top:.8rem;cursor:pointer;font-size:.8rem;}
 
     .btn-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
     .btn-main,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:46px;padding:.88rem 1.45rem;border-radius:4px;cursor:pointer;transition:.2s ease;font-size:.84rem;}
-    .btn-main{border:0;background:var(--terra-dark);color:white;box-shadow:0 10px 25px rgba(161,74,60,.22);font-weight:500;letter-spacing:.04em;}
+    .btn-main{border:0;background:var(--terra-fonce);color:white;box-shadow:0 10px 25px rgba(161,74,60,.22);font-weight:500;letter-spacing:.04em;}
     .btn-main:hover{transform:translateY(-2px);background:var(--terra)}
     .btn-main:disabled{opacity:.45;cursor:not-allowed;transform:none}
     .btn-ghost{border:1px solid rgba(107,62,46,.22);background:transparent;color:var(--ink2)}
-    .btn-ghost:hover{border-color:var(--terra);color:var(--terra-dark);background:rgba(255,252,248,.55)}
+    .btn-ghost:hover{border-color:var(--terra);color:var(--terra-fonce);background:rgba(255,252,248,.55)}
 
     .final-options{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}
-    .final-card{background:var(--white);border:1px solid rgba(107,62,46,.13);border-radius:10px;padding:1.35rem;transition:.2s ease;display:block;}
+    .final-card{background:var(--white);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.35rem;transition:.2s ease;display:block;}
     .final-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(58,31,18,.08);border-color:rgba(198,93,59,.35)}
-    .final-card svg{width:32px;height:32px;color:var(--terra-dark);margin-bottom:.8rem}
+    .final-card svg{width:32px;height:32px;color:var(--terra-fonce);margin-bottom:.8rem}
     .final-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.35rem}
     .final-card p{font-size:.84rem;color:var(--soft);line-height:1.65;font-weight:300}
 
-    footer{background:#1A0E08;padding:3.5rem 3rem 2rem;position:relative;z-index:2}
+    /* ── FOOTER ── */
+    footer{background:#3A1F12;padding:3.5rem 3rem 2rem;position:relative;z-index:2}
     .footer-inner{max-width:1180px;margin:0 auto}
-    .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2.2rem}
-    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;color:white;font-size:1.35rem;display:block;margin-bottom:.7rem}
-    .footer-brand p{color:rgba(255,255,255,.38);font-size:.82rem;line-height:1.7;max-width:280px;font-weight:300}
-    .footer-col h4{color:rgba(255,255,255,.55);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem}
-    .footer-col a{display:block;color:rgba(255,255,255,.35);font-size:.78rem;margin-bottom:.5rem;font-weight:300}
-    .footer-col a:hover{color:var(--terra-light)}
-    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.3rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-    .footer-bottom p,.footer-bottom a{color:rgba(255,255,255,.22);font-size:.72rem}
-    .footer-bottom-links{display:flex;gap:1.3rem;flex-wrap:wrap}
+    .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;color:white;font-size:1.3rem;font-weight:600;display:block;margin-bottom:.65rem;letter-spacing:.02em;}
+    .footer-brand p{color:rgba(255,255,255,.32);font-size:.76rem;line-height:1.72;max-width:230px;font-weight:300}
+    .footer-col h4{color:rgba(255,255,255,.4);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem;font-weight:600}
+    .footer-col a{display:block;color:rgba(255,255,255,.28);font-size:.74rem;margin-bottom:.46rem;font-weight:300;transition:color .18s}
+    .footer-col a:hover{color:var(--terra-clair)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+    .footer-bottom p{color:rgba(255,255,255,.16);font-size:.68rem}
+    .footer-bottom-links{display:flex;gap:1.4rem}
+    .footer-bottom-links a{color:rgba(255,255,255,.2);font-size:.68rem;transition:color .18s}
+    .footer-bottom-links a:hover{color:var(--terra-clair)}
+
+    /* ── COOKIES ── */
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:#3A1F12;border-top:1px solid rgba(216,140,106,.18);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -8px 32px rgba(58,31,18,.18);transition:transform .35s ease,opacity .35s ease;}
+    .cookie-banner.hidden{transform:translateY(100%);opacity:0;pointer-events:none;}
+    .cookie-text{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300;max-width:700px}
+    .cookie-text a{color:var(--terra-clair);text-decoration:underline;text-underline-offset:3px}
+    .cookie-actions{display:flex;gap:.65rem;flex-shrink:0;flex-wrap:wrap}
+    .cookie-accept{background:var(--terra);color:white;border:none;padding:.55rem 1.2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .18s}
+    .cookie-accept:hover{background:var(--terra-fonce)}
+    .cookie-decline{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.15);padding:.55rem 1rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;cursor:pointer;transition:all .18s}
+    .cookie-decline:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.65)}
 
     @media(max-width:980px){.intro-grid,.choice-grid,.check-grid,.insight-grid,.final-options,.footer-top{grid-template-columns:1fr}.portal-card{min-height:360px}.emotions{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:900px){body{padding-top:62px}nav{height:62px;padding:0 1.1rem}.nav-links{display:none}.nav-burger{display:flex}.nav-mobile{top:62px}.journey-bar{top:62px}.step-label{display:none}.screen{padding:3rem 1rem 4rem}footer{padding:2.6rem 1.5rem 1.5rem}}
-    @media(max-width:540px){h1{font-size:3rem}.emotions{grid-template-columns:1fr}.card,.portal-card{padding:1.35rem}.btn-row{flex-direction:column;align-items:stretch}.btn-main,.btn-ghost{width:100%}}
+    @media(max-width:900px){body{padding-top:62px}nav{height:62px;padding:0 1.1rem}.nav-mobile{top:62px}.journey-bar{top:62px}.step-label{display:none}.screen{padding:3rem 1rem 4rem}footer{padding:2.6rem 1.5rem 1.5rem}.footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}.footer-brand{grid-column:span 2}}
+    @media(max-width:540px){h1{font-size:3rem}.emotions{grid-template-columns:1fr}.card,.portal-card{padding:1.35rem}.btn-row{flex-direction:column;align-items:stretch}.btn-main,.btn-ghost{width:100%}.footer-top{grid-template-columns:1fr}.footer-brand{grid-column:span 1}}
   </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Laura Charron</a>
     <div class="nav-links">
-      <a href="index.html">Accueil</a>
-      <a href="parcours.html" class="active">Commencer</a>
-      <a href="explorer.html">Explorer</a>
       <a href="comprendre.html">Comprendre</a>
-      <a href="genosociogramme.html">Mon Arbre</a>
-      <a href="login.html" id="nav-login-link">Mon Espace</a>
-      <a href="contact.html" class="nav-cta">Être accompagné</a>
+      <a href="seance.html">Séances</a>
+      <a href="contact.html">Contact</a>
+      <a href="a-propos.html">Qui suis-je</a>
+      <a href="outils.html">Outils gratuits</a>
+      <a href="genosociogramme.html">Mon arbre</a>
+      <a href="login.html" class="nav-espace">Mon espace</a>
+      <a href="contact.html" class="nav-cta">Réserver</a>
     </div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
+    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <div class="nav-mobile" id="nav-mobile">
-    <a href="index.html">Accueil</a>
-    <a href="parcours.html">Commencer</a>
-    <a href="explorer.html">Explorer</a>
     <a href="comprendre.html">Comprendre</a>
-    <a href="genosociogramme.html">Mon Arbre</a>
-    <a href="login.html">Mon Espace</a>
-    <a href="contact.html">Être accompagné</a>
+    <a href="seance.html">Séances</a>
+    <a href="contact.html">Contact</a>
+    <a href="a-propos.html">Qui suis-je</a>
+    <a href="outils.html">Outils gratuits</a>
+    <a href="genosociogramme.html">Mon arbre</a>
+    <a href="login.html">Mon espace</a>
+    <a href="contact.html">Réserver une séance →</a>
   </div>
 
   <!-- SYNC BANNER -->
@@ -320,40 +343,24 @@
       <h2>Vous avez franchi<br><em>la première porte</em></h2>
       <p class="lead">Cette synthèse n'enferme rien. Elle vous donne seulement une première carte pour continuer à comprendre ce qui se répète.</p>
       <div class="reveal-box" id="summary-box"></div>
-
-      <!-- SYNC TO TREE -->
-      <div id="sync-to-tree" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(198,93,59,.07);border:1px solid rgba(198,93,59,.2);border-radius:10px;">
-        <p style="font-size:.82rem;color:var(--terra-dark);font-weight:500;margin-bottom:6px">✓ Parcours sauvegardé dans votre espace</p>
+      <div id="sync-to-tree" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(198,93,59,.07);border:1px solid rgba(198,93,59,.2);border-radius:6px;">
+        <p style="font-size:.82rem;color:var(--terra-fonce);font-weight:500;margin-bottom:6px">Parcours sauvegardé dans votre espace</p>
         <p style="font-size:.76rem;color:var(--soft);line-height:1.6;margin-bottom:10px">Votre thème principal et vos indices ont été ajoutés à votre génosociogramme sous forme de notes.</p>
-        <a href="genosociogramme.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-dark);color:white;border-radius:100px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Ouvrir mon arbre →</a>
+        <a href="genosociogramme.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-fonce);color:white;border-radius:4px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Ouvrir mon arbre →</a>
       </div>
-      <div id="sync-login-cta" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,62,46,.05);border:1px solid var(--line);border-radius:10px;">
+      <div id="sync-login-cta" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,62,46,.05);border:1px solid var(--line);border-radius:6px;">
         <p style="font-size:.82rem;color:var(--ink2);margin-bottom:8px">Connectez-vous pour sauvegarder ce parcours et le retrouver dans votre arbre.</p>
-        <a href="login.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-dark);color:white;border-radius:100px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Créer mon espace →</a>
+        <a href="login.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-fonce);color:white;border-radius:4px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Créer mon espace →</a>
       </div>
-
       <div class="insight-grid">
         <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Ce que votre corps raconte</h3><p>Les tensions, fatigues ou blocages peuvent devenir des messages à écouter plutôt que des ennemis à combattre.</p></div>
         <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="27" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M18 12v6M18 18 9 22M18 18l9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><h3>Ce que la lignée transmet</h3><p>Certaines répétitions prennent sens lorsque l'on regarde les places, les loyautés et les silences familiaux.</p></div>
         <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="18" r="10" stroke="currentColor" stroke-width="1.2" opacity=".65"/><circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="1" opacity=".35"/></svg><h3>Ce qui peut évoluer</h3><p>Une prise de conscience peut ouvrir un nouveau mouvement : moins de boucle, plus de choix, plus de présence.</p></div>
       </div>
-
       <div class="final-options">
-        <a class="final-card" href="genosociogramme.html">
-          <svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          <h3>Mon Génosociogramme</h3>
-          <p>Construire mon arbre familial interactif et repérer les répétitions dans la lignée.</p>
-        </a>
-        <a class="final-card" href="comprendre.html">
-          <svg viewBox="0 0 36 36" fill="none"><path d="M10 7h11a5 5 0 0 1 5 5v17H15a5 5 0 0 0-5-5V7Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 24V7" stroke="currentColor" stroke-width="1.5"/><path d="M15 13h7M15 18h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <h3>Comprendre les répétitions</h3>
-          <p>Explorer la page Comprendre pour aller plus loin dans la lecture de vos schémas.</p>
-        </a>
-        <a class="final-card" href="contact.html">
-          <svg viewBox="0 0 36 36" fill="none"><path d="M18 4c4 4 7 7.5 7 13a7 7 0 1 1-14 0c0-5.5 3-9 7-13Z" stroke="currentColor" stroke-width="1.5"/><path d="M14 22c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          <h3>Être accompagné</h3>
-          <p>Prendre contact pour une séance individuelle à distance ou à domicile.</p>
-        </a>
+        <a class="final-card" href="genosociogramme.html"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><h3>Mon Génosociogramme</h3><p>Construire mon arbre familial interactif et repérer les répétitions dans la lignée.</p></a>
+        <a class="final-card" href="comprendre.html"><svg viewBox="0 0 36 36" fill="none"><path d="M10 7h11a5 5 0 0 1 5 5v17H15a5 5 0 0 0-5-5V7Z" stroke="currentColor" stroke-width="1.5"/><path d="M10 24V7" stroke="currentColor" stroke-width="1.5"/><path d="M15 13h7M15 18h6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><h3>Comprendre les répétitions</h3><p>Explorer la page Comprendre pour aller plus loin dans la lecture de vos schémas.</p></a>
+        <a class="final-card" href="contact.html"><svg viewBox="0 0 36 36" fill="none"><path d="M18 4c4 4 7 7.5 7 13a7 7 0 1 1-14 0c0-5.5 3-9 7-13Z" stroke="currentColor" stroke-width="1.5"/><path d="M14 22c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><h3>Être accompagné</h3><p>Prendre contact pour une séance individuelle à distance ou à domicile.</p></a>
       </div>
       <div class="btn-row">
         <button class="btn-ghost" type="button" onclick="showStep(3)">Revenir aux indices</button>
@@ -362,20 +369,57 @@
     </section>
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-top">
-        <div class="footer-brand"><a class="footer-logo" href="index.html">Laura Charron</a><p>Un voyage guidé pour comprendre les répétitions, explorer les mémoires familiales et retrouver sa propre voie.</p></div>
-        <div class="footer-col"><h4>Le voyage</h4><a href="index.html">Accueil</a><a href="parcours.html">Commencer</a><a href="explorer.html">Explorer</a><a href="comprendre.html">Comprendre</a></div>
-        <div class="footer-col"><h4>Les outils</h4><a href="genosociogramme.html">Mon Génosociogramme</a><a href="journal.html">Carnet d'Exploration</a></div>
-        <div class="footer-col"><h4>Accompagnement</h4><a href="contact.html">Prendre contact</a><a href="login.html">Mon Espace</a><a href="mentions-legales.html">Mentions légales</a></div>
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html">Laura Charron</a>
+          <p>Praticienne en psychogénéalogie et thérapie brève. Séances à distance et à domicile.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Séances</h4>
+          <a href="contact.html">Réserver une séance</a>
+          <a href="contact.html">Me contacter</a>
+          <a href="a-propos.html">À propos</a>
+        </div>
+        <div class="footer-col">
+          <h4>Outils gratuits</h4>
+          <a href="parcours.html">Commencer le voyage</a>
+          <a href="genosociogramme.html">Génosociogramme</a>
+          <a href="arbre-famille.html">Ma famille</a>
+          <a href="journal.html">Journal guidé</a>
+          <a href="symptomes.html">Mon corps</a>
+          <a href="vibration.html">Ma fréquence</a>
+        </div>
+        <div class="footer-col">
+          <h4>Explorer</h4>
+          <a href="cycle.html">Mon cycle</a>
+          <a href="arbre-vie.html">Arbre de Vie</a>
+          <a href="transgen.html">Transgénérationnel</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
+        </div>
       </div>
       <div class="footer-bottom">
-        <p>© Laura Charron 2026 · Tous droits réservés</p>
-        <div class="footer-bottom-links"><a href="contact.html">Contact</a><a href="politique-confidentialite.html">Confidentialité</a></div>
+        <p>© Laura Charron 2026 · Tous droits réservés · Ressens · Guéris · Vis</p>
+        <div class="footer-bottom-links">
+          <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="parcours.html">Livre audio</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- BANDEAU COOKIES -->
+  <div class="cookie-banner" id="cookie-banner">
+    <p class="cookie-text">Ce site utilise uniquement des données stockées localement dans votre navigateur (localStorage) pour sauvegarder votre progression — aucune donnée n'est transmise à un serveur tiers. <a href="confidentialite.html">En savoir plus</a></p>
+    <div class="cookie-actions">
+      <button class="cookie-accept" id="cookie-accept">J'accepte</button>
+      <button class="cookie-decline" id="cookie-decline">Continuer sans accepter</button>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
@@ -383,9 +427,7 @@
     var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
     var sb = supabase.createClient(SB_URL, SB_KEY);
     var currentUser = null;
-
     var state = { step:0, theme:'', note:'', emotion:'', level:5, checks:[] };
-
     var stepNames = ["Le Seuil · 1/5","La Première Porte · 2/5","La Salle des Reflets · 3/5","Les Indices · 4/5","Le Passage · 5/5"];
     var checkData = {
       body:["Tension dans le ventre","Boule dans la gorge","Oppression dans la poitrine","Fatigue récurrente","Sommeil perturbé","Douleurs qui reviennent"],
@@ -401,7 +443,6 @@
       corps:"Le corps peut devenir la porte d'entrée d'une mémoire qui n'a pas encore trouvé de mots."
     };
 
-    // ── AUTH ──────────────────────────────────────────────────────────
     async function initAuth() {
       var { data } = await sb.auth.getSession();
       if (data.session) {
@@ -411,7 +452,6 @@
         banner.classList.add('show','sync-ok');
         document.getElementById('sync-msg').textContent = '✓ Connectée en tant que ' + name + ' — votre parcours se synchronise avec votre arbre.';
         document.getElementById('sync-link').textContent = 'Mon espace →';
-        // Load saved parcours
         await loadParcours();
       } else {
         document.getElementById('sync-banner').classList.add('show');
@@ -423,29 +463,18 @@
       var { data } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       if (data && data.data && data.data.parcours) {
         var p = data.data.parcours;
-        state.theme = p.theme || '';
-        state.note = p.note || '';
-        state.emotion = p.emotion || '';
-        state.level = p.level || 5;
-        state.checks = p.checks || [];
-        // Restore UI selections
-        if (state.theme) {
-          var btn = document.querySelector('.choice[data-theme="'+state.theme+'"]');
-          if (btn) { btn.classList.add('sel'); document.getElementById('btn-s1').disabled = false; }
-        }
+        state.theme = p.theme || ''; state.note = p.note || ''; state.emotion = p.emotion || ''; state.level = p.level || 5; state.checks = p.checks || [];
+        if (state.theme) { var btn = document.querySelector('.choice[data-theme="'+state.theme+'"]'); if (btn) { btn.classList.add('sel'); document.getElementById('btn-s1').disabled = false; } }
         if (state.note) document.getElementById('theme-note').value = state.note;
       }
     }
 
     async function saveParcours() {
-      // Always save locally
       localStorage.setItem('voyage-laura', JSON.stringify(state));
       if (!currentUser) return;
-      // Merge parcours into arbres.data
       var { data: existing } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       var treeData = (existing && existing.data) ? existing.data : { people:{}, rels:[], nid:1, nodePos:{} };
       treeData.parcours = { theme:state.theme, note:state.note, emotion:state.emotion, level:state.level, checks:state.checks, updatedAt: new Date().toISOString() };
-      // Also push theme as a note on "moi" node if it exists
       var moiId = Object.keys(treeData.people || {}).find(function(id){ return treeData.people[id].role === 'moi'; });
       if (moiId && state.theme && !treeData.people[moiId].parcours_note) {
         var themeLabel = { relations:'Relations', argent:'Argent', energie:'Épuisement', confiance:'Confiance', famille:'Famille', corps:'Corps' };
@@ -454,111 +483,63 @@
       await sb.from('arbres').upsert({ user_id: currentUser.id, data: treeData, updated_at: new Date().toISOString() }, { onConflict:'user_id' });
     }
 
-    // ── STEPS ─────────────────────────────────────────────────────────
     function showStep(n) {
       document.querySelectorAll('.screen').forEach(function(s,i){ s.classList.toggle('active',i===n); });
-      state.step = n;
-      updateProgress();
+      state.step = n; updateProgress();
       if (n===3) initChecks();
       if (n===4) { buildSummary(); showFinalSync(); }
-      window.scrollTo({top:0,behavior:'smooth'});
-      saveParcours();
+      window.scrollTo({top:0,behavior:'smooth'}); saveParcours();
     }
 
     function showFinalSync() {
-      if (currentUser) {
-        document.getElementById('sync-to-tree').style.display = 'block';
-        document.getElementById('sync-login-cta').style.display = 'none';
-      } else {
-        document.getElementById('sync-to-tree').style.display = 'none';
-        document.getElementById('sync-login-cta').style.display = 'block';
-      }
+      if (currentUser) { document.getElementById('sync-to-tree').style.display='block'; document.getElementById('sync-login-cta').style.display='none'; }
+      else { document.getElementById('sync-to-tree').style.display='none'; document.getElementById('sync-login-cta').style.display='block'; }
     }
 
     function updateProgress() {
       document.getElementById('step-label').textContent = stepNames[state.step];
-      for (var i=0;i<5;i++) {
-        var dot = document.getElementById('dot'+i);
-        dot.classList.remove('active','done');
-        if (i < state.step) dot.classList.add('done');
-        if (i === state.step) dot.classList.add('active');
-      }
+      for (var i=0;i<5;i++) { var dot=document.getElementById('dot'+i); dot.classList.remove('active','done'); if(i<state.step)dot.classList.add('done'); if(i===state.step)dot.classList.add('active'); }
     }
 
     function initChecks() {
-      var zones = [['checks-body',checkData.body],['checks-emotion',checkData.emotion],['checks-life',checkData.life]];
-      zones.forEach(function(z) {
-        var wrap = document.getElementById(z[0]); wrap.innerHTML='';
-        z[1].forEach(function(label) {
-          var el = document.createElement('div'); el.className='check';
-          if (state.checks.indexOf(label)>=0) el.classList.add('on');
-          el.innerHTML='<div class="box"></div><span>'+label+'</span>';
-          el.addEventListener('click', function(){ el.classList.toggle('on'); syncChecks(); });
-          wrap.appendChild(el);
-        });
-      });
+      var zones=[['checks-body',checkData.body],['checks-emotion',checkData.emotion],['checks-life',checkData.life]];
+      zones.forEach(function(z){ var wrap=document.getElementById(z[0]); wrap.innerHTML=''; z[1].forEach(function(label){ var el=document.createElement('div'); el.className='check'; if(state.checks.indexOf(label)>=0)el.classList.add('on'); el.innerHTML='<div class="box"></div><span>'+label+'</span>'; el.addEventListener('click',function(){ el.classList.toggle('on'); syncChecks(); }); wrap.appendChild(el); }); });
     }
 
     function syncChecks() {
-      state.checks = Array.from(document.querySelectorAll('.check.on span')).map(function(x){return x.textContent;});
-      var card = document.getElementById('map-card');
-      var body = document.getElementById('map-body'); body.innerHTML='';
-      if (!state.checks.length) { card.style.display='none'; saveParcours(); return; }
-      card.style.display='block';
-      state.checks.forEach(function(s){ addMapRow(s); });
-      saveParcours();
+      state.checks=Array.from(document.querySelectorAll('.check.on span')).map(function(x){return x.textContent;});
+      var card=document.getElementById('map-card'); var body=document.getElementById('map-body'); body.innerHTML='';
+      if(!state.checks.length){card.style.display='none';saveParcours();return;}
+      card.style.display='block'; state.checks.forEach(function(s){addMapRow(s);}); saveParcours();
     }
 
-    function addMapRow(signal) {
-      var tr = document.createElement('tr');
-      tr.innerHTML='<td>'+signal+'</td><td><select><option>À explorer</option><option>Histoire personnelle</option><option>Mémoire familiale</option><option>Les deux</option></select></td><td><input type="text" placeholder="Ex : mère, grand-mère..."></td><td><input type="text" placeholder="Ex : 7 ans, adolescence"></td>';
-      document.getElementById('map-body').appendChild(tr);
-    }
-
+    function addMapRow(signal){ var tr=document.createElement('tr'); tr.innerHTML='<td>'+signal+'</td><td><select><option>À explorer</option><option>Histoire personnelle</option><option>Mémoire familiale</option><option>Les deux</option></select></td><td><input type="text" placeholder="Ex : mère, grand-mère..."></td><td><input type="text" placeholder="Ex : 7 ans, adolescence"></td>'; document.getElementById('map-body').appendChild(tr); }
     function addFreeRow(){ addMapRow('<input type="text" placeholder="Trace libre">'); }
 
     function buildSummary() {
-      var box = document.getElementById('summary-box');
-      var themeLabel = document.querySelector('.choice.sel .choice-title') ? document.querySelector('.choice.sel .choice-title').textContent : (state.theme||'non précisé');
-      var intro = themeTexts[state.theme] || 'Ce que vous vivez peut devenir un point de départ pour mieux comprendre votre histoire.';
-      var checks = state.checks.length ? state.checks.join(', ') : 'aucun indice coché pour le moment';
+      var box=document.getElementById('summary-box');
+      var themeLabel=document.querySelector('.choice.sel .choice-title')?document.querySelector('.choice.sel .choice-title').textContent:(state.theme||'non précisé');
+      var intro=themeTexts[state.theme]||'Ce que vous vivez peut devenir un point de départ pour mieux comprendre votre histoire.';
+      var checks=state.checks.length?state.checks.join(', '):'aucun indice coché pour le moment';
       box.innerHTML='<div class="reveal-line"><div class="reveal-dot"></div><p><strong>Votre porte d\'entrée :</strong> '+themeLabel+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Ressenti principal :</strong> '+(state.emotion||'non précisé')+' · intensité '+state.level+'/10</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Première lecture :</strong> '+intro+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Indices repérés :</strong> '+checks+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Prochaine étape :</strong> continuer avec le génosociogramme, explorer la page Comprendre ou demander un accompagnement.</p></div>';
     }
 
-    function restart() {
-      localStorage.removeItem('voyage-laura');
-      state={step:0,theme:'',note:'',emotion:'',level:5,checks:[]};
-      document.querySelectorAll('.sel,.on').forEach(function(x){x.classList.remove('sel','on');});
-      document.getElementById('btn-s1').disabled=true;
-      document.getElementById('btn-s2').disabled=true;
-      document.getElementById('intensity').style.display='none';
-      showStep(0);
-    }
+    function restart() { localStorage.removeItem('voyage-laura'); state={step:0,theme:'',note:'',emotion:'',level:5,checks:[]}; document.querySelectorAll('.sel,.on').forEach(function(x){x.classList.remove('sel','on');}); document.getElementById('btn-s1').disabled=true; document.getElementById('btn-s2').disabled=true; document.getElementById('intensity').style.display='none'; showStep(0); }
 
-    // ── EVENTS ────────────────────────────────────────────────────────
-    document.getElementById('burger').addEventListener('click',function(){
-      document.getElementById('nav-mobile').classList.toggle('open');
-      document.getElementById('burger').classList.toggle('open');
-    });
-    document.querySelectorAll('.choice').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        document.querySelectorAll('.choice').forEach(function(x){x.classList.remove('sel');});
-        btn.classList.add('sel'); state.theme=btn.dataset.theme;
-        document.getElementById('btn-s1').disabled=false; saveParcours();
-      });
-    });
+    /* nav burger */
+    document.getElementById('burger').addEventListener('click',function(){ document.getElementById('nav-mobile').classList.toggle('open'); this.classList.toggle('open'); });
+
+    /* choices */
+    document.querySelectorAll('.choice').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.choice').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.theme=btn.dataset.theme; document.getElementById('btn-s1').disabled=false; saveParcours(); }); });
     document.getElementById('theme-note').addEventListener('input',function(e){ state.note=e.target.value; saveParcours(); });
-    document.querySelectorAll('.pill').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel');});
-        btn.classList.add('sel'); state.emotion=btn.dataset.emotion; state.level=parseInt(btn.dataset.level||'5',10);
-        document.getElementById('range').value=Math.max(1,Math.min(10,Math.round(state.level/10)));
-        document.getElementById('range-val').textContent=document.getElementById('range').value;
-        document.getElementById('intensity').style.display='block';
-        document.getElementById('btn-s2').disabled=false; saveParcours();
-      });
-    });
+    document.querySelectorAll('.pill').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.emotion=btn.dataset.emotion; state.level=parseInt(btn.dataset.level||'5',10); document.getElementById('range').value=Math.max(1,Math.min(10,Math.round(state.level/10))); document.getElementById('range-val').textContent=document.getElementById('range').value; document.getElementById('intensity').style.display='block'; document.getElementById('btn-s2').disabled=false; saveParcours(); }); });
     document.getElementById('range').addEventListener('input',function(e){ state.level=e.target.value; document.getElementById('range-val').textContent=e.target.value; saveParcours(); });
+
+    /* cookies */
+    var cookieBanner=document.getElementById('cookie-banner');
+    if(localStorage.getItem('lc_cookies')){cookieBanner.classList.add('hidden');}
+    document.getElementById('cookie-accept').addEventListener('click',function(){localStorage.setItem('lc_cookies','accepted');cookieBanner.classList.add('hidden');});
+    document.getElementById('cookie-decline').addEventListener('click',function(){localStorage.setItem('lc_cookies','declined');cookieBanner.classList.add('hidden');});
 
     updateProgress();
     initAuth();
