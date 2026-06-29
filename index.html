@@ -16,21 +16,15 @@
     :root{
       --cream:#F4EDE4;
       --cream2:#E9D8C9;
-      --cream3:#FFFAF5;
       --terra-fonce:#A14A3C;
       --terra:#C65D3B;
       --terra-clair:#D88C6A;
       --brun:#6B3E2E;
-      --sable:#E9D8C9;
       --ink:#3A1F12;
       --ink2:#5C3420;
       --soft:#9A7060;
-      --jungle:#6B3E2E;
-      --jungle2:#A14A3C;
-      --jungle-pale:#F4EDE4;
       --white:#FFFAF5;
-      --border:#D9C4B5;
-      --shadow:0 15px 40px rgba(107,62,46,.08);
+      --line:rgba(107,62,46,.14);
     }
 
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -48,147 +42,84 @@
     .cursor{position:fixed;width:8px;height:8px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
     .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--terra);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
 
-    /* NAV */
-   nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(255,252,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;text-decoration:none;}
-.nav-links{display:flex;align-items:center;gap:1.1rem;justify-content:flex-end;}
-.nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;text-decoration:none;}
-.nav-links a:hover,.nav-links a.active{color:var(--terra);}
-.nav-cta{background:var(--terra)!important;color:white!important;padding:.48rem 1.1rem;border-radius:4px;font-size:.74rem!important;font-weight:600!important;letter-spacing:.06em;text-transform:uppercase;}
-.nav-cta:hover{background:var(--terra-dark)!important;color:white!important;}
-.nav-espace{font-size:.74rem!important;color:var(--soft)!important;border:1px solid var(--line);border-radius:100px;padding:.38rem .85rem;}
-.nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
-.nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
-.nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s;}
-.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-.nav-burger.open span:nth-child(2){opacity:0;}
-.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-.nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;text-decoration:none;}
-.nav-mobile a:last-child{border-bottom:none;}
+    /* ── NAV ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:200;
+      height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      padding:0 2rem;
+      background:rgba(255,250,245,.97);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
+    .nav-links{display:flex;align-items:center;gap:1.1rem;justify-content:flex-end;}
+    .nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--terra);}
+    .nav-cta{
+      background:var(--terra)!important;color:white!important;
+      padding:.48rem 1.1rem;border-radius:4px;
+      font-size:.74rem!important;font-weight:600!important;
+      letter-spacing:.06em;text-transform:uppercase;
+      transition:background .18s;
+    }
+    .nav-cta:hover{background:var(--terra-fonce)!important;}
+    .nav-espace{
+      font-size:.74rem!important;color:var(--soft)!important;
+      border:1px solid var(--line);border-radius:100px;
+      padding:.38rem .85rem;transition:all .18s;
+    }
+    .nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
+    .nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+    .nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s;}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .nav-burger.open span:nth-child(2){opacity:0;}
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
+    .nav-mobile.open{display:flex;}
+    .nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;}
+    .nav-mobile a:last-child{border-bottom:none;}
 
-@media(max-width:960px){
-  .nav-links{display:none;}
-  .nav-burger{display:flex;}
-}
+    @media(max-width:960px){.nav-links{display:none;}.nav-burger{display:flex;}}
 
     /* ── HERO ── */
     .hero{
       position:relative;overflow:hidden;
       padding:6rem 4rem 5.5rem;
       background:
-        radial-gradient(ellipse 50% 55% at 90% 10%, rgba(216,140,106,.14) 0%, transparent 55%),
-        radial-gradient(ellipse 40% 40% at 5% 90%, rgba(61,107,90,.08) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 55% at 90% 10%,rgba(216,140,106,.14) 0%,transparent 55%),
+        radial-gradient(ellipse 40% 40% at 5% 90%,rgba(107,62,46,.06) 0%,transparent 55%),
         linear-gradient(160deg,#FFFAF5 0%,var(--cream) 55%,#E9D8C9 100%);
     }
     .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2;}
-
-    .hero-badge{
-      display:inline-flex;align-items:center;gap:.6rem;
-      font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;
-      color:var(--jungle);background:rgba(216,140,106,.12);
-      border:1px solid rgba(61,107,90,.18);border-radius:2px;
-      padding:.4rem .95rem;margin-bottom:1.9rem;
-    }
-    .hero-badge svg{flex-shrink:0;}
-
-    .hero h1{
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(3.2rem,6vw,5.4rem);
-      font-weight:600;line-height:1.05;letter-spacing:-.01em;
-      margin-bottom:1.3rem;
-    }
+    .hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--brun);background:rgba(216,140,106,.12);border:1px solid rgba(107,62,46,.18);border-radius:2px;padding:.4rem .95rem;margin-bottom:1.9rem;}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,6vw,5.4rem);font-weight:600;line-height:1.05;letter-spacing:-.01em;margin-bottom:1.3rem;}
     .hero h1 em{font-style:italic;color:var(--terra);font-weight:400;}
-
-    .hero-sub{
-      font-size:.96rem;font-weight:300;color:var(--ink2);
-      max-width:480px;line-height:1.9;margin-bottom:.85rem;
-    }
-    .hero-italic{
-      font-family:'Cormorant Garamond',serif;font-style:italic;
-      font-size:1.05rem;color:var(--soft);line-height:1.65;
-      max-width:440px;margin-bottom:2.2rem;font-weight:400;
-    }
+    .hero-sub{font-size:.96rem;font-weight:300;color:var(--ink2);max-width:480px;line-height:1.9;margin-bottom:.85rem;}
+    .hero-italic{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--soft);line-height:1.65;max-width:440px;margin-bottom:2.2rem;font-weight:400;}
     .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
-
-    .btn-primary{
-      display:inline-flex;align-items:center;gap:.55rem;
-      background:var(--terra);color:#fff;
-      padding:.95rem 1.9rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
-      transition:background .18s,transform .18s,box-shadow .18s;
-      box-shadow:0 6px 24px rgba(161,74,60,.22);
-    }
+    .btn-primary{display:inline-flex;align-items:center;gap:.55rem;background:var(--terra);color:#fff;padding:.95rem 1.9rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:background .18s,transform .18s,box-shadow .18s;box-shadow:0 6px 24px rgba(161,74,60,.22);}
     .btn-primary:hover{background:var(--terra-fonce);transform:translateY(-2px);box-shadow:0 12px 34px rgba(161,74,60,.3);}
+    .btn-secondary{display:inline-flex;align-items:center;gap:.55rem;background:transparent;color:var(--ink2);padding:.95rem 1.6rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;border:1px solid rgba(107,62,46,.22);transition:all .18s;}
+    .btn-secondary:hover{border-color:var(--terra-clair);color:var(--terra);background:rgba(216,140,106,.08);}
 
-    .btn-secondary{
-      display:inline-flex;align-items:center;gap:.55rem;
-      background:transparent;color:var(--ink2);
-      padding:.95rem 1.6rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
-      border:1px solid rgba(107,62,46,.22);
-      transition:all .18s;
-    }
-    .btn-secondary:hover{border-color:var(--jungle);color:var(--jungle);background:rgba(216,140,106,.12);}
-
-    /* HERO CARD côté droit */
-    .hero-card{
-      background:linear-gradient(158deg,var(--brun),#3A1F12);
-      border-radius:6px;padding:2.2rem;
-      box-shadow:0 24px 65px rgba(107,62,46,.20);
-      position:relative;overflow:hidden;
-    }
-    .hero-card::before{
-      content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 55% 45% at 80% 15%,rgba(216,140,106,.16),transparent 60%);
-      pointer-events:none;
-    }
+    .hero-card{background:linear-gradient(158deg,var(--brun),#3A1F12);border-radius:6px;padding:2.2rem;box-shadow:0 24px 65px rgba(107,62,46,.20);position:relative;overflow:hidden;}
+    .hero-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 80% 15%,rgba(216,140,106,.16),transparent 60%);pointer-events:none;}
     .hero-card *{position:relative;z-index:1;}
-    .hc-tag{
-      display:inline-flex;align-items:center;gap:.45rem;
-      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-      color:rgba(255,255,255,.65);border-radius:2px;
-      padding:.32rem .78rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
-      margin-bottom:1.4rem;
-    }
-    .hc-title{
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.55rem;font-weight:600;color:white;line-height:1.25;margin-bottom:.75rem;
-    }
+    .hc-tag{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);border-radius:2px;padding:.32rem .78rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;}
+    .hc-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:white;line-height:1.25;margin-bottom:.75rem;}
     .hc-desc{font-size:.82rem;color:rgba(255,255,255,.52);line-height:1.85;font-weight:300;margin-bottom:1.5rem;}
     .hc-items{display:flex;flex-direction:column;gap:.5rem;}
-    .hc-item{
-      display:flex;align-items:center;gap:.75rem;
-      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
-      border-radius:4px;padding:.68rem .9rem;
-    }
-    .hc-item-icon{flex-shrink:0;opacity:.7;}
+    .hc-item{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:.68rem .9rem;}
     .hc-item span{font-size:.78rem;color:rgba(255,255,255,.62);line-height:1.4;}
 
-    /* TRUST STRIP */
-    .trust{
-      background:var(--brun);
-      padding:.85rem 2rem;
-      display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;
-    }
-    .trust-item{
-      display:flex;align-items:center;gap:.55rem;
-      font-size:.72rem;color:rgba(255,255,255,.75);font-weight:400;
-      letter-spacing:.06em;white-space:nowrap;
-    }
+    /* TRUST */
+    .trust{background:var(--brun);padding:.85rem 2rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;}
+    .trust-item{display:flex;align-items:center;gap:.55rem;font-size:.72rem;color:rgba(255,255,255,.75);font-weight:400;letter-spacing:.06em;white-space:nowrap;}
 
-    /* LAYOUT commun */
+    /* COMMUN */
     .section-inner{max-width:1100px;margin:0 auto;}
-    .eyebrow{
-      font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;
-      color:var(--terra);margin-bottom:.9rem;
-      display:flex;align-items:center;gap:.5rem;font-weight:500;
-    }
-    .section-title{
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.08;margin-bottom:.75rem;letter-spacing:-.01em;
-    }
+    .eyebrow{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;font-weight:500;}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.08;margin-bottom:.75rem;letter-spacing:-.01em;}
     .section-title em{font-style:italic;color:var(--terra);font-weight:400;}
     .section-sub{font-size:.9rem;color:var(--soft);line-height:1.85;font-weight:300;}
 
@@ -199,112 +130,51 @@
     .about-copy p:last-of-type{margin-bottom:0;}
     .about-copy strong{color:var(--ink);font-weight:500;}
     .about-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.3rem;}
-    .about-tag{
-      font-size:.66rem;background:transparent;
-      border:1px solid rgba(61,107,90,.22);color:var(--jungle);
-      border-radius:2px;padding:.28rem .7rem;letter-spacing:.05em;
-    }
-    .about-visual{
-      background:linear-gradient(158deg,var(--brun),var(--terra-fonce));
-      border-radius:6px;padding:2.2rem;
-      position:relative;overflow:hidden;
-    }
-    .about-visual::before{
-      content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(216,140,106,.13),transparent 60%);
-      pointer-events:none;
-    }
+    .about-tag{font-size:.66rem;background:transparent;border:1px solid rgba(107,62,46,.22);color:var(--brun);border-radius:2px;padding:.28rem .7rem;letter-spacing:.05em;}
+    .about-visual{background:linear-gradient(158deg,var(--brun),var(--terra-fonce));border-radius:6px;padding:2.2rem;position:relative;overflow:hidden;}
+    .about-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(216,140,106,.13),transparent 60%);pointer-events:none;}
     .about-visual *{position:relative;z-index:1;}
     .av-deco{margin-bottom:1.2rem;opacity:.35;}
-    .av-quote{
-      font-family:'Cormorant Garamond',serif;font-style:italic;
-      font-size:1.12rem;color:rgba(255,255,255,.85);line-height:1.68;margin-bottom:1.5rem;font-weight:400;
-    }
+    .av-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.12rem;color:rgba(255,255,255,.85);line-height:1.68;margin-bottom:1.5rem;font-weight:400;}
     .av-list{display:flex;flex-direction:column;gap:.5rem;}
-    .av-item{
-      display:flex;align-items:center;gap:.65rem;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);
-      border-radius:3px;padding:.65rem .9rem;
-      font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.45;
-    }
-    .av-item svg{flex-shrink:0;opacity:.6;}
+    .av-item{display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:.65rem .9rem;font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.45;}
 
     /* SEANCE */
     .seance{padding:5.5rem 4rem;background:var(--cream2);}
     .seance-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start;margin-top:2.5rem;}
-    .seance-card{
-      background:var(--white);border-radius:6px;padding:2.4rem;
-      border:1px solid rgba(198,93,59,.14);
-      box-shadow:var(--shadow);
-    }
-    .sc-tag{
-      display:inline-flex;align-items:center;gap:.45rem;
-      background:rgba(198,93,59,.08);border:1px solid rgba(198,93,59,.16);
-      color:var(--terra);border-radius:2px;padding:.3rem .75rem;
-      font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:500;
-    }
-    .sc-title{
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.7rem;font-weight:600;color:var(--ink);line-height:1.18;margin-bottom:.75rem;
-    }
+    .seance-card{background:var(--white);border-radius:6px;padding:2.4rem;border:1px solid rgba(198,93,59,.14);box-shadow:0 15px 40px rgba(107,62,46,.08);}
+    .sc-tag{display:inline-flex;align-items:center;gap:.45rem;background:rgba(198,93,59,.08);border:1px solid rgba(198,93,59,.16);color:var(--terra);border-radius:2px;padding:.3rem .75rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:500;}
+    .sc-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--ink);line-height:1.18;margin-bottom:.75rem;}
     .sc-desc{font-size:.86rem;color:var(--ink2);line-height:1.88;font-weight:300;margin-bottom:1.3rem;}
     .sc-modes{display:flex;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap;}
-    .sc-mode{
-      display:inline-flex;align-items:center;gap:.4rem;
-      background:rgba(216,140,106,.12);border:1px solid rgba(61,107,90,.16);
-      color:var(--jungle);border-radius:2px;padding:.3rem .72rem;font-size:.72rem;font-weight:500;letter-spacing:.03em;
-    }
+    .sc-mode{display:inline-flex;align-items:center;gap:.4rem;background:rgba(216,140,106,.12);border:1px solid rgba(107,62,46,.16);color:var(--brun);border-radius:2px;padding:.3rem .72rem;font-size:.72rem;font-weight:500;letter-spacing:.03em;}
     .sc-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
     .sc-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.82rem;color:var(--ink2);line-height:1.6;}
     .sc-item svg{flex-shrink:0;margin-top:.18rem;}
     .sc-price{font-size:.78rem;color:var(--soft);margin-bottom:1.4rem;font-style:italic;}
     .seance-aside{display:flex;flex-direction:column;gap:.9rem;}
-    .aside-card{
-      background:var(--white);border-radius:4px;padding:1.3rem 1.4rem;
-      border:1px solid rgba(61,107,90,.1);
-    }
+    .aside-card{background:var(--white);border-radius:4px;padding:1.3rem 1.4rem;border:1px solid rgba(107,62,46,.1);}
     .aside-icon-wrap{margin-bottom:.55rem;}
-    .aside-title{
-      font-family:'Cormorant Garamond',serif;
-      font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;
-    }
+    .aside-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;}
     .aside-body{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;}
 
     /* AVIS */
     .avis{padding:5.5rem 4rem;}
     .avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.5rem;}
-    .avis-card{
-      background:var(--white);border-radius:5px;padding:1.8rem;
-      border:1px solid rgba(107,62,46,.1);
-      box-shadow:0 12px 32px rgba(107,62,46,.06);
-    }
+    .avis-card{background:var(--white);border-radius:5px;padding:1.8rem;border:1px solid rgba(107,62,46,.1);box-shadow:0 12px 32px rgba(107,62,46,.06);}
     .avis-deco{margin-bottom:1rem;}
-    .avis-text{
-      font-family:'Cormorant Garamond',serif;font-style:italic;
-      font-size:1rem;color:var(--ink);line-height:1.72;margin-bottom:1.1rem;font-weight:400;
-    }
+    .avis-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink);line-height:1.72;margin-bottom:1.1rem;font-weight:400;}
     .avis-sep{width:28px;height:1px;background:rgba(198,93,59,.3);margin-bottom:1rem;}
     .avis-author{display:flex;align-items:center;gap:.7rem;}
-    .avis-av{
-      width:33px;height:33px;border-radius:50%;
-      background:linear-gradient(135deg,var(--terra-clair),var(--terra));
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Cormorant Garamond',serif;font-size:1rem;color:white;font-weight:600;flex-shrink:0;
-    }
+    .avis-av{width:33px;height:33px;border-radius:50%;background:linear-gradient(135deg,var(--terra-clair),var(--terra));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;color:white;font-weight:600;flex-shrink:0;}
     .avis-name{font-size:.78rem;font-weight:500;color:var(--ink);}
     .avis-label{font-size:.68rem;color:var(--soft);}
 
     /* OUTILS */
     .outils{padding:5.5rem 4rem;background:var(--cream2);}
     .outils-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:2.5rem;}
-    .outil{
-      background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:5px;
-      padding:1.4rem;text-decoration:none;color:inherit;
-      display:flex;flex-direction:column;
-      transition:transform .2s,border-color .2s,box-shadow .2s;
-    }
-    .outil:hover{transform:translateY(-3px);border-color:rgba(198,93,59,.2);box-shadow:0 10px 28px rgba(58,31,18,.08);}
-    .outil-icon{margin-bottom:.85rem;}
+    .outil{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:5px;padding:1.4rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s;}
+    .outil:hover{transform:translateY(-3px);border-color:rgba(198,93,59,.2);box-shadow:0 10px 28px rgba(107,62,46,.08);}
     .outil-tag{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.3rem;font-weight:400;}
     .outil h3{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--ink);margin-bottom:.38rem;}
     .outil p{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;flex:1;margin-bottom:.85rem;}
@@ -312,78 +182,33 @@
 
     /* LIVRE */
     .livre{padding:5.5rem 4rem;}
-    .livre-box{
-      background:linear-gradient(158deg,var(--brun),#3A1F12);
-      border-radius:6px;padding:3rem 3.5rem;
-      display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;
-      position:relative;overflow:hidden;
-    }
-    .livre-box::before{
-      content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 45% 55% at 88% 50%,rgba(216,140,106,.13),transparent 60%);
-      pointer-events:none;
-    }
+    .livre-box{background:linear-gradient(158deg,var(--brun),#3A1F12);border-radius:6px;padding:3rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;position:relative;overflow:hidden;}
+    .livre-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 45% 55% at 88% 50%,rgba(216,140,106,.13),transparent 60%);pointer-events:none;}
     .livre-box *{position:relative;z-index:1;}
     .livre-eyebrow{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(228,205,185,.6);margin-bottom:.8rem;display:flex;align-items:center;gap:.45rem;font-weight:500;}
     .livre-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;color:white;line-height:1.1;margin-bottom:.8rem;}
     .livre-title em{font-style:italic;color:var(--terra-clair);font-weight:400;}
     .livre-desc{font-size:.84rem;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-bottom:1.7rem;}
-    .livre-btn{
-      display:inline-flex;align-items:center;gap:.55rem;
-      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-      color:rgba(255,255,255,.88);padding:.88rem 1.7rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
-      transition:all .2s;
-    }
+    .livre-btn{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);padding:.88rem 1.7rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;}
     .livre-btn:hover{background:rgba(255,255,255,.18);}
     .livre-chapters{display:flex;flex-direction:column;gap:.55rem;}
-    .lc{
-      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-      border-radius:3px;padding:.78rem 1rem;
-      display:flex;align-items:center;gap:.75rem;
-    }
+    .lc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.78rem 1rem;display:flex;align-items:center;gap:.75rem;}
     .lc-num{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.3);flex-shrink:0;width:20px;}
     .lc-text{font-size:.78rem;color:rgba(255,255,255,.58);line-height:1.42;font-weight:300;}
 
     /* CTA FINAL */
     .cta-final{padding:5.5rem 4rem 6rem;}
-    .cta-box{
-      max-width:980px;margin:0 auto;
-      background:linear-gradient(158deg,var(--terra),var(--terra-fonce));
-      border-radius:6px;padding:3.5rem 3rem;text-align:center;
-      position:relative;overflow:hidden;
-    }
-    .cta-box::before{
-      content:'';position:absolute;inset:0;
-      background:radial-gradient(ellipse 50% 55% at 25% 55%,rgba(255,255,255,.07),transparent 60%);
-      pointer-events:none;
-    }
+    .cta-box{max-width:980px;margin:0 auto;background:linear-gradient(158deg,var(--terra),var(--terra-fonce));border-radius:6px;padding:3.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+    .cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 25% 55%,rgba(255,255,255,.07),transparent 60%);pointer-events:none;}
     .cta-box *{position:relative;z-index:1;}
     .cta-deco{margin:0 auto 1.4rem;display:block;opacity:.35;}
-    .cta-box h2{
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;color:white;line-height:1.06;margin-bottom:.85rem;
-    }
+    .cta-box h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;color:white;line-height:1.06;margin-bottom:.85rem;}
     .cta-box h2 em{font-style:italic;font-weight:400;}
     .cta-box p{font-size:.9rem;color:rgba(255,255,255,.68);line-height:1.82;max-width:560px;margin:0 auto 2rem;font-weight:300;}
     .cta-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
-    .btn-white{
-      display:inline-flex;align-items:center;gap:.5rem;
-      background:white;color:var(--terra);
-      padding:.95rem 1.9rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-      transition:transform .2s,box-shadow .2s;
-      box-shadow:0 6px 24px rgba(0,0,0,.12);
-    }
+    .btn-white{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--terra);padding:.95rem 1.9rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 24px rgba(0,0,0,.12);}
     .btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.18);}
-    .btn-outline-white{
-      display:inline-flex;align-items:center;gap:.5rem;
-      background:transparent;color:rgba(255,255,255,.85);
-      padding:.95rem 1.7rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;
-      border:1px solid rgba(255,255,255,.3);
-      transition:all .2s;
-    }
+    .btn-outline-white{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:rgba(255,255,255,.85);padding:.95rem 1.7rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;border:1px solid rgba(255,255,255,.3);transition:all .2s;}
     .btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
 
     /* FOOTER */
@@ -401,6 +226,38 @@
     .footer-bottom-links a{font-size:.68rem;color:rgba(255,255,255,.2);transition:color .18s;}
     .footer-bottom-links a:hover{color:var(--terra-clair);}
 
+    /* ── COOKIES ── */
+    .cookie-banner{
+      position:fixed;bottom:0;left:0;right:0;z-index:9000;
+      background:#3A1F12;
+      border-top:1px solid rgba(216,140,106,.18);
+      padding:1.1rem 2rem;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1.5rem;flex-wrap:wrap;
+      box-shadow:0 -8px 32px rgba(58,31,18,.18);
+      transition:transform .35s ease,opacity .35s ease;
+    }
+    .cookie-banner.hidden{transform:translateY(100%);opacity:0;pointer-events:none;}
+    .cookie-text{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300;max-width:700px;}
+    .cookie-text a{color:var(--terra-clair);text-decoration:underline;text-underline-offset:3px;}
+    .cookie-actions{display:flex;gap:.65rem;flex-shrink:0;flex-wrap:wrap;}
+    .cookie-accept{
+      background:var(--terra);color:white;
+      border:none;padding:.55rem 1.2rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.74rem;font-weight:600;
+      letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
+      transition:background .18s;
+    }
+    .cookie-accept:hover{background:var(--terra-fonce);}
+    .cookie-decline{
+      background:transparent;color:rgba(255,255,255,.45);
+      border:1px solid rgba(255,255,255,.15);
+      padding:.55rem 1rem;border-radius:4px;
+      font-family:'Jost',sans-serif;font-size:.74rem;font-weight:400;cursor:pointer;
+      transition:all .18s;
+    }
+    .cookie-decline:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.65);}
+
     /* REVEAL */
     .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
     .reveal.revealed{opacity:1;transform:translateY(0);}
@@ -416,12 +273,12 @@
     @media(max-width:760px){
       .avis-grid,.outils-grid{grid-template-columns:1fr;}
       .trust{gap:1.2rem;}
+      .cookie-banner{padding:1rem 1.2rem;}
+      .cookie-text{font-size:.74rem;}
     }
     @media(max-width:900px){
       body{padding-top:62px;}
       nav{height:62px;padding:0 1.1rem;}
-      .nav-links{display:none;}
-      .nav-burger{display:flex;}
       .nav-mobile{top:62px;}
       .cursor,.cursor-ring{display:none;}
       footer{padding:2.5rem 1.5rem 1.5rem;}
@@ -441,40 +298,34 @@
   <div class="cursor-ring" id="ring"></div>
 
   <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Laura Charron</a>
-  <div class="nav-links">
+  <nav>
+    <a href="index.html" class="nav-logo">Laura Charron</a>
+    <div class="nav-links">
+      <a href="comprendre.html">Comprendre</a>
+      <a href="seance.html">Séances</a>
+      <a href="contact.html">Contact</a>
+      <a href="a-propos.html">Qui suis-je</a>
+      <a href="outils.html">Outils gratuits</a>
+      <a href="genosociogramme.html">Mon arbre</a>
+      <a href="login.html" class="nav-espace">Mon espace</a>
+      <a href="contact.html" class="nav-cta">Réserver</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile" id="nav-mobile">
     <a href="comprendre.html">Comprendre</a>
     <a href="seance.html">Séances</a>
     <a href="contact.html">Contact</a>
     <a href="a-propos.html">Qui suis-je</a>
     <a href="outils.html">Outils gratuits</a>
     <a href="genosociogramme.html">Mon arbre</a>
-    <a href="login.html" class="nav-espace">Mon espace</a>
-    <a href="seance.html#reservation" class="nav-cta">Réserver →</a>
+    <a href="login.html">Mon espace</a>
+    <a href="contact.html" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
   </div>
-  <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
 
-<div class="nav-mobile" id="nav-mobile">
-  <a href="comprendre.html">Comprendre</a>
-  <a href="seance.html">Séances</a>
-  <a href="contact.html">Contact</a>
-  <a href="a-propos.html">Qui suis-je</a>
-  <a href="outils.html">Outils gratuits</a>
-  <a href="genosociogramme.html">Mon arbre</a>
-  <a href="login.html">Mon espace</a>
-  <a href="seance.html#reservation" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
-</div>
-
-<script>
-document.getElementById('burger').addEventListener('click',function(){
-  this.classList.toggle('open');
-  document.getElementById('nav-mobile').classList.toggle('open');
-});
-</script>
   <!-- HERO -->
   <header class="hero">
     <div class="hero-inner">
@@ -484,20 +335,13 @@ document.getElementById('burger').addEventListener('click',function(){
           Psychogénéalogie · À distance &amp; à domicile
         </div>
         <h1>Ce qui se répète<br>dans ta vie a peut-être<br><em>commencé avant toi</em></h1>
-        <p class="hero-sub">
-          Les schémas familiaux, les blocages qui reviennent, les émotions sans explication —
-          ils ont souvent une origine plus ancienne que ta propre histoire.
-          La psychogénéalogie permet de les voir, de les comprendre et de les libérer.
-        </p>
-        <p class="hero-italic">
-          Séances individuelles avec Laura Charron — en visio ou à votre domicile.
-        </p>
+        <p class="hero-sub">Les schémas familiaux, les blocages qui reviennent, les émotions sans explication — ils ont souvent une origine plus ancienne que ta propre histoire. La psychogénéalogie permet de les voir, de les comprendre et de les libérer.</p>
+        <p class="hero-italic">Séances individuelles avec Laura Charron — en visio ou à votre domicile.</p>
         <div class="hero-actions">
           <a href="contact.html" class="btn-primary">Réserver une séance</a>
           <a href="parcours.html" class="btn-secondary">Explorer gratuitement</a>
         </div>
       </div>
-
       <div class="hero-card reveal">
         <div class="hc-tag">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1 L4 7 M1 4 L7 4" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
@@ -507,19 +351,19 @@ document.getElementById('burger').addEventListener('click',function(){
         <div class="hc-desc">Chaque répétition dans ta vie porte une information. Ensemble, nous remontons le fil.</div>
         <div class="hc-items">
           <div class="hc-item">
-            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 C8 2 4 5 4 9 C4 11.2 5.8 13 8 13 C10.2 13 12 11.2 12 9 C12 5 8 2 8 2Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 13 L8 14.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 C8 2 4 5 4 9 C4 11.2 5.8 13 8 13 C10.2 13 12 11.2 12 9 C12 5 8 2 8 2Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 13 L8 14.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2" stroke-linecap="round"/></svg>
             <span>Identifier les schémas familiaux invisibles</span>
           </div>
           <div class="hc-item">
-            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2"/><path d="M5.5 8 C6.5 6 9.5 6 10.5 8 C9.5 10 6.5 10 5.5 8Z" stroke="rgba(216,140,106,.9)" stroke-width="1" fill="none"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2"/><path d="M5.5 8 C6.5 6 9.5 6 10.5 8 C9.5 10 6.5 10 5.5 8Z" stroke="rgba(216,140,106,.9)" stroke-width="1" fill="none"/></svg>
             <span>Comprendre l'origine des répétitions émotionnelles</span>
           </div>
           <div class="hc-item">
-            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3 Q11 6 11 9 Q11 12 8 13 Q5 12 5 9 Q5 6 8 3Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 3 L8 13" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-dasharray="1.5 1.5"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3 Q11 6 11 9 Q11 12 8 13 Q5 12 5 9 Q5 6 8 3Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 3 L8 13" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-dasharray="1.5 1.5"/></svg>
             <span>Libérer les mémoires héritées de la lignée</span>
           </div>
           <div class="hc-item">
-            <svg class="hc-item-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13 Q8 3 13 13" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5.5 9 L10.5 9" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13 Q8 3 13 13" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5.5 9 L10.5 9" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-linecap="round"/></svg>
             <span>Reprendre ta place dans ton propre récit</span>
           </div>
         </div>
@@ -529,29 +373,14 @@ document.getElementById('burger').addEventListener('click',function(){
 
   <!-- TRUST -->
   <div class="trust">
-    <div class="trust-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Séances individuelles
-    </div>
-    <div class="trust-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      À distance en visio
-    </div>
-    <div class="trust-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      À votre domicile
-    </div>
-    <div class="trust-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Livre audio gratuit
-    </div>
-    <div class="trust-item">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Outils interactifs inclus
-    </div>
+    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Séances individuelles</div>
+    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>À distance en visio</div>
+    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>À votre domicile</div>
+    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Livre audio gratuit</div>
+    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Outils interactifs inclus</div>
   </div>
 
-  <!-- QUI EST LAURA -->
+  <!-- ABOUT -->
   <section class="about">
     <div class="section-inner">
       <div class="about-grid">
@@ -574,30 +403,14 @@ document.getElementById('burger').addEventListener('click',function(){
         </div>
         <div class="about-visual reveal">
           <div class="av-deco">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-              <path d="M24 4 C24 4 12 14 12 26 C12 34 17.4 40 24 40 C30.6 40 36 34 36 26 C36 14 24 4 24 4Z" stroke="rgba(216,140,106,.7)" stroke-width="1.4" fill="none"/>
-              <path d="M24 40 L24 44" stroke="rgba(216,140,106,.5)" stroke-width="1.4" stroke-linecap="round"/>
-              <path d="M18 22 C20 18 28 18 30 22" stroke="rgba(216,140,106,.4)" stroke-width="1" stroke-linecap="round" fill="none"/>
-            </svg>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M24 4 C24 4 12 14 12 26 C12 34 17.4 40 24 40 C30.6 40 36 34 36 26 C36 14 24 4 24 4Z" stroke="rgba(216,140,106,.7)" stroke-width="1.4" fill="none"/><path d="M24 40 L24 44" stroke="rgba(216,140,106,.5)" stroke-width="1.4" stroke-linecap="round"/><path d="M18 22 C20 18 28 18 30 22" stroke="rgba(216,140,106,.4)" stroke-width="1" stroke-linecap="round" fill="none"/></svg>
           </div>
           <div class="av-quote">"Certaines blessures ne viennent pas de ta vie. Elles viennent de ceux qui t'ont précédée — et tu as le pouvoir de les libérer."</div>
           <div class="av-list">
-            <div class="av-item">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Identifier les schémas familiaux invisibles
-            </div>
-            <div class="av-item">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Comprendre l'origine de tes répétitions
-            </div>
-            <div class="av-item">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Libérer les mémoires héritées
-            </div>
-            <div class="av-item">
-              <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Reprendre ta place dans ton histoire
-            </div>
+            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Identifier les schémas familiaux invisibles</div>
+            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Comprendre l'origine de tes répétitions</div>
+            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Libérer les mémoires héritées</div>
+            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reprendre ta place dans ton histoire</div>
           </div>
         </div>
       </div>
@@ -608,10 +421,7 @@ document.getElementById('burger').addEventListener('click',function(){
   <section class="seance">
     <div class="section-inner">
       <div class="reveal">
-        <div class="eyebrow">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
-          Séance de psychogénéalogie
-        </div>
+        <div class="eyebrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>Séance de psychogénéalogie</div>
         <h2 class="section-title">Un accompagnement<br><em>sur mesure</em></h2>
         <p class="section-sub" style="max-width:520px">Pour explorer ta lignée, identifier ce qui se répète et commencer à le transformer.</p>
       </div>
@@ -620,56 +430,32 @@ document.getElementById('burger').addEventListener('click',function(){
           <div class="sc-tag">Séance individuelle</div>
           <div class="sc-title">Psychogénéalogie &amp; Libération des mémoires</div>
           <div class="sc-modes">
-            <span class="sc-mode">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="3" width="9" height="6" rx="1.5" stroke="#6B3E2E" stroke-width="1.2"/><path d="M8 6 L10.5 4.5 L10.5 7.5 Z" fill="#6B3E2E"/></svg>
-              En visio
-            </span>
-            <span class="sc-mode">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 C4.3 1.5 3 2.8 3 4.5 C3 7 6 10.5 6 10.5 C6 10.5 9 7 9 4.5 C9 2.8 7.7 1.5 6 1.5Z" stroke="#6B3E2E" stroke-width="1.2" fill="none"/><circle cx="6" cy="4.5" r="1.2" fill="#6B3E2E"/></svg>
-              À domicile
-            </span>
+            <span class="sc-mode"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1.5" y="3" width="9" height="6" rx="1.5" stroke="#6B3E2E" stroke-width="1.2"/><path d="M8 6 L10.5 4.5 L10.5 7.5 Z" fill="#6B3E2E"/></svg>En visio</span>
+            <span class="sc-mode"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5 C4.3 1.5 3 2.8 3 4.5 C3 7 6 10.5 6 10.5 C6 10.5 9 7 9 4.5 C9 2.8 7.7 1.5 6 1.5Z" stroke="#6B3E2E" stroke-width="1.2" fill="none"/><circle cx="6" cy="4.5" r="1.2" fill="#6B3E2E"/></svg>À domicile</span>
           </div>
           <div class="sc-desc">Chaque séance part de ce que vous traversez — une répétition, un blocage, une relation difficile, une fatigue inexplicable. Ensemble, nous remontons le fil de votre lignée pour mettre des mots sur ce qui agit dans l'ombre.</div>
           <div class="sc-list">
-            <div class="sc-item">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Exploration de votre arbre familial et des schémas répétitifs
-            </div>
-            <div class="sc-item">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Identification des mémoires transgénérationnelles actives
-            </div>
-            <div class="sc-item">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Travail sur le corps, les émotions et les croyances héritées
-            </div>
-            <div class="sc-item">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Protocoles de libération adaptés à votre situation
-            </div>
+            <div class="sc-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Exploration de votre arbre familial et des schémas répétitifs</div>
+            <div class="sc-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Identification des mémoires transgénérationnelles actives</div>
+            <div class="sc-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Travail sur le corps, les émotions et les croyances héritées</div>
+            <div class="sc-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7 L5.5 10 L11.5 4" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Protocoles de libération adaptés à votre situation</div>
           </div>
           <div class="sc-price">Tarif sur demande · Première prise de contact sans engagement</div>
           <a href="contact.html" class="btn-primary" style="width:100%;justify-content:center;">Prendre contact</a>
         </div>
         <div class="seance-aside">
           <div class="aside-card">
-            <div class="aside-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4 C14 4 8 9 8 15 C8 18.3 10.7 21 14 21 C17.3 21 20 18.3 20 15 C20 9 14 4 14 4Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 21 L14 24" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round"/></svg>
-            </div>
+            <div class="aside-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4 C14 4 8 9 8 15 C8 18.3 10.7 21 14 21 C17.3 21 20 18.3 20 15 C20 9 14 4 14 4Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 21 L14 24" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round"/></svg></div>
             <div class="aside-title">Pour qui ?</div>
             <div class="aside-body">Pour toute personne qui ressent des répétitions dans ses relations, ses émotions ou sa vie — et qui veut comprendre d'où elles viennent.</div>
           </div>
           <div class="aside-card">
-            <div class="aside-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14 C7 10.1 10.1 7 14 7 C17.9 7 21 10.1 21 14 C21 17.9 17.9 21 14 21 C10.1 21 7 17.9 7 14Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 10 L14 14 L17 16" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
+            <div class="aside-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14 C7 10.1 10.1 7 14 7 C17.9 7 21 10.1 21 14 C21 17.9 17.9 21 14 21 C10.1 21 7 17.9 7 14Z" stroke="#6B3E2E" stroke-width="1.4" fill="none"/><path d="M14 10 L14 14 L17 16" stroke="#6B3E2E" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="aside-title">À domicile ou à distance</div>
             <div class="aside-body">Laura se déplace chez vous ou vous accompagne en visio. Chaque format permet un travail intérieur dans les meilleures conditions.</div>
           </div>
           <div class="aside-card">
-            <div class="aside-icon-wrap">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 21 C6 21 8 10 14 7 C20 10 22 21 22 21" stroke="#6B3E2E" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M10 16 C11 14 17 14 18 16" stroke="#6B3E2E" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-            </div>
+            <div class="aside-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 21 C6 21 8 10 14 7 C20 10 22 21 22 21" stroke="#6B3E2E" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M10 16 C11 14 17 14 18 16" stroke="#6B3E2E" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></div>
             <div class="aside-title">Comment ça se passe ?</div>
             <div class="aside-body">Un premier échange par message pour comprendre votre situation. Puis une ou plusieurs séances selon ce qui émerge. Le rythme est le vôtre.</div>
           </div>
@@ -682,127 +468,78 @@ document.getElementById('burger').addEventListener('click',function(){
   <section class="avis">
     <div class="section-inner">
       <div class="reveal" style="text-align:center">
-        <div class="eyebrow" style="justify-content:center">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
-          Témoignages
-        </div>
+        <div class="eyebrow" style="justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>Témoignages</div>
         <h2 class="section-title">Ce qu'en disent<br><em>celles qui ont consulté</em></h2>
       </div>
       <div class="avis-grid">
         <div class="avis-card reveal">
-          <div class="avis-deco">
-            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
-          </div>
+          <div class="avis-deco"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg></div>
           <div class="avis-text">"Dès le lendemain, confrontée à la même situation habituellement problématique, je ne la pensais plus de la même manière. Et donc mes réactions ont été différentes."</div>
           <div class="avis-sep"></div>
-          <div class="avis-author">
-            <div class="avis-av">S</div>
-            <div>
-              <div class="avis-name">Sophie</div>
-              <div class="avis-label">Patiente vérifiée · 2018</div>
-            </div>
-          </div>
+          <div class="avis-author"><div class="avis-av">S</div><div><div class="avis-name">Sophie</div><div class="avis-label">Patiente vérifiée · 2018</div></div></div>
         </div>
         <div class="avis-card reveal">
-          <div class="avis-deco">
-            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
-          </div>
+          <div class="avis-deco"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg></div>
           <div class="avis-text">"La justesse de ses propos a balayé toutes mes craintes. Je recommande chaudement Laura pour son écoute, ses axes de réflexion et la qualité de son contact."</div>
           <div class="avis-sep"></div>
-          <div class="avis-author">
-            <div class="avis-av">T</div>
-            <div>
-              <div class="avis-name">Thierry</div>
-              <div class="avis-label">Patient vérifié · 2018</div>
-            </div>
-          </div>
+          <div class="avis-author"><div class="avis-av">T</div><div><div class="avis-name">Thierry</div><div class="avis-label">Patient vérifié · 2018</div></div></div>
         </div>
         <div class="avis-card reveal">
-          <div class="avis-deco">
-            <svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg>
-          </div>
+          <div class="avis-deco"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path d="M2 2 C2 2 6 2 6 8 C6 12 3 14 3 14 L8 14 L8 20 L2 20 L2 14 C2 14 -1 12 -1 8 C-1 3 2 2 2 2Z" fill="rgba(198,93,59,.12)"/><path d="M18 2 C18 2 22 2 22 8 C22 12 19 14 19 14 L24 14 L24 20 L18 20 L18 14 C18 14 15 12 15 8 C15 3 18 2 18 2Z" fill="rgba(198,93,59,.12)"/></svg></div>
           <div class="avis-text">"J'ai pu comprendre d'où provenaient mes angoisses. Mme Charron est très professionnelle et humaine. Je la recommande vivement pour son écoute attentive et la pertinence de ses remarques."</div>
           <div class="avis-sep"></div>
-          <div class="avis-author">
-            <div class="avis-av">S</div>
-            <div>
-              <div class="avis-name">Sonia</div>
-              <div class="avis-label">Patiente vérifiée · 2018</div>
-            </div>
-          </div>
+          <div class="avis-author"><div class="avis-av">S</div><div><div class="avis-name">Sonia</div><div class="avis-label">Patiente vérifiée · 2018</div></div></div>
         </div>
       </div>
     </div>
   </section>
 
- <!-- LES PORTES DU VOYAGE -->
-<section class="outils" id="outils">
-  <div class="section-inner">
-    <div class="reveal" style="text-align:center">
-      <div class="eyebrow" style="justify-content:center">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/>
-        </svg>
-        Les portes du voyage
+  <!-- OUTILS -->
+  <section class="outils" id="outils">
+    <div class="section-inner">
+      <div class="reveal" style="text-align:center">
+        <div class="eyebrow" style="justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>Les portes du voyage</div>
+        <h2 class="section-title">Ouvrir la première porte,<br><em>à votre rythme</em></h2>
+        <p class="section-sub" style="max-width:560px;margin:0 auto">Chaque porte vous aide à observer votre histoire sous un angle différent. Commencez simplement par celle qui vous appelle aujourd'hui.</p>
       </div>
-
-      <h2 class="section-title">Ouvrir la première porte,<br><em>à votre rythme</em></h2>
-
-      <p class="section-sub" style="max-width:560px;margin:0 auto">
-        Chaque porte vous aide à observer votre histoire sous un angle différent.
-        Commencez simplement par celle qui vous appelle aujourd'hui.
-      </p>
+      <div class="outils-grid">
+        <a class="outil reveal" href="parcours.html">
+          <div class="outil-tag">Porte 01</div>
+          <h3>Commencer mon voyage</h3>
+          <p>Une première étape guidée pour comprendre ce qui se répète et poser les premiers mots.</p>
+          <div class="outil-arrow">Commencer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+        <a class="outil reveal" href="explorer.html">
+          <div class="outil-tag">Porte 02</div>
+          <h3>Explorer les indices</h3>
+          <p>Accédez aux outils pour observer votre lignée, votre arbre familial et les répétitions.</p>
+          <div class="outil-arrow">Explorer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+        <a class="outil reveal" href="comprendre.html">
+          <div class="outil-tag">Porte 03</div>
+          <h3>Comprendre les répétitions</h3>
+          <p>Découvrez pourquoi certains schémas reviennent et comment les observer autrement.</p>
+          <div class="outil-arrow">Comprendre <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+        <a class="outil reveal" href="espace.html">
+          <div class="outil-tag">Porte 04 · bientôt</div>
+          <h3>Mon espace de voyage</h3>
+          <p>Retrouvez bientôt votre arbre, vos exercices, vos sauvegardes et votre progression.</p>
+          <div class="outil-arrow">Préparer mon espace <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+      </div>
     </div>
-
-    <div class="outils-grid">
-
-      <a class="outil reveal" href="parcours.html">
-        <div class="outil-tag">Porte 01</div>
-        <h3>Commencer mon voyage</h3>
-        <p>Une première étape guidée pour comprendre ce qui se répète et poser les premiers mots.</p>
-        <div class="outil-arrow">Commencer</div>
-      </a>
-
-      <a class="outil reveal" href="explorer.html">
-        <div class="outil-tag">Porte 02</div>
-        <h3>Explorer les indices</h3>
-        <p>Accédez aux outils pour observer votre lignée, votre arbre familial et les répétitions.</p>
-        <div class="outil-arrow">Explorer</div>
-      </a>
-
-      <a class="outil reveal" href="comprendre.html">
-        <div class="outil-tag">Porte 03</div>
-        <h3>Comprendre les répétitions</h3>
-        <p>Découvrez pourquoi certains schémas reviennent et comment les observer autrement.</p>
-        <div class="outil-arrow">Comprendre</div>
-      </a>
-
-      <a class="outil reveal" href="espace.html">
-        <div class="outil-tag">Porte 04 · bientôt</div>
-        <h3>Mon espace de voyage</h3>
-        <p>Retrouvez bientôt votre arbre, vos exercices, vos sauvegardes et votre progression.</p>
-        <div class="outil-arrow">Préparer mon espace</div>
-      </a>
-
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- LIVRE AUDIO -->
   <section class="livre">
     <div class="section-inner">
       <div class="livre-box reveal">
         <div>
-          <div class="livre-eyebrow">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="rgba(228,205,185,.6)"/></svg>
-            Livre audio · Gratuit
-          </div>
+          <div class="livre-eyebrow"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="rgba(228,205,185,.6)"/></svg>Livre audio · Gratuit</div>
           <h2 class="livre-title">Ressens · Guéris · <em>Vis</em></h2>
           <p class="livre-desc">Le livre qui accompagne ce site — disponible gratuitement en audio. 10 chapitres pour comprendre les boucles psychologiques, les mémoires transgénérationnelles, l'énergie et les outils concrets de libération.</p>
-          <a href="parcours.html" class="livre-btn">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/><path d="M6.5 5.5 L11 8 L6.5 10.5 Z" fill="rgba(255,255,255,.7)"/></svg>
-            Écouter gratuitement
-          </a>
+          <a href="parcours.html" class="livre-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="rgba(255,255,255,.6)" stroke-width="1.2"/><path d="M6.5 5.5 L11 8 L6.5 10.5 Z" fill="rgba(255,255,255,.7)"/></svg>Écouter gratuitement</a>
         </div>
         <div class="livre-chapters">
           <div class="lc"><span class="lc-num">01</span><span class="lc-text">Briser la boucle — comprendre les schémas répétitifs</span></div>
@@ -819,11 +556,7 @@ document.getElementById('burger').addEventListener('click',function(){
   <!-- CTA FINAL -->
   <section class="cta-final">
     <div class="cta-box reveal">
-      <svg class="cta-deco" width="60" height="60" viewBox="0 0 60 60" fill="none">
-        <path d="M30 8 C30 8 16 20 16 34 C16 42 22.3 48 30 48 C37.7 48 44 42 44 34 C44 20 30 8 30 8Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/>
-        <path d="M30 48 L30 53" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M22 28 C24 24 36 24 38 28" stroke="rgba(255,255,255,.3)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-      </svg>
+      <svg class="cta-deco" width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 8 C30 8 16 20 16 34 C16 42 22.3 48 30 48 C37.7 48 44 42 44 34 C44 20 30 8 30 8Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/><path d="M30 48 L30 53" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"/><path d="M22 28 C24 24 36 24 38 28" stroke="rgba(255,255,255,.3)" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
       <h2>Tu reconnais ces<br><em>schémas dans ta vie ?</em></h2>
       <p>Une séance de psychogénéalogie peut être le premier pas pour mettre des mots sur ce qui se rejoue — et commencer à t'en libérer.</p>
       <div class="cta-actions">
@@ -845,11 +578,11 @@ document.getElementById('burger').addEventListener('click',function(){
           <h4>Séances</h4>
           <a href="contact.html">Réserver une séance</a>
           <a href="contact.html">Me contacter</a>
-          <a href="index.html#about">À propos</a>
+          <a href="a-propos.html">À propos</a>
         </div>
         <div class="footer-col">
           <h4>Outils gratuits</h4>
-          <a href="parcours.html">Mémoires de lignée</a>
+          <a href="parcours.html">Commencer le voyage</a>
           <a href="genosociogramme.html">Génosociogramme</a>
           <a href="arbre-famille.html">Ma famille</a>
           <a href="journal.html">Journal guidé</a>
@@ -862,33 +595,59 @@ document.getElementById('burger').addEventListener('click',function(){
           <a href="arbre-vie.html">Arbre de Vie</a>
           <a href="transgen.html">Transgénérationnel</a>
           <a href="parcours.html">Livre audio gratuit</a>
+          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="confidentialite.html">Confidentialité</a>
         </div>
       </div>
       <div class="footer-bottom">
         <p>© Laura Charron 2026 · Tous droits réservés · Ressens · Guéris · Vis</p>
         <div class="footer-bottom-links">
           <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Mentions légales</a>
           <a href="parcours.html">Livre audio</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- BANDEAU COOKIES -->
+  <div class="cookie-banner" id="cookie-banner">
+    <p class="cookie-text">
+      Ce site utilise uniquement des données stockées localement dans votre navigateur (localStorage) pour sauvegarder vos exercices et votre progression — aucune donnée n'est transmise à un serveur tiers. En continuant à naviguer, vous acceptez cette utilisation.
+      <a href="confidentialite.html">En savoir plus</a>
+    </p>
+    <div class="cookie-actions">
+      <button class="cookie-accept" id="cookie-accept">J'accepte</button>
+      <button class="cookie-decline" id="cookie-decline">Continuer sans accepter</button>
+    </div>
+  </div>
+
   <script>
+    /* cursor */
     const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-    const burger=document.getElementById('burger'),mobileMenu=document.getElementById('nav-mobile');
     let mx=0,my=0,rx=0,ry=0;
     if(window.innerWidth>900){
       document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}});
       (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(loop);})();
     }
-    if(burger&&mobileMenu){
-      burger.addEventListener('click',()=>{burger.classList.toggle('open');mobileMenu.classList.toggle('open');});
-      mobileMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{burger.classList.remove('open');mobileMenu.classList.remove('open');}));
+
+    /* nav burger */
+    const burger=document.getElementById('burger'),mob=document.getElementById('nav-mobile');
+    if(burger&&mob){
+      burger.addEventListener('click',()=>{burger.classList.toggle('open');mob.classList.toggle('open');});
+      mob.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{burger.classList.remove('open');mob.classList.remove('open');}));
     }
+
+    /* reveal */
     const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
     setTimeout(()=>document.querySelectorAll('.reveal:not(.revealed)').forEach(el=>el.classList.add('revealed')),800);
+
+    /* cookies */
+    const banner=document.getElementById('cookie-banner');
+    if(localStorage.getItem('lc_cookies')){banner.classList.add('hidden');}
+    document.getElementById('cookie-accept').addEventListener('click',()=>{localStorage.setItem('lc_cookies','accepted');banner.classList.add('hidden');});
+    document.getElementById('cookie-decline').addEventListener('click',()=>{localStorage.setItem('lc_cookies','declined');banner.classList.add('hidden');});
   </script>
 </body>
 </html>
