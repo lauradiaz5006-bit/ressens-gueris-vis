@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Psychogénéalogie : définition, intérêts et limites · Lignéa</title>
+  <meta name="description" content="Psychogénéalogie : définition simple, origines, ce qu'elle peut apporter, ses limites et ses dangers. Un avis honnête pour l'aborder avec esprit critique.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/psychogenealogie.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .def{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+    .def svg{width:190px;height:auto}
+    .def .grand{font-family:var(--display);font-size:clamp(1.35rem,2.4vw,1.7rem);line-height:1.4;max-width:40rem}
+    .def p+p{margin-top:1rem;color:var(--prune-doux)}
+
+    .sources{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rose)}
+    .sources article{padding:1.8rem 1.8rem 1.6rem 0}
+    .sources article+article{padding-left:1.8rem;border-left:1px solid var(--rose)}
+    .sources .mot{font-family:var(--display);font-size:1.1rem;color:var(--champagne)}
+    .sources h3{margin:.3rem 0 .6rem}
+    .sources p{color:var(--prune-doux)}
+
+    .apports{list-style:none;display:grid;gap:1rem;max-width:46rem}
+    .apports li{display:grid;grid-template-columns:3rem 1fr;gap:.2rem 1.2rem;align-items:start;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.2rem 1.4rem}
+    .apports svg{width:2.6rem;height:2.6rem;grid-row:span 2}
+    .apports h3{font-size:1.25rem}
+    .apports p{color:var(--prune-doux);font-size:.99rem}
+
+    .limites{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .limites .constat{padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .limites h3{margin-bottom:.8rem}
+    .limites .constat p{color:var(--prune-doux)}
+    .limites .constat p+p{margin-top:.8rem}
+    .derives{padding:2rem;border-radius:var(--rayon);background:var(--prune);color:#F4E4EE}
+    .derives h3{color:var(--blanc)}
+    .derives ul{list-style:none;display:grid;gap:1rem;margin-top:1rem}
+    .derives li{padding-left:1.5rem;position:relative}
+    .derives li::before{content:'';position:absolute;left:0;top:.55rem;width:.6rem;height:.6rem;border-radius:50%;border:1.5px solid var(--corail)}
+    .derives strong{color:var(--blanc);font-weight:600}
+
+    .boussole{display:grid;grid-template-columns:1fr 1fr;gap:1rem 3rem;list-style:none;counter-reset:b}
+    .boussole li{counter-increment:b;padding:1.3rem 0;border-top:1px solid var(--rose);display:grid;grid-template-columns:2.4rem 1fr;gap:1rem}
+    .boussole li::before{content:counter(b);width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);background:var(--champagne-clair)}
+    .boussole strong{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.2rem}
+    .boussole span{color:var(--prune-doux);font-size:.99rem}
+
+    .chemins{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1.5rem}
+    .chemins a{display:block;text-decoration:none;padding:1.8rem;border-radius:var(--rayon);border:1px solid var(--rose);background:var(--blanc);transition:border-color .2s}
+    .chemins a:hover{border-color:var(--champagne)}
+    .chemins a.premier{background:linear-gradient(180deg,#FFF5EF,var(--blanc) 75%);border-color:var(--champagne-clair)}
+    .chemins h3{margin-bottom:.5rem}
+    .chemins p{color:var(--prune-doux)}
+    .chemins .lire{display:inline-block;margin-top:.9rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+    @media (max-width:860px){
+      .def{grid-template-columns:1fr;gap:1.5rem}
+      .def svg{width:150px}
+      .sources{grid-template-columns:1fr}
+      .sources article,.sources article+article{padding:1.4rem 0;border-left:0;border-top:1px solid var(--rose)}
+      .sources article:first-child{border-top:0}
+      .limites,.boussole,.chemins{grid-template-columns:1fr}
+      .boussole{gap:0}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "La psychogénéalogie est-elle dangereuse ?", "acceptedAnswer": {"@type": "Answer", "text": "Regarder son histoire familiale n'a rien de dangereux en soi. Le risque vient des dérives : un praticien qui promet la guérison, qui impose ses interprétations ou qui crée une dépendance. Garde ton esprit critique, et éloigne-toi de toute personne qui te promet un résultat ou te demande de couper les ponts avec tes proches."}},
+      {"@type": "Question", "name": "La psychogénéalogie est-elle scientifique ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Elle n'est pas reconnue comme une discipline scientifique, et ses interprétations ne sont pas démontrées. On peut s'en servir comme d'une grille de lecture pour réfléchir à son histoire, à condition de ne pas la prendre pour une vérité."}},
+      {"@type": "Question", "name": "Peut-on faire sa psychogénéalogie seul·e ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, en partie. Rassembler les dates, dessiner son arbre, noter ce qui se répète et se poser des questions, tout cela se fait très bien seul·e. Si ce travail remue des choses difficiles, n'hésite pas à te faire aider par un professionnel de santé."}}
+    ]
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>La psychogénéalogie, sans promesse</h1>
+        <p class="intro">La psychogénéalogie s'intéresse à ce qui se transmet dans une famille, d'une génération à l'autre. Elle peut aider à voir son histoire autrement. Elle a aussi des limites, et il vaut mieux les connaître avant de commencer.</p>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a><a class="btn btn-trait" href="#limites">Lire les limites</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="def">
+          <svg viewBox="0 0 190 200" aria-hidden="true">
+            <path d="M95 30 C95 60 50 60 50 90 M95 30 C95 60 140 60 140 90 M50 98 C50 125 30 125 30 150 M50 98 C50 125 70 125 70 150 M140 98 C140 125 120 125 120 150 M140 98 C140 125 160 125 160 150" fill="none" stroke="#6B2F5B" stroke-width="1.3" opacity=".45"/>
+            <circle cx="95" cy="22" r="10" fill="#B98A55"/>
+            <circle cx="50" cy="94" r="8" fill="#FFF9F7" stroke="#6B2F5B" stroke-width="1.3"/>
+            <circle cx="140" cy="94" r="8" fill="#FFF9F7" stroke="#6B2F5B" stroke-width="1.3"/>
+            <g fill="#FFF9F7" stroke="#6B2F5B" stroke-width="1.2"><circle cx="30" cy="156" r="6"/><circle cx="70" cy="156" r="6"/><circle cx="120" cy="156" r="6"/><circle cx="160" cy="156" r="6"/></g>
+            <path d="M30 172 Q95 200 160 172" fill="none" stroke="#E7A79E" stroke-width="1.4" stroke-dasharray="3 4"/>
+          </svg>
+          <div>
+            <h2 style="margin-bottom:1.2rem">Une définition simple</h2>
+            <p class="grand">La psychogénéalogie est une approche qui étudie l'histoire d'une famille sur plusieurs générations pour repérer ce qui semble se répéter : des événements, des places, des façons de vivre.</p>
+            <p>Concrètement, on rassemble les noms, les dates, les métiers et les événements marquants, puis on les dessine sous forme d'arbre. On regarde ensuite ce qui revient, et ce que cela peut évoquer pour soi aujourd'hui.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>D'où elle vient</h2>
+          <p>La psychogénéalogie s'est construite à partir de plusieurs sources. En voici trois, parmi les plus souvent citées.</p>
+        </div>
+        <div class="sources">
+          <article>
+            <span class="mot">En France</span>
+            <h3>Anne Ancelin Schützenberger</h3>
+            <p>Elle est la figure la plus associée à la psychogénéalogie en France.</p>
+          </article>
+          <article>
+            <span class="mot">Une notion clé</span>
+            <h3>Les loyautés invisibles</h3>
+            <p>Cette idée vient d'Ivan Boszormenyi-Nagy. Elle désigne les fidélités qui nous lient à notre famille, parfois sans que nous en ayons conscience.</p>
+          </article>
+          <article>
+            <span class="mot">Un outil</span>
+            <h3>Le génogramme</h3>
+            <p>Issu de la thérapie familiale, c'est un arbre qui note les liens et les événements. Le génosociogramme en est une version enrichie.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Ce qu'elle peut t'apporter</h2>
+          <p>Bien utilisée, elle ne donne pas de réponses toutes faites. Elle t'aide surtout à poser de meilleures questions.</p>
+        </div>
+        <ul class="apports">
+          <li>
+            <svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M9 14h26M9 22h18M9 30h22" stroke="#B98A55" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <h3>Mettre des mots</h3>
+            <p>Nommer ce qui revient dans ta vie, au lieu de le subir sans pouvoir le dire.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="13" cy="22" r="6" stroke="#B98A55" stroke-width="1.6"/><circle cx="31" cy="22" r="6" stroke="#B98A55" stroke-width="1.6"/><path d="M19 22h6" stroke="#B98A55" stroke-width="1.6"/></svg>
+            <h3>Relier des histoires</h3>
+            <p>Voir comment ton histoire s'inscrit dans celle des générations d'avant, et ce qui t'appartient vraiment.</p>
+          </li>
+          <li>
+            <svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M6 22c4-7 10-11 16-11s12 4 16 11c-4 7-10 11-16 11S10 29 6 22Z" stroke="#B98A55" stroke-width="1.6"/><circle cx="22" cy="22" r="4" fill="#B98A55"/></svg>
+            <h3>Voir ta famille autrement</h3>
+            <p>Comprendre le contexte dans lequel tes proches ont vécu, avec plus de recul et parfois plus de douceur.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="limites">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Ses limites, dites honnêtement</h2>
+          <p>Si tu cherches un avis sur la psychogénéalogie, voici ce qu'il faut savoir avant de t'y lancer.</p>
+        </div>
+        <div class="limites">
+          <div class="constat">
+            <h3>Ce n'est pas une science</h3>
+            <p>La psychogénéalogie n'est pas reconnue comme une discipline scientifique. Ses interprétations ne sont pas démontrées.</p>
+            <p>Une répétition dans un arbre peut avoir mille explications : le contexte d'une époque, un milieu social, ou tout simplement le hasard. Y voir un message transmis reste une hypothèse.</p>
+            <p>C'est pour cela qu'on peut l'utiliser comme une grille de lecture, jamais comme une vérité.</p>
+          </div>
+          <div class="derives">
+            <h3>Les dérives à connaître</h3>
+            <ul>
+              <li><strong>Les promesses de guérison.</strong> Certains praticiens promettent de « guérir » en travaillant sur l'arbre. Aucune approche de ce type ne peut le garantir.</li>
+              <li><strong>Les liens imposés.</strong> Relier une maladie à un ancêtre, ou décréter qu'une épreuve « vient » de quelqu'un, est une dérive. Personne ne peut l'affirmer à ta place.</li>
+              <li><strong>La dépendance.</strong> Un accompagnement qui ne finit jamais, ou qui t'éloigne de tes proches, doit t'alerter.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>L'aborder sainement</h2>
+          <p>Quatre repères simples pour garder la main sur ta propre histoire.</p>
+        </div>
+        <ol class="boussole">
+          <li><div><strong>Garde ton esprit critique</strong><span>Une piste n'est pas une preuve. Prends ce qui te parle, laisse le reste.</span></div></li>
+          <li><div><strong>Méfie-toi des promesses</strong><span>Plus une promesse est grande, plus il faut s'en méfier.</span></div></li>
+          <li><div><strong>Reste maître de tes interprétations</strong><span>C'est ton histoire. Personne ne sait mieux que toi ce qu'elle signifie.</span></div></li>
+          <li><div><strong>Fais-toi aider quand il le faut</strong><span>Les outils en ligne ne remplacent pas un professionnel de santé quand tu en as besoin.</span></div></li>
+        </ol>
+        <div class="encart" style="margin-top:2.5rem"><p><strong>Ce que nous proposons.</strong> Lignéa propose des outils gratuits pour observer ton histoire familiale et te poser des questions. Ce n'est pas une thérapie, et nous ne promettons aucun résultat.</p></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Par où commencer</h2>
+          <p>Trois portes d'entrée, à ton rythme.</p>
+        </div>
+        <div class="chemins">
+          <a class="premier" href="genosociogramme.html"><h3>Dessiner ton arbre familial</h3><p>Le génosociogramme interactif repère les prénoms répétés, les mêmes métiers, les mêmes épreuves et les âges qui coïncident.</p><span class="lire">Commencer mon arbre</span></a>
+          <a href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Ce qui passe d'une génération à l'autre, expliqué simplement.</p><span class="lire">Lire la page</span></a>
+          <a href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur, pour savoir où regarder en premier.</p><span class="lire">Découvrir la méthode</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Ce que beaucoup se demandent</h2></div>
+        <div class="questions">
+          <details><summary>La psychogénéalogie est-elle dangereuse ?</summary><p>Regarder son histoire familiale n'a rien de dangereux en soi. Le risque vient des dérives : un praticien qui promet la guérison, qui impose ses interprétations ou qui crée une dépendance. Garde ton esprit critique, et éloigne-toi de toute personne qui te promet un résultat ou te demande de couper les ponts avec tes proches.</p></details>
+          <details><summary>La psychogénéalogie est-elle scientifique ?</summary><p>Non. Elle n'est pas reconnue comme une discipline scientifique, et ses interprétations ne sont pas démontrées. On peut s'en servir comme d'une grille de lecture pour réfléchir à son histoire, à condition de ne pas la prendre pour une vérité.</p></details>
+          <details><summary>Peut-on faire sa psychogénéalogie seul·e ?</summary><p>Oui, en partie. Rassembler les dates, dessiner son arbre, noter ce qui se répète et se poser des questions, tout cela se fait très bien seul·e. Si ce travail remue des choses difficiles, n'hésite pas à te faire aider par un professionnel de santé.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="syndrome-anniversaire.html"><h3>Le syndrome d'anniversaire</h3><p>Quand une date semble revenir d'une génération à l'autre : faits, hypothèses et coïncidences.</p></a>
+          <a class="outil" href="les-10-sephiroth.html"><h3>Les dix Séphiroth de l'arbre de vie</h3><p>Le sens de chaque sphère, et ce qu'elle dit de ta vie.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme et repère ce qui se répète.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur, pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">Gratuit</span><p>Vingt affirmations pour voir quelles sphères nourrir aujourd'hui.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -51,9 +51,18 @@
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="vibration.html">Ma fréquence intérieure</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
+          '<div><h4>Guides</h4><ul>' +
+            '<li><a href="quest-ce-qu-un-genosociogramme.html">Qu\'est-ce qu\'un génosociogramme ?</a></li>' +
+            '<li><a href="comment-faire-son-genosociogramme.html">Comment faire son génosociogramme</a></li>' +
+            '<li><a href="exemple-genosociogramme.html">Exemple de génosociogramme</a></li>' +
+            '<li><a href="genosociogramme-vierge.html">Génosociogramme vierge (PDF)</a></li>' +
+            '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
             '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
+            '<li><a href="les-10-sephiroth.html">Les 10 Séphiroth</a></li>' +
+            '<li><a href="syndrome-anniversaire.html">Le syndrome d\'anniversaire</a></li>' +
+            '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
             '<li><a href="index.html#questions">Questions fréquentes</a></li></ul></div>' +
           '<div><h4>Informations</h4><ul>' +
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +

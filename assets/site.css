@@ -122,7 +122,7 @@ section.bloc{padding:4.5rem 0}
 .pied :where(h4,ul,li,p,span){margin:0;padding:0}
 .pied a{color:#F2DDEA;text-decoration:none}
 .pied a:hover{color:var(--blanc);text-decoration:underline}
-.pied-grille{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:2rem}
+.pied-grille{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:2rem}
 .pied h4{font:600 .95rem var(--texte);color:var(--blanc);margin-bottom:.8rem}
 .pied ul{list-style:none;display:grid;gap:.45rem;font-size:.95rem}
 .pied .marque{color:var(--blanc);margin-bottom:.8rem}

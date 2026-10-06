@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génosociogramme exemple : une famille lue pas à pas · Lignéa</title>
+  <meta name="description" content="Un exemple de génosociogramme complet sur quatre générations, avec sa lecture commentée : âges, prénoms, métiers et événements qui se répètent.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/exemple-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .famille{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .famille p+p{margin-top:1rem}
+    .fiche{list-style:none;display:grid;gap:.1rem;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .fiche li{display:grid;grid-template-columns:9.5rem 1fr;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--rose);font-size:.98rem}
+    .fiche li:last-child{border-bottom:0}
+    .fiche b{font-weight:600}
+    .fiche span{color:var(--prune-doux)}
+
+    .planche{border-radius:28px;background:linear-gradient(180deg,#FFFCFB,var(--blanc));border:1px solid var(--rose-fonce);padding:1.5rem}
+    .planche-defile{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .planche svg{width:100%;min-width:640px;max-width:900px;height:auto;margin:0 auto}
+    .planche .note{margin-top:.8rem;text-align:center;max-width:none}
+    .glisser{display:none}
+    .arbre .t{stroke:var(--prune);stroke-width:1.7;fill:none}
+    .arbre .f{fill:var(--blanc);stroke:var(--prune);stroke-width:1.7}
+    .arbre .moi{fill:var(--champagne-clair);stroke:var(--prune);stroke-width:1.7}
+    .arbre .nom{font:400 15px var(--display);fill:var(--prune)}
+    .arbre .nom.jeanne{fill:#9A6B36}
+    .arbre .an{font:600 11.5px var(--texte);fill:var(--prune-doux)}
+    .arbre .met{font:400 11.5px var(--texte);fill:var(--prune-doux)}
+    .arbre .evt{font:italic 11.5px var(--texte);fill:var(--champagne)}
+    .arbre .cle{font:700 11.5px var(--texte);fill:#C9675A}
+    .arbre .gen{font:600 11px var(--texte);fill:#C7A6BC}
+    .legende-mini{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;margin-top:1rem;font-size:.9rem;color:var(--prune-doux)}
+    .legende-mini span{display:inline-flex;align-items:center;gap:.45rem}
+    .legende-mini i{display:inline-block;width:.8rem;height:.8rem;border-radius:50%}
+
+    .lecture{list-style:none;counter-reset:l;max-width:52rem}
+    .lecture>li{counter-increment:l;position:relative;padding:0 0 2.4rem 4.2rem}
+    .lecture>li::before{content:counter(l);position:absolute;left:0;top:0;width:2.8rem;height:2.8rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;background:var(--champagne-clair);color:var(--prune);z-index:1}
+    .lecture>li::after{content:'';position:absolute;left:1.4rem;top:2.8rem;bottom:0;width:1px;background:var(--rose-fonce)}
+    .lecture>li:last-child{padding-bottom:0}
+    .lecture>li:last-child::after{display:none}
+    .lecture h3{font-size:1.45rem;margin:.35rem 0 .5rem}
+    .lecture p{color:var(--prune-doux)}
+    .lecture .fil{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:.9rem 0}
+    .lecture .fil span{font-size:.92rem;padding:.35rem .85rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .lecture .fil span.vif{background:#FBE7E3;border-color:#F0C2BA}
+    .lecture .fil em{font-style:normal;color:var(--champagne)}
+    .lecture .question{margin-top:.7rem;font-family:var(--display);font-size:1.15rem;color:var(--prune)}
+
+    .se-demander{list-style:none;display:grid;gap:.9rem;max-width:44rem}
+    .se-demander li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1rem 1.3rem;font-family:var(--display);font-size:1.18rem}
+
+    .ouvrir{display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;align-items:center;padding:2.4rem;border-radius:32px;background:radial-gradient(28rem 16rem at 100% 0%,rgba(248,214,200,.8),transparent 70%),var(--blanc);border:1px solid var(--rose-fonce)}
+    .ouvrir h2{margin-bottom:.7rem}
+    .ouvrir p{color:var(--prune-doux)}
+    .ouvrir .actions{justify-content:flex-end}
+
+    @media (max-width:860px){
+      .famille,.ouvrir{grid-template-columns:1fr}
+      .famille{gap:1.6rem}
+      .ouvrir{padding:1.8rem 1.4rem}
+      .ouvrir .actions{justify-content:flex-start}
+      .planche{padding:1rem}
+      .glisser{display:block}
+      .fiche li{grid-template-columns:1fr;gap:0}
+      .lecture>li{padding-left:3.6rem}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Un exemple de génosociogramme, lu pas à pas</h1>
+        <p class="intro">Voici un exemple de génosociogramme complet, sur quatre générations. La famille est fictive. On la dessine, puis on la lit ensemble, en repérant ce qui revient d'une génération à l'autre.</p>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html?exemple">Ouvrir cet exemple dans l'outil</a><a class="btn btn-trait" href="genosociogramme.html">Créer mon propre arbre</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur famille">
+        <div>
+          <h2>La famille de Léa</h2>
+          <p style="margin-top:1rem">Léa Martin est née en 1994. Elle est graphiste à Lyon. Séparée à 31 ans, elle sent monter une inquiétude à l'approche de ses 32 ans, sans pouvoir l'expliquer.</p>
+          <p>Elle décide de dessiner son génosociogramme. Elle commence par ce qu'elle sait, puis interroge sa mère pour compléter le côté maternel. Du côté de son père, elle connaît surtout ses grands-parents.</p>
+        </div>
+        <ul class="fiche" aria-label="Les personnes de l'arbre">
+          <li><b>Léa</b><span>née en 1994, graphiste</span></li>
+          <li><b>Hélène, sa mère</b><span>née en 1963, enseignante, divorcée à 32 ans</span></li>
+          <li><b>Marc, son père</b><span>né en 1960, commercial, parti après le divorce</span></li>
+          <li><b>Jeanne Durand</b><span>grand-mère maternelle, enseignante, veuve à 32 ans</span></li>
+          <li><b>Henri Durand</b><span>grand-père maternel, menuisier, mort à 34 ans</span></li>
+          <li><b>Rosa et Antonio</b><span>grands-parents paternels, arrivés d'Italie en 1949</span></li>
+          <li><b>Jeanne Moreau</b><span>arrière-grand-mère, institutrice, veuve de guerre à 28 ans</span></li>
+          <li><b>Louis Moreau</b><span>arrière-grand-père, cheminot, mort au front en 1940</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>L'arbre dessiné</h2>
+          <p>Carré pour un homme, cercle pour une femme, croix pour une personne décédée. Le trait horizontal relie un couple, les deux barres obliques marquent un divorce. Léa est au centre, avec un double contour.</p>
+        </div>
+        <figure class="planche">
+          <div class="planche-defile" role="region" aria-label="Schéma de l'arbre" tabindex="0">
+            <svg class="arbre" viewBox="0 0 780 720" role="img" aria-label="Génosociogramme de la famille fictive de Léa sur quatre générations">
+              <!-- Générations -->
+              <text class="gen" x="12" y="74">1</text>
+              <text class="gen" x="12" y="254">2</text>
+              <text class="gen" x="12" y="434">3</text>
+              <text class="gen" x="12" y="614">4</text>
+              <!-- Liens -->
+              <path class="t" d="M160 70H260M210 70V230"/>
+              <path class="t" d="M230 250H330M280 250V360H330V410"/>
+              <path class="t" d="M540 250H640M590 250V360H470V410"/>
+              <path class="t" d="M350 430H450M400 430V588"/>
+              <path class="t" d="M364 440L374 420M374 440L384 420"/>
+              <!-- Génération 1 -->
+              <rect class="f" x="120" y="50" width="40" height="40" rx="3"/>
+              <path class="t" d="M120 50L160 90M160 50L120 90"/>
+              <text class="nom" x="140" y="114" text-anchor="middle">Louis</text>
+              <text class="an" x="140" y="130" text-anchor="middle">1910 – 1940</text>
+              <text class="met" x="140" y="145" text-anchor="middle">cheminot</text>
+              <text class="evt" x="140" y="160" text-anchor="middle">mort au front à 30 ans</text>
+              <circle class="f" cx="280" cy="70" r="20"/>
+              <path class="t" d="M266 56L294 84M294 56L266 84"/>
+              <text class="nom jeanne" x="280" y="114" text-anchor="middle">Jeanne Moreau</text>
+              <text class="an" x="280" y="130" text-anchor="middle">1912 – 1988</text>
+              <text class="met" x="280" y="145" text-anchor="middle">institutrice</text>
+              <text class="evt" x="280" y="160" text-anchor="middle">veuve à 28 ans</text>
+              <!-- Génération 2 -->
+              <circle class="f" cx="210" cy="250" r="20"/>
+              <path class="t" d="M196 236L224 264M224 236L196 264"/>
+              <text class="nom jeanne" x="200" y="294" text-anchor="middle">Jeanne Durand</text>
+              <text class="an" x="200" y="310" text-anchor="middle">1938 – 2015</text>
+              <text class="met" x="200" y="325" text-anchor="middle">enseignante</text>
+              <text class="cle" x="200" y="340" text-anchor="middle">veuve à 32 ans</text>
+              <rect class="f" x="330" y="230" width="40" height="40" rx="3"/>
+              <path class="t" d="M330 230L370 270M370 230L330 270"/>
+              <text class="nom" x="360" y="294" text-anchor="middle">Henri</text>
+              <text class="an" x="360" y="310" text-anchor="middle">1936 – 1970</text>
+              <text class="met" x="360" y="325" text-anchor="middle">menuisier</text>
+              <text class="evt" x="360" y="340" text-anchor="middle">mort à 34 ans</text>
+              <circle class="f" cx="520" cy="250" r="20"/>
+              <path class="t" d="M506 236L534 264M534 236L506 264"/>
+              <text class="nom" x="512" y="294" text-anchor="middle">Rosa</text>
+              <text class="an" x="512" y="310" text-anchor="middle">1935 – 2010</text>
+              <text class="met" x="512" y="325" text-anchor="middle">couturière</text>
+              <text class="evt" x="512" y="340" text-anchor="middle">arrivée d'Italie en 1949</text>
+              <rect class="f" x="640" y="230" width="40" height="40" rx="3"/>
+              <path class="t" d="M640 230L680 270M680 230L640 270"/>
+              <text class="nom" x="672" y="294" text-anchor="middle">Antonio</text>
+              <text class="an" x="672" y="310" text-anchor="middle">1932 – 2001</text>
+              <text class="met" x="672" y="325" text-anchor="middle">maçon</text>
+              <text class="evt" x="672" y="340" text-anchor="middle">arrivé d'Italie en 1949</text>
+              <!-- Génération 3 -->
+              <circle class="f" cx="330" cy="430" r="20"/>
+              <text class="nom" x="316" y="474" text-anchor="middle">Hélène</text>
+              <text class="an" x="316" y="490" text-anchor="middle">née en 1963</text>
+              <text class="met" x="316" y="505" text-anchor="middle">enseignante</text>
+              <text class="cle" x="316" y="520" text-anchor="middle">divorce à 32 ans</text>
+              <rect class="f" x="450" y="410" width="40" height="40" rx="3"/>
+              <text class="nom" x="484" y="474" text-anchor="middle">Marc</text>
+              <text class="an" x="484" y="490" text-anchor="middle">né en 1960</text>
+              <text class="met" x="484" y="505" text-anchor="middle">commercial</text>
+              <text class="evt" x="484" y="520" text-anchor="middle">parti après le divorce</text>
+              <!-- Génération 4 -->
+              <circle class="f" cx="400" cy="610" r="22"/>
+              <circle class="moi" cx="400" cy="610" r="15"/>
+              <text class="nom" x="400" y="656" text-anchor="middle">Léa</text>
+              <text class="an" x="400" y="672" text-anchor="middle">née en 1994</text>
+              <text class="met" x="400" y="687" text-anchor="middle">graphiste</text>
+              <text class="cle" x="400" y="702" text-anchor="middle">à l'approche de 32 ans</text>
+            </svg>
+          </div>
+          <div class="legende-mini" aria-hidden="true">
+            <span><i style="background:#C9675A"></i>l'âge de 32 ans</span>
+            <span><i style="background:#9A6B36"></i>le prénom Jeanne</span>
+            <span><i style="background:#B98A55;opacity:.6"></i>événements</span>
+          </div>
+          <p class="note glisser">Fais glisser le schéma pour le voir en entier.</p>
+        </figure>
+        <p class="note" style="margin-top:1rem">Les arrière-grands-parents paternels ne sont pas connus de Léa : ils n'apparaissent pas. Un côté moins rempli est fréquent. Tous les symboles sont expliqués sur la page <a href="symboles-genosociogramme.html">les symboles du génosociogramme</a>.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>La lecture, pas à pas</h2>
+          <p>On regarde l'arbre dans son ensemble, puis on cherche ce qui revient. Chaque répétition est une coïncidence à interroger, pas une cause. Elle ouvre une question.</p>
+        </div>
+        <ol class="lecture">
+          <li>
+            <h3>Un âge qui revient : 32 ans</h3>
+            <p>Jeanne Durand devient veuve à 32 ans. Sa fille Hélène divorce à 32 ans. Léa, à l'approche du même âge, sent monter une inquiétude.</p>
+            <div class="fil"><span class="vif">Jeanne, 32 ans, 1970</span><em>puis</em><span class="vif">Hélène, 32 ans, 1995</span><em>puis</em><span class="vif">Léa, bientôt 32 ans</span></div>
+            <p class="question">Que s'est-il passé, pour chacune, autour de cet âge ? Qu'en a-t-on raconté à Léa ?</p>
+          </li>
+          <li>
+            <h3>Un prénom transmis : Jeanne</h3>
+            <p>La grand-mère de Léa porte le même prénom que sa propre mère. Les deux Jeanne ont un autre point commun : chacune a perdu son mari jeune et a élevé seule ses enfants.</p>
+            <p class="question">Pourquoi ce prénom a-t-il été choisi ? Qu'est-ce qu'il portait pour la famille ?</p>
+          </li>
+          <li>
+            <h3>Un métier sur trois générations</h3>
+            <p>Jeanne Moreau était institutrice. Sa fille Jeanne Durand, enseignante. Sa petite-fille Hélène, enseignante elle aussi. Léa est graphiste : elle a pris un autre chemin.</p>
+            <div class="fil"><span>institutrice</span><em>puis</em><span>enseignante</span><em>puis</em><span>enseignante</span><em>puis</em><span>graphiste</span></div>
+            <p class="question">Comment ce métier s'est-il transmis ? Qu'a-t-on dit quand Léa en a choisi un autre ?</p>
+          </li>
+          <li>
+            <h3>Deux veuvages, à trente ans d'écart</h3>
+            <p>En 1940, Louis meurt au front. Jeanne Moreau a 28 ans et ne se remarie pas. En 1970, Henri meurt dans un accident de travail. Jeanne Durand a 32 ans et élève seule ses trois enfants.</p>
+            <p class="question">Quelle image du couple et de la femme seule s'est construite dans cette lignée ?</p>
+          </li>
+          <li>
+            <h3>Un exil côté paternel</h3>
+            <p>Antonio et Rosa arrivent d'Italie en 1949, adolescents. Leur nom de famille est francisé. Marc, leur fils, part après le divorce et reste peu présent ensuite.</p>
+            <p class="question">Qu'a-t-on gardé, et qu'a-t-on laissé, en quittant l'Italie ? Comment parlait-on des départs dans cette famille ?</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Ce que Léa peut se demander</h2>
+          <p>L'arbre ne donne pas de réponse. Il aide à poser de meilleures questions, et à distinguer ce qui appartient à son histoire de ce qui vient d'avant.</p>
+        </div>
+        <ul class="se-demander">
+          <li>Mon inquiétude à l'approche de 32 ans est-elle vraiment la mienne ?</li>
+          <li>Qu'est-ce que je sais de la vie de ma mère et de ma grand-mère à cet âge-là ?</li>
+          <li>Qu'est-ce que je pourrais vivre autrement, en connaissant cette histoire ?</li>
+        </ul>
+        <div class="encart" style="margin-top:2.5rem"><p><strong>Des coïncidences, pas des causes.</strong> Ces rapprochements ne disent pas ce qui va arriver à Léa. Ils montrent des dates et des événements qui se répondent. C'est à elle de voir ce qui lui parle, et ce qui ne la concerne pas.</p></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="ouvrir">
+          <div>
+            <h2>À toi de jouer</h2>
+            <p>Ouvre l'arbre de Léa dans l'outil pour voir les répétitions repérées automatiquement. Puis crée le tien, avec ce que tu sais déjà.</p>
+          </div>
+          <div class="actions"><a class="btn btn-plein" href="genosociogramme.html?exemple">Ouvrir cet exemple dans l'outil</a><a class="btn btn-trait" href="genosociogramme.html">Créer mon propre arbre</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc" style="padding-top:0">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>La définition, et la différence avec le génogramme et l'arbre généalogique.</p></a>
+          <a class="outil" href="comment-faire-son-genosociogramme.html"><h3>Comment faire son génosociogramme</h3><p>Les six étapes, les questions à poser à ta famille et quelques conseils.</p></a>
+          <a class="outil" href="symboles-genosociogramme.html"><h3>Les symboles du génosociogramme</h3><p>La légende illustrée : personnes, couples, enfants, relations.</p></a>
+          <a class="outil" href="genosociogramme-vierge.html"><h3>Le modèle vierge à imprimer</h3><p>Un génosociogramme vide en PDF, à remplir à la main.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>L'outil en ligne gratuit</h3><p>Dessine ton arbre familial : les répétitions sont repérées automatiquement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les 10 Séphiroth de l'arbre de vie : signification · Lignéa</title>
+  <meta name="description" content="Kéter, Hokhma, Bina, Tiferet, Malkhout… Les 10 séphiroth de l'arbre de vie de la Kabbale, leur signification et ce qu'elles disent de ta vie.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/les-10-sephiroth.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Schéma interactif */
+    .explorer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3rem;align-items:center}
+    .arbre{max-width:380px;width:100%;margin-inline:auto}
+    .arbre svg{width:100%;height:auto;overflow:visible}
+    .arbre .chemin{stroke:var(--champagne);stroke-width:1.2;opacity:.55;fill:none}
+    .arbre .petales ellipse{fill:var(--rose-fonce);opacity:.5;transition:fill .25s,opacity .25s}
+    .arbre .sphere{cursor:pointer}
+    .arbre .sphere:hover .petales ellipse,.arbre .sphere:focus-visible .petales ellipse{fill:var(--corail);opacity:.45}
+    .arbre .sphere.actif .petales ellipse{fill:var(--corail);opacity:.75}
+    .arbre .sphere circle.coeur{fill:#FFFAF6;stroke:var(--champagne);stroke-width:1.6;transition:fill .25s}
+    .arbre .sphere.actif circle.coeur{fill:var(--champagne)}
+    .arbre .sphere:focus{outline:none}
+    .arbre .sphere:focus-visible circle.coeur{stroke:var(--prune);stroke-width:2.4}
+    .arbre .sphere text.num{font-family:var(--display);font-size:11px;fill:var(--prune);pointer-events:none}
+    .arbre .sphere.actif text.num{fill:var(--blanc)}
+    .arbre .daat circle.coeur{fill:var(--nacre);stroke:var(--prune-doux);stroke-dasharray:3 3;stroke-width:1.2}
+    .arbre .daat .petales{display:none}
+    .arbre .daat.actif circle.coeur{fill:var(--rose);stroke:var(--prune)}
+    .arbre text.nom{font-family:var(--texte);font-size:11.5px;fill:var(--prune-doux);pointer-events:none}
+    .arbre text.pilier{font-family:var(--texte);font-size:10.5px;fill:var(--champagne);font-weight:600}
+
+    .fiche{background:linear-gradient(180deg,#FFF6EF,var(--blanc) 80%);border:1px solid var(--champagne-clair);border-radius:var(--rayon);padding:2rem 2rem 1.8rem;min-height:17rem}
+    .fiche .indice{font-size:.92rem;color:var(--champagne);font-weight:600}
+    .fiche h3{font-size:2.1rem;margin:.2rem 0 .3rem}
+    .fiche .trad{font-family:var(--display);font-size:1.2rem;color:var(--prune-doux);margin-bottom:1rem}
+    .fiche .domaine{font-size:1.08rem}
+    .fiche .reperes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+    .fiche .reperes span{font-size:.88rem;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .8rem;color:var(--prune-doux)}
+    .fiche .invite{color:var(--prune-doux)}
+
+    /* Les dix sphères, par zone */
+    .zones{display:grid;gap:3.2rem}
+    .zone-tete{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
+    .zone-tete h3{font-size:1.7rem}
+    .zone-tete span{color:var(--champagne);font-weight:600;font-size:.95rem}
+    .zone > p{color:var(--prune-doux);margin-bottom:.6rem}
+    .dix{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
+    .dix li{display:grid;grid-template-columns:2.8rem 1fr;gap:.15rem 1rem;padding:1.4rem 0;border-top:1px solid var(--rose)}
+    .dix .n{grid-row:span 3;width:2.6rem;height:2.6rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .zone.coeur .dix .n{background:var(--rose-fonce)}
+    .zone.racine .dix .n{background:var(--prune);color:var(--blanc)}
+    .dix h4{font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.2}
+    .dix .trad{font-family:var(--display);color:var(--champagne);font-size:1.08rem}
+    .dix p{color:var(--prune-doux);font-size:.99rem;margin-top:.3rem}
+
+    /* Piliers */
+    .piliers{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:1.5rem;align-items:stretch}
+    .pilier{padding:1.8rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);position:relative;overflow:hidden}
+    .pilier::before{content:'';position:absolute;inset:0 auto 0 0;width:5px;background:var(--rose-fonce)}
+    .pilier.droite::before{background:var(--corail)}
+    .pilier.centre{background:linear-gradient(180deg,#FFF5EF,var(--blanc) 75%);border-color:var(--champagne-clair)}
+    .pilier.centre::before{background:var(--champagne)}
+    .pilier .cote{font-size:.9rem;color:var(--champagne);font-weight:600}
+    .pilier h3{margin:.2rem 0 .6rem}
+    .pilier p{color:var(--prune-doux)}
+    .pilier .qui{margin-top:.9rem;font-family:var(--display);font-size:1.05rem;color:var(--prune)}
+
+    .daat-encart{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:center;margin-top:2.5rem;padding:1.6rem 1.8rem;border-radius:var(--rayon);border:1px dashed var(--prune-doux);background:var(--nacre)}
+    .daat-encart svg{width:64px;height:64px}
+
+    .cycles-lien{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+    .cycles-lien svg{width:200px;height:auto}
+    .cycles-lien ul{list-style:none;display:grid;gap:1.1rem;margin-top:1.4rem}
+    .cycles-lien li{padding-left:1.4rem;position:relative}
+    .cycles-lien li::before{content:'';position:absolute;left:0;top:.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    .cycles-lien li.c2::before{background:var(--corail)}
+    .cycles-lien li.c1::before{background:var(--prune)}
+    .cycles-lien strong{font-weight:600}
+
+    .appel{text-align:center;padding:3rem 2rem;border-radius:var(--rayon);background:radial-gradient(30rem 16rem at 50% 0%,rgba(248,214,200,.8),transparent 70%),var(--blanc);border:1px solid var(--champagne-clair)}
+    .appel h2{margin-bottom:.8rem}
+    .appel p{margin:0 auto 1.6rem;color:var(--prune-doux)}
+    .appel .btn{font-size:1.08rem;padding:1.05rem 2rem}
+
+    @media (max-width:860px){
+      .explorer{grid-template-columns:1fr;gap:1.5rem}
+      .fiche{min-height:0}
+      .dix{grid-template-columns:1fr}
+      .piliers{grid-template-columns:1fr}
+      .cycles-lien{grid-template-columns:1fr;gap:1.5rem}
+      .cycles-lien svg{margin-inline:auto;width:170px}
+      .daat-encart{grid-template-columns:1fr}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "D'où vient l'arbre de vie ?", "acceptedAnswer": {"@type": "Answer", "text": "L'arbre de vie tel qu'on le dessine ici vient de la Kabbale, la tradition mystique juive. Il a ensuite été repris et réinterprété par bien d'autres courants. Nous l'utilisons comme une grille de lecture symbolique, sans prétendre enseigner la Kabbale."}},
+      {"@type": "Question", "name": "Faut-il être croyant·e ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Ici, l'arbre sert de carte pour regarder ta vie : dix domaines reliés entre eux. Tu peux t'en servir quelles que soient tes convictions, ou sans aucune."}},
+      {"@type": "Question", "name": "Quelle différence avec un calcul par date de naissance ?", "acceptedAnswer": {"@type": "Answer", "text": "Certains sites proposent de calculer ton arbre de vie à partir de ta date de naissance. Notre test ne calcule rien à partir de ta date de naissance : il part de tes réponses à vingt affirmations sur ce que tu vis aujourd'hui. Ton résultat peut donc évoluer quand ta vie évolue."}}
+    ]
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>L'arbre de vie et ses dix Séphiroth</h1>
+        <p class="intro">L'arbre de vie vient de la Kabbale, la tradition mystique juive. Il relie dix sphères, les Séphiroth, par vingt-deux chemins. Nous l'utilisons ici comme une grille de lecture symbolique, pour regarder ta vie autrement, sans prétendre enseigner la Kabbale.</p>
+        <div class="actions"><a class="btn btn-plein" href="arbre-de-vie.html">Faire le test gratuit</a><a class="btn btn-trait" href="#les-dix">Découvrir les dix sphères</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Explore l'arbre de vie</h2>
+          <p>Touche une sphère pour découvrir son nom, sa traduction usuelle et le domaine de vie qu'elle éclaire.</p>
+        </div>
+        <div class="explorer">
+          <div class="arbre">
+            <svg viewBox="-10 0 380 480" role="group" aria-label="Schéma de l'arbre de vie : dix sphères reliées par vingt-deux chemins, avec Daat en pointillés">
+              <defs>
+                <radialGradient id="lumiere" cx="50%" cy="45%" r="50%">
+                  <stop offset="0" stop-color="#FFE9DC" stop-opacity=".95"/>
+                  <stop offset="1" stop-color="#FFE9DC" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <ellipse cx="180" cy="240" rx="190" ry="240" fill="url(#lumiere)"/>
+              <g aria-hidden="true">
+                <path class="chemin" d="M180 40 L270 95"/><path class="chemin" d="M180 40 L90 95"/>
+                <path class="chemin" d="M180 40 L180 240"/><path class="chemin" d="M270 95 L90 95"/>
+                <path class="chemin" d="M270 95 L180 240"/><path class="chemin" d="M270 95 L270 190"/>
+                <path class="chemin" d="M90 95 L180 240"/><path class="chemin" d="M90 95 L90 190"/>
+                <path class="chemin" d="M270 190 L90 190"/><path class="chemin" d="M270 190 L180 240"/>
+                <path class="chemin" d="M270 190 L270 320"/><path class="chemin" d="M90 190 L180 240"/>
+                <path class="chemin" d="M90 190 L90 320"/><path class="chemin" d="M180 240 L270 320"/>
+                <path class="chemin" d="M180 240 L180 370"/><path class="chemin" d="M180 240 L90 320"/>
+                <path class="chemin" d="M270 320 L90 320"/><path class="chemin" d="M270 320 L180 370"/>
+                <path class="chemin" d="M270 320 L180 440"/><path class="chemin" d="M90 320 L180 370"/>
+                <path class="chemin" d="M90 320 L180 440"/><path class="chemin" d="M180 370 L180 440"/>
+                <text class="pilier" x="90" y="470" text-anchor="middle">Rigueur</text>
+                <text class="pilier" x="180" y="470" text-anchor="middle">Équilibre</text>
+                <text class="pilier" x="270" y="470" text-anchor="middle">Miséricorde</text>
+              </g>
+              <g class="sphere" data-s="keter" tabindex="0" role="button" aria-label="Kéter"><circle class="coeur" cx="180" cy="40" r="15"/><text class="num" x="180" y="44" text-anchor="middle">1</text></g>
+              <g class="sphere" data-s="hokhma" tabindex="0" role="button" aria-label="Hokhma"><circle class="coeur" cx="270" cy="95" r="13"/><text class="num" x="270" y="99" text-anchor="middle">2</text></g>
+              <g class="sphere" data-s="bina" tabindex="0" role="button" aria-label="Bina"><circle class="coeur" cx="90" cy="95" r="13"/><text class="num" x="90" y="99" text-anchor="middle">3</text></g>
+              <g class="sphere daat" data-s="daat" tabindex="0" role="button" aria-label="Daat, la sphère cachée"><circle class="coeur" cx="180" cy="142" r="9"/></g>
+              <g class="sphere" data-s="hessed" tabindex="0" role="button" aria-label="Hessed"><circle class="coeur" cx="270" cy="190" r="13"/><text class="num" x="270" y="194" text-anchor="middle">4</text></g>
+              <g class="sphere" data-s="guevoura" tabindex="0" role="button" aria-label="Guevoura"><circle class="coeur" cx="90" cy="190" r="13"/><text class="num" x="90" y="194" text-anchor="middle">5</text></g>
+              <g class="sphere" data-s="tiferet" tabindex="0" role="button" aria-label="Tiferet"><circle class="coeur" cx="180" cy="240" r="15"/><text class="num" x="180" y="244" text-anchor="middle">6</text></g>
+              <g class="sphere" data-s="netsah" tabindex="0" role="button" aria-label="Netsah"><circle class="coeur" cx="270" cy="320" r="13"/><text class="num" x="270" y="324" text-anchor="middle">7</text></g>
+              <g class="sphere" data-s="hod" tabindex="0" role="button" aria-label="Hod"><circle class="coeur" cx="90" cy="320" r="13"/><text class="num" x="90" y="324" text-anchor="middle">8</text></g>
+              <g class="sphere" data-s="yessod" tabindex="0" role="button" aria-label="Yessod"><circle class="coeur" cx="180" cy="370" r="13"/><text class="num" x="180" y="374" text-anchor="middle">9</text></g>
+              <g class="sphere" data-s="malkhout" tabindex="0" role="button" aria-label="Malkhout"><circle class="coeur" cx="180" cy="440" r="13"/><text class="num" x="180" y="444" text-anchor="middle">10</text></g>
+              <g aria-hidden="true">
+                <text class="nom" x="206" y="36">Kéter</text>
+                <text class="nom" x="298" y="99">Hokhma</text>
+                <text class="nom" x="62" y="99" text-anchor="end">Bina</text>
+                <text class="nom" x="298" y="194">Hessed</text>
+                <text class="nom" x="62" y="194" text-anchor="end">Guevoura</text>
+                <text class="nom" x="206" y="232">Tiferet</text>
+                <text class="nom" x="298" y="324">Netsah</text>
+                <text class="nom" x="62" y="324" text-anchor="end">Hod</text>
+                <text class="nom" x="204" y="374">Yessod</text>
+                <text class="nom" x="204" y="444">Malkhout</text>
+                <text class="nom" x="194" y="146" font-style="italic">Daat</text>
+              </g>
+            </svg>
+          </div>
+          <div class="fiche" id="fiche" aria-live="polite">
+            <p class="indice">Mode d'emploi</p>
+            <h3>Choisis une sphère</h3>
+            <p class="invite">Clique ou touche l'une des dix sphères du schéma. Au clavier, passe de l'une à l'autre avec la touche Tabulation, puis appuie sur Entrée ou Espace.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="les-dix">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Les dix Séphiroth, une à une</h2>
+          <p>On les numérote du haut vers le bas, de Kéter à Malkhout. Pour chacune, voici sa traduction usuelle et une lecture concrète, tournée vers ta vie de tous les jours.</p>
+        </div>
+        <div class="zones">
+          <div class="zone">
+            <div class="zone-tete"><h3>Les trois du haut</h3><span>L'élan</span></div>
+            <p>Le sens, les idées, la compréhension : ce qui te donne une direction.</p>
+            <ol class="dix">
+              <li><span class="n">1</span><h4>Kéter</h4><span class="trad">La couronne</span><p>Elle parle du sens, de ce qui te met en mouvement. Elle pose une question simple : qu'est-ce qui donne une direction à ta vie, au-delà des obligations ?</p></li>
+              <li><span class="n">2</span><h4>Hokhma</h4><span class="trad">La sagesse</span><p>C'est l'étincelle avant le projet : une intuition, une idée qui jaillit. Elle t'invite à écouter ce qui surgit avant de le juger.</p></li>
+              <li><span class="n">3</span><h4>Bina</h4><span class="trad">L'intelligence, la compréhension</span><p>Elle donne forme à l'intuition : comprendre, organiser, poser un cadre. C'est elle qui t'aide à y voir clair quand tout se complique.</p></li>
+            </ol>
+          </div>
+          <div class="zone coeur">
+            <div class="zone-tete"><h3>Le centre</h3><span>Le cœur</span></div>
+            <p>Ce que tu donnes, ce que tu protèges, et l'équilibre entre les deux.</p>
+            <ol class="dix" start="4">
+              <li><span class="n">4</span><h4>Hessed</h4><span class="trad">La bonté, la grâce</span><p>Elle parle de ce que tu offres : ton temps, ton attention, ton affection. La question est de savoir si tu donnes librement, ou pour être aimé·e.</p></li>
+              <li><span class="n">5</span><h4>Guevoura</h4><span class="trad">La rigueur, la force</span><p>Elle équilibre la générosité : savoir dire non, poser une limite, protéger ce qui compte. Une limite claire préserve souvent le lien au lieu de le briser.</p></li>
+              <li><span class="n">6</span><h4>Tiferet</h4><span class="trad">La beauté, l'harmonie</span><p>Au centre de l'arbre, elle relie ce que tu fais et ce que tu es. Tu la sens quand ta vie te ressemble, sans rôle à jouer.</p></li>
+            </ol>
+          </div>
+          <div class="zone racine">
+            <div class="zone-tete"><h3>Le bas de l'arbre</h3><span>La racine</span></div>
+            <p>La durée, les mots, les liens et le concret : ce qui te fait tenir debout.</p>
+            <ol class="dix" start="7">
+              <li><span class="n">7</span><h4>Netsah</h4><span class="trad">La victoire, l'éternité</span><p>C'est l'élan qui dure, le désir qui te fait continuer. Elle interroge ce que tu mènes au bout, et ce que tu lâches juste avant.</p></li>
+              <li><span class="n">8</span><h4>Hod</h4><span class="trad">La gloire, la splendeur</span><p>Elle parle de ta façon de penser et de dire les choses. Ce qui ne se disait pas dans ta famille se lit souvent ici.</p></li>
+              <li><span class="n">9</span><h4>Yessod</h4><span class="trad">Le fondement</span><p>Elle rassemble tes émotions et tes attachements. C'est souvent là que tes relations semblent rejouer la même histoire.</p></li>
+              <li><span class="n">10</span><h4>Malkhout</h4><span class="trad">Le royaume</span><p>C'est la sphère la plus proche du quotidien : ton toit, ton travail, ta place dans le monde. Elle est le point de départ du cycle de la racine.</p></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Les trois piliers</h2>
+          <p>Lues en colonnes, les sphères dessinent trois piliers. Sur notre schéma, la rigueur est à gauche, la miséricorde à droite, et l'équilibre au centre.</p>
+        </div>
+        <div class="piliers">
+          <article class="pilier">
+            <span class="cote">À gauche</span>
+            <h3>Le pilier de la rigueur</h3>
+            <p>Le cadre, la limite, la forme. Ce qui structure et ce qui retient.</p>
+            <p class="qui">Bina, Guevoura, Hod</p>
+          </article>
+          <article class="pilier centre">
+            <span class="cote">Au centre</span>
+            <h3>Le pilier de l'équilibre</h3>
+            <p>Il relie les deux autres et descend du sens jusqu'au concret. C'est l'axe où rigueur et miséricorde se rencontrent.</p>
+            <p class="qui">Kéter, Tiferet, Yessod, Malkhout</p>
+          </article>
+          <article class="pilier droite">
+            <span class="cote">À droite</span>
+            <h3>Le pilier de la miséricorde</h3>
+            <p>L'élan, l'ouverture, le don. Ce qui pousse vers l'avant et vers les autres.</p>
+            <p class="qui">Hokhma, Hessed, Netsah</p>
+          </article>
+        </div>
+        <div class="daat-encart">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="22" fill="#FFF9F7" stroke="#8E6383" stroke-width="1.4" stroke-dasharray="4 4"/><circle cx="32" cy="32" r="4" fill="#B98A55"/></svg>
+          <p><strong>Et Daat ?</strong> Certaines représentations ajoutent une onzième sphère, Daat, la « connaissance », placée sur le pilier du milieu, entre Hokhma et Bina. On la dit souvent cachée, et on ne la compte en général pas parmi les dix. Sur le schéma, elle apparaît en pointillés.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="cycles-lien">
+          <svg viewBox="0 0 200 250" aria-hidden="true">
+            <rect x="20" y="4" width="160" height="66" rx="30" fill="#FFF6EC" stroke="#F3DCC0"/>
+            <rect x="20" y="78" width="160" height="70" rx="30" fill="#FCEFF3" stroke="#EBCFD5"/>
+            <rect x="20" y="156" width="160" height="90" rx="30" fill="#FBF1EE" stroke="#EBCFD5"/>
+            <g stroke="#B98A55" stroke-width="1" opacity=".55"><path d="M100 22 L145 46 M100 22 L55 46 M100 22 L100 118 M145 46 L55 46 M145 46 L145 96 M55 46 L55 96 M145 96 L55 96 M145 96 L100 118 M55 96 L100 118 M100 118 L145 176 M100 118 L55 176 M145 176 L55 176 M100 118 L100 204 M145 176 L100 230 M55 176 L100 230 M100 204 L100 230"/></g>
+            <g fill="#FFFAF6" stroke="#B98A55" stroke-width="1.3"><circle cx="100" cy="22" r="8"/><circle cx="145" cy="46" r="7"/><circle cx="55" cy="46" r="7"/></g>
+            <g fill="#EBCFD5" stroke="#B98A55" stroke-width="1.3"><circle cx="145" cy="96" r="7"/><circle cx="55" cy="96" r="7"/><circle cx="100" cy="118" r="8"/></g>
+            <g fill="#6B2F5B"><circle cx="145" cy="176" r="7"/><circle cx="55" cy="176" r="7"/><circle cx="100" cy="204" r="7"/><circle cx="100" cy="230" r="7"/></g>
+          </svg>
+          <div>
+            <h2>Le lien avec les deux cycles</h2>
+            <p style="margin-top:.9rem;color:var(--prune-doux)">La <a href="methode.html">méthode des deux cycles</a> lit l'arbre en trois zones. Elles t'aident à savoir où regarder en premier.</p>
+            <ul>
+              <li class="c1"><strong>Les sphères du bas, la racine.</strong> Netsah, Hod, Yessod et Malkhout parlent du cycle 1 : la sécurité, ta place, le droit d'exister.</li>
+              <li class="c2"><strong>Le centre, le cœur.</strong> Hessed, Guevoura et Tiferet parlent du cycle 2 : aimer et être aimé·e.</li>
+              <li><strong>Les trois du haut, l'élan.</strong> Kéter, Hokhma et Bina parlent du sens et de la direction, qui se libèrent quand les deux cycles s'apaisent.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="appel">
+          <h2>Et toi, où en est ton arbre ?</h2>
+          <p>Vingt affirmations, quelques minutes. Chaque sphère prend une couleur : à nourrir, en mouvement ou lumineuse. Le test est gratuit et tes réponses restent dans ton navigateur.</p>
+          <a class="btn btn-plein" href="arbre-de-vie.html">Faire le test gratuit de l'arbre de vie</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Ce que beaucoup se demandent</h2></div>
+        <div class="questions">
+          <details><summary>D'où vient l'arbre de vie ?</summary><p>L'arbre de vie tel qu'on le dessine ici vient de la Kabbale, la tradition mystique juive. Il a ensuite été repris et réinterprété par bien d'autres courants. Nous l'utilisons comme une grille de lecture symbolique, sans prétendre enseigner la Kabbale.</p></details>
+          <details><summary>Faut-il être croyant·e ?</summary><p>Non. Ici, l'arbre sert de carte pour regarder ta vie : dix domaines reliés entre eux. Tu peux t'en servir quelles que soient tes convictions, ou sans aucune.</p></details>
+          <details><summary>Quelle différence avec un calcul par date de naissance ?</summary><p>Certains sites proposent de calculer ton arbre de vie à partir de ta date de naissance. Notre test ne calcule rien à partir de ta date de naissance : il part de tes réponses à vingt affirmations sur ce que tu vis aujourd'hui. Ton résultat peut donc évoluer quand ta vie évolue.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">Gratuit</span><p>Découvre quelles sphères sont à nourrir, en mouvement ou lumineuses pour toi aujourd'hui.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète dans ta vie.</p></a>
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+          <a class="outil" href="syndrome-anniversaire.html"><h3>Le syndrome d'anniversaire</h3><p>Quand une date semble revenir d'une génération à l'autre : faits, hypothèses et coïncidences.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme et repère ce qui se répète dans ta lignée.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Ce qui passe d'une génération à l'autre, et par où commencer.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    (function () {
+      var S = {
+        keter:    {n:'1', nom:'Kéter', trad:'La couronne', dom:'Le sens, ce qui te met en mouvement.', zone:"L'élan", pil:"Pilier de l'équilibre"},
+        hokhma:   {n:'2', nom:'Hokhma', trad:'La sagesse', dom:"L'intuition, les idées qui jaillissent.", zone:"L'élan", pil:'Pilier de la miséricorde'},
+        bina:     {n:'3', nom:'Bina', trad:"L'intelligence, la compréhension", dom:'La compréhension, la structure.', zone:"L'élan", pil:'Pilier de la rigueur'},
+        hessed:   {n:'4', nom:'Hessed', trad:'La bonté, la grâce', dom:"La générosité, l'amour que tu donnes.", zone:'Cycle 2 · Le cœur', pil:'Pilier de la miséricorde'},
+        guevoura: {n:'5', nom:'Guevoura', trad:'La rigueur, la force', dom:'Les limites, la capacité à dire non.', zone:'Cycle 2 · Le cœur', pil:'Pilier de la rigueur'},
+        tiferet:  {n:'6', nom:'Tiferet', trad:"La beauté, l'harmonie", dom:"L'équilibre, le cœur : quand ce que tu fais rejoint ce que tu es.", zone:'Cycle 2 · Le cœur', pil:"Pilier de l'équilibre"},
+        netsah:   {n:'7', nom:'Netsah', trad:"La victoire, l'éternité", dom:'La persévérance, le désir.', zone:'Cycle 1 · La racine', pil:'Pilier de la miséricorde'},
+        hod:      {n:'8', nom:'Hod', trad:'La gloire, la splendeur', dom:'La pensée, les mots, la communication.', zone:'Cycle 1 · La racine', pil:'Pilier de la rigueur'},
+        yessod:   {n:'9', nom:'Yessod', trad:'Le fondement', dom:'Les émotions et les liens.', zone:'Cycle 1 · La racine', pil:"Pilier de l'équilibre"},
+        malkhout: {n:'10', nom:'Malkhout', trad:'Le royaume', dom:"La vie matérielle, l'ancrage, ta place.", zone:'Cycle 1 · La racine', pil:"Pilier de l'équilibre"},
+        daat:     {n:'', nom:'Daat', trad:'La connaissance', dom:"Une sphère dite cachée, placée entre Hokhma et Bina. On ne la compte en général pas parmi les dix.", zone:'', pil:"Pilier de l'équilibre"}
+      };
+      var fiche = document.getElementById('fiche');
+      var spheres = document.querySelectorAll('.arbre .sphere');
+      var NS = 'http://www.w3.org/2000/svg';
+      spheres.forEach(function (g) {
+        if (g.classList.contains('daat')) return;
+        var c = g.querySelector('circle.coeur'), x = +c.getAttribute('cx'), y = +c.getAttribute('cy'), r = +c.getAttribute('r');
+        var p = document.createElementNS(NS, 'g'); p.setAttribute('class', 'petales');
+        for (var i = 0; i < 6; i++) {
+          var e = document.createElementNS(NS, 'ellipse');
+          e.setAttribute('cx', x); e.setAttribute('cy', y - r * 1.3); e.setAttribute('rx', r * 0.5); e.setAttribute('ry', r * 0.8);
+          e.setAttribute('transform', 'rotate(' + (i * 60) + ' ' + x + ' ' + y + ')');
+          p.appendChild(e);
+        }
+        g.insertBefore(p, g.firstChild);
+      });
+      function montre(g) {
+        spheres.forEach(function (x) { x.classList.remove('actif'); x.setAttribute('aria-pressed', 'false'); });
+        g.classList.add('actif'); g.setAttribute('aria-pressed', 'true');
+        var d = S[g.getAttribute('data-s')];
+        var rep = '<span>' + d.pil + '</span>' + (d.zone ? '<span>' + d.zone + '</span>' : '');
+        fiche.innerHTML = '<p class="indice">' + (d.n ? 'Sphère ' + d.n + ' sur 10' : 'La sphère cachée') + '</p>' +
+          '<h3>' + d.nom + '</h3><p class="trad">' + d.trad + '</p><p class="domaine">' + d.dom + '</p>' +
+          '<div class="reperes">' + rep + '</div>';
+      }
+      spheres.forEach(function (g) {
+        g.setAttribute('aria-pressed', 'false');
+        g.addEventListener('click', function () { montre(g); });
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); montre(g); }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génogramme symboles : la légende du génosociogramme · Lignéa</title>
+  <meta name="description" content="Les symboles du génosociogramme et du génogramme, illustrés : homme, femme, décès, union, divorce, enfants, jumeaux, adoption, relations.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/symboles-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .legende{list-style:none;max-width:52rem}
+    .legende li{display:grid;grid-template-columns:9rem 1fr;gap:1.6rem;align-items:center;padding:1.1rem 0;border-top:1px solid var(--rose)}
+    .legende li:last-child{border-bottom:1px solid var(--rose)}
+    .symbole{display:grid;place-items:center;height:5.2rem;border-radius:18px;background:linear-gradient(180deg,#FFF8F2,var(--blanc));border:1px solid var(--champagne-clair)}
+    .bloc-doux .symbole{background:linear-gradient(180deg,#FCEFF3,#FFFCFB);border-color:var(--rose)}
+    .symbole svg{width:7.5rem;height:4rem}
+    .legende h3{font-size:1.3rem;margin-bottom:.25rem}
+    .legende p{color:var(--prune-doux)}
+    .legende p strong{color:var(--prune);font-weight:600}
+    .conventions{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .conventions p+p{margin-top:1rem}
+    @media (max-width:860px){
+      .conventions{grid-template-columns:1fr;gap:1.5rem}
+    }
+    @media (max-width:520px){
+      .legende li{grid-template-columns:6.5rem 1fr;gap:1rem;align-items:start}
+      .symbole{height:4.2rem}
+      .symbole svg{width:5.8rem;height:3.2rem}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Les symboles du génosociogramme</h1>
+        <p class="intro">Le génosociogramme reprend les symboles du génogramme : un carré pour un homme, un cercle pour une femme, des traits pour les liens. Voici la légende complète, un symbole par ligne, pour lire et dessiner ton arbre.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#personnes">Les personnes</a><a href="#couples">Les couples</a><a href="#enfants">Les enfants</a><a href="#relations">Les relations</a></nav>
+      </div>
+    </section>
+
+    <section class="bloc" id="personnes">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les personnes</h2><p>Chaque personne a un symbole. On écrit à côté son prénom, ses années de naissance et de décès, et ce qui a compté dans sa vie.</p></div>
+        <ul class="legende">
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Carré"><rect x="46.0" y="18.0" width="28" height="28" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Homme</h3><p><strong>Un carré.</strong> Un homme se représente par un carré. On écrit son prénom et ses années à côté.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Cercle"><circle cx="60" cy="32" r="14" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Femme</h3><p><strong>Un cercle.</strong> Une femme se représente par un cercle, de la même taille que le carré.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Losange"><path d="M60 14L78 32L60 50L42 32Z" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Sexe non connu</h3><p><strong>Un losange.</strong> Quand on ne sait pas s'il s'agit d'un homme ou d'une femme, on utilise un losange.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Carré et cercle barrés d'une croix"><rect x="24.0" y="18.0" width="28" height="28" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M24 18L52 46M52 18L24 46" stroke="#6B2F5B" stroke-width="1.8" fill="none"/><circle cx="84" cy="32" r="14" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M74 22L94 42M94 22L74 42" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Personne décédée</h3><p><strong>Une croix dans le symbole.</strong> On trace une croix à l'intérieur du carré ou du cercle, et on note l'année du décès.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Cercle à double contour"><circle cx="60" cy="32" r="17" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="60" cy="32" r="11" fill="#F3DCC0" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Soi-même</h3><p><strong>Un double contour.</strong> La personne qui fait l'arbre se dessine avec un double contour. C'est le point de départ.</p></div></li>
+        </ul>
+      </div>
+    </section>
+    <section class="bloc bloc-doux" id="couples">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les couples</h2><p>Le trait qui relie deux personnes dit la nature de leur union, et ce qu'elle est devenue.</p></div>
+        <ul class="legende">
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Carré et cercle reliés par un trait plein"><rect x="9.0" y="15.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="100" cy="26" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M31 26H89" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Union</h3><p><strong>Un trait horizontal plein.</strong> Un mariage ou une union officielle relie les deux personnes par un trait plein.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Carré et cercle reliés par un trait pointillé"><rect x="9.0" y="15.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="100" cy="26" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M31 26H89" stroke="#6B2F5B" stroke-width="1.8" fill="none" stroke-dasharray="5 4"/></svg></div><div><h3>Union libre</h3><p><strong>Un trait pointillé.</strong> Un couple non marié se relie par un trait pointillé.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Trait d'union coupé d'une barre oblique"><rect x="9.0" y="15.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="100" cy="26" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M31 26H89M55 38L65 14" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Séparation</h3><p><strong>Une barre oblique.</strong> Une séparation se marque d'une barre oblique sur le trait d'union. On peut noter l'année.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Trait d'union coupé de deux barres obliques"><rect x="9.0" y="15.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="100" cy="26" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M31 26H89M51 38L61 14M59 38L69 14" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Divorce</h3><p><strong>Deux barres obliques.</strong> Un divorce se marque de deux barres obliques sur le trait d'union, avec l'année si on la connaît.</p></div></li>
+        </ul>
+      </div>
+    </section>
+    <section class="bloc" id="enfants">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les enfants</h2><p>Les enfants sont placés sous leurs parents, du plus âgé au plus jeune, de gauche à droite.</p></div>
+        <ul class="legende">
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Ligne d'union avec deux traits vers deux enfants"><path d="M30 10H90M60 10V26M36 26H84M36 26V38M84 26V38" stroke="#6B2F5B" stroke-width="1.8" fill="none"/><rect x="26.0" y="39.0" width="20" height="20" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="84" cy="49" r="10" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Enfants</h3><p><strong>Un trait vertical depuis la ligne d'union.</strong> Chaque enfant est relié par un trait vertical qui part de la ligne d'union de ses parents, de l'aîné·e à gauche au plus jeune à droite.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Deux traits partant d'un même point vers deux enfants"><path d="M30 10H90M60 10V22M60 22L40 40M60 22L80 40" stroke="#6B2F5B" stroke-width="1.8" fill="none"/><circle cx="40" cy="50" r="10" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="80" cy="50" r="10" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Jumeaux</h3><p><strong>Deux traits partant d'un même point.</strong> Les jumeaux sont reliés à la ligne des parents par deux traits qui partent d'un même point.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Trait vertical pointillé vers un enfant"><path d="M30 10H90" stroke="#6B2F5B" stroke-width="1.8" fill="none"/><path d="M60 10V34" stroke="#6B2F5B" stroke-width="1.8" fill="none" stroke-dasharray="4 4"/><rect x="49.0" y="35.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Enfant adopté</h3><p><strong>Un trait pointillé.</strong> Un enfant adopté est relié à ses parents adoptifs par un trait vertical pointillé.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Petit triangle relié à la ligne des parents"><path d="M30 10H90M60 10V30" stroke="#6B2F5B" stroke-width="1.8" fill="none"/><path d="M60 32L70 50H50Z" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/></svg></div><div><h3>Grossesse interrompue ou enfant non né</h3><p><strong>Un petit triangle.</strong> Un enfant qui n'est pas né se note par un petit triangle, ou par un symbole plus petit. Il garde sa place dans la fratrie.</p></div></li>
+        </ul>
+      </div>
+    </section>
+    <section class="bloc bloc-doux" id="relations">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les relations</h2><p>Ces traits s'ajoutent par-dessus l'arbre, pour dire la qualité d'un lien entre deux personnes.</p></div>
+        <ul class="legende">
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Deux traits parallèles entre deux personnes"><rect x="7.0" y="21.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="102" cy="32" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M30 28H90M30 36H90" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Relation proche</h3><p><strong>Un double trait.</strong> Deux personnes très liées sont reliées par deux traits parallèles.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Trait en zigzag entre deux personnes"><rect x="7.0" y="21.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="102" cy="32" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M30 32L36 24L44 40L52 24L60 40L68 24L76 40L84 24L90 32" stroke="#6B2F5B" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg></div><div><h3>Relation conflictuelle</h3><p><strong>Un trait en zigzag.</strong> Une relation marquée par les conflits se dessine par un trait en zigzag.</p></div></li>
+          <li><div class="symbole"><svg viewBox="0 0 120 64" role="img" aria-label="Trait coupé en deux entre deux personnes"><rect x="7.0" y="21.0" width="22" height="22" rx="2" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><circle cx="102" cy="32" r="11" fill="#fff" stroke="#6B2F5B" stroke-width="1.8"/><path d="M30 32H54M66 32H90M54 24V40M66 24V40" stroke="#6B2F5B" stroke-width="1.8" fill="none"/></svg></div><div><h3>Relation rompue</h3><p><strong>Un trait coupé.</strong> Quand deux personnes ne se parlent plus, on trace un trait interrompu au milieu, souvent par deux petites barres.</p></div></li>
+        </ul>
+      </div>
+    </section>
+    <section class="bloc">
+      <div class="conteneur conventions">
+        <div><h2>Les conventions varient</h2></div>
+        <div>
+          <p>Ces symboles sont les plus courants, mais ils ne sont pas figés. Selon les auteurs et les pays, un même lien peut se dessiner un peu différemment.</p>
+          <p>L'essentiel est de rester cohérent·e dans ton propre arbre. Si tu inventes un signe, ajoute une petite légende dans un coin de la feuille.</p>
+          <div class="actions" style="margin-top:1.6rem"><a class="btn btn-plein" href="genosociogramme.html">Dessiner dans l'outil</a><a class="btn btn-trait" href="genosociogramme-vierge.html">Imprimer le modèle vierge</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>La définition, et la différence avec le génogramme et l'arbre généalogique.</p></a>
+          <a class="outil" href="comment-faire-son-genosociogramme.html"><h3>Comment faire son génosociogramme</h3><p>Les six étapes, les questions à poser à ta famille et quelques conseils.</p></a>
+          <a class="outil" href="exemple-genosociogramme.html"><h3>Un exemple lu pas à pas</h3><p>La famille fictive de Léa, sur quatre générations, et ce qui s'y répète.</p></a>
+          <a class="outil" href="genosociogramme-vierge.html"><h3>Le modèle vierge à imprimer</h3><p>Un génosociogramme vide en PDF, à remplir à la main.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>L'outil en ligne gratuit</h3><p>Dessine ton arbre familial : les répétitions sont repérées automatiquement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
