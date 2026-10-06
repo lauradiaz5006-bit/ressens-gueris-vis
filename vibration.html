@@ -6,26 +6,23 @@
   <title>Ma Fréquence Intérieure · Schéma Répétitif</title>
   <meta name="description" content="Explorez votre fréquence intérieure actuelle à travers un calculateur inspiré de l'échelle de conscience de Hawkins.">
   <link rel="canonical" href="https://schema-repetitif-genetique.fr/vibration.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --cream:#F4EDE4;--cream2:#E9D8C9;--cream3:#FFFAF5;
-      --terra:#C65D3B;--terra-dark:#A14A3C;--terra-light:#D88C6A;
-      --brown:#6B3E2E;--ink:#3A1F12;--ink2:#5C3420;--soft:#9A7060;
-      --white:#FFFCF8;--line:rgba(107,62,46,.13);
-      --gold:#C4900A;--gold-light:#E8B84B;--teal:#3D9E7A;
+      --cream:#FFF9F7;--cream2:#EBCFD5;--cream3:#FFF9F7;
+      --terra:#6B2F5B;--terra-dark:#4E1F42;--terra-light:#E7A79E;
+      --brown:#6B2F5B;--ink:#4A2142;--ink2:#5C3420;--soft:#8E6383;
+      --white:#FFFFFF;--line:rgba(107,47,91,.13);
+      --gold:#B98A55;--gold-light:#E3C08F;--teal:#C77C8E;
     }
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     html{scroll-behavior:smooth;}
-    body{font-family:'Jost',sans-serif;background:var(--cream3);color:var(--ink);overflow-x:hidden;padding-top:68px;}
+    body{font-family:'Nunito Sans',sans-serif;background:var(--cream3);color:var(--ink);overflow-x:hidden;padding-top:68px;}
     a{color:inherit;text-decoration:none;}
-    h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}
+    h1,h2,h3,h4{font-family:'Gilda Display',serif;}
 
     /* NAV */
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(255,252,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
+    nav.ancien-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(255,252,248,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+    .nav-logo{font-family:'Gilda Display',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
     .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end;flex-wrap:wrap;}
     .nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;}
     .nav-links a:hover,.nav-links a.active{color:var(--terra);}
@@ -38,21 +35,21 @@
     .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
     .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
     .nav-mobile.open{display:flex;}
-    .nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;}
+    .nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,47,91,.08);font-size:.9rem;}
     .nav-mobile a:last-child{border-bottom:none;color:var(--terra);font-weight:500;}
 
     /* COOKIE */
-    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--ink);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(58,31,18,.18);}
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--ink);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(74,33,66,.18);}
     .cookie-banner.hidden{display:none;}
     .cookie-text{font-size:.76rem;color:rgba(255,255,255,.7);line-height:1.6;max-width:680px;}
     .cookie-text a{color:var(--terra-light);text-decoration:underline;}
     .cookie-actions{display:flex;gap:.6rem;flex-shrink:0;}
-    .cookie-accept{background:var(--terra);color:white;border:none;border-radius:4px;padding:.45rem 1.1rem;font-size:.76rem;font-weight:500;font-family:'Jost',sans-serif;cursor:pointer;}
-    .cookie-refuse{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:.45rem .9rem;font-size:.76rem;font-family:'Jost',sans-serif;cursor:pointer;}
+    .cookie-accept{background:var(--terra);color:white;border:none;border-radius:4px;padding:.45rem 1.1rem;font-size:.76rem;font-weight:500;font-family:'Nunito Sans',sans-serif;cursor:pointer;}
+    .cookie-refuse{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:.45rem .9rem;font-size:.76rem;font-family:'Nunito Sans',sans-serif;cursor:pointer;}
 
     /* HERO */
-    .hero-intro{background:linear-gradient(160deg,var(--ink),#3A1808);padding:6rem 4rem 5rem;position:relative;overflow:hidden;}
-    .hero-intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 80% 40%,rgba(196,144,10,.12),transparent 60%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(216,140,106,.08),transparent 50%);pointer-events:none;}
+    .hero-intro{background:linear-gradient(160deg,var(--ink),#3A1834);padding:6rem 4rem 5rem;position:relative;overflow:hidden;}
+    .hero-intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 80% 40%,rgba(196,144,10,.12),transparent 60%),radial-gradient(ellipse 40% 50% at 10% 80%,rgba(231,167,158,.08),transparent 50%);pointer-events:none;}
     .hw-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2;}
     .eyebrow-dark{display:inline-flex;align-items:center;gap:.6rem;font-size:.62rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-light);background:rgba(196,144,10,.1);border:1px solid rgba(196,144,10,.25);border-radius:100px;padding:.4rem 1rem;margin-bottom:1.4rem;}
     .eyebrow-dark::before{content:'';width:5px;height:5px;background:var(--gold-light);border-radius:50%;animation:dot 2s infinite;}
@@ -62,7 +59,7 @@
     .hw-lead{font-size:.9rem;color:rgba(255,255,255,.58);line-height:1.9;font-weight:300;margin-bottom:.9rem;}
     .hw-lead strong{color:rgba(255,255,255,.85);font-weight:500;}
     .hw-quote{border-left:2px solid rgba(196,144,10,.4);padding-left:1.2rem;margin:1.4rem 0;}
-    .hw-quote p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.65;}
+    .hw-quote p{font-family:'Gilda Display',serif;font-style:italic;font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.65;}
 
     /* nuance card */
     .nuance-note{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-left:2px solid rgba(196,144,10,.5);border-radius:0 12px 12px 0;padding:.75rem 1rem;margin-top:1.2rem;}
@@ -86,7 +83,7 @@
     .band{overflow:hidden;padding:1rem 0;background:linear-gradient(135deg,var(--terra-dark),var(--terra));}
     .band-track{display:flex;animation:marquee 30s linear infinite;white-space:nowrap;}
     @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-    .band-item{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:rgba(255,255,255,.8);padding:0 3rem;display:inline-flex;align-items:center;gap:2rem;}
+    .band-item{font-family:'Gilda Display',serif;font-style:italic;font-size:.9rem;color:rgba(255,255,255,.8);padding:0 3rem;display:inline-flex;align-items:center;gap:2rem;}
     .band-dot{width:3px;height:3px;background:rgba(255,255,255,.4);border-radius:50%;}
 
     /* CALCULATOR */
@@ -98,30 +95,30 @@
 
     .main{max-width:880px;margin:0 auto;padding:3rem 4rem 6rem;}
 
-    .intro-card{background:linear-gradient(135deg,#FFF5EE,#FFE8D8);border:1px solid rgba(198,93,59,.15);border-radius:18px;padding:1.8rem;margin-bottom:3rem;display:flex;gap:1.4rem;align-items:flex-start;}
+    .intro-card{background:linear-gradient(135deg,#FFF5F3,#FBE3E4);border:1px solid rgba(107,47,91,.15);border-radius:18px;padding:1.8rem;margin-bottom:3rem;display:flex;gap:1.4rem;align-items:flex-start;}
     .intro-icon{font-size:2.2rem;flex-shrink:0;}
     .intro-card p{font-size:.88rem;color:var(--ink2);line-height:1.85;font-weight:300;}
     .intro-card strong{color:var(--ink);font-weight:500;}
 
     .sliders-wrap{display:flex;flex-direction:column;gap:1.4rem;margin-bottom:2.5rem;}
     .slider-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:1.7rem;transition:border-color .2s,box-shadow .2s;}
-    .slider-card:hover{border-color:rgba(196,144,10,.3);box-shadow:0 8px 32px rgba(58,31,18,.07);}
+    .slider-card:hover{border-color:rgba(196,144,10,.3);box-shadow:0 8px 32px rgba(74,33,66,.07);}
     .slider-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.8rem;}
     .slider-q{font-size:1rem;font-weight:600;color:var(--ink);line-height:1.3;}
-    .slider-val{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:700;color:var(--gold);line-height:1;min-width:2.2rem;text-align:right;}
+    .slider-val{font-family:'Gilda Display',serif;font-size:1.9rem;font-weight:700;color:var(--gold);line-height:1;min-width:2.2rem;text-align:right;}
     .slider-poles{display:flex;justify-content:space-between;font-size:.68rem;color:var(--soft);margin-bottom:.6rem;font-weight:300;}
     input[type=range]{width:100%;-webkit-appearance:none;height:6px;border-radius:100px;outline:none;cursor:pointer;}
     input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--white);border:2.5px solid var(--gold);box-shadow:0 3px 10px rgba(196,144,10,.25);transition:transform .15s;}
     input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2);}
 
-    .calc-btn{width:100%;background:var(--terra);color:white;border:none;padding:1.1rem 2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;box-shadow:0 8px 28px rgba(198,93,59,.25);}
+    .calc-btn{width:100%;background:var(--terra);color:white;border:none;padding:1.1rem 2rem;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;box-shadow:0 8px 28px rgba(107,47,91,.25);}
     .calc-btn:hover{background:var(--terra-dark);transform:translateY(-2px);}
 
     /* RESULT */
     #res{display:none;animation:fadeUp .5s ease;}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-    .freq-hero{background:linear-gradient(160deg,var(--ink),#3A1808);border-radius:24px;padding:3rem 2.5rem;text-align:center;margin-bottom:1.4rem;position:relative;overflow:hidden;}
+    .freq-hero{background:linear-gradient(160deg,var(--ink),#3A1834);border-radius:24px;padding:3rem 2.5rem;text-align:center;margin-bottom:1.4rem;position:relative;overflow:hidden;}
     .freq-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% -10%,rgba(196,144,10,.18),transparent 55%);}
     .freq-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;pointer-events:none;}
     .freq-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(196,144,10,.1);}
@@ -136,7 +133,7 @@
     .scale-note{font-size:.74rem;color:var(--soft);font-weight:300;margin-bottom:1.2rem;line-height:1.55;}
     .scale-rows{display:flex;flex-direction:column;gap:.44rem;}
     .scale-row{display:flex;align-items:center;gap:1rem;padding:.55rem .75rem;border-radius:10px;transition:background .2s;}
-    .scale-row.me{background:linear-gradient(135deg,#FFF5EE,#FFEAD0);}
+    .scale-row.me{background:linear-gradient(135deg,#FFF5F3,#FFEAD0);}
     .scale-em{font-size:.9rem;width:20px;text-align:center;flex-shrink:0;}
     .scale-lbl{font-size:.78rem;font-weight:300;color:var(--ink2);min-width:150px;}
     .scale-row.me .scale-lbl{font-weight:600;color:var(--ink);}
@@ -151,11 +148,11 @@
     .res-lbl.teal{color:var(--teal);}
 
     .res-block{border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.1rem;}
-    .res-block.warm{background:linear-gradient(135deg,#FFF5EE,#FFE8D8);border:1px solid rgba(198,93,59,.15);}
-    .res-block.dark{background:linear-gradient(160deg,var(--ink),#3A1808);position:relative;overflow:hidden;}
+    .res-block.warm{background:linear-gradient(135deg,#FFF5F3,#FBE3E4);border:1px solid rgba(107,47,91,.15);}
+    .res-block.dark{background:linear-gradient(160deg,var(--ink),#3A1834);position:relative;overflow:hidden;}
     .res-block.dark::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 50%,rgba(196,144,10,.1),transparent 60%);pointer-events:none;}
     .res-block.dark *{position:relative;z-index:1;}
-    .res-block.green{background:linear-gradient(135deg,#F0FBF6,#DDF4EC);border:1px solid rgba(61,158,122,.18);}
+    .res-block.green{background:linear-gradient(135deg,#FBF0F2,#F5DDE3);border:1px solid rgba(61,158,122,.18);}
     .res-block p{font-size:.87rem;line-height:1.9;font-weight:300;}
     .res-block.warm p{color:var(--ink2);}
     .res-block.dark p{color:rgba(255,255,255,.5);}
@@ -164,14 +161,14 @@
     .res-block p strong{font-weight:500;}
     .res-block.warm p strong,.res-block.green p strong{color:var(--ink);}
     .res-block.dark p strong{color:rgba(255,255,255,.82);}
-    .res-quote-dark{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:.8rem;}
+    .res-quote-dark{font-family:'Gilda Display',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:.8rem;}
 
     .res-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem;}
     .res-card{background:var(--white);border-radius:14px;padding:1.4rem;border:1px solid var(--line);}
     .res-card h4{font-size:.95rem;font-weight:700;color:var(--terra);margin-bottom:.55rem;}
     .res-card p{font-size:.83rem;color:var(--ink2);line-height:1.8;font-weight:300;}
 
-    .hygiene-block{background:linear-gradient(135deg,#F0FBF6,#DDF4EC);border:1px solid rgba(61,158,122,.18);border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.1rem;}
+    .hygiene-block{background:linear-gradient(135deg,#FBF0F2,#F5DDE3);border:1px solid rgba(61,158,122,.18);border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.1rem;}
     .hygiene-title{font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;}
     .hygiene-intro-p{font-size:.8rem;color:var(--soft);margin-bottom:.9rem;font-weight:300;}
     .hygiene-list{display:flex;flex-direction:column;gap:.5rem;}
@@ -180,15 +177,15 @@
     .hi-name{font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.1rem;}
     .hi-desc{font-size:.74rem;color:var(--soft);line-height:1.55;font-weight:300;}
 
-    .antenna-block{background:linear-gradient(135deg,#FFF5EE,#FFE8D8);border:1px solid rgba(198,93,59,.15);border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.1rem;}
+    .antenna-block{background:linear-gradient(135deg,#FFF5F3,#FBE3E4);border:1px solid rgba(107,47,91,.15);border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:1.1rem;}
     .antenna-block p{font-size:.86rem;color:var(--ink2);line-height:1.88;font-weight:300;}
     .antenna-block p+p{margin-top:.65rem;}
     .antenna-block strong{font-weight:500;color:var(--ink);}
 
-    .res-message{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--ink);line-height:1.7;padding:1.1rem 1.4rem;border-left:3px solid var(--terra);background:linear-gradient(135deg,#FFF5EE,#FFEEDD);border-radius:0 14px 14px 0;margin-bottom:1.5rem;}
+    .res-message{font-family:'Gilda Display',serif;font-style:italic;font-size:1.05rem;color:var(--ink);line-height:1.7;padding:1.1rem 1.4rem;border-left:3px solid var(--terra);background:linear-gradient(135deg,#FFF5F3,#FFEEDD);border-radius:0 14px 14px 0;margin-bottom:1.5rem;}
 
     .res-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem;}
-    .btn-main{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;border:none;letter-spacing:.05em;text-transform:uppercase;}
+    .btn-main{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;border:none;letter-spacing:.05em;text-transform:uppercase;}
     .btn-primary{background:var(--terra);color:white;}
     .btn-primary:hover{background:var(--terra-dark);transform:translateY(-2px);}
     .btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--line);}
@@ -207,10 +204,10 @@
     .law-desc{font-size:.78rem;color:rgba(255,255,255,.38);line-height:1.65;font-weight:300;}
 
     /* FOOTER */
-    footer{background:#1A0E08;padding:3.5rem 3rem 2rem;}
+    footer.ancien-pied{background:#1A0E08;padding:3.5rem 3rem 2rem;}
     .footer-inner{max-width:1200px;margin:0 auto;}
     .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;}
-    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:white;font-weight:600;display:block;margin-bottom:.7rem;}
+    .footer-logo{font-family:'Gilda Display',serif;font-style:italic;font-size:1.3rem;color:white;font-weight:600;display:block;margin-bottom:.7rem;}
     .footer-brand p{font-size:.78rem;color:rgba(255,255,255,.38);line-height:1.72;font-weight:300;max-width:260px;}
     .footer-col h4{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.9rem;}
     .footer-col a{display:block;font-size:.76rem;color:rgba(255,255,255,.35);margin-bottom:.5rem;transition:color .18s;font-weight:300;}
@@ -230,12 +227,12 @@
       .main{padding:2.5rem 1.5rem 4rem;}
       .res-cards{grid-template-columns:1fr;}
       .laws-grid{grid-template-columns:1fr;}
-      nav{padding:0 1.2rem;height:62px;}
+      nav.ancien-nav{padding:0 1.2rem;height:62px;}
       .nav-links{display:none;}
       .nav-burger{display:flex;}
       .nav-mobile{top:62px;}
       body{padding-top:62px;}
-      footer{padding:2.5rem 1.5rem 1.5rem;}
+      footer.ancien-pied{padding:2.5rem 1.5rem 1.5rem;}
       .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem;}
       .footer-brand{grid-column:span 2;}
     }
@@ -248,42 +245,13 @@
       nav,.nav-mobile,.band,.laws-section,footer,.cookie-banner,.calc-btn,.res-actions{display:none!important;}
       body{padding-top:0;background:white;}
     }
-  </style>
+  .hi-icon:empty{display:flex;align-items:center;justify-content:center}.hi-icon:empty::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--corail)}
+</style>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>/* habillage commun */body{padding-top:0!important}.entete{flex-shrink:0}.entete .marque,.entete .menu a{font-weight:400}</style>
 </head>
 <body>
-
-<div class="cookie-banner" id="cookie-banner">
-  <p class="cookie-text">
-      Aucun cookie publicitaire ni outil de mesure d'audience. Tes réponses et ta progression sont gardées dans ton navigateur. Si tu crées un compte, tes sauvegardes sont stockées sur nos serveurs en Europe (Irlande). Les polices d'écriture sont chargées depuis Google Fonts.
-      <a href="confidentialite.html">En savoir plus</a>
-    </p>
-  <div class="cookie-actions">
-    <button class="cookie-refuse" onclick="closeCookie()">Refuser</button>
-    <button class="cookie-accept" onclick="acceptCookie()">J'accepte</button>
-  </div>
-</div>
-
-<nav>
-    <a href="index.html" class="nav-logo">Schéma Répétitif</a>
-    <div class="nav-links">
-      <a href="heriter.html">Comprendre</a>
-      <a href="outils.html">Outils</a>
-      <a href="genosociogramme.html">Mon arbre</a>
-      <a href="login.html" class="nav-espace">Mon espace</a>
-      <a href="parcours.html" class="nav-cta">Commencer →</a>
-    </div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-<div class="nav-mobile" id="nav-mobile">
-    <a href="heriter.html">Comprendre</a>
-    <a href="outils.html">Outils</a>
-    <a href="genosociogramme.html">Mon arbre</a>
-    <a href="login.html">Mon espace</a>
-    <a href="parcours.html" style="color:var(--terra);font-weight:600;">Commencer →</a>
-  </div>
+  <header data-entete></header>
 
 <!-- INTRO -->
 <section class="hero-intro">
@@ -291,10 +259,10 @@
     <div>
       <div class="eyebrow-dark">Fréquence intérieure · Exploration</div>
       <h1 class="hw-title">Reprendre contact<br>avec son <em>état intérieur</em></h1>
-      <p class="hw-lead">Le Dr David Hawkins a consacré des années à explorer les états de conscience humains et leur influence sur la vie. Ses recherches, publiées dans <em>Power vs Force</em>, suggèrent que <strong>chaque état émotionnel vibre à une qualité d'énergie particulière</strong> — et que cet état influence ce qu'on perçoit, ce qu'on attire et ce qu'on renforce.</p>
+      <p class="hw-lead">David Hawkins a proposé, dans <em>Power vs Force</em>, une échelle symbolique des états de conscience. L'idée : <strong>chaque état intérieur colore notre regard</strong>, ce que l'on remarque, ce que l'on attire et ce que l'on renforce.</p>
       <p class="hw-lead">Ce calculateur s'inspire librement de son échelle comme <strong>outil d'exploration intérieure</strong>, non comme mesure scientifique exacte. L'objectif n'est pas de vous étiqueter, mais de vous aider à observer où vous en êtes aujourd'hui.</p>
       <div class="hw-quote">
-        <p>"Nous ne vivons pas dans le monde. Nous vivons dans le monde que nous vibrons."</p>
+        <p>"Nous ne voyons pas le monde tel qu'il est, mais tel que nous le ressentons."</p>
       </div>
       <div class="nuance-note">
         <p>Note : l'échelle de Hawkins est présentée ici comme une grille de lecture intérieure et symbolique, non comme une vérité scientifique établie. Elle offre un langage pour nommer des états intérieurs — c'est tout ce qu'elle prétend faire ici.</p>
@@ -307,7 +275,7 @@
           <div class="antenna-ring"></div>
           <div class="antenna-ring"></div>
           <div class="antenna-ring"></div>
-          <div class="antenna-core">🫀</div>
+          <div class="antenna-core"></div>
         </div>
         <div class="antenna-labels">
           <div class="ant-label">Votre état intérieur influence votre perception</div>
@@ -344,7 +312,6 @@
 <!-- CALCULATOR -->
 <div class="main">
   <div class="intro-card reveal">
-    <div class="intro-icon">💡</div>
     <p>Répondez avec bienveillance envers vous-même. Il n'y a pas de bonne ou mauvaise réponse — <strong>seulement là où vous en êtes maintenant</strong>. En prendre conscience est déjà un premier déplacement intérieur.</p>
   </div>
 
@@ -396,7 +363,7 @@
       </div>
       <div class="freq-emoji" id="r-emoji"></div>
       <div class="freq-num" id="r-hz"></div>
-      <div class="freq-unit">Hz · inspiré de l'échelle de Hawkins</div>
+      <div class="freq-unit">niveau sur 7 · inspiré de l'échelle de Hawkins</div>
       <div class="freq-name" id="r-name"></div>
       <div class="freq-zone" id="r-zone"></div>
     </div>
@@ -416,8 +383,8 @@
 
     <div class="res-actions">
       <a href="parcours.html" class="btn-main btn-primary">Explorer mes mémoires</a>
-      <a href="journal.html" class="btn-main btn-primary">Ouvrir le journal</a>
-      <button class="btn-main btn-ghost" onclick="window.print()">🖨 Imprimer</button>
+      <a href="arbre-de-vie.html" class="btn-main btn-primary">Faire le test de l'arbre de vie</a>
+      <button class="btn-main btn-ghost" onclick="window.print()">Imprimer</button>
       <button class="btn-main btn-ghost" onclick="reset()">↺ Recalculer</button>
     </div>
   </div>
@@ -429,54 +396,21 @@
     <h2>Des lois <em>pour comprendre les répétitions</em></h2>
     <p class="laws-sub">Ces grilles de lecture aident à comprendre pourquoi certaines répétitions se maintiennent et comment l'état intérieur influence ce qu'on vit.</p>
     <div class="laws-grid">
-      <div class="law reveal"><div class="law-name">🧲 Résonance & attraction</div><div class="law-desc">Ce qui vibre ensemble entre plus facilement en contact. L'état intérieur colore ce qu'on perçoit et ce vers quoi on s'oriente.</div></div>
-      <div class="law reveal"><div class="law-name">⚡ Tout est en mouvement</div><div class="law-desc">Tout évolue, tout bouge. Un état intérieur n'est jamais définitif — il peut se transformer.</div></div>
-      <div class="law reveal"><div class="law-name">🎵 Les schémas se répètent</div><div class="law-desc">Les états non intégrés ont tendance à recréer des situations qui les réactivent, jusqu'à ce qu'ils soient vus et traversés.</div></div>
-      <div class="law reveal"><div class="law-name">🌱 Cause & effet</div><div class="law-desc">Chaque pensée, choix, émotion et comportement participe à produire un effet dans la vie.</div></div>
-      <div class="law reveal"><div class="law-name">🪞 Le dehors reflète le dedans</div><div class="law-desc">Ce qu'on vit à l'extérieur contient souvent des informations sur ce qui se joue à l'intérieur.</div></div>
-      <div class="law reveal"><div class="law-name">✨ La transformation est possible</div><div class="law-desc">Un état peut évoluer. Prendre conscience de ce qu'on vit est déjà le premier mouvement du changement.</div></div>
+      <div class="law reveal"><div class="law-name">Résonance & attraction</div><div class="law-desc">Ce qui vibre ensemble entre plus facilement en contact. L'état intérieur colore ce qu'on perçoit et ce vers quoi on s'oriente.</div></div>
+      <div class="law reveal"><div class="law-name">Tout est en mouvement</div><div class="law-desc">Tout évolue, tout bouge. Un état intérieur n'est jamais définitif — il peut se transformer.</div></div>
+      <div class="law reveal"><div class="law-name">Les schémas se répètent</div><div class="law-desc">Les états non intégrés ont tendance à recréer des situations qui les réactivent, jusqu'à ce qu'ils soient vus et traversés.</div></div>
+      <div class="law reveal"><div class="law-name">Cause & effet</div><div class="law-desc">Chaque pensée, choix, émotion et comportement participe à produire un effet dans la vie.</div></div>
+      <div class="law reveal"><div class="law-name">Le dehors reflète le dedans</div><div class="law-desc">Ce qu'on vit à l'extérieur contient souvent des informations sur ce qui se joue à l'intérieur.</div></div>
+      <div class="law reveal"><div class="law-name">La transformation est possible</div><div class="law-desc">Un état peut évoluer. Prendre conscience de ce qu'on vit est déjà le premier mouvement du changement.</div></div>
     </div>
   </div>
 </section>
 
-<footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Schéma Répétitif</a>
-          <p>Des outils pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Commencer</h4>
-          <a href="index.html">Accueil</a>
-          <a href="parcours.html">Le parcours</a>
-          <a href="heriter.html">Transgénérationnel</a>
-        </div>
-        <div class="footer-col">
-          <h4>Outils</h4>
-          <a href="genosociogramme.html">Génosociogramme</a>
-          <a href="vibration.html">Ma fréquence</a>
-          <a href="outils.html">Tous les outils</a>
-        </div>
-        <div class="footer-col">
-          <h4>Mon compte</h4>
-          <a href="login.html">Mon espace</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© Schéma Répétitif 2026 · Tous droits réservés</p>
-      </div>
-    </div>
-  </footer>
-
 <script>
-function acceptCookie(){ localStorage.setItem('lc-cookies','accepted'); document.getElementById('cookie-banner').classList.add('hidden'); }
-function closeCookie(){ localStorage.setItem('lc-cookies','refused'); document.getElementById('cookie-banner').classList.add('hidden'); }
-if(localStorage.getItem('lc-cookies')) document.getElementById('cookie-banner').classList.add('hidden');
 
-document.getElementById('burger').addEventListener('click',function(){
+(document.getElementById('burger')||document.createElement('div')).addEventListener('click',function(){
   this.classList.toggle('open');
-  document.getElementById('nav-mobile').classList.toggle('open');
+  (document.getElementById('nav-mobile')||document.createElement('div')).classList.toggle('open');
 });
 
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:.1});
@@ -497,7 +431,7 @@ for(let i=0;i<7;i++){
 }
 
 const LV=[
-  {name:'Honte & Culpabilité',hz:20,emoji:'🌑',color:'#7A3A3A',zone:'État très contracté',
+  {name:'Honte & Culpabilité',emoji:'',color:'#7A3A3A',zone:'État très contracté',
     main_p1:'Vous traversez un état intérieur très comprimé, souvent lié à une blessure d\'indignité, de rejet ou de dévalorisation profonde.',
     main_p2:'Cet état ne dit pas qui vous êtes. Il signale qu\'une mémoire lourde ou ancienne occupe beaucoup d\'espace dans votre système intérieur.',
     cocreator_quote:'Vous n\'êtes pas ce que vous traversez. Vous êtes aussi celui ou celle qui peut commencer à le transformer.',
@@ -507,35 +441,35 @@ const LV=[
     elevate:'Commencez par vous adresser à vous-même comme à quelqu\'un qui souffre réellement. La douceur n\'est pas de la faiblesse ici.',
     hygiene_intro:'Quand l\'état intérieur est très comprimé, les gestes simples ont beaucoup de valeur.',
     hygiene:[
-      {icon:'💧',name:'Hydratation consciente',desc:'Boire un verre d\'eau lentement avec une vraie intention de soin.'},
-      {icon:'🌿',name:'Prendre l\'air',desc:'Le dehors aide à sortir de la compression intérieure.'},
-      {icon:'🫀',name:'Respiration calme',desc:'Quelques cycles lents aident à détendre le système.'},
-      {icon:'✍️',name:'Écriture libre',desc:'Décharger ce qui tourne en boucle soulage le champ intérieur.'}
+      {icon:'',name:'Hydratation consciente',desc:'Boire un verre d\'eau lentement avec une vraie intention de douceur.'},
+      {icon:'',name:'Prendre l\'air',desc:'Le dehors aide à sortir de la compression intérieure.'},
+      {icon:'',name:'Respiration calme',desc:'Quelques cycles lents aident à détendre le système.'},
+      {icon:'',name:'Écriture libre',desc:'Décharger ce qui tourne en boucle soulage le champ intérieur.'}
     ],
     antenna_p1:'Un état très contracté rend plus visibles les situations qui réactivent la même blessure.',
     antenna_p2:'Quand vous modifiez même légèrement votre manière d\'habiter votre ressenti, vous modifiez déjà ce que vous renforcez.',
-    message:'Vous n\'êtes pas cassée. Vous traversez un état qui demande de la sécurité, de la douceur et du temps.'
+    message:'Vous n\'êtes pas cassé·e. Vous traversez un état qui demande de la sécurité, de la douceur et du temps. Si cette période est très difficile, parlez-en à un professionnel ou appelez le 3114 (France) ou le 1 866 277-3553 (Québec), gratuitement, à toute heure.'
   },
-  {name:'Peur & Survie',hz:75,emoji:'🌘',color:'#A14A3C',zone:'Mode vigilance actif',
+  {name:'Peur & Survie',emoji:'',color:'#4E1F42',zone:'Mode vigilance actif',
     main_p1:'Votre système intérieur semble en vigilance. Il y a de l\'alerte, du stress, une difficulté à relâcher totalement.',
-    main_p2:'Souvent, ce n\'est pas un manque de volonté : c\'est un système nerveux qui n\'a pas encore reçu le signal qu\'il pouvait se poser.',
+    main_p2:'Souvent, ce n\'est pas un manque de volonté : quelque chose en vous n\'a pas encore reçu le signal qu\'il pouvait se poser.',
     cocreator_quote:'Avant de vouloir tout changer, le corps a parfois juste besoin d\'apprendre qu\'il peut se relâcher.',
     cocreator_p1:'En mode vigilance, on réagit beaucoup plus qu\'on ne choisit. La priorité est de rétablir un sentiment de sécurité intérieure.',
     cocreator_p2:'Plus le corps se sent en sécurité, plus la conscience peut redevenir créatrice.',
     attract:'Des contextes ou des personnes qui entretiennent la vigilance.',
     elevate:'Ancrage, respiration, rythme plus simple, réduction des surstimulations.',
-    hygiene_intro:'Le système nerveux se régule d\'abord par le corps.',
+    hygiene_intro:'Le calme revient souvent par des gestes simples.',
     hygiene:[
-      {icon:'🦶',name:'Ancrage',desc:'Pieds au sol, respiration lente, sensation du poids du corps.'},
-      {icon:'🫀',name:'Respiration régulière',desc:'Quelques minutes de respiration consciente changent déjà l\'état intérieur.'},
-      {icon:'🚶',name:'Marche',desc:'Le mouvement aide à sortir du figement ou de l\'hypervigilance.'},
-      {icon:'😴',name:'Sommeil protégé',desc:'Un vrai rythme de repos soutient fortement l\'état intérieur.'}
+      {icon:'',name:'Ancrage',desc:'Pieds au sol, respiration lente, sensation du poids du corps.'},
+      {icon:'',name:'Respiration régulière',desc:'Quelques minutes de respiration consciente changent déjà l\'état intérieur.'},
+      {icon:'',name:'Marche',desc:'Le mouvement aide à sortir du figement ou de l\'alerte.'},
+      {icon:'',name:'Temps pour soi',desc:'S\'accorder de vrais moments de pause, sans écran ni obligation.'}
     ],
     antenna_p1:'Un état de vigilance influence la manière dont on lit le monde autour de soi.',
     antenna_p2:'Quand le corps reçoit davantage de sécurité, la perception change, et ce qui semblait menaçant peut se réorganiser.',
     message:'Ce que vous ressentez est réel. Mais cela ne signifie pas que vous êtes condamné(e) à rester en alerte.'
   },
-  {name:'Colère & Résistance',hz:150,emoji:'🌗',color:'#C65D3B',zone:'Zone de transition',
+  {name:'Colère & Résistance',emoji:'',color:'#6B2F5B',zone:'Zone de transition',
     main_p1:'La colère contient déjà plus d\'énergie que l\'effondrement. Elle montre qu\'une part de vous refuse quelque chose qui ne lui convient plus.',
     main_p2:'L\'enjeu est de ne pas laisser cette énergie tourner en boucle sans direction.',
     cocreator_quote:'La colère devient précieuse quand elle se transforme en limite, en choix ou en action juste.',
@@ -545,16 +479,16 @@ const LV=[
     elevate:'Bouger, écrire, clarifier ce qui doit changer, poser une limite, sortir de la simple réaction.',
     hygiene_intro:'Cette énergie a besoin de circulation.',
     hygiene:[
-      {icon:'🥊',name:'Décharge physique',desc:'Faire sortir l\'intensité par le corps.'},
-      {icon:'✍️',name:'Lettre non envoyée',desc:'Mettre des mots aide à clarifier ce qui brûle.'},
-      {icon:'🌬️',name:'Expiration forte',desc:'Relâcher par la respiration permet d\'ouvrir un espace.'},
-      {icon:'🎨',name:'Créer',desc:'La force émotionnelle peut devenir une matière de transformation.'}
+      {icon:'',name:'Décharge physique',desc:'Faire sortir l\'intensité par le corps.'},
+      {icon:'',name:'Lettre non envoyée',desc:'Mettre des mots aide à clarifier ce qui brûle.'},
+      {icon:'',name:'Expiration forte',desc:'Relâcher par la respiration permet d\'ouvrir un espace.'},
+      {icon:'',name:'Créer',desc:'La force émotionnelle peut devenir une matière de transformation.'}
     ],
     antenna_p1:'La colère est un signal puissant. Elle organise l\'attention autour de ce qui résiste.',
     antenna_p2:'Quand elle devient conscience, elle cesse d\'attirer seulement de la lutte.',
     message:'Votre colère peut devenir un levier. Elle n\'a pas besoin de tout casser pour vous montrer ce qui doit changer.'
   },
-  {name:'Acceptation & Ouverture',hz:250,emoji:'🌓',color:'#D88C6A',zone:'Seuil d\'ouverture',
+  {name:'Acceptation & Ouverture',emoji:'',color:'#E7A79E',zone:'Seuil d\'ouverture',
     main_p1:'Vous êtes dans une zone charnière. Quelque chose en vous commence à relâcher la lutte permanente contre ce qui est.',
     main_p2:'Cela ne veut pas dire que tout est simple. Cela veut dire que vous commencez à regarder plus clairement.',
     cocreator_quote:'Accepter ce qui est n\'est pas abandonner. C\'est enfin voir depuis un endroit plus juste.',
@@ -564,16 +498,16 @@ const LV=[
     elevate:'Continuer à stabiliser cette ouverture par la présence, la gratitude et l\'observation consciente.',
     hygiene_intro:'À ce niveau, la régularité compte plus que l\'intensité.',
     hygiene:[
-      {icon:'📓',name:'Journal de reconnaissance',desc:'Nommer ce qui aide, ce qui ouvre, ce qui soutient.'},
-      {icon:'🧘',name:'Présence quotidienne',desc:'Quelques minutes de recentrage suffisent à stabiliser l\'ouverture.'},
-      {icon:'🌳',name:'Nature',desc:'Le vivant aide naturellement à réorganiser l\'état intérieur.'},
-      {icon:'🎵',name:'Ambiances apaisantes',desc:'Le sonore et le rythme influencent aussi l\'état global.'}
+      {icon:'',name:'Journal de reconnaissance',desc:'Nommer ce qui aide, ce qui ouvre, ce qui soutient.'},
+      {icon:'',name:'Présence quotidienne',desc:'Quelques minutes de recentrage suffisent à stabiliser l\'ouverture.'},
+      {icon:'',name:'Nature',desc:'Le vivant aide naturellement à réorganiser l\'état intérieur.'},
+      {icon:'',name:'Ambiances apaisantes',desc:'Le sonore et le rythme influencent aussi l\'état global.'}
     ],
     antenna_p1:'L\'état intérieur devient plus lisible, moins chaotique, plus ouvert.',
     antenna_p2:'Vous commencez à attirer moins de répétitions purement défensives.',
     message:'L\'acceptation est un seuil. Vous n\'êtes plus exactement dans la lutte — et c\'est déjà beaucoup.'
   },
-  {name:'Raison & Clarté',hz:350,emoji:'🌔',color:'#C4900A',zone:'Zone d\'élévation',
+  {name:'Raison & Clarté',emoji:'',color:'#B98A55',zone:'Zone d\'élévation',
     main_p1:'La compréhension s\'organise. Vous voyez mieux les mécanismes, les patterns, les liens entre vos états intérieurs et ce que vous vivez.',
     main_p2:'Le risque ici est de rester trop dans la tête. Comprendre n\'est pas encore intégrer.',
     cocreator_quote:'Voir clair change déjà beaucoup. Mais la vraie transformation se confirme dans le corps et dans les choix.',
@@ -583,16 +517,16 @@ const LV=[
     elevate:'Faire descendre la clarté dans le concret, le corps, les habitudes et les relations.',
     hygiene_intro:'Il s\'agit ici d\'intégrer davantage.',
     hygiene:[
-      {icon:'🧘',name:'Scan corporel',desc:'Ramener l\'attention dans le corps, pas seulement dans la pensée.'},
-      {icon:'📖',name:'Comprendre puis appliquer',desc:'Chaque prise de conscience gagne à devenir un petit choix réel.'},
-      {icon:'🚶',name:'Marche consciente',desc:'Le mouvement aide à relier tête et corps.'},
-      {icon:'🌙',name:'Bilan du soir',desc:'Intégrer les prises de conscience au quotidien.'}
+      {icon:'',name:'Scan corporel',desc:'Ramener l\'attention dans le corps, pas seulement dans la pensée.'},
+      {icon:'',name:'Comprendre puis appliquer',desc:'Chaque prise de conscience gagne à devenir un petit choix réel.'},
+      {icon:'',name:'Marche consciente',desc:'Le mouvement aide à relier tête et corps.'},
+      {icon:'',name:'Bilan du soir',desc:'Intégrer les prises de conscience au quotidien.'}
     ],
     antenna_p1:'L\'état intérieur devient plus organisé. Vous lisez mieux ce qui se joue.',
     antenna_p2:'Cette clarté change déjà la qualité de ce que vous renforcez dans votre vie.',
     message:'Comprendre ouvre une porte. L\'habiter vraiment demande ensuite de l\'incarnation.'
   },
-  {name:'Amour & Gratitude',hz:528,emoji:'🌕',color:'#6B3E2E',zone:'Zone d\'ouverture du cœur',
+  {name:'Amour & Gratitude',emoji:'',color:'#6B2F5B',zone:'Zone d\'ouverture du cœur',
     main_p1:'Vous vibrez dans une fréquence d\'ouverture du cœur, de gratitude et de douceur plus élevée.',
     main_p2:'À ce niveau, la vie peut être perçue avec plus de confiance, de beauté et de reliance.',
     cocreator_quote:'L\'amour cohérent n\'a pas besoin de forcer. Il rayonne et réorganise naturellement.',
@@ -602,16 +536,16 @@ const LV=[
     elevate:'Protéger cette fréquence, la nourrir et ne pas l\'épuiser dans le don sans discernement.',
     hygiene_intro:'Ici, l\'enjeu est de préserver et nourrir l\'ouverture.',
     hygiene:[
-      {icon:'🌅',name:'Gratitude du matin',desc:'Commencer la journée depuis un état de reconnaissance.'},
-      {icon:'💛',name:'Présence du cœur',desc:'Respirer en revenant consciemment au cœur.'},
-      {icon:'🤝',name:'Acte de générosité',desc:'La générosité juste consolide cette qualité d\'état.'},
-      {icon:'🎵',name:'Environnement nourrissant',desc:'Ce qu\'on entend, regarde et fréquente compte énormément.'}
+      {icon:'',name:'Gratitude du matin',desc:'Commencer la journée depuis un état de reconnaissance.'},
+      {icon:'',name:'Présence du cœur',desc:'Respirer en revenant consciemment au cœur.'},
+      {icon:'',name:'Acte de générosité',desc:'La générosité juste consolide cette qualité d\'état.'},
+      {icon:'',name:'Environnement nourrissant',desc:'Ce qu\'on entend, regarde et fréquente compte énormément.'}
     ],
     antenna_p1:'Le cœur devient une antenne plus cohérente. Votre présence peut apaiser sans même que vous le cherchiez.',
     antenna_p2:'Plus vous entretenez cette qualité, plus votre environnement tend à s\'ordonner différemment.',
     message:'Prenez soin de ce que vous vibrez. Cet espace du cœur est précieux.'
   },
-  {name:'Paix & Joie Profonde',hz:700,emoji:'☀️',color:'#3D9E7A',zone:'Zone de rayonnement',
+  {name:'Paix & Joie Profonde',emoji:'',color:'#C77C8E',zone:'Zone de rayonnement',
     main_p1:'Vous touchez une fréquence rare de paix, de recul et de joie profonde.',
     main_p2:'Ce n\'est pas nécessairement un état permanent, mais il indique un accès réel à une qualité de présence très élevée.',
     cocreator_quote:'À cette fréquence, ce n\'est plus seulement ce que vous faites qui transforme — c\'est aussi ce que vous incarnez.',
@@ -621,10 +555,10 @@ const LV=[
     elevate:'Continuer à relier l\'ouverture et l\'incarnation, la présence et le concret.',
     hygiene_intro:'Ici, l\'hygiène consiste surtout à rester ancré(e).',
     hygiene:[
-      {icon:'🌍',name:'Ancrage',desc:'Même une grande ouverture a besoin d\'un corps bien habité.'},
-      {icon:'🤲',name:'Service simple',desc:'L\'ordinaire devient un lieu de rayonnement.'},
-      {icon:'🔇',name:'Silence',desc:'Le vide protège et renouvelle ce niveau de présence.'},
-      {icon:'💛',name:'Transmission humble',desc:'Partager sans imposer maintient la justesse.'}
+      {icon:'',name:'Ancrage',desc:'Même une grande ouverture a besoin d\'un corps bien habité.'},
+      {icon:'',name:'Service simple',desc:'L\'ordinaire devient un lieu de rayonnement.'},
+      {icon:'',name:'Silence',desc:'Le vide protège et renouvelle ce niveau de présence.'},
+      {icon:'',name:'Transmission humble',desc:'Partager sans imposer maintient la justesse.'}
     ],
     antenna_p1:'Un état profondément cohérent influence naturellement l\'espace relationnel autour de vous.',
     antenna_p2:'La présence devient elle-même un facteur de transformation.',
@@ -639,8 +573,8 @@ function calc(){
   document.getElementById('sliders-wrap').style.display='none';
   const res=document.getElementById('res');
   res.style.display='block';
-  document.getElementById('r-emoji').textContent=lv.emoji;
-  document.getElementById('r-hz').textContent=lv.hz;
+  (function(e){e.textContent='';e.style.cssText='width:56px;height:56px;border-radius:50%;margin:0 auto 1rem;background:radial-gradient(circle at 35% 35%,#fff,'+lv.color+')';})(document.getElementById('r-emoji'));
+  document.getElementById('r-hz').textContent=LV.indexOf(lv)+1;
   document.getElementById('r-name').textContent=lv.name;
   document.getElementById('r-zone').textContent=lv.zone;
 
@@ -652,7 +586,7 @@ function calc(){
       <span class="scale-em">${l.emoji}</span>
       <span class="scale-lbl">${l.name}</span>
       <div class="scale-bar-wrap"><div class="scale-bar" style="width:${Math.round((i+1)/LV.length*100)}%;background:${l.color};"></div></div>
-      <span class="scale-hz">${l.hz} Hz</span>
+      <span class="scale-hz">Niveau ${i+1}</span>
       ${me?'<span class="me-tag">← vous</span>':''}
     </div>`;
   });
@@ -677,5 +611,7 @@ function reset(){
   document.getElementById('sliders-wrap').style.display='flex';
 }
 </script>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
 </body>
 </html>

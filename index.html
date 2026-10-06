@@ -9,9 +9,6 @@
   <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://schema-repetitif-genetique.fr/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
@@ -22,7 +19,6 @@
     .ouverture .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center;padding:3rem 0 2.5rem}
     .ouverture h1{margin-bottom:1.3rem}
     .ouverture .intro{font-size:1.15rem;color:var(--prune-doux);margin-bottom:2rem}
-    .actions{display:flex;flex-wrap:wrap;gap:.8rem}
     .rassurance{margin-top:1.6rem;font-size:.92rem;color:var(--prune-doux)}
 
     /* L'arbre double */
@@ -49,10 +45,6 @@
     @keyframes trace{to{stroke-dashoffset:0}}
     @keyframes apparait{to{opacity:1}}
 
-    section.bloc{padding:5rem 0}
-    .bloc-tete{max-width:40rem;margin-bottom:2.8rem}
-    .bloc-tete p{margin-top:.9rem;color:var(--prune-doux);font-size:1.08rem}
-
     /* Deux arbres */
     .deux{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
     .deux article{padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
@@ -64,45 +56,15 @@
     .croisement strong{color:var(--blanc);font-weight:600}
     .croisement svg{width:40px;height:40px}
 
-    /* Outils */
-    .outils{background:var(--blanc);border-block:1px solid var(--rose)}
-    .liste-outils{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
-    .outil{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1.6rem 0;border-top:1px solid var(--rose);text-decoration:none}
-    .outil:hover h3{color:var(--champagne)}
-    .outil h3{transition:color .2s}
-    .outil p{grid-column:1/-1;color:var(--prune-doux);font-size:.98rem}
-    .outil .duree{font-size:.88rem;color:var(--prune-doux);white-space:nowrap;align-self:center}
-    .outil .bientot{font-size:.8rem;font-weight:600;color:var(--champagne);background:#FBEADF;border-radius:999px;padding:.2rem .7rem;align-self:center}
-
-    /* Étapes */
-    .etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:etape;list-style:none}
-    .etapes li{counter-increment:etape;position:relative;padding-top:3.4rem}
-    .etapes li::before{content:counter(etape);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:var(--champagne-clair);color:var(--prune)}
-    .etapes h3{margin-bottom:.5rem}
-    .etapes p{color:var(--prune-doux)}
-    .etapes a{display:inline-block;margin-top:.7rem;font-weight:600}
-
-    /* Questions */
-    .questions{max-width:46rem}
-    .questions details{border-top:1px solid var(--rose-fonce);padding:1.1rem 0}
-    .questions details:last-child{border-bottom:1px solid var(--rose-fonce)}
-    .questions summary{cursor:pointer;list-style:none;font-family:var(--display);font-size:1.25rem;display:flex;justify-content:space-between;gap:1rem}
-    .questions summary::-webkit-details-marker{display:none}
-    .questions summary::after{content:'+';color:var(--champagne);font-family:var(--texte);font-size:1.4rem;line-height:1}
-    .questions details[open] summary::after{content:'–'}
-    .questions details p{margin-top:.7rem;color:var(--prune-doux)}
-
     @media (max-width:860px){
       .ouverture .conteneur{grid-template-columns:1fr;padding-top:2.5rem}
       .arbre{max-width:300px}
-      .deux,.liste-outils{grid-template-columns:1fr}
-      .etapes{grid-template-columns:1fr;gap:1.6rem}
-      section.bloc{padding:3.5rem 0}
+      .deux{grid-template-columns:1fr}
       .croisement{grid-template-columns:1fr}
     }
   </style>
 </head>
-<body>
+<body class="nouveau">
   <header data-entete></header>
 
   <main>
@@ -112,7 +74,7 @@
           <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
           <p class="intro">Les mêmes situations, les mêmes émotions, les mêmes impasses reviennent parfois d'une génération à l'autre. Ici, tu dessines ton arbre familial et tu explores l'arbre de vie pour voir d'où ça vient et ce qui demande à évoluer.</p>
           <div class="actions">
-            <a class="btn btn-plein" href="parcours.html">Commencer le parcours guidé</a>
+            <a class="btn btn-plein" href="arbre-de-vie.html">Faire le test de l'arbre de vie</a>
             <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
           </div>
           <p class="rassurance">Gratuit, sans inscription pour commencer. Tes réponses restent dans ton navigateur.</p>
@@ -180,7 +142,7 @@
             <g class="sphere" data-s="hokhma" tabindex="0" role="button" aria-label="Hokhma" style="animation-delay:2.25s"><circle class="halo" cx="270" cy="95" r="22"/><circle class="coeur" cx="270" cy="95" r="13"/></g>
             <g class="sphere" data-s="keter" tabindex="0" role="button" aria-label="Kéter" style="animation-delay:2.5s"><circle class="halo" cx="180" cy="40" r="24"/><circle class="coeur" cx="180" cy="40" r="15"/></g>
           </svg>
-          <figcaption class="legende" aria-live="polite"><strong>Touche une sphère</strong><span>Chacune éclaire un domaine de ta vie. La sphère du bas, c'est toi, reliée à tes racines.</span></figcaption>
+          <figcaption class="legende" aria-live="polite"><strong>Touche une sphère</strong><span>Chacune éclaire un domaine de ta vie. La sphère du bas, c'est toi, relié·e à tes racines.</span></figcaption>
         </figure>
       </div>
     </section>
@@ -205,7 +167,7 @@
           <article class="haut">
             <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B98A55"/><circle cx="12" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B98A55"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B98A55" stroke-width="1.3"/></svg>
             <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
-            <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, du corps au sens que tu lui donnes.</p>
+            <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, de la vie matérielle au sens que tu lui donnes.</p>
             <ul>
               <li>Limites, générosité, équilibre</li>
               <li>Relations, émotions, communication</li>
@@ -215,21 +177,45 @@
         </div>
         <div class="croisement">
           <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="15" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/><circle cx="25" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/></svg>
-          <p><strong>Là où les deux se rejoignent, tu comprends.</strong> Par exemple, des conflits d'autorité sur trois générations rejoignent souvent une difficulté à poser tes propres limites. Le voir, c'est déjà pouvoir faire autrement.</p>
+          <p><strong>Là où les deux se rejoignent, tu comprends.</strong> Par exemple, des conflits d'autorité sur trois générations peuvent rejoindre une difficulté à poser tes propres limites. Le voir, c'est déjà pouvoir faire autrement.</p>
         </div>
       </div>
     </section>
 
-    <section class="bloc outils">
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Deux besoins, deux cycles</h2>
+          <p>Presque tout ce qui se répète touche à l'un de ces deux besoins. Savoir lequel, c'est savoir où regarder.</p>
+        </div>
+        <div class="deux">
+          <article>
+            <h3>Cycle 1 · La racine</h3>
+            <p>Se sentir en sécurité, avoir sa place, avoir le droit d'exister. Tu le reconnais à la peur de manquer, au besoin de tout contrôler, à la difficulté de demander.</p>
+          </article>
+          <article class="haut">
+            <h3>Cycle 2 · Le cœur</h3>
+            <p>Aimer et être aimé·e. Tu le reconnais aux relations qui se ressemblent, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e.</p>
+          </article>
+        </div>
+        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="methode.html">Découvrir la méthode des deux cycles</a></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="bloc-tete">
           <h2>Des outils pour avancer concrètement</h2>
           <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
         </div>
         <div class="liste-outils">
+          <a class="outil" href="arbre-de-vie.html">
+            <h3>Le test de l'arbre de vie</h3><span class="duree">5 minutes</span>
+            <p>Vingt affirmations pour voir quelles sphères sont lumineuses chez toi, et lesquelles demandent à être nourries.</p>
+          </a>
           <a class="outil" href="parcours.html">
             <h3>Le parcours guidé</h3><span class="duree">10 minutes</span>
-            <p>Quelques questions pour nommer ce qui se répète dans ton corps, tes émotions et ta vie.</p>
+            <p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes émotions et ta vie.</p>
           </a>
           <a class="outil" href="genosociogramme.html">
             <h3>Mon arbre familial</h3><span class="duree">30 minutes</span>
@@ -239,10 +225,11 @@
             <h3>Ma fréquence intérieure</h3><span class="duree">5 minutes</span>
             <p>Fais le point sur ton état intérieur du moment et trouve des gestes simples pour le soutenir.</p>
           </a>
-          <div class="outil" aria-disabled="true">
-            <h3>Le test de l'arbre de vie</h3><span class="bientot">Bientôt</span>
-            <p>Découvre quelles sphères sont en excès ou en manque chez toi, et relie-les à ton arbre familial.</p>
-          </div>
+
+          <a class="outil" href="methode.html">
+            <h3>La méthode des deux cycles</h3><span class="duree">Lecture</span>
+            <p>Le cycle de la racine et le cycle du cœur : de quel besoin parle ce qui se répète.</p>
+          </a>
           <a class="outil" href="heriter.html">
             <h3>Comprendre le transgénérationnel</h3><span class="duree">Lecture</span>
             <p>Ce qu'est une mémoire familiale, comment elle se manifeste, et par où commencer.</p>
@@ -257,7 +244,7 @@
           <h2>Par où commencer</h2>
         </div>
         <ol class="etapes">
-          <li><h3>Nomme ce qui revient</h3><p>Le parcours guidé t'aide à mettre des mots sur une situation, une émotion ou une sensation qui se répète.</p><a href="parcours.html">Faire le parcours</a></li>
+          <li><h3>Nomme ce qui revient</h3><p>Le parcours guidé t'aide à mettre des mots sur une situation, une émotion ou une relation qui se répète.</p><a href="parcours.html">Faire le parcours</a></li>
           <li><h3>Dessine tes racines</h3><p>Note ce que tu sais de ta famille. Les dates et les événements comptent plus qu'un arbre complet.</p><a href="genosociogramme.html">Ouvrir mon arbre</a></li>
           <li><h3>Relie et observe</h3><p>Repère les échos entre ta vie et celle de tes ancêtres : un âge, une place, un événement.</p><a href="heriter.html">Lire comment faire</a></li>
         </ol>
@@ -293,7 +280,7 @@
         netsah: ['Netsah', 'La persévérance, le désir'],
         hod: ['Hod', 'La pensée, les mots, la communication'],
         yessod: ['Yessod', 'Les émotions et les liens'],
-        malkhout: ['Malkhout', "Le corps, la matière, l'ancrage. C'est toi, reliée à tes racines."]
+        malkhout: ['Malkhout', "La vie matérielle, l'ancrage, ta place. C'est toi, relié·e à tes racines."]
       };
       var legende = document.querySelector('.legende');
       var spheres = document.querySelectorAll('.sphere');

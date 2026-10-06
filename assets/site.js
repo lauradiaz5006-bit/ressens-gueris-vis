@@ -4,11 +4,12 @@
   var MARQUE = 'Schéma Répétitif';
   var MENU = [
     ['heriter.html', 'Comprendre'],
-    ['outils.html', 'Outils'],
+    ['methode.html', 'La méthode'],
+    ['arbre-de-vie.html', "L'arbre de vie"],
     ['genosociogramme.html', 'Mon arbre familial'],
     ['login.html', 'Mon espace']
   ];
-  var BOUTON = ['parcours.html', 'Commencer le parcours'];
+  var BOUTON = ['arbre-de-vie.html', 'Faire le test gratuit'];
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -45,14 +46,17 @@
           '<div><a class="marque" href="index.html">' + MARQUE + '</a>' +
             '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
           '<div><h4>Les outils</h4><ul>' +
+            '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
             '<li><a href="parcours.html">Parcours guidé</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="vibration.html">Ma fréquence intérieure</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
+            '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
             '<li><a href="index.html#questions">Questions fréquentes</a></li></ul></div>' +
           '<div><h4>Informations</h4><ul>' +
+            '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li></ul></div>' +
         '</div>' +
