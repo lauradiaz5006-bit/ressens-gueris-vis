@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syndrome d'anniversaire : définition, exemples et limites · Genesolia</title>
+  <meta name="description" content="Syndrome d'anniversaire en psychogénéalogie : définition, origine, exemple et limites. Comment distinguer une répétition d'une simple coïncidence.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/syndrome-anniversaire.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .definition{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start}
+    .definition blockquote{font-family:var(--display);font-size:clamp(1.35rem,2.4vw,1.7rem);line-height:1.35;padding:1.8rem 2rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FFF6EC,var(--blanc) 80%);border:1px solid var(--champagne-clair)}
+    .origine{list-style:none;display:grid;gap:0;position:relative;padding-left:1.8rem}
+    .origine::before{content:'';position:absolute;left:.45rem;top:.6rem;bottom:.6rem;width:1px;background:var(--rose-fonce)}
+    .origine li{position:relative;padding:.2rem 0 1.4rem}
+    .origine li::before{content:'';position:absolute;left:-1.75rem;top:.5rem;width:.85rem;height:.85rem;border-radius:50%;background:var(--blanc);border:2px solid var(--champagne)}
+    .origine li:last-child{padding-bottom:0}
+    .origine .quand{font-family:var(--display);font-size:1.2rem;color:var(--champagne);display:block}
+    .origine p{color:var(--prune-doux)}
+
+    .frise{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem 1.6rem 1.4rem}
+    .frise svg{width:100%;height:auto}
+    .frise text{font-family:var(--texte)}
+    .frise svg.mobile{display:none}
+    .frise .note{margin-top:1rem;text-align:center;max-width:none}
+    .recit{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+    .recit h3{font-size:1.25rem;margin-bottom:.4rem}
+    .recit p{color:var(--prune-doux);font-size:.99rem}
+    .recit .g{font-size:.88rem;font-weight:600;color:var(--champagne)}
+
+    .balance{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .balance article{padding:2rem;border-radius:var(--rayon);border:1px solid var(--rose)}
+    .balance .hasard{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 70%)}
+    .balance .piste{background:linear-gradient(180deg,#FFF6EC,var(--blanc) 70%);border-color:var(--champagne-clair)}
+    .balance h3{margin-bottom:.7rem}
+    .balance p+p{margin-top:.8rem}
+    .balance p{color:var(--prune-doux)}
+    .chiffre{display:flex;align-items:center;gap:1.2rem;margin:1.2rem 0 .4rem}
+    .chiffre svg{width:92px;height:92px;flex:none}
+    .chiffre span{font-family:var(--display);font-size:1.15rem;color:var(--prune);line-height:1.35}
+
+    .faire{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .faire h3{margin-bottom:1rem}
+    .faire ul{list-style:none;display:grid;gap:.8rem}
+    .faire li{padding-left:1.5rem;position:relative}
+    .faire li::before{content:'';position:absolute;left:0;top:.6rem;width:.55rem;height:.55rem;border-radius:50%;background:var(--champagne)}
+    .faire .eviter li::before{background:transparent;border:1.5px solid var(--corail)}
+
+    .outil-bloc{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2.2rem;border-radius:var(--rayon);background:radial-gradient(28rem 14rem at 100% 0%,rgba(248,214,200,.7),transparent 70%),var(--blanc);border:1px solid var(--champagne-clair)}
+    .outil-bloc h2{margin-bottom:.8rem}
+    .outil-bloc p{color:var(--prune-doux)}
+    .outil-bloc .actions{flex-direction:column;align-items:stretch}
+
+    @media (max-width:860px){
+      .definition,.balance,.faire,.outil-bloc{grid-template-columns:1fr;gap:1.5rem}
+      .recit{grid-template-columns:1fr;gap:1.2rem}
+      .frise{padding:1.4rem .8rem 1rem}
+      .frise svg.large{display:none}
+      .frise svg.mobile{display:block}
+      .outil-bloc{padding:1.6rem}
+      .outil-bloc .actions{flex-direction:row;align-items:center}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Le syndrome d'anniversaire est-il prouvé ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. C'est une hypothèse de lecture, pas un fait démontré. Des coïncidences de dates existent bel et bien, mais rien ne prouve qu'elles soient transmises d'une génération à l'autre. Beaucoup s'expliquent simplement par le hasard."}},
+      {"@type": "Question", "name": "Faut-il s'inquiéter à l'approche d'un âge qui revient dans ma famille ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Un âge qui revient n'annonce rien. Ce n'est ni une prédiction ni une fatalité. Si cette période réveille une émotion, tu peux t'en servir comme d'une occasion de mieux connaître ton histoire, et en parler à quelqu'un de confiance."}},
+      {"@type": "Question", "name": "Que faire si je repère une coïncidence de dates ?", "acceptedAnswer": {"@type": "Answer", "text": "Note-la, puis interroge-la : que s'est-il passé à cette époque, comment en parlait-on, qu'est-ce que cela évoque pour toi ? Si rien ne résonne, laisse-la de côté. Une coïncidence n'a pas besoin d'avoir un sens."}},
+      {"@type": "Question", "name": "Comment l'outil repère-t-il les âges proches ?", "acceptedAnswer": {"@type": "Answer", "text": "Quand tu renseignes des dates dans ton arbre familial, l'outil compare les âges auxquels des événements ont eu lieu et signale ceux qui se ressemblent. Il ne tire aucune conclusion : il te propose des pistes à interroger."}}
+    ]
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Le syndrome d'anniversaire : faits, hypothèses et coïncidences</h1>
+        <p class="intro">En psychogénéalogie, on parle de syndrome d'anniversaire quand un même âge ou une même date semble revenir d'une génération à l'autre. C'est une piste intéressante à regarder. C'est aussi une idée qu'il faut manier avec prudence.</p>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a><a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="definition">
+          <div>
+            <div class="bloc-tete" style="margin-bottom:1.5rem">
+              <h2>Définition</h2>
+            </div>
+            <blockquote>Le syndrome d'anniversaire désigne le fait qu'un événement familial semble se répéter à un même âge, ou à une même date, d'une génération à l'autre.</blockquote>
+            <p style="margin-top:1.4rem;color:var(--prune-doux)">Le mot « semble » compte. On constate une ressemblance de dates. L'idée qu'il existe un lien entre elles reste une hypothèse.</p>
+          </div>
+          <div>
+            <h3 style="margin-bottom:1.2rem">D'où vient l'idée</h3>
+            <ol class="origine">
+              <li><span class="quand">Années 1950, aux États-Unis</span><p>Josephine Hilgard décrit ce qu'elle appelle une « réaction d'anniversaire ».</p></li>
+              <li><span class="quand">Années 1990, en France</span><p>Anne Ancelin Schützenberger popularise la notion de syndrome d'anniversaire auprès du grand public.</p></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Un exemple, sur trois générations</h2>
+          <p>Cet exemple est inventé. Il montre simplement à quoi ressemble une coïncidence d'âge quand on pose les dates côte à côte.</p>
+        </div>
+        <figure class="frise">
+          <svg class="large" viewBox="0 0 720 300" role="img" aria-labelledby="frise-titre">
+            <title id="frise-titre">Frise chronologique fictive : une grand-mère, sa fille et sa petite-fille vivent chacune un tournant à 32 ans</title>
+            <g font-size="13" fill="#8E6383">
+              <text x="150" y="24" text-anchor="middle">0 an</text>
+              <text x="390" y="24" text-anchor="middle">20 ans</text>
+              <text x="534" y="24" text-anchor="middle" fill="#B98A55" font-weight="600">32 ans</text>
+              <text x="630" y="24" text-anchor="middle">40 ans</text>
+            </g>
+            <rect x="520" y="36" width="28" height="248" rx="14" fill="#F3DCC0" opacity=".55"/>
+            <g stroke="#EBCFD5" stroke-width="1"><path d="M150 36 V284 M390 36 V284 M630 36 V284" stroke-dasharray="3 5"/></g>
+            <g font-size="15" fill="#6B2F5B">
+              <text x="0" y="86">Grand-mère</text>
+              <text x="0" y="166">Mère</text>
+              <text x="0" y="246">Toi</text>
+            </g>
+            <g stroke-linecap="round">
+              <path d="M150 80 H680" stroke="#EBCFD5" stroke-width="10"/>
+              <path d="M150 160 H680" stroke="#EBCFD5" stroke-width="10"/>
+              <path d="M150 240 H522" stroke="#EBCFD5" stroke-width="10"/>
+            </g>
+            <g>
+              <circle cx="534" cy="80" r="11" fill="#B98A55"/>
+              <circle cx="534" cy="160" r="11" fill="#B98A55"/>
+              <circle cx="534" cy="240" r="11" fill="#FFF9F7" stroke="#B98A55" stroke-width="2" stroke-dasharray="4 3"/>
+            </g>
+            <g font-size="13" fill="#8E6383">
+              <text x="534" y="110" text-anchor="middle">quitte sa région</text>
+              <text x="534" y="190" text-anchor="middle">change de métier</text>
+              <text x="534" y="270" text-anchor="middle">bientôt 32 ans</text>
+            </g>
+          </svg>
+          <svg class="mobile" viewBox="0 0 340 330" role="img" aria-labelledby="frise-titre-m">
+            <title id="frise-titre-m">Frise chronologique fictive : une grand-mère, sa fille et sa petite-fille vivent chacune un tournant à 32 ans</title>
+            <g font-size="14" fill="#8E6383">
+              <text x="20" y="20" text-anchor="start">0 an</text>
+              <text x="170" y="20" text-anchor="middle">20 ans</text>
+              <text x="260" y="20" text-anchor="middle" fill="#B98A55" font-weight="600">32</text>
+              <text x="320" y="20" text-anchor="end">40</text>
+            </g>
+            <rect x="246" y="32" width="28" height="290" rx="14" fill="#F3DCC0" opacity=".55"/>
+            <g stroke="#EBCFD5" stroke-width="1"><path d="M170 32 V322" stroke-dasharray="3 5"/></g>
+            <g font-size="17" fill="#6B2F5B">
+              <text x="20" y="62">Grand-mère</text>
+              <text x="20" y="160">Mère</text>
+              <text x="20" y="258">Toi</text>
+            </g>
+            <g stroke-linecap="round">
+              <path d="M20 80 H325" stroke="#EBCFD5" stroke-width="10"/>
+              <path d="M20 178 H325" stroke="#EBCFD5" stroke-width="10"/>
+              <path d="M20 276 H248" stroke="#EBCFD5" stroke-width="10"/>
+            </g>
+            <circle cx="260" cy="80" r="11" fill="#B98A55"/>
+            <circle cx="260" cy="178" r="11" fill="#B98A55"/>
+            <circle cx="260" cy="276" r="11" fill="#FFF9F7" stroke="#B98A55" stroke-width="2" stroke-dasharray="4 3"/>
+            <g font-size="14" fill="#8E6383">
+              <text x="236" y="110" text-anchor="end">quitte sa région à 32 ans</text>
+              <text x="236" y="208" text-anchor="end">change de métier à 32 ans</text>
+              <text x="236" y="306" text-anchor="end">bientôt 32 ans</text>
+            </g>
+          </svg>
+          <figcaption class="note">Exemple fictif. Les âges sont alignés pour comparer les trois vies.</figcaption>
+        </figure>
+        <div class="recit">
+          <div><span class="g">Première génération</span><h3>La grand-mère</h3><p>À 32 ans, elle quitte sa région avec ses enfants pour suivre un travail. Dans la famille, on en parle peu.</p></div>
+          <div><span class="g">Deuxième génération</span><h3>La mère</h3><p>À 32 ans, elle quitte un métier stable pour tout recommencer ailleurs. Elle ne fait pas le lien avec sa propre mère.</p></div>
+          <div><span class="g">Troisième génération</span><h3>Toi</h3><p>À l'approche de 32 ans, une forte envie de tout changer te surprend. En dessinant l'arbre, tu remarques la coïncidence.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Coïncidence ou répétition ?</h2>
+          <p>C'est la question honnête à se poser. Car des dates proches apparaissent très souvent, par simple hasard.</p>
+        </div>
+        <div class="balance">
+          <article class="hasard">
+            <h3>Ce que dit le hasard</h3>
+            <p>Le paradoxe des anniversaires le montre bien. Il surprend presque tout le monde.</p>
+            <div class="chiffre">
+              <svg viewBox="0 0 92 92" aria-hidden="true">
+                <circle cx="46" cy="46" r="38" fill="none" stroke="#EBCFD5" stroke-width="10"/>
+                <circle cx="46" cy="46" r="38" fill="none" stroke="#B98A55" stroke-width="10" stroke-dasharray="122 239" transform="rotate(-90 46 46)" stroke-linecap="round"/>
+                <text x="46" y="52" text-anchor="middle" font-family="Gilda Display, Georgia, serif" font-size="18" fill="#6B2F5B">23</text>
+              </svg>
+              <span>Dans un groupe de 23 personnes, la probabilité que deux partagent le même jour d'anniversaire dépasse 50 %.</span>
+            </div>
+            <p>Or une famille, sur trois ou quatre générations, compte beaucoup de personnes et beaucoup de dates : naissances, unions, départs, ruptures. Plus il y a de dates, plus les coïncidences sont attendues. En trouver une n'a donc rien d'exceptionnel.</p>
+          </article>
+          <article class="piste">
+            <h3>Ce qui peut en faire une piste</h3>
+            <p>Une coïncidence ne prouve rien. Elle peut tout de même devenir une question utile, si elle te parle.</p>
+            <p>Par exemple, quand l'événement ancien n'a jamais été raconté, quand l'âge réveille chez toi une émotion que tu ne t'expliques pas, ou quand la ressemblance porte aussi sur la situation, et pas seulement sur la date.</p>
+            <p>Dans ce cas, la coïncidence n'est pas une réponse. C'est une porte d'entrée pour parler de ton histoire.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>L'utiliser sainement</h2>
+          <p>Une date qui revient peut éclairer ton histoire. Elle ne dit rien de ton avenir.</p>
+        </div>
+        <div class="faire">
+          <div>
+            <h3>Ce qui aide</h3>
+            <ul>
+              <li>Noter les dates et les âges, sans chercher tout de suite à les interpréter</li>
+              <li>T'interroger : que se passait-il à cette époque, comment en parlait-on ?</li>
+              <li>Vérifier les faits auprès de ta famille ou dans les archives</li>
+              <li>Laisser de côté une coïncidence qui ne te dit rien</li>
+            </ul>
+          </div>
+          <div class="eviter">
+            <h3>Ce qu'il vaut mieux éviter</h3>
+            <ul>
+              <li>En faire une prédiction sur ce qui va t'arriver</li>
+              <li>Y voir une fatalité, comme si tout était déjà écrit</li>
+              <li>Chercher à tout prix un lien là où il n'y en a pas</li>
+              <li>Laisser quelqu'un t'imposer une interprétation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="outil-bloc">
+          <div>
+            <h2>Ce que fait notre outil</h2>
+            <p>Dans ton arbre familial, l'outil compare les âges auxquels les événements ont eu lieu. Quand deux âges se ressemblent, il les signale comme des pistes à interroger. Il ne conclut rien et ne prédit rien : c'est toi qui décides si une piste a du sens.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+            <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir l'exemple</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Ce que beaucoup se demandent</h2></div>
+        <div class="questions">
+          <details><summary>Le syndrome d'anniversaire est-il prouvé ?</summary><p>Non. C'est une hypothèse de lecture, pas un fait démontré. Des coïncidences de dates existent bel et bien, mais rien ne prouve qu'elles soient transmises d'une génération à l'autre. Beaucoup s'expliquent simplement par le hasard.</p></details>
+          <details><summary>Faut-il s'inquiéter à l'approche d'un âge qui revient dans ma famille ?</summary><p>Non. Un âge qui revient n'annonce rien. Ce n'est ni une prédiction ni une fatalité. Si cette période réveille une émotion, tu peux t'en servir comme d'une occasion de mieux connaître ton histoire, et en parler à quelqu'un de confiance.</p></details>
+          <details><summary>Que faire si je repère une coïncidence de dates ?</summary><p>Note-la, puis interroge-la : que s'est-il passé à cette époque, comment en parlait-on, qu'est-ce que cela évoque pour toi ? Si rien ne résonne, laisse-la de côté. Une coïncidence n'a pas besoin d'avoir un sens.</p></details>
+          <details><summary>Comment l'outil repère-t-il les âges proches ?</summary><p>Quand tu renseignes des dates dans ton arbre familial, l'outil compare les âges auxquels des événements ont eu lieu et signale ceux qui se ressemblent. Il ne tire aucune conclusion : il te propose des pistes à interroger.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Définition, intérêts et limites, dits honnêtement.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">Gratuit</span><p>Dessine ton génosociogramme : prénoms répétés, mêmes métiers, âges qui coïncident.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Ce qui passe d'une génération à l'autre, et par où commencer.</p></a>
+          <a class="outil" href="les-10-sephiroth.html"><h3>Les dix Séphiroth de l'arbre de vie</h3><p>Le sens de chaque sphère, et ce qu'elle dit de ta vie.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur, pour savoir où regarder en premier.</p></a>
+          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">Gratuit</span><p>Vingt affirmations pour voir quelles sphères nourrir aujourd'hui.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

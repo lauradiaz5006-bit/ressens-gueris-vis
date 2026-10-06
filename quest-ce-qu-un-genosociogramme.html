@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génosociogramme : définition et différence avec le génogramme · Genesolia</title>
+  <meta name="description" content="Le génosociogramme est un arbre familial annoté de dates, d'événements et de liens. Définition, différence avec le génogramme, schémas et exemples.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/quest-ce-qu-un-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .definition{margin-top:2rem;max-width:44rem;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--champagne-clair);box-shadow:0 10px 30px rgba(185,138,85,.08)}
+    .definition .mot{font-family:var(--display);font-size:1.05rem;color:var(--champagne)}
+    .definition p{margin-top:.35rem;font-size:1.08rem;max-width:none}
+
+    .notes-arbre{display:grid;grid-template-columns:repeat(2,1fr);gap:0 3rem;list-style:none;max-width:60rem}
+    .notes-arbre li{display:grid;grid-template-columns:2.4rem 1fr;gap:.15rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .notes-arbre .pastille{grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;background:var(--rose)}
+    .notes-arbre .pastille svg{width:18px;height:18px}
+    .notes-arbre h3{font-size:1.2rem}
+    .notes-arbre p{color:var(--prune-doux);font-size:.98rem}
+
+    .tableau-defile{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--rayon);border:1px solid var(--rose-fonce);background:var(--blanc)}
+    .comparatif{width:100%;min-width:640px;border-collapse:collapse;font-size:.98rem}
+    .comparatif th,.comparatif td{padding:1rem 1.2rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rose)}
+    .comparatif thead th{font-family:var(--display);font-weight:400;font-size:1.15rem;background:var(--rose);color:var(--prune)}
+    .comparatif thead th.mis-en-avant{background:var(--champagne-clair)}
+    .comparatif tbody th{font-weight:600;color:var(--prune);width:17%}
+    .comparatif td{color:var(--prune-doux)}
+    .comparatif td.mis-en-avant{background:#FFF8F0;color:var(--prune)}
+    .comparatif tbody tr:last-child th,.comparatif tbody tr:last-child td{border-bottom:0}
+    .glisser{display:none;margin-top:.6rem}
+
+    .duo{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .duo figure{border-radius:var(--rayon);padding:1.6rem;background:var(--blanc);border:1px solid var(--rose)}
+    .duo figure.riche{background:linear-gradient(180deg,#FFF6EC,var(--blanc) 70%);border-color:var(--champagne-clair)}
+    .duo svg{width:100%;max-width:400px;height:auto;margin:0 auto 1rem}
+    .duo figcaption h3{margin-bottom:.4rem}
+    .duo figcaption p{color:var(--prune-doux);font-size:.98rem}
+    .sv-trait{fill:none;stroke:var(--prune);stroke-width:1.6}
+    .sv-forme{fill:var(--blanc);stroke:var(--prune);stroke-width:1.6}
+    .sv-moi{fill:var(--champagne-clair);stroke:var(--prune);stroke-width:1.6}
+    .sv-annee{font:600 10px var(--texte);fill:var(--prune)}
+    .sv-evt{font:italic 10px var(--texte);fill:var(--champagne)}
+    .sv-cle{font:600 10px var(--texte);fill:#C9675A}
+
+    .origine{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .origine p+p{margin-top:1rem}
+
+    @media (max-width:860px){
+      .notes-arbre,.duo,.origine{grid-template-columns:1fr}
+      .origine{gap:1.5rem}
+      .glisser{display:block}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Quelle est la différence entre un génogramme et un génosociogramme ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme montre la structure d'une famille et les liens entre ses membres, avec des symboles. Le génosociogramme reprend ce dessin et y ajoute les dates, les événements marquants et le contexte de chaque vie, pour repérer ce qui revient d'une génération à l'autre."}
+      },
+      {
+        "@type": "Question",
+        "name": "Faut-il connaître toute sa famille pour faire un génosociogramme ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Non. On commence avec ce que l'on sait, même si c'est peu. Les cases vides font partie de l'histoire : elles montrent ce qui s'est perdu ou ce qui ne s'est pas dit."}
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de générations faut-il représenter ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "On remonte en général trois ou quatre générations : toi, tes parents, tes grands-parents et, si tu le peux, tes arrière-grands-parents. C'est souvent assez pour voir apparaître des dates ou des événements qui se répondent."}
+      },
+      {
+        "@type": "Question",
+        "name": "Un génosociogramme explique-t-il ce que je vis ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Non. Il fait apparaître des coïncidences : un âge, un prénom, un métier, une épreuve qui reviennent. Ce sont des pistes à interroger, pas des causes. C'est une grille de lecture parmi d'autres."}
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Le génosociogramme, expliqué simplement</h1>
+        <p class="intro">Le génosociogramme est un arbre généalogique enrichi. En plus des prénoms, on y note les dates, les événements marquants, les liens et la place de chacun·e. On l'appelle parfois arbre généalogique psychologique.</p>
+        <div class="definition">
+          <span class="mot">En une phrase</span>
+          <p>Un génosociogramme, c'est ton arbre familial sur trois ou quatre générations, annoté de ce qui a compté dans chaque vie, pour voir ce qui se répète.</p>
+        </div>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Dessiner mon génosociogramme</a><a class="btn btn-trait" href="exemple-genosociogramme.html">Voir un exemple</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Ce qu'on y note</h2>
+          <p>Un arbre classique dit qui descend de qui. Le génosociogramme ajoute ce qui s'est passé, quand et où. Six types d'informations suffisent pour commencer.</p>
+        </div>
+        <ul class="notes-arbre">
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="3.5" width="13" height="12" rx="2.5" stroke="#6B2F5B" stroke-width="1.4"/><path d="M2.5 7.5h13M6 2v3M12 2v3" stroke="#6B2F5B" stroke-width="1.4" stroke-linecap="round"/></svg></span><h3>Les dates</h3><p>Naissances, décès, unions, séparations. Avec les dates, on peut calculer les âges et les comparer.</p></li>
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 2.5l1.9 4 4.3.5-3.2 3 .9 4.3L9 12.2l-3.9 2.1.9-4.3-3.2-3 4.3-.5z" stroke="#6B2F5B" stroke-width="1.4" stroke-linejoin="round"/></svg></span><h3>Les événements</h3><p>Déménagements, exils, deuils, ruptures, faillites, guerres traversées, secrets connus.</p></li>
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="5" cy="9" r="3" stroke="#6B2F5B" stroke-width="1.4"/><circle cx="13" cy="9" r="3" stroke="#6B2F5B" stroke-width="1.4"/><path d="M8 9h2" stroke="#6B2F5B" stroke-width="1.4"/></svg></span><h3>Les liens</h3><p>Les couples, les enfants, mais aussi les relations proches, distantes ou rompues.</p></li>
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><circle cx="9" cy="4.5" r="2.2" stroke="#6B2F5B" stroke-width="1.4"/><circle cx="4" cy="13" r="2.2" stroke="#6B2F5B" stroke-width="1.4"/><circle cx="14" cy="13" r="2.2" fill="#6B2F5B"/><path d="M9 6.7v3M9 9.7L4.8 11M9 9.7l4.2 1.3" stroke="#6B2F5B" stroke-width="1.2"/></svg></span><h3>Les places</h3><p>Aîné·e, cadet·te, enfant unique, enfant venu·e après une perte, enfant qui porte le prénom d'un·e autre.</p></li>
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2.5" y="6" width="13" height="9" rx="2" stroke="#6B2F5B" stroke-width="1.4"/><path d="M6.5 6V4.5a1.5 1.5 0 011.5-1.5h2a1.5 1.5 0 011.5 1.5V6" stroke="#6B2F5B" stroke-width="1.4"/></svg></span><h3>Les métiers</h3><p>Ce que chacun·e faisait, ce qu'il ou elle aurait voulu faire, les métiers qui se transmettent.</p></li>
+          <li><span class="pastille"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 16s5-4.6 5-8.5a5 5 0 00-10 0C4 11.4 9 16 9 16z" stroke="#6B2F5B" stroke-width="1.4"/><circle cx="9" cy="7.5" r="1.8" stroke="#6B2F5B" stroke-width="1.4"/></svg></span><h3>Les lieux</h3><p>Villes, régions, pays d'origine. Ils racontent les départs, les arrivées et les racines.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Arbre généalogique, génogramme, génosociogramme</h2>
+          <p>Les trois se ressemblent au premier coup d'œil. Ce qui change, c'est ce qu'on y regarde.</p>
+        </div>
+        <div class="tableau-defile" role="region" aria-label="Tableau comparatif" tabindex="0">
+          <table class="comparatif">
+            <thead>
+              <tr><th scope="col"><span class="note">&nbsp;</span></th><th scope="col">Arbre généalogique</th><th scope="col">Génogramme</th><th scope="col" class="mis-en-avant">Génosociogramme</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Ce qu'il montre</th><td>Qui descend de qui : les ancêtres et les descendants.</td><td>La structure de la famille et les liens entre ses membres.</td><td class="mis-en-avant">La famille, les liens, et ce qui s'est passé dans chaque vie.</td></tr>
+              <tr><th scope="row">Ce qu'on y note</th><td>Noms, dates et lieux de naissance, de mariage, de décès.</td><td>Personnes, couples, enfants, relations, avec des symboles.</td><td class="mis-en-avant">Tout cela, plus les événements marquants, les métiers, les âges, le contexte historique et social.</td></tr>
+              <tr><th scope="row">À quoi il sert</th><td>Retrouver ses origines et garder une trace de la lignée.</td><td>Voir d'un coup d'œil comment une famille est organisée.</td><td class="mis-en-avant">Repérer ce qui revient d'une génération à l'autre : prénoms, âges, dates, épreuves.</td></tr>
+              <tr><th scope="row">D'où il vient</th><td>De la tradition généalogique.</td><td>De la thérapie familiale américaine.</td><td class="mis-en-avant">D'une proposition faite en France, à partir du génogramme.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note glisser">Fais glisser le tableau pour voir toutes les colonnes.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>La même famille, deux façons de la dessiner</h2>
+          <p>D'abord un génogramme sobre : on voit la structure. Puis le génosociogramme : les dates et les événements font apparaître un âge qui revient. Il s'agit de la famille fictive de notre <a href="exemple-genosociogramme.html">exemple</a>.</p>
+        </div>
+        <div class="duo">
+          <figure>
+            <svg viewBox="0 0 340 310" role="img" aria-label="Génogramme sobre : quatre générations de femmes et leurs conjoints, sans dates">
+              <path class="sv-trait" d="M68 36H116M92 36V100H190V106M204 120H216M190 120V186M204 200H256M230 200V262"/>
+              <path class="sv-trait" d="M214 208L222 192M220 208L228 192"/>
+              <rect class="sv-forme" x="40" y="22" width="28" height="28" rx="2"/>
+              <path class="sv-trait" d="M40 22L68 50M68 22L40 50"/>
+              <circle class="sv-forme" cx="130" cy="36" r="14"/>
+              <path class="sv-trait" d="M120 26L140 46M140 26L120 46"/>
+              <circle class="sv-forme" cx="190" cy="120" r="14"/>
+              <path class="sv-trait" d="M180 110L200 130M200 110L180 130"/>
+              <rect class="sv-forme" x="216" y="106" width="28" height="28" rx="2"/>
+              <path class="sv-trait" d="M216 106L244 134M244 106L216 134"/>
+              <circle class="sv-forme" cx="190" cy="200" r="14"/>
+              <rect class="sv-forme" x="256" y="186" width="28" height="28" rx="2"/>
+              <circle class="sv-forme" cx="230" cy="280" r="18"/>
+              <circle class="sv-moi" cx="230" cy="280" r="13"/>
+            </svg>
+            <figcaption><h3>Le génogramme</h3><p>Des symboles et des traits. On lit qui est qui, qui est en couple, qui est l'enfant de qui.</p></figcaption>
+          </figure>
+          <figure class="riche">
+            <svg viewBox="0 0 340 310" role="img" aria-label="Génosociogramme : la même famille annotée de dates et d'événements, avec l'âge de 32 ans qui revient">
+              <path class="sv-trait" d="M68 36H116M92 36V100H190V106M204 120H216M190 120V186M204 200H256M230 200V262"/>
+              <path class="sv-trait" d="M214 208L222 192M220 208L228 192"/>
+              <rect class="sv-forme" x="40" y="22" width="28" height="28" rx="2"/>
+              <path class="sv-trait" d="M40 22L68 50M68 22L40 50"/>
+              <circle class="sv-forme" cx="130" cy="36" r="14"/>
+              <path class="sv-trait" d="M120 26L140 46M140 26L120 46"/>
+              <circle class="sv-forme" cx="190" cy="120" r="14"/>
+              <path class="sv-trait" d="M180 110L200 130M200 110L180 130"/>
+              <rect class="sv-forme" x="216" y="106" width="28" height="28" rx="2"/>
+              <path class="sv-trait" d="M216 106L244 134M244 106L216 134"/>
+              <circle class="sv-forme" cx="190" cy="200" r="14"/>
+              <rect class="sv-forme" x="256" y="186" width="28" height="28" rx="2"/>
+              <circle class="sv-forme" cx="230" cy="280" r="18"/>
+              <circle class="sv-moi" cx="230" cy="280" r="13"/>
+              <text class="sv-annee" x="54" y="14" text-anchor="middle">1910 – 1940</text>
+              <text class="sv-evt" x="54" y="66" text-anchor="middle">mort au front</text>
+              <text class="sv-annee" x="130" y="14" text-anchor="middle">1912 – 1988</text>
+              <text class="sv-evt" x="130" y="66" text-anchor="middle">veuve à 28 ans</text>
+              <text class="sv-annee" x="168" y="117" text-anchor="end">1938 – 2015</text>
+              <text class="sv-cle" x="168" y="131" text-anchor="end">veuve à 32 ans</text>
+              <text class="sv-annee" x="250" y="117">1936 – 1970</text>
+              <text class="sv-evt" x="250" y="131">mort à 34 ans</text>
+              <text class="sv-annee" x="168" y="197" text-anchor="end">1963</text>
+              <text class="sv-cle" x="168" y="211" text-anchor="end">divorce à 32 ans</text>
+              <text class="sv-annee" x="290" y="204">1960</text>
+              <text class="sv-annee" x="256" y="277">1994</text>
+              <text class="sv-cle" x="256" y="291">bientôt 32 ans</text>
+            </svg>
+            <figcaption><h3>Le génosociogramme</h3><p>Les mêmes symboles, plus les années et les événements. L'âge de 32 ans revient sur trois générations : une coïncidence à interroger.</p></figcaption>
+          </figure>
+        </div>
+        <p class="note" style="margin-top:1.2rem">Les symboles utilisés ici sont expliqués sur la page <a href="symboles-genosociogramme.html">les symboles du génosociogramme</a>.</p>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur origine">
+        <div>
+          <h2>D'où vient le mot</h2>
+        </div>
+        <div>
+          <p>Le génogramme vient de la thérapie familiale américaine. On l'associe notamment à Murray Bowen, puis à Monica McGoldrick, qui a contribué à en diffuser les symboles.</p>
+          <p>Le mot génosociogramme a été proposé en France par Anne Ancelin Schützenberger. Le préfixe « socio » rappelle que chaque vie s'inscrit dans un contexte : une époque, un lieu, des événements collectifs comme les guerres ou les exils.</p>
+          <p>Aujourd'hui, les deux mots sont parfois employés l'un pour l'autre. Ce qui compte, c'est ce que tu y notes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Et maintenant ?</h2>
+          <p>Tu sais ce qu'est un génosociogramme. Tu peux voir <a href="exemple-genosociogramme.html">un exemple lu pas à pas</a>, suivre <a href="comment-faire-son-genosociogramme.html">la méthode en six étapes</a>, ou commencer directement le tien dans l'outil gratuit.</p>
+        </div>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Ouvrir l'outil</a><a class="btn btn-trait" href="comment-faire-son-genosociogramme.html">Comment faire son génosociogramme</a></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Questions fréquentes</h2></div>
+        <div class="questions">
+          <details><summary>Quelle est la différence entre un génogramme et un génosociogramme ?</summary><p>Le génogramme montre la structure d'une famille et les liens entre ses membres, avec des symboles. Le génosociogramme reprend ce dessin et y ajoute les dates, les événements marquants et le contexte de chaque vie, pour repérer ce qui revient d'une génération à l'autre.</p></details>
+          <details><summary>Faut-il connaître toute sa famille pour faire un génosociogramme ?</summary><p>Non. On commence avec ce que l'on sait, même si c'est peu. Les cases vides font partie de l'histoire : elles montrent ce qui s'est perdu ou ce qui ne s'est pas dit.</p></details>
+          <details><summary>Combien de générations faut-il représenter ?</summary><p>On remonte en général trois ou quatre générations : toi, tes parents, tes grands-parents et, si tu le peux, tes arrière-grands-parents. C'est souvent assez pour voir apparaître des dates ou des événements qui se répondent.</p></details>
+          <details><summary>Un génosociogramme explique-t-il ce que je vis ?</summary><p>Non. Il fait apparaître des coïncidences : un âge, un prénom, un métier, une épreuve qui reviennent. Ce sont des pistes à interroger, pas des causes. C'est une grille de lecture parmi d'autres.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="comment-faire-son-genosociogramme.html"><h3>Comment faire son génosociogramme</h3><p>Les six étapes, les questions à poser à ta famille et quelques conseils.</p></a>
+          <a class="outil" href="exemple-genosociogramme.html"><h3>Un exemple lu pas à pas</h3><p>La famille fictive de Léa, sur quatre générations, et ce qui s'y répète.</p></a>
+          <a class="outil" href="symboles-genosociogramme.html"><h3>Les symboles du génosociogramme</h3><p>La légende illustrée : personnes, couples, enfants, relations.</p></a>
+          <a class="outil" href="genosociogramme-vierge.html"><h3>Le modèle vierge à imprimer</h3><p>Un génosociogramme vide en PDF, à remplir à la main.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>L'outil en ligne gratuit</h3><p>Dessine ton arbre familial : les répétitions sont repérées automatiquement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

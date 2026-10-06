@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comment faire un génosociogramme : les 6 étapes · Genesolia</title>
+  <meta name="description" content="Comment faire un génosociogramme, étape par étape : ce qu'il faut rassembler, comment le dessiner, quoi relier, et les questions à poser à ta famille.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/comment-faire-son-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .six{list-style:none;counter-reset:e;display:grid;gap:0;max-width:60rem}
+    .six>li{counter-increment:e;display:grid;grid-template-columns:3.4rem 1fr;gap:0 1.6rem;padding:2rem 0;border-top:1px solid var(--rose)}
+    .six>li:last-child{border-bottom:1px solid var(--rose)}
+    .six>li::before{content:counter(e);width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.4rem;background:var(--champagne-clair);color:var(--prune)}
+    .six>li:nth-child(5)::before{background:var(--prune);color:var(--blanc)}
+    .six h3{font-size:1.5rem;margin:.35rem 0 .5rem}
+    .six p{color:var(--prune-doux)}
+    .six p+p{margin-top:.6rem}
+
+    .checklist{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem 1.6rem;margin-top:1.1rem;padding:1.2rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);max-width:40rem}
+    .checklist li{display:flex;gap:.65rem;align-items:flex-start;font-size:.98rem}
+    .checklist li::before{content:'';flex:none;width:1rem;height:1rem;margin-top:.3rem;border-radius:5px;border:1.5px solid var(--champagne)}
+
+    .reperes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .reperes span{font-size:.92rem;padding:.35rem .85rem;border-radius:999px;background:var(--rose);color:var(--prune)}
+
+    .generations{margin-top:1.2rem;max-width:22rem}
+    .generations svg{width:100%;height:auto}
+
+    .questions-famille{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .questions-famille div{padding:1.8rem;border-radius:var(--rayon)}
+    .questions-famille .parents{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%);border:1px solid var(--rose)}
+    .questions-famille .grands{background:linear-gradient(180deg,#FFF6EC,var(--blanc) 75%);border:1px solid var(--champagne-clair)}
+    .questions-famille h3{margin-bottom:1rem}
+    .questions-famille ul{list-style:none;display:grid;gap:.7rem}
+    .questions-famille li{font-family:var(--display);font-size:1.12rem;padding-left:1.3rem;position:relative}
+    .questions-famille li::before{content:'';position:absolute;left:0;top:.6rem;width:.45rem;height:.45rem;border-radius:50%;background:var(--corail)}
+    .questions-famille .grands li::before{background:var(--champagne)}
+
+    .conseils{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2.5rem;align-items:start}
+    .conseils h3{margin-bottom:.5rem}
+    .conseils p{color:var(--prune-doux)}
+    .conseils .premier h3{font-size:1.7rem}
+
+    .appel{text-align:center;padding:3rem 1.5rem;border-radius:32px;background:radial-gradient(30rem 16rem at 50% 0%,rgba(248,214,200,.8),transparent 70%),var(--blanc);border:1px solid var(--rose-fonce)}
+    .appel h2{margin-bottom:.8rem}
+    .appel p{margin:0 auto 1.6rem;color:var(--prune-doux)}
+    .appel .btn{font-size:1.1rem;padding:1.1rem 2.2rem}
+    .appel .note{margin:1rem auto 0}
+
+    @media (max-width:860px){
+      .questions-famille,.conseils{grid-template-columns:1fr}
+      .conseils{gap:1.6rem}
+      .six>li{grid-template-columns:1fr;gap:.6rem}
+      .checklist{grid-template-columns:1fr}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien de générations faut-il remonter ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Trois ou quatre générations suffisent pour commencer : toi, tes parents, tes grands-parents et, si tu peux, tes arrière-grands-parents. Tu pourras toujours ajouter des personnes plus tard, au fil de ce que tu apprends."}
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de temps faut-il pour faire son génosociogramme ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Une première version avec ce que tu sais déjà peut se faire en une soirée. Ensuite, c'est un travail qui s'enrichit au fil des semaines, à mesure que tu poses des questions et que tu retrouves des dates."}
+      },
+      {
+        "@type": "Question",
+        "name": "Et si je ne sais rien sur un côté de ma famille ?",
+        "acceptedAnswer": {"@type": "Answer", "text": "C'est fréquent. Dessine quand même les cases, même vides, et note ce que tu ne sais pas. Un côté absent est une information en soi. Tu peux aussi chercher dans les papiers de famille, les livrets de famille ou les archives d'état civil."}
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Comment faire son génosociogramme, étape par étape</h1>
+        <p class="intro">Faire un génosociogramme, c'est dessiner ton arbre familial et y noter ce qui a compté dans chaque vie. Voici comment faire, en six étapes simples. Une feuille et un crayon suffisent, ou l'outil en ligne gratuit.</p>
+        <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Commencer dans l'outil</a><a class="btn btn-trait" href="genosociogramme-vierge.html">Imprimer le modèle vierge</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Les six étapes</h2>
+          <p>Prends-les dans l'ordre. Tu peux t'arrêter entre deux étapes et y revenir plus tard.</p>
+        </div>
+        <ol class="six">
+          <li>
+            <div>
+              <h3>Rassembler les informations</h3>
+              <p>Avant de dessiner, fais la liste de ce que tu sais déjà. Coche au fur et à mesure.</p>
+              <ul class="checklist">
+                <li>Les prénoms et les noms</li>
+                <li>Les dates de naissance</li>
+                <li>Les dates de décès</li>
+                <li>Les unions et les séparations</li>
+                <li>Les métiers</li>
+                <li>Les lieux de vie</li>
+                <li>Les déménagements</li>
+                <li>Les événements marquants</li>
+                <li>Les secrets connus</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Te placer au centre</h3>
+              <p>Commence par toi. Dessine ton symbole en bas de la feuille, avec un double contour. Ajoute tes frères et sœurs à côté, puis ton ou ta partenaire et tes enfants si tu en as.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Remonter trois ou quatre générations</h3>
+              <p>Au-dessus de toi, tes parents. Au-dessus d'eux, tes grands-parents. Puis tes arrière-grands-parents, si tu les connais. Chaque génération sur sa propre ligne.</p>
+              <div class="generations">
+                <svg viewBox="0 0 260 130" role="img" aria-label="Quatre lignes de générations, de l'arrière-grand-parent jusqu'à toi">
+                  <g font-family="Nunito Sans, sans-serif" font-size="10" fill="#8E6383">
+                    <text x="0" y="18">Arrière-grands-parents</text>
+                    <text x="0" y="50">Grands-parents</text>
+                    <text x="0" y="82">Parents</text>
+                    <text x="0" y="114">Toi</text>
+                  </g>
+                  <g stroke="#EBCFD5" stroke-dasharray="2 4"><path d="M130 14H256M130 46H256M130 78H256M130 110H256"/></g>
+                  <g fill="#fff" stroke="#6B2F5B" stroke-width="1.3">
+                    <rect x="150" y="7" width="13" height="13" rx="1.5"/><circle cx="182" cy="14" r="6.5"/><rect x="208" y="7" width="13" height="13" rx="1.5"/><circle cx="240" cy="14" r="6.5"/>
+                    <rect x="164" y="39" width="13" height="13" rx="1.5"/><circle cx="226" cy="46" r="6.5"/>
+                    <rect x="180" y="71" width="13" height="13" rx="1.5"/><circle cx="210" cy="78" r="6.5"/>
+                  </g>
+                  <circle cx="195" cy="110" r="9" fill="#fff" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="195" cy="110" r="6" fill="#F3DCC0" stroke="#6B2F5B" stroke-width="1.3"/>
+                </svg>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Ajouter les dates et les événements</h3>
+              <p>À côté de chaque personne, note les années de naissance et de décès, les unions, les séparations. Puis les événements : un départ, une perte, une guerre traversée, une faillite, un exil.</p>
+              <p>Quand tu le peux, note l'âge qu'avait la personne au moment de l'événement. C'est souvent là que les choses se répondent.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Relier</h3>
+              <p>Regarde l'ensemble avec un peu de recul. Cherche ce qui revient d'une génération à l'autre.</p>
+              <div class="reperes"><span>un prénom</span><span>un âge</span><span>une date</span><span>un métier</span><span>une épreuve</span><span>une place dans la fratrie</span></div>
+              <p style="margin-top:1rem">Entoure ou relie ce qui se ressemble. L'outil en ligne fait ce repérage automatiquement.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Noter ce qui manque</h3>
+              <p>Les cases vides, les dates inconnues, les personnes dont on ne parle pas : note-les aussi, avec un point d'interrogation. Ce qui manque fait partie de l'histoire, et indique où chercher ensuite.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Les questions à poser à ta famille</h2>
+          <p>Choisis un moment calme. Commence par des questions simples et concrètes. Les souvenirs viennent souvent en parlant.</p>
+        </div>
+        <div class="questions-famille">
+          <div class="parents">
+            <h3>À tes parents</h3>
+            <ul>
+              <li>Comment vous êtes-vous rencontrés ?</li>
+              <li>Comment s'est passée ma naissance, et la période autour ?</li>
+              <li>Pourquoi m'avez-vous donné ce prénom ?</li>
+              <li>Quels métiers faisaient vos parents ?</li>
+              <li>Y a-t-il eu des déménagements, des départs, des ruptures ?</li>
+            </ul>
+          </div>
+          <div class="grands">
+            <h3>À tes grands-parents</h3>
+            <ul>
+              <li>Où avez-vous grandi ?</li>
+              <li>Comment était la vie de vos parents ?</li>
+              <li>Avez-vous eu des frères et sœurs dont on parle peu ?</li>
+              <li>Qu'avez-vous vécu pendant les années difficiles ?</li>
+              <li>Y a-t-il une histoire de famille qu'on ne raconte jamais ?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Trois conseils avant de commencer</h2></div>
+        <div class="conseils">
+          <div class="premier"><h3>Commence avec ce que tu sais</h3><p>N'attends pas d'avoir toutes les réponses. Une première version, même incomplète, te montre déjà où regarder.</p></div>
+          <div><h3>Les trous font partie de l'histoire</h3><p>Une date perdue, un prénom oublié, un silence : ce sont aussi des informations. Garde-les visibles.</p></div>
+          <div><h3>Reste prudent·e avec les interprétations</h3><p>Une répétition est une coïncidence à interroger, pas une cause. Pose des questions plutôt que des conclusions.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc" style="padding-top:0">
+      <div class="conteneur">
+        <div class="appel">
+          <h2>Prêt·e à dessiner ton arbre ?</h2>
+          <p>L'outil en ligne est gratuit. Il repère automatiquement les prénoms répétés, les mêmes métiers, les mêmes épreuves et les âges qui coïncident.</p>
+          <a class="btn btn-plein" href="genosociogramme.html">Faire mon génosociogramme</a>
+          <p class="note">Tu préfères le papier ? <a href="genosociogramme-vierge.html">Télécharge le modèle vierge</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Questions fréquentes</h2></div>
+        <div class="questions">
+          <details><summary>Combien de générations faut-il remonter ?</summary><p>Trois ou quatre générations suffisent pour commencer : toi, tes parents, tes grands-parents et, si tu peux, tes arrière-grands-parents. Tu pourras toujours ajouter des personnes plus tard, au fil de ce que tu apprends.</p></details>
+          <details><summary>Combien de temps faut-il pour faire son génosociogramme ?</summary><p>Une première version avec ce que tu sais déjà peut se faire en une soirée. Ensuite, c'est un travail qui s'enrichit au fil des semaines, à mesure que tu poses des questions et que tu retrouves des dates.</p></details>
+          <details><summary>Et si je ne sais rien sur un côté de ma famille ?</summary><p>C'est fréquent. Dessine quand même les cases, même vides, et note ce que tu ne sais pas. Un côté absent est une information en soi. Tu peux aussi chercher dans les papiers de famille, les livrets de famille ou les archives d'état civil.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>La définition, et la différence avec le génogramme et l'arbre généalogique.</p></a>
+          <a class="outil" href="exemple-genosociogramme.html"><h3>Un exemple lu pas à pas</h3><p>La famille fictive de Léa, sur quatre générations, et ce qui s'y répète.</p></a>
+          <a class="outil" href="symboles-genosociogramme.html"><h3>Les symboles du génosociogramme</h3><p>La légende illustrée : personnes, couples, enfants, relations.</p></a>
+          <a class="outil" href="genosociogramme-vierge.html"><h3>Le modèle vierge à imprimer</h3><p>Un génosociogramme vide en PDF, à remplir à la main.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>L'outil en ligne gratuit</h3><p>Dessine ton arbre familial : les répétitions sont repérées automatiquement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

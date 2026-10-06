@@ -1,0 +1,298 @@
+{
+ "people": {
+  "p1": {
+   "id": "p1",
+   "prenom": "Léa",
+   "nom": "Martin",
+   "sex": "f",
+   "naiss": "1994-03-12",
+   "deces": "",
+   "metier": "graphiste",
+   "lieu": "Lyon",
+   "traits": [],
+   "events": [
+    {
+     "type": "rupture",
+     "age": "31",
+     "year": "2025"
+    }
+   ],
+   "notes": "Séparée à 31 ans. Sent monter une inquiétude à l'approche de ses 32 ans.",
+   "role": "moi"
+  },
+  "p2": {
+   "id": "p2",
+   "prenom": "Hélène",
+   "nom": "Martin",
+   "sex": "f",
+   "naiss": "1963-05-02",
+   "deces": "",
+   "metier": "enseignante",
+   "lieu": "Lyon",
+   "traits": [],
+   "events": [
+    {
+     "type": "rupture",
+     "age": "32",
+     "year": "1995"
+    }
+   ],
+   "notes": "Divorce à 32 ans, Léa a un an.",
+   "role": "mère"
+  },
+  "p3": {
+   "id": "p3",
+   "prenom": "Marc",
+   "nom": "Martin",
+   "sex": "m",
+   "naiss": "1960-09-18",
+   "deces": "",
+   "metier": "commercial",
+   "lieu": "Marseille",
+   "traits": [],
+   "events": [
+    {
+     "type": "abandon",
+     "age": "35",
+     "year": "1995"
+    }
+   ],
+   "notes": "Parti après le divorce, peu présent ensuite.",
+   "role": "père"
+  },
+  "p4": {
+   "id": "p4",
+   "prenom": "Jeanne",
+   "nom": "Durand",
+   "sex": "f",
+   "naiss": "1938-01-25",
+   "deces": "2015-11-03",
+   "metier": "enseignante",
+   "lieu": "Saint-Étienne",
+   "traits": [
+    "sacrifiée"
+   ],
+   "events": [
+    {
+     "type": "deuil",
+     "age": "32",
+     "year": "1970"
+    },
+    {
+     "type": "sacrifice",
+     "age": "32",
+     "year": "1970"
+    }
+   ],
+   "notes": "Veuve à 32 ans, a élevé seule ses trois enfants.",
+   "role": "grand-mère"
+  },
+  "p5": {
+   "id": "p5",
+   "prenom": "Henri",
+   "nom": "Durand",
+   "sex": "m",
+   "naiss": "1936-06-14",
+   "deces": "1970-08-09",
+   "metier": "menuisier",
+   "lieu": "Saint-Étienne",
+   "traits": [],
+   "events": [],
+   "notes": "Mort dans un accident de travail à 34 ans.",
+   "role": "grand-père"
+  },
+  "p6": {
+   "id": "p6",
+   "prenom": "Rosa",
+   "nom": "Martin",
+   "sex": "f",
+   "naiss": "1935-04-30",
+   "deces": "2010-02-12",
+   "metier": "couturière",
+   "lieu": "Marseille",
+   "traits": [],
+   "events": [
+    {
+     "type": "pauvrete",
+     "age": "14",
+     "year": "1949"
+    }
+   ],
+   "notes": "Arrivée d'Italie avec ses parents.",
+   "role": "grand-mère"
+  },
+  "p7": {
+   "id": "p7",
+   "prenom": "Antonio",
+   "nom": "Martin",
+   "sex": "m",
+   "naiss": "1932-12-08",
+   "deces": "2001-07-21",
+   "metier": "maçon",
+   "lieu": "Marseille",
+   "traits": [],
+   "events": [
+    {
+     "type": "guerre",
+     "age": "17",
+     "year": "1949"
+    },
+    {
+     "type": "pauvrete",
+     "age": "17",
+     "year": "1949"
+    }
+   ],
+   "notes": "Arrivé d'Italie en 1949, nom de famille francisé.",
+   "role": "grand-père"
+  },
+  "p8": {
+   "id": "p8",
+   "prenom": "Jeanne",
+   "nom": "Moreau",
+   "sex": "f",
+   "naiss": "1912-10-02",
+   "deces": "1988-03-15",
+   "metier": "institutrice",
+   "lieu": "Saint-Étienne",
+   "traits": [
+    "sacrifiée"
+   ],
+   "events": [
+    {
+     "type": "deuil",
+     "age": "28",
+     "year": "1940"
+    },
+    {
+     "type": "sacrifice",
+     "age": "28",
+     "year": "1940"
+    }
+   ],
+   "notes": "Veuve de guerre à 28 ans, ne s'est jamais remariée.",
+   "role": "arrière-grand-mère"
+  },
+  "p9": {
+   "id": "p9",
+   "prenom": "Louis",
+   "nom": "Moreau",
+   "sex": "m",
+   "naiss": "1910-02-11",
+   "deces": "1940-06-05",
+   "metier": "cheminot",
+   "lieu": "Saint-Étienne",
+   "traits": [],
+   "events": [
+    {
+     "type": "guerre",
+     "age": "30",
+     "year": "1940"
+    }
+   ],
+   "notes": "Mort au front en 1940, à 30 ans.",
+   "role": "arrière-grand-père"
+  }
+ },
+ "rels": [
+  {
+   "from": "p2",
+   "to": "p1",
+   "type": "parent"
+  },
+  {
+   "from": "p3",
+   "to": "p1",
+   "type": "parent"
+  },
+  {
+   "from": "p2",
+   "to": "p3",
+   "type": "couple"
+  },
+  {
+   "from": "p4",
+   "to": "p2",
+   "type": "parent"
+  },
+  {
+   "from": "p5",
+   "to": "p2",
+   "type": "parent"
+  },
+  {
+   "from": "p4",
+   "to": "p5",
+   "type": "couple"
+  },
+  {
+   "from": "p6",
+   "to": "p3",
+   "type": "parent"
+  },
+  {
+   "from": "p7",
+   "to": "p3",
+   "type": "parent"
+  },
+  {
+   "from": "p6",
+   "to": "p7",
+   "type": "couple"
+  },
+  {
+   "from": "p8",
+   "to": "p4",
+   "type": "parent"
+  },
+  {
+   "from": "p9",
+   "to": "p4",
+   "type": "parent"
+  },
+  {
+   "from": "p8",
+   "to": "p9",
+   "type": "couple"
+  }
+ ],
+ "nid": 100,
+ "nodePos": {
+  "p1": {
+   "x": 700,
+   "y": 650
+  },
+  "p2": {
+   "x": 590,
+   "y": 480
+  },
+  "p3": {
+   "x": 810,
+   "y": 480
+  },
+  "p4": {
+   "x": 300,
+   "y": 310
+  },
+  "p5": {
+   "x": 490,
+   "y": 310
+  },
+  "p6": {
+   "x": 910,
+   "y": 310
+  },
+  "p7": {
+   "x": 1100,
+   "y": 310
+  },
+  "p8": {
+   "x": 200,
+   "y": 140
+  },
+  "p9": {
+   "x": 390,
+   "y": 140
+  }
+ }
+}

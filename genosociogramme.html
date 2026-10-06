@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Génosociogramme · Schéma Répétitif</title>
+<title>Génosociogramme en ligne gratuit : crée ton arbre familial · Genesolia</title>
+<meta name="description" content="Fais ton génosociogramme (ou génogramme) en ligne, gratuitement et sans inscription : dates, événements, liens, et repérage automatique des répétitions.">
+<link rel="canonical" href="https://schema-repetitif-genetique.fr/genosociogramme.html">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -224,7 +226,7 @@ nav.ancien-nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px so
   <header data-entete></header>
 
   <div class="toolbar">
-  <span class="toolbar-title">Génosociogramme</span>
+  <h1 class="toolbar-title" style="font-weight:400;margin:0">Génosociogramme en ligne gratuit</h1>
   <button class="tb" onclick="centerView()">⊙ Centrer</button>
   <div class="tb-sep"></div>
   <button class="tb" onclick="openExport()">Télécharger</button>
@@ -388,6 +390,7 @@ var currentUser = null;
 var saveTimer = null;
 
 async function initAuth() {
+  if (new URLSearchParams(location.search).has('exemple')) { chargerExemple(); return; }
   var { data } = await sb.auth.getSession();
   if (data.session) {
     currentUser = data.session.user;
@@ -444,6 +447,7 @@ async function loadFromSupabase() {
 }
 
 async function saveToSupabase() {
+  if (window.MODE_EXEMPLE) return;
   if (!currentUser) { save(); return; } // fallback localStorage
   var payload = { people: people, rels: rels, nid: nid, nodePos: nodePos };
   // Upsert
@@ -492,8 +496,26 @@ function dates(p){
   return '';
 }
 
+
+// ─── EXEMPLE FICTIF (?exemple) ────────────────────────────────────────
+function chargerExemple(){
+  window.MODE_EXEMPLE = true;
+  fetch('assets/exemple-genosociogramme.json').then(function(r){ return r.json(); }).then(function(d){
+    people=d.people||{}; rels=d.rels||[]; nid=d.nid||100; nodePos=d.nodePos||{};
+    document.getElementById('empty-state').style.display='none';
+    var lp=document.getElementById('login-prompt'); if(lp) lp.style.display='none';
+    renderAll(); setTimeout(centerView,80);
+    var b=document.createElement('div');
+    b.setAttribute('role','status');
+    b.style.cssText='position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:300;background:#6B2F5B;color:#fff;border-radius:999px;padding:.6rem 1.1rem;font:600 .85rem "Nunito Sans",sans-serif;display:block;box-shadow:0 10px 30px rgba(107,47,91,.25);max-width:calc(100% - 24px);flex-wrap:wrap;justify-content:center;text-align:center';
+    b.innerHTML='Exemple fictif : la famille de Léa. Tes modifications ne sont pas enregistrées. <a href="genosociogramme.html" style="color:#F3DCC0">Créer mon propre arbre</a>';
+    document.body.appendChild(b);
+  });
+}
+
 // ─── SAVE / LOAD ─────────────────────────────────────────────────────
 function save(){
+  if(window.MODE_EXEMPLE)return;
   try{ localStorage.setItem('geno4',JSON.stringify({people:people,rels:rels,nid:nid,nodePos:nodePos})); }catch(e){}
 }
 function load(){
@@ -1084,7 +1106,7 @@ function doExportSVG(){
     if(dates(p)) parts.push('<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#8E6383">'+esc(dates(p))+'</text>');
     if(p.metier) parts.push('<text x="'+x+'" y="'+(y+24)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#E7A79E" font-style="italic">'+esc(p.metier)+'</text>');
   });
-  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#4A2142">Génosociogramme — Schéma Répétitif</text>');
+  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#4A2142">Génosociogramme — Genesolia</text>');
   parts.push('</svg>');
   var url=URL.createObjectURL(new Blob([parts.join('')],{type:'image/svg+xml'}));
   var a=document.createElement('a'); a.href=url; a.download='genosociogramme.svg'; a.click();
