@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test gratuit de l'arbre de vie · Schéma Répétitif</title>
+  <meta name="description" content="20 questions pour découvrir quelles sphères de ton arbre de vie sont lumineuses et lesquelles demandent à être nourries. Gratuit, sans inscription, résultat immédiat.">
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/arbre-de-vie.html">
+  <meta property="og:title" content="Test gratuit de l'arbre de vie">
+  <meta property="og:description" content="Découvre les sphères lumineuses et celles à nourrir dans ton arbre de vie.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .test{max-width:44rem;margin:0 auto}
+    .progression{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;font-size:.92rem;color:var(--prune-doux)}
+    .barre{flex:1;height:6px;border-radius:99px;background:var(--rose);overflow:hidden}
+    .barre span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--corail),var(--champagne));border-radius:99px;transition:width .35s ease}
+    .question{font-family:var(--display);font-size:clamp(1.6rem,3.6vw,2.2rem);line-height:1.25;min-height:5.5rem;margin-bottom:2rem}
+    .echelle{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem}
+    .echelle button{font:600 .92rem/1.25 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:16px;padding:1rem .4rem;cursor:pointer;transition:border-color .15s,background .15s}
+    .echelle button:hover{border-color:var(--prune)}
+    .echelle button[aria-pressed="true"]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .echelle .valeur{display:block;font-family:var(--display);font-weight:400;font-size:1.4rem;margin-bottom:.2rem}
+    .nav-test{display:flex;justify-content:space-between;margin-top:1.6rem}
+    .lien-bouton{background:none;border:0;font:600 .95rem var(--texte);color:var(--prune-doux);cursor:pointer;padding:.4rem 0;text-decoration:underline}
+    .lien-bouton[disabled]{visibility:hidden}
+
+    .resultat{display:none}
+    .resultat.visible{display:block}
+    .res-grille{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+    .arbre-res svg{width:100%;max-width:340px;margin:0 auto;overflow:visible}
+    .arbre-res .chemin{stroke:var(--champagne);stroke-width:1;opacity:.45}
+    .arbre-res text{font:600 10.5px var(--texte);fill:var(--prune-doux)}
+    .legende-res{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:1rem;font-size:.88rem;color:var(--prune-doux)}
+    .legende-res span{display:inline-flex;align-items:center;gap:.4rem}
+    .legende-res i{width:14px;height:14px;border-radius:50%;display:inline-block;border:1.5px solid var(--champagne)}
+    .cycles-res{display:grid;gap:.8rem;margin:1.4rem 0 2rem}
+    .cycle-res{display:grid;grid-template-columns:8.5rem 1fr 3rem;align-items:center;gap:.8rem;font-size:.95rem}
+    .cycle-res .jauge{height:10px;border-radius:99px;background:var(--rose);overflow:hidden}
+    .cycle-res .jauge span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--corail),var(--champagne))}
+    .cycle-res b{font-weight:600;text-align:right}
+    .message-cle{font-family:var(--display);font-size:1.35rem;line-height:1.35;margin-bottom:1.4rem}
+    .sphere-carte{border-top:1px solid var(--rose);padding:1.4rem 0}
+    .sphere-carte h3{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}
+    .sphere-carte h3 small{font:600 .82rem var(--texte);color:var(--champagne);white-space:nowrap}
+    .sphere-carte .theme{color:var(--prune-doux);font-size:.95rem;margin:.2rem 0 .7rem}
+    .sphere-carte p+p{margin-top:.6rem}
+    .sphere-carte .q{font-family:var(--display);font-size:1.1rem}
+    .sphere-carte .geste{font-size:.95rem;background:var(--blanc);border:1px solid var(--rose);border-radius:14px;padding:.7rem .9rem}
+    .lumineuses{color:var(--prune-doux)}
+    .res-actions{margin-top:2.2rem;display:grid;gap:1rem}
+    .bientot-carte{border:1px dashed var(--champagne);border-radius:var(--rayon);padding:1.2rem 1.4rem;background:#FFF8F1}
+    .bientot-carte strong{font-weight:600}
+
+    @media (max-width:860px){
+      .res-grille{grid-template-columns:1fr;gap:1.5rem}
+      .arbre-res svg{max-width:280px}
+    }
+    @media (max-width:560px){
+      .echelle{grid-template-columns:1fr;gap:.5rem}
+      .echelle button{display:flex;align-items:center;gap:.9rem;text-align:left;padding:.8rem 1rem}
+      .echelle .valeur{margin:0;font-size:1.2rem;width:1.4rem}
+      .question{min-height:0}
+      .cycle-res{grid-template-columns:6.8rem 1fr 2.6rem;font-size:.9rem}
+    }
+    @media print{
+      .page-tete,.test-zone,.res-actions{display:none!important}
+      .resultat{display:block!important}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Le test de l'arbre de vie</h1>
+        <p class="intro">Vingt affirmations, cinq minutes. Tu découvres quelles sphères de ton arbre sont lumineuses, et lesquelles demandent à être nourries.</p>
+        <p class="note" style="margin-top:1rem">Gratuit, sans inscription. Tes réponses restent dans ton navigateur.</p>
+      </div>
+    </section>
+
+    <section class="bloc test-zone" id="zone-test">
+      <div class="conteneur test">
+        <div class="progression"><span id="compteur">Question 1 sur 20</span><div class="barre" aria-hidden="true"><span id="barre"></span></div></div>
+        <p class="question" id="question" aria-live="polite"></p>
+        <div class="echelle" id="echelle" role="group" aria-label="Ta réponse">
+          <button type="button" data-v="1"><span class="valeur">1</span>Pas du tout</button>
+          <button type="button" data-v="2"><span class="valeur">2</span>Plutôt pas</button>
+          <button type="button" data-v="3"><span class="valeur">3</span>Parfois</button>
+          <button type="button" data-v="4"><span class="valeur">4</span>Plutôt oui</button>
+          <button type="button" data-v="5"><span class="valeur">5</span>Tout à fait</button>
+        </div>
+        <div class="nav-test"><button class="lien-bouton" type="button" id="precedent" disabled>Question précédente</button></div>
+      </div>
+    </section>
+
+    <section class="bloc resultat" id="resultat" aria-live="polite">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Ton arbre de vie aujourd'hui</h2><p>Ce résultat est une photographie du moment. Il change à mesure que tu avances.</p></div>
+        <div class="res-grille">
+          <figure class="arbre-res">
+            <svg id="arbre-svg" viewBox="0 0 360 500" role="img" aria-label="Ton arbre de vie, chaque sphère colorée selon ton résultat"></svg>
+            <figcaption class="legende-res">
+              <span><i style="background:#F6E3E6;border-color:#E3BCC4"></i>À nourrir</span>
+              <span><i style="background:#FBEFE1"></i>En mouvement</span>
+              <span><i style="background:#E8C899"></i>Lumineuse</span>
+            </figcaption>
+          </figure>
+          <div>
+            <p class="message-cle" id="message-cle"></p>
+            <div class="cycles-res" id="cycles-res"></div>
+            <h3 style="margin-bottom:.4rem">Les sphères à nourrir en premier</h3>
+            <div id="a-nourrir"></div>
+            <p class="lumineuses" id="lumineuses"></p>
+            <div class="res-actions">
+              <div class="actions">
+                <a class="btn btn-plein" href="genosociogramme.html">Relier à mon arbre familial</a>
+                <a class="btn btn-trait" href="methode.html">Comprendre les deux cycles</a>
+              </div>
+              <div class="actions">
+                <button class="lien-bouton" type="button" onclick="window.print()">Imprimer ou enregistrer en PDF</button>
+                <button class="lien-bouton" type="button" id="recommencer">Refaire le test</button>
+              </div>
+              <div class="bientot-carte"><strong>Bientôt : le rapport complet.</strong> Une lecture détaillée de tes dix sphères, croisée avec ton arbre familial, avec des exercices pour chacune.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>D'où vient l'arbre de vie</h2></div>
+        <div class="questions">
+          <details><summary>Qu'est-ce que l'arbre des Séphiroth ?</summary><p>C'est une représentation issue de la Kabbale, une tradition spirituelle juive. Dix sphères, reliées par vingt-deux chemins, décrivent les grandes dimensions de l'existence. Nous l'utilisons comme une grille de lecture symbolique, avec respect pour son origine, sans prétendre enseigner cette tradition.</p></details>
+          <details><summary>Comment le résultat est-il calculé ?</summary><p>Chaque sphère est évaluée par deux affirmations : l'une décrit une ressource, l'autre une difficulté. La moyenne des deux donne la couleur de la sphère. Les sphères sont ensuite regroupées en trois ensembles : les deux cycles de la méthode, et l'élan, formé par les trois sphères du haut.</p></details>
+          <details><summary>Est-ce un diagnostic ?</summary><p>Non. C'est un support de réflexion. Il t'aide à repérer où regarder, rien de plus. Si tu traverses une période difficile, parles-en à un professionnel.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var SPHERES = {
+      keter:   {nom:'Kéter', theme:'Le sens, ce qui te met en mouvement', groupe:'elan', x:180, y:30,
+                nourrir:"Tu avances peut-être par devoir plus que par élan. Ce n'est pas un manque de volonté : souvent, le sens se perd quand on a longtemps vécu pour les autres.",
+                q:"Si personne ne m'attendait, que ferais-je de mes journées ?", geste:"Note une chose qui te donnait de la joie enfant, et offre-lui dix minutes cette semaine."},
+      hokhma:  {nom:'Hokhma', theme:"L'intuition, les idées qui jaillissent", groupe:'elan', x:270, y:85,
+                nourrir:"Tes idées existent, mais tu les fais taire avant qu'elles aient pu prendre forme. Dans certaines familles, il valait mieux ne pas se faire remarquer.",
+                q:"Quelle idée est-ce que je repousse depuis longtemps ?", geste:"Garde un carnet près de toi et note chaque intuition, sans la juger, pendant sept jours."},
+      bina:    {nom:'Bina', theme:'La compréhension, la structure', groupe:'elan', x:90, y:85,
+                nourrir:"Quand tout se complique, tu peux te sentir submergé·e. Ce n'est pas un manque d'intelligence : c'est qu'il te manque un cadre pour poser les choses.",
+                q:"De quoi aurais-je besoin pour y voir plus clair ?", geste:"Écris la situation qui t'occupe en trois colonnes : les faits, ce que je ressens, ce que je peux faire."},
+      hessed:  {nom:'Hessed', theme:"La générosité, l'amour que tu donnes", groupe:'coeur', x:270, y:170,
+                nourrir:"Tu donnes beaucoup, parfois au point de t'oublier. C'est le terrain du cycle du cœur : donner pour être aimé·e, comme on l'a peut-être appris tôt.",
+                q:"À qui est-ce que je donne en espérant, au fond, recevoir ?", geste:"Cette semaine, accepte de recevoir quelque chose sans chercher à rendre aussitôt."},
+      guevoura:{nom:'Guevoura', theme:'Les limites, la capacité à dire non', groupe:'coeur', x:90, y:170,
+                nourrir:"Poser une limite te semble risqué, comme si tu pouvais perdre le lien. Regarde dans ta famille : qui avait le droit de dire non, et qui devait se taire ?",
+                q:"Où est-ce que je laisse les autres décider à ma place ?", geste:"Choisis une petite situation et exprime ce que tu préfères, avec une phrase qui commence par « je »."},
+      tiferet: {nom:'Tiferet', theme:"L'équilibre, le cœur", groupe:'coeur', x:180, y:215,
+                nourrir:"Tu as parfois l'impression de jouer un rôle plutôt que de vivre ta vie. Le cœur de l'arbre demande à ce que ce que tu fais rejoigne ce que tu es.",
+                q:"Dans quel rôle suis-je, que je n'ai jamais vraiment choisi ?", geste:"Repère un moment de ta journée où tu te sens toi-même, et note ce qui le rend possible."},
+      netsah:  {nom:'Netsah', theme:'La persévérance, le désir', groupe:'racine', x:270, y:290,
+                nourrir:"Tu commences avec élan, puis l'énergie retombe. Souvent, ce n'est pas de la paresse : c'est la peur que ça ne tienne pas, alors on lâche avant.",
+                q:"Qu'est-ce que j'abandonne, juste avant que ça marche ?", geste:"Choisis un seul projet et donne-lui un tout petit pas par jour pendant deux semaines."},
+      hod:     {nom:'Hod', theme:'La pensée, les mots, la communication', groupe:'racine', x:90, y:290,
+                nourrir:"Tu gardes pour toi ce qui te dérange, jusqu'à ce que ça déborde. Dans beaucoup de familles, certaines choses ne se disaient pas.",
+                q:"Qu'est-ce qui ne se disait pas, chez moi ?", geste:"Écris une lettre que tu n'enverras pas à la personne à qui tu n'as jamais tout dit."},
+      yessod:  {nom:'Yessod', theme:'Les émotions et les liens', groupe:'racine', x:180, y:340,
+                nourrir:"Tes relations se ressemblent, comme si la même histoire cherchait à se rejouer. C'est souvent là que les deux cycles se rencontrent : besoin de sécurité et besoin d'amour.",
+                q:"Quel point commun ont les personnes qui comptent le plus pour moi ?", geste:"Fais la liste de tes trois dernières relations importantes et note ce qui s'est répété."},
+      malkhout:{nom:'Malkhout', theme:"La vie matérielle, l'ancrage, ta place", groupe:'racine', x:180, y:420,
+                nourrir:"Ta sécurité matérielle te semble fragile, même si les faits disent autre chose. C'est le centre du cycle de la racine : regarde si, dans ta lignée, quelqu'un a tout perdu.",
+                q:"De quoi ai-je peur de manquer, vraiment ?", geste:"Note trois choses solides dans ta vie aujourd'hui, et relis-les quand la peur revient."}
+    };
+    var QUESTIONS = [
+      ['malkhout',1,"Je me sens en sécurité dans ma vie matérielle."],
+      ['yessod',1,"Mes relations me nourrissent."],
+      ['hessed',-1,"J'ai du mal à dire non, même quand ça me coûte."],
+      ['keter',1,"Je sais ce qui donne du sens à ma vie."],
+      ['hod',-1,"Je garde pour moi ce qui me dérange, puis ça finit par déborder."],
+      ['guevoura',1,"Je pose mes limites sans me sentir coupable."],
+      ['netsah',1,"Je vais au bout de ce que je commence."],
+      ['hokhma',-1,"Je doute de mes idées avant même de les essayer."],
+      ['tiferet',1,"Je me sens en accord avec la vie que je mène."],
+      ['bina',1,"Je prends le temps de comprendre avant d'agir."],
+      ['malkhout',-1,"J'ai peur de manquer, même quand tout va bien."],
+      ['hessed',1,"Je donne avec plaisir, sans rien attendre en retour."],
+      ['yessod',-1,"Je retombe souvent dans le même type de relation."],
+      ['hokhma',1,"Je fais confiance à mes intuitions."],
+      ['guevoura',-1,"Je laisse les autres décider à ma place pour éviter les conflits."],
+      ['keter',-1,"J'ai souvent l'impression d'avancer sans savoir pourquoi."],
+      ['hod',1,"Je trouve facilement les mots pour dire ce que je ressens."],
+      ['netsah',-1,"J'abandonne dès que ça devient difficile."],
+      ['bina',-1,"Je me sens vite perdu·e quand une situation se complique."],
+      ['tiferet',-1,"J'ai l'impression de jouer un rôle plutôt que d'être moi-même."]
+    ];
+    var CHEMINS = [['keter','hokhma'],['keter','bina'],['keter','tiferet'],['hokhma','bina'],['hokhma','tiferet'],['hokhma','hessed'],['bina','tiferet'],['bina','guevoura'],['hessed','guevoura'],['hessed','tiferet'],['hessed','netsah'],['guevoura','tiferet'],['guevoura','hod'],['tiferet','netsah'],['tiferet','yessod'],['tiferet','hod'],['netsah','hod'],['netsah','yessod'],['netsah','malkhout'],['hod','yessod'],['hod','malkhout'],['yessod','malkhout']];
+    var GROUPES = {racine:'Cycle 1 · La racine', coeur:'Cycle 2 · Le cœur', elan:"L'élan"};
+    var CLE = 'test-arbre-de-vie';
+
+    var reponses = [], i = 0;
+    var elQ = document.getElementById('question'), elC = document.getElementById('compteur'), elB = document.getElementById('barre');
+    var boutons = document.querySelectorAll('#echelle button'), prec = document.getElementById('precedent');
+
+    function lire() { try { return JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) { return null; } }
+    function ecrire(v) { try { localStorage.setItem(CLE, JSON.stringify(v)); } catch (e) {} }
+
+    function afficher() {
+      elQ.textContent = QUESTIONS[i][2];
+      elC.textContent = 'Question ' + (i + 1) + ' sur ' + QUESTIONS.length;
+      elB.style.width = (i / QUESTIONS.length * 100) + '%';
+      boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(reponses[i] === +b.dataset.v)); });
+      prec.disabled = i === 0;
+    }
+    boutons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        reponses[i] = +b.dataset.v;
+        ecrire({reponses: reponses});
+        if (i < QUESTIONS.length - 1) { i++; afficher(); }
+        else { elB.style.width = '100%'; resultat(true); }
+      });
+    });
+    prec.addEventListener('click', function () { if (i > 0) { i--; afficher(); } });
+    document.getElementById('recommencer').addEventListener('click', function () {
+      reponses = []; i = 0; ecrire(null);
+      document.getElementById('resultat').classList.remove('visible');
+      document.getElementById('zone-test').style.display = '';
+      afficher(); document.getElementById('zone-test').scrollIntoView({behavior:'smooth'});
+    });
+
+    function niveau(s) { return s < 45 ? 'nourrir' : s < 70 ? 'mouvement' : 'lumineuse'; }
+
+    function resultat(defiler) {
+      var brut = {};
+      QUESTIONS.forEach(function (q, k) {
+        var v = reponses[k] || 3, pts = q[1] > 0 ? v : 6 - v;
+        (brut[q[0]] = brut[q[0]] || []).push(pts);
+      });
+      var score = {};
+      Object.keys(SPHERES).forEach(function (s) {
+        var l = brut[s] || [3, 3];
+        score[s] = Math.round((l.reduce(function (a, b) { return a + b; }, 0) / l.length - 1) / 4 * 100);
+      });
+      dessiner(score);
+      var parGroupe = {};
+      Object.keys(SPHERES).forEach(function (s) { (parGroupe[SPHERES[s].groupe] = parGroupe[SPHERES[s].groupe] || []).push(score[s]); });
+      var moy = {};
+      Object.keys(parGroupe).forEach(function (g) { moy[g] = Math.round(parGroupe[g].reduce(function (a, b) { return a + b; }, 0) / parGroupe[g].length); });
+      document.getElementById('cycles-res').innerHTML = ['racine', 'coeur', 'elan'].map(function (g) {
+        return '<div class="cycle-res"><span>' + GROUPES[g] + '</span><div class="jauge"><span style="width:' + Math.max(4, moy[g]) + '%"></span></div><b>' + moy[g] + '</b></div>';
+      }).join('');
+      var faible = moy.racine <= moy.coeur ? 'racine' : 'coeur';
+      document.getElementById('message-cle').textContent = faible === 'racine'
+        ? "Ton cycle à regarder en premier est celui de la racine : ta sécurité, ta place, ce qui te fait tenir debout."
+        : "Ton cycle à regarder en premier est celui du cœur : ta façon d'aimer, de donner et de poser tes limites.";
+      var tri = Object.keys(score).sort(function (a, b) { return score[a] - score[b]; });
+      var aNourrir = tri.filter(function (s) { return score[s] < 70; }).slice(0, 3);
+      if (!aNourrir.length) aNourrir = tri.slice(0, 1);
+      document.getElementById('a-nourrir').innerHTML = aNourrir.map(function (s) {
+        var d = SPHERES[s];
+        return '<article class="sphere-carte"><h3>' + d.nom + '<small>' + GROUPES[d.groupe] + '</small></h3><p class="theme">' + d.theme + '</p><p>' + d.nourrir + '</p><p class="q">« ' + d.q + ' »</p><p class="geste"><strong>Un geste simple :</strong> ' + d.geste + '</p></article>';
+      }).join('');
+      var lum = tri.filter(function (s) { return score[s] >= 70; }).reverse().map(function (s) { return SPHERES[s].nom; });
+      document.getElementById('lumineuses').textContent = lum.length
+        ? 'Tes sphères lumineuses : ' + lum.join(', ') + '. Ce sont tes ressources. Appuie-toi sur elles pour nourrir les autres.'
+        : "Aucune sphère n'est encore pleinement lumineuse : c'est fréquent quand on traverse une période de changement. Commence par la première sphère ci-dessus.";
+      document.getElementById('zone-test').style.display = 'none';
+      var r = document.getElementById('resultat'); r.classList.add('visible');
+      if (defiler) r.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
+    function dessiner(score) {
+      var ns = 'http://www.w3.org/2000/svg', svg = document.getElementById('arbre-svg'), h = '';
+      CHEMINS.forEach(function (c) { var a = SPHERES[c[0]], b = SPHERES[c[1]]; h += '<line class="chemin" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '"/>'; });
+      Object.keys(SPHERES).forEach(function (s) {
+        var d = SPHERES[s], n = niveau(score[s]);
+        var fill = n === 'lumineuse' ? '#E8C899' : n === 'mouvement' ? '#FBEFE1' : '#F6E3E6';
+        var stroke = n === 'nourrir' ? '#E3BCC4' : '#B98A55';
+        if (n === 'lumineuse') {
+          for (var k = 0; k < 6; k++) h += '<ellipse cx="' + d.x + '" cy="' + (d.y - 23) + '" rx="7" ry="11" fill="#F3DCC0" transform="rotate(' + (k * 60) + ' ' + d.x + ' ' + d.y + ')"/>';
+        }
+        h += '<circle cx="' + d.x + '" cy="' + d.y + '" r="17" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.6"/>';
+        var gauche = d.x < 180, centre = d.x === 180;
+        var tx = centre ? d.x + 26 : gauche ? d.x - 26 : d.x + 26, anchor = centre ? 'start' : gauche ? 'end' : 'start';
+        h += '<text x="' + tx + '" y="' + (d.y + 4) + '" text-anchor="' + anchor + '">' + d.nom + '</text>';
+      });
+      svg.innerHTML = h;
+    }
+
+    var sauve = lire();
+    if (sauve && sauve.reponses && sauve.reponses.length === QUESTIONS.length && sauve.reponses.every(Boolean)) {
+      reponses = sauve.reponses; i = QUESTIONS.length - 1; resultat();
+    } else {
+      if (sauve && sauve.reponses) { reponses = sauve.reponses; i = Math.min(reponses.filter(Boolean).length, QUESTIONS.length - 1); }
+      afficher();
+    }
+  })();
+  </script>
+</body>
+</html>

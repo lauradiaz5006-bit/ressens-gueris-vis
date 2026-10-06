@@ -2,32 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://schema-repetitif-genetique.fr/index.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <loc>https://schema-repetitif-genetique.fr/</loc>
+    <lastmod>2026-10-06</lastmod>
     <priority>1.00</priority>
   </url>
 
   <url>
     <loc>https://schema-repetitif-genetique.fr/parcours.html</loc>
-    <lastmod>2026-04-20</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://schema-repetitif-genetique.fr/symptomes.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://schema-repetitif-genetique.fr/genosociogramme.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <priority>0.70</priority>
   </url>
 
   <url>
     <loc>https://schema-repetitif-genetique.fr/vibration.html</loc>
-    <lastmod>2026-04-20</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <priority>0.70</priority>
   </url>
 
@@ -35,9 +29,15 @@
     <loc>https://schema-repetitif-genetique.fr/heriter.html</loc>
   </url>
   <url>
-    <loc>https://schema-repetitif-genetique.fr/explorer.html</loc>
+    <loc>https://schema-repetitif-genetique.fr/outils.html</loc>
   </url>
   <url>
-    <loc>https://schema-repetitif-genetique.fr/outils.html</loc>
+    <loc>https://schema-repetitif-genetique.fr/confidentialite.html</loc>
+  </url>
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/methode.html</loc>
+  </url>
+  <url>
+    <loc>https://schema-repetitif-genetique.fr/arbre-de-vie.html</loc>
   </url>
 </urlset>

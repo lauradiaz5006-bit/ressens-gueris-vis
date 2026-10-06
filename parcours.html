@@ -3,33 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Commencer le voyage </title>
+  <title>Le parcours guidé · Schéma Répétitif</title>
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/parcours.html">
   <meta name="description" content="Un parcours guidé pour comprendre les répétitions, les blocages et les mémoires familiales qui peuvent se rejouer dans votre vie." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --cream:#F4EDE4;--cream2:#E9D8C9;--cream3:#FFFAF5;
-      --terra-fonce:#A14A3C;--terra:#C65D3B;--terra-clair:#D88C6A;
-      --brun:#6B3E2E;--ink:#3A1F12;--ink2:#5C3420;--soft:#9A7060;
-      --line:rgba(107,62,46,.14);--white:#FFFCF8;--night:#20120C;
-      --shadow:0 18px 55px rgba(58,31,18,.10);
+      --cream:#FFF9F7;--cream2:#EBCFD5;--cream3:#FFF9F7;
+      --terra-fonce:#4E1F42;--terra:#6B2F5B;--terra-clair:#E7A79E;
+      --brun:#6B2F5B;--ink:#4A2142;--ink2:#5C3420;--soft:#8E6383;
+      --line:rgba(107,47,91,.14);--white:#FFFFFF;--night:#3A1834;
+      --shadow:0 18px 55px rgba(74,33,66,.10);
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      font-family:'Jost',sans-serif;
-      background:radial-gradient(ellipse 50% 35% at 10% 5%,rgba(216,140,106,.14),transparent 58%),radial-gradient(ellipse 45% 38% at 95% 20%,rgba(107,62,46,.09),transparent 60%),linear-gradient(165deg,var(--cream3) 0%,var(--cream) 55%,var(--cream2) 100%);
+      font-family:'Nunito Sans',sans-serif;
+      background:radial-gradient(ellipse 50% 35% at 10% 5%,rgba(231,167,158,.14),transparent 58%),radial-gradient(ellipse 45% 38% at 95% 20%,rgba(107,47,91,.09),transparent 60%),linear-gradient(165deg,var(--cream3) 0%,var(--cream) 55%,var(--cream2) 100%);
       color:var(--ink);min-height:100vh;overflow-x:hidden;padding-top:68px;
     }
-    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(107,62,46,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(107,62,46,.10) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 80%,transparent 100%);}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(107,47,91,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(107,47,91,.10) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 80%,transparent 100%);}
     a{color:inherit;text-decoration:none}
     button,input,textarea,select{font:inherit}
 
     /* ── NAV ── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(244,237,228,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
+    nav.ancien-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0 2rem;background:rgba(244,237,228,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+    .nav-logo{font-family:'Gilda Display',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
     .nav-links{display:flex;align-items:center;gap:1rem;justify-content:flex-end}
     .nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:.18s}
     .nav-links a:hover,.nav-links a.active{color:var(--terra)}
@@ -44,24 +42,24 @@
     .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
     .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:none;flex-direction:column;padding:1rem 1.4rem 1.3rem;}
     .nav-mobile.open{display:flex}
-    .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.94rem;color:var(--ink2)}
+    .nav-mobile a{padding:.85rem 0;border-bottom:1px solid rgba(107,47,91,.08);font-size:.94rem;color:var(--ink2)}
     .nav-mobile a:last-child{border-bottom:0;color:var(--terra);font-weight:600}
     @media(max-width:960px){.nav-links{display:none}.nav-burger{display:flex}}
 
     /* SYNC BANNER */
-    .sync-banner{position:sticky;top:68px;z-index:61;background:rgba(198,93,59,.08);border-bottom:1px solid rgba(198,93,59,.18);padding:.55rem 1.3rem;display:none;align-items:center;justify-content:space-between;gap:1rem;}
+    .sync-banner{position:sticky;top:68px;z-index:61;background:rgba(107,47,91,.08);border-bottom:1px solid rgba(107,47,91,.18);padding:.55rem 1.3rem;display:none;align-items:center;justify-content:space-between;gap:1rem;}
     .sync-banner.show{display:flex;}
     .sync-banner p{font-size:.75rem;color:var(--terra-fonce);line-height:1.5;}
-    .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-fonce);border:1px solid rgba(198,93,59,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
-    .sync-banner a:hover{background:rgba(198,93,59,.1);}
+    .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-fonce);border:1px solid rgba(107,47,91,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
+    .sync-banner a:hover{background:rgba(107,47,91,.1);}
     .sync-ok{background:rgba(39,174,96,.07);border-color:rgba(39,174,96,.2);}
     .sync-ok p{color:#27AE60;}
 
-    .journey-bar{position:sticky;top:68px;z-index:60;background:rgba(255,250,245,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(107,62,46,.10);padding:.85rem 1.3rem;}
+    .journey-bar{position:sticky;top:68px;z-index:60;background:rgba(255,250,245,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(107,47,91,.10);padding:.85rem 1.3rem;}
     .journey-inner{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:1rem}
     .step-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
     .steps{display:flex;gap:.4rem;flex:1}
-    .step-dot{height:5px;border-radius:999px;background:rgba(107,62,46,.14);flex:1;transition:.25s ease}
+    .step-dot{height:5px;border-radius:999px;background:rgba(107,47,91,.14);flex:1;transition:.25s ease}
     .step-dot.done{background:var(--terra-clair)}
     .step-dot.active{background:linear-gradient(90deg,var(--terra-fonce),var(--terra-clair))}
 
@@ -73,50 +71,50 @@
     .intro-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:3rem;align-items:center}
     .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra-fonce);font-weight:500;margin-bottom:1rem;}
     .sigil{width:20px;height:20px;display:inline-flex}
-    h1,h2{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.04;letter-spacing:-.015em;}
+    h1,h2{font-family:'Gilda Display',serif;font-weight:600;line-height:1.04;letter-spacing:-.015em;}
     h1{font-size:clamp(3rem,7vw,5.7rem);margin-bottom:1rem}
     h2{font-size:clamp(2.2rem,5vw,3.8rem);margin-bottom:.85rem}
     em{font-style:italic;color:var(--terra);font-weight:400}
     .lead{font-size:1rem;line-height:1.9;color:var(--ink2);font-weight:300;max-width:640px}
-    .quote{margin-top:1.25rem;padding:1rem 1.1rem;border-left:3px solid var(--terra);background:rgba(255,252,248,.62);color:var(--soft);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.12rem;line-height:1.62;}
+    .quote{margin-top:1.25rem;padding:1rem 1.1rem;border-left:3px solid var(--terra);background:rgba(255,252,248,.62);color:var(--soft);font-family:'Gilda Display',serif;font-style:italic;font-size:1.12rem;line-height:1.62;}
 
     .portal-card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--night),#4A2115);border-radius:6px;padding:2.4rem;box-shadow:var(--shadow);min-height:460px;display:flex;flex-direction:column;justify-content:space-between;}
-    .portal-card::before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse 42% 35% at 50% 30%,rgba(216,140,106,.28),transparent 62%),radial-gradient(ellipse 55% 40% at 50% 75%,rgba(255,252,248,.06),transparent 62%);}
+    .portal-card::before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse 42% 35% at 50% 30%,rgba(231,167,158,.28),transparent 62%),radial-gradient(ellipse 55% 40% at 50% 75%,rgba(255,252,248,.06),transparent 62%);}
     .portal-svg{position:relative;z-index:1;margin:0 auto;display:block;max-width:250px;width:72%;opacity:.92}
     .portal-text{position:relative;z-index:1;color:rgba(255,255,255,.70);font-size:.88rem;line-height:1.8;font-weight:300}
-    .portal-title{color:white;font-family:'Cormorant Garamond',serif;font-size:1.8rem;line-height:1.15;margin-bottom:.6rem}
+    .portal-title{color:white;font-family:'Gilda Display',serif;font-size:1.8rem;line-height:1.15;margin-bottom:.6rem}
 
     .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
-    .choice{text-align:left;border:1px solid rgba(107,62,46,.13);background:rgba(255,252,248,.78);border-radius:6px;padding:1.25rem;cursor:pointer;transition:.22s ease;min-height:180px;}
-    .choice:hover,.choice.sel{transform:translateY(-3px);border-color:rgba(198,93,59,.42);box-shadow:0 16px 35px rgba(58,31,18,.08);background:var(--white);}
-    .choice.sel{outline:2px solid rgba(198,93,59,.15)}
+    .choice{text-align:left;border:1px solid rgba(107,47,91,.13);background:rgba(255,252,248,.78);border-radius:6px;padding:1.25rem;cursor:pointer;transition:.22s ease;min-height:180px;}
+    .choice:hover,.choice.sel{transform:translateY(-3px);border-color:rgba(107,47,91,.42);box-shadow:0 16px 35px rgba(74,33,66,.08);background:var(--white);}
+    .choice.sel{outline:2px solid rgba(107,47,91,.15)}
     .choice svg{width:34px;height:34px;margin-bottom:.9rem;color:var(--terra-fonce)}
-    .choice-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.35rem}
+    .choice-title{font-family:'Gilda Display',serif;font-size:1.25rem;font-weight:600;margin-bottom:.35rem}
     .choice-text{font-size:.84rem;line-height:1.65;color:var(--soft);font-weight:300}
 
-    .card{background:rgba(255,252,248,.80);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.7rem;margin-top:1.1rem;box-shadow:0 8px 28px rgba(58,31,18,.05);}
-    .card-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:600;margin-bottom:.55rem}
+    .card{background:rgba(255,252,248,.80);border:1px solid rgba(107,47,91,.13);border-radius:6px;padding:1.7rem;margin-top:1.1rem;box-shadow:0 8px 28px rgba(74,33,66,.05);}
+    .card-title{font-family:'Gilda Display',serif;font-size:1.45rem;font-weight:600;margin-bottom:.55rem}
     .card-sub{font-size:.9rem;line-height:1.82;color:var(--soft);font-weight:300}
     .emotions{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-top:1.2rem}
-    .pill{border:1px solid rgba(107,62,46,.16);background:rgba(255,250,245,.78);color:var(--ink2);border-radius:4px;padding:.85rem .8rem;cursor:pointer;transition:.2s ease;text-align:center;font-size:.86rem;}
-    .pill:hover,.pill.sel{border-color:var(--terra);background:rgba(198,93,59,.08);color:var(--terra-fonce);font-weight:500}
+    .pill{border:1px solid rgba(107,47,91,.16);background:rgba(255,250,245,.78);color:var(--ink2);border-radius:4px;padding:.85rem .8rem;cursor:pointer;transition:.2s ease;text-align:center;font-size:.86rem;}
+    .pill:hover,.pill.sel{border-color:var(--terra);background:rgba(107,47,91,.08);color:var(--terra-fonce);font-weight:500}
     .intensity{margin-top:1.4rem;display:none}
     .range-line{display:flex;align-items:center;gap:.8rem;margin-top:.8rem}
     input[type=range]{width:100%;accent-color:var(--terra-fonce)}
-    .range-value{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--terra-fonce);min-width:46px;text-align:right}
+    .range-value{font-family:'Gilda Display',serif;font-size:1.4rem;color:var(--terra-fonce);min-width:46px;text-align:right}
 
-    textarea{width:100%;min-height:130px;margin-top:1rem;border:1px solid rgba(107,62,46,.17);border-radius:6px;background:var(--white);padding:1rem 1.05rem;color:var(--ink);outline:none;resize:vertical;line-height:1.7;}
+    textarea{width:100%;min-height:130px;margin-top:1rem;border:1px solid rgba(107,47,91,.17);border-radius:6px;background:var(--white);padding:1rem 1.05rem;color:var(--ink);outline:none;resize:vertical;line-height:1.7;}
     textarea:focus{border-color:var(--terra)}
     .check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
     .check-col h3{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500;margin-bottom:.7rem}
-    .check{display:flex;align-items:flex-start;gap:.65rem;border:1px solid rgba(107,62,46,.12);background:rgba(255,252,248,.78);border-radius:5px;padding:.8rem;margin-bottom:.55rem;cursor:pointer;transition:.18s ease;font-size:.86rem;line-height:1.45;color:var(--ink2);}
-    .check:hover,.check.on{border-color:rgba(198,93,59,.38);background:rgba(198,93,59,.07)}
-    .box{width:17px;height:17px;border:1.5px solid rgba(107,62,46,.28);border-radius:3px;flex-shrink:0;margin-top:.08rem;display:grid;place-items:center}
+    .check{display:flex;align-items:flex-start;gap:.65rem;border:1px solid rgba(107,47,91,.12);background:rgba(255,252,248,.78);border-radius:5px;padding:.8rem;margin-bottom:.55rem;cursor:pointer;transition:.18s ease;font-size:.86rem;line-height:1.45;color:var(--ink2);}
+    .check:hover,.check.on{border-color:rgba(107,47,91,.38);background:rgba(107,47,91,.07)}
+    .box{width:17px;height:17px;border:1.5px solid rgba(107,47,91,.28);border-radius:3px;flex-shrink:0;margin-top:.08rem;display:grid;place-items:center}
     .check.on .box{background:var(--terra-fonce);border-color:var(--terra-fonce)}
     .check.on .box::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translateY(-1px)}
 
     .reveal-box{background:linear-gradient(150deg,var(--night),#4B2115);color:white;border-radius:6px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
-    .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(216,140,106,.2),transparent 55%)}
+    .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(231,167,158,.2),transparent 55%)}
     .reveal-box *{position:relative;z-index:1}
     .reveal-line{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
     .reveal-line:last-child{border-bottom:0}
@@ -125,38 +123,38 @@
     .reveal-line strong{color:white}
 
     .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
-    .insight-card{background:rgba(255,252,248,.78);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.25rem;}
+    .insight-card{background:rgba(255,252,248,.78);border:1px solid rgba(107,47,91,.13);border-radius:6px;padding:1.25rem;}
     .insight-card svg{width:34px;height:34px;color:var(--terra-fonce);margin-bottom:.85rem}
-    .insight-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.4rem}
+    .insight-card h3{font-family:'Gilda Display',serif;font-size:1.25rem;margin-bottom:.4rem}
     .insight-card p{font-size:.84rem;line-height:1.7;color:var(--soft);font-weight:300}
 
     .map-table{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.84rem}
-    .map-table th{text-align:left;color:var(--soft);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:.55rem;border-bottom:1px solid rgba(107,62,46,.13)}
-    .map-table td{padding:.45rem .55rem;border-bottom:1px solid rgba(107,62,46,.08);vertical-align:middle}
+    .map-table th{text-align:left;color:var(--soft);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:.55rem;border-bottom:1px solid rgba(107,47,91,.13)}
+    .map-table td{padding:.45rem .55rem;border-bottom:1px solid rgba(107,47,91,.08);vertical-align:middle}
     .map-table input,.map-table select{width:100%;border:0;background:transparent;color:var(--ink2);outline:0;padding:.35rem .2rem}
-    .map-table input:focus,.map-table select:focus{background:rgba(198,93,59,.06);border-radius:4px}
-    .add-row{border:1px dashed rgba(198,93,59,.35);background:transparent;color:var(--terra-fonce);border-radius:4px;padding:.55rem .9rem;margin-top:.8rem;cursor:pointer;font-size:.8rem;}
+    .map-table input:focus,.map-table select:focus{background:rgba(107,47,91,.06);border-radius:4px}
+    .add-row{border:1px dashed rgba(107,47,91,.35);background:transparent;color:var(--terra-fonce);border-radius:4px;padding:.55rem .9rem;margin-top:.8rem;cursor:pointer;font-size:.8rem;}
 
     .btn-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
     .btn-main,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:46px;padding:.88rem 1.45rem;border-radius:4px;cursor:pointer;transition:.2s ease;font-size:.84rem;}
     .btn-main{border:0;background:var(--terra-fonce);color:white;box-shadow:0 10px 25px rgba(161,74,60,.22);font-weight:500;letter-spacing:.04em;}
     .btn-main:hover{transform:translateY(-2px);background:var(--terra)}
     .btn-main:disabled{opacity:.45;cursor:not-allowed;transform:none}
-    .btn-ghost{border:1px solid rgba(107,62,46,.22);background:transparent;color:var(--ink2)}
+    .btn-ghost{border:1px solid rgba(107,47,91,.22);background:transparent;color:var(--ink2)}
     .btn-ghost:hover{border-color:var(--terra);color:var(--terra-fonce);background:rgba(255,252,248,.55)}
 
     .final-options{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.4rem}
-    .final-card{background:var(--white);border:1px solid rgba(107,62,46,.13);border-radius:6px;padding:1.35rem;transition:.2s ease;display:block;}
-    .final-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(58,31,18,.08);border-color:rgba(198,93,59,.35)}
+    .final-card{background:var(--white);border:1px solid rgba(107,47,91,.13);border-radius:6px;padding:1.35rem;transition:.2s ease;display:block;}
+    .final-card:hover{transform:translateY(-3px);box-shadow:0 15px 32px rgba(74,33,66,.08);border-color:rgba(107,47,91,.35)}
     .final-card svg{width:32px;height:32px;color:var(--terra-fonce);margin-bottom:.8rem}
-    .final-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:.35rem}
+    .final-card h3{font-family:'Gilda Display',serif;font-size:1.25rem;margin-bottom:.35rem}
     .final-card p{font-size:.84rem;color:var(--soft);line-height:1.65;font-weight:300}
 
     /* ── FOOTER ── */
-    footer{background:#3A1F12;padding:3.5rem 3rem 2rem;position:relative;z-index:2}
+    footer.ancien-pied{background:#4A2142;padding:3.5rem 3rem 2rem;position:relative;z-index:2}
     .footer-inner{max-width:1180px;margin:0 auto}
     .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
-    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;color:white;font-size:1.3rem;font-weight:600;display:block;margin-bottom:.65rem;letter-spacing:.02em;}
+    .footer-logo{font-family:'Gilda Display',serif;font-style:italic;color:white;font-size:1.3rem;font-weight:600;display:block;margin-bottom:.65rem;letter-spacing:.02em;}
     .footer-brand p{color:rgba(255,255,255,.32);font-size:.76rem;line-height:1.72;max-width:230px;font-weight:300}
     .footer-col h4{color:rgba(255,255,255,.4);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem;font-weight:600}
     .footer-col a{display:block;color:rgba(255,255,255,.28);font-size:.74rem;margin-bottom:.46rem;font-weight:300;transition:color .18s}
@@ -168,47 +166,25 @@
     .footer-bottom-links a:hover{color:var(--terra-clair)}
 
     /* ── COOKIES ── */
-    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:#3A1F12;border-top:1px solid rgba(216,140,106,.18);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -8px 32px rgba(58,31,18,.18);transition:transform .35s ease,opacity .35s ease;}
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:#4A2142;border-top:1px solid rgba(231,167,158,.18);padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -8px 32px rgba(74,33,66,.18);transition:transform .35s ease,opacity .35s ease;}
     .cookie-banner.hidden{transform:translateY(100%);opacity:0;pointer-events:none;}
     .cookie-text{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300;max-width:700px}
     .cookie-text a{color:var(--terra-clair);text-decoration:underline;text-underline-offset:3px}
     .cookie-actions{display:flex;gap:.65rem;flex-shrink:0;flex-wrap:wrap}
-    .cookie-accept{background:var(--terra);color:white;border:none;padding:.55rem 1.2rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .18s}
+    .cookie-accept{background:var(--terra);color:white;border:none;padding:.55rem 1.2rem;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .18s}
     .cookie-accept:hover{background:var(--terra-fonce)}
-    .cookie-decline{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.15);padding:.55rem 1rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.74rem;cursor:pointer;transition:all .18s}
+    .cookie-decline{background:transparent;color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.15);padding:.55rem 1rem;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:.74rem;cursor:pointer;transition:all .18s}
     .cookie-decline:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.65)}
 
     @media(max-width:980px){.intro-grid,.choice-grid,.check-grid,.insight-grid,.final-options,.footer-top{grid-template-columns:1fr}.portal-card{min-height:360px}.emotions{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:900px){body{padding-top:62px}nav{height:62px;padding:0 1.1rem}.nav-mobile{top:62px}.journey-bar{top:62px}.step-label{display:none}.screen{padding:3rem 1rem 4rem}footer{padding:2.6rem 1.5rem 1.5rem}.footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}.footer-brand{grid-column:span 2}}
+    @media(max-width:900px){body{padding-top:62px}nav.ancien-nav{height:62px;padding:0 1.1rem}.nav-mobile{top:62px}.journey-bar{top:62px}.step-label{display:none}.screen{padding:3rem 1rem 4rem}footer.ancien-pied{padding:2.6rem 1.5rem 1.5rem}.footer-top{grid-template-columns:1fr 1fr;gap:1.8rem}.footer-brand{grid-column:span 2}}
     @media(max-width:540px){h1{font-size:3rem}.emotions{grid-template-columns:1fr}.card,.portal-card{padding:1.35rem}.btn-row{flex-direction:column;align-items:stretch}.btn-main,.btn-ghost{width:100%}.footer-top{grid-template-columns:1fr}.footer-brand{grid-column:span 1}}
   </style>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>/* habillage commun */body{padding-top:0!important}.entete{flex-shrink:0}.entete .marque,.entete .menu a{font-weight:400}</style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">Schéma Répétitif</a>
-    <div class="nav-links">
-      <a href="heriter.html">Comprendre</a>
-      <a href="explorer.html">Explorer</a>
-      <a href="outils.html">Outils</a>
-      <a href="genosociogramme.html">Mon arbre</a>
-      <a href="login.html" class="nav-espace">Mon espace</a>
-      <a href="parcours.html" class="nav-cta">Commencer →</a>
-    </div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <div class="nav-mobile" id="nav-mobile">
-    <a href="heriter.html">Comprendre</a>
-    <a href="explorer.html">Explorer</a>
-    <a href="outils.html">Outils</a>
-    <a href="genosociogramme.html">Mon arbre</a>
-    <a href="login.html">Mon espace</a>
-    <a href="parcours.html" style="color:var(--terra);font-weight:600;">Commencer →</a>
-  </div>
+  <header data-entete></header>
 
   <!-- SYNC BANNER -->
   <div class="sync-banner" id="sync-banner">
@@ -236,7 +212,7 @@
         <div>
           <div class="eyebrow"><span class="sigil"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.2"/></svg></span>Le Seuil</div>
           <h1>Commencer<br><em>le voyage</em></h1>
-          <p class="lead">Vous arrivez peut-être avec un mal-être, une répétition, une fatigue ou une question que vous ne parvenez pas à expliquer. Ce parcours vous aide à poser les premiers repères, sans jargon, sans obligation de tout comprendre.</p>
+          <p class="lead">Vous arrivez peut-être avec une répétition, un poids ou une question que vous ne parvenez pas à expliquer. Ce parcours vous aide à poser les premiers repères, sans jargon, sans obligation de tout comprendre.</p>
           <div class="quote">Toutes les portes ne s'ouvrent pas avec une réponse. Certaines s'ouvrent avec une prise de conscience.</div>
           <div class="btn-row">
             <button class="btn-main" type="button" onclick="showStep(1)">Franchir la première porte</button>
@@ -246,10 +222,10 @@
         <div class="portal-card" aria-hidden="true">
           <svg class="portal-svg" viewBox="0 0 260 320" fill="none">
             <path d="M45 285V128C45 80 82 40 130 40s85 40 85 88v157" stroke="rgba(255,252,248,.55)" stroke-width="2"/>
-            <path d="M70 285V133c0-35 27-64 60-64s60 29 60 64v152" stroke="rgba(216,140,106,.75)" stroke-width="1.4"/>
+            <path d="M70 285V133c0-35 27-64 60-64s60 29 60 64v152" stroke="rgba(231,167,158,.75)" stroke-width="1.4"/>
             <path d="M95 285V141c0-21 15-39 35-39s35 18 35 39v144" stroke="rgba(255,252,248,.28)" stroke-width="1.2"/>
-            <circle cx="130" cy="160" r="38" stroke="rgba(216,140,106,.45)" stroke-width="1"/>
-            <circle cx="130" cy="160" r="7" fill="rgba(216,140,106,.85)"/>
+            <circle cx="130" cy="160" r="38" stroke="rgba(231,167,158,.45)" stroke-width="1"/>
+            <circle cx="130" cy="160" r="7" fill="rgba(231,167,158,.85)"/>
             <path d="M38 285h184M70 245h120M96 210h68" stroke="rgba(255,252,248,.16)" stroke-width="1"/>
           </svg>
           <div><div class="portal-title">La première porte</div><p class="portal-text">Un espace simple pour transformer une sensation floue en premiers indices concrets.</p></div>
@@ -265,10 +241,10 @@
       <div class="choice-grid" id="theme-grid">
         <button class="choice" type="button" data-theme="relations"><svg viewBox="0 0 36 36" fill="none"><path d="M18 29s-10-6.2-10-14a5.5 5.5 0 0 1 10-3.2A5.5 5.5 0 0 1 28 15c0 7.8-10 14-10 14Z" stroke="currentColor" stroke-width="1.6"/></svg><div class="choice-title">Les relations</div><div class="choice-text">Les mêmes liens, les mêmes blessures, les mêmes déceptions reviennent.</div></button>
         <button class="choice" type="button" data-theme="argent"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="11" stroke="currentColor" stroke-width="1.6"/><path d="M21 13.5c-1-.9-5-.9-5 1.2 0 3 6 1.7 6 5 0 2.5-4.2 2.6-6.5 1.1M18 10v16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><div class="choice-title">L'argent</div><div class="choice-text">Recevoir, garder, vendre ou demander vous semble chargé ou bloqué.</div></button>
-        <button class="choice" type="button" data-theme="energie"><svg viewBox="0 0 36 36" fill="none"><path d="M20 3 9 20h8l-1 13 11-18h-8l1-12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div class="choice-title">L'épuisement</div><div class="choice-text">Vous portez beaucoup, vous tenez, mais votre énergie ne suit plus.</div></button>
+        <button class="choice" type="button" data-theme="energie"><svg viewBox="0 0 36 36" fill="none"><path d="M20 3 9 20h8l-1 13 11-18h-8l1-12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><div class="choice-title">La charge</div><div class="choice-text">Vous portez beaucoup, pour vous et pour les autres, sans arriver à poser ce poids.</div></button>
         <button class="choice" type="button" data-theme="confiance"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5 29 11v8c0 7-5 11-11 13C12 30 7 26 7 19v-8l11-6Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 18l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="choice-title">La confiance</div><div class="choice-text">Vous doutez de votre valeur, de votre place ou de votre légitimité.</div></button>
         <button class="choice" type="button" data-theme="famille"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3ZM18 23c-4-2.5-7-1.2-9 2.5 4 .8 7-.1 9-2.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="choice-title">La famille</div><div class="choice-text">Vous sentez que votre histoire familiale pèse encore dans le présent.</div></button>
-        <button class="choice" type="button" data-theme="corps"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5c5 5 8 9 8 15a8 8 0 0 1-16 0c0-6 3-10 8-15Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><div class="choice-title">Le corps</div><div class="choice-text">Des tensions, douleurs, somatisations ou signaux reviennent régulièrement.</div></button>
+        <button class="choice" type="button" data-theme="corps"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5c5 5 8 9 8 15a8 8 0 0 1-16 0c0-6 3-10 8-15Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 20c2-2 6-2 8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><div class="choice-title">La sécurité</div><div class="choice-text">La peur de manquer, de perdre votre place ou votre toit revient, même quand tout va bien.</div></button>
       </div>
       <textarea id="theme-note" placeholder="Vous pouvez ajouter quelques mots : depuis quand, ce qui revient, ce que vous ne comprenez pas encore..."></textarea>
       <div class="btn-row">
@@ -291,9 +267,9 @@
           <button class="pill" type="button" data-emotion="Tristesse" data-level="30">Tristesse</button>
           <button class="pill" type="button" data-emotion="Honte" data-level="20">Honte</button>
           <button class="pill" type="button" data-emotion="Culpabilité" data-level="25">Culpabilité</button>
-          <button class="pill" type="button" data-emotion="Anxiété" data-level="38">Anxiété</button>
+          <button class="pill" type="button" data-emotion="Inquiétude" data-level="38">Inquiétude</button>
           <button class="pill" type="button" data-emotion="Vide intérieur" data-level="22">Vide intérieur</button>
-          <button class="pill" type="button" data-emotion="Fatigue profonde" data-level="28">Fatigue profonde</button>
+          <button class="pill" type="button" data-emotion="Lassitude" data-level="28">Lassitude</button>
         </div>
         <div class="intensity" id="intensity">
           <div class="card-sub" style="margin-top:1rem">Quelle intensité ressentez-vous aujourd'hui ?</div>
@@ -312,7 +288,7 @@
       <h2>Ce que votre histoire<br><em>laisse apparaître</em></h2>
       <p class="lead">Cochez les signaux qui résonnent. Ils ne sont pas un diagnostic, mais des portes d'exploration.</p>
       <div class="check-grid">
-        <div class="check-col"><h3>Dans le corps</h3><div id="checks-body"></div></div>
+        <div class="check-col"><h3>Dans la sécurité</h3><div id="checks-body"></div></div>
         <div class="check-col"><h3>Dans les émotions</h3><div id="checks-emotion"></div></div>
         <div class="check-col"><h3>Dans la vie</h3><div id="checks-life"></div></div>
       </div>
@@ -339,17 +315,17 @@
       <h2>Vous avez franchi<br><em>la première porte</em></h2>
       <p class="lead">Cette synthèse n'enferme rien. Elle vous donne seulement une première carte pour continuer à comprendre ce qui se répète.</p>
       <div class="reveal-box" id="summary-box"></div>
-      <div id="sync-to-tree" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(198,93,59,.07);border:1px solid rgba(198,93,59,.2);border-radius:6px;">
+      <div id="sync-to-tree" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,47,91,.07);border:1px solid rgba(107,47,91,.2);border-radius:6px;">
         <p style="font-size:.82rem;color:var(--terra-fonce);font-weight:500;margin-bottom:6px">Parcours sauvegardé dans votre espace</p>
         <p style="font-size:.76rem;color:var(--soft);line-height:1.6;margin-bottom:10px">Votre thème principal et vos indices ont été ajoutés à votre génosociogramme sous forme de notes.</p>
         <a href="genosociogramme.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-fonce);color:white;border-radius:4px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Ouvrir mon arbre →</a>
       </div>
-      <div id="sync-login-cta" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,62,46,.05);border:1px solid var(--line);border-radius:6px;">
+      <div id="sync-login-cta" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,47,91,.05);border:1px solid var(--line);border-radius:6px;">
         <p style="font-size:.82rem;color:var(--ink2);margin-bottom:8px">Connectez-vous pour sauvegarder ce parcours et le retrouver dans votre arbre.</p>
         <a href="login.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--terra-fonce);color:white;border-radius:4px;padding:.42rem 1rem;font-size:.76rem;font-weight:500;">Créer mon espace →</a>
       </div>
       <div class="insight-grid">
-        <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Ce que votre corps raconte</h3><p>Les tensions, fatigues ou blocages peuvent devenir des messages à écouter plutôt que des ennemis à combattre.</p></div>
+        <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><path d="M18 5v26M18 13c-5-4-10-2-12 3 5 1 9-.2 12-3ZM18 17c5-4 10-2 12 3-5 1-9-.2-12-3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Ce que la racine raconte</h3><p>La peur de manquer ou de perdre sa place parle souvent d'une histoire plus ancienne que la vôtre.</p></div>
         <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="9" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="27" cy="25" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M18 12v6M18 18 9 22M18 18l9 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><h3>Ce que la lignée transmet</h3><p>Certaines répétitions prennent sens lorsque l'on regarde les places, les loyautés et les silences familiaux.</p></div>
         <div class="insight-card"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="18" r="10" stroke="currentColor" stroke-width="1.2" opacity=".65"/><circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="1" opacity=".35"/></svg><h3>Ce qui peut évoluer</h3><p>Une prise de conscience peut ouvrir un nouveau mouvement : moins de boucle, plus de choix, plus de présence.</p></div>
       </div>
@@ -365,48 +341,6 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Schéma Répétitif</a>
-          <p>Des outils pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Commencer</h4>
-          <a href="index.html">Accueil</a>
-          <a href="parcours.html">Le parcours</a>
-          <a href="heriter.html">Transgénérationnel</a>
-          <a href="explorer.html">Explorer</a>
-        </div>
-        <div class="footer-col">
-          <h4>Outils</h4>
-          <a href="genosociogramme.html">Génosociogramme</a>
-          <a href="symptomes.html">Messages du corps</a>
-          <a href="vibration.html">Ma fréquence</a>
-          <a href="outils.html">Tous les outils</a>
-        </div>
-        <div class="footer-col">
-          <h4>Mon compte</h4>
-          <a href="login.html">Mon espace</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© Schéma Répétitif 2026 · Tous droits réservés</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- BANDEAU COOKIES -->
-  <div class="cookie-banner" id="cookie-banner">
-    <p class="cookie-text">Ce site utilise uniquement des données stockées localement dans votre navigateur (localStorage) pour sauvegarder votre progression — aucune donnée n'est transmise à un serveur tiers. <a href="confidentialite.html">En savoir plus</a></p>
-    <div class="cookie-actions">
-      <button class="cookie-accept" id="cookie-accept">J'accepte</button>
-      <button class="cookie-decline" id="cookie-decline">Continuer sans accepter</button>
-    </div>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
@@ -416,17 +350,17 @@
     var state = { step:0, theme:'', note:'', emotion:'', level:5, checks:[] };
     var stepNames = ["Le Seuil · 1/5","La Première Porte · 2/5","La Salle des Reflets · 3/5","Les Indices · 4/5","Le Passage · 5/5"];
     var checkData = {
-      body:["Tension dans le ventre","Boule dans la gorge","Oppression dans la poitrine","Fatigue récurrente","Sommeil perturbé","Douleurs qui reviennent"],
-      emotion:["Peur de perdre","Tristesse sans cause claire","Colère contenue","Honte ou culpabilité","Anxiété de fond","Difficulté à recevoir"],
+      body:["Peur de manquer","Besoin de tout contrôler","Difficulté à prendre ma place","Méfiance envers les autres","Travailler sans jamais me sentir à l'abri","Peur de perdre ce que j'ai"],
+      emotion:["Peur de perdre","Tristesse sans cause claire","Colère contenue","Honte ou culpabilité","Inquiétude de fond","Difficulté à recevoir"],
       life:["Relations qui se répètent","Blocage avec l'argent","Impression de porter trop","Sentiment de ne pas avoir ma place","Besoin de prouver ma valeur","Ruptures ou échecs récurrents"]
     };
     var themeTexts = {
       relations:"Les liens peuvent devenir une scène où se rejouent d'anciens attachements, des peurs de perte ou des places familiales.",
       argent:"L'argent peut porter des mémoires de manque, de dette, de culpabilité, de mérite ou de danger.",
-      energie:"L'épuisement peut être le signe d'un système qui a trop porté, trop tenu ou trop compensé.",
+      energie:"Porter trop peut venir d'une place prise très tôt dans la famille : celle de la personne qui tient tout.",
       confiance:"Le manque de confiance peut parfois venir d'une ancienne interdiction intérieure : ne pas se montrer, ne pas prendre trop de place.",
       famille:"La famille peut transmettre des places, des silences, des loyautés invisibles et des répétitions de destin.",
-      corps:"Le corps peut devenir la porte d'entrée d'une mémoire qui n'a pas encore trouvé de mots."
+      corps:"La sécurité touche au cycle de la racine : la peur de manquer ou de perdre sa place vient souvent de plus loin que soi."
     };
 
     async function initAuth() {
@@ -436,7 +370,7 @@
         var name = (currentUser.user_metadata && currentUser.user_metadata.full_name) ? currentUser.user_metadata.full_name : currentUser.email.split('@')[0];
         var banner = document.getElementById('sync-banner');
         banner.classList.add('show','sync-ok');
-        document.getElementById('sync-msg').textContent = '✓ Connectée en tant que ' + name + ' — votre parcours se synchronise avec votre arbre.';
+        document.getElementById('sync-msg').textContent = 'Connecté·e en tant que ' + name + ' — votre parcours se synchronise avec votre arbre.';
         document.getElementById('sync-link').textContent = 'Mon espace →';
         await loadParcours();
       } else {
@@ -456,14 +390,14 @@
     }
 
     async function saveParcours() {
-      localStorage.setItem('voyage-laura', JSON.stringify(state));
+      localStorage.setItem('parcours-guide', JSON.stringify(state));
       if (!currentUser) return;
       var { data: existing } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       var treeData = (existing && existing.data) ? existing.data : { people:{}, rels:[], nid:1, nodePos:{} };
       treeData.parcours = { theme:state.theme, note:state.note, emotion:state.emotion, level:state.level, checks:state.checks, updatedAt: new Date().toISOString() };
       var moiId = Object.keys(treeData.people || {}).find(function(id){ return treeData.people[id].role === 'moi'; });
       if (moiId && state.theme && !treeData.people[moiId].parcours_note) {
-        var themeLabel = { relations:'Relations', argent:'Argent', energie:'Épuisement', confiance:'Confiance', famille:'Famille', corps:'Corps' };
+        var themeLabel = { relations:'Relations', argent:'Argent', energie:'Charge', confiance:'Confiance', famille:'Famille', corps:'Sécurité' };
         treeData.people[moiId].parcours_note = 'Porte d\'entrée : ' + (themeLabel[state.theme]||state.theme) + (state.emotion ? ' · Ressenti : '+state.emotion : '') + (state.note ? '\n'+state.note : '');
       }
       await sb.from('arbres').upsert({ user_id: currentUser.id, data: treeData, updated_at: new Date().toISOString() }, { onConflict:'user_id' });
@@ -507,13 +441,13 @@
       var themeLabel=document.querySelector('.choice.sel .choice-title')?document.querySelector('.choice.sel .choice-title').textContent:(state.theme||'non précisé');
       var intro=themeTexts[state.theme]||'Ce que vous vivez peut devenir un point de départ pour mieux comprendre votre histoire.';
       var checks=state.checks.length?state.checks.join(', '):'aucun indice coché pour le moment';
-      box.innerHTML='<div class="reveal-line"><div class="reveal-dot"></div><p><strong>Votre porte d\'entrée :</strong> '+themeLabel+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Ressenti principal :</strong> '+(state.emotion||'non précisé')+' · intensité '+state.level+'/10</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Première lecture :</strong> '+intro+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Indices repérés :</strong> '+checks+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Prochaine étape :</strong> continuer avec le génosociogramme, explorer la page Comprendre ou demander un accompagnement.</p></div>';
+      box.innerHTML='<div class="reveal-line"><div class="reveal-dot"></div><p><strong>Votre porte d\'entrée :</strong> '+themeLabel+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Ressenti principal :</strong> '+(state.emotion||'non précisé')+' · intensité '+state.level+'/10</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Première lecture :</strong> '+intro+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Indices repérés :</strong> '+checks+'</p></div><div class="reveal-line"><div class="reveal-dot"></div><p><strong>Prochaine étape :</strong> continuer avec le génosociogramme, explorer la page Comprendre ou faire le test de l\'arbre de vie.</p></div>';
     }
 
-    function restart() { localStorage.removeItem('voyage-laura'); state={step:0,theme:'',note:'',emotion:'',level:5,checks:[]}; document.querySelectorAll('.sel,.on').forEach(function(x){x.classList.remove('sel','on');}); document.getElementById('btn-s1').disabled=true; document.getElementById('btn-s2').disabled=true; document.getElementById('intensity').style.display='none'; showStep(0); }
+    function restart() { localStorage.removeItem('parcours-guide'); state={step:0,theme:'',note:'',emotion:'',level:5,checks:[]}; document.querySelectorAll('.sel,.on').forEach(function(x){x.classList.remove('sel','on');}); document.getElementById('btn-s1').disabled=true; document.getElementById('btn-s2').disabled=true; document.getElementById('intensity').style.display='none'; showStep(0); }
 
     /* nav burger */
-    document.getElementById('burger').addEventListener('click',function(){ document.getElementById('nav-mobile').classList.toggle('open'); this.classList.toggle('open'); });
+    (document.getElementById('burger')||document.createElement('div')).addEventListener('click',function(){ (document.getElementById('nav-mobile')||document.createElement('div')).classList.toggle('open'); this.classList.toggle('open'); });
 
     /* choices */
     document.querySelectorAll('.choice').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.choice').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.theme=btn.dataset.theme; document.getElementById('btn-s1').disabled=false; saveParcours(); }); });
@@ -521,14 +455,10 @@
     document.querySelectorAll('.pill').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.emotion=btn.dataset.emotion; state.level=parseInt(btn.dataset.level||'5',10); document.getElementById('range').value=Math.max(1,Math.min(10,Math.round(state.level/10))); document.getElementById('range-val').textContent=document.getElementById('range').value; document.getElementById('intensity').style.display='block'; document.getElementById('btn-s2').disabled=false; saveParcours(); }); });
     document.getElementById('range').addEventListener('input',function(e){ state.level=e.target.value; document.getElementById('range-val').textContent=e.target.value; saveParcours(); });
 
-    /* cookies */
-    var cookieBanner=document.getElementById('cookie-banner');
-    if(localStorage.getItem('lc_cookies')){cookieBanner.classList.add('hidden');}
-    document.getElementById('cookie-accept').addEventListener('click',function(){localStorage.setItem('lc_cookies','accepted');cookieBanner.classList.add('hidden');});
-    document.getElementById('cookie-decline').addEventListener('click',function(){localStorage.setItem('lc_cookies','declined');cookieBanner.classList.add('hidden');});
-
     updateProgress();
     initAuth();
   </script>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
 </body>
 </html>

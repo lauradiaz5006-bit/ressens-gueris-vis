@@ -1,0 +1,140 @@
+/* Schéma Répétitif — feuille de style commune
+   Palette : blanc rosé, rose poudré, champagne, prune.
+   Les règles de base (typo, marges) ne s'appliquent qu'aux pages <body class="nouveau">,
+   pour ne pas casser les outils plus anciens. Les composants (en-tête, pied, bandeau, boutons)
+   fonctionnent sur toutes les pages. */
+/* Polices hébergées sur le site (aucun appel à Google) */
+@font-face{font-family:'Gilda Display';font-style:normal;font-weight:400;font-display:swap;src:url(polices/gilda-display-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:400;font-display:swap;src:url(polices/nunito-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Nunito Sans';font-style:normal;font-weight:600 700;font-display:swap;src:url(polices/nunito-sans-latin-600-normal.woff2) format('woff2')}
+:root{
+  --nacre:#FFF9F7;          /* fond principal, blanc rosé */
+  --rose:#F7E6E8;           /* fonds secondaires, rose poudré */
+  --rose-fonce:#EBCFD5;     /* bordures douces */
+  --champagne:#B98A55;      /* lumière, accents dorés */
+  --champagne-clair:#F3DCC0;/* halos */
+  --corail:#E7A79E;         /* touche chaude */
+  --prune:#6B2F5B;          /* texte et boutons */
+  --prune-doux:#8E6383;     /* texte secondaire */
+  --blanc:#FFFFFF;
+  --rayon:22px;
+  --mesure:36rem;
+  --display:'Gilda Display',Georgia,serif;
+  --texte:'Nunito Sans',system-ui,sans-serif;
+}
+
+/* ===== Base des nouvelles pages ===== */
+:where(body.nouveau) *,:where(body.nouveau) *::before,:where(body.nouveau) *::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body.nouveau{margin:0;font-family:var(--texte);font-size:1.0625rem;line-height:1.65;color:var(--prune);background:var(--nacre);-webkit-font-smoothing:antialiased}
+body:where(.nouveau) :where(img,svg){display:block;max-width:100%}
+:where(body.nouveau) a{color:inherit}
+body.nouveau :focus-visible{outline:2px solid var(--champagne);outline-offset:3px;border-radius:4px}
+:where(body.nouveau) :where(h1,h2,h3){font-family:var(--display);font-weight:400;line-height:1.15;letter-spacing:.005em}
+:where(body.nouveau) h1{font-size:clamp(2.2rem,5.2vw,3.6rem)}
+:where(body.nouveau) h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+:where(body.nouveau) h3{font-size:1.35rem}
+:where(body.nouveau) p{max-width:var(--mesure)}
+.discret{color:var(--prune-doux)}
+.conteneur{width:min(72rem,100% - 2.5rem);margin-inline:auto}
+
+/* Tête de page (pages intérieures) */
+.page-tete{background:radial-gradient(50rem 26rem at 80% 0%,rgba(248,214,200,.75),transparent 62%),radial-gradient(36rem 24rem at 0% 100%,rgba(236,190,210,.35),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre));padding:3.5rem 0 3rem;border-bottom:1px solid var(--rose)}
+.page-tete h1{max-width:46rem;margin-bottom:1rem}
+.page-tete .intro{font-size:1.15rem;color:var(--prune-doux);max-width:40rem}
+.page-tete .actions{margin-top:1.8rem}
+
+/* Sections */
+section.bloc{padding:4.5rem 0}
+.bloc-tete{max-width:42rem;margin-bottom:2.5rem}
+.bloc-tete p{margin-top:.9rem;color:var(--prune-doux);font-size:1.08rem}
+.bloc-doux{background:var(--blanc);border-block:1px solid var(--rose)}
+.actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.encart{padding:1.6rem 1.8rem;border-radius:var(--rayon);background:var(--prune);color:#F4E4EE}
+.encart strong{color:var(--blanc);font-weight:600}
+.encart p{max-width:none}
+.note{font-size:.92rem;color:var(--prune-doux)}
+
+/* Étapes numérotées (uniquement pour de vraies séquences) */
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:etape;list-style:none}
+.etapes li{counter-increment:etape;position:relative;padding-top:3.4rem}
+.etapes li::before{content:counter(etape);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:var(--champagne-clair);color:var(--prune)}
+.etapes.quatre{grid-template-columns:repeat(4,1fr)}
+.etapes h3{margin-bottom:.5rem}
+.etapes p{color:var(--prune-doux)}
+.etapes a{display:inline-block;margin-top:.7rem;font-weight:600}
+
+/* Questions fréquentes */
+.questions{max-width:46rem}
+.questions details{border-top:1px solid var(--rose-fonce);padding:1.1rem 0}
+.questions details:last-child{border-bottom:1px solid var(--rose-fonce)}
+.questions summary{cursor:pointer;list-style:none;font-family:var(--display);font-size:1.25rem;display:flex;justify-content:space-between;gap:1rem}
+.questions summary::-webkit-details-marker{display:none}
+.questions summary::after{content:'+';color:var(--champagne);font-family:var(--texte);font-size:1.4rem;line-height:1}
+.questions details[open] summary::after{content:'–'}
+.questions details p{margin-top:.7rem;color:var(--prune-doux)}
+
+/* Liste d'outils */
+.liste-outils{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
+.outil{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1.6rem 0;border-top:1px solid var(--rose);text-decoration:none}
+.outil:hover h3{color:var(--champagne)}
+.outil h3{transition:color .2s}
+.outil p{grid-column:1/-1;color:var(--prune-doux);font-size:.98rem}
+.outil .duree{font-size:.88rem;color:var(--prune-doux);white-space:nowrap;align-self:center}
+.outil .bientot{font-size:.8rem;font-weight:600;color:var(--champagne);background:#FBEADF;border-radius:999px;padding:.2rem .7rem;align-self:center}
+
+@media (max-width:860px){
+  section.bloc{padding:3.25rem 0}
+  .etapes,.etapes.quatre{grid-template-columns:1fr;gap:1.6rem}
+  .liste-outils{grid-template-columns:1fr}
+  .page-tete{padding:2.5rem 0 2.25rem}
+}
+
+/* ===== Composants communs à toutes les pages ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;font:600 .98rem/1.2 var(--texte);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s;box-sizing:border-box}
+.btn-plein{background:var(--prune);color:var(--blanc)}
+.btn-plein:hover{background:#7D3A6B}
+.btn-trait{border-color:var(--rose-fonce);color:var(--prune);background:var(--blanc)}
+.btn-trait:hover{border-color:var(--prune)}
+
+/* En-tête */
+.entete{position:sticky;top:0;z-index:50;background:rgba(255,249,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(235,207,212,.7);font-family:var(--texte);color:var(--prune);margin:0}
+.entete *{box-sizing:border-box}
+.entete .conteneur{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
+.marque{font-family:var(--display);font-size:1.3rem;text-decoration:none;display:flex;align-items:center;gap:.6rem;color:var(--prune)}
+.marque svg{width:26px;height:26px;display:block}
+.menu{display:flex;align-items:center;gap:1.5rem}
+.menu a{text-decoration:none;font-size:.95rem;color:var(--prune-doux)}
+.menu a:hover,.menu a[aria-current="page"]{color:var(--prune)}
+.menu .btn{color:var(--blanc);padding:.6rem 1.15rem}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--prune);padding:0}
+@media (max-width:960px){
+  .burger{display:grid;place-items:center}
+  .menu{position:fixed;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--rose-fonce);padding:.5rem 1.25rem 1.25rem;display:none}
+  .menu.ouvert{display:flex}
+  .menu a{padding:.85rem 0;border-bottom:1px solid var(--rose);font-size:1.05rem}
+  .menu .btn{margin-top:1rem;border-bottom:0}
+}
+
+/* Pied de page */
+.pied{background:var(--prune);color:#F2DDEA;padding:3.5rem 0 2rem;margin-top:5rem;font-family:var(--texte);font-size:1rem;line-height:1.6}
+.pied *{box-sizing:border-box}
+.pied :where(h4,ul,li,p,span){margin:0;padding:0}
+.pied a{color:#F2DDEA;text-decoration:none}
+.pied a:hover{color:var(--blanc);text-decoration:underline}
+.pied-grille{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:2rem}
+.pied h4{font:600 .95rem var(--texte);color:var(--blanc);margin-bottom:.8rem}
+.pied ul{list-style:none;display:grid;gap:.45rem;font-size:.95rem}
+.pied .marque{color:var(--blanc);margin-bottom:.8rem}
+.pied-bas{border-top:1px solid rgba(255,255,255,.14);margin-top:2.5rem;padding-top:1.4rem;font-size:.85rem;color:#D9B6CC;display:grid;gap:.4rem}
+@media (max-width:760px){.pied-grille{grid-template-columns:1fr 1fr}.pied-grille>div:first-child{grid-column:1/-1}}
+
+/* Bandeau d'information */
+.cookies{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:60;max-width:34rem;margin-left:auto;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.1rem 1.2rem;box-shadow:0 12px 40px rgba(107,47,91,.14);font:400 .9rem/1.55 var(--texte);color:var(--prune);display:none;box-sizing:border-box}
+.cookies.visible{display:block}
+.cookies p{margin:0 0 .8rem}
+.cookies a{color:var(--prune)}
+.cookies .btn{padding:.55rem 1.1rem;font-size:.9rem}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{.entete,.pied,.cookies{display:none!important}}
