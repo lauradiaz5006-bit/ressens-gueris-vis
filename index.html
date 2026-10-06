@@ -11,83 +11,86 @@
   <link rel="canonical" href="https://schema-repetitif-genetique.fr/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Marcellus&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
     .ouverture{position:relative;overflow:hidden;background:
-      radial-gradient(60rem 36rem at 72% 18%,rgba(241,223,174,.75),transparent 62%),
-      radial-gradient(40rem 30rem at 10% 90%,rgba(231,185,168,.28),transparent 60%),
-      linear-gradient(180deg,#FDFCFF 0%,var(--nacre) 55%,var(--lilas) 100%)}
+      radial-gradient(60rem 36rem at 72% 18%,rgba(248,214,200,.8),transparent 62%),
+      radial-gradient(40rem 30rem at 10% 90%,rgba(236,190,210,.35),transparent 60%),
+      linear-gradient(180deg,#FFFCFB 0%,var(--nacre) 55%,var(--rose) 100%)}
     .ouverture .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center;padding:3rem 0 2.5rem}
     .ouverture h1{margin-bottom:1.3rem}
-    .ouverture .intro{font-size:1.15rem;color:var(--indigo-doux);margin-bottom:2rem}
+    .ouverture .intro{font-size:1.15rem;color:var(--prune-doux);margin-bottom:2rem}
     .actions{display:flex;flex-wrap:wrap;gap:.8rem}
-    .rassurance{margin-top:1.6rem;font-size:.92rem;color:var(--indigo-doux)}
+    .rassurance{margin-top:1.6rem;font-size:.92rem;color:var(--prune-doux)}
 
     /* L'arbre double */
     .arbre{position:relative;max-width:330px;margin-inline:auto;width:100%}
     .arbre svg{width:100%;height:auto;overflow:visible}
-    .arbre .chemin{stroke:var(--or);stroke-width:1.2;opacity:.55;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.4s ease forwards;animation-delay:1.1s}
-    .arbre .racine{stroke:var(--indigo);stroke-width:1.2;opacity:.45;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.2s ease forwards}
-    .arbre .ancetre{fill:var(--nacre);stroke:var(--indigo);stroke-width:1.2;opacity:0;animation:apparait .6s ease forwards;animation-delay:.6s}
-    .arbre .sphere circle.coeur{fill:#FFFCF2;stroke:var(--or);stroke-width:1.6;transition:fill .25s}
-    .arbre .sphere circle.halo{fill:var(--or-clair);opacity:0;transition:opacity .25s}
+    .arbre .chemin{stroke:var(--champagne);stroke-width:1.2;opacity:.55;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.4s ease forwards;animation-delay:1.1s}
+    .arbre .racine{stroke:var(--prune);stroke-width:1.2;opacity:.45;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.2s ease forwards}
+    .arbre .ancetre{fill:var(--nacre);stroke:var(--prune);stroke-width:1.2;opacity:0;animation:apparait .6s ease forwards;animation-delay:.6s}
+    .arbre .petales ellipse{fill:var(--rose-fonce);opacity:.5;transition:fill .25s,opacity .25s}
+    .arbre .sphere:hover .petales ellipse,.arbre .sphere:focus-visible .petales ellipse{fill:var(--corail);opacity:.45}
+    .arbre .sphere.actif .petales ellipse{fill:var(--corail);opacity:.75}
+    .arbre .sphere circle.coeur{fill:#FFFAF6;stroke:var(--champagne);stroke-width:1.6;transition:fill .25s}
+    .arbre .sphere circle.halo{fill:var(--champagne-clair);opacity:0;transition:opacity .25s}
     .arbre .sphere{cursor:pointer;opacity:0;animation:apparait .7s ease forwards}
-    .arbre .sphere:hover circle.halo,.arbre .sphere:focus-visible circle.halo,.arbre .sphere.actif circle.halo{opacity:.9}
-    .arbre .sphere.actif circle.coeur{fill:var(--or)}
+    .arbre .sphere circle.halo{display:none}
+    .arbre .sphere.actif circle.coeur{fill:var(--champagne)}
     .arbre .sphere:focus{outline:none}
-    .arbre .sphere:focus-visible circle.coeur{stroke:var(--indigo);stroke-width:2.4}
-    .arbre .moi{fill:var(--indigo)}
-    .arbre text{font-family:var(--texte);font-size:11px;fill:var(--indigo-doux)}
+    .arbre .sphere:focus-visible circle.coeur{stroke:var(--prune);stroke-width:2.4}
+    .arbre .moi{fill:var(--prune)}
+    .arbre text{font-family:var(--texte);font-size:11px;fill:var(--prune-doux)}
     .legende{min-height:4.6rem;margin-top:.6rem;text-align:center;font-size:.98rem}
-    .legende strong{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--indigo)}
-    .legende span{color:var(--indigo-doux)}
+    .legende strong{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--prune)}
+    .legende span{color:var(--prune-doux)}
     @keyframes trace{to{stroke-dashoffset:0}}
     @keyframes apparait{to{opacity:1}}
 
     section.bloc{padding:5rem 0}
     .bloc-tete{max-width:40rem;margin-bottom:2.8rem}
-    .bloc-tete p{margin-top:.9rem;color:var(--indigo-doux);font-size:1.08rem}
+    .bloc-tete p{margin-top:.9rem;color:var(--prune-doux);font-size:1.08rem}
 
     /* Deux arbres */
     .deux{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-    .deux article{padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--lilas)}
-    .deux article.haut{background:linear-gradient(180deg,#FFFBEF,var(--blanc) 70%);border-color:var(--or-clair)}
+    .deux article{padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .deux article.haut{background:linear-gradient(180deg,#FFF5EF,var(--blanc) 70%);border-color:var(--champagne-clair)}
     .deux h3{margin:1rem 0 .6rem}
-    .deux ul{margin-top:1rem;padding-left:1.1rem;color:var(--indigo-doux);display:grid;gap:.3rem}
+    .deux ul{margin-top:1rem;padding-left:1.1rem;color:var(--prune-doux);display:grid;gap:.3rem}
     .deux .pictogramme{width:44px;height:44px}
-    .croisement{margin-top:1.5rem;padding:1.6rem 2rem;border-radius:var(--rayon);background:var(--indigo);color:#E4E0F6;display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center}
+    .croisement{margin-top:1.5rem;padding:1.6rem 2rem;border-radius:var(--rayon);background:var(--prune);color:#F4E4EE;display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center}
     .croisement strong{color:var(--blanc);font-weight:600}
     .croisement svg{width:40px;height:40px}
 
     /* Outils */
-    .outils{background:var(--blanc);border-block:1px solid var(--lilas)}
+    .outils{background:var(--blanc);border-block:1px solid var(--rose)}
     .liste-outils{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
-    .outil{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1.6rem 0;border-top:1px solid var(--lilas);text-decoration:none}
-    .outil:hover h3{color:var(--or)}
+    .outil{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1.6rem 0;border-top:1px solid var(--rose);text-decoration:none}
+    .outil:hover h3{color:var(--champagne)}
     .outil h3{transition:color .2s}
-    .outil p{grid-column:1/-1;color:var(--indigo-doux);font-size:.98rem}
-    .outil .duree{font-size:.88rem;color:var(--indigo-doux);white-space:nowrap;align-self:center}
-    .outil .bientot{font-size:.8rem;font-weight:600;color:var(--or);background:#FBF3DD;border-radius:999px;padding:.2rem .7rem;align-self:center}
+    .outil p{grid-column:1/-1;color:var(--prune-doux);font-size:.98rem}
+    .outil .duree{font-size:.88rem;color:var(--prune-doux);white-space:nowrap;align-self:center}
+    .outil .bientot{font-size:.8rem;font-weight:600;color:var(--champagne);background:#FBEADF;border-radius:999px;padding:.2rem .7rem;align-self:center}
 
     /* Étapes */
     .etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:etape;list-style:none}
     .etapes li{counter-increment:etape;position:relative;padding-top:3.4rem}
-    .etapes li::before{content:counter(etape);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:var(--or-clair);color:var(--indigo)}
+    .etapes li::before{content:counter(etape);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:var(--champagne-clair);color:var(--prune)}
     .etapes h3{margin-bottom:.5rem}
-    .etapes p{color:var(--indigo-doux)}
+    .etapes p{color:var(--prune-doux)}
     .etapes a{display:inline-block;margin-top:.7rem;font-weight:600}
 
     /* Questions */
     .questions{max-width:46rem}
-    .questions details{border-top:1px solid var(--brume);padding:1.1rem 0}
-    .questions details:last-child{border-bottom:1px solid var(--brume)}
+    .questions details{border-top:1px solid var(--rose-fonce);padding:1.1rem 0}
+    .questions details:last-child{border-bottom:1px solid var(--rose-fonce)}
     .questions summary{cursor:pointer;list-style:none;font-family:var(--display);font-size:1.25rem;display:flex;justify-content:space-between;gap:1rem}
     .questions summary::-webkit-details-marker{display:none}
-    .questions summary::after{content:'+';color:var(--or);font-family:var(--texte);font-size:1.4rem;line-height:1}
+    .questions summary::after{content:'+';color:var(--champagne);font-family:var(--texte);font-size:1.4rem;line-height:1}
     .questions details[open] summary::after{content:'–'}
-    .questions details p{margin-top:.7rem;color:var(--indigo-doux)}
+    .questions details p{margin-top:.7rem;color:var(--prune-doux)}
 
     @media (max-width:860px){
       .ouverture .conteneur{grid-template-columns:1fr;padding-top:2.5rem}
@@ -119,8 +122,8 @@
           <svg viewBox="0 0 360 650" role="group" aria-label="L'arbre double : en haut l'arbre de vie et ses dix sphères, en bas les racines familiales sur trois générations">
             <defs>
               <radialGradient id="lumiere" cx="50%" cy="40%" r="50%">
-                <stop offset="0" stop-color="#FFF6DA" stop-opacity=".95"/>
-                <stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/>
+                <stop offset="0" stop-color="#FFE9DC" stop-opacity=".95"/>
+                <stop offset="1" stop-color="#FFE9DC" stop-opacity="0"/>
               </radialGradient>
             </defs>
             <ellipse cx="180" cy="210" rx="190" ry="230" fill="url(#lumiere)"/>
@@ -190,7 +193,7 @@
         </div>
         <div class="deux">
           <article>
-            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="8" r="4" fill="#2E2766"/><path d="M22 12v6M22 18c0 6-10 6-10 12M22 18c0 6 10 6 10 12M12 30v6M32 30v6" stroke="#2E2766" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="38" r="3" stroke="#2E2766" stroke-width="1.5"/><circle cx="32" cy="38" r="3" stroke="#2E2766" stroke-width="1.5"/></svg>
+            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="8" r="4" fill="#6B2F5B"/><path d="M22 12v6M22 18c0 6-10 6-10 12M22 18c0 6 10 6 10 12M12 30v6M32 30v6" stroke="#6B2F5B" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/><circle cx="32" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/></svg>
             <h3>L'arbre familial, ou génosociogramme</h3>
             <p>Tu y places tes parents, grands-parents et arrière-grands-parents, avec les dates et les événements marquants. Les répétitions apparaissent d'elles-mêmes.</p>
             <ul>
@@ -200,7 +203,7 @@
             </ul>
           </article>
           <article class="haut">
-            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B8892E"/><circle cx="12" cy="14" r="3" stroke="#B8892E" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B8892E" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B8892E" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B8892E"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B8892E" stroke-width="1.3"/></svg>
+            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B98A55"/><circle cx="12" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B98A55"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B98A55" stroke-width="1.3"/></svg>
             <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
             <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, du corps au sens que tu lui donnes.</p>
             <ul>
@@ -211,7 +214,7 @@
           </article>
         </div>
         <div class="croisement">
-          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="15" cy="20" r="10" stroke="#F1DFAE" stroke-width="1.5"/><circle cx="25" cy="20" r="10" stroke="#F1DFAE" stroke-width="1.5"/></svg>
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="15" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/><circle cx="25" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/></svg>
           <p><strong>Là où les deux se rejoignent, tu comprends.</strong> Par exemple, des conflits d'autorité sur trois générations rejoignent souvent une difficulté à poser tes propres limites. Le voir, c'est déjà pouvoir faire autrement.</p>
         </div>
       </div>
@@ -294,6 +297,18 @@
       };
       var legende = document.querySelector('.legende');
       var spheres = document.querySelectorAll('.sphere');
+      var NS = 'http://www.w3.org/2000/svg';
+      spheres.forEach(function (g) {
+        var c = g.querySelector('circle.coeur'), x = +c.getAttribute('cx'), y = +c.getAttribute('cy'), r = +c.getAttribute('r');
+        var p = document.createElementNS(NS, 'g'); p.setAttribute('class', 'petales');
+        for (var i = 0; i < 6; i++) {
+          var e = document.createElementNS(NS, 'ellipse');
+          e.setAttribute('cx', x); e.setAttribute('cy', y - r * 1.3); e.setAttribute('rx', r * 0.5); e.setAttribute('ry', r * 0.8);
+          e.setAttribute('transform', 'rotate(' + (i * 60) + ' ' + x + ' ' + y + ')');
+          p.appendChild(e);
+        }
+        g.insertBefore(p, g.firstChild);
+      });
       function montre(g) {
         spheres.forEach(function (x) { x.classList.remove('actif'); });
         g.classList.add('actif');

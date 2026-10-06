@@ -10,7 +10,7 @@
   ];
   var BOUTON = ['parcours.html', 'Commencer le parcours'];
 
-  var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B8892E"/><circle cx="7" cy="11" r="2.2" stroke="#2E2766" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#2E2766" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#2E2766"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#2E2766" stroke-width="1.3" stroke-linecap="round"/></svg>';
+  var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
 
   var entete = document.querySelector('[data-entete]');
