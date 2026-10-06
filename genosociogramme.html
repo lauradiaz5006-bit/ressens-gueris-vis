@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Génosociogramme · Laura Charron</title>
+<title>Génosociogramme · Schéma Répétitif</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -234,11 +234,11 @@ nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--l
 </div>
 
 <nav>
-  <span class="nav-logo">Laura Charron</span>
+  <span class="nav-logo">Schéma Répétitif</span>
   <a class="nav-link" href="index.html">Accueil</a>
-  <a class="nav-link" href="comprendre.html">Comprendre</a>
+  <a class="nav-link" href="heriter.html">Comprendre</a>
   <a class="nav-link active" href="genosociogramme.html">Mon Arbre</a>
-  <a class="nav-link" href="contact.html">Accompagnement</a>
+  <a class="nav-link" href="explorer.html">Explorer</a>
   <button class="nav-cta" onclick="openExport()">Sauvegarder</button>
 </nav>
 
@@ -1103,7 +1103,7 @@ function doExportSVG(){
     if(dates(p)) parts.push('<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#9A7060">'+esc(dates(p))+'</text>');
     if(p.metier) parts.push('<text x="'+x+'" y="'+(y+24)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#D88C6A" font-style="italic">'+esc(p.metier)+'</text>');
   });
-  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#3A1F12">Génosociogramme — Laura Charron</text>');
+  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#3A1F12">Génosociogramme — Schéma Répétitif</text>');
   parts.push('</svg>');
   var url=URL.createObjectURL(new Blob([parts.join('')],{type:'image/svg+xml'}));
   var a=document.createElement('a'); a.href=url; a.download='genosociogramme.svg'; a.click();

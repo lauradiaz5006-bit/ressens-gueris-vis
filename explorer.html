@@ -6,7 +6,7 @@ html = r'''<!DOCTYPE html>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Explorer · Laura Charron</title>
+  <title>Explorer · Schéma Répétitif</title>
   <meta name="description" content="Explorez vos racines, vos répétitions et les premières traces de votre histoire familiale avec les outils gratuits." />
   <link rel="canonical" href="https://schema-repetitif-genetique.fr/explorer.html" />
 
@@ -255,32 +255,28 @@ html = r'''<!DOCTYPE html>
 
 <body>
   <nav>
-  <a href="index.html" class="nav-logo">Laura Charron</a>
-  <div class="nav-links">
-    <a href="comprendre.html">Comprendre</a>
-    <a href="seance.html">Séances</a>
-    <a href="contact.html">Contact</a>
-    <a href="a-propos.html">Qui suis-je</a>
-    <a href="outils.html">Mon cadeau</a>
-    <a href="genosociogramme.html">Mon arbre</a>
-    <a href="login.html" class="nav-espace">Mon espace</a>
-    <a href="seance.html#reservation" class="nav-cta">Réserver →</a>
-  </div>
-  <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+    <a href="index.html" class="nav-logo">Schéma Répétitif</a>
+    <div class="nav-links">
+      <a href="heriter.html">Comprendre</a>
+      <a href="explorer.html">Explorer</a>
+      <a href="outils.html">Outils</a>
+      <a href="genosociogramme.html">Mon arbre</a>
+      <a href="login.html" class="nav-espace">Mon espace</a>
+      <a href="parcours.html" class="nav-cta">Commencer →</a>
+    </div>
+    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
 <div class="nav-mobile" id="nav-mobile">
-  <a href="comprendre.html">Comprendre</a>
-  <a href="seance.html">Séances</a>
-  <a href="contact.html">Contact</a>
-  <a href="a-propos.html">Qui suis-je</a>
-  <a href="outils.html">Mon cadeau</a>
-  <a href="genosociogramme.html">Mon arbre</a>
-  <a href="login.html">Mon espace</a>
-  <a href="seance.html#reservation" style="color:var(--terra);font-weight:600;">Réserver une séance →</a>
-</div>
+    <a href="heriter.html">Comprendre</a>
+    <a href="explorer.html">Explorer</a>
+    <a href="outils.html">Outils</a>
+    <a href="genosociogramme.html">Mon arbre</a>
+    <a href="login.html">Mon espace</a>
+    <a href="parcours.html" style="color:var(--terra);font-weight:600;">Commencer →</a>
+  </div>
 
 <script>
 document.getElementById('burger').addEventListener('click',function(){
@@ -291,27 +287,9 @@ document.getElementById('burger').addEventListener('click',function(){
   <div class="cursor" id="cur"></div>
   <div class="cursor-ring" id="ring"></div>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Laura Charron</a>
-    <div class="nav-links">
-      <a href="index.html">Accueil</a>
-      <a href="parcours.html">Commencer</a>
-      <a href="explorer.html" class="active">Explorer</a>
-      <a href="comprendre.html">Comprendre</a>
-      <a href="contact.html" class="nav-cta">Être accompagné</a>
-    </div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Ouvrir le menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
+  
 
-  <div class="nav-mobile" id="nav-mobile">
-    <a href="index.html">Accueil</a>
-    <a href="parcours.html">Commencer</a>
-    <a href="explorer.html" style="color:var(--terra);font-weight:600;">Explorer</a>
-    <a href="comprendre.html">Comprendre</a>
-    <a href="contact.html">Être accompagné</a>
-  </div>
+  
 
   <header class="hero">
     <div class="map-lines">
@@ -415,8 +393,8 @@ document.getElementById('burger').addEventListener('click',function(){
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/><path d="M6 1.5 V10.5 M1.5 6 H10.5" stroke="currentColor" stroke-width="1.1"/></svg>
           Instruments de navigation
         </div>
-        <h2 class="section-title">Les Mon cadeau pour <em>explorer</em>.</h2>
-        <p class="section-sub">Ces outils ne remplacent pas une séance. Ils permettent d'ouvrir des pistes, de repérer des indices et de préparer le travail plus profond.</p>
+        <h2 class="section-title">Les outils pour <em>explorer</em>.</h2>
+        <p class="section-sub">Ces outils permettent d'ouvrir des pistes, de repérer des indices et de relier ce qui se répète.</p>
       </div>
 
       <div class="tool-grid">
@@ -515,12 +493,12 @@ document.getElementById('burger').addEventListener('click',function(){
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.1"/></svg>
             Après l'exploration
           </div>
-          <h2>Ce que vous découvrez mérite parfois d'être accompagné.</h2>
+          <h2>Ce que vous découvrez mérite d'être relié.</h2>
           <p>
-            Les outils ouvrent des pistes. Une séance permet de les approfondir, de les relier et d'avancer avec un regard extérieur.
+            Les outils ouvrent des pistes. Votre arbre familial permet de les rassembler et de voir ce qui revient d'une génération à l'autre.
           </p>
           <div class="hero-actions">
-            <a href="contact.html" class="btn-light">Être accompagné</a>
+            <a href="genosociogramme.html" class="btn-light">Créer mon arbre</a>
           </div>
         </div>
 
@@ -551,8 +529,8 @@ document.getElementById('burger').addEventListener('click',function(){
       <h2>La carte ne donne pas toutes les réponses.</h2>
       <p>Elle vous montre seulement où regarder. Le reste du chemin se révèle en avançant.</p>
       <div class="hero-actions" style="justify-content:center">
-        <a href="comprendre.html" class="btn-light">Comprendre la suite</a>
-        <a href="contact.html" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.35)">Être accompagné</a>
+        <a href="heriter.html" class="btn-light">Comprendre la suite</a>
+        <a href="genosociogramme.html" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,.35)">Mon arbre</a>
       </div>
     </div>
   </section>
@@ -561,45 +539,30 @@ document.getElementById('burger').addEventListener('click',function(){
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Laura Charron</a>
-          <p>Un voyage intérieur pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
+          <a href="index.html" class="footer-logo">Schéma Répétitif</a>
+          <p>Des outils pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
         </div>
-
         <div class="footer-col">
-          <h4>Le Voyage</h4>
+          <h4>Commencer</h4>
           <a href="index.html">Accueil</a>
-          <a href="parcours.html">Commencer</a>
+          <a href="parcours.html">Le parcours</a>
+          <a href="heriter.html">Transgénérationnel</a>
           <a href="explorer.html">Explorer</a>
-          <a href="comprendre.html">Comprendre</a>
-          <a href="contact.html">Être accompagné</a>
         </div>
-
         <div class="footer-col">
-          <h4>Les Archives</h4>
-          <a href="livre.html">Le Guide audio</a>
-          <a href="journal.html">Carnet de voyage</a>
-          <a href="arbre-famille.html">Les Racines</a>
-          <a href="genosociogramme.html">La Carte familiale</a>
+          <h4>Outils</h4>
+          <a href="genosociogramme.html">Génosociogramme</a>
           <a href="symptomes.html">Messages du corps</a>
+          <a href="vibration.html">Ma fréquence</a>
+          <a href="outils.html">Tous les outils</a>
         </div>
-
         <div class="footer-col">
-          <h4>Comprendre</h4>
-          <a href="transgen.html">Transgénérationnel</a>
-          <a href="cycle.html">Cycles du vivant</a>
-          <a href="arbre-vie.html">Sphères de vie</a>
-          <a href="vibration.html">Compas intérieur</a>
-          <a href="contact.html">Écrire à Laura</a>
+          <h4>Mon compte</h4>
+          <a href="login.html">Mon espace</a>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <p>© Laura Charron 2026 · Tous droits réservés · Ressens · Guéris · Vis</p>
-        <div class="footer-bottom-links">
-          <a href="contact.html">Contact</a>
-          <a href="mentions-legales.html">Mentions légales</a>
-          <a href="confidentialite.html">Confidentialité</a>
-        </div>
+        <p>© Schéma Répétitif 2026 · Tous droits réservés</p>
       </div>
     </div>
   </footer>
@@ -655,8 +618,3 @@ document.getElementById('burger').addEventListener('click',function(){
   </script>
 </body>
 </html>
-'''
-
-path = Path('/mnt/data/explorer-laura.html')
-path.write_text(html, encoding='utf-8')
-path
