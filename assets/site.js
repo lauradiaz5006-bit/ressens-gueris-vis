@@ -1,7 +1,7 @@
-/* Lignéa — éléments communs à toutes les pages.
+/* Genesolia — éléments communs à toutes les pages.
    Le nom de la marque, le menu et le pied de page se modifient ICI, une seule fois. */
 (function () {
-  var MARQUE = 'Lignéa';
+  var MARQUE = 'Genesolia';
   var MENU = [
     ['heriter.html', 'Comprendre'],
     ['methode.html', 'La méthode'],
