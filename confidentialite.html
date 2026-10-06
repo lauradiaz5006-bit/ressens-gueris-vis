@@ -20,6 +20,8 @@
     .a-completer{background:#FBEADF;padding:0 .3rem;border-radius:4px}
     .maj{color:var(--prune-doux)}
     @media (max-width:640px){.texte-legal table{font-size:.88rem}.texte-legal th,.texte-legal td{padding:.6rem .5rem}}
+      .tableau-defile{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+    .tableau-defile table{min-width:34rem}
   </style>
 </head>
 <body class="nouveau">
@@ -33,6 +35,7 @@
       <li>Aucun cookie publicitaire, aucun outil de mesure d'audience, aucune revente de données.</li>
       <li>Sans compte, tes réponses restent uniquement dans ton navigateur.</li>
       <li>Avec un compte, tes sauvegardes sont stockées en Europe (Irlande).</li>
+      <li>Si tu demandes le carnet offert, ton prénom et ton e-mail servent uniquement à te l'envoyer et à te donner des nouvelles de Genesolia, jusqu'à ce que tu te désinscrives.</li>
       <li>Tu peux tout consulter, corriger ou supprimer à tout moment.</li>
     </ul>
 
@@ -40,15 +43,16 @@
     <p>Le site est édité par <span class="a-completer">[raison sociale, adresse et numéro SIRET à compléter]</span>. Pour toute question sur tes données : <span class="a-completer">[adresse e-mail de contact à compléter]</span>.</p>
 
     <h2>Ce que le site utilise</h2>
-    <table>
+    <div class="tableau-defile"><table>
       <thead><tr><th>Donnée</th><th>Pourquoi</th><th>Où</th><th>Combien de temps</th></tr></thead>
       <tbody>
         <tr><td>Tes réponses aux outils et ta progression</td><td>Te permettre de reprendre là où tu t'es arrêté·e</td><td>Ton navigateur uniquement</td><td>Jusqu'à ce que tu les effaces</td></tr>
         <tr><td>Ton adresse e-mail (si tu crées un compte)</td><td>Te connecter à ton espace</td><td>Nos serveurs en Europe (Irlande), hébergés par Supabase</td><td>Tant que ton compte existe</td></tr>
         <tr><td>Ton arbre familial et tes sauvegardes (si tu crées un compte)</td><td>Les retrouver sur tous tes appareils</td><td>Nos serveurs en Europe (Irlande), hébergés par Supabase</td><td>Tant que ton compte existe</td></tr>
+        <tr><td>Ton prénom et ton e-mail (si tu demandes le carnet offert)</td><td>T'envoyer le carnet et des nouvelles de Genesolia</td><td>Formspree, puis la liste d'envoi de l'éditeur</td><td>Jusqu'à ta désinscription</td></tr>
         <tr><td>Ton choix sur ce bandeau d'information</td><td>Ne pas te le réafficher</td><td>Ton navigateur uniquement</td><td>Jusqu'à ce que tu l'effaces</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <h2>Des données qui méritent une attention particulière</h2>
     <p>Ce que tu notes sur tes émotions ou l'histoire de ta famille peut être sensible. Nous ne le consultons pas et ne l'utilisons que pour te l'afficher. Ces informations ne sont jamais vendues, partagées ni utilisées pour de la publicité. Seul l'hébergeur technique y a accès, pour faire fonctionner le service.</p>
@@ -62,18 +66,20 @@
     <ul>
       <li>Ce qui reste dans ton navigateur : c'est nécessaire au fonctionnement de l'outil que tu utilises.</li>
       <li>Ton compte et tes sauvegardes : c'est l'exécution du service que tu demandes en créant un compte.</li>
+      <li>Ton prénom et ton e-mail pour le carnet offert : ton consentement, donné en cochant la case du formulaire. Chaque message contient un moyen de te désinscrire, et tu peux aussi nous écrire.</li>
       <li>Ce que tu notes de personnel ou de familial : ton consentement, que tu donnes en créant ton compte et que tu peux retirer à tout moment en supprimant tes données.</li>
     </ul>
 
     <h2>Les prestataires techniques</h2>
-    <table>
+    <div class="tableau-defile"><table>
       <thead><tr><th>Prestataire</th><th>Rôle</th><th>Où</th></tr></thead>
       <tbody>
         <tr><td>Supabase</td><td>Comptes et sauvegardes</td><td>Serveurs en Europe (Irlande)</td></tr>
         <tr><td>GitHub Pages (GitHub, Inc.)</td><td>Affichage du site ; conserve des journaux techniques, dont l'adresse IP</td><td>États-Unis</td></tr>
+        <tr><td>Formspree</td><td>Reçoit les inscriptions au carnet offert</td><td>États-Unis</td></tr>
         <tr><td>jsDelivr</td><td>Fournit la bibliothèque de connexion sur les pages avec compte</td><td>Réseau mondial</td></tr>
       </tbody>
-    </table>
+    </table></div>
 
     <h2>Tes droits</h2>
     <p>Tu peux à tout moment accéder à tes données, les corriger, les supprimer, en obtenir une copie ou t'opposer à leur utilisation. Écris-nous à l'adresse indiquée plus haut ; nous répondons sous un mois.</p>

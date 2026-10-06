@@ -90,6 +90,31 @@ section.bloc{padding:4.5rem 0}
   .page-tete{padding:2.5rem 0 2.25rem}
 }
 
+/* Bloc cadeau (carnet des deux cycles) */
+.cadeau{display:grid;grid-template-columns:200px 1fr;gap:2.5rem;align-items:center;padding:2.2rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair);font-family:var(--texte);color:var(--prune);box-sizing:border-box}
+.cadeau *{box-sizing:border-box}
+.cadeau-couv{width:100%;height:auto;border-radius:10px;box-shadow:0 16px 40px rgba(107,47,91,.18);transform:rotate(-2.5deg);display:block}
+.cadeau h2{font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,3vw,2rem);line-height:1.15;margin:0 0 .6rem}
+.cadeau-texte>p{margin:0 0 1.2rem;color:var(--prune-doux);max-width:36rem}
+.cadeau-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;margin-bottom:.8rem}
+.cadeau label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+.cadeau input[type=text],.cadeau input:not([type]),.cadeau input[type=email]{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%}
+.cadeau input:focus{outline:2px solid var(--champagne);outline-offset:1px;border-color:var(--champagne)}
+.cadeau .cadeau-accord{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+.cadeau .cadeau-accord input{margin-top:.2rem;width:1.05rem;height:1.05rem;accent-color:var(--prune);flex-shrink:0}
+.cadeau .cadeau-accord a{color:var(--prune)}
+.cadeau-piege{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.cadeau-erreur{margin:.7rem 0 0;font-size:.9rem;color:#A33A4A;min-height:1.2em}
+.cadeau-merci{font-family:var(--display);font-size:1.3rem;margin:0 0 .9rem}
+.cadeau button[disabled]{opacity:.7;cursor:wait}
+@media (max-width:760px){
+  .cadeau{grid-template-columns:1fr;gap:1.5rem;padding:1.6rem}
+  .cadeau-couv{width:130px;margin:0 auto}
+  .cadeau-champs{grid-template-columns:1fr}
+  .cadeau .btn{width:100%}
+}
+@media print{.cadeau{display:none!important}}
+
 /* ===== Composants communs à toutes les pages ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;font:600 .98rem/1.2 var(--texte);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s;box-sizing:border-box}
 .btn-plein{background:var(--prune);color:var(--blanc)}

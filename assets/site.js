@@ -76,6 +76,71 @@
       '</div>';
   }
 
+  /* Cadeau : le carnet des deux cycles contre un e-mail (Formspree).
+     Placer <div data-cadeau></div> là où le bloc doit apparaître. */
+  var FORMSPREE = 'https://formspree.io/f/xdawvnby';
+  var CARNET = 'assets/carnet-des-deux-cycles.pdf';
+  function telecharger() {
+    var a = document.createElement('a');
+    a.href = CARNET; a.download = 'carnet-des-deux-cycles-genesolia.pdf';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  function merci(zone, prenom) {
+    zone.innerHTML =
+      '<p class="cadeau-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Ton carnet se télécharge.</p>' +
+      '<a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>';
+  }
+  var inscrit = false;
+  try { inscrit = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
+  document.querySelectorAll('[data-cadeau]').forEach(function (el, n) {
+    var id = 'cadeau-' + n;
+    el.className = 'cadeau';
+    el.innerHTML =
+      '<img class="cadeau-couv" src="assets/carnet-apercu.jpg" width="662" height="936" alt="Couverture du carnet des deux cycles" loading="lazy">' +
+      '<div class="cadeau-texte">' +
+        '<h2>Reçois le carnet des deux cycles, offert</h2>' +
+        '<p>Neuf pages à imprimer et à remplir : la boucle et la spirale, tes deux cycles, les neuf étapes, les questions à poser à ta famille et ton arbre sur trois générations.</p>' +
+        '<div class="cadeau-zone" aria-live="polite">' +
+          (inscrit
+            ? '<a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>'
+            : '<form class="cadeau-form" novalidate>' +
+                '<div class="cadeau-champs">' +
+                  '<label for="' + id + '-prenom">Prénom<input id="' + id + '-prenom" name="prenom" autocomplete="given-name" required></label>' +
+                  '<label for="' + id + '-email">E-mail<input id="' + id + '-email" name="email" type="email" autocomplete="email" required></label>' +
+                '</div>' +
+                '<label class="cadeau-accord"><input type="checkbox" name="accord" value="oui" required><span>J\'accepte de recevoir le carnet et des nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
+                '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="cadeau-piege" aria-hidden="true">' +
+                '<button class="btn btn-plein" type="submit">Recevoir mon carnet</button>' +
+                '<p class="cadeau-erreur" role="alert"></p>' +
+              '</form>') +
+        '</div>' +
+      '</div>';
+    var form = el.querySelector('form');
+    if (!form) return;
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.cadeau-erreur'), btn = form.querySelector('button');
+      var prenom = form.prenom.value.trim(), email = form.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour recevoir le carnet.'; return; }
+      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      var data = new FormData(form);
+      data.append('source', page);
+      data.append('_subject', 'Nouvelle inscription : carnet des deux cycles');
+      fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () {
+          try { localStorage.setItem('carnet-inscrit', 'oui'); } catch (e) {}
+          merci(el.querySelector('.cadeau-zone'), prenom);
+          telecharger();
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Recevoir mon carnet';
+          err.textContent = 'L\'envoi n\'a pas fonctionné. Vérifie ta connexion et réessaie dans un instant.';
+        });
+    });
+  });
+
   /* Bandeau d'information : le site n'utilise que des stockages nécessaires à son fonctionnement */
   var vu = false;
   try { vu = localStorage.getItem('info-cookies') === 'vu'; } catch (e) {}
