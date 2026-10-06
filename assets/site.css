@@ -1,0 +1,74 @@
+/* Schéma Répétitif — feuille de style commune
+   Palette : nacre lumineuse, lilas, or, indigo profond */
+:root{
+  --nacre:#F7F5FC;      /* fond principal */
+  --lilas:#E8E3F6;      /* fonds secondaires */
+  --brume:#D4CCEC;      /* bordures douces */
+  --or:#B8892E;         /* lumière, accents */
+  --or-clair:#F1DFAE;   /* halos */
+  --aurore:#E7B9A8;     /* touche chaude */
+  --indigo:#2E2766;     /* texte et boutons */
+  --indigo-doux:#5C5596;/* texte secondaire */
+  --blanc:#FFFFFF;
+  --rayon:14px;
+  --mesure:36rem;
+  --display:'Marcellus',Georgia,serif;
+  --texte:'Figtree',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);font-size:1.0625rem;line-height:1.65;color:var(--indigo);background:var(--nacre);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;letter-spacing:.005em}
+h1{font-size:clamp(2.2rem,5.2vw,3.6rem)}
+h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
+h3{font-size:1.35rem}
+p{max-width:var(--mesure)}
+.discret{color:var(--indigo-doux)}
+.conteneur{width:min(72rem,100% - 2.5rem);margin-inline:auto}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;font:600 .98rem var(--texte);text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn-plein{background:var(--indigo);color:var(--blanc)}
+.btn-plein:hover{background:#3B3380}
+.btn-trait{border-color:var(--brume);color:var(--indigo);background:var(--blanc)}
+.btn-trait:hover{border-color:var(--indigo)}
+
+/* En-tête */
+.entete{position:sticky;top:0;z-index:50;background:rgba(247,245,252,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,204,236,.6)}
+.entete .conteneur{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
+.marque{font-family:var(--display);font-size:1.3rem;text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.marque svg{width:26px;height:26px}
+.menu{display:flex;align-items:center;gap:1.6rem}
+.menu a{text-decoration:none;font-size:.95rem;color:var(--indigo-doux)}
+.menu a:hover,.menu a[aria-current="page"]{color:var(--indigo)}
+.menu .btn{color:var(--blanc);padding:.6rem 1.15rem}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--indigo)}
+@media (max-width:860px){
+  .burger{display:grid;place-items:center}
+  .menu{position:fixed;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--brume);padding:.5rem 1.25rem 1.25rem;display:none}
+  .menu.ouvert{display:flex}
+  .menu a{padding:.85rem 0;border-bottom:1px solid var(--lilas);font-size:1.05rem}
+  .menu .btn{margin-top:1rem;border-bottom:0}
+}
+
+/* Pied de page */
+.pied{background:var(--indigo);color:#DCD8F0;padding:3.5rem 0 2rem;margin-top:5rem}
+.pied a{color:#DCD8F0;text-decoration:none}
+.pied a:hover{color:var(--blanc);text-decoration:underline}
+.pied-grille{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:2rem}
+.pied h4{font:600 .95rem var(--texte);color:var(--blanc);margin-bottom:.8rem}
+.pied ul{list-style:none;display:grid;gap:.45rem;font-size:.95rem}
+.pied .marque{color:var(--blanc);margin-bottom:.8rem}
+.pied-bas{border-top:1px solid rgba(255,255,255,.14);margin-top:2.5rem;padding-top:1.4rem;font-size:.85rem;color:#B7B1DA;display:grid;gap:.4rem}
+@media (max-width:760px){.pied-grille{grid-template-columns:1fr 1fr}.pied-grille>div:first-child{grid-column:1/-1}}
+
+/* Bandeau cookies */
+.cookies{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:60;max-width:34rem;margin-left:auto;background:var(--blanc);border:1px solid var(--brume);border-radius:var(--rayon);padding:1.1rem 1.2rem;box-shadow:0 12px 40px rgba(46,39,102,.14);font-size:.9rem;display:none}
+.cookies.visible{display:block}
+.cookies p{margin-bottom:.8rem}
+.cookies .btn{padding:.55rem 1.1rem;font-size:.9rem}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

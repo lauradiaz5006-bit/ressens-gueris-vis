@@ -1,536 +1,312 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Schéma Répétitif · Psychogénéalogie & Mémoires transgénérationnelles</title>
-  <meta name="description" content="Génosociogramme interactif, parcours guidé et outils gratuits pour comprendre les schémas familiaux qui se répètent dans ta vie.">
-  <meta property="og:title" content="Schéma Répétitif · Psychogénéalogie & Mémoires transgénérationnelles">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schéma Répétitif · Comprendre ce qui se répète dans ta vie</title>
+  <meta name="description" content="Arbre familial interactif, parcours guidé et lecture de l'arbre de vie : des outils gratuits pour comprendre les schémas qui se répètent d'une génération à l'autre.">
+  <meta property="og:title" content="Schéma Répétitif · Comprendre ce qui se répète dans ta vie">
+  <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
   <meta property="og:type" content="website">
-
+  <link rel="canonical" href="https://schema-repetitif-genetique.fr/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Marcellus&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
   <style>
-    :root{
-      --cream:#F4EDE4;
-      --cream2:#E9D8C9;
-      --terra-fonce:#A14A3C;
-      --terra:#C65D3B;
-      --terra-clair:#D88C6A;
-      --brun:#6B3E2E;
-      --ink:#3A1F12;
-      --ink2:#5C3420;
-      --soft:#9A7060;
-      --white:#FFFAF5;
-      --line:rgba(107,62,46,.14);
-    }
+    /* ACCUEIL */
+    .ouverture{position:relative;overflow:hidden;background:
+      radial-gradient(60rem 36rem at 72% 18%,rgba(241,223,174,.75),transparent 62%),
+      radial-gradient(40rem 30rem at 10% 90%,rgba(231,185,168,.28),transparent 60%),
+      linear-gradient(180deg,#FDFCFF 0%,var(--nacre) 55%,var(--lilas) 100%)}
+    .ouverture .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center;padding:3rem 0 2.5rem}
+    .ouverture h1{margin-bottom:1.3rem}
+    .ouverture .intro{font-size:1.15rem;color:var(--indigo-doux);margin-bottom:2rem}
+    .actions{display:flex;flex-wrap:wrap;gap:.8rem}
+    .rassurance{margin-top:1.6rem;font-size:.92rem;color:var(--indigo-doux)}
 
-    *{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{
-      font-family:'Jost',sans-serif;
-      background:var(--cream);
-      color:var(--ink);
-      overflow-x:hidden;
-      padding-top:68px;
-    }
-    a{color:inherit;text-decoration:none;}
+    /* L'arbre double */
+    .arbre{position:relative;max-width:330px;margin-inline:auto;width:100%}
+    .arbre svg{width:100%;height:auto;overflow:visible}
+    .arbre .chemin{stroke:var(--or);stroke-width:1.2;opacity:.55;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.4s ease forwards;animation-delay:1.1s}
+    .arbre .racine{stroke:var(--indigo);stroke-width:1.2;opacity:.45;fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:trace 1.2s ease forwards}
+    .arbre .ancetre{fill:var(--nacre);stroke:var(--indigo);stroke-width:1.2;opacity:0;animation:apparait .6s ease forwards;animation-delay:.6s}
+    .arbre .sphere circle.coeur{fill:#FFFCF2;stroke:var(--or);stroke-width:1.6;transition:fill .25s}
+    .arbre .sphere circle.halo{fill:var(--or-clair);opacity:0;transition:opacity .25s}
+    .arbre .sphere{cursor:pointer;opacity:0;animation:apparait .7s ease forwards}
+    .arbre .sphere:hover circle.halo,.arbre .sphere:focus-visible circle.halo,.arbre .sphere.actif circle.halo{opacity:.9}
+    .arbre .sphere.actif circle.coeur{fill:var(--or)}
+    .arbre .sphere:focus{outline:none}
+    .arbre .sphere:focus-visible circle.coeur{stroke:var(--indigo);stroke-width:2.4}
+    .arbre .moi{fill:var(--indigo)}
+    .arbre text{font-family:var(--texte);font-size:11px;fill:var(--indigo-doux)}
+    .legende{min-height:4.6rem;margin-top:.6rem;text-align:center;font-size:.98rem}
+    .legende strong{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--indigo)}
+    .legende span{color:var(--indigo-doux)}
+    @keyframes trace{to{stroke-dashoffset:0}}
+    @keyframes apparait{to{opacity:1}}
 
-    /* CURSOR */
-    .cursor{position:fixed;width:8px;height:8px;background:var(--terra);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;}
-    .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--terra);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;}
+    section.bloc{padding:5rem 0}
+    .bloc-tete{max-width:40rem;margin-bottom:2.8rem}
+    .bloc-tete p{margin-top:.9rem;color:var(--indigo-doux);font-size:1.08rem}
 
-    /* ── NAV ── */
-    nav{
-      position:fixed;top:0;left:0;right:0;z-index:200;
-      height:68px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
-      padding:0 2rem;
-      background:rgba(255,250,245,.97);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;font-weight:700;color:var(--ink);white-space:nowrap;}
-    .nav-links{display:flex;align-items:center;gap:1.1rem;justify-content:flex-end;}
-    .nav-links a{font-size:.78rem;color:var(--ink2);letter-spacing:.03em;transition:color .18s;}
-    .nav-links a:hover,.nav-links a.active{color:var(--terra);}
-    .nav-cta{
-      background:var(--terra)!important;color:white!important;
-      padding:.48rem 1.1rem;border-radius:4px;
-      font-size:.74rem!important;font-weight:600!important;
-      letter-spacing:.06em;text-transform:uppercase;
-      transition:background .18s;
-    }
-    .nav-cta:hover{background:var(--terra-fonce)!important;}
-    .nav-espace{
-      font-size:.74rem!important;color:var(--soft)!important;
-      border:1px solid var(--line);border-radius:100px;
-      padding:.38rem .85rem;transition:all .18s;
-    }
-    .nav-espace:hover{border-color:var(--terra)!important;color:var(--terra)!important;}
-    .nav-burger{display:none;width:42px;height:42px;border:none;background:transparent;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
-    .nav-burger span{width:21px;height:1.5px;background:var(--ink);border-radius:20px;transition:.25s;}
-    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-    .nav-burger.open span:nth-child(2){opacity:0;}
-    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-    .nav-mobile{position:fixed;top:68px;left:0;right:0;z-index:199;display:none;flex-direction:column;padding:1rem 1.4rem 1.4rem;background:rgba(255,250,245,.98);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);}
-    .nav-mobile.open{display:flex;}
-    .nav-mobile a{color:var(--ink2);padding:.8rem 0;border-bottom:1px solid rgba(107,62,46,.08);font-size:.9rem;}
-    .nav-mobile a:last-child{border-bottom:none;}
+    /* Deux arbres */
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .deux article{padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--lilas)}
+    .deux article.haut{background:linear-gradient(180deg,#FFFBEF,var(--blanc) 70%);border-color:var(--or-clair)}
+    .deux h3{margin:1rem 0 .6rem}
+    .deux ul{margin-top:1rem;padding-left:1.1rem;color:var(--indigo-doux);display:grid;gap:.3rem}
+    .deux .pictogramme{width:44px;height:44px}
+    .croisement{margin-top:1.5rem;padding:1.6rem 2rem;border-radius:var(--rayon);background:var(--indigo);color:#E4E0F6;display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center}
+    .croisement strong{color:var(--blanc);font-weight:600}
+    .croisement svg{width:40px;height:40px}
 
-    @media(max-width:960px){.nav-links{display:none;}.nav-burger{display:flex;}}
+    /* Outils */
+    .outils{background:var(--blanc);border-block:1px solid var(--lilas)}
+    .liste-outils{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
+    .outil{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:1.6rem 0;border-top:1px solid var(--lilas);text-decoration:none}
+    .outil:hover h3{color:var(--or)}
+    .outil h3{transition:color .2s}
+    .outil p{grid-column:1/-1;color:var(--indigo-doux);font-size:.98rem}
+    .outil .duree{font-size:.88rem;color:var(--indigo-doux);white-space:nowrap;align-self:center}
+    .outil .bientot{font-size:.8rem;font-weight:600;color:var(--or);background:#FBF3DD;border-radius:999px;padding:.2rem .7rem;align-self:center}
 
-    /* ── HERO ── */
-    .hero{
-      position:relative;overflow:hidden;
-      padding:6rem 4rem 5.5rem;
-      background:
-        radial-gradient(ellipse 50% 55% at 90% 10%,rgba(216,140,106,.14) 0%,transparent 55%),
-        radial-gradient(ellipse 40% 40% at 5% 90%,rgba(107,62,46,.06) 0%,transparent 55%),
-        linear-gradient(160deg,#FFFAF5 0%,var(--cream) 55%,#E9D8C9 100%);
-    }
-    .hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:2;}
-    .hero-badge{display:inline-flex;align-items:center;gap:.6rem;font-size:.65rem;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--brun);background:rgba(216,140,106,.12);border:1px solid rgba(107,62,46,.18);border-radius:2px;padding:.4rem .95rem;margin-bottom:1.9rem;}
-    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,6vw,5.4rem);font-weight:600;line-height:1.05;letter-spacing:-.01em;margin-bottom:1.3rem;}
-    .hero h1 em{font-style:italic;color:var(--terra);font-weight:400;}
-    .hero-sub{font-size:.96rem;font-weight:300;color:var(--ink2);max-width:480px;line-height:1.9;margin-bottom:.85rem;}
-    .hero-italic{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--soft);line-height:1.65;max-width:440px;margin-bottom:2.2rem;font-weight:400;}
-    .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
-    .btn-primary{display:inline-flex;align-items:center;gap:.55rem;background:var(--terra);color:#fff;padding:.95rem 1.9rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:background .18s,transform .18s,box-shadow .18s;box-shadow:0 6px 24px rgba(161,74,60,.22);}
-    .btn-primary:hover{background:var(--terra-fonce);transform:translateY(-2px);box-shadow:0 12px 34px rgba(161,74,60,.3);}
-    .btn-secondary{display:inline-flex;align-items:center;gap:.55rem;background:transparent;color:var(--ink2);padding:.95rem 1.6rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;border:1px solid rgba(107,62,46,.22);transition:all .18s;}
-    .btn-secondary:hover{border-color:var(--terra-clair);color:var(--terra);background:rgba(216,140,106,.08);}
+    /* Étapes */
+    .etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;counter-reset:etape;list-style:none}
+    .etapes li{counter-increment:etape;position:relative;padding-top:3.4rem}
+    .etapes li::before{content:counter(etape);position:absolute;top:0;left:0;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:var(--or-clair);color:var(--indigo)}
+    .etapes h3{margin-bottom:.5rem}
+    .etapes p{color:var(--indigo-doux)}
+    .etapes a{display:inline-block;margin-top:.7rem;font-weight:600}
 
-    .hero-card{background:linear-gradient(158deg,var(--brun),#3A1F12);border-radius:6px;padding:2.2rem;box-shadow:0 24px 65px rgba(107,62,46,.20);position:relative;overflow:hidden;}
-    .hero-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 80% 15%,rgba(216,140,106,.16),transparent 60%);pointer-events:none;}
-    .hero-card *{position:relative;z-index:1;}
-    .hc-tag{display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.65);border-radius:2px;padding:.32rem .78rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;}
-    .hc-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:white;line-height:1.25;margin-bottom:.75rem;}
-    .hc-desc{font-size:.82rem;color:rgba(255,255,255,.52);line-height:1.85;font-weight:300;margin-bottom:1.5rem;}
-    .hc-items{display:flex;flex-direction:column;gap:.5rem;}
-    .hc-item{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:.68rem .9rem;}
-    .hc-item span{font-size:.78rem;color:rgba(255,255,255,.62);line-height:1.4;}
+    /* Questions */
+    .questions{max-width:46rem}
+    .questions details{border-top:1px solid var(--brume);padding:1.1rem 0}
+    .questions details:last-child{border-bottom:1px solid var(--brume)}
+    .questions summary{cursor:pointer;list-style:none;font-family:var(--display);font-size:1.25rem;display:flex;justify-content:space-between;gap:1rem}
+    .questions summary::-webkit-details-marker{display:none}
+    .questions summary::after{content:'+';color:var(--or);font-family:var(--texte);font-size:1.4rem;line-height:1}
+    .questions details[open] summary::after{content:'–'}
+    .questions details p{margin-top:.7rem;color:var(--indigo-doux)}
 
-    /* TRUST */
-    .trust{background:var(--brun);padding:.85rem 2rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap;}
-    .trust-item{display:flex;align-items:center;gap:.55rem;font-size:.72rem;color:rgba(255,255,255,.75);font-weight:400;letter-spacing:.06em;white-space:nowrap;}
-
-    /* COMMUN */
-    .section-inner{max-width:1100px;margin:0 auto;}
-    .eyebrow{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;font-weight:500;}
-    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.08;margin-bottom:.75rem;letter-spacing:-.01em;}
-    .section-title em{font-style:italic;color:var(--terra);font-weight:400;}
-    .section-sub{font-size:.9rem;color:var(--soft);line-height:1.85;font-weight:300;}
-
-    /* ABOUT */
-    .about{padding:5.5rem 4rem;}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center;}
-    .about-copy p{font-size:.88rem;color:var(--ink2);line-height:1.92;font-weight:300;margin-bottom:.9rem;}
-    .about-copy p:last-of-type{margin-bottom:0;}
-    .about-copy strong{color:var(--ink);font-weight:500;}
-    .about-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.3rem;}
-    .about-tag{font-size:.66rem;background:transparent;border:1px solid rgba(107,62,46,.22);color:var(--brun);border-radius:2px;padding:.28rem .7rem;letter-spacing:.05em;}
-    .about-visual{background:linear-gradient(158deg,var(--brun),var(--terra-fonce));border-radius:6px;padding:2.2rem;position:relative;overflow:hidden;}
-    .about-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(216,140,106,.13),transparent 60%);pointer-events:none;}
-    .about-visual *{position:relative;z-index:1;}
-    .av-deco{margin-bottom:1.2rem;opacity:.35;}
-    .av-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.12rem;color:rgba(255,255,255,.85);line-height:1.68;margin-bottom:1.5rem;font-weight:400;}
-    .av-list{display:flex;flex-direction:column;gap:.5rem;}
-    .av-item{display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:3px;padding:.65rem .9rem;font-size:.78rem;color:rgba(255,255,255,.65);line-height:1.45;}
-
-    /* SEANCE */
-    .seance{padding:5.5rem 4rem;background:var(--cream2);}
-    .seance-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:start;margin-top:2.5rem;}
-    .seance-card{background:var(--white);border-radius:6px;padding:2.4rem;border:1px solid rgba(198,93,59,.14);box-shadow:0 15px 40px rgba(107,62,46,.08);}
-    .sc-tag{display:inline-flex;align-items:center;gap:.45rem;background:rgba(198,93,59,.08);border:1px solid rgba(198,93,59,.16);color:var(--terra);border-radius:2px;padding:.3rem .75rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem;font-weight:500;}
-    .sc-title{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:600;color:var(--ink);line-height:1.18;margin-bottom:.75rem;}
-    .sc-desc{font-size:.86rem;color:var(--ink2);line-height:1.88;font-weight:300;margin-bottom:1.3rem;}
-    .sc-modes{display:flex;gap:.5rem;margin-bottom:1.3rem;flex-wrap:wrap;}
-    .sc-mode{display:inline-flex;align-items:center;gap:.4rem;background:rgba(216,140,106,.12);border:1px solid rgba(107,62,46,.16);color:var(--brun);border-radius:2px;padding:.3rem .72rem;font-size:.72rem;font-weight:500;letter-spacing:.03em;}
-    .sc-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;}
-    .sc-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.82rem;color:var(--ink2);line-height:1.6;}
-    .sc-item svg{flex-shrink:0;margin-top:.18rem;}
-    .sc-price{font-size:.78rem;color:var(--soft);margin-bottom:1.4rem;font-style:italic;}
-    .seance-aside{display:flex;flex-direction:column;gap:.9rem;}
-    .aside-card{background:var(--white);border-radius:4px;padding:1.3rem 1.4rem;border:1px solid rgba(107,62,46,.1);}
-    .aside-icon-wrap{margin-bottom:.55rem;}
-    .aside-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;}
-    .aside-body{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;}
-
-    /* AVIS */
-    .avis{padding:5.5rem 4rem;}
-    .avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:2.5rem;}
-    .avis-card{background:var(--white);border-radius:5px;padding:1.8rem;border:1px solid rgba(107,62,46,.1);box-shadow:0 12px 32px rgba(107,62,46,.06);}
-    .avis-deco{margin-bottom:1rem;}
-    .avis-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink);line-height:1.72;margin-bottom:1.1rem;font-weight:400;}
-    .avis-sep{width:28px;height:1px;background:rgba(198,93,59,.3);margin-bottom:1rem;}
-    .avis-author{display:flex;align-items:center;gap:.7rem;}
-    .avis-av{width:33px;height:33px;border-radius:50%;background:linear-gradient(135deg,var(--terra-clair),var(--terra));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;color:white;font-weight:600;flex-shrink:0;}
-    .avis-name{font-size:.78rem;font-weight:500;color:var(--ink);}
-    .avis-label{font-size:.68rem;color:var(--soft);}
-
-    /* OUTILS */
-    .outils{padding:5.5rem 4rem;background:var(--cream2);}
-    .outils-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:2.5rem;}
-    .outil{background:var(--white);border:1px solid rgba(107,62,46,.1);border-radius:5px;padding:1.4rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s;}
-    .outil:hover{transform:translateY(-3px);border-color:rgba(198,93,59,.2);box-shadow:0 10px 28px rgba(107,62,46,.08);}
-    .outil-tag{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-bottom:.3rem;font-weight:400;}
-    .outil h3{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:600;color:var(--ink);margin-bottom:.38rem;}
-    .outil p{font-size:.78rem;color:var(--ink2);line-height:1.72;font-weight:300;flex:1;margin-bottom:.85rem;}
-    .outil-arrow{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--terra);font-weight:500;letter-spacing:.03em;}
-
-    /* LIVRE */
-    .livre{padding:5.5rem 4rem;}
-    .livre-box{background:linear-gradient(158deg,var(--brun),#3A1F12);border-radius:6px;padding:3rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;position:relative;overflow:hidden;}
-    .livre-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 45% 55% at 88% 50%,rgba(216,140,106,.13),transparent 60%);pointer-events:none;}
-    .livre-box *{position:relative;z-index:1;}
-    .livre-eyebrow{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(228,205,185,.6);margin-bottom:.8rem;display:flex;align-items:center;gap:.45rem;font-weight:500;}
-    .livre-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:600;color:white;line-height:1.1;margin-bottom:.8rem;}
-    .livre-title em{font-style:italic;color:var(--terra-clair);font-weight:400;}
-    .livre-desc{font-size:.84rem;color:rgba(255,255,255,.55);line-height:1.85;font-weight:300;margin-bottom:1.7rem;}
-    .livre-btn{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.88);padding:.88rem 1.7rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;}
-    .livre-btn:hover{background:rgba(255,255,255,.18);}
-    .livre-chapters{display:flex;flex-direction:column;gap:.55rem;}
-    .lc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;padding:.78rem 1rem;display:flex;align-items:center;gap:.75rem;}
-    .lc-num{font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.3);flex-shrink:0;width:20px;}
-    .lc-text{font-size:.78rem;color:rgba(255,255,255,.58);line-height:1.42;font-weight:300;}
-
-    /* CTA FINAL */
-    .cta-final{padding:5.5rem 4rem 6rem;}
-    .cta-box{max-width:980px;margin:0 auto;background:linear-gradient(158deg,var(--terra),var(--terra-fonce));border-radius:6px;padding:3.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
-    .cta-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 25% 55%,rgba(255,255,255,.07),transparent 60%);pointer-events:none;}
-    .cta-box *{position:relative;z-index:1;}
-    .cta-deco{margin:0 auto 1.4rem;display:block;opacity:.35;}
-    .cta-box h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.6rem);font-weight:600;color:white;line-height:1.06;margin-bottom:.85rem;}
-    .cta-box h2 em{font-style:italic;font-weight:400;}
-    .cta-box p{font-size:.9rem;color:rgba(255,255,255,.68);line-height:1.82;max-width:560px;margin:0 auto 2rem;font-weight:300;}
-    .cta-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
-    .btn-white{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--terra);padding:.95rem 1.9rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 24px rgba(0,0,0,.12);}
-    .btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.18);}
-    .btn-outline-white{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:rgba(255,255,255,.85);padding:.95rem 1.7rem;border-radius:4px;font-family:'Jost',sans-serif;font-size:.82rem;font-weight:400;letter-spacing:.04em;border:1px solid rgba(255,255,255,.3);transition:all .2s;}
-    .btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
-
-    /* FOOTER */
-    footer{background:#3A1F12;padding:3.5rem 3rem 2rem;}
-    .footer-inner{max-width:1200px;margin:0 auto;}
-    .footer-top{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;}
-    .footer-logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;color:white;font-weight:600;display:block;margin-bottom:.65rem;letter-spacing:.02em;}
-    .footer-brand p{font-size:.76rem;color:rgba(255,255,255,.32);line-height:1.72;font-weight:300;max-width:230px;}
-    .footer-col h4{font-size:.62rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem;}
-    .footer-col a{display:block;font-size:.74rem;color:rgba(255,255,255,.28);margin-bottom:.46rem;transition:color .18s;font-weight:300;}
-    .footer-col a:hover{color:var(--terra-clair);}
-    .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
-    .footer-bottom p{font-size:.68rem;color:rgba(255,255,255,.16);}
-    .footer-bottom-links{display:flex;gap:1.4rem;}
-    .footer-bottom-links a{font-size:.68rem;color:rgba(255,255,255,.2);transition:color .18s;}
-    .footer-bottom-links a:hover{color:var(--terra-clair);}
-
-    /* ── COOKIES ── */
-    .cookie-banner{
-      position:fixed;bottom:0;left:0;right:0;z-index:9000;
-      background:#3A1F12;
-      border-top:1px solid rgba(216,140,106,.18);
-      padding:1.1rem 2rem;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:1.5rem;flex-wrap:wrap;
-      box-shadow:0 -8px 32px rgba(58,31,18,.18);
-      transition:transform .35s ease,opacity .35s ease;
-    }
-    .cookie-banner.hidden{transform:translateY(100%);opacity:0;pointer-events:none;}
-    .cookie-text{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300;max-width:700px;}
-    .cookie-text a{color:var(--terra-clair);text-decoration:underline;text-underline-offset:3px;}
-    .cookie-actions{display:flex;gap:.65rem;flex-shrink:0;flex-wrap:wrap;}
-    .cookie-accept{
-      background:var(--terra);color:white;
-      border:none;padding:.55rem 1.2rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.74rem;font-weight:600;
-      letter-spacing:.05em;text-transform:uppercase;cursor:pointer;
-      transition:background .18s;
-    }
-    .cookie-accept:hover{background:var(--terra-fonce);}
-    .cookie-decline{
-      background:transparent;color:rgba(255,255,255,.45);
-      border:1px solid rgba(255,255,255,.15);
-      padding:.55rem 1rem;border-radius:4px;
-      font-family:'Jost',sans-serif;font-size:.74rem;font-weight:400;cursor:pointer;
-      transition:all .18s;
-    }
-    .cookie-decline:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.65);}
-
-    /* REVEAL */
-    .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
-    .reveal.revealed{opacity:1;transform:translateY(0);}
-
-    /* RESPONSIVE */
-    @media(max-width:980px){
-      .hero-inner,.about-grid,.seance-grid,.livre-box,.footer-top{grid-template-columns:1fr;}
-      .avis-grid,.outils-grid{grid-template-columns:1fr 1fr;}
-      .hero,.about,.seance,.avis,.outils,.livre,.cta-final,footer{padding-left:1.5rem;padding-right:1.5rem;}
-      .hero{padding-top:5rem;padding-bottom:4rem;}
-      .livre-box{padding:2rem 1.8rem;}
-    }
-    @media(max-width:760px){
-      .avis-grid,.outils-grid{grid-template-columns:1fr;}
-      .trust{gap:1.2rem;}
-      .cookie-banner{padding:1rem 1.2rem;}
-      .cookie-text{font-size:.74rem;}
-    }
-    @media(max-width:900px){
-      body{padding-top:62px;}
-      nav{height:62px;padding:0 1.1rem;}
-      .nav-mobile{top:62px;}
-      .cursor,.cursor-ring{display:none;}
-      footer{padding:2.5rem 1.5rem 1.5rem;}
-      .footer-top{grid-template-columns:1fr 1fr;gap:1.8rem;}
-      .footer-brand{grid-column:span 2;}
-    }
-    @media(max-width:480px){
-      .hero-actions,.cta-actions{flex-direction:column;align-items:flex-start;}
-      .cta-actions{align-items:center;}
-      .footer-top{grid-template-columns:1fr;}
-      .footer-brand{grid-column:span 1;}
+    @media (max-width:860px){
+      .ouverture .conteneur{grid-template-columns:1fr;padding-top:2.5rem}
+      .arbre{max-width:300px}
+      .deux,.liste-outils{grid-template-columns:1fr}
+      .etapes{grid-template-columns:1fr;gap:1.6rem}
+      section.bloc{padding:3.5rem 0}
+      .croisement{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
-  <div class="cursor" id="cur"></div>
-  <div class="cursor-ring" id="ring"></div>
+  <header data-entete></header>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">Schéma Répétitif</a>
-    <div class="nav-links">
-      <a href="heriter.html">Comprendre</a>
-      <a href="explorer.html">Explorer</a>
-      <a href="outils.html">Outils</a>
-      <a href="genosociogramme.html">Mon arbre</a>
-      <a href="login.html" class="nav-espace">Mon espace</a>
-      <a href="parcours.html" class="nav-cta">Commencer →</a>
-    </div>
-    <button class="nav-burger" id="burger" type="button" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <div class="nav-mobile" id="nav-mobile">
-    <a href="heriter.html">Comprendre</a>
-    <a href="explorer.html">Explorer</a>
-    <a href="outils.html">Outils</a>
-    <a href="genosociogramme.html">Mon arbre</a>
-    <a href="login.html">Mon espace</a>
-    <a href="parcours.html" style="color:var(--terra);font-weight:600;">Commencer →</a>
-  </div>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-inner">
-      <div class="reveal">
-        <div class="hero-badge">
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="4" stroke="#6B3E2E" stroke-width="1.2"/><circle cx="5" cy="5" r="1.5" fill="#6B3E2E"/></svg>
-          Psychogénéalogie · Outils en ligne
+  <main>
+    <section class="ouverture">
+      <div class="conteneur">
+        <div>
+          <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
+          <p class="intro">Les mêmes situations, les mêmes émotions, les mêmes impasses reviennent parfois d'une génération à l'autre. Ici, tu dessines ton arbre familial et tu explores l'arbre de vie pour voir d'où ça vient et ce qui demande à évoluer.</p>
+          <div class="actions">
+            <a class="btn btn-plein" href="parcours.html">Commencer le parcours guidé</a>
+            <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          </div>
+          <p class="rassurance">Gratuit, sans inscription pour commencer. Tes réponses restent dans ton navigateur.</p>
         </div>
-        <h1>Ce qui se répète<br>dans ta vie a peut-être<br><em>commencé avant toi</em></h1>
-        <p class="hero-sub">Les schémas familiaux, les blocages qui reviennent, les émotions sans explication — ils ont souvent une origine plus ancienne que ta propre histoire. La psychogénéalogie permet de les voir, de les comprendre et de les libérer.</p>
-        <div class="hero-actions">
-          <a href="genosociogramme.html" class="btn-primary">Créer mon arbre</a>
-          <a href="parcours.html" class="btn-secondary">Explorer gratuitement</a>
+
+        <figure class="arbre">
+          <svg viewBox="0 0 360 650" role="group" aria-label="L'arbre double : en haut l'arbre de vie et ses dix sphères, en bas les racines familiales sur trois générations">
+            <defs>
+              <radialGradient id="lumiere" cx="50%" cy="40%" r="50%">
+                <stop offset="0" stop-color="#FFF6DA" stop-opacity=".95"/>
+                <stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <ellipse cx="180" cy="210" rx="190" ry="230" fill="url(#lumiere)"/>
+
+            <!-- Racines : toi, tes parents, tes grands-parents, tes arrière-grands-parents -->
+            <g aria-hidden="true">
+              <path class="racine" pathLength="1" d="M180 452 C180 480 120 482 120 512"/>
+              <path class="racine" pathLength="1" d="M180 452 C180 480 240 482 240 512"/>
+              <path class="racine" pathLength="1" d="M120 520 C120 545 70 545 70 568"/>
+              <path class="racine" pathLength="1" d="M120 520 C120 545 150 545 150 568"/>
+              <path class="racine" pathLength="1" d="M240 520 C240 545 210 545 210 568"/>
+              <path class="racine" pathLength="1" d="M240 520 C240 545 290 545 290 568"/>
+              <path class="racine" pathLength="1" d="M70 574 C70 596 52 598 52 618"/>
+              <path class="racine" pathLength="1" d="M70 574 C70 596 88 598 88 618"/>
+              <path class="racine" pathLength="1" d="M150 574 C150 596 132 598 132 618"/>
+              <path class="racine" pathLength="1" d="M150 574 C150 596 168 598 168 618"/>
+              <path class="racine" pathLength="1" d="M210 574 C210 596 192 598 192 618"/>
+              <path class="racine" pathLength="1" d="M210 574 C210 596 228 598 228 618"/>
+              <path class="racine" pathLength="1" d="M290 574 C290 596 272 598 272 618"/>
+              <path class="racine" pathLength="1" d="M290 574 C290 596 308 598 308 618"/>
+              <circle class="ancetre" cx="120" cy="516" r="5"/><circle class="ancetre" cx="240" cy="516" r="5"/>
+              <circle class="ancetre" cx="70" cy="571" r="4"/><circle class="ancetre" cx="150" cy="571" r="4"/>
+              <circle class="ancetre" cx="210" cy="571" r="4"/><circle class="ancetre" cx="290" cy="571" r="4"/>
+              <circle class="ancetre" cx="52" cy="621" r="3"/><circle class="ancetre" cx="88" cy="621" r="3"/>
+              <circle class="ancetre" cx="132" cy="621" r="3"/><circle class="ancetre" cx="168" cy="621" r="3"/>
+              <circle class="ancetre" cx="192" cy="621" r="3"/><circle class="ancetre" cx="228" cy="621" r="3"/>
+              <circle class="ancetre" cx="272" cy="621" r="3"/><circle class="ancetre" cx="308" cy="621" r="3"/>
+            </g>
+
+            <!-- Les 22 chemins de l'arbre de vie -->
+            <g aria-hidden="true">
+              <path class="chemin" pathLength="1" d="M180 40 L270 95"/><path class="chemin" pathLength="1" d="M180 40 L90 95"/>
+              <path class="chemin" pathLength="1" d="M180 40 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L90 95"/>
+              <path class="chemin" pathLength="1" d="M270 95 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L270 190"/>
+              <path class="chemin" pathLength="1" d="M90 95 L180 240"/><path class="chemin" pathLength="1" d="M90 95 L90 190"/>
+              <path class="chemin" pathLength="1" d="M270 190 L90 190"/><path class="chemin" pathLength="1" d="M270 190 L180 240"/>
+              <path class="chemin" pathLength="1" d="M270 190 L270 320"/><path class="chemin" pathLength="1" d="M90 190 L180 240"/>
+              <path class="chemin" pathLength="1" d="M90 190 L90 320"/><path class="chemin" pathLength="1" d="M180 240 L270 320"/>
+              <path class="chemin" pathLength="1" d="M180 240 L180 370"/><path class="chemin" pathLength="1" d="M180 240 L90 320"/>
+              <path class="chemin" pathLength="1" d="M270 320 L90 320"/><path class="chemin" pathLength="1" d="M270 320 L180 370"/>
+              <path class="chemin" pathLength="1" d="M270 320 L180 440"/><path class="chemin" pathLength="1" d="M90 320 L180 370"/>
+              <path class="chemin" pathLength="1" d="M90 320 L180 440"/><path class="chemin" pathLength="1" d="M180 370 L180 440"/>
+            </g>
+
+            <!-- Les 10 sphères, de la base vers le sommet -->
+            <g class="sphere" data-s="malkhout" tabindex="0" role="button" aria-label="Malkhout" style="animation-delay:1.0s"><circle class="halo" cx="180" cy="440" r="22"/><circle class="coeur" cx="180" cy="440" r="13"/><circle class="moi" cx="180" cy="440" r="4"/></g>
+            <g class="sphere" data-s="yessod" tabindex="0" role="button" aria-label="Yessod" style="animation-delay:1.25s"><circle class="halo" cx="180" cy="370" r="22"/><circle class="coeur" cx="180" cy="370" r="13"/></g>
+            <g class="sphere" data-s="hod" tabindex="0" role="button" aria-label="Hod" style="animation-delay:1.5s"><circle class="halo" cx="90" cy="320" r="22"/><circle class="coeur" cx="90" cy="320" r="13"/></g>
+            <g class="sphere" data-s="netsah" tabindex="0" role="button" aria-label="Netsah" style="animation-delay:1.5s"><circle class="halo" cx="270" cy="320" r="22"/><circle class="coeur" cx="270" cy="320" r="13"/></g>
+            <g class="sphere" data-s="tiferet" tabindex="0" role="button" aria-label="Tiferet" style="animation-delay:1.75s"><circle class="halo" cx="180" cy="240" r="24"/><circle class="coeur" cx="180" cy="240" r="15"/></g>
+            <g class="sphere" data-s="guevoura" tabindex="0" role="button" aria-label="Guevoura" style="animation-delay:2.0s"><circle class="halo" cx="90" cy="190" r="22"/><circle class="coeur" cx="90" cy="190" r="13"/></g>
+            <g class="sphere" data-s="hessed" tabindex="0" role="button" aria-label="Hessed" style="animation-delay:2.0s"><circle class="halo" cx="270" cy="190" r="22"/><circle class="coeur" cx="270" cy="190" r="13"/></g>
+            <g class="sphere" data-s="bina" tabindex="0" role="button" aria-label="Bina" style="animation-delay:2.25s"><circle class="halo" cx="90" cy="95" r="22"/><circle class="coeur" cx="90" cy="95" r="13"/></g>
+            <g class="sphere" data-s="hokhma" tabindex="0" role="button" aria-label="Hokhma" style="animation-delay:2.25s"><circle class="halo" cx="270" cy="95" r="22"/><circle class="coeur" cx="270" cy="95" r="13"/></g>
+            <g class="sphere" data-s="keter" tabindex="0" role="button" aria-label="Kéter" style="animation-delay:2.5s"><circle class="halo" cx="180" cy="40" r="24"/><circle class="coeur" cx="180" cy="40" r="15"/></g>
+          </svg>
+          <figcaption class="legende" aria-live="polite"><strong>Touche une sphère</strong><span>Chacune éclaire un domaine de ta vie. La sphère du bas, c'est toi, reliée à tes racines.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Deux arbres pour une seule lecture</h2>
+          <p>Ton histoire familiale montre d'où viennent tes répétitions. L'arbre de vie montre dans quel domaine elles se rejouent aujourd'hui.</p>
+        </div>
+        <div class="deux">
+          <article>
+            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="8" r="4" fill="#2E2766"/><path d="M22 12v6M22 18c0 6-10 6-10 12M22 18c0 6 10 6 10 12M12 30v6M32 30v6" stroke="#2E2766" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="38" r="3" stroke="#2E2766" stroke-width="1.5"/><circle cx="32" cy="38" r="3" stroke="#2E2766" stroke-width="1.5"/></svg>
+            <h3>L'arbre familial, ou génosociogramme</h3>
+            <p>Tu y places tes parents, grands-parents et arrière-grands-parents, avec les dates et les événements marquants. Les répétitions apparaissent d'elles-mêmes.</p>
+            <ul>
+              <li>Mêmes prénoms, mêmes âges, mêmes dates</li>
+              <li>Deuils, ruptures, exils, secrets</li>
+              <li>Places et loyautés dans la famille</li>
+            </ul>
+          </article>
+          <article class="haut">
+            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B8892E"/><circle cx="12" cy="14" r="3" stroke="#B8892E" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B8892E" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B8892E" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B8892E"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B8892E" stroke-width="1.3"/></svg>
+            <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
+            <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, du corps au sens que tu lui donnes.</p>
+            <ul>
+              <li>Limites, générosité, équilibre</li>
+              <li>Relations, émotions, communication</li>
+              <li>Sécurité matérielle, élan, intuition</li>
+            </ul>
+          </article>
+        </div>
+        <div class="croisement">
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="15" cy="20" r="10" stroke="#F1DFAE" stroke-width="1.5"/><circle cx="25" cy="20" r="10" stroke="#F1DFAE" stroke-width="1.5"/></svg>
+          <p><strong>Là où les deux se rejoignent, tu comprends.</strong> Par exemple, des conflits d'autorité sur trois générations rejoignent souvent une difficulté à poser tes propres limites. Le voir, c'est déjà pouvoir faire autrement.</p>
         </div>
       </div>
-      <div class="hero-card reveal">
-        <div class="hc-tag">
-          <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1 L4 7 M1 4 L7 4" stroke="rgba(255,255,255,.6)" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Par où commencer
+    </section>
+
+    <section class="bloc outils">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Des outils pour avancer concrètement</h2>
+          <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
         </div>
-        <div class="hc-title">Des outils pour voir ce que la lignée a transmis</div>
-        <div class="hc-desc">Chaque répétition dans ta vie porte une information. Ces outils t'aident à remonter le fil.</div>
-        <div class="hc-items">
-          <div class="hc-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2 C8 2 4 5 4 9 C4 11.2 5.8 13 8 13 C10.2 13 12 11.2 12 9 C12 5 8 2 8 2Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 13 L8 14.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2" stroke-linecap="round"/></svg>
-            <span>Identifier les schémas familiaux invisibles</span>
+        <div class="liste-outils">
+          <a class="outil" href="parcours.html">
+            <h3>Le parcours guidé</h3><span class="duree">10 minutes</span>
+            <p>Quelques questions pour nommer ce qui se répète dans ton corps, tes émotions et ta vie.</p>
+          </a>
+          <a class="outil" href="genosociogramme.html">
+            <h3>Mon arbre familial</h3><span class="duree">30 minutes</span>
+            <p>Dessine ton génosociogramme sur trois générations, sauvegarde-le et imprime-le.</p>
+          </a>
+          <a class="outil" href="vibration.html">
+            <h3>Ma fréquence intérieure</h3><span class="duree">5 minutes</span>
+            <p>Fais le point sur ton état intérieur du moment et trouve des gestes simples pour le soutenir.</p>
+          </a>
+          <div class="outil" aria-disabled="true">
+            <h3>Le test de l'arbre de vie</h3><span class="bientot">Bientôt</span>
+            <p>Découvre quelles sphères sont en excès ou en manque chez toi, et relie-les à ton arbre familial.</p>
           </div>
-          <div class="hc-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="rgba(216,140,106,.9)" stroke-width="1.2"/><path d="M5.5 8 C6.5 6 9.5 6 10.5 8 C9.5 10 6.5 10 5.5 8Z" stroke="rgba(216,140,106,.9)" stroke-width="1" fill="none"/></svg>
-            <span>Comprendre l'origine des répétitions émotionnelles</span>
-          </div>
-          <div class="hc-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3 Q11 6 11 9 Q11 12 8 13 Q5 12 5 9 Q5 6 8 3Z" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none"/><path d="M8 3 L8 13" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-dasharray="1.5 1.5"/></svg>
-            <span>Libérer les mémoires héritées de la lignée</span>
-          </div>
-          <div class="hc-item">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13 Q8 3 13 13" stroke="rgba(216,140,106,.9)" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M5.5 9 L10.5 9" stroke="rgba(216,140,106,.6)" stroke-width=".8" stroke-linecap="round"/></svg>
-            <span>Reprendre ta place dans ton propre récit</span>
-          </div>
+          <a class="outil" href="heriter.html">
+            <h3>Comprendre le transgénérationnel</h3><span class="duree">Lecture</span>
+            <p>Ce qu'est une mémoire familiale, comment elle se manifeste, et par où commencer.</p>
+          </a>
         </div>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- TRUST -->
-  <div class="trust">
-    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Génosociogramme interactif</div>
-    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Parcours guidé</div>
-    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Messages du corps</div>
-    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Gratuit pour commencer</div>
-    <div class="trust-item"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6 L5 9 L10 3" stroke="rgba(255,255,255,.6)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Outils interactifs inclus</div>
-  </div>
-
-  <!-- ABOUT -->
-  <section class="about">
-    <div class="section-inner">
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <div class="eyebrow">
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>
-            À propos
-          </div>
-          <h2 class="section-title">Une approche qui<br><em>relie le passé au présent</em></h2>
-          <p><strong>Ce site t'aide à explorer les mémoires familiales qui continuent d'agir dans ta vie</strong> — à travers tes relations, ton corps, tes répétitions émotionnelles.</p>
-          <p>Ce n'est pas de la généalogie classique. C'est une lecture vivante de votre arbre familial pour comprendre <strong>pourquoi certaines choses se répètent de génération en génération</strong> — et comment tu peux être celle ou celui qui brise la chaîne.</p>
-          <p>Les outils croisent psychogénéalogie, épigénétique et lecture symbolique. À ton rythme, sans rendez-vous.</p>
-          <div class="about-tags">
-            <span class="about-tag">Psychogénéalogie</span>
-            <span class="about-tag">Mémoires transgénérationnelles</span>
-            <span class="about-tag">Épigénétique</span>
-          </div>
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Par où commencer</h2>
         </div>
-        <div class="about-visual reveal">
-          <div class="av-deco">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M24 4 C24 4 12 14 12 26 C12 34 17.4 40 24 40 C30.6 40 36 34 36 26 C36 14 24 4 24 4Z" stroke="rgba(216,140,106,.7)" stroke-width="1.4" fill="none"/><path d="M24 40 L24 44" stroke="rgba(216,140,106,.5)" stroke-width="1.4" stroke-linecap="round"/><path d="M18 22 C20 18 28 18 30 22" stroke="rgba(216,140,106,.4)" stroke-width="1" stroke-linecap="round" fill="none"/></svg>
-          </div>
-          <div class="av-quote">"Certaines blessures ne viennent pas de ta vie. Elles viennent de ceux qui t'ont précédée — et tu as le pouvoir de les libérer."</div>
-          <div class="av-list">
-            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Identifier les schémas familiaux invisibles</div>
-            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Comprendre l'origine de tes répétitions</div>
-            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Libérer les mémoires héritées</div>
-            <div class="av-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5 L5 9.5 L11 3" stroke="rgba(216,140,106,.8)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Reprendre ta place dans ton histoire</div>
-          </div>
+        <ol class="etapes">
+          <li><h3>Nomme ce qui revient</h3><p>Le parcours guidé t'aide à mettre des mots sur une situation, une émotion ou une sensation qui se répète.</p><a href="parcours.html">Faire le parcours</a></li>
+          <li><h3>Dessine tes racines</h3><p>Note ce que tu sais de ta famille. Les dates et les événements comptent plus qu'un arbre complet.</p><a href="genosociogramme.html">Ouvrir mon arbre</a></li>
+          <li><h3>Relie et observe</h3><p>Repère les échos entre ta vie et celle de tes ancêtres : un âge, une place, un événement.</p><a href="heriter.html">Lire comment faire</a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="bloc" id="questions">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Questions fréquentes</h2></div>
+        <div class="questions">
+          <details><summary>Qu'est-ce que la psychogénéalogie ?</summary><p>C'est une manière de regarder son histoire familiale pour comprendre ce qui se transmet d'une génération à l'autre : des façons de réagir, des places, des événements qui semblent se répéter.</p></details>
+          <details><summary>Est-ce une thérapie ?</summary><p>Non. Ces outils proposent une lecture symbolique et une aide à la réflexion. Ils ne remplacent pas un médecin ni un psychologue. Si tu traverses une période difficile, parles-en à un professionnel de santé.</p></details>
+          <details><summary>Faut-il connaître toute son histoire familiale ?</summary><p>Non. On commence avec ce que l'on sait, même peu. Les trous font aussi partie de l'histoire, et l'arbre se complète au fil du temps.</p></details>
+          <details><summary>Qu'est-ce que l'arbre de vie ?</summary><p>L'arbre des Séphiroth vient de la tradition de la Kabbale. Nous l'utilisons comme une grille de lecture symbolique, avec respect pour son origine, sans prétendre enseigner cette tradition.</p></details>
+          <details><summary>Que deviennent mes réponses ?</summary><p>Sans compte, elles restent uniquement dans ton navigateur. Avec un compte, tes sauvegardes sont stockées sur nos serveurs en Europe et ne sont jamais revendues. <a href="confidentialite.html">Tout savoir sur tes données</a>.</p></details>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- OUTILS -->
-  <section class="outils" id="outils">
-    <div class="section-inner">
-      <div class="reveal" style="text-align:center">
-        <div class="eyebrow" style="justify-content:center"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1 L6.2 3.8 L9.5 4.1 L7.2 6.2 L7.9 9.5 L5 7.9 L2.1 9.5 L2.8 6.2 L0.5 4.1 L3.8 3.8Z" fill="var(--terra)"/></svg>Les portes du voyage</div>
-        <h2 class="section-title">Ouvrir la première porte,<br><em>à votre rythme</em></h2>
-        <p class="section-sub" style="max-width:560px;margin:0 auto">Chaque porte vous aide à observer votre histoire sous un angle différent. Commencez simplement par celle qui vous appelle aujourd'hui.</p>
-      </div>
-      <div class="outils-grid">
-        <a class="outil reveal" href="parcours.html">
-          <div class="outil-tag">Porte 01</div>
-          <h3>Commencer mon voyage</h3>
-          <p>Une première étape guidée pour comprendre ce qui se répète et poser les premiers mots.</p>
-          <div class="outil-arrow">Commencer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </a>
-        <a class="outil reveal" href="explorer.html">
-          <div class="outil-tag">Porte 02</div>
-          <h3>Explorer les indices</h3>
-          <p>Accédez aux outils pour observer votre lignée, votre arbre familial et les répétitions.</p>
-          <div class="outil-arrow">Explorer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </a>
-        <a class="outil reveal" href="heriter.html">
-          <div class="outil-tag">Porte 03</div>
-          <h3>Comprendre les répétitions</h3>
-          <p>Découvrez pourquoi certains schémas reviennent et comment les observer autrement.</p>
-          <div class="outil-arrow">Comprendre <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </a>
-        <a class="outil reveal" href="login.html">
-          <div class="outil-tag">Porte 04 · bientôt</div>
-          <h3>Mon espace de voyage</h3>
-          <p>Retrouvez bientôt votre arbre, vos exercices, vos sauvegardes et votre progression.</p>
-          <div class="outil-arrow">Préparer mon espace <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M8 4 L11 7 L8 10" stroke="var(--terra)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        </a>
-      </div>
-    </div>
-  </section>
+  <footer data-pied></footer>
 
-  <!-- CTA FINAL -->
-  <section class="cta-final">
-    <div class="cta-box reveal">
-      <svg class="cta-deco" width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 8 C30 8 16 20 16 34 C16 42 22.3 48 30 48 C37.7 48 44 42 44 34 C44 20 30 8 30 8Z" stroke="rgba(255,255,255,.5)" stroke-width="1.5" fill="none"/><path d="M30 48 L30 53" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-linecap="round"/><path d="M22 28 C24 24 36 24 38 28" stroke="rgba(255,255,255,.3)" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-      <h2>Tu reconnais ces<br><em>schémas dans ta vie ?</em></h2>
-      <p>Ton arbre familial peut être le premier pas pour mettre des mots sur ce qui se rejoue — et commencer à t'en libérer.</p>
-      <div class="cta-actions">
-        <a href="genosociogramme.html" class="btn-white">Créer mon arbre</a>
-        <a href="parcours.html" class="btn-outline-white">Commencer le parcours</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="index.html" class="footer-logo">Schéma Répétitif</a>
-          <p>Des outils pour comprendre les répétitions, explorer les mémoires familiales et retrouver son propre chemin.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Commencer</h4>
-          <a href="index.html">Accueil</a>
-          <a href="parcours.html">Le parcours</a>
-          <a href="heriter.html">Transgénérationnel</a>
-          <a href="explorer.html">Explorer</a>
-        </div>
-        <div class="footer-col">
-          <h4>Outils</h4>
-          <a href="genosociogramme.html">Génosociogramme</a>
-          <a href="symptomes.html">Messages du corps</a>
-          <a href="vibration.html">Ma fréquence</a>
-          <a href="outils.html">Tous les outils</a>
-        </div>
-        <div class="footer-col">
-          <h4>Mon compte</h4>
-          <a href="login.html">Mon espace</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© Schéma Répétitif 2026 · Tous droits réservés</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- BANDEAU COOKIES -->
-  <div class="cookie-banner" id="cookie-banner">
-    <p class="cookie-text">
-      Ce site utilise uniquement des données stockées localement dans votre navigateur (localStorage) pour sauvegarder vos exercices et votre progression — aucune donnée n'est transmise à un serveur tiers. En continuant à naviguer, vous acceptez cette utilisation.
-      <a href="confidentialite.html">En savoir plus</a>
-    </p>
-    <div class="cookie-actions">
-      <button class="cookie-accept" id="cookie-accept">J'accepte</button>
-      <button class="cookie-decline" id="cookie-decline">Continuer sans accepter</button>
-    </div>
-  </div>
-
+  <script src="assets/site.js"></script>
   <script>
-    /* cursor */
-    const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-    let mx=0,my=0,rx=0,ry=0;
-    if(window.innerWidth>900){
-      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(cur){cur.style.left=mx+'px';cur.style.top=my+'px';}});
-      (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;if(ring){ring.style.left=rx+'px';ring.style.top=ry+'px';}requestAnimationFrame(loop);})();
-    }
-
-    /* nav burger */
-    const burger=document.getElementById('burger'),mob=document.getElementById('nav-mobile');
-    if(burger&&mob){
-      burger.addEventListener('click',()=>{burger.classList.toggle('open');mob.classList.toggle('open');});
-      mob.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{burger.classList.remove('open');mob.classList.remove('open');}));
-    }
-
-    /* reveal */
-    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);}});},{threshold:.08});
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-    setTimeout(()=>document.querySelectorAll('.reveal:not(.revealed)').forEach(el=>el.classList.add('revealed')),800);
-
-    /* cookies */
-    const banner=document.getElementById('cookie-banner');
-    if(localStorage.getItem('lc_cookies')){banner.classList.add('hidden');}
-    document.getElementById('cookie-accept').addEventListener('click',()=>{localStorage.setItem('lc_cookies','accepted');banner.classList.add('hidden');});
-    document.getElementById('cookie-decline').addEventListener('click',()=>{localStorage.setItem('lc_cookies','declined');banner.classList.add('hidden');});
+    (function () {
+      var S = {
+        keter: ['Kéter', 'Le sens, ce qui te met en mouvement'],
+        hokhma: ['Hokhma', "L'intuition, les idées qui jaillissent"],
+        bina: ['Bina', 'La compréhension, la structure'],
+        hessed: ['Hessed', "La générosité, l'amour que tu donnes"],
+        guevoura: ['Guevoura', 'Les limites, la capacité à dire non'],
+        tiferet: ['Tiferet', "L'équilibre, le cœur"],
+        netsah: ['Netsah', 'La persévérance, le désir'],
+        hod: ['Hod', 'La pensée, les mots, la communication'],
+        yessod: ['Yessod', 'Les émotions et les liens'],
+        malkhout: ['Malkhout', "Le corps, la matière, l'ancrage. C'est toi, reliée à tes racines."]
+      };
+      var legende = document.querySelector('.legende');
+      var spheres = document.querySelectorAll('.sphere');
+      function montre(g) {
+        spheres.forEach(function (x) { x.classList.remove('actif'); });
+        g.classList.add('actif');
+        var d = S[g.getAttribute('data-s')];
+        legende.innerHTML = '<strong>' + d[0] + '</strong><span>' + d[1] + '</span>';
+      }
+      spheres.forEach(function (g) {
+        g.addEventListener('click', function () { montre(g); });
+        g.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); montre(g); }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
