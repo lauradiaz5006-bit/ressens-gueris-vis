@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Génosociogramme · Schéma Répétitif</title>
+<title>Génosociogramme · Lignéa</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -1084,7 +1084,7 @@ function doExportSVG(){
     if(dates(p)) parts.push('<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#8E6383">'+esc(dates(p))+'</text>');
     if(p.metier) parts.push('<text x="'+x+'" y="'+(y+24)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#E7A79E" font-style="italic">'+esc(p.metier)+'</text>');
   });
-  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#4A2142">Génosociogramme — Schéma Répétitif</text>');
+  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#4A2142">Génosociogramme — Lignéa</text>');
   parts.push('</svg>');
   var url=URL.createObjectURL(new Blob([parts.join('')],{type:'image/svg+xml'}));
   var a=document.createElement('a'); a.href=url; a.download='genosociogramme.svg'; a.click();
