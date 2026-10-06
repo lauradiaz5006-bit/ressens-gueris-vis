@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schémas répétitifs en amour : ce qui se rejoue dans ton histoire familiale · Genesolia</title>
+  <meta name="description" content="Toujours le même type de personne, la même fin ? Repère ton schéma répétitif amoureux et ce que ton histoire familiale peut éclairer, avec un exercice.">
+  <link rel="canonical" href="https://genesolia.fr/schemas-repetitifs-en-amour.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Schémas répétitifs en amour : repérer ce qui se rejoue",
+    "description": "Toujours le même type de personne, la même fin ? Repère ton schéma répétitif amoureux et ce que ton histoire familiale peut éclairer, avec un exercice.",
+    "datePublished": "2026-10-07",
+    "dateModified": "2026-10-07",
+    "inLanguage": "fr",
+    "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "url": "https://genesolia.fr/schemas-repetitifs-en-amour.html",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/schemas-repetitifs-en-amour.html"}
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Amour et répétition</nav>
+        <h1>Schémas répétitifs en amour : repérer ce qui se rejoue</h1>
+        <p class="intro">Des personnes différentes, et pourtant la même histoire. Si tes relations finissent souvent de la même façon, ce n'est peut-être pas de la malchance. C'est peut-être un schéma. Et un schéma, ça se repère.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 7 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Pourquoi je tombe toujours sur le même type de personne ?</h2>
+        <p>Beaucoup se posent cette question après une rupture. On change de ville, de milieu, de style de partenaire. Puis, quelques mois plus tard, on se retrouve au même endroit, avec la même sensation.</p>
+        <p>Un schéma répétitif amoureux, c'est cela : une façon de rencontrer, d'aimer et de se séparer qui revient, alors que les personnes changent. Ce n'est pas une fatalité. C'est un fil qu'on peut apprendre à voir, puis à tenir autrement.</p>
+
+        <h2>Reconnaître le schéma</h2>
+        <p>Le schéma ne se voit pas dans une seule histoire. Il apparaît quand on met plusieurs relations côte à côte. Il prend en général l'une de ces quatre formes, parfois plusieurs à la fois.</p>
+        <ul class="facettes">
+          <li><strong>Les mêmes profils</strong><span>Des personnes indisponibles, distantes, déjà engagées, ou qu'il faut sauver.</span></li>
+          <li><strong>Les mêmes fins</strong><span>Tu es quitté·e, ou tu pars toujours en premier. La rupture a souvent le même goût.</span></li>
+          <li><strong>Le même moment</strong><span>Tout bascule au même stade : après quelques mois, à l'emménagement, quand l'autre parle d'avenir.</span></li>
+          <li><strong>Le même rôle</strong><span>Tu es celle ou celui qui porte, qui attend, qui rassure, qui s'efface.</span></li>
+        </ul>
+
+        <div class="cocher">
+          <p class="titre">Coche ce qui te ressemble</p>
+          <ul>
+            <li><label><input type="checkbox"> Mes ex se ressemblent plus que je ne l'aurais cru.</label></li>
+            <li><label><input type="checkbox"> Je suis attiré·e par des personnes qui ne sont pas vraiment là.</label></li>
+            <li><label><input type="checkbox"> J'ai peur d'être quitté·e, alors je m'accroche ou je pars avant.</label></li>
+            <li><label><input type="checkbox"> Je donne beaucoup pour être choisi·e, et je finis par me sentir seul·e.</label></li>
+            <li><label><input type="checkbox"> Mes relations basculent souvent au même moment.</label></li>
+            <li><label><input type="checkbox"> Je tiens toujours le même rôle dans le couple.</label></li>
+            <li><label><input type="checkbox"> Je me dis souvent « encore » quand une histoire se termine.</label></li>
+          </ul>
+          <p class="note">Plusieurs cases cochées ne disent rien de définitif sur toi. Elles indiquent seulement où regarder.</p>
+        </div>
+
+        <h2>Ce que ton histoire familiale peut éclairer</h2>
+        <p>Avant d'aimer, on a regardé aimer. Les couples de ta famille ont été tes premiers modèles, même ceux dont personne ne parlait. Les mettre en regard de tes propres histoires fait parfois apparaître des échos.</p>
+        <ul class="pistes">
+          <li><strong>Les couples de tes parents et grands-parents</strong><span>Comment se sont-ils rencontrés ? Sont-ils restés ensemble ? Qui attendait, qui partait ?</span></li>
+          <li><strong>Des séparations à des âges proches</strong><span>Une rupture, un veuvage ou un départ qui surviennent au même âge, d'une génération à l'autre.</span></li>
+          <li><strong>Des amours interdites ou cachées</strong><span>Un premier amour empêché, une liaison tue, un enfant né d'une autre union.</span></li>
+          <li><strong>Les places dans la fratrie</strong><span>L'aîné·e qui prend soin de tout le monde, la ou le petit·e qu'on ne voit pas, l'enfant venu·e après une perte.</span></li>
+          <li><strong>Les phrases transmises sur l'amour</strong><span>« Les hommes partent toujours. » « Il ne faut compter que sur soi. » « On ne divorce pas dans cette famille. »</span></li>
+        </ul>
+        <p class="rappel"><strong>Des pistes, pas des causes.</strong> Une ressemblance entre ton histoire et celle d'une grand-mère est une coïncidence à interroger. Elle n'explique pas tout, et elle ne décide de rien à ta place.</p>
+        <p>Le plus simple pour voir ces échos est de les dessiner. Dans un <a href="quest-ce-qu-un-genosociogramme.html">génosociogramme</a>, les couples, les séparations et les âges apparaissent sur une même page. Tu peux en voir un <a href="genosociogramme.html?exemple">exemple fictif dans l'outil</a>.</p>
+
+        <h2>Le cycle du cœur, et quand la racine s'en mêle</h2>
+        <p>Dans la <a href="methode.html">méthode des deux cycles</a>, ce qui se répète en amour touche d'abord au cycle du cœur. Mais il arrive que la racine soit en jeu, elle aussi.</p>
+        <div class="deux">
+          <div class="c2">
+            <span class="nom">Cycle 2</span>
+            <h3>Le cœur</h3>
+            <p>Aimer et être aimé·e. La peur d'être quitté·e, le besoin d'être choisi·e, des relations qui se ressemblent. La question intérieure ressemble à : « Suis-je assez ? »</p>
+          </div>
+          <div class="c1">
+            <span class="nom">Cycle 1</span>
+            <h3>La racine</h3>
+            <p>Quand on reste par peur de manquer, ou qu'on choisit une personne pour se sentir à l'abri. Le besoin de sécurité passe alors avant le lien lui-même.</p>
+          </div>
+        </div>
+        <p>Savoir lequel des deux parle le plus fort t'aide à choisir par où commencer. Une relation où tu cherches surtout un toit ne se regarde pas comme une relation où tu cherches surtout à être aimé·e.</p>
+
+        <h2>Un exercice pour voir ton propre schéma</h2>
+        <p>Prends un carnet et une demi-heure au calme. Écris sans te corriger.</p>
+        <ol class="exercice">
+          <li><h3>Liste tes relations importantes</h3><p>Celles qui ont compté, même courtes, même jamais officialisées. Note un prénom ou une initiale pour chacune.</p></li>
+          <li><h3>Note comment chacune a commencé et fini</h3><p>Qui a fait le premier pas ? Qu'est-ce qui t'a attiré·e ? Qui est parti·e, quand, et comment ?</p></li>
+          <li><h3>Cherche le point commun</h3><p>Relis tout d'un bloc. Un profil, un moment, une fin ou un rôle revient-il ? Écris-le en une phrase.</p></li>
+          <li><h3>Mets en regard les couples de ta famille</h3><p>Parents, grands-parents, oncles et tantes. Leur histoire ressemble-t-elle à ta phrase ? Note les échos sans conclure trop vite.</p></li>
+          <li><h3>Choisis un petit geste différent</h3><p>Pas une grande résolution. Un seul geste, à faire la prochaine fois que tu sentiras le scénario se mettre en place.</p></li>
+        </ol>
+
+        <h2>Faire autrement, concrètement</h2>
+        <p>Comprendre un schéma ne suffit pas toujours à le changer. Ce qui aide, ce sont de petits déplacements, répétés.</p>
+        <ul class="gestes">
+          <li>Ralentir au début d'une histoire. Laisser passer quelques semaines avant de tout donner.</li>
+          <li>Repérer le moment où tu reprends ton rôle habituel, et le nommer, même pour toi seul·e.</li>
+          <li>Dire un besoin à voix haute au lieu d'attendre qu'il soit deviné.</li>
+          <li>Te demander, devant une personne qui t'attire : « Qu'est-ce qui me semble familier ici ? »</li>
+          <li>Accepter qu'une relation calme te paraisse d'abord moins intense. Ce n'est pas forcément moins vrai.</li>
+        </ul>
+        <p>Le thème reviendra peut-être. Mais tu le reconnaîtras plus tôt, et tu pourras répondre autrement. C'est ce que la méthode appelle passer de la boucle à la spirale.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Si une relation te met en danger, ce n'est pas un schéma à comprendre.</strong> C'est une situation dont il faut te protéger, et tu n'as pas à le faire seul·e. Il existe de l'aide. En France, tu peux appeler le 3919, gratuit et anonyme, ou le 17 en urgence. Au Québec, en cas d'urgence, compose le 911.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2>
+        <p>Tu peux dessiner ton arbre familial dans l'outil gratuit : il repère automatiquement les prénoms, les âges et les épreuves qui reviennent. Le test de l'arbre de vie, lui, montre où la répétition se rejoue aujourd'hui, et si le cœur ou la racine demande ton attention.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="arbre-de-vie.html">Faire le test de l'arbre de vie</a>
+          <a class="btn btn-trait" href="exemple-genosociogramme.html">Voir un exemple</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="arbre-de-vie-arbre-genealogique-genosociogramme.html"><h3>Trois arbres à ne pas confondre</h3><p>Arbre de vie, arbre généalogique, génosociogramme : à quoi sert chacun, et comment les utiliser ensemble.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver l'histoire des couples, des départs et des silences, avec tact.</p></a>
+          <a class="outil" href="informations-avant-genosociogramme.html"><h3>Ce qu'il faut réunir avant de commencer</h3><p>Les informations utiles pour dessiner ton génosociogramme sereinement.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="syndrome-anniversaire.html"><h3>Le syndrome d'anniversaire</h3><p>Quand un âge ou une date semble revenir d'une génération à l'autre.</p></a>
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

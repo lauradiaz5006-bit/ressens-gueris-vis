@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le blog : psychogénéalogie, génosociogramme et schémas répétitifs · Genesolia</title>
+  <meta name="description" content="Des articles simples pour faire ton génosociogramme, interroger ta famille et comprendre les schémas qui se répètent d'une génération à l'autre.">
+  <link rel="canonical" href="https://genesolia.fr/blog.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .articles{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+    .article-carte{display:flex;flex-direction:column;gap:.7rem;padding:1.8rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,box-shadow .2s}
+    .article-carte:hover{border-color:var(--champagne-clair);box-shadow:0 14px 40px rgba(107,47,91,.08)}
+    .article-carte:first-child{grid-column:1/-1;background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border-color:var(--champagne-clair)}
+    .article-carte .theme{font-size:.88rem;font-weight:600;color:var(--champagne)}
+    .article-carte h2{font-size:1.55rem;line-height:1.2}
+    .article-carte:first-child h2{font-size:clamp(1.7rem,3.2vw,2.2rem)}
+    .article-carte p{color:var(--prune-doux)}
+    .article-carte .meta{margin-top:auto;font-size:.88rem;color:var(--prune-doux)}
+    @media (max-width:760px){.articles{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <h1>Le blog</h1>
+        <p class="intro">Des articles simples et concrets pour faire ton arbre, interroger ta famille et comprendre ce qui se répète d'une génération à l'autre.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur articles">
+        <a class="article-carte" href="schemas-repetitifs-en-amour.html">
+          <span class="theme">Schémas répétitifs</span>
+          <h2>Schémas répétitifs en amour : repérer ce qui se rejoue</h2>
+          <p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer, et un exercice pour faire autrement.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="informations-avant-genosociogramme.html">
+          <span class="theme">Génosociogramme</span>
+          <h2>Quelles informations rassembler avant de faire son génosociogramme</h2>
+          <p>Les informations à réunir, thème par thème, où les trouver, et une liste à cocher à imprimer.</p>
+          <span class="meta">7 octobre 2026 · 7 min de lecture</span>
+        </a>
+        <a class="article-carte" href="questions-a-poser-a-sa-famille.html">
+          <span class="theme">Famille</span>
+          <h2>Les questions à poser à sa famille pour compléter son arbre</h2>
+          <p>Comment s'y prendre avec tes parents et grands-parents, une trentaine de questions, et quoi faire des réponses.</p>
+          <span class="meta">7 octobre 2026 · 8 min de lecture</span>
+        </a>
+        <a class="article-carte" href="arbre-de-vie-arbre-genealogique-genosociogramme.html">
+          <span class="theme">Arbre de vie</span>
+          <h2>Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre</h2>
+          <p>À quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.</p>
+          <span class="meta">7 octobre 2026 · 6 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

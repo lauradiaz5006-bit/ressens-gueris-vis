@@ -7,6 +7,7 @@
     ['methode.html', 'La méthode'],
     ['arbre-de-vie.html', "L'arbre de vie"],
     ['genosociogramme.html', 'Mon arbre familial'],
+    ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['arbre-de-vie.html', 'Faire le test gratuit'];
@@ -58,6 +59,7 @@
             '<li><a href="genosociogramme-vierge.html">Génosociogramme vierge (PDF)</a></li>' +
             '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
+            '<li><a href="blog.html">Le blog</a></li>' +
             '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
             '<li><a href="les-10-sephiroth.html">Les 10 Séphiroth</a></li>' +

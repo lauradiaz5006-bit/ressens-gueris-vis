@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arbre de vie, arbre généalogique, génosociogramme : les différences · Genesolia</title>
+  <meta name="description" content="Arbre de vie, arbre généalogique et génosociogramme : à quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.">
+  <link rel="canonical" href="https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .large{width:min(62rem,100% - 2.5rem);margin-inline:auto}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    /* Les trois arbres en miniature */
+    .trois{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:2.2rem 0 .8rem}
+    .trois figure{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.4rem 1.2rem 1.2rem;text-align:center}
+    .trois figure.geno{background:linear-gradient(180deg,#FFF6EC,var(--blanc) 75%);border-color:var(--champagne-clair)}
+    .trois figure.vie{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%);border-color:var(--rose-fonce)}
+    .trois svg{width:100%;max-width:220px;height:auto;margin:0 auto .9rem}
+    .trois figcaption strong{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem}
+    .trois figcaption span{display:block;color:var(--prune-doux);font-size:.93rem;margin-top:.2rem}
+    .m-trait{fill:none;stroke:var(--prune);stroke-width:1.5}
+    .m-trait-doux{fill:none;stroke:var(--prune-doux);stroke-width:1.2}
+    .m-case{fill:var(--blanc);stroke:var(--prune);stroke-width:1.5}
+    .m-moi{fill:var(--champagne-clair);stroke:var(--prune);stroke-width:1.5}
+    .m-ligne{stroke:var(--rose-fonce);stroke-width:3;stroke-linecap:round}
+    .m-txt{font:600 11px var(--texte);fill:var(--prune)}
+    .m-evt{font:italic 11px var(--texte);fill:var(--champagne)}
+    .m-cle{font:600 11px var(--texte);fill:#C9675A}
+    .m-chemin{stroke:var(--champagne);stroke-width:1.1;opacity:.6;fill:none}
+    .m-sph{fill:#FFFAF6;stroke:var(--champagne);stroke-width:1.5}
+    .m-sph.coeur{fill:var(--rose-fonce)}
+    .m-sph.racine{fill:var(--prune);stroke:var(--prune)}
+
+    /* Fiches */
+    .fiches{display:grid;gap:1.2rem;margin:1.6rem 0}
+    .fiche-arbre{padding:1.5rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);border-left:5px solid var(--rose-fonce)}
+    .fiche-arbre.geno{border-left-color:var(--champagne)}
+    .fiche-arbre.vie{border-left-color:var(--corail)}
+    .fiche-arbre h3{margin:0 0 .6rem}
+    .fiche-arbre dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.5rem 1rem}
+    .fiche-arbre dt{font-weight:600;font-size:.95rem}
+    .fiche-arbre dd{color:var(--prune-doux)}
+
+    /* Tableau comparatif */
+    .tableau{border-radius:var(--rayon);border:1px solid var(--rose-fonce);background:var(--blanc);overflow:hidden;margin:1.6rem 0}
+    .comparatif{width:100%;border-collapse:collapse;font-size:.97rem}
+    .comparatif th,.comparatif td{padding:1rem 1.1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rose)}
+    .comparatif thead th{font-family:var(--display);font-weight:400;font-size:1.12rem;background:var(--rose);color:var(--prune)}
+    .comparatif thead th.c-geno{background:var(--champagne-clair)}
+    .comparatif thead th.c-vie{background:#F9DCD6}
+    .comparatif tbody th{font-weight:600;color:var(--prune);width:16%}
+    .comparatif td{color:var(--prune-doux)}
+    .comparatif td a{color:var(--prune);font-weight:600}
+    .comparatif tbody tr:last-child th,.comparatif tbody tr:last-child td{border-bottom:0}
+
+    .ensemble{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .ensemble div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .ensemble .q{font-family:var(--display);color:var(--champagne);font-size:1.05rem}
+    .ensemble h3{margin:.1rem 0 .5rem}
+    .ensemble p{color:var(--prune-doux);font-size:.97rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .article .encart{margin:2rem 0}
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:860px){
+      .trois{grid-template-columns:1fr;max-width:24rem;margin-inline:auto}
+      .trois svg{max-width:240px}
+    }
+    @media (max-width:700px){
+      .tableau{border:0;background:none;overflow:visible}
+      .comparatif thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+      .comparatif,.comparatif tbody,.comparatif tr,.comparatif th,.comparatif td{display:block;width:100%}
+      .comparatif tr{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:18px;margin-bottom:1rem;overflow:hidden}
+      .comparatif tbody th{width:100%;background:var(--rose);font-family:var(--display);font-weight:400;font-size:1.15rem;border-bottom:0;padding:.8rem 1.1rem}
+      .comparatif td{padding:.75rem 1.1rem}
+      .comparatif td::before{content:attr(data-titre);display:block;font-weight:600;font-size:.85rem;color:var(--champagne);margin-bottom:.15rem}
+      .comparatif tbody tr:last-child td{border-bottom:1px solid var(--rose)}
+      .comparatif tr td:last-child{border-bottom:0!important}
+    }
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .fiche-arbre dl{grid-template-columns:1fr;gap:.1rem}
+      .fiche-arbre dd{margin-bottom:.5rem}
+      .ensemble{grid-template-columns:1fr}
+      .article .actions .btn{width:100%}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre",
+    "description": "Arbre de vie, arbre généalogique et génosociogramme : à quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.",
+    "datePublished": "2026-10-07",
+    "dateModified": "2026-10-07",
+    "inLanguage": "fr",
+    "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "url": "https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html"}
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Bien choisir son arbre</nav>
+        <h1>Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre</h1>
+        <p class="intro">Ils portent presque le même nom et se dessinent tous en branches. Pourtant, ils ne répondent pas à la même question. Voici à quoi sert chacun, et comment les faire travailler ensemble.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 6 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Pourquoi on les confond</h2>
+        <p>Le mot « arbre » sert à tout. On parle d'arbre généalogique pour sa lignée, d'arbre de vie pour un symbole, et le génosociogramme est souvent présenté comme un arbre familial enrichi. Les trois se lisent du bas vers le haut, ou du haut vers le bas. Les trois parlent de liens.</p>
+        <p>La différence tient à ce qu'ils regardent. Les deux premiers décrivent une famille. Le troisième ne décrit pas une famille du tout : il décrit les dimensions d'une vie.</p>
+      </div>
+
+      <div class="large">
+        <div class="trois">
+          <figure>
+            <svg viewBox="0 0 200 200" role="img" aria-label="Arbre généalogique en miniature : toi en bas, tes deux parents, puis tes quatre grands-parents, avec des dates">
+              <path class="m-trait-doux" d="M30 52V68H70V52M130 52V68H170V52M50 68V96M150 68V96M50 112V128H150V112M100 128V148"/>
+              <rect class="m-case" x="12" y="24" width="36" height="28" rx="6"/>
+              <rect class="m-case" x="52" y="24" width="36" height="28" rx="6"/>
+              <rect class="m-case" x="112" y="24" width="36" height="28" rx="6"/>
+              <rect class="m-case" x="152" y="24" width="36" height="28" rx="6"/>
+              <rect class="m-case" x="28" y="96" width="44" height="28" rx="6"/>
+              <rect class="m-case" x="128" y="96" width="44" height="28" rx="6"/>
+              <rect class="m-moi" x="76" y="148" width="48" height="30" rx="6"/>
+              <g class="m-ligne"><path d="M20 34h20M60 34h20M120 34h20M160 34h20M36 106h28M136 106h28M86 159h28"/></g>
+              <text class="m-txt" x="30" y="16" text-anchor="middle">1921</text>
+              <text class="m-txt" x="70" y="16" text-anchor="middle">1924</text>
+              <text class="m-txt" x="130" y="16" text-anchor="middle">1919</text>
+              <text class="m-txt" x="170" y="16" text-anchor="middle">1926</text>
+              <text class="m-txt" x="100" y="196" text-anchor="middle">toi</text>
+            </svg>
+            <figcaption><strong>L'arbre généalogique</strong><span>Qui descend de qui, avec les dates.</span></figcaption>
+          </figure>
+          <figure class="geno">
+            <svg viewBox="-16 0 232 200" role="img" aria-label="Génosociogramme en miniature : symboles de la famille, une séparation, et le même âge, 32 ans, qui revient sur deux générations">
+              <path class="m-trait" d="M50 36H86M68 36V74H100V84M114 98H138M100 98V140"/>
+              <path class="m-trait" d="M122 106L128 90M128 106L134 90"/>
+              <rect class="m-case" x="26" y="24" width="24" height="24" rx="2"/>
+              <path class="m-trait" d="M26 24L50 48M50 24L26 48"/>
+              <circle class="m-case" cx="98" cy="36" r="12"/>
+              <circle class="m-case" cx="100" cy="98" r="12"/>
+              <rect class="m-case" x="138" y="86" width="24" height="24" rx="2"/>
+              <circle class="m-case" cx="100" cy="154" r="15"/>
+              <circle class="m-moi" cx="100" cy="154" r="10"/>
+              <text class="m-cle" x="114" y="40">veuve à 32 ans</text>
+              <text class="m-evt" x="16" y="66">exil, 1947</text>
+              <text class="m-cle" x="82" y="128" text-anchor="end">séparée à 32 ans</text>
+              <text class="m-evt" x="122" y="186" text-anchor="start">bientôt 32 ans</text>
+            </svg>
+            <figcaption><strong>Le génosociogramme</strong><span>La famille, plus les événements, les liens et les places.</span></figcaption>
+          </figure>
+          <figure class="vie">
+            <svg viewBox="0 0 200 200" role="img" aria-label="Arbre de vie en miniature : dix sphères reliées entre elles, en trois zones, l'élan en haut, le cœur au centre, la racine en bas">
+              <path class="m-chemin" d="M100 16L144 42L56 42ZM100 16V108M144 42V88M56 42V88M144 88H56M144 88L100 108L56 88M144 42L100 108L56 42M144 88V146M56 88V146M100 108L144 146H56L100 108M100 108V166M144 146L100 166L56 146M144 146L100 188L56 146M100 166V188"/>
+              <circle class="m-sph" cx="100" cy="16" r="9"/>
+              <circle class="m-sph" cx="144" cy="42" r="8"/>
+              <circle class="m-sph" cx="56" cy="42" r="8"/>
+              <circle class="m-sph coeur" cx="144" cy="88" r="8"/>
+              <circle class="m-sph coeur" cx="56" cy="88" r="8"/>
+              <circle class="m-sph coeur" cx="100" cy="108" r="9"/>
+              <circle class="m-sph racine" cx="144" cy="146" r="8"/>
+              <circle class="m-sph racine" cx="56" cy="146" r="8"/>
+              <circle class="m-sph racine" cx="100" cy="166" r="8"/>
+              <circle class="m-sph racine" cx="100" cy="188" r="8"/>
+              <text class="m-evt" x="172" y="20" text-anchor="middle">élan</text>
+              <text class="m-evt" x="176" y="100" text-anchor="middle">cœur</text>
+              <text class="m-evt" x="176" y="172" text-anchor="middle">racine</text>
+            </svg>
+            <figcaption><strong>L'arbre de vie</strong><span>Dix sphères pour les dimensions d'une vie.</span></figcaption>
+          </figure>
+        </div>
+        <p class="note" style="text-align:center;max-width:none;margin-bottom:3rem">Exemples fictifs, simplifiés pour la comparaison.</p>
+      </div>
+
+      <div class="colonne">
+        <h2>Trois arbres, trois questions</h2>
+        <div class="fiches">
+          <section class="fiche-arbre">
+            <h3>L'arbre généalogique</h3>
+            <dl>
+              <dt>À quoi il sert</dt><dd>Retrouver ses ascendants et garder la trace d'une lignée.</dd>
+              <dt>Ce qu'on y note</dt><dd>Les noms, les dates et les lieux de naissance, de mariage, de décès.</dd>
+              <dt>D'où il vient</dt><dd>De la généalogie, qui recherche et vérifie les filiations à partir des registres et des archives.</dd>
+            </dl>
+          </section>
+          <section class="fiche-arbre geno">
+            <h3>Le génosociogramme</h3>
+            <dl>
+              <dt>À quoi il sert</dt><dd>Repérer ce qui revient d'une génération à l'autre : des prénoms, des âges, des métiers, des épreuves.</dd>
+              <dt>Ce qu'on y note</dt><dd>L'arbre familial, enrichi des événements marquants, de la qualité des liens et de la place de chacun·e.</dd>
+              <dt>D'où il vient</dt><dd>Il est utilisé en psychogénéalogie. C'est l'objet de notre guide <a href="quest-ce-qu-un-genosociogramme.html">qu'est-ce qu'un génosociogramme</a>.</dd>
+            </dl>
+          </section>
+          <section class="fiche-arbre vie">
+            <h3>L'arbre de vie</h3>
+            <dl>
+              <dt>À quoi il sert</dt><dd>Regarder ta vie comme un ensemble de domaines reliés : le sens, le cœur, l'ancrage.</dd>
+              <dt>Ce qu'on y note</dt><dd>Aucun nom, aucune date. On y lit dix sphères, les Séphiroth, et les chemins qui les relient.</dd>
+              <dt>D'où il vient</dt><dd>D'une représentation symbolique issue de la Kabbale, la tradition mystique juive. Il ne décrit pas une famille, mais les dimensions d'une vie.</dd>
+            </dl>
+          </section>
+        </div>
+        <p class="rappel">Le mot « arbre de vie » est aussi employé ailleurs. D'autres traditions, d'autres cultures et d'autres usages ont leur propre arbre de vie. Ici, nous parlons uniquement de celui de la Kabbale.</p>
+
+        <h2>Le tableau comparatif</h2>
+        <p>Pour les voir d'un coup d'œil, voici les trois arbres côte à côte.</p>
+      </div>
+
+      <div class="large">
+        <div class="tableau">
+          <table class="comparatif">
+            <thead>
+              <tr><th scope="col"><span class="note">&nbsp;</span></th><th scope="col">Arbre généalogique</th><th scope="col" class="c-geno">Génosociogramme</th><th scope="col" class="c-vie">Arbre de vie</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">But</th><td data-titre="Arbre généalogique">Connaître sa lignée.</td><td data-titre="Génosociogramme">Repérer ce qui se répète dans une famille.</td><td data-titre="Arbre de vie">Regarder les grandes dimensions de sa vie.</td></tr>
+              <tr><th scope="row">Contenu</th><td data-titre="Arbre généalogique">Des personnes, des noms, des dates, des lieux.</td><td data-titre="Génosociogramme">Les mêmes personnes, plus les événements, les liens, les places, les âges.</td><td data-titre="Arbre de vie">Dix sphères symboliques et vingt-deux chemins. Aucune personne.</td></tr>
+              <tr><th scope="row">Forme</th><td data-titre="Arbre généalogique">Des cases reliées, souvent en éventail vers les ancêtres.</td><td data-titre="Génosociogramme">Des symboles normés : carrés, cercles, traits de couple, annotations.</td><td data-titre="Arbre de vie">Un schéma fixe en trois piliers, toujours le même.</td></tr>
+              <tr><th scope="row">Ce qu'il montre</th><td data-titre="Arbre généalogique">D'où tu viens.</td><td data-titre="Génosociogramme">D'où vient une répétition.</td><td data-titre="Arbre de vie">Où elle se rejoue aujourd'hui.</td></tr>
+              <tr><th scope="row">Sur Genesolia</th><td data-titre="Arbre généalogique">C'est la base de l'<a href="genosociogramme.html">outil en ligne</a>.</td><td data-titre="Génosociogramme"><a href="genosociogramme.html">Le génosociogramme en ligne</a>, qui repère les répétitions.</td><td data-titre="Arbre de vie"><a href="arbre-de-vie.html">Le test gratuit de l'arbre de vie</a>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="colonne">
+        <h2>Comment les utiliser ensemble</h2>
+        <p>Ils ne sont pas concurrents. Ils se complètent, parce qu'ils répondent à deux questions différentes sur un même thème.</p>
+        <div class="ensemble">
+          <div>
+            <span class="q">D'où ça vient ?</span>
+            <h3>L'arbre familial</h3>
+            <p>Ton génosociogramme montre d'où vient la répétition. Une séparation au même âge, un exil, un métier qui revient : il pose les faits sur trois ou quatre générations.</p>
+          </div>
+          <div>
+            <span class="q">Où ça se rejoue ?</span>
+            <h3>L'arbre de vie</h3>
+            <p>Il montre où le thème se rejoue aujourd'hui. Les sphères du bas parlent de sécurité et d'ancrage, celles du centre parlent du cœur.</p>
+          </div>
+        </div>
+        <p>Un exemple simple : ton arbre familial fait apparaître plusieurs départs précipités. Ton test de l'arbre de vie montre une sphère « à nourrir » du côté de la racine. Les deux ensemble t'indiquent un point de départ, celui du cycle de la racine dans la <a href="methode.html">méthode des deux cycles</a>. Ce sont des pistes à interroger, pas des conclusions.</p>
+
+        <div class="encart">
+          <p><strong>Un mot sur la Kabbale.</strong> L'arbre de vie appartient d'abord à une tradition riche et ancienne, qui s'étudie pendant des années. Nous l'utilisons ici comme une grille de lecture symbolique, avec respect, sans prétendre l'enseigner ni en résumer la profondeur. Pour découvrir les sphères une à une, lis notre page sur <a href="les-10-sephiroth.html" style="color:var(--blanc)">les dix Séphiroth</a>.</p>
+        </div>
+
+        <h2>Par où commencer ?</h2>
+        <p>Si tu as envie de comprendre ton histoire familiale, commence par l'arbre. Si tu veux d'abord faire le point sur ce que tu vis, commence par le test. Les deux sont gratuits.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon génosociogramme</a>
+          <a class="btn btn-trait" href="arbre-de-vie.html">Faire le test de l'arbre de vie</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Schémas répétitifs en amour</h3><p>Repérer ce qui se rejoue dans tes relations, et ce que ton histoire familiale peut éclairer.</p></a>
+          <a class="outil" href="informations-avant-genosociogramme.html"><h3>Ce qu'il faut réunir avant de commencer</h3><p>Les informations utiles pour dessiner ton génosociogramme sereinement.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour compléter ton arbre avec tact, une génération après l'autre.</p></a>
+          <a class="outil" href="les-10-sephiroth.html"><h3>Les dix Séphiroth de l'arbre de vie</h3><p>Le nom, la traduction et le domaine de vie de chaque sphère.</p></a>
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>La définition, la différence avec le génogramme, et un exemple dessiné.</p></a>
+          <a class="outil" href="symboles-genosociogramme.html"><h3>Les symboles du génosociogramme</h3><p>La légende illustrée : personnes, couples, enfants, relations.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
