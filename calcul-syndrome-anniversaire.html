@@ -101,7 +101,7 @@
         <ul class="gestes">
           <li><strong>Les âges qui reviennent.</strong> Deux personnes ou plus ont vécu un événement, ou sont décédées, au même âge. L'outil signale aussi qui approche de cet âge dans les trois prochaines années.</li>
           <li><strong>Les jours de l'année partagés.</strong> Une naissance, un décès ou un événement qui tombent le même jour et le même mois, à des années différentes.</li>
-          <li><strong>Les naissances proches d'un deuil.</strong> Une naissance dans l'année qui précède ou qui suit le décès d'un membre de la famille, ce que la psychogénéalogie relie au <a href="syndrome-du-gisant.html">syndrome du gisant</a>.</li>
+          <li><strong>Les naissances proches d'un deuil.</strong> Une naissance dans l'année qui précède ou qui suit le décès d'un membre de la famille. C'est l'un des indices que regarde la psychogénéalogie, par exemple dans le <a href="syndrome-du-gisant.html">syndrome du gisant</a>, surtout quand ce décès a été vécu comme injuste ou n'a jamais été pleuré.</li>
           <li><strong>La part du hasard.</strong> Avec le nombre de dates que tu as saisies, l'outil calcule la probabilité que deux d'entre elles tombent le même jour par simple hasard.</li>
         </ul>
 
@@ -127,7 +127,7 @@
         <div class="bloc-tete"><h2>À lire aussi</h2></div>
         <div class="liste-outils">
           <a class="outil" href="syndrome-anniversaire.html"><h3>Le syndrome d'anniversaire</h3><p>Définition, exemple et limites : faits, hypothèses et coïncidences.</p></a>
-          <a class="outil" href="syndrome-du-gisant.html"><h3>Le syndrome du gisant</h3><p>Quand une naissance porte la mémoire d'un deuil.</p></a>
+          <a class="outil" href="syndrome-du-gisant.html"><h3>Le syndrome du gisant</h3><p>Porter, sans le savoir, la vie d'un mort : la notion du Dr Sellam, avec un exemple.</p></a>
           <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
           <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les dates, les histoires et les silences, avec tact.</p></a>
         </div>
@@ -306,7 +306,7 @@
         proches.forEach(function (x) {
           nb++;
           h += '<div class="piste"><strong>' + esc(x.b.nom) + '</strong><ul><li>Naissance ' + esc(aff(x.b.n)) + ', ' + esc(x.txt) + ' de ' + esc(x.m.nom) + ' (' + esc(aff(x.m.d)) + ').</li></ul>' +
-            '<p class="note">' + (x.conc ? 'La grossesse a été traversée par ce deuil. ' : '') + 'La psychogénéalogie y voit une piste à regarder : <a href="syndrome-du-gisant.html">le syndrome du gisant</a>.' + '</p></div>';
+            '<p class="note">' + (x.conc ? 'La grossesse a été traversée par ce deuil. ' : '') + 'Si ce décès a été brutal ou jamais vraiment pleuré, c\'est une piste à regarder, par exemple avec <a href="syndrome-du-gisant.html">le syndrome du gisant</a>. Sinon, ce peut être une simple coïncidence.' + '</p></div>';
         });
       }
       if (!nb) h = '<p class="vide">Aucune coïncidence pour l\'instant. Ajoute des personnes, des dates complètes et des événements avec leur âge : plus il y a de dates, plus l\'outil peut comparer.</p>';
