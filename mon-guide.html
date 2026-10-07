@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ton guide du mois : astrologie, numérologie et signe maya personnalisés · Genesolia</title>
+  <meta name="description" content="Chaque mois, ton guide personnel : le ciel du mois rapporté à ton thème astral, ton mois personnel en numérologie, tes jours mayas et les dates de ta famille. Des repères précis et un exercice par semaine.">
+  <link rel="canonical" href="https://genesolia.fr/mon-guide.html">
+  <meta property="og:title" content="Ton guide du mois, calculé pour toi">
+  <meta property="og:description" content="Le ciel du mois dans ton thème, tes nombres, tes jours mayas et ta famille : une routine mensuelle avec des repères précis.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .g-tete{position:relative;overflow:hidden;padding:3rem 0 3.2rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .g-tete .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+    .g-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .g-tete h1{margin-bottom:1rem}
+    .g-tete .intro{font-size:1.1rem;color:var(--prune-doux)}
+    .g-tete ul{margin:1rem 0 0 1.1rem;color:var(--prune-doux)}
+    .g-form{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.7rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .g-form h2{font-size:1.45rem;margin-bottom:.3rem}
+    .g-form>p{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem}
+    .g-champ{display:grid;gap:.3rem;margin-bottom:.85rem;position:relative}
+    .g-champ label{font:600 .82rem/1.2 var(--texte)}
+    .g-champ small{font-size:.78rem;color:var(--prune-doux)}
+    .g-form input[type=text],.g-form input[type=date],.g-form input[type=time]{font:inherit;padding:.72rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--nacre);color:var(--prune);width:100%}
+    .g-deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .g-case{display:flex;gap:.5rem;align-items:center;font-size:.85rem;color:var(--prune-doux);margin:-.3rem 0 .8rem}
+    .g-sugg{position:absolute;left:0;right:0;top:100%;z-index:5;list-style:none;background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:12px;box-shadow:0 18px 40px rgba(107,47,91,.15);overflow:hidden;margin-top:.2rem}
+    .g-sugg li{padding:.55rem .8rem;cursor:pointer;font-size:.92rem}.g-sugg li small{color:var(--prune-doux);margin-left:.3rem}.g-sugg li:hover{background:var(--rose)}
+    .g-form .btn{width:100%;margin-top:.3rem}
+    .g-erreur{color:#A1384F;font-size:.88rem;margin-top:.5rem;min-height:1.2em}
+    .g-res .conteneur{max-width:60rem}
+    .g-carte{display:flex;justify-content:space-between;gap:1.5rem;align-items:flex-end;flex-wrap:wrap;padding:2rem;border-radius:var(--rayon);color:#fff;background:radial-gradient(30rem 18rem at 90% 0%,rgba(243,220,192,.45),transparent 60%),linear-gradient(150deg,#7B3A6A,#3E1736)}
+    .g-carte h2{color:#fff;font-size:2.2rem;margin:.2rem 0 .4rem}
+    .g-carte .g-sur{color:var(--champagne-clair);margin:0}
+    .g-carte p{color:#F7E6E8;margin:0}
+    .g-puces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+    .g-puces span{border:1px solid rgba(243,220,192,.5);border-radius:99px;padding:.3rem .8rem;font-size:.84rem;color:#fff}
+    .g-nav{display:flex;gap:.5rem}
+    .g-nav button{font:inherit;font-size:.85rem;border:1px solid rgba(243,220,192,.6);background:transparent;color:#fff;border-radius:99px;padding:.4rem .9rem;cursor:pointer}
+    .g-bloc{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.5rem;margin-top:1.2rem}
+    .g-bloc h3{font-size:1.3rem;margin-bottom:.5rem}
+    .g-bloc p{color:var(--prune-doux);max-width:none}
+    .g-bloc.doux{background:var(--rose)}
+    .g-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .g-dates{list-style:none;margin:0}
+    .g-dates li{display:grid;grid-template-columns:4.2rem 1fr;gap:.8rem;padding:.6rem 0;border-bottom:1px solid var(--rose)}
+    .g-dates li:last-child{border:0}
+    .g-dates b{font:400 1.25rem/1 var(--display);color:var(--prune);text-align:center}
+    .g-dates b small{display:block;font:600 .66rem/1.4 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
+    .g-dates .fam{color:var(--prune)}
+    .g-ciel>div{padding:1rem 0;border-bottom:1px solid var(--rose)}.g-ciel>div:last-child{border:0;padding-bottom:0}
+    .g-ciel h4{font:400 1.08rem var(--display);color:var(--prune);margin-bottom:.3rem}
+    .g-trois{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.2rem}
+    .g-trois .g-bloc{margin:0}
+    .g-semaines{list-style:none;counter-reset:s;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .g-semaines li{counter-increment:s;background:var(--nacre);border-radius:14px;padding:1rem 1.1rem;color:var(--prune-doux)}
+    .g-semaines li:before{content:'Semaine ' counter(s);display:block;font:600 .74rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:.3rem}
+    .g-question{font:400 1.3rem/1.4 var(--display);color:var(--prune)}
+    .g-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+    .g-verrou{position:relative}
+    .g-verrou .g-flou{filter:blur(6px);pointer-events:none;user-select:none;max-height:34rem;overflow:hidden}
+    .g-verrou .g-offre{position:absolute;left:50%;top:5rem;transform:translateX(-50%);width:min(30rem,92%);background:var(--blanc);border:1px solid var(--champagne);border-radius:var(--rayon);padding:1.6rem;text-align:center;box-shadow:0 24px 60px rgba(107,47,91,.18)}
+    .g-offre h3{font-size:1.4rem;margin-bottom:.4rem}.g-offre p{color:var(--prune-doux);margin-bottom:1rem}
+    .note{font-size:.86rem;color:var(--prune-doux)}
+    @media(max-width:860px){.g-tete .conteneur,.g-trois,.g-semaines{grid-template-columns:1fr}.g-carte h2{font-size:1.8rem}}
+    @media print{header,footer,.g-tete,.g-actions,.g-nav,.annonce,.bandeau-info,.cookies{display:none!important}body{background:#fff}.g-bloc,.g-carte{break-inside:avoid}.g-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="g-tete">
+      <div class="conteneur">
+        <div>
+          <p class="g-sur">Le Cercle · ton rendez-vous du mois</p>
+          <h1>Ton guide du mois</h1>
+          <p class="intro">Le ciel est le même pour tout le monde, mais il ne touche pas les mêmes domaines de ta vie. Chaque mois, ton guide rapporte le ciel réel à ton thème, l'accorde à tes nombres et à ton calendrier maya, et y ajoute les dates de ta famille.</p>
+          <ul><li>Le thème de ton mois et tes dates clés</li><li>Le ciel et toi : lunes, grands passages, Mercure rétrograde</li><li>Amour, travail, famille, et un exercice par semaine</li></ul>
+        </div>
+        <form class="g-form" id="g-form" novalidate>
+          <h2>Tes repères de naissance</h2>
+          <p>Ils servent à calculer ton guide. Ils restent sur ton appareil.</p>
+          <div class="g-champ"><label for="g-prenom">Ton prénom</label><input type="text" id="g-prenom" name="prenom" autocomplete="given-name"></div>
+          <div class="g-deux">
+            <div class="g-champ"><label for="g-date">Date de naissance</label><input type="date" id="g-date" name="date" min="1900-01-01" max="2030-12-31" required></div>
+            <div class="g-champ"><label for="g-heure">Heure</label><input type="time" id="g-heure" name="heure"></div>
+          </div>
+          <label class="g-case"><input type="checkbox" id="g-sans-heure"> Je ne connais pas mon heure de naissance</label>
+          <div class="g-champ"><label for="g-lieu">Lieu de naissance</label><input type="text" id="g-lieu" name="lieu-naissance" placeholder="Commence à taper ta ville" spellcheck="false"><ul class="g-sugg" id="g-sugg" role="listbox" hidden></ul><small id="g-lieu-info">Avec ton heure, il dit dans quels domaines de ta vie tombe le ciel du mois.</small></div>
+          <button class="btn btn-plein" type="submit">Voir mon guide du mois</button>
+          <p class="g-erreur" role="alert" id="g-erreur"></p>
+        </form>
+      </div>
+    </section>
+    <section class="bloc g-res" id="resultat" hidden aria-live="polite"></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/astronomy.browser.min.js"></script>
+  <script src="assets/astrologie.js"></script>
+  <script src="assets/astrologie-textes.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script src="assets/maya.js"></script>
+  <script src="assets/maya-textes.js"></script>
+  <script src="assets/guide-textes.js"></script>
+  <script src="assets/guide-mois.js"></script>
+  <script src="assets/lieu-naissance.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var GUIDE = { libre: true };   /* true : guide complet offert à toute personne connectée */
+    var CLE = 'genesolia-guide', G = window.Guide, T = window.GUIDE_TEXTES, N = window.Numerologie, MT = window.MAYA_TEXTES;
+    var sb = null, utilisateur = null, arbre = null, profil = null, vue = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    var f = document.getElementById('g-form'), err = document.getElementById('g-erreur'), zone = document.getElementById('resultat');
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function de(m) { return (/^[aeiouy]/i.test(m) ? 'd\'' : 'de ') + m; }
+    function jourCourt(ds) { var p = ds.split('-'); return '<b>' + (+p[2]) + '<small>' + MOIS[+p[1] - 1].slice(0, 4) + '</small></b>'; }
+
+    var lieu = window.LieuNaissance.brancher({ input: document.getElementById('g-lieu'), liste: document.getElementById('g-sugg'), info: document.getElementById('g-lieu-info') });
+    document.getElementById('g-sans-heure').addEventListener('change', function () { var h = document.getElementById('g-heure'); h.disabled = this.checked; if (this.checked) h.value = ''; });
+
+    function rendu(r, complet) {
+      var nomMois = MOIS[r.mois - 1], M = T.MOIS[r.moisPerso], ML = N.MOIS_LONG[r.moisPerso];
+      var signeMaya = r.maya ? MT.SIGNES[r.maya.natal.signe] : null;
+      var h = '<div class="conteneur">';
+      h += '<div class="g-carte"><div><p class="g-sur">' + (r.prenom ? 'Le guide de ' + esc(r.prenom) : 'Ton guide') + '</p><h2>' + nomMois.charAt(0).toUpperCase() + nomMois.slice(1) + ' ' + r.annee + '</h2><p>' + esc(M.theme) + '</p>' +
+        '<div class="g-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div></div>' +
+        '<div class="g-nav"><button type="button" data-dec="-1">Mois précédent</button><button type="button" data-dec="1">Mois suivant</button></div></div>';
+      h += '<div class="g-bloc"><p class="g-etiq">Le thème de ton mois</p><h3>' + esc(ML.titre) + '</h3><p>' + ML.texte + '</p></div>';
+      h += '<div class="g-bloc"><p class="g-etiq">Tes dates clés</p><ul class="g-dates">' + (r.dates.length ? r.dates.map(function (d) { return '<li>' + jourCourt(d.jour) + '<span' + (d.famille ? ' class="fam"' : '') + '>' + esc(d.quoi) + '</span></li>'; }).join('') : '<li><span>Un mois sans grand rendez-vous du ciel : profite-en pour avancer à ton rythme.</span></li>') + '</ul></div>';
+      var suite = '';
+      // Le ciel et toi
+      var c = '';
+      r.lunaisons.forEach(function (l) {
+        var txt = l.maison ? (l.type === 'nouvelle' ? T.NOUVELLE_LUNE_MAISON : T.PLEINE_LUNE_MAISON)[l.maison] : (l.type === 'nouvelle' ? T.NOUVELLE_LUNE_SIGNE : T.PLEINE_LUNE_SIGNE)[l.signe];
+        c += '<div><h4>' + (l.type === 'nouvelle' ? 'Nouvelle lune' : 'Pleine lune') + ' du ' + (+l.jour.slice(8)) + ' ' + nomMois + ', en ' + G.nomSigne(l.signe) + (l.maison ? ' · ' + T.MAISONS_NOMS[l.maison] : '') + '</h4><p>' + txt + '</p></div>';
+      });
+      r.eclipses.forEach(function (e) { c += '<div><h4>Éclipse ' + e.type + ' du ' + (+e.jour.slice(8)) + ' ' + nomMois + '</h4><p>' + (e.type === 'solaire' ? T.ECLIPSE_SOLAIRE : T.ECLIPSE_LUNAIRE) + '</p></div>'; });
+      r.aspects.slice(0, 3).forEach(function (a) { c += '<div><h4>' + G.nomPlanete(a.planete) + ' ' + G.nomAspect(a.aspect) + ' ' + (a.cible === 'soleil' ? 'à ton Soleil' : 'à ta Lune') + '</h4><p>' + T.ASPECTS[a.planete][a.cible][a.aspect] + '</p></div>'; });
+      if (r.mercure) c += '<div><h4>Mercure rétrograde ' + (r.mercure.debut === 1 && r.mercure.fin === new Date(Date.UTC(r.annee, r.mois, 0)).getUTCDate() ? 'tout le mois' : 'du ' + r.mercure.debut + ' au ' + r.mercure.fin + ' ' + nomMois) + '</h4><p>' + T.MERCURE_RETRO + '</p></div>';
+      if (r.maisons) {
+        c += '<div><h4>Jupiter dans ta maison ' + r.jupiter.maison + ' · ' + T.MAISONS_NOMS[r.jupiter.maison] + '</h4><p>' + T.JUPITER_MAISON[r.jupiter.maison] + '</p></div>';
+        c += '<div><h4>Saturne dans ta maison ' + r.saturne.maison + ' · ' + T.MAISONS_NOMS[r.saturne.maison] + '</h4><p>' + T.SATURNE_MAISON[r.saturne.maison] + '</p></div>';
+      }
+      suite += '<div class="g-bloc"><p class="g-etiq">Le ciel et toi</p><div class="g-ciel">' + c + '</div>' + (r.maisons ? '' : '<p class="note" style="margin-top:.8rem">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') + '</div>';
+      suite += '<div class="g-trois"><div class="g-bloc"><p class="g-etiq">En amour</p><p>' + M.amour + '</p></div><div class="g-bloc"><p class="g-etiq">Au travail</p><p>' + M.travail + '</p></div><div class="g-bloc"><p class="g-etiq">En famille</p><p>' + M.famille + '</p></div></div>';
+      if (r.famille && (r.famille.dates.length || r.famille.echos.length)) {
+        suite += '<div class="g-bloc doux"><p class="g-etiq">Ta famille ce mois-ci</p>' +
+          r.famille.dates.map(function (x) { return '<p><b>Le ' + (+x.jour.slice(8)) + ' ' + nomMois + '</b> · ' + esc(x.quoi) + ', il y a ' + x.il_y_a + ' ans.</p>'; }).join('') +
+          r.famille.echos.map(function (x) { return '<p>À ' + r.age + ' ans, l\'âge que tu as, <b>' + esc(x.nom) + '</b> a vécu un événement marquant' + (x.annee ? ' (en ' + esc(x.annee) + ')' : '') + '. Une date à regarder avec douceur.</p>'; }).join('') + '</div>';
+      } else if (!arbre) suite += '<div class="g-bloc doux"><p class="g-etiq">Ta famille ce mois-ci</p><p>Dessine ton arbre familial : les naissances, les départs et les âges en écho de ta famille apparaîtront ici chaque mois.</p><p style="margin-top:.6rem"><a href="genosociogramme.html">Dessiner mon arbre</a></p></div>';
+      suite += '<div class="g-bloc"><p class="g-etiq">Le défi du mois</p><p>' + M.defi + '</p></div>';
+      suite += '<div class="g-bloc"><p class="g-etiq">Tes quatre semaines</p><ol class="g-semaines">' + M.semaines.map(function (s) { return '<li>' + s.replace(/^Semaine \d+\s*:\s*/i, '') + '</li>'; }).join('') + '</ol></div>';
+      if (r.maya && signeMaya) {
+        suite += '<div class="g-bloc"><p class="g-etiq">Ton calendrier maya</p><h3>' + esc(signeMaya.kiche) + ' · ' + esc(signeMaya.image) + '</h3><p>' + T.MAYA_JOUR_SIGNE + '</p>' +
+          (r.maya.jours.length ? '<p style="margin-top:.6rem"><b>Ce mois-ci : ' + r.maya.jours.map(function (x) { return 'le ' + (+x.jour.slice(8)) + ' ' + nomMois; }).join(' et ') + '.</b></p>' : '') +
+          (r.maya.anniversaire ? '<p style="margin-top:.6rem">' + T.MAYA_ANNIVERSAIRE + '</p>' : '') + '<p style="margin-top:.6rem"><a href="ton-signe-maya.html">Lire le sens de ton signe maya</a></p></div>';
+      }
+      suite += '<div class="g-bloc doux"><p class="g-etiq">Ta question du mois</p><p class="g-question">' + ML.question + '</p></div>';
+      if (complet) h += suite + '<div class="g-actions"><button class="btn btn-plein" type="button" id="g-pdf">Télécharger mon guide (PDF)</button><a class="btn btn-trait" href="mon-mois.html">Mon mois et mon carnet</a><button class="btn btn-trait" type="button" id="g-modifier">Modifier mes repères</button></div>';
+      else h += '<div class="g-verrou"><div class="g-flou" aria-hidden="true">' + suite + '</div><div class="g-offre"><p class="g-etiq">Ton guide complet, offert</p><h3>Le ciel et toi, tes semaines, ta famille</h3><p>Crée ton compte gratuit : ton guide complet t\'attend chaque mois, et ton arbre reste en sécurité sur tous tes appareils.</p><a class="btn btn-plein" href="login.html?retour=mon-guide.html">Créer mon compte gratuit</a></div></div>';
+      h += '<p class="note" style="margin-top:1.2rem">' + T.INTRO + '</p><p class="note">Lecture symbolique, pour t\'accompagner dans ton mois. Elle ne prédit rien.</p></div>';
+      zone.innerHTML = h; zone.hidden = false;
+      zone.querySelectorAll('[data-dec]').forEach(function (b) { b.addEventListener('click', function () { var d = new Date(Date.UTC(vue.annee, vue.mois - 1 + +b.getAttribute('data-dec'), 1)); vue = { annee: d.getUTCFullYear(), mois: d.getUTCMonth() + 1 }; afficher(); }); });
+      var pdf = document.getElementById('g-pdf'); if (pdf) pdf.addEventListener('click', function () { window.print(); });
+      var mod = document.getElementById('g-modifier'); if (mod) mod.addEventListener('click', function () { f.scrollIntoView({ behavior: 'smooth' }); });
+    }
+    function noterVue() {
+      if (!sb || !utilisateur || !vue) return;
+      var m = vue.annee + '-' + String(vue.mois).padStart(2, '0'), n = new Date();
+      if (vue.annee !== n.getFullYear() || vue.mois !== n.getMonth() + 1) return;   /* on ne compte que le mois en cours */
+      try { sb.from('guide_vues').upsert({ user_id: utilisateur.id, mois: m }, { onConflict: 'user_id,mois', ignoreDuplicates: true }).then(function () {}, function () {}); } catch (e) {}
+      if (window.umami) try { window.umami.track('guide-du-mois', { mois: m }); } catch (e) {}
+    }
+    function afficher() {
+      if (!profil) return;
+      var r = G.calculer(profil, vue.annee, vue.mois, arbre);
+      if (!r) return;
+      var complet = !!utilisateur && GUIDE.libre;
+      rendu(r, complet);
+      if (complet) noterVue();
+    }
+
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = f.date.value, sansH = document.getElementById('g-sans-heure').checked, hr = sansH ? '' : f.heure.value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+      err.textContent = '';
+      lieu.resoudre().then(function (l) {
+        profil = { prenom: f.prenom.value.trim(), date: d, heure: hr, lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' };
+        try { localStorage.setItem(CLE, JSON.stringify(profil)); } catch (x) {}
+        var a = new Date(); vue = vue || { annee: a.getFullYear(), mois: a.getMonth() + 1 };
+        afficher(); zone.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    function demarrer() {
+      var s = null;
+      try { s = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (x) {}
+      if (!s) { try { var a = JSON.parse(localStorage.getItem('genesolia-astro') || 'null'); if (a && a.date) s = { prenom: a.prenom || '', date: a.date, heure: a.heure || '', lieu: a.lieu || '', lat: a.lat, lon: a.lon, tz: a.tz || 'Europe/Paris' }; } catch (x) {} }
+      if (!s && arbre && arbre.people) { var moi = Object.keys(arbre.people).map(function (k) { return arbre.people[k]; }).filter(function (p) { return p.role === 'moi'; })[0]; if (moi && /^\d{4}-\d{2}-\d{2}$/.test(moi.naiss || '')) s = { prenom: moi.prenom || '', date: moi.naiss, heure: '', tz: 'Europe/Paris' }; }
+      if (s && s.date) {
+        f.prenom.value = s.prenom || ''; f.date.value = s.date; f.heure.value = s.heure || '';
+        if (!s.heure) { document.getElementById('g-sans-heure').checked = true; f.heure.disabled = true; }
+        if (s.lieu) { document.getElementById('g-lieu').value = s.lieu; lieu.definir({ nom: s.lieu, lat: s.lat, lon: s.lon, tz: s.tz }); document.getElementById('g-lieu-info').textContent = 'Lieu enregistré · fuseau ' + s.tz; }
+        profil = s; var n = new Date(); vue = { annee: n.getFullYear(), mois: n.getMonth() + 1 };
+        afficher();
+      }
+    }
+    try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (x) {}
+    if (!sb) { demarrer(); return; }
+    sb.auth.getSession().then(function (res) {
+      var s = res && res.data && res.data.session;
+      if (s) utilisateur = s.user;
+      if (!utilisateur) return demarrer();
+      return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
+        if (r && r.data && r.data.data) arbre = r.data.data;
+        demarrer();
+      }, demarrer);
+    }).catch(demarrer);
+  })();
+  </script>
+</body>
+</html>

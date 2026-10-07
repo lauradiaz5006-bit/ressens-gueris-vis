@@ -121,5 +121,5 @@
   }
   function degres(d) { var g = Math.floor(d), m = Math.floor((d - g) * 60); return g + '°' + (m < 10 ? '0' : '') + m; }
 
-  window.Astrologie = { calculer: calculer, simple: simple, signeDe: signeDe, degres: degres, versUTC: versUTC, decalage: decalage, SIGNES: SIGNES, ELEMENT: ELEMENT, MODE: MODE };
+  window.Astrologie = { longitude: function (corps, date) { var c = CORPS.filter(function (x) { return x[0] === corps; })[0]; return norm(longitude(c ? c[1] : corps, A.MakeTime(date))); }, maisonDe: maisonDe, norm: norm, calculer: calculer, simple: simple, signeDe: signeDe, degres: degres, versUTC: versUTC, decalage: decalage, SIGNES: SIGNES, ELEMENT: ELEMENT, MODE: MODE };
 })();
