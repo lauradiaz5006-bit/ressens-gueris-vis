@@ -128,12 +128,12 @@ section.bloc{padding:4.5rem 0}
 .entete .conteneur{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
 .marque{font-family:var(--display);font-size:1.3rem;text-decoration:none;display:flex;align-items:center;gap:.6rem;color:var(--prune)}
 .marque svg{width:26px;height:26px;display:block}
-.menu{display:flex;align-items:center;gap:1.5rem}
-.menu a{text-decoration:none;font-size:.95rem;color:var(--prune-doux)}
+.menu{display:flex;align-items:center;gap:1.3rem}
+.menu a{text-decoration:none;font-size:.95rem;color:var(--prune-doux);white-space:nowrap}
 .menu a:hover,.menu a[aria-current="page"]{color:var(--prune)}
 .menu .btn{color:var(--blanc);padding:.6rem 1.15rem}
 .burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--prune);padding:0}
-@media (max-width:960px){
+@media (max-width:1180px){
   .burger{display:grid;place-items:center}
   .menu{position:fixed;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--rose-fonce);padding:.5rem 1.25rem 1.25rem;display:none}
   .menu.ouvert{display:flex}

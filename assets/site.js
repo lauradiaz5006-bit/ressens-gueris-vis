@@ -12,15 +12,16 @@
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
+    ['methode.html', 'Les deux cycles'],
+    ['blessures-de-l-ame.html', 'Tes blessures'],
     ['genosociogramme.html', 'Ta famille'],
     ['theme-numerologique.html', 'Tes nombres'],
     ['theme-astral.html', 'Tes étoiles'],
     ['symbolique-des-reves.html', 'Tes rêves'],
-    ['mon-mois.html', 'Le Cercle'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
-  var BOUTON = ['ton-prenom.html', 'Mon prénom'];
+  var BOUTON = ['mon-mois.html', 'Le Cercle'];
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -65,7 +66,7 @@
             '<li><a href="tes-20-ans.html">Tes 20 ans</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
-            '<li><a href="vibration.html">Ma fréquence intérieure</a></li>' +
+            '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Guides</h4><ul>' +
             '<li><a href="quest-ce-qu-un-genosociogramme.html">Qu\'est-ce qu\'un génosociogramme ?</a></li>' +
