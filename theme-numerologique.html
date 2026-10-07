@@ -176,8 +176,14 @@
       .n-pont{padding:2rem 1.4rem}
       .n-form{padding:1.4rem}
     }
+    .n-livret{display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:center;margin:2.4rem 0 1.4rem;padding:1.8rem;border:1px solid var(--rose-fonce);border-radius:var(--rayon);background:linear-gradient(135deg,#FFFCFB,var(--rose))}
+    .n-livret h3{font-size:1.45rem;margin:.2rem 0 .5rem}.n-livret p{color:var(--prune-doux);margin-bottom:.9rem}
+    .n-livret-couv{width:8.5rem;height:12rem;border-radius:10px;padding:1rem .9rem;display:flex;flex-direction:column;justify-content:space-between;color:#fff;box-shadow:0 18px 40px rgba(107,47,91,.25);transform:rotate(-3deg);background:radial-gradient(9rem 7rem at 85% 8%,rgba(243,220,192,.55),transparent 60%),linear-gradient(160deg,#7B3A6A,#3E1736)}
+    .n-livret-couv small{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair)}.n-livret-couv b{font:400 3.6rem/1 var(--display);color:var(--champagne-clair)}.n-livret-couv span{font:400 1rem var(--display)}
+    .n-livret-aide{font-size:.8rem;margin:.5rem 0 0!important}
+    @media(max-width:640px){.n-livret{grid-template-columns:1fr;text-align:left}.n-livret-couv{width:6.5rem;height:9rem}.n-livret-couv b{font-size:2.6rem}}
     @media print{
-      header,footer,.n-tete,.n-pont,.n-outils,.n-texte,.annonce,.bandeau-info{display:none!important}
+      header,footer,.n-tete,.n-pont,.n-livret,.n-outils,.n-texte,.annonce,.bandeau-info{display:none!important}
       body.nouveau{background:#fff}
       .n-principal,.n-carte,.n-annee>div,.n-inclusion,.n-periodes li,.n-cycles>div,.n-appr article,.n-plans,.n-defi-principal{break-inside:avoid}
       .n-sommaire{display:none}
@@ -242,6 +248,7 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/numerologie.js"></script>
+  <script src="assets/livret-numerologie.js"></script>
   <script>
   (function () {
     'use strict';
@@ -270,7 +277,7 @@
       var h = '<div class="conteneur">';
       h += '<div class="n-res-tete"><div><h2>Le thème de <span>' + esc(prenom) + '</span></h2><p>Né·e le ' + dateFr(t.date) + (t.age != null ? ' · ' + t.age + ' ans' : '') + '</p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + t.chemin + '</b></span><span>Expression <b>' + t.expression + '</b></span><span>Héréditaire <b>' + t.hereditaire + '</b></span><span>Année ' + auj.getFullYear() + ' <b>' + t.annee + '</b></span></div></div>' +
-        '<div class="actions"><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer mon thème</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
+        '<div class="actions"><button class="btn btn-plein" type="button" id="n-livret">Télécharger mon livret PDF (' + (16 + (t.dettes.length ? 1 : 0)) + ' pages)</button><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
       h += '<nav class="n-sommaire" aria-label="Dans ton thème"><a href="#n-nombres">Tes nombres</a><a href="#n-temps">Ton année</a><a href="#n-periodes">Tes grandes périodes</a>' + (t.dettes.length ? '<a href="#n-appr">Tes apprentissages</a>' : '') + '<a href="#n-nom">Ton nom</a><a href="#n-lignee">Ta lignée</a></nav>';
 
       h += '<h3 class="n-titre-sec" id="n-nombres">Tes nombres principaux</h3>';
@@ -319,6 +326,9 @@
       h += '<div class="n-plans"><div><h3>Tes quatre plans</h3><p class="n-intro">Les lettres de ton nom se répartissent entre quatre façons de vivre les choses. Le plan le plus fort montre comment tu fonctionnes en premier.</p><p><b>' + N.PLANS[t.planDominant].nom + ' :</b> ' + N.PLANS[t.planDominant].texte + '</p></div><ul>' +
         Object.keys(N.PLANS).map(function (c) { var pc = totalL ? Math.round(t.plans[c] * 100 / totalL) : 0; return '<li class="' + (c === t.planDominant ? 'fort' : '') + '"><span><b>' + N.PLANS[c].nom + '</b> ' + N.PLANS[c].theme + '</span><i style="--p:' + pc + '%"></i><em>' + pc + ' %</em></li>'; }).join('') + '</ul></div>';
 
+      h += '<div class="n-livret"><div class="n-livret-couv" aria-hidden="true"><small>Livret complet</small><b>' + t.chemin + '</b><span>' + esc(prenom) + '</span></div><div><p class="n-etiq">Ton livret complet, offert</p><h3>Tout ton thème dans un livret de ' + (16 + (t.dettes.length ? 1 : 0)) + ' pages à garder</h3>' +
+        '<p>Tous tes nombres expliqués en détail, tes trois cycles et tes quatre périodes, tes trois prochaines années, tes douze mois avec des gestes simples, une page pour noter les nombres de ta famille, des questions pour écrire et le détail de tes calculs.</p>' +
+        '<button class="btn btn-plein" type="button" id="n-livret-2">Télécharger mon livret PDF</button><p class="n-livret-aide">Dans la fenêtre qui s\'ouvre, choisis « Enregistrer au format PDF ».</p></div></div>';
       h += '<div class="n-pont" id="n-lignee"><p class="n-etiq" style="color:var(--champagne-clair)">Et dans ta famille ?</p><h2>Ta mère, ta grand-mère, ton père ont-ils le même chemin de vie que toi ?</h2>' +
         '<p>Ton nombre héréditaire, le ' + t.hereditaire + ', te relie à ta lignée. En ajoutant ta famille dans ton arbre, l\'outil calcule les nombres de chacun·e et te montre les échos :</p>' +
         '<ul><li>les chemins de vie qui se répètent d\'une génération à l\'autre ;</li><li>qui, dans ta famille, traversait la même grande période que toi à ton âge, et ce qu\'il ou elle a vécu alors ;</li><li>les nombres d\'apprentissage partagés, et les nombres absents de la lignée.</li></ul>' +
@@ -328,6 +338,7 @@
       h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. La numérologie ne prédit pas l\'avenir.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
       document.getElementById('n-imprimer').addEventListener('click', function () { window.print(); });
+      ['n-livret', 'n-livret-2'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { window.LivretNumerologie.imprimer(t, this); }); });
       document.getElementById('n-refaire').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('n-prenoms').focus(); });
     }
 
