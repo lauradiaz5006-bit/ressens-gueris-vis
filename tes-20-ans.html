@@ -206,6 +206,24 @@
       .apparait,.tape i{animation:none}
       .carte-vt:hover{transform:none}
     }
+    .filtres-vt{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:-.6rem 0 1.4rem}
+    .filtres-vt .filtres-label{font:600 .9rem var(--texte);color:var(--prune-doux);margin-right:.3rem}
+    .filtres-vt button{font:600 .9rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.6rem .95rem;cursor:pointer}
+    .filtres-vt button:hover{border-color:var(--prune)}
+    .filtres-vt button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:var(--blanc)}
+    .rep-bloc.possible{background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border-color:var(--champagne-clair)}
+    .rep-bloc.possible h3{color:#8A6233}
+    .conflit-vt{background:linear-gradient(180deg,var(--nacre),#FFF4F1)}
+    .etapes-conflit{list-style:none;counter-reset:c;display:grid;gap:1rem;max-width:46rem}
+    .etapes-conflit li{counter-increment:c;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.35rem 1.3rem 4rem}
+    .etapes-conflit li::before{content:counter(c);position:absolute;left:1.2rem;top:1.2rem;width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.1rem;background:var(--corail-pale);color:var(--corail-encre)}
+    .etapes-conflit h3{font-size:1.25rem;margin-bottom:.4rem}
+    .etapes-conflit p{max-width:none;color:var(--prune-doux)}
+    .etapes-conflit .a-copier{color:var(--prune);margin-top:.8rem}
+    .conflit-bas{max-width:46rem;margin-top:1.2rem}
+    .alerte-conflit{font-size:.92rem;color:var(--prune-doux);border:1px dashed var(--corail-vif);border-radius:var(--rayon);padding:1rem 1.2rem;max-width:none}
+    .alerte-conflit a{color:var(--prune);font-weight:600}
+    @media (max-width:560px){.etapes-conflit li{padding:1.1rem 1.1rem 1.1rem 3.4rem}.etapes-conflit li::before{left:.9rem;width:1.9rem;height:1.9rem}}
   </style>
 </head>
 <body class="nouveau">
@@ -218,6 +236,7 @@
           <h1>Tu as l'impression de rejouer quelque chose, <em>sans savoir quoi.</em></h1>
           <p class="intro">Choisis la situation qui te ressemble. En trois minutes, tu sais ce qui se joue, ce que tu peux faire aujourd'hui, et les mots pour le dire.</p>
           <div class="actions">
+            <a class="btn btn-trait" href="#conflit">Régler un conflit</a>
             <a class="btn btn-plein" href="#outil">Choisir ma situation
               <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3v12M4 10l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -238,13 +257,49 @@
         <div id="ecran-grille">
           <div class="bloc-tete">
             <h2 id="outil-titre">Je suis dans la situation…</h2>
-            <p>Touche celle qui te parle le plus en ce moment. Tu pourras en choisir une autre après.</p>
+            <p>Des histoires d'amour aux sujets dont on parle peu : touche celle qui te parle le plus en ce moment. Tu pourras en choisir une autre après.</p>
+          </div>
+          <div class="filtres-vt" id="filtres-vt" role="group" aria-label="Filtrer les situations par thème">
+            <button type="button" data-filtre="tout" aria-pressed="true">Tout</button>
+            <button type="button" data-filtre="amour" aria-pressed="false">Amour</button>
+            <button type="button" data-filtre="famille" aria-pressed="false">Famille</button>
+            <button type="button" data-filtre="amities" aria-pressed="false">Amitiés</button>
+            <button type="button" data-filtre="place" aria-pressed="false">Ta place</button>
+            <button type="button" data-filtre="non-dits" aria-pressed="false">Ce qu'on ne dit pas</button>
           </div>
           <ul class="grille-vt" id="grille-vt"></ul>
           <p class="grille-note">Les situations que tu as déjà ouvertes portent une petite coche. C'est mémorisé sur ton téléphone uniquement.</p>
         </div>
         <div id="ecran-reponse" class="reponse" aria-live="polite" hidden></div>
         <noscript><p class="note">Cet outil a besoin de JavaScript pour fonctionner.</p></noscript>
+      </div>
+    </section>
+
+    <section class="bloc conflit-vt" id="conflit" aria-labelledby="conflit-titre">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2 id="conflit-titre">Régler un conflit, sans tout casser</h2>
+          <p>Une dispute avec ton copain ou ta copine, un parent, une amie ? Un malentendu, ça se dénoue. Voici cinq étapes, et les mots pour chacune.</p>
+        </div>
+        <div class="filtres-vt" id="conflit-avec" role="group" aria-label="Avec qui ?">
+          <span class="filtres-label">Avec qui ?</span>
+          <button type="button" data-avec="couple" aria-pressed="true">Ton ou ta partenaire</button>
+          <button type="button" data-avec="parent" aria-pressed="false">Un parent</button>
+          <button type="button" data-avec="amie" aria-pressed="false">Une amie</button>
+          <button type="button" data-avec="fratrie" aria-pressed="false">Un frère ou une sœur</button>
+        </div>
+        <ol class="etapes-conflit" id="conflit-etapes" aria-live="polite"></ol>
+        <div class="conflit-bas">
+          <div class="rep-bloc possible">
+            <h3>Et si ça ne marche pas du premier coup ?</h3>
+            <p>C'est normal. Un conflit se règle souvent en plusieurs fois. Le simple fait d'avoir essayé calmement change déjà la relation. Une relation où l'on peut se disputer puis se retrouver est une relation solide.</p>
+          </div>
+          <div class="rep-bloc">
+            <h3>Et dans ta famille ?</h3>
+            <p>On reproduit souvent la façon dont on se disputait chez soi : les cris, les portes qui claquent, ou au contraire le silence. Repère comment on se réconciliait dans ta famille, et choisis ce que tu veux garder.</p>
+          </div>
+          <p class="alerte-conflit">Si l'autre te rabaisse, te menace ou te fait peur, ce n'est pas un conflit à régler : c'est une situation dont il faut te protéger. Parles-en à quelqu'un de confiance. En France, le <a href="tel:3919">3919</a> (gratuit, anonyme) ou le <a href="tel:17">17</a> en urgence ; au Québec, SOS violence conjugale au <a href="tel:18003639010">1 800 363-9010</a> ou le <a href="tel:911">911</a>.</p>
+        </div>
       </div>
     </section>
 
