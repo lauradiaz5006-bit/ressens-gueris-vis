@@ -257,6 +257,7 @@
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
       <button class="bt" type="button" id="bt-numero" aria-haspopup="dialog">Numérologie</button>
+      <button class="bt" type="button" id="bt-astro" aria-haspopup="dialog">Astrologie</button>
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
       <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
@@ -417,6 +418,17 @@
         </div>
         <input type="file" id="fichier" accept=".json,application/json" hidden>
       </div>
+    </div>
+  </div>
+
+  <!-- Astrologie de la lignée -->
+  <div class="fenetre-fond" id="fen-astro">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fa-titre">
+      <div class="fen-tete">
+        <div><h2 id="fa-titre">Ta lignée dans les étoiles</h2><p>Le Soleil et la Lune de chacun·e, et les échos entre les générations.</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" id="fa-corps"></div>
     </div>
   </div>
 

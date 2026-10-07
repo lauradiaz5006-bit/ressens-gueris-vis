@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thème astral gratuit : Soleil, Lune, ascendant et maisons · Genesolia</title>
+  <meta name="description" content="Calcule gratuitement ton thème astral complet : Soleil, Lune, ascendant, planètes, maisons, nœuds lunaires et éléments, avec une lecture reliée à ton histoire familiale.">
+  <link rel="canonical" href="https://genesolia.fr/theme-astral.html">
+  <meta property="og:title" content="Ton thème astral gratuit, relié à ton histoire familiale">
+  <meta property="og:description" content="Soleil, Lune, ascendant, planètes et maisons, puis les signes de toute ta lignée.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:#1E0D29;padding:3.2rem 0 3.4rem}
+    .a-tete::before{content:"";position:absolute;inset:0;background:url(assets/formation/montagne.jpg) center 30%/cover;opacity:.55}
+    .a-tete::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,13,41,.92),rgba(30,13,41,.55))}
+    .a-tete .conteneur{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .a-sur{font:600 .8rem/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem}
+    .a-tete h1{color:#fff;margin-bottom:1rem}
+    .a-tete .intro{color:#F7E6EE;font-size:1.1rem}
+    .a-form{background:var(--blanc);color:var(--prune);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+    .a-form h2{font-size:1.5rem;margin-bottom:.3rem}
+    .a-form>p{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem}
+    .a-champ{display:grid;gap:.3rem;margin-bottom:.85rem;position:relative}
+    .a-champ label{font:600 .82rem/1.2 var(--texte)}
+    .a-champ small{font-size:.78rem;color:var(--prune-doux)}
+    .a-champ input[type=text],.a-champ input[type=date],.a-champ input[type=time]{width:100%;font:400 1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.68rem .8rem}
+    .a-champ input:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .a-deux{display:grid;grid-template-columns:1.2fr 1fr;gap:.7rem}
+    .a-case{display:flex;gap:.45rem;align-items:center;font-size:.84rem;color:var(--prune-doux);margin-top:.2rem}
+    .a-case input{accent-color:var(--prune)}
+    .a-sugg{position:absolute;left:0;right:0;top:100%;z-index:5;list-style:none;background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:12px;box-shadow:0 18px 40px rgba(107,47,91,.15);overflow:hidden;margin-top:.2rem}
+    .a-sugg li{padding:.55rem .8rem;cursor:pointer;font-size:.92rem}
+    .a-sugg li small{color:var(--prune-doux);margin-left:.3rem}
+    .a-sugg li:hover,.a-sugg li[aria-selected=true]{background:var(--rose)}
+    .a-lieu-ok{font-size:.78rem;color:#7A4FA0}
+    .a-form .btn{width:100%;margin-top:.3rem}
+    .a-erreur{color:#A23B4C;font-size:.86rem;min-height:1.2em;margin-top:.5rem}
+    .a-mini{font-size:.76rem;color:var(--prune-doux);margin-top:.5rem;max-width:none}
+
+    .a-res[hidden]{display:none}
+    .a-res{scroll-margin-top:5rem}
+    .a-res-tete{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:1.6rem}
+    .a-res-tete h2 span{color:var(--champagne)}
+    .a-res-tete p{color:var(--prune-doux)}
+    .a-sommaire{display:flex;flex-wrap:wrap;gap:.4rem;margin:-.4rem 0 2rem}
+    .a-sommaire a{font-size:.86rem;text-decoration:none;border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem .8rem;background:var(--blanc)}
+    .a-titre{font-size:1.75rem;margin:2.4rem 0 1rem;scroll-margin-top:5rem}
+    .a-sec-intro{color:var(--prune-doux);margin:-.4rem 0 1.2rem;max-width:44rem}
+    .a-alerte{padding:1rem 1.2rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair);font-size:.93rem;margin-bottom:1.4rem}
+    .a-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .a-carte{display:flex;flex-direction:column;padding:1.5rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .a-carte .a-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .a-carte h3{font-size:1.55rem;margin-bottom:.15rem}
+    .a-carte .deg{font-size:.84rem;color:var(--prune-doux);margin-bottom:.7rem}
+    .a-carte p{font-size:.94rem;line-height:1.6}
+    .a-mots{display:flex;flex-wrap:wrap;gap:.3rem;margin:.1rem 0 .7rem}
+    .a-mots span{background:var(--rose);border-radius:999px;padding:.15rem .6rem;font-size:.78rem}
+    .a-carte.vide{background:var(--nacre);border-style:dashed}
+    .a-roue-zone{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.6rem;align-items:start}
+    .a-roue{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1rem}
+    .a-roue svg{width:100%;height:auto}
+    .a-table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--blanc);border-radius:18px;overflow:hidden;border:1px solid var(--rose)}
+    .a-table th{background:var(--rose);text-align:left;font:600 .74rem/1.2 var(--texte);letter-spacing:.06em;text-transform:uppercase;padding:.6rem .8rem}
+    .a-table td{border-top:1px solid var(--rose);padding:.55rem .8rem}
+    .a-table td:first-child{font-weight:600}
+    .a-r{color:#B5485C;font-size:.8rem;margin-left:.2rem}
+    .a-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(18rem,1fr));gap:1rem}
+    .a-herit{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .a-herit .a-carte{background:linear-gradient(180deg,#FFF6EC,var(--blanc));border-color:var(--champagne-clair)}
+    .a-famille{margin-top:.6rem;font-size:.9rem;font-style:italic;color:var(--prune)}
+    .a-elements{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start;padding:1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .a-barres{list-style:none;display:grid;gap:.6rem}
+    .a-barres li{display:grid;grid-template-columns:6.5rem 1fr 2.5rem;gap:.6rem;align-items:center;font-size:.9rem}
+    .a-barres i{height:.55rem;border-radius:99px;background:linear-gradient(90deg,var(--champagne) var(--p),var(--rose) var(--p))}
+    .a-barres li.fort i{background:linear-gradient(90deg,var(--prune) var(--p),var(--rose) var(--p))}
+    .a-barres em{font-style:normal;font-weight:600;text-align:right}
+    .a-maisons{display:grid;gap:.5rem}
+    .a-maisons details{background:var(--blanc);border:1px solid var(--rose);border-radius:14px;padding:.75rem 1rem}
+    .a-maisons summary{cursor:pointer;font-weight:600;display:flex;justify-content:space-between;gap:1rem;list-style:none}
+    .a-maisons summary::-webkit-details-marker{display:none}
+    .a-maisons summary span{font-weight:400;color:var(--prune-doux);font-size:.9rem;text-align:right}
+    .a-maisons details p{margin-top:.6rem;font-size:.93rem}
+    .a-maisons details.cle{border-color:var(--champagne)}
+    .a-pont{position:relative;overflow:hidden;margin-top:2.4rem;border-radius:var(--rayon);color:#FFF4F6;background:#2E1338;padding:2.6rem 2.4rem}
+    .a-pont::before{content:"";position:absolute;inset:0;background:url(assets/formation/spirale.jpg) center/cover;opacity:.45}
+    .a-pont::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(35,12,45,.92),rgba(35,12,45,.55))}
+    .a-pont>*{position:relative;z-index:1}
+    .a-pont h2{color:#fff;margin-bottom:.8rem;max-width:34rem}
+    .a-pont p{color:#F7E6EE;margin-bottom:1rem}
+    .a-pont ul{margin:0 0 1.5rem 1.1rem;color:#F7E6EE;display:grid;gap:.3rem;max-width:38rem}
+    .a-pont .btn-plein{background:var(--champagne-clair);color:var(--prune)}
+    .a-texte h2{margin-bottom:.8rem}.a-texte h3{margin:1.6rem 0 .5rem}.a-texte p{margin-bottom:.8rem}
+    .a-bonus{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;margin-top:1.2rem;padding:1.1rem 1.4rem;border-radius:18px;background:linear-gradient(120deg,#FFF6EC,var(--blanc));border:1.5px solid var(--champagne);text-decoration:none}
+    .a-bonus img{width:84px;height:auto;border-radius:4px;box-shadow:0 10px 24px rgba(46,19,56,.2)}
+    .a-bonus b{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.2rem}
+    .a-bonus span{font-size:.92rem;color:var(--prune-doux)}
+    .a-bonus em{font-style:normal;font-weight:600;background:var(--prune);color:#fff;border-radius:999px;padding:.6rem 1.1rem;white-space:nowrap}
+    @media (max-width:620px){.a-bonus{grid-template-columns:auto 1fr}.a-bonus em{grid-column:1/3;text-align:center}}
+    @media (max-width:980px){.a-trio{grid-template-columns:1fr}.a-roue-zone,.a-herit,.a-elements{grid-template-columns:1fr}}
+    @media (max-width:900px){.a-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
+    @media (max-width:560px){.a-form{padding:1.4rem}.a-deux{grid-template-columns:1fr}.a-pont{padding:2rem 1.4rem}.a-table{font-size:.84rem}.a-table td,.a-table th{padding:.45rem .5rem}}
+    @media print{header,footer,.a-tete,.a-pont,.a-texte,.annonce,.bandeau-info,.a-sommaire,.a-actions{display:none!important}body.nouveau{background:#fff}.a-carte,.a-roue,.a-elements,.a-maisons details{break-inside:avoid}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="a-tete">
+      <div class="conteneur">
+        <div>
+          <p class="a-sur">Gratuit · sans inscription</p>
+          <h1>Ton thème astral</h1>
+          <p class="intro">Le ciel au moment de ta naissance, lu comme une carte de toi : ton Soleil, ta Lune, ton ascendant, tes planètes et tes maisons. Puis relie ton thème à celui de ta famille, pour voir ce qui se transmet aussi dans les étoiles.</p>
+        </div>
+        <form class="a-form" id="a-form" novalidate autocomplete="off">
+          <h2>Calcule ton thème</h2>
+          <p>Plus tes informations sont précises, plus ton thème est complet.</p>
+          <div class="a-champ"><label for="a-prenom">Ton prénom <small>(facultatif)</small></label><input type="text" id="a-prenom" name="prenom" autocomplete="given-name"></div>
+          <div class="a-deux">
+            <div class="a-champ"><label for="a-date">Date de naissance</label><input type="date" id="a-date" name="date" min="1900-01-01" max="2030-12-31" required></div>
+            <div class="a-champ"><label for="a-heure">Heure</label><input type="time" id="a-heure" name="heure"></div>
+          </div>
+          <label class="a-case"><input type="checkbox" id="a-sans-heure"> Je ne connais pas mon heure de naissance</label>
+          <div class="a-champ" style="margin-top:.8rem"><label for="a-lieu">Lieu de naissance</label><input type="text" id="a-lieu" name="lieu" placeholder="Commence à taper ta ville" role="combobox" aria-expanded="false" aria-controls="a-sugg" aria-autocomplete="list"><ul class="a-sugg" id="a-sugg" role="listbox" hidden></ul><small id="a-lieu-info">Nécessaire pour l'ascendant et les maisons.</small></div>
+          <button class="btn btn-plein" type="submit">Découvrir mon thème</button>
+          <p class="a-erreur" role="alert" id="a-erreur"></p>
+          <p class="a-mini">Le calcul se fait sur ton appareil. Seul le nom de la ville que tu tapes est envoyé à un service de cartographie (Open-Meteo) pour trouver ses coordonnées.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc a-res" id="resultat" hidden aria-live="polite"></section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur a-texte">
+        <h2>Comment est calculé ton thème</h2>
+        <p>Ton thème astral représente la position du Soleil, de la Lune et des planètes dans le zodiaque au moment et au lieu exacts de ta naissance. Les positions sont calculées avec une précision de l'ordre de la seconde d'arc grâce à un moteur astronomique reconnu, et le fuseau horaire de l'époque (heure d'été, heures de guerre) est pris en compte.</p>
+        <h3>L'ascendant et les maisons</h3>
+        <p>L'ascendant est le signe qui se levait à l'horizon est à l'instant de ta naissance. Il change environ toutes les deux heures : c'est pourquoi il faut l'heure et le lieu. Les douze maisons, calculées ici selon le système de Placidus, le plus utilisé, partagent le ciel en domaines de vie.</p>
+        <h3>Astrologie et histoire familiale</h3>
+        <p>La Lune évoque symboliquement la mère, le Soleil le père, Saturne les règles et les ancêtres, la maison 4 les racines, les nœuds lunaires l'héritage et la direction. Comparer les thèmes d'une famille fait souvent apparaître des signes qui reviennent, ou des éléments qui manquent sur plusieurs générations.</p>
+        <p class="note">L'astrologie propose une lecture symbolique, pour réfléchir à toi et à ton histoire. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/astronomy.browser.min.js"></script>
+  <script src="assets/astrologie.js"></script>
+  <script src="assets/astrologie-textes.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var AS = window.Astrologie, T = window.ASTRO_TEXTES, CLE = 'genesolia-astro';
+    var f = document.getElementById('a-form'), err = document.getElementById('a-erreur'), zone = document.getElementById('resultat');
+    var lieuIn = document.getElementById('a-lieu'), sugg = document.getElementById('a-sugg'), info = document.getElementById('a-lieu-info');
+    var lieu = null, minuteur = null, resultats = [];
+    var NOMS_P = { soleil: 'Soleil', lune: 'Lune', mercure: 'Mercure', venus: 'Vénus', mars: 'Mars', jupiter: 'Jupiter', saturne: 'Saturne', uranus: 'Uranus', neptune: 'Neptune', pluton: 'Pluton', noeud: 'Nœud Nord' };
+    var ABR = { soleil: 'So', lune: 'Lu', mercure: 'Me', venus: 'Vé', mars: 'Ma', jupiter: 'Ju', saturne: 'Sa', uranus: 'Ur', neptune: 'Ne', pluton: 'Pl', noeud: 'NN' };
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function S(s) { return T.SIGNES[s].nom; }
+    function enS(s) { var n = S(s); return (/^[AEIOUÉ]/.test(n) ? 'en ' : 'en ') + n; }
+
+    /* ───── Lieu de naissance (Open-Meteo) ───── */
+    function chercher(q) {
+      fetch('https://geocoding-api.open-meteo.com/v1/search?count=6&language=fr&format=json&name=' + encodeURIComponent(q))
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          resultats = (d && d.results) || [];
+          if (!resultats.length) { sugg.hidden = true; lieuIn.setAttribute('aria-expanded', 'false'); return; }
+          sugg.innerHTML = resultats.map(function (x, i) { return '<li role="option" data-i="' + i + '">' + esc(x.name) + '<small>' + esc([x.admin1, x.country].filter(Boolean).join(', ')) + '</small></li>'; }).join('');
+          sugg.hidden = false; lieuIn.setAttribute('aria-expanded', 'true');
+        }).catch(function () { sugg.hidden = true; });
+    }
+    function choisir(i) {
+      var x = resultats[i]; if (!x) return;
+      lieu = { nom: x.name + (x.country_code && x.country_code !== 'FR' ? ', ' + x.country : ''), lat: x.latitude, lon: x.longitude, tz: x.timezone };
+      lieuIn.value = x.name + (x.admin1 ? ' (' + x.admin1 + ')' : '');
+      info.className = 'a-lieu-ok'; info.textContent = 'Lieu trouvé : ' + x.latitude.toFixed(2) + '°, ' + x.longitude.toFixed(2) + '° · fuseau ' + x.timezone;
+      sugg.hidden = true; lieuIn.setAttribute('aria-expanded', 'false');
+    }
+    lieuIn.addEventListener('input', function () {
+      lieu = null; info.className = ''; info.textContent = "Choisis ta ville dans la liste.";
+      clearTimeout(minuteur); var q = lieuIn.value.trim();
+      if (q.length < 2) { sugg.hidden = true; return; }
+      minuteur = setTimeout(function () { chercher(q); }, 280);
+    });
+    sugg.addEventListener('mousedown', function (e) { var li = e.target.closest('li'); if (li) { e.preventDefault(); choisir(+li.getAttribute('data-i')); } });
+    lieuIn.addEventListener('keydown', function (e) {
+      if (sugg.hidden) return;
+      var items = sugg.querySelectorAll('li'), cur = Array.prototype.findIndex.call(items, function (li) { return li.getAttribute('aria-selected') === 'true'; });
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); cur = (cur + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length; items.forEach(function (li, i) { li.setAttribute('aria-selected', i === cur ? 'true' : 'false'); }); }
+      else if (e.key === 'Enter') { e.preventDefault(); choisir(cur >= 0 ? cur : 0); }
+      else if (e.key === 'Escape') { sugg.hidden = true; }
+    });
+    lieuIn.addEventListener('blur', function () { setTimeout(function () { sugg.hidden = true; }, 150); });
+    document.getElementById('a-sans-heure').addEventListener('change', function () { var h = document.getElementById('a-heure'); h.disabled = this.checked; if (this.checked) h.value = ''; });
+
+    /* ───── Roue ───── */
+    function roue(r) {
+      var cx = 200, cy = 200, R1 = 190, R2 = 158, R3 = 118, base = r.asc ? r.asc.lon : 0;
+      function pt(lon, rad) { var a = (180 + (lon - base)) * Math.PI / 180; return [cx + rad * Math.cos(a), cy - rad * Math.sin(a)]; }
+      var h = '<svg viewBox="0 0 400 400" role="img" aria-label="Roue de ton thème astral"><circle cx="200" cy="200" r="' + R1 + '" fill="#FFF9F7" stroke="#EBCFD5"/><circle cx="200" cy="200" r="' + R2 + '" fill="#fff" stroke="#EBCFD5"/><circle cx="200" cy="200" r="' + R3 + '" fill="#FFF9F7" stroke="#EBCFD5"/>';
+      var coul = { feu: '#D2793A', terre: '#8C6A3F', air: '#7A4FA0', eau: '#4F7CAC' };
+      for (var i = 0; i < 12; i++) {
+        var a = pt(i * 30, R1), b = pt(i * 30, R2), m = pt(i * 30 + 15, (R1 + R2) / 2), s = AS.SIGNES[i];
+        h += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '" stroke="#EBCFD5"/>';
+        h += '<text x="' + m[0] + '" y="' + (m[1] + 3.5) + '" text-anchor="middle" font-size="9.5" font-family="Nunito Sans,sans-serif" font-weight="600" fill="' + coul[AS.ELEMENT[s]] + '">' + T.SIGNES[s].nom.slice(0, 3).toUpperCase() + '</text>';
+      }
+      if (r.cuspides) for (var k = 1; k <= 12; k++) {
+        var c1 = pt(r.cuspides[k], R2), c2 = pt(r.cuspides[k], 26), axe = k === 1 || k === 10 || k === 4 || k === 7;
+        h += '<line x1="' + c1[0] + '" y1="' + c1[1] + '" x2="' + c2[0] + '" y2="' + c2[1] + '" stroke="' + (axe ? '#6B2F5B' : '#E3C9D3') + '" stroke-width="' + (axe ? 1.4 : .8) + '"/>';
+        var mid = r.cuspides[k] + (((r.cuspides[k % 12 + 1] - r.cuspides[k] + 360) % 360) / 2), nm = pt(mid, 36);
+        h += '<text x="' + nm[0] + '" y="' + (nm[1] + 3) + '" text-anchor="middle" font-size="8" fill="#8E6383" font-family="Nunito Sans,sans-serif">' + k + '</text>';
+      }
+      if (r.asc) { [['ASC', r.asc.lon], ['MC', r.mc.lon]].forEach(function (x) { var q = pt(x[1] + 4, R3 - 12); h += '<text x="' + q[0] + '" y="' + (q[1] + 3.5) + '" text-anchor="middle" font-size="9.5" font-weight="600" fill="#6B2F5B" font-family="Nunito Sans,sans-serif">' + x[0] + '</text>'; }); }
+      // planètes, écartées si trop proches
+      var pl = Object.keys(NOMS_P).map(function (k) { return { k: k, lon: r.planetes[k].lon, aff: r.planetes[k].lon }; }).sort(function (a, b) { return a.lon - b.lon; });
+      for (var it = 0; it < 6; it++) for (var j = 0; j < pl.length; j++) { var n = pl[(j + 1) % pl.length], d = (n.aff - pl[j].aff + 360) % 360; if (d < 9) { pl[j].aff -= (9 - d) / 2; n.aff += (9 - d) / 2; } }
+      pl.forEach(function (p) {
+        var e = pt(p.lon, R2), e2 = pt(p.lon, R2 - 7), q = pt(p.aff, R2 - 22);
+        h += '<line x1="' + e[0] + '" y1="' + e[1] + '" x2="' + e2[0] + '" y2="' + e2[1] + '" stroke="#6B2F5B"/>';
+        h += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="10" fill="' + (p.k === 'soleil' || p.k === 'lune' ? '#F3DCC0' : '#fff') + '" stroke="#B98A55" stroke-width=".8"/><text x="' + q[0] + '" y="' + (q[1] + 3.2) + '" text-anchor="middle" font-size="8.5" font-weight="600" fill="#6B2F5B" font-family="Nunito Sans,sans-serif">' + ABR[p.k] + '</text>';
+      });
+      return h + '</svg>';
+    }
+
+    /* ───── Affichage ───── */
+    function carte(etiq, signe, deg, texte, extra, cls) {
+      var Sg = T.SIGNES[signe];
+      return '<article class="a-carte' + (cls ? ' ' + cls : '') + '"><p class="a-etiq">' + etiq + '</p><h3>' + Sg.nom + '</h3><p class="deg">' + (deg != null ? AS.degres(deg) + ' · ' : '') + 'élément ' + Sg.element + ', signe ' + Sg.mode + '</p><div class="a-mots">' + Sg.mots.map(function (m) { return '<span>' + esc(m) + '</span>'; }).join('') + '</div><p>' + esc(texte) + '</p>' + (extra || '') + '</article>';
+    }
+    function dateFr(d) { var m = d.split('-'); return +m[2] + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+m[1] - 1] + ' ' + m[0]; }
+    function afficher(e, r) {
+      var P = r.planetes, h = '<div class="conteneur">', prenom = (e.prenom || '').trim();
+      h += '<div class="a-res-tete"><div><h2>Le thème ' + (prenom ? 'de <span>' + esc(prenom) + '</span>' : 'astral') + '</h2><p>Né·e le ' + dateFr(e.date) + (r.heureConnue ? ' à ' + e.heure.replace(':', ' h ') : '') + (e.lieu ? ' · ' + esc(e.lieu) : '') + '</p></div>' +
+        '<div class="actions a-actions"><button class="btn btn-trait" type="button" id="a-imprimer">Imprimer mon thème</button><button class="btn btn-trait" type="button" id="a-refaire">Refaire un thème</button></div></div>';
+      h += '<nav class="a-sommaire" aria-label="Dans ton thème"><a href="#a-trio">Soleil, Lune, ascendant</a><a href="#a-ciel">Ton ciel</a><a href="#a-planetes">Tes planètes</a><a href="#a-herit">Ton héritage</a><a href="#a-elem">Tes éléments</a>' + (r.cuspides ? '<a href="#a-maisons">Tes maisons</a>' : '') + '<a href="#a-lignee">Ta lignée</a></nav>';
+      if (!r.heureConnue) h += '<div class="a-alerte"><b>Sans heure de naissance.</b> ' + esc(T.INTRO.sans_heure) + (r.luneIncertaine ? ' Ce jour-là, la Lune a changé de signe : elle était ' + enS(r.luneIncertaine.avant) + ' puis ' + enS(r.luneIncertaine.apres) + '. Le texte ci-dessous est celui de midi.' : '') + '</div>';
+      else if (!r.asc) h += '<div class="a-alerte">Choisis ton lieu de naissance dans la liste pour obtenir ton ascendant et tes maisons.</div>';
+      h += '<h3 class="a-titre" id="a-trio">Ton Soleil, ta Lune, ton ascendant</h3><p class="a-sec-intro">' + esc(T.INTRO.theme) + '</p><div class="a-trio">' +
+        carte('Ton Soleil', P.soleil.signe, P.soleil.deg, T.SOLEIL[P.soleil.signe]) +
+        carte('Ta Lune' + (r.luneIncertaine ? ' (incertaine)' : ''), P.lune.signe, P.lune.deg, T.LUNE[P.lune.signe]) +
+        (r.asc ? carte('Ton ascendant', r.asc.signe, r.asc.deg, T.ASCENDANT[r.asc.signe]) : '<article class="a-carte vide"><p class="a-etiq">Ton ascendant</p><h3>À découvrir</h3><p>Il faut ton heure et ton lieu de naissance. Ton heure figure sur l\'acte de naissance intégral, que tu peux demander gratuitement à la mairie de ton lieu de naissance.</p></article>') + '</div>';
+      // ciel
+      h += '<h3 class="a-titre" id="a-ciel">Ton ciel de naissance</h3><div class="a-roue-zone"><div class="a-roue">' + roue(r) + '</div><table class="a-table"><thead><tr><th>Planète</th><th>Signe</th><th>Degré</th>' + (r.cuspides ? '<th>Maison</th>' : '') + '</tr></thead><tbody>' +
+        Object.keys(NOMS_P).map(function (k) { var p = P[k]; return '<tr><td>' + NOMS_P[k] + '</td><td>' + S(p.signe) + (p.retro && k !== 'noeud' ? '<span class="a-r" title="rétrograde">R</span>' : '') + '</td><td>' + AS.degres(p.deg) + '</td>' + (r.cuspides ? '<td>' + p.maison + '</td>' : '') + '</tr>'; }).join('') +
+        (r.asc ? '<tr><td>Ascendant</td><td>' + S(r.asc.signe) + '</td><td>' + AS.degres(r.asc.deg) + '</td><td>1</td></tr><tr><td>Milieu du Ciel</td><td>' + S(r.mc.signe) + '</td><td>' + AS.degres(r.mc.deg) + '</td><td>10</td></tr>' : '') + '</tbody></table></div>';
+      // planètes personnelles
+      h += '<h3 class="a-titre" id="a-planetes">Tes planètes</h3><div class="a-grille">' + ['mercure', 'venus', 'mars', 'jupiter'].map(function (k) {
+        return '<article class="a-carte"><p class="a-etiq">' + NOMS_P[k] + ' ' + enS(P[k].signe) + (P[k].maison ? ' · maison ' + P[k].maison : '') + '</p><h3 style="font-size:1.2rem">' + esc(T.PLANETES[k].role.charAt(0).toUpperCase() + T.PLANETES[k].role.slice(1)) + '</h3><p>' + esc(T[k.toUpperCase()][P[k].signe]) + '</p></article>';
+      }).join('') + '</div>';
+      h += '<p class="a-sec-intro" style="margin-top:1.2rem">Les planètes lentes marquent toute une génération : tu les partages avec les personnes nées à quelques années de toi.</p><div class="a-grille">' + ['uranus', 'neptune', 'pluton'].map(function (k) {
+        return '<article class="a-carte"><p class="a-etiq">' + NOMS_P[k] + ' ' + enS(P[k].signe) + '</p><p>' + esc(T.GENERATIONNELLES[k][P[k].signe]) + '</p></article>';
+      }).join('') + '</div>';
+      // héritage
+      var m4 = r.cuspides ? Object.keys(NOMS_P).filter(function (k) { return P[k].maison === 4; }) : [];
+      h += '<h3 class="a-titre" id="a-herit">Ton héritage familial dans ton thème</h3><p class="a-sec-intro">Certaines parties du thème parlent symboliquement de la famille : la Lune et la mère, le Soleil et le père, Saturne et les règles reçues, les nœuds lunaires et ce que tu as hérité, la maison 4 et tes racines.</p><div class="a-herit">' +
+        '<article class="a-carte"><p class="a-etiq">Lune ' + enS(P.lune.signe) + ' · la mère</p><p>' + esc(T.PLANETES.lune.famille) + '</p><p class="a-famille">' + esc((T.LUNE[P.lune.signe].match(/[^.!?]+[.!?]\s*$/) || [''])[0]) + '</p></article>' +
+        '<article class="a-carte"><p class="a-etiq">Soleil ' + enS(P.soleil.signe) + ' · le père</p><p>' + esc(T.PLANETES.soleil.famille) + '</p><p class="a-famille">' + esc((T.SOLEIL[P.soleil.signe].match(/[^.!?]+[.!?]\s*$/) || [''])[0]) + '</p></article>' +
+        '<article class="a-carte"><p class="a-etiq">Saturne ' + enS(P.saturne.signe) + (P.saturne.maison ? ' · maison ' + P.saturne.maison : '') + ' · la loi familiale</p><p>' + esc(T.SATURNE[P.saturne.signe]) + '</p></article>' +
+        '<article class="a-carte"><p class="a-etiq">Nœud Nord ' + enS(P.noeud.signe) + ' · Nœud Sud ' + enS(r.noeudSud.signe) + '</p><p>' + esc(T.NOEUD[P.noeud.signe]) + '</p></article>' +
+        (r.cuspides ? '<article class="a-carte" style="grid-column:1/-1"><p class="a-etiq">Maison 4 ' + enS(AS.signeDe(r.cuspides[4])) + ' · tes racines</p><p>' + esc(T.MAISONS['4'].texte) + '</p><p class="a-famille">' + (m4.length ? 'Dans ta maison 4 : ' + m4.map(function (k) { return NOMS_P[k]; }).join(', ') + '. Ces planètes colorent ta relation à ta famille et à tes origines.' : 'Aucune planète en maison 4 : regarde le signe ' + esc(S(AS.signeDe(r.cuspides[4]))) + ', qui donne la couleur de tes racines.') + '</p></article>' : '') + '</div>';
+      // éléments
+      var tot = 0; Object.keys(r.elements).forEach(function (k) { tot += r.elements[k]; });
+      var ED = T.ELEMENTS[r.elementDominant];
+      h += '<h3 class="a-titre" id="a-elem">Tes éléments</h3><div class="a-elements"><div><ul class="a-barres">' + ['feu', 'terre', 'air', 'eau'].map(function (k) { var pc = Math.round(r.elements[k] * 100 / tot); return '<li class="' + (k === r.elementDominant ? 'fort' : '') + '"><span>' + T.ELEMENTS[k].nom + '</span><i style="--p:' + pc + '%"></i><em>' + pc + ' %</em></li>'; }).join('') + '</ul>' +
+        '<p style="margin-top:1rem;font-size:.92rem"><b>Mode dominant : ' + esc(T.MODES[r.modeDominant].nom) + '.</b> ' + esc(T.MODES[r.modeDominant].texte) + '</p></div><div><p><b>' + esc(ED.nom) + ' domine.</b> ' + esc(ED.fort) + '</p>' +
+        r.elementsAbsents.map(function (k) { return '<p style="margin-top:.7rem"><b>' + esc(T.ELEMENTS[k].nom) + ' manque.</b> ' + esc(T.ELEMENTS[k].faible) + '</p>'; }).join('') + '</div></div>';
+      // maisons
+      if (r.cuspides) {
+        h += '<h3 class="a-titre" id="a-maisons">Tes maisons</h3><p class="a-sec-intro">Les douze maisons sont les domaines de ta vie. Le signe qui ouvre chaque maison et les planètes qui s\'y trouvent en donnent la couleur.</p><div class="a-maisons">';
+        for (var k = 1; k <= 12; k++) {
+          var dans = Object.keys(NOMS_P).filter(function (p) { return P[p].maison === k; }).map(function (p) { return NOMS_P[p]; });
+          h += '<details class="' + ([4, 8, 12].indexOf(k) >= 0 ? 'cle' : '') + '"' + (k === 4 ? ' open' : '') + '><summary>' + esc(T.MAISONS[String(k)].titre) + '<span>' + S(AS.signeDe(r.cuspides[k])) + (dans.length ? ' · ' + dans.join(', ') : '') + '</span></summary><p>' + esc(T.MAISONS[String(k)].texte) + '</p></details>';
+        }
+        h += '</div>';
+      }
+      h += '<div class="a-pont" id="a-lignee"><p class="a-sur">Et dans ta famille ?</p><h2>Ta Lune est-elle dans le signe du Soleil de ta mère ?</h2><p>' + esc(T.INTRO.lignee) + '</p>' +
+        '<ul><li>les signes qui reviennent d\'une génération à l\'autre ;</li><li>les liens entre ta Lune, ton Soleil et ceux de tes parents ;</li><li>l\'élément qui domine ta lignée, et celui qui lui manque.</li></ul><a class="btn btn-plein" href="genosociogramme.html?astrologie">Voir les signes de ma lignée</a></div>';
+      h += '<a class="a-bonus" href="mon-mois.html"><img src="assets/cercle/apercu-12-saisons.jpg" alt="" width="84" height="119" loading="lazy"><span><b>Les 12 saisons, le livret de l\'année</b>L\'histoire de chaque mois, les signes qui le traversent et ce qu\'il réveille dans les familles. Inclus dans le Cercle, avec ton mois personnel et un carnet à imprimer chaque mois.</span><em>Découvrir le Cercle</em></a>';
+      h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. L\'astrologie ne prédit pas l\'avenir.' + (r.systeme ? ' Maisons : système ' + r.systeme + '.' : '') + '</p></div>';
+      zone.innerHTML = h; zone.hidden = false;
+      document.getElementById('a-imprimer').addEventListener('click', function () { window.print(); });
+      document.getElementById('a-refaire').addEventListener('click', function () { f.reset(); lieu = null; info.className = ''; info.textContent = "Nécessaire pour l'ascendant et les maisons."; document.getElementById('a-heure').disabled = false; f.scrollIntoView({ behavior: 'smooth' }); });
+    }
+
+    function lancer(e) {
+      var r = AS.calculer({ date: e.date, heure: e.heure, lat: e.lat, lon: e.lon, tz: e.tz || 'Europe/Paris', lieu: e.lieu });
+      afficher(e, r);
+      try { localStorage.setItem(CLE, JSON.stringify(e)); } catch (x) {}
+    }
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var d = f.date.value, sansH = document.getElementById('a-sans-heure').checked, hr = sansH ? '' : f.heure.value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+      if (!sansH && !hr) { err.textContent = 'Indique ton heure de naissance, ou coche « Je ne connais pas mon heure ».'; f.heure.focus(); return; }
+      if (lieuIn.value.trim() && !lieu) { err.textContent = 'Choisis ton lieu de naissance dans la liste proposée.'; lieuIn.focus(); return; }
+      err.textContent = '';
+      var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
+      lancer(e);
+      if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
+      zone.scrollIntoView({ behavior: 'smooth' });
+    });
+    try {
+      var s = JSON.parse(localStorage.getItem(CLE) || 'null');
+      if (s && s.date) {
+        f.prenom.value = s.prenom || ''; f.date.value = s.date; f.heure.value = s.heure || '';
+        if (!s.heure) { document.getElementById('a-sans-heure').checked = true; f.heure.disabled = true; }
+        if (s.lieu) { lieu = { nom: s.lieu, lat: s.lat, lon: s.lon, tz: s.tz }; lieuIn.value = s.lieu; info.className = 'a-lieu-ok'; info.textContent = 'Lieu enregistré · fuseau ' + s.tz; }
+        lancer(s);
+      }
+    } catch (x) {}
+  })();
+  </script>
+</body>
+</html>
