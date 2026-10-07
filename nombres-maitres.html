@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nombres maîtres 11, 22, 33 : définition, calcul et signification · Genesolia</title>
+  <meta name="description" content="Nombres maîtres en numérologie : le 11, le 22 et le 33, comment savoir si tu en as un, les deux méthodes de calcul, leur fréquence et leur sens familial.">
+  <link rel="canonical" href="https://genesolia.fr/nombres-maitres.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Les nombres maîtres 11, 22 et 33 : définition, calcul et signification">
+  <meta property="og:description" content="Nombres maîtres en numérologie : le 11, le 22 et le 33, comment savoir si tu en as un, les deux méthodes de calcul, leur fréquence et leur sens familial.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .trois{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.6rem 0}
+    .trois a{display:block;padding:1.1rem 1.2rem;border:1px solid var(--rose);border-radius:16px;background:var(--blanc);text-decoration:none}
+    .trois a:hover{border-color:var(--prune)}
+    .trois b{display:block;font-family:var(--display);font-weight:400;font-size:2.2rem;line-height:1;color:var(--prune)}
+    .trois strong{display:block;margin-top:.4rem}
+    .trois span{display:block;margin-top:.2rem;color:var(--prune-doux);font-size:.93rem}
+    .tableau{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.95rem}
+    .tableau th,.tableau td{padding:.7rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau thead th{font-weight:600;color:var(--prune-doux);font-size:.88rem;border-top:0}
+    .defile{overflow-x:auto}
+    .calcul{margin:1.8rem 0;padding:1.6rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce);display:flex;flex-wrap:wrap;gap:.8rem;align-items:end}
+    .calcul label{display:grid;gap:.3rem;font-size:.92rem;color:var(--prune-doux)}
+    .calcul input{font:inherit;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--rose-fonce);background:var(--blanc);color:var(--prune)}
+    .calcul .resultat,.calcul .note{flex-basis:100%}
+    .resultat .chiffre{font-family:var(--display);font-size:3rem;line-height:1;color:var(--prune)}
+    @media (max-width:640px){.trois{grid-template-columns:1fr}}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Les nombres maîtres 11, 22 et 33 : définition, calcul et signification","description":"Nombres maîtres en numérologie : le 11, le 22 et le 33, comment savoir si tu en as un, les deux méthodes de calcul, leur fréquence et leur sens familial.","datePublished":"2026-10-07","dateModified":"2026-10-07","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/nombres-maitres.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/nombres-maitres.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quels sont les nombres maîtres en numérologie ?","acceptedAnswer":{"@type":"Answer","text":"Le 11, le 22 et le 33. On ne les réduit pas quand un calcul tombe sur eux. Certaines écoles ajoutent le 44, mais la tradition la plus répandue s'en tient à ces trois nombres."}},{"@type":"Question","name":"Comment calculer son nombre maître ?","acceptedAnswer":{"@type":"Answer","text":"Additionne tous les chiffres de ta date de naissance. Si le total, ou l'une de ses réductions, donne 11, 22 ou 33, tu as un chemin de vie maître. Les nombres maîtres peuvent aussi apparaître dans ton nom."}},{"@type":"Question","name":"Un nombre maître est-il plus rare ou plus important ?","acceptedAnswer":{"@type":"Answer","text":"Il n'est ni supérieur ni si rare : selon la méthode, entre une personne sur dix et une sur six, parmi celles nées de 1940 à 2010, a un chemin de vie maître. Il décrit une intensité, avec ses forces et ses défis, et se vit aussi à travers sa réduction."}}]}]</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="theme-numerologique.html">Numérologie</a><span aria-hidden="true">/</span>Nombres maîtres</nav>
+        <h1>Les nombres maîtres 11, 22 et 33 : définition, calcul et signification</h1>
+        <p class="intro">En numérologie, on réduit presque tous les nombres à un seul chiffre. Trois font exception : le 11, le 22 et le 33. On les appelle les nombres maîtres. Voici ce qu'ils signifient, comment savoir si tu en portes un, et ce qu'il faut savoir avant de t'y attacher.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 7 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce qu'un nombre maître ?</h2>
+        <p>En numérologie, on additionne les chiffres d'une date ou les valeurs des lettres d'un nom, puis on réduit le total jusqu'à obtenir un nombre de 1 à 9. Quand le calcul passe par 11, 22 ou 33, la plupart des numérologues s'arrêtent : ces nombres sont gardés tels quels, et appelés nombres maîtres.</p>
+        <p>On leur prête une intensité particulière : celle du chiffre qu'ils répètent, doublée. Le 11 amplifie la sensibilité du 1, le 22 la construction du 2 et du 4, le 33 le don du 3 et du 6. Ils sont aussi décrits comme plus exigeants à vivre : une promesse, et une pression.</p>
+        <p class="rappel"><strong>Un nombre maître n'est pas un grade.</strong> Avoir un 11 dans son thème ne rend ni meilleur·e, ni plus avancé·e. C'est une couleur, avec ses forces et ses défis, et chaque nombre maître se vit aussi à travers sa réduction : le 11 comme un 2, le 22 comme un 4, le 33 comme un 6.</p>
+
+        <h2>Les trois nombres maîtres</h2>
+        <div class="trois">
+          <a href="nombre-maitre-11.html"><b>11</b><strong>L'inspiration</strong><span>Intuition, vision, sensibilité. Il se vit aussi comme un 2.</span></a>
+          <a href="nombre-maitre-22.html"><b>22</b><strong>Le grand bâtisseur</strong><span>Vision, construction, utilité. Il se vit aussi comme un 4.</span></a>
+          <a href="nombre-maitre-33.html"><b>33</b><strong>Le don</strong><span>Bienveillance, transmission, amour. Il se vit aussi comme un 6.</span></a>
+        </div>
+
+        <h2 id="calcul">Comment savoir si tu as un nombre maître</h2>
+        <p>Le plus souvent, on cherche un nombre maître dans le chemin de vie, calculé avec la date de naissance. Sur Genesolia, on additionne tous les chiffres de la date, puis on réduit en s'arrêtant si l'on tombe sur 11, 22 ou 33.</p>
+        <ul class="gestes">
+          <li>Née le 30 mars 1985 : 3 + 0 + 0 + 3 + 1 + 9 + 8 + 5 = 29, puis 2 + 9 = <strong>11</strong>.</li>
+          <li>Né le 10 mars 1980 : 1 + 0 + 0 + 3 + 1 + 9 + 8 + 0 = <strong>22</strong>.</li>
+          <li>Née le 22 décembre 1979 : 2 + 2 + 1 + 2 + 1 + 9 + 7 + 9 = <strong>33</strong>.</li>
+        </ul>
+        <form class="calcul" id="calcul-maitre">
+          <label>Ta date de naissance<input type="date" id="nm-date" required min="1900-01-01" max="2030-12-31"></label>
+          <button class="btn btn-plein" type="submit">Voir mon chemin de vie</button>
+          <div class="resultat" id="nm-resultat" aria-live="polite" hidden></div>
+          <p class="note">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+        </form>
+        <p>Les nombres maîtres peuvent aussi apparaître ailleurs dans un thème : le nombre d'expression (toutes les lettres de tes prénoms et de ton nom), le nombre intime (les voyelles), le jour de naissance (un 11 ou un 22 du mois). Ton <a href="theme-numerologique.html">thème numérologique complet</a> les repère tous.</p>
+
+        <h2>Deux méthodes, deux résultats</h2>
+        <p>Il existe une autre façon de calculer le chemin de vie : réduire séparément le jour, le mois et l'année, puis additionner les trois. Pour beaucoup de dates, les deux méthodes donnent le même chiffre. Mais pas toujours pour les nombres maîtres, et cela change leur fréquence.</p>
+        <p>Nous avons compté, pour toutes les dates de naissance de 1940 à 2010, la part de chemins de vie maîtres selon chaque méthode :</p>
+        <div class="defile">
+        <table class="tableau">
+          <thead><tr><th scope="col">Chemin de vie</th><th scope="col">Tous les chiffres additionnés (Genesolia)</th><th scope="col">Jour, mois et année réduits à part</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">11</th><td>9,5 %</td><td>6,5 %</td></tr>
+            <tr><th scope="row">22</th><td>2,3 %</td><td>3,0 %</td></tr>
+            <tr><th scope="row">33</th><td>5,8 %</td><td>0,9 %</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>On lit souvent que le 33 est très rare : c'est vrai avec la seconde méthode, beaucoup moins avec la première. Aucune méthode n'est « la bonne ». Si tes deux calculs diffèrent, lis les deux nombres et garde ce qui te parle.</p>
+
+        <h2>Et le 44 ?</h2>
+        <p>Certain·es numérologues ajoutent le 44, voire d'autres nombres doubles. La tradition la plus répandue s'en tient à 11, 22 et 33. Sur Genesolia, nous ne gardons que ces trois-là.</p>
+
+        <h2>Les nombres maîtres dans une lignée</h2>
+        <p>Calculer les nombres de toute une famille fait parfois apparaître des échos : un 11 chez une grand-mère et chez sa petite-fille, un 22 qui revient chez les bâtisseurs de la famille, un 33 chez celles et ceux qui ont toujours veillé sur les autres. Dans ton <a href="genosociogramme.html?numerologie">arbre familial</a>, l'outil affiche le chemin de vie de chacun·e et repère ceux qui reviennent.</p>
+        <p>Ce n'est pas une preuve de transmission : c'est une autre façon de regarder ta famille, et de te demander ce que vous partagez.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Quels sont les nombres maîtres en numérologie ?</dt><dd>Le 11, le 22 et le 33. On ne les réduit pas quand un calcul tombe sur eux. Certaines écoles ajoutent le 44, mais la tradition la plus répandue s'en tient à ces trois nombres.</dd>
+          <dt>Comment calculer son nombre maître ?</dt><dd>Additionne tous les chiffres de ta date de naissance. Si le total, ou l'une de ses réductions, donne 11, 22 ou 33, tu as un chemin de vie maître. Les nombres maîtres peuvent aussi apparaître dans ton nom.</dd>
+          <dt>Un nombre maître est-il plus rare ou plus important ?</dt><dd>Il n'est ni supérieur ni si rare : selon la méthode, entre une personne sur dix et une sur six, parmi celles nées de 1940 à 2010, a un chemin de vie maître. Il décrit une intensité, avec ses forces et ses défis, et se vit aussi à travers sa réduction.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="theme-numerologique.html">Calculer mon thème complet</a>
+          <a class="btn btn-trait" href="nombre-maitre-11.html">Le nombre maître 11</a>
+        </div>
+
+        <p class="note-fin">La numérologie propose une lecture symbolique, pour réfléchir à ton histoire. Elle ne prédit pas l'avenir et ne remplace pas un avis professionnel.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="nombres-maitres.html" aria-current="page">Les nombres maîtres</a><a href="nombre-maitre-11.html">Le 11</a><a href="nombre-maitre-22.html">Le 22</a><a href="nombre-maitre-33.html">Le 33</a><a href="annee-personnelle-2027.html">Année personnelle 2027</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, nombre intime, nombre héréditaire : tous tes nombres, gratuitement.</p></a>
+          <a class="outil" href="genosociogramme.html?numerologie"><h3>Ta lignée en nombres</h3><p>Les nombres de chaque membre de ta famille, et ceux qui reviennent d'une génération à l'autre.</p></a>
+          <a class="outil" href="annee-personnelle-2027.html"><h3>Ton année personnelle 2027</h3><p>Calcule ton année et découvre ce qu'elle t'invite à vivre.</p></a>
+          <a class="outil" href="ton-prenom.html"><h3>Ce que porte ton prénom</h3><p>Son origine, son nombre et sa place sur l'arbre de vie.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script>
+  (function () {
+    var N = window.Numerologie, f = document.getElementById('calcul-maitre'), out = document.getElementById('nm-resultat');
+    var PAGE = { 11: 'nombre-maitre-11.html', 22: 'nombre-maitre-22.html', 33: 'nombre-maitre-33.html' };
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = document.getElementById('nm-date').value; if (!d) return;
+      var c = d.replace(/\D/g, '').split(''), total = c.reduce(function (a, x) { return a + +x; }, 0), n = N.reduire(total, true);
+      var t = N.NOMBRES[n], etapes = c.join(' + ') + ' = ' + total, x = total;
+      while (x > 9 && [11, 22, 33].indexOf(x) < 0) { var y = String(x).split('').reduce(function (a, k) { return a + +k; }, 0); etapes += ', puis ' + String(x).split('').join(' + ') + ' = ' + y; x = y; }
+      out.hidden = false;
+      out.innerHTML = '<p class="chiffre">' + n + '</p><p><strong>Chemin de vie ' + n + (t ? ' · ' + t.nom : '') + '</strong></p><p>' + etapes + '.</p>' +
+        (PAGE[n] ? '<p style="margin-top:.8rem">C\'est un nombre maître. <a href="' + PAGE[n] + '">Lire tout sur le ' + n + '</a>.</p>' : '<p style="margin-top:.8rem">Ce n\'est pas un nombre maître. Ton <a href="theme-numerologique.html">thème complet</a> peut en contenir ailleurs, dans ton nom.</p>');
+    });
+  })();
+  </script>
+</body>
+</html>
