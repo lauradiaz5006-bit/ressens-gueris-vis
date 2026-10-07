@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thème numérologique gratuit : chemin de vie, expression et nombre héréditaire · Genesolia</title>
-  <meta name="description" content="Calcule gratuitement ton thème numérologique : chemin de vie, nombre d'expression, nombre intime, réalisation, maturité, année personnelle, et ton nombre héréditaire pour relier ton thème à ta lignée.">
+  <meta name="description" content="Calcule gratuitement ton thème numérologique complet : chemin de vie, expression, nombre intime, cycles de vie, réalisations, défis, dettes karmiques, année personnelle et nombre héréditaire pour relier ton thème à ta lignée.">
   <link rel="canonical" href="https://genesolia.fr/theme-numerologique.html">
   <meta property="og:title" content="Ton thème numérologique gratuit, relié à ton histoire familiale">
   <meta property="og:description" content="Chemin de vie, expression, nombre héréditaire, année personnelle : ton thème complet, puis les nombres de toute ta lignée.">
@@ -117,23 +117,64 @@
     .n-texte th,.n-texte td{border-bottom:1px solid var(--rose);padding:.45rem .6rem;text-align:center}
     .n-texte th{background:var(--rose);font-weight:600}
 
+    .n-sommaire{display:flex;flex-wrap:wrap;gap:.4rem;margin:-.6rem 0 2rem}
+    .n-sommaire a{font-size:.86rem;text-decoration:none;border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem .8rem;background:var(--blanc)}
+    .n-sommaire a:hover{border-color:var(--prune)}
+    .n-titre-sec{font-size:1.75rem;margin:2.4rem 0 1rem;scroll-margin-top:5rem}
+    .n-sec-intro{color:var(--prune-doux);margin:-.4rem 0 1.2rem;max-width:44rem}
+    .n-jour{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--rose);font-size:.93rem}
+    .n-ici{position:absolute;top:-.7rem;right:1rem;background:var(--prune);color:#fff;border-radius:999px;padding:.15rem .7rem;font:600 .72rem/1.5 var(--texte)}
+    .n-cycles{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1rem}
+    .n-cycles>div{position:relative;padding:1.1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose);font-size:.93rem;line-height:1.5}
+    .n-cycles>div.ici,.n-periodes li.ici{border:1.5px solid var(--prune);box-shadow:0 12px 30px rgba(107,47,91,.10)}
+    .n-periodes{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1rem}
+    .n-periodes li{position:relative;display:flex;flex-direction:column;padding:1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose);font-size:.92rem;line-height:1.5}
+    .n-periodes li.ici,.n-cycles>div.ici{padding-top:1.5rem}
+    .n-per-haut{display:flex;align-items:center;gap:.7rem;margin:.2rem 0 .6rem}
+    .n-per-haut .n-num{width:3rem;height:3rem;font-size:1.4rem}
+    .n-per-haut h4{font-family:var(--display);font-weight:400;font-size:1.15rem;line-height:1.2}
+    .n-per-haut h4 small{display:block;font:400 .8rem/1.3 var(--texte);color:var(--prune-doux)}
+    .n-per-defi{margin-top:auto;padding-top:.7rem;font-size:.86rem;color:var(--prune-doux)}
+    .n-per-defi b{color:#B5485C}
+    .n-defi-principal{padding:1.4rem 1.6rem;border-radius:18px;background:#FCEFF3;border:1px solid #F1D3DC;margin-bottom:1rem}
+    .n-defi-principal .n-etiq{color:#B5485C}
+    .n-defi-principal h3{font-size:1.4rem;margin-bottom:.3rem}
+    .n-defi-principal p{margin-bottom:.4rem}
+    .n-appr{display:grid;gap:.8rem;margin-bottom:1rem}
+    .n-appr article{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start;padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .n-appr-n{width:3.6rem;height:3.6rem;border-radius:14px;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;color:var(--prune);background:var(--rose)}
+    .n-appr h4{font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.2rem}
+    .n-plans{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;padding:1.8rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);margin-bottom:1.6rem}
+    .n-plans h3{font-size:1.35rem;margin-bottom:.4rem}
+    .n-plans ul{list-style:none;display:grid;gap:.7rem}
+    .n-plans li{display:grid;grid-template-columns:1fr 3rem;gap:.2rem .6rem;align-items:center;font-size:.88rem}
+    .n-plans li span{grid-column:1/3;color:var(--prune-doux)}
+    .n-plans li span b{color:var(--prune);font-weight:600;margin-right:.3rem}
+    .n-plans li i{height:.55rem;border-radius:99px;background:linear-gradient(90deg,var(--champagne) var(--p),var(--rose) var(--p))}
+    .n-plans li.fort i{background:linear-gradient(90deg,var(--prune) var(--p),var(--rose) var(--p))}
+    .n-plans li em{font-style:normal;font-weight:600;text-align:right}
+    @media (max-width:980px){.n-periodes{grid-template-columns:1fr 1fr}}
     @media (max-width:900px){
       .n-tete .conteneur{grid-template-columns:1fr;gap:2rem}
       .n-annee{grid-template-columns:1fr}
       .n-inclusion{grid-template-columns:1fr}
+      .n-cycles,.n-plans{grid-template-columns:1fr}
     }
     @media (max-width:620px){
       .n-principal{grid-template-columns:1fr;padding:1.4rem}
       .n-principal .n-num{width:5.5rem;height:5.5rem;font-size:2.6rem}
       .n-fd{grid-template-columns:1fr}
       .n-grille{grid-template-columns:1fr}
+      .n-periodes{grid-template-columns:1fr}
+      .n-appr article{grid-template-columns:1fr;gap:.6rem}
       .n-pont{padding:2rem 1.4rem}
       .n-form{padding:1.4rem}
     }
     @media print{
       header,footer,.n-tete,.n-pont,.n-outils,.n-texte,.annonce,.bandeau-info{display:none!important}
       body.nouveau{background:#fff}
-      .n-principal,.n-carte,.n-annee>div,.n-inclusion{break-inside:avoid}
+      .n-principal,.n-carte,.n-annee>div,.n-inclusion,.n-periodes li,.n-cycles>div,.n-appr article,.n-plans,.n-defi-principal{break-inside:avoid}
+      .n-sommaire{display:none}
       .n-an{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
   </style>
@@ -185,6 +226,7 @@
         </table>
         <h3>Les nombres de ton thème</h3>
         <p><b>Le chemin de vie</b> vient de ta date de naissance. <b>Le nombre d'expression</b> vient de toutes les lettres de tes prénoms et de ton nom, <b>le nombre intime</b> des voyelles, <b>le nombre de réalisation</b> des consonnes. <b>Le nombre de maturité</b> réunit ton chemin de vie et ton expression. <b>Ton année personnelle</b> se calcule avec ton jour et ton mois de naissance et l'année en cours.</p>
+        <p><b>Le nombre actif</b> vient de ton premier prénom, et <b>le jour de naissance</b> du jour où tu es né·e. <b>Les trois cycles de vie</b> viennent de ton mois, de ton jour et de ton année de naissance. <b>Les quatre réalisations</b> et <b>leurs défis</b> combinent ces trois éléments : la première se termine à 36 ans moins ton chemin de vie, les suivantes durent neuf ans. <b>Les nombres d'apprentissage</b> (13, 14, 16 et 19, appelés aussi dettes karmiques) apparaissent quand un calcul passe par l'un d'eux. <b>Les quatre plans</b> (mental, physique, émotionnel, intuitif) répartissent les lettres de ton nom selon leur nature.</p>
         <h3>Numérologie et histoire familiale</h3>
         <p>Ton nom de naissance te relie à ta lignée : il donne <b>ton nombre héréditaire</b>. Et quand on calcule les nombres de toute une famille, des échos apparaissent : le même chemin de vie chez une mère et sa fille, un nombre qui revient sur trois générations, un autre qui n'apparaît jamais. C'est une autre façon de regarder ce qui se transmet.</p>
         <p class="note">La numérologie propose une lecture symbolique, pour réfléchir à ton histoire. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
@@ -206,10 +248,11 @@
     }
     function mots(n) { return '<div class="n-mots">' + N.NOMBRES[n].mots.map(function (m) { return '<span>' + m + '</span>'; }).join('') + '</div>'; }
     function fd(n) { var t = N.NOMBRES[n]; return '<div class="n-fd"><div class="n-force"><b>Ta force</b>' + t.force + '</div><div class="n-defi"><b>Ton défi</b>' + t.defi + '</div></div>'; }
-    function carte(pos, n, lignee) {
+    function carte(pos, n, lignee, sansFd) {
+      if (!n) return '';
       var P = N.POSITIONS[pos], T = N.NOMBRES[n];
       return '<article class="n-carte' + (lignee ? ' lignee' : '') + '"><div class="n-carte-haut">' + num(n) + '<h3>' + P.titre + '<small>' + n + ' · ' + T.nom + '</small></h3></div>' +
-        '<p class="n-intro">' + P.intro + '</p><p>' + T.essence + '</p>' + (lignee ? '<p class="n-famille">' + T.famille + '</p>' : '') + fd(n) + '</article>';
+        '<p class="n-intro">' + P.intro + '</p><p>' + N.texte(pos, n) + '</p>' + (sansFd ? '' : fd(n)) + '</article>';
     }
     function dateFr(d) { var m = d.split('-'); return +m[2] + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+m[1] - 1] + ' ' + m[0]; }
 
@@ -219,22 +262,60 @@
       var auj = new Date(), moisNom = auj.toLocaleDateString('fr-FR', { month: 'long' });
       var C = N.NOMBRES[t.chemin], A = N.ANNEES[t.annee];
       var h = '<div class="conteneur">';
-      h += '<div class="n-res-tete"><div><h2>Le thème de <span>' + esc(prenom) + '</span></h2><p>Né·e le ' + dateFr(t.date) + '</p>' +
+      h += '<div class="n-res-tete"><div><h2>Le thème de <span>' + esc(prenom) + '</span></h2><p>Né·e le ' + dateFr(t.date) + (t.age != null ? ' · ' + t.age + ' ans' : '') + '</p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + t.chemin + '</b></span><span>Expression <b>' + t.expression + '</b></span><span>Héréditaire <b>' + t.hereditaire + '</b></span><span>Année ' + auj.getFullYear() + ' <b>' + t.annee + '</b></span></div></div>' +
         '<div class="actions"><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer mon thème</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
+      h += '<nav class="n-sommaire" aria-label="Dans ton thème"><a href="#n-nombres">Tes nombres</a><a href="#n-temps">Ton année</a><a href="#n-periodes">Tes grandes périodes</a>' + (t.dettes.length ? '<a href="#n-appr">Tes apprentissages</a>' : '') + '<a href="#n-nom">Ton nom</a><a href="#n-lignee">Ta lignée</a></nav>';
+
+      h += '<h3 class="n-titre-sec" id="n-nombres">Tes nombres principaux</h3>';
       h += '<article class="n-principal">' + num(t.chemin) + '<div><p class="n-etiq">' + N.POSITIONS.chemin.titre + '</p><h3>' + t.chemin + ' · ' + C.nom + '</h3>' + mots(t.chemin) +
-        '<p class="n-intro">' + N.POSITIONS.chemin.intro + '</p><p>' + C.essence + '</p>' + fd(t.chemin) + '</div></article>';
-      h += '<div class="n-grille">' + carte('expression', t.expression) + carte('intime', t.intime) + carte('realisation', t.realisation) + carte('maturite', t.maturite) + carte('hereditaire', t.hereditaire, true) + '</div>';
+        '<p class="n-intro">' + N.POSITIONS.chemin.intro + '</p><p>' + N.texte('chemin', t.chemin) + '</p>' + fd(t.chemin) + '</div></article>';
+      h += '<div class="n-grille">' + carte('expression', t.expression) + carte('intime', t.intime) + carte('realisation', t.realisation) + carte('maturite', t.maturite) + carte('hereditaire', t.hereditaire, true) + carte('actif', t.actif) + carte('jour', t.jour, false, true) + '</div>';
+
+      h += '<h3 class="n-titre-sec" id="n-temps">Ce que tu traverses en ce moment</h3>';
       h += '<div class="n-annee"><div class="n-an"><p class="n-etiq">Ton année personnelle ' + auj.getFullYear() + '</p><h3>' + t.annee + ' · ' + A.titre + '</h3><p>' + A.texte + '</p><p class="piste"><b>Ta piste :</b> ' + A.piste + '</p></div>' +
-        '<div class="n-mois"><p class="n-etiq">Ton mois personnel</p><div class="n-big">' + t.mois + '</div><h3>En ' + moisNom + '</h3><p>' + N.MOIS[t.mois] + '</p></div></div>';
+        '<div class="n-mois"><p class="n-etiq">Ton mois personnel</p><div class="n-big">' + t.mois + '</div><h3>En ' + moisNom + '</h3><p>' + N.MOIS[t.mois] + '</p>' +
+        '<p class="n-jour"><b>Aujourd\'hui, jour ' + t.journee + ' :</b> ' + N.JOURNEES[t.journee] + '</p></div></div>';
+
+      // Grandes périodes
+      var pa = t.periodeActuelle;
+      h += '<h3 class="n-titre-sec" id="n-periodes">Tes grandes périodes</h3><p class="n-sec-intro">' + N.PERIODES.intro + '</p>';
+      h += '<div class="n-cycles">' + t.cycles.map(function (c, i) {
+        var ici = t.cycleActuel === c;
+        return '<div class="' + (ici ? 'ici' : '') + '"><p class="n-etiq">' + N.CYCLES.noms[i] + ' · ' + N.ages(c.de, c.a) + '</p><p><b>Cycle ' + c.n + '</b> · ' + N.CYCLES[c.n] + '</p>' + (ici ? '<span class="n-ici">Tu es ici</span>' : '') + '</div>';
+      }).join('') + '</div>';
+      h += '<ol class="n-periodes">' + t.periodes.map(function (p, i) {
+        var ici = pa && pa.index === i;
+        return '<li class="' + (ici ? 'ici' : '') + '">' + (ici ? '<span class="n-ici">Tu es ici</span>' : '') + '<p class="n-etiq">Période ' + (i + 1) + ' · ' + N.ages(p.de, p.a) + '</p>' +
+          '<div class="n-per-haut">' + num(p.n) + '<h4>Réalisation ' + p.n + '<small>' + N.NOMBRES[p.n].nom + '</small></h4></div><p>' + N.PERIODES[p.n] + '</p><p class="n-per-defi"><b>Défi ' + p.defi + '</b> · ' + N.DEFIS[p.defi].replace(/^Le défi [^:]+: /, '') + '</p></li>';
+      }).join('') + '</ol>';
+      h += '<div class="n-defi-principal"><p class="n-etiq">Ton défi principal</p><h3>Défi ' + t.defiPrincipal + '</h3><p>' + N.DEFIS[t.defiPrincipal] + '</p><p class="n-intro" style="margin:0">' + N.DEFIS.intro + '</p></div>';
+
+      // Apprentissages
+      if (t.dettes.length) {
+        var vus = {};
+        h += '<h3 class="n-titre-sec" id="n-appr">Tes nombres d\'apprentissage</h3><p class="n-sec-intro">' + N.APPRENTISSAGES.intro + '</p><div class="n-appr">' +
+          t.dettes.filter(function (d) { if (vus[d.n]) return false; vus[d.n] = 1; return true; }).map(function (d) {
+            var ou = t.dettes.filter(function (x) { return x.n === d.n; }).map(function (x) { return N.OU[x.ou]; });
+            var T = N.APPRENTISSAGES[d.n];
+            return '<article><div class="n-appr-n">' + d.n + '</div><div><h4>' + T.titre + '</h4><p class="n-intro" style="margin-bottom:.4rem">Apparaît dans ' + ou.join(' et ') + '.</p><p>' + T.texte + '</p></div></article>';
+          }).join('') + '</div>';
+      }
+
+      // Le nom : grille + plans
       var g = t.grille, cases = '';
       for (var k = 1; k <= 9; k++) cases += '<div class="' + (!g[k] ? 'vide' : (t.dominants.indexOf(k) >= 0 ? 'fort' : '')) + '"><b>' + k + '</b><span>' + (g[k] ? '× ' + g[k] : 'absent') + '</span></div>';
+      h += '<h3 class="n-titre-sec" id="n-nom">Ce que dit ton nom</h3>';
       h += '<div class="n-inclusion"><div class="n-case3" role="img" aria-label="Grille des lettres de ton nom">' + cases + '</div><div><h3>Les nombres de ton nom</h3>' +
         '<p>Chaque lettre de ton nom complet correspond à un nombre. Ceux qui reviennent le plus colorent ta personnalité' + (t.dominants.length ? ' : chez toi, le <b>' + t.dominants.join('</b> et le <b>') + '</b> (' + t.dominants.map(function (d) { return N.NOMBRES[d].mots[0]; }).join(', ') + ')' : '') + '.</p>' +
         (t.absents.length ? '<p style="margin-top:.6rem">Les nombres absents indiquent des qualités à développer au fil de ta vie, des apprentissages plutôt que des manques :</p><ul>' + t.absents.map(function (a) { return '<li><b>' + a + '</b> · ' + N.ABSENTS[a] + '</li>'; }).join('') + '</ul>' : '<p style="margin-top:.6rem">Tous les nombres de 1 à 9 sont présents dans ton nom : un signe d\'équilibre.</p>') + '</div></div>';
-      h += '<div class="n-pont"><p class="n-etiq" style="color:var(--champagne-clair)">Et dans ta famille ?</p><h2>Ta mère, ta grand-mère, ton père ont-ils le même chemin de vie que toi ?</h2>' +
+      var totalL = 0; Object.keys(t.plans).forEach(function (c) { totalL += t.plans[c]; });
+      h += '<div class="n-plans"><div><h3>Tes quatre plans</h3><p class="n-intro">Les lettres de ton nom se répartissent entre quatre façons de vivre les choses. Le plan le plus fort montre comment tu fonctionnes en premier.</p><p><b>' + N.PLANS[t.planDominant].nom + ' :</b> ' + N.PLANS[t.planDominant].texte + '</p></div><ul>' +
+        Object.keys(N.PLANS).map(function (c) { var pc = totalL ? Math.round(t.plans[c] * 100 / totalL) : 0; return '<li class="' + (c === t.planDominant ? 'fort' : '') + '"><span><b>' + N.PLANS[c].nom + '</b> ' + N.PLANS[c].theme + '</span><i style="--p:' + pc + '%"></i><em>' + pc + ' %</em></li>'; }).join('') + '</ul></div>';
+
+      h += '<div class="n-pont" id="n-lignee"><p class="n-etiq" style="color:var(--champagne-clair)">Et dans ta famille ?</p><h2>Ta mère, ta grand-mère, ton père ont-ils le même chemin de vie que toi ?</h2>' +
         '<p>Ton nombre héréditaire, le ' + t.hereditaire + ', te relie à ta lignée. En ajoutant ta famille dans ton arbre, l\'outil calcule les nombres de chacun·e et te montre les échos :</p>' +
-        '<ul><li>les chemins de vie qui se répètent d\'une génération à l\'autre ;</li><li>les nombres qui reviennent dans la lignée, et ceux qui n\'y apparaissent jamais ;</li><li>les personnes qui traversent la même année personnelle que toi.</li></ul>' +
+        '<ul><li>les chemins de vie qui se répètent d\'une génération à l\'autre ;</li><li>qui, dans ta famille, traversait la même grande période que toi à ton âge, et ce qu\'il ou elle a vécu alors ;</li><li>les nombres d\'apprentissage partagés, et les nombres absents de la lignée.</li></ul>' +
         '<a class="btn btn-plein" href="genosociogramme.html?numerologie">Calculer les nombres de ma lignée</a></div>';
       h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. La numérologie ne prédit pas l\'avenir.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
