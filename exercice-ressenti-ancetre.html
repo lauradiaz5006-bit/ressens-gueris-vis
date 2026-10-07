@@ -74,7 +74,8 @@
         <nav class="fil" aria-label="Fil d'Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>Ce que je porte d'un ancêtre</nav>
         <h1>Ce que je ressens, ce qu'il ou elle a vécu</h1>
         <p class="intro">Tu n'as pas besoin d'enquêter sur la vie de cet ancêtre. Pars de ce que tu ressens, toi, aujourd'hui. Puis demande-toi simplement si cela ressemble à ce qu'il ou elle a vécu. Ce que tu sais, une phrase entendue, une intuition suffisent.</p>
-        <p class="note" style="margin-top:1rem">Environ 15 minutes. Rien n'est envoyé : tes réponses restent sur ton appareil.</p>
+        <p class="note" style="margin-top:1rem">Environ 15 minutes, en une ou plusieurs fois : tes réponses sont gardées sur ton appareil, rien n'est envoyé.</p>
+        <p class="note pas-imprimer" id="mes-exercices" hidden></p>
       </div>
     </section>
 
@@ -132,10 +133,12 @@
         </label>
 
         <div class="actions pas-imprimer">
-          <button class="btn btn-plein" type="button" id="imprimer">Imprimer ou enregistrer en PDF</button>
+          <button class="btn btn-plein" type="button" id="terminer">J’ai terminé cet exercice</button>
+          <button class="btn btn-trait" type="button" id="imprimer">Imprimer ou enregistrer en PDF</button>
           <a class="btn btn-trait" href="genosociogramme.html">Revenir à mon arbre</a>
           <button class="btn btn-trait" type="button" id="effacer">Recommencer</button>
         </div>
+        <p class="note" id="fini" aria-live="polite"></p>
         <p class="rappel" style="margin-top:2.4rem"><strong>Une lecture symbolique.</strong> Une ressemblance n'est pas une preuve : elle ouvre une question. Si cet exercice remue des choses lourdes, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
         <p class="pas-imprimer">Pour aller plus loin : <a href="blessures-de-l-ame.html">les 5 blessures de l'âme</a>, <a href="syndrome-du-gisant.html">le syndrome du gisant</a>, <a href="methode.html">la méthode des deux cycles</a>.</p>
       </div>
@@ -145,7 +148,7 @@
   <script src="assets/site.js"></script>
   <script>
   (function () {
-    var CLE = 'genesolia-exercice-ancetre';
+    var CLE = 'genesolia-exercices';   // un exercice par ancêtre : { cle: { ancetre, lien, …, statut } }
     var B = {
       rejet: ['la blessure de rejet', 'blessure-de-rejet.html', 'du rejet'],
       abandon: ['la blessure d’abandon', 'blessure-d-abandon.html', 'de l’abandon'],
@@ -167,14 +170,31 @@
     var REP = [['oui', 'Oui'], ['crois', 'Je crois'], ['sais-pas', 'Je ne sais pas'], ['non', 'Non']];
     var $ = function (id) { return document.getElementById(id); };
     var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-    var E = { ancetre: '', lien: '', coches: {}, autres: {}, rep: {}, notes: {}, garde: '', rends: '', verite: '', geste: '' };
-    function sauver() { try { localStorage.setItem(CLE, JSON.stringify(E)); } catch (e) {} }
-    try { var r = localStorage.getItem(CLE); if (r) E = Object.assign(E, JSON.parse(r)); } catch (e) {}
-    var q = new URLSearchParams(location.search);
-    if (q.get('ancetre')) {
-      if (q.get('ancetre') !== E.ancetre) { E = { ancetre: q.get('ancetre'), lien: q.get('lien') || '', coches: E.coches || {}, autres: E.autres || {}, rep: {}, notes: {}, garde: '', rends: '', verite: E.verite || '', geste: '' }; }
-      else if (q.get('lien')) E.lien = q.get('lien');
+    function norm(t) { return String(t || '').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+    function vierge(a, l) { return { ancetre: a || '', lien: l || '', coches: {}, autres: {}, rep: {}, notes: {}, garde: '', rends: '', verite: '', geste: '', statut: '' }; }
+    var TOUS = {};
+    try { TOUS = JSON.parse(localStorage.getItem(CLE) || '{}') || {}; } catch (e) { TOUS = {}; }
+    try { var ancien = JSON.parse(localStorage.getItem('genesolia-exercice-ancetre') || 'null'); if (ancien && ancien.ancetre && !TOUS[norm(ancien.ancetre)]) { ancien.statut = 'commence'; TOUS[norm(ancien.ancetre)] = ancien; } localStorage.removeItem('genesolia-exercice-ancetre'); } catch (e) {}
+    var q = new URLSearchParams(location.search), cle = q.get('ancetre') ? norm(q.get('ancetre')) : (TOUS._dernier || '');
+    var E = Object.assign(vierge(q.get('ancetre'), q.get('lien')), cle && TOUS[cle] ? TOUS[cle] : {});
+    if (q.get('lien')) E.lien = q.get('lien');
+    function sauver() {
+      var k = norm(E.ancetre);
+      if (cle && cle !== k) delete TOUS[cle];   // le prénom a été modifié
+      cle = k;
+      var commence = Object.keys(E.coches).length || Object.keys(E.rep).length || Object.keys(E.autres).some(function (i) { return (E.autres[i] || []).length; });
+      if (E.statut !== 'fait') E.statut = commence ? 'commence' : '';
+      if (k) { TOUS[k] = E; TOUS._dernier = k; }
+      try { localStorage.setItem(CLE, JSON.stringify(TOUS)); } catch (e) {}
+      autres();
     }
+    function autres() {
+      var l = Object.keys(TOUS).filter(function (k) { return k !== '_dernier' && k !== cle && TOUS[k] && TOUS[k].ancetre; });
+      var z = $('mes-exercices'); if (!z) return;
+      z.hidden = !l.length;
+      z.innerHTML = l.length ? 'Tes autres exercices : ' + l.map(function (k) { var x = TOUS[k]; return '<a href="exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(x.ancetre) + '&amp;lien=' + encodeURIComponent(x.lien || '') + '">' + esc(x.ancetre) + '</a> (' + (x.statut === 'fait' ? 'fait' : x.statut === 'commence' ? 'commencé' : 'à faire') + ')'; }).join(', ') + '.' : '';
+    }
+    function majFin() { $('fini').textContent = E.statut === 'fait' ? 'Exercice terminé. Tu peux le relire ou le compléter quand tu veux.' : ''; $('terminer').textContent = E.statut === 'fait' ? 'Marquer comme à reprendre' : 'J’ai terminé cet exercice'; }
     // Ancêtres de l'arbre familial, pour la liste de choix
     try { var a = JSON.parse(localStorage.getItem('geno4') || 'null'); if (a && a.people) $('liste-ancetres').innerHTML = Object.keys(a.people).map(function (id) { var p = a.people[id]; var n = ((p.prenom || '') + ' ' + (p.nom || '')).trim(); return n && p.role !== 'moi' ? '<option value="' + esc(n) + '">' : ''; }).join(''); } catch (e) {}
 
@@ -244,8 +264,9 @@
     $('questions').addEventListener('change', function (e) { if (e.target.dataset.rep) { E.rep[e.target.dataset.rep] = e.target.value; sauver(); rendreSynthese(); } });
     $('questions').addEventListener('input', function (e) { if (e.target.dataset.note) { E.notes[e.target.dataset.note] = e.target.value; sauver(); rendreSynthese(); } });
     $('imprimer').addEventListener('click', function () { window.print(); });
-    $('effacer').addEventListener('click', function () { if (confirm('Effacer cet exercice et recommencer ?')) { E = { ancetre: '', lien: '', coches: {}, autres: {}, rep: {}, notes: {}, garde: '', rends: '', verite: '', geste: '' }; sauver(); location.href = 'exercice-ressenti-ancetre.html'; } });
-    rendreDomaines(); tout();
+    $('effacer').addEventListener('click', function () { if (confirm('Effacer cet exercice et recommencer ?')) { var a = E.ancetre, l = E.lien; delete TOUS[cle]; E = vierge(a, l); sauver(); rendreDomaines(); tout(); ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = ''; }); majFin(); } });
+    $('terminer').addEventListener('click', function () { E.statut = E.statut === 'fait' ? 'commence' : 'fait'; sauver(); majFin(); });
+    rendreDomaines(); tout(); autres(); majFin();
   })();
   </script>
 </body>

@@ -769,9 +769,23 @@
         (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
       return;
     }
-    z.innerHTML = reps.map(function (r, i) {
+    // Exercices « Ce que je ressens, ce qu'il ou elle a vécu » : ils s'accumulent ici, à faire quand on a le temps
+    var EXO = {}; try { EXO = JSON.parse(localStorage.getItem('genesolia-exercices') || '{}') || {}; } catch (e) { EXO = {}; }
+    function cleExo(a) { return norm(a); }
+    function lienExo(x) { return 'exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(x.a) + '&amp;lien=' + encodeURIComponent(x.l || ''); }
+    var aFaire = [], vus = {};
+    reps.forEach(function (r) { if (r.exo && !vus[cleExo(r.exo.a)]) { vus[cleExo(r.exo.a)] = 1; aFaire.push({ a: r.exo.a, l: r.exo.l, c: r.c }); } });
+    Object.keys(EXO).forEach(function (k) { if (!vus[k] && EXO[k] && EXO[k].ancetre) { vus[k] = 1; aFaire.push({ a: EXO[k].ancetre, l: EXO[k].lien, c: COUL.gisant }); } });
+    function statut(a) { var x = EXO[cleExo(a)]; return x && x.statut === 'fait' ? 'fait' : x && x.statut === 'commence' ? 'commence' : 'afaire'; }
+    var LIB = { afaire: 'À faire', commence: 'Commencé', fait: 'Fait' };
+    var restants = aFaire.filter(function (x) { return statut(x.a) !== 'fait'; }).length;
+    var blocExo = aFaire.length ? '<div class="exos"><p class="exos-titre">Tes exercices <span>' + (restants ? restants + ' à faire' : 'tous faits') + '</span></p>' +
+      '<p class="rep-aide">Continue ton arbre : les exercices t’attendent ici, à faire quand tu as le temps.</p>' +
+      aFaire.map(function (x) { var st = statut(x.a); return '<a class="exo exo-' + st + '" style="--c:' + x.c + '" href="' + lienExo(x) + '"><b>' + esc(x.a) + '</b><span class="exo-st">' + LIB[st] + '</span>' + (x.l ? '<small>' + esc(x.l) + '</small>' : '') + '</a>'; }).join('') + '</div>' : '';
+    z.innerHTML = blocExo + reps.map(function (r, i) {
+      var st = r.exo ? statut(r.exo.a) : null;
       return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>' +
-        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(r.exo.a) + '&amp;lien=' + encodeURIComponent(r.exo.l) + '">Faire l’exercice avec ' + esc(r.exo.a) + '</a>' : '');
+        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
 
@@ -1197,6 +1211,7 @@
   $('bt-panneau').addEventListener('click', function () { document.body.classList.toggle('panneau-ouvert'); });
   $('bt-replier').addEventListener('click', function () { document.body.classList.remove('panneau-ouvert'); });
   window.addEventListener('resize', placerActions);
+  window.addEventListener('pageshow', function (e) { if (e.persisted) dessiner(); });   // retour depuis un exercice : mettre à jour les statuts
 
   $('bt-commencer').addEventListener('click', function () {
     memoriser();
