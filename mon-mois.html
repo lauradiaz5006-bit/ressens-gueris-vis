@@ -247,8 +247,12 @@
       if (anciens.length) h += '<p class="m-anciens">Tes carnets précédents : ' + anciens.map(function (k) { return '<a href="assets/cercle/' + CARNETS[k].fichier + '" download>' + nom(k) + ', ' + esc(CARNETS[k].titre) + '</a>'; }).join(' · ') + '</p>';
       return h;
     }
+    function blocBonus() {
+      return '<div class="m-carnet" style="margin-top:1rem;background:linear-gradient(120deg,#F7E6E8,var(--blanc))"><div><p class="m-etiq">Bonus du Cercle</p><h3>Les 12 saisons</h3><p>Le livret de l\'année : l\'histoire de chaque mois, son énergie, les signes qui le traversent et ce qu\'il réveille dans les familles. 27 pages à imprimer.</p></div>' +
+        '<a class="btn btn-trait" href="assets/cercle/les-12-saisons-c4709f2dad.pdf" download>Télécharger le livret (PDF)</a></div>';
+    }
     function complet(r) {
-      corps.innerHTML = blocNumero(r) + blocCarnets() + calendrier(r) + blocArbre(r) + piste(r) +
+      corps.innerHTML = blocNumero(r) + blocCarnets() + blocBonus() + calendrier(r) + blocArbre(r) + piste(r) +
         '<div class="m-actions"><button class="btn btn-trait" type="button" id="m-imprimer">Imprimer mon mois</button><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a><a class="btn btn-trait" href="theme-numerologique.html">Mon thème complet</a></div>' +
         '<p class="m-prochain">Ton mois ' + de(MOIS[M % 12]) + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
       document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
@@ -287,7 +291,7 @@
       var h = blocOffert() + blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
         '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2><p class="prix">' + CERCLE.prix + '</p><p>Sans engagement, tu arrêtes quand tu veux.</p><ul>' +
-        '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
+        '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>En bonus : le livret « Les 12 saisons », l\'histoire et l\'énergie de chaque mois</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
       var b = document.getElementById('m-offre-bt'); if (b && b.tagName === 'BUTTON') b.addEventListener('click', prevenir);

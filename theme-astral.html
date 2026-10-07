@@ -96,6 +96,12 @@
     .a-pont ul{margin:0 0 1.5rem 1.1rem;color:#F7E6EE;display:grid;gap:.3rem;max-width:38rem}
     .a-pont .btn-plein{background:var(--champagne-clair);color:var(--prune)}
     .a-texte h2{margin-bottom:.8rem}.a-texte h3{margin:1.6rem 0 .5rem}.a-texte p{margin-bottom:.8rem}
+    .a-bonus{display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;margin-top:1.2rem;padding:1.1rem 1.4rem;border-radius:18px;background:linear-gradient(120deg,#FFF6EC,var(--blanc));border:1.5px solid var(--champagne);text-decoration:none}
+    .a-bonus img{width:84px;height:auto;border-radius:4px;box-shadow:0 10px 24px rgba(46,19,56,.2)}
+    .a-bonus b{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.2rem}
+    .a-bonus span{font-size:.92rem;color:var(--prune-doux)}
+    .a-bonus em{font-style:normal;font-weight:600;background:var(--prune);color:#fff;border-radius:999px;padding:.6rem 1.1rem;white-space:nowrap}
+    @media (max-width:620px){.a-bonus{grid-template-columns:auto 1fr}.a-bonus em{grid-column:1/3;text-align:center}}
     @media (max-width:980px){.a-trio{grid-template-columns:1fr}.a-roue-zone,.a-herit,.a-elements{grid-template-columns:1fr}}
     @media (max-width:900px){.a-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
     @media (max-width:560px){.a-form{padding:1.4rem}.a-deux{grid-template-columns:1fr}.a-pont{padding:2rem 1.4rem}.a-table{font-size:.84rem}.a-table td,.a-table th{padding:.45rem .5rem}}
@@ -278,6 +284,7 @@
       }
       h += '<div class="a-pont" id="a-lignee"><p class="a-sur">Et dans ta famille ?</p><h2>Ta Lune est-elle dans le signe du Soleil de ta mère ?</h2><p>' + esc(T.INTRO.lignee) + '</p>' +
         '<ul><li>les signes qui reviennent d\'une génération à l\'autre ;</li><li>les liens entre ta Lune, ton Soleil et ceux de tes parents ;</li><li>l\'élément qui domine ta lignée, et celui qui lui manque.</li></ul><a class="btn btn-plein" href="genosociogramme.html?astrologie">Voir les signes de ma lignée</a></div>';
+      h += '<a class="a-bonus" href="mon-mois.html"><img src="assets/cercle/apercu-12-saisons.jpg" alt="" width="84" height="119" loading="lazy"><span><b>Les 12 saisons, le livret de l\'année</b>L\'histoire de chaque mois, les signes qui le traversent et ce qu\'il réveille dans les familles. Inclus dans le Cercle, avec ton mois personnel et un carnet à imprimer chaque mois.</span><em>Découvrir le Cercle</em></a>';
       h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. L\'astrologie ne prédit pas l\'avenir.' + (r.systeme ? ' Maisons : système ' + r.systeme + '.' : '') + '</p></div>';
       zone.innerHTML = h; zone.hidden = false;
       document.getElementById('a-imprimer').addEventListener('click', function () { window.print(); });
