@@ -46,6 +46,8 @@
   var plan = null;          // dernier placement calculé
   var pile = [];            // historique pour Annuler
   var minuteur = null;
+  var annexes = {};         // autres données du compte (ex. parcours guidé) à conserver
+  var enAttente = false, essais = 0;
 
   function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -691,20 +693,41 @@
   function textStatutRepos() {
     if (EXEMPLE) return '';
     if (utilisateur) return 'Enregistré dans ton espace';
-    return 'Enregistré dans ce navigateur · <a href="login.html">Me connecter</a>';
+    return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
+  }
+  function marquerSynchro(ok) { try { localStorage.setItem('geno4-synchro', ok ? 'ok' : 'attente'); } catch (e) {} }
+  function donneesCompte() { return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
+  function envoyer() {
+    clearTimeout(minuteur); minuteur = null;
+    if (!utilisateur || !sb) return;
+    enAttente = false;
+    statut('Enregistrement…');
+    sb.from('arbres').upsert({ user_id: utilisateur.id, data: donneesCompte(), updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
+      .then(function (r) {
+        if (r.error) throw r.error;
+        essais = 0; marquerSynchro(true); statut(textStatutRepos());
+      })
+      .catch(function () {
+        essais++; enAttente = true; marquerSynchro(false);
+        statut('Pas encore enregistré dans ton espace (connexion ?). Nouvel essai…');
+        minuteur = setTimeout(envoyer, Math.min(60000, 5000 * essais));
+      });
   }
   function enregistrer() {
     if (EXEMPLE) return;
     try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
-    clearTimeout(minuteur);
     if (!utilisateur || !sb) { statut(textStatutRepos()); return; }
+    enAttente = true; marquerSynchro(false);
+    clearTimeout(minuteur);
     statut('Enregistrement…');
-    minuteur = setTimeout(function () {
-      sb.from('arbres').upsert({ user_id: utilisateur.id, data: { people: S.people, rels: S.rels, nid: S.nid, v: 2 }, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
-        .then(function (r) { statut(r.error ? 'Pas de connexion : enregistré dans ce navigateur' : textStatutRepos()); })
-        .catch(function () { statut('Pas de connexion : enregistré dans ce navigateur'); });
-    }, 900);
+    minuteur = setTimeout(envoyer, 900);
   }
+  // Si on quitte la page juste après une modification, on envoie tout de suite
+  function envoyerSiBesoin() { if (enAttente && utilisateur) envoyer(); }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') envoyerSiBesoin(); });
+  window.addEventListener('pagehide', envoyerSiBesoin);
+  window.addEventListener('beforeunload', function (e) { if (enAttente && utilisateur) { envoyer(); e.preventDefault(); e.returnValue = ''; } });
+  window.addEventListener('online', envoyerSiBesoin);
   function charger(d) {
     d = d || {};
     S = { people: d.people || {}, rels: Array.isArray(d.rels) ? d.rels : [], nid: d.nid || 1 };
@@ -1184,10 +1207,35 @@
       setTimeout(function () { f.contentWindow.focus(); f.contentWindow.print(); setTimeout(function () { f.remove(); }, 1500); }, 350);
     });
   });
+  var versions = [];
+  function dateFr(d) { d = new Date(d); return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
+  function chargerVersions() {
+    var z = $('fs-versions'); if (!z) return;
+    if (!utilisateur || !sb) { z.innerHTML = ''; return; }
+    z.innerHTML = '<p class="rep-aide">Chargement des versions…</p>';
+    sb.from('arbres_versions').select('numero,data,enregistre_le').eq('user_id', utilisateur.id).order('numero', { ascending: false }).limit(30).then(function (r) {
+      if (r.error) { z.innerHTML = '<p class="rep-aide">Les versions précédentes n\u2019ont pas pu être chargées.</p>'; return; }
+      versions = r.data || [];
+      if (!versions.length) { z.innerHTML = '<p class="rep-aide">Aucune version précédente pour l\u2019instant. Une version est gardée au plus toutes les 5 minutes, et à chaque suppression.</p>'; return; }
+      z.innerHTML = '<div class="liste-versions">' + versions.map(function (v, i) {
+        var n = v.data && v.data.people ? Object.keys(v.data.people).length : 0;
+        return '<div class="lien"><span>' + dateFr(v.enregistre_le) + ' · <b>' + n + ' personne' + (n > 1 ? 's' : '') + '</b></span><button type="button" class="bt" data-version="' + i + '">Restaurer</button></div>';
+      }).join('') + '</div>';
+    });
+  }
+  $('fs-versions').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-version]'); if (!b) return;
+    var v = versions[+b.getAttribute('data-version')]; if (!v || !v.data) return;
+    if (!confirm('Remplacer ton arbre actuel par la version du ' + dateFr(v.enregistre_le) + ' ? Ton arbre actuel sera lui aussi gardé dans l\u2019historique.')) return;
+    memoriser(); charger(v.data); selId = null; repActive = null;
+    fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer(); envoyer();
+  });
   $('bt-sauve').addEventListener('click', function () {
-    $('fs-texte').textContent = utilisateur ? 'Ton arbre est enregistré dans ton espace : tu le retrouves sur n’importe quel ordinateur en te connectant.' : 'Ton arbre est enregistré dans ce navigateur, sur cet ordinateur. Pour le garder en sécurité ou le retrouver ailleurs, télécharge une copie ou connecte-toi.';
+    $('fs-texte').innerHTML = utilisateur ? 'Ton arbre est enregistré <b>dans ton espace</b> à chaque modification : tu le retrouves sur n\u2019importe quel ordinateur en te connectant. Les 30 dernières versions sont gardées.' : 'Ton arbre est enregistré <b>seulement dans ce navigateur</b>, sur cet ordinateur. Si tu vides ton navigateur ou changes d\u2019ordinateur, il sera perdu. Pour le garder en sécurité, connecte-toi ou télécharge une copie.';
     $('bt-compte').style.display = utilisateur ? 'none' : '';
+    $('fs-bloc-versions').style.display = utilisateur ? '' : 'none';
     ouvrir('fen-sauve');
+    chargerVersions();
   });
   $('bt-json').addEventListener('click', function () {
     if (arbreVide()) return;
@@ -1265,8 +1313,18 @@
       statut(textStatutRepos());
       return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (res) {
         if (res.error) return;
-        if (res.data && res.data.data && res.data.data.people && Object.keys(res.data.data.people).length) {
-          charger(res.data.data);
+        var dc = (res.data && res.data.data) || {};
+        annexes = {};
+        Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
+        if (dc.people && Object.keys(dc.people).length) {
+          var local = instantane();
+          if (Object.keys(S.people).length && JSON.stringify(dc.people) !== JSON.stringify(S.people)) {
+            // l'arbre de ce navigateur est différent : on le garde de côté (et « Annuler » permet d'y revenir)
+            try { localStorage.setItem('geno4-avant-connexion', local); } catch (e) {}
+            memoriser();
+          }
+          charger(dc);
+          marquerSynchro(true);
           try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
           selId = null; dessiner(); recentrer(); majBarreActions();
         } else if (Object.keys(S.people).length) {

@@ -131,6 +131,8 @@
     .bt.danger{color:#A23B4C;border-color:#E9C2C9}
     .bt.danger:hover{border-color:#A23B4C}
     .liste-cases{display:grid;gap:.1rem;margin:.2rem 0 .8rem}
+    .liste-versions{display:grid;gap:.35rem;max-height:260px;overflow-y:auto}
+    .liste-versions .bt{padding:.4rem .7rem;font-size:.78rem}
 
     /* Exemple */
     .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
@@ -347,8 +349,12 @@
           <button class="bt plein" type="button" id="bt-json" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
           <button class="bt" type="button" id="bt-ouvrir" style="justify-content:center;padding:.75rem">Ouvrir une copie</button>
           <button class="bt" type="button" id="bt-svg" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
-          <a class="bt" href="login.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
+          <a class="bt" href="login.html?retour=genosociogramme.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
           <button class="bt danger" type="button" id="bt-effacer" style="justify-content:center;padding:.75rem;margin-top:.6rem">Effacer l'arbre et recommencer</button>
+        </div>
+        <div id="fs-bloc-versions" style="display:none">
+          <h3 class="sous-titre">Versions précédentes</h3>
+          <div id="fs-versions"></div>
         </div>
         <input type="file" id="fichier" accept=".json,application/json" hidden>
       </div>
