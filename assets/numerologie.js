@@ -384,6 +384,19 @@
     9: "Un mois pour terminer, trier et alléger."
   };
 
+  /* Le mois personnel en détail (pour « Ton mois ») */
+  var MOIS_LONG = {
+    1: { titre: 'Un mois pour commencer', texte: "Ce mois ouvre un petit cycle. Ce que tu inities maintenant a de l'élan : une décision, une démarche, une première fois. Ne cherche pas la perfection, cherche le premier pas.", gestes: ["Note une chose que tu repousses depuis longtemps, et fais-en la première étape avant le 10.", "Prends une décision pour toi, sans demander l'avis de personne."], question: "Qu'as-tu envie de commencer pour toi, et pas pour faire plaisir ?" },
+    2: { titre: 'Un mois pour prendre le temps', texte: "Le rythme ralentit. Ce mois favorise l'écoute, les relations et la patience. Ce que tu as lancé a besoin de temps pour pousser : laisse faire, et prends soin des liens.", gestes: ["Appelle une personne de ta famille avec qui le lien s'est distendu.", "Avant de dire oui à une demande, prends une nuit pour sentir ce que tu veux vraiment."], question: "Dans quelle relation t'effaces-tu, et que se passerait-il si tu prenais un peu plus de place ?" },
+    3: { titre: "Un mois pour t'exprimer", texte: "Ce mois t'invite à dire, à créer, à partager. Ta parole a du poids : c'est le moment d'exprimer ce que tu gardes, avec douceur. Les rencontres et les sorties te font du bien.", gestes: ["Écris une lettre, que tu n'enverras pas forcément, à une personne de ta famille.", "Offre-toi une activité créative, même une heure."], question: "Quels mots n'ont jamais été dits dans ta famille, et lesquels as-tu envie de dire, toi ?" },
+    4: { titre: 'Un mois pour construire', texte: "Place au concret. Ce mois demande de l'organisation et de la régularité : ranger, planifier, avancer pas à pas. Les efforts de ce mois posent des bases pour les suivants.", gestes: ["Choisis un seul chantier et avance un peu chaque jour.", "Range un tiroir, une étagère ou un dossier qui pèse : l'ordre autour de toi aide l'ordre en toi."], question: "Qu'as-tu hérité de ta famille dans ton rapport au travail et à l'effort ?" },
+    5: { titre: 'Un mois de mouvement', texte: "Ça bouge : imprévus, rencontres, envies de changement. Ce mois t'invite à la souplesse. Accueille ce qui arrive au lieu de tout contrôler, et autorise-toi un peu d'aventure.", gestes: ["Fais une chose que tu n'as jamais faite : un trajet, un lieu, une activité.", "Quand un imprévu arrive, demande-toi ce qu'il t'ouvre plutôt que ce qu'il t'enlève."], question: "Dans ta famille, qui est parti et qui est resté ? De quel côté te sens-tu ?" },
+    6: { titre: 'Un mois pour ton foyer', texte: "La famille, le couple et la maison sont au centre. Ce mois t'invite à organiser ta vie autour de ce qui compte, et à regarder les responsabilités que tu portes.", gestes: ["Partage un repas ou un moment simple avec tes proches, sans écran.", "Rends une responsabilité qui ne t'appartient pas, même une petite."], question: "Quelle place as-tu prise dans ta famille, et l'as-tu choisie ?" },
+    7: { titre: 'Un mois pour te retrouver', texte: "Un mois plus intérieur. Le besoin de calme, de recul et de réflexion se fait sentir : écoute-le. C'est un moment idéal pour explorer ton histoire familiale et comprendre ce qui se répète.", gestes: ["Offre-toi un moment seul·e chaque semaine, sans rien à faire.", "Ouvre ton arbre et ajoutes-y une information que tu ne connaissais pas."], question: "Quel silence de ta famille aimerais-tu comprendre ?" },
+    8: { titre: 'Un mois pour agir', texte: "L'énergie se tourne vers l'action et le concret : travail, argent, projets. Ce mois soutient tes démarches importantes. Ose demander, négocier, décider.", gestes: ["Fais une démarche que tu repousses : une demande, un devis, un rendez-vous.", "Note la phrase sur l'argent que tu entendais le plus souvent dans ta famille."], question: "Quelle phrase sur l'argent ou la réussite entendais-tu enfant, et y crois-tu encore ?" },
+    9: { titre: 'Un mois pour alléger', texte: "Un petit cycle se termine. Ce mois t'invite à trier, à terminer, à pardonner, à laisser partir. Ce que tu libères maintenant fait de la place pour la suite.", gestes: ["Termine une chose restée en suspens, même petite.", "Donne ou jette trois objets qui appartiennent au passé."], question: "Que portes-tu encore pour quelqu'un d'autre dans ta famille ?" }
+  };
+
   var JOURNEES = {
     1: "Une journée pour commencer quelque chose.",
     2: "Une journée pour écouter et coopérer.",
@@ -414,5 +427,5 @@
 
   window.Numerologie = { theme: theme, periodeA: periodeA, anneePerso: anneePerso, reduire: reduire, base: base, lettres: lettres, ageA: ageA, texte: texte, ages: ages,
     NOMBRES: NOMBRES, POSITIONS: POSITIONS, TEXTES: TEXTES, CYCLES: CYCLES, PERIODES: PERIODES, DEFIS: DEFIS, APPRENTISSAGES: APPRENTISSAGES, OU: OU,
-    PLANS: PLANS, ANNEES: ANNEES, MOIS: MOIS, JOURNEES: JOURNEES, ABSENTS: ABSENTS };
+    PLANS: PLANS, ANNEES: ANNEES, MOIS: MOIS, MOIS_LONG: MOIS_LONG, JOURNEES: JOURNEES, ABSENTS: ABSENTS };
 })();
