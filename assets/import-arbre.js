@@ -547,7 +547,7 @@
         (liens.length ? '<span class="fi-info">' + esc(liens.join(' · ')) + '</span>' : '') +
         p.doutes.map(function (d) { return '<span class="fi-doute">À vérifier : ' + esc(d) + '</span>'; }).join('') + '</span></label>';
     });
-    h += '</div><p class="erreur" id="fi-erreur" role="alert"></p>';
+    h += '</div><p class="fi-aide" id="fi-limite" hidden></p><p class="erreur" id="fi-erreur" role="alert"></p>';
     $('fi-titre').textContent = 'Vérifie avant d’importer';
     $('fi-sous').textContent = nomFichier;
     $('fi-corps').innerHTML = h;
@@ -560,8 +560,32 @@
       $('fi-ok').textContent = 'Importer ' + n + ' personne' + (n > 1 ? 's' : '');
       $('fi-ok').disabled = !n;
     }
+    // Limite à 6 générations autour de toi : toi, tes parents… jusqu'à tes arrière-arrière-arrière-grands-parents (et 3 générations de descendants)
+    function limiter(moiId) {
+      var z = $('fi-limite'), dist = {}, file = [moiId]; dist[moiId] = 0;
+      if (!moiId || !par[moiId]) { z.hidden = true; return; }
+      while (file.length) {
+        var a = file.shift(), g = dist[a];
+        r.rels.forEach(function (x) {
+          var b = null, ng = g;
+          if (x.type === 'parent' && x.to === a) { b = x.from; ng = g + 1; }
+          else if (x.type === 'parent' && x.from === a) { b = x.to; ng = g - 1; }
+          else if ((x.type === 'couple' || x.type === 'fratrie') && (x.from === a || x.to === a)) b = x.from === a ? x.to : x.from;
+          if (b && dist[b] === undefined && ng <= 5 && ng >= -3) { dist[b] = ng; file.push(b); }
+        });
+      }
+      var n = 0;
+      document.querySelectorAll('[data-fi]').forEach(function (c) {
+        var dedans = dist[c.getAttribute('data-fi')] !== undefined;
+        c.checked = dedans; c.closest('.fi-ligne').classList.toggle('off', !dedans);
+        if (!dedans) n++;
+      });
+      z.hidden = !n;
+      z.innerHTML = n ? '<b>' + n + ' personne' + (n > 1 ? 's' : '') + ' décochée' + (n > 1 ? 's' : '') + '</b> : l’arbre est limité à 6 générations autour de toi, pour rester lisible. Tu peux en recocher si tu le souhaites.' : '';
+    }
     $('fi-corps').onchange = function (e) {
       if (e.target.matches('[data-fi]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
+      if (e.target.id === 'fi-moi') limiter(e.target.value === '-' ? '' : e.target.value);
       maj();
     };
     maj();
