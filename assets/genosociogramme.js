@@ -1328,6 +1328,7 @@
      Accès : table Supabase « acces_premium » (une ligne par compte, avec une date de fin).
      Tant que les liens de paiement sont vides, les boutons proposent d'être prévenue (Formspree). */
   var RAPPORT = {
+    offert: true,         // true : rapport offert à toute personne connectée ; false : offres payantes ci-dessous
     prix: '9 €', duree: '7 jours',
     abo: '5 € par mois',
     lienAchat: '',        // lien de paiement Stripe pour le rapport (9 €)
@@ -1348,6 +1349,7 @@
 
   function verifierAcces() {
     if (!sb || !utilisateur) return Promise.resolve(null);
+    if (RAPPORT.offert) return Promise.resolve({ offre: 'offert', valide_jusqu: '2999-12-31', libre: true });
     return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
       .then(function (r) { return (r && r.data && new Date(r.data.valide_jusqu) > new Date()) ? r.data : null; }, function () { return null; });
   }
@@ -1480,13 +1482,19 @@
     verifierAcces().then(function (acces) {
       accesRapport = acces;
       if (acces) {
-        corps.innerHTML = '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>' +
+        corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
           '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante pour garder ton rapport.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
         return;
       }
       var h = contenuApercu(reps);
+      if (RAPPORT.offert) {
+        h += '<div class="rap-offre rap-reco" style="margin-bottom:.9rem"><p class="rap-nom">Ton rapport complet, offert</p><p>Toutes les répétitions de ton arbre lues par cycle, les nombres et les étoiles de ta lignée, en PDF à garder. Il suffit d’un compte gratuit : il garde aussi ton arbre en sécurité sur tous tes appareils.</p>' +
+          '<a class="bt plein rap-gros" href="login.html?retour=genosociogramme.html">Créer mon compte et recevoir mon rapport</a></div>';
+        corps.innerHTML = h;
+        return;
+      }
       h += '<div class="rap-offres">' +
         '<div class="rap-offre"><p class="rap-prix">' + RAPPORT.prix + '</p><p class="rap-nom">Mon rapport</p><p>Ton rapport complet, et ' + RAPPORT.duree + ' pour compléter ton arbre et le régénérer autant de fois que tu veux.</p>' + boutonOffre('rapport') + '</div>' +
         '<div class="rap-offre rap-reco"><p class="rap-badge">Le plus complet</p><p class="rap-prix">' + RAPPORT.abo + '</p><p class="rap-nom">L’abonnement</p><p>Ton rapport mis à jour à chaque changement de ton arbre, et chaque mois, <a href="mon-mois.html?exemple" target="_blank">ton mois personnel et les dates de ton arbre</a>. Sans engagement.</p>' + boutonOffre('abonnement') + '</div>' +
@@ -1728,7 +1736,7 @@
   }
   function sousAstro(e) {
     var AT = window.ASTRO_TEXTES;
-    if (e.type === 'soleil' || e.type === 'lune') return AT.SIGNES[e.signe].mots.join(', ') + ' · ' + e.pers.map(nomCourt).join(', ').replace(/, ([^,]*)$/, ' et $1');
+    if (e.type === 'soleil' || e.type === 'lune') return AT.SIGNES[e.signe].mots.join(', ') + ' · ' + e.pers.map(nomAstro).join(', ').replace(/, ([^,]*)$/, ' et $1');
     if (e.type === 'croise') return AT.SIGNES[e.signe].nom + ' · ' + AT.SIGNES[e.signe].mots.join(', ');
     return 'Dans toute ta lignée';
   }

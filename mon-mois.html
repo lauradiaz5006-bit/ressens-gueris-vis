@@ -112,6 +112,7 @@
         <h1 id="m-titre">Ton mois</h1>
         <p class="intro" id="m-intro">Chaque mois, ton mois personnel en numérologie et les dates de ton arbre familial qui tombent ce mois-ci.</p>
         <div class="m-chips" id="m-chips"></div>
+        <p style="margin-top:1.2rem"><a class="btn btn-plein" href="mon-guide.html">Ouvrir mon guide du mois</a></p>
       </div>
     </section>
     <section class="m-zone"><div class="conteneur" id="m-corps"><p class="m-vide">Chargement de ton mois…</p></div></section>
@@ -124,6 +125,7 @@
   (function () {
     'use strict';
     var CERCLE = {
+      libre: true,                     /* true : Le Cercle offert à toute personne connectée ; false : abonnement payant */
       prix: '5 € par mois',
       offert: '2026-11',               /* le carnet offert contre un e-mail */
       lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
@@ -301,7 +303,7 @@
     function apercu(r) {
       var h = blocOffert() + blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
-        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2><p class="prix">' + CERCLE.prix + '</p><p>Sans engagement, tu arrêtes quand tu veux.</p><ul>' +
+        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2>' + (CERCLE.libre ? '<p class="prix">Offert</p><p>Avec ton compte gratuit.</p>' : '<p class="prix">' + CERCLE.prix + '</p>') + '<ul>' +
         '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>En bonus : le livret « Les 12 saisons », l\'histoire et l\'énergie de chaque mois</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
@@ -344,6 +346,7 @@
     }
     function verifierAcces() {
       if (!sb || !utilisateur) return Promise.resolve(false);
+      if (CERCLE.libre) return Promise.resolve(true);
       return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
         .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });
     }
