@@ -1,5 +1,14 @@
 /* Genesolia — éléments communs à toutes les pages.
    Le nom de la marque, le menu et le pied de page se modifient ICI, une seule fois. */
+/* Mesure d'audience anonyme et sans cookie (Umami) */
+(function () {
+  var s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://cloud.umami.is/script.js';
+  s.setAttribute('data-website-id', '5107e0ec-0aab-459d-8890-e040d9bb893e');
+  document.head.appendChild(s);
+})();
+
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
@@ -154,7 +163,7 @@
     b.setAttribute('role', 'region');
     b.setAttribute('aria-label', 'Information sur les données');
     b.innerHTML =
-      '<p>Aucun cookie publicitaire ni outil de mesure d\'audience. Tes réponses restent dans ton navigateur. Si tu crées un compte, tes sauvegardes sont stockées sur nos serveurs en Europe (Irlande). <a href="confidentialite.html">En savoir plus</a></p>' +
+      '<p>Aucun cookie publicitaire. Une mesure d\'audience anonyme et sans cookie (Umami) nous aide à améliorer le site. Tes réponses restent dans ton navigateur. Si tu crées un compte, tes sauvegardes sont stockées sur nos serveurs en Europe (Irlande). <a href="confidentialite.html">En savoir plus</a></p>' +
       '<button class="btn btn-plein" type="button">J\'ai compris</button>';
     b.querySelector('button').addEventListener('click', function () {
       b.classList.remove('visible');
