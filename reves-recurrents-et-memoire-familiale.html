@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rêves récurrents : ce que disait Jung et la mémoire familiale · Genesolia</title>
+  <meta name="description" content="Pourquoi un rêve revient-il ? Ce que Jung disait des rêves récurrents, comment ils évoluent, et la piste de la mémoire familiale, avec un exercice pas à pas.">
+  <link rel="canonical" href="https://genesolia.fr/reves-recurrents-et-memoire-familiale.html">
+  <meta property="og:title" content="Rêves récurrents et mémoire familiale : quand la nuit insiste">
+  <meta property="og:description" content="Pourquoi un rêve revient-il ? Ce que Jung disait des rêves récurrents, comment ils évoluent, et la piste de la mémoire familiale, avec un exercice pas à pas.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Rêves récurrents et mémoire familiale : quand la nuit insiste",
+  "description": "Pourquoi un rêve revient-il ? Ce que Jung disait des rêves récurrents, comment ils évoluent, et la piste de la mémoire familiale, avec un exercice pas à pas.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/reves-recurrents-et-memoire-familiale.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/reves-recurrents-et-memoire-familiale.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Rêves récurrents</nav>
+        <h1>Rêves récurrents et mémoire familiale : quand la nuit insiste</h1>
+        <p class="intro">Même lieu, même scène, même personnage : certains rêves reviennent nuit après nuit. Jung y voyait un message qui cherche à être entendu ; la psychogénéalogie y ajoute une question : et si ce rêve racontait aussi une histoire de famille ?</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 7 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Tu connais peut-être ce rêve qui revient. La même maison aux couloirs trop longs, le même train qui part sans toi, la même silhouette au bout d'une rue que tu n'as jamais vue éveillé·e. Tu te réveilles avec une impression familière : « encore lui ». Ces rêves-là méritent qu'on s'y arrête, parce qu'ils ont une qualité rare : ils insistent. Et ce qui insiste, dans une vie comme dans une famille, a souvent quelque chose à dire.</p>
+
+<h2>Le rêve qui revient : de quoi parle-t-on ?</h2>
+<p>On range sous le nom de rêve récurrent des expériences assez différentes. Il y a le rêve presque identique, rejoué scène après scène pendant des mois ou des années. Il y a le thème qui revient sous des costumes variés : tu es toujours en retard, mais tantôt pour un examen, tantôt pour un mariage. Il y a enfin le lieu récurrent, une maison, une forêt, une ville inventée où ton rêve te ramène nuit après nuit, parfois avec de nouvelles pièces à explorer.</p>
+<p>C'est une expérience très partagée. Des chercheurs de l'Université de Montréal, notamment Claudia Picard-Deland et Tore Nielsen, rappellent qu'environ deux tiers des adultes disent avoir connu des rêves récurrents à un moment de leur vie. Selon les travaux qu'ils résument, ces rêves apparaissent souvent dans des périodes tendues, ils ont fréquemment une tonalité pénible (être poursuivi·e, tomber, être perdu·e), et ils ont tendance à s'espacer ou à disparaître quand la personne a dénoué le conflit intérieur qui les accompagnait. La recherche contemporaine y voit donc, elle aussi, le signe de quelque chose de non résolu.</p>
+
+<h2>Ce que Jung disait des rêves récurrents</h2>
+<p>Carl Gustav Jung, fondateur de la psychologie analytique, a accordé une attention particulière à ces rêves. Dans son texte sur les symboles et l'interprétation des rêves (repris dans <em>L'Homme et ses symboles</em>), il propose plusieurs lectures. Un rêve qui revient compense souvent un déséquilibre de l'attitude consciente : il montre ce que la personne refuse de voir ou de vivre. Il peut aussi remonter à un moment marquant qui a laissé une empreinte durable, une sorte de pli pris dans la manière de sentir. Jung lui reconnaissait enfin une dimension tournée vers l'avant, ce qu'il appelait la fonction prospective : le rêve esquisse ce qui cherche à se développer en nous. Ce n'est pas une prédiction, c'est une orientation.</p>
+<p>On résume souvent sa pensée par une formule : un rêve récurrent est un message qui insiste tant qu'il n'est pas compris. Cette phrase n'est pas une citation littérale de Jung, mais elle traduit bien sa logique. Pour lui, l'inconscient compense la conscience ; si la conscience ne bouge pas, la compensation se répète. Il insistait d'ailleurs sur le fait qu'un rêve isolé dit peu de chose et qu'il faut lire les rêves en série. Dans <em>Psychologie et alchimie</em>, il étudie ainsi une longue suite de rêves d'un jeune scientifique (dont on sait aujourd'hui qu'il s'agissait du physicien Wolfgang Pauli) pour montrer comment les images se transforment d'un rêve à l'autre. Si tu veux approfondir ces notions de compensation, d'ombre et d'archétype, l'article <a href="jung-reves-archetypes.html">Jung et les rêves</a> les présente en détail.</p>
+
+<h2>Un rêve qui change quand tu changes</h2>
+<p>Un rêve récurrent est rarement figé. Si tu le notes avec attention, tu remarqueras souvent de petites variations, et ce sont elles qui racontent ton chemin. La silhouette qui te poursuivait s'arrête un jour à distance. La porte toujours fermée s'entrouvre. Dans la maison de ton rêve, tu découvres une pièce que tu n'avais jamais vue. Tu te retournes au lieu de fuir. Tu arrives enfin à la gare, même si le train est déjà parti.</p>
+<p>Ces glissements suivent souvent des mouvements de ta vie éveillée : une décision prise, une parole enfin dite, un deuil traversé, un lien qui se clarifie. Ce n'est pas mécanique, et il ne s'agit pas de « réussir » ton rêve. Mais observer la série permet de sentir que le rêve dialogue avec toi. Quand il disparaît, il n'est pas rare qu'on le regrette presque, comme un compagnon de route qui a terminé sa part du trajet.</p>
+<p class="rappel"><strong>Une variation compte autant qu'une répétition.</strong> Ce qui reste identique montre le nœud ; ce qui change montre le mouvement. Les deux méritent d'être notés.</p>
+
+<h2>La piste familiale : quand le rêve ressemble à une histoire jamais racontée</h2>
+<p>Dans ses souvenirs publiés sous le titre <em>Ma vie</em>, Jung écrit qu'il se sent sous l'influence de questions laissées inachevées et sans réponse par ses parents, ses grands-parents et des ancêtres plus lointains. Il évoque même une sorte de destin impersonnel qui passerait des parents aux enfants. La psychogénéalogie a prolongé cette intuition par d'autres chemins. Nicolas Abraham et Maria Torok ont décrit le « fantôme » : le travail, dans l'inconscient d'une personne, d'un secret qui appartient à quelqu'un d'autre de la lignée. Anne Ancelin Schützenberger, dans <em>Aïe, mes aïeux !</em>, a montré comment des événements, des dates et des situations semblent se répéter d'une génération à l'autre (voir notre page sur le <a href="syndrome-anniversaire.html">syndrome anniversaire</a>).</p>
+<p>Appliquée aux rêves récurrents, cette approche ouvre trois pistes, à manier avec beaucoup de prudence :</p>
+<ul class="pistes">
+<li><strong>Le rêve qui ressemble à une histoire de famille</strong><span>Un départ précipité, un enfant caché, une maison quittée en hâte, une noyade : parfois, en racontant ton rêve à un parent, tu vois son visage changer. Il arrive qu'un rêve rejoue, sans que tu le saches, un épisode dont on ne parlait pas.</span></li>
+<li><strong>Le rêve partagé par plusieurs membres d'une famille</strong><span>Deux sœurs qui rêvent toutes les deux d'un même puits, un père et sa fille hantés par une scène de guerre. Ces convergences existent dans les récits familiaux. Elles peuvent venir d'une mémoire commune, d'images entendues ensemble dans l'enfance, ou d'un non-dit qui pèse sur tout le monde.</span></li>
+<li><strong>Le lieu ou l'époque que tu ne connais pas</strong><span>Une ferme, un port, des vêtements d'un autre siècle, une langue que tu ne parles pas. Si ces décors ressemblent à ceux d'où viennent tes ancêtres, la ressemblance mérite d'être explorée, comme une question et non comme une preuve.</span></li>
+</ul>
+<p>Pourquoi tant de prudence ? Parce que l'esprit absorbe énormément sans s'en souvenir : une photo aperçue chez une grand-tante, une conversation surprise à six ans, un film, un livre d'histoire. Jung lui-même s'était intéressé très tôt à la cryptomnésie, ce phénomène par lequel on retrouve, sans le reconnaître, un souvenir oublié. Un rêve « ancestral » peut donc être fait de fragments bien réels de ta propre vie. Cela ne lui enlève rien : il dit quelque chose de ce que tu portes. Mais seule la vérification auprès de ta famille, des archives ou des papiers anciens permet de savoir si une histoire précise se cache derrière. Pour les rêves où apparaissent des personnes disparues, l'article <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a> prolonge cette réflexion.</p>
+
+<h2>Exercice : travailler ton rêve récurrent pas à pas</h2>
+<p>Cet exercice se fait sur plusieurs semaines. Il demande un carnet réservé à ce rêve et un peu de régularité. Tu peux le reprendre à n'importe quelle étape.</p>
+<ol class="exercice">
+<li><h3>Le noter à chaque fois</h3><p>Dès qu'il revient, écris-le au présent, avec la date, l'émotion dominante et trois mots sur ta journée de la veille. Ne résume pas en « encore le même rêve » : c'est justement dans les détails que se cachent les différences.</p></li>
+<li><h3>Repérer ce qui change</h3><p>Après trois ou quatre occurrences, relis-les côte à côte. Compare le lieu, les personnages, la lumière, ton rôle, la fin. Souligne ce qui reste toujours identique et entoure ce qui varie. Relie chaque variation à ce que tu vivais à cette période.</p></li>
+<li><h3>Dialoguer avec un personnage</h3><p>Choisis une figure du rêve, même un objet ou un animal. Écris-lui une question simple (« Que veux-tu ? », « Pourquoi reviens-tu ? ») et laisse venir une réponse par écrit, sans la corriger. Poursuis l'échange quelques lignes. Tu n'obtiens pas une vérité, tu ouvres une conversation.</p></li>
+<li><h3>Imaginer une autre fin pendant la journée</h3><p>Éveillé·e, au calme, rejoue mentalement le rêve et invente une autre suite : la porte s'ouvre, tu fais face à la silhouette, quelqu'un vient t'aider. Écris cette nouvelle version, puis revisite-la quelques minutes chaque jour pendant une à deux semaines. Cette méthode de répétition d'une nouvelle fin a été développée à partir de la fin des années 1980 par des chercheurs américains, dont Barry Krakow à l'Université du Nouveau-Mexique, et beaucoup de personnes constatent que le rêve se transforme ou s'apaise.</p></li>
+<li><h3>Observer les nuits suivantes</h3><p>Note si le rêve revient, s'il change, s'il garde des éléments de ta nouvelle fin. Ne cherche pas à le contrôler : contente-toi d'observer ce qui répond.</p></li>
+<li><h3>Poser la question de la lignée</h3><p>Demande-toi enfin : ce rêve ressemble-t-il à quelque chose qu'on raconte, ou qu'on ne raconte pas, dans ma famille ? Garde la réponse comme une hypothèse, que la partie suivante t'aide à explorer.</p></li>
+</ol>
+<p class="rappel"><strong>Si un rêve est très éprouvant</strong>, s'il revient au point de t'empêcher de dormir ou te laisse bouleversé·e pendant la journée, n'en porte pas seul·e le poids : parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+
+<h2>Relier le rêve à l'arbre familial</h2>
+<p>Pour passer de l'intuition à la vérification, l'outil le plus simple reste l'arbre. Dessine ou complète ton <a href="genosociogramme.html">génosociogramme</a> sur trois ou quatre générations, avec les dates, les lieux, les métiers, les départs et les pertes. Puis pose ton rêve à côté.</p>
+<ul class="facettes">
+<li><strong>Les lieux</strong><span>Le décor du rêve ressemble-t-il à une région, un paysage, un type de maison de tes ancêtres ? Regarde les photos anciennes, les cartes postales, les actes d'état civil.</span></li>
+<li><strong>Les dates</strong><span>Le rêve a-t-il commencé à un âge ou à une période qui fait écho à un événement familial (un décès, une émigration, une naissance) ? Note l'année de sa première apparition.</span></li>
+<li><strong>Les personnages</strong><span>La figure récurrente évoque-t-elle quelqu'un dont on parle peu : un oncle parti, une première épouse, un enfant mort jeune ?</span></li>
+<li><strong>Les émotions</strong><span>La peur, la honte ou la tristesse du rêve correspondent-elles à une émotion que ta famille évite ? Les non-dits laissent souvent une couleur émotionnelle plus qu'un récit.</span></li>
+</ul>
+<p>Ensuite, interroge les personnes qui savent encore. Raconte ton rêve simplement, sans annoncer de théorie, et écoute ce qu'il réveille. Notre page <a href="questions-a-poser-a-sa-famille.html">Questions à poser à sa famille</a> propose des façons douces d'ouvrir ces conversations. Reste attentif·ve à deux choses : la mémoire familiale est elle aussi faite de reconstructions, et chacun·e a le droit de ne pas tout dire. Si une histoire émerge, accueille-la comme une possibilité qui éclaire ton rêve, pas comme une explication définitive.</p>
+
+<h2>Ce qu'il faut garder en tête</h2>
+<p>Un rêve récurrent n'est ni une condamnation ni un présage. C'est une image qui revient frapper à la même porte, tantôt pour te montrer une part de toi que tu laisses de côté, tantôt, peut-être, pour faire remonter un fragment de l'histoire des tiens. Le noter, l'écouter, le laisser évoluer et le confronter patiemment à ce que ta famille peut te transmettre : c'est un travail lent, mais il transforme souvent la répétition en récit. Et un récit, à la différence d'une répétition, peut enfin avoir une suite.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Carl Gustav Jung (dir.), <em>L&#x27;Homme et ses symboles</em> (1964)</li><li>Carl Gustav Jung, <em>Ma vie. Souvenirs, rêves et pensées</em> (1962)</li><li>Carl Gustav Jung, <em>Psychologie et alchimie</em> (1944)</li><li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em></li><li>Nicolas Abraham et Maria Torok, <em>L&#x27;Écorce et le noyau</em> (1978)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li class="ici"><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h3><p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p></a><a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h3><p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p></a><a class="outil" href="journal-de-reves.html"><h3>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h3><p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

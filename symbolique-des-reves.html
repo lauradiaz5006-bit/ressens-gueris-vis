@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Symbolique des rêves : histoire, sens et première méthode · Genesolia</title>
+  <meta name="description" content="Symbolique des rêves : des tablettes de Mésopotamie à Jung et aux peuples autochtones, les grandes façons de lire un rêve et une méthode simple pour commencer.">
+  <link rel="canonical" href="https://genesolia.fr/symbolique-des-reves.html">
+  <meta property="og:title" content="La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours">
+  <meta property="og:description" content="Symbolique des rêves : des tablettes de Mésopotamie à Jung et aux peuples autochtones, les grandes façons de lire un rêve et une méthode simple pour commencer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "La symbolique des rêves, une langue que l'humanité parle depuis toujours",
+  "description": "Symbolique des rêves : des tablettes de Mésopotamie à Jung et aux peuples autochtones, les grandes façons de lire un rêve et une méthode simple pour commencer.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/symbolique-des-reves.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/symbolique-des-reves.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Symbolique des rêves</nav>
+        <h1>La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</h1>
+        <p class="intro">Depuis les premières tablettes d&#x27;argile, l&#x27;humanité note ses rêves et leur cherche un sens. Message des dieux, langage de l&#x27;âme, écho de la journée ou mémoire de la famille : découvre les grandes façons de lire un rêve, ce qu&#x27;en dit la recherche et une méthode simple pour écouter les tiens.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 1 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Chaque nuit, tu entres dans un autre monde : visages connus ou inconnus, maisons qui n'existent pas, paysages qui ressemblent à ceux de ton enfance. Au réveil, il en reste une image, une émotion, ou rien. Pourtant, depuis que l'humanité écrit, elle note ses rêves et leur cherche un sens. Cet article ouvre une série de huit textes consacrés à cette langue de la nuit : d'où vient cette attention, quelles grandes façons de lire un rêve ont existé, ce que la recherche en dit aujourd'hui, et comment commencer, simplement, à écouter les tiens.</p>
+
+<h2>Une attention aussi ancienne que l'écriture</h2>
+<p>Parmi les plus anciens textes de l'humanité, on trouve des récits de rêves. Dans l'épopée de Gilgamesh, le héros rêve à plusieurs reprises et demande à sa mère, puis à son compagnon Enkidu, de lui en dire le sens. En Mésopotamie, les scribes ont compilé un véritable recueil d'interprétation, connu sous le nom akkadien d'<em>Iškar Zaqīqu</em>. Des copies en ont été retrouvées dans la bibliothèque du roi assyrien Assurbanipal à Ninive, au VIIe siècle avant notre ère. Chaque entrée suit le même schéma : si un homme rêve de telle chose, alors il arrivera telle autre. Les tablettes contiennent aussi des rituels destinés à écarter l'effet des mauvais rêves. L'assyriologue A. Leo Oppenheim en a publié l'étude de référence en 1956.</p>
+<p>En Égypte, un papyrus conservé au British Museum, dit papyrus Chester Beatty III, contient un manuel d'interprétation des rêves rédigé en écriture hiératique. Il provient du village des artisans de Deir el-Médineh et date de l'époque ramesside, vers le XIIIe siècle avant notre ère. On y lit des listes de rêves classés comme favorables ou défavorables. Dans la Bible, Joseph lit dans les sept vaches grasses et les sept vaches maigres du pharaon sept années d'abondance puis de disette : dans ces récits, le rêve engage le destin d'un royaume.</p>
+<p>En Grèce, on venait dormir dans certains sanctuaires, comme celui d'Asclépios à Épidaure, pour recevoir un rêve-réponse : c'est ce qu'on appelle l'incubation. Au IIe siècle de notre ère, Artémidore de Daldis rédige l'<em>Onirocritique</em>, traduit en français sous le titre <em>La Clef des songes</em>. Fait remarquable, il insiste déjà sur le fait qu'un même rêve n'a pas le même sens selon le métier, l'âge, la situation et les habitudes de la personne qui rêve. Tu trouveras ce voyage détaillé dans l'article <a href="reves-dans-l-antiquite.html">Les rêves dans l'Antiquité</a>.</p>
+<p>Ailleurs, d'autres peuples ont donné au rêve une place centrale. Au XVIIe siècle, les missionnaires jésuites décrivent l'importance que les Wendat (Hurons) et les Haudenosaunee (Iroquois) accordent aux rêves, compris comme l'expression des désirs de l'âme qu'il fallait parfois réaliser avec l'aide de toute la communauté. En Australie, ce que l'on traduit maladroitement par « le Rêve » ou « le temps du Rêve » désigne des notions comme l'<em>Altyerr</em> des Arrernte ou le <em>Tjukurpa</em> des Pitjantjatjara, qui renvoient à la Loi, à la création et au lien avec la terre bien plus qu'aux rêves nocturnes. Ces traditions sont diverses et vivantes ; l'article <a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a> leur est consacré.</p>
+
+<h2>Quatre grandes façons de lire un rêve</h2>
+<p>Au fil des siècles, les manières de comprendre le rêve se sont superposées plus que remplacées. On peut en distinguer quatre grandes familles, qui ne s'excluent pas.</p>
+<ul class="facettes">
+<li><strong>Un message venu d'ailleurs</strong><span>Pour beaucoup de cultures anciennes, le rêve vient des dieux, des esprits ou des défunts. On le reçoit, on le consulte auprès de spécialistes, on lui répond par un rite.</span></li>
+<li><strong>Le langage de l'âme</strong><span>Pour Carl Gustav Jung, fondateur de la psychologie analytique, le rêve est une expression spontanée de la vie intérieure, qui parle en images et cherche à rétablir un équilibre. Tu peux approfondir avec <a href="jung-reves-archetypes.html">Jung et les rêves</a>.</span></li>
+<li><strong>Le reflet de la vie du jour</strong><span>Freud parlait des « restes diurnes », ces fragments de la veille qui nourrissent le rêve. Des chercheurs comme G. William Domhoff ont montré que les rêves reprennent souvent nos préoccupations, nos relations et nos émotions du moment.</span></li>
+<li><strong>Une mémoire familiale</strong><span>Rêver d'un·e grand-parent disparu·e, d'une maison de famille, d'une scène que l'on n'a jamais vécue : certains rêves semblent porter l'histoire de la lignée. C'est le regard de la psychogénéalogie, que tu retrouveras dans <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a>.</span></li>
+</ul>
+<p>Aucune de ces lectures n'est « la bonne » : ce sont des outils pour poser des questions.</p>
+
+<h2>Symbole et signe : une différence essentielle</h2>
+<p>On confond souvent symbole et signe, et c'est de là que viennent la plupart des contresens sur les rêves. Un signe renvoie à une chose précise et connue : un panneau de sens interdit, un feu rouge, un logo. Il se lit d'une seule façon. Jung proposait une distinction devenue classique : le signe désigne quelque chose que l'on connaît déjà, tandis que le symbole est la meilleure expression possible d'une réalité que l'on ne connaît pas encore entièrement. Le symbole n'est pas un code à déchiffrer, c'est une porte qui reste ouverte.</p>
+<p>Prends l'eau. Pour une personne qui a passé ses plus beaux étés au bord de la mer, une vague rêvée peut évoquer la liberté. Pour une autre, dont un aïeul a disparu en mer, la même vague peut réveiller une inquiétude transmise sans mots. C'est pourquoi les dictionnaires de rêves, qui donnent une signification fixe à chaque image, passent à côté de l'essentiel. Artémidore lui-même le savait il y a dix-huit siècles.</p>
+<p>Les grandes images reviennent pourtant d'une culture à l'autre : la maison, l'eau, le serpent, la chute, le chemin. L'article <a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves à travers les cultures</a> explore ces images sans les enfermer dans une définition.</p>
+
+<h2>Ce que la recherche observe aujourd'hui</h2>
+<p>En 1953, Eugene Aserinsky et Nathaniel Kleitman, à l'université de Chicago, décrivent des phases de sommeil marquées par des mouvements rapides des yeux, pendant lesquelles les dormeur·ses réveillé·es racontent souvent des rêves vivants. À la fin des années 1950, le chercheur lyonnais Michel Jouvet nomme cette phase « sommeil paradoxal ». On sait depuis qu'on rêve aussi en dehors de cette phase, avec des rêves en général plus courts et plus proches de la pensée.</p>
+<p>Sur le sens, les chercheur·ses restent partagé·es. En 1977, J. Allan Hobson et Robert McCarley proposent l'hypothèse dite d'activation-synthèse : le rêve serait la manière dont le cerveau met en récit une activité nocturne en partie aléatoire. D'autres, comme Domhoff, défendent l'idée d'une continuité entre le rêve et la vie éveillée : nos rêves parlent des personnes qui comptent pour nous et de ce qui nous occupe. Le chercheur finlandais Antti Revonsuo a suggéré en 2000 que le rêve servirait à répéter des situations menaçantes.</p>
+<p class="rappel"><strong>Ce que la science ne tranche pas.</strong> Aucune de ces hypothèses ne fait l'unanimité, et aucune ne dit ce que <em>ton</em> rêve signifie pour toi. La recherche décrit les mécanismes ; le sens, lui, se construit dans le dialogue entre l'image et ta propre histoire.</p>
+
+<h2>Une première méthode pour t'approcher de tes rêves</h2>
+<p>Voici une démarche simple, à suivre deux ou trois semaines, sans chercher de résultat immédiat.</p>
+<ol class="exercice">
+<li><h3>Préparer le terrain</h3><p>Pose un carnet et un crayon près de ton lit. Le soir, formule simplement l'intention de te souvenir de tes rêves. Le souvenir se joue souvent dans la première minute.</p></li>
+<li><h3>Noter avant de bouger</h3><p>Au réveil, reste immobile quelques instants et laisse revenir les images. Note tout, même un fragment, au présent : « Je suis dans une cuisine, il fait sombre. »</p></li>
+<li><h3>Donner un titre et une émotion</h3><p>Donne un titre à ton rêve, comme à une nouvelle. Puis note l'émotion principale : peur, joie, gêne, tendresse, colère. L'émotion est souvent la clé la plus fiable.</p></li>
+<li><h3>Chercher tes propres associations</h3><p>Pour chaque image forte, demande-toi : qu'est-ce que cela évoque pour moi ? Où ai-je déjà vu cela ? Note ce qui vient, sans te demander ce qu'en dirait un livre.</p></li>
+<li><h3>Faire le lien avec la veille</h3><p>Qu'as-tu vécu ou ressenti la veille ou ces derniers jours ? Le rêve montre souvent une situation de la veille sous un autre angle.</p></li>
+<li><h3>Poser une question à ta lignée</h3><p>Ce lieu, ce personnage, cette situation te rappellent-ils quelqu'un de ta famille ou une histoire que l'on raconte chez toi ? Note la question, même sans réponse.</p></li>
+</ol>
+<p>Tu trouveras une méthode complète dans <a href="journal-de-reves.html">Tenir un journal de rêves, la méthode pas à pas</a>. Et si un rêve est très éprouvant ou t'empêche de dormir, n'hésite pas à en parler à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+
+<h2>Quand les rêves racontent l'histoire de la famille</h2>
+<p>Certains rêves semblent ne pas nous appartenir tout à fait : une scène de guerre jamais connue, un village inconnu, un·e défunt·e jamais rencontré·e. Jung lui-même écrivait, à la fin de sa vie, qu'il avait le sentiment de porter des questions que ses parents et ses ancêtres avaient laissées sans réponse. C'est l'une des intuitions qui ont nourri la psychogénéalogie : ce qui n'a pas été dit dans une famille peut chercher un chemin, et le rêve est l'un de ces chemins possibles.</p>
+<p>Il ne s'agit pas d'affirmer qu'un rêve « contient » un secret de famille, mais de se donner la liberté de faire des liens. Quand un rêve revient, il peut être utile de regarder ce qui se répète aussi dans l'histoire familiale : des dates, des prénoms, des départs, des métiers. Construire ton <a href="genosociogramme.html">arbre familial</a> permet de voir apparaître ces correspondances, et les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> t'aident à recueillir les récits avant qu'ils ne se perdent. L'article <a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale</a> approfondit cette piste.</p>
+<ul class="gestes">
+<li>Note les personnes de ta famille qui apparaissent dans tes rêves, vivantes ou disparues.</li>
+<li>Repère les lieux de rêve qui ressemblent à des lieux de famille : maison des grands-parents, ferme, village d'origine.</li>
+<li>Demande autour de toi si d'autres membres de la famille font des rêves semblables.</li>
+</ul>
+
+<h2>La série : huit portes pour explorer la langue des rêves</h2>
+<p>Les sept articles suivants approfondissent chacun une facette, à lire dans l'ordre qui t'appelle.</p>
+<ul class="pistes">
+<li><strong>Jung et les rêves</strong><span><a href="jung-reves-archetypes.html">Inconscient collectif, archétypes, ombre</a> et le pont avec les ancêtres.</span></li>
+<li><strong>Rêver des morts et des ancêtres</strong><span><a href="rever-des-morts-et-des-ancetres.html">Le lien qui continue</a> avec celles et ceux qui sont parti·es.</span></li>
+<li><strong>Les rêves dans l'Antiquité</strong><span><a href="reves-dans-l-antiquite.html">Mésopotamie, Égypte, Grèce, Rome</a> : clés des songes et incubation.</span></li>
+<li><strong>Les peuples autochtones</strong><span><a href="reves-et-peuples-autochtones.html">Des traditions diverses et vivantes</a>, présentées avec respect, sans exotisme.</span></li>
+<li><strong>Les grands symboles</strong><span><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute</a> : des images partagées, des sens toujours personnels.</span></li>
+<li><strong>Rêves récurrents</strong><span><a href="reves-recurrents-et-memoire-familiale.html">Quand un rêve revient</a> et ce qu'il peut porter de la mémoire familiale.</span></li>
+<li><strong>Le journal de rêves</strong><span><a href="journal-de-reves.html">La méthode pas à pas</a> pour noter et relire tes rêves.</span></li>
+</ul>
+<p>Les rêves ne prédisent rien et n'imposent rien. Ils proposent. Ils sont une conversation que tu entretiens avec toi-même, et parfois avec celles et ceux qui t'ont précédé·e. À toi de décider jusqu'où tu veux l'écouter.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>A. Leo Oppenheim, <em>The Interpretation of Dreams in the Ancient Near East, with a Translation of an Assyrian Dream-Book</em> (1956)</li><li>Artémidore de Daldis, <em>La Clef des songes (Onirocritique)</em> (IIe siècle)</li><li>Sigmund Freud, <em>L&#x27;Interprétation des rêves</em> (1900)</li><li>Carl Gustav Jung, <em>Ma vie. Souvenirs, rêves et pensées</em> (1962)</li><li>G. William Domhoff, <em>The Mystique of Dreams: A Search for Utopia Through Senoi Dream Theory</em> (1985)</li><li>Tobie Nathan, <em>La Nouvelle Interprétation des rêves</em> (2011)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li class="ici"><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h3><p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p></a><a class="outil" href="reves-dans-l-antiquite.html"><h3>Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</h3><p>Mésopotamie, Égypte, Bible, Grèce et Rome : comment l&#x27;Antiquité lisait les rêves, et pourquoi le contexte du rêveur, cher à Artémidore, compte encore.</p></a><a class="outil" href="journal-de-reves.html"><h3>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h3><p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

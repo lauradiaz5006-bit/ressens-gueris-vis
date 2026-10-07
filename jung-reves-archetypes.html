@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jung et les rêves : archétypes, ombre et inconscient collectif · Genesolia</title>
+  <meta name="description" content="Jung et les rêves : sa rupture avec Freud, l&#x27;inconscient collectif, les archétypes, la fonction compensatrice et les questions héritées des ancêtres.">
+  <link rel="canonical" href="https://genesolia.fr/jung-reves-archetypes.html">
+  <meta property="og:title" content="Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres">
+  <meta property="og:description" content="Jung et les rêves : sa rupture avec Freud, l&#x27;inconscient collectif, les archétypes, la fonction compensatrice et les questions héritées des ancêtres.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres",
+  "description": "Jung et les rêves : sa rupture avec Freud, l'inconscient collectif, les archétypes, la fonction compensatrice et les questions héritées des ancêtres.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/jung-reves-archetypes.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/jung-reves-archetypes.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Jung et les rêves</nav>
+        <h1>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h1>
+        <p class="intro">Pour Carl Gustav Jung, le rêve ne déguise rien : il parle une langue d&#x27;images qu&#x27;il s&#x27;agit d&#x27;apprendre. De sa rupture avec Freud au rêve de la maison à plusieurs étages, découvre l&#x27;inconscient collectif, les archétypes et son intuition d&#x27;une mémoire transmise par les ancêtres.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 2 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Peu de penseurs ont pris les rêves autant au sérieux que Carl Gustav Jung. Pendant plus de cinquante ans, il a noté les siens, écouté ceux des personnes qu'il accompagnait, comparé leurs images aux mythes du monde entier. De ce travail est née une manière de lire les rêves qui a profondément marqué le XXe siècle : le rêve n'y est ni un déguisement ni un hasard, mais une parole de la vie intérieure, qui cherche l'équilibre et relie chacun·e à quelque chose de plus vaste que sa seule histoire. Y compris, parfois, à celle de ses ancêtres.</p>
+
+<h2>Un penseur suisse face à Freud</h2>
+<p>Jung naît le 26 juillet 1875 à Kesswil, en Suisse, dans une famille de pasteurs, et meurt le 6 juin 1961 à Küsnacht, au bord du lac de Zurich. Il est le fondateur de la psychologie analytique. En 1907, il rencontre Sigmund Freud à Vienne ; leur première conversation, rapporte-t-on, dure une douzaine d'heures. Pendant quelques années, Freud voit en lui son héritier. En 1909, les deux hommes voyagent ensemble aux États-Unis, invités par la Clark University.</p>
+<p>La rupture vient en 1912 et 1913, après la parution de <em>Métamorphoses et symboles de la libido</em> (plus tard remanié sous le titre <em>Métamorphoses de l'âme et ses symboles</em>). Le désaccord porte sur plusieurs points, et le rêve en est un. Pour Freud, dans <em>L'Interprétation des rêves</em> (1900), le rêve est l'accomplissement déguisé d'un désir refoulé : derrière son contenu apparent, dit « manifeste », se cache un contenu « latent » qu'il faut décoder. Jung, lui, refuse l'idée d'un déguisement. Pour lui, le rêve ne cherche pas à tromper : il dit ce qu'il a à dire, mais dans sa propre langue, celle des images et des symboles. Le travail ne consiste donc pas à arracher un masque, mais à apprendre cette langue.</p>
+
+<h2>Le rêve de la maison à plusieurs étages</h2>
+<p>Dans <em>Ma vie. Souvenirs, rêves et pensées</em>, l'autobiographie recueillie et mise en forme par Aniela Jaffé et parue en 1962, un an après sa mort, Jung raconte un rêve fait en 1909, pendant ce voyage aux États-Unis avec Freud. Il se trouve dans une maison inconnue, qui est pourtant « sa » maison. À l'étage, un salon meublé dans le style rococo, avec de beaux tableaux anciens. Il descend au rez-de-chaussée : tout y est plus sombre, le mobilier date du Moyen Âge, vers le XVe ou le XVIe siècle, le sol est en briques rouges. Une lourde porte s'ouvre sur un escalier de pierre qui mène à une cave voûtée, très ancienne, dont les murs remontent à l'époque romaine. Dans le sol, une dalle munie d'un anneau. Il la soulève : un escalier étroit descend vers une grotte creusée dans le roc, couverte de poussière, où gisent des ossements, des débris de poteries et deux crânes humains très anciens.</p>
+<p>Selon son récit, Freud s'intéresse surtout aux deux crânes et cherche à savoir à qui Jung pourrait souhaiter la mort. Mal à l'aise, Jung finit par nommer sa femme et sa belle-sœur, tout en sentant que ce n'est pas le sens du rêve. Pour lui, la maison est une image de la psyché : le salon figure la conscience, le rez-de-chaussée un premier niveau de l'inconscient, et plus on descend, plus on s'éloigne de l'histoire personnelle pour rejoindre des couches anciennes, partagées, jusqu'à la grotte des origines. Ce rêve, dit-il, devint pour lui une image directrice, et l'une des sources de son idée d'inconscient collectif.</p>
+<p class="rappel"><strong>Un rêve, deux lectures.</strong> Le même rêve, lu par Freud, parle d'un désir caché envers des proches ; lu par Jung, il dessine une carte de l'âme humaine. Cette scène résume à elle seule ce qui les sépare.</p>
+
+<h2>Inconscient personnel, inconscient collectif et archétypes</h2>
+<p>Jung distingue deux niveaux. L'inconscient personnel contient ce qui vient de ta propre vie : souvenirs oubliés, émotions mises de côté, ce que tu as appris à ne pas voir. L'inconscient collectif, plus profond, ne vient pas de l'expérience individuelle : il rassemble des formes communes à l'humanité, qu'il appelle archétypes. Un archétype n'est pas une image toute faite, c'est une tendance à produire certaines images : la mère, l'enfant, le vieux sage, le héros, la descente aux enfers, la renaissance. On les retrouve sous mille formes dans les mythes, les contes, les religions et les rêves.</p>
+<ul class="facettes">
+<li><strong>L'ombre</strong><span>Ce que tu refuses de reconnaître en toi, en mal comme en bien. Dans les rêves, elle prend souvent les traits d'un personnage du même sexe que toi, inquiétant, agaçant ou fascinant.</span></li>
+<li><strong>La persona</strong><span>Du mot latin désignant le masque de théâtre : le rôle social que l'on montre aux autres. Rêver d'être nu·e en public ou de ne pas trouver le bon costume peut interroger ce rôle.</span></li>
+<li><strong>L'anima et l'animus</strong><span>Pour Jung, la part féminine intérieure de l'homme et la part masculine intérieure de la femme. Cette vision très marquée par son époque est aujourd'hui souvent relue de façon plus libre, comme la figure de l'autre en soi.</span></li>
+<li><strong>Le Soi</strong><span>L'archétype de la totalité, le centre de la personne entière, au-delà du moi conscient. Il apparaît parfois sous la forme de cercles, de mandalas, d'un enfant lumineux ou d'une figure de sagesse.</span></li>
+</ul>
+<p>Le chemin par lequel une personne intègre peu à peu ces différentes parts d'elle-même, Jung l'appelle l'individuation. Les rêves en sont, pour lui, les guides les plus fidèles.</p>
+
+<h2>La fonction compensatrice du rêve</h2>
+<p>L'idée la plus utile de Jung, au quotidien, est sans doute celle de compensation. Le rêve viendrait équilibrer l'attitude consciente quand elle devient trop unilatérale. Une personne qui se montre toujours forte peut rêver qu'elle est perdue et petite ; une personne qui se dévalorise peut se voir, en rêve, couronnée ou admirée. Le rêve ne juge pas : il montre ce qui manque au tableau.</p>
+<p>Jung en donne un exemple personnel dans <em>Ma vie</em>. Il rêve d'une femme qu'il accompagnait, assise tout en haut de la tour d'un château ; pour la voir, il doit renverser la tête en arrière. Au réveil, il comprend que s'il doit tant lever les yeux vers elle dans le rêve, c'est que dans la réalité il la regardait de haut. Il lui raconte ce rêve, et leur travail commun change.</p>
+<p>Jung invite aussi à lire un rêve à deux niveaux. Au niveau objectif, les personnages représentent les personnes réelles. Au niveau subjectif, chaque personnage est une part de toi : ton collègue autoritaire peut figurer ta propre exigence intérieure. Enfin, il conseille de ne pas s'arrêter à un rêve isolé mais de regarder les séries, car le sens apparaît souvent dans la répétition.</p>
+
+<h2>Amplification et imagination active</h2>
+<p>Pour comprendre une image, Freud faisait associer librement, d'idée en idée, quitte à s'en éloigner beaucoup. Jung propose au contraire de rester près de l'image et de l'enrichir : c'est l'amplification. On commence par les associations personnelles (que représente un serpent pour toi, dans ta vie, dans ta famille ?), puis on élargit vers les mythes, les contes, les symboles religieux et culturels où cette image apparaît. Le but n'est pas de plaquer un sens savant, mais de sentir toute la profondeur que peut porter une image.</p>
+<p>L'imagination active va plus loin. Après sa rupture avec Freud, à partir de 1913, Jung traverse une période intense qu'il appelle sa confrontation avec l'inconscient. Il laisse surgir des images éveillées, dialogue avec les figures qui apparaissent, puis les écrit et les peint. Ces années aboutissent au <em>Livre rouge</em>, tenu jusque vers 1930 et publié seulement en 2009. Le terme d'imagination active, il le fixe plus tard, notamment lors de conférences à Londres en 1935. Le principe : reprendre une image de rêve, les yeux fermés, et la laisser évoluer, en y participant consciemment.</p>
+<ol class="exercice">
+<li><h3>Choisir une image</h3><p>Prends un rêve récent et retiens une seule image forte : un animal, un lieu, un objet, un personnage.</p></li>
+<li><h3>Tes associations d'abord</h3><p>Écris tout ce que cette image t'évoque à toi : souvenirs, personnes, émotions. Reste au plus près de ton expérience.</p></li>
+<li><h3>Amplifier</h3><p>Cherche où cette image apparaît dans les contes, les mythes, les traditions que tu connais, y compris celles de ta famille ou de ton pays d'origine. Note ce qui résonne, laisse le reste.</p></li>
+<li><h3>Chercher la compensation</h3><p>Demande-toi : quelle attitude de ma vie éveillée ce rêve vient-il équilibrer ? Qu'est-ce que je ne regarde pas en ce moment ?</p></li>
+<li><h3>Dialoguer avec l'image</h3><p>Au calme, ferme les yeux, retrouve l'image et demande-lui ce qu'elle veut te montrer. Écris la réponse sans la censurer. Si l'exercice devient trop intense, arrête-toi et reviens à ta respiration.</p></li>
+</ol>
+
+<h2>Jung et les questions laissées par les ancêtres</h2>
+<p>Jung était très attentif à sa propre lignée. Dans <em>Ma vie</em>, il évoque la figure de son grand-père paternel, Carl Gustav Jung lui aussi, et la légende familiale qui faisait de ce dernier un fils naturel de Goethe. Au milieu des années 1950, il grave sur des plaques de pierre les noms de ses ancêtres paternels pour sa tour de Bollingen, sa maison au bord du lac. C'est en faisant ce travail, raconte-t-il, qu'il prend conscience des liens qui l'unissent à eux. Il écrit alors, en substance, qu'il se sent sous l'influence de choses et de questions que ses parents, ses grands-parents et des ancêtres plus lointains ont laissées inachevées et sans réponse. Il ajoute qu'on a souvent l'impression qu'il existe dans une famille une sorte de karma impersonnel, qui passe des parents aux enfants.</p>
+<p>Cette intuition est l'un des ponts entre Jung et la psychogénéalogie, développée plus tard notamment par Anne Ancelin Schützenberger, dont le livre <em>Aïe, mes aïeux !</em> a fait connaître en France l'idée de loyautés familiales invisibles et de répétitions transgénérationnelles. Pour qui s'intéresse à son histoire familiale, la question devient : et si certains de mes rêves portaient, eux aussi, des questions restées ouvertes dans ma lignée ? Tu peux explorer ce regard dans la page <a href="psychogenealogie.html">psychogénéalogie</a> et dans l'article <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a>.</p>
+<ul class="pistes">
+<li><strong>Repérer les figures</strong><span>Note quand un ancêtre, une maison de famille ou un métier ancien apparaît dans tes rêves.</span></li>
+<li><strong>Situer dans l'arbre</strong><span>Place ces éléments sur ton <a href="genosociogramme.html">arbre familial</a> : à quelle génération, à quelle branche renvoient-ils ?</span></li>
+<li><strong>Formuler la question</strong><span>Demande-toi quelle question cet ancêtre a pu laisser sans réponse, et en quoi elle te concerne aujourd'hui.</span></li>
+</ul>
+<p>Tu trouveras d'autres pistes dans <a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale</a>.</p>
+
+<h2>Lire Jung aujourd'hui, avec liberté</h2>
+<p>L'œuvre de Jung est immense et elle a aussi ses limites. L'existence d'archétypes universels reste discutée, et certains de ses textes portent la marque de son époque, notamment dans la façon dont il parlait des peuples non européens. Le lire aujourd'hui, c'est garder ce qu'il a de plus fécond (le respect de l'image, l'idée d'équilibre, l'ouverture vers le collectif et les ancêtres) sans en faire un système fermé. Jung lui-même se méfiait des clés toutes faites et rappelait qu'un rêve ne se comprend qu'à partir de la personne qui l'a fait. Pour replacer sa pensée dans la longue histoire des rêves, reviens à l'article pilier, <a href="symbolique-des-reves.html">La symbolique des rêves</a>.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Carl Gustav Jung, <em>Ma vie. Souvenirs, rêves et pensées (recueillis par Aniela Jaffé)</em> (1962)</li><li>Carl Gustav Jung, <em>Dialectique du Moi et de l&#x27;inconscient</em> (1928)</li><li>Carl Gustav Jung (dir.), <em>L&#x27;Homme et ses symboles</em> (1964)</li><li>Carl Gustav Jung, <em>Le Livre rouge</em> (2009)</li><li>Sigmund Freud, <em>L&#x27;Interprétation des rêves</em> (1900)</li><li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em></li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li class="ici"><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="symbolique-des-reves.html"><h3>La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</h3><p>Pourquoi l&#x27;humanité a toujours prêté un sens aux rêves, les grandes façons de les lire et une première méthode pour t&#x27;en approcher.</p></a><a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h3><p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p></a><a class="outil" href="reves-recurrents-et-memoire-familiale.html"><h3>Rêves récurrents et mémoire familiale : quand la nuit insiste</h3><p>Ce que Jung disait des rêves qui reviennent, comment ils changent quand tu changes, et comment les relier prudemment à ton arbre familial.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

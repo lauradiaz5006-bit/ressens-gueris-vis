@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rêves et peuples autochtones : Achuar, Haudenosaunee, Tjukurpa · Genesolia</title>
+  <meta name="description" content="Wendat et Haudenosaunee, Achuar, Anangu, Yanomami : ce que des peuples autochtones disent et font des rêves, et ce qu&#x27;on peut en retenir sans les copier.">
+  <link rel="canonical" href="https://genesolia.fr/reves-et-peuples-autochtones.html">
+  <meta property="og:title" content="Ce que les peuples autochtones nous apprennent sur les rêves">
+  <meta property="og:description" content="Wendat et Haudenosaunee, Achuar, Anangu, Yanomami : ce que des peuples autochtones disent et font des rêves, et ce qu&#x27;on peut en retenir sans les copier.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ce que les peuples autochtones nous apprennent sur les rêves",
+  "description": "Wendat et Haudenosaunee, Achuar, Anangu, Yanomami : ce que des peuples autochtones disent et font des rêves, et ce qu'on peut en retenir sans les copier.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/reves-et-peuples-autochtones.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/reves-et-peuples-autochtones.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Peuples autochtones</nav>
+        <h1>Ce que les peuples autochtones nous apprennent sur les rêves</h1>
+        <p class="intro">Chez les Haudenosaunee, les Achuar ou les Anangu, le rêve ne reste pas enfermé dans la chambre : il se raconte, engage la famille et relie aux ancêtres et au territoire. Voici ce que des travaux sérieux nous apprennent, avec le respect que méritent des traditions vivantes.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 5 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Quand on parle des rêves chez les « peuples autochtones », on risque vite deux pièges : tout mélanger dans une sagesse unique et lointaine, ou piocher des pratiques comme on choisit une recette. Or il existe des centaines de peuples, de langues et de manières de rêver, et ces traditions ne sont pas des vestiges : elles sont transmises, discutées et vécues aujourd'hui. Cet article s'appuie sur quelques exemples bien documentés, en nommant chaque peuple et en citant les travaux qui permettent d'en parler. Il prolonge le panorama ouvert dans <a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l'humanité parle depuis toujours</a>.</p>
+
+<h2>Des traditions diverses, vivantes et situées</h2>
+<p>Un point commun revient pourtant souvent dans les études anthropologiques : le rêve n'y est pas une affaire strictement privée. On le raconte, on le discute, il engage la famille, le groupe, parfois les êtres de la forêt ou les ancêtres. Là où la culture occidentale moderne a longtemps rangé le rêve du côté du « rien qu'un rêve », beaucoup de sociétés lui donnent une place dans la vie commune.</p>
+<p>Il faut aussi garder en tête d'où viennent nos connaissances. Une grande partie des sources anciennes a été écrite par des personnes extérieures : missionnaires, administrateurs, voyageurs, avec leurs préjugés. Les anthropologues du XXe siècle ont travaillé autrement, en vivant longtemps auprès des peuples concernés, et de plus en plus de voix autochtones parlent aujourd'hui en leur propre nom. C'est avec ces précautions qu'on peut écouter ce qui suit.</p>
+
+<h2>Wendat et Haudenosaunee : le rêve, langage des désirs de l'âme</h2>
+<p>Au XVIIe siècle, les missionnaires jésuites installés en Nouvelle-France envoyaient chaque année des comptes rendus à Paris, les <em>Relations</em>. Ils y décrivent, souvent avec agacement, la place immense que les peuples de langue iroquoienne accordaient aux rêves. Dans une Relation publiée en 1649, le père Paul Ragueneau explique que les Wendat (ceux que les Français appelaient Hurons) pensaient que l'âme a des désirs cachés, et qu'elle les fait connaître par les rêves, qui sont comme sa langue. Ils nommaient ce désir secret <em>ondinnonk</em>. Ne pas réaliser ce que le rêve demandait, c'était laisser l'âme insatisfaite ; on s'efforçait donc, avec l'aide des proches et parfois de tout le village, d'accomplir ce que le rêve réclamait, au moins symboliquement.</p>
+<p>Les Wendat ne sont pas les Haudenosaunee (la Confédération des Cinq puis Six Nations : Mohawk, Oneida, Onondaga, Cayuga, Seneca, puis Tuscarora), mais ils partagent une famille de langues et beaucoup de conceptions. La Relation de 1655-1656 raconte le séjour des jésuites chez les Onondaga et décrit une fête d'hiver, que le père Chaumonot appelait « fête des fous », pendant laquelle on mettait en scène ses rêves. Les missionnaires notent aussi que les Onondaga attribuaient à leurs rêves leurs réussites à la chasse et à la guerre.</p>
+<p>En 1958, l'anthropologue Anthony F. C. Wallace a relu ces textes dans un article resté célèbre, où il souligne que ces peuples avaient, bien avant Freud, une théorie très fine des désirs inconscients. Surtout, ces pratiques n'ont pas disparu : chez les Haudenosaunee, la cérémonie du Milieu de l'hiver, qui marque le Nouvel An quelques jours après la première nouvelle lune de l'année, comprend encore le partage des rêves, que des personnes qualifiées aident à comprendre, et l'on « remue les cendres » pour renouveler la terre. Un gardien de la foi mohawk, Kevin Deer, rappelait récemment que son peuple a toujours été mû par le rêve.</p>
+
+<h2>Les Achuar : se raconter ses rêves avant le jour</h2>
+<p>Les Achuar vivent dans la forêt amazonienne, de part et d'autre de la frontière entre l'Équateur et le Pérou. L'anthropologue Philippe Descola a partagé leur vie à la fin des années 1970 avec Anne-Christine Taylor, et en a tiré un livre magnifique, <em>Les Lances du crépuscule</em> (1993), qui consacre de longues pages à l'interprétation des rêves.</p>
+<p>Dans chaque maison, la journée commence bien avant l'aube. On se réveille dans la nuit, on boit une infusion de feuilles de <em>wayus</em> (la guayusa, une plante riche en caféine cultivée dans les jardins), et l'on se raconte ses rêves de la nuit. Ces récits orientent la journée : un rêve peut inciter un chasseur à partir ou à rester, et certains rêves sont compris comme des messages venus d'autres êtres, humains ou non, avec qui les Achuar entretiennent des relations. Ce moment existe encore aujourd'hui dans de nombreuses familles achuar.</p>
+<p>Ce qui frappe, c'est le cadre : le rêve est partagé dans l'intimité du foyer, à une heure précise, avec un geste simple et répété. Il n'est ni gardé pour soi, ni livré à n'importe qui.</p>
+
+<h2>Le Tjukurpa : bien plus qu'un « temps du rêve »</h2>
+<p>Pour les Anangu du centre de l'Australie (notamment les Pitjantjatjara et les Yankunytjatjara, gardien·nes du site d'Uluru), le <em>Tjukurpa</em> désigne à la fois les récits de la création, la loi qui en découle, les liens entre les personnes, les êtres et le pays, et la manière juste de vivre. D'autres peuples aborigènes emploient d'autres mots, comme <em>Jukurrpa</em> chez les Warlpiri ou <em>altyerre</em> chez les Arrernte.</p>
+<p>La traduction anglaise « Dreaming » ou « Dreamtime », popularisée à la fin du XIXe siècle par Francis Gillen et Baldwin Spencer à partir du mot arrernte, est aujourd'hui très discutée. Le missionnaire et linguiste Carl Strehlow pensait déjà que le terme renvoyait plutôt à l'idée d'éternel, d'incréé, et de nombreuses personnes aborigènes regrettent que « rêve » suggère quelque chose d'irréel, alors qu'il s'agit d'une réalité vécue chaque jour. En 1953, l'anthropologue W. E. H. Stanner proposait le mot « everywhen » (« de tout temps ») : on ne peut pas situer le Tjukurpa dans le passé, il était et il est toujours.</p>
+<p>Le rêve nocturne y a sa place, mais il ne résume pas tout. La leçon est plutôt celle-ci : le temps des origines n'est pas fini, il reste présent dans le paysage, dans les récits et dans la loi, et chaque personne est reliée à un pays et à des ancêtres créateurs.</p>
+
+<h2>D'autres voix, et une théorie à manier avec prudence</h2>
+<h3>Les Yanomami</h3>
+<p>Dans <em>La Chute du ciel</em> (2010), écrit avec l'anthropologue Bruce Albert, le chamane yanomami Davi Kopenawa raconte comment les chamanes de son peuple apprennent par le rêve et par les visions des esprits de la forêt, les <em>xapiri</em>. Il oppose ce savoir aux Blancs, qu'il appelle le « peuple de la marchandise » : selon lui, ils dorment sans vrais rêves, l'esprit encombré de leurs objets, et ne savent plus écouter la forêt.</p>
+<h3>Les Mapuche</h3>
+<p>Au Chili et en Argentine, chez les Mapuche, le rêve se dit <em>pewma</em>. L'anthropologue Ana Mariella Bacigalupo a montré que les rêves comptent parmi les signes qui font reconnaître une future <em>machi</em>, personne qui joue un rôle spirituel central, et que la capacité à interpréter les rêves fait partie de son rôle.</p>
+<h3>Une mise en garde : les « rêves Senoï »</h3>
+<p>Tu as peut-être lu qu'un peuple de Malaisie, les Senoï, discutait chaque matin ses rêves en famille et apprenait aux enfants à affronter les figures menaçantes de leurs cauchemars. Cette « théorie des rêves Senoï » vient des récits de Kilton Stewart, qui avait séjourné en Malaisie dans les années 1930, et elle a été rendue célèbre en 1974 par le livre <em>Creative Dreaming</em> de Patricia Garfield. Mais les anthropologues qui ont longuement vécu chez les Temiar et les Semai (Robert Dentan, Geoffrey Benjamin, Clayton Robarchek) n'en ont pas retrouvé les principes. Le chercheur G. William Domhoff a montré en 1985 qu'il s'agissait largement d'une projection occidentale. C'est un bon exemple de ce qu'il faut éviter : prêter à un peuple réel une sagesse imaginée par d'autres.</p>
+
+<h2>S'inspirer sans copier</h2>
+<p>Il ne s'agit pas d'imiter une cérémonie, d'emprunter une plante ou de se fabriquer un rituel « autochtone ». Ces pratiques ont un sens dans une langue, un territoire, une histoire et une communauté que l'on ne possède pas. Ce qu'on peut recevoir, avec gratitude, ce sont des questions qui touchent notre propre façon de vivre.</p>
+<ul class="pistes">
+<li><strong>Le rêve se partage</strong><span>Et si, dans ta famille, on pouvait se raconter un rêve au petit-déjeuner, sans chercher à l'expliquer tout de suite, simplement pour l'écouter ?</span></li>
+<li><strong>Le rêve dit un désir</strong><span>Comme le pensaient les Wendat, demande-toi ce que ton rêve réclame. Parfois, un petit geste concret suffit à honorer ce désir : appeler quelqu'un, retourner dans un lieu, reprendre une activité laissée.</span></li>
+<li><strong>Le rêve relie</strong><span>Il parle de toi, mais aussi de tes proches, de ceux et celles qui sont parti·es, et des lieux qui t'ont façonné·e.</span></li>
+<li><strong>Le temps des origines est présent</strong><span>À la manière du Tjukurpa, l'histoire de ta lignée n'est pas seulement derrière toi : elle continue d'agir dans tes choix et tes paysages intérieurs.</span></li>
+</ul>
+<p>Pour garder la trace de ce que tu partages, tu peux t'aider de la méthode décrite dans <a href="journal-de-reves.html">Tenir un journal de rêves, la méthode pas à pas</a>.</p>
+
+<h2>Le rêve, un fil entre toi, ta famille et tes terres</h2>
+<p>Dans beaucoup de ces traditions, rêver de ses ancêtres ou d'un lieu d'origine n'a rien d'anodin. Sans adopter leurs croyances, tu peux te poser des questions simples : dans quels lieux ta famille a-t-elle vécu, travaillé, quitté ou perdu quelque chose ? Ces lieux apparaissent-ils dans tes rêves, même déguisés ? Y a-t-il des personnes de ta lignée dont on parle peu, et qui reviennent pourtant la nuit ? L'article <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a> approfondit ces rencontres.</p>
+<ol class="exercice">
+<li><h3>Choisir un rêve</h3><p>Prends un rêve où apparaît un lieu, une maison, une terre ou une personne de ta famille.</p></li>
+<li><h3>Le raconter à voix haute</h3><p>Raconte-le à une personne de confiance, de préférence un·e proche, comme on le ferait au lever du jour, sans interprétation.</p></li>
+<li><h3>Chercher le fil familial</h3><p>Demande à ton entourage ce que ce lieu ou cette personne évoque pour eux. Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> peuvent t'aider à ouvrir la conversation.</p></li>
+<li><h3>Le situer dans l'arbre</h3><p>Note sur ton <a href="genosociogramme.html">arbre familial</a> les lieux et les personnes qui reviennent dans tes rêves : des liens apparaissent souvent.</p></li>
+</ol>
+<p class="rappel"><strong>À retenir.</strong> Les peuples évoqués ici ne sont pas des modèles figés : ce sont des sociétés vivantes, avec leurs débats et leurs propres porte-parole. Les écouter, c'est d'abord les lire, les citer justement et respecter ce qui leur appartient. Et si un rêve te pèse ou t'empêche de dormir, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Philippe Descola, <em>Les Lances du crépuscule. Relations jivaros, Haute-Amazonie</em> (1993)</li><li>Anthony F. C. Wallace, <em>Dreams and the Wishes of the Soul (American Anthropologist, vol. 60)</em> (1958)</li><li>W. E. H. Stanner, <em>The Dreaming</em> (1953)</li><li>Davi Kopenawa et Bruce Albert, <em>La Chute du ciel. Paroles d&#x27;un chaman yanomami</em> (2010)</li><li>G. William Domhoff, <em>The Mystique of Dreams: A Search for Utopia Through Senoi Dream Theory</em> (1985)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li class="ici"><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="symbolique-des-reves.html"><h3>La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</h3><p>Pourquoi l&#x27;humanité a toujours prêté un sens aux rêves, les grandes façons de les lire et une première méthode pour t&#x27;en approcher.</p></a><a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h3><p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p></a><a class="outil" href="journal-de-reves.html"><h3>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h3><p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
