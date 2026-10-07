@@ -1287,6 +1287,207 @@
     return !ok && window.matchMedia('(max-width: 760px)').matches;
   }
 
+  /* ───────── Rapport de ton arbre (offre payante) ─────────
+     Accès : table Supabase « acces_premium » (une ligne par compte, avec une date de fin).
+     Tant que les liens de paiement sont vides, les boutons proposent d'être prévenue (Formspree). */
+  var RAPPORT = {
+    prix: '9 €', duree: '7 jours',
+    abo: '5 € par mois',
+    lienAchat: '',        // lien de paiement Stripe pour le rapport (9 €)
+    lienAbonnement: '',   // lien de paiement Stripe pour l'abonnement (5 €/mois)
+    formspree: 'https://formspree.io/f/xdawvnby'
+  };
+  var TEXTES_RAPPORT = {
+    anniversaire: { titre: 'Le syndrome d’anniversaire', intro: 'Tu traverses aujourd’hui un âge auquel quelqu’un de ta famille a vécu un événement marquant. En psychogénéalogie, on observe que certaines périodes de la vie peuvent réveiller une mémoire familiale, comme si une date intérieure se rappelait à nous. Ce n’est pas une prédiction : c’est une invitation à être attentive à cette période.', pistes: ['Qu’est-ce qui se passe dans ta vie en ce moment, et qu’est-ce que cela réveille en toi ?', 'Que sais-tu vraiment de ce que cette personne a vécu à cet âge ?', 'Qu’aimerais-tu vivre différemment, toi, à cet âge ?'], geste: 'Écris une phrase pour cette personne : « Tu as vécu cela à cet âge. Moi, je choisis de vivre… »' },
+    date: { titre: 'Les dates qui reviennent', intro: 'Plusieurs naissances ou décès tombent le même jour de l’année. Ces dates partagées peuvent tisser des liens invisibles entre les personnes : une naissance qui répond à un départ, un anniversaire chargé de plusieurs histoires.', pistes: ['Comment cette date est-elle vécue dans ta famille : une fête, un silence, un malaise ?', 'T’arrive-t-il de te sentir différente à cette période de l’année ?', 'Qui est né à la suite de qui, et qu’est-ce que cela a pu signifier pour la famille ?'], geste: 'Cette année, à cette date, offre-toi un moment qui n’appartient qu’à toi.' },
+    gisant: { titre: 'Des départs précoces', intro: 'Plusieurs personnes de ton arbre sont parties jeunes. En psychogénéalogie, on parle parfois de « syndrome du gisant » lorsqu’un enfant naît peu après un décès et porte, sans le savoir, une place laissée vide. Ce sont des pistes à explorer avec douceur.', pistes: ['Ces départs ont-ils pu être pleurés, ou est-ce qu’on n’en parlait pas ?', 'Quelqu’un est-il né peu de temps après l’un de ces départs ? Porte-t-il son prénom ?', 'Y a-t-il en toi une inquiétude liée à l’un de ces âges ?'], geste: 'Écris le prénom de ces personnes et allume une bougie pour elles : leur redonner une place, c’est libérer celle des vivants.' },
+    epreuve: { titre: 'Les mêmes événements', intro: 'Un même type d’événement revient chez plusieurs personnes, parfois au même âge. C’est souvent le signe d’une boucle familiale : une façon de vivre, d’aimer ou de perdre qui se transmet d’une génération à l’autre.', pistes: ['Comment cet événement a-t-il été vécu, puis raconté, à chaque génération ?', 'Quelle croyance ta famille en a-t-elle tirée ? (« les hommes partent », « l’argent ne reste pas »…)', 'Où en es-tu, toi, avec ce type d’événement ?'], geste: 'Quand tu sens cette situation revenir dans ta vie, demande-toi : « Est-ce vraiment à moi, ou est-ce que ça ressemble à quelqu’un de ma famille ? »' },
+    schema: { titre: 'Les schémas familiaux', intro: 'Plusieurs personnes partagent une même façon d’être : s’effacer, porter la famille, se taire, partir. Ces schémas sont rarement choisis : ils se transmettent par l’exemple et par fidélité.', pistes: ['Te reconnais-tu dans ce schéma ? Dans quels domaines de ta vie ?', 'Qu’est-ce que ce schéma a protégé, autrefois ?', 'Que se passerait-il si tu faisais autrement ?'], geste: 'Écris une phrase de permission : « Toi, tu as dû… Moi, j’ai le droit de… »' },
+    prenom: { titre: 'Les prénoms transmis', intro: 'Un même prénom circule dans ta famille. Donner un prénom, c’est souvent transmettre une histoire, une attente, parfois une place à reprendre.', pistes: ['Pourquoi ce prénom a-t-il été choisi ? Qu’en disait-on ?', 'Quelles qualités ou quelles histoires sont attachées à ce prénom ?', 'La personne qui le porte aujourd’hui vit-elle sa propre vie, ou celle d’un autre ?'], geste: 'Si c’est ton prénom, écris trois choses qui n’appartiennent qu’à toi.' },
+    metier: { titre: 'Les métiers qui se répètent', intro: 'Plusieurs personnes ont exercé dans le même domaine. Un métier peut se transmettre par vocation, par fidélité ou par réparation : prendre soin, servir, protéger, nourrir…', pistes: ['Ce métier a-t-il été choisi, ou s’est-il imposé ?', 'Que cherchait-on à réparer ou à protéger à travers lui ?', 'Ton propre chemin professionnel suit-il cette lignée, ou s’en écarte-t-il ?'], geste: 'Note ce que tu aimes vraiment faire, indépendamment de ce qu’on attendait de toi.' }
+  };
+  var ORDRE_TYPES = ['anniversaire', 'epreuve', 'schema', 'date', 'gisant', 'prenom', 'metier'];
+  var accesRapport = null;
+
+  function verifierAcces() {
+    if (!sb || !utilisateur) return Promise.resolve(null);
+    return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
+      .then(function (r) { return (r && r.data && new Date(r.data.valide_jusqu) > new Date()) ? r.data : null; }, function () { return null; });
+  }
+  function statsArbre() {
+    var ids = Object.keys(S.people), pl = calculerPlan();
+    var gens = {}; ids.forEach(function (id) { if (pl.pos[id]) gens[pl.pos[id].y] = 1; });
+    var couples = S.rels.filter(function (r) { return r.type === 'couple' && existe(r.from) && existe(r.to); });
+    var evts = 0; ids.forEach(function (id) { evts += (S.people[id].events || []).length; });
+    return {
+      personnes: ids.length, generations: Object.keys(gens).length,
+      decedes: ids.filter(function (id) { return decede(S.people[id]); }).length,
+      unions: couples.length,
+      separations: couples.filter(function (r) { return r.statut === 'separe' || r.statut === 'divorce'; }).length,
+      evenements: evts,
+      sansDate: ids.filter(function (id) { return !annee(S.people[id].naiss); }).map(function (id) { return nomAffiche(S.people[id]); }),
+      sansEvt: ids.filter(function (id) { return !(S.people[id].events || []).length; }).map(function (id) { return nomAffiche(S.people[id]); })
+    };
+  }
+  function grouperReps(reps) {
+    var g = {}; reps.forEach(function (r) { (g[r.type] = g[r.type] || []).push(r); });
+    return ORDRE_TYPES.filter(function (t) { return g[t]; }).map(function (t) { return { type: t, items: g[t] }; });
+  }
+  function dateLongue(d) { return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); }
+
+  function htmlRapport(css, e) {
+    var reps = detecter(), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
+    var C = '@page{size:A4;margin:16mm 16mm 18mm}' + css +
+      '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{margin:0;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.8pt;line-height:1.6}' +
+      'h1,h2,h3{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;line-height:1.15;margin:0}' +
+      '.couv{height:255mm;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;border-radius:8mm;padding:16mm 14mm;color:#FFF4F6;background:radial-gradient(120mm 90mm at 85% 10%,rgba(231,167,158,.45),transparent 60%),linear-gradient(160deg,#3B1747,#6B2F5B)}' +
+      '.couv .marque{font-family:"Gilda Display",serif;font-size:15pt}.couv h1{color:#fff;font-size:38pt;margin:4mm 0 5mm}.couv p{color:#F7E6EE;font-size:12pt;max-width:130mm}' +
+      '.couv .sur{font-size:8.5pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#F3DCC0}' +
+      '.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:8mm}.chiffres div{background:rgba(255,255,255,.1);border:.6pt solid rgba(243,220,192,.4);border-radius:4mm;padding:4mm}.chiffres b{display:block;font-family:"Gilda Display",serif;font-weight:400;font-size:22pt;color:#fff}.chiffres span{font-size:9pt;color:#F3DCC0}' +
+      '.page{page-break-before:always}.sur2{font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;margin-bottom:2mm}' +
+      'h2{font-size:22pt;margin-bottom:5mm}h3{font-size:14pt;margin:6mm 0 2mm}.intro{color:#6E4466;margin:0 0 5mm}' +
+      '.arbre-img{border:.6pt solid #EBCFD5;border-radius:4mm;padding:3mm;background:#FFF9F7}.arbre-img svg{display:block;width:100%;height:auto;max-height:225mm}' +
+      '.rep{border:.6pt solid #EBCFD5;border-left:2.4mm solid var(--c);border-radius:3mm;padding:3mm 4mm;margin:0 0 3mm;break-inside:avoid}.rep b{display:block;font-weight:600;color:var(--c);font-size:10pt}.rep p{margin:1mm 0 0}' +
+      '.pistes{background:#FFF5EA;border:.6pt solid #F3DCC0;border-radius:4mm;padding:4mm 5mm;margin:4mm 0;break-inside:avoid}.pistes ol{margin:2mm 0 0;padding-left:5mm}.pistes li{margin-bottom:1.5mm}' +
+      '.geste{background:#FCEFF3;border-radius:4mm;padding:4mm 5mm;break-inside:avoid}.geste b{display:block;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:#B5485C;margin-bottom:1mm}' +
+      '.section{break-inside:auto;margin-bottom:9mm}h2,h3{break-after:avoid}.notes{break-inside:avoid;margin-top:6mm}.lignes{border-bottom:.6pt solid #EBCFD5;height:9mm}' +
+      'table{width:100%;border-collapse:collapse;margin:3mm 0 5mm}td,th{text-align:left;padding:2mm 3mm;border-bottom:.6pt solid #EBCFD5;font-size:10pt}th{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:#6B2F5B;background:#F7E6E8}' +
+      '.discret{color:#8E6383;font-size:8.5pt}.fin{margin-top:8mm;padding:5mm 6mm;border-radius:4mm;background:#6B2F5B;color:#F7E6EE}.fin b{color:#fff}';
+    var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Le rapport de ton arbre · Genesolia</title><style>' + C + '</style></head><body>';
+    h += '<section class="couv"><div class="marque">Genesolia</div><div><div class="sur">Rapport personnel · ' + esc(dateLongue(d)) + '</div><h1>Le rapport<br>de ton arbre</h1>' +
+      '<p>Ce que ton arbre familial laisse apparaître : les dates, les âges, les prénoms et les façons de vivre qui se répètent, avec des pistes de réflexion pour chacun.</p>' +
+      '<div class="chiffres"><div><b>' + st.personnes + '</b><span>personnes</span></div><div><b>' + st.generations + '</b><span>générations</span></div><div><b>' + reps.length + '</b><span>répétitions repérées</span></div></div></div>' +
+      '<p class="discret" style="color:#E3C9DA">Ce rapport propose une lecture symbolique de ton histoire familiale. Il ne remplace pas un avis médical ou psychologique.</p></section>';
+    // L'arbre
+    h += '<section><div class="sur2">Ton arbre</div><h2>Ton génosociogramme</h2><div class="arbre-img">' + e.svg.replace('<svg ', '<svg preserveAspectRatio="xMidYMin meet" ') + '</div></section>';
+    // En chiffres
+    h += '<section class="page"><div class="sur2">Vue d’ensemble</div><h2>Ton arbre en chiffres</h2><table><tr><th>Ce que contient ton arbre</th><th>Nombre</th></tr>' +
+      [['Personnes', st.personnes], ['Générations', st.generations], ['Personnes décédées', st.decedes], ['Unions', st.unions], ['Séparations ou divorces', st.separations], ['Événements notés', st.evenements], ['Répétitions repérées', reps.length]].map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>'; }).join('') + '</table>';
+    if (groupes.length) {
+      h += '<h3>Les fils les plus présents</h3><p class="intro">Voici, par ordre d’importance, les grands thèmes qui traversent ton arbre. Chacun est détaillé dans les pages suivantes.</p><table><tr><th>Thème</th><th>Répétitions</th></tr>' +
+        groupes.slice().sort(function (a, b) { return b.items.length - a.items.length; }).map(function (g) { return '<tr><td>' + esc(TEXTES_RAPPORT[g.type].titre) + '</td><td>' + g.items.length + '</td></tr>'; }).join('') + '</table>';
+    } else {
+      h += '<p class="intro">Ton arbre ne fait pas encore apparaître de répétition. Ce n’est pas qu’il n’y en a pas : c’est souvent qu’il manque des dates, des âges ou des événements. La page « Pour aller plus loin » t’indique quoi compléter.</p>';
+    }
+    h += '</section>';
+    // Sections par thème
+    groupes.forEach(function (g, i) {
+      var T = TEXTES_RAPPORT[g.type];
+      h += '<section class="section page"><div class="sur2">Thème ' + (i + 1) + '</div><h2>' + esc(T.titre) + '</h2><p class="intro">' + esc(T.intro) + '</p>';
+      h += g.items.map(function (r) { return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + '</b><p>' + esc(r.desc) + '</p></div>'; }).join('');
+      h += '<div class="pistes"><b>Pistes de réflexion</b><ol>' + T.pistes.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
+      h += '<div class="geste"><b>Pour sortir de la boucle</b>' + esc(T.geste) + '</div>';
+      h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
+    });
+    // Pour aller plus loin
+    h += '<section class="page"><div class="sur2">Pour aller plus loin</div><h2>Ce que ton arbre ne dit pas encore</h2><p class="intro">Plus ton arbre est complet, plus les répétitions apparaissent. Voici ce que tu pourrais compléter, puis régénérer ton rapport.</p>';
+    if (st.sansDate.length) h += '<h3>Les dates de naissance manquantes</h3><p>' + esc(st.sansDate.slice(0, 30).join(', ')) + (st.sansDate.length > 30 ? '…' : '') + '</p>';
+    if (st.sansEvt.length) h += '<h3>Les personnes sans événement noté</h3><p>' + esc(st.sansEvt.slice(0, 30).join(', ')) + (st.sansEvt.length > 30 ? '…' : '') + '</p><p class="discret">Un départ, une séparation, un déménagement, une réussite, un secret… même approximatif, avec un âge, c’est ce qui fait apparaître les répétitions.</p>';
+    h += '<h3>Les questions à poser à ta famille</h3><ol><li>Comment se sont rencontrés tes grands-parents, et comment l’histoire a-t-elle continué ?</li><li>Qui est parti, ou dont on ne parle plus ?</li><li>Qu’est-ce qui a été dur pour eux, à quel âge ?</li><li>D’où viennent les prénoms de la famille ?</li><li>Quelles phrases revenaient souvent à table ?</li></ol>';
+    h += '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html</div>';
+    h += '<p class="discret" style="margin-top:6mm">Rapport généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce rapport propose une lecture symbolique de ton histoire familiale, à partir des informations que tu as saisies. Il ne remplace pas un avis médical ou psychologique.</p></section>';
+    return h + '</body></html>';
+  }
+
+  function imprimerRapport(btn) {
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
+    polices().then(function (css) {
+      var e = svgExport(css);
+      var f = document.createElement('iframe');
+      f.setAttribute('aria-hidden', 'true');
+      f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+      document.body.appendChild(f);
+      var doc = f.contentDocument; doc.open(); doc.write(htmlRapport(css, e)); doc.close();
+      setTimeout(function () {
+        f.contentWindow.focus(); f.contentWindow.print();
+        if (btn) { btn.disabled = false; btn.textContent = 'Générer mon rapport (PDF)'; }
+        setTimeout(function () { f.remove(); }, 2000);
+      }, 500);
+    });
+  }
+
+  function lienPaiement(base) {
+    if (!base) return '';
+    var u = base + (base.indexOf('?') < 0 ? '?' : '&');
+    if (utilisateur) u += 'client_reference_id=' + encodeURIComponent(utilisateur.id) + (utilisateur.email ? '&prefilled_email=' + encodeURIComponent(utilisateur.email) : '');
+    return u;
+  }
+
+  function contenuApercu(reps) {
+    var groupes = grouperReps(reps);
+    var h = '';
+    if (!groupes.length) {
+      h += '<p class="rap-texte">Ton arbre ne fait pas encore apparaître de répétition. Ajoute des dates de naissance, des âges et des événements : c’est ce qui les fait apparaître. Le rapport t’indiquera aussi quoi compléter.</p>';
+    } else {
+      h += '<p class="rap-texte">Ton arbre fait apparaître <b>' + reps.length + ' répétition' + (reps.length > 1 ? 's' : '') + '</b> dans ' + groupes.length + ' thème' + (groupes.length > 1 ? 's' : '') + ' :</p>';
+      h += '<ul class="rap-themes">' + groupes.map(function (g) { return '<li><span>' + esc(TEXTES_RAPPORT[g.type].titre) + '</span><b>' + g.items.length + '</b></li>'; }).join('') + '</ul>';
+      var r0 = groupes[0].items[0], T0 = TEXTES_RAPPORT[groupes[0].type];
+      h += '<div class="rap-extrait"><p class="rap-sur">Extrait du rapport</p><div class="rap-rep" style="--c:' + r0.c + '"><b>' + esc(r0.label) + '</b><span>' + esc(r0.desc) + '</span></div><p class="rap-piste"><b>Piste de réflexion :</b> ' + esc(T0.pistes[0]) + '</p></div>';
+      if (reps.length > 1) h += '<p class="rap-flou" aria-hidden="true">' + reps.slice(1, 4).map(function (r) { return esc(r.label); }).join(' · ') + '</p><p class="rap-cadenas">Les ' + (reps.length - 1) + ' autres répétitions, leurs explications et leurs pistes sont dans le rapport complet.</p>';
+    }
+    h += '<p class="rap-contenu">Le rapport complet (PDF à imprimer ou à garder) contient : ton arbre, tes chiffres clés, chaque répétition expliquée avec ses pistes de réflexion et un geste pour sortir de la boucle, des pages de notes, et ce qu’il te reste à compléter.</p>';
+    return h;
+  }
+
+  function ouvrirRapport() {
+    var fen = $('fen-rapport'), corps = $('fr-corps');
+    if (Object.keys(S.people).length < 3) {
+      corps.innerHTML = '<p class="rap-texte">Ajoute au moins trois personnes à ton arbre (toi, tes parents…) pour obtenir ton rapport. Plus il est complet, plus le rapport est riche.</p>';
+      ouvrir('fen-rapport'); return;
+    }
+    var reps = detecter();
+    corps.innerHTML = '<p class="rap-texte">Un instant…</p>';
+    ouvrir('fen-rapport');
+    verifierAcces().then(function (acces) {
+      accesRapport = acces;
+      if (acces) {
+        corps.innerHTML = '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>' +
+          '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
+          '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante pour garder ton rapport.</p>';
+        $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
+        return;
+      }
+      var h = contenuApercu(reps);
+      h += '<div class="rap-offres">' +
+        '<div class="rap-offre"><p class="rap-prix">' + RAPPORT.prix + '</p><p class="rap-nom">Mon rapport</p><p>Ton rapport complet, et ' + RAPPORT.duree + ' pour compléter ton arbre et le régénérer autant de fois que tu veux.</p>' + boutonOffre('rapport') + '</div>' +
+        '<div class="rap-offre rap-reco"><p class="rap-badge">Le plus complet</p><p class="rap-prix">' + RAPPORT.abo + '</p><p class="rap-nom">L’abonnement</p><p>Ton rapport mis à jour à chaque changement de ton arbre, aussi souvent que tu veux. Sans engagement, tu arrêtes quand tu veux.</p>' + boutonOffre('abonnement') + '</div>' +
+      '</div>';
+      if (!utilisateur) h += '<p class="rap-aide">Pour obtenir ton rapport, il faut un compte gratuit : il permet aussi de retrouver ton arbre sur tous tes appareils. <a href="login.html?retour=genosociogramme.html">Créer mon compte ou me connecter</a></p>';
+      h += '<div id="rap-prevenir"></div>';
+      corps.innerHTML = h;
+      corps.querySelectorAll('[data-offre]').forEach(function (b) { b.addEventListener('click', function () { prevenir(b.getAttribute('data-offre')); }); });
+    });
+  }
+  function boutonOffre(offre) {
+    var lien = lienPaiement(offre === 'rapport' ? RAPPORT.lienAchat : RAPPORT.lienAbonnement);
+    var lib = offre === 'rapport' ? 'Obtenir mon rapport' : 'Je m’abonne';
+    if (!utilisateur) return '<a class="bt' + (offre === 'abonnement' ? ' plein' : '') + ' rap-gros" href="login.html?retour=genosociogramme.html">' + lib + '</a>';
+    if (lien) return '<a class="bt' + (offre === 'abonnement' ? ' plein' : '') + ' rap-gros" href="' + esc(lien) + '" target="_blank" rel="noopener">' + lib + '</a>';
+    return '<button class="bt' + (offre === 'abonnement' ? ' plein' : '') + ' rap-gros" type="button" data-offre="' + offre + '">' + lib + '</button>';
+  }
+  function prevenir(offre) {
+    var z = $('rap-prevenir');
+    z.innerHTML = '<form class="rap-form" novalidate><p class="rap-texte"><b>Le paiement en ligne arrive très bientôt.</b> Laisse ton e-mail : tu seras prévenue dès l’ouverture, avec ton premier rapport à prix réduit.</p>' +
+      '<div class="rap-ligne"><input type="email" name="email" required placeholder="Ton e-mail" value="' + esc((utilisateur && utilisateur.email) || '') + '" aria-label="Ton e-mail"><button class="bt plein" type="submit">Me prévenir</button></div>' +
+      '<label class="rap-accord"><input type="checkbox" name="accord" required> J’accepte de recevoir un e-mail de Genesolia à ce sujet. <a href="confidentialite.html" target="_blank">Mes données</a></label><p class="rap-erreur" role="alert"></p></form>';
+    var f = z.querySelector('form');
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = f.querySelector('.rap-erreur'), email = f.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique une adresse e-mail valide.'; return; }
+      if (!f.accord.checked) { err.textContent = 'Coche la case d’accord.'; return; }
+      var data = new FormData(); data.append('email', email); data.append('offre', offre === 'rapport' ? 'Rapport ' + RAPPORT.prix : 'Abonnement ' + RAPPORT.abo);
+      data.append('repetitions', String(detecter().length)); data.append('personnes', String(Object.keys(S.people).length));
+      data.append('_subject', 'Intérêt pour le rapport de l’arbre');
+      f.querySelector('button').disabled = true;
+      fetch(RAPPORT.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); z.innerHTML = '<p class="rap-merci">Merci ! Tu seras prévenue dès que le rapport sera disponible.</p>'; })
+        .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+    z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  $('bt-rapport').addEventListener('click', ouvrirRapport);
+
   /* ───────── Démarrage ───────── */
   var exportDemande = new URLSearchParams(location.search).get('export');
   function exporterSiDemande() {
