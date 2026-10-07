@@ -1499,13 +1499,14 @@
     var gens = {}; Object.keys(S.people).forEach(function (id) { if (pl.pos[id]) gens[id] = pl.pos[id].y; });
     var lst = Object.keys(S.people).map(function (id) {
       var p = S.people[id], t = NUM.theme(p.prenom || '', p.nom || '', dateComplete(p.naiss) ? p.naiss : '', auj);
-      return { id: id, p: p, nom: nomComplet(p) || 'Sans nom', lien: id === moi ? 'toi' : lienDe(id), gen: gens[id], t: t, moi: id === moi, vivant: !decede(p) };
+      var sph = window.Guematrie && p.prenom ? window.Guematrie.prenom(p.prenom).sphere : null;
+      return { id: id, p: p, nom: nomComplet(p) || 'Sans nom', lien: id === moi ? 'toi' : lienDe(id), gen: gens[id], t: t, sphere: sph, moi: id === moi, vivant: !decede(p) };
     }).filter(function (x) { return x.t.chemin || x.t.expression; });
     lst.sort(function (a, b) { return (a.gen == null ? 99 : a.gen) - (b.gen == null ? 99 : b.gen) || (b.moi - a.moi); });
     var echos = [];
     function grouper(cle, type) {
       var g = {};
-      lst.forEach(function (x) { var v = x.t[cle]; if (v) (g[v] = g[v] || []).push(x); });
+      lst.forEach(function (x) { var v = cle === 'sphere' ? x.sphere : x.t[cle]; if (v) (g[v] = g[v] || []).push(x); });
       Object.keys(g).forEach(function (v) {
         var xs = g[v], ng = {}; xs.forEach(function (x) { ng[x.gen] = 1; });
         var nbGen = Object.keys(ng).length;
@@ -1514,6 +1515,7 @@
     }
     grouper('chemin', 'chemin');
     grouper('expression', 'expression');
+    if (window.Guematrie) grouper('sphere', 'sphere');
     var avecChemin = lst.filter(function (x) { return x.t.chemin; });
     if (avecChemin.length >= 5) {
       var vus = {}; avecChemin.forEach(function (x) { vus[NUM.base(x.t.chemin)] = 1; });
@@ -1554,6 +1556,7 @@
   function titreEcho(e) {
     if (e.type === 'chemin') return 'Le chemin de vie ' + e.n + ' revient sur ' + e.gens + ' générations';
     if (e.type === 'expression') return 'Le nombre d’expression ' + e.n + ' revient sur ' + e.gens + ' générations';
+    if (e.type === 'sphere') return 'Des prénoms qui mènent ' + window.Guematrie.SPHERES[e.n].nom.toLowerCase().replace(/^le /, 'au ').replace(/^la /, 'à la ').replace(/^l’|^l'/, 'à l’') + ' sur ' + e.gens + ' générations';
     if (e.type === 'absent') return e.nombres.length > 1 ? 'Les nombres ' + e.nombres.join(', ').replace(/, (\d+)$/, ' et $1') + ' n’apparaissent dans aucun chemin de vie' : 'Le nombre ' + e.nombres[0] + ' n’apparaît dans aucun chemin de vie';
     if (e.type === 'periode') return 'À ton âge, ' + (e.details.length > 1 ? e.details.length + ' personnes traversaient' : (e.details[0].x.p.prenom || e.details[0].x.nom) + ' traversait') + ' aussi une réalisation ' + e.n;
     if (e.type === 'dette') return 'Le nombre d’apprentissage ' + e.n + ' revient sur ' + e.gens + ' générations';
@@ -1563,9 +1566,11 @@
     if (e.type === 'absent') return 'Dans toute ta lignée';
     if (e.type === 'periode') return NUM.NOMBRES[e.n].nom + ' · ' + e.details.map(function (d) { return (d.x.p.prenom || d.x.nom) + (d.x.lien ? ' (' + d.x.lien.toLowerCase() + ')' : '') + (d.evts.length ? ' : ' + d.evts.join(', ') : ''); }).join(' ; ');
     if (e.type === 'dette') return NUM.APPRENTISSAGES[e.n].titre + ' · ' + prenomsDe(e.pers);
+    if (e.type === 'sphere') return 'Arbre de vie, sphère ' + e.n + ' · ' + prenomsDe(e.pers);
     return (e.type === 'annee' ? '' : NUM.NOMBRES[e.n].nom + ' · ') + prenomsDe(e.pers);
   }
   function texteEcho(e) {
+    if (e.type === 'sphere') { var SP = window.Guematrie.SPHERES[e.n]; return { texte: 'Sur l’arbre de vie, la valeur des lettres de ces prénoms conduit à la même sphère, ' + SP.nom.toLowerCase() + '. ' + SP.essence + ' ' + SP.famille, piste: SP.question + ' Qui a choisi ces prénoms, et en pensant à qui ?' }; }
     if (e.type === 'chemin' || e.type === 'expression') {
       var T = NUM.NOMBRES[e.n];
       return { texte: T.essence + ' ' + T.famille, piste: 'Le ' + e.n + ' apporte ' + T.mots.join(', ') + '. ' + (e.toi ? 'Qu’as-tu reçu de ' + (e.pers.length > 2 ? 'ces personnes' : 'cette personne') + ' ?' : 'Qu’est-ce que ces personnes ont vécu de semblable ?') + ' Le défi du ' + e.n + ', pour toi : ' + T.defi.charAt(0).toLowerCase() + T.defi.slice(1) };
@@ -1596,12 +1601,12 @@
     } else {
       h += '<p class="rap-texte">Pas encore d’écho visible entre les générations. Complète les dates de naissance et les prénoms : les échos apparaissent souvent avec les grands-parents.</p>';
     }
-    h += '<div class="nl-table-zone"><table class="nl-table"><thead><tr><th>Personne</th><th title="Chemin de vie">Chemin</th><th title="Nombre d’expression">Expr.</th><th title="Nombre héréditaire (nom)">Hérit.</th><th title="Année personnelle ' + new Date().getFullYear() + '">Année</th></tr></thead><tbody>' +
-      L.liste.map(function (x) { return '<tr' + (x.moi ? ' class="toi"' : '') + '><td><b>' + esc(x.nom) + '</b>' + (x.lien ? '<small>' + esc(x.lien) + '</small>' : '') + '</td><td>' + nb(x.t.chemin) + '</td><td>' + nb(x.t.expression) + '</td><td>' + nb(x.t.hereditaire) + '</td><td>' + (x.vivant ? nb(x.t.annee) : '<span class="nl-vide">·</span>') + '</td></tr>'; }).join('') +
+    h += '<div class="nl-table-zone"><table class="nl-table"><thead><tr><th>Personne</th><th title="Chemin de vie">Chemin</th><th title="Nombre d’expression">Expr.</th><th title="Nombre héréditaire (nom)">Hérit.</th><th title="Année personnelle ' + new Date().getFullYear() + '">Année</th>' + (window.Guematrie ? '<th title="Sphère de l’arbre de vie (prénom)">Arbre</th>' : '') + '</tr></thead><tbody>' +
+      L.liste.map(function (x) { return '<tr' + (x.moi ? ' class="toi"' : '') + '><td><b>' + esc(x.nom) + '</b>' + (x.lien ? '<small>' + esc(x.lien) + '</small>' : '') + '</td><td>' + nb(x.t.chemin) + '</td><td>' + nb(x.t.expression) + '</td><td>' + nb(x.t.hereditaire) + '</td><td>' + (x.vivant ? nb(x.t.annee) : '<span class="nl-vide">·</span>') + '</td>' + (window.Guematrie ? '<td>' + nb(x.sphere) + '</td>' : '') + '</tr>'; }).join('') +
       '</tbody></table></div>';
     if (L.incomplets) h += '<p class="rap-aide">' + L.incomplets + ' personne' + (L.incomplets > 1 ? 's n’ont' : ' n’a') + ' pas encore de prénom ni de date complète.</p>';
     h += '<p class="rap-aide">Pour un calcul juste, indique dans la fiche de chacun·e <b>tous ses prénoms</b> et son <b>nom de naissance</b> (celui de jeune fille pour les femmes mariées), et la date de naissance complète.</p>';
-    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a><a class="bt rap-gros" href="mon-mois.html">Voir mon mois</a></div>';
+    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a><a class="bt rap-gros" href="ton-prenom.html">Lire mon prénom</a><a class="bt rap-gros" href="mon-mois.html">Voir mon mois</a></div>';
     corps.innerHTML = h;
     $('bt-numero-rapport').addEventListener('click', function () { fermer('fen-numero'); ouvrirRapport(); });
     ouvrir('fen-numero');
