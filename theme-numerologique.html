@@ -241,6 +241,8 @@
         <p><b>Le nombre actif</b> vient de ton premier prénom, et <b>le jour de naissance</b> du jour où tu es né·e. <b>Les trois cycles de vie</b> viennent de ton mois, de ton jour et de ton année de naissance. <b>Les quatre réalisations</b> et <b>leurs défis</b> combinent ces trois éléments : la première se termine à 36 ans moins ton chemin de vie, les suivantes durent neuf ans. <b>Les nombres d'apprentissage</b> (13, 14, 16 et 19, appelés aussi dettes karmiques) apparaissent quand un calcul passe par l'un d'eux. <b>Les quatre plans</b> (mental, physique, émotionnel, intuitif) répartissent les lettres de ton nom selon leur nature.</p>
         <h3>Numérologie et histoire familiale</h3>
         <p>Ton nom de naissance te relie à ta lignée : il donne <b>ton nombre héréditaire</b>. Et quand on calcule les nombres de toute une famille, des échos apparaissent : le même chemin de vie chez une mère et sa fille, un nombre qui revient sur trois générations, un autre qui n'apparaît jamais. C'est une autre façon de regarder ce qui se transmet.</p>
+        <h3>Ailleurs dans le monde</h3>
+        <p>D'autres civilisations ont lu la date de naissance à travers les nombres, chacune à sa manière. Chez les Mayas, le jour de naissance porte un nombre et un signe du calendrier sacré de 260 jours : <a href="ton-signe-maya.html">découvre ton signe maya</a> et la façon dont ils comptaient.</p>
         <p class="note">La numérologie propose une lecture symbolique, pour réfléchir à ton histoire. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
       </div>
     </section>
@@ -248,6 +250,7 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/numerologie.js"></script>
+  <script src="assets/maya.js"></script>
   <script src="assets/livret-numerologie.js"></script>
   <script>
   (function () {
@@ -277,7 +280,7 @@
       var h = '<div class="conteneur">';
       h += '<div class="n-res-tete"><div><h2>Le thème de <span>' + esc(prenom) + '</span></h2><p>Né·e le ' + dateFr(t.date) + (t.age != null ? ' · ' + t.age + ' ans' : '') + '</p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + t.chemin + '</b></span><span>Expression <b>' + t.expression + '</b></span><span>Héréditaire <b>' + t.hereditaire + '</b></span><span>Année ' + auj.getFullYear() + ' <b>' + t.annee + '</b></span></div></div>' +
-        '<div class="actions"><button class="btn btn-plein" type="button" id="n-livret">Télécharger mon livret PDF (' + (16 + (t.dettes.length ? 1 : 0)) + ' pages)</button><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
+        '<div class="actions"><button class="btn btn-plein" type="button" id="n-livret">Télécharger mon livret PDF (plus de 30 pages)</button><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
       h += '<nav class="n-sommaire" aria-label="Dans ton thème"><a href="#n-nombres">Tes nombres</a><a href="#n-temps">Ton année</a><a href="#n-periodes">Tes grandes périodes</a>' + (t.dettes.length ? '<a href="#n-appr">Tes apprentissages</a>' : '') + '<a href="#n-nom">Ton nom</a><a href="#n-lignee">Ta lignée</a></nav>';
 
       h += '<h3 class="n-titre-sec" id="n-nombres">Tes nombres principaux</h3>';
@@ -326,8 +329,8 @@
       h += '<div class="n-plans"><div><h3>Tes quatre plans</h3><p class="n-intro">Les lettres de ton nom se répartissent entre quatre façons de vivre les choses. Le plan le plus fort montre comment tu fonctionnes en premier.</p><p><b>' + N.PLANS[t.planDominant].nom + ' :</b> ' + N.PLANS[t.planDominant].texte + '</p></div><ul>' +
         Object.keys(N.PLANS).map(function (c) { var pc = totalL ? Math.round(t.plans[c] * 100 / totalL) : 0; return '<li class="' + (c === t.planDominant ? 'fort' : '') + '"><span><b>' + N.PLANS[c].nom + '</b> ' + N.PLANS[c].theme + '</span><i style="--p:' + pc + '%"></i><em>' + pc + ' %</em></li>'; }).join('') + '</ul></div>';
 
-      h += '<div class="n-livret"><div class="n-livret-couv" aria-hidden="true"><small>Livret complet</small><b>' + t.chemin + '</b><span>' + esc(prenom) + '</span></div><div><p class="n-etiq">Ton livret complet, offert</p><h3>Tout ton thème dans un livret de ' + (16 + (t.dettes.length ? 1 : 0)) + ' pages à garder</h3>' +
-        '<p>Tous tes nombres expliqués en détail, tes trois cycles et tes quatre périodes, tes trois prochaines années, tes douze mois avec des gestes simples, une page pour noter les nombres de ta famille, des questions pour écrire et le détail de tes calculs.</p>' +
+      h += '<div class="n-livret"><div class="n-livret-couv" aria-hidden="true"><small>Livret complet</small><b>' + t.chemin + '</b><span>' + esc(prenom) + '</span></div><div><p class="n-etiq">Ton livret complet, offert</p><h3>Tout ton thème dans un livret de plus de 30 pages à garder</h3>' +
+        '<p>L\'histoire de la numérologie, ton chemin de vie en profondeur (portrait, enfance, amour, travail, argent, ombre, équilibre, lignée), chacun de tes nombres expliqué en détail, tes cycles, tes périodes et tes défis, ton année trimestre par trimestre, tes douze mois, une page pour les nombres de ta famille, un carnet d\'écriture et le détail de tes calculs.</p>' +
         '<button class="btn btn-plein" type="button" id="n-livret-2">Télécharger mon livret PDF</button><p class="n-livret-aide">Dans la fenêtre qui s\'ouvre, choisis « Enregistrer au format PDF ».</p></div></div>';
       h += '<div class="n-pont" id="n-lignee"><p class="n-etiq" style="color:var(--champagne-clair)">Et dans ta famille ?</p><h2>Ta mère, ta grand-mère, ton père ont-ils le même chemin de vie que toi ?</h2>' +
         '<p>Ton nombre héréditaire, le ' + t.hereditaire + ', te relie à ta lignée. En ajoutant ta famille dans ton arbre, l\'outil calcule les nombres de chacun·e et te montre les échos :</p>' +

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signe maya : calcule ton signe et ton nombre du calendrier maya (Tzolk'in) · Genesolia</title>
+  <meta name="description" content="Calcule gratuitement ton signe maya selon le compte traditionnel du Tzolk'in : ton nombre, ton signe, leur sens et ce qu'ils disent de ta lignée. Et apprends comment comptaient les Mayas : base 20, zéro, calendriers, codex.">
+  <link rel="canonical" href="https://genesolia.fr/ton-signe-maya.html">
+  <meta property="og:title" content="Ton signe maya, selon le compte traditionnel du Tzolk'in">
+  <meta property="og:description" content="Ton nombre et ton signe du calendrier sacré maya, leur sens, et les signes de ta famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .m-tete{position:relative;overflow:hidden;padding:3.2rem 0 3.4rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .m-tete .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+    .m-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .m-tete h1{margin-bottom:1rem}
+    .m-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
+    .m-form{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .m-form h2{font-size:1.5rem;margin-bottom:.3rem}
+    .m-form>p{font-size:.92rem;color:var(--prune-doux);margin-bottom:1.1rem}
+    .m-champ{display:grid;gap:.3rem;margin-bottom:.9rem}
+    .m-champ label{font:600 .82rem/1.2 var(--texte)}
+    .m-form input,.m-fam input{font:inherit;padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--nacre);color:var(--prune);width:100%}
+    .m-form .btn{width:100%;margin-top:.4rem}
+    .m-erreur{color:#A1384F;font-size:.88rem;margin-top:.5rem;min-height:1.2em}
+    .mini{font-size:.78rem;color:var(--prune-doux);margin-top:.6rem}
+    .m-res .conteneur{max-width:62rem}
+    .m-carte-tete{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center;padding:2rem;border-radius:var(--rayon);color:#fff;background:radial-gradient(30rem 18rem at 90% 0%,rgba(243,220,192,.45),transparent 60%),linear-gradient(150deg,#7B3A6A,#3E1736)}
+    .m-glyphe{width:7.5rem;height:7.5rem;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(243,220,192,.5);display:flex;align-items:center;justify-content:center}
+    .m-glyphe svg{width:4.2rem;height:auto}
+    .m-carte-tete h2{color:#fff;font-size:2.3rem;margin:.2rem 0 .3rem}
+    .m-carte-tete .m-sur{color:var(--champagne-clair);margin:0}
+    .m-carte-tete p{color:#F7E6E8;margin:0}
+    .m-puces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+    .m-puces span{border:1px solid rgba(243,220,192,.5);border-radius:99px;padding:.3rem .8rem;font-size:.84rem;color:#fff}
+    .m-grille{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.4rem}
+    .m-bloc{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.5rem}
+    .m-bloc h3{font-size:1.25rem;margin-bottom:.5rem}
+    .m-bloc p{color:var(--prune-doux);max-width:none}
+    .m-bloc.large{grid-column:1/-1}
+    .m-bloc.doux{background:var(--rose)}
+    .m-fd{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .m-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .m-autres{display:flex;flex-wrap:wrap;gap:1.6rem;align-items:flex-end}
+    .m-cl{display:flex;gap:.7rem;align-items:flex-end}
+    .m-cl div{display:flex;flex-direction:column;align-items:center;gap:.25rem;font-size:.72rem;color:var(--prune-doux)}
+    .m-cl svg{width:2rem;height:auto}
+    .m-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+    .m-fam table{width:100%;border-collapse:collapse;margin:1rem 0}
+    .m-fam td,.m-fam th{padding:.45rem .4rem;text-align:left;border-bottom:1px solid var(--rose)}
+    .m-fam th{font:600 .8rem var(--texte);color:var(--prune-doux)}
+    .m-fam .res{font-size:.92rem;color:var(--prune)}
+    .m-fam .res b{font-weight:600}
+    .m-fam .echo{background:var(--rose);border-radius:var(--rayon);padding:1.1rem 1.3rem;margin-top:1rem}
+    .m-fam button.suppr{border:0;background:none;color:var(--prune-doux);font-size:1.2rem;cursor:pointer}
+    .m-texte{max-width:46rem}
+    .m-texte h2{margin:2.4rem 0 .8rem}.m-texte h2:first-child{margin-top:0}
+    .m-texte p{margin-bottom:1rem}
+    .m-chiffres{display:grid;grid-template-columns:repeat(10,1fr);gap:.5rem;margin:1rem 0 1.6rem}
+    .m-chiffres div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:.3rem;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:12px;padding:.6rem .3rem;min-height:5.6rem}
+    .m-chiffres svg{width:2.2rem;height:auto}
+    .m-chiffres b{font:400 1rem var(--display)}
+    .m-signes{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+    .m-signes button{font:inherit;text-align:left;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:14px;padding:.8rem .9rem;cursor:pointer;color:var(--prune)}
+    .m-signes button[aria-pressed=true]{border-color:var(--prune);background:var(--rose)}
+    .m-signes b{display:block;font:400 1.05rem var(--display)}
+    .m-signes small{color:var(--prune-doux);font-size:.8rem}
+    .m-signe-detail{margin-top:1rem}
+    .m-sources li{margin:0 0 .5rem 1.1rem;color:var(--prune-doux)}
+    .note{font-size:.86rem;color:var(--prune-doux)}
+    @media(max-width:860px){.m-tete .conteneur,.m-grille,.m-fd{grid-template-columns:1fr}.m-signes{grid-template-columns:repeat(2,1fr)}.m-chiffres{grid-template-columns:repeat(5,1fr)}.m-carte-tete{grid-template-columns:1fr;text-align:left}.m-carte-tete h2{font-size:1.9rem}}
+    @media(max-width:560px){.m-fam thead{display:none}.m-fam tr{display:grid;grid-template-columns:1fr 1fr auto;gap:.3rem;padding:.5rem 0;border-bottom:1px solid var(--rose)}.m-fam td{border:0;padding:.15rem}.m-fam td.res{grid-column:1/-1}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="m-tete">
+      <div class="conteneur">
+        <div>
+          <p class="m-sur">Gratuit · sans inscription</p>
+          <h1>Ton signe maya</h1>
+          <p class="intro">Pour les Mayas, le jour de naissance porte un nombre et un signe du Tzolk'in, le calendrier sacré de 260 jours. Découvre les tiens, ce qu'ils racontent de toi et de ta lignée, et apprends comment comptait l'une des plus grandes civilisations des Amériques.</p>
+        </div>
+        <form class="m-form" id="m-form" novalidate>
+          <h2>Calcule ton signe</h2>
+          <p>Selon le compte traditionnel, celui que tiennent encore les gardien·nes du jour mayas.</p>
+          <div class="m-champ">
+            <label for="m-prenom">Ton prénom <small>(facultatif)</small></label>
+            <input id="m-prenom" name="prenom" autocomplete="given-name">
+          </div>
+          <div class="m-champ">
+            <label for="m-date">Ta date de naissance</label>
+            <input id="m-date" name="date" type="date" min="1900-01-01" max="2030-12-31" required>
+          </div>
+          <button class="btn btn-plein" type="submit">Découvrir mon signe</button>
+          <p class="m-erreur" role="alert" id="m-erreur"></p>
+          <p class="mini">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc m-res" id="resultat" hidden aria-live="polite"></section>
+
+    <section class="bloc bloc-doux" id="famille">
+      <div class="conteneur m-fam">
+        <div class="bloc-tete"><h2>Les signes de ta famille</h2><p>Ajoute les dates de naissance de tes proches. Les signes ou les nombres qui reviennent d'une génération à l'autre peuvent ouvrir des questions sur ce qui se transmet.</p></div>
+        <table><thead><tr><th>Prénom ou lien</th><th>Date de naissance</th><th>Jour maya</th><th></th></tr></thead><tbody id="fam-lignes"></tbody></table>
+        <button class="btn btn-trait" type="button" id="fam-ajout">Ajouter une personne</button>
+        <div id="fam-echos"></div>
+        <p class="note" style="margin-top:1rem">Pour aller plus loin, <a href="genosociogramme.html">dessine ton arbre familial</a> : l'outil repère aussi les prénoms, les âges et les dates qui se répètent.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur m-texte" id="apprendre">
+        <p class="m-sur">Apprendre</p>
+        <h2>Compter comme les Mayas</h2>
+        <div id="t-chiffres"></div>
+        <div class="m-chiffres" id="m-chiffres" aria-label="Les chiffres mayas de 0 à 19"></div>
+        <h2>Plusieurs calendriers qui s'emboîtent</h2><div id="t-calendriers"></div>
+        <h2>Lire un jour du Tzolk'in</h2><div id="t-tzolkin"></div>
+        <h2>Les vingt signes</h2>
+        <p>Clique sur un signe pour lire son sens. Le premier nom est yucatèque, le second k'iche', la langue des gardien·nes du jour dont la tradition sert de référence ici.</p>
+        <div class="m-signes" id="m-signes"></div>
+        <div class="m-signe-detail" id="m-signe-detail"></div>
+        <h2>Et le « kin » ou la « signature galactique » ?</h2><div id="t-dreamspell"></div>
+        <h2>Le 21 décembre 2012</h2><div id="t-2012"></div>
+        <h2>Les codex, des livres sauvés du feu</h2><div id="t-codex"></div>
+        <h2>Une culture vivante</h2><div id="t-respect"></div>
+        <h2>Pour aller plus loin</h2>
+        <ul class="m-sources" id="m-sources"></ul>
+        <p class="note">Le calcul utilise la corrélation dite GMT (584283), la plus admise par les spécialistes et celle qui correspond au compte des communautés k'iche' du Guatemala. Notre lecture est une introduction simplifiée et symbolique : elle ne remplace pas la parole d'un ou d'une ajq'ij.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/maya.js"></script>
+  <script src="assets/maya-textes.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var M = window.Maya, T = window.MAYA_TEXTES, CLE = 'genesolia-maya', CLE_FAM = 'genesolia-maya-famille';
+    var f = document.getElementById('m-form'), err = document.getElementById('m-erreur'), zone = document.getElementById('resultat');
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function paras(t) { return String(t || '').split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join(''); }
+    function nomJour(r) { var S = T.SIGNES[r.signe]; return r.nombre + ' ' + S.kiche; }
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    function dateFr(d) { var m = d.split('-'); return +m[2] + ' ' + MOIS[+m[1] - 1] + ' ' + m[0]; }
+
+    function afficher(date, prenom) {
+      var r = M.calculer(date), S = T.SIGNES[r.signe];
+      var h = '<div class="conteneur">';
+      h += '<div class="m-carte-tete"><div class="m-glyphe">' + M.chiffre(r.nombre, { couleur: '#F3DCC0' }) + '</div><div><p class="m-sur">' + (prenom ? 'Le jour maya de ' + esc(prenom) : 'Ton jour maya') + ' · né·e le ' + dateFr(date) + '</p>' +
+        '<h2>' + r.nombre + ' ' + S.kiche + '</h2><p>' + S.yucateque + ' en yucatèque · ' + S.image + '</p>' +
+        '<div class="m-puces"><span>Nombre ' + r.nombre + '</span><span>Signe ' + (r.signe + 1) + ' sur 20</span><span>Jour ' + r.kin + ' sur 260</span><span>' + S.direction + '</span></div></div></div>';
+      h += '<div class="m-grille">';
+      h += '<article class="m-bloc large"><p class="m-etiq">Ton signe</p><h3>' + S.kiche + ' · ' + S.image + '</h3>' + paras(S.symbole) + '</article>';
+      h += '<article class="m-bloc large"><p class="m-etiq">Ton caractère selon la tradition</p><h3>Les personnes nées un jour ' + S.kiche + '</h3>' + paras(S.caractere) + '</article>';
+      h += '<article class="m-bloc large"><div class="m-fd"><div><p class="m-etiq">Tes forces</p><p>' + S.forces + '</p></div><div><p class="m-etiq">Tes défis</p><p>' + S.defis + '</p></div></div></article>';
+      h += '<article class="m-bloc"><p class="m-etiq">Ton nombre</p><h3>Le ' + r.nombre + '</h3><div style="width:2.6rem;margin:.2rem 0 .6rem">' + M.chiffre(r.nombre) + '</div>' + paras(T.NOMBRES[r.nombre]) + '</article>';
+      h += '<article class="m-bloc doux"><p class="m-etiq">Dans ta lignée</p><h3>' + S.kiche + ' et ta famille</h3>' + paras(S.lignee) + '</article>';
+      h += '<article class="m-bloc large"><p class="m-etiq">Ce jour-là dans les autres comptes mayas</p><div class="m-autres"><div><h3 style="margin-bottom:.3rem">Compte long</h3><div class="m-cl">' +
+        r.compteLong.map(function (v, i) { return '<div>' + M.chiffre(v) + '<span>' + v + '</span><span>' + ['bak\'tun', 'k\'atun', 'tun', 'winal', 'k\'in'][i] + '</span></div>'; }).join('') + '</div></div>' +
+        '<div><h3 style="margin-bottom:.3rem">Haab\'</h3><p>' + r.haab.jour + ' ' + r.haab.mois + '</p><p class="note">Le calendrier de 365 jours</p></div>' +
+        '<div><h3 style="margin-bottom:.3rem">Date complète</h3><p>' + r.compteLong.join('.') + ' · ' + nomJour(r) + ' ' + r.haab.jour + ' ' + r.haab.mois + '</p><p class="note">Telle qu\'un scribe maya l\'aurait gravée</p></div></div></article>';
+      h += '</div><div class="m-actions"><a class="btn btn-plein" href="#famille">Voir les signes de ma famille</a><a class="btn btn-trait" href="theme-numerologique.html">Calculer aussi mon thème numérologique</a><a class="btn btn-trait" href="#apprendre">Comprendre le calendrier maya</a></div>';
+      h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, inspirée de la tradition k\'iche\' telle que l\'ont décrite les ethnologues. Elle ne prédit rien : elle propose des pistes pour réfléchir à ton histoire.</p></div>';
+      zone.innerHTML = h; zone.hidden = false;
+    }
+
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = f.date.value, p = f.prenom.value.trim();
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+      err.textContent = '';
+      afficher(d, p);
+      try { localStorage.setItem(CLE, JSON.stringify({ date: d, prenom: p })); } catch (x) {}
+      if (window.umami) try { window.umami.track('signe-maya'); } catch (x) {}
+      zone.scrollIntoView({ behavior: 'smooth' });
+      majFamille();
+    });
+
+    /* Famille */
+    var lignes = document.getElementById('fam-lignes');
+    function ligne(nom, date) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><input type="text" class="f-nom" placeholder="Ma mère, mon grand-père…" value="' + esc(nom || '') + '"></td><td><input type="date" class="f-date" min="1850-01-01" max="2030-12-31" value="' + esc(date || '') + '"></td><td class="res"></td><td><button type="button" class="suppr" aria-label="Retirer">×</button></td>';
+      lignes.appendChild(tr);
+      tr.querySelector('.suppr').addEventListener('click', function () { tr.remove(); majFamille(); });
+      tr.querySelectorAll('input').forEach(function (i) { i.addEventListener('input', majFamille); });
+    }
+    function majFamille() {
+      var moi = null; try { moi = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (x) {}
+      var liste = [], sauve = [];
+      if (moi && moi.date) liste.push({ nom: moi.prenom || 'Toi', r: M.calculer(moi.date), toi: true });
+      lignes.querySelectorAll('tr').forEach(function (tr) {
+        var nom = tr.querySelector('.f-nom').value.trim(), d = tr.querySelector('.f-date').value, res = tr.querySelector('.res');
+        sauve.push({ nom: nom, date: d });
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d) && +d.slice(0, 4) >= 1850) {
+          var r = M.calculer(d), S = T.SIGNES[r.signe];
+          res.innerHTML = '<b>' + r.nombre + ' ' + S.kiche + '</b> · ' + S.image;
+          liste.push({ nom: nom || 'Sans nom', r: r });
+        } else res.textContent = '';
+      });
+      try { localStorage.setItem(CLE_FAM, JSON.stringify(sauve)); } catch (x) {}
+      var z = document.getElementById('fam-echos');
+      if (liste.length < 2) { z.innerHTML = ''; return; }
+      var parSigne = {}, parNombre = {}, h = [];
+      liste.forEach(function (x) { (parSigne[x.r.signe] = parSigne[x.r.signe] || []).push(x.nom); (parNombre[x.r.nombre] = parNombre[x.r.nombre] || []).push(x.nom); });
+      Object.keys(parSigne).forEach(function (s) { if (parSigne[s].length > 1) h.push('<p>Le signe <b>' + T.SIGNES[s].kiche + '</b> (' + T.SIGNES[s].image + ') revient chez ' + parSigne[s].map(esc).join(', ') + '. Une qualité, ou un rôle, qui se transmet peut-être.</p>'); });
+      Object.keys(parNombre).forEach(function (n) { if (parNombre[n].length > 1) h.push('<p>Le nombre <b>' + n + '</b> revient chez ' + parNombre[n].map(esc).join(', ') + '.</p>'); });
+      var ancetres = liste.filter(function (x) { return T.SIGNES[x.r.signe].kiche === 'Ajmaq' || T.SIGNES[x.r.signe].kiche === 'Kame'; });
+      if (ancetres.length) h.push('<p>' + ancetres.map(function (x) { return esc(x.nom); }).join(', ') + ' ' + (ancetres.length > 1 ? 'sont né·es' : 'est né·e') + ' un jour que la tradition k\'iche\' relie aux ancêtres (Kame ou Ajmaq).</p>');
+      z.innerHTML = '<div class="echo"><h3 style="font-size:1.15rem;margin-bottom:.4rem">Ce qui se répète</h3>' + (h.length ? h.join('') : '<p>Aucun signe ni nombre ne se répète pour l\'instant. Chaque personne porte un jour différent, et c\'est aussi une information.</p>') + '</div>';
+    }
+    document.getElementById('fam-ajout').addEventListener('click', function () { ligne(); lignes.lastChild.querySelector('.f-nom').focus(); });
+
+    /* Apprendre */
+    ['chiffres', 'calendriers', 'tzolkin', 'dreamspell', '2012', 'codex', 'respect'].forEach(function (k) { document.getElementById('t-' + k).innerHTML = paras(T.APPRENDRE[k]); });
+    var ch = ''; for (var n = 0; n < 20; n++) ch += '<div>' + M.chiffre(n) + '<b>' + n + '</b></div>';
+    document.getElementById('m-chiffres').innerHTML = ch;
+    var gs = document.getElementById('m-signes'), det = document.getElementById('m-signe-detail');
+    gs.innerHTML = T.SIGNES.map(function (S, i) { return '<button type="button" data-i="' + i + '" aria-pressed="false"><b>' + (i + 1) + '. ' + S.kiche + '</b><small>' + S.yucateque + ' · ' + S.image + '</small></button>'; }).join('');
+    gs.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      gs.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      var S = T.SIGNES[+b.getAttribute('data-i')];
+      det.innerHTML = '<div class="m-bloc"><p class="m-etiq">' + S.yucateque + ' · ' + S.direction + '</p><h3>' + S.kiche + ' · ' + S.image + '</h3>' + paras(S.symbole) + '</div>';
+    });
+    document.getElementById('m-sources').innerHTML = T.SOURCES.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('');
+
+    /* Reprise */
+    try {
+      var fam = JSON.parse(localStorage.getItem(CLE_FAM) || 'null');
+      if (fam && fam.length) fam.forEach(function (x) { ligne(x.nom, x.date); }); else { ligne('', ''); ligne('', ''); }
+      var s = JSON.parse(localStorage.getItem(CLE) || 'null');
+      if (s && s.date) { f.date.value = s.date; f.prenom.value = s.prenom || ''; afficher(s.date, s.prenom); }
+      majFamille();
+    } catch (x) { ligne('', ''); }
+  })();
+  </script>
+</body>
+</html>
