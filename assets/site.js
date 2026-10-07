@@ -12,15 +12,15 @@
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
-    ['heriter.html', 'Comprendre'],
-    ['methode.html', 'La méthode'],
-    ['arbre-de-vie.html', "L'arbre de vie"],
-    ['genosociogramme.html', 'Mon arbre familial'],
+    ['genosociogramme.html', 'Ta famille'],
+    ['theme-numerologique.html', 'Tes nombres'],
+    ['theme-astral.html', 'Tes étoiles'],
+    ['symbolique-des-reves.html', 'Tes rêves'],
+    ['mon-mois.html', 'Le Cercle'],
     ['blog.html', 'Blog'],
-    ['cartes.html', 'Images'],
     ['login.html', 'Mon espace']
   ];
-  var BOUTON = ['arbre-de-vie.html', 'Faire le test gratuit'];
+  var BOUTON = ['ton-prenom.html', 'Mon prénom'];
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
