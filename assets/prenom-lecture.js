@@ -86,7 +86,7 @@
   }
 
   var ORIGINE = '<section class="p-bloc p-origine" id="origine"><p class="p-etiq">D\'où vient cette lecture</p><h2>La valeur des lettres, une tradition universelle</h2>' +
-    '<p>Très tôt, des civilisations ont donné une valeur numérique aux lettres de leur alphabet. Les Grecs pratiquaient l\'isopséphie, le monde arabe l\'abjad, et la tradition hébraïque la guématrie. Chercher ce que disent les nombres cachés dans un nom est une démarche très ancienne et largement partagée.</p>' +
+    '<p>Très tôt, des civilisations ont donné une valeur numérique aux lettres de leur alphabet. Les Grecs pratiquaient l\'isopséphie, le monde arabe l\'abjad, et la tradition hébraïque la guématrie (ou gématrie). Chercher ce que disent les nombres cachés dans un nom est une démarche très ancienne et largement partagée.</p>' +
     '<p>L\'arbre de vie, avec ses dix sphères reliées par vingt-deux chemins, est lui aussi un symbole que l\'on retrouve, sous des formes diverses, dans de nombreuses traditions spirituelles. La version que nous utilisons associe chacune des vingt-deux lettres de l\'alphabet ancien à un chemin de l\'arbre.</p>' +
     '<p>Nous proposons ici une lecture symbolique et contemporaine, pour réfléchir à ton prénom et à ce qu\'il porte de ton histoire. Elle ne prétend enseigner aucune tradition religieuse et ne prédit rien.</p></section>';
 
