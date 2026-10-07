@@ -137,6 +137,18 @@
     .bt.danger{color:#A23B4C;border-color:#E9C2C9}
     .bt.danger:hover{border-color:#A23B4C}
     .liste-cases{display:grid;gap:.1rem;margin:.2rem 0 .8rem}
+    #fen-import [hidden]{display:none!important}
+    .fi-aide{font-size:.9rem;color:var(--prune-doux);line-height:1.55;margin-bottom:.9rem}
+    .fi-aide b{color:var(--prune);font-weight:600}
+    .fi-liste{display:grid;gap:.35rem;max-height:46vh;overflow-y:auto;padding-right:.2rem}
+    .fi-ligne{display:flex;gap:.6rem;align-items:flex-start;background:var(--nacre);border-radius:10px;padding:.55rem .7rem;cursor:pointer;font-size:.9rem;color:var(--prune)}
+    .fi-ligne input{width:18px;height:18px;accent-color:var(--prune);margin-top:.1rem;flex-shrink:0}
+    .fi-ligne b{font-weight:600}
+    .fi-ligne.off{opacity:.5}
+    .fi-dates{color:var(--prune-doux);font-size:.84rem;margin-left:.4rem}
+    .fi-info{display:block;font-size:.8rem;color:var(--prune-doux);line-height:1.45}
+    .fi-doute{display:block;font-size:.8rem;color:#9A5A1E;line-height:1.45;margin-top:.15rem}
+    .lien-import{display:block;margin:.8rem auto 0;background:none;border:none;color:var(--prune);font:600 .86rem/1.3 var(--texte);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
     .liste-versions{display:grid;gap:.35rem;max-height:260px;overflow-y:auto}
     .liste-versions .bt{padding:.4rem .7rem;font-size:.78rem}
 
@@ -282,6 +294,7 @@
             <button class="btn btn-plein" type="button" id="bt-commencer">Me placer dans l'arbre</button>
             <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a>
           </div>
+          <button class="lien-import" type="button" id="bt-importer-vide">J'ai déjà un arbre en PDF ou GEDCOM : l'importer</button>
           <small>Ton arbre reste dans ton navigateur. Connecte-toi pour le retrouver sur un autre ordinateur.</small>
         </div>
       </div>
@@ -409,6 +422,7 @@
         <div style="display:grid;gap:.5rem">
           <button class="bt plein" type="button" id="bt-json" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
           <button class="bt" type="button" id="bt-ouvrir" style="justify-content:center;padding:.75rem">Ouvrir une copie</button>
+          <button class="bt" type="button" id="bt-importer" style="justify-content:center;padding:.75rem">Importer un arbre (PDF ou GEDCOM)</button>
           <button class="bt" type="button" id="bt-svg" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
           <a class="bt" href="login.html?retour=genosociogramme.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
           <button class="bt danger" type="button" id="bt-effacer" style="justify-content:center;padding:.75rem;margin-top:.6rem">Effacer l'arbre et recommencer</button>
@@ -418,6 +432,24 @@
           <div id="fs-versions"></div>
         </div>
         <input type="file" id="fichier" accept=".json,application/json" hidden>
+        <input type="file" id="fichier-import" accept=".pdf,.ged,.gedcom,application/pdf" hidden>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import d'un arbre (PDF ou GEDCOM) -->
+  <div class="fenetre-fond" id="fen-import">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fi-titre">
+      <div class="fen-tete">
+        <div><h2 id="fi-titre">Vérifie avant d'importer</h2><p id="fi-sous"></p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps">
+        <div id="fi-corps"></div>
+        <div class="fen-actions">
+          <button class="bt" type="button" data-fermer>Annuler</button>
+          <button class="bt plein droite" type="button" id="fi-ok" hidden>Importer</button>
+        </div>
       </div>
     </div>
   </div>
@@ -460,5 +492,6 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/genosociogramme.js"></script>
+  <script src="assets/import-arbre.js"></script>
 </body>
 </html>
