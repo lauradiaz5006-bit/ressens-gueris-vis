@@ -1380,6 +1380,7 @@
       h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
     });
     h += sectionNumeroRapport();
+    h += sectionAstroRapport();
     // Pour aller plus loin
     h += '<section class="page"><div class="sur2">Pour aller plus loin</div><h2>Ce que ton arbre ne dit pas encore</h2><p class="intro">Plus ton arbre est complet, plus les répétitions apparaissent. Voici ce que tu pourrais compléter, puis régénérer ton rapport.</p>';
     if (st.sansDate.length) h += '<h3>Les dates de naissance manquantes</h3><p>' + esc(st.sansDate.slice(0, 30).join(', ')) + (st.sansDate.length > 30 ? '…' : '') + '</p>';
@@ -1392,7 +1393,7 @@
 
   function imprimerRapport(btn) {
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
-    polices().then(function (css) {
+    chargerAstro().catch(function () {}).then(polices).then(function (css) {
       var e = svgExport(css);
       var f = document.createElement('iframe');
       f.setAttribute('aria-hidden', 'true');
@@ -1426,7 +1427,7 @@
       h += '<div class="rap-extrait"><p class="rap-sur">Extrait du rapport</p><div class="rap-rep" style="--c:' + r0.c + '"><b>' + esc(r0.label) + '</b><span>' + esc(r0.desc) + '</span></div><p class="rap-piste"><b>Piste de réflexion :</b> ' + esc(T0.pistes[0]) + '</p></div>';
       if (reps.length > 1) h += '<p class="rap-flou" aria-hidden="true">' + reps.slice(1, 4).map(function (r) { return esc(r.label); }).join(' · ') + '</p><p class="rap-cadenas">Les ' + (reps.length - 1) + ' autres répétitions, leurs explications et leurs pistes sont dans le rapport complet.</p>';
     }
-    h += '<p class="rap-contenu">Le rapport complet (PDF à imprimer ou à garder) contient : ton arbre, tes chiffres clés, chaque répétition expliquée avec ses pistes de réflexion et un geste pour sortir de la boucle, ta lignée en nombres (numérologie) avec ses échos, des pages de notes, et ce qu’il te reste à compléter.</p>';
+    h += '<p class="rap-contenu">Le rapport complet (PDF à imprimer ou à garder) contient : ton arbre, tes chiffres clés, chaque répétition expliquée avec ses pistes de réflexion et un geste pour sortir de la boucle, ta lignée en nombres (numérologie) et dans les étoiles (astrologie) avec leurs échos, des pages de notes, et ce qu’il te reste à compléter.</p>';
     return h;
   }
 
@@ -1623,7 +1624,7 @@
     if (L.moi && L.moi.t.annee) { var A = NUM.ANNEES[L.moi.t.annee]; h += '<h3>Ton année personnelle ' + new Date().getFullYear() + ' : ' + L.moi.t.annee + '</h3><p><b>' + esc(A.titre) + '.</b> ' + esc(A.texte) + '</p><p><b>Ta piste :</b> ' + esc(A.piste) + '</p>'; }
     h += '</section>';
     if (L.echos.length) {
-      h += '<section class="section" style="margin-top:10mm"><div class="sur2">Numérologie</div><h2>Les échos de ta lignée</h2>';
+      h += '<section class="section" style="margin-top:10mm;break-before:auto"><div style="break-inside:avoid"><div class="sur2">Numérologie</div><h2>Les échos de ta lignée</h2></div>';
       L.echos.forEach(function (e) {
         var t = texteEcho(e);
         h += '<div style="break-inside:avoid;margin-bottom:6mm"><div class="rep" style="--c:#B98A55"><b>' + esc(titreEcho(e)) + '</b><p>' + esc(sousEcho(e)) + '</p></div><p>' + esc(t.texte) + '</p><div class="pistes" style="margin-bottom:0"><b>Piste de réflexion</b><p style="margin:1.5mm 0 0">' + esc(t.piste) + '</p></div></div>';
@@ -1634,10 +1635,112 @@
   }
   $('bt-numero').addEventListener('click', ouvrirNumero);
 
+
+  /* ───────── Astrologie de la lignée ───────── */
+  var astroPromesse = null;
+  function chargerAstro() {
+    if (window.Astrologie && window.ASTRO_TEXTES) return Promise.resolve();
+    if (astroPromesse) return astroPromesse;
+    function script(src) { return new Promise(function (ok, ko) { var e = document.createElement('script'); e.src = src; e.onload = ok; e.onerror = ko; document.head.appendChild(e); }); }
+    astroPromesse = script('assets/astronomy.browser.min.js').then(function () { return script('assets/astrologie.js'); }).then(function () { return script('assets/astrologie-textes.js'); });
+    return astroPromesse;
+  }
+  function astroLignee() {
+    var AS = window.Astrologie, pl = calculerPlan(), moi = idMoi();
+    var lst = Object.keys(S.people).filter(function (id) { return dateComplete(S.people[id].naiss); }).map(function (id) {
+      var p = S.people[id], r = AS.simple(p.naiss);
+      return { id: id, p: p, nom: nomComplet(p) || 'Sans nom', lien: id === moi ? 'toi' : lienDe(id), gen: pl.pos[id] ? pl.pos[id].y : null, moi: id === moi,
+        soleil: r.planetes.soleil.signe, lune: r.planetes.lune.signe, luneIncertaine: r.luneIncertaine || null, element: AS.ELEMENT[r.planetes.soleil.signe] };
+    });
+    lst.sort(function (a, b) { return (a.gen == null ? 99 : a.gen) - (b.gen == null ? 99 : b.gen) || (b.moi - a.moi); });
+    var echos = [], parId = {}; lst.forEach(function (x) { parId[x.id] = x; });
+    function grouper(cle) {
+      var g = {}; lst.forEach(function (x) { if (cle === 'lune' && x.luneIncertaine) return; (g[x[cle]] = g[x[cle]] || []).push(x); });
+      Object.keys(g).forEach(function (sg) { var xs = g[sg], ng = {}; xs.forEach(function (x) { ng[x.gen] = 1; }); var n = Object.keys(ng).length; if (xs.length >= 2 && n >= 2) echos.push({ type: cle, signe: sg, gens: n, pers: xs, toi: xs.some(function (x) { return x.moi; }) }); });
+    }
+    grouper('soleil'); grouper('lune');
+    S.rels.forEach(function (rel) {
+      if (rel.type !== 'parent') return;
+      var par = parId[rel.from], enf = parId[rel.to]; if (!par || !enf) return;
+      if (!enf.luneIncertaine && enf.lune === par.soleil) echos.push({ type: 'croise', sens: 'lune-soleil', enf: enf, par: par, signe: par.soleil, pers: [enf, par], toi: enf.moi || par.moi });
+      if (!par.luneIncertaine && enf.soleil === par.lune) echos.push({ type: 'croise', sens: 'soleil-lune', enf: enf, par: par, signe: enf.soleil, pers: [enf, par], toi: enf.moi || par.moi });
+    });
+    if (lst.length >= 4) {
+      var c = { feu: 0, terre: 0, air: 0, eau: 0 }, tot = 0;
+      lst.forEach(function (x) { c[x.element]++; tot++; if (!x.luneIncertaine) { c[window.Astrologie.ELEMENT[x.lune]]++; tot++; } });
+      var dom = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; })[0];
+      if (c[dom] / tot >= 0.4) echos.push({ type: 'element', element: dom, part: Math.round(c[dom] * 100 / tot), pers: [] });
+      Object.keys(c).filter(function (k) { return !c[k]; }).forEach(function (k) { echos.push({ type: 'manque', element: k, pers: [] }); });
+    }
+    echos.sort(function (a, b) { return (b.toi ? 1 : 0) - (a.toi ? 1 : 0) || (b.gens || 0) - (a.gens || 0); });
+    return { liste: lst, echos: echos, moi: lst.filter(function (x) { return x.moi; })[0] || null };
+  }
+  function nomCourt(x) { return x.moi ? 'toi' : (x.p.prenom || x.nom) + (x.lien ? ' (' + x.lien.toLowerCase() + ')' : ''); }
+  function titreAstro(e) {
+    var AT = window.ASTRO_TEXTES, Sg = function (s) { return AT.SIGNES[s].nom; };
+    if (e.type === 'soleil') return 'Le Soleil en ' + Sg(e.signe) + ' revient sur ' + e.gens + ' générations';
+    if (e.type === 'lune') return 'La Lune en ' + Sg(e.signe) + ' revient sur ' + e.gens + ' générations';
+    if (e.type === 'croise') return e.sens === 'lune-soleil' ? 'La Lune de ' + nomCourt(e.enf) + ' est dans le signe solaire de ' + nomCourt(e.par) : 'Le Soleil de ' + nomCourt(e.enf) + ' est dans le signe lunaire de ' + nomCourt(e.par);
+    if (e.type === 'element') return 'Une lignée d’' + AT.ELEMENTS[e.element].nom.replace(/^(Le |La |L’|L')/, '').toLowerCase() + ' (' + e.part + ' % des Soleils et des Lunes)';
+    return AT.ELEMENTS[e.element].nom + ' n’apparaît dans aucun Soleil ni aucune Lune';
+  }
+  function sousAstro(e) {
+    var AT = window.ASTRO_TEXTES;
+    if (e.type === 'soleil' || e.type === 'lune') return AT.SIGNES[e.signe].mots.join(', ') + ' · ' + e.pers.map(nomCourt).join(', ').replace(/, ([^,]*)$/, ' et $1');
+    if (e.type === 'croise') return AT.SIGNES[e.signe].nom + ' · ' + AT.SIGNES[e.signe].mots.join(', ');
+    return 'Dans toute ta lignée';
+  }
+  function texteAstro(e) {
+    var AT = window.ASTRO_TEXTES;
+    if (e.type === 'soleil') return { texte: AT.SIGNES[e.signe].essence + ' ' + AT.PLANETES.soleil.famille, piste: 'Qu’est-ce que ces personnes ont en commun dans leur façon d’exister et de prendre leur place ? Qu’as-tu envie de vivre de ce signe à ta manière ?' };
+    if (e.type === 'lune') return { texte: AT.SIGNES[e.signe].essence + ' ' + AT.PLANETES.lune.famille, piste: 'Ces personnes ont peut-être les mêmes besoins pour se sentir en sécurité. Comment ces besoins ont-ils été accueillis, ou non, d’une génération à l’autre ?' };
+    if (e.type === 'croise') return { texte: e.sens === 'lune-soleil' ? 'La Lune parle de ce dont on a besoin pour se sentir en sécurité. Quand elle tombe dans le signe solaire d’un parent, ce parent incarne souvent, symboliquement, ce qui rassure ou ce que l’on attend de lui.' : 'Quand le Soleil d’un enfant tombe dans le signe lunaire d’un parent, l’enfant exprime au grand jour ce que le parent vivait de l’intérieur : une sensibilité, des besoins, parfois un rêve resté discret.', piste: 'Qu’est-ce que cette personne t’a transmis de ce signe ? Qu’est-ce qui t’appartient vraiment, et qu’est-ce que tu portes pour elle ?' };
+    if (e.type === 'element') return { texte: AT.ELEMENTS[e.element].lignee, piste: 'Comment cet élément s’exprime-t-il dans ta famille : dans les métiers, les caractères, les façons de réagir ? Et comment veux-tu le vivre, toi ?' };
+    return { texte: AT.ELEMENTS[e.element].faible, piste: 'C’est peut-être une qualité que ta génération est invitée à développer pour toute la lignée. Où pourrais-tu commencer à la cultiver ?' };
+  }
+  function ouvrirAstro() {
+    var corps = $('fa-corps');
+    corps.innerHTML = '<p class="rap-texte">Calcul des thèmes de ta famille…</p>'; ouvrir('fen-astro');
+    chargerAstro().then(function () {
+      var L = astroLignee(), AT = window.ASTRO_TEXTES, h = '';
+      if (L.liste.length < 2) {
+        corps.innerHTML = '<p class="rap-texte">Ajoute au moins deux personnes avec leur date de naissance complète (jour, mois, année) : l’outil calcule alors leur Soleil et leur Lune et fait apparaître les échos de ta lignée.</p><p class="rap-aide">Tu veux d’abord découvrir ton thème complet ? <a href="theme-astral.html">Calculer mon thème astral</a></p>'; return;
+      }
+      h += L.echos.length ? '<p class="rap-texte">Ta lignée fait apparaître <b>' + L.echos.length + ' écho' + (L.echos.length > 1 ? 's' : '') + '</b> :</p><ul class="nl-echos">' + L.echos.map(function (e) { return '<li' + (e.toi ? ' class="toi"' : '') + '><b>' + esc(titreAstro(e)) + '</b><span>' + esc(sousAstro(e)) + '</span></li>'; }).join('') + '</ul>'
+        : '<p class="rap-texte">Pas encore d’écho visible entre les générations. Ajoute les dates de naissance de tes grands-parents : les échos apparaissent souvent avec eux.</p>';
+      h += '<div class="nl-table-zone"><table class="nl-table"><thead><tr><th>Personne</th><th>Soleil</th><th>Lune</th><th>Élément</th></tr></thead><tbody>' + L.liste.map(function (x) {
+        return '<tr' + (x.moi ? ' class="toi"' : '') + '><td><b>' + esc(x.nom) + '</b>' + (x.lien ? '<small>' + esc(x.lien) + '</small>' : '') + '</td><td style="font-family:var(--texte);font-size:.86rem">' + AT.SIGNES[x.soleil].nom + '</td><td style="font-family:var(--texte);font-size:.86rem">' + AT.SIGNES[x.lune].nom + (x.luneIncertaine ? ' ?' : '') + '</td><td style="font-family:var(--texte);font-size:.86rem">' + x.element + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+      h += '<p class="rap-aide">Calcul à midi, heure de Paris, faute d’heure de naissance : le Soleil est fiable, la Lune peut changer de signe dans la journée (marquée « ? »).</p>';
+      h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-astro-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-astral.html">Mon thème astral complet</a></div>';
+      corps.innerHTML = h;
+      $('bt-astro-rapport').addEventListener('click', function () { fermer('fen-astro'); ouvrirRapport(); });
+    }, function () { corps.innerHTML = '<p class="rap-texte">Le calcul n’a pas pu se charger. Recharge la page.</p>'; });
+  }
+  function sectionAstroRapport() {
+    if (!window.Astrologie || !window.ASTRO_TEXTES) return '';
+    var L = astroLignee(), AT = window.ASTRO_TEXTES; if (L.liste.length < 2) return '';
+    var h = '<section class="section page"><div class="sur2">Astrologie</div><h2>Ta lignée dans les étoiles</h2><p class="intro">' + esc(AT.INTRO.lignee) + '</p>';
+    h += '<table><tr><th>Personne</th><th>Lien</th><th>Soleil</th><th>Lune</th><th>Élément</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + AT.SIGNES[x.soleil].nom + '</td><td>' + AT.SIGNES[x.lune].nom + (x.luneIncertaine ? ' (?)' : '') + '</td><td>' + x.element + '</td></tr>'; }).join('') + '</table>';
+    if (L.moi) h += '<h3>Ton Soleil en ' + AT.SIGNES[L.moi.soleil].nom + '</h3><p>' + esc(AT.SOLEIL[L.moi.soleil]) + '</p><h3>Ta Lune en ' + AT.SIGNES[L.moi.lune].nom + (L.moi.luneIncertaine ? ' (à vérifier avec ton heure de naissance)' : '') + '</h3><p>' + esc(AT.LUNE[L.moi.lune]) + '</p>';
+    h += '<p class="discret">Calcul à midi, heure de Paris : pour ton thème complet avec ton ascendant, rends-toi sur genesolia.fr/theme-astral.html.</p></section>';
+    if (L.echos.length) {
+      h += '<section class="section page"><div class="sur2">Astrologie</div><h2>Les échos célestes de ta lignée</h2>';
+      L.echos.forEach(function (e) { var t = texteAstro(e); h += '<div style="break-inside:avoid;margin-bottom:6mm"><div class="rep" style="--c:#7A4FA0"><b>' + esc(titreAstro(e)) + '</b><p>' + esc(sousAstro(e)) + '</p></div><p>' + esc(t.texte) + '</p><div class="pistes" style="margin-bottom:0"><b>Piste de réflexion</b><p style="margin:1.5mm 0 0">' + esc(t.piste) + '</p></div></div>'; });
+      h += '</section>';
+    }
+    return h;
+  }
+  $('bt-astro').addEventListener('click', ouvrirAstro);
+
   /* ───────── Démarrage ───────── */
   var exportDemande = new URLSearchParams(location.search).get('export');
   var numeroFait = false;
-  function numeroSiDemande() { if (numeroFait || !new URLSearchParams(location.search).has('numerologie')) return; numeroFait = true; setTimeout(ouvrirNumero, 400); }
+  function numeroSiDemande() {
+    if (numeroFait) return; var q = new URLSearchParams(location.search);
+    if (q.has('numerologie')) { numeroFait = true; setTimeout(ouvrirNumero, 400); }
+    else if (q.has('astrologie')) { numeroFait = true; setTimeout(ouvrirAstro, 400); }
+  }
   function exporterSiDemande() {
     numeroSiDemande();
     if (!exportDemande) return;

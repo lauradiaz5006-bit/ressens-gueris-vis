@@ -60,6 +60,7 @@
             '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
             '<li><a href="parcours.html">Parcours guidé</a></li>' +
             '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
+            '<li><a href="theme-astral.html">Thème astral</a></li>' +
             '<li><a href="tes-20-ans.html">Tes 20 ans</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
