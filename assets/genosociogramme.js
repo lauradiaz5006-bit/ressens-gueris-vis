@@ -806,7 +806,19 @@
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
   function marquerSynchro(ok) { try { localStorage.setItem('geno4-synchro', ok ? 'ok' : 'attente'); } catch (e) {} }
-  function donneesCompte() { return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
+  /* Exercices « Ce que je ressens… » : gardés dans ce navigateur et, avec un compte, dans les données de l'arbre (clé exercices) */
+  function lireExos() { try { return JSON.parse(localStorage.getItem('genesolia-exercices') || '{}') || {}; } catch (e) { return {}; } }
+  function fusionnerExos(a, b) {
+    var r = {}; a = a || {}; b = b || {};
+    Object.keys(a).concat(Object.keys(b)).forEach(function (k) {
+      if (k === '_dernier' || r[k]) return;
+      var x = a[k], y = b[k];
+      r[k] = !x ? y : !y ? x : ((y.maj || '') > (x.maj || '') ? y : (x.maj || '') > (y.maj || '') ? x : (y.statut === 'fait' ? y : x));
+    });
+    if (b._dernier || a._dernier) r._dernier = b._dernier || a._dernier;
+    return r;
+  }
+  function donneesCompte() { return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
   function envoyer() {
     clearTimeout(minuteur); minuteur = null;
     if (!utilisateur || !sb) return;
@@ -1895,6 +1907,10 @@
         var dc = (res.data && res.data.data) || {};
         annexes = {};
         Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
+        var exos = fusionnerExos(annexes.exercices, lireExos());   // retrouver les exercices faits sur un autre appareil
+        annexes.exercices = exos;
+        try { localStorage.setItem('genesolia-exercices', JSON.stringify(exos)); } catch (e) {}
+        dessinerPanneau();
         if (dc.people && Object.keys(dc.people).length) {
           var local = instantane();
           if (Object.keys(S.people).length && JSON.stringify(dc.people) !== JSON.stringify(S.people)) {

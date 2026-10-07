@@ -76,6 +76,7 @@
         <p class="intro">Tu n'as pas besoin d'enquêter sur la vie de cet ancêtre. Pars de ce que tu ressens, toi, aujourd'hui. Puis demande-toi simplement si cela ressemble à ce qu'il ou elle a vécu. Ce que tu sais, une phrase entendue, une intuition suffisent.</p>
         <p class="note" style="margin-top:1rem">Environ 15 minutes, en une ou plusieurs fois : tes réponses sont gardées sur ton appareil, rien n'est envoyé.</p>
         <p class="note pas-imprimer" id="mes-exercices" hidden></p>
+        <p class="note pas-imprimer" id="compte-info">Avec <a href="login.html?retour=exercice-ressenti-ancetre.html">ton espace</a>, tes exercices te suivent sur tous tes appareils.</p>
       </div>
     </section>
 
@@ -146,6 +147,7 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
   <script>
   (function () {
     var CLE = 'genesolia-exercices';   // un exercice par ancêtre : { cle: { ancetre, lien, …, statut } }
@@ -184,9 +186,55 @@
       cle = k;
       var commence = Object.keys(E.coches).length || Object.keys(E.rep).length || Object.keys(E.autres).some(function (i) { return (E.autres[i] || []).length; });
       if (E.statut !== 'fait') E.statut = commence ? 'commence' : '';
+      E.maj = new Date().toISOString();
       if (k) { TOUS[k] = E; TOUS._dernier = k; }
       try { localStorage.setItem(CLE, JSON.stringify(TOUS)); } catch (e) {}
       autres();
+      clearTimeout(minuteur); minuteur = setTimeout(envoyerCompte, 1500);
+    }
+
+    /* Avec un compte : les exercices sont aussi gardés dans les données de l'arbre (clé exercices), comme le parcours guidé */
+    var sb = null, compte = null, minuteur = null;
+    try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg'); } catch (e) { sb = null; }
+    function fusionner(a, b) {
+      var r = {}; a = a || {}; b = b || {};
+      Object.keys(a).concat(Object.keys(b)).forEach(function (k) {
+        if (k === '_dernier' || r[k]) return;
+        var x = a[k], y = b[k];
+        r[k] = !x ? y : !y ? x : ((y.maj || '') > (x.maj || '') ? y : (x.maj || '') > (y.maj || '') ? x : (y.statut === 'fait' ? y : x));
+      });
+      if (b._dernier || a._dernier) r._dernier = b._dernier || a._dernier;
+      return r;
+    }
+    function envoyerCompte() {
+      if (!sb || !compte) return;
+      sb.from('arbres').select('data').eq('user_id', compte.id).maybeSingle().then(function (r) {
+        if (r.error) return;
+        var d = (r.data && r.data.data) || { people: {}, rels: [], nid: 1, v: 2 };
+        d.exercices = fusionner(d.exercices, TOUS);
+        return sb.from('arbres').upsert({ user_id: compte.id, data: d, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+      }).then(function () { $('compte-info').textContent = 'Enregistré dans ton espace.'; }, function () {});
+    }
+    function chargerCompte() {
+      if (!sb) return;
+      sb.auth.getSession().then(function (r) {
+        var s = r && r.data && r.data.session; if (!s) return;
+        compte = s.user;
+        return sb.from('arbres').select('data').eq('user_id', compte.id).maybeSingle().then(function (res) {
+          if (res.error) return;
+          var serveur = (res.data && res.data.data && res.data.data.exercices) || {};
+          TOUS = fusionner(serveur, TOUS);
+          try { localStorage.setItem(CLE, JSON.stringify(TOUS)); } catch (e) {}
+          if (cle && TOUS[cle] && (TOUS[cle].maj || '') > (E.maj || '')) {   // une version plus récente, faite sur un autre appareil
+            E = Object.assign(vierge(E.ancetre, E.lien), TOUS[cle]);
+            ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = E[k] || ''; });
+            rendreDomaines(); tout(); majFin();
+          }
+          autres();
+          $('compte-info').textContent = 'Tes exercices sont enregistrés dans ton espace.';
+          envoyerCompte();
+        });
+      }).catch(function () {});
     }
     function autres() {
       var l = Object.keys(TOUS).filter(function (k) { return k !== '_dernier' && k !== cle && TOUS[k] && TOUS[k].ancetre; });
@@ -266,7 +314,7 @@
     $('imprimer').addEventListener('click', function () { window.print(); });
     $('effacer').addEventListener('click', function () { if (confirm('Effacer cet exercice et recommencer ?')) { var a = E.ancetre, l = E.lien; delete TOUS[cle]; E = vierge(a, l); sauver(); rendreDomaines(); tout(); ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = ''; }); majFin(); } });
     $('terminer').addEventListener('click', function () { E.statut = E.statut === 'fait' ? 'commence' : 'fait'; sauver(); majFin(); });
-    rendreDomaines(); tout(); autres(); majFin();
+    rendreDomaines(); tout(); autres(); majFin(); chargerCompte();
   })();
   </script>
 </body>
