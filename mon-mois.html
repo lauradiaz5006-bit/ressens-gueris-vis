@@ -264,7 +264,7 @@
     }
     function complet(r) {
       corps.innerHTML = blocNumero(r) + blocCarnets() + blocBonus() + calendrier(r) + blocArbre(r) + piste(r) +
-        '<div class="m-actions"><button class="btn btn-trait" type="button" id="m-imprimer">Imprimer mon mois</button><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a><a class="btn btn-trait" href="theme-numerologique.html">Mon thème complet</a></div>' +
+        '<div class="m-actions"><button class="btn btn-trait" type="button" id="m-imprimer">Imprimer mon mois</button><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a><a class="btn btn-trait" href="theme-numerologique.html">Mon thème complet</a><a class="btn btn-trait" href="ciel-' + ['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'][M - 1] + '-' + Y + '.html">Le ciel de ce mois</a></div>' +
         '<p class="m-prochain">Ton mois ' + de(MOIS[M % 12]) + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
       document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
     }

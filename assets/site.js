@@ -75,6 +75,7 @@
             '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
             '<li><a href="blog.html">Le blog</a></li>' +
+            '<li><a href="le-ciel-du-mois.html">Le ciel du mois</a></li>' +
             '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
             '<li><a href="les-10-sephiroth.html">Les 10 Séphiroth</a></li>' +
