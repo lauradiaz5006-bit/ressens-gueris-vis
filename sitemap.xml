@@ -186,9 +186,86 @@
 
   <url>
     <loc>https://genesolia.fr/prenoms.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
     <loc>https://genesolia.fr/le-ciel-du-mois.html</loc>
     <lastmod>2026-10-07</lastmod>
     <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-avril-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-decembre-2026.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-fevrier-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-janvier-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-juillet-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-juin-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-mai-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-mars-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-novembre-2026.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-octobre-2026.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-septembre-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/ciel-aout-2027.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
   </url>
 
   <url>
@@ -1539,75 +1616,6 @@
     <loc>https://genesolia.fr/prenoms/zoe.html</loc>
     <lastmod>2026-10-07</lastmod>
     <priority>0.60</priority>
-    <loc>https://genesolia.fr/ciel-aout-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-avril-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-decembre-2026.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-fevrier-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-janvier-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-juillet-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-juin-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-mai-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-mars-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-novembre-2026.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-octobre-2026.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://genesolia.fr/ciel-septembre-2027.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <priority>0.70</priority>
   </url>
 
 </urlset>
