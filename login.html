@@ -1,236 +1,307 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-<title>Mon espace · Genesolia</title>
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --cream:#FFF9F7;--cream3:#FFF9F7;--terra:#6B2F5B;--terra-dark:#4E1F42;
-  --brown:#6B2F5B;--ink:#4A2142;--soft:#8E6383;--white:#FFFFFF;
-  --line:rgba(107,47,91,.15);--red:#C0392B;
-}
-body{font-family:'Nunito Sans',sans-serif;background:var(--cream3);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;}
-a{color:inherit;text-decoration:none;}
-button{font-family:'Nunito Sans',sans-serif;cursor:pointer;border:none;}
-
-nav.ancien-nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:24px;flex-shrink:0;}
-.nav-logo{font-family:'Gilda Display',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--ink);margin-right:auto;}
-.nav-link{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:500;transition:color .2s;}
-.nav-link:hover{color:var(--terra);}
-
-.page{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px;
-  background:linear-gradient(160deg,#FFF9F7 0%,#FFF9F7 100%);}
-
-.card{background:var(--white);border-radius:22px;padding:40px;width:100%;max-width:420px;
-  box-shadow:0 20px 60px rgba(74,33,66,.1);border:1px solid var(--line);}
-
-.card-logo{font-family:'Gilda Display',serif;font-size:2.2rem;font-style:italic;font-weight:700;
-  color:var(--ink);text-align:center;margin-bottom:6px;}
-.card-sub{font-size:.8rem;color:var(--soft);text-align:center;margin-bottom:32px;line-height:1.6;}
-
-.tabs{display:flex;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:28px;gap:4px;}
-.tab{flex:1;padding:.42rem;border-radius:7px;font-size:.78rem;font-weight:500;color:var(--soft);
-  background:none;border:none;cursor:pointer;transition:all .18s;font-family:'Nunito Sans',sans-serif;}
-.tab.on{background:var(--white);color:var(--terra);box-shadow:0 2px 8px rgba(74,33,66,.08);}
-
-.fg{margin-bottom:14px;}
-.fl{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:5px;}
-.fi{width:100%;background:var(--cream3);border:1px solid rgba(107,47,91,.15);border-radius:9px;
-  padding:.5rem .7rem;font-family:'Nunito Sans',sans-serif;font-size:.85rem;color:var(--ink);outline:none;transition:border-color .15s;}
-.fi:focus{border-color:var(--terra);background:var(--white);}
-
-.btn-main{width:100%;background:var(--terra);color:white;border-radius:100px;padding:.6rem;
-  font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:'Nunito Sans',sans-serif;
-  transition:background .18s;margin-top:6px;}
-.btn-main:hover{background:var(--terra-dark);}
-.btn-main:disabled{background:var(--soft);cursor:not-allowed;}
-
-.msg{padding:10px 14px;border-radius:9px;font-size:.78rem;margin-bottom:14px;display:none;line-height:1.5;}
-.msg.err{background:rgba(192,57,43,.08);color:var(--red);border:1px solid rgba(192,57,43,.2);}
-.msg.ok{background:rgba(39,174,96,.08);color:#27AE60;border:1px solid rgba(39,174,96,.2);}
-
-.divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--soft);font-size:.72rem;}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--line);}
-
-.btn-google{width:100%;background:var(--white);color:var(--ink);border:1px solid var(--line);border-radius:100px;
-  padding:.55rem;font-size:.82rem;font-weight:500;cursor:pointer;font-family:'Nunito Sans',sans-serif;
-  transition:all .18s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.btn-google:hover{border-color:var(--terra);color:var(--terra);}
-
-.footer-note{font-size:.68rem;color:var(--soft);text-align:center;margin-top:20px;line-height:1.6;}
-.footer-note a{color:var(--terra);}
-
-/* already logged in state */
-.logged-card{text-align:center;}
-.logged-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--brown));
-  color:white;font-family:'Gilda Display',serif;font-size:1.8rem;font-weight:700;
-  display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
-.logged-name{font-family:'Gilda Display',serif;font-size:1.4rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
-.logged-email{font-size:.76rem;color:var(--soft);margin-bottom:24px;}
-.btn-go{display:block;background:var(--terra);color:white;border-radius:100px;padding:.6rem 1.4rem;
-  font-size:.82rem;font-weight:600;text-align:center;transition:background .18s;margin-bottom:10px;}
-.btn-go:hover{background:var(--terra-dark);}
-.btn-logout{background:none;border:1px solid var(--line);color:var(--soft);border-radius:100px;
-  padding:.45rem 1.2rem;font-size:.75rem;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;}
-.btn-logout:hover{border-color:var(--soft);}
-</style>
+  <title>Mon espace · Genesolia</title>
   <link rel="stylesheet" href="assets/site.css">
-  <style>/* habillage commun */body{padding-top:0!important}.entete{flex-shrink:0}.entete .marque,.entete .menu a{font-weight:400}</style>
+  <style>
+    .espace{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:3rem 16px;background:
+      radial-gradient(40rem 26rem at 80% 10%,rgba(248,214,200,.55),transparent 60%),
+      radial-gradient(30rem 24rem at 10% 90%,rgba(236,190,210,.3),transparent 60%),var(--nacre)}
+    .carte{width:100%;max-width:440px;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);box-shadow:0 24px 60px rgba(107,47,91,.1);padding:2.2rem 2rem}
+    .carte h1{font-size:2rem;text-align:center;margin-bottom:.4rem}
+    .carte .sous{text-align:center;color:var(--prune-doux);font-size:.95rem;margin-bottom:1.6rem}
+    .onglets{display:flex;background:var(--nacre);border:1px solid var(--rose);border-radius:999px;padding:4px;margin-bottom:1.4rem}
+    .onglets button{flex:1;border:none;background:none;border-radius:999px;padding:.6rem;font:600 .88rem/1 var(--texte);color:var(--prune-doux);cursor:pointer}
+    .onglets button[aria-selected="true"]{background:var(--blanc);color:var(--prune);box-shadow:0 2px 8px rgba(107,47,91,.1)}
+    .champ{display:grid;gap:.3rem;margin-bottom:.9rem}
+    .champ label{font:600 .8rem/1.2 var(--texte);color:var(--prune)}
+    .champ input{width:100%;font:400 1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.7rem .8rem}
+    .champ input:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .mdp{position:relative}
+    .mdp input{padding-right:5.5rem}
+    .voir{position:absolute;right:.5rem;top:50%;transform:translateY(-50%);border:none;background:none;color:var(--prune-doux);font:600 .8rem var(--texte);cursor:pointer;padding:.3rem .4rem}
+    .aide{font-size:.78rem;color:var(--prune-doux)}
+    .valider{width:100%;justify-content:center;margin-top:.3rem}
+    .valider:disabled{opacity:.6;cursor:default}
+    .lien-texte{background:none;border:none;color:var(--prune-doux);font:400 .86rem var(--texte);text-decoration:underline;cursor:pointer;padding:0}
+    .centre{text-align:center;margin-top:1rem}
+    .message{border-radius:12px;padding:.8rem .9rem;font-size:.9rem;line-height:1.5;margin-bottom:1rem;display:none}
+    .message.visible{display:block}
+    .message.erreur{background:#FBEDEF;color:#8E2E40;border:1px solid #EFC9D0}
+    .message.ok{background:#FFF4EA;color:#7A5426;border:1px solid var(--champagne-clair)}
+    .message button{margin-top:.5rem}
+    .note{font-size:.8rem;color:var(--prune-doux);text-align:center;margin-top:1.4rem;line-height:1.55}
+    .note a{color:var(--prune)}
+    .connecte{text-align:center}
+    .avatar{width:68px;height:68px;border-radius:50%;margin:0 auto 1rem;background:linear-gradient(135deg,var(--prune),var(--prune-doux));color:var(--blanc);display:flex;align-items:center;justify-content:center;font:400 1.9rem var(--display)}
+    .connecte .email{color:var(--prune-doux);font-size:.9rem;margin-bottom:1.4rem;word-break:break-all}
+    .connecte .actions{flex-direction:column;align-items:stretch}
+    .connecte .btn{justify-content:center}
+    .infos{background:var(--nacre);border-radius:14px;padding:.9rem 1rem;text-align:left;font-size:.88rem;color:var(--prune-doux);margin:1.2rem 0;line-height:1.55}
+    .infos b{color:var(--prune);font-weight:600}
+    [hidden]{display:none!important}
+  </style>
 </head>
-<body>
+<body class="nouveau">
   <header data-entete></header>
+  <main class="espace">
+    <div class="carte" id="carte-auth">
+      <h1>Mon espace</h1>
+      <p class="sous" id="sous-titre">Retrouve ton arbre et ton parcours sur n'importe quel ordinateur.</p>
 
-<div class="page">
-  <div class="card" id="auth-card">
-    <div class="card-logo">Mon Espace</div>
-    <div class="card-sub">Accédez à votre arbre généalogique et votre parcours,<br>sauvegardés en sécurité.</div>
-
-    <div class="tabs">
-      <button class="tab on" id="tab-login" onclick="switchTab('login')">Se connecter</button>
-      <button class="tab" id="tab-signup" onclick="switchTab('signup')">Créer un compte</button>
-    </div>
-
-    <div id="msg" class="msg"></div>
-
-    <div id="form-login">
-      <div class="fg"><label class="fl">Email</label><input class="fi" id="l-email" type="email" placeholder="votre@email.com" autocomplete="email"></div>
-      <div class="fg"><label class="fl">Mot de passe</label><input class="fi" id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
-      <button class="btn-main" id="btn-login" onclick="doLogin()">Se connecter</button>
-      <div style="text-align:center;margin-top:12px">
-        <a href="#" onclick="showReset()" style="font-size:.72rem;color:var(--soft);">Mot de passe oublié ?</a>
+      <div class="onglets" role="tablist" id="onglets">
+        <button type="button" role="tab" id="onglet-connexion" aria-selected="true" aria-controls="form-connexion">Me connecter</button>
+        <button type="button" role="tab" id="onglet-inscription" aria-selected="false" aria-controls="form-inscription">Créer mon compte</button>
       </div>
+
+      <div class="message" id="message" role="alert" aria-live="polite"></div>
+
+      <form id="form-connexion" novalidate>
+        <div class="champ"><label for="c-email">E-mail</label><input id="c-email" type="email" autocomplete="email" required></div>
+        <div class="champ"><label for="c-mdp">Mot de passe</label><div class="mdp"><input id="c-mdp" type="password" autocomplete="current-password" required><button type="button" class="voir" data-voir="c-mdp">Afficher</button></div></div>
+        <button class="btn btn-plein valider" type="submit">Me connecter</button>
+        <p class="centre"><button type="button" class="lien-texte" id="vers-oubli">Mot de passe oublié ?</button></p>
+      </form>
+
+      <form id="form-inscription" novalidate hidden>
+        <div class="champ"><label for="i-prenom">Prénom ou pseudo</label><input id="i-prenom" type="text" autocomplete="given-name"><span class="aide">Facultatif. Juste pour te dire bonjour.</span></div>
+        <div class="champ"><label for="i-email">E-mail</label><input id="i-email" type="email" autocomplete="email" required></div>
+        <div class="champ"><label for="i-mdp">Mot de passe</label><div class="mdp"><input id="i-mdp" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="voir" data-voir="i-mdp">Afficher</button></div><span class="aide">8 caractères minimum.</span></div>
+        <button class="btn btn-plein valider" type="submit">Créer mon compte</button>
+      </form>
+
+      <form id="form-oubli" novalidate hidden>
+        <p class="aide" style="font-size:.92rem;margin-bottom:1rem">Indique ton e-mail : tu recevras un lien pour choisir un nouveau mot de passe.</p>
+        <div class="champ"><label for="o-email">E-mail</label><input id="o-email" type="email" autocomplete="email" required></div>
+        <button class="btn btn-plein valider" type="submit">Recevoir le lien</button>
+        <p class="centre"><button type="button" class="lien-texte" id="retour-connexion">Revenir à la connexion</button></p>
+      </form>
+
+      <form id="form-nouveau" novalidate hidden>
+        <p class="aide" style="font-size:.92rem;margin-bottom:1rem">Choisis ton nouveau mot de passe.</p>
+        <div class="champ"><label for="n-mdp">Nouveau mot de passe</label><div class="mdp"><input id="n-mdp" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="voir" data-voir="n-mdp">Afficher</button></div><span class="aide">8 caractères minimum.</span></div>
+        <button class="btn btn-plein valider" type="submit">Enregistrer mon mot de passe</button>
+      </form>
+
+      <p class="note">Ton arbre est privé : personne d’autre que toi n’y a accès. Il est stocké en Europe (Irlande). <a href="confidentialite.html">Mes données</a></p>
     </div>
 
-    <div id="form-signup" style="display:none">
-      <div class="fg"><label class="fl">Prénom</label><input class="fi" id="s-name" type="text" placeholder="Votre prénom" autocomplete="given-name"></div>
-      <div class="fg"><label class="fl">Email</label><input class="fi" id="s-email" type="email" placeholder="votre@email.com" autocomplete="email"></div>
-      <div class="fg"><label class="fl">Mot de passe</label><input class="fi" id="s-pass" type="password" placeholder="8 caractères minimum" autocomplete="new-password"></div>
-      <button class="btn-main" id="btn-signup" onclick="doSignup()">Créer mon compte</button>
-    </div>
-
-    <div id="form-reset" style="display:none">
-      <p style="font-size:.8rem;color:var(--soft);margin-bottom:14px;line-height:1.6">Entrez votre email pour recevoir un lien de réinitialisation.</p>
-      <div class="fg"><label class="fl">Email</label><input class="fi" id="r-email" type="email" placeholder="votre@email.com"></div>
-      <button class="btn-main" onclick="doReset()">Envoyer le lien</button>
-      <div style="text-align:center;margin-top:10px">
-        <a href="#" onclick="switchTab('login')" style="font-size:.72rem;color:var(--soft);">← Retour</a>
+    <div class="carte connecte" id="carte-connecte" hidden>
+      <div class="avatar" id="avatar" aria-hidden="true">?</div>
+      <h1 id="bonjour">Bonjour</h1>
+      <p class="email" id="email-connecte"></p>
+      <div class="actions">
+        <a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre familial</a>
+        <a class="btn btn-trait" href="parcours.html">Mon parcours guidé</a>
       </div>
+      <div class="infos" id="infos-arbre">Chargement de ton arbre…</div>
+      <button class="lien-texte" type="button" id="deconnexion">Me déconnecter</button>
     </div>
-
-    <div class="footer-note">En créant un compte, vous acceptez que vos données soient stockées de manière sécurisée pour vous permettre d'accéder à votre arbre.</div>
-  </div>
-
-  <!-- Already logged in -->
-  <div class="card logged-card" id="logged-card" style="display:none">
-    <div class="logged-avatar" id="logged-avatar">?</div>
-    <div class="logged-name" id="logged-name">Bonjour</div>
-    <div class="logged-email" id="logged-email"></div>
-    <a href="genosociogramme.html" class="btn-go">→ Mon Génosociogramme</a>
-    <a href="parcours.html" class="btn-go" style="background:var(--brown)">→ Mon Parcours</a>
-    <button class="btn-logout" onclick="doLogout()">Se déconnecter</button>
-  </div>
-</div>
-
-<script src="assets/supabase.js"></script>
-<script>
-var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
-var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-var sb = supabase.createClient(SB_URL, SB_KEY);
-
-function showMsg(txt, type) {
-  var el = document.getElementById('msg');
-  el.textContent = txt; el.className = 'msg ' + type; el.style.display = 'block';
-  if (type === 'ok') setTimeout(function(){ el.style.display='none'; }, 4000);
-}
-function hideMsg(){ document.getElementById('msg').style.display='none'; }
-
-function switchTab(t) {
-  hideMsg();
-  document.getElementById('tab-login').classList.toggle('on', t==='login');
-  document.getElementById('tab-signup').classList.toggle('on', t==='signup');
-  document.getElementById('form-login').style.display = t==='login'?'block':'none';
-  document.getElementById('form-signup').style.display = t==='signup'?'block':'none';
-  document.getElementById('form-reset').style.display = 'none';
-}
-
-function showReset() {
-  hideMsg();
-  document.getElementById('form-login').style.display='none';
-  document.getElementById('form-reset').style.display='block';
-}
-
-async function doLogin() {
-  var email = document.getElementById('l-email').value.trim();
-  var pass  = document.getElementById('l-pass').value;
-  if (!email || !pass) { showMsg('Veuillez remplir tous les champs.', 'err'); return; }
-  var btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Connexion...';
-  var { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-  btn.disabled = false; btn.textContent = 'Se connecter';
-  if (error) { showMsg(error.message === 'Invalid login credentials' ? 'Email ou mot de passe incorrect.' : error.message, 'err'); return; }
-  showConnected(data.user);
-}
-
-async function doSignup() {
-  var name  = document.getElementById('s-name').value.trim();
-  var email = document.getElementById('s-email').value.trim();
-  var pass  = document.getElementById('s-pass').value;
-  if (!email || !pass) { showMsg('Veuillez remplir tous les champs.', 'err'); return; }
-  if (pass.length < 8) { showMsg('Le mot de passe doit faire au moins 8 caractères.', 'err'); return; }
-  var btn = document.getElementById('btn-signup');
-  btn.disabled = true; btn.textContent = 'Création...';
-  var { data, error } = await sb.auth.signUp({ email, password: pass, options: { data: { full_name: name } } });
-  btn.disabled = false; btn.textContent = 'Créer mon compte';
-  if (error) { showMsg(error.message, 'err'); return; }
-  if (data.user && !data.session) {
-    showMsg('Vérifiez vos emails pour confirmer votre inscription.', 'ok');
-  } else if (data.user) {
-    showConnected(data.user);
-  }
-}
-
-async function doReset() {
-  var email = document.getElementById('r-email').value.trim();
-  if (!email) { showMsg('Entrez votre email.', 'err'); return; }
-  var { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
-  if (error) { showMsg(error.message, 'err'); return; }
-  showMsg('Lien envoyé ! Vérifiez vos emails.', 'ok');
-  setTimeout(function(){ switchTab('login'); }, 2500);
-}
-
-async function doLogout() {
-  await sb.auth.signOut();
-  document.getElementById('logged-card').style.display = 'none';
-  document.getElementById('auth-card').style.display = 'block';
-  switchTab('login');
-}
-
-function showConnected(user) {
-  document.getElementById('auth-card').style.display = 'none';
-  document.getElementById('logged-card').style.display = 'block';
-  var name = user.user_metadata?.full_name || user.email.split('@')[0];
-  document.getElementById('logged-name').textContent = 'Bonjour, ' + name;
-  document.getElementById('logged-email').textContent = user.email;
-  document.getElementById('logged-avatar').textContent = name[0].toUpperCase();
-}
-
-// Check if already logged in
-(async function() {
-  var { data } = await sb.auth.getSession();
-  if (data.session) showConnected(data.session.user);
-})();
-
-// Enter key support
-document.addEventListener('keydown', function(e) {
-  if (e.key !== 'Enter') return;
-  if (document.getElementById('form-login').style.display !== 'none') doLogin();
-  else if (document.getElementById('form-signup').style.display !== 'none') doSignup();
-});
-</script>
+  </main>
   <footer data-pied></footer>
+
   <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
+    var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var RETOUR_URL = location.origin + location.pathname;
+    function $(id) { return document.getElementById(id); }
+    var sb = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+
+    var params = new URLSearchParams(location.search);
+    var retour = params.get('retour');
+    if (retour && !/^[a-z0-9\-]+\.html$/i.test(retour)) retour = null;
+
+    function message(t, type, html) {
+      var m = $('message');
+      m.className = 'message visible ' + (type || 'erreur');
+      if (html) m.innerHTML = t; else m.textContent = t;
+    }
+    function effacerMessage() { $('message').className = 'message'; $('message').textContent = ''; }
+
+    function traduire(err) {
+      var t = String((err && (err.message || err.error_description)) || '').toLowerCase();
+      var code = (err && (err.code || err.error_code)) || '';
+      if (code === 'over_email_send_rate_limit' || /rate limit|you can only request this after|too many/.test(t)) {
+        var s = t.match(/after (\d+) seconds?/);
+        return s ? 'Trop de demandes rapprochées. Réessaie dans ' + s[1] + ' secondes.' : 'Trop de demandes rapprochées. Réessaie dans quelques minutes.';
+      }
+      if (code === 'user_already_exists' || /already registered|already been registered|user already exists/.test(t)) return 'DEJA';
+      if (code === 'invalid_credentials' || /invalid login credentials/.test(t)) return 'E-mail ou mot de passe incorrect.';
+      if (code === 'email_not_confirmed' || /email not confirmed/.test(t)) return 'NONCONFIRME';
+      if (code === 'weak_password' || /password should be|weak password|password is too/.test(t)) return 'Ce mot de passe est trop simple ou trop connu. Choisis-en un plus long (8 caractères minimum).';
+      if (code === 'validation_failed' || /invalid email|unable to validate email|email address .* is invalid/.test(t)) return 'Cette adresse e-mail ne semble pas valide.';
+      if (code === 'same_password' || /should be different/.test(t)) return 'Le nouveau mot de passe doit être différent de l’ancien.';
+      if (/failed to fetch|network|load failed/.test(t)) return 'Pas de connexion internet pour le moment. Vérifie ta connexion et réessaie.';
+      if (/signups not allowed|signup is disabled/.test(t)) return 'Les inscriptions sont fermées pour le moment.';
+      return 'Une erreur est survenue. Réessaie dans un instant.';
+    }
+    function emailValide(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+    function occupe(form, oui, texte) {
+      var b = form.querySelector('.valider');
+      if (oui) { b.dataset.texte = b.textContent; b.textContent = texte || 'Un instant…'; b.disabled = true; }
+      else { b.textContent = b.dataset.texte || b.textContent; b.disabled = false; }
+    }
+
+    var FORMS = ['form-connexion', 'form-inscription', 'form-oubli', 'form-nouveau'];
+    function afficher(id) {
+      effacerMessage();
+      FORMS.forEach(function (f) { $(f).hidden = f !== id; });
+      $('onglets').hidden = (id === 'form-oubli' || id === 'form-nouveau');
+      $('onglet-connexion').setAttribute('aria-selected', String(id === 'form-connexion'));
+      $('onglet-inscription').setAttribute('aria-selected', String(id === 'form-inscription'));
+      var champ = $(id).querySelector('input'); if (champ) setTimeout(function () { champ.focus(); }, 30);
+    }
+    $('onglet-connexion').addEventListener('click', function () { afficher('form-connexion'); });
+    $('onglet-inscription').addEventListener('click', function () { afficher('form-inscription'); });
+    $('vers-oubli').addEventListener('click', function () { $('o-email').value = $('c-email').value; afficher('form-oubli'); });
+    $('retour-connexion').addEventListener('click', function () { afficher('form-connexion'); });
+    document.querySelectorAll('[data-voir]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var i = $(b.getAttribute('data-voir')); var cache = i.type === 'password';
+        i.type = cache ? 'text' : 'password'; b.textContent = cache ? 'Masquer' : 'Afficher';
+      });
+    });
+
+    function renvoyerConfirmation(email) {
+      sb.auth.resend({ type: 'signup', email: email, options: { emailRedirectTo: RETOUR_URL } }).then(function (r) {
+        if (r.error) message(traduire(r.error)); else message('C’est renvoyé. Regarde ta boîte mail (et les indésirables).', 'ok');
+      });
+    }
+
+    // Connexion
+    $('form-connexion').addEventListener('submit', function (e) {
+      e.preventDefault(); effacerMessage();
+      var email = $('c-email').value.trim(), mdp = $('c-mdp').value, f = this;
+      if (!emailValide(email) || !mdp) { message('Indique ton e-mail et ton mot de passe.'); return; }
+      if (!sb) { message(traduire({ message: 'network' })); return; }
+      occupe(f, true, 'Connexion…');
+      sb.auth.signInWithPassword({ email: email, password: mdp }).then(function (r) {
+        occupe(f, false);
+        if (r.error) {
+          var t = traduire(r.error);
+          if (t === 'NONCONFIRME') {
+            message('Ton adresse n’est pas encore confirmée. Clique sur le lien reçu par mail.<br><button type="button" class="lien-texte" id="renvoyer">Renvoyer le mail de confirmation</button>', 'erreur', true);
+            $('renvoyer').addEventListener('click', function () { renvoyerConfirmation(email); });
+          } else message(t);
+          return;
+        }
+        connecte(r.data.user, true);
+      }).catch(function (err) { occupe(f, false); message(traduire(err)); });
+    });
+
+    // Inscription
+    $('form-inscription').addEventListener('submit', function (e) {
+      e.preventDefault(); effacerMessage();
+      var prenom = $('i-prenom').value.trim(), email = $('i-email').value.trim(), mdp = $('i-mdp').value, f = this;
+      if (!emailValide(email)) { message('Indique une adresse e-mail valide.'); return; }
+      if (mdp.length < 8) { message('Le mot de passe doit faire au moins 8 caractères.'); return; }
+      if (!sb) { message(traduire({ message: 'network' })); return; }
+      occupe(f, true, 'Création…');
+      sb.auth.signUp({ email: email, password: mdp, options: { data: { full_name: prenom }, emailRedirectTo: RETOUR_URL } }).then(function (r) {
+        occupe(f, false);
+        if (r.error) {
+          var t = traduire(r.error);
+          if (t === 'DEJA') { $('c-email').value = email; afficher('form-connexion'); message('Tu as déjà un compte avec cette adresse : connecte-toi ci-dessous.', 'ok'); }
+          else message(t);
+          return;
+        }
+        if (r.data.session) { connecte(r.data.user, true); return; }
+        // Compte existant non signalé par Supabase (protection) : identités vides
+        if (r.data.user && Array.isArray(r.data.user.identities) && r.data.user.identities.length === 0) {
+          $('c-email').value = email; afficher('form-connexion');
+          message('Tu as déjà un compte avec cette adresse : connecte-toi ci-dessous.', 'ok');
+          return;
+        }
+        message('Presque fini ! Un e-mail de confirmation vient de partir vers <b>' + email.replace(/[<>&"]/g, '') + '</b>. Clique sur le lien qu’il contient, puis reviens te connecter. Pense à regarder dans les indésirables.<br><button type="button" class="lien-texte" id="renvoyer">Je n’ai rien reçu, renvoyer</button>', 'ok', true);
+        $('renvoyer').addEventListener('click', function () { renvoyerConfirmation(email); });
+      }).catch(function (err) { occupe(f, false); message(traduire(err)); });
+    });
+
+    // Mot de passe oublié
+    $('form-oubli').addEventListener('submit', function (e) {
+      e.preventDefault(); effacerMessage();
+      var email = $('o-email').value.trim(), f = this;
+      if (!emailValide(email)) { message('Indique une adresse e-mail valide.'); return; }
+      occupe(f, true, 'Envoi…');
+      sb.auth.resetPasswordForEmail(email, { redirectTo: RETOUR_URL }).then(function (r) {
+        occupe(f, false);
+        if (r.error) { message(traduire(r.error)); return; }
+        message('Si un compte existe avec cette adresse, un lien vient de partir. Pense à regarder dans les indésirables.', 'ok');
+      }).catch(function (err) { occupe(f, false); message(traduire(err)); });
+    });
+
+    // Nouveau mot de passe (après le lien reçu par mail)
+    $('form-nouveau').addEventListener('submit', function (e) {
+      e.preventDefault(); effacerMessage();
+      var mdp = $('n-mdp').value, f = this;
+      if (mdp.length < 8) { message('Le mot de passe doit faire au moins 8 caractères.'); return; }
+      occupe(f, true, 'Enregistrement…');
+      sb.auth.updateUser({ password: mdp }).then(function (r) {
+        occupe(f, false);
+        if (r.error) { message(traduire(r.error)); return; }
+        history.replaceState(null, '', location.pathname);
+        connecte(r.data.user, false);
+        message('Ton mot de passe est changé.', 'ok');
+      }).catch(function (err) { occupe(f, false); message(traduire(err)); });
+    });
+
+    // Connectée
+    function connecte(user, redirection) {
+      if (redirection && retour) { location.href = retour; return; }
+      $('carte-auth').hidden = true; $('carte-connecte').hidden = false;
+      var nom = (user.user_metadata && user.user_metadata.full_name) || '';
+      $('bonjour').textContent = nom ? 'Bonjour ' + nom : 'Bonjour';
+      $('avatar').textContent = (nom || user.email || '?').charAt(0).toUpperCase();
+      $('email-connecte').textContent = user.email || '';
+      sb.from('arbres').select('data,updated_at').eq('user_id', user.id).maybeSingle().then(function (r) {
+        var z = $('infos-arbre');
+        if (r.error) { z.textContent = 'Ton arbre n’a pas pu être chargé pour l’instant.'; return; }
+        var n = r.data && r.data.data && r.data.data.people ? Object.keys(r.data.data.people).length : 0;
+        if (!n) { z.innerHTML = 'Ton espace est prêt. Ouvre ton arbre familial : <b>tout ce que tu y fais s’enregistre ici automatiquement</b>.'; return; }
+        var d = new Date(r.data.updated_at), quand = isNaN(d) ? '' : ', enregistré le ' + d.toLocaleDateString('fr-FR') + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        z.innerHTML = 'Ton arbre : <b>' + n + ' personne' + (n > 1 ? 's' : '') + '</b>' + quand + '. Les 30 dernières versions sont gardées.';
+      });
+    }
+    $('deconnexion').addEventListener('click', function () {
+      sb.auth.signOut().then(function () {
+        try { if (localStorage.getItem('geno4-synchro') === 'ok') localStorage.removeItem('geno4'); } catch (e) {}
+        $('carte-connecte').hidden = true; $('carte-auth').hidden = false; afficher('form-connexion');
+        message('Tu es déconnecté·e. Ton arbre reste en sécurité dans ton espace.', 'ok');
+      });
+    });
+
+    if (!sb) { message(traduire({ message: 'network' })); return; }
+
+    // Erreur renvoyée par un lien de mail (lien expiré, déjà utilisé…)
+    var hash = new URLSearchParams(location.hash.replace(/^#/, ''));
+    if (hash.get('error') || params.get('error')) {
+      var desc = (hash.get('error_description') || params.get('error_description') || '').toLowerCase();
+      afficher('form-connexion');
+      message(/expired|invalid/.test(desc) ? 'Ce lien a expiré ou a déjà servi. Connecte-toi, ou demande un nouveau lien avec « Mot de passe oublié ».' : 'Le lien n’a pas fonctionné. Réessaie de te connecter.');
+      history.replaceState(null, '', location.pathname);
+    }
+    var recuperation = /type=recovery/.test(location.hash);
+    sb.auth.onAuthStateChange(function (event, session) {
+      if (event === 'PASSWORD_RECOVERY') { $('carte-auth').hidden = false; $('carte-connecte').hidden = true; afficher('form-nouveau'); }
+      else if (event === 'SIGNED_IN' && session && !recuperation && $('carte-connecte').hidden && $('form-nouveau').hidden) {
+        if (/access_token/.test(location.hash)) { history.replaceState(null, '', location.pathname); message('Ton adresse est confirmée, bienvenue !', 'ok'); }
+        connecte(session.user, !!retour);
+      }
+    });
+    sb.auth.getSession().then(function (r) {
+      var s = r.data && r.data.session;
+      if (s && !recuperation) connecte(s.user, false);
+      else if (params.get('inscription') !== null) afficher('form-inscription');
+    });
+  })();
+  </script>
 </body>
 </html>
