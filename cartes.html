@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cartes à partager : des phrases douces sur la famille et l'amour · Genesolia</title>
-  <meta name="description" content="Des cartes à télécharger et à partager sur les réseaux : des phrases douces sur la famille, l'amour et ce qui se répète. Gratuites, au format Instagram.">
+  <title>Images à partager : phrases pour tes réseaux, douces ou cash · Genesolia</title>
+  <meta name="description" content="Des images à télécharger et à partager sur Instagram et TikTok : des phrases douces ou cash pour t'affirmer, poser tes limites ou envoyer un message. Gratuites.">
   <link rel="canonical" href="https://genesolia.fr/cartes.html">
   <meta property="og:title" content="Cartes à partager · Genesolia">
   <meta property="og:description" content="Des phrases douces sur la famille, l'amour et ce qui se répète, à partager.">
-  <meta property="og:image" content="https://genesolia.fr/assets/cartes/ecrire-la-mienne.jpg">
+  <meta property="og:image" content="https://genesolia.fr/assets/reseaux/ton-silence.jpg">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     .filtres-cartes{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem}
@@ -34,13 +34,26 @@
   <main>
     <section class="page-tete">
       <div class="conteneur">
-        <h1>Des cartes à partager</h1>
-        <p class="intro">Des phrases douces pour dire ce qu'on pense sans tout expliquer. Pour toi, pour une amie, ou pour ta story. Gratuites, au format des réseaux sociaux.</p>
+        <h1>Des images à partager</h1>
+        <p class="intro">Des phrases pour dire ce que tu penses, affirmer ta place ou envoyer un message, sans avoir à tout expliquer. Pour ton post, ta story ou une amie. Gratuites, au format des réseaux sociaux.</p>
+      </div>
+    </section>
+
+    <section class="bloc" id="reseaux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour tes réseaux</h2><p>Doux pour t'affirmer avec calme. Cash pour poser tes limites ou faire passer le message.</p></div>
+        <div class="filtres-cartes" id="filtres-reseaux" role="group" aria-label="Filtrer les images par ton">
+          <button type="button" data-f="tout" aria-pressed="true">Toutes</button>
+          <button type="button" data-f="doux" aria-pressed="false">Doux</button>
+          <button type="button" data-f="cash" aria-pressed="false">Cash</button>
+        </div>
+        <ul class="galerie" id="galerie-reseaux"></ul>
       </div>
     </section>
 
     <section class="bloc">
       <div class="conteneur">
+        <div class="bloc-tete"><h2>Les cartes douces</h2><p>Des phrases sur la famille, l'amour et ce qui se répète.</p></div>
         <div class="filtres-cartes" id="filtres" role="group" aria-label="Filtrer les cartes par thème">
           <button type="button" data-f="tout" aria-pressed="true">Toutes</button>
           <button type="button" data-f="toi" aria-pressed="false">Pour toi</button>
@@ -67,45 +80,50 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/cartes-liste.js"></script>
+  <script src="assets/reseaux-liste.js"></script>
   <script>
   (function () {
-    var liste = window.GENESOLIA_CARTES || [], ul = document.getElementById('galerie'), filtre = 'tout';
     var BASE = 'https://genesolia.fr/';
     function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-    function dessiner() {
-      ul.innerHTML = liste.filter(function (c) { return filtre === 'tout' || c.theme === filtre; }).map(function (c) {
-        var img = 'assets/cartes/' + c.id + '.jpg';
-        var pin = 'https://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(BASE + 'cartes.html') + '&media=' + encodeURIComponent(BASE + img) + '&description=' + encodeURIComponent(c.phrase + ' · Genesolia');
-        return '<li><figure><img src="assets/cartes/' + c.id + '-mini.jpg" width="540" height="675" loading="lazy" alt="' + esc(c.phrase) + '"></figure>' +
-          '<div class="actions-carte">' +
-            '<button type="button" class="principal" data-partager="' + c.id + '">Partager</button>' +
-            '<a href="' + img + '" download="genesolia-' + c.id + '.jpg">Télécharger</a>' +
-            '<a href="' + pin + '" target="_blank" rel="noopener">Pinterest</a>' +
-          '</div><p class="statut-carte" aria-live="polite"></p></li>';
-      }).join('');
-    }
-    document.getElementById('filtres').addEventListener('click', function (e) {
-      var b = e.target.closest('[data-f]'); if (!b) return;
-      filtre = b.getAttribute('data-f');
-      this.querySelectorAll('[data-f]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    function galerie(liste, dossier, cle, idUl, idFiltres) {
+      var ul = document.getElementById(idUl), filtre = 'tout';
+      function dessiner() {
+        ul.innerHTML = liste.filter(function (c) { return filtre === 'tout' || c[cle] === filtre; }).map(function (c) {
+          var img = dossier + c.id + '.jpg';
+          var pin = 'https://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(BASE + 'cartes.html') + '&media=' + encodeURIComponent(BASE + img) + '&description=' + encodeURIComponent(c.phrase + ' · Genesolia');
+          return '<li><figure><img src="' + dossier + c.id + '-mini.jpg" width="540" height="675" loading="lazy" alt="' + esc(c.phrase) + '"></figure>' +
+            '<div class="actions-carte">' +
+              '<button type="button" class="principal" data-partager="' + c.id + '">Partager</button>' +
+              '<a href="' + img + '" download="genesolia-' + c.id + '.jpg">Télécharger</a>' +
+              '<a href="' + pin + '" target="_blank" rel="noopener">Pinterest</a>' +
+            '</div><p class="statut-carte" aria-live="polite"></p></li>';
+        }).join('');
+      }
+      document.getElementById(idFiltres).addEventListener('click', function (e) {
+        var b = e.target.closest('[data-f]'); if (!b) return;
+        filtre = b.getAttribute('data-f');
+        this.querySelectorAll('[data-f]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        dessiner();
+      });
+      ul.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-partager]'); if (!b) return;
+        var id = b.getAttribute('data-partager'), c = liste.filter(function (x) { return x.id === id; })[0];
+        var statut = b.closest('li').querySelector('.statut-carte');
+        fetch(dossier + id + '.jpg').then(function (r) { return r.blob(); }).then(function (blob) {
+          var f = null; try { f = new File([blob], 'genesolia-' + id + '.jpg', { type: 'image/jpeg' }); } catch (err) {}
+          if (f && navigator.canShare && navigator.canShare({ files: [f] })) {
+            return navigator.share({ files: [f], text: c.phrase + ' · genesolia.fr' }).then(function () { statut.textContent = 'Merci de faire circuler.'; }, function () {});
+          }
+          var url = URL.createObjectURL(blob), a = document.createElement('a');
+          a.href = url; a.download = 'genesolia-' + id + '.jpg'; document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+          statut.textContent = 'Image téléchargée : tu peux la publier depuis ta galerie.';
+        }).catch(function () { statut.textContent = 'Le partage n\'a pas fonctionné. Essaie « Télécharger ».'; });
+      });
       dessiner();
-    });
-    ul.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-partager]'); if (!b) return;
-      var id = b.getAttribute('data-partager'), c = liste.filter(function (x) { return x.id === id; })[0];
-      var statut = b.closest('li').querySelector('.statut-carte');
-      fetch('assets/cartes/' + id + '.jpg').then(function (r) { return r.blob(); }).then(function (blob) {
-        var f = null; try { f = new File([blob], 'genesolia-' + id + '.jpg', { type: 'image/jpeg' }); } catch (err) {}
-        if (f && navigator.canShare && navigator.canShare({ files: [f] })) {
-          return navigator.share({ files: [f], text: c.phrase + ' · genesolia.fr' }).then(function () { statut.textContent = 'Merci de faire circuler la douceur.'; }, function () {});
-        }
-        var url = URL.createObjectURL(blob), a = document.createElement('a');
-        a.href = url; a.download = 'genesolia-' + id + '.jpg'; document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
-        statut.textContent = 'Image téléchargée : tu peux la publier depuis ta galerie.';
-      }).catch(function () { statut.textContent = 'Le partage n\'a pas fonctionné. Essaie « Télécharger ».'; });
-    });
-    dessiner();
+    }
+    galerie(window.GENESOLIA_RESEAUX || [], 'assets/reseaux/', 'ton', 'galerie-reseaux', 'filtres-reseaux');
+    galerie(window.GENESOLIA_CARTES || [], 'assets/cartes/', 'theme', 'galerie', 'filtres');
   })();
   </script>
 </body>
