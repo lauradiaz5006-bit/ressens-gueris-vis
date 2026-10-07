@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le ciel d’août 2027 : lune, éclipses et énergies du mois · Genesolia</title>
+  <meta name="description" content="Le ciel d’août 2027 : nouvelle lune le 2 en Lion, pleine lune le 17 en Verseau, nouvelle lune le 31 en Vierge, éclipse. Les nombres du mois, la saison, un ges">
+  <link rel="canonical" href="https://genesolia.fr/ciel-aout-2027.html">
+  <meta property="og:title" content="Le ciel d’août 2027">
+  <meta property="og:description" content="Le ciel d’août 2027 : nouvelle lune le 2 en Lion, pleine lune le 17 en Verseau, nouvelle lune le 31 en Vierge, éclipse. Les nombres du mois, la saison, un ges">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+
+    .c-bref{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 2rem}.c-bref span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem .9rem;font-size:.9rem}
+    .c-frise{list-style:none;margin:1.4rem 0;padding-left:1.4rem;border-left:2px solid var(--rose-fonce);display:grid;gap:1.2rem}
+    .c-frise li{position:relative;padding:1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose)}
+    .c-frise li::before{content:"";position:absolute;left:-1.95rem;top:1.25rem;width:.9rem;height:.9rem;border-radius:50%;background:var(--champagne-clair);border:2px solid var(--champagne)}
+    .c-frise li.lune::before{background:#fff;border-color:var(--prune)}.c-frise li.eclipse{border-color:var(--prune);background:linear-gradient(135deg,#F3ECF7,var(--blanc))}.c-frise li.eclipse::before{background:var(--prune);border-color:var(--prune)}.c-frise li.retro::before{background:#FCEFF3;border-color:#B5485C}
+    .c-frise time{font:600 .78rem/1 var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--champagne)}.c-frise h3{margin:.35rem 0 .3rem;font-size:1.2rem}.c-frise p{color:var(--prune-doux);font-size:.97rem}
+    .c-nombres,.c-deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0}.c-nombres div,.c-deux div{padding:1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose)}
+    .c-num{float:right;width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.5rem;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);margin-left:.6rem}
+    .c-nombres h3{margin:0 0 .4rem;font-size:1.15rem}.c-nombres p,.c-deux p{font-size:.95rem}.c-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}.c-mini{font-size:.86rem;color:var(--prune-doux);margin-top:.6rem}
+    .c-cercle{display:grid;grid-template-columns:1fr auto;gap:1.2rem;align-items:center;margin:2.4rem 0 1.4rem;padding:1.6rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair)}.c-cercle h3{margin:0 0 .4rem}
+    .c-nav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1.2rem;border-top:1px solid var(--rose);font-size:.95rem}
+    @media (max-width:640px){.c-nombres,.c-deux,.c-cercle{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete"><div class="colonne">
+      <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="le-ciel-du-mois.html">Le ciel du mois</a><span aria-hidden="true">/</span>août 2027</nav>
+      <h1>Le ciel d’août 2027</h1>
+      <p class="intro">Pleines et nouvelles lunes, éclipses, rétrogradations, nombres du mois et saison : nouvelle lune le 2 en Lion, pleine lune le 17 en Verseau, nouvelle lune le 31 en Vierge.</p>
+    </div></section>
+    <article class="article"><div class="colonne">
+
+        <div class="c-bref"><span><b>3</b> phases majeures de la Lune</span><span><b>2</b> éclipses</span><span>Année universelle <b>2</b></span><span>Mois universel <b>1</b></span></div>
+        <h2>Le ciel du mois, jour après jour</h2>
+        <p>Les dates et heures sont calculées astronomiquement, à l'heure de Paris. Les interprétations sont symboliques : elles proposent des pistes de réflexion, pas des prédictions.</p>
+        <ol class="c-frise"><li class="lune"><time>2 août à 12 h 05</time><h3>Nouvelle lune en Lion</h3><p>La Lune est invisible, le cycle recommence. Symboliquement, c'est un moment pour poser une intention et semer quelque chose de neuf. Le Lion porte la chaleur de l'été et le désir d'être pleinement soi, au centre de sa propre vie. Il symbolise la création, le cœur et la joie de donner.</p></li><li class="eclipse"><time>2 août à 12 h 06</time><h3>Éclipse de Soleil en Lion</h3><p>La Lune passe devant le Soleil et le cache entièrement sur une étroite bande de la Terre (éclipse totale). Depuis Paris, le Soleil sera partiellement caché (environ 51 % de sa surface). Ne regarde jamais le Soleil sans lunettes spéciales. Dans de nombreuses traditions, les éclipses ont été vues comme des moments de passage et de bascule.</p></li><li class="planete"><time>2 août à 12 h 52</time><h3>Mercure entre en Lion</h3><p>Mercure, ta pensée, ta parole et ta façon d'apprendre, prend la couleur du Lion : rayonnement, créativité, générosité.</p></li><li class="retro"><time>9 août à 19 h 52</time><h3>Saturne rétrograde en Bélier</h3><p>Saturne, la planète des règles, du temps et des héritages, semble reculer dans le ciel. Symboliquement, c'est un temps pour revisiter les règles reçues de ta famille et choisir celles que tu gardes.</p></li><li class="planete"><time>17 août à 06 h 43</time><h3>Mercure entre en Vierge</h3><p>Mercure, ta pensée, ta parole et ta façon d'apprendre, prend la couleur de la Vierge : discernement, service, précision.</p></li><li class="eclipse"><time>17 août à 09 h 13</time><h3>Éclipse de Lune en Verseau</h3><p>La Terre passe entre le Soleil et la Lune, qui s'assombrit très légèrement (éclipse dite pénombrale, peu visible à l'œil nu). Au moment du maximum, la Lune ne sera pas levée depuis la France. Dans de nombreuses traditions, les éclipses ont été vues comme des moments de passage et de bascule.</p></li><li class="lune"><time>17 août à 09 h 29</time><h3>Pleine lune en Verseau</h3><p>La Lune est pleinement éclairée. Symboliquement, c'est un temps d'aboutissement, où ce qui était caché apparaît, et un bon moment pour remercier et laisser partir. Le Verseau regarde vers l'avenir et ose rompre avec ce qui ne fait plus sens. Il symbolise la liberté de penser et l'appartenance à un collectif choisi.</p></li><li class="planete"><time>20 août à 21 h 41</time><h3>Vénus entre en Vierge</h3><p>Vénus, ta manière d'aimer, tes valeurs et ton sens du beau, prend la couleur de la Vierge : discernement, service, précision.</p></li><li class="soleil"><time>23 août à 10 h 13</time><h3>Le Soleil entre en Vierge</h3><p>La saison de la Vierge commence. La Vierge trie, ajuste et perfectionne, comme on prépare la récolte avec attention. Elle symbolise l'intelligence du détail et le désir d'être utile. Mots-clés : discernement, service, précision.</p></li><li class="lune"><time>31 août à 19 h 41</time><h3>Nouvelle lune en Vierge</h3><p>La Lune est invisible, le cycle recommence. Symboliquement, c'est un moment pour poser une intention et semer quelque chose de neuf. La Vierge trie, ajuste et perfectionne, comme on prépare la récolte avec attention. Elle symbolise l'intelligence du détail et le désir d'être utile.</p></li></ol>
+        
+        <h2>Les nombres du mois</h2>
+        <div class="c-nombres"><div><span class="c-num">2</span><h3>L'année universelle 2027</h3><p>Ce que tu as semé pousse lentement. L'année favorise les relations, la coopération et l'écoute de ce que tu ressens.</p></div><div><span class="c-num">1</span><h3>Le mois universel d’août</h3><p>Un mois pour initier : commence ce que tu repousses. Le mois universel colore le mois pour tout le monde ; ton mois personnel, lui, dépend de ta date de naissance.</p></div></div>
+        <p><a href="theme-numerologique.html">Calcule ton année et ton mois personnels</a> pour une lecture qui te concerne directement.</p>
+        <h2>La saison : la lumière dorée des greniers qui se remplissent</h2>
+        <p>Août est un mois de seuil. La chaleur est encore là, parfois écrasante, mais la lumière change : elle devient plus dorée, plus oblique, et les soirées fraîchissent. Les champs sont moissonnés, les chaumes restent nus, les mûres noircissent au bord des chemins. Tout semble suspendu, comme une longue respiration avant la reprise. Intérieurement, tu peux ressentir à la fois la douceur de ce temps ralenti et une légère mélancolie, celle de l'été qui commence à se retirer. Certain·es comptent déjà les jours avant la rentrée, d'autres savourent chaque heure. Août t'invite à récolter : à regarder ce que l'année t'a déjà apporté, même de petit, avant de repartir vers autre chose.</p>
+        <div class="c-deux"><div><p class="c-etiq">Le geste du mois</p><p>Un soir d'août, rassemble dans une coupe quelques éléments de récolte : un épi, un fruit, une pierre ramassée pendant l'été, un coquillage. Pour chacun, nomme à voix basse une chose que cette année t'a apportée, même modeste : une rencontre, une compréhension, un courage nouveau. Puis pense à un·e ancêtre qui a travaillé la terre et dis-lui simplement merci pour ce qu'il ou elle a récolté avant toi. Laisse la coupe en vue quelques jours, puis rends les éléments naturels au jardin.</p></div><div><p class="c-etiq">Pour ta famille</p><p>Qu'as-tu déjà récolté cette année, même sans l'avoir remarqué ?</p><p class="c-mini">Les dates de ton arbre qui tombent ce mois-ci apparaissent dans <a href="mon-mois.html">ta page « Ton mois »</a>.</p></div></div>
+        <h2>Les rêves à observer</h2>
+        <p>Ce mois-ci, prête attention dans tes rêves à les moissons, les tables partagées, la chaleur. Note-les au réveil, avec la date et la phase de la Lune : relus d'un mois à l'autre, ils dessinent parfois un fil. Pour commencer, lis notre guide pour <a href="journal-de-reves.html">tenir un journal de rêves</a>.</p>
+        <div class="c-cercle"><div><p class="c-etiq">Le Cercle</p><h3>Ton mois, rien que pour toi</h3><p>Ton mois personnel en numérologie, ton calendrier jour par jour, les dates de ton arbre, un carnet à imprimer chaque mois et le livret des 12 saisons. Le premier carnet est offert.</p></div><a class="btn btn-plein" href="mon-mois.html#offert">Recevoir le carnet offert</a></div>
+        <nav class="c-nav"><a href="ciel-juillet-2027.html">‹ Le ciel de juillet 2027</a><a href="le-ciel-du-mois.html">Tous les mois</a><a href="ciel-septembre-2027.html">Le ciel de septembre 2027 ›</a></nav>
+    </div></article>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

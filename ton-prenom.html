@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signification de ton prénom : origine, nombre et arbre de vie · Genesolia</title>
+  <meta name="description" content="Découvre la signification de ton prénom : son origine et son histoire, son nombre en numérologie, la valeur de ses lettres sur l'arbre de vie, et ce qu'il porte de ta lignée.">
+  <link rel="canonical" href="https://genesolia.fr/ton-prenom.html">
+  <meta property="og:title" content="Ce que ton prénom porte de ton histoire">
+  <meta property="og:description" content="Origine, histoire, nombre, arbre de vie : une lecture de ton prénom reliée à ta famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .t-tete{position:relative;overflow:hidden;padding:3.2rem 0 3.4rem;border-bottom:1px solid var(--rose);background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .t-tete .conteneur{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+    .t-sur{font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .t-tete h1{margin-bottom:1rem}
+    .t-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
+    .t-form{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .t-form h2{font-size:1.5rem;margin-bottom:.8rem}
+    .t-form label{font:600 .82rem/1.2 var(--texte);display:block;margin-bottom:.3rem}
+    .t-form input{width:100%;font:400 1.1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.75rem .9rem;margin-bottom:.9rem}
+    .t-form input:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .t-form .btn{width:100%}
+    .t-form small{display:block;margin-top:.7rem;font-size:.8rem;color:var(--prune-doux)}
+    .t-res[hidden]{display:none}
+    .t-res{scroll-margin-top:5rem}
+    .t-res-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+    .t-res-tete h2{font-size:clamp(2rem,4vw,2.8rem)}
+    .t-res-tete h2 span{color:var(--champagne)}
+    .t-edit{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+    .t-edit span{display:inline-flex;align-items:center;gap:.3rem;background:var(--rose);border-radius:999px;padding:.25rem .3rem .25rem .7rem;font-size:.86rem}
+    .t-edit span button{border:none;background:none;color:var(--prune);cursor:pointer;font-size:1rem;line-height:1;padding:0 .2rem}
+    .t-edit select,.t-edit .bt-ok{font:400 .86rem/1.2 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.3rem .7rem}
+    .t-edit .bt-ok{cursor:pointer;font-weight:600}
+    .t-index{columns:4 10rem;gap:1.2rem;font-size:.95rem}
+    .t-index a{display:block;padding:.15rem 0;text-decoration:none}
+    .t-index a:hover{color:var(--champagne)}
+    @media (max-width:900px){.t-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
+  </style>
+  <style id="p-css"></style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="t-tete">
+      <div class="conteneur">
+        <div>
+          <p class="t-sur">Gratuit · sans inscription</p>
+          <h1>Ce que ton prénom porte de ton histoire</h1>
+          <p class="intro">Ton prénom a une origine, une histoire, un nombre, et une place sur l'arbre de vie. Il a aussi été choisi pour toi, par ta famille, peut-être en souvenir de quelqu'un. Découvre ce qu'il raconte.</p>
+        </div>
+        <form class="t-form" id="t-form" novalidate>
+          <h2>Ton prénom</h2>
+          <label for="t-prenom">Écris ton prénom</label>
+          <input id="t-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa" required>
+          <button class="btn btn-plein" type="submit">Découvrir mon prénom</button>
+          <small>Fonctionne pour tous les prénoms. Le calcul se fait sur ton appareil.</small>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc t-res" id="resultat" hidden aria-live="polite"><div class="conteneur" id="t-corps"></div></section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur" id="t-origine"></div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les prénoms de A à Z</h2><p>L'origine, l'histoire et la lecture des prénoms les plus portés en France.</p></div>
+        <div class="t-index" id="t-index"></div>
+        <p class="note" style="margin-top:1.2rem"><a href="prenoms.html">Voir la liste complète des prénoms</a></p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script src="assets/guematrie.js"></script>
+  <script src="assets/prenoms.js"></script>
+  <script src="assets/prenom-lecture.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var P = window.PrenomLecture, G = window.Guematrie, CLE = 'genesolia-prenom';
+    document.getElementById('p-css').textContent = P.CSS;
+    document.getElementById('t-origine').innerHTML = P.ORIGINE;
+    document.getElementById('t-index').innerHTML = (window.PRENOMS || []).map(function (f) { return '<a href="prenoms/' + f.slug + '.html">' + P.esc(f.prenom) + '</a>'; }).join('');
+    var f = document.getElementById('t-form'), zone = document.getElementById('resultat'), corps = document.getElementById('t-corps');
+    var actuel = '', lettres = null;
+
+    function editeur() {
+      var z = document.getElementById('p-edition'); if (!z) return;
+      var opts = Object.keys(G.LETTRES).map(function (k) { return '<option value="' + k + '">' + G.LETTRES[k].nom + ' (' + G.LETTRES[k].v + ')</option>'; }).join('');
+      z.innerHTML = '<div class="t-edit">' + lettres.map(function (k, i) { return '<span>' + G.LETTRES[k].nom + ' ' + G.LETTRES[k].v + '<button type="button" data-i="' + i + '" aria-label="Retirer ' + G.LETTRES[k].nom + '">×</button></span>'; }).join('') +
+        '<select id="t-ajout" aria-label="Ajouter une lettre"><option value="">+ Ajouter une lettre</option>' + opts + '</select><button type="button" class="bt-ok" id="t-reinit">Revenir au calcul automatique</button></div>';
+      z.querySelectorAll('[data-i]').forEach(function (b) { b.addEventListener('click', function () { lettres.splice(+b.getAttribute('data-i'), 1); afficher(true); }); });
+      document.getElementById('t-ajout').addEventListener('change', function () { if (this.value) { lettres.push(this.value); afficher(true); } });
+      document.getElementById('t-reinit').addEventListener('click', function () { lettres = G.transcrire(actuel); afficher(true); });
+    }
+    function afficher(ouvrirDetail) {
+      var fiche = P.trouver(actuel), nom = (fiche && fiche.prenom) || (actuel.charAt(0).toUpperCase() + actuel.slice(1));
+      corps.innerHTML = '<div class="t-res-tete"><h2>Le prénom <span>' + P.esc(nom) + '</span></h2><div class="actions"><button class="btn btn-trait" type="button" id="t-autre">Lire un autre prénom</button></div></div>' + P.html(actuel, { fiche: fiche, lettres: lettres, editable: true });
+      zone.hidden = false;
+      if (ouvrirDetail) { var d = corps.querySelector('.p-detail'); if (d) d.open = true; }
+      editeur();
+      document.getElementById('t-autre').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('t-prenom').focus(); });
+    }
+    function lancer(p) {
+      actuel = p.trim().split(/[\s,]+/)[0]; lettres = G.transcrire(actuel);
+      if (!lettres.length) return;
+      afficher(false);
+      try { localStorage.setItem(CLE, actuel); } catch (x) {}
+    }
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); var v = f.prenom.value.trim(); if (!v) { f.prenom.focus(); return; }
+      lancer(v); if (window.umami) try { window.umami.track('ton-prenom'); } catch (x) {}
+      zone.scrollIntoView({ behavior: 'smooth' });
+    });
+    var q = new URLSearchParams(location.search).get('p'), memo = null;
+    try { memo = localStorage.getItem(CLE); } catch (x) {}
+    if (q || memo) { f.prenom.value = q || memo; lancer(q || memo); if (q) setTimeout(function () { zone.scrollIntoView(); }, 50); }
+  })();
+  </script>
+</body>
+</html>

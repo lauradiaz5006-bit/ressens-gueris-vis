@@ -8,8 +8,8 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Genesolia · Génosociogramme en ligne gratuit et arbre de vie</title>
-  <meta name="description" content="Génosociogramme en ligne gratuit, test de l'arbre de vie et méthode des deux cycles : des outils pour comprendre les schémas familiaux qui se répètent.">
+  <title>Genesolia · Arbre familial, numérologie, thème astral et rêves</title>
+  <meta name="description" content="Ton arbre familial, tes nombres, ton thème astral et tes rêves : quatre lectures gratuites pour comprendre ce qui t'a été transmis et arrêter de répéter les mêmes schémas.">
   <meta property="og:title" content="Genesolia · Comprendre ce qui se répète dans ta vie">
   <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
   <meta property="og:type" content="website">
@@ -18,6 +18,24 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
+    .portes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .porte-l{position:relative;display:flex;flex-direction:column;padding:1.6rem 1.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
+    .porte-l:hover{border-color:var(--champagne);box-shadow:0 16px 40px rgba(107,47,91,.10);transform:translateY(-2px)}
+    .porte-n{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);margin-bottom:.9rem}
+    .porte-l h3{font-size:1.45rem;margin-bottom:.2rem}
+    .porte-q{font-family:var(--display);color:var(--champagne);margin-bottom:.6rem}
+    .porte-l p{font-size:.95rem;color:var(--prune-doux)}
+    .porte-liens{margin-top:auto;padding-top:1rem;font-weight:600;color:var(--prune);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:4px}
+    .relie{margin-top:1.4rem;display:grid;grid-template-columns:1fr auto;gap:1.4rem;align-items:center;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair)}
+    .relie p{max-width:none}
+    .cercle-accueil{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2.2rem;border-radius:var(--rayon);color:#FFF4F6;background:linear-gradient(140deg,#2E1338,#6B2F5B)}
+    .cercle-accueil h2{color:#fff;margin-bottom:.7rem}.cercle-accueil p{color:#F7E6EE;margin-bottom:1.2rem}
+    .cercle-sur{font:600 .78rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair)!important}
+    .cercle-accueil .btn-plein{background:var(--champagne-clair);color:var(--prune)}.cercle-accueil .btn-trait{background:transparent;color:#fff;border-color:rgba(243,220,192,.6)}
+    .cercle-accueil img{width:150px;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:rotate(3deg)}
+    @media (max-width:1000px){.portes{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.portes{grid-template-columns:1fr}.relie,.cercle-accueil{grid-template-columns:1fr}.cercle-accueil{padding:1.6rem}.cercle-accueil img{width:110px}}
+
     .ouverture{position:relative;overflow:hidden;background:
       radial-gradient(60rem 36rem at 72% 18%,rgba(248,214,200,.8),transparent 62%),
       radial-gradient(40rem 30rem at 10% 90%,rgba(236,190,210,.35),transparent 60%),
@@ -102,12 +120,12 @@
       <div class="conteneur">
         <div>
           <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
-          <p class="intro">Les mêmes situations, les mêmes émotions, les mêmes impasses reviennent parfois d'une génération à l'autre. Ici, tu dessines ton arbre familial et tu explores l'arbre de vie pour voir d'où ça vient et ce qui demande à évoluer.</p>
+          <p class="intro">Les mêmes situations, les mêmes émotions, les mêmes impasses reviennent parfois d'une génération à l'autre. Ici, tu lis ce qui t'a été transmis dans quatre langages : ta famille, tes nombres, tes étoiles et tes rêves. Puis tu apprends à faire autrement.</p>
           <div class="actions">
-            <a class="btn btn-plein" href="arbre-de-vie.html">Faire le test de l'arbre de vie</a>
+            <a class="btn btn-plein" href="ton-prenom.html">Découvrir mon prénom</a>
             <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
           </div>
-          <p class="rassurance">Gratuit, sans inscription pour commencer. Tes réponses restent dans ton navigateur.</p>
+          <p class="rassurance">Gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
         </div>
 
         <figure class="arbre">
@@ -179,6 +197,25 @@
 
     <section class="bloc" style="padding-bottom:0"><div class="conteneur"><div data-formation></div></div></section>
 
+    <section class="bloc" id="quatre">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Quatre langages pour lire ce qui t'a été transmis</h2>
+          <p>Chacun éclaire une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
+        </div>
+        <div class="portes">
+          <a class="porte-l" href="genosociogramme.html"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
+          <a class="porte-l" href="theme-numerologique.html"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de ton prénom sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
+          <a class="porte-l" href="theme-astral.html"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
+          <a class="porte-l" href="symbolique-des-reves.html"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
+        </div>
+        <div class="relie">
+          <p><strong>Tout se relie dans ton arbre.</strong> Ajoute ta famille : l'outil compare les nombres, les signes et les prénoms de chacun·e, et fait apparaître les échos entre les générations. Le rapport de ton arbre les explique, avec des pistes pour sortir de la boucle.</p>
+          <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre familial</a><a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a></div>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc">
       <div class="conteneur">
         <div class="bloc-tete">
@@ -202,7 +239,7 @@
             <img class="illu" src="assets/accueil/arbre-vie.jpg" width="960" height="540" alt="" loading="lazy">
             <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B98A55"/><circle cx="12" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B98A55"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B98A55" stroke-width="1.3"/></svg>
             <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
-            <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, de la vie matérielle au sens que tu lui donnes.</p>
+            <p>Un symbole ancien de dix sphères reliées par vingt-deux chemins, que de nombreuses traditions ont interprété. Chaque sphère correspond à un domaine de ta vie, de la vie matérielle au sens que tu lui donnes.</p>
             <ul>
               <li>Limites, générosité, équilibre</li>
               <li>Relations, émotions, communication</li>
@@ -247,31 +284,12 @@
           <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
         </div>
         <div class="liste-outils">
-          <a class="outil" href="arbre-de-vie.html">
-            <h3>Le test de l'arbre de vie</h3><span class="duree">5 minutes</span>
-            <p>Vingt affirmations pour voir quelles sphères sont lumineuses chez toi, et lesquelles demandent à être nourries.</p>
-          </a>
-          <a class="outil" href="parcours.html">
-            <h3>Le parcours guidé</h3><span class="duree">10 minutes</span>
-            <p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes émotions et ta vie.</p>
-          </a>
-          <a class="outil" href="genosociogramme.html">
-            <h3>Mon arbre familial</h3><span class="duree">30 minutes</span>
-            <p>Dessine ton génosociogramme sur trois générations, sauvegarde-le et imprime-le.</p>
-          </a>
-          <a class="outil" href="vibration.html">
-            <h3>Ma fréquence intérieure</h3><span class="duree">5 minutes</span>
-            <p>Fais le point sur ton état intérieur du moment et trouve des gestes simples pour le soutenir.</p>
-          </a>
-
-          <a class="outil" href="methode.html">
-            <h3>La méthode des deux cycles</h3><span class="duree">Lecture</span>
-            <p>Le cycle de la racine et le cycle du cœur : de quel besoin parle ce qui se répète.</p>
-          </a>
-          <a class="outil" href="heriter.html">
-            <h3>Comprendre le transgénérationnel</h3><span class="duree">Lecture</span>
-            <p>Ce qu'est une mémoire familiale, comment elle se manifeste, et par où commencer.</p>
-          </a>
+          <a class="outil" href="ton-prenom.html"><h3>Ton prénom</h3><span class="duree">1 minute</span><p>Son origine, son histoire, son nombre et sa place sur l'arbre de vie.</p></a>
+          <a class="outil" href="theme-astral.html"><h3>Ton thème astral</h3><span class="duree">2 minutes</span><p>Soleil, Lune, ascendant, planètes et maisons, reliés à ton histoire familiale.</p></a>
+          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique</h3><span class="duree">2 minutes</span><p>Chemin de vie, nombres du nom, cycles et grandes périodes de ta vie.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">30 minutes</span><p>Ton génosociogramme : les répétitions, les nombres et les signes de toute ta lignée.</p></a>
+          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">5 minutes</span><p>Vingt affirmations pour voir quelles sphères sont lumineuses chez toi, et lesquelles demandent à être nourries.</p></a>
+          <a class="outil" href="parcours.html"><h3>Le parcours guidé</h3><span class="duree">10 minutes</span><p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes émotions et ta vie.</p></a>
         </div>
       </div>
     </section>
@@ -314,12 +332,26 @@
 
     <section class="bloc">
       <div class="conteneur">
+        <div class="cercle-accueil">
+          <div>
+            <p class="cercle-sur">Le Cercle · ton rendez-vous du mois</p>
+            <h2>Chaque mois, ce que disent tes nombres, ton arbre et le ciel</h2>
+            <p>Ton mois personnel, ton calendrier jour par jour, les dates de ta famille qui tombent ce mois-ci, un carnet de dix pages à imprimer et le livret des 12 saisons. Le premier carnet est offert.</p>
+            <div class="actions"><a class="btn btn-plein" href="mon-mois.html#offert">Recevoir le carnet offert</a><a class="btn btn-trait" href="le-ciel-du-mois.html">Le ciel de ce mois</a></div>
+          </div>
+          <img src="assets/cercle/apercu-2026-11.jpg" width="150" height="212" alt="Couverture du carnet du mois" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
         <div class="bloc-tete"><h2>Sur le blog</h2><p>Des articles concrets pour avancer pas à pas.</p></div>
         <div class="blog-cartes">
           <a href="schemas-repetitifs-en-amour.html"><img src="assets/accueil/blog-amour.jpg" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></div></a>
           <a href="questions-a-poser-a-sa-famille.html"><img src="assets/accueil/blog-famille.jpg" width="720" height="405" alt="" loading="lazy"><div><span>8 min</span><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></div></a>
-          <a href="informations-avant-genosociogramme.html"><img src="assets/accueil/blog-infos.jpg" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Les informations à rassembler</h3><p>Tout ce qu'il faut réunir avant de faire son génosociogramme, avec une liste à imprimer.</p></div></a>
-          <a href="arbre-de-vie-arbre-genealogique-genosociogramme.html"><img src="assets/accueil/blog-arbres.jpg" width="720" height="405" alt="" loading="lazy"><div><span>6 min</span><h3>Trois arbres à ne pas confondre</h3><p>Arbre de vie, arbre généalogique et génosociogramme : les différences.</p></div></a>
+          <a href="symbolique-des-reves.html"><img src="assets/formation/spirale.jpg" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>La symbolique des rêves</h3><p>Une langue que l'humanité parle depuis toujours, de Jung aux peuples anciens.</p></div></a>
+          <a href="rever-des-morts-et-des-ancetres.html"><img src="assets/formation/montagne.jpg" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>Rêver des morts et des ancêtres</h3><p>Ce que disent les traditions, et ce que ces rêves racontent de ta famille.</p></div></a>
         </div>
         <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="blog.html">Tous les articles</a></div>
       </div>
@@ -332,9 +364,10 @@
         <div class="bloc-tete"><h2>Questions fréquentes</h2></div>
         <div class="questions">
           <details><summary>Qu'est-ce que la psychogénéalogie ?</summary><p>C'est une manière de regarder son histoire familiale pour comprendre ce qui se transmet d'une génération à l'autre : des façons de réagir, des places, des événements qui semblent se répéter.</p></details>
-          <details><summary>Est-ce une thérapie ?</summary><p>Non. Ces outils proposent une lecture symbolique et une aide à la réflexion. Ils ne remplacent pas un médecin ni un psychologue. Si tu traverses une période difficile, parles-en à un professionnel de santé.</p></details>
+          <details><summary>Est-ce un accompagnement professionnel ?</summary><p>Non. Ces outils proposent une lecture symbolique et une aide à la réflexion. Ils ne remplacent pas un accompagnement professionnel. Si tu traverses une période difficile, parles-en à une personne de confiance ou à un·e professionnel·le.</p></details>
+          <details><summary>La numérologie et l'astrologie prédisent-elles l'avenir ?</summary><p>Non. Nous les utilisons comme des langages symboliques pour réfléchir à toi et à ton histoire familiale, jamais pour prédire. Les calculs (positions des planètes, nombres) sont exacts ; les lectures sont des pistes, que toi seul·e peux valider.</p></details>
           <details><summary>Faut-il connaître toute son histoire familiale ?</summary><p>Non. On commence avec ce que l'on sait, même peu. Les trous font aussi partie de l'histoire, et l'arbre se complète au fil du temps.</p></details>
-          <details><summary>Qu'est-ce que l'arbre de vie ?</summary><p>L'arbre des Séphiroth vient de la tradition de la Kabbale. Nous l'utilisons comme une grille de lecture symbolique, avec respect pour son origine, sans prétendre enseigner cette tradition.</p></details>
+          <details><summary>Qu'est-ce que l'arbre de vie ?</summary><p>C'est un symbole ancien de dix sphères reliées par vingt-deux chemins, que plusieurs traditions spirituelles ont interprété. Nous l'utilisons comme une grille de lecture symbolique, avec respect pour ses origines, sans prétendre enseigner une tradition.</p></details>
           <details><summary>Que deviennent mes réponses ?</summary><p>Sans compte, elles restent uniquement dans ton navigateur. Avec un compte, tes sauvegardes sont stockées sur nos serveurs en Europe et ne sont jamais revendues. <a href="confidentialite.html">Tout savoir sur tes données</a>.</p></details>
         </div>
       </div>
