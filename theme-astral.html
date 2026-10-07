@@ -127,10 +127,10 @@
             <div class="a-champ"><label for="a-heure">Heure</label><input type="time" id="a-heure" name="heure"></div>
           </div>
           <label class="a-case"><input type="checkbox" id="a-sans-heure"> Je ne connais pas mon heure de naissance</label>
-          <div class="a-champ" style="margin-top:.8rem"><label for="a-lieu">Lieu de naissance</label><input type="text" id="a-lieu" name="lieu" placeholder="Commence à taper ta ville" role="combobox" aria-expanded="false" aria-controls="a-sugg" aria-autocomplete="list"><ul class="a-sugg" id="a-sugg" role="listbox" hidden></ul><small id="a-lieu-info">Nécessaire pour l'ascendant et les maisons.</small></div>
+          <div class="a-champ" style="margin-top:.8rem"><label for="a-lieu">Lieu de naissance</label><input type="text" id="a-lieu" name="lieu-naissance" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Commence à taper ta ville" role="combobox" aria-expanded="false" aria-controls="a-sugg" aria-autocomplete="list"><ul class="a-sugg" id="a-sugg" role="listbox" hidden></ul><small id="a-lieu-info">Nécessaire pour l'ascendant et les maisons.</small></div>
           <button class="btn btn-plein" type="submit">Découvrir mon thème</button>
           <p class="a-erreur" role="alert" id="a-erreur"></p>
-          <p class="a-mini">Le calcul se fait sur ton appareil. Seul le nom de la ville que tu tapes est envoyé à un service de cartographie (Open-Meteo) pour trouver ses coordonnées.</p>
+          <p class="a-mini">Le calcul se fait sur ton appareil. Seul le nom de la ville que tu tapes est envoyé à un service de cartographie (Open-Meteo) pour trouver ses coordonnées. Liste des villes : GeoNames (CC BY 4.0).</p>
         </form>
       </div>
     </section>
@@ -167,31 +167,74 @@
     function S(s) { return T.SIGNES[s].nom; }
     function enS(s) { var n = S(s); return (/^[AEIOUÉ]/.test(n) ? 'en ' : 'en ') + n; }
 
-    /* ───── Lieu de naissance (Open-Meteo) ───── */
-    function chercher(q) {
-      fetch('https://geocoding-api.open-meteo.com/v1/search?count=6&language=fr&format=json&name=' + encodeURIComponent(q))
+    /* ───── Lieu de naissance : liste locale (GeoNames) + Open-Meteo ───── */
+    var REG = { '11': 'Île-de-France', '24': 'Centre-Val de Loire', '27': 'Bourgogne-Franche-Comté', '28': 'Normandie', '32': 'Hauts-de-France', '44': 'Grand Est', '52': 'Pays de la Loire', '53': 'Bretagne', '75': 'Nouvelle-Aquitaine', '76': 'Occitanie', '84': 'Auvergne-Rhône-Alpes', '93': "Provence-Alpes-Côte d'Azur", '94': 'Corse' };
+    var PAYS = { FR: 'France', BE: 'Belgique', CH: 'Suisse', LU: 'Luxembourg', MC: 'Monaco', CA: 'Canada', MA: 'Maroc', DZ: 'Algérie', TN: 'Tunisie', SN: 'Sénégal', CI: "Côte d'Ivoire", RE: 'La Réunion', GP: 'Guadeloupe', MQ: 'Martinique', GF: 'Guyane', YT: 'Mayotte', NC: 'Nouvelle-Calédonie', PF: 'Polynésie française', PM: 'Saint-Pierre-et-Miquelon', HT: 'Haïti', CM: 'Cameroun', MG: 'Madagascar' };
+    var PROV = { '10': 'Québec', '08': 'Ontario', '04': 'Nouveau-Brunswick' };
+    var VILLES = null, villesTZ = {}, chargement = null;
+    function norm(t) { return String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[-'’.]/g, ' ').replace(/\bst(e?)\b/g, 'saint$1').replace(/\s+/g, ' ').trim(); }
+    function chargerVilles() {
+      if (!chargement) chargement = fetch('assets/villes.json').then(function (r) { return r.json(); }).then(function (d) {
+        villesTZ = d.tz; VILLES = d.v.map(function (v) { return { n: v[0], k: norm(v[0]), lat: v[1], lon: v[2], cc: v[3], adm: v[4] || '' }; });
+      }).catch(function () { VILLES = []; });
+      return chargement;
+    }
+    function depuisLocal(v) {
+      var tz = v.cc === 'CA' ? villesTZ['CA' + v.adm] : villesTZ[v.cc];
+      var zone = v.cc === 'FR' ? (REG[v.adm] || '') : v.cc === 'CA' ? (PROV[v.adm] || '') + ', Canada' : PAYS[v.cc];
+      return { name: v.n, zone: zone, latitude: v.lat, longitude: v.lon, timezone: tz, cc: v.cc, pays: PAYS[v.cc] };
+    }
+    function chercherLocal(q) {
+      if (!VILLES) return [];
+      var k = norm(q), deb = [], mot = [];
+      for (var i = 0; i < VILLES.length && deb.length < 8; i++) {
+        var v = VILLES[i];
+        if (v.k.indexOf(k) === 0) deb.push(depuisLocal(v));
+        else if (mot.length < 8 && v.k.indexOf(' ' + k) > 0) mot.push(depuisLocal(v));
+      }
+      return deb.concat(mot).slice(0, 8);
+    }
+    function depuisDistant(x) { return { name: x.name, zone: [x.admin1, x.country].filter(Boolean).join(', '), latitude: x.latitude, longitude: x.longitude, timezone: x.timezone, cc: x.country_code, pays: x.country }; }
+    function chercherDistant(q) {
+      return fetch('https://geocoding-api.open-meteo.com/v1/search?count=8&language=fr&format=json&name=' + encodeURIComponent(q))
         .then(function (r) { return r.json(); })
-        .then(function (d) {
-          resultats = (d && d.results) || [];
-          if (!resultats.length) { sugg.hidden = true; lieuIn.setAttribute('aria-expanded', 'false'); return; }
-          sugg.innerHTML = resultats.map(function (x, i) { return '<li role="option" data-i="' + i + '">' + esc(x.name) + '<small>' + esc([x.admin1, x.country].filter(Boolean).join(', ')) + '</small></li>'; }).join('');
-          sugg.hidden = false; lieuIn.setAttribute('aria-expanded', 'true');
-        }).catch(function () { sugg.hidden = true; });
+        .then(function (d) { return ((d && d.results) || []).filter(function (x) { return x.timezone; }).map(depuisDistant); })
+        .catch(function () { return []; });
+    }
+    function fusion(a, b) {
+      var vus = {}, out = [];
+      a.concat(b).forEach(function (x) { var c = norm(x.name) + '|' + Math.round(x.latitude * 10) + '|' + Math.round(x.longitude * 10); if (!vus[c]) { vus[c] = 1; out.push(x); } });
+      return out.slice(0, 8);
+    }
+    function montrer(liste) {
+      resultats = liste;
+      if (!liste.length) { sugg.hidden = true; lieuIn.setAttribute('aria-expanded', 'false'); return; }
+      sugg.innerHTML = liste.map(function (x, i) { return '<li role="option" data-i="' + i + '">' + esc(x.name) + '<small>' + esc(x.zone || '') + '</small></li>'; }).join('');
+      sugg.hidden = false; lieuIn.setAttribute('aria-expanded', 'true');
+    }
+    function prendre(x) {
+      lieu = { nom: x.name + (x.cc && x.cc !== 'FR' && x.pays ? ', ' + x.pays : ''), lat: x.latitude, lon: x.longitude, tz: x.timezone };
+      info.className = 'a-lieu-ok'; info.textContent = 'Lieu trouvé : ' + x.name + (x.zone ? ' (' + x.zone + ')' : '') + ' · fuseau ' + x.timezone;
     }
     function choisir(i) {
       var x = resultats[i]; if (!x) return;
-      lieu = { nom: x.name + (x.country_code && x.country_code !== 'FR' ? ', ' + x.country : ''), lat: x.latitude, lon: x.longitude, tz: x.timezone };
-      lieuIn.value = x.name + (x.admin1 ? ' (' + x.admin1 + ')' : '');
-      info.className = 'a-lieu-ok'; info.textContent = 'Lieu trouvé : ' + x.latitude.toFixed(2) + '°, ' + x.longitude.toFixed(2) + '° · fuseau ' + x.timezone;
+      prendre(x);
+      lieuIn.value = x.name + (x.zone ? ' (' + x.zone + ')' : '');
       sugg.hidden = true; lieuIn.setAttribute('aria-expanded', 'false');
     }
+    var demande = 0;
+    lieuIn.addEventListener('focus', chargerVilles);
     lieuIn.addEventListener('input', function () {
-      lieu = null; info.className = ''; info.textContent = "Choisis ta ville dans la liste.";
-      clearTimeout(minuteur); var q = lieuIn.value.trim();
+      lieu = null; info.className = ''; info.textContent = 'Choisis ta ville dans la liste, ou continue : on prendra la plus proche de ce que tu as tapé.';
+      clearTimeout(minuteur); var q = lieuIn.value.trim(), n = ++demande;
       if (q.length < 2) { sugg.hidden = true; return; }
-      minuteur = setTimeout(function () { chercher(q); }, 280);
+      chargerVilles().then(function () { if (n === demande) montrer(chercherLocal(q)); });
+      minuteur = setTimeout(function () {
+        chercherDistant(q).then(function (dist) { if (n === demande) montrer(fusion(chercherLocal(q), dist)); });
+      }, 300);
     });
-    sugg.addEventListener('mousedown', function (e) { var li = e.target.closest('li'); if (li) { e.preventDefault(); choisir(+li.getAttribute('data-i')); } });
+    sugg.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    sugg.addEventListener('click', function (e) { var li = e.target.closest('li'); if (li) choisir(+li.getAttribute('data-i')); });
     lieuIn.addEventListener('keydown', function (e) {
       if (sugg.hidden) return;
       var items = sugg.querySelectorAll('li'), cur = Array.prototype.findIndex.call(items, function (li) { return li.getAttribute('aria-selected') === 'true'; });
@@ -199,7 +242,17 @@
       else if (e.key === 'Enter') { e.preventDefault(); choisir(cur >= 0 ? cur : 0); }
       else if (e.key === 'Escape') { sugg.hidden = true; }
     });
-    lieuIn.addEventListener('blur', function () { setTimeout(function () { sugg.hidden = true; }, 150); });
+    lieuIn.addEventListener('blur', function () { setTimeout(function () { sugg.hidden = true; }, 200); });
+    /* Si la ville est tapée sans être choisie : on prend la meilleure correspondance */
+    function resoudreLieu() {
+      var q = lieuIn.value.replace(/\s*\(.*$/, '').trim();
+      if (!q || lieu) return Promise.resolve(lieu);
+      return chargerVilles().then(function () {
+        var loc = chercherLocal(q), exact = loc.filter(function (x) { return norm(x.name) === norm(q); });
+        if (exact.length || loc.length) { prendre((exact[0] || loc[0])); return lieu; }
+        return chercherDistant(q).then(function (d) { if (d.length) prendre(d[0]); return lieu; });
+      });
+    }
     document.getElementById('a-sans-heure').addEventListener('change', function () { var h = document.getElementById('a-heure'); h.disabled = this.checked; if (this.checked) h.value = ''; });
 
     /* ───── Roue ───── */
@@ -301,12 +354,15 @@
       var d = f.date.value, sansH = document.getElementById('a-sans-heure').checked, hr = sansH ? '' : f.heure.value;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       if (!sansH && !hr) { err.textContent = 'Indique ton heure de naissance, ou coche « Je ne connais pas mon heure ».'; f.heure.focus(); return; }
-      if (lieuIn.value.trim() && !lieu) { err.textContent = 'Choisis ton lieu de naissance dans la liste proposée.'; lieuIn.focus(); return; }
       err.textContent = '';
-      var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
-      lancer(e);
-      if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
-      zone.scrollIntoView({ behavior: 'smooth' });
+      var tape = lieuIn.value.trim();
+      resoudreLieu().then(function () {
+        if (tape && !lieu) info.textContent = "Ville introuvable : ton thème est calculé sans l'ascendant. Vérifie l'orthographe ou essaie une ville proche.";
+        var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
+        lancer(e);
+        if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
+        zone.scrollIntoView({ behavior: 'smooth' });
+      });
     });
     try {
       var s = JSON.parse(localStorage.getItem(CLE) || 'null');
