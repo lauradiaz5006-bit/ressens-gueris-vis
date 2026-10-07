@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Symboles des rêves : eau, maison, serpent, chute, dents, mort · Genesolia</title>
+  <meta name="description" content="Eau, maison, serpent, chute, dents, poursuite : dix grands symboles des rêves éclairés par Jung, les mythes et les traditions, avec la question à te poser.">
+  <link rel="canonical" href="https://genesolia.fr/grands-symboles-des-reves.html">
+  <meta property="og:title" content="Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures">
+  <meta property="og:description" content="Eau, maison, serpent, chute, dents, poursuite : dix grands symboles des rêves éclairés par Jung, les mythes et les traditions, avec la question à te poser.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures",
+  "description": "Eau, maison, serpent, chute, dents, poursuite : dix grands symboles des rêves éclairés par Jung, les mythes et les traditions, avec la question à te poser.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/grands-symboles-des-reves.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/grands-symboles-des-reves.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Grands symboles</nav>
+        <h1>Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</h1>
+        <p class="intro">Certaines images reviennent dans les rêves du monde entier : l&#x27;eau, la maison, le serpent, la chute. Plutôt qu&#x27;un dictionnaire, voici des pistes croisées, de Jung aux mythologies, et pour chaque symbole la question qui te permettra d&#x27;en trouver ton propre sens.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 8 min · article 6 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Tu as rêvé d'une maison inconnue, d'un serpent, de dents qui tombent ou d'une chute sans fin, et tu cherches ce que cela « veut dire ». Les dictionnaires des rêves répondent en une ligne. Ici, on fera autrement : pour dix grands symboles, on croisera ce qu'en disent Jung, les mythologies et diverses traditions, puis on te laissera la question qui compte. Car un même serpent ne parle pas de la même façon à une personne qui les craint depuis l'enfance et à une autre qui a grandi à la campagne en les observant.</p>
+
+<h2>Avant de lire un symbole : trois précautions</h2>
+<p>Carl Gustav Jung, fondateur de la psychologie analytique, se méfiait des clés toutes faites. Avec les personnes qu'il accompagnait, il commençait par demander ce que chaque image évoquait pour elles : souvenirs, émotions, associations. Ensuite seulement, il élargissait le sens en le rapprochant de mythes, de contes et de traditions. Il appelait ce second temps l'amplification. Tu trouveras plus de détails dans <a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre</a>.</p>
+<ul class="gestes">
+<li>Le sens part de toi : ton histoire, ta culture, ta famille passent avant toute grille.</li>
+<li>L'émotion du rêve compte autant que l'image : une eau calme et une eau qui déborde ne racontent pas la même chose.</li>
+<li>Un rêve n'annonce pas l'avenir : de nombreuses cultures l'ont cru, mais ici on le lit comme un miroir de ce que tu vis.</li>
+</ul>
+
+<h2>La maison, image de soi et de la famille</h2>
+<p>En 1909, pendant son voyage aux États-Unis avec Freud, Jung fait un rêve qu'il racontera dans ses souvenirs. Il se trouve à l'étage d'une maison inconnue, dans un salon élégant aux meubles anciens. Il descend : le rez-de-chaussée est plus vieux, d'allure médiévale. Plus bas, une cave voûtée datant de l'époque romaine. Sous une dalle munie d'un anneau, un escalier mène à une grotte creusée dans le roc, où traînent des ossements, des poteries brisées et deux crânes. Jung y verra une image de la psyché : la conscience habite les étages, et sous elle s'étagent des couches de plus en plus anciennes, jusqu'à ce qui est commun à toute l'humanité.</p>
+<p>Cette lecture rejoint la psychogénéalogie. Une maison de rêve peut parler de toi, mais aussi de la lignée qui te porte.</p>
+<ul class="facettes">
+<li><strong>Les étages</strong><span>Ce qui est visible, pensé, montré. Quel étage habites-tu dans le rêve, et lesquels n'oses-tu pas visiter ?</span></li>
+<li><strong>La cave</strong><span>Ce qui est enfoui, conservé, parfois oublié : des souvenirs, des émotions, des histoires familiales tues. Qu'est-ce qui y est rangé ?</span></li>
+<li><strong>Le grenier</strong><span>Les héritages qu'on garde sans les regarder : malles, photos, objets des ancien·nes. Qu'aimerais-tu y retrouver ?</span></li>
+<li><strong>Les pièces inconnues</strong><span>Découvrir une pièce que tu ignorais est un rêve fréquent. Quelle part de toi, ou de ton histoire, attend d'être habitée ?</span></li>
+<li><strong>La maison d'enfance</strong><span>Y revenir en rêve ramène souvent à une période, à un climat familial. Qui y vivait alors, et qu'est-ce qui s'y jouait ?</span></li>
+<li><strong>La maison des grands-parents</strong><span>Elle relie à la génération d'avant, à ses règles, ses secrets, ses fêtes. Que sais-tu vraiment de la vie de ceux et celles qui l'habitaient ?</span></li>
+</ul>
+<p>Si une même maison revient souvent, l'article <a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale</a> t'aidera à suivre ce fil, et tu peux situer ses habitant·es sur ton <a href="genosociogramme.html">arbre familial</a>.</p>
+
+<h2>Les éléments et l'espace : eau, chute, vol</h2>
+<h3>L'eau</h3>
+<p>Jung écrit que l'eau est le symbole le plus courant de l'inconscient : profonde, mouvante, on ne sait jamais tout à fait ce qu'elle cache. Les mythes lui donnent deux visages. Elle détruit et recommence, comme dans les récits de déluge, de l'Utnapishtim de l'épopée de Gilgamesh à l'arche de Noé. Elle purifie et fait naître, comme dans les rites de passage par l'eau de nombreuses religions. <em>Question à te poser :</em> dans ton rêve, l'eau te porte-t-elle, te submerge-t-elle, ou la regardes-tu de loin ? Et qu'est-ce qui, dans ta vie, déborde ou demande à couler ?</p>
+<h3>La chute</h3>
+<p>Tomber est l'un des rêves les plus partagés. Le mythe grec d'Icare, raconté notamment par Ovide dans les <em>Métamorphoses</em>, en donne une lecture : il chute pour s'être approché trop près du soleil, malgré l'avertissement de son père Dédale. On peut y voir la perte d'appui, la peur de lâcher prise, ou au contraire un appel à redescendre sur terre. <em>Question :</em> de quoi as-tu peur de tomber en ce moment, et sur quoi t'appuies-tu ?</p>
+<h3>Voler</h3>
+<p>Le même mythe dit aussi le désir de voler. L'historien des religions Mircea Eliade a montré que, dans de nombreuses traditions chamaniques de Sibérie et d'ailleurs, le vol de l'âme est une image centrale du voyage spirituel. Dans un rêve, voler peut exprimer la liberté, une vision d'ensemble, ou une manière d'échapper à ce qui pèse en bas. <em>Question :</em> est-ce un envol joyeux ou une fuite ? Et que vois-tu de là-haut que tu ne vois pas au sol ?</p>
+
+<h2>Le corps exposé : dents, nudité</h2>
+<h3>Les dents</h3>
+<p>Le rêve de dents qui tombent intrigue depuis l'Antiquité. Au IIe siècle, Artémidore de Daldis, dans sa <em>Clef des songes</em>, propose une lecture étonnante pour qui s'intéresse à la famille : la bouche représente la maisonnée, et chaque dent un de ses membres, celles du haut pour les personnes les plus importantes, celles du bas pour les autres, les dents de devant pour les plus jeunes et les molaires pour les plus âgé·es. On n'est pas obligé·e de le suivre, mais l'intuition est belle : nos dents nous relient aux nôtres. On peut aussi y lire la peur de perdre son mordant, sa capacité à s'affirmer, ou un passage de vie. <em>Question :</em> qui ou quoi as-tu peur de perdre, et à quel moment de ta vie ce rêve est-il apparu ?</p>
+<h3>Être nu·e en public</h3>
+<p>Freud classait déjà, en 1900, le rêve d'être nu·e et gêné·e devant les autres parmi les rêves « typiques ». Le récit biblique d'Adam et Ève lie la nudité à la découverte du regard et de la honte. Ce rêve parle souvent de vulnérabilité, de peur d'être vu·e tel·le qu'on est, ou au contraire d'un besoin d'authenticité. Remarque un détail fréquent : souvent, personne d'autre ne semble s'en soucier. <em>Question :</em> où te sens-tu exposé·e en ce moment, et quel regard redoutes-tu ?</p>
+
+<h2>Ce qui nous suit et nous habite : poursuite, serpent, animaux</h2>
+<h3>La poursuite</h3>
+<p>Être poursuivi·e est l'un des rêves les plus répandus. Pour Jung, la figure qui nous chasse peut incarner l'ombre : ce qu'on refuse de voir en soi et qui insiste d'autant plus qu'on le fuit. <em>Question :</em> si tu te retournais pour regarder ton poursuivant, qui ou quoi verrais-tu ? Lui ressemble-t-il, à toi ou à quelqu'un de ta famille ?</p>
+<h3>Le serpent</h3>
+<p>Peu de symboles sont aussi ambivalents. Dans la Genèse, il tente et trouble. Le serpent qui se mord la queue, l'ouroboros, connu dès l'Égypte ancienne, évoque le cycle et le recommencement. Parce qu'il mue, il dit aussi la transformation. Dans de nombreuses traditions aborigènes d'Australie, le Serpent arc-en-ciel est un être créateur lié à l'eau et aux points d'eau. <em>Question :</em> ce serpent te menace-t-il, t'accompagne-t-il, change-t-il de peau ? Quelle peau es-tu peut-être en train de quitter ?</p>
+<h3>Les animaux</h3>
+<p>Jung voyait souvent dans les animaux des rêves des forces instinctives, vitales, encore peu conscientes. Les contes regorgent d'animaux qui aident ou mettent à l'épreuve, et dans de nombreuses sociétés, certains animaux sont des parents, des alliés ou des messagers. Chaque animal a cependant un sens très personnel : le chien de ton enfance n'est pas un chien en général. <em>Question :</em> quelles qualités prêtes-tu à cet animal, et en as-tu besoin aujourd'hui ? Était-il lié à quelqu'un de ta famille ?</p>
+
+<h2>Passages : la mort et la naissance</h2>
+<p>Rêver de sa mort ou de celle d'un·e proche effraie, mais ces rêves parlent rarement de mort réelle. Jung y lisait souvent la fin d'une étape et l'ouverture d'une autre. Les mythes le disent aussi : dans le récit sumérien de la descente d'Inanna aux Enfers, la déesse traverse la mort avant de revenir ; dans le mythe grec, Perséphone passe chaque année du monde souterrain à la lumière. Quant à la naissance d'un enfant en rêve, Jung et le mythologue Karl Kerényi ont étudié la figure de l'enfant divin, image de ce qui commence et de ce qui promet. <em>Question :</em> qu'est-ce qui se termine pour toi, et qu'est-ce qui cherche à naître ? Si le rêve met en scène un·e défunt·e de ta famille, l'article <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a> peut t'accompagner.</p>
+
+<h2>Exercice : interroger ton propre symbole</h2>
+<ol class="exercice">
+<li><h3>Isoler l'image</h3><p>Choisis un seul symbole d'un rêve récent et décris-le précisément : couleur, taille, mouvement, lieu.</p></li>
+<li><h3>Noter tes associations</h3><p>Écris tout ce qu'il t'évoque, sans trier : souvenirs, personnes, expressions (« avoir les dents longues », « une maison de famille »).</p></li>
+<li><h3>Élargir</h3><p>Relis les pistes de cet article et garde seulement celles qui résonnent avec ton émotion du rêve.</p></li>
+<li><h3>Chercher dans la lignée</h3><p>Demande-toi si ce symbole existe dans ton histoire familiale : une maison, un métier, un animal, un lieu au bord de l'eau. Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> peuvent ouvrir des pistes.</p></li>
+<li><h3>Formuler ta question</h3><p>Termine par une question ouverte, que tu garderas quelques jours sans chercher à y répondre trop vite.</p></li>
+</ol>
+<p class="rappel"><strong>Le sens t'appartient.</strong> Ces pistes ne sont pas des définitions : elles servent à ouvrir la conversation avec toi-même. Si un rêve revient souvent, te bouleverse ou t'empêche de dormir, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Carl Gustav Jung (propos recueillis par Aniela Jaffé), <em>Ma vie. Souvenirs, rêves et pensées</em> (1962)</li><li>Carl Gustav Jung et Charles Kerényi, <em>Introduction à l&#x27;essence de la mythologie. L&#x27;enfant divin, la jeune fille divine</em> (1941)</li><li>Artémidore de Daldis, <em>La Clef des songes (Onirocritique)</em> (IIe siècle)</li><li>Sigmund Freud, <em>L&#x27;Interprétation du rêve</em> (1900)</li><li>Mircea Eliade, <em>Le Chamanisme et les techniques archaïques de l&#x27;extase</em> (1951)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li class="ici"><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h3><p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p></a><a class="outil" href="reves-recurrents-et-memoire-familiale.html"><h3>Rêves récurrents et mémoire familiale : quand la nuit insiste</h3><p>Ce que Jung disait des rêves qui reviennent, comment ils changent quand tu changes, et comment les relier prudemment à ton arbre familial.</p></a><a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h3><p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

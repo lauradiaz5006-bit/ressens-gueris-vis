@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Journal de rêves : la méthode pas à pas pour noter et relire · Genesolia</title>
+  <meta name="description" content="Tenir un journal de rêves : préparer le carnet, noter au réveil, amplifier les symboles avec Jung, relire au fil des saisons et relier tes rêves à ta famille.">
+  <link rel="canonical" href="https://genesolia.fr/journal-de-reves.html">
+  <meta property="og:title" content="Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée">
+  <meta property="og:description" content="Tenir un journal de rêves : préparer le carnet, noter au réveil, amplifier les symboles avec Jung, relire au fil des saisons et relier tes rêves à ta famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée",
+  "description": "Tenir un journal de rêves : préparer le carnet, noter au réveil, amplifier les symboles avec Jung, relire au fil des saisons et relier tes rêves à ta famille.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/journal-de-reves.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/journal-de-reves.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Journal de rêves</nav>
+        <h1>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h1>
+        <p class="intro">Un rêve s&#x27;efface en quelques minutes, mais un journal le garde pour des années. Voici une méthode complète, du carnet posé près du lit jusqu&#x27;aux questions que tes rêves te donnent envie de poser à ta famille.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 8 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Un rêve est la chose la plus fragile qui soit. À l'instant du réveil, il semble évident, presque inoubliable ; dix minutes plus tard, il ne reste qu'une couleur, une impression, parfois rien. Tenir un journal de rêves, c'est apprendre à retenir ces images avant qu'elles ne s'effacent, puis à les relire avec le recul du temps. C'est une pratique simple, très ancienne, et l'une des plus riches qui soient pour se connaître et, peu à peu, pour entendre ce qui circule dans une famille.</p>
+
+<h2>Pourquoi tenir un journal de rêves</h2>
+<p>Carl Gustav Jung, fondateur de la psychologie analytique, répétait qu'un rêve isolé dit peu de chose et que le sens se dégage d'une série. Dans <em>Psychologie et alchimie</em>, il suit ainsi une longue série de rêves d'un même rêveur (le physicien Wolfgang Pauli, resté anonyme dans le livre) et montre comment certaines images reviennent, se transforment et dessinent un chemin. Sans trace écrite, cette continuité est invisible. Le journal la rend lisible.</p>
+<p>Il a d'autres effets, plus immédiats. Beaucoup de personnes constatent qu'elles se souviennent mieux de leurs rêves dès qu'elles commencent à les noter : l'attention portée à la nuit semble entraîner la mémoire du réveil. Le journal devient aussi un miroir de tes saisons intérieures, un lieu où les questions que tu portes trouvent des images. Et, comme on le verra, il peut accueillir les figures de ta lignée lorsqu'elles se présentent. Si tu découvres le sujet, l'article pilier <a href="symbolique-des-reves.html">La symbolique des rêves</a> pose le cadre de toute cette série.</p>
+
+<h2>Préparer le carnet et poser une intention</h2>
+<p>Choisis un carnet qui ne servira qu'à cela, assez grand pour écrire à moitié endormi·e, et pose-le avec un stylo à portée de main, ouvert à la bonne page. Le téléphone est possible, mais sa lumière et ses notifications réveillent davantage et font fuir le rêve ; si tu l'utilises, préfère la dictée vocale, écran sombre. Garde une petite lampe douce ou écris dans la pénombre, peu importe l'écriture.</p>
+<p>Le soir, avant de dormir, tu peux poser une intention. Ce peut être très simple (« je me souviendrai de mes rêves ») ou plus précis : une question qui t'occupe, une décision à prendre, une personne de ta famille dont tu aimerais mieux comprendre l'histoire. Écris-la en haut de la page du lendemain. Cette pratique rejoint, de loin, l'incubation des Anciens, qui venaient dormir dans un sanctuaire pour recevoir un rêve-réponse (l'article <a href="reves-dans-l-antiquite.html">Les rêves dans l'Antiquité</a> la raconte). Elle a aussi été explorée par la recherche : en 1993, Deirdre Barrett, chercheuse à Harvard, a demandé à 76 étudiant·es de choisir un problème personnel et de l'« incuber » chaque soir pendant une semaine. Environ la moitié ont rapporté un rêve en lien avec leur question, et une partie de ces rêves ont été jugés porteurs d'une piste de solution, surtout pour les questions personnelles. Pas de miracle, donc, mais une vraie disponibilité de la nuit aux questions qu'on lui confie.</p>
+
+<h2>Au réveil : la méthode pas à pas</h2>
+<p>Le moment le plus important du journal est la première minute. Voici l'ordre qui fonctionne pour beaucoup de personnes :</p>
+<ol class="exercice">
+<li><h3>Ne bouge pas tout de suite</h3><p>En te réveillant, garde les yeux fermés et reste dans la position où tu étais. Laisse remonter les images avant de penser à ta journée. Si rien ne vient, demande-toi simplement : « Qu'est-ce que je ressens ? » L'émotion ramène souvent la scène.</p></li>
+<li><h3>Note d'abord des mots-clés</h3><p>Avant le récit complet, jette quelques mots : un lieu, un visage, une couleur, une phrase entendue. Ce sont des fils qui permettront de tirer le reste.</p></li>
+<li><h3>Écris au présent</h3><p>« Je marche dans une maison inconnue, il fait nuit, j'entends de l'eau. » Le présent te replace dans la scène et fait revenir des détails que le passé efface. N'interprète pas encore : décris.</p></li>
+<li><h3>Ajoute les émotions et les sensations</h3><p>Ce que tu ressentais dans le rêve compte autant que ce qui s'y passait : peur, tendresse, gêne, soulagement, étrangeté. Note aussi les sensations du corps (froid, poids, légèreté) et ton état au réveil.</p></li>
+<li><h3>Garde les détails bizarres</h3><p>Le chiffre sur une porte, le prénom mal prononcé, l'objet déplacé. Ce qui semble absurde est souvent le plus parlant à la relecture.</p></li>
+<li><h3>Donne un titre au rêve</h3><p>Pour finir, choisis un titre comme pour une nouvelle : « La cuisine de la grand-mère sous l'eau », « Le train qui ne part pas ». Le titre condense l'essentiel, et il te permettra de retrouver tes rêves au fil des mois.</p></li>
+</ol>
+<p class="rappel"><strong>Même un fragment compte.</strong> Une seule image, un seul mot au réveil méritent d'être notés. Les jours sans rêve, écris « pas de souvenir » : cette constance entretient l'habitude.</p>
+
+<h2>Repérer symboles et personnages, puis amplifier</h2>
+<p>Plus tard dans la journée, relis ton rêve et souligne trois choses : les personnages (connus, inconnus, animaux), les lieux et les objets qui ont une présence forte. Pour chacun, note ce qu'il évoque pour toi, personnellement, avant de chercher un sens général. Un chien peut être la fidélité pour l'un·e, la peur d'une morsure ancienne pour l'autre.</p>
+<p>Jung proposait ici une méthode qu'il appelait l'amplification. Elle se distingue de l'association libre pratiquée par Freud, qui laisse les idées s'éloigner de proche en proche du rêve. L'amplification, au contraire, tourne autour de l'image et y revient sans cesse : on enrichit le symbole de ce qu'il signifie pour toi, puis de ce qu'il a signifié dans les mythes, les contes, les religions et les traditions de différentes cultures, en gardant toujours l'image du rêve au centre. Jolande Jacobi, proche collaboratrice de Jung, la décrivait comme une association dirigée qui ramène toujours au cœur du rêve.</p>
+<p>Concrètement, tu peux tracer sur une page le symbole au milieu, puis écrire autour tes souvenirs personnels, les expressions courantes qui le contiennent, les histoires et les mythes que tu connais où il apparaît. L'article <a href="grands-symboles-des-reves.html">Les grands symboles des rêves</a> peut nourrir cette recherche, à condition de le lire comme une bibliothèque de pistes et non comme un dictionnaire. Le dernier mot revient toujours à toi : un sens ne vaut que s'il fait « tilt ».</p>
+
+<h2>Aller plus loin : imagination active et dessin</h2>
+<p>Jung a développé entre 1913 et 1916, à partir de sa propre expérience consignée dans ce qui deviendra <em>Le Livre rouge</em>, une pratique qu'il nommera plus tard imagination active. Elle consiste, éveillé·e, à reprendre une image du rêve, à la laisser bouger d'elle-même et à entrer en dialogue avec elle, en écrivant ce qui se passe. Ce n'est pas une rêverie dirigée : on laisse l'image répondre, tout en restant pleinement conscient·e de soi.</p>
+<p>Jung lui-même prévenait que cette pratique n'est pas sans risque, car elle peut éloigner de la réalité. Avance donc avec prudence : choisis des images qui ne te submergent pas, limite-toi à de courtes séances, garde les pieds sur terre (une boisson chaude, une marche après). Si un rêve ou une image te bouleverse profondément, ne poursuis pas seul·e : parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+<p>Le dessin est une voie plus douce et souvent étonnante. Jung peignait ses visions et encourageait les personnes qu'il accompagnait à peindre ou modeler leurs images intérieures. Dans ton journal, réserve une case à côté du texte : un croquis du lieu, la forme d'un objet, les couleurs dominantes. Pas besoin de savoir dessiner. La main retrouve souvent ce que les mots avaient laissé échapper, comme la disposition exacte des pièces d'une maison.</p>
+
+<h2>Relire, partager, relier à ta famille</h2>
+<p>Un journal prend tout son sens à la relecture. Une fois par mois, relis les titres de tes rêves et note les personnages et lieux qui reviennent. Une fois par saison, fais un bilan plus large : quels thèmes ont dominé l'hiver, quelles images sont apparues au printemps ? Tu peux mettre ces relectures en regard de ton calendrier personnel, par exemple avec la page <a href="mon-mois.html">Mon mois</a>, pour voir si certaines périodes de l'année ramènent les mêmes atmosphères. Les rêves qui reviennent souvent méritent une attention particulière : l'article <a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale</a> propose une méthode pour les travailler.</p>
+<p>Partager ses rêves est une pratique très ancienne, mais elle demande du tact. Choisis des personnes qui écoutent sans trancher. Le chercheur américain Montague Ullman a mis au point une méthode de groupe fondée sur ce respect : chacun·e parle du rêve d'un·e autre « comme si c'était mon rêve », en ne prétendant jamais détenir la vérité, et la personne qui a rêvé garde toujours le dernier mot. Tu peux t'en inspirer à deux : celle ou celui qui écoute dit « si c'était mon rêve, je sentirais… », sans jamais interpréter à ta place.</p>
+<p>Enfin, ton journal peut devenir un pont vers ta lignée. Quand un rêve met en scène un·e ancêtre, un lieu d'origine de ta famille, un objet transmis, une époque qui n'est pas la tienne, signale-le d'un repère dans la marge. Note la question qu'il fait naître (« Où vivait mon arrière-grand-mère ? », « Pourquoi ne parle-t-on jamais de cet oncle ? ») et pose-la, le moment venu, à un membre de ta famille. La page <a href="questions-a-poser-a-sa-famille.html">Questions à poser à sa famille</a> t'aidera à le faire avec délicatesse, et ton <a href="genosociogramme.html">génosociogramme</a> peut accueillir ces découvertes. Garde-les comme des hypothèses à vérifier, jamais comme des certitudes : un rêve ouvre une question, la famille et les archives y répondent, ou non. Pour les rêves de personnes disparues, l'article <a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres</a> prolonge cette démarche.</p>
+
+<h2>Modèle de page de journal</h2>
+<p>Voici une trame à recopier ou adapter. Toutes les rubriques ne sont pas à remplir chaque matin : prends ce qui t'aide.</p>
+<ul class="gestes">
+<li>Date, heure approximative du réveil, lieu où tu dors</li>
+<li>Intention posée la veille (si tu en avais une)</li>
+<li>Mots-clés notés au réveil</li>
+<li>Récit du rêve, au présent, avec tous les détails, même absurdes</li>
+<li>Émotions dans le rêve et état au réveil</li>
+<li>Titre du rêve</li>
+<li>Personnages, lieux et objets marquants (à souligner)</li>
+<li>Ce que chacun évoque pour moi (associations personnelles)</li>
+<li>Amplification : mythes, contes, expressions liés au symbole principal</li>
+<li>Croquis ou couleurs du rêve</li>
+<li>Lien avec ma vie actuelle (ce que je vivais la veille, ce qui me préoccupe)</li>
+<li>Lien avec ma famille : ancêtre, lieu, époque, objet évoqués (repère dans la marge)</li>
+<li>Question à poser à un membre de ma famille</li>
+<li>Rêve déjà fait ? Si oui, ce qui a changé</li>
+</ul>
+<p>Avec le temps, ce carnet devient bien plus qu'une collection de récits nocturnes : la chronique d'un dialogue entre toi, ton inconscient et l'histoire dont tu es issu·e. Commence ce soir, avec un carnet et une question. La nuit fera le reste.</p>
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Carl Gustav Jung (dir.), <em>L&#x27;Homme et ses symboles</em> (1964)</li><li>Carl Gustav Jung, <em>Psychologie et alchimie</em> (1944)</li><li>Carl Gustav Jung, <em>Le Livre rouge</em> (2009)</li><li>Montague Ullman et Nan Zimmerman, <em>Working with Dreams</em> (1979)</li><li>Deirdre Barrett, <em>The Committee of Sleep</em> (2001)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li class="ici"><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="reves-recurrents-et-memoire-familiale.html"><h3>Rêves récurrents et mémoire familiale : quand la nuit insiste</h3><p>Ce que Jung disait des rêves qui reviennent, comment ils changent quand tu changes, et comment les relier prudemment à ton arbre familial.</p></a><a class="outil" href="grands-symboles-des-reves.html"><h3>Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</h3><p>Dix grands symboles des rêves, de la maison familiale au serpent, lus à travers Jung, les mythes et les traditions, avec une question à te poser pour chacun.</p></a><a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h3><p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

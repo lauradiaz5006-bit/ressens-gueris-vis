@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rêver des morts et des ancêtres : cultures, Jung, mémoire familiale · Genesolia</title>
+  <meta name="description" content="Rêver d&#x27;un proche disparu ou d&#x27;un ancêtre : ce qu&#x27;en disent Rome, la Chine, l&#x27;Afrique, le Mexique et Jung, une lecture familiale et que faire au réveil.">
+  <link rel="canonical" href="https://genesolia.fr/rever-des-morts-et-des-ancetres.html">
+  <meta property="og:title" content="Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille">
+  <meta property="og:description" content="Rêver d&#x27;un proche disparu ou d&#x27;un ancêtre : ce qu&#x27;en disent Rome, la Chine, l&#x27;Afrique, le Mexique et Jung, une lecture familiale et que faire au réveil.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille",
+  "description": "Rêver d'un proche disparu ou d'un ancêtre : ce qu'en disent Rome, la Chine, l'Afrique, le Mexique et Jung, une lecture familiale et que faire au réveil.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/rever-des-morts-et-des-ancetres.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/rever-des-morts-et-des-ancetres.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Rêver des morts</nav>
+        <h1>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h1>
+        <p class="intro">Un parent disparu qui revient en rêve, un ancêtre que tu n&#x27;as jamais connu : ces rêves marquent souvent longtemps. Voici ce qu&#x27;en ont dit les cultures et Jung, et comment les lire comme une invitation à regarder ton histoire familiale.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 3 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<h2>Quand une personne disparue revient en rêve</h2>
+<p>Ta grand-mère est assise dans sa cuisine, comme avant. Un oncle que tu n'as presque pas connu te tend quelque chose sans rien dire. Un père disparu depuis des années te parle au téléphone, la ligne grésille. Au réveil, l'impression reste là, parfois douce, parfois bouleversante, souvent étrangement nette. Rêver d'un·e défunt·e fait partie des expériences les plus partagées de l'humanité, et aussi des plus intimes.</p>
+<p>Cet article ne cherche pas à trancher la question que tout le monde se pose : « est-ce vraiment elle, est-ce vraiment lui ? ». Personne ne peut l'affirmer, et personne ne peut le nier avec certitude. Ce que l'on peut faire, en revanche, c'est regarder ce que les cultures ont pensé de ces rêves, ce qu'en ont dit Jung et les recherches sur le deuil, puis te proposer une lecture symbolique et familiale : un rêve comme invitation à regarder une histoire. Comme pour tous les rêves (voir <a href="symbolique-des-reves.html">la symbolique des rêves, une langue que l'humanité parle depuis toujours</a>), le sens dépend de toi, de ta culture et de ton histoire.</p>
+
+<h2>Ce que les cultures en ont dit</h2>
+<p>Presque partout, les morts ont eu une place dans la nuit des vivant·es. Les formes varient beaucoup, et il serait trompeur de les fondre en une seule « sagesse universelle ». Quelques repères, présentés pour ce qu'ils sont : des croyances et des pratiques, souvent encore vivantes.</p>
+<h3>La Grèce et Rome : des ombres qui demandent</h3>
+<p>Dans le chant XXIII de l'<em>Iliade</em>, l'ombre de Patrocle vient trouver Achille endormi. Elle lui demande d'être enfin mise au tombeau pour pouvoir franchir les portes d'Hadès ; Achille tend les bras pour l'étreindre, et l'ombre se dissipe comme une fumée. Le motif est déjà là : un mort apparaît en rêve parce que quelque chose reste à accomplir.</p>
+<p>À Rome, les défunt·es de la famille devenaient les <em>Mânes</em>, les « dieux Mânes », d'où l'abréviation D.M. (<em>Dis Manibus</em>) gravée en tête de nombreuses épitaphes. Chaque année, du 13 au 21 février, les Parentalia étaient consacrées aux ancêtres de la famille : on portait sur les tombes des offrandes modestes, fleurs, grains, sel, pain trempé de vin. En mai, les Lemuria visaient d'autres morts, les âmes errantes, qu'il fallait apaiser et éloigner. Les Romain·es distinguaient donc déjà les morts que l'on honore et ceux dont on craint le retour.</p>
+<h3>La Chine ancienne : quel ancêtre a envoyé ce rêve ?</h3>
+<p>Sous la dynastie Shang, les inscriptions sur os oraculaires du roi Wu Ding montrent que, lorsqu'un rêve le troublait, on demandait par divination quel ancêtre ou quelle puissance en était à l'origine. Le rêve n'était pas d'abord un message à décoder : c'était le signe d'une relation avec les ancêtres qu'il fallait entretenir par des offrandes. Plus tard, Confucius se désole, dans les <em>Entretiens</em>, de ne plus voir depuis longtemps en rêve le duc de Zhou, un sage mort des siècles avant lui : rêver d'un ancêtre admiré était le signe qu'on restait relié·e à son idéal. Le sinologue Robert Ford Campany a montré que, dans la Chine ancienne et médiévale, le rêve est souvent pensé comme une rencontre, une visite, plutôt que comme une simple image.</p>
+<h3>En Afrique : des ancêtres qui guident</h3>
+<p>Dans de nombreuses sociétés africaines, les ancêtres restent membres de la famille, et le rêve est l'un des lieux où l'on pense les rencontrer. Selon plusieurs études, chez les Yoruba (Nigeria, Bénin, Togo), un rêve peut être compris comme un message des orisha ou des ancêtres, que l'on porte à des prêtres ou à des aîné·es pour l'interpréter. Chez les Zulu, en Afrique australe, on rapporte que l'appel à devenir devin·e (<em>isangoma</em>) passe souvent par des rêves où se manifestent les ancêtres. L'ouvrage collectif <em>Dreaming, Religion and Society in Africa</em> (1992) montre combien ces pratiques sont diverses, et comment elles se sont transformées, notamment au contact du christianisme. Il n'existe pas « une » conception africaine du rêve, mais une multitude de traditions vivantes.</p>
+<h3>Le Mexique : quand les morts reviennent à table</h3>
+<p>Au Mexique, les fêtes des morts, de la fin octobre au début novembre, mêlent traditions autochtones et catholicisme. On y prépare des autels, les <em>ofrendas</em>, avec les plats préférés des défunt·es, des bougies et des fleurs de cempasúchil qui tracent un chemin. L'UNESCO a inscrit ces « fêtes indigènes dédiées aux morts » au patrimoine culturel immatériel en 2008. L'idée centrale n'est pas le rêve mais la visite : une fois par an, les morts sont attendu·es, accueilli·es, nommé·es. C'est une manière collective de garder vivante la mémoire familiale.</p>
+
+<h2>La lecture de Jung : la personne disparue et ce qu'elle porte en toi</h2>
+<p>Carl Gustav Jung, fondateur de la psychologie analytique, proposait de lire un rêve à deux niveaux (voir <a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre</a>). Au niveau « objectif », la personne qui apparaît renvoie à la personne réelle et à ta relation avec elle : ce qui n'a pas été dit, ce qui reste ouvert. Au niveau « subjectif », elle représente une part de toi : la grand-mère courageuse du rêve peut incarner ton propre courage, le père sévère ta propre exigence.</p>
+<p>Jung lui-même est resté ouvert sur la question des morts. Dans <em>Ma vie</em>, ses souvenirs publiés après sa mort, il raconte avoir rêvé en 1922 de son père, mort depuis 1896 : rajeuni, débarrassé de son air d'autorité, celui-ci venait lui demander conseil sur la vie de couple. Quelques mois plus tard, sa mère mourait, et Jung relia après coup les deux événements. Il ne présente pas ce récit comme une preuve, mais comme une expérience qui l'a fait réfléchir. Cette posture est précieuse : prendre le rêve au sérieux, sans en faire un dogme.</p>
+
+<h2>Les rêves de deuil : ce que disent les recherches</h2>
+<p>Au début des années 1990, la chercheuse américaine Deirdre Barrett publie une étude sur les morts dans les rêves, à partir de journaux de rêves d'étudiant·es et d'un questionnaire. Ces rêves sont rares dans les journaux, mais une large part des personnes interrogées disent en avoir déjà fait. Elle propose quatre grandes familles :</p>
+<ul class="pistes">
+<li><strong>Le retour à la vie</strong><span>La personne est là, vivante, comme si rien ne s'était passé. Ces rêves surviennent souvent dans les premiers temps après la perte, avec des émotions mêlées.</span></li>
+<li><strong>Le conseil</strong><span>Le ou la défunt·e donne un avis, oriente, rassure sur un choix. Ces rêves arrivent souvent plus tard et laissent une impression plutôt douce.</span></li>
+<li><strong>L'adieu</strong><span>La personne explique quelque chose, dit au revoir, apaise une culpabilité. Le réveil s'accompagne souvent de soulagement.</span></li>
+<li><strong>Le rêve « philosophique »</strong><span>On y parle de la mort, de ce qui vient après. Barrett note la fréquence étonnante du téléphone dans ces rêves.</span></li>
+</ul>
+<p>Ce qui frappe, c'est que ces rêves semblent suivre le chemin du deuil : ils évoluent avec la personne qui rêve. Un même rêve n'a donc pas le même sens trois jours ou dix ans après une disparition.</p>
+
+<h2>La lecture psychogénéalogique : une histoire restée en suspens</h2>
+<p>La psychogénéalogie ajoute une question : et si ce rêve parlait aussi de la famille, au-delà de ta relation personnelle avec la personne disparue ? Les chercheur·es Nicolas Abraham et Maria Torok ont décrit ce qu'ils appelaient le « fantôme » : un secret inavouable vécu par une génération, qui n'a jamais été dit, et dont les générations suivantes portent l'empreinte sans en connaître le contenu. Un ancêtre qui revient en rêve peut alors être lu comme le signe d'une histoire non racontée : une mort jamais pleurée, un enfant dont on ne parlait pas, un départ, une honte.</p>
+<p>Quelques indices invitent à cette lecture : tu rêves d'une personne que tu n'as pas connue, ou dont on parle peu ; le rêve revient à une date particulière (le rapprochement avec le <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a> peut alors éclairer) ; le décor ne ressemble pas à ta vie, mais à une époque ancienne ; tu ressens une émotion qui ne semble pas t'appartenir. Il ne s'agit pas de conclure qu'un ancêtre « te demande » quelque chose, mais de te demander : qu'est-ce qui, dans cette histoire, n'a pas trouvé sa place ? Si ce rêve revient souvent, l'article sur <a href="reves-recurrents-et-memoire-familiale.html">les rêves récurrents et la mémoire familiale</a> prolonge cette réflexion.</p>
+<p class="rappel"><strong>Une précaution.</strong> Un rêve n'est jamais une preuve. Il ne révèle pas un secret « caché » à coup sûr ; il ouvre une question. C'est l'enquête dans la réalité, avec ta famille et les archives, qui pourra confirmer, nuancer ou démentir ce que tu as pressenti.</p>
+
+<h2>Après un tel rêve : que faire ?</h2>
+<p>Voici une démarche simple, en cinq temps, que tu peux adapter à ton rythme. Aucune étape n'est obligatoire.</p>
+<ol class="exercice">
+<li><h3>Noter avant que tout s'efface</h3><p>Écris le rêve dès le réveil, au présent, avec les détails qui semblent anodins : les vêtements, la lumière, les mots exacts, l'âge apparent de la personne, ce que tu as ressenti. Si tu veux en faire une habitude, la méthode du <a href="journal-de-reves.html">journal de rêves</a> t'aidera.</p></li>
+<li><h3>Situer le rêve dans ta vie</h3><p>Que vivais-tu la veille ? Approche-t-on d'un anniversaire de naissance ou de décès, d'une fête familiale, d'un âge que la personne avait à un moment clé ? Note aussi ce que cette personne représente pour toi : une qualité, un manque, une question.</p></li>
+<li><h3>Chercher qui était cette personne</h3><p>Si tu la connais mal, rassemble ce que tu sais : dates, lieux, métier, photos, lettres. L'état civil et les archives départementales permettent souvent de retrouver beaucoup. Place-la sur ton <a href="genosociogramme.html">arbre familial</a> : sa position (aîné·e, enfant disparu, conjoint·e remarié·e) dit parfois déjà quelque chose.</p></li>
+<li><h3>Questionner la famille</h3><p>Raconte ton rêve, ou simplement pose des questions ouvertes : comment était-elle ? de quoi ne parlait-on pas ? comment est-il mort ? Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> peuvent t'aider à commencer sans brusquer personne. Accepte les silences : ils sont aussi une information.</p></li>
+<li><h3>Faire un geste symbolique simple</h3><p>Allumer une bougie devant une photo, écrire une lettre à la personne et la garder, dire son prénom à voix haute, cuisiner un plat qu'elle aimait, déposer des fleurs, ou inscrire son nom dans l'arbre s'il en avait été effacé. Choisis un geste qui a du sens dans ta propre culture, sans reprendre un rite qui appartient à un autre peuple.</p></li>
+</ol>
+<p class="rappel"><strong>Si le rêve est très éprouvant</strong>, s'il revient sans cesse ou t'empêche de dormir, n'hésite pas à en parler à une personne de confiance ou à un·e professionnel·le de l'accompagnement. Tu n'as pas à porter seul·e ce qu'il remue.</p>
+
+<h2>Ce que ces rêves nous disent des liens</h2>
+<p>Qu'on y voie une visite, une image intérieure ou une mémoire familiale qui cherche à se dire, ces rêves ont un point commun : ils rappellent que les liens ne s'arrêtent pas avec la mort. Les Romain·es portaient du pain et des violettes sur les tombes, les familles mexicaines dressent des autels, les rois Shang interrogeaient leurs ancêtres : chaque culture a trouvé une manière de faire place aux disparu·es. Ton rêve t'invite peut-être simplement à trouver la tienne, en nommant, en cherchant, en racontant.</p>
+
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>Carl Gustav Jung, <em>Ma vie. Souvenirs, rêves et pensées</em> (1962)</li><li>Nicolas Abraham et Maria Torok, <em>L&#x27;Écorce et le noyau</em> (1978)</li><li>Deirdre Barrett, <em>Through a Glass Darkly: Images of the Dead in Dreams (Omega, vol. 24)</em> (1991-1992)</li><li>M. C. Jędrej et Rosalind Shaw (dir.), <em>Dreaming, Religion and Society in Africa</em> (1992)</li><li>Robert Ford Campany, <em>The Chinese Dreamscape, 300 BCE-800 CE</em> (2020)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li class="ici"><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="reves-recurrents-et-memoire-familiale.html"><h3>Rêves récurrents et mémoire familiale : quand la nuit insiste</h3><p>Ce que Jung disait des rêves qui reviennent, comment ils changent quand tu changes, et comment les relier prudemment à ton arbre familial.</p></a><a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h3><p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p></a><a class="outil" href="journal-de-reves.html"><h3>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h3><p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

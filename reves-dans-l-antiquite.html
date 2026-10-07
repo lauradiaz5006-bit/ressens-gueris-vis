@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les rêves dans l&#x27;Antiquité : Gilgamesh, Joseph, Artémidore, Cicéron · Genesolia</title>
+  <meta name="description" content="Gilgamesh, le papyrus Chester Beatty, Joseph, Homère, Artémidore, Cicéron et Macrobe : ce que les civilisations antiques nous apprennent encore sur les rêves.">
+  <link rel="canonical" href="https://genesolia.fr/reves-dans-l-antiquite.html">
+  <meta property="og:title" content="Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome">
+  <meta property="og:description" content="Gilgamesh, le papyrus Chester Beatty, Joseph, Homère, Artémidore, Cicéron et Macrobe : ce que les civilisations antiques nous apprennent encore sur les rêves.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .citation{margin:1.8rem 0;padding:1.2rem 1.5rem;border-left:4px solid var(--prune);background:var(--blanc);border-radius:0 16px 16px 0;font-family:var(--display);font-size:1.2rem;line-height:1.45}
+    .citation cite{display:block;margin-top:.5rem;font:400 .88rem var(--texte);color:var(--prune-doux);font-style:normal}
+    .serie{margin:2.4rem 0 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#F3ECF7,var(--blanc));border:1px solid var(--rose)}
+    .serie .titre{font-family:var(--display);font-size:1.25rem;margin-bottom:.6rem}
+    .serie ol{padding-left:1.3rem;display:grid;gap:.25rem}
+    .serie li.ici{font-weight:600}
+    .refs{margin-top:1rem;padding-left:1.2rem;display:grid;gap:.4rem;color:var(--prune-doux);font-size:.95rem}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Les rêves dans l'Antiquité : Mésopotamie, Égypte, Grèce et Rome",
+  "description": "Gilgamesh, le papyrus Chester Beatty, Joseph, Homère, Artémidore, Cicéron et Macrobe : ce que les civilisations antiques nous apprennent encore sur les rêves.",
+  "datePublished": "2026-10-07",
+  "dateModified": "2026-10-07",
+  "inLanguage": "fr",
+  "author": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Genesolia",
+    "url": "https://genesolia.fr/"
+  },
+  "url": "https://genesolia.fr/reves-dans-l-antiquite.html",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://genesolia.fr/reves-dans-l-antiquite.html"
+  }
+}
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="symbolique-des-reves.html">Rêves</a><span aria-hidden="true">/</span>Rêves dans l&#x27;Antiquité</nav>
+        <h1>Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</h1>
+        <p class="intro">Des tablettes de Ninive aux traités de Cicéron, les civilisations antiques ont noté, classé et discuté les rêves. Leur héritage le plus précieux : tous les rêves n&#x27;ont pas le même poids, et leur sens dépend toujours de la personne qui rêve.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 9 min · article 4 sur 8 de la série « Symbolique des rêves »</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+<p>Bien avant Freud et Jung, des scribes ont noté des rêves, les ont classés, commentés, discutés. Les premières civilisations de l'écriture nous ont laissé des récits de rêves royaux, des listes de présages, des manuels d'interprétation et même de véritables débats philosophiques sur la question : un rêve a-t-il un sens ? Parcourir ces textes, ce n'est pas chercher une recette pour décoder tes nuits. C'est découvrir que deux idées très modernes y sont déjà formulées : tous les rêves ne se valent pas, et le sens d'un rêve dépend de la personne qui le fait.</p>
+<p>Une précaution avant de commencer : ces civilisations croyaient, pour la plupart, que certains rêves annoncent l'avenir. Nous présentons cette croyance comme un fait historique, sans la reprendre à notre compte. Ce qui nous intéresse ici, c'est leur manière d'écouter le rêve, qui rejoint la démarche décrite dans <a href="symbolique-des-reves.html">la symbolique des rêves, une langue que l'humanité parle depuis toujours</a>.</p>
+
+<h2>Mésopotamie : rêves de rois et livres de présages</h2>
+<p>En Mésopotamie, le rêve est une affaire sérieuse, souvent royale. Gudea, souverain de Lagash vers la fin du IIIe millénaire avant notre ère, raconte sur de grands cylindres d'argile avoir reçu en rêve des images énigmatiques ; il va trouver la déesse Nanshe pour qu'elle les interprète, et comprend qu'il doit bâtir un temple.</p>
+<p>L'<em>Épopée de Gilgamesh</em> est elle aussi traversée de rêves. Au début du récit, Gilgamesh rêve d'un bloc tombé du ciel qu'il ne parvient pas à soulever, puis d'une hache autour de laquelle la foule se presse. Sa mère, la déesse Ninsun, lui explique qu'un compagnon va venir, aussi fort que lui : ce sera Enkidu. Plus tard, sur la route de la forêt des Cèdres, Gilgamesh fait une série de rêves inquiétants qu'Enkidu interprète chaque fois de façon rassurante. Puis c'est Enkidu qui rêve de l'assemblée des dieux décidant de sa mort, et du monde des morts. Dans l'épopée, le rêve n'est pas un décor : il prépare, il relie, il annonce un passage.</p>
+<p>Les Mésopotamien·nes ont aussi compilé des recueils de présages oniriques. Le principal, connu sous le nom de <em>Zaqīqu</em>, a été retrouvé notamment parmi les tablettes de la bibliothèque d'Assurbanipal à Ninive (VIIe siècle avant notre ère) ; l'assyriologue A. Leo Oppenheim l'a traduit et étudié en 1956. Chaque entrée suit le même schéma : « si un homme voit en rêve… », puis la conséquence attendue. Le chercheur Scott Noegel a montré que beaucoup de ces liens reposent sur des jeux de mots entre l'image rêvée et son interprétation. Surtout, un rêve jugé mauvais n'était pas une fatalité : des rituels, appelés <em>namburbi</em>, servaient à en écarter les effets, par la purification du rêveur, des incantations ou des objets de substitution.</p>
+
+<h2>Égypte : le « livre des rêves » de Deir el-Médineh</h2>
+<p>Le plus ancien manuel d'interprétation des rêves connu à ce jour est égyptien. Il s'agit du papyrus Chester Beatty III, aujourd'hui conservé au British Museum, qui le date d'environ 1220 avant notre ère (XIXe dynastie, époque ramesside). Il provient de Deir el-Médineh, le village des artisans qui creusaient et décoraient les tombes de la Vallée des Rois. Le rouleau a appartenu au scribe Qenherkhepeshef, qui en a recopié l'autre face, puis il est passé à d'autres membres de la communauté. Certains égyptologues pensent que le texte reprend un modèle plus ancien, remontant peut-être au Moyen Empire.</p>
+<p>Sa présentation est saisissante. En haut des colonnes revient la formule « si un homme se voit en rêve… ». Suit, ligne après ligne, une image rêvée, le verdict « bon » ou « mauvais », puis une explication. Le mot « mauvais » est écrit à l'encre rouge, couleur associée au danger. Les rêves favorables sont rassemblés avant les défavorables. Certaines lectures surprennent : se voir mort en rêve y est par exemple considéré comme un bon signe, lu comme la promesse d'une longue vie. Preuve que, déjà, l'image ne se lit pas au premier degré.</p>
+
+<h2>La Bible hébraïque : Joseph, rêveur et interprète</h2>
+<p>Dans la Genèse, l'histoire de Joseph est une histoire de rêves, et une histoire de famille. Adolescent, préféré de son père Jacob, Joseph rêve que les gerbes de ses frères se prosternent devant la sienne, puis que le soleil, la lune et onze étoiles s'inclinent devant lui. Il raconte ces rêves, et la jalousie de ses frères devient haine : ils le vendent comme esclave. En Égypte, Joseph interprète les rêves de l'échanson et du panetier emprisonnés avec lui, puis ceux de Pharaon : sept vaches grasses dévorées par sept vaches maigres, sept épis pleins engloutis par sept épis desséchés. Joseph précise que l'interprétation ne vient pas de lui mais de Dieu.</p>
+<p>La Bible hébraïque n'est d'ailleurs pas naïve à l'égard des rêves : le Deutéronome met en garde contre le « faiseur de songes » qui pousserait à suivre d'autres dieux, et le prophète Jérémie s'en prend à ceux qui présentent leurs propres rêves comme une parole divine. Le récit de Joseph, lui, montre autre chose : un rêve raconté au mauvais moment peut bouleverser une fratrie pendant des années. Les rivalités, les préférences d'un parent, les places dans la famille y sont aussi importantes que les images.</p>
+
+<h2>Grèce : deux portes, des sanctuaires et un grand interprète</h2>
+<h3>Les portes de corne et d'ivoire</h3>
+<p>Au chant XIX de l'<em>Odyssée</em>, Pénélope, qui n'a pas encore reconnu Ulysse, lui confie un rêve, puis explique que les songes sortent par deux portes. Ceux qui passent par la porte d'ivoire trompent ; ceux qui passent par la porte de corne s'accomplissent. Le texte grec joue sur les mots : « ivoire » sonne comme « tromper », « corne » comme « accomplir ». Dès Homère, l'idée est posée : certains rêves comptent, d'autres non. Dans l'<em>Iliade</em>, Zeus envoie même à Agamemnon un rêve volontairement trompeur.</p>
+<h3>Dormir au sanctuaire</h3>
+<p>Les Grec·ques pratiquaient l'incubation : on venait dormir dans un sanctuaire pour recevoir un rêve-réponse d'une divinité. Le plus célèbre est celui d'Asclépios à Épidaure, où l'on passait la nuit dans un bâtiment réservé à cet usage ; des inscriptions y rapportent les rêves reçus. D'autres sanctuaires, comme celui d'Amphiaraos à Oropos, accueillaient aussi des dormeur·ses. Le rêve y était demandé, préparé, attendu, et non simplement subi.</p>
+<h3>Artémidore de Daldis et la « Clef des songes »</h3>
+<p>Au IIe siècle de notre ère, Artémidore, originaire de la petite ville de Daldis en Asie Mineure et installé à Éphèse, rédige l'<em>Onirocritique</em>, cinq livres sur l'interprétation des rêves, traduits en français sous le titre <em>La Clef des songes</em> (traduction d'André-Jean Festugière, 1975). Sa méthode est presque celle d'un enquêteur : il a voyagé en Asie Mineure, en Grèce, dans les îles et en Italie pour recueillir des rêves et noter ce qu'il en advenait.</p>
+<p>Deux idées font son originalité. D'abord, il distingue l'<em>enhypnion</em>, le rêve qui ne fait que refléter l'état présent (la faim, la peur, le désir de la veille) et n'a pas à être interprété, de l'<em>oneiros</em>, le rêve qui porte un sens. Ensuite, et surtout, il répète qu'un même rêve ne signifie pas la même chose selon la personne : homme ou femme, libre ou esclave, riche ou pauvre, jeune ou âgé·e, selon son métier et ses habitudes. L'interprète doit donc d'abord connaître le rêveur ou la rêveuse. Michel Foucault, dans son <em>Histoire de la sexualité</em>, a d'ailleurs longuement commenté ce livre comme un témoin précieux de la vie quotidienne antique.</p>
+
+<h2>Rome : Cicéron le sceptique, Macrobe le classificateur</h2>
+<p>En 44 avant notre ère, Cicéron écrit <em>De la divination</em>, un dialogue avec son frère Quintus. Dans le premier livre, Quintus défend la divination, rêves compris ; dans le second, Cicéron la réfute. Pour lui, pendant le sommeil, l'esprit relâché laisse circuler les restes des pensées de la journée : les rêves viennent de nous, non des dieux. Il objecte aussi que des dieux soucieux de nous avertir choisiraient des messages clairs plutôt que des énigmes. Deux mille ans avant les recherches sur le sommeil, le débat est déjà ouvert.</p>
+<p>Le même Cicéron avait pourtant clos son traité <em>De la République</em> par un rêve célèbre, le « songe de Scipion » : Scipion Émilien y voit en rêve son grand-père adoptif, Scipion l'Africain, ainsi que son père, qui lui montrent l'univers et lui parlent de la mémoire et du devoir. Un rêve d'ancêtres, donc (voir aussi <a href="rever-des-morts-et-des-ancetres.html">rêver des morts et des ancêtres</a>). Vers 400, Macrobe commente ce texte et propose une classification en cinq types. Deux sont sans portée : l'<em>insomnium</em>, qui rejoue les soucis du corps et de l'esprit, et le <em>visum</em>, apparition confuse de l'endormissement. Trois sont jugés significatifs : le <em>somnium</em>, rêve énigmatique à interpréter, la <em>visio</em>, et l'<em>oraculum</em>, où un parent, une personne respectée ou une divinité vient délivrer un message. Cette classification a été reprise par presque tous les auteurs du Moyen Âge.</p>
+
+<h2>Ce que ces civilisations nous apprennent encore</h2>
+<p>On n'est pas obligé·e de croire aux présages pour trouver dans ces textes des outils étonnamment actuels.</p>
+<ul class="facettes">
+<li><strong>Tous les rêves ne se valent pas</strong><span>Portes de corne et d'ivoire, <em>enhypnion</em> et <em>oneiros</em>, <em>insomnium</em> et <em>somnium</em> : l'Antiquité distingue sans cesse les rêves qui méritent qu'on s'y arrête et ceux qui ne font que rejouer la journée.</span></li>
+<li><strong>Le contexte d'abord</strong><span>Pour Artémidore, une image n'a pas de sens en soi. Elle en prend un selon la vie, le statut, l'âge et les habitudes de la personne qui rêve.</span></li>
+<li><strong>Le rêve se raconte</strong><span>Gudea va voir Nanshe, Gilgamesh sa mère, Pharaon Joseph : le rêve se partage, se discute, et son sens naît de cet échange.</span></li>
+<li><strong>Rien n'est figé</strong><span>Les rituels mésopotamiens montrent qu'un rêve inquiétant n'était pas vécu comme une condamnation : on pouvait agir, transformer, se dégager.</span></li>
+</ul>
+
+<h2>Exercice : lire un rêve à la manière d'Artémidore</h2>
+<p>Choisis un rêve récent, noté si possible dans ton <a href="journal-de-reves.html">journal de rêves</a>, et pose-toi ces questions, inspirées d'Artémidore et prolongées par la psychogénéalogie.</p>
+<ol class="exercice">
+<li><h3>Trier</h3><p>Ce rêve rejoue-t-il simplement ta journée, une faim, un bruit, un souci précis ? Si oui, c'est peut-être un <em>enhypnion</em> : inutile d'y chercher davantage. Sinon, garde-le.</p></li>
+<li><h3>Te situer</h3><p>Quel âge as-tu, quelle place occupes-tu en ce moment (au travail, dans ton couple, auprès de tes enfants ou de tes parents) ? Comment cette situation colore-t-elle les images du rêve ?</p></li>
+<li><h3>Élargir à la famille</h3><p>Joseph rêvait de ses frères et de ses parents. Qui, dans ton rêve, appartient à ta famille ? Quelle place y occupe chacun·e ? Retrouve ces personnes sur ton <a href="genosociogramme.html">arbre familial</a> et regarde si le rêve rejoue une rivalité, une préférence ou une absence.</p></li>
+<li><h3>Raconter</h3><p>Comme dans l'Antiquité, partage le rêve avec une personne de confiance. Note ce que son regard t'apporte, et ce qui, au contraire, ne te parle pas : c'est toi qui restes juge du sens.</p></li>
+</ol>
+<p class="rappel"><strong>À retenir.</strong> Ces textes anciens ne livrent pas de dictionnaire universel. Ils rappellent qu'un rêve se lit toujours à partir d'une vie, d'une époque et d'une histoire familiale, et qu'aucun rêve ne décide de ton avenir à ta place.</p>
+
+
+        <div class="encart securite" role="note">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 3l12 4.5v9c0 7.6-5.1 13.6-12 16.5C11.1 30.1 6 24.1 6 16.5v-9z" fill="none" stroke="#F3DCC0" stroke-width="1.6" stroke-linejoin="round"/><path d="M18 11v8M18 23.5v.5" stroke="#F3DCC0" stroke-width="2" stroke-linecap="round"/></svg>
+          <p><strong>Une lecture symbolique, pas une vérité sur toi.</strong> Les traditions et les auteurs présentés ici proposent des pistes pour réfléchir. Un rêve ne prédit rien et ne décide de rien à ta place. Si tes rêves te pèsent au point de troubler tes nuits, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        </div>
+
+        <h2>Pour aller plus loin</h2><p>Quelques ouvrages et travaux pour approfondir :</p><ul class="refs"><li>A. Leo Oppenheim, <em>The Interpretation of Dreams in the Ancient Near East. With a Translation of an Assyrian Dream-Book</em> (1956)</li><li>Kasia Szpakowska, <em>Behind Closed Eyes: Dreams and Nightmares in Ancient Egypt</em> (2003)</li><li>Artémidore de Daldis (trad. André-Jean Festugière), <em>La Clef des songes (Onirocritique)</em> (IIe siècle apr. J.-C. (trad. fr. 1975))</li><li>Cicéron, <em>De la divination</em> (44 av. J.-C.)</li><li>Macrobe, <em>Commentaire au songe de Scipion</em> (vers 400)</li></ul>
+        <div class="serie"><p class="titre">La série « Symbolique des rêves »</p><ol><li><a href="symbolique-des-reves.html">La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</a></li><li><a href="jung-reves-archetypes.html">Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</a></li><li><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</a></li><li class="ici"><a href="reves-dans-l-antiquite.html">Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</a></li><li><a href="reves-et-peuples-autochtones.html">Ce que les peuples autochtones nous apprennent sur les rêves</a></li><li><a href="grands-symboles-des-reves.html">Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</a></li><li><a href="reves-recurrents-et-memoire-familiale.html">Rêves récurrents et mémoire familiale : quand la nuit insiste</a></li><li><a href="journal-de-reves.html">Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</a></li></ol></div>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à sa famille</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils"><a class="outil" href="symbolique-des-reves.html"><h3>La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</h3><p>Pourquoi l&#x27;humanité a toujours prêté un sens aux rêves, les grandes façons de les lire et une première méthode pour t&#x27;en approcher.</p></a><a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h3><p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p></a><a class="outil" href="journal-de-reves.html"><h3>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h3><p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p></a></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

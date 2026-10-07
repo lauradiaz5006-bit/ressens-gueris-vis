@@ -130,4 +130,52 @@
     <loc>https://genesolia.fr/se-sentir-seule.html</loc>
     <lastmod>2026-10-07</lastmod>
   </url>
+  <url>
+    <loc>https://genesolia.fr/symbolique-des-reves.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/jung-reves-archetypes.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/rever-des-morts-et-des-ancetres.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/reves-dans-l-antiquite.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/reves-et-peuples-autochtones.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/grands-symboles-des-reves.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/reves-recurrents-et-memoire-familiale.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+  <url>
+    <loc>https://genesolia.fr/journal-de-reves.html</loc>
+    <lastmod>2026-10-07</lastmod>
+    <priority>0.70</priority>
+  </url>
+
 </urlset>
