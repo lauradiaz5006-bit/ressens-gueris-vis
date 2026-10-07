@@ -214,7 +214,7 @@
     var tri=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a];}),top=tri.filter(function(k){return sc[k]===sc[tri[0]];});
     var r=0,c=0;Object.keys(sc).forEach(function(k){if(cyc[k]==='racine')r+=sc[k];else c+=sc[k];});
     var cy=r>c?'la <a href="methode.html">racine</a> (cycle 1) : la sécurité, la place, le droit d\'exister':c>r?'le <a href="methode.html">cœur</a> (cycle 2) : le lien, la confiance, la façon d\'aimer':'les deux cycles, à parts égales';
-    z.innerHTML='<strong>Ce qui te parle le plus : '+top.map(function(k){return '<a href="blessures-de-l-ame.html#'+k+'">'+noms[k]+'</a>';}).join(' et ')+'.</strong> Tes réponses touchent surtout '+cy+'. Ce n\'est pas une vérité sur toi : une piste pour savoir où regarder.';
+    z.innerHTML='<strong>Ce qui te parle le plus : '+top.map(function(k){var pg={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};return '<a href="'+pg[k]+'.html">'+noms[k]+'</a>';}).join(' et ')+'.</strong> Tes réponses touchent surtout '+cy+'. Ce n\'est pas une vérité sur toi : une piste pour savoir où regarder. Clique sur une blessure pour lire ses signes, son masque et ce qu\'elle rejoue dans ta famille.';
   }
   document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',maj);});
 })();

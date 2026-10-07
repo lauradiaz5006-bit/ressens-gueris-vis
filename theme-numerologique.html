@@ -77,6 +77,8 @@
 
     .n-annee{display:grid;grid-template-columns:1.2fr .8fr;gap:1.2rem;margin-bottom:1.2rem}
     .n-annee>div{padding:1.6rem;border-radius:18px}
+    .n-maitre-lien{margin-top:.8rem;font-weight:600}
+    .n-maitre-lien a{text-decoration-color:var(--champagne);text-underline-offset:3px}
     .n-an{background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#FFF4F6}
     .n-an .n-etiq{color:var(--champagne-clair)}
     .n-an h3{color:#fff;font-size:1.6rem;margin-bottom:.5rem}
@@ -264,11 +266,12 @@
     }
     function mots(n) { return '<div class="n-mots">' + N.NOMBRES[n].mots.map(function (m) { return '<span>' + m + '</span>'; }).join('') + '</div>'; }
     function fd(n) { var t = N.NOMBRES[n]; return '<div class="n-fd"><div class="n-force"><b>Ta force</b>' + t.force + '</div><div class="n-defi"><b>Ton défi</b>' + t.defi + '</div></div>'; }
+    function lienMaitre(n) { return N.NOMBRES[n] && N.NOMBRES[n].maitre && [11, 22, 33].indexOf(n) >= 0 ? '<p class="n-maitre-lien"><a href="nombre-maitre-' + n + '.html">Tout sur le nombre maître ' + n + '</a></p>' : ''; }
     function carte(pos, n, lignee, sansFd) {
       if (!n) return '';
       var P = N.POSITIONS[pos], T = N.NOMBRES[n];
       return '<article class="n-carte' + (lignee ? ' lignee' : '') + '"><div class="n-carte-haut">' + num(n) + '<h3>' + P.titre + '<small>' + n + ' · ' + T.nom + '</small></h3></div>' +
-        '<p class="n-intro">' + P.intro + '</p><p>' + N.texte(pos, n) + '</p>' + (sansFd ? '' : fd(n)) + '</article>';
+        '<p class="n-intro">' + P.intro + '</p><p>' + N.texte(pos, n) + '</p>' + (sansFd ? '' : fd(n)) + lienMaitre(n) + '</article>';
     }
     function dateFr(d) { var m = d.split('-'); return +m[2] + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+m[1] - 1] + ' ' + m[0]; }
 
@@ -285,7 +288,7 @@
 
       h += '<h3 class="n-titre-sec" id="n-nombres">Tes nombres principaux</h3>';
       h += '<article class="n-principal">' + num(t.chemin) + '<div><p class="n-etiq">' + N.POSITIONS.chemin.titre + '</p><h3>' + t.chemin + ' · ' + C.nom + '</h3>' + mots(t.chemin) +
-        '<p class="n-intro">' + N.POSITIONS.chemin.intro + '</p><p>' + N.texte('chemin', t.chemin) + '</p>' + fd(t.chemin) + '</div></article>';
+        '<p class="n-intro">' + N.POSITIONS.chemin.intro + '</p><p>' + N.texte('chemin', t.chemin) + '</p>' + fd(t.chemin) + lienMaitre(t.chemin) + '</div></article>';
       h += '<div class="n-grille">' + carte('expression', t.expression) + carte('intime', t.intime) + carte('realisation', t.realisation) + carte('maturite', t.maturite) + carte('hereditaire', t.hereditaire, true) + carte('actif', t.actif) + carte('jour', t.jour, false, true) + '</div>';
 
       h += '<h3 class="n-titre-sec" id="n-temps">Ce que tu traverses en ce moment</h3>';
