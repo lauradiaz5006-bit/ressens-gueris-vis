@@ -165,7 +165,7 @@
       defi: "Ne pas te laisser écraser par l'ampleur de ce que tu veux accomplir.",
       famille: "Dans une lignée, le 22 rappelle les grandes œuvres familiales : une maison, une entreprise, une terre, un nom à faire vivre." },
     33: { nom: 'Le don', mots: ['bienveillance', 'transmission', 'amour'], maitre: true,
-      essence: "Le 33 est un nombre maître, plus rare. Il porte l'élan de transmettre, d'enseigner et de prendre soin des autres avec beaucoup d'amour. Il se vit aussi comme un 6.",
+      essence: "Le 33 est un nombre maître. Il porte l'élan de transmettre, d'enseigner et de prendre soin des autres avec beaucoup d'amour. Il se vit aussi comme un 6.",
       force: "Ta bienveillance et ta capacité à faire grandir les autres.",
       defi: "Ne pas t'oublier dans le don, et savoir poser des limites.",
       famille: "Dans une lignée, le 33 évoque celles et ceux qui ont tout donné aux autres." }
