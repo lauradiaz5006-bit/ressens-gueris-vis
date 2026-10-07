@@ -406,10 +406,10 @@
         liste.forEach(function (p) {
           if (p.id === moi.id) return;
           var ad = ageDeces(p);
-          if (ad != null && Math.abs(ad - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans.', ids: [moi.id, p.id] });
+          if (ad != null && Math.abs(ad - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans.', ids: [moi.id, p.id], exo: { a: nom(p), l: (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans, l’âge que j’ai aujourd’hui' } });
           (p.events || []).forEach(function (e) {
             var ea = parseInt(e.age, 10);
-            if (!isNaN(ea) && Math.abs(ea - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans.', ids: [moi.id, p.id] });
+            if (!isNaN(ea) && Math.abs(ea - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans.', ids: [moi.id, p.id], exo: { a: nom(p), l: 'a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans, l’âge que j’ai aujourd’hui' } });
           });
         });
       }
@@ -467,7 +467,7 @@
     liste.forEach(function (d) {
       var ad = annee(d.deces); if (!ad) return;
       var fam = famille(d);
-      var estJeune = jeune(d), liens = [], ids = [d.id];
+      var estJeune = jeune(d), liens = [], ids = [d.id], exoMoi = null;
       liste.forEach(function (g) {
         if (g.id === d.id || !fam[g.id]) return;
         var an = annee(g.naiss); if (!an || an <= annee(d.naiss || '')) return;
@@ -486,11 +486,11 @@
           // 3. Le prénom du défunt repris
           if (memePrenom(d, g)) raisons.push('porte ' + (prenom1(d) === prenom1(g) ? 'son prénom' : 'une forme de son prénom'));
         }
-        if (raisons.length) { liens.push(nomA(g) + ' : ' + raisons.join(', ')); ids.push(g.id); }
+        if (raisons.length) { liens.push(nomA(g) + ' : ' + raisons.join(', ')); ids.push(g.id); if (moi && g.id === moi.id) exoMoi = raisons.join(', ').replace(/^né(e|·e)? /, 'je suis ' + ne(g) + ' ').replace(/^porte /, 'je porte '); }
       });
       if (!liens.length) return;
       var age = ageDeces(d);
-      reps.push({ type: 'gisant', c: COUL.gisant, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
+      reps.push({ type: 'gisant', c: COUL.gisant, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
     });
     // Un décès le jour (ou à une semaine près) de l'anniversaire d'un descendant ou d'un proche déjà né
     var MOIS_N = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -506,7 +506,7 @@
         var age = (toi ? 'tes ' : 'des ') + ag + ' ans' + (toi ? '' : ' de ' + nom(g));
         reps.push({ type: 'date', c: COUL.date, label: 'Un décès près d’un anniversaire : ' + nom(d),
           desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour ' + (toi ? 'de ' : '') + age : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' ' + (toi ? 'de ' : '') + age) + '.',
-          ids: [d.id, g.id] });
+          ids: [d.id, g.id], exo: toi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour de mes ' + ag + ' ans' : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de mes ' + ag + ' ans') } : null });
       });
     });
 
@@ -770,7 +770,8 @@
       return;
     }
     z.innerHTML = reps.map(function (r, i) {
-      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>';
+      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>' +
+        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(r.exo.a) + '&amp;lien=' + encodeURIComponent(r.exo.l) + '">Faire l’exercice avec ' + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
 

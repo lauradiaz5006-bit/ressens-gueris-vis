@@ -337,7 +337,7 @@
         h += '<div class="hasard"><p><strong>La part du hasard.</strong> Tu as saisi ' + complets + ' dates complètes. Par simple hasard, la probabilité qu\'au moins deux d\'entre elles tombent le même jour de l\'année est de ' + (brut < 1 ? 'moins de 1' : pc) + ' %. ' +
           (pc >= 50 ? 'Il est donc plus probable qu\'improbable de trouver un jour partagé : ne lui donne pas plus de poids qu\'il n\'en a.' : 'Un jour partagé reste toutefois une coïncidence fréquente.') + '</p></div>';
       }
-      h += '<p class="aide" style="margin-top:1rem">Ces rapprochements sont des pistes à interroger, jamais des causes ni des prédictions. <a href="syndrome-anniversaire.html">Lire comment les utiliser sainement</a>.</p>';
+      h += '<p class="aide" style="margin-top:1rem">Ces rapprochements sont des pistes à interroger, jamais des causes ni des prédictions. <a href="syndrome-anniversaire.html">Lire comment les utiliser sainement</a>. Si un lien te parle, fais l\'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu\'il ou elle a vécu</a>.</p>';
       $('resultats').innerHTML = '<h2 style="margin-top:0">Ce qui se répond dans ta famille</h2>' + h;
     }
     $('analyser').addEventListener('click', function () { analyser(); $('resultats').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
