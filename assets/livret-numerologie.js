@@ -4,6 +4,8 @@
   'use strict';
   var VALEUR = { A: 1, J: 1, S: 1, B: 2, K: 2, T: 2, C: 3, L: 3, U: 3, D: 4, M: 4, V: 4, E: 5, N: 5, W: 5, F: 6, O: 6, X: 6, G: 7, P: 7, Y: 7, H: 8, Q: 8, Z: 8, I: 9, R: 9 };
   var VOY = 'AEIOUY';
+  var MAYA_K = ['Imox', "Iq'", "Aq'ab'al", "K'at", 'Kan', 'Kame', 'Kej', "Q'anil", 'Toj', "Tz'i'", "B'atz'", 'E', 'Aj', "I'x", "Tz'ikin", 'Ajmaq', "No'j", 'Tijax', 'Kawoq', 'Ajpu'];
+  var MAYA_Y = ['Imix', "Ik'", "Ak'b'al", "K'an", 'Chikchan', 'Kimi', "Manik'", 'Lamat', 'Muluk', 'Ok', 'Chuwen', "Eb'", "B'en", 'Ix', 'Men', "Kib'", "Kab'an", "Etz'nab'", 'Kawak', 'Ajaw'];
   var MOIS_NOMS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
   /* Trois questions pour réfléchir, par nombre de chemin de vie */
@@ -113,6 +115,8 @@
     var H = L.HISTOIRE;
     if (H) {
       chapitre('Aux origines de la numérologie', '<p class="sur">Un peu d\'histoire</p><h2>Aux origines de la numérologie</h2>' + sous('Des nombres et des lettres', H.origines) + sous('La numérologie moderne', H.moderne));
+      if (H.maya) chapitre('Ailleurs dans le monde : le calendrier maya', '<p class="sur">Un peu d\'histoire</p><h2>Ailleurs dans le monde : le calendrier maya</h2>' + String(H.maya).split(/\n\n+/).map(para).join('') +
+        '<div class="bloc doux"><h4>Ton jour maya</h4><p style="margin:0">' + (window.Maya ? (function () { var r = window.Maya.calculer(t.date); return 'Dans le compte traditionnel du Tzolk\'in, tu es né·e un jour <b>' + r.nombre + ' ' + MAYA_K[r.signe] + '</b> (' + MAYA_Y[r.signe] + ' en yucatèque). '; })() : '') + 'Découvre son sens sur genesolia.fr/ton-signe-maya.html.</p></div>');
       chapitre('Comment se calcule ton thème', '<p class="sur">La méthode</p><h2>Comment se calcule ton thème</h2>' + para(H.methode) + sous('Le regard de Genesolia', H.regard) +
         '<div class="bloc doux"><h4>La table des lettres</h4><table class="calc"><tbody><tr><td><b>1</b></td><td><b>2</b></td><td><b>3</b></td><td><b>4</b></td><td><b>5</b></td><td><b>6</b></td><td><b>7</b></td><td><b>8</b></td><td><b>9</b></td></tr><tr><td>A J S</td><td>B K T</td><td>C L U</td><td>D M V</td><td>E N W</td><td>F O X</td><td>G P Y</td><td>H Q Z</td><td>I R</td></tr></tbody></table></div>');
     }
