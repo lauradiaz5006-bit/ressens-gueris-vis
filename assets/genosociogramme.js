@@ -424,6 +424,8 @@
     });
     Object.keys(dm).forEach(function (j) {
       var g = dm[j]; var ids = []; g.forEach(function (x) { if (ids.indexOf(x.p.id) < 0) ids.push(x.p.id); });
+      var dec = g.filter(function (x) { return x.quoi === 'décès'; }), nai = g.filter(function (x) { return x.quoi === 'naissance'; });
+      if (ids.length === 2 && dec.length === 1 && nai.length === 1 && famille(dec[0].p)[nai[0].p.id] && annee(nai[0].p.naiss) < annee(dec[0].p.deces)) return;   // repris par « Un décès près d'un anniversaire »
       if (ids.length >= 2) {
         var parts = j.split('/');
         var mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+parts[1] - 1];
@@ -472,7 +474,7 @@
         var raisons = [];
         // 1. Le jour anniversaire du décès (naissance après le décès)
         var e = ecartJM(d.deces, g.naiss);
-        if (e != null && e <= 2 && an > ad) raisons.push(e === 0 ? 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' le jour anniversaire de ce décès' : 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de l’anniversaire de ce décès');
+        if (e != null && e <= 7 && an > ad) raisons.push(e === 0 ? 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' le jour anniversaire de ce décès' : 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de l’anniversaire de ce décès');
         if (estJeune) {
           // 2. Une naissance proche du décès
           var dj = jours(d.deces, g.naiss);
@@ -490,6 +492,24 @@
       var age = ageDeces(d);
       reps.push({ type: 'gisant', c: COUL.gisant, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
     });
+    // Un décès le jour (ou à une semaine près) de l'anniversaire d'un descendant ou d'un proche déjà né
+    var MOIS_N = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    liste.forEach(function (d) {
+      var md = String(d.deces || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!md) return;
+      var fam = famille(d);
+      liste.forEach(function (g) {
+        if (g.id === d.id || !fam[g.id]) return;
+        var e = ecartJM(d.deces, g.naiss); if (e == null || e > 7) return;
+        var ag = ageEntre(g.naiss, d.deces); if (ag == null || ag < 1) return;   // déjà né·e, au moins un an avant
+        if (g.deces && annee(g.deces) < +md[1]) return;
+        var toi = moi && g.id === moi.id, quand = (+md[3] === 1 ? '1er' : +md[3]) + ' ' + MOIS_N[+md[2] - 1] + ' ' + md[1];
+        var age = (toi ? 'tes ' : 'des ') + ag + ' ans' + (toi ? '' : ' de ' + nom(g));
+        reps.push({ type: 'date', c: COUL.date, label: 'Un décès près d’un anniversaire : ' + nom(d),
+          desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour ' + (toi ? 'de ' : '') + age : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' ' + (toi ? 'de ' : '') + age) + '.',
+          ids: [d.id, g.id] });
+      });
+    });
+
     // Un parent qui part peu après une naissance (ou pendant la grossesse), et qui se répète d'une génération à l'autre
     var departsNaissance = [];
     liste.forEach(function (enf) {

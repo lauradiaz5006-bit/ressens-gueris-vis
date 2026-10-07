@@ -101,6 +101,7 @@
         <ul class="gestes">
           <li><strong>Les âges qui reviennent.</strong> Deux personnes ou plus ont vécu un événement, ou sont décédées, au même âge. L'outil signale aussi qui approche de cet âge dans les trois prochaines années.</li>
           <li><strong>Les jours de l'année partagés.</strong> Une naissance, un décès ou un événement qui tombent le même jour et le même mois, à des années différentes.</li>
+          <li><strong>Les décès et les naissances qui se répondent.</strong> Un décès à une semaine près de l'anniversaire d'un membre de la famille, ou une naissance à une semaine près de l'anniversaire d'une mort.</li>
           <li><strong>Les naissances proches d'un deuil.</strong> Une naissance dans l'année qui précède ou qui suit le décès d'un membre de la famille. C'est l'un des indices que regarde la psychogénéalogie, par exemple dans le <a href="syndrome-du-gisant.html">syndrome du gisant</a>, surtout quand ce décès a été vécu comme injuste ou n'a jamais été pleuré.</li>
           <li><strong>La part du hasard.</strong> Avec le nombre de dates que tu as saisies, l'outil calcule la probabilité que deux d'entre elles tombent le même jour par simple hasard.</li>
         </ul>
@@ -286,6 +287,25 @@
           nb++; var j = k % 100, m = Math.floor(k / 100);
           h += '<div class="piste"><strong>Le ' + (j === 1 ? '1er' : j) + ' ' + MOIS[m - 1] + '</strong><ul>' + parJour[k].map(function (x) { return '<li>' + esc(x.nom) + ' : ' + esc(x.quoi) + ' en ' + x.date.y + '</li>'; }).join('') + '</ul></div>';
         });
+      }
+      // 2 bis. Un décès à une semaine près de l'anniversaire de quelqu'un, ou une naissance le jour anniversaire d'un décès
+      function ecartJM(a, b) { var e = Math.abs(Date.UTC(2001, a.m - 1, a.d) - Date.UTC(2001, b.m - 1, b.d)) / 864e5; return Math.min(e, 365 - e); }
+      var echos = [], paires = 0;
+      gens.forEach(function (d) {
+        if (!d.d || !d.d.d) return;
+        gens.forEach(function (g) {
+          if (g.i === d.i || !g.n || !g.n.d) return;
+          paires++;
+          var e = ecartJM(d.d, g.n); if (e > 7) return;
+          var ecart = e === 0 ? 'le jour même' : 'à ' + e + ' jour' + (e > 1 ? 's' : '');
+          var ag = age(g.n, d.d);
+          if (ag != null && ag >= 1) echos.push(esc(d.nom) + ' est décédé·e le ' + esc(aff(d.d)) + ', ' + ecart + ' de l\'anniversaire de ' + esc(g.nom) + ', qui avait ' + ag + ' ans.');
+          else if (g.n.y > d.d.y) echos.push(esc(g.nom) + ' est né·e le ' + esc(aff(g.n)) + ', ' + ecart + ' de l\'anniversaire du décès de ' + esc(d.nom) + ' (' + esc(aff(d.d)) + ').');
+        });
+      });
+      if (echos.length) {
+        nb++;
+        h += '<h3>Les décès et les naissances qui se répondent</h3><div class="piste"><strong>À une semaine près</strong><ul>' + echos.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><p class="note">Un décès le jour de ton anniversaire, ou une naissance le jour anniversaire d\'une mort, crée souvent un lien fort dans le vécu familial. C\'est une piste à regarder pour toi, pas une preuve. Pour garder la juste mesure : avec ' + paires + ' rapprochements possibles entre un décès et une naissance dans ta saisie, la probabilité qu\'au moins un tombe à une semaine près par simple hasard est de ' + Math.round((1 - Math.pow(350 / 365, paires)) * 100) + ' %.</p></div>';
       }
       // 3. Naissances proches d'un décès
       var proches = [];
