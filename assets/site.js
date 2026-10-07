@@ -155,6 +155,115 @@
     });
   });
 
+  /* ===== Formation « Sors de la boucle » : annonce, encart et liste d'attente =====
+     Pour changer la date ou masquer l'annonce, modifier les trois valeurs ci-dessous. */
+  var FORMATION = {
+    date: 'le 7 novembre',
+    page: 'formation.html',
+    finAnnonce: '2026-11-08',                       /* le bandeau disparaît à cette date */
+    extrait: 'assets/formation/sors-de-la-boucle-module-1.pdf'
+  };
+  var annonceActive = new Date() < new Date(FORMATION.finAnnonce + 'T00:00:00');
+
+  /* Bandeau fin en haut de toutes les pages (sauf la page de la formation) */
+  var fermee = false;
+  try { fermee = sessionStorage.getItem('annonce-formation') === 'fermee'; } catch (e) {}
+  if (annonceActive && !fermee && page !== FORMATION.page && entete) {
+    var bandeau = document.createElement('div');
+    bandeau.className = 'annonce';
+    bandeau.innerHTML =
+      '<a href="' + FORMATION.page + '"><span class="annonce-pastille">Nouveau</span> Formation « Sors de la boucle » : prochaine session ' + FORMATION.date + '. <u>Rejoins la liste et reçois le module 1 offert</u></a>' +
+      '<button type="button" aria-label="Fermer l\'annonce">×</button>';
+    bandeau.querySelector('button').addEventListener('click', function () {
+      bandeau.remove();
+      try { sessionStorage.setItem('annonce-formation', 'fermee'); } catch (e) {}
+    });
+    entete.parentNode.insertBefore(bandeau, entete);
+  }
+
+  /* Encart à placer n'importe où : <div data-formation></div> */
+  document.querySelectorAll('[data-formation]').forEach(function (el) {
+    el.className = 'encart-formation';
+    el.innerHTML =
+      '<div class="ef-texte">' +
+        '<p class="ef-sur">Nouvelle formation · prochaine session ' + FORMATION.date + '</p>' +
+        '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
+        '<p>« Sors de la boucle » : 8 modules, 8 séances audio guidées et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
+        '<ul class="ef-avantages">' +
+          '<li><b>Le module 1 offert</b> dès ton inscription</li>' +
+          '<li><b>Le tarif fondatrice</b>, réservé à la liste</li>' +
+          '<li><b>Accès 48 h avant</b> tout le monde</li>' +
+        '</ul>' +
+        '<a class="btn btn-plein" href="' + FORMATION.page + '">Je rejoins la liste</a>' +
+        '<p class="ef-note">Gratuit et sans engagement.</p>' +
+      '</div>' +
+      '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="" width="580" height="820" loading="lazy"></div>';
+  });
+
+  /* Formulaire de liste d'attente : <div data-liste-formation></div> */
+  document.querySelectorAll('[data-liste-formation]').forEach(function (el, n) {
+    var id = 'liste-' + n;
+    var deja = false;
+    try { deja = localStorage.getItem('liste-formation') === 'oui'; } catch (e) {}
+    var boucles = ['En amour', 'Avec l\'argent', 'Au travail', 'En famille', 'Dans ma confiance en moi', 'Autre'];
+    var budgets = ['Moins de 50 €', 'De 50 à 100 €', 'De 100 à 200 €', 'Plus de 200 €'];
+    function telechargerExtrait() {
+      var a = document.createElement('a');
+      a.href = FORMATION.extrait; a.download = 'sors-de-la-boucle-module-1.pdf';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    function bravo(prenom) {
+      return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
+        '<p>Tu es sur la liste. Tu recevras le lien d\'inscription et le tarif fondatrice 48 h avant l\'ouverture, ' + FORMATION.date + '.</p>' +
+        '<a class="btn btn-plein" href="' + FORMATION.extrait + '" download="sors-de-la-boucle-module-1.pdf">Télécharger mon module 1 offert</a></div>';
+    }
+    el.className = 'liste-formation';
+    if (deja) { el.innerHTML = bravo(''); return; }
+    el.innerHTML =
+      '<form class="liste-form" novalidate>' +
+        '<div class="liste-champs">' +
+          '<label for="' + id + '-prenom">Prénom<input id="' + id + '-prenom" name="prenom" autocomplete="given-name" required></label>' +
+          '<label for="' + id + '-email">E-mail<input id="' + id + '-email" name="email" type="email" autocomplete="email" required></label>' +
+        '</div>' +
+        '<fieldset><legend>Quelle boucle aimerais-tu arrêter en premier ? <span>(plusieurs choix possibles)</span></legend><div class="liste-choix">' +
+          boucles.map(function (b, i) { return '<label><input type="checkbox" name="boucle" value="' + b.replace(/"/g, '') + '"><span>' + b + '</span></label>'; }).join('') +
+        '</div></fieldset>' +
+        '<fieldset><legend>Pour une formation complète comme celle-ci, quel budget te semblerait juste ? <span>(facultatif)</span></legend><div class="liste-choix">' +
+          budgets.map(function (b) { return '<label><input type="radio" name="budget" value="' + b + '"><span>' + b + '</span></label>'; }).join('') +
+        '</div></fieldset>' +
+        '<label class="liste-accord"><input type="checkbox" name="accord" value="oui" required><span>J\'accepte de recevoir le module 1 offert et les informations sur la formation par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
+        '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="cadeau-piege" aria-hidden="true">' +
+        '<button class="btn btn-plein" type="submit">Je rejoins la liste et je reçois le module 1</button>' +
+        '<p class="liste-erreur" role="alert"></p>' +
+      '</form>';
+    var form = el.querySelector('form');
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.liste-erreur'), btn = form.querySelector('button');
+      var prenom = form.prenom.value.trim(), email = form.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour rejoindre la liste.'; return; }
+      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      var data = new FormData(form);
+      var choix = [].slice.call(form.querySelectorAll('input[name=boucle]:checked')).map(function (c) { return c.value; });
+      data.delete('boucle'); data.append('boucle', choix.join(', ') || 'non précisé');
+      data.append('liste', 'Formation Sors de la boucle');
+      data.append('source', page);
+      data.append('_subject', 'Liste d\'attente : formation Sors de la boucle');
+      fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () {
+          try { localStorage.setItem('liste-formation', 'oui'); } catch (e) {}
+          el.innerHTML = bravo(prenom);
+          telechargerExtrait();
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Je rejoins la liste et je reçois le module 1';
+          err.textContent = 'L\'envoi n\'a pas fonctionné. Vérifie ta connexion et réessaie dans un instant.';
+        });
+    });
+  });
+
   /* Bandeau d'information : le site n'utilise que des stockages nécessaires à son fonctionnement */
   var vu = false;
   try { vu = localStorage.getItem('info-cookies') === 'vu'; } catch (e) {}
