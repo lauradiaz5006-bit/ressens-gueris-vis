@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blessure d'abandon : signes, masque du dépendant et histoire familiale · Genesolia</title>
+  <meta name="description" content="Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.">
+  <link rel="canonical" href="https://genesolia.fr/blessure-d-abandon.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="La blessure d'abandon : la reconnaître, comprendre d'où elle vient">
+  <meta property="og:description" content="Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .tableau{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.95rem}
+    .tableau th,.tableau td{padding:.7rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau thead th{font-weight:600;color:var(--prune-doux);font-size:.88rem;border-top:0}
+    .tableau tbody th{font-weight:600}
+    .defile{overflow-x:auto}
+    .comparer{min-width:34rem}
+    .phase{padding:1.4rem 1.4rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc);margin:1.4rem 0}
+    .phase .nom{font-family:var(--display);color:var(--champagne)}
+    .phase h2,.phase h3{margin:.1rem 0 .6rem!important}
+    .phase p{color:var(--prune-doux)}
+    .phase p+p{margin-top:.7rem}
+    .phase .question{color:var(--prune)}
+    .b-cycle{font-family:var(--display);color:var(--champagne);font-size:1.1rem;margin-top:.8rem}
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"La blessure d'abandon : la reconnaître, comprendre d'où elle vient","description":"Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.","datePublished":"2026-10-07","dateModified":"2026-10-07","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/blessure-d-abandon.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/blessure-d-abandon.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment se manifeste une blessure d'abandon chez l'adulte ?","acceptedAnswer":{"@type":"Answer","text":"Par la peur d'être quitté·e, le besoin d'être rassuré·e, la difficulté à être seul·e, et parfois par l'inverse : partir avant d'être laissé·e, ou ne jamais s'engager."}},{"@type":"Question","name":"La blessure d'abandon vient-elle forcément d'un abandon réel ?","acceptedAnswer":{"@type":"Answer","text":"Non. Un parent présent mais débordé, triste ou distant peut laisser la même impression. C'est le ressenti de l'enfant qui compte, pas la réalité des faits."}},{"@type":"Question","name":"Quel est le lien entre blessure d'abandon et dépendance affective ?","acceptedAnswer":{"@type":"Answer","text":"Ils se recoupent souvent : le besoin intense de l'autre pour se sentir en sécurité. Si cette dépendance te fait souffrir, en parler à un·e professionnel·le de l'accompagnement peut beaucoup aider."}}]}]</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blessures-de-l-ame.html">Les blessures de l'âme</a><span aria-hidden="true">/</span>Blessure d'abandon</nav>
+        <h1>La blessure d'abandon : la reconnaître, comprendre d'où elle vient</h1>
+        <p class="intro">Une absence qui plonge dans l'angoisse. Un silence qui fait imaginer le pire. Le besoin d'être rassuré·e, encore et encore. La blessure d'abandon touche la peur de rester seul·e, sans soutien.</p>
+        <p class="b-cycle">Cycle 2 · Le cœur · « Vais-je rester seul·e ? »</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 7 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce que la blessure d'abandon ?</h2>
+        <p>La blessure d'abandon est la peur profonde de manquer de l'autre : d'être laissé·e, oublié·e, de ne pas être soutenu·e quand on en a besoin. Elle ne naît pas forcément d'un abandon réel. Un parent présent mais débordé, malheureux ou distant peut laisser à l'enfant la même impression de manque.</p>
+        <p>L'enfant en tire une conclusion : seul·e, je ne vais pas y arriver. À l'âge adulte, cette conclusion se réveille dès qu'un lien semble menacé, même par un simple retard ou un message sans réponse.</p>
+        <p>Elle fait partie des cinq blessures de l'âme décrites par Lise Bourbeau dans <em>Les cinq blessures qui empêchent d'être soi-même</em>. Sur Genesolia, nous la relions au <a href="methode.html">cycle du cœur</a> : aimer, être aimé·e, faire confiance.</p>
+
+        <h2>Les signes de la blessure d'abandon</h2>
+        <p>Ce ne sont pas des preuves, mais des réactions qui reviennent. Coche celles qui te ressemblent.</p>
+        <div class="cocher">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul>
+            <li><label><input type="checkbox"> La solitude te paraît très difficile à supporter.</label></li>
+            <li><label><input type="checkbox"> Tu as besoin d'être rassuré·e souvent dans tes relations.</label></li>
+            <li><label><input type="checkbox"> Tu acceptes beaucoup de choses pour ne pas perdre quelqu'un.</label></li>
+            <li><label><input type="checkbox"> Une absence ou un silence te fait imaginer le pire.</label></li>
+            <li><label><input type="checkbox"> Tu as du mal à prendre une décision seul·e, tu demandes souvent l'avis des autres.</label></li>
+            <li><label><input type="checkbox"> Tu t'accroches à des relations qui ne te font plus de bien.</label></li>
+            <li><label><input type="checkbox"> Ou au contraire, tu pars toujours le premier ou la première, pour ne pas être quitté·e.</label></li>
+          </ul>
+          <p class="note">Plusieurs cases cochées ne disent rien de définitif sur toi. Elles indiquent seulement où regarder. Pour comparer avec les autres blessures, fais <a href="blessures-de-l-ame.html">le test des 5 blessures</a>.</p>
+        </div>
+
+        <h2>Le masque du dépendant</h2>
+        <p>Pour ne plus ressentir l'abandon, on cherche à ne jamais manquer de présence. Lise Bourbeau appelle cette protection le masque du dépendant. Il pousse à attirer l'attention, à demander du soutien, à faire passer le lien avant tout, parfois à se montrer en difficulté pour que l'autre reste.</p>
+        <p>Ce masque n'est pas de la faiblesse : c'est une stratégie apprise pour garder les autres près de soi. Son coût est la fatigue, la sienne et celle des proches, et la sensation de ne jamais être tout à fait rassuré·e, quoi que l'autre fasse.</p>
+        <p><a href="masques-des-5-blessures.html#dependant">Les cinq masques, comparés</a>.</p>
+
+        <h2>Blessure d'abandon : quel parent ?</h2>
+        <p>Dans le modèle de Lise Bourbeau, la blessure d'abandon se vit surtout avec le parent du sexe opposé : la fille avec son père, le garçon avec sa mère. Là encore, ce n'est pas une règle. Un parent parti, absent, absorbé par son travail ou par son propre deuil, un frère aîné qui comptait beaucoup, une grand-mère qui gardait l'enfant puis a disparu : l'important est de repérer quel lien a manqué, et quand.</p>
+
+        <h2>La blessure d'abandon dans ton histoire familiale</h2>
+        <p>L'abandon se transmet souvent sous forme de peur. Une mère qui a perdu sa propre mère très jeune peut avoir, sans le savoir, une façon anxieuse d'aimer. Dans ton arbre, cherche les liens qui ont été coupés.</p>
+        <ul class="pistes">
+          <li><strong>Les deuils précoces</strong><span>Un parent mort jeune, un enfant qui a grandi avec un vide jamais expliqué.</span></li>
+          <li><strong>Les départs</strong><span>Un père parti, une mère partie travailler loin, une guerre, une émigration.</span></li>
+          <li><strong>Les enfants confiés</strong><span>Élevés par les grands-parents, placés en pension, en nourrice ou en famille d'accueil.</span></li>
+          <li><strong>Les séparations sans explication</strong><span>Un divorce dont on n'a jamais parlé, un parent qui a cessé de venir.</span></li>
+        </ul>
+        <p>Dans ton <a href="genosociogramme.html">arbre familial</a>, tu peux noter ces événements : l'outil fait apparaître ce qui revient d'une génération à l'autre.</p>
+
+        <div class="deux">
+          <div><span class="nom">En amour</span><h3>Blessure d'abandon et relation amoureuse</h3><p>En amour, la blessure d'abandon est sans doute la plus visible. Peur de la rupture, besoin de messages fréquents, jalousie, difficulté à laisser l'autre avoir sa vie, acceptation de ce qui ne convient pas pour ne pas rester seul·e. Elle se rapproche de ce que la psychologie appelle l'attachement anxieux. Nous y consacrons un article entier : <a href="blessure-abandon-relation-amoureuse.html">la blessure d'abandon et la relation amoureuse</a>.</p></div>
+          <div><span class="nom">Au travail</span><h3>Blessure d'abandon au travail</h3><p>Au travail, elle se lit dans le besoin d'être validé·e, la difficulté à travailler seul·e ou à prendre une décision sans l'accord d'un supérieur. Un collègue qui part, une équipe qui change, un responsable moins disponible peuvent réveiller une angoisse disproportionnée. Apprendre à valider soi-même son travail est un vrai chantier.</p></div>
+        </div>
+
+        <h2>Des petits pas pour commencer</h2>
+        <p>Une blessure ne se referme pas d'un coup. Elle cesse peu à peu de décider à ta place, à force de petits gestes différents.</p>
+        <ul class="gestes">
+          <li>Passer un moment seul·e de façon choisie, sans écran, et noter ce que tu ressens.</li>
+          <li>Quand l'angoisse monte face à un silence, attendre une heure avant de relancer.</li>
+          <li>Demander de l'aide clairement, au lieu d'espérer que l'autre devine.</li>
+          <li>Prendre une petite décision sans demander d'avis, et t'en féliciter.</li>
+          <li>Te parler comme tu parlerais à un enfant inquiet : avec douceur et fermeté.</li>
+        </ul>
+        <p class="rappel"><strong>La question de la blessure d'abandon.</strong> « Vais-je rester seul·e ? » Te la poser, c'est déjà commencer à y répondre autrement.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Comment se manifeste une blessure d'abandon chez l'adulte ?</dt><dd>Par la peur d'être quitté·e, le besoin d'être rassuré·e, la difficulté à être seul·e, et parfois par l'inverse : partir avant d'être laissé·e, ou ne jamais s'engager.</dd>
+          <dt>La blessure d'abandon vient-elle forcément d'un abandon réel ?</dt><dd>Non. Un parent présent mais débordé, triste ou distant peut laisser la même impression. C'est le ressenti de l'enfant qui compte, pas la réalité des faits.</dd>
+          <dt>Quel est le lien entre blessure d'abandon et dépendance affective ?</dt><dd>Ils se recoupent souvent : le besoin intense de l'autre pour se sentir en sécurité. Si cette dépendance te fait souffrir, en parler à un·e professionnel·le de l'accompagnement peut beaucoup aider.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="blessures-de-l-ame.html">Faire le test des 5 blessures</a>
+          <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. Le modèle des cinq blessures n'est pas une théorie scientifique. Si une blessure ancienne te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Les cinq blessures"><a href="blessure-de-rejet.html">Rejet</a><a href="blessure-d-abandon.html" aria-current="page">Abandon</a><a href="blessure-d-humiliation.html">Humiliation</a><a href="blessure-de-trahison.html">Trahison</a><a href="blessure-d-injustice.html">Injustice</a><a href="masques-des-5-blessures.html">Les 5 masques</a><a href="blessure-rejet-ou-abandon.html">Rejet ou abandon ?</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Le test des 5 blessures</h3><p>Coche les phrases qui te ressemblent et vois quelle blessure ressort, gratuitement.</p></a>
+          <a class="outil" href="masques-des-5-blessures.html"><h3>Les 5 masques</h3><p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège.</p></a>
+          <a class="outil" href="blessure-rejet-ou-abandon.html"><h3>Rejet ou abandon ?</h3><p>La différence en un tableau, et le comparatif des cinq blessures.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme et repère ce qui se répète dans ta lignée.</p></a>
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Schémas répétitifs en amour</h3><p>Ce qui se rejoue d'une relation à l'autre, et ce que ta famille peut éclairer.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

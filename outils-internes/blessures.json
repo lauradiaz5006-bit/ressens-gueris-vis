@@ -1,0 +1,262 @@
+{
+  "rejet": {
+    "slug": "blessure-de-rejet.html",
+    "nom": "rejet", "article": "la blessure de rejet", "de": "de rejet",
+    "masque": "fuyant", "masqueArt": "le masque du fuyant",
+    "cycle": 1, "question": "Ai-je le droit d'exister ?",
+    "title": "Blessure de rejet : signes, masque du fuyant et origine familiale",
+    "h1": "La blessure de rejet : la reconnaître, comprendre d'où elle vient",
+    "desc": "Blessure de rejet : ses signes, le masque du fuyant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.",
+    "intro": "Te sentir de trop, même invité·e. Te faire tout petit·e pour ne déranger personne. Vivre un refus comme une condamnation de toute ta personne. La blessure de rejet touche le droit même d'être là.",
+    "definition": [
+      "La blessure de rejet est la sensation profonde de ne pas être voulu·e tel·le que l'on est. Ce n'est pas seulement la peine d'avoir été écarté·e un jour : c'est une sensibilité installée, qui fait lire beaucoup de situations comme une preuve que l'on n'a pas sa place.",
+      "Elle se forme souvent très tôt, dans un moment où l'enfant a perçu, à tort ou à raison, qu'il ou elle dérangeait, n'était pas attendu·e ou ne correspondait pas à ce qu'on espérait. L'enfant n'a pas les mots pour comprendre ; il en tire une conclusion sur lui-même."
+    ],
+    "signes": [
+      "Tu te sens vite de trop dans un groupe, même quand on t'a invité·e.",
+      "Tu te retires, tu t'isoles ou tu changes de sujet dès qu'un conflit apparaît.",
+      "Tu doutes de ta valeur et tu minimises ce que tu fais.",
+      "Un refus, même petit, te fait l'effet d'un jugement sur toute ta personne.",
+      "Tu as souvent l'impression de ne pas être vraiment compris·e, ou de venir d'ailleurs.",
+      "Tu préfères disparaître plutôt que demander de l'aide.",
+      "Tu te réfugies volontiers dans ton monde intérieur, tes idées, tes rêveries."
+    ],
+    "masqueTxt": [
+      "Pour ne plus ressentir le rejet, on apprend à fuir avant d'être rejeté·e. C'est ce que Lise Bourbeau appelle le masque du fuyant. Il protège en évitant : se faire discret·e, partir tôt d'une soirée, ne pas donner son avis, se couper de ses émotions ou de son corps quand la tension monte.",
+      "Ce masque a été utile : il a permis de traverser des moments où l'on se sentait de trop. Son coût apparaît à l'âge adulte. À force de fuir, on confirme sa croyance : on n'est pas là, donc on n'est pas vu·e. Et le sentiment de ne pas compter se renforce."
+    ],
+    "parent": "Dans le modèle de Lise Bourbeau, la blessure de rejet se vit surtout avec le parent du même sexe : la fille avec sa mère, le garçon avec son père. Ce n'est pas une règle. Dans beaucoup de familles, la personne qui a compté le plus était une grand-mère, un beau-parent, un aîné. Ce qui importe n'est pas de désigner un coupable, mais de comprendre auprès de qui tu as appris que ta place n'était pas assurée.",
+    "famille": {
+      "texte": "La blessure de rejet a souvent une histoire plus longue que la tienne. Un parent qui n'a lui-même pas été désiré transmet parfois, sans le vouloir, cette difficulté à accueillir. Regarde ton arbre familial avec ces questions en tête.",
+      "pistes": [
+        ["Une naissance non attendue", "Un enfant arrivé trop tôt, trop tard, hors mariage, ou après une perte."],
+        ["Le sexe espéré", "Un parent qui attendait un garçon ou une fille, un prénom choisi pour l'autre sexe."],
+        ["Les familles cachées ou exilées", "Des ancêtres qui ont dû se faire discrets pour survivre : exil, origine tue, religion cachée."],
+        ["Les enfants placés ou confiés", "Un grand-parent élevé par d'autres, un enfant mis en nourrice, une adoption."]
+      ]
+    },
+    "amour": "En amour, la blessure de rejet pousse à se retenir. On n'ose pas montrer son intérêt, on attend d'être sûr·e d'être voulu·e, et l'on se retire au moindre signe de distance. Parfois, on choisit des personnes indisponibles : cela évite de risquer un vrai refus. Le lien demande pourtant l'inverse : te montrer, dire ce que tu ressens, rester quand tu as envie de fuir.",
+    "travail": "Au travail, elle se lit dans la difficulté à prendre la parole en réunion, à demander une augmentation, à défendre une idée. On travaille beaucoup, mais dans l'ombre. On peut aussi changer souvent de poste, partir avant que la relation ne se tende. Prendre sa place progressivement, sur de petites choses, change souvent beaucoup.",
+    "pas": [
+      "T'asseoir au milieu plutôt qu'au bord, une fois cette semaine.",
+      "Donner ton avis une fois de plus que d'habitude, même sur un sujet léger.",
+      "Rester dix minutes de plus quand tu as envie de partir, et observer ce qui se passe.",
+      "Te dire, à voix haute ou par écrit : « j'ai le droit d'être là ».",
+      "Noter chaque jour un moment où tu as été accueilli·e, même brièvement."
+    ],
+    "faq": [
+      ["Comment savoir si j'ai une blessure de rejet ?", "Si tu te sens souvent de trop, si tu fuis les conflits et si un refus te touche bien plus que ne le voudrait la situation, cette grille peut t'éclairer. Ce n'est pas un diagnostic : c'est une façon de mettre des mots sur ce qui revient."],
+      ["Quelle est la différence entre la blessure de rejet et la blessure d'abandon ?", "Le rejet dit « je ne suis pas voulu·e », l'abandon dit « on va me laisser seul·e ». Le premier pousse à fuir, le second à s'accrocher. On peut porter les deux."],
+      ["Peut-on dépasser une blessure de rejet ?", "Une blessure ne disparaît pas d'un coup, mais elle peut cesser de décider à ta place. La reconnaître, comprendre son histoire et prendre ta place par petits pas suffit souvent à changer la façon dont elle se rejoue."]
+    ]
+  },
+  "abandon": {
+    "slug": "blessure-d-abandon.html",
+    "nom": "abandon", "article": "la blessure d'abandon", "de": "d'abandon",
+    "masque": "dépendant", "masqueArt": "le masque du dépendant",
+    "cycle": 2, "question": "Vais-je rester seul·e ?",
+    "title": "Blessure d'abandon : signes, masque du dépendant et histoire familiale",
+    "h1": "La blessure d'abandon : la reconnaître, comprendre d'où elle vient",
+    "desc": "Blessure d'abandon : ses signes, le masque du dépendant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.",
+    "intro": "Une absence qui plonge dans l'angoisse. Un silence qui fait imaginer le pire. Le besoin d'être rassuré·e, encore et encore. La blessure d'abandon touche la peur de rester seul·e, sans soutien.",
+    "definition": [
+      "La blessure d'abandon est la peur profonde de manquer de l'autre : d'être laissé·e, oublié·e, de ne pas être soutenu·e quand on en a besoin. Elle ne naît pas forcément d'un abandon réel. Un parent présent mais débordé, malheureux ou distant peut laisser à l'enfant la même impression de manque.",
+      "L'enfant en tire une conclusion : seul·e, je ne vais pas y arriver. À l'âge adulte, cette conclusion se réveille dès qu'un lien semble menacé, même par un simple retard ou un message sans réponse."
+    ],
+    "signes": [
+      "La solitude te paraît très difficile à supporter.",
+      "Tu as besoin d'être rassuré·e souvent dans tes relations.",
+      "Tu acceptes beaucoup de choses pour ne pas perdre quelqu'un.",
+      "Une absence ou un silence te fait imaginer le pire.",
+      "Tu as du mal à prendre une décision seul·e, tu demandes souvent l'avis des autres.",
+      "Tu t'accroches à des relations qui ne te font plus de bien.",
+      "Ou au contraire, tu pars toujours le premier ou la première, pour ne pas être quitté·e."
+    ],
+    "masqueTxt": [
+      "Pour ne plus ressentir l'abandon, on cherche à ne jamais manquer de présence. Lise Bourbeau appelle cette protection le masque du dépendant. Il pousse à attirer l'attention, à demander du soutien, à faire passer le lien avant tout, parfois à se montrer en difficulté pour que l'autre reste.",
+      "Ce masque n'est pas de la faiblesse : c'est une stratégie apprise pour garder les autres près de soi. Son coût est la fatigue, la sienne et celle des proches, et la sensation de ne jamais être tout à fait rassuré·e, quoi que l'autre fasse."
+    ],
+    "parent": "Dans le modèle de Lise Bourbeau, la blessure d'abandon se vit surtout avec le parent du sexe opposé : la fille avec son père, le garçon avec sa mère. Là encore, ce n'est pas une règle. Un parent parti, absent, absorbé par son travail ou par son propre deuil, un frère aîné qui comptait beaucoup, une grand-mère qui gardait l'enfant puis a disparu : l'important est de repérer quel lien a manqué, et quand.",
+    "famille": {
+      "texte": "L'abandon se transmet souvent sous forme de peur. Une mère qui a perdu sa propre mère très jeune peut avoir, sans le savoir, une façon anxieuse d'aimer. Dans ton arbre, cherche les liens qui ont été coupés.",
+      "pistes": [
+        ["Les deuils précoces", "Un parent mort jeune, un enfant qui a grandi avec un vide jamais expliqué."],
+        ["Les départs", "Un père parti, une mère partie travailler loin, une guerre, une émigration."],
+        ["Les enfants confiés", "Élevés par les grands-parents, placés en pension, en nourrice ou en famille d'accueil."],
+        ["Les séparations sans explication", "Un divorce dont on n'a jamais parlé, un parent qui a cessé de venir."]
+      ]
+    },
+    "amour": "En amour, la blessure d'abandon est sans doute la plus visible. Peur de la rupture, besoin de messages fréquents, jalousie, difficulté à laisser l'autre avoir sa vie, acceptation de ce qui ne convient pas pour ne pas rester seul·e. Elle se rapproche de ce que la psychologie appelle l'attachement anxieux. Nous y consacrons un article entier : la blessure d'abandon et la relation amoureuse.",
+    "travail": "Au travail, elle se lit dans le besoin d'être validé·e, la difficulté à travailler seul·e ou à prendre une décision sans l'accord d'un supérieur. Un collègue qui part, une équipe qui change, un responsable moins disponible peuvent réveiller une angoisse disproportionnée. Apprendre à valider soi-même son travail est un vrai chantier.",
+    "pas": [
+      "Passer un moment seul·e de façon choisie, sans écran, et noter ce que tu ressens.",
+      "Quand l'angoisse monte face à un silence, attendre une heure avant de relancer.",
+      "Demander de l'aide clairement, au lieu d'espérer que l'autre devine.",
+      "Prendre une petite décision sans demander d'avis, et t'en féliciter.",
+      "Te parler comme tu parlerais à un enfant inquiet : avec douceur et fermeté."
+    ],
+    "faq": [
+      ["Comment se manifeste une blessure d'abandon chez l'adulte ?", "Par la peur d'être quitté·e, le besoin d'être rassuré·e, la difficulté à être seul·e, et parfois par l'inverse : partir avant d'être laissé·e, ou ne jamais s'engager."],
+      ["La blessure d'abandon vient-elle forcément d'un abandon réel ?", "Non. Un parent présent mais débordé, triste ou distant peut laisser la même impression. C'est le ressenti de l'enfant qui compte, pas la réalité des faits."],
+      ["Quel est le lien entre blessure d'abandon et dépendance affective ?", "Ils se recoupent souvent : le besoin intense de l'autre pour se sentir en sécurité. Si cette dépendance te fait souffrir, en parler à un·e professionnel·le de l'accompagnement peut beaucoup aider."]
+    ]
+  },
+  "humiliation": {
+    "slug": "blessure-d-humiliation.html",
+    "nom": "humiliation", "article": "la blessure d'humiliation", "de": "d'humiliation",
+    "masque": "masochiste", "masqueArt": "le masque du masochiste",
+    "cycle": 1, "question": "Ai-je le droit d'avoir des besoins ?",
+    "title": "Blessure d'humiliation : signes, quel parent, masque et histoire familiale",
+    "h1": "La blessure d'humiliation : la reconnaître, comprendre d'où elle vient",
+    "desc": "Blessure d'humiliation : ses signes, quel parent est souvent concerné, le masque du masochiste, ce qu'elle rejoue en amour et au travail, et dans la famille.",
+    "intro": "Porter beaucoup pour les autres et peu pour toi. Te moquer de toi avant que quelqu'un ne le fasse. Avoir honte de tes désirs, de ton corps ou de tes origines. La blessure d'humiliation touche le droit d'avoir des besoins.",
+    "definition": [
+      "La blessure d'humiliation est la honte d'être soi : de ses besoins, de ses plaisirs, de son corps, de sa famille, de ses origines. Elle naît souvent de moqueries, de remarques, de comparaisons, ou du sentiment d'avoir été un fardeau ou une source de gêne.",
+      "L'enfant conclut que ses besoins sont de trop, ou sales, ou ridicules. Adulte, il ou elle se met au service des autres, porte leurs charges, et s'oublie. Recevoir devient plus difficile que donner."
+    ],
+    "signes": [
+      "Tu te sens facilement honteux·se ou ridicule.",
+      "Tu portes beaucoup pour les autres et très peu pour toi.",
+      "Tu as du mal à recevoir un compliment, un cadeau ou un plaisir.",
+      "Tu te moques de toi avant que d'autres ne le fassent.",
+      "Tu as du mal à dire ce dont tu as envie, surtout dans l'intimité.",
+      "Tu te sens responsable du bien-être de tout le monde.",
+      "Tu culpabilises dès que tu te fais plaisir."
+    ],
+    "masqueTxt": [
+      "Lise Bourbeau appelle la protection liée à l'humiliation le masque du masochiste. Le mot est fort et ne désigne pas un trait clinique : il décrit la tendance à s'imposer des charges, à se faire passer en dernier, à se rendre utile au point de s'épuiser, comme si l'on devait mériter sa place en portant.",
+      "Ce masque protège de la honte : tant que l'on se rend indispensable, on ne risque pas d'être jugé·e pour ses besoins. Son coût est l'épuisement, la frustration accumulée, et parfois une colère qui finit par sortir d'un coup."
+    ],
+    "parentTitre": "Blessure d'humiliation : quel parent ?",
+    "parent": "Dans le modèle de Lise Bourbeau, la blessure d'humiliation se vit le plus souvent avec le parent qui s'est occupé du corps et des premiers apprentissages de l'enfant : l'alimentation, la propreté, l'habillement, le développement physique. Dans beaucoup de familles, c'était la mère, mais ce peut être le père, une grand-mère ou toute personne qui tenait ce rôle. La question utile n'est pas « à qui la faute ? », mais « auprès de qui ai-je appris que mes besoins faisaient honte ? ».",
+    "famille": {
+      "texte": "La honte se transmet très bien, surtout quand elle n'est pas dite. Une famille qui a connu la pauvreté, la ruine ou l'exclusion peut transmettre une gêne diffuse à l'égard du plaisir, de l'argent ou du corps.",
+      "pistes": [
+        ["Les hontes de famille", "Une pauvreté cachée, une origine tue, un enfant né hors mariage, une faillite."],
+        ["Les remarques sur le corps", "Le poids, l'apparence, la sexualité commentés ou moqués d'une génération à l'autre."],
+        ["Les femmes ou les hommes qui portaient tout", "Une grand-mère qui s'oubliait pour tous, un père qui ne s'accordait rien."],
+        ["Les phrases transmises", "« On ne se plaint pas. » « Pour qui tu te prends ? » « Le plaisir, c'est pour les autres. »"]
+      ]
+    },
+    "amour": "En amour, la blessure d'humiliation pousse à donner beaucoup et à demander peu. On s'adapte, on prend en charge, on n'ose pas exprimer ses envies. L'intimité peut être chargée de gêne. Le couple devient parfois une charge de plus. Dire un besoin, même petit, et le laisser exister sans t'en excuser est un vrai pas.",
+    "travail": "Au travail, on la reconnaît chez celles et ceux qui acceptent toutes les tâches, restent tard, ne savent pas dire non et ont du mal à valoriser leur travail. On peut aussi craindre d'être ridiculisé·e en public, et se taire. Apprendre à fixer une limite, puis une autre, change souvent tout.",
+    "pas": [
+      "T'accorder un plaisir simple sans t'en justifier, ni avant ni après.",
+      "Nommer un besoin à voix haute une fois cette semaine.",
+      "Remplacer une moquerie envers toi-même par une phrase juste.",
+      "Refuser une tâche qui ne te revient pas.",
+      "Recevoir un compliment en disant simplement « merci »."
+    ],
+    "faq": [
+      ["Quel parent est lié à la blessure d'humiliation ?", "Selon Lise Bourbeau, le plus souvent celui qui s'est occupé du corps et des premiers apprentissages de l'enfant, souvent la mère. Ce n'est pas une règle : c'est le rôle qui compte, pas le sexe du parent."],
+      ["Pourquoi parle-t-on de masque du masochiste ?", "C'est le nom donné par Lise Bourbeau à la tendance à se charger des autres et à se faire passer en dernier. Ce n'est pas un terme clinique et il ne dit rien de ta personne entière."],
+      ["Comment reconnaître la honte héritée ?", "Quand une gêne te paraît plus grande que ton histoire, et qu'on la retrouve chez tes parents ou grands-parents sur le même sujet (l'argent, le corps, l'origine), elle a peut-être une histoire familiale."]
+    ]
+  },
+  "trahison": {
+    "slug": "blessure-de-trahison.html",
+    "nom": "trahison", "article": "la blessure de trahison", "de": "de trahison",
+    "masque": "contrôlant", "masqueArt": "le masque du contrôlant",
+    "cycle": 2, "question": "Puis-je faire confiance ?",
+    "title": "Blessure de trahison : signes, masque du contrôlant et histoire familiale",
+    "h1": "La blessure de trahison : la reconnaître, comprendre d'où elle vient",
+    "desc": "Blessure de trahison : ses signes, le masque du contrôlant, le parent souvent concerné, ce qu'elle rejoue en amour et au travail, et son histoire familiale.",
+    "intro": "Tout prévoir pour ne jamais être pris·e de court. Avoir du mal à déléguer. Ne compter que sur toi, même avec ceux qui t'aiment. La blessure de trahison touche la confiance.",
+    "definition": [
+      "La blessure de trahison naît quand une promesse n'est pas tenue, quand une loyauté est rompue, ou quand l'enfant a l'impression qu'on s'est servi de lui. Une parole donnée puis oubliée, une préférence affichée, un secret découvert, un parent sur qui l'on comptait et qui n'a pas été à la hauteur.",
+      "L'enfant en tire une leçon : on ne peut se fier qu'à soi. Adulte, il ou elle devient fort·e, fiable, responsable, mais a du mal à lâcher prise et à faire confiance."
+    ],
+    "signes": [
+      "Tu as du mal à déléguer ou à laisser quelqu'un faire à sa façon.",
+      "Les promesses non tenues te mettent hors de toi.",
+      "Tu veux tout prévoir pour ne pas être pris·e de court.",
+      "Tu te méfies, même des personnes qui t'aiment.",
+      "Tu as besoin d'avoir raison, et de le faire reconnaître.",
+      "Tu supportes mal les changements de dernière minute.",
+      "Tu as du mal à pardonner, et tu te souviens de chaque déception."
+    ],
+    "masqueTxt": [
+      "Lise Bourbeau appelle la protection liée à la trahison le masque du contrôlant. Il pousse à anticiper, organiser, vérifier, décider pour les autres. Il donne souvent l'image d'une personne solide, sur qui l'on peut compter.",
+      "Ce masque protège de la déception : si l'on contrôle tout, rien ne peut nous trahir. Son coût est une fatigue permanente, des relations tendues, et la solitude de celui ou celle qui porte tout parce qu'il ou elle ne peut se reposer sur personne."
+    ],
+    "parent": "Dans le modèle de Lise Bourbeau, la blessure de trahison se vit surtout avec le parent du sexe opposé : la fille avec son père, le garçon avec sa mère. Mais une trahison peut venir de partout : un parent qui préfère un autre enfant, un grand-parent qui revient sur sa parole, un adulte de confiance qui n'a pas protégé. Cherche moins un coupable qu'un moment : quand as-tu décidé de ne plus compter que sur toi ?",
+    "famille": {
+      "texte": "La trahison laisse des traces durables dans une lignée, parce qu'elle touche les alliances. Dans ton arbre, regarde les endroits où la confiance s'est cassée.",
+      "pistes": [
+        ["Les héritages disputés", "Des frères et sœurs fâchés pour une maison, un partage jugé injuste, un testament contesté."],
+        ["Les infidélités", "Une double vie, un enfant né d'une autre union, un secret de couple découvert."],
+        ["Les préférences", "Un enfant chouchou, un aîné privilégié, une fille ou un fils toujours en second."],
+        ["Les engagements rompus", "Une promesse de mariage, une association qui a mal fini, un parent qui n'est pas revenu."]
+      ]
+    },
+    "amour": "En amour, la blessure de trahison se lit dans la méfiance, la jalousie, le besoin de tout savoir, la difficulté à laisser l'autre libre. On peut aussi choisir des partenaires peu fiables, comme pour confirmer que la confiance ne paie pas. Nous y consacrons un article entier : la blessure de trahison et la relation amoureuse.",
+    "travail": "Au travail, on la reconnaît chez les personnes qui ont du mal à déléguer, vérifient tout, prennent mal les changements de dernière minute et vivent un engagement non tenu comme une faute grave. Elles sont souvent très fiables, et s'épuisent à force de tout porter.",
+    "pas": [
+      "Laisser une petite chose se faire sans toi, et sans vérifier.",
+      "Dire ce que tu attends au lieu de contrôler si c'est fait.",
+      "Distinguer ce qui dépend de toi de ce qui ne dépend pas de toi, sur une feuille.",
+      "Accepter un imprévu sans réorganiser tout le reste.",
+      "Faire une petite promesse à toi-même, et la tenir."
+    ],
+    "faq": [
+      ["Comment reconnaître une blessure de trahison ?", "Au besoin de tout contrôler, à la méfiance, à la difficulté de déléguer et à la colère vive face aux promesses non tenues. Ces signes indiquent une piste, pas un diagnostic."],
+      ["Quelle est la différence entre la blessure de trahison et la blessure d'abandon ?", "Toutes deux touchent le lien. L'abandon craint que l'autre parte, et pousse à s'accrocher. La trahison craint que l'autre déçoive, et pousse à contrôler."],
+      ["La blessure de trahison peut-elle venir d'une histoire familiale ?", "Les ruptures de confiance laissent souvent des traces sur plusieurs générations : héritages disputés, infidélités, préférences. Les repérer dans ton arbre peut éclairer ta propre méfiance."]
+    ]
+  },
+  "injustice": {
+    "slug": "blessure-d-injustice.html",
+    "nom": "injustice", "article": "la blessure d'injustice", "de": "d'injustice",
+    "masque": "rigide", "masqueArt": "le masque du rigide",
+    "cycle": 1, "question": "Ai-je le droit d'être imparfait·e ?",
+    "title": "Blessure d'injustice : signes, colère, travail, masque du rigide",
+    "h1": "La blessure d'injustice : la reconnaître, comprendre d'où elle vient",
+    "desc": "Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.",
+    "intro": "Être très exigeant·e avec toi-même. Retenir tes émotions. Ne pas supporter ce qui est injuste, et te sentir rarement reconnu·e. La blessure d'injustice touche le droit d'être imparfait·e.",
+    "definition": [
+      "La blessure d'injustice naît du sentiment d'avoir été traité·e sans justesse : avec froideur, avec trop de rigueur, sans reconnaissance, ou de façon inégale. Un enfant qui devait être sage, performant, parfait ; des règles appliquées sans tendresse ; des efforts jamais vus.",
+      "L'enfant apprend à se couper de ce qu'il ressent pour être à la hauteur. Adulte, il ou elle est souvent juste, précis·e, travailleur·se, mais dur·e avec soi-même, et peut s'enflammer face à ce qui semble injuste."
+    ],
+    "signes": [
+      "Tu es très exigeant·e avec toi-même, rarement satisfait·e.",
+      "Tu as du mal à montrer tes émotions, surtout la tristesse.",
+      "Les règles, le juste et l'injuste comptent énormément pour toi.",
+      "Tu te sens rarement reconnu·e pour ce que tu fais.",
+      "Tu as du mal à recevoir de l'aide ou un cadeau sans le rendre aussitôt.",
+      "Une injustice, même faite à d'autres, te met en colère.",
+      "Tu te reproches longtemps la moindre erreur."
+    ],
+    "masqueTxt": [
+      "Lise Bourbeau appelle la protection liée à l'injustice le masque du rigide. Il pousse à se tenir droit, à tout faire bien, à contrôler ses émotions et à viser la perfection, pour ne jamais donner prise au reproche.",
+      "Ce masque protège de la sensibilité, jugée dangereuse. Son coût est la tension, la difficulté à se détendre et à profiter, et une froideur apparente qui éloigne parfois les autres, alors qu'à l'intérieur on ressent beaucoup."
+    ],
+    "parent": "Dans le modèle de Lise Bourbeau, la blessure d'injustice se vit surtout avec le parent du même sexe : la fille avec sa mère, le garçon avec son père, souvent un parent lui-même exigeant ou froid. Ce n'est pas une règle : un professeur, un grand-parent sévère, une fratrie où l'on était comparé·e peuvent jouer le même rôle.",
+    "colere": [
+      "La colère est souvent l'émotion la plus visible de la blessure d'injustice, et la plus mal vécue. On la retient longtemps parce qu'elle ne paraît pas convenable, puis elle sort d'un coup, souvent sur un détail, avec une force qui surprend.",
+      "Cette colère contient une information juste : quelque chose, quelque part, n'a pas été équitable. Le travail n'est pas de la faire taire, mais de la reconnaître plus tôt, de la dire calmement, et de distinguer l'injustice d'aujourd'hui de celles d'hier."
+    ],
+    "famille": {
+      "texte": "L'injustice se transmet souvent à l'échelle d'une lignée entière, et pas seulement d'une personne. Les familles qui ont subi des injustices collectives gardent parfois une vigilance, une dureté ou une colère qui passe de génération en génération.",
+      "pistes": [
+        ["Les injustices subies", "Des spoliations, des guerres, des exclusions, une terre ou une maison perdue."],
+        ["Les éducations strictes", "Des règles sans tendresse, des punitions, un enfant qui devait être parfait."],
+        ["Les inégalités dans la fratrie", "Un enfant favorisé, un partage injuste, des efforts jamais reconnus."],
+        ["Les métiers du devoir", "Des lignées de militaires, de religieux, d'enseignant·es ou de fonctionnaires attachées à la règle."]
+      ]
+    },
+    "amour": "En amour, la blessure d'injustice rend parfois difficile l'abandon de soi : on a du mal à montrer sa vulnérabilité, à dire « j'ai besoin de toi », à recevoir sans compter. Les disputes tournent souvent autour de ce qui est juste. Dire ce que tu ressens, et pas seulement ce que tu penses, ouvre souvent la relation.",
+    "travail": "C'est au travail que la blessure d'injustice se voit le plus. Perfectionnisme, heures supplémentaires, difficulté à déléguer à quelqu'un qui ne fera pas aussi bien, colère face à un collègue moins investi mais mieux payé, sentiment de ne jamais être reconnu·e à sa juste valeur. Le travail devient le lieu où l'on prouve qu'on mérite. Accepter d'être « assez bien » plutôt que parfait·e libère souvent beaucoup d'énergie.",
+    "pas": [
+      "T'autoriser une erreur sans te punir, et la regarder comme une information.",
+      "Montrer une émotion à une personne de confiance.",
+      "Te féliciter pour un effort, et pas seulement pour un résultat.",
+      "Quand la colère monte, nommer l'injustice précise en une phrase avant de réagir.",
+      "Rendre un travail « assez bien » une fois, et observer qu'il ne se passe rien de grave."
+    ],
+    "faq": [
+      ["Comment se manifeste la blessure d'injustice au travail ?", "Par le perfectionnisme, la difficulté à déléguer, la colère face aux inégalités et le sentiment de ne pas être reconnu·e. Elle fait souvent d'excellents professionnels, épuisés."],
+      ["Pourquoi la blessure d'injustice provoque-t-elle autant de colère ?", "Parce que la colère a longtemps été retenue, et qu'elle porte une information juste : quelque chose n'a pas été équitable. Elle sort souvent d'un coup, sur un détail."],
+      ["Quel parent est lié à la blessure d'injustice ?", "Selon Lise Bourbeau, surtout le parent du même sexe, souvent exigeant ou froid. Ce n'est pas une règle : toute figure d'autorité rigide peut jouer ce rôle."]
+    ]
+  }
+}

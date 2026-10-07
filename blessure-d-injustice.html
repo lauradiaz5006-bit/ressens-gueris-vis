@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blessure d'injustice : signes, colère, travail, masque du rigide · Genesolia</title>
+  <meta name="description" content="Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.">
+  <link rel="canonical" href="https://genesolia.fr/blessure-d-injustice.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="La blessure d'injustice : la reconnaître, comprendre d'où elle vient">
+  <meta property="og:description" content="Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .tableau{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.95rem}
+    .tableau th,.tableau td{padding:.7rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau thead th{font-weight:600;color:var(--prune-doux);font-size:.88rem;border-top:0}
+    .tableau tbody th{font-weight:600}
+    .defile{overflow-x:auto}
+    .comparer{min-width:34rem}
+    .phase{padding:1.4rem 1.4rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc);margin:1.4rem 0}
+    .phase .nom{font-family:var(--display);color:var(--champagne)}
+    .phase h2,.phase h3{margin:.1rem 0 .6rem!important}
+    .phase p{color:var(--prune-doux)}
+    .phase p+p{margin-top:.7rem}
+    .phase .question{color:var(--prune)}
+    .b-cycle{font-family:var(--display);color:var(--champagne);font-size:1.1rem;margin-top:.8rem}
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"La blessure d'injustice : la reconnaître, comprendre d'où elle vient","description":"Blessure d'injustice : ses signes, le masque du rigide, la colère, ce qu'elle rejoue au travail et en amour, le parent souvent concerné et la famille.","datePublished":"2026-10-07","dateModified":"2026-10-07","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/blessure-d-injustice.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/blessure-d-injustice.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Comment se manifeste la blessure d'injustice au travail ?","acceptedAnswer":{"@type":"Answer","text":"Par le perfectionnisme, la difficulté à déléguer, la colère face aux inégalités et le sentiment de ne pas être reconnu·e. Elle fait souvent d'excellents professionnels, épuisés."}},{"@type":"Question","name":"Pourquoi la blessure d'injustice provoque-t-elle autant de colère ?","acceptedAnswer":{"@type":"Answer","text":"Parce que la colère a longtemps été retenue, et qu'elle porte une information juste : quelque chose n'a pas été équitable. Elle sort souvent d'un coup, sur un détail."}},{"@type":"Question","name":"Quel parent est lié à la blessure d'injustice ?","acceptedAnswer":{"@type":"Answer","text":"Selon Lise Bourbeau, surtout le parent du même sexe, souvent exigeant ou froid. Ce n'est pas une règle : toute figure d'autorité rigide peut jouer ce rôle."}}]}]</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blessures-de-l-ame.html">Les blessures de l'âme</a><span aria-hidden="true">/</span>Blessure d'injustice</nav>
+        <h1>La blessure d'injustice : la reconnaître, comprendre d'où elle vient</h1>
+        <p class="intro">Être très exigeant·e avec toi-même. Retenir tes émotions. Ne pas supporter ce qui est injuste, et te sentir rarement reconnu·e. La blessure d'injustice touche le droit d'être imparfait·e.</p>
+        <p class="b-cycle">Cycle 1 · La racine · « Ai-je le droit d'être imparfait·e ? »</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 7 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce que la blessure d'injustice ?</h2>
+        <p>La blessure d'injustice naît du sentiment d'avoir été traité·e sans justesse : avec froideur, avec trop de rigueur, sans reconnaissance, ou de façon inégale. Un enfant qui devait être sage, performant, parfait ; des règles appliquées sans tendresse ; des efforts jamais vus.</p>
+        <p>L'enfant apprend à se couper de ce qu'il ressent pour être à la hauteur. Adulte, il ou elle est souvent juste, précis·e, travailleur·se, mais dur·e avec soi-même, et peut s'enflammer face à ce qui semble injuste.</p>
+        <p>Elle fait partie des cinq blessures de l'âme décrites par Lise Bourbeau dans <em>Les cinq blessures qui empêchent d'être soi-même</em>. Sur Genesolia, nous la relions au <a href="methode.html">cycle de la racine</a> : la sécurité, la place, le droit d'exister.</p>
+
+        <h2>Les signes de la blessure d'injustice</h2>
+        <p>Ce ne sont pas des preuves, mais des réactions qui reviennent. Coche celles qui te ressemblent.</p>
+        <div class="cocher">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul>
+            <li><label><input type="checkbox"> Tu es très exigeant·e avec toi-même, rarement satisfait·e.</label></li>
+            <li><label><input type="checkbox"> Tu as du mal à montrer tes émotions, surtout la tristesse.</label></li>
+            <li><label><input type="checkbox"> Les règles, le juste et l'injuste comptent énormément pour toi.</label></li>
+            <li><label><input type="checkbox"> Tu te sens rarement reconnu·e pour ce que tu fais.</label></li>
+            <li><label><input type="checkbox"> Tu as du mal à recevoir de l'aide ou un cadeau sans le rendre aussitôt.</label></li>
+            <li><label><input type="checkbox"> Une injustice, même faite à d'autres, te met en colère.</label></li>
+            <li><label><input type="checkbox"> Tu te reproches longtemps la moindre erreur.</label></li>
+          </ul>
+          <p class="note">Plusieurs cases cochées ne disent rien de définitif sur toi. Elles indiquent seulement où regarder. Pour comparer avec les autres blessures, fais <a href="blessures-de-l-ame.html">le test des 5 blessures</a>.</p>
+        </div>
+
+        <h2>Le masque du rigide</h2>
+        <p>Lise Bourbeau appelle la protection liée à l'injustice le masque du rigide. Il pousse à se tenir droit, à tout faire bien, à contrôler ses émotions et à viser la perfection, pour ne jamais donner prise au reproche.</p>
+        <p>Ce masque protège de la sensibilité, jugée dangereuse. Son coût est la tension, la difficulté à se détendre et à profiter, et une froideur apparente qui éloigne parfois les autres, alors qu'à l'intérieur on ressent beaucoup.</p>
+        <p><a href="masques-des-5-blessures.html#rigide">Les cinq masques, comparés</a>.</p>
+
+        <h2>Blessure d'injustice : quel parent ?</h2>
+        <p>Dans le modèle de Lise Bourbeau, la blessure d'injustice se vit surtout avec le parent du même sexe : la fille avec sa mère, le garçon avec son père, souvent un parent lui-même exigeant ou froid. Ce n'est pas une règle : un professeur, un grand-parent sévère, une fratrie où l'on était comparé·e peuvent jouer le même rôle.</p>
+
+        <h2>La blessure d'injustice dans ton histoire familiale</h2>
+        <p>L'injustice se transmet souvent à l'échelle d'une lignée entière, et pas seulement d'une personne. Les familles qui ont subi des injustices collectives gardent parfois une vigilance, une dureté ou une colère qui passe de génération en génération.</p>
+        <ul class="pistes">
+          <li><strong>Les injustices subies</strong><span>Des spoliations, des guerres, des exclusions, une terre ou une maison perdue.</span></li>
+          <li><strong>Les éducations strictes</strong><span>Des règles sans tendresse, des punitions, un enfant qui devait être parfait.</span></li>
+          <li><strong>Les inégalités dans la fratrie</strong><span>Un enfant favorisé, un partage injuste, des efforts jamais reconnus.</span></li>
+          <li><strong>Les métiers du devoir</strong><span>Des lignées de militaires, de religieux, d'enseignant·es ou de fonctionnaires attachées à la règle.</span></li>
+        </ul>
+        <p>Dans ton <a href="genosociogramme.html">arbre familial</a>, tu peux noter ces événements : l'outil fait apparaître ce qui revient d'une génération à l'autre.</p>
+
+        <div class="deux">
+          <div><span class="nom">En amour</span><h3>Blessure d'injustice et relation amoureuse</h3><p>En amour, la blessure d'injustice rend parfois difficile l'abandon de soi : on a du mal à montrer sa vulnérabilité, à dire « j'ai besoin de toi », à recevoir sans compter. Les disputes tournent souvent autour de ce qui est juste. Dire ce que tu ressens, et pas seulement ce que tu penses, ouvre souvent la relation.</p></div>
+          <div><span class="nom">Au travail</span><h3>Blessure d'injustice au travail</h3><p>C'est au travail que la blessure d'injustice se voit le plus. Perfectionnisme, heures supplémentaires, difficulté à déléguer à quelqu'un qui ne fera pas aussi bien, colère face à un collègue moins investi mais mieux payé, sentiment de ne jamais être reconnu·e à sa juste valeur. Le travail devient le lieu où l'on prouve qu'on mérite. Accepter d'être « assez bien » plutôt que parfait·e libère souvent beaucoup d'énergie.</p></div>
+        </div>
+
+        <h2>Blessure d'injustice et colère</h2>
+        <p>La colère est souvent l'émotion la plus visible de la blessure d'injustice, et la plus mal vécue. On la retient longtemps parce qu'elle ne paraît pas convenable, puis elle sort d'un coup, souvent sur un détail, avec une force qui surprend.</p>
+        <p>Cette colère contient une information juste : quelque chose, quelque part, n'a pas été équitable. Le travail n'est pas de la faire taire, mais de la reconnaître plus tôt, de la dire calmement, et de distinguer l'injustice d'aujourd'hui de celles d'hier.</p>
+
+        <h2>Des petits pas pour commencer</h2>
+        <p>Une blessure ne se referme pas d'un coup. Elle cesse peu à peu de décider à ta place, à force de petits gestes différents.</p>
+        <ul class="gestes">
+          <li>T'autoriser une erreur sans te punir, et la regarder comme une information.</li>
+          <li>Montrer une émotion à une personne de confiance.</li>
+          <li>Te féliciter pour un effort, et pas seulement pour un résultat.</li>
+          <li>Quand la colère monte, nommer l'injustice précise en une phrase avant de réagir.</li>
+          <li>Rendre un travail « assez bien » une fois, et observer qu'il ne se passe rien de grave.</li>
+        </ul>
+        <p class="rappel"><strong>La question de la blessure d'injustice.</strong> « Ai-je le droit d'être imparfait·e ? » Te la poser, c'est déjà commencer à y répondre autrement.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Comment se manifeste la blessure d'injustice au travail ?</dt><dd>Par le perfectionnisme, la difficulté à déléguer, la colère face aux inégalités et le sentiment de ne pas être reconnu·e. Elle fait souvent d'excellents professionnels, épuisés.</dd>
+          <dt>Pourquoi la blessure d'injustice provoque-t-elle autant de colère ?</dt><dd>Parce que la colère a longtemps été retenue, et qu'elle porte une information juste : quelque chose n'a pas été équitable. Elle sort souvent d'un coup, sur un détail.</dd>
+          <dt>Quel parent est lié à la blessure d'injustice ?</dt><dd>Selon Lise Bourbeau, surtout le parent du même sexe, souvent exigeant ou froid. Ce n'est pas une règle : toute figure d'autorité rigide peut jouer ce rôle.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="blessures-de-l-ame.html">Faire le test des 5 blessures</a>
+          <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. Le modèle des cinq blessures n'est pas une théorie scientifique. Si une blessure ancienne te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Les cinq blessures"><a href="blessure-de-rejet.html">Rejet</a><a href="blessure-d-abandon.html">Abandon</a><a href="blessure-d-humiliation.html">Humiliation</a><a href="blessure-de-trahison.html">Trahison</a><a href="blessure-d-injustice.html" aria-current="page">Injustice</a><a href="masques-des-5-blessures.html">Les 5 masques</a><a href="blessure-rejet-ou-abandon.html">Rejet ou abandon ?</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Le test des 5 blessures</h3><p>Coche les phrases qui te ressemblent et vois quelle blessure ressort, gratuitement.</p></a>
+          <a class="outil" href="masques-des-5-blessures.html"><h3>Les 5 masques</h3><p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège.</p></a>
+          <a class="outil" href="blessure-rejet-ou-abandon.html"><h3>Rejet ou abandon ?</h3><p>La différence en un tableau, et le comparatif des cinq blessures.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme et repère ce qui se répète dans ta lignée.</p></a>
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Schémas répétitifs en amour</h3><p>Ce qui se rejoue d'une relation à l'autre, et ce que ta famille peut éclairer.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
