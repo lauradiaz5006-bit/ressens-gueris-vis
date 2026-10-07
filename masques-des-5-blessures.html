@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les 5 masques des blessures : fuyant, dépendant, masochiste, contrôlant, rigide · Genesolia</title>
+  <meta name="description" content="Masque du fuyant, du dépendant, du masochiste, du contrôlant, du rigide : ce que chaque masque protège, comment il se voit, et comment l'alléger.">
+  <link rel="canonical" href="https://genesolia.fr/masques-des-5-blessures.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Les cinq masques des blessures de l'âme : fuyant, dépendant, masochiste, contrôlant, rigide">
+  <meta property="og:description" content="Masque du fuyant, du dépendant, du masochiste, du contrôlant, du rigide : ce que chaque masque protège, comment il se voit, et comment l'alléger.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .tableau{width:100%;border-collapse:collapse;margin:1.4rem 0;font-size:.95rem}
+    .tableau th,.tableau td{padding:.7rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau thead th{font-weight:600;color:var(--prune-doux);font-size:.88rem;border-top:0}
+    .tableau tbody th{font-weight:600}
+    .defile{overflow-x:auto}
+    .comparer{min-width:34rem}
+    .phase{padding:1.4rem 1.4rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc);margin:1.4rem 0}
+    .phase .nom{font-family:var(--display);color:var(--champagne)}
+    .phase h2,.phase h3{margin:.1rem 0 .6rem!important}
+    .phase p{color:var(--prune-doux)}
+    .phase p+p{margin-top:.7rem}
+    .phase .question{color:var(--prune)}
+    .b-cycle{font-family:var(--display);color:var(--champagne);font-size:1.1rem;margin-top:.8rem}
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Les cinq masques des blessures de l'âme : fuyant, dépendant, masochiste, contrôlant, rigide","description":"Masque du fuyant, du dépendant, du masochiste, du contrôlant, du rigide : ce que chaque masque protège, comment il se voit, et comment l'alléger.","datePublished":"2026-10-07","dateModified":"2026-10-07","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/masques-des-5-blessures.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/masques-des-5-blessures.html"}}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blessures-de-l-ame.html">Les blessures de l'âme</a><span aria-hidden="true">/</span>Les 5 masques</nav>
+        <h1>Les cinq masques des blessures de l'âme : fuyant, dépendant, masochiste, contrôlant, rigide</h1>
+        <p class="intro">Pour ne plus sentir une blessure, on construit une protection. Elle a été utile, souvent vitale. Mais à l'âge adulte, elle finit par décider à ta place. Voici les cinq masques, ce qu'ils protègent et ce qu'ils coûtent.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 8 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce qu'un masque ?</h2>
+        <p>Dans le modèle des cinq blessures popularisé par Lise Bourbeau, chaque blessure s'accompagne d'un masque : une façon d'être, apprise dans l'enfance, pour ne plus ressentir la douleur. Le mot est bien choisi. Un masque protège le visage, mais il cache aussi qui l'on est.</p>
+        <p>On ne choisit pas son masque, et on ne le porte pas en permanence. Il apparaît quand la blessure est touchée : une critique, une absence, une injustice. Le reste du temps, on est soi. Plus la blessure est vive, plus le masque revient souvent et longtemps.</p>
+        <p class="rappel"><strong>Un repère, pas une étiquette.</strong> Les noms des masques sont ceux de Lise Bourbeau. Ils décrivent des réflexes, pas des personnes. Personne n'est « un fuyant » ou « un contrôlant » : on porte parfois ce masque, comme on met un manteau quand il fait froid.</p>
+
+        <div class="phase" id="fuyant">
+          <span class="nom">Blessure de rejet</span>
+          <h2>Le masque du fuyant</h2>
+          <p><strong>Ce qu'il protège :</strong> la douleur de ne pas être voulu·e. <strong>Comment il se voit :</strong> se faire discret·e, partir avant les autres, éviter les conflits, se réfugier dans ses pensées, se sentir « ailleurs ». <strong>Ce qu'il coûte :</strong> à force de disparaître, on n'est plus vu·e, et l'on se sent encore plus de trop.</p>
+          <p class="question">Le signe qu'il s'allège : tu restes, tu donnes ton avis, et tu t'aperçois que ta présence compte.</p>
+          <p><a href="blessure-de-rejet.html">Tout sur la blessure de rejet</a></p>
+        </div>
+        <div class="phase" id="dependant">
+          <span class="nom">Blessure d'abandon</span>
+          <h2>Le masque du dépendant</h2>
+          <p><strong>Ce qu'il protège :</strong> la peur de rester seul·e, sans soutien. <strong>Comment il se voit :</strong> besoin d'attention et d'avis, difficulté à décider seul·e, peur des séparations, tendance à se plaindre ou à se montrer en difficulté pour que l'autre reste. <strong>Ce qu'il coûte :</strong> une fatigue pour soi et pour les proches, et la sensation de n'être jamais vraiment rassuré·e.</p>
+          <p class="question">Le signe qu'il s'allège : tu peux passer du temps seul·e avec plaisir, et demander de l'aide sans en avoir besoin pour exister.</p>
+          <p><a href="blessure-d-abandon.html">Tout sur la blessure d'abandon</a></p>
+        </div>
+        <div class="phase" id="masochiste">
+          <span class="nom">Blessure d'humiliation</span>
+          <h2>Le masque du masochiste</h2>
+          <p><strong>Ce qu'il protège :</strong> la honte d'avoir des besoins. <strong>Comment il se voit :</strong> se rendre indispensable, porter les charges des autres, se faire passer en dernier, culpabiliser de se faire plaisir, se moquer de soi. Le mot, fort, n'a ici aucun sens clinique. <strong>Ce qu'il coûte :</strong> l'épuisement, la frustration, et une colère qui finit par déborder.</p>
+          <p class="question">Le signe qu'il s'allège : tu t'accordes un plaisir sans te justifier, et tu dis non sans t'excuser.</p>
+          <p><a href="blessure-d-humiliation.html">Tout sur la blessure d'humiliation</a></p>
+        </div>
+        <div class="phase" id="controlant">
+          <span class="nom">Blessure de trahison</span>
+          <h2>Le masque du contrôlant</h2>
+          <p><strong>Ce qu'il protège :</strong> la peur d'être déçu·e ou trompé·e. <strong>Comment il se voit :</strong> tout prévoir, tout vérifier, décider pour les autres, avoir du mal à déléguer, supporter mal l'imprévu, vouloir avoir raison. Il donne souvent l'image d'une personne forte et fiable. <strong>Ce qu'il coûte :</strong> la tension permanente, des relations crispées, la solitude de celui ou celle qui porte tout.</p>
+          <p class="question">Le signe qu'il s'allège : tu laisses quelqu'un faire à sa façon, et tu peux t'en réjouir.</p>
+          <p><a href="blessure-de-trahison.html">Tout sur la blessure de trahison</a></p>
+        </div>
+        <div class="phase" id="rigide">
+          <span class="nom">Blessure d'injustice</span>
+          <h2>Le masque du rigide</h2>
+          <p><strong>Ce qu'il protège :</strong> la peur d'être imparfait·e, et la sensibilité jugée dangereuse. <strong>Comment il se voit :</strong> perfectionnisme, exigence envers soi, émotions retenues, attachement aux règles et au juste, difficulté à se détendre. <strong>Ce qu'il coûte :</strong> la dureté envers soi, une apparente froideur, et des colères soudaines.</p>
+          <p class="question">Le signe qu'il s'allège : tu acceptes un résultat « assez bien », et tu montres ce que tu ressens.</p>
+          <p><a href="blessure-d-injustice.html">Tout sur la blessure d'injustice</a></p>
+        </div>
+
+        <h2>Les 5 masques en un coup d'œil</h2>
+        <div class="defile">
+        <table class="tableau comparer">
+          <thead><tr><th scope="col">Masque</th><th scope="col">Blessure</th><th scope="col">Il évite</th><th scope="col">Il pousse à</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Fuyant</th><td>Rejet</td><td>D'être de trop</td><td>Disparaître</td></tr>
+            <tr><th scope="row">Dépendant</th><td>Abandon</td><td>De rester seul·e</td><td>S'accrocher</td></tr>
+            <tr><th scope="row">Masochiste</th><td>Humiliation</td><td>La honte de ses besoins</td><td>Porter pour les autres</td></tr>
+            <tr><th scope="row">Contrôlant</th><td>Trahison</td><td>D'être déçu·e</td><td>Tout maîtriser</td></tr>
+            <tr><th scope="row">Rigide</th><td>Injustice</td><td>D'être pris·e en défaut</td><td>Viser la perfection</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <h2>Porter plusieurs masques</h2>
+        <p>La plupart des personnes en portent deux ou trois, à des degrés différents. Un masque peut en cacher un autre : le contrôlant, très visible, protège parfois une peur d'abandon plus discrète. Le rigide cache souvent une grande sensibilité. Repérer le masque que tu mets le plus vite, quand tu es touché·e, est un bon point de départ.</p>
+        <p>La <a href="blessure-rejet-ou-abandon.html">différence entre rejet et abandon</a> est la plus souvent confondue, parce que fuyant et dépendant peuvent alterner chez une même personne.</p>
+
+        <h2>Les masques dans une famille</h2>
+        <p>Les masques se transmettent aussi par l'exemple. Une mère toujours au service de tous, un grand-père qui ne montrait jamais ce qu'il ressentait, un père qui vérifiait tout : l'enfant apprend ces façons d'être bien avant de pouvoir les choisir. Dans ton <a href="genosociogramme.html">arbre familial</a>, tu peux noter dans les traits de caractère le masque que chaque personne semblait porter, et voir lesquels reviennent.</p>
+
+        <h2>Alléger un masque, concrètement</h2>
+        <ul class="gestes">
+          <li>Remarquer le moment précis où le masque se met en place : une phrase, un geste, une sensation.</li>
+          <li>Le nommer, même intérieurement : « là, je fuis », « là, je contrôle ».</li>
+          <li>Faire un tout petit geste différent, une seule fois.</li>
+          <li>Te demander ce que tu protèges à ce moment-là, et ce que tu ressens dessous.</li>
+          <li>Être doux·ce avec toi : ce masque t'a servi, il peut se poser peu à peu.</li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-plein" href="blessures-de-l-ame.html">Faire le test des 5 blessures</a>
+          <a class="btn btn-trait" href="blessure-rejet-ou-abandon.html">Rejet ou abandon ?</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. Le modèle des cinq blessures n'est pas une théorie scientifique. Si une blessure ancienne te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Les cinq blessures"><a href="blessure-de-rejet.html">Rejet</a><a href="blessure-d-abandon.html">Abandon</a><a href="blessure-d-humiliation.html">Humiliation</a><a href="blessure-de-trahison.html">Trahison</a><a href="blessure-d-injustice.html">Injustice</a><a href="masques-des-5-blessures.html" aria-current="page">Les 5 masques</a><a href="blessure-rejet-ou-abandon.html">Rejet ou abandon ?</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Le test des 5 blessures</h3><p>Coche les phrases qui te ressemblent et vois quelle blessure ressort, gratuitement.</p></a>
+          <a class="outil" href="masques-des-5-blessures.html"><h3>Les 5 masques</h3><p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège.</p></a>
+          <a class="outil" href="blessure-rejet-ou-abandon.html"><h3>Rejet ou abandon ?</h3><p>La différence en un tableau, et le comparatif des cinq blessures.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme et repère ce qui se répète dans ta lignée.</p></a>
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Schémas répétitifs en amour</h3><p>Ce qui se rejoue d'une relation à l'autre, et ce que ta famille peut éclairer.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
