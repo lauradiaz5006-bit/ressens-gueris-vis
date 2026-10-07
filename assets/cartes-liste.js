@@ -1,0 +1,30 @@
+/* Genesolia — les phrases de la galerie de cartes.
+   Pour ajouter une carte : ajouter une ligne, puis régénérer les images. */
+window.GENESOLIA_CARTES = [
+  { id: 'ecrire-la-mienne',    theme: 'toi',     style: 'rose',      sur: 'Pour toi',            phrase: "Je ne rejoue pas leur histoire. J'écris la mienne." },
+  { id: 'aimer-et-choisir',    theme: 'famille', style: 'champagne', sur: 'Famille',             phrase: "On peut aimer sa famille et choisir autre chose." },
+  { id: 'ce-silence',          theme: 'amour',   style: 'corail',    sur: 'Amour',               phrase: "Ce silence ne dit rien de ma valeur." },
+  { id: 'demander',            theme: 'amour',   style: 'prune',     sur: 'Amour',               phrase: "J'ai le droit de demander ce que je veux vraiment." },
+  { id: 'dire-non',            theme: 'toi',     style: 'rose',      sur: 'Pour toi',            phrase: "Dire non à certains, c'est parfois dire oui à moi." },
+  { id: 'a-mon-rythme',        theme: 'toi',     style: 'champagne', sur: 'Pour toi',            phrase: "Je ne suis pas en retard. Je suis à mon rythme." },
+  { id: 'demande-a-etre-vu',   theme: 'lignee',  style: 'prune',     sur: 'Ce qui se répète',    phrase: "Ce qui se répète demande seulement à être vu." },
+  { id: 'le-meilleur',         theme: 'lignee',  style: 'champagne', sur: 'Lignée',              phrase: "Je garde le meilleur de ma lignée. Je laisse le reste." },
+  { id: 'partir',              theme: 'famille', style: 'corail',    sur: 'Famille',             phrase: "Partir n'est pas abandonner. C'est grandir." },
+  { id: 'racines-appuis',      theme: 'lignee',  style: 'rose',      sur: 'Racines',             phrase: "Mes racines ne sont pas une cage. Ce sont mes appuis." },
+  { id: 'se-retrouver',        theme: 'amour',   style: 'champagne', sur: 'Amour',               phrase: "Une relation où l'on sait se retrouver après une dispute est une relation solide." },
+  { id: 'prochain-pas',        theme: 'toi',     style: 'prune',     sur: 'Pour toi',            phrase: "Je n'ai pas besoin de tout savoir. Seulement du prochain pas." },
+  { id: 'sans-tout-donner',    theme: 'amour',   style: 'rose',      sur: 'Amour',               phrase: "Je mérite d'être choisie sans avoir à tout donner." },
+  { id: 'me-le-donner',        theme: 'toi',     style: 'corail',    sur: 'Pour toi',            phrase: "Ce que je n'ai pas reçu, je peux apprendre à me le donner." },
+  { id: 'faire-semblant',      theme: 'toi',     style: 'champagne', sur: 'Pour toi',            phrase: "Arrêter de faire semblant, c'est déjà respirer." },
+  { id: 'boucle-spirale',      theme: 'lignee',  style: 'prune',     sur: 'La spirale',          phrase: "La boucle devient spirale le jour où je la regarde." },
+  { id: 'ma-mere',             theme: 'famille', style: 'rose',      sur: 'Famille',             phrase: "Je peux ressembler à ma mère, et faire autrement." },
+  { id: 'ma-place',            theme: 'toi',     style: 'champagne', sur: 'Ta place',            phrase: "Ma place existe. Je n'ai pas à la mériter." },
+  { id: 'peurs-rendre',        theme: 'lignee',  style: 'corail',    sur: 'Lignée',              phrase: "Certaines peurs ne m'appartiennent pas. Je peux les rendre, avec douceur." },
+  { id: 'entiere',             theme: 'toi',     style: 'prune',     sur: 'Pour toi',            phrase: "Je ne suis pas trop. Je suis entière." },
+  { id: 'une-relation-vraie',  theme: 'amour',   style: 'rose',      sur: 'Lien',                phrase: "Une seule relation vraie peut tout changer." },
+  { id: 'apprendre',           theme: 'lignee',  style: 'champagne', sur: 'Ce qui se répète',    phrase: "Tout ce qui revient a quelque chose à m'apprendre." },
+  { id: 'ils-ont-traverse',    theme: 'lignee',  style: 'prune',     sur: 'Lignée',              phrase: "Ils ont traversé tant de choses pour que je puisse vivre la mienne." },
+  { id: 'deux-parents',        theme: 'famille', style: 'corail',    sur: 'Famille',             phrase: "J'ai le droit d'aimer mes deux parents sans choisir." },
+  { id: 'ne-se-voit-pas',      theme: 'amour',   style: 'champagne', sur: 'Amour',               phrase: "Ce n'est pas parce que c'est familier que c'est bon pour moi." },
+  { id: 'aujourdhui-spirale',  theme: 'lignee',  style: 'rose',      sur: 'La spirale',          phrase: "Aujourd'hui, je choisis la spirale." }
+];

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://genesolia.fr/sitemap.xml

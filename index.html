@@ -8,6 +8,7 @@
   <meta property="og:title" content="Genesolia · Comprendre ce qui se répète dans ta vie">
   <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://genesolia.fr/assets/reseaux/ton-silence.jpg">
   <link rel="canonical" href="https://genesolia.fr/">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -56,7 +57,31 @@
     .croisement strong{color:var(--blanc);font-weight:600}
     .croisement svg{width:40px;height:40px}
 
+    /* Images */
+    .arbre{padding:1.4rem 1.2rem .4rem;border-radius:28px;background:url(assets/accueil/arbre-fond.jpg) center/cover;box-shadow:0 24px 60px rgba(107,47,91,.14)}
+    .illu{display:block;width:calc(100% + 4rem);max-width:none;height:auto;aspect-ratio:2/1;object-fit:cover;margin:-2rem -2rem 1.4rem;border-radius:var(--rayon) var(--rayon) 0 0}
+    .deux article{overflow:hidden}
+    .vingt{position:relative;overflow:hidden;border-radius:var(--rayon);padding:3rem 2.4rem;color:#FFF4F6;background:url(assets/accueil/vingt.jpg) center 40%/cover}
+    .vingt::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,14,48,.78),rgba(40,14,48,.35) 70%,rgba(40,14,48,.1))}
+    .vingt>*{position:relative;max-width:34rem}
+    .vingt h2{color:#fff;margin-bottom:.8rem}
+    .vingt p{color:#F7E6EE;margin-bottom:1.4rem}
+    .partage{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;list-style:none}
+    .partage a{display:block;border-radius:16px;overflow:hidden;box-shadow:0 14px 34px rgba(107,47,91,.14);transition:transform .25s}
+    .partage a:hover{transform:translateY(-4px)}
+    .partage img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+    .blog-cartes{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem}
+    .blog-cartes a{display:flex;flex-direction:column;border-radius:var(--rayon);overflow:hidden;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:box-shadow .2s,border-color .2s}
+    .blog-cartes a:hover{border-color:var(--champagne-clair);box-shadow:0 14px 40px rgba(107,47,91,.1)}
+    .blog-cartes img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+    .blog-cartes div{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.4rem}
+    .blog-cartes h3{font-size:1.2rem;line-height:1.25}
+    .blog-cartes p{font-size:.94rem;color:var(--prune-doux)}
+    .blog-cartes span{font-size:.85rem;color:var(--champagne);font-weight:600}
+    @media (max-width:980px){.blog-cartes,.partage{grid-template-columns:1fr 1fr}}
     @media (max-width:860px){
+      .vingt{padding:2.2rem 1.5rem}
+      .vingt::before{background:linear-gradient(180deg,rgba(40,14,48,.55),rgba(40,14,48,.8))}
       .ouverture .conteneur{grid-template-columns:1fr;padding-top:2.5rem}
       .arbre{max-width:300px}
       .deux{grid-template-columns:1fr}
@@ -155,6 +180,7 @@
         </div>
         <div class="deux">
           <article>
+            <img class="illu" src="assets/accueil/familial.jpg" width="960" height="540" alt="" loading="lazy">
             <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="8" r="4" fill="#6B2F5B"/><path d="M22 12v6M22 18c0 6-10 6-10 12M22 18c0 6 10 6 10 12M12 30v6M32 30v6" stroke="#6B2F5B" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/><circle cx="32" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/></svg>
             <h3>L'arbre familial, ou génosociogramme</h3>
             <p>Tu y places tes parents, grands-parents et arrière-grands-parents, avec les dates et les événements marquants. Les répétitions apparaissent d'elles-mêmes.</p>
@@ -166,6 +192,7 @@
             <p style="margin-top:1rem"><a href="quest-ce-qu-un-genosociogramme.html">Qu'est-ce qu'un génosociogramme ?</a></p>
           </article>
           <article class="haut">
+            <img class="illu" src="assets/accueil/arbre-vie.jpg" width="960" height="540" alt="" loading="lazy">
             <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B98A55"/><circle cx="12" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B98A55"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B98A55" stroke-width="1.3"/></svg>
             <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
             <p>Une grille symbolique de dix sphères, issue de la tradition de la Kabbale. Chacune correspond à un domaine de ta vie, de la vie matérielle au sens que tu lui donnes.</p>
@@ -192,10 +219,12 @@
         </div>
         <div class="deux">
           <article>
+            <img class="illu" src="assets/accueil/racine.jpg" width="960" height="540" alt="" loading="lazy">
             <h3>Cycle 1 · La racine</h3>
             <p>Se sentir en sécurité, avoir sa place, avoir le droit d'exister. Tu le reconnais à la peur de manquer, au besoin de tout contrôler, à la difficulté de demander.</p>
           </article>
           <article class="haut">
+            <img class="illu" src="assets/accueil/coeur.jpg" width="960" height="540" alt="" loading="lazy">
             <h3>Cycle 2 · Le cœur</h3>
             <p>Aimer et être aimé·e. Tu le reconnais aux relations qui se ressemblent, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e.</p>
           </article>
@@ -255,8 +284,8 @@
 
     <section class="bloc">
       <div class="conteneur">
-        <div class="encart" style="display:grid;gap:1rem;padding:2.2rem">
-          <h2 style="color:#fff">Tu as entre 18 et 25 ans ?</h2>
+        <div class="vingt">
+          <h2>Tu as entre 18 et 25 ans ?</h2>
           <p>Un espace rien que pour toi : choisis ta situation (il ne répond plus, tes parents, l'argent, ta place) et repars avec ce qui se joue, un geste pour aujourd'hui et les mots pour le dire.</p>
           <div><a class="btn" style="background:#fff;color:var(--prune)" href="tes-20-ans.html">Découvrir Tes 20 ans</a></div>
         </div>
@@ -265,12 +294,25 @@
 
     <section class="bloc">
       <div class="conteneur">
+        <div class="bloc-tete"><h2>Des images à partager</h2><p>Des phrases pour t'affirmer, poser tes limites ou faire passer un message. Gratuites, prêtes pour ton post ou ta story.</p></div>
+        <ul class="partage">
+          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/ton-silence-mini.jpg" width="540" height="675" alt="Ton silence ne m'atteint plus." loading="lazy"></a></li>
+          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/limites-mini.jpg" width="540" height="675" alt="Mes limites ne sont pas négociables." loading="lazy"></a></li>
+          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/je-me-choisis-mini.jpg" width="540" height="675" alt="Je me choisis." loading="lazy"></a></li>
+          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/vu-mini.jpg" width="540" height="675" alt="Vu. Et je n'ai rien à répondre." loading="lazy"></a></li>
+        </ul>
+        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="cartes.html">Voir toutes les images</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
         <div class="bloc-tete"><h2>Sur le blog</h2><p>Des articles concrets pour avancer pas à pas.</p></div>
-        <div class="liste-outils">
-          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Schémas répétitifs en amour</h3><span class="duree">7 min</span><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></a>
-          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><span class="duree">8 min</span><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></a>
-          <a class="outil" href="informations-avant-genosociogramme.html"><h3>Les informations à rassembler</h3><span class="duree">7 min</span><p>Tout ce qu'il faut réunir avant de faire son génosociogramme, avec une liste à imprimer.</p></a>
-          <a class="outil" href="arbre-de-vie-arbre-genealogique-genosociogramme.html"><h3>Trois arbres à ne pas confondre</h3><span class="duree">6 min</span><p>Arbre de vie, arbre généalogique et génosociogramme : les différences.</p></a>
+        <div class="blog-cartes">
+          <a href="schemas-repetitifs-en-amour.html"><img src="assets/accueil/blog-amour.jpg" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></div></a>
+          <a href="questions-a-poser-a-sa-famille.html"><img src="assets/accueil/blog-famille.jpg" width="720" height="405" alt="" loading="lazy"><div><span>8 min</span><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></div></a>
+          <a href="informations-avant-genosociogramme.html"><img src="assets/accueil/blog-infos.jpg" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Les informations à rassembler</h3><p>Tout ce qu'il faut réunir avant de faire son génosociogramme, avec une liste à imprimer.</p></div></a>
+          <a href="arbre-de-vie-arbre-genealogique-genosociogramme.html"><img src="assets/accueil/blog-arbres.jpg" width="720" height="405" alt="" loading="lazy"><div><span>6 min</span><h3>Trois arbres à ne pas confondre</h3><p>Arbre de vie, arbre généalogique et génosociogramme : les différences.</p></div></a>
         </div>
         <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="blog.html">Tous les articles</a></div>
       </div>
