@@ -18,6 +18,17 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
+    .cy-q{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.2rem 0 .5rem}
+    .cy-bl{margin-top:.8rem;font-size:.93rem}
+    .blessures{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
+    .blessures a{display:flex;flex-direction:column;gap:.3rem;padding:1.2rem 1.1rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,transform .2s}
+    .blessures a:hover{border-color:var(--champagne);transform:translateY(-2px)}
+    .blessures b{font-family:var(--display);font-weight:400;font-size:1.25rem}
+    .blessures span{font-size:.9rem;color:var(--prune-doux)}
+    .blessures em{margin-top:auto;padding-top:.5rem;font-style:normal;font:600 .72rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
+    @media (max-width:1000px){.blessures{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:640px){.blessures{grid-template-columns:1fr 1fr}}
+
     .portes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
     .porte-l{position:relative;display:flex;flex-direction:column;padding:1.6rem 1.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
     .porte-l:hover{border-color:var(--champagne);box-shadow:0 16px 40px rgba(107,47,91,.10);transform:translateY(-2px)}
@@ -120,9 +131,9 @@
       <div class="conteneur">
         <div>
           <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
-          <p class="intro">Les mêmes situations, les mêmes émotions, les mêmes impasses reviennent parfois d'une génération à l'autre. Ici, tu lis ce qui t'a été transmis dans quatre langages : ta famille, tes nombres, tes étoiles et tes rêves. Puis tu apprends à faire autrement.</p>
+          <p class="intro">Presque tout ce qui se répète touche à deux besoins : te sentir en sécurité, et aimer et être aimé·e. Ici, tu repères ton cycle et ta blessure, tu vois ce qui se transmet dans ta famille, et tu apprends à faire autrement.</p>
           <div class="actions">
-            <a class="btn btn-plein" href="ton-prenom.html">Découvrir mon prénom</a>
+            <a class="btn btn-plein" href="#cycles">Découvrir les deux cycles</a>
             <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
           </div>
           <p class="rassurance">Gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
@@ -197,15 +208,55 @@
 
     <section class="bloc" style="padding-bottom:0"><div class="conteneur"><div data-formation></div></div></section>
 
+    <section class="bloc" id="cycles">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2>Au centre : deux besoins, deux cycles</h2>
+          <p>Ce qui se répète dans ta vie touche presque toujours à l'un de ces deux besoins. Savoir lequel, c'est savoir où regarder, dans ta vie comme dans ton histoire familiale.</p>
+        </div>
+        <div class="deux">
+          <article>
+            <img class="illu" src="assets/accueil/racine.jpg" width="960" height="540" alt="" loading="lazy">
+            <h3>Cycle 1 · La racine</h3>
+            <p class="cy-q">Survivre, être en sécurité, avoir sa place.</p>
+            <p>Tu le reconnais à la peur de manquer, à l'insécurité qui revient même quand tout va bien, au besoin de tout contrôler, à la difficulté de demander ou de prendre ta place.</p>
+            <p class="cy-bl">Blessures souvent liées : <a href="blessures-de-l-ame.html#rejet">le rejet</a>, <a href="blessures-de-l-ame.html#humiliation">l'humiliation</a>, <a href="blessures-de-l-ame.html#injustice">l'injustice</a>.</p>
+          </article>
+          <article class="haut">
+            <img class="illu" src="assets/accueil/coeur.jpg" width="960" height="540" alt="" loading="lazy">
+            <h3>Cycle 2 · Le cœur</h3>
+            <p class="cy-q">Aimer, être aimé·e, la façon dont tu aimes.</p>
+            <p>Tu le reconnais aux relations qui se ressemblent, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e, à la confiance qui se brise toujours au même endroit.</p>
+            <p class="cy-bl">Blessures souvent liées : <a href="blessures-de-l-ame.html#abandon">l'abandon</a>, <a href="blessures-de-l-ame.html#trahison">la trahison</a>.</p>
+          </article>
+        </div>
+        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-plein" href="methode.html">Comprendre la méthode des deux cycles</a><a class="btn btn-trait" href="parcours.html">Trouver mon cycle (10 min)</a><a class="btn btn-trait" href="blessures-de-l-ame.html">Les cinq blessures de l'âme</a></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Les blessures qui se rejouent</h2><p>Rejet, abandon, humiliation, trahison, injustice : ce qui t'a blessé·e enfant revient souvent sous d'autres visages. Reconnaître ta blessure, c'est voir d'où vient la boucle.</p></div>
+        <div class="blessures">
+          <a href="blessures-de-l-ame.html#rejet"><b>Le rejet</b><span>Ai-je le droit d'exister ?</span><em>Racine</em></a>
+          <a href="blessures-de-l-ame.html#humiliation"><b>L'humiliation</b><span>Ai-je le droit d'avoir des besoins ?</span><em>Racine</em></a>
+          <a href="blessures-de-l-ame.html#injustice"><b>L'injustice</b><span>Ai-je le droit d'être imparfait·e ?</span><em>Racine</em></a>
+          <a href="blessures-de-l-ame.html#abandon"><b>L'abandon</b><span>Vais-je rester seul·e ?</span><em>Cœur</em></a>
+          <a href="blessures-de-l-ame.html#trahison"><b>La trahison</b><span>Puis-je faire confiance ?</span><em>Cœur</em></a>
+        </div>
+        <div class="actions" style="margin-top:1.4rem"><a class="btn btn-trait" href="blessures-de-l-ame.html">Reconnaître ma blessure</a></div>
+      </div>
+    </section>
+
     <section class="bloc" id="quatre">
       <div class="conteneur">
         <div class="bloc-tete">
-          <h2>Quatre langages pour lire ce qui t'a été transmis</h2>
-          <p>Chacun éclaire une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
+          <h2>Autour : quatre langages pour voir d'où ça vient</h2>
+          <p>Ta famille, tes nombres, tes étoiles et tes rêves éclairent chacun une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
         </div>
         <div class="portes">
           <a class="porte-l" href="genosociogramme.html"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
-          <a class="porte-l" href="theme-numerologique.html"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de ton prénom sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
+          <a class="porte-l" href="theme-numerologique.html"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de <span class="lien-inline">ton prénom</span> sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
           <a class="porte-l" href="theme-astral.html"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
           <a class="porte-l" href="symbolique-des-reves.html"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
         </div>
@@ -216,66 +267,6 @@
       </div>
     </section>
 
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Deux arbres pour une seule lecture</h2>
-          <p>Ton histoire familiale montre d'où viennent tes répétitions. L'arbre de vie montre dans quel domaine elles se rejouent aujourd'hui.</p>
-        </div>
-        <div class="deux">
-          <article>
-            <img class="illu" src="assets/accueil/familial.jpg" width="960" height="540" alt="" loading="lazy">
-            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="8" r="4" fill="#6B2F5B"/><path d="M22 12v6M22 18c0 6-10 6-10 12M22 18c0 6 10 6 10 12M12 30v6M32 30v6" stroke="#6B2F5B" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/><circle cx="32" cy="38" r="3" stroke="#6B2F5B" stroke-width="1.5"/></svg>
-            <h3>L'arbre familial, ou génosociogramme</h3>
-            <p>Tu y places tes parents, grands-parents et arrière-grands-parents, avec les dates et les événements marquants. Les répétitions apparaissent d'elles-mêmes.</p>
-            <ul>
-              <li>Mêmes prénoms, mêmes âges, mêmes dates</li>
-              <li>Deuils, ruptures, exils, secrets</li>
-              <li>Places et loyautés dans la famille</li>
-            </ul>
-            <p style="margin-top:1rem"><a href="quest-ce-qu-un-genosociogramme.html">Qu'est-ce qu'un génosociogramme ?</a></p>
-          </article>
-          <article class="haut">
-            <img class="illu" src="assets/accueil/arbre-vie.jpg" width="960" height="540" alt="" loading="lazy">
-            <svg class="pictogramme" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="6" r="3.5" fill="#B98A55"/><circle cx="12" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="32" cy="14" r="3" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="23" r="3.5" stroke="#B98A55" stroke-width="1.5"/><circle cx="22" cy="38" r="3.5" fill="#B98A55"/><path d="M22 9.5v10M22 26.5v8M14.5 15.5l5 5.5M29.5 15.5l-5 5.5" stroke="#B98A55" stroke-width="1.3"/></svg>
-            <h3>L'arbre de vie, ou arbre des Séphiroth</h3>
-            <p>Un symbole ancien de dix sphères reliées par vingt-deux chemins, que de nombreuses traditions ont interprété. Chaque sphère correspond à un domaine de ta vie, de la vie matérielle au sens que tu lui donnes.</p>
-            <ul>
-              <li>Limites, générosité, équilibre</li>
-              <li>Relations, émotions, communication</li>
-              <li>Sécurité matérielle, élan, intuition</li>
-            </ul>
-            <p style="margin-top:1rem"><a href="les-10-sephiroth.html">Les 10 Séphiroth expliquées</a></p>
-          </article>
-        </div>
-        <div class="croisement">
-          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="15" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/><circle cx="25" cy="20" r="10" stroke="#F3DCC0" stroke-width="1.5"/></svg>
-          <p><strong>Là où les deux se rejoignent, tu comprends.</strong> Par exemple, des conflits d'autorité sur trois générations peuvent rejoindre une difficulté à poser tes propres limites. Le voir, c'est déjà pouvoir faire autrement.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Deux besoins, deux cycles</h2>
-          <p>Presque tout ce qui se répète touche à l'un de ces deux besoins. Savoir lequel, c'est savoir où regarder.</p>
-        </div>
-        <div class="deux">
-          <article>
-            <img class="illu" src="assets/accueil/racine.jpg" width="960" height="540" alt="" loading="lazy">
-            <h3>Cycle 1 · La racine</h3>
-            <p>Se sentir en sécurité, avoir sa place, avoir le droit d'exister. Tu le reconnais à la peur de manquer, au besoin de tout contrôler, à la difficulté de demander.</p>
-          </article>
-          <article class="haut">
-            <img class="illu" src="assets/accueil/coeur.jpg" width="960" height="540" alt="" loading="lazy">
-            <h3>Cycle 2 · Le cœur</h3>
-            <p>Aimer et être aimé·e. Tu le reconnais aux relations qui se ressemblent, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e.</p>
-          </article>
-        </div>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="methode.html">Découvrir la méthode des deux cycles</a></div>
-      </div>
-    </section>
 
     <section class="bloc bloc-doux">
       <div class="conteneur">
@@ -284,6 +275,7 @@
           <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
         </div>
         <div class="liste-outils">
+          <a class="outil" href="blessures-de-l-ame.html"><h3>Les blessures de l'âme</h3><span class="duree">5 minutes</span><p>Rejet, abandon, humiliation, trahison, injustice : reconnaître celle qui se rejoue.</p></a>
           <a class="outil" href="ton-prenom.html"><h3>Ton prénom</h3><span class="duree">1 minute</span><p>Son origine, son histoire, son nombre et sa place sur l'arbre de vie.</p></a>
           <a class="outil" href="theme-astral.html"><h3>Ton thème astral</h3><span class="duree">2 minutes</span><p>Soleil, Lune, ascendant, planètes et maisons, reliés à ton histoire familiale.</p></a>
           <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique</h3><span class="duree">2 minutes</span><p>Chemin de vie, nombres du nom, cycles et grandes périodes de ta vie.</p></a>

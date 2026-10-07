@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les 5 blessures de l'âme : rejet, abandon, humiliation, trahison, injustice · Genesolia</title>
+  <meta name="description" content="Rejet, abandon, humiliation, trahison, injustice : reconnaître les cinq blessures de l'âme, les relier aux deux cycles et à ton histoire familiale, avec un petit test.">
+  <link rel="canonical" href="https://genesolia.fr/blessures-de-l-ame.html">
+  <meta property="og:title" content="Les 5 blessures de l'âme et ton histoire familiale">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/montagne.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+
+    .b-cycle{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.4rem 0 .8rem}
+    #b-resultat a{color:var(--prune)}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="methode.html">Les deux cycles</a><span aria-hidden="true">/</span>Les blessures de l'âme</nav>
+        <h1>Les cinq blessures de l'âme</h1>
+        <p class="intro">Rejet, abandon, humiliation, trahison, injustice. Ce qui t'a blessé·e enfant revient souvent, sous d'autres visages, dans ta vie d'adulte. Reconnaître ta blessure, c'est comprendre ce qui se rejoue, et d'où ça vient.</p>
+      </div>
+    </section>
+    <article class="article">
+      <div class="colonne">
+        <h2>Cinq blessures, deux cycles</h2>
+        <p>On parle souvent de cinq « blessures de l'âme » : le rejet, l'abandon, l'humiliation, la trahison et l'injustice. Cette grille, popularisée par Lise Bourbeau dans <em>Les cinq blessures qui empêchent d'être soi-même</em> (2000), n'est pas une théorie scientifique. C'est une façon parlante de nommer ce qui fait mal, et ce qui se rejoue.</p>
+        <p>Sur ce site, on les relie aux <a href="methode.html">deux cycles</a>. Certaines touchent d'abord la <strong>racine</strong> : le droit d'exister, la sécurité, la place. D'autres touchent d'abord le <strong>cœur</strong> : aimer, être aimé·e, faire confiance. Une même personne en porte souvent plusieurs, à des degrés divers.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Cycle 1</span><h3>La racine</h3><p>Le rejet, l'humiliation, l'injustice. Ces blessures touchent le droit d'exister, d'avoir des besoins, d'être imparfait·e.</p></div>
+          <div class="c2"><span class="nom">Cycle 2</span><h3>Le cœur</h3><p>L'abandon, la trahison. Ces blessures touchent le lien : la peur de perdre l'autre, la difficulté à faire confiance.</p></div>
+        </div>
+        <p class="rappel"><strong>Une blessure n'est pas un défaut.</strong> C'est une sensibilité, née d'une histoire, souvent plus ancienne que toi. La reconnaître, c'est déjà commencer à ne plus la laisser décider à ta place.</p>
+
+        <h2 id="rejet">Le rejet</h2>
+        <p class="b-cycle">Cycle 1 · La racine · « Ai-je le droit d'exister ? »</p>
+        <p>La sensation de ne pas être voulu·e, de ne pas avoir sa place. Elle touche le droit même d'être là, et la tentation de se faire tout petit·e, de disparaître pour ne déranger personne.</p>
+        <div class="cocher" data-blessure="rejet">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul><li><label><input type="checkbox"> Tu te sens vite de trop, même quand on t'invite.</label></li><li><label><input type="checkbox"> Tu as tendance à te retirer, à t'isoler, à fuir les conflits.</label></li><li><label><input type="checkbox"> Tu doutes de ta valeur et tu as du mal à occuper l'espace.</label></li><li><label><input type="checkbox"> Un refus te fait l'effet d'une condamnation de toute ta personne.</label></li></ul>
+        </div>
+        <ul class="pistes">
+          <li><strong>Dans la famille</strong><span>On retrouve souvent : Une naissance non attendue, un enfant venu « en plus », un parent qui voulait un garçon ou une fille, une famille où l'on vivait cachés ou en exil.</span></li>
+          <li><strong>Un pas pour commencer</strong><span>Prendre ta place un peu plus chaque jour : t'asseoir au milieu plutôt qu'au bord, donner ton avis une fois de plus, te dire « j'ai le droit d'être là ».</span></li>
+        </ul>
+
+        <h2 id="abandon">L'abandon</h2>
+        <p class="b-cycle">Cycle 2 · Le cœur · « Vais-je rester seul·e ? »</p>
+        <p>La peur de manquer de l'autre, d'être laissé·e, de ne pas être soutenu·e. Elle pousse à s'accrocher, à chercher l'attention, ou à partir la première ou le premier pour ne pas être quitté·e.</p>
+        <div class="cocher" data-blessure="abandon">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul><li><label><input type="checkbox"> La solitude te paraît insupportable.</label></li><li><label><input type="checkbox"> Tu as besoin d'être rassuré·e souvent dans tes relations.</label></li><li><label><input type="checkbox"> Tu acceptes beaucoup pour ne pas perdre quelqu'un.</label></li><li><label><input type="checkbox"> Une absence ou un silence te plonge dans l'angoisse.</label></li></ul>
+        </div>
+        <ul class="pistes">
+          <li><strong>Dans la famille</strong><span>On retrouve souvent : Un parent parti, absent ou débordé, un deuil précoce, un enfant confié à d'autres, une séparation vécue sans explication.</span></li>
+          <li><strong>Un pas pour commencer</strong><span>Apprendre à être ton propre soutien : passer un moment seul·e de façon choisie, te parler avec douceur, demander de l'aide clairement au lieu d'attendre qu'on devine.</span></li>
+        </ul>
+
+        <h2 id="humiliation">L'humiliation</h2>
+        <p class="b-cycle">Cycle 1 · La racine · « Ai-je le droit d'avoir des besoins ? »</p>
+        <p>La honte d'être soi, de son corps, de ses désirs ou de ses origines. Elle conduit souvent à s'oublier, à se mettre au service de tout le monde, et à rabaisser ses propres besoins.</p>
+        <div class="cocher" data-blessure="humiliation">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul><li><label><input type="checkbox"> Tu te sens facilement honteux·se ou ridicule.</label></li><li><label><input type="checkbox"> Tu portes beaucoup pour les autres et peu pour toi.</label></li><li><label><input type="checkbox"> Tu as du mal à recevoir un compliment ou un plaisir.</label></li><li><label><input type="checkbox"> Tu te moques de toi avant que d'autres ne le fassent.</label></li></ul>
+        </div>
+        <ul class="pistes">
+          <li><strong>Dans la famille</strong><span>On retrouve souvent : Des moqueries, des secrets de famille vécus comme une honte (une pauvreté, une origine, un enfant né hors mariage), des remarques sur le corps ou les besoins.</span></li>
+          <li><strong>Un pas pour commencer</strong><span>T'accorder un plaisir simple sans t'en justifier, nommer un besoin à voix haute, remplacer une moquerie envers toi-même par une phrase juste.</span></li>
+        </ul>
+
+        <h2 id="trahison">La trahison</h2>
+        <p class="b-cycle">Cycle 2 · Le cœur · « Puis-je faire confiance ? »</p>
+        <p>La déception vécue quand une promesse n'est pas tenue ou qu'une loyauté est rompue. Elle pousse à tout contrôler, à anticiper, à ne compter que sur soi.</p>
+        <div class="cocher" data-blessure="trahison">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul><li><label><input type="checkbox"> Tu as du mal à déléguer ou à lâcher prise.</label></li><li><label><input type="checkbox"> Les promesses non tenues te mettent hors de toi.</label></li><li><label><input type="checkbox"> Tu veux tout prévoir pour ne pas être pris·e de court.</label></li><li><label><input type="checkbox"> Tu te méfies, même de ceux qui t'aiment.</label></li></ul>
+        </div>
+        <ul class="pistes">
+          <li><strong>Dans la famille</strong><span>On retrouve souvent : Un parent qui n'a pas tenu sa parole, une préférence affichée entre les enfants, une infidélité, un héritage disputé, un secret découvert.</span></li>
+          <li><strong>Un pas pour commencer</strong><span>Laisser une petite chose se faire sans toi, dire ce que tu attends au lieu de le vérifier, distinguer ce qui dépend de toi de ce qui ne dépend pas de toi.</span></li>
+        </ul>
+
+        <h2 id="injustice">L'injustice</h2>
+        <p class="b-cycle">Cycle 1 · La racine · « Ai-je le droit d'être imparfait·e ? »</p>
+        <p>Le sentiment d'avoir été traité·e sans justesse, sans reconnaissance, avec froideur ou rigidité. Elle conduit souvent à l'exigence, au perfectionnisme et à la retenue de ses émotions.</p>
+        <div class="cocher" data-blessure="injustice">
+          <p class="titre">Ce qui te ressemble</p>
+          <ul><li><label><input type="checkbox"> Tu es très exigeant·e avec toi-même.</label></li><li><label><input type="checkbox"> Tu as du mal à montrer tes émotions.</label></li><li><label><input type="checkbox"> Les règles, le juste et l'injuste comptent énormément pour toi.</label></li><li><label><input type="checkbox"> Tu te sens rarement reconnu·e pour ce que tu fais.</label></li></ul>
+        </div>
+        <ul class="pistes">
+          <li><strong>Dans la famille</strong><span>On retrouve souvent : Une éducation stricte, des règles appliquées sans tendresse, un enfant qui devait être sage ou parfait, des injustices subies par les ancêtres (spoliations, guerres, exclusions).</span></li>
+          <li><strong>Un pas pour commencer</strong><span>T'autoriser une erreur sans te punir, montrer une émotion à une personne de confiance, te féliciter pour un effort et pas seulement pour un résultat.</span></li>
+        </ul>
+
+        <h2>Ce qui te parle le plus</h2>
+        <div id="b-resultat" class="rappel" aria-live="polite"><strong>Coche les phrases qui te ressemblent</strong> dans chaque blessure : le résultat s'affiche ici. Rien n'est enregistré.</div>
+
+        <h2>Relier tes blessures à ton histoire familiale</h2>
+        <p>Une blessure se forme dans l'enfance, mais elle a souvent une histoire plus longue. Une grand-mère rejetée par sa famille, un grand-père abandonné, une injustice subie par toute une lignée : ce qui n'a pas pu être vécu ou dit se transmet parfois sous forme de sensibilité. Dans ton <a href="genosociogramme.html">arbre familial</a>, les événements que tu notes (abandon, rejet, injustice, trahison, honte) font apparaître ces échos d'une génération à l'autre.</p>
+        <ol class="exercice">
+          <li><h3>Choisis la blessure qui te parle le plus</h3><p>Celle où tu as coché le plus de phrases, ou celle qui t'a fait réagir en la lisant.</p></li>
+          <li><h3>Cherche une scène</h3><p>Un moment de ton enfance où tu as ressenti cela. Pas besoin qu'il soit spectaculaire : une phrase, un regard suffisent.</p></li>
+          <li><h3>Regarde la génération d'avant</h3><p>Qui, dans ta famille, a pu vivre la même chose ? Une mère rejetée, un père abandonné, un grand-parent humilié ?</p></li>
+          <li><h3>Écris ce qui ne t'appartient pas</h3><p>Ce que tu portes peut-être pour quelqu'un d'autre. Le nommer permet souvent de le déposer.</p></li>
+          <li><h3>Choisis un pas</h3><p>Le petit geste proposé pour ta blessure, à faire cette semaine.</p></li>
+        </ol>
+        <h2>Pour aller plus loin</h2>
+        <p>La <a href="methode.html">méthode des deux cycles</a> explique comment une blessure se rejoue en boucle et comment en sortir. La formation <a href="formation.html">« Sors de la boucle »</a> t'accompagne pas à pas, et <a href="mon-mois.html">Le Cercle</a> te propose chaque mois un carnet pour avancer.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="methode.html">La méthode des deux cycles</a>
+          <a class="btn btn-trait" href="parcours.html">Faire le parcours guidé</a>
+        </div>
+        <p class="note" style="margin-top:1.4rem">Lecture symbolique, pour réfléchir. Si une blessure ancienne te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+
+      </div>
+    </article>
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+<script>
+(function(){
+  var noms={rejet:'le rejet',abandon:"l'abandon",humiliation:"l'humiliation",trahison:'la trahison',injustice:"l'injustice"};
+  var cyc={rejet:'racine',humiliation:'racine',injustice:'racine',abandon:'coeur',trahison:'coeur'};
+  var z=document.getElementById('b-resultat');
+  function maj(){
+    var sc={},tot=0;document.querySelectorAll('[data-blessure]').forEach(function(b){var n=b.querySelectorAll('input:checked').length;sc[b.getAttribute('data-blessure')]=n;tot+=n;});
+    if(!tot){z.innerHTML='<strong>Coche les phrases qui te ressemblent</strong> dans chaque blessure : le résultat s\'affiche ici. Rien n\'est enregistré.';return;}
+    var tri=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a];}),top=tri.filter(function(k){return sc[k]===sc[tri[0]];});
+    var r=0,c=0;Object.keys(sc).forEach(function(k){if(cyc[k]==='racine')r+=sc[k];else c+=sc[k];});
+    var cy=r>c?'la <a href="methode.html">racine</a> (cycle 1) : la sécurité, la place, le droit d\'exister':c>r?'le <a href="methode.html">cœur</a> (cycle 2) : le lien, la confiance, la façon d\'aimer':'les deux cycles, à parts égales';
+    z.innerHTML='<strong>Ce qui te parle le plus : '+top.map(function(k){return '<a href="blessures-de-l-ame.html#'+k+'">'+noms[k]+'</a>';}).join(' et ')+'.</strong> Tes réponses touchent surtout '+cy+'. Ce n\'est pas une vérité sur toi : une piste pour savoir où regarder.';
+  }
+  document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',maj);});
+})();
+</script>
+</body>
+</html>
