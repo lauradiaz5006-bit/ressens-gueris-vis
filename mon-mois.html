@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ton mois · Le Cercle · Genesolia</title>
+  <meta name="description" content="Chaque mois, ton mois personnel en numérologie et les dates de ton arbre familial qui tombent ce mois-ci.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .m-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(150deg,#2E1338,#6B2F5B);padding:2.8rem 0 3rem}
+    .m-tete::before{content:"";position:absolute;inset:0;background:url(assets/formation/spirale.jpg) center/cover;opacity:.25}
+    .m-tete .conteneur{position:relative}
+    .m-sur{font:600 .8rem/1 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:.8rem}
+    .m-tete h1{color:#fff;margin-bottom:.6rem;text-transform:capitalize}
+    .m-tete .intro{color:#F7E6EE;font-size:1.08rem;max-width:40rem}
+    .m-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+    .m-chips span{background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.4);border-radius:999px;padding:.35rem .85rem;font-size:.88rem}
+    .m-chips b{color:var(--champagne-clair);font-weight:600}
+    .m-zone{padding:2.4rem 0 3.4rem}
+    .m-titre{font-size:1.7rem;margin:2.2rem 0 1rem}
+    .m-titre:first-child{margin-top:0}
+    .m-grille2{display:grid;grid-template-columns:1.15fr .85fr;gap:1.2rem}
+    .m-carte{padding:1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .m-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .m-carte h3{font-size:1.45rem;margin-bottom:.5rem}
+    .m-big{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem}
+    .m-num{flex-shrink:0;width:4.4rem;height:4.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:2.1rem;color:var(--prune);background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne)}
+    .m-gestes{list-style:none;display:grid;gap:.5rem;margin:1rem 0}
+    .m-gestes li{position:relative;padding:.7rem .9rem .7rem 2.3rem;border-radius:12px;background:#FFF6EC;border:1px solid var(--champagne-clair);font-size:.95rem}
+    .m-gestes li::before{content:"";position:absolute;left:.85rem;top:.95rem;width:.8rem;height:.8rem;border-radius:50%;border:1.5px solid var(--champagne)}
+    .m-question{padding:.9rem 1rem;border-radius:12px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.96rem}
+    .m-question b{display:block;font:600 .72rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#B5485C;margin-bottom:.35rem}
+    .m-cote p{font-size:.95rem;margin-bottom:.7rem}
+    .m-cote .m-sep{border-top:1px solid var(--rose);padding-top:.8rem;margin-top:.8rem}
+    .m-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.35rem}
+    .m-cal .j{font:600 .72rem/1 var(--texte);color:var(--prune-doux);text-align:center;padding:.3rem 0}
+    .m-cal .c{position:relative;min-height:4.2rem;border-radius:12px;background:var(--blanc);border:1px solid var(--rose);padding:.35rem .45rem;font-size:.8rem}
+    .m-cal .c b{font-weight:600;font-size:.9rem}
+    .m-cal .c i{position:absolute;right:.4rem;top:.3rem;font-style:normal;font-family:var(--display);font-size:1rem;color:var(--champagne)}
+    .m-cal .c.auj{border:1.5px solid var(--prune);background:#FFF6EC}
+    .m-cal .c.fam{background:#FCEFF3;border-color:#F1D3DC}
+    .m-cal .c span{display:block;margin-top:.25rem;font-size:.68rem;line-height:1.2;color:#B5485C}
+    .m-cal .vide{background:none;border:none}
+    .m-legende{display:flex;flex-wrap:wrap;gap:1rem;margin-top:.7rem;font-size:.82rem;color:var(--prune-doux)}
+    .m-dates{list-style:none;display:grid;gap:.55rem}
+    .m-dates li{display:grid;grid-template-columns:4.2rem 1fr;gap:1rem;align-items:center;padding:.85rem 1rem;border-radius:14px;background:var(--blanc);border:1px solid var(--rose)}
+    .m-dates .d{text-align:center;font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--prune)}
+    .m-dates .d small{display:block;font:600 .66rem/1.4 var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--champagne)}
+    .m-dates b{display:block;font-weight:600}
+    .m-dates span{font-size:.88rem;color:var(--prune-doux)}
+    .m-dates li.toi{border-color:var(--champagne);background:linear-gradient(90deg,#FFF6EC,var(--blanc))}
+    .m-echos{display:grid;gap:.55rem}
+    .m-echos div{padding:.85rem 1rem;border-radius:14px;background:var(--blanc);border:1px solid var(--rose);border-left:4px solid var(--champagne);font-size:.95rem}
+    .m-echos b{font-weight:600}
+    .m-vide{color:var(--prune-doux);font-size:.95rem}
+    .m-piste{margin-top:1.6rem;padding:1.8rem;border-radius:var(--rayon);background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#F7E6EE}
+    .m-piste .m-etiq{color:var(--champagne-clair)}
+    .m-piste h3{color:#fff;font-size:1.5rem;margin-bottom:.5rem}
+    .m-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
+    .m-prochain{margin-top:1rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .m-flou{position:relative}
+    .m-flou>.m-cache{filter:blur(6px);user-select:none;pointer-events:none;opacity:.7}
+    .m-offre{position:relative;margin:-6rem auto 0;max-width:36rem;padding:1.8rem;border-radius:var(--rayon);background:var(--blanc);border:1.5px solid var(--champagne);box-shadow:0 30px 70px rgba(107,47,91,.18);text-align:center}
+    .m-offre h2{font-size:1.7rem;margin-bottom:.5rem}
+    .m-offre .prix{font-family:var(--display);font-size:2.2rem;color:var(--prune);margin:.4rem 0}
+    .m-offre ul{list-style:none;text-align:left;display:grid;gap:.4rem;margin:1rem 0 1.3rem;font-size:.95rem}
+    .m-offre li::before{content:"·";color:var(--champagne);font-weight:700;margin-right:.5rem}
+    .m-offre .btn{width:100%}
+    .m-offre .petit{font-size:.82rem;color:var(--prune-doux);margin-top:.7rem;max-width:none}
+    .m-form{margin-top:1rem;text-align:left}
+    .m-ligne{display:flex;gap:.4rem}
+    .m-ligne input{flex:1;min-width:0;font:400 1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.65rem .8rem}
+    .m-accord{display:flex;gap:.45rem;align-items:flex-start;font-size:.8rem;color:var(--prune-doux);margin-top:.6rem}
+    .m-erreur{color:#A23B4C;font-size:.85rem;min-height:1.1em;margin-top:.4rem}
+    .m-merci{background:var(--rose);border-radius:12px;padding:.9rem 1rem;font-weight:600;margin-top:1rem}
+    .m-message{max-width:38rem;padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .m-message h2{font-size:1.6rem;margin-bottom:.6rem}
+    .m-message p{margin-bottom:1rem}
+
+    @media (max-width:860px){.m-grille2{grid-template-columns:1fr}}
+    @media (max-width:560px){
+      .m-cal{gap:.2rem}.m-cal .c{min-height:3.2rem;padding:.25rem;font-size:.72rem}.m-cal .c span{display:none}.m-cal .c i{font-size:.8rem;right:.25rem}
+      .m-dates li{grid-template-columns:3.4rem 1fr;gap:.7rem}
+      .m-offre{margin-top:-4rem;padding:1.4rem}
+    }
+    @media print{header,footer,.annonce,.bandeau-info,.m-actions{display:none!important}.m-carte,.m-dates li,.m-echos div{break-inside:avoid}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="m-tete">
+      <div class="conteneur">
+        <p class="m-sur">Le Cercle · ton rendez-vous du mois</p>
+        <h1 id="m-titre">Ton mois</h1>
+        <p class="intro" id="m-intro">Chaque mois, ton mois personnel en numérologie et les dates de ton arbre familial qui tombent ce mois-ci.</p>
+        <div class="m-chips" id="m-chips"></div>
+      </div>
+    </section>
+    <section class="m-zone"><div class="conteneur" id="m-corps"><p class="m-vide">Chargement de ton mois…</p></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var CERCLE = {
+      prix: '5 € par mois',
+      lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
+      formspree: 'https://formspree.io/f/xdawvnby'
+    };
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var N = window.Numerologie, corps = document.getElementById('m-corps');
+    var params = new URLSearchParams(location.search), EXEMPLE = params.has('exemple');
+    var auj = new Date();
+    if (EXEMPLE && /^\d{4}-\d{2}-\d{2}$/.test(params.get('date') || '')) auj = new Date(params.get('date') + 'T12:00:00');
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var M = auj.getMonth() + 1, Y = auj.getFullYear(), nomMois = MOIS[M - 1];
+    var sb = null, utilisateur = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function parse(d) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ''); return m ? { a: +m[1], m: +m[2], j: +m[3] } : null; }
+    function anneeDe(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
+    function nomDe(p) { return ((p.prenom || '') + ' ' + (p.nom || '')).trim() || 'Une personne de ton arbre'; }
+    function prenomDe(p) { return p.prenom || nomDe(p); }
+
+    /* ───── Calcul du mois ───── */
+    function calculer(data) {
+      var people = data.people || {}, ids = Object.keys(people);
+      var moiId = ids.filter(function (id) { return people[id].role === 'moi'; })[0];
+      var moi = moiId ? people[moiId] : null;
+      var r = { moi: moi, dates: [], echos: [], ronds: [] };
+      if (!moi || !parse(moi.naiss)) return r;
+      r.t = N.theme(moi.prenom || '', moi.nom || '', moi.naiss, auj);
+      var dn = parse(moi.naiss);
+      var anniv = dn.m === M, ageMois = Y - dn.a - (dn.m > M ? 1 : 0); // l'âge que tu as, ou que tu atteins, ce mois-ci
+      r.ageMois = ageMois; r.anniv = anniv;
+      if (anniv) r.dates.push({ j: dn.j, toi: true, titre: 'Ton anniversaire', texte: 'Tu auras ' + (Y - dn.a) + ' ans.' });
+      ids.forEach(function (id) {
+        if (id === moiId) return;
+        var p = people[id], n = parse(p.naiss), d = parse(p.deces), mort = !!(p.deces || p.decede);
+        if (n && n.m === M) {
+          var age = Y - n.a;
+          r.dates.push({ j: n.j, titre: 'Naissance de ' + nomDe(p), texte: mort ? 'Il y a ' + age + ' ans, en ' + n.a + '.' : prenomDe(p) + ' aura ' + age + ' ans.', p: p });
+        }
+        if (d && d.m === M) {
+          var il = Y - d.a;
+          r.dates.push({ j: d.j, titre: 'Anniversaire du départ de ' + nomDe(p), texte: 'Il y a ' + il + ' an' + (il > 1 ? 's' : '') + ', en ' + d.a + (n ? ', à ' + (d.a - n.a - ((d.m < n.m || (d.m === n.m && d.j < n.j)) ? 1 : 0)) + ' ans' : '') + '.', p: p });
+        }
+        // âges en écho : ce que les ancêtres ont vécu à l'âge que tu as ce mois-ci
+        (p.events || []).forEach(function (ev) {
+          var a = parseInt(ev.age, 10);
+          if (!isNaN(a) && a === ageMois) r.echos.push({ p: p, quoi: (window.NOM_EVT_CERCLE[ev.type] || ev.type || 'un événement marquant').toLowerCase(), age: a, annee: ev.year });
+          var y = parseInt(ev.year, 10), ecart = Y - y;
+          if (!isNaN(y) && [10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 100].indexOf(ecart) >= 0) r.ronds.push({ p: p, quoi: (window.NOM_EVT_CERCLE[ev.type] || ev.type || 'un événement').toLowerCase(), annee: y, ecart: ecart });
+        });
+        if (n && d) { var ageDeces = d.a - n.a - ((d.m < n.m || (d.m === n.m && d.j < n.j)) ? 1 : 0); if (ageDeces === ageMois) r.echos.push({ p: p, quoi: 'son départ', age: ageDeces, annee: d.a }); }
+      });
+      r.dates.sort(function (a, b) { return a.j - b.j; });
+      return r;
+    }
+    window.NOM_EVT_CERCLE = { 'deuil': 'Deuil, perte d’un proche', 'deces-precoce': 'Mort jeune', 'rupture': 'Séparation, rupture', 'abandon': 'Abandon, rejet', 'secret': 'Secret de famille', 'guerre': 'Guerre, exil', 'demenagement': 'Départ, déracinement', 'pauvrete': 'Manque d’argent', 'maladie': 'Épreuve majeure', 'sacrifice': 'Sacrifice, effacement', 'trahison': 'Trahison', 'injustice': 'Injustice', 'honte': 'Honte', 'abus': 'Violence', 'mariage': 'Mariage, union', 'naissance': 'Naissance d’un enfant', 'reussite': 'Réussite, tournant heureux' };
+
+    /* ───── Affichage ───── */
+    function entete(r) {
+      document.getElementById('m-titre').textContent = nomMois + ' ' + Y;
+      if (!r || !r.t) return;
+      document.getElementById('m-intro').textContent = (r.moi.prenom ? r.moi.prenom + ', voici' : 'Voici') + ' ton mois : ce que disent tes nombres, et ce que ton arbre familial te rappelle en ' + nomMois + '.';
+      document.getElementById('m-chips').innerHTML = '<span>Année personnelle <b>' + r.t.annee + '</b></span><span>Mois personnel <b>' + r.t.mois + '</b></span>' + (r.t.periodeActuelle ? '<span>Réalisation <b>' + r.t.periodeActuelle.n + '</b></span>' : '') + '<span>' + r.dates.length + ' date' + (r.dates.length > 1 ? 's' : '') + ' de ton arbre</span>';
+    }
+    function blocNumero(r) {
+      var t = r.t, L = N.MOIS_LONG[t.mois], A = N.ANNEES[t.annee], pa = t.periodeActuelle;
+      return '<h2 class="m-titre">Ton mois personnel</h2><div class="m-grille2"><div class="m-carte"><div class="m-big"><div class="m-num">' + t.mois + '</div><div><p class="m-etiq">Mois personnel ' + t.mois + '</p><h3 style="margin:0">' + L.titre + '</h3></div></div>' +
+        '<p>' + L.texte + '</p><ul class="m-gestes">' + L.gestes.map(function (g) { return '<li>' + g + '</li>'; }).join('') + '</ul><div class="m-question"><b>Ta question du mois</b>' + L.question + '</div></div>' +
+        '<div class="m-carte m-cote"><p class="m-etiq">Ton année ' + Y + '</p><h3>' + t.annee + ' · ' + A.titre + '</h3><p>' + A.texte + '</p>' +
+        (pa ? '<div class="m-sep"><p class="m-etiq">Ta grande période</p><p><b>Réalisation ' + pa.n + '</b>, ' + N.ages(pa.de, pa.a) + ' : ' + N.PERIODES[pa.n].charAt(0).toLowerCase() + N.PERIODES[pa.n].slice(1) + '</p><p style="margin:0;color:var(--prune-doux);font-size:.9rem">' + N.DEFIS[pa.defi] + '</p></div>' : '') + '</div></div>';
+    }
+    function calendrier(r) {
+      var nb = new Date(Y, M, 0).getDate(), premier = (new Date(Y, M - 1, 1).getDay() + 6) % 7, h = '';
+      ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'].forEach(function (j) { h += '<div class="j">' + j + '</div>'; });
+      for (var v = 0; v < premier; v++) h += '<div class="c vide"></div>';
+      for (var d = 1; d <= nb; d++) {
+        var jp = N.reduire(r.t.mois + d, false), fam = r.dates.filter(function (x) { return x.j === d; });
+        var estAuj = d === auj.getDate();
+        h += '<div class="c' + (estAuj ? ' auj' : '') + (fam.length ? ' fam' : '') + '" title="Jour personnel ' + jp + ' : ' + esc(N.JOURNEES[jp]) + '"><b>' + d + '</b><i>' + jp + '</i>' + (fam.length ? '<span>' + esc(fam.map(function (x) { return x.toi ? 'toi' : prenomDe(x.p); }).join(', ')) + '</span>' : '') + '</div>';
+      }
+      return '<h2 class="m-titre">Ton calendrier de ' + nomMois + '</h2><div class="m-cal">' + h + '</div><div class="m-legende"><span>Le petit nombre doré : ton jour personnel</span><span>En rose : une date de ton arbre</span><span>Encadré : aujourd\'hui</span></div>' +
+        '<p class="m-prochain"><b>Aujourd\'hui, jour personnel ' + N.reduire(r.t.mois + auj.getDate(), false) + ' :</b> ' + N.JOURNEES[N.reduire(r.t.mois + auj.getDate(), false)] + '</p>';
+    }
+    function blocArbre(r, limite) {
+      var h = '<h2 class="m-titre">Ce mois-ci dans ton arbre</h2>';
+      var dates = limite ? r.dates.slice(0, limite) : r.dates;
+      h += dates.length ? '<ul class="m-dates">' + dates.map(function (x) { return '<li' + (x.toi ? ' class="toi"' : '') + '><div class="d">' + x.j + '<small>' + nomMois.slice(0, 4) + '.</small></div><div><b>' + esc(x.titre) + '</b><span>' + esc(x.texte) + '</span></div></li>'; }).join('') + '</ul>'
+        : '<p class="m-vide">Aucune naissance ni aucun départ de ton arbre ne tombe en ' + nomMois + '. Ajoute les dates complètes (jour, mois, année) de ta famille : elles apparaîtront ici le mois venu.</p>';
+      if (limite) return h;
+      h += '<h2 class="m-titre">Les âges en écho</h2>';
+      h += r.echos.length ? '<p style="margin-bottom:.8rem">' + (r.anniv ? 'Ce mois-ci, tu as ' : 'Tu as ') + r.ageMois + ' ans. Au même âge, dans ta famille :</p><div class="m-echos">' + r.echos.map(function (e) { return '<div><b>' + esc(nomDe(e.p)) + '</b> a vécu ' + esc(e.quoi) + ' à ' + e.age + ' ans' + (e.annee ? ' (en ' + esc(e.annee) + ')' : '') + '.</div>'; }).join('') + '</div><p class="m-vide" style="margin-top:.8rem">Ce n\'est pas une prédiction : c\'est une invitation à regarder ce que cet âge réveille en toi, et à vivre cette période à ta façon.</p>'
+        : '<p class="m-vide">Personne dans ton arbre n\'a d\'événement noté à ' + r.ageMois + ' ans. Plus tu ajoutes d\'événements avec un âge, plus cette partie s\'enrichit.</p>';
+      if (r.ronds.length) h += '<h2 class="m-titre">Cette année, des anniversaires ronds</h2><div class="m-echos">' + r.ronds.map(function (e) { return '<div>Il y a <b>' + e.ecart + ' ans</b>, en ' + e.annee + ' : ' + esc(e.quoi) + ' pour ' + esc(nomDe(e.p)) + '.</div>'; }).join('') + '</div>';
+      return h;
+    }
+    function piste(r) {
+      var L = N.MOIS_LONG[r.t.mois], fam = r.dates.filter(function (x) { return !x.toi; })[0], e = r.echos[0], txt;
+      if (e) txt = 'Ce mois-ci, tu as l\'âge auquel ' + prenomDe(e.p) + ' a vécu ' + e.quoi + '. Prends dix minutes pour lui écrire quelques lignes : ce que tu sais de ce moment de sa vie, ce que tu ressens, et ce que toi, tu choisis de vivre à cet âge.';
+      else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie, regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
+      else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
+      return '<div class="m-piste"><p class="m-etiq">Ta piste de ' + nomMois + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
+    }
+    function complet(r) {
+      corps.innerHTML = blocNumero(r) + calendrier(r) + blocArbre(r) + piste(r) +
+        '<div class="m-actions"><button class="btn btn-trait" type="button" id="m-imprimer">Imprimer mon mois</button><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a><a class="btn btn-trait" href="theme-numerologique.html">Mon thème complet</a></div>' +
+        '<p class="m-prochain">Ton mois de ' + MOIS[M % 12] + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
+      document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
+    }
+    function apercu(r) {
+      var h = blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
+      h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
+        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2><p class="prix">' + CERCLE.prix + '</p><p>Sans engagement, tu arrêtes quand tu veux.</p><ul>' +
+        '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
+        boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
+      corps.innerHTML = h;
+      var b = document.getElementById('m-offre-bt'); if (b && b.tagName === 'BUTTON') b.addEventListener('click', prevenir);
+    }
+    function boutonOffre() {
+      if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="login.html?retour=mon-mois.html">Créer mon compte pour rejoindre le Cercle</a>';
+      if (CERCLE.lienAbonnement) return '<a class="btn btn-plein" id="m-offre-bt" href="' + esc(CERCLE.lienAbonnement + (CERCLE.lienAbonnement.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(utilisateur.id) + '&prefilled_email=' + encodeURIComponent(utilisateur.email || '')) + '" target="_blank" rel="noopener">Rejoindre le Cercle</a>';
+      return '<button class="btn btn-plein" id="m-offre-bt" type="button">Rejoindre le Cercle</button>';
+    }
+    function prevenir() {
+      var z = document.getElementById('m-prevenir');
+      z.innerHTML = '<form class="m-form" novalidate><p><b>Le paiement en ligne arrive très bientôt.</b> Laisse ton e-mail : tu seras prévenue dès l\'ouverture du Cercle.</p><div class="m-ligne"><input type="email" name="email" required placeholder="Ton e-mail" aria-label="Ton e-mail" value="' + esc((utilisateur && utilisateur.email) || '') + '"><button class="btn btn-plein" type="submit">Me prévenir</button></div>' +
+        '<label class="m-accord"><input type="checkbox" name="accord" required> J\'accepte de recevoir un e-mail de Genesolia à ce sujet. <a href="confidentialite.html" target="_blank">Mes données</a></label><p class="m-erreur" role="alert"></p></form>';
+      var f = z.querySelector('form');
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var err = f.querySelector('.m-erreur'), email = f.email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+        if (!f.accord.checked) { err.textContent = 'Coche la case pour accepter de recevoir l\'e-mail.'; return; }
+        f.querySelector('button').disabled = true;
+        var data = new FormData(); data.append('email', email); data.append('offre', 'Le Cercle ' + CERCLE.prix); data.append('_subject', 'Intérêt pour le Cercle');
+        fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+          .then(function (rp) { if (!rp.ok) throw new Error(rp.status); z.innerHTML = '<p class="m-merci">Merci ! Tu seras prévenue dès l\'ouverture du Cercle.</p>'; })
+          .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
+      });
+    }
+    function message(titre, texte, liens) {
+      corps.innerHTML = '<div class="m-message"><h2>' + titre + '</h2><p>' + texte + '</p><div class="m-actions" style="margin-top:0">' + liens + '</div></div>';
+    }
+
+    function afficher(data, acces) {
+      var r = calculer(data || {});
+      entete(r);
+      if (!r.moi) return message('Indique qui tu es dans ton arbre', 'Ouvre ton arbre, clique sur ta fiche et coche « C\'est moi ». Ton mois se calcule à partir de ta date de naissance et de celles de ta famille.', '<a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre</a><a class="btn btn-trait" href="mon-mois.html?exemple">Voir un exemple</a>');
+      if (!r.t) return message('Il manque ta date de naissance', 'Dans ton arbre, ouvre ta fiche et indique ta date de naissance complète : le jour, le mois et l\'année.', '<a class="btn btn-plein" href="genosociogramme.html">Compléter ma fiche</a>');
+      if (acces) complet(r); else apercu(r);
+    }
+    function verifierAcces() {
+      if (!sb || !utilisateur) return Promise.resolve(false);
+      return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
+        .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });
+    }
+    function local() { try { return JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (e) { return null; } }
+
+    if (EXEMPLE) {
+      fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (d) {
+        afficher(d, true);
+        var b = document.createElement('p'); b.className = 'note'; b.style.marginBottom = '1.4rem';
+        b.innerHTML = '<b>Exemple fictif</b> : le mois de Léa, d\'après l\'arbre d\'exemple. <a href="mon-mois.html">Voir mon propre mois</a>';
+        corps.insertBefore(b, corps.firstChild);
+      });
+      return;
+    }
+    if (!sb) { afficher(local(), false); return; }
+    sb.auth.getSession().then(function (res) {
+      var s = res && res.data && res.data.session;
+      if (!s) { afficher(local(), false); return; }
+      utilisateur = s.user;
+      return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
+        var d = (r && r.data && r.data.data) || local();
+        return verifierAcces().then(function (ok) { afficher(d, ok); });
+      });
+    }).catch(function () { afficher(local(), false); });
+  })();
+  </script>
+</body>
+</html>

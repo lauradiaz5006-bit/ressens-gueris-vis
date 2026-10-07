@@ -1451,7 +1451,7 @@
       var h = contenuApercu(reps);
       h += '<div class="rap-offres">' +
         '<div class="rap-offre"><p class="rap-prix">' + RAPPORT.prix + '</p><p class="rap-nom">Mon rapport</p><p>Ton rapport complet, et ' + RAPPORT.duree + ' pour compléter ton arbre et le régénérer autant de fois que tu veux.</p>' + boutonOffre('rapport') + '</div>' +
-        '<div class="rap-offre rap-reco"><p class="rap-badge">Le plus complet</p><p class="rap-prix">' + RAPPORT.abo + '</p><p class="rap-nom">L’abonnement</p><p>Ton rapport mis à jour à chaque changement de ton arbre, aussi souvent que tu veux. Sans engagement, tu arrêtes quand tu veux.</p>' + boutonOffre('abonnement') + '</div>' +
+        '<div class="rap-offre rap-reco"><p class="rap-badge">Le plus complet</p><p class="rap-prix">' + RAPPORT.abo + '</p><p class="rap-nom">L’abonnement</p><p>Ton rapport mis à jour à chaque changement de ton arbre, et chaque mois, <a href="mon-mois.html?exemple" target="_blank">ton mois personnel et les dates de ton arbre</a>. Sans engagement.</p>' + boutonOffre('abonnement') + '</div>' +
       '</div>';
       if (!utilisateur) h += '<p class="rap-aide">Pour obtenir ton rapport, il faut un compte gratuit : il permet aussi de retrouver ton arbre sur tous tes appareils. <a href="login.html?retour=genosociogramme.html">Créer mon compte ou me connecter</a></p>';
       h += '<div id="rap-prevenir"></div>';
@@ -1600,7 +1600,7 @@
       '</tbody></table></div>';
     if (L.incomplets) h += '<p class="rap-aide">' + L.incomplets + ' personne' + (L.incomplets > 1 ? 's n’ont' : ' n’a') + ' pas encore de prénom ni de date complète.</p>';
     h += '<p class="rap-aide">Pour un calcul juste, indique dans la fiche de chacun·e <b>tous ses prénoms</b> et son <b>nom de naissance</b> (celui de jeune fille pour les femmes mariées), et la date de naissance complète.</p>';
-    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a></div>';
+    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a><a class="bt rap-gros" href="mon-mois.html">Voir mon mois</a></div>';
     corps.innerHTML = h;
     $('bt-numero-rapport').addEventListener('click', function () { fermer('fen-numero'); ouvrirRapport(); });
     ouvrir('fen-numero');
