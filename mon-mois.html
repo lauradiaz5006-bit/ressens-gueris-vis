@@ -84,7 +84,12 @@
     .m-message h2{font-size:1.6rem;margin-bottom:.6rem}
     .m-message p{margin-bottom:1rem}
 
-    @media (max-width:860px){.m-grille2{grid-template-columns:1fr}}
+    .m-carnet{display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:center;padding:1.6rem;border-radius:18px;background:linear-gradient(120deg,#FFF6EC,var(--blanc));border:1.5px solid var(--champagne)}
+    .m-carnet h3{font-size:1.45rem;margin-bottom:.4rem}
+    .m-carnet p:not(.m-etiq){font-size:.95rem;color:var(--prune-doux)}
+    .m-anciens{margin-top:.8rem;font-size:.9rem;color:var(--prune-doux)}
+    .m-anciens a{color:var(--prune)}
+    @media (max-width:860px){.m-grille2{grid-template-columns:1fr}.m-carnet{grid-template-columns:1fr}}
     @media (max-width:560px){
       .m-cal{gap:.2rem}.m-cal .c{min-height:3.2rem;padding:.25rem;font-size:.72rem}.m-cal .c span{display:none}.m-cal .c i{font-size:.8rem;right:.25rem}
       .m-dates li{grid-template-columns:3.4rem 1fr;gap:.7rem}
@@ -118,6 +123,10 @@
       lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
       formspree: 'https://formspree.io/f/xdawvnby'
     };
+    /* Les carnets du mois (PDF dans assets/cercle/) : ajouter une ligne par nouveau carnet */
+    var CARNETS = {
+      '2026-11': { titre: 'Ceux qui sont venus avant toi', fichier: 'cercle-2026-11-474ce578d0.pdf' }
+    };
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
     var N = window.Numerologie, corps = document.getElementById('m-corps');
     var params = new URLSearchParams(location.search), EXEMPLE = params.has('exemple');
@@ -128,6 +137,7 @@
     var sb = null, utilisateur = null;
     try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
 
+    function de(m) { return /^[aeiouâéèo]/i.test(m) ? 'd’' + m : 'de ' + m; }
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function parse(d) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || ''); return m ? { a: +m[1], m: +m[2], j: +m[3] } : null; }
     function anneeDe(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
@@ -194,7 +204,7 @@
         var estAuj = d === auj.getDate();
         h += '<div class="c' + (estAuj ? ' auj' : '') + (fam.length ? ' fam' : '') + '" title="Jour personnel ' + jp + ' : ' + esc(N.JOURNEES[jp]) + '"><b>' + d + '</b><i>' + jp + '</i>' + (fam.length ? '<span>' + esc(fam.map(function (x) { return x.toi ? 'toi' : prenomDe(x.p); }).join(', ')) + '</span>' : '') + '</div>';
       }
-      return '<h2 class="m-titre">Ton calendrier de ' + nomMois + '</h2><div class="m-cal">' + h + '</div><div class="m-legende"><span>Le petit nombre doré : ton jour personnel</span><span>En rose : une date de ton arbre</span><span>Encadré : aujourd\'hui</span></div>' +
+      return '<h2 class="m-titre">Ton calendrier ' + de(nomMois) + '</h2><div class="m-cal">' + h + '</div><div class="m-legende"><span>Le petit nombre doré : ton jour personnel</span><span>En rose : une date de ton arbre</span><span>Encadré : aujourd\'hui</span></div>' +
         '<p class="m-prochain"><b>Aujourd\'hui, jour personnel ' + N.reduire(r.t.mois + auj.getDate(), false) + ' :</b> ' + N.JOURNEES[N.reduire(r.t.mois + auj.getDate(), false)] + '</p>';
     }
     function blocArbre(r, limite) {
@@ -214,19 +224,34 @@
       if (e) txt = 'Ce mois-ci, tu as l\'âge auquel ' + prenomDe(e.p) + ' a vécu ' + e.quoi + '. Prends dix minutes pour lui écrire quelques lignes : ce que tu sais de ce moment de sa vie, ce que tu ressens, et ce que toi, tu choisis de vivre à cet âge.';
       else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie, regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
       else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
-      return '<div class="m-piste"><p class="m-etiq">Ta piste de ' + nomMois + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
+      return '<div class="m-piste"><p class="m-etiq">Ta piste ' + de(nomMois) + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
+    }
+    function blocCarnets() {
+      var cle = Y + '-' + (M < 10 ? '0' : '') + M, cles = Object.keys(CARNETS).sort(), h = '';
+      if (!cles.length) return '';
+      var actuel = CARNETS[cle] ? cle : (cle < cles[0] ? cles[0] : null);
+      var anciens = cles.filter(function (k) { return k < cle && k !== actuel; }).reverse();
+      function nom(k) { var p = k.split('-'); return MOIS[+p[1] - 1] + ' ' + p[0]; }
+      h += '<h2 class="m-titre">Ton carnet du mois</h2>';
+      if (actuel) {
+        var c = CARNETS[actuel];
+        h += '<div class="m-carnet"><div><p class="m-etiq">' + (actuel > cle ? 'En avant-première · ' : '') + 'Le carnet ' + de(nom(actuel)) + '</p><h3>' + esc(c.titre) + '</h3><p>Un carnet de dix pages à imprimer : le thème du mois expliqué, trois exercices, un rituel symbolique, une méditation à lire et tes quatre semaines.</p></div>' +
+          '<a class="btn btn-plein" href="assets/cercle/' + c.fichier + '" download>Télécharger mon carnet (PDF)</a></div>';
+      } else h += '<p class="m-vide">Le carnet ' + de(nomMois) + ' arrive très bientôt.</p>';
+      if (anciens.length) h += '<p class="m-anciens">Tes carnets précédents : ' + anciens.map(function (k) { return '<a href="assets/cercle/' + CARNETS[k].fichier + '" download>' + nom(k) + ', ' + esc(CARNETS[k].titre) + '</a>'; }).join(' · ') + '</p>';
+      return h;
     }
     function complet(r) {
-      corps.innerHTML = blocNumero(r) + calendrier(r) + blocArbre(r) + piste(r) +
+      corps.innerHTML = blocNumero(r) + blocCarnets() + calendrier(r) + blocArbre(r) + piste(r) +
         '<div class="m-actions"><button class="btn btn-trait" type="button" id="m-imprimer">Imprimer mon mois</button><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a><a class="btn btn-trait" href="theme-numerologique.html">Mon thème complet</a></div>' +
-        '<p class="m-prochain">Ton mois de ' + MOIS[M % 12] + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
+        '<p class="m-prochain">Ton mois ' + de(MOIS[M % 12]) + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
       document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
     }
     function apercu(r) {
       var h = blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
         '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2><p class="prix">' + CERCLE.prix + '</p><p>Sans engagement, tu arrêtes quand tu veux.</p><ul>' +
-        '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
+        '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
       var b = document.getElementById('m-offre-bt'); if (b && b.tagName === 'BUTTON') b.addEventListener('click', prevenir);
