@@ -17,6 +17,7 @@
     ['arbre-de-vie.html', "L'arbre de vie"],
     ['genosociogramme.html', 'Mon arbre familial'],
     ['blog.html', 'Blog'],
+    ['cartes.html', 'Images'],
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['arbre-de-vie.html', 'Faire le test gratuit'];
