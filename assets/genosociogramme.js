@@ -650,7 +650,8 @@
     var bar = $('actions-perso');
     if (!selId || !S.people[selId]) { bar.innerHTML = ''; bar.classList.remove('visible'); return; }
     var b = '<button type="button" class="principal" data-act="modifier">Modifier</button>';
-    if (parents(selId).length < 2) b += '<button type="button" data-act="parent">+ Parent</button>';
+    var np0 = parents(selId).length;
+    if (np0 < 2) b += '<button type="button" data-act="parent">' + (np0 ? '+ Parent' : '+ Parents') + '</button>';
     b += '<button type="button" data-act="couple">+ Conjoint·e</button>';
     b += '<button type="button" data-act="enfant">+ Enfant</button>';
     b += '<button type="button" data-act="fratrie">+ Frère ou sœur</button>';
@@ -736,7 +737,8 @@
   var SYMB = {
     f: '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
     m: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
-    u: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5L14.5 8 8 14.5 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+    u: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5L14.5 8 8 14.5 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+    deux: '<svg viewBox="0 0 26 16" aria-hidden="true" style="width:26px"><circle cx="7" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="2.5" width="11" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
   };
   var CHOIX = {
     parent: { titre: 'Ajouter un parent', items: [['f', 'Mère'], ['m', 'Père'], ['u', 'Parent']] },
@@ -748,10 +750,12 @@
   function ouvrirAjout(type, id) {
     ajout = { type: type, id: id };
     var c = CHOIX[type], p = S.people[id];
+    var deuxParents = type === 'parent' && parents(id).length === 0;
+    if (deuxParents) c = { titre: 'Ajouter les parents', items: [['deux', 'Mère et père'], ['f', 'Mère seule'], ['m', 'Père seul'], ['u', 'Un parent']] };
     $('fa-titre').textContent = c.titre;
     $('fa-sous').textContent = 'Pour ' + nomCourt(id);
     var defaut = 'f';
-    if (type === 'parent') { var ps = parents(id); if (ps.length === 1) defaut = S.people[ps[0]].sex === 'f' ? 'm' : 'f'; }
+    if (type === 'parent') { var ps = parents(id); if (ps.length === 1) defaut = S.people[ps[0]].sex === 'f' ? 'm' : 'f'; if (deuxParents) defaut = 'deux'; }
     if (type === 'couple') defaut = p.sex === 'f' ? 'm' : p.sex === 'm' ? 'f' : 'f';
     $('fa-choix').innerHTML = c.items.map(function (it) {
       return '<label><input type="radio" name="fa-sexe" value="' + it[0] + '"' + (it[0] === defaut ? ' checked' : '') + '><span>' + SYMB[it[0]] + it[1] + '</span></label>';
@@ -759,10 +763,15 @@
     var o = '';
     if (type === 'parent') {
       var ex = parents(id);
+      if (deuxParents) {
+        o += '<div class="deux-col" id="fa-deux">' +
+          '<div class="champ"><label for="fa-mere">Prénom de la mère</label><input type="text" id="fa-mere" autocomplete="off" placeholder="Facultatif"></div>' +
+          '<div class="champ"><label for="fa-pere">Prénom du père</label><input type="text" id="fa-pere" autocomplete="off" placeholder="Facultatif"></div></div>';
+      }
       if (ex.length === 1) o += '<label class="case"><input type="checkbox" id="fa-couple" checked> En couple avec ' + esc(nomCourt(ex[0])) + '</label>';
       var fr = freresDirects(id).filter(function (f) { return parents(f).length < 2; });
       if (fr.length) {
-        o += '<div class="champ"><span class="etiq">Aussi parent de</span><div class="liste-cases">' + fr.map(function (f) {
+        o += '<div class="champ"><span class="etiq">' + (deuxParents ? 'Aussi les parents de' : 'Aussi parent de') + '</span><div class="liste-cases">' + fr.map(function (f) {
           var memes = ex.every(function (x) { return parents(f).indexOf(x) >= 0; });
           return '<label class="case"><input type="checkbox" data-aussi="' + esc(f) + '"' + (memes ? ' checked' : '') + '> ' + esc(nomCourt(f)) + '</label>';
         }).join('') + '</div></div>';
@@ -788,8 +797,15 @@
     }
     $('fa-options').innerHTML = o;
     ouvrir('fen-ajout');
-    setTimeout(function () { var r = $('fa-choix').querySelector('input:checked'); if (r) r.focus(); }, 30);
+    majChoixDeux();
+    setTimeout(function () { var r = deuxParents ? $('fa-mere') : $('fa-choix').querySelector('input:checked'); if (r) r.focus(); }, 30);
   }
+  function majChoixDeux() {
+    var z = $('fa-deux'); if (!z) return;
+    var v = (document.querySelector('input[name="fa-sexe"]:checked') || {}).value;
+    z.style.display = v === 'deux' ? '' : 'none';
+  }
+  $('fa-choix').addEventListener('change', majChoixDeux);
   $('fa-form').addEventListener('submit', function (e) {
     e.preventDefault();
     if (!ajout) return;
@@ -797,6 +813,22 @@
     var id = ajout.id, type = ajout.type;
     memoriser();
     var avant = pile[pile.length - 1];
+    if (type === 'parent' && sexe === 'deux') {
+      var enf = S.people[id];
+      var mere = nouvellePersonne({ sex: 'f', prenom: $('fa-mere').value.trim() });
+      var pere = nouvellePersonne({ sex: 'm', prenom: $('fa-pere').value.trim(), nom: enf.nom || '' });
+      var cibles = [id];
+      document.querySelectorAll('[data-aussi]').forEach(function (cb) { if (cb.checked) cibles.push(cb.getAttribute('data-aussi')); });
+      cibles.forEach(function (c) { S.rels.push({ from: mere.id, to: c, type: 'parent' }); S.rels.push({ from: pere.id, to: c, type: 'parent' }); });
+      S.rels.push({ from: pere.id, to: mere.id, type: 'couple', statut: 'marie' });
+      fermer('fen-ajout');
+      selId = id;
+      dessiner(id);
+      rendreVisible(mere.id); rendreVisible(pere.id);
+      majBarreActions();
+      enregistrer();
+      return;
+    }
     var np = nouvellePersonne({ sex: sexe });
     if (type === 'parent') {
       var ex = parents(id);
