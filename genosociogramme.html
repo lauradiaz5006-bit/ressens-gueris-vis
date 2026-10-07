@@ -196,6 +196,21 @@
     .rap-accord a{color:var(--prune)}
     .rap-erreur{color:#A23B4C;font-size:.84rem;min-height:1.1em;margin-top:.4rem}
     .rap-merci{background:var(--rose);border-radius:12px;padding:.8rem 1rem;font-size:.9rem;color:var(--prune);font-weight:600}
+    .nl-echos{list-style:none;display:grid;gap:.45rem;margin:0 0 1rem}
+    .nl-echos li{border:1.5px solid var(--rose-fonce);border-left:4px solid var(--champagne);border-radius:12px;padding:.6rem .8rem}
+    .nl-echos li.toi{background:linear-gradient(90deg,#FFF6EC,var(--blanc))}
+    .nl-echos b{display:block;font-size:.92rem;color:var(--prune)}
+    .nl-echos span{display:block;font-size:.82rem;color:var(--prune-doux);line-height:1.45}
+    .nl-table-zone{max-height:300px;overflow-y:auto;border:1px solid var(--rose);border-radius:12px;margin-bottom:.6rem}
+    .nl-table{width:100%;border-collapse:collapse;font-size:.86rem}
+    .nl-table th{position:sticky;top:0;background:var(--rose);font:600 .72rem/1.2 var(--texte);color:var(--prune);padding:.5rem .4rem;text-align:center}
+    .nl-table th:first-child,.nl-table td:first-child{text-align:left;padding-left:.7rem}
+    .nl-table td{border-top:1px solid var(--rose);padding:.45rem .4rem;text-align:center;color:var(--prune);font-family:var(--display);font-size:1.05rem}
+    .nl-table td:first-child{font-family:var(--texte);font-size:.86rem}
+    .nl-table td small{display:block;font-size:.72rem;color:var(--prune-doux)}
+    .nl-table tr.toi td{background:#FFF6EC}
+    .nl-vide{color:var(--rose-fonce)}
+    .nl-actions{display:grid;gap:.5rem;margin-top:1rem}
     @media (max-width:520px){.rap-offres{grid-template-columns:1fr}.rap-offre.rap-reco{margin-top:.4rem}}
 
     @media (max-width:1100px){
@@ -241,6 +256,7 @@
     </div>
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
+      <button class="bt" type="button" id="bt-numero" aria-haspopup="dialog">Numérologie</button>
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
       <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
@@ -404,6 +420,17 @@
     </div>
   </div>
 
+  <!-- Numérologie de la lignée -->
+  <div class="fenetre-fond" id="fen-numero">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fn-titre">
+      <div class="fen-tete">
+        <div><h2 id="fn-titre">Ta lignée en nombres</h2><p>Le chemin de vie, l'expression et le nombre héréditaire de chacun·e, et les échos entre les générations.</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" id="fn-corps"></div>
+    </div>
+  </div>
+
   <!-- Rapport -->
   <div class="fenetre-fond" id="fen-rapport">
     <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fr-titre">
@@ -417,6 +444,7 @@
 
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
+  <script src="assets/numerologie.js"></script>
   <script src="assets/genosociogramme.js"></script>
 </body>
 </html>
