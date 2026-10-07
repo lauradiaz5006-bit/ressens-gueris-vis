@@ -1379,6 +1379,7 @@
       h += '<div class="geste"><b>Pour sortir de la boucle</b>' + esc(T.geste) + '</div>';
       h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
     });
+    h += sectionNumeroRapport();
     // Pour aller plus loin
     h += '<section class="page"><div class="sur2">Pour aller plus loin</div><h2>Ce que ton arbre ne dit pas encore</h2><p class="intro">Plus ton arbre est complet, plus les répétitions apparaissent. Voici ce que tu pourrais compléter, puis régénérer ton rapport.</p>';
     if (st.sansDate.length) h += '<h3>Les dates de naissance manquantes</h3><p>' + esc(st.sansDate.slice(0, 30).join(', ')) + (st.sansDate.length > 30 ? '…' : '') + '</p>';
@@ -1425,7 +1426,7 @@
       h += '<div class="rap-extrait"><p class="rap-sur">Extrait du rapport</p><div class="rap-rep" style="--c:' + r0.c + '"><b>' + esc(r0.label) + '</b><span>' + esc(r0.desc) + '</span></div><p class="rap-piste"><b>Piste de réflexion :</b> ' + esc(T0.pistes[0]) + '</p></div>';
       if (reps.length > 1) h += '<p class="rap-flou" aria-hidden="true">' + reps.slice(1, 4).map(function (r) { return esc(r.label); }).join(' · ') + '</p><p class="rap-cadenas">Les ' + (reps.length - 1) + ' autres répétitions, leurs explications et leurs pistes sont dans le rapport complet.</p>';
     }
-    h += '<p class="rap-contenu">Le rapport complet (PDF à imprimer ou à garder) contient : ton arbre, tes chiffres clés, chaque répétition expliquée avec ses pistes de réflexion et un geste pour sortir de la boucle, des pages de notes, et ce qu’il te reste à compléter.</p>';
+    h += '<p class="rap-contenu">Le rapport complet (PDF à imprimer ou à garder) contient : ton arbre, tes chiffres clés, chaque répétition expliquée avec ses pistes de réflexion et un geste pour sortir de la boucle, ta lignée en nombres (numérologie) avec ses échos, des pages de notes, et ce qu’il te reste à compléter.</p>';
     return h;
   }
 
@@ -1488,9 +1489,119 @@
   }
   $('bt-rapport').addEventListener('click', ouvrirRapport);
 
+
+  /* ───────── Numérologie de la lignée ───────── */
+  var NUM = window.Numerologie || null;
+  function dateComplete(d) { return /^\d{4}-\d{2}-\d{2}$/.test(d || ''); }
+  function numeroLignee() {
+    var pl = calculerPlan(), moi = idMoi(), auj = new Date();
+    var gens = {}; Object.keys(S.people).forEach(function (id) { if (pl.pos[id]) gens[id] = pl.pos[id].y; });
+    var lst = Object.keys(S.people).map(function (id) {
+      var p = S.people[id], t = NUM.theme(p.prenom || '', p.nom || '', dateComplete(p.naiss) ? p.naiss : '', auj);
+      return { id: id, p: p, nom: nomComplet(p) || 'Sans nom', lien: id === moi ? 'toi' : lienDe(id), gen: gens[id], t: t, moi: id === moi, vivant: !decede(p) };
+    }).filter(function (x) { return x.t.chemin || x.t.expression; });
+    lst.sort(function (a, b) { return (a.gen == null ? 99 : a.gen) - (b.gen == null ? 99 : b.gen) || (b.moi - a.moi); });
+    var echos = [];
+    function grouper(cle, type) {
+      var g = {};
+      lst.forEach(function (x) { var v = x.t[cle]; if (v) (g[v] = g[v] || []).push(x); });
+      Object.keys(g).forEach(function (v) {
+        var xs = g[v], ng = {}; xs.forEach(function (x) { ng[x.gen] = 1; });
+        var nbGen = Object.keys(ng).length;
+        if (xs.length >= 2 && nbGen >= 2) echos.push({ type: type, n: +v, gens: nbGen, pers: xs, toi: xs.some(function (x) { return x.moi; }) });
+      });
+    }
+    grouper('chemin', 'chemin');
+    grouper('expression', 'expression');
+    var avecChemin = lst.filter(function (x) { return x.t.chemin; });
+    if (avecChemin.length >= 5) {
+      var vus = {}; avecChemin.forEach(function (x) { vus[NUM.base(x.t.chemin)] = 1; });
+      var abs = []; for (var k = 1; k <= 9; k++) if (!vus[k]) abs.push(k);
+      if (abs.length && abs.length <= 4) echos.push({ type: 'absent', nombres: abs, pers: [] });
+    }
+    var me = lst.find(function (x) { return x.moi; });
+    if (me && me.t.annee) {
+      var memes = lst.filter(function (x) { return !x.moi && x.vivant && x.t.annee === me.t.annee; });
+      if (memes.length) echos.push({ type: 'annee', n: me.t.annee, pers: [me].concat(memes), toi: true });
+    }
+    echos.sort(function (a, b) { return (b.toi ? 1 : 0) - (a.toi ? 1 : 0) || (b.gens || 0) - (a.gens || 0) || b.pers.length - a.pers.length; });
+    return { liste: lst, echos: echos, moi: me, incomplets: Object.keys(S.people).length - lst.length };
+  }
+  function prenomsDe(xs) { return xs.map(function (x) { return x.moi ? 'toi' : (x.p.prenom || x.nom) + (x.lien ? ' (' + x.lien.toLowerCase() + ')' : ''); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); }
+  function titreEcho(e) {
+    if (e.type === 'chemin') return 'Le chemin de vie ' + e.n + ' revient sur ' + e.gens + ' générations';
+    if (e.type === 'expression') return 'Le nombre d’expression ' + e.n + ' revient sur ' + e.gens + ' générations';
+    if (e.type === 'absent') return e.nombres.length > 1 ? 'Les nombres ' + e.nombres.join(', ').replace(/, (\d+)$/, ' et $1') + ' n’apparaissent dans aucun chemin de vie' : 'Le nombre ' + e.nombres[0] + ' n’apparaît dans aucun chemin de vie';
+    return 'Cette année, vous êtes ' + e.pers.length + ' en année personnelle ' + e.n;
+  }
+  function sousEcho(e) {
+    if (e.type === 'absent') return 'Dans toute ta lignée';
+    return (e.type === 'annee' ? '' : NUM.NOMBRES[e.n].nom + ' · ') + prenomsDe(e.pers);
+  }
+  function texteEcho(e) {
+    if (e.type === 'chemin' || e.type === 'expression') {
+      var T = NUM.NOMBRES[e.n];
+      return { texte: T.essence + ' ' + T.famille, piste: 'Le ' + e.n + ' apporte ' + T.mots.join(', ') + '. ' + (e.toi ? 'Qu’as-tu reçu de ' + (e.pers.length > 2 ? 'ces personnes' : 'cette personne') + ' ?' : 'Qu’est-ce que ces personnes ont vécu de semblable ?') + ' Le défi du ' + e.n + ', pour toi : ' + T.defi.charAt(0).toLowerCase() + T.defi.slice(1) };
+    }
+    if (e.type === 'absent') return { texte: 'En numérologie, un nombre absent d’une lignée évoque une qualité que la famille a eu peu l’occasion de vivre : ' + e.nombres.map(function (n) { return 'le ' + n + ', ' + NUM.ABSENTS[n].replace(/\.$/, ''); }).join(' ; ') + '.', piste: 'C’est peut-être une qualité que ta génération est invitée à développer. Où pourrais-tu commencer à la vivre ?' };
+    var A = NUM.ANNEES[e.n];
+    return { texte: A.titre + '. ' + A.texte, piste: 'Vivre la même année personnelle crée des résonances. Qu’est-ce qui se joue en ce moment pour vous ' + (e.pers.length > 2 ? 'tous' : 'deux') + ' ?' };
+  }
+  function nb(n) { return n ? n : '<span class="nl-vide">·</span>'; }
+
+  function ouvrirNumero() {
+    var corps = $('fn-corps');
+    if (!NUM) { corps.innerHTML = '<p class="rap-texte">Le calcul n’a pas pu se charger. Recharge la page.</p>'; ouvrir('fen-numero'); return; }
+    var L = numeroLignee(), h = '';
+    if (L.liste.length < 2) {
+      h = '<p class="rap-texte">Ajoute au moins deux personnes avec leur prénom, leur nom et leur date de naissance complète (jour, mois, année) : l’outil calcule alors les nombres de chacun·e et fait apparaître les échos de ta lignée.</p><p class="rap-aide">Tu veux d’abord découvrir ton propre thème ? <a href="theme-numerologique.html">Calculer mon thème numérologique</a></p>';
+      corps.innerHTML = h; ouvrir('fen-numero'); return;
+    }
+    if (L.echos.length) {
+      h += '<p class="rap-texte">Ta lignée fait apparaître <b>' + L.echos.length + ' écho' + (L.echos.length > 1 ? 's' : '') + '</b> :</p><ul class="nl-echos">' +
+        L.echos.map(function (e) { return '<li' + (e.toi ? ' class="toi"' : '') + '><b>' + esc(titreEcho(e)) + '</b><span>' + esc(sousEcho(e)) + '</span></li>'; }).join('') + '</ul>';
+    } else {
+      h += '<p class="rap-texte">Pas encore d’écho visible entre les générations. Complète les dates de naissance et les prénoms : les échos apparaissent souvent avec les grands-parents.</p>';
+    }
+    h += '<div class="nl-table-zone"><table class="nl-table"><thead><tr><th>Personne</th><th title="Chemin de vie">Chemin</th><th title="Nombre d’expression">Expr.</th><th title="Nombre héréditaire (nom)">Hérit.</th><th title="Année personnelle ' + new Date().getFullYear() + '">Année</th></tr></thead><tbody>' +
+      L.liste.map(function (x) { return '<tr' + (x.moi ? ' class="toi"' : '') + '><td><b>' + esc(x.nom) + '</b>' + (x.lien ? '<small>' + esc(x.lien) + '</small>' : '') + '</td><td>' + nb(x.t.chemin) + '</td><td>' + nb(x.t.expression) + '</td><td>' + nb(x.t.hereditaire) + '</td><td>' + (x.vivant ? nb(x.t.annee) : '<span class="nl-vide">·</span>') + '</td></tr>'; }).join('') +
+      '</tbody></table></div>';
+    if (L.incomplets) h += '<p class="rap-aide">' + L.incomplets + ' personne' + (L.incomplets > 1 ? 's n’ont' : ' n’a') + ' pas encore de prénom ni de date complète.</p>';
+    h += '<p class="rap-aide">Pour un calcul juste, indique dans la fiche de chacun·e <b>tous ses prénoms</b> et son <b>nom de naissance</b> (celui de jeune fille pour les femmes mariées), et la date de naissance complète.</p>';
+    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a></div>';
+    corps.innerHTML = h;
+    $('bt-numero-rapport').addEventListener('click', function () { fermer('fen-numero'); ouvrirRapport(); });
+    ouvrir('fen-numero');
+  }
+  function sectionNumeroRapport() {
+    if (!NUM) return '';
+    var L = numeroLignee(); if (L.liste.length < 2) return '';
+    var h = '<section class="section page"><div class="sur2">Numérologie</div><h2>Ta lignée en nombres</h2><p class="intro">Chaque personne de ton arbre porte des nombres, calculés à partir de ses prénoms, de son nom et de sa date de naissance. Quand les mêmes nombres reviennent d’une génération à l’autre, ils dessinent des échos : une autre façon de regarder ce qui se transmet.</p>';
+    h += '<table><tr><th>Personne</th><th>Lien</th><th>Chemin de vie</th><th>Expression</th><th>Héréditaire</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + (x.t.chemin || '') + '</td><td>' + (x.t.expression || '') + '</td><td>' + (x.t.hereditaire || '') + '</td></tr>'; }).join('') + '</table>';
+    if (L.moi && L.moi.t.chemin) {
+      var C = NUM.NOMBRES[L.moi.t.chemin];
+      h += '<h3>Ton chemin de vie : ' + L.moi.t.chemin + ', ' + esc(C.nom.toLowerCase()) + '</h3><p>' + esc(C.essence) + '</p><p><b>Ta force :</b> ' + esc(C.force) + ' <b>Ton défi :</b> ' + esc(C.defi) + '</p>';
+    }
+    if (L.moi && L.moi.t.annee) { var A = NUM.ANNEES[L.moi.t.annee]; h += '<h3>Ton année personnelle ' + new Date().getFullYear() + ' : ' + L.moi.t.annee + '</h3><p><b>' + esc(A.titre) + '.</b> ' + esc(A.texte) + '</p><p><b>Ta piste :</b> ' + esc(A.piste) + '</p>'; }
+    h += '</section>';
+    if (L.echos.length) {
+      h += '<section class="section page"><div class="sur2">Numérologie</div><h2>Les échos de ta lignée</h2>';
+      L.echos.forEach(function (e) {
+        var t = texteEcho(e);
+        h += '<div style="break-inside:avoid;margin-bottom:6mm"><div class="rep" style="--c:#B98A55"><b>' + esc(titreEcho(e)) + '</b><p>' + esc(sousEcho(e)) + '</p></div><p>' + esc(t.texte) + '</p><div class="pistes" style="margin-bottom:0"><b>Piste de réflexion</b><p style="margin:1.5mm 0 0">' + esc(t.piste) + '</p></div></div>';
+      });
+      h += '<div class="notes"><h3>Mes notes</h3>' + new Array(5).join('<div class="lignes"></div>') + '</div></section>';
+    }
+    return h;
+  }
+  $('bt-numero').addEventListener('click', ouvrirNumero);
+
   /* ───────── Démarrage ───────── */
   var exportDemande = new URLSearchParams(location.search).get('export');
+  var numeroFait = false;
+  function numeroSiDemande() { if (numeroFait || !new URLSearchParams(location.search).has('numerologie')) return; numeroFait = true; setTimeout(ouvrirNumero, 400); }
   function exporterSiDemande() {
+    numeroSiDemande();
     if (!exportDemande) return;
     var e = exportDemande; exportDemande = null;
     history.replaceState(null, '', location.pathname);
@@ -1509,6 +1620,7 @@
         b.innerHTML = 'Exemple fictif : la famille de Léa. Rien n’est enregistré. <a href="genosociogramme.html">Créer mon propre arbre</a>';
         document.body.appendChild(b);
         statut('');
+        numeroSiDemande();
       });
       return;
     }
