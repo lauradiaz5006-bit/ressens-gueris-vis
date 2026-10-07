@@ -1524,6 +1524,28 @@
       var memes = lst.filter(function (x) { return !x.moi && x.vivant && x.t.annee === me.t.annee; });
       if (memes.length) echos.push({ type: 'annee', n: me.t.annee, pers: [me].concat(memes), toi: true });
     }
+    // À ton âge, qui traversait la même grande période que toi ?
+    if (me && me.t.periodeActuelle && me.t.age != null) {
+      var pn = me.t.periodeActuelle.n, memesPer = [];
+      lst.forEach(function (x) {
+        if (x.moi || !x.t.periodes) return;
+        var per = NUM.periodeA(x.t, me.t.age);
+        if (!per || per.n !== pn) return;
+        var fin = per.a == null ? 200 : per.a;
+        var evts = (x.p.events || []).filter(function (ev) { var a = parseInt(ev.age, 10); return !isNaN(a) && a >= per.de && a < fin; })
+          .map(function (ev) { return (NOM_EVT[ev.type] || ev.type || 'événement').toLowerCase() + ' à ' + parseInt(ev.age, 10) + ' ans'; });
+        memesPer.push({ x: x, per: per, evts: evts });
+      });
+      if (memesPer.length) echos.push({ type: 'periode', n: pn, age: me.t.age, details: memesPer, pers: [me].concat(memesPer.map(function (m) { return m.x; })), toi: true, gens: 2 });
+    }
+    // Les nombres d'apprentissage partagés
+    var parDette = {};
+    lst.forEach(function (x) { (x.t.dettes || []).forEach(function (d) { (parDette[d.n] = parDette[d.n] || {})[x.id] = x; }); });
+    Object.keys(parDette).forEach(function (n) {
+      var xs = Object.keys(parDette[n]).map(function (id) { return parDette[n][id]; }), ng = {};
+      xs.forEach(function (x) { ng[x.gen] = 1; });
+      if (xs.length >= 2 && Object.keys(ng).length >= 2) echos.push({ type: 'dette', n: +n, gens: Object.keys(ng).length, pers: xs, toi: xs.some(function (x) { return x.moi; }) });
+    });
     echos.sort(function (a, b) { return (b.toi ? 1 : 0) - (a.toi ? 1 : 0) || (b.gens || 0) - (a.gens || 0) || b.pers.length - a.pers.length; });
     return { liste: lst, echos: echos, moi: me, incomplets: Object.keys(S.people).length - lst.length };
   }
@@ -1532,10 +1554,14 @@
     if (e.type === 'chemin') return 'Le chemin de vie ' + e.n + ' revient sur ' + e.gens + ' générations';
     if (e.type === 'expression') return 'Le nombre d’expression ' + e.n + ' revient sur ' + e.gens + ' générations';
     if (e.type === 'absent') return e.nombres.length > 1 ? 'Les nombres ' + e.nombres.join(', ').replace(/, (\d+)$/, ' et $1') + ' n’apparaissent dans aucun chemin de vie' : 'Le nombre ' + e.nombres[0] + ' n’apparaît dans aucun chemin de vie';
+    if (e.type === 'periode') return 'À ton âge, ' + (e.details.length > 1 ? e.details.length + ' personnes traversaient' : (e.details[0].x.p.prenom || e.details[0].x.nom) + ' traversait') + ' aussi une réalisation ' + e.n;
+    if (e.type === 'dette') return 'Le nombre d’apprentissage ' + e.n + ' revient sur ' + e.gens + ' générations';
     return 'Cette année, vous êtes ' + e.pers.length + ' en année personnelle ' + e.n;
   }
   function sousEcho(e) {
     if (e.type === 'absent') return 'Dans toute ta lignée';
+    if (e.type === 'periode') return NUM.NOMBRES[e.n].nom + ' · ' + e.details.map(function (d) { return (d.x.p.prenom || d.x.nom) + (d.x.lien ? ' (' + d.x.lien.toLowerCase() + ')' : '') + (d.evts.length ? ' : ' + d.evts.join(', ') : ''); }).join(' ; ');
+    if (e.type === 'dette') return NUM.APPRENTISSAGES[e.n].titre + ' · ' + prenomsDe(e.pers);
     return (e.type === 'annee' ? '' : NUM.NOMBRES[e.n].nom + ' · ') + prenomsDe(e.pers);
   }
   function texteEcho(e) {
@@ -1544,6 +1570,12 @@
       return { texte: T.essence + ' ' + T.famille, piste: 'Le ' + e.n + ' apporte ' + T.mots.join(', ') + '. ' + (e.toi ? 'Qu’as-tu reçu de ' + (e.pers.length > 2 ? 'ces personnes' : 'cette personne') + ' ?' : 'Qu’est-ce que ces personnes ont vécu de semblable ?') + ' Le défi du ' + e.n + ', pour toi : ' + T.defi.charAt(0).toLowerCase() + T.defi.slice(1) };
     }
     if (e.type === 'absent') return { texte: 'En numérologie, un nombre absent d’une lignée évoque une qualité que la famille a eu peu l’occasion de vivre : ' + e.nombres.map(function (n) { return 'le ' + n + ', ' + NUM.ABSENTS[n].replace(/\.$/, ''); }).join(' ; ') + '.', piste: 'C’est peut-être une qualité que ta génération est invitée à développer. Où pourrais-tu commencer à la vivre ?' };
+    if (e.type === 'periode') {
+      var avecEvt = e.details.filter(function (d) { return d.evts.length; });
+      return { texte: 'Tu as ' + e.age + ' ans et tu es dans ta réalisation ' + e.n + ' : ' + NUM.PERIODES[e.n].charAt(0).toLowerCase() + NUM.PERIODES[e.n].slice(1) + ' Au même âge, ' + (e.details.length > 1 ? 'ces personnes de ta famille vivaient' : 'cette personne de ta famille vivait') + ' une période de la même couleur.' + (avecEvt.length ? ' Ce qu’elles y ont vécu est noté dans ton arbre.' : ''),
+        piste: avecEvt.length ? 'Regarde ce qu’elles ont vécu pendant cette période. Qu’est-ce qui résonne avec ta vie aujourd’hui ? Qu’as-tu envie de vivre autrement ?' : 'Que sais-tu de ce qu’elles ont vécu à cette période de leur vie ? C’est une bonne question à poser à ta famille.' };
+    }
+    if (e.type === 'dette') { var D = NUM.APPRENTISSAGES[e.n]; return { texte: D.titre + ' : ' + D.texte.charAt(0).toLowerCase() + D.texte.slice(1), piste: 'Cet apprentissage traverse plusieurs générations. Qui l’a vécu avant toi, et comment ? Que peux-tu en faire, toi, aujourd’hui ?' }; }
     var A = NUM.ANNEES[e.n];
     return { texte: A.titre + '. ' + A.texte, piste: 'Vivre la même année personnelle crée des résonances. Qu’est-ce qui se joue en ce moment pour vous ' + (e.pers.length > 2 ? 'tous' : 'deux') + ' ?' };
   }
@@ -1580,12 +1612,18 @@
     h += '<table><tr><th>Personne</th><th>Lien</th><th>Chemin de vie</th><th>Expression</th><th>Héréditaire</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + (x.t.chemin || '') + '</td><td>' + (x.t.expression || '') + '</td><td>' + (x.t.hereditaire || '') + '</td></tr>'; }).join('') + '</table>';
     if (L.moi && L.moi.t.chemin) {
       var C = NUM.NOMBRES[L.moi.t.chemin];
-      h += '<h3>Ton chemin de vie : ' + L.moi.t.chemin + ', ' + esc(C.nom.toLowerCase()) + '</h3><p>' + esc(C.essence) + '</p><p><b>Ta force :</b> ' + esc(C.force) + ' <b>Ton défi :</b> ' + esc(C.defi) + '</p>';
+      h += '<h3>Ton chemin de vie : ' + L.moi.t.chemin + ', ' + esc(C.nom.toLowerCase()) + '</h3><p>' + esc(NUM.texte('chemin', L.moi.t.chemin)) + '</p><p><b>Ta force :</b> ' + esc(C.force) + ' <b>Ton défi :</b> ' + esc(C.defi) + '</p>';
+    }
+    if (L.moi && L.moi.t.periodes) {
+      h += '<h3>Tes grandes périodes</h3><table><tr><th>Âges</th><th>Réalisation</th><th>Défi</th></tr>' + L.moi.t.periodes.map(function (p, i) {
+        var ici = L.moi.t.periodeActuelle && L.moi.t.periodeActuelle.index === i;
+        return '<tr' + (ici ? ' style="background:#FFF5EA"' : '') + '><td>' + esc(NUM.ages(p.de, p.a)) + (ici ? ' <b>(maintenant)</b>' : '') + '</td><td><b>' + p.n + '</b> · ' + esc(NUM.PERIODES[p.n]) + '</td><td>' + p.defi + '</td></tr>';
+      }).join('') + '</table>';
     }
     if (L.moi && L.moi.t.annee) { var A = NUM.ANNEES[L.moi.t.annee]; h += '<h3>Ton année personnelle ' + new Date().getFullYear() + ' : ' + L.moi.t.annee + '</h3><p><b>' + esc(A.titre) + '.</b> ' + esc(A.texte) + '</p><p><b>Ta piste :</b> ' + esc(A.piste) + '</p>'; }
     h += '</section>';
     if (L.echos.length) {
-      h += '<section class="section page"><div class="sur2">Numérologie</div><h2>Les échos de ta lignée</h2>';
+      h += '<section class="section" style="margin-top:10mm"><div class="sur2">Numérologie</div><h2>Les échos de ta lignée</h2>';
       L.echos.forEach(function (e) {
         var t = texteEcho(e);
         h += '<div style="break-inside:avoid;margin-bottom:6mm"><div class="rep" style="--c:#B98A55"><b>' + esc(titreEcho(e)) + '</b><p>' + esc(sousEcho(e)) + '</p></div><p>' + esc(t.texte) + '</p><div class="pistes" style="margin-bottom:0"><b>Piste de réflexion</b><p style="margin:1.5mm 0 0">' + esc(t.piste) + '</p></div></div>';
