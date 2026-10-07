@@ -2,6 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>Mon espace · Genesolia</title>
@@ -43,6 +48,46 @@
     .infos{background:var(--nacre);border-radius:14px;padding:.9rem 1rem;text-align:left;font-size:.88rem;color:var(--prune-doux);margin:1.2rem 0;line-height:1.55}
     .infos b{color:var(--prune);font-weight:600}
     [hidden]{display:none!important}
+    .espace.connectee{align-items:flex-start}
+    .tableau{width:100%;max-width:1080px}
+    .tb-tete{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;margin-bottom:1rem}
+    .tb-titre{margin-right:auto}
+    .tb-titre h1{font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.1}
+    .tb-titre p{color:var(--prune-doux);font-size:.92rem;word-break:break-all}
+    .tb-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--prune),var(--prune-doux)) center/cover no-repeat;color:var(--blanc);display:flex;align-items:center;justify-content:center;font:400 1.8rem var(--display);box-shadow:0 8px 22px rgba(107,47,91,.18)}
+    .tb-avatar.grand{width:96px;height:96px;font-size:2.6rem}
+    .tb-avatar.photo{color:transparent}
+    .tb-message{min-height:1.4em;margin-bottom:.6rem;color:#7A5426;font-size:.92rem}
+    .tb-message.erreur{color:#8E2E40}
+    .tb-grille{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;align-items:start}
+    .tb-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.5rem 1.5rem 1.6rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.8rem}
+    .tb-large{grid-column:1/-1;background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border-color:var(--champagne-clair)}
+    .tb-carte h2{font-size:1.35rem}
+    .tb-actions{display:flex;flex-wrap:wrap;gap:.5rem}
+    .tb-actions .btn{padding:.65rem 1rem;font-size:.9rem}
+    .tb-aide{font-size:.84rem;color:var(--prune-doux);line-height:1.55}
+    .tb-aide a{color:var(--prune)}
+    .tb-chiffres{display:flex;flex-wrap:wrap;gap:.8rem}
+    .tb-chiffre{background:rgba(255,255,255,.75);border:1px solid var(--rose);border-radius:14px;padding:.7rem 1rem;min-width:8.5rem}
+    .tb-chiffre b{display:block;font:400 1.6rem/1.1 var(--display);color:var(--prune)}
+    .tb-chiffre span{font-size:.8rem;color:var(--prune-doux)}
+    .tb-formule{font:400 1.2rem var(--display);color:var(--prune)}
+    .tb-formule span{font:600 .75rem var(--texte);background:var(--rose);color:var(--prune);border-radius:999px;padding:.25rem .6rem;margin-left:.4rem;vertical-align:middle}
+    .tb-liste{list-style:none;display:grid;gap:.35rem;font-size:.9rem;color:var(--prune)}
+    .tb-liste li{padding-left:1.2rem;position:relative}
+    .tb-liste li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--champagne)}
+    .tb-form{display:grid;gap:.5rem;justify-items:start}
+    .tb-form .champ{width:100%;margin-bottom:0}
+    .tb-form .btn{padding:.55rem .95rem;font-size:.86rem}
+    .tb-etiq{font:600 .8rem/1.2 var(--texte);color:var(--prune)}
+    .tb-valeur{color:var(--prune);word-break:break-all}
+    .tb-photo{display:flex;gap:1rem;align-items:center}
+    .tb-fichier{position:relative;overflow:hidden;cursor:pointer}
+    .tb-fichier input{position:absolute;inset:0;opacity:0;cursor:pointer}
+    .tb-danger{color:#A23B4C;border-color:#E9C2C9}
+    .tb-danger-plein{background:#A23B4C;border-color:#A23B4C}
+    .tb-suppr{border-top:1px solid var(--rose);padding-top:.9rem;display:grid;gap:.6rem;font-size:.9rem;color:var(--prune)}
+    @media (max-width:760px){.tb-grille{grid-template-columns:1fr}.tb-tete .btn{width:100%;justify-content:center}}
   </style>
 </head>
 <body class="nouveau">
@@ -89,22 +134,96 @@
       <p class="note">Ton arbre est privé : personne d’autre que toi n’y a accès. Il est stocké en Europe (Irlande). <a href="confidentialite.html">Mes données</a></p>
     </div>
 
-    <div class="carte connecte" id="carte-connecte" hidden>
-      <div class="avatar" id="avatar" aria-hidden="true">?</div>
-      <h1 id="bonjour">Bonjour</h1>
-      <p class="email" id="email-connecte"></p>
-      <div class="actions">
-        <a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre familial</a>
-        <a class="btn btn-trait" href="parcours.html">Mon parcours guidé</a>
+    <div class="tableau" id="carte-connecte" hidden>
+      <div class="tb-tete">
+        <div class="tb-avatar" id="avatar" aria-hidden="true">?</div>
+        <div class="tb-titre">
+          <h1 id="bonjour">Bonjour</h1>
+          <p id="email-connecte"></p>
+        </div>
+        <button class="btn btn-trait" type="button" id="deconnexion">Me déconnecter</button>
       </div>
-      <div class="infos" id="infos-arbre">Chargement de ton arbre…</div>
-      <button class="lien-texte" type="button" id="deconnexion">Me déconnecter</button>
+      <p class="tb-message" id="tb-message" role="status" aria-live="polite"></p>
+
+      <div class="tb-grille">
+        <section class="tb-carte tb-large" aria-labelledby="t-arbre">
+          <h2 id="t-arbre">Mon arbre familial</h2>
+          <div class="tb-chiffres" id="arbre-chiffres"><p class="tb-aide">Chargement de ton arbre…</p></div>
+          <div class="tb-actions">
+            <a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre</a>
+            <a class="btn btn-trait" href="genosociogramme.html?export=image" id="lien-image">Télécharger l'image</a>
+            <a class="btn btn-trait" href="genosociogramme.html?export=imprimer" id="lien-pdf">Imprimer ou PDF</a>
+            <button class="btn btn-trait" type="button" id="bt-copie">Copie de sauvegarde</button>
+          </div>
+          <p class="tb-aide">Ton arbre s'enregistre ici à chaque modification. Les 30 dernières versions sont gardées : tu peux revenir en arrière depuis « Sauvegardes » dans l'arbre.</p>
+        </section>
+
+        <section class="tb-carte" aria-labelledby="t-abo">
+          <h2 id="t-abo">Mon abonnement</h2>
+          <p class="tb-formule">Formule Découverte <span>gratuite</span></p>
+          <ul class="tb-liste">
+            <li>Ton arbre familial, sauvegardé dans ton espace</li>
+            <li>L'historique de tes 30 dernières versions</li>
+            <li>Le test de l'arbre de vie et le parcours guidé</li>
+            <li>Le carnet des deux cycles à imprimer</li>
+          </ul>
+          <p class="tb-aide">D'autres formules arrivent bientôt. Tu seras prévenu·e ici.</p>
+        </section>
+
+        <section class="tb-carte" aria-labelledby="t-parcours">
+          <h2 id="t-parcours">Mon parcours guidé</h2>
+          <div id="parcours-resume"><p class="tb-aide">Chargement…</p></div>
+          <div class="tb-actions"><a class="btn btn-trait" href="parcours.html">Ouvrir le parcours</a></div>
+        </section>
+
+        <section class="tb-carte" aria-labelledby="t-infos">
+          <h2 id="t-infos">Mes informations</h2>
+          <form id="form-prenom" class="tb-form">
+            <div class="champ"><label for="p-prenom">Prénom ou pseudo</label><input id="p-prenom" type="text" autocomplete="given-name" maxlength="60"></div>
+            <button class="btn btn-trait" type="submit">Enregistrer</button>
+          </form>
+          <div class="champ"><span class="tb-etiq">E-mail</span><p class="tb-valeur" id="p-email"></p><span class="tb-aide">Pour changer d'adresse, écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.</span></div>
+          <form id="form-mdp" class="tb-form">
+            <div class="champ"><label for="p-mdp">Nouveau mot de passe</label><div class="mdp"><input id="p-mdp" type="password" autocomplete="new-password" minlength="8"><button type="button" class="voir" data-voir="p-mdp">Afficher</button></div><span class="tb-aide">8 caractères minimum.</span></div>
+            <button class="btn btn-trait" type="submit">Changer mon mot de passe</button>
+          </form>
+        </section>
+
+        <section class="tb-carte" aria-labelledby="t-photo">
+          <h2 id="t-photo">Photo de profil</h2>
+          <div class="tb-photo">
+            <div class="tb-avatar grand" id="avatar-grand" aria-hidden="true">?</div>
+            <div>
+              <p class="tb-aide">Facultative et privée : elle n'est visible que par toi.</p>
+              <div class="tb-actions">
+                <label class="btn btn-trait tb-fichier">Choisir une photo<input type="file" id="photo-fichier" accept="image/jpeg,image/png,image/webp"></label>
+                <button class="btn btn-trait" type="button" id="photo-retirer" hidden>Retirer</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tb-carte" aria-labelledby="t-donnees">
+          <h2 id="t-donnees">Mes données</h2>
+          <p class="tb-aide">Tu peux récupérer toutes tes données à tout moment, ou fermer ton compte.</p>
+          <div class="tb-actions">
+            <button class="btn btn-trait" type="button" id="bt-donnees">Télécharger toutes mes données</button>
+            <button class="btn btn-trait tb-danger" type="button" id="bt-supprimer">Supprimer mon compte</button>
+          </div>
+          <div class="tb-suppr" id="zone-suppr" hidden>
+            <p>Ton arbre, son historique, ton parcours et ta photo seront effacés tout de suite, puis ton compte sera fermé. <b>C'est définitif.</b> Pense à télécharger une copie avant.</p>
+            <div class="champ"><label for="suppr-confirm">Pour confirmer, écris SUPPRIMER</label><input id="suppr-confirm" type="text" autocomplete="off"></div>
+            <div class="tb-actions"><button class="btn btn-plein tb-danger-plein" type="button" id="bt-suppr-ok">Supprimer définitivement</button><button class="btn btn-trait" type="button" id="bt-suppr-annuler">Annuler</button></div>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
   <footer data-pied></footer>
 
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
+  <script src="assets/espace.js"></script>
   <script>
   (function () {
     'use strict';
@@ -253,30 +372,19 @@
       }).catch(function (err) { occupe(f, false); message(traduire(err)); });
     });
 
-    // Connectée
+    // Connectée : tableau de bord
     function connecte(user, redirection) {
       if (redirection && retour) { location.href = retour; return; }
       $('carte-auth').hidden = true; $('carte-connecte').hidden = false;
-      var nom = (user.user_metadata && user.user_metadata.full_name) || '';
-      $('bonjour').textContent = nom ? 'Bonjour ' + nom : 'Bonjour';
-      $('avatar').textContent = (nom || user.email || '?').charAt(0).toUpperCase();
-      $('email-connecte').textContent = user.email || '';
-      sb.from('arbres').select('data,updated_at').eq('user_id', user.id).maybeSingle().then(function (r) {
-        var z = $('infos-arbre');
-        if (r.error) { z.textContent = 'Ton arbre n’a pas pu être chargé pour l’instant.'; return; }
-        var n = r.data && r.data.data && r.data.data.people ? Object.keys(r.data.data.people).length : 0;
-        if (!n) { z.innerHTML = 'Ton espace est prêt. Ouvre ton arbre familial : <b>tout ce que tu y fais s’enregistre ici automatiquement</b>.'; return; }
-        var d = new Date(r.data.updated_at), quand = isNaN(d) ? '' : ', enregistré le ' + d.toLocaleDateString('fr-FR') + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-        z.innerHTML = 'Ton arbre : <b>' + n + ' personne' + (n > 1 ? 's' : '') + '</b>' + quand + '. Les 30 dernières versions sont gardées.';
-      });
+      document.querySelector('.espace').classList.add('connectee');
+      window.GenesoliaEspace.ouvrir(sb, user);
     }
-    $('deconnexion').addEventListener('click', function () {
-      sb.auth.signOut().then(function () {
-        try { if (localStorage.getItem('geno4-synchro') === 'ok') localStorage.removeItem('geno4'); } catch (e) {}
-        $('carte-connecte').hidden = true; $('carte-auth').hidden = false; afficher('form-connexion');
-        message('Tu es déconnecté·e. Ton arbre reste en sécurité dans ton espace.', 'ok');
-      });
-    });
+    window.GenesoliaEspaceDeconnecte = function (texte) {
+      $('carte-connecte').hidden = true; $('carte-auth').hidden = false;
+      document.querySelector('.espace').classList.remove('connectee');
+      afficher('form-connexion');
+      if (texte) message(texte, 'ok');
+    };
 
     if (!sb) { message(traduire({ message: 'network' })); return; }
 
@@ -290,15 +398,21 @@
     }
     var recuperation = /type=recovery/.test(location.hash);
     sb.auth.onAuthStateChange(function (event, session) {
-      if (event === 'PASSWORD_RECOVERY') { $('carte-auth').hidden = false; $('carte-connecte').hidden = true; afficher('form-nouveau'); }
+      if (event === 'PASSWORD_RECOVERY') { $('carte-auth').hidden = false; $('carte-connecte').hidden = true; document.querySelector('.espace').classList.remove('connectee'); afficher('form-nouveau'); }
       else if (event === 'SIGNED_IN' && session && !recuperation && $('carte-connecte').hidden && $('form-nouveau').hidden) {
-        if (/access_token/.test(location.hash)) { history.replaceState(null, '', location.pathname); message('Ton adresse est confirmée, bienvenue !', 'ok'); }
-        connecte(session.user, !!retour);
+        var confirmee = /access_token/.test(location.hash);
+        if (confirmee) history.replaceState(null, '', location.pathname);
+        // Ne jamais appeler Supabase directement dans ce rappel (blocage de la bibliothèque) : on diffère
+        setTimeout(function () {
+          if (!$('carte-connecte').hidden) return;
+          connecte(session.user, !!retour);
+          if (confirmee) window.GenesoliaEspaceInfo && window.GenesoliaEspaceInfo('Ton adresse est confirmée, bienvenue !');
+        }, 0);
       }
     });
     sb.auth.getSession().then(function (r) {
       var s = r.data && r.data.session;
-      if (s && !recuperation) connecte(s.user, false);
+      if (s && !recuperation && $('carte-connecte').hidden) connecte(s.user, false);
       else if (params.get('inscription') !== null) afficher('form-inscription');
     });
   })();

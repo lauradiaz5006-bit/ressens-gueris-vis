@@ -1288,6 +1288,14 @@
   }
 
   /* ───────── Démarrage ───────── */
+  var exportDemande = new URLSearchParams(location.search).get('export');
+  function exporterSiDemande() {
+    if (!exportDemande) return;
+    var e = exportDemande; exportDemande = null;
+    history.replaceState(null, '', location.pathname);
+    if (!Object.keys(S.people).length) return;
+    setTimeout(function () { $(e === 'imprimer' ? 'bt-imprimer' : 'bt-image').click(); }, 300);
+  }
   function demarrer() {
     if (surTelephone()) document.body.classList.add('porte-ouverte');
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
@@ -1306,7 +1314,7 @@
     chargerLocal();
     dessiner(); recentrer();
     statut(textStatutRepos());
-    if (!sb) return;
+    if (!sb) { exporterSiDemande(); return; }
     sb.auth.getSession().then(function (r) {
       var s = r && r.data && r.data.session; if (!s) return;
       utilisateur = s.user;
@@ -1331,7 +1339,7 @@
           enregistrer();
         }
       });
-    }).catch(function () {});
+    }).then(exporterSiDemande, exporterSiDemande);
   }
   demarrer();
 })();
