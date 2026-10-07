@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génosociogramme : les informations à rassembler avant de commencer · Genesolia</title>
+  <meta name="description" content="Comment faire un génosociogramme : les informations à rassembler, classées par thème, où les trouver, et une liste à cocher à imprimer.">
+  <link rel="canonical" href="https://genesolia.fr/informations-avant-genosociogramme.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem}
+    .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{max-width:42rem}
+    .article>*+*{margin-top:1.1rem}
+    .article h2{margin-top:3.2rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{margin-top:2rem;font-size:1.3rem}
+    .article p{max-width:none}
+    .article ul.puces{list-style:none;display:grid;gap:.55rem}
+    .article ul.puces li{position:relative;padding-left:1.3rem}
+    .article ul.puces li::before{content:'';position:absolute;left:0;top:.68rem;width:.42rem;height:.42rem;border-radius:50%;background:var(--corail)}
+    .article a{text-underline-offset:3px}
+    .article .encart{margin-top:2rem}
+    .article .encart+*:not(h2){margin-top:2rem}
+
+    .sources{display:grid;gap:0;margin-top:1.4rem}
+    .sources div{padding:1.1rem 0;border-top:1px solid var(--rose)}
+    .sources div:last-child{border-bottom:1px solid var(--rose)}
+    .sources h3{margin:0 0 .3rem;font-size:1.15rem}
+    .sources p{color:var(--prune-doux);font-size:.99rem}
+
+    .liste-a-cocher{margin-top:2rem;padding:2rem 1.8rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--champagne-clair);box-shadow:0 10px 30px rgba(185,138,85,.08)}
+    .liste-a-cocher .titre-liste{font-family:var(--display);font-size:1.6rem;line-height:1.2}
+    .liste-a-cocher .sous-titre{margin-top:.4rem;color:var(--prune-doux);font-size:.95rem}
+    .liste-a-cocher fieldset{border:0;margin-top:1.6rem}
+    .liste-a-cocher legend{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin-bottom:.6rem}
+    .liste-a-cocher label{display:flex;gap:.7rem;align-items:flex-start;padding:.38rem 0;font-size:.98rem;cursor:pointer;line-height:1.45}
+    .liste-a-cocher input{flex:none;width:1.1rem;height:1.1rem;margin-top:.18rem;accent-color:var(--prune);cursor:pointer}
+    .liste-a-cocher input:checked+span{color:var(--prune-doux);text-decoration:line-through;text-decoration-color:var(--champagne)}
+    .liste-a-cocher .colonnes{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
+    .liste-outils-checklist{margin-top:1.8rem;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+    .liste-outils-checklist .note{margin:0}
+    .ligne-notes{display:none}
+
+    @media (max-width:640px){
+      .liste-a-cocher{padding:1.5rem 1.2rem}
+      .liste-a-cocher .colonnes{grid-template-columns:1fr}
+      .liste-outils-checklist .btn{width:100%}
+    }
+
+    @media print{
+      @page{margin:14mm 14mm}
+      body.nouveau{background:#fff;font-size:10.5pt;line-height:1.35;color:#3a1f33}
+      main>*:not(.bloc-checklist){display:none!important}
+      .bloc-checklist{padding:0!important}
+      .bloc-checklist .conteneur{width:100%}
+      .bloc-checklist .article>*:not(.liste-a-cocher){display:none!important}
+      .liste-a-cocher{margin:0;padding:0;border:0;box-shadow:none;background:none}
+      .liste-a-cocher .titre-liste{font-size:18pt}
+      .liste-a-cocher .sous-titre{font-size:9.5pt}
+      .liste-a-cocher fieldset{margin-top:10pt;break-inside:avoid}
+      .liste-a-cocher legend{font-size:12pt;margin-bottom:3pt;color:#8a6235}
+      .liste-a-cocher label{padding:1.5pt 0;font-size:10pt}
+      .liste-a-cocher input{width:10pt;height:10pt;margin-top:1pt}
+      .liste-a-cocher input:checked+span{text-decoration:none;color:inherit}
+      .liste-a-cocher .colonnes{grid-template-columns:1fr 1fr;gap:0 18pt}
+      .liste-outils-checklist{display:none!important}
+      .ligne-notes{display:block;margin-top:12pt;font-size:10pt;break-inside:avoid}
+      .ligne-notes span{display:block;border-bottom:1px solid #d9b9c2;height:18pt}
+      .pied-liste{display:block!important;margin-top:10pt;font-size:8.5pt;color:#8E6383}
+    }
+    .pied-liste{display:none}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Quelles informations rassembler avant de faire son génosociogramme",
+    "description": "Comment faire un génosociogramme : les informations à rassembler, classées par thème, où les trouver, et une liste à cocher à imprimer.",
+    "datePublished": "2026-10-07",
+    "dateModified": "2026-10-07",
+    "inLanguage": "fr",
+    "author": {"@type": "Organization", "name": "Genesolia"},
+    "publisher": {"@type": "Organization", "name": "Genesolia"},
+    "url": "https://genesolia.fr/informations-avant-genosociogramme.html",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/informations-avant-genosociogramme.html"}
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="conteneur">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Avant de commencer</nav>
+        <h1>Quelles informations rassembler avant de faire son génosociogramme</h1>
+        <p class="intro">Avant de dessiner, il faut savoir quoi noter. Voici la liste complète des informations utiles, classées par thème, avec les endroits où les chercher. Et une liste à cocher, à imprimer.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 7 min</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="article">
+          <h2>Pourquoi préparer avant de dessiner</h2>
+          <p>Tu peux commencer ton génosociogramme avec ce que tu sais déjà. C'est même conseillé. Mais un petit temps de préparation change beaucoup de choses.</p>
+          <p>D'abord, tu gagnes du temps. Quand les dates et les prénoms sont réunis sur une feuille, le dessin se fait d'un trait. Tu n'interromps pas ton travail à chaque case pour chercher une année.</p>
+          <p>Ensuite, tu vois plus. Un génosociogramme sert à repérer ce qui revient d'une génération à l'autre : un prénom, un âge, un métier, une date, une épreuve. Ces échos n'apparaissent que si les informations sont là. Une date de mariage sans l'âge des mariés, un déménagement sans l'année : ce sont autant de liens qui restent invisibles.</p>
+          <p>Si tu ne connais pas encore les grandes étapes du dessin, commence par lire <a href="comment-faire-son-genosociogramme.html">comment faire son génosociogramme</a>. Cet article va plus loin sur la toute première étape : rassembler.</p>
+
+          <h2>La liste complète, thème par thème</h2>
+          <p>Pour chaque personne de l'arbre, sur trois ou quatre générations, voici ce qui peut être noté. Tu n'auras pas tout. Ce n'est pas grave : ce qui manque se note aussi.</p>
+
+          <h3>L'identité et les dates</h3>
+          <ul class="puces">
+            <li>Le prénom d'usage, et les autres prénoms inscrits à l'état civil.</li>
+            <li>Le nom de naissance, et le nom porté ensuite s'il a changé.</li>
+            <li>Le surnom, s'il y en avait un.</li>
+            <li>La date et le lieu de naissance.</li>
+            <li>La date et le lieu de décès.</li>
+            <li>La place dans la fratrie : aîné·e, cadet·te, enfant unique, dernier·e.</li>
+          </ul>
+
+          <h3>Les unions, les séparations et les enfants</h3>
+          <ul class="puces">
+            <li>Les mariages, les unions libres, les pacs, avec leurs dates.</li>
+            <li>Les séparations, les divorces, les veuvages, et l'âge qu'avait chacun·e à ce moment-là.</li>
+            <li>Les remariages et les familles recomposées.</li>
+            <li>Tous les enfants, y compris ceux dont on parle peu : enfants décédés jeunes, enfants nés d'une autre union, enfants confiés, adoptés ou placés.</li>
+            <li>Les grands amours qui n'ont pas abouti, quand ils sont connus.</li>
+          </ul>
+
+          <h3>Les métiers et les études</h3>
+          <ul class="puces">
+            <li>Le ou les métiers exercés, et à quelle période.</li>
+            <li>Le niveau d'études, les diplômes, les études interrompues.</li>
+            <li>Le métier rêvé ou empêché, quand on le sait.</li>
+            <li>Les entreprises familiales, les fermes, les commerces transmis ou perdus.</li>
+          </ul>
+
+          <h3>Les lieux, les déménagements, les exils</h3>
+          <ul class="puces">
+            <li>Les villes, les villages, les régions et les pays où chacun·e a vécu.</li>
+            <li>Les déménagements, avec l'année et la raison si elle est connue.</li>
+            <li>Les départs à l'étranger, les migrations, les exils, les retours.</li>
+            <li>Les maisons de famille vendues, quittées ou gardées.</li>
+          </ul>
+
+          <h3>Les événements marquants</h3>
+          <ul class="puces">
+            <li>Les deuils, surtout ceux qui sont arrivés tôt ou brutalement.</li>
+            <li>Les guerres traversées, au front ou à l'arrière.</li>
+            <li>Les faillites, les pertes d'argent, les héritages, les ruptures familiales.</li>
+            <li>Les événements heureux aussi : une réussite, une rencontre, une naissance attendue.</li>
+            <li>Pour chaque événement, l'âge de la personne au moment où il s'est produit.</li>
+          </ul>
+
+          <h3>Les secrets et les non-dits</h3>
+          <ul class="puces">
+            <li>Les sujets qu'on évite, les questions qui gênent.</li>
+            <li>Les personnes dont on ne prononce plus le nom.</li>
+            <li>Les versions différentes d'une même histoire selon qui la raconte.</li>
+            <li>Ce que tu soupçonnes sans pouvoir le vérifier : note-le avec un point d'interrogation.</li>
+          </ul>
+
+          <h3>Ce qui se raconte dans la famille</h3>
+          <ul class="puces">
+            <li>Les histoires qu'on répète aux repas de famille.</li>
+            <li>Les phrases qui reviennent, les devises, les « chez nous, on ».</li>
+            <li>Les ressemblances qu'on souligne : « tu es comme ta grand-tante ».</li>
+            <li>L'origine des prénoms, et les prénoms qui se transmettent.</li>
+          </ul>
+
+          <div class="encart">
+            <p><strong>Le réflexe qui change tout : noter l'âge.</strong> Une année seule dit quand. L'âge dit où en était la personne dans sa vie. C'est en comparant les âges qu'on voit des événements se répondre d'une génération à l'autre. Le <a href="syndrome-anniversaire.html" style="color:var(--blanc)">syndrome d'anniversaire</a> repose sur ce type de rapprochement.</p>
+          </div>
+
+          <h2>Où trouver l'information</h2>
+          <p>Certaines réponses sont tout près. D'autres demandent un peu de recherche. Voici les sources les plus courantes, de la plus proche à la plus lointaine.</p>
+          <div class="sources">
+            <div><h3>La famille</h3><p>C'est la source la plus riche, et la plus fragile. Parents, grands-parents, oncles, tantes, cousin·es : chacun·e détient un morceau de l'histoire. Pour savoir comment t'y prendre, lis <a href="questions-a-poser-a-sa-famille.html">les questions à poser à sa famille</a>.</p></div>
+            <div><h3>Le livret de famille</h3><p>Il réunit les mariages, les naissances des enfants et certains décès. Celui de tes parents, et parfois celui de tes grands-parents, donne d'un coup plusieurs dates et lieux exacts.</p></div>
+            <div><h3>Les actes d'état civil</h3><p>Les actes de naissance, de mariage et de décès se demandent à la mairie du lieu de l'événement. Les actes récents ne sont pas tous accessibles à tout le monde : certains sont réservés à la personne concernée ou à sa famille proche. Les registres plus anciens sont souvent numérisés et consultables en ligne, gratuitement, sur le site des archives départementales.</p></div>
+            <div><h3>Les photos annotées</h3><p>Le dos des photos porte parfois un prénom, un lieu, une date. Une photo de mariage ou de communion permet aussi de retrouver qui était là, et qui manquait.</p></div>
+            <div><h3>Les papiers militaires</h3><p>Livrets militaires, lettres du front, décorations. Beaucoup d'archives départementales mettent aussi en ligne les registres matricules, qui retracent le parcours des hommes appelés sous les drapeaux.</p></div>
+            <div><h3>Les sites de généalogie</h3><p>Geneanet et d'autres sites réunissent des arbres partagés par leurs membres et des relevés d'actes. Ils peuvent faire gagner beaucoup de temps. Vérifie tout de même les informations à la source quand c'est possible : un arbre en ligne peut contenir des erreurs.</p></div>
+            <div><h3>Les autres papiers de famille</h3><p>Lettres, faire-part, carnets, actes notariés, cartes postales, bulletins scolaires. Ils racontent souvent ce que les registres ne disent pas.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux bloc-checklist" id="liste">
+      <div class="conteneur">
+        <div class="article">
+          <h2>La liste à cocher, à imprimer</h2>
+          <p>Coche ce que tu as déjà. Ce qui reste vide te montre où chercher. Tu peux aussi l'imprimer et l'emporter quand tu rends visite à ta famille.</p>
+
+          <div class="liste-a-cocher">
+            <p class="titre-liste">Avant mon génosociogramme</p>
+            <p class="sous-titre">Ce que j'ai rassemblé, pour moi, mes parents, mes grands-parents et, si possible, mes arrière-grands-parents.</p>
+
+            <fieldset>
+              <legend>Identité et dates</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c1"><span>Prénoms et noms de chacun·e</span></label>
+                <label><input type="checkbox" name="c2"><span>Dates et lieux de naissance</span></label>
+                <label><input type="checkbox" name="c3"><span>Dates et lieux de décès</span></label>
+                <label><input type="checkbox" name="c4"><span>Place dans chaque fratrie</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Unions et enfants</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c5"><span>Unions et leurs dates</span></label>
+                <label><input type="checkbox" name="c6"><span>Séparations, divorces, veuvages</span></label>
+                <label><input type="checkbox" name="c7"><span>Remariages, familles recomposées</span></label>
+                <label><input type="checkbox" name="c8"><span>Tous les enfants, même ceux dont on parle peu</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Métiers et études</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c9"><span>Métiers exercés</span></label>
+                <label><input type="checkbox" name="c10"><span>Études et diplômes</span></label>
+                <label><input type="checkbox" name="c11"><span>Métiers rêvés ou empêchés</span></label>
+                <label><input type="checkbox" name="c12"><span>Entreprises ou biens transmis</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Lieux</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c13"><span>Lieux de vie de chacun·e</span></label>
+                <label><input type="checkbox" name="c14"><span>Déménagements et leurs années</span></label>
+                <label><input type="checkbox" name="c15"><span>Migrations, exils, retours</span></label>
+                <label><input type="checkbox" name="c16"><span>Maisons de famille</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Événements marquants</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c17"><span>Deuils</span></label>
+                <label><input type="checkbox" name="c18"><span>Guerres traversées</span></label>
+                <label><input type="checkbox" name="c19"><span>Pertes, faillites, héritages</span></label>
+                <label><input type="checkbox" name="c20"><span>Événements heureux</span></label>
+                <label><input type="checkbox" name="c21"><span>L'âge de chacun·e à chaque événement</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Secrets et récits</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c22"><span>Sujets qu'on évite</span></label>
+                <label><input type="checkbox" name="c23"><span>Personnes dont on ne parle plus</span></label>
+                <label><input type="checkbox" name="c24"><span>Histoires racontées en famille</span></label>
+                <label><input type="checkbox" name="c25"><span>Origine des prénoms</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Sources consultées</legend>
+              <div class="colonnes">
+                <label><input type="checkbox" name="c26"><span>Famille interrogée</span></label>
+                <label><input type="checkbox" name="c27"><span>Livrets de famille</span></label>
+                <label><input type="checkbox" name="c28"><span>Actes d'état civil, archives</span></label>
+                <label><input type="checkbox" name="c29"><span>Photos annotées</span></label>
+                <label><input type="checkbox" name="c30"><span>Papiers militaires</span></label>
+                <label><input type="checkbox" name="c31"><span>Sites de généalogie</span></label>
+              </div>
+            </fieldset>
+
+            <div class="ligne-notes">Ce qui me manque encore :<span></span><span></span><span></span></div>
+            <p class="pied-liste">genesolia.fr · liste à utiliser avec le modèle vierge ou l'outil en ligne</p>
+
+            <div class="liste-outils-checklist">
+              <button class="btn btn-plein" type="button" id="imprimer">Imprimer la liste</button>
+              <button class="btn btn-trait" type="button" id="effacer">Tout décocher</button>
+              <p class="note">Tes coches restent dans ton navigateur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="article">
+          <h2>Quand on ne sait rien d'un côté de la famille</h2>
+          <p>C'est fréquent. Un parent absent, une famille éloignée, une rupture ancienne, des personnes disparues sans laisser de papiers. Un côté entier de l'arbre peut rester presque vide.</p>
+          <p>Dessine quand même les cases. Un côté vide est une information en soi. Il dit qu'une partie de l'histoire s'est perdue, ou n'a pas été transmise. Tu peux noter ce que tu sais du silence lui-même : depuis quand il dure, qui en parle, qui se tait.</p>
+          <p>Quelques pistes pour aller plus loin :</p>
+          <ul class="puces">
+            <li>Pars d'une seule information sûre, un nom ou une ville, et cherche les actes d'état civil correspondants.</li>
+            <li>Demande aux personnes de l'autre côté de la famille ce qu'elles ont entendu dire. Elles en savent parfois plus qu'on ne croit.</li>
+            <li>Cherche des cousin·es éloigné·es sur les sites de généalogie. Quelqu'un a peut-être déjà commencé l'arbre.</li>
+            <li>Accepte que certaines cases restent vides. Le génosociogramme se lit aussi avec ses trous.</li>
+          </ul>
+
+          <h2>Et maintenant, dessine</h2>
+          <p>Tu n'as pas besoin d'avoir coché toute la liste pour commencer. Une première version, même incomplète, te montre déjà où regarder.</p>
+          <p>Tu peux imprimer <a href="genosociogramme-vierge.html">le modèle vierge</a> et le remplir à la main, ou utiliser <a href="genosociogramme.html">l'outil en ligne gratuit</a>, qui repère automatiquement les prénoms, les âges, les métiers et les épreuves qui reviennent. Pour voir à quoi ressemble un arbre rempli, ouvre <a href="genosociogramme.html?exemple">l'exemple fictif</a>.</p>
+          <div class="actions" style="margin-top:1.8rem"><a class="btn btn-plein" href="genosociogramme.html">Faire mon génosociogramme</a><a class="btn btn-trait" href="genosociogramme-vierge.html">Imprimer le modèle vierge</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions classées par thème, et comment s'y prendre.</p></a>
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Les schémas répétitifs en amour</h3><p>Ce qui se rejoue dans les couples, d'une génération à l'autre.</p></a>
+          <a class="outil" href="arbre-de-vie-arbre-genealogique-genosociogramme.html"><h3>Arbre de vie, arbre généalogique, génosociogramme</h3><p>Trois arbres, trois façons de regarder son histoire.</p></a>
+          <a class="outil" href="comment-faire-son-genosociogramme.html"><h3>Comment faire son génosociogramme</h3><p>Les six étapes, du premier symbole aux liens à relier.</p></a>
+          <a class="outil" href="symboles-genosociogramme.html"><h3>Les symboles du génosociogramme</h3><p>La légende illustrée : personnes, couples, enfants, relations.</p></a>
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>La définition, et la différence avec le génogramme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    (function () {
+      var CLE = 'liste-avant-genosociogramme';
+      var cases = document.querySelectorAll('.liste-a-cocher input[type=checkbox]');
+      var etat = {};
+      try { etat = JSON.parse(localStorage.getItem(CLE) || '{}') || {}; } catch (e) { etat = {}; }
+      cases.forEach(function (c) {
+        if (etat[c.name]) c.checked = true;
+        c.addEventListener('change', function () {
+          etat[c.name] = c.checked;
+          try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {}
+        });
+      });
+      document.getElementById('imprimer').addEventListener('click', function () { window.print(); });
+      document.getElementById('effacer').addEventListener('click', function () {
+        cases.forEach(function (c) { c.checked = false; });
+        etat = {};
+        try { localStorage.removeItem(CLE); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
