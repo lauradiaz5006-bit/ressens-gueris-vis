@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tes 20 ans : quand tu as l'impression de rejouer quelque chose · Genesolia</title>
+  <meta name="description" content="18-25 ans : choisis ta situation (amour, amitiés, parents, argent, ta place) et repars avec un geste simple et les mots pour le dire. Gratuit, sans compte.">
+  <link rel="canonical" href="https://genesolia.fr/tes-20-ans.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    :root{
+      --corail-vif:#E08C80;      /* corail un peu plus présent, réservé à cet espace */
+      --corail-encre:#A4473D;    /* corail lisible pour les petits textes */
+      --corail-pale:#FCE7E2;
+      --sable:#FBF0E4;
+    }
+    .vv{position:relative}
+    .vv .visuel-cache{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+    /* En-tête de page */
+    .vt-tete{position:relative;overflow:hidden;padding:2.6rem 0 2.8rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(34rem 22rem at 92% 6%,rgba(231,167,158,.55),transparent 64%),
+        radial-gradient(30rem 22rem at 0% 100%,rgba(243,220,192,.6),transparent 62%),
+        linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .vt-tete .conteneur{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+    .vt-sur{display:inline-block;font:600 .82rem/1 var(--texte);letter-spacing:.02em;color:var(--corail-encre);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.45rem .85rem;margin-bottom:1.1rem}
+    .vt-tete h1{font-size:clamp(2.1rem,5.4vw,3.4rem);max-width:40rem;margin-bottom:1rem}
+    .vt-tete h1 em{font-style:normal;color:var(--corail-encre)}
+    .vt-tete .intro{font-size:1.12rem;color:var(--prune-doux);max-width:34rem}
+    .vt-tete .actions{margin-top:1.6rem}
+    .vt-tete .btn svg{width:18px;height:18px}
+    .vt-mention{margin-top:1.1rem;font-size:.86rem;color:var(--prune-doux);max-width:30rem}
+    .bulles{display:grid;gap:.7rem;justify-items:end;max-width:22rem;margin-left:auto}
+    .bulle{font-size:.98rem;line-height:1.4;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:20px 20px 6px 20px;padding:.75rem 1rem;box-shadow:0 10px 30px rgba(107,47,91,.08);max-width:17rem}
+    .bulle:nth-child(2){justify-self:start;border-radius:20px 20px 20px 6px;background:var(--corail-pale);border-color:#F4CFC7}
+    .bulle:nth-child(3){background:var(--sable);border-color:var(--champagne-clair)}
+    .bulle small{display:block;font-size:.75rem;color:var(--prune-doux);margin-top:.25rem}
+    .bulles .tape{justify-self:start;display:flex;gap:5px;padding:.7rem .9rem;background:var(--blanc);border:1px solid var(--rose);border-radius:20px}
+    .tape i{width:7px;height:7px;border-radius:50%;background:var(--corail-vif);opacity:.35;animation:tape 1.4s infinite}
+    .tape i:nth-child(2){animation-delay:.2s}.tape i:nth-child(3){animation-delay:.4s}
+    @keyframes tape{0%,60%,100%{opacity:.3}30%{opacity:1}}
+
+    /* L'outil */
+    .outil-vt{scroll-margin-top:4.5rem}
+    .outil-vt .bloc-tete{margin-bottom:1.6rem}
+    .grille-vt{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .carte-vt{width:100%;height:100%;display:grid;align-content:center;grid-template-columns:1fr auto;align-items:center;gap:.25rem 1rem;text-align:left;font:inherit;color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:18px;padding:1rem 1.1rem 1.05rem 1.2rem;cursor:pointer;transition:border-color .18s,transform .18s,box-shadow .18s,background .18s}
+    .carte-vt:hover{border-color:var(--corail-vif);box-shadow:0 10px 26px rgba(164,71,61,.10);transform:translateY(-1px)}
+    .carte-vt:focus-visible{outline:2px solid var(--prune);outline-offset:3px;border-radius:18px}
+    .carte-vt .theme{font:600 .76rem/1 var(--texte);letter-spacing:.03em;color:var(--corail-encre)}
+    .carte-vt .phrase{grid-column:1;font-family:var(--display);font-size:1.16rem;line-height:1.3}
+    .carte-vt .fleche{grid-column:2;grid-row:1/3;width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-items:center;background:var(--corail-pale);color:var(--corail-encre);transition:background .18s,color .18s}
+    .carte-vt:hover .fleche{background:var(--corail-vif);color:var(--blanc)}
+    .carte-vt .fleche svg{width:16px;height:16px}
+    .carte-vt.vue{background:linear-gradient(180deg,var(--blanc),#FFF8F5)}
+    .carte-vt.vue .fleche{background:var(--prune);color:var(--blanc)}
+    .carte-vt .coche{display:none}
+    .carte-vt.vue .coche{display:block}
+    .carte-vt.vue .va{display:none}
+    .grille-note{margin-top:1.1rem;font-size:.88rem;color:var(--prune-doux)}
+
+    .reponse{max-width:46rem;margin:0 auto}
+    .reponse:focus{outline:none}
+    .apparait{animation:apparait-vt .35s ease both}
+    @keyframes apparait-vt{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .rep-haut{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin-bottom:1rem}
+    .retour{display:inline-flex;align-items:center;gap:.4rem;background:none;border:0;font:600 .95rem var(--texte);color:var(--prune-doux);cursor:pointer;padding:.5rem 0;text-decoration:underline;text-underline-offset:3px}
+    .retour svg{width:16px;height:16px}
+    .cycle-tag{display:inline-block;font:600 .8rem/1 var(--texte);border-radius:999px;padding:.4rem .75rem}
+    .cycle-tag.racine{background:#F6E7D6;color:#74502A}
+    .cycle-tag.coeur{background:var(--corail-pale);color:var(--corail-encre)}
+    .rep-titre{font-size:clamp(1.7rem,4.4vw,2.3rem);margin-bottom:1.6rem}
+    .rep-titre:focus{outline:none}
+    .rep-titre:focus-visible{outline:2px solid var(--champagne);outline-offset:4px}
+    .rep-bloc{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.35rem;margin-bottom:.9rem}
+    .rep-bloc h3{font:600 .82rem/1.2 var(--texte);letter-spacing:.03em;color:var(--corail-encre);margin-bottom:.55rem}
+    .rep-bloc p{max-width:none}
+    .rep-bloc.question{background:var(--prune);border-color:var(--prune);color:var(--blanc)}
+    .rep-bloc.question h3{color:var(--champagne-clair)}
+    .rep-bloc.question p{font-family:var(--display);font-size:clamp(1.35rem,3.6vw,1.65rem);line-height:1.3}
+    .rep-bloc.geste{border-color:var(--champagne-clair);background:linear-gradient(180deg,var(--sable),var(--blanc) 80%)}
+    .rep-bloc .duree{display:inline-block;margin-top:.7rem;font-size:.84rem;color:var(--prune-doux)}
+    .a-copier{position:relative;font-family:var(--display);font-size:1.18rem;line-height:1.4;background:var(--nacre);border-left:3px solid var(--corail-vif);border-radius:4px 14px 14px 4px;padding:.8rem 1rem;margin-bottom:.8rem}
+    .copier{display:inline-flex;align-items:center;gap:.45rem;font:600 .9rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.6rem 1rem;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+    .copier:hover{border-color:var(--prune)}
+    .copier svg{width:16px;height:16px}
+    .copier.ok{background:var(--prune);border-color:var(--prune);color:var(--blanc)}
+    .rep-bloc .petit{font-size:.88rem;color:var(--prune-doux);margin-top:.8rem}
+    .avant{border:1.5px dashed var(--corail-vif);background:#FFF7F5;border-radius:var(--rayon);padding:1.2rem 1.35rem;margin-bottom:.9rem}
+    .avant h3{font-family:var(--display);font-weight:400;font-size:1.25rem;margin-bottom:.6rem}
+    .avant ol{padding-left:1.3rem;display:grid;gap:.35rem}
+    .avant .alerte{margin-top:.9rem;font-size:.9rem;color:var(--prune-doux)}
+    .plus-loin{margin-top:1.5rem}
+    .plus-loin h3{font:600 .82rem var(--texte);letter-spacing:.03em;color:var(--corail-encre);margin-bottom:.4rem}
+    .plus-loin a{display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;align-items:center;padding:1rem 0;border-top:1px solid var(--rose-fonce);text-decoration:none}
+    .plus-loin a:last-child{border-bottom:1px solid var(--rose-fonce)}
+    .plus-loin a strong{font-family:var(--display);font-weight:400;font-size:1.2rem}
+    .plus-loin a span{grid-column:1;font-size:.93rem;color:var(--prune-doux)}
+    .plus-loin a svg{grid-column:2;grid-row:1/3;width:18px;height:18px;color:var(--champagne);transition:transform .18s}
+    .plus-loin a:hover svg{transform:translateX(3px)}
+    .rep-bas{margin-top:1.8rem;text-align:center}
+
+    /* Les phrases transmises */
+    .phrases-vt{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .phrase-vt{background:var(--nacre);border:1px solid var(--rose);border-radius:18px;padding:1rem 1.1rem;transition:border-color .2s,background .2s}
+    .phrase-vt.garde{border-color:var(--champagne-clair);background:var(--sable)}
+    .phrase-vt.laisse{background:var(--blanc)}
+    .phrase-vt.laisse .texte{color:var(--prune-doux);text-decoration:line-through;text-decoration-color:var(--corail-vif);text-decoration-thickness:1.5px}
+    .phrase-vt .texte{font-family:var(--display);font-size:1.18rem;line-height:1.3;margin-bottom:.75rem}
+    .choix{display:flex;flex-wrap:wrap;gap:.4rem}
+    .choix button{font:600 .84rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.55rem .8rem;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+    .choix button:hover{border-color:var(--prune)}
+    .choix button[aria-pressed="true"]{color:var(--blanc);border-color:var(--prune);background:var(--prune)}
+    .choix button.b-garde[aria-pressed="true"]{background:#8A6232;border-color:#8A6232}
+    .choix button.b-laisse[aria-pressed="true"]{background:var(--corail-encre);border-color:var(--corail-encre)}
+    .recap{margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .recap>div{border-radius:var(--rayon);padding:1.3rem 1.4rem;border:1px solid var(--rose)}
+    .recap .r-garde{background:var(--sable);border-color:var(--champagne-clair)}
+    .recap .r-laisse{background:var(--corail-pale);border-color:#F4CFC7}
+    .recap h3{font-size:1.25rem;margin-bottom:.6rem}
+    .recap ul{list-style:none;display:grid;gap:.35rem}
+    .recap li{font-family:var(--display);font-size:1.05rem}
+    .recap .vide{font-size:.93rem;color:var(--prune-doux)}
+    .recap-compte{grid-column:1/-1;font-size:.95rem;color:var(--prune-doux)}
+    .nouvelle{margin-top:1rem;border-radius:var(--rayon);background:var(--blanc);border:1.5px solid var(--rose-fonce);padding:1.3rem 1.4rem}
+    .nouvelle label{display:block;font-family:var(--display);font-size:1.25rem;margin-bottom:.3rem}
+    .nouvelle p{font-size:.93rem;color:var(--prune-doux);margin-bottom:.7rem}
+    .nouvelle textarea{width:100%;min-height:5.2rem;resize:vertical;font:400 1.1rem/1.45 var(--display);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:14px;padding:.75rem .9rem}
+    .nouvelle textarea:focus{outline:2px solid var(--champagne);outline-offset:1px;border-color:var(--champagne)}
+    .phrases-bas{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;margin-top:1rem}
+    .phrases-bas .note{margin:0}
+    .effacer{background:none;border:0;font:600 .92rem var(--texte);color:var(--corail-encre);cursor:pointer;padding:.5rem 0;text-decoration:underline;text-underline-offset:3px}
+
+    /* Histoires */
+    .histoires{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .histoire{position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem 1.5rem 1.5rem}
+    .histoire .cycle-tag{margin-bottom:1rem}
+    .histoire h3{font-size:1.4rem;margin-bottom:.15rem}
+    .histoire .age{font-size:.88rem;color:var(--prune-doux);margin-bottom:.8rem}
+    .histoire p{font-size:1rem}
+    .histoire blockquote{font-family:var(--display);font-size:1.1rem;line-height:1.35;margin:.9rem 0 0;padding-top:.9rem;border-top:1px solid var(--rose);color:var(--corail-encre)}
+    .avertissement{display:inline-block;line-height:1.4;margin-top:.9rem;font-size:.86rem;color:var(--prune-doux);background:var(--blanc);border:1px dashed var(--rose-fonce);border-radius:999px;padding:.35rem .85rem}
+
+    /* Mini-arbre */
+    .mini{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:start}
+    .mini-arbre{position:sticky;top:6rem;width:100%;border-radius:var(--rayon);background:radial-gradient(18rem 14rem at 50% 85%,rgba(231,167,158,.28),transparent 70%),linear-gradient(180deg,var(--sable),var(--nacre));border:1px solid var(--champagne-clair);padding:2rem 1.6rem 1.4rem}
+    .mini-arbre svg{max-width:320px;margin:0 auto}
+    .mini-arbre figcaption{text-align:center;font-size:.9rem;color:var(--prune-doux);margin-top:1rem}
+    .mini-arbre svg{width:100%;height:auto;overflow:visible}
+    .mini-arbre text{font:600 13.5px var(--texte);fill:var(--prune-doux)}
+    .mini-arbre .trait{fill:none;stroke:var(--champagne);stroke-width:1.3;opacity:.7}
+    .mini-arbre .gp{fill:var(--blanc);stroke:var(--prune-doux);stroke-width:1.2;stroke-dasharray:3 3}
+    .mini-arbre .pa{fill:var(--sable);stroke:var(--champagne);stroke-width:1.4}
+    .mini-arbre .moi{fill:var(--corail-vif)}
+    .qs{list-style:none;counter-reset:q;display:grid;gap:.8rem}
+    .qs li{counter-increment:q;display:grid;grid-template-columns:2.2rem 1fr;gap:.2rem .9rem;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1rem 1.1rem}
+    .qs li::before{content:counter(q);grid-row:span 3;width:2.1rem;height:2.1rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.1rem;background:var(--champagne-clair)}
+    .qs .q{font-family:var(--display);font-size:1.15rem;line-height:1.35}
+    .qs .pour{font-size:.9rem;color:var(--prune-doux);margin-bottom:.5rem}
+    .qs .copier{justify-self:start}
+    .mini-note{margin-top:1rem;font-size:.92rem;color:var(--prune-doux)}
+    .niveaux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.2rem}
+    .niveau{display:grid;gap:.4rem;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .18s,box-shadow .18s}
+    .niveau:hover{border-color:var(--corail-vif);box-shadow:0 10px 26px rgba(164,71,61,.08)}
+    .niveau small{font:600 .78rem var(--texte);letter-spacing:.03em;color:var(--corail-encre)}
+    .niveau strong{font-family:var(--display);font-weight:400;font-size:1.35rem;line-height:1.2}
+    .niveau span{color:var(--prune-doux);font-size:.97rem}
+
+    /* Si ça va vraiment mal */
+    .urgence{border-radius:var(--rayon);background:var(--blanc);border:1.5px solid var(--prune);padding:1.6rem 1.7rem;display:grid;grid-template-columns:auto 1fr;gap:1.2rem}
+    .urgence svg{width:34px;height:34px;color:var(--corail-encre)}
+    .urgence h2{font-size:1.6rem;margin-bottom:.5rem}
+    .urgence p{max-width:46rem}
+    .urgence ul{list-style:none;display:grid;gap:.45rem;margin:.9rem 0}
+    .urgence li{padding-left:1rem;position:relative}
+    .urgence li::before{content:'';position:absolute;left:0;top:.68em;width:6px;height:6px;border-radius:50%;background:var(--corail-vif)}
+    .urgence a{font-weight:600;white-space:nowrap}
+    .urgence .age18{font-size:.88rem;color:var(--prune-doux);margin-top:.6rem}
+    section.bloc.serre{padding-top:0;padding-bottom:0}
+    .nobr{white-space:nowrap}
+
+    @media (max-width:860px){
+      .vt-tete .conteneur{grid-template-columns:1fr;gap:1.6rem}
+      .bulles{display:none}
+      .histoires{grid-template-columns:1fr}
+      .mini{grid-template-columns:1fr;gap:0}
+      .mini-texte{display:contents}
+      .mini-texte .bloc-tete{order:0}
+      .mini-arbre{order:1;position:static;margin-bottom:1.4rem;padding:1.4rem 1rem 1rem}
+      .mini-arbre svg{max-width:250px}
+      .mini-texte .qs{order:2}
+      .mini-texte .mini-note{order:3}
+    }
+    @media (max-width:700px){
+      .grille-vt,.phrases-vt,.recap,.niveaux{grid-template-columns:1fr}
+      .carte-vt .phrase{font-size:1.1rem}
+      .choix{gap:.35rem}
+      .choix button{font-size:.8rem;padding:.55rem .62rem}
+      .avertissement{border-radius:12px}
+      .vt-tete{padding:2rem 0 2.2rem}
+      .vt-tete .btn{width:100%}
+      .urgence{grid-template-columns:1fr;padding:1.4rem 1.3rem;gap:.6rem}
+      .rep-bloc,.avant{padding:1.15rem 1.15rem}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .apparait,.tape i{animation:none}
+      .carte-vt:hover{transform:none}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="vv">
+    <section class="vt-tete">
+      <div class="conteneur">
+        <div>
+          <span class="vt-sur">Tes 20 ans</span>
+          <h1>Tu as l'impression de rejouer quelque chose, <em>sans savoir quoi.</em></h1>
+          <p class="intro">Choisis la situation qui te ressemble. En trois minutes, tu sais ce qui se joue, ce que tu peux faire aujourd'hui, et les mots pour le dire.</p>
+          <div class="actions">
+            <a class="btn btn-plein" href="#outil">Choisir ma situation
+              <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3v12M4 10l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+          <p class="vt-mention">Pour les 18-25 ans · gratuit · sans compte · rien n'est enregistré ailleurs que sur ton téléphone</p>
+        </div>
+        <div class="bulles" aria-hidden="true">
+          <p class="bulle">Il ne répond plus depuis deux jours.<small>22 h 47</small></p>
+          <p class="bulle">Et je ne sais même pas si on est ensemble.<small>22 h 48</small></p>
+          <p class="bulle">Bref. Je crois que je refais le même film.<small>22 h 51</small></p>
+          <span class="tape"><i></i><i></i><i></i></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc outil-vt" id="outil" aria-labelledby="outil-titre">
+      <div class="conteneur">
+        <div id="ecran-grille">
+          <div class="bloc-tete">
+            <h2 id="outil-titre">Je suis dans la situation…</h2>
+            <p>Touche celle qui te parle le plus en ce moment. Tu pourras en choisir une autre après.</p>
+          </div>
+          <ul class="grille-vt" id="grille-vt"></ul>
+          <p class="grille-note">Les situations que tu as déjà ouvertes portent une petite coche. C'est mémorisé sur ton téléphone uniquement.</p>
+        </div>
+        <div id="ecran-reponse" class="reponse" aria-live="polite" hidden></div>
+        <noscript><p class="note">Cet outil a besoin de JavaScript pour fonctionner.</p></noscript>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" aria-labelledby="phrases-titre">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2 id="phrases-titre">Les phrases qu'on t'a transmises</h2>
+          <p>Certaines phrases, on les a entendues si souvent qu'on les prend pour des vérités. Pour chacune, dis si tu l'as entendue, puis choisis : tu la gardes, ou tu la laisses.</p>
+        </div>
+        <ul class="phrases-vt" id="phrases-vt"></ul>
+        <div class="recap" id="recap" aria-live="polite"></div>
+        <div class="nouvelle">
+          <label for="ma-phrase">Ta nouvelle phrase</label>
+          <p>Celle que tu aimerais transmettre un jour, ou simplement te dire à toi.</p>
+          <textarea id="ma-phrase" maxlength="280" placeholder="Par exemple : j'ai le droit de demander ce dont j'ai besoin."></textarea>
+        </div>
+        <div class="phrases-bas">
+          <p class="note">Tes choix restent sur ton téléphone. Personne d'autre ne les voit.</p>
+          <button class="effacer" type="button" id="effacer">Tout effacer</button>
+        </div>
+        <p class="visuel-cache" id="phrases-statut" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="bloc" aria-labelledby="histoires-titre">
+      <div class="conteneur">
+        <div class="bloc-tete">
+          <h2 id="histoires-titre">Trois histoires qui te parleront <span class="nobr">peut-être</span></h2>
+          <p>Tu n'es pas la seule personne à vivre ça. <span class="avertissement">Histoires inventées, inspirées de situations fréquentes</span></p>
+        </div>
+        <div class="histoires">
+          <article class="histoire">
+            <span class="cycle-tag racine">Cycle de la racine</span>
+            <h3>Inès</h3>
+            <p class="age">21 ans · les études</p>
+            <p>Inès était en deuxième année de droit parce que, chez elle, « on fait des études qui mènent quelque part ». Un soir, elle a demandé à son père ce qu'il voulait faire à vingt ans. Il rêvait d'être menuisier, et son propre père avait dit non. Inès n'a pas tout changé d'un coup, mais elle a parlé de ce qu'elle aimait pour la première fois sans s'excuser.</p>
+            <blockquote>« Je croyais le décevoir. En fait, je rejouais sa déception à lui. »</blockquote>
+          </article>
+          <article class="histoire">
+            <span class="cycle-tag coeur">Cycle du cœur</span>
+            <h3>Maëlle</h3>
+            <p class="age">23 ans · les relations</p>
+            <p>Trois histoires, trois fois la même fin : Maëlle donnait tout, et l'autre s'éloignait. En écrivant ses histoires l'une sous l'autre, elle s'est souvenue d'une phrase de sa grand-mère : « Il ne faut pas trop en demander. » La dernière fois, elle a osé demander où ils en étaient. La réponse ne lui a pas plu, mais elle est restée entière.</p>
+            <blockquote>« Je ne cherchais pas quelqu'un. Je cherchais à ne pas déranger. »</blockquote>
+          </article>
+          <article class="histoire">
+            <span class="cycle-tag coeur">Cycle du cœur</span>
+            <h3>Sarah</h3>
+            <p class="age">19 ans · sa mère</p>
+            <p>Sarah s'est entendue répondre à sa petite sœur exactement sur le ton de sa mère. Ça l'a énervée toute la journée. Le soir, elle a écrit à sa mère : « Toi aussi, tu ressemblais à ta mère ? » La réponse est arrivée le lendemain, longue et inattendue. Elles ne sont pas d'accord sur tout, mais elles se parlent autrement.</p>
+            <blockquote>« Je peux garder sa force et laisser le reste. »</blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" aria-labelledby="loin-titre">
+      <div class="conteneur">
+        <div class="mini">
+          <figure class="mini-arbre">
+            <svg viewBox="0 0 320 250" role="img" aria-label="Un petit arbre sur deux générations : toi en bas, tes deux parents au-dessus, tes quatre grands-parents en haut">
+              <path class="trait" d="M160 205 C160 180 95 178 95 150"/>
+              <path class="trait" d="M160 205 C160 180 225 178 225 150"/>
+              <path class="trait" d="M95 130 C95 105 50 102 50 78"/>
+              <path class="trait" d="M95 130 C95 105 135 102 135 78"/>
+              <path class="trait" d="M225 130 C225 105 185 102 185 78"/>
+              <path class="trait" d="M225 130 C225 105 270 102 270 78"/>
+              <circle class="gp" cx="50" cy="62" r="15"/><circle class="gp" cx="135" cy="62" r="15"/>
+              <circle class="gp" cx="185" cy="62" r="15"/><circle class="gp" cx="270" cy="62" r="15"/>
+              <circle class="pa" cx="95" cy="140" r="17"/><circle class="pa" cx="225" cy="140" r="17"/>
+              <circle class="moi" cx="160" cy="215" r="19"/>
+              <text x="160" y="22" text-anchor="middle">Tes grands-parents</text>
+              <text x="160" y="146" text-anchor="middle">Tes parents</text>
+              <text x="160" y="248" text-anchor="middle">Toi</text>
+            </svg>
+            <figcaption>Deux générations, sept prénoms. C'est déjà un arbre.</figcaption>
+          </figure>
+          <div class="mini-texte">
+            <div class="bloc-tete" style="margin-bottom:1.4rem">
+              <h2 id="loin-titre">Et si tu veux aller plus loin</h2>
+              <p>Pas besoin de tout savoir. Commence par un petit arbre sur deux générations : tes parents, tes grands-parents. Trois questions à envoyer par message suffisent.</p>
+            </div>
+            <ol class="qs" id="qs"></ol>
+            <p class="mini-note">Tu ne connais pas une partie de ta famille, ou tu n'as pas envie de lui écrire ? Remplis ce que tu sais et laisse des cases vides. Une case vide, c'est aussi une information. Tu peux aussi poser ces questions à une tante, un oncle, une marraine.</p>
+          </div>
+        </div>
+        <div class="niveaux">
+          <a class="niveau" href="genosociogramme.html">
+            <small>Niveau suivant</small>
+            <strong>Dessiner ton arbre familial</strong>
+            <span>Place tes réponses sur un génosociogramme en ligne, gratuit, et repère ce qui revient.</span>
+          </a>
+          <a class="niveau" href="arbre-de-vie.html">
+            <small>Niveau suivant</small>
+            <strong>Faire le test de l'arbre de vie</strong>
+            <span>Vingt affirmations, cinq minutes : vois où ça se rejoue dans ta vie aujourd'hui.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc serre" aria-labelledby="urgence-titre">
+      <div class="conteneur">
+        <div class="urgence">
+          <svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="15" stroke="currentColor" stroke-width="1.6"/><path d="M17 9.5v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="17" cy="23.5" r="1.4" fill="currentColor"/></svg>
+          <div>
+            <h2 id="urgence-titre">Si ça va vraiment mal</h2>
+            <p>Ce site n'est pas fait pour les moments de crise. Si tu te sens au bout, ne garde pas ça pour toi : parles-en à quelqu'un de confiance, maintenant, ou appelle.</p>
+            <ul>
+              <li>En France : le <a href="tel:3114">3114</a>, gratuit, <span class="nobr">24 h/24</span>, et Fil Santé Jeunes au <a href="tel:0800235236">0 800 235 236</a>, gratuit et anonyme.</li>
+              <li>Au Québec : le <a href="tel:18662773553">1 866 APPELLE</a> <span class="nobr">(1 866 277-3553)</span>.</li>
+              <li>En danger immédiat : le <a href="tel:112">112</a> en France, le <a href="tel:911">911</a> au Québec.</li>
+            </ul>
+            <p class="age18">Cet espace s'adresse aux personnes de 18 ans et plus.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/tes-20-ans.js"></script>
+</body>
+</html>
