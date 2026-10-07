@@ -208,7 +208,8 @@
   {
    "from": "p2",
    "to": "p3",
-   "type": "couple"
+   "type": "couple",
+   "statut": "divorce"
   },
   {
    "from": "p4",

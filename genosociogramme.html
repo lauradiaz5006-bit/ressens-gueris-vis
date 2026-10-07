@@ -1,1142 +1,362 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Génosociogramme en ligne gratuit : crée ton arbre familial · Genesolia</title>
-<meta name="description" content="Fais ton génosociogramme (ou génogramme) en ligne, gratuitement et sans inscription : dates, événements, liens, et repérage automatique des répétitions.">
-<link rel="canonical" href="https://genesolia.fr/genosociogramme.html">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --cream:#FFF9F7;--cream3:#FFF9F7;--terra:#6B2F5B;--terra-dark:#4E1F42;
-  --terra-light:#E7A79E;--brown:#6B2F5B;--ink:#4A2142;--soft:#8E6383;
-  --white:#FFFFFF;--line:rgba(107,47,91,.15);
-  --red:#C0392B;--orange:#E67E22;--blue:#2980B9;--purple:#8E44AD;--gold:#B98A55;--green:#27AE60;
-}
-body{font-family:'Nunito Sans',sans-serif;background:var(--cream3);color:var(--ink);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
-button{font-family:'Nunito Sans',sans-serif;cursor:pointer;border:none;background:none;}
-
-/* NAV */
-nav.ancien-nav{height:56px;background:rgba(255,252,248,.97);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;gap:24px;flex-shrink:0;z-index:100;position:relative;}
-.nav-logo{font-family:'Gilda Display',serif;font-style:italic;font-weight:700;font-size:1.1rem;color:var(--ink);margin-right:auto;}
-.nav-link{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);font-weight:500;text-decoration:none;transition:color .2s;}
-.nav-link:hover,.nav-link.active{color:var(--terra);}
-.nav-cta{background:var(--terra);color:white;border-radius:100px;padding:.38rem 1rem;font-size:.75rem;font-weight:500;transition:background .2s;}
-.nav-cta:hover{background:var(--terra-dark);}
-
-  /* COOKIE BANNER */
-.cookie-banner{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:5000;
-  background:var(--ink);
-  padding:1rem 2rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:1rem;
-  flex-wrap:wrap;
-  box-shadow:0 -4px 24px rgba(74,33,66,.18);
-}
-.cookie-banner.hidden{display:none;}
-.cookie-text{
-  font-size:.76rem;
-  color:rgba(255,255,255,.7);
-  line-height:1.6;
-  max-width:680px;
-}
-.cookie-text a{
-  color:var(--terra-light);
-  text-decoration:underline;
-}
-.cookie-actions{
-  display:flex;
-  gap:.6rem;
-  flex-shrink:0;
-}
-.cookie-accept{
-  background:var(--terra);
-  color:white;
-  border:none;
-  border-radius:4px;
-  padding:.45rem 1.1rem;
-  font-size:.76rem;
-  font-weight:500;
-  font-family:'Nunito Sans',sans-serif;
-  cursor:pointer;
-}
-.cookie-refuse{
-  background:transparent;
-  color:rgba(255,255,255,.5);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:4px;
-  padding:.45rem .9rem;
-  font-size:.76rem;
-  font-family:'Nunito Sans',sans-serif;
-  cursor:pointer;
-}
-@media(max-width:480px){
-  .cookie-actions{width:100%;}
-  .cookie-accept,.cookie-refuse{flex:1;text-align:center;}
-}
-
-/* TOOLBAR */
-.toolbar{height:46px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:8px;flex-shrink:0;}
-.toolbar-title{font-family:'Gilda Display',serif;font-style:italic;font-size:1rem;color:var(--ink2);margin-right:auto;}
-.tb{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:100px;padding:.28rem .75rem;font-size:.7rem;color:var(--ink);background:transparent;transition:all .15s;cursor:pointer;font-family:'Nunito Sans',sans-serif;}
-.tb:hover{border-color:var(--terra);color:var(--terra);}
-.tb.primary{background:var(--terra);color:white;border-color:var(--terra);font-weight:500;}
-.tb.primary:hover{background:var(--terra-dark);}
-.tb-sep{width:1px;height:18px;background:var(--line);}
-
-/* CANVAS */
-.canvas-area{flex:1;position:relative;overflow:hidden;background:var(--cream3);}
-#svg-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
-#nodes-container{position:absolute;top:0;left:0;width:0;height:0;}
-
-/* NODE */
-.gnode{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:10;}
-.gnode-inner{
-  background:var(--white);border:1.5px solid var(--line);border-radius:13px;
-  padding:10px 12px 8px;min-width:115px;max-width:145px;text-align:center;
-  box-shadow:0 3px 14px rgba(74,33,66,.07);transition:box-shadow .2s,border-color .2s,transform .2s;
-  position:relative;user-select:none;
-}
-.gnode:hover .gnode-inner{box-shadow:0 7px 24px rgba(74,33,66,.13);transform:translateY(-2px);}
-.gnode.sel .gnode-inner{border-color:var(--terra);box-shadow:0 6px 22px rgba(107,47,91,.2);}
-.gnode.me .gnode-inner{background:linear-gradient(135deg,#FFF5F3,#FBE3E4);border-color:var(--terra);border-width:2px;}
-.gnode.hasrep .gnode-inner{border-color:var(--red);}
-
-.nsex{width:26px;height:26px;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-size:.72rem;background:linear-gradient(135deg,var(--cream),#EBCFD5);border:1.5px solid var(--line);}
-.nsex.m{border-radius:4px;background:linear-gradient(135deg,#E4EEF8,#D0E2F0);border-color:rgba(100,140,180,.3);}
-.nname{font-family:'Gilda Display',serif;font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;}
-.ndates{font-size:.6rem;color:var(--soft);margin-top:2px;}
-.njob{font-size:.61rem;color:var(--terra-light);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;margin-top:1px;}
-.nrole{font-size:.56rem;letter-spacing:.07em;text-transform:uppercase;color:rgba(154,112,96,.5);margin-top:3px;}
-.nreps{display:flex;gap:3px;justify-content:center;margin-top:4px;flex-wrap:wrap;}
-.nrep-dot{width:7px;height:7px;border-radius:50%;}
-.nrep-badge{position:absolute;top:-7px;right:-7px;width:18px;height:18px;border-radius:50%;background:var(--red);color:white;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid white;}
-
-/* ADD BUTTONS */
-.nadd{position:absolute;width:20px;height:20px;border-radius:50%;background:var(--terra);color:white;font-size:.78rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 7px rgba(107,47,91,.4);cursor:pointer;z-index:20;transition:transform .15s,background .15s;line-height:1;}
-.nadd:hover{transform:scale(1.25);background:var(--terra-dark);}
-.nadd-top{top:-10px;left:50%;transform:translateX(-50%);}
-.nadd-top:hover{transform:translateX(-50%) scale(1.25);}
-.nadd-right{right:-10px;top:50%;transform:translateY(-50%);}
-.nadd-right:hover{transform:translateY(-50%) scale(1.25);}
-.nadd-bottom{bottom:-10px;left:50%;transform:translateX(-50%);}
-.nadd-bottom:hover{transform:translateX(-50%) scale(1.25);}
-.nadd-left{left:-10px;top:50%;transform:translateY(-50%);}
-.nadd-left:hover{transform:translateY(-50%) scale(1.25);}
-
-/* REP PANEL */
-.rep-panel{position:absolute;left:14px;top:14px;width:255px;background:rgba(255,252,248,.97);border:1px solid var(--line);border-radius:14px;overflow:hidden;z-index:50;}
-.rph{background:var(--cream);border-bottom:1px solid var(--line);padding:9px 13px;display:flex;align-items:center;justify-content:space-between;}
-.rph-title{font-family:'Gilda Display',serif;font-size:.95rem;font-weight:700;color:var(--ink);}
-.rph-count{background:var(--red);color:white;font-size:.6rem;font-weight:700;padding:2px 7px;border-radius:100px;}
-.rpb{padding:7px;max-height:240px;overflow-y:auto;}
-.rpb::-webkit-scrollbar{width:3px;}
-.rpb::-webkit-scrollbar-thumb{background:rgba(154,112,96,.2);border-radius:2px;}
-.ri{padding:7px 9px;border-radius:9px;margin-bottom:4px;border-left:3px solid #ccc;cursor:pointer;transition:opacity .15s;}
-.ri:hover{opacity:.8;}
-.ri-type{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px;}
-.ri-desc{font-size:.67rem;color:var(--ink);line-height:1.5;}
-.ri-none{padding:12px;font-size:.73rem;color:var(--soft);font-style:italic;text-align:center;line-height:1.6;}
-
-/* ZOOM */
-.zoom-wrap{position:absolute;bottom:16px;right:16px;display:flex;flex-direction:column;gap:5px;z-index:50;}
-.zbtn{width:34px;height:34px;border-radius:50%;background:var(--white);border:1px solid var(--line);font-size:.95rem;color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 7px rgba(74,33,66,.08);cursor:pointer;transition:all .15s;}
-.zbtn:hover{border-color:var(--terra);color:var(--terra);}
-
-/* EMPTY STATE */
-.empty-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;pointer-events:none;}
-.empty-state h2{font-family:'Gilda Display',serif;font-size:2rem;font-style:italic;color:var(--ink);font-weight:700;}
-.empty-state p{font-size:.85rem;color:var(--soft);text-align:center;max-width:320px;line-height:1.7;}
-.empty-start-btn{pointer-events:all;background:var(--terra);color:white;border-radius:100px;padding:.65rem 1.8rem;font-size:.88rem;font-weight:600;font-family:'Nunito Sans',sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(107,47,91,.3);transition:all .2s;border:none;}
-.empty-start-btn:hover{background:var(--terra-dark);transform:translateY(-2px);}
-
-/* MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(74,33,66,.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;}
-.modal-bg.open{display:flex;}
-.mbox{background:var(--white);border-radius:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(74,33,66,.2);}
-.mbox::-webkit-scrollbar{width:4px;}
-.mbox::-webkit-scrollbar-thumb{background:rgba(154,112,96,.2);}
-.mhead{padding:20px 22px 0;position:sticky;top:0;background:var(--white);z-index:2;border-radius:20px 20px 0 0;}
-.mhead-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
-.mtitle{font-family:'Gilda Display',serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
-.mclose{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);color:var(--soft);font-size:.85rem;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .15s;background:none;}
-.mclose:hover{border-color:var(--terra);color:var(--terra);}
-.mbody{padding:4px 22px 22px;}
-
-/* FORM */
-.fg{margin-bottom:12px;}
-.fl{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:4px;}
-.fi,.fs,.fta{width:100%;background:var(--cream3);border:1px solid rgba(107,47,91,.15);border-radius:8px;padding:.42rem .65rem;font-family:'Nunito Sans',sans-serif;font-size:.82rem;color:var(--ink);outline:none;transition:border-color .15s;}
-.fi:focus,.fs:focus,.fta:focus{border-color:var(--terra);background:var(--white);}
-.fta{resize:vertical;min-height:68px;line-height:1.6;}
-.fs{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%239A7060' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;padding-right:26px;}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.msec{font-family:'Gilda Display',serif;font-size:1.05rem;font-weight:700;color:var(--ink2);padding-top:12px;margin:12px 0 8px;border-top:1px solid var(--line);}
-.sex-row{display:flex;gap:7px;}
-.sopt{flex:1;padding:.38rem;border:1.5px solid var(--line);border-radius:7px;text-align:center;font-size:.73rem;color:var(--soft);cursor:pointer;transition:all .15s;background:none;font-family:'Nunito Sans',sans-serif;}
-.sopt.on{border-color:var(--terra);color:var(--terra);background:rgba(107,47,91,.07);font-weight:600;}
-.tags-box{display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:var(--cream3);border:1px solid rgba(107,47,91,.15);border-radius:8px;padding:4px 8px;min-height:34px;cursor:text;}
-.tags-box input{border:none;background:transparent;outline:none;font-family:'Nunito Sans',sans-serif;font-size:.78rem;color:var(--ink);flex:1;min-width:70px;}
-.tchip{display:inline-flex;align-items:center;gap:3px;background:rgba(107,47,91,.1);border-radius:100px;padding:2px 8px;font-size:.65rem;color:var(--terra-dark);}
-.tchip button{background:none;border:none;color:rgba(107,47,91,.4);font-size:.6rem;cursor:pointer;line-height:1;padding:0;}
-.tchip button:hover{color:var(--terra);}
-.ev-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;}
-.ev-row{display:grid;grid-template-columns:1fr 56px 64px 22px;gap:5px;align-items:center;}
-.ev-row .fs{padding:.36rem .26rem .36rem .5rem;font-size:.74rem;}
-.ev-row .fi{padding:.36rem .48rem;font-size:.74rem;}
-.ev-add-btn{width:100%;background:none;border:1px dashed rgba(107,47,91,.35);border-radius:8px;color:var(--terra);font-size:.72rem;padding:.3rem .7rem;cursor:pointer;transition:all .15s;font-family:'Nunito Sans',sans-serif;margin-top:2px;}
-.ev-add-btn:hover{background:rgba(107,47,91,.06);border-color:var(--terra);}
-.ev-del-btn{background:none;border:none;color:rgba(154,112,96,.35);font-size:.9rem;cursor:pointer;padding:0;line-height:1;transition:color .15s;}
-.ev-del-btn:hover{color:var(--red);}
-.mactions{display:flex;gap:8px;padding-top:14px;border-top:1px solid var(--line);margin-top:14px;}
-.mbtn-save{flex:1;background:var(--terra);color:white;border-radius:100px;padding:.5rem;font-size:.8rem;font-weight:500;cursor:pointer;border:none;font-family:'Nunito Sans',sans-serif;transition:background .15s;}
-.mbtn-save:hover{background:var(--terra-dark);}
-.mbtn-del{background:none;border:1px solid rgba(192,57,43,.25);color:var(--red);border-radius:100px;padding:.5rem .85rem;font-size:.75rem;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;}
-.mbtn-del:hover{background:rgba(192,57,43,.07);}
-.mbtn-cancel{background:none;border:1px solid var(--line);color:var(--soft);border-radius:100px;padding:.5rem .85rem;font-size:.75rem;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;}
-.mbtn-cancel:hover{border-color:var(--soft);}
-
-/* REL MODAL */
-.rel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
-.rchoice{background:var(--cream3);border:1.5px solid var(--line);border-radius:11px;padding:11px 10px;text-align:center;cursor:pointer;transition:all .18s;border:1.5px solid var(--line);}
-.rchoice:hover{border-color:var(--terra);background:rgba(107,47,91,.05);}
-.rchoice-icon{font-size:1.4rem;display:block;margin-bottom:3px;}
-.rchoice-name{font-size:.78rem;font-weight:600;color:var(--ink);}
-.rchoice-sub{font-size:.62rem;color:var(--soft);margin-top:1px;}
-
-/* LEGEND */
-.leg-bar{height:32px;background:var(--cream);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 16px;gap:16px;flex-shrink:0;overflow-x:auto;}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:.63rem;color:var(--ink);white-space:nowrap;}
-.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-@media (max-width:700px){.toolbar{flex-wrap:wrap;height:auto!important;row-gap:6px;padding-top:8px;padding-bottom:8px}.leg-bar{flex-wrap:wrap;height:auto!important;row-gap:4px;padding-top:6px;padding-bottom:6px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Génosociogramme en ligne gratuit : crée ton arbre familial · Genesolia</title>
+  <meta name="description" content="Fais ton génosociogramme (ou génogramme) en ligne, gratuitement et sans inscription : symboles officiels, dates, événements, liens, et repérage automatique des répétitions.">
+  <link rel="canonical" href="https://genesolia.fr/genosociogramme.html">
+  <meta property="og:title" content="Génosociogramme en ligne gratuit · Genesolia">
+  <meta property="og:description" content="Dessine ton arbre familial sur trois générations et repère ce qui se répète.">
   <link rel="stylesheet" href="assets/site.css">
-  <style>/* habillage commun */body{padding-top:0!important}.entete{flex-shrink:0}.entete .marque,.entete .menu a{font-weight:400}</style>
+  <style>
+    html,body{height:100%}
+    body.outil-arbre{display:flex;flex-direction:column;height:100vh;overflow:hidden;background:var(--nacre)}
+    body.outil-arbre.porte-ouverte{height:auto;min-height:100vh;overflow:auto}
+    .entete{flex-shrink:0}
+
+    /* Barre d'outils */
+    .barre{flex-shrink:0;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.6rem 1.25rem;background:var(--blanc);border-bottom:1px solid var(--rose)}
+    .barre h1{font-size:1.15rem;margin-right:auto;line-height:1.2}
+    .barre .groupe{display:flex;gap:.35rem;align-items:center}
+    .barre .sep{width:1px;height:22px;background:var(--rose-fonce);margin:0 .25rem}
+    .bt{font:600 .82rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.5rem .85rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;white-space:nowrap}
+    .bt:hover{border-color:var(--prune)}
+    .bt:disabled{opacity:.4;cursor:default;border-color:var(--rose-fonce)}
+    .bt.plein{background:var(--prune);border-color:var(--prune);color:var(--blanc)}
+    .bt svg{width:15px;height:15px}
+    .statut{font-size:.8rem;color:var(--prune-doux);white-space:nowrap}
+    .statut a{color:var(--prune);font-weight:600}
+
+    /* Zone de dessin */
+    .zone{flex:1;display:flex;min-height:0;position:relative}
+    .toile{flex:1;position:relative;overflow:hidden;background:
+      radial-gradient(circle at 1px 1px,rgba(107,47,91,.09) 1px,transparent 0) 0 0/26px 26px,var(--nacre);cursor:grab;touch-action:none}
+    .toile.glisse{cursor:grabbing}
+    #dessin{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none}
+    #dessin .personne{cursor:pointer}
+    #dessin .personne:focus{outline:none}
+    #dessin .personne:focus-visible .halo{stroke:var(--prune);stroke-opacity:1}
+    .zoom{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;gap:6px;z-index:5}
+    .zoom button{width:38px;height:38px;border-radius:50%;background:var(--blanc);border:1.5px solid var(--rose-fonce);color:var(--prune);font:600 1.1rem/1 var(--texte);cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .zoom button:hover{border-color:var(--prune)}
+    .legende-symb{position:absolute;left:14px;bottom:14px;z-index:5;display:flex;gap:.9rem;align-items:center;flex-wrap:wrap;background:rgba(255,255,255,.92);border:1px solid var(--rose);border-radius:14px;padding:.5rem .8rem;font-size:.76rem;color:var(--prune-doux);max-width:calc(100% - 90px)}
+    .legende-symb span{display:inline-flex;align-items:center;gap:.35rem}
+    .legende-symb svg{width:16px;height:16px}
+    .legende-symb a{color:var(--prune);font-weight:600}
+
+    /* Barre d'actions sur la personne choisie */
+    .actions-perso{position:absolute;z-index:8;display:none;transform:translate(-50%,-100%);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:16px;box-shadow:0 14px 34px rgba(107,47,91,.16);padding:.4rem;gap:.3rem;flex-wrap:nowrap}
+    .actions-perso.visible{display:flex}
+    .actions-perso button{font:600 .78rem/1 var(--texte);color:var(--prune);background:var(--nacre);border:1px solid var(--rose);border-radius:10px;padding:.5rem .6rem;cursor:pointer;white-space:nowrap}
+    .actions-perso button:hover{border-color:var(--prune)}
+    .actions-perso button.principal{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .actions-perso button.danger{color:#A23B4C;background:var(--blanc)}
+
+    /* Accueil vide */
+    .vide{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:1.5rem;z-index:6;pointer-events:none}
+    .vide.visible{display:flex}
+    .vide-carte{pointer-events:auto;max-width:30rem;text-align:center;background:rgba(255,255,255,.94);border:1px solid var(--rose);border-radius:var(--rayon);padding:2.2rem 2rem;box-shadow:0 24px 60px rgba(107,47,91,.1)}
+    .vide-carte h2{font-size:1.9rem;margin-bottom:.7rem}
+    .vide-carte p{color:var(--prune-doux);margin-bottom:1.3rem}
+    .vide-carte .actions{justify-content:center}
+    .vide-carte small{display:block;margin-top:1.1rem;color:var(--prune-doux);font-size:.82rem}
+
+    /* Panneau des répétitions */
+    .panneau{width:300px;flex-shrink:0;border-left:1px solid var(--rose);background:var(--blanc);display:flex;flex-direction:column;min-height:0}
+    .panneau-tete{display:flex;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
+    .panneau-tete h2{font-size:1.15rem;margin-right:auto}
+    .compte{background:var(--prune);color:var(--blanc);font:600 .75rem/1 var(--texte);border-radius:999px;padding:.3rem .55rem}
+    .panneau-corps{overflow-y:auto;padding:.8rem;display:grid;gap:.55rem;align-content:start;flex:1}
+    .rep{border:1px solid var(--rose);border-left:4px solid var(--c);border-radius:12px;padding:.7rem .8rem;background:var(--blanc);text-align:left;cursor:pointer;font:inherit;color:inherit;width:100%}
+    .rep:hover{border-color:var(--rose-fonce);border-left-color:var(--c)}
+    .rep[aria-pressed="true"]{background:var(--nacre);box-shadow:0 0 0 2px var(--c) inset}
+    .rep strong{display:block;font:600 .8rem/1.3 var(--texte);color:var(--c);margin-bottom:.2rem}
+    .rep span{display:block;font-size:.84rem;line-height:1.45;color:var(--prune)}
+    .rep-aide{font-size:.86rem;color:var(--prune-doux);line-height:1.55;padding:.3rem .2rem}
+    .rep-aide b{color:var(--prune);font-weight:600}
+    .panneau-pied{border-top:1px solid var(--rose);padding:.75rem 1rem;font-size:.76rem;color:var(--prune-doux);line-height:1.5}
+    .replier{display:none}
+
+    /* Fenêtres */
+    .fenetre-fond{position:fixed;inset:0;background:rgba(74,33,66,.42);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:4vh 16px;overflow-y:auto}
+    .fenetre-fond.ouverte{display:flex}
+    .fenetre{background:var(--blanc);border-radius:22px;width:100%;max-width:560px;box-shadow:0 30px 80px rgba(74,33,66,.25);margin:auto 0}
+    .fenetre.etroite{max-width:440px}
+    .fen-tete{display:flex;align-items:flex-start;gap:1rem;padding:1.4rem 1.5rem .4rem}
+    .fen-tete>div{margin-right:auto}
+    .fen-tete h2{font-size:1.55rem;line-height:1.2}
+    .fen-tete p{font-size:.88rem;color:var(--prune-doux);margin-top:.2rem}
+    .fermer{width:34px;height:34px;flex-shrink:0;border-radius:50%;border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);font-size:1.1rem;cursor:pointer;line-height:1}
+    .fermer:hover{border-color:var(--prune)}
+    .fen-corps{padding:.6rem 1.5rem 1.5rem}
+    .champ{display:grid;gap:.3rem;margin-bottom:.85rem;align-content:start}
+    .champ>label,.champ>.etiq{font:600 .78rem/1.2 var(--texte);color:var(--prune)}
+    .champ .aide{font-size:.76rem;color:var(--prune-doux)}
+    .champ input[type=text],.champ select,.champ textarea{width:100%;font:400 .95rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.6rem .7rem}
+    .champ input:focus,.champ select:focus,.champ textarea:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .champ textarea{min-height:84px;resize:vertical}
+    .deux-col{display:grid;grid-template-columns:1fr 1fr;gap:0 .8rem}
+    .choix{display:flex;gap:.4rem;flex-wrap:wrap}
+    .choix label{flex:1;min-width:6.5rem;position:relative}
+    .choix input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+    .choix span{display:flex;align-items:center;justify-content:center;gap:.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.55rem .5rem;font:600 .84rem/1.1 var(--texte);color:var(--prune-doux);background:var(--blanc);text-align:center}
+    .choix input:checked+span{border-color:var(--prune);color:var(--prune);background:var(--rose)}
+    .choix input:focus-visible+span{outline:2px solid var(--prune);outline-offset:2px}
+    .choix svg{width:16px;height:16px;flex-shrink:0}
+    .case{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--prune);margin-bottom:.6rem}
+    .case input{width:18px;height:18px;accent-color:var(--prune);flex-shrink:0}
+    .sous-titre{font:400 1.12rem/1.2 var(--display);color:var(--prune);margin:1.1rem 0 .6rem;padding-top:1rem;border-top:1px solid var(--rose)}
+    .puces{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.4rem .5rem;min-height:44px}
+    .puces input{border:none;background:transparent;padding:.25rem;flex:1;min-width:9rem;font:400 .95rem/1.3 var(--texte);color:var(--prune);outline:none}
+    .puce{display:inline-flex;align-items:center;gap:.3rem;background:var(--rose);border-radius:999px;padding:.25rem .3rem .25rem .65rem;font-size:.82rem;color:var(--prune)}
+    .puce button{border:none;background:none;color:var(--prune);cursor:pointer;font-size:1rem;line-height:1;padding:0 .2rem}
+    .evts{display:grid;gap:.45rem;margin-bottom:.5rem}
+    .evt,.evt-entete{display:grid;grid-template-columns:1fr 4.6rem 5.4rem 2rem;gap:.4rem;align-items:center}
+    .evt select,.evt input{font:400 .88rem/1.2 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:9px;padding:.5rem .5rem;width:100%;min-width:0}
+    .evt-entete{font:600 .72rem/1 var(--texte);color:var(--prune-doux);margin-bottom:.3rem}
+    .suppr{width:2rem;height:2rem;border-radius:50%;border:1px solid var(--rose-fonce);background:var(--blanc);color:#A23B4C;cursor:pointer;font-size:1rem;line-height:1}
+    .ajout-pointille{width:100%;border:1.5px dashed var(--rose-fonce);background:none;border-radius:10px;padding:.6rem;color:var(--prune);font:600 .84rem/1 var(--texte);cursor:pointer}
+    .ajout-pointille:hover{border-color:var(--prune)}
+    .liens{display:grid;gap:.4rem;margin-bottom:.6rem}
+    .lien{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune);background:var(--nacre);border-radius:10px;padding:.45rem .6rem}
+    .lien span{margin-right:auto}
+    .lien select{font:400 .82rem/1 var(--texte);border:1px solid var(--rose-fonce);border-radius:8px;padding:.3rem;background:var(--blanc);color:var(--prune)}
+    .lier{display:grid;grid-template-columns:1fr 1.3fr auto;gap:.4rem}
+    .lier select{font:400 .86rem/1.2 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:9px;padding:.5rem;min-width:0}
+    .erreur{color:#A23B4C;font-size:.85rem;min-height:1.1em;margin-top:.4rem}
+    .fen-actions{display:flex;gap:.5rem;flex-wrap:wrap;padding-top:1rem;margin-top:.8rem;border-top:1px solid var(--rose)}
+    .fen-actions .bt{padding:.7rem 1.1rem;font-size:.88rem}
+    .fen-actions .droite{margin-left:auto}
+    .bt.danger{color:#A23B4C;border-color:#E9C2C9}
+    .bt.danger:hover{border-color:#A23B4C}
+    .liste-cases{display:grid;gap:.1rem;margin:.2rem 0 .8rem}
+
+    /* Exemple */
+    .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
+    .bandeau-exemple a{color:var(--champagne-clair)}
+
+    /* Téléphone */
+    .porte{display:none;padding:2.2rem 16px 3rem}
+    body.porte-ouverte .porte{display:block}
+    body.porte-ouverte .barre,body.porte-ouverte .zone{display:none}
+    .porte-carte{max-width:30rem;margin:0 auto;text-align:center}
+    .porte-icone{width:92px;height:92px;margin:0 auto 1.2rem;border-radius:50%;background:linear-gradient(135deg,#FFF3EA,var(--rose));display:flex;align-items:center;justify-content:center}
+    .porte-icone svg{width:52px;height:52px}
+    .porte h1{font-size:1.85rem;margin-bottom:.8rem;line-height:1.15}
+    .porte p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .porte .actions{justify-content:center;margin-bottom:.6rem}
+    .porte-info{font-size:.85rem;min-height:1.2em}
+    .porte-liens{text-align:left;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.2rem 1.3rem;margin:1.2rem 0 1.4rem}
+    .porte-liens h2{font-size:1.15rem;margin-bottom:.4rem}
+    .porte-liens ul{list-style:none;display:grid}
+    .porte-liens a{display:block;padding:.65rem 0;color:var(--prune);font-weight:600;border-bottom:1px solid var(--rose);text-decoration:none}
+    .porte-liens li:last-child a{border-bottom:none}
+    .porte-continuer{background:none;border:none;color:var(--prune-doux);text-decoration:underline;font:400 .85rem var(--texte);cursor:pointer}
+
+    @media (max-width:1100px){
+      .panneau{position:absolute;right:0;top:0;bottom:0;z-index:9;box-shadow:-20px 0 40px rgba(107,47,91,.12)}
+      body:not(.panneau-ouvert) .panneau{display:none}
+      .replier{display:inline-flex;align-items:center;justify-content:center}
+    }
+    @media (min-width:1101px){ .bt-panneau{display:none} }
+    @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
+  </style>
 </head>
-<body>
+<body class="nouveau outil-arbre">
   <header data-entete></header>
 
-  <div class="toolbar">
-  <h1 class="toolbar-title" style="font-weight:400;margin:0">Génosociogramme en ligne gratuit</h1>
-  <button class="tb" onclick="centerView()">⊙ Centrer</button>
-  <div class="tb-sep"></div>
-  <button class="tb" onclick="openExport()">Télécharger</button>
-  <button class="tb" onclick="triggerImport()">Importer</button>
-  <button class="tb" onclick="window.print()">Imprimer</button>
-  <input type="file" id="file-import" accept=".json" style="display:none" onchange="doImport(event)">
-  <div class="tb-sep"></div>
-  <!-- Login prompt -->
-  <div id="login-prompt" style="display:none;align-items:center;gap:8px;">
-    <span style="font-size:.68rem;color:var(--soft);">Non connecté —</span>
-    <a href="login.html" class="tb" style="background:var(--terra);color:white;border-color:var(--terra);">Se connecter</a>
-  </div>
-  <!-- User bar -->
-  <div id="user-bar" style="display:none;align-items:center;gap:8px;">
-    <span style="font-size:.68rem;color:var(--soft);">☁ Sauvegarde auto ·</span>
-    <span id="user-bar-name" style="font-size:.72rem;font-weight:600;color:var(--terra)"></span>
-    <a href="login.html" class="tb">Mon espace</a>
-  </div>
-</div>
-
-<div class="leg-bar">
-  <span style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-right:4px">Répétitions :</span>
-  <div class="leg-item"><div class="ldot" style="background:var(--red)"></div>Syndrome du gisant</div>
-  <div class="leg-item"><div class="ldot" style="background:var(--purple)"></div>Schéma transmis</div>
-  <div class="leg-item"><div class="ldot" style="background:var(--orange)"></div>Prénom répété</div>
-  <div class="leg-item"><div class="ldot" style="background:var(--blue)"></div>Même métier</div>
-  <div class="leg-item"><div class="ldot" style="background:var(--gold)"></div>Même épreuve</div>
-  <div class="leg-item"><div class="ldot" style="background:var(--green)"></div>Syndrome anniversaire</div>
-</div>
-
-<div class="canvas-area" id="canvas">
-  <svg id="svg-lines"></svg>
-  <div id="nodes-container"></div>
-
-  <div id="empty-state" class="empty-state">
-    <h2>Votre arbre vous attend</h2>
-    <p>Commencez par vous — ajoutez ensuite vos parents, grands-parents et ancêtres en cliquant sur les boutons qui apparaissent.</p>
-    <button class="empty-start-btn" id="start-btn">+ Me placer au centre</button>
-  </div>
-
-  <div class="rep-panel">
-    <div class="rph">
-      <span class="rph-title">Répétitions détectées</span>
-      <span class="rph-count" id="rep-count">0</span>
-    </div>
-    <div class="rpb" id="rep-list">
-      <div class="ri-none">Remplissez l'arbre — les répétitions s'affichent ici automatiquement.</div>
-    </div>
-  </div>
-
-  <div class="zoom-wrap">
-    <button class="zbtn" onclick="zoomIn()">+</button>
-    <button class="zbtn" onclick="centerView()">⊙</button>
-    <button class="zbtn" onclick="zoomOut()">−</button>
-  </div>
-</div>
-
-<!-- PERSON MODAL -->
-<div class="modal-bg" id="pm">
-  <div class="mbox">
-    <div class="mhead">
-      <div class="mhead-row">
-        <div class="mtitle" id="pm-title">Nouvelle personne</div>
-        <button class="mclose" onclick="closePM()">×</button>
+  <section class="porte" id="porte" aria-labelledby="porte-titre">
+    <div class="porte-carte">
+      <div class="porte-icone"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="6" y="9" width="40" height="26" rx="3" stroke="#6B2F5B" stroke-width="2"/><path d="M18 43h16M26 35v8" stroke="#6B2F5B" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="16" r="3" fill="#B98A55"/><path d="M26 19v4M26 23l-6 5M26 23l6 5" stroke="#B98A55" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      <h1 id="porte-titre">Ton arbre se dessine sur ordinateur</h1>
+      <p>Pour créer ton génosociogramme, connecte-toi depuis un ordinateur (ou une tablette à l'horizontale). L'arbre y est bien plus lisible et plus simple à remplir.</p>
+      <div class="actions">
+        <button class="btn btn-plein" type="button" id="porte-envoyer">M'envoyer le lien</button>
+        <button class="btn btn-trait" type="button" id="porte-copier">Copier le lien</button>
       </div>
+      <p class="porte-info" id="porte-info" aria-live="polite"></p>
+      <div class="porte-liens">
+        <h2>En attendant, sur ton téléphone</h2>
+        <ul>
+          <li><a href="exemple-genosociogramme.html">Voir un exemple de génosociogramme expliqué</a></li>
+          <li><a href="questions-a-poser-a-sa-famille.html">Les questions à poser à ta famille</a></li>
+          <li><a href="genosociogramme-vierge.html">Le modèle vierge à imprimer</a></li>
+          <li><a href="arbre-de-vie.html">Faire le test de l'arbre de vie</a></li>
+        </ul>
+      </div>
+      <button class="porte-continuer" type="button" id="porte-continuer">Continuer quand même sur ce téléphone</button>
     </div>
-    <div class="mbody">
-      <div class="fg">
-        <label class="fl">Sexe</label>
-        <div class="sex-row">
-          <button class="sopt" id="sx-f" onclick="setSex('f')">♀ Femme</button>
-          <button class="sopt" id="sx-m" onclick="setSex('m')">♂ Homme</button>
-          <button class="sopt on" id="sx-u" onclick="setSex('u')">◇ Non précisé</button>
+  </section>
+
+  <div class="barre">
+    <h1>Mon arbre familial</h1>
+    <div class="groupe">
+      <button class="bt" type="button" id="bt-annuler" disabled title="Annuler (Ctrl+Z)"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3L2 6l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 6H10a4 4 0 010 8H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Annuler</button>
+      <button class="bt" type="button" id="bt-centrer">Recentrer</button>
+    </div>
+    <span class="sep" aria-hidden="true"></span>
+    <div class="groupe">
+      <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
+      <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
+      <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
+      <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
+    </div>
+    <span class="sep" aria-hidden="true"></span>
+    <span class="statut" id="statut" aria-live="polite"></span>
+  </div>
+
+  <div class="zone">
+    <div class="toile" id="toile">
+      <svg id="dessin" aria-label="Ton arbre familial"></svg>
+      <div class="actions-perso" id="actions-perso" role="toolbar" aria-label="Actions sur la personne choisie"></div>
+
+      <div class="vide" id="vide">
+        <div class="vide-carte">
+          <h2>Ton arbre commence par toi</h2>
+          <p>Place-toi dans l'arbre, puis ajoute tes parents, tes grands-parents, tes frères et sœurs. Les répétitions apparaissent au fil de ta saisie.</p>
+          <div class="actions">
+            <button class="btn btn-plein" type="button" id="bt-commencer">Me placer dans l'arbre</button>
+            <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a>
+          </div>
+          <small>Ton arbre reste dans ton navigateur. Connecte-toi pour le retrouver sur un autre ordinateur.</small>
         </div>
       </div>
-      <div class="frow">
-        <div class="fg"><label class="fl">Prénom</label><input class="fi" id="f-prenom" placeholder="Prénom"></div>
-        <div class="fg"><label class="fl">Nom de famille</label><input class="fi" id="f-nom" placeholder="Nom"></div>
+
+      <div class="legende-symb" aria-label="Légende des symboles">
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1" fill="#fff" stroke="#6B2F5B" stroke-width="1.4"/></svg>Homme</span>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#fff" stroke="#6B2F5B" stroke-width="1.4"/></svg>Femme</span>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5L14.5 8 8 14.5 1.5 8z" fill="#fff" stroke="#6B2F5B" stroke-width="1.4"/></svg>Non précisé</span>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1" fill="#fff" stroke="#6B2F5B" stroke-width="1.4"/><path d="M3 3l10 10M13 3L3 13" stroke="#6B2F5B" stroke-width="1.2"/></svg>Décédé·e</span>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h14" stroke="#6B2F5B" stroke-width="1.4" stroke-dasharray="3 2"/></svg>Union libre</span>
+        <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h14M6 12l4-8" stroke="#6B2F5B" stroke-width="1.4"/></svg>Séparé·e</span>
+        <a href="symboles-genosociogramme.html" target="_blank" rel="noopener">Tous les symboles</a>
       </div>
-      <div class="frow">
-        <div class="fg"><label class="fl">Naissance</label><input class="fi" id="f-naiss" type="date"></div>
-        <div class="fg"><label class="fl">Décès</label><input class="fi" id="f-deces" type="date"></div>
+
+      <div class="zoom">
+        <button type="button" id="bt-zplus" aria-label="Zoomer">+</button>
+        <button type="button" id="bt-zmoins" aria-label="Dézoomer">−</button>
       </div>
-      <div class="frow">
-        <div class="fg"><label class="fl">Métier</label><input class="fi" id="f-metier" placeholder="Agricultrice, médecin..."></div>
-        <div class="fg"><label class="fl">Lieu / origine</label><input class="fi" id="f-lieu" placeholder="Bretagne, Italie..."></div>
+    </div>
+
+    <aside class="panneau" aria-labelledby="titre-panneau">
+      <div class="panneau-tete">
+        <h2 id="titre-panneau">Ce qui se répète</h2>
+        <span class="compte" id="compte">0</span>
+        <button class="fermer replier" type="button" id="bt-replier" aria-label="Fermer le panneau">×</button>
       </div>
-      <div class="msec">Traits &amp; comportements</div>
-      <div class="fg">
-        <label class="fl">Traits de caractère (Entrée pour valider)</label>
-        <div class="tags-box" id="traits-box" onclick="document.getElementById('traits-input').focus()">
-          <input id="traits-input" placeholder="généreux, anxieux, perfectionniste..." onkeydown="addTrait(event)">
+      <div class="panneau-corps" id="reps"></div>
+      <div class="panneau-pied">Clique sur une répétition pour la voir dans l'arbre. C'est une piste de lecture symbolique, pas une vérité sur ta famille.</div>
+    </aside>
+  </div>
+
+  <!-- Fiche d'une personne -->
+  <div class="fenetre-fond" id="fen-personne">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fp-titre">
+      <div class="fen-tete">
+        <div><h2 id="fp-titre">Nouvelle personne</h2><p id="fp-sous"></p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <form class="fen-corps" id="fp-form" novalidate>
+        <div class="champ">
+          <span class="etiq">Sexe</span>
+          <div class="choix" role="radiogroup" aria-label="Sexe">
+            <label><input type="radio" name="sexe" value="f"><span><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Femme</span></label>
+            <label><input type="radio" name="sexe" value="m"><span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Homme</span></label>
+            <label><input type="radio" name="sexe" value="u"><span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5L14.5 8 8 14.5 1.5 8z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>Non précisé</span></label>
+          </div>
         </div>
+        <div class="deux-col">
+          <div class="champ"><label for="fp-prenom">Prénom</label><input type="text" id="fp-prenom" autocomplete="off"></div>
+          <div class="champ"><label for="fp-nom">Nom de famille</label><input type="text" id="fp-nom" autocomplete="off"></div>
+        </div>
+        <div class="deux-col">
+          <div class="champ"><label for="fp-naiss">Naissance</label><input type="text" id="fp-naiss" inputmode="numeric" placeholder="1952 ou 14/03/1952" autocomplete="off"><span class="aide">L'année suffit.</span></div>
+          <div class="champ"><label for="fp-deces">Décès</label><input type="text" id="fp-deces" inputmode="numeric" placeholder="Vide si en vie" autocomplete="off"></div>
+        </div>
+        <label class="case"><input type="checkbox" id="fp-decede"> Décédé·e, date inconnue</label>
+        <div class="deux-col">
+          <div class="champ"><label for="fp-metier">Métier</label><input type="text" id="fp-metier" placeholder="Agricultrice, enseignant…" autocomplete="off"></div>
+          <div class="champ"><label for="fp-lieu">Lieu, origine</label><input type="text" id="fp-lieu" placeholder="Bretagne, Italie…" autocomplete="off"></div>
+        </div>
+        <label class="case" id="fp-moi-ligne"><input type="checkbox" id="fp-moi"> C'est moi</label>
+
+        <h3 class="sous-titre">Traits de caractère</h3>
+        <div class="puces" id="fp-traits"><input type="text" id="fp-trait" placeholder="Écris un trait, puis Entrée" aria-label="Ajouter un trait de caractère"></div>
+
+        <h3 class="sous-titre">Événements marquants</h3>
+        <div class="evt-entete" aria-hidden="true"><span>Événement</span><span>Âge</span><span>Année</span><span></span></div>
+        <div class="evts" id="fp-evts"></div>
+        <button class="ajout-pointille" type="button" id="fp-ajout-evt">+ Ajouter un événement</button>
+
+        <h3 class="sous-titre">Ce qu'on sait de cette personne</h3>
+        <div class="champ"><textarea id="fp-notes" aria-label="Ce qu'on sait de cette personne" placeholder="Une phrase qu'elle répétait, ce qu'on dit de lui, un non-dit pressenti…"></textarea></div>
+
+        <div id="fp-bloc-liens">
+          <h3 class="sous-titre">Liens dans l'arbre</h3>
+          <div class="liens" id="fp-liens"></div>
+          <div class="lier">
+            <select id="fp-lier-type" aria-label="Type de lien">
+              <option value="couple">En couple avec</option>
+              <option value="parent">Parent de</option>
+              <option value="enfant">Enfant de</option>
+            </select>
+            <select id="fp-lier-qui" aria-label="Personne à lier"></select>
+            <button class="bt" type="button" id="fp-lier">Lier</button>
+          </div>
+        </div>
+
+        <p class="erreur" id="fp-erreur" role="alert"></p>
+        <div class="fen-actions">
+          <button class="bt plein" type="submit">Enregistrer</button>
+          <button class="bt" type="button" data-fermer>Annuler</button>
+          <button class="bt danger droite" type="button" id="fp-suppr">Supprimer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Ajouter un proche -->
+  <div class="fenetre-fond" id="fen-ajout">
+    <div class="fenetre etroite" role="dialog" aria-modal="true" aria-labelledby="fa-titre">
+      <div class="fen-tete">
+        <div><h2 id="fa-titre">Ajouter</h2><p id="fa-sous"></p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
       </div>
-      <div class="msec">Événements marquants</div>
-      <div style="display:grid;grid-template-columns:1fr 56px 64px 22px;gap:5px;margin-bottom:4px;">
-        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Type</span>
-        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Âge</span>
-        <span style="font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)">Année</span>
-        <span></span>
+      <form class="fen-corps" id="fa-form">
+        <div class="champ"><span class="etiq">Qui ?</span><div class="choix" id="fa-choix"></div></div>
+        <div id="fa-options"></div>
+        <div class="fen-actions">
+          <button class="bt plein" type="submit">Continuer</button>
+          <button class="bt" type="button" data-fermer>Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sauvegardes -->
+  <div class="fenetre-fond" id="fen-sauve">
+    <div class="fenetre etroite" role="dialog" aria-modal="true" aria-labelledby="fs-titre">
+      <div class="fen-tete">
+        <div><h2 id="fs-titre">Sauvegardes</h2><p>Ton arbre s'enregistre tout seul à chaque modification.</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
       </div>
-      <div class="ev-list" id="ev-list"></div>
-      <button class="ev-add-btn" onclick="addEvRow()">+ Ajouter un événement</button>
-      <div class="msec">Histoire</div>
-      <div class="fg"><label class="fl">Ce qu'on sait de cette personne</label>
-        <textarea class="fta" id="f-notes" placeholder="Un secret pressenti, une phrase qu'elle répétait, ce qu'on dit de lui..."></textarea>
-      </div>
-      <div class="mactions">
-        <button class="mbtn-save" onclick="savePM()">Enregistrer</button>
-        <button class="mbtn-cancel" onclick="closePM()">Annuler</button>
-        <button class="mbtn-del" id="pm-del" style="display:none" onclick="delPM()">Supprimer</button>
+      <div class="fen-corps">
+        <p style="color:var(--prune-doux);font-size:.92rem;margin-bottom:1rem" id="fs-texte"></p>
+        <div style="display:grid;gap:.5rem">
+          <button class="bt plein" type="button" id="bt-json" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
+          <button class="bt" type="button" id="bt-ouvrir" style="justify-content:center;padding:.75rem">Ouvrir une copie</button>
+          <button class="bt" type="button" id="bt-svg" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
+          <a class="bt" href="login.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
+          <button class="bt danger" type="button" id="bt-effacer" style="justify-content:center;padding:.75rem;margin-top:.6rem">Effacer l'arbre et recommencer</button>
+        </div>
+        <input type="file" id="fichier" accept=".json,application/json" hidden>
       </div>
     </div>
   </div>
-</div>
 
-<!-- REL MODAL -->
-<div class="modal-bg" id="rm">
-  <div class="mbox" style="max-width:380px">
-    <div class="mhead">
-      <div class="mhead-row">
-        <div class="mtitle">Ajouter un lien</div>
-        <button class="mclose" onclick="closeRM()">×</button>
-      </div>
-    </div>
-    <div class="mbody">
-      <div style="font-size:.78rem;color:var(--soft);font-style:italic;margin-bottom:4px" id="rm-ctx"></div>
-      <div class="rel-grid" id="rm-choices"></div>
-    </div>
-  </div>
-</div>
-
-<!-- EXPORT MODAL -->
-<div class="modal-bg" id="em">
-  <div class="mbox" style="max-width:400px">
-    <div class="mhead">
-      <div class="mhead-row">
-        <div class="mtitle">Sauvegarder mon arbre</div>
-        <button class="mclose" onclick="document.getElementById('em').classList.remove('open')">×</button>
-      </div>
-    </div>
-    <div class="mbody">
-      <p style="font-size:.8rem;color:var(--soft);line-height:1.7;margin-bottom:14px">L'arbre est sauvegardé automatiquement dans ce navigateur. Téléchargez un fichier .json pour le conserver ou le partager.</p>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <button class="mbtn-save" onclick="doExportJSON()">Télécharger (.json)</button>
-        <button class="mbtn-save" style="background:var(--brown)" onclick="doExportSVG()">⬇ Exporter en image (.svg)</button>
-        <button class="mbtn-save" style="background:var(--ink)" onclick="window.print()">Imprimer</button>
-      </div>
-      <div style="margin-top:12px;padding:9px 11px;background:rgba(107,47,91,.07);border-radius:9px;font-size:.7rem;color:var(--terra-dark);line-height:1.6">✓ Sauvegarde automatique activée dans ce navigateur.</div>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-// ─── SUPABASE ─────────────────────────────────────────────────────────
-var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
-var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-var sb = supabase.createClient(SB_URL, SB_KEY);
-var currentUser = null;
-var saveTimer = null;
-
-async function initAuth() {
-  if (new URLSearchParams(location.search).has('exemple')) { chargerExemple(); return; }
-  var { data } = await sb.auth.getSession();
-  if (data.session) {
-    currentUser = data.session.user;
-    showUserBar(currentUser);
-    await loadFromSupabase();
-  } else {
-    // Still allow local use but show login prompt
-    showLoginPrompt();
-    load(); // fallback localStorage
-    if (Object.keys(people).length) {
-      document.getElementById('empty-state').style.display = 'none';
-      renderAll(); setTimeout(centerView, 80);
-    }
-  }
-  sb.auth.onAuthStateChange(function(event, session) {
-    if (session) { currentUser = session.user; showUserBar(currentUser); }
-    else { currentUser = null; }
-  });
-}
-
-function showUserBar(user) {
-  var name = (user.user_metadata && user.user_metadata.full_name) ? user.user_metadata.full_name : user.email.split('@')[0];
-  var bar = document.getElementById('user-bar');
-  bar.style.display = 'flex';
-  document.getElementById('user-bar-name').textContent = name;
-  document.getElementById('login-prompt').style.display = 'none';
-}
-
-function showLoginPrompt() {
-  document.getElementById('login-prompt').style.display = 'flex';
-  document.getElementById('user-bar').style.display = 'none';
-}
-
-async function loadFromSupabase() {
-  if (!currentUser) return;
-  var { data, error } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
-  if (error && error.code !== 'PGRST116') { console.error(error); return; }
-  if (data && data.data) {
-    var d = data.data;
-    people = d.people || {}; rels = d.rels || []; nid = d.nid || 1; nodePos = d.nodePos || {};
-    if (Object.keys(people).length) {
-      document.getElementById('empty-state').style.display = 'none';
-      renderAll(); setTimeout(centerView, 80);
-    }
-  } else {
-    // Try localStorage migration
-    load();
-    if (Object.keys(people).length) {
-      document.getElementById('empty-state').style.display = 'none';
-      renderAll(); setTimeout(centerView, 80);
-      await saveToSupabase(); // migrate to cloud
-    }
-  }
-}
-
-async function saveToSupabase() {
-  if (window.MODE_EXEMPLE) return;
-  if (!currentUser) { save(); return; } // fallback localStorage
-  var payload = { people: people, rels: rels, nid: nid, nodePos: nodePos };
-  // Upsert
-  var { error } = await sb.from('arbres').upsert({ user_id: currentUser.id, data: payload, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
-  if (error) { console.error('Supabase save error:', error); save(); } // fallback
-  else save(); // also keep localStorage as backup
-}
-
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveToSupabase, 1200);
-}
-
-// ─── STATE ───────────────────────────────────────────────────────────
-var people = {};
-var rels = [];   // {from, to, type: 'couple'|'parent'}
-var nid = 1;
-var selId = null;
-var editId = null;
-var curSex = 'u';
-var curTraits = [];
-var pendRel = null;
-var zoom = 1, panX = 0, panY = 0;
-var panning = false, px0 = 0, py0 = 0, ppx = 0, ppy = 0;
-var nodePos = {};  // id → {x,y}
-
-var NW = 145, NH = 100;
-
-// ─── HELPERS ─────────────────────────────────────────────────────────
-function uid(){ return 'p'+(nid++); }
-function norm(s){ return (s||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function mkPerson(o){
-  return Object.assign({id:uid(),prenom:'',nom:'',sex:'u',naiss:'',deces:'',metier:'',lieu:'',traits:[],events:[],notes:'',role:''},o||{});
-}
-function dname(p){ var n=(p.prenom+' '+p.nom).trim(); return n||p.role||'(Sans nom)'; }
-function short(p){ var n=dname(p); return n.length>16?n.slice(0,15)+'…':n; }
-function byear(p){ return p.naiss&&/\d{4}/.test(p.naiss)?parseInt(p.naiss):null; }
-function dyear(p){ return p.deces&&/\d{4}/.test(p.deces)?parseInt(p.deces):null; }
-function agedeath(p){ var b=byear(p),d=dyear(p); return(b&&d)?d-b:null; }
-function dates(p){
-  var b=p.naiss?p.naiss.slice(0,4):'', d=p.deces?p.deces.slice(0,4):'';
-  if(b&&d)return b+' — '+d;
-  if(b)return 'né'+(p.sex==='f'?'e':'')+' '+b;
-  if(d)return '† '+d;
-  return '';
-}
-
-
-// ─── EXEMPLE FICTIF (?exemple) ────────────────────────────────────────
-function chargerExemple(){
-  window.MODE_EXEMPLE = true;
-  fetch('assets/exemple-genosociogramme.json').then(function(r){ return r.json(); }).then(function(d){
-    people=d.people||{}; rels=d.rels||[]; nid=d.nid||100; nodePos=d.nodePos||{};
-    document.getElementById('empty-state').style.display='none';
-    var lp=document.getElementById('login-prompt'); if(lp) lp.style.display='none';
-    renderAll(); setTimeout(centerView,80);
-    var b=document.createElement('div');
-    b.setAttribute('role','status');
-    b.style.cssText='position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:300;background:#6B2F5B;color:#fff;border-radius:999px;padding:.6rem 1.1rem;font:600 .85rem "Nunito Sans",sans-serif;display:block;box-shadow:0 10px 30px rgba(107,47,91,.25);max-width:calc(100% - 24px);flex-wrap:wrap;justify-content:center;text-align:center';
-    b.innerHTML='Exemple fictif : la famille de Léa. Tes modifications ne sont pas enregistrées. <a href="genosociogramme.html" style="color:#F3DCC0">Créer mon propre arbre</a>';
-    document.body.appendChild(b);
-  });
-}
-
-// ─── SAVE / LOAD ─────────────────────────────────────────────────────
-function save(){
-  if(window.MODE_EXEMPLE)return;
-  try{ localStorage.setItem('geno4',JSON.stringify({people:people,rels:rels,nid:nid,nodePos:nodePos})); }catch(e){}
-}
-function load(){
-  try{
-    var raw=localStorage.getItem('geno4');
-    if(!raw)return false;
-    var d=JSON.parse(raw);
-    people=d.people||{}; rels=d.rels||[]; nid=d.nid||1; nodePos=d.nodePos||{};
-    return Object.keys(people).length>0;
-  }catch(e){ return false; }
-}
-
-// ─── PAN / ZOOM ───────────────────────────────────────────────────────
-function applyT(){
-  var c=document.getElementById('nodes-container');
-  var s=document.getElementById('svg-lines');
-  c.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
-  c.style.transformOrigin='0 0';
-  s.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
-  s.style.transformOrigin='0 0';
-}
-function zoomIn(){ zoom=Math.min(zoom*1.18,3); applyT(); }
-function zoomOut(){ zoom=Math.max(zoom/1.18,0.25); applyT(); }
-function centerView(){
-  var ids=Object.keys(people); if(!ids.length){panX=0;panY=0;zoom=1;applyT();return;}
-  var cv=document.getElementById('canvas');
-  var W=cv.clientWidth,H=cv.clientHeight;
-  var mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
-  ids.forEach(function(id){
-    var p=nodePos[id]||{x:0,y:0};
-    mnx=Math.min(mnx,p.x);mxx=Math.max(mxx,p.x);
-    mny=Math.min(mny,p.y);mxy=Math.max(mxy,p.y);
-  });
-  var cx=(mnx+mxx)/2,cy=(mny+mxy)/2;
-  panX=W/2-cx*zoom; panY=H/2-cy*zoom;
-  applyT();
-}
-
-var canvas=document.getElementById('canvas');
-canvas.addEventListener('mousedown',function(e){
-  if(e.target===canvas||e.target.id==='svg-lines'){
-    panning=true; px0=e.clientX; py0=e.clientY; ppx=panX; ppy=panY;
-    canvas.style.cursor='grabbing';
-  }
-});
-window.addEventListener('mousemove',function(e){
-  if(!panning)return;
-  panX=ppx+(e.clientX-px0); panY=ppy+(e.clientY-py0); applyT();
-});
-window.addEventListener('mouseup',function(){ panning=false; canvas.style.cursor=''; });
-canvas.addEventListener('wheel',function(e){
-  e.preventDefault();
-  var r=canvas.getBoundingClientRect();
-  var mx=e.clientX-r.left,my=e.clientY-r.top;
-  var delta=e.deltaY>0?0.88:1.14;
-  var nz=Math.min(Math.max(zoom*delta,0.25),3);
-  panX=mx-(mx-panX)*(nz/zoom); panY=my-(my-panY)*(nz/zoom);
-  zoom=nz; applyT();
-},{passive:false});
-
-// ─── TOUCH SUPPORT ────────────────────────────────────────────────────
-var t0=null,ptpx=0,ptpy=0;
-canvas.addEventListener('touchstart',function(e){
-  if(e.touches.length===1){
-    t0=e.touches[0]; ptpx=panX; ptpy=panY;
-  }
-},{passive:true});
-canvas.addEventListener('touchmove',function(e){
-  if(e.touches.length===1&&t0){
-    panX=ptpx+(e.touches[0].clientX-t0.clientX);
-    panY=ptpy+(e.touches[0].clientY-t0.clientY);
-    applyT();
-  }
-},{passive:true});
-
-// ─── RENDER NODE ──────────────────────────────────────────────────────
-function renderNode(id){
-  var p=people[id]; if(!p)return;
-  var cont=document.getElementById('nodes-container');
-  var el=document.getElementById('gn-'+id);
-  if(!el){
-    el=document.createElement('div');
-    el.id='gn-'+id;
-    el.className='gnode';
-    cont.appendChild(el);
-  }
-  var pos=nodePos[id]||{x:0,y:0};
-  el.style.left=pos.x+'px';
-  el.style.top=pos.y+'px';
-
-  var reps=getRepBadges(id);
-  var cls='gnode';
-  if(p.role==='moi')cls+=' me';
-  if(id===selId)cls+=' sel';
-  if(reps.length)cls+=' hasrep';
-  el.className=cls;
-
-  var sexCls=p.sex==='f'?'':'m';
-  var sexIco=p.sex==='f'?'♀':p.sex==='m'?'♂':'◇';
-
-  var dotsHTML=reps.slice(0,4).map(function(r){
-    return '<div class="nrep-dot" style="background:'+r.col+'" title="'+r.label+'"></div>';
-  }).join('');
-
-  var addHTML='';
-  if(id===selId){
-    var hasParents=getParents(id).length>0;
-    var hasCouple=getCouple(id)!==null;
-    if(!hasParents) addHTML+='<button class="nadd nadd-top" title="Ajouter un parent" onclick="event.stopPropagation();openRM(\''+id+'\',\'parent\')">+</button>';
-    if(!hasCouple)  addHTML+='<button class="nadd nadd-right" title="Ajouter un(e) conjoint(e)" onclick="event.stopPropagation();openRM(\''+id+'\',\'couple\')">+</button>';
-    addHTML+='<button class="nadd nadd-bottom" title="Ajouter un enfant" onclick="event.stopPropagation();openRM(\''+id+'\',\'child\')">+</button>';
-    addHTML+='<button class="nadd nadd-left" title="Ajouter un frère/sœur" onclick="event.stopPropagation();openRM(\''+id+'\',\'sibling\')">+</button>';
-  }
-
-  var repBadge=reps.length?'<div class="nrep-badge">'+reps.length+'</div>':'';
-
-  el.innerHTML=
-    addHTML+
-    '<div class="gnode-inner">'+
-      repBadge+
-      '<div class="nsex '+sexCls+'">'+sexIco+'</div>'+
-      '<div class="nname">'+esc(short(p))+'</div>'+
-      (dates(p)?'<div class="ndates">'+esc(dates(p))+'</div>':'')+
-      (p.metier?'<div class="njob">'+esc(p.metier)+'</div>':'')+
-      (p.role?'<div class="nrole">'+esc(p.role)+'</div>':'')+
-      (dotsHTML?'<div class="nreps">'+dotsHTML+'</div>':'')+
-    '</div>';
-
-  el.onclick=function(e){ e.stopPropagation(); selId=(selId===id)?null:id; renderAll(); };
-}
-
-canvas.addEventListener('click',function(e){
-  if(e.target===canvas||e.target.id==='svg-lines'){ selId=null; renderAll(); }
-});
-
-// double click to edit
-document.getElementById('nodes-container').addEventListener('dblclick',function(e){
-  var nd=e.target.closest('.gnode');
-  if(nd){ var id=nd.id.replace('gn-',''); openPM(id,false); }
-});
-
-// ─── LINES ────────────────────────────────────────────────────────────
-function drawLines(){
-  var svg=document.getElementById('svg-lines');
-  svg.innerHTML='';
-  // couple lines
-  rels.filter(function(r){return r.type==='couple';}).forEach(function(r){
-    var a=nodePos[r.from],b=nodePos[r.to]; if(!a||!b)return;
-    svg.appendChild(mkline(a.x,a.y,b.x,b.y,'rgba(107,47,91,.3)',2,'5 4'));
-  });
-  // parent lines
-  rels.filter(function(r){return r.type==='parent';}).forEach(function(r){
-    var a=nodePos[r.from],b=nodePos[r.to]; if(!a||!b)return;
-    var path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    var my=(a.y+b.y)/2;
-    path.setAttribute('d','M '+a.x+' '+a.y+' C '+a.x+' '+my+' '+b.x+' '+my+' '+b.x+' '+b.y);
-    path.setAttribute('stroke','rgba(107,47,91,.26)');
-    path.setAttribute('stroke-width','1.8');
-    path.setAttribute('fill','none');
-    path.setAttribute('stroke-linecap','round');
-    svg.appendChild(path);
-  });
-  // rep lines
-  detectReps().forEach(function(r){
-    for(var i=0;i<r.ids.length-1;i++){
-      for(var j=i+1;j<r.ids.length;j++){
-        var a=nodePos[r.ids[i]],b=nodePos[r.ids[j]]; if(!a||!b)continue;
-        svg.appendChild(mkline(a.x,a.y,b.x,b.y,r.col,2.5,'7 5'));
-      }
-    }
-  });
-}
-function mkline(x1,y1,x2,y2,stroke,sw,dash){
-  var l=document.createElementNS('http://www.w3.org/2000/svg','line');
-  l.setAttribute('x1',x1);l.setAttribute('y1',y1);
-  l.setAttribute('x2',x2);l.setAttribute('y2',y2);
-  l.setAttribute('stroke',stroke);
-  l.setAttribute('stroke-width',sw);
-  l.setAttribute('stroke-linecap','round');
-  if(dash)l.setAttribute('stroke-dasharray',dash);
-  l.setAttribute('opacity','0.7');
-  return l;
-}
-
-// ─── RELATION HELPERS ─────────────────────────────────────────────────
-function getParents(id){ return rels.filter(function(r){return r.type==='parent'&&r.to===id;}).map(function(r){return r.from;}); }
-function getChildren(id){ return rels.filter(function(r){return r.type==='parent'&&r.from===id;}).map(function(r){return r.to;}); }
-function getCouple(id){
-  var r=rels.find(function(r){return r.type==='couple'&&(r.from===id||r.to===id);});
-  return r?(r.from===id?r.to:r.from):null;
-}
-
-// ─── DETECTION ────────────────────────────────────────────────────────
-var MGROUPS={
-  sante:['medecin','infirmier','infirmiere','soignant','pharmacien','kine','therapeute','chirurgien','sage-femme'],
-  education:['enseignant','professeur','instituteur','educateur','formateur'],
-  commerce:['commercant','vendeur','vendeuse','boulanger','boucher','epicier','marchand'],
-  agriculture:['agriculteur','agricultrice','fermier','vigneron','paysan','eleveur'],
-  artisan:['artisan','menuisier','charpentier','couturier','tailleur','cordonnier','maçon'],
-  militaire:['militaire','soldat','gendarme','policier','pompier'],
-  domestique:['femme au foyer','menagere','domestique'],
-  religion:['pretre','pasteur','religieux','religieuse','cure','moine']
-};
-function mgrp(m){
-  var ml=norm(m);
-  for(var g in MGROUPS){ if(MGROUPS[g].some(function(w){return ml.indexOf(norm(w))>=0;})) return g; }
-  return null;
-}
-
-function hasEv(p,type){ return (p.events||[]).some(function(ev){return ev.type===type;}); }
-
-var SCHEMAS=[
-  {id:'sacrifiee',label:'Femme sacrifiée / effacée',col:'#8E44AD',
-    test:function(p){return p.sex==='f'&&(hasEv(p,'sacrifice')||norm(p.traits.join(' ')).indexOf('sacrifi')>=0||norm(p.traits.join(' ')).indexOf('effac')>=0||norm(p.notes).indexOf('sacrifi')>=0||mgrp(p.metier)==='domestique');}},
-  {id:'absent',label:'Père / figure absente',col:'#8E44AD',
-    test:function(p){return p.sex==='m'&&(hasEv(p,'abandon')||norm(p.notes).indexOf('absent')>=0||norm(p.notes).indexOf('disparu')>=0);}},
-  {id:'aine',label:'Aîné parentifié',col:'#8E44AD',
-    test:function(p){return norm(p.traits.join(' ')).indexOf('responsab')>=0||norm(p.notes).indexOf('ainee')>=0||norm(p.notes).indexOf('aine ')>=0;}},
-  {id:'secret',label:'Secret / honte cachée',col:'#8E44AD',
-    test:function(p){return hasEv(p,'secret')||hasEv(p,'honte')||norm(p.notes).indexOf('secret')>=0||norm(p.notes).indexOf('honte')>=0;}},
-  {id:'violence',label:'Violence transgénérationnelle',col:'#8E44AD',
-    test:function(p){return hasEv(p,'abus')||norm(p.notes).indexOf('violen')>=0||norm(p.traits.join(' ')).indexOf('coler')>=0;}},
-  {id:'deuil',label:'Deuil non élaboré',col:'#8E44AD',
-    test:function(p){return hasEv(p,'deuil')&&(norm(p.notes).indexOf('jamais')>=0||norm(p.notes).indexOf('silence')>=0);}}
-];
-
-function detectReps(){
-  var plist=Object.values(people);
-  var reps=[];
-  var seen={};
-
-  // 1. Gisant
-  var gisants=plist.filter(function(p){ var a=agedeath(p); return hasEv(p,'deces-precoce')||(a!==null&&a<50); });
-  if(gisants.length>=2) reps.push({type:'gisant',col:'#C0392B',label:'Syndrome du gisant',ids:gisants.map(function(p){return p.id;}),desc:'Morts prématurées : '+gisants.map(function(p){return dname(p);}).join(', ')});
-
-  // 2. Anniversaire (gisant vs moi)
-  var moi=plist.find(function(p){return p.role==='moi';});
-  if(moi&&moi.naiss){
-    var moiAge=2026-parseInt(moi.naiss);
-    gisants.forEach(function(g){
-      var ga=agedeath(g);
-      if(ga&&Math.abs(ga-moiAge)<=3&&!seen['anniv-'+g.id]){
-        seen['anniv-'+g.id]=1;
-        reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,g.id],desc:'Tu as '+moiAge+' ans — '+dname(g)+' est décédé(e) à '+ga+' ans'});
-      }
-    });
-    // event age — check all events
-    plist.filter(function(p){return p.id!==moi.id;}).forEach(function(p){
-      (p.events||[]).forEach(function(ev){
-        if(!ev.age)return;
-        var ea=parseInt(ev.age);
-        if(!isNaN(ea)&&Math.abs(ea-moiAge)<=2&&!seen['anniv-ev-'+p.id+'-'+ea]){
-          seen['anniv-ev-'+p.id+'-'+ea]=1;
-          reps.push({type:'anniversaire',col:'#27AE60',label:'Syndrome anniversaire',ids:[moi.id,p.id],desc:'Tu as '+moiAge+' ans — '+dname(p)+' a vécu un événement à '+ea+' ans'});
-        }
-      });
-    });
-  }
-
-  // 3. Schémas
-  SCHEMAS.forEach(function(sch){
-    var matched=plist.filter(function(p){return sch.test(p);});
-    if(matched.length>=2&&!seen['sch-'+sch.id]){
-      seen['sch-'+sch.id]=1;
-      reps.push({type:'schema',col:'#8E44AD',label:sch.label,ids:matched.map(function(p){return p.id;}),desc:matched.map(function(p){return dname(p)+(p.role?' ('+p.role+')':'');}).join(' · ')});
-    }
-  });
-
-  // 4. Prénom
-  var pm={};
-  plist.forEach(function(p){ if(p.prenom){var k=norm(p.prenom);if(!pm[k])pm[k]=[];pm[k].push(p);} });
-  Object.keys(pm).forEach(function(k){
-    var g=pm[k]; if(g.length>=2&&!seen['pn-'+k]){ seen['pn-'+k]=1;
-      reps.push({type:'prenom',col:'#E67E22',label:'Prénom répété : "'+g[0].prenom+'"',ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p);}).join(', ')});
-    }
-  });
-
-  // 5. Métier
-  var mm={};
-  plist.forEach(function(p){ if(p.metier){var g=mgrp(p.metier)||norm(p.metier);if(!mm[g])mm[g]=[];mm[g].push(p);} });
-  Object.keys(mm).forEach(function(k){
-    var g=mm[k]; if(g.length>=2&&!seen['mt-'+k]){ seen['mt-'+k]=1;
-      reps.push({type:'metier',col:'#2980B9',label:'Même domaine : '+k,ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p)+(p.metier?' — '+p.metier:'');}).join(' · ')});
-    }
-  });
-
-  // 6. Événements répétés
-  var em={};
-  plist.forEach(function(p){
-    (p.events||[]).forEach(function(ev){
-      if(!ev.type)return;
-      var k='ev-'+p.id+'-'+ev.type;
-      if(seen[k])return; seen[k]=1;
-      if(!em[ev.type])em[ev.type]=[];
-      if(!em[ev.type].some(function(x){return x.id===p.id;})) em[ev.type].push(p);
-    });
-  });
-  Object.keys(em).forEach(function(k){
-    var g=em[k]; if(g.length>=2&&!seen['ev-'+k]){ seen['ev-'+k]=1;
-      reps.push({type:'event',col:'#B98A55',label:'Même épreuve répétée',ids:g.map(function(p){return p.id;}),desc:g.map(function(p){return dname(p);}).join(', ')});
-    }
-  });
-
-  return reps;
-}
-
-function getRepBadges(id){ return detectReps().filter(function(r){return r.ids.indexOf(id)>=0;}); }
-
-function renderRepPanel(){
-  var reps=detectReps();
-  document.getElementById('rep-count').textContent=reps.length;
-  var el=document.getElementById('rep-list');
-  if(!reps.length){ el.innerHTML='<div class="ri-none">Continuez à remplir l\'arbre — les répétitions s\'affichent automatiquement.</div>'; return; }
-  el.innerHTML=reps.map(function(r){
-    return '<div class="ri" style="border-left-color:'+r.col+';background:'+r.col+'11" onclick="highlight('+JSON.stringify(r.ids)+')"><div class="ri-type" style="color:'+r.col+'">'+esc(r.label)+'</div><div class="ri-desc">'+esc(r.desc)+'</div></div>';
-  }).join('');
-}
-
-function highlight(ids){
-  ids.forEach(function(id){
-    var el=document.getElementById('gn-'+id); if(!el)return;
-    el.style.transition='transform .15s';
-    el.style.transform='translate(-50%,-50%) scale(1.12)';
-    setTimeout(function(){el.style.transform='translate(-50%,-50%)';},600);
-  });
-}
-
-// ─── RENDER ALL ───────────────────────────────────────────────────────
-function renderAll(){
-  Object.keys(people).forEach(renderNode);
-  // remove orphans
-  document.getElementById('nodes-container').querySelectorAll('.gnode').forEach(function(el){
-    var id=el.id.replace('gn-',''); if(!people[id])el.remove();
-  });
-  drawLines();
-  renderRepPanel();
-  applyT();
-}
-
-// ─── ADD ROOT ─────────────────────────────────────────────────────────
-document.getElementById('start-btn').addEventListener('click', function(){
-  var p=mkPerson({role:'moi'});
-  people[p.id]=p;
-  var cv=document.getElementById('canvas');
-  nodePos[p.id]={x:cv.clientWidth/2, y:cv.clientHeight/2};
-  document.getElementById('empty-state').style.display='none';
-  scheduleSave();
-  renderAll();
-  selId=p.id;
-  renderAll();
-  openPM(p.id,true);
-});
-
-// ─── RELATION MODAL ───────────────────────────────────────────────────
-var REL_CHOICES={
-  parent:[
-    {sex:'f',role:'mère',icon:'👩',name:'Mère',sub:'Côté maternel'},
-    {sex:'m',role:'père',icon:'👨',name:'Père',sub:'Côté paternel'},
-    {sex:'u',role:'parent',icon:'👤',name:'Parent inconnu',sub:''}
-  ],
-  couple:[
-    {sex:'f',role:'conjointe',icon:'👩',name:'Femme / conjointe',sub:''},
-    {sex:'m',role:'conjoint',icon:'👨',name:'Mari / conjoint',sub:''}
-  ],
-  child:[
-    {sex:'f',role:'fille',icon:'👧',name:'Fille',sub:''},
-    {sex:'m',role:'fils',icon:'👦',name:'Fils',sub:''},
-    {sex:'u',role:'enfant',icon:'🧒',name:'Enfant',sub:'Sexe non précisé'}
-  ],
-  sibling:[
-    {sex:'f',role:'sœur',icon:'👧',name:'Sœur',sub:''},
-    {sex:'m',role:'frère',icon:'👦',name:'Frère',sub:''}
-  ]
-};
-
-function openRM(fromId, relType){
-  pendRel={fromId:fromId, relType:relType};
-  var p=people[fromId];
-  document.getElementById('rm-ctx').textContent='Pour : '+dname(p);
-  var choices=REL_CHOICES[relType]||[];
-  document.getElementById('rm-choices').innerHTML=choices.map(function(c,i){
-    return '<div class="rchoice" onclick="createRel('+i+')"><span class="rchoice-icon">'+c.icon+'</span><div class="rchoice-name">'+c.name+'</div><div class="rchoice-sub">'+c.sub+'</div></div>';
-  }).join('');
-  document.getElementById('rm').classList.add('open');
-}
-function closeRM(){ document.getElementById('rm').classList.remove('open'); pendRel=null; }
-
-function createRel(idx){
-  if(!pendRel)return;
-  var fromId=pendRel.fromId, relType=pendRel.relType;
-  var choices=REL_CHOICES[relType];
-  var c=choices[idx];
-  var fromPos=nodePos[fromId]||{x:400,y:300};
-
-  var newP=mkPerson({sex:c.sex, role:c.role});
-  people[newP.id]=newP;
-
-  // Position
-  var off={parent:{x:(Math.random()>0.5?-1:1)*(NW+50),y:-(NH+80)}, couple:{x:NW+60,y:0}, child:{x:0,y:NH+80}, sibling:{x:-(NW+60),y:0}};
-  var o=off[relType]||{x:160,y:0};
-  nodePos[newP.id]={x:fromPos.x+o.x, y:fromPos.y+o.y};
-
-  if(relType==='parent')     rels.push({from:newP.id, to:fromId, type:'parent'});
-  else if(relType==='couple')rels.push({from:fromId, to:newP.id, type:'couple'});
-  else if(relType==='child') rels.push({from:fromId, to:newP.id, type:'parent'});
-  else if(relType==='sibling'){
-    var parents=getParents(fromId);
-    parents.forEach(function(pid){ rels.push({from:pid,to:newP.id,type:'parent'}); });
-  }
-
-  closeRM();
-  scheduleSave();
-  selId=newP.id;
-  renderAll();
-  setTimeout(function(){ openPM(newP.id,true); },60);
-}
-
-// ─── PERSON MODAL ─────────────────────────────────────────────────────
-function openPM(id, isNew){
-  editId=id;
-  var p=people[id];
-  document.getElementById('pm-title').textContent=isNew?'Nouvelle personne — '+p.role:dname(p);
-  setSex(p.sex||'u');
-  document.getElementById('f-prenom').value=p.prenom||'';
-  document.getElementById('f-nom').value=p.nom||'';
-  document.getElementById('f-naiss').value=p.naiss||'';
-  document.getElementById('f-deces').value=p.deces||'';
-  document.getElementById('f-metier').value=p.metier||'';
-  document.getElementById('f-lieu').value=p.lieu||'';
-  document.getElementById('f-event').value=p.event||'';
-  document.getElementById('f-evage').value=p.evage||'';
-  document.getElementById('f-evyear').value=p.evyear||'';
-  document.getElementById('f-notes').value=p.notes||'';
-  document.getElementById('ev-list').innerHTML='';
-  (p.events||[]).forEach(function(ev){ addEvRow(ev.type,ev.age,ev.year); });
-  curTraits=[].concat(p.traits||[]);
-  renderTraits();
-  document.getElementById('pm-del').style.display=isNew?'none':'block';
-  document.getElementById('pm').classList.add('open');
-  setTimeout(function(){ document.getElementById('f-prenom').focus(); },80);
-}
-function closePM(){ document.getElementById('pm').classList.remove('open'); editId=null; }
-
-function setSex(s){
-  curSex=s;
-  ['f','m','u'].forEach(function(x){ document.getElementById('sx-'+x).classList.toggle('on',x===s); });
-}
-
-function addTrait(e){
-  if(e.key!=='Enter')return;
-  e.preventDefault();
-  var v=e.target.value.trim(); if(!v)return;
-  curTraits.push(v); e.target.value='';
-  renderTraits();
-}
-function removeTrait(t){ curTraits=curTraits.filter(function(x){return x!==t;}); renderTraits(); }
-function renderTraits(){
-  var box=document.getElementById('traits-box');
-  box.querySelectorAll('.tchip').forEach(function(el){el.remove();});
-  var inp=document.getElementById('traits-input');
-  curTraits.forEach(function(t){
-    var ch=document.createElement('span'); ch.className='tchip';
-    ch.innerHTML=esc(t)+'<button onclick="removeTrait(\''+esc(t)+'\')">×</button>';
-    box.insertBefore(ch,inp);
-  });
-}
-
-// ─── EVENTS LIST ──────────────────────────────────────────────────────
-var EV_OPTS='<option value="">— Type —</option>'
-  +'<option value="deces-precoce">Mort prématurée</option>'
-  +'<option value="deuil">Deuil / perte</option>'
-  +'<option value="maladie">Épreuve majeure</option>'
-  +'<option value="abandon">Abandon / rejet</option>'
-  +'<option value="trahison">Trahison</option>'
-  +'<option value="sacrifice">Sacrifice / effacement</option>'
-  +'<option value="secret">Secret de famille</option>'
-  +'<option value="pauvrete">Pauvreté / manque</option>'
-  +'<option value="guerre">Guerre / exil</option>'
-  +'<option value="abus">Violence / abus</option>'
-  +'<option value="rupture">Rupture</option>'
-  +'<option value="honte">Honte / humiliation</option>'
-  +'<option value="injustice">Injustice</option>';
-
-function addEvRow(type,age,year){
-  var list=document.getElementById('ev-list');
-  var row=document.createElement('div');
-  row.className='ev-row';
-  row.innerHTML='<select class="fs" data-ev="type">'+EV_OPTS+'</select>'
-    +'<input class="fi" data-ev="age" type="number" min="0" max="120" placeholder="Âge">'
-    +'<input class="fi" data-ev="year" placeholder="Année">'
-    +'<button class="ev-del-btn" onclick="this.parentElement.remove()">×</button>';
-  list.appendChild(row);
-  if(type) row.querySelector('[data-ev="type"]').value=type;
-  if(age)  row.querySelector('[data-ev="age"]').value=age;
-  if(year) row.querySelector('[data-ev="year"]').value=year;
-}
-
-function getEvRows(){
-  return Array.from(document.getElementById('ev-list').children).map(function(row){
-    return {type:row.querySelector('[data-ev="type"]').value, age:row.querySelector('[data-ev="age"]').value, year:row.querySelector('[data-ev="year"]').value};
-  }).filter(function(ev){return ev.type;});
-}
-
-function savePM(){
-  if(!editId)return;
-  var p=people[editId];
-  p.sex=curSex;
-  p.prenom=document.getElementById('f-prenom').value.trim();
-  p.nom=document.getElementById('f-nom').value.trim();
-  p.naiss=document.getElementById('f-naiss').value;
-  p.deces=document.getElementById('f-deces').value;
-  p.metier=document.getElementById('f-metier').value.trim();
-  p.lieu=document.getElementById('f-lieu').value.trim();
-  p.notes=document.getElementById('f-notes').value.trim();
-  p.events=getEvRows();
-  p.traits=[].concat(curTraits);
-  closePM();
-  scheduleSave();
-  renderAll();
-}
-
-function delPM(){
-  if(!editId)return;
-  if(!confirm('Supprimer '+dname(people[editId])+' ?'))return;
-  var id=editId;
-  delete people[id]; delete nodePos[id];
-  rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
-  closePM(); selId=null; scheduleSave(); renderAll();
-  if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
-}
-
-// ─── EXPORT / IMPORT ──────────────────────────────────────────────────
-function openExport(){ document.getElementById('em').classList.add('open'); }
-function triggerImport(){ document.getElementById('file-import').click(); }
-
-function doExportJSON(){
-  var data=JSON.stringify({people:people,rels:rels,nid:nid,nodePos:nodePos},null,2);
-  var url=URL.createObjectURL(new Blob([data],{type:'application/json'}));
-  var a=document.createElement('a'); a.href=url; a.download='genosociogramme-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
-  URL.revokeObjectURL(url);
-}
-
-function doImport(e){
-  var f=e.target.files[0]; if(!f)return;
-  var r=new FileReader();
-  r.onload=function(ev){
-    try{
-      var d=JSON.parse(ev.target.result);
-      people=d.people||{}; rels=d.rels||[]; nid=d.nid||1; nodePos=d.nodePos||{};
-      scheduleSave(); renderAll(); centerView();
-      if(Object.keys(people).length) document.getElementById('empty-state').style.display='none';
-    }catch(err){ alert('Fichier invalide.'); }
-  };
-  r.readAsText(f);
-}
-
-function doExportSVG(){
-  var ids=Object.keys(people); if(!ids.length){alert('Arbre vide.');return;}
-  var W=1600,H=1000;
-  var mnx=1e9,mxx=-1e9,mny=1e9,mxy=-1e9;
-  ids.forEach(function(id){ var p=nodePos[id]||{x:0,y:0}; mnx=Math.min(mnx,p.x);mxx=Math.max(mxx,p.x);mny=Math.min(mny,p.y);mxy=Math.max(mxy,p.y); });
-  var sx=Math.min((W-120)/Math.max(mxx-mnx,1),2.5);
-  var sy=Math.min((H-120)/Math.max(mxy-mny,1),2.5);
-  var sc=Math.min(sx,sy);
-  var ox=60-mnx*sc+(W-(mxx-mnx)*sc)/2;
-  var oy=60-mny*sc+(H-(mxy-mny)*sc)/2;
-  var px=function(id){return(nodePos[id]?nodePos[id].x:0)*sc+ox;};
-  var py=function(id){return(nodePos[id]?nodePos[id].y:0)*sc+oy;};
-  var parts=['<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'">'];
-  parts.push('<rect width="'+W+'" height="'+H+'" fill="#FFF9F7"/>');
-  rels.forEach(function(r){
-    var ax=px(r.from),ay=py(r.from),bx=px(r.to),by=py(r.to);
-    if(r.type==='couple') parts.push('<line x1="'+ax+'" y1="'+ay+'" x2="'+bx+'" y2="'+by+'" stroke="rgba(107,47,91,.3)" stroke-width="2" stroke-dasharray="5 4"/>');
-    else{ var my=(ay+by)/2; parts.push('<path d="M '+ax+' '+ay+' C '+ax+' '+my+' '+bx+' '+my+' '+bx+' '+by+'" fill="none" stroke="rgba(107,47,91,.25)" stroke-width="2"/>'); }
-  });
-  detectReps().forEach(function(r){
-    for(var i=0;i<r.ids.length-1;i++){ for(var j=i+1;j<r.ids.length;j++){
-      parts.push('<line x1="'+px(r.ids[i])+'" y1="'+py(r.ids[i])+'" x2="'+px(r.ids[j])+'" y2="'+py(r.ids[j])+'" stroke="'+r.col+'" stroke-width="2.5" stroke-dasharray="7 5" opacity="0.65"/>');
-    }}
-  });
-  ids.forEach(function(id){
-    var p=people[id],x=px(id),y=py(id);
-    var nw=110*Math.min(sc,1),nh=70*Math.min(sc,1);
-    var fill=p.role==='moi'?'#FFF5F3':'#FFFFFF';
-    var str=p.role==='moi'?'#6B2F5B':'rgba(107,47,91,.22)';
-    parts.push('<rect x="'+(x-nw/2)+'" y="'+(y-nh/2)+'" width="'+nw+'" height="'+nh+'" rx="10" fill="'+fill+'" stroke="'+str+'" stroke-width="'+(p.role==='moi'?2:1.5)+'"/>');
-    parts.push('<text x="'+x+'" y="'+(y-6)+'" text-anchor="middle" font-family="Georgia,serif" font-size="'+(Math.max(11,Math.round(14*Math.min(sc,1))))+'" font-weight="700" fill="#4A2142">'+esc(short(p))+'</text>');
-    if(dates(p)) parts.push('<text x="'+x+'" y="'+(y+12)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#8E6383">'+esc(dates(p))+'</text>');
-    if(p.metier) parts.push('<text x="'+x+'" y="'+(y+24)+'" text-anchor="middle" font-family="Arial" font-size="9" fill="#E7A79E" font-style="italic">'+esc(p.metier)+'</text>');
-  });
-  parts.push('<text x="24" y="28" font-family="Georgia,serif" font-size="16" font-weight="700" font-style="italic" fill="#4A2142">Génosociogramme — Genesolia</text>');
-  parts.push('</svg>');
-  var url=URL.createObjectURL(new Blob([parts.join('')],{type:'image/svg+xml'}));
-  var a=document.createElement('a'); a.href=url; a.download='genosociogramme.svg'; a.click();
-  URL.revokeObjectURL(url);
-  document.getElementById('em').classList.remove('open');
-}
-
-// ─── KEYBOARD ─────────────────────────────────────────────────────────
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){
-    document.querySelectorAll('.modal-bg.open').forEach(function(m){m.classList.remove('open');});
-    selId=null; renderAll();
-  }
-  if(e.key==='Delete'&&selId&&!document.querySelector('.modal-bg.open')){
-    var id=selId;
-    if(confirm('Supprimer '+dname(people[id])+' ?')){
-      delete people[id]; delete nodePos[id];
-      rels=rels.filter(function(r){return r.from!==id&&r.to!==id;});
-      selId=null; scheduleSave(); renderAll();
-      if(!Object.keys(people).length) document.getElementById('empty-state').style.display='flex';
-    }
-  }
-});
-
-// ─── INIT ─────────────────────────────────────────────────────────────
-(function init(){
-  panX=0; panY=0; zoom=1;
-  initAuth();
-})();
-</script>
   <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/genosociogramme.js"></script>
 </body>
 </html>
