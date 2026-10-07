@@ -1680,12 +1680,12 @@
     echos.sort(function (a, b) { return (b.toi ? 1 : 0) - (a.toi ? 1 : 0) || (b.gens || 0) - (a.gens || 0); });
     return { liste: lst, echos: echos, moi: lst.filter(function (x) { return x.moi; })[0] || null };
   }
-  function nomCourt(x) { return x.moi ? 'toi' : (x.p.prenom || x.nom) + (x.lien ? ' (' + x.lien.toLowerCase() + ')' : ''); }
+  function nomAstro(x) { return x.moi ? 'toi' : (x.p.prenom || x.nom) + (x.lien ? ' (' + x.lien.toLowerCase() + ')' : ''); }
   function titreAstro(e) {
     var AT = window.ASTRO_TEXTES, Sg = function (s) { return AT.SIGNES[s].nom; };
     if (e.type === 'soleil') return 'Le Soleil en ' + Sg(e.signe) + ' revient sur ' + e.gens + ' générations';
     if (e.type === 'lune') return 'La Lune en ' + Sg(e.signe) + ' revient sur ' + e.gens + ' générations';
-    if (e.type === 'croise') return e.sens === 'lune-soleil' ? 'La Lune de ' + nomCourt(e.enf) + ' est dans le signe solaire de ' + nomCourt(e.par) : 'Le Soleil de ' + nomCourt(e.enf) + ' est dans le signe lunaire de ' + nomCourt(e.par);
+    if (e.type === 'croise') return e.sens === 'lune-soleil' ? 'La Lune de ' + nomAstro(e.enf) + ' est dans le signe solaire de ' + nomAstro(e.par) : 'Le Soleil de ' + nomAstro(e.enf) + ' est dans le signe lunaire de ' + nomAstro(e.par);
     if (e.type === 'element') return 'Une lignée d’' + AT.ELEMENTS[e.element].nom.replace(/^(Le |La |L’|L')/, '').toLowerCase() + ' (' + e.part + ' % des Soleils et des Lunes)';
     return AT.ELEMENTS[e.element].nom + ' n’apparaît dans aucun Soleil ni aucune Lune';
   }
