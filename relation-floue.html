@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relation floue : quand on n'est pas vraiment ensemble · Genesolia</title>
+  <meta name="description" content="Relation floue, situationship : comment la reconnaître, pourquoi on accepte le flou, et comment demander « on est quoi ? » avec des phrases prêtes à dire.">
+  <link rel="canonical" href="https://genesolia.fr/relation-floue.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .phrases{list-style:none;margin:1.4rem 0;display:grid;gap:.8rem}
+    .phrases li{font-family:var(--display);font-size:1.18rem;line-height:1.4;background:var(--blanc);border:1px solid var(--rose);border-left:3px solid var(--corail);border-radius:4px 16px 16px 4px;padding:.9rem 1.1rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+      .cocher{padding:1.3rem 1.2rem 1.2rem}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Relation floue : pourquoi c'est si dur de demander « on est quoi ? »",
+    "description": "Relation floue, situationship : comment la reconnaître, pourquoi on accepte le flou, et comment demander « on est quoi ? » avec des phrases prêtes à dire.",
+    "datePublished": "2026-10-07",
+    "dateModified": "2026-10-07",
+    "inLanguage": "fr",
+    "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"},
+    "url": "https://genesolia.fr/relation-floue.html",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/relation-floue.html"}
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Relation floue</nav>
+        <h1>Relation floue : pourquoi c'est si dur de demander « on est quoi ? »</h1>
+        <p class="intro">Vous vous voyez, vous vous écrivez, vous passez de bons moments. Mais quand une amie te demande si vous êtes ensemble, tu ne sais pas quoi répondre. Bonne nouvelle : le flou n'est pas une fatalité. Une question peut suffire à le dissiper.</p>
+        <p class="publie">Publié le 7 octobre 2026 · lecture 6 min</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>C'est quoi, une relation floue ?</h2>
+        <p>Une relation floue, ou <em>situationship</em>, c'est un lien qui ressemble à une histoire sans en porter le nom. Il y a de l'attention, de la complicité, de vrais moments partagés. Mais rien n'est dit. Ni sur ce que vous êtes, ni sur ce que vous voulez.</p>
+        <p>Ce n'est pas un problème en soi. Certaines personnes aiment avancer sans étiquette, et c'est leur droit. Le flou devient pesant quand l'une des deux personnes attend plus, et n'ose pas le dire.</p>
+
+        <h2>Les signes d'une relation floue</h2>
+        <div class="cocher">
+          <p class="titre">Coche ce qui te parle</p>
+          <ul>
+            <li><label><input type="checkbox"> Je ne sais pas comment le ou la présenter à mes amies.</label></li>
+            <li><label><input type="checkbox"> On se voit souvent, mais jamais avec ses proches, ni avec les miens.</label></li>
+            <li><label><input type="checkbox"> J'attends ses messages, et je n'ose pas écrire la première.</label></li>
+            <li><label><input type="checkbox"> Nos projets ne dépassent jamais le week-end prochain.</label></li>
+            <li><label><input type="checkbox"> J'évite certains sujets pour ne pas « mettre la pression ».</label></li>
+            <li><label><input type="checkbox"> Je me demande souvent si j'ai le droit d'être déçue.</label></li>
+            <li><label><input type="checkbox"> Quand on me demande si on est ensemble, je réponds « c'est compliqué ».</label></li>
+          </ul>
+          <p class="note">Plusieurs cases cochées, ce n'est pas un verdict. C'est juste le signe que tu as besoin d'y voir plus clair.</p>
+        </div>
+
+        <h2>Pourquoi on accepte le flou</h2>
+        <p>Si demander était facile, tu l'aurais déjà fait. Quelque chose te retient, et ce quelque chose a souvent de bonnes raisons d'exister.</p>
+        <ul class="pistes">
+          <li><strong>La peur de perdre</strong><span>Une question claire pourrait tout arrêter. Alors tu préfères garder un peu que risquer de ne plus rien avoir.</span></li>
+          <li><strong>L'habitude de prendre peu de place</strong><span>Ne rien demander, être facile à vivre, ne pas déranger. Tu espères qu'en restant légère, tu finiras par être choisie.</span></li>
+          <li><strong>Ce que tu as vu des couples de ta famille</strong><span>Peut-être que chez toi, l'amour ne se disait pas. Ou qu'une personne attendait pendant que l'autre décidait. On apprend à aimer en regardant aimer.</span></li>
+          <li><strong>Le flou qui protège</strong><span>Tant que rien n'est dit, rien ne peut vraiment se terminer. Le flou évite la déception. Mais il évite aussi la joie d'être sûre.</span></li>
+        </ul>
+        <p>Dans la <a href="methode.html">méthode des deux cycles</a>, tout cela touche au cycle du cœur : aimer et être aimée. Quand ce besoin a pris l'habitude de se faire petit, il se contente de peu, en espérant que ce peu devienne plus. La question intérieure n'est plus « Qu'est-ce que je veux ? ». Elle devient « Qu'est-ce que je peux avoir sans risquer de perdre ? ».</p>
+        <p class="rappel"><strong>Bonne nouvelle :</strong> changer de question change déjà beaucoup. Ces pistes ne t'enferment pas. Elles t'aident à voir d'où vient ton hésitation, pour choisir ce que tu en fais.</p>
+
+        <h2>Un exercice de cinq minutes</h2>
+        <p>Prends tes notes de téléphone ou un carnet. Écris vite, sans te relire.</p>
+        <ol class="exercice">
+          <li><h3>Écris ce que tu vis aujourd'hui</h3><p>En trois lignes, sans juger : à quelle fréquence vous vous voyez, comment vous vous écrivez, ce qui se dit et ce qui ne se dit pas.</p></li>
+          <li><h3>Écris ce que tu veux vraiment</h3><p>Pas ce qui te semble raisonnable à demander. Ce que tu veux, en une phrase.</p></li>
+          <li><h3>Regarde l'écart</h3><p>Entre les deux, qu'est-ce qui manque ? Un mot, du temps, des projets, une place dans sa vie ? Ce manque, c'est ta question.</p></li>
+        </ol>
+        <p>Pour aller un peu plus loin, demande-toi si quelqu'un dans ta famille a, lui ou elle aussi, longtemps attendu d'être choisi·e. Pas pour tirer une conclusion. Juste pour voir si l'histoire te semble familière.</p>
+
+        <h2>Comment poser la question</h2>
+        <ol class="exercice">
+          <li><h3>Choisis le bon moment</h3><p>De vive voix si possible, au calme. Pas au milieu d'une soirée, ni juste après trois jours sans nouvelles. Un moment détendu, pour toi comme pour lui ou elle.</p></li>
+          <li><h3>Parle de toi d'abord</h3><p>Dis ce que tu vis et ce que tu aimerais, plutôt que ce que l'autre ne fait pas. On se défend moins quand on ne se sent pas accusé·e.</p></li>
+          <li><h3>Pose une vraie question</h3><p>Une question ouverte, puis un silence. Laisse l'autre répondre, sans remplir le blanc à sa place.</p></li>
+          <li><h3>Accueille la réponse telle qu'elle est</h3><p>Même si ce n'est pas celle que tu espérais. Une réponse claire est une information précieuse, pas un échec.</p></li>
+        </ol>
+        <h3>Trois phrases prêtes à dire</h3>
+        <ul class="phrases">
+          <li>« Je passe de super moments avec toi. J'ai envie de savoir ce que c'est, pour toi, ce qu'on vit. »</li>
+          <li>« De mon côté, j'aimerais qu'on soit vraiment ensemble. Et toi, tu en es où ? »</li>
+          <li>« Je préfère une réponse claire, même si ce n'est pas celle que j'espère. Tu peux être honnête avec moi. »</li>
+        </ul>
+        <p>Change les mots pour qu'ils te ressemblent. Ce qui compte, ce n'est pas la phrase parfaite. C'est que la question soit posée.</p>
+
+        <h2>Ce qui devient possible</h2>
+        <p>Savoir, c'est pouvoir choisir. Si la réponse est oui, vous construisez quelque chose de clair, à deux. Si c'est non, ou « je ne sais pas », tu sais enfin où tu en es. Tu peux rester un temps en connaissance de cause, ou partir vers une histoire qui te ressemble davantage.</p>
+        <p>Dans les deux cas, tu as cessé d'attendre. Et chaque fois que tu oses demander, ça devient plus simple. La prochaine fois, tu poseras la question plus tôt, avec moins de peur. C'est comme ça qu'un schéma se transforme : pas d'un coup, mais un geste après l'autre.</p>
+
+        <h2>Pour aller plus loin</h2>
+        <p>Dans l'espace Tes 20 ans, choisis la situation « On n'est pas vraiment ensemble, et je n'ose pas demander ». Tu repars avec une question à te poser, un geste simple et des mots à envoyer. Et si tu as l'impression de revivre souvent la même histoire, l'article sur les <a href="schemas-repetitifs-en-amour.html">schémas répétitifs en amour</a> t'aide à repérer ce qui revient.</p>
+        <div class="actions">
+          <a class="btn btn-plein" href="tes-20-ans.html#outil">Choisir ma situation</a>
+          <a class="btn btn-trait" href="schemas-repetitifs-en-amour.html">Lire l'article sur les schémas en amour</a>
+        </div>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Les schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Repère ce qui se rejoue.</p></a>
+          <a class="outil" href="se-sentir-seule.html"><h3>Se sentir seule, même entourée</h3><p>Comprendre ce sentiment, et cinq petites actions pour recréer du lien.</p></a>
+          <a class="outil" href="conflits-avec-ses-parents.html"><h3>Toujours en conflit avec tes parents ?</h3><p>Ce qui se joue vraiment à vingt ans, et une méthode pour sortir des disputes.</p></a>
+          <a class="outil" href="tes-20-ans.html"><h3>L'espace Tes 20 ans</h3><p>Choisis ta situation et repars avec un geste simple et les mots pour le dire.</p></a>
+          <a class="outil" href="methode.html"><h3>La méthode des deux cycles</h3><p>La racine et le cœur : deux besoins pour comprendre ce qui se répète.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour découvrir comment les couples de ta famille se sont formés.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

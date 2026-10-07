@@ -366,6 +366,7 @@
         '<div class="rep-bloc question"><h3>La question à te poser</h3><p>' + esc(s.question) + '</p></div>' +
         '<div class="rep-bloc geste"><h3>Ce que tu peux faire aujourd\'hui</h3><p>' + esc(s.geste) + '</p><span class="duree">Moins de 15 minutes</span></div>' +
         '<div class="rep-bloc possible"><h3>Ce qui devient possible</h3><p>' + esc(s.possible) + '</p></div>' +
+        '<div class="carte-partage" id="carte-partage"><h3>Ta carte à partager</h3><p class="petit">Cette phrase, rien que pour toi, ou pour quelqu\'un qui en a besoin.</p><div class="carte-apercu" aria-hidden="true"></div><div class="carte-actions"><button class="btn btn-plein" type="button" data-carte="partager">Partager ma carte</button><button class="btn btn-trait" type="button" data-carte="telecharger">Télécharger l\'image</button></div><p class="petit carte-statut" aria-live="polite"></p></div>' +
         (s.avant
           ? '<div class="avant"><h3>Avant d\'envoyer ce message</h3><ol>' +
               AVANT.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') +
@@ -381,10 +382,34 @@
     ecranGrille.hidden = true;
     ecranReponse.hidden = false;
     brancherCopie(ecranReponse);
+    preparerCarte(s);
     ecranReponse.querySelectorAll('[data-retour]').forEach(function (b) { b.addEventListener('click', retour); });
     outil.scrollIntoView({ block: 'start' });
     var titre = document.getElementById('rep-titre');
     titre.focus({ preventScroll: true });
+  }
+
+  function preparerCarte(s) {
+    var zone = document.getElementById('carte-partage');
+    if (!zone || !window.GenesoliaCarte) { if (zone) zone.hidden = true; return; }
+    var nom = 'genesolia-' + s.id + '.png', canvasPret = null;
+    var statut = zone.querySelector('.carte-statut');
+    window.GenesoliaCarte.dessiner({ phrase: s.possible, sur: 'Ce qui devient possible', style: s.cycle === 'racine' ? 'champagne' : 'rose' }).then(function (c) {
+      canvasPret = c;
+      var img = new Image(); img.src = c.toDataURL('image/png'); img.alt = '';
+      zone.querySelector('.carte-apercu').appendChild(img);
+    });
+    zone.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-carte]');
+      if (!b || !canvasPret) return;
+      if (b.getAttribute('data-carte') === 'partager') {
+        window.GenesoliaCarte.partager(canvasPret, nom, 'Trouvé sur genesolia.fr').then(function (r) {
+          statut.textContent = r === 'telechargement' ? 'Ton téléphone ne permet pas le partage direct : l\'image a été téléchargée.' : r === 'partage' ? 'Merci de faire circuler la douceur.' : '';
+        });
+      } else {
+        window.GenesoliaCarte.telecharger(canvasPret, nom).then(function () { statut.textContent = 'Image téléchargée.'; });
+      }
+    });
   }
 
   function retour() {

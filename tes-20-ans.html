@@ -224,6 +224,12 @@
     .alerte-conflit{font-size:.92rem;color:var(--prune-doux);border:1px dashed var(--corail-vif);border-radius:var(--rayon);padding:1rem 1.2rem;max-width:none}
     .alerte-conflit a{color:var(--prune);font-weight:600}
     @media (max-width:560px){.etapes-conflit li{padding:1.1rem 1.1rem 1.1rem 3.4rem}.etapes-conflit li::before{left:.9rem;width:1.9rem;height:1.9rem}}
+    .carte-partage{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.35rem;margin-bottom:.9rem}
+    .carte-partage h3{font:600 .82rem/1.2 var(--texte);letter-spacing:.03em;color:var(--corail-encre);margin-bottom:.4rem}
+    .carte-apercu{margin:1rem auto;max-width:300px}
+    .carte-apercu img{width:100%;height:auto;border-radius:14px;box-shadow:0 14px 36px rgba(107,47,91,.16);display:block}
+    .carte-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+    .carte-statut{text-align:center;margin-top:.6rem;min-height:1.2em}
   </style>
 </head>
 <body class="nouveau">
@@ -401,6 +407,18 @@
       </div>
     </section>
 
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire, et à partager</h2><p>Des articles pour aller plus loin, et des cartes pour dire ce que tu penses avec douceur.</p></div>
+        <div class="liste-outils">
+          <a class="outil" href="relation-floue.html"><h3>Relation floue : oser demander</h3><span class="duree">6 min</span><p>Pourquoi c'est si dur de demander « on est quoi ? », et comment le faire.</p></a>
+          <a class="outil" href="conflits-avec-ses-parents.html"><h3>En conflit avec tes parents</h3><span class="duree">7 min</span><p>Ce qui se joue vraiment à 20 ans, et comment sortir des disputes.</p></a>
+          <a class="outil" href="se-sentir-seule.html"><h3>Se sentir seule, même entourée</h3><span class="duree">5 min</span><p>Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p></a>
+          <a class="outil" href="cartes.html"><h3>Des cartes à partager</h3><span class="duree">26 cartes</span><p>Des phrases douces sur l'amour, la famille et ta place, prêtes pour ta story.</p></a>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
 
     <section class="bloc serre" aria-labelledby="urgence-titre">
@@ -423,6 +441,7 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/cartes.js"></script>
   <script src="assets/tes-20-ans.js"></script>
 </body>
 </html>
