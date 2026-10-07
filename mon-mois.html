@@ -89,6 +89,11 @@
     .m-carnet p:not(.m-etiq){font-size:.95rem;color:var(--prune-doux)}
     .m-anciens{margin-top:.8rem;font-size:.9rem;color:var(--prune-doux)}
     .m-anciens a{color:var(--prune)}
+    .m-cadeau{display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:center;padding:1.8rem;margin-bottom:2rem;border-radius:var(--rayon);background:linear-gradient(120deg,#FFF6EC,var(--blanc) 60%);border:1.5px solid var(--champagne);scroll-margin-top:5rem}
+    .m-cadeau img{width:150px;height:auto;border-radius:6px;box-shadow:0 18px 40px rgba(46,19,56,.25);transform:rotate(-2deg)}
+    .m-cadeau h2{font-size:1.7rem;margin-bottom:.5rem}
+    .m-cadeau p{font-size:.96rem}
+    @media (max-width:620px){.m-cadeau{grid-template-columns:1fr;padding:1.4rem}.m-cadeau img{width:120px}.m-cadeau .m-ligne{flex-direction:column}.m-cadeau .m-ligne input{max-width:none!important}}
     @media (max-width:860px){.m-grille2{grid-template-columns:1fr}.m-carnet{grid-template-columns:1fr}}
     @media (max-width:560px){
       .m-cal{gap:.2rem}.m-cal .c{min-height:3.2rem;padding:.25rem;font-size:.72rem}.m-cal .c span{display:none}.m-cal .c i{font-size:.8rem;right:.25rem}
@@ -120,6 +125,7 @@
     'use strict';
     var CERCLE = {
       prix: '5 € par mois',
+      offert: '2026-11',               /* le carnet offert contre un e-mail */
       lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
       formspree: 'https://formspree.io/f/xdawvnby'
     };
@@ -247,14 +253,45 @@
         '<p class="m-prochain">Ton mois ' + de(MOIS[M % 12]) + ' sera prêt le 1<sup>er</sup> ' + MOIS[M % 12] + '. Il se met à jour tout seul avec ton arbre.</p>';
       document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
     }
+    function blocOffert() {
+      var c = CARNETS[CERCLE.offert]; if (!c) return '';
+      var p = CERCLE.offert.split('-'), nm = MOIS[+p[1] - 1];
+      return '<div class="m-cadeau" id="offert"><img src="assets/cercle/apercu-' + CERCLE.offert + '.jpg" alt="Couverture du carnet ' + esc(de(nm)) + '" width="150" height="212" loading="lazy">' +
+        '<div><p class="m-etiq">Offert · le premier carnet du Cercle</p><h2>' + esc(c.titre) + '</h2><p>Le carnet ' + esc(de(nm)) + ', dix pages à imprimer : le thème du mois expliqué, trois exercices, un rituel symbolique et une méditation à lire. Il est à toi, gratuitement.</p>' +
+        '<form class="m-form" id="m-cadeau-form" novalidate><div class="m-ligne"><input name="prenom" placeholder="Ton prénom" aria-label="Ton prénom" autocomplete="given-name" style="max-width:11rem"><input type="email" name="email" required placeholder="Ton e-mail" aria-label="Ton e-mail" autocomplete="email" value="' + esc((utilisateur && utilisateur.email) || '') + '"></div>' +
+        '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none"><label class="m-accord"><input type="checkbox" name="accord" required> J\'accepte de recevoir le carnet et les nouvelles du Cercle par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html" target="_blank">Mes données</a></label>' +
+        '<button class="btn btn-plein" type="submit" style="margin-top:.8rem">Recevoir mon carnet offert</button><p class="m-erreur" role="alert"></p></form></div></div>';
+    }
+    function brancherOffert() {
+      var f = document.getElementById('m-cadeau-form'); if (!f) return;
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var err = f.querySelector('.m-erreur'), email = f.email.value.trim(), c = CARNETS[CERCLE.offert];
+        if (f._gotcha.value) return;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+        if (!f.accord.checked) { err.textContent = 'Coche la case pour recevoir ton carnet.'; return; }
+        f.querySelector('button').disabled = true;
+        var data = new FormData(); data.append('prenom', f.prenom.value.trim()); data.append('email', email); data.append('source', 'Carnet offert ' + CERCLE.offert); data.append('_subject', 'Carnet offert du Cercle');
+        fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+          .then(function (rp) {
+            if (!rp.ok) throw new Error(rp.status);
+            var url = 'assets/cercle/' + c.fichier;
+            f.outerHTML = '<p class="m-merci">Merci ! Ton carnet se télécharge. S\'il ne s\'ouvre pas, <a href="' + url + '" download>clique ici</a>. Tu seras prévenue dès l\'ouverture du Cercle, pour recevoir le carnet du mois suivant.</p>';
+            var a = document.createElement('a'); a.href = url; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+            if (window.umami) try { window.umami.track('carnet-offert'); } catch (x) {}
+          })
+          .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
+      });
+    }
     function apercu(r) {
-      var h = blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
+      var h = blocOffert() + blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
         '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2><p class="prix">' + CERCLE.prix + '</p><p>Sans engagement, tu arrêtes quand tu veux.</p><ul>' +
         '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
       var b = document.getElementById('m-offre-bt'); if (b && b.tagName === 'BUTTON') b.addEventListener('click', prevenir);
+      brancherOffert();
     }
     function boutonOffre() {
       if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="login.html?retour=mon-mois.html">Créer mon compte pour rejoindre le Cercle</a>';
@@ -279,7 +316,8 @@
       });
     }
     function message(titre, texte, liens) {
-      corps.innerHTML = '<div class="m-message"><h2>' + titre + '</h2><p>' + texte + '</p><div class="m-actions" style="margin-top:0">' + liens + '</div></div>';
+      corps.innerHTML = blocOffert() + '<div class="m-message"><h2>' + titre + '</h2><p>' + texte + '</p><div class="m-actions" style="margin-top:0">' + liens + '</div></div>';
+      brancherOffert();
     }
 
     function afficher(data, acces) {
