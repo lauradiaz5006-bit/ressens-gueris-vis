@@ -35,13 +35,14 @@ const pied = `  </main>
 `;
 let n = 0;
 for (const f of L) {
-  const desc = `Prénom ${f.prenom} : origine ${f.origine}, signification, histoire${f.fete ? ', fête le ' + f.fete : ''}, nombre en numérologie et place sur l'arbre de vie.`.slice(0, 160);
-  const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: `Prénom ${f.prenom} : origine, signification et histoire`, description: desc, inLanguage: 'fr', datePublished: '2026-10-07', author: { '@type': 'Organization', name: 'Genesolia' }, publisher: { '@type': 'Organization', name: 'Genesolia' }, url: `https://genesolia.fr/prenoms/${f.slug}.html` });
+  const coupe = t => t.length <= 160 ? t : t.slice(0, 158).replace(/[\s,;:]+\S*$/, '') + '…';
+  const desc = coupe(`Prénom ${f.prenom} en psychogénéalogie : origine ${f.origine}, signification, ce qu'il porte de ta lignée, son nombre et sa place sur l'arbre de vie.`);
+  const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: `Prénom ${f.prenom} en psychogénéalogie : signification et histoire familiale`, description: desc, inLanguage: 'fr', datePublished: '2026-10-07', author: { '@type': 'Organization', name: 'Genesolia' }, publisher: { '@type': 'Organization', name: 'Genesolia' }, url: `https://genesolia.fr/prenoms/${f.slug}.html` });
   const memeLettre = L.filter(x => x.slug[0] === f.slug[0] && x.slug !== f.slug).slice(0, 18);
-  const html = tete(`Prénom ${f.prenom} : origine, signification et histoire · Genesolia`, desc, `prenoms/${f.slug}.html`, `  <script type="application/ld+json">${ld}</script>`) + `
+  const html = tete(`Prénom ${f.prenom} en psychogénéalogie : signification et histoire familiale · Genesolia`, desc, `prenoms/${f.slug}.html`, `  <script type="application/ld+json">${ld}</script>`) + `
     <section class="page-tete"><div class="conteneur">
       <nav class="fil" aria-label="Fil d'Ariane"><a href="ton-prenom.html">Prénoms</a><span aria-hidden="true">/</span><a href="prenoms.html">De A à Z</a><span aria-hidden="true">/</span>${esc(f.prenom)}</nav>
-      <h1>Le prénom ${esc(f.prenom)}</h1>
+      <h1>Le prénom ${esc(f.prenom)} en psychogénéalogie</h1>
       <p class="intro">Origine, signification et histoire du prénom ${esc(f.prenom)}, son nombre en numérologie et sa place sur l'arbre de vie, pour comprendre ce qu'il porte de ton histoire familiale.</p>
     </div></section>
     <section class="bloc"><div class="conteneur">
