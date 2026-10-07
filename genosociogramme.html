@@ -161,6 +161,43 @@
     .porte-liens li:last-child a{border-bottom:none}
     .porte-continuer{background:none;border:none;color:var(--prune-doux);text-decoration:underline;font:400 .85rem var(--texte);cursor:pointer}
 
+
+    /* Rapport */
+    #bt-rapport{background:var(--champagne-clair);border-color:var(--champagne);color:var(--prune)}
+    #bt-rapport:hover{border-color:var(--prune)}
+    .rap-texte{font-size:.94rem;color:var(--prune);line-height:1.6;margin-bottom:.8rem}
+    .rap-themes{list-style:none;display:grid;gap:.3rem;margin:0 0 1rem}
+    .rap-themes li{display:flex;justify-content:space-between;align-items:center;background:var(--nacre);border-radius:10px;padding:.5rem .75rem;font-size:.9rem;color:var(--prune)}
+    .rap-themes b{background:var(--rose);border-radius:999px;min-width:1.7rem;text-align:center;padding:.1rem .45rem;font-size:.8rem}
+    .rap-extrait{border:1.5px solid var(--rose-fonce);border-radius:14px;padding:.9rem 1rem;margin-bottom:.6rem}
+    .rap-sur{font:600 .7rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:.6rem}
+    .rap-rep{border-left:4px solid var(--c,var(--prune));padding:.1rem 0 .1rem .7rem;margin-bottom:.6rem}
+    .rap-rep b{display:block;font-size:.92rem;color:var(--prune)}
+    .rap-rep span{display:block;font-size:.84rem;color:var(--prune-doux);line-height:1.45}
+    .rap-piste{font-size:.88rem;line-height:1.55;color:var(--prune)}
+    .rap-flou{filter:blur(4px);user-select:none;font-size:.9rem;color:var(--prune);margin:.6rem 0 .2rem}
+    .rap-cadenas{font-size:.84rem;color:var(--prune-doux);margin-bottom:.9rem}
+    .rap-contenu{font-size:.86rem;color:var(--prune-doux);line-height:1.55;margin-bottom:1rem}
+    .rap-offres{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.9rem}
+    .rap-offre{position:relative;display:flex;flex-direction:column;border:1.5px solid var(--rose-fonce);border-radius:16px;padding:1rem;font-size:.86rem;line-height:1.5;color:var(--prune-doux)}
+    .rap-offre>p:not([class]){margin-bottom:.9rem;flex:1}
+    .rap-reco{border-color:var(--champagne);background:linear-gradient(180deg,#FFF6EC,var(--blanc))}
+    .rap-badge{position:absolute;top:-.65rem;right:.8rem;background:var(--champagne);color:#fff;border-radius:999px;padding:.15rem .6rem;font:600 .7rem/1.4 var(--texte)}
+    .rap-prix{font:400 1.7rem/1.1 var(--display);color:var(--prune)}
+    .rap-nom{font-weight:600;color:var(--prune);margin:.1rem 0 .4rem}
+    .rap-gros{justify-content:center;width:100%;padding:.75rem;text-decoration:none}
+    .rap-aide{font-size:.82rem;color:var(--prune-doux);line-height:1.55;margin-top:.7rem}
+    .rap-aide a{color:var(--prune);font-weight:600}
+    .rap-form{border-top:1px solid var(--rose);padding-top:.9rem;margin-top:.4rem}
+    .rap-ligne{display:flex;gap:.4rem}
+    .rap-ligne input{flex:1;min-width:0;font:400 .95rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.6rem .7rem}
+    .rap-accord{display:flex;gap:.45rem;align-items:flex-start;font-size:.8rem;color:var(--prune-doux);margin-top:.6rem;line-height:1.45}
+    .rap-accord input{accent-color:var(--prune);margin-top:.15rem;flex-shrink:0}
+    .rap-accord a{color:var(--prune)}
+    .rap-erreur{color:#A23B4C;font-size:.84rem;min-height:1.1em;margin-top:.4rem}
+    .rap-merci{background:var(--rose);border-radius:12px;padding:.8rem 1rem;font-size:.9rem;color:var(--prune);font-weight:600}
+    @media (max-width:520px){.rap-offres{grid-template-columns:1fr}.rap-offre.rap-reco{margin-top:.4rem}}
+
     @media (max-width:1100px){
       .panneau{position:absolute;right:0;top:0;bottom:0;z-index:9;box-shadow:-20px 0 40px rgba(107,47,91,.12)}
       body:not(.panneau-ouvert) .panneau{display:none}
@@ -204,6 +241,7 @@
     </div>
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
+      <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
       <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
@@ -363,6 +401,17 @@
         </div>
         <input type="file" id="fichier" accept=".json,application/json" hidden>
       </div>
+    </div>
+  </div>
+
+  <!-- Rapport -->
+  <div class="fenetre-fond" id="fen-rapport">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fr-titre">
+      <div class="fen-tete">
+        <div><h2 id="fr-titre">Le rapport de ton arbre</h2><p>Tes répétitions expliquées, avec des pistes de réflexion et un geste pour sortir de la boucle.</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" id="fr-corps"></div>
     </div>
   </div>
 
