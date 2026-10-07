@@ -1258,6 +1258,43 @@
     };
     r.readAsText(f);
   });
+  /* Import d'un arbre déjà fait (PDF ou GEDCOM) : lecture et vérification dans assets/import-arbre.js */
+  window.GenoArbre = {
+    exemple: function () { return EXEMPLE; },
+    ouvrir: ouvrir, fermer: fermer,
+    personnes: function () { return Object.keys(S.people).map(function (id) { return { id: id, nom: nomAffiche(S.people[id]), moi: S.people[id].role === 'moi' }; }); },
+    // d : { people, rels } avec les identifiants du fichier ; o : { remplacer, moi, meme: { fichier, arbre } }
+    importer: function (d, o) {
+      o = o || {};
+      memoriser();
+      if (o.remplacer) S = { people: {}, rels: [], nid: 1 };
+      var ids = {};
+      if (o.meme && S.people[o.meme.arbre]) ids[o.meme.fichier] = o.meme.arbre;
+      Object.keys(d.people).forEach(function (k) {
+        var src = d.people[k], p;
+        if (ids[k]) {   // même personne déjà dans l'arbre : on complète seulement ce qui manque
+          p = S.people[ids[k]];
+          ['prenom', 'nom', 'naiss', 'deces', 'metier', 'lieu'].forEach(function (c) { if (!p[c] && src[c]) p[c] = src[c]; });
+          if (p.sex === 'u' && src.sex) p.sex = src.sex;
+          if (src.decede) p.decede = true;
+          if (src.notes) p.notes = p.notes ? p.notes + '\n' + src.notes : src.notes;
+          p.events = (p.events || []).concat(src.events || []);
+          return;
+        }
+        p = nouvellePersonne({ prenom: src.prenom || '', nom: src.nom || '', sex: src.sex || 'u', naiss: src.naiss || '', deces: src.deces || '', decede: !!src.decede, metier: src.metier || '', lieu: src.lieu || '', notes: src.notes || '', events: src.events || [] });
+        if (o.moi === k && !idMoi()) p.role = 'moi';
+        ids[k] = p.id;
+      });
+      d.rels.forEach(function (r) {
+        var a = ids[r.from], b = ids[r.to];
+        if (!a || !b || a === b) return;
+        if (r.type === 'couple') { if (!relCouple(a, b)) S.rels.push({ from: a, to: b, type: 'couple', statut: r.statut || 'marie' }); return; }
+        if (!S.rels.some(function (x) { return x.type === r.type && x.from === a && x.to === b; })) S.rels.push({ from: a, to: b, type: r.type });
+      });
+      selId = null; repActive = null;
+      dessiner(); recentrer(); majBarreActions(); enregistrer();
+    }
+  };
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
     if (!confirm('Effacer tout ton arbre ? Tu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
