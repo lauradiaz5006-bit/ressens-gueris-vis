@@ -104,7 +104,50 @@
       var THEMES = { relations: 'Relations', argent: 'Argent', energie: 'Charge mentale', confiance: 'Confiance', famille: 'Famille', corps: 'Sécurité' };
       if (p && p.theme) zp.innerHTML = '<p class="tb-aide">Ta porte d’entrée : <b>' + esc(THEMES[p.theme] || p.theme) + '</b>' + (p.emotion ? ', ressenti : ' + esc(p.emotion) : '') + (p.updatedAt ? '<br>Dernière fois le ' + esc(dateFr(p.updatedAt)) : '') + '.</p>';
       else zp.innerHTML = '<p class="tb-aide">Tu n’as pas encore fait le parcours guidé. Quelques questions pour nommer ce qui se répète dans ta vie, dix minutes environ.</p>';
+      chargerArbresSupp();
     });
+  }
+
+  /* ── Plusieurs arbres (table arbres_supp) ── */
+  var arbresSupp = [];
+  function nbPers(d) { return d && d.people ? Object.keys(d.people).length : 0; }
+  function ligneArbre(url, nom, n, quand) {
+    return '<a class="tb-arbre" href="' + url + '"><b>' + esc(nom) + '</b><span>' + n + ' personne' + (n > 1 ? 's' : '') + '</span>' + (quand ? '<span>modifié le ' + esc(new Date(quand).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })) + '</span>' : '') + '</a>';
+  }
+  function texteLimite(lim) {
+    var debut = lim >= 100000 ? 'Tu as atteint le nombre d’arbres de ta formule.'
+      : lim > 0 ? 'Tu as déjà tes 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
+      : 'Avec la formule gratuite, tu as un arbre. Le Cercle te permet d’avoir 3 arbres, et l’Espace praticien des arbres illimités.';
+    return debut + '<br><a href="abonnement.html">Découvrir Le Cercle</a> · <a href="espace-praticien.html">Découvrir l’Espace praticien</a>';
+  }
+  function limite(t) { var z = $('arbres-limite'); z.innerHTML = t || ''; z.hidden = !t; }
+  function chargerArbresSupp() {
+    sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('cree_le', { ascending: true }).then(function (r) {
+      arbresSupp = r.error ? [] : (r.data || []);
+      var d = (ligne && ligne.data) || {};
+      $('liste-arbres').innerHTML = ligneArbre('genosociogramme.html', 'Mon arbre (principal)', nbPers(d), ligne && ligne.updated_at) +
+        arbresSupp.map(function (a) { return ligneArbre('genosociogramme.html?arbre=' + encodeURIComponent(a.id), a.nom || 'Autre arbre', nbPers(a.data), a.maj); }).join('') +
+        (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '');
+      $('mes-arbres').hidden = false;
+    });
+  }
+  function creerArbre() {
+    var b = $('bt-creer-arbre'); b.disabled = true; limite('');
+    sb.rpc('limite_arbres_supp', { uid: user.id }).then(function (r) {
+      var lim = r && !r.error && r.data != null ? Number(r.data) : null;
+      if (lim !== null && arbresSupp.length >= lim) { limite(texteLimite(lim)); return; }
+      var nom = prompt('Nom du nouvel arbre (par exemple « Famille de Paul » ou « Dossier Mme D. ») :', '');
+      nom = nom == null ? '' : nom.trim().slice(0, 80);
+      if (!nom) return;
+      return sb.from('arbres_supp').insert({ user_id: user.id, nom: nom, data: { people: {}, rels: [], nid: 1, v: 2 } }).select('id').single().then(function (ins) {
+        if (ins.error || !ins.data) {
+          var refus = ins.error && (ins.error.code === '42501' || /row-level|policy|limite/i.test(ins.error.message || ''));
+          if (refus) limite(texteLimite(lim || 0)); else info('Le nouvel arbre n’a pas pu être créé. Réessaie dans un instant.', true);
+          return;
+        }
+        location.href = 'genosociogramme.html?arbre=' + encodeURIComponent(ins.data.id);
+      });
+    }).then(function () { b.disabled = false; }, function () { b.disabled = false; info('Le nouvel arbre n’a pas pu être créé. Réessaie dans un instant.', true); });
   }
 
   /* ── Formulaires ── */
@@ -131,6 +174,7 @@
         $('p-mdp').value = ''; info('Ton mot de passe est changé.');
       }).catch(function (err) { info(err.message, true); });
     });
+    $('bt-creer-arbre').addEventListener('click', creerArbre);
     $('bt-copie').addEventListener('click', function () {
       if (!ligne || !ligne.data) return;
       var d = ligne.data;
@@ -144,7 +188,8 @@
           compte: { email: user.email, prenom: nomAffiche(), cree_le: user.created_at, photo_de_profil: !!(user.user_metadata && user.user_metadata.photo) },
           arbre: ligne && ligne.data ? ligne.data : null,
           derniere_modification: ligne ? ligne.updated_at : null,
-          versions_precedentes: r.data || []
+          versions_precedentes: r.data || [],
+          autres_arbres: arbresSupp.map(function (a) { return { nom: a.nom, derniere_modification: a.maj, arbre: a.data }; })
         };
         telecharger(new Blob([JSON.stringify(tout, null, 1)], { type: 'application/json' }), 'mes-donnees-genesolia-' + aujourdhui() + '.json');
         info('Tes données sont téléchargées.');
@@ -153,6 +198,7 @@
     $('deconnexion').addEventListener('click', function () {
       sb.auth.signOut().then(function () {
         try { if (localStorage.getItem('geno4-synchro') === 'ok') localStorage.removeItem('geno4'); } catch (e) {}
+        try { Object.keys(localStorage).forEach(function (k) { if (/^geno4-[0-9a-f-]{32,36}$/.test(k)) localStorage.removeItem(k); }); } catch (e) {}   // copies locales des autres arbres
         window.GenesoliaEspaceDeconnecte('Tu es déconnecté·e. Ton arbre reste en sécurité dans ton espace.');
       });
     });
@@ -165,14 +211,18 @@
       Promise.resolve()
         .then(function () { return photo ? sb.storage.from(BUCKET).remove([photo]) : null; })
         .then(function () { return sb.from('arbres_versions').delete().eq('user_id', user.id); })
+        .then(function (r) { if (r && r.error) throw r.error; return sb.from('arbres_supp').delete().eq('user_id', user.id); })   // leurs versions partent avec
         .then(function (r) { if (r && r.error) throw r.error; return sb.from('arbres').delete().eq('user_id', user.id); })
         .then(function (r) { if (r && r.error) throw r.error; return sb.from('demandes_suppression').upsert({ user_id: user.id, email: user.email }, { onConflict: 'user_id', ignoreDuplicates: true }); })
         .then(function () { return sb.auth.updateUser({ data: { full_name: null, photo: null } }); })
         .then(function () {
-          try { ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide', 'genesolia-exercices', 'genesolia-anniversaire'].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+          try {
+            ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide', 'genesolia-exercices', 'genesolia-anniversaire'].forEach(function (k) { localStorage.removeItem(k); });
+            arbresSupp.forEach(function (a) { localStorage.removeItem('geno4-' + a.id); });
+          } catch (e) {}
           return sb.auth.signOut();
         })
-        .then(function () { window.GenesoliaEspaceDeconnecte('Ton arbre, son historique et ta photo sont effacés. Ton compte sera définitivement fermé sous 30 jours au plus tard. Merci d’être passé·e par Genesolia.'); })
+        .then(function () { window.GenesoliaEspaceDeconnecte('Tes arbres, leur historique et ta photo sont effacés. Ton compte sera définitivement fermé sous 30 jours au plus tard. Merci d’être passé·e par Genesolia.'); })
         .catch(function () { b.disabled = false; info('La suppression n’a pas pu aboutir. Réessaie, ou écris-nous à contact@genesolia.fr.', true); });
     });
   }

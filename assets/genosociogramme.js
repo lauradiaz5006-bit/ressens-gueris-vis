@@ -6,7 +6,10 @@
 
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
   var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-  var CLE_LOCALE = 'geno4';
+  /* Plusieurs arbres : ?arbre=<id> ouvre un arbre supplémentaire (table arbres_supp) ; sans paramètre, l'arbre principal (table arbres) */
+  var ARBRE_ID = (function () { try { var a = new URLSearchParams(location.search).get('arbre'); return a && /^[0-9a-f-]{32,36}$/i.test(a) ? a.toLowerCase() : null; } catch (e) { return null; } })();
+  var CLE_LOCALE = ARBRE_ID ? 'geno4-' + ARBRE_ID : 'geno4';   // un arbre supplémentaire n'écrase jamais « geno4 »
+  var arbreNom = '', arbreBloque = false;   // arbreBloque : arbre supplémentaire introuvable ou non chargé, rien n'est enregistré
 
   var SLOT = 150;     // largeur réservée à une personne
   var ECART = 36;     // espace entre deux blocs
@@ -872,9 +875,26 @@
       ascension: ['Comment la famille a-t-elle vécu cette réussite, puis ce revers ?', 'Dans quel milieu te sens-tu chez toi ?'],
       reversdeuil: ['Quel soutien cette personne représentait-elle ?', 'Sur quoi peux-tu t’appuyer aujourd’hui ?']
     };
+    // L'article du blog qui explique chaque piste
+    var A = function (u, t) { return { u: u, t: t }; };
+    var ARTICLES = {
+      anniversaire: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'), date: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'),
+      gisant: A('syndrome-du-gisant.html', 'Le syndrome du gisant'), conception: A('projet-sens-conception-deuil.html', 'Le projet sens'),
+      remplacement: A('enfant-de-remplacement.html', 'L’enfant de remplacement'), premier: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'),
+      depart: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'), ageparent: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent'),
+      guerre: A('guerre-et-memoire-familiale.html', 'La guerre dans l’arbre'), ombre: A('secret-de-famille.html', 'Les secrets de famille'),
+      cousins: A('implexe-mariage-entre-cousins.html', 'L’implexe et les mariages entre cousins'), epreuve: A('memoire-transgenerationnelle.html', 'La mémoire transgénérationnelle'),
+      schema: A('loyaute-familiale-invisible.html', 'Les loyautés invisibles'), enfants: A('filles-garcons-fratrie.html', 'Filles, garçons et fratries'),
+      metier: A('metiers-transmis-genealogie.html', 'Les métiers de famille'), prenom: A('prenom-transmis-psychogenealogie.html', 'Les prénoms transmis'),
+      argent: A('argent-et-lignee.html', 'Argent et histoire familiale'), reversage: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      heritage: A('argent-et-lignee.html', 'Argent et histoire familiale'), ascension: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      reversdeuil: A('argent-et-lignee.html', 'Argent et histoire familiale'), secret: A('secret-de-famille.html', 'Les secrets de famille'),
+      ageevt: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent')
+    };
     reps.forEach(function (r) {
-      var k = r.qk || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
+      var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
       r.q = QUESTIONS[k] || null;
+      r.art = ARTICLES[k] || null;
     });
 
     // Mots-clés pour la recherche dans le panneau
@@ -1030,6 +1050,39 @@
     return h;
   }
 
+  /* Liens relationnels entre deux personnes : proximité (trois traits), conflit (zigzag), rupture (trait coupé), distance (pointillé léger) */
+  var NATURES = { proche: ['Proximité, fusion', '#4F8A6B'], conflit: ['Conflit', '#C0573F'], rupture: ['Rupture', '#5D6B8A'], distance: ['Distance', '#A08E78'] };
+  function dessinRelations(pl) {
+    var pos = pl.pos, h = '';
+    S.rels.forEach(function (r) {
+      if (r.type !== 'relation' || !NATURES[r.nature] || !pos[r.from] || !pos[r.to] || r.from === r.to) return;
+      var a = pos[r.from], b = pos[r.to], memeRang = a.y === b.y, loin = memeRang && Math.abs(b.x - a.x) > SLOT + ECART + 10;
+      // voisins sur la même ligne : trait droit un peu sous le trait de couple ; plus loin : un arc au-dessus, pour ne pas traverser les personnes entre les deux
+      var p0 = { x: a.x, y: a.y + (memeRang && !loin ? 10 : 0) }, p2 = { x: b.x, y: b.y + (memeRang && !loin ? 10 : 0) };
+      var c = loin ? { x: (a.x + b.x) / 2, y: a.y - R - 70 - Math.min(50, Math.abs(b.x - a.x) * 0.06) } : { x: (a.x + b.x) / 2, y: (p0.y + p2.y) / 2 };
+      var pts = [], n = 60, i;
+      for (i = 0; i <= n; i++) { var t = i / n, u = 1 - t; pts.push({ x: u * u * p0.x + 2 * u * t * c.x + t * t * p2.x, y: u * u * p0.y + 2 * u * t * c.y + t * t * p2.y }); }
+      var ra = hautSymbole(r.from) + 6, rb = hautSymbole(r.to) + 6;
+      pts = pts.filter(function (p) { return Math.hypot(p.x - a.x, p.y - a.y) > ra && Math.hypot(p.x - b.x, p.y - b.y) > rb; });
+      if (pts.length < 2) return;
+      var cum = [0]; for (i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+      var lg = cum[cum.length - 1]; if (lg < 12) return;
+      function en(s, d) {   // point à l'abscisse s, décalé de d perpendiculairement
+        var k = 1; while (k < cum.length - 1 && cum[k] < s) k++;
+        var q0 = pts[k - 1], q1 = pts[k], f = cum[k] > cum[k - 1] ? (s - cum[k - 1]) / (cum[k] - cum[k - 1]) : 0, ln = cum[k] - cum[k - 1] || 1;
+        var nx = -(q1.y - q0.y) / ln, ny = (q1.x - q0.x) / ln;
+        return (q0.x + (q1.x - q0.x) * f + nx * d).toFixed(1) + ' ' + (q0.y + (q1.y - q0.y) * f + ny * d).toFixed(1);
+      }
+      function trace(s0, s1, d) { var m = Math.max(1, Math.ceil((s1 - s0) / 6)), z = 'M' + en(s0, d); for (var j = 1; j <= m; j++) z += 'L' + en(s0 + (s1 - s0) * j / m, d); return z; }
+      var coul = NATURES[r.nature][1], st = ' fill="none" stroke="' + coul + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"', p;
+      if (r.nature === 'proche') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
+      else if (r.nature === 'conflit') { var nz = Math.max(2, Math.round(lg / 9)); p = 'M' + en(0, 0); for (i = 1; i < nz; i++) p += 'L' + en(lg * i / nz, i % 2 ? -5 : 5); p += 'L' + en(lg, 0); }
+      else if (r.nature === 'rupture') { var mi = lg / 2; p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7); }
+      else p = trace(0, lg, 0);
+      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + (r.nature === 'distance' ? ' stroke-dasharray="2 6" stroke-opacity=".8"' : '') + '/>';
+    });
+    return h;
+  }
   function dessinRepetition(pl, rep) {
     if (!rep) return '';
     var pos = pl.pos, h = '', ids = rep.ids.filter(function (id) { return pos[id]; });
@@ -1056,7 +1109,7 @@
     if (repActive && !reps.some(function (r) { return r.cle === repActive.cle; })) repActive = null;
     if (ancien && plan.pos[garderId]) { vue.x += (ancien.x - plan.pos[garderId].x) * vue.k; vue.y += (ancien.y - plan.pos[garderId].y) * vue.k; }
     var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : null };
-    var h = '<g id="monde">' + dessinLiens(plan) + dessinRepetition(plan, repActive);
+    var h = '<g id="monde">' + dessinRelations(plan) + dessinLiens(plan) + dessinRepetition(plan, repActive);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], plan.pos[id], o); });
     h += '</g>';
     $('dessin').innerHTML = h;
@@ -1119,6 +1172,7 @@
     b += '<button type="button" data-act="couple">+ Conjoint·e</button>';
     b += '<button type="button" data-act="enfant">+ Enfant</button>';
     b += '<button type="button" data-act="fratrie">+ Frère ou sœur</button>';
+    if (Object.keys(S.people).length > 1) b += '<button type="button" data-act="relation">+ Lien relationnel</button>';
     b += '<button type="button" class="danger" data-act="supprimer" aria-label="Supprimer">Supprimer</button>';
     bar.innerHTML = b;
     placerActions();
@@ -1192,6 +1246,7 @@
     z.innerHTML = (mots.length ? info : blocExo) + visibles.map(function (i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
       return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' + (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
+        (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
@@ -1210,9 +1265,10 @@
   function textStatutRepos() {
     if (EXEMPLE) return '';
     if (utilisateur) return 'Enregistré dans ton espace';
+    if (ARBRE_ID) return 'Cet arbre est dans ton espace · <a href="login.html?retour=genosociogramme.html">Me connecter pour l\u2019ouvrir</a>';
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
-  function marquerSynchro(ok) { try { localStorage.setItem('geno4-synchro', ok ? 'ok' : 'attente'); } catch (e) {} }
+  function marquerSynchro(ok) { if (ARBRE_ID) return; try { localStorage.setItem('geno4-synchro', ok ? 'ok' : 'attente'); } catch (e) {} }
   /* Exercices « Ce que je ressens… » : gardés dans ce navigateur et, avec un compte, dans les données de l'arbre (clé exercices) */
   function lireExos() { try { return JSON.parse(localStorage.getItem('genesolia-exercices') || '{}') || {}; } catch (e) { return {}; } }
   function fusionnerExos(a, b) {
@@ -1225,13 +1281,18 @@
     if (b._dernier || a._dernier) r._dernier = b._dernier || a._dernier;
     return r;
   }
-  function donneesCompte() { return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
+  function donneesCompte() {
+    if (ARBRE_ID) return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2 });
+    return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
   function envoyer() {
     clearTimeout(minuteur); minuteur = null;
     if (!utilisateur || !sb) return;
     enAttente = false;
     statut('Enregistrement…');
-    sb.from('arbres').upsert({ user_id: utilisateur.id, data: donneesCompte(), updated_at: new Date().toISOString() }, { onConflict: 'user_id' })
+    var req = ARBRE_ID
+      ? sb.from('arbres_supp').update({ data: donneesCompte(), maj: new Date().toISOString() }).eq('id', ARBRE_ID)
+      : sb.from('arbres').upsert({ user_id: utilisateur.id, data: donneesCompte(), updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+    return req
       .then(function (r) {
         if (r.error) throw r.error;
         essais = 0; marquerSynchro(true); statut(textStatutRepos());
@@ -1243,7 +1304,7 @@
       });
   }
   function enregistrer() {
-    if (EXEMPLE) return;
+    if (EXEMPLE || arbreBloque) return;
     try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
     if (!utilisateur || !sb) { statut(textStatutRepos()); return; }
     enAttente = true; marquerSynchro(false);
@@ -1452,8 +1513,10 @@
       else if (r.type === 'parent' && r.from === id) { autre = r.to; lib = 'Enfant : '; }
       else if (r.type === 'couple' && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'En couple avec '; }
       else if (r.type === 'fratrie' && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'Frère ou sœur : '; }
+      else if (r.type === 'relation' && NATURES[r.nature] && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'Lien relationnel avec '; }
       if (!autre || !S.people[autre]) return;
       h += '<div class="lien"><span>' + lib + '<b>' + esc(nomCourt(autre)) + '</b></span>' +
+        (r.type === 'relation' ? '<select data-nature="' + i + '" aria-label="Nature du lien">' + Object.keys(NATURES).map(function (k) { return '<option value="' + k + '"' + (r.nature === k ? ' selected' : '') + '>' + NATURES[k][0] + '</option>'; }).join('') + '</select>' : '') +
         (r.type === 'couple' ? '<select data-statut="' + i + '" aria-label="Situation du couple">' + STATUTS.map(function (s) { return '<option value="' + s[0] + '"' + ((r.statut || 'marie') === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' : '') +
         '<button type="button" class="suppr" data-retirer="' + i + '" aria-label="Retirer ce lien">×</button></div>';
     });
@@ -1469,6 +1532,8 @@
     dessinerLiensFiche(); dessiner(fiche.id); majBarreActions(); enregistrer();
   });
   $('fp-liens').addEventListener('change', function (e) {
+    var nt = e.target.closest('[data-nature]');
+    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessiner(fiche.id); enregistrer(); return; }
     var s = e.target.closest('[data-statut]'); if (!s) return;
     memoriser();
     S.rels[+s.getAttribute('data-statut')].statut = s.value;
@@ -1479,7 +1544,11 @@
     err.textContent = '';
     if (!o) return;
     var r;
-    if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
+    if (/^rel-/.test(t)) {
+      if (S.rels.some(function (x) { return x.type === 'relation' && ((x.from === id && x.to === o) || (x.from === o && x.to === id)); })) { err.textContent = 'Un lien relationnel existe déjà avec cette personne : change sa nature dans la liste ci-dessus.'; return; }
+      r = { from: id, to: o, type: 'relation', nature: t.slice(4) };
+    }
+    else if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
     else {
       var parent = t === 'parent' ? id : o, enfant = t === 'parent' ? o : id;
       if (parents(enfant).indexOf(parent) >= 0) { err.textContent = 'Ce lien existe déjà.'; return; }
@@ -1638,6 +1707,11 @@
     var b = e.target.closest('[data-act]'); if (!b || !selId) return;
     var act = b.getAttribute('data-act');
     if (act === 'modifier') ouvrirFiche(selId, false);
+    else if (act === 'relation') {   // la fiche, ouverte directement sur l'ajout d'un lien relationnel
+      ouvrirFiche(selId, false);
+      $('fp-lier-type').value = 'rel-proche';
+      setTimeout(function () { $('fp-bloc-liens').scrollIntoView({ block: 'center' }); $('fp-lier-qui').focus(); }, 60);
+    }
     else if (act === 'supprimer') supprimer(selId);
     else ouvrirAjout(act, selId);
   });
@@ -1711,6 +1785,7 @@
     if (tous.some(function (p) { return p.adopte; })) plus.push('Trait pointillé : adopté·e');
     if (tous.some(function (p) { return p.place; })) plus.push('Placé·e : en famille d’accueil');
     if (tous.some(function (p) { return jumeauDe(p.id); })) plus.push('Traits en V : jumeaux');
+    [['proche', 'Trois traits verts : proximité'], ['conflit', 'Zigzag : conflit'], ['rupture', 'Trait coupé : rupture'], ['distance', 'Pointillé léger : distance']].forEach(function (x) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === x[0] && existe(r.from) && existe(r.to); })) plus.push(x[1]); });
     var lignesPlus = [];
     plus.forEach(function (t) { var d = lignesPlus.length - 1; if (d >= 0 && (lignesPlus[d] + ' · ' + t).length * 5.8 <= W - 2 * m) lignesPlus[d] += ' · ' + t; else lignesPlus.push(t); });
     H += Math.max(0, lignesPlus.length - 1) * 18;
@@ -1722,7 +1797,7 @@
     h += '<text x="' + m + '" y="40" font-family="\'Gilda Display\',Georgia,serif" font-size="24" fill="' + PRUNE + '">Mon génosociogramme</text>';
     var d = new Date();
     h += '<text x="' + (W - m) + '" y="40" text-anchor="end" font-family="\'Nunito Sans\',sans-serif" font-size="12" fill="' + PRUNE_DOUX + '">' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + '</text>';
-    h += '<g transform="translate(' + dx + ',' + dy + ')">' + dessinLiens(pl);
+    h += '<g transform="translate(' + dx + ',' + dy + ')">' + dessinRelations(pl) + dessinLiens(pl);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], pl.pos[id], o); });
     h += '</g>';
     var ly = H - 24, lx = m;
@@ -1783,9 +1858,10 @@
   function dateFr(d) { d = new Date(d); return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
   function chargerVersions() {
     var z = $('fs-versions'); if (!z) return;
-    if (!utilisateur || !sb) { z.innerHTML = ''; return; }
+    if (!utilisateur || !sb || arbreBloque) { z.innerHTML = ''; return; }
     z.innerHTML = '<p class="rep-aide">Chargement des versions…</p>';
-    sb.from('arbres_versions').select('numero,data,enregistre_le').eq('user_id', utilisateur.id).order('numero', { ascending: false }).limit(30).then(function (r) {
+    (ARBRE_ID ? sb.from('arbres_supp_versions').select('numero,data,enregistre_le').eq('arbre_id', ARBRE_ID)
+      : sb.from('arbres_versions').select('numero,data,enregistre_le').eq('user_id', utilisateur.id)).order('numero', { ascending: false }).limit(30).then(function (r) {
       if (r.error) { z.innerHTML = '<p class="rep-aide">Les versions précédentes n\u2019ont pas pu être chargées.</p>'; return; }
       versions = r.data || [];
       if (!versions.length) { z.innerHTML = '<p class="rep-aide">Aucune version précédente pour l\u2019instant. Une version est gardée au plus toutes les 5 minutes, et à chaque suppression.</p>'; return; }
@@ -1870,7 +1946,7 @@
   };
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
-    if (!confirm('Effacer tout ton arbre pour repartir de zéro ?\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
+    if (!confirm((ARBRE_ID ? 'Vider l’arbre « ' + arbreNom + ' » pour repartir de zéro ?' : 'Effacer tout ton arbre pour repartir de zéro ?') + '\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
     memoriser(); S = { people: {}, rels: [], nid: 1 }; selId = null; repActive = null;
     fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer();
   });
@@ -2370,10 +2446,136 @@
     numeroSiDemande();
     if (!exportDemande) return;
     var e = exportDemande; exportDemande = null;
-    history.replaceState(null, '', location.pathname);
+    history.replaceState(null, '', location.pathname + (ARBRE_ID ? '?arbre=' + ARBRE_ID : ''));
     if (!Object.keys(S.people).length) return;
     setTimeout(function () { $(e === 'imprimer' ? 'bt-imprimer' : 'bt-image').click(); }, 300);
   }
+  /* ───────── Plusieurs arbres : sélecteur dans la barre ───────── */
+  var TITRE_PAGE = document.title;
+  var listeSupp = null, erreurListe = false;
+  function majNomArbre() {
+    var b = $('bt-arbres-nom'); if (b) b.textContent = ARBRE_ID ? (arbreNom || 'Autre arbre') : 'Mon arbre';
+    document.title = ARBRE_ID ? (arbreNom || 'Autre arbre') + ' · Mon arbre familial · Genesolia' : TITRE_PAGE;
+  }
+  function chargerListeArbres() {
+    if (!utilisateur || !sb) return Promise.resolve();
+    return sb.from('arbres_supp').select('id,nom,maj').eq('user_id', utilisateur.id).order('cree_le', { ascending: true }).then(function (r) {
+      erreurListe = !!r.error; listeSupp = r.error ? [] : (r.data || []);
+      if (ARBRE_ID && !arbreNom) listeSupp.forEach(function (a) { if (a.id === ARBRE_ID) { arbreNom = a.nom; majNomArbre(); } });
+      if (!$('menu-arbres').hidden) dessinerMenuArbres();
+    });
+  }
+  function chargerArbreSupp() {
+    return sb.from('arbres_supp').select('id,nom,data').eq('id', ARBRE_ID).maybeSingle().then(function (res) {
+      if (res.error) { arbreBloque = true; statut('Cet arbre n’a pas pu être chargé (connexion ?). Recharge la page dans un instant.'); return; }
+      if (!res.data) {
+        arbreBloque = true;
+        try { localStorage.removeItem(CLE_LOCALE); } catch (e) {}
+        S = { people: {}, rels: [], nid: 1 }; selId = null; dessiner(); majBarreActions();
+        statut('Cet arbre est introuvable (il a peut-être été supprimé) · <a href="genosociogramme.html">Ouvrir mon arbre</a>');
+        return;
+      }
+      arbreNom = res.data.nom || ''; majNomArbre();
+      var dc = res.data.data || {};
+      annexes = {};
+      Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
+      charger(dc);
+      try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
+      selId = null; repActive = null; dessiner(); recentrer(); majBarreActions();
+      statut(textStatutRepos());
+    });
+  }
+  function texteLimite(lim) {
+    var debut = lim >= 100000 ? 'Tu as atteint le nombre d’arbres de ta formule.'
+      : lim > 0 ? 'Tu as déjà tes 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
+      : 'Avec la formule gratuite, tu as un arbre. Le Cercle te permet d’avoir 3 arbres, et l’Espace praticien des arbres illimités.';
+    return '<p>' + debut + '</p><p><a href="abonnement.html">Découvrir Le Cercle</a> · <a href="espace-praticien.html">Découvrir l’Espace praticien</a></p>';
+  }
+  function lienArbre(id, nom, info) {
+    var courant = (id || null) === ARBRE_ID;
+    return '<a class="ma-arbre' + (courant ? ' courant' : '') + '" href="genosociogramme.html' + (id ? '?arbre=' + esc(id) : '') + '"' + (courant ? ' aria-current="page"' : '') + ' data-aller><span>' + esc(nom) + '</span>' + (info ? '<small>' + esc(info) + '</small>' : '') + '</a>';
+  }
+  function dessinerMenuArbres(msg) {
+    var m = $('menu-arbres'), h = '<p class="ma-titre">Mes arbres</p>';
+    if (!utilisateur) {
+      m.innerHTML = h + lienArbre(null, 'Mon arbre', 'dans ce navigateur') + '<a class="ma-action" href="login.html?retour=genosociogramme.html">Me connecter pour avoir plusieurs arbres</a>';
+      return;
+    }
+    if (listeSupp === null) { m.innerHTML = h + '<p class="ma-aide">Chargement de tes arbres…</p>'; return; }
+    h += lienArbre(null, 'Mon arbre', 'arbre principal');
+    listeSupp.forEach(function (a) { h += lienArbre(a.id, a.nom || 'Autre arbre'); });
+    if (erreurListe) h += '<p class="ma-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>';
+    h += '<span class="ma-sep"></span><button type="button" class="ma-action" data-arbre-action="creer">+ Créer un autre arbre</button>';
+    if (ARBRE_ID && !arbreBloque) h += '<button type="button" class="ma-action" data-arbre-action="renommer">Renommer cet arbre</button><button type="button" class="ma-action danger" data-arbre-action="supprimer">Supprimer cet arbre</button>';
+    if (msg) h += '<div class="ma-message" role="status">' + msg + '</div>';
+    m.innerHTML = h;
+  }
+  function basculerMenuArbres(ouvert) {
+    var m = $('menu-arbres'), b = $('bt-arbres');
+    if (ouvert == null) ouvert = m.hidden;
+    m.hidden = !ouvert; b.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+    if (ouvert) {
+      dessinerMenuArbres(); if (utilisateur && listeSupp === null) chargerListeArbres();
+      m.style.left = ''; var r = m.getBoundingClientRect(), deborde = r.right - (window.innerWidth - 12);   // petit écran : on garde la liste dans l'écran
+      if (deborde > 0) m.style.left = -Math.min(deborde, Math.max(0, r.left - 12)) + 'px';
+    }
+  }
+  // Avant de changer d'arbre, on termine l'enregistrement en cours
+  function allerVers(url) {
+    var p = (enAttente && utilisateur && sb && !arbreBloque) ? envoyer() : null;
+    Promise.resolve(p).then(function () { location.href = url; }, function () { location.href = url; });
+  }
+  function nomValide(n) { return n == null ? null : (String(n).trim().slice(0, 80) || null); }
+  function creerArbre() {
+    dessinerMenuArbres('<p>Un instant…</p>');
+    sb.rpc('limite_arbres_supp', { uid: utilisateur.id }).then(function (r) {
+      var lim = r && !r.error && r.data != null ? Number(r.data) : null;
+      if (lim !== null && (listeSupp || []).length >= lim) { dessinerMenuArbres(texteLimite(lim)); return; }
+      dessinerMenuArbres();
+      var nom = nomValide(prompt('Nom du nouvel arbre (par exemple « Famille de Paul » ou « Dossier Mme D. ») :', ''));
+      if (!nom) return;
+      return sb.from('arbres_supp').insert({ user_id: utilisateur.id, nom: nom, data: { people: {}, rels: [], nid: 1, v: 2 } }).select('id').single().then(function (ins) {
+        if (ins.error || !ins.data) {
+          var refus = ins.error && (ins.error.code === '42501' || /row-level|policy|limite/i.test(ins.error.message || ''));
+          dessinerMenuArbres(refus ? texteLimite(lim || 0) : '<p>Le nouvel arbre n’a pas pu être créé. Réessaie dans un instant.</p>');
+          return;
+        }
+        allerVers('genosociogramme.html?arbre=' + ins.data.id);
+      });
+    });
+  }
+  function renommerArbre() {
+    var nom = nomValide(prompt('Nouveau nom de cet arbre :', arbreNom));
+    if (!nom || nom === arbreNom) return;
+    sb.from('arbres_supp').update({ nom: nom }).eq('id', ARBRE_ID).then(function (r) {
+      if (r.error) { dessinerMenuArbres('<p>Le nom n’a pas pu être changé. Réessaie.</p>'); return; }
+      arbreNom = nom; majNomArbre();
+      (listeSupp || []).forEach(function (a) { if (a.id === ARBRE_ID) a.nom = nom; });
+      dessinerMenuArbres();
+    });
+  }
+  function supprimerArbre() {
+    if (!confirm('Supprimer définitivement l’arbre « ' + arbreNom + ' » ?\n\nToutes ses personnes, leurs informations et ses versions enregistrées seront effacées. Cette suppression ne peut pas être annulée.\n\nTon arbre principal et tes autres arbres ne sont pas touchés.')) return;
+    clearTimeout(minuteur); minuteur = null; enAttente = false; arbreBloque = true;
+    sb.from('arbres_supp').delete().eq('id', ARBRE_ID).then(function (r) {
+      if (r.error) { arbreBloque = false; dessinerMenuArbres('<p>Cet arbre n’a pas pu être supprimé. Réessaie.</p>'); return; }
+      try { localStorage.removeItem(CLE_LOCALE); } catch (e) {}
+      location.href = 'genosociogramme.html';
+    });
+  }
+  $('bt-arbres').addEventListener('click', function (e) { e.stopPropagation(); basculerMenuArbres(); });
+  $('menu-arbres').addEventListener('click', function (e) {
+    e.stopPropagation();
+    var a = e.target.closest('[data-aller]');
+    if (a) { e.preventDefault(); if (!a.classList.contains('courant')) allerVers(a.getAttribute('href')); else basculerMenuArbres(false); return; }
+    var b = e.target.closest('[data-arbre-action]'); if (!b || !utilisateur || !sb) return;
+    var act = b.getAttribute('data-arbre-action');
+    if (act === 'creer') creerArbre(); else if (act === 'renommer') renommerArbre(); else if (act === 'supprimer') supprimerArbre();
+  });
+  document.addEventListener('click', function () { if (!$('menu-arbres').hidden) basculerMenuArbres(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('menu-arbres').hidden) { basculerMenuArbres(false); $('bt-arbres').focus(); } });
+  majNomArbre();
+
   function demarrer() {
     if (surTelephone()) document.body.classList.add('porte-ouverte');
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
@@ -2398,6 +2600,8 @@
       var s = r && r.data && r.data.session; if (!s) return;
       utilisateur = s.user;
       statut(textStatutRepos());
+      chargerListeArbres();
+      if (ARBRE_ID) return chargerArbreSupp();
       return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (res) {
         if (res.error) return;
         var dc = (res.data && res.data.data) || {};

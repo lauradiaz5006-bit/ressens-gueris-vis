@@ -83,6 +83,14 @@
     .tb-liste{list-style:none;display:grid;gap:.35rem;font-size:.9rem;color:var(--prune)}
     .tb-liste li{padding-left:1.2rem;position:relative}
     .tb-liste li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:50%;background:var(--champagne)}
+    .tb-arbres{display:grid;gap:.4rem}
+    .tb-arbres h3{font:600 .8rem/1.2 var(--texte);letter-spacing:.05em;text-transform:uppercase;color:var(--prune-doux)}
+    .tb-arbre{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .8rem;background:rgba(255,255,255,.75);border:1px solid var(--rose);border-radius:12px;padding:.6rem .9rem;color:var(--prune);text-decoration:none}
+    .tb-arbre:hover{border-color:var(--prune-doux)}
+    .tb-arbre b{font-weight:600;margin-right:auto;min-width:0;overflow-wrap:anywhere}
+    .tb-arbre span{font-size:.8rem;color:var(--prune-doux)}
+    .tb-limite{font-size:.88rem;line-height:1.55;color:var(--prune);background:#FFF6EC;border:1px solid var(--champagne-clair);border-radius:12px;padding:.7rem .9rem}
+    .tb-limite a{color:var(--prune);font-weight:600}
     .tb-form{display:grid;gap:.5rem;justify-items:start}
     .tb-form .champ{width:100%;margin-bottom:0}
     .tb-form .btn{padding:.55rem .95rem;font-size:.86rem}
@@ -181,6 +189,13 @@
             <a class="btn btn-trait" href="genosociogramme.html?export=imprimer" id="lien-pdf">Imprimer ou PDF</a>
             <button class="btn btn-trait" type="button" id="bt-copie">Copie de sauvegarde</button>
           </div>
+          <div class="tb-arbres" id="mes-arbres" hidden>
+            <h3>Mes arbres</h3>
+            <div class="tb-arbres" id="liste-arbres"></div>
+            <div class="tb-actions"><button class="btn btn-trait" type="button" id="bt-creer-arbre">Créer un autre arbre</button></div>
+            <div class="tb-limite" id="arbres-limite" role="status" hidden></div>
+            <p class="tb-aide"><b>Offert pendant le lancement : 3 arbres pour tous jusqu'au 1<sup>er</sup> novembre.</b> Ensuite : 1 arbre avec la formule gratuite · 3 avec <a href="abonnement.html">Le Cercle</a> · illimité avec l'<a href="espace-praticien.html">Espace praticien</a>. Les arbres déjà créés restent à toi.</p>
+          </div>
           <p class="tb-aide">Ton arbre s'enregistre ici à chaque modification. Les 30 dernières versions sont gardées : tu peux revenir en arrière depuis « Sauvegardes » dans l'arbre.</p>
         </section>
 
@@ -253,7 +268,7 @@
 
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/espace.js"></script>
+  <script src="assets/espace.js?v=2026-10-09d"></script>
   <script>
   (function () {
     'use strict';
