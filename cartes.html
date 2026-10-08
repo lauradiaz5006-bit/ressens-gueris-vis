@@ -8,7 +8,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Images à partager : phrases pour tes réseaux, douces ou cash · Genesolia</title>
+  <title>Images à partager : phrases pour tes réseaux, douces ou cash</title>
   <meta name="description" content="Des images à télécharger et à partager sur Instagram et TikTok : des phrases douces ou cash pour t'affirmer, poser tes limites ou envoyer un message. Gratuites.">
   <link rel="canonical" href="https://genesolia.fr/cartes.html">
   <meta property="og:title" content="Cartes à partager · Genesolia">
@@ -33,6 +33,7 @@
     @media (max-width:900px){.galerie{grid-template-columns:repeat(2,1fr);gap:1.1rem}}
     @media (max-width:520px){.galerie{grid-template-columns:1fr 1fr;gap:.8rem}.galerie .actions-carte a,.galerie .actions-carte button{padding:.5rem .7rem;font-size:.8rem}}
   </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Des images à partager", "item": "https://genesolia.fr/cartes.html"}]}</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -96,7 +97,7 @@
         ul.innerHTML = liste.filter(function (c) { return filtre === 'tout' || c[cle] === filtre; }).map(function (c) {
           var img = dossier + c.id + '.jpg';
           var pin = 'https://www.pinterest.com/pin/create/button/?url=' + encodeURIComponent(BASE + 'cartes.html') + '&media=' + encodeURIComponent(BASE + img) + '&description=' + encodeURIComponent(c.phrase + ' · Genesolia');
-          return '<li><figure><img src="' + dossier + c.id + '-mini.jpg" width="540" height="675" loading="lazy" alt="' + esc(c.phrase) + '"></figure>' +
+          return '<li><figure><img src="' + dossier + c.id + '-mini.webp" width="540" height="675" loading="lazy" alt="' + esc(c.phrase) + '"></figure>' +
             '<div class="actions-carte">' +
               '<button type="button" class="principal" data-partager="' + c.id + '">Partager</button>' +
               '<a href="' + img + '" download="genesolia-' + c.id + '.jpg">Télécharger</a>' +

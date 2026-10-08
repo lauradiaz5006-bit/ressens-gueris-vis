@@ -8,8 +8,8 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Thème numérologique gratuit : chemin de vie, expression et nombre héréditaire · Genesolia</title>
-  <meta name="description" content="Calcule gratuitement ton thème numérologique complet : chemin de vie, expression, nombre intime, cycles de vie, réalisations, défis, dettes karmiques, année personnelle et nombre héréditaire pour relier ton thème à ta lignée.">
+  <title>Thème numérologique gratuit : chemin de vie et nombres</title>
+  <meta name="description" content="Calcule gratuitement ton thème numérologique : chemin de vie, expression, nombre intime, cycles, défis, année personnelle et nombre héréditaire.">
   <link rel="canonical" href="https://genesolia.fr/theme-numerologique.html">
   <meta property="og:title" content="Ton thème numérologique gratuit, relié à ton histoire familiale">
   <meta property="og:description" content="Chemin de vie, expression, nombre héréditaire, année personnelle : ton thème complet, puis les nombres de toute ta lignée.">
@@ -192,6 +192,7 @@
       .n-an{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
   </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ton thème numérologique", "item": "https://genesolia.fr/theme-numerologique.html"}]}</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -240,7 +241,7 @@
         </table>
         <h3>Les nombres de ton thème</h3>
         <p><b>Le chemin de vie</b> vient de ta date de naissance. <b>Le nombre d'expression</b> vient de toutes les lettres de tes prénoms et de ton nom, <b>le nombre intime</b> des voyelles, <b>le nombre de réalisation</b> des consonnes. <b>Le nombre de maturité</b> réunit ton chemin de vie et ton expression. <b>Ton année personnelle</b> se calcule avec ton jour et ton mois de naissance et l'année en cours. Pour l'an prochain, lis <a href="annee-personnelle-2027.html">ce que t'apporte ton année personnelle 2027</a>.</p>
-        <p><b>Le nombre actif</b> vient de ton premier prénom, et <b>le jour de naissance</b> du jour où tu es né·e. <b>Les trois cycles de vie</b> viennent de ton mois, de ton jour et de ton année de naissance. <b>Les quatre réalisations</b> et <b>leurs défis</b> combinent ces trois éléments : la première se termine à 36 ans moins ton chemin de vie, les suivantes durent neuf ans. <b>Les nombres d'apprentissage</b> (13, 14, 16 et 19, appelés aussi dettes karmiques) apparaissent quand un calcul passe par l'un d'eux. <b>Les quatre plans</b> (mental, physique, émotionnel, intuitif) répartissent les lettres de ton nom selon leur nature.</p>
+        <p><b>Le nombre actif</b> vient de ton premier prénom, et <b>le jour de naissance</b> du jour où tu es né·e. <b>Les trois cycles de vie</b> viennent de ton mois, de ton jour et de ton année de naissance. <b>Les quatre réalisations</b> et <b>leurs défis</b> combinent ces trois éléments : la première se termine à 36 ans moins ton chemin de vie, les suivantes durent neuf ans. <b>Les nombres d'apprentissage</b> (13, 14, 16 et 19, que d'autres approches appellent « dettes karmiques ») apparaissent quand un calcul passe par l'un d'eux. <b>Les quatre plans</b> (mental, physique, émotionnel, intuitif) répartissent les lettres de ton nom selon leur nature.</p>
         <h3>Numérologie et histoire familiale</h3>
         <p>Ton nom de naissance te relie à ta lignée : il donne <b>ton nombre héréditaire</b>. Et quand on calcule les nombres de toute une famille, des échos apparaissent : le même chemin de vie chez une mère et sa fille, un nombre qui revient sur trois générations, un autre qui n'apparaît jamais. C'est une autre façon de regarder ce qui se transmet.</p>
         <h3>Ailleurs dans le monde</h3>
@@ -340,7 +341,7 @@
         '<ul><li>les chemins de vie qui se répètent d\'une génération à l\'autre ;</li><li>qui, dans ta famille, traversait la même grande période que toi à ton âge, et ce qu\'il ou elle a vécu alors ;</li><li>les nombres d\'apprentissage partagés, et les nombres absents de la lignée.</li></ul>' +
         '<a class="btn btn-plein" href="genosociogramme.html?numerologie">Calculer les nombres de ma lignée</a></div>';
       h += '<p style="margin-top:1.2rem"><a class="btn btn-trait" href="ton-prenom.html?p=' + encodeURIComponent(prenom) + '">Lire aussi la signification de mon prénom</a></p>';
-      h += '<a class="n-cadeau" href="mon-mois.html#offert"><img src="assets/cercle/apercu-2026-11.jpg" alt="" width="84" height="119" loading="lazy"><span><b>Offert : le premier carnet du Cercle</b>Chaque mois, ton mois personnel en numérologie, les dates de ton arbre et un carnet à imprimer. Le premier carnet est offert.</span><em>Je le reçois</em></a>';
+      h += '<a class="n-cadeau" href="mon-mois.html#offert"><img src="assets/cercle/apercu-2026-11.webp" alt="" width="84" height="119" loading="lazy"><span><b>Offert : le premier carnet du Cercle</b>Chaque mois, ton mois personnel en numérologie, les dates de ton arbre et un carnet à imprimer. Le premier carnet est offert.</span><em>Je le reçois</em></a>';
       h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. La numérologie ne prédit pas l\'avenir.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
       document.getElementById('n-imprimer').addEventListener('click', function () { window.print(); });

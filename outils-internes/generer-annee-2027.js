@@ -68,6 +68,7 @@ const CSS = `
     }`;
 
 function tete(titre, desc, canon, ld) {
+  if (titre.length > 62) titre = titre.replace(' · Genesolia', '');
   return `<!doctype html>
 <html lang="fr">
 <head>

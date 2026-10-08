@@ -73,7 +73,7 @@ function page({ slug, title, h1, desc, fil, intro, lecture, corps, faq, extraInt
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(title)} · Genesolia</title>
+  <title>${esc(title)}${title.length <= 50 ? ' · Genesolia' : ''}</title>
   <meta name="description" content="${esc(desc)}">
   <link rel="canonical" href="https://genesolia.fr/${slug}">
   <meta property="og:type" content="article">
