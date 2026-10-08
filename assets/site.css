@@ -297,3 +297,28 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .portes-grille img{width:100%;height:auto}
 .portes-insta{margin-top:1.6rem;color:var(--prune-doux)}
 @media (max-width:860px){.portes-grille{grid-template-columns:repeat(2,1fr);gap:.8rem}}
+
+/* Application installable */
+.menu-appli{font-weight:700;color:var(--corail-encre,#A4473D)!important}
+@media (min-width:1241px){.menu-appli{display:none!important}}
+.appli-fenetre{position:fixed;inset:0;z-index:200;background:rgba(46,19,56,.55);display:grid;place-items:end center;padding:1rem}
+@media (min-width:640px){.appli-fenetre{place-items:center}}
+.appli-carte{position:relative;width:min(26rem,100%);background:var(--nacre);border-radius:24px;padding:2rem 1.6rem 1.6rem;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.3);font-family:var(--texte);color:var(--prune)}
+.appli-carte img{width:64px;height:64px;border-radius:16px;margin:0 auto 1rem;display:block}
+.appli-carte h2{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:0 0 1rem}
+.appli-carte ol{text-align:left;margin:0 0 1rem 1.2rem;padding:0;display:grid;gap:.55rem;line-height:1.5}
+.appli-carte p{margin:0 auto .6rem;max-width:none;font-size:.92rem;color:var(--prune-doux)}
+.appli-fermer{position:absolute;top:.6rem;right:.8rem;background:none;border:0;font-size:1.6rem;line-height:1;color:var(--prune-doux);cursor:pointer;padding:.3rem}
+
+/* Barre de partage */
+.partage{margin:2.6rem 0 1rem;padding:1.4rem 1.4rem 1.2rem;border-radius:22px;background:linear-gradient(135deg,#FFF1EE,#FBEFF4);border:1px solid var(--rose-fonce)}
+.partage-titre{font-family:var(--display);font-size:1.3rem;line-height:1.3;margin:0 0 1rem!important;max-width:none!important}
+.partage-boutons{display:flex;flex-wrap:wrap;gap:.6rem}
+.partage-boutons a,.partage-boutons button{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:99px;border:1px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);font:600 .9rem/1.2 var(--texte);text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.partage-boutons a:hover,.partage-boutons button:hover{transform:translateY(-2px);background:#fff}
+.partage-boutons svg{width:18px;height:18px;flex:0 0 18px}
+.partage-boutons .pt-natif{background:var(--prune);color:#fff;border-color:var(--prune)}
+.partage-boutons .pt-natif small{display:block;font-weight:400;font-size:.72rem;opacity:.85}
+.partage-boutons .pt-natif span{text-align:left}
+.partage-statut{margin:.7rem 0 0!important;font-size:.88rem;color:var(--prune-doux);min-height:1.2em;max-width:none!important}
+@media print{.partage{display:none}}
