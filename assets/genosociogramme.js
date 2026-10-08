@@ -1491,7 +1491,7 @@
   };
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
-    if (!confirm('Effacer tout ton arbre ? Tu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
+    if (!confirm('Effacer tout ton arbre pour repartir de zéro ?\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
     memoriser(); S = { people: {}, rels: [], nid: 1 }; selId = null; repActive = null;
     fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer();
   });
