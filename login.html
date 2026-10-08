@@ -306,6 +306,7 @@
       if (code === 'same_password' || /should be different/.test(t)) return 'Le nouveau mot de passe doit être différent de l’ancien.';
       if (/failed to fetch|network|load failed/.test(t)) return 'Pas de connexion internet pour le moment. Vérifie ta connexion et réessaie.';
       if (/signups not allowed|signup is disabled/.test(t)) return 'Les inscriptions sont fermées pour le moment.';
+      if (code === 'unexpected_failure' || /hook|error sending|smtp/.test(t)) return 'L’envoi de l’e-mail de confirmation n’a pas fonctionné de notre côté. Patiente quelques minutes avant de réessayer, ou écris-nous à contact@genesolia.fr.';
       return 'Une erreur est survenue. Réessaie dans un instant.';
     }
     function emailValide(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
