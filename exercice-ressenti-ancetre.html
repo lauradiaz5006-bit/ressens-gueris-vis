@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exercice : ce que tu portes d'un ancêtre, à partir de ton ressenti · Genesolia</title>
+  <meta name="description" content="Un exercice guidé et gratuit : pars de ce que tu ressens et regarde, sans enquête, ce qui ressemble à la vie d'un ancêtre. Similitudes, blessure, phrase pour déposer.">
+  <link rel="canonical" href="https://genesolia.fr/exercice-ressenti-ancetre.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ce que je ressens, ce qu'il ou elle a vécu">
+  <meta property="og:description" content="Pars de ton ressenti et regarde ce qui ressemble à la vie d'un ancêtre.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(46rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .article{padding:3rem 0 1rem}
+    .article h2{margin:3rem 0 .8rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.15rem;margin:1.4rem 0 .5rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .etape{font:600 .76rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-top:2.8rem}
+    .etape+h2{margin-top:.4rem}
+    .rappel{margin:1.4rem 0;padding:1.1rem 1.3rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .carte{margin:1.2rem 0;padding:1.3rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%);border:1px solid var(--rose-fonce)}
+    .champ{display:grid;gap:.3rem;font-size:.9rem;color:var(--prune-doux);margin-bottom:.8rem}
+    .champ input,.champ textarea{font:inherit;font-size:1rem;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);width:100%}
+    .champ textarea{min-height:4.5rem;resize:vertical}
+    .lien-ancetre{font-family:var(--display);font-size:1.15rem;color:var(--prune)}
+    .domaine{margin:1rem 0;padding:1rem 1.1rem;border:1px solid var(--rose);border-radius:16px;background:var(--blanc)}
+    .domaine h3{margin:0 0 .6rem;font-size:1.05rem}
+    .puces{display:flex;flex-wrap:wrap;gap:.45rem}
+    .puce{position:relative}
+    .puce input{position:absolute;opacity:0;pointer-events:none}
+    .puce span{display:inline-block;padding:.4rem .8rem;border-radius:999px;border:1px solid var(--rose-fonce);font-size:.92rem;cursor:pointer;background:var(--blanc)}
+    .puce input:checked+span{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .puce input:focus-visible+span{outline:2px solid var(--champagne);outline-offset:2px}
+    .autre{display:flex;gap:.5rem;margin-top:.7rem}
+    .autre input{flex:1;font:inherit;font-size:.95rem;padding:.45rem .7rem;border-radius:10px;border:1px solid var(--rose-fonce)}
+    .question{padding:1rem 0;border-top:1px solid var(--rose)}
+    .question p.q{font-weight:600}
+    .choix{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0}
+    .question input[type=text]{font:inherit;font-size:.95rem;width:100%;padding:.5rem .7rem;border-radius:10px;border:1px solid var(--rose-fonce);margin-top:.3rem}
+    .vide{color:var(--prune-doux);font-style:italic}
+    .tableau{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.95rem}
+    .tableau th,.tableau td{padding:.65rem .5rem;border-top:1px solid var(--rose);text-align:left;vertical-align:top}
+    .tableau thead th{font-weight:600;color:var(--prune-doux);font-size:.85rem;border-top:0}
+    .defile{overflow-x:auto}
+    .phrase{margin:1rem 0;padding:1.2rem 1.4rem;border-radius:16px;background:var(--prune);color:#F4E4EE;font-family:var(--display);font-size:1.15rem;line-height:1.5}
+    .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+    .note{font-size:.9rem;color:var(--prune-doux);margin-top:.6rem}
+    @media (max-width:640px){.actions .btn{width:100%}}
+    @media print{
+      header,footer,.fil,.actions,.pas-imprimer,[data-cadeau],.bloc{display:none!important}
+      .puce input:not(:checked)+span{display:none}
+      body{background:#fff}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>Ce que je porte d'un ancêtre</nav>
+        <h1>Ce que je ressens, ce qu'il ou elle a vécu</h1>
+        <p class="intro">Tu n'as pas besoin d'enquêter sur la vie de cet ancêtre. Pars de ce que tu ressens, toi, aujourd'hui. Puis demande-toi simplement si cela ressemble à ce qu'il ou elle a vécu. Ce que tu sais, une phrase entendue, une intuition suffisent.</p>
+        <p class="note" style="margin-top:1rem">Environ 15 minutes, en une ou plusieurs fois : tes réponses sont gardées sur ton appareil, rien n'est envoyé.</p>
+        <p class="note pas-imprimer" id="mes-exercices" hidden></p>
+        <p class="note pas-imprimer" id="compte-info">Avec <a href="login.html?retour=exercice-ressenti-ancetre.html">ton espace</a>, tes exercices te suivent sur tous tes appareils.</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <p class="etape">Étape 1</p>
+        <h2>Avec qui ?</h2>
+        <div class="carte">
+          <label class="champ">Le prénom de ton ancêtre (ou ce que tu sais de lui ou d'elle : « ma grand-mère paternelle »)
+            <input id="ancetre" list="liste-ancetres" placeholder="ma grand-mère Odette" autocomplete="off">
+          </label>
+          <datalist id="liste-ancetres"></datalist>
+          <p class="lien-ancetre" id="lien-ancetre" hidden></p>
+          <label class="champ">Ce qui te relie à cette personne (une date, un âge, un prénom, une ressemblance)
+            <input id="lien" placeholder="elle est décédée le jour de mes 17 ans">
+          </label>
+        </div>
+
+        <p class="etape">Étape 2</p>
+        <h2>Ce que je ressens</h2>
+        <p>Dans chaque domaine de ta vie, coche ce qui te pèse aujourd'hui : ce que tu ressens au quotidien et les peurs qui sont dessous. Ne te censure pas, et ajoute tes propres mots si besoin.</p>
+        <div id="domaines"></div>
+
+        <p class="etape">Étape 3</p>
+        <h2>Et <span class="nom-anc">lui ou elle</span> ?</h2>
+        <p>Pour chaque ressenti, pose-toi une seule question. Ne cherche pas loin : écoute ce qui vient. Une phrase entendue dans la famille, comme « elle était toujours fatiguée », vaut beaucoup.</p>
+        <div id="questions"><p class="vide">Coche d'abord quelques ressentis à l'étape 2.</p></div>
+
+        <p class="etape">Étape 4</p>
+        <h2>Ce qui ressort</h2>
+        <div id="synthese"><p class="vide">Réponds à quelques questions de l'étape 3 : les ressemblances apparaîtront ici.</p></div>
+
+        <p class="etape">Étape 5</p>
+        <h2>Déposer ce qui ne t'appartient pas</h2>
+        <p>Relis tes ressemblances. Certaines choses sont à toi, nées de ta propre histoire. D'autres ressemblent beaucoup à ce qu'a porté <span class="nom-anc">cet ancêtre</span>. Tu peux les reconnaître, puis les lui rendre avec respect.</p>
+        <div class="carte">
+          <label class="champ">Ce que je garde, parce que c'est à moi
+            <textarea id="garde" placeholder="ma sensibilité, mon besoin de calme"></textarea>
+          </label>
+          <label class="champ">Ce que je porte peut-être pour elle ou pour lui
+            <textarea id="rends" placeholder="cette fatigue, cette peur de manquer"></textarea>
+          </label>
+          <label class="champ">La nouvelle vérité que je choisis
+            <input id="verite" placeholder="Je suis en sécurité. J'ai le droit de vivre ma propre vie.">
+          </label>
+        </div>
+        <h3>Les phrases à dire</h3>
+        <p>Lis-les à voix haute, lentement, ou écris-les à la main.</p>
+        <div class="phrase" id="phrase1"></div>
+        <div class="phrase" id="phrase2"></div>
+        <h3>Un geste dans les deux jours</h3>
+        <p>Pour que ce moment s'inscrive, pose un petit geste dans les 24 à 48 heures : écrire le prénom de cet ancêtre et allumer une bougie, déposer une fleur, faire une chose que tu t'interdisais, ou au contraire arrêter une chose que tu faisais pour lui ou pour elle.</p>
+        <label class="champ">Mon geste
+          <input id="geste" placeholder="Je dépose une fleur pour elle dimanche">
+        </label>
+
+        <div class="actions pas-imprimer">
+          <button class="btn btn-plein" type="button" id="terminer">J’ai terminé cet exercice</button>
+          <button class="btn btn-trait" type="button" id="imprimer">Imprimer ou enregistrer en PDF</button>
+          <a class="btn btn-trait" href="genosociogramme.html">Revenir à mon arbre</a>
+          <button class="btn btn-trait" type="button" id="effacer">Recommencer</button>
+        </div>
+        <p class="note" id="fini" aria-live="polite"></p>
+        <p class="rappel" style="margin-top:2.4rem"><strong>Une lecture symbolique.</strong> Une ressemblance n'est pas une preuve : elle ouvre une question. Si cet exercice remue des choses lourdes, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <p class="pas-imprimer">Pour aller plus loin : <a href="blessures-de-l-ame.html">les 5 blessures de l'âme</a>, <a href="syndrome-du-gisant.html">le syndrome du gisant</a>, <a href="methode.html">la méthode des deux cycles</a>.</p>
+      </div>
+    </article>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    var CLE = 'genesolia-exercices';   // un exercice par ancêtre : { cle: { ancetre, lien, …, statut } }
+    var B = {
+      rejet: ['la blessure de rejet', 'blessure-de-rejet.html', 'du rejet'],
+      abandon: ['la blessure d’abandon', 'blessure-d-abandon.html', 'de l’abandon'],
+      humiliation: ['la blessure d’humiliation', 'blessure-d-humiliation.html', 'de la honte'],
+      trahison: ['la blessure de trahison', 'blessure-de-trahison.html', 'de la trahison'],
+      injustice: ['la blessure d’injustice', 'blessure-d-injustice.html', 'de l’injustice'],
+      manque: ['la peur de manquer', 'peur-de-manquer-d-argent.html', 'du manque'],
+      gisant: ['les signes décrits pour le syndrome du gisant', 'syndrome-du-gisant.html', 'de la vie empêchée']
+    };
+    var D = [
+      ['Couple et vie amoureuse', [['Jalousie', 'abandon'], ['Peur d’être quitté·e', 'abandon'], ['Besoin de tout contrôler', 'trahison'], ['Disputes qui reviennent', 'injustice'], ['Peur de ne pas être assez', 'rejet'], ['Relations qui se ressemblent', 'abandon']]],
+      ['Travail', [['Stress permanent', 'injustice'], ['Peur de l’échec', 'injustice'], ['Sentiment d’imposture', 'rejet'], ['Peur du jugement', 'humiliation'], ['Ne jamais se sentir reconnu·e', 'injustice'], ['Travailler sans jamais être à l’abri', 'manque']]],
+      ['Famille', [['Culpabilité', 'humiliation'], ['Colère rentrée', 'injustice'], ['Peur de décevoir', 'injustice'], ['Ne pas se sentir aimé·e tel·le que je suis', 'rejet'], ['Porter tout le monde', 'humiliation']]],
+      ['Relations, amis', [['Isolement', 'rejet'], ['Difficulté à dire non', 'humiliation'], ['Peur de déranger', 'rejet'], ['Méfiance', 'trahison'], ['Solitude difficile à supporter', 'abandon']]],
+      ['Argent et sécurité', [['Peur de manquer', 'manque'], ['Peur de tout perdre', 'manque'], ['Difficulté à dépenser pour moi', 'humiliation'], ['Besoin de tout prévoir', 'trahison']]],
+      ['Énergie et élan', [['Fatigue, épuisement', 'gisant'], ['Me sentir éteint·e, mort·e à l’intérieur', 'gisant'], ['L’impression de ne pas vivre ma vie', 'gisant'], ['Une tristesse ancienne', 'gisant'], ['Coupé·e de mon corps', 'rejet']]],
+      ['Moi-même', [['Vide intérieur', 'gisant'], ['Doute permanent', 'rejet'], ['Peur de ne pas avoir de valeur', 'rejet'], ['Honte de moi', 'humiliation'], ['Exigence envers moi', 'injustice']]]
+    ];
+    var REP = [['oui', 'Oui'], ['crois', 'Je crois'], ['sais-pas', 'Je ne sais pas'], ['non', 'Non']];
+    var $ = function (id) { return document.getElementById(id); };
+    var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    function norm(t) { return String(t || '').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+    function vierge(a, l) { return { ancetre: a || '', lien: l || '', coches: {}, autres: {}, rep: {}, notes: {}, garde: '', rends: '', verite: '', geste: '', statut: '' }; }
+    var TOUS = {};
+    try { TOUS = JSON.parse(localStorage.getItem(CLE) || '{}') || {}; } catch (e) { TOUS = {}; }
+    try { var ancien = JSON.parse(localStorage.getItem('genesolia-exercice-ancetre') || 'null'); if (ancien && ancien.ancetre && !TOUS[norm(ancien.ancetre)]) { ancien.statut = 'commence'; TOUS[norm(ancien.ancetre)] = ancien; } localStorage.removeItem('genesolia-exercice-ancetre'); } catch (e) {}
+    var q = new URLSearchParams(location.search), cle = q.get('ancetre') ? norm(q.get('ancetre')) : (TOUS._dernier || '');
+    var E = Object.assign(vierge(q.get('ancetre'), q.get('lien')), cle && TOUS[cle] ? TOUS[cle] : {});
+    if (q.get('lien')) E.lien = q.get('lien');
+    function sauver() {
+      var k = norm(E.ancetre);
+      if (cle && cle !== k) delete TOUS[cle];   // le prénom a été modifié
+      cle = k;
+      var commence = Object.keys(E.coches).length || Object.keys(E.rep).length || Object.keys(E.autres).some(function (i) { return (E.autres[i] || []).length; });
+      if (E.statut !== 'fait') E.statut = commence ? 'commence' : '';
+      E.maj = new Date().toISOString();
+      if (k) { TOUS[k] = E; TOUS._dernier = k; }
+      try { localStorage.setItem(CLE, JSON.stringify(TOUS)); } catch (e) {}
+      autres();
+      clearTimeout(minuteur); minuteur = setTimeout(envoyerCompte, 1500);
+    }
+
+    /* Avec un compte : les exercices sont aussi gardés dans les données de l'arbre (clé exercices), comme le parcours guidé */
+    var sb = null, compte = null, minuteur = null;
+    try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg'); } catch (e) { sb = null; }
+    function fusionner(a, b) {
+      var r = {}; a = a || {}; b = b || {};
+      Object.keys(a).concat(Object.keys(b)).forEach(function (k) {
+        if (k === '_dernier' || r[k]) return;
+        var x = a[k], y = b[k];
+        r[k] = !x ? y : !y ? x : ((y.maj || '') > (x.maj || '') ? y : (x.maj || '') > (y.maj || '') ? x : (y.statut === 'fait' ? y : x));
+      });
+      if (b._dernier || a._dernier) r._dernier = b._dernier || a._dernier;
+      return r;
+    }
+    function envoyerCompte() {
+      if (!sb || !compte) return;
+      sb.from('arbres').select('data').eq('user_id', compte.id).maybeSingle().then(function (r) {
+        if (r.error) return;
+        var d = (r.data && r.data.data) || { people: {}, rels: [], nid: 1, v: 2 };
+        d.exercices = fusionner(d.exercices, TOUS);
+        return sb.from('arbres').upsert({ user_id: compte.id, data: d, updated_at: new Date().toISOString() }, { onConflict: 'user_id' });
+      }).then(function () { $('compte-info').textContent = 'Enregistré dans ton espace.'; }, function () {});
+    }
+    function chargerCompte() {
+      if (!sb) return;
+      sb.auth.getSession().then(function (r) {
+        var s = r && r.data && r.data.session; if (!s) return;
+        compte = s.user;
+        return sb.from('arbres').select('data').eq('user_id', compte.id).maybeSingle().then(function (res) {
+          if (res.error) return;
+          var serveur = (res.data && res.data.data && res.data.data.exercices) || {};
+          TOUS = fusionner(serveur, TOUS);
+          try { localStorage.setItem(CLE, JSON.stringify(TOUS)); } catch (e) {}
+          if (cle && TOUS[cle] && (TOUS[cle].maj || '') > (E.maj || '')) {   // une version plus récente, faite sur un autre appareil
+            E = Object.assign(vierge(E.ancetre, E.lien), TOUS[cle]);
+            ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = E[k] || ''; });
+            rendreDomaines(); tout(); majFin();
+          }
+          autres();
+          $('compte-info').textContent = 'Tes exercices sont enregistrés dans ton espace.';
+          envoyerCompte();
+        });
+      }).catch(function () {});
+    }
+    function autres() {
+      var l = Object.keys(TOUS).filter(function (k) { return k !== '_dernier' && k !== cle && TOUS[k] && TOUS[k].ancetre; });
+      var z = $('mes-exercices'); if (!z) return;
+      z.hidden = !l.length;
+      z.innerHTML = l.length ? 'Tes autres exercices : ' + l.map(function (k) { var x = TOUS[k]; return '<a href="exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(x.ancetre) + '&amp;lien=' + encodeURIComponent(x.lien || '') + '">' + esc(x.ancetre) + '</a> (' + (x.statut === 'fait' ? 'fait' : x.statut === 'commence' ? 'commencé' : 'à faire') + ')'; }).join(', ') + '.' : '';
+    }
+    function majFin() { $('fini').textContent = E.statut === 'fait' ? 'Exercice terminé. Tu peux le relire ou le compléter quand tu veux.' : ''; $('terminer').textContent = E.statut === 'fait' ? 'Marquer comme à reprendre' : 'J’ai terminé cet exercice'; }
+    // Ancêtres de l'arbre familial, pour la liste de choix
+    try { var a = JSON.parse(localStorage.getItem('geno4') || 'null'); if (a && a.people) $('liste-ancetres').innerHTML = Object.keys(a.people).map(function (id) { var p = a.people[id]; var n = ((p.prenom || '') + ' ' + (p.nom || '')).trim(); return n && p.role !== 'moi' ? '<option value="' + esc(n) + '">' : ''; }).join(''); } catch (e) {}
+
+    function nomAnc() { return E.ancetre.trim() || 'cet ancêtre'; }
+    function items() {
+      var l = [];
+      D.forEach(function (d, i) {
+        d[1].forEach(function (it, j) { var k = i + '-' + j; if (E.coches[k]) l.push({ k: k, t: it[0], b: it[1] }); });
+        (E.autres[i] || []).forEach(function (t, j) { l.push({ k: 'a' + i + '-' + j, t: t, b: null }); });
+      });
+      return l;
+    }
+    function rendreDomaines() {
+      $('domaines').innerHTML = D.map(function (d, i) {
+        return '<div class="domaine"><h3>' + d[0] + '</h3><div class="puces">' + d[1].map(function (it, j) {
+          var k = i + '-' + j; return '<label class="puce"><input type="checkbox" data-k="' + k + '"' + (E.coches[k] ? ' checked' : '') + '><span>' + esc(it[0]) + '</span></label>';
+        }).join('') + (E.autres[i] || []).map(function (t, j) { return '<label class="puce"><input type="checkbox" checked data-autre="' + i + '-' + j + '"><span>' + esc(t) + '</span></label>'; }).join('') +
+          '</div><div class="autre pas-imprimer"><input data-ajout="' + i + '" placeholder="Autre chose ?" aria-label="Ajouter un ressenti pour ' + d[0] + '"><button class="btn btn-trait" type="button" data-ajouter="' + i + '" style="padding:.45rem .9rem;font-size:.9rem">Ajouter</button></div></div>';
+      }).join('');
+    }
+    function rendreQuestions() {
+      var l = items(), n = esc(nomAnc());
+      document.querySelectorAll('.nom-anc').forEach(function (s) { s.textContent = E.ancetre.trim() || 'lui ou elle'; });
+      $('lien-ancetre').hidden = !E.lien; $('lien-ancetre').textContent = E.lien ? 'Ce qui vous relie : ' + E.lien : '';
+      if (!l.length) { $('questions').innerHTML = '<p class="vide">Coche d\'abord quelques ressentis à l\'étape 2.</p>'; return; }
+      $('questions').innerHTML = l.map(function (it) {
+        return '<div class="question"><p class="q">« ' + esc(it.t) + ' » : est-ce que ' + n + ' ressentait cela, ou a vécu quelque chose de semblable ?</p><div class="choix">' +
+          REP.map(function (r) { return '<label class="puce"><input type="radio" name="r' + it.k + '" value="' + r[0] + '" data-rep="' + it.k + '"' + (E.rep[it.k] === r[0] ? ' checked' : '') + '><span>' + r[1] + '</span></label>'; }).join('') +
+          '</div><input type="text" data-note="' + it.k + '" value="' + esc(E.notes[it.k] || '') + '" placeholder="Ce qui te vient : un souvenir, une phrase entendue"></div>';
+      }).join('');
+    }
+    function rendreSynthese() {
+      var l = items().filter(function (it) { return E.rep[it.k] === 'oui' || E.rep[it.k] === 'crois'; }), n = nomAnc();
+      if (!l.length) { $('synthese').innerHTML = '<p class="vide">Réponds à quelques questions de l\'étape 3 : les ressemblances apparaîtront ici.</p>'; phrases(null); return; }
+      var cpt = {}; l.forEach(function (it) { if (it.b) cpt[it.b] = (cpt[it.b] || 0) + (E.rep[it.k] === 'oui' ? 2 : 1); });
+      var top = Object.keys(cpt).sort(function (a, b) { return cpt[b] - cpt[a]; })[0];
+      var h = '<div class="defile"><table class="tableau"><thead><tr><th>Ce que je ressens</th><th>Ancêtre</th><th>La ressemblance</th></tr></thead><tbody>' +
+        l.map(function (it) { return '<tr><td>' + esc(it.t) + '</td><td>' + esc(n) + '</td><td>' + (E.rep[it.k] === 'oui' ? 'Oui' : 'Je crois') + (E.notes[it.k] ? ' : ' + esc(E.notes[it.k]) : '') + '</td></tr>'; }).join('') + '</tbody></table></div>';
+      h += '<p>' + l.length + ' ressenti' + (l.length > 1 ? 's' : '') + ' te relie' + (l.length > 1 ? 'nt' : '') + ' à ' + esc(n) + '.' + (top ? ' Ce qui revient le plus : <a href="' + B[top][1] + '">' + B[top][0] + '</a>.' : '') + '</p>';
+      $('synthese').innerHTML = h;
+      phrases(top, l[0]);
+    }
+    function phrases(top, premier) {
+      var n = E.ancetre.trim() || '[mon ancêtre]', mem = top ? B[top][2] : (premier ? 'de « ' + premier.t.toLowerCase() + ' »' : 'de [ce que je ressens]');
+      var v = E.verite.trim() || '[la nouvelle vérité que je choisis]';
+      $('phrase1').textContent = 'Je te vois, mémoire ' + mem + '. Je te reconnais, mémoire de ' + n + '. Merci de te révéler maintenant, car je suis prêt·e à te libérer.';
+      $('phrase2').textContent = 'Cette mémoire est libérée avec les ancêtres de ma lignée. Je choisis maintenant une nouvelle vérité : ' + v.replace(/\.$/, '') + '.';
+    }
+    function tout() { rendreQuestions(); rendreSynthese(); }
+
+    $('ancetre').value = E.ancetre; $('lien').value = E.lien;
+    ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = E[k] || ''; $(k).addEventListener('input', function () { E[k] = $(k).value; sauver(); if (k === 'verite') rendreSynthese(); }); });
+    $('ancetre').addEventListener('input', function () { E.ancetre = this.value; sauver(); tout(); });
+    $('lien').addEventListener('input', function () { E.lien = this.value; sauver(); rendreQuestions(); });
+    $('domaines').addEventListener('change', function (e) {
+      var t = e.target;
+      if (t.dataset.k) { if (t.checked) E.coches[t.dataset.k] = 1; else delete E.coches[t.dataset.k]; }
+      if (t.dataset.autre && !t.checked) { var p = t.dataset.autre.split('-'); E.autres[p[0]].splice(+p[1], 1); rendreDomaines(); }
+      sauver(); tout();
+    });
+    $('domaines').addEventListener('click', function (e) {
+      var i = e.target.dataset.ajouter; if (i == null) return;
+      var c = document.querySelector('[data-ajout="' + i + '"]'), v = c.value.trim(); if (!v) return;
+      (E.autres[i] = E.autres[i] || []).push(v); sauver(); rendreDomaines(); tout();
+    });
+    $('domaines').addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.dataset.ajout != null) { e.preventDefault(); document.querySelector('[data-ajouter="' + e.target.dataset.ajout + '"]').click(); } });
+    $('questions').addEventListener('change', function (e) { if (e.target.dataset.rep) { E.rep[e.target.dataset.rep] = e.target.value; sauver(); rendreSynthese(); } });
+    $('questions').addEventListener('input', function (e) { if (e.target.dataset.note) { E.notes[e.target.dataset.note] = e.target.value; sauver(); rendreSynthese(); } });
+    $('imprimer').addEventListener('click', function () { window.print(); });
+    $('effacer').addEventListener('click', function () { if (confirm('Effacer cet exercice et recommencer ?')) { var a = E.ancetre, l = E.lien; delete TOUS[cle]; E = vierge(a, l); sauver(); rendreDomaines(); tout(); ['garde', 'rends', 'verite', 'geste'].forEach(function (k) { $(k).value = ''; }); majFin(); } });
+    $('terminer').addEventListener('click', function () { E.statut = E.statut === 'fait' ? 'commence' : 'fait'; sauver(); majFin(); });
+    rendreDomaines(); tout(); autres(); majFin(); chargerCompte();
+  })();
+  </script>
+</body>
+</html>

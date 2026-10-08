@@ -15,7 +15,7 @@
   var BAS_TEXTE = R + 68;
 
   var PRUNE = '#6B2F5B', PRUNE_DOUX = '#8E6383', CHAMPAGNE = '#B98A55', CORAIL = '#E7A79E';
-  var COUL = { anniversaire: '#D2793A', gisant: '#B5485C', epreuve: '#B98A55', schema: '#7A4FA0', prenom: '#D06A7E', metier: '#4F7CAC', date: '#C46D9A' };
+  var COUL = { anniversaire: '#D2793A', gisant: '#B5485C', depart: '#9C6B78', epreuve: '#B98A55', schema: '#7A4FA0', prenom: '#D06A7E', metier: '#4F7CAC', date: '#C46D9A' };
 
   var EVTS = [
     ['deuil', 'Deuil, perte d’un proche'],
@@ -406,10 +406,10 @@
         liste.forEach(function (p) {
           if (p.id === moi.id) return;
           var ad = ageDeces(p);
-          if (ad != null && Math.abs(ad - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans.', ids: [moi.id, p.id] });
+          if (ad != null && Math.abs(ad - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans.', ids: [moi.id, p.id], exo: { a: nom(p), l: (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans, l’âge que j’ai aujourd’hui' } });
           (p.events || []).forEach(function (e) {
             var ea = parseInt(e.age, 10);
-            if (!isNaN(ea) && Math.abs(ea - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans.', ids: [moi.id, p.id] });
+            if (!isNaN(ea) && Math.abs(ea - age) <= 1) reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire', desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans.', ids: [moi.id, p.id], exo: { a: nom(p), l: 'a vécu « ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' » à ' + ea + ' ans, l’âge que j’ai aujourd’hui' } });
           });
         });
       }
@@ -424,15 +424,110 @@
     });
     Object.keys(dm).forEach(function (j) {
       var g = dm[j]; var ids = []; g.forEach(function (x) { if (ids.indexOf(x.p.id) < 0) ids.push(x.p.id); });
+      var dec = g.filter(function (x) { return x.quoi === 'décès'; }), nai = g.filter(function (x) { return x.quoi === 'naissance'; });
+      if (ids.length === 2 && dec.length === 1 && nai.length === 1 && famille(dec[0].p)[nai[0].p.id] && annee(nai[0].p.naiss) < annee(dec[0].p.deces)) return;   // repris par « Un décès près d'un anniversaire »
       if (ids.length >= 2) {
         var parts = j.split('/');
         var mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+parts[1] - 1];
         reps.push({ type: 'date', c: COUL.date, label: 'Une date qui revient : le ' + (+parts[0]) + ' ' + mois, desc: g.map(function (x) { return x.quoi + ' de ' + nom(x.p); }).join(', ') + '.', ids: ids });
       }
     });
-    // Morts jeunes
-    var jeunes = liste.filter(function (p) { var ad = ageDeces(p); return a(p, 'deces-precoce') || (ad != null && ad < 50); });
-    if (jeunes.length >= 2) reps.push({ type: 'gisant', c: COUL.gisant, label: 'Des morts jeunes (syndrome du gisant)', desc: jeunes.map(function (p) { var ad = ageDeces(p); return nom(p) + (ad != null ? ' (' + ad + ' ans)' : ''); }).join(', ') + '.', ids: jeunes.map(function (p) { return p.id; }) });
+    // Départs précoces : parmi tes proches (jusqu'aux arrière-grands-parents, oncles et tantes) quand « toi » est placé·e
+    function jeune(p) { var ad = ageDeces(p); return a(p, 'deces-precoce') || (ad != null && ad < 50); }
+    var anAuj = new Date().getFullYear(), anMax = Math.max.apply(null, liste.map(function (p) { var x = annee(p.naiss); return x && x <= anAuj ? x : 0; }));
+    var proches = moi ? liste.filter(function (p) { return !!lienDe(p.id); }) : liste.filter(function (p) { return (annee(p.naiss) || 0) >= anMax - 100; });
+    var jeunes = proches.filter(jeune);
+    if (jeunes.length >= 2) reps.push({ type: 'depart', c: COUL.depart, label: 'Des départs précoces', desc: jeunes.map(function (p) { var ad = ageDeces(p); return nom(p) + (ad != null ? ' (' + ad + ' ans)' : ''); }).join(', ') + '.', ids: jeunes.map(function (p) { return p.id; }) });
+
+    // Piste du gisant (Salomon Sellam) : un décès, et quelqu'un qui naît ensuite relié à ce défunt
+    // par une naissance proche du décès, la reprise de son prénom ou une naissance le jour anniversaire du décès.
+    function jours(d1, d2) {
+      var x = String(d1 || '').match(/^(\d{4})-(\d{2})-(\d{2})$/), y = String(d2 || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return (x && y) ? Math.round((Date.UTC(+y[1], +y[2] - 1, +y[3]) - Date.UTC(+x[1], +x[2] - 1, +x[3])) / 864e5) : null;
+    }
+    function prenom1(p) { return norm(String(p.prenom || '').replace(/[\s,-]+/g, ' ')); }   // le prénom complet (Pierre Marie ≠ Pierre)
+    function memePrenom(x, y) {
+      var u = prenom1(x), v = prenom1(y); if (!u || !v) return false;
+      if (u === v) return true;
+      var court = u.length < v.length ? u : v, long = u.length < v.length ? v : u;
+      return court.length >= 4 && long.indexOf(court) === 0 && long.length - court.length <= 2;   // Jean, Jeanne ; Louis, Louise
+    }
+    function ecartJM(dDeces, dNaiss) {   // écart en jours entre l'anniversaire du décès et le jour de naissance, à l'année près
+      var x = String(dDeces || '').match(/^\d{4}-(\d{2})-(\d{2})$/), y = String(dNaiss || '').match(/^\d{4}-(\d{2})-(\d{2})$/);
+      if (!x || !y) return null;
+      var e = Math.abs(Date.UTC(2001, +x[1] - 1, +x[2]) - Date.UTC(2001, +y[1] - 1, +y[2])) / 864e5;
+      return Math.min(e, 365 - e);
+    }
+    function descendants(id, acc) { enfants(id).forEach(function (e) { if (!acc[e]) { acc[e] = 1; descendants(e, acc); } }); return acc; }
+    function famille(d) {   // les descendants du défunt et ceux de ses parents (frères, sœurs, neveux, nièces…)
+      var acc = descendants(d.id, {}); parents(d.id).forEach(function (pp) { descendants(pp, acc); }); delete acc[d.id]; return acc;
+    }
+    function ne(g) { return 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : ''); }
+    function nomA(p) { var an = annee(p.naiss); return nom(p) + (an ? ' (' + ne(p) + ' en ' + an + ')' : ''); }
+    liste.forEach(function (d) {
+      var ad = annee(d.deces); if (!ad) return;
+      var fam = famille(d);
+      var estJeune = jeune(d), liens = [], ids = [d.id], exoMoi = null;
+      liste.forEach(function (g) {
+        if (g.id === d.id || !fam[g.id]) return;
+        var an = annee(g.naiss); if (!an || an <= annee(d.naiss || '')) return;
+        var raisons = [];
+        // 1. Le jour anniversaire du décès (naissance après le décès)
+        var e = ecartJM(d.deces, g.naiss);
+        if (e != null && e <= 7 && an > ad) raisons.push(e === 0 ? 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' le jour anniversaire de ce décès' : 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de l’anniversaire de ce décès');
+        if (estJeune) {
+          // 2. Une naissance proche du décès
+          var dj = jours(d.deces, g.naiss);
+          if (dj != null ? (dj >= -730 && dj <= 730) : (an >= ad - 2 && an <= ad + 2)) {
+            var t = dj == null ? (an === ad ? 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' l’année de ce décès' : an < ad ? ne(g) + ' ' + (ad - an) + ' an' + (ad - an > 1 ? 's' : '') + ' avant ce décès' : 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' ' + (an - ad) + ' an' + (an - ad > 1 ? 's' : '') + ' après')
+              : dj < 0 ? 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' ' + Math.max(1, Math.round(-dj / 30.4)) + ' mois avant ce décès' : 'né' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' ' + Math.max(1, Math.round(dj / 30.4)) + ' mois après' + (dj >= 180 && dj <= 300 ? ', conçu' + (g.sex === 'f' ? 'e' : g.sex === 'u' ? '·e' : '') + ' autour du deuil' : '');
+            raisons.push(t);
+          }
+          // 3. Le prénom du défunt repris
+          if (memePrenom(d, g)) raisons.push('porte ' + (prenom1(d) === prenom1(g) ? 'son prénom' : 'une forme de son prénom'));
+        }
+        if (raisons.length) { liens.push(nomA(g) + ' : ' + raisons.join(', ')); ids.push(g.id); if (moi && g.id === moi.id) exoMoi = raisons.join(', ').replace(/^né(e|·e)? /, 'je suis ' + ne(g) + ' ').replace(/^porte /, 'je porte '); }
+      });
+      if (!liens.length) return;
+      var age = ageDeces(d);
+      reps.push({ type: 'gisant', c: COUL.gisant, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
+    });
+    // Un décès le jour (ou à une semaine près) de l'anniversaire d'un descendant ou d'un proche déjà né
+    var MOIS_N = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    liste.forEach(function (d) {
+      var md = String(d.deces || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); if (!md) return;
+      var fam = famille(d);
+      liste.forEach(function (g) {
+        if (g.id === d.id || !fam[g.id]) return;
+        var e = ecartJM(d.deces, g.naiss); if (e == null || e > 7) return;
+        var ag = ageEntre(g.naiss, d.deces); if (ag == null || ag < 1) return;   // déjà né·e, au moins un an avant
+        if (g.deces && annee(g.deces) < +md[1]) return;
+        var toi = moi && g.id === moi.id, quand = (+md[3] === 1 ? '1er' : +md[3]) + ' ' + MOIS_N[+md[2] - 1] + ' ' + md[1];
+        var age = (toi ? 'tes ' : 'des ') + ag + ' ans' + (toi ? '' : ' de ' + nom(g));
+        reps.push({ type: 'date', c: COUL.date, label: 'Un décès près d’un anniversaire : ' + nom(d),
+          desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour ' + (toi ? 'de ' : '') + age : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' ' + (toi ? 'de ' : '') + age) + '.',
+          ids: [d.id, g.id], exo: toi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour de mes ' + ag + ' ans' : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de mes ' + ag + ' ans') } : null });
+      });
+    });
+
+    // Un parent qui part peu après une naissance (ou pendant la grossesse), et qui se répète d'une génération à l'autre
+    var departsNaissance = [];
+    liste.forEach(function (enf) {
+      var an = annee(enf.naiss); if (!an) return;
+      parents(enf.id).forEach(function (pid) {
+        var par = S.people[pid], ad = annee(par && par.deces); if (!ad) return;
+        var dj = jours(enf.naiss, par.deces), ok = dj != null ? (dj >= -280 && dj <= 730) : (ad >= an && ad <= an + 2);
+        if (!ok) return;
+        var quand = dj != null ? (dj < 0 ? 'avant la naissance de ' + nomA(enf) : dj < 45 ? 'quelques semaines après la naissance de ' + nomA(enf) : Math.round(dj / 30.4) + ' mois après la naissance de ' + nomA(enf))
+          : (ad === an ? 'l’année de la naissance de ' + nomA(enf) : (ad - an) + ' an' + (ad - an > 1 ? 's' : '') + ' après la naissance de ' + nomA(enf));
+        departsNaissance.push({ txt: nomA(par) + ' meurt en ' + ad + (ageDeces(par) != null ? ', à ' + ageDeces(par) + ' ans' : '') + ', ' + quand, ids: [par.id, enf.id] });
+      });
+    });
+    if (departsNaissance.length >= 2) {
+      var idsDN = []; departsNaissance.forEach(function (x) { x.ids.forEach(function (i) { if (idsDN.indexOf(i) < 0) idsDN.push(i); }); });
+      reps.push({ type: 'gisant', c: COUL.gisant, label: 'Un parent qui part juste après une naissance, ' + departsNaissance.length + ' fois', desc: departsNaissance.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: idsDN });
+    }
+
     // Événements répétés
     var parType = {};
     liste.forEach(function (p) {
@@ -674,8 +769,23 @@
         (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
       return;
     }
-    z.innerHTML = reps.map(function (r, i) {
-      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>';
+    // Exercices « Ce que je ressens, ce qu'il ou elle a vécu » : ils s'accumulent ici, à faire quand on a le temps
+    var EXO = {}; try { EXO = JSON.parse(localStorage.getItem('genesolia-exercices') || '{}') || {}; } catch (e) { EXO = {}; }
+    function cleExo(a) { return norm(a); }
+    function lienExo(x) { return 'exercice-ressenti-ancetre.html?ancetre=' + encodeURIComponent(x.a) + '&amp;lien=' + encodeURIComponent(x.l || ''); }
+    var aFaire = [], vus = {};
+    reps.forEach(function (r) { if (r.exo && !vus[cleExo(r.exo.a)]) { vus[cleExo(r.exo.a)] = 1; aFaire.push({ a: r.exo.a, l: r.exo.l, c: r.c }); } });
+    Object.keys(EXO).forEach(function (k) { if (!vus[k] && EXO[k] && EXO[k].ancetre) { vus[k] = 1; aFaire.push({ a: EXO[k].ancetre, l: EXO[k].lien, c: COUL.gisant }); } });
+    function statut(a) { var x = EXO[cleExo(a)]; return x && x.statut === 'fait' ? 'fait' : x && x.statut === 'commence' ? 'commence' : 'afaire'; }
+    var LIB = { afaire: 'À faire', commence: 'Commencé', fait: 'Fait' };
+    var restants = aFaire.filter(function (x) { return statut(x.a) !== 'fait'; }).length;
+    var blocExo = aFaire.length ? '<div class="exos"><p class="exos-titre">Tes exercices <span>' + (restants ? restants + ' à faire' : 'tous faits') + '</span></p>' +
+      '<p class="rep-aide">Continue ton arbre : les exercices t’attendent ici, à faire quand tu as le temps.</p>' +
+      aFaire.map(function (x) { var st = statut(x.a); return '<a class="exo exo-' + st + '" style="--c:' + x.c + '" href="' + lienExo(x) + '"><b>' + esc(x.a) + '</b><span class="exo-st">' + LIB[st] + '</span>' + (x.l ? '<small>' + esc(x.l) + '</small>' : '') + '</a>'; }).join('') + '</div>' : '';
+    z.innerHTML = blocExo + reps.map(function (r, i) {
+      var st = r.exo ? statut(r.exo.a) : null;
+      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>' +
+        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
 
@@ -696,7 +806,19 @@
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
   function marquerSynchro(ok) { try { localStorage.setItem('geno4-synchro', ok ? 'ok' : 'attente'); } catch (e) {} }
-  function donneesCompte() { return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
+  /* Exercices « Ce que je ressens… » : gardés dans ce navigateur et, avec un compte, dans les données de l'arbre (clé exercices) */
+  function lireExos() { try { return JSON.parse(localStorage.getItem('genesolia-exercices') || '{}') || {}; } catch (e) { return {}; } }
+  function fusionnerExos(a, b) {
+    var r = {}; a = a || {}; b = b || {};
+    Object.keys(a).concat(Object.keys(b)).forEach(function (k) {
+      if (k === '_dernier' || r[k]) return;
+      var x = a[k], y = b[k];
+      r[k] = !x ? y : !y ? x : ((y.maj || '') > (x.maj || '') ? y : (x.maj || '') > (y.maj || '') ? x : (y.statut === 'fait' ? y : x));
+    });
+    if (b._dernier || a._dernier) r._dernier = b._dernier || a._dernier;
+    return r;
+  }
+  function donneesCompte() { return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
   function envoyer() {
     clearTimeout(minuteur); minuteur = null;
     if (!utilisateur || !sb) return;
@@ -1101,6 +1223,7 @@
   $('bt-panneau').addEventListener('click', function () { document.body.classList.toggle('panneau-ouvert'); });
   $('bt-replier').addEventListener('click', function () { document.body.classList.remove('panneau-ouvert'); });
   window.addEventListener('resize', placerActions);
+  window.addEventListener('pageshow', function (e) { if (e.persisted) dessiner(); });   // retour depuis un exercice : mettre à jour les statuts
 
   $('bt-commencer').addEventListener('click', function () {
     memoriser();
@@ -1338,13 +1461,14 @@
   var TEXTES_RAPPORT = {
     anniversaire: { titre: 'Le syndrome d’anniversaire', intro: 'Tu traverses aujourd’hui un âge auquel quelqu’un de ta famille a vécu un événement marquant. En psychogénéalogie, on observe que certaines périodes de la vie peuvent réveiller une mémoire familiale, comme si une date intérieure se rappelait à nous. Ce n’est pas une prédiction : c’est une invitation à être attentive à cette période.', pistes: ['Qu’est-ce qui se passe dans ta vie en ce moment, et qu’est-ce que cela réveille en toi ?', 'Que sais-tu vraiment de ce que cette personne a vécu à cet âge ?', 'Qu’aimerais-tu vivre différemment, toi, à cet âge ?'], geste: 'Écris une phrase pour cette personne : « Tu as vécu cela à cet âge. Moi, je choisis de vivre… »' },
     date: { titre: 'Les dates qui reviennent', intro: 'Plusieurs naissances ou décès tombent le même jour de l’année. Ces dates partagées peuvent tisser des liens invisibles entre les personnes : une naissance qui répond à un départ, un anniversaire chargé de plusieurs histoires.', pistes: ['Comment cette date est-elle vécue dans ta famille : une fête, un silence, un malaise ?', 'T’arrive-t-il de te sentir différente à cette période de l’année ?', 'Qui est né à la suite de qui, et qu’est-ce que cela a pu signifier pour la famille ?'], geste: 'Cette année, à cette date, offre-toi un moment qui n’appartient qu’à toi.' },
-    gisant: { titre: 'Des départs précoces', intro: 'Plusieurs personnes de ton arbre sont parties jeunes. En psychogénéalogie, on parle parfois de « syndrome du gisant » lorsqu’un enfant naît peu après un décès et porte, sans le savoir, une place laissée vide. Ce sont des pistes à explorer avec douceur.', pistes: ['Ces départs ont-ils pu être pleurés, ou est-ce qu’on n’en parlait pas ?', 'Quelqu’un est-il né peu de temps après l’un de ces départs ? Porte-t-il son prénom ?', 'Y a-t-il en toi une inquiétude liée à l’un de ces âges ?'], geste: 'Écris le prénom de ces personnes et allume une bougie pour elles : leur redonner une place, c’est libérer celle des vivants.' },
+    gisant: { titre: 'La piste du gisant', intro: 'Une personne de ton arbre est décédée, et quelqu’un né ensuite lui est relié : par une naissance proche de ce décès, par son prénom, ou par une naissance le jour anniversaire de sa mort. Le Dr Salomon Sellam appelle « syndrome du gisant » cette situation où, après un deuil qui n’a pas pu se faire, un enfant de la famille porterait sans le savoir une part de la vie du défunt. C’est une hypothèse de lecture, pas une vérité sur ta famille.', pistes: ['Ce décès a-t-il pu être pleuré, ou est-ce qu’on n’en parlait pas ?', 'La personne reliée a-t-elle parfois l’impression de ne pas vivre sa propre vie ?', 'Qui a choisi ce prénom, ou comment cette date anniversaire est-elle vécue dans la famille ?'], geste: 'Écris le prénom et les dates de la personne disparue, puis ce que tu sais d’elle : lui redonner sa place, c’est rendre la leur aux vivants.' },
+    depart: { titre: 'Des départs précoces', intro: 'Plusieurs personnes proches de toi dans l’arbre sont parties jeunes. Ces deuils ont souvent marqué ceux qui sont restés, parfois sans qu’on en parle. Ce sont des pistes à explorer avec douceur.', pistes: ['Ces départs ont-ils pu être pleurés, ou est-ce qu’on n’en parlait pas ?', 'Quelqu’un est-il né peu de temps après l’un de ces départs ? Porte-t-il son prénom ?', 'Y a-t-il en toi une inquiétude liée à l’un de ces âges ?'], geste: 'Écris le prénom de ces personnes et allume une bougie pour elles : leur redonner une place, c’est libérer celle des vivants.' },
     epreuve: { titre: 'Les mêmes événements', intro: 'Un même type d’événement revient chez plusieurs personnes, parfois au même âge. C’est souvent le signe d’une boucle familiale : une façon de vivre, d’aimer ou de perdre qui se transmet d’une génération à l’autre.', pistes: ['Comment cet événement a-t-il été vécu, puis raconté, à chaque génération ?', 'Quelle croyance ta famille en a-t-elle tirée ? (« les hommes partent », « l’argent ne reste pas »…)', 'Où en es-tu, toi, avec ce type d’événement ?'], geste: 'Quand tu sens cette situation revenir dans ta vie, demande-toi : « Est-ce vraiment à moi, ou est-ce que ça ressemble à quelqu’un de ma famille ? »' },
     schema: { titre: 'Les schémas familiaux', intro: 'Plusieurs personnes partagent une même façon d’être : s’effacer, porter la famille, se taire, partir. Ces schémas sont rarement choisis : ils se transmettent par l’exemple et par fidélité.', pistes: ['Te reconnais-tu dans ce schéma ? Dans quels domaines de ta vie ?', 'Qu’est-ce que ce schéma a protégé, autrefois ?', 'Que se passerait-il si tu faisais autrement ?'], geste: 'Écris une phrase de permission : « Toi, tu as dû… Moi, j’ai le droit de… »' },
     prenom: { titre: 'Les prénoms transmis', intro: 'Un même prénom circule dans ta famille. Donner un prénom, c’est souvent transmettre une histoire, une attente, parfois une place à reprendre.', pistes: ['Pourquoi ce prénom a-t-il été choisi ? Qu’en disait-on ?', 'Quelles qualités ou quelles histoires sont attachées à ce prénom ?', 'La personne qui le porte aujourd’hui vit-elle sa propre vie, ou celle d’un autre ?'], geste: 'Si c’est ton prénom, écris trois choses qui n’appartiennent qu’à toi.' },
     metier: { titre: 'Les métiers qui se répètent', intro: 'Plusieurs personnes ont exercé dans le même domaine. Un métier peut se transmettre par vocation, par fidélité ou par réparation : prendre soin, servir, protéger, nourrir…', pistes: ['Ce métier a-t-il été choisi, ou s’est-il imposé ?', 'Que cherchait-on à réparer ou à protéger à travers lui ?', 'Ton propre chemin professionnel suit-il cette lignée, ou s’en écarte-t-il ?'], geste: 'Note ce que tu aimes vraiment faire, indépendamment de ce qu’on attendait de toi.' }
   };
-  var ORDRE_TYPES = ['anniversaire', 'epreuve', 'schema', 'date', 'gisant', 'prenom', 'metier'];
+  var ORDRE_TYPES = ['anniversaire', 'gisant', 'epreuve', 'schema', 'date', 'depart', 'prenom', 'metier'];
   var accesRapport = null;
 
   function verifierAcces() {
@@ -1828,6 +1952,10 @@
         var dc = (res.data && res.data.data) || {};
         annexes = {};
         Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
+        var exos = fusionnerExos(annexes.exercices, lireExos());   // retrouver les exercices faits sur un autre appareil
+        annexes.exercices = exos;
+        try { localStorage.setItem('genesolia-exercices', JSON.stringify(exos)); } catch (e) {}
+        dessinerPanneau();
         if (dc.people && Object.keys(dc.people).length) {
           var local = instantane();
           if (Object.keys(S.people).length && JSON.stringify(dc.people) !== JSON.stringify(S.people)) {

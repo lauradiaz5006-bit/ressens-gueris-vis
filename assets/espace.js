@@ -169,7 +169,7 @@
         .then(function (r) { if (r && r.error) throw r.error; return sb.from('demandes_suppression').upsert({ user_id: user.id, email: user.email }, { onConflict: 'user_id', ignoreDuplicates: true }); })
         .then(function () { return sb.auth.updateUser({ data: { full_name: null, photo: null } }); })
         .then(function () {
-          try { ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide'].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+          try { ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide', 'genesolia-exercices', 'genesolia-anniversaire'].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
           return sb.auth.signOut();
         })
         .then(function () { window.GenesoliaEspaceDeconnecte('Ton arbre, son historique et ta photo sont effacés. Ton compte sera définitivement fermé sous 30 jours au plus tard. Merci d’être passé·e par Genesolia.'); })
