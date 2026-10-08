@@ -32,12 +32,11 @@ window.GENESOLIA_STRIPE = {
     ['genosociogramme.html', 'Ta famille'],
     ['theme-numerologique.html', 'Tes nombres'],
     ['theme-astral.html', 'Tes étoiles'],
-    ['symbolique-des-reves.html', 'Tes rêves'],
+    ['offert.html', 'Tout est offert'],
     ['blog.html', 'Blog'],
-    ['abonnement.html', 'Abonnement'],
     ['login.html', 'Mon espace']
   ];
-  var BOUTON = ['mon-mois.html', 'Le Cercle'];
+  var BOUTON = ['abonnement.html', 'Le Cercle'];
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -76,6 +75,7 @@ window.GENESOLIA_STRIPE = {
           '<div><a class="marque" href="/">' + MARQUE + '</a>' +
             '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
           '<div><h4>Les outils</h4><ul>' +
+            '<li><a href="offert.html">Tout est offert</a></li>' +
             '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
             '<li><a href="parcours.html">Parcours guidé</a></li>' +
             '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
@@ -105,7 +105,8 @@ window.GENESOLIA_STRIPE = {
           '<div><h4>Informations</h4><ul>' +
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
-            '<li><a href="login.html">Mon espace</a></li></ul></div>' +
+            '<li><a href="login.html">Mon espace</a></li>' +
+            '<li><a href="abonnement.html">Le Cercle · abonnement</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
           '<span>Ce site propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique.</span>' +
@@ -336,7 +337,7 @@ window.GENESOLIA_STRIPE = {
     lien: 'mon-mois.html#offert'
   };
   function carreCercle() {
-    if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     try {
       var ferme = +localStorage.getItem('carre-cercle-ferme') || 0;
       if (Date.now() - ferme < 7 * 864e5) return;
