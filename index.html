@@ -33,6 +33,9 @@
     .porte-l{position:relative;display:flex;flex-direction:column;padding:1.6rem 1.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s}
     .porte-l:hover{border-color:var(--champagne);box-shadow:0 16px 40px rgba(107,47,91,.10);transform:translateY(-2px)}
     .porte-n{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.2rem;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);margin-bottom:.9rem}
+    .porte-l{overflow:hidden}
+    .porte-photo{display:block;width:calc(100% + 2.8rem);max-width:none;height:auto;margin:-1.6rem -1.4rem 0;aspect-ratio:16/9;object-fit:cover}
+    .porte-photo + .porte-n{position:relative;margin-top:-1.2rem}
     .porte-l h3{font-size:1.45rem;margin-bottom:.2rem}
     .porte-q{font-family:var(--display);color:var(--champagne);margin-bottom:.6rem}
     .porte-l p{font-size:.95rem;color:var(--prune-doux)}
@@ -257,10 +260,10 @@
           <p>Ta famille, tes nombres, tes étoiles et tes rêves éclairent chacun une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
         </div>
         <div class="portes">
-          <a class="porte-l" href="genosociogramme.html"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
-          <a class="porte-l" href="theme-numerologique.html"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de <span class="lien-inline">ton prénom</span> sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
-          <a class="porte-l" href="theme-astral.html"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
-          <a class="porte-l" href="symbolique-des-reves.html"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
+          <a class="porte-l" href="genosociogramme.html"><img class="porte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
+          <a class="porte-l" href="theme-numerologique.html"><img class="porte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de <span class="lien-inline">ton prénom</span> sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
+          <a class="porte-l" href="theme-astral.html"><img class="porte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
+          <a class="porte-l" href="symbolique-des-reves.html"><img class="porte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
         </div>
         <div class="relie">
           <p><strong>Tout se relie dans ton arbre.</strong> Ajoute ta famille : l'outil compare les nombres, les signes et les prénoms de chacun·e, et fait apparaître les échos entre les générations. Le rapport de ton arbre les explique, avec des pistes pour sortir de la boucle.</p>
@@ -344,8 +347,8 @@
         <div class="blog-cartes">
           <a href="schemas-repetitifs-en-amour.html"><img src="assets/accueil/blog-amour.webp" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></div></a>
           <a href="questions-a-poser-a-sa-famille.html"><img src="assets/accueil/blog-famille.webp" width="720" height="405" alt="" loading="lazy"><div><span>8 min</span><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></div></a>
-          <a href="symbolique-des-reves.html"><img src="assets/formation/spirale.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>La symbolique des rêves</h3><p>Une langue que l'humanité parle depuis toujours, de Jung aux peuples anciens.</p></div></a>
-          <a href="rever-des-morts-et-des-ancetres.html"><img src="assets/formation/montagne.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>Rêver des morts et des ancêtres</h3><p>Ce que disent les traditions, et ce que ces rêves racontent de ta famille.</p></div></a>
+          <a href="symbolique-des-reves.html"><img src="assets/images/blog-reves-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>La symbolique des rêves</h3><p>Une langue que l'humanité parle depuis toujours, de Jung aux peuples anciens.</p></div></a>
+          <a href="rever-des-morts-et-des-ancetres.html"><img src="assets/images/blog-ancetres-reve-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>Rêver des morts et des ancêtres</h3><p>Ce que disent les traditions, et ce que ces rêves racontent de ta famille.</p></div></a>
         </div>
         <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="blog.html">Tous les articles</a></div>
       </div>
