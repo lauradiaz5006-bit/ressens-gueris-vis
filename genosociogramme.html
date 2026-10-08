@@ -289,6 +289,7 @@
       <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
       <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
       <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
+      <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer tout l'arbre et en commencer un nouveau">Nouvel arbre</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
       <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
     </div>
@@ -506,11 +507,13 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-08b"></script>
-  <script src="assets/import-arbre.js?v=2026-10-08b"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-08c"></script>
+  <script src="assets/import-arbre.js?v=2026-10-08c"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
+  /* « Nouvel arbre » : même effacement que dans « Sauvegardes » (avec confirmation et retour possible) */
+  document.getElementById('bt-nouveau-barre').addEventListener('click', function () { document.getElementById('bt-effacer').click(); });
   </script>
 
   <style>#fen-apropos .fen-corps h2{font-size:1.35rem;margin:0 0 .6rem}#fen-apropos .fen-corps h3{font-size:1.1rem;margin:1.1rem 0 .4rem}#fen-apropos .fen-corps p{margin-bottom:.7rem;font-size:.95rem}</style>
