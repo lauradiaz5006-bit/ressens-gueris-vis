@@ -190,7 +190,8 @@ window.GENESOLIA_STRIPE = {
   /* ===== Formation « Sors de la boucle » : annonce, encart et liste d'attente =====
      Pour changer la date ou masquer l'annonce, modifier les trois valeurs ci-dessous. */
   var FORMATION = {
-    date: 'le 7 novembre',
+    date: 'le 7 novembre',                          /* ouverture des inscriptions */
+    module1: 'le 1er novembre',                     /* envoi du module 1 offert à la liste */
     page: 'formation.html',
     finAnnonce: '2026-11-08'                        /* le bandeau disparaît à cette date */
   };
@@ -203,7 +204,7 @@ window.GENESOLIA_STRIPE = {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce';
     bandeau.innerHTML =
-      '<a href="' + FORMATION.page + '"><span class="annonce-pastille">Nouveau</span> Formation « Sors de la boucle » : prochaine session ' + FORMATION.date + '. <u>Rejoins la liste et reçois le module 1 offert</u></a>' +
+      '<a href="' + FORMATION.page + '"><span class="annonce-pastille">Nouveau</span> Formation « Sors de la boucle » : <u>rejoins la liste, reçois le module 1 offert ' + FORMATION.module1 + '</u>, teste-le, puis inscris-toi dès ' + FORMATION.date + '.</a>' +
       '<button type="button" aria-label="Fermer l\'annonce">×</button>';
     bandeau.querySelector('button').addEventListener('click', function () {
       bandeau.remove();
@@ -217,11 +218,11 @@ window.GENESOLIA_STRIPE = {
     el.className = 'encart-formation';
     el.innerHTML =
       '<div class="ef-texte">' +
-        '<p class="ef-sur">Nouvelle formation · prochaine session ' + FORMATION.date + '</p>' +
+        '<p class="ef-sur">Nouvelle formation · module 1 offert ' + FORMATION.module1 + ' · inscriptions ' + FORMATION.date + '</p>' +
         '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
         '<p>« Sors de la boucle » : 8 modules, 8 séances audio guidées et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
         '<ul class="ef-avantages">' +
-          '<li><b>Le module 1 offert</b>, envoyé par e-mail</li>' +
+          '<li><b>Le module 1 offert</b>, envoyé par e-mail ' + FORMATION.module1 + ' : tu le testes avant de t\'inscrire</li>' +
           '<li><b>Le tarif fondatrice</b>, réservé à la liste</li>' +
           '<li><b>Accès 48 h avant</b> tout le monde</li>' +
         '</ul>' +
@@ -241,13 +242,13 @@ window.GENESOLIA_STRIPE = {
     /* Plus de téléchargement immédiat : le module 1 est envoyé par e-mail, étape par étape, quand tout est prêt. */
     function bravo(prenom) {
       return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
-        '<p>Tu es bien sur la liste. Ton module 1 offert t\'arrivera par e-mail, étape par étape :</p>' +
+        '<p>Tu es bien sur la liste. <b>' + FORMATION.module1.charAt(0).toUpperCase() + FORMATION.module1.slice(1) + '</b>, ton module 1 offert t\'arrive par e-mail, étape par étape :</p>' +
         '<ol class="liste-etapes">' +
           '<li><b>La feuille de cours</b><span>pour comprendre ta boucle</span></li>' +
           '<li><b>La séance audio guidée</b><span>20 minutes pour la vivre</span></li>' +
           '<li><b>Le cahier d\'exercices</b><span>et ton carnet de 7 jours</span></li>' +
         '</ol>' +
-        '<p class="discret">Tu recevras ensuite le tarif fondatrice et ton accès 48 h avant l\'ouverture, ' + FORMATION.date + '. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';
+        '<p class="discret">Tu as une semaine pour le tester. Les inscriptions ouvrent ensuite ' + FORMATION.date + ' : tu t\'inscris en priorité, au tarif fondatrice, 48 h avant l\'ouverture au public. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';
     }
     el.className = 'liste-formation';
     if (deja) { el.innerHTML = bravo(''); return; }
