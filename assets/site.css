@@ -322,3 +322,17 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .partage-boutons .pt-natif span{text-align:left}
 .partage-statut{margin:.7rem 0 0!important;font-size:.88rem;color:var(--prune-doux);min-height:1.2em;max-width:none!important}
 @media print{.partage{display:none}}
+
+/* Cœur « J'aime » et partage en haut des articles */
+.haut-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+.coeur,.haut-partager{display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;border-radius:99px;border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);font:700 .9rem/1 var(--texte);cursor:pointer;transition:transform .15s,background .15s,border-color .15s}
+.haut-partager svg{width:17px;height:17px}
+.coeur svg{width:19px;height:19px;fill:none;stroke:#C2465A;stroke-width:1.8;transition:fill .2s}
+.coeur:hover,.haut-partager:hover{transform:translateY(-2px)}
+.coeur[aria-pressed=true]{background:#FDECEE;border-color:#E9A3AE;color:#A3304A}
+.coeur[aria-pressed=true] svg{fill:#D2475F;stroke:#D2475F}
+.coeur-n:empty{display:none}
+.coeur-n{padding-left:.15rem;font-weight:700}
+.coeur.bat svg{animation:bat .45s ease}
+@keyframes bat{0%{transform:scale(1)}35%{transform:scale(1.4)}60%{transform:scale(.9)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.coeur.bat svg{animation:none}}

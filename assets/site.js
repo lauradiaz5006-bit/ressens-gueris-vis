@@ -86,6 +86,7 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
             '<li><a href="tes-20-ans.html">Jeune femme</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
+            '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
@@ -430,4 +431,53 @@ window.GENESOLIA_STRIPE = {
       else (navigator.clipboard ? navigator.clipboard.writeText(adresse) : Promise.reject()).then(function () { st.textContent = 'Lien copié : colle-le dans ta story, un message ou ta bio.'; }, function () { st.textContent = adresse; });
     });
   });
+
+  /* ===== Cœur « J'aime » (compteur dans Supabase, table jaimes) =====
+     Le nombre ne s'affiche qu'à partir de SEUIL_JAIME, pour ne pas montrer « 1 » ou « 2 » au début. */
+  var SEUIL_JAIME = 10;
+  var SB = 'https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/rpc/', SBK = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+  var pageJaime = page.replace(/\.html$/, '').toLowerCase();
+  var avecJaime = /^[a-z0-9-]{1,80}$/.test(pageJaime) && (document.querySelector('article.article') || document.querySelector('[data-partage]'));
+  function rpc(nom, corps) {
+    return fetch(SB + nom, { method: 'POST', headers: { apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json' }, body: JSON.stringify(corps) })
+      .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+  var COEUR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.4 1.1 4.1 2.3h2c.7-1.2 2.1-2.3 4.1-2.3 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg>';
+  var dejaAime = false, totalJaime = null;
+  try { dejaAime = localStorage.getItem('jaime-' + pageJaime) === '1'; } catch (e) {}
+  function majCoeurs() {
+    document.querySelectorAll('.coeur').forEach(function (b) {
+      b.setAttribute('aria-pressed', dejaAime ? 'true' : 'false');
+      b.querySelector('.coeur-txt').textContent = dejaAime ? 'Tu aimes' : 'J\'aime';
+      var n = b.querySelector('.coeur-n');
+      n.textContent = totalJaime !== null && totalJaime >= SEUIL_JAIME ? totalJaime : '';
+    });
+  }
+  function boutonCoeur() { return '<button type="button" class="coeur" aria-pressed="false">' + COEUR + '<span class="coeur-txt">J\'aime</span><span class="coeur-n"></span></button>'; }
+  if (avecJaime) {
+    var publie = document.querySelector('article.article') && document.querySelector('.page-tete .publie');
+    if (publie) {
+      var barreHaut = document.createElement('div');
+      barreHaut.className = 'haut-actions';
+      barreHaut.innerHTML = boutonCoeur() + '<button type="button" class="haut-partager"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="15" cy="4.5" r="2.3" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="10" r="2.3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="15.5" r="2.3" stroke="currentColor" stroke-width="1.5"/><path d="M7 9l6-3.3M7 11l6 3.3" stroke="currentColor" stroke-width="1.5"/></svg>Partager</button>';
+      publie.parentNode.insertBefore(barreHaut, publie.nextSibling);
+      barreHaut.querySelector('.haut-partager').addEventListener('click', function () {
+        var adr = (document.querySelector('link[rel=canonical]') || {}).href || location.href;
+        if (navigator.share) navigator.share({ title: document.title, url: adr }).catch(function () {});
+        else { var z = document.querySelector('.partage'); if (z) z.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      });
+    }
+    document.querySelectorAll('.partage-boutons').forEach(function (pb) { pb.insertAdjacentHTML('afterbegin', boutonCoeur()); });
+    majCoeurs();
+    rpc('genesolia_jaimes', { p_page: pageJaime }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('.coeur'); if (!b) return;
+      dejaAime = !dejaAime;
+      try { localStorage.setItem('jaime-' + pageJaime, dejaAime ? '1' : '0'); } catch (er) {}
+      if (totalJaime !== null) totalJaime = Math.max(0, totalJaime + (dejaAime ? 1 : -1));
+      majCoeurs();
+      document.querySelectorAll('.coeur').forEach(function (c) { c.classList.remove('bat'); void c.offsetWidth; if (dejaAime) c.classList.add('bat'); });
+      rpc('genesolia_jaime', { p_page: pageJaime, p_delta: dejaAime ? 1 : -1 }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
+    });
+  }
 })();
