@@ -39,13 +39,13 @@
     return '@font-face{font-family:"Gilda Display";font-weight:400;src:url(assets/polices/gilda-display-latin-400-normal.woff2) format("woff2")}' +
       '@font-face{font-family:"Nunito Sans";font-weight:400;src:url(assets/polices/nunito-sans-latin-400-normal.woff2) format("woff2")}' +
       '@font-face{font-family:"Nunito Sans";font-weight:600;src:url(assets/polices/nunito-sans-latin-600-normal.woff2) format("woff2")}' +
-      '@page{size:A4;margin:16mm 16mm 18mm}' +
+      '@page{size:A4;margin:15mm 12mm 17mm}' +
       '*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
-      'body{font:400 10.4pt/1.55 "Nunito Sans",system-ui,sans-serif;color:#4A2340;background:#fff}' +
+      'body{font:400 10.6pt/1.68 "Nunito Sans",system-ui,sans-serif;color:#4A2340;background:#fff;padding:0 6mm}' +
       'h1,h2,h3,h4{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;line-height:1.2}' +
       'h2{font-size:21pt;margin-bottom:3mm}h3{font-size:13.5pt;margin:0 0 1.5mm}h4{font-size:11.5pt;margin-bottom:1mm}' +
-      'p{margin-bottom:2.4mm}b{font-weight:600}' +
-      '.page{page-break-after:always;break-after:page}.page:last-child{page-break-after:auto;break-after:auto}' +
+      'p{margin-bottom:3.4mm}b{font-weight:600}' +
+      '.page{page-break-after:always;break-after:page;padding-top:4mm}.page:last-child{page-break-after:auto;break-after:auto}' +
       '.sur{font:600 7.6pt/1 "Nunito Sans";letter-spacing:.16em;text-transform:uppercase;color:#B98A55;margin-bottom:2.5mm}' +
       '.intro{color:#8E6383;font-size:9.8pt}' +
       '.bloc{border:1px solid #EBCFD5;border-radius:4mm;padding:4.5mm 5mm;margin-bottom:4mm;break-inside:avoid;page-break-inside:avoid}.bloc p:last-child{margin-bottom:0}' +
@@ -81,7 +81,7 @@
       '.note{font-size:8.4pt;color:#8E6383}' +
       '.chapeau{font-size:11pt;color:#6B2F5B;line-height:1.5}' +
       'h3{margin-top:5mm;break-after:avoid;page-break-after:avoid}.tete h3,.bloc h3{margin-top:0}' +
-      'p{orphans:3;widows:3;text-align:justify;hyphens:auto}' +
+      'p{orphans:3;widows:3;text-align:left;hyphens:manual}' +
       '.question{margin-top:4mm;break-inside:avoid;page-break-inside:avoid}' +
       '.fin{height:250mm;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:4mm}.fin .bloc{text-align:left}';
   }

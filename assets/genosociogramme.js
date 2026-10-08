@@ -1950,14 +1950,14 @@
 
   function htmlRapport(css, e) {
     var reps = detecter(), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
-    var C = '@page{size:A4;margin:16mm 16mm 18mm}' + css +
-      '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{margin:0;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.8pt;line-height:1.6}' +
+    var C = '@page{size:A4;margin:15mm 12mm 17mm}' + css +
+      '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{margin:0;padding:0 6mm;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.8pt;line-height:1.68}p{margin:0 0 3mm}' +
       'h1,h2,h3{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;line-height:1.15;margin:0}' +
       '.couv{height:255mm;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always;border-radius:8mm;padding:16mm 14mm;color:#FFF4F6;background:radial-gradient(120mm 90mm at 85% 10%,rgba(231,167,158,.45),transparent 60%),linear-gradient(160deg,#3B1747,#6B2F5B)}' +
       '.couv .marque{font-family:"Gilda Display",serif;font-size:15pt}.couv h1{color:#fff;font-size:38pt;margin:4mm 0 5mm}.couv p{color:#F7E6EE;font-size:12pt;max-width:130mm}' +
       '.couv .sur{font-size:8.5pt;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#F3DCC0}' +
       '.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:8mm}.chiffres div{background:rgba(255,255,255,.1);border:.6pt solid rgba(243,220,192,.4);border-radius:4mm;padding:4mm}.chiffres b{display:block;font-family:"Gilda Display",serif;font-weight:400;font-size:22pt;color:#fff}.chiffres span{font-size:9pt;color:#F3DCC0}' +
-      '.page{page-break-before:always}.sur2{font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;margin-bottom:2mm}' +
+      '.page{page-break-before:always;padding-top:4mm}.sur2{font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;margin-bottom:2mm}' +
       'h2{font-size:22pt;margin-bottom:5mm}h3{font-size:14pt;margin:6mm 0 2mm}.intro{color:#6E4466;margin:0 0 5mm}' +
       '.arbre-img{border:.6pt solid #EBCFD5;border-radius:4mm;padding:3mm;background:#FFF9F7}.arbre-img svg{display:block;width:100%;height:auto;max-height:225mm}' +
       '.rep{border:.6pt solid #EBCFD5;border-left:2.4mm solid var(--c);border-radius:3mm;padding:3mm 4mm;margin:0 0 3mm;break-inside:avoid}.rep b{display:block;font-weight:600;color:var(--c);font-size:10pt}.rep p{margin:1mm 0 0}' +
@@ -2058,7 +2058,7 @@
       if (acces) {
         corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
-          '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante pour garder ton rapport.</p>';
+          '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante, et laisse les marges sur <b>« Par défaut »</b>.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
         return;
       }
