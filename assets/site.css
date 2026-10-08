@@ -289,3 +289,11 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
   section[data-seo-texte]>.conteneur{padding:2rem 1.4rem;border-radius:22px}
   section[data-seo-texte] .seo-image{width:calc(100% + 2.8rem);margin:-2rem -1.4rem 1.8rem;aspect-ratio:16/8}
 }
+
+/* Accueil : les 8 portes d'entrée (visuels Instagram) */
+.portes-grille{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.portes-grille a{display:block;border-radius:18px;overflow:hidden;box-shadow:0 14px 34px rgba(107,47,91,.14);transition:transform .25s,box-shadow .25s}
+.portes-grille a:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(107,47,91,.22)}
+.portes-grille img{width:100%;height:auto}
+.portes-insta{margin-top:1.6rem;color:var(--prune-doux)}
+@media (max-width:860px){.portes-grille{grid-template-columns:repeat(2,1fr);gap:.8rem}}
