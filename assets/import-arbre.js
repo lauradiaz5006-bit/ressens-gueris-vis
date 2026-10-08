@@ -478,7 +478,7 @@
     G.fermer('fen-sauve');
     $('fichier-import').click();
   }
-  ['bt-importer', 'bt-importer-vide', 'bt-importer-barre'].forEach(function (id) { if ($(id)) $(id).addEventListener('click', choisir); });
+  ['bt-importer', 'bt-importer-vide'].forEach(function (id) { if ($(id)) $(id).addEventListener('click', choisir); });
 
   $('fichier-import').addEventListener('change', function (e) {
     var f = e.target.files[0]; e.target.value = '';
