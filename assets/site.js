@@ -57,6 +57,7 @@ window.GENESOLIA_STRIPE = {
           '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
+          '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
           '<a class="btn btn-jeunes"' + (BOUTON_JEUNES[0] === page ? ' aria-current="page"' : '') + ' href="' + BOUTON_JEUNES[0] + '">' + BOUTON_JEUNES[1] + '</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
         '</nav>' +
@@ -108,7 +109,8 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
-            '<li><a href="abonnement.html">Le Cercle · abonnement</a></li></ul></div>' +
+            '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
           '<span>Ce site propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique.</span>' +
@@ -362,4 +364,70 @@ window.GENESOLIA_STRIPE = {
     requestAnimationFrame(function () { c.classList.add('visible'); });
   }
   if (vu) setTimeout(carreCercle, 5000);
+
+  /* ===== Application installable (bouton « Installer l'appli ») ===== */
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
+  }
+  var installee = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var invite = null;
+  function montrerInstall() { document.querySelectorAll('[data-installer]').forEach(function (a) { a.hidden = false; }); }
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); invite = e; if (!installee) montrerInstall(); });
+  window.addEventListener('appinstalled', function () { invite = null; document.querySelectorAll('[data-installer]').forEach(function (a) { a.hidden = true; }); });
+  if (!installee && iOS) montrerInstall();
+  function aideInstall() {
+    var f = document.createElement('div');
+    f.className = 'appli-fenetre';
+    f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Installer l\'appli Genesolia');
+    var partage = '<svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true" style="display:inline;vertical-align:-3px"><path d="M10 2v10M6 6l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9H4v9h12V9h-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+    f.innerHTML = '<div class="appli-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
+      '<img src="/apple-touch-icon.png" alt="" width="64" height="64"><h2>Genesolia sur ton téléphone</h2>' +
+      (iOS
+        ? '<ol><li>Touche le bouton <b>Partager</b> ' + partage + ' en bas de Safari.</li><li>Choisis <b>Sur l\'écran d\'accueil</b>.</li><li>Touche <b>Ajouter</b> : l\'icône Genesolia apparaît avec tes applis.</li></ol><p>Sur iPhone, ça marche depuis Safari.</p>'
+        : '<ol><li>Ouvre le menu de ton navigateur (les trois points).</li><li>Choisis <b>Installer l\'application</b> ou <b>Ajouter à l\'écran d\'accueil</b>.</li><li>L\'icône Genesolia apparaît avec tes applis.</li></ol>') +
+      '<p class="appli-note">Gratuit, sans téléchargement dans un store. Tes outils s\'ouvrent en plein écran, comme une vraie appli.</p></div>';
+    function fermer() { f.remove(); }
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) fermer(); });
+    document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { fermer(); document.removeEventListener('keydown', k); } });
+    document.body.appendChild(f);
+    f.querySelector('.appli-fermer').focus();
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-installer]'); if (!a) return;
+    e.preventDefault();
+    if (invite) { invite.prompt(); invite.userChoice.then(function () { invite = null; }); }
+    else aideInstall();
+  });
+
+  /* ===== Partage : en bas de chaque article, et partout où il y a <div data-partage></div> ===== */
+  var colArticle = document.querySelector('article.article .colonne');
+  if (colArticle && !document.querySelector('[data-partage]')) { var zp = document.createElement('div'); zp.setAttribute('data-partage', ''); colArticle.appendChild(zp); }
+  document.querySelectorAll('[data-partage]').forEach(function (z) {
+    var adresse = (document.querySelector('link[rel=canonical]') || {}).href || location.href;
+    var titre = (document.querySelector('meta[property="og:title"]') || {}).content || document.title;
+    var image = (document.querySelector('meta[property="og:image"]') || {}).content || '';
+    var u = encodeURIComponent(adresse), t = encodeURIComponent(titre);
+    var I = {
+      partager: '<svg viewBox="0 0 20 20" fill="none"><circle cx="15" cy="4.5" r="2.3" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="10" r="2.3" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="15.5" r="2.3" stroke="currentColor" stroke-width="1.5"/><path d="M7 9l6-3.3M7 11l6 3.3" stroke="currentColor" stroke-width="1.5"/></svg>',
+      fb: '<svg viewBox="0 0 20 20"><path fill="currentColor" d="M11.2 18v-6.6h2.2l.4-2.6h-2.6V7.2c0-.8.2-1.3 1.3-1.3H14V3.6c-.2 0-1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H6.4v2.6h2.2V18z"/></svg>',
+      wa: '<svg viewBox="0 0 20 20" fill="none"><path d="M3.5 16.5l1-3.4A7 7 0 1 1 7 15.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 7.3c.2-.5.5-.5.8-.5l.5 1.2-.5.7c.4.9 1.2 1.7 2.1 2.1l.7-.5 1.2.5c0 .3 0 .6-.5.8-.6.4-1.4.4-2.3 0-1-.5-2-1.5-2.4-2.4-.4-.8-.1-1.4.4-1.9z" fill="currentColor"/></svg>',
+      pin: '<svg viewBox="0 0 20 20"><path fill="currentColor" d="M10.2 2.5C6 2.5 4 5.4 4 7.9c0 1.5.6 2.8 1.8 3.3.2.1.4 0 .4-.2l.2-.7c0-.2 0-.3-.1-.5-.4-.4-.6-1-.6-1.8 0-2.3 1.7-4.4 4.5-4.4 2.4 0 3.8 1.5 3.8 3.5 0 2.6-1.2 4.8-2.9 4.8-.9 0-1.6-.8-1.4-1.7.3-1.1.8-2.3.8-3.1 0-.7-.4-1.3-1.2-1.3-1 0-1.7 1-1.7 2.3 0 .8.3 1.4.3 1.4l-1.1 4.7c-.3 1.4 0 3.1 0 3.3 0 .1.2.1.2 0 .1-.1 1.1-1.4 1.4-2.7l.6-2.2c.3.5 1.1 1 2 1 2.6 0 4.4-2.4 4.4-5.6C16 4.8 13.8 2.5 10.2 2.5z"/></svg>',
+      lien: '<svg viewBox="0 0 20 20" fill="none"><path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.5 3.5 0 0 0-5-5l-1 1M11.5 8.5a3.5 3.5 0 0 0-5 0L4 11a3.5 3.5 0 0 0 5 5l1-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+    };
+    z.className = 'partage';
+    z.innerHTML = '<p class="partage-titre">' + (z.getAttribute('data-partage') || 'Ça t\'a parlé ? Partage-le à quelqu\'un qui en a besoin.') + '</p><div class="partage-boutons">' +
+      (navigator.share ? '<button type="button" class="pt-natif" data-pt="natif">' + I.partager + '<span>Partager <small>Instagram, Messenger, SMS…</small></span></button>' : '') +
+      '<a href="https://www.facebook.com/sharer/sharer.php?u=' + u + '" target="_blank" rel="noopener" aria-label="Partager sur Facebook">' + I.fb + '<span>Facebook</span></a>' +
+      '<a href="https://wa.me/?text=' + t + '%20' + u + '" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">' + I.wa + '<span>WhatsApp</span></a>' +
+      (image ? '<a href="https://www.pinterest.fr/pin/create/button/?url=' + u + '&media=' + encodeURIComponent(image) + '&description=' + t + '" target="_blank" rel="noopener" aria-label="Épingler sur Pinterest">' + I.pin + '<span>Pinterest</span></a>' : '') +
+      '<button type="button" data-pt="lien">' + I.lien + '<span>Copier le lien</span></button>' +
+      '</div><p class="partage-statut" aria-live="polite"></p>';
+    var st = z.querySelector('.partage-statut');
+    z.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-pt]'); if (!b) return;
+      if (b.getAttribute('data-pt') === 'natif') navigator.share({ title: titre, url: adresse }).catch(function () {});
+      else (navigator.clipboard ? navigator.clipboard.writeText(adresse) : Promise.reject()).then(function () { st.textContent = 'Lien copié : colle-le dans ta story, un message ou ta bio.'; }, function () { st.textContent = adresse; });
+    });
+  });
 })();
