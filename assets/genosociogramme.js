@@ -698,6 +698,102 @@
     });
     if (sauts.length) reps.push({ type: 'metier', tags: 'metier saute generation grand-parent petit-enfant ascendant descendant', label: 'Un métier qui saute une génération' + (sauts.length > 1 ? ', ' + sauts.length + ' fois' : ''), desc: sauts.slice(0, 5).map(function (x) { return x.txt; }).join(' ; ') + '.', ids: [].concat.apply([], sauts.map(function (x) { return x.ids; })) });
 
+    /* ── Pistes issues des notions publiques de psychogénéalogie (formulées pour Genesolia) ── */
+    function plein(d) { return /^\d{4}-\d{2}-\d{2}$/.test(String(d || '')); }
+    function enJours(d) { var m = String(d).match(/^(\d{4})-(\d{2})-(\d{2})$/); return Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5; }
+    function freres(id) { var l = []; (parentsDe[id] || []).forEach(function (pa) { (enfantsDe[pa] || []).forEach(function (e) { if (e !== id && l.indexOf(e) < 0) l.push(e); }); }); return l; }
+    function procheDe(g) {   // parents, grands-parents, frères et sœurs, oncles et tantes
+      var l = [], add = function (x) { if (x && x !== g && l.indexOf(x) < 0) l.push(x); };
+      (parentsDe[g] || []).forEach(function (pa) { add(pa); (parentsDe[pa] || []).forEach(add); freres(pa).forEach(add); });
+      freres(g).forEach(add);
+      return l;
+    }
+    // 7. Conçu·e pendant un deuil : décès d'un proche entre 12 mois avant la conception estimée (naissance − 266 jours) et la naissance
+    var concus = [];
+    liste.forEach(function (g) {
+      var an = annee(g.naiss); if (!an) return;
+      procheDe(g.id).forEach(function (did) {
+        var d = S.people[did], ad = annee(d.deces); if (!ad) return;
+        var ok, quand;
+        if (plein(g.naiss) && plein(d.deces)) {
+          var nj = enJours(g.naiss), dj = enJours(d.deces), conc = nj - 266;
+          ok = dj >= conc - 365 && dj <= nj;
+          quand = dj < conc ? Math.max(1, Math.round((conc - dj) / 30.4)) + ' mois avant sa conception' : 'pendant la grossesse';
+        } else { ok = ad === an || ad === an - 1; quand = ad === an ? 'l’année de sa naissance' : 'l’année avant sa naissance'; }
+        if (ok && ad <= an) concus.push({ g: g, d: d, txt: nomA(g) + ' : ' + nom(d) + ' ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' ' + quand, proche: (parentsDe[g.id] || []).indexOf(did) >= 0 || freres(g.id).indexOf(did) >= 0 });
+      });
+    });
+    if (concus.length) reps.push({ type: 'gisant', qk: 'conception', fort: concus.some(function (x) { return x.proche; }), tags: 'conception concu deuil grossesse projet sens',
+      label: 'Conçu·e pendant un deuil' + (concus.length > 1 ? ', ' + concus.length + ' fois' : ''), desc: concus.slice(0, 6).map(function (x) { return x.txt; }).join(' ; ') + '.',
+      ids: [].concat.apply([], concus.map(function (x) { return [x.g.id, x.d.id]; })) });
+    // 8. Un enfant qui naît après la perte d'un frère ou d'une sœur (dans les 24 mois)
+    liste.forEach(function (g) {
+      var an = annee(g.naiss); if (!an) return;
+      freres(g.id).forEach(function (sid) {
+        var sb = S.people[sid], ad = ageDeces(sb), fin = annee(sb.deces); if (!fin || ad == null || ad >= 18) return;
+        var ecart = plein(g.naiss) && plein(sb.deces) ? (enJours(g.naiss) - enJours(sb.deces)) / 30.4 : (an - fin) * 12;
+        if (ecart < 0 || ecart > 24) return;
+        var memeSexe = g.sex && g.sex === sb.sex, memeNom = morceaux(g).some(function (t) { return morceaux(sb).some(function (u) { return racine(t) === racine(u); }); });
+        reps.push({ type: 'gisant', qk: 'remplacement', fort: !!(memeSexe || memeNom), tags: 'enfant remplacement frere soeur perte',
+          label: 'Né' + (g.sex === 'f' ? 'e' : '') + ' après la perte d’un' + (sb.sex === 'f' ? 'e sœur' : ' frère') + ' : ' + nom(g),
+          desc: nom(sb) + ' est ' + (sb.sex === 'f' ? 'décédée' : 'décédé') + (ad < 1 ? ' avant 1 an' : ' à ' + ad + ' an' + (ad > 1 ? 's' : '')) + ' en ' + fin + ', puis ' + nomA(g) + ' arrive ' + (ecart < 1 ? 'quelques semaines après' : Math.round(ecart) + ' mois après') + (memeSexe ? ', du même sexe' : '') + (memeNom ? ', avec un prénom proche' : '') + '.', ids: [sb.id, g.id] });
+      });
+    });
+    // 9. La perte du premier enfant, à plusieurs générations
+    var premiers = [];
+    Object.keys(fratries).forEach(function (k) {
+      var f = fratries[k].filter(function (e) { return annee(e.naiss); }).sort(function (x, y) { return (annee(x.naiss) - annee(y.naiss)) || (plein(x.naiss) && plein(y.naiss) ? enJours(x.naiss) - enJours(y.naiss) : 0); });
+      if (f.length < 2) return; var e0 = f[0], ad = ageDeces(e0);
+      if ((ad != null && ad < 18) || a(e0, 'deces-precoce')) premiers.push({ txt: k.split('+').map(function (id) { return nom(S.people[id]); }).join(' et ') + ' perdent leur premier enfant, ' + nom(e0) + (ad != null ? ' (' + (ad < 1 ? 'moins d’un an' : ad + ' an' + (ad > 1 ? 's' : '')) + ')' : ''), ids: k.split('+').concat([e0.id]) });
+    });
+    if (premiers.length >= 2) reps.push({ type: 'depart', qk: 'premier', fort: premiers.length >= 3, tags: 'premier enfant aine perte deces', label: 'La perte du premier enfant, ' + premiers.length + ' fois', desc: premiers.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: [].concat.apply([], premiers.map(function (x) { return x.ids; })) });
+    // 10. Le même âge pour devenir parent, sur 3 générations ou plus
+    function agePremier(p) { var an = annee(p && p.naiss); if (!an) return null; var e = (enfantsDe[p.id] || []).map(function (x) { return annee(S.people[x].naiss); }).filter(Boolean); return e.length ? Math.min.apply(null, e) - an : null; }
+    chaine(function (pa, en) { var x = agePremier(pa), y = agePremier(en); return x != null && y != null && x >= 14 && y >= 14 && Math.abs(x - y) <= 2; }).forEach(function (l) {
+      reps.push({ type: 'schema', qk: 'ageparent', tags: 'age parent premier enfant devenir mere pere', label: 'Parent au même âge, sur ' + l.length + ' générations', desc: l.map(function (id) { var p = S.people[id]; return nom(p) + ' : ' + agePremier(p) + ' ans'; }).reverse().join(' → ') + '.', ids: l });
+    });
+    // 11. Contexte historique : les hommes en âge d'être mobilisés pendant les guerres
+    var GUERRES = [[1870, 1871, 'la guerre de 1870'], [1914, 1918, 'la Première Guerre mondiale'], [1939, 1945, 'la Seconde Guerre mondiale'], [1946, 1954, 'la guerre d’Indochine'], [1954, 1962, 'la guerre d’Algérie']];
+    var mobil = [];
+    GUERRES.forEach(function (gu) {
+      var l = liste.filter(function (p) { var an = annee(p.naiss), fin = annee(p.deces); return p.sex === 'm' && an && an + 18 <= gu[1] && an + 45 >= gu[0] && (!fin || fin >= gu[0]); });
+      if (l.length) mobil.push({ txt: gu[2] + ' : ' + l.slice(0, 8).map(function (p) { return nom(p) + ' (' + (Math.max(gu[0], annee(p.naiss) + 18) - annee(p.naiss)) + ' ans en ' + Math.max(gu[0], annee(p.naiss) + 18) + ')'; }).join(', ') + (l.length > 8 ? '…' : ''), ids: l.map(function (p) { return p.id; }) });
+    });
+    if (mobil.length) reps.push({ type: 'epreuve', qk: 'guerre', tags: 'guerre histoire mobilise contexte socio', label: 'En âge d’être mobilisés', desc: mobil.map(function (x) { return x.txt; }).join(' ; ') + '. Ce n’est qu’une question d’âge : que sait-on de ce qu’ils ont vécu ?', ids: [].concat.apply([], mobil.map(function (x) { return x.ids; })) });
+    // 12. Zones d'ombre : un grand écart dans une fratrie, un ancêtre direct sans aucune date
+    var ombres = [], idsO = [];
+    Object.keys(fratries).forEach(function (k) {
+      var f = fratries[k].filter(function (e) { return annee(e.naiss); }).sort(function (x, y) { return annee(x.naiss) - annee(y.naiss); });
+      for (var i = 1; i < f.length; i++) { var ec = annee(f[i].naiss) - annee(f[i - 1].naiss); if (ec > 6) { ombres.push(ec + ' ans entre ' + nom(f[i - 1]) + ' et ' + nom(f[i])); idsO.push(f[i - 1].id, f[i].id); } }
+    });
+    var sansDate = liste.filter(function (p) { return !p.naiss && !p.deces && (enfantsDe[p.id] || []).length && (!moi || !!lienDe(p.id)); });
+    if (sansDate.length) { ombres.push('aucune date pour ' + sansDate.slice(0, 6).map(nom).join(', ') + (sansDate.length > 6 ? '…' : '')); sansDate.forEach(function (p) { idsO.push(p.id); }); }
+    if (ombres.length) reps.push({ type: 'schema', qk: 'ombre', tags: 'zone ombre secret ecart fratrie manque date inconnu', label: 'Des zones d’ombre à explorer', desc: ombres.slice(0, 6).join(' ; ') + '. Ce sont des questions, pas des conclusions.', ids: idsO });
+
+    // Questions pour réfléchir, selon la piste
+    var QUESTIONS = {
+      anniversaire: ['Que se passe-t-il dans ta vie en ce moment ?', 'Que sais-tu de ce que cette personne vivait à cet âge ?'],
+      gisant: ['Ce décès a-t-il pu être pleuré, ou n’en parlait-on pas ?', 'Qui a choisi les prénoms à cette période, et pourquoi ?'],
+      conception: ['Que traversait la famille quand cet enfant a été attendu ?', 'Comment cette naissance a-t-elle été accueillie, en plein deuil ?'],
+      remplacement: ['Cet enfant a-t-il été comparé à celui ou celle qui manquait ?', 'Qu’a-t-on raconté de l’enfant perdu ?'],
+      premier: ['Comment la famille parlait-elle de ce premier enfant ?', 'Quelle place a pris l’enfant suivant ?'],
+      ageparent: ['Comment l’âge de devenir parent s’est-il décidé à chaque génération ?', 'Et toi, comment te situes-tu par rapport à cet âge ?'],
+      guerre: ['Qu’a-t-on raconté de cette période dans ta famille ?', 'Qui est parti, qui est resté, qui est revenu changé ?'],
+      ombre: ['Qui pourrait en savoir plus : cousins, voisins, archives ?', 'Sur quels sujets t’a-t-on répondu de façon évasive ?'],
+      cousins: ['Que sais-tu de ces deux branches avant qu’elles ne se rejoignent ?', 'Qu’est-ce qui comptait, dans cette famille, au moment de choisir un conjoint ?'],
+      depart: ['Ces départs ont-ils pu être pleurés ?', 'Quelqu’un a-t-il pris la place laissée vide ?'],
+      date: ['Comment cette date est-elle vécue dans ta famille ?', 'Te sens-tu différent·e à cette période de l’année ?'],
+      epreuve: ['Comment cet événement a-t-il été raconté à chaque génération ?', 'Où en es-tu, toi, avec ce type d’événement ?'],
+      schema: ['Te reconnais-tu dans cette façon de faire ?', 'Qu’est-ce que cela a protégé, autrefois ?'],
+      enfants: ['Attendait-on plutôt une fille ou un garçon ?', 'Quelle place avait chacun selon son rang ?'],
+      metier: ['Ce métier a-t-il été choisi, ou s’est-il imposé ?', 'Quel métier aurait-on rêvé d’exercer ?'],
+      prenom: ['Qui a choisi ce prénom, et pour quelle raison ?', 'Qu’évoque ce prénom dans ta famille ?']
+    };
+    reps.forEach(function (r) {
+      var k = r.qk || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
+      r.q = QUESTIONS[k] || null;
+    });
+
     // Mots-clés pour la recherche dans le panneau
     var TAGS = { anniversaire: 'syndrome anniversaire age', gisant: 'gisant syndrome deces naissance memoire', depart: 'mort jeune deces precoce depart', date: 'date anniversaire jour', epreuve: 'evenement epreuve', schema: 'schema', metier: 'metier profession lignee', prenom: 'prenom' };
     reps.forEach(function (r) { r.tags = (r.tags ? r.tags + ' ' : '') + (TAGS[r.type] || '') + (/cousins/.test(r.label) ? ' cousins implexe mariage consanguin' : ''); });
@@ -917,7 +1013,12 @@
     ['métier', 'Métiers de la lignée', 'Ajoute le métier de chacun : les transmissions, ruptures et sauts de génération apparaîtront.'],
     ['mort jeune', 'Morts jeunes', 'Il faut les années de naissance et de décès.'],
     ['cousins', 'Mariages entre cousins', 'Un même ancêtre doit apparaître dans deux branches.'],
-    ['date', 'Dates qui reviennent', 'Il faut des dates complètes (jour et mois).']
+    ['date', 'Dates qui reviennent', 'Il faut des dates complètes (jour et mois).'],
+    ['conception', 'Conception et deuil', 'Il faut les dates de naissance des enfants et les dates de décès de leurs proches.'],
+    ['guerre', 'Guerres', 'Il faut le sexe et l’année de naissance des hommes de l’arbre.'],
+    ['zone ombre', 'Zones d’ombre', 'Ajoute les frères et sœurs avec leurs années de naissance.'],
+    ['premier enfant', 'Premier enfant', 'Ajoute tous les enfants de chaque couple, avec leurs dates.'],
+    ['age parent', 'Âge pour devenir parent', 'Il faut les années de naissance des parents et de leurs enfants, sur plusieurs générations.']
   ];
   var recherche = '';
   function correspond(r, mots) { var t = norm(r.label + ' ' + r.desc + ' ' + (r.tags || '')); return mots.every(function (m) { return t.indexOf(m) >= 0; }); }
@@ -967,7 +1068,7 @@
     }
     z.innerHTML = (mots.length ? info : blocExo) + visibles.map(function (i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
-      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>' +
+      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' + (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
