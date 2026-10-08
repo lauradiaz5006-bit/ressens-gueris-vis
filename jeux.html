@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeux pour se rapprocher : questions entre amies, en couple, en famille</title>
+  <meta name="description" content="Trois jeux gratuits à jouer sur ton téléphone, entre amies, en couple, en famille ou en soirée : des questions qui rapprochent, des phrases à dire autrement, vérité ou gratitude.">
+  <link rel="canonical" href="https://genesolia.fr/jeux.html">
+  <meta property="og:title" content="Jeux pour se rapprocher · Genesolia">
+  <meta property="og:description" content="Des questions qui rapprochent, des phrases à dire autrement, vérité ou gratitude. Gratuit, sur ton téléphone.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/relations.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .j-tete{position:relative;overflow:hidden;color:#fff;background:linear-gradient(130deg,#3A1745,#6B2F5B 55%,#C96F63);padding:3.4rem 0 3rem}
+    .j-tete .conteneur{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem;align-items:center}
+    .j-tete .sur{display:inline-block;font:700 .8rem/1 var(--texte);letter-spacing:.04em;background:rgba(255,255,255,.16);padding:.45rem .8rem;border-radius:99px;margin-bottom:1rem}
+    .j-tete h1{color:#fff;margin-bottom:1rem}.j-tete h1 em{color:#F7C7BE}
+    .j-tete .intro{color:#F6E3EC;font-size:1.12rem;max-width:34rem}
+    .j-tete .mention{margin-top:1.2rem;font-size:.88rem;color:#E9CFDD}
+    .j-pile{position:relative;height:17rem}
+    .j-pile .pc{position:absolute;inset:0 auto auto 50%;width:13rem;height:16rem;margin-left:-6.5rem;border-radius:22px;padding:1.4rem;display:flex;align-items:flex-end;font-family:var(--display);font-size:1.25rem;line-height:1.25;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+    .j-pile .pc:nth-child(1){background:#FBF0E4;color:var(--prune);transform:rotate(-12deg) translateX(-6.5rem);align-items:flex-start;padding-right:5.5rem;font-size:1.1rem}
+    .j-pile .pc:nth-child(2){background:#F9DCD6;color:var(--prune);transform:rotate(9deg) translateX(6.5rem);align-items:flex-start;justify-content:flex-end;text-align:right}
+    .j-pile .pc:nth-child(3){background:#fff;color:var(--prune);transform:rotate(-1deg)}
+    .j-choix{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .j-choix button{font:inherit;text-align:left;cursor:pointer;border:0;border-radius:24px;padding:1.6rem 1.4rem;color:var(--prune);box-shadow:0 14px 34px rgba(107,47,91,.1);transition:transform .2s,box-shadow .2s;outline-offset:4px}
+    .j-choix button:hover,.j-choix button[aria-pressed=true]{transform:translateY(-4px);box-shadow:0 22px 44px rgba(107,47,91,.18)}
+    .j-choix button[aria-pressed=true]{outline:3px solid var(--prune)}
+    .j-choix .a{background:linear-gradient(150deg,#FFF1EE,#F9DCD6)}.j-choix .b{background:linear-gradient(150deg,#F6ECF6,#E9D4EC)}.j-choix .c{background:linear-gradient(150deg,#FBF0E4,#F3DCC0)}
+    .j-choix strong{display:block;font-family:var(--display);font-weight:400;font-size:1.45rem;margin:.4rem 0 .4rem}
+    .j-choix small{display:block;font-size:.95rem;color:var(--prune-doux);line-height:1.45}
+    .j-choix .num{font:700 .78rem/1 var(--texte);letter-spacing:.06em;color:#A4473D}
+    #jeu{scroll-margin-top:5.5rem;margin-top:2rem}
+    .j-reglage,.j-carte{max-width:34rem;margin:0 auto;text-align:center}
+    .j-reglage{background:var(--blanc);border:1px solid var(--rose);border-radius:26px;padding:2rem 1.6rem}
+    .j-reglage h2{margin-bottom:1.2rem}
+    .j-sur{font:700 .8rem/1 var(--texte);color:#A4473D;letter-spacing:.04em;margin:0 auto .5rem!important}
+    .j-label{font-weight:700;font-size:.9rem;margin:1rem auto .6rem!important}
+    .j-puces{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+    .j-puces button{font:600 .95rem/1.2 var(--texte);padding:.6rem 1rem;border-radius:99px;border:1.5px solid var(--rose-fonce);background:var(--nacre);color:var(--prune);cursor:pointer}
+    .j-puces button[aria-pressed=true]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .j-puces small{font-size:.72rem;opacity:.8}
+    .j-go{margin-top:1.6rem}
+    .j-barre{max-width:34rem;margin:0 auto 1rem;display:flex;justify-content:space-between;align-items:center;font-size:.88rem;color:var(--prune-doux)}
+    .j-lien{background:none;border:0;font:600 .88rem var(--texte);color:var(--prune);text-decoration:underline;cursor:pointer;padding:0}
+    .j-carte{position:relative;min-height:19rem;border-radius:28px;padding:2.4rem 1.8rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;box-shadow:0 26px 60px rgba(107,47,91,.18);background:linear-gradient(160deg,#fff,#FFF4F1)}
+    .j-carte.tourne{animation:tourne .45s ease both}
+    @keyframes tourne{from{opacity:0;transform:perspective(900px) rotateY(-70deg) scale(.95)}to{opacity:1;transform:none}}
+    .n-leger{background:linear-gradient(160deg,#FFF6EC,#F9DCD6)}.n-profond{background:linear-gradient(160deg,#F6ECF6,#E2C8E6)}.n-famille{background:linear-gradient(160deg,#FBF0E4,#EBD3B4)}
+    .c-dire{background:linear-gradient(160deg,#FFF1EE,#F4C9C1)}.c-v{background:linear-gradient(160deg,#F6ECF6,#E2C8E6)}.c-g{background:linear-gradient(160deg,#FFF6EC,#F3DCC0)}
+    .j-type{font:700 .78rem/1 var(--texte);letter-spacing:.06em;text-transform:uppercase;color:#A4473D;margin:0 auto!important}
+    .j-texte{font-family:var(--display);font-size:clamp(1.5rem,5vw,2rem);line-height:1.25;margin:0 auto!important;max-width:none!important}
+    .j-barre-texte{text-decoration:line-through;text-decoration-color:rgba(164,71,61,.55);text-decoration-thickness:2px}
+    .j-petit{font-size:.92rem;color:var(--prune-doux);margin:0 auto!important}
+    .j-idee{margin-top:.4rem}.j-idee summary{cursor:pointer;font-weight:700;color:var(--prune)}.j-idee p{font-family:var(--display);font-size:1.25rem;margin:.7rem auto 0!important}
+    .j-deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .j-gros{font:400 1.6rem/1 var(--display);padding:2.2rem 1rem;border-radius:22px;border:0;cursor:pointer;color:var(--prune);transition:transform .2s}
+    .j-gros:hover{transform:scale(1.04)}.j-gros.v{background:#E2C8E6}.j-gros.g{background:#F3DCC0}
+    .j-consigne{font-family:var(--display);font-size:1.4rem;margin:0 auto!important}
+    .j-actions{text-align:center;margin-top:1.4rem}
+    .j-regles{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+    .j-regles div{background:var(--blanc);border:1px solid var(--rose);border-radius:20px;padding:1.3rem}
+    .j-regles b{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.3rem}
+    .j-regles p{font-size:.95rem;color:var(--prune-doux)}
+    @media (max-width:860px){.j-tete .conteneur{grid-template-columns:1fr}.j-pile{display:none}.j-choix,.j-regles{grid-template-columns:1fr}}
+    @media (prefers-reduced-motion:reduce){.j-carte.tourne{animation:none}}
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tout est offert", "item": "https://genesolia.fr/offert.html"}, {"@type": "ListItem", "position": 3, "name": "Jeux pour se rapprocher", "item": "https://genesolia.fr/jeux.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="j-tete">
+      <div class="conteneur">
+        <div>
+          <span class="sur">Gratuit · sur ton téléphone · sans compte</span>
+          <h1>Des jeux pour se rapprocher, <em>et se parler mieux.</em></h1>
+          <p class="intro">Entre amies, en couple, en famille ou en soirée : pose le téléphone au milieu, tire une carte, et laisse les conversations faire le reste.</p>
+          <p class="mention">3 jeux · plus de 100 cartes · de 2 à 10 personnes</p>
+        </div>
+        <div class="j-pile" aria-hidden="true">
+          <div class="pc">«&nbsp;Tu fais toujours ça.&nbsp;»</div>
+          <div class="pc">Gratitude</div>
+          <div class="pc">Qu'est-ce qui te fait te sentir aimé·e, vraiment ?</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc" aria-labelledby="choix-titre">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2 id="choix-titre">Choisis ton jeu</h2><p>Tu changes de jeu quand tu veux.</p></div>
+        <div class="j-choix">
+          <button type="button" class="a" data-jeu="rapprochent" aria-pressed="false"><span class="num">JEU 1</span><strong>Les cartes qui rapprochent</strong><small>Des questions légères, profondes ou sur ta famille. Chacun·e répond, et on se découvre.</small></button>
+          <button type="button" class="b" data-jeu="dire" aria-pressed="false"><span class="num">JEU 2</span><strong>Dis-le autrement</strong><small>Une phrase qui blesse s'affiche. Chacun·e la redit avec douceur, et le groupe vote.</small></button>
+          <button type="button" class="c" data-jeu="gratitude" aria-pressed="false"><span class="num">JEU 3</span><strong>Vérité ou gratitude</strong><small>Un « action ou vérité » tout doux : une vraie question, ou un merci à quelqu'un du groupe.</small></button>
+        </div>
+        <div id="jeu" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" aria-labelledby="regles-titre">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2 id="regles-titre">Trois règles pour que ça reste doux</h2></div>
+        <div class="j-regles">
+          <div><b>On a le droit de passer</b><p>Personne n'est obligé·e de répondre. Dire « je passe » suffit, sans se justifier.</p></div>
+          <div><b>Ce qui se dit ici reste ici</b><p>On ne se moque pas, on ne répète pas. C'est ce qui permet d'oser.</p></div>
+          <div><b>On écoute jusqu'au bout</b><p>Pas de conseil, pas de jugement : juste écouter, et dire merci.</p></div>
+        </div>
+        <div data-partage="Tu connais quelqu'un qui adorerait y jouer ? Envoie-lui le jeu."></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/jeux.js"></script>
+</body>
+</html>

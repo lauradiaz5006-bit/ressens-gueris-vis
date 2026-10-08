@@ -76,6 +76,12 @@
     @media (max-width:960px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr 1fr}}
     @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-cercle img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
     @media (max-width:560px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr}.o-tete .conteneur{padding:3rem 0}}
+    .o-jeux{display:grid;gap:.4rem;margin-top:1rem;padding:1.6rem 1.8rem;border-radius:var(--rayon);text-decoration:none;color:#fff;background:linear-gradient(130deg,#3A1745,#6B2F5B 55%,#C96F63);box-shadow:0 18px 44px rgba(107,47,91,.2);transition:transform .2s}
+    .o-jeux:hover{transform:translateY(-3px)}
+    .o-jeux-sur{font:700 .78rem/1 var(--texte);letter-spacing:.05em;color:#F7C7BE}
+    .o-jeux strong{font-family:var(--display);font-weight:400;font-size:1.7rem}
+    .o-jeux span{color:#F6E3EC;max-width:40rem}
+    .o-jeux .o-jeux-bt{justify-self:start;margin-top:.5rem;padding:.6rem 1.2rem;border-radius:99px;background:#F7C7BE;color:var(--prune);font-weight:700}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tout ce qui est offert", "item": "https://genesolia.fr/offert.html"}]}</script>
 </head>
@@ -208,6 +214,12 @@
           </div>
           <a class="btn" href="tes-20-ans.html">Découvrir l'espace Jeune femme</a>
         </div>
+        <a class="o-jeux" href="jeux.html">
+          <span class="o-jeux-sur">Nouveau · à jouer à plusieurs</span>
+          <strong>Des jeux pour se rapprocher</strong>
+          <span>Entre amies, en couple, en famille ou en soirée : des questions qui rapprochent, des phrases à dire autrement, vérité ou gratitude.</span>
+          <span class="o-jeux-bt">Jouer maintenant</span>
+        </a>
       </div>
     </section>
 
