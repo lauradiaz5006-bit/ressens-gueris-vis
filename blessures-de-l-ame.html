@@ -85,6 +85,20 @@
 
     .b-cycle{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.4rem 0 .8rem}
     #b-resultat a{color:var(--prune)}
+    .cocher label{border-radius:12px;padding:.5rem .6rem!important;margin:0 -.6rem;transition:background .2s}
+    .cocher label:has(input:checked){background:#F6E3EC;font-weight:600}
+    .b-retour{margin-top:.9rem;padding:.9rem 1rem;border-radius:14px;background:var(--blanc);border:1px solid var(--rose-fonce);font-size:.95rem;animation:b-in .3s ease both}
+    .b-retour .jauge{height:6px;border-radius:6px;background:var(--rose);margin:.5rem 0 .6rem;overflow:hidden}
+    .b-retour .jauge i{display:block;height:100%;background:var(--prune);border-radius:6px;transition:width .3s}
+    .b-retour a{font-weight:700}
+    @keyframes b-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .b-pilule{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%) translateY(150%);z-index:60;display:flex;align-items:center;gap:.6rem;padding:.75rem 1.2rem;border-radius:99px;border:0;background:var(--prune);color:#fff;font:700 .95rem/1.2 var(--texte);box-shadow:0 14px 34px rgba(46,19,56,.35);cursor:pointer;transition:transform .3s;white-space:nowrap}
+    .b-pilule.visible{transform:translateX(-50%) translateY(0)}
+    .b-pilule span{background:#F7C7BE;color:var(--prune);border-radius:99px;padding:.15rem .55rem;font-size:.85rem}
+    #b-resultat.plein{background:linear-gradient(150deg,#FFF1EE,#F6E3EC);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.6rem}
+    #b-resultat .b-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+    #b-resultat .b-actions .btn{text-decoration:none}#b-resultat .b-actions .btn-plein{color:#fff!important}
+    @media (prefers-reduced-motion:reduce){.b-retour{animation:none}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Les cinq blessures de l'âme", "item": "https://genesolia.fr/blessures-de-l-ame.html"}]}</script>
 </head>
@@ -218,7 +232,20 @@
     var cy=r>c?'la <a href="methode.html">racine</a> (cycle 1) : la sécurité, la place, le droit d\'exister':c>r?'le <a href="methode.html">cœur</a> (cycle 2) : le lien, la confiance, la façon d\'aimer':'les deux cycles, à parts égales';
     z.innerHTML='<strong>Ce qui te parle le plus : '+top.map(function(k){var pg={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};return '<a href="'+pg[k]+'.html">'+noms[k]+'</a>';}).join(' et ')+'.</strong> Tes réponses touchent surtout '+cy+'. Ce n\'est pas une vérité sur toi : une piste pour savoir où regarder. Clique sur une blessure pour lire ses signes, son masque et ce qu\'elle rejoue dans ta famille.';
   }
-  document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',maj);});
+  var PG={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};
+  var pil=document.createElement('button');pil.type='button';pil.className='b-pilule';pil.innerHTML='Voir mon résultat <span>0</span>';document.body.appendChild(pil);
+  pil.addEventListener('click',function(){z.scrollIntoView({behavior:'smooth',block:'center'});});
+  var vuRes=false;
+  if('IntersectionObserver' in window){new IntersectionObserver(function(e){vuRes=e[0].isIntersecting;pilule();}).observe(z);}
+  function pilule(){var n=document.querySelectorAll('[data-blessure] input:checked').length;pil.querySelector('span').textContent=n;pil.classList.toggle('visible',n>0&&!vuRes);}
+  function retour(b){
+    var k=b.getAttribute('data-blessure'),tous=b.querySelectorAll('input').length,n=b.querySelectorAll('input:checked').length,r=b.querySelector('.b-retour');
+    if(!n){if(r)r.remove();return;}
+    if(!r){r=document.createElement('div');r.className='b-retour';r.setAttribute('aria-live','polite');b.appendChild(r);}
+    var msg=n/tous>=.6?'Cette blessure te parle beaucoup.':n/tous>=.34?'Cette blessure te parle.':'Une piste à garder en tête.';
+    r.innerHTML='<strong>'+n+' phrase'+(n>1?'s':'')+' sur '+tous+'</strong> · '+msg+'<div class="jauge"><i style="width:'+Math.round(n/tous*100)+'%"></i></div><a href="'+PG[k]+'.html">Lire tout sur '+noms[k]+'</a>';
+  }
+  document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',function(){retour(i.closest('[data-blessure]'));maj();z.classList.toggle('plein',!!document.querySelector('[data-blessure] input:checked'));if(z.classList.contains('plein')&&!z.querySelector('.b-actions'))z.insertAdjacentHTML('beforeend','<div class="b-actions"><a class="btn btn-plein" href="genosociogramme.html">Chercher d\'où elle vient dans mon arbre</a><a class="btn btn-trait" href="formation.html">Sortir de la boucle</a></div>');pilule();});});
 })();
 </script>
 </body>
