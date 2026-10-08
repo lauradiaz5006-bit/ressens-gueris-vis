@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tout ce qui est offert sur Genesolia · outils gratuits</title>
+  <meta name="description" content="Arbre familial, thème numérologique, thème astral, blessures de l'âme, prénoms, carnets à imprimer : tous les outils gratuits de Genesolia réunis sur une page.">
+  <link rel="canonical" href="https://genesolia.fr/offert.html">
+  <meta property="og:title" content="Tout ce qui est offert sur Genesolia">
+  <meta property="og:description" content="Plus de 20 outils, lectures et carnets gratuits pour comprendre ce qui se répète dans ta vie et dans ta famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .o-tete{position:relative;overflow:hidden;background:#2E1338;color:#FFF4F6}
+    .o-tete img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+    .o-tete::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(46,19,56,.95),rgba(46,19,56,.7) 55%,rgba(107,47,91,.2))}
+    .o-tete .conteneur{position:relative;z-index:1;padding:4.5rem 0 4rem}
+    .o-sur{font-size:.8rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem}
+    .o-tete h1{color:#fff;font-size:clamp(2.3rem,5.4vw,3.8rem);line-height:1.05;margin-bottom:1rem;max-width:44rem}
+    .o-tete h1 em{font-style:normal;color:var(--champagne-clair)}
+    .o-tete .intro{color:#F7E6EE;font-size:1.12rem;max-width:36rem;margin-bottom:2rem}
+    .o-compteurs{display:flex;flex-wrap:wrap;gap:1rem}
+    .o-compteurs div{padding:1rem 1.3rem;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(243,220,192,.35);min-width:9rem}
+    .o-compteurs b{display:block;font:400 2.2rem/1 var(--display);color:#fff}
+    .o-compteurs span{font-size:.88rem;color:#F3DCC0}
+    .o-nav{position:sticky;top:0;z-index:20;background:rgba(255,249,247,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--rose-fonce)}
+    .o-nav .conteneur{display:flex;gap:.5rem;overflow-x:auto;padding:.7rem 0;scrollbar-width:none}
+    .o-nav a{flex:none;padding:.45rem 1rem;border-radius:99px;background:var(--rose);color:var(--prune);font-size:.9rem;font-weight:600;text-decoration:none;white-space:nowrap}
+    .o-nav a:hover{background:var(--champagne-clair)}
+    .o-section{scroll-margin-top:4rem}
+    .o-section .bloc-tete h2 small{display:inline-block;margin-left:.6rem;vertical-align:middle;font:600 .75rem var(--texte);letter-spacing:.08em;text-transform:uppercase;background:var(--champagne-clair);color:var(--prune);border-radius:99px;padding:.25rem .7rem}
+    .o-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+    .o-grille.quatre{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .o-carte{position:relative;display:flex;flex-direction:column;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;text-decoration:none;color:var(--prune);transition:transform .2s,box-shadow .2s,border-color .2s}
+    .o-carte:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(107,47,91,.12);border-color:var(--champagne-clair)}
+    .o-carte img{display:block;width:100%;height:150px;object-fit:cover}
+    .o-carte .o-corps{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
+    .o-carte h3{font-size:1.3rem;line-height:1.2}
+    .o-carte p{font-size:.93rem;color:var(--prune-doux);max-width:none}
+    .o-pastilles{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.5rem}
+    .o-pastilles span{font:600 .74rem var(--texte);border-radius:99px;padding:.25rem .65rem;background:var(--rose);color:var(--prune)}
+    .o-pastilles .o-gratuit{background:var(--prune);color:#fff}
+    .o-pastilles .o-compte{background:var(--champagne-clair)}
+    .o-mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .o-mini a{display:flex;gap:1rem;align-items:center;padding:1.1rem 1.2rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;color:var(--prune);transition:border-color .2s,transform .2s}
+    .o-mini a:hover{border-color:var(--champagne);transform:translateY(-2px)}
+    .o-mini i{flex:none;width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font:400 1.3rem var(--display);font-style:normal;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);color:var(--prune)}
+    .o-mini b{display:block;font:400 1.15rem var(--display)}
+    .o-mini span{font-size:.86rem;color:var(--prune-doux)}
+    .o-vedette{display:grid;grid-template-columns:1.1fr 1fr;gap:0;border-radius:var(--rayon);overflow:hidden;background:var(--blanc);border:2px solid var(--champagne);box-shadow:0 20px 50px rgba(107,47,91,.1)}
+    .o-vedette img{width:100%;height:100%;min-height:280px;max-height:440px;object-fit:cover;display:block}
+    .o-vedette>div{padding:2.2rem;display:flex;flex-direction:column;gap:.9rem;justify-content:center}
+    .o-vedette h3{font-size:clamp(1.6rem,3vw,2.1rem)}
+    .o-vedette p{max-width:none}
+    .o-vedette ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+    .o-vedette li{position:relative;padding-left:1.4rem}
+    .o-vedette li::before{content:"";position:absolute;left:0;top:.55em;width:.55rem;height:.55rem;border-radius:50%;background:var(--champagne)}
+    .o-vingt{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);color:#FFF4F6;background:linear-gradient(120deg,#6B2F5B,#E7A79E)}
+    .o-vingt h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.4rem);margin-bottom:.6rem}
+    .o-vingt p{color:#FFF4F6;max-width:36rem}
+    .o-vingt .btn{background:#fff;color:var(--prune);border-color:#fff}
+    .o-cercle{display:grid;grid-template-columns:auto 1fr;gap:2.4rem;align-items:center;padding:2.6rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:1px solid var(--champagne-clair)}
+    .o-cercle img{width:170px;height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(46,19,56,.25);transform:rotate(-3deg)}
+    .o-cercle h2{margin-bottom:.8rem}
+    .o-cercle p{max-width:none;margin-bottom:1rem}
+    .o-cercle .o-plus{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.4rem;list-style:none;margin:0 0 1.4rem;padding:0}
+    .o-cercle .o-plus li{position:relative;padding-left:1.4rem}
+    .o-cercle .o-plus li::before{content:"+";position:absolute;left:0;font-weight:700;color:var(--champagne)}
+    .o-cercle .actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
+    .o-cercle small{color:var(--prune-doux)}
+    @media (max-width:960px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-cercle img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
+    @media (max-width:560px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr}.o-tete .conteneur{padding:3rem 0}}
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tout ce qui est offert", "item": "https://genesolia.fr/offert.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="o-tete">
+      <img src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
+      <div class="conteneur">
+        <p class="o-sur">Tout est offert</p>
+        <h1>Tout ça, c'est pour toi. <em>Et c'est gratuit.</em></h1>
+        <p class="intro">Ton arbre familial, tes nombres, ton ciel, tes blessures, ton prénom, des carnets à imprimer… Choisis par où commencer : pas de carte bancaire, pas de piège.</p>
+        <div class="o-compteurs">
+          <div><b>20+</b><span>outils et lectures</span></div>
+          <div><b>4</b><span>carnets PDF à garder</span></div>
+          <div><b>0 €</b><span>pour tout explorer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="o-nav" aria-label="Aller à une rubrique"><div class="conteneur">
+      <a href="#minute">En 1 minute</a><a href="#cinq">En 5 minutes</a><a href="#arbre">Ton arbre</a><a href="#compte">Avec ton compte</a><a href="#telecharger">À télécharger</a><a href="#comprendre">Pour comprendre</a><a href="#formation">La formation</a><a href="#cercle">Aller plus loin</a>
+    </div></nav>
+
+    <section class="bloc o-section" id="minute">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>En 1 minute <small>Juste pour voir</small></h2><p>Une date, un prénom, et c'est parti.</p></div>
+        <div class="o-mini">
+          <a href="ton-prenom.html"><i>A</i><div><b>Ton prénom</b><span>Son origine, son histoire, son nombre</span></div></a>
+          <a href="ton-signe-maya.html"><i>13</i><div><b>Ton signe maya</b><span>Ton jour dans le calendrier sacré</span></div></a>
+          <a href="annee-personnelle-2027.html"><i>9</i><div><b>Ton année 2027</b><span>Ce qu'elle t'invite à vivre, mois par mois</span></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux o-section" id="cinq">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>En 5 minutes <small>Les incontournables</small></h2><p>Des tests et des lectures complètes, avec un résultat tout de suite.</p></div>
+        <div class="o-grille">
+          <a class="o-carte" href="blessures-de-l-ame.html"><img src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Les blessures de l'âme</h3><p>Rejet, abandon, humiliation, trahison, injustice : reconnais celle qui se rejoue.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>5 min</span></div></div></a>
+          <a class="o-carte" href="theme-numerologique.html"><img src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Ton thème numérologique</h3><p>Chemin de vie, nombres du nom, cycles, et ton livret PDF de plus de 30 pages.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>2 min</span><span>Livret PDF</span></div></div></a>
+          <a class="o-carte" href="theme-astral.html"><img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Ton thème astral</h3><p>Soleil, Lune, ascendant, planètes et maisons, reliés à ton histoire familiale.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>2 min</span></div></div></a>
+          <a class="o-carte" href="arbre-de-vie.html"><img src="assets/images/arbre-de-vie-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le test de l'arbre de vie</h3><p>Vingt affirmations pour voir les sphères lumineuses chez toi, et celles à nourrir.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>5 min</span></div></div></a>
+          <a class="o-carte" href="parcours.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le parcours guidé</h3><p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes liens et ta vie.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>10 min</span></div></div></a>
+          <a class="o-carte" href="calcul-syndrome-anniversaire.html"><img src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Les dates qui reviennent</h3><p>Le calculateur du syndrome d'anniversaire : les âges et les dates qui se répondent.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>3 min</span></div></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc o-section" id="arbre">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Le grand outil <small>Le cœur de Genesolia</small></h2></div>
+        <div class="o-vedette">
+          <img src="assets/images/genosociogramme-800.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 560px" width="800" height="420" alt="Un arbre familial dessiné à la main, entouré de photos anciennes" loading="lazy">
+          <div>
+            <h3>Ton arbre familial, qui repère pour toi ce qui se répète</h3>
+            <p>Dessine ta famille sur plusieurs générations. L'outil fait apparaître tout seul les prénoms transmis, les âges et les dates qui reviennent, les événements qui se répètent.</p>
+            <ul>
+              <li>Gratuit, sans inscription, avec un tutoriel pas à pas</li>
+              <li>Import de ton arbre depuis Geneanet, Heredis (GEDCOM ou PDF)</li>
+              <li>Numérologie et astrologie de chaque personne</li>
+            </ul>
+            <div><a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre</a> <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux o-section" id="compte">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Avec ton compte gratuit <small>Encore plus</small></h2><p>Un e-mail et un mot de passe suffisent. Toujours 0 €.</p></div>
+        <div class="o-grille quatre">
+          <a class="o-carte" href="login.html"><img src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Ton arbre sauvegardé</h3><p>Retrouvé sur ton téléphone et ton ordinateur, avec son historique.</p><div class="o-pastilles"><span class="o-compte">Compte gratuit</span></div></div></a>
+          <a class="o-carte" href="genosociogramme.html"><img src="assets/images/blog-secret-de-famille-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le rapport de ton arbre</h3><p>Toute la lecture de ta famille en PDF : répétitions, nombres, signes.</p><div class="o-pastilles"><span class="o-compte">Compte gratuit</span><span>PDF</span></div></div></a>
+          <a class="o-carte" href="mon-guide.html"><img src="assets/images/blog-annee-personnelle-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Ton guide du mois</h3><p>Ton nombre du mois, le ciel réel et les dates de ton arbre, chaque mois.</p><div class="o-pastilles"><span class="o-compte">Compte gratuit</span></div></div></a>
+          <a class="o-carte" href="mon-suivi.html"><img src="assets/images/suivi-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Mon suivi</h3><p>Sortir de ta boucle une semaine à la fois, avec ton journal privé.</p><div class="o-pastilles"><span class="o-compte">Compte gratuit</span></div></div></a>
+        </div>
+        <p style="text-align:center;margin-top:1.6rem"><a class="btn btn-plein" href="login.html">Créer mon compte gratuit</a></p>
+      </div>
+    </section>
+
+    <section class="bloc o-section" id="telecharger">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À télécharger <small>À imprimer et à garder</small></h2></div>
+        <div class="o-grille quatre">
+          <a class="o-carte" href="#cadeau"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le carnet des deux cycles</h3><p>Neuf pages pour repérer ta boucle et ton arbre sur trois générations.</p><div class="o-pastilles"><span class="o-gratuit">Offert</span><span>9 pages</span></div></div></a>
+          <a class="o-carte" href="mon-mois.html#offert"><img src="assets/cercle/apercu-2026-11.webp" width="496" height="702" alt="" loading="lazy" style="object-fit:contain;background:linear-gradient(135deg,#FCEFF3,#FFF6EC);padding:.8rem 0"><div class="o-corps"><h3>Le premier carnet du Cercle</h3><p>« Ceux qui sont venus avant toi » : thème, exercices, rituel et méditation.</p><div class="o-pastilles"><span class="o-gratuit">Offert</span><span>10 pages</span></div></div></a>
+          <a class="o-carte" href="genosociogramme-vierge.html"><img src="assets/images/genosociogramme-vierge-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le génosociogramme vierge</h3><p>Le modèle à imprimer pour remplir ton arbre à la main, en famille.</p><div class="o-pastilles"><span class="o-gratuit">Offert</span><span>PDF</span></div></div></a>
+          <a class="o-carte" href="cartes.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Les images à partager</h3><p>Des phrases pour t'affirmer ou poser tes limites, prêtes pour tes stories.</p><div class="o-pastilles"><span class="o-gratuit">Offert</span></div></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux o-section" id="comprendre">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour comprendre <small>À lire</small></h2></div>
+        <div class="o-grille">
+          <a class="o-carte" href="symbolique-des-reves.html"><img src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Tes rêves</h3><p>De Jung aux peuples anciens : une série en huit articles sur la langue des rêves.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>8 articles</span></div></div></a>
+          <a class="o-carte" href="le-ciel-du-mois.html"><img src="assets/images/blog-ancetres-reve-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le ciel du mois</h3><p>Lune, éclipses, rétrogrades et nombre du mois, avec une question pour ta famille.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>Chaque mois</span></div></div></a>
+          <a class="o-carte" href="blog.html"><img src="assets/images/blog-prenom-transmis-psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le blog</h3><p>Prénoms transmis, loyautés, fratrie, deuils, argent : des articles simples et sourcés.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>40+ articles</span></div></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc o-section" id="formation">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>La formation <small>Module 1 offert</small></h2></div>
+        <div class="o-vedette">
+          <img src="assets/formation/spirale.webp" width="1400" height="1750" alt="Une spirale lumineuse" loading="lazy">
+          <div>
+            <h3>Sors de la boucle : teste le module 1 gratuitement</h3>
+            <p>Huit modules pour arrêter de répéter les mêmes schémas, avec une séance audio guidée et un geste concret à chaque étape. Le premier module est offert : la feuille de cours, la séance audio et le cahier d'exercices, envoyés par e-mail étape par étape.</p>
+            <ul>
+              <li>Module 1 offert à partir du 1<sup>er</sup> novembre</li>
+              <li>Inscriptions à la formation complète le 7 novembre</li>
+              <li>Tarif fondatrice réservé à la liste d'attente</li>
+            </ul>
+            <div><a class="btn btn-plein" href="formation.html">Recevoir le module 1 offert</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="o-vingt">
+          <div>
+            <h2>Tu as entre 18 et 25 ans ?</h2>
+            <p>Il ne répond plus, tes parents, l'argent, ta place : choisis ta situation et repars avec ce qui se joue, un geste pour aujourd'hui et les mots pour le dire.</p>
+          </div>
+          <a class="btn" href="tes-20-ans.html">Découvrir Tes 20 ans</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc o-section" id="cercle">
+      <div class="conteneur">
+        <div class="o-cercle">
+          <img src="assets/cercle/apercu-2026-11.webp" width="496" height="702" alt="Couverture du carnet de novembre du Cercle" loading="lazy">
+          <div>
+            <p class="a-etiq" style="font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem">Et si tu veux aller plus loin</p>
+            <h2>Le Cercle : un rendez-vous chaque mois</h2>
+            <p>Tout ce qui est sur cette page reste gratuit. Le Cercle ajoute ce qui aide vraiment à avancer : le rythme.</p>
+            <ul class="o-plus">
+              <li>Un nouveau carnet à imprimer chaque mois</li>
+              <li>Ton suivi semaine après semaine</li>
+              <li>Ton mois personnel et la lettre du ciel</li>
+              <li>Tous les livrets, débloqués au fil des mois</li>
+            </ul>
+            <div class="actions"><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle · 1 mois offert</a><small>Sans engagement, arrêt en 1 clic</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="cadeau"><div class="conteneur"><div data-cadeau></div></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
