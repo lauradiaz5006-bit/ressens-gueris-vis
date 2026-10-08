@@ -52,7 +52,7 @@ for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.html'))) {
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(M.title)} · Genesolia</title>
+  <title>${esc(M.title)}${M.title.length <= 50 ? ' · Genesolia' : ''}</title>
   <meta name="description" content="${esc(M.desc)}">
   <link rel="canonical" href="https://genesolia.fr/${M.slug}">
   <meta property="og:type" content="article">

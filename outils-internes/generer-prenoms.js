@@ -39,7 +39,9 @@ for (const f of L) {
   const desc = coupe(`Prénom ${f.prenom} en psychogénéalogie : origine ${f.origine}, signification, ce qu'il porte de ta lignée, son nombre et sa place sur l'arbre de vie.`);
   const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Article', headline: `Prénom ${f.prenom} en psychogénéalogie : signification et histoire familiale`, description: desc, inLanguage: 'fr', datePublished: '2026-10-07', author: { '@type': 'Organization', name: 'Genesolia' }, publisher: { '@type': 'Organization', name: 'Genesolia' }, url: `https://genesolia.fr/prenoms/${f.slug}.html` });
   const memeLettre = L.filter(x => x.slug[0] === f.slug[0] && x.slug !== f.slug).slice(0, 18);
-  const html = tete(`Prénom ${f.prenom} en psychogénéalogie : signification et histoire familiale · Genesolia`, desc, `prenoms/${f.slug}.html`, `  <script type="application/ld+json">${ld}</script>`) + `
+  const titreCourt = `Prénom ${f.prenom} : signification, origine et histoire familiale`.length <= 62 ? `Prénom ${f.prenom} : signification, origine et histoire familiale` : `Prénom ${f.prenom} : signification et histoire familiale`;
+  const fil = JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://genesolia.fr/' }, { '@type': 'ListItem', position: 2, name: 'Prénoms', item: 'https://genesolia.fr/prenoms.html' }, { '@type': 'ListItem', position: 3, name: `Le prénom ${f.prenom} en psychogénéalogie`, item: `https://genesolia.fr/prenoms/${f.slug}.html` }] });
+  const html = tete(titreCourt, desc, `prenoms/${f.slug}.html`, `  <script type="application/ld+json">${ld}</script>\n  <script type="application/ld+json">${fil}</script>`) + `
     <section class="page-tete"><div class="conteneur">
       <nav class="fil" aria-label="Fil d'Ariane"><a href="ton-prenom.html">Prénoms</a><span aria-hidden="true">/</span><a href="prenoms.html">De A à Z</a><span aria-hidden="true">/</span>${esc(f.prenom)}</nav>
       <h1>Le prénom ${esc(f.prenom)} en psychogénéalogie</h1>
@@ -56,7 +58,7 @@ ${P.ORIGINE}
 }
 // Index A à Z
 const lettres = [...new Set(L.map(x => x.slug[0].toUpperCase()))];
-const idx = tete('Signification des prénoms de A à Z : origine et histoire · Genesolia', `L'origine, la signification et l'histoire de ${L.length} prénoms parmi les plus portés en France, avec leur nombre et leur place sur l'arbre de vie.`, 'prenoms.html') + `
+const idx = tete('Signification des prénoms de A à Z : origine et histoire', `L'origine, la signification et l'histoire de ${L.length} prénoms parmi les plus portés en France, avec leur nombre et leur place sur l'arbre de vie.`, 'prenoms.html', `  <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: 'https://genesolia.fr/' }, { '@type': 'ListItem', position: 2, name: 'Prénoms', item: 'https://genesolia.fr/prenoms.html' }] })}</script>`) + `
     <section class="page-tete"><div class="conteneur">
       <nav class="fil" aria-label="Fil d'Ariane"><a href="ton-prenom.html">Prénoms</a><span aria-hidden="true">/</span>De A à Z</nav>
       <h1>Les prénoms de A à Z</h1>

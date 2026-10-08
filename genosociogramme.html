@@ -8,8 +8,8 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Génosociogramme en ligne gratuit : crée ton arbre familial · Genesolia</title>
-  <meta name="description" content="Fais ton génosociogramme (ou génogramme) en ligne, gratuitement et sans inscription : symboles officiels, dates, événements, liens, et repérage automatique des répétitions.">
+  <title>Génosociogramme en ligne gratuit : crée ton arbre familial</title>
+  <meta name="description" content="Fais ton génosociogramme en ligne, gratuit et sans inscription : symboles officiels, dates, événements et repérage automatique des répétitions.">
   <link rel="canonical" href="https://genesolia.fr/genosociogramme.html">
   <meta property="og:title" content="Génosociogramme en ligne gratuit · Genesolia">
   <meta property="og:description" content="Dessine ton arbre familial sur trois générations et repère ce qui se répète.">
@@ -234,6 +234,9 @@
     @media (min-width:1101px){ .bt-panneau{display:none} }
     @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
   </style>
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Mon arbre familial : génosociogramme en ligne gratuit", "item": "https://genesolia.fr/genosociogramme.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelle est la différence entre un génogramme et un génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme représente la structure de la famille : qui est né de qui, qui s'est uni à qui. Le génosociogramme y ajoute le contexte de vie : métiers, lieux, deuils, ruptures, exils, accidents, dates marquantes. C'est cette couche supplémentaire qui permet de repérer les répétitions entre les générations."}}, {"@type": "Question", "name": "Combien de générations faut-il pour faire un génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Trois générations sont un bon point de départ : toi, tes parents et tes grands-parents. Les répétitions deviennent souvent plus visibles à partir de quatre générations, avec les arrière-grands-parents. Si tu ne connais pas tout, commence quand même : les cases vides sont aussi une information sur ce qui s'est transmis ou ce qui a été tu dans ta famille."}}, {"@type": "Question", "name": "Peut-on faire son génosociogramme seul·e ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Tu peux construire ton arbre seul·e, à ton rythme, puis le compléter en interrogeant tes proches. L'essentiel est de rester dans l'observation : noter les faits, repérer ce qui revient, et te poser des questions plutôt que tirer des conclusions. Si l'histoire réveille des souvenirs lourds, en parler avec une personne de confiance aide beaucoup."}}]}</script>
 </head>
 <body class="nouveau outil-arbre">
   <header data-entete></header>
@@ -306,7 +309,7 @@
         <span><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="2" width="12" height="12" rx="1" fill="#fff" stroke="#6B2F5B" stroke-width="1.4"/><path d="M3 3l10 10M13 3L3 13" stroke="#6B2F5B" stroke-width="1.2"/></svg>Décédé·e</span>
         <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h14" stroke="#6B2F5B" stroke-width="1.4" stroke-dasharray="3 2"/></svg>Union libre</span>
         <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h14M6 12l4-8" stroke="#6B2F5B" stroke-width="1.4"/></svg>Séparé·e</span>
-        <a href="symboles-genosociogramme.html" target="_blank" rel="noopener">Tous les symboles</a>
+        <a href="symboles-genosociogramme.html" target="_blank" rel="noopener">Tous les symboles</a> <a href="#apropos" id="lien-apropos">À propos de cet outil</a>
       </div>
 
       <div class="zoom">
@@ -493,5 +496,22 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/genosociogramme.js"></script>
   <script src="assets/import-arbre.js"></script>
+
+  <style>#fen-apropos .fen-corps h2{font-size:1.35rem;margin:0 0 .6rem}#fen-apropos .fen-corps h3{font-size:1.1rem;margin:1.1rem 0 .4rem}#fen-apropos .fen-corps p{margin-bottom:.7rem;font-size:.95rem}</style>
+  <div class="fenetre-fond" id="fen-apropos" data-seo-texte>
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fa2-titre">
+      <div class="fen-tete"><div><h2 id="fa2-titre">À propos de cet outil</h2></div><button class="fermer" type="button" data-fermer aria-label="Fermer">×</button></div>
+      <div class="fen-corps" style="max-height:70vh;overflow:auto"><h2>Comment faire un génosociogramme en ligne gratuit ?</h2>
+<p>Un génosociogramme est un arbre familial enrichi : en plus des noms et des dates, il montre les liens, les ruptures, les métiers, les départs, les deuils et les événements marquants. Le génogramme se limite souvent à la structure de la famille ; le génosociogramme, lui, ajoute le contexte de vie de chacun·e. C'est ce contexte qui permet de voir ce qui se répète d'une génération à l'autre.</p>
+<h3>Par où commencer ton arbre</h3>
+<p>Commence par toi, puis remonte : tes parents, tes quatre grands-parents, et si possible tes arrière-grands-parents. Trois générations suffisent pour voir apparaître les premières coïncidences. Ajoute ensuite les frères et sœurs de chaque génération, y compris les enfants morts jeunes, les fausses couches connues et les unions qui n'ont pas duré : ce sont souvent eux qu'on oublie, et ils comptent dans l'histoire. Une année approximative vaut mieux qu'une case vide.</p>
+<p>Avant de te lancer, rassemble ce que tu as sous la main : livret de famille, faire-part, photos annotées, souvenirs d'un repas où l'on a raconté une histoire de guerre ou d'exil. Si tu manques d'informations, <a href="questions-a-poser-a-sa-famille.html">les questions à poser à ta famille</a> t'aident à ouvrir la conversation sans brusquer personne.</p>
+<h3>Ce qu'il est utile de regarder</h3>
+<p>Une fois l'arbre rempli, observe les âges auxquels les grands événements se sont produits : une séparation, un départ, un décès, une faillite. Regarde aussi les dates qui tombent à la même période de l'année, les prénoms repris d'une génération à l'autre, les métiers qui se transmettent ou qu'on refuse, les places dans la fratrie qui portent les mêmes rôles. Quand un événement revient au même âge chez deux personnes, on parle parfois de <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a>.</p>
+<p>L'outil repère ces échos à mesure que tu saisis tes données, mais c'est toi qui leur donnes un sens. Une coïncidence n'est pas une explication : elle t'invite à poser une question, à toi ou à ta famille. Tu peux reconnaître, par exemple, que trois femmes de ta lignée ont quitté leur région natale vers vingt-cinq ans, et te demander ce que ce départ a permis ou empêché.</p>
+<p>Prends ton temps. Un génosociogramme se construit rarement en une soirée : il s'enrichit au fil des discussions, des papiers retrouvés et des souvenirs qui reviennent. Tu peux le reprendre autant de fois que tu veux, l'imprimer pour le montrer à un parent, ou le compléter plus tard quand une information nouvelle arrive.</p><div class="questions" style="margin-top:1.6rem"><h3>Questions fréquentes</h3><details><summary>Quelle est la différence entre un génogramme et un génosociogramme ?</summary><p>Le génogramme représente la structure de la famille : qui est né de qui, qui s&#x27;est uni à qui. Le génosociogramme y ajoute le contexte de vie : métiers, lieux, deuils, ruptures, exils, accidents, dates marquantes. C&#x27;est cette couche supplémentaire qui permet de repérer les répétitions entre les générations.</p></details><details><summary>Combien de générations faut-il pour faire un génosociogramme ?</summary><p>Trois générations sont un bon point de départ : toi, tes parents et tes grands-parents. Les répétitions deviennent souvent plus visibles à partir de quatre générations, avec les arrière-grands-parents. Si tu ne connais pas tout, commence quand même : les cases vides sont aussi une information sur ce qui s&#x27;est transmis ou ce qui a été tu dans ta famille.</p></details><details><summary>Peut-on faire son génosociogramme seul·e ?</summary><p>Oui. Tu peux construire ton arbre seul·e, à ton rythme, puis le compléter en interrogeant tes proches. L&#x27;essentiel est de rester dans l&#x27;observation : noter les faits, repérer ce qui revient, et te poser des questions plutôt que tirer des conclusions. Si l&#x27;histoire réveille des souvenirs lourds, en parler avec une personne de confiance aide beaucoup.</p></details></div></div>
+    </div>
+  </div>
+  <script>document.getElementById('lien-apropos').addEventListener('click',function(e){e.preventDefault();document.getElementById('fen-apropos').classList.add('ouverte');});</script>
 </body>
 </html>
