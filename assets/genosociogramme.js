@@ -872,9 +872,26 @@
       ascension: ['Comment la famille a-t-elle vécu cette réussite, puis ce revers ?', 'Dans quel milieu te sens-tu chez toi ?'],
       reversdeuil: ['Quel soutien cette personne représentait-elle ?', 'Sur quoi peux-tu t’appuyer aujourd’hui ?']
     };
+    // L'article du blog qui explique chaque piste
+    var A = function (u, t) { return { u: u, t: t }; };
+    var ARTICLES = {
+      anniversaire: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'), date: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'),
+      gisant: A('syndrome-du-gisant.html', 'Le syndrome du gisant'), conception: A('projet-sens-conception-deuil.html', 'Le projet sens'),
+      remplacement: A('enfant-de-remplacement.html', 'L’enfant de remplacement'), premier: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'),
+      depart: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'), ageparent: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent'),
+      guerre: A('guerre-et-memoire-familiale.html', 'La guerre dans l’arbre'), ombre: A('secret-de-famille.html', 'Les secrets de famille'),
+      cousins: A('implexe-mariage-entre-cousins.html', 'L’implexe et les mariages entre cousins'), epreuve: A('memoire-transgenerationnelle.html', 'La mémoire transgénérationnelle'),
+      schema: A('loyaute-familiale-invisible.html', 'Les loyautés invisibles'), enfants: A('filles-garcons-fratrie.html', 'Filles, garçons et fratries'),
+      metier: A('metiers-transmis-genealogie.html', 'Les métiers de famille'), prenom: A('prenom-transmis-psychogenealogie.html', 'Les prénoms transmis'),
+      argent: A('argent-et-lignee.html', 'Argent et histoire familiale'), reversage: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      heritage: A('argent-et-lignee.html', 'Argent et histoire familiale'), ascension: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      reversdeuil: A('argent-et-lignee.html', 'Argent et histoire familiale'), secret: A('secret-de-famille.html', 'Les secrets de famille'),
+      ageevt: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent')
+    };
     reps.forEach(function (r) {
-      var k = r.qk || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
+      var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
       r.q = QUESTIONS[k] || null;
+      r.art = ARTICLES[k] || null;
     });
 
     // Mots-clés pour la recherche dans le panneau
@@ -1030,6 +1047,39 @@
     return h;
   }
 
+  /* Liens relationnels entre deux personnes : proximité (trois traits), conflit (zigzag), rupture (trait coupé), distance (pointillé léger) */
+  var NATURES = { proche: ['Proximité, fusion', '#4F8A6B'], conflit: ['Conflit', '#C0573F'], rupture: ['Rupture', '#5D6B8A'], distance: ['Distance', '#A08E78'] };
+  function dessinRelations(pl) {
+    var pos = pl.pos, h = '';
+    S.rels.forEach(function (r) {
+      if (r.type !== 'relation' || !NATURES[r.nature] || !pos[r.from] || !pos[r.to] || r.from === r.to) return;
+      var a = pos[r.from], b = pos[r.to], memeRang = a.y === b.y, loin = memeRang && Math.abs(b.x - a.x) > SLOT + ECART + 10;
+      // voisins sur la même ligne : trait droit un peu sous le trait de couple ; plus loin : un arc au-dessus, pour ne pas traverser les personnes entre les deux
+      var p0 = { x: a.x, y: a.y + (memeRang && !loin ? 10 : 0) }, p2 = { x: b.x, y: b.y + (memeRang && !loin ? 10 : 0) };
+      var c = loin ? { x: (a.x + b.x) / 2, y: a.y - R - 70 - Math.min(50, Math.abs(b.x - a.x) * 0.06) } : { x: (a.x + b.x) / 2, y: (p0.y + p2.y) / 2 };
+      var pts = [], n = 60, i;
+      for (i = 0; i <= n; i++) { var t = i / n, u = 1 - t; pts.push({ x: u * u * p0.x + 2 * u * t * c.x + t * t * p2.x, y: u * u * p0.y + 2 * u * t * c.y + t * t * p2.y }); }
+      var ra = hautSymbole(r.from) + 6, rb = hautSymbole(r.to) + 6;
+      pts = pts.filter(function (p) { return Math.hypot(p.x - a.x, p.y - a.y) > ra && Math.hypot(p.x - b.x, p.y - b.y) > rb; });
+      if (pts.length < 2) return;
+      var cum = [0]; for (i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y));
+      var lg = cum[cum.length - 1]; if (lg < 12) return;
+      function en(s, d) {   // point à l'abscisse s, décalé de d perpendiculairement
+        var k = 1; while (k < cum.length - 1 && cum[k] < s) k++;
+        var q0 = pts[k - 1], q1 = pts[k], f = cum[k] > cum[k - 1] ? (s - cum[k - 1]) / (cum[k] - cum[k - 1]) : 0, ln = cum[k] - cum[k - 1] || 1;
+        var nx = -(q1.y - q0.y) / ln, ny = (q1.x - q0.x) / ln;
+        return (q0.x + (q1.x - q0.x) * f + nx * d).toFixed(1) + ' ' + (q0.y + (q1.y - q0.y) * f + ny * d).toFixed(1);
+      }
+      function trace(s0, s1, d) { var m = Math.max(1, Math.ceil((s1 - s0) / 6)), z = 'M' + en(s0, d); for (var j = 1; j <= m; j++) z += 'L' + en(s0 + (s1 - s0) * j / m, d); return z; }
+      var coul = NATURES[r.nature][1], st = ' fill="none" stroke="' + coul + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"', p;
+      if (r.nature === 'proche') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
+      else if (r.nature === 'conflit') { var nz = Math.max(2, Math.round(lg / 9)); p = 'M' + en(0, 0); for (i = 1; i < nz; i++) p += 'L' + en(lg * i / nz, i % 2 ? -5 : 5); p += 'L' + en(lg, 0); }
+      else if (r.nature === 'rupture') { var mi = lg / 2; p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7); }
+      else p = trace(0, lg, 0);
+      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + (r.nature === 'distance' ? ' stroke-dasharray="2 6" stroke-opacity=".8"' : '') + '/>';
+    });
+    return h;
+  }
   function dessinRepetition(pl, rep) {
     if (!rep) return '';
     var pos = pl.pos, h = '', ids = rep.ids.filter(function (id) { return pos[id]; });
@@ -1056,7 +1106,7 @@
     if (repActive && !reps.some(function (r) { return r.cle === repActive.cle; })) repActive = null;
     if (ancien && plan.pos[garderId]) { vue.x += (ancien.x - plan.pos[garderId].x) * vue.k; vue.y += (ancien.y - plan.pos[garderId].y) * vue.k; }
     var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : null };
-    var h = '<g id="monde">' + dessinLiens(plan) + dessinRepetition(plan, repActive);
+    var h = '<g id="monde">' + dessinRelations(plan) + dessinLiens(plan) + dessinRepetition(plan, repActive);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], plan.pos[id], o); });
     h += '</g>';
     $('dessin').innerHTML = h;
@@ -1119,6 +1169,7 @@
     b += '<button type="button" data-act="couple">+ Conjoint·e</button>';
     b += '<button type="button" data-act="enfant">+ Enfant</button>';
     b += '<button type="button" data-act="fratrie">+ Frère ou sœur</button>';
+    if (Object.keys(S.people).length > 1) b += '<button type="button" data-act="relation">+ Lien relationnel</button>';
     b += '<button type="button" class="danger" data-act="supprimer" aria-label="Supprimer">Supprimer</button>';
     bar.innerHTML = b;
     placerActions();
@@ -1192,6 +1243,7 @@
     z.innerHTML = (mots.length ? info : blocExo) + visibles.map(function (i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
       return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' + (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
+        (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
@@ -1452,8 +1504,10 @@
       else if (r.type === 'parent' && r.from === id) { autre = r.to; lib = 'Enfant : '; }
       else if (r.type === 'couple' && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'En couple avec '; }
       else if (r.type === 'fratrie' && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'Frère ou sœur : '; }
+      else if (r.type === 'relation' && NATURES[r.nature] && (r.from === id || r.to === id)) { autre = r.from === id ? r.to : r.from; lib = 'Lien relationnel avec '; }
       if (!autre || !S.people[autre]) return;
       h += '<div class="lien"><span>' + lib + '<b>' + esc(nomCourt(autre)) + '</b></span>' +
+        (r.type === 'relation' ? '<select data-nature="' + i + '" aria-label="Nature du lien">' + Object.keys(NATURES).map(function (k) { return '<option value="' + k + '"' + (r.nature === k ? ' selected' : '') + '>' + NATURES[k][0] + '</option>'; }).join('') + '</select>' : '') +
         (r.type === 'couple' ? '<select data-statut="' + i + '" aria-label="Situation du couple">' + STATUTS.map(function (s) { return '<option value="' + s[0] + '"' + ((r.statut || 'marie') === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' : '') +
         '<button type="button" class="suppr" data-retirer="' + i + '" aria-label="Retirer ce lien">×</button></div>';
     });
@@ -1469,6 +1523,8 @@
     dessinerLiensFiche(); dessiner(fiche.id); majBarreActions(); enregistrer();
   });
   $('fp-liens').addEventListener('change', function (e) {
+    var nt = e.target.closest('[data-nature]');
+    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessiner(fiche.id); enregistrer(); return; }
     var s = e.target.closest('[data-statut]'); if (!s) return;
     memoriser();
     S.rels[+s.getAttribute('data-statut')].statut = s.value;
@@ -1479,7 +1535,11 @@
     err.textContent = '';
     if (!o) return;
     var r;
-    if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
+    if (/^rel-/.test(t)) {
+      if (S.rels.some(function (x) { return x.type === 'relation' && ((x.from === id && x.to === o) || (x.from === o && x.to === id)); })) { err.textContent = 'Un lien relationnel existe déjà avec cette personne : change sa nature dans la liste ci-dessus.'; return; }
+      r = { from: id, to: o, type: 'relation', nature: t.slice(4) };
+    }
+    else if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
     else {
       var parent = t === 'parent' ? id : o, enfant = t === 'parent' ? o : id;
       if (parents(enfant).indexOf(parent) >= 0) { err.textContent = 'Ce lien existe déjà.'; return; }
@@ -1638,6 +1698,11 @@
     var b = e.target.closest('[data-act]'); if (!b || !selId) return;
     var act = b.getAttribute('data-act');
     if (act === 'modifier') ouvrirFiche(selId, false);
+    else if (act === 'relation') {   // la fiche, ouverte directement sur l'ajout d'un lien relationnel
+      ouvrirFiche(selId, false);
+      $('fp-lier-type').value = 'rel-proche';
+      setTimeout(function () { $('fp-bloc-liens').scrollIntoView({ block: 'center' }); $('fp-lier-qui').focus(); }, 60);
+    }
     else if (act === 'supprimer') supprimer(selId);
     else ouvrirAjout(act, selId);
   });
@@ -1711,6 +1776,7 @@
     if (tous.some(function (p) { return p.adopte; })) plus.push('Trait pointillé : adopté·e');
     if (tous.some(function (p) { return p.place; })) plus.push('Placé·e : en famille d’accueil');
     if (tous.some(function (p) { return jumeauDe(p.id); })) plus.push('Traits en V : jumeaux');
+    [['proche', 'Trois traits verts : proximité'], ['conflit', 'Zigzag : conflit'], ['rupture', 'Trait coupé : rupture'], ['distance', 'Pointillé léger : distance']].forEach(function (x) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === x[0] && existe(r.from) && existe(r.to); })) plus.push(x[1]); });
     var lignesPlus = [];
     plus.forEach(function (t) { var d = lignesPlus.length - 1; if (d >= 0 && (lignesPlus[d] + ' · ' + t).length * 5.8 <= W - 2 * m) lignesPlus[d] += ' · ' + t; else lignesPlus.push(t); });
     H += Math.max(0, lignesPlus.length - 1) * 18;
@@ -1722,7 +1788,7 @@
     h += '<text x="' + m + '" y="40" font-family="\'Gilda Display\',Georgia,serif" font-size="24" fill="' + PRUNE + '">Mon génosociogramme</text>';
     var d = new Date();
     h += '<text x="' + (W - m) + '" y="40" text-anchor="end" font-family="\'Nunito Sans\',sans-serif" font-size="12" fill="' + PRUNE_DOUX + '">' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + '</text>';
-    h += '<g transform="translate(' + dx + ',' + dy + ')">' + dessinLiens(pl);
+    h += '<g transform="translate(' + dx + ',' + dy + ')">' + dessinRelations(pl) + dessinLiens(pl);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], pl.pos[id], o); });
     h += '</g>';
     var ly = H - 24, lx = m;
