@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deuil non fait et morts jeunes dans l'arbre · Genesolia</title>
+  <meta name="description" content="Deuil non fait : morts jeunes, perte d'un premier enfant, mère partie tôt. Ce qu'en dit la psychogénéalogie, les rites du monde et les repères dans ton arbre.">
+  <link rel="canonical" href="https://genesolia.fr/deuil-non-fait-mort-jeune.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le deuil non fait : quand une mort jeune traverse les générations">
+  <meta property="og:description" content="Deuil non fait : morts jeunes, perte d'un premier enfant, mère partie tôt. Ce qu'en dit la psychogénéalogie, les rites du monde et les repères dans ton arbre.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-deuil-non-fait-mort-jeune.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Le deuil non fait : quand une mort jeune traverse les générations","description":"Deuil non fait : morts jeunes, perte d'un premier enfant, mère partie tôt. Ce qu'en dit la psychogénéalogie, les rites du monde et les repères dans ton arbre.","image":"https://genesolia.fr/assets/images/blog-deuil-non-fait-mort-jeune.jpg","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/deuil-non-fait-mort-jeune.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/deuil-non-fait-mort-jeune.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce qu'un deuil non fait ?","acceptedAnswer":{"@type":"Answer","text":"C'est un deuil qui n'a pas pu suivre son cours : la mort n'a pas été pleurée, racontée ni ritualisée, souvent parce qu'elle était trop brutale, trop précoce ou trop taboue. En psychogénéalogie, on fait l'hypothèse que ce qui reste en suspens peut peser sur les générations suivantes."}},{"@type":"Question","name":"Un deuil non fait peut-il se transmettre aux générations suivantes ?","acceptedAnswer":{"@type":"Answer","text":"C'est l'hypothèse de la psychogénéalogie, inspirée notamment des travaux de Nicolas Abraham et Maria Torok sur la crypte et le fantôme. Elle n'est pas démontrée scientifiquement. Ce qui est observable, c'est la transmission de silences, de prénoms repris et de récits manquants."}},{"@type":"Question","name":"Pourquoi la perte d'un enfant pèse-t-elle autant dans un arbre ?","acceptedAnswer":{"@type":"Answer","text":"Parce qu'elle bouleverse l'ordre attendu des générations, et qu'elle a longtemps été peu reconnue : autrefois, la mortalité infantile était si fréquente qu'on en parlait peu. L'enfant disparu, parfois jamais nommé ensuite, peut rester une place vide dans l'histoire familiale."}},{"@type":"Question","name":"Que faire quand on découvre une mère morte jeune dans son arbre ?","acceptedAnswer":{"@type":"Answer","text":"Commence par rassembler ce que l'on sait d'elle : son nom, ses dates, ses enfants, ce qu'on racontait. Regarde qui a élevé ses enfants ensuite et comment on a parlé d'elle. Lui rendre sa place dans l'arbre est déjà un geste fort."}},{"@type":"Question","name":"Les cinq étapes du deuil de Kübler-Ross sont-elles fiables ?","acceptedAnswer":{"@type":"Answer","text":"Elisabeth Kübler-Ross les a décrites en 1969 à partir d'entretiens avec des personnes en fin de vie, pas avec des endeuillés. Les chercheurs ont depuis montré que le deuil ne suit pas un ordre fixe. Des modèles plus récents, comme celui de Stroebe et Schut, décrivent plutôt des allers-retours."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Le deuil non fait : quand une mort jeune traverse les générations", "item": "https://genesolia.fr/deuil-non-fait-mort-jeune.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Deuils non faits</nav>
+        <h1>Le deuil non fait : quand une mort jeune traverse les générations</h1>
+        <p class="intro">Un bébé dont on ne prononçait plus le prénom. Une mère partie à 35 ans, dont il ne reste qu'une photo. Un deuil non fait ne fait pas de bruit, mais il laisse des traces : des silences, des prénoms repris, des places vides. Voici ce que la psychogénéalogie en dit, ce que font les cultures du monde face à la mort, et comment regarder ton arbre avec douceur.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 12 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-deuil-non-fait-mort-jeune.jpg" width="1600" height="840" alt="Deuil non fait : un petit cadre photo ancien retourné sur une commode, près d'une bougie et d'un bouquet de roses poudrées, dans une lumière douce de fin de journée" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce qu'un deuil non fait ?</h2>
+        <p>On parle de deuil non fait quand la perte d'un proche n'a pas pu être pleurée, racontée ni accompagnée de rites. La mort a eu lieu, mais le deuil, lui, est resté en suspens. On dit aussi deuil gelé, ou deuil impossible.</p>
+        <p>L'idée que le deuil est un travail vient de Sigmund Freud, dans <em>Deuil et mélancolie</em> (1917) : après une perte, il faut du temps pour se détacher peu à peu de la personne disparue et reprendre goût au monde. Quand ce travail ne peut pas se faire, quelque chose reste figé.</p>
+        <p>Plusieurs situations rendent un deuil difficile, voire impossible :</p>
+        <ul class="gestes">
+          <li><strong>Une mort trop précoce</strong> : un bébé, un enfant, un jeune parent. L'ordre des générations est renversé.</li>
+          <li><strong>Une mort sans adieu</strong> : brutale, loin, sans corps, sans tombe.</li>
+          <li><strong>Une mort taboue</strong> : dont on a honte, ou dont on ne parle pas pour « protéger » les enfants.</li>
+          <li><strong>Une mort sans place</strong> : un deuil que l'entourage ne reconnaît pas. Le chercheur américain Kenneth Doka l'a nommé en 1989 <em>disenfranchised grief</em>, le deuil privé de reconnaissance.</li>
+          <li><strong>Une vie qui ne laisse pas le temps</strong> : la guerre, la pauvreté, d'autres enfants à nourrir.</li>
+        </ul>
+        <p class="rappel"><strong>D'où vient le mot.</strong> « Deuil » vient du latin populaire <em>dolus</em>, tiré du verbe <em>dolere</em>, souffrir. Le même mot a d'abord désigné la douleur, puis les signes extérieurs de cette douleur : les vêtements, les rites, le temps qu'on lui accorde.</p>
+
+        <h2>Une histoire pour comprendre</h2>
+        <p>Voici une famille sur quatre générations. Les noms sont inventés, mais la structure est celle d'un vrai arbre.</p>
+        <ul class="pistes">
+          <li><strong>1923 · Paul, premier enfant de Jeanne et Émile Roussel</strong><span>Il meurt à huit mois. Jeanne a 20 ans. On range ses affaires, on ne prononce plus son nom.</span></li>
+          <li><strong>1925 et 1927 · Marcelle, puis un second Paul</strong><span>Le deuxième garçon reçoit le prénom de l'aîné disparu, comme cela se faisait souvent.</span></li>
+          <li><strong>1938 · Jeanne meurt à 35 ans</strong><span>Marcelle a 13 ans, Paul 11. Émile se remarie vite. Dans la maison, on ne parle plus de Jeanne non plus.</span></li>
+          <li><strong>1950 · Lucien, le mari de Marcelle, meurt dans un accident</strong><span>Trois mois après la naissance de leur fille, Annie. Marcelle a 25 ans et élève seule son enfant.</span></li>
+          <li><strong>Aujourd'hui · Sophie, fille d'Annie</strong><span>Elle découvre en faisant son arbre qu'elle ignorait l'existence du premier Paul, et presque tout de Jeanne. Elle dit avoir toujours senti « un vide sans nom » dans les récits de famille.</span></li>
+        </ul>
+        <p>Dans cet arbre, on lit plusieurs fils :</p>
+        <ul class="gestes">
+          <li><strong>Des départs précoces</strong> : un bébé, une mère de 35 ans, un père de 27 ans.</li>
+          <li><strong>La perte du premier enfant</strong> : Paul, dont le nom a été donné à un autre.</li>
+          <li><strong>Une mère partie avant 40 ans</strong>, en laissant de jeunes enfants.</li>
+          <li><strong>Un parent qui part juste après une naissance</strong> : Lucien, trois mois après Annie.</li>
+                  </ul>
+        <p>Cette lecture ne dit pas ce que vit Sophie. Elle propose une <strong>hypothèse</strong> : ce « vide sans nom » pourrait être, en partie, la place de morts jamais pleurés. À elle de voir si cette lecture lui parle.</p>
+
+        <h2>Mort jeune dans la famille : pourquoi c'était si fréquent</h2>
+        <p>Pour comprendre les deuils de nos ancêtres, il faut se souvenir d'un fait démographique. Selon une synthèse de Claude Masset publiée par l'INED en 2002, en France aux XVIIe et XVIIIe siècles, au moins un nourrisson sur quatre n'atteignait pas l'âge d'un an, et la moitié des enfants mouraient avant 11 ans. Presque toutes les familles perdaient un ou plusieurs enfants.</p>
+        <p>On a parfois dit que les parents d'autrefois s'attachaient moins à leurs enfants. Les historiens nuancent beaucoup cette idée. Mais la fréquence des morts, le travail, les naissances rapprochées laissaient peu de place pour pleurer. Dans les registres paroissiaux, on retrouve souvent un même prénom donné à deux ou trois enfants successifs : la vie reprenait, et le prénom aussi. Voir les <a href="prenom-transmis-psychogenealogie.html">prénoms transmis</a>.</p>
+        <p>Les mères mouraient aussi plus souvent jeunes, en laissant des orphelin·es élevé·es par une belle-mère, une tante ou une grand-mère.</p>
+
+        <h2>Les rites du deuil à travers le monde</h2>
+        <p>Partout, les sociétés ont inventé des rites pour aider les vivants à se séparer des morts, sans les oublier.</p>
+
+        <h3>La Toussaint et le Día de Muertos</h3>
+        <p>En France, la Toussaint (1er novembre) et le jour des défunts (2 novembre) restent les jours où l'on fleurit les tombes, souvent de chrysanthèmes. Au Mexique, les fêtes indigènes dédiées aux morts, de fin octobre à début novembre, accueillent les âmes revenues visiter leur famille : autels, bougies, pétales orange, plats que le défunt aimait. Elles mêlent rites préhispaniques et traditions catholiques, et sont inscrites au patrimoine immatériel de l'UNESCO depuis 2008. Voir <a href="toussaint-ancetres-et-deuils.html">la Toussaint, les ancêtres et les deuils</a>.</p>
+
+        <h3>Obon au Japon</h3>
+        <p>Pendant Obon, en général à la mi-août (à la mi-juillet dans certaines régions), les esprits des ancêtres reviennent visiter les vivants selon la tradition bouddhiste. On allume un feu pour les guider à la maison, on danse le <em>bon odori</em>, puis on les raccompagne : dans certains lieux, des lanternes de papier flottent sur l'eau pour leur montrer le chemin.</p>
+
+        <h3>Qingming en Chine</h3>
+        <p>Au début du mois d'avril, la fête de Qingming, dite aussi « fête du balayage des tombes », réunit les familles autour des sépultures : on les nettoie, on dépose des offrandes, on se souvient. Le lien avec les ancêtres y est un devoir partagé.</p>
+
+        <h3>Le famadihana à Madagascar</h3>
+        <p>Sur les hautes terres malgaches, le famadihana, le « retournement des morts », a lieu pendant la saison sèche. Les familles sortent les défunts du tombeau familial, les enveloppent dans un linceul neuf, leur parlent, dansent avec eux, puis les raccompagnent. La mort n'y est pas une coupure, mais un lien qu'on entretient.</p>
+
+        <h3>Veillées et pleureuses en Méditerranée</h3>
+        <p>Autour de la Méditerranée, on veillait le mort à la maison, et des femmes improvisaient des chants de lamentation. Dans le Magne, en Grèce, les <em>moirologia</em> sont un héritage très ancien : des femmes chantent la vie du défunt, en se relayant sans interrompre la plainte. En Corse, les <em>voceri</em> jouaient un rôle proche. Ces chants donnaient une forme publique au chagrin.</p>
+
+        <h3>Le noir et la durée du deuil en Europe au XIXe siècle</h3>
+        <p>Au XIXe siècle, le deuil européen était très codifié. En France, le deuil de veuve durait environ dix-huit mois, en plusieurs temps : le grand deuil en noir mat, puis le petit deuil, puis le demi-deuil où l'on pouvait porter du gris, du blanc ou du mauve. Pesantes, ces règles avaient une vertu : reconnaître le chagrin et lui donner un temps.</p>
+
+        <h3>Les enfants morts sans baptême et les limbes</h3>
+        <p>Dans l'Europe chrétienne, on a longtemps enseigné que les enfants morts sans baptême allaient dans les limbes, et non au paradis. Ils ne pouvaient souvent pas être enterrés en terre consacrée. Pour y échapper, des parents portaient leur nouveau-né mort dans des « sanctuaires à répit », souvent dédiés à la Vierge, dans l'espoir d'un bref signe de vie permettant de le baptiser. En 2007, la Commission théologique internationale a conclu que les limbes n'étaient qu'une opinion théologique possible, et qu'on pouvait espérer le salut de ces enfants.</p>
+
+        <h2>Ce que disent les auteurs</h2>
+        <h3>John Bowlby : l'attachement et la perte</h3>
+        <p>Le psychiatre britannique John Bowlby, fondateur de la théorie de l'attachement, a consacré le troisième volume de son œuvre <em>Attachment and Loss</em> à la perte (1980). Il y décrit le deuil comme une suite de phases qui se chevauchent : l'engourdissement, le manque et la recherche de la personne perdue, la désorganisation, puis la réorganisation.</p>
+
+        <h3>Elisabeth Kübler-Ross et les cinq étapes, puis leurs critiques</h3>
+        <p>Dans <em>On Death and Dying</em> (1969), la psychiatre Elisabeth Kübler-Ross décrit cinq réactions observées chez des personnes en fin de vie : le déni, la colère, le marchandage, la dépression, l'acceptation. Le modèle a ensuite été appliqué au deuil des proches, ce qu'il n'avait pas prévu. Des chercheurs comme Charles Corr (1993) l'ont critiqué : ces réactions ne suivent pas un ordre fixe, et toutes ne sont pas vécues. En 1999, Margaret Stroebe et Henk Schut ont proposé un « modèle du double processus » : la personne endeuillée oscille entre des moments tournés vers la perte et des moments tournés vers la vie qui continue.</p>
+
+        <h3>Michel Hanus : les deuils de toute une vie</h3>
+        <p>Le psychiatre et psychanalyste français Michel Hanus a beaucoup écrit sur le deuil, chez l'adulte comme chez l'enfant, notamment dans <em>Les Deuils dans la vie</em>. Il rappelle que le deuil est un processus long, qui concerne aussi les séparations, et que les enfants ont eux aussi un deuil à vivre, même quand les adultes croient les en protéger.</p>
+
+        <h3>Nicolas Abraham et Maria Torok : la crypte et le fantôme</h3>
+        <p>Les psychanalystes Nicolas Abraham et Maria Torok, dans des textes réunis dans <em>L'Écorce et le noyau</em> (1978), proposent deux images devenues célèbres. La <strong>crypte</strong> : quand un deuil ne peut pas se faire, la personne perdue serait gardée en soi, en secret, comme enterrée vivante. Le <strong>fantôme</strong> : ce qui n'a pas été dit dans une génération pourrait hanter la suivante, sans qu'elle sache d'où cela vient. Ces notions sont au cœur de la psychogénéalogie et des <a href="secret-de-famille.html">secrets de famille</a>.</p>
+
+        <h3>Anne Ancelin Schützenberger : les dates qui se répondent</h3>
+        <p>Dans <em>Aïe, mes aïeux !</em> (1993), Anne Ancelin Schützenberger a popularisé le <a href="quest-ce-qu-un-genosociogramme.html">génosociogramme</a> et le <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a>. Elle relie souvent les répétitions de dates et d'âges à des deuils restés en suspens, et invite à les nommer pour s'en distinguer.</p>
+
+        <h2>Comment un deuil non fait se transmettrait</h2>
+        <p>Selon la psychogénéalogie, un deuil impossible ne se transmet pas par un mécanisme mystérieux. Les auteurs décrivent plutôt des chemins concrets :</p>
+        <ul class="pistes">
+          <li><strong>Le silence</strong><span>Un mort dont on ne parle pas laisse un trou dans le récit. Les enfants sentent qu'il y a quelque chose, sans savoir quoi.</span></li>
+          <li><strong>Le prénom repris</strong><span>L'enfant suivant reçoit le prénom du disparu, et parfois sa place. Voir le <a href="syndrome-du-gisant.html">syndrome du gisant</a> et l'<a href="enfant-de-remplacement.html">enfant de remplacement</a>.</span></li>
+          <li><strong>L'orphelin·e qui devient parent</strong><span>Un enfant qui a perdu sa mère tôt devient adulte sans modèle, et peut redouter, à son tour, d'atteindre l'âge où elle est partie. Voir <a href="devenir-parent-au-meme-age.html">les âges qui se répondent</a>.</span></li>
+          <li><strong>Le projet autour d'une naissance</strong><span>Un enfant conçu peu après un deuil peut porter, sans le savoir, l'espoir de consoler. Voir le <a href="projet-sens-conception-deuil.html">projet-sens</a>.</span></li>
+        </ul>
+        <p>Ces chemins sont des hypothèses de lecture : ils indiquent seulement où regarder.</p>
+
+        <h2>Comment repérer un deuil non fait dans ton arbre</h2>
+        <ol class="exercice">
+          <li><h3>Liste les morts jeunes</h3><p>Sur trois ou quatre générations : bébés, enfants, adolescents, jeunes adultes, parents morts avant 40 ans. N'oublie pas les enfants dont on ne parle pas. Les <a href="informations-avant-genosociogramme.html">informations à réunir avant ton génosociogramme</a> t'aident à ne rien oublier.</p></li>
+          <li><h3>Regarde ce qu'il s'est passé autour</h3><p>Qui restait ? Qui a élevé les enfants ? Y a-t-il eu une tombe, une photo, un récit ? Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> peuvent t'aider, avec tact.</p></li>
+          <li><h3>Suis les prénoms et les dates</h3><p>Le prénom du défunt a-t-il été redonné ? Une naissance a-t-elle suivi de près un décès ? Le <a href="calcul-syndrome-anniversaire.html">calculateur de syndrome d'anniversaire</a> repère les dates qui se répondent.</p></li>
+          <li><h3>Dessine ton arbre</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, le panneau « Ce qui se répète » signale automatiquement « Des départs précoces », « La perte du premier enfant », les mères parties avant 40 ans en laissant de jeunes enfants, et « Un parent qui part juste après une naissance ».</p></li>
+          <li><h3>Rends sa place à chacun·e</h3><p>Écris le nom, les dates, ce que tu sais. Allume une bougie, va sur une tombe, raconte l'histoire à quelqu'un. Un rite simple, même tardif, peut redonner une place à celles et ceux qui n'en ont pas eu.</p></li>
+        </ol>
+        <p class="rappel"><strong>Sans tout savoir.</strong> Tu n'as pas besoin de connaître toute l'histoire. L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> part de ton ressenti. Et si les défunts visitent tes nuits, lis <a href="rever-des-morts-et-des-ancetres.html">rêver des morts et des ancêtres</a>.</p>
+
+        <h2>Faits, hypothèses, interprétations</h2>
+        <ul class="pistes">
+          <li><strong>Un fait</strong><span>Un premier enfant mort à huit mois, une mère morte à 35 ans. Les dates se vérifient dans l'état civil.</span></li>
+          <li><strong>Une hypothèse</strong><span>Ces deuils n'ont pas pu être faits : on n'en parlait pas, il n'y a pas de photo. Cela se vérifie en écoutant la famille.</span></li>
+          <li><strong>Une interprétation</strong><span>Le « vide sans nom » d'une descendante serait la trace de ces morts jamais pleurés. C'est une lecture symbolique, qui n'a de valeur que si elle a du sens pour la personne.</span></li>
+        </ul>
+
+        <h2>Les limites</h2>
+        <p>La psychogénéalogie n'est pas une science, et l'idée d'un deuil qui se transmet n'a pas été démontrée. Les morts jeunes étaient si fréquentes autrefois que presque chaque arbre en contient : leur présence n'a rien d'exceptionnel ni d'inquiétant en soi.</p>
+        <ul class="gestes">
+          <li>Un décès précoce dans ton arbre n'explique pas à lui seul ce que tu vis.</li>
+          <li>Un deuil « non fait » à nos yeux a pu être vécu autrement, avec d'autres mots et d'autres rites.</li>
+          <li>Tes émotions peuvent avoir bien d'autres origines, qui méritent d'être regardées pour elles-mêmes.</li>
+        </ul>
+        <p>Utilisée avec prudence, cette lecture a une vraie force : elle invite à nommer les oubliés, à les inscrire dans l'histoire, et à distinguer leur vie de la tienne.</p>
+
+        <h2>Questions pour réfléchir</h2>
+        <ul class="pistes">
+          <li><strong>Quel mort de ta famille n'a jamais été raconté ?</strong><span>Qui pourrait encore t'en parler ?</span></li>
+          <li><strong>Comment ta famille réagit-elle face à la mort ?</strong><span>Par la parole, le silence, l'humour, l'action ?</span></li>
+          <li><strong>Y a-t-il un enfant dont on ne cite jamais le prénom ?</strong><span>Et quelqu'un qui porte ce prénom aujourd'hui ?</span></li>
+          <li><strong>Quel rite te semblerait juste pour lui ou pour elle ?</strong><span>Une visite, une lettre, une fleur, une place dans ton arbre.</span></li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce qu'un deuil non fait ?</dt><dd>C'est un deuil qui n'a pas pu suivre son cours : la mort n'a pas été pleurée, racontée ni ritualisée, souvent parce qu'elle était trop brutale, trop précoce ou trop taboue. En psychogénéalogie, on fait l'hypothèse que ce qui reste en suspens peut peser sur les générations suivantes.</dd>
+          <dt>Un deuil non fait peut-il se transmettre aux générations suivantes ?</dt><dd>C'est l'hypothèse de la psychogénéalogie, inspirée notamment des travaux de Nicolas Abraham et Maria Torok sur la crypte et le fantôme. Elle n'est pas démontrée scientifiquement. Ce qui est observable, c'est la transmission de silences, de prénoms repris et de récits manquants.</dd>
+          <dt>Pourquoi la perte d'un enfant pèse-t-elle autant dans un arbre ?</dt><dd>Parce qu'elle bouleverse l'ordre attendu des générations, et qu'elle a longtemps été peu reconnue : autrefois, la mortalité infantile était si fréquente qu'on en parlait peu. L'enfant disparu, parfois jamais nommé ensuite, peut rester une place vide dans l'histoire familiale.</dd>
+          <dt>Que faire quand on découvre une mère morte jeune dans son arbre ?</dt><dd>Commence par rassembler ce que l'on sait d'elle : son nom, ses dates, ses enfants, ce qu'on racontait. Regarde qui a élevé ses enfants ensuite et comment on a parlé d'elle. Lui rendre sa place dans l'arbre est déjà un geste fort.</dd>
+          <dt>Les cinq étapes du deuil de Kübler-Ross sont-elles fiables ?</dt><dd>Elisabeth Kübler-Ross les a décrites en 1969 à partir d'entretiens avec des personnes en fin de vie, pas avec des endeuillés. Les chercheurs ont depuis montré que le deuil ne suit pas un ordre fixe. Des modèles plus récents, comme celui de Stroebe et Schut, décrivent plutôt des allers-retours.</dd>
+        </dl>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Sigmund Freud, <em>Deuil et mélancolie</em> (<em>Trauer und Melancholie</em>), 1917.</li>
+          <li>John Bowlby, <em>Attachment and Loss</em>, vol. 3, <em>Loss</em>, Hogarth Press, 1980.</li>
+          <li>Elisabeth Kübler-Ross, <em>On Death and Dying</em>, 1969.</li>
+          <li>Charles A. Corr, « Coping with Dying: Lessons That We Should and Should Not Learn from the Work of Elisabeth Kübler-Ross », <em>Death Studies</em>, 1993.</li>
+          <li>Margaret Stroebe et Henk Schut, « The Dual Process Model of Coping with Bereavement: Rationale and Description », <em>Death Studies</em>, 1999.</li>
+          <li>Kenneth J. Doka, <em>Disenfranchised Grief: Recognizing Hidden Sorrow</em>, 1989.</li>
+          <li>Michel Hanus, <em>Les Deuils dans la vie. Deuils et séparations chez l'adulte et chez l'enfant</em>, Maloine.</li>
+          <li>Nicolas Abraham et Maria Torok, <em>L'Écorce et le noyau</em>, Aubier, 1978.</li>
+          <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em>, 1993.</li>
+          <li>Claude Masset, « À quel âge mouraient nos ancêtres ? », <em>Population &amp; Sociétés</em> n° 380, INED, 2002.</li>
+          <li>Commission théologique internationale, <em>L'Espérance du salut pour les enfants qui meurent sans baptême</em>, 2007.</li>
+        </ul>
+
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Repérer les deuils de ma famille</a>
+          <a class="btn btn-trait" href="toussaint-ancetres-et-deuils.html">La Toussaint, les ancêtres et les deuils</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si un deuil, ancien ou récent, te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html" aria-current="page">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="toussaint-ancetres-et-deuils.html"><h3>La Toussaint, les ancêtres et les deuils</h3><p>Pourquoi on fleurit les tombes, et ce que les rites font pour les vivants.</p></a>
+          <a class="outil" href="syndrome-du-gisant.html"><h3>Le syndrome du gisant</h3><p>Porter, sans le savoir, la vie d'un mort : la notion et ses limites.</p></a>
+          <a class="outil" href="enfant-de-remplacement.html"><h3>L'enfant de remplacement</h3><p>Naître après la mort d'un frère ou d'une sœur : ce que l'on en sait.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres</h3><p>Ce que ces rêves peuvent dire de ton lien aux disparus.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implexe en généalogie : ancêtres communs et cousins · Genesolia</title>
+  <meta name="description" content="Implexe en généalogie : mariage entre cousins, ancêtres communs, dispenses de consanguinité, règles d&#x27;alliance dans le monde et lecture psychogénéalogique.">
+  <link rel="canonical" href="https://genesolia.fr/implexe-mariage-entre-cousins.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="L'implexe en généalogie : quand le même ancêtre apparaît dans deux branches">
+  <meta property="og:description" content="Implexe en généalogie : mariage entre cousins, ancêtres communs, dispenses de consanguinité, règles d&#x27;alliance dans le monde et lecture psychogénéalogique.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-implexe-mariage-entre-cousins.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"L'implexe en généalogie : quand le même ancêtre apparaît dans deux branches","description":"Implexe en généalogie : mariage entre cousins, ancêtres communs, dispenses de consanguinité, règles d'alliance dans le monde et lecture psychogénéalogique.","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","image":"https://genesolia.fr/assets/images/blog-implexe-mariage-entre-cousins.jpg","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/implexe-mariage-entre-cousins.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/implexe-mariage-entre-cousins.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'est-ce que l'implexe en généalogie ?","acceptedAnswer":{"@type":"Answer","text":"C'est le fait qu'une même personne apparaisse plusieurs fois parmi les ancêtres de quelqu'un, parce que deux de ses descendant·es ont eu des enfants ensemble. L'arbre compte alors moins d'ancêtres différents que de places."}},{"@type":"Question","name":"Tout le monde a-t-il de l'implexe dans son arbre ?","acceptedAnswer":{"@type":"Answer","text":"Oui, si l'on remonte assez loin. Au bout de 30 générations, un arbre compte plus d'un milliard de places, plus que la population mondiale de l'époque : les mêmes ancêtres occupent forcément plusieurs places."}},{"@type":"Question","name":"Que signifie « dispense du deux au deux » dans un acte de mariage ?","acceptedAnswer":{"@type":"Answer","text":"C'est une dispense de l'Église catholique pour un mariage entre cousins germains, qui partagent des grands-parents. « Du trois au trois » désigne des cousins issus de germains."}},{"@type":"Question","name":"Le mariage entre cousins est-il autorisé en France ?","acceptedAnswer":{"@type":"Answer","text":"Oui, le Code civil l'autorise. Il interdit en revanche le mariage entre oncle et nièce ou tante et neveu, sauf dispense du président de la République pour des causes graves."}},{"@type":"Question","name":"Comment l'outil Genesolia repère-t-il les ancêtres communs ?","acceptedAnswer":{"@type":"Answer","text":"Le panneau « Ce qui se répète » du génosociogramme signale « Des ancêtres présents dans deux branches » quand un ancêtre est relié par deux chemins. À l'import d'un arbre ascendant, un ancêtre présent dans deux branches est réuni en une seule fiche."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "L'implexe en généalogie : quand le même ancêtre apparaît dans deux branches", "item": "https://genesolia.fr/implexe-mariage-entre-cousins.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Implexe et cousins</nav>
+        <h1>L'implexe en généalogie : quand le même ancêtre apparaît dans deux branches</h1>
+        <p class="intro">En remontant ton arbre, tu retrouves soudain le même couple d'ancêtres à deux endroits : du côté de ton père et du côté de ta mère, ou deux fois dans la même branche. Ce phénomène porte un nom, l'implexe en généalogie. Il est bien plus courant qu'on ne le croit. Voici d'où il vient, comment il se calcule, ce que les sociétés du monde en ont fait, et comment la psychogénéalogie peut le lire.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 10 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-implexe-mariage-entre-cousins.jpg" width="1600" height="840" alt="Implexe en généalogie : deux rubans, prune et rose poudré, qui partent de deux branches d'un arbre généalogique dessiné à l'encre et se rejoignent sur un même médaillon ancien" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce que l'implexe en généalogie ?</h2>
+        <p>On parle d'implexe quand une même personne apparaît plusieurs fois parmi les ancêtres de quelqu'un. Cela arrive dès que deux descendant·es d'un même ancêtre ont eu des enfants ensemble : un mariage entre cousins, proches ou lointains, ou plusieurs mariages croisés entre deux familles.</p>
+        <p>Concrètement, ton arbre compte alors <strong>moins d'ancêtres différents</strong> que de cases à remplir. Si tes parents sont cousins germains, tu n'as pas huit arrière-grands-parents distincts, mais six : un couple occupe deux places.</p>
+        <p>Les généalogistes anglophones parlent de <em>pedigree collapse</em>, un terme attribué au généalogiste Robert C. Gunderson. On traduit parfois par « effondrement des ancêtres ». En allemand, on dit <em>Ahnenschwund</em>, la « perte d'ancêtres ».</p>
+        <p class="rappel"><strong>D'où vient le mot.</strong> « Implexe » vient du latin <em>implexus</em>, « entrelacé, enchevêtré », de <em>plectere</em>, « tresser ». L'image est juste : deux branches de l'arbre qui se tressent l'une dans l'autre.</p>
+
+        <h2>Le calcul : pourquoi l'implexe est inévitable</h2>
+        <p>Chaque personne a deux parents, quatre grands-parents, huit arrière-grands-parents. À chaque génération, le nombre de places double : 2, 4, 8, 16, 32… Au bout de 10 générations, soit environ trois siècles, cela fait 1 024 places. Au bout de 30 générations, autour du Moyen Âge, on dépasse le milliard : 2<sup>30</sup>, soit 1 073 741 824 places.</p>
+        <p>C'est plus que la population totale de la Terre à cette époque. La seule explication possible : les mêmes personnes occupent de nombreuses places dans ton arbre. Tout le monde, en remontant assez loin, a de l'implexe. Ce qui varie, c'est la <strong>distance</strong> à laquelle il apparaît : chez les arrière-grands-parents, ou à dix générations.</p>
+        <p class="rappel"><strong>En numérotation Sosa.</strong> Dans un arbre ascendant numéroté (toi = 1, ton père = 2, ta mère = 3, etc.), un ancêtre « implexe » porte plusieurs numéros. C'est souvent ainsi qu'on le repère : le même nom et les mêmes dates sous deux numéros différents.</p>
+
+        <h2>Une histoire pour comprendre</h2>
+        <p>Voici un arbre inventé. Les noms et les dates sont imaginaires, mais la situation était courante dans les campagnes françaises du XIXe siècle.</p>
+        <ul class="pistes">
+          <li><strong>1820 · Pierre Roux et Anne Vidal</strong><span>Ils tiennent une ferme sur un plateau. Ils ont deux enfants qui vivront : Jean (1845) et Marguerite (1848).</span></li>
+          <li><strong>1871 · Marguerite épouse Antoine Chabert</strong><span>Elle part dans la ferme voisine. Ils ont une fille, Rose, en 1875.</span></li>
+          <li><strong>1872 · Jean a un fils, Étienne Roux</strong><span>Il est l'héritier désigné de la ferme familiale.</span></li>
+          <li><strong>1898 · Étienne Roux épouse sa cousine germaine Rose Chabert</strong><span>Ils obtiennent une dispense « du deux au deux ». Les deux fermes sont réunies.</span></li>
+          <li><strong>Aujourd'hui · Lucie, arrière-arrière-petite-fille d'Étienne et Rose</strong><span>En remplissant son arbre, elle trouve Pierre Roux et Anne Vidal à deux places différentes.</span></li>
+        </ul>
+        <p>Lu avec une grille psychogénéalogique, cet arbre pose plusieurs questions :</p>
+        <ul class="gestes">
+          <li><strong>Deux lignées qui se rejoignent</strong> : les Roux et les Chabert, issus du même couple, se retrouvent dans un seul foyer.</li>
+          <li><strong>Une terre gardée</strong> : le mariage réunit deux exploitations et garde le patrimoine dans la famille.</li>
+          <li><strong>Une loyauté redoublée</strong> : Lucie descend deux fois de Pierre et Anne. Leurs histoires, leurs règles, leurs fiertés lui arrivent par deux chemins.</li>
+        </ul>
+        <p>Ce sont des <strong>hypothèses</strong>. Peut-être qu'Étienne et Rose s'aimaient depuis l'enfance. L'arbre montre une structure ; seules les histoires racontées en famille disent ce qu'elle a été.</p>
+
+        <h2>Pourquoi les mariages entre cousins étaient-ils si fréquents ?</h2>
+        <h3>Le village et la terre</h3>
+        <p>Pendant des siècles, la plupart des gens se mariaient dans leur paroisse ou les paroisses voisines. Dans un petit village, au bout de quelques générations, presque tout le monde est un peu parent. À cela s'ajoute la terre : épouser un cousin ou une cousine permettait souvent de garder ou de réunir un patrimoine.</p>
+        <p>L'ethnologue Martine Segalen a étudié ce phénomène en pays bigouden, en Bretagne, sur la période 1720-1980, dans <em>Quinze générations de Bas-Bretons</em> (1985). Avec le statisticien Philippe Richard, elle a analysé les « renchaînements d'alliance » : des mariages qui renouent des liens avec des familles déjà alliées. Ils montrent que ces unions ne sont pas des accidents, mais des stratégies familiales et sociales.</p>
+
+        <h3>La consanguinité dans l'arbre généalogique : les dispenses de l'Église</h3>
+        <p>L'Église catholique a longtemps encadré très strictement les mariages entre parents. Jusqu'au IVe concile du Latran, en 1215, l'interdiction allait jusqu'au septième degré canonique ; le concile l'a ramenée au quatrième degré. Pour se marier malgré ce lien, il fallait une <strong>dispense</strong>, accordée par l'évêque ou, pour les liens les plus proches, par le pape.</p>
+        <p>Ces dispenses sont précieuses pour les généalogistes : elles sont souvent conservées dans les archives diocésaines, parfois déposées aux archives départementales, et elles indiquent le degré de parenté. On y lit des formules comme :</p>
+        <ul class="gestes">
+          <li><strong>« du deux au deux »</strong> : les époux sont cousins germains (ils partagent des grands-parents) ;</li>
+          <li><strong>« du trois au trois »</strong> : cousins issus de germains (ils partagent des arrière-grands-parents) ;</li>
+          <li><strong>« du trois au quatre »</strong> : un lien inégal, plus proche d'un côté que de l'autre ;</li>
+          <li><strong>« du quatre au quatre »</strong> : les époux partagent des arrière-arrière-grands-parents.</li>
+        </ul>
+        <p>Aujourd'hui encore, le Code de droit canonique de 1983 prévoit un empêchement entre parents en ligne collatérale jusqu'au quatrième degré. En droit civil français, le mariage entre cousins est autorisé ; il est interdit entre oncle et nièce ou tante et neveu, sauf dispense accordée par le président de la République pour des causes graves.</p>
+
+        <h2>Les familles royales : les Habsbourg d'Espagne</h2>
+        <p>Les dynasties européennes sont l'exemple le plus célèbre d'implexe. Pour garder les couronnes et les alliances dans la même maison, les Habsbourg d'Espagne se sont souvent mariés entre eux. Le roi Philippe IV a épousé en secondes noces sa nièce, Marie-Anne d'Autriche : leur fils, Charles II, avait donc pour parents un oncle et une nièce. Parmi les sept unions de ses parents, grands-parents et arrière-grands-parents, on compte trois mariages entre oncle et nièce et un mariage entre cousins germains.</p>
+        <p>Plus tard, Alphonse XII d'Espagne, dont les parents étaient doublement cousins germains, n'avait que quatre arrière-grands-parents distincts au lieu de huit. Dans ces familles, l'arbre se resserre parce que le mariage est d'abord une affaire politique.</p>
+
+        <h2>Les règles d'alliance dans le monde</h2>
+        <p>Le mariage entre cousins n'est ni une bizarrerie européenne ni une simple affaire de village isolé. Dans beaucoup de sociétés, il est même la règle recommandée. L'anthropologue Claude Lévi-Strauss en a fait l'un des points de départ de sa grande œuvre, <em>Les Structures élémentaires de la parenté</em> (1949). Il y montre que l'interdit de l'inceste oblige chaque groupe à chercher des conjoint·es ailleurs, et que le mariage est d'abord un échange qui relie les familles entre elles.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Cousins croisés</span><h3>Enfants d'un frère et d'une sœur</h3><p>Le fils d'un homme épouse la fille de la sœur de cet homme, ou l'inverse. Dans le sud de l'Inde, ce mariage est traditionnellement préféré : la famille qui donne une fille s'attend à en recevoir une en retour. Lévi-Strauss y voit une forme d'échange entre lignées.</p></div>
+          <div class="c2"><span class="nom">Cousins parallèles</span><h3>Enfants de deux frères ou de deux sœurs</h3><p>Dans une partie du Moyen-Orient et de l'Afrique du Nord, le mariage avec la fille du frère du père (<em>bint 'amm</em>) a longtemps été valorisé. Les anthropologues l'expliquent par la volonté de garder les biens dans la lignée paternelle et de renforcer sa solidarité.</p></div>
+        </div>
+        <p>À l'inverse, dans le nord de l'Inde, la tradition interdit d'épouser un parent de sang et pousse à chercher une alliance loin, dans une famille sans lien. Chaque société trace sa frontière entre « trop proche » et « assez proche », et cette frontière dit beaucoup de ce qu'elle veut protéger : la terre, le nom, la paix entre clans, ou l'ouverture vers l'extérieur.</p>
+
+        <h2>La lecture psychogénéalogique de l'implexe</h2>
+        <p>La psychogénéalogie ne s'intéresse pas à l'implexe pour ce qu'il dit du sang, mais pour ce qu'il dit des <strong>liens</strong>. Nous ne parlons ici que d'histoire et de symbolique.</p>
+        <ul class="pistes">
+          <li><strong>Deux lignées qui se rejoignent</strong><span>Quand deux branches viennent de la même souche, les histoires, les fiertés et les blessures de cette souche arrivent par deux côtés. Une même figure d'ancêtre peut prendre beaucoup de place.</span></li>
+          <li><strong>La famille qui reste entre soi</strong><span>Se marier entre cousins peut dire « on ne sort pas d'ici ». Certaines familles en tirent une grande solidarité. D'autres décrivent la difficulté, pour les générations suivantes, de partir ou de choisir quelqu'un « d'ailleurs ».</span></li>
+          <li><strong>La terre et le patrimoine</strong><span>Quand l'alliance sert à garder une ferme, une maison, un commerce, la question du bien peut rester au centre de l'histoire familiale. Voir <a href="argent-et-lignee.html">argent et lignée</a> et les <a href="metiers-transmis-genealogie.html">métiers de famille</a>.</span></li>
+          <li><strong>Les loyautés</strong><span>Le psychiatre Ivan Boszormenyi-Nagy, avec Geraldine Spark, a décrit dans <em>Invisible Loyalties</em> (1973) les fidélités qui lient chacun à sa famille. Un implexe peut redoubler ces <a href="loyaute-familiale-invisible.html">loyautés invisibles</a>.</span></li>
+          <li><strong>Les secrets</strong><span>Un mariage arrangé, une dispense, un lien de parenté qu'on ne mentionne pas : l'implexe croise parfois les <a href="secret-de-famille.html">secrets de famille</a>.</span></li>
+        </ul>
+
+        <h2>Comment repérer des ancêtres communs dans ton arbre</h2>
+        <ol class="exercice">
+          <li><h3>Remonte aussi loin que possible, des deux côtés</h3><p>Les <a href="informations-avant-genosociogramme.html">informations à rassembler</a> et les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> t'aident à retrouver les noms, les lieux et les dates. Les actes de mariage anciens mentionnent souvent les dispenses.</p></li>
+          <li><h3>Cherche les mêmes noms, aux mêmes lieux</h3><p>Deux familles d'un même village qui se marient plusieurs fois entre elles, un même patronyme des deux côtés : ce sont des indices à vérifier.</p></li>
+          <li><h3>Importe ou dessine ton arbre</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, tu peux importer un arbre en PDF ou en GEDCOM. Lors de l'import d'un arbre ascendant, un ancêtre présent dans deux branches, avec le même nom et les mêmes dates, est réuni en une seule fiche : il apparaît une fois, relié à ses deux lignées de descendant·es.</p></li>
+          <li><h3>Ouvre le panneau « Ce qui se répète »</h3><p>L'outil signale « Des ancêtres présents dans deux branches » quand un même ancêtre est relié à toi par deux chemins, et nomme le couple le plus proche. Tu peux aussi taper « cousins » dans la recherche du panneau.</p></li>
+          <li><h3>Raconte l'histoire de ce mariage</h3><p>Qui a choisi ? Pour quelles raisons ? Qu'en disait-on ? Note ce que tu apprends avec les <a href="symboles-genosociogramme.html">symboles du génosociogramme</a>.</p></li>
+        </ol>
+
+        <h2>Faits, hypothèses, interprétations</h2>
+        <div class="deux">
+          <div class="c1"><span class="nom">Les faits</span><h3>Ce que l'arbre montre</h3><p>Étienne et Rose sont cousins germains. Ils se marient avec une dispense en 1898. Pierre Roux et Anne Vidal occupent deux places dans l'arbre de Lucie.</p></div>
+          <div class="c2"><span class="nom">Les hypothèses</span><h3>Ce que l'on peut se demander</h3><p>Le mariage a-t-il été voulu pour réunir les terres ? Les enfants ont-ils pu choisir librement leur conjoint ensuite ? Seuls les récits de famille peuvent le dire.</p></div>
+        </div>
+        <p>L'<strong>interprétation</strong> t'appartient : ce que ce double lien évoque pour toi aujourd'hui. L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> peut t'aider à le formuler.</p>
+
+        <h2>Les limites de cette lecture</h2>
+        <p>La psychogénéalogie n'est pas une science, et aucune étude n'a démontré qu'un implexe influence la vie psychique des descendant·es.</p>
+        <ul class="gestes">
+          <li>L'implexe est universel : tout arbre en contient, si l'on remonte assez loin. Le trouver n'a rien d'extraordinaire.</li>
+          <li>Un mariage entre cousins était souvent la norme sociale de son époque et de son lieu, pas un choix « à part ».</li>
+          <li>Les erreurs sont fréquentes : deux homonymes du même village ne sont pas forcément la même personne. Vérifie les dates et les actes.</li>
+          <li>C'est à toi de dire si cette lecture te parle.</li>
+        </ul>
+
+        <h2>Questions pour réfléchir</h2>
+        <ul class="pistes">
+          <li><strong>Que sais-tu de ces deux branches avant qu'elles ne se rejoignent ?</strong><span>Leurs lieux, leurs métiers, leurs histoires.</span></li>
+          <li><strong>Qu'est-ce qui comptait dans ta famille au moment de choisir un conjoint ?</strong><span>La terre, la religion, le village, le nom, ou l'amour ?</span></li>
+          <li><strong>Te sens-tu libre d'aller « ailleurs » ?</strong><span>Dans ta vie amoureuse, ton lieu de vie, ton métier. Voir aussi les <a href="schemas-repetitifs-en-amour.html">schémas répétitifs en amour</a>.</span></li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que l'implexe en généalogie ?</dt><dd>C'est le fait qu'une même personne apparaisse plusieurs fois parmi les ancêtres de quelqu'un, parce que deux de ses descendant·es ont eu des enfants ensemble. L'arbre compte alors moins d'ancêtres différents que de places.</dd>
+          <dt>Tout le monde a-t-il de l'implexe dans son arbre ?</dt><dd>Oui, si l'on remonte assez loin. Au bout de 30 générations, un arbre compte plus d'un milliard de places, plus que la population mondiale de l'époque : les mêmes ancêtres occupent forcément plusieurs places.</dd>
+          <dt>Que signifie « dispense du deux au deux » dans un acte de mariage ?</dt><dd>C'est une dispense de l'Église catholique pour un mariage entre cousins germains, qui partagent des grands-parents. « Du trois au trois » désigne des cousins issus de germains.</dd>
+          <dt>Le mariage entre cousins est-il autorisé en France ?</dt><dd>Oui, le Code civil l'autorise. Il interdit en revanche le mariage entre oncle et nièce ou tante et neveu, sauf dispense du président de la République pour des causes graves.</dd>
+          <dt>Comment l'outil Genesolia repère-t-il les ancêtres communs ?</dt><dd>Le panneau « Ce qui se répète » du génosociogramme signale « Des ancêtres présents dans deux branches » quand un ancêtre est relié par deux chemins. À l'import d'un arbre ascendant, un ancêtre présent dans deux branches est réuni en une seule fiche.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Repérer les ancêtres communs de mon arbre</a>
+          <a class="btn btn-trait" href="comment-faire-son-genosociogramme.html">Apprendre à faire mon génosociogramme</a>
+        </div>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Claude Lévi-Strauss, <em>Les Structures élémentaires de la parenté</em>, 1949 (rééd. Éditions de l'EHESS, 2017).</li>
+          <li>Martine Segalen, <em>Quinze générations de Bas-Bretons</em>, 1985.</li>
+          <li>Philippe Richard, « Étude des renchaînements d'alliance », <em>Mathématiques informatique et sciences humaines</em>, n° 123, 1993.</li>
+          <li>Ivan Boszormenyi-Nagy et Geraldine Spark, <em>Invisible Loyalties</em>, 1973.</li>
+          <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em>, Desclée de Brouwer.</li>
+          <li><em>Code de droit canonique</em> (1983), canon 1091, sur l'empêchement de consanguinité.</li>
+        </ul>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html" aria-current="page">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="quest-ce-qu-un-genosociogramme.html"><h3>Qu'est-ce qu'un génosociogramme ?</h3><p>L'arbre familial commenté, ses origines et son usage.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés invisibles</h3><p>Ces fidélités qui nous lient à notre famille sans que nous le sachions.</p></a>
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Les prénoms transmis</h3><p>Ce qu'un prénom porte d'une génération à l'autre.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour continuer à explorer ton histoire familiale.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

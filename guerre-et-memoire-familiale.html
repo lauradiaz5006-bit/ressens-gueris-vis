@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Traumatisme de guerre transgénérationnel et mémoire · Genesolia</title>
+  <meta name="description" content="Traumatisme de guerre transgénérationnel : ce que 1914, 1940 ou l'Algérie laissent dans la mémoire familiale, le silence des anciens, et comment l'explorer.">
+  <link rel="canonical" href="https://genesolia.fr/guerre-et-memoire-familiale.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le traumatisme de guerre transgénérationnel : ce que la guerre laisse dans l'arbre">
+  <meta property="og:description" content="Traumatisme de guerre transgénérationnel : ce que 1914, 1940 ou l'Algérie laissent dans la mémoire familiale, le silence des anciens, et comment l'explorer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-guerre-et-memoire-familiale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Le traumatisme de guerre transgénérationnel : ce que la guerre laisse dans l'arbre","description":"Traumatisme de guerre transgénérationnel : ce que 1914, 1940 ou l'Algérie laissent dans la mémoire familiale, le silence des anciens, et comment l'explorer.","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","image":"https://genesolia.fr/assets/images/blog-guerre-et-memoire-familiale.jpg","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/guerre-et-memoire-familiale.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/guerre-et-memoire-familiale.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Qu'appelle-t-on traumatisme de guerre transgénérationnel ?","acceptedAnswer":{"@type":"Answer","text":"En psychogénéalogie, l'expression désigne la façon dont une guerre vécue par des ancêtres continue d'habiter une famille à travers les récits, les silences, les objets, les deuils et les places de chacun. Ce n'est pas un diagnostic : c'est une manière de regarder l'histoire familiale à la lumière de la grande Histoire."}},{"@type":"Question","name":"Pourquoi mes grands-parents ne parlaient-ils jamais de la guerre ?","acceptedAnswer":{"@type":"Answer","text":"Les raisons sont multiples : protéger les enfants, ne pas trouver les mots, ne pas se sentir écouté, pudeur, honte ou conflit de mémoire, comme pour la guerre d'Algérie, longtemps restée sans nom officiel. Le silence ne veut pas dire qu'il ne s'est rien passé, ni qu'il s'est passé le pire."}},{"@type":"Question","name":"Comment savoir si un ancêtre a fait la guerre ?","acceptedAnswer":{"@type":"Answer","text":"Commence par l'âge : un homme né entre environ 1870 et 1900 avait l'âge d'être mobilisé en 1914-1918. Ensuite, les registres matricules des archives départementales retracent le parcours militaire, et le site Mémoire des hommes du ministère des Armées recense notamment les morts pour la France."}},{"@type":"Question","name":"Que signifie « En âge d'être mobilisés » dans le génosociogramme Genesolia ?","acceptedAnswer":{"@type":"Answer","text":"L'outil signale les hommes de ton arbre qui avaient entre 18 et 45 ans pendant la guerre de 1870, les deux guerres mondiales, la guerre d'Indochine ou la guerre d'Algérie. C'est seulement un repère d'âge : il ne dit pas qu'ils ont combattu, mais invite à chercher ce qu'ils ont vécu."}},{"@type":"Question","name":"Qu'est-ce que la postmémoire ?","acceptedAnswer":{"@type":"Answer","text":"Une notion proposée par la chercheuse Marianne Hirsch au début des années 1990 pour décrire le rapport des enfants de survivants de la Shoah à des événements qu'ils n'ont pas vécus, mais qui leur sont parvenus par les récits, les photos et les silences de la famille."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Le traumatisme de guerre transgénérationnel : ce que la guerre laisse dans l'arbre", "item": "https://genesolia.fr/guerre-et-memoire-familiale.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>La guerre dans l'arbre</nav>
+        <h1>Le traumatisme de guerre transgénérationnel : ce que la guerre laisse dans l'arbre</h1>
+        <p class="intro">Un arrière-grand-père parti en 1914, un grand-père prisonnier en 1940, un oncle appelé en Algérie, et, à chaque fois, presque aucun récit. Le traumatisme de guerre transgénérationnel, c'est cette idée que les guerres traversées par nos ancêtres continuent d'habiter la mémoire familiale bien après la paix. Voici d'où vient cette lecture, ce qu'elle éclaire et ce qu'elle ne prouve pas.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-guerre-et-memoire-familiale.jpg" width="1600" height="840" alt="Traumatisme de guerre transgénérationnel : lettres anciennes, photo jaunie d'un soldat de dos et médaille posées sur un tissu crème, dans une lumière douce" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce que le traumatisme de guerre transgénérationnel ?</h2>
+        <p>En psychogénéalogie, on parle de traumatisme de guerre transgénérationnel pour désigner la manière dont une guerre vécue par une génération continue de marquer les suivantes : par ce qui est raconté, par ce qui est tu, par les morts que l'on pleure ou que l'on n'ose plus nommer, par les places laissées vides autour de la table.</p>
+        <p>Ici, le mot « traumatisme » ne désigne pas un diagnostic. Il renvoie au choc historique lui-même : une mobilisation, une captivité, un exode, un deuil de masse. Ce qui nous intéresse, c'est la <strong>mémoire familiale de la guerre</strong> : les récits, les objets, les silences qu'elle a laissés, et la façon dont ils arrivent jusqu'à toi.</p>
+        <p class="rappel"><strong>D'où vient le mot.</strong> « Trauma » vient du grec ancien et signifie « blessure ». Dans l'arbre, il s'agit d'une blessure de l'histoire, celle que l'époque a infligée à une famille entière, et non d'un état que l'on pourrait attribuer à quelqu'un.</p>
+
+        <h2>Le « socio » du génosociogramme</h2>
+        <p>Le mot génosociogramme a été popularisé en France par Anne Ancelin Schützenberger, notamment dans <em>Aïe, mes aïeux !</em> (Desclée de Brouwer), le livre qui a fait connaître la <a href="psychogenealogie.html">psychogénéalogie</a> au grand public. Le préfixe « géno » renvoie à la lignée. Le « socio » rappelle qu'une famille ne vit jamais hors du monde : ses liens, ses choix et ses drames s'inscrivent dans une société, une époque, une histoire.</p>
+        <p>Schützenberger insistait sur ce contexte. Une naissance en 1919, un mariage en 1940, un départ en 1956 ne racontent pas la même chose que les mêmes événements en temps de paix. Elle savait de quoi elle parlait : née en 1919, elle s'est engagée dans la Résistance, et sa maison a été incendiée en juin 1944.</p>
+        <p>Lire un <a href="quest-ce-qu-un-genosociogramme.html">génosociogramme</a> sans les guerres, c'est souvent passer à côté de ce qui a organisé la vie de plusieurs générations : les absences, les veuvages précoces, les mariages rapides, les déménagements, les métiers abandonnés.</p>
+
+        <h2>Une histoire pour comprendre</h2>
+        <p>Voici une famille sur quatre générations. Les noms sont inventés, mais les dates suivent l'histoire de France.</p>
+        <ul class="pistes">
+          <li><strong>1914 · Auguste et Émile Lacombe partent</strong><span>Auguste, 24 ans, cultivateur, est mobilisé en août. Son frère cadet Émile le rejoint au front en 1915.</span></li>
+          <li><strong>1916 · Émile meurt, à 22 ans</strong><span>Son nom est gravé sur le monument aux morts du village. On ne retrouve pas son corps. Sa mère garde sa dernière lettre dans une boîte à couture.</span></li>
+          <li><strong>1919 · Auguste revient, et se tait</strong><span>Il se marie, reprend la ferme. Ses enfants diront plus tard : « Il n'en parlait jamais. » Sa croix de guerre dort au fond d'un tiroir.</span></li>
+          <li><strong>1940 à 1945 · Marcel, son fils aîné, prisonnier</strong><span>Né en 1921, Marcel est fait prisonnier en juin 1940, à 19 ans. Il passe cinq ans en Allemagne. À son retour, il ne raconte que des anecdotes de travail à la ferme.</span></li>
+          <li><strong>1957 · André, le cadet, appelé en Algérie</strong><span>Né en 1937, André part à 20 ans pour près de deux ans. Lui non plus ne dira presque rien. Il évoque seulement « les copains ».</span></li>
+          <li><strong>Aujourd'hui · Claire, petite-fille d'André</strong><span>Claire, 35 ans, dessine son arbre. Elle découvre trois générations d'hommes partis à la guerre autour de 20 ans, un grand-oncle mort sans sépulture, et une famille où l'on « ne parle pas de ces choses-là ».</span></li>
+        </ul>
+        <p>Rien ici ne permet de dire ce que Claire « porte ». Mais l'arbre pose des questions précises. Comment la mère d'Émile a-t-elle traversé ce deuil sans tombe ? Que signifiait, pour André, de partir à son tour ? Quelle place le silence a-t-il prise dans cette famille ?</p>
+        <p>C'est une <strong>hypothèse de lecture</strong>, pas une explication. Claire seule sait si cette histoire résonne avec la sienne.</p>
+
+        <h2>Grands-parents et la guerre : un siècle de mobilisations</h2>
+        <p>Entre 1870 et 1962, presque chaque génération d'hommes en France a connu une guerre. Pour beaucoup de familles, c'est l'histoire des grands-parents et des arrière-grands-parents.</p>
+        <ul class="facettes">
+          <li><strong>1870-1871</strong><span>La guerre franco-prussienne, la défaite, la perte de l'Alsace et d'une partie de la Lorraine, et des familles séparées par la nouvelle frontière.</span></li>
+          <li><strong>1914-1918</strong><span>Près de 1,4 million de militaires français tués, selon le ministère des Armées, et environ 600 000 veuves de guerre.</span></li>
+          <li><strong>1939-1945</strong><span>La mobilisation, la défaite, l'exode de 1940, la captivité, l'Occupation, les déportations, la Résistance, les bombardements.</span></li>
+          <li><strong>1946-1962</strong><span>La guerre d'Indochine, puis la guerre d'Algérie, où partent des générations de jeunes appelés du contingent.</span></li>
+        </ul>
+        <p>La Grande Guerre a laissé une trace visible partout : environ 36 000 monuments aux morts ont été élevés en France, la plupart entre 1919 et le milieu des années 1920. Presque chaque commune a le sien. Sur ces listes de noms, il y a souvent des frères, des cousins, des familles entières. Dans les arbres, cela se voit : des fratries amputées, des veuves qui se remarient avec le frère du défunt, des enfants qui grandissent « pupilles de la nation ».</p>
+        <p>Il y a aussi ceux qui sont revenus abîmés. Les « gueules cassées », l'expression attribuée au colonel Yves Picot, désignait les soldats défigurés par la guerre. Leur association, l'Union des blessés de la face et de la tête, a été fondée en 1921.</p>
+
+        <h2>Le silence des anciens combattants : pourquoi ils ne disaient rien</h2>
+        <p>« Il n'en parlait jamais. » C'est la phrase la plus fréquente quand on interroge une famille sur ses anciens combattants. Ce silence a des raisons très différentes, souvent mêlées :</p>
+        <ul class="gestes">
+          <li><strong>Protéger</strong> : ne pas faire peser sur les enfants ce que l'on a vu.</li>
+          <li><strong>Ne pas trouver les mots</strong> : certaines expériences ne se racontent pas à quelqu'un qui ne les a pas vécues.</li>
+          <li><strong>Ne pas être écouté</strong> : à la paix, chacun veut tourner la page, et les récits gênent.</li>
+          <li><strong>La pudeur et l'époque</strong> : beaucoup d'hommes de ces générations ont appris à ne pas parler d'eux.</li>
+          <li><strong>Une mémoire disputée</strong> : la guerre d'Algérie n'a été officiellement nommée « guerre » par la loi qu'en octobre 1999. Auparavant, on parlait d'« opérations en Afrique du Nord ». Difficile de raconter une guerre qui n'a pas de nom.</li>
+        </ul>
+        <p>Le silence ne prouve rien : ni qu'il s'est passé le pire, ni qu'il ne s'est rien passé. Il signale seulement une zone de l'histoire familiale où les mots n'ont pas circulé. C'est souvent là que les <a href="secret-de-famille.html">secrets de famille</a> et les <a href="deuil-non-fait-mort-jeune.html">deuils non faits</a> s'installent.</p>
+
+        <h2>Ailleurs dans le monde : comment les familles transmettent la guerre</h2>
+        <h3>Après la Shoah : témoigner, et la « postmémoire »</h3>
+        <p>La psychologue Yael Danieli a dirigé l'<em>International Handbook of Multigenerational Legacies of Trauma</em> (1998) : des travaux sur les descendants de survivants de la Shoah, mais aussi d'autres guerres et génocides. Le psychiatre Dori Laub, lui-même enfant survivant, a cofondé en 1979 un projet d'enregistrement des témoignages de survivants, à l'origine des archives vidéo de Yale. Avec Shoshana Felman, il a écrit <em>Testimony</em> (1992), sur ce que signifie témoigner et être écouté.</p>
+        <p>La chercheuse Marianne Hirsch a proposé au début des années 1990 la notion de <strong>postmémoire</strong> : le lien qu'entretient la génération d'après avec des événements qu'elle n'a pas vécus, mais qui lui sont parvenus par les photos, les récits et les silences de la famille, au point de sembler faire partie de ses propres souvenirs.</p>
+        <h3>Vietnam, Rwanda, Japon : nommer, se souvenir, transmettre</h3>
+        <p>À Washington, le mémorial des vétérans du Vietnam, conçu par l'architecte Maya Lin et inauguré en 1982, porte plus de 58 000 noms gravés. Les visiteurs y déposent chaque année des milliers d'objets, lettres, photos, médailles. Comme nos monuments aux morts, il dit que chaque nom compte.</p>
+        <p>Au Rwanda, la commémoration du génocide contre les Tutsi s'appelle <em>Kwibuka</em>, « se souvenir » en kinyarwanda. Elle s'ouvre chaque 7 avril pour une période de cent jours. Des jeunes nés après 1994 y marchent en silence, et les survivant·es transmettent ce qui s'est passé.</p>
+        <p>Au Japon, les survivant·es des bombardements atomiques sont appelé·es <em>hibakusha</em>. Parce qu'ils et elles vieillissent, la ville d'Hiroshima forme depuis 2012 des « successeurs de mémoire » chargés de raconter leurs témoignages, et depuis 2022 des membres de leurs familles, pour que les récits ne s'éteignent pas.</p>
+        <h3>L'Algérie, des deux côtés</h3>
+        <p>L'historien Benjamin Stora, dans <em>La Gangrène et l'oubli</em> (1991), a montré comment la France et l'Algérie ont, chacune à sa manière, refoulé la mémoire de cette guerre. Dans les familles, cela donne des mémoires multiples et parfois opposées : appelés du contingent, pieds-noirs, harkis, familles algériennes. Un même arbre peut en porter plusieurs.</p>
+
+        <h2>Ce que disent les auteurs, et les débats</h2>
+        <div class="deux">
+          <div class="c1"><span class="nom">Ce qui est établi</span><h3>La guerre a façonné les familles</h3><p>Les morts, les veuvages, les orphelins, les absences longues, les déplacements et les silences sont des faits historiques, documentés et visibles dans les archives comme dans les arbres.</p></div>
+          <div class="c2"><span class="nom">Ce qui reste discuté</span><h3>Ce qui se transmet, et comment</h3><p>Les chercheurs décrivent surtout une transmission par les récits, les attitudes et les non-dits. Dire qu'une expérience précise « passe » à un descendant reste une hypothèse, et la psychogénéalogie n'est pas une science.</p></div>
+        </div>
+        <p>La prudence s'impose pour une raison simple : presque toutes les familles françaises ont été touchées par au moins une guerre entre 1870 et 1962. Ce qui compte, c'est moins le fait de la guerre que la manière dont ta famille en a parlé, ou non.</p>
+
+        <h2>Comment explorer la guerre dans ton arbre, pas à pas</h2>
+        <ol class="exercice">
+          <li><h3>Repère les âges</h3><p>Dans ton <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, le panneau « Ce qui se répète » affiche la mention « En âge d'être mobilisés » pour les hommes qui avaient entre 18 et 45 ans pendant la guerre de 1870, les deux guerres mondiales, la guerre d'Indochine ou la guerre d'Algérie. Ce n'est qu'un repère d'âge : il ne dit pas qu'ils ont combattu.</p></li>
+          <li><h3>Cherche les traces écrites</h3><p>Les registres matricules, conservés et souvent mis en ligne par les archives départementales, retracent le parcours militaire d'un homme. Le site Mémoire des hommes, du ministère des Armées, recense notamment les morts pour la France des deux guerres mondiales, d'Indochine et d'Afrique du Nord. Les <a href="informations-avant-genosociogramme.html">informations à réunir avant ton génosociogramme</a> t'aident à préparer ces recherches.</p></li>
+          <li><h3>Regarde autour des hommes</h3><p>Les femmes aussi ont vécu la guerre : veuves, mères, épouses de prisonniers, réfugiées de l'exode. Note les mariages rapides et les remariages.</p></li>
+          <li><h3>Écoute comment on en parle</h3><p>Qui raconte, qui se tait, quels objets ont été gardés ? Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> t'aident à ouvrir le sujet avec tact.</p></li>
+          <li><h3>Rends sa place à chacun</h3><p>Inscris dans ton <a href="comment-faire-son-genosociogramme.html">arbre familial</a> les morts sans tombe, les absents, les revenus. Utilise les <a href="symboles-genosociogramme.html">symboles du génosociogramme</a> pour noter les événements historiques à côté des dates.</p></li>
+        </ol>
+        <p class="rappel"><strong>Pour aller plus doucement.</strong> L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> part de ton ressenti face à un ancêtre, sans exiger de tout savoir sur son histoire.</p>
+
+        <h2>Fait, hypothèse, interprétation : bien les distinguer</h2>
+        <ul class="gestes">
+          <li><strong>Un fait</strong> : Émile Lacombe est mort en 1916, à 22 ans. Cela se vérifie dans les archives.</li>
+          <li><strong>Une hypothèse</strong> : sa mort a pu peser sur la façon dont sa famille parlait, ou se taisait, de la guerre.</li>
+          <li><strong>Une interprétation</strong> : Claire se sent concernée par cette histoire. Elle seule peut le dire, et personne ne peut le décider à sa place.</li>
+        </ul>
+
+        <h2>Les limites de cette lecture</h2>
+        <p>La psychogénéalogie n'est pas une science, et la transmission d'une guerre d'une génération à l'autre ne se mesure pas dans un arbre. Il faut garder plusieurs choses en tête :</p>
+        <ul class="gestes">
+          <li>Une coïncidence de dates entre ta vie et une guerre ancienne n'est pas une cause.</li>
+          <li>Les familles ont aussi transmis de la solidarité, du courage, des amitiés nées au front ou dans les camps. La guerre n'a pas laissé que des blessures.</li>
+          <li>Les sources familiales se trompent parfois : un récit héroïque ou dramatique peut avoir été embelli ou déformé avec le temps. Les archives aident à faire la part des choses.</li>
+        </ul>
+        <p>Utilisée ainsi, cette lecture relie ta famille à l'Histoire et redonne un nom aux absents. Les <a href="metiers-transmis-genealogie.html">métiers de famille</a> abandonnés, les <a href="devenir-parent-au-meme-age.html">âges qui se répondent</a> ou les <a href="memoire-transgenerationnelle.html">mémoires transgénérationnelles</a> prennent souvent un autre sens une fois le contexte posé.</p>
+
+        <h2>Questions pour réfléchir</h2>
+        <ul class="pistes">
+          <li><strong>Qui, dans ta famille, a vécu une guerre ?</strong><span>Comme soldat, prisonnier, résistant, réfugié, veuve, enfant. Note aussi ceux dont tu ne sais rien.</span></li>
+          <li><strong>Qu'est-ce qu'on t'en a raconté ?</strong><span>Une anecdote, une phrase répétée, un objet gardé, une photo en uniforme.</span></li>
+          <li><strong>Qu'est-ce qu'on ne t'a jamais raconté ?</strong><span>Les sujets où l'on change de conversation, les dates que personne ne commente.</span></li>
+          <li><strong>Que reste-t-il dans ta vie de cette époque ?</strong><span>Une habitude, une valeur, une peur du manque, une façon de se taire ou de tenir bon. Voir aussi <a href="loyaute-familiale-invisible.html">les loyautés invisibles</a>.</span></li>
+        </ul>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux ! Liens transgénérationnels, secrets de famille, syndrome d'anniversaire, transmission des traumatismes et pratique du génosociogramme</em>, Desclée de Brouwer.</li>
+          <li>Yael Danieli (dir.), <em>International Handbook of Multigenerational Legacies of Trauma</em>, 1998.</li>
+          <li>Shoshana Felman et Dori Laub, <em>Testimony: Crises of Witnessing in Literature, Psychoanalysis, and History</em>, Routledge, 1992.</li>
+          <li>Marianne Hirsch, <em>Family Frames: Photography, Narrative, and Postmemory</em>, Harvard University Press, 1997.</li>
+          <li>Marianne Hirsch, <em>The Generation of Postmemory: Writing and Visual Culture After the Holocaust</em>, Columbia University Press, 2012.</li>
+          <li>Benjamin Stora, <em>La Gangrène et l'oubli. La mémoire de la guerre d'Algérie</em>, La Découverte, 1991.</li>
+          <li>Ministère des Armées, site <em>Mémoire des hommes</em> (bases des morts pour la France, journaux des marches et opérations).</li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'appelle-t-on traumatisme de guerre transgénérationnel ?</dt><dd>En psychogénéalogie, l'expression désigne la façon dont une guerre vécue par des ancêtres continue d'habiter une famille à travers les récits, les silences, les objets, les deuils et les places de chacun. Ce n'est pas un diagnostic : c'est une manière de regarder l'histoire familiale à la lumière de la grande Histoire.</dd>
+          <dt>Pourquoi mes grands-parents ne parlaient-ils jamais de la guerre ?</dt><dd>Les raisons sont multiples : protéger les enfants, ne pas trouver les mots, ne pas se sentir écouté, pudeur, honte ou conflit de mémoire, comme pour la guerre d'Algérie, longtemps restée sans nom officiel. Le silence ne veut pas dire qu'il ne s'est rien passé, ni qu'il s'est passé le pire.</dd>
+          <dt>Comment savoir si un ancêtre a fait la guerre ?</dt><dd>Commence par l'âge : un homme né entre environ 1870 et 1900 avait l'âge d'être mobilisé en 1914-1918. Ensuite, les registres matricules des archives départementales retracent le parcours militaire, et le site Mémoire des hommes du ministère des Armées recense notamment les morts pour la France.</dd>
+          <dt>Que signifie « En âge d'être mobilisés » dans le génosociogramme Genesolia ?</dt><dd>L'outil signale les hommes de ton arbre qui avaient entre 18 et 45 ans pendant la guerre de 1870, les deux guerres mondiales, la guerre d'Indochine ou la guerre d'Algérie. C'est seulement un repère d'âge : il ne dit pas qu'ils ont combattu, mais invite à chercher ce qu'ils ont vécu.</dd>
+          <dt>Qu'est-ce que la postmémoire ?</dt><dd>Une notion proposée par la chercheuse Marianne Hirsch au début des années 1990 pour décrire le rapport des enfants de survivants de la Shoah à des événements qu'ils n'ont pas vécus, mais qui leur sont parvenus par les récits, les photos et les silences de la famille.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à ma famille</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html" aria-current="page">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="psychogenealogie.html"><h3>La psychogénéalogie, sans promesse</h3><p>Ce qu'elle peut t'apporter, et ses limites, dites honnêtement.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="toussaint-ancetres-et-deuils.html"><h3>La Toussaint, les ancêtres et les deuils</h3><p>Pourquoi on honore les morts, ici et ailleurs, et comment le faire à ta façon.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="secret-de-famille.html"><h3>Les secrets de famille</h3><p>Non-dits, zones d'ombre et fantômes : comment les regarder sans accuser.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
