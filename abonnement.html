@@ -8,7 +8,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Abonnement Le Cercle, carnets et livrets · Genesolia</title>
+  <title>Le Cercle Genesolia : 1 mois gratuit pour sortir de ta boucle</title>
   <meta name="description" content="Le Cercle Genesolia : ton carnet du mois, ton suivi semaine après semaine et tous les livrets, 1 mois gratuit pour tester, puis 29 € par mois sans engagement.">
   <link rel="canonical" href="https://genesolia.fr/abonnement.html">
   <meta property="og:title" content="Le Cercle Genesolia · 1 mois gratuit pour tester">
@@ -97,25 +97,201 @@
       .a-formules,.a-packs,.a-autres{grid-template-columns:1fr}
     }
     @media (max-width:560px){.a-grille{grid-template-columns:1fr}.a-champs{grid-template-columns:1fr}.a-carte,.a-liste{padding:1.5rem}}
+
+    /* Tunnel de vente */
+    .t-hero{position:relative;overflow:hidden;color:#FFF4F6;background:#2E1338}
+    .t-hero-fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+    .t-hero::after,.t-urgence::after,.t-final::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(46,19,56,.95) 0%,rgba(46,19,56,.78) 45%,rgba(107,47,91,.25) 100%)}
+    .t-hero-grille{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:3rem;align-items:center;padding:5rem 0 4.5rem}
+    .t-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.08;margin-bottom:1.2rem}
+    .t-hero .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.8rem;max-width:36rem}
+    .t-couvs{position:relative;height:420px}
+    .t-couv{position:absolute;width:230px;height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+    .t-couv-1{top:0;right:8%;transform:rotate(7deg);opacity:.92}
+    .t-couv-2{top:40px;right:34%;transform:rotate(-4deg)}
+    .t-cta{font-size:1.05rem;padding:1rem 1.7rem;box-shadow:0 12px 30px rgba(107,47,91,.28)}
+    .a-offre .t-cta{box-shadow:0 12px 30px rgba(0,0,0,.3)}
+    .t-rassure{margin:.8rem 0 0;font-size:.88rem;color:var(--prune-doux)}
+    .t-bandeau{background:var(--prune);color:#F7E6EE;font-size:.95rem}
+    .t-bandeau .conteneur{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 1.5rem;padding:1rem 0}
+    .t-bandeau b{color:var(--champagne-clair)}
+    .t-douleurs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+    .t-douleurs li{background:var(--blanc);border:1px solid var(--rose);border-top:4px solid var(--corail);border-radius:18px;padding:1.4rem;color:var(--prune-doux);line-height:1.55;font-size:.95rem}
+    .t-douleurs b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.4rem}
+    .t-verite{max-width:44rem;margin:2.4rem auto 0;text-align:center}
+    .t-verite p{font-size:1.12rem;margin-bottom:1.4rem;max-width:none}
+    .t-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .t-split-img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--rayon);box-shadow:0 24px 60px rgba(107,47,91,.16)}
+    .t-split h2{margin-bottom:1rem}
+    .t-split p{margin-bottom:1rem}
+    .t-coches{list-style:none;margin:0 0 1.5rem;padding:0;display:grid;gap:.6rem}
+    .t-coches li{position:relative;padding-left:2rem;line-height:1.5}
+    .t-coches li::before{content:"";position:absolute;left:0;top:.15em;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--champagne) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat}
+    .t-contenus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}
+    .t-contenus article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-contenus article>img{width:100%;height:190px;object-fit:cover;display:block}
+    .t-contenus article>img.t-portrait{object-fit:contain;background:linear-gradient(135deg,#FCEFF3,#FFF6EC);padding:1rem 0}
+    .t-contenus article>div{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .t-contenus h3{font-size:1.3rem}
+    .t-contenus p{font-size:.94rem;color:var(--prune-doux)}
+    .t-valeur{margin-top:auto;align-self:flex-start;font:600 .8rem var(--texte);letter-spacing:.04em;color:var(--prune);background:var(--champagne-clair);border-radius:99px;padding:.3rem .8rem}
+    .t-pile{margin-top:3rem;display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);box-shadow:0 20px 50px rgba(107,47,91,.1)}
+    .t-pile h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.2rem}
+    .t-pile ul{list-style:none;margin:0;padding:0}
+    .t-pile li,.t-total,.t-toi{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px dashed var(--rose-fonce)}
+    .t-total{margin:0;border-bottom:0;font-weight:600}
+    .t-total s{color:var(--prune-doux)}
+    .t-toi{margin:0;border:0;padding-top:.2rem;font-family:var(--display);font-size:1.6rem;color:var(--prune)}
+    .t-toi b{font-weight:400;font-size:2.4rem;line-height:1}
+    .t-pile-cta{text-align:center}
+    .t-pile p,.t-risque p,.t-contenus p,.t-douleurs li,.t-hero .a-offre p{max-width:none}
+    .t-etapes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;counter-reset:e}
+    .t-etapes li{counter-increment:e;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:3.6rem 1.4rem 1.4rem;color:var(--prune-doux);line-height:1.55}
+    .t-etapes li::before{content:counter(e);position:absolute;top:1.1rem;left:1.4rem;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 1rem var(--texte)}
+    .t-etapes b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.35rem}
+    .t-urgence,.t-final{position:relative;overflow:hidden;background:#2E1338;color:#FFF4F6}
+    .t-urgence-texte,.t-final-texte{position:relative;z-index:1;padding:5rem 0;max-width:40rem}
+    .t-urgence h2,.t-final h2{color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+    .t-urgence p,.t-final p{color:#F7E6EE;font-size:1.1rem;margin-bottom:1.6rem}
+    .t-urgence .btn-plein,.t-final .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .t-final .t-rassure{color:#E6CFDD;margin-top:.9rem}
+    .t-final-texte{margin-inline:auto;text-align:center}
+    .t-risque{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:52rem;margin:0 auto;padding:2.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-risque h2{margin-bottom:1rem}
+    .t-sceau{width:150px;height:150px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:3px double var(--champagne);color:var(--prune)}
+    .t-sceau span{font:400 2.6rem var(--display);line-height:1}
+    .t-sceau small{font-size:.8rem;font-weight:600}
+    .t-barre{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,249,247,.97);border-top:1px solid var(--rose-fonce);box-shadow:0 -10px 30px rgba(107,47,91,.1);backdrop-filter:blur(6px)}
+    .t-barre .conteneur{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.7rem 0}
+    .t-barre p{margin:0;font-size:.95rem}
+    .t-barre s{color:var(--prune-doux)}
+    .t-barre b{font-family:var(--display);font-weight:400;font-size:1.2rem}
+    .t-barre span{color:var(--prune-doux);font-size:.85rem}
+    .t-barre .btn{padding:.65rem 1.3rem}
+    body.avec-barre{padding-bottom:4.5rem}
+    @media (max-width:960px){.t-douleurs{grid-template-columns:1fr 1fr}.t-contenus{grid-template-columns:1fr 1fr}}
+    @media (max-width:860px){
+      .t-hero-grille{grid-template-columns:1fr;padding:3.5rem 0}
+      .t-couvs{display:none}
+      .t-split,.t-pile,.t-etapes{grid-template-columns:1fr}
+      .t-risque{grid-template-columns:1fr;justify-items:center;text-align:left}
+      .t-pile{padding:1.6rem}
+    }
+    @media (max-width:560px){.t-douleurs,.t-contenus{grid-template-columns:1fr}.t-barre span{display:none}.t-bandeau .conteneur{display:grid;grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body class="nouveau">
   <header data-entete></header>
   <main>
-    <section class="a-tete">
-      <div class="conteneur">
+    <section class="t-hero">
+      <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
+      <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Abonnement · Le Cercle Genesolia</p>
-          <h1>Un rendez-vous chaque mois pour comprendre ce qui se répète</h1>
-          <p class="intro">Ton carnet du mois, ton suivi semaine après semaine et tous les livrets du site, réunis dans un seul abonnement. Sans engagement : tu arrêtes quand tu veux.</p>
+          <p class="a-sur">Le Cercle Genesolia · 1 mois offert</p>
+          <h1>Ce qui se répète dans ta vie ne s'arrêtera pas tout seul.</h1>
+          <p class="intro">Chaque mois, un carnet, un suivi semaine après semaine et ta lecture personnelle, pour voir enfin d'où vient ta boucle et commencer à en sortir. Teste tout pendant 30 jours, gratuitement.</p>
           <div class="a-offre">
             <p class="a-barre"><s>29 € par mois</s></p>
-            <p class="a-gros">Teste Le Cercle 1 mois gratuitement</p>
-            <a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a>
-            <p class="a-petit">Sans engagement · ensuite 29 € par mois · tu arrêtes en 1 clic quand tu veux</p>
+            <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
+            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+            <p class="a-petit">Sans engagement · ensuite 29 € par mois · rappel avant la fin de l'essai · arrêt en 1 clic</p>
           </div>
         </div>
-        <img class="a-couv" src="assets/cercle/apercu-2026-11.jpg" width="662" height="936" alt="Couverture du carnet de novembre du Cercle">
+        <div class="t-couvs" aria-hidden="true">
+          <img class="t-couv t-couv-1" src="assets/cercle/apercu-12-saisons.jpg" width="496" height="702" alt="">
+          <img class="t-couv t-couv-2" src="assets/cercle/apercu-2026-11.jpg" width="496" height="702" alt="">
+        </div>
+      </div>
+    </section>
+
+    <div class="t-bandeau"><div class="conteneur"><span><b>30 jours</b> pour tout tester</span><span><b>0 €</b> prélevé pendant l'essai</span><span><b>1 clic</b> pour arrêter</span><span><b>Tes carnets</b> restent à toi</span></div></div>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Tu te reconnais ?</p>
+          <h2>Les visages changent. La fin de l'histoire, jamais.</h2>
+        </div>
+        <ul class="t-douleurs">
+          <li><b>« Encore ! »</b>Le même type de relation, les mêmes disputes, la même fin. Avec d'autres personnes, dans d'autres décors.</li>
+          <li><b>La peur qui revient</b>Peur de manquer, d'être quitté·e, de ne pas être à ta place, alors même que tout va bien.</li>
+          <li><b>La réaction qui part toute seule</b>Tu sais très bien pourquoi tu réagis comme ça. Et pourtant, tu recommences.</li>
+          <li><b>L'histoire de ta mère</b>Parfois, tu as l'impression de rejouer la vie de ta mère ou de ta grand-mère, au même âge.</li>
+        </ul>
+        <div class="t-verite">
+          <p><b>Comprendre ne suffit pas.</b> Une boucle se défait avec du temps, des gestes répétés et un rendez-vous régulier. Seul·e, on lit un article, on fait un test, puis la vie reprend et la boucle aussi. Le Cercle est ce rendez-vous.</p>
+          <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <img class="t-split-img" src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">La solution</p>
+          <h2>Un rendez-vous chaque mois, un pas chaque semaine</h2>
+          <p>Le Cercle t'accompagne mois après mois avec la méthode des deux cycles : la racine (sécurité, place, argent) et le cœur (amour, lien, peur d'être quitté·e).</p>
+          <ul class="t-coches">
+            <li>Tu sais <b>quoi faire cette semaine</b>, sans te disperser.</li>
+            <li>Tu relies ta vie à <b>ton arbre, tes nombres et ton ciel</b>.</li>
+            <li>Tu vois <b>ton chemin parcouru</b>, bilan après bilan.</li>
+          </ul>
+          <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Ce que tu reçois</p>
+          <h2>Tout Genesolia, réuni dans ton espace</h2>
+          <p>Chaque élément s'achète aussi seul. Dans Le Cercle, tout est inclus.</p>
+        </div>
+        <div class="t-contenus">
+          <article><img src="assets/cercle/apercu-2026-11.jpg" width="496" height="702" alt="Couverture du carnet de novembre" loading="lazy" class="t-portrait"><div><h3>Le carnet du mois</h3><p>Dix pages à imprimer : le thème expliqué, trois exercices, un rituel symbolique et une méditation à lire.</p><span class="t-valeur">Valeur 9 €</span></div></article>
+          <article><img class="" src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><h3>Ton suivi semaine après semaine</h3><p>Un thème, un exercice et un geste concret chaque semaine, avec ton journal privé et tes bilans.</p><span class="t-valeur">Inclus</span></div></article>
+          <article><img class="" src="assets/images/genosociogramme-800.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un arbre familial dessiné à la main, entouré de photos anciennes" loading="lazy" decoding="async"><div><h3>Le rapport complet de ton arbre</h3><p>Les âges, les dates, les prénoms et les épreuves qui se répètent d'une génération à l'autre, expliqués.</p><span class="t-valeur">Valeur 9 €</span></div></article>
+          <article><img class="" src="assets/images/blog-nombres-800.webp" srcset="assets/images/blog-nombres-800.webp 800w, assets/images/blog-nombres-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un cadran doré gravé de cercles et de géométrie fine" loading="lazy" decoding="async"><div><h3>Ton livret de numérologie</h3><p>Ton chemin de vie, tes nombres et ton année personnelle, plus de trente pages.</p><span class="t-valeur">Valeur 12 €</span></div></article>
+          <article><img src="assets/cercle/apercu-12-saisons.jpg" width="496" height="702" alt="Couverture du livret Les 12 saisons" loading="lazy" class="t-portrait"><div><h3>Les 12 saisons</h3><p>Le livret de l'année : chaque mois, son énergie et ce qu'il réveille dans les familles.</p><span class="t-valeur">Valeur 15 €</span></div></article>
+          <article><img class="" src="assets/images/blog-ciel-800.webp" srcset="assets/images/blog-ciel-800.webp 800w, assets/images/blog-ciel-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un ciel étoilé avec un croissant de lune au-dessus de la mer" loading="lazy" decoding="async"><div><h3>Ton mois personnel et la lettre du ciel</h3><p>Ton nombre du mois, ton guide, ton calendrier, et le ciel réel du mois relié à ton histoire.</p><span class="t-valeur">Inclus</span></div></article>
+        </div>
+
+        <div class="t-pile">
+          <div>
+            <p class="a-etiq">Le calcul est simple</p>
+            <h2>Plus de 45 € de contenus. 0 € pour commencer.</h2>
+            <ul>
+              <li><span>Carnet du mois</span><span>9 €</span></li>
+              <li><span>Rapport complet de ton arbre</span><span>9 €</span></li>
+              <li><span>Livret de numérologie</span><span>12 €</span></li>
+              <li><span>Livret Les 12 saisons</span><span>15 €</span></li>
+              <li><span>Suivi, mois personnel et lettre du ciel</span><span>inclus</span></li>
+            </ul>
+            <p class="t-total"><span>Valeur à l'unité</span><s>45 €</s></p>
+            <p class="t-toi"><span>Ton premier mois</span><b>0 €</b></p>
+          </div>
+          <div class="t-pile-cta">
+            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+            <p class="t-rassure">Rien n'est prélevé pendant 30 jours · sans engagement · arrêt en 1 clic</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">En 3 minutes</p>
+          <h2>Ton essai commence aujourd'hui</h2>
+        </div>
+        <ol class="t-etapes">
+          <li><b>Crée ton compte</b>Ton prénom, ton e-mail, un mot de passe. Ton espace est prêt.</li>
+          <li><b>Réponds à trois questions</b>Ton bilan de départ : ce qui se répète, où, depuis quand.</li>
+          <li><b>Enregistre ta carte</b>Rien n'est prélevé pendant 30 jours. Tu reçois un rappel avant la fin.</li>
+        </ol>
+        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a></div>
       </div>
     </section>
 
@@ -174,6 +350,34 @@
           <li><b>Ton 3<sup>e</sup> mois</b>Un nouveau carnet, et ton livret de numérologie.</li>
           <li><b>Ensuite, chaque mois</b>Un nouveau carnet, ton mois personnel mis à jour et la lettre du mois.</li>
         </ol>
+      </div>
+    </section>
+
+    <section class="t-urgence">
+      <img class="t-hero-fond" src="assets/images/blog-deuil-800.webp" srcset="assets/images/blog-deuil-800.webp 800w, assets/images/blog-deuil-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
+      <div class="conteneur t-urgence-texte">
+        <p class="a-sur">Pourquoi maintenant</p>
+        <h2>Le carnet de novembre : « Ceux qui sont venus avant toi »</h2>
+        <p>Novembre est le mois où l'on pense à ses ancêtres. C'est le moment idéal pour ouvrir ton arbre, regarder les deuils de ta lignée et commencer ton suivi. Chaque mois que tu laisses passer, la boucle se rejoue une fois de plus.</p>
+        <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="t-risque">
+          <div class="t-sceau" aria-hidden="true"><span>0 €</span><small>pendant 30 jours</small></div>
+          <div>
+            <h2>Zéro risque pour toi</h2>
+            <ul class="t-coches">
+              <li><b>30 jours gratuits</b> pour tout tester : carnet, suivi, rapport de ton arbre.</li>
+              <li><b>Un e-mail de rappel</b> quelques jours avant la fin de l'essai.</li>
+              <li><b>Arrêt en 1 clic</b> depuis Mon espace, sans justification.</li>
+              <li><b>Tes carnets restent à toi</b>, même si tu arrêtes.</li>
+            </ul>
+            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -305,15 +509,34 @@
         <details><summary>Comment se passe le mois gratuit ?</summary><p>Tu crées ton compte, tu réponds à trois questions pour ton bilan de départ, puis tu enregistres ta carte. Rien n'est prélevé pendant 30 jours. Si tu continues, le premier paiement de 29 € a lieu le 31<sup>e</sup> jour.</p></details>
         <details><summary>Est-ce que je reçois tout d'un coup ?</summary><p>Non, et c'est voulu. Tout est inclus, mais chaque contenu arrive à son moment : un nouveau carnet chaque mois, la suite de ton suivi chaque semaine, et un livret débloqué au fil des mois. Tes carnets restent ensuite dans ton espace.</p></details>
         <details><summary>Et si je veux arrêter pendant l'essai ?</summary><p>Un clic depuis Mon espace, et tu ne paies rien. Tu reçois aussi un e-mail de rappel quelques jours avant la fin de l'essai.</p></details>
+        <details><summary>Je n'ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Compte une quinzaine de minutes par semaine pour ton suivi, et le carnet du mois se remplit à ton rythme. Tout reste dans ton espace : tu reprends où tu t'étais arrêté·e.</p></details>
+        <details><summary>Je connais mal mon histoire familiale. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Le suivi et les carnets fonctionnent même sans arbre complet, et t'aident à poser les bonnes questions à ta famille.</p></details>
         <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Genesolia propose une lecture symbolique de ton histoire familiale, à faire seul·e, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
         <details><summary>Je garde mes carnets si j'arrête ?</summary><p>Oui. Les carnets et livrets que tu as téléchargés restent à toi.</p></details>
       </div>
     </section>
+    <section class="t-final">
+      <img class="t-hero-fond" src="assets/images/blog-ancetres-reve-800.webp" srcset="assets/images/blog-ancetres-reve-800.webp 800w, assets/images/blog-ancetres-reve-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
+      <div class="conteneur t-final-texte">
+        <h2>Dans un mois, tu peux regarder ta boucle autrement.</h2>
+        <p>Ou la laisser se rejouer encore. Le premier pas est gratuit.</p>
+        <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+        <p class="t-rassure">Rien n'est prélevé pendant 30 jours · sans engagement · arrêt en 1 clic</p>
+      </div>
+    </section>
   </main>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><s>29 €</s> <b>1 mois gratuit</b> <span>sans engagement</span></p><a class="btn btn-plein" href="essai.html">Commencer</a></div></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>
   (function () {
+    var barre = document.getElementById('t-barre'), hero = document.querySelector('.t-hero'), fin = document.querySelector('.t-final');
+    if (barre && hero && 'IntersectionObserver' in window) {
+      var vuHero = true, vuFin = false;
+      var maj = function () { var cacher = vuHero || vuFin; barre.hidden = cacher; document.body.classList.toggle('avec-barre', !cacher); };
+      new IntersectionObserver(function (e) { vuHero = e[0].isIntersecting; maj(); }).observe(hero);
+      if (fin) new IntersectionObserver(function (e) { vuFin = e[0].isIntersecting; maj(); }).observe(fin);
+    }
     var LIENS = window.GENESOLIA_STRIPE || {};
     document.querySelectorAll('[data-stripe]').forEach(function (a) {
       var l = LIENS[a.getAttribute('data-stripe')];
