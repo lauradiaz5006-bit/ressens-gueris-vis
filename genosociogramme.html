@@ -317,6 +317,7 @@
     <div class="groupe">
       <button class="bt" type="button" id="bt-annuler" disabled title="Annuler (Ctrl+Z)"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3L2 6l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 6H10a4 4 0 010 8H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Annuler</button>
       <button class="bt" type="button" id="bt-centrer">Recentrer</button>
+      <button class="bt bt-tuto" type="button" id="bt-tuto" aria-haspopup="dialog">Comment ça marche ?</button>
     </div>
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
@@ -348,6 +349,7 @@
             <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a>
           </div>
           <button class="lien-import" type="button" id="bt-importer-vide">J'ai déjà un arbre en PDF ou GEDCOM : l'importer</button>
+          <button class="lien-import" type="button" data-tuto>Première fois ? Voir comment ça marche</button>
           <small>Ton arbre reste dans ton navigateur. Connecte-toi pour le retrouver sur un autre ordinateur.</small>
         </div>
       </div>
@@ -577,6 +579,7 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/genosociogramme.js?v=2026-10-09e"></script>
   <script src="assets/import-arbre.js?v=2026-10-09e"></script>
+  <script src="assets/tutoriel-arbre.js?v=2026-10-09"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
