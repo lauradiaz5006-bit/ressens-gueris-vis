@@ -165,8 +165,7 @@
   var FORMATION = {
     date: 'le 7 novembre',
     page: 'formation.html',
-    finAnnonce: '2026-11-08',                       /* le bandeau disparaît à cette date */
-    extrait: 'assets/formation/sors-de-la-boucle-module-1.pdf'
+    finAnnonce: '2026-11-08'                        /* le bandeau disparaît à cette date */
   };
   var annonceActive = new Date() < new Date(FORMATION.finAnnonce + 'T00:00:00');
 
@@ -195,7 +194,7 @@
         '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
         '<p>« Sors de la boucle » : 8 modules, 8 séances audio guidées et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
         '<ul class="ef-avantages">' +
-          '<li><b>Le module 1 offert</b> dès ton inscription</li>' +
+          '<li><b>Le module 1 offert</b>, envoyé par e-mail</li>' +
           '<li><b>Le tarif fondatrice</b>, réservé à la liste</li>' +
           '<li><b>Accès 48 h avant</b> tout le monde</li>' +
         '</ul>' +
@@ -212,15 +211,16 @@
     try { deja = localStorage.getItem('liste-formation') === 'oui'; } catch (e) {}
     var boucles = ['En amour', 'Avec l\'argent', 'Au travail', 'En famille', 'Dans ma confiance en moi', 'Autre'];
     var budgets = ['Moins de 50 €', 'De 50 à 100 €', 'De 100 à 200 €', 'Plus de 200 €'];
-    function telechargerExtrait() {
-      var a = document.createElement('a');
-      a.href = FORMATION.extrait; a.download = 'sors-de-la-boucle-module-1.pdf';
-      document.body.appendChild(a); a.click(); a.remove();
-    }
+    /* Plus de téléchargement immédiat : le module 1 est envoyé par e-mail, étape par étape, quand tout est prêt. */
     function bravo(prenom) {
       return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
-        '<p>Tu es sur la liste. Tu recevras le lien d\'inscription et le tarif fondatrice 48 h avant l\'ouverture, ' + FORMATION.date + '.</p>' +
-        '<a class="btn btn-plein" href="' + FORMATION.extrait + '" download="sors-de-la-boucle-module-1.pdf">Télécharger mon module 1 offert</a></div>';
+        '<p>Tu es bien sur la liste. Ton module 1 offert t\'arrivera par e-mail, étape par étape :</p>' +
+        '<ol class="liste-etapes">' +
+          '<li><b>La feuille de cours</b><span>pour comprendre ta boucle</span></li>' +
+          '<li><b>La séance audio guidée</b><span>20 minutes pour la vivre</span></li>' +
+          '<li><b>Le cahier d\'exercices</b><span>et ton carnet de 7 jours</span></li>' +
+        '</ol>' +
+        '<p class="discret">Tu recevras ensuite le tarif fondatrice et ton accès 48 h avant l\'ouverture, ' + FORMATION.date + '. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';
     }
     el.className = 'liste-formation';
     if (deja) { el.innerHTML = bravo(''); return; }
@@ -260,7 +260,6 @@
         .then(function () {
           try { localStorage.setItem('liste-formation', 'oui'); } catch (e) {}
           el.innerHTML = bravo(prenom);
-          telechargerExtrait();
         })
         .catch(function () {
           btn.disabled = false; btn.textContent = 'Je rejoins la liste et je reçois le module 1';
