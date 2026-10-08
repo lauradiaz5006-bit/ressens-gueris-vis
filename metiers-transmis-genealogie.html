@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Métier transmis de génération en génération · Genesolia</title>
+  <meta name="description" content="Métier transmis de génération en génération : reprendre le métier de son père, rompre avec lui, métier qui saute une génération. Racines, auteurs, repères.">
+  <link rel="canonical" href="https://genesolia.fr/metiers-transmis-genealogie.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le métier transmis de génération en génération : héritage, rupture et liberté">
+  <meta property="og:description" content="Métier transmis de génération en génération : reprendre le métier de son père, rompre avec lui, métier qui saute une génération. Racines, auteurs, repères.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-metiers-transmis-genealogie.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Le métier transmis de génération en génération : héritage, rupture et liberté","description":"Métier transmis de génération en génération : reprendre le métier de son père, rompre avec lui, métier qui saute une génération. Racines, auteurs, repères.","image":"https://genesolia.fr/assets/images/blog-metiers-transmis-genealogie.jpg","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/metiers-transmis-genealogie.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/metiers-transmis-genealogie.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que veut dire un métier transmis de génération en génération ?","acceptedAnswer":{"@type":"Answer","text":"C'est un métier exercé dans la même lignée par plusieurs générations successives, de père en fils, de mère en fille ou par d'autres liens. La psychogénéalogie y voit un fil possible de l'histoire familiale, à côté des explications économiques et sociales."}},{"@type":"Question","name":"Reprendre le métier de son père, est-ce forcément une loyauté familiale ?","acceptedAnswer":{"@type":"Answer","text":"Non. Reprendre le métier familial peut être un vrai choix, nourri par le goût, le savoir-faire reçu et les occasions concrètes. On parle de loyauté quand la personne a le sentiment de ne pas avoir eu le choix, ou de trahir si elle fait autre chose."}},{"@type":"Question","name":"Pourquoi la rupture avec le métier familial est-elle parfois si difficile ?","acceptedAnswer":{"@type":"Answer","text":"Parce qu'un métier transmis porte souvent une identité, une fierté et parfois un patrimoine. Le sociologue Vincent de Gaulejac a décrit les tiraillements de celles et ceux qui changent de milieu : on peut se sentir à la fois loin de sa famille et pas tout à fait chez soi ailleurs."}},{"@type":"Question","name":"Qu'est-ce qu'un métier qui saute une génération ?","acceptedAnswer":{"@type":"Answer","text":"C'est un métier exercé par un grand-parent, abandonné par ses enfants, puis repris par un petit-enfant. Ce retour peut tenir au hasard, à une transmission directe entre grand-parent et petit-enfant, ou à un attachement à une part de l'histoire restée en suspens."}},{"@type":"Question","name":"Comment repérer les métiers de famille dans son arbre ?","acceptedAnswer":{"@type":"Answer","text":"Note le métier de chaque personne sur trois ou quatre générations, y compris les femmes et les métiers non déclarés. Le génosociogramme en ligne de Genesolia repère automatiquement le même métier sur plusieurs générations, une rupture après une longue lignée et un métier qui saute une génération."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Le métier transmis de génération en génération : héritage, rupture et liberté", "item": "https://genesolia.fr/metiers-transmis-genealogie.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Métiers de famille</nav>
+        <h1>Le métier transmis de génération en génération : héritage, rupture et liberté</h1>
+        <p class="intro">Boulanger comme son père, institutrice comme sa grand-mère, ou au contraire « la première à faire autre chose ». Un métier transmis de génération en génération raconte beaucoup d'une famille : ce qu'elle savait faire, ce qu'elle espérait, ce qu'elle redoutait. Voici comment lire ces fils dans ton arbre, sans en faire un destin.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-metiers-transmis-genealogie.jpg" width="1600" height="840" alt="Métier transmis de génération en génération : des mains d'artisan rabotent une planche dans un atelier baigné de lumière dorée, de vieux outils de famille accrochés au mur" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce qu'un métier transmis de génération en génération ?</h2>
+        <p>On parle de métier transmis de génération en génération quand une même activité se retrouve dans une lignée sur au moins trois générations : de père en fils, de mère en fille, mais aussi d'oncle à neveu, de grand-mère à petite-fille. Ce peut être un métier précis (menuisier, sage-femme, notaire) ou un même domaine (le soin, l'enseignement, la terre, le commerce).</p>
+        <p>Ce n'est pas une notion inventée par un seul auteur. Trois traditions de pensée l'éclairent, chacune à sa façon :</p>
+        <ul class="gestes">
+          <li><strong>La sociologie</strong>, avec Pierre Bourdieu et Jean-Claude Passeron, qui ont montré dans <em>Les Héritiers</em> (1964) puis <em>La Reproduction</em> (1970) comment les positions sociales tendent à se transmettre.</li>
+          <li><strong>La sociologie clinique</strong>, avec Vincent de Gaulejac, qui s'est intéressé à ce que vivent intimement celles et ceux qui changent de milieu.</li>
+          <li><strong>La thérapie familiale</strong>, avec Ivan Boszormenyi-Nagy, qui a décrit les <a href="loyaute-familiale-invisible.html">loyautés invisibles</a> qui nous relient aux générations précédentes.</li>
+        </ul>
+        <p>La psychogénéalogie emprunte à ces trois regards. Elle ne dit pas que le métier est « programmé » : elle invite à regarder ce que ce fil professionnel a porté dans ta famille, et ce que tu en fais aujourd'hui.</p>
+
+        <h2>Une histoire pour comprendre</h2>
+        <p>Voici une famille sur cinq générations. Les noms sont inventés, mais la structure est celle d'un vrai arbre.</p>
+        <ul class="pistes">
+          <li><strong>1868 · Pierre Garnier, menuisier</strong><span>Il apprend le métier dans l'atelier de son père, au fond de la cour familiale.</span></li>
+          <li><strong>1895 · Louis Garnier, menuisier</strong><span>Fils aîné, il reprend l'atelier à 20 ans. On dit de lui qu'il « n'a jamais eu à se poser la question ».</span></li>
+          <li><strong>1924 · Henri Garnier, menuisier</strong><span>Il agrandit l'atelier, embauche deux ouvriers. Il le ferme en 1975, sans repreneur.</span></li>
+          <li><strong>1951 · Michel Garnier, instituteur</strong><span>Premier de la famille à faire des études longues. Son père ne l'en a jamais empêché, mais n'en a jamais parlé non plus.</span></li>
+          <li><strong>1982 · Claire Garnier, ébéniste</strong><span>Après dix ans dans la finance, elle se forme au travail du bois à 35 ans. Elle dit qu'elle a « retrouvé l'odeur de l'atelier du grand-père ».</span></li>
+        </ul>
+        <p>Dans cet arbre, on lit trois phénomènes distincts :</p>
+        <ul class="gestes">
+          <li><strong>Le même métier sur 3 générations</strong> : Pierre, Louis et Henri, tous menuisiers.</li>
+          <li><strong>Une rupture après 3 générations</strong> : Michel devient instituteur. C'est un changement de métier, mais aussi de milieu.</li>
+          <li><strong>Un métier qui saute une génération</strong> : le bois revient avec Claire, la petite-fille d'Henri.</li>
+        </ul>
+        <p>Rien de cela n'est une preuve : Michel aimait peut-être simplement apprendre. Mais si Claire se demande pourquoi ce changement de vie lui a semblé si évident, son arbre lui offre une piste : peut-être reprend-elle un fil que son père avait posé, sans le couper tout à fait.</p>
+
+        <h2>Les métiers de famille à travers le monde</h2>
+        <p>Pendant des siècles, et dans presque toutes les cultures, le métier se transmettait d'abord par la famille.</p>
+
+        <h3>Corporations et compagnonnage en Europe</h3>
+        <p>Dans l'Europe médiévale et moderne, les métiers étaient organisés en corporations, avec leurs règles, leurs maîtres et leurs apprentis. Les fils de maîtres y entraient souvent plus facilement. En France, ces corporations ont été supprimées en 1791, au début de la Révolution. À côté d'elles, le compagnonnage a formé des générations d'artisans par le voyage et l'apprentissage. Il a été inscrit en 2010 au patrimoine culturel immatériel de l'UNESCO comme « réseau de transmission des savoirs et des identités par le métier ».</p>
+
+        <h3>Les noms de famille qui sont des métiers</h3>
+        <p>Beaucoup de noms de famille viennent d'un métier exercé par un ancêtre. Le forgeron, présent dans chaque village, en a laissé des dizaines : Lefebvre, Lefèvre, Fabre ou Faure (du latin <em>faber</em>, l'artisan), Smith en anglais, Schmidt en allemand, Ferrari en italien, Herrero en espagnol, Kowalski en polonais, Haddad en arabe. Müller (le meunier) est l'un des noms les plus portés en Allemagne. En France, Meunier, Boulanger, Charpentier ou Boucher racontent la même chose. Ces noms rappellent qu'autrefois, on était souvent désigné par ce que faisait sa famille.</p>
+
+        <h3>Les castes professionnelles en Inde</h3>
+        <p>En Inde, le système des castes a longtemps associé de nombreux groupes, les <em>jati</em>, à une activité héréditaire : potiers, tisserands, blanchisseurs, prêtres. La Constitution indienne de 1950 a aboli l'intouchabilité et interdit les discriminations fondées sur la caste. Aujourd'hui, le lien entre naissance et métier s'est fortement desserré, même s'il reste présent dans certains milieux.</p>
+
+        <h3>Les griots d'Afrique de l'Ouest : la parole en héritage</h3>
+        <p>Dans le monde mandingue, les griots, ou <em>djeli</em>, sont les gardiens de la mémoire : historiens, généalogistes, musiciens, médiateurs. Ce rôle se transmet par la naissance, au sein de familles comme les Kouyaté, les Diabaté ou les Cissokho. Selon la tradition, ce sont les familles de griots reconnues sous Soundiata Keïta, au XIIIe siècle. Les enfants apprennent en écoutant et en imitant leurs aînés : un métier de la parole, transmis par la parole.</p>
+
+        <h3>Les shinise japonaises, entreprises de plusieurs siècles</h3>
+        <p>Le Japon compte plus de 33 000 <em>shinise</em>, des maisons de plus de cent ans. Certaines sont millénaires : l'entreprise de construction de temples Kongō Gumi, fondée en 578 à Osaka, ou les auberges thermales Nishiyama Onsen Keiunkan (705) et Hōshi (718). Pour assurer la continuité, une pratique ancienne existe : le <em>mukoyōshi</em>, l'adoption d'un gendre adulte qui prend le nom de la famille et reprend la maison quand il n'y a pas de fils pour le faire.</p>
+
+        <h3>« La première génération crée, la deuxième développe, la troisième dilapide »</h3>
+        <p>Ce dicton circule dans toutes les langues des affaires. Son origine exacte est inconnue. En anglais, on dit « from shirtsleeves to shirtsleeves in three generations » (des manches de chemise aux manches de chemise), attesté dans la presse américaine dès 1874 et souvent attribué, à tort, à l'industriel Andrew Carnegie. Le Lancashire a sa version, « from clogs to clogs » (des sabots aux sabots). En chinois, on dit que la richesse ne dépasse pas trois générations. Au Japon, un poème satirique se moque du troisième héritier qui écrit l'écriteau « maison à vendre » dans une belle calligraphie : il a appris les arts raffinés, mais perdu la maison.</p>
+
+        <h2>Ce qu'en disent les auteurs</h2>
+        <h3>Bourdieu : l'habitus et la reproduction sociale</h3>
+        <p>Pour Pierre Bourdieu, chacun·e grandit avec un <em>habitus</em> : un ensemble de goûts, de gestes, de manières de voir, reçus de son milieu sans même s'en rendre compte. Avec Jean-Claude Passeron, il a montré que l'école, censée offrir les mêmes chances à tous, favorise en réalité les enfants déjà familiers de la culture qu'elle valorise. Le métier des parents n'est donc pas seulement un exemple : c'est un univers qui rend certains choix évidents et d'autres impensables.</p>
+
+        <h3>Gaulejac : la névrose de classe et l'histoire en héritage</h3>
+        <p>Vincent de Gaulejac, sociologue, a publié <em>La Névrose de classe</em> en 1987 puis <em>L'Histoire en héritage</em> en 1999. Malgré son titre, le premier n'est pas un livre sur un trouble : il décrit les conflits d'identité de personnes dont la trajectoire sociale les a éloignées de leur milieu d'origine. Fierté et culpabilité, sentiment d'avoir trahi, impression de n'être à sa place nulle part.</p>
+
+        <h3>Boszormenyi-Nagy : les loyautés</h3>
+        <p>Dans <em>Invisible Loyalties</em> (1973), écrit avec Geraldine Spark, Ivan Boszormenyi-Nagy décrit une sorte de « grand livre » familial où chacun·e se sent redevable envers ceux qui l'ont précédé. Reprendre l'atelier, c'est parfois honorer une dette. Le quitter peut être vécu comme une trahison, même quand personne ne le reproche à voix haute.</p>
+
+        <h3>Les débats</h3>
+        <p>Ces auteurs ne disent pas la même chose. La sociologie explique la transmission par des conditions concrètes : un capital, un réseau, un savoir-faire, un patrimoine. La lecture psychogénéalogique ajoute une hypothèse : un métier pourrait aussi porter une histoire affective, une promesse ou une blessure. Cette seconde hypothèse n'est pas démontrée. La philosophe Chantal Jaquet, dans <em>Les Transclasses ou la non-reproduction</em> (2014), rappelle aussi que la reproduction n'est pas une fatalité : elle s'intéresse justement à ceux et celles qui y échappent.</p>
+
+        <h2>Reprendre le métier de son père, ou de sa mère</h2>
+        <div class="deux">
+          <div class="c1"><span class="nom">Continuer</span><h3>Le métier comme héritage choisi</h3><p>Tu as grandi dans l'atelier, le cabinet ou la ferme. Le geste t'est familier, le métier t'attire. Reprendre peut être une vraie vocation, et une façon heureuse de faire vivre un savoir-faire.</p></div>
+          <div class="c2"><span class="nom">Continuer malgré soi</span><h3>Le métier comme dette</h3><p>Tu as l'impression de n'avoir jamais choisi. Faire autre chose semblait impossible, ou aurait déçu. C'est là que la notion de loyauté invisible peut éclairer ce que tu vis.</p></div>
+        </div>
+        <p>La différence ne tient pas au métier lui-même, mais au sentiment de liberté avec lequel tu l'exerces. Deux personnes peuvent reprendre la même boulangerie, l'une avec joie, l'autre avec le sentiment de payer une dette. Ta <a href="place-dans-la-fratrie.html">place dans la fratrie</a> compte aussi : autrefois, c'était souvent l'aîné qui reprenait, et les cadets qui partaient.</p>
+
+        <h2>La rupture avec le métier familial et le transfuge</h2>
+        <p>On appelle souvent « transfuge de classe » une personne qui change de milieu social, en général par les études. Chantal Jaquet préfère le mot « transclasse », car « transfuge » sous-entend une trahison.</p>
+        <p>Quand un métier se transmet depuis plusieurs générations, celui ou celle qui arrête porte parfois plus que son propre choix : la fin d'une lignée, un atelier qui ferme, un nom qui disparaît d'une enseigne. Dans l'arbre, ces ruptures sont souvent liées à un grand changement collectif : l'exode rural, une guerre, l'industrialisation, l'accès aux études. Voir la <a href="guerre-et-memoire-familiale.html">guerre dans l'arbre familial</a> et le lien entre <a href="argent-et-lignee.html">argent et lignée</a>.</p>
+
+        <h2>Un métier qui saute une génération : pourquoi ?</h2>
+        <p>C'est l'un des phénomènes les plus étonnants dans un arbre : un grand-père horloger, un père comptable, une petite-fille qui répare des montres anciennes. Plusieurs explications coexistent, et il est honnête de les donner toutes :</p>
+        <ul class="gestes">
+          <li><strong>La transmission directe</strong> : beaucoup d'enfants passent du temps avec leurs grands-parents, qui leur montrent leurs gestes sans la pression qu'ils ont parfois mise sur leurs propres enfants.</li>
+          <li><strong>Le hasard et le contexte</strong> : un métier peut revenir à la mode, ou simplement correspondre aux goûts d'une personne.</li>
+          <li><strong>L'hypothèse psychogénéalogique</strong> : le petit-enfant renouerait avec une part de l'histoire que la génération du milieu a voulu laisser derrière elle, comme pour la réconcilier.</li>
+        </ul>
+        <p>Ces fils peuvent aussi croiser d'autres répétitions, comme les <a href="prenom-transmis-psychogenealogie.html">prénoms transmis</a> ou les <a href="devenir-parent-au-meme-age.html">âges qui se répondent</a>. Et une simple question, comme les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a>, peut révéler un métier oublié : une arrière-grand-mère couturière, un grand-oncle marin.</p>
+
+        <h2>Comment repérer les métiers transmis dans ton arbre</h2>
+        <ol class="exercice">
+          <li><h3>Note le métier de chacun·e</h3><p>Sur trois ou quatre générations, y compris les femmes, souvent inscrites « sans profession » alors qu'elles travaillaient à la ferme, au commerce ou à domicile. Les <a href="informations-avant-genosociogramme.html">informations à réunir avant ton génosociogramme</a> t'aident à ne rien oublier.</p></li>
+          <li><h3>Regroupe par domaines</h3><p>Le soin, l'enseignement, la terre, le bois, le commerce, l'uniforme, les chiffres. Un même domaine peut se cacher sous des métiers différents.</p></li>
+          <li><h3>Repère les continuités et les ruptures</h3><p>Qui a repris ? Qui a arrêté ? À quel moment de l'histoire, et à quel âge ?</p></li>
+          <li><h3>Cherche le récit autour</h3><p>Comment parlait-on de celui ou celle qui est parti·e ? Avec fierté, regret, silence ? Ce qu'on en dit compte autant que le fait.</p></li>
+          <li><h3>Dessine ton arbre</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, renseigne le métier de chaque personne. Le panneau « Ce qui se répète » repère automatiquement « Le même métier sur N générations », « Une rupture après N générations » et « Un métier qui saute une génération ». Si tu débutes, lis d'abord <a href="comment-faire-son-genosociogramme.html">comment faire son génosociogramme</a>.</p></li>
+        </ol>
+
+        <h2>Faits, hypothèses, interprétations</h2>
+        <ul class="pistes">
+          <li><strong>Un fait</strong><span>Trois générations de menuisiers, puis un instituteur. C'est vérifiable dans les archives et les récits.</span></li>
+          <li><strong>Une hypothèse</strong><span>Le choix de l'instituteur a peut-être été vécu comme un départ, voire comme une trahison. Cela se vérifie en écoutant ce que la famille en dit.</span></li>
+          <li><strong>Une interprétation</strong><span>La petite-fille ébéniste « répare » quelque chose de cette rupture. C'est une lecture symbolique, qui n'a de valeur que si elle a du sens pour la personne concernée.</span></li>
+        </ul>
+
+        <h2>Les limites</h2>
+        <p>La psychogénéalogie n'est pas une science, et la lecture des métiers de famille en est un bon exemple. Pendant des siècles, presque tout le monde exerçait le métier de ses parents : trouver des paysans sur quatre générations dans un arbre n'a rien d'étonnant. La transmission d'un métier s'explique d'abord par des raisons très concrètes : un outil de travail, une clientèle, un savoir appris jeune, l'accès ou non aux études.</p>
+        <ul class="gestes">
+          <li>Une répétition de métier n'est pas une loyauté cachée par défaut.</li>
+          <li>Rompre avec le métier familial n'est ni une trahison ni une libération par principe.</li>
+          <li>C'est toi qui sais si ce fil t'aide à comprendre tes choix.</li>
+        </ul>
+        <p class="rappel"><strong>Une autre porte d'entrée.</strong> Tu ne sais pas grand-chose du métier de tes ancêtres ? L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> part de ton ressenti, et <a href="heriter.html">comprendre le transgénérationnel</a> pose les bases.</p>
+
+        <h2>Questions pour réfléchir</h2>
+        <ul class="pistes">
+          <li><strong>Quel métier aurait-on « attendu » de toi ?</strong><span>Même si personne ne l'a dit, tu le sais souvent.</span></li>
+          <li><strong>Qui, dans ta famille, a été le premier ou la première à faire autre chose ?</strong><span>Comment en parle-t-on aujourd'hui ?</span></li>
+          <li><strong>Quel geste, quel outil, quelle odeur de métier t'ont marqué·e enfant ?</strong><span>Un souvenir sensoriel dit parfois plus qu'un arbre.</span></li>
+          <li><strong>Si tu as repris le métier familial, qu'est-ce qui est vraiment à toi dedans ?</strong><span>Et si tu l'as quitté, qu'as-tu gardé de lui malgré tout ?</span></li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Que veut dire un métier transmis de génération en génération ?</dt><dd>C'est un métier exercé dans la même lignée par plusieurs générations successives, de père en fils, de mère en fille ou par d'autres liens. La psychogénéalogie y voit un fil possible de l'histoire familiale, à côté des explications économiques et sociales.</dd>
+          <dt>Reprendre le métier de son père, est-ce forcément une loyauté familiale ?</dt><dd>Non. Reprendre le métier familial peut être un vrai choix, nourri par le goût, le savoir-faire reçu et les occasions concrètes. On parle de loyauté quand la personne a le sentiment de ne pas avoir eu le choix, ou de trahir si elle fait autre chose.</dd>
+          <dt>Pourquoi la rupture avec le métier familial est-elle parfois si difficile ?</dt><dd>Parce qu'un métier transmis porte souvent une identité, une fierté et parfois un patrimoine. Le sociologue Vincent de Gaulejac a décrit les tiraillements de celles et ceux qui changent de milieu : on peut se sentir à la fois loin de sa famille et pas tout à fait chez soi ailleurs.</dd>
+          <dt>Qu'est-ce qu'un métier qui saute une génération ?</dt><dd>C'est un métier exercé par un grand-parent, abandonné par ses enfants, puis repris par un petit-enfant. Ce retour peut tenir au hasard, à une transmission directe entre grand-parent et petit-enfant, ou à un attachement à une part de l'histoire restée en suspens.</dd>
+          <dt>Comment repérer les métiers de famille dans son arbre ?</dt><dd>Note le métier de chaque personne sur trois ou quatre générations, y compris les femmes et les métiers non déclarés. Le génosociogramme en ligne de Genesolia repère automatiquement le même métier sur plusieurs générations, une rupture après une longue lignée et un métier qui saute une génération.</dd>
+        </dl>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Pierre Bourdieu et Jean-Claude Passeron, <em>Les Héritiers. Les étudiants et la culture</em>, Minuit, 1964.</li>
+          <li>Pierre Bourdieu et Jean-Claude Passeron, <em>La Reproduction. Éléments pour une théorie du système d'enseignement</em>, Minuit, 1970.</li>
+          <li>Vincent de Gaulejac, <em>La Névrose de classe. Trajectoire sociale et conflits d'identité</em>, Hommes et groupes, 1987.</li>
+          <li>Vincent de Gaulejac, <em>L'Histoire en héritage. Roman familial et trajectoire sociale</em>, Desclée de Brouwer, 1999.</li>
+          <li>Ivan Boszormenyi-Nagy et Geraldine M. Spark, <em>Invisible Loyalties</em>, Harper &amp; Row, 1973.</li>
+          <li>Chantal Jaquet, <em>Les Transclasses ou la non-reproduction</em>, PUF, 2014.</li>
+          <li>UNESCO, « Le compagnonnage, réseau de transmission des savoirs et des identités par le métier », inscrit en 2010.</li>
+          <li>Pour aller plus loin dans l'arbre : <a href="memoire-transgenerationnelle.html">la mémoire transgénérationnelle</a>, <a href="secret-de-famille.html">les secrets de famille</a> et <a href="psychogenealogie.html">la psychogénéalogie, sans promesse</a>.</li>
+        </ul>
+
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Repérer les métiers de ma famille</a>
+          <a class="btn btn-trait" href="questions-a-poser-a-sa-famille.html">Les questions à poser à ma famille</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html" aria-current="page">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés familiales invisibles</h3><p>Ce que l'on doit, ou croit devoir, à celles et ceux qui nous ont précédés.</p></a>
+          <a class="outil" href="argent-et-lignee.html"><h3>Argent et lignée</h3><p>Ce qui se transmet avec l'argent, le patrimoine et les manques.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

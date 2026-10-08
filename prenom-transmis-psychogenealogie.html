@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prénom transmis en psychogénéalogie : ce qu'il porte · Genesolia</title>
+  <meta name="description" content="Prénom transmis en psychogénéalogie : prénom d&#x27;un défunt, prénom composé ou caché, traditions du monde entier, et comment repérer ces prénoms dans ton arbre.">
+  <link rel="canonical" href="https://genesolia.fr/prenom-transmis-psychogenealogie.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le prénom transmis en psychogénéalogie : ce qu'un prénom porte d'une génération à l'autre">
+  <meta property="og:description" content="Prénom transmis en psychogénéalogie : prénom d&#x27;un défunt, prénom composé ou caché, traditions du monde entier, et comment repérer ces prénoms dans ton arbre.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-prenom-transmis-psychogenealogie.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Le prénom transmis en psychogénéalogie : ce qu'un prénom porte d'une génération à l'autre","description":"Prénom transmis en psychogénéalogie : prénom d'un défunt, prénom composé ou caché, traditions du monde entier, et comment repérer ces prénoms dans ton arbre.","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","image":"https://genesolia.fr/assets/images/blog-prenom-transmis-psychogenealogie.jpg","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/prenom-transmis-psychogenealogie.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/prenom-transmis-psychogenealogie.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Que signifie un prénom transmis en psychogénéalogie ?","acceptedAnswer":{"@type":"Answer","text":"C'est un prénom qui passe d'une personne de la famille à une autre, à l'identique ou sous une forme voisine. La psychogénéalogie y voit une piste de lecture : savoir à qui l'on a pensé en nommant un enfant. Ce n'est ni un destin ni une explication."}},{"@type":"Question","name":"Est-ce grave de porter le prénom d'un défunt ?","acceptedAnswer":{"@type":"Answer","text":"Non. Dans beaucoup de cultures, c'est une façon d'honorer les morts. Selon les auteurs en psychogénéalogie, ce qui peut peser n'est pas le prénom lui-même, mais un deuil qui n'a pas été fait et le silence autour de la personne disparue."}},{"@type":"Question","name":"Qu'est-ce qu'un prénom caché ?","acceptedAnswer":{"@type":"Answer","text":"Un prénom présent sous une forme discrète : dans un prénom composé (Jean-Marie et une Marie disparue), au féminin ou au masculin (Stéphanie après Stéphane), dans un diminutif ou dans un deuxième prénom."}},{"@type":"Question","name":"Pourquoi les mêmes prénoms reviennent-ils autant dans les arbres anciens ?","acceptedAnswer":{"@type":"Answer","text":"Parce que l'enfant recevait souvent le prénom de son parrain ou de sa marraine, souvent choisis dans la famille, et qu'en France, de 1803 à 1993, la loi limitait le choix aux prénoms des calendriers et de l'histoire ancienne."}},{"@type":"Question","name":"Comment repérer les prénoms transmis dans mon arbre ?","acceptedAnswer":{"@type":"Answer","text":"Note les prénoms complets et les dates de chacun dans le génosociogramme en ligne de Genesolia. Le panneau « Ce qui se répète » signale le prénom transmis sur plusieurs générations et les prénoms qui en portent un autre, et tu peux y chercher un prénom précis."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Le prénom transmis en psychogénéalogie : ce qu'un prénom porte d'une génération à l'autre", "item": "https://genesolia.fr/prenom-transmis-psychogenealogie.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Prénoms transmis</nav>
+        <h1>Le prénom transmis en psychogénéalogie : ce qu'un prénom porte d'une génération à l'autre</h1>
+        <p class="intro">Tu portes le prénom d'un grand-père, d'une tante morte jeune, d'un parrain ? En psychogénéalogie, le prénom transmis est l'un des premiers fils que l'on tire dans un arbre : il dit à qui l'on a pensé en te nommant. Voici ce qu'un prénom peut porter d'une génération à l'autre, ce que font les familles du monde entier, et comment le lire sans en faire un destin.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-prenom-transmis-psychogenealogie.jpg" width="1600" height="840" alt="Prénom transmis et psychogénéalogie : un livret de famille ancien ouvert, des prénoms calligraphiés à l'encre, une gourmette de baptême gravée et des fleurs séchées rose poudré" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce qu'un prénom transmis en psychogénéalogie ?</h2>
+        <p>On parle de prénom transmis quand un prénom passe d'une personne de la famille à une autre : un fils qui reçoit le prénom de son père, une petite-fille celui de sa grand-mère, un enfant celui d'un oncle mort avant sa naissance. La transmission peut être exacte, discrète (en deuxième ou troisième prénom), ou déguisée sous une forme voisine.</p>
+        <p>Ce n'est pas une notion inventée par un auteur précis, comme le <a href="syndrome-du-gisant.html">syndrome du gisant</a> ou le <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a>. C'est un réflexe de lecture, devenu central quand la psychologue Anne Ancelin Schützenberger a diffusé en France le <a href="quest-ce-qu-un-genosociogramme.html">génosociogramme</a>, dans son livre <em>Aïe, mes aïeux !</em> : sur un arbre commenté, on note les prénoms complets de chacun.</p>
+        <p>L'idée de base est simple : choisir un prénom, c'est rarement un geste neutre. On nomme un enfant pour honorer quelqu'un, pour remplacer un absent, pour réparer une histoire, pour suivre une règle de la famille ou, au contraire, pour rompre avec elle. La psychogénéalogie propose de se demander : <strong>qui a-t-on mis dans ce prénom ?</strong></p>
+        <p class="rappel"><strong>D'où vient le mot.</strong> « Prénom » vient du latin <em>praenomen</em>, littéralement « ce qui vient avant le nom ». À Rome, c'était le nom personnel placé devant le nom de la famille. Le mot dit déjà la double appartenance : à soi, et à une lignée.</p>
+
+        <h2>La signification d'un prénom dans la famille : un exemple</h2>
+        <p>Voici un arbre inventé sur quatre générations. Les noms et les dates sont imaginaires, mais la structure ressemble à celle de beaucoup de familles françaises.</p>
+        <ul class="pistes">
+          <li><strong>1884 · Louis Garnier naît</strong><span>Il épouse Jeanne en 1910. Ils auront trois enfants.</span></li>
+          <li><strong>1912 · Naissance de Marie, qui meurt en 1918, à six ans</strong><span>On en parle peu. Sa photo reste dans un tiroir.</span></li>
+          <li><strong>1914 · Naissance de Louis, puis 1940 · naissance de son fils Louis</strong><span>Le prénom passe de père en fils sur trois générations : Louis, Louis, Louis.</span></li>
+          <li><strong>1920 · Naissance de Jean-Marie</strong><span>Deux ans après la mort de sa sœur, le petit garçon reçoit un prénom composé qui contient le sien.</span></li>
+          <li><strong>1948 · Jean-Marie a un fils, Stéphane, qui meurt en 1969, à 21 ans, sur la route</strong><span>Sa sœur Claire a 17 ans.</span></li>
+          <li><strong>1972 · Claire met au monde une fille, Stéphanie</strong><span>Trois ans après la mort de son frère, elle donne à sa fille la forme féminine de son prénom.</span></li>
+        </ul>
+        <p>Lu avec une grille psychogénéalogique, cet arbre montre plusieurs fils :</p>
+        <ul class="gestes">
+          <li><strong>Un prénom de lignée</strong> : Louis sur trois générations, la marque d'une famille qui transmet un nom, une place, peut-être une terre ou un métier.</li>
+          <li><strong>Un prénom qui en porte un autre</strong> : Jean-Marie contient Marie, la petite fille disparue. Il est né deux ans après elle.</li>
+          <li><strong>Un passage masculin-féminin</strong> : Stéphanie, née trois ans après la mort de Stéphane, porte la forme féminine du prénom de son oncle.</li>
+        </ul>
+        <p>Rien de tout cela n'est un diagnostic : Jean-Marie a peut-être été prénommé ainsi pour un saint ou un parrain. Mais la question vaut d'être posée : <strong>Jean-Marie savait-il qu'il avait eu une sœur ?</strong> Et que lui a-t-on dit, à Stéphanie, de cet oncle ?</p>
+
+        <h2>Le prénom d'un défunt redonné : que faut-il en penser ?</h2>
+        <p>Redonner le prénom d'un enfant mort à l'enfant suivant a longtemps été courant en Europe, à une époque où beaucoup d'enfants mouraient en bas âge. Dans les registres paroissiaux, on trouve parfois deux enfants successifs portant le même prénom dans une même fratrie.</p>
+        <p>La psychogénéalogie y voit une piste possible : l'enfant qui reçoit le prénom d'un mort pourrait se sentir chargé, sans le savoir, de prendre sa place. C'est le cœur de la notion d'<a href="enfant-de-remplacement.html">enfant de remplacement</a>. Mais il faut rester prudent : ce qui pèse, selon les auteurs, ce n'est pas le prénom en soi, c'est le <strong>deuil qui n'a pas pu se faire</strong> et le silence qui l'entoure. Un prénom donné en hommage, dans une famille qui raconte, n'a pas la même résonance qu'un prénom donné pour combler un vide dont on ne parle jamais. Voir aussi les <a href="deuil-non-fait-mort-jeune.html">deuils non faits</a>.</p>
+
+        <h2>Prénom composé, prénom caché : quand un prénom en porte un autre</h2>
+        <p>Dans Jean-Marie, Marie-Thérèse ou Pierre-Louis, une partie vient souvent de quelqu'un : un parrain, une grand-mère, un saint, ou une personne disparue. Le trait d'union relie littéralement deux personnes en une.</p>
+        <p>Le prénom « caché » se glisse dans un diminutif (Jeanne dans Jeannine), dans une forme d'une autre langue (Giovanni pour Jean), dans un passage du masculin au féminin (Stéphane, Stéphanie ; Michel, Michèle ; Daniel, Danièle), ou dans un deuxième prénom que personne n'utilise. Quand ce prénom renvoie à un enfant mort, à un parent disparu jeune ou à une personne dont on ne parle plus, il devient une piste de lecture.</p>
+        <p>Pour comprendre l'étymologie et l'histoire d'un prénom précis, tu peux consulter la <a href="prenoms.html">signification des prénoms de A à Z</a>, puis la page <a href="ton-prenom.html">signification de ton prénom</a>, qui croise l'origine du mot, sa valeur en nombres et sa place dans ta famille.</p>
+
+        <h2>Pourquoi se transmet-on des prénoms ? Les traditions à travers le monde</h2>
+        <p>Avant de lire un prénom transmis comme un message caché, rappelons-le : dans presque toutes les sociétés, transmettre les prénoms est une règle sociale, pas une exception.</p>
+
+        <h3>France : le parrain, la marraine et le calendrier</h3>
+        <p>Sous l'Ancien Régime et jusqu'au XXe siècle dans bien des campagnes, l'enfant recevait très souvent le prénom de son parrain (pour un garçon) ou de sa marraine (pour une fille), parfois celui d'un grand-parent. Or les parrains et marraines étaient fréquemment choisis parmi les grands-parents, les oncles et les tantes : les mêmes prénoms tournaient donc dans la famille. Ensuite, de 1803 à 1993, la loi du 11 germinal an XI a limité les prénoms possibles à ceux des calendriers et aux personnages de l'histoire ancienne. Ce n'est que depuis la loi du 8 janvier 1993 que les parents choisissent librement, sous réserve de l'intérêt de l'enfant. Un stock de prénoms réduit rend les répétitions mécaniquement plus fréquentes.</p>
+
+        <h3>Rome antique : peu de prénoms, transmis de génération en génération</h3>
+        <p>Les Romains n'utilisaient qu'un petit nombre de <em>praenomina</em> : une trentaine au début de la République, environ dix-huit au Ier siècle avant notre ère, dont une douzaine vraiment courants. La plupart des familles reprenaient les mêmes d'une génération à l'autre. Les femmes ont peu à peu cessé d'en porter un.</p>
+
+        <h3>Traditions juives : honorer les morts ou les vivants</h3>
+        <p>Chez les Juifs ashkénazes, venus d'Europe centrale et orientale, la coutume est de donner à un enfant le prénom d'un parent <strong>décédé</strong>, et d'éviter celui d'un parent vivant. Chez les séfarades, issus de la péninsule Ibérique et du pourtour méditerranéen, on honore au contraire les grands-parents <strong>vivants</strong>, souvent dans un ordre fixe : le premier fils reçoit le prénom du grand-père paternel, la première fille celui de la grand-mère paternelle, puis viennent les grands-parents maternels. Une même intention, deux règles opposées.</p>
+
+        <h3>Afrique de l'Ouest : « le père est revenu »</h3>
+        <p>Chez les Yoruba, au Nigeria et au Bénin, certains prénoms disent le retour d'un ancêtre. <em>Babatunde</em> signifie à peu près « le père est revenu », <em>Yetunde</em> « la mère est revenue ». Yetunde est donnée à une fille née peu après la mort d'une grand-mère paternelle : dans la vision du monde yoruba, l'enfant est perçue comme sa réincarnation. Le prénom d'un défunt y est une filiation annoncée à tous.</p>
+
+        <h3>Arctique : l'homonyme inuit</h3>
+        <p>Chez les Inuit, on donne souvent à un enfant le nom d'une personne décédée, mais aussi parfois d'une personne vivante. L'enfant est considéré comme devenant, d'une certaine façon, la personne dont il porte le nom : les proches de celle-ci peuvent l'appeler du mot qu'ils employaient pour elle, par exemple « maman », même quand l'enfant n'est qu'un bébé. Le prénom crée un lien de parenté vécu au quotidien.</p>
+
+        <h3>Chine, Corée, Vietnam : le prénom de génération</h3>
+        <p>Dans de nombreuses lignées chinoises, coréennes ou vietnamiennes, tous les enfants d'une même génération, frères, sœurs et cousins du côté paternel, partagent un même caractère dans leur prénom. Ce caractère est tiré d'un « poème de génération » composé par les anciens : un caractère par génération. Le prénom situe chacun à sa place dans la suite des générations.</p>
+
+        <h3>Islande : le prénom du père devient ton nom</h3>
+        <p>En Islande, la plupart des gens n'ont pas de nom de famille au sens français. Leur second nom est formé sur le prénom du père, plus rarement de la mère, suivi de <em>-son</em> (fils) ou <em>-dóttir</em> (fille). Le fils de Jón s'appelle Jónsson, sa fille Jónsdóttir.</p>
+
+        <h2>Ce qu'en disent les auteurs, et les débats</h2>
+        <p><strong>Anne Ancelin Schützenberger</strong> a fait du relevé des prénoms, des dates et des événements un geste de base du génosociogramme, pour repérer ce qui se répète.</p>
+        <p><strong>Françoise Dolto</strong>, psychanalyste connue du grand public par son émission <em>Lorsque l'enfant paraît</em> sur France Inter, est souvent citée par les praticien·nes de la psychogénéalogie pour l'importance qu'elle accordait aux mots dits à l'enfant sur son histoire. Dans cet esprit, beaucoup recommandent de dire à un enfant de qui il tient son prénom.</p>
+        <p>Les <strong>historien·nes et ethnologues</strong> ont étudié la question sous un autre angle : celui des règles sociales. En 1980, des chercheur·ses réunis autour de Jacques Dupâquier, Alain Bideau et Marie-Elizabeth Ducreux ont consacré un colloque aux prénoms, publié sous le titre <em>Le Prénom, mode et histoire</em> (1984). L'ethnologue Françoise Zonabend, qui a étudié la mémoire familiale dans un village français (<em>La Mémoire longue</em>, 1980), s'est aussi penchée sur le nom de personne. Ces travaux montrent que la transmission des prénoms suit souvent des règles précises (parrainage, rang de naissance, côté paternel ou maternel).</p>
+        <p>Le débat tient là : l'historien·ne voit une règle sociale, la psychogénéalogie cherche un sens pour la personne. Un prénom qui revient parce que tout le village s'appelait Jean ne dit pas la même chose qu'un prénom rare, redonné juste après un décès.</p>
+
+        <h2>Comment repérer un prénom transmis dans ton arbre</h2>
+        <ol class="exercice">
+          <li><h3>Note tous les prénoms, en entier</h3><p>Premier, deuxième, troisième prénom, surnoms, diminutifs. Les <a href="informations-avant-genosociogramme.html">informations à rassembler avant ton génosociogramme</a> t'aident à ne rien oublier, et les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> à retrouver les prénoms qu'on ne dit plus.</p></li>
+          <li><h3>Ajoute les dates de naissance et de décès</h3><p>Sans dates, impossible de savoir si un prénom a été donné après une mort. Une année approximative suffit.</p></li>
+          <li><h3>Dessine l'arbre et ouvre « Ce qui se répète »</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, le panneau « Ce qui se répète » signale automatiquement « Le prénom transmis sur N générations », de père en fils ou de mère en fille, et « Un prénom qui en porte un autre » : Stéphanie après Stéphane, Jean-Marie après une Marie disparue, quand la personne dont le prénom est repris est morte jeune ou a vécu un événement marquant.</p></li>
+          <li><h3>Cherche un prénom précis</h3><p>Le champ de recherche du panneau accepte un prénom : tape « Marie » ou « Louis » pour voir toutes les répétitions qui le concernent, ou la suggestion « prénom caché » pour lister les prénoms qui en portent un autre.</p></li>
+          <li><h3>Demande pourquoi</h3><p>Pour chaque prénom repéré, une seule question : qui l'a choisi, et en pensant à qui ? La réponse peut être toute simple. Elle peut aussi ouvrir une histoire. Les <a href="symboles-genosociogramme.html">symboles du génosociogramme</a> te permettent ensuite de noter ce que tu as appris.</p></li>
+        </ol>
+
+        <h2>Faits, hypothèses, interprétations</h2>
+        <div class="deux">
+          <div class="c1"><span class="nom">Les faits</span><h3>Ce que l'arbre montre</h3><p>Louis porte le prénom de son père et de son grand-père. Jean-Marie est né deux ans après la mort de sa sœur Marie. Stéphanie est née trois ans après la mort de son oncle Stéphane.</p></div>
+          <div class="c2"><span class="nom">Les hypothèses</span><h3>Ce que l'on peut se demander</h3><p>Le prénom de Jean-Marie a-t-il été choisi en pensant à Marie ? Claire a-t-elle voulu garder son frère près d'elle ? Seules les personnes concernées, ou leurs proches, peuvent le dire.</p></div>
+        </div>
+        <p>L'<strong>interprétation</strong>, elle, t'appartient : ce que ce prénom représente pour toi, ce que tu ressens en apprenant son histoire. L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> peut t'aider à faire la différence entre ce qui vient de toi et ce qui ressemble à la vie d'un·e autre.</p>
+
+        <h2>Les limites de cette lecture</h2>
+        <p>Il faut le dire clairement : la psychogénéalogie n'est pas une science, et aucune étude n'a démontré qu'un prénom transmis influence la vie de celui ou celle qui le porte.</p>
+        <ul class="gestes">
+          <li>Autrefois, le choix était limité par la loi, la religion et l'usage : la répétition des prénoms était la norme, pas un signe.</li>
+          <li>Un même prénom peut avoir été donné pour mille raisons : un saint du jour, un parrain, une mode, une chanson.</li>
+          <li>Porter le prénom d'un mort ne fait de personne un « remplaçant ». C'est une question à poser, pas une étiquette.</li>
+          <li>Personne d'autre que toi ne peut dire ce que ton prénom signifie pour toi.</li>
+        </ul>
+        <p>Avec ces précautions, la lecture des prénoms reste précieuse : elle fait réapparaître des personnes oubliées.</p>
+
+        <h2>Questions pour réfléchir</h2>
+        <ul class="pistes">
+          <li><strong>Sais-tu pourquoi tu portes ton prénom ?</strong><span>Qui l'a choisi, à quel moment, et qu'est-ce qu'on t'en a raconté ?</span></li>
+          <li><strong>Tes deuxième et troisième prénoms viennent-ils de quelqu'un ?</strong><span>Un grand-parent, un parrain, une marraine, une personne disparue ?</span></li>
+          <li><strong>Un prénom revient-il dans ta famille ?</strong><span>Sur combien de générations, de quel côté, et qu'arrive-t-il à ceux qui le portent ?</span></li>
+          <li><strong>Y a-t-il un prénom qu'on ne prononce plus ?</strong><span>Celui d'un enfant mort, d'un parent parti, d'une personne fâchée avec la famille ?</span></li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Que signifie un prénom transmis en psychogénéalogie ?</dt><dd>C'est un prénom qui passe d'une personne de la famille à une autre, à l'identique ou sous une forme voisine. La psychogénéalogie y voit une piste de lecture : savoir à qui l'on a pensé en nommant un enfant. Ce n'est ni un destin ni une explication.</dd>
+          <dt>Est-ce grave de porter le prénom d'un défunt ?</dt><dd>Non. Dans beaucoup de cultures, c'est une façon d'honorer les morts. Selon les auteurs en psychogénéalogie, ce qui peut peser n'est pas le prénom lui-même, mais un deuil qui n'a pas été fait et le silence autour de la personne disparue.</dd>
+          <dt>Qu'est-ce qu'un prénom caché ?</dt><dd>Un prénom présent sous une forme discrète : dans un prénom composé (Jean-Marie et une Marie disparue), au féminin ou au masculin (Stéphanie après Stéphane), dans un diminutif ou dans un deuxième prénom.</dd>
+          <dt>Pourquoi les mêmes prénoms reviennent-ils autant dans les arbres anciens ?</dt><dd>Parce que l'enfant recevait souvent le prénom de son parrain ou de sa marraine, souvent choisis dans la famille, et qu'en France, de 1803 à 1993, la loi limitait le choix aux prénoms des calendriers et de l'histoire ancienne.</dd>
+          <dt>Comment repérer les prénoms transmis dans mon arbre ?</dt><dd>Note les prénoms complets et les dates de chacun dans le génosociogramme en ligne de Genesolia. Le panneau « Ce qui se répète » signale le prénom transmis sur plusieurs générations et les prénoms qui en portent un autre, et tu peux y chercher un prénom précis.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Repérer les prénoms de ma famille</a>
+          <a class="btn btn-trait" href="ton-prenom.html">Découvrir la signification de mon prénom</a>
+        </div>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux ! Liens transgénérationnels, secrets de famille, syndrome d'anniversaire, transmission des traumatismes et pratique du génosociogramme</em>, Desclée de Brouwer.</li>
+          <li>Jacques Dupâquier, Alain Bideau et Marie-Elizabeth Ducreux (dir.), <em>Le Prénom, mode et histoire. Entretiens de Malher 1980</em>, Éditions de l'EHESS, 1984.</li>
+          <li>Françoise Zonabend, <em>La Mémoire longue. Temps et histoires au village</em>, PUF, 1980.</li>
+          <li>Françoise Dolto, <em>Lorsque l'enfant paraît</em>, Seuil.</li>
+          <li>Sandro Guzzi-Heeb, « Parrainage », <em>Dictionnaire historique de la Suisse</em> (sur le prénom du parrain ou de la marraine donné au filleul).</li>
+        </ul>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html" aria-current="page">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="ton-prenom.html"><h3>La signification de ton prénom</h3><p>Origine, valeur en nombres et place dans ta famille.</p></a>
+          <a class="outil" href="prenoms.html"><h3>Les prénoms de A à Z</h3><p>Origine et histoire de centaines de prénoms.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="enfant-de-remplacement.html"><h3>L'enfant de remplacement</h3><p>Naître après la mort d'un enfant de la famille : ce que cela peut porter.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour continuer à explorer ton histoire familiale.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

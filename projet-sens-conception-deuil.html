@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projet sens en psychogénéalogie : conçu dans un deuil · Genesolia</title>
+  <meta name="description" content="Projet sens en psychogénéalogie : ce que Marc Fréchet a décrit, la période de conception, être conçu·e pendant un deuil, traditions du monde et limites.">
+  <link rel="canonical" href="https://genesolia.fr/projet-sens-conception-deuil.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Le projet sens en psychogénéalogie : être conçu·e pendant un deuil">
+  <meta property="og:description" content="Projet sens en psychogénéalogie : ce que Marc Fréchet a décrit, la période de conception, être conçu·e pendant un deuil, traditions du monde et limites.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-projet-sens-conception-deuil.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Le projet sens en psychogénéalogie : être conçu·e pendant un deuil", "description": "Projet sens en psychogénéalogie : ce que Marc Fréchet a décrit, la période de conception, être conçu·e pendant un deuil, traditions du monde et limites.", "datePublished": "2026-10-08", "dateModified": "2026-10-08", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/projet-sens-conception-deuil.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/projet-sens-conception-deuil.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce que le projet sens en psychogénéalogie ?", "acceptedAnswer": {"@type": "Answer", "text": "Une notion attribuée au psychologue clinicien Marc Fréchet : le contexte familial, les attentes et les événements vécus par les parents autour de la conception et de la grossesse coloreraient la place que l'enfant vient prendre. C'est une grille de lecture symbolique, pas une loi."}}, {"@type": "Question", "name": "Quelle période couvre le projet-sens ?", "acceptedAnswer": {"@type": "Answer", "text": "Il n'existe pas de définition officielle. Selon les sources, on parle de neuf mois avant la conception jusqu'aux trois ans de l'enfant environ, du désir d'enfant jusqu'à un an, ou plus simplement de la conception, de la grossesse et de la naissance."}}, {"@type": "Question", "name": "Comment calculer sa date de conception ?", "acceptedAnswer": {"@type": "Answer", "text": "Une grossesse dure en moyenne 280 jours depuis le premier jour des dernières règles, soit environ 266 jours depuis la conception. En retirant 266 jours à ta date de naissance, tu obtiens une conception estimée, à quelques semaines près."}}, {"@type": "Question", "name": "Que signifie être conçu·e pendant un deuil ?", "acceptedAnswer": {"@type": "Answer", "text": "Que l'un de tes proches est décédé peu avant ta conception ou pendant la grossesse. En psychogénéalogie, on y voit une piste : la naissance a pu être accueillie dans un climat de chagrin, parfois avec un rôle de consolation. Ce n'est pas une fatalité."}}, {"@type": "Question", "name": "Le projet-sens est-il prouvé scientifiquement ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Aucune étude n'a validé la notion. Elle peut aider à se poser des questions sur son histoire, à condition de garder en tête que les décès sont fréquents dans une famille et que l'on a tendance à voir les coïncidences que l'on cherche."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Le projet sens en psychogénéalogie : être conçu·e pendant un deuil", "item": "https://genesolia.fr/projet-sens-conception-deuil.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Projet-sens</nav>
+        <h1>Le projet sens en psychogénéalogie : être conçu·e pendant un deuil</h1>
+        <p class="intro">« Ta mère était enceinte de toi quand son père est mort. » Beaucoup découvrent un jour cette phrase au détour d'une conversation. En psychogénéalogie, on la rapproche souvent du projet sens : l'idée que ce que vit la famille autour de ta conception colore la place que tu viens prendre. Voici d'où vient cette notion, ce qu'elle dit vraiment, et comment la regarder sans t'y enfermer.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-projet-sens-conception-deuil.jpg" width="1600" height="840" alt="Projet sens en psychogénéalogie : un faire-part de naissance ancien posé près d'un ruban de deuil prune, d'un brin de gypsophile et d'une lettre manuscrite, dans une lumière douce" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Qu'est-ce que le projet sens en psychogénéalogie ?</h2>
+        <p>Le projet-sens (on l'écrit aussi « projet sens ») est une notion attribuée à Marc Fréchet, psychologue clinicien français mort en 1998. Il l'a développée dans sa pratique, à la fin du XX<sup>e</sup> siècle, et l'a surtout transmise par son enseignement : la notion a ensuite circulé chez des praticien·nes de l'accompagnement et dans la <a href="psychogenealogie.html">psychogénéalogie</a> francophone, souvent sous des formes un peu différentes.</p>
+        <p>L'idée de départ est simple. Un enfant n'arrive jamais dans le vide. Avant même sa naissance, il existe dans les pensées de ses parents : un désir, une attente, une peur, un prénom déjà choisi, un rôle déjà imaginé. Et cette attente se forme dans un contexte : une installation, une rupture, une guerre, un déménagement, un deuil. Selon le projet-sens, ce mélange de projets conscients et de vécus non dits ferait partie de ce que l'enfant reçoit, en plus de ses gènes et de son éducation.</p>
+        <p>Dans cette lecture, il ne s'agit pas d'un destin. Il s'agit plutôt d'une couleur de départ : l'enfant grandit avec, puis en fait autre chose. Et personne n'est « en faute » : on ne choisit pas le contexte dans lequel une grossesse arrive.</p>
+        <p class="rappel"><strong>D'où viennent les mots.</strong> « Projet » vient du latin <em>projectum</em>, « jeté en avant » : ce que l'on lance devant soi. « Sens » a deux sens en français, la direction et la signification ; le projet-sens joue sur les deux. Quant à « concevoir », du latin <em>concipere</em>, il veut dire à la fois « recevoir en soi » et « former une idée ». Concevoir un enfant et concevoir un projet, c'est le même mot.</p>
+
+        <h2>Quelle période recouvre le projet-sens ?</h2>
+        <p>C'est la première chose à savoir : il n'existe pas de définition officielle. Fréchet n'a pas laissé, à notre connaissance, de livre de référence qui fixerait les bornes, et les descriptions publiques varient selon les auteurs et les sites. Voici celles que l'on rencontre le plus souvent :</p>
+        <ul class="pistes">
+          <li><strong>De neuf mois avant la conception jusqu'aux trois ans de l'enfant, environ</strong><span>C'est la version la plus large et la plus citée dans les articles grand public.</span></li>
+          <li><strong>Du désir d'enfant jusqu'à l'âge d'un an environ</strong><span>Le point de départ n'est plus une date, mais le moment où l'un des parents, ou les deux, commence à vouloir un enfant.</span></li>
+          <li><strong>De neuf mois avant le désir d'enfant jusqu'à neuf mois après la naissance</strong><span>Une version qui remonte encore plus tôt, avant même le projet conscient.</span></li>
+          <li><strong>La conception, la grossesse et la naissance</strong><span>La version la plus resserrée, centrée sur les neuf mois de l'attente.</span></li>
+        </ul>
+        <p>Toutes ces variantes ont un noyau commun : <strong>la période de conception et la grossesse</strong>, avec un regard sur ce qui se passe juste avant et juste après. C'est ce noyau, le plus prudent, que nous retenons ici.</p>
+
+        <h3>Comment estimer la date de conception ?</h3>
+        <p>Personne ne connaît, en général, le jour exact de sa conception. On peut en revanche l'estimer. En obstétrique, une grossesse dure en moyenne 280 jours à compter du premier jour des dernières règles, soit environ 266 jours après la conception. En remontant 266 jours avant ta date de naissance, tu obtiens donc une <strong>conception estimée</strong>.</p>
+        <p>Ce n'est qu'une moyenne : une naissance prématurée ou tardive, un cycle plus long ou plus court déplacent ce repère de plusieurs semaines. Il vaut mieux parler d'une saison que d'un jour. Si tu es né·e un 15 mars, ta conception se situe vers la fin du mois de juin de l'année précédente, à quelques semaines près.</p>
+
+        <h2>Une histoire pour comprendre</h2>
+        <p>Voici une famille sur trois générations. Les noms sont inventés, mais la structure est celle d'un vrai arbre familial.</p>
+        <ul class="pistes">
+          <li><strong>1909 · Naissance d'Henri Delorme</strong><span>Il sera menuisier, comme son père, dans une petite ville de la Loire.</span></li>
+          <li><strong>1934 · Naissance d'Odile, sa fille</strong><span>Elle est l'aînée et très proche de son père.</span></li>
+          <li><strong>18 mars 1961 · Henri meurt subitement, à 52 ans</strong><span>Odile a 27 ans. Elle est mariée depuis deux ans et le couple parlait d'avoir un enfant « l'an prochain ».</span></li>
+          <li><strong>Fin juin 1961 · Conception estimée de Claire</strong><span>Environ trois mois après le décès d'Henri. Odile racontera plus tard qu'elle n'avait « pas eu le temps de pleurer ».</span></li>
+          <li><strong>15 mars 1962 · Naissance de Claire Henriette</strong><span>Presque un an jour pour jour après la mort de son grand-père, dont elle porte le prénom au féminin, en second prénom.</span></li>
+          <li><strong>Aujourd'hui · Claire dessine son arbre</strong><span>Elle a toujours entendu qu'elle avait été « le rayon de soleil de cette année-là ». Elle dit s'être souvent sentie responsable du moral de sa mère.</span></li>
+        </ul>
+        <p>Lue avec la grille du projet-sens, cette histoire réunit plusieurs indices :</p>
+        <ul class="gestes">
+          <li><strong>Une conception pendant un deuil</strong> : Claire est conçue trois mois après la mort brutale du père d'Odile.</li>
+          <li><strong>Un rôle attendu</strong> : « le rayon de soleil », l'enfant qui console. Le projet des parents existait avant le deuil, mais le deuil lui a donné une couleur.</li>
+          <li><strong>Un prénom qui relie</strong> : Henriette, en écho à Henri. Voir les <a href="prenom-transmis-psychogenealogie.html">prénoms transmis dans la famille</a>.</li>
+          <li><strong>Une date qui se répond</strong> : une naissance presque à la date anniversaire du décès, ce que l'on rapproche du <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a>.</li>
+        </ul>
+        <p>Dans cette lecture, Claire aurait reçu, en plus de l'amour de ses parents, une mission discrète : adoucir une perte. C'est une <strong>hypothèse</strong>, pas une explication. Elle ne dit pas ce que vit Claire ; elle lui offre une question à se poser : « Est-ce que je porte encore ce rôle, et est-ce que je veux continuer ? »</p>
+
+        <h2>Être conçu·e pendant un deuil : ce que cela peut changer</h2>
+        <p>Parmi tout ce que peut contenir le projet-sens, le deuil est sans doute la situation la plus souvent évoquée. Elle est aussi la plus facile à repérer dans un arbre, parce qu'elle laisse des dates. Ce qui est décrit, ce n'est pas le décès lui-même, c'est l'état du projet parental au moment de l'attente, qu'il s'agisse d'un enfant conçu après un décès ou d'une perte survenue pendant la grossesse :</p>
+        <ul class="pistes">
+          <li><strong>Une attention partagée</strong><span>Des parents qui attendent un enfant tout en traversant un chagrin, un enterrement, une succession, parfois un déménagement.</span></li>
+          <li><strong>Une joie qui se retient</strong><span>Une grossesse que l'on annonce à peine, une naissance que l'on fête discrètement « par respect ».</span></li>
+          <li><strong>Un enfant qui console</strong><span>« Heureusement que tu étais là. » Une phrase tendre, qui peut aussi installer un rôle.</span></li>
+        </ul>
+        <p>Rien de cela n'est forcément lourd. Beaucoup de personnes conçues pendant un deuil n'y voient qu'un fait de leur histoire. D'autres découvrent, en l'apprenant, une clé pour comprendre un sentiment ancien de devoir « faire plaisir », « réparer » ou « être à la hauteur ».</p>
+
+        <h2>L'enfant qui « revient » : des croyances du monde entier</h2>
+        <p>L'idée qu'un enfant puisse arriver avec quelque chose de ceux qui sont partis n'a pas été inventée par la psychogénéalogie. De nombreuses cultures relient très explicitement une naissance et un décès proches.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Afrique de l'Ouest</span><h3>« Le père est revenu »</h3><p>Chez les Yoruba, au Nigeria et au Bénin, la croyance en une renaissance au sein de la lignée porte un nom, <em>atunwa</em>. Elle s'entend dans des prénoms : Babatunde, « le père est revenu », ou Yetunde, « la mère est revenue », donné à une fille née peu après la mort de sa grand-mère paternelle.</p></div>
+          <div class="c2"><span class="nom">Arctique</span><h3>L'<em>atiq</em> inuit</h3><p>Chez les Inuit, l'enfant reçoit souvent le nom d'un·e proche décédé·e, son <em>atiq</em>, que l'on traduit parfois par « nom-âme ». L'entourage peut alors l'appeler du terme de parenté du défunt : une petite fille qui porte le nom d'une grand-mère disparue peut s'entendre appeler « maman » par les enfants de celle-ci.</p></div>
+        </div>
+        <p>L'anthropologue Bernard Saladin d'Anglure a recueilli dans l'Arctique canadien de nombreux récits de ce type, par exemple celui d'une petite-fille considérée comme son grand-père chasseur revenu, dont elle portait le nom. Pour ces familles, donner le nom d'un mort à un nouveau-né n'efface pas la perte : cela console, et cela garde le lien.</p>
+        <p>Dans la tradition juive ashkénaze, on donne traditionnellement à l'enfant le prénom d'un parent <strong>décédé</strong>, jamais celui d'un vivant, pour honorer sa mémoire ; la tradition séfarade, elle, honore les grands-parents vivants. En Europe, pendant des siècles, il a été courant de redonner le prénom d'un enfant mort au suivant, ou celui d'un grand-parent disparu dans l'année. La psychogénéalogie a précisément regardé ces gestes de près : voir l'<a href="enfant-de-remplacement.html">enfant de remplacement</a>.</p>
+
+        <h3>Grossesse et deuil : des précautions anciennes</h3>
+        <p>Dans plusieurs cultures, on a aussi cherché à tenir la grossesse à distance de la mort. Dans la tradition chinoise, une femme enceinte peut choisir de ne pas assister à des funérailles, pour éviter que le malheur ne touche l'enfant. Derrière ces précautions, on retrouve partout la même intuition : le moment où une vie commence est un moment perméable, où l'on veut protéger ce qui arrive de ce qui s'en va.</p>
+        <p>Le mot « deuil » lui-même vient du latin populaire <em>dolus</em>, tiré de <em>dolere</em>, « souffrir ». Un deuil, au sens premier, c'est une douleur. Une grossesse vécue dans cette douleur n'est pas une grossesse « abîmée » : c'est une attente qui se vit en même temps qu'une peine.</p>
+
+        <h2>Ce qu'en disent les auteurs, et les débats</h2>
+        <p>Le projet-sens se rattache à une famille de notions plus larges, qui toutes regardent les naissances proches d'une perte :</p>
+        <ul class="gestes">
+          <li><strong>L'enfant de remplacement</strong>, décrit en 1964 par les psychiatres américains Albert et Barbara Cain dans l'article <em>On Replacing a Child</em> : un enfant conçu ou né après la mort d'un autre enfant de la famille.</li>
+          <li><strong>Le syndrome du gisant</strong>, proposé par le Dr Salomon Sellam au début des années 2000 : un descendant qui porterait, sans le savoir, la vie d'un proche mort de façon injuste. Voir notre article sur le <a href="syndrome-du-gisant.html">syndrome du gisant</a>.</li>
+          <li><strong>Les deuils non faits</strong>, au cœur de la psychogénéalogie d'Anne Ancelin Schützenberger : ce qui n'a pas pu être pleuré tend, dans cette lecture, à revenir sous d'autres formes. Voir les <a href="deuil-non-fait-mort-jeune.html">deuils non faits et morts jeunes</a>.</li>
+        </ul>
+        <p>Le débat porte surtout sur la portée de ces idées. Qu'un enfant soit accueilli différemment quand sa famille est en deuil, chacun peut le comprendre. Que ce contexte « programme » une vie entière, en revanche, n'a jamais été démontré. Certains courants vont plus loin et prêtent au projet-sens des effets sur le corps : aucun lien de ce type n'a été établi, et Genesolia ne relie jamais une difficulté du corps à l'histoire familiale.</p>
+
+        <h2>Comment savoir si tu as été conçu·e pendant un deuil ?</h2>
+        <ol class="exercice">
+          <li><h3>Calcule ta conception estimée</h3><p>Retire 266 jours à ta date de naissance. Garde en tête une marge de plusieurs semaines, surtout si tu es né·e avant ou après le terme.</p></li>
+          <li><h3>Trace une fenêtre autour</h3><p>Regarde les douze mois qui précèdent cette date, puis toute la grossesse jusqu'à ta naissance. C'est la fenêtre la plus souvent retenue.</p></li>
+          <li><h3>Liste les décès de cette période</h3><p>Parents, grands-parents, frères et sœurs, oncles et tantes, mais aussi une grossesse perdue ou un ami très proche. Les <a href="informations-avant-genosociogramme.html">informations à réunir avant de faire ton génosociogramme</a> t'aident à ne rien oublier.</p></li>
+          <li><h3>Demande comment l'attente a été vécue</h3><p>Qui savait pour la grossesse ? Comment a-t-on annoncé ta naissance ? Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> te donnent des formulations douces.</p></li>
+          <li><h3>Inscris tout dans ton arbre</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, le panneau « Ce qui se répète » le fait pour toi et pour chaque personne de l'arbre.</p></li>
+        </ol>
+        <p>Concrètement, l'outil signale « <strong>Conçu·e pendant un deuil</strong> » quand un proche (parent, grand-parent, frère ou sœur, oncle ou tante) est décédé entre douze mois avant la conception estimée et la naissance. Quand les dates sont complètes, il précise si le décès a eu lieu tant de mois avant la conception ou pendant la grossesse ; quand tu ne connais que les années, il retient un décès l'année de la naissance ou l'année d'avant. S'il trouve plusieurs cas dans la famille, il l'indique aussi : c'est parfois la répétition, plus que le cas isolé, qui donne à réfléchir. Si tu débutes, commence par <a href="comment-faire-son-genosociogramme.html">comment faire son génosociogramme</a>.</p>
+
+        <h2>Faits, hypothèses, interprétations</h2>
+        <ul class="pistes">
+          <li><strong>Le fait</strong><span>« Mon grand-père est mort trois mois avant ma conception estimée. » C'est vérifiable, à quelques semaines près.</span></li>
+          <li><strong>L'hypothèse</strong><span>« Ma mère était en deuil pendant qu'elle m'attendait, et ma naissance a peut-être été chargée de consoler. » C'est plausible, et cela se vérifie en partie en parlant avec elle.</span></li>
+          <li><strong>L'interprétation</strong><span>« C'est pour cela que je me sens responsable du bonheur des autres. » C'est une lecture possible parmi d'autres. Elle t'appartient, et elle peut changer.</span></li>
+        </ul>
+
+        <h2>Les limites</h2>
+        <p>Il faut le dire clairement : la psychogénéalogie n'est pas une science, et le projet-sens n'a fait l'objet d'aucune validation. C'est une grille de lecture symbolique, utile pour se poser des questions, pas pour se donner des réponses.</p>
+        <ul class="gestes">
+          <li><strong>C'est une lecture rétrospective.</strong> On part de ce que l'on vit aujourd'hui et l'on remonte vers ce qui pourrait l'« expliquer ».</li>
+          <li><strong>Les décès sont fréquents.</strong> Si l'on compte parents, grands-parents, oncles et tantes, une famille compte facilement vingt ou trente proches. Sur une fenêtre de près de deux ans, il n'est pas rare que l'un d'eux disparaisse, surtout dans les générations où l'on mourait plus tôt.</li>
+          <li><strong>On voit ce que l'on cherche.</strong> Une fois l'idée en tête, chaque coïncidence semble confirmer l'hypothèse, et l'on oublie toutes les naissances sans deuil. C'est ce qu'on appelle le biais de confirmation.</li>
+          <li><strong>La date de conception reste approximative.</strong> Quelques semaines d'écart suffisent à faire entrer ou sortir un décès de la fenêtre.</li>
+          <li><strong>Personne ne peut décider pour toi.</strong> Être conçu·e pendant un deuil ne fait de toi ni un « enfant de remplacement », ni un « gisant ». C'est toi qui sais si cette lecture te parle.</li>
+        </ul>
+        <p>Utilisée avec prudence, la notion garde une vraie valeur : elle invite à demander comment tu as été attendu·e, à nommer des disparus, et à séparer ce qui t'appartient de ce qui appartenait au chagrin des autres.</p>
+
+        <h2>Pour réfléchir</h2>
+        <ul class="gestes">
+          <li>Que sais-tu de la période où tes parents t'attendaient ? Qui était là, qui venait de partir ?</li>
+          <li>Quelle phrase entendais-tu sur ta naissance : « une surprise », « un cadeau », « un soulagement », « un rayon de soleil » ?</li>
+          <li>Portes-tu le prénom, la date ou le caractère de quelqu'un qui était mort peu avant ?</li>
+          <li>Y a-t-il un rôle que tu tiens dans ta famille depuis toujours, et que tu aimerais poser ?</li>
+        </ul>
+        <p class="rappel"><strong>Sans enquêter.</strong> Tu n'as pas besoin de tout savoir pour commencer. L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> part de ton ressenti, et le rituel de la <a href="toussaint-ancetres-et-deuils.html">Toussaint, ancêtres et deuils</a> peut être un bon moment pour rendre sa place à la personne disparue.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que le projet sens en psychogénéalogie ?</dt><dd>Une notion attribuée au psychologue clinicien Marc Fréchet : le contexte familial, les attentes et les événements vécus par les parents autour de la conception et de la grossesse coloreraient la place que l'enfant vient prendre. C'est une grille de lecture symbolique, pas une loi.</dd>
+          <dt>Quelle période couvre le projet-sens ?</dt><dd>Il n'existe pas de définition officielle. Selon les sources, on parle de neuf mois avant la conception jusqu'aux trois ans de l'enfant environ, du désir d'enfant jusqu'à un an, ou plus simplement de la conception, de la grossesse et de la naissance.</dd>
+          <dt>Comment calculer sa date de conception ?</dt><dd>Une grossesse dure en moyenne 280 jours depuis le premier jour des dernières règles, soit environ 266 jours depuis la conception. En retirant 266 jours à ta date de naissance, tu obtiens une conception estimée, à quelques semaines près.</dd>
+          <dt>Que signifie être conçu·e pendant un deuil ?</dt><dd>Que l'un de tes proches est décédé peu avant ta conception ou pendant la grossesse. En psychogénéalogie, on y voit une piste : la naissance a pu être accueillie dans un climat de chagrin, parfois avec un rôle de consolation. Ce n'est pas une fatalité.</dd>
+          <dt>Le projet-sens est-il prouvé scientifiquement ?</dt><dd>Non. Aucune étude n'a validé la notion. Elle peut aider à se poser des questions sur son histoire, à condition de garder en tête que les décès sont fréquents dans une famille et que l'on a tendance à voir les coïncidences que l'on cherche.</dd>
+        </dl>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Salomon Sellam, <em>Le Syndrome du gisant, un subtil enfant de remplacement</em>, Bérangel, 2003.</li>
+          <li>Albert C. Cain et Barbara S. Cain, <em>On Replacing a Child</em>, 1964.</li>
+          <li>Anne Ancelin Schützenberger, <em>Aïe, mes aïeux !</em>, Desclée de Brouwer.</li>
+          <li>Bernard Saladin d'Anglure, <em>Être et renaître inuit. Homme, femme ou chamane</em>, Gallimard, 2006.</li>
+          <li>Kenia I. Edwards et Petr Itzhak, <em>Estimated Date of Delivery</em>, StatPearls (sur la durée moyenne de la grossesse : 280 jours depuis les dernières règles, 266 jours depuis la conception).</li>
+        </ul>
+
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Repérer les conceptions pendant un deuil</a>
+          <a class="btn btn-trait" href="calcul-syndrome-anniversaire.html">Calculer les dates qui se répondent</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html" aria-current="page">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="syndrome-du-gisant.html"><h3>Le syndrome du gisant</h3><p>Porter, sans le savoir, la vie d'un mort : la notion de Salomon Sellam.</p></a>
+          <a class="outil" href="enfant-de-remplacement.html"><h3>L'enfant de remplacement</h3><p>Naître après la perte d'un frère ou d'une sœur.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="heriter.html"><h3>Comprendre le transgénérationnel</h3><p>Mémoire familiale, loyautés, âges-clés : les bases.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts et des ancêtres</h3><p>Ce que ces rêves peuvent dire du lien avec ceux qui sont partis.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

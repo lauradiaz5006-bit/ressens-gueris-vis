@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fille ou garçon attendu : ce que disent les fratries · Genesolia</title>
+  <meta name="description" content="Fille ou garçon attendu, fratrie que des filles, même nombre d'enfants, enfant né après la perte d'un frère : ce que racontent les fratries, et les limites.">
+  <link rel="canonical" href="https://genesolia.fr/filles-garcons-fratrie.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fille ou garçon attendu : ce que racontent les fratries d'une famille">
+  <meta property="og:description" content="Fille ou garçon attendu, fratrie que des filles, même nombre d'enfants, enfant né après la perte d'un frère : ce que racontent les fratries, et les limites.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-filles-garcons-fratrie.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"Article","headline":"Fille ou garçon attendu : ce que racontent les fratries d'une famille","description":"Fille ou garçon attendu, fratrie que des filles, même nombre d'enfants, enfant né après la perte d'un frère : ce que racontent les fratries, et les limites.","image":"https://genesolia.fr/assets/images/blog-filles-garcons-fratrie.jpg","datePublished":"2026-10-08","dateModified":"2026-10-08","inLanguage":"fr","author":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"publisher":{"@type":"Organization","name":"Genesolia","url":"https://genesolia.fr/"},"url":"https://genesolia.fr/filles-garcons-fratrie.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://genesolia.fr/filles-garcons-fratrie.html"}},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type": "Question", "name": "Que veut dire « fille ou garçon attendu » en psychogénéalogie ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est l'attente qui entoure un enfant avant sa naissance : le sexe espéré, le prénom prévu, la place imaginée. Quand l'enfant ne correspond pas à cette attente, il peut occuper une place un peu décalée, et la famille le raconte parfois longtemps."}},{"@type": "Question", "name": "Une fratrie que des filles, est-ce un signe ?", "acceptedAnswer": {"@type": "Answer", "text": "Pas en soi. Pour trois enfants, la probabilité qu'ils soient tous du même sexe est d'environ une sur quatre. Ce qui compte en psychogénéalogie, c'est ce que la famille en a dit, et si cela se répète d'une génération à l'autre."}},{"@type": "Question", "name": "Pourquoi tant de familles voulaient-elles un garçon ?", "acceptedAnswer": {"@type": "Answer", "text": "Surtout pour des raisons de droit et d'héritage : transmission du nom par le père, de la terre ou du titre aux fils. En France, le choix du nom de famille par les deux parents n'existe que depuis 2005."}},{"@type": "Question", "name": "Que signifie le même nombre d'enfants à chaque génération ?", "acceptedAnswer": {"@type": "Answer", "text": "Souvent, la norme d'une époque ou d'un milieu. Parfois, un modèle familial reproduit ou refusé. C'est une question à poser à sa famille, pas une conclusion."}},{"@type": "Question", "name": "Un enfant né après la perte d'un frère est-il un enfant de remplacement ?", "acceptedAnswer": {"@type": "Answer", "text": "La situation existe dès qu'un enfant naît peu après la mort d'un frère ou d'une sœur. Ce qu'elle a laissé, seule la personne peut le dire. La notion vient d'Albert et Barbara Cain, en 1964."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Fille ou garçon attendu : ce que racontent les fratries d'une famille", "item": "https://genesolia.fr/filles-garcons-fratrie.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Filles et garçons</nav>
+        <h1>Fille ou garçon attendu : ce que racontent les fratries d'une famille</h1>
+        <p class="intro">« On attendait un garçon. » Beaucoup de femmes ont entendu cette phrase, parfois en riant, parfois non. Fille ou garçon attendu, fratrie que des filles, petit dernier tant espéré, même nombre d'enfants d'une génération à l'autre : les fratries d'un arbre racontent souvent une histoire. Voici comment la lire, sans en faire un destin.</p>
+        <p class="publie">Publié le 8 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-filles-garcons-fratrie.jpg" width="1600" height="840" alt="Fille ou garçon attendu : des photos anciennes d'enfants d'une même fratrie posées en éventail sur un drap crème, à côté de petits chaussons roses et bleus" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Fille ou garçon attendu : de quoi parle-t-on ?</h2>
+        <p>Avant même sa naissance, un enfant arrive dans une attente. On espère une fille ou un garçon, on a déjà un prénom en tête, on imagine sa place. Quand l'enfant qui naît ne correspond pas à ce qui était espéré, il n'est pas moins aimé. Mais il occupe parfois une place un peu décalée, et cela peut se raconter dans la famille pendant longtemps.</p>
+        <p>En psychogénéalogie, on ne regarde pas seulement l'enfant attendu. On regarde l'ensemble des fratries de l'arbre : combien d'enfants, de quel sexe, dans quel ordre, avec quels écarts, et après quels événements. Cette façon de faire vient de la thérapie familiale. Monica McGoldrick et Randy Gerson, dans <em>Genograms in Family Assessment</em> (Norton, 1985), ont fait de la « constellation » des frères et sœurs l'un des repères de lecture du génogramme, l'équivalent anglo-saxon du <a href="quest-ce-qu-un-genosociogramme.html">génosociogramme</a>.</p>
+        <p>Avant eux, le psychologue Walter Toman avait proposé, dans <em>Family Constellation</em> (Springer, 1961), de décrire chaque place à la fois par le rang et par le sexe des frères et sœurs : être l'aînée d'une fratrie de sœurs n'est pas la même expérience qu'être l'aînée d'une fratrie de frères. L'article sur la <a href="place-dans-la-fratrie.html">place dans la fratrie</a> parle du rang ; celui-ci s'attache au sexe, au nombre et aux enfants arrivés après une perte.</p>
+
+        <h2>Une histoire pour comprendre : la famille Vasseur</h2>
+        <p>Voici une famille sur quatre générations. Les noms sont inventés, la structure est celle d'un vrai arbre.</p>
+        <ul class="pistes">
+          <li><strong>1906 à 1911 · Émile et Louise Vasseur ont trois filles</strong><span>Marthe, Germaine, puis Paule, qui reçoit le prénom de son grand-père Paul. Émile tenait une ferme ; on dira longtemps qu'« il n'avait personne pour la reprendre ».</span></li>
+          <li><strong>1930 à 1935 · Germaine a trois filles à son tour</strong><span>Odette, Yvette, puis Claude, un prénom porté aussi bien par les filles que par les garçons.</span></li>
+          <li><strong>1931 à 1934 · Chez Marthe, un petit garçon meurt</strong><span>Pierre meurt en 1933, à 2 ans. Moins d'un an plus tard naît Jean-Pierre.</span></li>
+          <li><strong>1955 à 1966 · Yvette a deux filles, puis un garçon</strong><span>Sylvie, Dominique, et neuf ans plus tard Thierry, « le garçon tant attendu », dont on fête la naissance dans toute la famille.</span></li>
+          <li><strong>Aujourd'hui · Laure, fille de Thierry, a deux filles</strong><span>Elle entend souvent : « Et le garçon, c'est pour quand ? » La question l'agace, sans qu'elle sache bien pourquoi.</span></li>
+        </ul>
+        <p>Lue avec une grille psychogénéalogique, cette histoire réunit plusieurs <strong>faits</strong> : deux fratries de filles uniquement, trois enfants dans quatre familles, un enfant né juste après la mort d'un frère et portant un prénom proche, un écart de neuf ans avant le dernier, des prénoms qui évoquent les hommes absents (Paule, Claude). L'<strong>hypothèse</strong> serait que cette famille, faute de fils pour reprendre la ferme et le nom, a longtemps « attendu un garçon ». L'<strong>interprétation</strong> appartient à Laure : peut-être comprendra-t-elle mieux pourquoi cette question la touche.</p>
+
+        <h2>Une fratrie que des filles ou que des garçons : hasard ou histoire ?</h2>
+        <p>Commençons par les chiffres, car ils évitent bien des contresens. À la naissance, il naît naturellement un peu plus de garçons que de filles, environ 105 pour 100. Pour une fratrie de trois enfants, la probabilité que tous soient du même sexe est d'environ une sur quatre. Pour quatre enfants, d'environ une sur huit. Une fratrie que des filles n'a donc rien d'exceptionnel, et en trouver deux ou trois dans un grand arbre est presque attendu.</p>
+        <p>Ce qui compte, en psychogénéalogie, n'est donc pas la fratrie unisexe en elle-même, mais ce qu'on en a dit. Une famille de trois filles peut avoir été vécue comme une joie, ou comme une déception racontée à chaque repas. C'est ce récit qui se transmet, bien plus que la statistique.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Le fait</span><h3>Que des filles, que des garçons</h3><p>Il se lit dans l'arbre. Il est fréquent, et le plus souvent dû au hasard.</p></div>
+          <div class="c2"><span class="nom">Le récit</span><h3>Ce que la famille en a dit</h3><p>« Il n'avait personne pour reprendre », « le nom s'éteint », « enfin un garçon ». C'est là que l'histoire se joue.</p></div>
+        </div>
+
+        <h2>Pourquoi tant de familles attendaient-elles un garçon ?</h2>
+        <p>La préférence pour les garçons n'est ni universelle ni éternelle, mais elle a été très répandue. Elle s'explique surtout par le droit, l'héritage et la transmission du nom, bien plus que par les sentiments.</p>
+        <h3>Le nom et la terre</h3>
+        <p>En France, l'enfant recevait par usage le nom de son père. Ce n'est qu'avec la loi du 4 mars 2002, entrée en vigueur le 1er janvier 2005, que les parents ont pu choisir de transmettre le nom du père, celui de la mère, ou les deux. Pendant des siècles, une famille sans fils voyait donc « son » nom s'éteindre. Les majorats créés par Napoléon en 1808 se transmettaient d'ailleurs aux descendants mâles, par ordre de naissance.</p>
+        <p>Au Japon, la « maison » (<em>ie</em>) organisée par le Code civil de 1898 passait le plus souvent au fils aîné. Quand il n'y avait pas de fils, la famille pouvait adopter un héritier, parfois en le mariant à une fille de la maison, qui prenait alors le nom de famille : la continuité de la maison comptait plus que le lien de sang.</p>
+        <h3>En Chine et en Inde</h3>
+        <p>En 1990, l'économiste Amartya Sen a publié dans la <em>New York Review of Books</em> un article intitulé « More Than 100 Million Women Are Missing ». Il y décrivait un déficit de femmes dans les statistiques de plusieurs pays, notamment en Asie, que les démographes relient en grande partie à la préférence pour les fils. Ce constat, devenu célèbre sous le nom de « femmes manquantes », rappelle que l'attente d'un garçon a pu peser bien au-delà des récits familiaux.</p>
+
+        <h2>Des prénoms pour « appeler » un garçon</h2>
+        <p>Le prénom garde souvent la trace de cette attente. En Chine, de nombreuses femmes portent un prénom construit sur <em>di</em>, homophone de « petit frère » : <em>Zhaodi</em> (« appeler un petit frère »), <em>Laidi</em> (« un petit frère arrive »), <em>Pandi</em> (« espérer un petit frère »). Une étude de l'Institut de psychologie de l'Académie chinoise des sciences, publiée en 2024, a montré que le prénom <em>Zhaodi</em> est plus fréquent dans les régions où la culture des clans, avec ses rites réservés aux fils, est la plus forte.</p>
+        <p>En Inde, dans le district de Satara (Maharashtra), des centaines de filles avaient été prénommées <em>Nakusa</em> ou <em>Nakushi</em>, « non désirée ». En 2011, 285 d'entre elles ont choisi un nouveau prénom lors d'une cérémonie collective.</p>
+        <p>Dans les arbres français, on croise parfois des filles portant la forme féminine du prénom d'un père ou d'un grand-père (Paule, Henriette, Georgette), ou un prénom épicène (Claude, Dominique, Camille). Ce n'est pas un signe en soi : ces prénoms étaient aussi une façon courante d'honorer un parent, ou simplement à la mode. Mais la question mérite d'être posée à la famille. L'article sur les <a href="prenom-transmis-psychogenealogie.html">prénoms transmis</a> et la page <a href="ton-prenom.html">signification de ton prénom</a> peuvent t'aider à aller plus loin.</p>
+
+        <h2>Le même nombre d'enfants d'une génération à l'autre</h2>
+        <p>Il arrive qu'un même nombre d'enfants revienne dans plusieurs familles de l'arbre : trois enfants chez les grands-parents, chez les parents, chez les oncles et tantes. Parfois, c'est simplement la norme d'une époque ou d'un milieu. Parfois, c'est un modèle qu'on reproduit sans y penser (« une vraie famille, c'est trois enfants »), ou au contraire qu'on refuse.</p>
+        <p>Les écarts d'âge comptent aussi. Un grand écart entre deux enfants, six, huit, dix ans, peut correspondre à une guerre, une séparation, un départ, ou à une période dont on ne parle pas. Dans la famille Vasseur, les neuf ans entre Dominique et Thierry posent une question simple : que s'est-il passé pendant ces années ? Ce n'est pas une conclusion, c'est une porte à ouvrir. Si la réponse semble gênée, l'article sur les <a href="secret-de-famille.html">secrets de famille</a> peut t'éclairer.</p>
+
+        <h2>L'enfant né après la perte d'un frère ou d'une sœur</h2>
+        <p>En 1964, Albert et Barbara Cain ont publié dans le <em>Journal of the American Academy of Child Psychiatry</em> l'article « On Replacing a Child », qui a donné naissance à la notion d'<a href="enfant-de-remplacement.html">enfant de remplacement</a> : un enfant né peu après la mort d'un autre enfant de la même famille, et chargé, consciemment ou non, de combler un vide.</p>
+        <p>Le sexe de l'enfant entre souvent en jeu. Quand l'enfant qui naît est du même sexe que celui qui est mort, et qu'il reçoit un prénom proche, comme Jean-Pierre après Pierre, la superposition peut être forte. Quand il est de l'autre sexe, la famille a parfois le sentiment que la place n'a pas été « remplie », et l'attente se reporte sur l'enfant suivant. Ces situations rejoignent celles décrites dans les articles sur les <a href="deuil-non-fait-mort-jeune.html">deuils non faits</a> et le <a href="syndrome-du-gisant.html">syndrome du gisant</a>.</p>
+
+        <h2>Ce que dit la recherche, et ce qu'elle ne dit pas</h2>
+        <p>Alfred Adler, au début du XXe siècle, a été l'un des premiers à lier le rang de naissance au caractère : l'aîné « détrôné » par l'arrivée d'un cadet, le benjamin ambitieux. En 1996, l'historien des sciences Frank Sulloway a relancé l'idée dans <em>Born to Rebel</em> (Pantheon), selon lequel les cadet·tes seraient plus enclin·es à soutenir les idées nouvelles.</p>
+        <p>Ces thèses ont été vivement critiquées. En 2015, deux études publiées dans la revue <em>PNAS</em>, l'une de Julia Rohrer, Boris Egloff et Stefan Schmukle sur plus de 20 000 personnes, l'autre de Rodica Damian et Brent Roberts, ont trouvé un effet du rang de naissance sur la personnalité nul ou minuscule. Le rang ne fabrique pas un caractère.</p>
+        <p>Ce que la recherche ne mesure pas, en revanche, c'est la place symbolique : ce qu'une famille attendait d'un enfant, ce qu'elle a dit de son sexe, de son prénom, de son arrivée. C'est sur ce terrain, et seulement sur celui-là, que la psychogénéalogie propose de réfléchir.</p>
+
+        <h2>Comment savoir si ta place a été marquée par une attente ?</h2>
+        <ul class="pistes">
+          <li><strong>Le récit de ta naissance</strong><span>Que raconte-t-on de ton arrivée ? Attendait-on une fille ou un garçon ? Avait-on préparé un autre prénom ?</span></li>
+          <li><strong>Les phrases de la famille</strong><span>« Il n'avait que des filles », « enfin un garçon », « le nom va s'éteindre » : qui les disait, et à propos de qui ?</span></li>
+          <li><strong>Ton prénom</strong><span>Est-il la forme féminine ou masculine d'un prénom de la famille ? Est-il épicène ? Qui l'a choisi ?</span></li>
+          <li><strong>Les rôles</strong><span>As-tu tenu un rôle qu'on prête d'ordinaire à l'autre sexe : reprendre l'affaire, porter le nom, rester près des parents ?</span></li>
+          <li><strong>Les absent·es</strong><span>Un frère ou une sœur est-il mort avant ta naissance, ou peu après ? On l'oublie souvent en comptant sa fratrie.</span></li>
+          <li><strong>Ce que tu transmets</strong><span>Te surprends-tu à souhaiter un sexe plutôt qu'un autre pour un enfant, une nièce, un neveu ? D'où vient ce souhait ?</span></li>
+        </ul>
+
+        <h2>Lire les fratries de ton arbre, pas à pas</h2>
+        <ol class="exercice">
+          <li><h3>Rassemble les fratries</h3><p>La tienne, celles de tes parents, de tes grands-parents, de tes oncles et tantes. Compte tous les enfants, y compris ceux morts tout petits. La liste des <a href="informations-avant-genosociogramme.html">informations à réunir</a> t'aide à ne rien oublier.</p></li>
+          <li><h3>Note le sexe, les dates et les prénoms</h3><p>Dans le <a href="genosociogramme.html">génosociogramme en ligne gratuit</a>, chaque fiche porte le sexe, la date de naissance et, le cas échéant, de décès. Les <a href="symboles-genosociogramme.html">symboles du génosociogramme</a> distinguent carrés et ronds d'un coup d'œil.</p></li>
+          <li><h3>Ouvre le panneau « Ce qui se répète »</h3><p>L'outil repère automatiquement « Des fratries de filles uniquement » ou « Des fratries de garçons uniquement » quand elles reviennent au moins deux fois, le même nombre d'enfants dans plusieurs familles (« N enfants, dans X familles », à partir de trois familles), et un enfant « né·e après la perte d'un frère ou d'une sœur » mort avant 18 ans, dans les deux ans qui précèdent. Il signale aussi les grands écarts d'âge dans une fratrie parmi les zones d'ombre à explorer.</p></li>
+          <li><h3>Interroge le récit</h3><p>Pour chaque piste, demande ce qu'on en disait. Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> proposent des formulations ouvertes, sans interprétation.</p></li>
+          <li><h3>Rends sa place à chaque enfant</h3><p>Écris, pour toi, ce que tu as reçu de cette attente, et ce que tu choisis d'en garder. Être la fille d'une famille qui attendait un garçon ne t'oblige à rien.</p></li>
+        </ol>
+        <p class="rappel"><strong>Sans enquêter.</strong> Personne ne peut te dire ce qu'on attendait à ta naissance ? L'exercice <a href="exercice-ressenti-ancetre.html">ce que je ressens, ce qu'il ou elle a vécu</a> part de ton ressenti, et la page <a href="comment-faire-son-genosociogramme.html">comment faire son génosociogramme</a> t'accompagne pour dessiner les fratries.</p>
+
+        <h2>Faits, hypothèses, interprétations : les limites</h2>
+        <p>La psychogénéalogie n'est pas une science, et cette lecture demande de la prudence.</p>
+        <ul class="gestes">
+          <li><strong>Les faits</strong> : le sexe des enfants, leur nombre, leurs dates, leurs prénoms. Ils se lisent dans l'état civil.</li>
+          <li><strong>Les hypothèses</strong> : une attente de garçon, une place « de remplacement », un modèle familial du nombre d'enfants. Elles viennent d'auteurs reconnus, mais n'ont pas été démontrées comme causes.</li>
+          <li><strong>Les interprétations</strong> : ce que tu en fais pour toi. Elles sont légitimes si elles restent ouvertes.</li>
+        </ul>
+        <p>Une fratrie unisexe est souvent le fruit du hasard. Un prénom épicène peut n'avoir été qu'une mode. Le même nombre d'enfants peut refléter une époque plutôt qu'une loyauté. Et l'attente d'un garçon, quand elle a existé, dit quelque chose de la société et du droit de l'époque, pas de la valeur d'une fille. Lire les fratries de ton arbre, c'est d'abord rendre à chacun·e sa place, sans juger ni les enfants ni les parents.</p>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Que veut dire « fille ou garçon attendu » en psychogénéalogie ?</dt><dd>C'est l'attente qui entoure un enfant avant sa naissance : le sexe espéré, le prénom prévu, la place imaginée. Quand l'enfant ne correspond pas à cette attente, il peut occuper une place un peu décalée, et la famille le raconte parfois longtemps.</dd>
+          <dt>Une fratrie que des filles, est-ce un signe ?</dt><dd>Pas en soi. Pour trois enfants, la probabilité qu'ils soient tous du même sexe est d'environ une sur quatre. Ce qui compte en psychogénéalogie, c'est ce que la famille en a dit, et si cela se répète d'une génération à l'autre.</dd>
+          <dt>Pourquoi tant de familles voulaient-elles un garçon ?</dt><dd>Surtout pour des raisons de droit et d'héritage : transmission du nom par le père, de la terre ou du titre aux fils. En France, le choix du nom de famille par les deux parents n'existe que depuis 2005.</dd>
+          <dt>Que signifie le même nombre d'enfants à chaque génération ?</dt><dd>Souvent, la norme d'une époque ou d'un milieu. Parfois, un modèle familial reproduit ou refusé. C'est une question à poser à sa famille, pas une conclusion.</dd>
+          <dt>Un enfant né après la perte d'un frère est-il un enfant de remplacement ?</dt><dd>La situation existe dès qu'un enfant naît peu après la mort d'un frère ou d'une sœur. Ce qu'elle a laissé, seule la personne peut le dire. La notion vient d'Albert et Barbara Cain, en 1964.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner les fratries de ma famille</a>
+          <a class="btn btn-trait" href="place-dans-la-fratrie.html">Ma place dans la fratrie</a>
+        </div>
+
+        <h2>Sources et pour aller plus loin</h2>
+        <ul class="gestes">
+          <li>Monica McGoldrick et Randy Gerson, <em>Genograms in Family Assessment</em>, W. W. Norton, 1985.</li>
+          <li>Walter Toman, <em>Family Constellation: Theory and Practice of a Psychological Game</em>, Springer, 1961.</li>
+          <li>Albert C. Cain et Barbara S. Cain, « On Replacing a Child », <em>Journal of the American Academy of Child Psychiatry</em>, vol. 3, 1964.</li>
+          <li>Frank J. Sulloway, <em>Born to Rebel</em>, Pantheon, 1996.</li>
+          <li>Julia M. Rohrer, Boris Egloff et Stefan C. Schmukle, « Examining the effects of birth order on personality », <em>PNAS</em>, 2015.</li>
+          <li>Rodica Ioana Damian et Brent W. Roberts, « Settling the debate on birth order and personality », <em>PNAS</em>, 2015.</li>
+          <li>Amartya Sen, « More Than 100 Million Women Are Missing », <em>The New York Review of Books</em>, 1990.</li>
+          <li>Loi n° 2002-304 du 4 mars 2002 relative au nom de famille.</li>
+        </ul>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton histoire familiale te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="memoire-transgenerationnelle.html">Mémoire transgénérationnelle</a><a href="loyaute-familiale-invisible.html">Loyautés invisibles</a><a href="syndrome-anniversaire.html">Syndrome d'anniversaire</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a><a href="place-dans-la-fratrie.html">Place dans la fratrie</a><a href="prenom-transmis-psychogenealogie.html">Prénoms transmis</a><a href="implexe-mariage-entre-cousins.html">Implexe et cousins</a><a href="metiers-transmis-genealogie.html">Métiers de famille</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="projet-sens-conception-deuil.html">Projet-sens</a><a href="devenir-parent-au-meme-age.html">Les âges qui se répondent</a><a href="guerre-et-memoire-familiale.html">La guerre dans l'arbre</a><a href="secret-de-famille.html">Secrets de famille</a><a href="argent-et-lignee.html">Argent et lignée</a><a href="filles-garcons-fratrie.html" aria-current="page">Filles et garçons</a><a href="peur-de-manquer-d-argent.html">Peur de manquer d'argent</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="place-dans-la-fratrie.html"><h3>La place dans la fratrie</h3><p>Aîné·e, cadet·te, enfant du milieu : ce que dit vraiment le rang.</p></a>
+          <a class="outil" href="enfant-de-remplacement.html"><h3>L'enfant de remplacement</h3><p>Naître après la perte d'un frère ou d'une sœur.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="prenom-transmis-psychogenealogie.html"><h3>Les prénoms transmis</h3><p>Ce qu'un prénom repris dit de la place qu'on t'a donnée.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires, les dates et les silences, avec tact.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
