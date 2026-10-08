@@ -84,6 +84,7 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="tes-20-ans.html">Tes 20 ans</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
+            '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Guides</h4><ul>' +

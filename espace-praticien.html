@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logiciel génosociogramme pour praticiens · Espace praticien Genesolia</title>
+  <meta name="description" content="Logiciel de génosociogramme pour praticiens : arbre en ligne, import Geneanet et GEDCOM, plus de 25 pistes repérées, dossiers client·es et rapport à ton logo. Liste d'attente ouverte.">
+  <link rel="canonical" href="https://genesolia.fr/espace-praticien.html">
+  <meta property="og:title" content="Espace praticien Genesolia · le génosociogramme de tes client·es en quelques minutes">
+  <meta property="og:description" content="Un outil de travail pour les professionnel·les de l'accompagnement : arbre en ligne, pistes repérées automatiquement, dossiers client·es et rapport à ton logo.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/genosociogramme-1600.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .p-tete{position:relative;overflow:hidden;color:#FFF4F6;background:#2E1338}
+    .p-tete-fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+    .p-tete::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(46,19,56,.95) 0%,rgba(46,19,56,.8) 50%,rgba(107,47,91,.3) 100%)}
+    .p-tete .conteneur{position:relative;z-index:1;padding:4.5rem 0 4rem}
+    .p-tete-texte{max-width:46rem}
+    .p-sur{display:inline-block;margin-bottom:1.2rem;padding:.4rem .95rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.45);font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--champagne-clair)}
+    .p-tete h1{color:#fff;font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.1;margin-bottom:1.1rem}
+    .p-tete .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.6rem;max-width:38rem}
+    .p-tete .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .p-tete .btn-trait{color:#fff;background:transparent;border-color:rgba(255,255,255,.55)}
+    .p-tete .btn-trait:hover{border-color:#fff}
+    .p-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+    .p-pour{margin:1.4rem 0 0;font-size:.9rem;color:#E6CFDD;max-width:none}
+
+    .a-titre{text-align:center;max-width:42rem;margin:0 auto 2.4rem}
+    .a-titre p{color:var(--prune-doux);margin-top:.7rem}
+    .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+
+    .p-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem;list-style:none;margin:0;padding:0}
+    .p-grille li{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.4rem;color:var(--prune-doux);line-height:1.55;font-size:.95rem}
+    .p-grille b{display:block;font:400 1.25rem var(--display);color:var(--prune);margin-bottom:.35rem}
+    .p-grille.p-bientot li{background:linear-gradient(180deg,#FFF6EC,var(--blanc));border-color:var(--champagne-clair)}
+    .p-statut{display:inline-block;margin-bottom:.6rem;font:600 .7rem var(--texte);letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:.2rem .6rem}
+    .p-ok{background:#E7F2EA;color:#2F6B45}
+    .p-prep{background:var(--champagne-clair);color:var(--prune)}
+
+    .p-tarif{max-width:46rem;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;padding:2.2rem;border-radius:var(--rayon);border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);box-shadow:0 20px 50px rgba(107,47,91,.1)}
+    .p-prix{font-family:var(--display);color:var(--prune);text-align:center}
+    .p-prix small{display:block;font:400 .9rem var(--texte);color:var(--prune-doux)}
+    .p-prix b{display:block;font-weight:400;font-size:3rem;line-height:1}
+    .p-tarif ul{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.55rem}
+    .p-tarif li,.p-confi li{position:relative;padding-left:1.5rem;line-height:1.5}
+    .p-tarif li::before,.p-confi li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    .p-note{font-size:.86rem;color:var(--prune-doux);max-width:none}
+
+    .p-confi{max-width:46rem;margin:0 auto;list-style:none;padding:0;display:grid;gap:.8rem}
+
+    .a-liste{max-width:42rem;margin:0 auto;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    .a-liste h2{font-size:1.7rem;margin-bottom:.4rem}
+    .a-liste > p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .a-champs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.9rem}
+    .a-liste label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .a-liste input[type=text],.a-liste input[type=email],.a-liste select{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%;box-sizing:border-box}
+    .a-choix{border:0;padding:0;margin:0 0 1rem;display:grid;gap:.4rem}
+    .a-choix legend{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+    .a-choix label{display:flex;gap:.55rem;align-items:center;font-weight:400}
+    .a-choix input,.a-accord input{accent-color:var(--prune);width:1.05rem;height:1.05rem;flex-shrink:0}
+    .a-liste .a-accord{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+    .a-accord input{margin-top:.2rem}
+    .a-erreur{margin:.7rem 0 0;font-size:.9rem;color:#A33A4A;min-height:1.2em}
+    .a-merci{font-family:var(--display);font-size:1.3rem}
+    .p-autre[hidden]{display:none}
+
+    @media (max-width:960px){.p-grille{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){.p-tarif{grid-template-columns:1fr;text-align:left}.p-tarif .p-prix{text-align:left}}
+    @media (max-width:560px){
+      .p-grille{grid-template-columns:1fr}
+      .a-champs{grid-template-columns:1fr}
+      .a-liste,.p-tarif{padding:1.5rem}
+      .p-tete .conteneur{padding:3rem 0}
+    }
+  </style>
+  <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://genesolia.fr/"},{"@type":"ListItem","position":2,"name":"Espace praticien","item":"https://genesolia.fr/espace-praticien.html"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Genesolia est-il un outil thérapeutique ?","acceptedAnswer":{"@type":"Answer","text":"Non. Genesolia est un outil de travail et une grille de lecture symbolique de l'histoire familiale. Il t'aide à dessiner et à explorer un génosociogramme avec ton·ta client·e, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L'accompagnement reste le tien."}},{"@type":"Question","name":"Est-ce que je peux déjà utiliser Genesolia avec mes client·es ?","acceptedAnswer":{"@type":"Answer","text":"Oui, l'outil d'arbre en ligne fonctionne déjà : import PDF Geneanet et GEDCOM, pistes repérées automatiquement, export image, PDF et SVG. L'Espace praticien ajoutera la gestion de plusieurs dossiers client·es, les notes privées et le rapport à ton logo."}},{"@type":"Question","name":"Combien coûtera l'Espace praticien ?","acceptedAnswer":{"@type":"Answer","text":"Le tarif est encore indicatif : autour de 49 € par mois, avec 30 jours d'essai. Un tarif fondateur sera réservé aux personnes inscrites sur la liste d'attente."}},{"@type":"Question","name":"Où sont hébergées les données de mes client·es ?","acceptedAnswer":{"@type":"Answer","text":"En Europe (Irlande). À l'ouverture, un contrat de sous-traitance RGPD sera fourni, le consentement de ton·ta client·e sera demandé, et un dossier pourra être supprimé à sa demande."}},{"@type":"Question","name":"Quand l'Espace praticien ouvrira-t-il ?","acceptedAnswer":{"@type":"Answer","text":"Il est en préparation. Les personnes inscrites sur la liste d'attente seront prévenues en premier, et leurs réponses aident à choisir ce qui sera prêt en priorité."}}]}]</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="p-tete">
+      <img class="p-tete-fond" src="assets/images/genosociogramme-1600.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" fetchpriority="high">
+      <div class="conteneur"><div class="p-tete-texte">
+        <p class="p-sur">Bientôt · liste d'attente ouverte</p>
+        <h1>Le génosociogramme de tes client·es, prêt en quelques minutes</h1>
+        <p class="intro">L'Espace praticien de Genesolia, c'est un outil de travail pour les professionnel·les de l'accompagnement : tu dessines l'arbre en séance ou tu l'importes, les répétitions ressortent toutes seules, et tu gardes chaque dossier en ordre. Une grille de lecture symbolique, au service de ta pratique.</p>
+        <div class="p-actions">
+          <a class="btn btn-plein" href="#liste">Rejoindre la liste d'attente</a>
+          <a class="btn btn-trait" href="genosociogramme.html">Essayer l'arbre en ligne</a>
+        </div>
+        <p class="p-pour">Pour les psychogénéalogistes, thérapeutes, coachs, sophrologues, hypnothérapeutes et toutes les personnes qui accompagnent.</p>
+      </div></div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Déjà disponible</p>
+          <h2>Ce que tu peux utiliser dès aujourd'hui</h2>
+          <p>L'outil d'arbre de Genesolia fonctionne déjà. Tu peux le tester avec un·e client·e avant même l'ouverture de l'Espace praticien.</p>
+        </div>
+        <ul class="p-grille">
+          <li><span class="p-statut p-ok">Disponible</span><b>Un arbre en ligne</b>Tu ajoutes les personnes, les liens, les dates, les métiers et les événements. Le génosociogramme se dessine au fur et à mesure.</li>
+          <li><span class="p-statut p-ok">Disponible</span><b>Import Geneanet et GEDCOM</b>Ton·ta client·e a déjà fait des recherches ? Importe le PDF Geneanet ou le fichier GEDCOM au lieu de tout ressaisir.</li>
+          <li><span class="p-statut p-ok">Disponible</span><b>Plus de 25 pistes repérées</b>Âges, dates, prénoms, places dans la fratrie : les répétitions sont repérées automatiquement, avec une recherche et des questions guidées.</li>
+          <li><span class="p-statut p-ok">Disponible</span><b>Un article par piste</b>Chaque piste renvoie vers un article explicatif, pour la présenter clairement à ton·ta client·e.</li>
+          <li><span class="p-statut p-ok">Disponible</span><b>Numérologie et astrologie</b>Les nombres et le ciel de naissance reliés à l'arbre, si ta pratique les utilise.</li>
+          <li><span class="p-statut p-ok">Disponible</span><b>Export et sauvegarde</b>Export en image, PDF ou SVG. Sauvegarde du compte sur des serveurs en Europe (Irlande).</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">En préparation</p>
+          <h2>Ce qu'ajoutera l'Espace praticien</h2>
+          <p>Ces fonctions sont en cours de préparation. Tes réponses à la liste d'attente nous aident à choisir lesquelles arrivent en premier.</p>
+        </div>
+        <ul class="p-grille p-bientot">
+          <li><span class="p-statut p-prep">En préparation</span><b>Dossiers client·es illimités</b>Un arbre par client·e, rangé et retrouvé en un clic, sans limite de dossiers.</li>
+          <li><span class="p-statut p-prep">En préparation</span><b>Notes privées par séance</b>Tes observations, séance après séance, visibles par toi seul·e.</li>
+          <li><span class="p-statut p-prep">En préparation</span><b>Rapport PDF à ton image</b>Le rapport de l'arbre avec ton logo et tes couleurs, à remettre à ton·ta client·e.</li>
+          <li><span class="p-statut p-prep">En préparation</span><b>Fiche dans l'annuaire</b>Ta fiche dans l'annuaire des praticien·nes de genesolia.fr, pour être trouvé·e près de chez toi.</li>
+          <li><span class="p-statut p-prep">En préparation</span><b>Partage en lecture et mode séance</b>Un lien de partage en lecture pour ton·ta client·e, et un mode séance épuré pour travailler l'arbre ensemble.</li>
+          <li><span class="p-statut p-prep">En préparation</span><b>Un avantage sur Le Cercle</b>Un avantage réservé à tes client·es sur Le Cercle, pour continuer entre deux séances.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Tarif indicatif</p>
+          <h2>Un abonnement simple</h2>
+        </div>
+        <div class="p-tarif">
+          <p class="p-prix"><small>autour de</small><b>49 €</b><small>par mois</small></p>
+          <div>
+            <ul>
+              <li><b>30 jours d'essai</b> pour l'utiliser avec tes client·es</li>
+              <li><b>Un tarif fondateur</b> réservé aux personnes inscrites sur la liste d'attente</li>
+              <li>Tous les outils déjà disponibles, plus les fonctions de l'Espace praticien</li>
+            </ul>
+            <p class="p-note">Tarif indicatif, susceptible d'évoluer d'ici l'ouverture. Le tarif définitif sera communiqué à la liste d'attente avant toute inscription.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Confidentialité</p>
+          <h2>Les données de tes client·es, protégées</h2>
+          <p>Tu travailles avec des histoires familiales. Elles méritent un cadre clair.</p>
+        </div>
+        <ul class="p-confi">
+          <li><b>Hébergement en Europe</b> : les données sont stockées sur des serveurs situés en Irlande.</li>
+          <li><b>Contrat de sous-traitance RGPD</b> : il sera fourni à l'ouverture de l'Espace praticien.</li>
+          <li><b>Consentement du·de la client·e</b> : il sera demandé avant la création de son dossier.</li>
+          <li><b>Suppression à la demande</b> : un dossier pourra être supprimé dès que ton·ta client·e le demande.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc" id="liste">
+      <div class="conteneur">
+        <div class="a-liste">
+          <h2>Rejoins la liste d'attente</h2>
+          <p>Gratuit et sans engagement. Tu es prévenu·e à l'ouverture, avec le tarif fondateur. Quelques questions sur ta pratique nous aident à préparer ce qui compte pour toi.</p>
+          <form id="p-form" novalidate>
+            <div class="a-champs">
+              <label>Prénom<input type="text" name="prenom" autocomplete="given-name"></label>
+              <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
+            </div>
+            <div class="a-champs">
+              <label>Ta pratique
+                <select name="metier">
+                  <option value="">Choisis…</option>
+                  <option>Psychogénéalogiste</option>
+                  <option>Thérapeute</option>
+                  <option>Psychologue</option>
+                  <option>Coach</option>
+                  <option>Sophrologue</option>
+                  <option>Hypnothérapeute</option>
+                  <option>Constellations familiales</option>
+                  <option>Astrologue ou numérologue</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </label>
+              <label>Ta ville<input type="text" name="ville" autocomplete="address-level2"></label>
+            </div>
+            <label class="p-autre" hidden style="margin-bottom:.9rem">Précise ta pratique<input type="text" name="metier_autre"></label>
+            <div class="a-champs">
+              <label>Client·es par mois
+                <select name="clients">
+                  <option value="">Choisis…</option>
+                  <option>Moins de 5</option>
+                  <option>5 à 15</option>
+                  <option>16 à 30</option>
+                  <option>Plus de 30</option>
+                </select>
+              </label>
+            </div>
+            <fieldset class="a-choix">
+              <legend>Ce qui compte le plus pour toi</legend>
+              <label><input type="checkbox" name="priorite" value="Dossiers multiples"> Plusieurs dossiers client·es</label>
+              <label><input type="checkbox" name="priorite" value="Rapport à mon logo"> Le rapport à mon logo</label>
+              <label><input type="checkbox" name="priorite" value="Annuaire"> La fiche dans l'annuaire</label>
+              <label><input type="checkbox" name="priorite" value="Partage client"> Le partage avec mon·ma client·e</label>
+              <label><input type="checkbox" name="priorite" value="Notation pro complète"> La notation professionnelle complète</label>
+              <label><input type="checkbox" name="priorite" value="Export GEDCOM"> L'export GEDCOM</label>
+            </fieldset>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+            <label class="a-accord"><input type="checkbox" name="accord" required><span>J'accepte que Genesolia conserve ces informations pour me prévenir de l'ouverture de l'Espace praticien. Je peux demander leur suppression à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
+            <button class="btn btn-plein" type="submit">Rejoindre la liste</button>
+            <p class="a-erreur" role="alert"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur questions" style="max-width:48rem">
+        <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
+        <details><summary>Genesolia est-il un outil thérapeutique ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l'histoire familiale. Il t'aide à dessiner et à explorer un génosociogramme avec ton·ta client·e, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L'accompagnement reste le tien.</p></details>
+        <details><summary>Est-ce que je peux déjà utiliser Genesolia avec mes client·es ?</summary><p>Oui, l'outil d'arbre en ligne fonctionne déjà : import PDF Geneanet et GEDCOM, pistes repérées automatiquement, export image, PDF et SVG. L'Espace praticien ajoutera la gestion de plusieurs dossiers client·es, les notes privées et le rapport à ton logo.</p></details>
+        <details><summary>Combien coûtera l'Espace praticien ?</summary><p>Le tarif est encore indicatif : autour de 49 € par mois, avec 30 jours d'essai. Un tarif fondateur sera réservé aux personnes inscrites sur la liste d'attente.</p></details>
+        <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). À l'ouverture, un contrat de sous-traitance RGPD sera fourni, le consentement de ton·ta client·e sera demandé, et un dossier pourra être supprimé à sa demande.</p></details>
+        <details><summary>Quand l'Espace praticien ouvrira-t-il ?</summary><p>Il est en préparation. Les personnes inscrites sur la liste d'attente seront prévenues en premier, et leurs réponses aident à choisir ce qui sera prêt en priorité.</p></details>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var form = document.getElementById('p-form');
+    var autre = form.querySelector('.p-autre');
+    form.metier.addEventListener('change', function () { autre.hidden = form.metier.value !== 'Autre'; });
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.a-erreur'), btn = form.querySelector('button');
+      var email = form.email.value.trim(), prenom = form.prenom.value.trim();
+      if (form._gotcha.value) return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour rejoindre la liste.'; return; }
+      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      var metier = form.metier.value === 'Autre' ? 'Autre : ' + (form.metier_autre.value.trim() || 'non précisé') : (form.metier.value || 'non précisé');
+      var choix = [].slice.call(form.querySelectorAll('input[name=priorite]:checked')).map(function (c) { return c.value; });
+      var data = new FormData();
+      data.append('prenom', prenom); data.append('email', email);
+      data.append('metier', metier);
+      data.append('ville', form.ville.value.trim() || 'non précisé');
+      data.append('clients_par_mois', form.clients.value || 'non précisé');
+      data.append('priorites', choix.join(', ') || 'non précisé');
+      data.append('liste', 'Espace praticien');
+      data.append('source', 'espace-praticien.html');
+      data.append('_subject', 'Liste d\'attente : Espace praticien');
+      fetch('https://formspree.io/f/xdawvnby', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () {
+          form.outerHTML = '<p class="a-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Ton inscription sur la liste d\'attente est bien enregistrée.</p>' +
+            '<p style="margin-top:.6rem">Nous te prévenons à l\'ouverture de l\'Espace praticien. En attendant, tu peux <a href="genosociogramme.html">essayer l\'arbre en ligne</a>.</p>';
+          if (window.umami) try { window.umami.track('liste-praticien'); } catch (x) {}
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Rejoindre la liste';
+          err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>
