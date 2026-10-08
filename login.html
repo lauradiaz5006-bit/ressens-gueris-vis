@@ -12,7 +12,7 @@
   <title>Mon espace · Genesolia</title>
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    .espace{min-height:calc(100vh - 70px);display:flex;align-items:center;justify-content:center;padding:3rem 16px;background:
+    .espace{min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 16px;background:
       radial-gradient(40rem 26rem at 80% 10%,rgba(248,214,200,.55),transparent 60%),
       radial-gradient(30rem 24rem at 10% 90%,rgba(236,190,210,.3),transparent 60%),var(--nacre)}
     .carte{width:100%;max-width:440px;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);box-shadow:0 24px 60px rgba(107,47,91,.1);padding:2.2rem 2rem}
@@ -50,6 +50,8 @@
     [hidden]{display:none!important}
     .espace.connectee{align-items:flex-start}
     .tableau{width:100%;max-width:1080px}
+    .espace .pub-avantages{max-width:1080px}
+    #carte-auth:not([hidden]) ~ .pub-avantages{margin:1.6rem auto 0}
     .tb-tete{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;margin-bottom:1rem}
     .tb-titre{margin-right:auto}
     .tb-titre h1{font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.1}
@@ -133,6 +135,24 @@
 
       <p class="note">Ton arbre est privé : personne d’autre que toi n’y a accès. Il est stocké en Europe (Irlande). <a href="confidentialite.html">Mes données</a></p>
     </div>
+
+    <aside class="pub-avantages" aria-labelledby="pa-titre">
+      <div class="pa-tete">
+        <div>
+          <p class="pa-sur">Le Cercle · ouverture le 1<sup>er</sup> novembre</p>
+          <h2 id="pa-titre">Tout Genesolia, chaque mois, à 29 € sans engagement</h2>
+        </div>
+        <a class="btn btn-plein" href="abonnement.html">Voir tous les avantages</a>
+      </div>
+      <ul>
+        <li><b>Ton carnet du mois</b>, dix pages à imprimer</li>
+        <li><b>Ton suivi semaine après semaine</b>, avec la méthode des deux cycles</li>
+        <li><b>Ton mois personnel</b> : ton guide, ton calendrier et les dates de ton arbre</li>
+        <li><b>Le rapport complet de ton arbre</b>, régénéré quand tu veux</li>
+        <li><b>Tous les livrets inclus</b> : numérologie, Les 12 saisons et les suivants</li>
+        <li><b>Le premier carnet offert</b>, tout de suite, et tu arrêtes quand tu veux</li>
+      </ul>
+    </aside>
 
     <div class="tableau" id="carte-connecte" hidden>
       <div class="tb-tete">

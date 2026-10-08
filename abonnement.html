@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abonnement Le Cercle, carnets et livrets · Genesolia</title>
+  <meta name="description" content="Le Cercle Genesolia : ton carnet du mois, ton suivi semaine après semaine et tous les livrets, 29 € par mois sans engagement. Ouverture le 1er novembre, premier carnet offert.">
+  <link rel="canonical" href="https://genesolia.fr/abonnement.html">
+  <meta property="og:title" content="Le Cercle Genesolia · ouverture le 1er novembre">
+  <meta property="og:description" content="Ton carnet du mois, ton suivi semaine après semaine et tous les livrets, 29 € par mois sans engagement.">
+  <meta property="og:image" content="https://genesolia.fr/assets/cercle/apercu-2026-11.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
+    .a-tete .conteneur{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center;padding:4rem 0}
+    .a-sur{font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem}
+    .a-tete h1{color:#fff;margin-bottom:1.1rem}
+    .a-tete .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.6rem;max-width:36rem}
+    .a-date{display:inline-block;padding:.55rem 1.1rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.4);font-weight:600}
+    .a-date b{color:var(--champagne-clair)}
+    .a-couv{justify-self:center;width:min(240px,70%);height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.45);transform:rotate(3deg)}
+
+    .a-titre{text-align:center;max-width:42rem;margin:0 auto 2.4rem}
+    .a-titre p{color:var(--prune-doux);margin-top:.7rem}
+    .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+
+    .a-formules{display:grid;grid-template-columns:1.25fr 1fr;gap:1.4rem;align-items:stretch}
+    .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
+    .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
+    .a-carte h3{font-size:1.6rem}
+    .a-prix{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--prune)}
+    .a-prix small{font:400 1rem var(--texte);color:var(--prune-doux)}
+    .a-carte ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .a-carte li{position:relative;padding-left:1.5rem;line-height:1.5}
+    .a-carte li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    .a-carte .btn{margin-top:auto;align-self:flex-start}
+    .a-note{font-size:.88rem;color:var(--prune-doux)}
+    .a-badge{align-self:flex-start;font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;background:var(--prune);color:#fff;border-radius:99px;padding:.25rem .7rem}
+
+    .a-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
+    .a-produit{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .a-produit h3{font-size:1.2rem}
+    .a-produit p{font-size:.93rem;color:var(--prune-doux)}
+    .a-produit .a-p{margin-top:auto;font-family:var(--display);font-size:1.5rem;color:var(--prune)}
+    .a-produit .a-inclus{font:600 .78rem var(--texte);color:var(--champagne)}
+
+    .a-packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+    .a-pack{border-radius:var(--rayon);padding:1.8rem;background:var(--rose);display:flex;flex-direction:column;gap:.7rem}
+    .a-pack h3{font-size:1.4rem}
+    .a-pack .a-p{font-family:var(--display);font-size:1.8rem}
+    .a-pack .a-p s{font:400 1rem var(--texte);color:var(--prune-doux);margin-left:.4rem}
+
+    .a-autres{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+
+    .a-liste{max-width:40rem;margin:0 auto;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    .a-liste h2{font-size:1.7rem;margin-bottom:.4rem}
+    .a-liste > p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .a-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;margin-bottom:.9rem}
+    .a-liste label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .a-liste input[type=text],.a-liste input[type=email]{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%;box-sizing:border-box}
+    .a-choix{border:0;padding:0;margin:0 0 1rem;display:grid;gap:.4rem}
+    .a-choix legend{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+    .a-choix label{display:flex;gap:.55rem;align-items:center;font-weight:400}
+    .a-choix input,.a-accord input{accent-color:var(--prune);width:1.05rem;height:1.05rem;flex-shrink:0}
+    .a-liste .a-accord{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+    .a-accord input{margin-top:.2rem}
+    .a-erreur{margin:.7rem 0 0;font-size:.9rem;color:#A33A4A;min-height:1.2em}
+    .a-merci{font-family:var(--display);font-size:1.3rem}
+
+    @media (max-width:960px){.a-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:860px){
+      .a-tete .conteneur{grid-template-columns:1fr;padding:3rem 0}
+      .a-couv{width:160px}
+      .a-formules,.a-packs,.a-autres{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){.a-grille{grid-template-columns:1fr}.a-champs{grid-template-columns:1fr}.a-carte,.a-liste{padding:1.5rem}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="a-tete">
+      <div class="conteneur">
+        <div>
+          <p class="a-sur">Abonnement · Le Cercle Genesolia</p>
+          <h1>Un rendez-vous chaque mois pour comprendre ce qui se répète</h1>
+          <p class="intro">Ton carnet du mois, ton suivi semaine après semaine et tous les livrets du site, réunis dans un seul abonnement. Sans engagement : tu arrêtes quand tu veux.</p>
+          <p class="a-date">Ouverture le <b>1<sup>er</sup> novembre</b> · premier carnet offert dès maintenant</p>
+        </div>
+        <img class="a-couv" src="assets/cercle/apercu-2026-11.jpg" width="662" height="936" alt="Couverture du carnet de novembre du Cercle">
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Les formules</p>
+          <h2>Le Cercle, tout compris</h2>
+          <p>Une seule formule, avec tout ce que Genesolia propose. Au mois ou à l'année.</p>
+        </div>
+        <div class="a-formules">
+          <article class="a-carte vedette">
+            <span class="a-badge">Tout compris</span>
+            <h3>Le Cercle au mois</h3>
+            <p class="a-prix">29 € <small>par mois, sans engagement</small></p>
+            <ul>
+              <li><b>Ton carnet du mois</b> : dix pages à imprimer, le thème expliqué, trois exercices, un rituel symbolique et une méditation à lire</li>
+              <li><b>Ton suivi semaine après semaine</b>, construit sur la méthode des deux cycles</li>
+              <li><b>Ton mois personnel</b> : ton nombre du mois, ton guide, ton calendrier et les dates de ton arbre qui tombent ce mois-ci</li>
+              <li><b>Le rapport complet de ton arbre</b>, régénéré quand tu veux</li>
+              <li><b>Ton arbre familial sans limite</b> : plus de générations, export PDF, repérage des coïncidences</li>
+              <li><b>Tous les livrets inclus</b> : ton livret de numérologie, Les 12 saisons et les suivants</li>
+              <li><b>La lettre du mois</b> : le ciel réel, le nombre du mois, la saison et ses traditions</li>
+            </ul>
+            <a class="btn btn-plein" href="#liste">Être prévenu·e de l'ouverture</a>
+            <p class="a-note">Le paiement ouvre le 1<sup>er</sup> novembre. D'ici là, aucun prélèvement.</p>
+          </article>
+          <article class="a-carte">
+            <h3>Le Cercle à l'année</h3>
+            <p class="a-prix">290 € <small>par an</small></p>
+            <p>Exactement le même contenu, avec <b>deux mois offerts</b>. Pour celles et ceux qui veulent faire le tour complet des douze carnets.</p>
+            <ul>
+              <li>Les douze carnets de l'année</li>
+              <li>Tout ce qui est compris dans la formule au mois</li>
+              <li>Soit 24 € par mois environ</li>
+            </ul>
+            <a class="btn btn-trait" href="#liste">Être prévenu·e de l'ouverture</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">À l'unité</p>
+          <h2>Juste ce dont tu as besoin</h2>
+          <p>Sans abonnement, chaque document s'achète seul. Tous sont inclus dans Le Cercle.</p>
+        </div>
+        <div class="a-grille">
+          <article class="a-produit">
+            <h3>Un carnet du mois</h3>
+            <p>Dix pages à imprimer sur le thème du mois de ton choix.</p>
+            <p class="a-p">9 €</p>
+            <p class="a-inclus">Inclus dans Le Cercle</p>
+          </article>
+          <article class="a-produit">
+            <h3>Le rapport de ton arbre</h3>
+            <p>La lecture complète de ton génosociogramme, en PDF.</p>
+            <p class="a-p">9 €</p>
+            <p class="a-inclus">Inclus dans Le Cercle</p>
+          </article>
+          <article class="a-produit">
+            <h3>Ton livret de numérologie</h3>
+            <p>Ton chemin de vie, tes nombres et ton année personnelle, en PDF.</p>
+            <p class="a-p">12 €</p>
+            <p class="a-inclus">Inclus dans Le Cercle</p>
+          </article>
+          <article class="a-produit">
+            <h3>Les 12 saisons</h3>
+            <p>Le livret de l'année : chaque mois, son énergie et ce qu'il réveille dans les familles.</p>
+            <p class="a-p">15 €</p>
+            <p class="a-inclus">Inclus dans Le Cercle</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Les packs</p>
+          <h2>Plusieurs documents, un seul prix</h2>
+        </div>
+        <div class="a-packs">
+          <article class="a-pack">
+            <h3>Pack Lignée</h3>
+            <p>Le rapport de ton arbre, ton livret de numérologie et trois carnets du mois au choix.</p>
+            <p class="a-p">35 € <s>48 €</s></p>
+            <a class="btn btn-trait" href="#liste">Être prévenu·e</a>
+          </article>
+          <article class="a-pack">
+            <h3>Pack L'année complète</h3>
+            <p>Les douze carnets de l'année et le livret Les 12 saisons, à télécharger d'un coup.</p>
+            <p class="a-p">79 € <s>123 €</s></p>
+            <a class="btn btn-trait" href="#liste">Être prévenu·e</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Aussi sur Genesolia</p>
+          <h2>Pour aller plus loin</h2>
+        </div>
+        <div class="a-autres">
+          <article class="a-carte">
+            <h3>La formation « Sors de la boucle »</h3>
+            <p>8 modules, 8 séances audio guidées et un geste concret par module pour arrêter de répéter le même schéma. Prochaine session le 7 novembre.</p>
+            <p class="a-note">Tarif réduit pour les membres du Cercle.</p>
+            <a class="btn btn-trait" href="formation.html">Découvrir la formation</a>
+          </article>
+          <article class="a-carte">
+            <h3>L'espace praticien·ne</h3>
+            <p>Pour les professionnel·les de l'accompagnement : dossiers client·es, notes privées et rapports personnalisés. Abonnement mensuel, en préparation.</p>
+            <a class="btn btn-trait" href="#liste">Être prévenu·e</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc" id="liste">
+      <div class="conteneur">
+        <div class="a-liste" id="a-liste">
+          <h2>Sois prévenu·e de l'ouverture</h2>
+          <p>Laisse ton e-mail : tu reçois le message d'ouverture le 1<sup>er</sup> novembre, et ton premier carnet du Cercle tout de suite.</p>
+          <form id="a-form" novalidate>
+            <div class="a-champs">
+              <label>Prénom<input type="text" name="prenom" autocomplete="given-name"></label>
+              <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
+            </div>
+            <fieldset class="a-choix">
+              <legend>Ce qui t'intéresse</legend>
+              <label><input type="checkbox" name="interet" value="Le Cercle au mois"> Le Cercle au mois</label>
+              <label><input type="checkbox" name="interet" value="Le Cercle à l'année"> Le Cercle à l'année</label>
+              <label><input type="checkbox" name="interet" value="Documents ou packs"> Des documents ou des packs</label>
+              <label><input type="checkbox" name="interet" value="Espace praticien"> L'espace praticien·ne</label>
+            </fieldset>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+            <label class="a-accord"><input type="checkbox" name="accord" required><span>J'accepte de recevoir le carnet et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
+            <button class="btn btn-plein" type="submit">Je veux être prévenu·e</button>
+            <p class="a-erreur" role="alert"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur questions" style="max-width:48rem">
+        <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
+        <details><summary>Est-ce que je m'engage pour un an ?</summary><p>Non. La formule au mois est sans engagement : tu arrêtes quand tu veux, depuis ton espace. La formule à l'année est payée en une fois, avec deux mois offerts.</p></details>
+        <details><summary>Que se passe-t-il avant le 1er novembre ?</summary><p>Rien n'est prélevé. Tu peux déjà créer ton compte, faire ton arbre et télécharger ton premier carnet offert.</p></details>
+        <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Genesolia propose une lecture symbolique de ton histoire familiale, à faire seul·e, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
+        <details><summary>Je garde mes carnets si j'arrête ?</summary><p>Oui. Les carnets et livrets que tu as téléchargés restent à toi.</p></details>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var form = document.getElementById('a-form');
+    var CARNET = 'assets/cercle/cercle-2026-11-474ce578d0.pdf';
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.a-erreur'), btn = form.querySelector('button');
+      var email = form.email.value.trim(), prenom = form.prenom.value.trim();
+      if (form._gotcha.value) return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour être prévenu·e.'; return; }
+      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      var choix = [].slice.call(form.querySelectorAll('input[name=interet]:checked')).map(function (c) { return c.value; });
+      var data = new FormData();
+      data.append('prenom', prenom); data.append('email', email);
+      data.append('interet', choix.join(', ') || 'non précisé');
+      data.append('liste', 'Ouverture abonnement');
+      data.append('source', 'abonnement.html');
+      data.append('_subject', 'Liste d\'attente : abonnement Le Cercle');
+      fetch('https://formspree.io/f/xdawvnby', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () {
+          form.outerHTML = '<p class="a-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Tu seras prévenu·e le 1<sup>er</sup> novembre.</p>' +
+            '<p style="margin-top:.6rem">Ton premier carnet du Cercle se télécharge. S\'il ne s\'ouvre pas, <a href="' + CARNET + '" download>clique ici</a>.</p>';
+          var a = document.createElement('a'); a.href = CARNET; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+          if (window.umami) try { window.umami.track('liste-abonnement'); } catch (x) {}
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = 'Je veux être prévenu·e';
+          err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.';
+        });
+    });
+  })();
+  </script>
+</body>
+</html>

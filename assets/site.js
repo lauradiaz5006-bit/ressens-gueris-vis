@@ -19,6 +19,7 @@
     ['theme-astral.html', 'Tes étoiles'],
     ['symbolique-des-reves.html', 'Tes rêves'],
     ['blog.html', 'Blog'],
+    ['abonnement.html', 'Abonnement'],
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['mon-mois.html', 'Le Cercle'];
@@ -111,6 +112,15 @@
   }
   var inscrit = false;
   try { inscrit = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
+  /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
+  var piedPage = document.querySelector('[data-pied]');
+  if (piedPage && !document.querySelector('[data-cadeau]')) {
+    var zoneCadeau = document.createElement('section');
+    zoneCadeau.className = 'bloc cadeau-bas';
+    zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
+    piedPage.parentNode.insertBefore(zoneCadeau, piedPage);
+  }
+
   document.querySelectorAll('[data-cadeau]').forEach(function (el, n) {
     var id = 'cadeau-' + n;
     el.className = 'cadeau';
@@ -282,7 +292,40 @@
     b.querySelector('button').addEventListener('click', function () {
       b.classList.remove('visible');
       try { localStorage.setItem('info-cookies', 'vu'); } catch (e) {}
+      setTimeout(carreCercle, 1500);
     });
     document.body.appendChild(b);
   }
+
+  /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
+     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il ne revient pas avant 7 jours. */
+  var CARRE = {
+    titre: 'Ceux qui sont venus avant toi',
+    image: 'assets/cercle/apercu-2026-11.jpg',
+    lien: 'mon-mois.html#offert'
+  };
+  function carreCercle() {
+    if (page === 'mon-mois.html' || document.querySelector('.carre-cercle')) return;
+    try {
+      var ferme = +localStorage.getItem('carre-cercle-ferme') || 0;
+      if (Date.now() - ferme < 7 * 864e5) return;
+    } catch (e) {}
+    var c = document.createElement('aside');
+    c.className = 'carre-cercle';
+    c.setAttribute('aria-label', 'Le premier carnet du Cercle offert');
+    c.innerHTML =
+      '<button type="button" class="cc-fermer" aria-label="Fermer">×</button>' +
+      '<img src="' + CARRE.image + '" alt="" width="60" height="85" loading="lazy">' +
+      '<div><p class="cc-sur">Offert · 10 pages</p>' +
+        '<p class="cc-titre">Le premier carnet du Cercle : « ' + CARRE.titre + ' »</p>' +
+        '<p class="cc-texte">Le thème du mois, trois exercices, un rituel et une méditation à lire.</p>' +
+        '<a class="cc-bouton" href="' + CARRE.lien + '">Je le reçois →</a></div>';
+    c.querySelector('.cc-fermer').addEventListener('click', function () {
+      c.remove();
+      try { localStorage.setItem('carre-cercle-ferme', String(Date.now())); } catch (e) {}
+    });
+    document.body.appendChild(c);
+    requestAnimationFrame(function () { c.classList.add('visible'); });
+  }
+  if (vu) setTimeout(carreCercle, 5000);
 })();
