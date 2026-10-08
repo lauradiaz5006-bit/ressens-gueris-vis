@@ -288,6 +288,7 @@
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
       <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
+      <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
       <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
     </div>
@@ -523,6 +524,15 @@
 <p>Prends ton temps. Un génosociogramme se construit rarement en une soirée : il s'enrichit au fil des discussions, des papiers retrouvés et des souvenirs qui reviennent. Tu peux le reprendre autant de fois que tu veux, l'imprimer pour le montrer à un parent, ou le compléter plus tard quand une information nouvelle arrive.</p><div class="questions" style="margin-top:1.6rem"><h3>Questions fréquentes</h3><details><summary>Quelle est la différence entre un génogramme et un génosociogramme ?</summary><p>Le génogramme représente la structure de la famille : qui est né de qui, qui s&#x27;est uni à qui. Le génosociogramme y ajoute le contexte de vie : métiers, lieux, deuils, ruptures, exils, accidents, dates marquantes. C&#x27;est cette couche supplémentaire qui permet de repérer les répétitions entre les générations.</p></details><details><summary>Combien de générations faut-il pour faire un génosociogramme ?</summary><p>Trois générations sont un bon point de départ : toi, tes parents et tes grands-parents. Les répétitions deviennent souvent plus visibles à partir de quatre générations, avec les arrière-grands-parents. Si tu ne connais pas tout, commence quand même : les cases vides sont aussi une information sur ce qui s&#x27;est transmis ou ce qui a été tu dans ta famille.</p></details><details><summary>Peut-on faire son génosociogramme seul·e ?</summary><p>Oui. Tu peux construire ton arbre seul·e, à ton rythme, puis le compléter en interrogeant tes proches. L&#x27;essentiel est de rester dans l&#x27;observation : noter les faits, repérer ce qui revient, et te poser des questions plutôt que tirer des conclusions. Si l&#x27;histoire réveille des souvenirs lourds, en parler avec une personne de confiance aide beaucoup.</p></details></div></div>
     </div>
   </div>
-  <script>document.getElementById('lien-apropos').addEventListener('click',function(e){e.preventDefault();document.getElementById('fen-apropos').classList.add('ouverte');});</script>
+  <script>
+  (function () {
+    var fen = document.getElementById('fen-apropos');
+    document.getElementById('lien-apropos').addEventListener('click', function (e) { e.preventDefault(); fen.classList.add('ouverte'); });
+    /* La fenêtre est ajoutée après le script de l'arbre : on branche ici la croix et le clic sur le fond */
+    fen.addEventListener('click', function (e) {
+      if (e.target === fen || e.target.closest('[data-fermer]')) fen.classList.remove('ouverte');
+    });
+  })();
+  </script>
 </body>
 </html>
