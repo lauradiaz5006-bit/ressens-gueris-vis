@@ -119,7 +119,7 @@ window.GENESOLIA_STRIPE = {
 
   /* Mails automatiques (N8N) : adresse de ton N8N, terminée par /webhook/ (ex. 'https://n8n.mondomaine.fr/webhook/').
      Tant qu'elle est vide, rien n'est envoyé à N8N et le site fonctionne comme avant. */
-  var N8N = '';
+  var N8N = 'https://strakara.app.n8n.cloud/webhook/';
   function versN8N(chemin, donnees) {
     if (!N8N) return;
     try { fetch(N8N + chemin, { method: 'POST', body: donnees, mode: 'no-cors', keepalive: true }).catch(function () {}); } catch (e) {}
