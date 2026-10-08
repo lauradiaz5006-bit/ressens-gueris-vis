@@ -2011,6 +2011,7 @@
       var data = new FormData(); data.append('email', email); data.append('offre', offre === 'rapport' ? 'Rapport ' + RAPPORT.prix : 'Abonnement ' + RAPPORT.abo);
       data.append('repetitions', String(detecter().length)); data.append('personnes', String(Object.keys(S.people).length));
       data.append('_subject', 'Intérêt pour le rapport de l’arbre');
+      if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-interet', data);
       f.querySelector('button').disabled = true;
       fetch(RAPPORT.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); z.innerHTML = '<p class="rap-merci">Merci ! Tu seras prévenue dès que le rapport sera disponible.</p>'; })

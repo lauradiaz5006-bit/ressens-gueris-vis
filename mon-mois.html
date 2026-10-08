@@ -297,7 +297,7 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
         if (!f.accord.checked) { err.textContent = 'Coche la case pour recevoir ton carnet.'; return; }
         f.querySelector('button').disabled = true;
-        var data = new FormData(); data.append('prenom', f.prenom.value.trim()); data.append('email', email); data.append('source', 'Carnet offert ' + CERCLE.offert); data.append('_subject', 'Carnet offert du Cercle');
+        var data = new FormData(); data.append('prenom', f.prenom.value.trim()); data.append('email', email); data.append('source', 'Carnet offert ' + CERCLE.offert); data.append('_subject', 'Carnet offert du Cercle'); data.append('fichier', 'https://genesolia.fr/assets/cercle/' + c.fichier); if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-carnet-cercle', data);
         fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
           .then(function (rp) {
             if (!rp.ok) throw new Error(rp.status);
@@ -335,7 +335,7 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
         if (!f.accord.checked) { err.textContent = 'Coche la case pour accepter de recevoir l\'e-mail.'; return; }
         f.querySelector('button').disabled = true;
-        var data = new FormData(); data.append('email', email); data.append('offre', 'Le Cercle ' + CERCLE.prix); data.append('_subject', 'Intérêt pour le Cercle');
+        var data = new FormData(); data.append('email', email); data.append('offre', 'Le Cercle ' + CERCLE.prix); data.append('_subject', 'Intérêt pour le Cercle'); if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-interet', data);
         fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
           .then(function (rp) { if (!rp.ok) throw new Error(rp.status); z.innerHTML = '<p class="m-merci">Merci ! Tu seras prévenue dès l\'ouverture du Cercle.</p>'; })
           .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
