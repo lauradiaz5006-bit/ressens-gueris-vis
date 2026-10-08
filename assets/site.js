@@ -34,7 +34,7 @@
     entete.className = 'entete';
     entete.innerHTML =
       '<div class="conteneur">' +
-        '<a class="marque" href="index.html">' + logo + MARQUE + '</a>' +
+        '<a class="marque" href="/">' + logo + MARQUE + '</a>' +
         '<button class="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">' +
           '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
         '</button>' +
@@ -55,7 +55,7 @@
     pied.innerHTML =
       '<div class="conteneur">' +
         '<div class="pied-grille">' +
-          '<div><a class="marque" href="index.html">' + MARQUE + '</a>' +
+          '<div><a class="marque" href="/">' + MARQUE + '</a>' +
             '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
           '<div><h4>Les outils</h4><ul>' +
             '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
@@ -82,7 +82,7 @@
             '<li><a href="les-10-sephiroth.html">Les 10 Séphiroth</a></li>' +
             '<li><a href="syndrome-anniversaire.html">Le syndrome d\'anniversaire</a></li>' +
             '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
-            '<li><a href="index.html#questions">Questions fréquentes</a></li></ul></div>' +
+            '<li><a href="/#questions">Questions fréquentes</a></li></ul></div>' +
           '<div><h4>Informations</h4><ul>' +
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
