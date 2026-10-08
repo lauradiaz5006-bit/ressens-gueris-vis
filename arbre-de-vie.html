@@ -294,6 +294,9 @@
         ? 'Tes sphères lumineuses : ' + lum.join(', ') + '. Ce sont tes ressources. Appuie-toi sur elles pour nourrir les autres.'
         : "Aucune sphère n'est encore pleinement lumineuse : c'est fréquent quand on traverse une période de changement. Commence par la première sphère ci-dessus.";
       document.getElementById('zone-test').style.display = 'none';
+      if (defiler && window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'arbre-de-vie', titre: 'Test de l\u2019arbre de vie',
+        resume: 'Racine ' + moy.racine + ' · Cœur ' + moy.coeur + ' · Élan ' + moy.elan + ' · à nourrir : ' + aNourrir.map(function (s) { return SPHERES[s].nom; }).join(', '),
+        donnees: { scores: score, cycles: moy, aNourrir: aNourrir, reponses: reponses } });
       var r = document.getElementById('resultat'); r.classList.add('visible');
       if (defiler) r.scrollIntoView({behavior: 'smooth', block: 'start'});
     }

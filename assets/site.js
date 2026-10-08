@@ -529,7 +529,28 @@ window.GENESOLIA_STRIPE = {
       if (totalJaime !== null) totalJaime = Math.max(0, totalJaime + (dejaAime ? 1 : -1));
       majCoeurs();
       document.querySelectorAll('.jaime').forEach(function (c) { c.classList.remove('bat'); void c.offsetWidth; if (dejaAime) c.classList.add('bat'); });
+      /* Connecté·e : on garde aussi le cœur dans son espace (Mes coups de cœur) */
+      try {
+        var ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), jt = ses && ses.access_token;
+        if (jt && (!ses.expires_at || ses.expires_at * 1000 > Date.now())) {
+          var hd = { apikey: SBK, Authorization: 'Bearer ' + jt, 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' };
+          if (dejaAime) fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes', { method: 'POST', headers: hd, body: JSON.stringify({ page: pageJaime, titre: (document.querySelector('h1') || {}).textContent ? document.querySelector('h1').textContent.trim().slice(0, 200) : document.title }) }).catch(function () {});
+          else fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes?page=eq.' + encodeURIComponent(pageJaime), { method: 'DELETE', headers: hd }).catch(function () {});
+        }
+      } catch (er2) {}
       rpc('genesolia_jaime', { p_page: pageJaime, p_delta: dejaAime ? 1 : -1 }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
     });
+  }
+
+  /* ===== Mon chemin : enregistrer un test dans l'espace (le module se charge seulement quand il sert) ===== */
+  if (!window.GenesoliaChemin) {
+    var cheminCharge = null;
+    window.GenesoliaChemin = {
+      enregistrer: function (r) {
+        if (!cheminCharge) cheminCharge = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/mon-chemin.js?v=1'; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+        var stub = window.GenesoliaChemin;
+        return cheminCharge.then(function () { return window.GenesoliaChemin !== stub ? window.GenesoliaChemin.enregistrer(r) : false; });
+      }
+    };
   }
 })();

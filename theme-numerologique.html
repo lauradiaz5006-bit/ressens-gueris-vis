@@ -377,7 +377,11 @@
       if (!N.lettres(n)) { err.textContent = 'Écris ton nom de naissance.'; f.nom.focus(); return; }
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
-      afficher(N.theme(p, n, d));
+      var th = N.theme(p, n, d);
+      afficher(th);
+      if (window.GenesoliaChemin) { var pr = p.split(/\s+/)[0]; window.GenesoliaChemin.enregistrer({ outil: 'numerologie', titre: 'Thème numérologique de ' + pr.charAt(0).toUpperCase() + pr.slice(1),
+        resume: 'Chemin de vie ' + th.chemin + ' · Expression ' + th.expression + ' · Héréditaire ' + th.hereditaire + ' · Année personnelle ' + th.annee,
+        donnees: { prenoms: p, nom: n, date: d, chemin: th.chemin, expression: th.expression, hereditaire: th.hereditaire, annee: th.annee } }); }
       try { localStorage.setItem(CLE, JSON.stringify({ prenoms: p, nom: n, date: d })); } catch (x) {}
       if (window.umami) try { window.umami.track('theme-numerologique'); } catch (x) {}
       zone.scrollIntoView({ behavior: 'smooth' });

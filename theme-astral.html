@@ -395,6 +395,7 @@
       var r = AS.calculer({ date: e.date, heure: e.heure, lat: e.lat, lon: e.lon, tz: e.tz || 'Europe/Paris', lieu: e.lieu });
       afficher(e, r);
       try { localStorage.setItem(CLE, JSON.stringify(e)); } catch (x) {}
+      return r;
     }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -406,7 +407,13 @@
       resoudreLieu().then(function () {
         if (tape && !lieu) info.textContent = "Ville introuvable : ton thème est calculé sans l'ascendant. Vérifie l'orthographe ou essaie une ville proche.";
         var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
-        lancer(e);
+        var r = lancer(e);
+        if (window.GenesoliaChemin && r && r.planetes) {
+          var NS = function (k) { return T.SIGNES[k] ? T.SIGNES[k].nom : ''; };
+          window.GenesoliaChemin.enregistrer({ outil: 'astral', titre: 'Thème astral' + (e.prenom ? ' de ' + e.prenom.trim() : ''),
+            resume: 'Soleil ' + NS(r.planetes.soleil.signe) + ' · Lune ' + NS(r.planetes.lune.signe) + (r.asc ? ' · Ascendant ' + NS(r.asc.signe) : '') + (e.lieu ? ' · né·e à ' + e.lieu : ''),
+            donnees: { entree: e, soleil: r.planetes.soleil.signe, lune: r.planetes.lune.signe, asc: r.asc ? r.asc.signe : null } });
+        }
         if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
         zone.scrollIntoView({ behavior: 'smooth' });
       });
