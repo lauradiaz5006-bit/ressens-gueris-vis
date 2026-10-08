@@ -463,6 +463,108 @@
       return suite.then(function () { return lignes.map(function (l) { return l.t; }); });
     });
   }
+  /* ───────── Arbre ascendant dessiné (Geneanet « Arbre généalogique de … ») ─────────
+     Une boîte par ancêtre, rangées par génération : 1 boîte, puis 2, 4, 8… Dans chaque rangée, de gauche à droite,
+     les boîtes suivent la numérotation Sosa : les parents de la boîte n sont 2n (père) et 2n+1 (mère).
+     On lit les rectangles dessinés et le texte qu'ils contiennent : les liens viennent de la place des boîtes,
+     pas de l'ordre du texte. */
+  function geometriePdf(pg) {
+    var O = window.pdfjsLib.OPS;
+    return Promise.all([pg.getOperatorList(), pg.getTextContent()]).then(function (res) {
+      var ops = res[0], tc = res[1], ctm = [1, 0, 0, 1, 0, 0], pile = [], rects = [], vus = {};
+      function mul(m, n) { return [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]]; }
+      function pt(x, y) { return [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]]; }
+      for (var i = 0; i < ops.fnArray.length; i++) {
+        var f = ops.fnArray[i], a = ops.argsArray[i];
+        if (f === O.save) pile.push(ctm.slice());
+        else if (f === O.restore) ctm = pile.pop() || ctm;
+        else if (f === O.transform) ctm = mul(ctm, a);
+        else if (f === O.constructPath && a && a[2] && a[2].length === 4) {
+          var mm = a[2], p1 = pt(mm[0], mm[2]), p2 = pt(mm[1], mm[3]);
+          var r = { x: Math.min(p1[0], p2[0]), y: Math.min(p1[1], p2[1]) };
+          r.w = Math.abs(p2[0] - p1[0]); r.h = Math.abs(p2[1] - p1[1]);
+          if (r.w < 4 || r.h < 4) continue;
+          var k = Math.round(r.x) + ':' + Math.round(r.y) + ':' + Math.round(r.w) + ':' + Math.round(r.h);
+          if (!vus[k]) { vus[k] = 1; rects.push(r); }
+        }
+      }
+      var textes = tc.items.filter(function (t) { return t.str && t.str.trim(); }).map(function (t) {
+        return { s: t.str.trim(), x: t.transform[4], y: t.transform[5], taille: Math.round(Math.hypot(t.transform[0], t.transform[1]) * 10) / 10, rot: Math.abs(t.transform[1]) > Math.abs(t.transform[0]) };
+      });
+      return { rects: rects, textes: textes };
+    });
+  }
+  function puissance2(n) { return n > 0 && (n & (n - 1)) === 0; }
+  function lireAscendant(geo) {
+    // Rangées de boîtes de même taille et même hauteur : 1, 2, 4, 8… boîtes
+    var rangs = {};
+    geo.rects.forEach(function (r) { if (r.w > 300 || r.h > 300) return; var k = Math.round(r.y) + ':' + Math.round(r.w) + ':' + Math.round(r.h); (rangs[k] = rangs[k] || []).push(r); });
+    var parN = {};
+    Object.keys(rangs).forEach(function (k) {
+      var l = rangs[k]; if (!puissance2(l.length) || l.length > 4096) return;
+      var g = Math.log2(l.length);
+      // À nombre égal, la boîte de personne est la plus haute (l'autre rangée porte les dates de mariage)
+      if (!parN[g] || l[0].h > parN[g][0].h) parN[g] = l;
+    });
+    var gens = Object.keys(parN).map(Number).sort(function (a, b) { return a - b; });
+    if (gens[0] !== 0 || gens.length < 3 || gens[1] !== 1 || gens[2] !== 2) return null;
+    function dedans(t, r) { return t.x >= r.x - 1 && t.x <= r.x + r.w + 1 && t.y >= r.y - 1 && t.y <= r.y + r.h + 1; }
+    var personnes = [], rels = [], parSosa = {}, parCle = {}, n = 0;
+    gens.forEach(function (g) {
+      var boites = parN[g].slice().sort(function (a, b) { return a.x - b.x; });
+      boites.forEach(function (b, i) {
+        var tx = geo.textes.filter(function (t) { return dedans(t, b); });
+        if (!tx.some(function (t) { return /\p{L}{2}/u.test(t.s); })) return;
+        var rot = tx[0].rot;
+        // Ordre de lecture : de haut en bas (ou de gauche à droite si le texte est vertical)
+        tx.sort(function (u, v) { return rot ? u.x - v.x : v.y - u.y; });
+        var grand = Math.max.apply(null, tx.map(function (t) { return t.taille; }));
+        var nomTxt = tx.filter(function (t) { return t.taille >= grand - 0.2; }).map(function (t) { return t.s; }).join(' ');
+        var details = tx.filter(function (t) { return t.taille < grand - 0.2; }).map(function (t) { return t.s; });
+        var sosa = Math.pow(2, g) + i;
+        var nm = lireNom(nomTxt.replace(/\s+/g, ' ')) || lireNomLibre(nomTxt, {}) || { prenom: nomTxt, nom: '' };
+        var p = { prenom: nm.prenom, nom: nm.nom, sex: sosa === 1 ? sexePrenom(nm.prenom) : (sosa % 2 ? 'f' : 'm'), naiss: '', deces: '', decede: false, lieu: '', metier: '', notes: [], doutes: [], ne: '', events: [] };
+        if (nm.variante) p.notes.push('Autre graphie : ' + nm.variante);
+        details.forEach(function (d) {
+          var md = d.match(/^([~<>]?\s*\d{4})?\s*[–-]\s*([~<>]?\s*\d{4})?$/);
+          if (md && (md[1] || md[2])) {
+            if (md[1]) { p.naiss = md[1].replace(/\D/g, ''); if (/[~<>]/.test(md[1])) p.notes.push('Naissance : ' + md[1].replace(/\s+/g, ' ')); }
+            if (md[2]) { p.deces = md[2].replace(/\D/g, ''); if (/[~<>]/.test(md[2])) p.notes.push('Décès : ' + md[2].replace(/\s+/g, ' ')); }
+            if (/[–-]/.test(d)) p.decede = true;
+          } else if (/^\(.*\)$/.test(d)) p.notes.push('Autre graphie : ' + d.slice(1, -1));
+          else if (/^\p{Lu}[\p{Lu}'’ -]+$/u.test(d) && !p.nom) p.nom = d;
+          else if (/^\p{Lu}[\p{Lu}'’ -]+$/u.test(d)) p.nom = (p.nom + ' ' + d).trim();
+          else if (!p.metier) p.metier = d;
+          else p.metier += ' / ' + d;
+        });
+        if (p.naiss && +p.naiss < new Date().getFullYear() - 110) p.decede = true;
+        p.notes = p.notes.join('\n');
+        // Un même ancêtre peut apparaître dans deux branches (implexe) : une seule fiche
+        var cleP = cle(p.prenom) + '|' + cle(p.nom) + '|' + p.naiss + '|' + p.deces;
+        var ex = (p.naiss || p.deces) && parCle[cleP];
+        if (ex) { parSosa[sosa] = ex; return; }
+        p.id = 'a' + (++n); p.notes = p.notes ? [p.notes] : [];
+        personnes.push(p); parSosa[sosa] = p; parCle[cleP] = p;
+      });
+    });
+    if (personnes.length < 3) return null;
+    var dejaRel = {};
+    function rel(o) { var k = o.type + o.from + '>' + o.to; if (dejaRel[k]) return; dejaRel[k] = 1; rels.push(o); }
+    Object.keys(parSosa).forEach(function (s) {
+      s = +s; var enf = parSosa[s], pere = parSosa[2 * s], mere = parSosa[2 * s + 1];
+      if (pere) rel({ type: 'parent', from: pere.id, to: enf.id });
+      if (mere) rel({ type: 'parent', from: mere.id, to: enf.id });
+      if (pere && mere && !dejaRel['couple' + mere.id + '>' + pere.id]) rel({ type: 'couple', from: pere.id, to: mere.id, statut: 'marie' });
+    });
+    return { personnes: personnes, rels: rels, ascendant: true };
+  }
+  function lirePdf(buf) {
+    var copie = buf.slice(0); // pdf.js garde le tampon pour lui : une copie pour la lecture ligne par ligne
+    return chargerPdfJs().then(function (lib) { return lib.getDocument({ data: buf }).promise; }).then(function (doc) {
+      var essai = doc.numPages === 1 ? doc.getPage(1).then(geometriePdf).then(lireAscendant).catch(function () { return null; }) : Promise.resolve(null);
+      return essai.then(function (r) { return r || lignesPdf(copie); });
+    });
+  }
   function texteFichier(buf) {
     try { return new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (e) { return new TextDecoder('windows-1252').decode(buf); }
   }
@@ -490,7 +592,8 @@
     var aide = 'Si ton arbre vient d’un logiciel ou d’un site de généalogie (Geneanet, Heredis, MyHeritage, Ancestry…), exporte-le plutôt en <b>GEDCOM (.ged)</b> : c’est le format le plus fiable, et tu peux l’importer ici.';
     f.arrayBuffer().then(function (buf) {
       if (ext === 'pdf' || f.type === 'application/pdf') {
-        return lignesPdf(buf).then(function (lignes) {
+        return lirePdf(buf.slice(0)).then(function (lignes) {
+          if (lignes && lignes.ascendant) return lignes;
           if (!lignes.some(function (l) { return /\p{L}{3}/u.test(l); })) {
             message('Ce PDF ne contient pas de texte', '<p class="fi-aide">C’est sans doute un scan ou une photo. Pour l’instant, l’import fonctionne avec les PDF qui contiennent du texte, comme ceux créés par un logiciel de généalogie.</p><p class="fi-aide">' + aide + '</p>');
             return null;
@@ -523,7 +626,7 @@
     r.personnes.forEach(function (p) { par[p.id] = p; });
     var arbre = G.personnes(), moiArbre = arbre.some(function (p) { return p.moi; });
     var opts = r.personnes.map(function (p) { return '<option value="' + p.id + '">' + esc(nomP(p)) + (datesP(p) ? ' (' + esc(datesP(p)) + ')' : '') + '</option>'; }).join('');
-    var h = '<p class="fi-aide">Les liens entre parents et enfants sont déduits de l’ordre du document. Décoche ce qui ne va pas : tu pourras tout compléter et corriger ensuite dans ton arbre.</p>';
+    var h = '<p class="fi-aide">' + (r.ascendant ? 'Arbre ascendant reconnu : les parents de chaque personne viennent de la place des boîtes dans le document. Un ancêtre présent dans deux branches n’apparaît qu’une fois.' : 'Les liens entre parents et enfants sont déduits de l’ordre du document.') + ' Décoche ce qui ne va pas : tu pourras tout compléter et corriger ensuite dans ton arbre.</p>';
     if (arbre.length) {
       h += '<div class="champ"><span class="etiq">Ton arbre contient déjà ' + arbre.length + ' personne' + (arbre.length > 1 ? 's' : '') + '</span>' +
         '<div class="choix"><label><input type="radio" name="fi-mode" value="ajouter" checked><span>Ajouter à mon arbre</span></label><label><input type="radio" name="fi-mode" value="remplacer"><span>Remplacer mon arbre</span></label></div></div>' +
