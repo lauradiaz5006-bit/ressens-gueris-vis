@@ -663,7 +663,7 @@
       $('fi-ok').textContent = 'Importer ' + n + ' personne' + (n > 1 ? 's' : '');
       $('fi-ok').disabled = !n;
     }
-    // Limite à 6 générations autour de toi : toi, tes parents… jusqu'à tes arrière-arrière-arrière-grands-parents (et 3 générations de descendants)
+    // Distance à toi, pour informer (on n'enlève plus personne)
     function limiter(moiId) {
       var z = $('fi-limite'), dist = {}, file = [moiId]; dist[moiId] = 0;
       if (!moiId || !par[moiId]) { z.hidden = true; return; }
@@ -674,17 +674,15 @@
           if (x.type === 'parent' && x.to === a) { b = x.from; ng = g + 1; }
           else if (x.type === 'parent' && x.from === a) { b = x.to; ng = g - 1; }
           else if ((x.type === 'couple' || x.type === 'fratrie') && (x.from === a || x.to === a)) b = x.from === a ? x.to : x.from;
-          if (b && dist[b] === undefined && ng <= 5 && ng >= -3) { dist[b] = ng; file.push(b); }
+          if (b && dist[b] === undefined) { dist[b] = ng; file.push(b); }
         });
       }
-      var n = 0;
-      document.querySelectorAll('[data-fi]').forEach(function (c) {
-        var dedans = dist[c.getAttribute('data-fi')] !== undefined;
-        c.checked = dedans; c.closest('.fi-ligne').classList.toggle('off', !dedans);
-        if (!dedans) n++;
-      });
-      z.hidden = !n;
-      z.innerHTML = n ? '<b>' + n + ' personne' + (n > 1 ? 's' : '') + ' décochée' + (n > 1 ? 's' : '') + '</b> : l’arbre est limité à 6 générations autour de toi, pour rester lisible. Tu peux en recocher si tu le souhaites.' : '';
+      /* Tout le monde est importé : on informe seulement si l'arbre est très profond ou si des personnes ne sont pas reliées à toi */
+      var loin = 0, horsLien = 0;
+      document.querySelectorAll('[data-fi]').forEach(function (c) { var d = dist[c.getAttribute('data-fi')]; if (d === undefined) horsLien++; else if (d > 5) loin++; });
+      z.hidden = !(loin || horsLien);
+      z.innerHTML = (loin ? '<b>' + loin + ' personne' + (loin > 1 ? 's' : '') + '</b> au-delà de tes arrière-arrière-arrière-grands-parents : elles sont bien importées, utilise le zoom pour voir tout l’arbre. ' : '') +
+        (horsLien ? '<b>' + horsLien + ' personne' + (horsLien > 1 ? 's' : '') + '</b> sans lien trouvé avec toi : elles sont importées aussi, tu pourras les relier dans l’arbre. Décoche celles que tu ne veux pas.' : '');
     }
     $('fi-corps').onchange = function (e) {
       if (e.target.matches('[data-fi]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
