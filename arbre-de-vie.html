@@ -74,6 +74,10 @@
     }
     #zone-test{scroll-margin-top:5rem}
     @media (max-width:700px){.page-tete+.bandeau-photo{display:none}.btn-commencer{width:100%;justify-content:center}}
+    .livret-adv{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1.2rem 1.3rem;border-radius:20px;background:linear-gradient(135deg,#3A1745,#6B2F5B);color:#fff;margin-bottom:1rem}
+    .livret-adv b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;margin-bottom:.3rem}.livret-adv span{font-size:.9rem;color:#F1DDE8}
+    .livret-adv .btn{background:#F3DCC0;color:var(--prune)}
+    @media (max-width:640px){.livret-adv{grid-template-columns:1fr}}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/arbre-de-vie.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Test gratuit de l'arbre de vie", "item": "https://genesolia.fr/arbre-de-vie.html"}]}</script>
@@ -126,12 +130,16 @@
             <div id="a-nourrir"></div>
             <p class="lumineuses" id="lumineuses"></p>
             <div class="res-actions">
+              <div class="livret-adv">
+                <div><b>Ton livret de l'arbre de vie</b><span>Une vingtaine de pages : d'où vient l'arbre, tes trois piliers, une page par sphère avec les questions à poser à ta famille, un exercice, et ton plan de quatre semaines.</span></div>
+                <button class="btn btn-plein" type="button" id="adv-livret" data-compte="ton livret de l'arbre de vie">Télécharger mon livret</button>
+              </div>
               <div class="actions">
-                <a class="btn btn-plein" href="genosociogramme.html">Relier à mon arbre familial</a>
+                <a class="btn btn-trait" href="genosociogramme.html">Relier à mon arbre familial</a>
                 <a class="btn btn-trait" href="methode.html">Comprendre les deux cycles</a>
               </div>
               <div class="actions">
-                <button class="lien-bouton" type="button" onclick="window.print()" data-compte="ton arbre de vie en PDF">Imprimer ou enregistrer en PDF</button>
+                <button class="lien-bouton" type="button" id="recommencer-haut" hidden></button>
                 <button class="lien-bouton" type="button" id="recommencer">Refaire le test</button>
               </div>
               <div class="bientot-carte"><strong>Va plus loin avec ton arbre familial.</strong> Ajoute ta famille dans le <a href="genosociogramme.html">génosociogramme</a> : <b>le rapport de ton arbre</b>, offert avec ton compte, croise les nombres, les dates et les répétitions de chacun·e.</div>
@@ -167,6 +175,7 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/livret-arbre.js?v=1"></script>
   <script>
   (function () {
     var SPHERES = {
@@ -293,6 +302,7 @@
       document.getElementById('lumineuses').textContent = lum.length
         ? 'Tes sphères lumineuses : ' + lum.join(', ') + '. Ce sont tes ressources. Appuie-toi sur elles pour nourrir les autres.'
         : "Aucune sphère n'est encore pleinement lumineuse : c'est fréquent quand on traverse une période de changement. Commence par la première sphère ci-dessus.";
+      window.ADV_RESULTAT = { score: score, cycles: moy };
       document.getElementById('zone-test').style.display = 'none';
       if (defiler && window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'arbre-de-vie', titre: 'Test de l\u2019arbre de vie',
         resume: 'Racine ' + moy.racine + ' · Cœur ' + moy.coeur + ' · Élan ' + moy.elan + ' · à nourrir : ' + aNourrir.map(function (s) { return SPHERES[s].nom; }).join(', '),
@@ -319,6 +329,10 @@
       svg.innerHTML = h;
     }
 
+    document.getElementById('adv-livret').addEventListener('click', function () {
+      if (!window.ADV_RESULTAT || !window.LivretArbre) return;
+      window.LivretArbre.imprimer({ score: window.ADV_RESULTAT.score, cycles: window.ADV_RESULTAT.cycles, spheres: SPHERES, groupes: GROUPES, svg: document.getElementById('arbre-svg').outerHTML.replace(/<svg /, '<svg xmlns="http://www.w3.org/2000/svg" ') }, this);
+    });
     var sauve = lire();
     if (sauve && sauve.reponses && sauve.reponses.length === QUESTIONS.length && sauve.reponses.every(Boolean)) {
       reponses = sauve.reponses; i = QUESTIONS.length - 1; resultat();
