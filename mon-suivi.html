@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon suivi : sortir de sa boucle, semaine après semaine · Genesolia</title>
+  <meta name="description" content="Un suivi personnel, une semaine à la fois : ton bilan de départ, ta boucle, ton cycle, des exercices concrets et un journal privé. Gratuit avec ton compte.">
+  <link rel="canonical" href="https://genesolia.fr/mon-suivi.html">
+  <meta property="og:title" content="Mon suivi : sortir de sa boucle, semaine après semaine">
+  <meta property="og:description" content="Ton bilan de départ, puis un mois pour voir ta boucle : exercices, journal privé et bilan.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .s-tete{position:relative;overflow:hidden;padding:3rem 0 3.2rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .s-tete .conteneur{max-width:52rem}
+    .s-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .s-tete h1{margin-bottom:1rem}
+    .s-tete .intro{font-size:1.1rem;color:var(--prune-doux)}
+    .s-zone .conteneur{max-width:52rem}
+    .s-bloc{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.6rem;margin-bottom:1.2rem}
+    .s-bloc h2{font-size:1.6rem;margin-bottom:.5rem}
+    .s-bloc h3{font-size:1.25rem;margin:1rem 0 .4rem}
+    .s-bloc p{color:var(--prune-doux);max-width:none;margin-bottom:.7rem}
+    .s-bloc.doux{background:var(--rose)}
+    .s-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .s-champ{display:grid;gap:.35rem;margin-bottom:1rem}
+    .s-champ label,.s-q>span{font:600 .9rem/1.3 var(--texte);color:var(--prune)}
+    .s-champ small{font-size:.8rem;color:var(--prune-doux)}
+    .s-bloc input[type=text],.s-bloc textarea,.s-bloc select,.s-semaine input[type=text],.s-semaine textarea,.s-semaine select{font:inherit;padding:.7rem .85rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--nacre);color:var(--prune);width:100%}
+    .s-bloc textarea,.s-semaine textarea{min-height:4.5rem;resize:vertical}
+    .s-semaine p{color:var(--prune-doux);max-width:none;margin-bottom:.7rem}.s-semaine h3{font-size:1.15rem;margin:1rem 0 .4rem}
+    .s-choix{display:flex;flex-wrap:wrap;gap:.5rem}
+    .s-choix label{display:inline-flex;align-items:center;gap:.4rem;border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.45rem .9rem;cursor:pointer;font-size:.9rem;color:var(--prune);background:var(--blanc)}
+    .s-choix input{accent-color:var(--prune)}
+    .s-choix label:has(input:checked){background:var(--rose);border-color:var(--prune)}
+    .s-q{display:grid;gap:.45rem;padding:.8rem 0;border-bottom:1px solid var(--rose)}
+    .s-q:last-of-type{border:0}
+    .s-echelle{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+    .s-echelle label{text-align:center;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.45rem .2rem;font-size:.8rem;cursor:pointer;color:var(--prune-doux);background:var(--blanc)}
+    .s-echelle input{position:absolute;opacity:0;pointer-events:none}
+    .s-echelle label:has(input:checked){background:var(--prune);color:#fff;border-color:var(--prune)}
+    .s-curseur{display:flex;align-items:center;gap:.8rem}.s-curseur input{flex:1;accent-color:var(--prune)}.s-curseur b{font:400 1.6rem var(--display);color:var(--prune);min-width:2.2rem;text-align:center}
+    .s-erreur{color:#A1384F;font-size:.88rem;min-height:1.2em;margin-top:.4rem}
+    .s-depart{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:center;padding:1.8rem;border-radius:var(--rayon);color:#fff;background:radial-gradient(30rem 18rem at 90% 0%,rgba(243,220,192,.45),transparent 60%),linear-gradient(150deg,#7B3A6A,#3E1736);margin-bottom:1.2rem}
+    .s-depart .s-rond{width:6.5rem;height:6.5rem;border-radius:50%;border:1px solid rgba(243,220,192,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;font:400 2.4rem/1 var(--display);color:var(--champagne-clair)}
+    .s-depart .s-rond small{font:600 .62rem var(--texte);letter-spacing:.14em;text-transform:uppercase;margin-top:.3rem}
+    .s-depart h2{color:#fff;font-size:1.8rem;margin:.2rem 0 .4rem}
+    .s-depart p{color:#F7E6E8;margin:0}
+    .s-depart .s-sur{color:var(--champagne-clair);margin:0}
+    .s-semaine{border:1px solid var(--rose-fonce);border-radius:var(--rayon);background:var(--blanc);margin-bottom:1rem;overflow:hidden}
+    .s-semaine>summary{list-style:none;cursor:pointer;padding:1.1rem 1.4rem;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+    .s-semaine>summary::-webkit-details-marker{display:none}
+    .s-semaine>summary b{font:400 1.2rem var(--display);color:var(--prune)}
+    .s-semaine>summary span{font-size:.82rem;color:var(--prune-doux)}
+    .s-semaine .s-corps{padding:0 1.4rem 1.4rem}
+    .s-semaine.ferme>summary{cursor:default;opacity:.65}
+    .s-fait{display:inline-block;background:var(--rose);color:var(--prune);border-radius:99px;padding:.15rem .6rem;font-size:.75rem;font-weight:600}
+    .s-table{width:100%;border-collapse:collapse;margin:.6rem 0}
+    .s-table th{text-align:left;font:600 .8rem var(--texte);color:var(--prune-doux);padding:.3rem .4rem}
+    .s-table td{padding:.35rem .4rem;vertical-align:top}
+    .s-table td:first-child{font-weight:600;color:var(--prune);width:24%;padding-top:.8rem}
+    .s-racine{background:var(--rose);border-radius:14px;padding:1rem 1.2rem;margin:.8rem 0}
+    .s-entree{border-left:3px solid var(--champagne);padding:.4rem 0 .4rem .9rem;margin:.6rem 0;color:var(--prune-doux);font-size:.92rem}
+    .s-entree b{color:var(--prune)}
+    .s-souffle{display:flex;align-items:center;gap:1.2rem;margin:1rem 0}
+    .s-bulle{width:5.5rem;height:5.5rem;border-radius:50%;background:radial-gradient(circle at 40% 35%,#F3DCC0,#E7A79E);transform:scale(.6);transition:transform 5s ease-in-out;flex:none}
+    .s-jours{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0}
+    .s-jours label{border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.4rem .7rem;font-size:.85rem;cursor:pointer;color:var(--prune)}
+    .s-jours label:has(input:checked){background:var(--prune);color:#fff;border-color:var(--prune)}
+    .s-jours input{position:absolute;opacity:0;pointer-events:none}
+    .s-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}
+    .s-ok{color:var(--prune);font-size:.85rem;margin-left:.4rem}
+    .note{font-size:.86rem;color:var(--prune-doux)}
+    @media(max-width:700px){.s-depart{grid-template-columns:1fr}.s-echelle{grid-template-columns:repeat(2,1fr)}.s-table td:first-child{width:auto}.s-table,.s-table tbody,.s-table tr,.s-table td{display:block}.s-table thead{display:none}.s-table td:first-child{padding-top:1rem}}
+    @media print{header,footer,.s-tete,.s-actions,.annonce,.bandeau-info,.cookies,button{display:none!important}.s-semaine{break-inside:avoid}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="s-tete">
+      <div class="conteneur">
+        <p class="s-sur">Le Cercle · ton suivi</p>
+        <h1>Sortir de ta boucle, une semaine à la fois</h1>
+        <p class="intro">Un bilan de départ pour voir où tu en es, puis chaque mois une étape de la méthode des deux cycles : quatre semaines d'exercices concrets, un journal que toi seule peux lire, et un bilan pour mesurer le chemin parcouru.</p>
+      </div>
+    </section>
+    <section class="bloc s-zone"><div class="conteneur" id="s-corps"><p class="note">Chargement de ton suivi…</p></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var SUIVI = { libre: true };   /* true : suivi offert à toute personne connectée */
+    var CLE = 'genesolia-suivi', APERCU = /[?&]apercu\b/.test(location.search);
+    var sb = null, utilisateur = null, D = {}, minuteurSave = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    var corps = document.getElementById('s-corps');
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    function dateFr(d) { return d.getDate() + ' ' + MOIS[d.getMonth()]; }
+
+    /* ───── Contenu ───── */
+    var DOMAINES = [
+      ['couple', 'Le couple, la vie amoureuse'], ['travail', 'Le travail'], ['famille', 'La famille (parents, fratrie, enfants)'],
+      ['relations', 'Les amitiés, les relations'], ['argent', "L'argent, la sécurité matérielle"], ['societe', 'Le monde extérieur, la société'], ['moi', 'Toi-même, ta valeur, ta confiance']
+    ];
+    function nomDomaine(k) { var d = DOMAINES.filter(function (x) { return x[0] === k; })[0]; return d ? d[1].toLowerCase() : k; }
+    var AFFIRMATIONS = [
+      [1, "J'ai du mal à prendre ma place et à oser demander."],
+      [2, "J'ai peur d'être abandonné·e ou laissé·e de côté."],
+      [1, "J'ai souvent peur de manquer : d'argent, de temps, de sécurité."],
+      [2, "Je donne beaucoup pour être aimé·e, parfois trop."],
+      [1, "Je me sens vite illégitime, comme si je devais mériter ma place."],
+      [2, "Je me sens vite rejeté·e ou incompris·e dans mes relations."],
+      [1, "Je m'excuse souvent, même quand ce n'est pas nécessaire."],
+      [2, "Je revis les mêmes histoires en amour ou en amitié."],
+      [1, "J'ai du mal à dire non sans me justifier."],
+      [2, "J'ai du mal à faire confiance."]
+    ];
+    var ECHELLE = ['Pas du tout', 'Un peu', 'Souvent', 'Tout à fait'];
+    var CYCLES = {
+      1: { nom: 'Cycle 1 · La racine', court: 'la racine', texte: "Ta boucle touche surtout à la sécurité : le droit d'exister, d'avoir des besoins, de prendre ta place. Ce sont des mémoires anciennes, souvent héritées de générations qui ont dû se battre pour s'en sortir. Elles se voient dans la peur de manquer, la difficulté à dire non, le sentiment de devoir mériter ta place." },
+      2: { nom: 'Cycle 2 · Le cœur', court: 'le cœur', texte: "Ta boucle touche surtout à la façon d'aimer et d'être aimé·e. Ce sont des programmes posés très tôt : un silence, un manque de reconnaissance, une absence. Ils se voient dans la peur d'être abandonné·e ou rejeté·e, le besoin de tout donner pour être aimé·e, les histoires qui se ressemblent." },
+      3: { nom: 'Les deux cycles', court: 'les deux cycles', texte: "Ta boucle touche à la fois à la sécurité et à la façon d'aimer. C'est fréquent : une peur de manquer peut se jouer aussi dans le couple, une peur d'être rejeté·e peut freiner au travail. Ton suivi commence par voir laquelle des deux se montre le plus souvent." }
+    };
+    var RACINES = [
+      ['manque', 'La peur de manquer', 1, ''], ['place', 'La peur de déranger, de ne pas avoir ma place', 1, 'blessure-de-rejet.html'],
+      ['hauteur', 'La peur de ne pas être à la hauteur', 1, 'blessure-d-humiliation.html'], ['injustice', "Le sentiment d'injustice", 1, 'blessure-d-injustice.html'],
+      ['abandon', "La peur d'être abandonné·e", 2, 'blessure-d-abandon.html'], ['rejet', "La peur d'être rejeté·e ou jugé·e", 2, 'blessure-de-rejet.html'],
+      ['aime', 'La peur de ne pas être aimé·e tel·le que je suis', 2, ''], ['trahison', "La peur d'être trahi·e, le besoin de tout contrôler", 2, 'blessure-de-trahison.html']
+    ];
+    function racine(k) { return RACINES.filter(function (r) { return r[0] === k; })[0]; }
+
+    /* ───── Enregistrement ───── */
+    function sauver(immediat) {
+      try { localStorage.setItem(CLE, JSON.stringify(D)); } catch (e) {}
+      if (!sb || !utilisateur) return;
+      clearTimeout(minuteurSave);
+      minuteurSave = setTimeout(function () {
+        sb.from('parcours').upsert({ user_id: utilisateur.id, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id' }).then(function () {
+          var o = document.querySelectorAll('.s-ok'); o.forEach(function (x) { x.textContent = 'Enregistré'; setTimeout(function () { x.textContent = ''; }, 1500); });
+        }, function () {});
+      }, immediat ? 0 : 800);
+    }
+
+    /* ───── Bilan de départ ───── */
+    function formBilan() {
+      var h = '<div class="s-bloc"><p class="s-etiq">Étape 1 · 5 minutes</p><h2>Ton bilan de départ</h2><p>Réponds simplement, sans réfléchir trop longtemps. Il n\'y a pas de bonne réponse : ce bilan sert à choisir par où commencer.</p><form id="f-bilan" novalidate>' +
+        '<div class="s-champ"><label for="b-prenom">Ton prénom</label><input type="text" id="b-prenom" autocomplete="given-name"></div>' +
+        '<div class="s-champ"><span class="s-q" style="border:0;padding:0"><span>Où la répétition te pèse-t-elle le plus en ce moment ?</span></span><div class="s-choix">' + DOMAINES.map(function (d, i) { return '<label><input type="radio" name="domaine" value="' + d[0] + '"' + (i === 0 ? '' : '') + '> ' + d[1] + '</label>'; }).join('') + '</div></div>' +
+        '<div class="s-champ"><label for="b-boucle">Ta boucle en une phrase</label><input type="text" id="b-boucle" placeholder="Je finis toujours par…"><small>Par exemple : « Je finis toujours par tout porter seul·e », « Je finis toujours par partir avant qu\'on me quitte ».</small></div>' +
+        '<h3>Ces phrases te ressemblent-elles ?</h3>' +
+        AFFIRMATIONS.map(function (a, i) { return '<div class="s-q"><span>' + a[1] + '</span><div class="s-echelle">' + ECHELLE.map(function (e, j) { return '<label><input type="radio" name="a' + i + '" value="' + j + '">' + e + '</label>'; }).join('') + '</div></div>'; }).join('') +
+        '<div class="s-champ" style="margin-top:1rem"><label for="b-int">À quel point cette boucle te pèse-t-elle aujourd\'hui ?</label><div class="s-curseur"><span class="note">Un peu</span><input type="range" id="b-int" min="1" max="10" value="6"><span class="note">Énormément</span><b id="b-int-v">6</b></div></div>' +
+        '<div class="s-champ"><label for="b-souhait">Dans un an, qu\'aimerais-tu vivre autrement ?</label><input type="text" id="b-souhait" placeholder="Par exemple : oser dire non sans culpabiliser"></div>' +
+        '<button class="btn btn-plein" type="submit">Voir mon point de départ</button><p class="s-erreur" role="alert" id="b-err"></p></form></div>';
+      corps.innerHTML = h;
+      var f = document.getElementById('f-bilan'), iv = document.getElementById('b-int');
+      iv.addEventListener('input', function () { document.getElementById('b-int-v').textContent = iv.value; });
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var dom = (f.querySelector('input[name=domaine]:checked') || {}).value, rep = [], s1 = 0, s2 = 0, manque = false;
+        AFFIRMATIONS.forEach(function (a, i) { var x = f.querySelector('input[name=a' + i + ']:checked'); if (!x) manque = true; var v = x ? +x.value : 0; rep.push(v); if (a[0] === 1) s1 += v; else s2 += v; });
+        var err = document.getElementById('b-err');
+        if (!dom) { err.textContent = 'Choisis le domaine où ça se répète le plus.'; return; }
+        if (manque) { err.textContent = 'Réponds à toutes les phrases, même rapidement.'; return; }
+        var cycle = Math.abs(s1 - s2) <= 1 ? 3 : (s1 > s2 ? 1 : 2);
+        D.bilan = { prenom: f.querySelector('#b-prenom').value.trim(), domaine: dom, boucle: f.querySelector('#b-boucle').value.trim(), reponses: rep, s1: s1, s2: s2, cycle: cycle, intensite: +iv.value, souhait: f.querySelector('#b-souhait').value.trim(), date: new Date().toISOString() };
+        sauver(true);
+        if (window.umami) try { window.umami.track('suivi-bilan', { cycle: cycle }); } catch (x) {}
+        afficher(); window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function carteDepart() {
+      var b = D.bilan, C = CYCLES[b.cycle];
+      return '<div class="s-depart"><div class="s-rond">' + (b.cycle === 3 ? '1·2' : b.cycle) + '<small>' + (b.cycle === 3 ? 'cycles' : 'cycle') + '</small></div><div><p class="s-sur">' + (b.prenom ? 'Le point de départ de ' + esc(b.prenom) : 'Ton point de départ') + '</p><h2>' + C.nom + '</h2>' +
+        '<p>Domaine : ' + esc(nomDomaine(b.domaine)) + (b.boucle ? ' · « ' + esc(b.boucle) + ' »' : '') + ' · intensité ' + b.intensite + '/10</p></div></div>' +
+        '<div class="s-bloc"><p class="s-etiq">Ce que dit ton bilan</p><p>' + C.texte + '</p>' + (b.souhait ? '<p><b>Ce que tu aimerais vivre dans un an :</b> ' + esc(b.souhait) + '</p>' : '') +
+        '<p>Ton suivi commence par un mois pour <b>voir ta boucle</b> : la repérer dans ta vie, trouver sa racine, la surprendre en action, et apprendre une première pause pour ne plus réagir en pilote automatique.</p></div>';
+    }
+
+    /* ───── Mois 1 : Voir ta boucle ───── */
+    function ouvertureSemaine(k) { var d = new Date(D.m1.debut); d.setDate(d.getDate() + 7 * (k - 1)); return d; }
+    function semaineOuverte(k) { return APERCU || new Date() >= ouvertureSemaine(k); }
+    function enTete(k, titre, fait) {
+      var ouv = semaineOuverte(k);
+      return '<summary><b>Semaine ' + k + ' · ' + titre + '</b><span>' + (fait ? '<span class="s-fait">Faite</span>' : ouv ? 'Ouverte' : 'S\'ouvre le ' + dateFr(ouvertureSemaine(k))) + '</span></summary>';
+    }
+    function semaine1() {
+      var s = D.m1.s1 = D.m1.s1 || {}, b = D.bilan;
+      var h = '<div class="s-corps"><p>Cette semaine, tu poses tout sur la table. Pour chaque domaine de ta vie, note <b>ce qui te pèse</b> (ce que tu ressens au quotidien : colère, tristesse, découragement, sentiment de ne pas être légitime…) et <b>ce dont tu as peur</b> (la racine plus profonde : être abandonné·e, manquer, être rejeté·e, échouer…).</p>' +
+        '<p>Commence par ' + esc(nomDomaine(b.domaine)) + ', là où ça se répète le plus pour toi. Écris sans te censurer : tout ce qui vient a sa place. Tu peux revenir compléter pendant toute la semaine.</p>' +
+        '<table class="s-table"><thead><tr><th>Domaine</th><th>Ce qui me pèse</th><th>Ce dont j\'ai peur</th></tr></thead><tbody>' +
+        DOMAINES.slice().sort(function (a, c) { return (a[0] === b.domaine ? -1 : 0) - (c[0] === b.domaine ? -1 : 0); }).map(function (d) {
+          var v = s[d[0]] || {};
+          return '<tr><td>' + d[1] + '</td><td><textarea data-s1="' + d[0] + '|pese" aria-label="Ce qui me pèse : ' + d[1] + '">' + esc(v.pese || '') + '</textarea></td><td><textarea data-s1="' + d[0] + '|peur" aria-label="Ce dont j\'ai peur : ' + d[1] + '">' + esc(v.peur || '') + '</textarea></td></tr>';
+        }).join('') + '</tbody></table><p class="note">Si des émotions fortes remontent, accueille-les sans chercher à tout analyser. Le but est de voir, pas de juger.</p><span class="s-ok"></span></div>';
+      return h;
+    }
+    function racinePrincipale() {
+      var c = {}; Object.keys(D.m1.s2 || {}).forEach(function (k) { var r = D.m1.s2[k]; if (r) c[r] = (c[r] || 0) + 1; });
+      var t = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; });
+      return t.length ? { cle: t[0], nb: c[t[0]], tous: c } : null;
+    }
+    function semaine2() {
+      var s1 = D.m1.s1 || {}, s = D.m1.s2 = D.m1.s2 || {}, rempli = DOMAINES.filter(function (d) { var v = s1[d[0]]; return v && (v.pese || v.peur); });
+      var cyc = D.bilan.cycle, ordre = RACINES.slice().sort(function (a, b) { return (cyc === 3 ? 0 : (a[2] === cyc ? -1 : 0) - (b[2] === cyc ? -1 : 0)); });
+      var h = '<div class="s-corps"><p>Relis ce que tu as écrit la semaine dernière. Pour chaque domaine, choisis la racine qui s\'en rapproche le plus. Très souvent, la même peur revient dans plusieurs domaines : c\'est le signe d\'une boucle bien installée, qui colore toute ta vie. Et c\'est une bonne nouvelle, parce qu\'une boucle qu\'on voit commence déjà à perdre de sa force.</p>';
+      if (!rempli.length) h += '<p class="note">Remplis d\'abord au moins un domaine en semaine 1.</p>';
+      h += rempli.map(function (d) {
+        var v = s1[d[0]];
+        return '<div class="s-champ"><label>' + d[1] + '</label><small>' + esc([v.pese, v.peur].filter(Boolean).join(' · ')) + '</small><select data-s2="' + d[0] + '"><option value="">Choisis la racine</option>' + ordre.map(function (r) { return '<option value="' + r[0] + '"' + (s[d[0]] === r[0] ? ' selected' : '') + '>' + r[1] + '</option>'; }).join('') + '</select></div>';
+      }).join('');
+      var rp = racinePrincipale();
+      h += '<div id="s2-resultat">' + resultatRacine(rp) + '</div><span class="s-ok"></span></div>';
+      return h;
+    }
+    function resultatRacine(rp) {
+      if (!rp) return '';
+      var r = racine(rp.cle), autres = Object.keys(rp.tous).filter(function (k) { return k !== rp.cle; });
+      return '<div class="s-racine"><p class="s-etiq">Ta boucle principale</p><h3 style="margin-top:0">' + r[1] + '</h3><p>Elle revient dans ' + rp.nb + ' domaine' + (rp.nb > 1 ? 's' : '') + ' de ta vie. Elle appartient plutôt au ' + (r[2] === 1 ? 'cycle 1, la racine : la sécurité et le droit d\'exister' : 'cycle 2, le cœur : la façon d\'aimer et d\'être aimé·e') + '.' + (autres.length ? ' D\'autres racines apparaissent aussi : ' + autres.map(function (k) { return racine(k)[1].toLowerCase(); }).join(', ') + '.' : '') + '</p>' +
+        (r[3] ? '<p><a href="' + r[3] + '" target="_blank">Lire ce que cette peur raconte</a></p>' : '') + '</div>';
+    }
+    function semaine3() {
+      var l = D.m1.s3 = D.m1.s3 || [], rp = racinePrincipale(), nom = rp ? racine(rp.cle)[1].toLowerCase() : 'ta boucle';
+      var h = '<div class="s-corps"><p>Cette semaine, tu observes. Chaque fois que ' + esc(nom) + ' se réveille, même un peu, note-le ici le jour même. Pas pour te corriger : seulement pour voir comment ta boucle fonctionne, ce qui la déclenche et ce que tu fais en pilote automatique.</p><p>Vise au moins trois situations dans la semaine.</p>' +
+        '<form id="f-s3" novalidate><div class="s-champ"><label for="s3-sit">La situation</label><input type="text" id="s3-sit" placeholder="Ce qui s\'est passé, en une phrase"></div>' +
+        '<div class="s-champ"><label for="s3-res">Ce que j\'ai ressenti</label><input type="text" id="s3-res" placeholder="Colère, gorge serrée, envie de fuir, honte…"></div>' +
+        '<div class="s-champ"><label for="s3-rea">Ce que j\'ai fait automatiquement</label><input type="text" id="s3-rea" placeholder="Je me suis tu·e, j\'ai dit oui, je suis parti·e…"></div>' +
+        '<div class="s-champ"><label for="s3-vou">Ce que j\'aurais voulu faire</label><input type="text" id="s3-vou" placeholder="Si j\'avais été libre de choisir…"></div>' +
+        '<button class="btn btn-trait" type="submit">Ajouter à mon journal</button></form>' +
+        '<h3>Mon journal (' + l.length + ')</h3>' + (l.length ? l.slice().reverse().map(function (x) { return '<div class="s-entree"><b>' + esc(x.date) + ' · ' + esc(x.situation) + '</b><br>Ressenti : ' + esc(x.ressenti || '…') + ' · Réaction : ' + esc(x.reaction || '…') + '<br>J\'aurais voulu : ' + esc(x.voulu || '…') + '</div>'; }).join('') : '<p class="note">Ton journal est vide pour l\'instant.</p>') +
+        (l.length >= 2 ? '<div class="s-racine"><p class="s-etiq">Ce qui se dessine</p><p>Relis tes situations : qu\'ont-elles en commun ? Le même type de personne, le même moment de la journée, la même phrase qui te traverse ? Ce point commun est la porte d\'entrée de ta boucle.</p></div>' : '') + '</div>';
+      return h;
+    }
+    function semaine4() {
+      var s = D.m1.s4 = D.m1.s4 || { jours: [] }, rp = racinePrincipale(), nom = rp ? racine(rp.cle)[1].toLowerCase() : 'ma peur';
+      var h = '<div class="s-corps"><p>Tu as vu ta boucle. Cette semaine, tu apprends à mettre un espace entre ce qui se déclenche et ta réponse. C\'est la première pause de la méthode : deux gestes simples, à faire dès que tu sens la boucle arriver.</p>' +
+        '<h3>1. Respirer, pour couper le pilote automatique</h3><p>Inspire lentement par le nez en comptant jusqu\'à 5, retiens 2 secondes, expire par la bouche en comptant jusqu\'à 7. Trois fois de suite. Tu peux t\'entraîner ici :</p>' +
+        '<div class="s-souffle"><div class="s-bulle" id="s-bulle"></div><div><button class="btn btn-trait" type="button" id="s-respirer">Respirer avec moi</button><p class="note" id="s-consigne" style="margin-top:.5rem"></p></div></div>' +
+        '<h3>2. Nommer, pour reprendre la main</h3><p>Dis-toi, à voix basse ou intérieurement : <b>« Je te vois, ' + esc(nom) + '. Je sais d\'où tu viens. Aujourd\'hui, je peux choisir autrement. »</b> Nommer ce qui se rejoue suffit souvent à faire redescendre l\'intensité.</p>' +
+        '<h3>Ma pratique de la semaine</h3><p class="note">Coche chaque jour où tu as fait la pause, même une seule fois.</p><div class="s-jours">' + ['Jour 1', 'Jour 2', 'Jour 3', 'Jour 4', 'Jour 5', 'Jour 6', 'Jour 7'].map(function (j, i) { return '<label><input type="checkbox" data-jour="' + i + '"' + (s.jours[i] ? ' checked' : '') + '>' + j + '</label>'; }).join('') + '</div>' +
+        '<h3>Mon bilan du mois</h3>' +
+        '<div class="s-champ"><label for="s4-dec">Ce que j\'ai découvert sur ma boucle ce mois-ci</label><textarea id="s4-dec" data-s4="decouverte">' + esc(s.decouverte || '') + '</textarea></div>' +
+        '<div class="s-champ"><label for="s4-phr">Ma boucle en une phrase, aujourd\'hui</label><input type="text" id="s4-phr" data-s4="phrase" value="' + esc(s.phrase || D.bilan.boucle || '') + '"></div>' +
+        '<div class="s-champ"><label for="s4-int">À quel point cette boucle me pèse aujourd\'hui ?</label><div class="s-curseur"><span class="note">Un peu</span><input type="range" id="s4-int" min="1" max="10" value="' + (s.intensite || D.bilan.intensite) + '"><span class="note">Énormément</span><b id="s4-int-v">' + (s.intensite || D.bilan.intensite) + '</b></div><small>Au départ : ' + D.bilan.intensite + '/10.</small></div>' +
+        '<button class="btn btn-plein" type="button" id="s4-fin">Terminer mon mois</button><span class="s-ok"></span>' +
+        (s.fini ? '<div class="s-racine" style="margin-top:1rem"><p class="s-etiq">Ton mois est terminé</p><p>Intensité au départ : <b>' + D.bilan.intensite + '/10</b> · aujourd\'hui : <b>' + s.intensite + '/10</b>. ' + (s.intensite < D.bilan.intensite ? 'Ta boucle pèse déjà moins : c\'est le fruit de ce que tu as vu.' : 'Voir sa boucle peut la rendre plus présente au début : c\'est normal, c\'est qu\'elle ne passe plus inaperçue.') + '</p><p>Le mois 2, <b>Remonter à la source</b>, t\'aidera à chercher d\'où vient cette boucle dans ton histoire familiale. Il s\'ouvrira le ' + dateFr(ouvertureSemaine(5)) + '.</p></div>' : '') + '</div>';
+      return h;
+    }
+
+    function mois1() {
+      if (!D.m1) { D.m1 = { debut: new Date().toISOString() }; sauver(true); }
+      var m = D.m1, s1f = m.s1 && Object.keys(m.s1).some(function (k) { return m.s1[k].pese || m.s1[k].peur; }), s2f = !!racinePrincipale(), s3f = (m.s3 || []).length >= 3, s4f = !!(m.s4 && m.s4.fini);
+      var sem = [[1, 'Ce qui te pèse, ce qui te fait peur', s1f, semaine1], [2, 'Trouver la racine', s2f, semaine2], [3, 'Voir ta boucle en action', s3f, semaine3], [4, 'La première pause et ton bilan', s4f, semaine4]];
+      var h = '<div class="s-bloc doux"><p class="s-etiq">Mois 1</p><h2>Voir ta boucle</h2><p>Une semaine s\'ouvre tous les sept jours. Prends ton temps : chaque exercice demande une quinzaine de minutes, et tu peux y revenir autant que tu veux. Tout ce que tu écris est enregistré dans ton espace, et toi seule peux le lire.</p></div>';
+      var premiere = 0; sem.forEach(function (x) { if (!premiere && semaineOuverte(x[0]) && !x[2]) premiere = x[0]; });
+      h += sem.map(function (x) {
+        var ouv = semaineOuverte(x[0]);
+        return '<details class="s-semaine' + (ouv ? '' : ' ferme') + '" data-sem="' + x[0] + '"' + (ouv && x[0] === premiere ? ' open' : '') + '>' + enTete(x[0], x[1], x[2]) + (ouv ? x[3]() : '<div class="s-corps"><p class="note">Cette semaine s\'ouvrira le ' + dateFr(ouvertureSemaine(x[0])) + '.</p></div>') + '</details>';
+      }).join('');
+      h += '<div class="s-actions"><button class="btn btn-trait" type="button" id="s-imprimer">Imprimer mon suivi</button><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="genosociogramme.html">Mon arbre</a></div>';
+      return h;
+    }
+
+    /* ───── Affichage et interactions ───── */
+    function afficher() {
+      if (!D.bilan) { formBilan(); return; }
+      var h = carteDepart();
+      if (!utilisateur || !SUIVI.libre) {
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ton suivi, offert</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton compte gratuit pour commencer ton suivi. Ton bilan, tes exercices et ton journal y sont enregistrés, et toi seule peux les lire.</p><a class="btn btn-plein" href="login.html?retour=mon-suivi.html">Créer mon compte et commencer</a><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+        corps.innerHTML = h;
+      } else {
+        corps.innerHTML = h + mois1();
+        brancherMois();
+      }
+      var rf = document.getElementById('s-refaire'); if (rf) rf.addEventListener('click', function (e) { e.preventDefault(); delete D.bilan; sauver(true); afficher(); });
+    }
+    function rafraichirEnGardantOuvert() {
+      var ouverts = []; document.querySelectorAll('.s-semaine[open]').forEach(function (d) { ouverts.push(d.getAttribute('data-sem')); });
+      var y = window.scrollY; afficher();
+      document.querySelectorAll('.s-semaine').forEach(function (d) { d.open = ouverts.indexOf(d.getAttribute('data-sem')) >= 0; });
+      window.scrollTo(0, y);
+    }
+    function brancherMois() {
+      corps.querySelectorAll('[data-s1]').forEach(function (t) { t.addEventListener('input', function () { var p = t.getAttribute('data-s1').split('|'); D.m1.s1[p[0]] = D.m1.s1[p[0]] || {}; D.m1.s1[p[0]][p[1]] = t.value; sauver(); }); });
+      corps.querySelectorAll('[data-s2]').forEach(function (s) { s.addEventListener('change', function () { D.m1.s2[s.getAttribute('data-s2')] = s.value; sauver(); document.getElementById('s2-resultat').innerHTML = resultatRacine(racinePrincipale()); }); });
+      var f3 = document.getElementById('f-s3');
+      if (f3) f3.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var sit = f3.querySelector('#s3-sit').value.trim(); if (!sit) { f3.querySelector('#s3-sit').focus(); return; }
+        D.m1.s3.push({ date: dateFr(new Date()), situation: sit, ressenti: f3.querySelector('#s3-res').value.trim(), reaction: f3.querySelector('#s3-rea').value.trim(), voulu: f3.querySelector('#s3-vou').value.trim() });
+        sauver(true); rafraichirEnGardantOuvert();
+      });
+      corps.querySelectorAll('[data-jour]').forEach(function (c) { c.addEventListener('change', function () { D.m1.s4.jours[+c.getAttribute('data-jour')] = c.checked; sauver(); }); });
+      corps.querySelectorAll('[data-s4]').forEach(function (t) { t.addEventListener('input', function () { D.m1.s4[t.getAttribute('data-s4')] = t.value; sauver(); }); });
+      var i4 = document.getElementById('s4-int'); if (i4) i4.addEventListener('input', function () { document.getElementById('s4-int-v').textContent = i4.value; D.m1.s4.intensite = +i4.value; sauver(); });
+      var fin = document.getElementById('s4-fin'); if (fin) fin.addEventListener('click', function () { D.m1.s4.intensite = +document.getElementById('s4-int').value; D.m1.s4.fini = new Date().toISOString(); sauver(true); if (window.umami) try { window.umami.track('suivi-mois1-fini'); } catch (x) {} rafraichirEnGardantOuvert(); });
+      var resp = document.getElementById('s-respirer');
+      if (resp) resp.addEventListener('click', function () {
+        var bulle = document.getElementById('s-bulle'), cons = document.getElementById('s-consigne'), tour = 0; resp.disabled = true;
+        function cycle() {
+          if (tour >= 3) { cons.textContent = 'C\'est fait. Remarque comment tu te sens maintenant.'; bulle.style.transition = 'transform 1s'; bulle.style.transform = 'scale(.6)'; resp.disabled = false; return; }
+          tour++; cons.textContent = 'Inspire… (' + tour + '/3)'; bulle.style.transition = 'transform 5s ease-in-out'; bulle.style.transform = 'scale(1)';
+          setTimeout(function () { cons.textContent = 'Retiens…'; }, 5000);
+          setTimeout(function () { cons.textContent = 'Expire lentement…'; bulle.style.transition = 'transform 7s ease-in-out'; bulle.style.transform = 'scale(.6)'; }, 7000);
+          setTimeout(cycle, 14000);
+        }
+        cycle();
+      });
+      var imp = document.getElementById('s-imprimer'); if (imp) imp.addEventListener('click', function () { document.querySelectorAll('.s-semaine').forEach(function (d) { if (!d.classList.contains('ferme')) d.open = true; }); window.print(); });
+    }
+
+    /* ───── Démarrage ───── */
+    try { D = JSON.parse(localStorage.getItem(CLE) || '{}') || {}; } catch (e) { D = {}; }
+    if (!sb) { afficher(); return; }
+    sb.auth.getSession().then(function (res) {
+      var s = res && res.data && res.data.session;
+      if (!s) { afficher(); return; }
+      utilisateur = s.user;
+      return sb.from('parcours').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
+        var distant = r && r.data && r.data.data;
+        if (distant && distant.bilan) D = distant;           /* le suivi du compte prime */
+        else if (D.bilan) sauver(true);                         /* bilan fait avant la connexion : on le rattache au compte */
+        afficher();
+      }, function () { afficher(); });
+    }).catch(function () { afficher(); });
+  })();
+  </script>
+</body>
+</html>
