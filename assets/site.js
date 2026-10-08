@@ -37,6 +37,7 @@ window.GENESOLIA_STRIPE = {
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['abonnement.html', 'Le Cercle'];
+  var BOUTON_JEUNES = ['tes-20-ans.html', 'Tes 20 ans'];  /* espace 18-25 ans et images pour les réseaux */
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -56,6 +57,7 @@ window.GENESOLIA_STRIPE = {
           '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
+          '<a class="btn btn-jeunes"' + (BOUTON_JEUNES[0] === page ? ' aria-current="page"' : '') + ' href="' + BOUTON_JEUNES[0] + '">' + BOUTON_JEUNES[1] + '</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
         '</nav>' +
       '</div>';
@@ -330,7 +332,7 @@ window.GENESOLIA_STRIPE = {
   }
 
   /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
-     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il ne revient pas avant 7 jours. */
+     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient 2 jours plus tard. */
   var CARRE = {
     titre: 'Ceux qui sont venus avant toi',
     image: 'assets/cercle/apercu-2026-11.jpg',
@@ -339,8 +341,8 @@ window.GENESOLIA_STRIPE = {
   function carreCercle() {
     if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     try {
-      var ferme = +localStorage.getItem('carre-cercle-ferme') || 0;
-      if (Date.now() - ferme < 7 * 864e5) return;
+      var ferme = +localStorage.getItem('carre-cercle-ferme-v2') || 0;
+      if (Date.now() - ferme < 2 * 864e5) return;
     } catch (e) {}
     var c = document.createElement('aside');
     c.className = 'carre-cercle';
@@ -351,10 +353,10 @@ window.GENESOLIA_STRIPE = {
       '<div><p class="cc-sur">Offert · 10 pages</p>' +
         '<p class="cc-titre">Le premier carnet du Cercle : « ' + CARRE.titre + ' »</p>' +
         '<p class="cc-texte">Le thème du mois, trois exercices, un rituel et une méditation à lire.</p>' +
-        '<a class="cc-bouton" href="' + CARRE.lien + '">Je le reçois →</a></div>';
+        '<a class="cc-bouton" href="' + CARRE.lien + '">Je le reçois</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
-      try { localStorage.setItem('carre-cercle-ferme', String(Date.now())); } catch (e) {}
+      try { localStorage.setItem('carre-cercle-ferme-v2', String(Date.now())); } catch (e) {}
     });
     document.body.appendChild(c);
     requestAnimationFrame(function () { c.classList.add('visible'); });

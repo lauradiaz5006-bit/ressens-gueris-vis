@@ -229,6 +229,18 @@
     .alerte-conflit{font-size:.92rem;color:var(--prune-doux);border:1px dashed var(--corail-vif);border-radius:var(--rayon);padding:1rem 1.2rem;max-width:none}
     .alerte-conflit a{color:var(--prune);font-weight:600}
     @media (max-width:560px){.etapes-conflit li{padding:1.1rem 1.1rem 1.1rem 3.4rem}.etapes-conflit li::before{left:.9rem;width:1.9rem;height:1.9rem}}
+    .reseaux-vt{background:radial-gradient(40rem 24rem at 85% 0%,rgba(231,167,158,.35),transparent 60%),linear-gradient(160deg,#3A1745,#2E1338);color:#F7E6EE;padding:4.5rem 0}
+    .rv-tete{max-width:42rem;margin-bottom:2rem}
+    .rv-tete h2{color:#fff;margin:.5rem 0 .9rem}.rv-tete h2 em{color:var(--corail)}
+    .rv-tete p{color:#E6CFDD;max-width:none}
+    .rv-tete .actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
+    .reseaux-vt .btn-trait{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55)}
+    .reseaux-vt .btn-plein{background:var(--corail);color:var(--prune)}
+    .rv-galerie{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(10.5rem,1fr);gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1rem;scrollbar-width:thin}
+    .rv-galerie li{scroll-snap-align:start}
+    .rv-galerie img{width:100%;height:auto;border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.35);transition:transform .25s}
+    .rv-galerie a:hover img{transform:translateY(-4px) rotate(-1deg)}
+    @media (min-width:900px){.rv-galerie{grid-auto-flow:row;grid-template-columns:repeat(5,1fr);overflow:visible}}
     .carte-partage{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.35rem;margin-bottom:.9rem}
     .carte-partage h3{font:600 .82rem/1.2 var(--texte);letter-spacing:.03em;color:var(--corail-encre);margin-bottom:.4rem}
     .carte-apercu{margin:1rem auto;max-width:300px}
@@ -250,6 +262,7 @@
           <p class="intro">Choisis la situation qui te ressemble. En trois minutes, tu sais ce qui se joue, ce que tu peux faire aujourd'hui, et les mots pour le dire.</p>
           <div class="actions">
             <a class="btn btn-trait" href="#conflit">Régler un conflit</a>
+            <a class="btn btn-trait" href="#reseaux-vt">Images pour tes réseaux</a>
             <a class="btn btn-plein" href="#outil">Choisir ma situation
               <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M9 3v12M4 10l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -262,6 +275,18 @@
           <p class="bulle">Bref. Je crois que je refais le même film.<small>22 h 51</small></p>
           <span class="tape"><i></i><i></i><i></i></span>
         </div>
+      </div>
+    </section>
+
+    <section class="reseaux-vt" id="reseaux-vt" aria-labelledby="reseaux-vt-titre">
+      <div class="conteneur">
+        <div class="rv-tete">
+          <span class="vt-sur">Pour tes réseaux</span>
+          <h2 id="reseaux-vt-titre">34 images à poster, <em>douces ou cash.</em></h2>
+          <p>Pour ta story, ton post ou une amie qui en a besoin. Une phrase qui dit tout, sans avoir à te justifier. Gratuites, en format post et story.</p>
+          <div class="actions"><a class="btn btn-plein" href="cartes.html#reseaux">Voir les 34 images</a><a class="btn btn-trait" href="cartes.html">Les cartes douces à envoyer</a></div>
+        </div>
+        <ul class="rv-galerie"><li><a href="cartes.html#reseaux"><img src="assets/reseaux/ton-silence-mini.webp" width="540" height="675" alt="Ton silence ne m'atteint plus." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/limites-mini.webp" width="540" height="675" alt="Mes limites ne sont pas négociables." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/je-me-choisis-mini.webp" width="540" height="675" alt="Je me choisis." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/vu-mini.webp" width="540" height="675" alt="Vu. Et je n'ai rien à répondre." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/fin-d-une-boucle-mini.webp" width="540" height="675" alt="Je suis la fin d'une boucle." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/pas-ton-option-mini.webp" width="540" height="675" alt="Je ne suis pas ton option." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/mon-calme-mini.webp" width="540" height="675" alt="Mon calme est ma réponse." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/change-de-film-mini.webp" width="540" height="675" alt="On ne rejoue pas cette scène. J'ai changé de film." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/moins-de-bruit-mini.webp" width="540" height="675" alt="Moins de bruit, plus de moi." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/pas-trop-mini.webp" width="540" height="675" alt="Je n'étais pas trop. Tu en voulais juste moins." loading="lazy"></a></li></ul>
       </div>
     </section>
     <figure class="bandeau-photo"><img src="assets/images/suivi-1600.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Une femme assise face à la fenêtre, au soleil couchant" loading="lazy" decoding="async"></figure>
