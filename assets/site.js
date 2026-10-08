@@ -335,7 +335,7 @@ window.GENESOLIA_STRIPE = {
     lien: 'mon-mois.html#offert'
   };
   function carreCercle() {
-    if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || document.querySelector('.carre-cercle')) return;
     try {
       var ferme = +localStorage.getItem('carre-cercle-ferme') || 0;
       if (Date.now() - ferme < 7 * 864e5) return;
