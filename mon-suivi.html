@@ -291,7 +291,7 @@
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
       if (!utilisateur || !SUIVI.libre) {
-        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ton suivi, offert</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton compte gratuit pour commencer ton suivi. Ton bilan, tes exercices et ton journal y sont enregistrés, et toi seule peux les lire.</p><a class="btn btn-plein" href="login.html?retour=mon-suivi.html">Créer mon compte et commencer</a><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ton suivi · 1 mois gratuit</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Teste Le Cercle 1 mois gratuitement pour commencer ton suivi. Ton bilan, tes exercices et ton journal sont enregistrés dans ton espace, et toi seule peux les lire.</p><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
         corps.innerHTML = h + mois1();

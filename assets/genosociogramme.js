@@ -1453,9 +1453,9 @@
   var RAPPORT = {
     offert: true,         // true : rapport offert à toute personne connectée ; false : offres payantes ci-dessous
     prix: '9 €', duree: '7 jours',
-    abo: '5 € par mois',
+    abo: '29 € par mois',
     lienAchat: '',        // lien de paiement Stripe pour le rapport (9 €)
-    lienAbonnement: '',   // lien de paiement Stripe pour l'abonnement (5 €/mois)
+    lienAbonnement: '',   // lien de paiement Stripe pour l'abonnement (29 €/mois, après 1 mois gratuit)
     formspree: 'https://formspree.io/f/xdawvnby'
   };
   var TEXTES_RAPPORT = {

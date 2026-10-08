@@ -75,7 +75,7 @@
     function afficherFin(debut) {
       var fin = new Date(debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
       var el = document.getElementById('b-fin');
-      el.innerHTML = 'Ton mois gratuit dure jusqu\'au <b>' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</b>';
+      el.innerHTML = 'Ton mois gratuit dure jusqu\'au <b>' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</b> · ensuite 29 € par mois, sans engagement';
       el.hidden = false;
     }
     if (window.umami) try { window.umami.track('essai-active'); } catch (e) {}

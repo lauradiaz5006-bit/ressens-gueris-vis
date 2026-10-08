@@ -52,6 +52,7 @@
     .tableau{width:100%;max-width:1080px}
     .espace .pub-avantages{max-width:1080px}
     .pa-boutons{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:center}
+    .pub-avantages .pa-apres{flex-basis:100%;margin:0;font-size:.85rem;color:#E6CFDD}
     .pa-lien{color:#F7E6EE;font-size:.9rem}
     .pub-avantages .pa-sur s{opacity:.85}
     .tb-essai{margin:0;padding:.6rem .9rem;border-radius:12px;background:#FFF6EC;border:1px solid var(--champagne-clair);font-size:.92rem}
@@ -143,10 +144,11 @@
     <aside class="pub-avantages" aria-labelledby="pa-titre">
       <div class="pa-tete">
         <div>
-          <p class="pa-sur">Le Cercle · <s>29 € par mois</s></p>
+          <p class="pa-sur">Le Cercle · <s>29 € par mois</s> · 1 mois offert</p>
           <h2 id="pa-titre">Teste tout Genesolia 1 mois gratuitement</h2>
         </div>
         <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
+        <p class="pa-apres">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic depuis ton espace.</p>
       </div>
       <ul>
         <li><b>Un nouveau carnet chaque mois</b>, dix pages à imprimer</li>
@@ -191,7 +193,8 @@
             <li>Le test de l'arbre de vie et le parcours guidé</li>
             <li>Le carnet des deux cycles à imprimer</li>
           </ul>
-          <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>offert</span></p>
+          <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>1 mois gratuit</span></p>
+          <p class="tb-aide">Après ton essai : 29 € par mois, sans engagement.</p>
           <p class="tb-essai" id="essai-info" hidden></p>
           <p class="tb-aide">Chaque mois, ton mois personnel en numérologie, ton calendrier et les dates de ton arbre qui tombent ce mois-ci. Avec le rapport complet de ton arbre, régénéré quand tu veux.</p>
           <div class="tb-actions"><a class="btn btn-plein" href="mon-suivi.html">Mon suivi</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="mon-mois.html">Voir mon mois</a><a class="btn btn-trait" href="mon-mois.html#offert">Mon premier carnet offert</a></div>
@@ -418,7 +421,7 @@
       var reste = Math.ceil((fin - new Date()) / 864e5);
       var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
       el.innerHTML = (reste > 0
-        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ').'
+        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement passe à 29 € par mois, sauf si tu l\'arrêtes avant.'
         : 'Ton abonnement au Cercle est actif.') +
         (gestion ? ' <a href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
