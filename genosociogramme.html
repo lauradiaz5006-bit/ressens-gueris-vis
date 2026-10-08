@@ -79,6 +79,7 @@
     .actions-perso button.danger{color:#A23B4C;background:var(--blanc)}
 
     /* Accueil vide */
+    .vide-guide{display:block;width:92px;height:92px;margin:0 auto .6rem;border-radius:50%;object-fit:cover;object-position:center 20%;border:2px solid var(--champagne)}
     .vide{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:1.5rem;z-index:6;pointer-events:none}
     .vide.visible{display:flex}
     .vide-carte{pointer-events:auto;max-width:30rem;text-align:center;background:rgba(255,255,255,.94);border:1px solid var(--rose);border-radius:var(--rayon);padding:2.2rem 2rem;box-shadow:0 24px 60px rgba(107,47,91,.1)}
@@ -342,6 +343,7 @@
 
       <div class="vide" id="vide">
         <div class="vide-carte">
+          <img class="vide-guide" src="assets/guide/guide-arbre.webp" width="96" height="96" alt="">
           <h2>Ton arbre commence par toi</h2>
           <p>Place-toi dans l'arbre, puis ajoute tes parents, tes grands-parents, tes frères et sœurs. Les répétitions apparaissent au fil de ta saisie.</p>
           <div class="actions">

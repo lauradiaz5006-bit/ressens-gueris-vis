@@ -258,3 +258,14 @@ section.cadeau-bas{padding-top:2.5rem}
 .pub-avantages .btn{background:var(--champagne);border-color:var(--champagne);color:#2E1338;white-space:nowrap}
 @media (max-width:860px){.pub-avantages ul{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.pub-avantages{padding:1.3rem}.pub-avantages ul{grid-template-columns:1fr}}
+
+/* Le petit guide illustré (Laura) */
+.guide{display:flex;align-items:center;gap:.9rem;margin:1.5rem 0 0;max-width:36rem;text-align:left}
+.guide img{width:88px;height:88px;flex:none;border-radius:50%;object-fit:cover;object-position:center 20%;border:2px solid var(--champagne);background:#fff;box-shadow:0 10px 26px rgba(107,47,91,.14)}
+.guide-bulle{position:relative;margin:0!important;max-width:none!important;padding:.8rem 1.05rem;background:#fff;border:1px solid var(--rose-fonce);border-radius:16px;font-size:.95rem;line-height:1.5;color:var(--prune)}
+.guide-bulle::before{content:"";position:absolute;left:-7px;top:50%;width:12px;height:12px;background:#fff;border-left:1px solid var(--rose-fonce);border-bottom:1px solid var(--rose-fonce);transform:translateY(-50%) rotate(45deg)}
+.guide .guide-bulle{font-size:.95rem!important;line-height:1.5!important;color:var(--prune)!important}
+.guide-bulle b{font-weight:600}
+.guide-bulle a{font-weight:600;color:var(--prune)}
+.guide.centre{margin-inline:auto}
+@media (max-width:560px){.guide img{width:70px;height:70px}.guide-bulle{font-size:.9rem}}
