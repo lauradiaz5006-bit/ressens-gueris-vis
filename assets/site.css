@@ -206,6 +206,11 @@ section.bloc{padding:4.5rem 0}
 .liste-merci{padding:1.6rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair)}
 .liste-merci-titre{font-family:var(--display);font-size:1.6rem;margin:0 0 .5rem}
 .liste-merci p{margin:0 0 1rem}
+.liste-etapes{list-style:none;counter-reset:e;margin:0 0 1rem;padding:0;display:grid;gap:.6rem}
+.liste-etapes li{counter-increment:e;display:grid;grid-template-columns:2rem 1fr;column-gap:.7rem;align-items:center}
+.liste-etapes li::before{content:counter(e);grid-row:span 2;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);background:#fff;border:1.5px solid var(--champagne)}
+.liste-etapes b{line-height:1.2}
+.liste-etapes span{font-size:.9rem;color:var(--prune-doux)}
 @media (max-width:760px){
   .annonce{font-size:.84rem;padding-left:.8rem}
   .encart-formation{grid-template-columns:1fr;padding:1.8rem 1.4rem;gap:1.5rem}
