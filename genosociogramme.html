@@ -92,6 +92,12 @@
     .rep-exo{display:block;margin:-.15rem 0 .2rem .8rem;padding:.35rem .2rem;font-size:.82rem;font-weight:600;color:var(--c);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
     .rep-aide{font-size:.86rem;color:var(--prune-doux);line-height:1.55;padding:.3rem .2rem}
     .rep-aide b{color:var(--prune);font-weight:600}
+    .panneau-recherche{padding:.7rem .8rem .2rem;border-bottom:1px solid var(--rose)}
+    .panneau-recherche input{width:100%;box-sizing:border-box;font:400 .88rem var(--texte);color:var(--prune);padding:.55rem .75rem;border:1.5px solid var(--rose-fonce);border-radius:10px;background:var(--nacre)}
+    .panneau-recherche input:focus{outline:2px solid var(--champagne);outline-offset:1px}
+    .rep-sugg{display:flex;flex-wrap:wrap;gap:.3rem;padding:.55rem 0 .5rem}
+    .rep-sugg button{font:600 .72rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.22rem .55rem;cursor:pointer}
+    .rep-sugg button:hover,.rep-sugg button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
     .panneau-pied{border-top:1px solid var(--rose);padding:.75rem 1rem;font-size:.76rem;color:var(--prune-doux);line-height:1.5}
     .replier{display:none}
 
@@ -337,6 +343,10 @@
         <span class="compte" id="compte">0</span>
         <button class="fermer replier" type="button" id="bt-replier" aria-label="Fermer le panneau">×</button>
       </div>
+      <div class="panneau-recherche">
+        <input type="search" id="rep-cherche" placeholder="Rechercher : un prénom, gisant, métier…" aria-label="Rechercher dans ce qui se répète" autocomplete="off">
+        <div class="rep-sugg" id="rep-sugg" aria-label="Suggestions de recherche"></div>
+      </div>
       <div class="panneau-corps" id="reps"></div>
       <div class="panneau-pied">Clique sur une répétition pour la voir dans l'arbre. C'est une piste de lecture symbolique, pas une vérité sur ta famille.</div>
     </aside>
@@ -507,8 +517,8 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-08c"></script>
-  <script src="assets/import-arbre.js?v=2026-10-08c"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-08d"></script>
+  <script src="assets/import-arbre.js?v=2026-10-08d"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });

@@ -624,6 +624,84 @@
     });
     if (meres.length >= 2) reps.push({ type: 'depart', fort: meres.length >= 3, label: meres.length + ' mères parties avant 40 ans, en laissant de jeunes enfants', desc: meres.map(function (p) { return nom(p) + ' (' + ageDeces(p) + ' ans)'; }).join(', ') + '.', ids: meres.map(function (p) { return p.id; }) });
 
+    // 4. Un prénom qui en porte un autre : Stéphanie après Stéphane, Jean-Marie et une Marie disparue…
+    function phon(t) { return norm(t).replace(/[^a-z]/g, '').replace(/ph/g, 'f').replace(/y/g, 'i').replace(/qu/g, 'k').replace(/(.)\1+/g, '$1'); }
+    function racine(t) { var r = t.replace(/(ienne|enne|ette|ine|ie|e)$/, ''); return r.length >= 3 ? r : t; }
+    function morceaux(p) { return norm(p && p.prenom).split(/[\s'’-]+/).map(phon).filter(function (t) { return t.length >= 3; }); }
+    function souci(d) {
+      var ad = ageDeces(d), l = [];
+      if (ad != null && ad < 50) l.push((d.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans');
+      (d.events || []).forEach(function (e) { if (e.type) l.push('« ' + (NOM_EVT[e.type] || e.type).toLowerCase() + ' »' + (e.age ? ' à ' + e.age + ' ans' : '')); });
+      return l;
+    }
+    var caches = {};
+    liste.forEach(function (d) {
+      var md = morceaux(d); if (!md.length) return;
+      var pb = souci(d); if (!pb.length) return;
+      var fin = annee(d.deces) || annee(d.naiss); if (!fin) return;
+      var fam = famille(d);
+      liste.forEach(function (g) {
+        if (g.id === d.id || !fam[g.id]) return;
+        var an = annee(g.naiss); if (!an || an < fin || an - fin > 30) return;
+        var mg = morceaux(g), tout = mg.join(''), forme = null;
+        md.forEach(function (td) {
+          if (forme) return;
+          if (mg.some(function (tg) { return racine(tg) === racine(td); })) forme = d.prenom.split(/[\s-]+/).find(function (w) { return racine(phon(w)) === racine(td); }) || d.prenom;
+          else if (td.length >= 4 && tout.indexOf(td) >= 0) forme = d.prenom.split(/[\s-]+/).find(function (w) { return phon(w) === td; }) || d.prenom;
+        });
+        if (!forme) return;
+        (caches[g.id] = caches[g.id] || []).push({ d: d, forme: forme, pb: pb, ecart: an - (annee(d.deces) || fin) });
+      });
+    });
+    Object.keys(caches).map(function (k) { return { g: S.people[k], l: caches[k].sort(function (x, y) { return x.ecart - y.ecart; }) }; })
+      .sort(function (x, y) { return x.l[0].ecart - y.l[0].ecart; }).slice(0, 8).forEach(function (c) {
+        var fortC = c.l.some(function (x) { var ad = ageDeces(x.d); return (ad != null && ad < 30) || (annee(x.d.deces) && x.ecart <= 5); });
+        reps.push({ type: 'prenom', fort: fortC, tags: 'prenom cache symbolique memoire porte un autre',
+          label: 'Un prénom qui en porte un autre : ' + c.g.prenom,
+          desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.ecart === 0 ? ' (l’année de sa naissance)' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant sa naissance)') : ''); }).join(' ; ') + '.',
+          ids: [c.g.id].concat(c.l.slice(0, 3).map(function (x) { return x.d.id; })) });
+      });
+    // 5. Les enfants : fratries d'un seul sexe, même nombre d'enfants d'une génération à l'autre
+    var fratries = {};
+    liste.forEach(function (p) { var pa = (parentsDe[p.id] || []).slice().sort().join('+'); if (pa) (fratries[pa] = fratries[pa] || []).push(p); });
+    var seulesF = [], seulsM = [];
+    Object.keys(fratries).forEach(function (k) {
+      var f = fratries[k]; if (f.length < 2) return;
+      var par = k.split('+').map(function (id) { return S.people[id]; });
+      var qui = par.map(nom).join(' et ');
+      if (f.every(function (e) { return e.sex === 'f'; })) seulesF.push({ txt: qui + ' : ' + f.length + ' filles', ids: k.split('+').concat(f.map(function (e) { return e.id; })) });
+      if (f.every(function (e) { return e.sex === 'm'; })) seulsM.push({ txt: qui + ' : ' + f.length + ' garçons', ids: k.split('+').concat(f.map(function (e) { return e.id; })) });
+    });
+    [[seulesF, 'Des fratries de filles uniquement'], [seulsM, 'Des fratries de garçons uniquement']].forEach(function (x) {
+      if (x[0].length >= 2) reps.push({ type: 'schema', fort: x[0].length >= 3, tags: 'enfants filles garcons fratrie sexe', label: x[1] + ', ' + x[0].length + ' fois', desc: x[0].map(function (y) { return y.txt; }).join(' ; ') + '.', ids: [].concat.apply([], x[0].map(function (y) { return y.ids; })) });
+    });
+    var parTaille = {};
+    Object.keys(fratries).forEach(function (k) { var n = fratries[k].length; if (n >= 2) (parTaille[n] = parTaille[n] || []).push(k); });
+    Object.keys(parTaille).forEach(function (n) {
+      var l = parTaille[n]; if (l.length < 3) return;
+      reps.push({ type: 'schema', tags: 'enfants nombre fratrie taille', label: n + ' enfants, dans ' + l.length + ' familles', desc: l.slice(0, 6).map(function (k) { return k.split('+').map(function (id) { return nom(S.people[id]); }).join(' et '); }).join(' ; ') + '.', ids: [].concat.apply([], l.map(function (k) { return k.split('+').concat(fratries[k].map(function (e) { return e.id; })); })) });
+    });
+    // 6. Métiers : la rupture après une longue lignée, et le métier qui saute une génération
+    chaine(function (pa, en) { return pa && en && pa.sex === en.sex && cleMetier(pa) && cleMetier(pa) === cleMetier(en) && cleMetier(pa) !== 'foyer'; }).forEach(function (l) {
+      var jeune0 = S.people[l[0]], m0 = norm(jeune0.metier);
+      (enfantsDe[jeune0.id] || []).map(function (e) { return S.people[e]; }).filter(function (e) { return e.sex === jeune0.sex && e.metier && cleMetier(e) !== cleMetier(jeune0); }).forEach(function (e) {
+        reps.push({ type: 'metier', fort: l.length >= 3, tags: 'metier rupture lignee descendant change', label: 'Une rupture après ' + l.length + ' générations de ' + m0, desc: nomA(e) + ' devient « ' + e.metier + ' », alors que ' + l.map(function (id) { return nom(S.people[id]); }).reverse().join(', ') + ' étaient ' + m0 + '.', ids: l.concat([e.id]) });
+      });
+    });
+    var sauts = [];
+    liste.forEach(function (gp) {
+      var kg = cleMetier(gp); if (!kg || kg === 'foyer') return;
+      (enfantsDe[gp.id] || []).forEach(function (pid) {
+        var pm = S.people[pid]; if (!pm || !pm.metier || cleMetier(pm) === kg) return;
+        (enfantsDe[pid] || []).forEach(function (eid) { var e = S.people[eid]; if (e && cleMetier(e) === kg) sauts.push({ txt: nom(gp) + ' et ' + nom(e) + ' : ' + norm(gp.metier) + ' (' + nom(pm) + ' : ' + pm.metier + ')', ids: [gp.id, pm.id, e.id] }); });
+      });
+    });
+    if (sauts.length) reps.push({ type: 'metier', tags: 'metier saute generation grand-parent petit-enfant ascendant descendant', label: 'Un métier qui saute une génération' + (sauts.length > 1 ? ', ' + sauts.length + ' fois' : ''), desc: sauts.slice(0, 5).map(function (x) { return x.txt; }).join(' ; ') + '.', ids: [].concat.apply([], sauts.map(function (x) { return x.ids; })) });
+
+    // Mots-clés pour la recherche dans le panneau
+    var TAGS = { anniversaire: 'syndrome anniversaire age', gisant: 'gisant syndrome deces naissance memoire', depart: 'mort jeune deces precoce depart', date: 'date anniversaire jour', epreuve: 'evenement epreuve', schema: 'schema', metier: 'metier profession lignee', prenom: 'prenom' };
+    reps.forEach(function (r) { r.tags = (r.tags ? r.tags + ' ' : '') + (TAGS[r.type] || '') + (/cousins/.test(r.label) ? ' cousins implexe mariage consanguin' : ''); });
+
     // Les répétitions les plus évidentes en premier, en rouge ; les prénoms isolés en dernier
     var ORDRE = { anniversaire: 1, gisant: 2, schema: 3, depart: 4, date: 5, epreuve: 6, metier: 7, prenom: 8 };
     reps.forEach(function (r, i) {
@@ -830,7 +908,31 @@
   function choisir(id) { selId = id; dessiner(); if (id) rendreVisible(id); majBarreActions(); }
 
   /* ───────── Panneau ───────── */
+  /* Recherche dans le panneau : texte libre ou suggestion */
+  var RECH_SUGG = [
+    ['gisant', 'Syndrome du gisant', 'Il faut des dates de décès et des naissances qui suivent dans la même famille.'],
+    ['prénom caché', 'Prénoms cachés', 'Un prénom qui en porte un autre (Stéphanie après Stéphane, Jean-Marie et une Marie disparue) : il faut des dates de naissance et de décès.'],
+    ['filles garçons', 'Filles et garçons', 'Ajoute les frères et sœurs de chaque génération, avec leur sexe.'],
+    ['nombre enfants', 'Nombre d’enfants', 'Ajoute tous les enfants de chaque couple, sur plusieurs générations.'],
+    ['métier', 'Métiers de la lignée', 'Ajoute le métier de chacun : les transmissions, ruptures et sauts de génération apparaîtront.'],
+    ['mort jeune', 'Morts jeunes', 'Il faut les années de naissance et de décès.'],
+    ['cousins', 'Mariages entre cousins', 'Un même ancêtre doit apparaître dans deux branches.'],
+    ['date', 'Dates qui reviennent', 'Il faut des dates complètes (jour et mois).']
+  ];
+  var recherche = '';
+  function correspond(r, mots) { var t = norm(r.label + ' ' + r.desc + ' ' + (r.tags || '')); return mots.every(function (m) { return t.indexOf(m) >= 0; }); }
+  function carteprenom(q) {   // « Marie » : toutes les personnes qui portent ce prénom, seul ou composé, et ce qu'elles ont vécu
+    var cible = norm(q).replace(/[^a-z]/g, ''); if (cible.length < 3) return null;
+    var l = Object.keys(S.people).map(function (id) { return S.people[id]; }).filter(function (p) {
+      return norm(p.prenom).split(/[\s'’-]+/).some(function (w) { var x = w.replace(/[^a-z]/g, ''); return x === cible || (cible.length >= 4 && (x.indexOf(cible) === 0 && x.length - cible.length <= 3)); });
+    });
+    if (!l.length) return null;
+    return { synth: true, type: 'prenom', c: COUL.prenom, label: 'Le prénom « ' + q.trim() + ' » dans ton arbre : ' + l.length + ' personne' + (l.length > 1 ? 's' : ''),
+      desc: l.map(function (p) { var ad = ageDeces(p), ev = (p.events || []).map(function (e) { return (NOM_EVT[e.type] || e.type || '').toLowerCase(); }).filter(Boolean); return nomComplet(p) + (p.naiss ? ' (' + annee(p.naiss) + ')' : '') + (ad != null ? ', ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans' : '') + (ev.length ? ', ' + ev.join(', ') : ''); }).join(' ; ') + '.',
+      ids: l.map(function (p) { return p.id; }), tags: 'prenom', cle: 'synth:' + q };
+  }
   function dessinerPanneau() {
+    reps = reps.filter(function (r) { return !r.synth; });
     var n = reps.length;
     $('compte').textContent = n; $('compte-bouton').textContent = n;
     var z = $('reps');
@@ -853,7 +955,17 @@
     var blocExo = aFaire.length ? '<div class="exos"><p class="exos-titre">Tes exercices <span>' + (restants ? restants + ' à faire' : 'tous faits') + '</span></p>' +
       '<p class="rep-aide">Continue ton arbre : les exercices t’attendent ici, à faire quand tu as le temps.</p>' +
       aFaire.map(function (x) { var st = statut(x.a); return '<a class="exo exo-' + st + '" style="--c:' + x.c + '" href="' + lienExo(x) + '"><b>' + esc(x.a) + '</b><span class="exo-st">' + LIB[st] + '</span>' + (x.l ? '<small>' + esc(x.l) + '</small>' : '') + '</a>'; }).join('') + '</div>' : '';
-    z.innerHTML = blocExo + reps.map(function (r, i) {
+    var mots = norm(recherche).split(/[\s'’,-]+/).filter(function (m) { return m.length >= 2; });
+    var visibles = reps.map(function (r, i) { return i; });
+    var info = '';
+    if (mots.length) {
+      var cp = carteprenom(recherche);
+      if (cp) reps.unshift(cp);
+      visibles = []; reps.forEach(function (r, i) { if (r.synth || correspond(r, mots)) visibles.push(i); });
+      var sg = RECH_SUGG.find(function (x) { return norm(x[0]) === norm(recherche).trim(); });
+      info = '<p class="rep-aide">' + (visibles.length ? visibles.length + ' résultat' + (visibles.length > 1 ? 's' : '') + ' pour « ' + esc(recherche.trim()) + ' ».' : 'Rien trouvé pour « ' + esc(recherche.trim()) + ' » dans ton arbre.' + (sg ? ' ' + esc(sg[2]) : ' Essaie un prénom, un métier, ou une suggestion ci-dessus.')) + '</p>';
+    }
+    z.innerHTML = (mots.length ? info : blocExo) + visibles.map(function (i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
       return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span></button>' +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
@@ -1285,6 +1397,18 @@
     else if (act === 'supprimer') supprimer(selId);
     else ouvrirAjout(act, selId);
   });
+  (function () {
+    var champ = $('rep-cherche'), sugg = $('rep-sugg'); if (!champ || !sugg) return;
+    sugg.innerHTML = RECH_SUGG.map(function (x) { return '<button type="button" data-cherche="' + esc(x[0]) + '">' + esc(x[1]) + '</button>'; }).join('');
+    var t = null;
+    champ.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { recherche = champ.value; repActive = null; dessinerPanneau(); }, 150); });
+    sugg.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-cherche]'); if (!b) return;
+      var v = b.getAttribute('data-cherche'); champ.value = champ.value === v ? '' : v; recherche = champ.value; repActive = null;
+      sugg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b && champ.value ? 'true' : 'false'); });
+      dessinerPanneau();
+    });
+  })();
   $('reps').addEventListener('click', function (e) {
     var b = e.target.closest('[data-rep]'); if (!b) return;
     var r = reps[+b.getAttribute('data-rep')];
