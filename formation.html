@@ -62,7 +62,7 @@
     .f-auteure{display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;max-width:56rem;margin:0 auto;padding:2.2rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:1px solid var(--champagne-clair)}
     .f-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:3px solid var(--champagne);box-shadow:0 18px 40px rgba(107,47,91,.15)}
     .f-avatar span{font:400 4rem var(--display);color:var(--prune)}
-    .f-avatar img{width:100%;height:100%;object-fit:cover}
+    .f-avatar img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
     .f-auteure-sur{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
     .f-auteure h2{margin-bottom:.8rem}
     .f-auteure p{max-width:none}
@@ -127,7 +127,7 @@
     <section class="bloc">
       <div class="conteneur">
         <div class="f-auteure">
-          <div class="f-avatar" id="f-avatar" aria-hidden="true"><span>L</span></div>
+          <div class="f-avatar"><img src="assets/guide/laura-arbres.webp" width="600" height="600" alt="Laura, en illustration" loading="lazy"></div>
           <div>
             <p class="f-auteure-sur">Qui a créé cette formation</p>
             <h2>Bonjour, moi c'est Laura</h2>
@@ -170,8 +170,5 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script>
-  (function () { var i = new Image(); i.onload = function () { var a = document.getElementById('f-avatar'); a.innerHTML = ''; i.alt = 'Laura, en illustration'; a.appendChild(i); a.removeAttribute('aria-hidden'); }; i.src = 'assets/laura-illustration.webp'; })();
-  </script>
 </body>
 </html>
