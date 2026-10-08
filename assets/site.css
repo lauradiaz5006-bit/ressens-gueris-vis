@@ -228,3 +228,33 @@ section.bloc{padding:4.5rem 0}
 
 /* Articles du blog : le texte occupe toute la colonne */
 .colonne p,.colonne li,.colonne blockquote{max-width:none}
+
+/* Petit carré en bas à gauche : premier carnet du Cercle offert */
+.carre-cercle{position:fixed;left:1rem;bottom:1rem;z-index:55;width:min(22rem,calc(100% - 2rem));display:grid;grid-template-columns:60px 1fr;gap:.9rem;align-items:start;padding:1rem 2.2rem 1rem 1rem;background:#2E1338;color:#F7E6EE;border:1px solid rgba(243,220,192,.35);border-radius:16px;box-shadow:0 18px 50px rgba(46,19,56,.35);font:400 .86rem/1.45 var(--texte);box-sizing:border-box;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
+.carre-cercle.visible{opacity:1;transform:none}
+.carre-cercle img{width:60px;height:auto;border-radius:4px;box-shadow:0 6px 16px rgba(0,0,0,.35);transform:rotate(-3deg)}
+.carre-cercle p{margin:0}
+.cc-sur{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne-clair)}
+.cc-titre{font-family:var(--display);font-size:1.08rem;line-height:1.2;color:#fff;margin:.25rem 0 .35rem!important}
+.cc-texte{color:#E6CFDD}
+.cc-bouton{display:inline-block;margin-top:.7rem;padding:.45rem .95rem;border-radius:99px;background:var(--champagne);color:#2E1338;font-weight:700;font-size:.85rem;text-decoration:none}
+.cc-bouton:hover{background:var(--champagne-clair)}
+.cc-fermer{position:absolute;top:.35rem;right:.45rem;background:none;border:0;color:#E6CFDD;font-size:1.25rem;line-height:1;cursor:pointer;padding:.2rem .35rem}
+@media (max-width:600px){.carre-cercle{left:.6rem;bottom:.6rem;width:calc(100% - 1.2rem)}}
+@media print{.carre-cercle,.cadeau-bas{display:none!important}}
+
+/* Encart cadeau ajouté en bas des pages */
+section.cadeau-bas{padding-top:2.5rem}
+
+/* Bandeau des avantages (Mon espace) */
+.pub-avantages{width:100%;margin:0 auto 1.6rem;padding:1.6rem 1.8rem;border-radius:var(--rayon);background:linear-gradient(120deg,#2E1338,#6B2F5B);color:#F7E6EE;box-sizing:border-box;font-family:var(--texte)}
+.pub-avantages .pa-tete{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.pub-avantages .pa-sur{margin:0 0 .3rem;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair)}
+.pub-avantages h2{margin:0;color:#fff;font-family:var(--display);font-weight:400;font-size:clamp(1.35rem,2.6vw,1.75rem);line-height:1.15}
+.pub-avantages ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem 1.4rem}
+.pub-avantages li{position:relative;padding-left:1.3rem;font-size:.92rem;line-height:1.45}
+.pub-avantages li::before{content:"";position:absolute;left:0;top:.45em;width:.55rem;height:.55rem;border-radius:50%;background:var(--champagne)}
+.pub-avantages li b{color:#fff;font-weight:600}
+.pub-avantages .btn{background:var(--champagne);border-color:var(--champagne);color:#2E1338;white-space:nowrap}
+@media (max-width:860px){.pub-avantages ul{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pub-avantages{padding:1.3rem}.pub-avantages ul{grid-template-columns:1fr}}

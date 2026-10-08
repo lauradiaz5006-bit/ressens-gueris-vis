@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ton mois gratuit dans Le Cercle · Genesolia</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .e-zone{min-height:calc(100vh - 70px);padding:3rem 16px 4rem;background:radial-gradient(40rem 26rem at 85% 0%,rgba(248,214,200,.6),transparent 60%),var(--nacre)}
+    .e-boite{max-width:40rem;margin:0 auto}
+    .e-etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;list-style:none;margin:0 0 1.6rem;padding:0;counter-reset:e}
+    .e-etapes li{counter-increment:e;font-size:.82rem;font-weight:600;color:var(--prune-doux);padding-top:.7rem;border-top:4px solid var(--rose-fonce)}
+    .e-etapes li::before{content:counter(e) ". "}
+    .e-etapes li.faite{border-color:var(--champagne);color:var(--prune)}
+    .e-etapes li.active{border-color:var(--prune);color:var(--prune)}
+    .e-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 24px 60px rgba(107,47,91,.1)}
+    .e-carte h1{font-size:clamp(1.7rem,3.4vw,2.2rem);margin-bottom:.5rem}
+    .e-carte > p{color:var(--prune-doux)}
+    .e-offre{margin:1.2rem 0;padding:1rem 1.2rem;border-radius:16px;background:#FFF6EC;border:1px solid var(--champagne-clair)}
+    .e-offre p{margin:0}
+    .e-offre .e-gros{font-family:var(--display);font-size:1.5rem;line-height:1.2}
+    .e-offre s{color:var(--prune-doux)}
+    .e-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1.4rem}
+    .e-q{border:0;padding:0;margin:1.4rem 0 0}
+    .e-q legend{font-weight:600;margin-bottom:.6rem}
+    .e-q label{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .8rem;border:1.5px solid var(--rose);border-radius:12px;margin-bottom:.45rem;cursor:pointer}
+    .e-q label:has(input:checked){border-color:var(--prune);background:var(--nacre)}
+    .e-q input{accent-color:var(--prune);margin-top:.3rem;flex-shrink:0}
+    .e-q textarea{width:100%;box-sizing:border-box;min-height:5.5rem;font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px}
+    .e-aide{font-size:.85rem;color:var(--prune-doux);margin-top:.35rem}
+    .e-choix{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}
+    .e-choix label{display:block;padding:1rem;border:1.5px solid var(--rose);border-radius:14px;cursor:pointer}
+    .e-choix label:has(input:checked){border-color:var(--prune);background:var(--nacre)}
+    .e-choix input{accent-color:var(--prune)}
+    .e-choix b{display:block;font-family:var(--display);font-weight:400;font-size:1.25rem;margin:.2rem 0}
+    .e-choix span{font-size:.88rem;color:var(--prune-doux)}
+    .e-liste{list-style:none;padding:0;margin:1rem 0;display:grid;gap:.45rem}
+    .e-liste li{position:relative;padding-left:1.4rem}
+    .e-liste li::before{content:"";position:absolute;left:0;top:.55em;width:.55rem;height:.55rem;border-radius:50%;background:var(--champagne)}
+    .e-erreur{color:#A33A4A;font-size:.9rem;min-height:1.2em;margin:.6rem 0 0}
+    .e-rassure{font-size:.85rem;color:var(--prune-doux);margin-top:1rem}
+    @media (max-width:560px){.e-carte{padding:1.4rem}.e-choix{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="e-zone">
+    <div class="e-boite">
+      <ol class="e-etapes" aria-label="Étapes">
+        <li id="et-1">Ton compte</li>
+        <li id="et-2">Ton bilan de départ</li>
+        <li id="et-3">Ton mois gratuit</li>
+      </ol>
+      <div class="e-carte" id="e-carte" aria-live="polite"><p>Chargement…</p></div>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
+    var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var LIENS = window.GENESOLIA_STRIPE || {};
+    var carte = document.getElementById('e-carte');
+    var formule = new URLSearchParams(location.search).get('formule') === 'annee' ? 'annee' : 'mois';
+    var sb = null, user = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    function esc(t) { return String(t || '').replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
+    function etape(n) {
+      [1, 2, 3].forEach(function (i) {
+        var li = document.getElementById('et-' + i);
+        li.className = i < n ? 'faite' : (i === n ? 'active' : '');
+        if (i === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+      });
+      window.scrollTo(0, 0);
+    }
+    function suivi(nom) { if (window.umami) try { window.umami.track(nom); } catch (e) {} }
+
+    /* Étape 1 : créer son compte (sur la page Mon espace, puis retour ici) */
+    function etape1() {
+      etape(1);
+      try { localStorage.setItem('retour-apres-connexion', 'essai.html'); } catch (e) {}
+      carte.innerHTML =
+        '<h1>Ton mois gratuit commence ici</h1>' +
+        '<p>Trois petites étapes, quelques minutes en tout. D\'abord, ton compte : c\'est là que vivront ton arbre, ton suivi et tes carnets.</p>' +
+        '<div class="e-offre"><p><s>29 € par mois</s></p><p class="e-gros">1 mois gratuit pour tester Le Cercle</p><p class="e-aide">Après ton essai : 29 € par mois, sans engagement · tu arrêtes en 1 clic</p></div>' +
+        '<div class="e-actions"><a class="btn btn-plein" href="login.html?inscription&amp;retour=essai.html">Créer mon compte gratuit</a><a class="btn btn-trait" href="login.html?retour=essai.html">J\'ai déjà un compte</a></div>';
+      suivi('essai-etape-1');
+    }
+
+    /* Étape 2 : le bilan de départ, enregistré dans le compte */
+    var BOUCLES = ['Je choisis toujours le même type de relation', 'Je m\'oublie pour les autres', 'L\'argent m\'échappe', 'Je n\'ose pas prendre ma place', 'Je revis les mêmes conflits en famille', 'Autre chose'];
+    var ATTENTES = ['Comprendre d\'où vient ce qui se répète', 'Avancer pas à pas, avec un rendez-vous chaque semaine', 'Explorer mon arbre et mes nombres', 'Prendre un temps pour moi'];
+    function etape2() {
+      etape(2);
+      var prenom = (user.user_metadata && user.user_metadata.full_name) || '';
+      carte.innerHTML =
+        '<h1>' + (prenom ? esc(prenom) + ', ton' : 'Ton') + ' bilan de départ</h1>' +
+        '<p>Trois questions pour que ton suivi parte de là où tu en es. Tes réponses restent privées, dans ton espace.</p>' +
+        '<form id="e-bilan" novalidate>' +
+          '<fieldset class="e-q"><legend>1. Quelle boucle aimerais-tu arrêter ?</legend>' +
+            BOUCLES.map(function (b) { return '<label><input type="checkbox" name="boucle" value="' + esc(b) + '"><span>' + esc(b) + '</span></label>'; }).join('') +
+          '</fieldset>' +
+          '<fieldset class="e-q"><legend>2. Qu\'est-ce qui se répète dans ta famille, d\'après toi ?</legend>' +
+            '<textarea name="famille" maxlength="800" placeholder="Quelques mots suffisent, ou rien du tout."></textarea><p class="e-aide">Facultatif.</p>' +
+          '</fieldset>' +
+          '<fieldset class="e-q"><legend>3. Qu\'attends-tu de ce premier mois ?</legend>' +
+            ATTENTES.map(function (a, i) { return '<label><input type="radio" name="attente" value="' + esc(a) + '"' + (i === 0 ? ' checked' : '') + '><span>' + esc(a) + '</span></label>'; }).join('') +
+          '</fieldset>' +
+          '<div class="e-actions"><button class="btn btn-plein" type="submit">Enregistrer mon bilan</button></div>' +
+          '<p class="e-erreur" role="alert"></p>' +
+        '</form>';
+      var f = document.getElementById('e-bilan');
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var err = f.querySelector('.e-erreur'), btn = f.querySelector('button');
+        var boucles = [].slice.call(f.querySelectorAll('input[name=boucle]:checked')).map(function (c) { return c.value; });
+        if (!boucles.length) { err.textContent = 'Coche au moins une boucle.'; return; }
+        var att = f.querySelector('input[name=attente]:checked');
+        var bilan = { boucles: boucles, famille: f.famille.value.trim(), attente: att ? att.value : '', date: new Date().toISOString().slice(0, 10) };
+        btn.disabled = true; btn.textContent = 'Enregistrement…'; err.textContent = '';
+        sb.auth.updateUser({ data: { bilan: bilan } }).then(function (r) {
+          if (r.error) throw r.error;
+          user = r.data.user; suivi('essai-bilan'); etape3();
+        }).catch(function () {
+          btn.disabled = false; btn.textContent = 'Enregistrer mon bilan';
+          err.textContent = 'L\'enregistrement n\'a pas fonctionné. Réessaie dans un instant.';
+        });
+      });
+    }
+
+    /* Étape 3 : choisir sa formule et enregistrer sa carte (Stripe, 30 jours offerts) */
+    function etape3() {
+      etape(3);
+      carte.innerHTML =
+        '<h1>Ton mois gratuit t\'attend</h1>' +
+        '<p>Ton bilan est enregistré. Dernière étape : choisis ta formule. Rien n\'est prélevé pendant 30 jours.</p>' +
+        '<div class="e-choix" role="radiogroup" aria-label="Formule">' +
+          '<label><input type="radio" name="formule" value="mois"' + (formule === 'mois' ? ' checked' : '') + '> Au mois<b>0 € pendant 30 jours</b><span>puis 29 € par mois, sans engagement</span></label>' +
+          '<label><input type="radio" name="formule" value="annee"' + (formule === 'annee' ? ' checked' : '') + '> À l\'année<b>0 € pendant 30 jours</b><span>puis 290 € pour l\'année (2 mois offerts)</span></label>' +
+        '</div>' +
+        '<p><b>Dès aujourd\'hui, tu as :</b></p>' +
+        '<ul class="e-liste"><li>Le carnet du mois à imprimer</li><li>La semaine 1 de ton suivi</li><li>Ton mois personnel et le rapport complet de ton arbre</li></ul>' +
+        '<p class="e-aide">Ensuite, tout arrive au fil des mois : la suite de ton suivi chaque semaine, un nouveau carnet chaque mois et un livret débloqué au 2<sup>e</sup> puis au 3<sup>e</sup> mois.</p>' +
+        '<p class="e-offre" style="margin:1.2rem 0 0"><b>Bon à savoir :</b> après tes 30 jours gratuits, ton abonnement démarre tout seul à 29 € par mois (ou 290 € par an). Tu peux l\'arrêter avant, en 1 clic, et tu ne paies rien.</p>' +
+        '<div class="e-actions"><a class="btn btn-plein" id="e-payer" href="#">Activer mon mois gratuit</a></div>' +
+        '<p class="e-rassure">Paiement sécurisé par Stripe. Tu reçois un rappel par e-mail avant la fin de l\'essai, et tu arrêtes en 1 clic depuis Mon espace.</p>' +
+        '<p class="e-erreur" role="alert"></p>';
+      var bt = document.getElementById('e-payer'), err = carte.querySelector('.e-erreur');
+      function majLien() {
+        formule = carte.querySelector('input[name=formule]:checked').value;
+        var base = formule === 'annee' ? LIENS.cercleAn : LIENS.cercleMois;
+        if (base) {
+          bt.href = base + (base.indexOf('?') < 0 ? '?' : '&') + 'prefilled_email=' + encodeURIComponent(user.email || '') + '&client_reference_id=' + encodeURIComponent(user.id);
+          bt.textContent = 'Activer mon mois gratuit'; err.textContent = '';
+        } else {
+          bt.href = '#'; bt.textContent = 'Me prévenir dès que c\'est ouvert';
+        }
+      }
+      carte.querySelectorAll('input[name=formule]').forEach(function (r) { r.addEventListener('change', majLien); });
+      majLien();
+      bt.addEventListener('click', function (ev) {
+        if (bt.getAttribute('href') !== '#') { suivi('essai-stripe-' + formule); return; }
+        ev.preventDefault();
+        var data = new FormData();
+        data.append('email', user.email || ''); data.append('formule', formule); data.append('source', 'essai.html');
+        data.append('_subject', 'Essai du Cercle : à prévenir à l\'ouverture du paiement');
+        fetch('https://formspree.io/f/xdawvnby', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); bt.outerHTML = '<p class="e-gros" style="font-family:var(--display);font-size:1.3rem">C\'est noté. On t\'écrit dès que l\'essai s\'ouvre.</p>'; })
+          .catch(function () { err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
+      });
+      suivi('essai-etape-3');
+    }
+
+    if (!sb) { carte.innerHTML = '<p>La connexion ne répond pas. Vérifie ta connexion internet et recharge la page.</p>'; return; }
+    sb.auth.getSession().then(function (r) {
+      var s = r.data && r.data.session;
+      if (!s) { etape1(); return; }
+      user = s.user;
+      try { localStorage.removeItem('retour-apres-connexion'); } catch (e) {}
+      if (user.user_metadata && user.user_metadata.bilan) etape3(); else etape2();
+    }).catch(etape1);
+  })();
+  </script>
+</body>
+</html>

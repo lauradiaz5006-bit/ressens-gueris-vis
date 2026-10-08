@@ -126,7 +126,7 @@
     'use strict';
     var CERCLE = {
       libre: true,                     /* true : Le Cercle offert à toute personne connectée ; false : abonnement payant */
-      prix: '5 € par mois',
+      prix: '29 € par mois',
       offert: '2026-11',               /* le carnet offert contre un e-mail */
       lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
       formspree: 'https://formspree.io/f/xdawvnby'
@@ -245,11 +245,18 @@
       else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
       return '<div class="m-piste"><p class="m-etiq">Ta piste ' + de(nomMois) + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
     }
+    /* Mois d'arrivée dans Le Cercle (début de l'essai, sinon création du compte) :
+       on reçoit un carnet par mois à partir de là, pas les carnets d'avant */
+    function moisDebut() {
+      var m = (utilisateur && utilisateur.user_metadata) || {};
+      var d = m.essai_debut || (utilisateur && utilisateur.created_at) || '';
+      return String(d).slice(0, 7);
+    }
     function blocCarnets() {
-      var cle = Y + '-' + (M < 10 ? '0' : '') + M, cles = Object.keys(CARNETS).sort(), h = '';
+      var cle = Y + '-' + (M < 10 ? '0' : '') + M, cles = Object.keys(CARNETS).sort(), h = '', debut = moisDebut();
       if (!cles.length) return '';
       var actuel = CARNETS[cle] ? cle : (cle < cles[0] ? cles[0] : null);
-      var anciens = cles.filter(function (k) { return k < cle && k !== actuel; }).reverse();
+      var anciens = cles.filter(function (k) { return k < cle && k !== actuel && (!debut || k >= debut); }).reverse();
       function nom(k) { var p = k.split('-'); return MOIS[+p[1] - 1] + ' ' + p[0]; }
       h += '<h2 class="m-titre">Ton carnet du mois</h2>';
       if (actuel) {
@@ -261,6 +268,8 @@
       return h;
     }
     function blocBonus() {
+      var cle = Y + '-' + (M < 10 ? '0' : '') + M, debut = moisDebut();
+      if (debut && debut >= cle) return '<p class="m-anciens" style="margin-top:1rem">Le mois prochain, avec ton nouveau carnet, tu reçois aussi le livret <b>Les 12 saisons</b>.</p>';
       return '<div class="m-carnet" style="margin-top:1rem;background:linear-gradient(120deg,#F7E6E8,var(--blanc))"><div><p class="m-etiq">Bonus du Cercle</p><h3>Les 12 saisons</h3><p>Le livret de l\'année : l\'histoire de chaque mois, son énergie, les signes qui le traversent et ce qu\'il réveille dans les familles. 27 pages à imprimer.</p></div>' +
         '<a class="btn btn-trait" href="assets/cercle/les-12-saisons-c4709f2dad.pdf" download>Télécharger le livret (PDF)</a></div>';
     }
@@ -303,7 +312,7 @@
     function apercu(r) {
       var h = blocOffert() + blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
-        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2>' + (CERCLE.libre ? '<p class="prix">Offert</p><p>Avec ton compte gratuit.</p>' : '<p class="prix">' + CERCLE.prix + '</p>') + '<ul>' +
+        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2>' + '<p class="prix"><s style="font-size:.6em;opacity:.7">29 €</s> 1 mois gratuit</p><p>Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p>' + '<ul>' +
         '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un carnet de dix pages à imprimer chaque mois : exercices, rituel et méditation</li><li>En bonus : le livret « Les 12 saisons », l\'histoire et l\'énergie de chaque mois</li><li>Le rapport complet de ton arbre, régénéré quand tu veux</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
@@ -311,7 +320,7 @@
       brancherOffert();
     }
     function boutonOffre() {
-      if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="login.html?retour=mon-mois.html">Créer mon compte pour rejoindre le Cercle</a>';
+      if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="essai.html">Commencer mon mois gratuit</a>';
       if (CERCLE.lienAbonnement) return '<a class="btn btn-plein" id="m-offre-bt" href="' + esc(CERCLE.lienAbonnement + (CERCLE.lienAbonnement.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(utilisateur.id) + '&prefilled_email=' + encodeURIComponent(utilisateur.email || '')) + '" target="_blank" rel="noopener">Rejoindre le Cercle</a>';
       return '<button class="btn btn-plein" id="m-offre-bt" type="button">Rejoindre le Cercle</button>';
     }
