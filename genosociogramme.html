@@ -468,6 +468,8 @@
           <button class="bt plein" type="button" id="bt-json" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
           <button class="bt" type="button" id="bt-ouvrir" style="justify-content:center;padding:.75rem">Ouvrir une copie</button>
           <button class="bt" type="button" id="bt-importer" style="justify-content:center;padding:.75rem">Importer un arbre (PDF ou GEDCOM)</button>
+          <button class="bt" type="button" id="bt-gedcom" style="justify-content:center;padding:.75rem">Exporter en GEDCOM (.ged)</button>
+          <p id="bt-gedcom-info" hidden style="color:var(--prune-doux);font-size:.85rem;margin:-.2rem 0 .2rem;text-align:center"></p>
           <button class="bt" type="button" id="bt-svg" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
           <a class="bt" href="login.html?retour=genosociogramme.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
           <button class="bt danger" type="button" id="bt-effacer" style="justify-content:center;padding:.75rem;margin-top:.6rem">Effacer l'arbre et recommencer</button>
@@ -570,5 +572,6 @@
     });
   })();
   </script>
+  <script src="assets/export-gedcom.js?v=2026-10-09"></script>
 </body>
 </html>
