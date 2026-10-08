@@ -96,6 +96,19 @@
     .m-chap p:not(.m-lead){color:#5d3550}
     .m-sources-titre{margin:2.6rem 0 .8rem}
     @media(max-width:700px){.m-chap{padding:1.6rem 1.3rem}.m-chap-img{width:calc(100% + 2.6rem);margin:0 -1.3rem 1.2rem}.m-num{width:2.4rem;height:2.4rem;font-size:1.1rem}}
+    .duo{background:radial-gradient(40rem 22rem at 0% 0%,rgba(231,167,158,.25),transparent 60%),var(--nacre)}
+    .duo-form{display:grid;grid-template-columns:1fr 1fr auto;gap:1rem;align-items:start;background:var(--blanc);border:1px solid var(--rose);border-radius:24px;padding:1.3rem}
+    .duo-form fieldset{border:0;display:grid;gap:.5rem;align-content:start}.duo-form>.btn{align-self:end}.duo-form legend{font-weight:700;font-size:.9rem;margin-bottom:.4rem}
+    .duo-form input,.duo-form select{font:inherit;padding:.65rem .8rem;border-radius:12px;border:1.5px solid var(--rose-fonce);background:#fff;color:var(--prune)}
+    .duo-cartes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem}
+    .duo-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:22px;padding:1.3rem;animation:pf-in .35s both}
+    .duo-carte h3{font-size:1.5rem;margin:.2rem 0}.duo-carte .m-etiq{font:700 .76rem/1 var(--texte);letter-spacing:.06em;text-transform:uppercase;color:#A4473D}
+    .duo-carte p{max-width:none;font-size:.95rem;margin-top:.5rem}
+    .duo-lien{margin-top:1rem;background:linear-gradient(135deg,#3A1745,#6B2F5B);color:#fff;border-radius:24px;padding:1.5rem}
+    .duo-lien h3{color:#fff;font-size:1.4rem;margin-bottom:.6rem}.duo-lien li{margin:.35rem 0 .35rem 1.1rem;color:#F1DDE8}.duo-lien b{color:#F7C7BE}
+    .duo-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}.duo-lien .btn-trait{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}.duo-lien .btn-plein{background:#F3DCC0;color:var(--prune)}
+    @keyframes pf-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media (max-width:760px){.duo-form,.duo-cartes{grid-template-columns:1fr}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ton signe maya", "item": "https://genesolia.fr/ton-signe-maya.html"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment connaître son signe maya ?", "acceptedAnswer": {"@type": "Answer", "text": "Entre ta date de naissance : le calcul trouve ton jour dans le Tzolk'in, le calendrier sacré de 260 jours. Ce jour associe un nombre de 1 à 13 et l'un des 20 signes, par exemple 7 Kej. Genesolia utilise le compte traditionnel tenu par les gardien·nes du jour mayas."}}, {"@type": "Question", "name": "Pourquoi mon signe maya est-il différent sur d'autres sites ?", "acceptedAnswer": {"@type": "Answer", "text": "Beaucoup de sites utilisent le « Dreamspell », un système créé à la fin des années 1980, qui ne suit pas le compte traditionnel. Les deux donnent souvent des signes différents pour la même date. Genesolia suit le compte maya traditionnel, celui qui n'a jamais été interrompu dans les hautes terres du Guatemala."}}, {"@type": "Question", "name": "Le calendrier maya prédit-il l'avenir ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Le signe du jour de naissance est une lecture symbolique du caractère et de la place de chacun, telle que la tradition la décrit. Le 21 décembre 2012 n'a d'ailleurs jamais été présenté par les Mayas comme une fin du monde : c'était la fin d'un grand cycle de leur Compte long."}}]}</script>
@@ -109,7 +122,7 @@
           <p class="m-sur">Gratuit · sans inscription</p>
           <h1>Ton signe maya</h1>
           <p class="intro">Pour les Mayas, le jour de naissance porte un nombre et un signe du Tzolk'in, le calendrier sacré de 260 jours. Découvre les tiens, ce qu'ils racontent de toi et de ta lignée, et apprends comment comptait l'une des plus grandes civilisations des Amériques.</p>
-          <div class="m-actions"><a class="btn btn-trait" href="#apprendre">Comprendre les Mayas</a><a class="btn btn-trait" href="#famille">Les signes de ma famille</a></div>
+          <div class="m-actions"><a class="btn btn-trait" href="#apprendre">Comprendre les Mayas</a><a class="btn btn-trait" href="#famille">Les signes de ma famille</a><a class="btn btn-trait" href="#duo">Mon signe et celui d'un proche</a></div>
         </div>
         <form class="m-form" id="m-form" novalidate>
           <h2>Calcule ton signe</h2>
@@ -138,6 +151,18 @@
         <button class="btn btn-trait" type="button" id="fam-ajout">Ajouter une personne</button>
         <div id="fam-echos"></div>
         <p class="note" style="margin-top:1rem">Pour aller plus loin, <a href="genosociogramme.html">dessine ton arbre familial</a> : l'outil repère aussi les prénoms, les âges et les dates qui se répètent.</p>
+      </div>
+    </section>
+
+    <section class="bloc duo" id="duo" aria-labelledby="duo-titre">
+      <div class="conteneur">
+        <div class="bloc-tete"><span class="m-sur">À deux</span><h2 id="duo-titre">Ton signe et celui d'un proche</h2><p>Ton enfant, ta mère, ton amoureux ou ton amie : compare vos deux jours mayas. Ce qui vous relie, ce qui vous différencie, et comment vos forces peuvent se soutenir.</p></div>
+        <form class="duo-form" id="duo-form" novalidate>
+          <fieldset><legend>Toi</legend><input id="duo-p1" placeholder="Ton prénom" autocomplete="given-name"><input id="duo-d1" type="date" min="1900-01-01" max="2030-12-31" aria-label="Ta date de naissance"></fieldset>
+          <fieldset><legend>L'autre personne</legend><input id="duo-p2" placeholder="Son prénom"><select id="duo-l2" aria-label="Lien"><option>Mon enfant</option><option>Ma mère</option><option>Mon père</option><option>Mon ou ma partenaire</option><option>Mon frère, ma sœur</option><option>Un ami, une amie</option><option>Un grand-parent</option></select><input id="duo-d2" type="date" min="1900-01-01" max="2030-12-31" aria-label="Sa date de naissance"></fieldset>
+          <button class="btn btn-plein" type="submit">Lire notre lien</button><p class="m-erreur" id="duo-erreur" role="alert"></p>
+        </form>
+        <div id="duo-res" aria-live="polite"></div>
       </div>
     </section>
 
@@ -314,6 +339,59 @@
       if (s && s.date) { f.date.value = s.date; f.prenom.value = s.prenom || ''; afficher(s.date, s.prenom); }
       majFamille();
     } catch (x) { ligne('', ''); }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    var M = window.Maya, T = window.MAYA_TEXTES, f = document.getElementById('duo-form'), z = document.getElementById('duo-res');
+    if (!f || !M || !T) return;
+    function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function phrases(t, n) { return (String(t).match(/[^.!?]+[.!?]+/g) || [t]).slice(0, n).join(' ').trim(); }
+    var OPP = { Est: 'Ouest', Ouest: 'Est', Nord: 'Sud', Sud: 'Nord' };
+    function dir(S) { return S.direction.split(',')[0]; }
+    function lire(a, b) {
+      var A = T.SIGNES[a.r.signe], B = T.SIGNES[b.r.signe], da = dir(A), db = dir(B), l = [];
+      if (a.r.signe === b.r.signe) l.push('<b>Le même signe, ' + esc(A.kiche) + '.</b> Vous partagez la même image, ' + esc(A.image) + ' : vous vous reconnaissez vite, et vous pouvez aussi vous heurter sur les mêmes défis.');
+      if (da === db) l.push('<b>La même direction, ' + esc(A.direction) + '.</b> Pour les Mayas, les signes se rangent par quatre directions : vous partagez la même énergie de départ.');
+      else if (OPP[da] === db) l.push('<b>Des directions opposées, ' + esc(da) + ' et ' + esc(db) + '.</b> Vous vous faites face sur la roue : chacun·e porte ce qui manque à l’autre. Un lien qui complète, à condition d’accepter la différence.');
+      else l.push('<b>Des directions voisines, ' + esc(da) + ' et ' + esc(db) + '.</b> Vos énergies se suivent sur la roue : l’une prépare souvent le terrain de l’autre.');
+      if (a.r.nombre === b.r.nombre) l.push('<b>Le même nombre, ' + a.r.nombre + '.</b> Vos signes s’expriment avec la même intensité.');
+      else l.push('<b>Les nombres ' + a.r.nombre + ' et ' + b.r.nombre + '.</b> ' + (Math.abs(a.r.nombre - b.r.nombre) >= 6 ? 'L’un·e vit son signe de façon douce, l’autre de façon plus intense : ce qui paraît « trop » ou « pas assez » vient souvent de là.' : 'Des intensités proches : vous avancez à un rythme voisin.'));
+      return l;
+    }
+    function carte(x) {
+      var S = T.SIGNES[x.r.signe];
+      return '<article class="duo-carte"><p class="m-etiq">' + esc(x.prenom || x.lien) + ' · ' + esc(S.direction) + '</p><h3>' + x.r.nombre + ' ' + esc(S.kiche) + '</h3><p><em>' + esc(S.image) + '</em></p><p>' + esc(phrases(S.caractere, 2)) + '</p><p><b>Forces :</b> ' + esc(phrases(S.forces, 2)) + '</p><p><b>Défis :</b> ' + esc(phrases(S.defis, 2)) + '</p></article>';
+    }
+    function imprimer(a, b, liens) {
+      var w = window.open('', '_blank'); if (!w) return;
+      var bloc = function (x) { var S = T.SIGNES[x.r.signe], N = T.NOMBRES[x.r.nombre] || ''; return '<div class="p"><p class="s">' + esc(x.prenom || x.lien) + ' · né·e le ' + esc(x.date.split('-').reverse().join('/')) + '</p><h2>' + x.r.nombre + ' ' + esc(S.kiche) + ' <small>(' + esc(S.yucateque) + ' · ' + esc(S.image) + ')</small></h2><p class="s">' + esc(S.direction) + ' · jour ' + x.r.kin + ' sur 260</p><h3>Le signe</h3><p>' + esc(S.symbole) + '</p><h3>Le caractère selon la tradition</h3><p>' + esc(S.caractere) + '</p><h3>Le nombre ' + x.r.nombre + '</h3><p>' + esc(N) + '</p><h3>Forces</h3><p>' + esc(S.forces) + '</p><h3>Défis</h3><p>' + esc(S.defis) + '</p><h3>Dans la lignée</h3><p>' + esc(S.lignee) + '</p></div>'; };
+      var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Nos signes mayas · Genesolia</title><style>@page{margin:15mm 13mm}body{font:14.5px/1.7 Georgia,serif;color:#4a2342;max-width:46rem;margin:0 auto;padding:1rem}h1{font-weight:400;font-size:30px;color:#6B2F5B;margin:.2rem 0 .6rem}h2{font-weight:400;color:#6B2F5B;font-size:24px;margin:.2rem 0}h2 small{font-size:14px;color:#8E6383}h3{font-weight:400;color:#6B2F5B;font-size:17px;margin:1rem 0 .2rem}.s{color:#B98A55;font:700 11px sans-serif;letter-spacing:1.5px;text-transform:uppercase}.p{page-break-before:always;border-top:1px solid #EBCFD5;padding-top:1rem}.l{background:#FBF0E4;border-radius:12px;padding:1rem 1.2rem}.l li{margin:.4rem 0}.b{position:sticky;top:0;background:#6B2F5B;color:#fff;padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;font:600 14px sans-serif}.b button{border:0;border-radius:99px;padding:.5rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif}@media print{.b{display:none}}</style></head><body>' +
+        '<div class="b"><span>Ton analyse Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div><p class="s">Genesolia · signes mayas à deux</p><h1>' + esc(a.prenom || 'Toi') + ' et ' + esc(b.prenom || b.lien) + '</h1><p>' + a.r.nombre + ' ' + esc(T.SIGNES[a.r.signe].kiche) + ' et ' + b.r.nombre + ' ' + esc(T.SIGNES[b.r.signe].kiche) + '</p>' +
+        '<div class="l"><h3 style="margin-top:0">Ce qui vous relie</h3><ul>' + liens.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><h3>Pour vous soutenir</h3><p>Les forces de ' + esc(a.prenom || 'toi') + ' (' + esc(phrases(T.SIGNES[a.r.signe].forces, 1)) + ') peuvent aider ' + esc(b.prenom || 'l’autre') + ' face à ses défis. Et inversement : ' + esc(phrases(T.SIGNES[b.r.signe].forces, 1)) + '</p></div>' +
+        bloc(a) + bloc(b) + '<p style="font-size:12px;color:#8E6383;margin-top:2rem">Analyse créée sur genesolia.fr selon le compte traditionnel (corrélation GMT 584283). Lecture symbolique et simplifiée, dans le respect des traditions mayas vivantes.</p></body></html>';
+      w.document.open(); w.document.write(h); w.document.close();
+    }
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d1 = document.getElementById('duo-d1').value, d2 = document.getElementById('duo-d2').value, err = document.getElementById('duo-erreur');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d1) || !/^\d{4}-\d{2}-\d{2}$/.test(d2)) { err.textContent = 'Indique les deux dates de naissance.'; return; }
+      err.textContent = '';
+      var a = { prenom: document.getElementById('duo-p1').value.trim(), lien: 'Moi', date: d1, r: M.calculer(d1) }, b = { prenom: document.getElementById('duo-p2').value.trim(), lien: document.getElementById('duo-l2').value, date: d2, r: M.calculer(d2) };
+      var liens = lire(a, b);
+      z.innerHTML = '<div class="duo-cartes">' + carte(a) + carte(b) + '</div><div class="duo-lien"><h3>Ce qui vous relie</h3><ul>' + liens.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+        '<div class="duo-actions"><button type="button" class="btn btn-plein" id="duo-livret" data-compte="votre analyse à deux">Télécharger notre analyse complète</button><button type="button" class="btn btn-trait" id="duo-garder">Garder dans mon espace</button></div></div>';
+      document.getElementById('duo-livret').onclick = function () { imprimer(a, b, liens); };
+      document.getElementById('duo-garder').onclick = function () {
+        if (window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'maya-duo', titre: 'Signes maya : ' + (a.prenom || 'moi') + ' et ' + (b.prenom || b.lien), resume: a.r.nombre + ' ' + T.SIGNES[a.r.signe].kiche + ' et ' + b.r.nombre + ' ' + T.SIGNES[b.r.signe].kiche, donnees: { a: { prenom: a.prenom, date: d1, nombre: a.r.nombre, signe: a.r.signe }, b: { prenom: b.prenom, lien: b.lien, date: d2, nombre: b.r.nombre, signe: b.r.signe } } });
+        this.textContent = 'Gardé dans ton espace';
+      };
+      try { var s = JSON.parse(localStorage.getItem('genesolia-maya') || 'null'); } catch (x) {}
+      z.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    try { var s0 = JSON.parse(localStorage.getItem('genesolia-maya') || 'null'); if (s0 && s0.date) { document.getElementById('duo-d1').value = s0.date; document.getElementById('duo-p1').value = s0.prenom || ''; } } catch (x) {}
   })();
   </script>
 </body>
