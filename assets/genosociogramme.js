@@ -15,6 +15,7 @@
   var BAS_TEXTE = R + 68;
 
   var PRUNE = '#6B2F5B', PRUNE_DOUX = '#8E6383', CHAMPAGNE = '#B98A55', CORAIL = '#E7A79E';
+  var ROUGE = '#C62F3A'; /* les répétitions les plus évidentes */
   var COUL = { anniversaire: '#D2793A', gisant: '#B5485C', depart: '#9C6B78', epreuve: '#B98A55', schema: '#7A4FA0', prenom: '#D06A7E', metier: '#4F7CAC', date: '#C46D9A' };
 
   var EVTS = [
@@ -384,7 +385,7 @@
   function a(p, type) { return (p.events || []).some(function (e) { return e.type === type; }); }
   function txt(p) { return norm((p.traits || []).join(' ') + ' ' + (p.notes || '')); }
   var SCHEMAS = [
-    { id: 'effacee', label: 'Des femmes qui s’effacent', test: function (p) { return p.sex === 'f' && (a(p, 'sacrifice') || /sacrifi|effac|devou|s.oubli/.test(txt(p)) || groupeMetier(p.metier) === 'foyer'); } },
+    { id: 'effacee', label: 'Des femmes qui s’effacent', test: function (p) { return p.sex === 'f' && (a(p, 'sacrifice') || /sacrifi|effac|devou|s.oubli/.test(txt(p)) || false); } },
     { id: 'absent', label: 'Des pères absents ou partis', test: function (p) { return p.sex === 'm' && (a(p, 'abandon') || /absent|parti |disparu|quitte/.test(txt(p))); } },
     { id: 'aine', label: 'Des aînés qui portent la famille', test: function (p) { return /responsab|aine|parentifi|porte la famille/.test(txt(p)); } },
     { id: 'secret', label: 'Des secrets et des non-dits', test: function (p) { return a(p, 'secret') || a(p, 'honte') || /secret|non-dit|on n.en parl|tabou|honte/.test(txt(p)); } },
@@ -564,6 +565,76 @@
       var lib = GROUPES_METIERS[k] ? k : g[0].metier;
       reps.push({ type: 'metier', c: COUL.metier, label: 'Même domaine de métier : ' + lib, desc: g.map(function (p) { return nom(p) + ', ' + p.metier; }).join(' · ') + '.', ids: g.map(function (p) { return p.id; }) });
     });
+
+    /* ── Ce qui saute aux yeux dans une lignée (surtout utile pour les grands arbres importés) ── */
+    var parentsDe = {}, enfantsDe = {};
+    S.rels.forEach(function (r) {
+      if (r.type !== 'parent' || !S.people[r.from] || !S.people[r.to]) return;
+      (parentsDe[r.to] = parentsDe[r.to] || []).push(r.from);
+      (enfantsDe[r.from] = enfantsDe[r.from] || []).push(r.to);
+    });
+    // 1. Des ancêtres présents par deux branches (mariage entre cousins, « implexe »)
+    var bases = moi ? [moi.id] : liste.filter(function (p) { return !enfantsDe[p.id] && parentsDe[p.id]; }).map(function (p) { return p.id; });
+    var chemins = {};
+    bases.forEach(function (b) {
+      var compte = {};
+      (function monter(id) { (parentsDe[id] || []).forEach(function (pa) { compte[pa] = (compte[pa] || 0) + 1; monter(pa); }); })(b);
+      Object.keys(compte).forEach(function (k) { chemins[k] = Math.max(chemins[k] || 0, compte[k]); });
+    });
+    var doubles = Object.keys(chemins).filter(function (k) { return chemins[k] >= 2; });
+    // On garde les plus proches : ceux dont aucun enfant n'est lui-même présent deux fois
+    var proches2 = doubles.filter(function (k) { return !(enfantsDe[k] || []).some(function (e) { return chemins[e] >= 2; }); });
+    if (proches2.length) {
+      reps.push({ type: 'schema', fort: true, label: 'Des ancêtres présents dans deux branches de ' + (moi ? 'ton ' : 'l’') + 'arbre',
+        desc: proches2.map(function (k) { return nom(S.people[k]); }).join(', ') + ' : leurs descendants se sont mariés entre cousins. Deux lignées de ' + (moi ? 'ta' : 'la') + ' famille viennent de la même souche.',
+        ids: proches2.concat((function () { var l = []; proches2.forEach(function (k) { (enfantsDe[k] || []).forEach(function (e) { if (l.indexOf(e) < 0) l.push(e); }); }); return l; })()) });
+    }
+    // 2. Ce qui passe de parent à enfant, génération après génération : prénom (même sexe) et métier
+    function chaine(test) {
+      var memo = {};
+      function long(id) { // plus longue suite d'ancêtres directs qui partagent le trait, en partant de id
+        if (memo[id]) return memo[id];
+        var best = [id];
+        (parentsDe[id] || []).forEach(function (pa) { if (test(S.people[pa], S.people[id])) { var l = long(pa); if (l.length + 1 > best.length) best = [id].concat(l); } });
+        return (memo[id] = best);
+      }
+      var res = [];
+      liste.forEach(function (p) {
+        var estDebut = !(enfantsDe[p.id] || []).some(function (e) { return test(S.people[p.id], S.people[e]); });
+        if (!estDebut) return;
+        var l = long(p.id); if (l.length >= 3) res.push(l);
+      });
+      return res;
+    }
+    var premierPrenom = function (p) { return norm(p && p.prenom).split(/[\s-]+/).slice(0, 2).join(' '); };
+    chaine(function (pa, en) { return pa && en && pa.sex === en.sex && premierPrenom(pa) && premierPrenom(pa) === premierPrenom(en); }).forEach(function (l) {
+      var p0 = S.people[l[0]];
+      reps.push({ type: 'prenom', fort: true, label: 'Le prénom « ' + p0.prenom.split(/\s+/).slice(0, 2).join(' ') + ' » transmis sur ' + l.length + ' générations', desc: 'De ' + (p0.sex === 'f' ? 'mère en fille' : 'père en fils') + ' : ' + l.map(function (id) { return nom(S.people[id]); }).reverse().join(' → ') + '.', ids: l });
+    });
+    var cleMetier = function (p) { return p && p.metier ? (groupeMetier(p.metier) || norm(p.metier)) : ''; };
+    chaine(function (pa, en) { return pa && en && pa.sex === en.sex && cleMetier(pa) && cleMetier(pa) === cleMetier(en) && cleMetier(pa) !== 'foyer'; }).forEach(function (l) {
+      var p0 = S.people[l[0]];
+      reps.push({ type: 'metier', fort: l.length >= 4, label: 'Le même métier sur ' + l.length + ' générations : ' + norm(S.people[l[l.length - 1]].metier), desc: 'De ' + (p0.sex === 'f' ? 'mère en fille' : 'père en fils') + ' : ' + l.map(function (id) { return nom(S.people[id]) + ' (' + S.people[id].metier + ')'; }).reverse().join(' → ') + '.', ids: l });
+    });
+    // 3. Des mères qui meurent jeunes, en laissant de jeunes enfants
+    var meres = liste.filter(function (p) {
+      if (p.sex !== 'f') return false;
+      var ad = ageDeces(p), fin = annee(p.deces); if (ad == null || ad >= 40 || !fin) return false;
+      return (enfantsDe[p.id] || []).some(function (e) { var n = annee(S.people[e].naiss); return n && fin - n <= 12; });
+    });
+    if (meres.length >= 2) reps.push({ type: 'depart', fort: meres.length >= 3, label: meres.length + ' mères parties avant 40 ans, en laissant de jeunes enfants', desc: meres.map(function (p) { return nom(p) + ' (' + ageDeces(p) + ' ans)'; }).join(', ') + '.', ids: meres.map(function (p) { return p.id; }) });
+
+    // Les répétitions les plus évidentes en premier, en rouge ; les prénoms isolés en dernier
+    var ORDRE = { anniversaire: 1, gisant: 2, schema: 3, depart: 4, date: 5, epreuve: 6, metier: 7, prenom: 8 };
+    reps.forEach(function (r, i) {
+      if (r.type === 'anniversaire' || (r.type === 'gisant' && /fois$/.test(r.label))) r.fort = true;
+      if (r.fort) r.c = ROUGE; else if (!r.c) r.c = COUL[r.type];
+      r.rang = (r.fort ? 0 : 10) + (ORDRE[r.type] || 9) + i / 1000;
+    });
+    reps.sort(function (x, y) { return x.rang - y.rang; });
+    // Un prénom seul qui revient n'apprend pas grand-chose dans un grand arbre : on n'en garde que 3
+    var nbPrenoms = 0;
+    reps = reps.filter(function (r) { return !(r.type === 'prenom' && !r.fort && ++nbPrenoms > 3); });
     reps.forEach(function (r, i) { r.cle = r.type + ':' + r.ids.slice().sort().join(',') + ':' + i; });
     return reps;
   }
