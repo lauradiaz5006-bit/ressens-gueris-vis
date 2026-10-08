@@ -27,6 +27,12 @@
     ['guerre', 'Guerre, exil'],
     ['demenagement', 'Départ, déracinement'],
     ['pauvrete', 'Manque d’argent'],
+    ['faillite', 'Faillite, perte de biens'],
+    ['heritage', 'Héritage conflictuel'],
+    ['perte-emploi', 'Perte d’emploi ou de revenus'],
+    ['ascension', 'Ascension sociale'],
+    ['declassement', 'Déclassement'],
+    ['hors-mariage', 'Naissance hors mariage, reconnaissance tardive'],
     ['maladie', 'Épreuve majeure'],
     ['sacrifice', 'Sacrifice, effacement'],
     ['trahison', 'Trahison'],
@@ -590,7 +596,7 @@
         ids: proches2.concat((function () { var l = []; proches2.forEach(function (k) { (enfantsDe[k] || []).forEach(function (e) { if (l.indexOf(e) < 0) l.push(e); }); }); return l; })()) });
     }
     // 2. Ce qui passe de parent à enfant, génération après génération : prénom (même sexe) et métier
-    function chaine(test) {
+    function chaine(test, min) {
       var memo = {};
       function long(id) { // plus longue suite d'ancêtres directs qui partagent le trait, en partant de id
         if (memo[id]) return memo[id];
@@ -602,7 +608,7 @@
       liste.forEach(function (p) {
         var estDebut = !(enfantsDe[p.id] || []).some(function (e) { return test(S.people[p.id], S.people[e]); });
         if (!estDebut) return;
-        var l = long(p.id); if (l.length >= 3) res.push(l);
+        var l = long(p.id); if (l.length >= (min || 3)) res.push(l);
       });
       return res;
     }
@@ -770,6 +776,59 @@
     if (sansDate.length) { ombres.push('aucune date pour ' + sansDate.slice(0, 6).map(nom).join(', ') + (sansDate.length > 6 ? '…' : '')); sansDate.forEach(function (p) { idsO.push(p.id); }); }
     if (ombres.length) reps.push({ type: 'schema', qk: 'ombre', tags: 'zone ombre secret ecart fratrie manque date inconnu', label: 'Des zones d’ombre à explorer', desc: ombres.slice(0, 6).join(' ; ') + '. Ce sont des questions, pas des conclusions.', ids: idsO });
 
+    /* ── Argent et trajectoire sociale (loyautés invisibles, transfuge de classe : notions publiques) ── */
+    var PERTES = ['faillite', 'pauvrete', 'perte-emploi', 'declassement'];
+    function evtsDe(p, types) { return (p.events || []).filter(function (e) { return types.indexOf(e.type) >= 0; }).map(function (e) { var ag = parseInt(e.age, 10), an = annee(p.naiss); return { type: e.type, age: isNaN(ag) ? null : ag, an: !isNaN(ag) && an ? an + ag : null }; }); }
+    function libE(t) { return (NOM_EVT[t] || t).toLowerCase(); }
+    function ancetresDe(id) { var acc = {}; (function up(x) { (parentsDe[x] || []).forEach(function (pa) { if (!acc[pa]) { acc[pa] = 1; up(pa); } }); })(id); return acc; }
+    // 13. Des pertes d'argent sur plusieurs générations de la même lignée
+    chaine(function (pa, en) { return pa && en && evtsDe(pa, PERTES).length && evtsDe(en, PERTES).length; }, 2).forEach(function (l) {
+      reps.push({ type: 'epreuve', qk: 'argent', fort: l.length >= 3, tags: 'argent perte faillite pauvrete lignee generation',
+        label: 'Des pertes d’argent sur ' + l.length + ' générations', desc: l.map(function (id) { var p = S.people[id]; return nom(p) + ' (' + evtsDe(p, PERTES).map(function (e) { return libE(e.type) + (e.age != null ? ' à ' + e.age + ' ans' : ''); }).join(', ') + ')'; }).reverse().join(' → ') + '.', ids: l });
+    });
+    // 14. Un revers d'argent au même âge, dans la même lignée (et quand tu approches de cet âge)
+    var avecAge = [];
+    liste.forEach(function (p) { evtsDe(p, PERTES).forEach(function (e) { if (e.age != null) avecAge.push({ p: p, e: e }); }); });
+    var memesAges = [];
+    avecAge.forEach(function (x) {
+      var anc = ancetresDe(x.p.id);
+      avecAge.forEach(function (y) { if (y.p.id !== x.p.id && anc[y.p.id] && Math.abs(y.e.age - x.e.age) <= 2) memesAges.push(nom(y.p) + ' (' + libE(y.e.type) + ' à ' + y.e.age + ' ans) puis ' + nom(x.p) + ' (' + libE(x.e.type) + ' à ' + x.e.age + ' ans)'), memesAges.ids = (memesAges.ids || []).concat([x.p.id, y.p.id]); });
+    });
+    if (memesAges.length) reps.push({ type: 'epreuve', qk: 'reversage', fort: true, tags: 'argent revers meme age anniversaire perte', label: 'Un revers d’argent au même âge', desc: memesAges.slice(0, 4).join(' ; ') + '.', ids: memesAges.ids });
+    if (moi && ageActuel(moi) != null) {
+      var ancM = ancetresDe(moi.id), ageM = ageActuel(moi);
+      avecAge.filter(function (x) { return ancM[x.p.id] && x.e.age - ageM >= 0 && x.e.age - ageM <= 2; }).forEach(function (x) {
+        reps.push({ type: 'anniversaire', qk: 'reversage', tags: 'argent revers age approche anniversaire', label: 'Tu approches d’un âge sensible : ' + x.e.age + ' ans', desc: 'Tu as ' + ageM + ' ans. ' + nom(x.p) + ' a vécu « ' + libE(x.e.type) + ' » à ' + x.e.age + ' ans. Ce n’est pas une prédiction : juste un repère à regarder avec douceur.', ids: [moi.id, x.p.id] });
+      });
+    }
+    // 15. Un héritage conflictuel, puis une rupture dans les 5 ans (chez la personne ou ses frères et sœurs)
+    liste.forEach(function (p) {
+      evtsDe(p, ['heritage']).forEach(function (h) {
+        if (h.an == null) return;
+        var qui = [p.id].concat(freres(p.id)), ruptures = [];
+        qui.forEach(function (id) { var q = S.people[id]; evtsDe(q, ['rupture']).forEach(function (r) { if (r.an != null && r.an >= h.an && r.an - h.an <= 5) ruptures.push(nom(q) + ' en ' + r.an); }); });
+        if (ruptures.length) reps.push({ type: 'epreuve', qk: 'heritage', tags: 'argent heritage rupture partage dette famille', label: 'Un héritage, puis une rupture', desc: 'Héritage conflictuel pour ' + nom(p) + ' vers ' + h.an + ', puis une séparation : ' + ruptures.join(', ') + '.', ids: qui });
+      });
+    });
+    // 16. Monter, puis redescendre : une ascension suivie d'une perte dans les 15 ans (la personne ou ses enfants)
+    liste.forEach(function (p) {
+      evtsDe(p, ['ascension']).forEach(function (asc) {
+        if (asc.an == null) return;
+        var apres = [];
+        [p.id].concat(enfantsDe[p.id] || []).forEach(function (id) { var q = S.people[id]; evtsDe(q, PERTES).forEach(function (e) { if (e.an != null && e.an > asc.an && e.an - asc.an <= 15) apres.push(nom(q) + ' : ' + libE(e.type) + ' vers ' + e.an); }); });
+        if (apres.length) reps.push({ type: 'schema', qk: 'ascension', fort: true, tags: 'argent ascension sociale declassement transfuge redescendre', label: 'Monter, puis redescendre', desc: nom(p) + ' connaît une ascension sociale vers ' + asc.an + ', puis ' + apres.join(' ; ') + '.', ids: [p.id].concat(enfantsDe[p.id] || []) });
+      });
+    });
+    // 17. Un revers d'argent dans les 2 ans qui suivent la mort d'un parent
+    var reversDeuil = [];
+    liste.forEach(function (g) {
+      evtsDe(g, PERTES).forEach(function (e) {
+        if (e.an == null) return;
+        (parentsDe[g.id] || []).forEach(function (pid) { var pa = S.people[pid], ad = annee(pa.deces); if (ad && e.an >= ad && e.an - ad <= 2) reversDeuil.push({ txt: nom(g) + ' : ' + libE(e.type) + ' vers ' + e.an + ', ' + (e.an === ad ? 'l’année de' : (e.an - ad) + ' an' + (e.an - ad > 1 ? 's' : '') + ' après') + ' la mort de ' + nom(pa), ids: [g.id, pid] }); });
+      });
+    });
+    if (reversDeuil.length) reps.push({ type: 'gisant', qk: 'reversdeuil', tags: 'argent revers deuil parent perte emploi', label: 'Un revers d’argent après un deuil' + (reversDeuil.length > 1 ? ', ' + reversDeuil.length + ' fois' : ''), desc: reversDeuil.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: [].concat.apply([], reversDeuil.map(function (x) { return x.ids; })) });
+
     // Questions pour réfléchir, selon la piste
     var QUESTIONS = {
       anniversaire: ['Que se passe-t-il dans ta vie en ce moment ?', 'Que sais-tu de ce que cette personne vivait à cet âge ?'],
@@ -787,7 +846,12 @@
       schema: ['Te reconnais-tu dans cette façon de faire ?', 'Qu’est-ce que cela a protégé, autrefois ?'],
       enfants: ['Attendait-on plutôt une fille ou un garçon ?', 'Quelle place avait chacun selon son rang ?'],
       metier: ['Ce métier a-t-il été choisi, ou s’est-il imposé ?', 'Quel métier aurait-on rêvé d’exercer ?'],
-      prenom: ['Qui a choisi ce prénom, et pour quelle raison ?', 'Qu’évoque ce prénom dans ta famille ?']
+      prenom: ['Qui a choisi ce prénom, et pour quelle raison ?', 'Qu’évoque ce prénom dans ta famille ?'],
+      argent: ['Comment parlait-on de ces pertes à la maison ?', 'Quelle idée de la sécurité as-tu gardée de ces histoires ?'],
+      reversage: ['Que sais-tu de cette période de sa vie ?', 'Qu’est-ce qui rend ta situation différente de la sienne ?'],
+      heritage: ['Qu’est-ce qui s’est joué dans ce partage, au-delà de l’argent ?', 'Quelle place cette histoire donne-t-elle à chacun aujourd’hui ?'],
+      ascension: ['Comment la famille a-t-elle vécu cette réussite, puis ce revers ?', 'Dans quel milieu te sens-tu chez toi ?'],
+      reversdeuil: ['Quel soutien cette personne représentait-elle ?', 'Sur quoi peux-tu t’appuyer aujourd’hui ?']
     };
     reps.forEach(function (r) {
       var k = r.qk || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
@@ -1018,6 +1082,7 @@
     ['guerre', 'Guerres', 'Il faut le sexe et l’année de naissance des hommes de l’arbre.'],
     ['zone ombre', 'Zones d’ombre', 'Ajoute les frères et sœurs avec leurs années de naissance.'],
     ['premier enfant', 'Premier enfant', 'Ajoute tous les enfants de chaque couple, avec leurs dates.'],
+    ['argent', 'Argent', 'Coche les événements d’argent sur les fiches : faillite, manque d’argent, perte d’emploi, héritage conflictuel, ascension, déclassement.'],
     ['age parent', 'Âge pour devenir parent', 'Il faut les années de naissance des parents et de leurs enfants, sur plusieurs générations.']
   ];
   var recherche = '';
