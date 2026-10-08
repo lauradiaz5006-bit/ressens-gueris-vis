@@ -312,6 +312,11 @@
     var params = new URLSearchParams(location.search);
     var retour = params.get('retour');
     if (retour && !/^[a-z0-9\-]+\.html$/i.test(retour)) retour = null;
+    /* Après la confirmation par e-mail, on revient sur la page d'où la personne venait */
+    try {
+      if (retour) localStorage.setItem('genesolia-retour', JSON.stringify({ p: retour, t: Date.now() }));
+      else if (/access_token/.test(location.hash)) { var rr = JSON.parse(localStorage.getItem('genesolia-retour') || 'null'); if (rr && Date.now() - rr.t < 2 * 864e5 && /^[a-z0-9\-]+\.html$/i.test(rr.p)) retour = rr.p; localStorage.removeItem('genesolia-retour'); }
+    } catch (e) {}
 
     function message(t, type, html) {
       var m = $('message');
