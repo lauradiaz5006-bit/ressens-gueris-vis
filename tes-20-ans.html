@@ -8,7 +8,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tes 20 ans : quand tu as l'impression de rejouer quelque chose</title>
+  <title>Jeune femme : quand tu as l'impression de rejouer quelque chose</title>
   <meta name="description" content="18-25 ans : choisis ta situation (amour, amitiés, parents, argent, ta place) et repars avec un geste simple et les mots pour le dire. Gratuit, sans compte.">
   <link rel="canonical" href="https://genesolia.fr/tes-20-ans.html">
   <link rel="stylesheet" href="assets/site.css">
@@ -247,6 +247,76 @@
     .carte-apercu img{width:100%;height:auto;border-radius:14px;box-shadow:0 14px 36px rgba(107,47,91,.16);display:block}
     .carte-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
     .carte-statut{text-align:center;margin-top:.6rem;min-height:1.2em}
+    /* ===== Version plus visuelle (jeune femme) ===== */
+    .vt-visuel{position:relative}
+    .vt-photo{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:28px;box-shadow:0 30px 70px rgba(107,47,91,.25)}
+    .vt-visuel .bulles{position:absolute;right:-1rem;bottom:1.2rem;margin:0;max-width:17rem}
+    .vt-visuel .bulle{animation:bulle-in .5s both}
+    .vt-visuel .bulle:nth-child(2){animation-delay:.5s}.vt-visuel .bulle:nth-child(3){animation-delay:1s}.vt-visuel .tape{animation:bulle-in .5s 1.5s both}
+    @keyframes bulle-in{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+    .stories{background:var(--blanc);border-bottom:1px solid var(--rose);padding:1.6rem 0 1.4rem}
+    .st-titre{font-family:var(--display);font-size:1.35rem;margin-bottom:1rem;max-width:none}
+    .st-titre em{color:var(--corail-encre)}
+    .stories ul{list-style:none;display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.3rem .2rem .6rem;scrollbar-width:none}
+    .stories ul::-webkit-scrollbar{display:none}
+    .stories li{scroll-snap-align:start;flex:0 0 auto}
+    .stories a{display:grid;justify-items:center;gap:.15rem;text-decoration:none;width:5.6rem;text-align:center}
+    .st-rond{width:5.4rem;height:5.4rem;border-radius:50%;padding:3px;background:conic-gradient(from 200deg,var(--corail-vif),var(--champagne),#C26A9A,var(--corail-vif));margin-bottom:.35rem;transition:transform .2s}
+    .st-rond img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--blanc)}
+    .stories a:hover .st-rond{transform:scale(1.06) rotate(-3deg)}
+    .stories strong{font-size:.9rem;line-height:1.2;color:var(--prune)}
+    .stories small{font-size:.75rem;color:var(--corail-encre);font-weight:600}
+    .pastille{display:inline-block;margin-bottom:.8rem;padding:.35rem .8rem;border-radius:99px;background:var(--corail-pale);color:var(--corail-encre);font:700 .78rem/1 var(--texte);letter-spacing:.02em}
+    .grille-vt>li:nth-child(5n+1) .carte-vt{background:linear-gradient(135deg,#FFF1EE,#FFFFFF)}
+    .grille-vt>li:nth-child(5n+2) .carte-vt{background:linear-gradient(135deg,#F9ECF4,#FFFFFF)}
+    .grille-vt>li:nth-child(5n+3) .carte-vt{background:linear-gradient(135deg,#FBF0E4,#FFFFFF)}
+    .grille-vt>li:nth-child(5n+4) .carte-vt{background:linear-gradient(135deg,#F3EAF7,#FFFFFF)}
+    .grille-vt>li:nth-child(5n+5) .carte-vt{background:linear-gradient(135deg,#FDEBE7,#FFF8F2)}
+    .carte-vt{border-radius:20px;padding-top:1.1rem!important;padding-bottom:1.1rem!important;transition:transform .2s,box-shadow .2s,border-color .2s}
+    .carte-vt:hover{transform:translateY(-3px) rotate(-.4deg)}
+    .glisse{font:700 .82rem/1 var(--texte)!important;color:var(--corail-encre)!important;margin-top:.8rem}
+    .etapes-conflit{display:grid;grid-auto-flow:column;grid-auto-columns:min(21rem,82%);max-width:none!important;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.2rem;gap:1rem!important}
+    .etapes-conflit li{scroll-snap-align:start;padding:3.6rem 1.35rem 1.35rem!important;border-radius:24px!important;box-shadow:0 14px 36px rgba(107,47,91,.08)}
+    .etapes-conflit li:nth-child(odd){background:linear-gradient(180deg,#FFF1EE,#FFFFFF)!important}
+    .etapes-conflit li:nth-child(even){background:linear-gradient(180deg,#F6ECF6,#FFFFFF)!important}
+    .etapes-conflit li::before{left:1.35rem!important;top:1.2rem!important;width:2.3rem!important;height:2.3rem!important;background:var(--prune)!important;color:#fff!important}
+    .conflit-bas{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:none!important}
+    .conflit-bas .alerte-conflit{grid-column:1/-1}
+    .phrases-zone{background:radial-gradient(40rem 20rem at 100% 0%,rgba(231,167,158,.25),transparent 60%),var(--nacre)}
+    .phrases-vt{grid-template-columns:repeat(3,1fr)!important}
+    .phrase-vt{border-radius:6px 22px 22px 22px!important;box-shadow:0 10px 24px rgba(107,47,91,.07);transform:rotate(-.6deg)}
+    .phrase-vt:nth-child(3n+2){transform:rotate(.5deg);background:#FFF6EC}
+    .phrase-vt:nth-child(3n){transform:rotate(-.2deg);background:#FBEFF4}
+    .phrase-vt.garde{background:var(--sable)!important}
+    .punch{background:linear-gradient(120deg,#3A1745,#6B2F5B 55%,#A4473D);color:#fff;padding:3.2rem 0;text-align:center}
+    .punch p{font-family:var(--display);font-size:clamp(1.8rem,4.4vw,2.8rem);line-height:1.2;max-width:none}
+    .punch em{color:var(--corail)}
+    .histoire{padding:0!important;overflow:hidden;display:flex;flex-direction:column}
+    .h-photo{position:relative}
+    .h-photo img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+    .h-photo .cycle-tag{position:absolute;left:1rem;bottom:1rem;margin:0!important;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+    .h-corps{padding:1.4rem 1.4rem 1.5rem}
+    .histoire blockquote{border-top:0!important;padding-top:0!important;margin:0 0 1rem!important;font-size:1.3rem!important;line-height:1.3!important}
+    .histoire details{margin-top:.9rem;border-top:1px solid var(--rose);padding-top:.8rem}
+    .histoire summary{cursor:pointer;font-weight:700;font-size:.92rem;color:var(--corail-encre);list-style:none}
+    .histoire summary::-webkit-details-marker{display:none}
+    .histoire summary::after{content:" +"}
+    .histoire details[open] summary::after{content:" −"}
+    .histoire details p{margin-top:.7rem}
+    .liste-outils .a-image{display:grid;grid-template-columns:7.5rem 1fr;grid-template-rows:auto auto 1fr;column-gap:1.1rem;align-items:start}
+    .liste-outils .a-image>*:not(img){grid-column:2}
+    .liste-outils .a-image img{grid-row:1/4;width:7.5rem;height:5.6rem;object-fit:cover;border-radius:14px}
+    @media (max-width:860px){
+      .vt-visuel{order:-1;max-width:24rem}
+      .vt-visuel .vt-photo{aspect-ratio:16/11}
+      .vt-visuel .bulles{display:grid!important;right:.6rem;bottom:.6rem;max-width:14rem;gap:.4rem}
+      .vt-visuel .bulle{font-size:.85rem;padding:.55rem .8rem}
+      .vt-visuel .bulle:nth-child(3),.vt-visuel .tape{display:none}
+      .phrases-vt{grid-template-columns:1fr 1fr!important}
+      .conflit-bas{grid-template-columns:1fr}
+    }
+    @media (max-width:700px){.phrases-vt{grid-template-columns:1fr!important}}
+    @media (prefers-reduced-motion:reduce){.vt-visuel .bulle,.vt-visuel .tape{animation:none}.carte-vt:hover{transform:none}}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/relations.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tu as l'impression de rejouer quelque chose, sans savoir quoi.", "item": "https://genesolia.fr/tes-20-ans.html"}]}</script>
@@ -257,7 +327,7 @@
     <section class="vt-tete">
       <div class="conteneur">
         <div>
-          <span class="vt-sur">Tes 20 ans</span>
+          <span class="vt-sur">Jeune femme · 18-25 ans</span>
           <h1>Tu as l'impression de rejouer quelque chose, <em>sans savoir quoi.</em></h1>
           <p class="intro">Choisis la situation qui te ressemble. En trois minutes, tu sais ce qui se joue, ce que tu peux faire aujourd'hui, et les mots pour le dire.</p>
           <div class="actions">
@@ -269,14 +339,24 @@
           </div>
           <p class="vt-mention">Pour les 18-25 ans · gratuit · sans compte · rien n'est enregistré ailleurs que sur ton téléphone</p>
         </div>
+        <div class="vt-visuel">
+          <img class="vt-photo" src="assets/images/blog-ancetres-reve-800.webp" width="800" height="420" alt="" fetchpriority="high">
         <div class="bulles" aria-hidden="true">
           <p class="bulle">Il ne répond plus depuis deux jours.<small>22 h 47</small></p>
           <p class="bulle">Et je ne sais même pas si on est ensemble.<small>22 h 48</small></p>
           <p class="bulle">Bref. Je crois que je refais le même film.<small>22 h 51</small></p>
           <span class="tape"><i></i><i></i><i></i></span>
         </div>
+        </div>
       </div>
     </section>
+
+    <nav class="stories" aria-label="Choisis par où commencer">
+      <div class="conteneur">
+        <p class="st-titre">Pas envie de tout lire ? <em>Touche ce qui te parle.</em></p>
+        <ul><li><a href="#outil"><span class="st-rond"><img src="assets/images/relations-800.webp" alt="" loading="lazy"></span><strong>Ma situation</strong><small>3 min</small></a></li><li><a href="#conflit"><span class="st-rond"><img src="assets/images/deux-cycles-800.webp" alt="" loading="lazy"></span><strong>Un conflit</strong><small>5 étapes</small></a></li><li><a href="#phrases"><span class="st-rond"><img src="assets/images/blog-prenom-transmis-psychogenealogie-800.webp" alt="" loading="lazy"></span><strong>Mes phrases</strong><small>2 min</small></a></li><li><a href="#histoires"><span class="st-rond"><img src="assets/images/blog-secret-de-famille-800.webp" alt="" loading="lazy"></span><strong>Leurs histoires</strong><small>3 récits</small></a></li><li><a href="#reseaux-vt"><span class="st-rond"><img src="assets/reseaux/je-me-choisis-mini.webp" alt="" loading="lazy"></span><strong>Mes images</strong><small>34 images</small></a></li><li><a href="#loin"><span class="st-rond"><img src="assets/images/genesolia-800.webp" alt="" loading="lazy"></span><strong>Mon arbre</strong><small>3 questions</small></a></li></ul>
+      </div>
+    </nav>
 
     <section class="reseaux-vt" id="reseaux-vt" aria-labelledby="reseaux-vt-titre">
       <div class="conteneur">
@@ -289,12 +369,12 @@
         <ul class="rv-galerie"><li><a href="cartes.html#reseaux"><img src="assets/reseaux/ton-silence-mini.webp" width="540" height="675" alt="Ton silence ne m'atteint plus." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/limites-mini.webp" width="540" height="675" alt="Mes limites ne sont pas négociables." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/je-me-choisis-mini.webp" width="540" height="675" alt="Je me choisis." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/vu-mini.webp" width="540" height="675" alt="Vu. Et je n'ai rien à répondre." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/fin-d-une-boucle-mini.webp" width="540" height="675" alt="Je suis la fin d'une boucle." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/pas-ton-option-mini.webp" width="540" height="675" alt="Je ne suis pas ton option." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/mon-calme-mini.webp" width="540" height="675" alt="Mon calme est ma réponse." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/change-de-film-mini.webp" width="540" height="675" alt="On ne rejoue pas cette scène. J'ai changé de film." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/moins-de-bruit-mini.webp" width="540" height="675" alt="Moins de bruit, plus de moi." loading="lazy"></a></li><li><a href="cartes.html#reseaux"><img src="assets/reseaux/pas-trop-mini.webp" width="540" height="675" alt="Je n'étais pas trop. Tu en voulais juste moins." loading="lazy"></a></li></ul>
       </div>
     </section>
-    <figure class="bandeau-photo"><img src="assets/images/suivi-1600.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Une femme assise face à la fenêtre, au soleil couchant" loading="lazy" decoding="async"></figure>
 
     <section class="bloc outil-vt" id="outil" aria-labelledby="outil-titre">
       <div class="conteneur">
         <div id="ecran-grille">
           <div class="bloc-tete">
+            <span class="pastille">3 minutes · interactif</span>
             <h2 id="outil-titre">Je suis dans la situation…</h2>
             <p>Des histoires d'amour aux sujets dont on parle peu : touche celle qui te parle le plus en ce moment. Tu pourras en choisir une autre après.</p>
           </div>
@@ -317,8 +397,10 @@
     <section class="bloc conflit-vt" id="conflit" aria-labelledby="conflit-titre">
       <div class="conteneur">
         <div class="bloc-tete">
+          <span class="pastille">5 étapes · les mots sont déjà écrits</span>
           <h2 id="conflit-titre">Régler un conflit, sans tout casser</h2>
           <p>Une dispute avec ton copain ou ta copine, un parent, une amie ? Un malentendu, ça se dénoue. Voici cinq étapes, et les mots pour chacune.</p>
+          <p class="glisse" aria-hidden="true">Fais glisser les cartes</p>
         </div>
         <div class="filtres-vt" id="conflit-avec" role="group" aria-label="Avec qui ?">
           <span class="filtres-label">Avec qui ?</span>
@@ -342,9 +424,10 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux" aria-labelledby="phrases-titre">
+    <section class="bloc bloc-doux phrases-zone" id="phrases" aria-labelledby="phrases-titre">
       <div class="conteneur">
         <div class="bloc-tete">
+          <span class="pastille">2 minutes · un clic par phrase</span>
           <h2 id="phrases-titre">Les phrases qu'on t'a transmises</h2>
           <p>Certaines phrases, on les a entendues si souvent qu'on les prend pour des vérités. Pour chacune, dis si tu l'as entendue, puis choisis : tu la gardes, ou tu la laisses.</p>
         </div>
@@ -363,7 +446,11 @@
       </div>
     </section>
 
-    <section class="bloc" aria-labelledby="histoires-titre">
+    <section class="punch" aria-hidden="true">
+      <div class="conteneur"><p>Tu n'es pas la seule.<br><em>Et ce n'est pas « dans ta tête ».</em></p></div>
+    </section>
+
+    <section class="bloc" id="histoires" aria-labelledby="histoires-titre">
       <div class="conteneur">
         <div class="bloc-tete">
           <h2 id="histoires-titre">Trois histoires qui te parleront <span class="nobr">peut-être</span></h2>
@@ -371,31 +458,37 @@
         </div>
         <div class="histoires">
           <article class="histoire">
-            <span class="cycle-tag racine">Cycle de la racine</span>
+            <div class="h-photo"><img src="assets/images/blog-metiers-transmis-genealogie-800.webp" width="800" height="420" alt="" loading="lazy"><span class="cycle-tag racine">Cycle de la racine</span></div>
+            <div class="h-corps">
+            <blockquote>« Je croyais le décevoir. En fait, je rejouais sa déception à lui. »</blockquote>
             <h3>Inès</h3>
             <p class="age">21 ans · les études</p>
-            <p>Inès était en deuxième année de droit parce que, chez elle, « on fait des études qui mènent quelque part ». Un soir, elle a demandé à son père ce qu'il voulait faire à vingt ans. Il rêvait d'être menuisier, et son propre père avait dit non. Inès n'a pas tout changé d'un coup, mais elle a parlé de ce qu'elle aimait pour la première fois sans s'excuser.</p>
-            <blockquote>« Je croyais le décevoir. En fait, je rejouais sa déception à lui. »</blockquote>
+            <details><summary>Lire son histoire</summary><p>Inès était en deuxième année de droit parce que, chez elle, « on fait des études qui mènent quelque part ». Un soir, elle a demandé à son père ce qu'il voulait faire à vingt ans. Il rêvait d'être menuisier, et son propre père avait dit non. Inès n'a pas tout changé d'un coup, mais elle a parlé de ce qu'elle aimait pour la première fois sans s'excuser.</p></details>
+            </div>
           </article>
           <article class="histoire">
-            <span class="cycle-tag coeur">Cycle du cœur</span>
+            <div class="h-photo"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><span class="cycle-tag coeur">Cycle du cœur</span></div>
+            <div class="h-corps">
+            <blockquote>« Je ne cherchais pas quelqu'un. Je cherchais à ne pas déranger. »</blockquote>
             <h3>Maëlle</h3>
             <p class="age">23 ans · les relations</p>
-            <p>Trois histoires, trois fois la même fin : Maëlle donnait tout, et l'autre s'éloignait. En écrivant ses histoires l'une sous l'autre, elle s'est souvenue d'une phrase de sa grand-mère : « Il ne faut pas trop en demander. » La dernière fois, elle a osé demander où ils en étaient. La réponse ne lui a pas plu, mais elle est restée entière.</p>
-            <blockquote>« Je ne cherchais pas quelqu'un. Je cherchais à ne pas déranger. »</blockquote>
+            <details><summary>Lire son histoire</summary><p>Trois histoires, trois fois la même fin : Maëlle donnait tout, et l'autre s'éloignait. En écrivant ses histoires l'une sous l'autre, elle s'est souvenue d'une phrase de sa grand-mère : « Il ne faut pas trop en demander. » La dernière fois, elle a osé demander où ils en étaient. La réponse ne lui a pas plu, mais elle est restée entière.</p></details>
+            </div>
           </article>
           <article class="histoire">
-            <span class="cycle-tag coeur">Cycle du cœur</span>
+            <div class="h-photo"><img src="assets/images/blog-devenir-parent-au-meme-age-800.webp" width="800" height="420" alt="" loading="lazy"><span class="cycle-tag coeur">Cycle du cœur</span></div>
+            <div class="h-corps">
+            <blockquote>« Je peux garder sa force et laisser le reste. »</blockquote>
             <h3>Sarah</h3>
             <p class="age">19 ans · sa mère</p>
-            <p>Sarah s'est entendue répondre à sa petite sœur exactement sur le ton de sa mère. Ça l'a énervée toute la journée. Le soir, elle a écrit à sa mère : « Toi aussi, tu ressemblais à ta mère ? » La réponse est arrivée le lendemain, longue et inattendue. Elles ne sont pas d'accord sur tout, mais elles se parlent autrement.</p>
-            <blockquote>« Je peux garder sa force et laisser le reste. »</blockquote>
+            <details><summary>Lire son histoire</summary><p>Sarah s'est entendue répondre à sa petite sœur exactement sur le ton de sa mère. Ça l'a énervée toute la journée. Le soir, elle a écrit à sa mère : « Toi aussi, tu ressemblais à ta mère ? » La réponse est arrivée le lendemain, longue et inattendue. Elles ne sont pas d'accord sur tout, mais elles se parlent autrement.</p></details>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="bloc bloc-doux" aria-labelledby="loin-titre">
+    <section class="bloc bloc-doux" id="loin" aria-labelledby="loin-titre">
       <div class="conteneur">
         <div class="mini">
           <figure class="mini-arbre">
@@ -444,10 +537,10 @@
       <div class="conteneur">
         <div class="bloc-tete"><h2>À lire, et à partager</h2><p>Des articles pour aller plus loin, et des cartes pour dire ce que tu penses avec douceur.</p></div>
         <div class="liste-outils">
-          <a class="outil" href="relation-floue.html"><h3>Relation floue : oser demander</h3><span class="duree">6 min</span><p>Pourquoi c'est si dur de demander « on est quoi ? », et comment le faire.</p></a>
-          <a class="outil" href="conflits-avec-ses-parents.html"><h3>En conflit avec tes parents</h3><span class="duree">7 min</span><p>Ce qui se joue vraiment à 20 ans, et comment sortir des disputes.</p></a>
-          <a class="outil" href="se-sentir-seule.html"><h3>Se sentir seule, même entourée</h3><span class="duree">5 min</span><p>Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p></a>
-          <a class="outil" href="cartes.html"><h3>Des cartes à partager</h3><span class="duree">26 cartes</span><p>Des phrases douces sur l'amour, la famille et ta place, prêtes pour ta story.</p></a>
+          <a class="outil a-image" href="relation-floue.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><h3>Relation floue : oser demander</h3><span class="duree">6 min</span><p>Pourquoi c'est si dur de demander « on est quoi ? », et comment le faire.</p></a>
+          <a class="outil a-image" href="conflits-avec-ses-parents.html"><img src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy"><h3>En conflit avec tes parents</h3><span class="duree">7 min</span><p>Ce qui se joue vraiment à 20 ans, et comment sortir des disputes.</p></a>
+          <a class="outil a-image" href="se-sentir-seule.html"><img src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy"><h3>Se sentir seule, même entourée</h3><span class="duree">5 min</span><p>Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p></a>
+          <a class="outil a-image" href="cartes.html"><img src="assets/reseaux/je-me-choisis-mini.webp" width="540" height="675" alt="" loading="lazy" style="object-position:center 20%"><h3>Des cartes à partager</h3><span class="duree">26 cartes</span><p>Des phrases douces sur l'amour, la famille et ta place, prêtes pour ta story.</p></a>
         </div>
       </div>
     </section>

@@ -37,7 +37,7 @@ window.GENESOLIA_STRIPE = {
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['abonnement.html', 'Le Cercle'];
-  var BOUTON_JEUNES = ['tes-20-ans.html', 'Tes 20 ans'];  /* espace 18-25 ans et images pour les réseaux */
+  var BOUTON_JEUNES = ['tes-20-ans.html', 'Jeune femme'];  /* espace 18-25 ans et images pour les réseaux */
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -83,7 +83,7 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
             '<li><a href="theme-astral.html">Thème astral</a></li>' +
             '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
-            '<li><a href="tes-20-ans.html">Tes 20 ans</a></li>' +
+            '<li><a href="tes-20-ans.html">Jeune femme</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
