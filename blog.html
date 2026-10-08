@@ -15,6 +15,10 @@
   <style>
     .articles{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
     .article-carte{display:flex;flex-direction:column;gap:.7rem;padding:1.8rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);text-decoration:none;transition:border-color .2s,box-shadow .2s}
+    .article-carte{overflow:hidden}
+    .article-carte .carte-photo{display:block;width:calc(100% + 3.6rem);max-width:none;height:auto;margin:-1.8rem -1.8rem .5rem;aspect-ratio:16/9;object-fit:cover;transition:transform .5s ease}
+    .article-carte:hover .carte-photo{transform:scale(1.03)}
+    .article-carte:first-child .carte-photo{aspect-ratio:21/8}
     .article-carte:hover{border-color:var(--champagne-clair);box-shadow:0 14px 40px rgba(107,47,91,.08)}
     .article-carte:first-child{grid-column:1/-1;background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border-color:var(--champagne-clair)}
     .article-carte .theme{font-size:.88rem;font-weight:600;color:var(--champagne)}
@@ -39,6 +43,7 @@
 
     <section class="bloc" style="padding-bottom:0">
       <div class="conteneur"><a class="article-carte" href="le-ciel-du-mois.html" style="display:flex">
+          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
         <span class="theme">Chaque mois</span>
         <h2>Le ciel du mois : lune, éclipses, rétrogrades et nombres</h2>
         <p>Les phénomènes réels du ciel, les nombres du mois, la saison, un geste et une question pour ta famille.</p>
@@ -50,18 +55,21 @@
       <div class="conteneur"><div class="bloc-tete"><h2>Préparer 2027</h2></div></div>
       <div class="conteneur articles">
         <a class="article-carte" href="annee-personnelle-2027.html">
+          <img class="carte-photo" src="assets/images/blog-annee-personnelle-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Numérologie</span>
           <h2>Année personnelle 2027 : calcule la tienne</h2>
           <p>Ton année en numérologie, de 1 à 9 : ce qu'elle t'invite à vivre en amour, au travail, mois par mois et dans ton histoire familiale.</p>
           <span class="meta">7 octobre 2026 · 5 min de lecture</span>
         </a>
         <a class="article-carte" href="nombres-maitres.html">
+          <img class="carte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Numérologie</span>
           <h2>Les nombres maîtres 11, 22 et 33</h2>
           <p>Définition, calcul, fréquence réelle selon la méthode, et ce que chaque nombre maître dit de toi et de ta lignée.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="mercure-retrograde-2027.html">
+          <img class="carte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Le ciel</span>
           <h2>Mercure rétrograde 2027 : les dates et leur signification</h2>
           <p>Les trois périodes de l'année, heure de Paris et du Québec, et une question pour ta famille à chacune.</p>
@@ -76,48 +84,56 @@
       </div>
       <div class="conteneur articles">
         <a class="article-carte" href="symbolique-des-reves.html">
+          <img class="carte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>La symbolique des rêves, une langue que l&#x27;humanité parle depuis toujours</h2>
           <p>Pourquoi l&#x27;humanité a toujours prêté un sens aux rêves, les grandes façons de les lire et une première méthode pour t&#x27;en approcher.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="jung-reves-archetypes.html">
+          <img class="carte-photo" src="assets/images/blog-jung-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Jung et les rêves : inconscient collectif, archétypes, ombre et ancêtres</h2>
           <p>La rupture avec Freud, les archétypes, la fonction compensatrice du rêve et le pont que Jung a tendu vers les ancêtres.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="rever-des-morts-et-des-ancetres.html">
+          <img class="carte-photo" src="assets/images/blog-ancetres-reve-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Rêver des morts et des ancêtres : ce que ces rêves disent de ta famille</h2>
           <p>Proches disparus et ancêtres dans les rêves : croyances du monde entier, lecture de Jung, rêves de deuil et pistes concrètes pour l&#x27;histoire familiale.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="reves-dans-l-antiquite.html">
+          <img class="carte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Les rêves dans l&#x27;Antiquité : Mésopotamie, Égypte, Grèce et Rome</h2>
           <p>Mésopotamie, Égypte, Bible, Grèce et Rome : comment l&#x27;Antiquité lisait les rêves, et pourquoi le contexte du rêveur, cher à Artémidore, compte encore.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="reves-et-peuples-autochtones.html">
+          <img class="carte-photo" src="assets/images/blog-peuples-autochtones-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Ce que les peuples autochtones nous apprennent sur les rêves</h2>
           <p>Désirs de l&#x27;âme chez les Wendat, rêves partagés à l&#x27;aube chez les Achuar, Tjukurpa des Anangu : des traditions vivantes, présentées avec précision et sans exotisme.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="grands-symboles-des-reves.html">
+          <img class="carte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Eau, maison, serpent, chute… les grands symboles des rêves dans les cultures</h2>
           <p>Dix grands symboles des rêves, de la maison familiale au serpent, lus à travers Jung, les mythes et les traditions, avec une question à te poser pour chacun.</p>
           <span class="meta">7 octobre 2026 · 8 min de lecture</span>
         </a>
         <a class="article-carte" href="reves-recurrents-et-memoire-familiale.html">
+          <img class="carte-photo" src="assets/images/blog-reves-recurrents-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Rêves récurrents et mémoire familiale : quand la nuit insiste</h2>
           <p>Ce que Jung disait des rêves qui reviennent, comment ils changent quand tu changes, et comment les relier prudemment à ton arbre familial.</p>
           <span class="meta">7 octobre 2026 · 9 min de lecture</span>
         </a>
         <a class="article-carte" href="journal-de-reves.html">
+          <img class="carte-photo" src="assets/images/blog-journal-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Symbolique des rêves</span>
           <h2>Tenir un journal de rêves : la méthode pas à pas, du carnet à la lignée</h2>
           <p>La méthode pas à pas pour noter, titrer, amplifier et relire tes rêves, avec un modèle de page et des pistes pour les relier à ta lignée.</p>
@@ -130,12 +146,14 @@
       <div class="conteneur"><div class="bloc-tete"><h2>Toussaint et mémoire des ancêtres</h2></div></div>
       <div class="conteneur articles">
         <a class="article-carte" href="toussaint-ancetres-et-deuils.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Toussaint</span>
           <h2>Toussaint : honorer tes ancêtres et regarder les deuils de ta lignée</h2>
           <p>D'où viennent ces fêtes, les deuils restés en suspens, des questions à poser en famille et des gestes simples.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="rever-de-ses-grands-parents-decedes.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Toussaint</span>
           <h2>Rêver de ses grands-parents décédés</h2>
           <p>Qui sourit, qui parle, qui donne quelque chose : ce que ces rêves peuvent te dire.</p>
@@ -148,102 +166,119 @@
       <div class="conteneur"><div class="bloc-tete"><h2>Arbre, famille et schémas</h2></div></div>
       <div class="conteneur articles">
         <a class="article-carte" href="memoire-transgenerationnelle.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>La mémoire transgénérationnelle</h2>
           <p>Ce qui se transmet en silence d'une génération à l'autre, et ce qu'on peut vraiment en dire.</p>
           <span class="meta">7 octobre 2026 · 8 min de lecture</span>
         </a>
         <a class="article-carte" href="loyaute-familiale-invisible.html">
+          <img class="carte-photo" src="assets/images/genesolia-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>Les loyautés familiales invisibles</h2>
           <p>Ces fidélités qui nous lient sans le savoir, et comment les transformer en fidélités choisies.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="syndrome-du-gisant.html">
+          <img class="carte-photo" src="assets/images/blog-deuil-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>Le syndrome du gisant</h2>
           <p>Porter, sans le savoir, la vie d'un mort : la notion du Dr Sellam, un exemple sur cinq générations et ses limites.</p>
           <span class="meta">7 octobre 2026 · 8 min de lecture</span>
         </a>
         <a class="article-carte" href="enfant-de-remplacement.html">
+          <img class="carte-photo" src="assets/images/blog-reves-recurrents-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>L&#x27;enfant de remplacement</h2>
           <p>Naître après un enfant disparu : exemples, vécu à l'âge adulte et pistes pour trouver sa place.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="place-dans-la-fratrie.html">
+          <img class="carte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>La place dans la fratrie</h2>
           <p>Aîné·e, milieu, cadet·te : ce que disent les recherches, et ce qu'apporte la psychogénéalogie.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="peur-de-manquer-d-argent.html">
+          <img class="carte-photo" src="assets/images/blog-argent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Psychogénéalogie</span>
           <h2>La peur de manquer d&#x27;argent</h2>
           <p>Quand l'insécurité vient de plus loin que toi, et des pistes concrètes pour l'apaiser.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="relation-floue.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Tes 20 ans</span>
           <h2>Relation floue : pourquoi c'est si dur de demander « on est quoi ? »</h2>
           <p>Reconnaître une relation floue, comprendre pourquoi on accepte le flou, et oser poser la question, avec des phrases prêtes à dire.</p>
           <span class="meta">7 octobre 2026 · 6 min de lecture</span>
         </a>
         <a class="article-carte" href="conflits-avec-ses-parents.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Tes 20 ans</span>
           <h2>Toujours en conflit avec tes parents ? Ce qui se joue vraiment</h2>
           <p>Pourquoi ça clashe à 20 ans, ce que leurs inquiétudes racontent, et une méthode en cinq étapes pour sortir des disputes.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="se-sentir-seule.html">
+          <img class="carte-photo" src="assets/images/suivi-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Tes 20 ans</span>
           <h2>Se sentir seule, même entourée</h2>
           <p>Ce n'est ni rare ni un défaut. Ce qui peut se jouer, et cinq petites actions pour recréer du lien.</p>
           <span class="meta">7 octobre 2026 · 5 min de lecture</span>
         </a>
         <a class="article-carte" href="blessure-rejet-ou-abandon.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Blessures</span>
           <h2>Blessure de rejet ou d&#x27;abandon : comment faire la différence</h2>
           <p>La différence en un tableau et un exemple concret, avec le comparatif des cinq blessures.</p>
           <span class="meta">7 octobre 2026 · 6 min de lecture</span>
         </a>
         <a class="article-carte" href="masques-des-5-blessures.html">
+          <img class="carte-photo" src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Blessures</span>
           <h2>Les cinq masques des blessures de l&#x27;âme</h2>
           <p>Fuyant, dépendant, masochiste, contrôlant, rigide : ce que chaque masque protège, et comment l'alléger.</p>
           <span class="meta">7 octobre 2026 · 8 min de lecture</span>
         </a>
         <a class="article-carte" href="blessure-abandon-relation-amoureuse.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Blessures</span>
           <h2>Blessure d&#x27;abandon et relation amoureuse</h2>
           <p>Quand la peur d'être quitté·e prend la place : les signes, l'histoire familiale et des pistes.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="blessure-trahison-relation-amoureuse.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Blessures</span>
           <h2>Blessure de trahison et relation amoureuse</h2>
           <p>Méfiance, contrôle, jalousie : retrouver confiance, et voir d'où vient la peur d'être trompé·e.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="schemas-repetitifs-en-amour.html">
+          <img class="carte-photo" src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Schémas répétitifs</span>
           <h2>Schémas répétitifs en amour : repérer ce qui se rejoue</h2>
           <p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer, et un exercice pour faire autrement.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="informations-avant-genosociogramme.html">
+          <img class="carte-photo" src="assets/images/genosociogramme-vierge-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Génosociogramme</span>
           <h2>Quelles informations rassembler avant de faire son génosociogramme</h2>
           <p>Les informations à réunir, thème par thème, où les trouver, et une liste à cocher à imprimer.</p>
           <span class="meta">7 octobre 2026 · 7 min de lecture</span>
         </a>
         <a class="article-carte" href="questions-a-poser-a-sa-famille.html">
+          <img class="carte-photo" src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Famille</span>
           <h2>Les questions à poser à sa famille pour compléter son arbre</h2>
           <p>Comment s'y prendre avec tes parents et grands-parents, une trentaine de questions, et quoi faire des réponses.</p>
           <span class="meta">7 octobre 2026 · 8 min de lecture</span>
         </a>
         <a class="article-carte" href="arbre-de-vie-arbre-genealogique-genosociogramme.html">
+          <img class="carte-photo" src="assets/images/arbre-de-vie-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
           <span class="theme">Arbre de vie</span>
           <h2>Arbre de vie, arbre généalogique, génosociogramme : trois arbres à ne pas confondre</h2>
           <p>À quoi sert chacun, ce qu'on y note, d'où il vient, et comment les utiliser ensemble.</p>
