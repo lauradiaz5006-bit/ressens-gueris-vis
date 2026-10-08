@@ -439,7 +439,7 @@
       el.innerHTML = (reste > 0
         ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement passe à 29 € par mois, sauf si tu l\'arrêtes avant.'
         : 'Ton abonnement au Cercle est actif.') +
-        (gestion ? ' <a href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
+        (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
     }
     window.GenesoliaEspaceDeconnecte = function (texte) {

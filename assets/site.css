@@ -128,17 +128,21 @@ section.bloc{padding:4.5rem 0}
 .entete .conteneur{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
 .marque{font-family:var(--display);font-size:1.3rem;text-decoration:none;display:flex;align-items:center;gap:.6rem;color:var(--prune)}
 .marque svg{width:26px;height:26px;display:block}
-.menu{display:flex;align-items:center;gap:1.3rem}
+.menu{display:flex;align-items:center;gap:1.05rem}
 .menu a{text-decoration:none;font-size:.95rem;color:var(--prune-doux);white-space:nowrap}
 .menu a:hover,.menu a[aria-current="page"]{color:var(--prune)}
 .menu .btn{color:var(--blanc);padding:.6rem 1.15rem}
+.menu .btn-jeunes,.menu .btn-jeunes[aria-current="page"]{background:var(--corail);color:var(--prune);font-weight:700;margin-right:-.35rem}
+.menu .btn-jeunes:hover{background:#DE958B;color:var(--prune)}
 .burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--prune);padding:0}
-@media (max-width:1180px){
+@media (max-width:1240px){
   .burger{display:grid;place-items:center}
   .menu{position:fixed;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--rose-fonce);padding:.5rem 1.25rem 1.25rem;display:none}
   .menu.ouvert{display:flex}
   .menu a{padding:.85rem 0;border-bottom:1px solid var(--rose);font-size:1.05rem}
   .menu .btn{margin-top:1rem;border-bottom:0}
+  .menu .btn-jeunes{margin-right:0}
+  .menu .btn-jeunes+.btn{margin-top:.6rem}
 }
 
 /* Pied de page */
@@ -269,3 +273,19 @@ section.cadeau-bas{padding-top:2.5rem}
 .guide-bulle a{font-weight:600;color:var(--prune)}
 .guide.centre{margin-inline:auto}
 @media (max-width:560px){.guide img{width:70px;height:70px}.guide-bulle{font-size:.9rem}}
+
+/* Textes « Comment lire… » en bas des outils : carte aérée sur fond coloré */
+section[data-seo-texte]{background:radial-gradient(40rem 22rem at 90% 0%,rgba(243,220,192,.55),transparent 65%),radial-gradient(36rem 24rem at 0% 100%,rgba(236,190,210,.45),transparent 60%),linear-gradient(180deg,var(--rose),#FBEFF0);border-block:0;padding:5rem 0}
+section[data-seo-texte]>.conteneur{max-width:50rem!important;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:28px;padding:3.2rem 3.4rem;box-shadow:0 24px 60px rgba(107,47,91,.10);overflow:hidden}
+section[data-seo-texte] .seo-image{display:block;width:calc(100% + 6.8rem);max-width:none;height:auto;aspect-ratio:16/6;object-fit:cover;margin:-3.2rem -3.4rem 2.6rem}
+section[data-seo-texte] h2{margin-bottom:1.4rem}
+section[data-seo-texte] p{max-width:none;margin-bottom:1.15rem;line-height:1.8}
+section[data-seo-texte] h3{position:relative;margin:2.6rem 0 .9rem;padding-top:1.4rem}
+section[data-seo-texte] h3::before{content:"";position:absolute;top:0;left:0;width:3rem;height:2px;border-radius:2px;background:var(--champagne)}
+section[data-seo-texte] .questions{margin-top:2.8rem!important;padding-top:.4rem}
+section[data-seo-texte] .questions details p{margin-bottom:.4rem}
+@media (max-width:640px){
+  section[data-seo-texte]{padding:3rem 0}
+  section[data-seo-texte]>.conteneur{padding:2rem 1.4rem;border-radius:22px}
+  section[data-seo-texte] .seo-image{width:calc(100% + 2.8rem);margin:-2rem -1.4rem 1.8rem;aspect-ratio:16/8}
+}
