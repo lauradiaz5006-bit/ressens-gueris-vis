@@ -124,6 +124,12 @@
     .ch-jaimes{margin-top:.6rem}.ch-jaimes h3{font-size:1.1rem;margin-bottom:.5rem}
     .ch-jaimes ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
     .ch-jaimes a{display:inline-block;padding:.4rem .8rem;border-radius:99px;background:#FDECEE;color:#A3304A;text-decoration:none;font-size:.85rem;font-weight:600}
+    .sy-appel{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:1.1rem 1.3rem;border-radius:18px;background:linear-gradient(135deg,#3A1745,#6B2F5B);color:#fff}
+    .sy-appel b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem}.sy-appel span{font-size:.88rem;color:#F1DDE8}.sy-appel .btn{background:#F3DCC0;color:var(--prune)}
+    .sy{display:grid;gap:.8rem}.sy-sur{font:700 .75rem/1.3 var(--texte);letter-spacing:.05em;text-transform:uppercase;color:#A4473D}
+    .sy-bloc{border:1px solid var(--rose);border-radius:16px;padding:1rem 1.2rem;background:#fff}.sy-bloc h3{font-size:1.15rem;margin-bottom:.4rem}.sy-bloc ul{margin:0 0 0 1.1rem;display:grid;gap:.35rem;font-size:.93rem}
+    .sy-cycle{background:linear-gradient(150deg,#FBF0E4,#fff)}.sy-pas .btn{margin-top:.6rem}.sy-note{font-size:.82rem;color:var(--prune-doux)}
+    @media (max-width:600px){.sy-appel{grid-template-columns:1fr}}
   </style>
 </head>
 <body class="nouveau">
@@ -223,6 +229,7 @@
 
         <section class="tb-carte tb-large tb-chemin" id="mon-chemin" aria-labelledby="t-chemin">
           <div class="ch-tete"><h2 id="t-chemin">Mon chemin</h2><p class="tb-aide">Tous les tests que tu as faits sur Genesolia, avec leur date, pour voir ton évolution. Toi seul·e les vois. Tu peux effacer chaque résultat, ou tout.</p></div>
+          <div id="chemin-synthese"></div>
           <div id="chemin-liste"><p class="tb-aide">Chargement de ton chemin…</p></div>
           <div class="tb-actions ch-pied" id="chemin-pied" hidden><button class="btn btn-trait" type="button" id="chemin-tout-effacer">Tout effacer</button></div>
           <div id="chemin-jaimes"></div>
@@ -298,7 +305,7 @@
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/mon-chemin.js?v=1"></script>
-  <script src="assets/espace.js?v=2026-10-10a"></script>
+  <script src="assets/espace.js?v=2026-10-10b"></script>
   <script>
   (function () {
     'use strict';

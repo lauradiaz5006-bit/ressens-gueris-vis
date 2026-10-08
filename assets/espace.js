@@ -229,7 +229,7 @@
 
 
   /* ===== Mon chemin : tous les tests, avec leur date ===== */
-  var PAGES_OUTILS = { 'arbre-de-vie': ['arbre-de-vie.html', 'Refaire le test'], blessures: ['blessures-de-l-ame.html', 'Refaire'], numerologie: ['theme-numerologique.html', 'Ouvrir'], astral: ['theme-astral.html', 'Ouvrir'], maya: ['ton-signe-maya.html', 'Ouvrir'], prenom: ['ton-prenom.html', 'Lire un autre prénom'] };
+  var PAGES_OUTILS = { 'arbre-de-vie': ['arbre-de-vie.html', 'Refaire le test'], blessures: ['blessures-de-l-ame.html', 'Refaire'], numerologie: ['theme-numerologique.html', 'Ouvrir'], astral: ['theme-astral.html', 'Ouvrir'], maya: ['ton-signe-maya.html', 'Ouvrir'], prenom: ['ton-prenom.html', 'Lire un autre prénom'], 'prenoms-famille': ['ton-prenom.html#famille', 'Comparer d\u2019autres prénoms'], 'maya-duo': ['ton-signe-maya.html#duo', 'Comparer avec un autre proche'] };
   var NOMS_OUTILS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Prénoms', synthese: 'Ma synthèse', 'prenoms-famille': 'Prénoms de ma famille', 'maya-duo': 'Signes maya à deux' };
   function dateCourte(d) { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
   function evolution(outil, l) {
@@ -261,6 +261,28 @@
         return;
       }
       var par = {}; l.forEach(function (x) { (par[x.outil] = par[x.outil] || []).push(x); });
+      var nbOutils = Object.keys(par).filter(function (k) { return k !== 'synthese'; }).length;
+      var zs = $('chemin-synthese');
+      if (zs) {
+        zs.innerHTML = nbOutils >= 2 ? '<div class="sy-appel"><div><b>Ma synthèse</b><span>Tes ' + nbOutils + ' outils croisés en une lecture d’ensemble : ce qui revient, tes ressources, ce qui demande de l’attention.</span></div><button type="button" class="btn btn-plein" id="bt-synthese">Voir ma synthèse</button></div>'
+          : '<p class="tb-aide">Fais au moins deux tests différents pour débloquer <b>ta synthèse</b> : une lecture d’ensemble de tous tes résultats.</p>';
+        var bs = $('bt-synthese');
+        if (bs) bs.onclick = function () {
+          bs.disabled = true; bs.textContent = 'Préparation…';
+          var charge = window.GenesoliaSynthese ? Promise.resolve() : new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/synthese.js?v=1'; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+          charge.then(function () { return window.GenesoliaSynthese ? window.GenesoliaSynthese.construire(l) : null; }).then(function (res) {
+            bs.disabled = false; bs.textContent = 'Voir ma synthèse';
+            if (!res) return;
+            zs.innerHTML = res.html + '<div class="tb-actions"><button type="button" class="btn btn-trait" id="sy-imprimer">Télécharger ma synthèse</button><button type="button" class="btn btn-trait" id="sy-garder">Garder cette synthèse datée</button></div>';
+            $('sy-imprimer').onclick = function () {
+              var w = window.open('', '_blank'); if (!w) return;
+              w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ma synthèse · Genesolia</title><style>body{font:15px/1.7 Georgia,serif;color:#4a2342;max-width:44rem;margin:0 auto;padding:1.2rem}h1,h3{font-weight:400;color:#6B2F5B}h1{font-size:30px}.sy-sur{color:#B98A55;font:700 11px sans-serif;letter-spacing:1.5px;text-transform:uppercase}.sy-bloc{border:1px solid #EBCFD5;border-radius:12px;padding:.8rem 1.1rem;margin:.8rem 0;break-inside:avoid}.sy-cycle{background:#FBF0E4}.btn{display:none}.sy-note{font-size:12px;color:#8E6383}.b{position:sticky;top:0;background:#6B2F5B;color:#fff;padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;font:600 14px sans-serif}.b button{border:0;border-radius:99px;padding:.5rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif}@media print{.b{display:none}}</style></head><body><div class="b"><span>Ta synthèse Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div><h1>Ma synthèse</h1><p>Le ' + new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + ' · genesolia.fr</p>' + res.html + '</body></html>');
+              w.document.close();
+            };
+            $('sy-garder').onclick = function () { var bt = this; sb.from('resultats').insert({ outil: 'synthese', titre: 'Ma synthèse', resume: res.resume, donnees: res.donnees }).then(function (x) { bt.textContent = x.error ? 'Réessaie' : 'Synthèse gardée'; }); };
+          });
+        };
+      }
       z.innerHTML = '<div class="ch-outils">' + Object.keys(par).map(function (k) {
         var g = par[k], d = g[0], ev = evolution(k, g), p = PAGES_OUTILS[k];
         return '<article class="ch-outil"><span class="ch-nb">' + g.length + ' résultat' + (g.length > 1 ? 's' : '') + '</span><h3>' + esc(NOMS_OUTILS[k] || k) + '</h3>' +
