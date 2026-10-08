@@ -22,6 +22,14 @@
     .n-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
     .n-tete h1{margin-bottom:1rem}
     .n-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
+    .n-2027{display:flex;align-items:center;gap:1rem;margin-top:1.4rem;padding:1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);max-width:34rem}
+    .n-2027:hover{border-color:var(--prune)}
+    .n-2027 b{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;color:var(--champagne)}
+    .n-2027 span{display:block;font-size:.95rem;line-height:1.4}
+    .n-2027 strong{display:block;font-weight:600}
+    .n-suite{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin:0 0 1.6rem;padding:1.2rem 1.4rem;border-radius:18px;border:1px solid var(--champagne);background:#FFF6EC}
+    .n-suite p{margin:0;max-width:36rem}
+    .n-suite .n-big{font-family:var(--display);font-size:1.6rem;color:var(--prune)}
     .n-roue{position:absolute;right:-6rem;top:-4rem;width:26rem;opacity:.16;pointer-events:none}
     .n-form{position:relative;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
     .n-form h2{font-size:1.5rem;margin-bottom:.3rem}
@@ -204,6 +212,7 @@
           <p class="n-sur">Gratuit · sans inscription</p>
           <h1>Ton thème numérologique</h1>
           <p class="intro">Ton prénom, ton nom de naissance et ta date de naissance cachent des nombres. Découvre ton chemin de vie, tes forces, tes défis et l'année que tu traverses. Puis relie ton thème à celui de ta famille : c'est là que tout prend sens.</p>
+          <a class="n-2027" href="annee-personnelle-2027.html#calcul"><b>2027</b><span><strong>Nouveau : ton année personnelle 2027</strong>Découvre en quelques secondes ce que l'an prochain t'invite à vivre, mois par mois.</span></a>
         </div>
         <form class="n-form" id="n-form" novalidate>
           <h2>Calcule ton thème</h2>
@@ -296,6 +305,13 @@
       h += '<div class="n-annee"><div class="n-an"><p class="n-etiq">Ton année personnelle ' + auj.getFullYear() + '</p><h3>' + t.annee + ' · ' + A.titre + '</h3><p>' + A.texte + '</p><p class="piste"><b>Ta piste :</b> ' + A.piste + '</p></div>' +
         '<div class="n-mois"><p class="n-etiq">Ton mois personnel</p><div class="n-big">' + t.mois + '</div><h3>En ' + moisNom + '</h3><p>' + N.MOIS[t.mois] + '</p>' +
         '<p class="n-jour"><b>Aujourd\'hui, jour ' + t.journee + ' :</b> ' + N.JOURNEES[t.journee] + '</p></div></div>';
+      // Année personnelle 2027 : l'an prochain (ou l'année en cours en 2027)
+      var dm = /^\d{4}-(\d{2})-(\d{2})$/.exec(t.date || '');
+      if (dm && auj.getFullYear() <= 2027) {
+        var a27 = N.anneePerso(+dm[2], +dm[1], 2027), A27 = N.ANNEES[a27];
+        h += '<div class="n-suite"><p>' + (auj.getFullYear() < 2027 ? 'Et l\'an prochain ? En 2027, tu seras en ' : 'En 2027, tu es en ') + '<span class="n-big">année personnelle ' + a27 + '</span> : ' + A27.titre.charAt(0).toLowerCase() + A27.titre.slice(1) + '.</p>' +
+          '<a class="btn btn-plein" href="annee-personnelle-' + a27 + '-en-2027.html">Lire mon année ' + a27 + ' en 2027</a></div>';
+      }
 
       // Grandes périodes
       var pa = t.periodeActuelle;
