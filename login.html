@@ -51,6 +51,10 @@
     .espace.connectee{align-items:flex-start}
     .tableau{width:100%;max-width:1080px}
     .espace .pub-avantages{max-width:1080px}
+    .pa-boutons{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:center}
+    .pa-lien{color:#F7E6EE;font-size:.9rem}
+    .pub-avantages .pa-sur s{opacity:.85}
+    .tb-essai{margin:0;padding:.6rem .9rem;border-radius:12px;background:#FFF6EC;border:1px solid var(--champagne-clair);font-size:.92rem}
     #carte-auth:not([hidden]) ~ .pub-avantages{margin:1.6rem auto 0}
     .tb-tete{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;margin-bottom:1rem}
     .tb-titre{margin-right:auto}
@@ -139,18 +143,18 @@
     <aside class="pub-avantages" aria-labelledby="pa-titre">
       <div class="pa-tete">
         <div>
-          <p class="pa-sur">Le Cercle · ouverture le 1<sup>er</sup> novembre</p>
-          <h2 id="pa-titre">Tout Genesolia, chaque mois, à 29 € sans engagement</h2>
+          <p class="pa-sur">Le Cercle · <s>29 € par mois</s></p>
+          <h2 id="pa-titre">Teste tout Genesolia 1 mois gratuitement</h2>
         </div>
-        <a class="btn btn-plein" href="abonnement.html">Voir tous les avantages</a>
+        <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
       </div>
       <ul>
-        <li><b>Ton carnet du mois</b>, dix pages à imprimer</li>
+        <li><b>Un nouveau carnet chaque mois</b>, dix pages à imprimer</li>
         <li><b>Ton suivi semaine après semaine</b>, avec la méthode des deux cycles</li>
         <li><b>Ton mois personnel</b> : ton guide, ton calendrier et les dates de ton arbre</li>
         <li><b>Le rapport complet de ton arbre</b>, régénéré quand tu veux</li>
-        <li><b>Tous les livrets inclus</b> : numérologie, Les 12 saisons et les suivants</li>
-        <li><b>Le premier carnet offert</b>, tout de suite, et tu arrêtes quand tu veux</li>
+        <li><b>Tous les livrets inclus</b>, débloqués au fil des mois</li>
+        <li><b>Sans engagement</b> : ensuite 29 € par mois, tu arrêtes en 1 clic</li>
       </ul>
     </aside>
 
@@ -188,6 +192,7 @@
             <li>Le carnet des deux cycles à imprimer</li>
           </ul>
           <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>offert</span></p>
+          <p class="tb-essai" id="essai-info" hidden></p>
           <p class="tb-aide">Chaque mois, ton mois personnel en numérologie, ton calendrier et les dates de ton arbre qui tombent ce mois-ci. Avec le rapport complet de ton arbre, régénéré quand tu veux.</p>
           <div class="tb-actions"><a class="btn btn-plein" href="mon-suivi.html">Mon suivi</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="mon-mois.html">Voir mon mois</a><a class="btn btn-trait" href="mon-mois.html#offert">Mon premier carnet offert</a></div>
         </section>
@@ -396,10 +401,27 @@
 
     // Connectée : tableau de bord
     function connecte(user, redirection) {
-      if (redirection && retour) { location.href = retour; return; }
+      var suite = null;
+      if (redirection) try { suite = localStorage.getItem('retour-apres-connexion'); localStorage.removeItem('retour-apres-connexion'); } catch (e) {}
+      if (suite && !/^[a-z0-9\-]+\.html$/i.test(suite)) suite = null;
+      if (redirection && (retour || suite)) { location.href = retour || suite; return; }
+      afficherEssai(user);
       $('carte-auth').hidden = true; $('carte-connecte').hidden = false;
       document.querySelector('.espace').classList.add('connectee');
       window.GenesoliaEspace.ouvrir(sb, user);
+    }
+    // Essai gratuit du Cercle : jours restants et lien pour gérer l'abonnement
+    function afficherEssai(user) {
+      var m = (user && user.user_metadata) || {}, el = $('essai-info');
+      if (!m.essai_debut || !el) return;
+      var fin = new Date(m.essai_debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
+      var reste = Math.ceil((fin - new Date()) / 864e5);
+      var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+      el.innerHTML = (reste > 0
+        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + ').'
+        : 'Ton abonnement au Cercle est actif.') +
+        (gestion ? ' <a href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
+      el.hidden = false;
     }
     window.GenesoliaEspaceDeconnecte = function (texte) {
       $('carte-connecte').hidden = true; $('carte-auth').hidden = false;
@@ -427,7 +449,7 @@
         // Ne jamais appeler Supabase directement dans ce rappel (blocage de la bibliothèque) : on diffère
         setTimeout(function () {
           if (!$('carte-connecte').hidden) return;
-          connecte(session.user, !!retour);
+          connecte(session.user, !!retour || confirmee);
           if (confirmee) window.GenesoliaEspaceInfo && window.GenesoliaEspaceInfo('Ton adresse est confirmée, bienvenue !');
         }, 0);
       }

@@ -9,6 +9,21 @@
   document.head.appendChild(s);
 })();
 
+/* ===== Paiements Stripe : coller ici chaque lien de paiement (Stripe > Liens de paiement) =====
+   Abonnements : activer « essai gratuit de 30 jours » dans Stripe, et la page de confirmation
+   https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
+window.GENESOLIA_STRIPE = {
+  cercleMois: '',     /* Le Cercle 29 €/mois, essai 30 jours */
+  cercleAn: '',       /* Le Cercle 290 €/an, essai 30 jours */
+  carnet: '',         /* un carnet du mois, 9 € */
+  rapport: '',        /* le rapport de ton arbre, 9 € */
+  numerologie: '',    /* ton livret de numérologie, 12 € */
+  saisons: '',        /* Les 12 saisons, 15 € */
+  packLignee: '',     /* Pack Lignée, 35 € */
+  packAnnee: '',      /* Pack L'année complète, 79 € */
+  gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
+};
+
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
@@ -26,6 +41,8 @@
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
+  /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
+  var tunnel = page === 'essai.html' || page === 'bienvenue.html';
 
   var entete = document.querySelector('[data-entete]');
   if (entete) {
@@ -114,7 +131,7 @@
   try { inscrit = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
-  if (piedPage && !document.querySelector('[data-cadeau]')) {
+  if (piedPage && !tunnel && !document.querySelector('[data-cadeau]')) {
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
@@ -182,7 +199,7 @@
   /* Bandeau fin en haut de toutes les pages (sauf la page de la formation) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-formation') === 'fermee'; } catch (e) {}
-  if (annonceActive && !fermee && page !== FORMATION.page && entete) {
+  if (annonceActive && !fermee && !tunnel && page !== FORMATION.page && entete) {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce';
     bandeau.innerHTML =
@@ -305,7 +322,7 @@
     lien: 'mon-mois.html#offert'
   };
   function carreCercle() {
-    if (page === 'mon-mois.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || document.querySelector('.carre-cercle')) return;
     try {
       var ferme = +localStorage.getItem('carre-cercle-ferme') || 0;
       if (Date.now() - ferme < 7 * 864e5) return;

@@ -245,11 +245,18 @@
       else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
       return '<div class="m-piste"><p class="m-etiq">Ta piste ' + de(nomMois) + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
     }
+    /* Mois d'arrivée dans Le Cercle (début de l'essai, sinon création du compte) :
+       on reçoit un carnet par mois à partir de là, pas les carnets d'avant */
+    function moisDebut() {
+      var m = (utilisateur && utilisateur.user_metadata) || {};
+      var d = m.essai_debut || (utilisateur && utilisateur.created_at) || '';
+      return String(d).slice(0, 7);
+    }
     function blocCarnets() {
-      var cle = Y + '-' + (M < 10 ? '0' : '') + M, cles = Object.keys(CARNETS).sort(), h = '';
+      var cle = Y + '-' + (M < 10 ? '0' : '') + M, cles = Object.keys(CARNETS).sort(), h = '', debut = moisDebut();
       if (!cles.length) return '';
       var actuel = CARNETS[cle] ? cle : (cle < cles[0] ? cles[0] : null);
-      var anciens = cles.filter(function (k) { return k < cle && k !== actuel; }).reverse();
+      var anciens = cles.filter(function (k) { return k < cle && k !== actuel && (!debut || k >= debut); }).reverse();
       function nom(k) { var p = k.split('-'); return MOIS[+p[1] - 1] + ' ' + p[0]; }
       h += '<h2 class="m-titre">Ton carnet du mois</h2>';
       if (actuel) {
@@ -261,6 +268,8 @@
       return h;
     }
     function blocBonus() {
+      var cle = Y + '-' + (M < 10 ? '0' : '') + M, debut = moisDebut();
+      if (debut && debut >= cle) return '<p class="m-anciens" style="margin-top:1rem">Le mois prochain, avec ton nouveau carnet, tu reçois aussi le livret <b>Les 12 saisons</b>.</p>';
       return '<div class="m-carnet" style="margin-top:1rem;background:linear-gradient(120deg,#F7E6E8,var(--blanc))"><div><p class="m-etiq">Bonus du Cercle</p><h3>Les 12 saisons</h3><p>Le livret de l\'année : l\'histoire de chaque mois, son énergie, les signes qui le traversent et ce qu\'il réveille dans les familles. 27 pages à imprimer.</p></div>' +
         '<a class="btn btn-trait" href="assets/cercle/les-12-saisons-c4709f2dad.pdf" download>Télécharger le livret (PDF)</a></div>';
     }

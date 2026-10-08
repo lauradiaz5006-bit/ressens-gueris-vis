@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Bienvenue dans Le Cercle · Genesolia</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .b-tete{background:linear-gradient(120deg,#2E1338,#6B2F5B);color:#F7E6EE;padding:3.5rem 0 3rem}
+    .b-tete h1{color:#fff;margin-bottom:.8rem}
+    .b-tete .intro{color:#F7E6EE;font-size:1.12rem;max-width:38rem}
+    .b-fin{display:inline-block;margin-top:1.2rem;padding:.55rem 1.1rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.4);font-weight:600}
+    .b-fin b{color:var(--champagne-clair)}
+    .b-grille{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.1rem}
+    .b-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem;display:flex;flex-direction:column;gap:.6rem}
+    .b-carte h2{font-size:1.35rem}
+    .b-carte p{color:var(--prune-doux);font-size:.95rem}
+    .b-carte .btn{margin-top:auto;align-self:flex-start}
+    .b-num{font:600 .75rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne)}
+    .b-mot{max-width:44rem;margin:0 auto;text-align:center}
+    .b-mot h2{font-size:1.8rem;margin-bottom:.8rem}
+    .b-mot p{color:var(--prune-doux);margin-bottom:1rem}
+    @media (max-width:760px){.b-grille{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="b-tete">
+      <div class="conteneur">
+        <p class="a-sur" style="font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem">Bienvenue dans Le Cercle</p>
+        <h1 id="b-titre">Ton mois commence aujourd'hui</h1>
+        <p class="intro">Ton essai est activé. Ce mois-ci, tu reçois ton premier carnet, la semaine 1 de ton suivi et ton mois personnel. La suite arrive au fil des semaines et des mois.</p>
+        <p class="b-fin" id="b-fin" hidden></p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <h2 style="margin-bottom:1.4rem">Par où commencer</h2>
+        <div class="b-grille">
+          <article class="b-carte"><p class="b-num">Aujourd'hui</p><h2>Ton carnet du mois</h2><p>Dix pages à imprimer : le thème du mois, trois exercices, un rituel symbolique et une méditation à lire.</p><a class="btn btn-plein" href="mon-mois.html">Ouvrir mon mois et mon carnet</a></article>
+          <article class="b-carte"><p class="b-num">Cette semaine</p><h2>La semaine 1 de ton suivi</h2><p>Ton suivi part de ton bilan de départ. Un rendez-vous par semaine, à ton rythme.</p><a class="btn btn-trait" href="mon-suivi.html">Commencer ma semaine 1</a></article>
+          <article class="b-carte"><p class="b-num">Quand tu veux</p><h2>Ton guide du mois</h2><p>Ton nombre du mois, ton calendrier et les dates de ton arbre qui tombent ce mois-ci.</p><a class="btn btn-trait" href="mon-guide.html">Voir mon guide</a></article>
+          <article class="b-carte"><p class="b-num">Pour aller plus loin</p><h2>Ton arbre familial</h2><p>Plus tu le complètes, plus ton mois et ton rapport deviennent précis.</p><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur b-mot">
+        <h2>Tu fais partie des premières personnes</h2>
+        <p>Genesolia vient tout juste d'ouvrir, et tu es là dès le début. Merci, sincèrement : ça compte énormément pour nous.</p>
+        <p>Le site grandit chaque semaine. Un bug, une page pas claire, une idée qui te manque ? Écris-nous : chaque message est lu, et beaucoup deviennent des améliorations. Ton avis aide aussi les personnes qui arriveront après toi.</p>
+        <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Donner mon avis</a>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co';
+    var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var sb = null;
+    try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    function afficherFin(debut) {
+      var fin = new Date(debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
+      var el = document.getElementById('b-fin');
+      el.innerHTML = 'Ton mois gratuit dure jusqu\'au <b>' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</b>';
+      el.hidden = false;
+    }
+    if (window.umami) try { window.umami.track('essai-active'); } catch (e) {}
+    if (!sb) { afficherFin(new Date().toISOString().slice(0, 10)); return; }
+    sb.auth.getSession().then(function (r) {
+      var s = r.data && r.data.session;
+      var aujourdhui = new Date().toISOString().slice(0, 10);
+      if (!s) { afficherFin(aujourdhui); return; }
+      var m = s.user.user_metadata || {};
+      if (m.full_name) document.getElementById('b-titre').textContent = m.full_name + ', ton mois commence aujourd\'hui';
+      if (m.essai_debut) { afficherFin(m.essai_debut); return; }
+      afficherFin(aujourdhui);
+      setTimeout(function () { sb.auth.updateUser({ data: { essai_debut: aujourdhui } }); }, 0);
+    });
+  })();
+  </script>
+</body>
+</html>
