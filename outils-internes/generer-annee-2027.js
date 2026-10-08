@@ -15,7 +15,7 @@ const slug = n => `annee-personnelle-${n}-en-${AN}.html`;
 const pilier = `annee-personnelle-${AN}.html`;
 
 const CSS = `
-    .colonne{width:min(42rem,100% - 2.5rem);margin-inline:auto}
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
     .colonne p{max-width:none}
     .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
     .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
