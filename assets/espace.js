@@ -227,16 +227,80 @@
     });
   }
 
+
+  /* ===== Mon chemin : tous les tests, avec leur date ===== */
+  var PAGES_OUTILS = { 'arbre-de-vie': ['arbre-de-vie.html', 'Refaire le test'], blessures: ['blessures-de-l-ame.html', 'Refaire'], numerologie: ['theme-numerologique.html', 'Ouvrir'], astral: ['theme-astral.html', 'Ouvrir'], maya: ['ton-signe-maya.html', 'Ouvrir'], prenom: ['ton-prenom.html', 'Lire un autre prénom'] };
+  var NOMS_OUTILS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Prénoms', synthese: 'Ma synthèse', 'prenoms-famille': 'Prénoms de ma famille', 'maya-duo': 'Signes maya à deux' };
+  function dateCourte(d) { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
+  function evolution(outil, l) {
+    if (l.length < 2) return '';
+    var a = l[0].donnees || {}, b = l[1].donnees || {};
+    if (outil === 'arbre-de-vie' && a.cycles && b.cycles) {
+      var noms = { racine: 'Racine', coeur: 'Cœur', elan: 'Élan' };
+      return 'Depuis le ' + dateCourte(l[1].cree_le) + ' : ' + Object.keys(noms).map(function (k) { var d = (a.cycles[k] || 0) - (b.cycles[k] || 0); return noms[k] + ' ' + (d > 0 ? '+' : d < 0 ? '−' : '±') + Math.abs(d); }).join(' · ');
+    }
+    if (outil === 'blessures' && a.scores && b.scores) {
+      var ch = Object.keys(a.scores).filter(function (k) { return (a.scores[k] || 0) !== (b.scores[k] || 0); });
+      return ch.length ? 'Depuis le ' + dateCourte(l[1].cree_le) + ' : ' + ch.map(function (k) { var d = (a.scores[k] || 0) - (b.scores[k] || 0); return k + ' ' + (d > 0 ? '+' : '−') + Math.abs(d); }).join(' · ') : 'Même résultat que le ' + dateCourte(l[1].cree_le) + '.';
+    }
+    return l.length + ' fois depuis le ' + dateCourte(l[l.length - 1].cree_le);
+  }
+  function chargerChemin() {
+    var z = $('chemin-liste'); if (!z) return;
+    var vider = window.GenesoliaChemin && window.GenesoliaChemin.viderAttente ? window.GenesoliaChemin.viderAttente(sb) : Promise.resolve(0);
+    vider.catch(function () { return 0; }).then(function (n) {
+      if (n) info(n > 1 ? n + ' résultats faits avant ta connexion ont été ajoutés à ton chemin.' : 'Le résultat fait avant ta connexion a été ajouté à ton chemin.');
+      return sb.from('resultats').select('id,outil,titre,resume,donnees,cree_le').order('cree_le', { ascending: false }).limit(300);
+    }).then(function (r) {
+      if (r.error) { z.innerHTML = '<p class="tb-aide">Ton chemin n’a pas pu être chargé pour l’instant.</p>'; return; }
+      var l = r.data || [];
+      $('chemin-pied').hidden = !l.length;
+      if (!l.length) {
+        z.innerHTML = '<p class="tb-aide">Ton chemin est encore vide. Fais un premier test : il s’enregistre ici automatiquement, avec sa date.</p><div class="ch-vide">' +
+          ['arbre-de-vie', 'blessures', 'numerologie', 'astral', 'maya', 'prenom'].map(function (k) { return '<a href="' + PAGES_OUTILS[k][0] + '">' + esc(NOMS_OUTILS[k]) + '</a>'; }).join('') + '</div>';
+        return;
+      }
+      var par = {}; l.forEach(function (x) { (par[x.outil] = par[x.outil] || []).push(x); });
+      z.innerHTML = '<div class="ch-outils">' + Object.keys(par).map(function (k) {
+        var g = par[k], d = g[0], ev = evolution(k, g), p = PAGES_OUTILS[k];
+        return '<article class="ch-outil"><span class="ch-nb">' + g.length + ' résultat' + (g.length > 1 ? 's' : '') + '</span><h3>' + esc(NOMS_OUTILS[k] || k) + '</h3>' +
+          '<p class="ch-dernier"><b>' + esc(dateCourte(d.cree_le)) + '</b> · ' + esc(d.titre) + (d.resume ? '<br>' + esc(d.resume) : '') + '</p>' +
+          (ev ? '<p class="ch-evol">' + esc(ev) + '</p>' : '') +
+          '<details><summary>Voir tout l’historique</summary><ul class="ch-hist">' + g.map(function (x) {
+            return '<li><time datetime="' + esc(x.cree_le) + '">' + esc(dateCourte(x.cree_le)) + '</time><span>' + esc(x.titre) + (x.resume ? ' · ' + esc(x.resume) : '') + '</span><button type="button" class="ch-suppr" data-suppr="' + esc(x.id) + '" aria-label="Effacer ce résultat">×</button></li>';
+          }).join('') + '</ul></details>' +
+          (p ? '<div class="ch-liens"><a href="' + p[0] + '">' + esc(p[1]) + '</a></div>' : '') + '</article>';
+      }).join('') + '</div>';
+    });
+    sb.from('mes_jaimes').select('page,titre,cree_le').order('cree_le', { ascending: false }).limit(60).then(function (r) {
+      var zj = $('chemin-jaimes'); if (!zj || r.error) return;
+      var l = r.data || [];
+      zj.innerHTML = l.length ? '<div class="ch-jaimes"><h3>Mes coups de cœur</h3><ul>' + l.map(function (x) { return '<li><a href="' + esc(x.page) + '.html">' + esc(x.titre || x.page) + '</a></li>'; }).join('') + '</ul></div>' : '';
+    });
+  }
+  function brancherChemin() {
+    var z = $('mon-chemin'); if (!z) return;
+    z.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-suppr]'); if (!b) return;
+      if (!confirm('Effacer ce résultat de ton chemin ?')) return;
+      sb.from('resultats').delete().eq('id', b.getAttribute('data-suppr')).then(function (r) { if (r.error) info('Le résultat n’a pas pu être effacé. Réessaie.', true); else { info('Résultat effacé.'); chargerChemin(); } });
+    });
+    $('chemin-tout-effacer').addEventListener('click', function () {
+      if (!confirm('Effacer tout ton chemin ? Tous tes résultats seront supprimés, ton arbre ne change pas.')) return;
+      sb.from('resultats').delete().eq('user_id', user.id).then(function (r) { if (r.error) info('Ton chemin n’a pas pu être effacé. Réessaie.', true); else { info('Ton chemin est effacé.'); chargerChemin(); } });
+    });
+  }
   window.GenesoliaEspaceInfo = function (t) { info(t); };
   var branche = false;
   window.GenesoliaEspace = {
     ouvrir: function (client, u) {
       sb = client; user = u;
-      if (!branche) { brancherPhoto(); brancherFormulaires(); branche = true; }
+      if (!branche) { brancherPhoto(); brancherFormulaires(); brancherChemin(); branche = true; }
       info('');
       $('zone-suppr').hidden = true;
       majEntete();
       chargerArbre();
+      chargerChemin();
     }
   };
 })();

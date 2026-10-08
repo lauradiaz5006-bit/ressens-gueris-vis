@@ -359,3 +359,13 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .pa-bouton{background:#F7C7BE!important;color:var(--prune)!important;font-weight:700;text-decoration:none}
 @media (max-width:700px){.pied-appli{grid-template-columns:1fr;padding:1.8rem 1.4rem 0;gap:1.2rem;text-align:center}.pa-tel{order:2;margin:0 auto;width:11.5rem;height:12rem}.pa-texte{padding-bottom:0}.pa-texte ul{display:inline-grid;text-align:left}.pa-tel{height:14rem}}
 @media (prefers-reduced-motion:reduce){.pa-grille b img{animation:none}}
+
+/* Mon chemin : message après un test */
+.chemin-toast{position:fixed;right:1rem;bottom:1rem;z-index:70;width:min(23rem,calc(100% - 2rem));padding:1.2rem 2.4rem 1.2rem 1.3rem;border-radius:20px;background:var(--blanc);border:1px solid var(--rose-fonce);box-shadow:0 22px 60px rgba(46,19,56,.25);font:400 .93rem/1.5 var(--texte);color:var(--prune);transform:translateY(140%);opacity:0;transition:transform .35s,opacity .35s}
+.chemin-toast.visible{transform:none;opacity:1}
+.chemin-toast p{margin:0 0 .5rem;max-width:none}
+.chemin-toast .ct-titre{font-family:var(--display);font-size:1.25rem;line-height:1.2}
+.chemin-toast .ct-actions{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;margin-top:.7rem}
+.chemin-toast .ct-lien{font-size:.88rem;color:var(--prune)}
+.chemin-toast .ct-fermer{position:absolute;top:.4rem;right:.6rem;background:none;border:0;font-size:1.4rem;color:var(--prune-doux);cursor:pointer}
+@media (max-width:600px){.chemin-toast{right:.6rem;bottom:.6rem;width:calc(100% - 1.2rem)}}

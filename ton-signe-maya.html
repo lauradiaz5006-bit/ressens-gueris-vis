@@ -187,6 +187,8 @@
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
       afficher(d, p);
+      if (window.GenesoliaChemin) { var rm = M.calculer(d), Sm = T.SIGNES[rm.signe]; window.GenesoliaChemin.enregistrer({ outil: 'maya', titre: 'Signe maya' + (p ? ' de ' + p : ''),
+        resume: rm.nombre + ' ' + Sm.kiche + ' · ' + Sm.image + ' · jour ' + rm.kin + ' sur 260', donnees: { date: d, prenom: p, nombre: rm.nombre, signe: rm.signe, kin: rm.kin } }); }
       try { localStorage.setItem(CLE, JSON.stringify({ date: d, prenom: p })); } catch (x) {}
       if (window.umami) try { window.umami.track('signe-maya'); } catch (x) {}
       zone.scrollIntoView({ behavior: 'smooth' });

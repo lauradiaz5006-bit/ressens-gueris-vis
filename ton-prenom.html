@@ -133,6 +133,8 @@
     f.addEventListener('submit', function (e) {
       e.preventDefault(); var v = f.prenom.value.trim(); if (!v) { f.prenom.focus(); return; }
       lancer(v); if (window.umami) try { window.umami.track('ton-prenom'); } catch (x) {}
+      if (window.GenesoliaChemin && actuel) { var fi = P.trouver(actuel), nm = (fi && fi.prenom) || (actuel.charAt(0).toUpperCase() + actuel.slice(1));
+        window.GenesoliaChemin.enregistrer({ outil: 'prenom', titre: 'Le prénom ' + nm, resume: fi && fi.sens ? 'Origine ' + fi.origine + ' · ' + String(fi.sens).replace(/<[^>]+>/g, '').slice(0, 220) : 'Lecture de la valeur des lettres de ' + nm, donnees: { prenom: nm, lettres: lettres } }); }
       zone.scrollIntoView({ behavior: 'smooth' });
     });
     var q = new URLSearchParams(location.search).get('p'), memo = null;
