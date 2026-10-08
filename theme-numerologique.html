@@ -262,6 +262,7 @@
     </section>
   
     <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment calculer son chemin de vie ?</summary><p>Additionne tous les chiffres de ta date de naissance en une seule fois, puis réduis le total jusqu&#x27;à obtenir un seul chiffre, en gardant 11, 22 et 33. Par exemple, le 14/03/1985 donne 1+4+0+3+1+9+8+5 = 31, puis 3+1 = 4 : un chemin de vie 4.</p></details><details><summary>Quelle est la différence entre le chemin de vie et le nombre d&#x27;expression ?</summary><p>Le chemin de vie vient de ta date de naissance : il décrit la route et ce que tu viens apprendre. Le nombre d&#x27;expression vient de toutes les lettres de tes prénoms et de ton nom de naissance : il décrit tes talents et ta façon d&#x27;agir. Les deux se complètent.</p></details><details><summary>Pourquoi utiliser le nom de naissance et pas le nom d&#x27;usage ?</summary><p>Le nom reçu à la naissance te relie à ta lignée : c&#x27;est lui qui donne ton nombre héréditaire. Un nom d&#x27;usage, de mariage par exemple, colore ta façon de te présenter aujourd&#x27;hui, mais il ne remplace pas ce que tu as reçu au départ.</p></details></div></section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
@@ -376,7 +377,11 @@
       if (!N.lettres(n)) { err.textContent = 'Écris ton nom de naissance.'; f.nom.focus(); return; }
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
-      afficher(N.theme(p, n, d));
+      var th = N.theme(p, n, d);
+      afficher(th);
+      if (window.GenesoliaChemin) { var pr = p.split(/\s+/)[0]; window.GenesoliaChemin.enregistrer({ outil: 'numerologie', titre: 'Thème numérologique de ' + pr.charAt(0).toUpperCase() + pr.slice(1),
+        resume: 'Chemin de vie ' + th.chemin + ' · Expression ' + th.expression + ' · Héréditaire ' + th.hereditaire + ' · Année personnelle ' + th.annee,
+        donnees: { prenoms: p, nom: n, date: d, chemin: th.chemin, expression: th.expression, hereditaire: th.hereditaire, annee: th.annee } }); }
       try { localStorage.setItem(CLE, JSON.stringify({ prenoms: p, nom: n, date: d })); } catch (x) {}
       if (window.umami) try { window.umami.track('theme-numerologique'); } catch (x) {}
       zone.scrollIntoView({ behavior: 'smooth' });

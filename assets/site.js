@@ -24,6 +24,15 @@ window.GENESOLIA_STRIPE = {
   gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
+/* Liens des e-mails de connexion : si Supabase renvoie sur une autre page que Mon espace, on y redirige avec le jeton */
+(function () {
+  var h = location.hash || '', q = location.search || '';
+  var page = location.pathname.split('/').pop() || 'index.html';
+  if (page !== 'login.html' && (/(^|[#&])(access_token|error_description)=/.test(h) || /[?&](code|token_hash)=/.test(q))) {
+    location.replace('/login.html' + q + h);
+  }
+})();
+
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
@@ -346,7 +355,7 @@ window.GENESOLIA_STRIPE = {
   }
 
   /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
-     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient 2 jours plus tard. */
+     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient à la prochaine visite. */
   var CARRE = {
     titre: 'Ceux qui sont venus avant toi',
     image: 'assets/cercle/apercu-2026-11.jpg',
@@ -355,8 +364,7 @@ window.GENESOLIA_STRIPE = {
   function carreCercle() {
     if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     try {
-      var ferme = +localStorage.getItem('carre-cercle-ferme-v2') || 0;
-      if (Date.now() - ferme < 2 * 864e5) return;
+      if (sessionStorage.getItem('carre-cercle-ferme') === '1') return;
     } catch (e) {}
     var c = document.createElement('aside');
     c.className = 'carre-cercle';
@@ -370,7 +378,7 @@ window.GENESOLIA_STRIPE = {
         '<a class="cc-bouton" href="' + CARRE.lien + '">Je le reçois</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
-      try { localStorage.setItem('carre-cercle-ferme-v2', String(Date.now())); } catch (e) {}
+      try { sessionStorage.setItem('carre-cercle-ferme', '1'); } catch (e) {}
     });
     document.body.appendChild(c);
     requestAnimationFrame(function () { c.classList.add('visible'); });
@@ -423,6 +431,18 @@ window.GENESOLIA_STRIPE = {
     else aideInstall();
   });
 
+  /* Partage depuis le téléphone, avec l'image de la page quand c'est possible (Instagram, WhatsApp, Messenger…) */
+  function partagerAvecImage(titre, adresse, image) {
+    var simple = function () { return navigator.share({ title: titre, text: titre, url: adresse }); };
+    if (!image || !window.fetch || !navigator.canShare) return simple();
+    return fetch(image).then(function (r) { return r.ok ? r.blob() : Promise.reject(); }).then(function (b) {
+      var f = new File([b], 'genesolia.' + (/png/.test(b.type) ? 'png' : 'jpg'), { type: b.type || 'image/jpeg' });
+      var d = { title: titre, text: titre + ' ' + adresse, files: [f] };
+      return navigator.canShare(d) ? navigator.share(d) : simple();
+    }).catch(function (e) { if (e && e.name === 'AbortError') return; return simple(); });
+  }
+  window.GenesoliaPartager = partagerAvecImage;
+
   /* ===== Partage : en bas de chaque article, et partout où il y a <div data-partage></div> ===== */
   var colArticle = document.querySelector('article.article .colonne');
   if (colArticle && !document.querySelector('[data-partage]')) { var zp = document.createElement('div'); zp.setAttribute('data-partage', ''); colArticle.appendChild(zp); }
@@ -436,11 +456,13 @@ window.GENESOLIA_STRIPE = {
       fb: '<svg viewBox="0 0 20 20"><path fill="currentColor" d="M11.2 18v-6.6h2.2l.4-2.6h-2.6V7.2c0-.8.2-1.3 1.3-1.3H14V3.6c-.2 0-1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H6.4v2.6h2.2V18z"/></svg>',
       wa: '<svg viewBox="0 0 20 20" fill="none"><path d="M3.5 16.5l1-3.4A7 7 0 1 1 7 15.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.6 7.3c.2-.5.5-.5.8-.5l.5 1.2-.5.7c.4.9 1.2 1.7 2.1 2.1l.7-.5 1.2.5c0 .3 0 .6-.5.8-.6.4-1.4.4-2.3 0-1-.5-2-1.5-2.4-2.4-.4-.8-.1-1.4.4-1.9z" fill="currentColor"/></svg>',
       pin: '<svg viewBox="0 0 20 20"><path fill="currentColor" d="M10.2 2.5C6 2.5 4 5.4 4 7.9c0 1.5.6 2.8 1.8 3.3.2.1.4 0 .4-.2l.2-.7c0-.2 0-.3-.1-.5-.4-.4-.6-1-.6-1.8 0-2.3 1.7-4.4 4.5-4.4 2.4 0 3.8 1.5 3.8 3.5 0 2.6-1.2 4.8-2.9 4.8-.9 0-1.6-.8-1.4-1.7.3-1.1.8-2.3.8-3.1 0-.7-.4-1.3-1.2-1.3-1 0-1.7 1-1.7 2.3 0 .8.3 1.4.3 1.4l-1.1 4.7c-.3 1.4 0 3.1 0 3.3 0 .1.2.1.2 0 .1-.1 1.1-1.4 1.4-2.7l.6-2.2c.3.5 1.1 1 2 1 2.6 0 4.4-2.4 4.4-5.6C16 4.8 13.8 2.5 10.2 2.5z"/></svg>',
+      insta: '<svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="10" r="3.2" stroke="currentColor" stroke-width="1.5"/><circle cx="14.2" cy="5.8" r=".9" fill="currentColor"/></svg>',
       lien: '<svg viewBox="0 0 20 20" fill="none"><path d="M8.5 11.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.5 3.5 0 0 0-5-5l-1 1M11.5 8.5a3.5 3.5 0 0 0-5 0L4 11a3.5 3.5 0 0 0 5 5l1-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
     };
     z.className = 'partage';
     z.innerHTML = '<p class="partage-titre">' + (z.getAttribute('data-partage') || 'Ça t\'a parlé ? Partage-le à quelqu\'un qui en a besoin.') + '</p><div class="partage-boutons">' +
       (navigator.share ? '<button type="button" class="pt-natif" data-pt="natif">' + I.partager + '<span>Partager <small>Instagram, Messenger, SMS…</small></span></button>' : '') +
+      '<button type="button" data-pt="insta" aria-label="Partager sur Instagram">' + I.insta + '<span>Instagram</span></button>' +
       '<a href="https://www.facebook.com/sharer/sharer.php?u=' + u + '" target="_blank" rel="noopener" aria-label="Partager sur Facebook">' + I.fb + '<span>Facebook</span></a>' +
       '<a href="https://wa.me/?text=' + t + '%20' + u + '" target="_blank" rel="noopener" aria-label="Partager sur WhatsApp">' + I.wa + '<span>WhatsApp</span></a>' +
       (image ? '<a href="https://www.pinterest.fr/pin/create/button/?url=' + u + '&media=' + encodeURIComponent(image) + '&description=' + t + '" target="_blank" rel="noopener" aria-label="Épingler sur Pinterest">' + I.pin + '<span>Pinterest</span></a>' : '') +
@@ -449,14 +471,21 @@ window.GENESOLIA_STRIPE = {
     var st = z.querySelector('.partage-statut');
     z.addEventListener('click', function (e) {
       var b = e.target.closest('[data-pt]'); if (!b) return;
-      if (b.getAttribute('data-pt') === 'natif') navigator.share({ title: titre, url: adresse }).catch(function () {});
+      var t = b.getAttribute('data-pt');
+      if (t === 'natif' || (t === 'insta' && navigator.share)) { partagerAvecImage(titre, adresse, image); return; }
+      if (t === 'insta') {
+        (navigator.clipboard ? navigator.clipboard.writeText(adresse) : Promise.reject()).then(function () {
+          st.innerHTML = 'Lien copié. Sur ton téléphone, le bouton Instagram ajoute aussi l\'image. Depuis l\'ordinateur : colle ce lien dans ta bio ou ta story. <a href="https://www.instagram.com/genesolia.officiel/" target="_blank" rel="noopener">Ouvrir Instagram</a>';
+        }, function () { st.textContent = adresse; });
+        return;
+      }
       else (navigator.clipboard ? navigator.clipboard.writeText(adresse) : Promise.reject()).then(function () { st.textContent = 'Lien copié : colle-le dans ta story, un message ou ta bio.'; }, function () { st.textContent = adresse; });
     });
   });
 
   /* ===== Cœur « J'aime » (compteur dans Supabase, table jaimes) =====
      Le nombre ne s'affiche qu'à partir de SEUIL_JAIME, pour ne pas montrer « 1 » ou « 2 » au début. */
-  var SEUIL_JAIME = 10;
+  var SEUIL_JAIME = 1;
   var SB = 'https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/rpc/', SBK = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
   var pageJaime = page.replace(/\.html$/, '').toLowerCase();
   var avecJaime = /^[a-z0-9-]{1,80}$/.test(pageJaime) && (document.querySelector('article.article') || document.querySelector('[data-partage]'));
@@ -468,14 +497,14 @@ window.GENESOLIA_STRIPE = {
   var dejaAime = false, totalJaime = null;
   try { dejaAime = localStorage.getItem('jaime-' + pageJaime) === '1'; } catch (e) {}
   function majCoeurs() {
-    document.querySelectorAll('.coeur').forEach(function (b) {
+    document.querySelectorAll('.jaime').forEach(function (b) {
       b.setAttribute('aria-pressed', dejaAime ? 'true' : 'false');
-      b.querySelector('.coeur-txt').textContent = dejaAime ? 'Tu aimes' : 'J\'aime';
-      var n = b.querySelector('.coeur-n');
+      b.querySelector('.jaime-txt').textContent = dejaAime ? 'Tu aimes' : 'J\'aime';
+      var n = b.querySelector('.jaime-n');
       n.textContent = totalJaime !== null && totalJaime >= SEUIL_JAIME ? totalJaime : '';
     });
   }
-  function boutonCoeur() { return '<button type="button" class="coeur" aria-pressed="false">' + COEUR + '<span class="coeur-txt">J\'aime</span><span class="coeur-n"></span></button>'; }
+  function boutonCoeur() { return '<button type="button" class="jaime" aria-pressed="false">' + COEUR + '<span class="jaime-txt">J\'aime</span><span class="jaime-n"></span></button>'; }
   if (avecJaime) {
     var publie = document.querySelector('article.article') && document.querySelector('.page-tete .publie');
     if (publie) {
@@ -485,7 +514,7 @@ window.GENESOLIA_STRIPE = {
       publie.parentNode.insertBefore(barreHaut, publie.nextSibling);
       barreHaut.querySelector('.haut-partager').addEventListener('click', function () {
         var adr = (document.querySelector('link[rel=canonical]') || {}).href || location.href;
-        if (navigator.share) navigator.share({ title: document.title, url: adr }).catch(function () {});
+        if (navigator.share) partagerAvecImage(document.title, adr, (document.querySelector('meta[property="og:image"]') || {}).content || '');
         else { var z = document.querySelector('.partage'); if (z) z.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       });
     }
@@ -493,12 +522,21 @@ window.GENESOLIA_STRIPE = {
     majCoeurs();
     rpc('genesolia_jaimes', { p_page: pageJaime }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
     document.addEventListener('click', function (e) {
-      var b = e.target.closest('.coeur'); if (!b) return;
+      var b = e.target.closest('.jaime'); if (!b) return;
       dejaAime = !dejaAime;
       try { localStorage.setItem('jaime-' + pageJaime, dejaAime ? '1' : '0'); } catch (er) {}
       if (totalJaime !== null) totalJaime = Math.max(0, totalJaime + (dejaAime ? 1 : -1));
       majCoeurs();
-      document.querySelectorAll('.coeur').forEach(function (c) { c.classList.remove('bat'); void c.offsetWidth; if (dejaAime) c.classList.add('bat'); });
+      document.querySelectorAll('.jaime').forEach(function (c) { c.classList.remove('bat'); void c.offsetWidth; if (dejaAime) c.classList.add('bat'); });
+      /* Connecté·e : on garde aussi le cœur dans son espace (Mes coups de cœur) */
+      try {
+        var ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), jt = ses && ses.access_token;
+        if (jt && (!ses.expires_at || ses.expires_at * 1000 > Date.now())) {
+          var hd = { apikey: SBK, Authorization: 'Bearer ' + jt, 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' };
+          if (dejaAime) fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes', { method: 'POST', headers: hd, body: JSON.stringify({ page: pageJaime, titre: (document.querySelector('h1') || {}).textContent ? document.querySelector('h1').textContent.trim().slice(0, 200) : document.title }) }).catch(function () {});
+          else fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes?page=eq.' + encodeURIComponent(pageJaime), { method: 'DELETE', headers: hd }).catch(function () {});
+        }
+      } catch (er2) {}
       rpc('genesolia_jaime', { p_page: pageJaime, p_delta: dejaAime ? 1 : -1 }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
     });
   }
@@ -532,4 +570,15 @@ window.GENESOLIA_STRIPE = {
     e.preventDefault(); e.stopImmediatePropagation();
     demanderCompte(el.getAttribute('data-compte'));
   }, true);
+  /* ===== Mon chemin : enregistrer un test dans l'espace (le module se charge seulement quand il sert) ===== */
+  if (!window.GenesoliaChemin) {
+    var cheminCharge = null;
+    window.GenesoliaChemin = {
+      enregistrer: function (r) {
+        if (!cheminCharge) cheminCharge = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/mon-chemin.js?v=1'; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+        var stub = window.GenesoliaChemin;
+        return cheminCharge.then(function () { return window.GenesoliaChemin !== stub ? window.GenesoliaChemin.enregistrer(r) : false; });
+      }
+    };
+  }
 })();

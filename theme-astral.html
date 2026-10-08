@@ -161,6 +161,7 @@
 <h3>Si tu ne connais pas ton heure de naissance</h3>
 <p>Sans l'heure, ton Soleil et tes planètes restent fiables, et ta Lune l'est la plupart du temps, sauf si elle change de signe ce jour-là. En revanche, l'ascendant et les maisons ne peuvent pas être calculés. En France, l'heure figure sur la copie intégrale de l'acte de naissance, que tu peux demander gratuitement à la mairie de ton lieu de naissance. Un carnet de naissance ou un souvenir précis de tes parents peut aussi aider.</p>
 <p>Ton thème ne change pas, mais le ciel continue de bouger autour de lui. Pour voir comment les passages planétaires du moment rencontrent ta carte du ciel, tu peux consulter <a href="mon-guide.html">ton guide du mois</a>, qui rapporte chaque mois les grands mouvements du ciel à tes maisons. Le thème astral reste une lecture symbolique : il propose des pistes pour te comprendre, à toi de garder celles qui te parlent.</p><div class="questions" style="margin-top:1.6rem"><h3>Questions fréquentes</h3><details><summary>Comment calculer son thème astral gratuitement ?</summary><p>Il te faut ta date de naissance, ton heure de naissance la plus précise possible et ta ville de naissance. Saisis-les dans le formulaire : le calcul des positions du Soleil, de la Lune, des planètes, de l&#x27;ascendant et des maisons se fait directement sur ton appareil, gratuitement et sans créer de compte.</p></details><details><summary>Comment connaître son heure de naissance ?</summary><p>En France, l&#x27;heure de naissance est inscrite sur la copie intégrale de ton acte de naissance. Tu peux la demander gratuitement à la mairie de ta commune de naissance, sur place, par courrier ou en ligne selon les communes. Le carnet de naissance remis à la maternité ou les souvenirs de tes parents peuvent aussi te renseigner.</p></details><details><summary>Quelle est la différence entre le signe solaire et l&#x27;ascendant ?</summary><p>Le signe solaire dépend de ta date de naissance : c&#x27;est le signe où se trouvait le Soleil, celui des horoscopes. L&#x27;ascendant dépend de l&#x27;heure et du lieu : c&#x27;est le signe qui se levait à l&#x27;horizon à ce moment-là. Le Soleil évoque ce que tu cherches à affirmer, l&#x27;ascendant ta façon d&#x27;aborder le monde et les autres.</p></details></div></div></section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
@@ -199,13 +200,33 @@
     }
     function chercherLocal(q) {
       if (!VILLES) return [];
-      var k = norm(q), deb = [], mot = [];
+      var k = norm(decouper(q).nom || q), deb = [], mot = [];
       for (var i = 0; i < VILLES.length && deb.length < 8; i++) {
         var v = VILLES[i];
         if (v.k.indexOf(k) === 0) deb.push(depuisLocal(v));
         else if (mot.length < 8 && v.k.indexOf(' ' + k) > 0) mot.push(depuisLocal(v));
       }
       return deb.concat(mot).slice(0, 8);
+    }
+    /* France : toutes les communes, avec leur département (API officielle geo.api.gouv.fr) */
+    var TZ_DOM = { '971': 'America/Guadeloupe', '972': 'America/Martinique', '973': 'America/Cayenne', '974': 'Indian/Reunion', '976': 'Indian/Mayotte', '975': 'America/Miquelon', '977': 'America/St_Barthelemy', '978': 'America/Marigot' };
+    function decouper(q) {
+      var cp = (q.match(/\b(\d{5})\b/) || [])[1] || '';
+      var dep = cp ? '' : ((q.match(/(?:^|[\s(,])(2[ab]|97\d|\d{2})(?:$|[\s),])/i) || [])[1] || '');
+      var nom = q.replace(/\([^)]*[a-zà-ÿ]{3}[^)]*\)/gi, ' ').replace(/\b\d{5}\b/, '').replace(/(?:^|[\s(,])(2[ab]|97\d|\d{2})(?=$|[\s),])/i, ' ').replace(/[()]/g, ' ').replace(/,.*$/, '').replace(/\s+/g, ' ').trim();
+      return { nom: nom, cp: cp, dep: dep.toUpperCase() };
+    }
+    function chercherFrance(q) {
+      var d = decouper(q);
+      if (d.nom.length < 2 && !d.cp) return Promise.resolve([]);
+      var u = 'https://geo.api.gouv.fr/communes?fields=nom,code,centre,departement,codesPostaux&boost=population&limit=8' +
+        (d.nom.length >= 2 ? '&nom=' + encodeURIComponent(d.nom) : '') + (d.cp ? '&codePostal=' + d.cp : '') + (d.dep ? '&codeDepartement=' + d.dep : '');
+      return fetch(u).then(function (r) { return r.ok ? r.json() : []; }).then(function (l) {
+        return (l || []).filter(function (c) { return c.centre && c.centre.coordinates; }).map(function (c) {
+          var dc = c.departement ? c.departement.code : '';
+          return { name: c.nom, zone: c.departement ? c.departement.nom + ' · ' + dc : '', latitude: c.centre.coordinates[1], longitude: c.centre.coordinates[0], timezone: TZ_DOM[dc] || 'Europe/Paris', cc: 'FR', pays: 'France' };
+        });
+      }).catch(function () { return []; });
     }
     function depuisDistant(x) { return { name: x.name, zone: [x.admin1, x.country].filter(Boolean).join(', '), latitude: x.latitude, longitude: x.longitude, timezone: x.timezone, cc: x.country_code, pays: x.country }; }
     function chercherDistant(q) {
@@ -243,7 +264,12 @@
       if (q.length < 2) { sugg.hidden = true; return; }
       chargerVilles().then(function () { if (n === demande) montrer(chercherLocal(q)); });
       minuteur = setTimeout(function () {
-        chercherDistant(q).then(function (dist) { if (n === demande) montrer(fusion(chercherLocal(q), dist)); });
+        Promise.all([chercherFrance(q), chercherDistant(decouper(q).nom || q)]).then(function (r) {
+          if (n !== demande) return;
+          var fr = r[0], loc = chercherLocal(q), dist = r[1];
+          if (fr.length) { loc = loc.filter(function (x) { return x.cc !== 'FR'; }); dist = dist.filter(function (x) { return x.cc !== 'FR'; }); }
+          montrer(fusion(fr.concat(loc), dist));
+        });
       }, 300);
     });
     sugg.addEventListener('mousedown', function (e) { e.preventDefault(); });
@@ -258,12 +284,20 @@
     lieuIn.addEventListener('blur', function () { setTimeout(function () { sugg.hidden = true; }, 200); });
     /* Si la ville est tapée sans être choisie : on prend la meilleure correspondance */
     function resoudreLieu() {
-      var q = lieuIn.value.replace(/\s*\(.*$/, '').trim();
+      var q = lieuIn.value.trim();
       if (!q || lieu) return Promise.resolve(lieu);
-      return chargerVilles().then(function () {
-        var loc = chercherLocal(q), exact = loc.filter(function (x) { return norm(x.name) === norm(q); });
-        if (exact.length || loc.length) { prendre((exact[0] || loc[0])); return lieu; }
-        return chercherDistant(q).then(function (d) { if (d.length) prendre(d[0]); return lieu; });
+      var nom = decouper(q).nom || q;
+      return chercherFrance(q).then(function (fr) {
+        var exactFr = fr.filter(function (x) { return norm(x.name) === norm(nom); });
+        if (exactFr.length) { prendre(exactFr[0]); return lieu; }
+        return chargerVilles().then(function () {
+          var loc = chercherLocal(q), exact = loc.filter(function (x) { return norm(x.name) === norm(nom); });
+          var fexact = exact.filter(function (x) { return x.cc === 'FR'; });
+          if (fexact.length || exact.length) { prendre(fexact[0] || exact[0]); return lieu; }
+          if (fr.length) { prendre(fr[0]); return lieu; }
+          if (loc.length) { prendre(loc[0]); return lieu; }
+          return chercherDistant(nom).then(function (d) { if (d.length) prendre(d[0]); return lieu; });
+        });
       });
     }
     document.getElementById('a-sans-heure').addEventListener('change', function () { var h = document.getElementById('a-heure'); h.disabled = this.checked; if (this.checked) h.value = ''; });
@@ -361,6 +395,7 @@
       var r = AS.calculer({ date: e.date, heure: e.heure, lat: e.lat, lon: e.lon, tz: e.tz || 'Europe/Paris', lieu: e.lieu });
       afficher(e, r);
       try { localStorage.setItem(CLE, JSON.stringify(e)); } catch (x) {}
+      return r;
     }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -372,7 +407,13 @@
       resoudreLieu().then(function () {
         if (tape && !lieu) info.textContent = "Ville introuvable : ton thème est calculé sans l'ascendant. Vérifie l'orthographe ou essaie une ville proche.";
         var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
-        lancer(e);
+        var r = lancer(e);
+        if (window.GenesoliaChemin && r && r.planetes) {
+          var NS = function (k) { return T.SIGNES[k] ? T.SIGNES[k].nom : ''; };
+          window.GenesoliaChemin.enregistrer({ outil: 'astral', titre: 'Thème astral' + (e.prenom ? ' de ' + e.prenom.trim() : ''),
+            resume: 'Soleil ' + NS(r.planetes.soleil.signe) + ' · Lune ' + NS(r.planetes.lune.signe) + (r.asc ? ' · Ascendant ' + NS(r.asc.signe) : '') + (e.lieu ? ' · né·e à ' + e.lieu : ''),
+            donnees: { entree: e, soleil: r.planetes.soleil.signe, lune: r.planetes.lune.signe, asc: r.asc ? r.asc.signe : null } });
+        }
         if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
         zone.scrollIntoView({ behavior: 'smooth' });
       });

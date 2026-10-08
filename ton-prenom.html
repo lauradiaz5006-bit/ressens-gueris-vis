@@ -90,6 +90,7 @@
 <h3>Ce que ton prénom porte de ta lignée</h3>
 <p>Un prénom n'est jamais choisi au hasard, même quand on croit qu'il l'a été. Il a pu être donné en souvenir d'un grand-parent, d'un enfant disparu, d'une personne aimée qu'on n'a pas pu garder. Il a pu être choisi pour rompre avec la tradition familiale, ou au contraire pour la prolonger. Il arrive que le deuxième ou le troisième prénom, celui qu'on n'utilise jamais, raconte la partie la plus intéressante de l'histoire. Quand un prénom revient sur plusieurs générations, il peut transporter avec lui un rôle ou une attente ; c'est l'une des pistes explorées à propos de l'<a href="enfant-de-remplacement.html">enfant de remplacement</a>.</p>
 <p>Une question simple à poser à tes parents : « Comment avez-vous choisi mon prénom, et à qui avez-vous pensé à ce moment-là ? » La réponse surprend souvent.</p><div class="questions" style="margin-top:1.6rem"><h3>Questions fréquentes</h3><details><summary>Comment connaître la signification de son prénom ?</summary><p>Commence par son étymologie : la langue d&#x27;où il vient et le sens de sa racine. Regarde ensuite son histoire, les personnages qui l&#x27;ont porté et les époques où il a été à la mode. Enfin, demande à ta famille pourquoi il a été choisi. C&#x27;est souvent cette dernière réponse qui donne au prénom son sens le plus personnel.</p></details><details><summary>Comment calculer le nombre de son prénom en numérologie ?</summary><p>Chaque lettre reçoit une valeur de 1 à 9 : A, J et S valent 1, B, K et T valent 2, et ainsi de suite jusqu&#x27;à I et R qui valent 9. Additionne les valeurs de toutes les lettres, puis réduis le total en additionnant ses chiffres jusqu&#x27;à obtenir un chiffre, sauf si tu tombes sur 11, 22 ou 33.</p></details><details><summary>Qu&#x27;est-ce que la gématrie d&#x27;un prénom ?</summary><p>La gématrie, ou guématrie, consiste à donner une valeur chiffrée à chaque lettre d&#x27;un mot et à en faire la somme. Cette idée existe dans plusieurs traditions : l&#x27;isopséphie grecque, la guématrie hébraïque, l&#x27;abjad arabe. Appliquée à un prénom, elle offre une lecture symbolique de ce qu&#x27;il met en avant, sans rien prédire.</p></details></div></div></section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
@@ -133,6 +134,8 @@
     f.addEventListener('submit', function (e) {
       e.preventDefault(); var v = f.prenom.value.trim(); if (!v) { f.prenom.focus(); return; }
       lancer(v); if (window.umami) try { window.umami.track('ton-prenom'); } catch (x) {}
+      if (window.GenesoliaChemin && actuel) { var fi = P.trouver(actuel), nm = (fi && fi.prenom) || (actuel.charAt(0).toUpperCase() + actuel.slice(1));
+        window.GenesoliaChemin.enregistrer({ outil: 'prenom', titre: 'Le prénom ' + nm, resume: fi && fi.sens ? 'Origine ' + fi.origine + ' · ' + String(fi.sens).replace(/<[^>]+>/g, '').slice(0, 220) : 'Lecture de la valeur des lettres de ' + nm, donnees: { prenom: nm, lettres: lettres } }); }
       zone.scrollIntoView({ behavior: 'smooth' });
     });
     var q = new URLSearchParams(location.search).get('p'), memo = null;

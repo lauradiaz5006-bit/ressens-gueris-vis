@@ -104,6 +104,26 @@
     .tb-danger-plein{background:#A23B4C;border-color:#A23B4C}
     .tb-suppr{border-top:1px solid var(--rose);padding-top:.9rem;display:grid;gap:.6rem;font-size:.9rem;color:var(--prune)}
     @media (max-width:760px){.tb-grille{grid-template-columns:1fr}.tb-tete .btn{width:100%;justify-content:center}}
+    .tb-chemin{background:var(--blanc)!important;border-color:var(--rose)!important}
+    .ch-outils{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.9rem}
+    .ch-outil{border:1px solid var(--rose);border-radius:18px;padding:1.1rem 1.2rem;background:linear-gradient(160deg,#FFF6EC,#fff 70%);display:flex;flex-direction:column;gap:.45rem}
+    .ch-outil h3{font-size:1.15rem;margin:0}
+    .ch-outil .ch-nb{font:700 .75rem/1 var(--texte);color:#A4473D;letter-spacing:.04em;text-transform:uppercase}
+    .ch-dernier{font-size:.92rem;color:var(--prune)}
+    .ch-evol{font-size:.84rem;color:var(--prune-doux);background:#F6ECF6;border-radius:10px;padding:.45rem .6rem}
+    .ch-outil details summary{cursor:pointer;font-size:.84rem;font-weight:700;color:var(--prune)}
+    .ch-hist{list-style:none;padding:0;margin:.5rem 0 0;display:grid;gap:.4rem}
+    .ch-hist li{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:start;font-size:.84rem;padding:.4rem 0;border-top:1px solid var(--rose)}
+    .ch-hist time{font-weight:700;white-space:nowrap}
+    .ch-suppr{background:none;border:0;color:var(--prune-doux);cursor:pointer;font-size:1.1rem;line-height:1;padding:0 .2rem}
+    .ch-suppr:hover{color:#A3304A}
+    .ch-liens{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto;padding-top:.4rem}
+    .ch-liens a{font-size:.84rem;font-weight:700}
+    .ch-vide{display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.6rem}
+    .ch-vide a{display:block;padding:.8rem 1rem;border-radius:14px;border:1px dashed var(--rose-fonce);text-decoration:none;color:var(--prune);font-weight:600;font-size:.92rem}
+    .ch-jaimes{margin-top:.6rem}.ch-jaimes h3{font-size:1.1rem;margin-bottom:.5rem}
+    .ch-jaimes ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+    .ch-jaimes a{display:inline-block;padding:.4rem .8rem;border-radius:99px;background:#FDECEE;color:#A3304A;text-decoration:none;font-size:.85rem;font-weight:600}
   </style>
 </head>
 <body class="nouveau">
@@ -201,6 +221,13 @@
           <p class="tb-aide">Ton arbre s'enregistre ici à chaque modification. Les 30 dernières versions sont gardées : tu peux revenir en arrière depuis « Sauvegardes » dans l'arbre.</p>
         </section>
 
+        <section class="tb-carte tb-large tb-chemin" id="mon-chemin" aria-labelledby="t-chemin">
+          <div class="ch-tete"><h2 id="t-chemin">Mon chemin</h2><p class="tb-aide">Tous les tests que tu as faits sur Genesolia, avec leur date, pour voir ton évolution. Toi seul·e les vois. Tu peux effacer chaque résultat, ou tout.</p></div>
+          <div id="chemin-liste"><p class="tb-aide">Chargement de ton chemin…</p></div>
+          <div class="tb-actions ch-pied" id="chemin-pied" hidden><button class="btn btn-trait" type="button" id="chemin-tout-effacer">Tout effacer</button></div>
+          <div id="chemin-jaimes"></div>
+        </section>
+
         <section class="tb-carte" aria-labelledby="t-abo">
           <h2 id="t-abo">Mon abonnement</h2>
           <p class="tb-formule">Formule Découverte <span>gratuite</span></p>
@@ -270,7 +297,8 @@
 
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/espace.js?v=2026-10-09d"></script>
+  <script src="assets/mon-chemin.js?v=1"></script>
+  <script src="assets/espace.js?v=2026-10-10a"></script>
   <script>
   (function () {
     'use strict';

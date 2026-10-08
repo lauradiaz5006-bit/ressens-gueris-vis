@@ -21,13 +21,32 @@
   }
   function local(q) {
     if (!VILLES) return [];
-    var k = norm(q), deb = [], mot = [];
+    var k = norm(decouper(q).nom || q), deb = [], mot = [];
     for (var i = 0; i < VILLES.length && deb.length < 8; i++) {
       var v = VILLES[i];
       if (v.k.indexOf(k) === 0) deb.push(depuisLocal(v));
       else if (mot.length < 8 && v.k.indexOf(' ' + k) > 0) mot.push(depuisLocal(v));
     }
     return deb.concat(mot).slice(0, 8);
+  }
+  var TZ_DOM = { '971': 'America/Guadeloupe', '972': 'America/Martinique', '973': 'America/Cayenne', '974': 'Indian/Reunion', '976': 'Indian/Mayotte', '975': 'America/Miquelon', '977': 'America/St_Barthelemy', '978': 'America/Marigot' };
+  function decouper(q) {
+    var cp = (q.match(/\b(\d{5})\b/) || [])[1] || '';
+    var dep = cp ? '' : ((q.match(/(?:^|[\s(,])(2[ab]|97\d|\d{2})(?:$|[\s),])/i) || [])[1] || '');
+    var nom = q.replace(/\([^)]*[a-zà-ÿ]{3}[^)]*\)/gi, ' ').replace(/\b\d{5}\b/, '').replace(/(?:^|[\s(,])(2[ab]|97\d|\d{2})(?=$|[\s),])/i, ' ').replace(/[()]/g, ' ').replace(/,.*$/, '').replace(/\s+/g, ' ').trim();
+    return { nom: nom, cp: cp, dep: dep.toUpperCase() };
+  }
+  /* France : toutes les communes avec leur département (geo.api.gouv.fr) */
+  function france(q) {
+    var d = decouper(q);
+    if (d.nom.length < 2 && !d.cp) return Promise.resolve([]);
+    var u = 'https://geo.api.gouv.fr/communes?fields=nom,code,centre,departement&boost=population&limit=8' + (d.nom.length >= 2 ? '&nom=' + encodeURIComponent(d.nom) : '') + (d.cp ? '&codePostal=' + d.cp : '') + (d.dep ? '&codeDepartement=' + d.dep : '');
+    return fetch(u).then(function (r) { return r.ok ? r.json() : []; }).then(function (l) {
+      return (l || []).filter(function (c) { return c.centre && c.centre.coordinates; }).map(function (c) {
+        var dc = c.departement ? c.departement.code : '';
+        return { name: c.nom, zone: c.departement ? c.departement.nom + ' · ' + dc : '', latitude: c.centre.coordinates[1], longitude: c.centre.coordinates[0], timezone: TZ_DOM[dc] || 'Europe/Paris', cc: 'FR', pays: 'France' };
+      });
+    }).catch(function () { return []; });
   }
   function distant(q) {
     return fetch('https://geocoding-api.open-meteo.com/v1/search?count=8&language=fr&format=json&name=' + encodeURIComponent(q))
@@ -64,7 +83,14 @@
       clearTimeout(minuteur); var q = input.value.trim(), n = ++demande;
       if (q.length < 2) { liste.hidden = true; return; }
       charger().then(function () { if (n === demande) montrer(local(q)); });
-      minuteur = setTimeout(function () { distant(q).then(function (d) { if (n === demande) montrer(fusion(local(q), d)); }); }, 300);
+      minuteur = setTimeout(function () {
+        Promise.all([france(q), distant(decouper(q).nom || q)]).then(function (r) {
+          if (n !== demande) return;
+          var fr = r[0], l = local(q), d = r[1];
+          if (fr.length) { l = l.filter(function (x) { return x.cc !== 'FR'; }); d = d.filter(function (x) { return x.cc !== 'FR'; }); }
+          montrer(fusion(fr.concat(l), d));
+        });
+      }, 300);
     });
     liste.addEventListener('mousedown', function (e) { e.preventDefault(); });
     liste.addEventListener('click', function (e) { var li = e.target.closest('li'); if (li) prendre(resultats[+li.getAttribute('data-i')], true); });
@@ -74,12 +100,19 @@
       lieu: function () { return choisi; },
       definir: function (l) { choisi = l; },
       resoudre: function () {
-        var q = input.value.replace(/\s*\(.*$/, '').trim();
+        var q = input.value.trim();
         if (!q || choisi) return Promise.resolve(choisi);
-        return charger().then(function () {
-          var l = local(q), ex = l.filter(function (x) { return norm(x.name) === norm(q); });
-          if (ex.length || l.length) { prendre(ex[0] || l[0], false); return choisi; }
-          return distant(q).then(function (d) { if (d.length) prendre(d[0], false); return choisi; });
+        var nom = decouper(q).nom || q;
+        return france(q).then(function (fr) {
+          var exFr = fr.filter(function (x) { return norm(x.name) === norm(nom); });
+          if (exFr.length) { prendre(exFr[0], false); return choisi; }
+          return charger().then(function () {
+            var l = local(q), ex = l.filter(function (x) { return norm(x.name) === norm(nom); }), exF = ex.filter(function (x) { return x.cc === 'FR'; });
+            if (exF.length || ex.length) { prendre(exF[0] || ex[0], false); return choisi; }
+            if (fr.length) { prendre(fr[0], false); return choisi; }
+            if (l.length) { prendre(l[0], false); return choisi; }
+            return distant(nom).then(function (d) { if (d.length) prendre(d[0], false); return choisi; });
+          });
         });
       }
     };

@@ -77,6 +77,25 @@
     .note{font-size:.86rem;color:var(--prune-doux)}
     @media(max-width:860px){.m-tete .conteneur,.m-grille,.m-fd{grid-template-columns:1fr}.m-signes{grid-template-columns:repeat(2,1fr)}.m-chiffres{grid-template-columns:repeat(5,1fr)}.m-carte-tete{grid-template-columns:1fr;text-align:left}.m-carte-tete h2{font-size:1.9rem}}
     @media(max-width:560px){.m-fam thead{display:none}.m-fam tr{display:grid;grid-template-columns:1fr 1fr auto;gap:.3rem;padding:.5rem 0;border-bottom:1px solid var(--rose)}.m-fam td{border:0;padding:.15rem}.m-fam td.res{grid-column:1/-1}}
+    .m-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+    .m-intro-app{max-width:44rem;margin-bottom:1.6rem}.m-intro-app h2{margin-bottom:.6rem}.m-intro-app p:last-child{color:var(--prune-doux)}
+    .m-som{position:sticky;top:4.25rem;z-index:15;display:flex;gap:.5rem;overflow-x:auto;padding:.7rem 0;margin-bottom:2rem;background:rgba(255,249,247,.95);backdrop-filter:blur(6px);scrollbar-width:none}
+    .m-som::-webkit-scrollbar{display:none}
+    .m-som a{display:flex;align-items:center;gap:.45rem;white-space:nowrap;padding:.45rem .9rem .45rem .45rem;border-radius:99px;background:var(--blanc);border:1px solid var(--rose-fonce);text-decoration:none;font:600 .88rem/1 var(--texte);color:var(--prune)}
+    .m-som b{display:grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:50%;background:#F3DCC0;font-weight:700;font-size:.8rem}
+    .m-texte{max-width:52rem!important;margin:0 auto}
+    .m-chap{scroll-margin-top:8.5rem;background:var(--blanc);border:1px solid var(--rose);border-radius:26px;padding:2.4rem 2.6rem;margin-bottom:1.8rem;box-shadow:0 18px 44px rgba(107,47,91,.06);overflow:hidden}
+    .m-chap:nth-of-type(even){background:linear-gradient(170deg,#FFF6EC,#fff 60%)}
+    .m-chap-doux{background:linear-gradient(150deg,#F6ECF6,#fff)!important}
+    .m-chap-tete{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+    .m-chap-tete h2{margin:0!important}
+    .m-num{flex:0 0 auto;display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:linear-gradient(140deg,#B98A55,#E7A79E);color:#fff;font-family:var(--display);font-size:1.4rem}
+    .m-chap-img{display:block;width:calc(100% + 5.2rem);max-width:none;height:auto;aspect-ratio:16/7;object-fit:cover;margin:0 -2.6rem 1.6rem}
+    .m-chap p{margin-bottom:1.1rem!important;line-height:1.8;max-width:none!important}
+    .m-chap p.m-lead{font-size:1.12rem;color:var(--prune)}
+    .m-chap p:not(.m-lead){color:#5d3550}
+    .m-sources-titre{margin:2.6rem 0 .8rem}
+    @media(max-width:700px){.m-chap{padding:1.6rem 1.3rem}.m-chap-img{width:calc(100% + 2.6rem);margin:0 -1.3rem 1.2rem}.m-num{width:2.4rem;height:2.4rem;font-size:1.1rem}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ton signe maya", "item": "https://genesolia.fr/ton-signe-maya.html"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment connaître son signe maya ?", "acceptedAnswer": {"@type": "Answer", "text": "Entre ta date de naissance : le calcul trouve ton jour dans le Tzolk'in, le calendrier sacré de 260 jours. Ce jour associe un nombre de 1 à 13 et l'un des 20 signes, par exemple 7 Kej. Genesolia utilise le compte traditionnel tenu par les gardien·nes du jour mayas."}}, {"@type": "Question", "name": "Pourquoi mon signe maya est-il différent sur d'autres sites ?", "acceptedAnswer": {"@type": "Answer", "text": "Beaucoup de sites utilisent le « Dreamspell », un système créé à la fin des années 1980, qui ne suit pas le compte traditionnel. Les deux donnent souvent des signes différents pour la même date. Genesolia suit le compte maya traditionnel, celui qui n'a jamais été interrompu dans les hautes terres du Guatemala."}}, {"@type": "Question", "name": "Le calendrier maya prédit-il l'avenir ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Le signe du jour de naissance est une lecture symbolique du caractère et de la place de chacun, telle que la tradition la décrit. Le 21 décembre 2012 n'a d'ailleurs jamais été présenté par les Mayas comme une fin du monde : c'était la fin d'un grand cycle de leur Compte long."}}]}</script>
@@ -90,6 +109,7 @@
           <p class="m-sur">Gratuit · sans inscription</p>
           <h1>Ton signe maya</h1>
           <p class="intro">Pour les Mayas, le jour de naissance porte un nombre et un signe du Tzolk'in, le calendrier sacré de 260 jours. Découvre les tiens, ce qu'ils racontent de toi et de ta lignée, et apprends comment comptait l'une des plus grandes civilisations des Amériques.</p>
+          <div class="m-actions"><a class="btn btn-trait" href="#apprendre">Comprendre les Mayas</a><a class="btn btn-trait" href="#famille">Les signes de ma famille</a></div>
         </div>
         <form class="m-form" id="m-form" novalidate>
           <h2>Calcule ton signe</h2>
@@ -122,28 +142,63 @@
     </section>
 
     <section class="bloc">
-      <div class="conteneur m-texte" id="apprendre">
-        <p class="m-sur">Apprendre</p>
-        <h2>Compter comme les Mayas</h2>
-        <div id="t-chiffres"></div>
-        <div class="m-chiffres" id="m-chiffres" aria-label="Les chiffres mayas de 0 à 19"></div>
-        <h2>Plusieurs calendriers qui s'emboîtent</h2><div id="t-calendriers"></div>
-        <h2>Lire un jour du Tzolk'in</h2><div id="t-tzolkin"></div>
-        <h2>Les vingt signes</h2>
-        <p>Clique sur un signe pour lire son sens. Le premier nom est yucatèque, le second k'iche', la langue des gardien·nes du jour dont la tradition sert de référence ici.</p>
-        <div class="m-signes" id="m-signes"></div>
-        <div class="m-signe-detail" id="m-signe-detail"></div>
-        <h2>Et le « kin » ou la « signature galactique » ?</h2><div id="t-dreamspell"></div>
-        <h2>Le 21 décembre 2012</h2><div id="t-2012"></div>
-        <h2>Les codex, des livres sauvés du feu</h2><div id="t-codex"></div>
-        <h2>Une culture vivante</h2><div id="t-respect"></div>
-        <h2>Pour aller plus loin</h2>
+      <div class="conteneur" id="apprendre">
+        <div class="m-intro-app"><p class="m-sur">Apprendre</p><h2>Comprendre les Mayas</h2><p>Sept chapitres courts pour découvrir comment comptait l'une des plus grandes civilisations des Amériques. Touche celui qui t'intrigue.</p></div>
+        <nav class="m-som" aria-label="Chapitres">
+          <a href="#ch-compter"><b>1</b>Compter</a><a href="#ch-calendriers"><b>2</b>Les calendriers</a><a href="#ch-tzolkin"><b>3</b>Le Tzolk'in</a><a href="#ch-signes"><b>4</b>Les 20 signes</a><a href="#ch-kin"><b>5</b>Le « kin »</a><a href="#ch-2012"><b>6</b>2012</a><a href="#ch-codex"><b>7</b>Les codex</a>
+        </nav>
+        <div class="m-texte">
+        <article class="m-chap" id="ch-compter">
+          <div class="m-chap-tete"><span class="m-num">1</span><h2>Compter comme les Mayas</h2></div>
+          <img class="m-chap-img" src="assets/maya/compter.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-chiffres"></div>
+          <div class="m-chiffres" id="m-chiffres" aria-label="Les chiffres mayas de 0 à 19"></div>
+        </article>
+        <article class="m-chap" id="ch-calendriers">
+          <div class="m-chap-tete"><span class="m-num">2</span><h2>Plusieurs calendriers qui s'emboîtent</h2></div>
+          <img class="m-chap-img" src="assets/maya/calendriers.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-calendriers"></div>
+        </article>
+        <article class="m-chap" id="ch-tzolkin">
+          <div class="m-chap-tete"><span class="m-num">3</span><h2>Lire un jour du Tzolk'in</h2></div>
+          <img class="m-chap-img" src="assets/maya/tzolkin.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-tzolkin"></div>
+        </article>
+        <article class="m-chap" id="ch-signes">
+          <div class="m-chap-tete"><span class="m-num">4</span><h2>Les vingt signes</h2></div>
+          <img class="m-chap-img" src="assets/maya/signes.webp" alt="" loading="lazy" onerror="this.remove()">
+          <p>Clique sur un signe pour lire son sens. Le premier nom est yucatèque, le second k'iche', la langue des gardien·nes du jour dont la tradition sert de référence ici.</p>
+          <div class="m-signes" id="m-signes"></div>
+          <div class="m-signe-detail" id="m-signe-detail"></div>
+        </article>
+        <article class="m-chap" id="ch-kin">
+          <div class="m-chap-tete"><span class="m-num">5</span><h2>Et le « kin » ou la « signature galactique » ?</h2></div>
+          <img class="m-chap-img" src="assets/maya/kin.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-dreamspell"></div>
+        </article>
+        <article class="m-chap" id="ch-2012">
+          <div class="m-chap-tete"><span class="m-num">6</span><h2>Le 21 décembre 2012</h2></div>
+          <img class="m-chap-img" src="assets/maya/2012.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-2012"></div>
+        </article>
+        <article class="m-chap" id="ch-codex">
+          <div class="m-chap-tete"><span class="m-num">7</span><h2>Les codex, des livres sauvés du feu</h2></div>
+          <img class="m-chap-img" src="assets/maya/codex.webp" alt="" loading="lazy" onerror="this.remove()">
+          <div id="t-codex"></div>
+        </article>
+        <article class="m-chap m-chap-doux">
+          <div class="m-chap-tete"><h2>Une culture vivante</h2></div>
+          <div id="t-respect"></div>
+        </article>
+        <h2 class="m-sources-titre">Pour aller plus loin</h2>
         <ul class="m-sources" id="m-sources"></ul>
         <p class="note">Le calcul utilise la corrélation dite GMT (584283), la plus admise par les spécialistes et celle qui correspond au compte des communautés k'iche' du Guatemala. Notre lecture est une introduction simplifiée et symbolique : elle ne remplace pas la parole d'un ou d'une ajq'ij.</p>
+        </div>
       </div>
     </section>
   
     <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment connaître son signe maya ?</summary><p>Entre ta date de naissance : le calcul trouve ton jour dans le Tzolk&#x27;in, le calendrier sacré de 260 jours. Ce jour associe un nombre de 1 à 13 et l&#x27;un des 20 signes, par exemple 7 Kej. Genesolia utilise le compte traditionnel tenu par les gardien·nes du jour mayas.</p></details><details><summary>Pourquoi mon signe maya est-il différent sur d&#x27;autres sites ?</summary><p>Beaucoup de sites utilisent le « Dreamspell », un système créé à la fin des années 1980, qui ne suit pas le compte traditionnel. Les deux donnent souvent des signes différents pour la même date. Genesolia suit le compte maya traditionnel, celui qui n&#x27;a jamais été interrompu dans les hautes terres du Guatemala.</p></details><details><summary>Le calendrier maya prédit-il l&#x27;avenir ?</summary><p>Non. Le signe du jour de naissance est une lecture symbolique du caractère et de la place de chacun, telle que la tradition la décrit. Le 21 décembre 2012 n&#x27;a d&#x27;ailleurs jamais été présenté par les Mayas comme une fin du monde : c&#x27;était la fin d&#x27;un grand cycle de leur Compte long.</p></details></div></section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
@@ -155,7 +210,14 @@
     var M = window.Maya, T = window.MAYA_TEXTES, CLE = 'genesolia-maya', CLE_FAM = 'genesolia-maya-famille';
     var f = document.getElementById('m-form'), err = document.getElementById('m-erreur'), zone = document.getElementById('resultat');
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-    function paras(t) { return String(t || '').split(/\n\n+/).map(function (p) { return '<p>' + p + '</p>'; }).join(''); }
+    function paras(t) {
+      return String(t || '').split(/\n\n+/).map(function (p) {
+        var ph = p.match(/[^.!?]+(?:[.!?]+(?:\s*»)?|$)(?:\s+|$)/g) || [p], out = [], g = [];
+        ph.forEach(function (x) { g.push(x.trim()); if (g.length === 3) { out.push(g.join(' ')); g = []; } });
+        if (g.length) out.push(g.join(' '));
+        return out.map(function (x, i) { return '<p' + (i === 0 ? ' class="m-lead"' : '') + '>' + x + '</p>'; }).join('');
+      }).join('');
+    }
     function nomJour(r) { var S = T.SIGNES[r.signe]; return r.nombre + ' ' + S.kiche; }
     var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
     function dateFr(d) { var m = d.split('-'); return +m[2] + ' ' + MOIS[+m[1] - 1] + ' ' + m[0]; }
@@ -187,6 +249,8 @@
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
       afficher(d, p);
+      if (window.GenesoliaChemin) { var rm = M.calculer(d), Sm = T.SIGNES[rm.signe]; window.GenesoliaChemin.enregistrer({ outil: 'maya', titre: 'Signe maya' + (p ? ' de ' + p : ''),
+        resume: rm.nombre + ' ' + Sm.kiche + ' · ' + Sm.image + ' · jour ' + rm.kin + ' sur 260', donnees: { date: d, prenom: p, nombre: rm.nombre, signe: rm.signe, kin: rm.kin } }); }
       try { localStorage.setItem(CLE, JSON.stringify({ date: d, prenom: p })); } catch (x) {}
       if (window.umami) try { window.umami.track('signe-maya'); } catch (x) {}
       zone.scrollIntoView({ behavior: 'smooth' });

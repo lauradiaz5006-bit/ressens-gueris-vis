@@ -2082,8 +2082,17 @@
 
   function imprimerRapport(btn) {
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
+    /* Sur téléphone : nouvel onglet ouvert au moment du clic (l'impression d'un cadre caché n'y fonctionne pas) */
+    var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var w = mobile ? window.open('', '_blank') : null;
     chargerAstro().catch(function () {}).then(polices).then(function (css) {
       var e = svgExport(css);
+      if (w) {
+        var barre = '<div class="barre-rapport" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>Ton rapport Genesolia</span><button onclick="window.print()" style="border:0;border-radius:99px;padding:.55rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif">Enregistrer en PDF</button></div><style>@media print{.barre-rapport{display:none!important}}</style>';
+        try { w.document.open(); w.document.write(htmlRapport(css, e).replace(/<head>/i, '<head><meta name="viewport" content="width=device-width, initial-scale=1">').replace(/<body([^>]*)>/i, '<body$1>' + barre)); w.document.close(); } catch (x) {}
+        if (btn) { btn.disabled = false; btn.textContent = 'Générer mon rapport (PDF)'; }
+        return;
+      }
       var f = document.createElement('iframe');
       f.setAttribute('aria-hidden', 'true');
       f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
