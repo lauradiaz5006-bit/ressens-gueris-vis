@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeux en famille pour se parler : bâton de parole, météo des émotions, conseil de famille</title>
+  <meta name="description" content="6 jeux gratuits et sans préparation pour mieux se parler en famille avec les enfants : bâton de parole, météo des émotions, conseil de famille, questions du soir, pot à compliments.">
+  <link rel="canonical" href="https://genesolia.fr/jeux-en-famille.html">
+  <meta property="og:title" content="Jeux en famille pour se parler · Genesolia">
+  <meta property="og:description" content="Bâton de parole, météo des émotions, conseil de famille, questions du soir : 6 jeux gratuits à jouer avec les enfants.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .jf-tete{position:relative;overflow:hidden;background:#2E1338;color:#FFF4F6;padding:3.6rem 0 3.2rem}
+    .jf-tete>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42}
+    .jf-tete .conteneur{position:relative}
+    .jf-tete .sur{display:inline-block;font:700 .8rem/1 var(--texte);letter-spacing:.04em;background:rgba(255,255,255,.18);padding:.45rem .8rem;border-radius:99px;margin-bottom:1rem}
+    .jf-tete h1{color:#fff;max-width:44rem;margin-bottom:1rem}.jf-tete h1 em{color:#F7C7BE}
+    .jf-tete .intro{color:#F6E3EC;font-size:1.12rem;max-width:38rem}
+    .jf-som{position:sticky;top:4.25rem;z-index:20;background:rgba(255,249,247,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rose)}
+    .jf-som ul{list-style:none;display:flex;gap:.5rem;overflow-x:auto;padding:.7rem 0;scrollbar-width:none}
+    .jf-som ul::-webkit-scrollbar{display:none}
+    .jf-som a{display:block;white-space:nowrap;padding:.45rem .9rem;border-radius:99px;background:var(--blanc);border:1px solid var(--rose-fonce);text-decoration:none;font:600 .88rem/1 var(--texte);color:var(--prune)}
+    .jf-jeu{scroll-margin-top:8rem}
+    .jf-jeu .conteneur{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    .jf-num{display:inline-block;font:700 .78rem/1 var(--texte);letter-spacing:.06em;color:#A4473D;background:#FCE7E2;padding:.4rem .75rem;border-radius:99px;margin-bottom:.8rem}
+    .jf-jeu h2{margin-bottom:.9rem}
+    .jf-jeu .texte p{margin-bottom:.9rem;max-width:none}
+    .jf-jeu .texte h3{font-size:1.15rem;margin:1.2rem 0 .5rem}
+    .jf-jeu .texte ol,.jf-jeu .texte ul{margin:0 0 1rem 1.2rem;display:grid;gap:.35rem}
+    .jf-infos{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+    .jf-infos span{font:600 .8rem/1 var(--texte);padding:.4rem .7rem;border-radius:99px;background:var(--blanc);border:1px solid var(--rose)}
+    .jf-zone{position:sticky;top:8.5rem}
+    .jf-carte{border-radius:26px;padding:2rem 1.6rem;text-align:center;background:linear-gradient(160deg,#fff,#FFF1EE);box-shadow:0 22px 54px rgba(107,47,91,.15);display:grid;gap:.6rem}
+    .jf-carte p{margin:0 auto;max-width:none}
+    .jf-carte.tourne{animation:tourne .45s ease both}
+    @keyframes tourne{from{opacity:0;transform:perspective(900px) rotateY(-70deg) scale(.95)}to{opacity:1;transform:none}}
+    .jf-label{font:700 .78rem/1.2 var(--texte);letter-spacing:.05em;text-transform:uppercase;color:#A4473D}
+    .jf-grand{font-family:var(--display);font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.15}
+    .jf-q{font-family:var(--display);font-size:clamp(1.3rem,4vw,1.6rem);line-height:1.3}
+    .jf-petit{font-size:.9rem;color:var(--prune-doux)}
+    .jf-champ{width:100%;font:inherit;padding:.75rem 1rem;border-radius:14px;border:1.5px solid var(--rose-fonce);background:#fff;color:var(--prune);margin:.3rem 0 .6rem}
+    .jf-actions{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;align-items:center;margin-top:1.1rem}
+    .j-lien{background:none;border:0;font:600 .9rem var(--texte);color:var(--prune);text-decoration:underline;cursor:pointer;padding:0}
+    .jf-baton-svg{width:12rem;margin:0 auto .4rem}
+    .jf-baton-carte{background:linear-gradient(160deg,#FFF6EC,#F3DCC0)}
+    .jf-meteo-choix{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1rem}
+    .jf-meteo-choix button{display:grid;justify-items:center;gap:.3rem;padding:.9rem .4rem;border-radius:18px;border:1.5px solid var(--rose-fonce);background:#fff;font:700 .88rem var(--texte);color:var(--prune);cursor:pointer;transition:transform .15s}
+    .jf-meteo-choix button:hover{transform:translateY(-3px)}
+    .jf-meteo-choix button[aria-pressed=true]{border-color:var(--prune);box-shadow:0 0 0 2px var(--prune) inset}
+    .jf-meteo-choix svg{width:46px;height:46px}
+    .jf-etapes{display:flex;gap:.4rem;margin-bottom:1rem}
+    .jf-etapes span{flex:1;height:6px;border-radius:6px;background:var(--rose)}
+    .jf-etapes .fait{background:var(--prune)}
+    .jf-soir{background:linear-gradient(160deg,#F6ECF6,#E9D4EC)}
+    .jf-compliments{background:linear-gradient(160deg,#FFF1EE,#F9DCD6)}
+    .jf-raconte{background:linear-gradient(160deg,#FBF0E4,#EBD3B4)}
+    .j-puces{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:1rem}
+    .j-puces button{font:600 .9rem/1.2 var(--texte);padding:.55rem .95rem;border-radius:99px;border:1.5px solid var(--rose-fonce);background:var(--nacre);color:var(--prune);cursor:pointer}
+    .j-puces button[aria-pressed=true]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .jf-pont{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:center;padding:1.8rem;border-radius:var(--rayon);background:linear-gradient(130deg,#3A1745,#6B2F5B 60%,#C96F63);color:#fff}
+    .jf-pont h2{color:#fff;font-size:1.7rem;margin-bottom:.5rem}.jf-pont p{color:#F6E3EC}
+    .jf-pont img{width:7rem;height:7rem;border-radius:50%;object-fit:cover;border:3px solid #F7C7BE}
+    .jf-pont .btn{margin-top:1rem;background:#F7C7BE;color:var(--prune)}
+    @media (max-width:900px){.jf-jeu .conteneur{grid-template-columns:1fr;gap:1.6rem}.jf-zone{position:static}.jf-pont{grid-template-columns:1fr;text-align:center}.jf-pont img{margin:0 auto}}
+    @media (prefers-reduced-motion:reduce){.jf-carte.tourne{animation:none}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Comment utiliser un bâton de parole en famille ?","acceptedAnswer":{"@type":"Answer","text":"On s'assoit en cercle. Seule la personne qui tient le bâton parle, les autres écoutent sans couper. Quand elle a fini, elle passe le bâton à sa voisine. On peut proposer une question pour chaque tour, comme « ce qui m'a fait sourire aujourd'hui »."}},
+    {"@type":"Question","name":"C'est quoi la météo des émotions ?","acceptedAnswer":{"@type":"Answer","text":"Chaque membre de la famille choisit une météo pour dire comment il se sent : soleil, nuage, pluie, orage, brouillard ou arc-en-ciel. C'est une façon simple pour un enfant de mettre un mot sur ce qu'il ressent, sans avoir à tout expliquer."}},
+    {"@type":"Question","name":"Comment organiser un conseil de famille ?","acceptedAnswer":{"@type":"Answer","text":"Une fois par semaine, au même moment, pendant environ 30 minutes : on commence par les mercis, puis ce qui a bien marché, ce qui coince, on cherche une idée à tester ensemble, et on termine en décidant d'un moment à partager."}},
+    {"@type":"Question","name":"Quelles questions poser à son enfant après l'école ?","acceptedAnswer":{"@type":"Answer","text":"Plutôt que « ça s'est bien passé ? », pose des questions précises : « qu'est-ce qui t'a fait rire aujourd'hui ? », « avec qui as-tu joué à la récré ? », « quelle a été la meilleure minute de ta journée ? ». Elles appellent une vraie réponse."}},
+    {"@type":"Question","name":"À partir de quel âge peut-on jouer ?","acceptedAnswer":{"@type":"Answer","text":"Dès 4 ans pour la météo des émotions, le bâton de parole et le pot à compliments. Les questions du soir existent en trois versions : 4-7 ans, 8-12 ans et ados."}}
+  ]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tout est offert", "item": "https://genesolia.fr/offert.html"}, {"@type": "ListItem", "position": 3, "name": "Jeux en famille", "item": "https://genesolia.fr/jeux-en-famille.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="jf-tete">
+      <img src="assets/images/blog-devenir-parent-au-meme-age-1600.webp" alt="" fetchpriority="high">
+      <div class="conteneur">
+        <span class="sur">Gratuit · sans préparation · dès 4 ans</span>
+        <h1>Jeux en famille pour <em>mieux se parler</em>, petits et grands</h1>
+        <p class="intro">Six jeux tout simples pour que chacun·e ose dire ce qu'il ressent, et que tout le monde écoute. À jouer à table, le soir, ou le dimanche, avec ou sans téléphone.</p>
+      </div>
+    </section>
+
+    <nav class="jf-som" aria-label="Les jeux">
+      <div class="conteneur"><ul>
+        <li><a href="#baton">Bâton de parole</a></li>
+        <li><a href="#meteo">Météo des émotions</a></li>
+        <li><a href="#conseil">Conseil de famille</a></li>
+        <li><a href="#soir">Questions du soir</a></li>
+        <li><a href="#compliments">Pot à compliments</a></li>
+        <li><a href="#raconte">Raconte-moi quand tu étais petit·e</a></li>
+      </ul></div>
+    </nav>
+
+    <section class="bloc jf-jeu" id="baton">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 1</span>
+          <h2>Le bâton de parole</h2>
+          <div class="jf-infos"><span>Dès 4 ans</span><span>3 à 8 personnes</span><span>10 minutes</span></div>
+          <p>Le bâton de parole vient des cercles de parole : seule la personne qui le tient parle, les autres écoutent sans couper. Chez les enfants, il apprend à attendre son tour, et il donne enfin de la place à ceux qui parlent peu.</p>
+          <h3>Comment jouer</h3>
+          <ol><li>Prenez un objet : une cuillère en bois, un crayon, une branche ramassée en balade.</li><li>Asseyez-vous en cercle, et choisissez une question pour le tour.</li><li>Celui ou celle qui a le bâton parle. Les autres écoutent, sans commenter.</li><li>Quand il ou elle a fini, le bâton passe à la personne suivante. On a le droit de dire « je passe ».</li></ol>
+          <p>Pas de bâton sous la main ? Le téléphone le remplace : il affiche à qui c'est le tour et la question.</p>
+        </div>
+        <div class="jf-zone" id="jf-baton"></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux jf-jeu" id="meteo">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 2</span>
+          <h2>La météo des émotions</h2>
+          <div class="jf-infos"><span>Dès 4 ans</span><span>Chaque jour</span><span>2 minutes</span></div>
+          <p>Un enfant n'a pas toujours les mots pour dire ce qu'il ressent. Mais il sait dire s'il fait soleil ou s'il y a de l'orage dans son cœur. La météo des émotions lui donne un langage simple, et à toi une porte pour l'écouter.</p>
+          <h3>Comment jouer</h3>
+          <ol><li>Au goûter ou au coucher, chacun·e choisit sa météo du moment, adultes compris.</li><li>On pose la question qui va avec, sans insister.</li><li>On accueille la réponse, sans chercher à la corriger : toutes les météos ont le droit d'exister.</li></ol>
+          <p>Touche une météo pour voir la question à poser, et une idée de réponse pour le parent.</p>
+        </div>
+        <div class="jf-zone" id="jf-meteo"></div>
+      </div>
+    </section>
+
+    <section class="bloc jf-jeu" id="conseil">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 3</span>
+          <h2>Le conseil de famille</h2>
+          <div class="jf-infos"><span>Dès 5 ans</span><span>Une fois par semaine</span><span>30 minutes</span></div>
+          <p>Un rendez-vous court et régulier où chacun·e a sa voix, même les plus petits. On s'y dit merci, on y règle ce qui coince sans dispute, et on décide ensemble. Les enfants adorent proposer des idées qui sont vraiment testées.</p>
+          <h3>Les 5 étapes</h3>
+          <ol><li>Les mercis.</li><li>Ce qui a bien marché.</li><li>Ce qui coince, sans accuser.</li><li>On cherche une idée à tester toute la semaine.</li><li>On décide d'un moment à partager.</li></ol>
+          <p>Le téléphone vous guide étape par étape, pour que personne n'ait à jouer le chef.</p>
+        </div>
+        <div class="jf-zone" id="jf-conseil"></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux jf-jeu" id="soir">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 4</span>
+          <h2>Les questions du soir</h2>
+          <div class="jf-infos"><span>4-7 ans</span><span>8-12 ans</span><span>Ados</span></div>
+          <p>« Ça s'est bien passé ? » « Oui. » Fin de la conversation. Pour que ton enfant te raconte vraiment sa journée, pose des questions précises, qui appellent une histoire plutôt qu'un oui ou un non.</p>
+          <h3>Quelques exemples</h3>
+          <ul><li>Qu'est-ce qui t'a fait rire aujourd'hui ?</li><li>Avec qui as-tu joué à la récré ?</li><li>Quelle a été la meilleure minute de ta journée ?</li><li>Est-ce que quelqu'un était seul à la récré ?</li></ul>
+          <p>Choisis l'âge, et tire une question au dîner ou dans la voiture.</p>
+        </div>
+        <div class="jf-zone" data-paquet="soir"></div>
+      </div>
+    </section>
+
+    <section class="bloc jf-jeu" id="compliments">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 5</span>
+          <h2>Le pot à compliments</h2>
+          <div class="jf-infos"><span>Dès 4 ans</span><span>Toute la famille</span><span>5 minutes</span></div>
+          <p>Un bocal, des petits papiers, et une règle : on y glisse seulement des choses gentilles et vraies sur les autres. Le dimanche, on les lit à voix haute. Les enfants y apprennent à remarquer le beau chez les autres, et à recevoir un compliment sans rougir.</p>
+          <h3>Comment jouer</h3>
+          <ol><li>Tire une phrase à compléter.</li><li>Choisis une personne de la famille et termine la phrase pour elle.</li><li>Écris-la sur un papier pour le pot, ou dis-la tout de suite.</li></ol>
+        </div>
+        <div class="jf-zone" data-paquet="compliments"></div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux jf-jeu" id="raconte">
+      <div class="conteneur">
+        <div class="texte">
+          <span class="jf-num">JEU 6</span>
+          <h2>Raconte-moi quand tu étais petit·e</h2>
+          <div class="jf-infos"><span>Dès 6 ans</span><span>Avec les grands-parents</span><span>15 minutes</span></div>
+          <p>Les enfants deviennent journalistes et interviewent leurs parents ou leurs grands-parents. Ils découvrent que maman a été une petite fille, que papy faisait des bêtises, et d'où vient leur famille. Un jeu parfait pour les repas de famille.</p>
+          <h3>Comment jouer</h3>
+          <ol><li>L'enfant tire une question et la pose à un adulte.</li><li>L'adulte raconte, avec des détails.</li><li>On peut noter les réponses dans un carnet : c'est le début de l'histoire de votre famille.</li></ol>
+        </div>
+        <div class="jf-zone" data-paquet="raconte"></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="jf-pont">
+          <img src="assets/images/genosociogramme-800.webp" alt="" loading="lazy">
+          <div>
+            <h2>Et si vous dessiniez votre arbre ensemble ?</h2>
+            <p>Les réponses de « Raconte-moi » ont leur place quelque part : sur l'arbre de famille. Dessinez-le ensemble, gratuitement, en ligne : prénoms, dates, métiers et souvenirs.</p>
+            <a class="btn" href="genosociogramme.html">Dessiner notre arbre</a>
+          </div>
+        </div>
+        <p style="margin-top:2rem;max-width:none">Vous jouez entre adultes ? Découvre aussi <a href="jeux.html">les jeux pour se rapprocher</a> entre amies, en couple ou en soirée.</p>
+        <div data-partage="Ces jeux pourraient plaire à une autre famille ? Partage-les."></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/jeux-famille.js"></script>
+</body>
+</html>
