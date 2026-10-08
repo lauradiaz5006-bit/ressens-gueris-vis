@@ -116,7 +116,7 @@
   }
   function texteLimite(lim) {
     var debut = lim >= 100000 ? 'Tu as atteint le nombre d’arbres de ta formule.'
-      : lim > 0 ? 'Avec Le Cercle, tu as 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
+      : lim > 0 ? 'Tu as déjà tes 3 arbres : c’est le maximum de ta formule. L’Espace praticien permet des arbres illimités.'
       : 'Avec la formule gratuite, tu as un arbre. Le Cercle te permet d’avoir 3 arbres, et l’Espace praticien des arbres illimités.';
     return debut + '<br><a href="abonnement.html">Découvrir Le Cercle</a> · <a href="espace-praticien.html">Découvrir l’Espace praticien</a>';
   }
