@@ -59,6 +59,15 @@
       .f-carte{padding:1.5rem}
     }
     @media (max-width:560px){.f-modules,.f-contenu{grid-template-columns:1fr}}
+    .f-auteure{display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;max-width:56rem;margin:0 auto;padding:2.2rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:1px solid var(--champagne-clair)}
+    .f-avatar{width:160px;height:160px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:3px solid var(--champagne);box-shadow:0 18px 40px rgba(107,47,91,.15)}
+    .f-avatar span{font:400 4rem var(--display);color:var(--prune)}
+    .f-avatar img{width:100%;height:100%;object-fit:cover}
+    .f-auteure-sur{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .f-auteure h2{margin-bottom:.8rem}
+    .f-auteure p{max-width:none}
+    .f-auteure p+p{margin-top:.7rem}
+    @media (max-width:640px){.f-auteure{grid-template-columns:1fr;justify-items:center;text-align:center;padding:1.6rem}.f-avatar{width:130px;height:130px}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Sors de la boucle", "item": "https://genesolia.fr/formation.html"}]}</script>
 </head>
@@ -116,6 +125,20 @@
 
     <section class="bloc">
       <div class="conteneur">
+        <div class="f-auteure">
+          <div class="f-avatar" id="f-avatar" aria-hidden="true"><span>L</span></div>
+          <div>
+            <p class="f-auteure-sur">Qui a créé cette formation</p>
+            <h2>Bonjour, moi c'est Laura</h2>
+            <p>Je suis formée à l'hypnose ericksonienne et à la psychogénéalogie. « Sors de la boucle » est née de ma propre méthode : je l'ai construite et testée sur moi-même, pour sortir de mes propres répétitions, avant de la transmettre.</p>
+            <p>Mon envie : te donner des outils simples, à utiliser au moment précis où la boucle démarre, et un regard plus doux sur ce que ta famille t'a transmis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
         <div class="bloc-tete">
           <h2>Le programme</h2>
           <p>Chaque module se termine par un outil pour arrêter la boucle dès le jour même.</p>
@@ -146,5 +169,8 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script>
+  (function () { var i = new Image(); i.onload = function () { var a = document.getElementById('f-avatar'); a.innerHTML = ''; i.alt = 'Laura, en illustration'; a.appendChild(i); a.removeAttribute('aria-hidden'); }; i.src = 'assets/laura-illustration.webp'; })();
+  </script>
 </body>
 </html>
