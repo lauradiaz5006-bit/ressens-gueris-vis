@@ -74,6 +74,17 @@ window.GENESOLIA_STRIPE = {
     pied.className = 'pied';
     pied.innerHTML =
       '<div class="conteneur">' +
+        '<div class="pied-appli">' +
+          '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
+            '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
+            '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
+            '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>' +
+            '<i></i><i></i><i></i><i></i></div>' +
+          '</div></div>' +
+          '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
+            '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
+            '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>' +
+        '</div>' +
         '<div class="pied-grille">' +
           '<div><a class="marque" href="/">' + MARQUE + '</a>' +
             '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
@@ -376,7 +387,10 @@ window.GENESOLIA_STRIPE = {
   function montrerInstall() { document.querySelectorAll('[data-installer]').forEach(function (a) { a.hidden = false; }); }
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); invite = e; if (!installee) montrerInstall(); });
   window.addEventListener('appinstalled', function () { invite = null; document.querySelectorAll('[data-installer]').forEach(function (a) { a.hidden = true; }); });
-  if (!installee && iOS) montrerInstall();
+  var ua = navigator.userAgent;
+  var android = /android/i.test(ua), chromeIOS = /crios/i.test(ua), samsung = /samsungbrowser/i.test(ua), firefox = /firefox|fxios/i.test(ua);
+  if (!installee && (iOS || android)) montrerInstall();
+  if (installee) document.querySelectorAll('.pied-appli').forEach(function (b) { b.remove(); });
   function aideInstall() {
     var f = document.createElement('div');
     f.className = 'appli-fenetre';
@@ -384,9 +398,17 @@ window.GENESOLIA_STRIPE = {
     var partage = '<svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true" style="display:inline;vertical-align:-3px"><path d="M10 2v10M6 6l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9H4v9h12V9h-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
     f.innerHTML = '<div class="appli-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
       '<img src="/apple-touch-icon.png" alt="" width="64" height="64"><h2>Genesolia sur ton téléphone</h2>' +
-      (iOS
-        ? '<ol><li>Touche le bouton <b>Partager</b> ' + partage + ' en bas de Safari.</li><li>Choisis <b>Sur l\'écran d\'accueil</b>.</li><li>Touche <b>Ajouter</b> : l\'icône Genesolia apparaît avec tes applis.</li></ol><p>Sur iPhone, ça marche depuis Safari.</p>'
-        : '<ol><li>Ouvre le menu de ton navigateur (les trois points).</li><li>Choisis <b>Installer l\'application</b> ou <b>Ajouter à l\'écran d\'accueil</b>.</li><li>L\'icône Genesolia apparaît avec tes applis.</li></ol>') +
+      (iOS && chromeIOS
+        ? '<ol><li>Touche le bouton <b>Partager</b> ' + partage + ' en haut à droite, dans la barre d\'adresse.</li><li>Choisis <b>Ajouter à l\'écran d\'accueil</b>.</li><li>Touche <b>Ajouter</b> : l\'icône Genesolia apparaît avec tes applis.</li></ol>'
+        : iOS
+        ? '<ol><li>Touche le bouton <b>Partager</b> ' + partage + ' en bas de Safari.</li><li>Choisis <b>Sur l\'écran d\'accueil</b>.</li><li>Touche <b>Ajouter</b> : l\'icône Genesolia apparaît avec tes applis.</li></ol>'
+        : android && samsung
+        ? '<ol><li>Touche le menu <b>≡</b> en bas à droite.</li><li>Choisis <b>Ajouter page à</b>, puis <b>Écran d\'accueil</b>.</li><li>Ouvre ensuite Genesolia depuis son icône.</li></ol>'
+        : android && firefox
+        ? '<ol><li>Touche le menu <b>⋮</b>.</li><li>Choisis <b>Installer</b> (ou <b>Ajouter à l\'écran d\'accueil</b>).</li></ol><p>Pour la meilleure version, ouvre plutôt genesolia.fr dans Chrome.</p>'
+        : android
+        ? '<ol><li>Touche le menu <b>⋮</b> en haut à droite de Chrome.</li><li>Choisis <b>Installer l\'application</b>. Si tu ne vois que « Ajouter à l\'écran d\'accueil », touche-le puis choisis <b>Installer</b> (et non « Créer un raccourci »).</li><li>Patiente quelques secondes : l\'icône Genesolia arrive avec tes applis. Ouvre-la depuis là, pas depuis Chrome.</li></ol>'
+        : '<ol><li>Dans Chrome ou Edge, clique sur l\'icône <b>Installer</b> à droite de la barre d\'adresse (un petit écran avec une flèche).</li><li>Confirme avec <b>Installer</b>.</li><li>Genesolia s\'ouvre dans sa propre fenêtre, et se retrouve avec tes applications.</li></ol><p>Sur téléphone, ouvre genesolia.fr et touche « Installer l\'appli » en bas de la page.</p>') +
       '<p class="appli-note">Gratuit, sans téléchargement dans un store. Tes outils s\'ouvrent en plein écran, comme une vraie appli.</p></div>';
     function fermer() { f.remove(); }
     f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) fermer(); });
@@ -395,7 +417,7 @@ window.GENESOLIA_STRIPE = {
     f.querySelector('.appli-fermer').focus();
   }
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('[data-installer]'); if (!a) return;
+    var a = e.target.closest('[data-installer],[data-installer-bandeau]'); if (!a) return;
     e.preventDefault();
     if (invite) { invite.prompt(); invite.userChoice.then(function () { invite = null; }); }
     else aideInstall();
