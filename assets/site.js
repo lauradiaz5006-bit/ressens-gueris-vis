@@ -116,6 +116,16 @@ window.GENESOLIA_STRIPE = {
   /* Cadeau : le carnet des deux cycles contre un e-mail (Formspree).
      Placer <div data-cadeau></div> là où le bloc doit apparaître. */
   var FORMSPREE = 'https://formspree.io/f/xdawvnby';
+
+  /* Mails automatiques (N8N) : adresse de ton N8N, terminée par /webhook/ (ex. 'https://n8n.mondomaine.fr/webhook/').
+     Tant qu'elle est vide, rien n'est envoyé à N8N et le site fonctionne comme avant. */
+  var N8N = '';
+  function versN8N(chemin, donnees) {
+    if (!N8N) return;
+    try { fetch(N8N + chemin, { method: 'POST', body: donnees, mode: 'no-cors', keepalive: true }).catch(function () {}); } catch (e) {}
+  }
+  window.GenesoliaN8N = versN8N;
+  window.GenesoliaN8NAdresse = function () { return N8N; };
   var CARNET = 'assets/carnet-des-deux-cycles.pdf';
   function telecharger() {
     var a = document.createElement('a');
@@ -173,6 +183,7 @@ window.GENESOLIA_STRIPE = {
       var data = new FormData(form);
       data.append('source', page);
       data.append('_subject', 'Nouvelle inscription : carnet des deux cycles');
+      versN8N('genesolia-carnet', data);
       fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function () {
@@ -283,6 +294,7 @@ window.GENESOLIA_STRIPE = {
       data.append('liste', 'Formation Sors de la boucle');
       data.append('source', page);
       data.append('_subject', 'Liste d\'attente : formation Sors de la boucle');
+      versN8N('genesolia-formation', data);
       fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function () {

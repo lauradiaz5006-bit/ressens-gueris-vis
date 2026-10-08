@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Me désinscrire · Genesolia</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://genesolia.fr/desinscription.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .desinscription{padding:4rem 0 3rem}
+    .d-carte{max-width:36rem;margin:0 auto;padding:2.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .d-carte h1{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:.8rem}
+    .d-carte p{margin-bottom:1.2rem}
+    .d-carte .actions{display:flex;gap:.8rem;flex-wrap:wrap}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="conteneur desinscription">
+    <div class="d-carte" id="zone" aria-live="polite">
+      <h1>Me désinscrire</h1>
+      <p>Tu ne recevras plus aucun e-mail de Genesolia. Tes outils, ton arbre et ton compte restent accessibles.</p>
+      <div class="actions"><button class="btn btn-plein" type="button" id="confirmer">Confirmer ma désinscription</button><a class="btn btn-trait" href="/">Revenir au site</a></div>
+      <p class="discret" id="erreur" role="alert" style="margin-top:1rem"></p>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var q = new URLSearchParams(location.search), c = q.get('c') || '', j = q.get('j') || '';
+    var zone = document.getElementById('zone'), err = document.getElementById('erreur'), bt = document.getElementById('confirmer');
+    function fin(titre, texte) { zone.innerHTML = '<h1>' + titre + '</h1><p>' + texte + '</p><div class="actions"><a class="btn btn-plein" href="/">Revenir au site</a></div>'; }
+    if (!c || !j) { fin('Lien incomplet', 'Ce lien de désinscription est incomplet. Utilise le lien « Me désinscrire » en bas d\'un de nos e-mails, ou écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.'); return; }
+    bt.addEventListener('click', function () {
+      var adresse = window.GenesoliaN8NAdresse && window.GenesoliaN8NAdresse();
+      if (!adresse) { err.innerHTML = 'La désinscription en ligne n\'est pas encore disponible. Écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a> : on s\'en occupe.'; return; }
+      bt.disabled = true; bt.textContent = 'Un instant…';
+      var d = new FormData(); d.append('c', c); d.append('j', j);
+      fetch(adresse + 'genesolia-desinscription', { method: 'POST', body: d })
+        .then(function (r) { return r.json(); })
+        .then(function (r) {
+          if (r && r.ok) fin('C\'est fait', 'Tu es désinscrit·e : tu ne recevras plus d\'e-mails de Genesolia. Les outils du site restent à ta disposition quand tu le souhaites.');
+          else fin('Lien non reconnu', 'Ce lien n\'est plus valable ou tu es déjà désinscrit·e. Si tu reçois encore nos e-mails, écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.');
+        })
+        .catch(function () { bt.disabled = false; bt.textContent = 'Confirmer ma désinscription'; err.innerHTML = 'La demande n\'a pas abouti. Réessaie dans un instant, ou écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.'; });
+    });
+  })();
+  </script>
+</body>
+</html>
