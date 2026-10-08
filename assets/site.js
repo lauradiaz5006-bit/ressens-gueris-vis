@@ -378,6 +378,10 @@ window.GENESOLIA_STRIPE = {
   if (vu) setTimeout(carreCercle, 5000);
 
   /* ===== Application installable (bouton « Installer l'appli ») ===== */
+  /* iPhone : nom sous l'icône et ouverture en plein écran */
+  [['apple-mobile-web-app-capable', 'yes'], ['mobile-web-app-capable', 'yes'], ['apple-mobile-web-app-title', 'Genesolia'], ['apple-mobile-web-app-status-bar-style', 'default']].forEach(function (m) {
+    if (!document.querySelector('meta[name="' + m[0] + '"]')) { var e = document.createElement('meta'); e.name = m[0]; e.content = m[1]; document.head.appendChild(e); }
+  });
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
   }
