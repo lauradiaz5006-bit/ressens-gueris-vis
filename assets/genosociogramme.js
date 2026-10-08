@@ -853,9 +853,26 @@
       ascension: ['Comment la famille a-t-elle vécu cette réussite, puis ce revers ?', 'Dans quel milieu te sens-tu chez toi ?'],
       reversdeuil: ['Quel soutien cette personne représentait-elle ?', 'Sur quoi peux-tu t’appuyer aujourd’hui ?']
     };
+    // L'article du blog qui explique chaque piste
+    var A = function (u, t) { return { u: u, t: t }; };
+    var ARTICLES = {
+      anniversaire: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'), date: A('syndrome-anniversaire.html', 'Le syndrome d’anniversaire'),
+      gisant: A('syndrome-du-gisant.html', 'Le syndrome du gisant'), conception: A('projet-sens-conception-deuil.html', 'Le projet sens'),
+      remplacement: A('enfant-de-remplacement.html', 'L’enfant de remplacement'), premier: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'),
+      depart: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait'), ageparent: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent'),
+      guerre: A('guerre-et-memoire-familiale.html', 'La guerre dans l’arbre'), ombre: A('secret-de-famille.html', 'Les secrets de famille'),
+      cousins: A('implexe-mariage-entre-cousins.html', 'L’implexe et les mariages entre cousins'), epreuve: A('memoire-transgenerationnelle.html', 'La mémoire transgénérationnelle'),
+      schema: A('loyaute-familiale-invisible.html', 'Les loyautés invisibles'), enfants: A('filles-garcons-fratrie.html', 'Filles, garçons et fratries'),
+      metier: A('metiers-transmis-genealogie.html', 'Les métiers de famille'), prenom: A('prenom-transmis-psychogenealogie.html', 'Les prénoms transmis'),
+      argent: A('argent-et-lignee.html', 'Argent et histoire familiale'), reversage: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      heritage: A('argent-et-lignee.html', 'Argent et histoire familiale'), ascension: A('argent-et-lignee.html', 'Argent et histoire familiale'),
+      reversdeuil: A('argent-et-lignee.html', 'Argent et histoire familiale'), secret: A('secret-de-famille.html', 'Les secrets de famille'),
+      ageevt: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent')
+    };
     reps.forEach(function (r) {
-      var k = r.qk || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
+      var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
       r.q = QUESTIONS[k] || null;
+      r.art = ARTICLES[k] || null;
     });
 
     // Mots-clés pour la recherche dans le panneau
@@ -1134,6 +1151,7 @@
     z.innerHTML = (mots.length ? info : blocExo) + visibles.map(function (i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
       return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' + (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
+        (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
     }).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
   }
