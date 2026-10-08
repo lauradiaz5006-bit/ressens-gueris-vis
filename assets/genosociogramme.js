@@ -1745,6 +1745,7 @@
   /* Import d'un arbre déjà fait (PDF ou GEDCOM) : lecture et vérification dans assets/import-arbre.js */
   window.GenoArbre = {
     exemple: function () { return EXEMPLE; },
+    etat: function () { var e = JSON.parse(JSON.stringify(S)); e.libelles = JSON.parse(JSON.stringify(NOM_EVT)); return e; },   // lecture seule (export GEDCOM)
     ouvrir: ouvrir, fermer: fermer,
     personnes: function () { return Object.keys(S.people).map(function (id) { return { id: id, nom: nomAffiche(S.people[id]), moi: S.people[id].role === 'moi' }; }); },
     // d : { people, rels } avec les identifiants du fichier ; o : { remplacer, moi, meme: { fichier, arbre } }
