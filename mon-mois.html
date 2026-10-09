@@ -127,12 +127,13 @@
     var CERCLE = {
       libre: true,                     /* true : Le Cercle offert à toute personne connectée ; false : abonnement payant */
       prix: '29 € par mois',
-      offert: '2026-11',               /* le carnet offert contre un e-mail */
+      offert: '2026-10',               /* le carnet offert contre un e-mail */
       lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
       formspree: 'https://formspree.io/f/xdawvnby'
     };
     /* Les carnets du mois (PDF dans assets/cercle/) : ajouter une ligne par nouveau carnet */
     var CARNETS = {
+      '2026-10': { titre: "Ce qui revient", fichier: 'cercle-2026-10-8b31e0c2a4.pdf' },
       '2026-11': { titre: "Ceux qui sont venus avant toi", fichier: 'cercle-2026-11-474ce578d0.pdf' },
       '2026-12': { titre: "Les fêtes et les places à table", fichier: 'cercle-2026-12-ce7016469f.pdf' },
       '2027-01': { titre: "Ton prénom, ton héritage", fichier: 'cercle-2027-01-6750c8248e.pdf' },

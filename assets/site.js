@@ -359,8 +359,8 @@ window.GENESOLIA_STRIPE = {
   /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
      Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient à la prochaine visite. */
   var CARRE = {
-    titre: 'Ceux qui sont venus avant toi',
-    image: 'assets/cercle/apercu-2026-11.jpg',
+    titre: 'Ce qui revient',
+    image: 'assets/cercle/apercu-2026-10.jpg',
     lien: 'mon-mois.html#offert'
   };
   function carreCercle() {
