@@ -10,6 +10,7 @@ window.GenesoliaDonnees = (function () {
   var JETON = 'sb-qsvzzkjtjsznfntahvvh-auth-token', MARQUE_COMPTE = 'genesolia-donnees-compte', REGLE = 'genesolia-regle-v2';
   var GARDER = /^(consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
   function connectee() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return !!(x && x.refresh_token); } catch (e) { return false; } }
+  function idCompte() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return (x && x.user && x.user.id) || '1'; } catch (e) { return '1'; } }
   function effacer() {
     try {
       Object.keys(localStorage).forEach(function (k) { if (!GARDER.test(k)) localStorage.removeItem(k); });
@@ -19,7 +20,11 @@ window.GenesoliaDonnees = (function () {
   function sessionOuverte() { return /(?:^|; )genesolia_s=1/.test(document.cookie); }
   try {
     var premiere = !localStorage.getItem(REGLE);
-    if (connectee()) localStorage.setItem(MARQUE_COMPTE, '1');
+    if (connectee()) {
+      var id = idCompte(), avant = localStorage.getItem(MARQUE_COMPTE);
+      if (avant && avant !== '1' && id !== '1' && avant !== id) effacer();   /* autre compte sur le même appareil : on efface la copie du précédent */
+      localStorage.setItem(MARQUE_COMPTE, id);
+    }
     else if (localStorage.getItem(MARQUE_COMPTE)) effacer();          /* copie d'un compte dont la session est terminée */
     else if (!sessionOuverte() && !premiere) effacer();                 /* sans compte : navigateur fermé depuis la dernière visite */
     if (premiere) localStorage.setItem(REGLE, '1');                     /* première visite avec cette règle : rien n'est effacé */
