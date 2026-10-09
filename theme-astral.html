@@ -168,6 +168,7 @@
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/astrologie.js"></script>
   <script src="assets/astrologie-textes.js"></script>
+  <script src="assets/livret-astral.js?v=1"></script>
   <script>
   (function () {
     'use strict';
@@ -340,7 +341,7 @@
     function afficher(e, r) {
       var P = r.planetes, h = '<div class="conteneur">', prenom = (e.prenom || '').trim();
       h += '<div class="a-res-tete"><div><h2>Le thème ' + (prenom ? 'de <span>' + esc(prenom) + '</span>' : 'astral') + '</h2><p>Né·e le ' + dateFr(e.date) + (r.heureConnue ? ' à ' + e.heure.replace(':', ' h ') : '') + (e.lieu ? ' · ' + esc(e.lieu) : '') + '</p></div>' +
-        '<div class="actions a-actions"><button class="btn btn-trait" type="button" id="a-imprimer">Imprimer mon thème</button><button class="btn btn-trait" type="button" id="a-refaire">Refaire un thème</button></div></div>';
+        '<div class="actions a-actions"><button class="btn btn-plein" type="button" id="a-imprimer" data-compte="ton livret du thème astral">Télécharger mon livret</button><button class="btn btn-trait" type="button" id="a-refaire">Refaire un thème</button></div></div>';
       h += '<nav class="a-sommaire" aria-label="Dans ton thème"><a href="#a-trio">Soleil, Lune, ascendant</a><a href="#a-ciel">Ton ciel</a><a href="#a-planetes">Tes planètes</a><a href="#a-herit">Ton héritage</a><a href="#a-elem">Tes éléments</a>' + (r.cuspides ? '<a href="#a-maisons">Tes maisons</a>' : '') + '<a href="#a-lignee">Ta lignée</a></nav>';
       if (!r.heureConnue) h += '<div class="a-alerte"><b>Sans heure de naissance.</b> ' + esc(T.INTRO.sans_heure) + (r.luneIncertaine ? ' Ce jour-là, la Lune a changé de signe : elle était ' + enS(r.luneIncertaine.avant) + ' puis ' + enS(r.luneIncertaine.apres) + '. Le texte ci-dessous est celui de midi.' : '') + '</div>';
       else if (!r.asc) h += '<div class="a-alerte">Choisis ton lieu de naissance dans la liste pour obtenir ton ascendant et tes maisons.</div>';
@@ -387,7 +388,10 @@
       h += '<a class="a-bonus" href="mon-mois.html"><img src="assets/cercle/apercu-12-saisons.webp" alt="" width="84" height="119" loading="lazy"><span><b>Les 12 saisons, le livret de l\'année</b>L\'histoire de chaque mois, les signes qui le traversent et ce qu\'il réveille dans les familles. Inclus dans le Cercle, avec ton mois personnel et un carnet à imprimer chaque mois.</span><em>Découvrir le Cercle</em></a>';
       h += '<p class="note" style="margin-top:1.2rem">Lecture symbolique, pour t\'aider à réfléchir. L\'astrologie ne prédit pas l\'avenir.' + (r.systeme ? ' Maisons : système ' + r.systeme + '.' : '') + '</p></div>';
       zone.innerHTML = h; zone.hidden = false;
-      document.getElementById('a-imprimer').addEventListener('click', function () { window.print(); });
+      document.getElementById('a-imprimer').addEventListener('click', function () {
+        var ro = zone.querySelector('.a-roue svg');
+        if (window.LivretAstral) window.LivretAstral.imprimer({ e: e, r: r, roue: ro ? ro.outerHTML.replace(/<svg /, '<svg xmlns="http://www.w3.org/2000/svg" ') : '' }, this);
+      });
       document.getElementById('a-refaire').addEventListener('click', function () { f.reset(); lieu = null; info.className = ''; info.textContent = "Nécessaire pour l'ascendant et les maisons."; document.getElementById('a-heure').disabled = false; f.scrollIntoView({ behavior: 'smooth' }); });
     }
 
@@ -395,6 +399,7 @@
       var r = AS.calculer({ date: e.date, heure: e.heure, lat: e.lat, lon: e.lon, tz: e.tz || 'Europe/Paris', lieu: e.lieu });
       afficher(e, r);
       try { localStorage.setItem(CLE, JSON.stringify(e)); } catch (x) {}
+      return r;
     }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -406,7 +411,13 @@
       resoudreLieu().then(function () {
         if (tape && !lieu) info.textContent = "Ville introuvable : ton thème est calculé sans l'ascendant. Vérifie l'orthographe ou essaie une ville proche.";
         var e = { prenom: f.prenom.value, date: d, heure: hr, lieu: lieu ? lieu.nom : '', lat: lieu ? lieu.lat : null, lon: lieu ? lieu.lon : null, tz: lieu ? lieu.tz : 'Europe/Paris' };
-        lancer(e);
+        var r = lancer(e);
+        if (window.GenesoliaChemin && r && r.planetes) {
+          var NS = function (k) { return T.SIGNES[k] ? T.SIGNES[k].nom : ''; };
+          window.GenesoliaChemin.enregistrer({ outil: 'astral', titre: 'Thème astral' + (e.prenom ? ' de ' + e.prenom.trim() : ''),
+            resume: 'Soleil ' + NS(r.planetes.soleil.signe) + ' · Lune ' + NS(r.planetes.lune.signe) + (r.asc ? ' · Ascendant ' + NS(r.asc.signe) : '') + (e.lieu ? ' · né·e à ' + e.lieu : ''),
+            donnees: { entree: e, soleil: r.planetes.soleil.signe, lune: r.planetes.lune.signe, asc: r.asc ? r.asc.signe : null } });
+        }
         if (window.umami) try { window.umami.track('theme-astral'); } catch (x) {}
         zone.scrollIntoView({ behavior: 'smooth' });
       });

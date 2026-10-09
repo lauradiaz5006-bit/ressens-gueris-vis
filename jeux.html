@@ -69,6 +69,8 @@
     .j-regles p{font-size:.95rem;color:var(--prune-doux)}
     @media (max-width:860px){.j-tete .conteneur{grid-template-columns:1fr}.j-pile{display:none}.j-choix,.j-regles{grid-template-columns:1fr}}
     @media (prefers-reduced-motion:reduce){.j-carte.tourne{animation:none}}
+    .j-famille{display:grid;gap:.3rem;margin-top:2rem;padding:1.4rem 1.6rem;border-radius:22px;background:linear-gradient(150deg,#FBF0E4,#F3DCC0);text-decoration:none;color:var(--prune)}
+    .j-famille strong{font-family:var(--display);font-weight:400;font-size:1.5rem}.j-famille span{color:var(--prune-doux)}.j-famille em{font-style:normal;font-weight:700;text-decoration:underline}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tout est offert", "item": "https://genesolia.fr/offert.html"}, {"@type": "ListItem", "position": 3, "name": "Jeux pour se rapprocher", "item": "https://genesolia.fr/jeux.html"}]}</script>
 </head>
@@ -100,6 +102,7 @@
           <button type="button" class="c" data-jeu="gratitude" aria-pressed="false"><span class="num">JEU 3</span><strong>Vérité ou gratitude</strong><small>Un « action ou vérité » tout doux : une vraie question, ou un merci à quelqu'un du groupe.</small></button>
         </div>
         <div id="jeu" aria-live="polite"></div>
+        <a class="j-famille" href="jeux-en-famille.html"><strong>Avec des enfants ?</strong><span>Bâton de parole, météo des émotions, conseil de famille : 6 jeux à faire dès 4 ans.</span><em>Voir les jeux en famille</em></a>
       </div>
     </section>
 

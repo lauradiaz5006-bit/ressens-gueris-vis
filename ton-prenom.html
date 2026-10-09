@@ -42,6 +42,34 @@
     .t-index a{display:block;padding:.15rem 0;text-decoration:none}
     .t-index a:hover{color:var(--champagne)}
     @media (max-width:900px){.t-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
+    .pf{background:radial-gradient(40rem 22rem at 100% 0%,rgba(243,220,192,.45),transparent 60%),linear-gradient(180deg,#FFF6EC,var(--nacre))}
+    .pf-tete{max-width:46rem;margin-bottom:1.8rem}
+    .pf-sur{display:inline-block;font:700 .78rem/1 var(--texte);letter-spacing:.04em;color:#A4473D;background:#FCE7E2;padding:.45rem .8rem;border-radius:99px;margin-bottom:.9rem}
+    .pf-tete h2{margin-bottom:.8rem}.pf-tete p{color:var(--prune-doux);max-width:none}
+    .pf-grille{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:1.8rem;align-items:start}
+    .pf-saisie{background:var(--blanc);border:1px solid var(--rose);border-radius:24px;padding:1.4rem}
+    .pf-ligne{display:grid;grid-template-columns:9.5rem 1fr auto;gap:.5rem;margin-bottom:.55rem}
+    .pf-ligne select,.pf-ligne input{font:inherit;padding:.65rem .8rem;border-radius:12px;border:1.5px solid var(--rose-fonce);background:#fff;color:var(--prune);min-width:0}
+    .pf-ligne button{background:none;border:0;font-size:1.3rem;color:var(--prune-doux);cursor:pointer;padding:0 .3rem}
+    .pf-boutons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem}
+    .pf-note{font-size:.82rem;color:var(--prune-doux);margin-top:.9rem;max-width:none}
+    .pf-vide{background:var(--blanc);border:1px dashed var(--rose-fonce);border-radius:22px;padding:1.4rem}
+    .pf-vide p{margin-top:.4rem;max-width:none;color:var(--prune-doux)}
+    .pf-paire{background:var(--blanc);border:1px solid var(--rose);border-radius:20px;padding:1.1rem 1.2rem;margin-bottom:.8rem;box-shadow:0 12px 30px rgba(107,47,91,.06);animation:pf-in .35s ease both}
+    .pf-paire.fort{border-color:#E7A79E;background:linear-gradient(160deg,#FFF1EE,#fff 70%)}
+    @keyframes pf-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .pf-noms{font-family:var(--display);font-size:1.35rem;line-height:1.2}
+    .pf-noms small{display:block;font:600 .8rem/1.3 var(--texte);color:var(--prune-doux);margin-top:.2rem}
+    .pf-force{display:inline-block;margin:.5rem 0 .4rem;font:700 .74rem/1 var(--texte);letter-spacing:.05em;text-transform:uppercase;padding:.35rem .65rem;border-radius:99px;background:#F3DCC0;color:var(--prune)}
+    .pf-paire.fort .pf-force{background:#E7A79E;color:#fff}
+    .pf-paire ul{list-style:none;padding:0;margin:0 0 .5rem;display:grid;gap:.25rem}
+    .pf-paire li{font-size:.93rem;padding-left:1.1rem;position:relative}
+    .pf-paire li::before{content:"";position:absolute;left:0;top:.55em;width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne)}
+    .pf-q{font-family:var(--display);font-size:1.08rem;color:#A4473D;margin:0;max-width:none}
+    .pf-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+    .pf-sans{font-size:.92rem;color:var(--prune-doux)}
+    @media (max-width:860px){.pf-grille{grid-template-columns:1fr}.pf-ligne{grid-template-columns:7.5rem 1fr auto}}
+    .t-famille-lien{display:block;margin-top:.8rem;font-weight:700;font-size:.92rem;color:var(--prune)}
   </style>
   <style id="p-css"></style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ce que ton prénom porte de ton histoire", "item": "https://genesolia.fr/ton-prenom.html"}]}</script>
@@ -63,11 +91,30 @@
           <input id="t-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa" required>
           <button class="btn btn-plein" type="submit">Découvrir mon prénom</button>
           <small>Fonctionne pour tous les prénoms. Le calcul se fait sur ton appareil.</small>
+          <a class="t-famille-lien" href="#famille">Comparer les prénoms de ma famille</a>
         </form>
       </div>
     </section>
 
     <section class="bloc t-res" id="resultat" hidden aria-live="polite"><div class="conteneur" id="t-corps"></div></section>
+
+    <section class="bloc pf" id="famille" aria-labelledby="pf-titre">
+      <div class="conteneur">
+        <div class="pf-tete">
+          <span class="pf-sur">Nouveau · les prénoms de ta famille</span>
+          <h2 id="pf-titre">Quel prénom en appelle un autre ?</h2>
+          <p>Nina et Annie ont presque les mêmes lettres. Yanis et Yohann viennent du même prénom, Jean. Sans y penser, on donne parfois à un enfant le prénom d'un parent, d'une grand-mère ou d'un disparu, sous une autre forme. Écris les prénoms de ta famille : le calculateur cherche les échos, même cachés.</p>
+        </div>
+        <div class="pf-grille">
+          <div class="pf-saisie">
+            <div id="pf-lignes"></div>
+            <div class="pf-boutons"><button type="button" class="btn btn-trait" id="pf-ajout">Ajouter une personne</button><button type="button" class="btn btn-plein" id="pf-go">Chercher les échos</button></div>
+            <p class="pf-note">Ce qui est comparé : la racine (les formes d'un même prénom), les lettres, les sons, un prénom caché dans un autre, la valeur numérologique. Rien n'est envoyé.</p>
+          </div>
+          <div class="pf-res" id="pf-res" aria-live="polite"><div class="pf-vide"><b>Exemple</b><p>Ta mère s'appelle Annie, ta fille Nina : <em>presque les mêmes lettres, dans un autre ordre, et la même racine (Anne)</em>. Une question à se poser : est-ce que ma fille porte quelque chose de ma mère ?</p></div></div>
+        </div>
+      </div>
+    </section>
 
     <section class="bloc bloc-doux">
       <div class="conteneur" id="t-origine"></div>
@@ -98,6 +145,7 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms.js"></script>
   <script src="assets/prenom-lecture.js"></script>
+  <script src="assets/prenoms-echos.js"></script>
   <script>
   (function () {
     'use strict';
@@ -134,11 +182,75 @@
     f.addEventListener('submit', function (e) {
       e.preventDefault(); var v = f.prenom.value.trim(); if (!v) { f.prenom.focus(); return; }
       lancer(v); if (window.umami) try { window.umami.track('ton-prenom'); } catch (x) {}
+      if (window.GenesoliaChemin && actuel) { var fi = P.trouver(actuel), nm = (fi && fi.prenom) || (actuel.charAt(0).toUpperCase() + actuel.slice(1));
+        window.GenesoliaChemin.enregistrer({ outil: 'prenom', titre: 'Le prénom ' + nm, resume: fi && fi.sens ? 'Origine ' + fi.origine + ' · ' + String(fi.sens).replace(/<[^>]+>/g, '').slice(0, 220) : 'Lecture de la valeur des lettres de ' + nm, donnees: { prenom: nm, lettres: lettres } }); }
       zone.scrollIntoView({ behavior: 'smooth' });
     });
     var q = new URLSearchParams(location.search).get('p'), memo = null;
     try { memo = localStorage.getItem(CLE); } catch (x) {}
     if (q || memo) { f.prenom.value = q || memo; lancer(q || memo); if (q) setTimeout(function () { zone.scrollIntoView(); }, 50); }
+  })();
+  </script>
+
+  <script>
+  (function () {
+    'use strict';
+    var E = window.PrenomsEchos, CLE = 'genesolia-prenoms-famille';
+    var LIENS = ['Moi', 'Ma mère', 'Mon père', 'Ma fille', 'Mon fils', 'Ma sœur', 'Mon frère', 'Ma grand-mère', 'Mon grand-père', 'Mon arrière-grand-parent', 'Ma tante', 'Mon oncle', 'Mon cousin, ma cousine', 'Mon ou ma partenaire', 'Un enfant disparu', 'Autre'];
+    var zl = document.getElementById('pf-lignes'), zr = document.getElementById('pf-res');
+    function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function ligne(v) {
+      v = v || {};
+      var d = document.createElement('div'); d.className = 'pf-ligne';
+      d.innerHTML = '<select aria-label="Lien">' + LIENS.map(function (l) { return '<option' + (l === v.lien ? ' selected' : '') + '>' + l + '</option>'; }).join('') + '</select>' +
+        '<input type="text" aria-label="Prénom" placeholder="Prénom" value="' + esc(v.prenom || '') + '" autocomplete="off"><button type="button" aria-label="Retirer">×</button>';
+      d.querySelector('button').onclick = function () { d.remove(); };
+      zl.appendChild(d);
+    }
+    function lire() { return [].map.call(zl.querySelectorAll('.pf-ligne'), function (d) { return { lien: d.querySelector('select').value, prenom: d.querySelector('input').value.trim().split(/[\s,]+/)[0] || '' }; }).filter(function (x) { return x.prenom; }); }
+    var QUESTIONS = {
+      racine: 'Ce prénom a-t-il été choisi en pensant à l’autre ? Qu’est-ce qui se transmet avec lui ?',
+      lettres: 'Quand les lettres se répondent, on peut se demander si l’un porte quelque chose de l’autre.',
+      cache: 'Un prénom caché dans un autre, c’est parfois une façon de garder quelqu’un près de soi.',
+      son: 'Des prénoms qui sonnent pareil se répondent à l’oreille de toute la famille.',
+      lettre: 'Une seule lettre les sépare : un clin d’œil, ou un écho plus profond ?',
+      identique: 'Porter le même prénom, c’est parfois porter un peu de l’histoire de l’autre. Quelle est la sienne ?'
+    };
+    function analyser() {
+      var l = lire();
+      if (l.length < 2) { zr.innerHTML = '<div class="pf-vide"><p>Écris au moins deux prénoms.</p></div>'; return; }
+      try { localStorage.setItem(CLE, JSON.stringify(l)); } catch (e) {}
+      var p = E.analyser(l);
+      if (!p.length) { zr.innerHTML = '<div class="pf-vide"><b>Pas d’écho net</b><p>Ces prénoms ne se ressemblent ni par la racine, ni par les lettres, ni par les sons. Ajoute d’autres personnes : grands-parents, oncles et tantes, enfants disparus.</p></div>'; return; }
+      zr.innerHTML = p.slice(0, 12).map(function (x) {
+        var fort = x.score >= 4, t = x.liens[0].type;
+        return '<article class="pf-paire' + (fort ? ' fort' : '') + '"><p class="pf-noms">' + esc(x.a.prenom) + ' et ' + esc(x.b.prenom) + '<small>' + esc(x.a.lien) + ' · ' + esc(x.b.lien) + '</small></p>' +
+          '<span class="pf-force">' + (x.score >= 6 ? 'Écho très fort' : fort ? 'Écho fort' : 'Écho léger') + '</span><ul>' + x.liens.map(function (k) { return '<li>' + esc(k.texte) + '</li>'; }).join('') + '</ul>' +
+          (QUESTIONS[t] ? '<p class="pf-q">« ' + esc(QUESTIONS[t]) + ' »</p>' : '') + '</article>';
+      }).join('') + '<div class="pf-actions"><button type="button" class="btn btn-plein" id="pf-garder">Garder dans mon espace</button><button type="button" class="btn btn-trait" id="pf-imprimer" data-compte="le récap des prénoms de ta famille">Télécharger le récap</button><a class="btn btn-trait" href="genosociogramme.html">Placer ces prénoms dans mon arbre</a></div>' +
+        '<p class="pf-sans" style="margin-top:.8rem">Lecture symbolique : une ressemblance n’est pas un destin. C’est une question à poser, pas une réponse.</p>';
+      zr.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('pf-garder').onclick = function () {
+        if (window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'prenoms-famille', titre: 'Les prénoms de ma famille', resume: p.slice(0, 4).map(function (x) { return x.a.prenom + ' et ' + x.b.prenom; }).join(' · '), donnees: { prenoms: l, echos: p.slice(0, 12).map(function (x) { return { a: x.a, b: x.b, score: x.score, types: x.liens.map(function (k) { return k.type; }) }; }) } });
+        this.textContent = 'Gardé dans ton espace';
+      };
+      document.getElementById('pf-imprimer').onclick = function () { imprimer(l, p); };
+      if (window.umami) try { window.umami.track('prenoms-famille'); } catch (e) {}
+    }
+    function imprimer(l, p) {
+      var w = window.open('', '_blank'); if (!w) return;
+      var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Les prénoms de ma famille · Genesolia</title><style>@page{margin:16mm 14mm}body{font:15px/1.65 Georgia,serif;color:#4a2342;max-width:46rem;margin:0 auto;padding:1.2rem}h1{font-weight:400;font-size:30px;color:#6B2F5B;margin:0 0 .3rem}.s{color:#B98A55;font:700 12px sans-serif;letter-spacing:2px;text-transform:uppercase}table{width:100%;border-collapse:collapse;margin:1rem 0}td,th{border-bottom:1px solid #EBCFD5;padding:.45rem;text-align:left;font-size:14px}.p{border:1px solid #EBCFD5;border-radius:12px;padding:.8rem 1rem;margin:.6rem 0;break-inside:avoid}.p b{font-size:18px;color:#6B2F5B}.q{color:#A4473D;font-style:italic}.b{position:sticky;top:0;background:#6B2F5B;color:#fff;padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;font:600 14px sans-serif}.b button{border:0;border-radius:99px;padding:.5rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif}@media print{.b{display:none}}</style></head><body>' +
+        '<div class="b"><span>Ton récap Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div><p class="s">Genesolia · les prénoms de ma famille</p><h1>Quel prénom en appelle un autre ?</h1>' +
+        '<table><tr><th>Lien</th><th>Prénom</th><th>Famille du prénom</th></tr>' + l.map(function (x) { return '<tr><td>' + esc(x.lien) + '</td><td>' + esc(x.prenom) + '</td><td>' + esc(E.famille(x.prenom) || '') + '</td></tr>'; }).join('') + '</table>' +
+        '<h2 style="font-weight:400;color:#6B2F5B">Les échos</h2>' + p.map(function (x) { return '<div class="p"><b>' + esc(x.a.prenom) + ' et ' + esc(x.b.prenom) + '</b> · ' + esc(x.a.lien) + ', ' + esc(x.b.lien) + '<br>' + x.liens.map(function (k) { return esc(k.texte); }).join(' ') + (QUESTIONS[x.liens[0].type] ? '<br><span class="q">« ' + esc(QUESTIONS[x.liens[0].type]) + ' »</span>' : '') + '</div>'; }).join('') +
+        '<h2 style="font-weight:400;color:#6B2F5B">Pour aller plus loin</h2><ul><li>Demande à ta famille pourquoi chaque prénom a été choisi, et en pensant à qui.</li><li>Cherche s’il y a eu, avant toi, un enfant disparu dont le prénom a été redonné.</li><li>Place ces prénoms dans ton arbre sur genesolia.fr : l’outil repère aussi les âges et les dates qui se répètent.</li></ul>' +
+        '<p style="font-size:12px;color:#8E6383;margin-top:2rem">Récap généré sur genesolia.fr. Lecture symbolique, pour réfléchir : une ressemblance n’est pas un destin.</p></body></html>';
+      w.document.open(); w.document.write(h); w.document.close();
+    }
+    document.getElementById('pf-ajout').onclick = function () { ligne(); };
+    document.getElementById('pf-go').onclick = analyser;
+    var sv = null; try { sv = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) {}
+    (sv && sv.length ? sv : [{ lien: 'Moi' }, { lien: 'Ma mère' }, { lien: 'Ma fille' }, { lien: 'Ma grand-mère' }]).forEach(ligne);
   })();
   </script>
 </body>

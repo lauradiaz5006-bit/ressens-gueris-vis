@@ -107,6 +107,7 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="tes-20-ans.html">Jeune femme</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
+            '<li><a href="jeux-en-famille.html">Jeux en famille</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
@@ -119,6 +120,7 @@ window.GENESOLIA_STRIPE = {
             '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
             '<li><a href="blog.html">Le blog</a></li>' +
+            '<li><a href="histoires.html">Histoires de familles</a></li>' +
             '<li><a href="le-ciel-du-mois.html">Le ciel du mois</a></li>' +
             '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
@@ -528,7 +530,57 @@ window.GENESOLIA_STRIPE = {
       if (totalJaime !== null) totalJaime = Math.max(0, totalJaime + (dejaAime ? 1 : -1));
       majCoeurs();
       document.querySelectorAll('.jaime').forEach(function (c) { c.classList.remove('bat'); void c.offsetWidth; if (dejaAime) c.classList.add('bat'); });
+      /* Connecté·e : on garde aussi le cœur dans son espace (Mes coups de cœur) */
+      try {
+        var ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), jt = ses && ses.access_token;
+        if (jt && (!ses.expires_at || ses.expires_at * 1000 > Date.now())) {
+          var hd = { apikey: SBK, Authorization: 'Bearer ' + jt, 'Content-Type': 'application/json', Prefer: 'resolution=ignore-duplicates,return=minimal' };
+          if (dejaAime) fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes', { method: 'POST', headers: hd, body: JSON.stringify({ page: pageJaime, titre: (document.querySelector('h1') || {}).textContent ? document.querySelector('h1').textContent.trim().slice(0, 200) : document.title }) }).catch(function () {});
+          else fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/mes_jaimes?page=eq.' + encodeURIComponent(pageJaime), { method: 'DELETE', headers: hd }).catch(function () {});
+        }
+      } catch (er2) {}
       rpc('genesolia_jaime', { p_page: pageJaime, p_delta: dejaAime ? 1 : -1 }).then(function (n) { if (typeof n === 'number') { totalJaime = n; majCoeurs(); } });
     });
+  }
+
+  /* ===== Téléchargements réservés aux comptes : tout élément avec data-compte="ton livret…" ===== */
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function aUnCompte() { try { var x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); return !!(x && (x.access_token || x.refresh_token)); } catch (e) { return false; } }
+  function demanderCompte(quoi) {
+    var f = document.createElement('div'), ici = page;
+    f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Crée ton espace pour télécharger');
+    f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
+      '<img src="/assets/icones/icone-192.png" alt="" width="64" height="64"><h2>' + (quoi ? esc(quoi.charAt(0).toUpperCase() + quoi.slice(1)) : 'Ton document') + ' t\'attend</h2>' +
+      '<p>Pour le télécharger, crée ton espace Genesolia : c\'est gratuit et ça prend une minute.</p>' +
+      '<ul class="compte-liste"><li>Tous tes livrets et tes tests gardés au même endroit, avec leur date</li><li>Ton évolution, test après test</li><li>Ton arbre familial sauvegardé</li></ul>' +
+      '<div class="compte-actions"><a class="btn btn-plein" href="login.html?inscription&retour=' + encodeURIComponent(ici) + '">Créer mon espace gratuit</a><a class="compte-lien" href="login.html?retour=' + encodeURIComponent(ici) + '">J\'ai déjà un compte</a></div></div>';
+    function fermer() { f.remove(); }
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) fermer(); });
+    document.body.appendChild(f); f.querySelector('.btn').focus();
+  }
+  window.GenesoliaCompte = { actif: aUnCompte, demander: demanderCompte };
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-compte]'); if (!el) return;
+    if (aUnCompte()) {
+      /* Une fois par document et par navigateur : N8N envoie un petit mail de rappel (workflow 13) */
+      try {
+        var quoi = el.getAttribute('data-compte'), cle = 'telecharge-' + quoi, ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), u = ses && ses.user;
+        if (u && u.email && !localStorage.getItem(cle) && window.GenesoliaN8N) { localStorage.setItem(cle, '1'); var fd = new FormData(); fd.append('email', u.email); fd.append('prenom', (u.user_metadata && u.user_metadata.full_name) || ''); fd.append('quoi', quoi); fd.append('page', page); window.GenesoliaN8N('genesolia-telechargement', fd); }
+      } catch (er) {}
+      return;
+    }
+    e.preventDefault(); e.stopImmediatePropagation();
+    demanderCompte(el.getAttribute('data-compte'));
+  }, true);
+  /* ===== Mon chemin : enregistrer un test dans l'espace (le module se charge seulement quand il sert) ===== */
+  if (!window.GenesoliaChemin) {
+    var cheminCharge = null;
+    window.GenesoliaChemin = {
+      enregistrer: function (r) {
+        if (!cheminCharge) cheminCharge = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/mon-chemin.js?v=1'; sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc); });
+        var stub = window.GenesoliaChemin;
+        return cheminCharge.then(function () { return window.GenesoliaChemin !== stub ? window.GenesoliaChemin.enregistrer(r) : false; });
+      }
+    };
   }
 })();

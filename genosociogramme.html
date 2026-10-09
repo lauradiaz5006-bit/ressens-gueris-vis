@@ -118,7 +118,8 @@
     .panneau-recherche{padding:.7rem .8rem .2rem;border-bottom:1px solid var(--rose)}
     .panneau-recherche input{width:100%;box-sizing:border-box;font:400 .88rem var(--texte);color:var(--prune);padding:.55rem .75rem;border:1.5px solid var(--rose-fonce);border-radius:10px;background:var(--nacre)}
     .panneau-recherche input:focus{outline:2px solid var(--champagne);outline-offset:1px}
-    .rep-sugg{display:flex;flex-wrap:wrap;gap:.3rem;padding:.55rem 0 .5rem}
+    .rep-sugg{display:block;padding:.5rem 0 .4rem}
+    .rep-sugg select{width:100%;font:600 .85rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:12px;padding:.5rem .7rem;cursor:pointer}
     .rep-sugg button{font:600 .72rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.22rem .55rem;cursor:pointer}
     .rep-sugg button:hover,.rep-sugg button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
     .panneau-pied{border-top:1px solid var(--rose);padding:.75rem 1rem;font-size:.76rem;color:var(--prune-doux);line-height:1.5}
@@ -276,6 +277,15 @@
     }
     @media (min-width:1101px){ .bt-panneau{display:none} }
     @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
+    /* Style « arbre doré » */
+    body.arbre-dore .zone-dessin, body.arbre-dore #dessin{background:radial-gradient(60rem 40rem at 50% 110%,rgba(185,138,85,.18),transparent 60%),radial-gradient(50rem 30rem at 50% -10%,rgba(243,220,192,.55),transparent 65%),#FFFBF4}
+    body.arbre-dore #dessin [stroke="#6B2F5B"]{stroke:#A87A3D}
+    body.arbre-dore #dessin [fill="#FFFFFF"]{fill:#FFF6E6}
+    body.arbre-dore #dessin [fill="#FBE6EA"]{fill:#F6DDB0}
+    body.arbre-dore #dessin path[fill="none"],body.arbre-dore #dessin line{stroke:#C49A5B}
+    body.arbre-dore #dessin .personne > circle:not(.halo),body.arbre-dore #dessin .personne > rect:not(.zone-clic),body.arbre-dore #dessin .personne > path:not(.halo){filter:drop-shadow(0 3px 6px rgba(168,122,61,.28))}
+    body.arbre-dore #dessin text[fill="#6B2F5B"]{fill:#5A3A16}
+    .bt-dore[aria-pressed="true"]{background:linear-gradient(135deg,#E8C899,#B98A55);border-color:#B98A55;color:#3A2410}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Mon arbre familial : génosociogramme en ligne gratuit", "item": "https://genesolia.fr/genosociogramme.html"}]}</script>
@@ -330,6 +340,7 @@
       <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
       <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
+      <button class="bt bt-dore" type="button" id="bt-dore" aria-pressed="false" title="Changer l'apparence de l'arbre">Arbre doré</button>
       <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
     </div>
     <span class="sep" aria-hidden="true"></span>
@@ -579,8 +590,9 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-09f"></script>
-  <script src="assets/import-arbre.js?v=2026-10-09e"></script>
+  <script src="assets/prenoms-echos.js?v=1"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-10a"></script>
+  <script src="assets/import-arbre.js?v=2026-10-10a"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-09"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
@@ -615,5 +627,14 @@
   })();
   </script>
   <script src="assets/export-gedcom.js?v=2026-10-09"></script>
+
+  <script>
+  (function () {
+    var b = document.getElementById('bt-dore'); if (!b) return;
+    function appliquer(on) { document.body.classList.toggle('arbre-dore', on); b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+    try { appliquer(localStorage.getItem('genesolia-arbre-dore') === '1'); } catch (e) {}
+    b.addEventListener('click', function () { var on = !document.body.classList.contains('arbre-dore'); appliquer(on); try { localStorage.setItem('genesolia-arbre-dore', on ? '1' : '0'); } catch (e) {} });
+  })();
+  </script>
 </body>
 </html>

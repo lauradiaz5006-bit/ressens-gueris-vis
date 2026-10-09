@@ -685,6 +685,28 @@
           desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.ecart === 0 ? ' (l’année de sa naissance)' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant sa naissance)') : ''); }).join(' ; ') + '.',
           ids: [c.g.id].concat(c.l.slice(0, 3).map(function (x) { return x.d.id; })) });
       });
+    // 4 bis. Des prénoms qui se répondent sous une autre forme (même racine, mêmes lettres, même son) entre ascendants et descendants
+    if (window.PrenomsEchos) {
+      var dejaEcho = {}, echos = [];
+      liste.forEach(function (p) {
+        if (!p.prenom) return;
+        var asc = [], f = [[p.id, 0]];
+        while (f.length) { var c = f.shift(); if (c[1] >= 3) continue; (parentsDe[c[0]] || []).forEach(function (q) { asc.push([q, c[1] + 1]); f.push([q, c[1] + 1]); }); }
+        asc.forEach(function (x) {
+          var q = S.people[x[0]]; if (!q || !q.prenom) return;
+          var pa = p.prenom.split(/[\s-]+/)[0], qa = q.prenom.split(/[\s-]+/)[0];
+          if (window.PrenomsEchos.norm(pa) === window.PrenomsEchos.norm(qa)) return;
+          var r = window.PrenomsEchos.comparer(pa, qa), cle = [p.id, q.id].sort().join('+');
+          if (r.score >= 4 && !dejaEcho[cle]) { dejaEcho[cle] = 1; echos.push({ p: p, q: q, g: x[1], r: r }); }
+        });
+      });
+      echos.sort(function (a, b) { return b.r.score - a.r.score; }).slice(0, 4).forEach(function (e) {
+        reps.push({ type: 'prenom', fort: e.r.score >= 6, tags: 'prenom cache forme racine lettres son ressemble echo',
+          label: 'Des prénoms qui se répondent : ' + e.q.prenom.split(/[\s-]+/)[0] + ' et ' + e.p.prenom.split(/[\s-]+/)[0],
+          desc: nomA(e.q) + ' et ' + nom(e.p) + ', à ' + e.g + ' génération' + (e.g > 1 ? 's' : '') + ' d’écart : ' + e.r.liens.map(function (l) { return l.texte.replace(/\.$/, ''); }).join(' ; ').toLowerCase() + '.',
+          ids: [e.q.id, e.p.id] });
+      });
+    }
     // 5. Les enfants : fratries d'un seul sexe, même nombre d'enfants d'une génération à l'autre
     var fratries = {};
     liste.forEach(function (p) { var pa = (parentsDe[p.id] || []).slice().sort().join('+'); if (pa) (fratries[pa] = fratries[pa] || []).push(p); });
@@ -1398,7 +1420,9 @@
       var pa = partenaires(id);
       o += '<div class="champ"><label for="fa-avec">Avec</label><select id="fa-avec">' +
         pa.map(function (x) { return '<option value="' + esc(x) + '">' + esc(nomCourt(x)) + '</option>'; }).join('') +
-        '<option value="">Autre parent non indiqué</option></select></div>';
+        '<option value="__nouveau"' + (pa.length ? '' : ' selected') + '>Ajouter l’autre parent (nouvelle personne)</option>' +
+        '<option value="">Autre parent non indiqué</option></select></div>' +
+        '<div class="champ" id="fa-autre-zone"' + (pa.length ? ' style="display:none"' : '') + '><label for="fa-autre">Prénom de l’autre parent</label><input type="text" id="fa-autre" autocomplete="off" placeholder="Facultatif, tu pourras compléter sa fiche ensuite"></div>';
     }
     if (type === 'fratrie') {
       var ps2 = parents(id);
@@ -1409,6 +1433,7 @@
       }
     }
     $('fa-options').innerHTML = o;
+    if ($('fa-avec')) $('fa-avec').addEventListener('change', function () { $('fa-autre-zone').style.display = this.value === '__nouveau' ? '' : 'none'; });
     ouvrir('fen-ajout');
     majChoixDeux();
     setTimeout(function () { var r = deuxParents ? $('fa-mere') : $('fa-choix').querySelector('input:checked'); if (r) r.focus(); }, 30);
@@ -1453,7 +1478,11 @@
     } else if (type === 'enfant') {
       S.rels.push({ from: id, to: np.id, type: 'parent' });
       var avec = $('fa-avec') ? $('fa-avec').value : '';
-      if (avec) S.rels.push({ from: avec, to: np.id, type: 'parent' });
+      if (avec === '__nouveau') {
+        var moi = S.people[id], autre = nouvellePersonne({ sex: moi.sex === 'f' ? 'm' : moi.sex === 'm' ? 'f' : 'u', prenom: ($('fa-autre') ? $('fa-autre').value.trim() : '') });
+        S.rels.push({ from: id, to: autre.id, type: 'couple', statut: 'union' });
+        S.rels.push({ from: autre.id, to: np.id, type: 'parent' });
+      } else if (avec) S.rels.push({ from: avec, to: np.id, type: 'parent' });
     } else if (type === 'fratrie') {
       var memes = Array.prototype.slice.call(document.querySelectorAll('[data-meme]')).filter(function (cb) { return cb.checked; }).map(function (cb) { return cb.getAttribute('data-meme'); });
       if (memes.length) memes.forEach(function (p) { S.rels.push({ from: p, to: np.id, type: 'parent' }); });
@@ -1717,15 +1746,11 @@
   });
   (function () {
     var champ = $('rep-cherche'), sugg = $('rep-sugg'); if (!champ || !sugg) return;
-    sugg.innerHTML = RECH_SUGG.map(function (x) { return '<button type="button" data-cherche="' + esc(x[0]) + '">' + esc(x[1]) + '</button>'; }).join('');
-    var t = null;
-    champ.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { recherche = champ.value; repActive = null; dessinerPanneau(); }, 150); });
-    sugg.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-cherche]'); if (!b) return;
-      var v = b.getAttribute('data-cherche'); champ.value = champ.value === v ? '' : v; recherche = champ.value; repActive = null;
-      sugg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b && champ.value ? 'true' : 'false'); });
-      dessinerPanneau();
-    });
+    /* Thèmes en menu déroulant : prend une seule ligne */
+    sugg.innerHTML = '<select id="rep-theme" aria-label="Choisir un thème"><option value="">Choisir un thème…</option>' + RECH_SUGG.map(function (x) { return '<option value="' + esc(x[0]) + '">' + esc(x[1]) + '</option>'; }).join('') + '</select>';
+    var sel = $('rep-theme'), t = null;
+    champ.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { recherche = champ.value; repActive = null; sel.value = ''; dessinerPanneau(); }, 150); });
+    sel.addEventListener('change', function () { champ.value = sel.value; recherche = sel.value; repActive = null; dessinerPanneau(); });
   })();
   $('reps').addEventListener('click', function (e) {
     var b = e.target.closest('[data-rep]'); if (!b) return;

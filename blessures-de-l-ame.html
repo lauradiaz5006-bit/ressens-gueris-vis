@@ -232,6 +232,13 @@
     var cy=r>c?'la <a href="methode.html">racine</a> (cycle 1) : la sécurité, la place, le droit d\'exister':c>r?'le <a href="methode.html">cœur</a> (cycle 2) : le lien, la confiance, la façon d\'aimer':'les deux cycles, à parts égales';
     z.innerHTML='<strong>Ce qui te parle le plus : '+top.map(function(k){var pg={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};return '<a href="'+pg[k]+'.html">'+noms[k]+'</a>';}).join(' et ')+'.</strong> Tes réponses touchent surtout '+cy+'. Ce n\'est pas une vérité sur toi : une piste pour savoir où regarder. Clique sur une blessure pour lire ses signes, son masque et ce qu\'elle rejoue dans ta famille.';
   }
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('#b-garder')||!window.GenesoliaChemin)return;
+    var sc={},det={};document.querySelectorAll('[data-blessure]').forEach(function(b){var k=b.getAttribute('data-blessure');sc[k]=b.querySelectorAll('input:checked').length;det[k]=[].map.call(b.querySelectorAll('input:checked'),function(i){return i.closest('label').textContent.trim();});});
+    var tri=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a];}).filter(function(k){return sc[k]>0;});
+    window.GenesoliaChemin.enregistrer({outil:'blessures',titre:'Les blessures de l\u2019âme',resume:'Ce qui te parle le plus : '+tri.slice(0,2).map(function(k){return noms[k];}).join(' et ')+' · '+tri.map(function(k){return noms[k]+' '+sc[k];}).join(', '),donnees:{scores:sc,phrases:det}});
+    e.target.closest('#b-garder').textContent='Résultat gardé';
+  });
   var PG={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};
   var pil=document.createElement('button');pil.type='button';pil.className='b-pilule';pil.innerHTML='Voir mon résultat <span>0</span>';document.body.appendChild(pil);
   pil.addEventListener('click',function(){z.scrollIntoView({behavior:'smooth',block:'center'});});
@@ -245,7 +252,7 @@
     var msg=n/tous>=.6?'Cette blessure te parle beaucoup.':n/tous>=.34?'Cette blessure te parle.':'Une piste à garder en tête.';
     r.innerHTML='<strong>'+n+' phrase'+(n>1?'s':'')+' sur '+tous+'</strong> · '+msg+'<div class="jauge"><i style="width:'+Math.round(n/tous*100)+'%"></i></div><a href="'+PG[k]+'.html">Lire tout sur '+noms[k]+'</a>';
   }
-  document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',function(){retour(i.closest('[data-blessure]'));maj();z.classList.toggle('plein',!!document.querySelector('[data-blessure] input:checked'));if(z.classList.contains('plein')&&!z.querySelector('.b-actions'))z.insertAdjacentHTML('beforeend','<div class="b-actions"><a class="btn btn-plein" href="genosociogramme.html">Chercher d\'où elle vient dans mon arbre</a><a class="btn btn-trait" href="formation.html">Sortir de la boucle</a></div>');pilule();});});
+  document.querySelectorAll('[data-blessure] input').forEach(function(i){i.addEventListener('change',function(){retour(i.closest('[data-blessure]'));maj();z.classList.toggle('plein',!!document.querySelector('[data-blessure] input:checked'));if(z.classList.contains('plein')&&!z.querySelector('.b-actions'))z.insertAdjacentHTML('beforeend','<div class="b-actions"><button type="button" class="btn btn-plein" id="b-garder">Garder ce résultat dans mon espace</button><a class="btn btn-trait" href="genosociogramme.html">Chercher d\'où elle vient dans mon arbre</a><a class="btn btn-trait" href="formation.html">Sortir de la boucle</a></div>');pilule();});});
 })();
 </script>
 </body>
