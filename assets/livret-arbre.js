@@ -79,7 +79,10 @@
       '<p class="intro" style="margin-top:6mm">Livret créé le ' + esc(auj) + ' sur genesolia.fr. Lecture symbolique, pour réfléchir à ton histoire. Elle ne remplace pas un avis médical, psychologique ou professionnel.</p></section>';
     return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="' + esc(location.href) + '"><title>Livret de l’arbre de vie · Genesolia</title><style>' + css() + '</style></head><body><div class="barre-livret"><span>Ton livret Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div>' + p + '</body></html>';
   }
+  var direct = false;
   function imprimer(d, btn) {
+    /* Par mail d'abord (lien de secours pour le téléchargement direct) */
+    if (!direct && window.GenesoliaParMail) return window.GenesoliaParMail.envoyer({ quoi: 'ton livret de l’arbre de vie', html: charger().then(function () { return html(d); }), secours: function () { direct = true; try { imprimer(d, btn); } finally { direct = false; } } });
     var lib = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du livret…'; }
     var w = MOBILE ? window.open('', '_blank') : null;

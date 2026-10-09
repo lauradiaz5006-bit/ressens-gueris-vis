@@ -237,14 +237,15 @@
       document.getElementById('pf-imprimer').onclick = function () { imprimer(l, p); };
       if (window.umami) try { window.umami.track('prenoms-famille'); } catch (e) {}
     }
-    function imprimer(l, p) {
-      var w = window.open('', '_blank'); if (!w) return;
+    function imprimer(l, p, direct) {
       var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Les prénoms de ma famille · Genesolia</title><style>@page{margin:16mm 14mm}body{font:15px/1.65 Georgia,serif;color:#4a2342;max-width:46rem;margin:0 auto;padding:1.2rem}h1{font-weight:400;font-size:30px;color:#6B2F5B;margin:0 0 .3rem}.s{color:#B98A55;font:700 12px sans-serif;letter-spacing:2px;text-transform:uppercase}table{width:100%;border-collapse:collapse;margin:1rem 0}td,th{border-bottom:1px solid #EBCFD5;padding:.45rem;text-align:left;font-size:14px}.p{border:1px solid #EBCFD5;border-radius:12px;padding:.8rem 1rem;margin:.6rem 0;break-inside:avoid}.p b{font-size:18px;color:#6B2F5B}.q{color:#A4473D;font-style:italic}.b{position:sticky;top:0;background:#6B2F5B;color:#fff;padding:.6rem 1rem;display:flex;justify-content:space-between;align-items:center;font:600 14px sans-serif}.b button{border:0;border-radius:99px;padding:.5rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif}@media print{.b{display:none}}</style></head><body>' +
         '<div class="b"><span>Ton récap Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div><p class="s">Genesolia · les prénoms de ma famille</p><h1>Quel prénom en appelle un autre ?</h1>' +
         '<table><tr><th>Lien</th><th>Prénom</th><th>Famille du prénom</th></tr>' + l.map(function (x) { return '<tr><td>' + esc(x.lien) + '</td><td>' + esc(x.prenom) + '</td><td>' + esc(E.famille(x.prenom) || '') + '</td></tr>'; }).join('') + '</table>' +
         '<h2 style="font-weight:400;color:#6B2F5B">Les échos</h2>' + p.map(function (x) { return '<div class="p"><b>' + esc(x.a.prenom) + ' et ' + esc(x.b.prenom) + '</b> · ' + esc(x.a.lien) + ', ' + esc(x.b.lien) + '<br>' + x.liens.map(function (k) { return esc(k.texte); }).join(' ') + (QUESTIONS[x.liens[0].type] ? '<br><span class="q">« ' + esc(QUESTIONS[x.liens[0].type]) + ' »</span>' : '') + '</div>'; }).join('') +
         '<h2 style="font-weight:400;color:#6B2F5B">Pour aller plus loin</h2><ul><li>Demande à ta famille pourquoi chaque prénom a été choisi, et en pensant à qui.</li><li>Cherche s’il y a eu, avant toi, un enfant disparu dont le prénom a été redonné.</li><li>Place ces prénoms dans ton arbre sur genesolia.fr : l’outil repère aussi les âges et les dates qui se répètent.</li></ul>' +
         '<p style="font-size:12px;color:#8E6383;margin-top:2rem">Récap généré sur genesolia.fr. Lecture symbolique, pour réfléchir : une ressemblance n’est pas un destin.</p></body></html>';
+      if (!direct && window.GenesoliaParMail) return window.GenesoliaParMail.envoyer({ quoi: 'le récap des prénoms de ta famille', html: h, secours: function () { imprimer(l, p, true); } });
+      var w = window.open('', '_blank'); if (!w) return;
       w.document.open(); w.document.write(h); w.document.close();
     }
     document.getElementById('pf-ajout').onclick = function () { ligne(); };

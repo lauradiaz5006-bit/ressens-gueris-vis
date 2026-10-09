@@ -55,7 +55,9 @@
     p += '<section class="page"><p class="sur">Ton chemin</p><h2>Aller plus loin</h2><p>Ajoute les dates de naissance de ta famille dans ton arbre sur genesolia.fr : l’outil calcule les signes de chacun·e et te montre les échos d’une génération à l’autre. Ton guide du mois rapporte chaque mois les grands mouvements du ciel à tes maisons.</p><div class="bloc"><h3>Ce que je retiens de mon thème</h3><div class="notes" style="height:110mm"></div></div><p class="intro">Livret créé le ' + esc(auj) + ' sur genesolia.fr. ' + (r.systeme ? 'Maisons : système ' + esc(r.systeme) + '. ' : '') + 'Lecture symbolique : l’astrologie ne prédit pas l’avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p></section>';
     return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="' + esc(location.href) + '"><title>Livret du thème astral · Genesolia</title><style>' + css() + '</style></head><body><div class="barre-livret"><span>Ton livret Genesolia</span><button onclick="window.print()">Enregistrer en PDF</button></div>' + p + '</body></html>';
   }
+  var direct = false;
   function imprimer(d, btn) {
+    if (!direct && window.GenesoliaParMail) return window.GenesoliaParMail.envoyer({ quoi: 'ton livret du thème astral', html: html(d), secours: function () { direct = true; try { imprimer(d, btn); } finally { direct = false; } } });
     var lib = btn ? btn.textContent : '';
     var w = MOBILE ? window.open('', '_blank') : null, page = html(d);
     if (w) { w.document.open(); w.document.write(page); w.document.close(); return; }
