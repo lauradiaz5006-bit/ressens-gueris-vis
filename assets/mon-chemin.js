@@ -43,8 +43,8 @@
   }
   function inviter(r) {
     var page = (location.pathname.split('/').pop() || 'index.html');
-    toast('<p class="ct-titre">Garde ce résultat dans ton espace</p><p>Crée ton espace gratuit : tous tes tests y sont gardés avec leur date, pour voir ton évolution. Tu peux tout effacer quand tu veux.</p>' +
-      '<div class="ct-actions"><a class="btn btn-plein" href="login.html?inscription&retour=' + encodeURIComponent(page) + '">Créer mon espace</a><a class="ct-lien" href="login.html?retour=' + encodeURIComponent(page) + '">J’ai déjà un compte</a></div>');
+    toast('<p class="ct-titre">Garde ce résultat dans ton espace</p><p class="ct-long">Crée ton espace gratuit : tous tes tests y sont gardés avec leur date, pour voir ton évolution. Tu peux tout effacer quand tu veux.</p>' +
+      '<div class="ct-actions"><a class="btn btn-plein" href="login.html?inscription&retour=' + encodeURIComponent(page) + '">Créer mon espace</a><a class="ct-lien" href="login.html?retour=' + encodeURIComponent(page) + '">J’ai déjà un compte</a></div>', window.matchMedia && window.matchMedia('(max-width: 600px)').matches ? 15000 : 0);
   }
 
   function enregistrer(r) {
