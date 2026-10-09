@@ -8,158 +8,491 @@
   <meta name="theme-color" content="#55224B">
   <meta name="apple-mobile-web-app-title" content="Le Cercle">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex">
   <title>Le Cercle · Genesolia</title>
-  <meta name="description" content="Ton espace du Cercle : le carnet du mois, ton mois personnel, ton suivi et ta météo intérieure.">
+  <meta name="description" content="Ton espace du Cercle : tes deux livres du mois, ton mois personnel, ton suivi et ta météo intérieure.">
   <link rel="canonical" href="https://genesolia.fr/cercle.html">
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    /* L'appli « Le Cercle » : l'accueil des membres. Accès vérifié comme sur mon-mois.html (table acces_premium). */
-    #cercle{--encre:#4E2446;--encre-2:#5E3A56;max-width:46rem;margin:0 auto;padding:0 1rem 4rem;color:var(--encre)}
-    .ce-tete{margin:0 -1rem;padding:2.2rem 1.4rem 2rem;text-align:center;color:#FFF4F6;background:linear-gradient(160deg,#3B1747,#6B2F5B);border-radius:0 0 var(--rayon) var(--rayon)}
-    .ce-logo{width:84px;height:84px;margin:0 auto .8rem;border-radius:22px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
-    .ce-sur{font:600 .78rem/1.3 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin:0 0 .3rem}
-    .ce-tete h1{color:#fff;font-size:clamp(2rem,7vw,2.8rem);margin:0 0 .3rem}
-    .ce-tete p{margin:0 auto;max-width:30rem;color:#F7E6EE}
-    .ce-mois{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:center;margin:1.6rem 0 1.2rem;padding:1.2rem;border-radius:20px;background:linear-gradient(120deg,#FFF6EC,#fff);border:1.5px solid var(--champagne-clair);text-decoration:none;color:var(--encre);box-shadow:0 12px 30px rgba(107,47,91,.08)}
-    .ce-mois img{width:96px;height:136px;object-fit:cover;border-radius:10px;box-shadow:0 8px 18px rgba(46,19,56,.2)}
-    .ce-etiq{font:600 .74rem/1.3 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22;margin:0 0 .25rem}
-    .ce-mois h2{font-size:1.55rem;line-height:1.15;margin:0 0 .35rem;color:var(--prune)}
-    .ce-mois p{margin:0 0 .5rem;font-size:.95rem}
-    .ce-avance{font-weight:700;color:var(--prune)}
-    .ce-grille{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
-    .ce-tuile{display:flex;flex-direction:column;gap:.3rem;min-height:7.4rem;padding:1rem;border-radius:18px;background:#fff;border:1px solid var(--rose-fonce);text-decoration:none;color:var(--encre);transition:transform .15s,border-color .15s}
-    .ce-tuile:hover{transform:translateY(-2px);border-color:var(--champagne)}
-    .ce-tuile svg{width:30px;height:30px;color:var(--champagne)}
-    .ce-tuile b{font:400 1.15rem/1.2 var(--display);color:var(--prune)}
-    .ce-tuile span{font-size:.88rem;color:var(--encre-2);line-height:1.35}
-    .ce-suite{margin:1.4rem 0;padding:1rem 1.1rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.95rem}
-    .ce-suite b{font-family:var(--display);font-weight:400;font-size:1.1rem;color:var(--prune)}
-    .ce-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:1.6rem 0 .6rem}
-    .ce-porte{margin:1.6rem 0;padding:1.5rem 1.3rem;border-radius:20px;background:#fff;border:1px solid var(--rose-fonce);text-align:center}
-    .ce-porte h2{font-size:1.6rem;color:var(--prune);margin:0 0 .5rem}
+    /* L'appli « Le Cercle » : Aujourd'hui (#), Mon mois (#mois), Moi (#moi). Le Carnet et le Suivi s'ouvrent dans leurs pages, avec la même barre en bas. */
+    #cercle{--encre:#4A2342;--doux:#8E6383;--ligne:#F1DDE2;max-width:46rem;margin:0 auto;padding:.4rem 1rem 2rem;color:var(--encre)}
+    .ce-h1{font:400 clamp(1.75rem,6.5vw,2.2rem)/1.15 var(--display);color:#3B1747;margin:.6rem 0 .15rem}
+    .ce-sous{color:var(--doux);font-size:.95rem;margin:0 0 1.1rem}
+    .ce-carte{display:block;width:100%;text-align:left;background:#fff;border-radius:20px;padding:1.05rem 1.15rem;margin:0 0 .85rem;box-shadow:0 6px 18px rgba(107,47,91,.07);border:1px solid var(--ligne);color:var(--encre);text-decoration:none;font:inherit;box-sizing:border-box}
+    button.ce-carte,a.ce-carte{cursor:pointer;transition:transform .15s,box-shadow .15s}
+    button.ce-carte:active,a.ce-carte:active{transform:scale(.985)}
+    .ce-etiq{font:700 .7rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:0 0 .4rem}
+    .ce-carte h2,.ce-carte h3{font:400 1.25rem/1.25 var(--display);color:var(--prune);margin:0 0 .4rem}
+    .ce-carte p{margin:0 0 .35rem;font-size:.95rem;line-height:1.5}
+    .ce-carte p:last-child{margin-bottom:0}
+    .ce-plus{display:inline-flex;align-items:center;gap:.3rem;margin-top:.35rem;font-weight:700;font-size:.88rem;color:var(--prune)}
+    .ce-plus::after{content:"";width:.45rem;height:.45rem;border-right:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg)}
+    .ce-bt{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:.55rem;padding:.55rem 1.15rem;border-radius:99px;background:var(--prune);color:#fff;font:700 .92rem/1 var(--texte);border:0;text-decoration:none;cursor:pointer}
+    .ce-bt.clair{background:#FBF0E4;color:var(--prune)}
+    .ce-chargement{padding:3rem 0;text-align:center;color:var(--doux)}
+    /* Point du jour */
+    .ce-choix{display:flex;gap:.55rem;margin-top:.6rem}
+    .ce-choix button{flex:1;min-height:46px;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;font:700 .95rem/1 var(--texte);color:var(--prune);cursor:pointer}
+    .ce-choix button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .ce-force{margin-top:.8rem}
+    .ce-force label{display:block;font-size:.9rem;margin-bottom:.3rem}
+    .ce-force input{width:100%;accent-color:var(--prune)}
+    .ce-frise{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin:.85rem 0 .45rem}
+    .ce-frise i{height:18px;border-radius:5px;background:#F4E8EC}
+    .ce-frise .o1{background:#E9C9B0}.ce-frise .o2{background:#D7A27C}.ce-frise .o3{background:#B98A55}.ce-frise .no{background:#E5DAF0}
+    .ce-frise .auj{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--prune)}
+    .ce-ligne{display:flex;justify-content:space-between;gap:.6rem;font-size:.85rem;color:var(--doux)}
+    .ce-discret{font-size:.8rem;color:var(--doux);margin-top:.45rem}
+    /* Les deux livres */
+    .ce-duo{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:0 0 .85rem}
+    .ce-livre{display:flex;flex-direction:column;justify-content:space-between;gap:.8rem;min-height:9.6rem;padding:1rem;border-radius:20px;color:#fff;text-decoration:none;box-shadow:0 10px 24px rgba(59,23,71,.18)}
+    .ce-livre.a{background:linear-gradient(150deg,#7E3A6E,#3B1747)}
+    .ce-livre.b{background:linear-gradient(150deg,#C99766,#8A5A22)}
+    .ce-livre small{font:700 .66rem/1.3 var(--texte);letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+    .ce-livre b{display:block;font:400 1.15rem/1.2 var(--display);margin-top:.35rem}
+    .ce-mini{height:5px;border-radius:9px;background:rgba(255,255,255,.3);overflow:hidden;margin-bottom:.35rem}
+    .ce-mini i{display:block;height:100%;background:#fff;border-radius:9px}
+    .ce-livre span{font-size:.8rem;opacity:.95}
+    /* Mon mois */
+    .ce-astro{background:linear-gradient(160deg,#2E1338,#6B2F5B);color:#F7E6EE;border:0}
+    .ce-astro h2{color:#fff;font-size:1.35rem}
+    .ce-astro .ce-etiq{color:#F3DCC0}
+    .ce-astro .ce-plus{color:#F3DCC0}
+    .ce-puces{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+    .ce-puces span{border:1px solid rgba(243,220,192,.55);border-radius:99px;padding:.2rem .6rem;font-size:.78rem}
+    .ce-dom{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:0 0 .85rem}
+    .ce-dom .ce-carte{margin:0;padding:.85rem .9rem;border-radius:16px;display:flex;flex-direction:column}
+    .ce-dom .ce-carte p:not(.ce-etiq){font-size:.86rem;line-height:1.45;flex:1}
+    .ce-dates{list-style:none;margin:.2rem 0 0;padding:0}
+    .ce-dates li+li{border-top:1px solid var(--ligne)}
+    .ce-dates button{display:grid;grid-template-columns:3.6rem 1fr auto;gap:.7rem;align-items:center;width:100%;padding:.7rem 0;background:none;border:0;text-align:left;font:inherit;color:var(--encre);cursor:pointer;min-height:48px}
+    .ce-dates b{font:400 1.05rem/1.1 var(--display);color:var(--prune)}
+    .ce-dates span{font-size:.9rem;line-height:1.4}
+    .ce-dates .fam span{color:#8A5A22}
+    .ce-dates em{width:.45rem;height:.45rem;border-right:2px solid #C9A3B8;border-top:2px solid #C9A3B8;transform:rotate(45deg)}
+    .ce-form label{display:block;margin:.7rem 0 .25rem;font-weight:700;font-size:.9rem}
+    .ce-form input{width:100%;box-sizing:border-box;min-height:46px;padding:.6rem .8rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit;background:#fff}
+    .ce-form .mc-sugg{list-style:none;margin:.2rem 0 0;padding:0;border:1px solid #EBCFD5;border-radius:12px;background:#fff;max-height:12rem;overflow:auto}
+    .ce-form .mc-sugg li{padding:.55rem .8rem;cursor:pointer}
+    .ce-form .mc-sugg li[aria-selected="true"],.ce-form .mc-sugg li:hover{background:#FCEFF3}
+    .ce-form small{display:block;color:var(--doux);margin-top:.25rem}
+    .ce-erreur{color:#9B2C2C;font-size:.9rem;margin-top:.5rem}
+    /* Moi */
+    .ce-liste{padding:.3rem 1.15rem}
+    .ce-liste a{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center;padding:.8rem 0;min-height:48px;text-decoration:none;color:var(--encre)}
+    .ce-liste a+a{border-top:1px solid var(--ligne)}
+    .ce-liste b{display:block;font:400 1.08rem/1.25 var(--display);color:var(--prune)}
+    .ce-liste span{display:block;font-size:.85rem;color:var(--doux);margin-top:.1rem}
+    .ce-liste a::after{content:"";width:.45rem;height:.45rem;border-right:2px solid #C9A3B8;border-top:2px solid #C9A3B8;transform:rotate(45deg)}
+    .ce-titre-liste{font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:1.3rem .2rem .55rem}
+    .ce-formation{display:grid;grid-template-columns:72px 1fr;gap:.9rem;align-items:center;background:linear-gradient(140deg,#3B1747,#6B2F5B);color:#F7E6EE;border:0}
+    .ce-formation img{width:72px;height:auto;border-radius:8px;box-shadow:0 8px 18px rgba(0,0,0,.25)}
+    .ce-formation h3{color:#fff!important}
+    .ce-formation .ce-etiq{color:#F3DCC0}
+    /* Porte (non-membre) */
+    .ce-porte{text-align:center;padding:1.6rem 1.3rem}
+    .ce-porte img{width:84px;height:84px;border-radius:22px;box-shadow:0 10px 26px rgba(59,23,71,.25);margin-bottom:.8rem}
     .ce-porte ul{text-align:left;margin:1rem auto;max-width:26rem;padding-left:1.1rem}
     .ce-porte li{margin:.3rem 0}
     .ce-porte li::marker{color:var(--champagne)}
-    .ce-note{font-size:.92rem;color:var(--encre-2);text-align:center}
-    .ce-chargement{padding:3rem 0;text-align:center;color:var(--encre-2)}
-    @media (max-width:420px){.ce-mois{grid-template-columns:1fr;text-align:center}.ce-mois img{margin:0 auto}.ce-grille{grid-template-columns:1fr 1fr;gap:.55rem}.ce-tuile{padding:.85rem;min-height:6.8rem}}
+    .ce-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:.8rem}
+    /* Le panneau qui monte du bas */
+    .ce-voile{position:fixed;inset:0;z-index:150;background:rgba(46,19,56,.45);opacity:0;transition:opacity .25s}
+    .ce-voile.ouvert{opacity:1}
+    .ce-feuille{position:fixed;left:0;right:0;bottom:0;z-index:151;max-width:46rem;margin:0 auto;max-height:88vh;display:flex;flex-direction:column;background:#FFF9F4;border-radius:26px 26px 0 0;box-shadow:0 -16px 50px rgba(46,19,56,.3);transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);color:var(--encre,#4A2342)}
+    .ce-feuille.ouvert{transform:none}
+    .ce-poignee{flex:0 0 auto;padding:.7rem 0 .3rem;display:grid;place-items:center;cursor:grab;touch-action:none}
+    .ce-poignee::before{content:"";width:44px;height:5px;border-radius:9px;background:#E3CCD5}
+    .ce-f-fermer{position:absolute;top:.55rem;right:.7rem;width:44px;height:44px;border-radius:50%;border:0;background:#F6E3E8;color:var(--prune);font-size:1.4rem;line-height:1;cursor:pointer}
+    .ce-f-corps{overflow-y:auto;padding:.4rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+    .ce-f-corps h2{font:400 1.55rem/1.2 var(--display);color:#3B1747;margin:.2rem 2.6rem .7rem 0}
+    .ce-f-corps p{margin:0 0 .8rem;line-height:1.6}
+    .ce-f-corps ul,.ce-f-corps ol{margin:.2rem 0 1rem;padding-left:1.2rem}
+    .ce-f-corps li{margin:.35rem 0;line-height:1.5}
+    .ce-f-corps li::marker{color:var(--champagne)}
+    .ce-f-garde{margin:1rem 0;padding:.9rem 1rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC;font-family:var(--display);font-size:1.12rem;line-height:1.4;color:var(--prune)}
+    .ce-f-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
+    @media (prefers-reduced-motion:reduce){.ce-feuille,.ce-voile{transition:none}}
+    @media (min-width:700px){#cercle{padding-top:1rem}.ce-dom{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width:360px){.ce-duo,.ce-dom{grid-template-columns:1fr}}
   </style>
   <script>window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
   <main id="cercle">
-    <header class="ce-tete">
-      <img class="ce-logo" src="assets/icones/cercle-192.png" alt="" width="84" height="84">
-      <p class="ce-sur">Genesolia</p>
-      <h1 id="ce-titre">Le Cercle</h1>
-      <p id="ce-sous">Un carnet chaque mois, ton mois personnel et ton suivi, au même endroit.</p>
-    </header>
-    <div id="ce-corps"><p class="ce-chargement">Ton Cercle s’ouvre…</p></div>
+    <div id="ce-vue"><p class="ce-chargement">Ton Cercle s’ouvre…</p></div>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
+  <script src="assets/saisons.js"></script>
   <script>
   (function () {
     'use strict';
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
     var LIBRE = !((window.GENESOLIA_PRODUITS || {}).cercle || {}).payant;   /* même réglage que mon-mois.html */
-    var PREMIER = '2026-10';                                                  /* le premier carnet paru */
-    var corps = document.getElementById('ce-corps');
+    var PREMIER = '2026-10';                                                  /* le premier mois paru */
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var MOIS_C = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+    var JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    var vue = document.getElementById('ce-vue');
     var sb = null; try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    var E = { user: null, membre: false, C: null, S: null, prenom: '', carnet: null };   /* l'état de l'appli */
+
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function de(m) { return /^[aeiouyhé]/i.test(m) ? 'd’' + m : 'de ' + m; }
-
-    /* Le carnet du mois : le mois en cours s'il est paru, sinon le plus récent */
-    function moisCourant() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
-    function precedent(m) { var p = m.split('-'), d = new Date(+p[0], +p[1] - 2, 1); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
-    function chargerCarnet(m) {
+    function cap(s) { s = String(s || ''); return s.charAt(0).toUpperCase() + s.slice(1); }
+    function cle(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+    function moisDe(d) { return cle(d).slice(0, 7); }
+    function phrase1(t) { var m = String(t || '').match(/^.+?[.!?](\s|$)/); return m ? m[0].trim() : String(t || ''); }
+    function lire(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+    function ecrire(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    /* Typographie française sur tout ce qui s'affiche : espaces insécables et apostrophes courbes */
+    function typo(racine) {
+      var w = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT, null), n;
+      while ((n = w.nextNode())) {
+        if (n.parentNode && /^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName)) continue;
+        var t = n.nodeValue, u = t.replace(/'/g, '’').replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ');
+        if (u !== t) n.nodeValue = u;
+      }
+    }
+    function afficher(h) { vue.innerHTML = h; typo(vue); }
+    function charger(src) {
       return new Promise(function (ok) {
-        if (m < PREMIER) return ok(null);
-        var s = document.createElement('script'); s.src = 'assets/carnets/' + m + '.js';
-        s.onload = function () { ok(window.GENESOLIA_CARNET || null); };
-        s.onerror = function () { s.remove(); chargerCarnet(precedent(m)).then(ok); };
+        var s = document.createElement('script'); s.src = src;
+        s.onload = function () { ok(true); }; s.onerror = function () { s.remove(); ok(false); };
         document.body.appendChild(s);
       });
     }
+    /* Le carnet et le suivi du mois (le mois en cours s'il est paru, sinon le plus récent) */
+    function precedent(m) { var p = m.split('-'), d = new Date(+p[0], +p[1] - 2, 1); return moisDe(d); }
+    function chargerLivre(dossier, m) {
+      if (m < PREMIER) return Promise.resolve(null);
+      window.GENESOLIA_CARNET = null;
+      return charger('assets/' + dossier + '/' + m + '.js').then(function (ok) {
+        var L = ok ? window.GENESOLIA_CARNET : null; window.GENESOLIA_CARNET = null;
+        return L || chargerLivre(dossier, precedent(m));
+      });
+    }
 
-    var I = {
-      carnet: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 5h15a3 3 0 0 1 3 3v19H10a3 3 0 0 1-3-3z"/><path d="M7 24a3 3 0 0 1 3-3h15M12 10h8M12 14h6"/></svg>',
-      mois: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="10"/><path d="M16 3v3M16 26v3M3 16h3M26 16h3"/><circle cx="16" cy="16" r="3.5" fill="currentColor" stroke="none"/></svg>',
-      guide: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16 4l2.6 7.4L26 12l-6 4.6 2.2 7.4L16 19.8 9.8 24l2.2-7.4L6 12l7.4-.6z"/></svg>',
-      suivi: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 25h22M8 21l6-6 4 4 7-8"/><circle cx="25" cy="11" r="1.6" fill="currentColor"/></svg>',
-      meteo: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 3v2M3 12h2M5.6 5.6 7 7M18.4 5.6 17 7"/><path d="M11 26h13a4 4 0 0 0 0-8 6 6 0 0 0-11.4 1.5A3.3 3.3 0 0 0 11 26z" fill="#fff"/></svg>',
-      saisons: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 5v22M5 16h22"/></svg>'
-    };
-    function tuile(href, icone, titre, texte, dl) { return '<a class="ce-tuile" href="' + href + '"' + (dl ? ' download' : '') + '>' + I[icone] + '<b>' + esc(titre) + '</b><span>' + esc(texte) + '</span></a>'; }
+    /* ───── Le panneau qui monte du bas (texte détaillé) ───── */
+    var voile = null, feuille = null, avant = null;
+    function fermerFeuille() {
+      if (!feuille) return;
+      var f = feuille, v = voile; feuille = voile = null;
+      f.classList.remove('ouvert'); v.classList.remove('ouvert');
+      document.documentElement.style.overflow = '';
+      setTimeout(function () { f.remove(); v.remove(); }, 300);
+      if (avant && avant.focus) avant.focus();
+    }
+    function ouvrirFeuille(html, titre) {
+      fermerFeuille();
+      avant = document.activeElement;
+      voile = document.createElement('div'); voile.className = 'ce-voile';
+      feuille = document.createElement('section'); feuille.className = 'ce-feuille';
+      feuille.setAttribute('role', 'dialog'); feuille.setAttribute('aria-modal', 'true'); feuille.setAttribute('aria-label', titre || 'Détail');
+      feuille.innerHTML = '<div class="ce-poignee" aria-hidden="true"></div><button type="button" class="ce-f-fermer" aria-label="Fermer">×</button><div class="ce-f-corps">' + html + '</div>';
+      typo(feuille);
+      document.body.appendChild(voile); document.body.appendChild(feuille);
+      document.documentElement.style.overflow = 'hidden';
+      requestAnimationFrame(function () { voile.classList.add('ouvert'); feuille.classList.add('ouvert'); });
+      voile.addEventListener('click', fermerFeuille);
+      feuille.querySelector('.ce-f-fermer').addEventListener('click', fermerFeuille);
+      feuille.querySelector('.ce-f-fermer').focus();
+      /* on le ferme aussi d'un glissement vers le bas */
+      var f = feuille, corps = f.querySelector('.ce-f-corps'), y0 = null, dy = 0;
+      f.addEventListener('touchstart', function (e) { if (corps.scrollTop > 0 && !e.target.closest('.ce-poignee')) return; y0 = e.touches[0].clientY; dy = 0; f.style.transition = 'none'; }, { passive: true });
+      f.addEventListener('touchmove', function (e) { if (y0 === null) return; dy = Math.max(0, e.touches[0].clientY - y0); f.style.transform = 'translateY(' + dy + 'px)'; }, { passive: true });
+      f.addEventListener('touchend', function () { if (y0 === null) return; y0 = null; f.style.transition = ''; f.style.transform = ''; if (dy > 90) fermerFeuille(); });
+      return feuille;
+    }
+    document.addEventListener('keydown', function (e) {
+      if (!feuille) return;
+      if (e.key === 'Escape') { fermerFeuille(); return; }
+      if (e.key === 'Tab') {   /* le focus reste dans le panneau */
+        var f = feuille.querySelectorAll('button,a[href],input,select,textarea'); if (!f.length) return;
+        var a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+      }
+    });
 
-    function membre(user, C, rempli) {
-      var prenom = String((user.user_metadata && user.user_metadata.full_name) || '').trim().slice(0, 40);
-      if (prenom) document.getElementById('ce-titre').textContent = 'Bonjour ' + prenom;
-      document.getElementById('ce-sous').textContent = 'Bienvenue dans ton Cercle.';
-      var nom = C ? String(C.nomMois).split(' ')[0] : '';
-      var h = '';
-      if (C) h += '<a class="ce-mois" href="mon-carnet.html?mois=' + esc(C.mois) + '">' + (C.image ? '<img src="' + esc(C.image) + '" alt="" width="96" height="136">' : '<span></span>') +
-        '<div><p class="ce-etiq">Ton carnet ' + esc(de(nom)) + '</p><h2>' + esc(C.titre) + '</h2><p>' + esc(C.sousTitre) + '</p>' +
-        '<p class="ce-avance">' + (rempli > 0 ? 'Tu as déjà écrit ' + rempli + ' réponse' + (rempli > 1 ? 's' : '') + '. Reprendre là où j’en étais' : 'Ouvrir mon carnet') + '</p></div></a>';
-      h += '<div class="ce-grille">' +
-        tuile('mon-mois.html', 'mois', 'Mon mois', 'Ton mois personnel, ton calendrier et les dates de ton arbre') +
-        tuile('mon-guide.html', 'guide', 'Mon guide du mois', 'Tes nombres, ton ciel et ton signe maya du mois') +
-        tuile('mon-suivi-mois.html', 'suivi', 'Mon suivi « Je me libère »', 'Le livre du mois : voir, remonter à la source, libérer, remplacer') +
-        tuile('login.html#mon-chemin', 'meteo', 'Ma météo', 'Ta météo intérieure mois après mois, et tes lettres') +
-        (C && C.pdf ? tuile(C.pdf, 'carnet', 'Le carnet papier', 'Le carnet du mois en PDF, à imprimer et remplir à la main', true) : '') +
-        tuile('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'saisons', 'Les 12 saisons', 'Le livret de l’année, à imprimer', true) +
-      '</div>';
+    /* ───── Aujourd'hui ───── */
+    var POINT = 'genesolia-point-du-jour';   /* gardé sur ce téléphone seulement : { "AAAA-MM-JJ": { r: "o"|"n", i: 0-10 } } */
+    function vueAujourdhui() {
+      var C = E.C, S = E.S, d = new Date(), j = d.getDate(), sem = Math.min(4, Math.ceil(j / 7));
+      var nm = C ? String(C.nomMois).split(' ')[0] : MOIS[d.getMonth()];
+      var h = '<h1 class="ce-h1">' + (E.prenom ? 'Bonjour ' + esc(E.prenom) : 'Bonjour') + '</h1>' +
+        '<p class="ce-sous">' + cap(JOURS[d.getDay()]) + ' ' + j + ' ' + MOIS[d.getMonth()] + ' · semaine ' + sem + ' du mois</p>';
+      h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
+      /* les deux livres */
+      function livre(L, classe, sur, url) {
+        if (!L) return '';
+        var a = lire('genesolia-avancee-' + (L.cle || L.mois)), p = a && a.total ? Math.round(a.n / a.total * 100) : 0;
+        return '<a class="ce-livre ' + classe + '" href="' + url + '"><div><small>' + sur + '</small><b>' + esc(L.titre) + '</b></div>' +
+          '<div><div class="ce-mini"><i style="width:' + p + '%"></i></div><span>' + (a && a.total ? a.n + (a.n > 1 ? ' étapes' : ' étape') + ' sur ' + a.total : 'Ouvrir') + '</span></div></a>';
+      }
+      h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère', 'mon-suivi-mois.html') + '</div>';
+      /* reprendre où j'en étais */
+      var ac = C && lire('genesolia-avancee-' + C.mois);
+      if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Carnet · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-plus">Ouvrir</span></a>';
+      /* la semaine du suivi */
+      var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, sem) - 1];
+      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
+      /* l'intention du mois (ton objectif, écrit dans le carnet) */
+      var obj = E.carnet && E.carnet.v && String(E.carnet.v['obj-quoi'] || '').trim();
+      h += obj
+        ? '<a class="ce-carte" href="mon-carnet.html#ouverture"><p class="ce-etiq">Ton intention du mois</p><h3>« ' + esc(obj) + ' »</h3></a>'
+        : '<a class="ce-carte" href="mon-carnet.html#ouverture"><p class="ce-etiq">Ton intention du mois</p><h3>Pose ton objectif du mois</h3><p>Dix minutes au début de ton carnet : ta météo, ta roue, et ce que tu veux nourrir ce mois-ci.</p><span class="ce-plus">Commencer</span></a>';
+      /* la saison */
+      var sa = (window.GENESOLIA_SAISONS || {})[d.getMonth() + 1];
+      if (sa) h += '<button type="button" class="ce-carte" data-saison><p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h3>' + esc(sa.titre) + '</h3><p>' + esc(sa.permission || phrase1(sa.texte)) + '</p><span class="ce-plus">Lire la saison</span></button>';
+      /* la séance du mois */
+      if (S) h += S.audio
+        ? '<section class="ce-carte"><p class="ce-etiq">La séance du mois</p><h3>' + esc((S.meditation && S.meditation.titre) || 'Ta méditation') + '</h3><audio controls preload="none" src="' + esc(S.audio) + '" style="width:100%;margin-top:.4rem"></audio></section>'
+        : '<a class="ce-carte" href="mon-suivi-mois.html#meditation"><p class="ce-etiq">La méditation du mois</p><h3>' + esc((S.meditation && S.meditation.titre) || 'Ta méditation') + '</h3><p>Un temps pour toi, à lire lentement, au calme.</p><span class="ce-plus">La lire</span></a>';
       var suite = C && C.aVenir && C.aVenir[0];
-      if (suite) h += '<p class="ce-suite">Le mois prochain · <b>' + esc(suite.titre) + '</b><br>' + esc(suite.texte) + '</p>';
-      var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
-      h += '<div class="ce-actions"><a href="#" class="btn btn-plein" data-installer hidden>Installer l’appli Le Cercle</a>' + (gestion ? '<a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
-      corps.innerHTML = h;
-      reveillerInstall();
+      if (suite) h += '<section class="ce-carte" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">Le mois prochain</p><h3>' + esc(suite.titre) + '</h3><p>' + esc(suite.texte) + '</p></section>';
+      afficher(h);
+      pointDuJour();
+      var bs = vue.querySelector('[data-saison]');
+      if (bs) bs.addEventListener('click', function () {
+        ouvrirFeuille('<p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h2>' + esc(sa.titre) + '</h2><p>' + esc(sa.texte) + '</p>' +
+          (sa.permission ? '<p class="ce-f-garde">' + esc(sa.permission) + '</p>' : '') + (sa.geste ? '<p><b>Un geste pour ce mois :</b> ' + esc(sa.geste) + '</p>' : '') + (sa.citation ? '<p><i>' + esc(sa.citation) + '</i></p>' : ''), 'La saison');
+      });
     }
-    function porte(user, C) {
-      var titre = user ? 'Ton espace du Cercle t’attend' : 'Le Cercle, ton espace membre';
-      corps.innerHTML = '<section class="ce-porte"><h2>' + titre + '</h2><p>' + (user ? 'Cette appli est réservée aux membres du Cercle. Rejoins-le pour la débloquer.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
-        '<ul><li>Un carnet chaque mois, à remplir en ligne ou à imprimer</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton suivi et ta météo intérieure, mois après mois</li></ul>' +
-        '<div class="ce-actions">' + (user ? '<a class="btn btn-plein" href="abonnement.html">Découvrir le Cercle</a>' : '<a class="btn btn-plein" href="login.html?retour=cercle.html">Me connecter</a><a class="btn btn-trait" href="abonnement.html">Découvrir le Cercle</a>') + '</div>' +
-        (C ? '<p class="ce-note">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>';
+    function pointDuJour() {
+      var z = document.getElementById('ce-point'); if (!z) return;
+      var P = lire(POINT) || {}, auj = cle(new Date()), x = P[auj];
+      var boucle = E.S && E.S.titre ? 'Ta boucle' : 'Ta boucle';
+      var h = '<p class="ce-etiq">Le point du jour · 1 minute</p><h3 id="ce-point-t">' + boucle + ' est-elle revenue aujourd’hui ?</h3>' +
+        '<div class="ce-choix" role="group" aria-labelledby="ce-point-t"><button type="button" data-r="o" aria-pressed="' + (x && x.r === 'o') + '">Oui</button><button type="button" data-r="n" aria-pressed="' + (x && x.r === 'n') + '">Non</button></div>';
+      if (x && x.r === 'o') h += '<div class="ce-force"><label for="ce-force">Avec quelle force ? <b id="ce-force-v">' + (x.i || 0) + '</b>/10</label><input type="range" id="ce-force" min="0" max="10" step="1" value="' + (x.i || 0) + '"></div>';
+      /* les 14 derniers jours */
+      var fr = '', oui = 0, jours = 0, somme = 0, m = auj.slice(0, 7);
+      for (var k = 13; k >= 0; k--) {
+        var dd = new Date(); dd.setDate(dd.getDate() - k); var c = cle(dd), v = P[c], cl = '';
+        if (v) cl = v.r === 'n' ? 'no' : (v.i >= 7 ? 'o3' : v.i >= 4 ? 'o2' : 'o1');
+        fr += '<i class="' + cl + (k === 0 ? ' auj' : '') + '" title="' + dd.getDate() + ' ' + MOIS[dd.getMonth()] + (v ? (v.r === 'o' ? ' : oui, ' + (v.i || 0) + '/10' : ' : non') : '') + '"></i>';
+      }
+      Object.keys(P).forEach(function (c) { if (c.slice(0, 7) !== m) return; jours++; if (P[c].r === 'o') { oui++; somme += P[c].i || 0; } });
+      h += '<div class="ce-frise" aria-hidden="true">' + fr + '</div>' +
+        '<div class="ce-ligne"><span>' + (jours ? 'Ce mois-ci : ' + oui + ' jour' + (oui > 1 ? 's' : '') + ' sur ' + jours : 'Touche oui ou non, chaque soir') + '</span>' + (oui ? '<span>force moyenne ' + Math.round(somme / oui) + '/10</span>' : '') + '</div>' +
+        '<p class="ce-discret">Gardé sur ce téléphone seulement, rien n’est envoyé.</p>';
+      z.innerHTML = h; typo(z);
+      z.querySelectorAll('[data-r]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var r = b.getAttribute('data-r'), Q = lire(POINT) || {};
+          Q[auj] = { r: r, i: r === 'o' ? ((Q[auj] && Q[auj].i) || 5) : 0 };
+          /* on ne garde qu'un an */
+          Object.keys(Q).forEach(function (c) { if (c < cle(new Date(Date.now() - 366 * 864e5))) delete Q[c]; });
+          ecrire(POINT, Q); pointDuJour();
+          var nb = z.querySelector('[data-r="' + r + '"]'); if (nb) nb.focus();
+        });
+      });
+      var f = z.querySelector('#ce-force');
+      if (f) {
+        f.addEventListener('input', function () { z.querySelector('#ce-force-v').textContent = f.value; });
+        f.addEventListener('change', function () { var Q = lire(POINT) || {}; Q[auj] = { r: 'o', i: +f.value }; ecrire(POINT, Q); pointDuJour(); var g = z.querySelector('#ce-force'); if (g) g.focus(); });
+      }
     }
-    /* site.js a déjà montré ou caché les boutons d'installation : on refait le point pour le bouton ajouté ici */
-    function reveillerInstall() {
-      var installee = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-      var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      var lien = corps.querySelector('[data-installer]');
-      if (lien && !installee && (mobile || window.GenesoliaInstallPossible)) lien.hidden = false;
-    }
-    window.addEventListener('beforeinstallprompt', function () { window.GenesoliaInstallPossible = true; var l = corps.querySelector('[data-installer]'); if (l) l.hidden = false; });
 
-    function acces(user) {
+    /* ───── Mon mois ───── */
+    var outilsMois = null;
+    function chargerOutilsMois() {
+      if (outilsMois) return outilsMois;
+      var L = ['assets/astronomy.browser.min.js', 'assets/astrologie.js', 'assets/numerologie.js', 'assets/maya.js', 'assets/maya-textes.js', 'assets/guide-textes.js', 'assets/guide-mois.js', 'assets/lieu-naissance.js'];
+      outilsMois = L.reduce(function (p, src) { return p.then(function () { return charger(src); }); }, Promise.resolve());
+      return outilsMois;
+    }
+    function profil() {
+      var s = lire('genesolia-guide');
+      if (!s) { var a = lire('genesolia-astro'); if (a && a.date) s = { prenom: a.prenom || '', date: a.date, heure: a.heure || '', lieu: a.lieu || '', lat: a.lat, lon: a.lon, tz: a.tz || 'Europe/Paris' }; }
+      return s && /^\d{4}-\d{2}-\d{2}$/.test(s.date || '') ? s : null;
+    }
+    function vueMois() {
+      var d = new Date(), nm = MOIS[d.getMonth()];
+      afficher('<h1 class="ce-h1">Ton mois ' + esc(de(nm)) + '</h1><p class="ce-sous">Lu pour toi, à partir de ta naissance.</p><p class="ce-chargement">Ton ciel du mois se calcule…</p>');
+      chargerOutilsMois().then(function () {
+        if (location.hash.replace('#', '') !== 'mois') return;
+        var pr = profil();
+        if (!pr || !window.Guide) return formProfil();
+        var arbre = lire('geno4'), r = null;
+        try { r = window.Guide.calculer(pr, d.getFullYear(), d.getMonth() + 1, arbre); } catch (e) { r = null; }
+        if (!r) return formProfil();
+        lectureMois(r, pr, nm);
+      });
+    }
+    function formProfil() {
+      var pr = profil() || {};
+      afficher('<h1 class="ce-h1">Ton mois à toi</h1><p class="ce-sous">Ta date de naissance suffit. L’heure et le lieu affinent la lecture du ciel.</p>' +
+        '<form class="ce-carte ce-form" novalidate id="ce-profil">' +
+        '<label for="ce-p-prenom">Ton prénom</label><input id="ce-p-prenom" name="prenom" autocomplete="given-name" value="' + esc(pr.prenom || E.prenom || '') + '">' +
+        '<label for="ce-p-date">Ta date de naissance</label><input id="ce-p-date" name="date" type="date" required value="' + esc(pr.date || '') + '">' +
+        '<label for="ce-p-heure">Ton heure de naissance (facultatif)</label><input id="ce-p-heure" name="heure" type="time" value="' + esc(pr.heure || '') + '">' +
+        '<label for="ce-p-lieu">Ton lieu de naissance (facultatif)</label><input id="ce-p-lieu" autocomplete="off" spellcheck="false" placeholder="Commence à taper ta ville" value="' + esc(pr.lieu || '') + '"><ul class="mc-sugg" id="ce-p-sugg" role="listbox" hidden></ul><small id="ce-p-info"></small>' +
+        '<button class="ce-bt" type="submit" style="margin-top:1rem">Lire mon mois</button><p class="ce-erreur" role="alert"></p></form>');
+      var f = document.getElementById('ce-profil');
+      var lieu = window.LieuNaissance ? window.LieuNaissance.brancher({ input: document.getElementById('ce-p-lieu'), liste: document.getElementById('ce-p-sugg'), info: document.getElementById('ce-p-info') }) : null;
+      if (lieu && pr.lieu && lieu.definir) lieu.definir({ nom: pr.lieu, lat: pr.lat, lon: pr.lon, tz: pr.tz });
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var dt = f.date.value;
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(dt) || +dt.slice(0, 4) < 1900) { f.querySelector('.ce-erreur').textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+        (lieu && document.getElementById('ce-p-lieu').value.trim() ? lieu.resoudre() : Promise.resolve(null)).then(function (l) {
+          ecrire('genesolia-guide', { prenom: f.prenom.value.trim(), date: dt, heure: l ? f.heure.value : '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' });
+          vueMois(); window.scrollTo(0, 0);
+        });
+      });
+    }
+    function lectureMois(r, pr, nm) {
+      var T = window.GUIDE_TEXTES, G = window.Guide, M = T.MOIS[r.moisPerso] || {}, ML = (window.Numerologie && window.Numerologie.MOIS_LONG || {})[r.moisPerso] || {};
+      var signeMaya = r.maya && window.MAYA_TEXTES ? window.MAYA_TEXTES.SIGNES[r.maya.natal.signe] : null;
+      var D = {};   /* les textes détaillés, ouverts au toucher */
+      function jourC(j) { return (+j.slice(8)) + ' ' + MOIS_C[+j.slice(5, 7) - 1]; }
+      function jourL(j) { return (+j.slice(8) === 1 ? '1er' : +j.slice(8)) + ' ' + MOIS[+j.slice(5, 7) - 1]; }
+      D.energie = '<p class="ce-etiq">L’énergie de ton mois · mois personnel ' + r.moisPerso + '</p><h2>' + esc(ML.titre || M.theme) + '</h2><p>' + esc(ML.texte || '') + '</p>' +
+        (M.theme ? '<p class="ce-f-garde">' + esc(M.theme) + '</p>' : '') +
+        (ML.gestes && ML.gestes.length ? '<p><b>Deux gestes pour ce mois</b></p><ul>' + ML.gestes.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>' : '') +
+        (ML.question ? '<p><b>Ta question du mois :</b> ' + esc(ML.question) + '</p>' : '') +
+        '<p>Tu es en année personnelle ' + r.anneePerso + (signeMaya ? ', et ton signe maya est ' + esc(signeMaya.kiche) + ' (' + esc(signeMaya.image) + ')' : '') + '.</p>' +
+        '<div class="ce-f-actions"><a class="ce-bt" href="mon-guide.html">Mon guide du mois complet</a></div>';
+      var DOM = [
+        ['amour', 'Amour', M.amour, ''],
+        ['travail', 'Travail et argent', M.travail, ''],
+        ['famille', 'Famille', M.famille, ''],
+        ['defi', 'Ton défi', M.defi, (M.semaines || []).length ? '<p><b>Tes quatre semaines</b></p><ol>' + M.semaines.map(function (s) { return '<li>' + esc(String(s).replace(/^Semaine \d+\s*:\s*/i, '')) + '</li>'; }).join('') + '</ol>' : '']
+      ];
+      if (r.famille && r.famille.dates.length) DOM[2][3] = '<p><b>Ta famille ce mois-ci</b></p><ul>' + r.famille.dates.map(function (x) { return '<li>Le ' + jourL(x.jour) + ' : ' + esc(x.quoi) + ', il y a ' + x.il_y_a + ' ans.</li>'; }).join('') + '</ul>';
+      DOM.forEach(function (o) { D[o[0]] = '<p class="ce-etiq">' + o[1] + ' · mois personnel ' + r.moisPerso + '</p><h2>' + o[1] + '</h2><p>' + esc(o[2] || '') + '</p>' + o[3]; });
+      /* les dates clés, chacune avec son explication */
+      var dates = [];
+      r.lunaisons.forEach(function (l) {
+        var txt = l.maison ? (l.type === 'nouvelle' ? T.NOUVELLE_LUNE_MAISON : T.PLEINE_LUNE_MAISON)[l.maison] : (l.type === 'nouvelle' ? T.NOUVELLE_LUNE_SIGNE : T.PLEINE_LUNE_SIGNE)[l.signe];
+        dates.push({ jour: l.jour, quoi: (l.type === 'nouvelle' ? 'Nouvelle lune' : 'Pleine lune') + ' en ' + G.nomSigne(l.signe), sous: l.maison ? 'Dans ta maison ' + l.maison + ' · ' + T.MAISONS_NOMS[l.maison] : '', txt: txt });
+      });
+      r.eclipses.forEach(function (e) { dates.push({ jour: e.jour, quoi: 'Éclipse ' + e.type, txt: e.type === 'solaire' ? T.ECLIPSE_SOLAIRE : T.ECLIPSE_LUNAIRE }); });
+      r.aspects.slice(0, 3).forEach(function (a) { dates.push({ jour: a.jour, quoi: G.nomPlanete(a.planete) + ' ' + G.nomAspect(a.aspect) + ' ' + (a.cible === 'soleil' ? 'à ton Soleil' : 'à ta Lune'), txt: ((T.ASPECTS[a.planete] || {})[a.cible] || {})[a.aspect] || '' }); });
+      if (r.mercure) r.mercure.stations.forEach(function (s) { dates.push({ jour: r.annee + '-' + ('0' + r.mois).slice(-2) + '-' + ('0' + s.jour).slice(-2), quoi: s.type === 'debut' ? 'Mercure commence sa marche rétrograde' : 'Mercure reprend sa marche directe', txt: T.MERCURE_RETRO }); });
+      if (r.maya) r.maya.jours.forEach(function (x) { var an = x.jour === r.maya.anniversaire; dates.push({ jour: x.jour, quoi: an ? 'Ton anniversaire maya' : 'Jour de ton signe maya', sous: signeMaya ? signeMaya.kiche + ' · ' + signeMaya.image : '', txt: T.MAYA_JOUR_SIGNE + (an ? ' ' + T.MAYA_ANNIVERSAIRE : '') }); });
+      if (r.famille) r.famille.dates.forEach(function (x) { dates.push({ jour: x.jour, quoi: x.quoi, sous: 'Il y a ' + x.il_y_a + ' ans', fam: true, txt: 'Une date de ta famille revient ce mois-ci. Tu peux simplement penser à cette personne, allumer une bougie ou écrire quelques lignes. Rien d’autre n’est demandé.' }); });
+      dates.sort(function (a, b) { return a.jour < b.jour ? -1 : a.jour > b.jour ? 1 : 0; });
+      dates.forEach(function (x, i) {
+        D['date' + i] = '<p class="ce-etiq">Le ' + jourL(x.jour) + '</p><h2>' + esc(x.quoi) + '</h2>' + (x.sous ? '<p><b>' + esc(x.sous) + '</b></p>' : '') + '<p>' + esc(x.txt) + '</p>' +
+          '<div class="ce-f-actions"><button type="button" class="ce-bt" data-ics="' + i + '">Ajouter à mon agenda</button></div>';
+      });
+
+      var h = '<h1 class="ce-h1">Ton mois ' + esc(de(nm)) + '</h1><p class="ce-sous">' + (pr.prenom ? 'Lu pour ' + esc(pr.prenom) + ', ' : 'Lu pour toi, ') + 'à partir de ta naissance.</p>' +
+        '<button type="button" class="ce-carte ce-astro" data-d="energie"><p class="ce-etiq">L’énergie de ton mois</p><h2>' + esc(M.theme || ML.titre || '') + '</h2><p>' + esc(ML.texte || '') + '</p>' +
+        '<div class="ce-puces"><span>Mois ' + r.moisPerso + '</span><span>Année ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Maya : ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal && r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div><span class="ce-plus">Lire en détail</span></button>' +
+        '<div class="ce-dom">' + DOM.map(function (o) { return '<button type="button" class="ce-carte" data-d="' + o[0] + '"><p class="ce-etiq">' + o[1] + '</p><p>' + esc(phrase1(o[2])) + '</p><span class="ce-plus">Lire</span></button>'; }).join('') + '</div>' +
+        '<section class="ce-carte"><p class="ce-etiq">Tes dates clés</p>' + (dates.length
+          ? '<ul class="ce-dates">' + dates.map(function (x, i) { return '<li' + (x.fam ? ' class="fam"' : '') + '><button type="button" data-d="date' + i + '"><b>' + jourC(x.jour) + '</b><span>' + esc(x.quoi) + '</span><em aria-hidden="true"></em></button></li>'; }).join('') + '</ul>'
+          : '<p>Un mois sans grand rendez-vous du ciel : profite-en pour avancer à ton rythme.</p>') + '</section>' +
+        (r.maisons ? '' : '<p class="ce-discret" style="margin:0 .2rem .8rem">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') +
+        '<div class="ce-actions" style="justify-content:flex-start"><a class="ce-bt clair" href="mon-guide.html">Mon guide complet</a><a class="ce-bt clair" href="mon-mois.html">Mon calendrier</a><button type="button" class="ce-bt clair" data-profil>Modifier mes repères</button></div>';
+      afficher(h);
+      vue.querySelectorAll('[data-d]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var k = b.getAttribute('data-d'), f = ouvrirFeuille(D[k], b.textContent.trim().slice(0, 60));
+          var bi = f.querySelector('[data-ics]'); if (bi) bi.addEventListener('click', function () { agenda(dates[+bi.getAttribute('data-ics')]); });
+        });
+      });
+      vue.querySelector('[data-profil]').addEventListener('click', formProfil);
+    }
+    /* Un rappel dans l'agenda du téléphone (.ics), le jour même à 9 h */
+    function agenda(x) {
+      var j = x.jour.replace(/-/g, ''), uid = 'cercle-' + j + '-' + Math.random().toString(36).slice(2) + '@genesolia.fr';
+      var txt = String(x.txt || '').replace(/'/g, '’').replace(/([,;\\])/g, '\\$1');
+      var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Genesolia//Le Cercle//FR', 'BEGIN:VEVENT', 'UID:' + uid, 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z',
+        'DTSTART:' + j + 'T090000', 'DTEND:' + j + 'T091500', 'SUMMARY:' + String(x.quoi).replace(/([,;\\])/g, '\\$1'), 'DESCRIPTION:' + txt.slice(0, 600), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+      var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'le-cercle-' + x.jour + '.ics';
+      document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    }
+
+    /* ───── Moi ───── */
+    function vueMoi() {
+      var C = E.C, S = E.S, u = E.user, gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+      var installee = window.GenesoliaInstaller && window.GenesoliaInstaller.installee();
+      function ligne(href, titre, texte, dl) { return '<a href="' + href + '"' + (dl ? ' download' : '') + (/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '') + '><div><b>' + titre + '</b>' + (texte ? '<span>' + texte + '</span>' : '') + '</div></a>'; }
+      var h = '<h1 class="ce-h1">' + (E.prenom ? esc(E.prenom) : 'Ton espace') + '</h1><p class="ce-sous">' + (u && u.email ? esc(u.email) : 'Ton espace du Cercle') + '</p>';
+      h += '<p class="ce-titre-liste">Ton mois</p><div class="ce-carte ce-liste">' +
+        ligne('login.html#mon-chemin', 'Ma météo intérieure', 'Mois après mois, et tes lettres') +
+        ligne('mon-guide.html', 'Mon guide du mois complet', 'Tes nombres, ton ciel, ton signe maya') +
+        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') +
+        ligne('mon-suivi.html', 'Mon suivi semaine par semaine', 'Ton bilan de départ et ton journal') + '</div>';
+      h += '<p class="ce-titre-liste">À imprimer</p><div class="ce-carte ce-liste">' +
+        (S && S.pdf ? ligne(esc(S.pdf), 'Le suivi du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
+        (C && C.pdf ? ligne(esc(C.pdf), 'Le carnet du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
+        ligne('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'Les 12 saisons', 'Le livret de l’année', true) + '</div>';
+      /* les livres des mois passés */
+      var passes = [], m = C ? precedent(C.mois) : '';
+      while (m && m >= PREMIER && passes.length < 12) { passes.push(m); m = precedent(m); }
+      h += '<p class="ce-titre-liste">Tes livres précédents</p><div class="ce-carte ce-liste">' + (passes.length
+        ? passes.map(function (x) { var p = x.split('-'); return ligne('mon-carnet.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton carnet') + ligne('mon-suivi-mois.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton suivi'); }).join('')
+        : '<p style="padding:.8rem 0">Tes livres des mois passés restent ici, avec tes réponses, mois après mois.</p>') + '</div>';
+      h += '<a class="ce-carte ce-formation" href="formation.html"><img src="assets/formation/module-1-apercu.jpg" width="72" height="102" alt="" loading="lazy"><div><p class="ce-etiq">La formation · Sors de la boucle</p><h3>Va plus loin que le mois</h3><p>8 modules, 8 séances audio, un tarif réduit pour les membres du Cercle.</p></div></a>';
+      h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
+        (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
+        (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
+        ligne('login.html', 'Mon espace Genesolia', 'Mon arbre, mes résultats, mes documents') +
+        ligne('index.html?appli=site', 'Le site Genesolia', 'Tous les outils et le blog') +
+        ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés : toi seule les lis') +
+        ligne('mentions-legales.html', 'Mentions légales', '') + '</div>';
+      afficher(h);
+      var bi = vue.querySelector('[data-installer-appli]');
+      if (bi) bi.addEventListener('click', function (e) { e.preventDefault(); if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
+    }
+
+    /* ───── Pas encore membre ───── */
+    function vuePorte() {
+      var C = E.C, u = E.user;
+      afficher('<section class="ce-carte ce-porte"><img src="assets/icones/cercle-192.png" alt="" width="84" height="84"><h1 class="ce-h1">' + (u ? 'Ton Cercle t’attend' : 'Le Cercle, ton espace membre') + '</h1>' +
+        '<p>' + (u ? 'Cette appli est réservée aux membres du Cercle. Rejoins-le pour l’ouvrir.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
+        '<ul><li>Deux livres chaque mois : « J’avance » et « Je me libère »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
+        '<div class="ce-actions">' + (u ? '<a class="ce-bt" href="abonnement.html">Découvrir le Cercle</a>' : '<a class="ce-bt" href="login.html?retour=cercle.html">Me connecter</a><a class="ce-bt clair" href="abonnement.html">Découvrir le Cercle</a>') + '</div>' +
+        (C ? '<p class="ce-discret" style="margin-top:1rem">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>');
+    }
+
+    /* ───── Navigation entre les onglets ───── */
+    function router() {
+      var h = (location.hash || '').replace('#', '');
+      if (h === 'installer') { history.replaceState(null, '', location.pathname + location.search); h = ''; setTimeout(function () { if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); }, 300); }
+      fermerFeuille();
+      if (!E.membre) return vuePorte();
+      if (h === 'mois') vueMois(); else if (h === 'moi') vueMoi(); else vueAujourdhui();
+      window.scrollTo(0, 0);
+    }
+    window.addEventListener('hashchange', router);
+
+    function premierMot(t) { var m = String(t || '').trim().split(/\s+/)[0] || ''; return m ? cap(m).slice(0, 30) : ''; }
+    function membre(user) {
       if (LIBRE) return Promise.resolve(true);
-      return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', user.id).maybeSingle()
-        .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });
+      return window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre() : Promise.resolve(false);
     }
-    function reponses(user, C) {
-      if (!C) return Promise.resolve(0);
-      var CF = window.GenesoliaCoffre;
-      return (CF ? CF.lire(sb, user, C.mois) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', C.mois).maybeSingle().then(function (r) { return r && r.data ? r.data.data : null; })).then(function (d) {
-        var v = (d && d.v) || {};
-        return Object.keys(v).filter(function (k) { return typeof v[k] === 'string' && v[k].trim(); }).length;
-      }, function () { return 0; });
+    /* Les réponses du carnet (pour ton intention du mois) : lues dans ton coffre chiffré, ou sur cet appareil */
+    function lireCarnet(user, C) {
+      var local = C ? lire('genesolia-carnet-' + C.mois) : null;
+      if (!C || !sb || !window.GenesoliaCoffre || !window.GenesoliaCoffre.accord(user)) return Promise.resolve(local);
+      return window.GenesoliaCoffre.lire(sb, user, C.mois).then(function (d) { return d || local; }, function () { return local; });
     }
 
-    chargerCarnet(moisCourant()).then(function (C) {
-      if (!sb) return porte(null, C);
+    var d0 = moisDe(new Date());
+    chargerLivre('carnets', d0).then(function (C) {
+      E.C = C;
+      return chargerLivre('suivi', C ? C.mois : d0);
+    }).then(function (S) {
+      E.S = S;
+      if (!sb) return router();
       sb.auth.getSession().then(function (r) {
         var s = r && r.data && r.data.session;
-        if (!s) return porte(null, C);
-        acces(s.user).then(function (ok) {
-          if (!ok) return porte(s.user, C);
-          reponses(s.user, C).then(function (n) { membre(s.user, C, n); });
-        });
-      }, function () { porte(null, C); });
+        if (!s) return router();
+        E.user = s.user;
+        E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
+        return Promise.all([membre(s.user), lireCarnet(s.user, E.C)]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
+      }).catch(router);
     });
   })();
   </script>

@@ -246,11 +246,10 @@
       var s = res && res.data && res.data.session;
       if (s) utilisateur = s.user;
       if (!utilisateur) return demarrer();
-      if (window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(function (m) { GUIDE.membre = m; if (m && profil) afficher(); });
-      return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
-        if (r && r.data && r.data.data) arbre = r.data.data;
-        demarrer();
-      }, demarrer);
+      /* On attend de savoir si elle est membre avant d'afficher : sinon le guide montrait d'abord l'offre d'essai */
+      var estMembre = window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre().catch(function () { return false; }) : Promise.resolve(false);
+      var sonArbre = sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) { if (r && r.data && r.data.data) arbre = r.data.data; }, function () {});
+      return Promise.all([estMembre, sonArbre]).then(function (x) { GUIDE.membre = !!x[0]; demarrer(); }, demarrer);
     }).catch(demarrer);
   })();
   </script>

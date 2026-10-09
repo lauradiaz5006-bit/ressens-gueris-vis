@@ -18,8 +18,8 @@
     { "src": "/assets/icones/cercle-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Mon carnet du mois", "url": "/mon-carnet.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
-    { "name": "Mon mois", "url": "/mon-mois.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
-    { "name": "Mon suivi", "url": "/mon-suivi-mois.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] }
+    { "name": "Mon carnet du mois", "url": "/mon-carnet.html?appli=cercle", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Mon mois", "url": "/cercle.html#mois", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Mon suivi", "url": "/mon-suivi-mois.html?appli=cercle", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] }
   ]
 }
