@@ -386,3 +386,10 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 
 /* Menu du haut : un peu plus serré entre 1241 et 1420 px pour que tout tienne */
 @media (min-width:1241px) and (max-width:1420px){.menu{gap:.7rem}.menu a{font-size:.88rem}}
+
+/* Encart formation en bas des pages du Cercle */
+.encart-formation .ef-sur{font:600 .75rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+.encart-formation .ef-liste{list-style:none;padding:0;margin:.6rem 0 1rem;display:grid;gap:.3rem}
+.encart-formation .ef-liste li::before{content:'·';color:var(--champagne);font-weight:700;margin-right:.5rem}
+.encart-formation .cadeau-texte p,.encart-formation .ef-liste li{color:#F7E6EE}
+.encart-formation .ef-sur{color:#F3DCC0!important}

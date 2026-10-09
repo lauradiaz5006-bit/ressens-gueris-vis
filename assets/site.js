@@ -329,7 +329,20 @@ window.GENESOLIA_IMPRESSION = {
   try { inscrit = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
-  if (piedPage && !tunnel && !document.querySelector('[data-cadeau]')) {
+  /* Dans les pages du Cercle (carnet, suivi, mois, guide, appli), l'encart du bas présente la formation à la place du carnet offert */
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && !document.querySelector('[data-cadeau]')) {
+    var zoneForm = document.createElement('section');
+    zoneForm.className = 'bloc cadeau-bas';
+    zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +
+      '<img class="cadeau-couv" src="assets/formation/module-1-apercu.jpg" width="662" height="936" alt="Aperçu du module 1 de la formation Sors de la boucle" loading="lazy">' +
+      '<div class="cadeau-texte"><p class="ef-sur">La formation · Sors de la boucle</p><h2>Va plus loin que le mois : sors vraiment de ta boucle</h2>' +
+      '<p>Ton carnet t’aide à avancer, ton suivi à te libérer. La formation t’emmène au bout du chemin : 8 modules, 8 séances audio guidées, et à chaque étape un geste concret pour arrêter de rejouer la même histoire.</p>' +
+      '<ul class="ef-liste"><li>Le module 1 offert, pour tester</li><li>Un tarif réduit pour les membres du Cercle</li><li>À ton rythme, depuis chez toi</li></ul>' +
+      '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
+    piedPage.parentNode.insertBefore(zoneForm, piedPage);
+  }
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && !document.querySelector('[data-cadeau]')) {
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
