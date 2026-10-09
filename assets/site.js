@@ -589,6 +589,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Sur téléphone, le petit carré attend que la personne ait lu un peu (60 % de la page) et ne s'ajoute jamais par-dessus une autre fenêtre */
   var PETIT_ECRAN = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
   function carreCercle() {
+    if (window.GenesoliaMembre) return;   /* membre du Cercle : pas de publicité pour le carnet offert */
     if (PETIT_ECRAN && !carreCercle.pret) {
       var attendre = function () {
         var h = document.documentElement, lu = (h.scrollTop + window.innerHeight) / Math.max(1, h.scrollHeight);
@@ -881,6 +882,19 @@ window.GENESOLIA_IMPRESSION = {
   /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
   window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre };
+  /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
+  if (aUnCompte()) membre().then(function (m) {
+    if (!m) return;
+    window.GenesoliaMembre = true;
+    document.querySelectorAll('.carre-cercle').forEach(function (c) { c.remove(); });
+    document.querySelectorAll('.cadeau:not(.encart-formation):not(.encart-livres)').forEach(function (bloc, n) {
+      if (n > 0) { bloc.remove(); return; }
+      bloc.classList.add('encart-livres');
+      bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Tes deux livres du mois t’attendent</h2>' +
+        '<p>Ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
+        '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a></p></div>';
+    });
+  });
 
   /* ===== Documents envoyés par mail =====
      Au clic sur « Télécharger », le document est enregistré (table envois) et un mail part avec son lien,
