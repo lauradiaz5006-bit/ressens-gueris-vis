@@ -226,6 +226,31 @@
     }
     @media (prefers-reduced-motion:reduce){.mc-glisse-g,.mc-glisse-d{animation:none}.mc-feuille{transition:none}}
     /* Impression : chaque page sur une nouvelle feuille, « Simple » ou « Avec le décor » */
+    /* Ma roue de la vie */
+    .mc-roue{display:block}.mc-roue-curseurs{display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem}
+    .mc-roue-curseurs .mc-curseur{margin:.55rem 0}
+    .mc-roue-fig{margin:1rem auto 0;text-align:center;max-width:380px}
+    .mc-radar{width:100%;max-width:340px;height:auto}
+    .mc-roue-fig .mc-legende{justify-content:center}
+    /* Ton mois à toi */
+    .mc-tm-tete{padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(135deg,#3B1747,#7E3A6E);color:#FFF4F6;margin-bottom:1rem}
+    .mc-tm-tete .mc-sur{color:#F3DCC0}
+    .mc-tm-titre{font:400 1.45rem/1.3 var(--display);margin:.2rem 0 .6rem;color:#fff}
+    .mc-tm-puces{display:flex;flex-wrap:wrap;gap:.4rem;margin:0}
+    .mc-tm-puces span{border:1px solid rgba(243,220,192,.5);border-radius:99px;padding:.2rem .7rem;font-size:.82rem}
+    .mc-tm-cartes{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}
+    .mc-tm-carte{padding:.9rem 1rem;border-radius:14px;background:#FFF9F4;border:1px solid var(--rose-fonce);font-size:.93rem}
+    .mc-tm-defi{background:#FBF0E4;border-color:#E8CFA8}
+    .mc-tm-ciel{list-style:none;padding:0;margin:.4rem 0 1rem;display:grid;gap:.6rem}
+    .mc-tm-ciel li{padding:.7rem .9rem;border-left:3px solid var(--champagne,#B98A55);background:#fff;border-radius:0 12px 12px 0;font-size:.93rem}
+    .mc-tm-ciel b{display:block;color:var(--prune);margin-bottom:.2rem}
+    .mc-tm-liens{display:flex;flex-wrap:wrap;gap:.5rem}
+    .mc-profil .mc-lieu{position:relative}
+    .mc-sugg{list-style:none;margin:.2rem 0 0;padding:0;position:absolute;left:0;right:0;top:100%;z-index:5;background:#fff;border:1px solid var(--rose-fonce);border-radius:10px;max-height:14rem;overflow:auto}
+    .mc-sugg[hidden]{display:none}.mc-sugg li small{color:var(--prune-doux);margin-left:.3rem}
+    .mc-sugg li{padding:.5rem .7rem;cursor:pointer}
+    .mc-sugg li:hover,.mc-sugg li[aria-selected=true]{background:#FBF0E4}
+    @media (max-width:700px){.mc-roue-curseurs,.mc-tm-cartes{grid-template-columns:1fr}}
     @media print{
       @page{margin:14mm 14mm 16mm}
       header[data-entete],footer,.annonce,.bandeau-info,.cookies,.chemin-toast,.note-donnees,.carre-cercle,.cadeau-bas,.mc-onglets,.mc-nav,.mc-barre,.mc-boutons,.mc-compte,.mc-actions,.mc-aide-livre,.mc-volet,.mc-feuille,.mc-folio,.mc-btn-ics,.mc-audio,.mc-tableau-chiffres,.mc-av-lien{display:none!important}
@@ -280,6 +305,14 @@
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/mon-chemin.js"></script>
+  <script src="assets/astronomy.browser.min.js" defer></script>
+  <script src="assets/astrologie.js" defer></script>
+  <script src="assets/numerologie.js" defer></script>
+  <script src="assets/maya.js" defer></script>
+  <script src="assets/maya-textes.js" defer></script>
+  <script src="assets/guide-textes.js" defer></script>
+  <script src="assets/guide-mois.js" defer></script>
+  <script src="assets/lieu-naissance.js" defer></script>
   <script>
   /* Carnet demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
   (function () {
@@ -288,7 +321,9 @@
     var m = new URLSearchParams(location.search).get('mois');
     if (DISPONIBLES.indexOf(m) < 0) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
     function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
-    charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); });
+    function go() { charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
+    /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();
   </script>
 </body>

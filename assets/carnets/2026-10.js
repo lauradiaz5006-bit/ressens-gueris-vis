@@ -1,4 +1,6 @@
-/* Genesolia · Le Cercle · Carnet interactif d'octobre 2026 : « Ce qui revient »
+/* Genesolia · Le Cercle · Carnet d'octobre 2026, « J'avance » : « Mon point de départ »
+   Le carnet du mois est le côté coaching du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+   Le côté libération (« Ce qui revient », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -7,205 +9,213 @@ window.GENESOLIA_CARNET = {
   mois: '2026-10',
   nomMois: 'octobre 2026',
   moisSuivant: 'novembre',
-  titre: 'Ce qui revient',
-  sousTitre: "Repérer la boucle qui se rejoue dans ta vie, et faire le premier pas pour en sortir.",
+  titre: 'Mon point de départ',
+  sousTitre: "Faire le point sur ta vie avec ta roue, choisir ce que tu veux nourrir, et avancer d'un petit pas chaque semaine.",
   pdf: 'assets/cercle/cercle-2026-10-8b31e0c2a4.pdf',
   image: 'assets/cercle/apercu-2026-10.jpg',
-  citation: "Ce qui revient n'est pas un échec : c'est une porte qui attend d'être ouverte.",
+  citation: "Tu n'as pas besoin de tout changer. Un pas juste, aujourd'hui, suffit pour commencer.",
   audio: '',
   audioCourt: '',
 
-  /* Illustrations déjà présentes sur le site : une en tête de chaque page, et les fonds */
+  noms: { comprendre: 'Lire ma roue', rituel: 'Ma connexion', rituelSur: 'Ma connexion du mois' },
+
   decor: {
     couverture: 'assets/formation/montagne.jpg',
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
+      tonmois: 'assets/guide/guide-etoiles.webp',
       ouverture: 'assets/guide/guide-reves.webp',
-      theme: 'assets/guide/guide-boucle.webp',
-      comprendre: 'assets/guide/guide-arbre.webp',
-      exercices: 'assets/guide/guide-repete.webp',
+      theme: 'assets/guide/guide-arbre.webp',
+      comprendre: 'assets/guide/guide-nombres.webp',
+      exercices: 'assets/guide/guide-livre-pupitre.webp',
       rituel: 'assets/guide/guide-pause.webp',
       semaines: 'assets/guide/guide-spirale-douce.webp',
       cloture: 'assets/guide/guide-livre-lumineux.webp'
     },
     cartes: {
-      theme: ['assets/cartes/boucle-spirale-mini.jpg', 'La boucle devient spirale le jour où je la regarde.'],
-      semaines: ['assets/cartes/aujourdhui-spirale-mini.jpg', 'Aujourd’hui, je choisis la spirale.']
+      theme: ['assets/cartes/prochain-pas-mini.jpg', 'Mon prochain pas compte plus que tout le chemin.'],
+      semaines: ['assets/cartes/a-mon-rythme-mini.jpg', 'J’avance à mon rythme.']
     }
   },
 
-  /* Petits mots de la coach sur chaque page de gauche */
   mots: {
-    ouverture: "Dix minutes suffisent. Tu peux remplir la suite plus tard : tout est enregistré au fur et à mesure.",
-    theme: "Lis cette page comme une lettre. Rien à faire ici, seulement à reconnaître.",
-    comprendre: "Ne cherche pas la réponse parfaite. Écris ce qui vient, même si ça te semble flou.",
+    tonmois: "Lis ton mois tranquillement, comme une lettre qui t’est adressée. Garde ce qui te parle, laisse le reste.",
+    ouverture: "Dix minutes suffisent. Ta météo, ta roue et ton objectif : le reste peut attendre, tout est enregistré au fur et à mesure.",
+    theme: "Rien à faire sur cette page, seulement à lire. Laisse venir ce qui te touche.",
+    comprendre: "Une roue n’est jamais parfaite. Ce qui compte, c’est de savoir où tu en es aujourd’hui, avec tendresse.",
     exercices: "Un exercice par semaine suffit. Le premier se fait en vingt minutes, au calme, avec une boisson chaude.",
-    rituel: "Le rituel se fait en moins d’une minute. La méditation, une fois dans le mois, un soir tranquille.",
+    rituel: "Ce mois-ci, ta connexion passe par la nature : une feuille, un arbre, ta respiration. Simple et vrai.",
     semaines: "Une petite case cochée chaque semaine vaut mieux qu’un grand plan jamais commencé.",
     cloture: "Prends ce moment même si tout n’a pas été fait. C’est souvent là qu’on voit le chemin parcouru."
   },
 
   theme: {
-    titre: 'Le mois du premier pas',
+    titre: 'Le mois du point de départ',
     texte: [
-      "Octobre, la rentrée est passée, les jours raccourcissent. C'est souvent à ce moment de l'année que l'on remarque ce qui ne change pas : la même fatigue, la même dispute, le même type de relation, la même peur qui revient alors qu'on pensait l'avoir laissée derrière soi.",
-      "Ce premier carnet du Cercle t'invite à faire une chose simple et courageuse : regarder ce qui revient, sans te juger. Pas pour tout comprendre tout de suite, mais pour commencer à voir. On ne sort pas d'une boucle qu'on ne voit pas. Une fois qu'on la voit, on n'y entre plus tout à fait de la même façon."
+      "Octobre, c'est la saison où les arbres trient. Ils laissent tomber ce qui a fini son temps, et gardent leur sève pour l'essentiel. La rentrée est passée, les jours raccourcissent, et l'on sent naturellement le besoin de faire le point : qu'est-ce qui me fait du bien, qu'est-ce qui me coûte, où est-ce que je veux aller ?",
+      "Ce premier carnet du Cercle t'invite à faire comme l'arbre : regarder ta vie dans son ensemble, avec douceur, sans te juger. Pas pour tout changer d'un coup, mais pour choisir un endroit où mettre ton énergie ce mois-ci. Un seul. C'est souvent le plus petit pas, bien choisi, qui fait bouger tout le reste."
     ],
-    sousTitre: 'La boucle et la spirale',
+    sousTitre: 'Pourquoi une roue de la vie ?',
     texte2: [
-      "Une boucle, c'est une situation qui se répète avec les mêmes réactions : on se retrouve au même endroit, avec d'autres personnes, dans d'autres décors. Elle s'est souvent installée pour te protéger, à un moment de ta vie ou de l'histoire de ta famille. Elle a été utile. Elle ne l'est peut-être plus.",
-      "Dans une spirale, le même thème revient, mais tu le reconnais plus tôt, et tu réagis autrement. Tu avances, même si le décor semble identique. Sortir de la boucle, ce n'est pas faire disparaître le thème : c'est monter d'un cran à chaque passage. Pour aller plus loin : [la méthode des deux cycles](methode.html).",
-      "Ce mois-ci, tu vas **repérer** ta boucle, **comprendre** dans quel cycle elle se joue, et **poser** un premier geste différent."
+      "La roue de la vie est un outil que l'on utilise beaucoup en coaching. Elle découpe ta vie en dix domaines : ton énergie, l'amour, ta famille, tes amitiés, ton travail, l'argent, ton chez-moi, la joie, ton évolution personnelle et ta connexion à toi-même. Pour chacun, tu te demandes simplement : à quel point suis-je comblé·e aujourd'hui, de 0 à 10 ?",
+      "Quand on relie les points, on obtient une roue. Plus elle est ronde, plus ta vie roule de façon fluide. Là où elle se creuse, ça cahote. L'idée n'est pas d'avoir 10 partout, personne n'a 10 partout. L'idée est de voir où tu en es, de choisir ce que tu veux nourrir, et de mesurer, mois après mois, comment ta roue s'arrondit.",
+      "Ce mois-ci, tu vas **faire le point** avec ta roue, **choisir** le domaine que tu veux nourrir, et **avancer** d'un petit pas chaque semaine. En parallèle, ton suivi « Je me libère » t'aide à repérer ce qui se rejoue et te freine : les deux avancent ensemble."
     ],
-    exemplesTitre: 'À quoi ressemble une boucle, au quotidien',
+    exemplesTitre: 'Ce que ta roue peut te montrer',
     exemples: [
-      "**Au travail** : tu dis oui à une tâche de plus alors que tu es déjà débordé·e, puis tu en veux à tout le monde, et surtout à toi.",
-      "**En amour** : tu t’attaches à quelqu’un qui n’est jamais tout à fait disponible, et tu attends, encore, qu’il ou elle choisisse enfin.",
-      "**En famille** : au repas du dimanche, la même remarque te pique, tu te tais, et tu rumines pendant tout le trajet du retour.",
-      "**Avec l’argent** : chaque fois qu’un peu d’argent arrive, une dépense imprévue l’emporte, et tu te retrouves à recompter à la fin du mois.",
-      "**Avec toi-même** : tu commences un projet avec enthousiasme, puis tu t’arrêtes au même endroit, juste avant que ça devienne visible."
+      "**Un domaine très haut et un très bas** : ton travail est à 9, ta joie à 3. Tu donnes beaucoup là où tu es reconnu·e, et tu oublies ce qui te fait vibrer.",
+      "**Des domaines qui se tiennent** : quand ton énergie est basse, tout le reste baisse avec elle. Parfois, nourrir un seul domaine fait remonter les autres.",
+      "**Un domaine que tu as oublié** : tu n'avais pas pensé à ton chez-moi depuis des mois, et tu réalises qu'il te pèse chaque soir en rentrant.",
+      "**Une surprise** : tu pensais que l'argent était ton souci principal, et c'est ta connexion à toi qui ressort la plus basse."
     ],
-    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Ta collègue te demande encore un service le vendredi à 17 h. La boucle aurait dit oui en soupirant. La spirale remarque la chaleur dans la poitrine, respire, et répond : « Je peux lundi matin. » Le thème est le même, ta place a changé.",
-    question: { k: 'theme-revient', q: "En une phrase, qu’est-ce qui revient dans ta vie en ce moment ?", ph: "Exemple : je finis toujours par tout porter seul·e, au travail comme à la maison." }
+    exempleSpiraleTitre: 'Un exemple de petit pas',
+    exempleSpirale: "Ta roue montre la joie à 3. Tu ne vas pas tout révolutionner : tu choisis de remettre une chose qui te faisait du bien. Le jeudi soir, tu ressors ta guitare, ou tu marches trente minutes sans téléphone. À la fin du mois, ta joie est à 5. Deux points, c'est énorme : la roue a commencé à tourner autrement.",
+    question: { k: 'theme-envie', q: "Si, dans un an, ta vie te ressemblait vraiment, qu’est-ce qui serait différent ?", ph: "Exemple : j’aurais plus de temps pour moi, une maison qui me ressemble, et j’oserais dire ce que je pense." }
   },
 
   comprendre: {
-    titre: 'La racine ou le cœur',
+    titre: 'Lire ta roue sans te juger',
     texte: [
-      "Ce qui se répète dans une vie touche presque toujours l'un de deux besoins. Le **cycle de la racine** parle de sécurité : ta place, ton toit, ton argent, le droit d'exister et d'avoir des besoins. Le **cycle du cœur** parle de lien : aimer, être aimé·e, faire confiance, poser tes limites sans avoir peur de perdre l'autre.",
-      "Une boucle de la racine ressemble souvent à la peur de manquer, au besoin de tout contrôler, à la difficulté de prendre ta place. Une boucle du cœur ressemble à des relations qui finissent toujours pareil, à donner beaucoup pour être choisi·e, à partir avant d'être quitté·e. Voir aussi : [les schémas répétitifs en amour](schemas-repetitifs-en-amour.html).",
-      "Les deux se mêlent souvent, et c'est normal. On commence en général par la racine : tant qu'on ne se sent pas en sécurité, il est difficile d'aimer librement. Repère simplement lequel des deux te parle le plus aujourd'hui. Le [parcours guidé](parcours.html) peut t'aider à le voir."
+      "Ta roue est une photo de ce moment de ta vie, pas une note sur ta valeur. Un domaine bas ne veut pas dire que tu as échoué : il te montre simplement où ton énergie a envie d'aller.",
+      "Regarde d'abord tes domaines les plus hauts. Ce sont tes **appuis** : ce qui marche, ce qui te tient debout. Ils contiennent souvent des forces que tu pourras utiliser ailleurs. Si tu sais créer de beaux liens avec tes amies, tu sais aussi demander de l'aide, même au travail.",
+      "Regarde ensuite tes domaines les plus bas, avec curiosité. Demande-toi ce qui leur manque, et ce qui changerait si tu gagnais un seul point. Un seul. Le coaching avance par petits pas : on ne passe pas de 3 à 9 en un mois, mais de 3 à 4, puis à 5, et c'est ce mouvement qui change une vie.",
+      "Enfin, remarque les liens entre les domaines. Souvent, l'énergie, la joie et la connexion à soi montent et descendent ensemble. Les nourrir, c'est remettre de l'huile dans toute la roue."
     ],
     reperes: [
-      { titre: 'Ça ressemble à la racine si…', points: [
-        "tu gardes toujours un peu d’argent « au cas où », même quand tu aurais besoin de te faire plaisir ;",
-        "tu as du mal à demander une augmentation, un rendez-vous, un coup de main ;",
-        "tu te sens obligé·e de tout vérifier, tout prévoir, tout tenir ;",
-        "tu as l’impression de devoir mériter ta place, partout."
+      { titre: 'Tes domaines hauts te disent…', points: [
+        "ce sur quoi tu peux t’appuyer quand le reste vacille ;",
+        "les forces que tu as déjà : constance, chaleur, courage, créativité ;",
+        "ce que tu sais faire sans effort, et que tu peux transposer ailleurs ;",
+        "ce qu’il faut protéger pendant que tu travailles le reste."
       ] },
-      { titre: 'Ça ressemble au cœur si…', points: [
-        "tu dis « ce n’est pas grave » alors que ça l’est pour toi ;",
-        "tu sens l’autre s’éloigner au moindre silence, et tu en fais plus pour le retenir ;",
-        "tes histoires finissent souvent de la même manière, avec des personnes très différentes ;",
-        "tu préfères partir la ou le premier·e, pour ne pas être quitté·e."
+      { titre: 'Tes domaines bas te disent…', points: [
+        "où ton énergie a envie d’aller ce mois-ci ;",
+        "un besoin que tu as peut-être mis de côté depuis longtemps ;",
+        "parfois, une boucle qui se rejoue : c’est le rôle de ton suivi de la regarder ;",
+        "où un tout petit geste peut changer le plus de choses."
       ] }
     ],
-    choix: { k: 'cycle', q: "Aujourd'hui, ma boucle touche surtout…", options: ['La racine : ma sécurité, ma place', 'Le cœur : ma façon d’aimer et d’être aimé·e', 'Les deux', 'Je ne sais pas encore'] },
-    regarderIntro: "Prends ces cinq questions une par une. Si une réponse ne vient pas, passe à la suivante : elle viendra peut-être dans la semaine, en faisant la vaisselle ou sous la douche.",
+    regarderTitre: 'Pour le domaine que tu veux nourrir, demande-toi',
+    regarderIntro: "Prends le domaine que tu as choisi dans ton objectif. Réponds à ces questions une par une, sans chercher la phrase parfaite.",
     regarder: [
-      { k: 'regarder-1', q: "Quelle situation revient le plus souvent dans ta vie, avec des personnes différentes ?", ph: "Exemple : on me demande beaucoup, je n’ose pas refuser, puis je m’épuise et je me fâche." },
-      { k: 'regarder-2', q: "À quel âge l'as-tu vécue pour la première fois ? Que se passait-il alors ?", ph: "Exemple : vers 9 ans, quand ma petite sœur est née et que je devais être « la grande »." },
-      { k: 'regarder-3', q: "Qui, dans ta famille, a vécu quelque chose de semblable ?", ph: "Exemple : ma mère, qui s’occupait de toute la famille et ne se plaignait jamais." },
-      { k: 'regarder-4', q: "Quelle phrase te dis-tu chaque fois que la boucle démarre ?", ph: "Exemple : « Si je ne le fais pas, personne ne le fera. »" },
-      { k: 'regarder-5', q: "Cette boucle touche-t-elle d'abord ta sécurité, ou ta façon d'aimer ? Qu’est-ce qui te le fait penser ?", ph: "Exemple : plutôt ma sécurité, parce que j’ai peur qu’on se passe de moi si je dis non." }
+      { k: 'roue-manque', q: "Qu’est-ce qui manque aujourd’hui dans ce domaine pour que tu te sentes mieux ?", ph: "Exemple : du temps pour moi, sans culpabilité, au moins une fois par semaine." },
+      { k: 'roue-dix', q: "À quoi ressemblerait ce domaine à 10 sur 10, concrètement, dans une journée ordinaire ?", ph: "Exemple : je me lève sans me presser, je marche le matin, je lis le soir au lieu de faire défiler mon téléphone." },
+      { k: 'roue-point', q: "Qu’est-ce qui te ferait gagner un seul point d’ici la fin du mois ?", ph: "Exemple : bloquer le samedi matin rien que pour moi." },
+      { k: 'roue-appui', q: "Quel domaine haut de ta roue peut t’aider à nourrir celui-ci ?", ph: "Exemple : mes amitiés. Je peux proposer une balade du dimanche à mon amie." }
     ],
-    enLigneTitre: 'Dans ton arbre en ligne',
-    enLigne: "Fais le [test de l'arbre de vie](arbre-de-vie.html) sur genesolia.fr : il te montre en cinq minutes quelles sphères de ta vie sont lumineuses et lesquelles demandent à être nourries. Connecté·e, ton résultat est gardé avec sa date dans Mon chemin : tu pourras le refaire à la fin du mois et voir ce qui a bougé.",
+    enLigneTitre: 'Sur Genesolia',
+    enLigne: "Le [test de l'arbre de vie](arbre-de-vie.html) complète bien ta roue : il te montre en cinq minutes quelles sphères de ta vie sont lumineuses et lesquelles demandent à être nourries. Et si un domaine bas te semble lié à une histoire qui se répète, c'est le moment d'ouvrir [ton suivi](mon-suivi.html).",
     outils: [
-      ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses et celles à nourrir. Gardé avec sa date dans ton espace : refais-le à la fin du mois.'],
-      ['genosociogramme.html', 'Ouvrir mon arbre familial', 'Place les personnes qui ont vécu une situation semblable : l’outil repère les répétitions.'],
-      ['questions-a-poser-a-sa-famille.html', 'Les questions à poser à ma famille', 'Pour la semaine 2 : une question à poser à un proche.']
+      ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses et celles à nourrir. Gardé avec sa date dans ton espace.'],
+      ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour savoir où mettre ton énergie.'],
+      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : repérer ce qui revient dans ta vie, et d’où ça vient.']
     ]
   },
 
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir la boucle, le deuxième à entendre ce qu’elle te dit, le troisième à faire autrement. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesTitre: 'Voir, choisir, avancer',
+  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce qui te nourrit et ce qui te vide, le deuxième à imaginer ta vie à 10 sur 10, le troisième à poser ton tout premier pas. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
-    { k: 'ex1', titre: 'Ma boucle, trois fois', type: 'tableau', rangs: 3,
-      etiquettes: ['La plus ancienne', 'Une autre fois', 'La plus récente'],
-      consigne: "Choisis une situation qui revient dans ta vie. Note trois fois où tu l'as vécue, la plus ancienne en premier. Pour chacune, écris quand c'était et avec qui, ce qui s'est passé, puis ce que tu as ressenti et ce que tu as fait. Relis ensuite les trois lignes : qu'est-ce qui se répète, même un détail ?",
-      pourquoi: "Quand on écrit trois scènes l’une sous l’autre, le motif apparaît tout seul : un mot, une heure de la journée, un type de personne, la même réaction. C’est ce détail qui te permettra de repérer la boucle plus tôt la prochaine fois.",
+    { k: 'ex1', titre: 'Ce qui me nourrit, ce qui me vide', type: 'tableau', rangs: 3,
+      etiquettes: ['Dans mes journées', 'Dans mes relations', 'Dans mon cadre de vie'],
+      consigne: "Pour chacun de ces trois endroits de ta vie, note ce qui te donne de l'énergie, ce qui t'en prend, et un petit ajustement possible. Pas besoin de grandes décisions : on cherche des leviers simples, que tu peux actionner dès cette semaine.",
+      pourquoi: "On passe souvent nos journées à remplir des fuites sans les voir. Mettre noir sur blanc ce qui nourrit et ce qui vide, c’est retrouver le pouvoir d’agir sur ton énergie, au lieu de la subir.",
       colonnes: [
-        { q: "Quand est-ce arrivé, et avec qui ?", ph: ["Exemple : l'été de mes 16 ans, avec mon père, pendant les vacances", "Exemple : à 28 ans, avec ma cheffe, en réunion d’équipe", "Exemple : le mois dernier, avec mon compagnon, chez ses parents"] },
-        { q: "Que s’est-il passé ?", ph: ["Exemple : il s’est moqué de ma tenue devant mes cousins", "Exemple : elle a repris mon idée sans me citer", "Exemple : sa mère a critiqué ma cuisine, il n’a rien dit"] },
-        { q: "Qu’as-tu ressenti, et qu’as-tu fait ?", ph: ["Exemple : j’ai eu honte, je suis allé·e dans ma chambre sans un mot", "Exemple : j’étais en colère, j’ai souri et je me suis tu·e", "Exemple : je me suis senti·e seul·e, j’ai fait la vaisselle pour m’éloigner"] }
+        { q: "Qu’est-ce qui te nourrit, te donne de l’énergie ?", ph: ["Exemple : mon café du matin au calme, marcher pour aller travailler", "Exemple : les appels avec ma sœur, rire avec mes collègues", "Exemple : ma plante sur le bureau, la lumière du salon le matin"] },
+        { q: "Qu’est-ce qui te vide, te coûte de l’énergie ?", ph: ["Exemple : les réunions sans fin, manger devant l’écran", "Exemple : les messages tardifs de mon ex, dire oui par politesse", "Exemple : le désordre de l’entrée, le bruit de la rue"] },
+        { q: "Quel petit ajustement pourrais-tu faire ?", ph: ["Exemple : déjeuner dehors deux fois par semaine", "Exemple : couper les notifications après 20 h", "Exemple : vider le meuble de l’entrée samedi"] }
       ],
-      apres: { k: 'ex1-repete', q: "Relis tes trois lignes. Qu’est-ce qui se répète, même un détail : un mot, une émotion, un geste, un moment ?", ph: "Exemple : chaque fois, quelqu’un me rabaisse devant d’autres personnes, et je me tais au lieu de dire ce que je pense." } },
+      apres: { k: 'ex1-remarque', q: "Relis tes trois lignes. Qu’est-ce que tu remarques ? Quel ajustement veux-tu tester en premier ?", ph: "Exemple : je me vide surtout dans les relations où je n’ose pas dire non. Je commence par couper les notifications le soir." } },
 
-    { k: 'ex2', titre: 'Les phrases qui tournent', type: 'blocs', nb: 3,
-      consigne: "Chaque boucle a sa petite phrase intérieure : « Je ne suis pas assez », « Il faut tout faire soi-même », « On finit toujours par me quitter »… Attrape trois de tes phrases. Cherche si elles viennent de quelqu'un, puis écris une phrase plus juste, que tu pourras te redire.",
-      pourquoi: "Ces phrases tournent si vite qu’on ne les entend plus : elles décident à notre place. Les écrire, c’est les sortir de ta tête pour les regarder en face. Souvent, on s’aperçoit qu’on les a entendues enfant, dans la bouche d’un parent ou d’une grand-mère.",
-      astuce: "Une bonne phrase de remplacement est vraie pour toi aujourd’hui. Pas « Je suis parfait·e », mais « J’ai le droit de demander de l’aide ».",
+    { k: 'ex2', titre: 'Ma vie à 10 sur 10', type: 'blocs', nb: 3,
+      etiquettes: ['Le domaine que je veux nourrir', 'Un deuxième domaine', 'Un domaine qui va déjà bien'],
+      consigne: "Choisis trois domaines de ta roue : celui que tu veux nourrir ce mois-ci, un deuxième qui te tient à cœur, et un qui va déjà bien. Pour chacun, imagine-le à 10 sur 10, avec des détails concrets, comme si tu le vivais déjà.",
+      pourquoi: "En coaching, on dit que l’on avance mieux vers une image claire que loin d’un problème. Imaginer précisément ce que serait « 10 », c’est donner une direction à ton énergie. Et regarder un domaine qui va bien te rappelle que tu sais déjà le faire.",
+      astuce: "Écris au présent et avec tes sens : ce que tu vois, entends, ressens. Plus c’est concret, plus ça devient possible.",
       champs: [
-        { q: "Quelle phrase te dis-tu, dans ta tête, quand la boucle démarre ?", ph: ["Exemple : « Je dois me débrouiller seul·e. »", "Exemple : « Je vais encore déranger. »", "Exemple : « De toute façon, ça finit toujours mal. »"] },
-        { q: "Qui disait cette phrase, ou une phrase proche, dans ta famille ?", ph: ["Exemple : mon grand-père : « On ne compte que sur soi. »", "Exemple : ma mère : « Ne fais pas de bruit, ton père se repose. »", "Exemple : personne ne la disait, mais ma tante la vivait."] },
-        { q: "Quelle phrase plus juste choisis-tu à la place ?", ph: ["Exemple : « J’ai le droit de demander de l’aide. »", "Exemple : « Ma présence compte, je peux prendre de la place. »", "Exemple : « Cette fois peut se passer autrement. »"] }
+        { q: "Quel domaine choisis-tu ?", ph: ["Exemple : la joie, les loisirs", "Exemple : mon chez-moi", "Exemple : mes amitiés"] },
+        { q: "À 10 sur 10, à quoi ressemble ce domaine dans une journée ordinaire ?", ph: ["Exemple : je danse le mardi soir, je ris plusieurs fois par jour", "Exemple : un salon rangé et lumineux, des fleurs sur la table", "Exemple : un dîner par mois avec mes trois amies"] },
+        { q: "Quel serait le premier signe que ce domaine a gagné un point ?", ph: ["Exemple : je me suis inscrit·e au cours d’essai", "Exemple : j’ai trié le meuble de l’entrée", "Exemple : c’est moi qui ai proposé le prochain dîner"] }
       ] },
 
-    { k: 'ex3', titre: 'Le geste différent', type: 'texte',
-      consigne: "Sortir d'une boucle commence par un tout petit geste différent, au moment précis où elle se déclenche : respirer avant de répondre, dire « je reviens vers toi demain », demander au lieu d'attendre, partir faire un tour. Choisis ton geste, écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé.",
-      pourquoi: "On ne change pas une boucle en une fois, on la change en y glissant un grain de sable. Plus le geste est petit, plus il est facile à faire au moment où l’émotion monte.",
-      gestes: ["Respirer trois fois avant de répondre", "Dire « je te réponds demain »", "Demander au lieu d’attendre qu’on devine", "Sortir marcher dix minutes", "Écrire ce que tu ressens avant d’envoyer un message", "Dire « non, pas cette fois », sans te justifier"],
-      q: "Ton geste différent : « La prochaine fois que ma boucle démarre, au lieu de…, je vais… »",
-      ph: "Exemple : au lieu de dire oui tout de suite, je vais dire « je regarde mon agenda et je te réponds ce soir ».",
-      journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu l’as essayé, même maladroitement : quand, et qu’est-ce qui a changé ?", ph: "Exemple : mardi, au travail, j’ai demandé un délai, et on me l’a donné sans souci." } }
+    { k: 'ex3', titre: 'Mon petit pas d’un pour cent', type: 'texte',
+      consigne: "Les grands changements naissent de petits pas répétés. Choisis un geste minuscule pour le domaine que tu veux nourrir, si petit qu'il est impossible de ne pas le faire : cinq minutes, une phrase, un objet déplacé. Fais-le, puis note chaque fois que tu l'as répété, et ce que tu as ressenti.",
+      pourquoi: "Un pas d’un pour cent ne fait pas peur, il ne demande pas de motivation. Répété chaque jour, il crée une nouvelle habitude, et ta roue commence à s’arrondir sans que tu t’en rendes compte.",
+      gestes: ["Cinq minutes de marche dehors, chaque matin", "Écrire une ligne de gratitude avant de dormir", "Envoyer un message gentil à une personne aimée", "Ranger un seul tiroir par semaine", "Mettre une musique qui te met en joie en rentrant", "Poser ton téléphone dans une autre pièce pour le dîner"],
+      q: "Ton petit pas : « Chaque jour (ou chaque semaine), pour nourrir…, je vais… »",
+      ph: "Exemple : chaque soir, pour nourrir ma joie, je vais mettre une chanson que j’aime et danser dans la cuisine pendant le repas.",
+      journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu l’as fait : quand, et qu’as-tu ressenti ?", ph: "Exemple : mardi soir, j’ai dansé en faisant la vaisselle. Mes enfants ont ri, je me suis senti·e légère." } }
   ],
 
   rituel: {
-    titre: 'La main suspendue',
-    intro: "Ce rituel symbolique t'aide à interrompre la boucle au moment où elle commence. Entraîne-toi une première fois au calme, puis utilise-le dans la vie, quand tu sens la vieille réaction monter. Il dure moins d'une minute.",
-    materiel: "Rien, juste ta main. Pour le premier essai, ce carnet et un stylo.",
-    quand: "Dans la vie, ça peut être au moment où le nom de ta mère s’affiche sur ton téléphone, quand un collègue te coupe la parole, ou quand tu sens que tu vas encore dire oui. Personne n’a besoin de voir ta main : sous la table ou dans ta poche, elle fonctionne aussi.",
+    titre: 'La feuille d’automne',
+    intro: "En octobre, la nature lâche ce qui a fini son temps pour garder sa force pour l'essentiel. Ce petit rituel symbolique t'invite à faire pareil : déposer une chose que tu laisses partir, et planter l'intention de ton mois. Il se fait en dix minutes, dehors si tu peux.",
+    materiel: "Une feuille d’arbre tombée (ou un petit papier si tu es en ville), un crayon, et un endroit au calme : un parc, un jardin, un balcon, ou près d’une fenêtre ouverte.",
+    quand: "Fais-le en début de mois, après avoir rempli ta roue. Tu peux le refaire à la pleine lune, ou chaque fois que tu sens que tu portes trop. Certaines personnes en font un rendez-vous d’automne, chaque année.",
     etapes: [
-      "Repère le signal : une chaleur, une gorge serrée, une phrase qui revient. C'est le début de la boucle.",
-      "Lève doucement une main devant toi, paume ouverte, comme pour dire « pause ». Garde-la suspendue.",
-      "Respire trois fois, lentement, en regardant ta main.",
-      "Dis intérieurement : « Je reconnais cette boucle. Elle m'a protégé·e. Aujourd'hui, je peux choisir autrement. »",
-      "Pose ta main sur ton cœur, ou sur ton ventre, et choisis ton geste différent, même tout petit.",
-      "Le soir, note ici ce qui s'est passé : ce que tu as fait, et ce que tu as ressenti."
+      "Ramasse une feuille qui t’attire, ou prends un petit papier. Tiens-la dans ta main et respire trois fois profondément.",
+      "Pense à une chose que tu veux laisser partir ce mois-ci : une habitude, une inquiétude, une exigence envers toi. Écris un mot pour la nommer.",
+      "Dis intérieurement : « Merci pour ce que tu m’as appris. Aujourd’hui, je te laisse partir, comme l’arbre laisse tomber sa feuille. »",
+      "Dépose la feuille au pied d’un arbre, dans la terre d’une plante, ou laisse le vent l’emporter. Regarde-la quelques secondes.",
+      "Pose une main sur ton cœur. Dis ton intention du mois, à voix basse : ce que tu choisis de nourrir.",
+      "Le soir, note ici ce que tu as déposé et l’intention que tu as plantée."
     ],
-    note: { k: 'rituel-note', q: "Après le rituel, note ce qui s’est passé : le moment, ce que tu as fait, ce que tu as ressenti.", ph: "Exemple : jeudi soir, au téléphone avec ma sœur. J’ai posé ma main sur ma cuisse, j’ai respiré, et j’ai dit que je la rappellerais. Je me suis senti·e plus calme, un peu fier·e." }
+    note: { k: 'rituel-note', q: "Qu’as-tu laissé partir, et quelle intention as-tu plantée ?", ph: "Exemple : j’ai laissé partir l’idée que je dois tout réussir seul·e. J’ai planté : « Je m’accorde du temps chaque semaine. »" }
   },
 
   meditation: {
-    titre: 'Sortir du pilote automatique',
+    titre: 'L’arbre en automne',
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
+      "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Sens le poids de ton corps sur le siège. Sens tes pieds sur le sol. Tu n'as rien à faire, nulle part où aller. Juste être là.",
-      "Laisse venir à ton esprit la situation qui revient dans ta vie. Ne plonge pas dedans : regarde-la de loin, comme un film projeté sur un mur, au fond d'une salle. Tu es assis·e dans un fauteuil, au calme.",
+      "Sens tes pieds sur le sol. Imagine que, sous tes pieds, partent de fines racines qui descendent dans la terre, tranquillement, profondément. Tu es stable. Tu es soutenu·e.",
+      "Ton dos devient un tronc, droit et souple à la fois. Tes bras, tes épaules, deviennent des branches. Tu es un arbre, en automne, au milieu d’une belle lumière dorée.",
       "[pause]",
-      "Observe la scène. Les personnages, le décor, les mots. Remarque le moment précis où tout bascule, où la vieille réaction se met en route, comme un pilote automatique.",
-      "Maintenant, imagine que tu as dans la main une petite télécommande. Appuie sur « pause ». L'image se fige. Tout s'arrête. Respire.",
+      "Regarde tes feuilles. Certaines sont encore vertes, pleines de vie : ce sont les domaines de ta vie qui te nourrissent. Remercie-les.",
+      "D’autres ont jauni. Elles ont fait leur temps. Une fatigue, une inquiétude, une vieille habitude. Tu n’as pas besoin de les arracher. Laisse simplement le vent passer… et regarde-les tomber doucement, une à une.",
       "[longue pause]",
-      "Dans cette image figée, regarde la personne que tu étais. Avec douceur. Elle faisait de son mieux, avec ce qu'elle avait appris. Tu peux lui dire intérieurement : « Je te vois. Tu n'es plus seul·e. »",
-      "Et maintenant, imagine une autre suite. Juste un petit geste différent : un mot, un silence, un pas de côté. Regarde la scène repartir avec ce geste. Vois comment elle change, même un peu.",
+      "Sens comme tes branches deviennent plus légères. Ta sève redescend vers le cœur de l’arbre, vers l’essentiel. Rien n’est perdu : tout ce qui tombe nourrira la terre pour le printemps.",
+      "Maintenant, choisis une branche. Celle du domaine que tu veux nourrir ce mois-ci. Imagine qu’un petit bourgeon s’y forme, bien protégé. C’est ton intention. Elle n’a pas besoin de fleurir tout de suite. Elle est là.",
       "[pause]",
-      "Garde cette image en toi. C'est une graine. Tu pourras la retrouver chaque fois que la boucle reviendra.",
-      "Respire profondément. Sens à nouveau ton corps, le sol, l'air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
+      "Dis intérieurement : « Je garde l’essentiel. Je laisse partir ce qui a fait son temps. J’avance à mon rythme. »",
+      "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un moment où personne ne te dérangera pendant dix minutes : le soir avant de dormir, ou un dimanche matin. Si tu t’endors, ce n’est pas grave : ton corps avait besoin de repos, recommence un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la méditation ? Une image, un souvenir, une sensation, un mot…", ph: "Exemple : j’ai revu la cuisine de ma grand-mère, et j’ai eu envie de dire « stop » à voix haute." }
+    conseil: "Choisis un moment où personne ne te dérangera pendant dix minutes : le soir avant de dormir, ou un dimanche matin, près d’une fenêtre. Si tu t’endors, ce n’est pas grave : ton corps avait besoin de repos, recommence un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la méditation ? Une feuille qui tombe, une image, une sensation, un mot…", ph: "Exemple : j’ai vu tomber une feuille qui portait le mot « parfaite ». J’ai respiré plus large après." }
   },
 
   semaines: [
-    { titre: 'Repérer', texte: "Chaque fois que ta boucle se présente, même un peu, note-le ici : le jour, la situation, le premier signal dans ton corps.",
-      exemple: "Par exemple : « Lundi, 8 h 40, message de ma cheffe, ventre serré, j’ai répondu en deux minutes alors que je prenais mon café. » Pas besoin de changer quoi que ce soit cette semaine : voir suffit.",
-      ph: "Exemple : lundi, réunion, gorge serrée quand on m’a demandé mon avis. Jeudi, dîner chez ma mère, même sensation." },
-    { titre: 'Comprendre', texte: "Remplis « Ma boucle, trois fois » et « Les phrases qui tournent ». Pose une question à un membre de ta famille sur une situation semblable vécue avant toi : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
-      exemple: "Par exemple, au téléphone avec ta tante : « Est-ce que mamie disait souvent non, elle ? » Une seule question suffit. Note sa réponse, même si elle te paraît sans importance.",
-      ph: "Exemple : j’ai demandé à ma mère comment sa propre mère faisait avec l’argent. Elle m’a raconté qu’elle cachait des billets dans une boîte à sucre." },
-    { titre: 'Essayer', texte: "Pratique la main suspendue au calme, puis dans la vie. Essaie ton geste différent au moins une fois, et note ce qui se passe.",
-      exemple: "Par exemple : entraîne-toi deux fois le lundi soir, au calme, puis essaie pour de vrai dans la semaine. Si tu oublies et que la boucle se rejoue, ce n’est pas raté : remarque-le après coup, c’est déjà un pas.",
-      ph: "Exemple : mercredi, j’ai dit « je te rappelle demain » au lieu de céder. Je tremblais un peu, et rien de grave n’est arrivé." },
-    { titre: 'Ancrer', texte: "Refais le [test de l’arbre de vie](arbre-de-vie.html) et compare avec ton premier résultat dans [ton espace](login.html#mon-chemin). Note ce qui a bougé, même un peu.",
-      exemple: "Par exemple : la sphère du lien est passée de 4 à 5. Un point, c’est un vrai mouvement. Remercie-toi pour ce que tu as osé ce mois-ci, puis passe à ton bilan.",
-      ph: "Exemple : je reconnais ma boucle plus tôt. Je la vois venir dès le premier message." }
+    { titre: 'Observer mon énergie', texte: "Chaque soir, note ton énergie de 0 à 10, et une chose qui l'a nourrie ou vidée dans la journée. Pas besoin de changer quoi que ce soit : observer suffit pour commencer.",
+      exemple: "Par exemple : « Lundi : 4. Vidée par la réunion de 17 h. Nourrie par l’appel de ma mère. » À la fin de la semaine, tu verras apparaître tes vrais carburants.",
+      ph: "Exemple : mon énergie remonte toujours quand je sors marcher à midi, et chute quand je mange devant l’écran." },
+    { titre: 'Trois mercis par jour', texte: "Chaque soir, avant de dormir, écris ou dis trois choses pour lesquelles tu dis merci aujourd'hui, même minuscules. La gratitude entraîne ton regard à voir ce qui va bien.",
+      exemple: "Par exemple : le soleil sur la table du petit-déjeuner, le sourire de la boulangère, avoir fini un dossier. C’est simple, et pourtant ça change la couleur de la semaine.",
+      ph: "Exemple : j’ai remarqué que je souris plus facilement le matin depuis que je fais mes trois mercis." },
+    { titre: 'Un rendez-vous avec moi', texte: "Bloque une heure dans ta semaine, rien que pour toi et pour le domaine que tu as choisi de nourrir. Note-la dans ton agenda comme un vrai rendez-vous, et honore-la.",
+      exemple: "Par exemple : samedi de 10 h à 11 h, un café en terrasse avec un livre. Ou jeudi soir, un cours d’essai de danse. Si tu dois le déplacer, déplace-le, mais ne l’annule pas.",
+      ph: "Exemple : j’ai tenu mon rendez-vous du samedi. J’ai eu l’impression de me retrouver." },
+    { titre: 'Refaire ma roue', texte: "En fin de semaine, refais ta roue de la vie dans ton bilan et compare-la avec celle du début du mois. Tu peux aussi refaire le [test de l’arbre de vie](arbre-de-vie.html) et regarder ce qui a bougé dans [ton espace](login.html#mon-chemin).",
+      exemple: "Par exemple : ta joie est passée de 3 à 5, ton énergie de 4 à 5. Un point, c’est un vrai mouvement. Remercie-toi pour ce que tu as osé ce mois-ci.",
+      ph: "Exemple : mon chez-moi a gagné deux points depuis que j’ai rangé l’entrée. Je rentre le soir plus détendu·e." }
   ],
 
-  /* Les questions du bilan de fin, propres au mois (le moteur ajoute les questions communes à tous les mois) */
   bilanTitre: 'Ce que ce mois t’a apporté',
   bilan: [
-    { k: 'fin-boucle', q: "Quelle boucle as-tu repérée ce mois-ci ?", ph: "Exemple : dire oui à tout le monde, puis m’épuiser et en vouloir aux autres." },
-    { k: 'fin-origine', q: "Qu’as-tu compris de son origine, dans ton histoire ou dans celle de ta famille ?", ph: "Exemple : chez nous, les femmes tenaient la maison sans jamais se plaindre. J’ai appris très tôt à faire pareil." },
-    { k: 'fin-geste', q: "Quel geste différent as-tu osé, et qu’est-ce qu’il a changé ?", ph: "Exemple : j’ai demandé un délai à ma cheffe. Elle a dit oui, et j’ai passé un week-end tranquille." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour novembre ?", ph: "Exemple : continuer à dire « je te réponds demain », et écouter les histoires de ma famille.", court: true }
+    { k: 'fin-domaine', q: "Qu’est-ce qui a bougé dans le domaine que tu as choisi de nourrir ?", ph: "Exemple : ma joie. Je danse deux fois par semaine, et je me sens plus légère." },
+    { k: 'fin-habitude', q: "Quelle habitude qui te fait du bien veux-tu garder ?", ph: "Exemple : mes trois mercis du soir, et mon rendez-vous du samedi." },
+    { k: 'fin-appui', q: "Sur quelle force t’es-tu appuyé·e ce mois-ci ?", ph: "Exemple : ma constance. Même fatigué·e, j’ai fait mes cinq minutes de marche." },
+    { k: 'fin-intention', q: "Quelle est ton intention pour novembre ?", ph: "Exemple : continuer à nourrir ma joie, et m’appuyer davantage sur mes amies.", court: true }
   ],
 
-  /* Les prochains carnets du Cercle */
+  /* Le côté libération du même mois, dans Mon suivi */
+  suivi: {
+    titre: 'Ce qui revient',
+    texte: "Pendant que ton carnet t’aide à choisir ce que tu veux construire, ton suivi t’aide à repérer la boucle qui se rejoue dans ta vie, à voir d’où elle vient dans ton histoire, et à poser un premier geste différent. Ce que tu libères là-bas nourrit ta roue ici."
+  },
+
   aVenir: [
-    { mois: 'Novembre', titre: 'Ceux qui sont venus avant toi', texte: "Honorer tes ancêtres, reconnaître ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas.", image: 'assets/cercle/apercu-2026-11.jpg' },
-    { mois: 'Décembre', titre: 'Les fêtes et les places à table', texte: "Observer qui s’assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.", image: 'assets/guide/guide-cadeau.webp' },
-    { mois: 'Janvier', titre: 'Ton prénom, ton héritage', texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' }
+    { mois: 'Novembre', titre: 'Mes forces, mes appuis', texte: "Reconnaître ce sur quoi tu peux t’appuyer : tes forces, tes ressources, et ce que ta lignée t’a transmis de beau.", image: 'assets/cartes/racines-appuis-mini.jpg' },
+    { mois: 'Décembre', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, et trouver ta juste place, même au cœur des fêtes.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Janvier', titre: 'Mon intention, mes valeurs', texte: "Choisir ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };
