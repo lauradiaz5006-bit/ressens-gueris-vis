@@ -503,6 +503,7 @@
     }
     var recuperation = /type=recovery/.test(location.hash);
     sb.auth.onAuthStateChange(function (event, session) {
+      setTimeout(function () { if (window.GenesoliaMajEntete) window.GenesoliaMajEntete(); }, 0);
       if (event === 'PASSWORD_RECOVERY') { $('carte-auth').hidden = false; $('carte-connecte').hidden = true; document.querySelector('.espace').classList.remove('connectee'); afficher('form-nouveau'); }
       else if (event === 'SIGNED_IN' && session && !recuperation && $('carte-connecte').hidden && $('form-nouveau').hidden) {
         var confirmee = /access_token/.test(location.hash);

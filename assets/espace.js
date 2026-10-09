@@ -196,7 +196,9 @@
       });
     });
     $('deconnexion').addEventListener('click', function () {
-      sb.auth.signOut().then(function () {
+      sb.auth.signOut().catch(function () {}).then(function () {
+        try { localStorage.removeItem('sb-qsvzzkjtjsznfntahvvh-auth-token'); } catch (e) {}
+        if (window.GenesoliaMajEntete) window.GenesoliaMajEntete();
         try { if (localStorage.getItem('geno4-synchro') === 'ok') localStorage.removeItem('geno4'); } catch (e) {}
         try { Object.keys(localStorage).forEach(function (k) { if (/^geno4-[0-9a-f-]{32,36}$/.test(k)) localStorage.removeItem(k); }); } catch (e) {}   // copies locales des autres arbres
         window.GenesoliaEspaceDeconnecte('Tu es déconnecté·e. Ton arbre reste en sécurité dans ton espace.');

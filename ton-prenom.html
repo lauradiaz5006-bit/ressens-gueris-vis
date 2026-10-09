@@ -232,7 +232,8 @@
       zr.scrollIntoView({ behavior: 'smooth', block: 'start' });
       document.getElementById('pf-garder').onclick = function () {
         if (window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'prenoms-famille', titre: 'Les prénoms de ma famille', resume: p.slice(0, 4).map(function (x) { return x.a.prenom + ' et ' + x.b.prenom; }).join(' · '), donnees: { prenoms: l, echos: p.slice(0, 12).map(function (x) { return { a: x.a, b: x.b, score: x.score, types: x.liens.map(function (k) { return k.type; }) }; }) } });
-        this.textContent = 'Gardé dans ton espace';
+        var co = false; try { co = !!(JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null') || {}).refresh_token; } catch (e) {}
+        this.textContent = co ? 'Gardé dans ton espace' : 'Gardé sur cet appareil : crée ton espace pour le retrouver partout';
       };
       document.getElementById('pf-imprimer').onclick = function () { imprimer(l, p); };
       if (window.umami) try { window.umami.track('prenoms-famille'); } catch (e) {}

@@ -387,7 +387,8 @@
       document.getElementById('duo-livret').onclick = function () { imprimer(a, b, liens); };
       document.getElementById('duo-garder').onclick = function () {
         if (window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'maya-duo', titre: 'Signes maya : ' + (a.prenom || 'moi') + ' et ' + (b.prenom || b.lien), resume: a.r.nombre + ' ' + T.SIGNES[a.r.signe].kiche + ' et ' + b.r.nombre + ' ' + T.SIGNES[b.r.signe].kiche, donnees: { a: { prenom: a.prenom, date: d1, nombre: a.r.nombre, signe: a.r.signe }, b: { prenom: b.prenom, lien: b.lien, date: d2, nombre: b.r.nombre, signe: b.r.signe } } });
-        this.textContent = 'Gardé dans ton espace';
+        var co = false; try { co = !!(JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null') || {}).refresh_token; } catch (e) {}
+        this.textContent = co ? 'Gardé dans ton espace' : 'Gardé sur cet appareil : crée ton espace pour le retrouver partout';
       };
       try { var s = JSON.parse(localStorage.getItem('genesolia-maya') || 'null'); } catch (x) {}
       z.scrollIntoView({ behavior: 'smooth', block: 'start' });
