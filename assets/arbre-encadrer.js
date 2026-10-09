@@ -104,7 +104,7 @@
 
     /* Frères et sœurs : sur la même ligne que la personne, reliés par un trait doré */
     var fs = donnees.freresSoeurs || [], tous = [moi];
-    fs.forEach(function (f, i) { f._x = W / 2 + (i % 2 ? -1 : 1) * 250 * (Math.floor(i / 2) + 1); f._y = LIGNES[0]; f._g = 0; tous.push(f); });
+    fs.forEach(function (f, i) { f._x = W / 2 + (i % 2 ? -1 : 1) * 340 * (Math.floor(i / 2) + 1); f._y = LIGNES[0]; f._g = 0; tous.push(f); });
     var liens = '';
     if (fs.length) {
       var xs = tous.map(function (q) { return q._x; }), y0 = LIGNES[0] - 90;
@@ -122,9 +122,11 @@
       pers += '<g filter="url(#ae-ombre)">' + (f ? '<circle cx="' + x + '" cy="' + y + '" r="' + rr + '" fill="' + fond + '" stroke="' + OR + '" stroke-width="5"/>' : '<rect x="' + (x - rr) + '" y="' + (y - rr) + '" width="' + rr * 2 + '" height="' + rr * 2 + '" rx="6" fill="' + fond + '" stroke="' + OR + '" stroke-width="5"/>') + '</g>';
       if (moiMeme) pers += '<circle cx="' + x + '" cy="' + y + '" r="' + (rr + 14) + '" fill="none" stroke="' + OR_CLAIR + '" stroke-width="3"/>';
       var nom = (p.prenom || '') + (p._g <= 1 && p.nom ? ' ' + p.nom : ''), dates = (p.naissance || '') + (p.deces ? ' – ' + p.deces : '');
-      var ty = y + rr + (p._g === 3 ? 44 : 54), fz = p._g === 3 ? 36 : 42;
+      var fz = p._g === 3 ? 40 : 48, fd = Math.round(fz * .7), ty = y + rr + (p._g === 3 ? 50 : 60);
+      var larg = Math.max(nom.length * fz * .56, dates.length * fd * .58) + 44, haut2 = dates ? fz + fd + 26 : fz + 18;
+      pers += '<rect x="' + (x - larg / 2).toFixed(0) + '" y="' + (ty - fz * .92).toFixed(0) + '" width="' + larg.toFixed(0) + '" height="' + haut2 + '" rx="' + (haut2 / 2.4).toFixed(0) + '" fill="#FFFBF3" fill-opacity=".93" stroke="' + OR_CLAIR + '" stroke-width="2.5"/>';
       pers += '<text x="' + x + '" y="' + ty + '" text-anchor="middle" class="ae-nom" font-size="' + fz + '">' + esc(nom) + '</text>';
-      if (dates) pers += '<text x="' + x + '" y="' + (ty + fz * .95) + '" text-anchor="middle" class="ae-date" font-size="' + (fz * .66).toFixed(0) + '">' + esc(dates) + '</text>';
+      if (dates) pers += '<text x="' + x + '" y="' + (ty + fd + 10) + '" text-anchor="middle" class="ae-date" font-size="' + fd + '">' + esc(dates) + '</text>';
     });
 
     var titre = '<text x="' + W / 2 + '" y="430" text-anchor="middle" class="ae-titre">' + esc(donnees.titre || 'Mon arbre') + '</text>' +
@@ -137,7 +139,7 @@
       '<defs><linearGradient id="ae-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2C48E"/><stop offset=".45" stop-color="' + OR + '"/><stop offset="1" stop-color="' + OR_FONCE + '"/></linearGradient>' +
       '<filter id="ae-ombre" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#7A5226" flood-opacity=".28"/></filter>' +
       '<style>.ae-titre{font-family:"Gilda Display",Georgia,serif;font-size:132px;fill:' + PRUNE + '}.ae-sous{font-family:"Nunito Sans",sans-serif;font-size:40px;letter-spacing:9px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
-      '.ae-nom{font-family:"Gilda Display",Georgia,serif;fill:' + PRUNE + ';paint-order:stroke;stroke:#FBF6EC;stroke-width:12px;stroke-linejoin:round}.ae-date{font-family:"Nunito Sans",sans-serif;fill:#7A5A3A;paint-order:stroke;stroke:#FBF6EC;stroke-width:10px;stroke-linejoin:round}' +
+      '.ae-nom{font-family:"Gilda Display",Georgia,serif;fill:#4A0F36}.ae-date{font-family:"Nunito Sans",sans-serif;font-weight:700;fill:#9A3A68;letter-spacing:1px}' +
       '.ae-pied{font-family:"Nunito Sans",sans-serif;font-size:34px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.9}.ae-filigrane{font-family:"Gilda Display",serif;font-size:300px;fill:' + PRUNE + '}</style></defs>' +
       (o.decor !== false ? '<image href="' + esc(o.decor || 'assets/arbre/decor-a4.jpg') + '" x="0" y="0" width="' + W + '" height="' + H + '" preserveAspectRatio="xMidYMid slice"/>' : '') +
       titre + '<g>' + h + '</g>' + liens + pers + pied + filigrane + '</svg>';

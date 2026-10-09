@@ -285,6 +285,15 @@
     body.arbre-dore #dessin path[fill="none"],body.arbre-dore #dessin line{stroke:#C49A5B}
     body.arbre-dore #dessin .personne > circle:not(.halo),body.arbre-dore #dessin .personne > rect:not(.zone-clic),body.arbre-dore #dessin .personne > path:not(.halo){filter:drop-shadow(0 3px 6px rgba(168,122,61,.28))}
     body.arbre-dore #dessin text[fill="#6B2F5B"]{fill:#5A3A16}
+    .bt-encadrer{background:linear-gradient(135deg,#F3DCC0,#E2C48E);border-color:#B98A55;color:#3A2410;font-weight:700}
+    .fe-fenetre{max-width:960px;width:100%}
+    .fe-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.4rem;align-items:start}
+    .fe-apercu svg{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 10px 30px rgba(74,33,66,.18)}
+    .fe-reglages{display:flex;flex-direction:column;gap:.7rem}
+    .fe-champ{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;font-weight:600;color:var(--prune)}
+    .fe-champ input{font:inherit;font-weight:400;padding:.6rem .8rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff}
+    .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}
+    @media (max-width:760px){.fe-grille{grid-template-columns:1fr}}
     .bt-dore[aria-pressed="true"]{background:linear-gradient(135deg,#E8C899,#B98A55);border-color:#B98A55;color:#3A2410}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
@@ -341,6 +350,7 @@
       <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
       <button class="bt bt-dore" type="button" id="bt-dore" aria-pressed="false" title="Changer l'apparence de l'arbre">Arbre doré</button>
+      <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog">Mon arbre à encadrer</button>
       <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
     </div>
     <span class="sep" aria-hidden="true"></span>
@@ -576,6 +586,16 @@
   </div>
 
   <!-- Rapport -->
+  <div class="fenetre-fond" id="fen-encadrer">
+    <div class="fenetre fe-fenetre" role="dialog" aria-modal="true" aria-labelledby="fe-titre-fen">
+      <div class="fen-tete">
+        <div><h2 id="fe-titre-fen">Mon arbre à encadrer</h2><p>Ta lignée sur un grand arbre doré, en A4 haute définition : à imprimer, encadrer ou offrir.</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" id="fe-corps"></div>
+    </div>
+  </div>
+
   <div class="fenetre-fond" id="fen-rapport">
     <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fr-titre">
       <div class="fen-tete">
@@ -627,6 +647,8 @@
   })();
   </script>
   <script src="assets/export-gedcom.js?v=2026-10-09"></script>
+  <script src="assets/arbre-encadrer.js?v=1"></script>
+  <script src="assets/arbre-encadrer-page.js?v=1"></script>
 
   <script>
   (function () {
