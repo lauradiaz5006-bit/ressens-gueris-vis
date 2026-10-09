@@ -33,6 +33,49 @@ window.GenesoliaDonnees = (function () {
   return { effacer: effacer, connectee: connectee };
 })();
 
+/* ===== Coffre-fort des écrits (carnets, suivi, bilan de départ) =====
+   Les réponses sont chiffrées dans la base (fonctions carnet_ecrire / carnet_lire, parcours_ecrire / parcours_lire) :
+   l'équipe Genesolia ne les lit pas. Avant le premier enregistrement en ligne, la personne donne son accord
+   (gardé dans son compte : user_metadata.coffre_accord). Sans accord, tout reste sur l'appareil. */
+window.GenesoliaCoffre = (function () {
+  function accord(user) { return !!(user && user.user_metadata && user.user_metadata.coffre_accord); }
+  function demander(zone, sb, ok) {
+    if (!zone) return;
+    zone.hidden = false;
+    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ton espace privé, chiffré</p><p>Pour retrouver tes réponses sur tous tes appareils, elles sont gardées dans ton espace, <b>chiffrées</b> : personne d’autre que toi ne peut les lire, pas même l’équipe Genesolia. Tu peux tout effacer quand tu veux depuis Mon espace.</p>' +
+      '<p><button type="button" class="btn btn-plein" data-coffre-oui>J’accepte que mes réponses soient gardées</button> <button type="button" class="btn btn-trait" data-coffre-non>Pas maintenant</button></p>' +
+      '<p class="coffre-note">Sans ton accord, tes réponses restent seulement sur cet appareil. <a href="confidentialite.html">Mes données</a></p></div>';
+    zone.querySelector('[data-coffre-oui]').onclick = function (e) {
+      e.target.disabled = true;
+      sb.auth.updateUser({ data: { coffre_accord: new Date().toISOString() } }).then(function (r) {
+        if (r && r.error) { e.target.disabled = false; return; }
+        zone.innerHTML = '<p class="coffre-merci">Merci. Tes réponses sont maintenant gardées, chiffrées, dans ton espace.</p>';
+        setTimeout(function () { zone.hidden = true; }, 4000);
+        ok && ok();
+      });
+    };
+    zone.querySelector('[data-coffre-non]').onclick = function () { zone.hidden = true; };
+  }
+  /* Lecture et écriture chiffrées, avec repli sur la table si les fonctions ne sont pas encore installées */
+  function lire(sb, user, mois) {
+    var rpc = mois === null ? sb.rpc('parcours_lire') : sb.rpc('carnet_lire', { p_mois: mois });
+    return rpc.then(function (r) {
+      if (!r.error) return r.data;
+      var q = mois === null ? sb.from('parcours').select('data').eq('user_id', user.id) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', mois);
+      return q.maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; });
+    });
+  }
+  function ecrire(sb, user, mois, data) {
+    var rpc = mois === null ? sb.rpc('parcours_ecrire', { p_data: data }) : sb.rpc('carnet_ecrire', { p_mois: mois, p_data: data });
+    return rpc.then(function (r) {
+      if (!r.error) return r;
+      return mois === null ? sb.from('parcours').upsert({ user_id: user.id, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id' })
+        : sb.from('carnets').upsert({ user_id: user.id, mois: mois, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' });
+    });
+  }
+  return { accord: accord, demander: demander, lire: lire, ecrire: ecrire };
+})();
+
 /* Mesure d'audience anonyme et sans cookie (Umami) */
 (function () {
   var s = document.createElement('script');

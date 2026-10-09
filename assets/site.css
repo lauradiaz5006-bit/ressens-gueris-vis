@@ -393,3 +393,10 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .encart-formation .ef-liste li::before{content:'·';color:var(--champagne);font-weight:700;margin-right:.5rem}
 .encart-formation .cadeau-texte p,.encart-formation .ef-liste li{color:#F7E6EE}
 .encart-formation .ef-sur{color:#F3DCC0!important}
+/* Coffre-fort : accord avant d'enregistrer ses écrits */
+.coffre-accord{padding:1rem 1.1rem;border-radius:14px;background:rgba(255,255,255,.96);color:var(--prune);border:1px solid var(--champagne-clair);text-align:left}
+.coffre-accord .coffre-t{font:400 1.2rem var(--display);margin-bottom:.4rem}
+.coffre-accord p{margin-bottom:.6rem;font-size:.92rem}
+.coffre-accord .btn-trait{color:var(--prune)!important;border-color:var(--rose-fonce)!important}
+.coffre-note{font-size:.8rem!important;color:var(--prune-doux)}
+.coffre-merci{padding:.8rem 1rem;border-radius:12px;background:#FBF0E4;color:var(--prune);font-weight:600}
