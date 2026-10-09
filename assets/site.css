@@ -164,6 +164,9 @@ section.bloc{padding:4.5rem 0}
 .cookies p{margin:0 0 .8rem}
 .cookies a{color:var(--prune)}
 .cookies .btn{padding:.55rem 1.1rem;font-size:.9rem}
+.cookies .cookies-titre{font-weight:600;margin-bottom:.35rem}
+.cookies-boutons{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end}
+.cookies-boutons .btn{flex:1 1 8rem}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media print{.entete,.pied,.cookies{display:none!important}}

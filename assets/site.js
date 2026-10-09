@@ -9,6 +9,50 @@
   document.head.appendChild(s);
 })();
 
+/* Google Analytics : chargé SEULEMENT si la visiteuse clique « Accepter » sur le bandeau.
+   Refus ou pas de réponse : rien n'est chargé, aucun cookie Google. Umami continue de compter toutes les visites. */
+window.GENESOLIA_GA = 'G-CL135D3MXM';
+window.GenesoliaMesure = (function () {
+  var CLE = 'consentement-mesure', id = window.GENESOLIA_GA, charge = false;
+  function choix() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  function charger() {
+    if (charge || !id) return;
+    charge = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+    var g = document.createElement('script');
+    g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+    document.head.appendChild(g);
+  }
+  function effacer() {
+    var hote = location.hostname.replace(/^www\./, '');
+    document.cookie.split(';').forEach(function (c) {
+      var nom = c.split('=')[0].trim();
+      if (/^_ga/.test(nom)) {
+        ['', '; domain=' + hote, '; domain=.' + hote].forEach(function (d) {
+          document.cookie = nom + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+        });
+      }
+    });
+  }
+  function enregistrer(v) {
+    try { localStorage.setItem(CLE, v); localStorage.setItem(CLE + '-date', new Date().toISOString().slice(0, 10)); } catch (e) {}
+    if (v === 'oui') charger();
+    else { if (charge) window['ga-disable-' + id] = true; effacer(); }
+  }
+  /* Le choix est redemandé au bout de 6 mois (recommandation CNIL) */
+  function expire() {
+    try { var d = localStorage.getItem(CLE + '-date'); return !d || (new Date() - new Date(d)) > 182 * 864e5; } catch (e) { return true; }
+  }
+  var c = choix();
+  if (c && expire()) { try { localStorage.removeItem(CLE); } catch (e) {} c = null; }
+  if (c === 'oui') charger();
+  return { choix: choix, enregistrer: enregistrer };
+})();
+
 /* ===== Paiements Stripe : coller ici chaque lien de paiement (Stripe > Liens de paiement) =====
    Abonnements : activer « essai gratuit de 30 jours » dans Stripe, et la page de confirmation
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
@@ -169,6 +213,7 @@ window.GENESOLIA_IMPRESSION = {
           '<div><h4>Informations</h4><ul>' +
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
+            '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
             '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
@@ -389,24 +434,36 @@ window.GENESOLIA_IMPRESSION = {
     });
   });
 
-  /* Bandeau d'information : le site n'utilise que des stockages nécessaires à son fonctionnement */
-  var vu = false;
-  try { vu = localStorage.getItem('info-cookies') === 'vu'; } catch (e) {}
-  if (!vu) {
+  /* Bandeau cookies : Accepter ou Refuser la mesure Google Analytics (Umami, sans cookie, compte toujours) */
+  var vu = !!window.GenesoliaMesure.choix();
+  function bandeauCookies(auto) {
+    var ancien = document.querySelector('.cookies');
+    if (ancien) ancien.remove();
     var b = document.createElement('div');
     b.className = 'cookies visible';
     b.setAttribute('role', 'region');
-    b.setAttribute('aria-label', 'Information sur les données');
+    b.setAttribute('aria-label', 'Tes choix sur les cookies');
     b.innerHTML =
-      '<p>Aucun cookie publicitaire. Une mesure d\'audience anonyme et sans cookie (Umami) nous aide à améliorer le site. Tes réponses restent dans ton navigateur. Si tu crées un compte, tes sauvegardes sont stockées sur nos serveurs en Europe (Irlande). <a href="confidentialite.html">En savoir plus</a></p>' +
-      '<button class="btn btn-plein" type="button">J\'ai compris</button>';
-    b.querySelector('button').addEventListener('click', function () {
-      b.classList.remove('visible');
-      try { localStorage.setItem('info-cookies', 'vu'); } catch (e) {}
-      setTimeout(carreCercle, 1500);
+      '<p class="cookies-titre">Tes choix sur les cookies</p>' +
+      '<p>Umami compte les visites sans cookie et sans t\'identifier. Avec ton accord, Google Analytics nous aide en plus à comprendre comment le site est utilisé (cookies de mesure, gardés 13 mois au plus). Aucune publicité, aucune revente. Tes réponses restent dans ton navigateur ; si tu crées un compte, tes sauvegardes sont stockées en Europe (Irlande). <a href="confidentialite.html#cookies">En savoir plus</a></p>' +
+      '<div class="cookies-boutons"><button class="btn btn-trait" type="button" data-choix="non">Refuser</button>' +
+      '<button class="btn btn-plein" type="button" data-choix="oui">Accepter</button></div>';
+    Array.prototype.forEach.call(b.querySelectorAll('[data-choix]'), function (bt) {
+      bt.addEventListener('click', function () {
+        window.GenesoliaMesure.enregistrer(bt.getAttribute('data-choix'));
+        b.classList.remove('visible');
+        if (auto) setTimeout(carreCercle, 1500);
+      });
     });
     document.body.appendChild(b);
   }
+  if (!vu) bandeauCookies(true);
+  document.addEventListener('click', function (e) {
+    var l = e.target.closest && e.target.closest('[data-cookies]');
+    if (!l) return;
+    e.preventDefault();
+    bandeauCookies(false);
+  });
 
   /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
      Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient à la prochaine visite. */
