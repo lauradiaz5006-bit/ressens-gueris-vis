@@ -2001,12 +2001,14 @@
   /* ───────── Rapport de ton arbre (offre payante) ─────────
      Accès : table Supabase « acces_premium » (une ligne par compte, avec une date de fin).
      Tant que les liens de paiement sont vides, les boutons proposent d'être prévenue (table demandes et N8N). */
+  /* Gratuit ou payant, prix et liens : tout se règle dans assets/site.js (GENESOLIA_PRODUITS.rapport et GENESOLIA_STRIPE) */
+  var PROD_R = (window.GENESOLIA_PRODUITS || {}).rapport || {}, STRIPE = window.GENESOLIA_STRIPE || {};
   var RAPPORT = {
-    offert: true,         // true : rapport offert à toute personne connectée ; false : offres payantes ci-dessous
-    prix: '9 €', duree: '7 jours',
-    abo: '29 € par mois',
-    lienAchat: '',        // lien de paiement Stripe pour le rapport (9 €)
-    lienAbonnement: ''    // lien de paiement Stripe pour l'abonnement (29 €/mois, après 1 mois gratuit)
+    offert: !PROD_R.payant,
+    prix: PROD_R.prix || '9 €', duree: '7 jours',
+    abo: ((window.GENESOLIA_PRODUITS || {}).cercle || {}).prix || '29 € par mois',
+    lienAchat: STRIPE.rapport || '',
+    lienAbonnement: STRIPE.cercleMois || ''
   };
   var TEXTES_RAPPORT = {
     anniversaire: { titre: 'Le syndrome d’anniversaire', intro: 'Tu traverses aujourd’hui un âge auquel quelqu’un de ta famille a vécu un événement marquant. En psychogénéalogie, on observe que certaines périodes de la vie peuvent réveiller une mémoire familiale, comme si une date intérieure se rappelait à nous. Ce n’est pas une prédiction : c’est une invitation à être attentive à cette période.', pistes: ['Qu’est-ce qui se passe dans ta vie en ce moment, et qu’est-ce que cela réveille en toi ?', 'Que sais-tu vraiment de ce que cette personne a vécu à cet âge ?', 'Qu’aimerais-tu vivre différemment, toi, à cet âge ?'], geste: 'Écris une phrase pour cette personne : « Tu as vécu cela à cet âge. Moi, je choisis de vivre… »' },
@@ -2024,8 +2026,8 @@
   function verifierAcces() {
     if (!sb || !utilisateur) return Promise.resolve(null);
     if (RAPPORT.offert) return Promise.resolve({ offre: 'offert', valide_jusqu: '2999-12-31', libre: true });
-    return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
-      .then(function (r) { return (r && r.data && new Date(r.data.valide_jusqu) > new Date()) ? r.data : null; }, function () { return null; });
+    if (window.GenesoliaAcces) return window.GenesoliaAcces.verifier('rapport').then(function (ok) { return ok ? { offre: 'achat', valide_jusqu: '2999-12-31', libre: true } : null; });
+    return Promise.resolve(null);
   }
   function statsArbre() {
     var ids = Object.keys(S.people), pl = calculerPlan();
@@ -2133,7 +2135,7 @@
   function lienPaiement(base) {
     if (!base) return '';
     var u = base + (base.indexOf('?') < 0 ? '?' : '&');
-    if (utilisateur) u += 'client_reference_id=' + encodeURIComponent(utilisateur.id) + (utilisateur.email ? '&prefilled_email=' + encodeURIComponent(utilisateur.email) : '');
+    if (utilisateur) u += 'client_reference_id=' + encodeURIComponent(utilisateur.id + (base === RAPPORT.lienAchat ? '__rapport' : '__cercle')) + (utilisateur.email ? '&prefilled_email=' + encodeURIComponent(utilisateur.email) : '');
     return u;
   }
 
