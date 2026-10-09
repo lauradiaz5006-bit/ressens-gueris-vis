@@ -204,7 +204,7 @@
     function entete(r) {
       document.getElementById('m-titre').textContent = nomMois + ' ' + Y;
       if (!r || !r.t) return;
-      document.getElementById('m-intro').textContent = (r.moi.prenom ? r.moi.prenom + ', voici' : 'Voici') + ' ton mois : ce que disent tes nombres, et ce que ton arbre familial te rappelle en ' + nomMois + '.';
+      document.getElementById('m-intro').textContent = (r.moi.prenom ? r.moi.prenom.charAt(0).toUpperCase() + r.moi.prenom.slice(1) + ', voici' : 'Voici') + ' ton mois : ce que disent tes nombres, et ce que ton arbre familial te rappelle en ' + nomMois + '.';
       document.getElementById('m-chips').innerHTML = '<span>Année personnelle <b>' + r.t.annee + '</b></span><span>Mois personnel <b>' + r.t.mois + '</b></span>' + (r.t.periodeActuelle ? '<span>Réalisation <b>' + r.t.periodeActuelle.n + '</b></span>' : '') + '<span>' + r.dates.length + ' date' + (r.dates.length > 1 ? 's' : '') + ' de ton arbre</span>';
     }
     function blocNumero(r) {
