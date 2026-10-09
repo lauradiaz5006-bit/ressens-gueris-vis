@@ -32,6 +32,7 @@
 .mc-onglets button.actif span{background:var(--champagne-clair);color:var(--prune)}
 /* Le livre */
 .mc-livre{position:relative;perspective:2600px}
+@media (max-width:999px){.mc-livre{overflow-x:clip}}
 .mc-page{position:relative;background:var(--papier);border:1px solid var(--filet);border-radius:14px;box-shadow:0 18px 50px rgba(107,47,91,.10);color:var(--encre)}
 .mc-page[hidden]{display:none!important}
 .mc-g,.mc-d{position:relative;min-width:0}

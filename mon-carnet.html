@@ -34,10 +34,11 @@
   <script>
   /* Carnet demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
   (function () {
-    var DISPONIBLES = ['2026-10'];
+    var DISPONIBLES = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09', '2027-10'];
     var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
     var m = new URLSearchParams(location.search).get('mois');
-    if (DISPONIBLES.indexOf(m) < 0) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
+    var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
+    if (DISPONIBLES.indexOf(m) < 0 || (m > actuel && !apercu)) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
     function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
     function go() { charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
     /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
