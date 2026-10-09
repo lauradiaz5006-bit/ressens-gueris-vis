@@ -292,7 +292,9 @@
     });
   }
   var MOBILE = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var direct = false;
   function imprimer(t, btn) {
+    if (!direct && window.GenesoliaParMail) return window.GenesoliaParMail.envoyer({ quoi: 'ton livret de numérologie', html: chargerTextes().then(function () { return html(window.Numerologie, t); }), secours: function () { direct = true; try { imprimer(t, btn); } finally { direct = false; } } });
     var lib = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du livret…'; }
     /* Sur téléphone, l'impression d'un cadre caché ne marche pas : on ouvre le livret dans un nouvel onglet (ouvert tout de suite, au moment du clic) */

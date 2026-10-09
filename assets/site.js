@@ -737,6 +737,55 @@ window.GENESOLIA_IMPRESSION = {
     });
   }
   window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit };
+
+  /* ===== Documents envoyés par mail =====
+     Au clic sur « Télécharger », le document est enregistré (table envois) et un mail part avec son lien,
+     les outils offerts, la formation et Le Cercle (Supabase prépare le mail, le moteur N8N l'envoie).
+     À l'écran : « C'est envoyé », puis un lien de secours au bout d'une minute.
+     Si l'enregistrement échoue, on propose tout de suite le téléchargement direct. */
+  function nouvelId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); });
+  }
+  function fenetreEnvoi(quoi) {
+    var f = document.createElement('div');
+    f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Envoi de ' + quoi);
+    f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
+      '<img src="/assets/icones/icone-192.png" alt="" width="64" height="64"><div class="envoi-corps" aria-live="polite"><h2>Préparation de ' + esc(quoi) + '…</h2><p>Un instant.</p></div></div>';
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) f.remove(); });
+    document.body.appendChild(f);
+    return f;
+  }
+  function envoyerParMail(o) {
+    if (!aUnCompte()) { o.secours(); return; }
+    var f = fenetreEnvoi(o.quoi), corps = f.querySelector('.envoi-corps');
+    function secoursMaintenant(texte) {
+      corps.innerHTML = '<h2>' + texte + '</h2><p>Tu peux le télécharger tout de suite.</p><div class="compte-actions"><button class="btn btn-plein" type="button" data-secours>Télécharger maintenant</button></div>';
+    }
+    f.addEventListener('click', function (e) { if (e.target.closest('[data-secours]')) { f.remove(); o.secours(); } });
+    session().then(function (x) {
+      if (!x || !x.user || !x.access_token) throw new Error('session');
+      var m = x.user.user_metadata || {};
+      return Promise.resolve(o.html || null).then(function (html) {
+        return fetch(SB_BASE + '/rest/v1/envois', {
+          method: 'POST',
+          headers: { apikey: SB_CLE, Authorization: 'Bearer ' + x.access_token, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+          body: JSON.stringify({ id: nouvelId(), user_id: x.user.id, email: x.user.email, prenom: m.full_name || m.prenom || null, quoi: o.quoi, page: page, html: html, fichier: o.fichier || null })
+        });
+      }).then(function (r) {
+        if (!r.ok) throw new Error('envoi ' + r.status);
+        corps.innerHTML = '<h2>C\'est envoyé dans ta boîte mail</h2>' +
+          '<p>' + esc(o.quoi.charAt(0).toUpperCase() + o.quoi.slice(1)) + ' arrive à <b>' + esc(x.user.email) + '</b> d\'ici quelques minutes, avec un lien pour l\'ouvrir, l\'enregistrer en PDF ou l\'imprimer.</p>' +
+          '<p class="compte-note">Pense à regarder dans les spams ou l\'onglet Promotions.</p>' +
+          '<div class="compte-actions"><button class="btn btn-plein" type="button" data-fermer-envoi>Parfait, merci</button>' +
+          '<button class="compte-lien envoi-secours" type="button" data-secours hidden>Pas reçu ? Télécharge-le ici</button></div>';
+        corps.querySelector('[data-fermer-envoi]').addEventListener('click', function () { f.remove(); });
+        setTimeout(function () { var b = corps.querySelector('.envoi-secours'); if (b) b.hidden = false; }, 60000);
+        if (window.umami) try { window.umami.track('document-par-mail', { quoi: o.quoi }); } catch (e) {}
+      });
+    }).catch(function () { secoursMaintenant('Le mail n\'a pas pu partir'); });
+  }
+  window.GenesoliaParMail = { envoyer: envoyerParMail };
   /* Les droits sont chargés d'avance quand la page contient un produit payant : le clic reste immédiat (utile sur mobile) */
   var accesConnus = {};
   if (aUnCompte() && Object.keys(window.GENESOLIA_PRODUITS || {}).some(estPayant)) chargerAcces().then(function (a) {
@@ -757,11 +806,12 @@ window.GENESOLIA_IMPRESSION = {
       }
     }
     if (aUnCompte()) {
-      /* Une fois par document et par navigateur : N8N envoie un petit mail de rappel (workflow 13) */
-      try {
-        var quoi = el.getAttribute('data-compte'), cle = 'telecharge-' + quoi, ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), u = ses && ses.user;
-        if (u && u.email && !localStorage.getItem(cle) && window.GenesoliaN8N) { localStorage.setItem(cle, '1'); var fd = new FormData(); fd.append('email', u.email); fd.append('prenom', (u.user_metadata && u.user_metadata.full_name) || ''); fd.append('quoi', quoi); fd.append('page', page); window.GenesoliaN8N('genesolia-telechargement', fd); }
-      } catch (er) {}
+      /* Fichier PDF déjà en ligne (ex. génosociogramme vierge) : il part par mail ; lien de secours pour le téléchargement direct */
+      var href = el.tagName === 'A' ? (el.getAttribute('href') || '') : '';
+      if (/\.pdf(\?|#|$)/i.test(href) && !el.hasAttribute('data-direct')) {
+        e.preventDefault(); e.stopImmediatePropagation();
+        envoyerParMail({ quoi: el.getAttribute('data-compte'), fichier: el.href, secours: function () { el.setAttribute('data-direct', ''); el.click(); el.removeAttribute('data-direct'); } });
+      }
       return;
     }
     e.preventDefault(); e.stopImmediatePropagation();

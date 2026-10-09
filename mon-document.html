@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ton document · Genesolia</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .doc-boite{max-width:34rem;margin:4rem auto;padding:2rem 1.6rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);text-align:center}
+    .doc-boite h1{font-size:1.8rem;margin-bottom:.8rem}
+    .doc-boite p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .doc-barre{position:sticky;top:0;z-index:2;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif}
+    .doc-barre button{flex:0 0 auto;border:0;border-radius:99px;padding:.55rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif;cursor:pointer}
+    #doc-cadre{display:block;width:100%;height:calc(100vh - 52px);border:0;background:#fff}
+    body:has(#doc-cadre){margin:0;background:#fff}
+  </style>
+</head>
+<body class="nouveau">
+  <main class="conteneur">
+    <div class="doc-boite" id="doc">
+      <h1>Ton document arrive…</h1>
+      <p>Un instant.</p>
+    </div>
+  </main>
+  <script>
+  /* Page ouverte depuis le mail « … t'attend » : affiche le document enregistré (lien valable 60 jours). */
+  (function () {
+    var SB = 'https://qsvzzkjtjsznfntahvvh.supabase.co', CLE = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var boite = document.getElementById('doc');
+    function message(titre, texte) {
+      boite.innerHTML = '<h1>' + titre + '</h1><p>' + texte + '</p><a class="btn btn-plein" href="/offert.html">Voir les outils de Genesolia</a>';
+    }
+    var id = new URLSearchParams(location.search).get('d') || '';
+    if (!/^[0-9a-f-]{36}$/i.test(id)) { message('Ce lien est incomplet', 'Ouvre le lien directement depuis ton mail, ou refais ton document sur genesolia.fr.'); return; }
+    fetch(SB + '/rest/v1/rpc/envoi_lire', { method: 'POST', headers: { apikey: CLE, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_id: id }) })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (l) {
+        var d = l && l[0];
+        if (!d) { message('Ce lien a expiré', 'Les liens restent valables 60 jours. Tu peux refaire ton document sur genesolia.fr, c\'est rapide.'); return; }
+        if (d.fichier && !d.html) {
+          if (!/^https:\/\/genesolia\.fr\//.test(d.fichier)) { message('Ce lien n\'est pas valide', 'Refais ton document sur genesolia.fr.'); return; }
+          boite.innerHTML = '<h1>Ton document est prêt</h1><p>Clique pour l\'ouvrir, puis enregistre-le ou imprime-le.</p><a class="btn btn-plein" id="doc-lien" target="_blank" rel="noopener">Ouvrir mon document</a>';
+          document.getElementById('doc-lien').href = d.fichier;
+          return;
+        }
+        /* Affiché dans un cadre isolé : aucun script du document ne s'exécute (sécurité) */
+        var h = d.html;
+        if (!/<base /i.test(h)) h = h.replace(/<head([^>]*)>/i, '<head$1><base href="https://genesolia.fr/">');
+        h = h.replace(/<\/head>/i, '<style>.barre-livret,.barre,body>.b{display:none!important}</style></head>');
+        document.body.innerHTML = '<div class="doc-barre"><span>Ton document Genesolia</span><button type="button" id="doc-pdf">Enregistrer en PDF ou imprimer</button></div><iframe id="doc-cadre" title="Ton document" sandbox="allow-same-origin allow-modals"></iframe>';
+        var f = document.getElementById('doc-cadre');
+        f.srcdoc = h;
+        document.getElementById('doc-pdf').addEventListener('click', function () { try { f.contentWindow.focus(); f.contentWindow.print(); } catch (e) { window.print(); } });
+      })
+      .catch(function () { message('Le document ne s\'affiche pas', 'Vérifie ta connexion et recharge la page. Si ça continue, écris à contact@genesolia.fr.'); });
+  })();
+  </script>
+</body>
+</html>

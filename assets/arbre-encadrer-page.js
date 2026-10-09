@@ -186,7 +186,17 @@
     verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, { apercu: !ok }); });
   }
   function statut(t) { var s = document.getElementById('fe-statut'); if (s) s.textContent = t; }
+  /* Par mail d'abord : la page de l'arbre (à enregistrer en PDF ou imprimer), avec un lien de secours */
+  var direct = false;
+  function parMail(secours) {
+    var d = lire();
+    window.GenesoliaParMail.envoyer({ quoi: 'ton arbre à encadrer', secours: function () { direct = true; try { secours(); } finally { direct = false; } },
+      html: svgAutonome(d, false).then(function (svg) {
+        return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>' + esc(d.titre) + ' · Genesolia</title><style>@page{size:A4;margin:0}html,body{margin:0;background:#fff}svg{display:block;width:210mm;max-width:100%;height:auto;margin:0 auto}.barre{position:sticky;top:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}svg{width:210mm;height:297mm}}</style></head><body><div class="barre">Ton arbre Genesolia<button onclick="print()">Enregistrer en PDF</button></div>' + svg + '</body></html>';
+      }) });
+  }
   function telechargerPng() {
+    if (!direct && window.GenesoliaParMail) return parMail(telechargerPng);
     var d = lire(); statut('Préparation de ton image…');
     svgAutonome(d, false).then(versPng).then(function (b) {
       var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nomFichier(d) + '.png';
@@ -196,6 +206,7 @@
     }).catch(function () { statut('L’image n’a pas pu être créée. Essaie « Imprimer ou enregistrer en PDF ».'); });
   }
   function imprimer() {
+    if (!direct && window.GenesoliaParMail) return parMail(imprimer);
     var d = lire(), w = window.open('', '_blank');
     if (!w) { statut('Autorise les fenêtres pour ce site, puis réessaie.'); return; }
     w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>' + esc(d.titre) + '</title><style>@page{size:A4;margin:0}html,body{margin:0}svg{display:block;width:210mm;height:297mm}.barre{position:fixed;top:0;left:0;right:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}}</style></head><body><div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div><p style="padding:80px 20px;font:16px sans-serif">Un instant…</p></body></html>');
