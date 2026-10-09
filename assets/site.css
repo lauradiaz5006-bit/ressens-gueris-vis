@@ -161,6 +161,10 @@ section.bloc{padding:4.5rem 0}
 /* Bandeau d'information */
 .cookies{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:60;max-width:34rem;margin-left:auto;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.1rem 1.2rem;box-shadow:0 12px 40px rgba(107,47,91,.14);font:400 .9rem/1.55 var(--texte);color:var(--prune);display:none;box-sizing:border-box}
 .cookies.visible{display:block}
+.note-donnees{background:#FFF6EC;border-bottom:1px solid var(--rose,#EBCFD5);font:400 .9rem/1.45 var(--texte,sans-serif);color:var(--prune,#6B2F5B)}
+.note-donnees .conteneur{display:flex;gap:.8rem;align-items:center;justify-content:space-between;padding-top:.55rem;padding-bottom:.55rem}
+.note-donnees p{margin:0}.note-donnees a{color:var(--prune,#6B2F5B);font-weight:600}
+.note-donnees button{border:0;background:none;font-size:1.3rem;line-height:1;color:var(--prune,#6B2F5B);cursor:pointer;padding:.2rem .4rem}
 .point-connecte{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--champagne,#B98A55);margin-right:.4rem;vertical-align:middle}
 .cookies p{margin:0 0 .8rem}
 .cookies a{color:var(--prune)}
