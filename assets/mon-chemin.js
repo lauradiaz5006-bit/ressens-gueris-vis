@@ -6,7 +6,7 @@
   'use strict';
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
   var CLE_SESSION = 'sb-qsvzzkjtjsznfntahvvh-auth-token', CLE_ATTENTE = 'genesolia-chemin-attente';
-  var NOMS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Ton prénom', synthese: 'Ma synthèse', 'prenoms-famille': 'Les prénoms de ma famille', 'maya-duo': 'Signes maya à deux' };
+  var NOMS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Ton prénom', synthese: 'Ma synthèse', 'prenoms-famille': 'Les prénoms de ma famille', 'maya-duo': 'Signes maya à deux', meteo: 'Ma météo intérieure' };
   var client = null, chargement = null;
 
   function aUneSession() { try { var s = JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); return !!(s && (s.access_token || (s.currentSession && s.currentSession.access_token))); } catch (e) { return false; } }
