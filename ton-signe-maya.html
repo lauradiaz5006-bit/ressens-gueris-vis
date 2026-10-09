@@ -382,7 +382,7 @@
       var a = { prenom: document.getElementById('duo-p1').value.trim(), lien: 'Moi', date: d1, r: M.calculer(d1) }, b = { prenom: document.getElementById('duo-p2').value.trim(), lien: document.getElementById('duo-l2').value, date: d2, r: M.calculer(d2) };
       var liens = lire(a, b);
       z.innerHTML = '<div class="duo-cartes">' + carte(a) + carte(b) + '</div><div class="duo-lien"><h3>Ce qui vous relie</h3><ul>' + liens.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
-        '<div class="duo-actions"><button type="button" class="btn btn-plein" id="duo-livret" data-compte="votre analyse à deux">Télécharger notre analyse complète</button><button type="button" class="btn btn-trait" id="duo-garder">Garder dans mon espace</button></div></div>';
+        '<div class="duo-actions"><button type="button" class="btn btn-plein" id="duo-livret" data-compte="votre analyse à deux" data-produit="mayaDuo">Télécharger notre analyse complète</button><button type="button" class="btn btn-trait" id="duo-garder">Garder dans mon espace</button></div></div>';
       document.getElementById('duo-livret').onclick = function () { imprimer(a, b, liens); };
       document.getElementById('duo-garder').onclick = function () {
         if (window.GenesoliaChemin) window.GenesoliaChemin.enregistrer({ outil: 'maya-duo', titre: 'Signes maya : ' + (a.prenom || 'moi') + ' et ' + (b.prenom || b.lien), resume: a.r.nombre + ' ' + T.SIGNES[a.r.signe].kiche + ' et ' + b.r.nombre + ' ' + T.SIGNES[b.r.signe].kiche, donnees: { a: { prenom: a.prenom, date: d1, nombre: a.r.nombre, signe: a.r.signe }, b: { prenom: b.prenom, lien: b.lien, date: d2, nombre: b.r.nombre, signe: b.r.signe } } });

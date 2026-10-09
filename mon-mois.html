@@ -125,10 +125,10 @@
   (function () {
     'use strict';
     var CERCLE = {
-      libre: true,                     /* true : Le Cercle offert à toute personne connectée ; false : abonnement payant */
+      libre: !((window.GENESOLIA_PRODUITS || {}).cercle || {}).payant, /* réglage dans assets/site.js : GENESOLIA_PRODUITS.cercle */
       prix: '29 € par mois',
       offert: '2026-10',               /* le carnet offert contre un e-mail */
-      lienAbonnement: ''             /* lien de paiement Stripe à coller ici le jour venu */
+      lienAbonnement: (window.GENESOLIA_STRIPE || {}).cercleMois || '' /* réglage dans assets/site.js : GENESOLIA_STRIPE.cercleMois */
     };
     /* Les carnets du mois (PDF dans assets/cercle/) : ajouter une ligne par nouveau carnet */
     var CARNETS = {

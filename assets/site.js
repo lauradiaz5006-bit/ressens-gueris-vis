@@ -21,7 +21,26 @@ window.GENESOLIA_STRIPE = {
   saisons: '',        /* Les 12 saisons, 15 € */
   packLignee: '',     /* Pack Lignée, 35 € */
   packAnnee: '',      /* Pack L'année complète, 79 € */
+  astral: '',         /* ton livret du thème astral */
+  arbreDeVie: '',     /* ton livret de l'arbre de vie */
+  mayaDuo: '',        /* votre analyse maya à deux */
+  arbreEncadrer: '',  /* ton arbre à encadrer */
   gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
+};
+
+/* ===== Produits : gratuit ou payant, UN SEUL réglage par produit =====
+   payant: false  : gratuit pour toute personne connectée (comme aujourd'hui).
+   payant: true   : une personne connectée qui n'a pas acheté voit « Débloquer pour … ».
+   Les membres du Cercle (et les accès « offert ») ont tout, sans payer en plus.
+   Le lien de paiement de chaque produit se colle plus haut, dans GENESOLIA_STRIPE (même nom). */
+window.GENESOLIA_PRODUITS = {
+  numerologie:   { payant: false, prix: '12 €', nom: 'ton livret de numérologie', inclus: ['30 pages sur tes nombres', 'Ton chemin de vie, tes cycles et tes défis', 'À garder, imprimer ou offrir'] },
+  astral:        { payant: false, prix: '12 €', nom: 'ton livret du thème astral', inclus: ['10 pages sur ton ciel de naissance', 'Soleil, Lune, ascendant et planètes', 'À garder ou imprimer'] },
+  arbreDeVie:    { payant: false, prix: '9 €',  nom: "ton livret de l'arbre de vie", inclus: ['16 pages sur tes 10 sphères', 'Tes deux cycles et ce qui est à nourrir', 'Des gestes pour chaque sphère'] },
+  mayaDuo:       { payant: false, prix: '9 €',  nom: 'votre analyse à deux', inclus: ['Vos deux signes mayas', 'Ce qui vous rapproche et ce qui frotte', 'Des pistes pour avancer ensemble'] },
+  rapport:       { payant: false, prix: '9 €',  nom: 'le rapport de ton arbre', inclus: ['Ton arbre et tes chiffres clés', 'Chaque répétition expliquée', 'Les questions à poser à ta famille'] },
+  arbreEncadrer: { payant: false, prix: '12 €', nom: 'ton arbre à encadrer', inclus: ['Ton arbre doré, en haute définition', 'Prêt à imprimer en A4 ou A3', 'Une belle idée de cadeau'] },
+  cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
 };
 
 /* Liens des e-mails de connexion : si Supabase renvoie sur une autre page que Mon espace, on y redirige avec le jeton */
@@ -573,8 +592,94 @@ window.GENESOLIA_STRIPE = {
     document.body.appendChild(f); f.querySelector('.btn').focus();
   }
   window.GenesoliaCompte = { actif: aUnCompte, demander: demanderCompte };
+
+  /* ===== Produits payants : qui a accès ? (achats Stripe, ou Cercle / offert dans acces_premium) ===== */
+  var SB_BASE = 'https://qsvzzkjtjsznfntahvvh.supabase.co', CLE_SESSION = 'sb-qsvzzkjtjsznfntahvvh-auth-token';
+  function produit(cle) { return (window.GENESOLIA_PRODUITS || {})[cle] || null; }
+  function estPayant(cle) { var p = produit(cle); return !!(p && p.payant); }
+  function session() {
+    var x; try { x = JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); } catch (e) { x = null; }
+    if (!x || !x.refresh_token) return Promise.resolve(null);
+    if (x.access_token && x.expires_at && x.expires_at * 1000 > Date.now() + 60000) return Promise.resolve(x);
+    return fetch(SB_BASE + '/auth/v1/token?grant_type=refresh_token', { method: 'POST', headers: { apikey: SB_CLE, 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: x.refresh_token }) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (n) {
+        if (!n || !n.access_token) return null;
+        try { var y = JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); if (y && y.refresh_token === x.refresh_token) { n.expires_at = n.expires_at || Math.floor(Date.now() / 1000) + (n.expires_in || 3600); localStorage.setItem(CLE_SESSION, JSON.stringify(n)); } } catch (e) {}
+        return n;
+      }).catch(function () { return null; });
+  }
+  var mesAcces = null;
+  function chargerAcces() {
+    if (mesAcces) return mesAcces;
+    mesAcces = session().then(function (x) {
+      if (!x) return null;
+      var hd = { apikey: SB_CLE, Authorization: 'Bearer ' + x.access_token }, uid = x.user && x.user.id;
+      return Promise.all([
+        fetch(SB_BASE + '/rest/v1/achats?select=produit', { headers: hd }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }),
+        fetch(SB_BASE + '/rest/v1/acces_premium?select=offre,valide_jusqu', { headers: hd }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+      ]).then(function (r) {
+        var produits = {}; (r[0] || []).forEach(function (a) { produits[a.produit] = true; });
+        var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle') && new Date(a.valide_jusqu) > new Date(); });
+        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout };
+      });
+    });
+    mesAcces.then(function (a) { if (!a) mesAcces = null; });
+    return mesAcces;
+  }
+  /* Promise<boolean> : true si la personne peut utiliser ce produit (gratuit, acheté, ou membre du Cercle) */
+  function aAcces(cle) {
+    if (!estPayant(cle)) return Promise.resolve(true);
+    return chargerAcces().then(function (a) { return !!(a && (a.tout || a.produits[cle])); });
+  }
+  function lienPaiement(cle, a) {
+    var base = (window.GENESOLIA_STRIPE || {})[cle]; if (!base || !a || !a.uid) return '';
+    return base + (base.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(a.uid + '__' + cle) + (a.email ? '&prefilled_email=' + encodeURIComponent(a.email) : '');
+  }
+  function proposerAchat(cle) {
+    var p = produit(cle) || { nom: 'ce document', prix: '', inclus: [] };
+    chargerAcces().then(function (a) {
+      var lien = lienPaiement(cle, a), f = document.createElement('div');
+      f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Débloquer ' + p.nom);
+      f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
+        '<img src="/assets/icones/icone-192.png" alt="" width="64" height="64"><h2>Débloque ' + esc(p.nom) + '</h2>' +
+        (p.inclus && p.inclus.length ? '<ul class="compte-liste">' + p.inclus.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
+        '<div class="compte-actions">' + (lien
+          ? '<a class="btn btn-plein" href="' + esc(lien) + '">Débloquer pour ' + esc(p.prix) + '</a>'
+          : '<button class="btn btn-plein" type="button" data-prevenir>Me prévenir dès que c\'est disponible</button><p class="compte-note" aria-live="polite"></p>') +
+        '<a class="compte-lien" href="abonnement.html">Compris dans Le Cercle</a></div></div>';
+      function fermer() { f.remove(); }
+      f.addEventListener('click', function (e) {
+        if (e.target === f || e.target.closest('.appli-fermer')) return fermer();
+        var b = e.target.closest('[data-prevenir]'); if (!b) return;
+        b.disabled = true;
+        envoyerFormulaire('Achat : ' + p.nom, { email: (a && a.email) || '', produit: cle, offre: p.nom + ' ' + p.prix }, 'genesolia-interet')
+          .then(function () { b.outerHTML = '<p class="compte-note">C\'est noté : tu seras prévenue par e-mail.</p>'; })
+          .catch(function () { b.disabled = false; f.querySelector('.compte-note').textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
+      });
+      document.body.appendChild(f); (f.querySelector('.btn') || f).focus();
+    });
+  }
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit };
+  /* Les droits sont chargés d'avance quand la page contient un produit payant : le clic reste immédiat (utile sur mobile) */
+  var accesConnus = {};
+  if (aUnCompte() && Object.keys(window.GENESOLIA_PRODUITS || {}).some(estPayant)) chargerAcces().then(function (a) {
+    if (a) Object.keys(window.GENESOLIA_PRODUITS).forEach(function (k) { if (a.tout || a.produits[k]) accesConnus[k] = true; });
+  });
+
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-compte]'); if (!el) return;
+    if (aUnCompte() && el.hasAttribute('data-produit') && estPayant(el.getAttribute('data-produit'))) {
+      var cle = el.getAttribute('data-produit');
+      if (accesConnus[cle] === true) { /* déjà vérifié : on laisse passer */ }
+      else {
+        e.preventDefault(); e.stopImmediatePropagation();
+        aAcces(cle).then(function (ok) {
+          if (ok) { accesConnus[cle] = true; el.click(); } else proposerAchat(cle);
+        });
+        return;
+      }
+    }
     if (aUnCompte()) {
       /* Une fois par document et par navigateur : N8N envoie un petit mail de rappel (workflow 13) */
       try {
