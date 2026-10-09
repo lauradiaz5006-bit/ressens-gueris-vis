@@ -71,6 +71,10 @@
     .s-permission{margin-top:.8rem;padding:.7rem .9rem;border-radius:12px;background:#fff;border-left:3px solid #B98A55}
     .s-citation{margin-top:.8rem;font:400 1.1rem/1.4 var(--display);color:var(--prune);text-align:center}
     .s-lien-carnet{border:1px dashed var(--rose-fonce)}
+    .s-livre{display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:center;background:linear-gradient(135deg,#3B1747,#7E3A6E);color:#FFF4F6;border:0}
+    .s-livre h2{color:#fff}.s-livre .s-etiq{color:#F3DCC0}.s-livre img{border-radius:50%}
+    .s-livre .btn-trait{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
+    @media (max-width:600px){.s-livre{grid-template-columns:1fr}.s-livre img{width:90px;height:90px}}
     .s-entree{border-left:3px solid var(--champagne);padding:.4rem 0 .4rem .9rem;margin:.6rem 0;color:var(--prune-doux);font-size:.92rem}
     .s-entree b{color:var(--prune)}
     .s-souffle{display:flex;align-items:center;gap:1.2rem;margin:1rem 0}
@@ -293,6 +297,12 @@
       return '<div class="s-bloc s-saison"><p class="s-etiq">' + esc(x.mois) + ' · la saison</p><h2>' + esc(x.titre.charAt(0).toUpperCase() + x.titre.slice(1)) + '</h2><p>' + esc(x.texte) + '</p>' +
         '<p class="s-permission"><b>Ce que ça veut dire pour toi :</b> ' + esc(x.permission) + '</p><p class="note"><b>Un geste de saison :</b> ' + esc(x.geste) + '</p><p class="s-citation">« ' + esc(x.citation) + ' »</p></div>';
     }
+    /* Le suivi du mois se vit dans le livre (mon-suivi-mois.html) : la saison, le thème, quatre semaines, la séance et le bilan */
+    function livreDuMois() {
+      var n = new Date(), nm = MOIS[n.getMonth()];
+      return '<div class="s-bloc s-livre"><img src="assets/guide/guide-spirale-or.webp" alt="" width="120" height="120" loading="lazy"><div><p class="s-etiq">Ton suivi ' + (/^[aeiou]/.test(nm) ? 'd\'' : 'de ') + nm + ' · Je me libère</p><h2>Ce qui revient</h2><p>Quatre semaines pour voir ce qui se rejoue dans ta vie, remonter à sa source, libérer ce qui ne t\'appartient pas et poser un geste nouveau. Avec une séance guidée et ton bilan. La semaine 1 est offerte.</p>' +
+        '<p><a class="btn btn-plein" href="mon-suivi-mois.html">Ouvrir mon suivi du mois</a> <a class="btn btn-trait" href="mon-carnet.html">Mon carnet « J\'avance »</a></p></div></div>';
+    }
     function mois1() {
       if (!D.m1) { D.m1 = { debut: new Date().toISOString() }; sauver(true); }
       var m = D.m1, s1f = m.s1 && Object.keys(m.s1).some(function (k) { return m.s1[k].pese || m.s1[k].peur; }), s2f = !!racinePrincipale(), s3f = (m.s3 || []).length >= 3, s4f = !!(m.s4 && m.s4.fini);
@@ -317,8 +327,7 @@
         h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés dans ton espace, et toi seule peux les lire.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
-        corps.innerHTML = h + mois1();
-        brancherMois();
+        corps.innerHTML = h + saison() + livreDuMois();
       }
       var rf = document.getElementById('s-refaire'); if (rf) rf.addEventListener('click', function (e) { e.preventDefault(); delete D.bilan; sauver(true); afficher(); });
     }
