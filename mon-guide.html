@@ -130,7 +130,7 @@
   (function () {
     'use strict';
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-    var GUIDE = { libre: true };   /* true : guide complet offert à toute personne connectée */
+    var GUIDE = { libre: false, membre: false };   /* libre: true ouvre le guide complet à tout compte gratuit ; sinon réservé au Cercle */
     var CLE = 'genesolia-guide', G = window.Guide, T = window.GUIDE_TEXTES, N = window.Numerologie, MT = window.MAYA_TEXTES;
     var sb = null, utilisateur = null, arbre = null, profil = null, vue = null;
     try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
@@ -209,7 +209,7 @@
       if (!profil) return;
       var r = G.calculer(profil, vue.annee, vue.mois, arbre);
       if (!r) return;
-      var complet = !!utilisateur && GUIDE.libre;
+      var complet = !!utilisateur && (GUIDE.libre || GUIDE.membre);
       rendu(r, complet);
       if (complet) noterVue();
     }
@@ -246,6 +246,7 @@
       var s = res && res.data && res.data.session;
       if (s) utilisateur = s.user;
       if (!utilisateur) return demarrer();
+      if (window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(function (m) { GUIDE.membre = m; if (m && profil) afficher(); });
       return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
         if (r && r.data && r.data.data) arbre = r.data.data;
         demarrer();

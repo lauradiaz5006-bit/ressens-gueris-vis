@@ -383,3 +383,6 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .chemin-toast .ct-lien{font-size:.88rem;color:var(--prune)}
 .chemin-toast .ct-fermer{position:absolute;top:.4rem;right:.6rem;background:none;border:0;font-size:1.4rem;color:var(--prune-doux);cursor:pointer}
 @media (max-width:600px){.chemin-toast{right:.6rem;bottom:.6rem;width:calc(100% - 1.2rem)}}
+
+/* Menu du haut : un peu plus serré entre 1241 et 1420 px pour que tout tienne */
+@media (min-width:1241px) and (max-width:1420px){.menu{gap:.7rem}.menu a{font-size:.88rem}}
