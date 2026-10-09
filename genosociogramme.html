@@ -55,8 +55,7 @@
 
     /* Zone de dessin */
     .zone{flex:1;display:flex;min-height:0;position:relative}
-    .toile{flex:1;position:relative;overflow:hidden;background:
-      radial-gradient(circle at 1px 1px,rgba(107,47,91,.09) 1px,transparent 0) 0 0/26px 26px,var(--nacre);cursor:grab;touch-action:none}
+    .toile{flex:1;position:relative;overflow:hidden;background:url(assets/arbre/decor-ecran.jpg) center/cover no-repeat,#FBF6EC;background-image:image-set(url(assets/arbre/decor-ecran.webp) type('image/webp'),url(assets/arbre/decor-ecran.jpg) type('image/jpeg'));cursor:grab;touch-action:none}
     .toile.glisse{cursor:grabbing}
     #dessin{position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none}
     #dessin .personne{cursor:pointer}
@@ -278,7 +277,7 @@
     @media (min-width:1101px){ .bt-panneau{display:none} }
     @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
     /* Style « arbre doré » */
-    body.arbre-dore .zone-dessin, body.arbre-dore #dessin{background:radial-gradient(60rem 40rem at 50% 110%,rgba(185,138,85,.18),transparent 60%),radial-gradient(50rem 30rem at 50% -10%,rgba(243,220,192,.55),transparent 65%),#FFFBF4}
+    body.arbre-dore #dessin{background:transparent}
     body.arbre-dore #dessin [stroke="#6B2F5B"]{stroke:#A87A3D}
     body.arbre-dore #dessin [fill="#FFFFFF"]{fill:#FFF6E6}
     body.arbre-dore #dessin [fill="#FBE6EA"]{fill:#F6DDB0}
