@@ -1,5 +1,38 @@
 /* Genesolia — éléments communs à toutes les pages.
    Le nom de la marque, le menu et le pied de page se modifient ICI, une seule fois. */
+/* ===== Données gardées dans le navigateur, comme sur les autres sites =====
+   - Connectée : ton arbre et tes résultats sont dans ton compte ; le navigateur n'en garde qu'une copie de travail.
+     À la déconnexion (ou si la session a expiré), cette copie est effacée de l'appareil.
+   - Sans compte : ton travail est gardé tant que le navigateur reste ouvert (cookie de session « genesolia_s »,
+     strictement nécessaire), puis effacé à sa fermeture. Un message propose de créer son espace pour le garder.
+   Ne sont jamais effacés : les choix de cookies et quelques repères techniques sans donnée personnelle. */
+window.GenesoliaDonnees = (function () {
+  var JETON = 'sb-qsvzzkjtjsznfntahvvh-auth-token', MARQUE_COMPTE = 'genesolia-donnees-compte', REGLE = 'genesolia-regle-v2';
+  var GARDER = /^(consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
+  function connectee() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return !!(x && x.refresh_token); } catch (e) { return false; } }
+  function idCompte() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return (x && x.user && x.user.id) || '1'; } catch (e) { return '1'; } }
+  function effacer() {
+    try {
+      Object.keys(localStorage).forEach(function (k) { if (!GARDER.test(k)) localStorage.removeItem(k); });
+      localStorage.removeItem(MARQUE_COMPTE);
+    } catch (e) {}
+  }
+  function sessionOuverte() { return /(?:^|; )genesolia_s=1/.test(document.cookie); }
+  try {
+    var premiere = !localStorage.getItem(REGLE);
+    if (connectee()) {
+      var id = idCompte(), avant = localStorage.getItem(MARQUE_COMPTE);
+      if (avant && avant !== '1' && id !== '1' && avant !== id) effacer();   /* autre compte sur le même appareil : on efface la copie du précédent */
+      localStorage.setItem(MARQUE_COMPTE, id);
+    }
+    else if (localStorage.getItem(MARQUE_COMPTE)) effacer();          /* copie d'un compte dont la session est terminée */
+    else if (!sessionOuverte() && !premiere) effacer();                 /* sans compte : navigateur fermé depuis la dernière visite */
+    if (premiere) localStorage.setItem(REGLE, '1');                     /* première visite avec cette règle : rien n'est effacé */
+    document.cookie = 'genesolia_s=1; path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+  } catch (e) {}
+  return { effacer: effacer, connectee: connectee };
+})();
+
 /* Mesure d'audience anonyme et sans cookie (Umami) */
 (function () {
   var s = document.createElement('script');
@@ -164,6 +197,16 @@ window.GENESOLIA_IMPRESSION = {
     };
     majEspace();
     window.GenesoliaMajEntete = majEspace;
+    /* Sans compte, sur les outils : rappel discret que le travail s'efface à la fermeture du navigateur */
+    var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html'];
+    var vuNote = false; try { vuNote = sessionStorage.getItem('note-donnees') === 'vue'; } catch (e) {}
+    if (OUTILS.indexOf(page) >= 0 && !vuNote && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
+      var note = document.createElement('div');
+      note.className = 'note-donnees'; note.setAttribute('role', 'note');
+      note.innerHTML = '<div class="conteneur"><p>Sans compte, ton travail est gardé jusqu’à la fermeture de ton navigateur. <a href="login.html?inscription&amp;retour=' + page + '">Crée ton espace gratuit</a> pour le retrouver plus tard.</p><button type="button" aria-label="Fermer">×</button></div>';
+      note.querySelector('button').addEventListener('click', function () { note.remove(); try { sessionStorage.setItem('note-donnees', 'vue'); } catch (e) {} });
+      entete.parentNode.insertBefore(note, entete.nextSibling);
+    }
     window.addEventListener('storage', function (e) { if (!e.key || e.key === 'sb-qsvzzkjtjsznfntahvvh-auth-token') majEspace(); });
     var burger = entete.querySelector('.burger'), menu = entete.querySelector('.menu');
     burger.addEventListener('click', function () {

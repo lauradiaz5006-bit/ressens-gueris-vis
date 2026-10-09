@@ -200,9 +200,13 @@
       sb.auth.signOut().catch(function () {}).then(function () {
         try { localStorage.removeItem('sb-qsvzzkjtjsznfntahvvh-auth-token'); } catch (e) {}
         if (window.GenesoliaMajEntete) window.GenesoliaMajEntete();
-        try { if (localStorage.getItem('geno4-synchro') === 'ok') localStorage.removeItem('geno4'); } catch (e) {}
-        try { Object.keys(localStorage).forEach(function (k) { if (/^geno4-[0-9a-f-]{32,36}$/.test(k)) localStorage.removeItem(k); }); } catch (e) {}   // copies locales des autres arbres
-        window.GenesoliaEspaceDeconnecte('Tu es déconnecté·e. Ton arbre reste en sécurité dans ton espace.');
+        /* Comme sur les autres sites : plus rien de personnel ne reste sur l'appareil.
+           Seule exception : un arbre modifié hors connexion et pas encore enregistré dans le compte, pour ne rien perdre. */
+        var arbreNonSynchro = null;
+        try { if (localStorage.getItem('geno4-synchro') !== 'ok') arbreNonSynchro = localStorage.getItem('geno4'); } catch (e) {}
+        if (window.GenesoliaDonnees) window.GenesoliaDonnees.effacer();
+        try { if (arbreNonSynchro) localStorage.setItem('geno4', arbreNonSynchro); } catch (e) {}
+        window.GenesoliaEspaceDeconnecte('Tu es déconnecté·e. Tes données restent en sécurité dans ton espace, et plus rien n’est gardé sur cet appareil.');
       });
     });
     $('bt-supprimer').addEventListener('click', function () { $('zone-suppr').hidden = false; $('suppr-confirm').value = ''; $('suppr-confirm').focus(); });
@@ -328,6 +332,16 @@
       var zj = $('chemin-jaimes'); if (!zj || r.error) return;
       var l = r.data || [];
       zj.innerHTML = l.length ? '<div class="ch-jaimes"><h3>Mes coups de cœur</h3><ul>' + l.map(function (x) { return '<li><a href="' + esc(x.page) + '.html">' + esc(x.titre || x.page) + '</a></li>'; }).join('') + '</ul></div>' : '';
+    });
+    /* Mes documents : les livrets envoyés par mail, rouvrables ici pendant 60 jours */
+    var depuis = new Date(Date.now() - 60 * 864e5).toISOString();
+    sb.from('envois').select('id,quoi,cree_le').gte('cree_le', depuis).order('cree_le', { ascending: false }).limit(40).then(function (r) {
+      var zd = $('chemin-documents'); if (!zd || r.error) return;
+      var l = r.data || [];
+      zd.innerHTML = l.length ? '<div class="ch-jaimes"><h3>Mes documents</h3><p class="tb-aide">Les documents que tu as reçus par mail, à rouvrir ici pendant 60 jours.</p><ul>' + l.map(function (x) {
+        var q = String(x.quoi || 'Mon document'); q = q.replace(/^(ton |ta |tes |votre |vos )/i, ''); q = q.charAt(0).toUpperCase() + q.slice(1);
+        return '<li><a href="mon-document.html?d=' + encodeURIComponent(x.id) + '" target="_blank" rel="noopener">' + esc(q) + '</a> · ' + esc(dateCourte(x.cree_le)) + '</li>';
+      }).join('') + '</ul></div>' : '';
     });
   }
   function brancherChemin() {
