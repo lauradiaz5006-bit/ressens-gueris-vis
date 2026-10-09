@@ -2000,14 +2000,13 @@
 
   /* ───────── Rapport de ton arbre (offre payante) ─────────
      Accès : table Supabase « acces_premium » (une ligne par compte, avec une date de fin).
-     Tant que les liens de paiement sont vides, les boutons proposent d'être prévenue (Formspree). */
+     Tant que les liens de paiement sont vides, les boutons proposent d'être prévenue (table demandes et N8N). */
   var RAPPORT = {
     offert: true,         // true : rapport offert à toute personne connectée ; false : offres payantes ci-dessous
     prix: '9 €', duree: '7 jours',
     abo: '29 € par mois',
     lienAchat: '',        // lien de paiement Stripe pour le rapport (9 €)
-    lienAbonnement: '',   // lien de paiement Stripe pour l'abonnement (29 €/mois, après 1 mois gratuit)
-    formspree: 'https://formspree.io/f/xdawvnby'
+    lienAbonnement: ''    // lien de paiement Stripe pour l'abonnement (29 €/mois, après 1 mois gratuit)
   };
   var TEXTES_RAPPORT = {
     anniversaire: { titre: 'Le syndrome d’anniversaire', intro: 'Tu traverses aujourd’hui un âge auquel quelqu’un de ta famille a vécu un événement marquant. En psychogénéalogie, on observe que certaines périodes de la vie peuvent réveiller une mémoire familiale, comme si une date intérieure se rappelait à nous. Ce n’est pas une prédiction : c’est une invitation à être attentive à cette période.', pistes: ['Qu’est-ce qui se passe dans ta vie en ce moment, et qu’est-ce que cela réveille en toi ?', 'Que sais-tu vraiment de ce que cette personne a vécu à cet âge ?', 'Qu’aimerais-tu vivre différemment, toi, à cet âge ?'], geste: 'Écris une phrase pour cette personne : « Tu as vécu cela à cet âge. Moi, je choisis de vivre… »' },
@@ -2210,10 +2209,9 @@
       var data = new FormData(); data.append('email', email); data.append('offre', offre === 'rapport' ? 'Rapport ' + RAPPORT.prix : 'Abonnement ' + RAPPORT.abo);
       data.append('repetitions', String(detecter().length)); data.append('personnes', String(Object.keys(S.people).length));
       data.append('_subject', 'Intérêt pour le rapport de l’arbre');
-      if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-interet', data);
       f.querySelector('button').disabled = true;
-      fetch(RAPPORT.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); z.innerHTML = '<p class="rap-merci">Merci ! Tu seras prévenue dès que le rapport sera disponible.</p>'; })
+      window.GenesoliaEnvoyer('Rapport de l’arbre : à prévenir', data, 'genesolia-interet')
+        .then(function () { z.innerHTML = '<p class="rap-merci">Merci ! Tu seras prévenue dès que le rapport sera disponible.</p>'; })
         .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
     });
     z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

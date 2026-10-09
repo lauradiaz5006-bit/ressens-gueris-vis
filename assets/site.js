@@ -142,9 +142,8 @@ window.GENESOLIA_STRIPE = {
       '</div>';
   }
 
-  /* Cadeau : le carnet des deux cycles contre un e-mail (Formspree).
+  /* Cadeau : le carnet des deux cycles contre un e-mail.
      Placer <div data-cadeau></div> là où le bloc doit apparaître. */
-  var FORMSPREE = 'https://formspree.io/f/xdawvnby';
 
   /* Mails automatiques (N8N) : adresse de ton N8N, terminée par /webhook/ (ex. 'https://n8n.mondomaine.fr/webhook/').
      Tant qu'elle est vide, rien n'est envoyé à N8N et le site fonctionne comme avant. */
@@ -154,6 +153,25 @@ window.GENESOLIA_STRIPE = {
     try { fetch(N8N + chemin, { method: 'POST', body: donnees, mode: 'no-cors', keepalive: true }).catch(function () {}); } catch (e) {}
   }
   window.GenesoliaN8N = versN8N;
+
+  /* Formulaires du site (remplace Formspree) : chaque envoi est rangé dans la table « demandes » de Supabase
+     et, si un chemin N8N est donné, part aussi vers N8N pour les mails. Réussi dès que l'un des deux a reçu. */
+  var SB_DEMANDES = 'https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/demandes', SB_CLE = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+  function envoyerFormulaire(formulaire, donnees, chemin) {
+    var fd = donnees instanceof FormData ? donnees : new FormData();
+    if (!(donnees instanceof FormData)) Object.keys(donnees || {}).forEach(function (k) { fd.append(k, donnees[k]); });
+    if (fd.get('_gotcha')) return Promise.resolve();
+    var details = {}, email = String(fd.get('email') || '').trim(), prenom = String(fd.get('prenom') || '').trim();
+    fd.forEach(function (v, k) { if (k !== 'email' && k !== 'prenom' && k.charAt(0) !== '_' && typeof v === 'string') details[k] = v.slice(0, 500); });
+    var versSB = fetch(SB_DEMANDES, { method: 'POST', headers: { apikey: SB_CLE, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ formulaire: formulaire, email: email, prenom: prenom.slice(0, 60) || null, page: page, details: details }) })
+      .then(function (r) { return r.ok; }).catch(function () { return false; });
+    var versN = !chemin || !N8N ? Promise.resolve(false) : fetch(N8N + chemin, { method: 'POST', body: fd, keepalive: true })
+      .then(function (r) { return r.ok; })
+      .catch(function () { return navigator.onLine !== false; }); /* réponse illisible (CORS) mais requête bien partie */
+    return Promise.all([versSB, versN]).then(function (r) { if (!r[0] && !r[1]) throw new Error('envoi'); });
+  }
+  window.GenesoliaEnvoyer = envoyerFormulaire;
   window.GenesoliaN8NAdresse = function () { return N8N; };
   var CARNET = 'assets/carnet-des-deux-cycles.pdf';
   function telecharger() {
@@ -212,9 +230,7 @@ window.GENESOLIA_STRIPE = {
       var data = new FormData(form);
       data.append('source', page);
       data.append('_subject', 'Nouvelle inscription : carnet des deux cycles');
-      versN8N('genesolia-carnet', data);
-      fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      envoyerFormulaire('Carnet des deux cycles', data, 'genesolia-carnet')
         .then(function () {
           try { localStorage.setItem('carnet-inscrit', 'oui'); } catch (e) {}
           merci(el.querySelector('.cadeau-zone'), prenom);
@@ -323,9 +339,7 @@ window.GENESOLIA_STRIPE = {
       data.append('liste', 'Formation Sors de la boucle');
       data.append('source', page);
       data.append('_subject', 'Liste d\'attente : formation Sors de la boucle');
-      versN8N('genesolia-formation', data);
-      fetch(FORMSPREE, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      envoyerFormulaire('Formation Sors de la boucle', data, 'genesolia-formation')
         .then(function () {
           try { localStorage.setItem('liste-formation', 'oui'); } catch (e) {}
           el.innerHTML = bravo(prenom);

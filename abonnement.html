@@ -654,8 +654,8 @@
       data.append('liste', 'Ouverture abonnement');
       data.append('source', 'abonnement.html');
       data.append('_subject', 'Liste d\'attente : abonnement Le Cercle');
-      fetch('https://formspree.io/f/xdawvnby', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      data.append('fichier', 'https://genesolia.fr/' + CARNET);
+      window.GenesoliaEnvoyer('Abonnement : liste d\'attente', data, 'genesolia-carnet-cercle')
         .then(function () {
           form.outerHTML = '<p class="a-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Tu recevras nos nouvelles par e-mail.</p>' +
             '<p style="margin-top:.6rem">Ton premier carnet du Cercle se télécharge. S\'il ne s\'ouvre pas, <a href="' + CARNET + '" download>clique ici</a>.</p>';

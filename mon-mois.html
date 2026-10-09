@@ -128,8 +128,7 @@
       libre: true,                     /* true : Le Cercle offert à toute personne connectée ; false : abonnement payant */
       prix: '29 € par mois',
       offert: '2026-10',               /* le carnet offert contre un e-mail */
-      lienAbonnement: '',            /* lien de paiement Stripe à coller ici le jour venu */
-      formspree: 'https://formspree.io/f/xdawvnby'
+      lienAbonnement: ''             /* lien de paiement Stripe à coller ici le jour venu */
     };
     /* Les carnets du mois (PDF dans assets/cercle/) : ajouter une ligne par nouveau carnet */
     var CARNETS = {
@@ -298,10 +297,9 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
         if (!f.accord.checked) { err.textContent = 'Coche la case pour recevoir ton carnet.'; return; }
         f.querySelector('button').disabled = true;
-        var data = new FormData(); data.append('prenom', f.prenom.value.trim()); data.append('email', email); data.append('source', 'Carnet offert ' + CERCLE.offert); data.append('_subject', 'Carnet offert du Cercle'); data.append('fichier', 'https://genesolia.fr/assets/cercle/' + c.fichier); if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-carnet-cercle', data);
-        fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-          .then(function (rp) {
-            if (!rp.ok) throw new Error(rp.status);
+        var data = new FormData(); data.append('prenom', f.prenom.value.trim()); data.append('email', email); data.append('source', 'Carnet offert ' + CERCLE.offert); data.append('_subject', 'Carnet offert du Cercle'); data.append('fichier', 'https://genesolia.fr/assets/cercle/' + c.fichier);
+        window.GenesoliaEnvoyer('Carnet offert du Cercle', data, 'genesolia-carnet-cercle')
+          .then(function () {
             var url = 'assets/cercle/' + c.fichier;
             f.outerHTML = '<p class="m-merci">Merci ! Ton carnet se télécharge. S\'il ne s\'ouvre pas, <a href="' + url + '" download>clique ici</a>. Tu seras prévenue dès l\'ouverture du Cercle, pour recevoir le carnet du mois suivant.</p>';
             var a = document.createElement('a'); a.href = url; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
@@ -336,9 +334,9 @@
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
         if (!f.accord.checked) { err.textContent = 'Coche la case pour accepter de recevoir l\'e-mail.'; return; }
         f.querySelector('button').disabled = true;
-        var data = new FormData(); data.append('email', email); data.append('offre', 'Le Cercle ' + CERCLE.prix); data.append('_subject', 'Intérêt pour le Cercle'); if (window.GenesoliaN8N) window.GenesoliaN8N('genesolia-interet', data);
-        fetch(CERCLE.formspree, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-          .then(function (rp) { if (!rp.ok) throw new Error(rp.status); z.innerHTML = '<p class="m-merci">Merci ! Tu seras prévenue dès l\'ouverture du Cercle.</p>'; })
+        var data = new FormData(); data.append('email', email); data.append('offre', 'Le Cercle ' + CERCLE.prix); data.append('_subject', 'Intérêt pour le Cercle');
+        window.GenesoliaEnvoyer('Le Cercle : à prévenir', data, 'genesolia-interet')
+          .then(function () { z.innerHTML = '<p class="m-merci">Merci ! Tu seras prévenue dès l\'ouverture du Cercle.</p>'; })
           .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
       });
     }
