@@ -107,14 +107,14 @@
       zone(prefixe + '-mot', 'En un mot, comment te sens-tu ?', { court: true, ph: 'Exemple : fatigué·e, curieux·se, impatient·e…' });
   }
 
-  /* ───── La page de gauche : illustration, titre, mot de la coach, rappel de l'objectif ───── */
+  /* ───── La page de gauche : illustration, titre, petit mot, rappel de l'objectif ───── */
   function gauche(id, sur, titre, intro, extra) {
     var img = IMG[id];
     return '<div class="mc-g-in">' +
       (img ? '<img class="mc-illu" src="' + esc(img) + '" alt="" width="320" height="320" loading="lazy">' : '') +
       '<p class="mc-sur">' + esc(sur) + '</p><h2>' + esc(titre) + '</h2>' + ORNEMENT +
       (intro || '') +
-      (MOTS[id] ? '<p class="mc-mot"><span>Le mot de ta coach</span>' + md(MOTS[id]) + '</p>' : '') +
+      (MOTS[id] ? '<p class="mc-mot"><span>Un mot pour toi</span>' + md(MOTS[id]) + '</p>' : '') +
       (id !== 'ouverture' ? '<div class="mc-rappel-obj" data-rappel-obj hidden></div>' : '') +
       (extra || '') + '</div>';
   }
@@ -187,7 +187,7 @@
 
   PAGES.push({ id: 'ouverture', nom: 'Ma météo du début', g: function () {
     return gauche('ouverture', 'Pour commencer le mois · 10 minutes', 'Ma météo du début de mois',
-      '<p class="mc-intro">Avant d’ouvrir le thème, prends le temps de te poser. Ces questions viennent de l’autocoaching et de la PNL : elles t’aident à savoir où tu en es, à donner une direction claire à ton mois, et à mesurer ensuite le chemin parcouru.</p>' +
+      '<p class="mc-intro">Avant d’ouvrir le thème, prends le temps de te poser. Ces questions viennent de la PNL et de l’accompagnement : elles t’aident à savoir où tu en es, à donner une direction claire à ton mois, et à mesurer ensuite le chemin parcouru.</p>' +
       '<p>Il n’y a pas de bonne réponse, seulement la tienne, aujourd’hui. Si tu as cinq minutes, remplis la météo et ton objectif. Le reste peut attendre.</p>');
   }, d: function () {
     return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3><p class="mc-consigne">Place chaque curseur sans réfléchir longtemps : la première réponse est souvent la plus juste. 0, c’est au plus bas ; 10, au plus haut. Par exemple, si tu dors mal depuis une semaine, ton énergie est peut-être à 3, et c’est très bien de le voir.</p>' + blocEchelles('md') + '</section>' +
@@ -318,7 +318,7 @@
   PAGES.push({ id: 'semaines', nom: 'Mes 4 semaines', g: function () {
     var carte = (DECOR.cartes || {}).semaines;
     return gauche('semaines', 'Un pas par semaine', 'Mes quatre semaines',
-      '<p class="mc-intro">Chaque semaine, une petite action, et trois questions d’autocoaching pour voir ce qui avance. Les petites victoires comptent : ce sont elles qui, mises bout à bout, changent une vie.</p>',
+      '<p class="mc-intro">Chaque semaine, une petite action, et trois questions pour voir ce qui avance. Les petites victoires comptent : ce sont elles qui, mises bout à bout, changent une vie.</p>',
       (carte ? '<figure class="mc-carte mc-carte-g"><img src="' + esc(carte[0]) + '" alt="' + esc(carte[1]) + '" width="270" height="338" loading="lazy"></figure>' : '') +
       '<p><button type="button" class="btn btn-trait mc-btn-ics" data-ics>Ajouter mes rappels à mon agenda</button></p><p class="mc-note">Un rappel chaque semaine et un pour ton bilan, dans ton propre agenda. Aucun e-mail ne t’est envoyé.</p>');
   }, d: function () {

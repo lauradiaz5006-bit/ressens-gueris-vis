@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet d'avril 2027, « J'avance » : « Dire vrai »
-   Le carnet du mois est le côté coaching du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
+   Le carnet du mois est le côté « J'avance » du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
    Le côté libération (« Les secrets et les non-dits ») est dans Mon suivi (assets/suivi/2027-04.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).

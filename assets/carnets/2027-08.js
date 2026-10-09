@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet d'août 2027, « J'avance » : « Mon chez-moi, mon élan »
-   Le carnet du mois est le côté coaching du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Racines, départs et lieux ») est dans Mon suivi (assets/suivi/2027-08.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -79,7 +79,7 @@ window.GENESOLIA_CARNET = {
     titre: 'Habiter ton lieu, oser le mouvement',
     texte: [
       "Ton chez-moi n’est pas une note sur ta réussite. C’est un lieu vivant, qui change avec toi. Il garde la trace de tes saisons de vie : un déménagement précipité, une séparation, un enfant qui grandit, une période où tu n’avais pas l’énergie de ranger. Le regarder avec douceur, c’est déjà commencer à l’habiter.",
-      "En coaching, on distingue souvent trois besoins dans un lieu de vie. Le **besoin de sécurité** : te sentir protégé·e, savoir que tu peux te reposer. Le **besoin d’identité** : voir autour de toi des objets, des couleurs, des images qui te ressemblent. Le **besoin d’élan** : sentir que ton lieu t’aide à avancer, à créer, à recevoir, au lieu de te retenir.",
+      "On distingue souvent trois besoins dans un lieu de vie. Le **besoin de sécurité** : te sentir protégé·e, savoir que tu peux te reposer. Le **besoin d’identité** : voir autour de toi des objets, des couleurs, des images qui te ressemblent. Le **besoin d’élan** : sentir que ton lieu t’aide à avancer, à créer, à recevoir, au lieu de te retenir.",
       "Le mouvement, lui, ne passe pas forcément par un déménagement. Déplacer un meuble, ouvrir une pièce fermée, aller marcher dans un quartier inconnu, partir deux jours seul·e : chaque petit changement de lieu remet de l’air dans ta vie. Souvent, quand on bouge dehors, quelque chose se débloque aussi dedans.",
       "Et si une grande envie de changement te travaille, partir, t’installer ailleurs, tu n’as pas besoin de trancher tout de suite. Ce carnet t’aide à l’écouter, à la préciser, et à faire un premier pas qui ne t’engage pas encore, mais qui te rapproche."
     ],

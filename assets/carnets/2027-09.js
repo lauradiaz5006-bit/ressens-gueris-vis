@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de septembre 2027, « J'avance » : « Ma vocation »
-   Le carnet du mois est le côté coaching du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Les métiers de la lignée ») est dans Mon suivi (assets/suivi/2027-09.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -58,7 +58,7 @@ window.GENESOLIA_CARNET = {
     ],
     sousTitre: 'Qu’est-ce qu’une vocation ?',
     texte2: [
-      "En coaching, on parle souvent de vocation quand trois choses se rencontrent : **ce que tu aimes faire**, ce moment où le temps s’arrête ; **ce que tu sais bien faire**, tes talents, ceux que les autres remarquent avant toi ; et **ce qui a du sens pour toi**, ce qui te semble utile, beau ou juste dans le monde.",
+      "On parle souvent de vocation quand trois choses se rencontrent : **ce que tu aimes faire**, ce moment où le temps s’arrête ; **ce que tu sais bien faire**, tes talents, ceux que les autres remarquent avant toi ; et **ce qui a du sens pour toi**, ce qui te semble utile, beau ou juste dans le monde.",
       "Quand ces trois cercles se rejoignent, même un peu, le travail devient plus léger. Tu peux être comptable et vibrer en aidant une petite entreprise à s’en sortir. Tu peux être agent·e d’accueil en maison de retraite et trouver ta vocation dans les rires partagés avec les personnes âgées. Tu peux aussi découvrir que ta vocation se vit en dehors du travail : dans une association, un atelier, une passion du dimanche.",
       "Ce mois-ci, tu vas **retrouver** ce qui te fait vibrer, **reconnaître** tes talents, et **tester** un petit pas vers ce qui t’attire. En parallèle, ton suivi « Je me libère » t’aide à regarder les métiers de ta lignée et les rêves professionnels restés en suspens : les deux avancent ensemble."
     ],

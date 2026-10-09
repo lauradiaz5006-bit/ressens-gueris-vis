@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de mai 2027, « J'avance » : « Prendre soin de moi »
-   Le carnet du mois est le côté coaching du Cercle : retrouver ton rythme, te ressourcer, devenir pour toi-même une présence douce.
+   Le carnet du mois est le côté « J'avance » du Cercle : retrouver ton rythme, te ressourcer, devenir pour toi-même une présence douce.
    Le côté libération (« Ta mère, tes mères », la lignée des femmes) est dans Mon suivi (assets/suivi/2027-05.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -59,7 +59,7 @@ window.GENESOLIA_CARNET = {
     sousTitre: 'Pourquoi apprendre à se materner ?',
     texte2: [
       "Se materner, c'est devenir pour soi-même la présence bienveillante dont on a besoin : celle qui remarque la fatigue avant l'épuisement, qui encourage au lieu de critiquer, qui propose une pause quand tout s'accélère. Que tu aies reçu beaucoup de tendresse enfant, ou très peu, cette présence intérieure s'apprend à tout âge.",
-      "En coaching, on observe que la façon dont on se parle décide souvent de la façon dont on avance. Une voix intérieure dure épuise, même quand tout va bien. Une voix douce et ferme à la fois donne de l'élan, parce qu'on n'a plus peur de se tromper. Ton **rythme** compte aussi : chacun·e a ses heures de pleine énergie et ses heures creuses, et les respecter n'est pas de la paresse, c'est de l'intelligence.",
+      "On observe souvent que la façon dont on se parle décide souvent de la façon dont on avance. Une voix intérieure dure épuise, même quand tout va bien. Une voix douce et ferme à la fois donne de l'élan, parce qu'on n'a plus peur de se tromper. Ton **rythme** compte aussi : chacun·e a ses heures de pleine énergie et ses heures creuses, et les respecter n'est pas de la paresse, c'est de l'intelligence.",
       "Ce mois-ci, tu vas **observer** ce qui te vide et ce qui te ressource, **adoucir** ta voix intérieure, et **t'offrir** chaque semaine un vrai moment pour toi. En parallèle, ton suivi « Je me libère » t'invite à regarder la lignée des femmes de ta famille : ce que tu as reçu de tes mères éclaire souvent la façon dont tu t'accueilles toi-même."
     ],
     exemplesTitre: 'À quoi ressemble l’oubli de soi, au quotidien',

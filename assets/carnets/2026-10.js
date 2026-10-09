@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet d'octobre 2026, « J'avance » : « Mon point de départ »
-   Le carnet du mois est le côté coaching du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Ce qui revient », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -58,7 +58,7 @@ window.GENESOLIA_CARNET = {
     ],
     sousTitre: 'Pourquoi une roue de la vie ?',
     texte2: [
-      "La roue de la vie est un outil que l'on utilise beaucoup en coaching. Elle découpe ta vie en dix domaines : ton énergie, l'amour, ta famille, tes amitiés, ton travail, l'argent, ton chez-moi, la joie, ton évolution personnelle et ta connexion à toi-même. Pour chacun, tu te demandes simplement : à quel point suis-je comblé·e aujourd'hui, de 0 à 10 ?",
+      "La roue de la vie est un outil que l'on utilise beaucoup pour faire le point sur sa vie. Elle découpe ta vie en dix domaines : ton énergie, l'amour, ta famille, tes amitiés, ton travail, l'argent, ton chez-moi, la joie, ton évolution personnelle et ta connexion à toi-même. Pour chacun, tu te demandes simplement : à quel point suis-je comblé·e aujourd'hui, de 0 à 10 ?",
       "Quand on relie les points, on obtient une roue. Plus elle est ronde, plus ta vie roule de façon fluide. Là où elle se creuse, ça cahote. L'idée n'est pas d'avoir 10 partout, personne n'a 10 partout. L'idée est de voir où tu en es, de choisir ce que tu veux nourrir, et de mesurer, mois après mois, comment ta roue s'arrondit.",
       "Ce mois-ci, tu vas **faire le point** avec ta roue, **choisir** le domaine que tu veux nourrir, et **avancer** d'un petit pas chaque semaine. En parallèle, ton suivi « Je me libère » t'aide à repérer ce qui se rejoue et te freine : les deux avancent ensemble."
     ],
@@ -79,7 +79,7 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Ta roue est une photo de ce moment de ta vie, pas une note sur ta valeur. Un domaine bas ne veut pas dire que tu as échoué : il te montre simplement où ton énergie a envie d'aller.",
       "Regarde d'abord tes domaines les plus hauts. Ce sont tes **appuis** : ce qui marche, ce qui te tient debout. Ils contiennent souvent des forces que tu pourras utiliser ailleurs. Si tu sais créer de beaux liens avec tes amies, tu sais aussi demander de l'aide, même au travail.",
-      "Regarde ensuite tes domaines les plus bas, avec curiosité. Demande-toi ce qui leur manque, et ce qui changerait si tu gagnais un seul point. Un seul. Le coaching avance par petits pas : on ne passe pas de 3 à 9 en un mois, mais de 3 à 4, puis à 5, et c'est ce mouvement qui change une vie.",
+      "Regarde ensuite tes domaines les plus bas, avec curiosité. Demande-toi ce qui leur manque, et ce qui changerait si tu gagnais un seul point. Un seul. On avance par petits pas : on ne passe pas de 3 à 9 en un mois, mais de 3 à 4, puis à 5, et c'est ce mouvement qui change une vie.",
       "Enfin, remarque les liens entre les domaines. Souvent, l'énergie, la joie et la connexion à soi montent et descendent ensemble. Les nourrir, c'est remettre de l'huile dans toute la roue."
     ],
     reperes: [
@@ -130,7 +130,7 @@ window.GENESOLIA_CARNET = {
     { k: 'ex2', titre: 'Ma vie à 10 sur 10', type: 'blocs', nb: 3,
       etiquettes: ['Le domaine que je veux nourrir', 'Un deuxième domaine', 'Un domaine qui va déjà bien'],
       consigne: "Choisis trois domaines de ta roue : celui que tu veux nourrir ce mois-ci, un deuxième qui te tient à cœur, et un qui va déjà bien. Pour chacun, imagine-le à 10 sur 10, avec des détails concrets, comme si tu le vivais déjà.",
-      pourquoi: "En coaching, on dit que l’on avance mieux vers une image claire que loin d’un problème. Imaginer précisément ce que serait « 10 », c’est donner une direction à ton énergie. Et regarder un domaine qui va bien te rappelle que tu sais déjà le faire.",
+      pourquoi: "On dit souvent que l’on avance mieux vers une image claire que loin d’un problème. Imaginer précisément ce que serait « 10 », c’est donner une direction à ton énergie. Et regarder un domaine qui va bien te rappelle que tu sais déjà le faire.",
       astuce: "Écris au présent et avec tes sens : ce que tu vois, entends, ressens. Plus c’est concret, plus ça devient possible.",
       champs: [
         { q: "Quel domaine choisis-tu ?", ph: ["Exemple : la joie, les loisirs", "Exemple : mon chez-moi", "Exemple : mes amitiés"] },
