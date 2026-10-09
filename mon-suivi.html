@@ -113,7 +113,7 @@
   (function () {
     'use strict';
     var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-    var SUIVI = { libre: true };   /* true : suivi offert à toute personne connectée */
+    var SUIVI = { libre: false, membre: false };   /* bilan de départ et semaine 1 offerts ; la suite est réservée au Cercle (libre: true ouvre tout) */
     var CLE = 'genesolia-suivi', APERCU = /[?&]apercu\b/.test(location.search);
     var sb = null, utilisateur = null, D = {}, minuteurSave = null;
     try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
@@ -281,6 +281,7 @@
       var premiere = 0; sem.forEach(function (x) { if (!premiere && semaineOuverte(x[0]) && !x[2]) premiere = x[0]; });
       h += sem.map(function (x) {
         var ouv = semaineOuverte(x[0]);
+        if (x[0] > 1 && !(SUIVI.libre || SUIVI.membre)) return '<details class="s-semaine ferme" data-sem="' + x[0] + '"><summary><b>Semaine ' + x[0] + ' · ' + x[1] + '</b><span>Avec Le Cercle</span></summary><div class="s-corps"><p>La suite de ton suivi fait partie du Cercle : chaque semaine un exercice pour te libérer de ce qui se rejoue, ton journal et tes bilans, en plus de ton carnet du mois.</p><p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle, 1 mois offert</a></p></div></details>';
         return '<details class="s-semaine' + (ouv ? '' : ' ferme') + '" data-sem="' + x[0] + '"' + (ouv && x[0] === premiere ? ' open' : '') + '>' + enTete(x[0], x[1], x[2]) + (ouv ? x[3]() : '<div class="s-corps"><p class="note">Cette semaine s\'ouvrira le ' + dateFr(ouvertureSemaine(x[0])) + '.</p></div>') + '</details>';
       }).join('');
       h += '<div class="s-actions"><button class="btn btn-trait" type="button" id="s-imprimer">Imprimer mon suivi</button><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="genosociogramme.html">Mon arbre</a></div>';
@@ -291,8 +292,8 @@
     function afficher() {
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
-      if (!utilisateur || !SUIVI.libre) {
-        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ton suivi · 1 mois gratuit</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Teste Le Cercle 1 mois gratuitement pour commencer ton suivi. Ton bilan, tes exercices et ton journal sont enregistrés dans ton espace, et toi seule peux les lire.</p><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+      if (!utilisateur) {
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés dans ton espace, et toi seule peux les lire.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
         corps.innerHTML = h + mois1();
@@ -342,12 +343,13 @@
       var s = res && res.data && res.data.session;
       if (!s) { afficher(); return; }
       utilisateur = s.user;
-      return sb.from('parcours').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
+      var m = window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre() : Promise.resolve(false);
+      return m.then(function (x) { SUIVI.membre = x; }).then(function () { return sb.from('parcours').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
         var distant = r && r.data && r.data.data;
         if (distant && distant.bilan) D = distant;           /* le suivi du compte prime */
         else if (D.bilan) sauver(true);                         /* bilan fait avant la connexion : on le rattache au compte */
         afficher();
-      }, function () { afficher(); });
+      }, function () { afficher(); }); });
     }).catch(function () { afficher(); });
   })();
   </script>
