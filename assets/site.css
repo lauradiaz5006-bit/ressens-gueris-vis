@@ -400,3 +400,10 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .coffre-accord .btn-trait{color:var(--prune)!important;border-color:var(--rose-fonce)!important}
 .coffre-note{font-size:.8rem!important;color:var(--prune-doux)}
 .coffre-merci{padding:.8rem 1rem;border-radius:12px;background:#FBF0E4;color:var(--prune);font-weight:600}
+
+/* Membres : encart vers leurs deux livres */
+.encart-livres{grid-template-columns:1fr!important}
+.encart-livres .cadeau-texte p,.encart-livres .ef-sur{color:#F7E6EE}
+.encart-livres .ef-sur{color:#F3DCC0!important;font:600 .75rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase}
+.encart-livres .btn-trait{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
+.el-boutons{display:flex;flex-wrap:wrap;gap:.6rem}

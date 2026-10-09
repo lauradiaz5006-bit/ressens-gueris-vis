@@ -270,15 +270,27 @@
         xy.map(function (p, i) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4" fill="' + (pts[i].donnees.moment === 'fin' ? '#B98A55' : '#6B2F5B') + '"><title>' + esc(pts[i].titre) + ' : ' + pts[i].donnees.moyenne + '/10</title></circle>'; }).join('') + '</svg>' +
         '<p class="tb-aide">Chaque point est la moyenne de tes six curseurs. Violet : début de mois. Doré : fin de mois.</p>';
     }
-    var lettres = l.filter(function (x) { return x.donnees && x.donnees.lettre; });
+    var lettres = l.filter(function (x) { return x.donnees && (x.donnees.lettre || x.donnees.lettre_coffre); });
     if (lettres.length) h += '<div class="ch-lettres">' + lettres.map(function (x) {
       var ouverte = new Date(x.cree_le); ouverte.setFullYear(ouverte.getFullYear() + 1);
       var prete = Date.now() >= ouverte.getTime();
+      /* Lettre gardée dans le carnet chiffré (lettre_coffre) : relue à l'ouverture ; les anciennes lettres restent lisibles */
+      if (prete && x.donnees.lettre_coffre && !x.donnees.lettre) return '<details class="ch-lettre" data-lettre-mois="' + esc(x.donnees.mois || '') + '"><summary>Ta lettre écrite le ' + esc(dateCourte(x.cree_le)) + ' t’attend</summary><p class="ch-lettre-texte">Ouverture de ta lettre…</p></details>';
       return prete ? '<details class="ch-lettre"><summary>Ta lettre écrite le ' + esc(dateCourte(x.cree_le)) + ' t’attend</summary><p>' + esc(x.donnees.lettre).replace(/\n/g, '<br>') + '</p></details>'
         : '<p class="ch-lettre ch-scellee">Ta lettre de dans un an, écrite le ' + esc(dateCourte(x.cree_le)) + ', s’ouvrira ici le ' + esc(dateCourte(ouverte)) + '.</p>';
     }).join('') + '</div>';
     return h;
   }
+  document.addEventListener('toggle', function (e) {
+    var d = e.target; if (!d || !d.matches || !d.matches('details[data-lettre-mois]') || !d.open || d._lue) return;
+    d._lue = true;
+    var z = d.querySelector('.ch-lettre-texte'), CF = window.GenesoliaCoffre;
+    if (!CF || !sb || !user) { z.textContent = 'Ta lettre n’a pas pu être ouverte pour l’instant.'; return; }
+    CF.lire(sb, user, d.getAttribute('data-lettre-mois')).then(function (data) {
+      var t = data && data.v && data.v['proj-an'];
+      z.innerHTML = t ? esc(t).replace(/\n/g, '<br>') : 'Ta lettre n’a pas été retrouvée dans ton carnet.';
+    }, function () { z.textContent = 'Ta lettre n’a pas pu être ouverte pour l’instant.'; });
+  }, true);
   function chargerChemin() {
     var z = $('chemin-liste'); if (!z) return;
     var vider = window.GenesoliaChemin && window.GenesoliaChemin.viderAttente ? window.GenesoliaChemin.viderAttente(sb) : Promise.resolve(0);
