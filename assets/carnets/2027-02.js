@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de février 2027, « J'avance » : « M'aimer d'abord »
-   Le carnet du mois est le côté coaching du Cercle : estime de soi, besoins, se traiter comme on traite ceux qu'on aime.
+   Le carnet du mois est le côté « J'avance » du Cercle : estime de soi, besoins, se traiter comme on traite ceux qu'on aime.
    Le côté libération (« Le couple et les schémas amoureux ») est dans Mon suivi (assets/suivi/2027-02.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).

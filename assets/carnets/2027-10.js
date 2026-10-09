@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet d'octobre 2027, « J'avance » : « Mon bilan de l'année »
-   Le carnet du mois est le côté coaching du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Les âges qui se répondent ») est dans Mon suivi (assets/suivi/2027-10.js).
    Dernier carnet de l'année : il boucle la spirale ouverte en octobre 2026 avec « Mon point de départ ».
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
@@ -59,7 +59,7 @@ window.GENESOLIA_CARNET = {
     ],
     sousTitre: 'Pourquoi faire le bilan d’une année ?',
     texte2: [
-      "En coaching, on dit que l’on surestime ce que l’on peut faire en un mois, et que l’on sous-estime ce que l’on peut faire en un an. Mois après mois, les changements semblent minuscules : un point gagné ici, une habitude là. Mais quand on regarde douze mois d’un coup, on voit souvent une vraie transformation.",
+      "On dit souvent que l’on surestime ce que l’on peut faire en un mois, et que l’on sous-estime ce que l’on peut faire en un an. Mois après mois, les changements semblent minuscules : un point gagné ici, une habitude là. Mais quand on regarde douze mois d’un coup, on voit souvent une vraie transformation.",
       "Faire le bilan, c’est **mesurer** ce qui a bougé, en comparant ta roue d’aujourd’hui à celle d’il y a un an ; **célébrer** ce que tu as vécu, les fiertés comme les difficultés traversées ; **relire** ta lettre de l’an dernier, pour voir ce qui s’est réalisé, ce qui a changé de forme, ce qui t’attend encore ; et **choisir** la suite, avec tout ce que tu sais maintenant de toi.",
       "Ce mois-ci, la spirale boucle son premier tour. Tu reviens en octobre, au même endroit de l’année, mais tu n’es plus la même personne. En parallèle, ton suivi « Je me libère » t’invite à regarder les âges et les dates qui se répondent dans ta famille, et à vivre chacun d’eux à ta façon : les deux avancent ensemble, jusqu’au bout."
     ],

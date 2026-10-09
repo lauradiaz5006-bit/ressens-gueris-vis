@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de juin 2027, « J'avance » : « Oser agir »
-   Le carnet du mois est le côté coaching du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
+   Le carnet du mois est le côté « J'avance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
    Le côté libération (« Du côté des pères », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -59,7 +59,7 @@ window.GENESOLIA_CARNET = {
     sousTitre: 'Pourquoi on repousse, et comment s’y mettre',
     texte2: [
       "On ne remet presque jamais à plus tard par paresse. On repousse parce que la tâche paraît trop grosse, parce qu'on a peur de mal faire, de déranger, d'échouer, ou au contraire de réussir et de devoir changer. Parfois aussi, on attend un feu vert de quelqu'un qui ne viendra jamais.",
-      "En coaching, on sait qu'une envie devient une action quand elle passe par trois étapes : **décider** clairement ce que l'on veut, **structurer** le chemin en petites étapes concrètes, et **s'engager** envers soi avec une date, une heure, un lieu. Ce n'est pas la motivation qui fait avancer, c'est la clarté du prochain pas.",
+      "On sait qu'une envie devient une action quand elle passe par trois étapes : **décider** clairement ce que l'on veut, **structurer** le chemin en petites étapes concrètes, et **s'engager** envers soi avec une date, une heure, un lieu. Ce n'est pas la motivation qui fait avancer, c'est la clarté du prochain pas.",
       "Ce mois-ci, tu vas **repérer** ce que tu repousses, **découper** ton projet en étapes faciles, et **tenir** chaque semaine une promesse envers toi. En parallèle, ton suivi « Je me libère » t'invite à regarder le côté de ton père et des hommes de ta lignée : ce que tu as reçu d'eux éclaire souvent ta façon d'oser, ou de te retenir."
     ],
     exemplesTitre: 'À quoi ressemble ce qu’on repousse, au quotidien',

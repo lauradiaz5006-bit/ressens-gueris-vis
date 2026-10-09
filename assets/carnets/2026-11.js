@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de novembre 2026, « J'avance » : « Mes forces, mes appuis »
-   Le carnet du mois est le côté coaching du Cercle : reconnaître ses forces, ses ressources, ce sur quoi s'appuyer.
+   Le carnet du mois est le côté « J'avance » du Cercle : reconnaître ses forces, ses ressources, ce sur quoi s'appuyer.
    Le côté libération (« Ceux qui sont venus avant toi ») est dans Mon suivi (assets/suivi/2026-11.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -58,7 +58,7 @@ window.GENESOLIA_CARNET = {
     ],
     sousTitre: 'Pourquoi regarder tes forces ?',
     texte2: [
-      "En coaching, on dit souvent que l'on avance plus vite en s'appuyant sur ses forces qu'en corrigeant ses faiblesses. Pourtant, quand on nous demande nos qualités, on bafouille, alors qu'on peut citer nos défauts en dix secondes. Ce qui nous vient facilement nous paraît normal, et nous ne le voyons plus.",
+      "On dit souvent que l'on avance plus vite en s'appuyant sur ses forces qu'en corrigeant ses faiblesses. Pourtant, quand on nous demande nos qualités, on bafouille, alors qu'on peut citer nos défauts en dix secondes. Ce qui nous vient facilement nous paraît normal, et nous ne le voyons plus.",
       "Une force, c'est ce que tu fais bien et qui te donne de l'énergie en même temps : écouter, organiser, faire rire, persévérer, créer du beau, apaiser une pièce tendue. Un appui, c'est ce qui te ressource quand le reste vacille : une amie, une marche en forêt, une recette, une phrase qu'on te disait enfant. Certaines de ces forces et de ces appuis t'ont été transmis : le courage d'une grand-mère, l'humour d'un oncle, des mains habiles qui viennent de loin.",
       "Ce mois-ci, tu vas **reconnaître** tes forces, **rassembler** tes appuis, et **dire merci** à ce qui t'a été transmis de beau. En parallèle, ton suivi « Je me libère » t'invite à te tourner vers tes ancêtres : les deux avancent ensemble, l'un reçoit, l'autre rend."
     ],

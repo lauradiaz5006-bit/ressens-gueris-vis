@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de décembre 2026, « J'avance » : « Ma place, mes limites »
-   Le carnet du mois est le côté coaching du Cercle : dire oui, dire non, protéger son énergie, trouver sa juste place.
+   Le carnet du mois est le côté « J'avance » du Cercle : dire oui, dire non, protéger son énergie, trouver sa juste place.
    Le côté libération (« Les fêtes et les places à table ») est dans Mon suivi (assets/suivi/2026-12.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).

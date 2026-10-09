@@ -1,5 +1,5 @@
 /* Genesolia · Le Cercle · Carnet de janvier 2027, « J'avance » : « Mon intention, mes valeurs »
-   Le carnet du mois est le côté coaching du Cercle : clarifier ses valeurs, poser l'intention de l'année, choisir ce qui compte.
+   Le carnet du mois est le côté « J'avance » du Cercle : clarifier ses valeurs, poser l'intention de l'année, choisir ce qui compte.
    Le côté libération (« Ton prénom, ton héritage ») est dans Mon suivi (assets/suivi/2027-01.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -58,7 +58,7 @@ window.GENESOLIA_CARNET = {
     ],
     sousTitre: 'Pourquoi partir de tes valeurs ?',
     texte2: [
-      "En coaching, on observe que les résolutions s'essoufflent souvent en février, parce qu'elles viennent de ce qu'on « devrait » faire. Une intention ancrée dans tes valeurs tient mieux : elle parle de ce qui te fait vibrer, pas de ce qui te manque.",
+      "On observe souvent que les résolutions s'essoufflent souvent en février, parce qu'elles viennent de ce qu'on « devrait » faire. Une intention ancrée dans tes valeurs tient mieux : elle parle de ce qui te fait vibrer, pas de ce qui te manque.",
       "Une valeur, c'est ce qui est important pour toi, au point que tu te sens toi-même quand tu la vis, et mal à l'aise quand on la piétine : la liberté, la loyauté, la créativité, la justice, la tendresse, l'aventure, la transmission… Certaines te viennent de ta famille, d'autres se sont construites contre elle, d'autres encore sont nées de ton propre chemin. Toutes méritent d'être regardées.",
       "Ce mois-ci, tu vas **clarifier** tes valeurs, **choisir** les trois qui comptent le plus en ce moment, et **poser** l'intention de ton année. En parallèle, ton suivi « Je me libère » t'invite à découvrir l'histoire de ton prénom : ce qu'on a voulu pour toi, et ce que tu choisis pour toi."
     ],
