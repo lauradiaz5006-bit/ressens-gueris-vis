@@ -204,7 +204,7 @@ window.GENESOLIA_CARNET = {
 
   bilanTitre: 'Ce que ce mois t’a apporté',
   bilan: [
-    { k: 'fin-recu', q: "Qu’as-tu appris à recevoir ce mois-ci, et qu’est-ce que ça t’a fait ?", ph: "Exemple : les compliments. Je dis merci sans me justifier, et je sens qu’ils me nourrissent vraiment." },
+    { k: 'fin-recevoir', q: "Qu’as-tu appris à recevoir ce mois-ci, et qu’est-ce que ça t’a fait ?", ph: "Exemple : les compliments. Je dis merci sans me justifier, et je sens qu’ils me nourrissent vraiment." },
     { k: 'fin-demande', q: "Quelle demande as-tu osée, et que s’est-il passé ?", ph: "Exemple : j’ai demandé un entretien pour mon salaire. Il aura lieu en septembre, et je me sens fier·e d’avoir osé." },
     { k: 'fin-valeur', q: "Qu’est-ce que tu reconnais aujourd’hui de ta valeur, que tu ne voyais pas au début du mois ?", ph: "Exemple : que mon calme et mon organisation sont rares, et qu’ils ont une vraie valeur pour mon équipe." },
     { k: 'fin-abondance', q: "Où as-tu senti l’abondance dans ta vie ce mois-ci ?", ph: "Exemple : dans mes amitiés, dans les longues soirées sur le balcon, et dans les fruits du marché que je me suis offerts sans compter." },
