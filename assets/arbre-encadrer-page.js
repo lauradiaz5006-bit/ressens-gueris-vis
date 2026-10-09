@@ -41,6 +41,8 @@
     rels.forEach(function (r) { if (r.type === 'fratrie') { if (r.from === moi && P[r.to]) fs[r.to] = 1; if (r.to === moi && P[r.from]) fs[r.from] = 1; } });
     var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '?' : null) }; });
     var nomFamille = racine.nom || (racine.pere && racine.pere.nom) || '';
+    /* Majuscule au nom de famille : « charron » donne « Charron » */
+    nomFamille = String(nomFamille).trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/ (De|Du|Des|La|Le|D’|D') /g, function (m) { return m.toLowerCase(); });
     return {
       titre: nomFamille ? 'La famille ' + nomFamille : 'Notre famille',
       sousTitre: GEN[Math.min(gens, 4) - 1] + (plusVieux ? ' · de ' + plusVieux + ' à aujourd’hui' : ''),

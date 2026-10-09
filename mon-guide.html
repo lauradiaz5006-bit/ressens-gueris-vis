@@ -71,7 +71,7 @@
     .g-offre h3{font-size:1.4rem;margin-bottom:.4rem}.g-offre p{color:var(--prune-doux);margin-bottom:1rem}
     .note{font-size:.86rem;color:var(--prune-doux)}
     @media(max-width:860px){.g-tete .conteneur,.g-trois,.g-semaines{grid-template-columns:1fr}.g-carte h2{font-size:1.8rem}}
-    @media print{header,footer,.g-tete,.g-actions,.g-nav,.annonce,.bandeau-info,.cookies{display:none!important}body{background:#fff}.g-bloc,.g-carte{break-inside:avoid}.g-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+    @media print{header,footer,.g-tete,.g-actions,.g-nav,.annonce,.bandeau-info,.cookies,.g-verrou{display:none!important}body{background:#fff}.g-bloc,.g-carte{break-inside:avoid}.g-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ton guide du mois", "item": "https://genesolia.fr/mon-guide.html"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment calculer son mois personnel en numérologie ?", "acceptedAnswer": {"@type": "Answer", "text": "Calcule d'abord ton année personnelle : additionne ton jour et ton mois de naissance avec l'année en cours, puis réduis le total à un chiffre. Ajoute ensuite le numéro du mois concerné, de 1 pour janvier à 12 pour décembre, et réduis à nouveau. Le chiffre obtenu est ton mois personnel, qui donne la tonalité du mois."}}, {"@type": "Question", "name": "Quelle est la différence entre un horoscope et un guide du mois personnalisé ?", "acceptedAnswer": {"@type": "Answer", "text": "L'horoscope s'adresse à tous les natifs d'un signe solaire, sans tenir compte du reste du thème. Un guide personnalisé croise le ciel du mois avec ta carte du ciel complète, ton ascendant et tes maisons, ainsi qu'avec tes nombres et ton signe maya. Les repères obtenus sont donc propres à toi."}}, {"@type": "Question", "name": "Comment connaître son signe maya ?", "acceptedAnswer": {"@type": "Answer", "text": "Ton signe maya se calcule à partir de ta date de naissance, en la situant dans le cycle de 260 jours du Tzolkin. Ce cycle associe vingt signes, appelés glyphes, et treize tons. La combinaison des deux te donne ton signe et ton ton de naissance, qui servent de point de départ à une lecture symbolique."}}]}</script>
@@ -186,8 +186,17 @@
       h += '<p class="note" style="margin-top:1.2rem">' + T.INTRO + '</p><p class="note">Lecture symbolique, pour t\'accompagner dans ton mois. Elle ne prédit rien.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
       zone.querySelectorAll('[data-dec]').forEach(function (b) { b.addEventListener('click', function () { var d = new Date(Date.UTC(vue.annee, vue.mois - 1 + +b.getAttribute('data-dec'), 1)); vue = { annee: d.getUTCFullYear(), mois: d.getUTCMonth() + 1 }; afficher(); }); });
-      var pdf = document.getElementById('g-pdf'); if (pdf) pdf.addEventListener('click', function () { window.print(); });
+      var pdf = document.getElementById('g-pdf'); if (pdf) pdf.addEventListener('click', function () { envoyerGuide(r); });
       var mod = document.getElementById('g-modifier'); if (mod) mod.addEventListener('click', function () { f.scrollIntoView({ behavior: 'smooth' }); });
+    }
+    /* Le guide part par mail, comme les autres documents (lien de secours si le mail tarde) */
+    function envoyerGuide(r) {
+      var copie = zone.cloneNode(true);
+      copie.querySelectorAll('.g-actions,.g-nav,[data-dec],button').forEach(function (x) { x.remove(); });
+      var style = (document.querySelector('head style') || {}).textContent || '';
+      var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Mon guide du mois · Genesolia</title><link rel="stylesheet" href="assets/site.css"><style>' + style + '</style></head><body class="nouveau"><main class="conteneur" style="padding:1.5rem 1rem">' + copie.innerHTML + '</main></body></html>';
+      if (window.GenesoliaParMail) return window.GenesoliaParMail.envoyer({ quoi: 'ton guide du mois', html: h, secours: function () { window.print(); } });
+      window.print();
     }
     function noterVue() {
       if (!sb || !utilisateur || !vue) return;

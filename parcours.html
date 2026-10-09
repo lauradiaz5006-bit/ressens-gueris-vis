@@ -390,7 +390,7 @@
       var { data } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       if (data && data.data && data.data.parcours) {
         var p = data.data.parcours;
-        state.theme = p.theme || ''; state.note = p.note || ''; state.emotion = p.emotion || ''; state.level = p.level || 5; state.checks = p.checks || [];
+        state.id = p.id || p.updatedAt || ''; state.theme = p.theme || ''; state.note = p.note || ''; state.emotion = p.emotion || ''; state.level = p.level || 5; state.checks = p.checks || [];
         if (state.theme) { var btn = document.querySelector('.choice[data-theme="'+state.theme+'"]'); if (btn) { btn.classList.add('sel'); document.getElementById('btn-s1').disabled = false; } }
         if (state.note) document.getElementById('theme-note').value = state.note;
       }
@@ -401,7 +401,14 @@
       if (!currentUser) return;
       var { data: existing } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       var treeData = (existing && existing.data) ? existing.data : { people:{}, rels:[], nid:1, nodePos:{} };
-      treeData.parcours = { theme:state.theme, note:state.note, emotion:state.emotion, level:state.level, checks:state.checks, updatedAt: new Date().toISOString() };
+      /* Un nouveau parcours (ou un autre thème) ne remplace plus l'ancien : l'ancien est gardé dans l'historique */
+      var ancien = treeData.parcours;
+      if (ancien && ancien.theme && ((ancien.id || ancien.updatedAt) !== state.id || (state.theme && ancien.theme !== state.theme))) {
+        treeData.parcours_historique = (treeData.parcours_historique || []).concat([ancien]).slice(-12);
+        state.id = '';
+      }
+      if (!state.id) state.id = new Date().toISOString();
+      treeData.parcours = { id:state.id, theme:state.theme, note:state.note, emotion:state.emotion, level:state.level, checks:state.checks, updatedAt: new Date().toISOString() };
       var moiId = Object.keys(treeData.people || {}).find(function(id){ return treeData.people[id].role === 'moi'; });
       if (moiId && state.theme && !treeData.people[moiId].parcours_note) {
         var themeLabel = { relations:'Relations', argent:'Argent', energie:'Charge', confiance:'Confiance', famille:'Famille', corps:'Sécurité' };
