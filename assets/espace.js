@@ -102,7 +102,8 @@
       }
       var p = d.parcours, zp = $('parcours-resume');
       var THEMES = { relations: 'Relations', argent: 'Argent', energie: 'Charge mentale', confiance: 'Confiance', famille: 'Famille', corps: 'Sécurité' };
-      if (p && p.theme) zp.innerHTML = '<p class="tb-aide">Ta porte d’entrée : <b>' + esc(THEMES[p.theme] || p.theme) + '</b>' + (p.emotion ? ', ressenti : ' + esc(p.emotion) : '') + (p.updatedAt ? '<br>Dernière fois le ' + esc(dateFr(p.updatedAt)) : '') + '.</p>';
+      if (p && p.theme) zp.innerHTML = '<p class="tb-aide">Ta porte d’entrée : <b>' + esc(THEMES[p.theme] || p.theme) + '</b>' + (p.emotion ? ', ressenti : ' + esc(p.emotion) : '') + (p.updatedAt ? '<br>Dernière fois le ' + esc(dateFr(p.updatedAt)) : '') + '.</p>'
+        + ((d.parcours_historique || []).length ? '<p class="tb-aide">Tes parcours précédents : ' + d.parcours_historique.slice().reverse().map(function (x) { return esc(THEMES[x.theme] || x.theme) + (x.updatedAt ? ' (' + esc(dateFr(x.updatedAt)) + ')' : ''); }).join(' · ') + '</p>' : '');
       else zp.innerHTML = '<p class="tb-aide">Tu n’as pas encore fait le parcours guidé. Quelques questions pour nommer ce qui se répète dans ta vie, dix minutes environ.</p>';
       chargerArbresSupp();
     });
