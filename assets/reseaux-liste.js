@@ -37,5 +37,28 @@ window.GENESOLIA_RESEAUX = [
   { id: 'juste-partie',         ton: 'cash', scene: 'mer',       phrase: "Je ne suis pas en colère. Je suis juste partie." },
   { id: 'ton-avis',             ton: 'cash', scene: 'nuages',    phrase: "Ton avis sur ma vie n'est pas une obligation." },
   { id: 'pas-trop',             ton: 'cash', scene: 'fleur',     phrase: "Je n'étais pas trop. Tu en voulais juste moins." },
-  { id: 'meme-scenario',        ton: 'cash', scene: 'aurore',    phrase: "Même scénario, autre personne ? Non merci." }
+  { id: 'meme-scenario',        ton: 'cash', scene: 'aurore',    phrase: "Même scénario, autre personne ? Non merci." },
+  /* Octobre 2026 : histoire familiale et schémas répétitifs (mots-clés Google) */
+  /* Doux */
+  { id: 'rien-ne-m-oblige',      ton: 'doux', scene: 'mer',       phrase: "Ce qui se répète dans ma famille ne m'oblige à rien." },
+  { id: 'vois-le-schema',        ton: 'doux', scene: 'lune',      phrase: "Je vois enfin le schéma. Et j'ai le choix." },
+  { id: 'mon-arbre-m-explique',  ton: 'doux', scene: 'montagnes', phrase: "Mon arbre m'explique. Il ne me définit pas." },
+  { id: 'honore-ma-lignee',      ton: 'doux', scene: 'nuages',    phrase: "J'honore ma lignée sans porter ses silences." },
+  { id: 'd-ou-je-viens',         ton: 'doux', scene: 'champ',     phrase: "Je peux aimer d'où je viens et choisir où je vais." },
+  { id: 'dates-qui-reviennent',  ton: 'doux', scene: 'aurore',    phrase: "Les dates qui reviennent ne décident pas de ma vie." },
+  { id: 'sur-papier',            ton: 'doux', scene: 'fleur',     phrase: "Je pose sur papier ce que ma famille a tu." },
+  { id: 'fidele-sans-m-oublier', ton: 'doux', scene: 'dunes',     phrase: "Fidèle à ma famille, sans m'oublier." },
+  { id: 'chaque-generation',     ton: 'doux', scene: 'mer',       phrase: "Chaque génération apprend. Moi aussi." },
+  { id: 'regarder-mon-histoire', ton: 'doux', scene: 'montagnes', phrase: "Regarder mon histoire familiale, c'est déjà avancer." },
+  /* Cash */
+  { id: 'pas-l-histoire-de-mes-parents', ton: 'cash', scene: 'lune',      phrase: "Je n'épouse pas l'histoire de mes parents." },
+  { id: 'loyale-sans-sacrifice', ton: 'cash', scene: 'dunes',     phrase: "Être loyale à ma famille ne veut pas dire me sacrifier." },
+  { id: 'film-de-ma-grand-mere', ton: 'cash', scene: 'aurore',    phrase: "Je ne rejoue pas le film de ma grand-mère." },
+  { id: 'pas-le-destin',         ton: 'cash', scene: 'nuages',    phrase: "Ce n'est pas le destin. C'est un schéma." },
+  { id: 'transmis-des-peurs',    ton: 'cash', scene: 'champ',     phrase: "On m'a transmis des peurs. Pas l'obligation de les garder." },
+  { id: 'trois-generations',     ton: 'cash', scene: 'mer',       phrase: "Trois générations de silence. Moi, je parle." },
+  { id: 'personne-n-a-regarde',  ton: 'cash', scene: 'fleur',     phrase: "Je répète parce que personne n'a regardé avant moi." },
+  { id: 'la-premiere',           ton: 'cash', scene: 'montagnes', phrase: "Je suis la première de ma famille à faire autrement." },
+  { id: 'le-role-je-le-rends',   ton: 'cash', scene: 'lune',      phrase: "Le rôle qu'on m'a donné dans la famille, je le rends." },
+  { id: 'pas-de-l-amour',        ton: 'cash', scene: 'aurore',    phrase: "Ce n'est pas de l'amour si je dois disparaître." }
 ];
