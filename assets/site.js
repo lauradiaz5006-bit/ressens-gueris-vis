@@ -91,7 +91,7 @@ window.GenesoliaMesure = (function () {
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
   cercleMois: '',     /* Le Cercle 29 €/mois, essai 30 jours */
-  cercleAn: '',       /* Le Cercle 290 €/an, essai 30 jours */
+  cercleAn: '',       /* Le Cercle 24,90 €/mois avec engagement 12 mois, essai 30 jours */
   carnet: '',         /* un carnet du mois, 9 € */
   rapport: '',        /* le rapport de ton arbre, 9 € */
   numerologie: '',    /* ton livret de numérologie, 12 € */
@@ -157,6 +157,7 @@ window.GENESOLIA_IMPRESSION = {
     ['theme-numerologique.html', 'Tes nombres'],
     ['theme-astral.html', 'Tes étoiles'],
     ['offert.html', 'Tout est offert'],
+    ['mon-suivi.html', 'Mon suivi'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
@@ -238,6 +239,8 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="offert.html">Tout est offert</a></li>' +
             '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
             '<li><a href="parcours.html">Parcours guidé</a></li>' +
+            '<li><a href="mon-suivi.html">Mon suivi</a></li>' +
+            '<li><a href="mon-guide.html">Mon guide du mois</a></li>' +
             '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
             '<li><a href="theme-astral.html">Thème astral</a></li>' +
             '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
@@ -817,7 +820,9 @@ window.GENESOLIA_IMPRESSION = {
       document.body.appendChild(f); (f.querySelector('.btn') || f).focus();
     });
   }
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit };
+  /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
+  function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre };
 
   /* ===== Documents envoyés par mail =====
      Au clic sur « Télécharger », le document est enregistré (table envois) et un mail part avec son lien,
