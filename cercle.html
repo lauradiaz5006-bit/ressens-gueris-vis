@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/assets/icones/cercle.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icones/cercle-apple-180.png">
+  <link rel="manifest" href="/cercle.webmanifest">
+  <meta name="theme-color" content="#55224B">
+  <meta name="apple-mobile-web-app-title" content="Le Cercle">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Le Cercle · Genesolia</title>
+  <meta name="description" content="Ton espace du Cercle : le carnet du mois, ton mois personnel, ton suivi et ta météo intérieure.">
+  <link rel="canonical" href="https://genesolia.fr/cercle.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* L'appli « Le Cercle » : l'accueil des membres. Accès vérifié comme sur mon-mois.html (table acces_premium). */
+    #cercle{--encre:#4E2446;--encre-2:#5E3A56;max-width:46rem;margin:0 auto;padding:0 1rem 4rem;color:var(--encre)}
+    .ce-tete{margin:0 -1rem;padding:2.2rem 1.4rem 2rem;text-align:center;color:#FFF4F6;background:linear-gradient(160deg,#3B1747,#6B2F5B);border-radius:0 0 var(--rayon) var(--rayon)}
+    .ce-logo{width:84px;height:84px;margin:0 auto .8rem;border-radius:22px;box-shadow:0 10px 26px rgba(0,0,0,.25)}
+    .ce-sur{font:600 .78rem/1.3 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin:0 0 .3rem}
+    .ce-tete h1{color:#fff;font-size:clamp(2rem,7vw,2.8rem);margin:0 0 .3rem}
+    .ce-tete p{margin:0 auto;max-width:30rem;color:#F7E6EE}
+    .ce-mois{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:center;margin:1.6rem 0 1.2rem;padding:1.2rem;border-radius:20px;background:linear-gradient(120deg,#FFF6EC,#fff);border:1.5px solid var(--champagne-clair);text-decoration:none;color:var(--encre);box-shadow:0 12px 30px rgba(107,47,91,.08)}
+    .ce-mois img{width:96px;height:136px;object-fit:cover;border-radius:10px;box-shadow:0 8px 18px rgba(46,19,56,.2)}
+    .ce-etiq{font:600 .74rem/1.3 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22;margin:0 0 .25rem}
+    .ce-mois h2{font-size:1.55rem;line-height:1.15;margin:0 0 .35rem;color:var(--prune)}
+    .ce-mois p{margin:0 0 .5rem;font-size:.95rem}
+    .ce-avance{font-weight:700;color:var(--prune)}
+    .ce-grille{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+    .ce-tuile{display:flex;flex-direction:column;gap:.3rem;min-height:7.4rem;padding:1rem;border-radius:18px;background:#fff;border:1px solid var(--rose-fonce);text-decoration:none;color:var(--encre);transition:transform .15s,border-color .15s}
+    .ce-tuile:hover{transform:translateY(-2px);border-color:var(--champagne)}
+    .ce-tuile svg{width:30px;height:30px;color:var(--champagne)}
+    .ce-tuile b{font:400 1.15rem/1.2 var(--display);color:var(--prune)}
+    .ce-tuile span{font-size:.88rem;color:var(--encre-2);line-height:1.35}
+    .ce-suite{margin:1.4rem 0;padding:1rem 1.1rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.95rem}
+    .ce-suite b{font-family:var(--display);font-weight:400;font-size:1.1rem;color:var(--prune)}
+    .ce-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin:1.6rem 0 .6rem}
+    .ce-porte{margin:1.6rem 0;padding:1.5rem 1.3rem;border-radius:20px;background:#fff;border:1px solid var(--rose-fonce);text-align:center}
+    .ce-porte h2{font-size:1.6rem;color:var(--prune);margin:0 0 .5rem}
+    .ce-porte ul{text-align:left;margin:1rem auto;max-width:26rem;padding-left:1.1rem}
+    .ce-porte li{margin:.3rem 0}
+    .ce-porte li::marker{color:var(--champagne)}
+    .ce-note{font-size:.92rem;color:var(--encre-2);text-align:center}
+    .ce-chargement{padding:3rem 0;text-align:center;color:var(--encre-2)}
+    @media (max-width:420px){.ce-mois{grid-template-columns:1fr;text-align:center}.ce-mois img{margin:0 auto}.ce-grille{grid-template-columns:1fr 1fr;gap:.55rem}.ce-tuile{padding:.85rem;min-height:6.8rem}}
+  </style>
+  <script>window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="cercle">
+    <header class="ce-tete">
+      <img class="ce-logo" src="assets/icones/cercle-192.png" alt="" width="84" height="84">
+      <p class="ce-sur">Genesolia</p>
+      <h1 id="ce-titre">Le Cercle</h1>
+      <p id="ce-sous">Un carnet chaque mois, ton mois personnel et ton suivi, au même endroit.</p>
+    </header>
+    <div id="ce-corps"><p class="ce-chargement">Ton Cercle s’ouvre…</p></div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var LIBRE = !((window.GENESOLIA_PRODUITS || {}).cercle || {}).payant;   /* même réglage que mon-mois.html */
+    var PREMIER = '2026-10';                                                  /* le premier carnet paru */
+    var corps = document.getElementById('ce-corps');
+    var sb = null; try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function de(m) { return /^[aeiouyhé]/i.test(m) ? 'd’' + m : 'de ' + m; }
+
+    /* Le carnet du mois : le mois en cours s'il est paru, sinon le plus récent */
+    function moisCourant() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
+    function precedent(m) { var p = m.split('-'), d = new Date(+p[0], +p[1] - 2, 1); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
+    function chargerCarnet(m) {
+      return new Promise(function (ok) {
+        if (m < PREMIER) return ok(null);
+        var s = document.createElement('script'); s.src = 'assets/carnets/' + m + '.js';
+        s.onload = function () { ok(window.GENESOLIA_CARNET || null); };
+        s.onerror = function () { s.remove(); chargerCarnet(precedent(m)).then(ok); };
+        document.body.appendChild(s);
+      });
+    }
+
+    var I = {
+      carnet: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M7 5h15a3 3 0 0 1 3 3v19H10a3 3 0 0 1-3-3z"/><path d="M7 24a3 3 0 0 1 3-3h15M12 10h8M12 14h6"/></svg>',
+      mois: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="10"/><path d="M16 3v3M16 26v3M3 16h3M26 16h3"/><circle cx="16" cy="16" r="3.5" fill="currentColor" stroke="none"/></svg>',
+      guide: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M16 4l2.6 7.4L26 12l-6 4.6 2.2 7.4L16 19.8 9.8 24l2.2-7.4L6 12l7.4-.6z"/></svg>',
+      suivi: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 25h22M8 21l6-6 4 4 7-8"/><circle cx="25" cy="11" r="1.6" fill="currentColor"/></svg>',
+      meteo: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 3v2M3 12h2M5.6 5.6 7 7M18.4 5.6 17 7"/><path d="M11 26h13a4 4 0 0 0 0-8 6 6 0 0 0-11.4 1.5A3.3 3.3 0 0 0 11 26z" fill="#fff"/></svg>',
+      saisons: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 5v22M5 16h22"/></svg>'
+    };
+    function tuile(href, icone, titre, texte, dl) { return '<a class="ce-tuile" href="' + href + '"' + (dl ? ' download' : '') + '>' + I[icone] + '<b>' + esc(titre) + '</b><span>' + esc(texte) + '</span></a>'; }
+
+    function membre(user, C, rempli) {
+      var prenom = String((user.user_metadata && user.user_metadata.full_name) || '').trim().slice(0, 40);
+      if (prenom) document.getElementById('ce-titre').textContent = 'Bonjour ' + prenom;
+      document.getElementById('ce-sous').textContent = 'Bienvenue dans ton Cercle.';
+      var nom = C ? String(C.nomMois).split(' ')[0] : '';
+      var h = '';
+      if (C) h += '<a class="ce-mois" href="mon-carnet.html?mois=' + esc(C.mois) + '">' + (C.image ? '<img src="' + esc(C.image) + '" alt="" width="96" height="136">' : '<span></span>') +
+        '<div><p class="ce-etiq">Ton carnet ' + esc(de(nom)) + '</p><h2>' + esc(C.titre) + '</h2><p>' + esc(C.sousTitre) + '</p>' +
+        '<p class="ce-avance">' + (rempli > 0 ? 'Tu as déjà écrit ' + rempli + ' réponse' + (rempli > 1 ? 's' : '') + '. Reprendre là où j’en étais' : 'Ouvrir mon carnet') + '</p></div></a>';
+      h += '<div class="ce-grille">' +
+        tuile('mon-mois.html', 'mois', 'Mon mois', 'Ton mois personnel, ton calendrier et les dates de ton arbre') +
+        tuile('mon-guide.html', 'guide', 'Mon guide du mois', 'Tes nombres, ton ciel et ton signe maya du mois') +
+        tuile('mon-suivi.html', 'suivi', 'Mon suivi', 'Ce qui avance, semaine après semaine') +
+        tuile('login.html#mon-chemin', 'meteo', 'Ma météo', 'Ta météo intérieure mois après mois, et tes lettres') +
+        (C && C.pdf ? tuile(C.pdf, 'carnet', 'Le carnet papier', 'Le carnet du mois en PDF, à imprimer et remplir à la main', true) : '') +
+        tuile('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'saisons', 'Les 12 saisons', 'Le livret de l’année, à imprimer', true) +
+      '</div>';
+      var suite = C && C.aVenir && C.aVenir[0];
+      if (suite) h += '<p class="ce-suite">Le mois prochain · <b>' + esc(suite.titre) + '</b><br>' + esc(suite.texte) + '</p>';
+      var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+      h += '<div class="ce-actions"><a href="#" class="btn btn-plein" data-installer hidden>Installer l’appli Le Cercle</a>' + (gestion ? '<a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
+      corps.innerHTML = h;
+      reveillerInstall();
+    }
+    function porte(user, C) {
+      var titre = user ? 'Ton espace du Cercle t’attend' : 'Le Cercle, ton espace membre';
+      corps.innerHTML = '<section class="ce-porte"><h2>' + titre + '</h2><p>' + (user ? 'Cette appli est réservée aux membres du Cercle. Rejoins-le pour la débloquer.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
+        '<ul><li>Un carnet chaque mois, à remplir en ligne ou à imprimer</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton suivi et ta météo intérieure, mois après mois</li></ul>' +
+        '<div class="ce-actions">' + (user ? '<a class="btn btn-plein" href="abonnement.html">Découvrir le Cercle</a>' : '<a class="btn btn-plein" href="login.html?retour=cercle.html">Me connecter</a><a class="btn btn-trait" href="abonnement.html">Découvrir le Cercle</a>') + '</div>' +
+        (C ? '<p class="ce-note">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>';
+    }
+    /* site.js a déjà montré ou caché les boutons d'installation : on refait le point pour le bouton ajouté ici */
+    function reveillerInstall() {
+      var installee = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+      var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var lien = corps.querySelector('[data-installer]');
+      if (lien && !installee && (mobile || window.GenesoliaInstallPossible)) lien.hidden = false;
+    }
+    window.addEventListener('beforeinstallprompt', function () { window.GenesoliaInstallPossible = true; var l = corps.querySelector('[data-installer]'); if (l) l.hidden = false; });
+
+    function acces(user) {
+      if (LIBRE) return Promise.resolve(true);
+      return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', user.id).maybeSingle()
+        .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });
+    }
+    function reponses(user, C) {
+      if (!C) return Promise.resolve(0);
+      return sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', C.mois).maybeSingle().then(function (r) {
+        var v = (r && r.data && r.data.data && r.data.data.v) || {};
+        return Object.keys(v).filter(function (k) { return typeof v[k] === 'string' && v[k].trim(); }).length;
+      }, function () { return 0; });
+    }
+
+    chargerCarnet(moisCourant()).then(function (C) {
+      if (!sb) return porte(null, C);
+      sb.auth.getSession().then(function (r) {
+        var s = r && r.data && r.data.session;
+        if (!s) return porte(null, C);
+        acces(s.user).then(function (ok) {
+          if (!ok) return porte(s.user, C);
+          reponses(s.user, C).then(function (n) { membre(s.user, C, n); });
+        });
+      }, function () { porte(null, C); });
+    });
+  })();
+  </script>
+</body>
+</html>

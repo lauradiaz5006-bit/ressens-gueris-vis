@@ -1,0 +1,25 @@
+{
+  "id": "/cercle.html",
+  "name": "Le Cercle · Genesolia",
+  "short_name": "Le Cercle",
+  "description": "Ton espace du Cercle : le carnet du mois, ton mois personnel, ton suivi et ta météo intérieure.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/cercle.html?source=appli",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#55224B",
+  "background_color": "#FFF9F7",
+  "categories": ["lifestyle", "education"],
+  "icons": [
+    { "src": "/assets/icones/cercle-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icones/cercle-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/icones/cercle-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mon carnet du mois", "url": "/mon-carnet.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Mon mois", "url": "/mon-mois.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
+    { "name": "Mon suivi", "url": "/mon-suivi.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] }
+  ]
+}
