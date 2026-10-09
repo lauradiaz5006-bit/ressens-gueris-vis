@@ -280,7 +280,7 @@
         corps = (x.gestes ? '<p class="mc-q">Des idées de gestes, pour t’inspirer :</p><ul class="mc-pastilles">' + x.gestes.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>' : '') +
           zone(x.k, x.q || 'Ton geste', { lignes: 4, ph: x.ph || x.debut }) +
           (x.journal ? '<div class="mc-journal"><p class="mc-q">' + esc(x.journal.q) + '</p>' + Array.apply(null, { length: x.journal.n }).map(function (_, j) {
-            return '<label class="mc-essai"><span>Essai ' + (j + 1) + '</span><input type="text" data-k="' + x.journal.k + '-' + j + '"' + (j === 0 && x.journal.ph ? ' placeholder="' + esc(x.journal.ph) + '"' : '') + '></label>';
+            return '<label class="mc-essai"><span>' + esc(x.journal.etiquette || 'Essai') + ' ' + (j + 1) + '</span><input type="text" data-k="' + x.journal.k + '-' + j + '"' + (j === 0 && x.journal.ph ? ' placeholder="' + esc(x.journal.ph) + '"' : '') + '></label>';
           }).join('') + '</div>' : '');
       }
       return '<section class="mc-exercice" id="mc-exercice-' + (i + 1) + '"><p class="mc-sur">Exercice ' + (i + 1) + '</p><h3 class="mc-h">' + esc(x.titre) + '</h3><p class="mc-consigne">' + md(x.consigne) + '</p>' +
@@ -372,7 +372,7 @@
      La saison, le thème, quatre semaines (voir, source, libérer, remplacer), la méditation, le bilan.
      Les semaines 2 et suivantes sont réservées au Cercle (la semaine 1 est offerte). */
   function dateSemaine(k) { var p = String(C.mois).split('-'); return new Date(+p[0], +p[1] - 1, 1 + 7 * k); }
-  function jourMois(d) { return d.getDate() + ' ' + MOIS_NOMS_S[d.getMonth()]; }
+  function jourMois(d) { return (d.getDate() === 1 ? '1er' : d.getDate()) + ' ' + MOIS_NOMS_S[d.getMonth()]; }
   var MOIS_NOMS_S = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   function offreCercle() {
     return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">La suite de ton suivi fait partie du Cercle</p><p>Ta semaine 1 est offerte. Avec Le Cercle, tu vis tout le mois : remonter à la source, te libérer, poser un geste nouveau, et ton bilan. En plus de ton carnet du mois, de ton guide et de tout le site.</p><p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle, 1 mois offert</a></p></aside>';
@@ -819,11 +819,12 @@
   /* ───── Rappels dans l'agenda (.ics) : 4 semaines + le bilan ───── */
   function telechargerRappels() {
     var p = String(C.mois).split('-'), an = +p[0], mo = +p[1] - 1;
+    /* Mêmes dates que les pages (« À vivre à partir du… ») : semaines le 1er, 8, 15 et 22 du mois, bilan le dernier jour.
+       Une semaine déjà finie n'a pas de rappel ; la semaine en cours et un bilan déjà passé sont rappelés demain. */
     var auj = new Date(); auj.setHours(0, 0, 0, 0);
-    var debut = new Date(an, mo, 1), demain = new Date(auj.getTime() + 864e5);
-    if (demain > debut) debut = demain;
-    var fin = new Date(an, mo + 1, 0), quatre = new Date(debut.getTime()); quatre.setDate(quatre.getDate() + 28);
-    if (quatre > fin) fin = quatre;
+    var demain = new Date(auj.getTime() + 864e5);
+    var fin = new Date(an, mo + 1, 0);
+    if (fin < demain) fin = demain;
     function d8(d) { return d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2); }
     function txt(s) { return String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n'); }
     function plier(l) { var r = [], s = l; while (s.length > 70) { r.push(s.slice(0, 70)); s = ' ' + s.slice(70); } r.push(s); return r.join('\r\n'); }
@@ -831,9 +832,12 @@
     var base = 'https://genesolia.fr/' + PAGE_URL + '?mois=' + C.mois, stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
     var ev = C.semaines.map(function (s, i) {
       if (Array.isArray(s)) s = { titre: s[0], texte: s[1] };
-      var d = new Date(debut.getTime()); d.setDate(d.getDate() + 7 * i);
+      var d = dateSemaine(i), suite = i + 1 < C.semaines.length ? dateSemaine(i + 1) : new Date(an, mo + 1, 1);
+      if (suite <= demain) return null;
+      if (d < demain) d = demain;
+      if (d >= fin) return null;
       return { d: d, titre: (SUIVI ? 'Mon suivi' : 'Carnet du Cercle') + ' · Semaine ' + (i + 1) + ' : ' + s.titre, texte: brut(s.texte || s.intro || ''), url: base + (SUIVI ? '#' + s.cle : '#semaines-' + (i + 1)) };
-    });
+    }).filter(Boolean);
     ev.push({ d: fin, titre: (SUIVI ? 'Mon suivi' : 'Carnet du Cercle') + ' · Mon bilan ' + de(NOM_MOIS), texte: 'Prends dix minutes pour ton bilan du mois.', url: base + (SUIVI ? '#bilan' : '#cloture') });
     var l = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Genesolia//Carnet du Cercle//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:Mon carnet du Cercle'];
     ev.forEach(function (e, i) {

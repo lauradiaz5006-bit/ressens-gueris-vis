@@ -94,7 +94,7 @@ window.GENESOLIA_CARNET = {
           pourquoi: "Quand on ouvre la porte aux ancêtres, ils se manifestent souvent dans le quotidien : un objet, une expression, une chanson. Les noter permet de voir ce qui cherche à remonter.",
           q: "Ce que tu remarques, en général, quand tu penses à tes ancêtres",
           ph: "Exemple : je pense souvent à mon grand-père quand je bricole, et je l’entends dire « on ne lâche pas ».",
-          journal: { k: 'voir-sit', n: 6, q: "Chaque moment : le jour, la personne, ce qui te l’a rappelée, ce que tu as ressenti", ph: "Exemple : mardi, ma mère a dit « comme ton oncle Paul », j’ai senti de la curiosité." } }
+          journal: { k: 'voir-sit', n: 6, etiquette: 'Moment', q: "Chaque moment : le jour, la personne, ce qui te l’a rappelée, ce que tu as ressenti", ph: "Exemple : mardi, ma mère a dit « comme ton oncle Paul », j’ai senti de la curiosité." } }
       ],
       conseil: "Tu n’as pas besoin de tout savoir. Un prénom, une date, une phrase suffisent. Si la liste te rend triste, pose ton stylo, respire, et reviens-y demain. Elle peut se remplir au fil du mois." },
 
@@ -148,7 +148,7 @@ window.GENESOLIA_CARNET = {
       ],
       rituel: {
         titre: 'La bougie des ancêtres',
-        intro: "Ce rituel symbolique marque le moment où tu rends à chacun·e sa place. Fais-le une fois ce mois-ci, idéalement après avoir rempli ta liste des oubliés. Prends ton temps : il dure environ quinze minutes.",
+        intro: "Ce rituel symbolique marque le moment où tu rends à chacun·e sa place. Fais-le une fois cette semaine, idéalement après avoir rempli ta liste des oubliés. Prends ton temps : il dure environ quinze minutes.",
         materiel: "Une bougie, ta liste des oubliés, un stylo. Si tu en as, des photos de tes ancêtres.",
         etapes: [
           "Choisis un moment calme, le soir de préférence. Pose devant toi les photos, ou simplement ta liste de noms.",

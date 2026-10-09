@@ -94,7 +94,7 @@ window.GENESOLIA_CARNET = {
           pourquoi: "Le premier signal (une gorge serrée, une chaleur, une phrase qui revient) arrive souvent avant la réaction. Le repérer, c’est gagner une seconde de liberté.",
           q: "Ce que tu remarques, en général, quand ta boucle démarre",
           ph: "Exemple : ça commence toujours par une boule dans le ventre quand quelqu’un hausse le ton.",
-          journal: { k: 'voir-sit', n: 6, q: "Chaque situation : le jour, ce qui s’est passé, le signal dans ton corps, ta réaction", ph: "Exemple : lundi, 8 h 40, message de ma cheffe, ventre serré, j’ai répondu en deux minutes." } }
+          journal: { k: 'voir-sit', n: 6, etiquette: 'Situation', q: "Chaque situation : le jour, ce qui s’est passé, le signal dans ton corps, ta réaction", ph: "Exemple : lundi, 8 h 40, message de ma cheffe, ventre serré, j’ai répondu en deux minutes." } }
       ],
       conseil: "Pas besoin de changer quoi que ce soit cette semaine : voir suffit. Si tu oublies de noter, note le soir, de mémoire. Ce n’est pas un examen." },
 
