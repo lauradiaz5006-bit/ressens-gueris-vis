@@ -291,10 +291,24 @@
       sc.onload = ok; sc.onerror = ok; document.head.appendChild(sc);
     });
   }
+  var MOBILE = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   function imprimer(t, btn) {
     var lib = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du livret…'; }
-    chargerTextes().then(function () { lancer(t, btn, lib); });
+    /* Sur téléphone, l'impression d'un cadre caché ne marche pas : on ouvre le livret dans un nouvel onglet (ouvert tout de suite, au moment du clic) */
+    var w = MOBILE ? window.open('', '_blank') : null;
+    chargerTextes().then(function () { if (w) ouvrirOnglet(w, t, btn, lib); else lancer(t, btn, lib); });
+  }
+  function ouvrirOnglet(w, t, btn, lib) {
+    var barre = '<div class="barre-livret" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif">' +
+      '<span>Ton livret Genesolia</span>' +
+      '<button onclick="window.print()" style="flex:0 0 auto;border:0;border-radius:99px;padding:.55rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif">Enregistrer en PDF</button></div>' +
+      '<style>@media print{.barre-livret{display:none!important}}</style>';
+    var page = html(window.Numerologie, t).replace('<meta charset="utf-8">', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">').replace(/<body([^>]*)>/i, '<body$1>' + barre);
+    try { w.document.open(); w.document.write(page); w.document.close(); }
+    catch (e) { lancer(t, btn, lib); return; }
+    if (btn) { btn.disabled = false; btn.textContent = lib; }
+    if (window.umami) try { window.umami.track('livret-numerologie'); } catch (x) {}
   }
   function lancer(t, btn, lib) {
     var N = window.Numerologie;
