@@ -101,8 +101,14 @@
 
   /* ===== Le recevoir imprimé : la commande part dans la table demandes, le fichier HD dans Storage (impressions), puis Stripe ===== */
   var IMP = window.GENESOLIA_IMPRESSION || {};
+  function ouvert() { return !IMP.ouverture || new Date() >= new Date(IMP.ouverture + 'T00:00:00') || /test-impression/.test(location.search + location.hash); }
   function blocImpression() {
     if (!IMP.actif || !IMP.formats || !IMP.formats.length) return '';
+    if (!ouvert()) {
+      var j = new Date(IMP.ouverture + 'T00:00:00'), quand = (j.getDate() === 1 ? '1er' : j.getDate()) + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][j.getMonth()];
+      return '<div class="fe-imp"><p class="fe-imp-titre">Bientôt : le recevoir imprimé, prêt à encadrer</p><p class="fe-aide">À partir du ' + quand + ', tu pourras recevoir ton arbre imprimé sur un beau papier épais, en A4 ou en A3, avec ou sans cadre, livré chez toi ou chez la personne à qui tu l’offres.</p>' +
+        '<form class="fe-imp-prevenir" id="fe-imp-prevenir" novalidate><div class="fe-deux"><input name="email" type="email" autocomplete="email" placeholder="Ton e-mail" aria-label="Ton e-mail" required><button class="bt rap-gros" type="submit">Me prévenir</button></div><p class="fe-aide" id="fe-prev-statut" aria-live="polite"></p></form></div>';
+    }
     return '<div class="fe-imp"><p class="fe-imp-titre">Le recevoir imprimé, prêt à encadrer</p><p class="fe-aide">Imprimé sur un beau papier mat épais et envoyé chez toi (ou chez la personne à qui tu l’offres). ' + esc(IMP.livraison || '') + '.</p>' +
       '<button class="bt rap-gros" type="button" id="fe-imp-ouvrir">Je le reçois imprimé</button>' +
       '<form class="fe-imp-form" id="fe-imp-form" hidden novalidate>' +
@@ -127,6 +133,20 @@
       .then(function (r) { return r.ok ? chemin : ''; }).catch(function () { return ''; });
   }
   function brancherImpression() {
+    var pv = document.getElementById('fe-imp-prevenir');
+    if (pv) {
+      var xs = session(); if (xs && xs.user && xs.user.email) pv.email.value = xs.user.email;
+      pv.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var st = document.getElementById('fe-prev-statut'), e = pv.email.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { st.textContent = 'Indique une adresse e-mail valide.'; return; }
+        pv.querySelector('button').disabled = true;
+        window.GenesoliaEnvoyer('Arbre imprimé : me prévenir', { email: e, ouverture: IMP.ouverture })
+          .then(function () { pv.outerHTML = '<p class="fe-merci">C’est noté : tu seras prévenue dès l’ouverture.</p>'; })
+          .catch(function () { pv.querySelector('button').disabled = false; st.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+      });
+      return;
+    }
     var o = document.getElementById('fe-imp-ouvrir'), f = document.getElementById('fe-imp-form'); if (!o || !f) return;
     var x = session(); if (x && x.user && x.user.email) f.email.value = x.user.email;
     o.addEventListener('click', function () { f.hidden = false; o.hidden = true; f.prenom.focus(); });

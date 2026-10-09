@@ -52,6 +52,7 @@ window.GENESOLIA_PRODUITS = {
    Prix à ajuster après ta commande test : prix TTC = coût livré TTC + au moins 30 € (25 € HT de marge). */
 window.GENESOLIA_IMPRESSION = {
   actif: true,
+  ouverture: '2026-11-01',   /* avant cette date : « Bientôt disponible », sans commande (test possible avec ?test-impression dans l'adresse) */
   livraison: 'Livraison comprise en France métropolitaine, en 3 à 7 jours ouvrés',
   formats: [
     { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2480 },
