@@ -11,7 +11,7 @@ window.GENESOLIA_CARNET = {
   moisSuivant: 'novembre',
   titre: 'Mon point de départ',
   sousTitre: "Faire le point sur ta vie avec ta roue, choisir ce que tu veux nourrir, et avancer d'un petit pas chaque semaine.",
-  pdf: 'assets/cercle/cercle-2026-10-8b31e0c2a4.pdf',
+  pdf: '',
   image: 'assets/cercle/apercu-2026-10.jpg',
   citation: "Tu n'as pas besoin de tout changer. Un pas juste, aujourd'hui, suffit pour commencer.",
   audio: '',

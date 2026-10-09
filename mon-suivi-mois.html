@@ -9,38 +9,31 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Mon carnet du mois · Le Cercle · Genesolia</title>
-  <meta name="description" content="Le carnet du mois du Cercle, à remplir en ligne : ta météo intérieure, ton objectif, les exercices, le rituel et tes quatre semaines.">
+  <title>Mon suivi du mois · Le Cercle · Genesolia</title>
+  <meta name="description" content="Ton suivi « Je me libère » du Cercle : la saison, le thème du mois, quatre semaines pour voir, remonter à la source, libérer et remplacer, une méditation et ton bilan.">
   <link rel="stylesheet" href="assets/site.css">
   <link rel="stylesheet" href="assets/livre.css">
 </head>
 <body class="nouveau">
   <header data-entete></header>
   <main>
-    <div id="carnet"><p class="mc-chargement">Ton carnet s’ouvre…</p></div>
+    <div id="carnet"><p class="mc-chargement">Ton suivi s’ouvre…</p></div>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/mon-chemin.js"></script>
-  <script src="assets/astronomy.browser.min.js" defer></script>
-  <script src="assets/astrologie.js" defer></script>
-  <script src="assets/numerologie.js" defer></script>
-  <script src="assets/maya.js" defer></script>
-  <script src="assets/maya-textes.js" defer></script>
-  <script src="assets/guide-textes.js" defer></script>
-  <script src="assets/guide-mois.js" defer></script>
-  <script src="assets/lieu-naissance.js" defer></script>
+  <script src="assets/saisons.js"></script>
   <script>
-  /* Carnet demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
+  /* Suivi demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
   (function () {
-    var DISPONIBLES = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09', '2027-10'];
+    var DISPONIBLES = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09', '2027-10'];   /* les mois de suivi déjà écrits (assets/suivi/AAAA-MM.js) */
     var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
     var m = new URLSearchParams(location.search).get('mois');
     var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
     if (DISPONIBLES.indexOf(m) < 0 || (m > actuel && !apercu)) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
-    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
-    function go() { charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
+    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le suivi ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
+    function go() { charger('assets/suivi/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
     /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();

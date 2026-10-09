@@ -20,6 +20,6 @@
   "shortcuts": [
     { "name": "Mon carnet du mois", "url": "/mon-carnet.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
     { "name": "Mon mois", "url": "/mon-mois.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] },
-    { "name": "Mon suivi", "url": "/mon-suivi.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] }
+    { "name": "Mon suivi", "url": "/mon-suivi-mois.html", "icons": [{ "src": "/assets/icones/cercle-maskable-192.png", "sizes": "192x192", "type": "image/png" }] }
   ]
 }
