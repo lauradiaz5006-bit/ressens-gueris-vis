@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Mon carnet du mois · Le Cercle · Genesolia</title>
+  <meta name="description" content="Le carnet du mois du Cercle, à remplir en ligne : ta météo intérieure, ton objectif, les exercices, le rituel et tes quatre semaines.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #carnet{max-width:52rem;margin:0 auto;padding:0 1rem 4rem}
+    .mc-tete{margin:0 -1rem;padding:2.6rem 1.2rem 2rem;color:#FFF4F6;background:linear-gradient(150deg,#2E1338,#6B2F5B);border-radius:0 0 var(--rayon) var(--rayon)}
+    .mc-tete h1{color:#fff;font-size:clamp(2rem,6vw,3rem);margin:.2rem 0 .5rem}
+    .mc-tete>p:not(.mc-sur){color:#F7E6EE;max-width:36rem}
+    .mc-sur{font:600 .76rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .mc-tete .mc-sur{color:var(--champagne-clair)}
+    .mc-barre{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;margin-top:1.3rem;font-size:.86rem}
+    .mc-progres{flex:1 1 10rem;max-width:16rem;height:.5rem;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
+    .mc-progres span{display:block;height:100%;width:0;background:var(--champagne-clair);transition:width .3s}
+    .mc-etat{color:var(--champagne-clair);font-style:italic}
+    .mc-boutons{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
+    .mc-tete .btn-trait{color:#fff;background:transparent;border-color:rgba(255,255,255,.6)}
+    .mc-compte{margin-top:1.2rem;padding:1rem 1.1rem;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(243,220,192,.4);font-size:.92rem}
+    .mc-compte p{margin-bottom:.7rem}
+    .mc-compte .btn-plein{background:var(--champagne-clair);color:var(--prune);border-color:var(--champagne-clair)}
+    .mc-compte a:not(.btn){color:var(--champagne-clair);margin-left:.6rem}
+    .mc-onglets{position:sticky;top:var(--haut,0px);scroll-margin-top:var(--haut,0px);z-index:5;display:flex;gap:.35rem;overflow-x:auto;margin:1.4rem -1rem 1.6rem;padding:.6rem 1rem;background:var(--nacre,#FFF9F4);border-bottom:1px solid var(--rose);scrollbar-width:thin}
+    .mc-onglets button{flex:0 0 auto;display:flex;align-items:center;gap:.4rem;border:1px solid var(--rose);background:var(--blanc);color:var(--prune);border-radius:99px;padding:.45rem .85rem;font:600 .84rem/1.2 var(--texte);cursor:pointer}
+    .mc-onglets button span{display:grid;place-items:center;width:1.4rem;height:1.4rem;border-radius:50%;background:#FBF0E4;font-size:.75rem}
+    .mc-onglets button.actif{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .mc-onglets button.actif span{background:var(--champagne-clair);color:var(--prune)}
+    .mc-page h2{font-size:clamp(1.6rem,4.5vw,2.2rem);margin-bottom:.8rem}
+    .mc-page h3{font-size:1.3rem;margin:1.6rem 0 .6rem}
+    .mc-page>p,.mc-page section>p{margin-bottom:.9rem}
+    .mc-page a{color:var(--prune);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .mc-intro{font-size:1.04rem;color:var(--prune-doux)}
+    .mc-consigne{font-size:.96rem;color:var(--prune-doux);background:#FFF6EC;border-left:3px solid var(--champagne);border-radius:0 10px 10px 0;padding:.7rem .9rem}
+    .mc-note{font-size:.86rem;color:var(--prune-doux);font-style:italic}
+    .mc-etape,.mc-exercice,.mc-semaine{margin:1.4rem 0;padding:1.4rem 1.3rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .mc-etape h3{display:flex;align-items:center;gap:.6rem;margin-top:0}
+    .mc-etape h3 span{display:grid;place-items:center;flex:0 0 2rem;height:2rem;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);font:600 .95rem var(--display)}
+    .mc-champ{display:block;margin:.9rem 0}
+    .mc-q{display:block;font-weight:600;font-size:.95rem;color:var(--prune);margin-bottom:.35rem}
+    .mc-champ textarea,.mc-champ input,.mc-journal input{width:100%;font:400 1rem/1.5 var(--texte);color:var(--prune);background:#FFFCF8;border:1.5px solid var(--rose);border-radius:12px;padding:.6rem .75rem;resize:vertical}
+    .mc-champ textarea:focus,.mc-champ input:focus,.mc-journal input:focus{outline:none;border-color:var(--champagne);box-shadow:0 0 0 3px rgba(185,138,85,.15)}
+    .mc-aide{display:block;margin-top:.3rem;font-size:.8rem;color:var(--prune-doux)}
+    .mc-aide.mc-alerte{color:#A23B4C;font-weight:600}
+    .mc-echelles{display:grid;grid-template-columns:1fr 1fr;gap:.2rem 1.4rem}
+    .mc-curseur{margin:.8rem 0}
+    .mc-ligne{display:flex;align-items:center;gap:.5rem;font-size:.74rem;color:var(--prune-doux)}
+    .mc-ligne input[type=range]{flex:1;accent-color:#6B2F5B;min-width:0}
+    .mc-min,.mc-max{flex:0 0 auto;max-width:4.5rem;line-height:1.1}
+    .mc-max{text-align:right}
+    .mc-val{flex:0 0 2rem;text-align:center;font:600 1.15rem var(--display);color:var(--prune)}
+    .mc-choix{border:0;padding:0;margin:1rem 0}
+    .mc-choix label{display:inline-flex;margin:.2rem .3rem .2rem 0;cursor:pointer}
+    .mc-choix input{position:absolute;opacity:0;pointer-events:none}
+    .mc-choix span{border:1.5px solid var(--rose);border-radius:99px;padding:.4rem .85rem;font-size:.9rem;background:var(--blanc)}
+    .mc-choix input:checked+span{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .mc-choix input:focus-visible+span{outline:2px solid var(--champagne);outline-offset:2px}
+    .mc-trois{display:grid;grid-template-columns:repeat(3,1fr);gap:0 .8rem;margin-top:1rem}
+    .mc-trois>.mc-q{grid-column:1/-1;margin-bottom:0}
+    .mc-trois .mc-q{font-weight:500;font-size:.88rem}
+    .mc-deux{display:grid;grid-template-columns:1fr 1fr;gap:0 .8rem}
+    .mc-citation{margin:1.6rem 0;padding:1.2rem 1.4rem;border-radius:16px;background:linear-gradient(120deg,#FBF0E4,var(--blanc));font:400 1.3rem/1.45 var(--display);color:var(--prune);text-align:center}
+    .mc-encadre{margin:1.4rem 0;padding:1.1rem 1.2rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC}
+    .mc-outils{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1.4rem 0}
+    .mc-page a.mc-outil{display:flex;flex-direction:column;gap:.35rem;padding:1rem;border-radius:14px;background:linear-gradient(160deg,#FFF6EC,#fff 70%);border:1.5px solid var(--champagne-clair);text-decoration:none;color:var(--prune);transition:transform .15s,border-color .15s}
+    .mc-page a.mc-outil:hover{transform:translateY(-2px);border-color:var(--champagne)}
+    .mc-outil span{font-size:.84rem;color:var(--prune-doux)}
+    .mc-tableau{display:grid;gap:.8rem}
+    .mc-rang{display:grid;grid-template-columns:2rem repeat(3,1fr);gap:0 .7rem;align-items:start;padding:.5rem .7rem;border-radius:14px;background:#FFF9F4}
+    .mc-rang .mc-champ{margin:.4rem 0}
+    .mc-rang .mc-q{font-size:.82rem;font-weight:500}
+    .mc-num{margin-top:.6rem;font:600 1.4rem var(--display);color:var(--champagne)}
+    .mc-bloc{padding:.4rem .9rem;margin:.7rem 0;border-radius:14px;background:#FFF9F4;border:1px solid var(--rose)}
+    .mc-journal{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem}
+    .mc-journal .mc-q{grid-column:1/-1;margin:0}
+    .mc-etapes{counter-reset:e;list-style:none;display:grid;gap:.5rem;margin:1rem 0}
+    .mc-etapes li{counter-increment:e;position:relative;padding:.7rem .9rem .7rem 2.8rem;border-radius:12px;background:#FFF6EC;border:1px solid var(--champagne-clair)}
+    .mc-etapes li::before{content:counter(e);position:absolute;left:.8rem;top:.6rem;font:600 1.2rem var(--display);color:var(--champagne)}
+    .mc-medit{padding:1.4rem 1.5rem;border-radius:18px;background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#F7E6EE;font-size:1.04rem;line-height:1.8}
+    .mc-medit p{margin-bottom:.8rem}
+    .mc-pause{text-align:center;color:var(--champagne-clair);font-style:italic;font-size:.88rem;letter-spacing:.08em}
+    .mc-sem-tete{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+    .mc-sem-tete h3{margin:0;flex:1}
+    .mc-sem-n{font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne)}
+    .mc-fait{display:flex;align-items:center;gap:.35rem;font-size:.88rem;font-weight:600;cursor:pointer}
+    .mc-fait input{accent-color:#6B2F5B;width:1.1rem;height:1.1rem}
+    .mc-compare ul,.mc-rappel{list-style:none;margin-top:1rem}
+    .mc-compare li{display:grid;grid-template-columns:1fr auto 3rem;gap:.6rem;align-items:center;padding:.45rem .7rem;border-bottom:1px solid var(--rose);font-size:.92rem}
+    .mc-compare em{font-style:normal;font-weight:700;text-align:center;border-radius:99px;padding:.1rem .4rem;background:#F6ECF6;color:var(--prune-doux)}
+    .mc-compare em.plus{background:#FBF0E4;color:#8A5A22}
+    .mc-compare em.moins{background:#FCEFF3;color:#A23B4C}
+    .mc-rappel{padding:.9rem 1rem;border-radius:12px;background:#FFF6EC}
+    .mc-cite{font:400 1.15rem/1.4 var(--display);color:var(--prune);margin:.2rem 0 .4rem}
+    .mc-actions{margin:1.8rem 0 1rem;text-align:center}
+    .mc-retour{margin-top:.6rem;font-size:.9rem;color:var(--prune);min-height:1.2em}
+    .mc-nav{display:flex;justify-content:space-between;gap:.6rem;margin-top:2.2rem;padding-top:1.2rem;border-top:1px solid var(--rose)}
+    .mc-imp{display:none}
+    .mc-chargement{padding:4rem 0;text-align:center;color:var(--prune-doux)}
+    @media (max-width:700px){
+      .mc-echelles,.mc-trois,.mc-deux,.mc-outils,.mc-journal{grid-template-columns:1fr}
+      .mc-rang{grid-template-columns:1fr;padding:.5rem .8rem}
+      .mc-num{margin:0}
+      .mc-etape,.mc-exercice,.mc-semaine{padding:1.1rem .95rem}
+      .mc-compare li{grid-template-columns:1fr auto 2.6rem;font-size:.85rem}
+    }
+    @media print{
+      header[data-entete],footer,.annonce,.bandeau-info,.cookies,.chemin-toast,.mc-onglets,.mc-nav,.mc-barre,.mc-boutons,.mc-compte,.mc-actions{display:none!important}
+      html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      body{background:#fff}
+      #carnet{max-width:none;padding:0}
+      .mc-tete{border-radius:0;margin:0 0 1rem}
+      .mc-impression .mc-page{display:block!important;break-before:page}
+      .mc-impression .mc-page:first-of-type{break-before:auto}
+      .mc-impression textarea,.mc-impression input[type=text],.mc-impression input[type=range]{display:none!important}
+      .mc-impression .mc-imp{display:block;min-height:2.2em;padding:.35rem .6rem;border-bottom:1px solid #D9B9C2;white-space:pre-wrap;font-size:.95rem}
+      .mc-impression .mc-imp-court{display:inline-block;min-height:0;border:0;padding:0 .4rem;font-weight:700}
+      .mc-impression .mc-ligne{display:none}
+      .mc-rang,.mc-bloc,.mc-champ,.mc-curseur,.mc-etapes li{break-inside:avoid}
+      .mc-etape h3,.mc-page h2{break-after:avoid}
+      .mc-choix input:not(:checked)+span{opacity:.45}
+      .mc-medit{background:#F6ECF6;color:#4a2342}
+      .mc-pause{color:#8E6383}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div id="carnet"><p class="mc-chargement">Ton carnet s’ouvre…</p></div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/mon-chemin.js"></script>
+  <script>
+  /* Carnet demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
+  (function () {
+    var DISPONIBLES = ['2026-10'];
+    var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
+    var m = new URLSearchParams(location.search).get('mois');
+    if (DISPONIBLES.indexOf(m) < 0) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
+    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
+    charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); });
+  })();
+  </script>
+</body>
+</html>

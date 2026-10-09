@@ -231,8 +231,8 @@
 
 
   /* ===== Mon chemin : tous les tests, avec leur date ===== */
-  var PAGES_OUTILS = { 'arbre-de-vie': ['arbre-de-vie.html', 'Refaire le test'], blessures: ['blessures-de-l-ame.html', 'Refaire'], numerologie: ['theme-numerologique.html', 'Ouvrir'], astral: ['theme-astral.html', 'Ouvrir'], maya: ['ton-signe-maya.html', 'Ouvrir'], prenom: ['ton-prenom.html', 'Lire un autre prénom'], 'prenoms-famille': ['ton-prenom.html#famille', 'Comparer d\u2019autres prénoms'], 'maya-duo': ['ton-signe-maya.html#duo', 'Comparer avec un autre proche'] };
-  var NOMS_OUTILS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Prénoms', synthese: 'Ma synthèse', 'prenoms-famille': 'Prénoms de ma famille', 'maya-duo': 'Signes maya à deux' };
+  var PAGES_OUTILS = { 'arbre-de-vie': ['arbre-de-vie.html', 'Refaire le test'], blessures: ['blessures-de-l-ame.html', 'Refaire'], numerologie: ['theme-numerologique.html', 'Ouvrir'], astral: ['theme-astral.html', 'Ouvrir'], maya: ['ton-signe-maya.html', 'Ouvrir'], prenom: ['ton-prenom.html', 'Lire un autre prénom'], 'prenoms-famille': ['ton-prenom.html#famille', 'Comparer d\u2019autres prénoms'], 'maya-duo': ['ton-signe-maya.html#duo', 'Comparer avec un autre proche'], meteo: ['mon-carnet.html', 'Ouvrir mon carnet du mois'] };
+  var NOMS_OUTILS = { 'arbre-de-vie': 'Test de l’arbre de vie', blessures: 'Les blessures de l’âme', numerologie: 'Thème numérologique', astral: 'Thème astral', maya: 'Signe maya', prenom: 'Prénoms', synthese: 'Ma synthèse', 'prenoms-famille': 'Prénoms de ma famille', 'maya-duo': 'Signes maya à deux', meteo: 'Ma météo intérieure' };
   function dateCourte(d) { return new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }); }
   function evolution(outil, l) {
     if (l.length < 2) return '';
@@ -245,7 +245,34 @@
       var ch = Object.keys(a.scores).filter(function (k) { return (a.scores[k] || 0) !== (b.scores[k] || 0); });
       return ch.length ? 'Depuis le ' + dateCourte(l[1].cree_le) + ' : ' + ch.map(function (k) { var d = (a.scores[k] || 0) - (b.scores[k] || 0); return k + ' ' + (d > 0 ? '+' : '−') + Math.abs(d); }).join(' · ') : 'Même résultat que le ' + dateCourte(l[1].cree_le) + '.';
     }
+    if (outil === 'meteo') {
+      var deb = l.filter(function (x) { return (x.donnees || {}).moment === 'debut'; })[0], fin = l.filter(function (x) { return (x.donnees || {}).moment === 'fin'; })[0];
+      if (deb && fin && fin.donnees.mois === deb.donnees.mois && fin.donnees.moyenne != null && deb.donnees.moyenne != null) {
+        var e = Math.round((fin.donnees.moyenne - deb.donnees.moyenne) * 10) / 10;
+        return 'Sur le mois : ' + String(deb.donnees.moyenne).replace('.', ',') + ' puis ' + String(fin.donnees.moyenne).replace('.', ',') + ' sur 10 (' + (e > 0 ? '+' : e < 0 ? '−' : '±') + String(Math.abs(e)).replace('.', ',') + ')';
+      }
+    }
     return l.length + ' fois depuis le ' + dateCourte(l[l.length - 1].cree_le);
+  }
+  /* Ma météo intérieure : courbe mois après mois + lettres de dans un an */
+  function meteoHtml(l) {
+    var pts = l.filter(function (x) { return x.donnees && typeof x.donnees.moyenne === 'number'; }).slice().reverse(), h = '';
+    if (pts.length >= 2) {
+      var W = 280, H = 90, n = pts.length;
+      var xy = pts.map(function (x, i) { return [Math.round(12 + i * (W - 24) / (n - 1)), Math.round(H - 10 - x.donnees.moyenne / 10 * (H - 20))]; });
+      h += '<svg class="ch-courbe" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Évolution de ta météo intérieure"><line x1="12" x2="' + (W - 12) + '" y1="' + (H / 2) + '" y2="' + (H / 2) + '" stroke="#EBCFD5" stroke-dasharray="3 4"/>' +
+        '<polyline fill="none" stroke="#6B2F5B" stroke-width="2" points="' + xy.map(function (p) { return p.join(','); }).join(' ') + '"/>' +
+        xy.map(function (p, i) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="4" fill="' + (pts[i].donnees.moment === 'fin' ? '#B98A55' : '#6B2F5B') + '"><title>' + esc(pts[i].titre) + ' : ' + pts[i].donnees.moyenne + '/10</title></circle>'; }).join('') + '</svg>' +
+        '<p class="tb-aide">Chaque point est la moyenne de tes six curseurs. Violet : début de mois. Doré : fin de mois.</p>';
+    }
+    var lettres = l.filter(function (x) { return x.donnees && x.donnees.lettre; });
+    if (lettres.length) h += '<div class="ch-lettres">' + lettres.map(function (x) {
+      var ouverte = new Date(x.cree_le); ouverte.setFullYear(ouverte.getFullYear() + 1);
+      var prete = Date.now() >= ouverte.getTime();
+      return prete ? '<details class="ch-lettre"><summary>Ta lettre écrite le ' + esc(dateCourte(x.cree_le)) + ' t’attend</summary><p>' + esc(x.donnees.lettre).replace(/\n/g, '<br>') + '</p></details>'
+        : '<p class="ch-lettre ch-scellee">Ta lettre de dans un an, écrite le ' + esc(dateCourte(x.cree_le)) + ', s’ouvrira ici le ' + esc(dateCourte(ouverte)) + '.</p>';
+    }).join('') + '</div>';
+    return h;
   }
   function chargerChemin() {
     var z = $('chemin-liste'); if (!z) return;
@@ -289,7 +316,7 @@
         var g = par[k], d = g[0], ev = evolution(k, g), p = PAGES_OUTILS[k];
         return '<article class="ch-outil"><span class="ch-nb">' + g.length + ' résultat' + (g.length > 1 ? 's' : '') + '</span><h3>' + esc(NOMS_OUTILS[k] || k) + '</h3>' +
           '<p class="ch-dernier"><b>' + esc(dateCourte(d.cree_le)) + '</b> · ' + esc(d.titre) + (d.resume ? '<br>' + esc(d.resume) : '') + '</p>' +
-          (ev ? '<p class="ch-evol">' + esc(ev) + '</p>' : '') +
+          (ev ? '<p class="ch-evol">' + esc(ev) + '</p>' : '') + (k === 'meteo' ? meteoHtml(g) : '') +
           '<details><summary>Voir tout l’historique</summary><ul class="ch-hist">' + g.map(function (x) {
             return '<li><time datetime="' + esc(x.cree_le) + '">' + esc(dateCourte(x.cree_le)) + '</time><span>' + esc(x.titre) + (x.resume ? ' · ' + esc(x.resume) : '') + '</span><button type="button" class="ch-suppr" data-suppr="' + esc(x.id) + '" aria-label="Effacer ce résultat">×</button></li>';
           }).join('') + '</ul></details>' +

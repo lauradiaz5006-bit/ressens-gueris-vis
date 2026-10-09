@@ -132,7 +132,7 @@
     };
     /* Les carnets du mois (PDF dans assets/cercle/) : ajouter une ligne par nouveau carnet */
     var CARNETS = {
-      '2026-10': { titre: "Ce qui revient", fichier: 'cercle-2026-10-8b31e0c2a4.pdf' },
+      '2026-10': { titre: "Ce qui revient", fichier: 'cercle-2026-10-8b31e0c2a4.pdf', enLigne: true },
       '2026-11': { titre: "Ceux qui sont venus avant toi", fichier: 'cercle-2026-11-474ce578d0.pdf' },
       '2026-12': { titre: "Les fêtes et les places à table", fichier: 'cercle-2026-12-ce7016469f.pdf' },
       '2027-01': { titre: "Ton prénom, ton héritage", fichier: 'cercle-2027-01-6750c8248e.pdf' },
@@ -261,8 +261,8 @@
       h += '<h2 class="m-titre">Ton carnet du mois</h2>';
       if (actuel) {
         var c = CARNETS[actuel];
-        h += '<div class="m-carnet"><div><p class="m-etiq">' + (actuel > cle ? 'En avant-première · ' : '') + 'Le carnet ' + de(nom(actuel)) + '</p><h3>' + esc(c.titre) + '</h3><p>Un carnet de dix pages à imprimer : le thème du mois expliqué, trois exercices, un rituel symbolique, une méditation à lire et tes quatre semaines.</p></div>' +
-          '<a class="btn btn-plein" href="assets/cercle/' + c.fichier + '" download>Télécharger mon carnet (PDF)</a></div>';
+        h += '<div class="m-carnet"><div><p class="m-etiq">' + (actuel > cle ? 'En avant-première · ' : '') + 'Le carnet ' + de(nom(actuel)) + '</p><h3>' + esc(c.titre) + '</h3><p>' + (c.enLigne ? 'À remplir en ligne ou à imprimer : ta météo intérieure du début et de la fin du mois, ton objectif, le thème expliqué, trois exercices, un rituel, une méditation et tes quatre semaines. Tes réponses sont gardées dans ton espace.' : 'Un carnet de dix pages à imprimer : le thème du mois expliqué, trois exercices, un rituel symbolique, une méditation à lire et tes quatre semaines.') + '</p></div>' +
+          (c.enLigne ? '<div style="display:flex;flex-direction:column;gap:.5rem"><a class="btn btn-plein" href="mon-carnet.html?mois=' + actuel + '">Remplir mon carnet en ligne</a><a class="btn btn-trait" href="assets/cercle/' + c.fichier + '" download>Version papier (PDF)</a></div></div>' : '<a class="btn btn-plein" href="assets/cercle/' + c.fichier + '" download>Télécharger mon carnet (PDF)</a></div>');
       } else h += '<p class="m-vide">Le carnet ' + de(nomMois) + ' arrive très bientôt.</p>';
       if (anciens.length) h += '<p class="m-anciens">Tes carnets précédents : ' + anciens.map(function (k) { return '<a href="assets/cercle/' + CARNETS[k].fichier + '" download>' + nom(k) + ', ' + esc(CARNETS[k].titre) + '</a>'; }).join(' · ') + '</p>';
       return h;
@@ -301,7 +301,7 @@
         window.GenesoliaEnvoyer('Carnet offert du Cercle', data, 'genesolia-carnet-cercle')
           .then(function () {
             var url = 'assets/cercle/' + c.fichier;
-            f.outerHTML = '<p class="m-merci">Merci ! Ton carnet se télécharge. S\'il ne s\'ouvre pas, <a href="' + url + '" download>clique ici</a>. Tu seras prévenue dès l\'ouverture du Cercle, pour recevoir le carnet du mois suivant.</p>';
+            f.outerHTML = '<p class="m-merci">Merci ! Ton carnet se télécharge. S\'il ne s\'ouvre pas, <a href="' + url + '" download>clique ici</a>. Tu seras prévenue dès l\'ouverture du Cercle, pour recevoir le carnet du mois suivant.</p>' + (c.enLigne ? '<p style="margin-top:.8rem"><a class="btn btn-trait" href="mon-carnet.html?mois=' + CERCLE.offert + '">Le remplir en ligne</a></p>' : '');
             var a = document.createElement('a'); a.href = url; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
             if (window.umami) try { window.umami.track('carnet-offert'); } catch (x) {}
           })
