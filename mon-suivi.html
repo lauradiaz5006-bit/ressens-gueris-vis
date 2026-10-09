@@ -104,7 +104,7 @@
       </div>
     </section>
     <figure class="bandeau-photo"><img src="assets/images/suivi-1600.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Une femme assise en méditation face à la fenêtre, au soleil couchant" loading="lazy" decoding="async"></figure>
-    <section class="bloc s-zone"><div class="conteneur" id="s-corps"><p class="note">Chargement de ton suivi…</p></div></section>
+    <section class="bloc s-zone"><div class="conteneur"><div id="s-coffre" hidden style="margin-bottom:1rem"></div></div><div class="conteneur" id="s-corps"><p class="note">Chargement de ton suivi…</p></div></section>
   
     <section class="bloc bloc-doux" data-seo-texte><div class="conteneur" style="max-width:46rem"><h2>Comment sortir de ses schémas répétitifs ?</h2>
 <p>Tu as peut-être déjà remarqué que certaines situations reviennent dans ta vie sous des visages différents : le même type de relation, le même conflit au travail, la même peur de manquer alors que tout va bien. Comprendre d'où vient une répétition est une première étape, mais rarement la dernière. On peut savoir très bien pourquoi on réagit d'une certaine façon, et continuer à le faire. Sortir d'un schéma demande du temps, de l'attention et des gestes répétés, semaine après semaine.</p>
@@ -170,7 +170,9 @@
       if (!sb || !utilisateur) return;
       clearTimeout(minuteurSave);
       minuteurSave = setTimeout(function () {
-        sb.from('parcours').upsert({ user_id: utilisateur.id, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id' }).then(function () {
+        var CF = window.GenesoliaCoffre;
+        if (CF && !CF.accord(utilisateur)) return;   /* sans accord, le suivi reste sur l'appareil */
+        (CF ? CF.ecrire(sb, utilisateur, null, D) : sb.from('parcours').upsert({ user_id: utilisateur.id, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id' })).then(function () {
           var o = document.querySelectorAll('.s-ok'); o.forEach(function (x) { x.textContent = 'Enregistré'; setTimeout(function () { x.textContent = ''; }, 1500); });
         }, function () {});
       }, immediat ? 0 : 800);
@@ -375,8 +377,9 @@
       if (!s) { afficher(); return; }
       utilisateur = s.user;
       var m = window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre() : Promise.resolve(false);
-      return m.then(function (x) { SUIVI.membre = x; }).then(function () { return sb.from('parcours').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
-        var distant = r && r.data && r.data.data;
+      return m.then(function (x) { SUIVI.membre = x; }).then(function () { var CF = window.GenesoliaCoffre;
+      return (CF ? CF.lire(sb, utilisateur, null) : sb.from('parcours').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) { return r && r.data && r.data.data; })).then(function (distant) {
+        if (CF && !CF.accord(utilisateur)) setTimeout(function () { var z = document.getElementById('s-coffre'); CF.demander(z, sb, function () { utilisateur.user_metadata = Object.assign({}, utilisateur.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(true); }); }, 50);
         if (distant && distant.bilan) D = distant;           /* le suivi du compte prime */
         else if (D.bilan) sauver(true);                         /* bilan fait avant la connexion : on le rattache au compte */
         afficher();

@@ -143,8 +143,9 @@
     }
     function reponses(user, C) {
       if (!C) return Promise.resolve(0);
-      return sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', C.mois).maybeSingle().then(function (r) {
-        var v = (r && r.data && r.data.data && r.data.data.v) || {};
+      var CF = window.GenesoliaCoffre;
+      return (CF ? CF.lire(sb, user, C.mois) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', C.mois).maybeSingle().then(function (r) { return r && r.data ? r.data.data : null; })).then(function (d) {
+        var v = (d && d.v) || {};
         return Object.keys(v).filter(function (k) { return typeof v[k] === 'string' && v[k].trim(); }).length;
       }, function () { return 0; });
     }

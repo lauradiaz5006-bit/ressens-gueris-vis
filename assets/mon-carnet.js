@@ -208,8 +208,15 @@
         curseur('obj-croyance', 'À quel point crois-tu pouvoir y arriver ?', 'pas du tout', 'complètement') +
         zone('obj-un-point', 'Qu’est-ce qui te ferait gagner un point de plus sur ce curseur ?', { court: true, ph: 'Exemple : en parler à une amie qui m’encouragera' }) +
       '</section>' +
-      '<section class="mc-etape"><h3><span>4</span> Te projeter</h3><p class="mc-consigne">Ferme les yeux quelques secondes et imagine-toi à la fin du mois, ton objectif atteint. Où es-tu ? Qu’est-ce que tu vois, qu’est-ce que tu entends, comment te sens-tu dans ton corps ? Puis écris.</p>' +
-        zone('proj-mois', 'À la fin du mois, que vois-tu, qu’entends-tu, que ressens-tu ?', { lignes: 4, ph: 'Exemple : je suis sur mon canapé un mardi soir, le téléphone éteint, et je me sens à ma place.' }) +
+      '<section class="mc-etape mc-intention"><h3><span>4</span> Mon intention prend vie</h3><p class="mc-consigne">Ce que tu nourris de ton attention grandit. Ce mois-ci, tu vas donner à ton objectif une image, une émotion et une croyance qui le soutiennent, comme on prépare la terre avant de semer. Prends ton temps : c’est souvent la page qui change tout.</p>' +
+        '<p class="mc-sur">Désirer</p>' + zone('int-desir', 'Au-delà de ton objectif, qu’est-ce que tu désires vraiment ressentir ? Qu’est-ce qu’il t’apportera au fond ?', { lignes: 2, ph: 'Exemple : me sentir libre, légère, respectée. Avoir enfin de l’espace pour moi.' }) +
+        '<p class="mc-sur">Ressentir, comme si c’était déjà là</p><p class="mc-consigne">Ferme les yeux quelques secondes. Imagine-toi à la fin du mois, ton intention réalisée. Où es-tu ? Que vois-tu, qu’entends-tu ? Laisse monter l’émotion dans ton corps, la joie, le soulagement, la fierté. Puis écris au présent, comme si tu le vivais déjà.</p>' +
+        zone('proj-mois', 'Raconte cette scène au présent : que vois-tu, qu’entends-tu, que ressens-tu ?', { lignes: 4, ph: 'Exemple : c’est mardi soir, je suis sur mon canapé, le téléphone éteint. Je souris, je me sens à ma place, mes épaules sont légères.' }) +
+        '<p class="mc-sur">Croire</p>' +
+        '<div class="mc-deux">' + zone('int-frein', 'Quelle petite voix te dit que ce n’est pas possible, ou pas pour toi ?', { lignes: 2, ph: 'Exemple : « Ce n’est pas pour les gens comme moi. »' }) +
+          zone('int-croire', 'Que choisis-tu de croire à la place ? Une phrase douce et vraie pour toi.', { lignes: 2, ph: 'Exemple : « J’ai le droit d’avoir une vie qui me ressemble, et j’apprends chaque jour. »' }) + '</div>' +
+        '<p class="mc-sur">Voir</p><p class="mc-consigne">Ton mini tableau de vision : trois mots ou trois images qui représentent ce que tu accueilles ce mois-ci. Tu peux aussi les découper dans un magazine et les coller près de ton lit, pour les voir chaque matin.</p>' +
+        '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : un bain chaud' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « oui »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : la mer au lever du jour' }) + '</div>' +
       '</section>' +
       '<section class="mc-etape"><h3><span>5</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + '</section>' +
       plus('lettre', 'Ta lettre de dans un an',
@@ -290,6 +297,8 @@
       '<ol class="mc-etapes">' + R.etapes.map(function (e) { return '<li>' + md(e) + '</li>'; }).join('') + '</ol>' +
       (R.quand ? encadre('Quand t’en servir', '<p>' + md(R.quand) + '</p>') : '') +
       zone(R.note.k, R.note.q, { lignes: 3, ph: R.note.ph }) +
+      encadre('Lâcher prise et faire confiance', '<p>Une fois ton intention posée, tu n’as pas besoin de la surveiller ni de tout contrôler. Fais ta part, les petits pas, et laisse la vie faire la sienne, parfois d’une manière que tu n’avais pas imaginée.</p>' +
+        zone('confiance', 'Qu’est-ce que tu confies à la vie ce mois-ci, ce que tu acceptes de ne pas tout contrôler ?', { lignes: 2, ph: 'Exemple : le moment où ma sœur sera prête à en parler. Je fais ma part, je laisse venir le reste.' }), 'mc-encadre-rose') +
       '<div class="mc-separe">' + ORNEMENT + '</div>' +
       '<p class="mc-sur">La méditation du mois</p><h3 class="mc-h">' + esc(M.titre) + '</h3>' +
       lecteur(C.audio, 'Écouter la méditation guidée') + lecteur(C.audioCourt, 'La version courte, 2 minutes') +
@@ -320,6 +329,7 @@
         zone(k + '-notes', 'Qu’as-tu remarqué, essayé ou ressenti cette semaine ?', { lignes: 3, ph: s.ph }) +
         zone(k + '-victoire', 'Quelle est ta victoire de la semaine, même toute petite ?', { court: true, ph: 'Exemple : j’ai tenu mon rendez-vous avec moi samedi' }) +
         zone(k + '-appris', 'Qu’as-tu appris sur toi cette semaine ?', { court: true, ph: 'Exemple : quand je suis fatigué·e, je dis oui plus vite' }) +
+        zone(k + '-signes', 'Qu’est-ce qui est venu vers toi cette semaine ? Un signe, une rencontre, une coïncidence, une bonne nouvelle, même minuscule.', { lignes: 2, ph: 'Exemple : une amie m’a proposé exactement la balade dont j’avais envie, sans que je lui en parle.' }) +
         curseur(k + '-elan', 'Quel a été ton élan cette semaine ?', 'à plat', 'plein élan') + '</section>';
     }).join('');
   } });
@@ -339,7 +349,8 @@
         zone('fin-fiertes', 'Quelles sont les trois choses dont tu es fier·e ce mois-ci ?', { lignes: 3, ph: 'Exemple : avoir dit non une fois, avoir appelé ma tante, avoir ouvert ce carnet chaque semaine.' }) +
         zone('fin-recadrage', 'Quelle difficulté as-tu rencontrée, et qu’est-ce qu’elle t’a appris ?', { lignes: 3, ph: 'Exemple : j’ai cédé deux fois. J’ai compris que la fatigue me fait retomber dans mes vieilles habitudes.' }) +
         '<div class="mc-deux">' + zone('fin-garder', 'Qu’est-ce que tu gardes de ce mois ?', { lignes: 2, ph: 'Exemple : la main suspendue' }) + zone('fin-laisser', 'Qu’est-ce que tu laisses derrière toi ?', { lignes: 2, ph: 'Exemple : l’idée que je dois tout porter' }) + '</div>' +
-        zone('fin-merci', 'Pour quoi te remercies-tu ?', { lignes: 2, ph: 'Exemple : pour avoir essayé, même quand j’avais peur.' }) +
+        zone('fin-recu', 'Qu’est-ce qui est arrivé ce mois-ci, peut-être autrement que tu l’imaginais ?', { lignes: 3, ph: 'Exemple : je n’ai pas eu de grande conversation avec ma mère, mais elle m’a appelée d’elle-même pour mon anniversaire.' }) +
+        zone('fin-merci', 'Pour quoi dis-tu merci, à toi et à la vie ?', { lignes: 2, ph: 'Exemple : pour avoir essayé, même quand j’avais peur, et pour les mains tendues que je n’attendais pas.' }) +
       '</section>' +
       '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="fin">Enregistrer mon bilan du mois</button><p class="mc-retour" data-retour="fin" aria-live="polite"></p></div>' +
       lienSuivi() + aVenir() +
@@ -685,10 +696,12 @@
     try { localStorage.setItem(CLE_LOCALE, JSON.stringify(D)); } catch (e) {}
     clearTimeout(minuteur);
     if (!user || !sb) { etat('Gardé jusqu’à la fermeture du navigateur'); return; }
+    var CF = window.GenesoliaCoffre;
+    if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
-      sb.from('carnets').upsert({ user_id: user.id, mois: CLE, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' })
-        .then(function (r) { etat(r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré dans ton espace'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
+      (CF ? CF.ecrire(sb, user, CLE, D) : sb.from('carnets').upsert({ user_id: user.id, mois: CLE, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' }))
+        .then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré et chiffré dans ton espace'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
     }, 900);
   }
   function fusion(a, b) { var r = { v: {} }; [a, b].forEach(function (x) { if (x && x.v) Object.keys(x.v).forEach(function (k) { r.v[k] = x.v[k]; }); }); return r; }
@@ -701,10 +714,12 @@
       user = s.user;
       prenom = String((user.user_metadata && user.user_metadata.full_name) || '').trim().slice(0, 40);
       perso();
-      sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) {
-        D = fusion(x && x.data, local);
-        appliquer(); etat('Enregistré dans ton espace');
-        if (local && Object.keys(local.v || {}).length) sauver();
+      var CF = window.GenesoliaCoffre;
+      (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
+        D = fusion(distant, local);
+        appliquer();
+        if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
+        else { etat('Enregistré et chiffré dans ton espace'); if (local && Object.keys(local.v || {}).length) sauver(); }
       });
       sb.from('resultats').select('titre,donnees,cree_le').eq('outil', 'meteo').order('cree_le', { ascending: false }).limit(24).then(function (x) {
         historique = (x && x.data) || [];
