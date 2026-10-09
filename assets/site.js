@@ -520,7 +520,7 @@ window.GENESOLIA_IMPRESSION = {
     bandeauCookies(false);
   });
 
-  /* Petit carré en bas à gauche : le premier carnet du Cercle offert.
+  /* Petit carré en bas à gauche : le premier carnet du Cercle offert (jamais sur mon-carnet.html : la personne est déjà dans le carnet).
      Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient à la prochaine visite. */
   var CARRE = {
     titre: 'Ce qui revient',
@@ -541,7 +541,7 @@ window.GENESOLIA_IMPRESSION = {
       return;
     }
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
-    if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     try {
       if (sessionStorage.getItem('carre-cercle-ferme') === '1') return;
     } catch (e) {}
