@@ -66,6 +66,11 @@
     .s-table td{padding:.35rem .4rem;vertical-align:top}
     .s-table td:first-child{font-weight:600;color:var(--prune);width:24%;padding-top:.8rem}
     .s-racine{background:var(--rose);border-radius:14px;padding:1rem 1.2rem;margin:.8rem 0}
+    .s-saison{background:linear-gradient(135deg,#FBF0E4,#fff 70%);border:1px solid #E8CFA8}
+    .s-saison h2{font-size:1.5rem;margin:.2rem 0 .6rem}
+    .s-permission{margin-top:.8rem;padding:.7rem .9rem;border-radius:12px;background:#fff;border-left:3px solid #B98A55}
+    .s-citation{margin-top:.8rem;font:400 1.1rem/1.4 var(--display);color:var(--prune);text-align:center}
+    .s-lien-carnet{border:1px dashed var(--rose-fonce)}
     .s-entree{border-left:3px solid var(--champagne);padding:.4rem 0 .4rem .9rem;margin:.6rem 0;color:var(--prune-doux);font-size:.92rem}
     .s-entree b{color:var(--prune)}
     .s-souffle{display:flex;align-items:center;gap:1.2rem;margin:1rem 0}
@@ -109,6 +114,7 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
+  <script src="assets/saisons.js"></script>
   <script>
   (function () {
     'use strict';
@@ -254,7 +260,12 @@
         '<div class="s-champ"><label for="s3-vou">Ce que j\'aurais voulu faire</label><input type="text" id="s3-vou" placeholder="Si j\'avais été libre de choisir…"></div>' +
         '<button class="btn btn-trait" type="submit">Ajouter à mon journal</button></form>' +
         '<h3>Mon journal (' + l.length + ')</h3>' + (l.length ? l.slice().reverse().map(function (x) { return '<div class="s-entree"><b>' + esc(x.date) + ' · ' + esc(x.situation) + '</b><br>Ressenti : ' + esc(x.ressenti || '…') + ' · Réaction : ' + esc(x.reaction || '…') + '<br>J\'aurais voulu : ' + esc(x.voulu || '…') + '</div>'; }).join('') : '<p class="note">Ton journal est vide pour l\'instant.</p>') +
-        (l.length >= 2 ? '<div class="s-racine"><p class="s-etiq">Ce qui se dessine</p><p>Relis tes situations : qu\'ont-elles en commun ? Le même type de personne, le même moment de la journée, la même phrase qui te traverse ? Ce point commun est la porte d\'entrée de ta boucle.</p></div>' : '') + '</div>';
+        (l.length >= 2 ? '<div class="s-racine"><p class="s-etiq">Ce qui se dessine</p><p>Relis tes situations : qu\'ont-elles en commun ? Le même type de personne, le même moment de la journée, la même phrase qui te traverse ? Ce point commun est la porte d\'entrée de ta boucle.</p></div>' : '') +
+        '<h3>Libérer : attrape tes phrases qui tournent</h3><p>Chaque boucle a sa petite phrase intérieure : « Je dois me débrouiller seul·e », « Je vais encore déranger », « De toute façon, ça finit mal ». Ces phrases ont souvent été entendues enfant, dans la bouche d\'un parent ou d\'une grand-mère. Elles ne t\'appartiennent pas forcément. Écris-en une, cherche d\'où elle vient, et rends-la symboliquement.</p>' +
+        '<div class="s-champ"><label for="s3-phrase">La phrase que tu te dis quand ta boucle démarre</label><input type="text" id="s3-phrase" data-s3x="phrase" value="' + esc(D.m1.s3x && D.m1.s3x.phrase || '') + '" placeholder="Exemple : « Si je ne le fais pas, personne ne le fera. »"></div>' +
+        '<div class="s-champ"><label for="s3-qui">Qui disait cette phrase, ou la vivait, dans ta famille ?</label><input type="text" id="s3-qui" data-s3x="qui" value="' + esc(D.m1.s3x && D.m1.s3x.qui || '') + '" placeholder="Exemple : ma grand-mère, qui tenait toute la maison seule"></div>' +
+        '<div class="s-champ"><label for="s3-rends">Ce que tu lui dis pour la lui rendre</label><textarea id="s3-rends" data-s3x="rends" placeholder="Exemple : « Mamie, cette phrase t\'a aidée à tenir. Je la reconnais, je te la rends avec respect. Moi, j\'ai le droit de demander de l\'aide. »">' + esc(D.m1.s3x && D.m1.s3x.rends || '') + '</textarea></div>' +
+        '<div class="s-racine"><p class="s-etiq">Le rituel de la semaine : la main suspendue</p><p>Quand tu sens la vieille réaction monter (une chaleur, une gorge serrée, ta phrase qui revient), lève doucement une main, paume ouverte, comme pour dire « pause ». Respire trois fois en la regardant, et dis intérieurement : « Je reconnais cette boucle. Elle m\'a protégé·e. Aujourd\'hui, je peux choisir autrement. » Sous la table ou dans ta poche, ça marche aussi.</p></div></div>';
       return h;
     }
     function semaine4() {
@@ -264,6 +275,9 @@
         '<div class="s-souffle"><div class="s-bulle" id="s-bulle"></div><div><button class="btn btn-trait" type="button" id="s-respirer">Respirer avec moi</button><p class="note" id="s-consigne" style="margin-top:.5rem"></p></div></div>' +
         '<h3>2. Nommer, pour reprendre la main</h3><p>Dis-toi, à voix basse ou intérieurement : <b>« Je te vois, ' + esc(nom) + '. Je sais d\'où tu viens. Aujourd\'hui, je peux choisir autrement. »</b> Nommer ce qui se rejoue suffit souvent à faire redescendre l\'intensité.</p>' +
         '<h3>Ma pratique de la semaine</h3><p class="note">Coche chaque jour où tu as fait la pause, même une seule fois.</p><div class="s-jours">' + ['Jour 1', 'Jour 2', 'Jour 3', 'Jour 4', 'Jour 5', 'Jour 6', 'Jour 7'].map(function (j, i) { return '<label><input type="checkbox" data-jour="' + i + '"' + (s.jours[i] ? ' checked' : '') + '>' + j + '</label>'; }).join('') + '</div>' +
+        '<h3>Remplacer : ton geste différent</h3><p>Sortir d\'une boucle commence par un tout petit geste différent, au moment précis où elle se déclenche : respirer avant de répondre, dire « je te réponds demain », demander au lieu d\'attendre. Choisis le tien. Il devient ton point d\'appui dans ton carnet du mois.</p>' +
+        '<div class="s-champ"><label for="s4-geste">« La prochaine fois que ma boucle démarre, au lieu de…, je vais… »</label><textarea id="s4-geste" data-s4="geste" placeholder="Exemple : au lieu de dire oui tout de suite, je vais dire « je regarde mon agenda et je te réponds ce soir ».">' + esc(s.geste || '') + '</textarea></div>' +
+        '<p class="note">Reporte ce geste dans <a href="mon-carnet.html">ton carnet du mois</a> : ce que tu libères ici nourrit ce que tu construis là-bas.</p>' +
         '<h3>Mon bilan du mois</h3>' +
         '<div class="s-champ"><label for="s4-dec">Ce que j\'ai découvert sur ma boucle ce mois-ci</label><textarea id="s4-dec" data-s4="decouverte">' + esc(s.decouverte || '') + '</textarea></div>' +
         '<div class="s-champ"><label for="s4-phr">Ma boucle en une phrase, aujourd\'hui</label><input type="text" id="s4-phr" data-s4="phrase" value="' + esc(s.phrase || D.bilan.boucle || '') + '"></div>' +
@@ -273,17 +287,24 @@
       return h;
     }
 
+    /* La saison du mois en cours : remettre ce que l'on vit dans le rythme de la nature */
+    function saison() {
+      var S = window.GENESOLIA_SAISONS, n = new Date().getMonth() + 1, x = S && S[n]; if (!x) return '';
+      return '<div class="s-bloc s-saison"><p class="s-etiq">' + esc(x.mois) + ' · la saison</p><h2>' + esc(x.titre.charAt(0).toUpperCase() + x.titre.slice(1)) + '</h2><p>' + esc(x.texte) + '</p>' +
+        '<p class="s-permission"><b>Ce que ça veut dire pour toi :</b> ' + esc(x.permission) + '</p><p class="note"><b>Un geste de saison :</b> ' + esc(x.geste) + '</p><p class="s-citation">« ' + esc(x.citation) + ' »</p></div>';
+    }
     function mois1() {
       if (!D.m1) { D.m1 = { debut: new Date().toISOString() }; sauver(true); }
       var m = D.m1, s1f = m.s1 && Object.keys(m.s1).some(function (k) { return m.s1[k].pese || m.s1[k].peur; }), s2f = !!racinePrincipale(), s3f = (m.s3 || []).length >= 3, s4f = !!(m.s4 && m.s4.fini);
-      var sem = [[1, 'Ce qui te pèse, ce qui te fait peur', s1f, semaine1], [2, 'Trouver la racine', s2f, semaine2], [3, 'Voir ta boucle en action', s3f, semaine3], [4, 'La première pause et ton bilan', s4f, semaine4]];
-      var h = '<div class="s-bloc doux"><p class="s-etiq">Mois 1</p><h2>Voir ta boucle</h2><p>Une semaine s\'ouvre tous les sept jours. Prends ton temps : chaque exercice demande une quinzaine de minutes, et tu peux y revenir autant que tu veux. Tout ce que tu écris est enregistré dans ton espace, et toi seule peux le lire.</p></div>';
+      var sem = [[1, 'Voir : ce qui te pèse, ce qui te fait peur', s1f, semaine1], [2, 'Remonter à la source', s2f, semaine2], [3, 'Libérer : ta boucle en action, tes phrases', s3f, semaine3], [4, 'Remplacer : la pause, ton geste et ton bilan', s4f, semaine4]];
+      var h = saison() + '<div class="s-bloc doux"><p class="s-etiq">Mois 1 · Ce qui revient</p><h2>Voir ta boucle</h2><p>Une semaine s\'ouvre tous les sept jours. Prends ton temps : chaque exercice demande une quinzaine de minutes, et tu peux y revenir autant que tu veux. Tout ce que tu écris est enregistré dans ton espace, et toi seule peux le lire.</p></div>';
       var premiere = 0; sem.forEach(function (x) { if (!premiere && semaineOuverte(x[0]) && !x[2]) premiere = x[0]; });
       h += sem.map(function (x) {
         var ouv = semaineOuverte(x[0]);
         if (x[0] > 1 && !(SUIVI.libre || SUIVI.membre)) return '<details class="s-semaine ferme" data-sem="' + x[0] + '"><summary><b>Semaine ' + x[0] + ' · ' + x[1] + '</b><span>Avec Le Cercle</span></summary><div class="s-corps"><p>La suite de ton suivi fait partie du Cercle : chaque semaine un exercice pour te libérer de ce qui se rejoue, ton journal et tes bilans, en plus de ton carnet du mois.</p><p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle, 1 mois offert</a></p></div></details>';
         return '<details class="s-semaine' + (ouv ? '' : ' ferme') + '" data-sem="' + x[0] + '"' + (ouv && x[0] === premiere ? ' open' : '') + '>' + enTete(x[0], x[1], x[2]) + (ouv ? x[3]() : '<div class="s-corps"><p class="note">Cette semaine s\'ouvrira le ' + dateFr(ouvertureSemaine(x[0])) + '.</p></div>') + '</details>';
       }).join('');
+      h += '<div class="s-bloc s-lien-carnet"><p class="s-etiq">Avec ton carnet « J\'avance »</p><p>Ton suivi t\'aide à te libérer de ce qui se rejoue. Ton carnet du mois t\'aide à construire ce que tu veux : ta roue de la vie, ton objectif, tes petits pas. Les deux avancent ensemble.</p><p><a class="btn btn-trait" href="mon-carnet.html">Ouvrir mon carnet du mois</a></p></div>';
       h += '<div class="s-actions"><button class="btn btn-trait" type="button" id="s-imprimer">Imprimer mon suivi</button><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="genosociogramme.html">Mon arbre</a></div>';
       return h;
     }
@@ -318,6 +339,7 @@
         sauver(true); rafraichirEnGardantOuvert();
       });
       corps.querySelectorAll('[data-jour]').forEach(function (c) { c.addEventListener('change', function () { D.m1.s4.jours[+c.getAttribute('data-jour')] = c.checked; sauver(); }); });
+      corps.querySelectorAll('[data-s3x]').forEach(function (t) { t.addEventListener('input', function () { D.m1.s3x = D.m1.s3x || {}; D.m1.s3x[t.getAttribute('data-s3x')] = t.value; sauver(); }); });
       corps.querySelectorAll('[data-s4]').forEach(function (t) { t.addEventListener('input', function () { D.m1.s4[t.getAttribute('data-s4')] = t.value; sauver(); }); });
       var i4 = document.getElementById('s4-int'); if (i4) i4.addEventListener('input', function () { document.getElementById('s4-int-v').textContent = i4.value; D.m1.s4.intensite = +i4.value; sauver(); });
       var fin = document.getElementById('s4-fin'); if (fin) fin.addEventListener('click', function () { D.m1.s4.intensite = +document.getElementById('s4-int').value; D.m1.s4.fini = new Date().toISOString(); sauver(true); if (window.umami) try { window.umami.track('suivi-mois1-fini'); } catch (x) {} rafraichirEnGardantOuvert(); });
