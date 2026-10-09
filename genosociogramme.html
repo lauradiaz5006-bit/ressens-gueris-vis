@@ -355,8 +355,8 @@
       <button class="bt" type="button" id="bt-numero" aria-haspopup="dialog">Numérologie</button>
       <button class="bt" type="button" id="bt-astro" aria-haspopup="dialog">Astrologie</button>
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
-      <button class="bt" type="button" id="bt-image">Télécharger l'image</button>
-      <button class="bt" type="button" id="bt-imprimer">Imprimer</button>
+      <button class="bt" type="button" id="bt-image" data-compte="l’image de ton arbre">Télécharger l'image</button>
+      <button class="bt" type="button" id="bt-imprimer" data-compte="ton arbre à imprimer">Imprimer</button>
       <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
       <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
       <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
@@ -538,12 +538,12 @@
       <div class="fen-corps">
         <p style="color:var(--prune-doux);font-size:.92rem;margin-bottom:1rem" id="fs-texte"></p>
         <div style="display:grid;gap:.5rem">
-          <button class="bt plein" type="button" id="bt-json" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
+          <button class="bt plein" type="button" id="bt-json" data-compte="la copie de ton arbre" style="justify-content:center;padding:.75rem">Télécharger une copie de mon arbre</button>
           <button class="bt" type="button" id="bt-ouvrir" style="justify-content:center;padding:.75rem">Ouvrir une copie</button>
           <button class="bt" type="button" id="bt-importer" style="justify-content:center;padding:.75rem">Importer un arbre (PDF ou GEDCOM)</button>
           <button class="bt" type="button" id="bt-gedcom" style="justify-content:center;padding:.75rem">Exporter en GEDCOM (.ged)</button>
           <p id="bt-gedcom-info" hidden style="color:var(--prune-doux);font-size:.85rem;margin:-.2rem 0 .2rem;text-align:center"></p>
-          <button class="bt" type="button" id="bt-svg" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
+          <button class="bt" type="button" id="bt-svg" data-compte="l’image de ton arbre" style="justify-content:center;padding:.75rem">Télécharger l'image en vectoriel (.svg)</button>
           <a class="bt" href="login.html?retour=genosociogramme.html" id="bt-compte" style="justify-content:center;padding:.75rem">Me connecter pour sauvegarder dans mon espace</a>
           <button class="bt danger" type="button" id="bt-effacer" style="justify-content:center;padding:.75rem;margin-top:.6rem">Effacer l'arbre et recommencer</button>
         </div>

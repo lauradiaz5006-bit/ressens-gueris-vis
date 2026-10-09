@@ -153,6 +153,18 @@ window.GENESOLIA_IMPRESSION = {
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
         '</nav>' +
       '</div>';
+    /* Lien de l'espace : « Me connecter » ou « Mon espace » (avec un point doré) selon l'état, mis à jour entre onglets */
+    var majEspace = function () {
+      var a = entete.querySelector('.menu a[href="login.html"]'); if (!a) return;
+      var x = null; try { x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
+      var co = !!(x && x.refresh_token);
+      a.classList.toggle('espace-connecte', co);
+      a.innerHTML = co ? '<span class="point-connecte" aria-hidden="true"></span>Mon espace' : 'Me connecter';
+      a.setAttribute('title', co ? 'Tu es connectée' + (x.user && x.user.email ? ' (' + x.user.email + ')' : '') : 'Se connecter ou créer son espace');
+    };
+    majEspace();
+    window.GenesoliaMajEntete = majEspace;
+    window.addEventListener('storage', function (e) { if (!e.key || e.key === 'sb-qsvzzkjtjsznfntahvvh-auth-token') majEspace(); });
     var burger = entete.querySelector('.burger'), menu = entete.querySelector('.menu');
     burger.addEventListener('click', function () {
       var ouvert = menu.classList.toggle('ouvert');
@@ -256,7 +268,7 @@ window.GENESOLIA_IMPRESSION = {
   }
   window.GenesoliaEnvoyer = envoyerFormulaire;
   window.GenesoliaN8NAdresse = function () { return N8N; };
-  var CARNET = 'assets/carnet-des-deux-cycles.pdf';
+  var CARNET = 'assets/carnet-des-deux-cycles-8a44d6c993.pdf';
   function telecharger() {
     var a = document.createElement('a');
     a.href = CARNET; a.download = 'carnet-des-deux-cycles-genesolia.pdf';
@@ -472,7 +484,20 @@ window.GENESOLIA_IMPRESSION = {
     image: 'assets/cercle/apercu-2026-10.jpg',
     lien: 'mon-mois.html#offert'
   };
+  /* Sur téléphone, le petit carré attend que la personne ait lu un peu (60 % de la page) et ne s'ajoute jamais par-dessus une autre fenêtre */
+  var PETIT_ECRAN = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
   function carreCercle() {
+    if (PETIT_ECRAN && !carreCercle.pret) {
+      var attendre = function () {
+        var h = document.documentElement, lu = (h.scrollTop + window.innerHeight) / Math.max(1, h.scrollHeight);
+        if (lu < 0.6) return;
+        window.removeEventListener('scroll', attendre);
+        carreCercle.pret = true; carreCercle();
+      };
+      window.addEventListener('scroll', attendre, { passive: true });
+      return;
+    }
+    if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
     if (tunnel || page === 'mon-mois.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     try {
       if (sessionStorage.getItem('carre-cercle-ferme') === '1') return;
@@ -673,17 +698,30 @@ window.GENESOLIA_IMPRESSION = {
   var SB_BASE = 'https://qsvzzkjtjsznfntahvvh.supabase.co', CLE_SESSION = 'sb-qsvzzkjtjsznfntahvvh-auth-token';
   function produit(cle) { return (window.GENESOLIA_PRODUITS || {})[cle] || null; }
   function estPayant(cle) { var p = produit(cle); return !!(p && p.payant); }
+  /* Session : le jeton est rafraîchi sous le même verrou que la bibliothèque Supabase (« lock:<clé> »),
+     pour qu'un seul onglet le fasse à la fois. Sans ce verrou, deux onglets pouvaient utiliser le même jeton
+     et Supabase fermait alors la session partout (déconnexion surprise en ouvrant un nouvel onglet). */
+  function lireSession() { try { return JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); } catch (e) { return null; } }
+  function sessionValide(x) { return x && x.access_token && x.expires_at && x.expires_at * 1000 > Date.now() + 60000; }
   function session() {
-    var x; try { x = JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); } catch (e) { x = null; }
+    var x = lireSession();
     if (!x || !x.refresh_token) return Promise.resolve(null);
-    if (x.access_token && x.expires_at && x.expires_at * 1000 > Date.now() + 60000) return Promise.resolve(x);
-    return fetch(SB_BASE + '/auth/v1/token?grant_type=refresh_token', { method: 'POST', headers: { apikey: SB_CLE, 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: x.refresh_token }) })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (n) {
-        if (!n || !n.access_token) return null;
-        try { var y = JSON.parse(localStorage.getItem(CLE_SESSION) || 'null'); if (y && y.refresh_token === x.refresh_token) { n.expires_at = n.expires_at || Math.floor(Date.now() / 1000) + (n.expires_in || 3600); localStorage.setItem(CLE_SESSION, JSON.stringify(n)); } } catch (e) {}
-        return n;
-      }).catch(function () { return null; });
+    if (sessionValide(x)) return Promise.resolve(x);
+    function rafraichir() {
+      var y = lireSession();   /* relu sous verrou : un autre onglet l'a peut-être déjà rafraîchi */
+      if (!y || !y.refresh_token) return null;
+      if (sessionValide(y)) return y;
+      return fetch(SB_BASE + '/auth/v1/token?grant_type=refresh_token', { method: 'POST', headers: { apikey: SB_CLE, 'Content-Type': 'application/json' }, body: JSON.stringify({ refresh_token: y.refresh_token }) })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (n) {
+          if (!n || !n.access_token) return null;
+          n.expires_at = n.expires_at || Math.floor(Date.now() / 1000) + (n.expires_in || 3600);
+          try { var z = lireSession(); if (z && z.refresh_token === y.refresh_token) localStorage.setItem(CLE_SESSION, JSON.stringify(n)); } catch (e) {}
+          return n;
+        });
+    }
+    var p = (navigator.locks && navigator.locks.request) ? navigator.locks.request('lock:' + CLE_SESSION, { mode: 'exclusive' }, rafraichir) : Promise.resolve().then(rafraichir);
+    return p.catch(function () { return null; });
   }
   var mesAcces = null;
   function chargerAcces() {

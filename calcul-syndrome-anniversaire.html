@@ -318,7 +318,7 @@
           if (m.i === b.i || !m.d) return;
           if (b.n.d && m.d.d) {
             var dj = jours(m.d, b.n);
-            if (Math.abs(dj) <= 366) proches.push({ b: b, m: m, txt: Math.round(Math.abs(dj) / 30.44) + ' mois ' + (dj >= 0 ? 'après' : 'avant') + ' le décès', conc: dj > 0 && dj < 300 });
+            if (Math.abs(dj) <= 366) proches.push({ b: b, m: m, txt: dj === 0 ? 'le jour même du décès' : (Math.round(Math.abs(dj) / 30.44) === 0 ? Math.abs(dj) + ' jour' + (Math.abs(dj) > 1 ? 's' : '') : Math.round(Math.abs(dj) / 30.44) + ' mois') + ' ' + (dj >= 0 ? 'après' : 'avant') + ' le décès', conc: dj > 0 && dj < 300 });
           } else if (Math.abs(b.n.y - m.d.y) <= 1) {
             proches.push({ b: b, m: m, txt: b.n.y === m.d.y ? 'la même année que le décès' : (b.n.y > m.d.y ? 'l\'année qui suit le décès' : 'l\'année qui précède le décès'), conc: false });
           }

@@ -117,7 +117,7 @@
     if (court.length >= 3 && long.indexOf(court) >= 0) liens.push({ type: 'cache', force: 2, texte: cap(court) + ' est contenu dans ' + cap(long) + '.' });
     if (Math.min(na.length, nb.length) >= 3 && distance(na, nb) === 1 && !liens.length) liens.push({ type: 'lettre', force: 2, texte: 'Une seule lettre les sépare.' });
     var ml = memesLettres(a, b);
-    if (ml >= 0.75) liens.push({ type: 'lettres', force: ml >= 0.9 ? 3 : 2, texte: ml === 1 ? 'Exactement les mêmes lettres, dans un autre ordre (une anagramme).' : 'Presque les mêmes lettres (' + Math.round(ml * 100) + ' %), dans un autre ordre.' });
+    if (ml >= 0.75) liens.push({ type: 'lettres', force: ml >= 0.9 ? 3 : 2, texte: ml === 1 ? 'Exactement les mêmes lettres, dans un autre ordre (une anagramme).' : 'Presque les mêmes lettres (' + Math.round(ml * 100) + ' %).' });
     var sa = son(a), sb = son(b);
     if (sa.length >= 2 && sa === sb) liens.push({ type: 'son', force: 2, texte: 'Le même squelette sonore : on y entend les mêmes consonnes, dans le même ordre.' });
     else if (Math.min(sa.length, sb.length) >= 2 && (sa.indexOf(sb) === 0 || sb.indexOf(sa) === 0)) liens.push({ type: 'son', force: 1, texte: 'Ils commencent par les mêmes sons.' });
