@@ -24,7 +24,11 @@ window.GENESOLIA_STRIPE = {
   astral: '',         /* ton livret du thème astral */
   arbreDeVie: '',     /* ton livret de l'arbre de vie */
   mayaDuo: '',        /* votre analyse maya à deux */
-  arbreEncadrer: '',  /* ton arbre à encadrer */
+  arbreEncadrer: '',  /* ton arbre à encadrer (fichier HD) */
+  impressionA4: '',   /* arbre imprimé, poster A4 */
+  impressionA3: '',   /* arbre imprimé, poster A3 */
+  impressionA4Cadre: '', /* arbre imprimé, A4 encadré */
+  impressionA3Cadre: '', /* arbre imprimé, A3 encadré */
   gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
@@ -41,6 +45,21 @@ window.GENESOLIA_PRODUITS = {
   rapport:       { payant: false, prix: '9 €',  nom: 'le rapport de ton arbre', inclus: ['Ton arbre et tes chiffres clés', 'Chaque répétition expliquée', 'Les questions à poser à ta famille'] },
   arbreEncadrer: { payant: false, prix: '12 €', nom: 'ton arbre à encadrer', inclus: ['Ton arbre doré, en haute définition', 'Prêt à imprimer en A4 ou A3', 'Une belle idée de cadeau'] },
   cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
+};
+
+/* ===== Arbre imprimé et envoyé (Mon arbre à encadrer) : prix TTC affichés, livraison comprise =====
+   actif: false cache l'offre. Chaque format a son lien Stripe dans GENESOLIA_STRIPE (même nom que « stripe »).
+   Prix à ajuster après ta commande test : prix TTC = coût livré TTC + au moins 30 € (25 € HT de marge). */
+window.GENESOLIA_IMPRESSION = {
+  actif: true,
+  ouverture: '2026-11-01',   /* avant cette date : « Bientôt disponible », sans commande (test possible avec ?test-impression dans l'adresse) */
+  livraison: 'Livraison comprise en France métropolitaine, en 3 à 7 jours ouvrés',
+  formats: [
+    { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2480 },
+    { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3508 },
+    { id: 'a4cadre', nom: 'A4 encadré, cadre bois naturel',    prix: '59 €', stripe: 'impressionA4Cadre', largeur: 2480 },
+    { id: 'a3cadre', nom: 'A3 encadré, cadre bois naturel',    prix: '69 €', stripe: 'impressionA3Cadre', largeur: 3508 }
+  ]
 };
 
 /* Liens des e-mails de connexion : si Supabase renvoie sur une autre page que Mon espace, on y redirige avec le jeton */

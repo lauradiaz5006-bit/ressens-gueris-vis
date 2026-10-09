@@ -292,7 +292,19 @@
     .fe-champ{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;font-weight:600;color:var(--prune)}
     .fe-champ input{font:inherit;font-weight:400;padding:.6rem .8rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff}
     .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}
-    @media (max-width:760px){.fe-grille{grid-template-columns:1fr}}
+    .fe-imp{margin-top:.6rem;padding:1rem 1.1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair);display:flex;flex-direction:column;gap:.6rem}
+    .fe-imp-titre{font-family:var(--display);font-size:1.2rem;margin:0;color:var(--prune)}
+    .fe-imp-form{display:flex;flex-direction:column;gap:.6rem;position:relative}
+    .fe-imp-form[hidden],#fe-imp-ouvrir[hidden]{display:none}
+    .fe-formats{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:.35rem}
+    .fe-formats legend{font-size:.85rem;font-weight:600;margin-bottom:.3rem}
+    .fe-format{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff;cursor:pointer;font-size:.9rem}
+    .fe-format span{margin-right:auto}
+    .fe-format:has(input:checked){border-color:var(--prune);box-shadow:0 0 0 1px var(--prune)}
+    .fe-deux{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    .fe-accord{display:flex;gap:.5rem;align-items:flex-start;font-size:.8rem;color:var(--prune-doux)}
+    .fe-merci{font-size:.95rem;margin:0;color:var(--prune)}
+    @media (max-width:760px){.fe-grille{grid-template-columns:1fr}.fe-deux{grid-template-columns:1fr}}
     .bt-dore[aria-pressed="true"]{background:linear-gradient(135deg,#E8C899,#B98A55);border-color:#B98A55;color:#3A2410}
   </style>
   <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
