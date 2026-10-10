@@ -255,6 +255,7 @@ window.GENESOLIA_IMPRESSION = {
       var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
       if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
+      if (MODE === 'cercle' && (page === 'mon-guide.html' || page === 'mon-mois.html') && cible[1] === 'mois') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
@@ -691,6 +692,38 @@ window.GENESOLIA_IMPRESSION = {
     requestAnimationFrame(function () { c.classList.add('visible'); });
   }
   if (vu) setTimeout(carreCercle, 5000);
+
+  /* ===== Typographie française sur tout ce qui s'affiche =====
+     Apostrophe courbe (l’arbre) et espace insécable avant : ; ? ! » et après « , pour qu'aucun signe ne se retrouve seul en début de ligne.
+     Appliquée aussi au contenu ajouté ensuite par les pages (carnets, guide, espace). Les champs de saisie et les dessins (arbre) ne sont pas touchés. */
+  var SANS_TYPO = /^(SCRIPT|STYLE|TEXTAREA|NOSCRIPT|CODE|PRE|INPUT|SELECT|OPTION)$/;
+  function typoTexte(t) { return t.replace(/([A-Za-zÀ-ÖØ-öø-ÿŒœ])'/g, '$1\u2019').replace(/ ([?!:;»])/g, '\u00a0$1').replace(/« /g, '«\u00a0'); }
+  function typo(racine) {
+    if (!racine || !document.createTreeWalker) return;
+    var w = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+      for (var e = n.parentNode; e && e !== document.body; e = e.parentNode) {
+        if (SANS_TYPO.test(e.nodeName) || e.namespaceURI === 'http://www.w3.org/2000/svg' || e.isContentEditable || (e.hasAttribute && e.hasAttribute('data-sans-typo'))) return NodeFilter.FILTER_REJECT;
+      }
+      return /[' ]/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+    } }), n, liste = [];
+    while ((n = w.nextNode())) liste.push(n);
+    liste.forEach(function (x) { var u = typoTexte(x.nodeValue); if (u !== x.nodeValue) x.nodeValue = u; });
+  }
+  window.GenesoliaTypo = typo;
+  /* Seulement sur les pages de lecture des applis : certains outils relisent leurs propres libellés pour enregistrer (parcours, blessures) */
+  var PAGES_TYPO = PAGES_CERCLE.concat(['appli.html', 'login.html', 'bienvenue.html', 'abonnement.html', 'essai.html']);
+  if (document.body && PAGES_TYPO.indexOf(page) >= 0) {
+    typo(document.body);
+    if (window.MutationObserver) {
+      var aTraiter = [], prevu = false;
+      new MutationObserver(function (ms) {
+        ms.forEach(function (m) { m.addedNodes.forEach(function (x) { if (x.nodeType === 1 || x.nodeType === 3) aTraiter.push(x.nodeType === 3 ? x.parentNode : x); }); });
+        if (prevu || !aTraiter.length) return;
+        prevu = true;
+        requestAnimationFrame(function () { prevu = false; var l = aTraiter; aTraiter = []; l.forEach(function (x) { if (x && x.isConnected) typo(x); }); });
+      }).observe(document.body, { childList: true, subtree: true });
+    }
+  }
 
   /* ===== Application installable (bouton « Installer l'appli ») ===== */
   if ('serviceWorker' in navigator && location.protocol === 'https:') {

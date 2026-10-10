@@ -340,21 +340,24 @@
           .catch(function () { f.querySelector('button').disabled = false; err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.'; });
       });
     }
+    var estMembre = false;   /* membre du Cercle : pas d'offre du carnet offert, elle a déjà tous ses livres */
     function message(titre, texte, liens) {
-      corps.innerHTML = blocOffert() + '<div class="m-message"><h2>' + titre + '</h2><p>' + texte + '</p><div class="m-actions" style="margin-top:0">' + liens + '</div></div>';
+      corps.innerHTML = (estMembre ? '' : blocOffert()) + '<div class="m-message"><h2>' + titre + '</h2><p>' + texte + '</p><div class="m-actions" style="margin-top:0">' + liens + '</div></div>';
       brancherOffert();
     }
 
     function afficher(data, acces) {
+      estMembre = !!acces && !EXEMPLE;
       var r = calculer(data || {});
       entete(r);
-      if (!r.moi) return message('Indique qui tu es dans ton arbre', 'Ouvre ton arbre, clique sur ta fiche et coche « C\'est moi ». Ton mois se calcule à partir de ta date de naissance et de celles de ta famille.', '<a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre</a><a class="btn btn-trait" href="mon-mois.html?exemple">Voir un exemple</a>');
+      if (!r.moi) return message('Indique qui tu es dans ton arbre', 'Ouvre ton arbre, clique sur ta fiche et coche « C’est moi ». Ton calendrier se calcule à partir de ta date de naissance et de celles de ta famille.' + (estMembre ? ' En attendant, ton mois personnel t’attend dans l’appli.' : ''), '<a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre</a>' + (estMembre ? '<a class="btn btn-trait" href="cercle.html#mois">Lire mon mois</a>' : '<a class="btn btn-trait" href="mon-mois.html?exemple">Voir un exemple</a>'));
       if (!r.t) return message('Il manque ta date de naissance', 'Dans ton arbre, ouvre ta fiche et indique ta date de naissance complète : le jour, le mois et l\'année.', '<a class="btn btn-plein" href="genosociogramme.html">Compléter ma fiche</a>');
       if (acces) complet(r); else apercu(r);
     }
     function verifierAcces() {
       if (!sb || !utilisateur) return Promise.resolve(false);
       if (CERCLE.libre) return Promise.resolve(true);
+      if (window.GenesoliaAcces && window.GenesoliaAcces.membre) return window.GenesoliaAcces.membre().catch(function () { return false; });   /* même règle que tout le site (offre « cercle » comprise) */
       return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
         .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });
     }

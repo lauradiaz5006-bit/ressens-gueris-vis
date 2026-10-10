@@ -399,6 +399,7 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .coffre-accord p{margin-bottom:.6rem;font-size:.92rem}
 .coffre-accord .btn-trait{color:var(--prune)!important;border-color:var(--rose-fonce)!important}
 .coffre-note{font-size:.8rem!important;color:var(--prune-doux)}
+.coffre-accord a{color:var(--prune)!important;text-decoration:underline}
 .coffre-merci{padding:.8rem 1rem;border-radius:12px;background:#FBF0E4;color:var(--prune);font-weight:600}
 
 /* Membres : encart vers leurs deux livres */
@@ -415,7 +416,7 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .barre-appli a{display:flex;flex-direction:column;align-items:center;gap:.2rem;min-height:48px;justify-content:center;padding:.2rem 0;border-radius:14px;text-decoration:none;font:700 .68rem/1.1 var(--texte);color:#9C8293;-webkit-tap-highlight-color:transparent}
 .barre-appli svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .barre-appli a[aria-current]{color:var(--prune)}
-.barre-appli a[aria-current] svg{stroke-width:2}
+.barre-appli a[aria-current] svg{stroke-width:2;background:#F6E3E8;border-radius:99px;padding:3px 12px;box-sizing:content-box;margin:-3px -12px}
 .barre-appli a:focus-visible{outline:2px solid var(--champagne);outline-offset:-2px}
 .appli body{padding-bottom:calc(5.2rem + env(safe-area-inset-bottom,0px))}
 .appli .carre-cercle,.appli .chemin-toast{bottom:calc(5.6rem + env(safe-area-inset-bottom,0px))}

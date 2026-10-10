@@ -70,6 +70,12 @@
     .g-verrou .g-offre{position:absolute;left:50%;top:5rem;transform:translateX(-50%);width:min(30rem,92%);background:var(--blanc);border:1px solid var(--champagne);border-radius:var(--rayon);padding:1.6rem;text-align:center;box-shadow:0 24px 60px rgba(107,47,91,.18)}
     .g-offre h3{font-size:1.4rem;margin-bottom:.4rem}.g-offre p{color:var(--prune-doux);margin-bottom:1rem}
     .note{font-size:.86rem;color:var(--prune-doux)}
+    /* Petits écrans : rien ne dépasse (les champs date et heure imposaient leur largeur) */
+    .g-tete .conteneur>*,.g-champ,.g-deux>*{min-width:0}
+    .g-form input{min-width:0;max-width:100%;box-sizing:border-box}
+    @media(max-width:420px){.g-nav{width:100%}.g-nav button{flex:1;white-space:nowrap}.g-deux{grid-template-columns:1fr;gap:0}.g-form{padding:1.2rem}.g-carte{padding:1.4rem}.g-bloc{padding:1.2rem}}
+    /* Repères déjà connus : le guide s'affiche d'abord, le formulaire se rouvre avec « Modifier mes repères » */
+    .g-tete.g-replie{display:none}
     @media(max-width:860px){.g-tete .conteneur,.g-trois,.g-semaines{grid-template-columns:1fr}.g-carte h2{font-size:1.8rem}}
     @media print{header,footer,.g-tete,.g-actions,.g-nav,.annonce,.bandeau-info,.cookies,.g-verrou{display:none!important}body{background:#fff}.g-bloc,.g-carte{break-inside:avoid}.g-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style>
@@ -187,7 +193,7 @@
       zone.innerHTML = h; zone.hidden = false;
       zone.querySelectorAll('[data-dec]').forEach(function (b) { b.addEventListener('click', function () { var d = new Date(Date.UTC(vue.annee, vue.mois - 1 + +b.getAttribute('data-dec'), 1)); vue = { annee: d.getUTCFullYear(), mois: d.getUTCMonth() + 1 }; afficher(); }); });
       var pdf = document.getElementById('g-pdf'); if (pdf) pdf.addEventListener('click', function () { envoyerGuide(r); });
-      var mod = document.getElementById('g-modifier'); if (mod) mod.addEventListener('click', function () { f.scrollIntoView({ behavior: 'smooth' }); });
+      var mod = document.getElementById('g-modifier'); if (mod) mod.addEventListener('click', function () { document.querySelector('.g-tete').classList.remove('g-replie'); f.scrollIntoView({ behavior: 'smooth' }); });
     }
     /* Le guide part par mail, comme les autres documents (lien de secours si le mail tarde) */
     function envoyerGuide(r) {
@@ -238,6 +244,7 @@
         if (s.lieu) { document.getElementById('g-lieu').value = s.lieu; lieu.definir({ nom: s.lieu, lat: s.lat, lon: s.lon, tz: s.tz }); document.getElementById('g-lieu-info').textContent = 'Lieu enregistré · fuseau ' + s.tz; }
         profil = s; var n = new Date(); vue = { annee: n.getFullYear(), mois: n.getMonth() + 1 };
         afficher();
+        if (!zone.hidden && document.getElementById('g-modifier')) document.querySelector('.g-tete').classList.add('g-replie');
       }
     }
     try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (x) {}
