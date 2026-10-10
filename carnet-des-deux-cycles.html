@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le carnet des deux cycles, à remplir en ligne · Genesolia</title>
+  <meta name="description" content="Le carnet des deux cycles, offert, à remplir en ligne ou à imprimer : la boucle et la spirale, la racine et le cœur, ton résultat, les neuf étapes et ton arbre sur trois générations.">
+  <link rel="canonical" href="https://genesolia.fr/carnet-des-deux-cycles.html">
+  <meta property="og:title" content="Le carnet des deux cycles, offert">
+  <meta property="og:description" content="Huit pages pour voir ce qui se répète dans ta vie, et d’où ça vient. En ligne ou à imprimer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/deux-cycles-800.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Le carnet des deux cycles en ligne : huit pages, une à la fois, imprimables d'un coup */
+    #dc{--encre:#4A2342;--doux:#8E6383;--ligne:#F1DDE2;max-width:46rem;margin:0 auto;padding:1.2rem 1rem 3rem;color:var(--encre)}
+    .dc-tete{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem}
+    .dc-tete p{margin:0;font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F}
+    .dc-tete span{font:700 .78rem/1 var(--texte);color:var(--doux);white-space:nowrap}
+    .dc-prog{height:5px;border-radius:9px;background:#F4E8EC;overflow:hidden;margin-bottom:.8rem}
+    .dc-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--prune),var(--champagne));transition:width .3s}
+    .dc-onglets{display:flex;gap:.4rem;overflow-x:auto;padding:.2rem 0 .8rem;scrollbar-width:none}
+    .dc-onglets::-webkit-scrollbar{display:none}
+    .dc-onglets button{flex:0 0 auto;min-height:40px;padding:.4rem .85rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;font:600 .82rem/1 var(--texte);color:var(--prune);cursor:pointer}
+    .dc-onglets button[aria-current="page"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .dc-onglets button.fait::after{content:"";display:inline-block;width:.35rem;height:.6rem;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);margin-left:.45rem;vertical-align:.05rem}
+    .dc-page{background:#fff;border:1px solid var(--ligne);border-radius:24px;padding:1.6rem 1.4rem;box-shadow:0 14px 40px rgba(107,47,91,.08)}
+    .dc-page[hidden]{display:none}
+    .dc-sur{font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:0 0 .4rem}
+    .dc-page h1,.dc-page h2{font:400 clamp(1.6rem,6vw,2.1rem)/1.15 var(--display);color:#3B1747;margin:0 0 .7rem}
+    .dc-page h3{font:400 1.25rem/1.25 var(--display);color:var(--prune);margin:1.4rem 0 .5rem}
+    .dc-page p{line-height:1.6;margin:0 0 .8rem;max-width:none}
+    .dc-intro{font-size:1.05rem;color:var(--doux)}
+    .dc-liste{margin:.2rem 0 1rem;padding-left:1.2rem}
+    .dc-liste li{margin:.35rem 0;line-height:1.5}
+    .dc-liste li::marker{color:var(--champagne)}
+    .dc-note{padding:.9rem 1rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.93rem;color:var(--prune)}
+    .dc-champ{display:block;margin:1rem 0}
+    .dc-champ span{display:block;font:600 .95rem/1.35 var(--texte);color:var(--prune);margin-bottom:.35rem}
+    .dc-champ small{display:block;font-size:.85rem;color:var(--doux);margin:-.15rem 0 .4rem}
+    .dc-champ input,.dc-champ textarea{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;color:var(--prune);padding:.7rem .85rem;border:1.5px solid #EBCFD5;border-radius:14px;background:#FFFCFA}
+    .dc-champ textarea{min-height:5.5rem;resize:vertical;line-height:1.5}
+    .dc-champ input:focus,.dc-champ textarea:focus{outline:2px solid var(--champagne);outline-offset:1px;border-color:var(--champagne)}
+    .dc-duo{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1rem 0}
+    .dc-duo div{padding:1rem;border-radius:18px;border:1px solid var(--ligne);background:#FFFCFA}
+    .dc-duo b{display:block;font:400 1.2rem/1.2 var(--display);color:var(--prune);margin-bottom:.3rem}
+    .dc-duo p{font-size:.92rem;margin:0}
+    .dc-coches{display:grid;gap:.5rem;margin:.6rem 0 1rem}
+    .dc-coches label{display:flex;gap:.7rem;align-items:flex-start;padding:.75rem .9rem;border:1.5px solid #EBCFD5;border-radius:14px;cursor:pointer;line-height:1.45;background:#fff}
+    .dc-coches label:has(input:checked){border-color:var(--prune);background:#FCEFF3}
+    .dc-coches input{width:1.2rem;height:1.2rem;flex:0 0 auto;margin-top:.12rem;accent-color:var(--prune)}
+    .dc-phrase{font-family:var(--display);font-size:1.08rem}
+    .dc-etapes label{align-items:center}
+    .dc-etapes b{display:inline-grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:#F6E3E8;color:var(--prune);font:700 .85rem/1 var(--texte);flex:0 0 auto}
+    .dc-etapes label:has(input:checked) b{background:var(--prune);color:#fff}
+    .dc-etapes input{position:absolute;opacity:0;pointer-events:none}
+    .dc-geste{margin:.8rem 0 1rem;padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(140deg,#FFF6EC,#fff);border:1.5px solid var(--champagne-clair)}
+    .dc-geste p{margin:0}
+    .dc-resultat{padding:1.3rem 1.2rem;border-radius:20px;color:#F7E6EE;background:radial-gradient(24rem 14rem at 90% 0%,rgba(243,220,192,.3),transparent 60%),linear-gradient(155deg,#7E3A6E,#3B1747);margin:0 0 1rem}
+    .dc-resultat .dc-sur{color:#F3DCC0}
+    .dc-resultat p{color:#F7E6EE}
+    .dc-jauge{display:grid;grid-template-columns:5rem 1fr 2.6rem;gap:.6rem;align-items:center;font-size:.9rem;margin:.45rem 0}
+    .dc-jauge b{height:10px;border-radius:9px;background:rgba(255,255,255,.18);overflow:hidden;display:block}
+    .dc-jauge b i{display:block;height:100%;border-radius:9px;background:#F3DCC0}
+    .dc-jauge.c b i{background:#E9B9CF}
+    .dc-citation{font:400 1.12rem/1.4 var(--display);color:var(--prune);padding:.8rem 1rem;border-radius:14px;background:#FCEFF3;margin:.4rem 0 .6rem}
+    .dc-arbre{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.6rem 0}
+    .dc-arbre .dc-champ{margin:0}
+    .dc-arbre .dc-champ span{font-size:.8rem;margin-bottom:.25rem}
+    .dc-arbre textarea{min-height:4.6rem;font-size:.88rem;padding:.5rem .6rem}
+    .dc-arbre .p2{grid-column:span 2}
+    .dc-arbre .moi{grid-column:2 / span 2}
+    .dc-echos{display:grid;grid-template-columns:1.2fr .6fr 2fr;gap:.4rem;margin:.4rem 0}
+    .dc-echos input{width:100%;box-sizing:border-box;font:inherit;font-size:.92rem;padding:.55rem .6rem;border:1.5px solid #EBCFD5;border-radius:10px;background:#FFFCFA;color:var(--prune)}
+    .dc-echos .t{font:600 .78rem/1.2 var(--texte);color:var(--doux)}
+    .dc-nav{display:flex;justify-content:space-between;gap:.6rem;margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--ligne)}
+    .dc-nav .btn{min-height:46px}
+    .dc-etat{font-size:.82rem;color:var(--doux);text-align:center;margin:.8rem 0 0}
+    .dc-offre{padding:1.3rem 1.2rem;border-radius:20px;color:#F7E6EE;background:radial-gradient(24rem 14rem at 90% 0%,rgba(243,220,192,.3),transparent 60%),linear-gradient(155deg,#7E3A6E,#3B1747);margin:1rem 0}
+    .dc-offre h3{color:#fff;margin-top:0}
+    .dc-offre .dc-sur{color:#F3DCC0}
+    .dc-offre p{color:#F7E6EE;font-size:.95rem}
+    .dc-offre .dc-petit{font-size:.85rem;color:#E6CFDD;margin:.6rem 0 0}
+    .dc-sem{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:.6rem 0 .8rem}
+    .dc-sem div{border-radius:12px;padding:.5rem .2rem;text-align:center;font-size:.75rem;background:rgba(255,255,255,.12)}
+    .dc-sem b{display:block;font:400 1rem/1.2 var(--display);color:#fff}
+    .dc-sem .on{background:#F3DCC0;color:#3B1747}.dc-sem .on b{color:#3B1747}
+    .dc-offre .btn-plein{background:#F3DCC0;border-color:#F3DCC0;color:#3B1747}
+    .dc-garder{margin-top:1rem;padding:1.1rem;border-radius:18px;border:1px solid var(--ligne);background:#FFFCFA}
+    .dc-garder h3{margin-top:0}
+    .dc-form .dc-champ{margin:.6rem 0}
+    .dc-accord{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;color:var(--doux);margin:.6rem 0}
+    .dc-accord input{margin-top:.2rem;accent-color:var(--prune)}
+    .dc-erreur{color:#9B2C2C;font-size:.9rem;margin:.4rem 0 0}
+    .dc-merci{font:400 1.15rem/1.4 var(--display);color:var(--prune)}
+    .dc-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem}
+    @media (max-width:520px){
+      .dc-page{padding:1.3rem 1.05rem;border-radius:20px}
+      .dc-duo{grid-template-columns:1fr}
+      .dc-arbre{grid-template-columns:1fr 1fr}
+      .dc-arbre .moi{grid-column:1 / span 2}
+      .dc-echos{grid-template-columns:1fr .5fr}
+      .dc-echos .r{grid-column:1 / span 2}
+      .dc-echos .t.r{display:none}
+    }
+    @media print{
+      header,footer,.dc-onglets,.dc-nav,.dc-prog,.dc-tete span,.dc-etat,.dc-offre .btn,.dc-garder,.barre-appli,.annonce,.cookies,.carre-cercle,.cadeau-bas,.note-donnees{display:none!important}
+      .dc-page[hidden]{display:block!important}
+      .dc-page{box-shadow:none;border:0;padding:0 0 1.2rem;break-after:page}
+      .dc-resultat,.dc-offre{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      #dc{padding:0}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="dc">
+    <div class="dc-tete"><p>Le carnet des deux cycles · offert</p><span id="dc-numero">Page 1 sur 8</span></div>
+    <div class="dc-prog" aria-hidden="true"><i id="dc-barre"></i></div>
+    <nav class="dc-onglets" id="dc-onglets" aria-label="Les pages du carnet"></nav>
+    <div id="dc-pages"><p class="dc-etat">Ton carnet s’ouvre…</p></div>
+    <p class="dc-etat" id="dc-etat"></p>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/deux-cycles.js"></script>
+</body>
+</html>

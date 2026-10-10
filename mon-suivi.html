@@ -190,6 +190,15 @@
         '<div class="s-champ"><label for="b-souhait">Dans un an, qu\'aimerais-tu vivre autrement ?</label><input type="text" id="b-souhait" placeholder="Par exemple : oser dire non sans culpabiliser"></div>' +
         '<button class="btn btn-plein" type="submit">Voir mon point de départ</button><p class="s-erreur" role="alert" id="b-err"></p></form></div>';
       corps.innerHTML = h;
+      /* Venue du carnet des deux cycles en ligne : on reprend son prénom et on rappelle son résultat (rien d'autre n'est lu) */
+      var dc = null; try { dc = JSON.parse(localStorage.getItem('genesolia-deux-cycles-resultat') || 'null'); } catch (x) {}
+      if (dc && dc.cycle) {
+        var nomC = { racine: 'la racine, ta sécurité et ta place', coeur: 'le cœur, ta façon d’aimer et d’être aimé·e', deux: 'tes deux cycles, qui se répondent' }[dc.cycle] || '';
+        var note = document.createElement('p'); note.className = 'note'; note.style.cssText = 'margin:0 0 1rem;padding:.8rem 1rem;border-radius:14px;background:var(--rose)';
+        note.textContent = 'D’après ton carnet des deux cycles, ta boucle touche surtout ' + nomC + (dc.etape ? ', et tu te sens à l’étape ' + dc.etape + ' sur 9' : '') + '. Ce bilan va le préciser.';
+        var fb = document.getElementById('f-bilan'); fb.parentNode.insertBefore(note, fb);
+        var bp = document.getElementById('b-prenom'); if (bp && !bp.value && dc.prenom) bp.value = dc.prenom;
+      }
       var f = document.getElementById('f-bilan'), iv = document.getElementById('b-int');
       iv.addEventListener('input', function () { document.getElementById('b-int-v').textContent = iv.value; });
       f.addEventListener('submit', function (e) {

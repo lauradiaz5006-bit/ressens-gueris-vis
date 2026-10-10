@@ -436,7 +436,8 @@ window.GENESOLIA_IMPRESSION = {
   function merci(zone, prenom) {
     zone.innerHTML =
       '<p class="cadeau-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Ton carnet se télécharge.</p>' +
-      '<a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>';
+      '<a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>' +
+      ' <a class="btn btn-trait" href="carnet-des-deux-cycles.html">Le remplir en ligne</a>';
   }
   var inscrit = false;
   try { inscrit = localStorage.getItem('carnet-inscrit') === 'oui'; } catch (e) {}
@@ -454,7 +455,7 @@ window.GENESOLIA_IMPRESSION = {
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
   }
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && !document.querySelector('[data-cadeau]')) {
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && !document.querySelector('[data-cadeau]')) {   /* pas d'encart « carnet offert » dans le carnet lui-même */
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
@@ -467,11 +468,13 @@ window.GENESOLIA_IMPRESSION = {
     el.innerHTML =
       '<img class="cadeau-couv" src="assets/carnet-apercu.jpg" width="662" height="936" alt="Couverture du carnet des deux cycles" loading="lazy">' +
       '<div class="cadeau-texte">' +
-        '<h2>Reçois le carnet des deux cycles, offert</h2>' +
-        '<p>Neuf pages à imprimer et à remplir : la boucle et la spirale, tes deux cycles, les neuf étapes, les questions à poser à ta famille et ton arbre sur trois générations.</p>' +
+        '<h2>Le carnet des deux cycles, offert</h2>' +
+        '<p>À remplir en ligne ou à imprimer : la boucle et la spirale, tes deux cycles, ton résultat, les neuf étapes, les questions à poser à ta famille et ton arbre sur trois générations.</p>' +
+        '<p class="cadeau-ligne"><a class="btn btn-plein" href="carnet-des-deux-cycles.html">Le remplir en ligne</a></p>' +
+        '<p class="cadeau-ou">' + (inscrit ? 'Ou télécharge-le pour l’imprimer :' : 'Ou reçois-le en PDF pour l’imprimer :') + '</p>' +
         '<div class="cadeau-zone" aria-live="polite">' +
           (inscrit
-            ? '<a class="btn btn-plein" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger mon carnet</a>'
+            ? '<a class="btn btn-trait" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger le PDF</a>'
             : '<form class="cadeau-form" novalidate>' +
                 '<div class="cadeau-champs">' +
                   '<label for="' + id + '-prenom">Prénom<input id="' + id + '-prenom" name="prenom" autocomplete="given-name" required></label>' +
@@ -479,7 +482,7 @@ window.GENESOLIA_IMPRESSION = {
                 '</div>' +
                 '<label class="cadeau-accord"><input type="checkbox" name="accord" value="oui" required><span>J\'accepte de recevoir le carnet et des nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
                 '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="cadeau-piege" aria-hidden="true">' +
-                '<button class="btn btn-plein" type="submit">Recevoir mon carnet</button>' +
+                '<button class="btn btn-trait" type="submit">Recevoir le PDF</button>' +
                 '<p class="cadeau-erreur" role="alert"></p>' +
               '</form>') +
         '</div>' +
@@ -503,7 +506,7 @@ window.GENESOLIA_IMPRESSION = {
           telecharger();
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = 'Recevoir mon carnet';
+          btn.disabled = false; btn.textContent = 'Recevoir le PDF';
           err.textContent = 'L\'envoi n\'a pas fonctionné. Vérifie ta connexion et réessaie dans un instant.';
         });
     });
@@ -711,7 +714,7 @@ window.GENESOLIA_IMPRESSION = {
   }
   window.GenesoliaTypo = typo;
   /* Seulement sur les pages de lecture des applis : certains outils relisent leurs propres libellés pour enregistrer (parcours, blessures) */
-  var PAGES_TYPO = PAGES_CERCLE.concat(['appli.html', 'login.html', 'bienvenue.html', 'abonnement.html', 'essai.html']);
+  var PAGES_TYPO = PAGES_CERCLE.concat(['appli.html', 'login.html', 'bienvenue.html', 'abonnement.html', 'essai.html', 'carnet-des-deux-cycles.html']);
   if (document.body && PAGES_TYPO.indexOf(page) >= 0) {
     typo(document.body);
     if (window.MutationObserver) {
