@@ -111,6 +111,106 @@
       zone(prefixe + '-mot', 'En un mot, comment te sens-tu ?', { court: true, ph: 'Exemple : fatigué·e, curieux·se, impatient·e…' });
   }
 
+  /* ───── Ce que ta météo dit de ton mois (page 2, sous le point 1) ─────
+     Une matrice de textes fixes, sans génération libre : énergie (basse 0-3, moyenne 4-6, haute 7-10) × famille du mois personnel
+     (élan 1, 3, 5, 8 · réguliers 2, 4, 6 · ralentir 7, 9), puis des compléments selon les curseurs, la météo, Mercure et la vague maya.
+     Les calculs viennent de Guide.calculer() (guide-mois.js) et de Maya.calculer() (maya.js). */
+  var METEO_DIT = {
+    base: {
+      basse: [['decale', 'Ton mois invite à lancer et à oser, mais ton énergie demande d’abord du repos. Les deux peuvent aller ensemble : choisis un tout petit pas, un seul, et garde du temps pour toi cette semaine. L’élan viendra.'],
+        ['coherent', 'Ton mois invite à avancer pas à pas, et ton énergie est basse : ça tombe plutôt bien. Pas besoin de grand effort, une petite régularité suffit. Commence par ce qui te demande le moins.'],
+        ['coherent', 'Ton énergie basse rejoint ton mois, qui invite à ralentir et à laisser partir. C’est cohérent : accorde-toi du repos sans culpabiliser. Trier, ranger, dormir davantage, ce sont aussi des avancées.']],
+      moyenne: [['coherent', 'Ton mois invite à avancer et ton énergie suit, sans excès. Avance d’un pas régulier : une action concrète par semaine suffit pour que le mouvement s’installe.'],
+        ['coherent', 'Ton énergie et ton mois avancent au même rythme, posé et régulier. Choisis une habitude simple à tenir chaque jour, et observe ce qu’elle change en quatre semaines.'],
+        ['coherent', 'Ton mois invite à prendre du recul, et ton énergie te le permet. Profites-en pour faire le point : qu’est-ce qui est fini, qu’est-ce qui continue ?']],
+      haute: [['coherent', 'Tout va dans le même sens : ton mois invite à oser et ton énergie est là. C’est le bon moment pour lancer ce que tu repousses. Garde simplement une soirée pour souffler.'],
+        ['leger', 'Ton énergie est haute dans un mois qui demande de la patience. Mets cet élan au service de ce qui dure : organiser, consolider, finir. Évite de tout commencer en même temps.'],
+        ['decale', 'Ton énergie est haute alors que ton mois invite à ralentir. Profite de cet élan pour terminer ce qui est en cours plutôt que d’en ouvrir trop : finir, trier, transmettre.']]
+    },
+    etiquettes: { coherent: 'Ton énergie et ton mois vont dans le même sens', leger: 'Un léger décalage', decale: 'Un décalage' },
+    confiance: 'Ta confiance est basse en ce moment. Note chaque soir une chose que tu as réussie, même minuscule : en fin de semaine, relis ta liste.',
+    elan: 'Tu as l’impression de ne pas avancer. Regarde plutôt d’où tu pars : ton objectif du mois, découpé en tout petits pas, va t’aider à voir le chemin.',
+    serenite: 'Ta sérénité est basse. Offre-toi chaque jour cinq minutes de calme : trois respirations lentes, une marche, un moment sans écran.',
+    liens: 'Tu te sens peu entouré·e. Cette semaine, fais un pas vers une personne qui te fait du bien : un message, un appel, un café.',
+    humeur: 'Ton humeur est basse ces jours-ci. Sois douce et doux avec toi : ce que tu ressens a le droit d’être là, et ça passera.',
+    chargee: 'Ta météo intérieure est chargée. Comme dehors, ça ne dure pas : pour l’instant, évite les grandes décisions et laisse passer le gros du temps.',
+    lumineuse: 'Ta météo intérieure est lumineuse. Remarque ce qui la rend ainsi, pour pouvoir y revenir les jours plus gris.',
+    mercure: 'Mercure est rétrograde une partie du mois : un bon moment pour relire, vérifier, reprendre contact, plutôt que pour signer dans la précipitation.',
+    porte: 'C’est une vague qui te porte.',
+    detente: 'Pour te poser et relâcher ce qui pèse, prends vingt minutes pour ta séance de libération du mois.',
+    avancer: 'Pour retrouver l’envie et te mettre en mouvement, prends vingt minutes pour ta séance de visualisation du mois.',
+    soutien: 'Plusieurs de tes curseurs sont très bas en ce moment. Tu n’as pas à porter ça seul·e : parles-en à une personne de confiance, ou à un·e professionnel·le de l’accompagnement si tu en ressens le besoin.'
+  };
+  function familleMois(n) { n = n === 11 ? 2 : n === 22 ? 4 : n; return [1, 3, 5, 8].indexOf(n) >= 0 ? 0 : [7, 9].indexOf(n) >= 0 ? 2 : 1; }
+  /* Le jour de référence : aujourd'hui s'il tombe dans le mois du carnet, sinon le 1er du mois */
+  function jourRef() { var p = String(C.mois).split('-'), a = new Date(), d = new Date(a.getFullYear(), a.getMonth(), a.getDate()); return d.getFullYear() === +p[0] && d.getMonth() === +p[1] - 1 ? d : new Date(+p[0], +p[1] - 1, 1); }
+  function majMeteoDit() {
+    var z = racine.querySelector('[data-meteo-dit]'); if (!z) return;
+    var e = echelles('md');
+    if (Object.keys(e).length < ECHELLES.length) { z.hidden = true; z.innerHTML = ''; return; }
+    var T = METEO_DIT, pr = lireProfil(), r = null, h = '', compl = [];
+    if (pr && window.Guide) { try { var p = String(C.mois).split('-'), arbre = null; try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (x) {} r = window.Guide.calculer(pr, +p[0], +p[1], arbre); } catch (x) { r = null; } }
+    if (r && r.moisPerso) {
+      var M = (window.GUIDE_TEXTES && window.GUIDE_TEXTES.MOIS[r.moisPerso]) || {}, niv = e.energie <= 3 ? 'basse' : e.energie <= 6 ? 'moyenne' : 'haute';
+      var b = T.base[niv][familleMois(r.moisPerso)];
+      h += '<p class="mc-md-mois">Ton mois personnel ' + r.moisPerso + (M.theme ? ' : ' + esc(M.theme.charAt(0).toLowerCase() + M.theme.slice(1)) : '') + '.</p>' +
+        '<p class="mc-md-tag mc-md-' + b[0] + '">' + esc(T.etiquettes[b[0]]) + '</p><p>' + esc(b[1]) + '</p>';
+    } else {
+      var pTon = PAGES.map(function (x) { return x.id; }).indexOf('tonmois');
+      h += '<p class="mc-note">Pour croiser ta météo avec les énergies de ton mois, indique ta date de naissance dans « Ton mois à toi ».' + (pTon >= 0 ? ' <button type="button" class="mc-lien" data-page="' + pTon + '">Indiquer mes repères</button>' : '') + '</p>';
+    }
+    ['confiance', 'elan', 'serenite', 'liens', 'humeur'].forEach(function (k) { if (e[k] <= 3) compl.push(T[k]); });
+    var met = D.v['md-meteo'];
+    if (['Pluie', 'Orage', 'Brouillard'].indexOf(met) >= 0) compl.push(T.chargee);
+    if (['Grand soleil', 'Arc-en-ciel'].indexOf(met) >= 0) compl.push(T.lumineuse);
+    if (r && r.mercure) compl.push(T.mercure);
+    var MY = window.Maya, MS = window.MAYA_SEMAINES, MT = window.MAYA_TEXTES;
+    if (pr && MY && MS && MT) {
+      try {
+        var j = jourRef(), rj = MY.calculer(isoJ(j)), dv = plusJ(j, -(rj.nombre - 1)), sv = MY.calculer(isoJ(dv)).signe, nat = MY.calculer(pr.date);
+        var phrase = (String(MS.VAGUES[sv] || '').match(/^[^.]*\./) || [''])[0];
+        if (phrase) compl.push('Cette semaine, ' + phrase.charAt(0).toLowerCase() + phrase.slice(1) + (nat && (sv === nat.signe || sv % 4 === nat.signe % 4) ? ' ' + T.porte : ''));
+      } catch (x) {}
+    }
+    if (compl.length) h += '<ul class="mc-md-compl">' + compl.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>';
+    var aud = [];
+    if (e.energie <= 3 || e.serenite <= 3) aud.push('<a href="mon-suivi-mois.html?mois=' + esc(C.mois) + '#meditation">' + esc(T.detente) + '</a>');
+    if (e.confiance <= 3 || e.elan <= 3) aud.push('<a href="#rituel">' + esc(T.avancer) + '</a>');
+    if (aud.length) h += '<p class="mc-md-audio">' + aud.join('<br>') + '</p>';
+    if ([e.energie, e.humeur, e.serenite].filter(function (v) { return v <= 2; }).length >= 2) h += '<p class="mc-md-soutien">' + esc(T.soutien) + '</p>';
+    z.innerHTML = '<p class="mc-encadre-t">Ce que ta météo dit de ton mois</p>' + h;
+    z.hidden = false;
+  }
+
+  /* ───── Les encouragements de la page 2 : une variante par mois, quand le point est rempli ───── */
+  var BRAVOS = {
+    1: ['Tu viens de t’écouter, vraiment. Savoir où tu en es, c’est déjà commencer.', 'Merci pour cette honnêteté avec toi-même. Ta météo n’est ni bonne ni mauvaise : c’est ton point de départ.', 'Tu as pris le temps de te sentir. C’est le premier geste de ce mois.'],
+    2: ['Tu viens de regarder ta vie en face, avec honnêteté. C’est déjà un vrai pas.', 'Ta roue est posée. Chaque domaine que tu nourris, même un peu, la rend plus ronde.', 'Tu vois maintenant ta vie d’un seul regard. Ce que tu vois, tu peux le faire évoluer.'],
+    3: ['Ton objectif est posé, en mots clairs. Ce qui est nommé commence déjà à exister.', 'Bravo : tu sais maintenant ce que tu veux, et par où commencer.', 'Une direction claire, un premier pas : ton mois a un cap.'],
+    4: ['Tu as donné une image et une émotion à ton intention. Garde-les près de toi tout le mois.', 'Ce que tu viens de ressentir compte autant que ce que tu feras. Ton intention est vivante.', 'Tu as semé ton intention. Laisse-la pousser, à son rythme.'],
+    5: ['Ta phrase t’accompagne maintenant. Redis-la le matin, et chaque fois que tu doutes.', 'Quelques mots à toi, pour tout le mois. Écris-les là où tu les verras chaque jour.', 'Ta phrase est choisie. C’est ta petite boussole de ce mois.']
+  };
+  function bravo(n) { return '<p class="mc-bravo" data-bravo="' + n + '" hidden></p>'; }
+  function majBravos() {
+    var vu = function (k) { return repondu(k); };
+    var fait = {
+      1: ECHELLES.every(function (x) { return typeof D.v['md-' + x[0]] === 'number'; }),
+      2: ROUE.every(function (x) { return typeof D.v['rd-' + x[0]] === 'number'; }),
+      3: vu('obj-quoi') && vu('obj-pas'),
+      4: vu('proj-mois'),
+      5: vu('phrase')
+    };
+    var i = (+String(C.mois).split('-')[1] || 1) % 3;
+    racine.querySelectorAll('[data-bravo]').forEach(function (b) { var n = +b.getAttribute('data-bravo'); b.hidden = !fait[n]; b.textContent = fait[n] ? BRAVOS[n][i] : ''; });
+  }
+  /* Ma lettre du mois : l'ancien « ancrage ressource » reste lisible s'il avait été rempli */
+  function majAncienAncrage() {
+    var z = racine.querySelector('[data-ancien-ancrage]'); if (!z) return;
+    var s = String(D.v['ancre-souvenir'] || '').trim(), m = String(D.v['ancre-mot'] || '').trim();
+    z.hidden = !(s || m);
+    z.innerHTML = s || m ? '<p class="mc-encadre-t">Ton ancrage ressource (ce que tu avais écrit)</p>' + (s ? '<p><b>Ton moment ressource :</b> ' + esc(s) + '</p>' : '') + (m ? '<p><b>Ton mot :</b> ' + esc(m) + '</p>' : '') : '';
+  }
+
   /* ───── La page de gauche : illustration, titre, petit mot, rappel de l'objectif ───── */
   function gauche(id, sur, titre, intro, extra) {
     var img = IMG[id];
@@ -164,7 +264,7 @@
       (lieu && document.getElementById('mc-lieu').value.trim() ? lieu.resoudre() : Promise.resolve(null)).then(function (l) {
         var np = { prenom: prenoms.split(/\s+/)[0], prenoms: prenoms, nom: verrou ? (pr.nom || '') : f.nom.value.trim(), date: d, heure: f.heure.value || '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris', verrou: verrou };
         try { localStorage.setItem(CLE_PROFIL, JSON.stringify(np)); } catch (x) {}
-        var fini = function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); };
+        var fini = function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); majMeteoDit(); perso(); };
         if (user && sb && R) R.enregistrer(sb, user, np).then(fini, fini); else fini();
       });
     });
@@ -206,14 +306,14 @@
       '<p class="mc-intro">Avant d’ouvrir le thème, prends le temps de te poser. Ces questions viennent de la PNL et de l’accompagnement : elles t’aident à savoir où tu en es, à donner une direction claire à ton mois, et à mesurer ensuite le chemin parcouru.</p>' +
       '<p>Il n’y a pas de bonne réponse, seulement la tienne, aujourd’hui. Si tu as cinq minutes, remplis la météo et ton objectif. Le reste peut attendre.</p>');
   }, d: function () {
-    return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3><p class="mc-consigne">Place chaque curseur sans réfléchir longtemps : la première réponse est souvent la plus juste. 0, c’est au plus bas ; 10, au plus haut. Par exemple, si tu dors mal depuis une semaine, ton énergie est peut-être à 3, et c’est très bien de le voir.</p>' + blocEchelles('md') + '</section>' +
-      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie</h3><p class="mc-consigne">Pour chaque domaine de ta vie, à quel point te sens-tu comblé·e aujourd’hui ? 0, pas du tout ; 10, pleinement. Ta roue se dessine à côté : plus elle est ronde, plus ta vie est équilibrée. Elle n’a pas besoin d’être grande partout, elle a besoin d’être juste pour toi.</p>' + blocRoue('rd') + '<p class="mc-pourquoi" data-roue-bas></p></section>' +
+    return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3><p class="mc-consigne">Place chaque curseur sans réfléchir longtemps : la première réponse est souvent la plus juste. 0, c’est au plus bas ; 10, au plus haut. Par exemple, si tu dors mal depuis une semaine, ton énergie est peut-être à 3, et c’est très bien de le voir.</p>' + blocEchelles('md') + '<div class="mc-meteo-dit" data-meteo-dit hidden aria-live="polite"></div>' + bravo(1) + '</section>' +
+      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie</h3><p class="mc-consigne">Pour chaque domaine de ta vie, à quel point te sens-tu comblé·e aujourd’hui ? 0, pas du tout ; 10, pleinement. Ta roue se dessine à côté : plus elle est ronde, plus ta vie est équilibrée. Elle n’a pas besoin d’être grande partout, elle a besoin d’être juste pour toi.</p>' + blocRoue('rd') + '<p class="mc-pourquoi" data-roue-bas></p>' + bravo(2) + '</section>' +
       '<section class="mc-etape"><h3><span>3</span> Ton objectif du mois, bien formulé</h3><p class="mc-consigne">Un objectif clair met ton énergie en mouvement. On le formule en positif (ce que tu veux, pas ce que tu ne veux plus), il dépend de toi, et tu sais à quoi tu reconnaîtras qu’il est atteint. Par exemple, « ne plus me laisser marcher dessus » devient « dire calmement ce dont j’ai besoin ».</p>' +
         choix('obj-domaine', 'Quel domaine de ta roue veux-tu nourrir ce mois-ci ?', ROUE.map(function (d) { return d[2]; })) +
         zone('obj-quoi', 'Qu’est-ce que tu veux pour toi ce mois-ci ? Commence ta phrase par « Je veux… »', { court: true, ph: 'Exemple : je veux dire ce dont j’ai besoin au moment où je le ressens', aide: 'Formule ce que tu veux à la place de ce que tu ne veux plus.' }) +
         choix('obj-depend', 'Est-ce que cet objectif dépend de toi ?', ['Oui, entièrement', 'En partie', 'Pas vraiment']) +
         zone('obj-part', 'Quelle part de cet objectif dépend vraiment de toi ?', { court: true, ph: 'Exemple : je ne peux pas changer ma cheffe, mais je peux choisir ma réponse' }) +
-        zone('obj-contexte', 'Où, quand et avec qui veux-tu que ça change ?', { court: true, ph: 'Exemple : au travail le lundi, et le soir au téléphone avec ma sœur' }) +
+        zone('obj-contexte', 'Où, quand et comment veux-tu que ça change ?', { court: true, ph: 'Exemple : au travail le lundi, en disant calmement ce dont j’ai besoin', aide: 'Imagine comment ce serait, concrètement, si ça changeait vraiment.' }) +
         '<div class="mc-trois"><p class="mc-q">À quoi sauras-tu que tu l’as atteint ? Imagine la scène avec tes sens.</p>' +
           zone('obj-voir', 'Qu’est-ce que tu verras ?', { lignes: 2, ph: 'Exemple : des soirées libres dans mon agenda' }) +
           zone('obj-entendre', 'Qu’est-ce que tu entendras, ou te diras ?', { lignes: 2, ph: 'Exemple : « Merci de m’avoir prévenu·e. »' }) +
@@ -222,7 +322,7 @@
         zone('obj-ressources', 'Sur quoi peux-tu t’appuyer ? Ce que tu as déjà, qui peut t’aider, une fois où tu as réussi quelque chose de semblable.', { lignes: 3, ph: 'Exemple : mon amie Claire, ma patience, la fois où j’ai osé demander un congé.' }) +
         zone('obj-pas', 'Quel est ton tout premier pas, à faire dans les 48 heures ?', { court: true, ph: 'Exemple : bloquer jeudi soir dans mon agenda, rien que pour moi' }) +
         curseur('obj-croyance', 'À quel point crois-tu pouvoir y arriver ?', 'pas du tout', 'complètement') +
-        zone('obj-un-point', 'Qu’est-ce qui te ferait gagner un point de plus sur ce curseur ?', { court: true, ph: 'Exemple : en parler à une amie qui m’encouragera' }) +
+        zone('obj-un-point', 'Qu’est-ce qui te ferait gagner un point de plus sur ce curseur ?', { court: true, ph: 'Exemple : en parler à une amie qui m’encouragera' }) + bravo(3) +
       '</section>' +
       '<section class="mc-etape mc-intention"><h3><span>4</span> Mon intention prend vie</h3><p class="mc-consigne">Ce que tu nourris de ton attention grandit. Ce mois-ci, tu vas donner à ton objectif une image, une émotion et une croyance qui le soutiennent, comme on prépare la terre avant de semer. Prends ton temps : c’est souvent la page qui change tout.</p>' +
         '<p class="mc-sur">Désirer</p>' + zone('int-desir', 'Au-delà de ton objectif, qu’est-ce que tu désires vraiment ressentir ? Qu’est-ce qu’il t’apportera au fond ?', { lignes: 2, ph: 'Exemple : me sentir libre, légère, respectée. Avoir enfin de l’espace pour moi.' }) +
@@ -232,17 +332,21 @@
         '<div class="mc-deux">' + zone('int-frein', 'Quelle petite voix te dit que ce n’est pas possible, ou pas pour toi ?', { lignes: 2, ph: 'Exemple : « Ce n’est pas pour les gens comme moi. »' }) +
           zone('int-croire', 'Que choisis-tu de croire à la place ? Une phrase douce et vraie pour toi.', { lignes: 2, ph: 'Exemple : « J’ai le droit d’avoir une vie qui me ressemble, et j’apprends chaque jour. »' }) + '</div>' +
         '<p class="mc-sur">Voir</p><p class="mc-consigne">Ton mini tableau de vision : trois mots ou trois images qui représentent ce que tu accueilles ce mois-ci. Tu peux aussi les découper dans un magazine et les coller près de ton lit, pour les voir chaque matin.</p>' +
-        '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : un bain chaud' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « oui »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : la mer au lever du jour' }) + '</div>' +
+        '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : un bain chaud' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « oui »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : la mer au lever du jour' }) + '</div>' + bravo(4) +
       '</section>' +
-      '<section class="mc-etape"><h3><span>5</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + '</section>' +
+      '<section class="mc-etape"><h3><span>5</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + bravo(5) + '</section>' +
       plus('lettre', 'Ta lettre de dans un an',
         '<p class="mc-consigne">Écris à la personne que tu es aujourd’hui, comme si tu étais déjà un an plus tard. Raconte-lui ce qui a changé, ce que tu as compris, ce que tu veux lui dire pour l’encourager.</p>' +
         zone('proj-an', 'Ta lettre, écrite depuis ' + C.nomMois.replace(/\d+/, function (a) { return +a + 1; }) + ', à la personne que tu es aujourd’hui', { lignes: 7, ph: 'Exemple : Je t’écris depuis l’an prochain. Je sais que tu doutes en ce moment…' }) +
-        '<p class="mc-note">Si tu as un compte et que tu enregistres ta météo du début, ta lettre est gardée dans ton espace. Dans un an, elle t’y attendra.</p>') +
-      plus('ancrage', 'Ton ancrage ressource',
-        '<p class="mc-consigne">Repense à un moment où tu t’es senti·e fort·e, calme ou fier·e de toi. Revis-le : ce que tu voyais, ce que tu entendais, ce que tu ressentais. Quand la sensation est au plus fort, presse doucement ton pouce contre ton index pendant quelques secondes. Refais-le trois fois. Ce geste devient ton ancre : tu pourras la retrouver chaque fois que tu en as besoin, par exemple juste avant un rendez-vous difficile.</p>' +
-        zone('ancre-souvenir', 'Quel moment ressource choisis-tu ? Raconte-le en quelques mots.', { lignes: 2, ph: 'Exemple : le jour où j’ai fini ma première course de 10 km, sous la pluie, en riant.' }) +
-        zone('ancre-mot', 'Quel mot résume ce moment ?', { court: true, ph: 'Exemple : vivant·e' })) +
+        '<p class="mc-note">Si tu as un compte et que tu enregistres ta météo du début, ta lettre est gardée dans ton espace. Dans un an, elle t’y attendra.</p>' +
+        '<p class="mc-guide-lien">Comment écrire cette lettre ? <a href="lettre-dans-un-an.html" target="_blank" rel="noopener">Lis le guide</a></p>') +
+      plus('lettre-mois', 'Ma lettre du mois',
+        '<p class="mc-consigne">Écris-toi une lettre merveilleuse, comme si tu parlais à ton enfant intérieur, ou à ta meilleure amie que tu aimes de tout ton cœur. Dis-lui ce que tu te pardonnes, ce que tu laisses partir, ce dont tu es fière, et ce que tu lui souhaites pour ce mois. Il n’y a pas de bonne façon de l’écrire : seulement la tienne.</p>' +
+        '<div class="mc-amorces"><p class="mc-q">Pour t’aider à commencer, touche une amorce : elle s’ajoute à ta lettre.</p>' + ['Ce que je me pardonne…', 'Ce que je laisse partir…', 'Ce dont je suis fière…', 'Ce que je te souhaite pour ce mois…'].map(function (a) { return '<button type="button" data-amorce="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>' +
+        zone('lettre-mois', 'Ma lettre du mois', { lignes: 10, ph: 'Exemple : Ce mois-ci, je voulais te dire…' }) +
+        '<p class="mc-note">Tu peux l’écrire ici et l’enregistrer dans ton espace, ou l’écrire à la main, l’imprimer et la garder de côté. Elle est à toi.</p>' +
+        '<p class="mc-guide-lien">Comment écrire ta lettre du mois ? <a href="lettre-du-mois.html" target="_blank" rel="noopener">Lis le guide</a></p>' +
+        '<div class="mc-encadre mc-ancien" data-ancien-ancrage hidden></div>') +
       '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="debut">Enregistrer ma météo du début</button><p class="mc-retour" data-retour="debut" aria-live="polite"></p></div>';
   } });
 
@@ -582,6 +686,7 @@
       var b = t.closest('[data-page]'); if (b) { aller(+b.getAttribute('data-page')); setTimeout(function () { defiler(document.getElementById('mc-livre'), true); }, 30); return; }
       var m = t.closest('[data-meteo]'); if (m) { enregistrerMeteo(m.getAttribute('data-meteo'), m); return; }
       if (t.closest('[data-ics]')) { telechargerRappels(); return; }
+      var am = t.closest('[data-amorce]'); if (am) { amorce(am.getAttribute('data-amorce')); return; }
       var v = t.closest('[data-vers]'); if (v) { var cibleEx = document.getElementById(v.getAttribute('data-vers')); if (cibleEx) defiler(cibleEx, true); return; }
     });
     racine.addEventListener('input', changement);
@@ -599,6 +704,13 @@
     window.addEventListener('hashchange', function () { var c = cible(); if (c.p !== courante) aller(c.p, { ancre: c.ancre }); });
     var c = cible();
     aller(c.p, { initial: true, ancre: c.ancre });
+  }
+  function amorce(a) {
+    var ta = racine.querySelector('.mc-livre textarea[data-k="lettre-mois"]'); if (!ta) return;
+    var t = ta.value.replace(/\s+$/, '');
+    ta.value = (t ? t + '\n\n' : '') + a + ' ';
+    changement({ target: ta });
+    ta.focus(); try { ta.setSelectionRange(ta.value.length, ta.value.length); } catch (e) {}
   }
   function basculerChoix(ouvrir) {
     var z = document.getElementById('mc-imp-choix'), b = document.getElementById('mc-imprimer'); if (!z) return;
@@ -743,10 +855,10 @@
       if (el.type === 'range') afficherVal(el);
     });
     racine.querySelectorAll('details[data-plus]').forEach(function (d) {
-      var cles = d.getAttribute('data-plus') === 'lettre' ? ['proj-an'] : ['ancre-souvenir', 'ancre-mot'];
+      var cles = d.getAttribute('data-plus') === 'lettre' ? ['proj-an'] : ['lettre-mois', 'ancre-souvenir', 'ancre-mot'];
       if (cles.some(function (k) { return (D.v[k] || '').toString().trim(); })) d.open = true;
     });
-    progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite();
+    progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite(); majMeteoDit(); majBravos(); majAncienAncrage();
   }
   function afficherVal(el) {
     var k = el.getAttribute('data-k'), b = racine.querySelector('[data-val="' + k + '"]'), c = racine.querySelector('[data-curseur="' + k + '"]');
@@ -767,6 +879,8 @@
     if (/^(md|mf|sem\d)-/.test(k) && PAGES[courante].id === 'cloture') comparer();
     if (/^(rd|rf)-/.test(k)) majRadars();
     if (/^int-/.test(k)) comparerIntensite();
+    if (/^md-/.test(k)) majMeteoDit();
+    majBravos();
     progres(); sauver();
   }
   function verifierObjectif() {
@@ -816,6 +930,8 @@
   function perso() {
     var z = document.getElementById('mc-perso');
     if (z) { z.hidden = !prenom; z.textContent = prenom ? (SUIVI ? 'Ton suivi ' : 'Ton carnet ') + de(NOM_MOIS) + ', ' + prenom : ''; }
+    var lm = racine.querySelector('.mc-livre textarea[data-k="lettre-mois"]'), pn = prenom || premierMot((lireProfil() || {}).prenom || '');
+    if (lm) lm.placeholder = pn ? 'Exemple : ' + pn + ', ce mois-ci, je voulais te dire…' : 'Exemple : Ce mois-ci, je voulais te dire…';
     var obj = (D.v['obj-quoi'] || '').trim();
     racine.querySelectorAll('.mc-livre [data-si-objectif]').forEach(function (x) { x.hidden = !obj; });
     racine.querySelectorAll('.mc-livre [data-rappel-obj]').forEach(function (r) {
@@ -869,7 +985,7 @@
       user = s.user;
       prenom = premierMot((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.prenom)) || '') || premierMot((lireProfil() || {}).prenom || '');
       perso();
-      if (window.GenesoliaReperes && !SUIVI) window.GenesoliaReperes.lire(sb, user).then(function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); });
+      if (window.GenesoliaReperes && !SUIVI) window.GenesoliaReperes.lire(sb, user).then(function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); majMeteoDit(); perso(); });
       var CF = window.GenesoliaCoffre;
       (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
         D = fusion(distant, local);
