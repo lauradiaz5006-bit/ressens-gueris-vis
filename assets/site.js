@@ -786,6 +786,18 @@ window.GENESOLIA_IMPRESSION = {
   if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', function () { navigator.serviceWorker.register('/sw.js').catch(function () {}); });
   }
+  /* Une notification vient d'être touchée : si l'appli s'est ouverte ailleurs (iPhone), on va sur la page visée */
+  if (window.caches && caches.open) caches.open('genesolia-notif').then(function (c) {
+    return c.match('/__notif-cible').then(function (r) {
+      if (!r) return;
+      return r.json().then(function (d) {
+        c.delete('/__notif-cible');
+        if (!d || !d.url || Date.now() - d.t > 60000) return;
+        var u = new URL(d.url, location.href);
+        if (u.origin === location.origin && u.pathname + u.search + u.hash !== location.pathname + location.search + location.hash) location.replace(u.href);
+      });
+    });
+  }).catch(function () {});
   var installee = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   var invite = null;
