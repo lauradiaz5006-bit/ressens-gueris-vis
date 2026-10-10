@@ -144,5 +144,55 @@
       });
     });
   }
-  window.GenesoliaNotifs = { etat: etat, activer: activer, couper: couper, rafraichir: rafraichir, encart: encart, proposer: proposer, ios: ios, installee: installee };
+  /* Ma phrase du jour : la personne écrit sa propre phrase (son argent, sa confiance, sa limite…) et la reçoit chaque jour à l'heure choisie.
+     La phrase est gardée avec l'abonnement de l'appareil (non chiffrée, pour pouvoir l'envoyer) ; on peut l'effacer à tout moment.
+     z = élément vide, o = { canal, sb, suggestion, apres } */
+  var CLE_PHRASE = 'genesolia-phrase-du-jour';
+  var STYLE_P = '.gn-phrase{margin:1rem 0;padding:1.1rem 1.2rem;border-radius:18px;background:#FFF9F4;border:1px solid #EBCFD5}.gn-phrase .gn-t{font:400 1.15rem/1.3 "Gilda Display",Georgia,serif;color:#6B2F5B;margin:0 0 .35rem}' +
+    '.gn-phrase p{margin:0 0 .6rem}.gn-phrase textarea{width:100%;box-sizing:border-box;font:inherit;font-size:1rem;padding:.6rem .75rem;border-radius:12px;border:1.5px solid #EBCFD5;background:#fff;resize:vertical}' +
+    '.gn-heures{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}.gn-heures label{cursor:pointer}.gn-heures input{position:absolute;opacity:0}.gn-heures span{display:inline-block;padding:.4rem .85rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;font-size:.92rem}' +
+    '.gn-heures input:checked+span{background:#6B2F5B;color:#fff;border-color:#6B2F5B}.gn-heures input:focus-visible+span{outline:2px solid #B98A55}.gn-phrase .gn-note{font-size:.86rem;color:#8E6383}.gn-phrase .gn-etat{font-weight:600;color:#6B2F5B}' +
+    '.gn-phrase .gn-act button{font:700 .92rem/1 inherit;font-family:inherit;min-height:44px;padding:.55rem 1.1rem;border-radius:999px;border:0;cursor:pointer;background:#6B2F5B;color:#fff}.gn-phrase .gn-act button.gn-clair{background:#FBF0E4;color:#6B2F5B}.gn-phrase .gn-act{display:flex;flex-wrap:wrap;gap:.5rem}.gn-retour{color:#9B2C2C;font-size:.9rem}.gn-retour:empty{display:none}@media print{.gn-phrase{display:none}}';
+  function lirePhrase() { try { return JSON.parse(localStorage.getItem(CLE_PHRASE) || 'null'); } catch (e) { return null; } }
+  function phraseDuJour(z, o) {
+    if (!z) return; o = o || {};
+    if (!document.getElementById('gn-style-p')) { var st = document.createElement('style'); st.id = 'gn-style-p'; st.textContent = STYLE_P; document.head.appendChild(st); }
+    var mem = lirePhrase(), H = [[8, 'Le matin, 8h'], [12, 'À midi'], [20, 'Le soir, 20h']];
+    function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    etat(o.canal).then(function (e) {
+      var actif = mem && mem.texte;
+      var h = '<div class="gn-phrase"><p class="gn-t">Ma phrase du jour</p><p>Écris la phrase que tu veux te redire chaque jour, avec tes mots : pour ton argent, ta confiance, tes limites, ton couple… Tu la recevras en notification, à l’heure que tu choisis.</p>';
+      if (e === 'installer') h += '<p class="gn-note">Sur iPhone, ajoute d’abord l’appli à ton écran d’accueil et ouvre-la depuis son icône.</p>';
+      else if (e === 'non-supporte') h += '<p class="gn-note">Ce navigateur ne permet pas les notifications.</p>';
+      else if (e === 'bloque') h += '<p class="gn-note">Les notifications sont bloquées pour Genesolia sur cet appareil : autorise-les dans les réglages de ton téléphone.</p>';
+      else {
+        h += '<textarea rows="2" maxlength="140" data-gn-texte placeholder="Exemple : J’ai le droit de gagner ma vie avec ce que j’aime.">' + esc(actif ? mem.texte : (o.suggestion || '')) + '</textarea>' +
+          '<div class="gn-heures" role="radiogroup" aria-label="L’heure de ta phrase">' + H.map(function (x) { return '<label><input type="radio" name="gn-heure" value="' + x[0] + '"' + ((actif ? mem.heure : 8) === x[0] ? ' checked' : '') + '><span>' + x[1] + '</span></label>'; }).join('') + '</div>' +
+          (actif ? '<p class="gn-etat">Tu reçois ta phrase chaque jour.</p>' : '') +
+          '<div class="gn-act"><button type="button" data-gn-ok>' + (actif ? 'Mettre à jour' : 'Recevoir ma phrase chaque jour') + '</button>' + (actif ? '<button type="button" class="gn-clair" data-gn-stop>Arrêter</button>' : '') + '</div>' +
+          '<p class="gn-note">Ta phrase est gardée sur nos serveurs en Europe pour pouvoir te l’envoyer (elle n’est pas chiffrée, contrairement à ton carnet). Tu peux l’arrêter et l’effacer à tout moment.</p>';
+      }
+      z.innerHTML = h + '<p class="gn-retour" role="status"></p></div>';
+      var ok = z.querySelector('[data-gn-ok]'), stop = z.querySelector('[data-gn-stop]'), ret = z.querySelector('.gn-retour');
+      if (ok) ok.addEventListener('click', function () {
+        var t = z.querySelector('[data-gn-texte]').value.trim().slice(0, 140), hr = +(z.querySelector('input[name="gn-heure"]:checked') || {}).value || 8;
+        if (!t) { ret.textContent = 'Écris d’abord ta phrase.'; return; }
+        ok.disabled = true; ret.textContent = '';
+        (e === 'actif' ? Promise.resolve(true) : activer(o.canal, o.sb)).then(function (a) {
+          if (!a) return false;
+          return inscription().then(function (s) { return s ? appel({ action: 'phrase', endpoint: s.endpoint, texte: t, heure: hr }) : null; }).then(function (r) { return !!(r && r.ok); });
+        }).then(function (bon) {
+          if (bon) { try { localStorage.setItem(CLE_PHRASE, JSON.stringify({ texte: t, heure: hr })); } catch (x) {} mem = lirePhrase(); if (window.umami) try { window.umami.track('phrase-du-jour'); } catch (x) {} phraseDuJour(z, o); if (o.apres) o.apres(true); }
+          else { ok.disabled = false; ret.textContent = 'Ça n’a pas fonctionné. Vérifie que les notifications sont autorisées, puis réessaie.'; }
+        });
+      });
+      if (stop) stop.addEventListener('click', function () {
+        stop.disabled = true;
+        inscription().then(function (s) { return s ? appel({ action: 'phrase', endpoint: s.endpoint, texte: '', heure: null }) : null; }).then(function () {
+          try { localStorage.removeItem(CLE_PHRASE); } catch (x) {} mem = null; phraseDuJour(z, o);
+        });
+      });
+    });
+  }
+  window.GenesoliaNotifs = { etat: etat, activer: activer, couper: couper, rafraichir: rafraichir, encart: encart, proposer: proposer, phraseDuJour: phraseDuJour, ios: ios, installee: installee };
 })();

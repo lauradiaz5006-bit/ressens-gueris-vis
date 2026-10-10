@@ -458,6 +458,7 @@
         : '<p style="padding:.8rem 0">Tes livres des mois passés restent ici, avec tes réponses, mois après mois.</p>') + '</div>';
       h += '<a class="ce-carte ce-formation" href="formation.html"><img src="assets/formation/module-1-apercu.jpg" width="72" height="102" alt="" loading="lazy"><div><p class="ce-etiq">La formation · Sors de la boucle</p><h3>Va plus loin que le mois</h3><p>8 modules, 8 séances audio, un tarif réduit pour les membres du Cercle.</p></div></a>';
       h += '<p class="ce-titre-liste">Mes rappels</p><div class="ce-carte" data-rappels></div>';
+      h += '<div data-phrase-jour></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
         (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
@@ -469,6 +470,7 @@
       var bi = vue.querySelector('[data-installer-appli]');
       if (bi) bi.addEventListener('click', function (e) { e.preventDefault(); if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
       reglageRappels(vue.querySelector('[data-rappels]'));
+      if (N && N.phraseDuJour) N.phraseDuJour(vue.querySelector('[data-phrase-jour]'), { canal: 'cercle', sb: sb, suggestion: E.carnet && E.carnet.v ? String(E.carnet.v.phrase || '').trim() : '', apres: function () { reglageRappels(vue.querySelector('[data-rappels]')); } });
     }
 
     /* ───── Les rappels (notifications) ─────
