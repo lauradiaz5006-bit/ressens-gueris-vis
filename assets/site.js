@@ -212,7 +212,67 @@ window.GENESOLIA_IMPRESSION = {
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
   var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'cercle.html';  /* cercle.html : l'appli des membres, sans publicité */
 
+  /* ===== Mode appli =====
+     « cercle » : l'appli Le Cercle. Elle commence sur cercle.html ; les pages du Cercle ouvertes depuis elle gardent
+     l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
+     « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
+     Sinon : le site normal, rien ne change. */
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
+  var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
+  if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search)) drapeau = 'cercle';
+  else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
+  try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
+  var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
+  if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
+  window.GenesoliaModeAppli = MODE;
+
   var entete = document.querySelector('[data-entete]');
+  /* Les icônes et les onglets de la barre du bas (mode appli) */
+  var ICO = {
+    jour: '<path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+    carnet: '<path d="M4 5c3-1.5 5.5-1.5 8 0v14c-2.5-1.5-5-1.5-8 0zM12 5c2.5-1.5 5-1.5 8 0v14c-3-1.5-5.5-1.5-8 0"/>',
+    suivi: '<path d="M12 12m-1 0a1 1 0 1 0 2 0a4 4 0 1 0-8 0a7 7 0 1 0 14 0"/>',
+    mois: '<path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/>',
+    moi: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
+    maison: '<path d="M4 11l8-7 8 7M6 9.5V20h12V9.5M10 20v-5h4v5"/>',
+    arbre: '<circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/><path d="M12 7.2v9.6M8 13l2.5 4.5M16 13l-2.5 4.5"/>',
+    outils: '<path d="M12 3l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.5z"/>'
+  };
+  var ONGLETS = MODE === 'cercle' ? [
+    ['cercle.html', 'jour', 'Aujourd\u2019hui', ''], ['mon-carnet.html', 'carnet', 'Carnet'], ['mon-suivi-mois.html', 'suivi', 'Suivi'],
+    ['cercle.html#mois', 'mois', 'Mon mois', 'mois'], ['cercle.html#moi', 'moi', 'Moi', 'moi']
+  ] : [
+    ['index.html', 'maison', 'Accueil'], ['genosociogramme.html', 'arbre', 'Mon arbre'], ['offert.html', 'outils', 'Mes outils'],
+    ['mon-suivi.html', 'suivi', 'Mon suivi'], ['login.html', 'moi', 'Mon espace']
+  ];
+  function ongletActif() {
+    var h = (location.hash || '').replace('#', '');
+    document.querySelectorAll('.barre-appli a').forEach(function (a) {
+      var cible = a.getAttribute('href').split('#'), ok = cible[0] === page || (cible[0] === 'index.html' && page === 'index.html');
+      if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
+      if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
+      if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  if (MODE) {
+    var barre = document.createElement('nav');
+    barre.className = 'barre-appli'; barre.setAttribute('aria-label', MODE === 'cercle' ? 'Le Cercle' : 'Genesolia');
+    barre.innerHTML = ONGLETS.map(function (o) { return '<a href="' + o[0] + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICO[o[1]] + '</svg><span>' + o[2] + '</span></a>'; }).join('');
+    document.body.appendChild(barre);
+    ongletActif();
+    window.addEventListener('hashchange', ongletActif);
+  }
+  /* Dans l'appli Le Cercle, les pages du Cercle ont un en-tête court : le nom de l'appli et ton initiale (vers « Moi ») */
+  if (entete && MODE === 'cercle' && ESTCERCLE) {
+    var jeton = null; try { jeton = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
+    var nomU = String((jeton && jeton.user && jeton.user.user_metadata && (jeton.user.user_metadata.full_name || jeton.user.user_metadata.prenom)) || '').trim();
+    entete.className = 'entete entete-appli';
+    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="cercle.html"><img src="/assets/icones/cercle-192.png" alt="" width="30" height="30">Le Cercle</a>' +
+      '<a class="ea-moi" href="cercle.html#moi" aria-label="Moi : mon espace du Cercle">' + (nomU ? nomU.charAt(0).toUpperCase().replace(/[<>&"]/g, '') : '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICO.moi + '</svg>') + '</a></div>';
+    entete = null;
+  }
   if (entete) {
     var liens = MENU.map(function (l) {
       return '<a href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
@@ -228,6 +288,7 @@ window.GENESOLIA_IMPRESSION = {
           '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
           '<a class="btn btn-jeunes"' + (BOUTON_JEUNES[0] === page ? ' aria-current="page"' : '') + ' href="' + BOUTON_JEUNES[0] + '">' + BOUTON_JEUNES[1] + '</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
+          (MODE ? '<span class="menu-legal"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="#" data-cookies>Cookies</a></span>' : '') +
         '</nav>' +
       '</div>';
     /* Lien de l'espace : « Me connecter » ou « Mon espace » (avec un point doré) selon l'état, mis à jour entre onglets */
@@ -260,6 +321,7 @@ window.GENESOLIA_IMPRESSION = {
   }
 
   var pied = document.querySelector('[data-pied]');
+  if (pied && MODE) { pied.remove(); pied = null; }   /* une appli n'a pas de pied de page */
   if (pied) {
     pied.className = 'pied';
     pied.innerHTML =
@@ -268,12 +330,17 @@ window.GENESOLIA_IMPRESSION = {
           '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
             '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
             '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
-            '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>' +
+            (ESTCERCLE ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
             '<i></i><i></i><i></i><i></i></div>' +
           '</div></div>' +
-          '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
-            '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
-            '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>' +
+          (ESTCERCLE
+            /* Pages du Cercle : c'est l'appli Le Cercle qu'on propose (installée depuis cercle.html, qui porte son icône) */
+            ? '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
+              '<ul><li>Tes deux livres du mois, ton mois et ton suivi</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
+              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Installer Le Cercle</a></div>'
+            : '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
+              '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
+              '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>') +
         '</div>' +
         '<div class="pied-grille">' +
           '<div><a class="marque" href="/">' + MARQUE + '</a>' +
@@ -373,7 +440,6 @@ window.GENESOLIA_IMPRESSION = {
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
   /* Dans les pages du Cercle (carnet, suivi, mois, guide, appli), l'encart du bas présente la formation à la place du carnet offert */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
   if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && !document.querySelector('[data-cadeau]')) {
     var zoneForm = document.createElement('section');
     zoneForm.className = 'bloc cadeau-bas';
@@ -656,7 +722,7 @@ window.GENESOLIA_IMPRESSION = {
         : android && firefox
         ? '<ol><li>Touche le menu <b>⋮</b>.</li><li>Choisis <b>Installer</b> (ou <b>Ajouter à l\'écran d\'accueil</b>).</li></ol><p>Pour la meilleure version, ouvre plutôt genesolia.fr dans Chrome.</p>'
         : android
-        ? '<ol><li>Touche le menu <b>⋮</b> en haut à droite de Chrome.</li><li>Choisis <b>Installer l\'application</b>. Si tu ne vois que « Ajouter à l\'écran d\'accueil », touche-le puis choisis <b>Installer</b> (et non « Créer un raccourci »).</li><li>Patiente quelques secondes : l\'icône Genesolia arrive avec tes applis. Ouvre-la depuis là, pas depuis Chrome.</li></ol>'
+        ? '<ol><li>Touche le menu <b>⋮</b> en haut à droite de Chrome.</li><li>Choisis <b>Installer l\'application</b>. Si tu ne vois que « Ajouter à l\'écran d\'accueil », touche-le puis choisis <b>Installer</b> (et non « Créer un raccourci »).</li><li>Patiente quelques secondes : l\'icône ' + APPLI.nom + ' arrive avec tes applis. Ouvre-la depuis là, pas depuis Chrome.</li></ol>'
         : '<ol><li>Dans Chrome ou Edge, clique sur l\'icône <b>Installer</b> à droite de la barre d\'adresse (un petit écran avec une flèche).</li><li>Confirme avec <b>Installer</b>.</li><li>' + APPLI.nom + ' s\'ouvre dans sa propre fenêtre, et se retrouve avec tes applications.</li></ol><p>Sur téléphone, ouvre genesolia.fr et touche « Installer l\'appli » en bas de la page.</p>') +
       '<p class="appli-note">Gratuit, sans téléchargement dans un store. Tes outils s\'ouvrent en plein écran, comme une vraie appli.</p></div>';
     function fermer() { f.remove(); }
@@ -665,12 +731,16 @@ window.GENESOLIA_IMPRESSION = {
     document.body.appendChild(f);
     f.querySelector('.appli-fermer').focus();
   }
+  function installer() {
+    if (invite) { invite.prompt(); invite.userChoice.then(function () { invite = null; }); }
+    else aideInstall();
+  }
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-installer],[data-installer-bandeau]'); if (!a) return;
     e.preventDefault();
-    if (invite) { invite.prompt(); invite.userChoice.then(function () { invite = null; }); }
-    else aideInstall();
+    installer();
   });
+  window.GenesoliaInstaller = { ouvrir: installer, installee: function () { return installee; } };
 
   /* Partage depuis le téléphone, avec l'image de la page quand c'est possible (Instagram, WhatsApp, Messenger…) */
   function partagerAvecImage(titre, adresse, image) {

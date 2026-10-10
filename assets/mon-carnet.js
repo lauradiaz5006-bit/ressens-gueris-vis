@@ -712,6 +712,9 @@
     var E = etapes(), n = E.filter(function (e) { return e.fait; }).length, p = E.length ? Math.round(n / E.length * 100) : 0;
     var b = document.getElementById('mc-progres-barre'); if (b) b.style.width = p + '%';
     var t = document.getElementById('mc-progres-texte'); if (t) t.textContent = n + (n > 1 ? ' étapes' : ' étape') + ' sur ' + E.length;
+    /* Pour l'accueil de l'appli Le Cercle : où tu en es (sur cet appareil), et la prochaine étape à ouvrir */
+    var suite = E.filter(function (e) { return !e.fait; })[0];
+    try { localStorage.setItem('genesolia-avancee-' + CLE, JSON.stringify({ n: n, total: E.length, suite: suite ? { nom: suite.nom, page: suite.page } : null })); } catch (e) {}
     PAGES.forEach(function (pg, i) {
       var ets = E.filter(function (e) { return e.page === pg.id; }), ok = ets.length && ets.every(function (e) { return e.fait; });
       var bt = racine.querySelector('.mc-onglets [data-page="' + i + '"]');
