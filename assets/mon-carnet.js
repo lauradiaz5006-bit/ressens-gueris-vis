@@ -153,7 +153,7 @@
       (lieu && document.getElementById('mc-lieu').value.trim() ? lieu.resoudre() : Promise.resolve(null)).then(function (l) {
         var pr = { prenom: f.prenom.value.trim(), date: d, heure: l ? f.heure.value : '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' };
         try { localStorage.setItem(CLE_PROFIL, JSON.stringify(pr)); } catch (x) {}
-        tonMois();
+        tonMois(); majSemainesMaya();
       });
     });
   }
@@ -330,6 +330,7 @@
       var k = 'sem' + (i + 1); if (Array.isArray(s)) s = { titre: s[0], texte: s[1] };
       return '<section class="mc-semaine" id="mc-semaine-' + (i + 1) + '"><div class="mc-sem-tete"><span class="mc-sem-n">Semaine ' + (i + 1) + '</span><h3>' + esc(s.titre) + '</h3><label class="mc-fait"><input type="checkbox" data-k="' + k + '-fait"> C’est fait</label></div><p>' + md(s.texte) + '</p>' +
         (s.exemple ? '<p class="mc-pourquoi">' + md(s.exemple) + '</p>' : '') +
+        (window.MAYA_SEMAINES && window.Maya ? '<div class="mc-maya" data-maya-sem="' + i + '"></div>' : '') +
         zone(k + '-notes', 'Qu’as-tu remarqué, essayé ou ressenti cette semaine ?', { lignes: 3, ph: s.ph }) +
         zone(k + '-victoire', 'Quelle est ta victoire de la semaine, même toute petite ?', { court: true, ph: 'Exemple : j’ai tenu mon rendez-vous avec moi samedi' }) +
         zone(k + '-appris', 'Qu’as-tu appris sur toi cette semaine ?', { court: true, ph: 'Exemple : quand je suis fatigué·e, je dis oui plus vite' }) +
@@ -380,6 +381,83 @@
   /* ───── Mon suivi « Je me libère » : le même livre, avec ses propres pages ─────
      La saison, le thème, quatre semaines (voir, source, libérer, remplacer), la méditation, le bilan.
      Les semaines 2 et suivantes sont réservées au Cercle (la semaine 1 est offerte). */
+  /* ───── Ta semaine maya (page « Mes 4 semaines ») ─────
+     Compte traditionnel k'iche' : on réutilise Maya.calculer() (maya.js) ; textes dans maya-semaines.js.
+     Semaines du 1er, 8, 15 et 22 ; la 4e va jusqu'au dernier jour du mois. Calculé à partir des repères de naissance. */
+  var JOURS_C = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+  function isoJ(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function plusJ(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function jourCourt(d) { return (d.getDate() === 1 ? '1er' : d.getDate()) + ' ' + MOIS_NOMS_S[d.getMonth()]; }
+  function semaineMaya(i, vuesAvant) {
+    var MS = window.MAYA_SEMAINES, MT = window.MAYA_TEXTES, MY = window.Maya, pr = lireProfil();
+    if (!MS || !MT || !MY) return '';
+    var titre = '<p class="mc-maya-sur">Ta semaine maya</p>';
+    if (!pr) {
+      var pTon = PAGES.map(function (p) { return p.id; }).indexOf('tonmois');
+      return titre + '<p class="mc-consigne">Pour voir ta semaine maya, indique d’abord ta date de naissance dans « Ton mois à toi ».</p>' + (pTon >= 0 ? '<p><button type="button" class="btn btn-trait" data-page="' + pTon + '">Indiquer mes repères de naissance</button></p>' : '');
+    }
+    var nat = MY.calculer(pr.date); if (!nat) return '';
+    var p = String(C.mois).split('-'), an = +p[0], mo = +p[1] - 1;
+    var debut = dateSemaine(i), fin = i < 3 ? plusJ(debut, 6) : new Date(an, mo + 1, 0);
+    var S = MT.SIGNES, jours = [], vagues = [];
+    for (var d = debut; d <= fin; d = plusJ(d, 1)) {
+      var r = MY.calculer(isoJ(d)), dv = plusJ(d, -(r.nombre - 1));
+      jours.push({ d: d, r: r });
+      if (!vagues.some(function (v) { return v.cle === isoJ(dv); })) vagues.push({ cle: isoJ(dv), d: dv, signe: MY.calculer(isoJ(dv)).signe, n: 0 });
+      vagues.forEach(function (v) { if (v.cle === isoJ(dv)) v.n++; });
+    }
+    function porte(sg) { return sg === nat.signe || sg % 4 === nat.signe % 4; }
+    var types = {};
+    /* les vagues de la semaine */
+    var h = titre + '<h4 class="mc-maya-titre">Du ' + jourCourt(debut) + ' au ' + jourCourt(fin) + '</h4>';
+    vagues.forEach(function (v) {
+      var sg = S[v.signe], fv = plusJ(v.d, 12), fam = MS.FAMILLES[v.signe % 4];
+      var deja = vuesAvant.indexOf(v.cle) >= 0; vuesAvant.push(v.cle);
+      var tagV = porte(v.signe) ? ' <span class="mc-maya-tag">' + esc(MS.JOURS_PERSO.vague.nom) + '</span>' : '';
+      if (porte(v.signe)) types.vague = 1;
+      h += '<details class="mc-maya-vague"' + (deja ? '' : ' open') + '><summary><b>Vague de ' + esc(sg.kiche) + '</b> · du ' + jourCourt(v.d) + ' au ' + jourCourt(fv) + tagV + '</summary>';
+      if (deja) h += '<p class="mc-note">La suite de la vague commencée plus tôt dans le mois : son descriptif complet est dans la semaine précédente.</p>';
+      else {
+        var batz = null; for (var k2 = 0; k2 < 13; k2++) { var rr = MY.calculer(isoJ(plusJ(v.d, k2))); if (rr.nombre === 8 && rr.signe === 10) batz = plusJ(v.d, k2); }
+        h += '<p class="mc-maya-t">Le signe qui ouvre la vague</p><p><b>' + esc(sg.kiche) + ', ' + esc(sg.image) + '.</b> ' + esc(sg.symbole) + '</p>' +
+          '<p class="mc-maya-t">Le déroulé</p><ul class="mc-maya-deroule">' +
+            '<li><b>Du ' + jourCourt(v.d) + ' au ' + jourCourt(plusJ(v.d, 5)) + '</b> · ' + esc(MS.DEROULE.debut) + '</li>' +
+            '<li><b>Le ' + jourCourt(plusJ(v.d, 6)) + '</b> · ' + esc(MS.DEROULE.milieu) + '</li>' +
+            '<li><b>Du ' + jourCourt(plusJ(v.d, 7)) + ' au ' + jourCourt(fv) + '</b> · ' + esc(MS.DEROULE.fin) + '</li></ul>' +
+          '<p>Cette vague appartient ' + esc(fam.nom) + '. ' + esc(fam.texte) + '</p>' +
+          (batz ? '<p class="mc-maya-remarquable"><b>Le ' + jourCourt(batz) + '</b> · ' + esc(MS.REMARQUABLES.batz) + '</p>' : '') +
+          '<p class="mc-maya-t">Ce qu’elle invite</p><p>' + esc(MS.VAGUES[v.signe]) + '</p>';
+      }
+      h += '</details>';
+    });
+    /* l'invitation de la semaine : celle de la vague qui couvre le plus de jours */
+    var vp = vagues.reduce(function (a, v) { return v.n >= a.n ? v : a; }, vagues[0]), inv = MS.INVITATIONS[vp.signe];
+    h += '<p class="mc-maya-t">Ton invitation de la semaine · vague de ' + esc(S[vp.signe].kiche) + '</p><ul class="mc-maya-invit"><li><b>En amour</b> · ' + esc(inv.amour) + '</li><li><b>Au travail</b> · ' + esc(inv.travail) + '</li><li><b>En famille et lignée</b> · ' + esc(inv.famille) + '</li></ul>';
+    /* les jours */
+    h += '<p class="mc-maya-t">Tes jours</p><ul class="mc-maya-jours">' + jours.map(function (j) {
+      var r = j.r, sg = S[r.signe], tags = [], plus = '';
+      if (r.kin === nat.kin) { tags.push('ton anniversaire maya'); plus += '<span>' + esc(MS.REMARQUABLES.anniversaire) + '</span>'; }
+      if (r.signe === nat.signe) { tags.push(MS.JOURS_PERSO.signe.nom); types.signe = 1; }
+      else if (r.signe % 4 === nat.signe % 4) { tags.push(MS.JOURS_PERSO.famille.nom); types.famille = 1; }
+      if (r.nombre === nat.nombre) { tags.push(MS.JOURS_PERSO.nombre.nom); types.nombre = 1; }
+      if (r.nombre === 8 && r.signe === 10) tags.push('8 B’atz’');
+      var perso = tags.length > 0;
+      if (perso) { var SS = MS.SIGNES[r.signe]; plus += '<span>' + esc(SS.sens) + '</span><span><b>En amour</b> · ' + esc(SS.amour) + ' <b>Au travail</b> · ' + esc(SS.travail) + ' <b>En famille</b> · ' + esc(SS.famille) + '</span>'; }
+      if ([1, 6, 11, 16].indexOf(r.signe) >= 0) tags.push('porteur de l’année');
+      return '<li class="' + (perso ? 'perso' : '') + '"><b>' + JOURS_C[j.d.getDay()] + ' ' + j.d.getDate() + '</b><div><span class="mc-maya-jour">' + r.nombre + ' ' + esc(sg.kiche) + '</span> · ' + esc(sg.image) + ' · <i>' + esc(String(MS.NOMBRES[r.nombre]).split(' :')[0]) + '</i>' +
+        (tags.length ? ' ' + tags.map(function (t) { return '<span class="mc-maya-tag">' + esc(t) + '</span>'; }).join(' ') : '') + (plus ? '<div class="mc-maya-plus">' + plus + '</div>' : '') + '</div></li>';
+    }).join('') + '</ul>';
+    var leg = Object.keys(MS.JOURS_PERSO).filter(function (t) { return types[t]; }).map(function (t) { return '<li><b>' + esc(MS.JOURS_PERSO[t].nom) + '</b> · ' + esc(MS.JOURS_PERSO[t].texte) + '</li>'; });
+    if (jours.some(function (j) { return [1, 6, 11, 16].indexOf(j.r.signe) >= 0; })) leg.push('<li><b>porteur de l’année</b> · ' + esc(MS.REMARQUABLES.porteur) + '</li>');
+    if (leg.length) h += '<ul class="mc-maya-legende">' + leg.join('') + '</ul>';
+    h += '<p class="mc-maya-cadre">Ton signe de naissance : <b>' + nat.nombre + ' ' + esc(S[nat.signe].kiche) + '</b>. ' + esc(MS.CADRE) + '</p>';
+    return h;
+  }
+  function majSemainesMaya() {
+    var vues = [];
+    racine.querySelectorAll('[data-maya-sem]').forEach(function (z) { z.innerHTML = semaineMaya(+z.getAttribute('data-maya-sem'), vues); });
+  }
+  window.addEventListener('beforeprint', function () { racine.querySelectorAll('.mc-maya details').forEach(function (d) { d.open = true; }); });
   function dateSemaine(k) { var p = String(C.mois).split('-'); return new Date(+p[0], +p[1] - 1, 1 + 7 * k); }
   function jourMois(d) { return (d.getDate() === 1 ? '1er' : d.getDate()) + ' ' + MOIS_NOMS_S[d.getMonth()]; }
   var MOIS_NOMS_S = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -956,7 +1034,7 @@
   window.addEventListener('afterprint', finImpression);
   window.GenesoliaCarnet = { aller: aller, preparerImpression: preparerImpression, finImpression: finImpression };
 
-  function demarrer() { construire(); tonMois(); charger(); }
+  function demarrer() { construire(); tonMois(); majSemainesMaya(); charger(); }
   /* Le suivi vérifie d'abord l'accès au Cercle (semaine 1 offerte, la suite pour les membres) */
   if (SUIVI && window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(function (m) { membre = !!m; demarrer(); }, demarrer);
   else { membre = true; demarrer(); }

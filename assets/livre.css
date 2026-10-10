@@ -308,3 +308,29 @@
 .mc-int-phrase{margin:.8rem 0 .3rem;font:400 1.15rem/1.4 var(--display);color:var(--prune)}
 .mc-vide input[type=range]{accent-color:#B8ABB1}
 @media print{.mc-pagenum,.mc-autre{display:none!important}}
+
+/* ───── Ta semaine maya (page « Mes 4 semaines ») ───── */
+.mc-maya{margin:1rem 0 1.2rem;padding:1rem 1.05rem;border-radius:16px;background:#FFF9F4;border:1px solid var(--champagne-clair,#F3DCC0)}
+.mc-maya-sur{margin:0 0 .2rem;font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F}
+.mc-maya-titre{margin:0 0 .7rem;font:400 1.15rem/1.25 var(--display);color:var(--prune)}
+.mc-maya-vague{margin:.6rem 0;padding:.7rem .85rem;border-radius:14px;background:#fff;border:1px solid var(--rose-fonce)}
+.mc-maya-vague summary{cursor:pointer;line-height:1.45;color:var(--prune)}
+.mc-maya-vague summary b{font:400 1.05rem var(--display)}
+.mc-maya-vague p,.mc-maya-vague li{font-size:.93rem;line-height:1.55}
+.mc-maya-t{margin:.9rem 0 .3rem!important;font:700 .72rem/1.3 var(--texte)!important;letter-spacing:.12em;text-transform:uppercase;color:#A2753F}
+.mc-maya-deroule,.mc-maya-invit,.mc-maya-legende{margin:.3rem 0 .4rem;padding-left:1.1rem}
+.mc-maya-deroule li,.mc-maya-invit li,.mc-maya-legende li{margin:.3rem 0}
+.mc-maya-deroule li::marker,.mc-maya-invit li::marker,.mc-maya-legende li::marker{color:var(--champagne,#B98A55)}
+.mc-maya-remarquable{padding:.55rem .7rem;border-radius:10px;background:#FCEFF3}
+.mc-maya-jours{list-style:none;margin:.2rem 0 .6rem;padding:0}
+.mc-maya-jours li{display:grid;grid-template-columns:4.2rem 1fr;gap:.6rem;padding:.5rem 0;border-top:1px solid var(--rose,#F6E3E8);font-size:.92rem;line-height:1.5}
+.mc-maya-jours li:first-child{border-top:0}
+.mc-maya-jours li>b{font:400 1rem/1.3 var(--display);color:var(--prune)}
+.mc-maya-jours li.perso{background:linear-gradient(90deg,#FCEFF3,transparent);border-radius:10px;padding-left:.4rem}
+.mc-maya-jour{font-weight:700;color:var(--prune)}
+.mc-maya-tag{display:inline-block;margin:.15rem .2rem 0 0;padding:.05rem .5rem;border-radius:99px;background:var(--prune,#6B2F5B);color:#fff;font-size:.74rem;font-weight:600;white-space:nowrap}
+.mc-maya-plus span{display:block;margin-top:.3rem;color:var(--prune-doux,#7A5570)}
+.mc-maya-legende{font-size:.88rem}
+.mc-maya-cadre{margin:.8rem 0 0;font-size:.85rem;color:var(--prune-doux,#7A5570);font-style:italic}
+@media (max-width:520px){.mc-maya{padding:.85rem .8rem}.mc-maya-jours li{grid-template-columns:3.4rem 1fr}}
+@media print{.mc-maya details>summary{list-style:none}.mc-maya{break-inside:auto}}

@@ -161,5 +161,27 @@ window.MAYA_SEMAINES = {
     /* 19 Ajpu */ { amour: "Célébrez ce qui va bien entre vous.", travail: "Montre un travail dont tu es fier·e.", famille: "Honore tes ancêtres en t'accordant une vraie joie cette semaine." }
   ],
 
-  CADRE: "Ces repères viennent du calendrier maya sacré. Ce ne sont pas des prédictions, mais des rendez-vous avec toi-même."
+  /* Les quatre familles de signes (signe mod 4) : direction et couleur, celles des quatre maïs */
+  FAMILLES: [
+    { nom: "à l'Est, rouge", texte: "L'Est est le côté où le soleil se lève ; sa couleur est le rouge, celle du maïs rouge. Ses signes sont Imox, Kan, Toj, Aj et No'j." },
+    { nom: "au Nord, blanc", texte: "Le Nord a pour couleur le blanc, celle du maïs blanc. Ses signes sont Iq', Kame, Tz'i', I'x et Tijax." },
+    { nom: "à l'Ouest, noir", texte: "L'Ouest est le côté où le soleil se couche ; sa couleur est le noir, celle du maïs noir. Ses signes sont Aq'ab'al, Kej, B'atz', Tz'ikin et Kawoq." },
+    { nom: "au Sud, jaune", texte: "Le Sud a pour couleur le jaune, celle du maïs jaune. Ses signes sont K'at, Q'anil, E, Ajmaq et Ajpu." }
+  ],
+
+  /* Le déroulé d'une vague : chez les K'iche', les nombres bas sont décrits comme doux, les nombres hauts comme forts (Barbara Tedlock) */
+  DEROULE: {
+    debut: "Du 1 au 6, les nombres bas, que les gardien·nes du jour décrivent comme doux : le thème de la vague s'installe en douceur.",
+    milieu: "Le 7 en est le centre exact, six jours avant, six jours après : un point d'équilibre pour regarder d'où tu viens et où tu vas.",
+    fin: "Du 8 au 13, les nombres hauts, décrits comme plus forts : le thème s'exprime avec plus d'intensité, jusqu'au 13 qui achève la vague."
+  },
+
+  /* Jours remarquables, seulement ceux que la tradition k'iche' documente */
+  REMARQUABLES: {
+    batz: "8 B'atz' (Waqxaqib' B'atz') est l'un des grands jours du calendrier k'iche' : dans plusieurs communautés, c'est le jour où l'on initie les ajq'ij, les gardien·nes du jour.",
+    porteur: "Ce signe est l'un des quatre porteurs de l'année du compte k'iche' (Iq', Kej, E, No'j) : l'année porte le nom du jour où elle commence.",
+    anniversaire: "Ton anniversaire maya : le même nombre et le même signe que le jour de ta naissance. Il revient tous les 260 jours."
+  },
+
+  CADRE: "Ces repères viennent du calendrier maya sacré. Ce ne sont pas des prédictions, mais des rendez-vous avec toi-même. Chaque vague prend la couleur de son premier jour : c'est une lecture inspirée de la tradition."
 };
