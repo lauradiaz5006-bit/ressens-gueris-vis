@@ -81,6 +81,8 @@
     .ce-erreur{color:#9B2C2C;font-size:.9rem;margin-top:.5rem}
     /* Moi */
     .ce-liste{padding:.3rem 1.15rem}
+    .ce-r-etat{font-weight:600;color:var(--prune)}
+    [data-rappels] .ce-bt{margin-top:.7rem}
     .ce-liste a{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center;padding:.8rem 0;min-height:48px;text-decoration:none;color:var(--encre)}
     .ce-liste a+a{border-top:1px solid var(--ligne)}
     .ce-liste b{display:block;font:400 1.08rem/1.25 var(--display);color:var(--prune)}
@@ -129,6 +131,7 @@
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/saisons.js"></script>
+  <script src="assets/notifs.js"></script>
   <script>
   (function () {
     'use strict';
@@ -262,8 +265,10 @@
         seance(C, 'Visualisation · J’avance', 'mon-carnet.html#rituel', 'Ta visualisation') + seance(S, 'Libération · Je me libère', 'mon-suivi-mois.html#meditation', 'Ta libération') + '</section>';
       var suite = C && C.aVenir && C.aVenir[0];
       if (suite) h += '<section class="ce-carte" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">Le mois prochain</p><h3>' + esc(suite.titre) + '</h3><p>' + esc(suite.texte) + '</p></section>';
+      h += '<div data-rappels-invite></div>';
       afficher(h);
       pointDuJour();
+      inviteRappels();
       var bs = vue.querySelector('[data-saison]');
       if (bs) bs.addEventListener('click', function () {
         ouvrirFeuille('<p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h2>' + esc(sa.titre) + '</h2><p>' + esc(sa.texte) + '</p>' +
@@ -451,6 +456,7 @@
         ? passes.map(function (x) { var p = x.split('-'); return ligne('mon-carnet.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton carnet') + ligne('mon-suivi-mois.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton suivi'); }).join('')
         : '<p style="padding:.8rem 0">Tes livres des mois passés restent ici, avec tes réponses, mois après mois.</p>') + '</div>';
       h += '<a class="ce-carte ce-formation" href="formation.html"><img src="assets/formation/module-1-apercu.jpg" width="72" height="102" alt="" loading="lazy"><div><p class="ce-etiq">La formation · Sors de la boucle</p><h3>Va plus loin que le mois</h3><p>8 modules, 8 séances audio, un tarif réduit pour les membres du Cercle.</p></div></a>';
+      h += '<p class="ce-titre-liste">Mes rappels</p><div class="ce-carte" data-rappels></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
         (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
@@ -461,6 +467,54 @@
       afficher(h);
       var bi = vue.querySelector('[data-installer-appli]');
       if (bi) bi.addEventListener('click', function (e) { e.preventDefault(); if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
+      reglageRappels(vue.querySelector('[data-rappels]'));
+    }
+
+    /* ───── Les rappels (notifications) ─────
+       Un rappel au plus par jour, écrit à l'avance : ton nouveau carnet, chaque semaine, ta météo de fin de mois, les lunes. */
+    var N = window.GenesoliaNotifs;
+    var RAPPELS = 'Un petit rappel au plus par jour\u00a0: ton nouveau carnet, le début de chaque semaine, ta météo de fin de mois, la nouvelle et la pleine lune.';
+    function reglageRappels(z) {
+      if (!z) return;
+      if (!N) { z.innerHTML = '<p>' + RAPPELS + '</p><p class="ce-discret">Les rappels ne sont pas disponibles sur cet appareil.</p>'; return; }
+      N.etat().then(function (e) {
+        var h = '<p>' + RAPPELS + '</p>';
+        if (e === 'installer') h += '<p class="ce-discret">Sur iPhone, ajoute d’abord l’appli Le Cercle à ton écran d’accueil, puis ouvre-la depuis son icône pour activer tes rappels.</p><button type="button" class="ce-bt clair" data-r-installer>Installer l’appli</button>';
+        else if (e === 'non-supporte') h += '<p class="ce-discret">Ce navigateur ne permet pas les rappels. Essaie avec l’appli installée, ou avec Chrome, Edge, Firefox ou Safari à jour.</p>';
+        else if (e === 'bloque') h += '<p class="ce-discret">Les notifications sont bloquées pour Genesolia sur cet appareil. Pour les autoriser, va dans les réglages de ton téléphone ou de ton navigateur, rubrique Notifications.</p>';
+        else if (e === 'actif') h += '<p class="ce-r-etat">Tes rappels sont activés sur cet appareil.</p><button type="button" class="ce-bt clair" data-r-couper>Couper mes rappels</button>';
+        else h += '<button type="button" class="ce-bt" data-r-activer>Recevoir mes rappels</button>';
+        h += '<p class="ce-erreur" data-r-retour role="status"></p>';
+        z.innerHTML = h; typo(z);
+        brancherRappels(z, function () { reglageRappels(z); });
+      });
+    }
+    function brancherRappels(z, apres) {
+      var ret = z.querySelector('[data-r-retour]');
+      var a = z.querySelector('[data-r-activer]'), c = z.querySelector('[data-r-couper]'), i = z.querySelector('[data-r-installer]');
+      if (i) i.addEventListener('click', function () { if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
+      if (a) a.addEventListener('click', function () {
+        a.disabled = true; if (ret) ret.textContent = '';
+        N.activer(sb, E.user).then(function (ok) {
+          if (ok) { try { localStorage.setItem('genesolia-rappels-vu', '1'); } catch (x) {} if (window.umami) try { window.umami.track('rappels-actives'); } catch (x) {} apres(); }
+          else { a.disabled = false; if (ret) ret.textContent = Notification.permission === 'denied' ? 'Les notifications ont été refusées sur cet appareil.' : 'L’activation n’a pas fonctionné. Réessaie dans un instant.'; }
+        });
+      });
+      if (c) c.addEventListener('click', function () { c.disabled = true; N.couper(sb).then(apres); });
+    }
+    /* Sur Aujourd'hui : une seule invitation, discrète, tant que la personne n'a ni activé ni dit « plus tard » */
+    function inviteRappels() {
+      var z = vue.querySelector('[data-rappels-invite]'); if (!z || !N || !E.user) return;
+      var vu = null; try { vu = localStorage.getItem('genesolia-rappels-vu'); } catch (x) {}
+      if (vu) return;
+      N.etat().then(function (e) {
+        if (e !== 'inactif' || !vue.contains(z)) return;
+        z.innerHTML = '<section class="ce-carte"><p class="ce-etiq">Tes rappels</p><h3>Veux-tu un petit rappel au bon moment\u00a0?</h3><p>Ton nouveau carnet, le début de chaque semaine, ta météo de fin de mois, les lunes. Un rappel au plus par jour, et tu peux les couper quand tu veux.</p>' +
+          '<div class="ce-actions"><button type="button" class="ce-bt" data-r-activer>Recevoir mes rappels</button><button type="button" class="ce-bt clair" data-r-tard>Plus tard</button></div><p class="ce-erreur" data-r-retour role="status"></p></section>';
+        typo(z);
+        brancherRappels(z, function () { z.innerHTML = '<section class="ce-carte"><p class="ce-r-etat">C’est fait\u00a0: tes rappels sont activés. Tu peux les régler dans l’onglet Moi.</p></section>'; typo(z); });
+        z.querySelector('[data-r-tard]').addEventListener('click', function () { try { localStorage.setItem('genesolia-rappels-vu', '1'); } catch (x) {} z.innerHTML = ''; });
+      });
     }
 
     /* ───── Pas encore membre ───── */
@@ -509,6 +563,7 @@
         E.user = s.user;
         E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
         var rep = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, s.user) : Promise.resolve(null);
+        if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb, s.user);
         return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
       }).catch(router);
     });
