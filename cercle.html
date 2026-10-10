@@ -41,7 +41,7 @@
     .ce-frise{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin:.85rem 0 .45rem}
     .ce-frise i{height:18px;border-radius:5px;background:#F4E8EC}
     .ce-frise .o1{background:#E9C9B0}.ce-frise .o2{background:#D7A27C}.ce-frise .o3{background:#B98A55}.ce-frise .no{background:#E5DAF0}
-    .ce-frise .auj{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--prune)}
+    .ce-frise .auj{box-shadow:inset 0 0 0 2px var(--prune)}
     .ce-ligne{display:flex;justify-content:space-between;gap:.6rem;font-size:.85rem;color:var(--doux)}
     .ce-discret{font-size:.8rem;color:var(--doux);margin-top:.45rem}
     /* Les deux livres */
@@ -232,7 +232,7 @@
         if (!L) return '';
         var a = lire('genesolia-avancee-' + (L.cle || L.mois)), p = a && a.total ? Math.round(a.n / a.total * 100) : 0;
         return '<a class="ce-livre ' + classe + '" href="' + url + '"><div><small>' + sur + '</small><b>' + esc(L.titre) + '</b></div>' +
-          '<div><div class="ce-mini"><i style="width:' + p + '%"></i></div><span>' + (a && a.total ? a.n + (a.n > 1 ? ' étapes' : ' étape') + ' sur ' + a.total : 'Ouvrir') + '</span></div></a>';
+          '<div>' + (a && a.total ? '<div class="ce-mini"><i style="width:' + p + '%"></i></div>' : '') + '<span>' + (a && a.total ? a.n + (a.n > 1 ? ' étapes' : ' étape') + ' sur ' + a.total : 'Ouvrir le livre') + '</span></div></a>';
       }
       h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère', 'mon-suivi-mois.html') + '</div>';
       /* reprendre où j'en étais */
@@ -267,7 +267,7 @@
       var z = document.getElementById('ce-point'); if (!z) return;
       var P = lire(POINT) || {}, auj = cle(new Date()), x = P[auj];
       var boucle = E.S && E.S.titre ? 'Ta boucle' : 'Ta boucle';
-      var h = '<p class="ce-etiq">Le point du jour · 1 minute</p><h3 id="ce-point-t">' + boucle + ' est-elle revenue aujourd’hui ?</h3>' +
+      var h = '<p class="ce-etiq">Le point du jour · 1 min</p><h3 id="ce-point-t">' + boucle + ' est-elle revenue aujourd’hui ?</h3>' +
         '<div class="ce-choix" role="group" aria-labelledby="ce-point-t"><button type="button" data-r="o" aria-pressed="' + (x && x.r === 'o') + '">Oui</button><button type="button" data-r="n" aria-pressed="' + (x && x.r === 'n') + '">Non</button></div>';
       if (x && x.r === 'o') h += '<div class="ce-force"><label for="ce-force">Avec quelle force ? <b id="ce-force-v">' + (x.i || 0) + '</b>/10</label><input type="range" id="ce-force" min="0" max="10" step="1" value="' + (x.i || 0) + '"></div>';
       /* les 14 derniers jours */
