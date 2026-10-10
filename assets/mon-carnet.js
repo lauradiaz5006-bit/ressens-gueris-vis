@@ -10,6 +10,7 @@
 (function () {
   'use strict';
   var C = window.GENESOLIA_CARNET; if (!C) return;
+  var A = window.CARNET_ACCOMP || null;   /* accompagnement personnalisé : blessures, gestes, lecture de la roue (assets/carnet-accompagnement.js) */
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
   var SUIVI = C.type === 'suivi', CLE = C.cle || C.mois, PAGE_URL = C.page || 'mon-carnet.html', membre = false;
   var CLE_LOCALE = 'genesolia-carnet-' + CLE;
@@ -231,13 +232,25 @@
     return gauche('tonmois', 'Avant tout · rien que pour toi', 'Ton mois à toi',
       '<p class="mc-intro">Chaque mois porte une couleur particulière pour toi : ton nombre personnel, le ciel qui passe sur ton thème de naissance, les jours de ton signe maya. Lis-les comme une météo du ciel, avant ta météo intérieure.</p>' +
       '<p>Ce n’est pas une prédiction : ce sont des repères pour savoir où mettre ton énergie, en amour, dans ton travail, dans tes décisions.</p>');
-  }, d: function () { return '<div id="mc-tonmois"></div>' + zone('tonmois-retiens', 'Qu’est-ce qui résonne pour toi dans cette lecture ? Qu’en retiens-tu pour ton mois ?', { lignes: 3, ph: 'Exemple : un mois pour oser commencer. Je retiens la nouvelle lune du 21 pour poser mon intention.' }); } });
+  }, d: function () { return '<div id="mc-tonmois"></div>' + (A ? '<section class="mc-pbl" id="mc-profil-bl" aria-live="polite"></section>' : '') + zone('tonmois-retiens', 'Qu’est-ce qui résonne pour toi dans cette lecture ? Qu’en retiens-tu pour ton mois ?', { lignes: 3, ph: 'Exemple : un mois pour oser commencer. Je retiens la nouvelle lune du 21 pour poser mon intention.' }); } });
 
-  function lireProfil() {
+  function lireProfil(brut) {
     var s = null;
     try { s = JSON.parse(localStorage.getItem(CLE_PROFIL) || 'null'); } catch (e) {}
-    if (!s) { try { var a = JSON.parse(localStorage.getItem('genesolia-astro') || 'null'); if (a && a.date) s = { prenom: a.prenom || '', date: a.date, heure: a.heure || '', lieu: a.lieu || '', lat: a.lat, lon: a.lon, tz: a.tz || 'Europe/Paris' }; } catch (e) {} }
-    return s && /^\d{4}-\d{2}-\d{2}$/.test(s.date || '') ? s : null;
+    /* Repères trouvés dans un autre outil de l'appareil (thème astral…) : peut-être ceux d'une amie. On ne s'en sert qu'après « Oui, c'est moi ». */
+    if (!s) { try { var a = JSON.parse(localStorage.getItem('genesolia-astro') || 'null'); if (a && a.date) s = { prenom: a.prenom || '', date: a.date, heure: a.heure || '', lieu: a.lieu || '', lat: a.lat, lon: a.lon, tz: a.tz || 'Europe/Paris', aConfirmer: true }; } catch (e) {} }
+    s = s && /^\d{4}-\d{2}-\d{2}$/.test(s.date || '') ? s : null;
+    return s && s.aConfirmer && !brut ? null : s;
+  }
+  function confirmerReperes(z, pr) {
+    z.innerHTML = '<div class="mc-proprio"><p class="mc-encadre-t">Avant de lire ton mois</p><p>Nous avons trouvé sur cet appareil des repères de naissance : <b>' + esc(pr.prenom || 'sans prénom') + ', né·e le ' + esc(pr.date.split('-').reverse().join('/')) + '</b>' + (pr.lieu ? ' à ' + esc(pr.lieu) : '') + '. Est-ce bien toi ? Une amie a peut-être utilisé le site sur cet appareil.</p>' +
+      '<p class="mc-proprio-b"><button type="button" class="btn btn-plein" data-reperes="oui">Oui, c’est moi</button> <button type="button" class="btn btn-trait" data-reperes="non">Non, je saisis les miens</button></p></div>';
+    z.querySelector('[data-reperes="oui"]').addEventListener('click', function () {
+      var c = Object.assign({}, pr); delete c.aConfirmer;
+      try { localStorage.setItem(CLE_PROFIL, JSON.stringify(c)); } catch (x) {}
+      tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); majMeteoDit(); perso();
+    });
+    z.querySelector('[data-reperes="non"]').addEventListener('click', function () { formProfil(z); });
   }
   function formProfil(z) {
     /* Repères de naissance : la date, tous les prénoms et le nom de naissance (verrouillés une fois enregistrés dans l'espace), l'heure et le lieu (à compléter quand on veut) */
@@ -271,15 +284,19 @@
   }
   function tonMois() {
     var z = document.getElementById('mc-tonmois'); if (!z) return;
-    var pr = lireProfil(); if (!pr) { formProfil(z); return; }
+    var pr = lireProfil(true); if (!pr) { formProfil(z); return; }
+    if (pr.aConfirmer) { confirmerReperes(z, pr); return; }
     var p = String(C.mois).split('-'), an = +p[0], mo = +p[1], arbre = null, r = null;
     try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (e) {}
+    /* Sans compte, l'arbre de l'appareil a pu être rempli par une autre personne : on demande avant de s'en servir */
+    var arbreAConfirmer = !!(arbre && arbre.people && !user && localStorage.getItem('genesolia-arbre-moi') !== '1');
+    if (arbreAConfirmer || localStorage.getItem('genesolia-arbre-moi') === '0') arbre = null;
     try { r = window.Guide.calculer(pr, an, mo, arbre); } catch (e) { r = null; }
     if (!r) { formProfil(z); return; }
     var T = window.GUIDE_TEXTES, G = window.Guide, M = T.MOIS[r.moisPerso] || {}, ML = window.Numerologie && window.Numerologie.MOIS_LONG ? window.Numerologie.MOIS_LONG[r.moisPerso] : null;
     var nm = MOIS_NOMS[mo - 1], signeMaya = r.maya && window.MAYA_TEXTES ? window.MAYA_TEXTES.SIGNES[r.maya.natal.signe] : null;
     var h = '<div class="mc-tm-tete"><p class="mc-sur">' + (pr.prenom ? 'Le mois de ' + esc(pr.prenom) : 'Ton mois') + '</p><p class="mc-tm-titre">' + esc(M.theme || '') + '</p>' +
-      '<p class="mc-tm-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + esc(signeMaya.kiche) + '</span>' : '') + '</p></div>';
+      '<p class="mc-tm-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + r.maya.natal.nombre + ' ' + esc(signeMaya.kiche) + '</span>' : '') + '</p></div>';
     if (ML) h += '<p>' + ML.texte + '</p>';
     h += '<div class="mc-tm-cartes">' +
       '<div class="mc-tm-carte"><p class="mc-encadre-t">En amour</p><p>' + M.amour + '</p></div>' +
@@ -297,8 +314,10 @@
     h += '<p class="mc-encadre-t mc-tm-ciel-t">Ton ciel du mois</p><ul class="mc-tm-ciel">' + c + '</ul>' +
       (r.maisons ? '' : '<p class="mc-note">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') +
       '<p class="mc-tm-liens"><button type="button" class="btn btn-trait" data-profil>' + (pr.verrou ? 'Compléter mon heure ou mon lieu' : 'Modifier mes repères de naissance') + '</button> <a class="btn btn-trait" href="mon-guide.html">Mon guide du mois complet</a></p>';
+    if (arbreAConfirmer) h += '<div class="mc-proprio"><p>Un arbre familial est enregistré sur cet appareil. Est-ce bien le tien ? S’il l’est, ton mois tiendra compte des dates de ta famille.</p><p class="mc-proprio-b"><button type="button" class="btn btn-trait" data-arbre="1">Oui, c’est mon arbre</button> <button type="button" class="btn btn-trait" data-arbre="0">Non</button></p></div>';
     z.innerHTML = h;
     z.querySelector('[data-profil]').addEventListener('click', function () { formProfil(z); });
+    z.querySelectorAll('[data-arbre]').forEach(function (b) { b.addEventListener('click', function () { try { localStorage.setItem('genesolia-arbre-moi', b.getAttribute('data-arbre')); } catch (x) {} tonMois(); }); });
   }
 
   PAGES.push({ id: 'ouverture', nom: 'Ma météo du début', g: function () {
@@ -306,8 +325,8 @@
       '<p class="mc-intro">Avant d’ouvrir le thème, prends le temps de te poser. Ces questions viennent de la PNL et de l’accompagnement : elles t’aident à savoir où tu en es, à donner une direction claire à ton mois, et à mesurer ensuite le chemin parcouru.</p>' +
       '<p>Il n’y a pas de bonne réponse, seulement la tienne, aujourd’hui. Si tu as cinq minutes, remplis la météo et ton objectif. Le reste peut attendre.</p>');
   }, d: function () {
-    return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3><p class="mc-consigne">Place chaque curseur sans réfléchir longtemps : la première réponse est souvent la plus juste. 0, c’est au plus bas ; 10, au plus haut. Par exemple, si tu dors mal depuis une semaine, ton énergie est peut-être à 3, et c’est très bien de le voir.</p>' + blocEchelles('md') + '<div class="mc-meteo-dit" data-meteo-dit hidden aria-live="polite"></div>' + bravo(1) + '</section>' +
-      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie</h3><p class="mc-consigne">Pour chaque domaine de ta vie, à quel point te sens-tu comblé·e aujourd’hui ? 0, pas du tout ; 10, pleinement. Ta roue se dessine à côté : plus elle est ronde, plus ta vie est équilibrée. Elle n’a pas besoin d’être grande partout, elle a besoin d’être juste pour toi.</p>' + blocRoue('rd') + '<p class="mc-pourquoi" data-roue-bas></p>' + bravo(2) + '</section>' +
+    return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3><p class="mc-consigne">Place chaque curseur sans réfléchir longtemps : la première réponse est souvent la plus juste. 0, c’est au plus bas ; 10, au plus haut. Par exemple, si tu dors mal depuis une semaine, ton énergie est peut-être à 3, et c’est très bien de le voir.</p>' + blocEchelles('md') + pointBlessures() + '<div class="mc-meteo-dit" data-meteo-dit hidden aria-live="polite"></div>' + bravo(1) + '</section>' +
+      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie</h3><p class="mc-consigne">Pour chaque domaine de ta vie, à quel point te sens-tu comblé·e aujourd’hui ? 0, pas du tout ; 10, pleinement. Ta roue se dessine à côté : plus elle est ronde, plus ta vie est équilibrée. Elle n’a pas besoin d’être grande partout, elle a besoin d’être juste pour toi.</p>' + blocRoue('rd') + '<p class="mc-pourquoi" data-roue-bas></p>' + (A ? '<div class="mc-roue-lecture" data-roue-lecture></div>' : '') + boutonsRoue('debut') + bravo(2) + '</section>' +
       '<section class="mc-etape"><h3><span>3</span> Ton objectif du mois, bien formulé</h3><p class="mc-consigne">Un objectif clair met ton énergie en mouvement. On le formule en positif (ce que tu veux, pas ce que tu ne veux plus), il dépend de toi, et tu sais à quoi tu reconnaîtras qu’il est atteint. Par exemple, « ne plus me laisser marcher dessus » devient « dire calmement ce dont j’ai besoin ».</p>' +
         choix('obj-domaine', 'Quel domaine de ta roue veux-tu nourrir ce mois-ci ?', ROUE.map(function (d) { return d[2]; })) +
         zone('obj-quoi', 'Qu’est-ce que tu veux pour toi ce mois-ci ? Commence ta phrase par « Je veux… »', { court: true, ph: 'Exemple : je veux dire ce dont j’ai besoin au moment où je le ressens', aide: 'Formule ce que tu veux à la place de ce que tu ne veux plus.' }) +
@@ -339,13 +358,13 @@
         '<p class="mc-consigne">Écris à la personne que tu es aujourd’hui, comme si tu étais déjà un an plus tard. Raconte-lui ce qui a changé, ce que tu as compris, ce que tu veux lui dire pour l’encourager.</p>' +
         zone('proj-an', 'Ta lettre, écrite depuis ' + C.nomMois.replace(/\d+/, function (a) { return +a + 1; }) + ', à la personne que tu es aujourd’hui', { lignes: 7, ph: 'Exemple : Je t’écris depuis l’an prochain. Je sais que tu doutes en ce moment…' }) +
         '<p class="mc-note">Si tu as un compte et que tu enregistres ta météo du début, ta lettre est gardée dans ton espace. Dans un an, elle t’y attendra.</p>' +
-        '<p class="mc-guide-lien">Comment écrire cette lettre ? <a href="lettre-dans-un-an.html" target="_blank" rel="noopener">Lis le guide</a></p>') +
+        '<p class="mc-guide-lien">Comment écrire cette lettre ? <a href="lettre-dans-un-an.html" target="_blank" rel="noopener">Lis le guide</a></p>' + prive()) +
       plus('lettre-mois', 'Ma lettre du mois',
         '<p class="mc-consigne">Écris-toi une lettre merveilleuse, comme si tu parlais à ton enfant intérieur, ou à ta meilleure amie que tu aimes de tout ton cœur. Dis-lui ce que tu te pardonnes, ce que tu laisses partir, ce dont tu es fière, et ce que tu lui souhaites pour ce mois. Il n’y a pas de bonne façon de l’écrire : seulement la tienne.</p>' +
         '<div class="mc-amorces"><p class="mc-q">Pour t’aider à commencer, touche une amorce : elle s’ajoute à ta lettre.</p>' + ['Ce que je me pardonne…', 'Ce que je laisse partir…', 'Ce dont je suis fière…', 'Ce que je te souhaite pour ce mois…'].map(function (a) { return '<button type="button" data-amorce="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>' +
         zone('lettre-mois', 'Ma lettre du mois', { lignes: 10, ph: 'Exemple : Ce mois-ci, je voulais te dire…' }) +
         '<p class="mc-note">Tu peux l’écrire ici et l’enregistrer dans ton espace, ou l’écrire à la main, l’imprimer et la garder de côté. Elle est à toi.</p>' +
-        '<p class="mc-guide-lien">Comment écrire ta lettre du mois ? <a href="lettre-du-mois.html" target="_blank" rel="noopener">Lis le guide</a></p>' +
+        '<p class="mc-guide-lien">Comment écrire ta lettre du mois ? <a href="lettre-du-mois.html" target="_blank" rel="noopener">Lis le guide</a></p>' + prive() +
         '<div class="mc-encadre mc-ancien" data-ancien-ancrage hidden></div>') +
       '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="debut">Enregistrer ma météo du début</button><p class="mc-retour" data-retour="debut" aria-live="polite"></p></div>';
   } });
@@ -381,8 +400,8 @@
 
   PAGES.push({ id: 'exercices', nom: 'Les exercices', g: function () {
     return gauche('exercices', 'Les exercices du mois', C.exercicesTitre || 'Voir, entendre, essayer', C.exercicesIntro ? '<p class="mc-intro">' + md(C.exercicesIntro) + '</p>' : '',
-      sommaire(C.exercices));
-  }, d: function () { return C.exercices.map(exercice).join(''); } });
+      sommaire(A ? C.exercices.concat([{ k: 'gestes', titre: 'Mes gestes du mois' }]) : C.exercices));
+  }, d: function () { return C.exercices.map(exercice).join('') + (A ? sectionGestes() : ''); } });
   function exercice(x, i) {
       var corps = '';
       if (x.type === 'tableau') {
@@ -397,7 +416,8 @@
           return '<div class="mc-bloc"><p class="mc-rang-t"><span>' + (b + 1) + '</span>' + esc((x.etiquettes || [])[b] || ('Phrase ' + (b + 1))) + '</p>' + x.champs.map(function (c, j) { c = q(c); return zone(x.k + '-' + b + '-' + j, c.q, { court: true, ph: ex(c.ph, b) }); }).join('') + '</div>';
         }).join('');
       } else {
-        corps = (x.gestes ? '<p class="mc-q">Des idées de gestes, pour t’inspirer :</p><ul class="mc-pastilles">' + x.gestes.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>' : '') +
+        /* Avec l'accompagnement, les idées de gestes deviennent « Mes gestes du mois », à cocher, en bas de la page */
+        corps = (x.gestes && !A ? '<p class="mc-q">Des idées de gestes, pour t’inspirer :</p><ul class="mc-pastilles">' + x.gestes.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('') + '</ul>' : '') +
           zone(x.k, x.q || 'Ton geste', { lignes: 4, ph: x.ph || x.debut }) +
           (x.journal ? '<div class="mc-journal"><p class="mc-q">' + esc(x.journal.q) + '</p>' + Array.apply(null, { length: x.journal.n }).map(function (_, j) {
             return '<label class="mc-essai"><span>' + esc(x.journal.etiquette || 'Essai') + ' ' + (j + 1) + '</span><input type="text" data-k="' + x.journal.k + '-' + j + '"' + (j === 0 && x.journal.ph ? ' placeholder="' + esc(x.journal.ph) + '"' : '') + '></label>';
@@ -460,12 +480,13 @@
       '<p class="mc-intro">Prends ce temps à la fin du mois, même si tout n’a pas été fait. Tu vas comparer avec ton début de mois : c’est souvent là que l’on voit tout le chemin parcouru.</p><p>Un point gagné sur un curseur, c’est un vrai mouvement. Un point perdu, c’est une information, pas un échec : le mois a peut-être été chargé.</p>');
   }, d: function () {
     return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3>' + blocEchelles('mf') + '<div class="mc-graphes" id="mc-graphes"></div></section>' +
-      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie, un mois plus tard</h3><p class="mc-consigne">Note à nouveau chaque domaine, sans regarder tes réponses du début. Les deux roues se superposent : regarde ce qui s’est arrondi.</p>' + blocRoue('rf') + '</section>' +
+      '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie, un mois plus tard</h3><p class="mc-consigne">Note à nouveau chaque domaine, sans regarder tes réponses du début. Les deux roues se superposent : regarde ce qui s’est arrondi.</p>' + blocRoue('rf') + boutonsRoue('fin') + '</section>' +
       '<section class="mc-etape"><h3><span>3</span> Ton objectif</h3><div class="mc-rappel" id="mc-rappel-obj"></div>' +
         '<div data-si-objectif>' + curseur('fin-obj', 'Où en es-tu de ton objectif ?', 'pas commencé', 'atteint') + '</div>' +
         zone('fin-preuves', 'Qu’as-tu vu, entendu ou ressenti qui te montre que tu as avancé ?', { lignes: 3, ph: 'Exemple : ma sœur m’a dit que j’avais l’air plus détendu·e.' }) +
       '</section>' +
       '<section class="mc-etape"><h3><span>4</span> ' + esc(C.bilanTitre || 'Ce que ce mois t’a apporté') + '</h3>' +
+        (A ? '<div class="mc-bilan-gestes" data-bilan-gestes></div>' : '') +
         (C.bilan || []).map(function (b) { return zone(b.k, b.q, { lignes: b.court ? 0 : 3, court: b.court, ph: b.ph }); }).join('') +
         zone('fin-fiertes', 'Quelles sont les trois choses dont tu es fier·e ce mois-ci ?', { lignes: 3, ph: 'Exemple : avoir dit non une fois, avoir appelé ma tante, avoir ouvert ce carnet chaque semaine.' }) +
         zone('fin-recadrage', 'Quelle difficulté as-tu rencontrée, et qu’est-ce qu’elle t’a appris ?', { lignes: 3, ph: 'Exemple : j’ai cédé deux fois. J’ai compris que la fatigue me fait retomber dans mes vieilles habitudes.' }) +
@@ -648,6 +669,221 @@
   }
   if (SUIVI) PAGES = suiviPages();
 
+
+  /* ───── L'accompagnement personnalisé : profil des blessures, gestes du mois, lecture de la roue ─────
+     Tout part de ce que la personne a rempli elle-même : sa roue, sa météo, son objectif, son point du mois
+     et son profil des blessures (test fait par elle, pour elle). Rien n'est tiré au hasard.
+     Textes : assets/carnet-accompagnement.js (window.CARNET_ACCOMP). */
+  var PBL = null, PBL_TROUVE = null, pblMode = '', PREC = { rd: null, mois: '', gestes: {} }, accompCharge = false;
+  var CLE_PBL = 'genesolia-profil-accompagnement', LIGNE_PBL = 'profil-accompagnement';
+  var BL_CLES = ['rejet', 'abandon', 'humiliation', 'trahison', 'injustice'];
+  function dateFr(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ''); return m ? (+m[3] === 1 ? '1er' : +m[3]) + ' ' + MOIS_NOMS[+m[2] - 1] + ' ' + m[1] : ''; }
+  function isoDe(t) { var d = new Date(t); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+  function prive() { return A ? '<p class="mc-prive">' + esc(A.PRIVE) + '</p>' : ''; }
+  function pointBlessures() {
+    if (!A) return '';
+    return '<div class="mc-blm"><p class="mc-q">Et ce mois-ci, t’es-tu senti·e… <small>(facultatif)</small></p><p class="mc-consigne">Ces quelques curseurs aident ton carnet à te proposer des gestes vraiment ajustés à ce que tu vis en ce moment.</p><div class="mc-echelles">' +
+      A.BLESSURES.mois.map(function (x) { return curseur('blm-' + x[0], x[1], 'pas du tout', 'beaucoup'); }).join('') + '</div></div>';
+  }
+  function boutonsRoue(moment) {
+    return '<p class="mc-roue-boutons"><a class="btn btn-trait" href="assets/roue-de-la-vie-vierge.pdf" download>Ma roue vierge à imprimer (PDF)</a> <button type="button" class="btn btn-trait" data-imprimer-roue="' + moment + '">Imprimer ma roue remplie</button></p>';
+  }
+  function majAccompagnement() { if (!A) return; majProfilBl(); majGestes(); majBilanGestes(); majLectureRoue(); }
+
+  /* Les mois précédents (jusqu'à 3) : la roue du mois dernier, et les gestes déjà faits (pour repérer les nouveaux) */
+  function moisAvant(n) { var p = String(C.mois).split('-'), d = new Date(+p[0], +p[1] - 1 - n, 1); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); }
+  function chargerPrecedents() {
+    var CF = window.GenesoliaCoffre, enLigne = user && sb && CF && CF.accord(user);
+    return Promise.all([1, 2, 3].map(function (n) {
+      var cle = moisAvant(n), local = null;
+      try { local = JSON.parse(localStorage.getItem('genesolia-carnet-' + cle) || 'null'); } catch (e) {}
+      return (enLigne ? CF.lire(sb, user, cle).then(function (d) { return fusion(d, local); }, function () { return local; }) : Promise.resolve(local)).then(function (d) { return { cle: cle, d: d }; });
+    })).then(function (l) {
+      l.forEach(function (x, i) {
+        var v = (x.d && x.d.v) || {};
+        Object.keys(v).forEach(function (k) { if (/^g-/.test(k) && v[k]) PREC.gestes[k] = true; });
+        if (i === 0) { var o = {}; ROUE.forEach(function (d) { if (typeof v['rd-' + d[0]] === 'number') o[d[0]] = v['rd-' + d[0]]; }); if (Object.keys(o).length) { PREC.rd = o; PREC.mois = x.cle; } }
+      });
+    });
+  }
+  function chargerAccompagnement() {
+    if (!A || accompCharge) return; accompCharge = true;
+    tonMois();
+    var local = null; try { local = JSON.parse(localStorage.getItem(CLE_PBL) || 'null'); } catch (e) {}
+    var CF = window.GenesoliaCoffre;
+    var profil = user && sb && CF && CF.accord(user) ? CF.lire(sb, user, LIGNE_PBL).then(function (d) { return d && (d.scores || d.ignore) ? d : local; }, function () { return local; }) : Promise.resolve(local);
+    Promise.all([profil, chargerPrecedents()]).then(function (r) { PBL = r[0] || null; majAccompagnement(); }, function () { majAccompagnement(); });
+    if (user && sb) sb.from('resultats').select('donnees,cree_le').eq('outil', 'blessures').order('cree_le', { ascending: false }).limit(1).then(function (x) {
+      var l = x && x.data && x.data[0]; PBL_TROUVE = l && l.donnees && l.donnees.scores ? { scores: l.donnees.scores, date: String(l.cree_le).slice(0, 10) } : null; majProfilBl();
+    });
+  }
+
+  /* ───── La lecture de ta roue ───── */
+  function nomDomaine(k) { var d = ROUE.filter(function (x) { return x[0] === k; })[0]; return d ? d[2].charAt(0).toLowerCase() + d[2].slice(1) : k; }
+  function majLectureRoue() {
+    var z = racine.querySelector('.mc-livre [data-roue-lecture]'); if (!z || !A) return;
+    var r = roue('rd'), cles = Object.keys(r), ind = racine.querySelector('.mc-livre [data-roue-bas]');
+    if (cles.length < ROUE.length) { z.innerHTML = ''; if (ind) ind.hidden = false; return; }
+    if (ind) ind.hidden = true;
+    var tri = cles.slice().sort(function (a, b) { return r[a] - r[b]; }), bas = tri.slice(0, 2), haut = tri[tri.length - 1];
+    var h = '<p class="mc-encadre-t">Ce que dit ta roue</p>' +
+      '<p><b>Tes deux domaines les plus bas :</b> ' + bas.map(function (k) { return esc(nomDomaine(k)) + ' (' + r[k] + '/10)'; }).join(' et ') + '.</p><ul class="mc-liste">' + bas.map(function (k) { return '<li>' + esc(A.ROUE[k].bas) + '</li>'; }).join('') + '</ul>' +
+      '<p><b>Ta plus grande force :</b> ' + esc(nomDomaine(haut)) + ' (' + r[haut] + '/10). ' + esc(A.ROUE[haut].haut) + '</p>';
+    if (PREC.rd) {
+      var monte = [], baisse = [];
+      cles.forEach(function (k) { if (typeof PREC.rd[k] !== 'number') return; var d = r[k] - PREC.rd[k]; if (d >= 2) monte.push([k, d]); else if (d <= -2) baisse.push([k, d]); });
+      var nm = MOIS_NOMS[+PREC.mois.split('-')[1] - 1];
+      h += '<p class="mc-encadre-t">Depuis ' + esc(nm) + '</p>' + (monte.length || baisse.length
+        ? (monte.length ? '<p>' + esc(A.ROUE_EVOL.monte) + ' ' + monte.map(function (x) { return esc(nomDomaine(x[0])) + ' (+' + x[1] + ')'; }).join(', ') + '.</p>' : '') +
+          (baisse.length ? '<p>' + esc(A.ROUE_EVOL.baisse) + ' ' + baisse.map(function (x) { return esc(nomDomaine(x[0])) + ' (' + x[1] + ')'; }).join(', ') + '.</p>' : '')
+        : '<p>' + esc(A.ROUE_EVOL.stable) + '</p>');
+    }
+    z.innerHTML = h;
+  }
+
+  /* ───── Ton profil des blessures : un test fait par toi, pour toi ─────
+     Réutilise les 20 phrases du test « Tes blessures ». Gardé chiffré dans ton espace (ligne « profil-accompagnement »
+     de la table carnets, comme ton carnet) si tu as donné ton accord, sinon seulement dans ce navigateur.
+     Un résultat trouvé ailleurs (appareil, Mon chemin) n'est utilisé qu'après « Oui, c'est moi ». */
+  function idUser() { return user ? user.id : 'appareil'; }
+  function sauverProfilBl(p) {
+    PBL = p;
+    try { if (p) localStorage.setItem(CLE_PBL, JSON.stringify(p)); else localStorage.removeItem(CLE_PBL); } catch (e) {}
+    var CF = window.GenesoliaCoffre;
+    if (user && sb && CF && CF.accord(user)) CF.ecrire(sb, user, LIGNE_PBL, p || { efface: new Date().toISOString() });
+    pblMode = ''; majAccompagnement();
+  }
+  function profilValide() { return PBL && PBL.scores && PBL.moi === idUser() ? PBL : null; }
+  function scoresBlessures() {
+    var o = {}, p = profilValide(), auMoins = false;
+    BL_CLES.forEach(function (k) {
+      var t = p ? (p.scores[k] || 0) / 4 * 10 : null, m = typeof D.v['blm-' + k] === 'number' ? D.v['blm-' + k] : null;
+      o[k] = t !== null && m !== null ? (t + m) / 2 : t !== null ? t : m !== null ? m : 0;
+      if (t !== null || m !== null) auMoins = true;
+    });
+    return auMoins ? o : null;
+  }
+  function testBlessures() {
+    var B = A.BLESSURES, items = [];
+    for (var i = 0; i < 4; i++) BL_CLES.forEach(function (k) { items.push([k, B.phrases[k][i]]); });   /* les blessures sont mêlées, sans étiquette */
+    return '<div class="mc-pbl-test"><p class="mc-consigne">Coche les phrases qui te ressemblent aujourd’hui. Réponds pour toi, sans chercher la bonne réponse : il n’y en a pas.</p><ul class="mc-pbl-liste">' +
+      items.map(function (x) { return '<li><label><input type="checkbox" data-bl-phrase="' + x[0] + '"> ' + esc(x[1]) + '</label></li>'; }).join('') + '</ul>' +
+      '<p class="mc-proprio-b"><button type="button" class="btn btn-plein" data-bl="valider">Voir mon profil</button> <button type="button" class="btn btn-trait" data-bl="annuler">Plus tard</button></p>' + prive() + '</div>';
+  }
+  function majProfilBl() {
+    var z = document.getElementById('mc-profil-bl'); if (!z || !A) return;
+    var B = A.BLESSURES, p = profilValide(), h = '<p class="mc-sur">Ton profil d’accompagnement</p><h3 class="mc-h">Tes blessures de l’âme</h3>';
+    var aConfirmer = !p && PBL && PBL.scores && PBL.moi !== idUser() ? { scores: PBL.scores, date: PBL.date, ou: 'sur cet appareil' }
+      : !p && PBL_TROUVE && !(PBL && PBL.ignore === PBL_TROUVE.date) ? { scores: PBL_TROUVE.scores, date: PBL_TROUVE.date, ou: 'dans ton espace' } : null;
+    z._candidat = aConfirmer;
+    if (pblMode === 'test') h += testBlessures();
+    else if (aConfirmer) {
+      h += '<div class="mc-proprio"><p>Nous avons trouvé un test des blessures fait le <b>' + esc(dateFr(aConfirmer.date)) + '</b> ' + aConfirmer.ou + '. Est-ce bien toi qui l’as rempli, pour toi ?</p>' +
+        '<p class="mc-proprio-b"><button type="button" class="btn btn-plein" data-bl="oui">Oui, c’est moi</button> <button type="button" class="btn btn-trait" data-bl="autre">Non, c’était pour quelqu’un d’autre</button> <button type="button" class="btn btn-trait" data-bl="refaire">Je préfère le refaire</button></p></div>';
+    } else if (p) {
+      var tri = BL_CLES.slice().sort(function (a, b) { return (p.scores[b] || 0) - (p.scores[a] || 0); }), fort = tri.filter(function (k) { return p.scores[k] >= 2; }), leger = tri.filter(function (k) { return p.scores[k] === 1; });
+      var vieux = (Date.now() - new Date(p.date).getTime()) > 182 * 864e5;
+      h += (fort.length || leger.length ? '<p>' + (fort.length ? 'Ce qui te parle le plus en ce moment : <b>' + fort.map(function (k) { return '<a href="' + B.pages[k] + '" target="_blank" rel="noopener">' + esc(B.noms[k]) + '</a>'; }).join(', ') + '</b>' : '') + (leger.length ? (fort.length ? ', et un peu ' : 'Un peu : ') + leger.map(function (k) { return esc(B.noms[k]); }).join(', ') : '') + '.</p>' : '<p>Aucune phrase cochée : rien ne ressort pour l’instant, et c’est une information aussi.</p>') +
+        '<ul class="mc-pbl-barres">' + BL_CLES.map(function (k) { var n = p.scores[k] || 0; return '<li><span>' + esc(B.noms[k].replace(/^(le |la |l’)/, '').replace(/^./, function (c) { return c.toUpperCase(); })) + '</span><i><b style="width:' + (n / 4 * 100) + '%"></b></i><small>' + (n >= 3 ? 'beaucoup' : n === 2 ? 'un peu' : n === 1 ? 'légèrement' : 'pas en ce moment') + '</small></li>'; }).join('') + '</ul>' +
+        '<p class="mc-note">Ce n’est pas un diagnostic, c’est une boussole pour t’accompagner. Ton carnet s’en sert, avec ta roue et ta météo, pour choisir tes gestes du mois. Test fait le ' + esc(dateFr(p.date)) + '.</p>' +
+        (vieux ? '<p class="mc-pourquoi">Ton test a plus de six mois : refais-le pour voir ce qui a bougé en toi.</p>' : '') +
+        '<p class="mc-proprio-b"><button type="button" class="btn btn-trait" data-bl="refaire">Refaire ou modifier mon test</button> <button type="button" class="btn btn-trait" data-bl="effacer">Supprimer mon test</button></p>' + prive();
+    } else {
+      h += '<p>Pour que ton carnet t’accompagne vraiment, prends 10 minutes pour ce questionnaire. Tes gestes du mois seront choisis d’après tes réponses, ta roue et ta météo : rien n’est tiré au hasard.</p>' +
+        '<p class="mc-proprio-b"><button type="button" class="btn btn-plein" data-bl="refaire">Faire mon test</button> <a class="btn btn-trait" href="blessures-de-l-ame.html" target="_blank" rel="noopener">Comprendre les cinq blessures</a></p>' +
+        '<p class="mc-note">Facultatif. Ce n’est pas un diagnostic, c’est une boussole pour t’accompagner.</p>';
+    }
+    z.innerHTML = h;
+  }
+  function actionProfilBl(a) {
+    var z = document.getElementById('mc-profil-bl'), c = z && z._candidat;
+    if (a === 'refaire') { pblMode = 'test'; majProfilBl(); return; }
+    if (a === 'annuler') { pblMode = ''; majProfilBl(); return; }
+    if (a === 'oui' && c) { sauverProfilBl({ scores: c.scores, date: c.date, moi: idUser() }); return; }
+    if (a === 'autre' && c) { sauverProfilBl(PBL_TROUVE && c.ou === 'dans ton espace' ? { ignore: PBL_TROUVE.date, moi: idUser() } : null); return; }
+    if (a === 'effacer') { if (window.confirm('Supprimer ton test des blessures ? Tes gestes seront alors choisis d’après ta roue et ta météo.')) sauverProfilBl(PBL_TROUVE ? { ignore: PBL_TROUVE.date, moi: idUser() } : null); return; }
+    if (a === 'valider') {
+      var sc = {}; BL_CLES.forEach(function (k) { sc[k] = 0; });
+      z.querySelectorAll('[data-bl-phrase]:checked').forEach(function (i) { sc[i.getAttribute('data-bl-phrase')]++; });
+      sauverProfilBl({ scores: sc, date: isoDe(Date.now()), moi: idUser() });
+    }
+  }
+
+  /* ───── Mes gestes du mois, à cocher ───── */
+  function sectionGestes() {
+    return '<section class="mc-exercice mc-gestes" id="mc-ex-gestes"><p class="mc-sur">Chaque jour, un petit geste</p><h3 class="mc-h">Mes gestes du mois</h3>' +
+      '<p class="mc-consigne">Choisis ceux qui te parlent, même un seul compte. Coche-les quand tu les as faits : à la fin du mois, dans ton bilan, tu verras tout ce que tu as fait pour toi, même les plus petites choses.</p>' +
+      '<div data-gestes></div>' +
+      '<p class="mc-q">Mon propre geste</p><div class="mc-gestes-perso">' + [1, 2, 3].map(function (n) {
+        return '<div class="mc-geste mc-geste-perso"><input type="checkbox" data-k="gp-' + n + '" aria-label="Fait"><input type="text" data-k="gp-' + n + '-t" placeholder="' + (n === 1 ? 'Exemple : appeler ma grand-mère dimanche' : 'Un geste à moi') + '"></div>';
+      }).join('') + '</div>' + prive() + '</section>';
+  }
+  function hache(t) { var h = 0; for (var i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return Math.abs(h); }
+  function choixGestes() {
+    var rd = roue('rd'), bas = Object.keys(rd).sort(function (a, b) { return rd[a] - rd[b]; }).slice(0, 2);
+    var bl = scoresBlessures(), blHaut = bl ? BL_CLES.filter(function (k) { return bl[k] >= 3; }).sort(function (a, b) { return bl[b] - bl[a]; }).slice(0, 2) : [];
+    var e = echelles('md'), niv = Object.keys(e).length ? ((e.energie != null ? e.energie : 5) + (e.serenite != null ? e.serenite : 5)) / 2 : null;
+    var meteo = niv === null ? null : niv <= 4 ? 'bas' : niv >= 7 ? 'haut' : null;
+    var objD = (ROUE.filter(function (d) { return d[2] === D.v['obj-domaine']; })[0] || [])[0];
+    if (!bas.length && !blHaut.length && meteo === null && !objD) return { liste: [] };
+    /* Chaque geste reçoit des points selon les réponses ; à égalité, l'ordre change d'un mois à l'autre */
+    var notes = A.GESTES.filter(function (g) { return !g.base; }).map(function (g) {
+      var s = 0, d = g.d || [], b = g.b || [], m = g.m || [];
+      bas.forEach(function (k, i) { if (d.indexOf(k) >= 0) s += i ? 2 : 3; });
+      if (objD && d.indexOf(objD) >= 0) s += 2;
+      blHaut.forEach(function (k, i) { if (b.indexOf(k) >= 0) s += i ? 2 : 3; });
+      if (meteo && m.indexOf(meteo) >= 0) s += 2;
+      if (meteo === 'bas' && m.indexOf('haut') >= 0) s -= 2;
+      return { g: g, s: s, t: hache(g.id + C.mois) };
+    }).filter(function (x) { return x.s > 0; }).sort(function (a, b) { return b.s - a.s || a.t - b.t; });
+    return { liste: notes.slice(0, 6).map(function (x) { return x.g; }) };
+  }
+  function ligneGeste(g) {
+    var k = 'g-' + g.id;
+    return '<label class="mc-geste"><input type="checkbox" data-k="' + k + '"' + (D.v[k] ? ' checked' : '') + '><span>' + esc(g.t) + '</span>' + (D.v[k] && D.t && D.t[k] ? '<small>fait le ' + esc(dateFr(isoDe(D.t[k])).replace(/ \d{4}$/, '')) + '</small>' : '') + '</label>';
+  }
+  function majGestes() {
+    var z = racine.querySelector('.mc-livre [data-gestes]'); if (!z || !A) return;
+    var base = A.GESTES.filter(function (g) { return g.base; }), ch = choixGestes(), ids = ch.liste.map(function (g) { return g.id; });
+    /* Un geste déjà coché reste visible, même si les réponses ont changé depuis */
+    A.GESTES.forEach(function (g) { if (!g.base && D.v['g-' + g.id] && ids.indexOf(g.id) < 0) { ch.liste.push(g); ids.push(g.id); } });
+    z.innerHTML = '<p class="mc-encadre-t">Toujours là, pour chaque jour</p><div class="mc-gestes-l">' + base.map(ligneGeste).join('') + '</div>' +
+      '<p class="mc-encadre-t">Pour toi, ce mois-ci</p>' +
+      (ch.liste.length ? '<div class="mc-gestes-l">' + ch.liste.map(ligneGeste).join('') + '</div><p class="mc-note">Ces gestes sont choisis d’après tes réponses.</p>'
+        : '<p class="mc-note">Remplis ta météo et ta roue dans « Ma météo du début » (page 2) : tes gestes du mois se choisiront d’après tes réponses.</p>');
+  }
+  function gestesFaits() {
+    var l = [];
+    A.GESTES.forEach(function (g) { var k = 'g-' + g.id; if (D.v[k]) l.push({ t: g.t, q: (D.t && D.t[k]) || 0, neuf: !PREC.gestes[k] }); });
+    [1, 2, 3].forEach(function (n) { var t = (D.v['gp-' + n + '-t'] || '').trim(); if (D.v['gp-' + n] && t) l.push({ t: t, q: (D.t && D.t['gp-' + n]) || 0, neuf: false }); });
+    return l.sort(function (a, b) { return a.q - b.q; });
+  }
+  function majBilanGestes() {
+    var z = racine.querySelector('.mc-livre [data-bilan-gestes]'); if (!z || !A) return;
+    var l = gestesFaits(), n = l.length, M = A.BILAN;
+    z.innerHTML = '<div class="mc-encadre mc-encadre-or"><p class="mc-encadre-t">Tes gestes du mois</p>' +
+      (n ? '<p class="mc-bilan-n">Ce mois-ci, tu as posé <b>' + n + ' geste' + (n > 1 ? 's' : '') + '</b> pour toi.</p><ul class="mc-liste">' + l.map(function (x) {
+          return '<li>' + esc(x.t) + (x.q ? ' <small>(le ' + esc(dateFr(isoDe(x.q)).replace(/ \d{4}$/, '')) + ')</small>' : '') + (x.neuf ? ' <span class="mc-neuf">' + esc(M.nouveau) + '</span>' : '') + '</li>';
+        }).join('') + '</ul><p>' + esc(n >= 10 ? M.beaucoup : n >= 2 ? M.quelques : M.un) + '</p>'
+        : '<p>' + esc(M.zero) + ' <a href="#exercices">Voir mes gestes du mois</a></p>') + '</div>';
+  }
+
+  /* ───── Ma roue remplie, à imprimer ───── */
+  function imprimerRoue(moment) {
+    var a = roue('rd'), b = roue('rf'), series = [];
+    if (Object.keys(a).length) series.push({ v: a, c: COUL_DEBUT });
+    if (moment === 'fin' && Object.keys(b).length) series.push({ v: b, c: COUL_FIN });
+    if (!series.length) { window.alert('Place d’abord les curseurs de ta roue : elle se dessinera, puis tu pourras l’imprimer.'); return; }
+    var w = window.open('', '_blank'); if (!w) return;
+    var lignes = ROUE.map(function (d) { return '<tr><td>' + esc(d[2]) + '</td><td>' + (typeof a[d[0]] === 'number' ? a[d[0]] : '') + '</td>' + (moment === 'fin' ? '<td>' + (typeof b[d[0]] === 'number' ? b[d[0]] : '') + '</td>' : '') + '</tr>'; }).join('');
+    w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ma roue de la vie · ' + esc(C.nomMois) + '</title><style>@page{size:A4;margin:16mm}body{font-family:Georgia,serif;color:#3B2433;max-width:720px;margin:1rem auto;padding:0 1rem}h1{color:#6B2F5B;font-weight:400;margin-bottom:.2rem}svg{width:100%;max-width:500px;display:block;margin:1rem auto}.mc-svg-lab{font:12px sans-serif;fill:#5A4752}table{width:100%;border-collapse:collapse;font-size:14px}td,th{border-bottom:1px solid #EBCFD5;padding:.4rem;text-align:left}.l span{margin-right:1.2rem}.l i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.3rem;vertical-align:-1px}p.n{font-size:12px;color:#7A6570}</style></head><body>' +
+      '<h1>Ma roue de la vie</h1><p>' + esc(C.nomMois) + (prenom ? ' · ' + esc(prenom) : '') + '</p>' + radar(series, 'Ma roue de la vie') +
+      (series.length > 1 ? '<p class="l"><span><i style="background:' + COUL_DEBUT + '"></i>Début du mois</span><span><i style="background:' + COUL_FIN + '"></i>Fin du mois</span></p>' : '') +
+      '<table><tr><th>Domaine</th><th>Début</th>' + (moment === 'fin' ? '<th>Fin</th>' : '') + '</tr>' + lignes + '</table><p class="n">Genesolia · Le carnet du mois. Garde cette feuille près de toi, et compare-la le mois prochain.</p>' +
+      '<script>window.onload=function(){window.print();}<\/script></body></html>');
+    w.document.close();
+  }
+
   /* ───── Construction ───── */
   var courante = 0, enCours = false;
   var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -685,6 +921,8 @@
       if (!t.closest('.mc-imp-choix')) basculerChoix(false);
       var b = t.closest('[data-page]'); if (b) { aller(+b.getAttribute('data-page')); setTimeout(function () { defiler(document.getElementById('mc-livre'), true); }, 30); return; }
       var m = t.closest('[data-meteo]'); if (m) { enregistrerMeteo(m.getAttribute('data-meteo'), m); return; }
+      var bl = t.closest('[data-bl]'); if (bl) { actionProfilBl(bl.getAttribute('data-bl')); return; }
+      var ir = t.closest('[data-imprimer-roue]'); if (ir) { imprimerRoue(ir.getAttribute('data-imprimer-roue')); return; }
       if (t.closest('[data-ics]')) { telechargerRappels(); return; }
       var am = t.closest('[data-amorce]'); if (am) { amorce(am.getAttribute('data-amorce')); return; }
       var v = t.closest('[data-vers]'); if (v) { var cibleEx = document.getElementById(v.getAttribute('data-vers')); if (cibleEx) defiler(cibleEx, true); return; }
@@ -858,7 +1096,7 @@
       var cles = d.getAttribute('data-plus') === 'lettre' ? ['proj-an'] : ['lettre-mois', 'ancre-souvenir', 'ancre-mot'];
       if (cles.some(function (k) { return (D.v[k] || '').toString().trim(); })) d.open = true;
     });
-    progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite(); majMeteoDit(); majBravos(); majAncienAncrage();
+    progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite(); majMeteoDit(); majBravos(); majAncienAncrage(); majAccompagnement();
   }
   function afficherVal(el) {
     var k = el.getAttribute('data-k'), b = racine.querySelector('[data-val="' + k + '"]'), c = racine.querySelector('[data-curseur="' + k + '"]');
@@ -880,6 +1118,11 @@
     if (/^(rd|rf)-/.test(k)) majRadars();
     if (/^int-/.test(k)) comparerIntensite();
     if (/^md-/.test(k)) majMeteoDit();
+    if (A) {
+      if (/^(md|blm|rd)-/.test(k) || k === 'obj-domaine') { majGestes(); majLectureRoue(); }
+      if (/^g-/.test(k)) majGestes();
+      if (/^(g|gp)-/.test(k)) majBilanGestes();
+    }
     majBravos();
     progres(); sauver();
   }
@@ -913,9 +1156,14 @@
     return E;
   }
   function progres() {
-    var E = etapes(), n = E.filter(function (e) { return e.fait; }).length, p = E.length ? Math.round(n / E.length * 100) : 0;
+    /* Une seule numérotation : celle des onglets. Une page compte quand ses étapes sont faites (ou, sans étape, quand elle a une réponse). */
+    var E0 = etapes(), E = PAGES.map(function (pg) {
+      var ets = E0.filter(function (e) { return e.page === pg.id; });
+      return { nom: pg.nom, page: pg.id, fait: ets.length ? ets.every(function (e) { return e.fait; }) : clesDe('#page-' + pg.id + ' [data-k]').some(repondu) };
+    });
+    var n = E.filter(function (e) { return e.fait; }).length, p = E.length ? Math.round(n / E.length * 100) : 0;
     var b = document.getElementById('mc-progres-barre'); if (b) b.style.width = p + '%';
-    var t = document.getElementById('mc-progres-texte'); if (t) t.textContent = n + (n > 1 ? ' étapes' : ' étape') + ' sur ' + E.length;
+    var t = document.getElementById('mc-progres-texte'); if (t) t.textContent = n + (n > 1 ? ' pages faites' : ' page faite') + ' sur ' + E.length;
     /* Pour l'accueil de l'appli Le Cercle : où tu en es (sur cet appareil), et la prochaine étape à ouvrir */
     var suite = E.filter(function (e) { return !e.fait; })[0];
     try { localStorage.setItem('genesolia-avancee-' + CLE, JSON.stringify({ n: n, total: E.length, suite: suite ? { nom: suite.nom, page: suite.page } : null })); } catch (e) {}
@@ -978,10 +1226,10 @@
   });
   function charger() {
     var local = null; try { local = JSON.parse(localStorage.getItem(CLE_LOCALE) || 'null'); } catch (e) {}
-    if (!sb) { D = local || D; appliquer(); invitation(); return; }
+    if (!sb) { D = local || D; appliquer(); invitation(); chargerAccompagnement(); return; }
     sb.auth.getSession().then(function (r) {
       var s = r.data && r.data.session;
-      if (!s) { D = local || D; appliquer(); invitation(); return; }
+      if (!s) { D = local || D; appliquer(); invitation(); chargerAccompagnement(); return; }
       user = s.user;
       prenom = premierMot((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.prenom)) || '') || premierMot((lireProfil() || {}).prenom || '');
       perso();
@@ -989,7 +1237,7 @@
       var CF = window.GenesoliaCoffre;
       (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
         D = fusion(distant, local);
-        appliquer();
+        appliquer(); chargerAccompagnement();
         if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
         else { etat('Enregistré et chiffré dans ton espace'); if (local && Object.keys(local.v || {}).length) sauver(); }
       });
@@ -997,7 +1245,7 @@
         historique = (x && x.data) || [];
         if (PAGES[courante].id === 'cloture') comparer();
       });
-    }).catch(function () { D = local || D; appliquer(); invitation(); });
+    }).catch(function () { D = local || D; appliquer(); invitation(); chargerAccompagnement(); });
   }
   /* Sans compte : le texte décrit exactement la règle de site.js (window.GenesoliaDonnees) */
   function invitation() {
