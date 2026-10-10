@@ -271,7 +271,7 @@ window.GENESOLIA_IMPRESSION = {
      l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
      « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
      Sinon : le site normal, rien ne change. */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
@@ -308,7 +308,7 @@ window.GENESOLIA_IMPRESSION = {
     document.querySelectorAll('.barre-appli a').forEach(function (a) {
       var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
-      if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
+      if (MODE === 'cercle' && (page === 'mon-suivi.html' || page === 'mon-module.html') && cible[0] === 'mon-suivi-mois.html') ok = true;
       if (MODE === 'cercle' && (page === 'mon-guide.html' || page === 'mon-mois.html') && cible[1] === 'mois') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
@@ -498,7 +498,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
   /* Dans les pages du Cercle (carnet, suivi, mois, guide, appli), l'encart du bas présente la formation à la place du carnet offert */
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && !document.querySelector('[data-cadeau]')) {
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && page !== 'mon-module.html' && !document.querySelector('[data-cadeau]')) {
     var zoneForm = document.createElement('section');
     zoneForm.className = 'bloc cadeau-bas';
     zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Mon module · Sors de la boucle · Genesolia</title>
+  <meta name="description" content="Le carnet de ton module de la formation « Sors de la boucle » : les exercices à remplir, ton outil, le fil des 7 jours, ta vision et ton bilan.">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/livre.css">
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div id="carnet"><p class="mc-chargement">Ton module s’ouvre…</p></div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/mon-chemin.js"></script>
+  <script src="assets/notifs.js"></script>
+  <script src="assets/fond-ecran.js"></script>
+  <script src="assets/modules/formation.js"></script>
+  <script>
+  /* Module demandé (?module=N), sinon le premier. Seuls les modules dont le carnet est écrit s'ouvrent. */
+  (function () {
+    var F = window.GENESOLIA_FORMATION || { modules: [] };
+    var prets = F.modules.filter(function (m) { return m.pret; }).map(function (m) { return m.n; });
+    var n = +new URLSearchParams(location.search).get('module');
+    if (prets.indexOf(n) < 0) n = prets[0] || 1;
+    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le module ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
+    function go() { charger('assets/modules/module-' + n + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+  })();
+  </script>
+</body>
+</html>

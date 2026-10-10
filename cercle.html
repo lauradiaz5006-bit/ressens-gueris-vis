@@ -132,6 +132,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/saisons.js"></script>
   <script src="assets/notifs.js"></script>
+  <script src="assets/modules/formation.js"></script>
   <script>
   (function () {
     'use strict';
@@ -245,6 +246,18 @@
       /* la semaine du suivi */
       var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, sem) - 1];
       if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
+      /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
+      var F = window.GENESOLIA_FORMATION;
+      if (F && F.modules) {
+        var prets = F.modules.filter(function (m) { return m.pret; }), mc = prets[prets.length - 1], ms = mc && F.modules[mc.n];
+        if (mc) {
+          var am = lire('genesolia-avancee-module-' + mc.n);
+          h += '<section class="ce-carte"><p class="ce-etiq">Ta formation · Sors de la boucle</p><h3>Module ' + mc.n + ' · ' + esc(mc.titre) + '</h3><p>' + esc(mc.texte) + '</p>' +
+            (am && am.total ? '<div class="ce-mini" style="margin:.5rem 0 .2rem"><i style="width:' + Math.round(am.n / am.total * 100) + '%"></i></div><p class="ce-r-etat" style="margin:0">' + am.n + (am.n > 1 ? ' pages faites' : ' page faite') + ' sur ' + am.total + '</p>' : '') +
+            '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0 0"><a class="btn btn-plein" href="mon-module.html?module=' + mc.n + '">Mon carnet du module</a><a class="btn btn-trait" href="' + esc(F.espace || 'formation.html') + '" target="_blank" rel="noopener">Vidéos et séances</a></p>' +
+            (ms ? '<p class="ce-sous" style="margin:.7rem 0 0">Ensuite : module ' + ms.n + ' · ' + esc(ms.titre) + '.</p>' : '') + '</section>';
+        }
+      }
       /* l'intention du mois (ton objectif, écrit dans le carnet) */
       var obj = E.carnet && E.carnet.v && String(E.carnet.v['obj-quoi'] || '').trim();
       h += obj
