@@ -108,5 +108,41 @@
       if (t) t.addEventListener('click', function () { try { localStorage.setItem(o.plusTard, '1'); } catch (x) {} z.innerHTML = ''; });
     });
   }
-  window.GenesoliaNotifs = { etat: etat, activer: activer, couper: couper, rafraichir: rafraichir, encart: encart, ios: ios, installee: installee };
+  /* À l'ouverture de l'appli : une fenêtre en bas de l'écran propose les notifications, une seule fois par appareil.
+     Le téléphone exige un toucher avant d'afficher sa propre demande : le bouton « Oui » la déclenche aussitôt.
+     o = { canal, titre, texte, sb, apres(ok) } */
+  var CLE_PROPOSE = 'genesolia-rappels-propose';
+  var STYLE_F = '.gn-voile{position:fixed;inset:0;z-index:9998;background:rgba(43,20,40,.35);display:flex;align-items:flex-end;justify-content:center;animation:gnV .2s}' +
+    '.gn-feuille{width:100%;max-width:30rem;background:#FFF9F7;border-radius:22px 22px 0 0;padding:1.4rem 1.3rem calc(1.2rem + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(43,20,40,.18);animation:gnM .25s ease-out;font-family:inherit;color:#2b1428}' +
+    '.gn-feuille img{display:block;width:56px;height:56px;border-radius:14px;margin:0 auto .7rem}.gn-feuille h2{font:400 1.3rem/1.3 "Gilda Display",Georgia,serif;color:#6B2F5B;text-align:center;margin:0 0 .5rem}' +
+    '.gn-feuille p{margin:0 0 1rem;text-align:center;line-height:1.5}.gn-feuille button{display:block;width:100%;min-height:48px;margin-top:.5rem;border-radius:999px;border:0;font:700 1rem/1 inherit;font-family:inherit;cursor:pointer}' +
+    '.gn-oui{background:#6B2F5B;color:#fff}.gn-non{background:none;color:#8E6383;font-weight:600!important}@keyframes gnV{from{opacity:0}}@keyframes gnM{from{transform:translateY(100%)}}@media (min-width:700px){.gn-voile{align-items:center}.gn-feuille{border-radius:22px}}';
+  function proposer(o) {
+    o = o || {};
+    var deja = null; try { deja = localStorage.getItem(CLE_PROPOSE + '-' + o.canal); } catch (e) {}
+    if (deja || !installee()) return;
+    etat(o.canal).then(function (e) {
+      if (e !== 'inactif' || document.querySelector('.gn-voile')) return;
+      try { localStorage.setItem(CLE_PROPOSE + '-' + o.canal, '1'); } catch (x) {}
+      if (!document.getElementById('gn-style-f')) { var st = document.createElement('style'); st.id = 'gn-style-f'; st.textContent = STYLE_F; document.head.appendChild(st); }
+      var v = document.createElement('div'); v.className = 'gn-voile';
+      v.innerHTML = '<div class="gn-feuille" role="dialog" aria-modal="true" aria-labelledby="gn-t">' + (o.icone ? '<img src="' + o.icone + '" alt="">' : '') + '<h2 id="gn-t">' + o.titre + '</h2><p>' + o.texte + '</p>' +
+        '<button type="button" class="gn-oui">Oui, je veux être prévenu·e</button><button type="button" class="gn-non">Pas maintenant</button></div>';
+      document.body.appendChild(v);
+      function fermer() { v.remove(); }
+      v.querySelector('.gn-non').addEventListener('click', function () { fermer(); if (o.apres) o.apres(false); });
+      v.addEventListener('click', function (ev) { if (ev.target === v) fermer(); });
+      v.querySelector('.gn-oui').addEventListener('click', function () {
+        var b = this; b.disabled = true; b.textContent = 'Un instant…';
+        activer(o.canal, o.sb).then(function (ok) {
+          if (ok && window.umami) try { window.umami.track('rappels-ouverture-' + o.canal); } catch (x) {}
+          v.querySelector('.gn-feuille').innerHTML = ok ? '<h2>C’est activé</h2><p>Tu recevras au plus une notification par jour. Tu peux les couper quand tu veux.</p><button type="button" class="gn-oui">Parfait</button>'
+            : '<h2>Pas de souci</h2><p>Tu pourras les activer plus tard' + (o.ou ? ', ' + o.ou : '') + '.</p><button type="button" class="gn-oui">D’accord</button>';
+          v.querySelector('.gn-oui').addEventListener('click', fermer);
+          if (o.apres) o.apres(ok);
+        });
+      });
+    });
+  }
+  window.GenesoliaNotifs = { etat: etat, activer: activer, couper: couper, rafraichir: rafraichir, encart: encart, proposer: proposer, ios: ios, installee: installee };
 })();
