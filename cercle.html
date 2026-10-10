@@ -249,10 +249,16 @@
       /* la saison */
       var sa = (window.GENESOLIA_SAISONS || {})[d.getMonth() + 1];
       if (sa) h += '<button type="button" class="ce-carte" data-saison><p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h3>' + esc(sa.titre) + '</h3><p>' + esc(sa.permission || phrase1(sa.texte)) + '</p><span class="ce-plus">Lire la saison</span></button>';
-      /* la séance du mois */
-      if (S) h += S.audio
-        ? '<section class="ce-carte"><p class="ce-etiq">La séance du mois</p><h3>' + esc((S.meditation && S.meditation.titre) || 'Ta méditation') + '</h3><audio controls preload="none" src="' + esc(S.audio) + '" style="width:100%;margin-top:.4rem"></audio></section>'
-        : '<a class="ce-carte" href="mon-suivi-mois.html#meditation"><p class="ce-etiq">La méditation du mois</p><h3>' + esc((S.meditation && S.meditation.titre) || 'Ta méditation') + '</h3><p>Un temps pour toi, à lire lentement, au calme.</p><span class="ce-plus">La lire</span></a>';
+      /* tes deux séances du mois : visualisation (carnet « J'avance ») et libération (suivi « Je me libère ») */
+      function seance(L, quoi, url, titreDefaut) {
+        if (!L) return '';
+        var t = (L.meditation && L.meditation.titre) || titreDefaut;
+        return L.audio
+          ? '<div style="margin-top:.7rem"><p class="ce-etiq" style="margin:0 0 .2rem">' + quoi + '</p><h3>' + esc(t) + '</h3><audio controls preload="none" src="' + esc(L.audio) + '" style="width:100%;margin-top:.3rem"></audio></div>'
+          : '<a href="' + url + '" style="display:block;margin-top:.7rem;text-decoration:none;color:inherit"><p class="ce-etiq" style="margin:0 0 .2rem">' + quoi + '</p><h3>' + esc(t) + '</h3><span class="ce-plus">Lire le texte en attendant l’audio</span></a>';
+      }
+      if (C || S) h += '<section class="ce-carte"><p class="ce-etiq">Tes deux séances du mois</p><p>Plus de 20 minutes chacune, à écouter au calme, les yeux fermés.</p>' +
+        seance(C, 'Visualisation · J’avance', 'mon-carnet.html#rituel', 'Ta visualisation') + seance(S, 'Libération · Je me libère', 'mon-suivi-mois.html#meditation', 'Ta libération') + '</section>';
       var suite = C && C.aVenir && C.aVenir[0];
       if (suite) h += '<section class="ce-carte" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">Le mois prochain</p><h3>' + esc(suite.titre) + '</h3><p>' + esc(suite.texte) + '</p></section>';
       afficher(h);

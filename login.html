@@ -537,7 +537,7 @@
       var abo = document.querySelector('[aria-labelledby="t-abo"]'); if (!abo) return;
       var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
       abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
-        '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), ton guide du mois complet, ton mois personnel et ton suivi. Tout est réuni dans l’appli Le Cercle.</p>' +
+        '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), tes deux séances audio, ton guide du mois complet, ton mois personnel et ton suivi. Tout est réuni dans l’appli Le Cercle.</p>' +
         '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a><a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi du mois</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>' +
         (gestion ? '<a class="btn btn-trait" href="' + gestion.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
     });

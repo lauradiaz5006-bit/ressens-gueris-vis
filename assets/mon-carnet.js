@@ -305,7 +305,7 @@
         zone('confiance', 'Qu’est-ce que tu confies à la vie ce mois-ci, ce que tu acceptes de ne pas tout contrôler ?', { lignes: 2, ph: 'Exemple : le moment où ma sœur sera prête à en parler. Je fais ma part, je laisse venir le reste.' }), 'mc-encadre-rose') +
       '<div class="mc-separe">' + ORNEMENT + '</div>' +
       '<p class="mc-sur">La méditation du mois</p><h3 class="mc-h">' + esc(M.titre) + '</h3>' +
-      lecteur(C.audio, 'Écouter la méditation guidée') + lecteur(C.audioCourt, 'La version courte, 2 minutes') +
+      lecteur(C.audio, 'Ta séance de visualisation du mois, plus de 20 minutes') + lecteur(C.audioCourt, 'La version courte') +
       '<p class="mc-note">Lis ce texte lentement, à voix basse ou dans ta tête, en t’arrêtant aux pauses. Tu peux aussi l’enregistrer avec ta propre voix et l’écouter les yeux fermés.</p>' +
       (M.conseil ? '<p class="mc-pourquoi">' + md(M.conseil) + '</p>' : '') +
       '<div class="mc-medit"' + (DECOR.meditation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.meditation)) + '\')"' : '') + '><div class="mc-medit-in">' + M.texte.map(function (x) { return /^\[/.test(x) ? '<p class="mc-pause">' + esc(x.slice(1, -1)) + '</p>' : '<p>' + md(x) + '</p>'; }).join('') + '</div></div>' +
@@ -425,7 +425,7 @@
     }, d: function () {
       if (!membre) return offreCercle();
       var M = C.meditation;
-      return lecteur(C.audio, 'Écouter la séance guidée') + lecteur(C.audioCourt, 'La version courte, 2 minutes') +
+      return lecteur(C.audio, 'Ta séance de libération du mois, plus de 20 minutes') + lecteur(C.audioCourt, 'La version courte') +
         '<p class="mc-note">Lis ce texte lentement, à voix basse ou dans ta tête, en t’arrêtant aux pauses. Si une émotion devient trop forte, reviens simplement à ton souffle et à tes pieds sur le sol.</p>' +
         (M.conseil ? '<p class="mc-pourquoi">' + md(M.conseil) + '</p>' : '') +
         '<div class="mc-medit"' + (DECOR.meditation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.meditation)) + '\')"' : '') + '><div class="mc-medit-in">' + M.texte.map(function (x) { return /^\[/.test(x) ? '<p class="mc-pause">' + esc(x.slice(1, -1)) + '</p>' : '<p>' + md(x) + '</p>'; }).join('') + '</div></div>' +
