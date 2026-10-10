@@ -308,3 +308,61 @@
 .mc-int-phrase{margin:.8rem 0 .3rem;font:400 1.15rem/1.4 var(--display);color:var(--prune)}
 .mc-vide input[type=range]{accent-color:#B8ABB1}
 @media print{.mc-pagenum,.mc-autre{display:none!important}}
+
+/* ===== Accompagnement personnalisé (carnet-accompagnement.js) ===== */
+/* Une seule numérotation à l'écran : celle des onglets. Les numéros du livret ne servent plus. */
+.mc-folio{display:none!important}
+.mc-bravo{margin:1.1rem 0 0;padding:.75rem 1rem;border-radius:12px;background:#F3F8F1;border:1px solid #CFE3C8;color:#2F4A2A;font-size:.96rem}
+.mc-bravo::before{content:"✿ ";color:#6E9A62}
+.mc-prive{font-size:.86rem;color:var(--encre-2);margin:.8rem 0 0;padding-left:1.4rem;position:relative}
+.mc-prive::before{content:"";position:absolute;left:0;top:.2rem;width:.85rem;height:.95rem;border:2px solid #9B7A8C;border-radius:3px;border-top-width:5px}
+.mc-guide-lien{margin:.6rem 0}
+.mc-guide-lien a{font-weight:700;color:var(--prune)}
+.mc-blm{margin:1.2rem 0 0;padding:1rem;border-radius:14px;background:#FBF6F9;border:1px dashed #E2C9D6}
+.mc-blm small{font-weight:400;color:var(--encre-2)}
+.mc-lecture:empty{display:none}
+.mc-lecture{margin:1.2rem 0 0;padding:1.1rem 1.2rem;border-radius:16px;background:#FFF9F4;border:1px solid var(--champagne-clair,#EAD7BF)}
+.mc-lec-titre{font:400 1.15rem/1.35 var(--display);color:var(--prune);margin:.2rem 0 .4rem}
+.mc-lec-mois{font-size:.9rem;color:#8A5A22;margin:0}
+.mc-lec-audio p{margin:.5rem 0;font-size:.95rem}
+.mc-lec-audio a{font-weight:700;color:var(--prune)}
+.mc-soutien{margin:.8rem 0 0;padding:.75rem 1rem;border-radius:12px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.95rem}
+.mc-roue-boutons{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 0}
+.mc-pbl{margin:1.4rem 0;padding:1.2rem;border-radius:18px;background:#fff;border:1px solid var(--rose-fonce)}
+.mc-pbl h3{margin-top:.2rem}
+.mc-pbl-liste{list-style:none;padding:0;margin:.6rem 0;display:grid;gap:.35rem}
+.mc-pbl-liste label{display:flex;gap:.55rem;align-items:flex-start;padding:.5rem .7rem;border-radius:10px;background:#FBF6F9;cursor:pointer;font-size:.95rem}
+.mc-pbl-liste input{accent-color:#6B2F5B;width:1.1rem;height:1.1rem;margin-top:.15rem;flex:none}
+.mc-pbl-barres{list-style:none;padding:0;margin:.8rem 0;display:grid;gap:.45rem}
+.mc-pbl-barres li{display:grid;grid-template-columns:7.5rem 1fr 7rem;align-items:center;gap:.6rem;font-size:.92rem}
+.mc-pbl-barres i{display:block;height:.6rem;border-radius:99px;background:#F1E4EA;overflow:hidden}
+.mc-pbl-barres b{display:block;height:100%;background:linear-gradient(90deg,#B7833F,#7E3A6E);border-radius:99px}
+.mc-pbl-barres small{color:var(--encre-2)}
+.mc-proprio{padding:1rem 1.1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair,#EAD7BF)}
+.mc-proprio-b{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 0}
+.mc-gestes-l{display:grid;gap:.4rem;margin:.3rem 0 1rem}
+.mc-geste{display:flex;align-items:flex-start;gap:.6rem;padding:.6rem .8rem;border-radius:12px;background:#FFF9F4;border:1px solid var(--rose-fonce);cursor:pointer;font-size:.95rem}
+.mc-geste input[type=checkbox]{accent-color:#6B2F5B;width:1.15rem;height:1.15rem;flex:none;margin-top:.12rem}
+.mc-geste small{margin-left:auto;color:#6E9A62;font-weight:700;white-space:nowrap;padding-left:.5rem}
+.mc-geste:has(input:checked){background:#F3F8F1;border-color:#CFE3C8}
+.mc-geste-perso{cursor:default;align-items:center}
+.mc-geste-perso input[type=text]{flex:1;border:0;border-bottom:1px solid #E2C9D6;background:transparent;font:inherit;padding:.2rem 0}
+.mc-gestes-perso{display:grid;gap:.4rem;margin:.3rem 0}
+.mc-bilan-n{font:400 1.15rem/1.4 var(--display);color:var(--prune)}
+.mc-maya-sem{margin:1.3rem 0 0;padding:1.1rem 1.1rem;border-radius:16px;background:#FBF6F9;border:1px solid #EADBE6}
+.mc-vague{margin:.4rem 0 1rem}
+.mc-vague-t{margin:0 0 .3rem}
+.mc-vague-t b{font:400 1.08rem/1.35 var(--display);color:var(--prune)}
+.mc-vague-t span{font-size:.85rem;color:#8A5A22;white-space:nowrap}
+.mc-vague-toi{padding:.8rem .9rem;border-radius:12px;background:#FFF6EC;border:1px solid var(--champagne-clair,#EAD7BF)}
+.mc-vague-perso,.mc-vague-inv{font-size:.95rem}
+.mc-maya-jours{list-style:none;padding:0;margin:.6rem 0 1rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(7.2rem,1fr));gap:.4rem}
+.mc-maya-jours li{padding:.45rem .55rem;border-radius:10px;background:#fff;border:1px solid #EADBE6;font-size:.86rem;display:flex;flex-direction:column}
+.mc-mj-d{color:var(--encre-2);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+.mc-mj-s{font-weight:700;color:var(--encre)}
+.mc-mj-m{font-size:.76rem;color:#8A5A22;margin-top:.15rem}
+.mc-maya-jours li.mc-mj-signe{background:#6B2F5B;border-color:#6B2F5B}
+.mc-maya-jours li.mc-mj-signe span{color:#fff}
+.mc-maya-jours li.mc-mj-famille,.mc-maya-jours li.mc-mj-nombre{background:#FFF6EC;border-color:var(--champagne-clair,#EAD7BF)}
+.mc-maya-cadre{margin-top:.8rem}
+@media print{.mc-bravo,.mc-roue-boutons,.mc-proprio-b{display:none!important}}
