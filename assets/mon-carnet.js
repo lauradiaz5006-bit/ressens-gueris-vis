@@ -367,7 +367,8 @@
         '<div class="mc-deux">' + zone('int-frein', 'Quelle petite voix te dit que ce n’est pas possible, ou pas pour toi ?', { lignes: 2, ph: 'Exemple : « Ce n’est pas pour les gens comme moi. »' }) +
           zone('int-croire', 'Que choisis-tu de croire à la place ? Une phrase douce et vraie pour toi.', { lignes: 2, ph: 'Exemple : « J’ai le droit d’avoir une vie qui me ressemble, et j’apprends chaque jour. »' }) + '</div>' +
         '<p class="mc-sur">Voir</p><p class="mc-consigne">Ton mini tableau de vision : trois mots ou trois images qui représentent ce que tu accueilles ce mois-ci. Tu peux aussi les découper dans un magazine et les coller près de ton lit, pour les voir chaque matin.</p>' +
-        '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : un bain chaud' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « oui »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : la mer au lever du jour' }) + '</div>' + bravo(4) +
+        '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : un bain chaud' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « oui »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : la mer au lever du jour' }) + '</div>' +
+        (window.GenesoliaFond ? '<p class="gf-bouton"><button type="button" class="btn btn-trait" data-fond-ouvrir>Créer mon fond d’écran avec mes mots</button></p><div data-fond></div>' : '') + bravo(4) +
       '</section>';
   }
   function lettreMoisHtml() {
@@ -1018,6 +1019,13 @@
       var bl = t.closest('[data-bl]'); if (bl) { actionProfilBl(bl.getAttribute('data-bl')); return; }
       var ir = t.closest('[data-imprimer-roue]'); if (ir) { imprimerRoue(ir.getAttribute('data-imprimer-roue')); return; }
       if (t.closest('[data-ics]')) { telechargerRappels(); return; }
+      var fo = t.closest('[data-fond-ouvrir]');
+      if (fo) {
+        var zf = fo.parentNode.nextElementSibling; fo.parentNode.hidden = true;
+        window.GenesoliaFond.ouvrir(zf, { mois: NOM_MOIS, mots: ['vision-1', 'vision-2', 'vision-3'].map(function (k) { return String(D.v[k] || '').replace(/^Exemple\s*:\s*/i, ''); }), phrase: String(D.v.phrase || D.v['int-croire'] || '').replace(/^«\s*|\s*»$/g, '') });
+        if (window.umami) try { window.umami.track('fond-ecran-ouvert'); } catch (x) {}
+        return;
+      }
       var am = t.closest('[data-amorce]'); if (am) { amorce(am.getAttribute('data-amorce')); return; }
       var v = t.closest('[data-vers]'); if (v) { var cibleEx = document.getElementById(v.getAttribute('data-vers')); if (cibleEx) defiler(cibleEx, true); return; }
     });
