@@ -23,6 +23,7 @@
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/mon-chemin.js"></script>
+  <script src="assets/notifs.js"></script>
   <script src="assets/astronomy.browser.min.js" defer></script>
   <script src="assets/astrologie.js" defer></script>
   <script src="assets/numerologie.js" defer></script>
@@ -42,7 +43,7 @@
     var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
     if (DISPONIBLES.indexOf(m) < 0 || (m > actuel && !apercu)) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
     function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
-    function go() { charger('assets/carnets/' + m + '.js', function () { charger('assets/mon-carnet.js', function () {}); }); }
+    function go() { charger('assets/carnets/' + m + '.js', function () { var plus = document.createElement('script'); plus.src = 'assets/plus/' + m + '.js'; plus.onload = plus.onerror = function () { charger('assets/mon-carnet.js', function () {}); }; document.body.appendChild(plus); }); }
     /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();
