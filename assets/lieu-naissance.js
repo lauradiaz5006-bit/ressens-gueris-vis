@@ -77,6 +77,7 @@
       liste.hidden = true;
       if (o.surChoix) o.surChoix(choisi);
     }
+    if (o.demande !== false && window.GenesoliaDemande) demandeVille(input, info || liste);
     input.addEventListener('focus', charger);
     input.addEventListener('input', function () {
       choisi = null; if (info) info.textContent = 'Choisis ta ville dans la liste, ou continue : on prendra la plus proche.';
@@ -116,6 +117,31 @@
         });
       }
     };
+  }
+  /* « Ta ville n'apparaît pas ? » : la demande part dans demandes_site (site.js), la tâche « Demandes du site » l'ajoute dans l'heure.
+     Pas de <form> ici : le champ est souvent déjà dans un formulaire. */
+  var STYLE = '.ln-dem{margin-top:.35rem;font-size:.9rem}.ln-dem>button{font:inherit;background:none;border:0;padding:0;color:#6B2F5B;text-decoration:underline;text-decoration-color:#B98A55;text-underline-offset:3px;cursor:pointer}' +
+    '.ln-dem-f[hidden],.ln-dem>button[hidden]{display:none}.ln-dem-f{display:grid;gap:.45rem;margin-top:.5rem;padding:.8rem;border-radius:12px;background:#FFF6EC;border:1px solid #EBCFD5}.ln-dem-f input{font:inherit;padding:.5rem .7rem;border-radius:10px;border:1px solid #D9B9C5;background:#fff;width:100%}' +
+    '.ln-dem-f .ln-dem-envoi{justify-self:start;font:inherit;font-weight:600;padding:.5rem 1rem;border-radius:999px;border:0;background:#6B2F5B;color:#fff;cursor:pointer}.ln-dem-ok{margin:.4rem 0 0;font-weight:600;color:#6B2F5B}.ln-dem-ok:empty{display:none}@media print{.ln-dem{display:none}}';
+  function demandeVille(input, apres) {
+    if (!document.getElementById('ln-dem-style')) { var st = document.createElement('style'); st.id = 'ln-dem-style'; st.textContent = STYLE; document.head.appendChild(st); }
+    var z = document.createElement('div'); z.className = 'ln-dem';
+    z.innerHTML = '<button type="button" aria-expanded="false">Ta ville n’apparaît pas\u00a0?</button><div class="ln-dem-f" hidden>' +
+      '<input type="text" class="ln-dem-v" placeholder="Ta ville de naissance" aria-label="Ta ville de naissance" maxlength="120"><input type="text" class="ln-dem-p" placeholder="Le pays (par exemple : France, Algérie, Portugal)" aria-label="Le pays" maxlength="60">' +
+      '<button type="button" class="ln-dem-envoi">Envoyer ma ville</button></div><p class="ln-dem-ok" role="status"></p>';
+    apres.parentNode.insertBefore(z, apres.nextSibling);
+    var bt = z.querySelector('button'), f = z.querySelector('.ln-dem-f'), v = z.querySelector('.ln-dem-v'), pays = z.querySelector('.ln-dem-p'), ok = z.querySelector('.ln-dem-ok'), envoi = z.querySelector('.ln-dem-envoi');
+    bt.addEventListener('click', function () { f.hidden = !f.hidden; bt.setAttribute('aria-expanded', f.hidden ? 'false' : 'true'); if (!f.hidden) { if (!v.value) v.value = decouper(input.value).nom || input.value; v.focus(); } });
+    [v, pays].forEach(function (x) { x.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); envoi.click(); } }); });
+    envoi.addEventListener('click', function () {
+      if (!v.value.trim()) { v.focus(); return; }
+      envoi.disabled = true; ok.textContent = 'Envoi…';
+      window.GenesoliaDemande('lieu', v.value, pays.value).then(function (r) {
+        envoi.disabled = false;
+        if (r) { f.hidden = true; bt.hidden = true; ok.textContent = 'C’est noté\u00a0! Ta ville sera ajoutée dans l’heure. En attendant, la ville la plus proche trouvée est utilisée\u00a0: tu pourras corriger ton lieu plus tard.'; if (window.umami) try { window.umami.track('demande-lieu'); } catch (x) {} }
+        else ok.textContent = 'La demande n’est pas partie. Réessaie dans un instant.';
+      });
+    });
   }
   window.LieuNaissance = { brancher: brancher };
 })();

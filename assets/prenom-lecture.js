@@ -51,6 +51,7 @@
         '<p><b>Son sens.</b> ' + esc(fiche.sens) + '</p><p>' + esc(fiche.histoire) + '</p>';
     } else {
       h += '<h2>' + esc(nom) + '</h2><p>Ce prénom n\'est pas encore dans notre base de fiches historiques : nous l\'enrichissons régulièrement. Les lectures ci-dessous fonctionnent pour tous les prénoms.</p>';
+      if (opts.editable) h += '<div class="p-demande" data-demande-prenom="' + esc(nom) + '"><p>Tu veux l’histoire et le sens de ' + esc(nom) + '\u00a0? Demande sa fiche\u00a0: elle sera en ligne dans l’heure.</p><button type="button" class="btn btn-plein">Demander la fiche de ce prénom</button><p class="p-demande-ok" role="status"></p></div>';
     }
     h += '</section>';
     // Nombre
@@ -97,6 +98,7 @@
     '.p-mots{font-size:.9rem;color:var(--champagne);font-weight:600;margin-bottom:.6rem}' +
     '.p-duo{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0;max-width:44rem}.p-duo div{border-radius:14px;padding:.8rem 1rem;font-size:.93rem;background:#FFF6EC;border:1px solid var(--champagne-clair)}.p-duo div+div{background:#FCEFF3;border-color:#F1D3DC}.p-duo b{display:block;font:600 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem;color:var(--champagne)}.p-duo div+div b{color:#B5485C}' +
     '.p-note{font-size:.88rem;color:var(--prune-doux)}' +
+    '.p-demande{margin-top:1.1rem;padding:1rem 1.2rem;border-radius:16px;background:#FFF6EC;border:1px solid var(--rose-fonce)}.p-demande p{margin:0 0 .7rem}.p-demande-ok{margin:.6rem 0 0!important;font-weight:600;color:var(--prune)}.p-demande-ok:empty{display:none}' +
     '.p-arbre{display:grid;grid-template-columns:minmax(0,15rem) 1fr;gap:2rem;align-items:start}.p-svg{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1rem}.p-svg svg{width:100%;height:auto}' +
     '.p-valeur span{color:var(--prune-doux)}.p-famille{font-style:italic}.p-question{padding:.9rem 1rem;border-radius:14px;background:var(--blanc);border:1px solid var(--rose)}.p-question b{display:block;font:600 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.35rem}' +
     '.p-lettres{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:.7rem;margin:1rem 0}.p-lettres li{display:grid;grid-template-columns:auto 1fr;gap:.8rem;padding:.9rem 1rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose)}.p-l-val{width:2.6rem;height:2.6rem;border-radius:12px;display:grid;place-items:center;font-family:var(--display);font-size:1.05rem;background:var(--rose)}.p-lettres b{display:block}.p-chemin{display:block;font-size:.8rem;color:var(--champagne);margin:.1rem 0 .3rem}.p-lettres p{font-size:.9rem;margin:0}' +
