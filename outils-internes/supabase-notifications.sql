@@ -13,21 +13,14 @@ create table if not exists public.notifs_abonnements (
   user_id uuid references auth.users(id) on delete cascade,
   cree_le timestamptz not null default now()
 );
+alter table public.notifs_abonnements add column if not exists canaux text[] not null default '{cercle}';
 alter table public.notifs_abonnements enable row level security;
-drop policy if exists "notifs : ajouter le sien" on public.notifs_abonnements;
-drop policy if exists "notifs : voir le sien" on public.notifs_abonnements;
-drop policy if exists "notifs : changer le sien" on public.notifs_abonnements;
-drop policy if exists "notifs : retirer le sien" on public.notifs_abonnements;
-create policy "notifs : ajouter le sien" on public.notifs_abonnements for insert to authenticated with check (auth.uid() = user_id);
-create policy "notifs : voir le sien" on public.notifs_abonnements for select to authenticated using (auth.uid() = user_id);
-create policy "notifs : changer le sien" on public.notifs_abonnements for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
-create policy "notifs : retirer le sien" on public.notifs_abonnements for delete to authenticated using (auth.uid() = user_id);
+-- Les abonnements passent par la fonction « notifs-cercle » (voir supabase-notifications-site.sql) : pas d'accès direct depuis le site.
 revoke all on public.notifs_abonnements from anon, authenticated;
-grant select, insert, update, delete on public.notifs_abonnements to authenticated;
 
 create table if not exists public.notifs_programme (
   id bigint generated always as identity primary key,
-  jour date not null unique,
+  jour date not null,
   titre text not null check (char_length(titre) <= 60),
   texte text not null check (char_length(texte) <= 180),
   url text not null default '/cercle.html',
@@ -35,6 +28,10 @@ create table if not exists public.notifs_programme (
   envoye_le timestamptz,
   nb_envoyes integer
 );
+alter table public.notifs_programme add column if not exists canal text not null default 'cercle' check (canal in ('cercle', 'site'));
+alter table public.notifs_programme add column if not exists sauf_cercle boolean not null default false;
+alter table public.notifs_programme drop constraint if exists notifs_programme_jour_key;
+create unique index if not exists notifs_programme_jour_canal on public.notifs_programme (jour, canal);
 alter table public.notifs_programme enable row level security;
 revoke all on public.notifs_programme from anon, authenticated;
 
@@ -131,4 +128,4 @@ insert into public.notifs_programme (jour, titre, texte, url) values
   ('2027-10-15', 'Ta semaine 3 commence', '« Remercier ». Ton petit pas de la semaine t’attend dans ton carnet.', '/mon-carnet.html?mois=2027-10#semaines-3'),
   ('2027-10-22', 'Ta semaine 4 commence', '« Refaire ma roue et choisir la suite ». Ton petit pas de la semaine t’attend dans ton carnet.', '/mon-carnet.html?mois=2027-10#semaines-4'),
   ('2027-10-29', 'Ta météo de fin de mois', 'Dix minutes pour ton bilan : tu verras tout le chemin parcouru depuis le début du mois.', '/mon-carnet.html?mois=2027-10#cloture')
-on conflict (jour) do nothing;
+on conflict (jour, canal) do nothing;

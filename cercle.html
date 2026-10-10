@@ -477,7 +477,7 @@
     function reglageRappels(z) {
       if (!z) return;
       if (!N) { z.innerHTML = '<p>' + RAPPELS + '</p><p class="ce-discret">Les rappels ne sont pas disponibles sur cet appareil.</p>'; return; }
-      N.etat().then(function (e) {
+      N.etat('cercle').then(function (e) {
         var h = '<p>' + RAPPELS + '</p>';
         if (e === 'installer') h += '<p class="ce-discret">Sur iPhone, ajoute d’abord l’appli Le Cercle à ton écran d’accueil, puis ouvre-la depuis son icône pour activer tes rappels.</p><button type="button" class="ce-bt clair" data-r-installer>Installer l’appli</button>';
         else if (e === 'non-supporte') h += '<p class="ce-discret">Ce navigateur ne permet pas les rappels. Essaie avec l’appli installée, ou avec Chrome, Edge, Firefox ou Safari à jour.</p>';
@@ -495,19 +495,19 @@
       if (i) i.addEventListener('click', function () { if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
       if (a) a.addEventListener('click', function () {
         a.disabled = true; if (ret) ret.textContent = '';
-        N.activer(sb, E.user).then(function (ok) {
+        N.activer('cercle', sb).then(function (ok) {
           if (ok) { try { localStorage.setItem('genesolia-rappels-vu', '1'); } catch (x) {} if (window.umami) try { window.umami.track('rappels-actives'); } catch (x) {} apres(); }
           else { a.disabled = false; if (ret) ret.textContent = Notification.permission === 'denied' ? 'Les notifications ont été refusées sur cet appareil.' : 'L’activation n’a pas fonctionné. Réessaie dans un instant.'; }
         });
       });
-      if (c) c.addEventListener('click', function () { c.disabled = true; N.couper(sb).then(apres); });
+      if (c) c.addEventListener('click', function () { c.disabled = true; N.couper('cercle').then(apres); });
     }
     /* Sur Aujourd'hui : une seule invitation, discrète, tant que la personne n'a ni activé ni dit « plus tard » */
     function inviteRappels() {
       var z = vue.querySelector('[data-rappels-invite]'); if (!z || !N || !E.user) return;
       var vu = null; try { vu = localStorage.getItem('genesolia-rappels-vu'); } catch (x) {}
       if (vu) return;
-      N.etat().then(function (e) {
+      N.etat('cercle').then(function (e) {
         if (e !== 'inactif' || !vue.contains(z)) return;
         z.innerHTML = '<section class="ce-carte"><p class="ce-etiq">Tes rappels</p><h3>Veux-tu un petit rappel au bon moment\u00a0?</h3><p>Ton nouveau carnet, le début de chaque semaine, ta météo de fin de mois, les lunes. Un rappel au plus par jour, et tu peux les couper quand tu veux.</p>' +
           '<div class="ce-actions"><button type="button" class="ce-bt" data-r-activer>Recevoir mes rappels</button><button type="button" class="ce-bt clair" data-r-tard>Plus tard</button></div><p class="ce-erreur" data-r-retour role="status"></p></section>';
@@ -563,7 +563,7 @@
         E.user = s.user;
         E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
         var rep = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, s.user) : Promise.resolve(null);
-        if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb, s.user);
+        if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb);
         return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
       }).catch(router);
     });

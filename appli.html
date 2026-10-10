@@ -80,9 +80,14 @@
     <a class="ap-carte" href="methode.html"><p class="ap-etiq">La méthode</p><h2>Les deux cycles</h2><p>Ce qui se répète touche deux besoins&nbsp;: te sentir en sécurité, et aimer et être aimé·e.</p><span class="ap-plus">Lire</span></a>
     <a class="ap-carte" href="blog.html"><p class="ap-etiq">Le blog</p><h2>Histoires de familles et repères</h2><p>Loyautés, prénoms, dates anniversaires, rêves&nbsp;: des articles courts pour comprendre.</p><span class="ap-plus">Lire</span></a>
     <a class="ap-carte" href="formation.html"><p class="ap-etiq">La formation · Sors de la boucle</p><h2>Le module 1 offert</h2><p>8 modules, 8 séances audio guidées, à ton rythme.</p><span class="ap-plus">Découvrir</span></a>
+
+    <p class="ap-titre">Mes notifications</p>
+    <div id="ap-rappels"></div>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/notifs.js"></script>
+  <script>if (window.GenesoliaNotifs) window.GenesoliaNotifs.encart(document.getElementById('ap-rappels'), { titre: 'Recevoir les nouveautés', texte: 'Le ciel du mois, Mercure rétrograde, chaque nouvel article et chaque nouveau test\u00a0: une notification au plus par jour, que tu peux couper quand tu veux.' });</script>
   <script>
   (function () {
     'use strict';
