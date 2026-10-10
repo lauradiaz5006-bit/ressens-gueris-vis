@@ -88,6 +88,34 @@
     .note{font-size:.86rem;color:var(--prune-doux)}
     @media(max-width:700px){.s-depart{grid-template-columns:1fr}.s-echelle{grid-template-columns:repeat(2,1fr)}.s-table td:first-child{width:auto}.s-table,.s-table tbody,.s-table tr,.s-table td{display:block}.s-table thead{display:none}.s-table td:first-child{padding-top:1rem}}
     @media print{header,footer,.s-tete,.s-actions,.annonce,.bandeau-info,.cookies,button{display:none!important}.s-semaine{break-inside:avoid}}
+    /* L'offre du Cercle, pour qui n'est pas encore membre (le suivi est compris dans Le Cercle) */
+    .o-zone{padding:1.6rem 0 2.4rem}
+    .o-zone .conteneur{max-width:46rem}
+    .o-prix{margin:0 0 1.2rem;padding:1.5rem 1.4rem;border-radius:22px;color:#F7E6EE;background:radial-gradient(26rem 16rem at 90% 0%,rgba(243,220,192,.35),transparent 60%),linear-gradient(150deg,#7E3A6E,#3B1747);box-shadow:0 18px 44px rgba(59,23,71,.22)}
+    .o-prix .s-etiq{color:#F3DCC0}
+    .o-gros{font:400 clamp(2rem,8vw,2.6rem)/1.1 var(--display);color:#fff;margin:.2rem 0 .4rem}
+    .o-prix p{color:#F7E6EE;margin:0 0 .4rem}
+    .o-prix .o-apres{font-size:.92rem;opacity:.95}
+    .o-boutons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+    .o-boutons .btn-plein{background:#F3DCC0;color:#3B1747;border-color:#F3DCC0}
+    .o-boutons .btn-trait{background:transparent!important;color:#fff!important;border-color:rgba(243,220,192,.6)!important}
+    .o-titre{font:400 1.45rem/1.2 var(--display);color:var(--prune);margin:1.6rem 0 .8rem}
+    .o-liste{list-style:none;margin:0;padding:0;display:grid;gap:.7rem}
+    .o-liste li{display:grid;grid-template-columns:44px 1fr;gap:.85rem;align-items:start;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:18px;padding:1rem}
+    .o-liste .o-ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--rose);color:var(--prune)}
+    .o-liste .o-ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .o-liste b{display:block;font:400 1.1rem/1.25 var(--display);color:var(--prune);margin-bottom:.2rem}
+    .o-liste span{font-size:.93rem;color:var(--prune-doux);line-height:1.5}
+    .o-etapes{counter-reset:o;list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .o-etapes li{counter-increment:o;position:relative;padding:.9rem 1rem .9rem 3.4rem;background:var(--rose);border-radius:16px;color:var(--prune-doux);font-size:.95rem;line-height:1.5}
+    .o-etapes li::before{content:counter(o);position:absolute;left:1rem;top:.85rem;width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:700 .85rem/1 var(--texte)}
+    .o-etapes b{color:var(--prune)}
+    .o-semaines{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:.2rem 0 0}
+    .o-semaines div{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:14px;padding:.75rem .6rem;text-align:center;font-size:.82rem;color:var(--prune-doux)}
+    .o-semaines b{display:block;font:400 1.02rem/1.2 var(--display);color:var(--prune);margin-top:.2rem}
+    .o-confiance{margin-top:1.2rem;padding:1rem 1.1rem;border-radius:16px;border:1px dashed var(--champagne);font-size:.92rem;color:var(--prune-doux)}
+    .o-apercu{margin-top:1.4rem;text-align:center}
+    @media (max-width:520px){.o-semaines{grid-template-columns:1fr 1fr}.o-boutons .btn{flex:1 1 100%;text-align:center}}
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Sortir de ta boucle, une semaine à la fois", "item": "https://genesolia.fr/mon-suivi.html"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Pourquoi reproduit-on toujours les mêmes schémas ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce qu'un schéma connu rassure, même quand il fait souffrir. Il s'est souvent mis en place pour protéger, dans l'enfance ou dans l'histoire familiale, et il continue par habitude. Tant qu'on ne repère pas le moment précis où il se déclenche, on réagit en automatique. L'observer, le nommer et essayer une autre réponse permet peu à peu de le transformer."}}, {"@type": "Question", "name": "Combien de temps faut-il pour sortir d'un schéma répétitif ?", "acceptedAnswer": {"@type": "Answer", "text": "Il n'existe pas de durée fixe. Certaines étapes se traversent en quelques semaines, d'autres demandent des mois. Ce qui compte, c'est la régularité : un petit exercice chaque semaine apporte souvent plus qu'une grande prise de conscience isolée. Le premier signe de progrès est généralement de reconnaître le schéma plus tôt, avant qu'il ne se déroule entièrement."}}, {"@type": "Question", "name": "Comment savoir si mon schéma touche la sécurité ou l'amour ?", "acceptedAnswer": {"@type": "Answer", "text": "Regarde la peur qui se cache derrière. Si elle concerne le manque, la place, l'argent, le fait d'être en danger ou de ne pas avoir le droit d'être là, c'est plutôt la racine. Si elle concerne le fait d'être quitté·e, pas assez aimé·e ou pas choisi·e, c'est plutôt le cœur. Le bilan de départ t'aide à le repérer."}}]}</script>
@@ -103,6 +131,7 @@
           <div class="guide"><img src="assets/guide/guide-boucle.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Une semaine à la fois. Pas besoin d'aller vite : chaque petit geste compte.</p></div>
       </div>
     </section>
+    <section class="o-zone" id="s-offre" hidden></section>
     <figure class="bandeau-photo"><img src="assets/images/suivi-1600.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Une femme assise en méditation face à la fenêtre, au soleil couchant" loading="lazy" decoding="async"></figure>
     <section class="bloc s-zone"><div class="conteneur"><div id="s-coffre" hidden style="margin-bottom:1rem"></div></div><div class="conteneur" id="s-corps"><p class="note">Chargement de ton suivi…</p></div></section>
   
@@ -331,7 +360,62 @@
     }
 
     /* ───── Affichage et interactions ───── */
+    /* ───── L'offre du Cercle : le suivi en fait partie. Qui n'est pas membre voit d'abord ce qu'elle propose ─────
+       (1 mois gratuit pour tester, puis un abonnement mensuel). L'aperçu de la semaine 1 reste ouvert juste en dessous. */
+    var apercuOuvert = false;
+    var ICO = {
+      suivi: '<path d="M12 12m-1 0a1 1 0 1 0 2 0a4 4 0 1 0-8 0a7 7 0 1 0 14 0"/>',
+      carnet: '<path d="M4 5c3-1.5 5.5-1.5 8 0v14c-2.5-1.5-5-1.5-8 0zM12 5c2.5-1.5 5-1.5 8 0v14c-3-1.5-5.5-1.5-8 0"/>',
+      mois: '<path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/>',
+      appli: '<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 17.5h2"/>',
+      site: '<path d="M12 3l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.5z"/>'
+    };
+    function ico(k) { return '<span class="o-ico"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICO[k] + '</svg></span>'; }
+    function blocPrix() {
+      return '<div class="o-prix"><p class="s-etiq">Le Cercle · 1 mois gratuit pour tester</p><p class="o-gros">Ton premier mois est offert</p>' +
+        '<p>Tu as accès à tout, tout de suite. Si ça ne te convient pas, tu arrêtes avant la fin du mois et tu ne paies rien.</p>' +
+        '<p class="o-apres">Ensuite, c’est un abonnement mensuel : <b>29 € par mois, sans engagement</b>, ou <b>24,90 € par mois</b> avec un engagement de 12 mois.</p>' +
+        '<div class="o-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="btn btn-trait" href="abonnement.html">Tout savoir sur Le Cercle</a></div></div>';
+    }
+    function offre() {
+      return blocPrix() +
+        '<h2 class="o-titre">Ce que tu reçois chaque mois</h2><ul class="o-liste">' +
+        '<li>' + ico('suivi') + '<div><b>Ton suivi « Je me libère »</b><span>Quatre semaines pour sortir de ta boucle, avec ton bilan de départ, tes exercices et ton journal.</span></div></li>' +
+        '<li>' + ico('carnet') + '<div><b>Ton carnet « J’avance »</b><span>Ta météo intérieure, ta roue de la vie, ton objectif du mois et un petit pas chaque semaine. En ligne ou à imprimer, comme tu préfères.</span></div></li>' +
+        '<li>' + ico('mois') + '<div><b>Ton guide du mois complet</b><span>Tes nombres, ton ciel, ton signe maya et les dates de ton arbre qui tombent ce mois-ci.</span></div></li>' +
+        '<li>' + ico('appli') + '<div><b>L’appli Le Cercle</b><span>Tout au même endroit sur ton téléphone, avec ton point du jour en une minute.</span></div></li>' +
+        '<li>' + ico('site') + '<div><b>Tout le site Genesolia</b><span>Tous les outils et les documents, sauf la formation (à tarif réduit pour les membres).</span></div></li></ul>' +
+        '<h2 class="o-titre">Ton suivi, semaine après semaine</h2><div class="o-semaines">' +
+        '<div>Semaine 1<b>Voir</b></div><div>Semaine 2<b>La source</b></div><div>Semaine 3<b>Libérer</b></div><div>Semaine 4<b>Remplacer</b></div></div>' +
+        '<h2 class="o-titre">Comment ça se passe</h2><ol class="o-etapes">' +
+        '<li><b>Tu commences ton mois gratuit</b> en trois minutes : ton espace, un court bilan, puis tu enregistres ta carte. Rien n’est prélevé pendant 30 jours.</li>' +
+        '<li><b>Chaque semaine, un pas</b> : un exercice d’une quinzaine de minutes, à ton rythme, sur ton téléphone ou à imprimer.</li>' +
+        '<li><b>À la fin du mois, tu choisis</b> : tu reçois un rappel par e-mail avant la fin de ton mois gratuit. Tu continues avec l’abonnement mensuel, ou tu arrêtes en un clic depuis ton espace.</li></ol>' +
+        '<p class="o-confiance">Tout ce que tu écris est chiffré dans ton espace : toi seule peux le lire, pas même l’équipe Genesolia.</p>' +
+        '<div style="margin-top:1.4rem">' + blocPrix() + '</div>' +
+        '<p class="o-apercu"><button type="button" class="btn btn-trait" id="s-voir-apercu">Voir un aperçu de la semaine 1</button></p>';
+    }
+    function montrerOffre() {
+      var membreOk = SUIVI.libre || SUIVI.membre, z = document.getElementById('s-offre'), zone = document.querySelector('.s-zone');
+      z.hidden = membreOk;
+      zone.hidden = !membreOk && !apercuOuvert;
+      if (membreOk || z.getAttribute('data-fait')) return;
+      z.setAttribute('data-fait', '1');
+      z.innerHTML = '<div class="conteneur">' + offre() + '</div>';
+      var t = document.querySelector('.s-tete');
+      if (t) {
+        t.querySelector('.s-sur').textContent = 'Le Cercle · ton suivi';
+        t.querySelector('h1').textContent = 'Ton suivi fait partie du Cercle';
+        t.querySelector('.intro').textContent = 'Quatre semaines pour voir ta boucle, remonter à sa source, la libérer et la remplacer par un geste nouveau. Tu le testes un mois gratuitement, puis c’est un abonnement mensuel, sans engagement.';
+      }
+      document.getElementById('s-voir-apercu').addEventListener('click', function () {
+        apercuOuvert = true; zone.hidden = false;
+        this.parentNode.remove();
+        zone.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
     function afficher() {
+      montrerOffre();
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
       if (!utilisateur) {
