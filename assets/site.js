@@ -42,7 +42,7 @@ window.GenesoliaCoffre = (function () {
   function demander(zone, sb, ok) {
     if (!zone) return;
     zone.hidden = false;
-    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ton espace privé, chiffré</p><p>Pour retrouver tes réponses sur tous tes appareils, elles sont gardées dans ton espace, <b>chiffrées</b> : personne d’autre que toi ne peut les lire, pas même l’équipe Genesolia. Tu peux tout effacer quand tu veux depuis Mon espace.</p>' +
+    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ton espace privé, chiffré</p><p>Pour retrouver tes réponses sur tous tes appareils, elles sont gardées dans ton espace, <b>chiffrées</b>, et l’équipe Genesolia ne les lit jamais. Tu peux tout effacer quand tu veux depuis Mon espace.</p>' +
       '<p><button type="button" class="btn btn-plein" data-coffre-oui>J’accepte que mes réponses soient gardées</button> <button type="button" class="btn btn-trait" data-coffre-non>Pas maintenant</button></p>' +
       '<p class="coffre-note">Sans ton accord, tes réponses restent seulement sur cet appareil. <a href="confidentialite.html">Mes données</a></p></div>';
     zone.querySelector('[data-coffre-oui]').onclick = function (e) {

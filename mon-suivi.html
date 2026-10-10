@@ -127,7 +127,7 @@
       <div class="conteneur">
         <p class="s-sur">Le Cercle · ton suivi</p>
         <h1>Sortir de ta boucle, une semaine à la fois</h1>
-        <p class="intro">Un bilan de départ pour voir où tu en es, puis chaque mois une étape de la méthode des deux cycles : quatre semaines d'exercices concrets, un journal que toi seule peux lire, et un bilan pour mesurer le chemin parcouru.</p>
+        <p class="intro">Un bilan de départ pour voir où tu en es, puis chaque mois une étape de la méthode des deux cycles : quatre semaines d'exercices concrets, un journal chiffré que Genesolia ne lit jamais, et un bilan pour mesurer le chemin parcouru.</p>
           <div class="guide"><img src="assets/guide/guide-boucle.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Une semaine à la fois. Pas besoin d'aller vite : chaque petit geste compte.</p></div>
       </div>
     </section>
@@ -347,7 +347,7 @@
       if (!D.m1) { D.m1 = { debut: new Date().toISOString() }; sauver(true); }
       var m = D.m1, s1f = m.s1 && Object.keys(m.s1).some(function (k) { return m.s1[k].pese || m.s1[k].peur; }), s2f = !!racinePrincipale(), s3f = (m.s3 || []).length >= 3, s4f = !!(m.s4 && m.s4.fini);
       var sem = [[1, 'Voir : ce qui te pèse, ce qui te fait peur', s1f, semaine1], [2, 'Remonter à la source', s2f, semaine2], [3, 'Libérer : ta boucle en action, tes phrases', s3f, semaine3], [4, 'Remplacer : la pause, ton geste et ton bilan', s4f, semaine4]];
-      var h = saison() + '<div class="s-bloc doux"><p class="s-etiq">Mois 1 · Ce qui revient</p><h2>Voir ta boucle</h2><p>Une semaine s\'ouvre tous les sept jours. Prends ton temps : chaque exercice demande une quinzaine de minutes, et tu peux y revenir autant que tu veux. Tout ce que tu écris est enregistré dans ton espace, et toi seule peux le lire.</p></div>';
+      var h = saison() + '<div class="s-bloc doux"><p class="s-etiq">Mois 1 · Ce qui revient</p><h2>Voir ta boucle</h2><p>Une semaine s\'ouvre tous les sept jours. Prends ton temps : chaque exercice demande une quinzaine de minutes, et tu peux y revenir autant que tu veux. Tout ce que tu écris est enregistré chiffré dans ton espace, et Genesolia ne le lit jamais.</p></div>';
       var premiere = 0; sem.forEach(function (x) { if (!premiere && semaineOuverte(x[0]) && !x[2]) premiere = x[0]; });
       h += sem.map(function (x) {
         var ouv = semaineOuverte(x[0]);
@@ -393,7 +393,7 @@
         '<li><b>Tu commences ton mois gratuit</b> en trois minutes : ton espace, un court bilan, puis tu enregistres ta carte. Rien n’est prélevé pendant 30 jours.</li>' +
         '<li><b>Chaque semaine, un pas</b> : un exercice d’une quinzaine de minutes, à ton rythme, sur ton téléphone ou à imprimer.</li>' +
         '<li><b>À la fin du mois, tu choisis</b> : tu reçois un rappel par e-mail avant la fin de ton mois gratuit. Tu continues avec l’abonnement mensuel, ou tu arrêtes en un clic depuis ton espace.</li></ol>' +
-        '<p class="o-confiance">Tout ce que tu écris est chiffré dans ton espace : toi seule peux le lire, pas même l’équipe Genesolia.</p>' +
+        '<p class="o-confiance">Tout ce que tu écris est chiffré dans ton espace, et l’équipe Genesolia ne le lit jamais.</p>' +
         '<div style="margin-top:1.4rem">' + blocPrix() + '</div>' +
         '<p class="o-apercu"><button type="button" class="btn btn-trait" id="s-voir-apercu">Voir un aperçu de la semaine 1</button></p>';
     }
@@ -421,7 +421,7 @@
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
       if (!utilisateur) {
-        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés dans ton espace, et toi seule peux les lire.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés chiffrés dans ton espace, et Genesolia ne les lit jamais.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
         corps.innerHTML = h + saison() + livreDuMois();
