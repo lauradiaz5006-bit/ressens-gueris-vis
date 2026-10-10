@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Mon point de départ · Le Cercle · Genesolia</title>
+  <meta name="description" content="Ton point de départ dans le Cercle : ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles, pour orienter tes deux livrets.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .pd{width:min(46rem,100% - 2rem);margin:0 auto;padding:2rem 0 3rem}
+    .pd-tete{padding:1.6rem 1.4rem;border-radius:var(--rayon,22px);background:linear-gradient(150deg,#4A1F44,#6B2F5B);color:#fff}
+    .pd-tete h1{color:#fff;margin:.2rem 0 .8rem}
+    .pd-tete p{color:#F6E9EE;max-width:none}
+    .pd-intro p+p{margin-top:.35rem}
+    .pd-sur{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne,#B7833F);margin:0 0 .3rem}
+    .pd-tete .pd-sur{color:#F4D9A8}
+    .pd-compte{margin-top:1rem;padding:1rem;border-radius:16px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25)}
+    .pd-compte a:not(.btn){color:#fff}
+    .pd-etapes{display:flex;gap:.4rem;overflow-x:auto;padding:1rem 0;scrollbar-width:none}
+    .pd-etapes button{flex:none;display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:99px;border:1px solid var(--rose-fonce,#E3B9C5);background:#fff;font:inherit;font-size:.92rem;color:var(--prune,#6B2F5B);cursor:pointer}
+    .pd-etapes button span{display:grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:50%;background:#FBF0F3;font-weight:700;font-size:.8rem}
+    .pd-etapes button.actif{background:var(--prune,#6B2F5B);color:#fff;border-color:var(--prune,#6B2F5B)}
+    .pd-etapes button.actif span{background:#F4D9A8;color:var(--prune,#6B2F5B)}
+    .pd-page{background:#fff;border:1px solid var(--rose,#F1D3DC);border-radius:var(--rayon,22px);padding:1.5rem 1.3rem}
+    .pd-page h2{margin:0 0 .6rem}
+    .pd-page h3{margin:1.8rem 0 .6rem;font-size:1.25rem}
+    .pd-page p{max-width:none}
+    .pd-consigne{color:var(--prune-doux,#7a5a72)}
+    .pd-curseur{margin:1rem 0;padding:.9rem 1rem;border-radius:16px;background:#FFF9F7;border:1px solid var(--rose,#F1D3DC)}
+    .pd-curseur label{font-weight:600;display:block;margin-bottom:.4rem}
+    .pd-ligne{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--prune-doux,#7a5a72)}
+    .pd-ligne input{flex:1;accent-color:#6B2F5B}
+    .pd-curseur b{display:block;margin-top:.3rem;font-size:.9rem;color:var(--prune,#6B2F5B)}
+    .pd-curseur.pd-vide input{opacity:.55}
+    .pd-curseur.pd-vide b{font-weight:400;color:var(--prune-doux,#7a5a72)}
+    .pd-affs{list-style:none;padding:0;margin:1rem 0;counter-reset:a;display:grid;gap:.8rem}
+    .pd-affs li{padding:.9rem 1rem;border-radius:16px;border:1px solid var(--rose,#F1D3DC);background:#FFF9F7}
+    .pd-affs li p{margin:0 0 .6rem;font-weight:600}
+    .pd-notes{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem}
+    .pd-notes label{position:relative;cursor:pointer}
+    .pd-notes input{position:absolute;opacity:0}
+    .pd-notes span{display:block;height:100%;padding:.5rem .3rem;border-radius:12px;border:1px solid var(--rose-fonce,#E3B9C5);background:#fff;text-align:center;font-size:.82rem;line-height:1.25}
+    .pd-notes input:checked+span{background:var(--prune,#6B2F5B);color:#fff;border-color:var(--prune,#6B2F5B)}
+    .pd-notes input:focus-visible+span{outline:2px solid #B7833F;outline-offset:2px}
+    .pd-domaine{margin:1.2rem 0}
+    .pd-niveaux{border:0;padding:0;margin:.3rem 0 0;display:grid;gap:.3rem}
+    .pd-niveaux legend{font-size:.85rem;color:var(--prune-doux,#7a5a72);margin-bottom:.2rem}
+    .pd-niveaux label,.pd-cases label{display:flex;gap:.55rem;align-items:flex-start;padding:.45rem .6rem;border-radius:12px;cursor:pointer}
+    .pd-niveaux input,.pd-cases input{accent-color:#6B2F5B;margin-top:.25rem;flex:none;width:1.05rem;height:1.05rem}
+    .pd-niveaux label:has(input:checked),.pd-cases label:has(input:checked){background:#F6E3EC}
+    .pd-cases{list-style:none;padding:0;margin:.8rem 0;display:grid;gap:.2rem}
+    .pd-champ{display:block;margin:.8rem 0}
+    .pd-champ span{display:block;font-weight:600;margin-bottom:.3rem}
+    .pd-champ input{width:100%;box-sizing:border-box;font:inherit;padding:.7rem .85rem;border-radius:12px;border:1px solid var(--rose-fonce,#E3B9C5);background:#FFF9F7}
+    .pd-resultat{margin:1.6rem 0 0;padding:1.3rem 1.2rem;border-radius:18px;background:linear-gradient(150deg,#FFF1EE,#F6E3EC);border:1px solid var(--rose-fonce,#E3B9C5)}
+    .pd-res-t{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--champagne,#B7833F);margin:.8rem 0 .3rem!important}
+    .pd-res-t:first-child{margin-top:0!important}
+    .pd-res{margin:.6rem 0 1rem}
+    .pd-res h3{margin:.2rem 0 .4rem}
+    .pd-res ul,.pd-resume ul{margin:.3rem 0;padding-left:1.2rem;display:grid;gap:.3rem}
+    .pd-phrase{font-family:var(--display,serif);font-size:1.15rem;color:var(--prune,#6B2F5B)}
+    .pd-barres{display:grid;gap:.45rem;margin-top:.8rem!important;font-size:.85rem}
+    .pd-barres span{display:grid;grid-template-columns:minmax(8rem,12rem) 1fr auto;gap:.6rem;align-items:center}
+    .pd-barres i{height:7px;border-radius:7px;background:#fff;position:relative;overflow:hidden}
+    .pd-barres i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--v);background:var(--prune,#6B2F5B);border-radius:7px}
+    .pd-mention{font-size:.85rem;color:var(--prune-doux,#7a5a72);margin-top:1.2rem}
+    .pd-resume{margin-bottom:1rem;padding:1rem 1.1rem;border-radius:16px;background:#FBF6F2;border:1px solid var(--rose,#F1D3DC)}
+    .pd-resume:empty{display:none}
+    .pd-cibles{margin-top:1.4rem}
+    .pd-echange{margin:.2rem 0 0}
+    .pd-echange .btn{font-size:.85rem;padding:.4rem .9rem}
+    .pd-rythme{margin-top:1.4rem;padding:1rem 1.1rem;border-radius:16px;background:#FFF9F7;border-left:3px solid #B7833F}
+    .pd-rythme p{margin:0}
+    .pd-boutons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+    .pd-nav{display:flex;justify-content:space-between;gap:.6rem;margin-top:1.8rem}
+    .pd-etat{text-align:center;font-size:.85rem;color:var(--prune-doux,#7a5a72);margin-top:1rem}
+    @media (max-width:560px){
+      .pd-page{padding:1.2rem 1rem}
+      .pd-notes{grid-template-columns:1fr 1fr}
+      .pd-barres span{grid-template-columns:1fr auto}
+      .pd-barres i{grid-column:1/-1;grid-row:2}
+      .pd-nav .btn{flex:1}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div class="pd" id="pd"><p>Ton point de départ s’ouvre…</p></div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/point-de-depart-textes.js"></script>
+  <script src="assets/point-de-depart.js"></script>
+</body>
+</html>
