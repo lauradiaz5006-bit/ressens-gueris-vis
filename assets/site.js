@@ -226,6 +226,8 @@ window.GENESOLIA_IMPRESSION = {
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
   var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
+  /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */
+  if (MODE === 'site' && page === 'index.html' && !/[?&]site\b/.test(location.search)) { location.replace('appli.html' + location.hash); return; }
   window.GenesoliaModeAppli = MODE;
 
   var entete = document.querySelector('[data-entete]');
@@ -244,13 +246,13 @@ window.GENESOLIA_IMPRESSION = {
     ['cercle.html', 'jour', 'Aujourd\u2019hui', ''], ['mon-carnet.html', 'carnet', 'Carnet'], ['mon-suivi-mois.html', 'suivi', 'Suivi'],
     ['cercle.html#mois', 'mois', 'Mon mois', 'mois'], ['cercle.html#moi', 'moi', 'Moi', 'moi']
   ] : [
-    ['index.html', 'maison', 'Accueil'], ['genosociogramme.html', 'arbre', 'Mon arbre'], ['offert.html', 'outils', 'Mes outils'],
+    ['appli.html', 'maison', 'Accueil'], ['genosociogramme.html', 'arbre', 'Mon arbre'], ['offert.html', 'outils', 'Mes outils'],
     ['mon-suivi.html', 'suivi', 'Mon suivi'], ['login.html', 'moi', 'Mon espace']
   ];
   function ongletActif() {
     var h = (location.hash || '').replace('#', '');
     document.querySelectorAll('.barre-appli a').forEach(function (a) {
-      var cible = a.getAttribute('href').split('#'), ok = cible[0] === page || (cible[0] === 'index.html' && page === 'index.html');
+      var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
       if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');

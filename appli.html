@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Genesolia · l’appli</title>
+  <meta name="description" content="L’accueil de l’appli Genesolia : ton arbre, tes outils, ton suivi et Le Cercle.">
+  <link rel="canonical" href="https://genesolia.fr/">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* L'accueil de l'appli Genesolia installée (l'accueil du site reste index.html) */
+    #appli{--encre:#4A2342;--doux:#8E6383;--ligne:#F1DDE2;max-width:46rem;margin:0 auto;padding:.4rem 1rem 2rem;color:var(--encre)}
+    .ap-h1{font:400 clamp(1.75rem,6.5vw,2.2rem)/1.15 var(--display);color:#3B1747;margin:.6rem 0 .15rem}
+    .ap-sous{color:var(--doux);font-size:.95rem;margin:0 0 1.1rem}
+    .ap-carte{display:block;background:#fff;border-radius:20px;padding:1.05rem 1.15rem;margin:0 0 .85rem;box-shadow:0 6px 18px rgba(107,47,91,.07);border:1px solid var(--ligne);color:var(--encre);text-decoration:none}
+    a.ap-carte:active,.ap-tuile:active{transform:scale(.985)}
+    .ap-etiq{font:700 .7rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:0 0 .4rem}
+    .ap-carte h2{font:400 1.25rem/1.25 var(--display);color:var(--prune);margin:0 0 .35rem}
+    .ap-carte p{margin:0;font-size:.95rem;line-height:1.5}
+    .ap-plus{display:inline-flex;align-items:center;gap:.3rem;margin-top:.5rem;font-weight:700;font-size:.88rem;color:var(--prune)}
+    .ap-plus::after{content:"";width:.45rem;height:.45rem;border-right:2px solid currentColor;border-top:2px solid currentColor;transform:rotate(45deg)}
+    .ap-fonce{background:linear-gradient(150deg,#7E3A6E,#3B1747);border:0;color:#F7E6EE}
+    .ap-fonce h2{color:#fff}.ap-fonce .ap-etiq,.ap-fonce .ap-plus{color:#F3DCC0}
+    .ap-or{background:linear-gradient(150deg,#C99766,#8A5A22);border:0;color:#fff}
+    .ap-or h2{color:#fff}.ap-or .ap-etiq,.ap-or .ap-plus{color:#FFF1DF}
+    .ap-titre{font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:1.3rem .2rem .6rem}
+    .ap-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+    .ap-tuile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:.45rem;min-height:6.4rem;padding:.85rem .4rem .75rem;border-radius:18px;background:#fff;border:1px solid var(--ligne);text-decoration:none;color:var(--encre);text-align:center;font:600 .8rem/1.25 var(--texte);transition:transform .15s}
+    .ap-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#FCEFF3;color:var(--prune)}
+    .ap-ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .ap-tuile:nth-child(3n+2) .ap-ico{background:#FBF0E4;color:#8A5A22}
+    .ap-tuile:nth-child(3n) .ap-ico{background:#F1EAF6;color:#5E3A7A}
+    .ap-duo{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .ap-duo .ap-carte{margin:0;min-height:8.5rem;display:flex;flex-direction:column;justify-content:space-between}
+    @media (min-width:700px){#appli{padding-top:1rem}.ap-grille{grid-template-columns:repeat(4,1fr)}}
+    @media (max-width:340px){.ap-grille{grid-template-columns:repeat(2,1fr)}.ap-duo{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="appli">
+    <h1 class="ap-h1" id="ap-bonjour">Bienvenue</h1>
+    <p class="ap-sous" id="ap-date"></p>
+
+    <a class="ap-carte ap-fonce" href="genosociogramme.html" id="ap-arbre">
+      <p class="ap-etiq">Ton arbre familial</p><h2>Dessiner mon arbre</h2>
+      <p>Commence par toi, tes parents, tes grands-parents. Les dates qui se répètent apparaissent toutes seules.</p>
+      <span class="ap-plus">Ouvrir</span>
+    </a>
+
+    <div class="ap-duo">
+      <a class="ap-carte" href="mon-suivi.html"><div><p class="ap-etiq">Mon suivi</p><h2>Sortir de ta boucle</h2></div><span class="ap-plus">Continuer</span></a>
+      <a class="ap-carte ap-or" href="abonnement.html" id="ap-cercle"><div><p class="ap-etiq">Le Cercle</p><h2>Deux livres chaque mois</h2></div><span class="ap-plus">Découvrir</span></a>
+    </div>
+
+    <p class="ap-titre">Tes outils</p>
+    <nav class="ap-grille" aria-label="Tes outils">
+      <a class="ap-tuile" href="arbre-de-vie.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><circle cx="7" cy="9" r="2"/><circle cx="17" cy="9" r="2"/><circle cx="12" cy="13" r="2"/><circle cx="12" cy="19.5" r="2"/><path d="M12 6.5v4.5M12 15v2.5M8.5 10.3l2 1.5M15.5 10.3l-2 1.5"/></svg></span>Test de l’arbre de vie</a>
+      <a class="ap-tuile" href="blessures-de-l-ame.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 7.5l-1.5 4 3 1.5-1.5 4"/></svg></span>Tes blessures</a>
+      <a class="ap-tuile" href="theme-numerologique.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span>Tes nombres</a>
+      <a class="ap-tuile" href="theme-astral.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span>Tes étoiles</a>
+      <a class="ap-tuile" href="ton-signe-maya.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 12h8M8 15h5"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg></span>Ton signe maya</a>
+      <a class="ap-tuile" href="ton-prenom.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span>Ton prénom</a>
+      <a class="ap-tuile" href="parcours.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span>Parcours guidé</a>
+      <a class="ap-tuile" href="calcul-syndrome-anniversaire.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M9.5 14.5l1.8 1.8 3.5-3.5"/></svg></span>Dates qui se répètent</a>
+      <a class="ap-tuile" href="mon-guide.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span>Mon guide du mois</a>
+      <a class="ap-tuile" href="le-ciel-du-mois.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="10" r="4"/><path d="M15 5l.6 1.4L17 7l-1.4.6L15 9l-.6-1.4L13 7l1.4-.6zM18 13l.5 1 1 .5-1 .5-.5 1-.5-1-1-.5 1-.5zM5 19h14"/></svg></span>Le ciel du mois</a>
+      <a class="ap-tuile" href="jeux-en-famille.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="15" r="1.2" fill="currentColor"/><circle cx="15" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="15" r="1.2" fill="currentColor"/></svg></span>Jeux en famille</a>
+      <a class="ap-tuile" href="cartes.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M5 17l4.5-4 3 2.5L15 13l4 4"/></svg></span>Images à partager</a>
+    </nav>
+
+    <p class="ap-titre">À lire</p>
+    <a class="ap-carte" href="methode.html"><p class="ap-etiq">La méthode</p><h2>Les deux cycles</h2><p>Ce qui se répète touche deux besoins&nbsp;: te sentir en sécurité, et aimer et être aimé·e.</p><span class="ap-plus">Lire</span></a>
+    <a class="ap-carte" href="blog.html"><p class="ap-etiq">Le blog</p><h2>Histoires de familles et repères</h2><p>Loyautés, prénoms, dates anniversaires, rêves&nbsp;: des articles courts pour comprendre.</p><span class="ap-plus">Lire</span></a>
+    <a class="ap-carte" href="formation.html"><p class="ap-etiq">La formation · Sors de la boucle</p><h2>Le module 1 offert</h2><p>8 modules, 8 séances audio guidées, à ton rythme.</p><span class="ap-plus">Découvrir</span></a>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    function lire(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+    var d = new Date(), j = lire('sb-qsvzzkjtjsznfntahvvh-auth-token');
+    document.getElementById('ap-date').textContent = JOURS[d.getDay()].charAt(0).toUpperCase() + JOURS[d.getDay()].slice(1) + ' ' + (d.getDate() === 1 ? '1er' : d.getDate()) + ' ' + MOIS[d.getMonth()];
+    var meta = (j && j.user && j.user.user_metadata) || {}, g = lire('genesolia-guide') || {};
+    var prenom = String(meta.full_name || meta.prenom || g.prenom || '').trim().split(/\s+/)[0];
+    if (prenom) document.getElementById('ap-bonjour').textContent = 'Bonjour ' + prenom.charAt(0).toUpperCase() + prenom.slice(1, 30);
+    /* L'arbre : déjà commencé sur ce téléphone ? */
+    var a = lire('geno4'), n = a && a.people ? Object.keys(a.people).length : 0;
+    if (n > 1) {
+      var c = document.getElementById('ap-arbre');
+      c.querySelector('h2').textContent = 'Reprendre mon arbre';
+      c.querySelector('p:not(.ap-etiq)').textContent = n + ' personnes dans ton arbre. Ajoute une date, un prénom, un événement : chaque détail éclaire ce qui se répète.';
+    }
+    /* Membre du Cercle : la carte ouvre l'appli Le Cercle */
+    if (window.GenesoliaAcces && j && j.refresh_token) window.GenesoliaAcces.membre().then(function (m) {
+      if (!m) return;
+      var c = document.getElementById('ap-cercle');
+      c.href = 'cercle.html';
+      c.querySelector('h2').textContent = 'Tes livres du mois';
+      c.querySelector('.ap-plus').textContent = 'Ouvrir';
+    });
+  })();
+  </script>
+</body>
+</html>
