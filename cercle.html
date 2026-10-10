@@ -269,6 +269,7 @@
       afficher(h);
       pointDuJour();
       inviteRappels();
+      if (N && E.user) setTimeout(function () { N.proposer({ canal: 'cercle', sb: sb, icone: 'assets/icones/cercle-192.png', titre: 'Veux-tu un petit rappel au bon moment\u00a0?', texte: 'Ton nouveau carnet, le début de chaque semaine, ta météo de fin de mois, les lunes. Un rappel au plus par jour.', ou: 'dans l’onglet Moi, rubrique Mes rappels', apres: function () { try { localStorage.setItem('genesolia-rappels-vu', '1'); } catch (x) {} var z = vue.querySelector('[data-rappels-invite]'); if (z) z.innerHTML = ''; } }); }, 1200);
       var bs = vue.querySelector('[data-saison]');
       if (bs) bs.addEventListener('click', function () {
         ouvrirFeuille('<p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h2>' + esc(sa.titre) + '</h2><p>' + esc(sa.texte) + '</p>' +

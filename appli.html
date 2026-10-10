@@ -87,7 +87,17 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/notifs.js"></script>
-  <script>if (window.GenesoliaNotifs) window.GenesoliaNotifs.encart(document.getElementById('ap-rappels'), { titre: 'Recevoir les nouveautés', texte: 'Le ciel du mois, Mercure rétrograde, chaque nouvel article et chaque nouveau test\u00a0: une notification au plus par jour, que tu peux couper quand tu veux.' });</script>
+  <script>
+  (function () {
+    var N = window.GenesoliaNotifs; if (!N) return;
+    var z = document.getElementById('ap-rappels'), T = 'Le ciel du mois, Mercure rétrograde, chaque nouvel article et chaque nouveau test\u00a0: une notification au plus par jour, que tu peux couper quand tu veux.';
+    function montrer() { N.encart(z, { titre: 'Recevoir les nouveautés', texte: T }); }
+    montrer();
+    /* À l'ouverture de l'appli installée : la proposition, une seule fois */
+    setTimeout(function () { N.proposer({ canal: 'site', icone: 'assets/icones/icone-192.png', titre: 'Veux-tu être prévenu·e des nouveautés\u00a0?', texte: 'Le ciel du mois, Mercure rétrograde, chaque nouvel article et chaque nouveau test. Une notification au plus par jour.', ou: 'tout en bas de l’accueil, dans « Mes notifications »', apres: montrer }); }, 1200);
+  })();
+  </script>
+
   <script>
   (function () {
     'use strict';
