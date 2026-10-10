@@ -233,7 +233,7 @@
         if (!L) return '';
         var a = lire('genesolia-avancee-' + (L.cle || L.mois)), p = a && a.total ? Math.round(a.n / a.total * 100) : 0;
         return '<a class="ce-livre ' + classe + '" href="' + url + '"><div><small>' + sur + '</small><b>' + esc(L.titre) + '</b></div>' +
-          '<div>' + (a && a.total ? '<div class="ce-mini"><i style="width:' + p + '%"></i></div>' : '') + '<span>' + (a && a.total ? a.n + (a.n > 1 ? ' étapes' : ' étape') + ' sur ' + a.total : 'Ouvrir le livre') + '</span></div></a>';
+          '<div>' + (a && a.total ? '<div class="ce-mini"><i style="width:' + p + '%"></i></div>' : '') + '<span>' + (a && a.total ? a.n + (a.n > 1 ? ' pages faites' : ' page faite') + ' sur ' + a.total : 'Ouvrir le livre') + '</span></div></a>';
       }
       h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère', 'mon-suivi-mois.html') + '</div>';
       /* reprendre où j'en étais */
@@ -456,7 +456,7 @@
         (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
         ligne('login.html', 'Mon espace Genesolia', 'Mon arbre, mes résultats, mes documents') +
         ligne('index.html?appli=site', 'Le site Genesolia', 'Tous les outils et le blog') +
-        ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés : toi seule les lis') +
+        ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés, jamais lus par Genesolia') +
         ligne('mentions-legales.html', 'Mentions légales', '') + '</div>';
       afficher(h);
       var bi = vue.querySelector('[data-installer-appli]');

@@ -236,7 +236,7 @@
     if(!e.target.closest('#b-garder')||!window.GenesoliaChemin)return;
     var sc={},det={};document.querySelectorAll('[data-blessure]').forEach(function(b){var k=b.getAttribute('data-blessure');sc[k]=b.querySelectorAll('input:checked').length;det[k]=[].map.call(b.querySelectorAll('input:checked'),function(i){return i.closest('label').textContent.trim();});});
     var tri=Object.keys(sc).sort(function(a,b){return sc[b]-sc[a];}).filter(function(k){return sc[k]>0;});
-    window.GenesoliaChemin.enregistrer({outil:'blessures',titre:'Les blessures de l\u2019âme',resume:'Ce qui te parle le plus : '+tri.slice(0,2).map(function(k){return noms[k];}).join(' et ')+' · '+tri.map(function(k){return noms[k]+' '+sc[k];}).join(', '),donnees:{scores:sc,phrases:det}});
+    window.GenesoliaChemin.enregistrer({outil:'blessures',titre:'Les blessures de l\u2019âme',resume:'Ce qui te parle le plus : '+tri.slice(0,2).map(function(k){return noms[k];}).join(' et ')+' · '+tri.map(function(k){return noms[k]+' '+sc[k];}).join(', '),donnees:{scores:sc}});
     e.target.closest('#b-garder').textContent='Résultat gardé';
   });
   var PG={rejet:'blessure-de-rejet',abandon:'blessure-d-abandon',humiliation:'blessure-d-humiliation',trahison:'blessure-de-trahison',injustice:'blessure-d-injustice'};
