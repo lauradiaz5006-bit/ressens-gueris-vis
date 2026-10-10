@@ -77,6 +77,7 @@
     .ce-form .mc-sugg li{padding:.55rem .8rem;cursor:pointer}
     .ce-form .mc-sugg li[aria-selected="true"],.ce-form .mc-sugg li:hover{background:#FCEFF3}
     .ce-form small{display:block;color:var(--doux);margin-top:.25rem}
+    .ce-fixe{margin:0;padding:.6rem .8rem;border-radius:12px;background:#F7EEF1;color:var(--prune);font-weight:600}
     .ce-erreur{color:#9B2C2C;font-size:.9rem;margin-top:.5rem}
     /* Moi */
     .ce-liste{padding:.3rem 1.15rem}
@@ -332,11 +333,17 @@
       });
     }
     function formProfil() {
-      var pr = profil() || {};
-      afficher('<h1 class="ce-h1">Ton mois à toi</h1><p class="ce-sous">Ta date de naissance suffit. L’heure et le lieu affinent la lecture du ciel.</p>' +
+      /* Repères de naissance : la date, tous les prénoms et le nom (verrouillés une fois enregistrés dans l'espace), l'heure et le lieu à compléter */
+      var pr = profil() || {}, R = window.GenesoliaReperes, verrou = !!(pr.verrou && R);
+      function fixe(q, v) { return '<label>' + q + '</label><p class="ce-fixe">' + esc(v || '·') + '</p>'; }
+      afficher('<h1 class="ce-h1">Ton mois à toi</h1><p class="ce-sous">Ta date de naissance et tes prénoms suffisent. L’heure et le lieu affinent la lecture du ciel.</p>' +
         '<form class="ce-carte ce-form" novalidate id="ce-profil">' +
-        '<label for="ce-p-prenom">Ton prénom</label><input id="ce-p-prenom" name="prenom" autocomplete="given-name" value="' + esc(pr.prenom || E.prenom || '') + '">' +
-        '<label for="ce-p-date">Ta date de naissance</label><input id="ce-p-date" name="date" type="date" required value="' + esc(pr.date || '') + '">' +
+        (verrou
+          ? fixe('Tes prénoms', pr.prenoms || pr.prenom) + (pr.nom ? fixe('Ton nom de naissance', pr.nom) : '') + fixe('Ta date de naissance', String(pr.date).split('-').reverse().join('/')) + '<p class="ce-discret">' + R.NOTE + '</p>'
+          : '<label for="ce-p-prenom">Tous tes prénoms</label><input id="ce-p-prenom" name="prenoms" autocomplete="given-name" placeholder="Par exemple : Léa Marie Jeanne" value="' + esc(pr.prenoms || pr.prenom || E.prenom || '') + '">' +
+            '<label for="ce-p-nom">Ton nom de naissance (facultatif)</label><input id="ce-p-nom" name="nom" autocomplete="family-name" value="' + esc(pr.nom || '') + '">' +
+            '<label for="ce-p-date">Ta date de naissance</label><input id="ce-p-date" name="date" type="date" required value="' + esc(pr.date || '') + '">' +
+            (E.user && R ? '<p class="ce-discret">' + R.AVANT + '</p>' : '')) +
         '<label for="ce-p-heure">Ton heure de naissance (facultatif)</label><input id="ce-p-heure" name="heure" type="time" value="' + esc(pr.heure || '') + '">' +
         '<label for="ce-p-lieu">Ton lieu de naissance (facultatif)</label><input id="ce-p-lieu" autocomplete="off" spellcheck="false" placeholder="Commence à taper ta ville" value="' + esc(pr.lieu || '') + '"><ul class="mc-sugg" id="ce-p-sugg" role="listbox" hidden></ul><small id="ce-p-info"></small>' +
         '<button class="ce-bt" type="submit" style="margin-top:1rem">Lire mon mois</button><p class="ce-erreur" role="alert"></p></form>');
@@ -345,11 +352,15 @@
       if (lieu && pr.lieu && lieu.definir) lieu.definir({ nom: pr.lieu, lat: pr.lat, lon: pr.lon, tz: pr.tz });
       f.addEventListener('submit', function (e) {
         e.preventDefault();
-        var dt = f.date.value;
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(dt) || +dt.slice(0, 4) < 1900) { f.querySelector('.ce-erreur').textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+        var dt = verrou ? pr.date : f.date.value, err = f.querySelector('.ce-erreur');
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(dt) || +dt.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; return; }
+        var prenoms = verrou ? (pr.prenoms || pr.prenom || '') : f.prenoms.value.trim();
+        if (!prenoms) { err.textContent = 'Indique tes prénoms.'; return; }
         (lieu && document.getElementById('ce-p-lieu').value.trim() ? lieu.resoudre() : Promise.resolve(null)).then(function (l) {
-          ecrire('genesolia-guide', { prenom: f.prenom.value.trim(), date: dt, heure: l ? f.heure.value : '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' });
-          vueMois(); window.scrollTo(0, 0);
+          var np = { prenom: prenoms.split(/\s+/)[0], prenoms: prenoms, nom: verrou ? (pr.nom || '') : f.nom.value.trim(), date: dt, heure: f.heure.value || '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris', verrou: verrou };
+          ecrire('genesolia-guide', np);
+          var fini = function () { vueMois(); window.scrollTo(0, 0); };
+          if (E.user && sb && R) R.enregistrer(sb, E.user, np).then(fini, fini); else fini();
         });
       });
     }
@@ -398,7 +409,7 @@
           ? '<ul class="ce-dates">' + dates.map(function (x, i) { return '<li' + (x.fam ? ' class="fam"' : '') + '><button type="button" data-d="date' + i + '"><b>' + jourC(x.jour) + '</b><span>' + esc(x.quoi) + '</span><em aria-hidden="true"></em></button></li>'; }).join('') + '</ul>'
           : '<p>Un mois sans grand rendez-vous du ciel : profite-en pour avancer à ton rythme.</p>') + '</section>' +
         (r.maisons ? '' : '<p class="ce-discret" style="margin:0 .2rem .8rem">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') +
-        '<div class="ce-actions" style="justify-content:flex-start"><a class="ce-bt clair" href="mon-guide.html">Mon guide complet</a><a class="ce-bt clair" href="mon-mois.html">Mon calendrier</a><button type="button" class="ce-bt clair" data-profil>Modifier mes repères</button></div>';
+        '<div class="ce-actions" style="justify-content:flex-start"><a class="ce-bt clair" href="mon-guide.html">Mon guide complet</a><a class="ce-bt clair" href="mon-mois.html">Mon calendrier</a><button type="button" class="ce-bt clair" data-profil>' + (pr.verrou ? 'Compléter mon heure ou mon lieu' : 'Modifier mes repères') + '</button></div>';
       afficher(h);
       vue.querySelectorAll('[data-d]').forEach(function (b) {
         b.addEventListener('click', function () {
@@ -497,7 +508,8 @@
         if (!s) return router();
         E.user = s.user;
         E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
-        return Promise.all([membre(s.user), lireCarnet(s.user, E.C)]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
+        var rep = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, s.user) : Promise.resolve(null);
+        return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
       }).catch(router);
     });
   })();

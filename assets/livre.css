@@ -334,3 +334,4 @@
 .mc-maya-cadre{margin:.8rem 0 0;font-size:.85rem;color:var(--prune-doux,#7A5570);font-style:italic}
 @media (max-width:520px){.mc-maya{padding:.85rem .8rem}.mc-maya-jours li{grid-template-columns:3.4rem 1fr}}
 @media print{.mc-maya details>summary{list-style:none}.mc-maya{break-inside:auto}}
+.mc-fixe{margin:.1rem 0 0;padding:.6rem .8rem;border-radius:12px;background:#F7EEF1;color:var(--prune);font-weight:600}

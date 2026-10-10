@@ -76,6 +76,7 @@
     @media(max-width:420px){.g-nav{width:100%}.g-nav button{flex:1;white-space:nowrap}.g-deux{grid-template-columns:1fr;gap:0}.g-form{padding:1.2rem}.g-carte{padding:1.4rem}.g-bloc{padding:1.2rem}}
     /* Repères déjà connus : le guide s'affiche d'abord, le formulaire se rouvre avec « Modifier mes repères » */
     .g-tete.g-replie{display:none}
+    .g-form input[readonly]{background:#F7EEF1;color:var(--prune);font-weight:600;cursor:default}
     @media(max-width:860px){.g-tete .conteneur,.g-trois,.g-semaines{grid-template-columns:1fr}.g-carte h2{font-size:1.8rem}}
     @media print{header,footer,.g-tete,.g-actions,.g-nav,.annonce,.bandeau-info,.cookies,.g-verrou{display:none!important}body{background:#fff}.g-bloc,.g-carte{break-inside:avoid}.g-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   </style>
@@ -95,14 +96,16 @@
         </div>
         <form class="g-form" id="g-form" novalidate>
           <h2>Tes repères de naissance</h2>
-          <p>Ils servent à calculer ton guide. Ils restent sur ton appareil.</p>
-          <div class="g-champ"><label for="g-prenom">Ton prénom</label><input type="text" id="g-prenom" name="prenom" autocomplete="given-name"></div>
+          <p id="g-intro-reperes">Ils servent à calculer ton guide. Sans compte, ils restent sur ton appareil.</p>
+          <div class="g-champ"><label for="g-prenom">Tous tes prénoms</label><input type="text" id="g-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa Marie Jeanne"></div>
+          <div class="g-champ"><label for="g-nom">Ton nom de naissance (facultatif)</label><input type="text" id="g-nom" name="nom" autocomplete="family-name"></div>
           <div class="g-deux">
             <div class="g-champ"><label for="g-date">Date de naissance</label><input type="date" id="g-date" name="date" min="1900-01-01" max="2030-12-31" required></div>
             <div class="g-champ"><label for="g-heure">Heure</label><input type="time" id="g-heure" name="heure"></div>
           </div>
           <label class="g-case"><input type="checkbox" id="g-sans-heure"> Je ne connais pas mon heure de naissance</label>
           <div class="g-champ"><label for="g-lieu">Lieu de naissance</label><input type="text" id="g-lieu" name="lieu-naissance" placeholder="Commence à taper ta ville" spellcheck="false"><ul class="g-sugg" id="g-sugg" role="listbox" hidden></ul><small id="g-lieu-info">Avec ton heure, il dit dans quels domaines de ta vie tombe le ciel du mois.</small></div>
+          <p class="note" id="g-note-reperes" hidden></p>
           <button class="btn btn-plein" type="submit">Voir mon guide du mois</button>
           <p class="g-erreur" role="alert" id="g-erreur"></p>
         </form>
@@ -226,8 +229,10 @@
       if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
       lieu.resoudre().then(function (l) {
-        profil = { prenom: f.prenom.value.trim(), date: d, heure: hr, lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' };
+        var prenoms = f.prenom.value.trim(), verrou = !!(profil && profil.verrou);
+        profil = { prenom: prenoms.split(/\s+/)[0] || '', prenoms: prenoms, nom: f.nom.value.trim(), date: d, heure: hr, lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris', verrou: verrou };
         try { localStorage.setItem(CLE, JSON.stringify(profil)); } catch (x) {}
+        if (utilisateur && sb && window.GenesoliaReperes) window.GenesoliaReperes.enregistrer(sb, utilisateur, profil).then(function (p) { if (p) { profil = p; etatReperes(); } });
         var a = new Date(); vue = vue || { annee: a.getFullYear(), mois: a.getMonth() + 1 };
         afficher(); zone.scrollIntoView({ behavior: 'smooth' });
       });
@@ -239,13 +244,23 @@
       if (!s) { try { var a = JSON.parse(localStorage.getItem('genesolia-astro') || 'null'); if (a && a.date) s = { prenom: a.prenom || '', date: a.date, heure: a.heure || '', lieu: a.lieu || '', lat: a.lat, lon: a.lon, tz: a.tz || 'Europe/Paris' }; } catch (x) {} }
       if (!s && arbre && arbre.people) { var moi = Object.keys(arbre.people).map(function (k) { return arbre.people[k]; }).filter(function (p) { return p.role === 'moi'; })[0]; if (moi && /^\d{4}-\d{2}-\d{2}$/.test(moi.naiss || '')) s = { prenom: moi.prenom || '', date: moi.naiss, heure: '', tz: 'Europe/Paris' }; }
       if (s && s.date) {
-        f.prenom.value = s.prenom || ''; f.date.value = s.date; f.heure.value = s.heure || '';
+        f.prenom.value = s.prenoms || s.prenom || ''; f.nom.value = s.nom || ''; f.date.value = s.date; f.heure.value = s.heure || '';
         if (!s.heure) { document.getElementById('g-sans-heure').checked = true; f.heure.disabled = true; }
         if (s.lieu) { document.getElementById('g-lieu').value = s.lieu; lieu.definir({ nom: s.lieu, lat: s.lat, lon: s.lon, tz: s.tz }); document.getElementById('g-lieu-info').textContent = 'Lieu enregistré · fuseau ' + s.tz; }
         profil = s; var n = new Date(); vue = { annee: n.getFullYear(), mois: n.getMonth() + 1 };
         afficher();
         if (!zone.hidden && document.getElementById('g-modifier')) document.querySelector('.g-tete').classList.add('g-replie');
       }
+    }
+    /* Repères enregistrés dans l'espace : la date, les prénoms et le nom ne se modifient plus */
+    function etatReperes() {
+      var R = window.GenesoliaReperes, n = document.getElementById('g-note-reperes'), v = !!(profil && profil.verrou);
+      ['prenom', 'nom', 'date'].forEach(function (k) { f[k].readOnly = v; });
+      if (!R) return;
+      if (v) { n.innerHTML = R.NOTE; n.hidden = false; }
+      else if (utilisateur) { n.textContent = R.AVANT; n.hidden = false; }
+      else n.hidden = true;
+      if (utilisateur) document.getElementById('g-intro-reperes').textContent = 'Ils servent à calculer ton guide et tes livres du mois.';
     }
     try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (x) {}
     if (!sb) { demarrer(); return; }
@@ -256,7 +271,8 @@
       /* On attend de savoir si elle est membre avant d'afficher : sinon le guide montrait d'abord l'offre d'essai */
       var estMembre = window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre().catch(function () { return false; }) : Promise.resolve(false);
       var sonArbre = sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (r) { if (r && r.data && r.data.data) arbre = r.data.data; }, function () {});
-      return Promise.all([estMembre, sonArbre]).then(function (x) { GUIDE.membre = !!x[0]; demarrer(); }, demarrer);
+      var sesReperes = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, utilisateur) : Promise.resolve(null);
+      return Promise.all([estMembre, sonArbre, sesReperes]).then(function (x) { GUIDE.membre = !!x[0]; demarrer(); etatReperes(); }, demarrer);
     }).catch(demarrer);
   })();
   </script>

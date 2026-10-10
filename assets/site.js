@@ -76,6 +76,44 @@ window.GenesoliaCoffre = (function () {
   return { accord: accord, demander: demander, lire: lire, ecrire: ecrire };
 })();
 
+/* ===== Repères de naissance du Cercle (table « reperes ») =====
+   Ils remplissent les livres du mois, le guide et Mon mois. Une fois enregistrés dans l'espace,
+   la date, les prénoms et le nom de naissance ne se modifient plus (droits de la base) : seuls l'heure et le lieu
+   se complètent. Une erreur : un e-mail à contact@genesolia.fr. Sans compte, tout reste sur l'appareil, comme avant.
+   Les outils gratuits (thème, signe maya…) ne sont pas concernés : on peut y calculer pour un proche. */
+window.GenesoliaReperes = (function () {
+  var CLE = 'genesolia-guide';
+  function local() { try { return JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) { return null; } }
+  function garder(x) {
+    var avant = local() || {};
+    var p = { prenom: String(x.prenoms || '').trim().split(/\s+/)[0] || '', prenoms: x.prenoms || '', nom: x.nom || '', date: x.date_naissance,
+      heure: x.heure || '', lieu: x.lieu || '', lat: x.lat, lon: x.lon, tz: x.tz || avant.tz || 'Europe/Paris', verrou: true };
+    try { localStorage.setItem(CLE, JSON.stringify(p)); } catch (e) {}
+    return p;
+  }
+  function lire(sb, user) {
+    if (!sb || !user) return Promise.resolve(null);
+    return sb.from('reperes').select('prenoms,nom,date_naissance,heure,lieu,lat,lon,tz').eq('user_id', user.id).maybeSingle()
+      .then(function (r) { return r && !r.error && r.data ? garder(r.data) : null; }, function () { return null; });
+  }
+  /* p = { prenoms, nom, date, heure, lieu, lat, lon, tz } ; la première fois, tout est enregistré ; ensuite, seulement l'heure et le lieu */
+  function enregistrer(sb, user, p) {
+    if (!sb || !user) return Promise.resolve(null);
+    var deja = local();
+    if (deja && deja.verrou) {
+      return sb.from('reperes').update({ heure: p.heure || null, lieu: p.lieu || null, lat: p.lat, lon: p.lon, tz: p.tz || null, maj: new Date().toISOString() }).eq('user_id', user.id)
+        .then(function () { return lire(sb, user); }, function () { return null; });
+    }
+    return sb.from('reperes').insert({ user_id: user.id, prenoms: String(p.prenoms || '').trim().slice(0, 200), nom: String(p.nom || '').trim().slice(0, 120) || null, date_naissance: p.date,
+      heure: p.heure || null, lieu: p.lieu || null, lat: p.lat, lon: p.lon, tz: p.tz || null })
+      .then(function () { return lire(sb, user); }, function () { return null; });
+  }
+  function verrouille() { var x = local(); return !!(x && x.verrou); }
+  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace et ne se modifient plus. Une erreur ? Écris à <a href="mailto:contact@genesolia.fr?subject=Erreur%20dans%20mes%20rep%C3%A8res%20de%20naissance">contact@genesolia.fr</a>.';
+  var AVANT = 'Vérifie bien : une fois enregistrés dans ton espace, ta date et tes prénoms ne pourront plus être modifiés. L’heure et le lieu pourront toujours être complétés.';
+  return { lire: lire, enregistrer: enregistrer, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
+})();
+
 /* Mesure d'audience anonyme et sans cookie (Umami) */
 (function () {
   var s = document.createElement('script');
