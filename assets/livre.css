@@ -431,3 +431,13 @@
 .mc-jours-l label:has(input:checked) .mc-j-t{color:var(--encre-2)}
 .mc-seance-lib{margin:1.2rem 0}
 @media print{.mc-jours-l label{break-inside:avoid}.mc-seance-lib{display:none!important}}
+
+/* Carnet d'un module de la formation (cycle 2, mon-module.html) */
+.mc-espace{margin:1.1rem 0 .3rem}
+.mc-histoire{margin:0 0 1.2rem;padding:1rem 1.1rem;border-radius:16px;background:#FBF6F2;border:1px solid var(--rose-fonce)}
+.mc-histoire p:last-child{margin-bottom:0}
+.mc-jours-m{list-style:none;padding:0;margin:.8rem 0 0;display:grid;gap:.2rem}
+.mc-jours-m small{font-weight:400;color:var(--encre-2)}
+/* Le corps (cycle 1) : boucle de survie, mode alerte, séances corps */
+.mc-corps{margin-top:1.4rem}
+.mc-corps .mc-etapes{margin-top:.6rem}

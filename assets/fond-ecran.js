@@ -2,7 +2,7 @@
    La personne choisit jusqu'à 3 images (galerie dans le style du site, ou ses propres photos), ses mots et sa phrase,
    et le site compose un fond d'écran de téléphone (1080 × 1920) aux couleurs de Genesolia, à télécharger.
    Tout se fait dans le navigateur : les photos personnelles ne sont jamais envoyées ni enregistrées.
-   GenesoliaFond.ouvrir(zone, { mois: 'novembre 2026', mots: [...], phrase: '...' }) */
+   GenesoliaFond.ouvrir(zone, { mois: 'novembre 2026', sur: 'titre facultatif à la place de « Mon mois de… »', mots: [...], phrase: '...' }) */
 (function () {
   'use strict';
   /* Les images du site, sans personne dessus (chacune doit pouvoir s'y projeter) */
@@ -46,7 +46,7 @@
     ctx.globalAlpha = 1;
     ctx.textAlign = 'center';
     ctx.fillStyle = S.titre; ctx.font = '600 34px "Nunito Sans", sans-serif';
-    var sur = ('Mon mois de ' + (o.mois || '')).toUpperCase().split('').join(String.fromCharCode(8202));
+    var sur = (o.sur || ('Mon mois de ' + (o.mois || ''))).toUpperCase().split('').join(String.fromCharCode(8202));
     ctx.fillText(sur, W / 2, 600);
     ctx.fillStyle = S.texte; ctx.font = '400 74px "Gilda Display", Georgia, serif';
     ctx.fillText('Ce que j’accueille', W / 2, 690);
@@ -81,7 +81,7 @@
     if (!z) return; o = o || {};
     if (!document.getElementById('gf-style')) { var st = document.createElement('style'); st.id = 'gf-style'; st.textContent = STYLE_CSS; document.head.appendChild(st); }
     var choix = [], photos = [], style = 'nuit', cv = document.createElement('canvas'); cv.width = W; cv.height = H; cv.className = 'gf-apercu'; cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', 'Aperçu de ton fond d’écran');
-    z.innerHTML = '<div class="gf"><h4>Mon tableau de vision en fond d’écran</h4><p>Choisis jusqu’à trois images qui représentent ce que tu accueilles ce mois-ci, tes mots et ta phrase. Ton fond d’écran se compose tout seul, à installer sur ton téléphone pour le voir chaque jour.</p>' +
+    z.innerHTML = '<div class="gf"><h4>Mon tableau de vision en fond d’écran</h4><p>Choisis jusqu’à trois images qui représentent ce que tu accueilles ' + (o.sur ? 'dans ta vie' : 'ce mois-ci') + ', tes mots et ta phrase. Ton fond d’écran se compose tout seul, à installer sur ton téléphone pour le voir chaque jour.</p>' +
       '<p class="mc-q">1. Tes images (jusqu’à trois)</p><div class="gf-galerie">' + GALERIE.map(function (g, i) { return '<button type="button" data-gf-img="' + i + '" aria-pressed="false" aria-label="' + esc(g[1]) + '"><img src="' + esc(g[0]) + '" alt="" loading="lazy"><span></span></button>'; }).join('') + '</div>' +
       '<label class="gf-photo">Ajouter ma photo<input type="file" accept="image/*" data-gf-photo></label><p class="gf-note" style="text-align:left;margin-top:0">Tes photos restent sur ton appareil : elles ne sont ni envoyées, ni enregistrées.</p>' +
       '<p class="mc-q">2. Tes mots et ta phrase</p><div class="gf-champs">' + [0, 1, 2].map(function (i) { return '<input type="text" maxlength="24" data-gf-mot="' + i + '" placeholder="Mot ' + (i + 1) + '" value="' + esc((o.mots || [])[i] || '') + '">'; }).join('') +
@@ -97,7 +97,7 @@
       var src = sources();
       Promise.all(src.map(img)).then(function (ims) {
         (document.fonts && document.fonts.load ? Promise.all([document.fonts.load('74px "Gilda Display"'), document.fonts.load('600 34px "Nunito Sans"')]).catch(function () {}) : Promise.resolve()).then(function () {
-          dessiner(cv, { style: style, mois: o.mois, images: ims.filter(Boolean), mots: [0, 1, 2].map(function (i) { return z.querySelector('[data-gf-mot="' + i + '"]').value; }), phrase: z.querySelector('[data-gf-phrase]').value });
+          dessiner(cv, { style: style, mois: o.mois, sur: o.sur, images: ims.filter(Boolean), mots: [0, 1, 2].map(function (i) { return z.querySelector('[data-gf-mot="' + i + '"]').value; }), phrase: z.querySelector('[data-gf-phrase]').value });
         });
       });
       z.querySelectorAll('[data-gf-img]').forEach(function (b) { var k = choix.indexOf(+b.getAttribute('data-gf-img')); b.setAttribute('aria-pressed', k >= 0 ? 'true' : 'false'); b.querySelector('span').textContent = k >= 0 ? k + 1 : ''; });
