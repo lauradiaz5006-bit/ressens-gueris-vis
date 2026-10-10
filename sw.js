@@ -1,8 +1,8 @@
 /* Genesolia — application installable.
    Toujours le réseau en premier : le site reste à jour à chaque visite.
    Sans connexion, on ressert la dernière version vue de la page, ou la page « hors ligne ». */
-var CACHE = 'genesolia-v2';
-var BASE = ['/', '/offline.html', '/assets/site.css', '/assets/site.js', '/apple-touch-icon.png', '/assets/icones/icone-192.png'];
+var CACHE = 'genesolia-v3';
+var BASE = ['/', '/appli.html', '/offline.html', '/assets/site.css', '/assets/site.js', '/apple-touch-icon.png', '/assets/icones/icone-192.png'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(BASE); }).then(function () { return self.skipWaiting(); }));

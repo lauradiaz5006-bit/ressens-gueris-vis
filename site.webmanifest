@@ -5,7 +5,7 @@
   "description": "Comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale : ton arbre, tes nombres, tes étoiles.",
   "lang": "fr",
   "dir": "ltr",
-  "start_url": "/",
+  "start_url": "/appli.html",
   "scope": "/",
   "display": "standalone",
   "theme_color": "#6B2F5B",
