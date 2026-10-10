@@ -231,6 +231,16 @@
       var nm = C ? String(C.nomMois).split(' ')[0] : MOIS[d.getMonth()];
       var h = '<h1 class="ce-h1">' + (E.prenom ? 'Bonjour ' + esc(E.prenom) : 'Bonjour') + '</h1>' +
         '<p class="ce-sous">' + cap(JOURS[d.getDay()]) + ' ' + j + ' ' + MOIS[d.getMonth()] + ' · semaine ' + sem + ' du mois</p>';
+      /* mon point de départ : à faire en arrivant, puis ses cibles rappelées ici (à refaire tous les 3 mois) */
+      var PD = (E.point && E.point.v) || lire('genesolia-carnet-point-de-depart') && lire('genesolia-carnet-point-de-depart').v || null, rs = PD && PD.resume;
+      if (!PD || !PD.fait) h += '<a class="ce-carte" href="point-de-depart.html" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">À faire en arrivant · 15 minutes</p><h3>Mon point de départ</h3><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : tes deux livrets s’orientent sur ce que tu vis.</p><span class="ce-bt">' + (PD ? 'Continuer' : 'Commencer') + '</span></a>';
+      else {
+        var age = Math.floor((Date.now() - new Date(PD.fait + 'T12:00:00').getTime()) / 864e5);
+        h += '<a class="ce-carte" href="point-de-depart.html#etape-4"><p class="ce-etiq">Tes cibles</p>' +
+          (rs && rs.cible1 ? '<p><b>Vivre en paix :</b> ' + esc(rs.cible1) + '</p>' : '') + (rs && rs.cible2 ? '<p><b>Aimer en paix :</b> ' + esc(rs.cible2) + '</p>' : '') +
+          (rs && rs.mode ? '<p class="ce-sous" style="margin:.4rem 0 0">Ton mode survie : ' + esc(rs.mode) + '</p>' : '') +
+          (age >= 90 ? '<span class="ce-bt">Refaire mon point de départ</span>' : '<span class="ce-plus">Revoir mon point de départ</span>') + '</a>';
+      }
       h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
       /* les deux livres */
       function livre(L, classe, sur, url) {
@@ -566,6 +576,13 @@
       return window.GenesoliaCoffre.lire(sb, user, C.mois).then(function (d) { return d || local; }, function () { return local; });
     }
 
+    /* Mon point de départ (point-de-depart.html) : lu dans le coffre chiffré, ou sur cet appareil */
+    function lirePoint(user) {
+      var local = lire('genesolia-carnet-point-de-depart');
+      if (!sb || !window.GenesoliaCoffre || !window.GenesoliaCoffre.accord(user)) return Promise.resolve(local);
+      return window.GenesoliaCoffre.lire(sb, user, 'point-de-depart').then(function (d) { return d || local; }, function () { return local; });
+    }
+
     var d0 = moisDe(new Date());
     chargerLivre('carnets', d0).then(function (C) {
       E.C = C;
@@ -580,7 +597,7 @@
         E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
         var rep = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, s.user) : Promise.resolve(null);
         if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb);
-        return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; router(); });
+        return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep, lirePoint(s.user)]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; E.point = x[3]; router(); });
       }).catch(router);
     });
   })();
