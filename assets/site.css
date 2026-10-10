@@ -431,3 +431,6 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 @media (max-width:1240px){.appli .menu-legal{display:flex;flex-wrap:wrap;gap:.2rem 1rem;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--rose-fonce)}.appli .menu-legal a{font-size:.85rem;padding:.3rem 0;opacity:.8}}
 @media print{.barre-appli{display:none!important}.appli body{padding-bottom:0}}
 .appli .menu.ouvert{max-height:calc(100vh - 4.25rem - 5.6rem);overflow-y:auto}
+
+.cadeau-ligne{margin:.2rem 0 .8rem}
+.cadeau-ou{font-size:.9rem;opacity:.85;margin:0 0 .5rem}
