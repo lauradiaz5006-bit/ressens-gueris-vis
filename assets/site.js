@@ -81,6 +81,22 @@ window.GenesoliaCoffre = (function () {
    la date, les prénoms et le nom de naissance ne se modifient plus (droits de la base) : seuls l'heure et le lieu
    se complètent. Une erreur : un e-mail à contact@genesolia.fr. Sans compte, tout reste sur l'appareil, comme avant.
    Les outils gratuits (thème, signe maya…) ne sont pas concernés : on peut y calculer pour un proche. */
+/* Genesolia · demandes du site : un prénom sans fiche ou une ville introuvable.
+   Seuls le type, le mot demandé (et le pays pour une ville) et la page sont envoyés : ni e-mail, ni compte.
+   Table Supabase demandes_site (insertion seule, voir outils-internes/supabase-demandes.sql).
+   La tâche « Demandes du site » les traite toutes les heures, de 8h à 22h. */
+window.GenesoliaDemande = function (type, valeur, pays) {
+  valeur = String(valeur || '').trim().slice(0, 120); pays = String(pays || '').trim().slice(0, 60);
+  if (!valeur) return Promise.resolve(false);
+  var cle = 'genesolia-demande-' + type + '-' + valeur.toLowerCase();
+  try { if (localStorage.getItem(cle)) return Promise.resolve(true); } catch (e) {}
+  return fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/demandes_site', {
+    method: 'POST',
+    headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify({ type: type, valeur: valeur, pays: pays || null, page: location.pathname.split('/').pop().slice(0, 80) || 'index.html' })
+  }).then(function (r) { if (r.ok) { try { localStorage.setItem(cle, '1'); } catch (e) {} } return r.ok; }, function () { return false; });
+};
+
 window.GenesoliaReperes = (function () {
   var CLE = 'genesolia-guide';
   function local() { try { return JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) { return null; } }

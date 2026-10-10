@@ -165,12 +165,25 @@
       document.getElementById('t-ajout').addEventListener('change', function () { if (this.value) { lettres.push(this.value); afficher(true); } });
       document.getElementById('t-reinit').addEventListener('click', function () { lettres = G.transcrire(actuel); afficher(true); });
     }
+    /* Prénom sans fiche : la personne peut demander sa fiche (tâche « Demandes du site », toutes les heures) */
+    function demande() {
+      var z = corps.querySelector('[data-demande-prenom]'); if (!z || !window.GenesoliaDemande) return;
+      var b = z.querySelector('button'), ok = z.querySelector('.p-demande-ok'), nom = z.getAttribute('data-demande-prenom');
+      b.addEventListener('click', function () {
+        b.disabled = true; ok.textContent = 'Envoi…';
+        window.GenesoliaDemande('prenom', nom).then(function (r) {
+          if (r) { b.hidden = true; ok.textContent = 'C’est noté\u00a0! La fiche de ' + nom + ' sera en ligne dans l’heure. Reviens sur cette page un peu plus tard.'; if (window.umami) try { window.umami.track('demande-prenom'); } catch (x) {} }
+          else { b.disabled = false; ok.textContent = 'La demande n’est pas partie. Réessaie dans un instant.'; }
+        });
+      });
+    }
     function afficher(ouvrirDetail) {
       var fiche = P.trouver(actuel), nom = (fiche && fiche.prenom) || (actuel.charAt(0).toUpperCase() + actuel.slice(1));
       corps.innerHTML = '<div class="t-res-tete"><h2>Le prénom <span>' + P.esc(nom) + '</span></h2><div class="actions"><button class="btn btn-trait" type="button" id="t-autre">Lire un autre prénom</button></div></div>' + P.html(actuel, { fiche: fiche, lettres: lettres, editable: true });
       zone.hidden = false;
       if (ouvrirDetail) { var d = corps.querySelector('.p-detail'); if (d) d.open = true; }
       editeur();
+      demande();
       document.getElementById('t-autre').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('t-prenom').focus(); });
     }
     function lancer(p) {
