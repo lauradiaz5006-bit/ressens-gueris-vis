@@ -394,3 +394,21 @@
 .mc-neuf{display:inline-block;padding:.05rem .45rem;border-radius:99px;background:#6B2F5B;color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.03em;vertical-align:1px}
 @media (max-width:520px){.mc-pbl-barres li{grid-template-columns:6rem 1fr;}.mc-pbl-barres small{grid-column:2}}
 @media print{.mc-roue-boutons,.mc-proprio-b{display:none!important}}
+
+/* ===== Le carnet en quatre semaines ===== */
+.mc-sem-badge{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem;margin:0 0 1rem;padding:.6rem .8rem;border-radius:14px;background:#6B2F5B;color:#fff}
+.mc-sem-num{font:400 1.25rem/1.2 var(--display);letter-spacing:.01em}
+.mc-sem-etape{font:700 .78rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;padding:.2rem .55rem;border-radius:99px;background:rgba(255,255,255,.18)}
+.mc-sem-dates{font-size:.88rem;opacity:.9}
+.mc-sem-encours{margin-left:auto;font-size:.78rem;font-weight:700;padding:.2rem .6rem;border-radius:99px;background:#F4D9A8;color:#5A3A12}
+.mc-sem-intro{margin:0 0 1rem;padding:1rem 1.1rem;border-radius:16px;background:#FCEFF3;border:1px solid #F1D3DC}
+.mc-sem-titre{font:400 1.3rem/1.3 var(--display);color:var(--prune);margin:0 0 .3rem}
+.mc-sem-intro p:last-child{margin-bottom:0}
+.mc-seances-lien{font-size:.93rem;margin:0 0 1.2rem}
+.mc-seances-lien a{font-weight:700;color:var(--prune)}
+.mc-onglets .mc-encours{border-color:#B7833F!important;box-shadow:0 0 0 2px #F4D9A8}
+.mc-onglets .mc-encours::after{content:"en cours";margin-left:.4rem;font-size:.7rem;font-weight:700;padding:.1rem .45rem;border-radius:99px;background:#F4D9A8;color:#5A3A12}
+.mc-cette-semaine{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;margin:.8rem 0 0;padding:.6rem .9rem;border-radius:14px;background:rgba(255,255,255,.14);font-size:.95rem}
+.mc-cette-semaine .btn{padding:.45rem 1rem;font-size:.9rem}
+.mc-victoires:empty{display:none}
+@media print{.mc-cette-semaine,.mc-seances-lien,.mc-sem-encours,.mc-rappel-gestes{display:none!important}}
