@@ -140,20 +140,32 @@
     return s && /^\d{4}-\d{2}-\d{2}$/.test(s.date || '') ? s : null;
   }
   function formProfil(z) {
-    z.innerHTML = '<form class="mc-profil" novalidate><p class="mc-consigne">Pour lire ton mois, indique ta date de naissance. L’heure et le lieu permettent de savoir dans quels domaines de ta vie tombe le ciel du mois : ajoute-les si tu les connais.</p>' +
-      '<label class="mc-champ"><span class="mc-q">Ton prénom</span><input type="text" name="prenom" autocomplete="given-name" value="' + esc(prenom) + '"></label>' +
-      '<label class="mc-champ"><span class="mc-q">Ta date de naissance</span><input type="date" name="date" required></label>' +
-      '<label class="mc-champ"><span class="mc-q">Ton heure de naissance (facultatif)</span><input type="time" name="heure"></label>' +
-      '<div class="mc-champ mc-lieu"><label class="mc-q" for="mc-lieu">Ton lieu de naissance (facultatif)</label><input type="text" id="mc-lieu" autocomplete="off" spellcheck="false" placeholder="Commence à taper ta ville"><ul class="mc-sugg" id="mc-sugg" role="listbox" hidden></ul><small class="mc-aide" id="mc-lieu-info"></small></div>' +
+    /* Repères de naissance : la date, tous les prénoms et le nom de naissance (verrouillés une fois enregistrés dans l'espace), l'heure et le lieu (à compléter quand on veut) */
+    var R = window.GenesoliaReperes, pr = lireProfil() || {}, verrou = !!(R && R.verrouille() && pr.verrou);
+    var fixe = function (q, v) { return '<div class="mc-champ"><span class="mc-q">' + q + '</span><p class="mc-fixe">' + esc(v || '·') + '</p></div>'; };
+    z.innerHTML = '<form class="mc-profil" novalidate><p class="mc-consigne">Pour lire ton mois, indique ta date de naissance et tes prénoms. L’heure et le lieu permettent de savoir dans quels domaines de ta vie tombe le ciel du mois : ajoute-les si tu les connais, maintenant ou plus tard.</p>' +
+      (verrou
+        ? fixe('Tes prénoms', pr.prenoms || pr.prenom) + (pr.nom ? fixe('Ton nom de naissance', pr.nom) : '') + fixe('Ta date de naissance', pr.date.split('-').reverse().join('/')) + '<p class="mc-note">' + R.NOTE + '</p>'
+        : '<label class="mc-champ"><span class="mc-q">Tous tes prénoms</span><input type="text" name="prenoms" autocomplete="given-name" value="' + esc(pr.prenoms || pr.prenom || prenom) + '" placeholder="Par exemple : Léa Marie Jeanne"></label>' +
+          '<label class="mc-champ"><span class="mc-q">Ton nom de naissance (facultatif)</span><input type="text" name="nom" autocomplete="family-name" value="' + esc(pr.nom || '') + '"></label>' +
+          '<label class="mc-champ"><span class="mc-q">Ta date de naissance</span><input type="date" name="date" required value="' + esc(pr.date || '') + '"></label>' +
+          (user && R ? '<p class="mc-note">' + R.AVANT + '</p>' : '')) +
+      '<label class="mc-champ"><span class="mc-q">Ton heure de naissance (facultatif)</span><input type="time" name="heure" value="' + esc(pr.heure || '') + '"></label>' +
+      '<div class="mc-champ mc-lieu"><label class="mc-q" for="mc-lieu">Ton lieu de naissance (facultatif)</label><input type="text" id="mc-lieu" autocomplete="off" spellcheck="false" placeholder="Commence à taper ta ville" value="' + esc(pr.lieu || '') + '"><ul class="mc-sugg" id="mc-sugg" role="listbox" hidden></ul><small class="mc-aide" id="mc-lieu-info"></small></div>' +
       '<button class="btn btn-plein" type="submit">Lire mon mois</button><p class="mc-retour" role="alert"></p></form>';
     var f = z.querySelector('form'), lieu = window.LieuNaissance ? window.LieuNaissance.brancher({ input: document.getElementById('mc-lieu'), liste: document.getElementById('mc-sugg'), info: document.getElementById('mc-lieu-info') }) : null;
+    if (lieu && pr.lieu && lieu.definir) lieu.definir({ nom: pr.lieu, lat: pr.lat, lon: pr.lon, tz: pr.tz });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var d = f.date.value; if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { f.querySelector('.mc-retour').textContent = 'Indique ta date de naissance complète.'; return; }
+      var d = verrou ? pr.date : f.date.value;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || +d.slice(0, 4) < 1900) { f.querySelector('.mc-retour').textContent = 'Indique ta date de naissance complète.'; return; }
+      var prenoms = verrou ? (pr.prenoms || pr.prenom || '') : f.prenoms.value.trim();
+      if (!prenoms) { f.querySelector('.mc-retour').textContent = 'Indique tes prénoms.'; return; }
       (lieu && document.getElementById('mc-lieu').value.trim() ? lieu.resoudre() : Promise.resolve(null)).then(function (l) {
-        var pr = { prenom: f.prenom.value.trim(), date: d, heure: l ? f.heure.value : '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris' };
-        try { localStorage.setItem(CLE_PROFIL, JSON.stringify(pr)); } catch (x) {}
-        tonMois(); majSemainesMaya();
+        var np = { prenom: prenoms.split(/\s+/)[0], prenoms: prenoms, nom: verrou ? (pr.nom || '') : f.nom.value.trim(), date: d, heure: f.heure.value || '', lieu: l ? l.nom : '', lat: l ? l.lat : null, lon: l ? l.lon : null, tz: l ? l.tz : 'Europe/Paris', verrou: verrou };
+        try { localStorage.setItem(CLE_PROFIL, JSON.stringify(np)); } catch (x) {}
+        var fini = function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); };
+        if (user && sb && R) R.enregistrer(sb, user, np).then(fini, fini); else fini();
       });
     });
   }
@@ -184,7 +196,7 @@
     if (r.maya && r.maya.jours.length) c += '<li><b>Les jours de ton signe maya : ' + r.maya.jours.map(function (x) { return 'le ' + (+x.jour.slice(8)) + ' ' + nm; }).join(' et ') + '</b><span>' + T.MAYA_JOUR_SIGNE + '</span></li>';
     h += '<p class="mc-encadre-t mc-tm-ciel-t">Ton ciel du mois</p><ul class="mc-tm-ciel">' + c + '</ul>' +
       (r.maisons ? '' : '<p class="mc-note">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') +
-      '<p class="mc-tm-liens"><button type="button" class="btn btn-trait" data-profil>Modifier mes repères de naissance</button> <a class="btn btn-trait" href="mon-guide.html">Mon guide du mois complet</a></p>';
+      '<p class="mc-tm-liens"><button type="button" class="btn btn-trait" data-profil>' + (pr.verrou ? 'Compléter mon heure ou mon lieu' : 'Modifier mes repères de naissance') + '</button> <a class="btn btn-trait" href="mon-guide.html">Mon guide du mois complet</a></p>';
     z.innerHTML = h;
     z.querySelector('[data-profil]').addEventListener('click', function () { formProfil(z); });
   }
@@ -857,6 +869,7 @@
       user = s.user;
       prenom = premierMot((user.user_metadata && (user.user_metadata.full_name || user.user_metadata.prenom)) || '') || premierMot((lireProfil() || {}).prenom || '');
       perso();
+      if (window.GenesoliaReperes && !SUIVI) window.GenesoliaReperes.lire(sb, user).then(function () { tonMois(); if (typeof majSemainesMaya === 'function') majSemainesMaya(); });
       var CF = window.GenesoliaCoffre;
       (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
         D = fusion(distant, local);
