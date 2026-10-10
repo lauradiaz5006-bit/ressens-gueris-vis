@@ -330,6 +330,10 @@
       '<section class="mc-etape"><h3><span>3</span> Ton objectif du mois, bien formulé</h3><p class="mc-consigne">Un objectif clair met ton énergie en mouvement. On le formule en positif (ce que tu veux, pas ce que tu ne veux plus), il dépend de toi, et tu sais à quoi tu reconnaîtras qu’il est atteint. Par exemple, « ne plus me laisser marcher dessus » devient « dire calmement ce dont j’ai besoin ».</p>' +
         choix('obj-domaine', 'Quel domaine de ta roue veux-tu nourrir ce mois-ci ?', ROUE.map(function (d) { return d[2]; })) +
         zone('obj-quoi', 'Qu’est-ce que tu veux pour toi ce mois-ci ? Commence ta phrase par « Je veux… »', { court: true, ph: 'Exemple : je veux dire ce dont j’ai besoin au moment où je le ressens', aide: 'Formule ce que tu veux à la place de ce que tu ne veux plus.' }) +
+        zone('obj-pas', 'Quel est ton tout premier pas, à faire dans les 48 heures ?', { court: true, ph: 'Exemple : bloquer jeudi soir dans mon agenda, rien que pour moi' }) +
+        curseur('obj-croyance', 'À quel point crois-tu pouvoir y arriver ?', 'pas du tout', 'complètement') +
+        plus('objectif-plus', 'Affiner mon objectif (dépend de toi, avec tes sens, tes appuis…)',
+        '<p class="mc-consigne">Si tu as quelques minutes de plus, ces questions rendent ton objectif plus clair et plus solide. Tu peux aussi y revenir pendant la semaine 1.</p>' +
         choix('obj-depend', 'Est-ce que cet objectif dépend de toi ?', ['Oui, entièrement', 'En partie', 'Pas vraiment']) +
         zone('obj-part', 'Quelle part de cet objectif dépend vraiment de toi ?', { court: true, ph: 'Exemple : je ne peux pas changer ma cheffe, mais je peux choisir ma réponse' }) +
         zone('obj-contexte', 'Où, quand et comment veux-tu que ça change ?', { court: true, ph: 'Exemple : au travail le lundi, en disant calmement ce dont j’ai besoin', aide: 'Imagine comment ce serait, concrètement, si ça changeait vraiment.' }) +
@@ -339,9 +343,7 @@
           zone('obj-ressentir', 'Qu’est-ce que tu ressentiras dans ton corps ?', { lignes: 2, ph: 'Exemple : les épaules plus légères' }) + '</div>' +
         zone('obj-ecologie', 'Qu’est-ce que ça va changer pour toi et pour tes proches ? Y a-t-il quelque chose que tu risques de perdre ?', { lignes: 2, ph: 'Exemple : j’aurai plus de temps pour moi. Au début, je risque de décevoir un peu.' }) +
         zone('obj-ressources', 'Sur quoi peux-tu t’appuyer ? Ce que tu as déjà, qui peut t’aider, une fois où tu as réussi quelque chose de semblable.', { lignes: 3, ph: 'Exemple : mon amie Claire, ma patience, la fois où j’ai osé demander un congé.' }) +
-        zone('obj-pas', 'Quel est ton tout premier pas, à faire dans les 48 heures ?', { court: true, ph: 'Exemple : bloquer jeudi soir dans mon agenda, rien que pour moi' }) +
-        curseur('obj-croyance', 'À quel point crois-tu pouvoir y arriver ?', 'pas du tout', 'complètement') +
-        zone('obj-un-point', 'Qu’est-ce qui te ferait gagner un point de plus sur ce curseur ?', { court: true, ph: 'Exemple : en parler à une amie qui m’encouragera' }) + bravo(3) +
+        zone('obj-un-point', 'Qu’est-ce qui te ferait gagner un point de plus sur ce curseur ?', { court: true, ph: 'Exemple : en parler à une amie qui m’encouragera' })) + bravo(3) +
       '</section>' +
       '<section class="mc-etape"><h3><span>4</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + bravo(5) + '</section>' +
       plus('lettre', 'Ta lettre de dans un an',
@@ -507,6 +509,7 @@
   }
   function introSemaine(i) {
     return '<div class="mc-sem-intro"><p class="mc-sem-titre">Semaine ' + (i + 1) + ' · ' + ETAPES_SEM[i][0] + '</p><p>' + ETAPES_SEM[i][1] + '</p></div>' +
+      '<p class="mc-pont" data-pont="' + i + '" hidden></p>' +
       '<p class="mc-seances-lien"><b>Tes deux séances du mois</b>, à écouter quand tu veux : <a href="#seance">la visualisation</a> · <a href="mon-suivi-mois.html?mois=' + esc(C.mois) + '#meditation">la libération</a></p>';
   }
   function rappelGestes() {
@@ -668,14 +671,14 @@
     P.push({ id: 'theme', nom: 'Le thème', g: function () { return gauche('theme', 'Le thème du mois', C.theme.titre, paras(C.theme.texte)); },
       d: MORCEAUX.theme.d });
     C.semaines.forEach(function (w, k) {
-      P.push({ id: w.cle, nom: w.nom || ('Semaine ' + (k + 1)), g: function () {
+      P.push({ id: w.cle, nom: 'Semaine ' + (k + 1) + (w.nom ? ' · ' + w.nom : ''), sem: k, g: function () {
         return gauche(w.cle, 'Semaine ' + (k + 1) + ' · ' + (w.etape || ''), w.titre, '<p class="mc-intro">' + md(w.intro) + '</p>',
           '<p class="mc-quand">À vivre à partir du ' + jourMois(dateSemaine(k)) + '. Tu peux la lire avant, et y revenir quand tu veux.</p>' +
           (w.exercices && w.exercices.length > 1 ? sommaire(w.exercices) : ''));
       }, d: function () {
-        if (k > 0 && !membre) return offreCercle();
+        if (k > 0 && !membre) return '<p class="mc-pont" data-pont="' + k + '" hidden></p>' + offreCercle();
         var R = w.rituel;
-        return (w.texte ? paras([].concat(w.texte)) : '') + (w.exercices || []).map(exercice).join('') +
+        return '<p class="mc-pont" data-pont="' + k + '" hidden></p>' + (w.texte ? paras([].concat(w.texte)) : '') + (w.exercices || []).map(exercice).join('') +
           (R ? '<div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le rituel de la semaine</p><h3 class="mc-h">' + esc(R.titre) + '</h3><p>' + md(R.intro) + '</p>' +
             (R.materiel ? encadre('Ce qu’il te faut', '<p>' + md(R.materiel) + '</p>', 'mc-encadre-or') : '') +
             '<ol class="mc-etapes">' + R.etapes.map(function (e) { return '<li>' + md(e) + '</li>'; }).join('') + '</ol>' +
@@ -995,7 +998,7 @@
     });
     window.addEventListener('resize', collant);
     window.addEventListener('hashchange', function () { var c = cible(); if (c.p !== courante) aller(c.p, { ancre: c.ancre }); });
-    marquerSemaine();
+    marquerSemaine(); chargerPont();
     var c = cible();
     aller(c.p, { initial: true, ancre: c.ancre });
   }
@@ -1006,15 +1009,31 @@
     changement({ target: ta });
     ta.focus(); try { ta.setSelectionRange(ta.value.length, ta.value.length); } catch (e) {}
   }
+  /* ───── Le pont entre les deux livres du mois : chaque semaine annonce la même semaine de l'autre livre ───── */
+  function chargerPont() {
+    var src = (SUIVI ? 'assets/carnets/' : 'assets/suivi/') + C.mois + '.js';
+    fetch(src).then(function (r) { return r.ok ? r.text() : ''; }).then(function (t) {
+      if (!t) return;
+      var w = {}; try { new Function('window', t)(w); } catch (e) { return; }
+      var X = w.GENESOLIA_CARNET; if (!X || !X.semaines) return;
+      racine.querySelectorAll('.mc-livre [data-pont]').forEach(function (z) {
+        var k = +z.getAttribute('data-pont'), s = X.semaines[k]; if (!s) return;
+        if (Array.isArray(s)) s = { titre: s[0] };
+        var nom = SUIVI ? 'Semaine ' + (k + 1) + ' · ' + ETAPES_SEM[k][0] : 'Semaine ' + (k + 1) + (s.nom ? ' · ' + s.nom : '');
+        var lien = SUIVI ? 'mon-carnet.html?mois=' + C.mois + '#semaine-' + (k + 1) : 'mon-suivi-mois.html?mois=' + C.mois + '#' + (s.cle || 'saison');
+        z.innerHTML = '<span>' + (SUIVI ? 'Cette semaine dans ton carnet « J’avance »' : 'Cette semaine dans ton suivi « Je me libère »') + '</span><b>' + esc(nom) + '</b>' + (s.titre ? ' · ' + esc(s.titre) : '') + ' <a href="' + esc(lien) + '">Ouvrir</a>';
+        z.hidden = false;
+      });
+    }).catch(function () {});
+  }
   /* La semaine en cours : un bandeau en haut du carnet, et l'onglet mis en avant (tout reste ouvert) */
   function marquerSemaine() {
-    if (SUIVI) return;
     var n = semaineEnCours(); if (n < 0) return;
-    var idx = PAGES.map(function (p) { return p.id; }).indexOf('semaine-' + (n + 1)); if (idx < 0) return;
+    var idx = -1; PAGES.forEach(function (p, j) { if (p.sem === n) idx = j; }); if (idx < 0) return;
     var bt = racine.querySelector('.mc-onglets [data-page="' + idx + '"]'); if (bt) bt.classList.add('mc-encours');
     racine.querySelectorAll('[data-encours="' + n + '"]').forEach(function (x) { x.hidden = false; });
     var t = racine.querySelector('.mc-tete .mc-barre');
-    if (t) t.insertAdjacentHTML('afterend', '<p class="mc-cette-semaine">Cette semaine : <b>Semaine ' + (n + 1) + ' · ' + ETAPES_SEM[n][0] + '</b> (' + dates(n) + ') <button type="button" class="btn btn-plein" data-page="' + idx + '">Ouvrir ma semaine</button></p>');
+    if (t) t.insertAdjacentHTML('afterend', '<p class="mc-cette-semaine">Cette semaine : <b>' + esc(PAGES[idx].nom) + '</b> (' + dates(n) + ') <button type="button" class="btn btn-plein" data-page="' + idx + '">Ouvrir ma semaine</button></p>');
   }
   function basculerChoix(ouvrir) {
     var z = document.getElementById('mc-imp-choix'), b = document.getElementById('mc-imprimer'); if (!z) return;
@@ -1165,7 +1184,7 @@
       if (el.type === 'range') afficherVal(el);
     });
     racine.querySelectorAll('details[data-plus]').forEach(function (d) {
-      var cles = d.getAttribute('data-plus') === 'lettre' ? ['proj-an'] : ['lettre-mois', 'ancre-souvenir', 'ancre-mot'];
+      var cles = { lettre: ['proj-an'], 'objectif-plus': ['obj-depend', 'obj-part', 'obj-contexte', 'obj-voir', 'obj-entendre', 'obj-ressentir', 'obj-ecologie', 'obj-ressources', 'obj-un-point'] }[d.getAttribute('data-plus')] || ['lettre-mois', 'ancre-souvenir', 'ancre-mot'];
       if (cles.some(function (k) { return (D.v[k] || '').toString().trim(); })) d.open = true;
     });
     progres(); verifierObjectif(); perso(); majRadars(); comparerIntensite(); majMeteoDit(); majBravos(); majAncienAncrage(); majAccompagnement();
