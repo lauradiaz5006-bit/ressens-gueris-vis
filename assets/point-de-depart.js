@@ -10,8 +10,21 @@
   var CLE = 'point-de-depart', CLE_LOCALE = 'genesolia-carnet-' + CLE, CLE_PBL = 'genesolia-profil-accompagnement';
   var sb = null, user = null, D = { v: {}, t: {} }, minuteur = null;
   try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
-  var ROUE = [['energie', 'Mon énergie au quotidien'], ['amour', 'L’amour, ma vie de couple ou mon cœur'], ['famille', 'Mes liens avec ma famille'], ['amis', 'Mes amitiés, mon entourage'], ['travail', 'Mon travail, mes projets'],
-    ['argent', 'L’argent, ma sécurité matérielle'], ['chezmoi', 'Mon chez-moi, mon cadre de vie'], ['joie', 'La joie, les loisirs, le plaisir'], ['evolution', 'Mon évolution personnelle'], ['connexion', 'Ma connexion à moi, ma spiritualité']];
+  var ROUE = [['energie', 'Mon énergie au quotidien', 'Énergie'], ['amour', 'L’amour, ma vie de couple ou mon cœur', 'Amour'], ['famille', 'Mes liens avec ma famille', 'Famille'], ['amis', 'Mes amitiés, mon entourage', 'Amitiés'], ['travail', 'Mon travail, mes projets', 'Travail'],
+    ['argent', 'L’argent, ma sécurité matérielle', 'Argent'], ['chezmoi', 'Mon chez-moi, mon cadre de vie', 'Chez-moi'], ['joie', 'La joie, les loisirs, le plaisir', 'Joie'], ['evolution', 'Mon évolution personnelle', 'Évolution'], ['connexion', 'Ma connexion à moi, ma spiritualité', 'Connexion']];
+  /* La roue qui se dessine (même dessin que dans le carnet du mois) */
+  function radar(v) {
+    var W = 360, c = 180, R = 118, n = ROUE.length, coul = '#7E3A6E';
+    function pt(i, x) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [c + Math.cos(a) * R * x / 10, c + Math.sin(a) * R * x / 10]; }
+    var s = '<svg class="pd-radar" viewBox="0 0 ' + W + ' ' + W + '" role="img" aria-label="Ta roue de la vie">';
+    [2.5, 5, 7.5, 10].forEach(function (x) { s += '<polygon fill="none" stroke="#EBCFD5" points="' + ROUE.map(function (_, i) { return pt(i, x).join(','); }).join(' ') + '"/>'; });
+    ROUE.forEach(function (d, i) { var e = pt(i, 10), l = pt(i, 11.7); s += '<line x1="' + c + '" y1="' + c + '" x2="' + e[0] + '" y2="' + e[1] + '" stroke="#F1DDE2"/><text x="' + l[0] + '" y="' + (l[1] + 4) + '" text-anchor="middle" class="pd-radar-lab">' + esc(d[2]) + '</text>'; });
+    var vals = ROUE.map(function (d) { return typeof v[d[0]] === 'number' ? v[d[0]] : 0; });
+    s += '<polygon points="' + vals.map(function (x, i) { return pt(i, x).join(','); }).join(' ') + '" fill="' + coul + '" fill-opacity=".18" stroke="' + coul + '" stroke-width="2"/>';
+    vals.forEach(function (x, i) { var q = pt(i, x); s += '<circle cx="' + q[0] + '" cy="' + q[1] + '" r="3.5" fill="' + coul + '"><title>' + esc(ROUE[i][2]) + ' : ' + x + ' sur 10</title></circle>'; });
+    return s + '</svg>';
+  }
+  function roue() { var o = {}; ROUE.forEach(function (d) { if (typeof D.v['roue-' + d[0]] === 'number') o[d[0]] = D.v['roue-' + d[0]]; }); return o; }
   var MODES = ['lutter', 'fuir', 'figer', 'plaire'], BLESSURES = ['rejet', 'abandon', 'humiliation', 'trahison', 'injustice'];
   var NOMS_BL = { rejet: 'Le rejet', abandon: 'L’abandon', humiliation: 'L’humiliation', trahison: 'La trahison', injustice: 'L’injustice' };
   var PAGES_BL = { rejet: 'blessure-de-rejet.html', abandon: 'blessure-d-abandon.html', humiliation: 'blessure-d-humiliation.html', trahison: 'blessure-de-trahison.html', injustice: 'blessure-d-injustice.html' };
@@ -28,7 +41,7 @@
   /* ───── Les pages ───── */
   function pageRoue() {
     return '<h2>Ta roue de la vie</h2><p class="pd-consigne">Pour chaque domaine de ta vie, à quel point te sens-tu comblée aujourd’hui ? 0, pas du tout ; 10, pleinement. C’est la photo de ton point de départ : tu la compareras dans trois mois.</p>' +
-      ROUE.map(function (d) { return curseur('roue-' + d[0], d[1], 'pas du tout', 'pleinement'); }).join('') + '<div class="pd-resultat" data-res-roue hidden></div>';
+      '<div class="pd-roue"><figure class="pd-roue-fig" data-radar></figure><div class="pd-roue-curseurs">' + ROUE.map(function (d) { return curseur('roue-' + d[0], d[1], 'pas du tout', 'pleinement'); }).join('') + '</div></div><div class="pd-resultat" data-res-roue hidden></div>';
   }
   function pageC1() {
     var C = T.cycle1;
@@ -63,7 +76,7 @@
     return '<h2>Mes cibles</h2><div class="pd-resume" data-resume></div>' + cibles(1, C.consigne1, C.exemples1) + cibles(2, C.consigne2, C.exemples2) + '<div class="pd-rythme">' + paras(C.rythme) + '</div>';
   }
   function pageFin() {
-    return '<h2>Bienvenue dans le Cercle</h2>' + paras(T.fin) + '<div class="pd-resume" data-resume-fin></div>' +
+    return '<h2>Ta synthèse</h2><div data-synthese></div><h3>Bienvenue dans le Cercle</h3>' + paras(T.fin) +
       '<p class="pd-boutons"><a class="btn btn-plein" href="mon-carnet.html">Ouvrir mon carnet du mois</a><a class="btn btn-trait" href="mon-module.html?module=1">Ouvrir le module 1</a><a class="btn btn-trait" href="cercle.html">Aller à mon Cercle</a></p>' +
       '<p class="pd-mention">Tu pourras refaire ce point de départ tous les trois mois, depuis ton Cercle, pour voir le chemin parcouru.</p>';
   }
@@ -141,6 +154,10 @@
   }
   function blessuresDominantes(s) { var max = Math.max.apply(null, BLESSURES.map(function (b) { return s[b]; })); return BLESSURES.filter(function (b) { return s[b] === max && max > 0; }).slice(0, 2); }
   function majResultats() {
+    /* la roue qui se dessine */
+    var rv = roue();
+    racine.querySelectorAll('[data-radar]').forEach(function (f) { f.innerHTML = Object.keys(rv).length ? radar(rv) : '<p class="pd-note">Place les curseurs : ta roue se dessine ici.</p>'; });
+    var zs = racine.querySelector('[data-synthese]'); if (zs) zs.innerHTML = synthese();
     /* la roue */
     var zr = racine.querySelector('[data-res-roue]'), notes = ROUE.filter(function (d) { return typeof D.v['roue-' + d[0]] === 'number'; });
     if (zr) { zr.hidden = notes.length < 3; if (notes.length >= 3) { var bas = notes.slice().sort(function (a, b) { return D.v['roue-' + a[0]] - D.v['roue-' + b[0]]; }).slice(0, 2); zr.innerHTML = '<p class="pd-res-t">Ce qui demande le plus d’attention aujourd’hui</p><p>' + bas.map(function (d) { return esc(d[1]) + ' (' + D.v['roue-' + d[0]] + ' sur 10)'; }).join(' et ') + '. Tu pourras t’en servir pour choisir tes cibles.</p>'; } }
@@ -176,6 +193,39 @@
         (z.hasAttribute('data-resume-fin') && D.v['c1-cible-1'] ? '<li>Ta cible du cycle 1 : <b>' + esc(D.v['c1-cible-1']) + '</b></li>' : '') +
         (z.hasAttribute('data-resume-fin') && D.v['c2-cible-1'] ? '<li>Ta cible du cycle 2 : <b>' + esc(D.v['c2-cible-1']) + '</b></li>' : '') + '</ul>' : '';
     });
+  }
+  /* ───── La synthèse : ce que les réponses montrent, et comment avancer ───── */
+  function synthese() {
+    var r = resume(), rv = roue(), cles = Object.keys(rv), h = '';
+    h += '<section class="pd-synth"><p class="pd-res-t">Pourquoi toutes ces questions ?</p><p>Elles ne servent pas à te classer. Elles t’aident à voir, aujourd’hui, où ton corps se met en alerte, ce qui pèse dans tes liens, et ce que tu as envie de changer. On ne transforme bien que ce qu’on a vu : c’est cette prise de conscience qui te permet d’avancer. Voici ce que tes réponses racontent.</p></section>';
+    if (cles.length) {
+      var tri = cles.slice().sort(function (a, b) { return rv[b] - rv[a]; }), nom = function (k) { return ROUE.filter(function (d) { return d[0] === k; })[0][2].toLowerCase(); };
+      h += '<section class="pd-synth pd-synth-roue"><p class="pd-res-t">1 · Ta roue de la vie</p><figure class="pd-roue-fig">' + radar(rv) + '</figure><div><p>Ce qui te porte aujourd’hui : <b>' + tri.slice(0, 2).map(nom).join(' et ') + '</b>. Ce sont tes appuis : tu peux t’en servir pour nourrir le reste.</p>' +
+        (cles.length > 2 ? '<p>Ce qui demande le plus d’attention : <b>' + tri.slice(-2).reverse().map(nom).join(' et ') + '</b>. C’est souvent là qu’un tout petit pas change le plus de choses.</p>' : '') + '</div></section>';
+    }
+    if (r.modes.length) {
+      var R = T.cycle1.resultats[r.modes[0]], df = domaineFragile();
+      h += '<section class="pd-synth"><p class="pd-res-t">2 · Quand tu te sens en insécurité</p><p>Ton réflexe le plus présent : <b>' + esc(r.mode) + '</b>. ' + esc(String(R.texte).split('. ').slice(0, 2).join('. ')) + '.</p>' +
+        (df ? '<p>Le domaine où tu te sens le moins en paix : <b>' + esc(df.nom.charAt(0).toLowerCase() + df.nom.slice(1)) + '</b> (' + D.v['c1-d-' + df.cle] + ' sur 10). C’est par là que ton cycle 1 peut commencer.</p>' : '') + '</section>';
+    }
+    var pese = T.cycle2.pese.options.filter(function (o, j) { return D.v['c2-p' + j]; }).map(function (o) { return o.replace(/\.$/, '').toLowerCase(); });
+    if (D.v['c2-p-autre']) pese.push(String(D.v['c2-p-autre']).trim());
+    if (r.blessures.length || pese.length) {
+      h += '<section class="pd-synth"><p class="pd-res-t">3 · Dans tes liens</p>' +
+        (r.blessures.length ? '<p>Ce qui te parle le plus : <b>' + r.blessures.map(function (k) { return NOMS_BL[k].toLowerCase(); }).join(' et ') + '</b>. Ce n’est pas une étiquette : un repère pour savoir où regarder avec douceur.</p>' : '') +
+        (pese.length ? '<p>Ce qui pèse sur ton cœur en ce moment : ' + pese.map(esc).join(', ') + '. Tu n’as rien à régler d’un coup : le reconnaître, c’est déjà lui faire de la place.</p>' : '') + '</section>';
+    }
+    var c1 = D.v['c1-cible-1'], c2 = D.v['c2-cible-1'];
+    h += '<section class="pd-synth"><p class="pd-res-t">4 · Comment tu vas avancer</p><ul>' +
+      '<li><b>Ton carnet « Vivre en paix »</b>, chaque mois : tu regardes ta boucle de survie, tu comprends ce que fait ton corps, et tu pratiques une séance corps pour retrouver la sécurité.' + (c1 ? ' Ta cible : « ' + esc(c1) + ' ».' : '') + '</li>' +
+      '<li><b>Ton parcours « Aimer en paix »</b>, avec les modules de la formation : tu repères ce qui se rejoue dans tes liens, tu remontes à la source, et tu déposes ce qui pèse.' + (c2 ? ' Ta cible : « ' + esc(c2) + ' ».' : '') + '</li>' +
+      '<li><b>Dans trois mois</b>, tu refais ce point de départ et tu compares tes deux roues : tu verras le chemin parcouru.</li></ul></section>';
+    var pas = [];
+    if (r.modes.length) pas.push(T.cycle1.resultats[r.modes[0]].aide[0]);
+    if (r.blessures.length) pas.push(T.cycle2.resultats[r.blessures[0]].pas);
+    if (pas.length) h += '<section class="pd-synth pd-synth-pas"><p class="pd-res-t">5 · Ton premier pas cette semaine</p><ul>' + pas.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+      (r.modes.length ? '<p class="pd-phrase">« ' + esc(T.cycle1.resultats[r.modes[0]].phrase) + ' »</p>' : '') + '</section>';
+    return h;
   }
   function resume() {
     var s = scoresModes(), dom = s ? modesDominants(s) : [], df = domaineFragile(), b = scoresBlessures();
