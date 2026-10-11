@@ -271,7 +271,7 @@ window.GENESOLIA_IMPRESSION = {
      l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
      « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
      Sinon : le site normal, rien ne change. */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
@@ -384,7 +384,7 @@ window.GENESOLIA_IMPRESSION = {
   var cercleInstalle = autonome;
   try { cercleInstalle = cercleInstalle || localStorage.getItem('genesolia-cercle-installe') === 'oui'; } catch (e) {}
   /* Carnet et suivi du mois, dans le navigateur : un pied de page léger, réservé aux membres */
-  if (pied && (page === 'mon-carnet.html' || page === 'mon-suivi-mois.html')) {
+  if (pied && (page === 'mon-carnet.html' || page === 'mon-suivi-mois.html' || page === 'mes-seances.html')) {
     pied.className = 'pied pied-membres';
     pied.innerHTML =
       '<div class="conteneur">' +
@@ -393,6 +393,7 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="login.html">Mon espace</a></li>' +
           '<li><a href="mon-carnet.html">Mon carnet du mois</a></li>' +
           '<li><a href="mon-suivi-mois.html">Mon suivi</a></li>' +
+          '<li><a href="mes-seances.html">Mes séances</a></li>' +
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
@@ -523,7 +524,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
   /* Dans les pages du Cercle (carnet, suivi, mois, guide, appli), l'encart du bas présente la formation à la place du carnet offert */
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && page !== 'mon-module.html' && page !== 'point-de-depart.html' && page !== 'mon-carnet.html' && page !== 'mon-suivi-mois.html' && !document.querySelector('[data-cadeau]')) {
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && page !== 'mon-module.html' && page !== 'point-de-depart.html' && page !== 'mon-carnet.html' && page !== 'mon-suivi-mois.html' && page !== 'mes-seances.html' && !document.querySelector('[data-cadeau]')) {
     var zoneForm = document.createElement('section');
     zoneForm.className = 'bloc cadeau-bas';
     zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +
