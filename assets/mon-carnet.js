@@ -614,6 +614,14 @@
       : { sur: 'Le suivi « Je me libère »', texte: 'Ton côté pour te libérer : voir ce qui se rejoue, remonter à la source, déposer ce qui ne t’appartient pas, poser un geste nouveau.', lien: 'mon-suivi-mois.html?mois=' + C.mois, bouton: 'Ouvrir mon suivi du mois' };
     return '<aside class="mc-autre"><p class="mc-sur">Ton autre livre du mois</p><h3 class="mc-h">' + autre.sur + '</h3><p>' + autre.texte + '</p><p><a class="btn btn-plein" href="' + autre.lien + '">' + autre.bouton + '</a></p></aside>';
   }
+  /* « À lire ce mois-ci » : les articles du blog reliés au mois (champ aLire du carnet), en bas du carnet */
+  function aLire() {
+    if (SUIVI || MODULE || !C.aLire || !C.aLire.length) return '';
+    return '<section class="mc-alire"><p class="mc-sur">Pour accompagner ton mois</p><h3 class="mc-h">À lire ce mois-ci</h3>' +
+      '<div class="mc-alire-l">' + C.aLire.map(function (a) {
+        return '<a class="mc-alire-c" href="' + esc(a.lien) + '"><b>' + esc(a.titre) + '</b><span>' + esc(a.resume) + '</span><em>Lire l’article</em></a>';
+      }).join('') + '</div></section>';
+  }
   function lienSuivi() {
     if (!C.suivi) return '';
     return '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">Ce mois-ci, dans ton suivi « Je me libère »</p><p><b>' + esc(C.suivi.titre) + '.</b> ' + md(C.suivi.texte) + '</p><p><a class="btn btn-trait" href="mon-suivi-mois.html?mois=' + esc(C.mois) + '">Ouvrir mon suivi</a></p></aside>';
@@ -1477,7 +1485,7 @@
             '<span class="mc-folio">' + (2 * i + 2) + '</span></div></article>';
       }).join('') + '</div>' +
       '<p class="mc-aide-livre">Astuce : sur un grand écran, tourne les pages avec les flèches du clavier. Sur téléphone ou tablette, glisse du doigt vers la gauche ou la droite.</p>' +
-      (MODULE ? '' : autreLivre());
+      (MODULE ? '' : autreLivre()) + aLire();
 
     racine.addEventListener('click', function (e) {
       var t = e.target;

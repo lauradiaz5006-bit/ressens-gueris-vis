@@ -156,6 +156,14 @@ section.bloc{padding:4.5rem 0}
 .pied ul{list-style:none;display:grid;gap:.45rem;font-size:.95rem}
 .pied .marque{color:var(--blanc);margin-bottom:.8rem}
 .pied-bas{border-top:1px solid rgba(255,255,255,.14);margin-top:2.5rem;padding-top:1.4rem;font-size:.85rem;color:#D9B6CC;display:grid;gap:.4rem}
+/* Pied de page léger des membres (carnet et suivi du mois, dans le navigateur) */
+.pied-membres{padding:2.2rem 0 1.6rem;margin-top:3.5rem}
+.pied-membres .pm-marque{font:600 1.05rem var(--texte);color:var(--blanc);margin-bottom:.9rem}
+.pied-membres .pm-marque a{color:var(--blanc)}
+.pied-membres .pm-liens{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-size:.95rem}
+.pied-membres .pm-installer{margin-top:1rem;font-size:.9rem}
+.pied-membres .pm-installer a{text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
+.pied-membres .pied-bas{margin-top:1.6rem}
 @media (max-width:760px){.pied-grille{grid-template-columns:1fr 1fr}.pied-grille>div:first-child{grid-column:1/-1}}
 
 /* Bandeau d'information */
