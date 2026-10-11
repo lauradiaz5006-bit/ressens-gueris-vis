@@ -478,3 +478,12 @@
 .mc-a-fournir{margin:.8rem 0;padding:.6rem .9rem;border-radius:10px;border:2px dashed #B7833F;background:#FFF9F0;font-weight:700;color:#8A5A22}
 .mc-protocole-mois{margin:1rem 0;padding:1rem 1.1rem;border-radius:16px;background:#FBF6F2;border:1px solid var(--rose-fonce)}
 .mc-autel-encart .btn{margin-top:.4rem}
+/* Volets repliés : « Pour aller plus loin » et « Ta lecture de la semaine » (fermés par défaut) */
+.mc-volet-plie{margin:1.4rem 0 0;border-radius:16px;border:1px solid var(--rose-fonce);background:#FFFCFA}
+.mc-volet-plie>summary{cursor:pointer;list-style:none;padding:.9rem 1.1rem;font-family:var(--display);font-size:1.15rem;color:#6B2F5B;display:flex;flex-direction:column;gap:.15rem;position:relative;padding-right:2.6rem}
+.mc-volet-plie>summary::-webkit-details-marker{display:none}
+.mc-volet-plie>summary::after{content:"+";position:absolute;right:1.1rem;top:50%;transform:translateY(-50%);font:600 1.4rem/1 var(--texte);color:#B7833F}
+.mc-volet-plie[open]>summary::after{content:"−"}
+.mc-volet-sur{font:700 .72rem/1.2 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22}
+.mc-volet-corps{padding:0 1.1rem 1.1rem}
+@media print{.mc-volet-plie>summary::after{display:none}}

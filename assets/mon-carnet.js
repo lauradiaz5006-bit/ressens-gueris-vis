@@ -372,8 +372,8 @@
   function MORCEAU(o) { MORCEAUX[o.id] = o; }
 
   /* Morceaux déplacés dans la semaine 4 : l'intention qui prend vie et la lettre du mois (mêmes champs, mêmes réponses) */
-  function intentionHtml() {
-    return '<section class="mc-etape mc-intention"><h3><span>4</span> Mon intention prend vie</h3><p class="mc-consigne">Ce que tu nourris de ton attention grandit. Ce mois-ci, tu vas donner à ton objectif une image, une émotion et une croyance qui le soutiennent, comme on prépare la terre avant de semer. Prends ton temps : c’est souvent la page qui change tout.</p>' +
+  function intentionHtml(num) {
+    return '<section class="mc-etape mc-intention"><h3><span>' + (num || 4) + '</span> Mon intention prend vie</h3><p class="mc-consigne">Ce que tu nourris de ton attention grandit. Ce mois-ci, tu vas donner à ton objectif une image, une émotion et une croyance qui le soutiennent, comme on prépare la terre avant de semer. Prends ton temps : c’est souvent la page qui change tout.</p>' +
         '<p class="mc-sur">Désirer</p>' + zone('int-desir', 'Au-delà de ton objectif, qu’est-ce que tu désires vraiment ressentir ? Qu’est-ce qu’il t’apportera au fond ?', { lignes: 2, ph: 'Exemple : me sentir libre, légère, respectée. Avoir enfin de l’espace pour moi.' }) +
         '<p class="mc-sur">Ressentir, comme si c’était déjà là</p><p class="mc-consigne">Ferme les yeux quelques secondes. Imagine-toi à la fin du mois, ton intention réalisée. Où es-tu ? Que vois-tu, qu’entends-tu ? Laisse monter l’émotion dans ton corps, la joie, le soulagement, la fierté. Puis écris au présent, comme si tu le vivais déjà.</p>' +
         zone('proj-mois', 'Raconte cette scène au présent : que vois-tu, qu’entends-tu, que ressens-tu ?', { lignes: 4, ph: 'Exemple : c’est mardi soir, je suis sur mon canapé, le téléphone éteint. Je souris, je me sens à ma place, mes épaules sont légères.' }) +
@@ -449,7 +449,7 @@
             return '<label class="mc-essai"><span>' + esc(x.journal.etiquette || 'Essai') + ' ' + (j + 1) + '</span><input type="text" data-k="' + x.journal.k + '-' + j + '"' + (j === 0 && x.journal.ph ? ' placeholder="' + esc(x.journal.ph) + '"' : '') + '></label>';
           }).join('') + '</div>' : '');
       }
-      return '<section class="mc-exercice" id="mc-ex-' + esc(x.k) + '"><p class="mc-sur">Exercice ' + (i + 1) + '</p><h3 class="mc-h">' + esc(x.titre) + '</h3><p class="mc-consigne">' + md(x.consigne) + '</p>' +
+      return '<section class="mc-exercice" id="mc-ex-' + esc(x.k) + '"><p class="mc-sur" data-num-ex>Exercice ' + (i + 1) + '</p><h3 class="mc-h">' + esc(x.titre) + '</h3><p class="mc-consigne">' + md(x.consigne) + '</p>' +
         (x.pourquoi ? '<p class="mc-pourquoi"><b>Pourquoi cet exercice ?</b> ' + md(x.pourquoi) + '</p>' : '') +
         (x.astuce ? '<p class="mc-pourquoi"><b>Une astuce :</b> ' + md(x.astuce) + '</p>' : '') + corps + '</section>';
   }
@@ -807,8 +807,8 @@
   function protoHtml(P) {
     if (!P) return '';
     var id = 'mc-p-' + P.id;
-    return '<section class="mc-proto" id="' + id + '"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">' + (P.pdf ? 'Exercice en profondeur' : 'Exercice') + '</p><h3 class="mc-h">' + esc(P.titre) + '</h3>' +
-      (P.intro ? '<p class="mc-consigne">' + md(P.intro) + '</p>' : '') +
+    return '<section class="mc-proto" id="' + id + '"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur" data-num-ex' + (P.pdf ? ' data-profond' : '') + '>' + (P.pdf ? 'Exercice en profondeur' : 'Exercice') + '</p><h3 class="mc-h">' + esc(P.titre) + '</h3>' +
+      (P.intro ? '<p class="mc-consigne">' + md(P.intro) + '</p>' : '') + audioProtocole(P.id) +
       (P.materiel ? encadre('Ce qu’il te faut', '<p>' + md(P.materiel) + '</p>', 'mc-encadre-or') : '') +
       '<ol class="mc-etapes">' + (P.etapes || []).map(function (e) { return '<li>' + md(e) + '</li>'; }).join('') + '</ol>' +
       (P.ages ? P.ages.map(function (a, n) {
@@ -826,7 +826,7 @@
   function cochesHtml(i) {
     var l = W2(i).coches || []; if (!l.length) return '';
     return '<section class="mc-coches"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Ma semaine en un coup d’œil</p><h3 class="mc-h">Ce que j’ai fait</h3><ul class="mc-coches-l">' +
-      l.map(function (c, j) { return '<li><label><input type="checkbox" data-k="sem' + (i + 1) + '-c' + j + '"> ' + esc(c) + '</label></li>'; }).join('') + '</ul></section>';
+      l.map(function (c, j) { var o = typeof c === 'string' ? { k: 'sem' + (i + 1) + '-c' + j, t: c } : c; return '<li><label><input type="checkbox" data-k="' + esc(o.k) + '"> ' + esc(o.t) + '</label></li>'; }).join('') + '</ul></section>';
   }
   function blocT2(i) {
     var k = 'sem' + (i + 1);
@@ -839,8 +839,8 @@
       curseur(k + '-elan', 'Quel a été ton élan cette semaine ?', 'à plat', 'plein élan') + '</section>';
   }
   function lectureHtml(i) {
-    return '<section class="mc-lecture" id="mc-lecture-' + (i + 1) + '"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Pour clore ta semaine</p><h3 class="mc-h">Ta lecture de la semaine</h3>' +
-      '<div data-lecture-sem="' + i + '"></div>' + (window.MAYA_SEMAINES && window.Maya ? '<details class="mc-lecture-maya"><summary>Ta semaine maya en détail</summary><div class="mc-maya" data-maya-sem="' + i + '"></div></details>' : '') + '</section>';
+    return '<details class="mc-volet-plie mc-lecture" id="mc-lecture-' + (i + 1) + '"><summary><span class="mc-volet-sur">Pour clore ta semaine</span>Ta lecture de la semaine</summary><div class="mc-volet-corps">' +
+      '<div data-lecture-sem="' + i + '"></div>' + (window.MAYA_SEMAINES && window.Maya ? '<details class="mc-lecture-maya"><summary>Ta semaine maya en détail</summary><div class="mc-maya" data-maya-sem="' + i + '"></div></details>' : '') + '</div></details>';
   }
   function majLectures() {
     if (!T2) return;
@@ -872,21 +872,50 @@
     var l = X.phrases.filter(function (p) { return String(D.v[p.k] || '').trim(); }).map(function (p) { return esc(p.avant) + ' ' + esc(String(D.v[p.k]).trim().replace(/\.$/, '')) + '.'; });
     z.hidden = !l.length; z.innerHTML = l.length ? '<p class="mc-encadre-t">Ton texte, à lire à voix haute</p><p>' + l.join(' ') + '</p>' : '';
   }
+  /* Le protocole audio du mois : un seul, posé sur l'exercice en profondeur de la semaine 1 (t2.protocole.audio, vide = pas de lecteur) */
+  function audioProtocole(id) {
+    var P = (C.t2 || {}).protocole; if (!T2 || !P || P.exercice !== id || !P.audio) return '';
+    return lecteur(P.audio, 'Ton protocole audio du mois · ' + (P.titre || ''));
+  }
+  /* « Pour aller plus loin » : un volet replié par défaut ; le fichier du mois dit quels blocs y vont (t2.semaines[i].plusLoin) */
+  function plusLoinHtml(blocs) {
+    if (!blocs.length) return '';
+    return '<details class="mc-volet-plie mc-plus-loin"><summary><span class="mc-volet-sur">Facultatif</span>Pour aller plus loin</summary><div class="mc-volet-corps">' + blocs.join('') + '</div></details>';
+  }
   function contenuT2(i) {
-    var W = W2(i), ex0 = function (o) { return o && C.exercices[o.de] ? exercice(Object.assign({}, C.exercices[o.de], { titre: o.titre || C.exercices[o.de].titre, consigne: o.consigne || C.exercices[o.de].consigne }), o.de) : ''; };
-    if (i === 0) return MORCEAUX.theme.d() + ex0(W.exercice) + protoHtml(W.protocole) +
-      (W.complement ? '<section class="mc-proto" id="mc-p-complement"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Facultatif</p><h3 class="mc-h">' + esc(W.complement.titre) + '</h3><p class="mc-consigne">' + md(W.complement.consigne) + '</p>' +
+    var W = W2(i), PL = W.plusLoin || [], vis = [], plus = [];
+    function ajoute(id, html) { if (!html) return; (PL.indexOf(id) >= 0 ? plus : vis).push(html); }
+    var ex0 = function (o) { return o && C.exercices[o.de] ? exercice(Object.assign({}, C.exercices[o.de], { titre: o.titre || C.exercices[o.de].titre, consigne: o.consigne || C.exercices[o.de].consigne }), o.de) : ''; };
+    if (i === 0) {
+      var T = C.theme, carte = (DECOR.cartes || {}).theme;
+      ajoute('theme', '<h3 class="mc-h">' + esc(T.sousTitre) + '</h3>' + (carte ? '<figure class="mc-carte"><img src="' + esc(carte[0]) + '" alt="' + esc(carte[1]) + '" width="270" height="338" loading="lazy"></figure>' : '') + paras(T.texte2));
+      ajoute('exemples', T.exemples ? encadre(T.exemplesTitre || 'Au quotidien', '<ul class="mc-liste">' + T.exemples.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>') : '');
+      ajoute('spirale', T.exempleSpirale ? encadre(T.exempleSpiraleTitre || 'Et la spirale ?', '<p>' + md(T.exempleSpirale) + '</p>', 'mc-encadre-or') : '');
+      ajoute('question', (T.question ? zone(T.question.k, T.question.q, { lignes: 2, ph: T.question.ph }) : '') + citation());
+    }
+    ajoute('ancrage', W.ancrage ? protoHtml({ id: 'ancrage', titre: W.ancrage.titre, intro: W.ancrage.intro, etapes: W.ancrage.etapes, questions: W.ancrage.questions }) : '');
+    ajoute('exercice', ex0(W.exercice));
+    if (i === 1) ajoute('appuis', exercice(C.exercices[1], 1));
+    ajoute('protocole', protoHtml(W.protocole));
+    ajoute('amplifier', W.amplifier ? '<section class="mc-proto"><p class="mc-sur" data-num-ex>Exercice</p><h3 class="mc-h">' + esc(W.amplifier.titre) + '</h3><p class="mc-consigne">' + md(W.amplifier.consigne) + '</p>' + questionsHtml(W.amplifier.questions) + '</section>' : '');
+    ajoute('loupe', W.loupe ? ex0(W.loupe) + curseur(W.loupe.plaisir.k, W.loupe.plaisir.q, 'aucun', 'immense') + zone(W.loupe.corps.k, W.loupe.corps.q, { lignes: 2, ph: W.loupe.corps.ph }) : '');
+    ajoute('comprendre', W.comprendre ? '<section class="mc-comprendre-sem"><p class="mc-sur">Pour comprendre</p><h3 class="mc-h">' + esc(W.comprendre.titre) + '</h3>' + paras(W.comprendre.texte) + questionsHtml(W.comprendre.questions) + '</section>' : '');
+    (W.protocoles || []).forEach(function (P) { ajoute(P.id, protoHtml(P)); });
+    ajoute('complement', W.complement ? '<section class="mc-proto" id="mc-p-complement"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Facultatif</p><h3 class="mc-h">' + esc(W.complement.titre) + '</h3><p class="mc-consigne">' + md(W.complement.consigne) + '</p>' +
         '<div class="mc-amorces"><p class="mc-q">Pour t’aider à commencer, touche une amorce : elle s’ajoute à ta lettre.</p>' + W.complement.amorces.map(function (a) { return '<button type="button" data-amorce="' + esc(a) + '" data-amorce-pour="' + W.complement.k + '">' + esc(a) + '</button>'; }).join('') + '</div>' +
         zone(W.complement.k, 'Ma lettre', { lignes: 9, ph: W.complement.ph }) + (W.complement.pdf ? boutonPdf('mc-p-complement') : '') + '</section>' : '');
-    if (i === 1) return (W.amplifier ? '<section class="mc-proto"><p class="mc-sur">Exercice</p><h3 class="mc-h">' + esc(W.amplifier.titre) + '</h3><p class="mc-consigne">' + md(W.amplifier.consigne) + '</p>' + questionsHtml(W.amplifier.questions) + '</section>' : '') +
-      exercice(C.exercices[1], 1) +
-      (W.comprendre ? '<section class="mc-comprendre-sem"><p class="mc-sur">Pour comprendre</p><h3 class="mc-h">' + esc(W.comprendre.titre) + '</h3>' + paras(W.comprendre.texte) + questionsHtml(W.comprendre.questions) + '</section>' : '') +
-      (W.protocoles || []).map(protoHtml).join('');
-    if (i === 2) return protoHtml(W.protocole) +
-      (W.loupe ? ex0(W.loupe) + curseur(W.loupe.plaisir.k, W.loupe.plaisir.q, 'aucun', 'immense') + zone(W.loupe.corps.k, W.loupe.corps.q, { lignes: 2, ph: W.loupe.corps.ph }) : '') +
-      (W.ancrage ? protoHtml({ id: 'ancrage', titre: W.ancrage.titre, intro: W.ancrage.intro, etapes: W.ancrage.etapes, questions: W.ancrage.questions }) : '');
-    return (W.impossible ? '<section class="mc-proto"><p class="mc-sur">Exercice</p><h3 class="mc-h">' + esc(W.impossible.titre) + '</h3>' + questionsHtml(W.impossible.questions) + '</section>' : '') +
-      intentionHtml() + texteJeSuisHtml() + rituelHtml() + lecteur(C.audio, 'Ta séance du mois') + '<div class="mc-victoires" data-victoires></div>';
+    ajoute('impossible', W.impossible ? '<section class="mc-proto"><p class="mc-sur" data-num-ex>Exercice</p><h3 class="mc-h">' + esc(W.impossible.titre) + '</h3>' + questionsHtml(W.impossible.questions) + '</section>' : '');
+    if (W.texte) ajoute('texte', texteJeSuisHtml());
+    if (i === 3) { ajoute('rituel', rituelHtml()); vis.push('<div class="mc-victoires" data-victoires></div>'); }
+    return vis.join('') + plusLoinHtml(plus);
+  }
+  /* Les exercices de chaque semaine sont numérotés dans l'ordre où ils apparaissent */
+  function numeroterExercices() {
+    if (!T2) return;
+    racine.querySelectorAll('.mc-page[id^="page-semaine-"]').forEach(function (pg) {
+      var n = 0;
+      pg.querySelectorAll('[data-num-ex]').forEach(function (el) { n++; el.textContent = 'Exercice ' + n + (el.hasAttribute('data-profond') ? ' · en profondeur' : ''); });
+    });
   }
   function semaineT2(i) {
     var W = W2(i);
@@ -912,6 +941,7 @@
         '<section class="mc-etape"><h3><span>6</span> Ta lettre à la fin du mois</h3><p class="mc-consigne">Imagine-toi le dernier jour du mois. Écris à la personne que tu es aujourd’hui, au présent, en commençant tes phrases par « Je suis… ». Comment te sens-tu ? Qu’est-ce qui a changé ? Qu’est-ce que tu as osé ?</p>' +
           '<div class="mc-amorces"><p class="mc-q">Pour t’aider à commencer, touche une amorce :</p>' + ['Je suis…', 'Aujourd’hui, je me sens…', 'J’ai osé…', 'Je suis fière de…'].map(function (a) { return '<button type="button" data-amorce="' + esc(a) + '" data-amorce-pour="lettre-un-mois">' + esc(a) + '</button>'; }).join('') + '</div>' +
           zone('lettre-un-mois', 'Ma lettre, écrite depuis la fin du mois', { lignes: 7, ph: 'Exemple : Je suis le ' + (new Date(+String(C.mois).split('-')[0], +String(C.mois).split('-')[1], 0).getDate()) + ' ' + NOM_MOIS + '. Je suis plus calme…' }) + prive() + '</section>' +
+        intentionHtml(7) +
         '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="debut">Enregistrer mon début de mois</button><p class="mc-retour" data-retour="debut" aria-live="polite"></p></div>';
     } };
   }
@@ -1425,7 +1455,7 @@
   function construire() {
     var fond = DECOR.couverture ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.couverture)) + '\')"' : '';
     racine.innerHTML =
-      '<header class="mc-tete"' + fond + '><p class="mc-sur">' + (MODULE ? 'Cycle 2 · Sors de la boucle · Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Le carnet « Vivre en paix » ' : 'Le carnet « J’avance » ') + esc(de(NOM_MOIS)) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
+      '<header class="mc-tete"' + fond + '><p class="mc-sur">' + (MODULE ? 'Cycle 2 · Sors de la boucle · Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Cycle 1 · De la peur à la paix, en alignement avec soi · ' : 'Le carnet « J’avance » ') + (T2 ? esc(NOM_MOIS) : esc(de(NOM_MOIS))) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
         '<p class="mc-perso" id="mc-perso" hidden></p><h1>' + esc(C.titre) + '</h1><p>' + esc(C.sousTitre) + '</p>' +
         '<div class="mc-barre"><div class="mc-progres" aria-label="Avancement du carnet"><span id="mc-progres-barre"></span></div><span id="mc-progres-texte"></span><span class="mc-etat" id="mc-etat" aria-live="polite"></span></div>' +
         '<div class="mc-boutons"><div class="mc-imp-zone"><button type="button" class="btn btn-trait" id="mc-imprimer" aria-expanded="false" aria-controls="mc-imp-choix">' + (SUIVI ? 'Imprimer mon suivi rempli' : MODULE ? 'Imprimer mon module rempli' : 'Imprimer mon carnet rempli') + '</button>' +
@@ -1483,7 +1513,7 @@
     });
     window.addEventListener('resize', collant);
     window.addEventListener('hashchange', function () { var c = cible(); if (c.p !== courante) aller(c.p, { ancre: c.ancre }); });
-    marquerSemaine(); if (!MODULE) chargerPont();
+    marquerSemaine(); if (!MODULE) chargerPont(); numeroterExercices();
     var c = cible();
     aller(c.p, { initial: true, ancre: c.ancre });
   }
