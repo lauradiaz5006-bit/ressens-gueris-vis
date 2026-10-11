@@ -474,3 +474,7 @@
   .mc-exo-print .mc-imp{min-height:14mm;border-bottom:1px solid #D9B9C5;margin:1mm 0 3mm;white-space:pre-wrap}
   .mc-exo-print li{break-inside:avoid}
 }
+/* Suivi du cycle 2 : la cible du cœur */
+.mc-a-fournir{margin:.8rem 0;padding:.6rem .9rem;border-radius:10px;border:2px dashed #B7833F;background:#FFF9F0;font-weight:700;color:#8A5A22}
+.mc-protocole-mois{margin:1rem 0;padding:1rem 1.1rem;border-radius:16px;background:#FBF6F2;border:1px solid var(--rose-fonce)}
+.mc-autel-encart .btn{margin-top:.4rem}

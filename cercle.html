@@ -255,7 +255,7 @@
       if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Carnet · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-plus">Ouvrir</span></a>';
       /* la semaine du suivi */
       var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, sem) - 1];
-      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
+      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + sem : w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
       /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
       var F = window.GENESOLIA_FORMATION;
       if (F && F.modules) {

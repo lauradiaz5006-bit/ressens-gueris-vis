@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ton autel de saison · Le Cercle · Genesolia</title>
+  <meta name="description" content="Ton autel de saison du mois : l'intention, la cueillette, les couleurs et les bougies, la mise en place, l'ouverture, l'entretien et la clôture.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .au{width:min(46rem,100% - 2rem);margin:0 auto;padding:2rem 0 3rem}
+    .au-tete{text-align:center;margin-bottom:1.4rem}
+    .au-sur{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne,#B7833F);margin:0 0 .4rem}
+    .au-tete h1{margin:0 0 .5rem}
+    .au-tete p{max-width:none;color:var(--prune-doux,#7a5a72)}
+    .au-image{margin:0 auto 1.6rem;max-width:520px;aspect-ratio:1/1;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 70%,#F4D9A8,#EBCFD5 55%,#6B2F5B);box-shadow:0 20px 50px rgba(107,47,91,.18);display:grid;place-items:center}
+    .au-image img{width:100%;height:100%;object-fit:cover;display:block}
+    .au-image p{color:#fff;font-family:var(--display,serif);font-size:1.3rem;text-align:center;padding:1rem;max-width:none}
+    .au-bloc{margin:0 0 1rem;padding:1.2rem 1.3rem;border-radius:18px;background:#fff;border:1px solid var(--rose,#F1D3DC)}
+    .au-bloc h2{font-size:1.3rem;margin:0 0 .5rem;display:flex;gap:.6rem;align-items:baseline}
+    .au-bloc h2 span{display:inline-grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:#FBF0F3;font-size:.9rem;font-family:var(--texte,sans-serif);font-weight:700;color:var(--prune,#6B2F5B);flex:none}
+    .au-bloc p{max-width:none;margin:.3rem 0}
+    .au-bloc ul{margin:.4rem 0;padding-left:1.2rem;display:grid;gap:.35rem}
+    .au-el{display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.6rem;margin-top:.5rem}
+    .au-el div{padding:.8rem .9rem;border-radius:14px;background:#FFF9F7;border:1px solid var(--rose,#F1D3DC)}
+    .au-el b{display:block;color:var(--prune,#6B2F5B);margin-bottom:.2rem}
+    .au-phrase{font-family:var(--display,serif);font-size:1.2rem;color:var(--prune,#6B2F5B)}
+    .au-boutons{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.4rem}
+    @media print{header,footer,.au-boutons{display:none!important}.au-bloc{break-inside:avoid}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div class="au" id="autel"><p>Ton autel s’ouvre…</p></div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/autel-de-saison.js"></script>
+</body>
+</html>

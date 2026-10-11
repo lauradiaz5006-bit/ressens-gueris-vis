@@ -271,7 +271,7 @@ window.GENESOLIA_IMPRESSION = {
      l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
      « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
      Sinon : le site normal, rien ne change. */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
