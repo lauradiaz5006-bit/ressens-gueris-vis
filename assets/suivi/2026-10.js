@@ -136,13 +136,6 @@ window.GENESOLIA_CARNET = {
             { q: "Quelle phrase te dis-tu, dans ta tête, quand la boucle démarre ?", ph: ["Exemple : « Je dois me débrouiller seul·e. »", "Exemple : « Je vais encore déranger. »", "Exemple : « De toute façon, ça finit toujours mal. »"] },
             { q: "Qui disait cette phrase, ou une phrase proche, dans ta famille ?", ph: ["Exemple : mon grand-père : « On ne compte que sur soi. »", "Exemple : ma mère : « Ne fais pas de bruit, ton père se repose. »", "Exemple : personne ne la disait, mais ma tante la vivait."] },
             { q: "Quelle phrase plus juste choisis-tu à la place ?", ph: ["Exemple : « J’ai le droit de demander de l’aide. »", "Exemple : « Ma présence compte, je peux prendre de la place. »", "Exemple : « Cette fois peut se passer autrement. »"] }
-          ] },
-        { k: 'liberer-lettre', titre: 'La lettre de restitution', type: 'questions',
-          consigne: "Écris quelques lignes à la personne de ta famille qui portait cette phrase ou cette boucle avant toi. Tu ne l’enverras pas. Remercie-la pour ce que cette façon de faire lui a permis de traverser, puis rends-lui, avec respect, ce qui ne t’appartient pas.",
-          pourquoi: "On ne se libère pas d’une loyauté en la rejetant, mais en la reconnaissant. Remercier, puis rendre, permet de garder l’amour et de laisser le poids.",
-          questions: [
-            { k: 'lettre-a', q: "À qui écris-tu ?", ph: "Exemple : à ma grand-mère Jeanne", court: true },
-            { k: 'lettre-texte', q: "Ta lettre : ce que tu reconnais, ce que tu remercies, ce que tu rends, ce que tu choisis pour toi", ph: "Exemple : Mamie, tu as tenu la maison seule, sans jamais te plaindre. Cette force t’a permis de traverser la guerre. Je la reconnais et je t’en remercie. Je te rends l’idée qu’il faut tout porter sans rien demander. Moi, je choisis d’accepter l’aide qu’on me propose.", lignes: 7 }
           ] }
       ],
       rituel: {
@@ -203,6 +196,32 @@ window.GENESOLIA_CARNET = {
      Le sujet vient de chaque personne (son test et ce qu'elle veut travailler) ; le thème de lignée du mois sert d'angle pour remonter à la source.
      S1 Voir ce qui vient · S2 Ta boucle sous tes yeux · S3 Libérer · S4 Mon geste différent. Tous les textes d'avant sont gardés ; aucune clé changée. */
   coeur: {
+    /* Le sujet du mois, proposé au début du suivi (la personne peut aussi garder sa cible ou en écrire une autre) */
+    sujetCoeur: 'Ce que je crois mériter en amour',
+    /* Ton personnage prend une forme nouvelle chaque mois (dessin, objets, lettre, dialogue…), avec la même trame */
+    personnageAngle: { titre: 'Ce mois-ci, ton personnage prend forme par le dessin',
+      texte: [
+        "Ton personnage peut prendre toutes les formes : une boule, un animal, un nuage, une pierre, une silhouette. Il n’a pas besoin d’être humain. Ce n’est pas toi : tu as des émotions humaines, et ce « truc » qui pèse peut sortir de toi.",
+        "En lui donnant une forme, hors de toi, tu passes de « je suis ma blessure » à « je vois ce que je porte ». Chaque mois, tu lui donnes forme d’une nouvelle manière, pour voir ce que tu ressens et évacuer un peu plus de lourdeur.",
+        "Si tu préfères les objets au dessin, pose sur une table un objet pour toi et un objet pour ton personnage, et regarde la place et la distance entre vous."
+      ] },
+    /* Les exercices propres au mois, à faire seul·e (1 ou 2 au plus) : rangés dans la semaine indiquée */
+    exercicesDuMois: [
+    { k: 'liberer-lettre', semaine: 3, titre: 'La lettre de restitution', type: 'questions',
+      consigne: "Écris quelques lignes à la personne de ta famille qui portait cette phrase ou cette boucle avant toi. Tu ne l’enverras pas. Remercie-la pour ce que cette façon de faire lui a permis de traverser, puis rends-lui, avec respect, ce qui ne t’appartient pas.",
+      pourquoi: "On ne se libère pas d’une loyauté en la rejetant, mais en la reconnaissant. Remercier, puis rendre, permet de garder l’amour et de laisser le poids.",
+      questions: [
+        { k: 'lettre-a', q: "À qui écris-tu ?", ph: "Exemple : à ma grand-mère Jeanne", court: true },
+        { k: 'lettre-texte', q: "Ta lettre : ce que tu reconnais, ce que tu remercies, ce que tu rends, ce que tu choisis pour toi", ph: "Exemple : Mamie, tu as tenu la maison seule, sans jamais te plaindre. Cette force t’a permis de traverser la guerre. Je la reconnais et je t’en remercie. Je te rends l’idée qu’il faut tout porter sans rien demander. Moi, je choisis d’accepter l’aide qu’on me propose.", lignes: 7 }
+      ] }
+    ],
+    /* « Si tu as peu de temps cette semaine » : trois gestes essentiels par semaine */
+    peuDeTemps: [
+      ["Écris ta cible du cœur en une phrase.", "Réponds au a. : ce que tu ressens en ce moment dans ton cœur, sur ta cible.", "Pose ta demande de libération (f.), puis note un signe par jour."],
+      ["Remplis une seule scène de « Ma boucle, trois fois » : la plus récente.", "Dessine ton personnage, même en deux minutes.", "Pose-lui une question : « Pourquoi es-tu là ? », et note sa réponse."],
+      ["Attrape une phrase qui tourne et écris la phrase plus juste que tu choisis.", "Dis à ton personnage la phrase de « Laisser partir », à voix haute si tu peux.", "Écoute ta séance de libération du mois, une fois."],
+      ["Choisis ton geste différent et écris-le.", "Essaie-le une fois, et note ce qui a changé.", "Place ton curseur : où en est ta question du cœur aujourd’hui ?"]
+    ],
     angle: "Ce mois-ci, ta lignée t’éclaire par ce qui revient : les boucles qui se rejouent d’une génération à l’autre.",
     intensiteQ: "À quel point ta question du cœur pèse-t-elle dans ta vie aujourd’hui ?",
     motQ: "En un mot, comment te sens-tu face à ta question du cœur ?",
@@ -222,12 +241,12 @@ window.GENESOLIA_CARNET = {
       intuition: { titre: 'Si tu connais peu ta famille', texte: "Adoption, famille dispersée, peu d’informations : ce n’est pas un frein. Écris seulement avec ton ressenti et ton intuition, ce qui vient en premier, sans chercher la preuve.", questions: [
         { k: 'traverse-intu-1', q: 'Qui a souffert comme ça dans ma lignée ?', ph: 'Exemple : je sens une femme, peut-être une grand-mère, qui attendait quelqu’un qui n’est jamais revenu.' },
         { k: 'traverse-intu-2', q: 'Que s’est-il passé que j’ignore ?', ph: 'Exemple : un départ à la guerre, un enfant donné, un amour interdit.' },
-        { k: 'traverse-intu-3', q: 'Suis-je vraiment la première à vivre ça ?', ph: 'Exemple : non, j’ai l’impression que cette peur est plus vieille que moi.' },
+        { k: 'traverse-intu-3', q: 'Suis-je vraiment la première personne à vivre ça ?', ph: 'Exemple : non, j’ai l’impression que cette peur est plus vieille que moi.' },
         { k: 'traverse-intu-4', q: 'Ce que je porte est-il vraiment à moi ?', ph: 'Exemple : une partie oui, mais cette peur de l’abandon me semble trop grande pour ma seule histoire.' }
       ] },
       evenement: { k: 'traverse-evenement', q: 'e. L’événement qui a créé cette douleur émotionnelle', ph: 'Exemple : l’absence de mon père, et peut-être avant lui, ma grand-mère qui a attendu son mari prisonnier pendant cinq ans.' },
       demande: { titre: 'f. Ma demande de libération',
-        texte: "Pose ta main sur ton cœur et dis, à voix haute ou dans ta tête : « Je demande que les réponses viennent à moi, avec douceur, au moment juste pour moi. Je suis prête à voir ce qui doit être vu. » Puis lâche, et observe les jours suivants : un rêve, une phrase entendue, un souvenir qui remonte, une coïncidence. Note ce qui arrive : tu en auras besoin la semaine prochaine.",
+        texte: "Pose ta main sur ton cœur et dis, à voix haute ou dans ta tête : « Je demande que les réponses viennent à moi, avec douceur, au moment juste pour moi. Je suis prêt·e à voir ce qui doit être vu. » Puis lâche, et observe les jours suivants : un rêve, une phrase entendue, un souvenir qui remonte, une coïncidence. Note ce qui arrive : tu en auras besoin la semaine prochaine.",
         k: 'traverse-signes', n: 5, q: 'Ce qui arrive les jours suivants', ph: 'Exemple : mardi, j’ai rêvé de la maison de ma grand-mère. Jeudi, ma mère m’a parlé de mon grand-père sans que je lui demande.' } },
     personnage: { titre: 'Mon personnage',
       intro: "Cette semaine, tu regardes ta douleur de l’extérieur, comme un personnage à côté de toi. Ce n’est pas toi : c’est une part qui s’est installée pour une raison. Ici, tu fais seulement connaissance avec elle. La libération viendra la semaine prochaine.",
@@ -268,7 +287,7 @@ window.GENESOLIA_CARNET = {
         { k: 'coeur-ou-reste', q: 'Ce qui reste à libérer', ph: 'Exemple : la peur revient encore le soir, quand je suis seule.' }
       ] },
     autel: {
-      intention: "Ce mois-ci, ton autel accompagne ta question du cœur : il te rappelle que tu mérites d’être aimée telle que tu es, et que ce qui a fini son temps peut tomber, comme les feuilles.",
+      intention: "Ce mois-ci, ton autel accompagne ta question du cœur : il te rappelle que tu mérites d’être aimé·e tel·le que tu es, et que ce qui a fini son temps peut tomber, comme les feuilles.",
       cueillette: ['Des feuilles rousses et dorées', 'Quelques glands', 'Une branche fine, tombée au sol', 'Une petite pierre en forme de cœur, si tu en trouves une'],
       couleurs: "Des tons chauds d’automne : roux, ambre, or, brun doux. Trois bougies ambre (ou blanches, entourées de feuilles rousses).",
       elements: [
@@ -284,6 +303,15 @@ window.GENESOLIA_CARNET = {
     },
     autelPrompt: "Illustration peinte douce, entre aquarelle et peinture numérique, format carré : un petit autel d’automne posé sur une table en bois, feuilles rousses et dorées, glands, bâtons de cannelle, une pomme rouge, trois bougies ambre allumées, une petite pierre en forme de cœur ; lumière chaude de fin d’après-midi, palette prune, vieux rose, or champagne et crème ; aucun texte, aucune personne."
   },
+
+  /* À lire ce mois-ci : 3 articles du blog liés au sujet, en bas du suivi */
+  lectures: [
+    { lien: 'schemas-repetitifs-en-amour.html', titre: 'Schémas répétitifs en amour', resume: "Toujours le même type de personne, la même fin : repérer ton schéma, et ce que ton histoire familiale peut éclairer." },
+    { lien: 'blessure-abandon-relation-amoureuse.html', titre: 'La blessure d’abandon en amour', resume: "La peur d’être quitté·e, le besoin d’être rassuré·e : les signes, l’histoire familiale et des pistes concrètes." },
+    { lien: 'loyaute-familiale-invisible.html', titre: 'La loyauté familiale invisible', resume: "Ce que c’est, des exemples concrets, les signes pour la reconnaître et choisir ta propre vie." }
+  ],
+  /* L'image citation du mois (carrée) : assets/images-mois/2026-10.jpg, à indiquer ici quand elle est prête */
+  image: '',
 
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
