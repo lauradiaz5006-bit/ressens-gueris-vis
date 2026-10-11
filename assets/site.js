@@ -381,8 +381,8 @@ window.GENESOLIA_IMPRESSION = {
   if (pied && MODE) { pied.remove(); pied = null; }   /* une appli n'a pas de pied de page */
   /* Le Cercle ouvert une fois en appli : on le note, pour ne plus proposer de l'installer */
   if (MODE === 'cercle') { try { localStorage.setItem('genesolia-cercle-installe', 'oui'); } catch (e) {} }
-  var cercleInstalle = false;
-  try { cercleInstalle = localStorage.getItem('genesolia-cercle-installe') === 'oui'; } catch (e) {}
+  var cercleInstalle = autonome;
+  try { cercleInstalle = cercleInstalle || localStorage.getItem('genesolia-cercle-installe') === 'oui'; } catch (e) {}
   /* Carnet et suivi du mois, dans le navigateur : un pied de page léger, réservé aux membres */
   if (pied && (page === 'mon-carnet.html' || page === 'mon-suivi-mois.html')) {
     pied.className = 'pied pied-membres';
@@ -523,7 +523,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Encart cadeau ajouté tout seul en bas de chaque page qui n'en a pas déjà un */
   var piedPage = document.querySelector('[data-pied]');
   /* Dans les pages du Cercle (carnet, suivi, mois, guide, appli), l'encart du bas présente la formation à la place du carnet offert */
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && page !== 'mon-module.html' && page !== 'point-de-depart.html' && page !== 'mon-carnet.html' && !document.querySelector('[data-cadeau]')) {
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) >= 0 && page !== 'mon-module.html' && page !== 'point-de-depart.html' && page !== 'mon-carnet.html' && page !== 'mon-suivi-mois.html' && !document.querySelector('[data-cadeau]')) {
     var zoneForm = document.createElement('section');
     zoneForm.className = 'bloc cadeau-bas';
     zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +
@@ -604,7 +604,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Bandeau fin en haut de toutes les pages (sauf la page de la formation) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-formation') === 'fermee'; } catch (e) {}
-  if (annonceActive && !fermee && !tunnel && page !== FORMATION.page && entete) {
+  if (annonceActive && !fermee && !tunnel && page !== FORMATION.page && entete && (!ESTCERCLE || page === 'cercle.html')) {   /* pas de bandeau dans les pages membres : elles sont déjà inscrites */
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce';
     bandeau.innerHTML =
