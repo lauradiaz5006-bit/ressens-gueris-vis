@@ -362,7 +362,7 @@
 
 /* ===== Accompagnement personnalisé : profil des blessures, gestes du mois, lecture de la roue ===== */
 /* Une seule numérotation à l'écran, celle des onglets (les numéros du livret ne s'affichent plus) */
-@media screen{.mc-folio{display:none!important}}
+/* Les numéros du livret s'affichent sur ordinateur (livre ouvert) ; sur téléphone, « Page X sur Y » en haut de chaque page */
 .mc-prive{font-size:.86rem;color:var(--encre-2);margin:.8rem 0 0;padding-left:1.4rem;position:relative}
 .mc-prive::before{content:"";position:absolute;left:0;top:.2rem;width:.85rem;height:.95rem;border:2px solid #9B7A8C;border-radius:3px;border-top-width:5px}
 .mc-blm{margin:1.2rem 0 0;padding:1rem;border-radius:14px;background:#FBF6F9;border:1px dashed #E2C9D6}
@@ -441,3 +441,36 @@
 /* Le corps (cycle 1) : boucle de survie, mode alerte, séances corps */
 .mc-corps{margin-top:1.4rem}
 .mc-corps .mc-etapes{margin-top:.6rem}
+
+/* ===== Nouvelle trame du carnet (cycle 1 « Vivre en paix ») ===== */
+.mc-rappel-cible{margin:.8rem 0;padding:.75rem 1rem;border-radius:14px;background:#FBF0F3;border:1px solid var(--rose-fonce);font-family:var(--display);font-size:1.08rem;color:#6B2F5B}
+.mc-rappel-cible span{display:block;font:700 .72rem/1.2 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22;margin-bottom:.25rem}
+.mc-conseil-mode{margin:.6rem 0 1rem;padding:.7rem 1rem;border-radius:14px;background:#FFF9F4;border-left:3px solid #B7833F;font-size:.95rem}
+.mc-proto{margin-top:1.4rem}
+.mc-pdf-zone{margin:.9rem 0 0}
+.mc-coches-l{list-style:none;padding:0;margin:.6rem 0 0;display:grid;gap:.35rem}
+.mc-coches-l label{display:flex;gap:.6rem;align-items:flex-start;padding:.55rem .75rem;border-radius:12px;background:#fff;border:1px solid var(--rose-fonce);cursor:pointer}
+.mc-coches-l input{accent-color:#6B2F5B;width:1.1rem;height:1.1rem;margin-top:.15rem;flex:none}
+.mc-coches-l label:has(input:checked){background:#FBF6F2}
+.mc-grille{overflow-x:auto;margin:.5rem 0 1rem}
+.mc-grille table{border-collapse:collapse;width:100%;max-width:30rem;font-size:.9rem}
+.mc-grille th,.mc-grille td{padding:.35rem .5rem;border-bottom:1px solid var(--rose);text-align:center}
+.mc-grille th[scope=row]{text-align:left;font-weight:600}
+.mc-grille input{accent-color:#6B2F5B;width:1.1rem;height:1.1rem}
+.mc-trous{display:grid;gap:.5rem;margin:.8rem 0}
+.mc-trou{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem;font-family:var(--display);font-size:1.12rem;color:#6B2F5B}
+.mc-trou input{flex:1 1 14rem;min-width:0;font:inherit;font-family:var(--texte);font-size:1rem;padding:.5rem .7rem;border:0;border-bottom:1.5px solid var(--rose-fonce);background:#FFF9F7;border-radius:8px 8px 0 0;color:#2b1428}
+.mc-jesuis-texte{margin:1rem 0;padding:1rem 1.2rem;border-radius:16px;background:linear-gradient(150deg,#FFF1EE,#F6E3EC);border:1px solid var(--rose-fonce);font-family:var(--display);font-size:1.12rem;line-height:1.6;color:#4A1F44}
+.mc-lecture{margin-top:1.4rem}
+.mc-lecture-maya{margin-top:.8rem}
+.mc-lecture-maya summary{cursor:pointer;font-weight:600;color:#6B2F5B}
+.mc-pont-fin{margin-top:1.4rem}
+.mc-exo-print{display:none}
+@media print{
+  html.mc-imprime-exo body>*:not(.mc-exo-print){display:none!important}
+  html.mc-imprime-exo .mc-exo-print{display:block!important;font-size:11pt;color:#2b1428}
+  .mc-exo-print-t{font:700 8pt/1.2 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22;margin:0 0 4mm}
+  .mc-exo-print-droits{margin-top:8mm;padding-top:3mm;border-top:1px solid #EBCFD5;font-size:8pt;color:#7a5a72}
+  .mc-exo-print .mc-imp{min-height:14mm;border-bottom:1px solid #D9B9C5;margin:1mm 0 3mm;white-space:pre-wrap}
+  .mc-exo-print li{break-inside:avoid}
+}

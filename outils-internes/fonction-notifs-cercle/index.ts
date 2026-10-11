@@ -3,7 +3,8 @@
 // POST { action: 'abonner', canal | canaux, abonnement, jeton? } : enregistre l'appareil et ses canaux ('cercle', 'site').
 //        Le jeton (facultatif) relie l'abonnement au compte. Sans compte, seul le canal 'site' est possible.
 // POST { action: 'retirer', canal, endpoint } : retire un canal ; l'appareil est oublié quand il n'en reste aucun.
-// POST { action: 'phrase', endpoint, texte, heure } : « Ma phrase du jour », écrite par la personne (texte vide = arrêter).
+// POST { action: 'phrase', endpoint, texte, heure, heure2? } : « Ma phrase du jour », écrite par la personne (texte vide = arrêter).
+//        heure et heure2 : de 6 à 22 (heure de Paris) ; heure2 est un deuxième rappel facultatif.
 // POST {} : appelée chaque heure par pg_cron. Envoie « Ma phrase du jour » à l'heure choisie, et les rappels du jour
 //        (table notifs_programme, case ok_envoyer cochée) à partir de 9h, heure de Paris : une seule fois chacun,
 //        et au plus un rappel du programme par appareil et par jour (le Cercle d'abord).
@@ -59,24 +60,29 @@ async function retirer(sb: ReturnType<typeof base>, b: Record<string, unknown>) 
 }
 
 async function phrase(sb: ReturnType<typeof base>, b: Record<string, unknown>) {
-  const ep = String(b.endpoint ?? ""), texte = String(b.texte ?? "").trim().slice(0, 140), heure = Number(b.heure);
+  const ep = String(b.endpoint ?? ""), texte = String(b.texte ?? "").trim().slice(0, 140), heure = Number(b.heure), h2 = b.heure2 == null ? null : Number(b.heure2);
+  const okH = (x: number) => Number.isInteger(x) && x >= 6 && x <= 22;
   const { data: ex } = await sb.from("notifs_abonnements").select("endpoint").eq("endpoint", ep).maybeSingle();
   if (!ex) return json({ ok: false, erreur: "abonnement inconnu" }, 404);
-  const maj = texte && [8, 12, 20].includes(heure) ? { perso_texte: texte, perso_heure: heure } : { perso_texte: null, perso_heure: null, perso_envoye: null };
+  const maj = texte && okH(heure)
+    ? { perso_texte: texte, perso_heure: heure, perso_heure2: h2 !== null && okH(h2) && h2 !== heure ? h2 : null }
+    : { perso_texte: null, perso_heure: null, perso_envoye: null, perso_heure2: null, perso_envoye2: null };
   const { error } = await sb.from("notifs_abonnements").update(maj).eq("endpoint", ep);
   return error ? json({ ok: false, erreur: error.message }, 500) : json({ ok: true });
 }
 
-/* « Ma phrase du jour » : à l'heure choisie, une fois par jour */
+/* « Ma phrase du jour » : à l'heure choisie (et au deuxième rappel s'il y en a un), une fois par jour chacun */
 async function phrasesDuJour(sb: ReturnType<typeof base>, auj: string, h: number, morts: Set<string>) {
-  const { data } = await sb.from("notifs_abonnements").select("endpoint, p256dh, auth, perso_texte, canaux")
-    .eq("perso_heure", h).not("perso_texte", "is", null).or("perso_envoye.is.null,perso_envoye.lt." + auj).limit(5000);
   let ok = 0;
-  for (const a of data ?? []) {
-    const corps = JSON.stringify({ titre: "Ta phrase du jour", texte: a.perso_texte, url: (a.canaux ?? []).includes("cercle") ? "/cercle.html" : "/appli.html", tag: "phrase-" + auj });
-    try { await webpush.sendNotification({ endpoint: a.endpoint, keys: { p256dh: a.p256dh, auth: a.auth } }, corps, { TTL: 7200 }); ok++; }
-    catch (x) { const c = (x as { statusCode?: number })?.statusCode; if (c === 404 || c === 410) morts.add(a.endpoint); }
-    await sb.from("notifs_abonnements").update({ perso_envoye: auj }).eq("endpoint", a.endpoint);
+  for (const [colH, colE, tag] of [["perso_heure", "perso_envoye", "phrase-"], ["perso_heure2", "perso_envoye2", "phrase2-"]]) {
+    const { data } = await sb.from("notifs_abonnements").select("endpoint, p256dh, auth, perso_texte, canaux")
+      .eq(colH, h).not("perso_texte", "is", null).or(colE + ".is.null," + colE + ".lt." + auj).limit(5000);
+    for (const a of data ?? []) {
+      const corps = JSON.stringify({ titre: "Ta phrase du jour", texte: a.perso_texte, url: (a.canaux ?? []).includes("cercle") ? "/cercle.html" : "/appli.html", tag: tag + auj });
+      try { await webpush.sendNotification({ endpoint: a.endpoint, keys: { p256dh: a.p256dh, auth: a.auth } }, corps, { TTL: 7200 }); ok++; }
+      catch (x) { const c = (x as { statusCode?: number })?.statusCode; if (c === 404 || c === 410) morts.add(a.endpoint); }
+      await sb.from("notifs_abonnements").update({ [colE]: auj }).eq("endpoint", a.endpoint);
+    }
   }
   return ok;
 }

@@ -210,6 +210,147 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour décembre ?", ph: "Exemple : m’appuyer sur mon calme pendant les fêtes, et oser dire non une fois.", court: true }
   ],
 
+  /* ───── Nouvelle trame du carnet (cycle 1 « Vivre en paix ») : 4 bases chaque mois, un sujet différent selon le mois ─────
+     S1 Voir mes forces autrement · S2 Nourrir mon corps · S3 Grandir ma force · S4 Imaginer l'impossible.
+     Les exercices profonds se téléchargent en PDF (mention de droits). Les clés existantes (ex1, ex2, ex3, sem1-…) sont gardées. */
+  trame: 2,
+  t2: {
+    objectifTheme: "M’appuyer sur mes forces au quotidien",
+    semaines: [
+      { base: 'Voir mes forces autrement', titre: 'D’où viennent mes forces',
+        intro: "Cette semaine, tu regardes tes forces avec des yeux neufs : d’où elles viennent, ce qu’on attendait de toi quand elles sont nées, et ce que tu veux en garder. Tu ne retires rien de ce qui t’a construite : tu enlèves seulement ce qui pèse dessus.",
+        exercice: { de: 0, titre: 'La frise de mes forces', consigne: "Prends une grande feuille et un crayon. Trace une ligne de gauche à droite : c’est ta vie. Place trois moments dont tu es fière, un dans l’enfance, un quand tu étais jeune adulte, un ces dernières années. Pour chacun, écris au-dessus la force que tu as utilisée, et en dessous ce qui se passait autour de toi. Puis reporte ici l’essentiel : tu en auras besoin pour la rencontre." },
+        protocole: { id: 'rencontre', titre: 'La rencontre aux trois âges', pdf: true,
+          intro: "Un moment au calme pour rencontrer celle que tu étais, à chaque moment de ta frise. Tu la remercies, tu regardes dans quel contexte sa force est née, et tu l’aides à poser ce qui s’y est collé. Compte trente à quarante minutes. Tu peux aussi le faire en trois fois, une période par jour.",
+          materiel: "Ta frise, une bougie, une chaise ou un coussin posé face à toi, un mouchoir à côté si besoin.",
+          etapes: [
+            "Installe-toi au calme. Allume la bougie, pose ta frise devant toi et respire lentement trois fois, en laissant ton ventre se gonfler.",
+            "Imagine, assise face à toi, la petite fille que tu étais au premier moment de ta frise. Regarde ses yeux, sa posture, ses vêtements. Laisse-la être là, simplement.",
+            "Dis-lui ce que tu as trouvé formidable chez elle : « Tu as été tellement courageuse quand… » Prends le temps de le lui dire vraiment.",
+            "Demande-lui dans quel contexte cette force est née. Que se passait-il à la maison ? Que disait-on d’elle ? Qu’attendait-on d’elle ? Laisse venir les images et les phrases, sans forcer.",
+            "Repère ce qui s’est collé à sa force : une obligation (« je dois toujours… »), un rôle (celle qui sauve, celle qui ne se plaint jamais, celle qui porte tout), une croyance, une loyauté envers quelqu’un.",
+            "Parle-lui comme à une enfant que tu aimes : « Tu gardes cette force, elle t’appartient. Tu n’as plus besoin de porter ce qui allait avec. Tu peux poser ça, maintenant. » Imagine qu’elle dépose ce poids à côté d’elle, et qu’elle se redresse.",
+            "Fais la même chose avec la jeune femme du deuxième moment, puis avec la femme du troisième.",
+            "Pour finir, imagine que les trois viennent se placer en toi, au creux de ta poitrine, avec leurs forces et sans le poids. Respire. Pose ta main sur ton cœur, puis souffle la bougie."
+          ],
+          ages: ['La petite fille', 'La jeune femme', 'La femme d’aujourd’hui'],
+          champs: [
+            { q: 'Ce que je lui ai dit', ph: ['Exemple : tu as été si courageuse de chanter seule devant toute l’école.', 'Exemple : tu as osé partir dans une ville inconnue, je suis fière de toi.', 'Exemple : tu as tenu bon pendant tes études et ton travail en même temps.'] },
+            { q: 'Ce qui s’était collé à sa force', ph: ['Exemple : il fallait être parfaite pour qu’on me remarque.', 'Exemple : je devais me débrouiller seule, ne jamais demander.', 'Exemple : je dois tout porter, sinon tout s’écroule.'] },
+            { q: 'Ce qu’elle a posé', ph: ['Exemple : l’obligation d’être parfaite.', 'Exemple : la peur de déranger en demandant de l’aide.', 'Exemple : le rôle de celle qui tient tout.'] }
+          ],
+          apres: { k: 'rencontre-apres', q: 'Après la rencontre, ce que je ressens, et ce que je garde de mes trois forces', ph: 'Exemple : je me sens plus légère. Je garde mon courage, ma capacité à créer des liens et ma persévérance, sans l’obligation de tout faire seule.' } },
+        complement: { titre: 'Le complément du mois · La lettre à la petite fille qui a dû être forte', pdf: true,
+          consigne: "Après ta rencontre, écris à la petite fille que tu étais. Console-la pour ce qu’elle a porté trop tôt, remercie-la pour ce qu’elle t’a donné, et dis-lui ce qui change maintenant que tu es là pour elle. Écris-lui comme à une enfant que tu aimes de tout ton cœur.",
+          amorces: ['Ma petite…', 'Tu as dû être forte quand…', 'Aujourd’hui, je suis là pour toi et…', 'Tu as le droit de…'],
+          k: 'complement-lettre', ph: 'Exemple : Ma petite Léa, je sais que tu as dû grandir vite…' },
+        coches: ['J’ai tracé ma frise des forces', 'J’ai fait la rencontre aux trois âges', 'J’ai écrit ma lettre à la petite fille (facultatif)', 'J’ai suivi mon fil des 7 jours'] },
+
+      { base: 'Nourrir mon corps', titre: 'Mes forces, sans jouer un rôle',
+        intro: "Une force que l’on joue comme un rôle fatigue. Une force que l’on choisit nourrit. Cette semaine, tu amplifies tes forces par choix, avec plaisir, et tu offres à ton corps de nouvelles informations : il peut se détendre, tu es en sécurité.",
+        amplifier: { titre: 'Amplifier ma force, par choix',
+          consigne: "Choisis la force de ta frise qui compte le plus pour toi en ce moment. Regarde quand tu l’utilises par plaisir, et quand tu l’utilises par obligation. Puis écris la phrase qui la rend vraiment tienne.",
+          questions: [
+            { k: 'ampl-force', q: 'La force que je choisis d’amplifier ce mois-ci', ph: 'Exemple : mon courage.', court: true },
+            { k: 'ampl-plaisir', q: 'Quand est-ce que je l’utilise avec plaisir, par choix ?', ph: 'Exemple : quand je propose une idée nouvelle au travail, ou quand j’ose une activité seule.' },
+            { k: 'ampl-role', q: 'Quand est-ce que je l’utilise comme un rôle, par obligation ?', ph: 'Exemple : quand je fais semblant que tout va bien pour ne pas inquiéter ma famille.' },
+            { k: 'ampl-phrase', q: 'Ma phrase : « Je choisis d’être… parce que j’aime… »', ph: 'Exemple : je choisis d’être courageuse parce que j’aime me sentir vivante, pas parce qu’on attend de moi que je tienne.', court: true }
+          ] },
+        comprendre: { titre: 'Pour comprendre : le mode alerte', texte: [
+          "Ton système nerveux fonctionne un peu comme une voiture : il a un **accélérateur** et un **frein**. L’accélérateur te met en mouvement pour faire face (le cœur pompe, les muscles se tendent, la respiration devient courte). Le frein te ramène au calme, au repos, au lien avec les autres.",
+          "Le frein passe beaucoup par le **nerf vague**, un long nerf qui relie ton cerveau à ton cœur, tes poumons et ton ventre. Quand tu expires lentement, quand tu poses une main chaude sur ta poitrine, quand tu te parles avec douceur, il reçoit le message : tu peux relâcher. Et ton corps ne fait pas bien la différence entre ce qui arrive et ce que tu imagines : quand tu te projettes dans le pire, il appuie sur l’accélérateur comme si c’était vrai."
+        ], questions: [
+          { k: 'corps-s2-projection', q: 'Quel scénario du pire ton esprit se raconte-t-il le plus souvent ?', ph: 'Exemple : je vais manquer d’argent à la fin du mois et je ne pourrai pas faire face.' },
+          { k: 'corps-s2-reel', q: 'Et là, maintenant, qu’est-ce qui est réellement vrai ? Qu’est-ce qui tient bon ?', ph: 'Exemple : aujourd’hui, mon loyer est payé, j’ai un travail, et ma sœur m’aiderait si besoin.' }
+        ] },
+        protocoles: [
+          { id: 'coherence', titre: 'La cohérence cardiaque', pdf: true,
+            intro: "Cinq minutes, trois fois par jour cette semaine : le matin, le midi et en fin d’après-midi. C’est la façon la plus simple d’appuyer sur le frein de ton corps.",
+            etapes: [
+              "Assieds-toi, le dos droit, les pieds à plat sur le sol. Pose une main sur ton cœur.",
+              "Inspire par le nez en comptant jusqu’à 5, en laissant ton ventre se gonfler.",
+              "Expire doucement par la bouche en comptant jusqu’à 5, comme si tu soufflais dans une paille.",
+              "Continue ainsi pendant cinq minutes, soit six respirations par minute. Tu peux t’aider d’un minuteur.",
+              "Pendant les dernières respirations, pense à un moment où tu t’es sentie fière de toi, et laisse cette chaleur se répandre dans ta poitrine."
+            ],
+            jours: { k: 'coh', moments: ['Matin', 'Midi', 'Fin d’après-midi'] } },
+          { id: 'corps', titre: 'Parler à mon corps', pdf: true,
+            intro: "Maintenant que tu sais d’où viennent tes forces et ce qui s’y était collé, tu offres à ton corps de nouvelles informations. Une quinzaine de minutes, allongée ou assise, au calme.",
+            etapes: [
+              "Ferme les yeux. Respire lentement. Parcours ton corps des pieds jusqu’à la tête, et repère les zones tendues, lourdes ou serrées.",
+              "Pose ta main sur la zone la plus tendue. Remercie-la : « Merci de m’avoir protégée. Tu as fait ton travail. »",
+              "Demande-toi à qui appartient vraiment cette tension. Peut-être à toi, peut-être à une personne de ta famille dont tu as pris le poids sans le savoir.",
+              "Si elle ne t’appartient pas, dis intérieurement : « Ce stress appartient à… Je le reconnais, je le lui rends avec amour, et je le relâche. » Imagine-le quitter ton corps à chaque expiration.",
+              "Offre à cette zone une information nouvelle, comme si tu parlais à chacune de tes cellules : « Tu peux te détendre. Je suis en sécurité. Je garde ma force, sans le poids. »",
+              "Respire dans la zone trois fois, lentement. Puis bouge doucement les doigts, les pieds, et ouvre les yeux."
+            ],
+            questions: [
+              { k: 'corps-zone', q: 'La zone de mon corps qui était la plus tendue', ph: 'Exemple : mes épaules et ma mâchoire.', court: true },
+              { k: 'corps-pas-a-moi', q: 'À qui appartenait cette tension, et ce que j’ai relâché', ph: 'Exemple : à ma mère, qui avait toujours peur de manquer. J’ai relâché l’idée que je dois tout prévoir.' },
+              { k: 'corps-nouvelle', q: 'La nouvelle information que j’ai offerte à mon corps', ph: 'Exemple : je suis en sécurité, je peux me reposer.', court: true }
+            ] }
+        ],
+        coches: ['J’ai écrit ma phrase « Je choisis d’être… »', 'J’ai fait la cohérence cardiaque au moins une fois par jour', 'J’ai parlé à mon corps', 'J’ai suivi mon fil des 7 jours'] },
+
+      { base: 'Grandir ma force', titre: 'Remplacer la peur par la joie d’être moi',
+        intro: "Cette semaine, tu remplaces les images qui te font douter par des images de toi pleine de ta force, tu observes comment tu l’utilises, et tu y prends du plaisir. Plus tu ressens ce plaisir, plus ta confiance grandit et plus ton corps se calme.",
+        protocole: { id: 'swish', titre: 'Le swish, pour changer d’image', pdf: true,
+          intro: "Un exercice de PNL qui remplace une image de peur par une image de force. Il dure cinq minutes. Tu peux aussi le faire avec la séance audio du mois.",
+          etapes: [
+            "Repère une image mentale qui te fait douter de toi : toi qui bloques, qui échoues, qui te fais petite. Regarde-la quelques secondes, puis note-la.",
+            "Crée maintenant l’image de toi qui utilises ta force avec aisance. Rends-la grande, lumineuse, en couleurs, avec les sons et ce que tu ressens. Note-la aussi.",
+            "Place la première image en grand devant toi. Mets la nouvelle, toute petite et sombre, dans un coin de cette image.",
+            "En un éclair, dis « swish » : la petite image grandit et s’illumine jusqu’à tout recouvrir, pendant que l’ancienne rapetisse et s’éloigne jusqu’à disparaître.",
+            "Ouvre les yeux et regarde un objet autour de toi pour effacer l’écran. Recommence cinq fois, de plus en plus vite.",
+            "Pense à nouveau à l’ancienne image. Que se passe-t-il ? Souvent, elle est plus floue, plus loin, ou c’est la nouvelle qui revient d’elle-même."
+          ],
+          questions: [
+            { k: 'swish-ancienne', q: 'L’image qui me faisait douter', ph: 'Exemple : moi qui rougis et bafouille en réunion.' },
+            { k: 'swish-nouvelle', q: 'Ma nouvelle image, pleine de ma force', ph: 'Exemple : moi qui prends la parole calmement, le dos droit, et qui souris.' },
+            { k: 'swish-apres', q: 'Ce qui a changé après cinq fois', ph: 'Exemple : l’ancienne image est floue, et je sens mes épaules plus légères.' }
+          ] },
+        loupe: { de: 2, titre: 'La loupe sur ma force', consigne: "Choisis une seule force, celle que tu as amplifiée la semaine dernière, et utilise-la exprès chaque jour dans une petite situation. Observe-toi comme avec une loupe : ce que tu fais, ce que tu ressens dans ton corps, et le plaisir que tu y prends.",
+          plaisir: { k: 'loupe-plaisir', q: 'Le plaisir que j’ai pris à utiliser ma force cette semaine' },
+          corps: { k: 'loupe-corps', q: 'Ce qui change dans mon corps quand j’utilise ma force par plaisir', ph: 'Exemple : ma respiration est plus ample, je me tiens plus droite, je souris plus.' } },
+        ancrage: { titre: 'Mon ancrage de sécurité',
+          intro: "Un geste qui rappelle à ton corps qu’il est en sécurité. Plus tu le répètes au calme, plus il fonctionnera dans les moments difficiles.",
+          etapes: [
+            "Assieds-toi, les pieds au sol. Fais trois respirations lentes.",
+            "Sens le poids de ton corps, tes pieds sur le sol. Imagine des racines qui partent de ton bassin et descendent dans la terre.",
+            "Rappelle-toi un moment où tu t’es sentie en sécurité, entourée, tranquille. Laisse revenir l’image, les sons, la sensation.",
+            "Quand la sensation est là, pose ta main sur ton cœur et garde-la quelques secondes.",
+            "Dis intérieurement : « Je suis ici, maintenant, dans mon corps, en sécurité. » Puis relâche, et ouvre les yeux."
+          ],
+          questions: [
+            { k: 'corps-s4-geste', q: 'Mon souvenir de sécurité, relié à mon geste', ph: 'Exemple : le soir où je riais avec mes amies sur la plage, l’été dernier.' },
+            { k: 'corps-s4-utilise', q: 'Dans quelle situation vais-je m’en servir ce mois-ci ?', ph: 'Exemple : avant d’ouvrir mes relevés bancaires, et avant la réunion du lundi.' }
+          ] },
+        coches: ['J’ai fait le swish cinq fois', 'J’ai utilisé ma force exprès chaque jour', 'J’ai installé mon ancrage de sécurité', 'J’ai suivi mon fil des 7 jours'] },
+
+      { base: 'Imaginer l’impossible', titre: 'Une foi solide en la vie',
+        intro: "Dernière semaine du mois : tu imagines plus grand que ce que tu crois possible. Pas pour te mettre la pression, mais pour retrouver une foi solide en la vie. Tu fais ta part, la vie fait la sienne, parfois d’une façon que tu n’aurais pas imaginée.",
+        impossible: { titre: 'Et si tout était possible ?', questions: [
+          { k: 'imp-tout', q: 'Si tout était possible, sans limite d’argent, de temps ni de regard des autres, que vivrais-tu dans un an ?', ph: 'Exemple : je vivrais au bord de la mer, j’animerais des ateliers d’écriture, et je me réveillerais sans peur du lendemain.', lignes: 4 },
+          { k: 'imp-part', q: 'Quelle petite part de ce rêve peux-tu commencer dès ce mois-ci ?', ph: 'Exemple : écrire chaque dimanche matin, et me renseigner sur un premier atelier.' }
+        ] },
+        texte: { titre: 'Mon texte « Je suis »', pdf: true,
+          consigne: "Ta visualisation du mois, c’est toi qui l’écris. Complète chaque phrase avec tes mots, au présent, comme si c’était déjà vrai. Puis relis ton texte : s’il ne te ressemble pas tout à fait, modifie-le jusqu’à ce qu’il sonne juste.",
+          phrases: [
+            { k: 'vis-1', avant: 'Je suis', ph: 'une femme solide, douce et libre' },
+            { k: 'vis-2', avant: 'Chaque jour, je ressens', ph: 'de la confiance et de la joie' },
+            { k: 'vis-3', avant: 'Ce mois-ci, j’ai libéré', ph: 'l’obligation de tout porter seule' },
+            { k: 'vis-4', avant: 'Je m’appuie sur', ph: 'mon courage et mes amies' },
+            { k: 'vis-5', avant: 'Je m’autorise à', ph: 'recevoir de l’aide et du plaisir' },
+            { k: 'vis-6', avant: 'Ma vie m’offre', ph: 'des rencontres justes et de la sérénité' },
+            { k: 'vis-7', avant: 'Je dis merci pour', ph: 'tout ce qui vient vers moi' }
+          ],
+          relu: { k: 'vis-relu', q: 'J’ai relu mon texte : il est en accord avec moi' },
+          modif: { k: 'vis-modif', q: 'Ce que je modifie pour qu’il me ressemble vraiment (facultatif)', ph: 'Exemple : je remplace « solide » par « apaisée ».' },
+          lecture: { k: 'vis-lu', q: 'Je lis mon texte à voix haute, matin et soir, cette semaine' } },
+        coches: ['J’ai imaginé l’impossible et choisi une part à commencer', 'J’ai écrit et relu mon texte « Je suis »', 'Je l’ai lu à voix haute matin et soir', 'J’ai suivi mon fil des 7 jours'] }
+    ]
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Ceux qui sont venus avant toi',
