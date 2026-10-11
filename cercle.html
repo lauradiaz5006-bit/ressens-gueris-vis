@@ -256,6 +256,8 @@
       /* la semaine du suivi */
       var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, sem) - 1];
       if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + sem : w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
+      /* Mes séances : une séance audio à ouvrir chaque mois */
+      h += '<a class="ce-carte" href="mes-seances.html"><p class="ce-etiq">Mes séances</p><h3>Ta séance audio du mois</h3><p>Chaque mois, tu ouvres la séance qui te parle le plus, selon ce que tu traverses.</p><span class="ce-bt">Choisir ma séance</span></a>';
       /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
       var F = window.GENESOLIA_FORMATION;
       if (F && F.modules) {
