@@ -199,6 +199,92 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une image, un souvenir, une sensation, un mot…", ph: "Exemple : j’ai revu la cuisine de ma grand-mère, et j’ai eu envie de dire « stop » à voix haute." }
   },
 
+  /* ───── Le suivi du cycle 2 « Comment j'aime, et comment aimer plus grand, en accord avec moi » : la cible du cœur ─────
+     Le sujet vient de chaque personne (son test et ce qu'elle veut travailler) ; le thème de lignée du mois sert d'angle pour remonter à la source.
+     S1 Voir ce qui vient · S2 Ta boucle sous tes yeux · S3 Libérer · S4 Mon geste différent. Tous les textes d'avant sont gardés ; aucune clé changée. */
+  coeur: {
+    angle: "Ce mois-ci, ta lignée t’éclaire par ce qui revient : les boucles qui se rejouent d’une génération à l’autre.",
+    intensiteQ: "À quel point ta question du cœur pèse-t-elle dans ta vie aujourd’hui ?",
+    motQ: "En un mot, comment te sens-tu face à ta question du cœur ?",
+    souhaitQ: "Qu’aimerais-tu libérer dans ta façon d’aimer ce mois-ci ?",
+    souhaitPh: "Exemple : cette peur d’être de trop, qui me fait tout donner pour être choisie.",
+    ex1Consigne: "Choisis une situation liée à ta cible du cœur, qui revient dans ta vie. Note trois fois où tu l'as vécue, la plus ancienne en premier. Pour chacune, écris quand c'était et avec qui, ce qui s'est passé, puis ce que tu as ressenti et ce que tu as fait.",
+    traverse: { titre: 'Ce qui me traverse',
+      intro: "Prends d’abord une feuille et un stylo. Écrire à la main laisse venir ce que la tête ne dit pas. Puis reporte ici l’essentiel, étape par étape, toujours sur ta cible du cœur. Prends ton temps : tu peux le faire en plusieurs fois dans la semaine.",
+      ressens: { k: 'traverse-ressens', q: 'a. Ce que je ressens en ce moment dans mon cœur, sur ma cible', ph: 'Exemple : une boule dans la gorge dès qu’il ne répond pas, la peur qu’il me quitte, une grande fatigue d’attendre.' },
+      fil: [
+        { k: 'traverse-derniere', q: 'b. Quand l’as-tu ressenti pour la dernière fois ? À quel moment ?', ph: 'Exemple : samedi soir, quand il est sorti avec ses amis sans me dire à quelle heure il rentrerait.' },
+        { k: 'traverse-avant', q: 'Et avant ?', ph: 'Exemple : avec mon ex, chaque fois qu’il partait en déplacement.' },
+        { k: 'traverse-premiere', q: 'Et la toute première fois ?', ph: 'Exemple : vers 6 ans, quand mon père partait des semaines pour son travail et que je l’attendais à la fenêtre.' },
+        { k: 'traverse-evenements', q: 'Les événements clés de ma vie autour de ce ressenti', ph: 'Exemple : 6 ans, absences de mon père. 15 ans, divorce de mes parents. 24 ans, première rupture. 31 ans, mon compagnon qui part en déplacement.', lignes: 4 }
+      ],
+      origine: { k: 'traverse-origine', q: 'c. D’où ça vient, selon toi ?', options: ['Un événement de cette vie', 'Ma lignée : depuis toujours, ou ce qui appartient à mon chemin de vie'] },
+      intuition: { titre: 'Si tu connais peu ta famille', texte: "Adoption, famille dispersée, peu d’informations : ce n’est pas un frein. Écris seulement avec ton ressenti et ton intuition, ce qui vient en premier, sans chercher la preuve.", questions: [
+        { k: 'traverse-intu-1', q: 'Qui a souffert comme ça dans ma lignée ?', ph: 'Exemple : je sens une femme, peut-être une grand-mère, qui attendait quelqu’un qui n’est jamais revenu.' },
+        { k: 'traverse-intu-2', q: 'Que s’est-il passé que j’ignore ?', ph: 'Exemple : un départ à la guerre, un enfant donné, un amour interdit.' },
+        { k: 'traverse-intu-3', q: 'Suis-je vraiment la première à vivre ça ?', ph: 'Exemple : non, j’ai l’impression que cette peur est plus vieille que moi.' },
+        { k: 'traverse-intu-4', q: 'Ce que je porte est-il vraiment à moi ?', ph: 'Exemple : une partie oui, mais cette peur de l’abandon me semble trop grande pour ma seule histoire.' }
+      ] },
+      evenement: { k: 'traverse-evenement', q: 'e. L’événement qui a créé cette douleur émotionnelle', ph: 'Exemple : l’absence de mon père, et peut-être avant lui, ma grand-mère qui a attendu son mari prisonnier pendant cinq ans.' },
+      demande: { titre: 'f. Ma demande de libération',
+        texte: "Pose ta main sur ton cœur et dis, à voix haute ou dans ta tête : « Je demande que les réponses viennent à moi, avec douceur, au moment juste pour moi. Je suis prête à voir ce qui doit être vu. » Puis lâche, et observe les jours suivants : un rêve, une phrase entendue, un souvenir qui remonte, une coïncidence. Note ce qui arrive : tu en auras besoin la semaine prochaine.",
+        k: 'traverse-signes', n: 5, q: 'Ce qui arrive les jours suivants', ph: 'Exemple : mardi, j’ai rêvé de la maison de ma grand-mère. Jeudi, ma mère m’a parlé de mon grand-père sans que je lui demande.' } },
+    personnage: { titre: 'Mon personnage',
+      intro: "Cette semaine, tu regardes ta douleur de l’extérieur, comme un personnage à côté de toi. Ce n’est pas toi : c’est une part qui s’est installée pour une raison. Ici, tu fais seulement connaissance avec elle. La libération viendra la semaine prochaine.",
+      etapes: [
+        "Ferme les yeux et pense à ta cible du cœur. Laisse venir l’image de cette douleur comme un personnage qui se tiendrait près de toi.",
+        "Donne-lui une forme, une couleur, une taille. Une boule, un animal, une silhouette, un nuage : ce qui vient est juste.",
+        "Sur une feuille, dessine-toi, puis dessine ton personnage. Regarde où il se place : devant toi, derrière, sur tes épaules, collé à toi, loin.",
+        "Pose-lui des questions, et écris ce qui vient : « Pourquoi es-tu là ? Que crois-tu protéger ? »",
+        "Remercie-le simplement d’avoir répondu. Garde ton dessin pour la semaine prochaine."
+      ],
+      guides: "Si tu en sens le besoin, tu peux demander la présence de tes guides pour te soutenir.",
+      questions: [
+        { k: 'perso-forme', q: 'Sa forme, sa couleur, sa taille', ph: 'Exemple : une boule grise et lourde, de la taille d’un ballon.', court: true },
+        { k: 'perso-place', q: 'Où se place-t-il par rapport à moi ?', ph: 'Exemple : accroché à ma poitrine, un peu sur la gauche.', court: true },
+        { k: 'perso-pourquoi', q: '« Pourquoi es-tu là ? » Ce qu’il m’a répondu', ph: 'Exemple : pour que tu ne sois plus jamais surprise par un départ.' },
+        { k: 'perso-protege', q: '« Que crois-tu protéger ? » Ce qu’il m’a répondu', ph: 'Exemple : ton cœur, pour qu’il ne se brise pas une deuxième fois.' }
+      ],
+      piste: { k: 'perso-piste', q: 'Ce qu’il porte, à ton avis (plusieurs réponses possibles)', options: ['Une croyance', 'Une culpabilité', 'Une loyauté envers quelqu’un de ma famille', 'Autre chose'] } },
+    laisser: { titre: 'Laisser partir mon personnage',
+      intro: "Reprends ton dessin de la semaine dernière. Tu as fait connaissance avec ton personnage, tu sais ce qu’il protégeait. Maintenant, tu peux le remercier et le laisser partir.",
+      etapes: [
+        "Installe-toi au calme avec ton dessin devant toi. Respire lentement trois fois.",
+        "Regarde ton personnage et dis-lui, à voix haute si tu peux : « Je te vois. Je te comprends. Je suis désolé·e pour tout ce qui s’est passé. Je t’aime énormément, tu m’as permis d’avancer. Merci. »",
+        "Laisse venir ce qui vient : une émotion, des larmes, un soupir. Tout est bienvenu.",
+        "Fais ensuite le protocole de libération du mois, ci-dessous.",
+        "Pour finir, observe ton corps : ce qui bouge, ce qui se relâche, et comment la boucle se défait maintenant que tu la vois."
+      ],
+      questions: [
+        { k: 'laisser-corps', q: 'Où ça bouge dans mon corps ?', ph: 'Exemple : ma poitrine s’ouvre, mes épaules descendent.' },
+        { k: 'laisser-relache', q: 'Ce qui se relâche', ph: 'Exemple : la boule dans la gorge, et cette impression de devoir surveiller son téléphone.' },
+        { k: 'laisser-boucle', q: 'Comment la boucle se défait, maintenant que je la vois', ph: 'Exemple : quand il ne répond pas, je sens la peur arriver, mais je sais qu’elle est vieille. Je respire et j’attends sans paniquer.' }
+      ] },
+    protocole: null,
+    retour: { titre: 'Où en suis-je avec ma question du cœur ?',
+      curseur: { k: 'coeur-ou-n', q: 'Aujourd’hui, à quel point ma question du cœur pèse-t-elle ?' },
+      questions: [
+        { k: 'coeur-ou', q: 'Ce qui a changé dans ma façon d’aimer ce mois-ci', ph: 'Exemple : j’ose dire quand j’ai besoin d’être rassurée, au lieu de bouder.' },
+        { k: 'coeur-ou-reste', q: 'Ce qui reste à libérer', ph: 'Exemple : la peur revient encore le soir, quand je suis seule.' }
+      ] },
+    autel: {
+      intention: "Ce mois-ci, ton autel accompagne ta question du cœur : il te rappelle que tu mérites d’être aimée telle que tu es, et que ce qui a fini son temps peut tomber, comme les feuilles.",
+      cueillette: ['Des feuilles rousses et dorées', 'Quelques glands', 'Une branche fine, tombée au sol', 'Une petite pierre en forme de cœur, si tu en trouves une'],
+      couleurs: "Des tons chauds d’automne : roux, ambre, or, brun doux. Trois bougies ambre (ou blanches, entourées de feuilles rousses).",
+      elements: [
+        { nom: 'La terre', texte: 'La petite pierre en forme de cœur, ou une poignée de glands.' },
+        { nom: 'L’eau', texte: 'Une petite coupelle d’eau, ou une pomme rouge, pleine de son eau.' },
+        { nom: 'Le feu', texte: 'Les trois bougies ambre.' },
+        { nom: 'L’air', texte: 'Une plume, ou deux bâtons de cannelle dont le parfum se diffuse.' },
+        { nom: 'L’amour que tu te portes', texte: 'Un objet qui te représente avec tendresse : une photo de toi enfant, un bijou que tu aimes, un mot doux écrit pour toi.' }
+      ],
+      ouverture: "« J’ouvre cet espace pour moi. J’honore l’être de la création que je suis, et je laisse l’amour que je mérite venir jusqu’à moi. »",
+      entretien: ['Chaque semaine, allume une bougie quelques minutes et relis ta cible du cœur.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
+      cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose les feuilles, les glands et la branche au pied d’un arbre. Garde la pierre en forme de cœur si tu le souhaites, ou offre-la à la terre."
+    },
+    autelPrompt: "Illustration peinte douce, entre aquarelle et peinture numérique, format carré : un petit autel d’automne posé sur une table en bois, feuilles rousses et dorées, glands, bâtons de cannelle, une pomme rouge, trois bougies ambre allumées, une petite pierre en forme de cœur ; lumière chaude de fin d’après-midi, palette prune, vieux rose, or champagne et crème ; aucun texte, aucune personne."
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-boucle', q: "Quelle boucle as-tu repérée ce mois-ci ?", ph: "Exemple : dire oui à tout le monde, puis m’épuiser et en vouloir aux autres." },
