@@ -52,7 +52,7 @@
 .mc-sommaire span,.mc-rang-t span{display:grid;place-items:center;flex:0 0 1.8rem;height:1.8rem;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne);font:600 .9rem var(--display);color:var(--prune)}
 .mc-folio{display:none}
 .mc-page p{margin-bottom:.9rem}
-.mc-page a{color:var(--prune);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
+.mc-page a:where(:not(.btn)){color:var(--prune);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
 .mc-h{font-size:clamp(1.45rem,4vw,1.9rem);margin:1.4rem 0 .7rem;color:var(--prune)}
 .mc-d h3{font-size:1.3rem;margin:1.6rem 0 .6rem;color:var(--prune)}
 .mc-intro{font-size:1.05rem}
@@ -307,7 +307,14 @@
 .mc-autre p:not(.mc-sur){max-width:36rem;margin:.4rem auto .9rem}
 .mc-int-phrase{margin:.8rem 0 .3rem;font:400 1.15rem/1.4 var(--display);color:var(--prune)}
 .mc-vide input[type=range]{accent-color:#B8ABB1}
-@media print{.mc-pagenum,.mc-autre{display:none!important}}
+.mc-alire{margin:2.5rem 0 1rem;text-align:center}
+.mc-alire-l{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin-top:1.2rem;text-align:left}
+.mc-alire-c{display:flex;flex-direction:column;gap:.45rem;padding:1.2rem 1.25rem;border-radius:16px;background:#fff;border:1.5px solid var(--champagne-clair);color:var(--prune);text-decoration:none;transition:transform .15s,border-color .15s}
+.mc-alire-c:hover{transform:translateY(-2px);border-color:var(--champagne)}
+.mc-alire-c b{font-family:var(--display);font-weight:400;font-size:1.08rem;line-height:1.3}
+.mc-alire-c span{font-size:.95rem;line-height:1.5;color:var(--prune-doux)}
+.mc-alire-c em{font-style:normal;font-weight:600;font-size:.9rem;margin-top:auto;text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
+@media print{.mc-pagenum,.mc-autre,.mc-alire{display:none!important}}
 
 /* ───── Ta semaine maya (page « Mes 4 semaines ») ───── */
 .mc-maya{margin:1rem 0 1.2rem;padding:1rem 1.05rem;border-radius:16px;background:#FFF9F4;border:1px solid var(--champagne-clair,#F3DCC0)}

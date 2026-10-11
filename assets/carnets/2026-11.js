@@ -361,6 +361,14 @@ window.GENESOLIA_CARNET = {
     texte: "Pendant que ton carnet t’aide à reconnaître tes forces, ton suivi t’invite à te tourner vers tes ancêtres : nommer les oubliés, recevoir ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas. Les forces que tu reçois là-bas deviennent des appuis ici."
   },
 
+  /* À lire ce mois-ci : les articles du blog reliés au mois, en bas du carnet */
+  aLire: [
+    { lien: 'toussaint-ancetres-et-deuils.html', titre: 'Toussaint : honorer ses ancêtres et les deuils de sa lignée', resume: "D’où viennent ces fêtes, les deuils restés en suspens, des gestes simples et des questions à poser en famille." },
+    { lien: 'metiers-transmis-genealogie.html', titre: 'Le métier transmis de génération en génération', resume: "Reprendre le métier de son père, rompre avec lui, le métier qui saute une génération." },
+    { lien: 'loyaute-familiale-invisible.html', titre: 'La loyauté familiale invisible', resume: "Ce que c’est, des exemples concrets, les signes pour la reconnaître et choisir ta propre vie." },
+    { lien: 'le-ciel-du-mois.html', titre: 'Le ciel du mois', resume: "Les lunes, les éclipses, les rétrogrades et les nombres du mois, avec une lecture symbolique reliée à ta famille." }
+  ],
+
   aVenir: [
     { mois: 'Décembre', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, protéger ton énergie, et trouver ta juste place, même au cœur des fêtes.", image: 'assets/cartes/ma-place-mini.jpg' },
     { mois: 'Janvier', titre: 'Mon intention, mes valeurs', texte: "Clarifier ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' },

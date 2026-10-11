@@ -59,7 +59,9 @@ window.GENESOLIA_PLUS = {
       "Garde ta pierre d’appui dans ta poche toute la journée. Chaque fois que tu la touches, dis intérieurement une de tes forces.",
       "Appelle ou écris à un·e aîné·e de ta famille pour lui dire merci pour une chose précise qu’il ou elle t’a transmise.",
       "Refais ta roue et compare-la à celle du début du mois. Regarde quel domaine s’est appuyé sur tes forces, et note-le.",
-      "Regard sur ta semaine : quel appui emportes-tu dans l’hiver ? Écris son nom, et une phrase pour le remercier."
+      "Regard sur ta semaine : quel appui emportes-tu dans l’hiver ? Écris son nom, et une phrase pour le remercier.",
+      "Relis ton texte « Je suis » à voix haute, puis recopie la phrase qui te touche le plus aujourd’hui. Garde-la sur toi toute la journée.",
+      "Dernier jour du mois : relis ta lettre écrite depuis la fin du mois. Qu’est-ce qui est déjà vrai ? Écris-le en une phrase, et dis-toi merci."
     ] }
   ],
   suivi: [
