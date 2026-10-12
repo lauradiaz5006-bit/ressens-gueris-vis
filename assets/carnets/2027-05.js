@@ -1,6 +1,6 @@
-/* Genesolia · Le Cercle · Carnet de mai 2027, « J'avance » : « Prendre soin de moi »
-   Le carnet du mois est le côté « J'avance » du Cercle : retrouver ton rythme, te ressourcer, devenir pour toi-même une présence douce.
-   Le côté libération (« Ta mère, tes mères », la lignée des femmes) est dans Mon suivi (assets/suivi/2027-05.js).
+/* Genesolia · Le Cercle · Carnet de mai 2027, « J'avance » : « La vie circule à travers moi »
+   Le carnet du mois est le côté « J'avance » du Cercle : sentir la vie circuler à travers toi, regarder tes parents avec des yeux neufs, choisir ta façon à toi.
+   Le côté libération (« Comment ai-je appris à aimer ? », la lignée des femmes) est dans Mon suivi (assets/suivi/2027-05.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -9,8 +9,8 @@ window.GENESOLIA_CARNET = {
   mois: '2027-05',
   nomMois: 'mai 2027',
   moisSuivant: 'juin',
-  titre: 'Prendre soin de moi',
-  sousTitre: "Retrouver ton propre rythme, t'offrir ce qui te ressource, et apprendre à te parler avec la douceur que tu mérites.",
+  titre: 'La vie circule à travers moi',
+  sousTitre: "Sentir la vie circuler à travers toi, regarder tes parents avec des yeux neufs, et choisir avec douceur ce que tu gardes de ce qu’ils t’ont transmis.",
   pdf: '',
   image: 'assets/cartes/me-le-donner.jpg',
   citation: "La douceur que tu attends des autres, tu peux commencer à te l'offrir aujourd'hui.",
@@ -51,10 +51,10 @@ window.GENESOLIA_CARNET = {
   },
 
   theme: {
-    titre: 'Le mois de la douceur envers soi',
+    titre: 'Le mois où la vie circule',
     texte: [
       "Mai déborde de vie. Les haies se couvrent de fleurs, les soirées s'allongent, les invitations se multiplient, et tout semble pousser plus vite qu'on ne peut le suivre. C'est un mois joyeux, et c'est souvent aussi un mois où l'on s'oublie un peu : on dit oui à tout, on remplit chaque soirée, on court d'un rendez-vous à l'autre, et l'on arrive au 31 un peu essoufflé·e.",
-      "Ce carnet t'invite à faire de la place pour toi au cœur de cette abondance. Pas en ajoutant une tâche de plus à ta liste, mais en apprenant à te regarder autrement : avec la patience, la tendresse et l'attention que tu offres si facilement aux autres. Ce mois-ci, la personne que tu choisis de chouchouter, c'est toi."
+      "Ce carnet t’invite à sentir cette vie qui circule aussi à travers toi. Elle vient de tes parents, de leurs parents avant eux, et elle continue avec toi. Ce mois-ci, tu regardes tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, et ce que tu choisis de garder, avec la tendresse que tu offres si facilement aux autres."
     ],
     sousTitre: 'Pourquoi apprendre à se materner ?',
     texte2: [
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Observer, adoucir, t’offrir',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce qui te ressource dans tes journées, le deuxième à faire grandir ta voix intérieure bienveillante, le troisième à installer un vrai rendez-vous de douceur avec toi. Commence par celui qui t’appelle.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce qui te ressource dans tes journées, le deuxième à faire grandir ta voix intérieure bienveillante, le troisième à installer un vrai rendez-vous de douceur avec toi. Commence par celui qui t’appelle.",
   exercices: [
     { k: 'ex1', titre: 'Ma carte de ressourcement', type: 'tableau', rangs: 3,
       etiquettes: ['Mes matins', 'Mes soirées', 'Mes week-ends'],
@@ -165,7 +165,7 @@ window.GENESOLIA_CARNET = {
   },
 
   meditation: {
-    titre: 'Le jardin de mai',
+    titre: 'La vie circule à travers moi',
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Pose tes mains sur ton ventre ou sur tes cuisses. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
@@ -211,10 +211,53 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour juin ?", ph: "Exemple : garder ma douceur, et l’utiliser pour oser enfin lancer mon projet.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mes parents, de l’enfant à l’enfant",
+    objectif: "prendre conscience que mes parents ont fait de leur mieux avec ce qu’ils avaient reçu.",
+    sousObjectif: "déposer mes ressentis et mes reproches, comprendre leur histoire d’enfant, et repérer ce que je répète d’eux.",
+    duree: "en trois jours. Jour 1 : 30 min. Jour 2 : 20 min. Jour 3 : 30 min. Ensuite, 1 min par jour.",
+    avant: "Ces lettres restent pour toi : tu les gardes dans ton carnet ou tu les brûles. Si l’un de tes parents est parti, inconnu ou décédé, écris à la personne ou à l’image que tu en as.",
+    temps: [
+      {
+        titre: "Jour 1 · Ce que je ressens (30 min)",
+        etapes: [
+          "**La lettre à ma mère (15 min).** Tout ce que tu ressens pour elle, le beau comme le difficile : ce qui a été injuste pour toi, ce que tu lui reproches, ce que tu aurais aimé, ce dont tu la remercies.",
+          "**La lettre à mon père (15 min).** Même chemin, dans une lettre à part."
+        ]
+      },
+      {
+        titre: "Jour 2 · L’enfant que j’étais leur écrit (20 min)",
+        etapes: [
+          "**À ma mère (10 min).** À la place de l’enfant que tu étais, une lettre courte sur ce qui a été injuste pour elle quand elle était petite : « Maman, je sais que quand tu étais petite… »",
+          "**À mon père (10 min).** « Papa, je sais que quand tu étais petit… »"
+        ]
+      },
+      {
+        titre: "Jour 3 · Ils écrivent à leurs parents (30 min)",
+        etapes: [
+          "**La lettre de ma mère (12 min).** À la place de ta mère, imagine la lettre qu’elle aurait pu écrire à ses propres parents : ce qu’elle a ressenti, ce qui a été injuste pour elle, ce qu’elle attendait d’eux.",
+          "**La lettre de mon père (12 min).** Même chemin, à la place de ton père.",
+          "**Ce qui se répète (6 min).** Relis les six lettres côte à côte. Entoure ce qui revient d’une génération à l’autre : les mêmes reproches, les mêmes manques, les mêmes gestes. Termine par : « Je vois ce que je répète, et je choisis… »"
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque jour (1 min)",
+      texte: "Quand tu remarques un geste ou une phrase de tes parents dans ta bouche ou tes gestes, respire et dis intérieurement : « Je te vois. Je choisis ma façon à moi. »"
+    },
+    liens: [
+      ["conflits-avec-ses-parents.html", "En conflit avec tes parents : ce qui se joue vraiment"],
+      ["questions-a-poser-a-sa-famille.html", "Les questions à poser à sa famille"]
+    ],
+    ph: "Exemple : dans les six lettres, le même manque revient : être écouté·e. Je vois ce que je répète, et je choisis d’écouter mes enfants jusqu’au bout."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ta mère, tes mères',
-    texte: "Pendant que ton carnet t’apprend à te materner, ton suivi t’invite à regarder la lignée des femmes qui t’ont précédé·e : ce que tu as reçu de ta mère et de tes grands-mères, ce que tu gardes, et ce que tu choisis de laisser. Ce que tu comprends là-bas adoucit ta voix intérieure ici."
+    titre: "Comment ai-je appris à aimer ?",
+    texte: "Pendant que ton carnet t’aide à regarder tes parents avec des yeux neufs, ton suivi t’invite à regarder la lignée des femmes qui t’ont précédé·e : ce que tu as reçu de ta mère et de tes grands-mères, ce que tu gardes, et ce que tu choisis de laisser. Ce que tu comprends là-bas adoucit ta voix intérieure ici."
   },
 
   aVenir: [

@@ -59,57 +59,57 @@ window.GENESOLIA_PLUS = {
   ],
   suivi: [
     { jours: [
-      "Écris ton prénom complet en haut d’une page, avec tous tes prénoms dans l’ordre. Prononce-les une fois à voix basse et note ce que tu ressens.",
-      "Note de mémoire cinq prénoms de ta famille, des plus proches aux plus lointains. Souligne ceux qui ressemblent au tien, par le son ou par l’histoire.",
-      "Aujourd’hui, écoute comment on t’appelle : prénom, surnom, nom de famille, diminutif. Le soir, note qui t’a appelé·e et comment, en une ligne.",
-      "Regarde une photo de famille ancienne et essaie de nommer chaque personne. Écris les prénoms dont tu n’es pas sûr·e avec un point d’interrogation.",
-      "Écris ton prénom à la main, lentement, en belles lettres. Puis écris ton surnom d’enfant juste en dessous et remarque lequel te ressemble le plus aujourd’hui.",
-      "Choisis le prénom de ta lignée qui t’intrigue le plus. Écris en trois lignes ce que tu sais de la personne qui le portait, même très peu.",
-      "Relis ta liste et ton journal de la semaine : quel prénom revient, quelle façon de t’appeler te touche ? Écris une phrase pour résumer ce que tu as vu."
+      "Feuillette ton agenda de l’an dernier, ou ta mémoire. Note un mois où tu t’es senti·e plus fatigué·e ou plus inquiet·e que d’habitude.",
+      "Écris trois peurs qui reviennent dans ta vie, en un ou deux mots chacune. Garde la liste près de toi pour la semaine.",
+      "Aujourd’hui, remarque un moment où une inquiétude se présente. Note l’heure, le déclencheur, et l’endroit du corps où tu la sens.",
+      "Écris la phrase qui accompagne le plus souvent ta peur. Puis demande-toi qui, dans ta famille, la disait aussi.",
+      "Pose les pieds au sol, regarde autour de toi et nomme cinq objets que tu vois. Remarque ce que ce petit exercice change en toi.",
+      "Relis ton calendrier sensible et ajoute un moment que tu avais oublié : une fête, un anniversaire, une saison.",
+      "Regard sur ta semaine : quelle période te semble la plus sensible ? Écris-la en une phrase, avec douceur pour toi."
     ] },
     { jours: [
-      "Écris ce que tu crois savoir sur le choix de ton prénom, avant de demander à qui que ce soit. Cette version à toi compte aussi.",
-      "Choisis la personne à qui tu poseras ta question cette semaine. Note pourquoi elle, et le moment le plus simple pour lui parler.",
-      "Prépare ta question en une phrase douce et ouverte, comme « Comment avez-vous choisi mon prénom ? ». Dis-la une fois à voix haute pour l’apprivoiser.",
-      "Cherche la signification ou l’origine de ton prénom dans un livre ou en ligne. Note un mot qui te plaît et un mot qui te surprend.",
-      "Pose ta question à ta famille, par téléphone, à table ou par message. Note la réponse le jour même, telle quelle, sans la commenter.",
-      "Relis la réponse reçue et demande-toi : ce prénom penche-t-il vers la racine, ou vers le cœur ? Écris ce qui te vient, sans chercher la bonne réponse.",
-      "Regarde ta semaine : qu’as-tu appris sur ton prénom, et qu’est-ce que cela change dans la façon dont tu l’entends ? Note-le en deux ou trois lignes."
+      "Note trois dates familiales que tu connais : une naissance, un départ, un mariage. Même approximatives, elles comptent.",
+      "Pose ces dates à côté de tes périodes sensibles. Note les rapprochements comme des pistes, dans le tiroir « ce que je suppose ».",
+      "Choisis la personne à qui tu poseras ta question sur une date ou une période importante. Prépare une question ouverte et légère.",
+      "Pose ta question aujourd’hui, avec douceur. Le soir, note la réponse et range-la dans son tiroir.",
+      "Pour ta peur principale, fais deux colonnes : ce qui vient de ta vie, ce qui te semble venir de ta famille. Une ligne pour chacune suffit.",
+      "Ajoute dans ton arbre familial une date que tu as retrouvée cette semaine.",
+      "Regard sur ta semaine : quelle part de peur te semble appartenir à ta lignée ? Écris-la en une phrase, avec gratitude pour ce qu’elle a protégé."
     ] },
     { comprendre: {
-        titre: "Garder le prénom, rendre l’attente",
+        titre: "Rendre la peur, garder la force",
         texte: [
-          "Un prénom transmis arrive rarement seul. Avec lui viennent parfois une attente, une comparaison, une mission silencieuse : ressembler à une grand-mère admirée, consoler une perte, réussir là où d’autres n’ont pas pu. Personne ne te l’a demandé clairement, et pourtant tu l’as peut-être sentie très tôt. Libérer, cette semaine, ne veut pas dire rejeter ton prénom ni ceux qui l’ont choisi. Cela veut dire distinguer ce qui est à toi de ce qui appartient à leur histoire.",
-          "On garde souvent le meilleur sans le savoir : un courage, une douceur, une fidélité. Ce qu’on rend, c’est la charge qui allait avec. Le geste est symbolique, et il compte : écrire, dire à voix haute, plier une feuille. En nommant ce que tu rends, tu permets à ton prénom de redevenir léger, un prénom qu’on porte et non qu’on supporte. Par exemple, Louise porte le prénom d’une arrière-grand-mère connue pour ne jamais se plaindre. Dans sa lettre, elle garde sa force et lui rend le silence. Pendant le rituel, elle dit « Il est à moi » et sent sa gorge se dénouer.",
-          "Ta séance de libération du mois accompagne cette semaine. Tu y entends ton prénom prononcé pour la première fois, tu salues celles et ceux qui l’ont porté avant toi, puis tu le dis avec ta propre voix. Si une émotion monte, elle a le droit d’être là : elle montre simplement que ce prénom te touche. Tu peux faire une pause et revenir plus tard."
+          "Une peur héritée a souvent été utile. Pour un grand-père qui a perdu sa ferme, compter chaque sou était une façon de protéger les siens. Pour une arrière-grand-mère qui attendait des nouvelles, la vigilance était une façon d’aimer. Cette peur est peut-être arrivée jusqu’à toi, par les gestes et les phrases, comme une protection devenue trop lourde pour ta vie d’aujourd’hui.",
+          "Ton protocole suit un chemin simple. D’abord, tu poses ta peur en trois colonnes, pour faire la part entre ta vie et ton histoire familiale. Puis tu écris une lettre courte : « À toi, je te rends la part de peur qui t’appartient. Je garde ta force de… Aujourd’hui, je choisis la confiance. » Tu la confies au feu ou tu la déchires, puis tu bouges, tu souffles, tu reviens dans la pièce. Par exemple, Sophie rend à sa grand-mère la peur de tout perdre, et garde sa force de recommencer. Le lendemain, elle s’offre un bouquet de fleurs, pour le plaisir.",
+          "Ta séance du mois accompagne cette semaine. Tu tiens un petit coffret qui contient une peur, tu le rends avec respect à celle ou celui de ta lignée qui l’a connue en premier, tu reçois sa force, et tu choisis la confiance, ici et maintenant. Si une émotion monte, elle a sa place : reviens à ton souffle, et reprends quand tu veux."
         ]
       },
       jours: [
-        "Écris deux colonnes : « Ce que je garde » et « Ce que je rends ». Note un mot dans chaque colonne pour ton prénom, sans réfléchir trop longtemps.",
-        "Pense à la personne qui portait ton prénom avant toi, ou qui l’a inspiré. Dis-lui intérieurement merci pour une qualité précise que tu veux garder.",
-        "Relis ce que tu as noté sur le prénom d’un frère, d’une sœur ou d’un enfant. Écris en une phrase ce que chacun·e a reçu de l’histoire.",
-        "Commence ta lettre par « Cher prénom que je porte… » et écris seulement cinq lignes aujourd’hui. Tu la termineras un autre jour, à ton rythme.",
-        "Dis à voix haute, une seule fois : « Ce qui appartient aux autres, je le leur laisse. » Remarque ce qui se passe dans tes épaules et ton souffle.",
-        "Prononce ton prénom trois fois devant un miroir, lentement, en te regardant dans les yeux. Puis note le mot qui décrit le mieux ce que tu as ressenti.",
-        "Regarde ta semaine : qu’as-tu rendu, qu’as-tu choisi de garder ? Écris une phrase qui commence par « Mon prénom, aujourd’hui, c’est… »."
-      ] },
+      "Choisis tes trois ancres de sécurité : un objet, une image, une phrase. Pose-les ensemble dans un coin calme.",
+      "Remplis « Ma peur en trois colonnes » pour une première peur. Une ligne par colonne suffit.",
+      "Prépare ta lettre courte : écris le prénom de la personne, ou « ceux d’avant moi », et la force que tu gardes.",
+      "Prépare le matériel du feu : un récipient en métal ou en terre cuite, une surface stable, un verre d’eau. Ou choisis de déchirer ta lettre.",
+      "Vis ton protocole, tes ancres près de toi : les trois colonnes, la lettre, le feu ou la feuille déchirée, puis le mouvement.",
+      "Après ton protocole, secoue doucement les mains, les bras, les jambes. Puis sors marcher quelques minutes au grand air.",
+      "Regard sur ta semaine : quelle part de peur as-tu rendue, et quelle force gardes-tu ? Une ligne pour chacune."
+    ] },
     { jours: [
-        "Présente-toi aujourd’hui avec ton prénom complet, au moins une fois : au téléphone, dans un commerce, en réunion. Remarque comment ta voix le porte.",
-        "Signe tous tes messages de la journée avec ton prénom, en entier. Le soir, note si quelqu’un l’a remarqué, et ce que tu as ressenti.",
-        "Quand une vieille attente liée à ton prénom revient, fais la respiration 5, 2, 7 et dis intérieurement : « Je porte ce prénom à ma façon. »",
-        "Écris ton intention signée sur une belle carte, à la main, avec ton prénom en bas. Pose-la là où tu la verras chaque matin.",
-        "Si un surnom ne te convient plus, prépare une phrase douce pour le dire à une personne proche. Ose-la aujourd’hui, ou garde-la pour plus tard.",
-        "Raconte à quelqu’un de confiance une chose que tu as découverte sur ton prénom ce mois-ci. Choisis une personne qui t’écoute sans juger.",
-        "Regarde ta semaine : combien de fois as-tu porté ton prénom exprès ? Note le moment qui t’a rendu·e le plus fier·e, et garde-le pour février."
-      ],
+      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis : « Aujourd’hui, je suis en sécurité, et je vis ma vie. »",
+      "Note tes périodes sensibles dans ton agenda, avec ta phrase de sécurité à chaque fois.",
+      "Pour une période sensible, prévois un rendez-vous doux : une promenade, un repas avec une amie, une soirée au calme. Écris-le dans ton agenda.",
+      "Pose aujourd’hui ton geste de confiance, même très petit. Le soir, note quand, comment, et ce que tu as ressenti.",
+      "Colore une racine apaisée sur ton arbre de vie, avec une couleur douce que tu aimes.",
+      "Garde ton ancre dans ta poche toute la journée. Touche-la chaque fois que tu penses à ta phrase de sécurité.",
+      "Regard sur ta semaine : quel geste de confiance as-tu posé, et quelle peur te semble plus légère ? Note-le en une phrase."
+    ],
       exercices: [
-        { k: "plus4", titre: "Ce que mon prénom garde, et qui m’appuie", type: "questions",
-          consigne: "Pour que ta nouvelle façon de porter ton prénom tienne dans le temps, prends quelques minutes pour l’ancrer. Réponds à ces trois questions en pensant à l’année qui commence.",
-          pourquoi: "Un geste nouveau tient mieux quand on sait ce qu’on garde, à quel moment le répéter, et sur qui s’appuyer. Écrire ces repères t’aide à reprendre ton prénom chaque fois que l’ancienne habitude revient.",
+        { k: "plus4-jan", titre: "Garder la confiance vivante", type: "questions",
+          consigne: "Tu as rendu une part de peur et posé des gestes de confiance cette semaine. Pour que cette confiance t’accompagne toute l’année, réponds à ces trois questions, simplement.",
+          pourquoi: "La confiance grandit quand elle a des rendez-vous réguliers, et quand quelqu’un autour de toi la soutient. Tes périodes sensibles deviennent alors des moments préparés, accompagnés.",
           questions: [
-            { k: "plus4-a", q: "Quelle qualité reçue avec ton prénom choisis-tu de garder et de faire vivre cette année ?", ph: "Exemple : le courage de ma grand-mère Jeanne, mais avec ma joie à moi.", lignes: 2 },
-            { k: "plus4-b", q: "À quel moment précis de ta semaine vas-tu porter ton prénom exprès, pour que ce geste devienne une habitude ?", ph: "Exemple : chaque lundi, en me présentant à la réunion d’équipe, je dirai « Jeanne » et pas « Jeannette ».", lignes: 2 },
-            { k: "plus4-c", q: "Quelle personne de ton entourage peut t’appeler par ton prénom choisi et t’aider à tenir ce changement ?", ph: "Exemple : mon amie Sarah. Je vais lui demander de m’appeler Jeanne, même quand les autres disent encore mon surnom.", lignes: 2 }
+            { k: "plus4-jan-a", q: "Quelle est ta prochaine période sensible, et quel rendez-vous doux prévois-tu pour elle ?", ph: "Exemple : fin novembre. Je prévois un week-end chez mon amie Claire, avec de longues promenades.", lignes: 2 },
+            { k: "plus4-jan-b", q: "Qu’est-ce que tu choisis de garder de cette étape passée avec ta peur ?", ph: "Exemple : ma phrase de sécurité, mon galet dans la poche, et la fierté d’avoir osé regarder.", lignes: 2 },
+            { k: "plus4-jan-c", q: "Qui peut t’accompagner les jours où la peur revient ?", ph: "Exemple : mon frère, à qui j’ai raconté l’histoire de la ferme, et qui comprend tout de suite.", lignes: 2 }
           ] }
       ] }
   ]

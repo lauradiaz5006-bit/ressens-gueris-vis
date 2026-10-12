@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juin 2027 : « Du côté des pères »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juin 2027 : « Ai-je le droit d’aller plus loin ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-06-ca6dfabe67.pdf',
   nomMois: 'juin 2027',
   moisSuivant: 'juillet',
-  titre: 'Du côté des pères',
-  sousTitre: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.",
+  titre: "Ai-je le droit d’aller plus loin ?",
+  sousTitre: "Branches de ton arbre de vie · Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.",
   citation: "Tu peux reconnaître ce que tu as reçu sans tout accepter.",
   audio: '',
   audioCourt: '',
@@ -202,6 +202,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une silhouette, une distance, un objet tendu, ce que tu as posé…", ph: "Exemple : je suis resté·e loin, puis j’ai fait deux pas. Il m’a tendu un vieux couteau de poche. J’ai posé au sol une pierre très lourde, et j’ai respiré." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Branches · Ai-je le droit d’aller plus loin ?",
+    intro: "**Objectif :** m’autoriser à réussir. **Sous-objectif :** reconnaître le chemin de ma lignée, mes talents, et poser une vraie action. **Intensité douce.**",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**La frise de ma lignée (10 min).** Les réussites, les échecs, les arrêts en chemin, et le contexte de chaque époque.",
+          "**Mon plafond (10 min).** « Dans ma famille, on s’arrête à… ». Puis le moment où tu freines quand ça avance pour toi."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Leurs efforts (10 min).** Pour chaque ancêtre noté·e, une phrase : « Je reconnais ton courage de… à une époque où… »",
+          "**Mes talents (10 min).** Tout ce que tu sais faire, même les petites choses.",
+          "**Mon diplôme (15 min).** « Je soussigné·e… reconnais mes talents de… et je m’accorde le droit de réussir. » Lis un discours d’une minute à voix haute, signe, et affiche ton diplôme.",
+          "**L’élan (5 min).** Imagine ta lignée derrière toi qui t’encourage, ou dis simplement : « Je m’accorde le droit d’aller plus loin. »",
+          "**Mon action (5 min).** Une action réelle pour cette semaine, avec le jour et l’heure."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Des bourgeons pour tes talents.",
+          "**En fin de semaine (5 min).** Ce que ton action a ouvert."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : six bourgeons : écrire, cuisiner, écouter, organiser, chanter, rassembler."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-lignee', q: "Qu’as-tu découvert de la lignée des hommes de ta famille ce mois-ci ?", ph: "Exemple : de père en fils, personne n’a jamais dit « je suis fier de toi ». Ce n’était pas un manque d’amour, c’était une chaîne." },
@@ -217,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Écouter les phrases familiales sur l’argent, regarder ce que ta lignée a vécu, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
-    { mois: 'Août', titre: 'Racines, départs et lieux', texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
-    { mois: 'Septembre', titre: 'Les métiers de la lignée', texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' }
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Écouter les phrases familiales sur l’argent, regarder ce que ta lignée a vécu, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Août', titre: "D’où venons-nous ?", texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
+    { mois: 'Septembre', titre: "Qu’est-ce que je transmets ?", texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };

@@ -66,57 +66,57 @@ window.GENESOLIA_PLUS = {
   ],
   suivi: [
     { jours: [
-      "Écris sur un papier les prénoms de tes quatre grands-parents. S’il en manque un, écris « je ne sais pas » à sa place : c’est déjà une information.",
-      "Ouvre un album ou une boîte de photos de famille pendant deux minutes. Repère un visage que tu ne sais pas nommer, et note où tu l’as vu.",
-      "Pense à une personne de ta famille dont on parle à mi-voix. Écris son prénom, ou « le frère de… », puis respire trois fois.",
-      "Aujourd’hui, remarque une expression, un geste ou une recette qui vient de tes ancêtres. Note-le dans ton journal, avec le prénom qui y est relié.",
-      "Prononce à voix haute, une fois, le prénom de la personne la plus oubliée de ta liste. Remarque ce que ça fait de l’entendre dans la pièce.",
-      "Relis ta liste des oubliés et ajoute, pour chaque personne, un seul mot : ce que tu as ressenti en l’écrivant cette semaine.",
-      "Regard sur ta semaine : qui as-tu nommé pour la première fois ? Écris son prénom, et ce que ça t’a fait."
+      "Écris sur un papier trois choses que tu fais bien. À côté de chacune, note qui, dans ta famille, faisait peut-être pareil.",
+      "Ouvre un album, une boîte de photos ou un tiroir d’objets de famille pendant deux minutes. Choisis une image ou un objet qui te parle d’un don reçu.",
+      "Retrouve une recette, une chanson ou une expression de ta famille. Écris-la, avec le prénom de la personne qui te l’a transmise.",
+      "Aujourd’hui, remarque un geste que tu fais comme un parent ou un grand-parent. Note-le dans ton journal des dons.",
+      "Pense à une phrase douce entendue enfant. Écris-la en grand et lis-la à voix haute une fois.",
+      "Relis ton inventaire des dons et ajoute une ligne : un don que tu avais oublié au début de la semaine.",
+      "Regard sur ta semaine : quel don t’a le plus touché·e ? Écris-le en une phrase, avec un merci pour la personne qui te l’a transmis."
     ] },
     { jours: [
-      "Note les dates que tu connais dans ta famille : naissances, décès, mariages. Même trois dates suffisent pour commencer à voir des échos.",
-      "Cherche un prénom qui revient dans ton arbre, ou qui a été redonné. Écris-le, avec les personnes qui l’ont porté avant toi.",
-      "Repère un sujet qui fait changer de conversation chez vous. Écris-le en une phrase, et qui se lève ou se tait quand il arrive.",
-      "Ferme les yeux et demande-toi : ce qui a été tu dans ma famille touche-t-il la racine ou le cœur ? Note le mot qui vient en premier.",
-      "Pose aujourd’hui ta question à un membre de ta famille, avec douceur. Commence par un souvenir heureux pour ouvrir la porte.",
-      "Ajoute dans ton arbre familial une personne oubliée que tu as retrouvée cette semaine, même avec un seul prénom ou une seule date.",
-      "Regard sur ta semaine : quel silence as-tu commencé à entendre ? Écris-le en une phrase, avec bienveillance pour celles et ceux qui l’ont gardé."
+      "Écris trois mots pour les poids que tu sens en toi : une peur, une habitude, une phrase. Une ligne suffit pour chacun.",
+      "Prends le premier poids de ta liste et écris dans quel tiroir il va : ce que je sais, ce qu’on m’a raconté, ce que je suppose.",
+      "Choisis la personne à qui tu poseras ta question. Prépare une question ouverte et légère, qui commence par un souvenir heureux.",
+      "Pose ta question aujourd’hui, avec douceur. Le soir, note la réponse et range-la dans son tiroir.",
+      "Pour un poids, cherche le don qui l’accompagne peut-être : le courage derrière la dureté, la prudence derrière la peur. Note-le.",
+      "Ajoute dans ton arbre familial un métier, un savoir-faire ou un lieu que tu as découvert cette semaine.",
+      "Regard sur ta semaine : quel poids choisis-tu de rendre ce mois-ci ? Écris-le en une phrase, avec le don que tu gardes à côté."
     ] },
     { comprendre: {
         titre: "Recevoir d’abord, puis rendre avec respect",
         texte: [
-          "Libérer ce que ta lignée a laissé en suspens ne veut pas dire tourner le dos à tes ancêtres. C’est même l’inverse : tu les regardes en face, avec leurs forces et leurs peines, et tu leur redonnes leur juste place. Une personne oubliée, un deuil jamais fait, une peur de manquer née d’une guerre : ce n’était pas à toi de les porter, mais tu les as peut-être portés quand même, par amour et sans le savoir.",
-          "Cette semaine suit un ordre précis. D’abord, tu reçois : tu reconnais en toi une force qui vient d’eux, un courage, une endurance, un talent. Ensuite seulement, tu rends : dans ta lettre, puis à la lumière de la bougie, tu laisses à chacun·e ce qui lui appartient. Recevoir avant de rendre permet de garder le lien. Par exemple, Thomas a d’abord reconnu l’endurance de son arrière-grand-père, mineur dans le Nord. Puis, dans sa lettre, il lui a rendu la peur de ne jamais en faire assez. Il garde la force, il pose le poids.",
-          "Le rituel de la bougie des ancêtres rassemble tout cela en quelques minutes : nommer chaque personne, lui dire qu’elle a sa place, recevoir la vie transmise. Pour beaucoup, c’est un moment simple et émouvant. Si une émotion monte, tu peux faire une pause, et reprendre un autre jour. Rendre avec respect se fait à ton rythme, comme les racines travaillent sous la terre de novembre : sans bruit, mais sûrement."
+          "Rendre un poids à ta lignée, c’est garder le lien. Tu regardes tes ancêtres en face, avec leurs forces et leurs peines, et tu redonnes à chacun·e sa juste place. Une peur de manquer née d’années difficiles, une habitude de tout porter, une phrase dure : tu les as peut-être portées par amour, et tu peux aujourd’hui les rendre avec le même amour.",
+          "Ton protocole suit un ordre précis. D’abord, tu reconnais ce que tu gardes : ta table des dons et tes trois personnes t’y aident. Ensuite seulement, tu écris ta lettre et tu rends le poids choisi, par le feu ou en déchirant la feuille. Enfin, tu honores ta lignée pour la vie transmise. Par exemple, Thomas reconnaît d’abord l’endurance de son arrière-grand-père, mineur dans le Nord. Puis, dans sa lettre, il lui rend l’idée qu’il faut s’épuiser pour mériter. Il garde la force, il pose le poids.",
+          "Ta séance de libération du mois accompagne cette semaine. Sur un chemin, dans une lumière douce, tu sens derrière toi la longue file de ta lignée, tu reçois ce qu’elle te tend, et tu déposes ce qui lui appartient. Si une émotion monte, elle a sa place : fais une pause, et reprends quand tu veux."
         ]
       },
       jours: [
-      "Écris trois forces que tu reconnais en toi et qui pourraient venir de ta lignée. À côté de chacune, note un prénom, même au hasard.",
-      "Choisis la personne à qui tu vas écrire ta lettre. Écris seulement la première phrase : « Je suis… », avec le lien qui vous unit.",
-      "Prépare ta bougie, ta liste des oubliés et, si tu en as, une photo. Pose-les ensemble dans un coin calme, prêts pour ton rituel.",
-      "Écris dans ta lettre ce que tu aurais aimé demander à cette personne. Une ou deux questions suffisent, elles n’ont pas besoin de réponse.",
-      "Termine ta lettre en deux phrases : ce que tu gardes de ce qu’elle t’a transmis, et ce que tu lui rends avec respect. Lis-les une fois à voix basse.",
-      "Après ton rituel, sors marcher cinq minutes dans l’air de novembre. Remarque tes pas, ton souffle, et ce qui te semble plus léger.",
-      "Regard sur ta semaine : qu’as-tu reçu de ta lignée, et qu’as-tu rendu ? Une ligne pour chacun suffit."
+      "Prépare ta table des dons : choisis trois à cinq objets qui représentent ce que tu gardes, et pose-les ensemble dans un coin calme.",
+      "Remplis l’exercice « Ce que je garde, ce que je rends » pour une première personne. Une ligne par question suffit.",
+      "Écris la première partie de ta lettre : « J’ai porté pendant longtemps… ». Quelques lignes suffisent.",
+      "Écris la deuxième partie : « Je comprends que cela vient peut-être de… », puis « Tu faisais avec ce que tu avais. »",
+      "Écris la dernière partie : « Je te rends… et je garde ton… ». Lis ta lettre une fois, à voix basse.",
+      "Vis ton protocole : la lettre, le feu ou la feuille déchirée, puis le moment pour honorer ta lignée. Après, sors marcher cinq minutes au grand air.",
+      "Regard sur ta semaine : qu’as-tu gardé de ta lignée, et qu’as-tu rendu ? Une ligne pour chacun suffit."
     ] },
     { jours: [
-      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis : « Moi, je choisis la force qu’ils m’ont donnée. »",
-      "Écris sur un papier la force de ta lignée que tu fais vivre cette semaine, avec le prénom de l’ancêtre. Pose-le près de ton lit.",
-      "Fais aujourd’hui un premier geste pour cette force, même très petit. Le soir, note quand, comment, et ce que tu as ressenti.",
-      "Prononce à table, ou dans une conversation, le prénom d’un·e ancêtre nommé·e ce mois-ci. Raconte une chose que tu sais de lui ou d’elle.",
-      "Si une vieille peur familiale se présente aujourd’hui, remarque-la sans la combattre. Dis-lui : « Je te reconnais. Tu appartiens à leur histoire. »",
-      "Regarde une photo d’un·e ancêtre ou un objet hérité pendant une minute. Dis-lui intérieurement ce que tu fais vivre de sa force en ce moment.",
-      "Regard sur ta semaine : quelle force as-tu portée, et quel poids as-tu laissé derrière toi ? Note-le en une phrase."
+      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis : « Moi, je choisis le don qu’ils m’ont confié. »",
+      "Écris sur un papier le don que tu fais vivre cette semaine, avec le prénom de la personne. Pose-le près de ton lit.",
+      "Fais aujourd’hui un premier geste pour ce don, même très petit. Le soir, note quand, comment, et ce que tu as ressenti.",
+      "Pose sur ton arbre de vie une feuille dorée pour chaque don reçu, et écris dessus un mot ou un prénom.",
+      "Raconte à un proche l’histoire d’un don de ta famille : d’où il vient, et comment tu le fais vivre aujourd’hui.",
+      "Si un vieux poids se présente aujourd’hui, accueille-le avec calme. Dis-lui : « Je te reconnais. Tu appartiens à leur histoire. »",
+      "Regard sur ta semaine : quel don as-tu fait vivre, et quel poids te semble plus léger ? Note-le en une phrase."
     ],
       exercices: [
-        { k: "plus4", titre: "Garder la force reçue vivante", type: "questions",
-          consigne: "Tu as choisi une force de ta lignée et tu l’as fait vivre cette semaine. Pour qu’elle continue de circuler après novembre, réponds à ces trois questions, simplement.",
-          pourquoi: "Une force reçue devient vraiment la tienne quand elle a sa place dans ton quotidien, et quand quelqu’un autour de toi la reconnaît. Tu passes de la loyauté invisible au choix conscient.",
+        { k: "plus4-nov", titre: "Garder le don vivant", type: "questions",
+          consigne: "Tu as choisi un don de ta lignée et tu l’as fait vivre cette semaine. Pour qu’il continue de circuler après cette étape, réponds à ces trois questions, simplement.",
+          pourquoi: "Un don reçu devient vraiment le tien quand il a sa place dans ton quotidien, et quand quelqu’un autour de toi le reconnaît. Tu passes de la loyauté discrète au choix conscient.",
           questions: [
-            { k: "plus4-a", q: "À quel moment régulier de ta vie vas-tu faire vivre cette force, après ce mois-ci ?", ph: "Exemple : le premier dimanche de chaque mois, je cuisine une recette de ma grand-mère Jeanne.", lignes: 2 },
-            { k: "plus4-b", q: "Qu’est-ce que tu choisis de garder de ce mois passé avec tes ancêtres ?", ph: "Exemple : la bougie allumée le 14 novembre pour Louise, et le prénom de Marcel prononcé à table.", lignes: 2 },
-            { k: "plus4-c", q: "Qui peut partager cette force avec toi, ou t’aider à la faire vivre ?", ph: "Exemple : ma fille, à qui je vais apprendre la recette, et ma tante, qui connaît les histoires de la famille.", lignes: 2 }
+            { k: "plus4-nov-a", q: "À quel moment régulier de ta vie vas-tu faire vivre ce don, après cette étape ?", ph: "Exemple : le premier dimanche de chaque mois, je cuisine une recette de ma grand-mère Jeanne.", lignes: 2 },
+            { k: "plus4-nov-b", q: "Qu’est-ce que tu choisis de garder de cette étape passée avec ta lignée ?", ph: "Exemple : ma table des dons, que je laisse en place quelques semaines, et la légèreté après ma lettre.", lignes: 2 },
+            { k: "plus4-nov-c", q: "À qui aimerais-tu transmettre ce don, à ton tour ?", ph: "Exemple : à ma fille, à qui je vais apprendre la recette, et à mon neveu, qui adore bricoler.", lignes: 2 }
           ] }
       ] }
   ]

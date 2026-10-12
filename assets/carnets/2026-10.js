@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet d'octobre 2026, « J'avance » : « Mon point de départ »
    Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
-   Le côté libération (« Ce qui revient », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
+   Le côté libération (« Qui sont les miens ? », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -114,7 +114,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Voir, choisir, avancer',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce qui te nourrit et ce qui te vide, le deuxième à imaginer ta vie à 10 sur 10, le troisième à poser ton tout premier pas. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce qui te nourrit et ce qui te vide, le deuxième à imaginer ta vie à 10 sur 10, le troisième à poser ton tout premier pas. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: 'Ce qui me nourrit, ce qui me vide', type: 'tableau', rangs: 3,
       etiquettes: ['Dans mes journées', 'Dans mes relations', 'Dans mon cadre de vie'],
@@ -207,9 +207,65 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour novembre ?", ph: "Exemple : continuer à nourrir ma joie, et m’appuyer davantage sur mes amies.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mes bulles et mon cercle de lumière · Ancrer mes solutions",
+    objectif: "sortir de l’alerte et poser mes solutions.",
+    sousObjectif: "voir ce qui pèse, choisir ce que je veux ressentir, ancrer mon intention.",
+    duree: "en deux jours. Jour 1 : environ 30 minutes. Jour 2 : environ 20 minutes. À refaire chaque fois qu’un frein se présente, au moins une fois par mois.",
+    temps: [
+      {
+        titre: "Jour 1 · Voir et choisir (30 minutes)",
+        etapes: [
+          "**Les bulles (5 minutes).** Dessine-toi. Au-dessus de ta tête, fais naître des bulles et dépose dans chacune un souci, une crainte, ce qui pèse sur ton cœur. Colore chaque bulle de l’émotion qu’elle porte : rouge, noir, gris, la couleur qui vient.",
+          "**Le cercle (5 minutes).** Sur une deuxième feuille, dessine-toi à nouveau, entouré·e d’un grand cercle de lumière. Ici, l’espace reste libre et doux. Respire : tu es dans ton cercle.",
+          {
+            t: "**Le tableau (15 minutes).** Trace trois colonnes :",
+            liste: [
+              "**Ce que je vis** : le problème, avec l’émotion et le ressenti qu’il réveille (« une grande tension quand l’argent manque »).",
+              "**Ce que j’aimerais vivre à la place** : le ressenti, l’émotion, la solution idéale.",
+              "**Combien de fois** j’ai vécu ce ressenti. Si cela remonte à très loin, écris « beaucoup »."
+            ],
+            fin: "Si une émotion monte, pose ton stylo, regarde ton dessin du cercle et respire trois fois avant de continuer."
+          },
+          "**Mes solutions (5 minutes).** Autour de ton cercle, dessine une grande bulle de lumière et écris-y toutes tes solutions. Laisse beaucoup de place : la vie peut t’offrir plus grand et plus beau encore. À l’intérieur du cercle, note ce que tu choisis de ressentir : paix, amour, joie, légèreté."
+        ]
+      },
+      {
+        titre: "Jour 2 · Ancrer (20 minutes)",
+        etapes: [
+          "**Laisser partir (5 minutes).** Brûle le dessin des bulles en sécurité, dans un récipient adapté, ou déchire-le en petits morceaux, ou enterre-le au pied d’un arbre. Garde précieusement le dessin de ton cercle.",
+          "**L’intention (5 minutes).** Allume une bougie, ton dessin devant toi, et dis calmement : « Je laisse la vie m’apporter des solutions adaptées à ma situation. Je choisis de vivre mes solutions (nomme-les), pleinement, dans cette vie. Tout évolue, chaque chose est à sa juste place, et tout est mouvement. À ce mouvement, je donne un sens, et ce sens, je l’accueille dans ma vie, maintenant. » Remercie, selon ta spiritualité.",
+          "**Le protocole (10 minutes).** Enchaîne avec le protocole ci-dessous."
+        ]
+      },
+      {
+        titre: "Protocole · Ancrer mes solutions (10 minutes)",
+        intro: "Le jour 2 de l’exercice, puis une fois par semaine pendant le mois.",
+        etapes: [
+          "**S’ancrer (2 minutes).** Ferme les yeux. Descends dans tes racines, profondément dans la terre, puis élève-toi doucement au-dessus de la planète.",
+          "**Le calme (2 minutes).** Relie-toi à la grande lumière qui est là. Prends le temps de sentir le calme : c’est le plus important.",
+          "**L’intention (3 minutes).** Pose là-haut ton intention, avec tes solutions. Laisse-la résonner dans l’univers et se répandre partout, comme si tes guides t’entendaient et te répondaient. Reste jusqu’à sentir l’amour en toi, comme si tu étais une avec cette source de lumière, comme si c’était déjà là. Ton intention est puissante : pose-la, et crois-y.",
+          "**Les freins (1 minute).** Regarde ton corps. Restent-ils une peur, un « je mérite peu », une résistance ? Observe-les avec douceur. Note-les en ouvrant les yeux : tu les regarderas dans ton arbre (à qui appartient cette croyance ?), puis tu refais l’exercice.",
+          "**Remercier et relâcher (1 minute).** Remercie pour ces expériences, demande des expériences plus élevées en fréquence, puis relâche tout.",
+          "**Apaiser le corps (1 minute).** Détends ton corps, envoie à chaque cellule de l’amour et de la compassion. Les choses changent : tu en as le droit."
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque jour (1 à 2 minutes)",
+      texte: "Chaque matin, regarde ton dessin du cercle. Puis une petite action vers une de tes solutions, même quelques mots, comme une prière. Si tu le souhaites, crée ton tableau de visualisation (guide [« Créer mon tableau de visualisation »](tableau-de-vision.html), environ 1 heure, une fois par mois)."
+    },
+    liens: [
+      ["tableau-de-vision.html", "Créer mon tableau de visualisation"]
+    ],
+    ph: "Exemple : dans mon cercle, je choisis la paix et la légèreté. Ma première solution : demander de l’aide le mardi."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ce qui revient',
+    titre: "Qui sont les miens ?",
     texte: "Pendant que ton carnet t’aide à choisir ce que tu veux construire, ton suivi t’aide à repérer la boucle qui se rejoue dans ta vie, à voir d’où elle vient dans ton histoire, et à poser un premier geste différent. Ce que tu libères là-bas nourrit ta roue ici."
   },
 

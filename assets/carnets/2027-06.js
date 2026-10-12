@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de juin 2027, « J'avance » : « Oser agir »
    Le carnet du mois est le côté « J'avance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
-   Le côté libération (« Du côté des pères », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
+   Le côté libération (« Ai-je le droit d’aller plus loin ? », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Décider, structurer, tenir',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce que tu repousses et pourquoi, le deuxième à découper ton projet en trois étapes concrètes, le troisième à tenir chaque jour une petite promesse envers toi. Fais-les dans l’ordre si tu peux : ils s’enchaînent.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce que tu repousses et pourquoi, le deuxième à découper ton projet en trois étapes concrètes, le troisième à tenir chaque jour une petite promesse envers toi. Fais-les dans l’ordre si tu peux : ils s’enchaînent.",
   exercices: [
     { k: 'ex1', titre: 'Ce que je repousse', type: 'tableau', rangs: 3,
       etiquettes: ['Un projet qui me tient à cœur', 'Une décision en attente', 'Une petite chose remise depuis longtemps'],
@@ -211,9 +211,42 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour juillet ?", ph: "Exemple : continuer à avancer à mon rythme, et oser enfin dire combien vaut mon travail.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mes actions du mois",
+    objectif: "passer de l’envie à l’action.",
+    sousObjectif: "transformer mes intentions en actions concrètes et observer ce qui se met en mouvement quand j’agis.",
+    duree: "début du mois : 20 min. Chaque jour : 5 min. Chaque semaine : 10 min. Fin du mois : 10 min.",
+    temps: [
+      {
+        titre: "Début du mois (20 min)",
+        etapes: [
+          "**Mes envies d’agir (5 min).** Tout ce que tu veux faire, petit ou grand, surtout ce que tu repousses depuis longtemps.",
+          "**Choisir (5 min).** 4 actions, une par semaine, et une petite action de 5 minutes à faire chaque jour.",
+          "**Le premier pas (5 min).** Pour chaque action, le premier geste concret, le jour et le lieu.",
+          "**Mon engagement (5 min).** « Ce mois-ci, j’ose… ». Signe et affiche cette feuille là où tu la vois chaque matin."
+        ]
+      },
+      {
+        titre: "Chaque jour (5 min)",
+        intro: "Ta petite action, puis coche la journée."
+      },
+      {
+        titre: "Chaque semaine (10 min)",
+        intro: "Ce que tu as fait, ce que tu as ressenti, la peur qui s’est montrée, ce qui a bougé autour de toi : rencontres, signes, propositions. Ajuste l’action de la semaine suivante."
+      },
+      {
+        titre: "Fin du mois (10 min)",
+        intro: "Relis tout et célèbre chaque action par un petit geste de fête. Termine par : « Je suis une personne qui ose… »"
+      }
+    ],
+    ph: "Exemple : ce mois-ci, j’ose appeler la librairie pour proposer un atelier. Ma petite action du jour : cinq minutes d’écriture."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Du côté des pères',
+    titre: "Ai-je le droit d’aller plus loin ?",
     texte: "Pendant que ton carnet t’aide à oser agir, ton suivi t’invite à regarder ton père, ton grand-père et les hommes de ta lignée : ce que tu as reçu d’eux, en élan comme en retenue, et ce que tu choisis d’en faire. Ce que tu reconnais là-bas libère souvent ton passage à l’action ici."
   },
 

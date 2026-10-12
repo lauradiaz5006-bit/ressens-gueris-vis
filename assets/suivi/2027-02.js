@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de février 2027 : « Le couple et les schémas amoureux »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de février 2027 : « Quel projet a-t-on posé sur moi ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,14 +11,14 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-02-0d10ec64c2.pdf',
   nomMois: 'février 2027',
   moisSuivant: 'mars',
-  titre: 'Le couple et les schémas amoureux',
-  sousTitre: "Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.",
-  citation: "Tu peux aimer autrement que celles et ceux qui t’ont précédé·e.",
+  titre: "Quel projet a-t-on posé sur moi ?",
+  sousTitre: "Tronc de ton arbre de vie · Découvrir l’histoire de ton prénom, voir les attentes posées sur toi, et écrire ton propre contrat avec la vie.",
+  citation: "Mon prénom m’a été donné. Ma vie, je la choisis.",
   audio: '',
   audioCourt: '',
-  saisonLien: "En février, la lumière revient discrètement : chaque soir, le jour gagne quelques minutes sans bruit. C’est le bon moment pour éclairer doucement les histoires d’amour de ta famille, celles qu’on raconte et celles qu’on tait, et laisser entrer un peu de clarté dans ta propre façon d’aimer.",
-  intensiteQ: "À quel point ce qui se répète dans ta vie amoureuse pèse-t-il aujourd’hui ?",
-  souhaitPh: "Exemple : cette habitude de choisir des personnes qui ne sont jamais vraiment disponibles.",
+  saisonLien: "Février est le mois des premières lueurs : les jours rallongent, la sève commence à monter dans les arbres, encore invisible. C’est le bon moment pour revenir à ce qui t’accompagne depuis ta naissance : ton prénom, et les espoirs que ta famille a posés sur toi. Comme la sève sous l’écorce, ton propre élan est déjà là, prêt à grandir à ta façon.",
+  intensiteQ: "À quel point les attentes posées sur toi depuis l’enfance pèsent-elles sur ta vie aujourd’hui ?",
+  souhaitPh: "Exemple : cette impression de devoir réussir pour toute la famille, comme si mon chemin était tracé avant ma naissance.",
 
   decor: {
     couverture: 'assets/formation/spirale.jpg',
@@ -40,187 +40,242 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Que tu sois en couple, seul·e ou entre deux, ce mois-ci est pour toi.",
-    theme: "Lis cette page comme une lettre. Si une histoire de ta famille te revient, laisse-la simplement venir.",
-    voir: "Cette semaine, tu observes les couples, les tiens et ceux de ta lignée, sans juger personne. Voir, c’est déjà commencer à choisir.",
-    source: "Certaines réponses viendront tout de suite, d’autres dans quelques jours. Tu n’as rien à forcer.",
-    liberer: "Rendre une histoire d’amour qui n’est pas la tienne, ce n’est pas renier ta famille. C’est garder l’amour et laisser le poids.",
-    remplacer: "L’amour que tu veux vivre commence par un petit geste, envers toi ou envers quelqu’un. Un seul suffit cette semaine.",
-    meditation: "Une fois dans le mois, un soir tranquille. Si une émotion monte, reviens à ton souffle : tu peux t’arrêter à tout moment.",
-    bilan: "Prends ce moment même si tout n’a pas été fait. Tu as regardé l’amour en face, et c’est courageux."
+    saison: "Commence par respirer avec la saison. Février t’invite à sentir ton propre élan, encore discret, déjà vivant.",
+    theme: "Lis cette page comme une lettre. Si un prénom ou une attente te vient en lisant, note-le quelque part.",
+    voir: "Cette semaine, tu regardes les prénoms de ta lignée. Même un prénom à l’histoire inconnue est déjà une information.",
+    source: "Pose tes questions avec douceur, à ta famille comme à toi. Range chaque réponse dans son tiroir, et garde ce qui te parle.",
+    liberer: "Tu remercies l’ancien contrat, puis tu écris le tien. Tu avances à ton rythme, avec tendresse pour l’enfant que tu étais.",
+    remplacer: "Porter ton prénom à ta façon, un petit geste à la fois. Ton contrat avec la vie prend corps au quotidien.",
+    meditation: "Un soir tranquille, un moment doux. Si une émotion monte, reviens à ton souffle et à tes pieds sur le sol.",
+    bilan: "Prends ce moment, même si une partie reste à faire. Ton prénom t’appartient un peu plus qu’au début du mois."
   },
 
   theme: {
-    titre: "Regarder les couples de ta lignée",
+    titre: "Le projet posé sur toi",
     texte: [
-      "Février met l’amour à l’honneur. Cœurs en vitrine, dîners en tête-à-tête, déclarations et cartes postales : on parle beaucoup du couple. Que tu sois en couple, seul·e, en train de te séparer ou de rencontrer quelqu’un, cette période réveille parfois des questions, des manques ou des souvenirs.",
-      "Ta façon d’aimer ne vient pas de nulle part. Tu as grandi au milieu des couples de ta famille, de leurs gestes tendres, de leurs disputes, de leurs silences. Ce mois-ci t’invite à les regarder sans les juger, pour mieux comprendre tes propres choix, et ouvrir la porte à l’amour qui te ressemble.",
-      "Tu es maintenant dans le deuxième temps de ton année de suivi. Après **Voir**, d’octobre à décembre, où tu as appris à repérer ce qui revient, voici **Traverser**, de janvier à juin : tu regardes de plus près les grands fils de ta lignée, un par un, pour les traverser avec douceur. Ce mois-ci, c’est le fil de l’amour."
+      "Avant même ta naissance, quelqu’un a choisi ton prénom. Avec lui sont souvent venus des espoirs : ressembler à une grand-mère admirée, réussir là où un parent a dû renoncer, apporter de la joie dans une période difficile, prolonger une tradition ou au contraire ouvrir une page neuve. Ces attentes étaient souvent pleines d’amour. Elles ont parfois dessiné un chemin avant que tu puisses choisir le tien.",
+      "Tu continues le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après la peur héritée en janvier, tu regardes ce mois-ci le projet posé sur toi, pour te réapproprier ton prénom et ton chemin. De la peur héritée à la vie choisie, c’est le moment d’écrire ton propre contrat avec la vie."
     ],
-    sousTitre: "Les loyautés amoureuses",
+    sousTitre: "Prénoms, attentes et projet-sens",
     texte2: [
-      "En psychogénéalogie, on observe que les histoires d’amour se transmettent elles aussi. Des femmes qui élèvent seules leurs enfants, des hommes qui partent, des mariages de raison, des amours interdites, des veuvages précoces : ces scènes peuvent se rejouer d’une génération à l’autre. Une grand-mère mariée à vingt ans contre son gré, une mère qui a renoncé à un premier amour, une fille qui n’arrive pas à s’engager : le fil est parfois visible.",
-      "Une loyauté, c’est un lien invisible qui nous pousse à faire comme les nôtres, par amour pour eux. On ne s’autorise pas à être plus heureux·se que ses parents, on choisit le même type de partenaire, ou on fuit le couple pour ne pas revivre ce qu’on a vu. Ces croyances ont protégé ta famille à une époque où divorcer était mal vu, où l’on se mariait pour survivre, où l’on taisait ses sentiments. Elles avaient un sens. Elles ne sont pas forcément les tiennes. Pour aller plus loin : [les schémas répétitifs en amour](schemas-repetitifs-en-amour.html).",
-      "Ce mois-ci, tu vas **voir** les couples de ta lignée, **remonter** aux phrases et aux histoires qui ont façonné ta façon d’aimer, **rendre** ce qui ne t’appartient pas, et **choisir** un geste qui ressemble à l’amour que tu veux vivre.",
-      "Un mot important : ce travail ne sert jamais à t’aider à supporter une relation où tu as peur. Si tu te sens rabaissé·e, contrôlé·e, menacé·e ou en danger, ta sécurité passe avant tout exercice. Parles-en à une personne de confiance. En France, le **3919** est gratuit et anonyme, et le **17** répond en cas d’urgence."
+      "En psychogénéalogie, on observe que le prénom raconte souvent une histoire : un hommage, une mémoire, un espoir, un désir de changement. Les mêmes prénoms circulent parfois d’une génération à l’autre : un Jean à chaque génération, des Marie en deuxième prénom. Une petite Louise qui porte le prénom d’une grand-mère très admirée peut sentir qu’on attend d’elle la même force.",
+      "On parle aussi de **projet-sens** : l’ensemble des espoirs, des peurs et des projets qui entourent la venue d’un enfant. L’année de ta naissance, que vivait ta famille ? Une installation, un départ, une réussite, une perte ? Ce contexte a pu colorer ce qu’on attendait de toi. Ce sont des pistes, à regarder avec tendresse pour celles et ceux qui ont fait de leur mieux. Pour aller plus loin : [le prénom transmis](prenom-transmis-psychogenealogie.html) et [le projet-sens](projet-sens-conception-deuil.html).",
+      "Ce mois-ci, tu vas **voir** les prénoms de ta lignée, **comprendre** l’histoire du tien et les attentes de ta naissance en rangeant chaque information dans son tiroir, **écrire** ton propre contrat avec la vie grâce à ton protocole du mois, et **porter** ton prénom à ta façon, chaque jour."
     ],
-    exemplesTitre: "À quoi ressemble un schéma amoureux, au quotidien",
+    exemplesTitre: "Ce que peut porter un prénom, au quotidien",
     exemples: [
-      "**Le même type de personne** : tes trois dernières histoires étaient avec quelqu’un de brillant, drôle et toujours ailleurs. Comme ton père, qui rentrait tard et partait tôt.",
-      "**La fuite avant la fin** : dès que la relation devient sérieuse, tu trouves un défaut, puis un autre, et tu pars la première, avant d’être quittée.",
-      "**Tout donner pour être choisi·e** : tu organises, tu offres, tu t’adaptes, et tu attends en silence qu’on te le rende un jour.",
-      "**La phrase de famille** : à chaque dispute, tu entends ta grand-mère : « Les hommes, il faut savoir les supporter. » Et tu te tais.",
-      "**Le bonheur qui fait peur** : tout va bien avec ton ou ta partenaire, et pourtant tu attends la catastrophe, comme si le bonheur ne durait jamais chez vous."
+      "**L’hommage** : tu portes le prénom de ton grand-père, et à chaque repas de famille on te dit « tu es bien comme lui ». Tu cherches ce qui est vraiment à toi.",
+      "**L’espoir** : tes parents t’ont appelé·e Victoire, ou René, « celui qui renaît ». Tu sens depuis toujours qu’il fallait réussir, ou recommencer quelque chose.",
+      "**Le métier rêvé** : ton père rêvait d’être ingénieur, il a dû travailler à 16 ans. Depuis l’enfance, on te dit « toi, tu feras de longues études ».",
+      "**La rupture** : ton prénom est unique dans la famille. Tu apprends que ta mère voulait ouvrir une page neuve, loin des vieilles traditions.",
+      "**Le surnom** : depuis l’enfance, on t’appelle « la petite » ou par un diminutif. À 35 ans, tu remarques que tu as du mal à te faire appeler par ton vrai prénom."
     ],
-    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Ton nouveau compagnon annule votre dîner pour la deuxième fois. La boucle aurait dit « ce n’est rien » en souriant, puis pleuré seule. La spirale reconnaît la vieille sensation de passer après, respire, et dit : « J’ai été déçue. J’ai besoin qu’on se voie cette semaine. » Le thème est le même, ta place a changé.",
-    question: { k: 'theme-amour', q: "En une phrase, qu’est-ce qui se répète dans ta vie amoureuse, ou dans ta façon d’aimer ?", ph: "Exemple : je m’attache toujours à des personnes qui ne sont pas prêtes à s’engager, et j’attends." }
+    exempleSpirale: "La spirale, c’est le même prénom, un cran plus haut. Tu portes celui de ta grand-mère Jeanne, réputée pour tout supporter en silence, et tu te surprends à faire pareil. Ce mois-ci, tu apprends son histoire, tu la remercies, tu écris ton propre contrat. Quand tu signes « Jeanne » au bas de ton contrat, tu as l’impression, pour la première fois, de signer pour toi.",
+    question: { k: 'theme-projet-feb', q: "Quand tu prononces ton prénom à voix haute, que ressens-tu, et quelle attente semble l’accompagner ?", ph: "Exemple : de la fierté, et un peu de poids. Il évoque ma grand-mère, que tout le monde admirait pour sa force." }
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Les couples sous tes yeux",
-      intro: "Cette semaine, tu poses sur la table les couples de ta famille, et tes propres histoires. Tu ne cherches pas encore à comprendre : tu regardes comment on s’est aimé chez toi, ce qui a duré, ce qui s’est défait, et ce qui revient.",
-      texte: "Commence par le tableau des couples, au calme, une vingtaine de minutes, avec un thé. Puis, pendant la semaine, observe les couples autour de toi et ta propre façon d’aimer, et note ce qui te rappelle ta famille.",
+    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Les prénoms de ta lignée",
+      intro: "Cette semaine, tu poses sur la table les prénoms de ta famille, sur trois ou quatre générations. Tu explores, tu regardes ce qui revient, et tu remarques comment on prononce ton prénom autour de toi.",
+      texte: "Commence par la liste des prénoms, au calme, une vingtaine de minutes, avec ton arbre si tu l’as déjà commencé. Puis, pendant la semaine, remarque comment on t’appelle, et note-le dans ton journal.",
       exercices: [
-        { k: 'ex1', titre: "Les couples de ma lignée", type: 'tableau', rangs: 4,
-          etiquettes: ['Mes parents', 'Mes grands-parents maternels', 'Mes grands-parents paternels', 'Mes propres histoires'],
-          consigne: "Pour chacun de ces couples, note en quelques mots comment ils se sont rencontrés, comment a vécu leur couple (durée, séparation, non-dits, tendresse), puis ce qui te semble se répéter. Si tu ne sais pas, écris « je ne sais pas » : c’est aussi une information. Tu peux ajouter un oncle, une tante ou un couple qui t’a marqué·e dans la dernière ligne.",
-          pourquoi: "Quand on écrit les couples l’un sous l’autre, le fil apparaît souvent tout seul : des femmes qui portent seules, des rencontres très jeunes, des amours qu’on n’a pas pu vivre. Ce n’est pas une fatalité, c’est une carte qui t’aide à voir d’où tu pars.",
+        { k: 'prenoms-feb', titre: "Les prénoms de ma lignée", type: 'tableau', rangs: 4,
+          etiquettes: ['Un premier prénom', 'Un deuxième prénom', 'Un troisième prénom', 'Un quatrième prénom'],
+          consigne: "Fais la liste des prénoms de ta famille, en commençant par ceux qui reviennent ou qui ressemblent au tien. Note qui les a portés, et ce que tu sais de leur histoire. Si ta famille est adoptive ou recomposée, tu peux partir de la famille qui t’a élevé·e, de celle dont tu es issu·e, ou des deux.",
+          pourquoi: "Quand on aligne les prénoms d’une famille, les répétitions apparaissent : un prénom qui saute une génération, un deuxième prénom toujours identique, un prénom redonné. Ce sont des indices précieux de ce que la famille a voulu garder vivant.",
           colonnes: [
-            { q: "Comment se sont-ils rencontrés, et à quel âge ?", ph: ["Exemple : au bal du village, ma mère avait 19 ans, mon père 24", "Exemple : un mariage arrangé entre deux familles de fermiers", "Exemple : je ne sais pas, on n’en parle jamais", "Exemple : sur une application, à 30 ans, puis à 36 au travail"] },
-            { q: "Comment a vécu leur couple : durée, séparation, non-dits, tendresse ?", ph: ["Exemple : séparés quand j’avais 8 ans, beaucoup de silences avant", "Exemple : 52 ans de mariage, mais ils faisaient chambre à part", "Exemple : mon grand-père est parti, ma grand-mère n’en a jamais reparlé", "Exemple : deux histoires de quatre ans, chaque fois je suis partie"] },
-            { q: "Qu’est-ce qui te semble se répéter ?", ph: ["Exemple : la femme qui tient tout et l’homme qui s’éloigne", "Exemple : rester ensemble par devoir, pas par envie", "Exemple : un homme qui part sans explication", "Exemple : je pars avant d’être quittée, comme pour me protéger"] }
+            { q: "Quel est ce prénom ?", ph: ["Exemple : Jean", "Exemple : Marie, en deuxième prénom", "Exemple : Louise", "Exemple : Pierre"] },
+            { q: "Qui l’a porté, dans ta famille ?", ph: ["Exemple : mon arrière-grand-père, mon grand-père, et mon frère aîné", "Exemple : ma mère, ma tante, ma sœur et moi", "Exemple : ma grand-mère maternelle, puis ma fille", "Exemple : le frère de mon père, puis mon père lui-même"] },
+            { q: "Que sais-tu de leur histoire ?", ph: ["Exemple : tous les aînés ont repris la ferme, sauf mon frère", "Exemple : c’était pour remercier une tante qui avait élevé ma grand-mère", "Exemple : ma grand-mère était la femme forte de la famille", "Exemple : on en parle peu, juste « le petit Pierre »"] }
           ],
-          apres: { k: 'ex1-repete', q: "Relis ton tableau. Qu’est-ce qui se répète d’un couple à l’autre, même un détail : un âge, un rôle, une façon de partir ou de rester ?", ph: "Exemple : dans chaque couple, c’est la femme qui porte la famille et l’homme qui est absent, d’une façon ou d’une autre." } },
-        { k: 'voir-journal', titre: "Mon journal amoureux de la semaine", type: 'texte',
-          consigne: "Chaque jour de la semaine, observe un couple autour de toi (dans ta famille, chez des amis, dans un film, dans la rue) ou ta propre façon d’aimer. Note la scène, ce qu’elle t’a fait ressentir, et si elle te rappelle quelque chose de ta famille. Vise au moins trois observations.",
-          pourquoi: "Nos réactions face aux couples des autres, l’envie, l’agacement, la tristesse, parlent souvent de ce que l’on a vu enfant. Les noter t’aide à repérer tes vieux réflexes amoureux avant qu’ils ne décident pour toi.",
-          q: "Ce que tu remarques, en général, dans ta façon d’aimer ou de réagir aux couples",
-          ph: "Exemple : je me sens mal à l’aise quand un couple se montre très tendre en public, comme si c’était un peu interdit.",
-          journal: { k: 'voir-sit', n: 6, q: "Chaque observation : le jour, la scène, ce que tu as ressenti, ce qu’elle te rappelle", ph: "Exemple : mercredi, au restaurant, un couple ne se parlait pas. J’ai eu un pincement : mes parents dînaient comme ça." } }
+          apres: { k: 'prenoms-feb-repete', q: "Relis ta liste. Quels prénoms reviennent, et lequel ressemble le plus au tien, ou à ton histoire ?", ph: "Exemple : Jean revient à chaque génération chez les aînés. Et mon deuxième prénom, Louise, est celui de ma grand-mère." } },
+        { k: 'journal-prenom-feb', titre: "Mon journal du prénom", type: 'texte',
+          consigne: "Cette semaine, remarque comment on prononce ton prénom autour de toi : au travail, en famille, entre amis. Le ton, les surnoms, les raccourcis, qui l’utilise et qui préfère un autre nom. Note chaque jour un moment, et ce que tu as ressenti. Vise au moins trois moments.",
+          pourquoi: "La façon dont on nous appelle dit beaucoup de la place qu’on nous donne. Un surnom d’enfant chez les adultes, un prénom prononcé avec tendresse ou avec sécheresse : tout cela se remarque à peine, et pourtant nous touche.",
+          q: "Ce que tu remarques, en général, quand on prononce ton prénom",
+          ph: "Exemple : ma famille utilise toujours mon surnom d’enfant, et au travail on m’appelle par mon nom de famille. Mon vrai prénom, je l’entends rarement.",
+          journal: { k: 'journal-prenom-sit-feb', n: 6, q: "Chaque moment : le jour, qui t’a appelé·e, comment, et ce que tu as ressenti", ph: "Exemple : mardi, ma mère m’a appelée « ma Loulou » au téléphone. Je me suis sentie petite, et un peu attendrie." } }
       ],
-      conseil: "Si tu es seul·e en ce moment, ce mois est tout autant pour toi : tes histoires passées, ton célibat et tes envies font partie du tableau. Si un souvenir pèse trop, fais une pause, sors marcher, et reprends un autre jour." },
+      conseil: "Commence par les prénoms que tu connais, et laisse des cases vides : elles se rempliront peut-être en posant des questions la semaine prochaine. Une case vide est aussi une information." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "D’où vient ta façon d’aimer",
-      intro: "Ta façon d’aimer s’est construite très tôt, au milieu des couples qui t’entouraient et des phrases que tu entendais. Cette semaine, tu remontes le fil, avec douceur, pour voir ce qui vient de toi et ce qui vient d’avant.",
+    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "L’histoire de ton prénom",
+      intro: "Cette semaine, tu remontes à ta naissance : qui a choisi ton prénom, pour quelle raison, et ce que vivait ta famille cette année-là. Tu écoutes les récits, et tu ranges chaque information dans son tiroir.",
       texte: [
-        "En amour, les deux cycles se rencontrent souvent. Le **cycle de la racine** parle de sécurité : rester par peur de manquer, se marier pour avoir un toit, ne pas oser partir, ou au contraire ne jamais s’installer. Le **cycle du cœur** parle de lien : se sentir digne d’être aimé·e, faire confiance, poser ses limites sans peur de perdre l’autre.",
-        "Un schéma de la racine ressemble souvent à « je reste parce que je n’ai pas le choix » ou « je ne m’installe jamais, au cas où ». Un schéma du cœur ressemble à « je donne tout pour être choisi·e » ou « je pars avant d’être quitté·e ». Les deux se mêlent, et c’est normal. On commence par la racine : tant qu’on ne se sent pas en sécurité, il est difficile d’aimer librement."
+        "Pour chaque information, demande-toi dans quel tiroir elle va. **Ce que je sais** : la date et le lieu de ta naissance, qui a déclaré ton prénom, ce que vivait ta famille cette année-là. **Ce qu’on m’a raconté** : « on t’a appelée comme ta grand-mère parce qu’elle était si courageuse ». **Ce que je suppose** : une attente que tu sens, une ressemblance, un mot que tu entends dans ton prénom.",
+        "Les attentes posées sur un enfant sont souvent pleines d’amour, et parfois lourdes à porter. Les regarder, c’est recevoir ton prénom en connaissance de cause, avec gratitude pour celles et ceux qui l’ont choisi. Ensuite, la semaine prochaine, tu pourras écrire l’ancien contrat, et le tien."
       ],
       exercices: [
-        { k: 'source-arbre', titre: "Dans ton arbre, regarde les amours", type: 'questions',
-          consigne: "Prends ces questions une par une. Si une réponse ne vient pas, passe à la suivante : elle viendra peut-être dans la semaine, en marchant ou sous la douche.",
-          pourquoi: "Souvent, on découvre que notre histoire d’amour a déjà été vécue par quelqu’un avant nous, au même âge ou de la même façon. Le voir change tout : ce n’est plus « je ne sais pas aimer », c’est une histoire que je peux regarder et choisir de ne pas reprendre.",
-          choix: { k: 'cycle', q: "Aujourd’hui, ton schéma amoureux touche surtout…", options: ['La racine : ma sécurité, rester ou partir', 'Le cœur : me sentir aimé·e, faire confiance', 'Les deux', 'Je ne sais pas encore'] },
+        { k: 'source-prenom-feb', titre: "Autour de ton prénom, regarde", type: 'questions',
+          consigne: "Prends ces questions une par une, avec ta liste de prénoms à côté de toi. Si une réponse tarde, passe à la suivante : elle viendra peut-être dans la semaine, au détour d’une conversation.",
+          pourquoi: "Les raisons d’un prénom sont souvent racontées en une phrase, une fois, puis oubliées. Les rassembler permet de voir ce que ton prénom porte : un hommage, une attente, une mémoire, un désir de changement.",
+          choix: { k: 'tiroir-feb', q: "Ce que tu sais de l’histoire de ton prénom vient surtout du tiroir…", options: ['Ce que je sais : des faits', 'Ce qu’on m’a raconté : des récits', 'Ce que je suppose : des pistes', 'Un peu des trois'] },
           questions: [
-            { k: 'source-parents', q: "Comment se sont rencontrés tes parents, et qu’est-ce qu’on t’en a raconté ?", ph: "Exemple : on m’a toujours dit qu’ils s’étaient mariés vite « parce qu’il le fallait ». Je n’ai jamais su pourquoi." },
-            { k: 'source-durer', q: "Quels couples de ta famille ont duré, lesquels se sont défaits, et comment ?", ph: "Exemple : mes grands-parents paternels sont restés 50 ans, mais ma tante et ma mère ont divorcé toutes les deux vers 40 ans." },
-            { k: 'source-phrases', q: "Quelles phrases sur l’amour as-tu entendues enfant, dites ou sous-entendues ?", ph: "Exemple : « Il faut se contenter de ce qu’on a. » « Les hommes ne restent pas. »" },
-            { k: 'source-premier', q: "Y a-t-il dans ta lignée un premier amour oublié, une histoire qu’on n’a pas pu vivre ?", ph: "Exemple : ma grand-mère aimait un garçon parti à la guerre. Elle en a épousé un autre à son retour." },
-            { k: 'source-protege', q: "Ta façon d’aimer t’a-t-elle protégé·e, à un moment ? De quoi ?", ph: "Exemple : partir la première m’a évité de revivre la douleur de ma mère quand mon père est parti." }
+            { k: 'source-choisi-feb', q: "Qui a choisi ton prénom, et dans quelles circonstances ?", ph: "Exemple : mon père, à la mairie, parce que ma mère hésitait encore entre deux prénoms." },
+            { k: 'source-pourquoi-feb', q: "Pourquoi ce prénom, d’après ce qu’on t’a raconté ?", ph: "Exemple : en hommage à la sœur de ma mère, qui était très drôle et voulait partir à Paris." },
+            { k: 'source-avant-feb', q: "Qui le portait avant toi dans la famille, et que sais-tu de cette personne ?", ph: "Exemple : ma grand-tante Hélène. On dit qu’elle chantait tout le temps." },
+            { k: 'source-annee-feb', q: "L’année de ta naissance, que vivait ta famille ?", ph: "Exemple : mes parents venaient d’acheter la boulangerie, mon grand-père était parti à la retraite." },
+            { k: 'source-attente-feb', q: "Qu’espérait-on peut-être de toi, à travers ce prénom et ce moment ?", ph: "Exemple : que je sois la joie de la maison, et que je reprenne un jour la boulangerie." },
+            { k: 'source-ecoute-feb', q: "Dis ton prénom à voix haute, comme un jeu : quels mots entends-tu dedans ?", ph: "Exemple : Claire, j’entends « clair ». René, j’entends « re-né ». Serge, j’entends « je sers ». Je garde ce qui me parle." }
           ] },
         { k: 'source-question', titre: "Une question à ta famille", type: 'questions',
-          consigne: "Pose une seule question à un membre de ta famille sur un couple de la lignée : comment ils se sont rencontrés, ce qu’ils aimaient faire ensemble, comment ils se parlaient. Par téléphone, à table ou par message. Choisis une question légère et chaleureuse. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
+          consigne: "Demande à un membre de ta famille pourquoi ton prénom a été choisi, ou ce que vivait la famille l’année de ta naissance. Par téléphone, à table ou par message. Note sa réponse, puis range-la dans son tiroir. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
           questions: [
-            { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à ma mère : « Comment as-tu rencontré papa, la toute première fois ? »", court: true },
-            { k: 'source-reponse', q: "Qu’as-tu appris ? Qu’est-ce que ça te fait ?", ph: "Exemple : elle m’a dit qu’elle avait hésité avec un autre garçon qui voulait partir à Paris. Elle a choisi de rester. J’ai compris pourquoi elle me pousse tant à partir.", lignes: 3 }
+            { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à ma mère : « Pourquoi m’avez-vous appelée Claire ? Vous aviez pensé à d’autres prénoms ? »", court: true },
+            { k: 'source-reponse-feb', q: "Qu’as-tu appris, et dans quel tiroir le ranges-tu ?", ph: "Exemple : je devais m’appeler Marie, comme ma grand-mère, et mon père a choisi Claire au dernier moment. C’est un récit, et je me suis senti·e libre, d’un coup.", lignes: 3 }
           ] }
       ],
-      conseil: "Tu peux ajouter dans [ton arbre familial](genosociogramme.html) les unions, séparations et premiers amours de ta lignée : l’outil repère les répétitions de dates et d’âges. Si une découverte te bouleverse, pose le stylo, respire, et reviens-y quand tu te sens prêt·e." },
+      conseil: "Ajoute dans [ton arbre familial](genosociogramme.html) les prénoms qui se répètent et les personnes qui les ont portés. Pour jouer avec les sonorités de ton prénom, tu peux aussi ouvrir [l’outil ton prénom](ton-prenom.html). Si tu découvres que ton prénom a été porté par un enfant disparu, prends le temps de respirer, et lis si tu le souhaites [l’enfant de remplacement](enfant-de-remplacement.html)." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Rendre les histoires qui ne sont pas les tiennes",
-      intro: "Chaque schéma amoureux a ses petites phrases, souvent entendues enfant, à table ou dans la cuisine. Cette semaine, tu attrapes tes phrases sur l’amour, tu regardes ce qu’elles ont protégé, et tu rends symboliquement aux couples d’avant toi ce qui leur appartient.",
+    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "L’ancien contrat, et le tien",
+      intro: "Cette semaine, tu vis ton protocole du mois. Tu écris le contrat qu’on a posé sur toi, puis le tien, tu accueilles l’enfant que tu étais, et tu ranges l’ancien contrat « à leur histoire ». L’exercice ci-dessous t’aide à préparer ton ancien contrat.",
       exercices: [
-        { k: 'ex2', titre: "Les phrases sur l’amour", type: 'blocs', nb: 3,
-          etiquettes: ['Première phrase', 'Deuxième phrase', 'Troisième phrase'],
-          consigne: "Retrouve trois phrases sur l’amour ou le couple entendues dans ta famille, dites ou sous-entendues : « Les hommes ne restent pas », « Il faut savoir se sacrifier », « On ne divorce pas chez nous »… Pour chacune, note qui la disait et ce qu’elle protégeait à son époque. Puis écris la phrase que tu choisis aujourd’hui, avec tes mots.",
-          pourquoi: "Ces phrases décident souvent à notre place, sans qu’on les entende. Comprendre ce qu’elles protégeaient permet de les remercier au lieu de les combattre, puis de les remplacer par une phrase vraie pour toi.",
-          astuce: "Une bonne phrase de remplacement est vraie pour toi aujourd’hui. Pas « Je vais trouver l’amour parfait », mais « J’ai le droit d’être aimé·e sans tout donner ».",
+        { k: 'attentes-feb', titre: "Les attentes posées sur moi", type: 'blocs', nb: 3,
+          etiquettes: ['Une attente de ma mère', 'Une attente de mon père', 'Une attente de ma famille'],
+          consigne: "Pour chaque ligne, écris une attente que tu as sentie, dite ou devinée. Puis ce qu’elle espérait ou protégeait, et ce que tu choisis d’en faire aujourd’hui. Si tu as été élevé·e par d’autres adultes, adapte les étiquettes à ton histoire.",
+          pourquoi: "Une attente reconnue perd de sa force cachée. En voyant ce qu’elle espérait pour toi, tu peux la remercier, garder ce qui te ressemble, et laisser le reste à leur histoire.",
+          astuce: "Derrière une attente lourde, il y a souvent un rêve inachevé ou une peur. « Tu feras de longues études » peut vouloir dire « je veux que tu aies la liberté qui m’a manqué ».",
           champs: [
-            { q: "Quelle phrase sur l’amour as-tu entendue dans ta famille ?", ph: ["Exemple : « Les hommes, il ne faut pas trop compter dessus. »", "Exemple : « Dans la vie, on se contente de ce qu’on a. »", "Exemple : « L’amour, ça passe, ce qui reste c’est le devoir. »"] },
-            { q: "Qui la disait, et que protégeait-elle à son époque ?", ph: ["Exemple : ma grand-mère, restée seule avec quatre enfants. Elle la protégeait de nouvelles déceptions.", "Exemple : ma mère, qui n’avait pas fait d’études. Elle la protégeait de la peur de manquer.", "Exemple : mon arrière-grand-mère, mariée sans amour. Elle la protégeait de ses regrets."] },
-            { q: "Quelle phrase choisis-tu aujourd’hui, avec tes mots ?", ph: ["Exemple : « Je peux compter sur quelqu’un, et sur moi aussi. »", "Exemple : « J’ai le droit de vouloir un amour qui me rend heureuse. »", "Exemple : « L’amour peut durer, et le choix aussi. »"] }
+            { q: "Quelle attente as-tu sentie ?", ph: ["Exemple : être sage et discrète", "Exemple : reprendre la boulangerie", "Exemple : être la première à faire des études"] },
+            { q: "Qu’espérait-elle ou que protégeait-elle, peut-être ?", ph: ["Exemple : la paix à la maison, après des années de disputes", "Exemple : la continuité du travail de toute une vie", "Exemple : une revanche sur une vie de travail dur"] },
+            { q: "Que choisis-tu d’en faire aujourd’hui ?", ph: ["Exemple : je garde la douceur, je reprends ma voix", "Exemple : je garde l’amour du travail bien fait, je choisis mon métier", "Exemple : je garde le goût d’apprendre, à mon rythme"] }
           ] }
       ],
       rituel: {
-        titre: "Le fil dénoué",
-        intro: "Ce rituel symbolique marque le moment où tu rends aux couples de ta lignée leurs histoires, pour garder la liberté d’écrire la tienne. Fais-le une fois cette semaine, dans un moment calme, après avoir écrit tes phrases. Il dure environ dix minutes.",
-        materiel: "Un fil de laine ou un ruban avec un nœud bien serré, ton carnet et un stylo. Si tu veux, une bougie allumée à côté de toi.",
+        titre: "Le prénom retrouvé",
+        intro: "Ce petit rituel accompagne ton protocole : après avoir écrit ton contrat, tu fais pleinement tien ton prénom. Fais-le une fois ce mois-ci, dans un moment calme. Il dure environ dix minutes.",
+        materiel: "Une feuille, un stylo et, si tu le souhaites, une bougie.",
         etapes: [
-          "Installe-toi au calme et tiens le fil noué entre tes mains. Respire trois fois, lentement.",
-          "Pense aux couples de ta lignée, ceux que tu connais et ceux que tu ignores, et dis : « Je vous reconnais, avec vos joies et vos peines. »",
-          "Défais doucement le nœud, en prenant ton temps, en disant : « Je vous laisse votre histoire, avec respect. »",
-          "Quand le fil est libre, dis : « Je garde ce que vous m’avez transmis de beau en amour : votre courage, votre fidélité, votre tendresse. »",
-          "Tiens le fil libre dans ta main ouverte et dis : « Je choisis l’amour que je veux vivre. »",
-          "Range le fil dans ton carnet ou dans une petite boîte, et note ci-dessous ce qui est venu."
+          "Si tu le souhaites, allume la bougie. Respire trois fois profondément. Écris ton prénom en grand au centre de la feuille.",
+          "Autour, note les personnes et les histoires qu’il porte : celles et ceux qui l’ont porté avant toi, qui l’ont choisi, ce qu’on espérait de toi.",
+          "Dis à voix haute : « Je reçois l’histoire de mon prénom avec respect. »",
+          "Puis dis : « Ce qui appartient aux autres, je le leur laisse. »",
+          "Prononce ton prénom trois fois, lentement, et dis : « Il est à moi. »",
+          "Plie la feuille et garde-la avec ton contrat. Si tu as allumé une bougie, éteins-la en restant près d’elle jusqu’au bout, et note ce qui est venu ci-dessous."
         ],
-        note: { k: 'rituel-note', q: "Après le rituel, note ce qui s’est passé : ce que tu as ressenti en défaisant le nœud, et ce que tu as choisi de garder.", ph: "Exemple : le nœud résistait, j’ai eu envie de tirer fort. J’ai pris mon temps. Je garde la fidélité de mes grands-parents, et je laisse la résignation." }
+        note: { k: 'rituel-note-feb', q: "Comment s’est passé ton rituel ? Qu’as-tu ressenti en disant « Il est à moi » ?", ph: "Exemple : la première fois, ma voix tremblait. La troisième fois, j’ai souri. J’ai eu l’impression de m’entendre vraiment pour la première fois." }
       },
-      conseil: "Si le rituel réveille une tristesse ou une colère, c’est normal : tu touches à des histoires d’amour qui comptent. Fais une pause, bois un verre d’eau, sors respirer. Tu peux finir un autre jour. Ce qui compte, c’est d’avoir commencé." },
+      conseil: "Si l’accueil de l’enfant réveille une émotion forte, garde les yeux ouverts, pose les pieds au sol, bois un verre d’eau. Tu peux écrire à la place d’imaginer, et vivre le protocole en deux fois. Ton prénom et ton contrat t’attendent, à ton rythme." },
 
-    { cle: 'remplacer', nom: 'Remplacer', etape: 'Remplacer', titre: "L’amour que tu choisis",
-      intro: "Tu as vu les couples de ta lignée, tu sais d’où viennent certaines de tes façons d’aimer, tu as rendu ce qui ne t’appartenait pas. Cette semaine, tu écris l’amour que tu veux vivre, et tu poses un premier geste qui lui ressemble.",
+    { cle: 'remplacer', nom: 'Remplacer', etape: 'Remplacer', titre: "Porter ton prénom à ta façon",
+      intro: "Tu as vu les prénoms de ta lignée, découvert l’histoire du tien, écrit ton contrat avec la vie. Cette semaine, tu intègres : tu écris ton prénom en grand sur ton arbre de vie, et tu fais vivre ton contrat, chaque jour, par un petit geste.",
       texte: [
-        "**La première pause.** Quand tu sens la vieille réaction amoureuse arriver (te taire, te sur-adapter, fuir, attendre), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Trois fois. Puis dis-toi intérieurement : « Je te reconnais. Ce n’est pas mon histoire. Aujourd’hui, je peux aimer autrement. »",
-        "**Le geste qui ressemble à l’amour que tu veux.** Pas besoin d’un grand changement : un mot dit au lieu d’être tu, une demande, une limite douce, un moment de tendresse envers toi. Si tu es seul·e, le geste peut être pour toi, ou pour une relation d’amitié."
+        "**La première pause.** Quand une vieille attente se présente (« tu es bien comme ton grand-père », « toi, tu dois réussir »), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Merci. Je porte ce prénom à ma façon, et je suis mon propre chemin. »",
+        "**Le prénom choisi.** Te réapproprier ton prénom, c’est accueillir son histoire en affirmant : « Je suis moi, avec ma propre vie. » Certain·es changent de surnom, d’autres gardent tout tel quel et le portent autrement. Sur ton arbre, tu écris : « Mon prénom m’invite à vivre… »."
       ],
       exercices: [
-        { k: 'remplacer-lettre', titre: "La lettre à l’amour", type: 'questions',
-          consigne: "Écris une lettre à l’amour que tu veux vivre, que tu sois en couple ou non. Commence par « Cher amour que je veux vivre… ». Dis-lui ce que tu laisses aux couples d’avant toi, ce que tu gardes de beau, et ce que tu souhaites désormais. Termine par une phrase qui commence par « Je m’autorise à… ».",
-          pourquoi: "On avance mieux vers une image claire qu’en fuyant ce qu’on ne veut plus. Écrire l’amour que tu souhaites lui donne une forme, et t’aide à le reconnaître quand il se présente, ou à le construire dans ta relation actuelle.",
+        { k: 'lettre-prenom-feb', titre: "La lettre à mon prénom", type: 'questions',
+          consigne: "Écris une lettre à ton prénom. Commence par « Cher prénom que je porte… ». Dis-lui ce que tu as aimé chez lui, ce qu’il porte de ta famille, et ce que tu laisses à leur histoire. Termine par ta phrase : « Mon prénom m’invite à vivre… ».",
+          pourquoi: "Écrire à ton prénom permet de remercier ce qui te relie à ta lignée, de laisser ce qui appartient aux autres, et de garder ton prénom léger et vivant.",
           questions: [
-            { k: 'lettre-laisse', q: "Que laisses-tu aux couples d’avant toi ?", ph: "Exemple : l’idée qu’il faut tout supporter pour garder quelqu’un.", court: true },
-            { k: 'lettre-texte', q: "Ta lettre : ce que tu laisses, ce que tu gardes de beau, ce que tu souhaites, et ta phrase « Je m’autorise à… »", ph: "Exemple : Cher amour que je veux vivre, je laisse à ma grand-mère la peur d’être abandonnée. Je garde sa fidélité et sa force. Je te souhaite tendre, joyeux, et assez solide pour qu’on se dise les choses. Je m’autorise à être aimée sans avoir à tout donner.", lignes: 7 }
+            { k: 'lettre-prenom-a-feb', q: "Quel prénom choisis-tu d’écrire, tel que tu le portes aujourd’hui ?", ph: "Exemple : Jeanne-Marie, mes deux prénoms ensemble", court: true },
+            { k: 'lettre-prenom-texte-feb', q: "Ta lettre : ce que tu aimes, ce qu’il porte de ta famille, ce que tu laisses, et ta phrase « Mon prénom m’invite à vivre… »", ph: "Exemple : Cher prénom que je porte, enfant je te trouvais trop ancien. Tu portes ma grand-mère, son courage et sa façon de tout encaisser. Je garde son courage, et je laisse le « tout encaisser » à son histoire. Mon prénom m’invite à vivre avec force et avec joie.", lignes: 8 }
           ] },
-        { k: 'ex3', titre: "Mon geste d’amour différent", type: 'texte',
-          consigne: "Choisis un geste concret qui ressemble à l’amour que tu veux vivre, envers toi ou envers quelqu’un. Écris-le, puis note chaque fois que tu l’as posé, même maladroitement, et ce qui a changé. Ce geste rejoint aussi ton carnet « J’avance » : s’aimer d’abord, c’est déjà aimer autrement.",
-          pourquoi: "Un schéma amoureux ne change pas avec une grande décision, mais avec de petits gestes répétés au moment précis où l’ancien réflexe se présente. Chaque essai affaiblit la vieille habitude.",
-          gestes: ["Dire « j’ai été blessé·e » au lieu de faire comme si de rien n’était", "Demander ce dont tu as besoin, clairement", "Recevoir un geste tendre sans le rendre tout de suite", "Dire non à ce qui ne te convient pas, avec douceur", "T’offrir le dîner que tu attends qu’on t’offre", "Rester un peu, au lieu de partir à la première inquiétude"],
-          q: "Ton geste : « La prochaine fois que mon vieux schéma amoureux démarre, au lieu de…, je vais… »",
-          ph: "Exemple : au lieu de dire « ce n’est rien » quand il annule, je vais dire « je suis déçue, j’ai besoin qu’on se voie cette semaine ».",
-          journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu l’as essayé : quand, et qu’est-ce qui a changé ?", ph: "Exemple : samedi, j’ai dit à mon compagnon que j’avais besoin d’un câlin. Il me l’a donné tout de suite. Je n’avais jamais osé demander." } }
+        { k: 'contrat-geste-feb', titre: "Mon contrat, au quotidien", type: 'texte',
+          consigne: "Choisis une phrase de ton contrat avec la vie et un petit geste qui va avec, pour cette semaine. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste rejoint aussi ton carnet « J’avance ».",
+          pourquoi: "Un contrat prend vie quand il se traduit en gestes. Chaque fois que tu agis selon ton propre choix, l’ancien contrat perd de sa force et ton prénom devient un appui.",
+          gestes: ["Me présenter avec mon prénom complet", "Demander gentiment qu’on utilise mon vrai prénom", "Signer mes messages de mon prénom", "Faire une chose que je choisis, pour moi seul·e", "Dire mon prénom en me regardant dans le miroir", "Relire mon contrat chaque matin"],
+          q: "Ton geste : « Mon contrat dit… Cette semaine, je vais… »",
+          ph: "Exemple : mon contrat dit « je m’autorise à choisir mon métier ». Cette semaine, je vais m’inscrire à l’atelier de céramique dont je rêve.",
+          journal: { k: 'contrat-essais-feb', n: 6, q: "Chaque fois que tu as fait vivre ton contrat : quand, comment, et qu’as-tu ressenti ?", ph: "Exemple : lundi, je me suis présentée « Jeanne » à la réunion, au lieu de « Jeannette ». J’ai senti mes épaules se redresser." } }
       ],
-      conseil: "Si tu oublies et que le vieux schéma se rejoue, ce n’est pas raté : remarque-le après coup, c’est déjà un pas. Et rappelle-toi : aimer autrement ne veut jamais dire rester là où tu as peur. Si tu te sens en danger, ta sécurité passe d’abord : le 3919 est gratuit et anonyme." }
+      conseil: "Si l’ancien surnom ou l’ancienne attente revient, remarque-le, souris, et redis ton prénom intérieurement : chaque retour est une occasion de choisir à nouveau. Changer la façon de porter un prénom prend du temps, pour toi comme pour les autres. Pense à écrire ton prénom en grand sur ton arbre de vie." }
   ],
 
   meditation: {
-    titre: "Le jardin des couples",
-    intro: "Une séance guidée pour saluer les couples de ta lignée, leur laisser leurs histoires avec respect, et découvrir l’espace où pousse l’amour que tu veux vivre.",
+    titre: "Le prénom murmuré",
+    intro: "Une séance guidée pour entendre ton prénom prononcé avec douceur, saluer celles et ceux qui ont rêvé un chemin pour toi, leur laisser leurs attentes avec respect, et faire de ton prénom pleinement le tien.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Sens le poids de ton corps sur le siège. Sens tes pieds sur le sol. Tu es en sécurité, ici et maintenant. Tu peux revenir à ton souffle à chaque instant.",
-      "Imagine un grand jardin à la fin de l’hiver. L’air est frais, mais la lumière est plus douce qu’avant. Les premiers bourgeons apparaissent. Le long d’une allée, des couples se tiennent côte à côte : ce sont les couples de ta lignée.",
-      "Tes parents, tes grands-parents, et plus loin, des couples que tu ne connais pas. Certains se tiennent la main, d’autres sont un peu éloignés, d’autres encore se tournent le dos. Certaines personnes sont seules : leur partenaire est parti, ou n’est jamais venu.",
+      "J’imagine le jour de ma naissance. La pièce est calme, la lumière douce. Quelqu’un me tient dans ses bras, me regarde pour la première fois, et prononce mon prénom.",
+      "J’écoute sa voix. Qui que ce soit, je sens simplement ce qu’elle transmet : de l’amour, un espoir, une fierté, peut-être une mémoire, peut-être une attente. J’accueille tout, tel quel.",
       "[pause]",
-      "Avance doucement dans l’allée. Salue chaque couple d’un regard. Tu n’as pas à les juger, ni à les comprendre entièrement. Ils ont aimé comme ils ont pu, avec ce qu’ils avaient reçu, à leur époque.",
-      "Tu peux leur dire intérieurement : « Merci pour la vie. Je garde ce que vous avez vécu de beau. Je vous laisse vos histoires, et je vais vers la mienne. »",
+      "Derrière cette voix, d’autres visages apparaissent doucement. Celles et ceux qui ont eu ce prénom avant moi, ou qui l’ont inspiré, et celles et ceux qui ont rêvé un chemin pour moi. Certains visages sont connus, d’autres restent dans la lumière.",
+      "Je les salue avec respect. Je leur dis intérieurement : « Merci. Je reçois ce que vous m’avez transmis, avec tout votre amour. Je vous laisse vos rêves, et je vis ma propre histoire. » Je les regarde s’éloigner, apaisé·es.",
       "[longue pause]",
-      "Au bout de l’allée, un espace libre t’attend, baigné de lumière. C’est là que se dessine l’amour que tu veux vivre. Observe ce qui y pousse : des fleurs, un arbre, une herbe tendre. Il n’y a rien à forcer.",
-      "Sens la douceur, la confiance, la place que tu y prends. Tu as le droit d’aimer à ta façon, et d’être aimé·e comme tu le souhaites. Tu as aussi le droit de partir de tout endroit où tu ne te sens pas bien.",
+      "Maintenant, je prononce moi-même mon prénom, intérieurement. Lentement. J’écoute comme il sonne dans ma voix à moi, celle d’aujourd’hui. Je remarque ce que je ressens en l’entendant : une chaleur, une gêne, une fierté. Tout est bienvenu.",
+      "Je le prononce encore, comme si je me présentais à moi-même pour la première fois. Je le sens devenir pleinement le mien. Mon prénom m’a été donné. Ma vie, je la choisis.",
       "[pause]",
-      "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
+      "Il m’accompagne depuis toujours, et il m’accompagne dans tout ce que je vais vivre, comme un chemin ouvert devant moi, que je dessine à ma façon.",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un moment où personne ne te dérangera pendant dix minutes, le soir avant de dormir ou un dimanche matin. Si une émotion forte monte, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux arrêter la séance à tout moment et la reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un couple, une image, une sensation, un mot…", ph: "Exemple : mes grands-parents se tenaient la main, alors que je ne les ai jamais vus faire. Dans mon espace, il y avait un cerisier." }
+    conseil: "Choisis un moment calme, avec dix minutes pour toi. Si ton prénom est lié à un·e disparu·e et qu’une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
   },
 
-  bilanTitre: "Ce que ce mois a libéré en amour",
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Tronc · Quel projet a-t-on posé sur moi ?",
+    intro: "**Objectif :** me réapproprier mon prénom et mon chemin. **Sous-objectif :** découvrir l’histoire de mon prénom, voir les attentes posées sur moi, et écrire mon propre contrat avec la vie. **Intensité douce.**",
+    materiel: "Une photo de toi enfant, une enveloppe. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**L’enquête du prénom (10 min).** Qui l’a choisi, pourquoi, d’après qui ? Demande-le à un·e proche si tu le peux. Qui d’autre le porte dans ta famille ? Qu’est-ce que tes parents admiraient ou espéraient en choisissant ce prénom ? Qui ou quoi voulaient-ils honorer à travers toi ? Un prénom choisi par admiration pour un savant, un artiste, un ancêtre, ou pour sa signification spirituelle, porte souvent une attente : Albert, par exemple, choisi par admiration pour un grand savant. Note celle que tu entends, et ce que tu choisis d’en garder. Lien : l’article [« Le prénom transmis »](prenom-transmis-psychogenealogie.html).",
+          "**Le jeu d’écoute (5 min).** Dis ton prénom à voix haute et note les mots que tu entends dedans, comme un jeu : Claire (clair), René (re-né), Serge (je sers). Garde ce qui te parle.",
+          "**Les attentes (5 min).** L’année de ta naissance : que vivait ta famille ? Qu’espérait-on de toi ? Lien : l’article [« Le projet-sens »](projet-sens-conception-deuil.html)."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (3 min).**",
+          "**L’ancien contrat (12 min).** Écris le contrat qu’on a posé sur toi : « Contrat de naissance. On attendait de moi que… »",
+          "**Mon contrat (10 min).** Écris le tien : « Mon contrat avec la vie. Je choisis… Je m’autorise… ». Signe-le.",
+          "**Accueillir l’enfant (10 min).** Ta photo d’enfant devant toi, les yeux ouverts ou fermés. Dis-lui : « Bienvenue. Tu es accueilli·e tel·le que tu es. Tu as ta place. »",
+          "**Ranger l’ancien (5 min).** Plie l’ancien contrat dans une enveloppe, écris dessus « À leur histoire », et range-la.",
+          "**Respirer (5 min).**"
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).**",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Ton prénom en grand, et : « Mon prénom m’invite à vivre… »"
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : « Claire » en grand, et « Mon prénom m’invite à vivre en pleine lumière »."
+      }
+    ]
+  },
+
+  lectures: [
+    { lien: 'prenom-transmis-psychogenealogie.html', titre: "Le prénom transmis", resume: "Ce qu’un prénom peut porter d’une génération à l’autre : hommage, mémoire, espoir, et la liberté de le faire tien." },
+    { lien: 'projet-sens-conception-deuil.html', titre: "Le projet-sens", resume: "Les espoirs et les projets qui entourent l’arrivée d’un enfant, et comment choisir ta propre route." },
+    { lien: 'liste-des-valeurs.html', titre: "Trouver tes valeurs", resume: "Une liste de valeurs pour repérer celles qui te ressemblent, et écrire ton propre contrat avec la vie." }
+  ],
+
+  lectures: [
+    { lien: 'prenom-transmis-psychogenealogie.html', titre: "Le prénom transmis", resume: "Ce qu’un prénom peut porter d’une génération à l’autre : hommage, mémoire, espoir, et la liberté de le faire tien." },
+    { lien: 'projet-sens-conception-deuil.html', titre: "Le projet-sens", resume: "Les espoirs et les projets qui entourent l’arrivée d’un enfant, et comment choisir ta propre route." },
+    { lien: 'liste-des-valeurs.html', titre: "Trouver tes valeurs", resume: "Une liste de valeurs pour repérer celles qui te ressemblent, et écrire ton propre contrat avec la vie." }
+  ],
+
+  bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
-    { k: 'fin-schema', q: "Quel schéma amoureux as-tu repéré ce mois-ci ?", ph: "Exemple : partir avant d’être quittée, dès que la relation devient sérieuse." },
-    { k: 'fin-origine', q: "Qu’as-tu compris de son origine, dans les couples de ta lignée ?", ph: "Exemple : ma grand-mère et ma mère ont toutes les deux été quittées vers 40 ans. J’ai appris à partir la première pour ne pas vivre ça." },
-    { k: 'fin-laisse-couples', q: "Qu’as-tu laissé aux couples de ta lignée, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : la peur d’être abandonnée. Je me sens plus calme quand mon compagnon est en retard." },
-    { k: 'fin-garde-beau', q: "Qu’as-tu choisi de garder de beau en amour ?", ph: "Exemple : la fidélité de mes grands-parents, et l’humour de mon père." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en mars ?", ph: "Exemple : continuer à dire ce que je ressens au lieu de me taire, et regarder ma place parmi mes sœurs.", court: true }
+    { k: 'fin-histoire-feb', q: "Qu’as-tu découvert de l’histoire de ton prénom ?", ph: "Exemple : il vient de ma grand-mère Jeanne, et mes parents espéraient que j’aie sa force." },
+    { k: 'fin-attentes-feb', q: "Quelles attentes as-tu reconnues, et dans quel tiroir les ranges-tu ?", ph: "Exemple : reprendre la boulangerie. C’est un récit de ma mère, et une attente que je sentais très fort." },
+    { k: 'fin-ancien-feb', q: "Qu’as-tu laissé à leur histoire avec l’ancien contrat, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : le « tout encaisser ». Je dis plus facilement ce qui me pèse, et je me sens plus légère." },
+    { k: 'fin-contrat-feb', q: "Quelle phrase de ton contrat avec la vie veux-tu garder près de toi ?", ph: "Exemple : « Je choisis mon métier, et je m’autorise à changer d’avis. »" },
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en mars ?", ph: "Exemple : regarder les émotions qui avaient leur place chez nous, et celles qu’on mettait de côté.", court: true }
   ],
 
   carnet: {
     titre: "M’aimer d’abord",
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. On aime souvent les autres comme on a appris à s’aimer : ton carnet t’aide ce mois-ci à te traiter avec tendresse, à écouter tes besoins, et à t’offrir chaque jour un geste qui te dit que tu comptes. Reporte ton geste d’amour différent dans ton carnet, il devient un appui."
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Accueillir l’enfant que tu étais, c’est t’aimer d’abord : ton carnet t’aide ce mois-ci à te traiter avec tendresse, à écouter tes besoins, et à t’offrir chaque jour un geste qui te dit que tu comptes. Reporte ton contrat avec la vie dans ton carnet, il devient un appui."
   },
 
   aVenir: [
-    { mois: 'Mars', titre: 'Ta place dans la fratrie', texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' }
+    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' },
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Collecter les phrases de ta famille, voir où elles agissent dans ta vie, et les réécrire avec tes propres mots.", image: 'assets/cartes/boucle-spirale-mini.jpg' },
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder l’amour que tu as appris, ton imago et ton rôle en amour, pour choisir l’amour que tu veux vivre.", image: 'assets/cartes/une-relation-vraie-mini.jpg' }
   ]
 };

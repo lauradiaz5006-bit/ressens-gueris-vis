@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet d'avril 2027, « J'avance » : « Dire vrai »
    Le carnet du mois est le côté « J'avance » du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
-   Le côté libération (« Les secrets et les non-dits ») est dans Mon suivi (assets/suivi/2027-04.js).
+   Le côté libération (« Quelles phrases me guident ? ») est dans Mon suivi (assets/suivi/2027-04.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: "Ressentir, formuler, oser",
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à démêler ce que tu ressens vraiment, le deuxième à le dire en quatre temps, le troisième à oser un mot vrai chaque jour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à démêler ce que tu ressens vraiment, le deuxième à le dire en quatre temps, le troisième à oser un mot vrai chaque jour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: "Ce que je ressens vraiment", type: 'tableau', rangs: 3,
       etiquettes: ['Une situation qui m’a contrarié·e', 'Une situation où j’ai fait semblant', 'Une situation qui m’a touché·e'],
@@ -208,14 +208,49 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour mai ?", ph: "Exemple : continuer mes mots vrais, et prendre davantage de temps pour moi, sans culpabiliser.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mes masques",
+    objectif: "oser être moi, à visage découvert.",
+    sousObjectif: "repérer les masques que je porte selon les situations, la peur qui se cache derrière chacun, et ce qui m’a conditionné·e à les porter.",
+    duree: "en deux jours. Jour 1 : 30 min. Jour 2 : 20 min. Ensuite, 1 min par jour.",
+    temps: [
+      {
+        titre: "Jour 1 · Voir mes masques (30 min)",
+        etapes: [
+          "**Mes trois scènes (15 min).** Trois colonnes : ma famille, mes ami·es, mon travail. Pour chacune, en étant sincère avec toi : qui je suis là, quel rôle j’occupe, quelle place je prends (grande, petite, au centre, en retrait), quel masque je mets (la personne gentille, le clown, la forte, celle qui sait tout, l’invisible, celle qui arrange tout…).",
+          "**Nommer chaque masque (5 min).** Un nom et sa phrase : « La forte : je gère tout. » « Le clown : je fais rire pour détendre l’ambiance. »",
+          "**Derrière le masque (10 min).** De quoi ai-je peur, derrière ce masque ? Qu’est-ce qui m’a conditionné·e ainsi : une scène, une phrase, une personne ?"
+        ]
+      },
+      {
+        titre: "Jour 2 · Choisir mon visage (20 min)",
+        etapes: [
+          "**Ce que j’y gagne, ce que j’y perds (8 min).** Pour chaque masque : ce qu’il m’apporte (la sécurité, l’amour, la paix), ce qu’il me coûte (la fatigue, la solitude, ma vérité).",
+          "**Ce que je veux à la place (7 min).** « À la place, je choisis d’être… »",
+          "**Mon vrai visage (5 min).** Dessine ton visage tel qu’il est. Autour, écris ce que tu es vraiment quand tu te sens libre."
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque jour (1 min)",
+      texte: "Une fois dans la journée, réponds à visage découvert : dis ce que tu penses vraiment, avec douceur. Le soir, note où et ce que tu as ressenti."
+    },
+    liens: [
+      ["masques-des-5-blessures.html", "Les cinq masques des blessures"]
+    ],
+    ph: "Exemple : au travail, je mets le masque de « la forte : je gère tout ». À la place, je choisis d’être une collègue qui demande."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Les secrets et les non-dits',
+    titre: "Quelles phrases me guident ?",
     texte: "Pendant que ton carnet t’aide à dire vrai, ton suivi t’invite à écouter les silences de ta famille, à repérer les indices, et à choisir, à ton rythme, ce que tu veux en faire. On apprend souvent à se taire là où les générations d’avant ont dû se taire. Ce que tu libères là-bas rend ta parole plus libre ici."
   },
 
   aVenir: [
-    { mois: 'Mai', titre: 'Prendre soin de moi', texte: "Faire de ton quotidien un allié : rythme, repos, plaisirs simples et énergie retrouvée.", image: 'assets/cartes/se-retrouver-mini.jpg' },
+    { mois: 'Mai', titre: 'La vie circule à travers moi', texte: "Sentir la vie circuler à travers toi, et regarder tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, ce que tu choisis.", image: 'assets/cartes/se-retrouver-mini.jpg' },
     { mois: 'Juin', titre: 'Oser agir', texte: "Passer de l’envie à l’action, lancer ce projet qui t’attend, un pas après l’autre.", image: 'assets/cartes/prochain-pas-mini.jpg' },
     { mois: 'Juillet', titre: 'Ma valeur', texte: "Oser ta juste valeur : recevoir, demander, et laisser entrer l’abondance.", image: 'assets/guide/guide-coffret.webp' }
   ]

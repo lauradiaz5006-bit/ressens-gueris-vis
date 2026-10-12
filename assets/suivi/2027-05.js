@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mai 2027 : « Ta mère, tes mères »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mai 2027 : « Comment ai-je appris à aimer ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-05-7398c67b52.pdf',
   nomMois: 'mai 2027',
   moisSuivant: 'juin',
-  titre: 'Ta mère, tes mères',
-  sousTitre: "Regarder la lignée des femmes qui t'ont précédé·e, reconnaître ce que tu as reçu, et choisir ce que tu transmets.",
+  titre: "Comment ai-je appris à aimer ?",
+  sousTitre: "Branches de ton arbre de vie · Regarder la lignée des femmes qui t'ont précédé·e, reconnaître ce que tu as reçu, et choisir ce que tu transmets.",
   citation: "On peut honorer la vie reçue sans tout reprendre du chemin.",
   audio: '',
   audioCourt: '',
@@ -202,6 +202,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un visage, des mains, un mot, une distance, une sensation…", ph: "Exemple : je suis resté·e loin de ma mère, mais j’ai vu ma grand-mère me sourire. J’ai posé dans l’herbe un gros sac gris, et j’ai respiré plus large." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Branches · Comment ai-je appris à aimer ?",
+    intro: "**Objectif :** comprendre l’amour que j’ai appris, pour choisir l’amour que je veux. **Sous-objectif :** voir mon imago et mon rôle en amour, et choisir les qualités relationnelles que je cultive. **Intensité moyenne.** Lettre (4 sur 4), déchirée. Pour toi, que tu sois en couple, séparé·e ou célibataire.",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Le premier cercle (10 min).** Les qualités et les côtés difficiles des adultes qui ont compté pour toi enfant : tes parents, ou d’autres.",
+          "**Le second cercle (5 min).** Les qualités et les côtés difficiles de tes partenaires, passés, actuel, ou rêvé.",
+          "**Ressemblances et différences (5 min).** Entoure ce qui se retrouve, souligne ce qui diffère. Ce sont des pistes. Lien : l’article [« L’imago »](imago-choix-amoureux.html)."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Mon rôle en amour (10 min).** Celui que tu joues le plus souvent : le parent de l’autre, l’enfant, la personne qui sauve, la personne qui critique, celle qui s’éloigne. Qui le jouait peut-être avant toi ?",
+          "**La lettre à l’amour appris (20 min).** « Cher amour que j’ai appris, dans mes amours j’ai rejoué… J’ai cherché chez l’autre… Je rends à mes parents leur façon d’aimer, avec respect. Je choisis un amour où… »",
+          "**La déchirer (5 min).** En petits morceaux : « Je garde l’amour, je laisse partir l’ancien modèle. »",
+          "**Mon amour choisi (10 min).** 5 qualités relationnelles que tu choisis de vivre et d’offrir."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).**",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** La branche de l’amour, avec tes 5 qualités. Cette semaine, offre-toi 3 choses que tu attendais de l’autre."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : la branche de l’amour : la tendresse, l’écoute, la fidélité, l’humour, la liberté."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-heritage', q: "Qu’as-tu découvert de la lignée des femmes de ta famille ce mois-ci ?", ph: "Exemple : toutes ont tenu seules, sans jamais demander d’aide. Ce n’était pas leur choix, c’était leur époque." },
@@ -212,13 +254,13 @@ window.GENESOLIA_CARNET = {
   ],
 
   carnet: {
-    titre: 'Prendre soin de moi',
+    titre: 'La vie circule à travers moi',
     texte: "Ce que tu libères ici adoucit ce que tu construis là-bas. Pendant que ton suivi regarde ce que tu as reçu de tes mères, ton carnet t’aide à devenir pour toi-même une présence douce, à respecter ton rythme et à t’offrir des moments rien qu’à toi. Reporte ton geste nouveau dans ton carnet, il devient un appui."
   },
 
   aVenir: [
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.", image: 'assets/cartes/deux-parents-mini.jpg' },
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Écouter les phrases familiales sur l’argent, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
-    { mois: 'Août', titre: 'Racines, départs et lieux', texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' }
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.", image: 'assets/cartes/deux-parents-mini.jpg' },
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Écouter les phrases familiales sur l’argent, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Août', titre: "D’où venons-nous ?", texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' }
   ]
 };

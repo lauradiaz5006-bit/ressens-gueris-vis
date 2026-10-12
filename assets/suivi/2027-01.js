@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de janvier 2027 : « Ton prénom, ton héritage »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de janvier 2027 : « Quelle peur je porte, et pour qui ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,14 +11,14 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-01-6750c8248e.pdf',
   nomMois: 'janvier 2027',
   moisSuivant: 'février',
-  titre: 'Ton prénom, ton héritage',
-  sousTitre: "Découvrir l'histoire de ton prénom, ce qu'il porte de ta lignée, et en faire pleinement le tien.",
-  citation: "Ton prénom a une histoire, et tu peux en écrire la suite.",
+  titre: "Quelle peur je porte, et pour qui ?",
+  sousTitre: "Tronc de ton arbre de vie · Repérer tes périodes sensibles, faire la part entre ta vie et ton histoire familiale, et rendre symboliquement la part de peur qui appartient à ta lignée.",
+  citation: "Aujourd’hui, je suis en sécurité, et je vis ma vie.",
   audio: '',
   audioCourt: '',
-  saisonLien: "Janvier est un seuil : l'année ouvre ses deux regards, l'un vers ce qui a été, l'autre vers ce qui vient. C'est le bon moment pour revenir à ce qui t'accompagne depuis ton tout premier jour, ton prénom. En regardant son histoire, tu reçois ce qu'on a voulu pour toi ; en le faisant tien, tu poses l'intention de ce que tu veux vivre. Pas de révolution : un seuil se franchit pas à pas.",
-  intensiteQ: "À quel point l’histoire de ton prénom, ou ce qu’on attendait de toi en le choisissant, pèse-t-elle aujourd’hui ?",
-  souhaitPh: "Exemple : cette impression de devoir ressembler à la grand-mère dont je porte le prénom.",
+  saisonLien: "Janvier ouvre l’année dans le froid et la lumière basse. La nature garde ses forces à l’abri, sous la terre et dans l’écorce, en attendant le retour des beaux jours. C’est le bon moment pour regarder tes peurs avec calme, au chaud : celles qui reviennent à certaines périodes, et celles qui semblent venir de plus loin que toi. Tu avances doucement, en sécurité, à ton rythme.",
+  intensiteQ: "À quel point la peur, ou une fatigue qui revient à certaines périodes, pèse-t-elle sur ta vie aujourd’hui ?",
+  souhaitPh: "Exemple : cette inquiétude qui revient à la même période chaque année, comme si quelque chose de grave allait arriver.",
 
   decor: {
     couverture: 'assets/formation/montagne.jpg',
@@ -35,190 +35,238 @@ window.GENESOLIA_CARNET = {
       bilan: 'assets/guide/guide-livre-lumineux.webp'
     },
     cartes: {
-      theme: ['assets/cartes/ecrire-la-mienne-mini.jpg', 'Je ne rejoue pas leur histoire. J’écris la mienne.']
+      theme: ['assets/cartes/apprendre-mini.jpg', 'Tout ce qui revient a quelque chose à m’apprendre.']
     }
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Le seuil de l’année n’exige rien de toi : il t’invite à regarder, puis à choisir.",
-    theme: "Lis cette page comme une lettre. Prononce ton prénom à voix basse en la lisant, et remarque ce qu’il te fait.",
-    voir: "Cette semaine, tu fais la liste des prénoms. Ce qui se répète devient visible, tout simplement.",
-    source: "Demande l’histoire de ton prénom avec curiosité. Même un « je ne sais plus » est une réponse qui compte.",
-    liberer: "Tu ne renies pas ton prénom : tu le remercies, tu rends ce qui ne t’appartient pas, et tu le gardes pour toi.",
-    remplacer: "Signe ton intention de ton prénom. C’est peut-être la première fois que tu le portes exprès.",
-    meditation: "Un matin calme, si tu peux. Si une émotion monte en entendant ton prénom, reviens simplement à ton souffle.",
-    bilan: "Prends ce moment même si tout n’a pas été fait. Ton prénom sonne peut-être déjà un peu autrement."
+    saison: "Commence par respirer avec la saison. Janvier t’invite à te mettre au chaud et à regarder tes peurs avec calme.",
+    theme: "Lis cette page comme une lettre. Si une période de l’année ou une date te vient en lisant, note-la quelque part.",
+    voir: "Cette semaine, tu observes tes périodes sensibles. Chaque moment noté t’aide à mieux te connaître.",
+    source: "Une date proche reste une piste. Range chaque information dans son tiroir, et garde ce qui te parle.",
+    liberer: "Rendre une part de peur, c’est garder la force de ta lignée et choisir la confiance. Tu avances à ton rythme.",
+    remplacer: "Un calendrier doux et une phrase de sécurité : de petits gestes, répétés, suffisent pour apaiser une racine.",
+    meditation: "Un matin calme ou un soir tranquille. Si une émotion monte, reviens à ton souffle et à tes pieds sur le sol.",
+    bilan: "Prends ce moment, même si une partie reste à faire. Chaque peur regardée avec douceur est déjà plus légère."
   },
 
   theme: {
-    titre: 'L’histoire de ton prénom',
+    titre: "La peur que tu portes",
     texte: [
-      "Janvier ouvre une nouvelle année. On prend des résolutions, on fait des vœux, on range ce qui est fini et on se projette vers ce qui vient. C'est un bon moment pour revenir à ce qui t'accompagne depuis ta naissance, que tu entends chaque jour et que tu écris sans y penser : ton prénom. Quelqu'un l'a choisi pour toi, avant même de te connaître. Il porte parfois un hommage, un espoir, une promesse, une mémoire familiale.",
-      "Sur l'année, ton suivi traverse trois temps : **Voir** (d'octobre à décembre), **Traverser** (de janvier à juin) et **Transmettre** (de juillet à octobre). Avec janvier, tu entres dans le deuxième temps. Tu as vu ce qui revient, honoré tes ancêtres, observé ta place à table. Maintenant, tu traverses : tu regardes ce que tu portes en toi, en commençant par le plus intime, ton prénom, pour le vivre avec plus de liberté dans l'année qui commence."
+      "Il y a des moments où l’on se projette : un nouveau projet, un changement, une date qui approche. Et parfois, une vieille peur se réveille au même moment : peur de manquer, peur de perdre, peur que tout s’arrête. Certaines peurs viennent de ta vie, de ce que tu as traversé. D’autres semblent venir de plus loin : d’une histoire familiale, d’une période difficile vécue par ceux d’avant, d’une inquiétude transmise en silence.",
+      "Avec cette étape 4, tu entres dans le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après les racines des trois premières étapes (les prénoms, les dons, ta juste place), tu regardes la peur héritée, pour aller doucement vers la vie choisie. Pendant cette étape, tu cherches à faire la part des choses : ce qui est à toi, et ce qui appartient peut-être à ta lignée."
     ],
-    sousTitre: 'Les prénoms qui reviennent',
+    sousTitre: "Périodes sensibles et dates de la lignée",
     texte2: [
-      "En psychogénéalogie, on observe que le prénom est rarement neutre. Il peut venir d'un grand-parent, d'une personne aimée, d'une figure admirée, d'un personnage de roman, ou d'un enfant disparu avant toi. Même un prénom choisi « parce qu'il sonnait bien » raconte quelque chose : les goûts d'une époque, le désir de rompre avec la tradition, ou au contraire de la prolonger.",
-      "Porter un prénom transmis, c'est parfois recevoir une attente sans le savoir : ressembler à quelqu'un, prolonger son histoire, combler une absence. Une petite Louise qui porte le prénom d'une grand-mère très admirée peut sentir qu'on attend d'elle la même force. Dans beaucoup de familles, les mêmes prénoms circulent : un Jean à chaque génération, des Marie en deuxième prénom. Parfois, un prénom est redonné à un enfant né après un décès, et l'enfant grandit avec l'impression d'occuper deux places à la fois. Ces répétitions ne sont pas un destin : elles sont une piste pour comprendre ce que ta famille a voulu garder vivant.",
-      "Ce mois-ci, tu vas **voir** les prénoms de ta lignée, **remonter** à l'histoire du tien, **rendre** ce qu'il porte et qui n'est pas à toi, et te le **réapproprier**, pour signer ton année de ton propre nom. Pour aller plus loin : [la méthode des deux cycles](methode.html) et [le prénom transmis](prenom-transmis-psychogenealogie.html)."
+      "Beaucoup de personnes remarquent qu’une fatigue ou une inquiétude revient à la même période chaque année. Parfois, en regardant l’arbre, on découvre une date familiale proche : un départ, un décès, une faillite, un déménagement forcé. En psychogénéalogie, on parle de dates qui se répondent. C’est une piste à regarder avec prudence : une date proche peut être une coïncidence, et tu gardes simplement ce qu’elle évoque pour toi.",
+      "Une peur peut aussi se transmettre par les gestes et les phrases : « on se méfie », « garde toujours une réserve », « il vaut mieux rester discret ». Elle a souvent protégé quelqu’un, à une époque où le danger était réel. Aujourd’hui, tu peux la remercier pour cette protection et choisir la confiance. Pour aller plus loin : [le syndrome d’anniversaire, entre faits et hypothèses](syndrome-anniversaire.html).",
+      "Pendant cette étape, tu vas **explorer** ton calendrier sensible, **comprendre** les dates de ta lignée en rangeant chaque information dans son tiroir, **transformer** en rendant la part de peur qui appartient à ta famille avec ton protocole, puis **intégrer** : colorer une racine apaisée sur ton arbre de vie et accueillir tes périodes sensibles avec un calendrier doux."
     ],
-    exemplesTitre: 'Ce que peut porter un prénom, au quotidien',
+    exemplesTitre: "Quand une peur semble venir de plus loin, au quotidien",
     exemples: [
-      "**L’hommage** : tu portes le prénom de ton grand-père, et à chaque repas de famille on te dit « tu es bien comme lui ». Tu ne sais plus très bien ce qui est à toi.",
-      "**La mémoire** : ta mère a perdu une petite sœur, et tu portes son prénom en deuxième position. Personne n’en parle, mais ta mère a toujours eu peur pour toi.",
-      "**L’espoir** : tes parents t’ont appelé·e Victoire, ou René, « celui qui renaît ». Tu sens depuis toujours qu’il fallait réussir, ou recommencer quelque chose.",
-      "**La rupture** : ton prénom ne ressemble à aucun autre dans la famille. Tu apprends que ta mère voulait « en finir avec les vieux prénoms », et avec tout ce qui allait avec.",
-      "**Le surnom** : depuis l’enfance, on t’appelle « la petite », « Bibou » ou par un diminutif. À 35 ans, tu remarques que tu as du mal à te faire appeler par ton vrai prénom."
+      "**Le mois lourd** : chaque année en février, tu te sens épuisé·e et inquiet·e. En regardant l’arbre, tu découvres que ton grand-père a perdu son travail un mois de février, quand ta mère avait 8 ans.",
+      "**La réserve** : tu gardes toujours une grosse somme de côté et tu as du mal à profiter. Tes grands-parents ont tout recommencé deux fois, après deux déménagements forcés.",
+      "**L’âge qui inquiète** : à l’approche de tes 40 ans, une inquiétude monte. Ta grand-mère a dû tout quitter à cet âge-là, et on en parlait à voix basse.",
+      "**Le départ** : chaque voyage te serre le ventre. Un arrière-grand-père est parti un jour pour l’étranger, et la famille a attendu longtemps de ses nouvelles.",
+      "**La vigilance** : tu vérifies trois fois que la porte est fermée, comme ta mère, comme sa mère avant elle."
     ],
-    exempleSpirale: "La spirale, c’est le même prénom, un cran plus haut. Tu portes celui de ta grand-mère Jeanne, réputée pour tout supporter sans se plaindre, et tu te surprends à faire pareil. Ce mois-ci, tu apprends son histoire, tu la remercies, et tu lui rends le « tout supporter ». Tu gardes son courage. Quand tu signes ton intention « Jeanne », tu as l’impression, pour la première fois, de signer pour toi.",
-    question: { k: 'theme-prenom', q: "Quand tu prononces ton prénom à voix haute, que ressens-tu, et qu’est-ce qu’il évoque pour toi ?", ph: "Exemple : de la fierté, et un peu de poids. Il évoque ma grand-mère, que tout le monde admirait." }
+    exempleSpirale: "La spirale, c’est la même saison, un cran plus haut. Chaque mois de février, tu te sentais inquiet·e et tu te le reprochais. Cette année, tu as noté la période dans ton agenda, avec ta phrase : « Aujourd’hui, je suis en sécurité, et je vis ma vie. » Quand l’inquiétude arrive, tu la reconnais, tu respires, tu prévois une promenade et un repas avec une amie. La peur passe, plus légère : tu sais d’où elle vient peut-être, et tu choisis la confiance.",
+    question: { k: 'theme-peur-jan', q: "En une phrase, quelle peur reconnais-tu en toi, et à quel moment de l’année revient-elle le plus souvent ?", ph: "Exemple : la peur de manquer, qui revient chaque fin d’automne, quand les jours raccourcissent." }
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: 'Les prénoms de ta lignée',
-      intro: "Cette semaine, tu poses sur la table les prénoms de ta famille, sur trois ou quatre générations. Tu ne cherches pas encore à tout comprendre : tu regardes ce qui revient.",
-      texte: "Commence par la liste des prénoms, au calme, une vingtaine de minutes, avec ton arbre si tu l’as déjà commencé. Puis, pendant la semaine, remarque comment on prononce ton prénom autour de toi, et note-le dans ton journal.",
+    { cle: 'voir', nom: 'Explorer', etape: 'Explorer', titre: "Ton calendrier sensible",
+      intro: "Cette semaine, tu explores les moments de l’année où la peur ou la fatigue reviennent. Tu observes, tu notes, tu remarques ce que ça te fait. Les dates de ta lignée viendront la semaine prochaine.",
+      texte: "Commence par ton calendrier sensible, au calme, une vingtaine de minutes, avec un agenda ou un calendrier sous les yeux. Puis, pendant la semaine, remarque chaque fois qu’une peur se présente, même petite.",
       exercices: [
-        { k: 'ex1', titre: 'Les prénoms de ma lignée', type: 'tableau', rangs: 4,
-          etiquettes: ['Un premier prénom', 'Un deuxième prénom', 'Un troisième prénom', 'Un quatrième prénom'],
-          consigne: "Fais la liste des prénoms de ta famille, sur trois ou quatre générations, en commençant par ceux qui reviennent ou qui ressemblent au tien. Note qui les a portés, et ce que tu sais de leur histoire. Ce qui se répète devient visible.",
-          pourquoi: "Quand on aligne les prénoms d’une famille, les répétitions sautent aux yeux : un prénom qui saute une génération, un deuxième prénom toujours identique, un prénom donné après un départ. Ce sont des indices précieux de ce que la famille a voulu garder vivant.",
+        { k: 'calendrier-jan', titre: "Mon calendrier sensible", type: 'tableau', rangs: 4,
+          etiquettes: ['Un premier moment', 'Un deuxième moment', 'Un troisième moment', 'Un quatrième moment'],
+          consigne: "Note les moments de l’année où la peur, l’inquiétude ou la fatigue reviennent : un mois, une saison, une fête, un anniversaire, un âge. Pour chacun, écris ce que tu ressens, et ce qui se passait dans ta vie à ce moment-là, si tu le sais. Deux ou trois moments suffisent pour commencer.",
+          pourquoi: "Quand on pose ses périodes sensibles sur le papier, on voit souvent qu’elles reviennent avec une régularité étonnante. Les connaître à l’avance permet de les accueillir avec plus de douceur, et de préparer la suite du mois.",
           colonnes: [
-            { q: "Quel est ce prénom ?", ph: ["Exemple : Jean", "Exemple : Marie, en deuxième prénom", "Exemple : Louise", "Exemple : Pierre"] },
-            { q: "Qui l’a porté, dans ta famille ?", ph: ["Exemple : mon arrière-grand-père, mon grand-père, et mon frère aîné", "Exemple : ma mère, ma tante, ma sœur et moi", "Exemple : ma grand-mère maternelle, puis ma fille", "Exemple : le frère de mon père, mort enfant, puis mon père lui-même"] },
-            { q: "Que sais-tu de leur histoire ?", ph: ["Exemple : tous les aînés ont repris la ferme, sauf mon frère", "Exemple : c’était pour remercier une tante qui avait élevé ma grand-mère", "Exemple : ma grand-mère était la femme forte de la famille", "Exemple : on n’en parle presque pas, juste « le petit Pierre »"] }
+            { q: "Quand revient ce moment ?", ph: ["Exemple : chaque fin novembre", "Exemple : autour de mon anniversaire, en mars", "Exemple : la rentrée de septembre", "Exemple : les veilles de départ en voyage"] },
+            { q: "Que ressens-tu, à ce moment-là ?", ph: ["Exemple : une fatigue lourde et l’envie de me cacher", "Exemple : une inquiétude diffuse, comme une menace", "Exemple : la peur de manquer d’argent", "Exemple : le ventre serré, des images de catastrophe"] },
+            { q: "Que se passait-il dans ta vie, à ce moment-là ?", ph: ["Exemple : en apparence, tout va bien", "Exemple : un mois ordinaire, et c’est ce qui m’étonne", "Exemple : les factures de rentrée", "Exemple : je laisse ma maison et mes repères"] }
           ],
-          apres: { k: 'ex1-repete', q: "Relis ta liste. Quels prénoms reviennent, et lequel ressemble le plus au tien, ou à ton histoire ?", ph: "Exemple : Jean revient à chaque génération chez les aînés. Et mon deuxième prénom, Louise, est celui de ma grand-mère que je n’ai pas connue." } },
-        { k: 'voir-journal', titre: 'Mon journal du prénom', type: 'texte',
-          consigne: "Cette semaine, remarque comment on prononce ton prénom autour de toi : au travail, en famille, entre amis. Le ton, les surnoms, les raccourcis, qui l’utilise et qui ne l’utilise jamais. Note chaque jour un moment, et ce que tu as ressenti. Vise au moins trois moments.",
-          pourquoi: "La façon dont on nous appelle dit beaucoup de la place qu’on nous donne. Un surnom d’enfant chez les adultes, un prénom prononcé sèchement, un prénom qu’on évite : tout cela se remarque à peine, et pourtant nous touche.",
-          q: "Ce que tu remarques, en général, quand on prononce ton prénom",
-          ph: "Exemple : ma famille utilise toujours mon surnom d’enfant, et au travail on m’appelle par mon nom de famille. Mon vrai prénom, presque personne ne le dit.",
-          journal: { k: 'voir-sit', n: 6, q: "Chaque moment : le jour, qui t’a appelé·e, comment, et ce que tu as ressenti", ph: "Exemple : mardi, ma mère m’a appelée « ma Loulou » au téléphone. Je me suis sentie petite, et un peu attendrie." } }
+          apres: { k: 'calendrier-jan-commun', q: "Relis ton calendrier. Qu’est-ce que ces moments ont en commun, même un détail : une saison, un âge, une fête, un départ ?", ph: "Exemple : ce sont surtout des moments de passage, quand les jours raccourcissent ou quand je pars." } },
+        { k: 'peur-journal-jan', titre: "Mon journal de la peur", type: 'texte',
+          consigne: "Cette semaine, remarque chaque fois qu’une peur se présente, même petite : une inquiétude, un scénario catastrophe, une vigilance. Note le jour, ce qui l’a déclenchée, où tu l’as sentie dans ton corps, et la phrase qui l’accompagnait. Vise au moins trois moments.",
+          pourquoi: "Une peur héritée a souvent une voix reconnaissable, une phrase entendue enfant. La remarquer au moment où elle arrive, c’est déjà prendre un peu de distance avec elle.",
+          q: "Ce que tu remarques, en général, sur la peur qui revient",
+          ph: "Exemple : elle arrive le soir, avec la phrase « et si tout s’écroulait ? ». C’est la voix de ma grand-mère.",
+          journal: { k: 'peur-sit-jan', n: 6, etiquette: 'Moment', q: "Chaque moment : le jour, le déclencheur, l’endroit du corps, la phrase qui l’accompagnait", ph: "Exemple : mercredi, en ouvrant mon relevé de compte. Le ventre serré. « On va finir à la rue. »" } }
       ],
-      conseil: "Tu n’as pas besoin de connaître tous les prénoms de ta famille. Commence par ceux que tu connais, et laisse des cases vides : elles se rempliront peut-être en posant des questions la semaine prochaine." },
+      conseil: "Si une période te semble très lourde, avance doucement : note seulement ce qui te paraît possible aujourd’hui. Pose les pieds au sol, regarde autour de toi et nomme cinq objets que tu vois. Tu peux reprendre un autre jour." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: 'Qui a choisi ton prénom, et pourquoi',
-      intro: "Cette semaine, tu remontes à la naissance de ton prénom. Qui l’a choisi, pour quelle raison, en pensant à qui ? Tu poses tes questions avec douceur, à ta famille comme à toi-même.",
+    { cle: 'source', nom: 'Comprendre', etape: 'Comprendre', titre: "Les dates de ta lignée",
+      intro: "Cette semaine, tu regardes les dates de ta famille, avec curiosité et prudence. Tu remontes le fil, tu écoutes les récits, et tu fais la part entre ce qui vient de ta vie et ce qui semble venir de ton histoire familiale.",
       texte: [
-        "Un prénom porte souvent l'un de deux besoins. Le **cycle de la racine** parle de sécurité et de place : un prénom d'aîné qui garantit la continuité, un prénom qui inscrit l'enfant dans la lignée, ou au contraire un prénom donné « pour remplacer » quelqu'un, et qui laisse le sentiment de devoir mériter sa place. Le **cycle du cœur** parle de lien : un prénom d'hommage à une personne aimée, un prénom choisi pour réparer une peine, un prénom qui exprime l'amour ou l'espoir des parents.",
-        "Regarder de quel côté penche ton prénom t'aide à comprendre ce qu'il t'a demandé, sans que personne ne l'ait jamais dit. Ce n'est pas un reproche fait à ceux qui l'ont choisi : ils ont fait de leur mieux, avec leur histoire. C'est une façon de recevoir ton prénom en connaissance de cause."
+        "Pour chaque information, demande-toi dans quel tiroir elle va. **Ce que je sais** : une date écrite sur un acte, un faire-part, une tombe. **Ce qu’on m’a raconté** : « c’était l’hiver où ton grand-père est parti », avec les mots et l’émotion de la personne qui raconte. **Ce que je suppose** : une date proche de ta période sensible, une ressemblance, une intuition.",
+        "Une date proche reste une piste. Elle peut éclairer ce que tu ressens, comme elle peut être une simple coïncidence : les deux sont possibles, et c’est toi qui choisis ce que tu en gardes. L’essentiel est ailleurs : faire la part entre ta vie et ton histoire familiale, pour rendre à ta lignée la part qui lui appartient peut-être, et garder la tienne."
       ],
       exercices: [
-        { k: 'source-arbre', titre: 'Autour de ton prénom, regarde', type: 'questions',
-          consigne: "Prends ces questions une par une, avec ta liste de prénoms à côté de toi. Si une réponse ne vient pas, passe à la suivante. Elle viendra peut-être dans la semaine, au détour d’une conversation.",
-          pourquoi: "Les raisons d’un prénom sont souvent racontées en une phrase, une fois, puis oubliées. Les rassembler permet de voir ce que ton prénom porte vraiment : un hommage, une attente, une mémoire, un désir de changement.",
-          choix: { k: 'cycle', q: "Aujourd'hui, l'histoire de ton prénom touche surtout…", options: ['La racine : la continuité, la place, le droit d’exister pour moi-même', 'Le cœur : l’hommage, l’amour, une peine à apaiser', 'Les deux', 'Je ne sais pas encore'] },
+        { k: 'dates-jan', titre: "Les dates de ma lignée", type: 'questions',
+          consigne: "Prends ces questions une par une, avec ton calendrier sensible à côté de toi. Note les dates que tu connais, même approximatives. Si une réponse tarde, passe à la suivante : elle viendra peut-être en feuilletant un album ou en parlant avec un proche.",
+          pourquoi: "Les dates sont les traces les plus solides d’une histoire familiale. Les poser à côté de tes périodes sensibles t’aide à voir des échos possibles, à garder comme des hypothèses ouvertes.",
+          choix: { k: 'tiroir-jan', q: "Le lien entre ta peur et ta lignée va surtout dans le tiroir…", options: ['Ce que je sais : un fait', 'Ce qu’on m’a raconté : un récit', 'Ce que je suppose : une piste', 'Un peu des trois'] },
           questions: [
-            { k: 'source-choisi', q: "Qui a choisi ton prénom, et dans quelles circonstances ?", ph: "Exemple : mon père, à la mairie, parce que ma mère hésitait encore entre deux prénoms." },
-            { k: 'source-pourquoi', q: "Pourquoi ce prénom, et pas un autre ?", ph: "Exemple : en hommage à la sœur de ma mère, morte à 18 ans dans un accident." },
-            { k: 'source-avant', q: "Qui le portait avant toi dans la famille, et que sais-tu de cette personne ?", ph: "Exemple : ma grand-tante Hélène. On dit qu’elle était très drôle et qu’elle voulait partir à Paris." },
-            { k: 'source-attente', q: "Qu’est-ce qu’on attendait peut-être de toi, à travers ce prénom ?", ph: "Exemple : que je sois aussi joyeuse qu’elle, et que je console ma mère de sa perte." },
-            { k: 'source-surnom', q: "Quel surnom t’a-t-on donné, et pourquoi ?", ph: "Exemple : « Poussin », parce que j’étais le plus petit de la famille. On me l’a dit jusqu’à mes 30 ans." }
+            { k: 'dates-jan-connues', q: "Quelles dates familiales connais-tu : naissances, départs, décès, mariages, déménagements ?", ph: "Exemple : papi né en mars 1932, départ de la ferme en novembre 1958, mamie partie en février 1999." },
+            { k: 'dates-jan-proches', q: "Lesquelles tombent près de tes périodes sensibles, ou d’un âge qui t’inquiète ?", ph: "Exemple : le départ de la ferme, en novembre. Ma fatigue de fin novembre, peut-être." },
+            { k: 'dates-jan-recits', q: "Quelles peurs se racontent dans ta famille, et à propos de quels événements ?", ph: "Exemple : la peur de tout perdre, depuis la vente forcée de la ferme. On en parle encore à chaque réunion de famille." },
+            { k: 'dates-jan-qui', q: "Qui, avant toi, portait une peur semblable à la tienne ?", ph: "Exemple : ma grand-mère, qui gardait des boîtes de conserve « au cas où » dans tous les placards." },
+            { k: 'dates-jan-part', q: "Dans ta peur, quelle part vient de ta vie, et quelle part te semble venir de ta famille ?", ph: "Exemple : de ma vie, une période de chômage à 30 ans. De ma famille, cette impression que tout peut s’écrouler du jour au lendemain." }
           ] },
-        { k: 'source-question', titre: 'Une question à ta famille', type: 'questions',
-          consigne: "Demande à un membre de ta famille pourquoi ton prénom a été choisi. Par téléphone, à table, ou par message. Note sa réponse, même si elle te paraît sans importance. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
+        { k: 'source-question', titre: "Une question à ta famille", type: 'questions',
+          consigne: "Pose une seule question à un membre de ta famille sur une date ou une période importante : comment c’était, qui était là, ce qu’on ressentait. Commence par un souvenir heureux pour ouvrir la porte, puis range la réponse dans son tiroir. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
           questions: [
-            { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à ma mère : « Pourquoi m’avez-vous appelée Claire ? Vous aviez pensé à d’autres prénoms ? »", court: true },
-            { k: 'source-reponse', q: "Qu’as-tu appris, et qu’est-ce que ça te fait ?", ph: "Exemple : elle m’a dit que je devais m’appeler Marie, comme ma grand-mère, mais que mon père avait refusé au dernier moment. Je me suis senti·e libre, d’un coup.", lignes: 3 }
+            { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à mon oncle : « Tu te souviens de l’hiver où vous avez quitté la ferme ? »", court: true },
+            { k: 'source-reponse-jan', q: "Qu’as-tu appris, et dans quel tiroir le ranges-tu ?", ph: "Exemple : il m’a raconté que mamie pleurait en cachette et comptait chaque sou. C’est un récit, et il éclaire ma propre façon de compter.", lignes: 3 }
           ] }
       ],
-      conseil: "Ajoute dans [ton arbre familial](genosociogramme.html) les prénoms qui se répètent et les personnes qui les ont portés : ta page « Ton mois » te rappellera leurs dates. Si tu découvres que ton prénom a été porté par un enfant disparu, prends le temps de respirer : tu peux lire [l’enfant de remplacement](enfant-de-remplacement.html), ou simplement faire une pause et revenir plus tard." },
+      conseil: "Ajoute les dates que tu retrouves dans [ton arbre familial](genosociogramme.html) : ta page « Ton mois » te les rappellera chaque année. Pour voir les âges et les dates qui se répondent, tu peux utiliser [le calcul des dates anniversaires](calcul-syndrome-anniversaire.html), en gardant chaque résultat comme une piste. Si une question réveille une peine chez la personne que tu interroges, remercie-la avec douceur et laisse la porte ouverte." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: 'Rendre ce que ton prénom porte',
-      intro: "Cette semaine, tu fais le tri dans ce que porte ton prénom : ce que tu gardes avec gratitude, et ce que tu rends, avec respect, à celles et ceux à qui cela appartient.",
+    { cle: 'liberer', nom: 'Transformer', etape: 'Transformer', titre: "Rendre la part de peur",
+      intro: "Cette semaine, tu vis ton protocole du mois. Tu poses ta peur en trois colonnes, tu écris une lettre courte à celles et ceux d’avant toi, tu rends au feu la part de peur qui leur appartient, et tu choisis la confiance.",
       exercices: [
-        { k: 'ex2', titre: 'L’histoire de mon prénom', type: 'blocs', nb: 3,
-          etiquettes: ['Mon prénom', 'Un prénom qui me touche', 'Un autre prénom de ma famille'],
-          consigne: "Commence par ton propre prénom, puis choisis deux autres prénoms qui te touchent : un frère, une sœur, un parent, un enfant. Pour chacun, note ce que tu sais de son choix, même si c’est très peu, et ce qu’il évoque pour toi aujourd’hui.",
-          pourquoi: "Regarder le prénom des autres aide à voir le sien avec plus de recul. On découvre souvent qu’un frère porte l’espoir, une sœur la mémoire, et soi-même autre chose encore. Chacun·e a reçu sa part de l’histoire.",
-          astuce: "Si tu ne sais rien du choix d’un prénom, écris ce que tu imagines, puis vérifie plus tard. L’intuition est aussi une information.",
+        { k: 'colonnes-jan', titre: "Ma peur en trois colonnes", type: 'blocs', nb: 3,
+          etiquettes: ['Une première peur', 'Une deuxième peur', 'Une troisième peur'],
+          consigne: "Pour une, deux ou trois peurs, écris la peur, ce qui vient de ta vie, et ce qui te semble venir de ta famille. C’est l’étape « Ma peur en trois colonnes » de ton protocole : tu peux la faire ici, puis garder ta page sous les yeux pour écrire ta lettre.",
+          pourquoi: "Faire la part des choses apaise souvent beaucoup. Ce qui vient de ta vie, tu peux l’accueillir et l’accompagner. Ce qui semble venir de ta famille, tu peux le remercier et le rendre, en gardant la force qui l’accompagnait.",
+          astuce: "Une peur héritée a souvent protégé quelqu’un, à une époque où le danger était réel. Demande-toi quelle force elle demandait : la prudence, l’endurance, la débrouille. Cette force, tu la gardes.",
           champs: [
-            { q: "Quel est ce prénom, et qui le porte ?", ph: ["Exemple : Jeanne, moi", "Exemple : Paul, mon frère aîné", "Exemple : Rose, ma fille"] },
-            { q: "Qui l’a choisi, et pourquoi ?", ph: ["Exemple : ma mère, en hommage à sa grand-mère qui l’a élevée", "Exemple : mon père, pour continuer la lignée des Paul", "Exemple : nous deux, parce qu’il était doux et qu’il n’appartenait à personne dans la famille"] },
-            { q: "Que porte ce prénom pour toi, aujourd’hui ?", ph: ["Exemple : du courage, et l’impression de devoir tout supporter", "Exemple : la fierté d’être l’aîné, et le poids de la ferme", "Exemple : un vrai nouveau départ, un prénom libre"] }
+            { q: "Quelle est cette peur ?", ph: ["Exemple : la peur de manquer", "Exemple : la peur que mes proches partent", "Exemple : la peur de me faire remarquer"] },
+            { q: "Qu’est-ce qui vient de ta vie ?", ph: ["Exemple : une année difficile à 30 ans, quand j’ai perdu mon travail", "Exemple : le départ de mon père quand j’avais 10 ans", "Exemple : des moqueries au collège"] },
+            { q: "Qu’est-ce qui te semble venir de ta famille ?", ph: ["Exemple : la ferme vendue, les grands-parents qui comptaient chaque sou", "Exemple : l’arrière-grand-père parti à l’étranger, l’attente des nouvelles", "Exemple : « chez nous, on reste discrets », depuis des générations"] }
           ] },
-        { k: 'liberer-lettre', titre: 'La lettre à mon prénom', type: 'questions',
-          consigne: "Écris une lettre à ton prénom. Commence par « Cher prénom que je porte… ». Dis-lui ce que tu as aimé ou moins aimé chez lui, ce qu’il porte de ta famille, et ce que tu veux lui rendre. Termine par la façon dont tu choisis de le porter cette année, comme le tien.",
-          pourquoi: "On ne se libère pas d’un héritage en le rejetant, mais en le reconnaissant. Écrire à ton prénom permet de remercier ce qu’il te relie à ta lignée, et de lui rendre ce qui n’est pas à toi, pour le garder léger.",
+        { k: 'lettre-jan', titre: "Avant ta lettre courte", type: 'questions',
+          consigne: "Ton protocole t’invite à écrire une lettre courte, puis à la brûler ou à la déchirer. Tu peux la préparer ici, et l’écrire ensuite à la main sur une feuille. Tu choisis à qui tu écris : un prénom, ou « ceux d’avant moi ».",
+          pourquoi: "Une lettre courte va à l’essentiel : rendre une part, garder une force, choisir la confiance. L’écrire à la main, puis la confier au feu ou la déchirer, donne un corps à ce choix.",
           questions: [
-            { k: 'lettre-a', q: "Quel prénom choisis-tu d’écrire, tel que tu le portes aujourd’hui ?", ph: "Exemple : Jeanne-Marie, mes deux prénoms ensemble", court: true },
-            { k: 'lettre-texte', q: "Ta lettre : ce que tu as aimé ou moins aimé, ce qu’il porte de ta famille, ce que tu rends, comment tu choisis de le porter", ph: "Exemple : Cher prénom que je porte, enfant je te trouvais trop vieux, et je rêvais d’un prénom à la mode. Tu portes ma grand-mère, son courage et sa façon de tout encaisser. Je garde son courage. Je lui rends le « tout encaisser ». Cette année, je choisis de te porter fièrement, et de dire « Jeanne » quand je me présente, au lieu de mon surnom.", lignes: 8 }
+            { k: 'lettre-a-jan', q: "À qui écris-tu ?", ph: "Exemple : à mes grands-parents de la ferme", court: true },
+            { k: 'lettre-texte-jan', q: "Ta lettre : la part de peur que tu rends, la force que tu gardes, la confiance que tu choisis", ph: "Exemple : À vous, papi et mamie, je vous rends la part de peur qui vous appartient, celle de tout perdre. Je garde votre force de recommencer. Aujourd’hui, je choisis la confiance.", lignes: 5 }
           ] }
       ],
       rituel: {
-        titre: 'Le prénom retrouvé',
-        intro: "Ce rituel symbolique marque le moment où tu fais pleinement tien ton prénom, au seuil de la nouvelle année. Fais-le une fois ce mois-ci, dans un moment calme, idéalement après ta lettre. Il dure environ dix minutes.",
-        materiel: "Une feuille, un stylo et, si tu le souhaites, une bougie.",
+        titre: "Mes ancres de sécurité",
+        intro: "Ce petit rituel prépare ton protocole. Avant de regarder ta peur en face, tu rassembles trois ancres qui te rappellent que tu es en sécurité, ici et maintenant. Compte une dizaine de minutes, la veille ou juste avant ton protocole.",
+        materiel: "Trois ancres : un objet doux ou solide à tenir dans la main, une image d’un lieu où tu te sens bien, et une phrase écrite sur un papier. Une couverture, un verre d’eau.",
         etapes: [
-          "Si tu le souhaites, allume la bougie. Respire trois fois profondément. Écris ton prénom en grand au centre de la feuille.",
-          "Autour, note les personnes et les histoires qu’il porte : ceux qui l’ont porté avant toi, ceux qui l’ont choisi, ce qu’on attendait de toi.",
-          "Dis à voix haute : « Je reçois l’histoire de mon prénom avec respect. »",
-          "Puis dis : « Ce qui appartient aux autres, je le leur laisse. »",
-          "Prononce ton prénom trois fois, lentement, et dis : « Il est à moi. »",
-          "Plie la feuille et garde-la dans un endroit qui compte pour toi. Si tu as allumé une bougie, éteins-la (ne la laisse jamais sans surveillance), et note ce qui est venu, ci-dessous."
+          "Choisis un coin calme et installe-toi confortablement, une couverture sur les épaules si tu en as envie.",
+          "Prends ton objet dans la main. Sens son poids, sa température, sa forme. Dis : « Je suis ici, dans mon corps, aujourd’hui. »",
+          "Regarde ton image et respire lentement trois fois, en imaginant que tu es dans ce lieu.",
+          "Lis ta phrase à voix haute, par exemple : « Aujourd’hui, je suis en sécurité, et je vis ma vie. »",
+          "Pose les trois ancres près de toi pour ton protocole. Si une émotion monte pendant la lettre, reprends ton objet dans la main et relis ta phrase.",
+          "Après ton protocole, note ci-dessous ce que tes ancres t’ont apporté."
         ],
-        note: { k: 'rituel-note', q: "Comment s’est passé ton rituel ? Qu’as-tu ressenti en disant « Il est à moi » ?", ph: "Exemple : la première fois, ma voix tremblait. La troisième fois, j’ai souri. J’ai eu l’impression de m’entendre vraiment pour la première fois." }
+        note: { k: 'rituel-note-jan', q: "Quelles ancres as-tu choisies, et que t’ont-elles apporté pendant ton protocole ?", ph: "Exemple : un galet de la plage de mon enfance, une photo de mon jardin, ma phrase. Au moment du feu, j’ai serré le galet et je me suis senti·e solide." }
       },
-      conseil: "Si la lettre ou le rituel réveille une émotion forte, surtout si ton prénom est lié à une personne disparue, fais une pause, bois un verre d’eau, sors marcher. Tu peux finir un autre jour. Ton prénom restera là, il n’est pas pressé." },
+      conseil: "Le feu est une possibilité parmi d’autres : déchirer la lettre, l’enterrer ou la garder dans une enveloppe sont des gestes tout aussi forts. Suis la consigne du [mode d’emploi](mode-emploi-suivi.html#feu). Si une émotion monte, pose les pieds au sol, nomme cinq objets autour de toi, bois un verre d’eau. Tu peux vivre le protocole en deux fois." },
 
-    { cle: 'remplacer', nom: 'L’élan', etape: 'Remplacer', titre: 'Signer ton année de ton prénom',
-      intro: "Tu as vu les prénoms de ta lignée, découvert l’histoire du tien, rendu ce qu’il portait de trop. Cette semaine, tu poses une intention pour l’année qui te ressemble vraiment, et tu la signes de ton prénom.",
+    { cle: 'remplacer', nom: 'Intégrer', etape: 'Intégrer', titre: "Ton calendrier doux",
+      intro: "Tu as vu tes périodes sensibles, compris les dates de ta lignée, rendu la part de peur qui appartenait à ta lignée. Cette semaine, tu intègres : tu colores une racine apaisée sur ton arbre de vie, tu prépares ton calendrier doux, et tu poses chaque jour un petit geste de confiance.",
       texte: [
-        "**La première pause.** Quand une vieille attente liée à ton prénom se présente (« tu es bien comme ton grand-père », « une vraie petite Louise »), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Merci. Je porte ce prénom à ma façon. »",
-        "**Le prénom choisi.** Te réapproprier ton prénom, c’est accueillir son histoire tout en affirmant : « Je suis moi, avec ma propre vie. » Certain·es changent d’usage ou de surnom ; d’autres le gardent tel quel, mais le portent autrement. Signer ton intention de l’année de ton prénom, c’est le premier geste de cette liberté."
+        "**La première pause.** Quand la vieille peur se présente (un scénario catastrophe, une vigilance, une envie de tout contrôler), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Merci d’avoir protégé les miens. Aujourd’hui, je suis en sécurité, et je vis ma vie. »",
+        "**Le calendrier doux.** Note tes périodes sensibles dans ton agenda, avec ta phrase de sécurité, et prévois pour chacune un rendez-vous qui te fait du bien : une promenade, un repas avec une amie, une soirée au calme. Tu transformes une date redoutée en rendez-vous avec toi-même."
       ],
       exercices: [
-        { k: 'ex3', titre: 'Mon intention signée', type: 'texte',
-          consigne: "Écris une intention pour l’année qui te ressemble vraiment, puis signe-la de ton prénom, en entier. Ensuite, note chaque fois que tu as porté ton prénom autrement cette semaine : te présenter, signer, corriger un surnom, le dire avec fierté. Cette intention rejoint aussi celle de ton carnet « J’avance ».",
-          pourquoi: "Un prénom porté exprès devient un appui. Chaque fois que tu le prononces en conscience, tu le reprends un peu plus pour toi, et l’ancienne attente perd de sa force.",
-          gestes: ["Me présenter avec mon prénom complet", "Demander gentiment qu’on n’utilise plus un surnom", "Signer mes messages de mon prénom", "Écrire mon prénom joliment, à la main", "Dire mon prénom en me regardant dans le miroir", "Choisir le prénom que je préfère parmi les miens"],
-          q: "Ton intention signée : « Cette année, je choisis de… » suivie de ton prénom",
-          ph: "Exemple : cette année, je choisis de vivre ma propre histoire, avec le courage de ma grand-mère et ma joie à moi. Jeanne.",
-          journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu as porté ton prénom autrement : quand, comment, et qu’as-tu ressenti ?", ph: "Exemple : lundi, je me suis présentée « Jeanne » à la réunion, au lieu de « Jeannette ». J’ai senti mes épaules se redresser." } }
+        { k: 'confiance-jan', titre: "Mon geste de confiance", type: 'texte',
+          consigne: "Choisis un petit geste de confiance pour cette semaine, à l’opposé de ta vieille peur : dépenser un peu pour un plaisir, partir en balade en laissant une part d’imprévu, accepter une invitation de dernière minute. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste nourrit aussi ton intention dans ton carnet « J’avance ».",
+          pourquoi: "La confiance se construit par petits gestes répétés. Chaque geste montre à ton corps que tu es en sécurité aujourd’hui, et ta racine apaisée prend vie dans ton quotidien.",
+          gestes: ["Noter mes périodes sensibles dans mon agenda, avec ma phrase", "Prévoir un rendez-vous doux pendant une période sensible", "M’offrir un petit plaisir, ici et maintenant", "Partir en balade en laissant une part d’imprévu", "Appeler une personne de confiance quand la peur arrive", "Garder mon ancre dans ma poche les jours délicats"],
+          q: "Ton geste : « Quand ma vieille peur se présente, au lieu de…, je vais… »",
+          ph: "Exemple : au lieu de vérifier mon compte trois fois par jour, je vais le regarder une fois le dimanche, avec une tasse de thé, et me dire ma phrase.",
+          journal: { k: 'confiance-essais-jan', n: 6, q: "Chaque fois que tu as posé ce geste : quand, comment, et qu’as-tu ressenti ?", ph: "Exemple : samedi, je suis allé·e au cinéma sur un coup de tête. J’ai senti la peur, puis du plaisir." } }
       ],
-      conseil: "Si l’ancien surnom ou l’ancienne attente revient, ce n’est pas un échec : remarque-le, souris, et redis ton prénom intérieurement. Changer la façon de porter un prénom prend du temps, pour toi comme pour les autres." }
+      conseil: "Si la peur revient, remarque-la, remercie-la, et rappelle-toi ta phrase : chaque retour est une occasion de la reconnaître un peu plus tôt. Pense à colorer une racine apaisée sur ton arbre de vie. Si un malaise dure plusieurs jours, parles-en à une personne de confiance." }
   ],
 
   meditation: {
-    titre: 'Le prénom murmuré',
-    intro: "Une séance guidée pour entendre ton prénom prononcé pour la première fois, saluer celles et ceux qui l’ont porté avant toi, et le faire pleinement tien.",
+    titre: "Le coffret rendu",
+    intro: "Une séance guidée pour regarder une peur avec calme, la rendre avec respect à celle ou celui de ta lignée qui l’a connue en premier, recevoir sa force, et choisir la confiance, ici et maintenant.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois. Laisse ton corps se poser.",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Imagine le jour de ta naissance. La pièce est calme, la lumière douce, une lumière d’hiver peut-être, ou de printemps. Quelqu'un te tient dans ses bras, te regarde pour la première fois, et prononce ton prénom.",
-      "Écoute sa voix. Tu n'as pas besoin de savoir qui c'est. Sens simplement ce qu'elle porte : de l'amour, un espoir, une fierté, peut-être une mémoire, peut-être une inquiétude. Accueille tout, sans rien trier.",
+      "Je sens mon corps sur le siège, mes pieds sur le sol. Je suis en sécurité, ici et maintenant. À chaque instant, je peux revenir à mon souffle.",
+      "Dans mes mains, un petit coffret apparaît. Il contient une peur que je connais bien : celle qui revient à certains moments, celle qui semble venir de loin. Je la regarde avec calme. Je remarque sa couleur, sa forme, sa température.",
       "[pause]",
-      "Derrière cette voix, d'autres personnes apparaissent doucement. Celles qui ont porté ce prénom avant toi, ou qui l'ont inspiré. Certaines ont un visage connu, d'autres restent dans la lumière.",
-      "Salue-les avec respect. Tu peux leur dire intérieurement : « Merci. Je reçois ce que vous m'avez transmis. Je garde le meilleur, et je vis ma propre histoire. » Regarde-les s'éloigner, apaisées.",
+      "Devant moi, un chemin remonte doucement vers celles et ceux qui sont venus avant moi. Une silhouette s’avance. Peut-être une grand-mère, un arrière-grand-père, ou quelqu’un dont j’ignore le nom. Cette peur, elle l’a connue la première, à une époque difficile. Elle l’a gardée pour tenir, et pour protéger les siens.",
+      "Je la salue avec respect. Je lui dis intérieurement : « Je vois ce que tu as traversé. Cette peur t’a aidé·e à tenir, et la vie est arrivée jusqu’à moi. Merci. »",
       "[longue pause]",
-      "Maintenant, prononce toi-même ton prénom, intérieurement. Lentement. Écoute comme il sonne dans ta voix à toi, celle d'aujourd'hui. Remarque ce que tu ressens dans ton corps en l'entendant : une chaleur, une gêne, une fierté. Tout est bienvenu.",
-      "Prononce-le encore, comme si tu te présentais à toi-même pour la première fois. Sens-le devenir pleinement le tien.",
+      "Je tends le coffret, doucement, avec les deux mains : « Je te rends la part de peur qui t’appartient. Je garde ta force et ton courage. » La silhouette reçoit le coffret. Je la vois sourire, apaisée. Mes mains s’allègent, mes épaules se relâchent, mon souffle s’élargit.",
+      "En retour, elle pose dans mes mains une petite lumière chaude : sa force, sa façon de tenir et de recommencer. Je la reçois. Elle devient ma confiance.",
       "[pause]",
-      "Il t'accompagne depuis toujours, et il t'accompagnera dans tout ce que tu vas vivre cette année, comme un chemin ouvert devant toi, au-delà du seuil.",
-      "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Quand tu es prêt·e, ouvre les yeux."
+      "Je me tourne vers ma vie d’aujourd’hui. Le chemin devant moi est clair et ouvert. Je me répète doucement : « Aujourd’hui, je suis en sécurité, et je vis ma vie. Je choisis la confiance. »",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un matin calme, ou un soir tranquille, où personne ne te dérangera pendant dix minutes. Si ton prénom est lié à une personne disparue et qu’une émotion monte trop fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
+    conseil: "Choisis un moment calme, avec dix minutes pour toi. Si une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Le coffret, une silhouette, la force reçue, une sensation…", ph: "Exemple : le coffret était gris et froid. Mon arrière-grand-mère l’a pris en souriant, et m’a donné une lumière orange. J’ai senti mes épaules se relâcher." }
   },
+
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Tronc · Quelle peur je porte, et pour qui ?",
+    intro: "**Objectif :** alléger la peur héritée. **Sous-objectif :** repérer mes périodes sensibles, faire la part entre ma vie et mon histoire familiale, et rendre symboliquement la part qui appartient à ma lignée. **Intensité moyenne.** Lettre et feu (2 sur 2).",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html). Pour le feu : un récipient en métal ou en terre cuite, posé sur une surface stable, et un verre d’eau à côté, comme l’explique [le mode d’emploi](mode-emploi-suivi.html#feu).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Mon calendrier sensible (10 min).** Les moments de l’année où la peur ou la fatigue reviennent.",
+          "**Les dates de ma lignée (10 min).** Les dates familiales que tu connais. Note les rapprochements comme des pistes : une date proche peut être une coïncidence, note simplement ce qu’elle évoque pour toi."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (2 min).** Bougie, respiration lente.",
+          "**Ma peur en trois colonnes (8 min).** La peur, ce qui vient de ma vie, ce qui me semble venir de ma famille.",
+          "**La lettre courte (15 min).** « À toi (un prénom, ou « ceux d’avant moi »), je te rends la part de peur qui t’appartient. Je garde ta force de… Aujourd’hui, je choisis la confiance. »",
+          "**Le feu (10 min).** Brûle la lettre en suivant [la consigne du mode d’emploi](mode-emploi-suivi.html#feu), ou déchire-la : « Je confie cette peur au feu, et je choisis la confiance. »",
+          "**Bouger (10 min).** Secoue doucement les mains, les bras, les jambes. Souffle fort. Puis nomme cinq objets autour de toi."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).**",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Mon calendrier doux et mon arbre (7 min).** Note tes périodes sensibles dans ton agenda avec une phrase : « Aujourd’hui, je suis en sécurité, et je vis ma vie. » Sur ton arbre, colore une racine apaisée."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : une racine colorée en vert tendre, pour la peur de manquer que j’ai rendue à mon grand-père."
+      }
+    ]
+  },
+
+  lectures: [
+    { lien: 'syndrome-anniversaire.html', titre: "Les dates qui se répondent", resume: "Le syndrome d’anniversaire entre faits, hypothèses et coïncidences : comment regarder les dates de ta lignée avec prudence." },
+    { lien: 'peur-de-manquer-d-argent.html', titre: "La peur de manquer, d’où vient-elle ?", resume: "Quand une peur semble venir des années difficiles vécues par ceux d’avant : des pistes pour la reconnaître et choisir la confiance." },
+    { lien: 'memoire-transgenerationnelle.html', titre: "La mémoire transgénérationnelle", resume: "Ce qui se transmet d’une génération à l’autre, et ce qu’on peut vraiment en dire, avec nuance." }
+  ],
 
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
-    { k: 'fin-retiens', q: "Que retiens-tu de ce mois passé avec ton prénom ?", ph: "Exemple : que mon prénom est un hommage plein d’amour, pas une mission à accomplir." },
-    { k: 'fin-porte', q: "Qu’as-tu découvert de ce que ton prénom porte de ta lignée ?", ph: "Exemple : le courage de ma grand-mère Jeanne, et son habitude de tout encaisser sans rien dire." },
-    { k: 'fin-rendu', q: "Qu’as-tu rendu, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : j’ai rendu le « tout encaisser ». J’ose dire plus facilement quand quelque chose ne me convient pas." },
-    { k: 'fin-garde', q: "Que choisis-tu de garder de ton prénom, et comment veux-tu le porter ?", ph: "Exemple : son courage, et sa douceur. Je veux le porter en entier, sans surnom, avec fierté." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en février ?", ph: "Exemple : regarder les couples de ma famille, et ce qui se rejoue dans ma façon d’aimer.", court: true }
+    { k: 'fin-periodes-jan', q: "Quelles périodes sensibles as-tu repérées ce mois-ci ?", ph: "Exemple : la fin novembre et la veille de chaque départ en voyage." },
+    { k: 'fin-part-jan', q: "Qu’as-tu compris de la part qui vient de ta vie, et de celle qui semble venir de ta famille ?", ph: "Exemple : ma peur de manquer vient un peu de ma vie, et beaucoup, peut-être, de la ferme vendue. C’est une piste qui me parle." },
+    { k: 'fin-rendu-jan', q: "Quelle part de peur as-tu rendue, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : la peur de tout perdre. Je respire mieux en regardant mes comptes, et je m’autorise de petits plaisirs." },
+    { k: 'fin-force-jan', q: "Quelle force de ta lignée gardes-tu avec toi ?", ph: "Exemple : la force de recommencer de mes grands-parents, et leur sens du partage." },
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à l’étape suivante, autour de ton prénom et des attentes posées sur toi ?", ph: "Exemple : découvrir l’histoire de mon prénom, et les attentes posées sur moi.", court: true }
   ],
 
   carnet: {
     titre: 'Mon intention, mes valeurs',
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Dans ton carnet, tu clarifies tes valeurs et tu poses l’intention de ton année : signe-la du prénom que tu viens de faire tien, elle n’en sera que plus forte."
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Dans ton carnet, tu choisis tes valeurs et tu poses ton intention pour l’année : reporte ta phrase de sécurité et ton geste de confiance, ils deviennent le socle de ton intention."
   },
 
   aVenir: [
-    { mois: 'Février', titre: 'Le couple et les schémas amoureux', texte: "Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
-    { mois: 'Mars', titre: 'Ta place dans la fratrie', texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' }
+    { mois: 'Étape 5 · Tronc', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
+    { mois: 'Étape 6 · Tronc', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' },
+    { mois: 'Étape 7 · Branches', titre: "Quelles phrases me guident ?", texte: "Collecter les phrases de ta famille, voir où elles agissent dans ta vie, et les réécrire avec tes propres mots.", image: 'assets/cartes/boucle-spirale-mini.jpg' }
   ]
 };

@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'avril 2027 : « Les secrets et les non-dits »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'avril 2027 : « Quelles phrases me guident ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-04-0df5f051e5.pdf',
   nomMois: 'avril 2027',
   moisSuivant: 'mai',
-  titre: 'Les secrets et les non-dits',
-  sousTitre: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.",
+  titre: "Quelles phrases me guident ?",
+  sousTitre: "Branches de ton arbre de vie · Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.",
   citation: "Ce qui n’est pas dit cherche souvent un autre chemin pour se faire entendre.",
   audio: '',
   audioCourt: '',
@@ -204,6 +204,46 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une pièce, une porte, un objet, une sensation, un mot…", ph: "Exemple : la porte était celle de la chambre de mon arrière-grand-mère. Je ne l’ai pas ouverte, mais j’ai senti beaucoup de douceur en posant ma main dessus." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Branches · Quelles phrases me guident ?",
+    intro: "**Objectif :** remplacer les phrases héritées par mes propres phrases. **Sous-objectif :** collecter les phrases de ma famille, voir où elles agissent, et les réécrire. **Intensité douce.**",
+    materiel: "Quelques cartes ou petits cartons. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**La collecte (10 min).** « Chez nous, on… », « Il faut… », « Une femme, ça… », « Un homme, ça… ». Note qui les disait.",
+          "**Où elles agissent (10 min).** Pour 3 phrases, une situation récente : « Je ressens… Je dis… Je fais… »"
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**L’atelier de réécriture (25 min).** Trois colonnes : la phrase héritée, ce qu’elle protégeait (et merci à elle), ma version choisie. Par exemple : « Chez nous, on serre les dents » devient « Je dis ce que je vis, et je demande du soutien ». « L’argent se gagne à la sueur du front » devient « Mon argent peut venir avec joie ». « Il faut être sage » devient « J’ai le droit d’être vivant·e et joyeux·se ».",
+          "**Mes 3 phrases (10 min).** Choisis tes 3 préférées et écris-les en grand sur des cartes.",
+          "**Les afficher (10 min).** Place-les là où tu les vois chaque jour : le miroir, le frigo, ton téléphone. Lien : l’outil « Crée ton fond d’écran », en semaine 4 de ton [carnet du mois](mon-carnet.html)."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Tes nouvelles phrases sur les branches.",
+          "**Chaque jour (5 min la première fois).** Choisis une petite action qui va avec l’une de tes phrases."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : sur les branches : « Je dis ce que je vis », « Mon argent peut venir avec joie », « J’ai le droit d’être joyeuse »."
+      }
+    ]
+  },
+
   bilanTitre: "Ce que ce mois a laissé respirer",
   bilan: [
     { k: 'fin-silence', q: "Quel silence de ta famille as-tu reconnu ce mois-ci ?", ph: "Exemple : le silence autour de la jeunesse de ma grand-mère, à Toulon." },
@@ -219,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' },
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Regarder ce que ta lignée t’a transmis sur l’argent, et t’autoriser ta juste valeur.", image: 'assets/guide/guide-coffret.webp' }
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' },
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Regarder ce que ta lignée t’a transmis sur l’argent, et t’autoriser ta juste valeur.", image: 'assets/guide/guide-coffret.webp' }
   ]
 };

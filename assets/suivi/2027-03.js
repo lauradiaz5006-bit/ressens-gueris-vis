@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mars 2027 : « Ta place dans la fratrie »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mars 2027 : « Quelles émotions avaient le droit d’exister ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-03-ea9f0fd173.pdf',
   nomMois: 'mars 2027',
   moisSuivant: 'avril',
-  titre: 'Ta place dans la fratrie',
-  sousTitre: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.",
+  titre: "Quelles émotions avaient le droit d’exister ?",
+  sousTitre: "Tronc de ton arbre de vie · Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.",
   citation: "Chaque enfant naît dans une famille différente, même sous le même toit.",
   audio: '',
   audioCourt: '',
@@ -203,6 +203,51 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un arbre, un espace vide, une sensation, un mot…", ph: "Exemple : mon arbre se penchait pour protéger le plus petit. Quand il s’est redressé, j’ai respiré beaucoup plus large." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Tronc · Quelles émotions avaient le droit d’exister ?",
+    intro: [
+      "**Objectif :** libérer une émotion ou un sentiment installé depuis longtemps. **Sous-objectif :** distinguer émotion et sentiment, voir les émotions permises chez moi, et écrire à l’une d’elles. **Intensité moyenne.** Lettre (3 sur 4), gardée dans une enveloppe.",
+      "**À lire avant :** une émotion est souvent une vague courte, dans le corps, ici et maintenant (colère, tristesse, peur, joie). Un sentiment s’installe plutôt dans la durée, nourri par les pensées et l’histoire (rancœur, culpabilité, honte, nostalgie). Une émotion gardée longtemps peut devenir un sentiment. Lien : l’article [« Émotion ou sentiment »](emotion-ou-sentiment.html)."
+    ],
+    materiel: "Une enveloppe. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**La météo de ma famille (10 min).** Pour la colère, la tristesse, la peur et la joie : soleil (bienvenue), nuage (tolérée), orage (mise de côté). Qui l’exprimait ?",
+          "**Ce qui est installé en moi (10 min).** 3 émotions ou sentiments présents depuis longtemps : depuis quand, dans quelle situation."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (3 min).**",
+          "**La lettre (25 min).** À une émotion ou à un sentiment, le plus ancien : « Chère colère (ou chère tristesse, chère honte…), tu es là depuis… Tu es venue chaque fois que… Tu voulais me protéger de… Je te remercie. Aujourd’hui, je te laisse partir, et à ta place j’accueille… ». Pour finir : la colère, « le calme et ma juste force » ; la tristesse, « la douceur et la joie » ; la peur, « la confiance et la sécurité » ; la honte, « la fierté d’être moi » ; la culpabilité, « la paix et le droit de vivre ma vie ».",
+          "**Un geste confortable (7 min).** Choisis : souffler fort, marcher, laisser couler des larmes, rire, danser, ou continuer à écrire.",
+          "**L’enveloppe (7 min).** Plie ta lettre dans une enveloppe, écris dessus « Ce que je laisse partir », et range-la. À la fin du mois, tu choisis de la garder ou de la déchirer.",
+          "**Respirer (3 min).**"
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Mon journal de 7 soirs (5 min, puis 1 min par soir).** « Aujourd’hui, j’ai ressenti… et je l’ai laissé passer. »",
+          "**Sur mon arbre (7 min).** Une couleur pour chaque émotion sur le tronc. Refais ta roue de la vie : 6 mois de chemin."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : du rouge doux pour la colère, du bleu pour la tristesse, du jaune pour la joie qui revient."
+      }
+    ]
+  },
+
   bilanTitre: "Ce que ce mois a remis à sa place",
   bilan: [
     { k: 'fin-role', q: "Quel rôle de fratrie as-tu repéré ce mois-ci ?", ph: "Exemple : celle qui s’occupe de tout et de tout le monde." },
@@ -213,13 +258,13 @@ window.GENESOLIA_CARNET = {
   ],
 
   carnet: {
-    titre: "Ma voix, ma confiance",
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Ta place dans la fratrie a souvent décidé si tu pouvais parler fort ou si tu devais te taire : ton carnet t’aide ce mois-ci à retrouver ta voix, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine. Reporte ton geste à ta juste place dans ton carnet, il devient un appui."
+    titre: "Ma direction, ma confiance",
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Ta place dans la fratrie a souvent décidé si tu pouvais parler fort ou si tu devais te taire : ton carnet t’aide ce mois-ci à écouter la direction que ta vie te montre, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine. Reporte ton geste à ta juste place dans ton carnet, il devient un appui."
   },
 
   aVenir: [
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' }
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' }
   ]
 };

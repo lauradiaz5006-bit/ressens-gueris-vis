@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet d'août 2027, « J'avance » : « Mon chez-moi, mon élan »
    Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
-   Le côté libération (« Racines, départs et lieux ») est dans Mon suivi (assets/suivi/2027-08.js).
+   Le côté libération (« D’où venons-nous ? ») est dans Mon suivi (assets/suivi/2027-08.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -116,7 +116,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Regarder, oser, bouger',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier te fait visiter ton chez-moi avec un regard neuf, le deuxième t’aide à choisir le changement que tu veux oser, le troisième remet du mouvement dans tes journées. Commence par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier te fait visiter ton chez-moi avec un regard neuf, le deuxième t’aide à choisir le changement que tu veux oser, le troisième remet du mouvement dans tes journées. Commence par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: 'Mon chez-moi, pièce par pièce', type: 'tableau', rangs: 3,
       etiquettes: ['Là où je me repose', 'Là où je vis avec les autres', 'Un coin rien qu’à moi'],
@@ -210,9 +210,43 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour septembre ?", ph: "Exemple : garder mon élan à la rentrée, et chercher ce qui me fait vraiment vibrer dans mon travail.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Les lieux qui m’élèvent",
+    objectif: "habiter pleinement ma vie et mes lieux.",
+    sousObjectif: "sentir quels lieux, personnes et ambiances m’élèvent ou me pèsent, et créer chez moi un espace qui me ressemble.",
+    duree: "début du mois : 30 min. Chaque jour : 5 min. Une fois dans le mois : 30 min.",
+    temps: [
+      {
+        titre: "Début du mois (30 min)",
+        etapes: [
+          "**Ma carte des lieux (10 min).** Les lieux de ta semaine : les pièces de ta maison, ton travail, la nature, les endroits où tu passes. Pour chacun, ce que ton corps ressent, puis une couleur : vert quand il t’élève, orange quand il est neutre, gris quand il te pèse.",
+          "**Les énergies autour de moi (10 min).** Les personnes et les ambiances de ta semaine. Après quels moments te sens-tu plus vivant·e ? Après lesquels te sens-tu vidé·e ?",
+          "**Mon lieu ressource (10 min).** Le lieu qui t’élève le plus, dehors ou chez toi. Puis le coin de ta maison qui te pèse, et ce que tu peux y changer : ranger, aérer, une couleur, une plante, de la lumière."
+        ]
+      },
+      {
+        titre: "Chaque jour (5 min)",
+        intro: "Va dans ton lieu ressource et reste présent·e : respire, sens tes pieds, regarde, écoute."
+      },
+      {
+        titre: "Une fois dans le mois (30 min)",
+        intro: "Transforme le coin qui te pèse. Termine par : « Ici, je me sens chez moi quand… »"
+      }
+    ],
+    liens: [
+      [
+        "mode-emploi-suivi.html#cloture",
+        "Le texte « Fin de rituel et réunification intérieure », à lire à voix haute"
+      ]
+    ],
+    ph: "Exemple : mon lieu ressource, c’est le banc sous le tilleul. Ici, je me sens chez moi quand la lumière du soir entre dans le salon."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Racines, départs et lieux',
+    titre: "D’où venons-nous ?",
     texte: "Pendant que ton carnet t’aide à te sentir chez toi et à oser le mouvement, ton suivi t’emmène vers les lieux de ta lignée : les maisons gardées ou perdues, les départs, les exils, les retours. Ce que tu y reconnais t’aide à habiter ta vie plus librement, où que tu sois."
   },
 

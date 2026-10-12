@@ -238,6 +238,26 @@
 .mc-sugg li{padding:.5rem .7rem;cursor:pointer}
 .mc-sugg li:hover,.mc-sugg li[aria-selected=true]{background:#FBF0E4}
 @media (max-width:700px){.mc-roue-curseurs,.mc-tm-cartes{grid-template-columns:1fr}}
+/* L'exercice du mois (cycle 1) et le protocole « Mon arbre de vie » (cycle 2) : étapes groupées, tableau d'exemple */
+.mc-etapes-t{margin:1.3rem 0 .2rem!important;font:400 1.2rem/1.3 var(--display);color:var(--prune)}
+.mc-etapes-t+.mc-etapes{margin-top:.5rem}
+.mc-etapes li .mc-liste{margin:.4rem 0 0}
+.mc-exmois-temps{margin-top:.4rem}
+.mc-etape-fin{display:block;margin-top:.4rem}
+.mc-tab-ex{margin:.6rem 0 1rem}
+.mc-tab-ex table{width:100%;border-collapse:separate;border-spacing:0;font-size:.92rem;background:#fff;border:1px solid var(--champagne-clair);border-radius:12px;overflow:hidden}
+.mc-tab-ex th,.mc-tab-ex td{padding:.55rem .65rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--champagne-clair)}
+.mc-tab-ex th{background:#FFF6EC;color:var(--prune);font-weight:700}
+.mc-tab-ex tr:last-child td{border-bottom:0}
+@media (max-width:640px){
+  .mc-tab-ex thead{display:none}
+  .mc-tab-ex table,.mc-tab-ex tbody,.mc-tab-ex tr,.mc-tab-ex td{display:block;width:100%}
+  .mc-tab-ex tr{border-bottom:1px solid var(--champagne-clair)}
+  .mc-tab-ex tr:last-child{border-bottom:0}
+  .mc-tab-ex td{border:0;padding:.35rem .7rem}
+  .mc-tab-ex td::before{content:attr(data-l);display:block;font-size:.76rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--champagne)}
+}
+.mc-boutons-l{display:flex;flex-wrap:wrap;gap:.5rem}
 @media print{
   @page{margin:14mm 14mm 16mm}
   header[data-entete],footer,.annonce,.bandeau-info,.cookies,.chemin-toast,.note-donnees,.carre-cercle,.cadeau-bas,.mc-onglets,.mc-nav,.mc-barre,.mc-boutons,.mc-compte,.mc-actions,.mc-aide-livre,.mc-volet,.mc-feuille,.mc-folio,.mc-btn-ics,.mc-audio,.mc-tableau-chiffres,.mc-av-lien{display:none!important}
@@ -501,3 +521,19 @@
 .mc-volet-sur{font:700 .72rem/1.2 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22}
 .mc-volet-corps{padding:0 1.1rem 1.1rem}
 @media print{.mc-volet-plie>summary::after{display:none}}
+/* Le suivi par étapes : les 12 étapes de l'année (en-tête), la note et les cases « livre de lignée » */
+.mc-etapes-nav{margin:.6rem 0 .2rem;max-width:38rem;color:#F7E6EE}
+.mc-etapes-nav>summary{cursor:pointer;font:600 .9rem/1.4 var(--texte);color:var(--champagne-clair);list-style-position:inside}
+.mc-etapes-nav ol{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.25rem}
+.mc-etapes-nav li>*{display:flex;flex-wrap:wrap;gap:.15rem .5rem;align-items:baseline;padding:.3rem .55rem;border-radius:.5rem;font-size:.88rem;line-height:1.35;color:#F7E6EE;text-decoration:none}
+.mc-etapes-nav a{background:rgba(255,255,255,.08)}
+.mc-etapes-nav a:hover,.mc-etapes-nav a:focus-visible{background:rgba(255,255,255,.18)}
+.mc-etapes-nav .mc-et-ici>b{background:rgba(255,255,255,.22);font-weight:600}
+.mc-etapes-nav .mc-et-avenir>span{opacity:.6}
+.mc-et-n{font-weight:700;white-space:nowrap}
+.mc-etapes-nav em{font-style:italic;margin-left:auto}
+.mc-tete>p.mc-livre-note{font-size:.9rem;margin:.5rem 0 0}
+.mc-livre-case{display:flex;align-items:center;gap:.45rem;margin:.55rem 0 .2rem;font-size:.86rem;color:#7A5A70;cursor:pointer}
+.mc-livre-case input{width:1.05rem;height:1.05rem;accent-color:#B7833F;flex:none}
+.mc-ta-saison{margin-top:1rem}
+@media print{.mc-livre-case,.mc-etapes-nav,.mc-livre-note{display:none!important}}

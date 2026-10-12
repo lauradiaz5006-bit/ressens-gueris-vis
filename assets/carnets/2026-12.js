@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de décembre 2026, « J'avance » : « Ma place, mes limites »
    Le carnet du mois est le côté « J'avance » du Cercle : dire oui, dire non, protéger son énergie, trouver sa juste place.
-   Le côté libération (« Les fêtes et les places à table ») est dans Mon suivi (assets/suivi/2026-12.js).
+   Le côté libération (« Quelle est ma place ? ») est dans Mon suivi (assets/suivi/2026-12.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Repérer, oser, choisir',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à repérer tes oui qui te coûtent, le deuxième à préparer les fêtes en protégeant ton énergie, le troisième à trouver ta phrase pour dire non. Fais le deuxième avant le 20 décembre si tu peux.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à repérer tes oui qui te coûtent, le deuxième à préparer les fêtes en protégeant ton énergie, le troisième à trouver ta phrase pour dire non. Fais le deuxième avant le 20 décembre si tu peux.",
   exercices: [
     { k: 'ex1', titre: 'Mes oui qui me coûtent', type: 'tableau', rangs: 3,
       etiquettes: ['Au travail', 'En famille', 'Avec mes amis, et avec moi-même'],
@@ -210,15 +210,59 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour janvier ?", ph: "Exemple : commencer l’année doucement, et choisir ce qui compte vraiment pour moi.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mon rôle, ma place · Ma phrase de limite et ma posture",
+    objectif: "prendre ma place.",
+    sousObjectif: "voir mon rôle, poser une limite chaque jour.",
+    duree: "Mon rôle, ma place : environ 20 minutes, une fois en début de mois (tu peux le refaire en fin de mois pour voir ce qui a bougé). Ma phrase de limite : 3 minutes le matin, 2 minutes le soir, chaque jour du mois (au moins 7 jours de suite).",
+    temps: [
+      {
+        titre: "Début du mois · Mon rôle, ma place (20 minutes)",
+        etapes: [
+          "**S’installer (2 minutes).** Pose-toi dans un endroit calme, avec ton carnet. Respire lentement trois fois, et sens tes pieds bien posés sur le sol.",
+          "**Observer mon rôle (5 minutes).** Regarde la place que tu tiens dans ta famille, avec tes amis, ou dans le groupe où tu as grandi. Quel rôle joues-tu ? Celle ou celui qui arrange tout, qui rassure, qui fait rire, qui tient bon, qui reste discret·e, qui porte les autres… Écris-le en quelques mots.",
+          "**Ce qu’il m’apporte, ce qu’il me coûte (5 minutes).** Trace deux colonnes. D’un côté, ce que ce rôle t’apporte. De l’autre, ce qu’il te coûte. Puis demande-toi, simplement : ce rôle me convient-il aujourd’hui ?",
+          "**Pourquoi je le garde (3 minutes).** Écris ce qui te fait continuer : un vrai choix, parce que tu l’aimes ? Une loyauté envers quelqu’un de ta famille (écris son prénom) ? Une croyance, comme « c’est mon rôle » ou « je dois tenir pour les autres » ?",
+          "**Et si je vivais autrement (3 minutes).** Imagine que tu choisis une autre façon d’être. Que se passerait-il ? Qu’est-ce qui changerait pour toi ? Pour les autres ? Note ce qui vient, même les petites peurs : elles te montrent où se trouve la loyauté.",
+          "**Ma nouvelle place (2 minutes).** Écris en une phrase, au présent, la place et le rôle que tu choisis maintenant : « Je prends ma place de… », « Je suis celle ou celui qui… ». Lis-la à voix haute, le dos droit, les épaules ouvertes."
+        ]
+      },
+      {
+        titre: "Chaque jour · Ma phrase de limite et ma posture (5 minutes)",
+        etapes: [
+          {
+            t: "**Ma phrase du jour (1 minute, le matin).** Choisis une phrase de limite pour ta journée, et applique-la du matin au soir. Par exemple :",
+            liste: [
+              "« Je prends le temps de réfléchir avant de répondre. »",
+              "« Je réponds demain. »",
+              "« Ce soir, je garde ce temps pour moi. »",
+              "« Je dis oui seulement à ce qui me convient. »",
+              "« Je demande de l’aide pour cette tâche. »"
+            ]
+          },
+          "**Ma posture (1 minute, le matin, devant le miroir).** Debout, les pieds bien ancrés, le dos droit, les épaules ouvertes, le menton à l’horizontale. Respire profondément. Regarde-toi dans les yeux et dis ta phrase à voix haute.",
+          "**Je l’applique (toute la journée).** Chaque fois que l’occasion se présente, utilise ta phrase. Si tu sens ton corps se refermer, redresse-toi et respire.",
+          "**Mon bilan (2 minutes, le soir).** Note ce qui s’est passé : où ta phrase t’a servi, ce que tu as ressenti, comment les autres ont réagi. Coche la journée."
+        ]
+      }
+    ],
+    liens: [
+      ["place-dans-la-fratrie.html", "La place dans la fratrie"]
+    ],
+    ph: "Exemple : je prends ma place de personne qui demande aussi. Ma phrase préférée du mois : « Je réponds demain. »"
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Les fêtes et les places à table',
-    texte: "Pendant que ton carnet t’aide à poser tes limites et à protéger ton énergie, ton suivi t’invite à observer les places à table dans ta famille : qui organise, qui se tait, qui manque. Comprendre la place que l’on t’a donnée t’aide à choisir celle que tu prends."
+    titre: "Quelle est ma place ?",
+    texte: "Pendant que ton carnet t’aide à poser tes limites et à protéger ton énergie, ton suivi t’invite à regarder ta place dans ta famille et ta fratrie, et à alléger les liens qui pèsent en gardant l’amour. Comprendre la place que l’on t’a donnée t’aide à choisir celle que tu prends."
   },
 
   aVenir: [
     { mois: 'Janvier', titre: 'Mon intention, mes valeurs', texte: "Clarifier ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' },
     { mois: 'Février', titre: 'M’aimer d’abord', texte: "Te traiter avec la douceur que tu offres aux autres, et devenir ton tout premier appui.", image: 'assets/cartes/entiere-mini.jpg' },
-    { mois: 'Mars', titre: 'Ma voix, ma confiance', texte: "Oser dire ce que tu penses, prendre la parole, et faire confiance à ce que tu ressens.", image: 'assets/cartes/demander-mini.jpg' }
+    { mois: 'Mars', titre: 'Ma direction, ma confiance', texte: "Écouter la direction que ta vie te montre, faire grandir ta confiance en toi, et avancer vers elle un petit pas après l’autre.", image: 'assets/cartes/demander-mini.jpg' }
   ]
 };
