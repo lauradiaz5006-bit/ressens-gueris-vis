@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L’arbre des ressentis : voir ce qui se répète dans ta lignée · Genesolia</title>
+  <meta name="description" content="Un outil gratuit et interactif : note tes étapes de vie et ce que tu as ressenti, fais de même pour ta mère, ta grand-mère, ton père… et vois apparaître l’arbre de ce qui se répète.">
+  <link rel="canonical" href="https://genesolia.fr/arbre-des-ressentis.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="L’arbre des ressentis">
+  <meta property="og:description" content="Pas de dates exactes, pas de métiers : seulement ce que chacun·e a ressenti. Et l’arbre montre ce qui se répète.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* ===== Arbre des ressentis (page seule) ===== */
+    .ar{--abandon:#6B2F5B;--rejet:#D9705F;--trahison:#B98A55;--humiliation:#C2466E;--injustice:#4E5D94}
+    .ar-fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem;display:flex;gap:.5rem}
+    .ar-fil a{color:var(--prune-doux)}
+    .ar-cle{margin-top:1.6rem;padding:1.3rem 1.5rem;border-radius:var(--rayon);background:var(--blanc);border:1.5px solid var(--champagne-clair);max-width:44rem}
+    .ar-cle p{max-width:none}
+    .ar-cle b{font-weight:700}
+    .ar-cle-titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.35rem}
+
+    /* Étapes de l’outil */
+    .ar-etapes{position:sticky;top:4.25rem;z-index:20;background:rgba(255,249,247,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--rose)}
+    .ar-etapes ol{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;padding:.6rem 0}
+    .ar-etapes button{width:100%;display:flex;align-items:center;gap:.55rem;padding:.55rem .7rem;border-radius:14px;border:1.5px solid transparent;background:none;font:600 .92rem/1.2 var(--texte);color:var(--prune-doux);cursor:pointer;text-align:left}
+    .ar-etapes button span{flex:none;width:1.8rem;height:1.8rem;border-radius:50%;display:grid;place-items:center;background:var(--rose);font-family:var(--display);font-weight:400;font-size:1rem;color:var(--prune)}
+    .ar-etapes button[aria-current="step"]{background:var(--blanc);border-color:var(--rose-fonce);color:var(--prune)}
+    .ar-etapes button[aria-current="step"] span{background:var(--prune);color:var(--blanc)}
+    @media (max-width:700px){.ar-etapes ol{gap:.2rem}.ar-etapes button{flex-direction:column;gap:.25rem;padding:.45rem .2rem;font-size:.74rem;text-align:center}}
+
+    .ar-panneau{padding:2.6rem 0 1rem}
+    .ar-panneau[hidden]{display:none}
+    .ar-panneau>.conteneur>h2{margin-bottom:.6rem}
+    .ar-panneau .ar-chapeau{color:var(--prune-doux);font-size:1.06rem;margin-bottom:1.6rem;max-width:44rem}
+    .ar-suite{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between;margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--rose)}
+
+    /* Fiche d’une personne */
+    .ar-fiche{background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.4rem 1.5rem;margin-bottom:1.2rem}
+    .ar-fiche-tete{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;align-items:end;justify-content:space-between;margin-bottom:1rem}
+    .ar-fiche-tete h3{font-size:1.45rem}
+    .ar-fiche-tete .ar-role{font:600 .78rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne)}
+    .ar-champ{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .ar-champ span{font-weight:400;color:var(--prune-doux)}
+    .ar input[type=text],.ar textarea{font:400 1rem var(--texte);color:var(--prune);padding:.65rem .85rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--blanc);width:100%}
+    .ar textarea{min-height:4.2rem;resize:vertical}
+    .ar input:focus,.ar textarea:focus{outline:2px solid var(--champagne);outline-offset:1px;border-color:var(--champagne)}
+    .ar-global{padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(135deg,#FFF6EC,#FCEFF3);margin-bottom:1.1rem}
+    .ar-global>p{font-weight:600;margin-bottom:.6rem;max-width:none}
+    .ar-groupe{margin-top:.8rem}
+    .ar-groupe>p{font-size:.85rem;font-weight:600;color:var(--prune-doux);margin-bottom:.4rem;max-width:none}
+    .ar-puces{display:flex;flex-wrap:wrap;gap:.4rem}
+    .ar-puce{display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .8rem;border-radius:99px;border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);font:400 .88rem/1.2 var(--texte);cursor:pointer;transition:background .15s,border-color .15s}
+    .ar-puce:hover{border-color:var(--prune-doux)}
+    .ar-puce i{width:.6rem;height:.6rem;border-radius:50%;flex:none}
+    .ar-puce[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:var(--blanc)}
+    .ar-puce[aria-pressed="true"] i{box-shadow:0 0 0 2px var(--blanc)}
+    .ar-ajout{display:flex;gap:.4rem;margin-top:.5rem;max-width:30rem}
+    .ar-ajout input{padding:.45rem .75rem!important;font-size:.9rem!important}
+    .ar-ajout button{flex:none;padding:.45rem .9rem;font-size:.85rem}
+
+    .ar-vie>p.ar-sous{font-family:var(--display);font-size:1.15rem;margin:1.2rem 0 .7rem}
+    .ar-etape{position:relative;border:1px solid var(--rose);border-left:4px solid var(--champagne-clair);border-radius:16px;padding:1rem 1.1rem;margin-bottom:.8rem;background:#FFFDFC}
+    .ar-etape-haut{display:grid;grid-template-columns:8.5rem 1fr auto;gap:.8rem;align-items:end}
+    .ar-etape-haut .ar-champ input{padding:.5rem .7rem}
+    .ar-retirer{background:none;border:0;color:var(--prune-doux);font-size:.85rem;text-decoration:underline;cursor:pointer;padding:.5rem 0}
+    .ar-etape details{margin-top:.8rem}
+    .ar-etape summary{cursor:pointer;font-size:.88rem;color:var(--prune-doux)}
+    .ar-etape textarea{margin-top:.5rem}
+    @media (max-width:640px){.ar-etape-haut{grid-template-columns:1fr}.ar-fiche{padding:1.1rem}.ar-retirer{justify-self:start;padding:0}}
+
+    /* Choix des personnes */
+    .ar-aide{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding:1.2rem 1.4rem;border-radius:var(--rayon);background:var(--prune);color:#F4E4EE;margin-bottom:1.8rem}
+    .ar-aide p{max-width:none}
+    .ar-aide b{color:var(--blanc)}
+    .ar-aide .ar-aide-n{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--champagne-clair)}
+    .ar-cotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+    .ar-cote{background:var(--blanc);border:1.5px solid var(--rose);border-radius:var(--rayon);padding:1.1rem}
+    .ar-cote h3{font-size:1.2rem;margin-bottom:.7rem}
+    .ar-cote .ar-puces{gap:.45rem}
+    .ar-cote details{margin-top:.8rem}
+    .ar-cote summary{cursor:pointer;font-size:.88rem;color:var(--prune-doux);margin-bottom:.5rem}
+    .ar-personne-btn[aria-pressed="true"]::after{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne-clair)}
+    @media (max-width:860px){.ar-cotes{grid-template-columns:1fr}}
+    .ar-vide{padding:1.4rem;border:1.5px dashed var(--rose-fonce);border-radius:var(--rayon);color:var(--prune-doux);text-align:center}
+    .ar-plier{display:flex;align-items:center;gap:.5rem;background:none;border:0;font:600 .88rem var(--texte);color:var(--prune-doux);cursor:pointer;padding:0}
+
+    /* L’arbre */
+    .ar-filtres{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1rem}
+    .ar-cadre{position:relative;border-radius:28px;background:radial-gradient(40rem 22rem at 50% 0%,rgba(243,220,192,.55),transparent 65%),linear-gradient(180deg,#FFFBF8,#FBEFF0);border:1px solid var(--rose-fonce);overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+    .ar-cadre svg{display:block;width:100%;min-width:640px;height:auto}
+    .ar-legende{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin-top:.9rem;font-size:.86rem;color:var(--prune-doux)}
+    .ar-legende span{display:inline-flex;align-items:center;gap:.4rem}
+    .ar-legende i{width:.7rem;height:.7rem;border-radius:50%}
+    .ar-explication{margin-top:1rem;padding:1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--rose);min-height:3rem}
+    .ar-explication p{max-width:none}
+    .ar-noeud{cursor:pointer}
+    .ar-noeud:focus{outline:none}
+    .ar-noeud:focus-visible circle.ar-coeur{stroke:var(--champagne);stroke-width:3}
+    .ar-detail{margin-top:1rem}
+    .ar-detail h3{margin-bottom:.6rem}
+    .ar-ligne-vie{list-style:none;display:grid;gap:.5rem}
+    .ar-ligne-vie li{display:grid;grid-template-columns:5.5rem 1fr;gap:.8rem;padding:.6rem 0;border-top:1px solid var(--rose)}
+    .ar-ligne-vie .ar-age{font-family:var(--display);font-size:1.15rem;color:var(--champagne)}
+    .ar-ligne-vie .ar-mots{color:var(--prune-doux);font-size:.95rem}
+
+    /* Ce qui se répète */
+    .ar-bilan{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .ar-carte{background:var(--blanc);border:1.5px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.4rem}
+    .ar-carte h3{margin-bottom:.8rem}
+    .ar-carte ul{list-style:none;display:grid;gap:.7rem}
+    .ar-carte li{display:grid;grid-template-columns:auto 1fr;gap:.6rem;align-items:start;font-size:.97rem}
+    .ar-carte li i{width:.75rem;height:.75rem;border-radius:50%;margin-top:.4rem}
+    .ar-carte li b{font-weight:700}
+    .ar-carte .ar-rien{color:var(--prune-doux);font-size:.95rem}
+    .ar-large{grid-column:1/-1}
+    .ar-lignee{background:linear-gradient(135deg,#3B1747,#6B2F5B);color:#F7E6EE;border:0}
+    .ar-lignee h3{color:var(--blanc)}
+    .ar-lignee p{max-width:44rem}
+    .ar-lignee b{color:var(--blanc)}
+    .ar-barres{display:grid;gap:.7rem;margin:1.2rem 0}
+    .ar-barre{display:grid;grid-template-columns:9rem 1fr 2.5rem;gap:.8rem;align-items:center;font-size:.93rem}
+    .ar-barre div{height:.8rem;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+    .ar-barre div span{display:block;height:100%;border-radius:99px;background:var(--champagne-clair)}
+    .ar-barre:nth-child(2) div span{background:var(--corail)}
+    .ar-personnes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
+    .ar-personnes span{padding:.35rem .8rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.35);font-size:.88rem}
+    @media (max-width:760px){.ar-bilan{grid-template-columns:1fr}.ar-barre{grid-template-columns:6.5rem 1fr 2rem}}
+    .ar-fin{margin-top:1.6rem;padding:1.3rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(135deg,#FFF6EC,#FCEFF3);border:1px solid var(--champagne-clair)}
+    .ar-fin p{max-width:none;margin-bottom:.8rem}
+
+    @media print{
+      .ar-etapes,.ar-suite,.ar-filtres,.ar-actions,.page-tete .ar-cle,.annonce,.cadeau-bas{display:none!important}
+      .ar-impression .ar-panneau[data-etape="1"],.ar-impression .ar-panneau[data-etape="2"]{display:none!important}
+      .ar-impression .ar-panneau[data-etape="3"],.ar-impression .ar-panneau[data-etape="4"]{display:block!important}
+      .ar-cadre{overflow:visible;border:0}.ar-cadre svg{min-width:0}
+      .ar-carte,.ar-cadre{break-inside:avoid}
+      .ar-lignee{background:#fff!important;color:var(--prune)!important;border:1.5px solid var(--rose-fonce)!important}
+      .ar-lignee h3,.ar-lignee b{color:var(--prune)!important}
+      .ar-barre div{background:var(--rose)!important}.ar-personnes span{background:var(--rose)!important}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+
+  <main class="ar">
+    <section class="page-tete">
+      <div class="conteneur">
+        <nav class="ar-fil" aria-label="Fil d’Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>L’arbre des ressentis</nav>
+        <h1>L’arbre des ressentis</h1>
+        <p class="intro">Note les grandes étapes de ta vie et ce que tu as ressenti. Fais de même pour ta mère, ta grand-mère, ton père, avec ce que tu sais ou ce que tu sens. Puis regarde ton arbre se dessiner : ce qui se répète d’une génération à l’autre apparaît de lui-même.</p>
+        <div class="ar-cle">
+          <p class="ar-cle-titre">Ici, une seule chose compte : ce que l’on ressent.</p>
+          <p>Pas besoin de dates exactes, de métiers ni de faits vérifiés. Ce qui compte, c’est <b>la blessure</b>, <b>l’émotion</b> et <b>ce que la vie a fait croire</b> (ta vision des choses). Un âge approximatif suffit : il sert seulement à voir les âges qui se répondent. Une phrase entendue dans la famille, comme « elle était toujours fatiguée », vaut beaucoup.</p>
+        </div>
+        <p class="note" style="margin-top:1rem">Environ 20 minutes, en une ou plusieurs fois. Tes réponses restent dans ton navigateur, sur cet appareil.</p>
+      </div>
+    </section>
+
+    <nav class="ar-etapes" aria-label="Étapes de l’outil">
+      <div class="conteneur">
+        <ol>
+          <li><button type="button" data-aller="1" aria-current="step"><span>1</span>Ta vie</button></li>
+          <li><button type="button" data-aller="2"><span>2</span>Ta lignée</button></li>
+          <li><button type="button" data-aller="3"><span>3</span>Ton arbre</button></li>
+          <li><button type="button" data-aller="4"><span>4</span>Ce qui se répète</button></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- ÉTAPE 1 -->
+    <section class="ar-panneau" data-etape="1">
+      <div class="conteneur">
+        <h2>Ta vie, ce que tu as ressenti</h2>
+        <p class="ar-chapeau">Note les moments qui t’ont marqué·e : une séparation, un départ, une perte, un déménagement, une naissance, un moment où tout a basculé. Pour chacun, l’âge que tu avais (environ) et surtout ce que tu as ressenti. Commence par ce qui te vient, sans chercher l’ordre.</p>
+        <div id="fiche-toi"></div>
+        <div class="ar-suite">
+          <span></span>
+          <button type="button" class="btn btn-plein" data-aller="2">Continuer avec ta lignée</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 2 -->
+    <section class="ar-panneau" data-etape="2" hidden>
+      <div class="conteneur">
+        <h2>Ta lignée, ce qu’ils et elles ont ressenti</h2>
+        <p class="ar-chapeau">Choisis les personnes de ta famille à qui tu penses. Pour chacune, note ses étapes de vie avec un âge approximatif, et ce que tu sens qu’elle a ressenti. Tu ne sais pas tout ? Ce n’est pas grave : écoute ton intuition.</p>
+        <div class="ar-aide" id="ar-aide"></div>
+        <div class="ar-cotes">
+          <div class="ar-cote">
+            <h3>Côté de ta mère</h3>
+            <div class="ar-puces" data-liste="m"></div>
+            <details><summary>Remonter plus loin</summary><div class="ar-puces" data-liste="m3"></div></details>
+          </div>
+          <div class="ar-cote">
+            <h3>Côté de ton père</h3>
+            <div class="ar-puces" data-liste="p"></div>
+            <details><summary>Remonter plus loin</summary><div class="ar-puces" data-liste="p3"></div></details>
+          </div>
+          <div class="ar-cote">
+            <h3>Autour de toi</h3>
+            <p class="note" style="margin-bottom:.6rem">Frère, sœur, enfant, oncle, tante : chaque clic ajoute une personne.</p>
+            <div class="ar-puces" data-liste="autres"></div>
+          </div>
+        </div>
+        <div id="fiches-lignee"></div>
+        <div class="ar-suite">
+          <button type="button" class="btn btn-trait" data-aller="1">Revenir à ta vie</button>
+          <button type="button" class="btn btn-plein" data-aller="3">Voir mon arbre</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 3 -->
+    <section class="ar-panneau" data-etape="3" hidden>
+      <div class="conteneur">
+        <h2>Ton arbre des ressentis</h2>
+        <p class="ar-chapeau">Chaque couleur autour d’une personne est une blessure. Touche une couleur ci-dessous pour suivre son fil dans l’arbre, ou touche une personne pour relire sa ligne de vie. Les âges en couleur se répondent d’une personne à l’autre.</p>
+        <div class="ar-filtres" id="ar-filtres" role="group" aria-label="Suivre un fil dans l’arbre"></div>
+        <div class="ar-cadre" id="ar-cadre"></div>
+        <div class="ar-legende" id="ar-legende"></div>
+        <div class="ar-explication" id="ar-explication" aria-live="polite"></div>
+        <div class="ar-detail" id="ar-detail"></div>
+        <div class="ar-suite">
+          <button type="button" class="btn btn-trait" data-aller="2">Compléter ma lignée</button>
+          <button type="button" class="btn btn-plein" data-aller="4">Ce qui se répète</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÉTAPE 4 -->
+    <section class="ar-panneau" data-etape="4" hidden>
+      <div class="conteneur">
+        <h2>Ce qui se répète</h2>
+        <p class="ar-chapeau">Relis tranquillement. Si une émotion forte remonte, accueille-la : c’est souvent le signe que tu touches quelque chose de vrai. Le but n’est pas de juger ta famille, seulement de voir clair.</p>
+        <div class="ar-bilan" id="ar-bilan"></div>
+        <div class="ar-fin">
+          <p><b>Et maintenant ?</b> Ce que tu reconnais comme venant de ta lignée, tu peux le déposer. L’exercice « Ce que tu portes d’un ancêtre » t’accompagne pas à pas pour le faire avec une personne précise.</p>
+          <div class="actions ar-actions">
+            <a class="btn btn-plein" href="exercice-ressenti-ancetre.html">Déposer ce qui ne m’appartient pas</a>
+            <button type="button" class="btn btn-trait" id="ar-imprimer">Imprimer ou enregistrer en PDF</button>
+            <button type="button" class="btn btn-trait" id="ar-recommencer">Recommencer</button>
+          </div>
+        </div>
+        <p class="note" style="margin-top:1.4rem">Une lecture symbolique. Une ressemblance n’est pas une preuve : elle ouvre une question. Si cet outil remue beaucoup de choses, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <div class="ar-suite">
+          <button type="button" class="btn btn-trait" data-aller="3">Revenir à mon arbre</button>
+          <a class="btn btn-trait" href="genosociogramme.html">Faire mon arbre familial complet</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var CLE = 'genesolia-arbre-ressentis';
+
+    var BLESSURES = [
+      { id: 'abandon', nom: 'Abandon', c: '#6B2F5B', aide: 'les séparations, les départs, les pertes' },
+      { id: 'rejet', nom: 'Rejet', c: '#D9705F', aide: 'ne pas se sentir voulu·e' },
+      { id: 'trahison', nom: 'Trahison', c: '#B98A55', aide: 'la méfiance, ne pas pouvoir compter sur l’autre' },
+      { id: 'humiliation', nom: 'Humiliation', c: '#C2466E', aide: 'la honte, être rabaissé·e' },
+      { id: 'injustice', nom: 'Injustice', c: '#4E5D94', aide: 'ne jamais être traité·e équitablement' }
+    ];
+    var EMOTIONS = ['Peur', 'Peur de manquer', 'Tristesse', 'Colère', 'Honte', 'Culpabilité', 'Solitude', 'Impuissance', 'Vide', 'Fatigue'];
+    var VISIONS = ['Je dois me débrouiller seul·e', 'L’amour finit toujours par partir', 'On ne peut faire confiance à personne', 'Je ne compte pas', 'Il faut tout contrôler', 'L’argent manque toujours', 'Je dois être parfait·e pour être aimé·e', 'La vie est un combat', 'Je dois porter les autres'];
+
+    var RELATIONS = {
+      frere: ['Ton frère', 'Frère', ''], soeur: ['Ta sœur', 'Sœur', ''], enfant: ['Ton enfant', 'Enfant', ''],
+      tante_m: ['Ta tante maternelle', 'Tante mat.', 'm'], oncle_m: ['Ton oncle maternel', 'Oncle mat.', 'm'],
+      tante_p: ['Ta tante paternelle', 'Tante pat.', 'p'], oncle_p: ['Ton oncle paternel', 'Oncle pat.', 'p']
+    };
+
+    /* ---------- Personnes ---------- */
+    function estPlace(id) { return /^[pm]{1,3}$/.test(id); }
+    function gen(id) { return id === 'toi' ? 0 : estPlace(id) ? id.length : (rel(id) && rel(id)[2] ? 1 : 0); }
+    function rel(id) { var p = etat.personnes[id]; return p && p.rel ? RELATIONS[p.rel] : null; }
+    function cote(id) { if (id === 'toi') return ''; if (estPlace(id)) return id.charAt(0); var r = rel(id); return r ? r[2] : ''; }
+    function feminin(id) { if (id === 'toi') return null; if (estPlace(id)) return id.slice(-1) === 'm'; var p = etat.personnes[id]; return p && /soeur|tante/.test(p.rel); }
+    var BASE = { p: 'ton père', m: 'ta mère', pp: 'ton grand-père paternel', pm: 'ta grand-mère paternelle', mp: 'ton grand-père maternel', mm: 'ta grand-mère maternelle' };
+    function libelle(id, majuscule) {
+      var t;
+      if (id === 'toi') t = 'toi';
+      else if (BASE[id]) t = BASE[id];
+      else if (estPlace(id)) t = (id.slice(-1) === 'p' ? 'le père de ' : 'la mère de ') + BASE[id.slice(0, 2)];
+      else { var r = rel(id); t = r ? r[0].charAt(0).toLowerCase() + r[0].slice(1) : 'cette personne'; }
+      return majuscule ? t.charAt(0).toUpperCase() + t.slice(1) : t;
+    }
+    var COURT = { toi: 'Toi', p: 'Père', m: 'Mère', pp: 'Grand-père pat.', pm: 'Grand-mère pat.', mp: 'Grand-père mat.', mm: 'Grand-mère mat.' };
+    function court(id) {
+      if (COURT[id]) return COURT[id];
+      if (estPlace(id)) return id.slice(-1) === 'p' ? 'Arrière-grand-père' : 'Arrière-grand-mère';
+      var r = rel(id); return r ? r[1] : '';
+    }
+    function nomAffiche(id) { var p = etat.personnes[id]; return p && p.prenom ? p.prenom : (id === 'toi' ? 'Toi' : court(id)); }
+    /* Dans les phrases : « ta grand-mère maternelle (Jeanne) » */
+    function nomPhrase(id) { var p = etat.personnes[id]; return libelle(id) + (p && p.prenom && id !== 'toi' ? ' (' + p.prenom + ')' : ''); }
+
+    function nouvellePersonne(id, relation) {
+      return { id: id, rel: relation || '', prenom: '', global: { bl: [], em: [], vi: [] }, etapes: [nouvelleEtape()] };
+    }
+    function nouvelleEtape() { return { age: '', evt: '', bl: [], em: [], vi: [], texte: '' }; }
+
+    /* ---------- État, gardé dans le navigateur ---------- */
+    var etat = null;
+    try { etat = JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) {}
+    if (!etat || !etat.personnes || !etat.personnes.toi) {
+      etat = { v: 1, ordre: [], seq: 0, visionsPerso: [], personnes: { toi: nouvellePersonne('toi') } };
+      etat.personnes.toi.etapes.push(nouvelleEtape());
+    }
+    var minuteur = null;
+    function garder() {
+      clearTimeout(minuteur);
+      minuteur = setTimeout(function () { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }, 250);
+    }
+
+    /* ---------- Outils ---------- */
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function ageNum(s) { var m = String(s || '').match(/\d{1,3}/); return m ? +m[0] : null; }
+    function blessure(id) { for (var i = 0; i < BLESSURES.length; i++) if (BLESSURES[i].id === id) return BLESSURES[i]; return null; }
+    function liste(noms) { return noms.length < 2 ? noms.join('') : noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1]; }
+    function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+    function visionsToutes() { return VISIONS.concat(etat.visionsPerso || []); }
+    function ids() { return ['toi'].concat(etat.ordre.filter(function (id) { return etat.personnes[id]; })); }
+    /* Tout ce qu'une personne porte : ressenti général + étapes */
+    function porte(id) {
+      var p = etat.personnes[id], r = { bl: {}, em: {}, vi: {} };
+      if (!p) return r;
+      [p.global].concat(p.etapes).forEach(function (x) {
+        (x.bl || []).forEach(function (v) { r.bl[v] = 1; });
+        (x.em || []).forEach(function (v) { r.em[v] = 1; });
+        (x.vi || []).forEach(function (v) { r.vi[norm(v)] = v; });
+      });
+      return r;
+    }
+    function remplie(id) {
+      var p = etat.personnes[id], r = porte(id);
+      return Object.keys(r.bl).length + Object.keys(r.em).length + Object.keys(r.vi).length > 0 || p.etapes.some(function (e) { return e.age || e.evt; });
+    }
+
+    /* ---------- Fiches ---------- */
+    function puces(type, choisies, ou) {
+      var src = type === 'bl' ? BLESSURES : type === 'em' ? EMOTIONS : visionsToutes();
+      return '<div class="ar-puces">' + src.map(function (x) {
+        var v = typeof x === 'string' ? x : x.id, nom = typeof x === 'string' ? x : x.nom;
+        var on = choisies.indexOf(v) >= 0;
+        return '<button type="button" class="ar-puce" data-puce="' + type + '" data-ou="' + ou + '" data-v="' + esc(v) + '" aria-pressed="' + on + '"' + (x.aide ? ' title="' + esc(x.aide) + '"' : '') + '>' +
+          (type === 'bl' ? '<i style="background:' + x.c + '"></i>' : '') + esc(nom) + '</button>';
+      }).join('') + '</div>' +
+      (type === 'vi' ? '<div class="ar-ajout"><input type="text" placeholder="Une autre phrase, avec tes mots" data-nouvelle-vision="' + ou + '" maxlength="90"><button type="button" class="btn btn-trait" data-ajouter-vision="' + ou + '">Ajouter</button></div>' : '');
+    }
+
+    function fiche(id) {
+      var p = etat.personnes[id], toi = id === 'toi', f = feminin(id);
+      var lui = toi ? '' : f === true ? 'elle' : f === false ? 'il' : 'il ou elle';
+      var h = '<article class="ar-fiche" data-fiche="' + id + '">';
+      h += '<div class="ar-fiche-tete"><div><p class="ar-role">' + (toi ? 'Toi' : esc(libelle(id, true))) + '</p><h3>' + esc(nomAffiche(id)) + '</h3></div>' +
+        '<label class="ar-champ" style="min-width:min(16rem,100%)">Prénom <span>(facultatif)</span><input type="text" data-champ="prenom" data-ou="' + id + '" value="' + esc(p.prenom) + '" maxlength="40" autocomplete="off"></label></div>';
+      h += '<div class="ar-global"><p>' + (toi ? 'Ce que tu portes, en général, aujourd’hui' : 'Ce que tu sens qu’' + lui + ' portait, en général') + '</p>' +
+        '<div class="ar-groupe"><p>La blessure</p>' + puces('bl', p.global.bl, id + '|g') + '</div>' +
+        '<div class="ar-groupe"><p>L’émotion</p>' + puces('em', p.global.em, id + '|g') + '</div>' +
+        '<div class="ar-groupe"><p>' + (toi ? 'Ce que la vie t’a fait croire' : 'Ce que la vie lui a fait croire') + '</p>' + puces('vi', p.global.vi, id + '|g') + '</div></div>';
+      h += '<div class="ar-vie"><p class="ar-sous">' + (toi ? 'Tes étapes de vie' : 'Ses étapes de vie') + '</p>';
+      p.etapes.forEach(function (e, i) {
+        var o = id + '|' + i;
+        h += '<div class="ar-etape">' +
+          '<div class="ar-etape-haut">' +
+          '<label class="ar-champ">Âge <span>(environ)</span><input type="text" inputmode="numeric" data-champ="age" data-ou="' + o + '" value="' + esc(e.age) + '" placeholder="ex. 28" maxlength="12"></label>' +
+          '<label class="ar-champ">Ce qui s’est passé <span>(quelques mots, facultatif)</span><input type="text" data-champ="evt" data-ou="' + o + '" value="' + esc(e.evt) + '" placeholder="' + (toi ? 'ex. séparation de mes parents' : 'ex. son père est parti') + '" maxlength="80"></label>' +
+          (p.etapes.length > 1 ? '<button type="button" class="ar-retirer" data-retirer-etape="' + o + '">Retirer</button>' : '<span></span>') +
+          '</div>' +
+          '<div class="ar-groupe"><p>' + (toi ? 'La blessure que tu as ressentie' : 'La blessure que tu sens qu’' + lui + ' a vécue') + '</p>' + puces('bl', e.bl, o) + '</div>' +
+          '<div class="ar-groupe"><p>L’émotion</p>' + puces('em', e.em, o) + '</div>' +
+          '<details' + (e.vi.length || e.texte ? ' open' : '') + '><summary>Ce que ' + (toi ? 'tu en as conclu' : lui + ' en a conclu') + ' sur la vie, et ce que tu ressens en y repensant</summary>' +
+          '<div class="ar-groupe">' + puces('vi', e.vi, o) + '</div>' +
+          '<textarea data-champ="texte" data-ou="' + o + '" placeholder="Ce que tu ressens dans ton corps, une image, une phrase qui te vient…" maxlength="600">' + esc(e.texte) + '</textarea></details>' +
+          '</div>';
+      });
+      h += '<button type="button" class="btn btn-trait" data-ajouter-etape="' + id + '">Ajouter une étape de vie</button></div>';
+      if (!toi) h += '<p style="margin-top:1rem"><button type="button" class="ar-retirer" data-retirer-personne="' + id + '">Retirer ' + esc(libelle(id)) + ' de mon arbre</button></p>';
+      return h + '</article>';
+    }
+
+    function dessinerFiches() {
+      document.getElementById('fiche-toi').innerHTML = fiche('toi');
+      var autres = etat.ordre.filter(function (id) { return etat.personnes[id]; });
+      document.getElementById('fiches-lignee').innerHTML = autres.length ? autres.map(fiche).join('') :
+        '<p class="ar-vide">Choisis une première personne ci-dessus. Commence par celle à qui tu as pensé en premier.</p>';
+      dessinerChoix();
+      dessinerAide();
+    }
+    function redessinerFiche(id) {
+      var el = document.querySelector('[data-fiche="' + id + '"]');
+      if (!el) return dessinerFiches();
+      var y = window.scrollY;
+      el.outerHTML = fiche(id);
+      window.scrollTo(0, y);
+    }
+
+    function dessinerChoix() {
+      function btn(id, nom) {
+        var on = !!etat.personnes[id];
+        return '<button type="button" class="ar-puce ar-personne-btn" data-personne="' + id + '" aria-pressed="' + on + '">' + esc(nom) + '</button>';
+      }
+      document.querySelector('[data-liste="m"]').innerHTML = btn('m', 'Ta mère') + btn('mm', 'Ta grand-mère') + btn('mp', 'Ton grand-père');
+      document.querySelector('[data-liste="p"]').innerHTML = btn('p', 'Ton père') + btn('pm', 'Ta grand-mère') + btn('pp', 'Ton grand-père');
+      document.querySelector('[data-liste="m3"]').innerHTML = btn('mmm', 'Mère de ta grand-mère') + btn('mmp', 'Père de ta grand-mère') + btn('mpm', 'Mère de ton grand-père') + btn('mpp', 'Père de ton grand-père');
+      document.querySelector('[data-liste="p3"]').innerHTML = btn('pmm', 'Mère de ta grand-mère') + btn('pmp', 'Père de ta grand-mère') + btn('ppm', 'Mère de ton grand-père') + btn('ppp', 'Père de ton grand-père');
+      document.querySelector('[data-liste="autres"]').innerHTML = Object.keys(RELATIONS).map(function (r) {
+        return '<button type="button" class="ar-puce" data-autre="' + r + '">+ ' + esc(RELATIONS[r][0]) + '</button>';
+      }).join('');
+    }
+
+    /* Aide pour trouver la lignée concernée, à partir de ce que la personne a noté pour elle */
+    function dessinerAide() {
+      var r = porte('toi'), bl = Object.keys(r.bl).map(function (b) { return blessure(b).nom.toLowerCase(); }), em = Object.keys(r.em).map(function (e) { return e.toLowerCase(); });
+      var ages = etat.personnes.toi.etapes.map(function (e) { return ageNum(e.age); }).filter(function (a) { return a != null; });
+      var h = '<span class="ar-aide-n">?</span><div>';
+      if (!bl.length && !em.length) {
+        h += '<p><b>Par où commencer ?</b> Pense à ce qui revient le plus dans ta vie. Puis demande-toi : <b>« Qui dans ma famille ressentait la même chose ? »</b> Ne cherche pas loin, écoute ce qui vient. Souvent, tu le sais déjà.</p>';
+      } else {
+        h += '<p><b>Par où commencer ?</b> Dans ta vie, tu as noté ' + (bl.length ? 'la blessure ' + liste(bl.map(function (b) { return /^[aeiouéèêh]/.test(b) ? 'd’' + b : 'de ' + b; })) : '') + (bl.length && em.length ? ' et ' : '') + (em.length ? 'l’émotion ' + liste(em) : '') + '. ' +
+          'Demande-toi : <b>« Qui dans ma famille ressentait la même chose ? »</b> Ta mère était-elle comme toi ? Ton père ? Une grand-mère a-t-elle connu le même départ, la même peur ?' +
+          (ages.length ? ' Regarde aussi ce qui s’est passé pour eux et elles vers ' + liste(ages.slice(0, 4).map(function (a) { return a + ' ans'; })) + '.' : '') + '</p>';
+      }
+      document.getElementById('ar-aide').innerHTML = h + '</div>';
+    }
+
+    /* ---------- Événements des fiches ---------- */
+    function cible(ou) {
+      var x = ou.split('|'), p = etat.personnes[x[0]];
+      if (!p) return null;
+      return x[1] === 'g' ? p.global : p.etapes[+x[1]];
+    }
+    document.addEventListener('click', function (ev) {
+      var t = ev.target.closest('button');
+      if (!t) return;
+      if (t.hasAttribute('data-puce')) {
+        var c = cible(t.getAttribute('data-ou')), type = t.getAttribute('data-puce'), v = t.getAttribute('data-v');
+        if (!c) return;
+        var i = c[type].indexOf(v);
+        if (i >= 0) c[type].splice(i, 1); else c[type].push(v);
+        t.setAttribute('aria-pressed', i < 0);
+        garder(); if (t.getAttribute('data-ou').indexOf('toi|') === 0) dessinerAide();
+      } else if (t.hasAttribute('data-ajouter-vision')) {
+        var ou = t.getAttribute('data-ajouter-vision'), inp = document.querySelector('[data-nouvelle-vision="' + ou + '"]');
+        var txt = (inp.value || '').trim().slice(0, 90);
+        if (!txt) { inp.focus(); return; }
+        var existe = visionsToutes().filter(function (x) { return norm(x) === norm(txt); })[0];
+        if (!existe) { etat.visionsPerso.push(txt); existe = txt; }
+        var c2 = cible(ou); if (c2 && c2.vi.indexOf(existe) < 0) c2.vi.push(existe);
+        garder(); dessinerFiches();
+      } else if (t.hasAttribute('data-ajouter-etape')) {
+        var id = t.getAttribute('data-ajouter-etape');
+        etat.personnes[id].etapes.push(nouvelleEtape());
+        garder(); redessinerFiche(id);
+        var f = document.querySelector('[data-fiche="' + id + '"]'), champs = f.querySelectorAll('[data-champ="age"]');
+        champs[champs.length - 1].focus();
+      } else if (t.hasAttribute('data-retirer-etape')) {
+        var x = t.getAttribute('data-retirer-etape').split('|');
+        etat.personnes[x[0]].etapes.splice(+x[1], 1);
+        garder(); redessinerFiche(x[0]);
+      } else if (t.hasAttribute('data-personne')) {
+        ajouterPersonne(t.getAttribute('data-personne'));
+      } else if (t.hasAttribute('data-autre')) {
+        etat.seq = (etat.seq || 0) + 1;
+        var nid = 'a' + etat.seq;
+        etat.personnes[nid] = nouvellePersonne(nid, t.getAttribute('data-autre'));
+        etat.ordre.push(nid);
+        garder(); dessinerFiches(); allerFiche(nid);
+      } else if (t.hasAttribute('data-retirer-personne')) {
+        var rid = t.getAttribute('data-retirer-personne');
+        if (remplie(rid) && !confirm('Retirer ' + libelle(rid) + ' et tout ce que tu as noté pour cette personne ?')) return;
+        delete etat.personnes[rid];
+        etat.ordre = etat.ordre.filter(function (k) { return k !== rid; });
+        garder(); dessinerFiches();
+      } else if (t.hasAttribute('data-aller')) {
+        aller(t.getAttribute('data-aller'));
+      }
+    });
+    document.addEventListener('input', function (ev) {
+      var t = ev.target, champ = t.getAttribute && t.getAttribute('data-champ');
+      if (!champ) return;
+      var ou = t.getAttribute('data-ou');
+      if (champ === 'prenom') {
+        etat.personnes[ou].prenom = t.value.trim().slice(0, 40);
+        var h3 = document.querySelector('[data-fiche="' + ou + '"] h3'); if (h3) h3.textContent = nomAffiche(ou);
+      } else { var c = cible(ou); if (c) c[champ] = t.value; }
+      garder();
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' && ev.target.hasAttribute && ev.target.hasAttribute('data-nouvelle-vision')) {
+        ev.preventDefault();
+        document.querySelector('[data-ajouter-vision="' + ev.target.getAttribute('data-nouvelle-vision') + '"]').click();
+      }
+    });
+
+    function ajouterPersonne(id) {
+      if (!etat.personnes[id]) {
+        etat.personnes[id] = nouvellePersonne(id);
+        etat.ordre.push(id);
+        garder(); dessinerFiches();
+      }
+      allerFiche(id);
+    }
+    function allerFiche(id) {
+      var f = document.querySelector('[data-fiche="' + id + '"]');
+      if (f) { f.scrollIntoView({ behavior: 'smooth', block: 'start' }); var i = f.querySelector('input'); if (i) setTimeout(function () { i.focus({ preventScroll: true }); }, 400); }
+    }
+
+    /* ---------- Navigation entre les étapes ---------- */
+    var etapeActive = '1';
+    function aller(n) {
+      etapeActive = String(n);
+      document.querySelectorAll('.ar-panneau').forEach(function (p) { p.hidden = p.getAttribute('data-etape') !== etapeActive; });
+      document.querySelectorAll('.ar-etapes [data-aller]').forEach(function (b) {
+        if (b.getAttribute('data-aller') === etapeActive) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+      });
+      if (etapeActive === '2') dessinerAide();
+      if (etapeActive === '3') dessinerArbre();
+      if (etapeActive === '4') dessinerBilan();
+      var nav = document.querySelector('.ar-etapes');
+      window.scrollTo({ top: nav.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' });
+    }
+
+    /* ---------- Analyse : ce qui se répète ---------- */
+    function analyse() {
+      var tous = ids().filter(remplie), P = {};
+      tous.forEach(function (id) { P[id] = porte(id); });
+      function qui(type, v) { return tous.filter(function (id) { return type === 'vi' ? !!P[id].vi[v] : !!P[id][type][v]; }); }
+      var bl = BLESSURES.map(function (b) { return { b: b, qui: qui('bl', b.id) }; }).filter(function (x) { return x.qui.length >= 2; });
+      var em = EMOTIONS.map(function (e) { return { e: e, qui: qui('em', e) }; }).filter(function (x) { return x.qui.length >= 2; });
+      var vus = {}; tous.forEach(function (id) { Object.keys(P[id].vi).forEach(function (k) { vus[k] = P[id].vi[k]; }); });
+      var vi = Object.keys(vus).map(function (k) { return { v: vus[k], qui: qui('vi', k) }; }).filter(function (x) { return x.qui.length >= 2; });
+      /* Les âges qui se répondent (à un an près), entre au moins deux personnes */
+      var pts = [];
+      tous.forEach(function (id) {
+        etat.personnes[id].etapes.forEach(function (e) { var a = ageNum(e.age); if (a != null) pts.push({ id: id, a: a, e: e }); });
+      });
+      pts.sort(function (x, y) { return x.a - y.a; });
+      var groupes = [], g = null;
+      pts.forEach(function (pt) {
+        if (!g || pt.a - g.debut > 1) { g = { debut: pt.a, pts: [] }; groupes.push(g); }
+        g.pts.push(pt);
+      });
+      var ages = groupes.filter(function (g) { return g.pts.map(function (x) { return x.id; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).length >= 2; });
+      var agesCles = {}; ages.forEach(function (g) { g.pts.forEach(function (pt) { agesCles[pt.id + '|' + pt.a] = 1; }); });
+      /* Ce qui résonne avec toi, personne par personne */
+      var res = {};
+      var moiAges = pts.filter(function (x) { return x.id === 'toi'; });
+      tous.forEach(function (id) {
+        if (id === 'toi') return;
+        var r = { score: 0, bl: [], em: [], vi: [], ages: [] };
+        Object.keys(P[id].bl).forEach(function (b) { if (P.toi && P.toi.bl[b]) { r.score += 3; r.bl.push(blessure(b).nom.toLowerCase()); } });
+        Object.keys(P[id].em).forEach(function (e) { if (P.toi && P.toi.em[e]) { r.score += 2; r.em.push(e.toLowerCase()); } });
+        Object.keys(P[id].vi).forEach(function (k) { if (P.toi && P.toi.vi[k]) { r.score += 2; r.vi.push(P[id].vi[k]); } });
+        pts.filter(function (x) { return x.id === id; }).forEach(function (x) {
+          moiAges.forEach(function (m) {
+            if (Math.abs(m.a - x.a) <= 1) {
+              r.score += 2; if (r.ages.indexOf(x.a) < 0) r.ages.push(x.a);
+              if (m.e.bl.some(function (b) { return x.e.bl.indexOf(b) >= 0; }) || m.e.em.some(function (b) { return x.e.em.indexOf(b) >= 0; })) r.score += 2;
+            }
+          });
+        });
+        res[id] = r;
+      });
+      var cotes = { m: 0, p: 0 };
+      Object.keys(res).forEach(function (id) { var c = cote(id); if (c) cotes[c] += res[id].score; });
+      return { tous: tous, P: P, bl: bl, em: em, vi: vi, ages: ages, agesCles: agesCles, res: res, cotes: cotes };
+    }
+
+    /* ---------- L'arbre ---------- */
+    var filtre = 'tout', choisi = null;
+    var W = 1000, ECART = 175;
+
+    function positions(A) {
+      var max = 2;
+      etat.ordre.forEach(function (id) { if (etat.personnes[id] && estPlace(id) && id.length === 3) max = 3; });
+      var H = 150 + max * ECART + 150;
+      var pos = {};
+      function y(g) { return H - 140 - g * ECART; }
+      pos.toi = { x: W / 2, y: y(0) };
+      for (var g = 1; g <= max; g++) {
+        var n = Math.pow(2, g);
+        for (var i = 0; i < n; i++) {
+          var id = ''; for (var b = g - 1; b >= 0; b--) id += (i >> b) & 1 ? 'm' : 'p';
+          pos[id] = { x: (i + 0.5) * W / n, y: y(g) };
+        }
+      }
+      /* Les autres : frères, sœurs et enfants à côté de toi ; oncles et tantes à côté du parent */
+      var k = { '': 0, m: 0, p: 0 };
+      etat.ordre.forEach(function (id) {
+        var p = etat.personnes[id]; if (!p || estPlace(id)) return;
+        var c = cote(id), n = k[c]++;
+        if (!c) { var cotePlace = n % 2 ? 1 : -1, rang = Math.floor(n / 2) + 1; pos[id] = { x: W / 2 + cotePlace * (135 * rang), y: y(0) + 10 }; }
+        else pos[id] = { x: (c === 'p' ? pos.p.x - 120 * (n + 1) : pos.m.x + 120 * (n + 1)), y: y(1) + 40 };
+        pos[id].x = Math.max(55, Math.min(W - 55, pos[id].x));
+      });
+      return { pos: pos, H: H, max: max };
+    }
+
+    function arc(cx, cy, r, a0, a1) {
+      var x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0), x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      return 'M' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'A' + r + ' ' + r + ' 0 ' + (a1 - a0 > Math.PI ? 1 : 0) + ' 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1);
+    }
+    function branche(a, b, w) {
+      var my = (a.y + b.y) / 2;
+      return '<path d="M' + a.x + ' ' + a.y + 'C' + a.x + ' ' + my + ' ' + b.x + ' ' + my + ' ' + b.x + ' ' + b.y + '" stroke="#C49A6C" stroke-opacity=".55" stroke-width="' + w + '" fill="none" stroke-linecap="round"/>';
+    }
+
+    function dessinerArbre() {
+      var A = analyse(), L = positions(A), pos = L.pos, H = L.H;
+      var presents = {}; A.tous.forEach(function (id) { presents[id] = 1; });
+      ids().forEach(function (id) { presents[id] = 1; });
+
+      /* Filtres */
+      var f = '<button type="button" class="ar-puce" data-filtre="tout" aria-pressed="' + (filtre === 'tout') + '">Tout voir</button>';
+      BLESSURES.forEach(function (b) {
+        var n = A.tous.filter(function (id) { return A.P[id].bl[b.id]; }).length;
+        if (n) f += '<button type="button" class="ar-puce" data-filtre="bl:' + b.id + '" aria-pressed="' + (filtre === 'bl:' + b.id) + '"><i style="background:' + b.c + '"></i>' + b.nom + ' · ' + n + '</button>';
+      });
+      A.em.forEach(function (x) { f += '<button type="button" class="ar-puce" data-filtre="em:' + esc(x.e) + '" aria-pressed="' + (filtre === 'em:' + x.e) + '">' + esc(x.e) + ' · ' + x.qui.length + '</button>'; });
+      A.vi.forEach(function (x, i) { f += '<button type="button" class="ar-puce" data-filtre="vi:' + i + '" aria-pressed="' + (filtre === 'vi:' + i) + '">« ' + esc(x.v) + ' »</button>'; });
+      if (A.ages.length) f += '<button type="button" class="ar-puce" data-filtre="ages" aria-pressed="' + (filtre === 'ages') + '">Les âges qui se répondent · ' + A.ages.length + '</button>';
+      document.getElementById('ar-filtres').innerHTML = f;
+
+      /* Qui est mis en lumière */
+      var lumiere = null, couleurFil = '#6B2F5B', explic = '';
+      if (filtre.indexOf('bl:') === 0) {
+        var b = blessure(filtre.slice(3)); couleurFil = b.c;
+        lumiere = A.tous.filter(function (id) { return A.P[id].bl[b.id]; });
+        explic = '<p><b>' + b.nom + '</b> (' + b.aide + ') apparaît chez ' + liste(lumiere.map(nomPhrase)) + '.' + (lumiere.length > 1 ? ' Le fil relie ces personnes dans ton arbre.' : '') + '</p>';
+      } else if (filtre.indexOf('em:') === 0) {
+        var e = filtre.slice(3); couleurFil = '#8E6383';
+        lumiere = A.tous.filter(function (id) { return A.P[id].em[e]; });
+        explic = '<p><b>' + esc(e) + '</b> revient chez ' + liste(lumiere.map(nomPhrase)) + '.</p>';
+      } else if (filtre.indexOf('vi:') === 0) {
+        var vx = A.vi[+filtre.slice(3)]; couleurFil = '#B98A55';
+        lumiere = vx ? vx.qui : [];
+        explic = vx ? '<p>La phrase <b>« ' + esc(vx.v) + ' »</b> se transmet chez ' + liste(lumiere.map(nomPhrase)) + '.</p>' : '';
+      } else if (filtre === 'ages') {
+        lumiere = []; A.ages.forEach(function (g) { g.pts.forEach(function (pt) { if (lumiere.indexOf(pt.id) < 0) lumiere.push(pt.id); }); });
+        explic = A.ages.map(function (g) { return '<p><b>Vers ' + g.debut + ' ans</b> : ' + g.pts.map(function (pt) { return esc(nomPhrase(pt.id)) + (pt.e.evt ? ' (' + esc(pt.e.evt) + ')' : ''); }).join(', ') + '.</p>'; }).join('');
+      } else {
+        explic = A.tous.length < 2
+          ? '<p>Ton arbre attend ta lignée. Ajoute au moins une personne de ta famille à l’étape 2 pour voir apparaître ce qui se répète.</p>'
+          : (A.bl.length || A.em.length || A.ages.length
+            ? '<p>Touche une couleur ou une émotion au-dessus de l’arbre pour suivre son fil d’une génération à l’autre.</p>'
+            : '<p>Pas encore de répétition visible. Complète les ressentis de chaque personne : souvent, une même émotion apparaît quand on prend le temps de l’écouter.</p>');
+      }
+
+      /* Dessin */
+      var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Ton arbre des ressentis" xmlns="http://www.w3.org/2000/svg">';
+      s += '<defs><radialGradient id="ar-halo"><stop offset="0" stop-color="#F3DCC0" stop-opacity=".9"/><stop offset="1" stop-color="#F3DCC0" stop-opacity="0"/></radialGradient></defs>';
+      /* Sol et racines */
+      var t = pos.toi, sol = H - 40;
+      s += '<path d="M' + (t.x - 260) + ' ' + sol + 'Q' + t.x + ' ' + (sol - 26) + ' ' + (t.x + 260) + ' ' + sol + '" stroke="#EBCFD5" stroke-width="2" fill="none"/>';
+      s += '<path d="M' + (t.x - 13) + ' ' + sol + 'C' + (t.x - 8) + ' ' + (t.y + 60) + ' ' + (t.x - 8) + ' ' + (t.y + 30) + ' ' + t.x + ' ' + t.y + 'C' + (t.x + 8) + ' ' + (t.y + 30) + ' ' + (t.x + 8) + ' ' + (t.y + 60) + ' ' + (t.x + 13) + ' ' + sol + 'Z" fill="#C49A6C" fill-opacity=".55"/>';
+      [-1, 1].forEach(function (d) {
+        s += '<path d="M' + (t.x + d * 10) + ' ' + (sol - 4) + 'q' + (d * 30) + ' 6 ' + (d * 70) + ' 22" stroke="#C49A6C" stroke-opacity=".45" stroke-width="5" fill="none" stroke-linecap="round"/>';
+        s += '<path d="M' + (t.x + d * 6) + ' ' + (sol - 2) + 'q' + (d * 12) + ' 12 ' + (d * 26) + ' 34" stroke="#C49A6C" stroke-opacity=".35" stroke-width="3" fill="none" stroke-linecap="round"/>';
+      });
+      /* Branches */
+      var LARG = [0, 16, 10, 6];
+      Object.keys(pos).forEach(function (id) {
+        if (id === 'toi') return;
+        var p = pos[id];
+        if (estPlace(id)) {
+          if (id.length > 2 && !presents[id]) return;
+          var enfant = id.length === 1 ? 'toi' : id.slice(0, -1);
+          s += branche(pos[enfant], p, LARG[id.length]);
+        } else {
+          var c = cote(id), dep = c ? pos[c] : { x: t.x, y: t.y };
+          s += branche(dep, p, 4);
+        }
+      });
+      /* Fil de la répétition */
+      if (lumiere && lumiere.length > 1 && filtre !== 'ages') {
+        var pts = lumiere.slice().sort(function (a, b) { return gen(a) - gen(b) || pos[a].x - pos[b].x; }).map(function (id) { return pos[id]; });
+        var d = 'M' + pts[0].x + ' ' + pts[0].y;
+        for (var i = 1; i < pts.length; i++) { var a = pts[i - 1], bb = pts[i], my = (a.y + bb.y) / 2; d += 'C' + a.x + ' ' + my + ' ' + bb.x + ' ' + my + ' ' + bb.x + ' ' + bb.y; }
+        s += '<path d="' + d + '" stroke="' + couleurFil + '" stroke-width="5" stroke-dasharray="2 11" stroke-linecap="round" fill="none" opacity=".9"/>';
+      }
+      if (filtre === 'ages') {
+        A.ages.forEach(function (g) {
+          var qui = g.pts.map(function (x) { return x.id; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
+          for (var i = 1; i < qui.length; i++) s += '<line x1="' + pos[qui[0]].x + '" y1="' + pos[qui[0]].y + '" x2="' + pos[qui[i]].x + '" y2="' + pos[qui[i]].y + '" stroke="#D9705F" stroke-width="2.5" stroke-dasharray="3 8" stroke-linecap="round"/>';
+        });
+      }
+      /* Personnes */
+      var ordreDessin = Object.keys(pos).filter(function (id) { return !(estPlace(id) && id.length === 3 && !presents[id]) && (pos[id]); });
+      ordreDessin.forEach(function (id) {
+        var p = pos[id], present = !!etat.personnes[id];
+        if (!present) {
+          s += '<g class="ar-noeud" tabindex="0" role="button" data-vide="' + id + '" aria-label="Ajouter ' + esc(libelle(id)) + '">' +
+            '<circle cx="' + p.x + '" cy="' + p.y + '" r="30" fill="#FFF9F7" stroke="#EBCFD5" stroke-width="2" stroke-dasharray="4 5"/>' +
+            '<text x="' + p.x + '" y="' + (p.y + 7) + '" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-size="22" fill="#B98A55">+</text>' +
+            '<text x="' + p.x + '" y="' + (p.y + 52) + '" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-size="14" fill="#8E6383" opacity=".75">' + esc(court(id)) + '</text></g>';
+          return;
+        }
+        var r = A.P[id] || porte(id), bls = BLESSURES.filter(function (b) { return r.bl[b.id]; });
+        var eteint = lumiere && lumiere.indexOf(id) < 0, R = id === 'toi' ? 40 : 34;
+        s += '<g class="ar-noeud" tabindex="0" role="button" data-noeud="' + id + '" aria-label="' + esc(nomPhrase(id)) + '" opacity="' + (eteint ? .28 : 1) + '">';
+        if (lumiere && !eteint) s += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (R + 34) + '" fill="url(#ar-halo)"/>';
+        if (choisi === id) s += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (R + 16) + '" fill="none" stroke="#B98A55" stroke-width="1.5"/>';
+        /* Pétales : une couleur par blessure */
+        if (bls.length) {
+          var n = bls.length, ecart = n > 1 ? 0.16 : 0, part = (Math.PI * 2) / n;
+          bls.forEach(function (b, i) {
+            var a0 = -Math.PI / 2 + i * part + ecart / 2, a1 = a0 + part - ecart;
+            if (n === 1) s += '<circle cx="' + p.x + '" cy="' + p.y + '" r="' + (R + 7) + '" fill="none" stroke="' + b.c + '" stroke-width="8"/>';
+            else s += '<path d="' + arc(p.x, p.y, R + 7, a0, a1) + '" stroke="' + b.c + '" stroke-width="8" fill="none" stroke-linecap="round"/>';
+          });
+        }
+        s += '<circle class="ar-coeur" cx="' + p.x + '" cy="' + p.y + '" r="' + R + '" fill="' + (id === 'toi' ? '#6B2F5B' : '#FFFFFF') + '" stroke="#EBCFD5" stroke-width="1.5"/>';
+        var ini = nomAffiche(id).charAt(0).toUpperCase();
+        s += '<text x="' + p.x + '" y="' + (p.y + 9) + '" text-anchor="middle" font-family="Gilda Display,Georgia,serif" font-size="' + (id === 'toi' ? 28 : 24) + '" fill="' + (id === 'toi' ? '#FFFFFF' : '#6B2F5B') + '">' + esc(ini) + '</text>';
+        var ty = p.y + R + 30;
+        s += '<text x="' + p.x + '" y="' + ty + '" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-size="16" font-weight="700" fill="#6B2F5B">' + esc(nomAffiche(id)) + '</text>';
+        if (etat.personnes[id].prenom && id !== 'toi') { ty += 17; s += '<text x="' + p.x + '" y="' + ty + '" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-size="13" fill="#8E6383">' + esc(court(id)) + '</text>'; }
+        var ages = etat.personnes[id].etapes.map(function (e) { return ageNum(e.age); }).filter(function (a) { return a != null; }).sort(function (a, b) { return a - b; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).slice(0, 5);
+        if (ages.length) {
+          ty += 18;
+          s += '<text x="' + p.x + '" y="' + ty + '" text-anchor="middle" font-family="Nunito Sans,sans-serif" font-size="13">' + ages.map(function (a, i) {
+            var cle = A.agesCles[id + '|' + a];
+            return (i ? '<tspan fill="#B98A55"> · </tspan>' : '') + '<tspan fill="' + (cle ? '#C2466E' : '#B98A55') + '" font-weight="' + (cle ? 800 : 400) + '">' + a + '</tspan>';
+          }).join('') + '<tspan fill="#B98A55"> ans</tspan></text>';
+        }
+        s += '</g>';
+      });
+      s += '</svg>';
+      document.getElementById('ar-cadre').innerHTML = s;
+      document.getElementById('ar-legende').innerHTML = BLESSURES.map(function (b) { return '<span><i style="background:' + b.c + '"></i>' + b.nom + '</span>'; }).join('') + '<span><b style="color:#C2466E">28</b>&nbsp;un âge qui se répète</span>';
+      document.getElementById('ar-explication').innerHTML = explic;
+      dessinerDetail();
+    }
+
+    function dessinerDetail() {
+      var el = document.getElementById('ar-detail');
+      if (!choisi || !etat.personnes[choisi]) { el.innerHTML = ''; return; }
+      var p = etat.personnes[choisi], r = porte(choisi);
+      function mots(x) {
+        var m = (x.bl || []).map(function (b) { return blessure(b).nom; }).concat(x.em || []);
+        return m.join(', ') + ((x.vi || []).length ? (m.length ? ' · ' : '') + x.vi.map(function (v) { return '« ' + v + ' »'; }).join(' ') : '');
+      }
+      var etapes = p.etapes.filter(function (e) { return e.age || e.evt || e.bl.length || e.em.length; }).slice().sort(function (a, b) { return (ageNum(a.age) || 999) - (ageNum(b.age) || 999); });
+      var h = '<div class="ar-carte"><h3>' + esc(nomAffiche(choisi)) + (p.prenom && choisi !== 'toi' ? ' <span class="discret" style="font-size:1rem">· ' + esc(libelle(choisi)) + '</span>' : '') + '</h3>';
+      var g = mots(p.global);
+      if (g) h += '<p style="margin-bottom:.6rem"><b>En général :</b> ' + esc(g) + '</p>';
+      h += etapes.length ? '<ul class="ar-ligne-vie">' + etapes.map(function (e) {
+        return '<li><span class="ar-age">' + (ageNum(e.age) != null ? esc(e.age) + (/an/.test(e.age) ? '' : ' ans') : '?') + '</span><div>' + (e.evt ? '<b>' + esc(e.evt) + '</b><br>' : '') + '<span class="ar-mots">' + esc(mots(e)) + '</span>' + (e.texte ? '<br><span class="ar-mots"><i>' + esc(e.texte) + '</i></span>' : '') + '</div></li>';
+      }).join('') + '</ul>' : '<p class="discret">Pas encore d’étape de vie notée.</p>';
+      h += '<p style="margin-top:1rem"><button type="button" class="btn btn-trait" data-modifier="' + choisi + '">Modifier</button></p></div>';
+      el.innerHTML = h;
+    }
+
+    document.getElementById('ar-filtres').addEventListener('click', function (ev) {
+      var b = ev.target.closest('[data-filtre]'); if (!b) return;
+      ev.stopPropagation();
+      filtre = b.getAttribute('data-filtre') === filtre ? 'tout' : b.getAttribute('data-filtre');
+      dessinerArbre();
+    });
+    function activerNoeud(g) {
+      if (g.hasAttribute('data-vide')) { aller('2'); setTimeout(function () { ajouterPersonne(g.getAttribute('data-vide')); }, 300); return; }
+      choisi = g.getAttribute('data-noeud') === choisi ? null : g.getAttribute('data-noeud');
+      dessinerArbre();
+      if (choisi) document.getElementById('ar-detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    var cadre = document.getElementById('ar-cadre');
+    cadre.addEventListener('click', function (ev) { var g = ev.target.closest('.ar-noeud'); if (g) activerNoeud(g); });
+    cadre.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { var g = ev.target.closest('.ar-noeud'); if (g) { ev.preventDefault(); activerNoeud(g); } } });
+    document.getElementById('ar-detail').addEventListener('click', function (ev) {
+      var b = ev.target.closest('[data-modifier]'); if (!b) return;
+      var id = b.getAttribute('data-modifier');
+      aller(id === 'toi' ? '1' : '2');
+      setTimeout(function () { allerFiche(id); }, 300);
+    });
+
+    /* ---------- Le bilan ---------- */
+    function dessinerBilan() {
+      var A = analyse(), h = '';
+      /* La lignée qui résonne le plus */
+      var total = A.cotes.m + A.cotes.p, top = Object.keys(A.res).sort(function (a, b) { return A.res[b].score - A.res[a].score; }).filter(function (id) { return A.res[id].score > 0; });
+      h += '<div class="ar-carte ar-lignee ar-large"><h3>La lignée qui résonne le plus avec toi</h3>';
+      if (!top.length) {
+        h += '<p>Rien ne ressort encore entre toi et ta lignée. Note tes ressentis à l’étape 1, puis ceux d’au moins une personne de ta famille : les points communs apparaîtront ici.</p>';
+      } else {
+        var c = A.cotes.m > A.cotes.p ? 'm' : A.cotes.p > A.cotes.m ? 'p' : '';
+        var p1 = top[0], r1 = A.res[p1];
+        var pourquoi = [].concat(r1.bl, r1.em, r1.vi.map(function (v) { return '« ' + v + ' »'; }));
+        h += '<p>' + (c ? 'Ce que tu ressens résonne surtout avec <b>ta lignée ' + (c === 'm' ? 'maternelle' : 'paternelle') + '</b>' : (total ? 'Tes <b>deux lignées</b> résonnent autant avec toi' : 'Ce que tu ressens résonne surtout <b>autour de toi</b>')) +
+          ', et en particulier avec <b>' + esc(nomPhrase(p1)) + '</b>' + (pourquoi.length ? ' : ' + esc(liste(pourquoi)) : '') + (r1.ages.length ? (pourquoi.length ? ', ' : ' : ') + 'et des moments de vie vers ' + liste(r1.ages.map(function (a) { return a + ' ans'; })) : '') + '.</p>';
+        if (total) {
+          var maxi = Math.max(A.cotes.m, A.cotes.p, 1);
+          h += '<div class="ar-barres"><div class="ar-barre"><span>Lignée maternelle</span><div><span style="width:' + Math.round(A.cotes.m / maxi * 100) + '%"></span></div><b>' + A.cotes.m + '</b></div>' +
+            '<div class="ar-barre"><span>Lignée paternelle</span><div><span style="width:' + Math.round(A.cotes.p / maxi * 100) + '%"></span></div><b>' + A.cotes.p + '</b></div></div>';
+        }
+        h += '<p style="font-size:.9rem;opacity:.85">Les personnes qui te ressemblent le plus, dans l’ordre :</p><div class="ar-personnes">' + top.slice(0, 6).map(function (id) { return '<span>' + esc(nomPhrase(id)) + '</span>'; }).join('') + '</div>';
+      }
+      h += '</div>';
+      /* Blessures */
+      h += '<div class="ar-carte"><h3>Les blessures qui reviennent</h3>' + (A.bl.length ? '<ul>' + A.bl.map(function (x) {
+        return '<li><i style="background:' + x.b.c + '"></i><span><b>' + x.b.nom + '</b> chez ' + esc(liste(x.qui.map(nomPhrase))) + '</span></li>';
+      }).join('') + '</ul>' : '<p class="ar-rien">Aucune blessure commune pour l’instant.</p>') + '</div>';
+      /* Émotions */
+      h += '<div class="ar-carte"><h3>Les émotions qui reviennent</h3>' + (A.em.length ? '<ul>' + A.em.map(function (x) {
+        return '<li><i style="background:#8E6383"></i><span><b>' + esc(x.e) + '</b> chez ' + esc(liste(x.qui.map(nomPhrase))) + '</span></li>';
+      }).join('') + '</ul>' : '<p class="ar-rien">Aucune émotion commune pour l’instant.</p>') + '</div>';
+      /* Âges */
+      h += '<div class="ar-carte"><h3>Les âges qui se répondent</h3>' + (A.ages.length ? '<ul>' + A.ages.map(function (g) {
+        return '<li><i style="background:#C2466E"></i><span><b>Vers ' + g.debut + ' ans</b> : ' + g.pts.map(function (pt) {
+          var m = pt.e.bl.map(function (b) { return blessure(b).nom.toLowerCase(); }).concat(pt.e.em.map(function (e) { return e.toLowerCase(); }));
+          return esc(nomPhrase(pt.id)) + (pt.e.evt || m.length ? ' (' + esc([pt.e.evt].concat(m.length ? [m.join(', ')] : []).filter(Boolean).join(' · ')) + ')' : '');
+        }).join(' ; ') + '</span></li>';
+      }).join('') + '</ul>' : '<p class="ar-rien">Note des âges, même approximatifs, pour voir si des moments de vie se répondent.</p>') + '</div>';
+      /* Visions */
+      h += '<div class="ar-carte"><h3>Les phrases qui se transmettent</h3>' + (A.vi.length ? '<ul>' + A.vi.map(function (x) {
+        return '<li><i style="background:#B98A55"></i><span><b>« ' + esc(x.v) + ' »</b> chez ' + esc(liste(x.qui.map(nomPhrase))) + '</span></li>';
+      }).join('') + '</ul>' : '<p class="ar-rien">Aucune phrase commune pour l’instant.</p>') + '</div>';
+      document.getElementById('ar-bilan').innerHTML = h;
+    }
+
+    document.getElementById('ar-imprimer').addEventListener('click', function () {
+      dessinerArbre(); dessinerBilan();
+      document.body.classList.add('ar-impression');
+      setTimeout(function () { window.print(); }, 60);
+    });
+    window.addEventListener('afterprint', function () { document.body.classList.remove('ar-impression'); });
+    document.getElementById('ar-recommencer').addEventListener('click', function () {
+      if (!confirm('Tout effacer et recommencer ton arbre des ressentis ?')) return;
+      try { localStorage.removeItem(CLE); } catch (e) {}
+      etat = { v: 1, ordre: [], seq: 0, visionsPerso: [], personnes: { toi: nouvellePersonne('toi') } };
+      etat.personnes.toi.etapes.push(nouvelleEtape());
+      filtre = 'tout'; choisi = null;
+      dessinerFiches(); aller('1');
+    });
+
+    dessinerFiches();
+  })();
+  </script>
+</body>
+</html>
