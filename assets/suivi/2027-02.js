@@ -213,7 +213,7 @@ window.GENESOLIA_CARNET = {
       {
         titre: "**Explorer** · 20 min",
         etapes: [
-          "**L’enquête du prénom (10 min).** Qui l’a choisi, pourquoi, d’après qui ? Demande-le à un·e proche si tu le peux. Qui d’autre le porte dans ta famille ? Lien : l’article [« Le prénom transmis »](prenom-transmis-psychogenealogie.html).",
+          "**L’enquête du prénom (10 min).** Qui l’a choisi, pourquoi, d’après qui ? Demande-le à un·e proche si tu le peux. Qui d’autre le porte dans ta famille ? Qu’est-ce que tes parents admiraient ou espéraient en choisissant ce prénom ? Qui ou quoi voulaient-ils honorer à travers toi ? Un prénom choisi par admiration pour un savant, un artiste, un ancêtre, ou pour sa signification spirituelle, porte souvent une attente : Albert, par exemple, choisi par admiration pour un grand savant. Note celle que tu entends, et ce que tu choisis d’en garder. Lien : l’article [« Le prénom transmis »](prenom-transmis-psychogenealogie.html).",
           "**Le jeu d’écoute (5 min).** Dis ton prénom à voix haute et note les mots que tu entends dedans, comme un jeu : Claire (clair), René (re-né), Serge (je sers). Garde ce qui te parle.",
           "**Les attentes (5 min).** L’année de ta naissance : que vivait ta famille ? Qu’espérait-on de toi ? Lien : l’article [« Le projet-sens »](projet-sens-conception-deuil.html)."
         ]
