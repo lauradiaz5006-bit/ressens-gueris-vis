@@ -55,7 +55,7 @@
     }
     return '<section class="ms-encadre"><p class="ms-sur">Ce que tu veux travailler</p><h2>Ton point de départ</h2>' +
       (l.length ? '<ul class="ms-travail">' + l.join('') + '</ul>' : '') +
-      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Celle de la saison est marquée « Ce mois-ci », et dans le cycle 2, celle de ton étape du suivi est marquée « Ton étape ». Le choix reste le tien. <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
+      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Dans chaque cycle, celle de ton étape (la même dans ton carnet et dans ton suivi) est marquée « Ton étape ». Le choix reste le tien. <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
   }
   function etatCycle(cy) {
     if (!acces) return '';
@@ -67,10 +67,10 @@
   }
   function carte(s) {
     var permis = acces && cyclesPermis().indexOf(s.cycle) >= 0, ouverte = !!ouvertes[s.id], dispo = permis && !ouverte && pdFait() && credits(s.cycle) > 0;
-    /* Cycle 2 : le suivi avance par étapes (mois d'abonnement, comme assets/site.js) ; la séance de l'étape en cours est mise en avant */
-    var et = s.cycle === 2 && acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0, cetEtape = et > 0 && s.mois === ORDRE[et - 1];
+    /* Cycles 1 et 2 : le carnet et le suivi avancent par étapes (mois d'abonnement, comme assets/site.js) ; la séance de l'étape en cours est mise en avant */
+    var et = acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0, cetEtape = et > 0 && s.mois === ORDRE[et - 1];
     var cetteSaison = et ? false : s.mois === new Date().getMonth() + 1, toi = pdFait() && permis && pourToi(s);
-    var cls = 'ms-carte' + (ouverte ? ' ms-ouverte' : '') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '');
+    var cls = 'ms-carte' + (ouverte ? ' ms-ouverte' : '') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '') + (location.hash === '#seance-' + s.id ? ' ms-cible' : '');
     var action;
     if (ouverte) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
     else if (!acces) action = '<p class="ms-verrou">Réservée aux membres du Cercle</p>';
@@ -102,7 +102,10 @@
     });
     h += '<p class="ms-mention">Ces séances proposent une démarche symbolique de développement personnel. Elles ne remplacent pas un accompagnement médical ou psychologique. Écoute-les au calme, jamais en conduisant.</p>';
     racine.innerHTML = h;
+    /* Venue du carnet ou du suivi (#seance-c2-11…) : la séance de l'étape est mise en avant, et on s'y rend une seule fois */
+    if (!vue && /^#seance-c[12]-\d\d$/.test(location.hash)) { vue = true; var cib = document.getElementById(location.hash.slice(1)); if (cib) setTimeout(function () { cib.scrollIntoView({ block: 'center' }); }, 60); }
   }
+  var vue = false;
 
   /* ───── Les actions ───── */
   function ouvrir(id, bouton) {
