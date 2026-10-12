@@ -521,3 +521,19 @@
 .mc-volet-sur{font:700 .72rem/1.2 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#8A5A22}
 .mc-volet-corps{padding:0 1.1rem 1.1rem}
 @media print{.mc-volet-plie>summary::after{display:none}}
+/* Le suivi par étapes : les 12 étapes de l'année (en-tête), la note et les cases « livre de lignée » */
+.mc-etapes-nav{margin:.6rem 0 .2rem;max-width:38rem;color:#F7E6EE}
+.mc-etapes-nav>summary{cursor:pointer;font:600 .9rem/1.4 var(--texte);color:var(--champagne-clair);list-style-position:inside}
+.mc-etapes-nav ol{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.25rem}
+.mc-etapes-nav li>*{display:flex;flex-wrap:wrap;gap:.15rem .5rem;align-items:baseline;padding:.3rem .55rem;border-radius:.5rem;font-size:.88rem;line-height:1.35;color:#F7E6EE;text-decoration:none}
+.mc-etapes-nav a{background:rgba(255,255,255,.08)}
+.mc-etapes-nav a:hover,.mc-etapes-nav a:focus-visible{background:rgba(255,255,255,.18)}
+.mc-etapes-nav .mc-et-ici>b{background:rgba(255,255,255,.22);font-weight:600}
+.mc-etapes-nav .mc-et-avenir>span{opacity:.6}
+.mc-et-n{font-weight:700;white-space:nowrap}
+.mc-etapes-nav em{font-style:italic;margin-left:auto}
+.mc-tete>p.mc-livre-note{font-size:.9rem;margin:.5rem 0 0}
+.mc-livre-case{display:flex;align-items:center;gap:.45rem;margin:.55rem 0 .2rem;font-size:.86rem;color:#7A5A70;cursor:pointer}
+.mc-livre-case input{width:1.05rem;height:1.05rem;accent-color:#B7833F;flex:none}
+.mc-ta-saison{margin-top:1rem}
+@media print{.mc-livre-case,.mc-etapes-nav,.mc-livre-note{display:none!important}}

@@ -1081,7 +1081,40 @@ window.GENESOLIA_IMPRESSION = {
   }
   /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre };
+  /* Le suivi par étapes (cycle 2) : le parcours suit le mois d'abonnement, pas le mois du calendrier.
+     Mois d'abonnement compté depuis acces_premium.cree_le, mois 1 le premier mois (même calcul que v_mois dans
+     outils-internes/supabase-seances.sql et que moisDepuis() dans mes-seances.js). Étape en cours = min(mois, 12).
+     Requête à part (la règle « membre » ci-dessus reste intacte) : en cas d'échec, null, et le suivi garde le calendrier.
+     Promise<null | { mois, enCours, debloquees, fichier, debut, calendaire }> ; fichier = 'AAAA-MM' du suivi de l'étape ;
+     calendaire = vrai si ce fichier est celui du mois du calendrier (alors les dates restent celles du calendrier). */
+  var ETAPES_SUIVI = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09'];
+  var monEtape = null;
+  function etape() {
+    if (monEtape) return monEtape;
+    monEtape = membre().then(function (m) {
+      if (!m) return null;
+      return session().then(function (x) {
+        if (!x) return null;
+        return fetch(SB_BASE + '/rest/v1/acces_premium?select=offre,valide_jusqu,cree_le', { headers: { apikey: SB_CLE, Authorization: 'Bearer ' + x.access_token } })
+          .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
+          .then(function (l) {
+            var n = new Date(), a = (l || []).filter(function (z) { return z.valide_jusqu && new Date(z.valide_jusqu) > n && z.cree_le; })
+              .sort(function (p, q) { return new Date(q.valide_jusqu) - new Date(p.valide_jusqu); })[0];
+            if (!a) return null;
+            var d = new Date(a.cree_le), mo = (n.getFullYear() - d.getFullYear()) * 12 + (n.getMonth() - d.getMonth());
+            if (n.getDate() < d.getDate()) mo--;
+            mo = Math.max(0, mo) + 1;
+            var e = Math.min(mo, 12), deb = new Date(d.getFullYear(), d.getMonth() + e - 1, d.getDate());
+            var actuel = n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2), f = ETAPES_SUIVI[e - 1];
+            return { mois: mo, enCours: e, debloquees: e, fichier: f, calendaire: f === actuel,
+              debut: deb.getFullYear() + '-' + ('0' + (deb.getMonth() + 1)).slice(-2) + '-' + ('0' + deb.getDate()).slice(-2) };
+          });
+      });
+    }).catch(function () { return null; });
+    monEtape.then(function (x) { if (!x) monEtape = null; });
+    return monEtape;
+  }
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   if (aUnCompte()) membre().then(function (m) {
     if (!m) return;

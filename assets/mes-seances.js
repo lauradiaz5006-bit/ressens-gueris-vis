@@ -55,7 +55,7 @@
     }
     return '<section class="ms-encadre"><p class="ms-sur">Ce que tu veux travailler</p><h2>Ton point de départ</h2>' +
       (l.length ? '<ul class="ms-travail">' + l.join('') + '</ul>' : '') +
-      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Celle de la saison est marquée « Ce mois-ci ». Le choix reste le tien. <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
+      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Celle de la saison est marquée « Ce mois-ci », et dans le cycle 2, celle de ton étape du suivi est marquée « Ton étape ». Le choix reste le tien. <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
   }
   function etatCycle(cy) {
     if (!acces) return '';
@@ -67,7 +67,9 @@
   }
   function carte(s) {
     var permis = acces && cyclesPermis().indexOf(s.cycle) >= 0, ouverte = !!ouvertes[s.id], dispo = permis && !ouverte && pdFait() && credits(s.cycle) > 0;
-    var cetteSaison = s.mois === new Date().getMonth() + 1, toi = pdFait() && permis && pourToi(s);
+    /* Cycle 2 : le suivi avance par étapes (mois d'abonnement, comme assets/site.js) ; la séance de l'étape en cours est mise en avant */
+    var et = s.cycle === 2 && acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0, cetEtape = et > 0 && s.mois === ORDRE[et - 1];
+    var cetteSaison = et ? false : s.mois === new Date().getMonth() + 1, toi = pdFait() && permis && pourToi(s);
     var cls = 'ms-carte' + (ouverte ? ' ms-ouverte' : '') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '');
     var action;
     if (ouverte) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
@@ -78,7 +80,7 @@
     else if (dispo) action = '<button type="button" class="btn btn-trait" data-choisir="' + s.id + '">Ouvrir cette séance</button>';
     else action = '<p class="ms-verrou">À ouvrir un prochain mois</p>';
     return '<article class="' + cls + '" id="seance-' + s.id + '">' +
-      '<p class="ms-badges"><span class="ms-mois">' + esc(MOIS[s.mois - 1]) + '</span>' + (toi ? '<span class="ms-badge">Pour toi</span>' : '') + (cetteSaison ? '<span class="ms-badge ms-badge-saison">Ce mois-ci</span>' : '') + (ouverte ? '<span class="ms-badge ms-badge-ok">Ouverte</span>' : '') + '</p>' +
+      '<p class="ms-badges"><span class="ms-mois">' + esc(MOIS[s.mois - 1]) + '</span>' + (toi ? '<span class="ms-badge">Pour toi</span>' : '') + (cetteSaison ? '<span class="ms-badge ms-badge-saison">Ce mois-ci</span>' : '') + (cetEtape ? '<span class="ms-badge ms-badge-saison">Ton étape ' + et + '</span>' : '') + (ouverte ? '<span class="ms-badge ms-badge-ok">Ouverte</span>' : '') + '</p>' +
       '<h3>' + esc(s.titre) + '</h3>' + (s.sujet ? '<p class="ms-sujet">' + esc(s.sujet) + '</p>' : '') +
       '<p class="ms-voyage">' + esc(s.voyage) + '</p>' +
       (s.libere ? '<p class="ms-ligne"><span>Ce qu’elle libère</span>' + esc(s.libere) + '</p>' : '') +

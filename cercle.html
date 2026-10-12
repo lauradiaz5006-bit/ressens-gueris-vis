@@ -249,13 +249,15 @@
         return '<a class="ce-livre ' + classe + '" href="' + url + '"><div><small>' + sur + '</small><b>' + esc(L.titre) + '</b></div>' +
           '<div>' + (a && a.total ? '<div class="ce-mini"><i style="width:' + p + '%"></i></div>' : '') + '<span>' + (a && a.total ? a.n + (a.n > 1 ? ' pages faites' : ' page faite') + ' sur ' + a.total : 'Ouvrir le livre') + '</span></div></a>';
       }
-      h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère', 'mon-suivi-mois.html') + '</div>';
+      h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère' + (E.etape ? ' · étape ' + E.etape.enCours : ''), 'mon-suivi-mois.html') + '</div>';
       /* reprendre où j'en étais */
       var ac = C && lire('genesolia-avancee-' + C.mois);
       if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Carnet · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-plus">Ouvrir</span></a>';
       /* la semaine du suivi */
-      var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, sem) - 1];
-      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + sem : w.cle) + '"><p class="ce-etiq">Ta semaine ' + sem + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
+      var semS = sem;   /* par étapes : la semaine se compte depuis le début de l'étape (sauf si l'étape est le mois du calendrier) */
+      if (E.etape && E.etape.debut && !E.etape.calendaire) { var dd = E.etape.debut.split('-'); semS = Math.max(1, Math.min(4, Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(+dd[0], +dd[1] - 1, +dd[2])) / 6048e5) + 1)); }
+      var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, semS) - 1];
+      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">' + (E.etape ? 'Étape ' + E.etape.enCours + ' · ' : '') + 'Ta semaine ' + semS + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
       /* Mes séances : une séance audio à ouvrir chaque mois */
       h += '<a class="ce-carte" href="mes-seances.html"><p class="ce-etiq">Mes séances</p><h3>Ta séance audio du mois</h3><p>Chaque mois, tu ouvres la séance qui te parle le plus, selon ce que tu traverses.</p><span class="ce-bt">Choisir ma séance</span></a>';
       /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
@@ -479,8 +481,14 @@
       var passes = [], m = C ? precedent(C.mois) : '';
       while (m && m >= PREMIER && passes.length < 12) { passes.push(m); m = precedent(m); }
       h += '<p class="ce-titre-liste">Tes livres précédents</p><div class="ce-carte ce-liste">' + (passes.length
-        ? passes.map(function (x) { var p = x.split('-'); return ligne('mon-carnet.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton carnet') + ligne('mon-suivi-mois.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton suivi'); }).join('')
+        ? passes.map(function (x) { var p = x.split('-'); return ligne('mon-carnet.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton carnet') + (E.etape ? '' : ligne('mon-suivi-mois.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton suivi')); }).join('')
         : '<p style="padding:.8rem 0">Tes livres des mois passés restent ici, avec tes réponses, mois après mois.</p>') + '</div>';
+      /* par étapes : ton suivi se range par étape (les étapes déjà débloquées) */
+      if (E.etape) {
+        var PARTIES = ['Racines', 'Tronc', 'Branches', 'Fruits'], et = [];
+        for (var n = E.etape.debloquees; n >= 1; n--) if (n !== E.etape.enCours) et.push(ligne('mon-suivi-mois.html?etape=' + n, 'Étape ' + n + ' · ' + PARTIES[Math.floor((n - 1) / 3)], 'Ton suivi'));
+        if (et.length) h += '<p class="ce-titre-liste">Tes étapes précédentes</p><div class="ce-carte ce-liste">' + et.join('') + '</div>';
+      }
       h += '<a class="ce-carte ce-formation" href="formation.html"><img src="assets/formation/module-1-apercu.jpg" width="72" height="102" alt="" loading="lazy"><div><p class="ce-etiq">La formation · Sors de la boucle</p><h3>Va plus loin que le mois</h3><p>8 modules, 8 séances audio, un tarif réduit pour les membres du Cercle.</p></div></a>';
       h += '<p class="ce-titre-liste">Mes rappels</p><div class="ce-carte" data-rappels></div>';
       h += '<div data-phrase-jour></div>';
@@ -599,7 +607,19 @@
         E.prenom = premierMot((s.user.user_metadata && (s.user.user_metadata.full_name || s.user.user_metadata.prenom)) || '') || premierMot((profil() || {}).prenom || '');
         var rep = window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, s.user) : Promise.resolve(null);
         if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb);
-        return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep, lirePoint(s.user)]).then(function (x) { E.membre = !!x[0]; E.carnet = x[1]; E.point = x[3]; router(); });
+        return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep, lirePoint(s.user)]).then(function (x) {
+          E.membre = !!x[0]; E.carnet = x[1]; E.point = x[3];
+          /* Le suivi suit le mois d'abonnement (étape 1 à 12, assets/site.js) : on affiche celui de l'étape en cours */
+          var A = window.GenesoliaAcces;
+          if (!E.membre || !A || !A.etape) return router();
+          return A.etape().then(function (et) {
+            if (!et) return router();
+            E.etape = et;
+            if (E.S && E.S.mois === et.fichier) return router();
+            window.GENESOLIA_CARNET = null;
+            return charger('assets/suivi/' + et.fichier + '.js').then(function (ok) { if (ok && window.GENESOLIA_CARNET) E.S = window.GENESOLIA_CARNET; window.GENESOLIA_CARNET = null; router(); });
+          }, router);
+        });
       }).catch(router);
     });
   })();

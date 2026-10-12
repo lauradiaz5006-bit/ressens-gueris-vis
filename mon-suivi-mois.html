@@ -25,15 +25,45 @@
   <script src="assets/mon-chemin.js"></script>
   <script src="assets/saisons.js"></script>
   <script>
-  /* Suivi demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
+  /* Quel suivi ouvrir ?
+     - ?mois=AAAA-MM (et &apercu) : exactement comme avant, le suivi de ce mois du calendrier (vérifications de Laura).
+     - Membre du Cercle : le parcours suit son mois d'abonnement (GenesoliaAcces.etape, assets/site.js).
+       Étape 1 = le fichier 2026-10, étape 2 = 2026-11… étape 12 = 2027-09. Sans paramètre, l'étape en cours ;
+       ?etape=N ouvre une étape déjà débloquée (toutes avec &apercu). Les réponses restent liées au fichier (même clé qu'avant).
+     - Visiteur : comme avant, le plus récent déjà paru. */
   (function () {
     var DISPONIBLES = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09', '2027-10'];   /* les mois de suivi déjà écrits (assets/suivi/AAAA-MM.js) */
+    var ETAPES = DISPONIBLES.slice(0, 12);
     var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
-    var m = new URLSearchParams(location.search).get('mois');
+    var Q = new URLSearchParams(location.search), m = Q.get('mois'), et = parseInt(Q.get('etape'), 10);
     var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
-    if (DISPONIBLES.indexOf(m) < 0 || (m > actuel && !apercu)) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
+    var demande = DISPONIBLES.indexOf(m) >= 0;
+    function parDefaut() { return DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0]; }
+    if (demande && m > actuel && !apercu) m = parDefaut();
     function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le suivi ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
-    function go() { charger('assets/suivi/' + m + '.js', function () { var plus = document.createElement('script'); plus.src = 'assets/plus/' + m + '.js'; plus.onload = plus.onerror = function () { charger('assets/mon-carnet.js', function () {}); }; document.body.appendChild(plus); }); }
+    function ouvrir() { charger('assets/suivi/' + m + '.js', function () { var plus = document.createElement('script'); plus.src = 'assets/plus/' + m + '.js'; plus.onload = plus.onerror = function () { charger('assets/mon-carnet.js', function () {}); }; document.body.appendChild(plus); }); }
+    /* L'étape, lue par le moteur (assets/mon-carnet.js) dans window.GENESOLIA_ETAPE :
+       { n: numéro de ce suivi dans le parcours, enCours, debloquees, debut: 'AAAA-MM-JJ' si les semaines suivent le début de l'étape (sinon le calendrier) } */
+    function choisir(info) {
+      var n;
+      if (info) {
+        if (!demande) { n = et >= 1 && et <= (apercu ? 12 : info.debloquees) ? et : info.enCours; m = ETAPES[n - 1]; }
+        n = ETAPES.indexOf(m) + 1;
+        if (n) window.GENESOLIA_ETAPE = { n: n, enCours: info.enCours, debloquees: apercu ? 12 : info.debloquees, debut: n === info.enCours && !info.calendaire && !demande ? info.debut : null };
+      } else {
+        if (!demande) m = apercu && et >= 1 && et <= 12 ? ETAPES[et - 1] : parDefaut();
+        n = ETAPES.indexOf(m) + 1;
+        if (apercu && n) window.GENESOLIA_ETAPE = { n: n, enCours: n, debloquees: 12, debut: null };
+      }
+      ouvrir();
+    }
+    function go() {
+      var A = window.GenesoliaAcces, fait = false;
+      function une(info) { if (fait) return; fait = true; choisir(info); }
+      if (!A || !A.etape) { une(null); return; }
+      setTimeout(function () { une(null); }, 6000);   /* filet : le suivi s'ouvre quoi qu'il arrive */
+      A.etape().then(une, function () { une(null); });
+    }
     /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();
