@@ -72,7 +72,7 @@ window.GENESOLIA_PLUS = {
       "Écris ce qu’on disait de ta place quand tu étais petit·e, avec les mots exacts. Range cette phrase dans son tiroir : un fait, un récit ou une piste.",
       "Pour ton rôle principal, écris ce qu’il a apporté à ta famille à l’époque. Une ou deux lignes suffisent.",
       "Choisis la personne à qui tu poseras ta question sur sa propre fratrie. Prépare une question ouverte et légère, et note le moment pour la poser.",
-      "Pose ta question, pendant un appel, les préparatifs ou à table. Note la réponse le jour même, avec la phrase qui résonne avec ta propre place.",
+      "Pose ta question, pendant un appel, une visite ou par message. Note la réponse le jour même, avec la phrase qui résonne avec ta propre place.",
       "Pense à un lien qui pèse. Cherche s’il ressemble à un lien entre tes parents et leurs frères et sœurs, et note ce que tu trouves, comme une piste.",
       "Ajoute dans ton arbre familial tous les enfants d’une fratrie de ta lignée, avec leur rang.",
       "Regard sur ta semaine : qu’as-tu compris sur l’origine de ta place ? Écris ce qui vient de ton caractère, et ce qui vient de ton histoire."
@@ -96,12 +96,12 @@ window.GENESOLIA_PLUS = {
     ] },
     { jours: [
       "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis intérieurement : « Ce soir, je choisis ma juste place. »",
-      "Écris ta phrase « Ma juste place, c’est… » et lis-la debout, dos droit. Garde-la sur un petit papier dans ta poche le jour du repas.",
+      "Écris ta phrase « Ma juste place, c’est… » et lis-la debout, dos droit. Garde-la sur un petit papier dans ta poche les jours où tu retrouves les tiens ou tes proches.",
       "Avant un repas, choisis à l’avance la chaise où tu veux t’asseoir. Imagine-toi y rester assis·e pendant tout le plat principal.",
       "Pendant un repas, laisse une tension se dérouler entre les personnes qu’elle concerne. Respire, et observe simplement ce qui se passe.",
-      "Au moment de trinquer, pense en silence ou à voix haute à un·e absent·e. Remarque ce que ça change en toi et autour de la table.",
+      "Pendant un repas, seul·e ou entouré·e, pense en silence ou à voix haute à un·e absent·e. Remarque ce que ça change en toi.",
       "Écris ton prénom sur le tronc de ton arbre de vie, avec ta phrase. Prends le temps de le décorer, si tu en as envie.",
-      "Regard sur ta semaine : quelle place as-tu prise, même un instant, et qu’est-ce que tu veux garder pour l’année qui vient ?"
+      "Regard sur ta semaine : quelle place as-tu prise, même un instant, et qu’est-ce que tu veux garder pour la suite de ton chemin ?"
     ] }
   ]
 };

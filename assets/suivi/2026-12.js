@@ -13,12 +13,12 @@ window.GENESOLIA_CARNET = {
   moisSuivant: 'janvier',
   titre: "Quelle est ma place ?",
   sousTitre: "Racines de ton arbre de vie · Voir la place de chacun·e dans ta famille et ta fratrie, alléger les liens qui pèsent en gardant l’amour, et prendre ta juste place.",
-  citation: "Ma juste place est celle où je respire, au milieu des miens.",
+  citation: "Ma juste place est celle où je respire, pleinement moi.",
   audio: '',
   audioCourt: '',
-  saisonLien: "Décembre porte la nuit la plus longue de l’année, puis, au solstice, la lumière revient, minute après minute. Les familles se rassemblent, les places se rejouent autour de la table, et chacun·e retrouve vite son ancien rôle. C’est le bon moment pour regarder ta place avec douceur, garder une petite lumière pour toi, et choisir celle où tu te sens bien.",
+  saisonLien: "Décembre porte la nuit la plus longue de l’année, puis, au solstice, la lumière revient, minute après minute. Pour certain·es, c’est le temps des tables pleines et des anciens rôles qui reviennent vite. Pour d’autres, ces fêtes se vivent seul·e, loin des siens, après une rupture ou avec un manque. Si tu passes ces fêtes seul·e, offre-toi un rituel pour toi : une table dressée juste pour toi, une bougie, un plat que tu aimes, un message à une personne choisie. Tes ancêtres peuvent être présents autrement : un prénom dit à voix haute, une photo, une recette refaite. Dans tous les cas, garde une petite lumière pour toi, et choisis la place où tu te sens bien.",
   intensiteQ: "À quel point ta place dans ta famille, et les liens qui pèsent, comptent-ils pour toi aujourd’hui ?",
-  souhaitPh: "Exemple : ce rôle de grande sœur qui organise tout, et ce lien avec ma mère qui me fatigue à chaque fête.",
+  souhaitPh: "Exemple : ce rôle de grande sœur qui organise tout, et ce lien avec ma mère qui me fatigue à chaque appel.",
 
   decor: {
     couverture: 'assets/formation/spirale.jpg',
@@ -45,7 +45,7 @@ window.GENESOLIA_CARNET = {
     voir: "Cette semaine, tu observes ta place, au présent comme dans ton enfance. Voir, c’est déjà commencer à choisir.",
     source: "Les fratries de tes parents ont souvent beaucoup à t’apprendre sur la tienne. Range chaque information dans son tiroir, et prends ton temps.",
     liberer: "Alléger un lien, c’est garder l’amour et laisser à chacun·e son histoire. Tu avances à ton rythme.",
-    remplacer: "Un petit déplacement, à ta juste place, suffit cette semaine. Ta famille s’ajustera, à son rythme.",
+    remplacer: "Un petit déplacement, à ta juste place, suffit cette semaine. Tes liens s’ajusteront, à leur rythme.",
     meditation: "Une fois dans le mois, un soir tranquille. Si une émotion monte, reviens à ton souffle : tu peux t’arrêter à tout moment.",
     bilan: "Prends ce moment, même si une partie reste à faire. Tu as regardé ta place, et c’est déjà la prendre un peu."
   },
@@ -53,14 +53,15 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "Trouver ta juste place",
     texte: [
-      "Décembre rassemble les familles. Autour de la table des fêtes, chacun·e retrouve vite sa place : celle qui organise, celui qui fait rire, celle qui se tait, celui qu’on attend. Ces places viennent souvent de loin : de ton rang parmi tes frères et sœurs, du rang de tes parents dans leur propre fratrie, des liens qui se sont noués et dénoués au fil des années.",
-      "Avec ce mois, tu termines les **racines** de ton arbre de vie. Après les prénoms de ta lignée en octobre et les dons reçus en novembre, tu cherches ta **juste place** : celle où tu te sens bien, à côté des autres, avec des liens qui te nourrissent. De la peur héritée à la vie choisie, trouver ta place est une étape douce et essentielle."
+      "Dans une famille, chacun·e retrouve vite sa place : celle qui organise, celui qui fait rire, celle qui reste discrète, celui qu’on attend. Elle revient en quelques secondes, au téléphone, dans un message, autour d’une table partagée. Ces places viennent souvent de loin : de ton rang parmi tes frères et sœurs, du rang de tes parents dans leur propre fratrie, des liens qui se sont noués et dénoués au fil des années. Et quand ta famille est loin, absente ou en rupture, ta place existe toujours : elle se vit aussi dans tes liens choisis, et dans ta façon d’habiter ta propre vie.",
+      "Avec cette étape 3, tu termines les **racines** de ton arbre de vie. Après les prénoms de ta lignée à l’étape 1 et les dons reçus à l’étape 2, tu cherches ta **juste place** : celle où tu te sens bien, à côté des autres, avec des liens qui te nourrissent. De la peur héritée à la vie choisie, trouver ta place est une étape douce et essentielle."
     ],
     sousTitre: "Rangs, rôles et liens",
     texte2: [
       "En psychogénéalogie, on observe que la place dans la fratrie compte beaucoup. L’aîné·e reçoit souvent les responsabilités et les attentes, le ou la benjamin·e la liberté ou la protection, l’enfant du milieu cherche parfois sa place entre les deux. L’enfant unique reçoit tous les regards. À ces rangs s’ajoutent des rôles : le sage, la rebelle, celui qui fait rire, celle qui s’occupe de tout. On les endosse tôt, et on les reprend vite dès qu’on se retrouve en famille.",
       "Certains liens nourrissent, d’autres pèsent : une comparaison qui continue, une alliance qui exclut, un parent qu’on protège, une dispute ancienne. Il arrive aussi que la fratrie de tes parents se rejoue dans la tienne, une génération plus tard. Ce sont des pistes à regarder avec curiosité : tu en gardes ce qui t’éclaire. Pour aller plus loin : [la place dans la fratrie](place-dans-la-fratrie.html).",
-      "Ce mois-ci, tu vas **voir** ta place et celles de ta lignée, **comprendre** d’où viennent les rôles en rangeant chaque information dans son tiroir, **alléger** les liens qui pèsent avec ton protocole du mois, et **prendre** ta juste place, par un petit déplacement, pendant les fêtes."
+      "Si tu vis loin de ta famille, en rupture, ou si tu traverses un deuil, cette étape est aussi pour toi. Ta place se regarde dans ta lignée, dans tes liens choisis (ami·es, voisin·es, collègues) et dans ta relation à toi-même. Les absent·es gardent leur place dans ton histoire, et tu gardes la tienne.",
+      "Pendant cette étape, tu vas **explorer** ta place et celles de ta lignée, **comprendre** d’où viennent les rôles en rangeant chaque information dans son tiroir, **transformer** les liens qui pèsent avec ton protocole, puis **intégrer** ta juste place sur ton arbre de vie, par un petit déplacement dans un lien de ta vie."
     ],
     exemplesTitre: "À quoi ressemble une place de famille, au quotidien",
     exemples: [
@@ -68,16 +69,17 @@ window.GENESOLIA_CARNET = {
       "**Le petit qu’on protège** : à 35 ans, tu as un métier et deux enfants, et on te demande encore « Tu es sûr de toi ? » à chaque décision.",
       "**L’enfant du milieu discret** : au repas de famille, la conversation passe au-dessus de toi, et tu finis par débarrasser la table en silence.",
       "**La comparaison qui continue** : ta sœur vient d’acheter une maison, et tu sens revenir le vieux pincement de l’école, quand ses notes étaient affichées sur le frigo.",
-      "**Le lien qui pèse** : chaque appel de ton père dure une heure et te laisse vidé·e, et tu décroches quand même, par loyauté."
+      "**Le lien qui pèse** : chaque appel de ton père dure une heure et te laisse vidé·e, et tu décroches quand même, par loyauté.",
+      "**La place à distance** : tu vis loin des tiens, ou les liens se sont rompus, et pourtant ton vieux rôle revient dès qu’un message arrive, ou avec tes ami·es, quand tu organises tout pour tout le monde."
     ],
-    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Le 24 au soir, ta mère t’appelle depuis la cuisine : « Tu viens m’aider ? ». La boucle de l’aînée se serait levée aussitôt, pour toute la soirée. La spirale respire, et répond : « Je viens pour le dessert. Léa, tu peux aller aider maman ? » Le lien reste tendre, ta place a changé.",
+    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Un dimanche midi, ta mère t’appelle depuis la cuisine : « Tu viens m’aider ? ». La boucle de l’aînée se serait levée aussitôt, pour toute la soirée. La spirale respire, et répond : « Je viens pour le dessert. Léa, tu peux aller aider maman ? » Le lien reste tendre, ta place a changé.",
     question: { k: 'theme-place-dec', q: "En une phrase, quelle place ou quel rôle tiens-tu aujourd’hui dans ta famille ou ta fratrie ?", ph: "Exemple : je suis toujours celle qui organise, prévient tout le monde et règle les problèmes." }
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Ta place, sous tes yeux",
+    { cle: 'voir', nom: 'Explorer', etape: 'Explorer', titre: "Ta place, sous tes yeux",
       intro: "Cette semaine, tu poses sur la table ta fratrie, celles de tes parents, et les liens qui comptent pour toi. Tu explores : tu regardes les rangs, les rôles, et ce que tu fais en pilote automatique dès que tu es avec les tiens.",
-      texte: "Commence par le tableau des fratries, au calme, une vingtaine de minutes. Puis, pendant les préparatifs des fêtes, observe-toi chaque fois que tu parles à un frère, une sœur ou un parent, et note ce que le lien t’apporte ou te coûte.",
+      texte: "Commence par le tableau des fratries, au calme, une vingtaine de minutes. Puis, pendant la semaine, observe-toi chaque fois que tu échanges avec un frère, une sœur, un parent, ou une personne qui compte pour toi, et note ce que le lien t’apporte ou te coûte.",
       exercices: [
         { k: 'fratries-dec', titre: "Les fratries de ma lignée", type: 'tableau', rangs: 3,
           etiquettes: ['Ma fratrie', 'La fratrie de ma mère', 'La fratrie de mon père'],
@@ -90,7 +92,7 @@ window.GENESOLIA_CARNET = {
           ],
           apres: { k: 'fratries-dec-repete', q: "Relis ton tableau. Qu’est-ce qui se répète d’une fratrie à l’autre, même un détail : un rang, un rôle, un départ ?", ph: "Exemple : dans les trois fratries, la fille aînée garde les plus petits et reste près des parents." } },
         { k: 'liens-journal-dec', titre: "Mon journal des liens", type: 'texte',
-          consigne: "Chaque fois que tu es en contact avec un frère, une sœur ou un parent cette semaine (appel, message, préparatifs, repas), note le rôle que tu as pris, et si le lien t’a nourri·e ou t’a pesé. Vise au moins trois situations.",
+          consigne: "Chaque fois que tu es en contact avec un frère, une sœur ou un parent cette semaine (appel, message, visite, repas), note le rôle que tu as pris, et si le lien t’a nourri·e ou t’a pesé. Si tes contacts avec ta famille sont rares en ce moment, observe tes liens choisis : ami·es, voisin·es, collègues. Vise au moins trois situations.",
           pourquoi: "Un rôle de famille se réactive en quelques secondes, souvent dès le premier mot au téléphone. Remarquer ce que chaque lien t’apporte prépare ton protocole : tu sauras avec qui le lien te nourrit, et avec qui il pèse.",
           q: "Ce que tu remarques, en général, sur les liens qui te nourrissent et ceux qui pèsent",
           ph: "Exemple : avec mon frère, je ris et je me sens légère. Avec ma mère, je reprends tout de suite ma voix de grande sœur responsable.",
@@ -98,7 +100,7 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Si tu as perdu un frère ou une sœur, ou si certains liens sont interrompus, avance doucement : remplis seulement ce qui te semble possible aujourd’hui. Une case vide est aussi une information. Si une émotion forte monte, pose le stylo, respire, et reprends un autre jour." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "D’où vient ta place",
+    { cle: 'source', nom: 'Comprendre', etape: 'Comprendre', titre: "D’où vient ta place",
       intro: "Un rôle de famille se reçoit souvent très tôt, parfois avant même de savoir parler. Cette semaine, tu remontes le fil avec douceur, tu écoutes les récits, et tu ranges chaque information dans son tiroir.",
       texte: [
         "Pour chaque information sur ta place, demande-toi dans quel tiroir elle va. **Ce que je sais** : ton rang, les dates de naissance, qui vivait sous le même toit. **Ce qu’on m’a raconté** : « tu étais la grande », « lui, c’était le préféré », avec le regard de la personne qui raconte. **Ce que je suppose** : une ressemblance avec la place d’un parent, un écho entre deux fratries.",
@@ -117,7 +119,7 @@ window.GENESOLIA_CARNET = {
             { k: 'source-echo-dec', q: "Quelles rivalités ou alliances reviennent d’une génération à l’autre, comme une piste ?", ph: "Exemple : ma mère et sa sœur se parlent peu depuis l’héritage. Avec ma sœur, on se compare très souvent." }
           ] },
         { k: 'source-question', titre: "Une question à ta famille", type: 'questions',
-          consigne: "Pose une seule question à un parent ou un proche sur la façon dont il ou elle vivait sa place dans sa propre fratrie. Pendant un appel, les préparatifs ou à table. Choisis une question ouverte et légère, puis range la réponse dans son tiroir. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
+          consigne: "Pose une seule question à un parent ou un proche sur la façon dont il ou elle vivait sa place dans sa propre fratrie. Pendant un appel, une visite ou par message. Si ta famille est loin ou absente, pose-la à une personne qui l’a connue, ou écris-la dans ton carnet comme une question ouverte. Choisis une question ouverte et légère, puis range la réponse dans son tiroir. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
           questions: [
             { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à mon père : « Comment c’était, d’être le seul garçon avec trois sœurs ? »", court: true },
             { k: 'source-reponse-dec', q: "Qu’as-tu appris ? Qu’est-ce qui résonne avec ta propre place ?", ph: "Exemple : on lui demandait de « faire l’homme de la maison » quand son père était absent. C’est un récit, et mon frère a vécu quelque chose de très proche.", lignes: 3 }
@@ -125,12 +127,12 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Tu peux ajouter dans [ton arbre familial](genosociogramme.html) tous les enfants de chaque fratrie, avec leur rang : l’outil repère les répétitions de dates et de places. Si une question réveille une tension, change de sujet avec douceur : la porte reste ouverte pour un autre jour." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Alléger les liens qui pèsent",
+    { cle: 'liberer', nom: 'Transformer', etape: 'Transformer', titre: "Alléger les liens qui pèsent",
       intro: "Cette semaine, tu vis ton protocole du mois. Tu poses ta famille en objets, tu cherches ta juste place, et tu remplaces les liens qui pèsent par un fil doré, plus long et plus souple. Les exercices ci-dessous t’aident à te préparer.",
       exercices: [
         { k: 'liens-dec', titre: "Les liens que j’allège", type: 'blocs', nb: 3,
           etiquettes: ['Un premier lien', 'Un deuxième lien', 'Un troisième lien'],
-          consigne: "Choisis trois liens qui pèsent dans ta famille : un parent, un frère, une sœur, un oncle, une grand-mère. Pour chacun, écris ce que ce lien t’a apporté, ce qui pèse aujourd’hui, et ce que tu choisis de garder. Ces trois liens seront tes ficelles pendant le protocole.",
+          consigne: "Choisis trois liens qui pèsent dans ta famille ou dans tes liens proches : un parent, un frère, une sœur, un oncle, une grand-mère, un·e ami·e de longue date. Pour chacun, écris ce que ce lien t’a apporté, ce qui pèse aujourd’hui, et ce que tu choisis de garder. Ces trois liens seront tes ficelles pendant le protocole.",
           pourquoi: "Alléger un lien, c’est garder l’amour et laisser à l’autre son histoire. Reconnaître d’abord ce que le lien t’a apporté permet de le transformer avec respect, en gardant le meilleur.",
           astuce: "Un lien léger garde souvent la tendresse et laisse la charge. Tu peux aimer ta mère et choisir d’appeler une fois par semaine plutôt que chaque jour.",
           champs: [
@@ -148,7 +150,7 @@ window.GENESOLIA_CARNET = {
       ],
       rituel: {
         titre: "La chaise des absent·es",
-        intro: "Ce petit rituel prépare ton protocole : avant de poser ta famille en objets, tu fais une place à celles et ceux qui manquent cette année. Fais-le seul·e, dans un moment calme. Il dure environ dix minutes.",
+        intro: "Ce petit rituel prépare ton protocole : avant de poser ta famille en objets, tu fais une place à celles et ceux qui manquent dans ta vie, disparu·es, loin ou partis. Fais-le seul·e, dans un moment calme. Il dure environ dix minutes.",
         materiel: "Une chaise, une bougie, un stylo. Si tu le souhaites, une photo ou un objet qui rappelle une personne absente : tu pourras le garder pour ton protocole.",
         etapes: [
           "Place une chaise vide face à toi. Si tu as une photo ou un objet, pose-le sur la chaise.",
@@ -160,30 +162,30 @@ window.GENESOLIA_CARNET = {
         ],
         note: { k: 'rituel-note-dec', q: "Comment s’est passé ton rituel ? Quels noms sont venus, et qu’as-tu ressenti ?", ph: "Exemple : j’ai nommé papi Robert et ma tante partie loin. J’ai senti de la tristesse, puis de la douceur. J’ai gardé la photo de papi pour mon protocole." }
       },
-      conseil: "Faire une place aux absent·es et alléger un lien te laisse libre : libre de pardonner ou d’attendre, de reprendre contact ou de garder ta distance. Si une émotion monte pendant le protocole, fais une pause, bois un verre d’eau, sors marcher dans l’air froid, et reprends un autre jour." },
+      conseil: "Faire une place aux absent·es et alléger un lien te laisse libre : libre de pardonner ou d’attendre, de reprendre contact ou de garder ta distance. Si une émotion monte pendant le protocole, fais une pause, bois un verre d’eau, sors marcher au grand air, et reprends un autre jour." },
 
-    { cle: 'remplacer', nom: 'Choisir', etape: 'Remplacer', titre: "Ta juste place, à ta façon",
-      intro: "Tu as vu ta place, compris d’où viennent les rôles, allégé les liens qui pèsent. Cette semaine, tu intègres : tu écris ton prénom et ta phrase sur le tronc de ton arbre de vie, et pendant un repas de fête, tu prends consciemment une place différente, même toute petite.",
+    { cle: 'remplacer', nom: 'Intégrer', etape: 'Intégrer', titre: "Ta juste place, à ta façon",
+      intro: "Tu as vu ta place, compris d’où viennent les rôles, allégé les liens qui pèsent. Cette semaine, tu intègres : tu écris ton prénom et ta phrase sur le tronc de ton arbre de vie, et dans un lien de ta vie (un repas, un appel, une rencontre, un moment avec toi-même), tu prends consciemment une place différente, même toute petite.",
       texte: [
         "**La première pause.** Au moment où tu sens le vieux rôle t’attraper (te lever pour servir, faire une blague pour apaiser, te taire), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Merci. Ce soir, je choisis ma juste place. »",
-        "**Le petit déplacement.** Une autre chaise, une tâche confiée, une phrase dite à voix haute : un seul déplacement suffit pour que toute la table bouge un peu. Après les fêtes, prends un moment pour accueillir ce qui s’est passé, le doux comme le plus délicat."
+        "**Le petit déplacement.** Une autre chaise, une tâche confiée, une phrase dite à voix haute : un seul déplacement suffit pour que tout le lien bouge un peu. Après ce moment, prends le temps d’accueillir ce qui s’est passé, le doux comme le plus délicat."
       ],
       exercices: [
         { k: 'deplacement-dec', titre: "Le déplacement", type: 'texte',
-          consigne: "Choisis ton déplacement pour les fêtes : une place, un rôle, un geste différent, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « J’avance ».",
-          pourquoi: "Une famille est un équilibre : quand une personne bouge, même un peu, les autres s’ajustent. Ton petit déplacement ouvre une possibilité pour toi, et parfois pour toute la table.",
-          gestes: ["M’asseoir à une autre place", "Rester assis·e pendant le plat principal", "Confier le service à quelqu’un d’autre", "Prononcer le prénom d’un·e absent·e au moment de trinquer", "Laisser une tension se dérouler entre les personnes qu’elle concerne", "Partir à l’heure que j’ai choisie"],
-          q: "Ton déplacement : « Pendant les fêtes, au lieu de…, je vais… »",
-          ph: "Exemple : au lieu de me lever chaque fois qu’il manque quelque chose, je vais rester assis·e et dire « tu peux aller le chercher ? ».",
-          journal: { k: 'deplacement-essais-dec', n: 6, q: "Chaque fois que tu l’as essayé : quand, et qu’est-ce qui a changé ?", ph: "Exemple : le 24, je suis resté·e assis·e. Mon neveu s’est levé pour servir, et ma mère m’a souri." } },
-        { k: 'accueil-dec', titre: "Accueillir les fêtes passées", type: 'questions',
-          consigne: "Après les fêtes, repense à ces jours avec douceur. Note un moment de joie, et un moment plus délicat, avec bienveillance pour toi comme pour les autres.",
+          consigne: "Choisis ton déplacement pour cette semaine : une place, un rôle, un geste différent, en famille, avec tes proches ou avec toi-même, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « J’avance ».",
+          pourquoi: "Une famille est un équilibre : quand une personne bouge, même un peu, les autres s’ajustent. Ton petit déplacement ouvre une possibilité pour toi, et parfois pour tout ton entourage.",
+          gestes: ["M’asseoir à une autre place", "Rester assis·e pendant le plat principal", "Confier le service à quelqu’un d’autre", "Prononcer le prénom d’un·e absent·e, à voix haute ou en silence", "Laisser une tension se dérouler entre les personnes qu’elle concerne", "Partir à l’heure que j’ai choisie"],
+          q: "Ton déplacement : « Dans ce lien, au lieu de…, je vais… »",
+          ph: "Exemple : au lieu de me lever chaque fois qu’il manque quelque chose à table, je vais rester assis·e et dire « tu peux aller le chercher ? ».",
+          journal: { k: 'deplacement-essais-dec', n: 6, q: "Chaque fois que tu l’as essayé : quand, et qu’est-ce qui a changé ?", ph: "Exemple : dimanche, je suis resté·e assis·e. Mon neveu s’est levé pour servir, et ma mère m’a souri." } },
+        { k: 'accueil-dec', titre: "Accueillir ce que tu as vécu", type: 'questions',
+          consigne: "En fin de semaine, repense à ces jours avec douceur, que tu les aies vécus entouré·e ou seul·e. Note un moment de joie, et un moment plus délicat, avec bienveillance pour toi comme pour les autres.",
           questions: [
-            { k: 'accueil-joie-dec', q: "Quel moment de joie veux-tu garder de ces fêtes ?", ph: "Exemple : le fou rire avec ma cousine pendant la vaisselle, et la balade du 26 au soleil.", lignes: 2 },
-            { k: 'accueil-dur-dec', q: "Quel moment a été plus délicat, et qu’est-ce qu’il t’apprend sur ta place ?", ph: "Exemple : quand mon père m’a coupé la parole. J’ai compris que j’ai encore besoin d’être écouté·e comme un·e adulte, et que je peux le dire.", lignes: 3 }
+            { k: 'accueil-joie-place', q: "Quel moment de joie veux-tu garder de ces jours, avec les autres ou avec toi-même ?", ph: "Exemple : le fou rire avec ma cousine pendant la vaisselle, et ma balade de dimanche au soleil, juste pour moi.", lignes: 2 },
+            { k: 'accueil-dur-place', q: "Quel moment a été plus délicat, et qu’est-ce qu’il t’apprend sur ta place ?", ph: "Exemple : quand mon père m’a coupé la parole. J’ai compris que j’ai encore besoin d’être écouté·e comme un·e adulte, et que je peux le dire.", lignes: 3 }
           ] }
       ],
-      conseil: "Si le vieux rôle revient pendant un repas, remarque-le après coup : tu l’as vu, et c’est déjà un progrès. Les fêtes sont un moment intense pour changer de place. La prochaine fois, tu le sentiras venir un peu plus tôt. Pense à écrire ton prénom et ta phrase sur le tronc de ton arbre de vie." }
+      conseil: "Si le vieux rôle revient pendant un repas ou un appel, remarque-le après coup : tu l’as vu, et c’est déjà un progrès. Les retrouvailles, les dates qui comptent et les repas sont des moments intenses pour changer de place. La prochaine fois, tu le sentiras venir un peu plus tôt. Pense à écrire ton prénom et ta phrase sur le tronc de ton arbre de vie." }
   ],
 
   meditation: {
@@ -204,7 +206,7 @@ window.GENESOLIA_CARNET = {
       "Garde cette image en toi. Pendant les fêtes, tu pourras la retrouver d'une seule respiration, même au milieu du bruit.",
       "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Fais cette séance avant les fêtes pour te préparer, ou juste après pour te retrouver. Si une chaise vide te serre le cœur trop fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    conseil: "Fais cette séance avant un moment avec les tiens ou avec tes proches pour te préparer, ou après pour te retrouver. Elle t’accompagne aussi si tu vis ces jours seul·e : ta table de lumière accueille les liens de ton choix. Si une chaise vide te serre le cœur fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une place choisie, un visage, une chaise vide, une sensation…", ph: "Exemple : je me suis assis·e près de la fenêtre, loin de la cuisine. J’ai vu la chaise de mon grand-père, et j’ai souri." }
   },
 
@@ -251,19 +253,7 @@ window.GENESOLIA_CARNET = {
   },
 
   lectures: [
-    { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et les limites de ces repères." },
-    { lien: 'filles-garcons-fratrie.html', titre: "Fille ou garçon attendu", resume: "Ce que racontent les fratries d’une famille, et comment une attente ancienne peut colorer une place." },
-    { lien: 'conflits-avec-ses-parents.html', titre: "Les liens qui pèsent avec ses parents", resume: "Ce qui se joue dans les tensions avec tes parents, et des pistes pour garder l’amour en trouvant ta place d’adulte." }
-  ],
-
-  lectures: [
-    { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et les limites de ces repères." },
-    { lien: 'filles-garcons-fratrie.html', titre: "Fille ou garçon attendu", resume: "Ce que racontent les fratries d’une famille, et comment une attente ancienne peut colorer une place." },
-    { lien: 'conflits-avec-ses-parents.html', titre: "Les liens qui pèsent avec ses parents", resume: "Ce qui se joue dans les tensions avec tes parents, et des pistes pour garder l’amour en trouvant ta place d’adulte." }
-  ],
-
-  lectures: [
-    { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et les limites de ces repères." },
+    { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et la juste mesure de ces repères." },
     { lien: 'filles-garcons-fratrie.html', titre: "Fille ou garçon attendu", resume: "Ce que racontent les fratries d’une famille, et comment une attente ancienne peut colorer une place." },
     { lien: 'conflits-avec-ses-parents.html', titre: "Les liens qui pèsent avec ses parents", resume: "Ce qui se joue dans les tensions avec tes parents, et des pistes pour garder l’amour en trouvant ta place d’adulte." }
   ],
@@ -274,17 +264,17 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-origine-dec', q: "Qu’as-tu compris de son origine, et dans quel tiroir le ranges-tu ?", ph: "Exemple : ma mère était aussi l’aînée qui élevait ses frères. C’est un fait, et la ressemblance avec moi reste une piste qui me parle." },
     { k: 'fin-lien-dec', q: "Quel lien as-tu allégé avec ton fil doré, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : le lien avec ma mère. Je l’appelle avec plaisir le dimanche, et je me sens plus libre le reste de la semaine." },
     { k: 'fin-juste-dec', q: "Quelle est ta phrase : « Ma juste place, c’est… » ?", ph: "Exemple : ma juste place, c’est au milieu des miens, assise, écoutée, avec du temps pour moi." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en janvier ?", ph: "Exemple : regarder la peur qui revient chaque hiver, et ce qu’elle porte de ma famille.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à l’étape suivante, autour de la peur que tu portes ?", ph: "Exemple : regarder la peur qui revient à certaines périodes, et ce qu’elle porte de ma famille.", court: true }
   ],
 
   carnet: {
     titre: 'Ma place, mes limites',
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Dans ton carnet, tu repères tes oui qui te coûtent et tu protèges ton énergie : reporte ton déplacement des fêtes et ta phrase « Ma juste place, c’est… », ils deviennent une limite posée."
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Dans ton carnet, tu repères tes oui qui te coûtent et tu protèges ton énergie : reporte ton déplacement et ta phrase « Ma juste place, c’est… », ils deviennent une limite posée."
   },
 
   aVenir: [
-    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
-    { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
-    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' }
+    { mois: 'Étape 4 · Tronc', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
+    { mois: 'Étape 5 · Tronc', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
+    { mois: 'Étape 6 · Tronc', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' }
   ]
 };
