@@ -211,6 +211,39 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour juillet ?", ph: "Exemple : continuer à avancer à mon rythme, et oser enfin dire combien vaut mon travail.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mes actions du mois",
+    objectif: "passer de l’envie à l’action.",
+    sousObjectif: "transformer mes intentions en actions concrètes et observer ce qui se met en mouvement quand j’agis.",
+    duree: "début du mois : 20 min. Chaque jour : 5 min. Chaque semaine : 10 min. Fin du mois : 10 min.",
+    temps: [
+      {
+        titre: "Début du mois (20 min)",
+        etapes: [
+          "**Mes envies d’agir (5 min).** Tout ce que tu veux faire, petit ou grand, surtout ce que tu repousses depuis longtemps.",
+          "**Choisir (5 min).** 4 actions, une par semaine, et une petite action de 5 minutes à faire chaque jour.",
+          "**Le premier pas (5 min).** Pour chaque action, le premier geste concret, le jour et le lieu.",
+          "**Mon engagement (5 min).** « Ce mois-ci, j’ose… ». Signe et affiche cette feuille là où tu la vois chaque matin."
+        ]
+      },
+      {
+        titre: "Chaque jour (5 min)",
+        intro: "Ta petite action, puis coche la journée."
+      },
+      {
+        titre: "Chaque semaine (10 min)",
+        intro: "Ce que tu as fait, ce que tu as ressenti, la peur qui s’est montrée, ce qui a bougé autour de toi : rencontres, signes, propositions. Ajuste l’action de la semaine suivante."
+      },
+      {
+        titre: "Fin du mois (10 min)",
+        intro: "Relis tout et célèbre chaque action par un petit geste de fête. Termine par : « Je suis une personne qui ose… »"
+      }
+    ],
+    ph: "Exemple : ce mois-ci, j’ose appeler la librairie pour proposer un atelier. Ma petite action du jour : cinq minutes d’écriture."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Du côté des pères',

@@ -204,6 +204,50 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un couple, une image, une sensation, un mot…", ph: "Exemple : mes grands-parents se tenaient la main, alors que je ne les ai jamais vus faire. Dans mon espace, il y avait un cerisier." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Tronc · Quel projet a-t-on posé sur moi ?",
+    intro: "**Objectif :** me réapproprier mon prénom et mon chemin. **Sous-objectif :** découvrir l’histoire de mon prénom, voir les attentes posées sur moi, et écrire mon propre contrat avec la vie. **Intensité douce.**",
+    materiel: "Une photo de toi enfant, une enveloppe. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**L’enquête du prénom (10 min).** Qui l’a choisi, pourquoi, d’après qui ? Demande-le à un·e proche si tu le peux. Qui d’autre le porte dans ta famille ? Lien : l’article [« Le prénom transmis »](prenom-transmis-psychogenealogie.html).",
+          "**Le jeu d’écoute (5 min).** Dis ton prénom à voix haute et note les mots que tu entends dedans, comme un jeu : Claire (clair), René (re-né), Serge (je sers). Garde ce qui te parle.",
+          "**Les attentes (5 min).** L’année de ta naissance : que vivait ta famille ? Qu’espérait-on de toi ? Lien : l’article [« Le projet-sens »](projet-sens-conception-deuil.html)."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (3 min).**",
+          "**L’ancien contrat (12 min).** Écris le contrat qu’on a posé sur toi : « Contrat de naissance. On attendait de moi que… »",
+          "**Mon contrat (10 min).** Écris le tien : « Mon contrat avec la vie. Je choisis… Je m’autorise… ». Signe-le.",
+          "**Accueillir l’enfant (10 min).** Ta photo d’enfant devant toi, les yeux ouverts ou fermés. Dis-lui : « Bienvenue. Tu es accueilli·e tel·le que tu es. Tu as ta place. »",
+          "**Ranger l’ancien (5 min).** Plie l’ancien contrat dans une enveloppe, écris dessus « À leur histoire », et range-la.",
+          "**Respirer (5 min).**"
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).**",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Ton prénom en grand, et : « Mon prénom m’invite à vivre… »"
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : « Claire » en grand, et « Mon prénom m’invite à vivre en pleine lumière »."
+      }
+    ]
+  },
+
   bilanTitre: "Ce que ce mois a libéré en amour",
   bilan: [
     { k: 'fin-schema', q: "Quel schéma amoureux as-tu repéré ce mois-ci ?", ph: "Exemple : partir avant d’être quittée, dès que la relation devient sérieuse." },

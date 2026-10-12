@@ -202,6 +202,47 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-atelier', q: "Qu’est-ce qui t’est venu pendant la séance ? Un outil, un rêve en suspens, ce que tu as posé sur ta table…", ph: "Exemple : j’ai vu la machine à coudre de ma grand-mère, et un violon jamais joué. Sur ma table, j’ai posé un carnet de croquis." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Fruits · Qu’est-ce que je transmets ?",
+    intro: "**Objectif :** me choisir, et choisir l’héritage que je transmets. **Sous-objectif :** relire mon année, réunir trois parts de moi, et me faire mes vœux. **Intensité moyenne.**",
+    materiel: "Une bague, un bracelet ou un fil. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Relire mon arbre (10 min).** Ce qui a poussé en toi cette année, mois après mois.",
+          "**Trois parts de moi (10 min).** Trois moments de ta vie où une part de toi a besoin d’être retrouvée. Note l’âge et le lieu."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Mon équipe intérieure (20 min).** Face à une chaise vide, les yeux ouverts ou fermés, ou en écrivant. Accueille la première part de toi, reconnais ce qu’elle a traversé, et dis : « Tu fais partie de mon équipe. Viens avec moi. » Puis la deuxième, puis la troisième.",
+          "**Mes vœux (15 min).** « Je me choisis. Je m’offre… Je m’engage à… ». Lis-les debout, face à un miroir.",
+          "**Le geste d’union (5 min).** Passe la bague, le bracelet ou le fil : « Je m’unis à moi-même. »",
+          "**Mon héritage (5 min).** En une phrase, ce que tu choisis de transmettre à ceux qui viennent après toi."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Les fruits de ton héritage, puis une photo de ton arbre complet. Refais ta roue de la vie : ton année de chemin.",
+          "**Célébrer (5 min).** Un geste de fête : une musique, une danse, un bon repas."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : les fruits de mon héritage : la confiance, le goût de la fête, le droit de choisir sa vie."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-retiens', q: "Qu’as-tu découvert sur le travail et les rêves de ta lignée ce mois-ci ?", ph: "Exemple : trois générations ont renoncé à un métier de création pour la sécurité. Mon hésitation vient de là." },

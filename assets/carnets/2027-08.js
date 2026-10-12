@@ -210,6 +210,40 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour septembre ?", ph: "Exemple : garder mon élan à la rentrée, et chercher ce qui me fait vraiment vibrer dans mon travail.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Les lieux qui m’élèvent",
+    objectif: "habiter pleinement ma vie et mes lieux.",
+    sousObjectif: "sentir quels lieux, personnes et ambiances m’élèvent ou me pèsent, et créer chez moi un espace qui me ressemble.",
+    duree: "début du mois : 30 min. Chaque jour : 5 min. Une fois dans le mois : 30 min.",
+    temps: [
+      {
+        titre: "Début du mois (30 min)",
+        etapes: [
+          "**Ma carte des lieux (10 min).** Les lieux de ta semaine : les pièces de ta maison, ton travail, la nature, les endroits où tu passes. Pour chacun, ce que ton corps ressent, puis une couleur : vert quand il t’élève, orange quand il est neutre, gris quand il te pèse.",
+          "**Les énergies autour de moi (10 min).** Les personnes et les ambiances de ta semaine. Après quels moments te sens-tu plus vivant·e ? Après lesquels te sens-tu vidé·e ?",
+          "**Mon lieu ressource (10 min).** Le lieu qui t’élève le plus, dehors ou chez toi. Puis le coin de ta maison qui te pèse, et ce que tu peux y changer : ranger, aérer, une couleur, une plante, de la lumière."
+        ]
+      },
+      {
+        titre: "Chaque jour (5 min)",
+        intro: "Va dans ton lieu ressource et reste présent·e : respire, sens tes pieds, regarde, écoute."
+      },
+      {
+        titre: "Une fois dans le mois (30 min)",
+        intro: "Transforme le coin qui te pèse. Termine par : « Ici, je me sens chez moi quand… »"
+      }
+    ],
+    liens: [
+      [
+        "mode-emploi-suivi.html#cloture",
+        "Le texte « Fin de rituel et réunification intérieure », à lire à voix haute"
+      ]
+    ],
+    ph: "Exemple : mon lieu ressource, c’est le banc sous le tilleul. Ici, je me sens chez moi quand la lumière du soir entre dans le salon."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Racines, départs et lieux',

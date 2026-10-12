@@ -202,6 +202,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une silhouette, un objet reçu, un mot, une sensation…", ph: "Exemple : une femme en tablier s’est avancée et m’a tendu une clé. J’ai senti mes épaules se relâcher en déposant mon sac." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Racines · Qu’est-ce que j’ai reçu ?",
+    intro: "**Objectif :** reconnaître ce que ma lignée m’a transmis, les dons comme les poids. **Sous-objectif :** faire mon inventaire, rendre symboliquement un poids, et honorer ma lignée. **Intensité moyenne.** Lettre et feu (1 sur 2).",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html). Pour le feu : un récipient en métal ou en terre cuite, posé sur une surface stable, et un verre d’eau à côté, comme l’explique [le mode d’emploi](mode-emploi-suivi.html#feu).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Mon inventaire (15 min).** Deux colonnes. Les dons : talents, gestes, recettes, objets, courage, phrases douces. Les poids : peurs, habitudes, phrases dures, répétitions. Pour chacun : qui me l’a transmis, et dans quel tiroir il va.",
+          "**Choisir (5 min).** Le poids que tu choisis de rendre ce mois-ci."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (3 min).** Allume la bougie, une main sur le cœur, une sur le ventre : « Je suis ici, dans ma place et dans ma force. Je rends à ma lignée ce qui lui appartient, avec amour. »",
+          "**La lettre (20 min).** En trois parties. Ce que j’ai porté : « J’ai porté pendant longtemps… ». D’où ça vient, selon ce que je sais ou suppose : « Je comprends que cela vient peut-être de… », « Tu faisais avec ce que tu avais. » Ce que je rends et ce que je garde : « Je te rends… et je garde ton… ».",
+          "**Le feu (7 min).** Lis la lettre à voix haute, puis brûle-la en suivant [la consigne du mode d’emploi](mode-emploi-suivi.html#feu), ou déchire-la.",
+          "**Bouger (5 min).** Souffle fort, secoue les mains, puis regarde autour de toi.",
+          "**Honorer (10 min).** Imagine ta lignée près de toi. Remercie chacun·e pour la vie transmise. Une lumière dorée descend sur tous. Dis : « Je vous rends votre place avec amour. Je reprends la mienne avec paix. Je marche libre de choisir ma route, soutenu·e par votre lumière et enrichi·e de vos dons. »"
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).** Pieds au sol, un grand verre d’eau.",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Une feuille dorée pour chaque don reçu."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : quatre feuilles dorées : le rire de ma grand-mère, la tarte aux pommes, le courage de mon père, le goût des livres."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-retiens', q: "Que retiens-tu de ce mois passé avec tes ancêtres ?", ph: "Exemple : que je ne suis pas seul·e, et que certaines tristesses de novembre ne venaient pas de moi." },

@@ -202,6 +202,47 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Des visages, ce que tu as rendu, ce que tes mains ont reçu, une sensation…", ph: "Exemple : j’ai vu mon grand-père avec ses mains abîmées. Je lui ai rendu un sac très lourd. Mes mains ont reçu une lumière chaude, et j’ai eu envie de pleurer de soulagement." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Fruits · Combien je m’autorise à recevoir ?",
+    intro: "**Objectif :** changer mon rapport à l’argent et au fait de recevoir. **Sous-objectif :** repérer les phrases et les histoires d’argent de ma famille, poser mes propres règles, et m’entraîner à recevoir. **Intensité douce.** Si tu aimes, un soir de nouvelle lune ou de pleine lune.",
+    materiel: "Un petit objet d’abondance : une pièce, une graine, une pierre. Une bougie. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Les phrases entendues (10 min).** Sur l’argent, enfant : « L’argent se gagne à la sueur du front », « Garde, cache, méfie-toi »…",
+          "**L’argent dans ma lignée (10 min).** Qui a manqué, perdu, hérité, caché ? Range chaque information dans son tiroir. Lien : l’article [« Argent et lignée »](argent-et-lignee.html)."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (5 min).** Bougie, ton objet d’abondance devant toi.",
+          "**Le texte, à voix haute (10 min).** « Aujourd’hui, je choisis de me libérer. Certaines croyances sur l’argent viennent de ma lignée, des histoires, des silences, des privations. Je les remercie d’avoir voulu protéger les miens, et je les laisse partir. Je reprends ma place dans l’abondance de la vie, dans la valeur de mes dons, de mon travail, de ma présence. J’économise avec sérénité, je dépense avec joie, je reçois avec gratitude. Je mérite. Je m’autorise. Je choisis la confiance avec mon argent. »",
+          "**Mes règles d’argent (15 min).** Pour chaque phrase héritée, écris une règle personnelle et concrète : « Chaque mois, je mets de côté… », « Je fixe mes prix en regardant… », « Je m’offre… ».",
+          "**Recevoir (15 min).** Main sur la gorge : « Je me donne le droit de recevoir. Je me donne le droit d’avoir. » Puis ton objet dans les mains, trois fois : « Je choisis la confiance et l’abondance. » Imagine-toi en paix avec ton argent."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (5 min).** Le fruit de ce que tu reçois.",
+          "**Mon journal de l’abondance (7 min, puis 1 min par soir).** Une chose reçue dans la journée."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : un fruit doré : « Je reçois avec gratitude, et je fixe mes prix avec confiance »."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-phrases', q: "Quelles phrases ou quelles règles d’argent as-tu repérées ce mois-ci ?", ph: "Exemple : « On ne demande rien pour soi » et « Il ne faut pas dépasser ses parents ». Je les suivais sans le savoir." },

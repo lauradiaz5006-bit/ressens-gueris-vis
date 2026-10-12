@@ -202,6 +202,47 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-chemin', q: "Qu’est-ce qui t’est venu pendant la séance ? Un lieu, un visage, ce que tu as déposé, le lieu où tu es arrivé·e…", ph: "Exemple : j’ai vu un port, et ma grand-mère qui me faisait signe. J’ai déposé une valise. Je suis arrivé·e dans un jardin plein de tomates." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Fruits · D’où venons-nous ?",
+    intro: "**Objectif :** reconnaître les lieux et les silences de ma lignée, et me sentir chez moi. **Sous-objectif :** dessiner la carte des lieux et des départs, laisser les blancs ouverts, et rendre leur place à celles et ceux qu’on a peu nommés. **Intensité moyenne.** Si un souvenir lourd remonte, parles-en à une personne de confiance.",
+    materiel: "Une petite boîte en carton et une plante en pot. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**La carte des lieux (10 min).** Sur une carte ou un dessin : les lieux de ta lignée, les départs, les exils, les déménagements, puis les tiens. Lien : l’article [« Guerre et mémoire familiale »](guerre-et-memoire-familiale.html).",
+          "**Les blancs (10 min).** Une personne dont on parle peu, une période floue, une date absente : écris « à découvrir » et laisse l’espace ouvert."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Le cercle des lieux (10 min).** Imagine un cercle de lumière autour de toi. Un à un, les anciens lieux de ta vie s’y présentent. Nomme chacun : « Je vois ce lieu. Je reconnais ce que j’y ai vécu. Je le laisse au passé. »",
+          "**La boîte (15 min).** Sur un papier, écris « ce qui a été tu, ou reste à découvrir », et quelques mots pour celles et ceux qu’on a peu nommés : « Je te vois. Je te rends ta place dans notre histoire. » Mets le papier dans la boîte et enterre-la au pied de ta plante : « Je laisse à cette histoire le temps de se dire, ou de reposer en paix. »",
+          "**La fin de l’exil (10 min).** Pieds nus, mains sur les jambes : « Vous avez beaucoup marché. Aujourd’hui, vous pouvez vous reposer. Ici, je suis chez moi. »",
+          "**Revenir (10 min).** Respire, puis nomme cinq objets autour de toi."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Mon souhait pour ma maison (5 min).** Mains sur un mur : « Je souhaite à ma maison la paix et la joie. »",
+          "**Sur mon arbre (7 min).** Ce que tu gardes de beau des lieux de ta lignée : un paysage, une langue, une recette, un savoir-faire."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : les collines du village de mes grands-parents, la langue de ma grand-mère, le pain du dimanche."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-retiens', q: "Qu’as-tu découvert sur les lieux et les départs de ta lignée ce mois-ci ?", ph: "Exemple : trois générations ont dû partir de chez elles. Mon envie de bouger sans cesse vient de loin." },

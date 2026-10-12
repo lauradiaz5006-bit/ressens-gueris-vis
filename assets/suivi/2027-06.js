@@ -202,6 +202,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une silhouette, une distance, un objet tendu, ce que tu as posé…", ph: "Exemple : je suis resté·e loin, puis j’ai fait deux pas. Il m’a tendu un vieux couteau de poche. J’ai posé au sol une pierre très lourde, et j’ai respiré." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Branches · Ai-je le droit d’aller plus loin ?",
+    intro: "**Objectif :** m’autoriser à réussir. **Sous-objectif :** reconnaître le chemin de ma lignée, mes talents, et poser une vraie action. **Intensité douce.**",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**La frise de ma lignée (10 min).** Les réussites, les échecs, les arrêts en chemin, et le contexte de chaque époque.",
+          "**Mon plafond (10 min).** « Dans ma famille, on s’arrête à… ». Puis le moment où tu freines quand ça avance pour toi."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Leurs efforts (10 min).** Pour chaque ancêtre noté·e, une phrase : « Je reconnais ton courage de… à une époque où… »",
+          "**Mes talents (10 min).** Tout ce que tu sais faire, même les petites choses.",
+          "**Mon diplôme (15 min).** « Je soussigné·e… reconnais mes talents de… et je m’accorde le droit de réussir. » Lis un discours d’une minute à voix haute, signe, et affiche ton diplôme.",
+          "**L’élan (5 min).** Imagine ta lignée derrière toi qui t’encourage, ou dis simplement : « Je m’accorde le droit d’aller plus loin. »",
+          "**Mon action (5 min).** Une action réelle pour cette semaine, avec le jour et l’heure."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Sur mon arbre (7 min).** Des bourgeons pour tes talents.",
+          "**En fin de semaine (5 min).** Ce que ton action a ouvert."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : six bourgeons : écrire, cuisiner, écouter, organiser, chanter, rassembler."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-lignee', q: "Qu’as-tu découvert de la lignée des hommes de ta famille ce mois-ci ?", ph: "Exemple : de père en fils, personne n’a jamais dit « je suis fier de toi ». Ce n’était pas un manque d’amour, c’était une chaîne." },

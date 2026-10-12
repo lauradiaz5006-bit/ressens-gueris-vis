@@ -210,6 +210,46 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour février ?", ph: "Exemple : garder mon atelier du jeudi, et apprendre à me traiter avec plus de douceur.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Les pas de la lignée · Mes 3 valeurs",
+    objectif: "recevoir la force de ma lignée et poser mon cap.",
+    sousObjectif: "rendre la peur par le corps, choisir mes 3 valeurs.",
+    duree: "Les pas de la lignée : environ 20 minutes, une fois en début de mois, après avoir écouté l’audio. Mes 3 valeurs : 15 minutes, puis 1 minute par jour.",
+    temps: [
+      {
+        titre: "Les pas de la lignée (20 minutes)",
+        intro: "Il te faut deux feuilles et un peu d’espace pour faire quelques pas.",
+        etapes: [
+          "**Préparer l’espace (2 minutes).** Sur une feuille, écris « Ceux d’avant moi » et pose-la au sol. Sur l’autre, écris « Mon année » et pose-la à trois pas devant la première. Place-toi entre les deux, dos à la feuille de tes ancêtres.",
+          "**Sentir ceux d’avant (3 minutes).** Ferme les yeux. Sens derrière toi tes parents, puis leurs parents, puis toute la lignée, comme une longue file qui te soutient. Remarque ce que tu ressens dans ton dos, dans tes épaules.",
+          "**Rendre la peur (5 minutes).** Retourne-toi, face à la feuille de tes ancêtres. Imagine dans tes bras la peur que tu portes pour eux : celle de manquer, de perdre, de devoir partir, celle qui vient. Pose-la doucement sur la feuille et dis, à voix haute ou intérieurement : « Cette peur vous appartient. Je vous la rends avec respect. Je garde votre amour et votre force. » Reste un instant, et regarde comme tes bras se sentent plus légers.",
+          "**Recevoir la force (3 minutes).** Toujours face à eux, imagine qu’ils te tendent un cadeau : leur courage, leur endurance, leur savoir-faire, ce qu’ils avaient de plus beau. Ouvre les mains et reçois-le. Pose les mains sur ton ventre et dis : « Merci. Je reçois votre force, et je vis ma vie. »",
+          "**Avancer vers mon année (5 minutes).** Retourne-toi vers la feuille « Mon année ». Fais un premier pas en nommant ta première valeur. Un deuxième pas avec ta deuxième valeur. Un troisième pas avec la troisième. Arrivé·e sur la feuille, dis ton intention pour l’année, en une phrase au présent : « Cette année, je vis… ».",
+          "**Ancrer (2 minutes).** Reste debout sur ta feuille, les pieds bien posés. Sens la lignée derrière toi, qui te soutient, et l’année devant toi, qui t’accueille. Respire trois fois, profondément. Écris ton intention en grand sur la feuille « Mon année » et garde-la près de ton lit."
+        ]
+      },
+      {
+        titre: "Mes 3 valeurs (15 minutes)",
+        etapes: [
+          "**Les moments où je me sens moi (5 minutes).** Note trois moments de ta vie où tu t’es senti·e pleinement toi, vivant·e, à ta place. Que se passait-il ?",
+          "**Ce qui compte (5 minutes).** Dans ces moments, quelles valeurs étaient présentes ? Par exemple : liberté, sécurité, amour, transmission, créativité, justice, simplicité, joie, loyauté envers moi-même. Entoure celles qui te parlent. Pour t’aider : [la liste des valeurs](liste-des-valeurs.html).",
+          "**Mes trois (3 minutes).** Garde les trois qui te ressemblent le plus. Pour chacune, écris une phrase : « Pour moi, la liberté, c’est… ».",
+          "**Mon intention (2 minutes).** Écris ton intention de l’année, appuyée sur ces trois valeurs."
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque jour (1 minute)",
+      texte: "Le matin, choisis une de tes trois valeurs et une petite action pour la vivre dans la journée. Le soir, coche-la."
+    },
+    liens: [
+      ["liste-des-valeurs.html", "La liste des valeurs"]
+    ],
+    ph: "Exemple : mes trois valeurs sont la liberté, la joie et la transmission. Cette année, je vis à mon rythme, entouré·e de rires."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Ton prénom, ton héritage',

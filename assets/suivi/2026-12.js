@@ -208,6 +208,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une place choisie, un visage, une chaise vide, une sensation…", ph: "Exemple : je me suis assis·e près de la fenêtre, loin de la cuisine. J’ai vu la chaise de mon grand-père, et j’ai souri." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Racines · Quelle est ma place ?",
+    intro: "**Objectif :** trouver ma juste place dans ma famille. **Sous-objectif :** voir la place de chacun·e, me placer là où je me sens bien, et alléger les liens qui pèsent en gardant l’amour. **Intensité douce.**",
+    materiel: "Une dizaine de petits objets (boutons, pierres, figurines), de la ficelle, des ciseaux, un fil doré. Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Ma fratrie (10 min).** Ton rang, celui de tes parents dans leur propre fratrie. Qui tu soutiens, qui tu protèges, à qui on te compare.",
+          "**Mes liens (10 min).** Avec qui le lien te nourrit, avec qui il pèse."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ma famille en objets (15 min).** Sur une table, choisis un objet pour chaque personne et un pour toi. Place-les comme tu ressens ta famille aujourd’hui : les distances, les regards. Observe, puis prends une photo.",
+          "**Ma juste place (10 min).** Déplace ton objet à l’endroit où tu te sens bien. Observe ce qui change pour toi. Ajuste doucement les autres si tu le sens, avec respect.",
+          "**Le fil (10 min).** Entre ton objet et chaque personne avec qui le lien pèse, pose une ficelle. Dis : « Je garde l’amour, je te laisse ton histoire. » Coupe la ficelle, et pose à la place un fil doré, plus long et plus souple : « Je choisis un lien libre et léger. »",
+          "**La photo finale (5 min).** Photographie ta nouvelle disposition et compare avec la première.",
+          "**Respirer (5 min).**"
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Ma phrase (5 min).** « Ma juste place, c’est… ». Lis-la debout, dos droit.",
+          "**Sur mon arbre (7 min).** Ton prénom sur le tronc, avec ta phrase."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : mon prénom sur le tronc, avec « Ma juste place, c’est à côté de ma sœur, à égalité »."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-retiens', q: "Que retiens-tu de ce mois passé à observer la table des fêtes ?", ph: "Exemple : que ma place près de la cuisine vient de ma grand-mère, et que je ne suis pas obligé·e de la garder." },

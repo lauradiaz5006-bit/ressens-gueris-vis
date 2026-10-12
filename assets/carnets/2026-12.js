@@ -210,6 +210,50 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour janvier ?", ph: "Exemple : commencer l’année doucement, et choisir ce qui compte vraiment pour moi.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Mon rôle, ma place · Ma phrase de limite et ma posture",
+    objectif: "prendre ma place.",
+    sousObjectif: "voir mon rôle, poser une limite chaque jour.",
+    duree: "Mon rôle, ma place : environ 20 minutes, une fois en début de mois (tu peux le refaire en fin de mois pour voir ce qui a bougé). Ma phrase de limite : 3 minutes le matin, 2 minutes le soir, chaque jour du mois (au moins 7 jours de suite).",
+    temps: [
+      {
+        titre: "Début du mois · Mon rôle, ma place (20 minutes)",
+        etapes: [
+          "**S’installer (2 minutes).** Pose-toi dans un endroit calme, avec ton carnet. Respire lentement trois fois, et sens tes pieds bien posés sur le sol.",
+          "**Observer mon rôle (5 minutes).** Regarde la place que tu tiens dans ta famille, avec tes amis, ou dans le groupe où tu as grandi. Quel rôle joues-tu ? Celle ou celui qui arrange tout, qui rassure, qui fait rire, qui tient bon, qui reste discret·e, qui porte les autres… Écris-le en quelques mots.",
+          "**Ce qu’il m’apporte, ce qu’il me coûte (5 minutes).** Trace deux colonnes. D’un côté, ce que ce rôle t’apporte. De l’autre, ce qu’il te coûte. Puis demande-toi, simplement : ce rôle me convient-il aujourd’hui ?",
+          "**Pourquoi je le garde (3 minutes).** Écris ce qui te fait continuer : un vrai choix, parce que tu l’aimes ? Une loyauté envers quelqu’un de ta famille (écris son prénom) ? Une croyance, comme « c’est mon rôle » ou « je dois tenir pour les autres » ?",
+          "**Et si je vivais autrement (3 minutes).** Imagine que tu choisis une autre façon d’être. Que se passerait-il ? Qu’est-ce qui changerait pour toi ? Pour les autres ? Note ce qui vient, même les petites peurs : elles te montrent où se trouve la loyauté.",
+          "**Ma nouvelle place (2 minutes).** Écris en une phrase, au présent, la place et le rôle que tu choisis maintenant : « Je prends ma place de… », « Je suis celle ou celui qui… ». Lis-la à voix haute, le dos droit, les épaules ouvertes."
+        ]
+      },
+      {
+        titre: "Chaque jour · Ma phrase de limite et ma posture (5 minutes)",
+        etapes: [
+          {
+            t: "**Ma phrase du jour (1 minute, le matin).** Choisis une phrase de limite pour ta journée, et applique-la du matin au soir. Par exemple :",
+            liste: [
+              "« Je prends le temps de réfléchir avant de répondre. »",
+              "« Je réponds demain. »",
+              "« Ce soir, je garde ce temps pour moi. »",
+              "« Je dis oui seulement à ce qui me convient. »",
+              "« Je demande de l’aide pour cette tâche. »"
+            ]
+          },
+          "**Ma posture (1 minute, le matin, devant le miroir).** Debout, les pieds bien ancrés, le dos droit, les épaules ouvertes, le menton à l’horizontale. Respire profondément. Regarde-toi dans les yeux et dis ta phrase à voix haute.",
+          "**Je l’applique (toute la journée).** Chaque fois que l’occasion se présente, utilise ta phrase. Si tu sens ton corps se refermer, redresse-toi et respire.",
+          "**Mon bilan (2 minutes, le soir).** Note ce qui s’est passé : où ta phrase t’a servi, ce que tu as ressenti, comment les autres ont réagi. Coche la journée."
+        ]
+      }
+    ],
+    liens: [
+      ["place-dans-la-fratrie.html", "La place dans la fratrie"]
+    ],
+    ph: "Exemple : je prends ma place de personne qui demande aussi. Ma phrase préférée du mois : « Je réponds demain. »"
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Les fêtes et les places à table',

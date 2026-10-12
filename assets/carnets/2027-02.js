@@ -208,6 +208,38 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour mars ?", ph: "Exemple : continuer mon café du matin, et oser dire ce que je pense au moins une fois par semaine.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Me bercer, et ma lettre à l’enfant que j’étais",
+    objectif: "m’offrir l’amour et la sécurité que l’enfant en moi attendait.",
+    sousObjectif: "reconnaître ce dont cet enfant avait besoin, et apprendre à me réconforter moi-même au quotidien.",
+    duree: "en deux jours. Jour 1 : 30 min. Jour 2 : 20 min. Ensuite, 2 min par soir.",
+    temps: [
+      {
+        titre: "Jour 1 · La lettre (30 min)",
+        etapes: [
+          "**Retrouver l’enfant (5 min).** Pose devant toi une photo de toi enfant, ou ferme les yeux et laisse venir un âge. Note cet âge, comment tu étais habillé·e, ce que tu aimais faire, ce que tu ressentais souvent.",
+          "**Ce qu’il ou elle attendait (5 min).** Les mots, les gestes et la présence que cet enfant espérait : « Je suis fier·e de toi », un câlin le soir, quelqu’un qui l’écoute.",
+          "**La lettre (15 min).** Écris à cet enfant, en commençant par son prénom ou par « Mon enfant » : « Je te vois. Je sais ce que tu as traversé… », « Tu as fait de ton mieux, avec tout ton cœur. », « Tu avais besoin d’entendre…, alors je te le dis aujourd’hui : … », « À partir de maintenant, je suis là pour toi. Je te promets… ». Signe : « L’adulte que tu es devenu·e. »",
+          "**Lire (5 min).** Lis ta lettre à voix haute, la photo devant toi. Garde-la dans ton carnet."
+        ]
+      },
+      {
+        titre: "Jour 2 · Me bercer (20 min)",
+        etapes: [
+          "**La réponse de l’enfant (10 min).** Prends le stylo dans ton autre main et laisse l’enfant t’écrire quelques mots, comme ils viennent, même maladroits.",
+          "**Me bercer (10 min).** Sous une couverture, enlace-toi ou serre un coussin contre ton ventre. Balance-toi doucement d’avant en arrière, respire lentement, fredonne si tu en as envie. Dis : « Tu es en sécurité. Tu peux te reposer. Je t’aime. »"
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque soir (2 min)",
+      texte: "Une minute de bercement, puis une phrase de ta lettre, lue à voix haute."
+    },
+    ph: "Exemple : l’enfant de mes 7 ans m’a écrit « reste avec moi ». Chaque soir, je relis : « Tu as fait de ton mieux, avec tout ton cœur. »"
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Le couple et les schémas amoureux',
@@ -217,6 +249,6 @@ window.GENESOLIA_CARNET = {
   aVenir: [
     { mois: 'Mars', titre: 'Ma voix, ma confiance', texte: "Oser prendre la parole, t’affirmer avec douceur, et faire grandir ta confiance en toi.", image: 'assets/cartes/demander-mini.jpg' },
     { mois: 'Avril', titre: 'Dire vrai', texte: "Exprimer ce que tu ressens vraiment, avec des mots justes et bienveillants.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
-    { mois: 'Mai', titre: 'Prendre soin de moi', texte: "Faire de ton quotidien un allié : rythme, repos, plaisirs simples et énergie retrouvée.", image: 'assets/cartes/se-retrouver-mini.jpg' }
+    { mois: 'Mai', titre: 'La vie circule à travers moi', texte: "Sentir la vie circuler à travers toi, et regarder tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, ce que tu choisis.", image: 'assets/cartes/se-retrouver-mini.jpg' }
   ]
 };

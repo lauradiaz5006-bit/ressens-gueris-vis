@@ -202,6 +202,48 @@ window.GENESOLIA_CARNET = {
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
   },
 
+  /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
+     Affiché en semaine 3 (Libérer), après les exercices. Clé de champ : arbre-note. */
+  protocole: {
+    titre: "Tronc · Quelle peur je porte, et pour qui ?",
+    intro: "**Objectif :** alléger la peur héritée. **Sous-objectif :** repérer mes périodes sensibles, faire la part entre ma vie et mon histoire familiale, et rendre symboliquement la part qui appartient à ma lignée. **Intensité moyenne.** Lettre et feu (2 sur 2).",
+    materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html). Pour le feu : un récipient en métal ou en terre cuite, posé sur une surface stable, et un verre d’eau à côté, comme l’explique [le mode d’emploi](mode-emploi-suivi.html#feu).",
+    etapes: [
+      {
+        titre: "**Explorer** · 20 min",
+        etapes: [
+          "**Mon calendrier sensible (10 min).** Les moments de l’année où la peur ou la fatigue reviennent.",
+          "**Les dates de ma lignée (10 min).** Les dates familiales que tu connais. Note les rapprochements comme des pistes : une date proche peut être une coïncidence, note simplement ce qu’elle évoque pour toi."
+        ]
+      },
+      {
+        titre: "**Transformer** · 45 min",
+        etapes: [
+          "**Ouvrir (2 min).** Bougie, respiration lente.",
+          "**Ma peur en trois colonnes (8 min).** La peur, ce qui vient de ma vie, ce qui me semble venir de ma famille.",
+          "**La lettre courte (15 min).** « À toi (un prénom, ou « ceux d’avant moi »), je te rends la part de peur qui t’appartient. Je garde ta force de… Aujourd’hui, je choisis la confiance. »",
+          "**Le feu (10 min).** Brûle la lettre en suivant [la consigne du mode d’emploi](mode-emploi-suivi.html#feu), ou déchire-la : « Je confie cette peur au feu, et je choisis la confiance. »",
+          "**Bouger (10 min).** Secoue doucement les mains, les bras, les jambes. Souffle fort. Puis nomme cinq objets autour de toi."
+        ]
+      },
+      {
+        titre: "**Intégrer** · 15 min",
+        etapes: [
+          "**Apaiser (5 min).**",
+          "**Clôture commune (3 min).** Lis à voix haute [le texte de fin de rituel et de réunification intérieure](mode-emploi-suivi.html#cloture).",
+          "**Mon calendrier doux et mon arbre (7 min).** Note tes périodes sensibles dans ton agenda avec une phrase : « Aujourd’hui, je suis en sécurité, et je vis ma vie. » Sur ton arbre, colore une racine apaisée."
+        ]
+      }
+    ],
+    questions: [
+      {
+        k: "arbre-note",
+        q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+        ph: "Exemple : une racine colorée en vert tendre, pour la peur de manquer que j’ai rendue à mon grand-père."
+      }
+    ]
+  },
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-retiens', q: "Que retiens-tu de ce mois passé avec ton prénom ?", ph: "Exemple : que mon prénom est un hommage plein d’amour, pas une mission à accomplir." },

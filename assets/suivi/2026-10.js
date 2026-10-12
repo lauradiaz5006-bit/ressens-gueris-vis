@@ -279,7 +279,43 @@ window.GENESOLIA_CARNET = {
         { k: 'laisser-relache', q: 'Ce qui se relâche', ph: 'Exemple : la boule dans la gorge, et cette impression de devoir surveiller son téléphone.' },
         { k: 'laisser-boucle', q: 'Comment la boucle se défait, maintenant que je la vois', ph: 'Exemple : quand il ne répond pas, je sens la peur arriver, mais je sais qu’elle est vieille. Je respire et j’attends sans paniquer.' }
       ] },
-    protocole: null,
+    /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer. Clé de champ : arbre-note. */
+    protocole: {
+      titre: "Racines · Qui sont les miens ?",
+      intro: "**Objectif :** découvrir mon histoire familiale. **Sous-objectif :** poser mon arbre, recueillir des récits, et distinguer ce que je sais de ce que je suppose. **Intensité douce.** Environ 1 h. Aussi le point de départ de toute personne qui arrive en cours d’année.",
+      materiel: "Ton carnet, des crayons de couleur, et ton affiche [« Mon arbre de vie »](arbre-de-vie-affiche.html). Le cadre du suivi est dans [le mode d’emploi](mode-emploi-suivi.html).",
+      etapes: [
+        {
+          titre: "**Explorer** · 20 min",
+          etapes: [
+            "**Ouvrir (3 min).** Lis : « Ta lignée est le terreau où tu as poussé. Tu choisis ce que tu y fais grandir. Elle t’a confié une grande bibliothèque, et tu choisis les livres que tu gardes près de toi. »",
+            "**Mon héritage (7 min).** Deux colonnes. L’héritage visible : traits de caractère, habitudes, règles, valeurs. L’héritage invisible : loyautés, peurs, répétitions que tu sens.",
+            "**Mon arbre simplifié (10 min).** Tes parents, tes grands-parents, et plus loin si tu le sais. Pour chacun·e : prénom, dates, métier, lieux de vie, et un mot qui le ou la décrit."
+          ]
+        },
+        {
+          titre: "**Transformer** · 30 min",
+          etapes: [
+            "**Les trois tiroirs (10 min).** Pour chaque personne de ton arbre, note ce que tu sais, ce qu’on t’a raconté, et ce que tu supposes.",
+            "**Mon enquête (20 min).** Choisis 3 questions à poser à un·e proche cette semaine, par exemple : « Comment tes parents se sont-ils rencontrés ? », « Quel métier rêvait-il de faire ? », « Qu’est-ce qui faisait rire ta mère ? ». Note les réponses dans ton carnet. Lien : l’article [« Les questions à poser à sa famille »](questions-a-poser-a-sa-famille.html)."
+          ]
+        },
+        {
+          titre: "**Intégrer** · 10 min",
+          etapes: [
+            "**Sur mon arbre (7 min).** Dessine les racines et écris les prénoms de ta lignée.",
+            "**Clore (3 min).** Main sur le cœur : « Je découvre mon histoire. Je choisis ce que je garde. »"
+          ]
+        }
+      ],
+      questions: [
+        {
+          k: "arbre-note",
+          q: "Ce que j’ai posé sur mon arbre ce mois-ci",
+          ph: "Exemple : les racines, avec les prénoms de mes grands-parents : Jeanne, Louis, Marie et André."
+        }
+      ]
+    },
     retour: { titre: 'Où en suis-je avec ma question du cœur ?',
       curseur: { k: 'coeur-ou-n', q: 'Aujourd’hui, à quel point ma question du cœur pèse-t-elle ?' },
       questions: [

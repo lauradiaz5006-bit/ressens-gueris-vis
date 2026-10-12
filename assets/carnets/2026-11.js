@@ -355,6 +355,65 @@ window.GENESOLIA_CARNET = {
     ]
   },
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "Vider mon sac : ce que je désire, ce que je porte",
+    objectif: "faire le tri entre ce qui est à moi et ce que je porte pour les autres.",
+    sousObjectif: "repérer les croyances, les phrases, les loyautés et les étiquettes qui freinent mes envies, et voir les forces et les appuis que j’ai déjà.",
+    duree: "en deux jours. Jour 1 : 30 min. Jour 2 : 30 min. Ensuite, 1 min par jour.",
+    temps: [
+      {
+        titre: "Jour 1 · Ouvrir mon sac (30 min)",
+        etapes: [
+          "**Mes 9 envies (10 min).** Note 3 choses que tu voudrais avoir dans ta vie matérielle, 3 choses que tu voudrais être, et 3 choses que tu voudrais voir dans la société et autour de toi.",
+          "**Mon tableau (20 min).** À côté de chaque envie, trois colonnes : ma croyance (ce que je pense tout bas à ce sujet), la phrase entendue (ce qu’on disait dans ma famille, et qui le disait), la loyauté (à qui je reste fidèle en gardant cette croyance). Chaque croyance, phrase ou loyauté est un objet de ton sac."
+        ],
+        tableau: {
+          titre: "Un exemple de tableau",
+          entetes: ["Mon envie", "Ma croyance", "La phrase entendue", "La loyauté"],
+          lignes: [
+            [
+              "Avoir une maison lumineuse avec un jardin",
+              "Une maison, ça se paie toute une vie",
+              "« Chez nous, on se contente de ce qu’on a » (ma mère)",
+              "Mes parents ont vécu avec le strict nécessaire. Avoir plus, ce serait les dépasser"
+            ],
+            [
+              "Être reconnu·e pour mon travail",
+              "Il faut souffrir pour mériter",
+              "« Le travail, c’est dur, c’est comme ça » (mon père)",
+              "Mon père a travaillé toute sa vie dans l’ombre"
+            ],
+            [
+              "Voir autour de moi des gens qui s’entraident",
+              "Chacun pour soi",
+              "« Méfie-toi des autres » (ma grand-mère)",
+              "Ma grand-mère a été trahie par ses proches pendant la guerre"
+            ]
+          ]
+        }
+      },
+      {
+        titre: "Jour 2 · Trier (30 min)",
+        etapes: [
+          "**Est-ce vraiment pour moi ? (5 min)** Pour chaque envie, écris pourquoi tu la veux : pour toi, ou pour prouver, faire plaisir, réparer quelqu’un ? Garde les envies qui viennent de ton cœur.",
+          "**Ce qui la retient (10 min).** Quelle étiquette est encore collée sur moi (« la fragile », « la petite dernière », « celle qui galère ») ? Ai-je un pardon à faire, envers moi ou quelqu’un d’autre, pour me sentir digne de la recevoir ? Qu’est-ce qui d’autre se met entre moi et cet objectif ?",
+          "**Mes forces et mes appuis (10 min).** Ce que tu as déjà de ces envies, même en petit. Ce que tu as construit, les personnes et les ressources sur lesquelles tu t’appuies. Termine par : « Je comprends comment je crée ma réalité : … »",
+          "**Vider le sac (5 min).** Écris sur un papier ce que tu laisses sortir du sac, puis brûle-le en sécurité ou déchire-le. Écris tes forces sur une petite carte et glisse-la dans ton sac ou ton portefeuille."
+        ]
+      }
+    ],
+    geste: {
+      titre: "Chaque jour (1 min)",
+      texte: "Regarde ta carte de forces, et note une chose de tes envies déjà présente dans ta vie."
+    },
+    liens: [
+      ["loyaute-familiale-invisible.html", "La loyauté familiale invisible"]
+    ],
+    ph: "Exemple : je garde mon envie de maison lumineuse. Je laisse sortir du sac la phrase « on se contente de ce qu’on a »."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Ceux qui sont venus avant toi',

@@ -210,6 +210,35 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-intention', q: "Quelle est ton intention pour octobre ?", ph: "Exemple : continuer à donner une heure par semaine à ce qui me fait vibrer, et faire le bilan de mon année.", court: true }
   ],
 
+  /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
+     Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
+  exerciceDuMois: {
+    titre: "La récolte · Le rituel de l’équinoxe",
+    objectif: "reconnaître le chemin parcouru et accueillir ce qui m’appelle.",
+    sousObjectif: "faire le bilan de l’année, garder ce qui a poussé, laisser ce qui a fini son temps, et écouter ma vocation.",
+    duree: "début du mois : 30 min. Semaine de l’équinoxe, autour du 22 septembre : le rituel, 30 min.",
+    temps: [
+      {
+        titre: "Début du mois (30 min)",
+        etapes: [
+          "**Ma récolte (15 min).** Relis ton carnet de l’année et écris une phrase par mois : ce qui a poussé en toi.",
+          "**Mes trois paniers (10 min).** Ce que je garde, ce que je laisse, ce que je sème pour l’année qui vient.",
+          "**Ce qui m’appelle (5 min).** Les activités où tu perds la notion du temps, ce qu’on te demande souvent, ce qui te met en joie. Termine par : « Ma vocation, en ce moment, ressemble à… »"
+        ]
+      },
+      {
+        titre: "Semaine de l’équinoxe · Le rituel de la récolte (30 min)",
+        etapes: [
+          "**L’autel (5 min).** Sur ton autel de saison, des fruits, des feuilles d’automne, et tes deux bougies de mars. Si ta graine de mars a poussé, place-la au centre.",
+          "**Remercier (10 min).** Allume les bougies. Pour chaque chose de ton panier « je garde » : « Merci pour… »",
+          "**Laisser partir (10 min).** Écris ton panier « je laisse » sur un papier, puis confie-le à la terre ou au feu : « Je laisse partir ce qui a fini son temps. »",
+          "**Accueillir (5 min).** Mains sur le cœur : « Je remercie pour ce qui a poussé. J’accueille l’année qui vient. » Souffle les bougies."
+        ]
+      }
+    ],
+    ph: "Exemple : dans mon panier « je garde » : ma voix, mes matins calmes, mes amies. Ma vocation, en ce moment, ressemble à transmettre."
+  },
+
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: 'Les métiers de la lignée',
