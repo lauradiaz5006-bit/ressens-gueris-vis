@@ -90,7 +90,7 @@ window.GENESOLIA_PLUS = {
       "Prépare ta lettre courte : écris le prénom de la personne, ou « ceux d’avant moi », et la force que tu gardes.",
       "Prépare le matériel du feu : un récipient en métal ou en terre cuite, une surface stable, un verre d’eau. Ou choisis de déchirer ta lettre.",
       "Vis ton protocole, tes ancres près de toi : les trois colonnes, la lettre, le feu ou la feuille déchirée, puis le mouvement.",
-      "Après ton protocole, secoue doucement les mains, les bras, les jambes. Puis sors marcher quelques minutes dans l’air de janvier.",
+      "Après ton protocole, secoue doucement les mains, les bras, les jambes. Puis sors marcher quelques minutes au grand air.",
       "Regard sur ta semaine : quelle part de peur as-tu rendue, et quelle force gardes-tu ? Une ligne pour chacune."
     ] },
     { jours: [
@@ -108,7 +108,7 @@ window.GENESOLIA_PLUS = {
           pourquoi: "La confiance grandit quand elle a des rendez-vous réguliers, et quand quelqu’un autour de toi la soutient. Tes périodes sensibles deviennent alors des moments préparés, accompagnés.",
           questions: [
             { k: "plus4-jan-a", q: "Quelle est ta prochaine période sensible, et quel rendez-vous doux prévois-tu pour elle ?", ph: "Exemple : fin novembre. Je prévois un week-end chez mon amie Claire, avec de longues promenades.", lignes: 2 },
-            { k: "plus4-jan-b", q: "Qu’est-ce que tu choisis de garder de ce mois passé avec ta peur ?", ph: "Exemple : ma phrase de sécurité, mon galet dans la poche, et la fierté d’avoir osé regarder.", lignes: 2 },
+            { k: "plus4-jan-b", q: "Qu’est-ce que tu choisis de garder de cette étape passée avec ta peur ?", ph: "Exemple : ma phrase de sécurité, mon galet dans la poche, et la fierté d’avoir osé regarder.", lignes: 2 },
             { k: "plus4-jan-c", q: "Qui peut t’accompagner les jours où la peur revient ?", ph: "Exemple : mon frère, à qui j’ai raconté l’histoire de la ferme, et qui comprend tout de suite.", lignes: 2 }
           ] }
       ] }

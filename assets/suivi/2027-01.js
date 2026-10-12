@@ -18,7 +18,7 @@ window.GENESOLIA_CARNET = {
   audioCourt: '',
   saisonLien: "Janvier ouvre l’année dans le froid et la lumière basse. La nature garde ses forces à l’abri, sous la terre et dans l’écorce, en attendant le retour des beaux jours. C’est le bon moment pour regarder tes peurs avec calme, au chaud : celles qui reviennent à certaines périodes, et celles qui semblent venir de plus loin que toi. Tu avances doucement, en sécurité, à ton rythme.",
   intensiteQ: "À quel point la peur, ou une fatigue qui revient à certaines périodes, pèse-t-elle sur ta vie aujourd’hui ?",
-  souhaitPh: "Exemple : cette inquiétude qui revient chaque hiver, comme si quelque chose de grave allait arriver.",
+  souhaitPh: "Exemple : cette inquiétude qui revient à la même période chaque année, comme si quelque chose de grave allait arriver.",
 
   decor: {
     couverture: 'assets/formation/montagne.jpg',
@@ -53,14 +53,14 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "La peur que tu portes",
     texte: [
-      "Janvier ouvre l’année. On prend des résolutions, on fait des projets, et parfois une vieille peur se réveille au même moment : peur de manquer, peur de perdre, peur que tout s’arrête. Certaines peurs viennent de ta vie, de ce que tu as traversé. D’autres semblent venir de plus loin : d’une histoire familiale, d’une période difficile vécue par ceux d’avant, d’une inquiétude transmise en silence.",
-      "Avec ce mois, tu entres dans le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après les racines de l’automne (les prénoms, les dons, ta juste place), tu regardes la peur héritée, pour aller doucement vers la vie choisie. Ce mois-ci, tu cherches à faire la part des choses : ce qui est à toi, et ce qui appartient peut-être à ta lignée."
+      "Il y a des moments où l’on se projette : un nouveau projet, un changement, une date qui approche. Et parfois, une vieille peur se réveille au même moment : peur de manquer, peur de perdre, peur que tout s’arrête. Certaines peurs viennent de ta vie, de ce que tu as traversé. D’autres semblent venir de plus loin : d’une histoire familiale, d’une période difficile vécue par ceux d’avant, d’une inquiétude transmise en silence.",
+      "Avec cette étape 4, tu entres dans le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après les racines des trois premières étapes (les prénoms, les dons, ta juste place), tu regardes la peur héritée, pour aller doucement vers la vie choisie. Pendant cette étape, tu cherches à faire la part des choses : ce qui est à toi, et ce qui appartient peut-être à ta lignée."
     ],
     sousTitre: "Périodes sensibles et dates de la lignée",
     texte2: [
       "Beaucoup de personnes remarquent qu’une fatigue ou une inquiétude revient à la même période chaque année. Parfois, en regardant l’arbre, on découvre une date familiale proche : un départ, un décès, une faillite, un déménagement forcé. En psychogénéalogie, on parle de dates qui se répondent. C’est une piste à regarder avec prudence : une date proche peut être une coïncidence, et tu gardes simplement ce qu’elle évoque pour toi.",
       "Une peur peut aussi se transmettre par les gestes et les phrases : « on se méfie », « garde toujours une réserve », « il vaut mieux rester discret ». Elle a souvent protégé quelqu’un, à une époque où le danger était réel. Aujourd’hui, tu peux la remercier pour cette protection et choisir la confiance. Pour aller plus loin : [le syndrome d’anniversaire, entre faits et hypothèses](syndrome-anniversaire.html).",
-      "Ce mois-ci, tu vas **voir** ton calendrier sensible, **comprendre** les dates de ta lignée en rangeant chaque information dans son tiroir, **rendre** la part de peur qui appartient à ta famille avec ton protocole du mois, et **apaiser** tes périodes sensibles avec un calendrier doux."
+      "Pendant cette étape, tu vas **explorer** ton calendrier sensible, **comprendre** les dates de ta lignée en rangeant chaque information dans son tiroir, **transformer** en rendant la part de peur qui appartient à ta famille avec ton protocole, puis **intégrer** : colorer une racine apaisée sur ton arbre de vie et accueillir tes périodes sensibles avec un calendrier doux."
     ],
     exemplesTitre: "Quand une peur semble venir de plus loin, au quotidien",
     exemples: [
@@ -75,7 +75,7 @@ window.GENESOLIA_CARNET = {
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Ton calendrier sensible",
+    { cle: 'voir', nom: 'Explorer', etape: 'Explorer', titre: "Ton calendrier sensible",
       intro: "Cette semaine, tu explores les moments de l’année où la peur ou la fatigue reviennent. Tu observes, tu notes, tu remarques ce que ça te fait. Les dates de ta lignée viendront la semaine prochaine.",
       texte: "Commence par ton calendrier sensible, au calme, une vingtaine de minutes, avec un agenda ou un calendrier sous les yeux. Puis, pendant la semaine, remarque chaque fois qu’une peur se présente, même petite.",
       exercices: [
@@ -98,7 +98,7 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Si une période te semble très lourde, avance doucement : note seulement ce qui te paraît possible aujourd’hui. Pose les pieds au sol, regarde autour de toi et nomme cinq objets que tu vois. Tu peux reprendre un autre jour." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "Les dates de ta lignée",
+    { cle: 'source', nom: 'Comprendre', etape: 'Comprendre', titre: "Les dates de ta lignée",
       intro: "Cette semaine, tu regardes les dates de ta famille, avec curiosité et prudence. Tu remontes le fil, tu écoutes les récits, et tu fais la part entre ce qui vient de ta vie et ce qui semble venir de ton histoire familiale.",
       texte: [
         "Pour chaque information, demande-toi dans quel tiroir elle va. **Ce que je sais** : une date écrite sur un acte, un faire-part, une tombe. **Ce qu’on m’a raconté** : « c’était l’hiver où ton grand-père est parti », avec les mots et l’émotion de la personne qui raconte. **Ce que je suppose** : une date proche de ta période sensible, une ressemblance, une intuition.",
@@ -112,7 +112,7 @@ window.GENESOLIA_CARNET = {
           questions: [
             { k: 'dates-jan-connues', q: "Quelles dates familiales connais-tu : naissances, départs, décès, mariages, déménagements ?", ph: "Exemple : papi né en mars 1932, départ de la ferme en novembre 1958, mamie partie en février 1999." },
             { k: 'dates-jan-proches', q: "Lesquelles tombent près de tes périodes sensibles, ou d’un âge qui t’inquiète ?", ph: "Exemple : le départ de la ferme, en novembre. Ma fatigue de fin novembre, peut-être." },
-            { k: 'dates-jan-recits', q: "Quelles peurs se racontent dans ta famille, et à propos de quels événements ?", ph: "Exemple : la peur de tout perdre, depuis la vente forcée de la ferme. On en parle encore à chaque Noël." },
+            { k: 'dates-jan-recits', q: "Quelles peurs se racontent dans ta famille, et à propos de quels événements ?", ph: "Exemple : la peur de tout perdre, depuis la vente forcée de la ferme. On en parle encore à chaque réunion de famille." },
             { k: 'dates-jan-qui', q: "Qui, avant toi, portait une peur semblable à la tienne ?", ph: "Exemple : ma grand-mère, qui gardait des boîtes de conserve « au cas où » dans tous les placards." },
             { k: 'dates-jan-part', q: "Dans ta peur, quelle part vient de ta vie, et quelle part te semble venir de ta famille ?", ph: "Exemple : de ma vie, une période de chômage à 30 ans. De ma famille, cette impression que tout peut s’écrouler du jour au lendemain." }
           ] },
@@ -125,7 +125,7 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Ajoute les dates que tu retrouves dans [ton arbre familial](genosociogramme.html) : ta page « Ton mois » te les rappellera chaque année. Pour voir les âges et les dates qui se répondent, tu peux utiliser [le calcul des dates anniversaires](calcul-syndrome-anniversaire.html), en gardant chaque résultat comme une piste. Si une question réveille une peine chez la personne que tu interroges, remercie-la avec douceur et laisse la porte ouverte." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Rendre la part de peur",
+    { cle: 'liberer', nom: 'Transformer', etape: 'Transformer', titre: "Rendre la part de peur",
       intro: "Cette semaine, tu vis ton protocole du mois. Tu poses ta peur en trois colonnes, tu écris une lettre courte à celles et ceux d’avant toi, tu rends au feu la part de peur qui leur appartient, et tu choisis la confiance.",
       exercices: [
         { k: 'colonnes-jan', titre: "Ma peur en trois colonnes", type: 'blocs', nb: 3,
@@ -162,7 +162,7 @@ window.GENESOLIA_CARNET = {
       },
       conseil: "Le feu est une possibilité parmi d’autres : déchirer la lettre, l’enterrer ou la garder dans une enveloppe sont des gestes tout aussi forts. Suis la consigne du [mode d’emploi](mode-emploi-suivi.html#feu). Si une émotion monte, pose les pieds au sol, nomme cinq objets autour de toi, bois un verre d’eau. Tu peux vivre le protocole en deux fois." },
 
-    { cle: 'remplacer', nom: 'L’élan', etape: 'Remplacer', titre: "Ton calendrier doux",
+    { cle: 'remplacer', nom: 'Intégrer', etape: 'Intégrer', titre: "Ton calendrier doux",
       intro: "Tu as vu tes périodes sensibles, compris les dates de ta lignée, rendu la part de peur qui appartenait à ta lignée. Cette semaine, tu intègres : tu colores une racine apaisée sur ton arbre de vie, tu prépares ton calendrier doux, et tu poses chaque jour un petit geste de confiance.",
       texte: [
         "**La première pause.** Quand la vieille peur se présente (un scénario catastrophe, une vigilance, une envie de tout contrôler), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Merci d’avoir protégé les miens. Aujourd’hui, je suis en sécurité, et je vis ma vie. »",
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'confiance-jan', titre: "Mon geste de confiance", type: 'texte',
-          consigne: "Choisis un petit geste de confiance pour cette semaine, à l’opposé de ta vieille peur : dépenser un peu pour un plaisir, partir en balade en laissant une part d’imprévu, laisser une porte ouverte à l’imprévu. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste nourrit aussi ton intention dans ton carnet « J’avance ».",
+          consigne: "Choisis un petit geste de confiance pour cette semaine, à l’opposé de ta vieille peur : dépenser un peu pour un plaisir, partir en balade en laissant une part d’imprévu, accepter une invitation de dernière minute. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste nourrit aussi ton intention dans ton carnet « J’avance ».",
           pourquoi: "La confiance se construit par petits gestes répétés. Chaque geste montre à ton corps que tu es en sécurité aujourd’hui, et ta racine apaisée prend vie dans ton quotidien.",
           gestes: ["Noter mes périodes sensibles dans mon agenda, avec ma phrase", "Prévoir un rendez-vous doux pendant une période sensible", "M’offrir un petit plaisir, ici et maintenant", "Partir en balade en laissant une part d’imprévu", "Appeler une personne de confiance quand la peur arrive", "Garder mon ancre dans ma poche les jours délicats"],
           q: "Ton geste : « Quand ma vieille peur se présente, au lieu de…, je vais… »",
@@ -198,7 +198,7 @@ window.GENESOLIA_CARNET = {
       "Il t'accompagne depuis toujours, et il t'accompagnera dans tout ce que tu vas vivre cette année, comme un chemin ouvert devant toi, au-delà du seuil.",
       "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un matin calme, ou un soir tranquille, où personne ne te dérangera pendant dix minutes. Si ton prénom est lié à une personne disparue et qu’une émotion monte trop fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    conseil: "Choisis un matin calme ou un soir tranquille, avec dix minutes de calme pour toi. Si ton prénom est lié à une personne disparue et qu’une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
   },
 
@@ -246,13 +246,7 @@ window.GENESOLIA_CARNET = {
 
   lectures: [
     { lien: 'syndrome-anniversaire.html', titre: "Les dates qui se répondent", resume: "Le syndrome d’anniversaire entre faits, hypothèses et coïncidences : comment regarder les dates de ta lignée avec prudence." },
-    { lien: 'devenir-parent-au-meme-age.html', titre: "La répétition des âges dans la famille", resume: "Quand les générations se répondent : des exemples, des pistes, et la liberté de garder ce qui te parle." },
-    { lien: 'memoire-transgenerationnelle.html', titre: "La mémoire transgénérationnelle", resume: "Ce qui se transmet d’une génération à l’autre, et ce qu’on peut vraiment en dire, avec nuance." }
-  ],
-
-  lectures: [
-    { lien: 'syndrome-anniversaire.html', titre: "Les dates qui se répondent", resume: "Le syndrome d’anniversaire entre faits, hypothèses et coïncidences : comment regarder les dates de ta lignée avec prudence." },
-    { lien: 'devenir-parent-au-meme-age.html', titre: "La répétition des âges dans la famille", resume: "Quand les générations se répondent : des exemples, des pistes, et la liberté de garder ce qui te parle." },
+    { lien: 'peur-de-manquer-d-argent.html', titre: "La peur de manquer, d’où vient-elle ?", resume: "Quand une peur semble venir des années difficiles vécues par ceux d’avant : des pistes pour la reconnaître et choisir la confiance." },
     { lien: 'memoire-transgenerationnelle.html', titre: "La mémoire transgénérationnelle", resume: "Ce qui se transmet d’une génération à l’autre, et ce qu’on peut vraiment en dire, avec nuance." }
   ],
 
@@ -262,7 +256,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-part-jan', q: "Qu’as-tu compris de la part qui vient de ta vie, et de celle qui semble venir de ta famille ?", ph: "Exemple : ma peur de manquer vient un peu de ma vie, et beaucoup, peut-être, de la ferme vendue. C’est une piste qui me parle." },
     { k: 'fin-rendu-jan', q: "Quelle part de peur as-tu rendue, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : la peur de tout perdre. Je respire mieux en regardant mes comptes, et je m’autorise de petits plaisirs." },
     { k: 'fin-force-jan', q: "Quelle force de ta lignée gardes-tu avec toi ?", ph: "Exemple : la force de recommencer de mes grands-parents, et leur sens du partage." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en février ?", ph: "Exemple : découvrir l’histoire de mon prénom, et les attentes posées sur moi.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à l’étape suivante, autour de ton prénom et des attentes posées sur toi ?", ph: "Exemple : découvrir l’histoire de mon prénom, et les attentes posées sur moi.", court: true }
   ],
 
   carnet: {
@@ -271,8 +265,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
-    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' },
-    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Collecter les phrases de ta famille, voir où elles agissent dans ta vie, et les réécrire avec tes propres mots.", image: 'assets/cartes/boucle-spirale-mini.jpg' }
+    { mois: 'Étape 5 · Tronc', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
+    { mois: 'Étape 6 · Tronc', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' },
+    { mois: 'Étape 7 · Branches', titre: "Quelles phrases me guident ?", texte: "Collecter les phrases de ta famille, voir où elles agissent dans ta vie, et les réécrire avec tes propres mots.", image: 'assets/cartes/boucle-spirale-mini.jpg' }
   ]
 };
