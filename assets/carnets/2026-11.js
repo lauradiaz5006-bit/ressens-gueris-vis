@@ -417,7 +417,7 @@ window.GENESOLIA_CARNET = {
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: "Qu’est-ce que j’ai reçu ?",
-    texte: "Pendant que ton carnet t’aide à reconnaître tes forces, ton suivi t’invite à te tourner vers tes ancêtres : nommer les oubliés, recevoir ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas. Les forces que tu reçois là-bas deviennent des appuis ici."
+    texte: "Pendant que ton carnet t’aide à reconnaître tes forces, ton suivi t’invite à faire l’inventaire de ce que ta lignée t’a transmis : les dons que tu gardes, et un poids que tu choisis de rendre avec respect. Les dons que tu reçois là-bas deviennent des appuis ici."
   },
 
   /* À lire ce mois-ci : les articles du blog reliés au mois, en bas du carnet */
