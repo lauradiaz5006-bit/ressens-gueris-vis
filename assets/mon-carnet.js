@@ -780,6 +780,14 @@
   function offreCercle() {
     return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">La suite de ton suivi fait partie du Cercle</p><p>Tes 3 premières semaines sont offertes. Avec Le Cercle, tu vis aussi la semaine 4 : ton geste nouveau et ton bilan, et toute la suite de ton année, en plus de ton carnet du mois, de ton guide et de tout le site.</p><p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle, 1 mois offert</a></p></aside>';
   }
+  /* La séance audio du mois (mes-seances.html) : cycle 1 = induction + voyage, cycle 2 = induction + méditation audio.
+     L'ancre #seance-cN-MM met en avant, dans « Mes séances », la séance qui correspond au fichier de l'étape (même mois que assets/seances.js). */
+  function seanceUrl(cy) { return 'mes-seances.html#seance-c' + cy + '-' + String(C.mois).split('-')[1]; }
+  function audioEncart() {
+    return '<aside class="mc-encadre mc-encadre-or mc-audio-moment" id="mc-audio-moment"><p class="mc-encadre-t">Ton audio à écouter : c’est le moment</p>' +
+      '<p>Cette semaine, tu libères. C’est le meilleur moment pour écouter ta méditation audio du mois, avant ton protocole : au calme, assis·e ou allongé·e, quand personne ne te dérange. Tu pourras ensuite y revenir aussi souvent que tu veux.</p>' +
+      '<p><a class="btn btn-plein" href="' + seanceUrl(2) + '">Écouter ma séance du mois</a></p></aside>';
+  }
   function suiviPages() {
     var P = [], S = window.GENESOLIA_SAISONS, sa = S && S[MOIS_SAISON];
     P.push({ id: 'saison', nom: ET ? 'Ta saison' : 'La saison', g: function () {
@@ -809,7 +817,7 @@
         if (k > 2 && !membre) return '<p class="mc-pont" data-pont="' + k + '" hidden></p>' + offreCercle();
         var R = w.rituel;
         var X = plusSem(k);
-        return '<p class="mc-pont" data-pont="' + k + '" hidden></p>' + (w.texte ? paras([].concat(w.texte)) : '') + textePlus(k) + (w.exercices || []).concat(X.exercices || []).map(exercice).join('') +
+        return '<p class="mc-pont" data-pont="' + k + '" hidden></p>' + (k === 2 ? audioEncart() : '') + (w.texte ? paras([].concat(w.texte)) : '') + textePlus(k) + (w.exercices || []).concat(X.exercices || []).map(exercice).join('') +
           (k === 2 && C.protocole ? protocoleMoisHtml(C.protocole, { sur: 'Mon arbre de vie · le protocole du mois', sansAudio: true }) : '') +
           (k === 2 ? '<p class="mc-pourquoi mc-seance-lib"><b>Ta méditation du mois</b> accompagne cette semaine : <a href="#meditation">la lire</a>.</p>' : '') +
           filJours(k) +
@@ -1220,7 +1228,7 @@
       return corpsSemaine(Vo, W.voir.i) + '<div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">' + esc(So.etape || 'Remonter à la source') + '</p><h3 class="mc-h">' + esc(So.titre) + '</h3><p>' + md(So.intro) + '</p>' + corpsSemaine(So, W.source.i) + personnageHtml() + exercicesMoisHtml(2) + filJours(1);
     });
     semaine(3, 'Libérer', Li.titre, Li.intro, function () {
-      return corpsSemaine(Li, W.liberer.i).replace('<label class="mc-fait mc-fait-sem">', laisserHtml() + protocoleMoisHtml() + exercicesMoisHtml(3) + '<p class="mc-pourquoi mc-seance-lib"><b>Ta méditation du mois</b> accompagne cette semaine : <a href="#meditation">la lire</a>.</p><label class="mc-fait mc-fait-sem">') + filJours(2);
+      return audioEncart() + corpsSemaine(Li, W.liberer.i).replace('<label class="mc-fait mc-fait-sem">', laisserHtml() + protocoleMoisHtml() + exercicesMoisHtml(3) + '<p class="mc-pourquoi mc-seance-lib"><b>Ta méditation du mois</b> accompagne cette semaine : <a href="#meditation">la lire</a>.</p><label class="mc-fait mc-fait-sem">') + filJours(2);
     });
     semaine(4, 'Mon geste différent', Re.titre, Re.intro, function () {
       var X = K.retour;
@@ -1627,6 +1635,8 @@
     PAGES.forEach(function (p) { if (p.sem != null) page(p.id, p.nom); });
     var em = racine.querySelector('.mc-livre .mc-sur-mois'); dans(em && em.nextElementSibling, 'Ton exercice du mois');
     dans(racine.querySelector('.mc-livre .mc-protocole-mois[id]'), 'Ton protocole du mois');
+    dans(racine.querySelector('#mc-audio-moment'), 'Ton audio à écouter : c’est le moment');
+    lien(seanceUrl(2), 'Ma séance du mois, la méditation audio');
     page('meditation', 'Ta méditation du mois, à lire');
     lien('arbre-de-vie-affiche.html', 'Mon affiche « Mon arbre de vie »'.replace(/« /, '« ').replace(/ »/, ' »'));
     if (document.getElementById('mc-alire')) L.push('<li><button type="button" data-vers="mc-alire">À lire ce mois-ci</button></li>');
@@ -1663,7 +1673,7 @@
           (C.pdf ? '<a class="btn btn-trait" href="' + esc(C.pdf) + '" download>Version papier vierge (PDF)</a>' : '') +
           (MODULE ? '<a class="btn btn-trait" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Mon espace de formation</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a>' :
             (SUIVI ? '<a class="btn btn-trait" href="mon-carnet.html?mois=' + esc(C.mois) + '">Mon carnet du mois</a>' : '<a class="btn btn-trait" href="mon-suivi-mois.html?mois=' + esc(C.mois) + '">Mon suivi du mois</a>') +
-            (SUIVI ? '' : '<a class="btn btn-trait" href="mes-seances.html">Ma séance du mois</a>') +
+            '<a class="btn btn-trait" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Ma séance du mois</a>' +
             '<button type="button" class="btn btn-trait" data-ics>Ajouter mes rappels à mon agenda</button>') + '</div>' +
         '<div class="mc-compte" id="mc-compte" hidden></div></header>' + (SUIVI ? sommaireSuiviHtml() : '') +
       '<nav class="mc-onglets" aria-label="' + (MODULE ? 'Pages du module' : 'Pages du carnet') + '">' + PAGES.map(function (p, i) { return '<button type="button" data-page="' + i + '"' + (p.sem != null ? ' class="mc-onglet-sem"' : '') + '><span>' + (p.sem != null ? '✦' : '•') + '</span>' + esc(p.nom) + '</button>'; }).join('') + '</nav>' +

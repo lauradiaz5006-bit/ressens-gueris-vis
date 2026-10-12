@@ -467,6 +467,7 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .ms-carte p{margin:0}
 .ms-toi{border-color:var(--champagne);box-shadow:0 6px 18px rgba(107,47,91,.08)}
 .ms-ouverte{background:linear-gradient(160deg,#FFF6EC,#fff 70%)}
+.ms-cible{border-color:var(--champagne);box-shadow:0 0 0 3px rgba(183,131,63,.35),0 6px 18px rgba(107,47,91,.08);scroll-margin-top:6rem}
 .ms-grise{opacity:.55}
 .ms-badges{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}
 .ms-mois{font-size:.8rem;font-weight:600;text-transform:capitalize;color:var(--champagne);margin-right:.2rem}
