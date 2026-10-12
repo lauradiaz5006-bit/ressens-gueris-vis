@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les étapes du couple : crise des 3 ans, des 7 ans et après · Genesolia</title>
+  <meta name="description" content="Les étapes du couple : fusion, crise des 3 ans, crise des 7 ans, adaptation et redécouverte. Ce qui se joue à chaque étape et les modèles hérités de la famille.">
+  <link rel="canonical" href="https://genesolia.fr/etapes-du-couple.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Les étapes du couple : de la fusion à la redécouverte, et les fameuses crises des 3 et 7 ans">
+  <meta property="og:description" content="Les étapes du couple : fusion, crise des 3 ans, crise des 7 ans, adaptation et redécouverte. Ce qui se joue à chaque étape et les modèles hérités de la famille.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-etapes-du-couple.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Les étapes du couple : de la fusion à la redécouverte, et les fameuses crises des 3 et 7 ans", "description": "Les étapes du couple : fusion, crise des 3 ans, crise des 7 ans, adaptation et redécouverte. Ce qui se joue à chaque étape et les modèles hérités de la famille.", "image": "https://genesolia.fr/assets/partage/blog-etapes-du-couple.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/etapes-du-couple.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/etapes-du-couple.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelles sont les étapes du couple ?", "acceptedAnswer": {"@type": "Answer", "text": "On peut en retenir quatre : la fusion (de 0 à 3 ans environ), l’individuation, où chacun·e redevient soi (de 3 à 7 ans), l’adaptation, où l’on construit une vie commune (de 7 à 20 ans), et la redécouverte, après 20 ans. Ce sont des repères : chaque couple a son propre rythme."}}, {"@type": "Question", "name": "C’est quoi la crise des 3 ans dans un couple ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est le moment où la fusion du début laisse place au quotidien. Les différences apparaissent, les petites habitudes de l’autre agacent, on se demande où est passée la magie. Ce n’est pas forcément la fin de l’amour, plutôt la fin de l’illusion d’être pareils, et le début d’une relation plus réelle."}}, {"@type": "Question", "name": "Pourquoi parle-t-on de la crise des 7 ans ?", "acceptedAnswer": {"@type": "Answer", "text": "Vers sept ans de vie commune, la routine et la charge du quotidien ont souvent pris beaucoup de place. Beaucoup de couples se demandent alors si c’est encore la vie qu’ils veulent. Cette remise en question peut devenir l’occasion de redéfinir le projet commun."}}, {"@type": "Question", "name": "Comment savoir si mon couple traverse une crise normale ?", "acceptedAnswer": {"@type": "Answer", "text": "Une crise d’étape s’accompagne souvent d’un désir de changement, d’agacements, de questions, mais le respect et l’envie de se parler restent présents. Si tu te sens en danger, rabaissé·e ou contrôlé·e, ce n’est plus une étape du couple : parles-en à une personne de confiance ou à un·e professionnel·le."}}, {"@type": "Question", "name": "Que vient faire la famille dans les étapes du couple ?", "acceptedAnswer": {"@type": "Answer", "text": "Chacun·e arrive avec un modèle de couple appris dans sa famille : façons de se disputer, de se réconcilier, de se répartir les rôles. Ces modèles se réveillent surtout aux moments de passage, comme la naissance d’un enfant. Les repérer permet de choisir ce qu’on garde et ce qu’on fait autrement."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Les étapes du couple : de la fusion à la redécouverte, et les fameuses crises des 3 et 7 ans", "item": "https://genesolia.fr/etapes-du-couple.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Les étapes du couple</nav>
+        <h1>Les étapes du couple : de la fusion à la redécouverte, et les fameuses crises des 3 et 7 ans</h1>
+        <p class="intro">Un couple traverse plusieurs étapes, et chacune a ses défis. On peut en retenir quatre : la fusion (de 0 à 3 ans environ), l’individuation, où chacun·e redevient soi (de 3 à 7 ans), l’adaptation, où l’on construit une vie commune durable (de 7 à 20 ans), puis la redécouverte, après 20 ans. Les fameuses crises des 3 ans et des 7 ans marquent souvent le passage d’une étape à l’autre. Ce sont des repères, pas des dates fixes, et chaque passage réveille aussi les modèles de couple hérités de ta famille.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#reperes">Des repères, pas des règles</a><a href="#fusion">La fusion</a><a href="#individuation">L’individuation</a><a href="#adaptation">L’adaptation</a><a href="#redecouverte">La redécouverte</a><a href="#lignee">Lecture psychogénéalogique</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-etapes-du-couple-1600.webp" srcset="assets/images/blog-etapes-du-couple-800.webp 800w, assets/images/blog-etapes-du-couple-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Les étapes du couple : deux fleurs roses qui s’épanouissent côte à côte au bord de l’eau, dans une lumière dorée" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="reperes">Les étapes du couple : des repères, pas des règles</h2>
+        <p>Beaucoup d’auteurs ont décrit le couple comme une histoire qui avance par étapes, un peu comme un enfant qui grandit. Les noms et les durées varient d’un modèle à l’autre. Celui que nous proposons ici est un repère souvent utilisé en France, simple à retenir. Il ne s’agit pas de faire entrer ton couple dans des cases, mais de comprendre que les tempêtes font souvent partie du chemin, et qu’elles annoncent parfois une nouvelle étape plutôt qu’une fin.</p>
+        <ul class="pistes">
+          <li><strong>De 0 à 3 ans environ · la fusion</strong><span>On ne fait qu’un. Tout semble facile, l’autre est merveilleux·se.</span></li>
+          <li><strong>De 3 à 7 ans environ · l’individuation</strong><span>Chacun·e redevient soi. Les différences apparaissent, la crise des 3 ans se profile.</span></li>
+          <li><strong>De 7 à 20 ans environ · l’adaptation</strong><span>La vie commune s’organise autour des projets, des enfants, du travail. La crise des 7 ans interroge le sens.</span></li>
+          <li><strong>Après 20 ans · la redécouverte</strong><span>Les enfants grandissent, le rythme change. On se retrouve, ou on se réinvente.</span></li>
+        </ul>
+        <p class="rappel"><strong>Chaque couple a son rythme.</strong> Certains couples traversent la fusion en six mois, d’autres en cinq ans. Un couple qui se forme à 50 ans, avec des enfants déjà grands, ne vit pas les mêmes étapes qu’un couple de 25 ans. Prends ces repères comme une carte, pas comme un calendrier.</p>
+
+        <h2 id="fusion">La fusion : de 0 à 3 ans environ</h2>
+        <p>C’est le temps de la rencontre, de l’élan, du « nous ». On a envie d’être ensemble tout le temps, on découvre l’autre avec émerveillement, on minimise les petits désaccords. Le corps participe largement à cette étape : l’article sur <a href="emotions-et-hormones.html">les émotions et les hormones</a> explique le rôle de la dopamine et de l’ocytocine dans l’élan amoureux.</p>
+        <h3>Ce qui se joue</h3>
+        <p>La fusion crée le lien et la confiance de base. Elle donne envie de construire. Mais elle repose aussi sur une part d’idéalisation : on voit surtout chez l’autre ce qui correspond à nos attentes, et parfois à notre <a href="imago-choix-amoureux.html">imago</a>, cette image intérieure des adultes de notre enfance.</p>
+        <h3>La crise des 3 ans</h3>
+        <p>Vers la fin de cette étape, le quotidien reprend sa place. Les petites habitudes de l’autre, qui semblaient charmantes, commencent à agacer. On se demande où est passée la magie. C’est souvent ce qu’on appelle la crise des 3 ans : non pas la fin de l’amour, mais la fin de l’illusion d’être pareils. Pour certaines personnes, ce moment réveille une peur ancienne d’être abandonné·e ou étouffé·e.</p>
+
+        <h2 id="individuation">L’individuation : de 3 à 7 ans environ</h2>
+        <p>Après le « nous », chacun·e a besoin de retrouver son « je ». On reprend ses amitiés, ses passions, son temps à soi. On ose dire non, on affirme ses goûts. Les différences, qu’on avait mises de côté pendant la fusion, deviennent visibles.</p>
+        <h3>Ce qui se joue</h3>
+        <p>Cette étape est souvent vécue comme une menace : « Il a besoin de sortir sans moi, il ne m’aime plus », « Elle veut décider seule, elle s’éloigne ». En réalité, un couple solide a besoin de deux personnes entières. L’enjeu de l’individuation est d’apprendre à être soi sans perdre le lien, et à laisser l’autre être lui-même ou elle-même.</p>
+        <p>Si cette étape te fait particulièrement peur, si l’autonomie de l’autre te semble insupportable, l’article sur la <a href="dependance-affective.html">dépendance affective</a> peut t’éclairer.</p>
+
+        <h2 id="adaptation">L’adaptation : de 7 à 20 ans environ</h2>
+        <p>C’est l’étape de la construction : la maison, les enfants, les carrières, les familles d’origine qui vieillissent. Le couple devient une petite entreprise qui doit tenir debout. On apprend à négocier, à se répartir les rôles, à traverser des épreuves ensemble.</p>
+        <h3>La crise des 7 ans</h3>
+        <p>Vers sept ans de vie commune, beaucoup de couples traversent une période de remise en question. La routine s’est installée, la charge du quotidien a pris beaucoup de place, et l’on peut se demander : est-ce encore la vie que je veux ? Cette question, aussi inconfortable soit-elle, est une invitation à redéfinir le projet commun plutôt qu’à le subir.</p>
+        <h3>Ce qui se joue</h3>
+        <p>L’adaptation demande de la souplesse : accepter que l’autre change, que la vie bouscule les plans, et que l’amour prenne des formes nouvelles. C’est aussi pendant cette étape que les modèles familiaux reviennent le plus fort : quand on devient parent, on retrouve sans le vouloir les gestes, les phrases et les répartitions des rôles de ses propres parents.</p>
+
+        <h2 id="redecouverte">La redécouverte : après 20 ans</h2>
+        <p>Les enfants partent, le travail prend moins de place, le corps change. Le couple se retrouve face à face, parfois pour la première fois depuis longtemps. Certains découvrent qu’ils ont continué à grandir ensemble, d’autres qu’ils se sont éloignés sans le voir.</p>
+        <h3>Ce qui se joue</h3>
+        <p>Cette étape peut être une renaissance : nouveaux projets, nouvelle tendresse, temps retrouvé. Elle demande de se redécouvrir comme on redécouvre une personne qu’on croyait connaître par cœur. Elle peut aussi réveiller des questions de sens, de transmission, de place dans la lignée, notamment au moment où l’on devient grand-parent.</p>
+
+        <h2 id="lignee">Lecture psychogénéalogique : les modèles de couple hérités</h2>
+        <p>Chaque couple est formé de deux personnes, mais aussi de deux histoires familiales. Sans le savoir, chacun·e arrive avec un modèle de couple appris en regardant ses parents et ses grands-parents : comment on se dispute, comment on se réconcilie, qui décide, qui se tait, ce qui se passe quand ça ne va plus.</p>
+        <ul class="pistes">
+          <li><strong>Les couples de l’arbre</strong><span>Dans ta famille, les couples ont-ils duré ? Comment se parlaient-ils ? Y avait-il de la tendresse visible, ou surtout du devoir ?</span></li>
+          <li><strong>Les âges et les durées qui se répondent</strong><span>Une séparation à la même étape sur plusieurs générations, un couple qui vacille quand l’aîné a 7 ans comme chez les parents ? L’article sur les <a href="devenir-parent-au-meme-age.html">âges qui se répondent</a> montre comment repérer ces coïncidences, sans en faire des prédictions.</span></li>
+          <li><strong>Les loyautés</strong><span>Être plus heureux·se en couple que ses parents peut faire naître une culpabilité diffuse. Les <a href="loyaute-familiale-invisible.html">loyautés familiales invisibles</a> expliquent pourquoi on reste parfois fidèle, sans le vouloir, au destin conjugal des siens.</span></li>
+          <li><strong>Les histoires tues</strong><span>Un premier mariage dont on ne parle pas, un enfant né d’une autre union, une séparation cachée : ces <a href="secret-de-famille.html">secrets de famille</a> touchent souvent au couple.</span></li>
+        </ul>
+        <h3>Un exercice à deux, ou seul·e</h3>
+        <ol class="exercice">
+          <li><h3>Dessine les couples de ta lignée</h3><p>Sur trois générations, note chaque couple, sa durée, la façon dont il s’est terminé. Le <a href="genosociogramme.html">génosociogramme en ligne</a> te permet de le faire simplement.</p></li>
+          <li><h3>Écris trois phrases sur le couple entendues enfant</h3><p>« Dans un couple, il faut… », « Les hommes sont… », « Les femmes sont… ». Si tu le fais à deux, échangez vos phrases : elles expliquent souvent vos désaccords.</p></li>
+          <li><h3>Choisis ce que tu gardes</h3><p>Dans chaque modèle hérité, il y a des trésors (la fidélité, l’humour, la solidarité) et des poids. Écris ce que tu veux garder, et ce que tu veux faire autrement.</p></li>
+        </ol>
+        <p>Pour comprendre pourquoi les mêmes scénarios reviennent d’une relation à l’autre, lis aussi les <a href="schemas-repetitifs-en-amour.html">schémas répétitifs en amour</a>.</p>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Quelles sont les étapes du couple ?</dt><dd>On peut en retenir quatre : la fusion (de 0 à 3 ans environ), l’individuation, où chacun·e redevient soi (de 3 à 7 ans), l’adaptation, où l’on construit une vie commune (de 7 à 20 ans), et la redécouverte, après 20 ans. Ce sont des repères : chaque couple a son propre rythme.</dd>
+          <dt>C’est quoi la crise des 3 ans dans un couple ?</dt><dd>C’est le moment où la fusion du début laisse place au quotidien. Les différences apparaissent, les petites habitudes de l’autre agacent, on se demande où est passée la magie. Ce n’est pas forcément la fin de l’amour, plutôt la fin de l’illusion d’être pareils, et le début d’une relation plus réelle.</dd>
+          <dt>Pourquoi parle-t-on de la crise des 7 ans ?</dt><dd>Vers sept ans de vie commune, la routine et la charge du quotidien ont souvent pris beaucoup de place. Beaucoup de couples se demandent alors si c’est encore la vie qu’ils veulent. Cette remise en question peut devenir l’occasion de redéfinir le projet commun.</dd>
+          <dt>Comment savoir si mon couple traverse une crise normale ?</dt><dd>Une crise d’étape s’accompagne souvent d’un désir de changement, d’agacements, de questions, mais le respect et l’envie de se parler restent présents. Si tu te sens en danger, rabaissé·e ou contrôlé·e, ce n’est plus une étape du couple : parles-en à une personne de confiance ou à un·e professionnel·le.</dd>
+          <dt>Que vient faire la famille dans les étapes du couple ?</dt><dd>Chacun·e arrive avec un modèle de couple appris dans sa famille : façons de se disputer, de se réconcilier, de se répartir les rôles. Ces modèles se réveillent surtout aux moments de passage, comme la naissance d’un enfant. Les repérer permet de choisir ce qu’on garde et ce qu’on fait autrement.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner les couples de ma lignée</a>
+          <a class="btn btn-trait" href="imago-choix-amoureux.html">L’imago et le choix amoureux</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html">Émotions et hormones</a><a href="cinq-elements-emotions.html">Les 5 éléments</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="etapes-du-couple.html" aria-current="page">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html">Tableau de vision</a><a href="liste-des-valeurs.html">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="imago-choix-amoureux.html"><h3>L’imago et le choix amoureux</h3><p>Pourquoi tu choisis toujours le même type de partenaire.</p></a>
+          <a class="outil" href="dependance-affective.html"><h3>La dépendance affective</h3><p>Repérer les signes et reprendre sa place.</p></a>
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Les schémas répétitifs en amour</h3><p>Des personnes différentes, et pourtant la même histoire.</p></a>
+          <a class="outil" href="devenir-parent-au-meme-age.html"><h3>Les âges qui se répondent</h3><p>Quand les mêmes âges reviennent d’une génération à l’autre.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés invisibles</h3><p>Ces fidélités qui traversent les générations.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

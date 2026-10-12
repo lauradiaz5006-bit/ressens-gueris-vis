@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tableau de vision (vision board) : comment le créer, avec fond d’écran · Genesolia</title>
+  <meta name="description" content="Vision board, tableau de vision : comment le créer en 6 étapes, des idées par domaine de vie, le lien avec l’intention, et un outil gratuit pour en faire ton fond d’écran.">
+  <link rel="canonical" href="https://genesolia.fr/tableau-de-vision.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Tableau de vision : comment créer ton vision board, et en faire ton fond d’écran">
+  <meta property="og:description" content="Vision board, tableau de vision : comment le créer en 6 étapes, des idées par domaine de vie, le lien avec l’intention, et un outil gratuit pour en faire ton fond d’écran.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-tableau-de-vision.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+    .atelier-fond{margin:1.6rem 0;padding:1.4rem 1.4rem 1.2rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 70%);border:1px solid var(--rose-fonce)}
+    .atelier-fond .mc-q{font-weight:600;margin:1.1rem 0 .3rem}
+    .atelier-fond .gf{margin:0}
+    @media (max-width:640px){.atelier-fond{padding:1rem .8rem}}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Tableau de vision : comment créer ton vision board, et en faire ton fond d’écran", "description": "Vision board, tableau de vision : comment le créer en 6 étapes, des idées par domaine de vie, le lien avec l’intention, et un outil gratuit pour en faire ton fond d’écran.", "image": "https://genesolia.fr/assets/partage/blog-tableau-de-vision.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/tableau-de-vision.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/tableau-de-vision.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu’est-ce qu’un tableau de vision ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est une composition d’images, de mots et de phrases qui représentent la vie que tu souhaites vivre. On le place à un endroit où on le voit chaque jour, pour garder son intention présente à l’esprit et remarquer les occasions qui vont dans ce sens."}}, {"@type": "Question", "name": "Comment faire un vision board ?", "acceptedAnswer": {"@type": "Answer", "text": "Choisis une période et une intention, puis trois domaines de vie. Rassemble des images qui te font ressentir quelque chose, ajoute trois mots et une phrase au présent, dispose le tout sur un support que tu verras chaque jour, et relie-le à un premier petit pas."}}, {"@type": "Question", "name": "Que mettre sur son tableau de vision ?", "acceptedAnswer": {"@type": "Answer", "text": "Des images qui évoquent comment tu veux te sentir, plus que ce que tu veux posséder : un chemin lumineux, deux mains qui se tiennent, un fauteuil près d’une fenêtre. Ajoute des mots clés (douceur, confiance, joie) et une phrase écrite comme si elle était déjà vraie."}}, {"@type": "Question", "name": "Un tableau de vision fonctionne-t-il vraiment ?", "acceptedAnswer": {"@type": "Answer", "text": "Il ne fait rien apparaître par magie. Il aide à clarifier ce qu’on veut, à garder le cap et à orienter son attention, ce qui facilite le passage à l’action. Son efficacité dépend surtout des petits pas que tu poses ensuite."}}, {"@type": "Question", "name": "Comment mettre son tableau de vision en fond d’écran ?", "acceptedAnswer": {"@type": "Answer", "text": "Utilise l’outil gratuit de cette page : choisis jusqu’à trois images, écris tes mots et ta phrase, choisis une ambiance et télécharge l’image. Sur iPhone, ouvre-la, touche Partager puis « Utiliser comme fond d’écran ». Sur Android, ouvre-la puis « Définir comme fond d’écran »."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Tableau de vision : comment créer ton vision board, et en faire ton fond d’écran", "item": "https://genesolia.fr/tableau-de-vision.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Tableau de vision</nav>
+        <h1>Tableau de vision : comment créer ton vision board, et en faire ton fond d’écran</h1>
+        <p class="intro">Un tableau de vision, ou vision board, est un assemblage d’images, de mots et de phrases qui représentent la vie que tu souhaites. Pour le créer, il suffit de choisir une intention, de rassembler des images qui la font ressentir, de les disposer sur un support que tu verras chaque jour, et d’y ajouter une phrase au présent. Il ne fait rien apparaître par magie : il t’aide à garder le cap et à remarquer les occasions. Plus bas, un outil gratuit te permet de créer ton tableau de vision en fond d’écran de téléphone.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#definition">C’est quoi ?</a><a href="#intention">L’intention d’abord</a><a href="#etapes">Les 6 étapes</a><a href="#idees">Idées par domaine</a><a href="#lignee">Et ta lignée ?</a><a href="#outil">Créer mon fond d’écran</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 9 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-tableau-de-vision-1600.webp" srcset="assets/images/blog-tableau-de-vision-800.webp 800w, assets/images/blog-tableau-de-vision-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Tableau de vision : une balançoire fleurie face à la mer au coucher du soleil, sous une glycine rose" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="definition">Un tableau de vision, c’est quoi ?</h2>
+        <p>Un tableau de vision (on dit aussi vision board, tableau d’intention ou tableau des rêves) est une composition visuelle de ce que tu souhaites vivre. On y colle des photos, des mots, des couleurs, des phrases. Il peut être sur un panneau de liège, une grande feuille, la porte d’un placard, une page de carnet, ou l’écran de ton téléphone.</p>
+        <p>Son principe est simple : ce qu’on voit chaque jour reste présent à l’esprit. Ton attention se tourne plus facilement vers ce qui compte pour toi, tu remarques davantage les occasions qui vont dans ce sens, et tu te souviens de ce que tu as choisi quand le quotidien t’emporte. La dopamine, le messager de l’envie, aime savoir vers quoi elle avance : l’article sur <a href="emotions-et-hormones.html">les émotions et les hormones</a> l’explique.</p>
+        <p class="rappel"><strong>Pas de baguette magique.</strong> Un tableau de vision ne remplace pas l’action, et il ne garantit rien. C’est une boussole, pas une commande passée à l’univers. Sa vraie force : t’aider à clarifier ce que tu veux, et à poser chaque jour un petit pas dans cette direction.</p>
+
+        <h2 id="intention">Le lien avec l’intention : commencer par le ressenti</h2>
+        <p>Beaucoup de tableaux de vision ressemblent à des catalogues : une maison, une voiture, une plage. Rien de mal à cela, mais les tableaux les plus parlants partent d’une question plus profonde : <strong>comment veux-tu te sentir ?</strong> Apaisé·e, libre, entouré·e, fier·ère de toi, en sécurité, vivant·e ?</p>
+        <p>L’intention, c’est la direction intérieure. Les images viennent ensuite la rendre visible. Une plage peut représenter le repos, la liberté ou la joie de vivre : c’est à toi de savoir ce qu’elle dit pour toi. Pour choisir ton intention, tu peux partir de tes valeurs : la <a href="liste-des-valeurs.html">liste des valeurs</a> t’aide à identifier les cinq qui comptent le plus.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Un objectif</span><h3>Ce que je veux avoir</h3><p>« Je veux un nouveau travail. » C’est concret, mais cela ne dit rien de ce que tu cherches vraiment.</p></div>
+          <div class="c2"><span class="nom">Une intention</span><h3>Ce que je veux vivre</h3><p>« Je veux me sentir utile et reconnu·e dans ce que je fais. » Cette phrase peut guider bien plus de choix, et inspirer des images plus justes.</p></div>
+        </div>
+
+        <h2 id="etapes">Comment créer ton tableau de vision en 6 étapes</h2>
+        <ol class="exercice">
+          <li><h3>Choisis ta période et ton intention</h3><p>Un mois, une saison, une année ? Écris en une phrase comment tu veux te sentir pendant cette période. Exemple : « Cette année, je veux me sentir légère et entourée. »</p></li>
+          <li><h3>Choisis trois domaines de vie</h3><p>Inutile de tout couvrir. Trois domaines suffisent : par exemple l’amour, le travail et le temps pour soi. Un tableau trop chargé perd sa force.</p></li>
+          <li><h3>Rassemble des images qui font ressentir</h3><p>Magazines, photos personnelles, cartes postales, images en ligne. Ne garde que celles qui te font quelque chose dans le corps : un sourire, un soupir de soulagement, un frisson. Si une image te laisse indifférent·e, laisse-la.</p></li>
+          <li><h3>Ajoute des mots et une phrase au présent</h3><p>Trois mots qui résument ton intention (« douceur », « confiance », « joie ») et une phrase écrite comme si c’était déjà vrai : « J’ai le droit de prendre ma place. » Le présent rend la phrase plus proche, plus habitable.</p></li>
+          <li><h3>Dispose et place-le là où tu le verras</h3><p>Près de ton lit, sur ton bureau, à l’intérieur d’une porte de placard, ou en fond d’écran de téléphone : l’important est de le croiser plusieurs fois par jour, sans effort.</p></li>
+          <li><h3>Relie-le à un premier pas</h3><p>Pour chaque domaine, note un petit geste à faire dans les 48 heures. Puis, chaque mois, regarde ton tableau : qu’est-ce qui s’est rapproché ? Qu’est-ce qui a changé de sens ? Tu as le droit de le modifier.</p></li>
+        </ol>
+
+        <h2 id="idees">Idées de tableau de vision par domaine de vie</h2>
+        <ul class="pistes">
+          <li><strong>Amour et couple</strong><span>Deux mains qui se tiennent, une table dressée pour deux, un chemin à deux. Mots : complicité, confiance, tendresse. Si tes histoires se ressemblent toutes, lis l’article sur l’<a href="imago-choix-amoureux.html">imago</a>.</span></li>
+          <li><strong>Amour de soi</strong><span>Une rose épanouie, un miroir dans la lumière, un bain chaud. Mots : douceur, fierté, tel·le que je suis.</span></li>
+          <li><strong>Famille et lignée</strong><span>Un arbre aux racines visibles, une table de famille, une vieille photo apaisée. Mots : racines, paix, transmission.</span></li>
+          <li><strong>Travail et projets</strong><span>Un atelier lumineux, un carnet ouvert, une porte qui s’ouvre. Mots : sens, élan, reconnaissance.</span></li>
+          <li><strong>Argent et sécurité</strong><span>Une maison accueillante, un jardin qui pousse, un coffre ouvert. Mots : sécurité, abondance, liberté. Si l’argent est un sujet sensible, l’article <a href="argent-et-lignee.html">argent et lignée</a> peut t’éclairer.</span></li>
+          <li><strong>Corps et énergie</strong><span>Une marche en forêt, une danse, un lever de soleil. Mots : vitalité, souffle, légèreté.</span></li>
+          <li><strong>Amitiés et liens</strong><span>Un repas entre amis, des rires, une lettre reçue. Mots : partage, joie, appartenance.</span></li>
+          <li><strong>Temps pour soi</strong><span>Un fauteuil près d’une fenêtre, une tasse fumante, un livre. Mots : calme, lenteur, présence.</span></li>
+        </ul>
+
+        <h2 id="lignee">Et ta lignée dans ton tableau de vision ?</h2>
+        <p>Ce qu’on s’autorise à rêver vient aussi de sa famille. Certaines personnes n’osent pas mettre sur leur tableau une maison, un voyage ou un couple heureux, parce que personne dans la famille ne l’a vécu, ou parce que cela semblerait « trop ». C’est parfois une <a href="loyaute-familiale-invisible.html">loyauté familiale invisible</a> qui parle.</p>
+        <ul class="gestes">
+          <li>Quand tu choisis une image, demande-toi : est-ce que je la choisis pour moi, ou pour faire plaisir à quelqu’un de ma famille ?</li>
+          <li>Y a-t-il un rêve que tu n’oses pas afficher ? À qui, dans ta famille, ce rêve a-t-il été interdit ?</li>
+          <li>Peux-tu ajouter une image qui honore tes ancêtres, une force héritée que tu veux garder ?</li>
+        </ul>
+        <p>Ces questions sont des pistes de réflexion. Pour aller plus loin, la <a href="lettre-dans-un-an.html">lettre dans un an</a> t’invite à écrire à la personne que tu deviens, un très beau complément au tableau de vision.</p>
+
+        <h2 id="outil">Créer ton tableau de vision en fond d’écran</h2>
+        <p>Le plus simple pour voir ton tableau chaque jour, c’est d’en faire le fond d’écran de ton téléphone. Choisis jusqu’à trois images dans la galerie (ou ajoute tes propres photos), écris tes trois mots et ta phrase, choisis une ambiance, puis télécharge l’image. Tout se fait dans ton navigateur : tes photos ne sont ni envoyées, ni enregistrées.</p>
+        <div class="atelier-fond" id="atelier-fond"><p class="discret">L’outil se charge…</p></div>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu’est-ce qu’un tableau de vision ?</dt><dd>C’est une composition d’images, de mots et de phrases qui représentent la vie que tu souhaites vivre. On le place à un endroit où on le voit chaque jour, pour garder son intention présente à l’esprit et remarquer les occasions qui vont dans ce sens.</dd>
+          <dt>Comment faire un vision board ?</dt><dd>Choisis une période et une intention, puis trois domaines de vie. Rassemble des images qui te font ressentir quelque chose, ajoute trois mots et une phrase au présent, dispose le tout sur un support que tu verras chaque jour, et relie-le à un premier petit pas.</dd>
+          <dt>Que mettre sur son tableau de vision ?</dt><dd>Des images qui évoquent comment tu veux te sentir, plus que ce que tu veux posséder : un chemin lumineux, deux mains qui se tiennent, un fauteuil près d’une fenêtre. Ajoute des mots clés (douceur, confiance, joie) et une phrase écrite comme si elle était déjà vraie.</dd>
+          <dt>Un tableau de vision fonctionne-t-il vraiment ?</dt><dd>Il ne fait rien apparaître par magie. Il aide à clarifier ce qu’on veut, à garder le cap et à orienter son attention, ce qui facilite le passage à l’action. Son efficacité dépend surtout des petits pas que tu poses ensuite.</dd>
+          <dt>Comment mettre son tableau de vision en fond d’écran ?</dt><dd>Utilise l’outil gratuit de cette page : choisis jusqu’à trois images, écris tes mots et ta phrase, choisis une ambiance et télécharge l’image. Sur iPhone, ouvre-la, touche Partager puis « Utiliser comme fond d’écran ». Sur Android, ouvre-la puis « Définir comme fond d’écran ».</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="#outil">Créer mon fond d’écran</a>
+          <a class="btn btn-trait" href="liste-des-valeurs.html">Choisir mes valeurs</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html">Émotions et hormones</a><a href="cinq-elements-emotions.html">Les 5 éléments</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="etapes-du-couple.html">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html" aria-current="page">Tableau de vision</a><a href="liste-des-valeurs.html">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="liste-des-valeurs.html"><h3>La liste des valeurs</h3><p>Choisir tes 5 valeurs essentielles, avec une version imprimable.</p></a>
+          <a class="outil" href="lettre-dans-un-an.html"><h3>La lettre dans un an</h3><p>Écrire à la personne que tu deviens.</p></a>
+          <a class="outil" href="emotions-et-hormones.html"><h3>Émotions et hormones</h3><p>Ce que ton corps fait quand tu ressens.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés invisibles</h3><p>Quand on n’ose pas vivre mieux que les siens.</p></a>
+          <a class="outil" href="dependance-affective.html"><h3>La dépendance affective</h3><p>Repérer les signes et reprendre sa place.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/fond-ecran.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var z = document.getElementById('atelier-fond');
+    if (!z || !window.GenesoliaFond) return;
+    window.GenesoliaFond.ouvrir(z, { sur: 'Mon tableau de vision', mots: ['Douceur', 'Confiance', 'Joie'], phrase: 'J’ai le droit de prendre ma place.' });
+  })();
+  </script>
+</body>
+</html>

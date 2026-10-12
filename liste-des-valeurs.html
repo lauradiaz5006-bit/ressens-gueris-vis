@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Liste de valeurs personnelles : 100 valeurs et PDF à imprimer · Genesolia</title>
+  <meta name="description" content="Liste de valeurs personnelles : 100 valeurs classées par familles, comment choisir tes 5 valeurs essentielles, les noter sur 10 et voir celles héritées. PDF gratuit.">
+  <link rel="canonical" href="https://genesolia.fr/liste-des-valeurs.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes">
+  <meta property="og:description" content="Liste de valeurs personnelles : 100 valeurs classées par familles, comment choisir tes 5 valeurs essentielles, les noter sur 10 et voir celles héritées. PDF gratuit.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-liste-des-valeurs.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+    .familles{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.6rem 0}
+    .famille{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .famille h3{margin:0 0 .15rem;font-size:1.25rem}
+    .famille p{color:var(--prune-doux);font-size:.95rem}
+    .famille ul{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
+    .famille li{font-size:.92rem;padding:.2rem .7rem;border-radius:999px;background:#FCEFF3;border:1px solid var(--rose-fonce)}
+    .telecharger{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:center;margin:1.6rem 0;padding:1.4rem 1.5rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FFF6EC,var(--blanc) 80%);border:1px solid var(--champagne-clair)}
+    .telecharger svg{width:46px;height:46px}
+    .telecharger p+p{margin-top:.6rem}
+    @media (max-width:640px){.familles{grid-template-columns:1fr}.telecharger{grid-template-columns:1fr}}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes", "description": "Liste de valeurs personnelles : 100 valeurs classées par familles, comment choisir tes 5 valeurs essentielles, les noter sur 10 et voir celles héritées. PDF gratuit.", "image": "https://genesolia.fr/assets/partage/blog-liste-des-valeurs.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/liste-des-valeurs.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/liste-des-valeurs.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelles sont les valeurs personnelles les plus courantes ?", "acceptedAnswer": {"@type": "Answer", "text": "On retrouve souvent la famille, l’honnêteté, la liberté, la sécurité, le respect, l’amour, la justice, la loyauté, la créativité et la réussite. Mais les valeurs les plus courantes ne sont pas forcément les tiennes : l’important est de choisir celles qui te font vibrer."}}, {"@type": "Question", "name": "Comment trouver ses valeurs personnelles ?", "acceptedAnswer": {"@type": "Answer", "text": "Lis une liste de valeurs et entoure celles qui te parlent, regroupe celles qui se ressemblent, puis fais un tri par paires jusqu’à en garder cinq. Vérifie avec ton histoire : quelles valeurs étaient vécues quand tu te sentais pleinement toi, et lesquelles étaient piétinées quand tu as été blessé·e ?"}}, {"@type": "Question", "name": "Pourquoi choisir seulement 5 valeurs ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce qu’avec trop de valeurs, plus rien n’est prioritaire. Cinq valeurs forment une boussole claire, facile à retenir, qui aide vraiment à prendre des décisions. Les autres valeurs que tu aimes restent présentes, simplement au second plan."}}, {"@type": "Question", "name": "Nos valeurs viennent-elles de nos parents ?", "acceptedAnswer": {"@type": "Answer", "text": "En partie. Une famille transmet des valeurs par l’exemple, les phrases répétées, les fiertés et les interdits. Certaines valeurs sont héritées, d’autres choisies, d’autres encore naissent en réaction. Les repérer permet de garder ce qui te ressemble et de vivre ces valeurs à ta façon."}}, {"@type": "Question", "name": "Où télécharger une liste de valeurs en PDF ?", "acceptedAnswer": {"@type": "Answer", "text": "Sur cette page : la version imprimable gratuite comprend la liste des 100 valeurs par familles, une page pour choisir tes 5 valeurs et les noter sur 10, et une page pour repérer celles qui viennent de ta famille."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes", "item": "https://genesolia.fr/liste-des-valeurs.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Liste des valeurs</nav>
+        <h1>Liste des valeurs personnelles : 100 valeurs pour trouver les tiennes</h1>
+        <p class="intro">Voici une liste de 100 valeurs personnelles, classées en dix familles : liberté, sécurité, amour, transmission, créativité, justice, joie, accomplissement, sens et contribution. Pour trouver les tiennes, entoure celles qui te parlent, garde-en cinq, note sur 10 à quel point tu les vis aujourd’hui, puis regarde lesquelles viennent de tes parents. Une version imprimable est à télécharger gratuitement en PDF.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#pourquoi">Pourquoi ses valeurs</a><a href="#liste">Les 100 valeurs</a><a href="#choisir">Choisir tes 5 valeurs</a><a href="#noter">Les noter sur 10</a><a href="#heritees">Les valeurs héritées</a><a href="#imprimer">Version imprimable</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 9 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-liste-des-valeurs-1600.webp" srcset="assets/images/blog-liste-des-valeurs-800.webp 800w, assets/images/blog-liste-des-valeurs-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Liste des valeurs personnelles : une rose épanouie couverte de gouttes de rosée, dans une lumière dorée et rose" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="pourquoi">Pourquoi connaître ses valeurs personnelles ?</h2>
+        <p>Tes valeurs sont ce qui compte le plus pour toi, ce qui donne du sens à tes choix. Elles agissent comme une boussole : quand tu vis en accord avec elles, tu te sens à ta place, même quand c’est difficile. Quand tu t’en éloignes, quelque chose sonne faux, même si tout va bien en apparence.</p>
+        <p>Beaucoup de malaises viennent d’un conflit de valeurs : un travail bien payé qui heurte ton besoin de sens, un couple confortable qui étouffe ta liberté, une famille aimante qui ne comprend pas ton besoin d’aventure. Nommer tes valeurs, c’est comprendre pourquoi certaines situations te pèsent, et faire des choix plus justes pour toi.</p>
+        <p class="rappel"><strong>Il n’y a pas de bonnes ou de mauvaises valeurs.</strong> La sécurité n’est pas moins noble que l’aventure, ni la réussite moins belle que la simplicité. Chaque valeur a sa force. Ce qui compte, c’est qu’elle soit vraiment la tienne.</p>
+
+        <h2 id="liste">La liste des 100 valeurs, par familles</h2>
+        <p>Lis la liste lentement. Ne réfléchis pas trop : remarque simplement ce qui se passe en toi devant chaque mot. Un élan, une chaleur, un « oui » intérieur ? Note-le. Une indifférence ou un léger rejet ? Passe au suivant.</p>
+        <div class="familles">
+<div class="famille"><h3>Liberté</h3><p>Être libre de tes choix et de tes mouvements.</p><ul><li>Liberté</li><li>Autonomie</li><li>Indépendance</li><li>Choix</li><li>Aventure</li><li>Spontanéité</li><li>Mouvement</li><li>Voyage</li><li>Audace</li><li>Légèreté</li></ul></div>
+<div class="famille"><h3>Sécurité</h3><p>Te sentir à l’abri, pouvoir compter sur le cadre.</p><ul><li>Sécurité</li><li>Stabilité</li><li>Prudence</li><li>Ordre</li><li>Fiabilité</li><li>Confort</li><li>Prévoyance</li><li>Constance</li><li>Rigueur</li><li>Sérénité</li></ul></div>
+<div class="famille"><h3>Amour et lien</h3><p>Aimer, être aimé·e, appartenir.</p><ul><li>Amour</li><li>Tendresse</li><li>Amitié</li><li>Famille</li><li>Fidélité</li><li>Intimité</li><li>Bienveillance</li><li>Partage</li><li>Complicité</li><li>Appartenance</li></ul></div>
+<div class="famille"><h3>Transmission</h3><p>Recevoir, honorer et passer le relais.</p><ul><li>Transmission</li><li>Racines</li><li>Tradition</li><li>Mémoire</li><li>Héritage</li><li>Loyauté</li><li>Gratitude</li><li>Respect des anciens</li><li>Enracinement</li><li>Sagesse</li></ul></div>
+<div class="famille"><h3>Créativité</h3><p>Imaginer, créer, t’émerveiller.</p><ul><li>Créativité</li><li>Imagination</li><li>Beauté</li><li>Curiosité</li><li>Originalité</li><li>Expression</li><li>Inspiration</li><li>Jeu</li><li>Émerveillement</li><li>Intuition</li></ul></div>
+<div class="famille"><h3>Justice</h3><p>Agir avec droiture et défendre ce qui est juste.</p><ul><li>Justice</li><li>Équité</li><li>Honnêteté</li><li>Intégrité</li><li>Courage</li><li>Engagement</li><li>Responsabilité</li><li>Solidarité</li><li>Respect</li><li>Vérité</li></ul></div>
+<div class="famille"><h3>Joie</h3><p>Savourer la vie et la partager.</p><ul><li>Joie</li><li>Humour</li><li>Plaisir</li><li>Enthousiasme</li><li>Gourmandise</li><li>Fête</li><li>Vitalité</li><li>Optimisme</li><li>Simplicité</li><li>Insouciance</li></ul></div>
+<div class="famille"><h3>Accomplissement</h3><p>Avancer, réussir, te dépasser.</p><ul><li>Réussite</li><li>Ambition</li><li>Excellence</li><li>Persévérance</li><li>Compétence</li><li>Reconnaissance</li><li>Efficacité</li><li>Influence</li><li>Détermination</li><li>Dépassement de soi</li></ul></div>
+<div class="famille"><h3>Sens et intériorité</h3><p>Être en accord avec toi-même.</p><ul><li>Sens</li><li>Paix intérieure</li><li>Présence</li><li>Harmonie</li><li>Authenticité</li><li>Humilité</li><li>Lenteur</li><li>Silence</li><li>Connaissance</li><li>Croissance personnelle</li></ul></div>
+<div class="famille"><h3>Contribution</h3><p>Être utile aux autres et au vivant.</p><ul><li>Générosité</li><li>Entraide</li><li>Service</li><li>Coopération</li><li>Compassion</li><li>Utilité</li><li>Accueil</li><li>Protection</li><li>Écologie</li><li>Respect du vivant</li></ul></div>
+        </div>
+        <p>Il manque une valeur qui compte pour toi ? Ajoute-la. Cette liste est un point de départ, pas un inventaire complet.</p>
+
+        <h2 id="choisir">Comment choisir tes 5 valeurs essentielles</h2>
+        <ol class="exercice">
+          <li><h3>Entoure toutes celles qui te parlent</h3><p>Fais un premier tri large : entoure entre quinze et vingt valeurs. Ne te censure pas, ne te demande pas si elles sont « bien » ou réalistes.</p></li>
+          <li><h3>Regroupe celles qui se ressemblent</h3><p>Liberté, autonomie et indépendance disent souvent la même chose. Garde le mot qui te touche le plus dans chaque groupe.</p></li>
+          <li><h3>Fais le tri par paires</h3><p>Prends deux valeurs et demande-toi : « Si je devais n’en garder qu’une, laquelle ? » Recommence jusqu’à n’en avoir plus que cinq. C’est l’étape la plus difficile, et la plus révélatrice.</p></li>
+          <li><h3>Vérifie avec ton histoire</h3><p>Pense à un moment où tu t’es senti·e pleinement toi-même. Quelles valeurs étaient vécues ? Puis à un moment où tu as été profondément blessé·e ou en colère : quelle valeur était piétinée ? Tes cinq valeurs devraient apparaître.</p></li>
+          <li><h3>Donne-leur ta définition</h3><p>« Liberté » ne veut pas dire la même chose pour tout le monde. Écris une phrase pour chacune : « Pour moi, la liberté, c’est pouvoir organiser mes journées comme je le sens. »</p></li>
+        </ol>
+
+        <h2 id="noter">Noter tes valeurs sur 10</h2>
+        <p>Une fois tes cinq valeurs choisies, donne à chacune une note de 0 à 10 : <strong>à quel point la vis-tu aujourd’hui ?</strong> Pas dans l’idéal, mais concrètement, dans ta semaine, ton travail, tes relations.</p>
+        <ul class="pistes">
+          <li><strong>Une note haute (8 à 10)</strong><span>Cette valeur est bien vivante dans ta vie. Remercie-toi, et remarque ce qui la nourrit, pour le protéger.</span></li>
+          <li><strong>Une note moyenne (4 à 7)</strong><span>Elle est là, mais pas pleinement. Quel petit geste pourrait lui donner un point de plus cette semaine ?</span></li>
+          <li><strong>Une note basse (0 à 3)</strong><span>C’est souvent là que se trouve un malaise. Qu’est-ce qui l’empêche ? Une peur, une habitude, une loyauté familiale, une situation que tu subis ?</span></li>
+        </ul>
+        <p>Refais l’exercice dans trois mois. Les notes bougent, et les valeurs elles-mêmes peuvent évoluer avec les étapes de la vie. Pour garder tes valeurs sous les yeux, tu peux en faire les trois mots de ton <a href="tableau-de-vision.html">tableau de vision</a>.</p>
+
+        <h2 id="heritees">Les valeurs héritées : lesquelles viennent de tes parents ?</h2>
+        <p>Nos valeurs ne naissent pas de nulle part. Une partie nous a été transmise, par l’exemple, les phrases répétées, les fiertés et les interdits de la famille. « Chez nous, on travaille dur. » « La famille avant tout. » « On ne doit rien à personne. » Ces phrases disent des valeurs.</p>
+        <p>Pour chacune de tes cinq valeurs, pose-toi ces questions :</p>
+        <ul class="gestes">
+          <li><strong>Qui, dans ta famille, incarnait cette valeur ?</strong> Ta mère, ton grand-père, une tante ? Comment la vivait-il ou elle ?</li>
+          <li><strong>Est-elle héritée, choisie ou en réaction ?</strong> Une valeur peut venir directement de tes parents, être un choix personnel, ou naître en opposition (la liberté chez quelqu’un qui a grandi dans une famille très stricte, par exemple).</li>
+          <li><strong>Est-ce que tu la vis comme eux, ou à ta façon ?</strong> Garder une valeur familiale ne veut pas dire la vivre de la même manière. La sécurité de ton grand-père qui a connu la guerre n’est pas forcément la tienne.</li>
+          <li><strong>Y a-t-il une valeur que tu n’oses pas choisir ?</strong> Parfois, une valeur semble interdite parce qu’elle trahirait la famille : l’ambition dans une famille modeste, la lenteur dans une famille de travailleurs acharnés. Les <a href="loyaute-familiale-invisible.html">loyautés familiales invisibles</a> expliquent ce mécanisme.</li>
+        </ul>
+        <p>L’argent, le travail et les prénoms portent souvent les valeurs d’une lignée : les articles <a href="argent-et-lignee.html">argent et lignée</a>, <a href="metiers-transmis-genealogie.html">métiers de famille</a> et <a href="prenom-transmis-psychogenealogie.html">prénoms transmis</a> te donneront d’autres pistes. Et pour en parler avec tes proches, les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> proposent des formulations douces.</p>
+
+        <h2 id="imprimer">La liste des valeurs en version imprimable</h2>
+        <div class="telecharger">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="5" width="30" height="38" rx="4" fill="#FCEFF3" stroke="#6B2F5B" stroke-width="2"/><path d="M15 15h18M15 21h18M15 27h12" stroke="#B98A55" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="36" r="7" fill="#6B2F5B"/><path d="M34 32v7M31 36.5l3 3 3-3" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <p><strong>Trois pages à imprimer, gratuites :</strong> la liste des 100 valeurs par familles, une page pour choisir tes 5 valeurs et les noter sur 10, et une page pour retrouver celles qui viennent de ta famille.</p>
+            <p><a class="btn btn-plein" href="assets/liste-des-valeurs.pdf" download>Télécharger la liste des valeurs (PDF)</a></p>
+          </div>
+        </div>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Quelles sont les valeurs personnelles les plus courantes ?</dt><dd>On retrouve souvent la famille, l’honnêteté, la liberté, la sécurité, le respect, l’amour, la justice, la loyauté, la créativité et la réussite. Mais les valeurs les plus courantes ne sont pas forcément les tiennes : l’important est de choisir celles qui te font vibrer.</dd>
+          <dt>Comment trouver ses valeurs personnelles ?</dt><dd>Lis une liste de valeurs et entoure celles qui te parlent, regroupe celles qui se ressemblent, puis fais un tri par paires jusqu’à en garder cinq. Vérifie avec ton histoire : quelles valeurs étaient vécues quand tu te sentais pleinement toi, et lesquelles étaient piétinées quand tu as été blessé·e ?</dd>
+          <dt>Pourquoi choisir seulement 5 valeurs ?</dt><dd>Parce qu’avec trop de valeurs, plus rien n’est prioritaire. Cinq valeurs forment une boussole claire, facile à retenir, qui aide vraiment à prendre des décisions. Les autres valeurs que tu aimes restent présentes, simplement au second plan.</dd>
+          <dt>Nos valeurs viennent-elles de nos parents ?</dt><dd>En partie. Une famille transmet des valeurs par l’exemple, les phrases répétées, les fiertés et les interdits. Certaines valeurs sont héritées, d’autres choisies, d’autres encore naissent en réaction. Les repérer permet de garder ce qui te ressemble et de vivre ces valeurs à ta façon.</dd>
+          <dt>Où télécharger une liste de valeurs en PDF ?</dt><dd>Sur cette page : la version imprimable gratuite comprend la liste des 100 valeurs par familles, une page pour choisir tes 5 valeurs et les noter sur 10, et une page pour repérer celles qui viennent de ta famille.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="assets/liste-des-valeurs.pdf">Télécharger le PDF</a>
+          <a class="btn btn-trait" href="tableau-de-vision.html">Créer mon tableau de vision</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html">Émotions et hormones</a><a href="cinq-elements-emotions.html">Les 5 éléments</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="etapes-du-couple.html">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html">Tableau de vision</a><a href="liste-des-valeurs.html" aria-current="page">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="tableau-de-vision.html"><h3>Le tableau de vision</h3><p>Crée ton vision board et ton fond d’écran.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés invisibles</h3><p>Ces fidélités qui traversent les générations.</p></a>
+          <a class="outil" href="argent-et-lignee.html"><h3>Argent et lignée</h3><p>Quand les revers d’argent se répètent d’une génération à l’autre.</p></a>
+          <a class="outil" href="metiers-transmis-genealogie.html"><h3>Les métiers de famille</h3><p>Ce qui se transmet avec un savoir-faire.</p></a>
+          <a class="outil" href="dependance-affective.html"><h3>La dépendance affective</h3><p>Retrouver ses propres valeurs pour aimer plus librement.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

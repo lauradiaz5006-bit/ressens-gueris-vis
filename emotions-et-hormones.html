@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Émotions et hormones : ce que ton corps fait quand tu ressens · Genesolia</title>
+  <meta name="description" content="Émotions et hormones expliquées simplement : cortisol, adrénaline, ocytocine, dopamine, sérotonine, endorphines. Et ce que l’épigénétique dit, avec prudence, des générations.">
+  <link rel="canonical" href="https://genesolia.fr/emotions-et-hormones.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Émotions et hormones : ce que ton corps fait quand tu ressens">
+  <meta property="og:description" content="Émotions et hormones expliquées simplement : cortisol, adrénaline, ocytocine, dopamine, sérotonine, endorphines. Et ce que l’épigénétique dit, avec prudence, des générations.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-emotions-et-hormones.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Émotions et hormones : ce que ton corps fait quand tu ressens", "description": "Émotions et hormones expliquées simplement : cortisol, adrénaline, ocytocine, dopamine, sérotonine, endorphines. Et ce que l’épigénétique dit, avec prudence, des générations.", "image": "https://genesolia.fr/assets/partage/blog-emotions-et-hormones.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/emotions-et-hormones.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/emotions-et-hormones.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelles hormones interviennent dans les émotions ?", "acceptedAnswer": {"@type": "Answer", "text": "Plusieurs messagers chimiques travaillent ensemble : l’adrénaline et le cortisol pour l’alerte, l’ocytocine pour le lien, la dopamine pour l’envie et la motivation, la sérotonine pour l’équilibre de l’humeur et du sommeil, les endorphines pour l’apaisement après l’effort ou le rire. Aucun n’agit seul."}}, {"@type": "Question", "name": "Pourquoi appelle-t-on le cortisol l’hormone de l’alerte ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce qu’il est libéré quand le corps doit faire face à une difficulté : il mobilise de l’énergie et met en veille ce qui n’est pas urgent. Il suit aussi un rythme naturel, plus élevé le matin. C’est quand l’alerte dure sans pause qu’il peut devenir pesant."}}, {"@type": "Question", "name": "L’ocytocine est-elle vraiment l’hormone de l’amour ?", "acceptedAnswer": {"@type": "Answer", "text": "Elle favorise l’attachement et la confiance, notamment lors du contact physique, de l’accouchement et de l’allaitement. Mais les recherches montrent qu’elle renforce surtout le lien avec son groupe : le surnom d’hormone de l’amour est une simplification."}}, {"@type": "Question", "name": "Les émotions de nos ancêtres se transmettent-elles par l’épigénétique ?", "acceptedAnswer": {"@type": "Answer", "text": "Des études chez l’animal suggèrent que certaines expériences des parents pourraient influencer la descendance. Chez l’humain, la transmission sur plusieurs générations est encore à l’étude et les résultats sont discutés. Ce qui se transmet de façon certaine, ce sont les récits, les habitudes et les façons de réagir."}}, {"@type": "Question", "name": "Comment calmer son corps quand une émotion est trop forte ?", "acceptedAnswer": {"@type": "Answer", "text": "En allongeant l’expiration, en cherchant un contact rassurant (un câlin, une main sur le cœur), en bougeant, en sortant à la lumière, et en nommant ce qu’on ressent. Ces gestes simples aident le corps à sortir de l’alerte."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Émotions et hormones : ce que ton corps fait quand tu ressens", "item": "https://genesolia.fr/emotions-et-hormones.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Émotions et hormones</nav>
+        <h1>Émotions et hormones : ce que ton corps fait quand tu ressens</h1>
+        <p class="intro">Quand tu ressens une émotion, ton corps fabrique des messagers chimiques qui préparent une réponse : le cortisol et l’adrénaline pour faire face à une alerte, l’ocytocine pour le lien, la dopamine pour l’envie d’avancer, la sérotonine pour l’équilibre de l’humeur, les endorphines pour l’apaisement après l’effort. Les comprendre, simplement, aide à moins avoir peur de ce qu’on ressent. Et l’épigénétique pose une question passionnante, encore très ouverte : notre histoire laisse-t-elle des traces qui se transmettent ?</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#messagers">Des messagers</a><a href="#cortisol">Cortisol et adrénaline</a><a href="#ocytocine">Ocytocine</a><a href="#dopamine">Dopamine</a><a href="#serotonine">Sérotonine</a><a href="#endorphines">Endorphines</a><a href="#epigenetique">Épigénétique</a><a href="#gestes">Des gestes simples</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 10 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-emotions-et-hormones-1600.webp" srcset="assets/images/blog-emotions-et-hormones-800.webp 800w, assets/images/blog-emotions-et-hormones-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Émotions et hormones : un salon douillet aux coussins de velours prune, une tasse chaude et des bougies près d’une cheminée" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="messagers">Émotions et hormones : des messagers dans tout le corps</h2>
+        <p>Une émotion n’est pas seulement « dans la tête ». Elle mobilise tout le corps : le cœur, la respiration, les muscles, la digestion, la peau. Pour coordonner tout cela, l’organisme utilise des messagers chimiques. Certains sont des <strong>hormones</strong>, fabriquées par des glandes et transportées par le sang. D’autres sont des <strong>neurotransmetteurs</strong>, qui passent d’un neurone à l’autre. Certaines molécules, comme la dopamine ou l’ocytocine, jouent les deux rôles selon l’endroit où elles agissent.</p>
+        <p>Une précision importante : aucune de ces molécules n’est « l’hormone du bonheur » ou « l’hormone de l’amour » à elle seule. Elles agissent ensemble, en équipe, et leurs effets dépendent beaucoup du contexte. Les surnoms qu’on leur donne aident à retenir, mais ils simplifient beaucoup.</p>
+        <p class="rappel"><strong>À lire avant.</strong> Si tu te demandes où s’arrête l’émotion et où commence le sentiment, l’article <a href="emotion-ou-sentiment.html">émotion ou sentiment</a> pose les bases. Ici, on regarde ce qui se passe dans le corps pendant la vague.</p>
+
+        <h2 id="cortisol">Le cortisol et l’adrénaline : les messagers de l’alerte</h2>
+        <p>Quand tu perçois un danger, réel ou imaginé, ton corps se prépare à réagir. En quelques secondes, l’<strong>adrénaline</strong> est libérée : le cœur bat plus vite, la respiration s’accélère, les muscles se tendent, l’attention se resserre. C’est la réaction qui t’a fait sauter sur le trottoir avant même d’avoir vu la voiture.</p>
+        <p>Le <strong>cortisol</strong>, fabriqué par les glandes surrénales, prend le relais un peu plus lentement. On pourrait l’appeler « l’hormone de l’alerte ». Il mobilise de l’énergie (du sucre) pour que tu puisses tenir, et il met en veille ce qui n’est pas urgent, comme la digestion. Il n’est pas mauvais en soi : il suit aussi un rythme naturel sur la journée, plus élevé le matin pour t’aider à te lever, plus bas le soir.</p>
+        <h3>Quand l’alerte dure trop longtemps</h3>
+        <p>Le système d’alerte est fait pour des épisodes courts. Quand les tensions s’enchaînent sans pause, il peut rester allumé : sommeil plus léger, fatigue, irritabilité, difficulté à se poser. C’est le signe qu’il est temps de ralentir et de te donner des moments de sécurité. Si ces signes durent, n’hésite pas à en parler à un·e professionnel·le.</p>
+
+        <h2 id="ocytocine">L’ocytocine : le messager du lien</h2>
+        <p>L’<strong>ocytocine</strong> est fabriquée dans le cerveau (par l’hypothalamus) et libérée lors de l’accouchement et de l’allaitement, mais aussi lors d’un câlin, d’un contact peau contre peau, d’un moment de confiance partagée. On l’appelle souvent « l’hormone de l’attachement ». Elle favorise le sentiment de proximité et peut atténuer la réaction d’alerte.</p>
+        <p>Les recherches montrent toutefois qu’elle n’est pas qu’une molécule de douceur : elle semble renforcer l’attachement à son groupe, ce qui peut aussi s’accompagner de méfiance envers ceux qu’on ne connaît pas. Elle renforce le lien, pas forcément la gentillesse avec tout le monde.</p>
+        <h3>Ce que tu peux en faire</h3>
+        <p>Un câlin qui dure, une main posée sur l’épaule, caresser un animal, rire avec une amie, ou même poser ta propre main sur ton cœur en respirant lentement : tous ces gestes invitent le corps à sortir de l’alerte et à revenir vers le lien.</p>
+
+        <h2 id="dopamine">La dopamine : le messager de l’envie</h2>
+        <p>La <strong>dopamine</strong> est souvent présentée comme la molécule du plaisir. En réalité, elle est surtout celle de l’<strong>envie</strong> et de la <strong>motivation</strong> : elle est libérée quand on anticipe une récompense, quand on se met en mouvement vers quelque chose qu’on désire. Elle est très active au début d’une histoire d’amour, quand chaque message fait battre le cœur.</p>
+        <p>C’est aussi elle qui rend certaines habitudes si difficiles à lâcher : les notifications, le défilement sans fin, les petites récompenses immédiates. Elle aime la nouveauté et l’imprévu.</p>
+        <h3>Ce que tu peux en faire</h3>
+        <p>Découper un grand projet en petites étapes, et célébrer chacune. Te fixer une intention claire, et la voir chaque jour : c’est tout le principe du <a href="tableau-de-vision.html">tableau de vision</a>. La dopamine aime savoir vers quoi elle avance.</p>
+
+        <h2 id="serotonine">La sérotonine : le messager de l’équilibre</h2>
+        <p>La <strong>sérotonine</strong> participe à la régulation de l’humeur, du sommeil et de l’appétit. Elle contribue à un sentiment de calme et de satisfaction, plus stable que l’élan de la dopamine. Fait étonnant : la grande majorité de la sérotonine du corps se trouve dans l’intestin, où elle aide à la digestion. Celle du cerveau est fabriquée sur place.</p>
+        <h3>Ce que tu peux en faire</h3>
+        <p>La lumière du jour, surtout le matin, le mouvement régulier, un sommeil à heures fixes et une alimentation variée font partie des habitudes associées à un bon équilibre. Rien de spectaculaire : des gestes simples, répétés.</p>
+
+        <h2 id="endorphines">Les endorphines : le messager de l’apaisement</h2>
+        <p>Les <strong>endorphines</strong> sont des substances que le corps fabrique pour atténuer la douleur et procurer une sensation de bien-être. Elles sont libérées lors d’un effort physique prolongé (la fameuse sensation de légèreté après une longue marche ou une course), mais aussi lors d’un fou rire, d’une danse, d’un chant en groupe.</p>
+        <h3>Ce que tu peux en faire</h3>
+        <p>Bouger d’une façon qui te fait plaisir, pas pour te punir. Rire, même d’un film un peu bête. Chanter fort dans ta cuisine. Le corps sait se réconforter lui-même, si on lui en donne l’occasion.</p>
+        <ul class="facettes">
+          <li><strong>Cortisol et adrénaline</strong><span>L’alerte : faire face, se mobiliser.</span></li>
+          <li><strong>Ocytocine</strong><span>Le lien : se rapprocher, faire confiance.</span></li>
+          <li><strong>Dopamine</strong><span>L’envie : se mettre en mouvement vers un but.</span></li>
+          <li><strong>Sérotonine</strong><span>L’équilibre : l’humeur stable, le sommeil, le calme.</span></li>
+          <li><strong>Endorphines</strong><span>L’apaisement : le réconfort après l’effort ou le rire.</span></li>
+          <li><strong>Ensemble</strong><span>Aucune n’agit seule : c’est leur équilibre qui compte.</span></li>
+        </ul>
+
+        <h2 id="epigenetique">L’épigénétique : notre histoire laisse-t-elle des traces ?</h2>
+        <p>L’<strong>épigénétique</strong> étudie des marques chimiques posées sur l’ADN, qui ne changent pas le code génétique lui-même, mais influencent la façon dont certains gènes s’expriment, un peu comme des interrupteurs ou des signets. Ces marques peuvent varier selon l’environnement, l’alimentation, les expériences de vie.</p>
+        <p>C’est un domaine passionnant, et c’est pour cela qu’il faut en parler avec beaucoup de prudence. Voici ce qu’on peut dire aujourd’hui :</p>
+        <ul class="gestes">
+          <li><strong>Chez l’animal</strong>, des études suggèrent que certaines expériences vécues par les parents, comme une peur apprise ou une alimentation particulière, pourraient influencer la descendance sur une ou deux générations, chez la souris notamment.</li>
+          <li><strong>Chez l’humain</strong>, des études menées après des famines historiques ont observé des marques épigénétiques différentes chez des personnes exposées avant leur naissance, des décennies plus tard. Ces observations sont intéressantes, mais elles concernent surtout la grossesse.</li>
+          <li><strong>La transmission entre générations chez l’humain</strong>, au-delà des enfants directement exposés, est encore à l’étude. Les résultats sont discutés, difficiles à reproduire, et il est très compliqué de séparer ce qui viendrait de la biologie de ce qui vient de l’éducation, du milieu et des récits familiaux.</li>
+        </ul>
+        <p class="rappel"><strong>Une piste, pas une preuve.</strong> Personne ne peut aujourd’hui affirmer qu’une émotion vécue par ton arrière-grand-mère est « inscrite » dans ton corps. La psychogénéalogie ne s’appuie pas sur l’épigénétique pour fonctionner : elle regarde les récits, les répétitions, les silences, qui se transmettent eux de façon certaine, par la parole et l’exemple. Pour en savoir plus, lis la <a href="memoire-transgenerationnelle.html">mémoire transgénérationnelle</a>.</p>
+        <p>Ce qui est sûr, en revanche, c’est qu’une famille transmet des façons de réagir : ce qui fait peur, ce qui rassure, les émotions permises et celles qu’on cache. Un enfant qui grandit auprès d’un parent souvent en alerte apprend, par imitation, à être lui aussi sur le qui-vive. Les <a href="questions-a-poser-a-sa-famille.html">questions à poser à sa famille</a> peuvent t’aider à retrouver ces histoires.</p>
+
+        <h2 id="gestes">Des gestes simples pour accompagner ton corps</h2>
+        <ol class="exercice">
+          <li><h3>Respire plus long à l’expiration</h3><p>Inspire sur quatre temps, expire sur six. Fais-le cinq fois. Une expiration plus longue aide le corps à sortir de l’alerte.</p></li>
+          <li><h3>Cherche le contact</h3><p>Un câlin de vingt secondes, une main sur le cœur, une couverture lourde sur les épaules. Le corps comprend le langage du toucher.</p></li>
+          <li><h3>Va dehors le matin</h3><p>Quelques minutes de lumière naturelle aident ton horloge intérieure à se régler.</p></li>
+          <li><h3>Bouge pour le plaisir</h3><p>Marcher, danser, nager : choisis ce qui te fait du bien et non ce que tu « devrais » faire.</p></li>
+          <li><h3>Nomme ce que tu ressens</h3><p>Dire « je sens de la colère » plutôt que « je suis en colère » crée un peu de distance. Pour une lecture symbolique des émotions au fil des saisons, découvre <a href="cinq-elements-emotions.html">les 5 éléments et les émotions</a>.</p></li>
+        </ol>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Quelles hormones interviennent dans les émotions ?</dt><dd>Plusieurs messagers chimiques travaillent ensemble : l’adrénaline et le cortisol pour l’alerte, l’ocytocine pour le lien, la dopamine pour l’envie et la motivation, la sérotonine pour l’équilibre de l’humeur et du sommeil, les endorphines pour l’apaisement après l’effort ou le rire. Aucun n’agit seul.</dd>
+          <dt>Pourquoi appelle-t-on le cortisol l’hormone de l’alerte ?</dt><dd>Parce qu’il est libéré quand le corps doit faire face à une difficulté : il mobilise de l’énergie et met en veille ce qui n’est pas urgent. Il suit aussi un rythme naturel, plus élevé le matin. C’est quand l’alerte dure sans pause qu’il peut devenir pesant.</dd>
+          <dt>L’ocytocine est-elle vraiment l’hormone de l’amour ?</dt><dd>Elle favorise l’attachement et la confiance, notamment lors du contact physique, de l’accouchement et de l’allaitement. Mais les recherches montrent qu’elle renforce surtout le lien avec son groupe : le surnom d’hormone de l’amour est une simplification.</dd>
+          <dt>Les émotions de nos ancêtres se transmettent-elles par l’épigénétique ?</dt><dd>Des études chez l’animal suggèrent que certaines expériences des parents pourraient influencer la descendance. Chez l’humain, la transmission sur plusieurs générations est encore à l’étude et les résultats sont discutés. Ce qui se transmet de façon certaine, ce sont les récits, les habitudes et les façons de réagir.</dd>
+          <dt>Comment calmer son corps quand une émotion est trop forte ?</dt><dd>En allongeant l’expiration, en cherchant un contact rassurant (un câlin, une main sur le cœur), en bougeant, en sortant à la lumière, et en nommant ce qu’on ressent. Ces gestes simples aident le corps à sortir de l’alerte.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="emotion-ou-sentiment.html">Émotion ou sentiment : la différence</a>
+          <a class="btn btn-trait" href="memoire-transgenerationnelle.html">La mémoire transgénérationnelle</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html" aria-current="page">Émotions et hormones</a><a href="cinq-elements-emotions.html">Les 5 éléments</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="etapes-du-couple.html">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html">Tableau de vision</a><a href="liste-des-valeurs.html">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="emotion-ou-sentiment.html"><h3>Émotion ou sentiment</h3><p>La vague et le climat : apprendre à les distinguer.</p></a>
+          <a class="outil" href="cinq-elements-emotions.html"><h3>Les 5 éléments et les émotions</h3><p>Une lecture symbolique des émotions au fil des saisons.</p></a>
+          <a class="outil" href="memoire-transgenerationnelle.html"><h3>La mémoire transgénérationnelle</h3><p>Ce qui se transmet d’une génération à l’autre, et ce qu’on peut en dire.</p></a>
+          <a class="outil" href="questions-a-poser-a-sa-famille.html"><h3>Les questions à poser à sa famille</h3><p>Pour retrouver les histoires et les silences, avec tact.</p></a>
+          <a class="outil" href="tableau-de-vision.html"><h3>Le tableau de vision</h3><p>Crée ton fond d’écran avec tes mots et tes images.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
