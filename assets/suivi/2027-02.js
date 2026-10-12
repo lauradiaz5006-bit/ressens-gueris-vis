@@ -182,25 +182,25 @@ window.GENESOLIA_CARNET = {
   ],
 
   meditation: {
-    titre: "Le jardin des couples",
-    intro: "Une séance guidée pour saluer les couples de ta lignée qui ont rendu ta vie possible, leur laisser leurs histoires et leurs projets avec respect, et découvrir l’espace où pousse la vie que tu choisis.",
+    titre: "Le prénom murmuré",
+    intro: "Une séance guidée pour entendre ton prénom prononcé avec douceur, saluer celles et ceux qui ont rêvé un chemin pour toi, leur laisser leurs attentes avec respect, et faire de ton prénom pleinement le tien.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Sens le poids de ton corps sur le siège. Sens tes pieds sur le sol. Tu es en sécurité, ici et maintenant. Tu peux revenir à ton souffle à chaque instant.",
-      "Imagine un grand jardin à la fin de l’hiver. L’air est frais, mais la lumière est plus douce qu’avant. Les premiers bourgeons apparaissent. Le long d’une allée, des couples se tiennent côte à côte : ce sont les couples de ta lignée.",
-      "Tes parents, tes grands-parents, et plus loin, des couples que tu ne connais pas. Certains se tiennent la main, d’autres sont un peu éloignés, d’autres encore se tournent le dos. Certaines personnes sont seules : leur partenaire est parti, ou n’est jamais venu.",
+      "J’imagine le jour de ma naissance. La pièce est calme, la lumière douce. Quelqu’un me tient dans ses bras, me regarde pour la première fois, et prononce mon prénom.",
+      "J’écoute sa voix. Qui que ce soit, je sens simplement ce qu’elle transmet : de l’amour, un espoir, une fierté, peut-être une mémoire, peut-être une attente. J’accueille tout, tel quel.",
       "[pause]",
-      "Avance doucement dans l’allée. Salue chaque couple d’un regard. Tu n’as pas à les juger, ni à les comprendre entièrement. Ils ont aimé comme ils ont pu, avec ce qu’ils avaient reçu, à leur époque.",
-      "Tu peux leur dire intérieurement : « Merci pour la vie. Je garde ce que vous avez vécu de beau. Je vous laisse vos histoires, et je vais vers la mienne. »",
+      "Derrière cette voix, d’autres visages apparaissent doucement. Celles et ceux qui ont eu ce prénom avant moi, ou qui l’ont inspiré, et celles et ceux qui ont rêvé un chemin pour moi. Certains visages sont connus, d’autres restent dans la lumière.",
+      "Je les salue avec respect. Je leur dis intérieurement : « Merci. Je reçois ce que vous m’avez transmis, avec tout votre amour. Je vous laisse vos rêves, et je vis ma propre histoire. » Je les regarde s’éloigner, apaisé·es.",
       "[longue pause]",
-      "Au bout de l’allée, un espace libre t’attend, baigné de lumière. C’est là que se dessine l’amour que tu veux vivre. Observe ce qui y pousse : des fleurs, un arbre, une herbe tendre. Il n’y a rien à forcer.",
-      "Sens la douceur, la confiance, la place que tu y prends. Tu as le droit d’aimer à ta façon, et d’être aimé·e comme tu le souhaites. Tu as aussi le droit de partir de tout endroit où tu ne te sens pas bien.",
+      "Maintenant, je prononce moi-même mon prénom, intérieurement. Lentement. J’écoute comme il sonne dans ma voix à moi, celle d’aujourd’hui. Je remarque ce que je ressens en l’entendant : une chaleur, une gêne, une fierté. Tout est bienvenu.",
+      "Je le prononce encore, comme si je me présentais à moi-même pour la première fois. Je le sens devenir pleinement le mien. Mon prénom m’a été donné. Ma vie, je la choisis.",
       "[pause]",
-      "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
+      "Il m’accompagne depuis toujours, et il m’accompagne dans tout ce que je vais vivre, comme un chemin ouvert devant moi, que je dessine à ma façon.",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un moment où personne ne te dérangera pendant dix minutes, le soir avant de dormir ou un dimanche matin. Si une émotion forte monte, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux arrêter la séance à tout moment et la reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un couple, une image, une sensation, un mot…", ph: "Exemple : mes grands-parents se tenaient la main, alors que je ne les ai jamais vus faire. Dans mon espace, il y avait un cerisier." }
+    conseil: "Choisis un moment calme, avec dix minutes pour toi. Si ton prénom est lié à un·e disparu·e et qu’une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
   },
 
   /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.

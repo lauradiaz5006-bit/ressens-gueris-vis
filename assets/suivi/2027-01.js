@@ -181,25 +181,25 @@ window.GENESOLIA_CARNET = {
   ],
 
   meditation: {
-    titre: 'Le prénom murmuré',
-    intro: "Une séance guidée pour entendre ton prénom prononcé avec douceur, saluer celles et ceux qui sont venus avant toi, et te sentir en sécurité dans ton nom et dans ta vie, ici et maintenant.",
+    titre: "Le coffret rendu",
+    intro: "Une séance guidée pour regarder une peur avec calme, la rendre avec respect à celle ou celui de ta lignée qui l’a connue en premier, recevoir sa force, et choisir la confiance, ici et maintenant.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois. Laisse ton corps se poser.",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Imagine le jour de ta naissance. La pièce est calme, la lumière douce, une lumière d’hiver peut-être, ou de printemps. Quelqu'un te tient dans ses bras, te regarde pour la première fois, et prononce ton prénom.",
-      "Écoute sa voix. Tu n'as pas besoin de savoir qui c'est. Sens simplement ce qu'elle porte : de l'amour, un espoir, une fierté, peut-être une mémoire, peut-être une inquiétude. Accueille tout, sans rien trier.",
+      "Je sens mon corps sur le siège, mes pieds sur le sol. Je suis en sécurité, ici et maintenant. À chaque instant, je peux revenir à mon souffle.",
+      "Dans mes mains, un petit coffret apparaît. Il contient une peur que je connais bien : celle qui revient à certains moments, celle qui semble venir de loin. Je la regarde avec calme. Je remarque sa couleur, sa forme, sa température.",
       "[pause]",
-      "Derrière cette voix, d'autres personnes apparaissent doucement. Celles qui ont porté ce prénom avant toi, ou qui l'ont inspiré. Certaines ont un visage connu, d'autres restent dans la lumière.",
-      "Salue-les avec respect. Tu peux leur dire intérieurement : « Merci. Je reçois ce que vous m'avez transmis. Je garde le meilleur, et je vis ma propre histoire. » Regarde-les s'éloigner, apaisées.",
+      "Devant moi, un chemin remonte doucement vers celles et ceux qui sont venus avant moi. Une silhouette s’avance. Peut-être une grand-mère, un arrière-grand-père, ou quelqu’un dont j’ignore le nom. Cette peur, elle l’a connue la première, à une époque difficile. Elle l’a gardée pour tenir, et pour protéger les siens.",
+      "Je la salue avec respect. Je lui dis intérieurement : « Je vois ce que tu as traversé. Cette peur t’a aidé·e à tenir, et la vie est arrivée jusqu’à moi. Merci. »",
       "[longue pause]",
-      "Maintenant, prononce toi-même ton prénom, intérieurement. Lentement. Écoute comme il sonne dans ta voix à toi, celle d'aujourd'hui. Remarque ce que tu ressens dans ton corps en l'entendant : une chaleur, une gêne, une fierté. Tout est bienvenu.",
-      "Prononce-le encore, comme si tu te présentais à toi-même pour la première fois. Sens-le devenir pleinement le tien.",
+      "Je tends le coffret, doucement, avec les deux mains : « Je te rends la part de peur qui t’appartient. Je garde ta force et ton courage. » La silhouette reçoit le coffret. Je la vois sourire, apaisée. Mes mains s’allègent, mes épaules se relâchent, mon souffle s’élargit.",
+      "En retour, elle pose dans mes mains une petite lumière chaude : sa force, sa façon de tenir et de recommencer. Je la reçois. Elle devient ma confiance.",
       "[pause]",
-      "Il t'accompagne depuis toujours, et il t'accompagnera dans tout ce que tu vas vivre cette année, comme un chemin ouvert devant toi, au-delà du seuil.",
-      "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Quand tu es prêt·e, ouvre les yeux."
+      "Je me tourne vers ma vie d’aujourd’hui. Le chemin devant moi est clair et ouvert. Je me répète doucement : « Aujourd’hui, je suis en sécurité, et je vis ma vie. Je choisis la confiance. »",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un matin calme ou un soir tranquille, avec dix minutes de calme pour toi. Si ton prénom est lié à une personne disparue et qu’une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une voix, un visage, une sensation en prononçant ton prénom…", ph: "Exemple : j’ai entendu la voix de mon père, très douce. En disant mon prénom, j’ai senti une chaleur dans la poitrine." }
+    conseil: "Choisis un moment calme, avec dix minutes pour toi. Si une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Le coffret, une silhouette, la force reçue, une sensation…", ph: "Exemple : le coffret était gris et froid. Mon arrière-grand-mère l’a pris en souriant, et m’a donné une lumière orange. J’ai senti mes épaules se relâcher." }
   },
 
   /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.

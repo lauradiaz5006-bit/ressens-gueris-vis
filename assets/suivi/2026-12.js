@@ -189,25 +189,25 @@ window.GENESOLIA_CARNET = {
   ],
 
   meditation: {
-    titre: 'La table de lumière',
-    intro: "Une séance guidée pour voir ta famille s’installer autour d’une grande table, saluer les absent·es avec douceur, et choisir la place où tu te sens bien : ta juste place.",
+    titre: "La table de lumière",
+    intro: "Une séance guidée pour voir ta famille et tes liens choisis s’installer autour d’une grande table, saluer les absent·es avec douceur, et choisir la place où tu te sens bien : ta juste place, avec des liens libres et légers.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois. Laisse ton corps se poser.",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Imagine une grande table dressée dans une pièce chaleureuse. Une lumière douce éclaire la nappe, les assiettes, les verres. Il y a une odeur de plat qui mijote, peut-être une recette de ton enfance. Dehors, il fait froid et nuit noire. Ici, il fait bon.",
-      "Peu à peu, les membres de ta famille arrivent et s'installent. Observe qui vient en premier, qui reste debout, qui s'assoit sans hésiter. Remarque où chacun·e prend place, et ce que tu ressens en les voyant.",
+      "Une grande table est dressée dans une pièce chaleureuse. Une lumière douce éclaire la nappe, les assiettes, les verres. Il y a une odeur de plat qui mijote, peut-être une recette que j’aime. Ici, il fait bon, et je suis bien.",
+      "Peu à peu, des visages arrivent et s’installent : ma famille, et aussi celles et ceux que mon cœur a choisis. J’observe qui vient en premier, qui reste debout, qui s’assoit tout de suite. Je remarque où chacun·e prend place, et ce que je ressens en les voyant.",
       "[pause]",
-      "Remarque aussi les chaises vides. Tu sais peut-être qui devrait s'y trouver : une grand-mère, un oncle, un enfant qu'on n'a pas connu. Salue ces absent·es avec douceur. Tu peux leur dire intérieurement : « Je pense à toi. Tu fais partie de nous. »",
-      "Maintenant, cherche ta place. Peut-être est-ce celle que tu occupes toujours. Peut-être une autre t'attire, plus près de quelqu'un, ou plus près de la fenêtre. Prends le temps de choisir.",
+      "Je remarque aussi les chaises libres. Je sais peut-être qui y est attendu : une grand-mère, un oncle, un ami, un enfant dont on parle doucement. Je salue ces absent·es avec douceur. Je leur dis intérieurement : « Je pense à toi. Tu fais partie de nous. Tu es présent·e autrement. »",
+      "Maintenant, je cherche ma place. Peut-être est-ce celle que j’occupe toujours. Peut-être qu’une autre m’attire, près de quelqu’un, ou près de la fenêtre. Je prends le temps de choisir.",
       "[longue pause]",
-      "Assieds-toi là où tu te sens bien. Sens le soutien de la chaise, ton dos droit, tes pieds sur le sol. Respire. Personne ne te demande de jouer un rôle.",
-      "Regarde la table depuis cette place. Tu n'as rien à prouver, rien à réparer. Tu es là, simplement, à ta juste place, au milieu des tiens. Au centre de la table, une bougie brille : c'est la lumière qui revient, au cœur de la nuit la plus longue.",
+      "Je m’assieds là où je me sens bien. Je sens le soutien de la chaise, mon dos droit, mes pieds sur le sol. Je respire. Ici, je suis libre d’être moi, simplement.",
+      "Je regarde la table depuis cette place. Je suis là, à ma juste place, au milieu des miens. Entre chacun·e de nous, je vois un fil doré, long et souple : nos liens sont libres et légers, et l’amour circule. Au centre de la table, une bougie brille, douce et chaude.",
       "[pause]",
-      "Garde cette image en toi. Pendant les fêtes, tu pourras la retrouver d'une seule respiration, même au milieu du bruit.",
-      "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Quand tu es prêt·e, ouvre les yeux."
+      "Je garde cette image en moi. Je peux la retrouver d’une seule respiration, à tout moment, où que je sois.",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Fais cette séance avant un moment avec les tiens ou avec tes proches pour te préparer, ou après pour te retrouver. Elle t’accompagne aussi si tu vis ces jours seul·e : ta table de lumière accueille les liens de ton choix. Si une chaise vide te serre le cœur fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une place choisie, un visage, une chaise vide, une sensation…", ph: "Exemple : je me suis assis·e près de la fenêtre, loin de la cuisine. J’ai vu la chaise de mon grand-père, et j’ai souri." }
+    conseil: "Fais cette séance avant un moment avec tes proches pour te préparer, après pour te retrouver, ou simplement un soir pour toi. Ta table de lumière accueille les liens de ton choix. Si une chaise libre te serre le cœur fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une place choisie, un visage, une chaise libre, une sensation…", ph: "Exemple : je me suis assis·e près de la fenêtre, loin de la cuisine. J’ai vu la chaise de mon grand-père, et j’ai souri." }
   },
 
   /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.

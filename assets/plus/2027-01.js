@@ -81,7 +81,7 @@ window.GENESOLIA_PLUS = {
         texte: [
           "Une peur héritée a souvent été utile. Pour un grand-père qui a perdu sa ferme, compter chaque sou était une façon de protéger les siens. Pour une arrière-grand-mère qui attendait des nouvelles, la vigilance était une façon d’aimer. Cette peur est peut-être arrivée jusqu’à toi, par les gestes et les phrases, comme une protection devenue trop lourde pour ta vie d’aujourd’hui.",
           "Ton protocole suit un chemin simple. D’abord, tu poses ta peur en trois colonnes, pour faire la part entre ta vie et ton histoire familiale. Puis tu écris une lettre courte : « À toi, je te rends la part de peur qui t’appartient. Je garde ta force de… Aujourd’hui, je choisis la confiance. » Tu la confies au feu ou tu la déchires, puis tu bouges, tu souffles, tu reviens dans la pièce. Par exemple, Sophie rend à sa grand-mère la peur de tout perdre, et garde sa force de recommencer. Le lendemain, elle s’offre un bouquet de fleurs, pour le plaisir.",
-          "Ta séance du mois accompagne cette semaine. Tu entends ton prénom prononcé avec douceur, tu salues celles et ceux qui sont venus avant toi, et tu te sens en sécurité, ici et maintenant. Si une émotion monte, elle a sa place : reviens à ton souffle, et reprends quand tu veux."
+          "Ta séance du mois accompagne cette semaine. Tu tiens un petit coffret qui contient une peur, tu le rends avec respect à celle ou celui de ta lignée qui l’a connue en premier, tu reçois sa force, et tu choisis la confiance, ici et maintenant. Si une émotion monte, elle a sa place : reviens à ton souffle, et reprends quand tu veux."
         ]
       },
       jours: [

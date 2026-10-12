@@ -181,24 +181,24 @@ window.GENESOLIA_CARNET = {
   ],
 
   meditation: {
-    titre: 'Le chemin des ancêtres',
-    intro: "Une séance guidée pour sentir derrière toi la longue file de celles et ceux qui sont venus avant toi, recevoir leurs dons, et déposer le poids que tu as choisi de rendre ce mois-ci.",
+    titre: "Le chemin des ancêtres",
+    intro: "Une séance guidée pour sentir derrière toi la longue file de celles et ceux qui sont venus avant toi, recevoir leurs dons, et rendre avec respect ce qui appartient à leur histoire.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois… Laisse ton corps se poser.",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Imagine que tu marches sur un chemin, dans la lumière douce d'une fin d'après-midi de novembre. Le sol est ferme sous tes pieds. L'air est calme, un peu frais. Derrière toi, tu sens une présence bienveillante.",
-      "Tu te retournes. Derrière toi se tiennent tes parents. Derrière eux, tes quatre grands-parents. Derrière eux encore, tes huit arrière-grands-parents… et plus loin, une longue file de silhouettes qui se perd dans la lumière. Des centaines de personnes, dont tu es le prolongement.",
+      "Je marche sur un chemin, dans une lumière douce. Le sol est ferme sous mes pieds. L’air est calme et frais. Derrière moi, je sens une présence bienveillante.",
+      "Je me retourne. Derrière moi se tiennent mes parents. Derrière eux, mes quatre grands-parents. Derrière eux encore, mes huit arrière-grands-parents… et au loin, une longue file de silhouettes qui se perd dans la lumière. Des centaines de vies, dont je suis le prolongement.",
       "[pause]",
-      "Tu n'as pas besoin de connaître leurs visages. Sens simplement qu'ils sont là. Chacun·e a vécu des joies, des peines, des épreuves. Chacun·e a transmis la vie, jusqu'à toi. Parmi eux, il y a aussi les oubliés : ceux dont on ne parlait pas. Ils sont là, eux aussi, à leur place.",
-      "Peut-être que l'une de ces silhouettes s'avance un peu. Laisse-la venir. Tu n'as rien à faire, seulement l'accueillir. Peut-être qu'elle te tend quelque chose : un objet, une couleur, un mot. Reçois-le.",
+      "Leurs visages peuvent rester flous. Je sens simplement qu’ils sont là. Chacun·e a vécu des joies, des peines, des épreuves. Chacun·e a transmis la vie, jusqu’à moi. Parmi eux, il y a aussi les oublié·es, celles et ceux dont on parlait peu. Ils sont là, eux aussi, à leur place.",
+      "Peut-être que l’une de ces silhouettes s’avance un peu. Je la laisse venir. Je l’accueille, simplement. Peut-être qu’elle me tend quelque chose : un objet, une couleur, un mot. Je le reçois. C’est un don de ma lignée, et je le garde.",
       "[longue pause]",
-      "Et si tu portes un poids qui ne t'appartient pas, tu peux le déposer doucement à ses pieds, en disant intérieurement : « Je te rends ceci avec respect. Je garde la vie que tu m'as donnée. »",
-      "Sens que la file entière te regarde avec bienveillance. Ils sont derrière toi. Ils te soutiennent. Tu peux avancer.",
+      "Et ce qui appartient à son histoire, je le dépose doucement à ses pieds, en disant intérieurement : « Je te rends ceci avec respect. Je garde la vie que tu m’as donnée, et les dons que tu m’as confiés. »",
+      "Je sens que la file entière me regarde avec bienveillance. Ils sont derrière moi. Ils me soutiennent. Je peux avancer, et je les honore en vivant ma vie.",
       "[pause]",
-      "Retourne-toi vers le chemin devant toi. Il est ouvert. Fais quelques pas, plus léger·e, avec dans les mains ce que tu as reçu.",
-      "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
+      "Je me tourne vers le chemin devant moi. Il est ouvert. J’avance, léger·ère, avec dans les mains ce que j’ai reçu.",
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un moment tranquille, avec dix minutes de calme pour toi. Si une personne disparue te touche fort pendant la séance, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    conseil: "Choisis un moment tranquille, avec dix minutes de calme pour toi. Si le souvenir d’un·e disparu·e te touche fort pendant la séance, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une silhouette, un objet reçu, un mot, une sensation…", ph: "Exemple : une femme en tablier s’est avancée et m’a tendu une clé. J’ai senti mes épaules se relâcher en déposant mon sac." }
   },
 
