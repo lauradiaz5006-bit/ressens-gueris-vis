@@ -257,7 +257,7 @@ window.GENESOLIA_CARNET = {
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: "Quelle est ma place ?",
-    texte: "Pendant que ton carnet t’aide à poser tes limites et à protéger ton énergie, ton suivi t’invite à observer les places à table dans ta famille : qui organise, qui se tait, qui manque. Comprendre la place que l’on t’a donnée t’aide à choisir celle que tu prends."
+    texte: "Pendant que ton carnet t’aide à poser tes limites et à protéger ton énergie, ton suivi t’invite à regarder ta place dans ta famille et ta fratrie, et à alléger les liens qui pèsent en gardant l’amour. Comprendre la place que l’on t’a donnée t’aide à choisir celle que tu prends."
   },
 
   aVenir: [

@@ -60,48 +60,48 @@ window.GENESOLIA_PLUS = {
   ],
   suivi: [
     { jours: [
-      "Ferme les yeux et revois une table de fête de ton enfance. Note la première image qui vient : un plat, une nappe, un visage, un bruit.",
-      "Dessine rapidement la table sur un papier, un rond pour chaque chaise. Écris un prénom dans chaque rond, sans oublier le tien.",
-      "Aujourd’hui, remarque dans les préparatifs qui décide du menu ou de la date. Note qui a parlé en premier, et ce que tu as fait, toi.",
-      "Regarde une photo d’un repas de famille. Observe où chacun·e se tient, qui est debout, qui est au bout. Note un détail qui te frappe.",
-      "Repère dans le groupe familial un message qui relance « comme d’habitude ». Écris ce que tu as eu envie de répondre, avant de répondre.",
-      "Décris en une phrase le rôle que tu tiens à table, comme si tu le racontais à une personne qui ne connaît pas ta famille.",
-      "Regard sur ta semaine : qu’est-ce que ton plan de table t’a montré que tu ne voyais pas ? Note-le en une phrase."
+      "Écris les prénoms de ta fratrie dans l’ordre des naissances, toi compris·e. Si tu es enfant unique, écris ton prénom seul, au centre de la page.",
+      "Note de mémoire le rôle qu’on te donnait enfant, en un ou deux mots. Puis la phrase qu’on te répétait, comme « c’est toi la grande ».",
+      "Regarde une photo d’enfance avec tes frères et sœurs, ou de toi enfant. Observe qui se tient où, et note ce que la place de chacun·e t’évoque.",
+      "Aujourd’hui, remarque le premier mot que tu dis quand un frère, une sœur ou un parent t’appelle. Note le rôle qui s’est mis en route.",
+      "Écris les enfants de la fratrie de ta mère ou de ton père, dans l’ordre. Laisse des cases vides si besoin : elles comptent aussi.",
+      "Fais deux colonnes : les liens qui te nourrissent, les liens qui pèsent. Écris un prénom dans chaque colonne, ou plusieurs.",
+      "Regard sur ta semaine : quel rôle revient le plus souvent, et trouves-tu un écho dans la fratrie de tes parents ? Écris-le en une phrase, avec douceur."
     ] },
     { jours: [
-      "Écris qui présidait la table des fêtes du temps de tes grands-parents, puis qui la préside aujourd’hui. Remarque ce qui s’est transmis.",
-      "Demande-toi : la place que je tiens à table touche-t-elle la racine (avoir ma place) ou le cœur (garder le lien) ? Note le mot qui vient.",
-      "Repense à la place que tu occupais enfant à table. Écris à côté celle que tu occupes aujourd’hui, et ce qui se ressemble.",
-      "Pose ta question sur les fêtes d’autrefois à un membre de ta famille, pendant un appel ou des préparatifs. Commence par un souvenir heureux.",
-      "Nomme un rôle que tu reprends sans l’avoir choisi : celui qui sert, qui apaise, qui fait rire. Puis note qui le tenait avant toi.",
-      "Termine cette phrase trois fois : « Ce rôle a été utile à ma famille parce que… ». Laisse venir les réponses, même incomplètes.",
-      "Regard sur ta semaine : d’où vient ta place à table, d’après ce que tu as découvert ? Une phrase, avec gratitude pour celles et ceux qui l’ont tenue."
+      "Écris ce qu’on disait de ta place quand tu étais petit·e, avec les mots exacts. Range cette phrase dans son tiroir : un fait, un récit ou une piste.",
+      "Pour ton rôle principal, écris ce qu’il a apporté à ta famille à l’époque. Une ou deux lignes suffisent.",
+      "Choisis la personne à qui tu poseras ta question sur sa propre fratrie. Prépare une question ouverte et légère, et note le moment pour la poser.",
+      "Pose ta question, pendant un appel, les préparatifs ou à table. Note la réponse le jour même, avec la phrase qui résonne avec ta propre place.",
+      "Pense à un lien qui pèse. Cherche s’il ressemble à un lien entre tes parents et leurs frères et sœurs, et note ce que tu trouves, comme une piste.",
+      "Ajoute dans ton arbre familial tous les enfants d’une fratrie de ta lignée, avec leur rang.",
+      "Regard sur ta semaine : qu’as-tu compris sur l’origine de ta place ? Écris ce qui vient de ton caractère, et ce qui vient de ton histoire."
     ] },
     { comprendre: {
-        titre: "Faire une place aux absent·es, et à toi",
+        titre: "Garder l’amour, alléger le lien",
         texte: [
-          "Libérer, en décembre, se joue autour de deux places : celles des personnes qui manquent, et la tienne. Les chaises vides pèsent sur la fête quand on n’en parle pas. Un grand-père disparu, une sœur fâchée, un frère parti loin : leur absence se glisse dans un silence au moment de trinquer, ou dans une recette que plus personne ne prépare. Les reconnaître ne rend pas la fête plus triste. Cela lui permet de respirer.",
-          "Faire une place aux absent·es ne t’oblige à rien : ni à pardonner, ni à reprendre contact, ni à en parler à toute la famille. Une pensée, un prénom, un plat préparé en leur honneur suffit. Le rituel de la chaise des absent·es t’aide à le faire au calme, avant les fêtes, pour arriver à table plus léger·e. Par exemple, Camille a posé sur la chaise la photo de sa grand-mère et le tablier qu’elle portait à Noël. Le 24, elle a refait sa bûche, et tout le monde a raconté un souvenir d’elle en riant.",
-          "Ta lettre à ta place fait le même chemin pour toi. Tu remercies le rôle que tu tiens à table, celui qui sert, qui apaise ou qui se tait, pour tout ce qu’il t’a appris. Puis tu te donnes le droit d’en essayer un autre. On ne quitte pas un rôle en le rejetant, mais en le reconnaissant. En laissant à chacun·e sa place, présent·e ou absent·e, tu peux enfin prendre la tienne."
+          "Un rôle de famille se reçoit tôt. La responsable, le médiateur, celle qu’on voit peu, celui qui fait rire : chacun de ces rôles t’a aidé·e à trouver ta place. Il t’a aussi demandé quelque chose en échange : du temps, de la fatigue, une part de toi mise de côté. Cette semaine, ton protocole t’invite à reprendre ta place à toi, et à laisser aux autres la leur.",
+          "Le protocole se vit en objets. Tu choisis un objet pour chaque personne et un pour toi, tu les places comme tu ressens ta famille aujourd’hui, puis tu déplaces ton objet là où tu te sens bien. Entre toi et chaque lien qui pèse, une ficelle : tu dis « Je garde l’amour, je te laisse ton histoire », tu la coupes, et tu poses un fil doré, plus long et plus souple. Par exemple, Hugo a toujours été le médiateur entre son père et sa sœur. Avec les objets, il s’éloigne un peu, coupe la ficelle avec son père, et pose le fil doré. Au repas suivant, quand le ton monte, il reste assis, respire, et laisse les deux adultes trouver leurs mots.",
+          "Ta séance de libération du mois accompagne cette semaine. Autour d’une grande table de lumière, tu vois ta famille s’installer, tu salues les absent·es, et tu choisis ta place. Si une émotion monte, elle a sa place : fais une pause, et reviens quand tu veux."
         ]
       },
       jours: [
-      "Écris les prénoms des personnes qui manquent à la table des fêtes cette année. À côté de chacun, un mot pour ce que tu ressens.",
-      "Choisis pour l’une de ces personnes un geste simple : un plat, une pensée, un prénom prononcé. Note le jour où tu le feras.",
-      "Écris la première phrase de ta lettre : « Chère place que j’occupe à table… ». Puis une chose que cette place t’a apprise.",
-      "Prépare ta chaise, ta bougie et, si tu le souhaites, une photo ou un objet. Choisis le soir où tu feras ton rituel, au calme.",
-      "Dans ta lettre, écris ce que ta place te coûte parfois, en une ou deux phrases. Puis la place que tu choisis de prendre cette année.",
-      "Après ton rituel, sors respirer l’air froid quelques minutes. Regarde le ciel, la nuit qui tombe tôt, et remarque ce que tu emportes avec toi.",
-      "Regard sur ta semaine : à qui as-tu fait une place, et quelle place as-tu commencé à te donner ? Une ligne pour chacun."
+      "Rassemble une dizaine de petits objets : boutons, pierres, figurines. Ajoute de la ficelle, des ciseaux et un fil doré, prêts pour ton protocole.",
+      "Remplis l’exercice « Les liens que j’allège » pour un premier lien. Une ligne par question suffit.",
+      "Écris la première phrase de ta lettre : « Chère place que j’occupe… ». Puis une chose que cette place t’a apprise.",
+      "Fais le rituel de la chaise des absent·es, au calme, et garde une photo ou un objet pour ton protocole.",
+      "Vis ton protocole : ta famille en objets, ta juste place, le fil doré. Prends une photo avant et une photo après.",
+      "Compare tes deux photos pendant deux minutes. Note ce qui a changé pour toi, en un mot ou une phrase.",
+      "Regard sur ta semaine : quel lien as-tu allégé, et quelle place as-tu commencé à te donner ? Une ligne pour chacun."
     ] },
     { jours: [
-      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis intérieurement : « Ce soir, je peux faire autrement. »",
-      "Écris ton déplacement des fêtes sur un petit papier et garde-le dans ta poche le jour du repas. Touche-le quand le vieux rôle t’attrape.",
+      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis intérieurement : « Ce soir, je choisis ma juste place. »",
+      "Écris ta phrase « Ma juste place, c’est… » et lis-la debout, dos droit. Garde-la sur un petit papier dans ta poche le jour du repas.",
       "Avant un repas, choisis à l’avance la chaise où tu veux t’asseoir. Imagine-toi y rester assis·e pendant tout le plat principal.",
-      "Pendant un repas, laisse une tension qui n’est pas la tienne se dérouler sans la désamorcer. Respire, et observe simplement ce qui se passe.",
+      "Pendant un repas, laisse une tension se dérouler entre les personnes qu’elle concerne. Respire, et observe simplement ce qui se passe.",
       "Au moment de trinquer, pense en silence ou à voix haute à un·e absent·e. Remarque ce que ça change en toi et autour de la table.",
-      "Le lendemain d’une fête, écris un moment de joie et un moment plus difficile, sans juger personne. Seulement ce qui s’est passé.",
-      "Regard sur ta semaine : quelle place as-tu prise, même un instant, et qu’est-ce que tu veux garder pour l’année qui vient ?"
+      "Écris ton prénom sur le tronc de ton arbre de vie, avec ta phrase. Prends le temps de le décorer, si tu en as envie.",
+      "Regard sur ta semaine : quelle place as-tu prise, même un instant, et qu’est-ce que tu veux garder pour l’année qui vient ?"
     ] }
   ]
 };
