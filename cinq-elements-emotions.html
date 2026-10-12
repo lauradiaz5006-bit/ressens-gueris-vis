@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Les 5 éléments et les émotions : une lecture symbolique · Genesolia</title>
+  <meta name="description" content="Les 5 éléments et les émotions, une lecture symbolique de la tradition chinoise : colère et Bois, joie et Feu, souci et Terre, tristesse et Métal, peur et Eau.">
+  <link rel="canonical" href="https://genesolia.fr/cinq-elements-emotions.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Les 5 éléments et les émotions : colère, joie, souci, tristesse et peur au fil des saisons">
+  <meta property="og:description" content="Les 5 éléments et les émotions, une lecture symbolique de la tradition chinoise : colère et Bois, joie et Feu, souci et Terre, tristesse et Métal, peur et Eau.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-cinq-elements-emotions.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+    .element{margin:1.6rem 0;padding:1.4rem 1.5rem 1.3rem;border-radius:var(--rayon);border:1px solid var(--rose);background:var(--blanc)}
+    .element .reperes{display:flex;flex-wrap:wrap;gap:.4rem;margin:.2rem 0 .9rem;list-style:none}
+    .element .reperes li{font-size:.88rem;padding:.2rem .7rem;border-radius:999px;background:var(--rose);color:var(--prune)}
+    .element p+p{margin-top:.7rem}
+    .element .q{font-style:italic;color:var(--prune-doux)}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Les 5 éléments et les émotions : colère, joie, souci, tristesse et peur au fil des saisons", "description": "Les 5 éléments et les émotions, une lecture symbolique de la tradition chinoise : colère et Bois, joie et Feu, souci et Terre, tristesse et Métal, peur et Eau.", "image": "https://genesolia.fr/assets/partage/blog-cinq-elements-emotions.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/cinq-elements-emotions.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/cinq-elements-emotions.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelles émotions correspondent aux 5 éléments ?", "acceptedAnswer": {"@type": "Answer", "text": "Dans la tradition chinoise, la colère est associée au Bois et au printemps, la joie au Feu et à l’été, le souci (la pensée qui tourne en rond) à la Terre et à la fin de l’été, la tristesse au Métal et à l’automne, et la peur à l’Eau et à l’hiver."}}, {"@type": "Question", "name": "Que représentent les 5 éléments ?", "acceptedAnswer": {"@type": "Answer", "text": "Plutôt que des matières, ce sont des phases de transformation : la poussée, l’épanouissement, la maturité, le dépouillement et le repos. Ils servent à décrire les saisons, les couleurs, les directions et, dans une lecture symbolique, les mouvements des émotions."}}, {"@type": "Question", "name": "La colère est-elle négative dans les 5 éléments ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Elle est l’énergie du Bois quand quelque chose fait obstacle à la croissance. Bien vécue, elle donne le courage de s’affirmer et de poser des limites. C’est quand elle est retenue trop longtemps ou qu’elle prend toute la place qu’elle devient lourde."}}, {"@type": "Question", "name": "Comment utiliser les 5 éléments pour mieux comprendre ses émotions ?", "acceptedAnswer": {"@type": "Answer", "text": "Repère l’émotion la plus présente pour toi en ce moment et l’élément qui lui correspond, observe la saison que tu traverses, puis demande-toi quel élément domine dans ta famille et lequel tu aimerais inviter davantage. C’est une lecture symbolique, pour réfléchir."}}, {"@type": "Question", "name": "Les 5 éléments ont-ils un lien avec la psychogénéalogie ?", "acceptedAnswer": {"@type": "Answer", "text": "Pas directement : ce sont deux approches différentes. Mais les 5 éléments offrent des images qui aident à se poser des questions de lignée : quelles émotions étaient permises, lesquelles étaient tues, quelles peurs venaient d’événements vécus par les générations précédentes."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "Les 5 éléments et les émotions : colère, joie, souci, tristesse et peur au fil des saisons", "item": "https://genesolia.fr/cinq-elements-emotions.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Les 5 éléments</nav>
+        <h1>Les 5 éléments et les émotions : colère, joie, souci, tristesse et peur au fil des saisons</h1>
+        <p class="intro">Dans la pensée chinoise ancienne, les 5 éléments (Bois, Feu, Terre, Métal, Eau) décrivent les grands mouvements de la nature et des saisons. Chacun est associé à une émotion : la colère au Bois et au printemps, la joie au Feu et à l’été, le souci à la Terre et à la fin de l’été, la tristesse au Métal et à l’automne, la peur à l’Eau et à l’hiver. On peut s’en servir comme d’une lecture symbolique, poétique, pour regarder ses émotions autrement, et se demander comment elles circulent dans sa lignée.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#principe">Le principe</a><a href="#bois">Bois et colère</a><a href="#feu">Feu et joie</a><a href="#terre">Terre et souci</a><a href="#metal">Métal et tristesse</a><a href="#eau">Eau et peur</a><a href="#cycles">Les cycles</a><a href="#exercice">Ton élément</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 10 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-cinq-elements-emotions-1600.webp" srcset="assets/images/blog-cinq-elements-emotions-800.webp 800w, assets/images/blog-cinq-elements-emotions-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Les 5 éléments et les émotions : un balcon fleuri ouvert sur la mer au coucher du soleil, des coussins de velours et des lanternes dorées" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="principe">Les 5 éléments : une façon symbolique de lire les émotions</h2>
+        <p>Les 5 éléments, ou cinq mouvements (<em>wu xing</em> en chinois), sont une très ancienne façon de décrire le monde. Plutôt que des matières figées, ce sont des <strong>phases</strong> qui se succèdent : la poussée du printemps, l’épanouissement de l’été, la maturité de la fin d’été, le dépouillement de l’automne, le repos de l’hiver. Cette grille a servi à lire les saisons, les couleurs, les directions, la cuisine, l’architecture, et aussi les émotions humaines.</p>
+        <p>Dans cette lecture, chaque émotion a sa place et sa saison. Aucune n’est mauvaise : chacune est un mouvement naturel, utile quand il circule, plus lourd quand il se bloque ou prend toute la place.</p>
+        <p class="rappel"><strong>Une lecture symbolique.</strong> Nous utilisons ici les 5 éléments comme des images, pour nourrir la réflexion sur soi et sur sa famille. Cette lecture ne dit rien de ton corps ni de ce que tu dois faire pour lui. Elle propose simplement un autre regard sur ce que tu ressens.</p>
+
+        <h2 id="bois">Le Bois et la colère : la poussée du printemps</h2>
+        <div class="element">
+          <ul class="reperes"><li>Printemps</li><li>Vert</li><li>Est</li><li>Le matin</li></ul>
+          <p><strong>L’image.</strong> Au printemps, la jeune pousse perce la terre, contourne les cailloux, monte vers la lumière. Le Bois, c’est l’élan, la croissance, l’envie de se déployer. Sa force, c’est la capacité à dire « je veux grandir, je prends ma place ».</p>
+          <p><strong>L’émotion.</strong> La colère est l’énergie du Bois quand quelque chose fait obstacle. Elle dit : « Une limite a été franchie », « Ce n’est pas juste », « J’ai besoin d’espace ». Bien vécue, elle donne le courage de s’affirmer. Retenue trop longtemps, elle se transforme en frustration ou en amertume.</p>
+          <p class="q">Question de lignée : dans ta famille, qui avait le droit de se mettre en colère ? Quelles colères n’ont jamais pu être dites ?</p>
+        </div>
+
+        <h2 id="feu">Le Feu et la joie : l’épanouissement de l’été</h2>
+        <div class="element">
+          <ul class="reperes"><li>Été</li><li>Rouge</li><li>Sud</li><li>Midi</li></ul>
+          <p><strong>L’image.</strong> En été, tout est ouvert, chaud, lumineux. Les fleurs s’épanouissent, les journées sont longues, on se retrouve dehors. Le Feu, c’est la chaleur du lien, la rencontre, la célébration.</p>
+          <p><strong>L’émotion.</strong> La joie est le mouvement du Feu : elle rapproche, réchauffe, donne envie de partager. Dans cette tradition, on parle aussi de l’excès de Feu : une excitation qui ne retombe jamais, ou au contraire une joie qui s’éteint, comme un feu sans bois.</p>
+          <p class="q">Question de lignée : dans ta famille, la joie était-elle bienvenue, ou se méfiait-on du bonheur ? Qui faisait rire, et qui ne riait jamais ?</p>
+        </div>
+
+        <h2 id="terre">La Terre et le souci : la maturité de la fin de l’été</h2>
+        <div class="element">
+          <ul class="reperes"><li>Fin d’été</li><li>Jaune</li><li>Centre</li><li>L’après-midi</li></ul>
+          <p><strong>L’image.</strong> À la fin de l’été, les fruits mûrissent, les récoltes se préparent. La Terre est au centre : elle nourrit, elle porte, elle rassemble. C’est l’élément de la mère nourricière, du foyer, de la stabilité.</p>
+          <p><strong>L’émotion.</strong> Le souci, ou la pensée qui tourne en rond, est la face difficile de la Terre. Quand on porte trop les autres, qu’on rumine, qu’on s’inquiète pour tout le monde, la Terre s’alourdit. Bien vécue, elle donne la capacité de veiller sur le lien et de se sentir enraciné·e.</p>
+          <p class="q">Question de lignée : qui, dans ta famille, portait tout le monde ? Et qui s’occupait de cette personne-là ?</p>
+        </div>
+
+        <h2 id="metal">Le Métal et la tristesse : le dépouillement de l’automne</h2>
+        <div class="element">
+          <ul class="reperes"><li>Automne</li><li>Blanc</li><li>Ouest</li><li>Le soir</li></ul>
+          <p><strong>L’image.</strong> En automne, l’arbre laisse tomber ses feuilles. Il garde l’essentiel et lâche le reste. Le Métal, c’est la clarté, la structure, la valeur de ce qui compte vraiment. C’est aussi l’élément du souffle, de l’inspiration et du lâcher.</p>
+          <p><strong>L’émotion.</strong> La tristesse est le mouvement du Métal : elle accompagne la perte, la séparation, la fin d’un cycle. Elle permet de dire au revoir. Retenue, elle devient une nostalgie qui ne passe pas, ou une difficulté à s’attacher de nouveau.</p>
+          <p class="q">Question de lignée : quels deuils n’ont pas pu être pleurés dans ta famille ? Les <a href="deuil-non-fait-mort-jeune.html">deuils non faits</a> laissent parfois une tristesse diffuse sur plusieurs générations.</p>
+        </div>
+
+        <h2 id="eau">L’Eau et la peur : le repos de l’hiver</h2>
+        <div class="element">
+          <ul class="reperes"><li>Hiver</li><li>Noir et bleu profond</li><li>Nord</li><li>La nuit</li></ul>
+          <p><strong>L’image.</strong> En hiver, la nature se retire. Sous la terre gelée, les graines attendent. L’Eau, c’est la profondeur, les réserves, les racines. C’est aussi l’élément des ancêtres et de la mémoire, de ce qui coule sous la surface.</p>
+          <p><strong>L’émotion.</strong> La peur est le mouvement de l’Eau : elle protège, elle invite à la prudence, elle fait se replier pour se préserver. Trop présente, elle fige, empêche d’avancer. Bien vécue, elle se transforme en sagesse et en confiance dans le cours des choses.</p>
+          <p class="q">Question de lignée : de quoi avait-on peur dans ta famille ? Ces peurs venaient-elles d’événements vécus par tes grands-parents, une guerre, un exil, un manque ? Voir <a href="guerre-et-memoire-familiale.html">la guerre dans l’arbre</a>.</p>
+        </div>
+
+        <h2 id="cycles">Les cycles des éléments : comment les émotions se répondent</h2>
+        <p>Les éléments ne vivent pas séparément : ils se nourrissent et s’équilibrent. La tradition décrit deux grands cycles, qu’on peut lire comme des métaphores de la façon dont nos émotions s’enchaînent.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Le cycle qui nourrit</span><h3>Chacun engendre le suivant</h3><p>Le Bois nourrit le Feu, le Feu donne la Terre (les cendres), la Terre porte le Métal, le Métal enrichit l’Eau, l’Eau nourrit le Bois. Symboliquement : une colère entendue peut ouvrir à la joie, une tristesse traversée peut rendre la peur plus douce.</p></div>
+          <div class="c2"><span class="nom">Le cycle qui modère</span><h3>Chacun tempère un autre</h3><p>Le Bois retient la Terre, la Terre canalise l’Eau, l’Eau éteint le Feu, le Feu façonne le Métal, le Métal taille le Bois. Symboliquement : chaque émotion peut en apaiser une autre quand elle devient trop forte.</p></div>
+        </div>
+        <p>Cette idée rejoint une intuition présente dans beaucoup de traditions : une émotion qui circule appelle naturellement la suivante, comme les saisons. C’est quand une émotion reste bloquée que le cycle se fige. Pour comprendre ce qui se passe quand une émotion dure trop longtemps, lis <a href="emotion-ou-sentiment.html">émotion ou sentiment</a>.</p>
+
+        <h2 id="exercice">Trouver ton élément du moment, et celui de ta lignée</h2>
+        <ol class="exercice">
+          <li><h3>Repère l’émotion la plus présente</h3><p>Ces dernières semaines, qu’est-ce qui domine : la colère, la joie qui déborde, le souci, la tristesse, la peur ? C’est ton élément du moment.</p></li>
+          <li><h3>Regarde la saison</h3><p>Est-ce que cette émotion correspond à la saison que tu traverses, dehors ou dans ta vie ? Un automne intérieur au printemps peut dire qu’une perte demande encore à être pleurée.</p></li>
+          <li><h3>Cherche l’élément de ta famille</h3><p>Si ta famille était un élément, lequel serait-elle ? Une famille Bois, toujours en mouvement et en lutte ? Une famille Eau, prudente, tournée vers le passé ? Note ce qui te vient.</p></li>
+          <li><h3>Choisis l’élément qui te manque</h3><p>Quel élément aimerais-tu inviter davantage dans ta vie ? Un peu de Feu pour plus de joie, un peu de Métal pour lâcher ce qui pèse ? Choisis une image, une couleur, un geste pour l’incarner cette semaine.</p></li>
+        </ol>
+        <p>Pour relier ces images à ton histoire, lis la <a href="memoire-transgenerationnelle.html">mémoire transgénérationnelle</a>, et pour voir ce qui se passe dans le corps quand une émotion monte, <a href="emotions-et-hormones.html">émotions et hormones</a>.</p>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Quelles émotions correspondent aux 5 éléments ?</dt><dd>Dans la tradition chinoise, la colère est associée au Bois et au printemps, la joie au Feu et à l’été, le souci (la pensée qui tourne en rond) à la Terre et à la fin de l’été, la tristesse au Métal et à l’automne, et la peur à l’Eau et à l’hiver.</dd>
+          <dt>Que représentent les 5 éléments ?</dt><dd>Plutôt que des matières, ce sont des phases de transformation : la poussée, l’épanouissement, la maturité, le dépouillement et le repos. Ils servent à décrire les saisons, les couleurs, les directions et, dans une lecture symbolique, les mouvements des émotions.</dd>
+          <dt>La colère est-elle négative dans les 5 éléments ?</dt><dd>Non. Elle est l’énergie du Bois quand quelque chose fait obstacle à la croissance. Bien vécue, elle donne le courage de s’affirmer et de poser des limites. C’est quand elle est retenue trop longtemps ou qu’elle prend toute la place qu’elle devient lourde.</dd>
+          <dt>Comment utiliser les 5 éléments pour mieux comprendre ses émotions ?</dt><dd>Repère l’émotion la plus présente pour toi en ce moment et l’élément qui lui correspond, observe la saison que tu traverses, puis demande-toi quel élément domine dans ta famille et lequel tu aimerais inviter davantage. C’est une lecture symbolique, pour réfléchir.</dd>
+          <dt>Les 5 éléments ont-ils un lien avec la psychogénéalogie ?</dt><dd>Pas directement : ce sont deux approches différentes. Mais les 5 éléments offrent des images qui aident à se poser des questions de lignée : quelles émotions étaient permises, lesquelles étaient tues, quelles peurs venaient d’événements vécus par les générations précédentes.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="emotion-ou-sentiment.html">Émotion ou sentiment : la différence</a>
+          <a class="btn btn-trait" href="memoire-transgenerationnelle.html">La mémoire transgénérationnelle</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html">Émotions et hormones</a><a href="cinq-elements-emotions.html" aria-current="page">Les 5 éléments</a><a href="imago-choix-amoureux.html">Imago et choix amoureux</a><a href="etapes-du-couple.html">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html">Tableau de vision</a><a href="liste-des-valeurs.html">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="emotion-ou-sentiment.html"><h3>Émotion ou sentiment</h3><p>La vague et le climat : apprendre à les distinguer.</p></a>
+          <a class="outil" href="emotions-et-hormones.html"><h3>Émotions et hormones</h3><p>Ce que ton corps fait quand tu ressens.</p></a>
+          <a class="outil" href="deuil-non-fait-mort-jeune.html"><h3>Les deuils non faits</h3><p>Quand une tristesse traverse les générations.</p></a>
+          <a class="outil" href="guerre-et-memoire-familiale.html"><h3>La guerre dans l’arbre</h3><p>Mémoire familiale, peurs transmises et silences.</p></a>
+          <a class="outil" href="loyaute-familiale-invisible.html"><h3>Les loyautés invisibles</h3><p>Ces fidélités qui nous attachent aux règles de la famille.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

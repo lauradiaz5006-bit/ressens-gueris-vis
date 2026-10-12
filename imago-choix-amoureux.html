@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Imago : pourquoi je choisis toujours le même type de partenaire · Genesolia</title>
+  <meta name="description" content="Imago et choix amoureux : pourquoi tu choisis toujours le même type de partenaire. L’exercice des deux cercles, les rôles en amour et les pistes familiales.">
+  <link rel="canonical" href="https://genesolia.fr/imago-choix-amoureux.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="L’imago : pourquoi je choisis toujours le même type de partenaire">
+  <meta property="og:description" content="Imago et choix amoureux : pourquoi tu choisis toujours le même type de partenaire. L’exercice des deux cercles, les rôles en amour et les pistes familiales.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-imago-choix-amoureux.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+    .sommaire{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+    .sommaire a{text-decoration:none;font-size:.95rem;padding:.45rem 1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--rose-fonce)}
+    .sommaire a:hover{border-color:var(--prune)}
+    .article h2[id]{scroll-margin-top:5rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "L’imago : pourquoi je choisis toujours le même type de partenaire", "description": "Imago et choix amoureux : pourquoi tu choisis toujours le même type de partenaire. L’exercice des deux cercles, les rôles en amour et les pistes familiales.", "image": "https://genesolia.fr/assets/partage/blog-imago-choix-amoureux.jpg", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/imago-choix-amoureux.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/imago-choix-amoureux.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu’est-ce que l’imago en amour ?", "acceptedAnswer": {"@type": "Answer", "text": "L’imago est l’image intérieure, en grande partie inconsciente, des adultes qui se sont occupés de nous enfant, avec leurs qualités et leurs côtés difficiles. Selon l’approche Imago, développée par Harville Hendrix et Helen LaKelly Hunt, nous sommes attiré·es par les partenaires qui ressemblent à cette image."}}, {"@type": "Question", "name": "Pourquoi je tombe toujours sur le même genre de personne ?", "acceptedAnswer": {"@type": "Answer", "text": "Souvent parce que le connu rassure, même quand il fait mal, et parce qu’on espère vivre enfin avec quelqu’un de ressemblant ce qui a manqué dans l’enfance. On est aussi attiré·e par les qualités qu’on n’a pas eu le droit de développer soi-même. Ce sont des pistes de lecture, pas des fatalités."}}, {"@type": "Question", "name": "Comment faire l’exercice des deux cercles ?", "acceptedAnswer": {"@type": "Answer", "text": "Dessine deux cercles. Dans le premier, note les qualités et les côtés difficiles des adultes de ton enfance. Dans le second, ceux de tes partenaires marquants. Relie les ressemblances, regarde les différences, puis repère le trait qui te fait le plus réagir : c’est souvent là que se trouve la piste la plus parlante."}}, {"@type": "Question", "name": "Choisit-on forcément un partenaire qui ressemble à son père ou à sa mère ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. On peut aussi choisir l’inverse exact de son parent, ou un mélange de plusieurs adultes de l’enfance. Et beaucoup d’autres choses comptent dans un choix amoureux : les valeurs, le milieu, le moment de vie, le hasard des rencontres."}}, {"@type": "Question", "name": "Peut-on changer son type de partenaire ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, progressivement. Voir le schéma est déjà un premier pas. Ensuite, on peut ralentir au début des relations, se donner à soi-même une partie de ce qu’on attend de l’autre, sortir de son rôle habituel et choisir aussi en fonction de ses valeurs."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://genesolia.fr/blog.html"}, {"@type": "ListItem", "position": 3, "name": "L’imago : pourquoi je choisis toujours le même type de partenaire", "item": "https://genesolia.fr/imago-choix-amoureux.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d’Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span><a href="blog.html#emotions-et-relations">Émotions et relations</a><span aria-hidden="true">/</span>Imago et choix amoureux</nav>
+        <h1>L’imago : pourquoi je choisis toujours le même type de partenaire</h1>
+        <p class="intro">Si tu choisis toujours le même type de partenaire, ce n’est pas un hasard ni un manque de chance. L’idée de l’imago propose une explication simple : nous portons en nous une image, faite des qualités et des côtés difficiles des adultes qui se sont occupés de nous enfant, et nous sommes attiré·es par les personnes qui lui ressemblent. Pas pour souffrir, mais pour retrouver du connu, et parfois pour réparer ce qui a manqué. Voici comment repérer ton imago avec l’exercice des deux cercles.</p>
+        <nav class="sommaire" aria-label="Sur cette page"><a href="#imago">L’imago, c’est quoi ?</a><a href="#pourquoi">Pourquoi le même type</a><a href="#cercles">Les deux cercles</a><a href="#roles">Les rôles en amour</a><a href="#lignee">Dans ta lignée</a><a href="#autrement">Choisir autrement</a><a href="#questions">Questions</a></nav>
+        <p class="publie">Publié le 12 octobre 2026 · lecture 11 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-imago-choix-amoureux-1600.webp" srcset="assets/images/blog-imago-choix-amoureux-800.webp 800w, assets/images/blog-imago-choix-amoureux-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Imago et choix amoureux : deux silhouettes main dans la main au bord de la mer, au coucher du soleil, sous un ciel rose et doré" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2 id="imago">L’imago, c’est quoi ?</h2>
+        <p>Le mot <em>imago</em> vient du latin et signifie « image ». En psychologie, il désigne l’image intérieure, en grande partie inconsciente, qu’on se fait des personnes importantes de son enfance. Dans le couple, l’idée a été développée aux États-Unis à la fin des années 1980 par Harville Hendrix et Helen LaKelly Hunt, sous le nom d’approche Imago.</p>
+        <p>Leur intuition : chacun·e porte une sorte de portrait-robot amoureux, composé des traits marquants (agréables et douloureux) des adultes qui se sont occupés de nous enfant : parents, grands-parents, beau-parent, nourrice, grand frère ou grande sœur. Quand on rencontre quelqu’un qui correspond à ce portrait, on ressent une attirance forte, une impression de « déjà connu ». C’est souvent ce qu’on appelle l’alchimie.</p>
+        <p class="rappel"><strong>Une grille de lecture, pas une loi.</strong> L’imago n’est pas un fait démontré scientifiquement : c’est une façon de regarder ses choix amoureux qui aide beaucoup de personnes à y voir plus clair. Prends ce qui te parle, laisse le reste.</p>
+
+        <h2 id="pourquoi">Pourquoi je choisis toujours le même type de partenaire ?</h2>
+        <p>Trois raisons se mêlent souvent.</p>
+        <ul class="pistes">
+          <li><strong>Le connu rassure</strong><span>Même quand il fait mal, ce qu’on connaît depuis l’enfance paraît normal. Une personne distante peut sembler « reposante » si tu as grandi avec un parent distant. Une personne intense peut sembler « vivante » si tu as grandi dans l’intensité.</span></li>
+          <li><strong>L’espoir de réparer</strong><span>Selon cette approche, on cherche sans le savoir à vivre enfin, avec quelqu’un qui ressemble à son parent, ce qui a manqué avec ce parent : être vu·e, être choisi·e, être écouté·e. Si cette fois il ou elle m’aime, alors je serai aimable.</span></li>
+          <li><strong>Les parts de soi qu’on cherche chez l’autre</strong><span>On est aussi attiré·e par les qualités qu’on n’a pas eu le droit de développer. La personne réservée tombe amoureuse de l’extravertie, la personne très raisonnable de la fantaisiste. Puis, avec le temps, ces mêmes qualités finissent par agacer.</span></li>
+        </ul>
+        <p>Ce mécanisme explique pourquoi on peut changer de partenaire et retrouver le même scénario. L’article sur les <a href="schemas-repetitifs-en-amour.html">schémas répétitifs en amour</a> décrit ces scénarios en détail. Ici, on va plus loin avec un exercice concret.</p>
+
+        <h2 id="cercles">L’exercice des deux cercles</h2>
+        <p>Prends une grande feuille et dessine deux cercles côte à côte. Accorde-toi une demi-heure, au calme. Il n’y a pas de bonne réponse : écris ce qui vient, avec tes mots.</p>
+        <div class="deux">
+          <div class="c1"><span class="nom">Premier cercle</span><h3>Les adultes de ton enfance</h3><p>Pense aux deux ou trois adultes les plus présents quand tu avais entre 0 et 12 ans. Écris d’un côté leurs <strong>qualités</strong> (tendre, drôle, travailleur, cultivée…) et de l’autre leurs <strong>côtés difficiles</strong> (absent, critique, imprévisible, froide, inquiète…).</p></div>
+          <div class="c2"><span class="nom">Second cercle</span><h3>Tes partenaires</h3><p>Pense à tes deux ou trois relations les plus marquantes. Écris de la même façon leurs <strong>qualités</strong> et leurs <strong>côtés difficiles</strong>, tels que tu les as vécus. Ajoute ce qui t’a attiré·e au début, et ce qui a fini par blesser.</p></div>
+        </div>
+        <ol class="exercice">
+          <li><h3>Entoure les ressemblances</h3><p>Relie par un trait les mots qui se répondent d’un cercle à l’autre. « Mon père ne disait jamais ce qu’il ressentait » et « Mes partenaires se ferment quand je pose une question » : c’est une piste. Les ressemblances montrent souvent ce que tu cherches à revivre, ou à réparer.</p></li>
+          <li><h3>Regarde aussi les différences</h3><p>Parfois, on choisit exactement l’inverse de son parent : un partenaire très calme quand le père criait, une partenaire très libre quand la mère contrôlait tout. Les différences sont aussi des pistes : elles montrent ce que tu fuis, et ce choix peut, lui aussi, devenir une prison.</p></li>
+          <li><h3>Repère ce qui fait le plus réagir</h3><p>Parmi les côtés difficiles de tes partenaires, lequel te met le plus en colère, ou te fait le plus mal ? Est-il présent dans ton premier cercle ? C’est souvent là que se loge la blessure la plus ancienne.</p></li>
+          <li><h3>Écris ta phrase de manque</h3><p>Complète : « Enfant, j’aurais eu besoin que… » Puis : « En amour, j’attends que mon ou ma partenaire… » Les deux phrases se ressemblent souvent beaucoup.</p></li>
+        </ol>
+        <p class="rappel"><strong>Avec douceur.</strong> Cet exercice ne sert pas à juger tes parents ni tes ex. Les adultes de ton enfance ont fait avec ce qu’ils avaient reçu eux-mêmes. L’idée est seulement de voir le fil, pour pouvoir choisir.</p>
+
+        <h2 id="roles">Les rôles qu’on rejoue en amour</h2>
+        <p>En plus du type de partenaire, on reprend souvent le même rôle dans le couple. Ces rôles s’apprennent tôt, dans la famille, et ils ont eu une utilité. Les voir permet de ne plus s’y enfermer.</p>
+        <ul class="facettes">
+          <li><strong>Le parent de l’autre</strong><span>Tu organises, tu rappelles, tu portes la charge. Tu as peut-être été l’enfant « raisonnable » qui s’occupait des autres.</span></li>
+          <li><strong>L’enfant</strong><span>Tu attends que l’autre décide, rassure, répare. Tu cherches une sécurité qui a peut-être manqué.</span></li>
+          <li><strong>La personne qui sauve</strong><span>Tu es attiré·e par les personnes qui vont mal, et tu te sens utile en les aidant. Être indispensable te rassure sur ta valeur.</span></li>
+          <li><strong>La personne qui critique</strong><span>Tu vois tout ce qui ne va pas, tu corriges, tu exiges. Souvent, cette voix exigeante a d’abord été tournée contre toi.</span></li>
+          <li><strong>La personne qui s’éloigne</strong><span>Quand l’autre se rapproche, tu as besoin d’air. La proximité t’a peut-être appris qu’aimer, c’est risquer d’être envahi·e.</span></li>
+        </ul>
+        <p>Ces rôles vont souvent par paires : la personne qui poursuit attire celle qui s’éloigne, celle qui sauve attire celle qui a besoin d’être sauvée. Si la peur d’être quitté·e est au premier plan pour toi, l’article sur la <a href="blessure-abandon-relation-amoureuse.html">blessure d’abandon en amour</a> pourra t’éclairer. Et si tu te reconnais surtout dans le fait de t’oublier pour l’autre, lis l’article sur la <a href="dependance-affective.html">dépendance affective</a>.</p>
+
+        <h2 id="lignee">L’imago dans ta lignée</h2>
+        <p>La psychogénéalogie propose d’élargir le regard au-delà des parents. Les couples de ta famille forment eux aussi des modèles : comment ta grand-mère parlait de ton grand-père, ce qu’on disait des hommes ou des femmes, les couples qui ont tenu par devoir, ceux qui se sont séparés dans le silence.</p>
+        <ul class="pistes">
+          <li><strong>Les phrases de famille sur l’amour</strong><span>« Les hommes partent toujours », « Il faut se méfier de qui on aime trop », « Une femme doit tout supporter ». Ces phrases forment un décor que l’on reprend parfois sans le savoir.</span></li>
+          <li><strong>Les couples qui se répètent</strong><span>Plusieurs générations où l’un·e des deux est absent·e, ou malheureux·se, ou toujours au travail ? Dessiner l’arbre avec le <a href="genosociogramme.html">génosociogramme en ligne</a> aide à le voir.</span></li>
+          <li><strong>Les amours empêchées</strong><span>Un premier amour interdit, un fiancé mort à la guerre, un mariage arrangé : ces histoires peuvent laisser une trace dans la façon dont la lignée aime. Elles apparaissent parfois dans les <a href="secret-de-famille.html">secrets de famille</a>.</span></li>
+        </ul>
+        <p>Ce sont des pistes à explorer, jamais des explications toutes faites. Ton histoire t’appartient. Pour comprendre comment le couple évolue avec le temps, et comment ces modèles se réveillent à certaines étapes, lis aussi <a href="etapes-du-couple.html">les étapes du couple</a>.</p>
+
+        <h2 id="autrement">Choisir autrement, sans tout renier</h2>
+        <p>Comprendre son imago ne veut pas dire fuir toute personne qui ressemble à ses parents. Selon l’approche Imago, la relation peut justement devenir l’endroit où l’on grandit, si les deux partenaires acceptent de se parler vraiment.</p>
+        <ul class="gestes">
+          <li><strong>Ralentis au début.</strong> Une attirance immédiate et très forte mérite d’être regardée avec curiosité : qu’est-ce qui, chez cette personne, me semble si familier ?</li>
+          <li><strong>Donne-toi ce qui a manqué.</strong> Une partie de ce que tu attends de l’autre, tu peux commencer à te l’offrir : te rassurer, te féliciter, t’écouter.</li>
+          <li><strong>Parle de tes besoins, pas de ses défauts.</strong> « J’ai besoin que tu me dises quand tu rentres tard » s’entend mieux que « Tu ne penses jamais à moi ».</li>
+          <li><strong>Repère ton rôle, et essaie l’inverse.</strong> Si tu sauves toujours, laisse l’autre se débrouiller une fois. Si tu t’éloignes toujours, reste cinq minutes de plus.</li>
+          <li><strong>Choisis aussi avec tes valeurs.</strong> L’attirance dit beaucoup de ton passé. Tes valeurs disent ce que tu veux construire. La <a href="liste-des-valeurs.html">liste des valeurs</a> t’aide à les nommer.</li>
+        </ul>
+
+        <h2 id="questions">Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu’est-ce que l’imago en amour ?</dt><dd>L’imago est l’image intérieure, en grande partie inconsciente, des adultes qui se sont occupés de nous enfant, avec leurs qualités et leurs côtés difficiles. Selon l’approche Imago, développée par Harville Hendrix et Helen LaKelly Hunt, nous sommes attiré·es par les partenaires qui ressemblent à cette image.</dd>
+          <dt>Pourquoi je tombe toujours sur le même genre de personne ?</dt><dd>Souvent parce que le connu rassure, même quand il fait mal, et parce qu’on espère vivre enfin avec quelqu’un de ressemblant ce qui a manqué dans l’enfance. On est aussi attiré·e par les qualités qu’on n’a pas eu le droit de développer soi-même. Ce sont des pistes de lecture, pas des fatalités.</dd>
+          <dt>Comment faire l’exercice des deux cercles ?</dt><dd>Dessine deux cercles. Dans le premier, note les qualités et les côtés difficiles des adultes de ton enfance. Dans le second, ceux de tes partenaires marquants. Relie les ressemblances, regarde les différences, puis repère le trait qui te fait le plus réagir : c’est souvent là que se trouve la piste la plus parlante.</dd>
+          <dt>Choisit-on forcément un partenaire qui ressemble à son père ou à sa mère ?</dt><dd>Non. On peut aussi choisir l’inverse exact de son parent, ou un mélange de plusieurs adultes de l’enfance. Et beaucoup d’autres choses comptent dans un choix amoureux : les valeurs, le milieu, le moment de vie, le hasard des rencontres.</dd>
+          <dt>Peut-on changer son type de partenaire ?</dt><dd>Oui, progressivement. Voir le schéma est déjà un premier pas. Ensuite, on peut ralentir au début des relations, se donner à soi-même une partie de ce qu’on attend de l’autre, sortir de son rôle habituel et choisir aussi en fonction de ses valeurs.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="genosociogramme.html">Dessiner les couples de ma famille</a>
+          <a class="btn btn-trait" href="schemas-repetitifs-en-amour.html">Les schémas répétitifs en amour</a>
+        </div>
+
+        <p class="note-fin">Ces contenus proposent une lecture symbolique de développement personnel, en complément de tout suivi médical. Les liens familiaux évoqués sont des pistes de réflexion, jamais des preuves ni des causes. Si ce que tu vis pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="emotion-ou-sentiment.html">Émotion ou sentiment</a><a href="emotions-et-hormones.html">Émotions et hormones</a><a href="cinq-elements-emotions.html">Les 5 éléments</a><a href="imago-choix-amoureux.html" aria-current="page">Imago et choix amoureux</a><a href="etapes-du-couple.html">Les étapes du couple</a><a href="dependance-affective.html">Dépendance affective</a><a href="schemas-repetitifs-en-amour.html">Schémas en amour</a><a href="blessure-abandon-relation-amoureuse.html">Abandon en amour</a><a href="tableau-de-vision.html">Tableau de vision</a><a href="liste-des-valeurs.html">Liste des valeurs</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="schemas-repetitifs-en-amour.html"><h3>Les schémas répétitifs en amour</h3><p>Des personnes différentes, et pourtant la même histoire.</p></a>
+          <a class="outil" href="etapes-du-couple.html"><h3>Les étapes du couple</h3><p>Fusion, crise des 3 ans, des 7 ans : ce qui se joue à chaque étape.</p></a>
+          <a class="outil" href="dependance-affective.html"><h3>La dépendance affective</h3><p>Repérer les signes et reprendre sa place.</p></a>
+          <a class="outil" href="blessure-abandon-relation-amoureuse.html"><h3>La blessure d’abandon en amour</h3><p>Aimer avec moins de peur d’être quitté·e.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme et repère les couples qui se répètent.</p></a>
+          <a class="outil" href="abonnement.html"><h3>Le Cercle</h3><p>Un carnet par mois pour explorer ton histoire familiale, à ton rythme.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
