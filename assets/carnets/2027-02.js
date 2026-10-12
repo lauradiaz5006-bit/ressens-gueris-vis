@@ -243,7 +243,7 @@ window.GENESOLIA_CARNET = {
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: "Quel projet a-t-on posé sur moi ?",
-    texte: "Pendant que ton carnet t’aide à t’aimer d’abord, ton suivi t’invite à regarder les couples de ta lignée et ce qui se répète dans ta façon d’aimer. Plus tu te traites avec tendresse ici, plus tu peux choisir là-bas l’amour qui te ressemble."
+    texte: "Pendant que ton carnet t’aide à t’aimer d’abord, ton suivi t’invite à découvrir l’histoire de ton prénom et les attentes posées sur toi, puis à écrire ton propre contrat avec la vie. Plus tu accueilles ici l’enfant que tu étais, plus tu peux choisir là-bas le chemin qui te ressemble."
   },
 
   aVenir: [

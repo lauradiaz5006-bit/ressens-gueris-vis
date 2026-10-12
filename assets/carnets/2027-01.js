@@ -253,7 +253,7 @@ window.GENESOLIA_CARNET = {
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
     titre: "Quelle peur je porte, et pour qui ?",
-    texte: "Pendant que ton carnet t’aide à choisir tes valeurs et à poser ton intention, ton suivi t’invite à découvrir l’histoire de ton prénom : qui l’a choisi, ce qu’il porte de ta lignée, et comment en faire pleinement le tien. Signer ton intention de ton prénom prend alors tout son sens."
+    texte: "Pendant que ton carnet t’aide à choisir tes valeurs et à poser ton intention, ton suivi t’invite à regarder la peur que tu portes : tes périodes sensibles, les dates de ta lignée, et la part de peur que tu choisis de rendre. Poser ton intention sur un socle de confiance prend alors tout son sens."
   },
 
   aVenir: [

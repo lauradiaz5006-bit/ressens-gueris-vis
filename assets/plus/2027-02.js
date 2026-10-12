@@ -59,58 +59,58 @@ window.GENESOLIA_PLUS = {
   ],
   suivi: [
     { jours: [
-      "Écris les prénoms des couples de ta famille que tu connais, sur deux ou trois générations. Rien d’autre aujourd’hui : juste les noms côte à côte.",
-      "Regarde une photo de mariage ou de couple dans ta famille. Note ce que tu vois dans les gestes et les regards, sans chercher à interpréter.",
-      "Observe aujourd’hui un couple autour de toi, dans la rue, au travail ou dans une série. Note en une ligne ce que tu as ressenti.",
-      "Écris une phrase qui résume chacune de tes propres histoires d’amour, même anciennes. Si tu es seul·e en ce moment, ton célibat compte aussi.",
-      "Remarque aujourd’hui un de tes réflexes en amour ou en amitié : te taire, t’adapter, t’éloigner, attendre. Note la scène et ce qu’elle te rappelle.",
-      "Relis ton tableau des couples et souligne en couleur un détail qui revient : un âge, un rôle, une façon de partir ou de rester.",
-      "Regarde ta semaine : quel fil commence à apparaître entre les couples de ta lignée et ta façon d’aimer ? Écris-le en une phrase, sans juger personne."
+      "Écris ton prénom en entier, avec tous tes prénoms, en grand sur une feuille. Remarque celui que tu préfères, et celui que tu utilises le moins.",
+      "Note les prénoms de tes quatre grands-parents. Entoure ceux qui ressemblent au tien, par le son, la première lettre ou l’histoire.",
+      "Aujourd’hui, remarque qui t’appelle par ton prénom, par un surnom, ou par ton nom de famille. Note ce que chaque façon te fait.",
+      "Cherche un prénom qui revient dans ta famille, sur deux ou trois générations. Écris qui l’a porté, et ce que tu sais d’eux.",
+      "Dis ton prénom à voix haute, lentement, trois fois. Note en un mot ce que tu ressens.",
+      "Relis ta liste des prénoms de ta lignée et ajoute un prénom que tu avais oublié, ou dont on parle peu.",
+      "Regard sur ta semaine : quel prénom de ta lignée t’a le plus touché·e, et pourquoi ? Écris-le en une phrase."
     ] },
     { jours: [
-      "Note trois phrases sur l’amour que tu as entendues enfant, à table ou dans la cuisine. Écris-les telles quelles, avec les mots de l’époque.",
-      "Écris en quelques lignes ce que tu sais de la rencontre de tes parents. Ajoute, sous forme de questions, ce qu’on ne t’a jamais raconté.",
-      "Pour une de tes phrases sur l’amour, demande-toi si elle parle de racine ou de cœur. Note ta réponse, même si tu hésites encore.",
-      "Choisis la personne de ta famille à qui tu poseras ta question cette semaine. Prépare une question légère et chaleureuse sur un couple de la lignée.",
-      "Pose ta question par téléphone, à table ou par message. Le soir, note la réponse et la phrase qui t’a le plus touché·e.",
-      "Repère une union, une séparation ou un premier amour oublié dans ta lignée. Ajoute-le dans ton arbre familial, avec sa date si tu la connais.",
-      "Relis ta semaine : qu’as-tu compris sur l’origine de ta façon d’aimer ? Écris ce qui vient de toi, et ce qui vient d’avant toi."
+      "Écris ce que tu sais du choix de ton prénom, même une seule phrase. Range-la dans son tiroir : un fait, un récit ou une piste.",
+      "Cherche ce que vivait ta famille l’année de ta naissance : un déménagement, un métier, une naissance, un départ. Note ce que tu trouves.",
+      "Choisis la personne à qui tu poseras ta question sur ton prénom. Prépare une question ouverte et légère.",
+      "Pose ta question aujourd’hui, avec douceur. Le soir, note la réponse et range-la dans son tiroir.",
+      "Joue avec ton prénom : dis-le à voix haute et note les mots que tu entends dedans. Garde ce qui te parle.",
+      "Ajoute dans ton arbre familial les prénoms qui se répètent, avec les personnes qui les ont portés.",
+      "Regard sur ta semaine : quelle attente semble accompagner ton prénom ? Écris-la en une phrase, avec tendresse pour celles et ceux qui l’ont posée."
     ] },
     { comprendre: {
-        titre: "Garder l’amour, laisser le poids",
+        titre: "De l’ancien contrat au tien",
         texte: [
-          "Les histoires d’amour d’une famille se transmettent souvent sans un mot. Une grand-mère restée seule, une mère qui a renoncé, un grand-père parti sans explication : ces scènes laissent des phrases, des peurs, des façons de se protéger. En les reprenant, on reste fidèle aux siens, par amour pour eux. Libérer, cette semaine, ce n’est pas juger ces couples ni renier ta famille. C’est reconnaître ce qu’ils ont vécu, et leur laisser ce qui leur appartient.",
-          "Rendre une histoire, c’est un geste symbolique. Tu remercies ce que ces couples t’ont transmis de beau, une fidélité, un courage, une tendresse, et tu poses le reste : la résignation, la peur d’être quitté·e, l’idée qu’il faut tout donner. Par exemple, Camille reconnaît dans « Les hommes ne restent pas » la peine de sa grand-mère. En défaisant le nœud du rituel, elle la remercie pour sa force et lui laisse sa méfiance. Le soir même, elle ose dire à son compagnon qu’elle a besoin de lui.",
-          "Ta séance de libération du mois accompagne cette semaine. Tu y salues les couples de ta lignée dans un jardin de fin d’hiver, puis tu découvres l’espace où pousse l’amour que tu veux vivre. Si une tristesse ou une colère monte, elle a sa place : tu touches à des histoires qui comptent. Respire, fais une pause, et reviens quand tu te sens prêt·e. Ce que tu ressens fait aussi partie du chemin."
+          "Les attentes posées sur un enfant ressemblent à un contrat signé à ta place : « on attendait de moi que je sois sage », « que je reprenne la boulangerie », « que je console ma mère ». Ces attentes étaient souvent pleines d’amour, et elles ont parfois dessiné un chemin à l’avance. Cette semaine, ton protocole t’invite à les écrire, à les remercier, et à écrire ton propre contrat.",
+          "Le protocole suit un chemin simple. Tu écris d’abord l’ancien contrat : « Contrat de naissance. On attendait de moi que… ». Puis le tien : « Mon contrat avec la vie. Je choisis… Je m’autorise… », et tu le signes. Ensuite, ta photo d’enfant devant toi, tu lui dis : « Bienvenue. Tu es accueilli·e tel·le que tu es. Tu as ta place. » Enfin, tu plies l’ancien contrat dans une enveloppe marquée « À leur histoire ». Par exemple, Karim rédige l’ancien contrat : « On attendait de moi que je sois ingénieur, comme mon père l’avait rêvé. » Dans le sien, il écrit : « Je choisis de travailler avec les arbres et les jardins. » Il signe de son prénom, et sourit.",
+          "Ta séance du mois accompagne cette semaine. Dans un jardin, tu salues les couples de ta lignée qui ont rendu ta vie possible, tu leur laisses leurs histoires, et tu découvres l’espace où pousse la vie que tu choisis. Si une émotion monte, elle a sa place : fais une pause, et reprends quand tu veux."
         ]
       },
       jours: [
-        "Recopie la phrase sur l’amour qui te pèse le plus. En dessous, écris en une ligne ce qu’elle a pu protéger à son époque.",
-        "Pense au couple de ta lignée qui t’émeut le plus. Dis-lui intérieurement : « Je vous reconnais, avec vos joies et vos peines. »",
-        "Écris ta phrase de remplacement, vraie pour toi aujourd’hui, et lis-la trois fois à voix basse. Change un mot si elle sonne encore faux.",
-        "Prépare ton fil ou ton ruban et fais-y un nœud bien serré. Pose-le près de ton lit en attendant le moment du rituel.",
-        "Quand une vieille peur amoureuse se présente aujourd’hui, pose une main sur ton cœur et dis-toi : « Ce n’est pas mon histoire. » Puis respire lentement.",
-        "Écris trois choses belles que tu gardes des couples de ta famille : un geste, une qualité, un souvenir. Range cette liste avec ton fil dénoué.",
-        "Regarde ta semaine : qu’as-tu rendu aux couples d’avant toi, et que gardes-tu de beau ? Écris une phrase qui commence par « Désormais, en amour… »."
-      ],
+      "Retrouve une photo de toi enfant. Pose-la dans un endroit où tu la vois chaque jour cette semaine.",
+      "Remplis « Les attentes posées sur moi » pour une première attente. Une ligne par question suffit.",
+      "Écris ton ancien contrat : « Contrat de naissance. On attendait de moi que… ». Trois ou quatre lignes suffisent.",
+      "Écris ton contrat : « Mon contrat avec la vie. Je choisis… Je m’autorise… ». Signe-le de ton prénom.",
+      "Vis ton protocole : les deux contrats, l’accueil de l’enfant, l’enveloppe « À leur histoire ».",
+      "Fais le rituel du prénom retrouvé, au calme. Garde la feuille avec ton contrat.",
+      "Regard sur ta semaine : que dit ton contrat, en une phrase ? Écris-la, et lis-la à voix haute."
+    ],
       exercices: [
-        { k: "plus3", titre: "Ce que j’arrête d’attendre", type: "questions",
-          consigne: "Un schéma amoureux s’accompagne souvent d’une longue attente : qu’on te choisisse enfin, qu’on te rende ce que tu donnes, qu’on devine ce dont tu as besoin. Réponds à ces trois questions pour déposer une attente qui te fatigue, et voir ce que tu peux t’offrir à la place.",
-          pourquoi: "Attendre ce qui ne vient pas garde le cœur en suspens. Nommer une attente et choisir de la déposer ne veut pas dire renoncer à l’amour : c’est reprendre la part que tu peux te donner toi-même, comme t’y invite ton carnet « J’avance » ce mois-ci.",
+        { k: "plus3-feb", titre: "Ce que l’enfant attendait d’entendre", type: "questions",
+          consigne: "Pendant ton protocole, tu as accueilli l’enfant que tu étais. Réponds à ces trois questions pour prolonger cet accueil, et voir ce que tu peux t’offrir aujourd’hui.",
+          pourquoi: "L’enfant que tu étais attendait parfois des mots simples : « tu as ta place », « tu es aimé·e tel·le que tu es ». Te les offrir aujourd’hui, comme t’y invite ton carnet « J’avance » ce mois-ci, rend ton contrat avec la vie plus solide.",
           questions: [
-            { k: "plus3-a", q: "Qu’attends-tu depuis longtemps en amour, et de qui ?", ph: "Exemple : que mon compagnon devine quand je suis triste, comme j’attendais enfant que mon père remarque mes efforts.", lignes: 2 },
-            { k: "plus3-b", q: "De quel couple ou de quelle histoire de ta lignée cette attente te semble-t-elle venir ?", ph: "Exemple : ma mère a attendu toute sa vie que mon père rentre plus tôt. J’ai appris à attendre en silence, comme elle.", lignes: 2 },
-            { k: "plus3-c", q: "Quelle attente choisis-tu de déposer, et que peux-tu t’offrir toi-même à la place ?", ph: "Exemple : je dépose l’attente d’être devinée. Je m’offre le droit de dire « je suis triste, j’ai besoin d’un câlin ».", lignes: 2 }
+            { k: "plus3-feb-a", q: "Qu’avait besoin d’entendre l’enfant que tu étais ?", ph: "Exemple : « Tu peux être toi, même si tu es différente de ta grand-mère. »", lignes: 2 },
+            { k: "plus3-feb-b", q: "Qu’as-tu ressenti en lui disant « Bienvenue, tu as ta place » ?", ph: "Exemple : une grande douceur dans la poitrine, et l’envie de prendre la photo dans mes mains.", lignes: 2 },
+            { k: "plus3-feb-c", q: "Quel geste tendre peux-tu t’offrir cette semaine, au nom de cet enfant ?", ph: "Exemple : une après-midi de dessin, comme quand j’avais 8 ans, avec un chocolat chaud.", lignes: 2 }
           ] }
       ] },
     { jours: [
-        "Écris la première phrase de ta lettre : « Cher amour que je veux vivre… ». Ajoute seulement trois lignes aujourd’hui, sans chercher les mots parfaits.",
-        "Choisis ton geste d’amour différent et écris-le sur un petit papier. Garde-le dans ta poche ou dans ton téléphone pour toute la semaine.",
-        "Quand ta vieille réaction amoureuse arrive aujourd’hui, fais la respiration 5, 2, 7 trois fois avant de répondre. Note ce que tu as dit ensuite.",
-        "Pose ton geste une fois, même maladroitement : une demande claire, un « j’ai été déçu·e », une limite douce. Le soir, note ce qui a changé.",
-        "Offre-toi aujourd’hui un geste que tu attends souvent des autres : une fleur, un bon dîner, une sortie. L’amour que tu veux vivre commence aussi par toi.",
-        "Termine ta lettre par ta phrase « Je m’autorise à… ». Lis-la à voix haute une fois, puis range-la avec ton fil dénoué.",
-        "Regarde ta semaine : combien de fois as-tu posé ton geste, et qu’est-ce qui a bougé en toi ? Note la scène qui t’a donné le plus de fierté."
-      ] }
+      "Entraîne-toi à la première pause : inspire sur 5, retiens 2 secondes, expire sur 7. Puis dis : « Je porte ce prénom à ma façon. »",
+      "Écris ton prénom en grand sur ton arbre de vie, avec la phrase « Mon prénom m’invite à vivre… ».",
+      "Pose aujourd’hui un petit geste qui va avec ton contrat. Le soir, note quand, comment, et ce que tu as ressenti.",
+      "Présente-toi aujourd’hui avec le prénom que tu préfères, au travail, au téléphone ou en signant un message.",
+      "Écris la première phrase de ta lettre : « Cher prénom que je porte… ». Puis une chose que tu aimes chez lui.",
+      "Relis ton contrat le matin, et choisis la phrase qui t’accompagne aujourd’hui.",
+      "Regard sur ta semaine : comment as-tu porté ton prénom autrement ? Note un moment, et ce que tu as ressenti."
+    ] }
   ]
 };

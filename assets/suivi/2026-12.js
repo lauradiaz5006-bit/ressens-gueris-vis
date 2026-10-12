@@ -262,6 +262,12 @@ window.GENESOLIA_CARNET = {
     { lien: 'conflits-avec-ses-parents.html', titre: "Les liens qui pèsent avec ses parents", resume: "Ce qui se joue dans les tensions avec tes parents, et des pistes pour garder l’amour en trouvant ta place d’adulte." }
   ],
 
+  lectures: [
+    { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et les limites de ces repères." },
+    { lien: 'filles-garcons-fratrie.html', titre: "Fille ou garçon attendu", resume: "Ce que racontent les fratries d’une famille, et comment une attente ancienne peut colorer une place." },
+    { lien: 'conflits-avec-ses-parents.html', titre: "Les liens qui pèsent avec ses parents", resume: "Ce qui se joue dans les tensions avec tes parents, et des pistes pour garder l’amour en trouvant ta place d’adulte." }
+  ],
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-place-vue-dec', q: "Quelle place ou quel rôle as-tu repéré ce mois-ci ?", ph: "Exemple : celle qui organise tout, comme ma mère et ma grand-mère avant moi." },
@@ -277,7 +283,7 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
     { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
     { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et écrire à l’une d’elles.", image: 'assets/cartes/faire-semblant-mini.jpg' }
   ]

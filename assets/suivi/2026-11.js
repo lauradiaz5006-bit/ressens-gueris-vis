@@ -256,6 +256,12 @@ window.GENESOLIA_CARNET = {
     { lien: 'toussaint-ancetres-et-deuils.html', titre: "Honorer tes ancêtres en novembre", resume: "Allumer une bougie, nommer celles et ceux d’avant toi, et remercier pour la vie transmise, en douceur." }
   ],
 
+  lectures: [
+    { lien: 'heriter.html', titre: "Ce que tu portes commence parfois avant toi", resume: "L’héritage visible et l’héritage invisible : ce qui se transmet dans une famille, et comment choisir ce que tu gardes." },
+    { lien: 'loyaute-familiale-invisible.html', titre: "La loyauté familiale invisible", resume: "Ces fidélités discrètes envers la lignée : des exemples concrets pour les reconnaître, garder le lien et choisir ta vie." },
+    { lien: 'toussaint-ancetres-et-deuils.html', titre: "Honorer tes ancêtres en novembre", resume: "Allumer une bougie, nommer celles et ceux d’avant toi, et remercier pour la vie transmise, en douceur." }
+  ],
+
   bilanTitre: 'Ce que ce mois a libéré',
   bilan: [
     { k: 'fin-dons-nov', q: "Quels dons de ta lignée as-tu reconnus ce mois-ci ?", ph: "Exemple : le courage de ma grand-mère, les mains habiles de mon grand-père, le goût de recevoir." },
@@ -272,7 +278,7 @@ window.GENESOLIA_CARNET = {
 
   aVenir: [
     { mois: 'Décembre', titre: "Quelle est ma place ?", texte: "Regarder ta place dans la fratrie et dans ta famille, alléger les liens qui pèsent en gardant l’amour, et trouver ta juste place.", image: 'assets/cartes/aimer-et-choisir-mini.jpg' },
-    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
     { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' }
   ]
 };
