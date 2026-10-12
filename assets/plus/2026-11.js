@@ -88,7 +88,7 @@ window.GENESOLIA_PLUS = {
         texte: [
           "Rendre un poids à ta lignée, c’est garder le lien. Tu regardes tes ancêtres en face, avec leurs forces et leurs peines, et tu redonnes à chacun·e sa juste place. Une peur de manquer née d’années difficiles, une habitude de tout porter, une phrase dure : tu les as peut-être portées par amour, et tu peux aujourd’hui les rendre avec le même amour.",
           "Ton protocole suit un ordre précis. D’abord, tu reconnais ce que tu gardes : ta table des dons et tes trois personnes t’y aident. Ensuite seulement, tu écris ta lettre et tu rends le poids choisi, par le feu ou en déchirant la feuille. Enfin, tu honores ta lignée pour la vie transmise. Par exemple, Thomas reconnaît d’abord l’endurance de son arrière-grand-père, mineur dans le Nord. Puis, dans sa lettre, il lui rend l’idée qu’il faut s’épuiser pour mériter. Il garde la force, il pose le poids.",
-          "Ta séance de libération du mois accompagne cette semaine. Sur un chemin de novembre, tu sens derrière toi la longue file de ta lignée, tu reçois ce qu’elle te tend, et tu déposes ce qui lui appartient. Si une émotion monte, elle a sa place : fais une pause, et reprends quand tu veux."
+          "Ta séance de libération du mois accompagne cette semaine. Sur un chemin, dans une lumière douce, tu sens derrière toi la longue file de ta lignée, tu reçois ce qu’elle te tend, et tu déposes ce qui lui appartient. Si une émotion monte, elle a sa place : fais une pause, et reprends quand tu veux."
         ]
       },
       jours: [
@@ -97,7 +97,7 @@ window.GENESOLIA_PLUS = {
       "Écris la première partie de ta lettre : « J’ai porté pendant longtemps… ». Quelques lignes suffisent.",
       "Écris la deuxième partie : « Je comprends que cela vient peut-être de… », puis « Tu faisais avec ce que tu avais. »",
       "Écris la dernière partie : « Je te rends… et je garde ton… ». Lis ta lettre une fois, à voix basse.",
-      "Vis ton protocole : la lettre, le feu ou la feuille déchirée, puis le moment pour honorer ta lignée. Après, sors marcher cinq minutes dans l’air de novembre.",
+      "Vis ton protocole : la lettre, le feu ou la feuille déchirée, puis le moment pour honorer ta lignée. Après, sors marcher cinq minutes au grand air.",
       "Regard sur ta semaine : qu’as-tu gardé de ta lignée, et qu’as-tu rendu ? Une ligne pour chacun suffit."
     ] },
     { jours: [
@@ -111,11 +111,11 @@ window.GENESOLIA_PLUS = {
     ],
       exercices: [
         { k: "plus4-nov", titre: "Garder le don vivant", type: "questions",
-          consigne: "Tu as choisi un don de ta lignée et tu l’as fait vivre cette semaine. Pour qu’il continue de circuler après novembre, réponds à ces trois questions, simplement.",
+          consigne: "Tu as choisi un don de ta lignée et tu l’as fait vivre cette semaine. Pour qu’il continue de circuler après cette étape, réponds à ces trois questions, simplement.",
           pourquoi: "Un don reçu devient vraiment le tien quand il a sa place dans ton quotidien, et quand quelqu’un autour de toi le reconnaît. Tu passes de la loyauté discrète au choix conscient.",
           questions: [
-            { k: "plus4-nov-a", q: "À quel moment régulier de ta vie vas-tu faire vivre ce don, après ce mois-ci ?", ph: "Exemple : le premier dimanche de chaque mois, je cuisine une recette de ma grand-mère Jeanne.", lignes: 2 },
-            { k: "plus4-nov-b", q: "Qu’est-ce que tu choisis de garder de ce mois passé avec ta lignée ?", ph: "Exemple : ma table des dons, que je laisse en place jusqu’à Noël, et la légèreté après ma lettre.", lignes: 2 },
+            { k: "plus4-nov-a", q: "À quel moment régulier de ta vie vas-tu faire vivre ce don, après cette étape ?", ph: "Exemple : le premier dimanche de chaque mois, je cuisine une recette de ma grand-mère Jeanne.", lignes: 2 },
+            { k: "plus4-nov-b", q: "Qu’est-ce que tu choisis de garder de cette étape passée avec ta lignée ?", ph: "Exemple : ma table des dons, que je laisse en place quelques semaines, et la légèreté après ma lettre.", lignes: 2 },
             { k: "plus4-nov-c", q: "À qui aimerais-tu transmettre ce don, à ton tour ?", ph: "Exemple : à ma fille, à qui je vais apprendre la recette, et à mon neveu, qui adore bricoler.", lignes: 2 }
           ] }
       ] }

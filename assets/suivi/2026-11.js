@@ -53,14 +53,14 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "Ce que ta lignée t’a transmis",
     texte: [
-      "Novembre est le mois où l’on pense à celles et ceux qui sont venus avant nous. Les jours raccourcissent, beaucoup de familles allument une bougie et se souviennent. C’est un beau moment pour te poser une question simple : qu’est-ce que j’ai reçu ? Ta lignée t’a transmis la vie, et avec elle des talents, des gestes, des recettes, des valeurs. Elle t’a peut-être aussi confié des peurs, des habitudes ou des phrases plus lourdes à porter.",
-      "Cette année, ton suivi suit le fil de **ton arbre de vie** : de la peur héritée à la vie choisie. En automne, tu poses les **racines** : en octobre, les prénoms de ta lignée ; ce mois-ci, les dons que tu as reçus ; en décembre, ta juste place. Tu regardes ton héritage avec tendresse et lucidité, pour garder le meilleur et choisir ce que tu fais du reste."
+      "Il arrive toujours un moment où l’on pense à celles et ceux qui sont venus avant nous : une photo retrouvée, une recette refaite, un geste qui ressemble à celui d’une grand-mère. C’est un beau moment pour te poser une question simple : qu’est-ce que j’ai reçu ? Ta lignée t’a transmis la vie, et avec elle des talents, des gestes, des recettes, des valeurs. Elle t’a peut-être aussi confié des peurs, des habitudes ou des phrases plus lourdes à porter.",
+      "Ton suivi suit le fil de **ton arbre de vie** : de la peur héritée à la vie choisie. Les trois premières étapes posent les **racines** : à l’étape 1, les prénoms de ta lignée ; à cette étape 2, les dons que tu as reçus ; à l’étape 3, ta juste place. Tu regardes ton héritage avec tendresse et lucidité, pour garder le meilleur et choisir ce que tu fais du reste."
     ],
     sousTitre: "Les dons et les poids",
     texte2: [
       "En psychogénéalogie, on parle souvent d’un double héritage. L’héritage visible se voit et se raconte : un savoir-faire, une recette, un objet, une façon de recevoir les amis, un goût pour la musique ou le jardin. L’héritage invisible se sent plus qu’il se dit : une peur de manquer, une habitude de tout porter, une phrase qui revient, une loyauté discrète envers quelqu’un d’avant.",
       "Les deux arrivent souvent ensemble. La grand-mère qui t’a transmis son courage t’a peut-être aussi transmis sa façon de serrer les dents. Le père qui t’a appris à bien travailler t’a peut-être aussi appris à t’oublier. Reconnaître un poids reste une piste, une hypothèse à regarder avec douceur : tu gardes ce qui te parle. Pour aller plus loin : [ce que tu portes commence parfois avant toi](heriter.html).",
-      "Ce mois-ci, tu vas **voir** les dons de ta lignée, **comprendre** d’où viennent tes poids en rangeant chaque information dans son tiroir, **rendre** symboliquement un poids avec ton protocole du mois, et **faire vivre** un don reçu, chaque jour, dans ta vie."
+      "Pendant cette étape, tu vas **explorer** les dons de ta lignée, **comprendre** d’où viennent tes poids en rangeant chaque information dans son tiroir, **transformer** en rendant symboliquement un poids avec ton protocole, puis **intégrer** : poser tes feuilles dorées sur ton arbre de vie et faire vivre un don reçu, chaque jour."
     ],
     exemplesTitre: "Les dons et les poids, au quotidien",
     exemples: [
@@ -75,7 +75,7 @@ window.GENESOLIA_CARNET = {
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Les dons de ta lignée",
+    { cle: 'voir', nom: 'Explorer', etape: 'Explorer', titre: "Les dons de ta lignée",
       intro: "Cette semaine, tu poses sur la table ce que ta lignée t’a donné de bon. Tu explores, tu listes, tu remarques ce que ça te fait. Les poids viendront la semaine prochaine : pour l’instant, tu remplis tes réserves.",
       texte: "Commence par l’inventaire des dons, au calme, une vingtaine de minutes, avec des photos ou des objets de famille si tu en as. Puis, pendant la semaine, remarque chaque fois que tu utilises un don reçu.",
       exercices: [
@@ -98,7 +98,7 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Un don peut être tout petit : une façon de plier le linge, un mot doux, une chanson. Si tu connais peu ta famille, les dons reçus d’autres adultes comptent aussi. Si une émotion monte, pose ton stylo, respire, et reviens-y demain : la liste peut se remplir au fil du mois." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "Les poids et leurs histoires",
+    { cle: 'source', nom: 'Comprendre', etape: 'Comprendre', titre: "Les poids et leurs histoires",
       intro: "Cette semaine, tu regardes aussi ce qui pèse : une peur, une habitude, une phrase dure. Tu remontes doucement le fil, tu écoutes les récits, et tu ranges chaque information dans son tiroir. Tu gardes tes conclusions ouvertes.",
       texte: [
         "Pour chaque information sur ta lignée, demande-toi dans quel tiroir elle va. **Ce que je sais** : un fait, une date, un métier, un lieu. **Ce qu’on m’a raconté** : un récit, avec les mots et le regard de la personne qui raconte. **Ce que je suppose** : une piste, une ressemblance, une intuition. Les trois tiroirs ont de la valeur, et chacun garde sa place.",
@@ -126,7 +126,7 @@ window.GENESOLIA_CARNET = {
       ],
       conseil: "Ajoute dans [ton arbre familial](genosociogramme.html) les dons et les métiers que tu retrouves, même avec très peu d’informations. Si une question réveille une peine chez la personne que tu interroges, remercie-la avec douceur et laisse la porte ouverte pour un autre jour." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Rendre un poids, honorer ta lignée",
+    { cle: 'liberer', nom: 'Transformer', etape: 'Transformer', titre: "Rendre un poids, honorer ta lignée",
       intro: "Cette semaine, tu vis ton protocole du mois. Tu reconnais d’abord les dons que tu gardes, puis tu écris ta lettre, tu rends symboliquement le poids choisi, et tu honores ta lignée pour la vie transmise.",
       exercices: [
         { k: 'garde-nov', titre: "Ce que je garde, ce que je rends", type: 'blocs', nb: 3,
@@ -162,7 +162,7 @@ window.GENESOLIA_CARNET = {
       },
       conseil: "Le feu est une possibilité parmi d’autres : déchirer la lettre, l’enterrer ou la garder dans une enveloppe sont des gestes tout aussi forts. Si une émotion monte, fais une pause, bois un verre d’eau, sors marcher. Tu peux vivre le protocole en deux fois." },
 
-    { cle: 'remplacer', nom: 'Recevoir', etape: 'Remplacer', titre: "Faire vivre un don reçu",
+    { cle: 'remplacer', nom: 'Intégrer', etape: 'Intégrer', titre: "Faire vivre un don reçu",
       intro: "Tu as vu tes dons, compris tes poids, rendu celui que tu avais choisi. Cette semaine, tu intègres : tu poses tes feuilles dorées sur ton arbre de vie, et tu fais vivre un don reçu, exprès, chaque jour.",
       texte: [
         "**La première pause.** Quand un vieux poids se présente (tout porter, tout compter, serrer les dents), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Puis dis intérieurement : « Je te reconnais. Tu appartiens à leur histoire. Moi, je choisis le don qu’ils m’ont confié. »",
@@ -198,7 +198,7 @@ window.GENESOLIA_CARNET = {
       "Retourne-toi vers le chemin devant toi. Il est ouvert. Fais quelques pas, plus léger·e, avec dans les mains ce que tu as reçu.",
       "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un soir tranquille, où personne ne te dérangera pendant dix minutes. Si une personne disparue te touche trop fort pendant la séance, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    conseil: "Choisis un moment tranquille, avec dix minutes de calme pour toi. Si une personne disparue te touche fort pendant la séance, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Une silhouette, un objet reçu, un mot, une sensation…", ph: "Exemple : une femme en tablier s’est avancée et m’a tendu une clé. J’ai senti mes épaules se relâcher en déposant mon sac." }
   },
 
@@ -247,19 +247,7 @@ window.GENESOLIA_CARNET = {
   lectures: [
     { lien: 'heriter.html', titre: "Ce que tu portes commence parfois avant toi", resume: "L’héritage visible et l’héritage invisible : ce qui se transmet dans une famille, et comment choisir ce que tu gardes." },
     { lien: 'loyaute-familiale-invisible.html', titre: "La loyauté familiale invisible", resume: "Ces fidélités discrètes envers la lignée : des exemples concrets pour les reconnaître, garder le lien et choisir ta vie." },
-    { lien: 'toussaint-ancetres-et-deuils.html', titre: "Honorer tes ancêtres en novembre", resume: "Allumer une bougie, nommer celles et ceux d’avant toi, et remercier pour la vie transmise, en douceur." }
-  ],
-
-  lectures: [
-    { lien: 'heriter.html', titre: "Ce que tu portes commence parfois avant toi", resume: "L’héritage visible et l’héritage invisible : ce qui se transmet dans une famille, et comment choisir ce que tu gardes." },
-    { lien: 'loyaute-familiale-invisible.html', titre: "La loyauté familiale invisible", resume: "Ces fidélités discrètes envers la lignée : des exemples concrets pour les reconnaître, garder le lien et choisir ta vie." },
-    { lien: 'toussaint-ancetres-et-deuils.html', titre: "Honorer tes ancêtres en novembre", resume: "Allumer une bougie, nommer celles et ceux d’avant toi, et remercier pour la vie transmise, en douceur." }
-  ],
-
-  lectures: [
-    { lien: 'heriter.html', titre: "Ce que tu portes commence parfois avant toi", resume: "L’héritage visible et l’héritage invisible : ce qui se transmet dans une famille, et comment choisir ce que tu gardes." },
-    { lien: 'loyaute-familiale-invisible.html', titre: "La loyauté familiale invisible", resume: "Ces fidélités discrètes envers la lignée : des exemples concrets pour les reconnaître, garder le lien et choisir ta vie." },
-    { lien: 'toussaint-ancetres-et-deuils.html', titre: "Honorer tes ancêtres en novembre", resume: "Allumer une bougie, nommer celles et ceux d’avant toi, et remercier pour la vie transmise, en douceur." }
+    { lien: 'metiers-transmis-genealogie.html', titre: "Les métiers et les savoir-faire transmis", resume: "Ce qui passe d’une génération à l’autre par les mains, les gestes et les métiers, et ce que tu choisis d’en faire vivre." }
   ],
 
   bilanTitre: 'Ce que ce mois a libéré',
@@ -268,7 +256,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-poids-nov', q: "Quel poids as-tu rendu, et dans quel tiroir l’avais-tu rangé ?", ph: "Exemple : l’habitude de tout porter seule. C’était une piste, et elle m’a beaucoup parlé." },
     { k: 'fin-depuis-nov', q: "Qu’est-ce que tu ressens depuis ton protocole ?", ph: "Exemple : plus de légèreté quand je demande de l’aide, et beaucoup de tendresse pour mamie." },
     { k: 'fin-vivre-nov', q: "Quel don fais-tu vivre désormais, et comment ?", ph: "Exemple : la couture de ma grand-mère. Je répare, je transforme, et j’apprends à ma fille." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en décembre ?", ph: "Exemple : trouver ma juste place pendant les fêtes de famille.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à l’étape suivante, autour de ta place ?", ph: "Exemple : trouver ma juste place dans ma famille, à côté de ma sœur.", court: true }
   ],
 
   carnet: {
@@ -277,8 +265,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Décembre', titre: "Quelle est ma place ?", texte: "Regarder ta place dans la fratrie et dans ta famille, alléger les liens qui pèsent en gardant l’amour, et trouver ta juste place.", image: 'assets/cartes/aimer-et-choisir-mini.jpg' },
-    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
-    { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' }
+    { mois: 'Étape 3 · Racines', titre: "Quelle est ma place ?", texte: "Regarder ta place dans la fratrie et dans ta famille, alléger les liens qui pèsent en gardant l’amour, et trouver ta juste place.", image: 'assets/cartes/aimer-et-choisir-mini.jpg' },
+    { mois: 'Étape 4 · Tronc', titre: "Quelle peur je porte, et pour qui ?", texte: "Repérer tes périodes sensibles et les dates de ta lignée, faire la part des choses, et rendre la part de peur qui appartient à l’histoire familiale.", image: 'assets/cartes/apprendre-mini.jpg' },
+    { mois: 'Étape 5 · Tronc', titre: "Quel projet a-t-on posé sur moi ?", texte: "Découvrir l’histoire de ton prénom et les attentes posées sur toi, puis écrire ton propre contrat avec la vie.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' }
   ]
 };
