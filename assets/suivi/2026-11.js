@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Novembre t’invite à écouter, à ton rythme.",
+    saison: "Prends un moment pour respirer avec ta saison. Avance à ton rythme.",
     theme: "Lis cette page comme une lettre. Si un don ou un prénom te vient en lisant, note-le quelque part : il compte.",
     voir: "Cette semaine, tu fais l’inventaire des dons. Un geste, une recette, une phrase douce : chaque petite chose a sa place.",
     source: "Cette semaine, tu regardes aussi les poids, avec curiosité. Range chaque information dans son tiroir, et garde tes conclusions ouvertes.",

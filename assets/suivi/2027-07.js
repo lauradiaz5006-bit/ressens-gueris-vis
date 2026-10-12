@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Respire avec le plein soleil. Ce mois-ci, tu regardes un sujet souvent tabou : avance à l’ombre, à ton rythme.",
+    saison: "Prends un moment pour respirer avec ta saison. Ce mois-ci, tu regardes un sujet souvent tabou : avance à ton rythme.",
     theme: "Lis cette page sans te juger sur ton compte en banque. On parle ici d’histoire et de valeur, pas de chiffres.",
     voir: "Cette semaine, tu écoutes. Les phrases sur l’argent sont partout : à table, dans ta tête, dans tes réflexes.",
     source: "Derrière chaque peur d’argent, il y a souvent une histoire. Écris ce que tu sais, même un fragment.",

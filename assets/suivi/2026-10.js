@@ -198,6 +198,8 @@ window.GENESOLIA_CARNET = {
   coeur: {
     /* Le sujet du mois, proposé au début du suivi (la personne peut aussi garder sa cible ou en écrire une autre) */
     sujetCoeur: 'Ce que je crois mériter en amour',
+    /* Étape 1 : pas de choix « Pour ce mois, tu choisis… » ; le besoin de libération vient du point de départ (encadré en haut du suivi) */
+    sansChoix: true,
     /* Ton personnage prend une forme nouvelle chaque mois (dessin, objets, lettre, dialogue…), avec la même trame */
     personnageAngle: { titre: 'Ce mois-ci, ton personnage prend forme par le dessin',
       texte: [
@@ -207,7 +209,7 @@ window.GENESOLIA_CARNET = {
       ] },
     /* Les exercices propres au mois, à faire seul·e (1 ou 2 au plus) : rangés dans la semaine indiquée */
     exercicesDuMois: [
-    { k: 'liberer-lettre', semaine: 3, titre: 'La lettre de restitution', type: 'questions',
+    { k: 'liberer-lettre', semaine: 2, titre: 'La lettre de restitution', type: 'questions',
       consigne: "Écris quelques lignes à la personne de ta famille qui portait cette phrase ou cette boucle avant toi. Tu ne l’enverras pas. Remercie-la pour ce que cette façon de faire lui a permis de traverser, puis rends-lui, avec respect, ce qui ne t’appartient pas.",
       pourquoi: "On ne se libère pas d’une loyauté en la rejetant, mais en la reconnaissant. Remercier, puis rendre, permet de garder l’amour et de laisser le poids.",
       questions: [
@@ -217,9 +219,9 @@ window.GENESOLIA_CARNET = {
     ],
     /* « Si tu as peu de temps cette semaine » : trois gestes essentiels par semaine */
     peuDeTemps: [
-      ["Écris ta cible du cœur en une phrase.", "Réponds au a. : ce que tu ressens en ce moment dans ton cœur, sur ta cible.", "Pose ta demande de libération (f.), puis note un signe par jour."],
+      ["Écris ton besoin de libération en une phrase.", "Réponds au a. : ce que tu ressens en ce moment dans tes relations et ta façon d’aimer.", "Pose ta demande de libération (f.), puis note un signe par jour."],
       ["Remplis une seule scène de « Ma boucle, trois fois » : la plus récente.", "Dessine ton personnage, même en deux minutes.", "Pose-lui une question : « Pourquoi es-tu là ? », et note sa réponse."],
-      ["Attrape une phrase qui tourne et écris la phrase plus juste que tu choisis.", "Dis à ton personnage la phrase de « Laisser partir », à voix haute si tu peux.", "Écoute ta séance de libération du mois, une fois."],
+      ["Attrape une phrase qui tourne et écris la phrase plus juste que tu choisis.", "Dis à ton personnage la phrase de « Laisser partir », à voix haute si tu peux.", "Lis ta méditation du mois, une fois."],
       ["Choisis ton geste différent et écris-le.", "Essaie-le une fois, et note ce qui a changé.", "Place ton curseur : où en est ta question du cœur aujourd’hui ?"]
     ],
     angle: "Ce mois-ci, ta lignée t’éclaire par ce qui revient : les boucles qui se rejouent d’une génération à l’autre.",
@@ -227,10 +229,10 @@ window.GENESOLIA_CARNET = {
     motQ: "En un mot, comment te sens-tu face à ta question du cœur ?",
     souhaitQ: "Qu’aimerais-tu libérer dans ta façon d’aimer ce mois-ci ?",
     souhaitPh: "Exemple : cette peur d’être de trop, qui me fait tout donner pour être choisie.",
-    ex1Consigne: "Choisis une situation liée à ta cible du cœur, qui revient dans ta vie. Note trois fois où tu l'as vécue, la plus ancienne en premier. Pour chacune, écris quand c'était et avec qui, ce qui s'est passé, puis ce que tu as ressenti et ce que tu as fait.",
+    ex1Consigne: "Choisis une situation liée à ton besoin de libération, qui revient dans ta vie. Note trois fois où tu l'as vécue, la plus ancienne en premier. Pour chacune, écris quand c'était et avec qui, ce qui s'est passé, puis ce que tu as ressenti et ce que tu as fait.",
     traverse: { titre: 'Ce qui me traverse',
-      intro: "Prends d’abord une feuille et un stylo. Écrire à la main laisse venir ce que la tête ne dit pas. Puis reporte ici l’essentiel, étape par étape, toujours sur ta cible du cœur. Prends ton temps : tu peux le faire en plusieurs fois dans la semaine.",
-      ressens: { k: 'traverse-ressens', q: 'a. Ce que je ressens en ce moment dans mon cœur, sur ma cible', ph: 'Exemple : une boule dans la gorge dès qu’il ne répond pas, la peur qu’il me quitte, une grande fatigue d’attendre.' },
+      intro: "Prends d’abord une feuille et un stylo. Écrire à la main laisse venir ce que la tête ne dit pas. Puis reporte ici l’essentiel, étape par étape, toujours sur ton besoin de libération. Prends ton temps : tu peux le faire en plusieurs fois dans la semaine.",
+      ressens: { k: 'traverse-ressens', q: 'a. Ce que je ressens en ce moment dans mes relations et ma façon d’aimer', ph: 'Exemple : une boule dans la gorge dès qu’il ne répond pas, la peur qu’il me quitte, une grande fatigue d’attendre.' },
       fil: [
         { k: 'traverse-derniere', q: 'b. Quand l’as-tu ressenti pour la dernière fois ? À quel moment ?', ph: 'Exemple : samedi soir, quand il est sorti avec ses amis sans me dire à quelle heure il rentrerait.' },
         { k: 'traverse-avant', q: 'Et avant ?', ph: 'Exemple : avec mon ex, chaque fois qu’il partait en déplacement.' },
@@ -251,7 +253,7 @@ window.GENESOLIA_CARNET = {
     personnage: { titre: 'Mon personnage',
       intro: "Cette semaine, tu regardes ta douleur de l’extérieur, comme un personnage à côté de toi. Ce n’est pas toi : c’est une part qui s’est installée pour une raison. Ici, tu fais seulement connaissance avec elle. La libération viendra la semaine prochaine.",
       etapes: [
-        "Ferme les yeux et pense à ta cible du cœur. Laisse venir l’image de cette douleur comme un personnage qui se tiendrait près de toi.",
+        "Ferme les yeux et pense à ton besoin de libération. Laisse venir l’image de cette douleur comme un personnage qui se tiendrait près de toi.",
         "Donne-lui une forme, une couleur, une taille. Une boule, un animal, une silhouette, un nuage : ce qui vient est juste.",
         "Sur une feuille, dessine-toi, puis dessine ton personnage. Regarde où il se place : devant toi, derrière, sur tes épaules, collé à toi, loin.",
         "Pose-lui des questions, et écris ce qui vient : « Pourquoi es-tu là ? Que crois-tu protéger ? »",
@@ -334,7 +336,7 @@ window.GENESOLIA_CARNET = {
         { nom: 'L’amour que tu te portes', texte: 'Un objet qui te représente avec tendresse : une photo de toi enfant, un bijou que tu aimes, un mot doux écrit pour toi.' }
       ],
       ouverture: "« J’ouvre cet espace pour moi. J’honore l’être de la création que je suis, et je laisse l’amour que je mérite venir jusqu’à moi. »",
-      entretien: ['Chaque semaine, allume une bougie quelques minutes et relis ta cible du cœur.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
+      entretien: ['Chaque semaine, allume une bougie quelques minutes et relis ton besoin de libération.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
       cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose les feuilles, les glands et la branche au pied d’un arbre. Garde la pierre en forme de cœur si tu le souhaites, ou offre-la à la terre."
     },
     autelPrompt: "Illustration peinte douce, entre aquarelle et peinture numérique, format carré : un petit autel d’automne posé sur une table en bois, feuilles rousses et dorées, glands, bâtons de cannelle, une pomme rouge, trois bougies ambre allumées, une petite pierre en forme de cœur ; lumière chaude de fin d’après-midi, palette prune, vieux rose, or champagne et crème ; aucun texte, aucune personne."

@@ -89,7 +89,7 @@ window.GENESOLIA_PLUS = {
       "Aujourd’hui, écoute ta petite voix intérieure. Dès qu’une phrase toute faite revient (« il faut », « je dois », « de toute façon »), note-la mot pour mot.",
       "Prends la phrase qui revient le plus et demande-toi à voix basse : « Qui disait ça, chez nous ? » Écris le prénom qui vient, sans juger.",
       "Entraîne-toi à la main suspendue au calme : lève la main, paume ouverte, respire trois fois en la regardant, puis pose-la sur ton cœur.",
-      "Écris le début de ta lettre de restitution : le prénom, puis une chose que tu reconnais dans le parcours de cette personne. Trois lignes suffisent.",
+      "Relis ta lettre de restitution, écrite en semaine 2, et ajoute une chose que tu reconnais dans le parcours de cette personne. Trois lignes suffisent.",
       "Utilise une fois la main suspendue dans la vraie vie, même discrètement, sous la table ou dans ta poche. Le soir, note ce qui s’est passé.",
       "Redis-toi ta phrase plus juste trois fois aujourd’hui, à voix haute si tu peux : au réveil, à midi, avant de dormir. Remarque ce qu’elle change en toi.",
       "Regard sur ta semaine : qu’as-tu rendu, et qu’est-ce qui te semble un peu plus léger depuis ? Une phrase, puis un merci pour toi."

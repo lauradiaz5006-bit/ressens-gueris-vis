@@ -1039,7 +1039,7 @@ window.GENESOLIA_IMPRESSION = {
         fetch(SB_BASE + '/rest/v1/acces_premium?select=offre,valide_jusqu', { headers: hd }).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
       ]).then(function (r) {
         var produits = {}; (r[0] || []).forEach(function (a) { produits[a.produit] = true; });
-        var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle') && new Date(a.valide_jusqu) > new Date(); });
+        var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle' || a.offre === 'admin') && new Date(a.valide_jusqu) > new Date(); });   /* 'admin' : la propriétaire (relecture), membre comme 'offert' */
         return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout };
       });
     });
@@ -1086,7 +1086,9 @@ window.GENESOLIA_IMPRESSION = {
      outils-internes/supabase-seances.sql et que moisDepuis() dans mes-seances.js). Étape en cours = min(mois, 12).
      Requête à part (la règle « membre » ci-dessus reste intacte) : en cas d'échec, null, et le suivi garde le calendrier.
      Promise<null | { mois, enCours, debloquees, fichier, debut, calendaire }> ; fichier = 'AAAA-MM' du suivi de l'étape ;
-     calendaire = vrai si ce fichier est celui du mois du calendrier (alors les dates restent celles du calendrier). */
+     calendaire = vrai si ce fichier est celui du mois du calendrier (alors les dates restent celles du calendrier).
+     Relecture de la propriétaire : si sa ligne acces_premium a offre = 'admin' (mise à la main dans le Table Editor), les 12 étapes sont débloquées (admin: true).
+     Aucune adresse dans le code : chaque compte ne lit que sa propre ligne (règle RLS « lire son acces »), donc rien ne s'ouvre pour les autres comptes. */
   var ETAPES_SUIVI = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09'];
   var monEtape = null;
   function etape() {
@@ -1106,7 +1108,8 @@ window.GENESOLIA_IMPRESSION = {
             mo = Math.max(0, mo) + 1;
             var e = Math.min(mo, 12), deb = new Date(d.getFullYear(), d.getMonth() + e - 1, d.getDate());
             var actuel = n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2), f = ETAPES_SUIVI[e - 1];
-            return { mois: mo, enCours: e, debloquees: e, fichier: f, calendaire: f === actuel,
+            var admin = a.offre === 'admin';
+            return { mois: mo, enCours: e, debloquees: admin ? 12 : e, admin: admin, fichier: f, calendaire: f === actuel,
               debut: deb.getFullYear() + '-' + ('0' + (deb.getMonth() + 1)).slice(-2) + '-' + ('0' + deb.getDate()).slice(-2) };
           });
       });

@@ -41,7 +41,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Respire avec l’automne. Ce mois-ci, tu boucles une année entière : prends le temps de sentir tout le chemin.",
+    saison: "Prends un moment pour respirer avec ta saison. Ce mois-ci, tu boucles une année entière : prends le temps de sentir tout le chemin.",
     theme: "Lis cette page avec curiosité. Un écho d’âge est une observation, jamais une prédiction.",
     voir: "Cette semaine, tu fais un peu de calcul, et beaucoup de tendresse. Entoure les échos, sans en tirer de conclusion.",
     source: "Certaines dates touchent des départs ou des disparitions. Va doucement, et arrête-toi dès que tu en as besoin.",
