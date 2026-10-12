@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de novembre 2026, « J'avance » : « Mes forces, mes appuis »
    Le carnet du mois est le côté « J'avance » du Cercle : reconnaître ses forces, ses ressources, ce sur quoi s'appuyer.
-   Le côté libération (« Ceux qui sont venus avant toi ») est dans Mon suivi (assets/suivi/2026-11.js).
+   Le côté libération (« Qu’est-ce que j’ai reçu ? ») est dans Mon suivi (assets/suivi/2026-11.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Reconnaître, rassembler, s’appuyer',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à retrouver tes forces dans ton histoire, le deuxième à rassembler tes appuis, le troisième à utiliser une force exprès, chaque jour. Tu peux commencer par celui qui t’attire le plus.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à retrouver tes forces dans ton histoire, le deuxième à rassembler tes appuis, le troisième à utiliser une force exprès, chaque jour. Tu peux commencer par celui qui t’attire le plus.",
   exercices: [
     { k: 'ex1', titre: 'Mes trois fiertés', type: 'tableau', rangs: 3,
       etiquettes: ['Quand j’étais enfant ou adolescent·e', 'Quand j’étais jeune adulte', 'Ces dernières années'],
@@ -416,7 +416,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ceux qui sont venus avant toi',
+    titre: "Qu’est-ce que j’ai reçu ?",
     texte: "Pendant que ton carnet t’aide à reconnaître tes forces, ton suivi t’invite à te tourner vers tes ancêtres : nommer les oubliés, recevoir ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas. Les forces que tu reçois là-bas deviennent des appuis ici."
   },
 

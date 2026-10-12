@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de mai 2027, « J'avance » : « La vie circule à travers moi »
-   Le carnet du mois est le côté « J'avance » du Cercle : retrouver ton rythme, te ressourcer, devenir pour toi-même une présence douce.
-   Le côté libération (« Ta mère, tes mères », la lignée des femmes) est dans Mon suivi (assets/suivi/2027-05.js).
+   Le carnet du mois est le côté « J'avance » du Cercle : sentir la vie circuler à travers toi, regarder tes parents avec des yeux neufs, choisir ta façon à toi.
+   Le côté libération (« Comment ai-je appris à aimer ? », la lignée des femmes) est dans Mon suivi (assets/suivi/2027-05.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -10,7 +10,7 @@ window.GENESOLIA_CARNET = {
   nomMois: 'mai 2027',
   moisSuivant: 'juin',
   titre: 'La vie circule à travers moi',
-  sousTitre: "Retrouver ton propre rythme, t'offrir ce qui te ressource, et apprendre à te parler avec la douceur que tu mérites.",
+  sousTitre: "Sentir la vie circuler à travers toi, regarder tes parents avec des yeux neufs, et choisir avec douceur ce que tu gardes de ce qu’ils t’ont transmis.",
   pdf: '',
   image: 'assets/cartes/me-le-donner.jpg',
   citation: "La douceur que tu attends des autres, tu peux commencer à te l'offrir aujourd'hui.",
@@ -51,10 +51,10 @@ window.GENESOLIA_CARNET = {
   },
 
   theme: {
-    titre: 'Le mois de la douceur envers soi',
+    titre: 'Le mois où la vie circule',
     texte: [
       "Mai déborde de vie. Les haies se couvrent de fleurs, les soirées s'allongent, les invitations se multiplient, et tout semble pousser plus vite qu'on ne peut le suivre. C'est un mois joyeux, et c'est souvent aussi un mois où l'on s'oublie un peu : on dit oui à tout, on remplit chaque soirée, on court d'un rendez-vous à l'autre, et l'on arrive au 31 un peu essoufflé·e.",
-      "Ce carnet t'invite à faire de la place pour toi au cœur de cette abondance. Pas en ajoutant une tâche de plus à ta liste, mais en apprenant à te regarder autrement : avec la patience, la tendresse et l'attention que tu offres si facilement aux autres. Ce mois-ci, la personne que tu choisis de chouchouter, c'est toi."
+      "Ce carnet t’invite à sentir cette vie qui circule aussi à travers toi. Elle vient de tes parents, de leurs parents avant eux, et elle continue avec toi. Ce mois-ci, tu regardes tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, et ce que tu choisis de garder, avec la tendresse que tu offres si facilement aux autres."
     ],
     sousTitre: 'Pourquoi apprendre à se materner ?',
     texte2: [
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Observer, adoucir, t’offrir',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce qui te ressource dans tes journées, le deuxième à faire grandir ta voix intérieure bienveillante, le troisième à installer un vrai rendez-vous de douceur avec toi. Commence par celui qui t’appelle.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce qui te ressource dans tes journées, le deuxième à faire grandir ta voix intérieure bienveillante, le troisième à installer un vrai rendez-vous de douceur avec toi. Commence par celui qui t’appelle.",
   exercices: [
     { k: 'ex1', titre: 'Ma carte de ressourcement', type: 'tableau', rangs: 3,
       etiquettes: ['Mes matins', 'Mes soirées', 'Mes week-ends'],
@@ -256,8 +256,8 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ta mère, tes mères',
-    texte: "Pendant que ton carnet t’apprend à te materner, ton suivi t’invite à regarder la lignée des femmes qui t’ont précédé·e : ce que tu as reçu de ta mère et de tes grands-mères, ce que tu gardes, et ce que tu choisis de laisser. Ce que tu comprends là-bas adoucit ta voix intérieure ici."
+    titre: "Comment ai-je appris à aimer ?",
+    texte: "Pendant que ton carnet t’aide à regarder tes parents avec des yeux neufs, ton suivi t’invite à regarder la lignée des femmes qui t’ont précédé·e : ce que tu as reçu de ta mère et de tes grands-mères, ce que tu gardes, et ce que tu choisis de laisser. Ce que tu comprends là-bas adoucit ta voix intérieure ici."
   },
 
   aVenir: [

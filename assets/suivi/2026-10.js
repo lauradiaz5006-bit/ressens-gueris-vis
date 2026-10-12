@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2026 : « Ce qui revient »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2026 : « Qui sont les miens ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2026-10-8b31e0c2a4.pdf',
   nomMois: 'octobre 2026',
   moisSuivant: 'novembre',
-  titre: 'Ce qui revient',
-  sousTitre: "Repérer la boucle qui se rejoue dans ta vie, voir d'où elle vient, et faire le premier pas pour en sortir.",
+  titre: "Qui sont les miens ?",
+  sousTitre: "Racines de ton arbre de vie · Repérer la boucle qui se rejoue dans ta vie, voir d'où elle vient, et faire le premier pas pour en sortir.",
   citation: "Ce qui revient n'est pas un échec : c'est une porte qui attend d'être ouverte.",
   audio: '',
   audioCourt: '',
@@ -364,8 +364,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Novembre', titre: 'Ceux qui sont venus avant toi', texte: "Honorer tes ancêtres, reconnaître ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas.", image: 'assets/cercle/apercu-2026-11.jpg' },
-    { mois: 'Décembre', titre: 'Les fêtes et les places à table', texte: "Observer qui s’assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.", image: 'assets/guide/guide-cadeau.webp' },
-    { mois: 'Janvier', titre: 'Ton prénom, ton héritage', texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' }
+    { mois: 'Novembre', titre: "Qu’est-ce que j’ai reçu ?", texte: "Honorer tes ancêtres, reconnaître ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas.", image: 'assets/cercle/apercu-2026-11.jpg' },
+    { mois: 'Décembre', titre: "Quelle est ma place ?", texte: "Observer qui s’assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.", image: 'assets/guide/guide-cadeau.webp' },
+    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };

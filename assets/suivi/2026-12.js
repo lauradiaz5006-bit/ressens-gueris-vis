@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de décembre 2026 : « Les fêtes et les places à table »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de décembre 2026 : « Quelle est ma place ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2026-12-ce7016469f.pdf',
   nomMois: 'décembre 2026',
   moisSuivant: 'janvier',
-  titre: 'Les fêtes et les places à table',
-  sousTitre: "Observer qui s'assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.",
+  titre: "Quelle est ma place ?",
+  sousTitre: "Racines de ton arbre de vie · Observer qui s'assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.",
   citation: "Autour de la table, chaque chaise raconte une histoire.",
   audio: '',
   audioCourt: '',
@@ -265,8 +265,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Janvier', titre: 'Ton prénom, ton héritage', texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' },
-    { mois: 'Février', titre: 'Le couple et les schémas amoureux', texte: "Voir ce qui se rejoue dans ta façon d’aimer, d’où ça vient, et choisir une relation vraie.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
-    { mois: 'Mars', titre: 'Ta place dans la fratrie', texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' }
+    { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' },
+    { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Voir ce qui se rejoue dans ta façon d’aimer, d’où ça vient, et choisir une relation vraie.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
+    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' }
   ]
 };

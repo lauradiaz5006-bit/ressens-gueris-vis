@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de février 2027, « J'avance » : « M'aimer d'abord »
    Le carnet du mois est le côté « J'avance » du Cercle : estime de soi, besoins, se traiter comme on traite ceux qu'on aime.
-   Le côté libération (« Le couple et les schémas amoureux ») est dans Mon suivi (assets/suivi/2027-02.js).
+   Le côté libération (« Quel projet a-t-on posé sur moi ? ») est dans Mon suivi (assets/suivi/2027-02.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: "Me voir, me comprendre, me choyer",
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à entendre comment tu te parles, le deuxième à nommer tes besoins essentiels, le troisième à t’offrir chaque jour une preuve d’amour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à entendre comment tu te parles, le deuxième à nommer tes besoins essentiels, le troisième à t’offrir chaque jour une preuve d’amour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: "Comme je parle à ceux que j’aime", type: 'tableau', rangs: 3,
       etiquettes: ['Quand je me trompe', 'Quand je suis fatigué·e', 'Quand je réussis quelque chose'],
@@ -242,12 +242,12 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Le couple et les schémas amoureux',
+    titre: "Quel projet a-t-on posé sur moi ?",
     texte: "Pendant que ton carnet t’aide à t’aimer d’abord, ton suivi t’invite à regarder les couples de ta lignée et ce qui se répète dans ta façon d’aimer. Plus tu te traites avec tendresse ici, plus tu peux choisir là-bas l’amour qui te ressemble."
   },
 
   aVenir: [
-    { mois: 'Mars', titre: 'Ma voix, ma confiance', texte: "Oser prendre la parole, t’affirmer avec douceur, et faire grandir ta confiance en toi.", image: 'assets/cartes/demander-mini.jpg' },
+    { mois: 'Mars', titre: 'Ma direction, ma confiance', texte: "Écouter la direction que ta vie te montre, faire grandir ta confiance en toi, et avancer vers elle un petit pas après l’autre.", image: 'assets/cartes/demander-mini.jpg' },
     { mois: 'Avril', titre: 'Dire vrai', texte: "Exprimer ce que tu ressens vraiment, avec des mots justes et bienveillants.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
     { mois: 'Mai', titre: 'La vie circule à travers moi', texte: "Sentir la vie circuler à travers toi, et regarder tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, ce que tu choisis.", image: 'assets/cartes/se-retrouver-mini.jpg' }
   ]

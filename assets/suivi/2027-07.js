@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juillet 2027 : « L'argent et ta valeur »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juillet 2027 : « Combien je m’autorise à recevoir ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-07-88553a1fb8.pdf',
   nomMois: 'juillet 2027',
   moisSuivant: 'août',
-  titre: 'L’argent et ta valeur',
-  sousTitre: "Écouter les phrases familiales sur l'argent, regarder ce que ta lignée a vécu, et choisir ce que tu t'autorises à recevoir.",
+  titre: "Combien je m’autorise à recevoir ?",
+  sousTitre: "Fruits de ton arbre de vie · Écouter les phrases familiales sur l'argent, regarder ce que ta lignée a vécu, et choisir ce que tu t'autorises à recevoir.",
   citation: "Ta valeur ne se compte pas, mais elle mérite d'être reconnue.",
   audio: '',
   audioCourt: '',
@@ -258,8 +258,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Août', titre: 'Racines, départs et lieux', texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
-    { mois: 'Septembre', titre: 'Les métiers de la lignée', texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' },
+    { mois: 'Août', titre: "D’où venons-nous ?", texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
+    { mois: 'Septembre', titre: "Qu’est-ce que je transmets ?", texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' },
     { mois: 'Octobre', titre: 'Les âges qui se répondent', texte: "Observer les âges et les dates qui reviennent dans ta famille, et vivre chacun d’eux à ta façon.", image: 'assets/cartes/apprendre-mini.jpg' }
   ]
 };

@@ -401,7 +401,6 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li></ul>' +
         (cercleInstalle ? '' : '<p class="pm-installer"><a href="cercle.html#installer">Installer Le Cercle sur ton téléphone</a></p>') +
         '<div class="pied-bas">' +
-          '<span>Ce site propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique.</span>' +
           '<span>Genesolia propose un travail symbolique de connaissance de soi et de sa lignée, en complément de tout suivi médical.</span>' +
           '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + '</span>' +
         '</div>' +

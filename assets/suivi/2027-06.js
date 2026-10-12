@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juin 2027 : « Du côté des pères »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juin 2027 : « Ai-je le droit d’aller plus loin ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-06-ca6dfabe67.pdf',
   nomMois: 'juin 2027',
   moisSuivant: 'juillet',
-  titre: 'Du côté des pères',
-  sousTitre: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.",
+  titre: "Ai-je le droit d’aller plus loin ?",
+  sousTitre: "Branches de ton arbre de vie · Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.",
   citation: "Tu peux reconnaître ce que tu as reçu sans tout accepter.",
   audio: '',
   audioCourt: '',
@@ -259,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Écouter les phrases familiales sur l’argent, regarder ce que ta lignée a vécu, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
-    { mois: 'Août', titre: 'Racines, départs et lieux', texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
-    { mois: 'Septembre', titre: 'Les métiers de la lignée', texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' }
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Écouter les phrases familiales sur l’argent, regarder ce que ta lignée a vécu, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Août', titre: "D’où venons-nous ?", texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' },
+    { mois: 'Septembre', titre: "Qu’est-ce que je transmets ?", texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };

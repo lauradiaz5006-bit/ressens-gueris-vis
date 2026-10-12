@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'avril 2027 : « Les secrets et les non-dits »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'avril 2027 : « Quelles phrases me guident ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-04-0df5f051e5.pdf',
   nomMois: 'avril 2027',
   moisSuivant: 'mai',
-  titre: 'Les secrets et les non-dits',
-  sousTitre: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.",
+  titre: "Quelles phrases me guident ?",
+  sousTitre: "Branches de ton arbre de vie · Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.",
   citation: "Ce qui n’est pas dit cherche souvent un autre chemin pour se faire entendre.",
   audio: '',
   audioCourt: '',
@@ -259,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' },
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Regarder ce que ta lignée t’a transmis sur l’argent, et t’autoriser ta juste valeur.", image: 'assets/guide/guide-coffret.webp' }
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' },
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Regarder ce que ta lignée t’a transmis sur l’argent, et t’autoriser ta juste valeur.", image: 'assets/guide/guide-coffret.webp' }
   ]
 };

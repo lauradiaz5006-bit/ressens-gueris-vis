@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de février 2027 : « Le couple et les schémas amoureux »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de février 2027 : « Quel projet a-t-on posé sur moi ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-02-0d10ec64c2.pdf',
   nomMois: 'février 2027',
   moisSuivant: 'mars',
-  titre: 'Le couple et les schémas amoureux',
-  sousTitre: "Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.",
+  titre: "Quel projet a-t-on posé sur moi ?",
+  sousTitre: "Tronc de ton arbre de vie · Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.",
   citation: "Tu peux aimer autrement que celles et ceux qui t’ont précédé·e.",
   audio: '',
   audioCourt: '',
@@ -263,8 +263,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Mars', titre: 'Ta place dans la fratrie', texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' }
+    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' }
   ]
 };

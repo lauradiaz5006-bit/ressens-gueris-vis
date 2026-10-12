@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'août 2027 : « Racines, départs et lieux »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'août 2027 : « D’où venons-nous ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-08-57387072e5.pdf',
   nomMois: 'août 2027',
   moisSuivant: 'septembre',
-  titre: 'Racines, départs et lieux',
-  sousTitre: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.",
+  titre: "D’où venons-nous ?",
+  sousTitre: "Fruits de ton arbre de vie · Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.",
   citation: "Chaque lieu de ta lignée garde un morceau de ton histoire.",
   audio: '',
   audioCourt: '',
@@ -258,7 +258,7 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Septembre', titre: 'Les métiers de la lignée', texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ta propre voie.", image: 'assets/cartes/aimer-et-choisir-mini.jpg' },
+    { mois: 'Septembre', titre: "Qu’est-ce que je transmets ?", texte: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ta propre voie.", image: 'assets/cartes/aimer-et-choisir-mini.jpg' },
     { mois: 'Octobre', titre: 'Les âges qui se répondent', texte: "Observer les âges et les dates qui reviennent dans ta famille, et vivre chacun d’eux à ta façon.", image: 'assets/cartes/aujourdhui-spirale-mini.jpg' },
     { mois: 'Novembre', titre: 'Une nouvelle année dans Le Cercle', texte: "Un nouveau tour de spirale, plus léger, avec tout ce que tu as vu, traversé et transmis.", image: 'assets/guide/guide-spirale-or.webp' }
   ]

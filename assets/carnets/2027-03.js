@@ -1,6 +1,6 @@
-/* Genesolia · Le Cercle · Carnet de mars 2027, « J'avance » : « Ma voix, ma confiance »
-   Le carnet du mois est le côté « J'avance » du Cercle : s'affirmer, prendre la parole, faire grandir sa confiance en soi.
-   Le côté libération (« Ta place dans la fratrie ») est dans Mon suivi (assets/suivi/2027-03.js).
+/* Genesolia · Le Cercle · Carnet de mars 2027, « J'avance » : « Ma direction, ma confiance »
+   Le carnet du mois est le côté « J'avance » du Cercle : écouter la direction que sa vie montre, s'affirmer, faire grandir sa confiance en soi.
+   Le côté libération (« Quelles émotions avaient le droit d’exister ? ») est dans Mon suivi (assets/suivi/2027-03.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -9,8 +9,8 @@ window.GENESOLIA_CARNET = {
   mois: '2027-03',
   nomMois: 'mars 2027',
   moisSuivant: 'avril',
-  titre: 'Ma voix, ma confiance',
-  sousTitre: "Retrouver ta voix, oser dire ce que tu penses et ce que tu veux, et faire grandir ta confiance en toi, un petit pas après l’autre.",
+  titre: 'Ma direction, ma confiance',
+  sousTitre: "Écouter la direction que ta vie te montre, faire grandir ta confiance en toi, et avancer vers elle un petit pas après l’autre.",
   pdf: '',
   image: 'assets/cartes/demander.jpg',
   citation: "Ta voix a sa place dans le monde. Elle n’a pas besoin d’être forte pour être entendue, seulement d’être la tienne.",
@@ -51,7 +51,7 @@ window.GENESOLIA_CARNET = {
   },
 
   theme: {
-    titre: "Le mois où ma voix se réveille",
+    titre: "Le mois où ma direction se dessine",
     texte: [
       "Mars, c’est le mois de l’élan. Les bourgeons percent, les oiseaux recommencent à chanter dès l’aube, et les giboulées alternent avec de grands ciels bleus. La nature ne demande pas la permission pour revenir à la vie : elle pousse, elle chante, elle prend sa place.",
       "Ce carnet t’invite à faire pareil avec ta voix. Oser donner ton avis en réunion, dire ce que tu veux au restaurant, demander une augmentation, refuser un service de trop, poser une question sans t’excuser. Pas en devenant quelqu’un d’autre, mais en laissant sortir celle ou celui que tu es déjà. Ta confiance n’a pas disparu : elle attend simplement que tu lui fasses un peu de place."
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: "Repérer, me souvenir, oser",
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir où ta voix se fait petite, le deuxième à retrouver les preuves de ta force, le troisième à oser une phrase d’affirmation et à la faire vivre. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir où ta voix se fait petite, le deuxième à retrouver les preuves de ta force, le troisième à oser une phrase d’affirmation et à la faire vivre. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: "Là où ma voix se fait petite", type: 'tableau', rangs: 3,
       etiquettes: ['Au travail', 'En famille', 'Avec mes ami·es ou mon couple'],
@@ -248,7 +248,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ta place dans la fratrie',
+    titre: "Quelles émotions avaient le droit d’exister ?",
     texte: "Pendant que ton carnet t’aide à faire entendre ta voix, ton suivi t’invite à regarder la place que tu as reçue parmi tes frères et sœurs, et les rôles qu’on t’a confiés. C’est souvent là qu’on a appris à parler fort ou à se taire. Ce que tu libères là-bas rend ta voix plus libre ici."
   },
 

@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet d'avril 2027, « J'avance » : « Dire vrai »
    Le carnet du mois est le côté « J'avance » du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
-   Le côté libération (« Les secrets et les non-dits ») est dans Mon suivi (assets/suivi/2027-04.js).
+   Le côté libération (« Quelles phrases me guident ? ») est dans Mon suivi (assets/suivi/2027-04.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: "Ressentir, formuler, oser",
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à démêler ce que tu ressens vraiment, le deuxième à le dire en quatre temps, le troisième à oser un mot vrai chaque jour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à démêler ce que tu ressens vraiment, le deuxième à le dire en quatre temps, le troisième à oser un mot vrai chaque jour. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: "Ce que je ressens vraiment", type: 'tableau', rangs: 3,
       etiquettes: ['Une situation qui m’a contrarié·e', 'Une situation où j’ai fait semblant', 'Une situation qui m’a touché·e'],
@@ -245,7 +245,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Les secrets et les non-dits',
+    titre: "Quelles phrases me guident ?",
     texte: "Pendant que ton carnet t’aide à dire vrai, ton suivi t’invite à écouter les silences de ta famille, à repérer les indices, et à choisir, à ton rythme, ce que tu veux en faire. On apprend souvent à se taire là où les générations d’avant ont dû se taire. Ce que tu libères là-bas rend ta parole plus libre ici."
   },
 

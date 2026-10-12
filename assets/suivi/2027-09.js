@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de septembre 2027 : « Les métiers de la lignée »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de septembre 2027 : « Qu’est-ce que je transmets ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-09-1a0be1622e.pdf',
   nomMois: 'septembre 2027',
   moisSuivant: 'octobre',
-  titre: 'Les métiers de la lignée',
-  sousTitre: "Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.",
+  titre: "Qu’est-ce que je transmets ?",
+  sousTitre: "Fruits de ton arbre de vie · Regarder le travail de ta famille, reconnaître les vocations empêchées, et choisir ce que tu veux faire de ta vie professionnelle.",
   citation: "Tu peux honorer le métier des tiens sans en faire ta prison.",
   audio: '',
   audioCourt: '',

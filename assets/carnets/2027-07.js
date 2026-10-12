@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de juillet 2027, « J'avance » : « Ma valeur »
    Le carnet du mois est le côté « J'avance » du Cercle : apprendre à recevoir, oser demander, reconnaître ta juste valeur, goûter l'abondance.
-   Le côté libération (« L'argent et ta valeur », les phrases familiales sur l'argent) est dans Mon suivi (assets/suivi/2027-07.js).
+   Le côté libération (« Combien je m’autorise à recevoir ? », les phrases familiales sur l'argent) est dans Mon suivi (assets/suivi/2027-07.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Recevoir, reconnaître, demander',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir l’équilibre entre ce que tu donnes et ce que tu reçois, le deuxième à rassembler les preuves concrètes de ta valeur, le troisième à oser une vraie demande. Prends ton temps : c’est l’été.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir l’équilibre entre ce que tu donnes et ce que tu reçois, le deuxième à rassembler les preuves concrètes de ta valeur, le troisième à oser une vraie demande. Prends ton temps : c’est l’été.",
   exercices: [
     { k: 'ex1', titre: 'Ce que je donne, ce que je reçois', type: 'tableau', rangs: 3,
       etiquettes: ['Au travail', 'Dans mes relations', 'Avec moi-même'],
@@ -248,7 +248,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'L’argent et ta valeur',
+    titre: "Combien je m’autorise à recevoir ?",
     texte: "Pendant que ton carnet t’aide à recevoir, demander et reconnaître ta juste valeur, ton suivi t’invite à écouter les phrases de ta famille sur l’argent, à regarder ce que ta lignée a vécu, et à choisir ce que tu t’autorises à recevoir. Ce que tu libères là-bas ouvre tes mains ici."
   },
 

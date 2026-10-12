@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mai 2027 : « Ta mère, tes mères »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mai 2027 : « Comment ai-je appris à aimer ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-05-7398c67b52.pdf',
   nomMois: 'mai 2027',
   moisSuivant: 'juin',
-  titre: 'Ta mère, tes mères',
-  sousTitre: "Regarder la lignée des femmes qui t'ont précédé·e, reconnaître ce que tu as reçu, et choisir ce que tu transmets.",
+  titre: "Comment ai-je appris à aimer ?",
+  sousTitre: "Branches de ton arbre de vie · Regarder la lignée des femmes qui t'ont précédé·e, reconnaître ce que tu as reçu, et choisir ce que tu transmets.",
   citation: "On peut honorer la vie reçue sans tout reprendre du chemin.",
   audio: '',
   audioCourt: '',
@@ -259,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.", image: 'assets/cartes/deux-parents-mini.jpg' },
-    { mois: 'Juillet', titre: 'L’argent et ta valeur', texte: "Écouter les phrases familiales sur l’argent, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
-    { mois: 'Août', titre: 'Racines, départs et lieux', texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' }
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ton père, ton grand-père et la lignée des hommes, pour reconnaître ce que tu as reçu du côté paternel.", image: 'assets/cartes/deux-parents-mini.jpg' },
+    { mois: 'Juillet', titre: "Combien je m’autorise à recevoir ?", texte: "Écouter les phrases familiales sur l’argent, et choisir ce que tu t’autorises à recevoir.", image: 'assets/cartes/peurs-rendre-mini.jpg' },
+    { mois: 'Août', titre: "D’où venons-nous ?", texte: "Retrouver les lieux de ta famille, regarder les départs et les exils, et sentir où tu te sens chez toi.", image: 'assets/cartes/partir-mini.jpg' }
   ]
 };

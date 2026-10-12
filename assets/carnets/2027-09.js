@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de septembre 2027, « J'avance » : « Ma vocation »
    Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
-   Le côté libération (« Les métiers de la lignée ») est dans Mon suivi (assets/suivi/2027-09.js).
+   Le côté libération (« Qu’est-ce que je transmets ? ») est dans Mon suivi (assets/suivi/2027-09.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -116,7 +116,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Retrouver, reconnaître, tester',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier te fait retrouver ce qui te fait vibrer depuis l’enfance, le deuxième t’aide à voir tes talents à travers les yeux des autres, le troisième te fait tester un petit pas concret. Commence par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier te fait retrouver ce qui te fait vibrer depuis l’enfance, le deuxième t’aide à voir tes talents à travers les yeux des autres, le troisième te fait tester un petit pas concret. Commence par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: 'Le fil de ce qui me fait vibrer', type: 'tableau', rangs: 3,
       etiquettes: ['Quand j’étais enfant', 'Quand j’étais adolescent·e', 'Aujourd’hui'],
@@ -241,7 +241,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Les métiers de la lignée',
+    titre: "Qu’est-ce que je transmets ?",
     texte: "Pendant que ton carnet t’aide à retrouver ce qui te fait vibrer, ton suivi t’emmène vers le travail de ta famille : les métiers transmis, les rêves empêchés, les phrases sur l’argent et l’effort. Ce que tu y reconnais te laisse plus libre de choisir ta propre voie."
   },
 

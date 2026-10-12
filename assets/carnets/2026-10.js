@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet d'octobre 2026, « J'avance » : « Mon point de départ »
    Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
-   Le côté libération (« Ce qui revient », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
+   Le côté libération (« Qui sont les miens ? », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -114,7 +114,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Voir, choisir, avancer',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce qui te nourrit et ce qui te vide, le deuxième à imaginer ta vie à 10 sur 10, le troisième à poser ton tout premier pas. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce qui te nourrit et ce qui te vide, le deuxième à imaginer ta vie à 10 sur 10, le troisième à poser ton tout premier pas. Tu peux les faire dans l’ordre ou commencer par celui qui t’attire.",
   exercices: [
     { k: 'ex1', titre: 'Ce qui me nourrit, ce qui me vide', type: 'tableau', rangs: 3,
       etiquettes: ['Dans mes journées', 'Dans mes relations', 'Dans mon cadre de vie'],
@@ -265,7 +265,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ce qui revient',
+    titre: "Qui sont les miens ?",
     texte: "Pendant que ton carnet t’aide à choisir ce que tu veux construire, ton suivi t’aide à repérer la boucle qui se rejoue dans ta vie, à voir d’où elle vient dans ton histoire, et à poser un premier geste différent. Ce que tu libères là-bas nourrit ta roue ici."
   },
 

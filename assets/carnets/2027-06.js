@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de juin 2027, « J'avance » : « Oser agir »
    Le carnet du mois est le côté « J'avance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
-   Le côté libération (« Du côté des pères », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
+   Le côté libération (« Ai-je le droit d’aller plus loin ? », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Décider, structurer, tenir',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à voir ce que tu repousses et pourquoi, le deuxième à découper ton projet en trois étapes concrètes, le troisième à tenir chaque jour une petite promesse envers toi. Fais-les dans l’ordre si tu peux : ils s’enchaînent.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir ce que tu repousses et pourquoi, le deuxième à découper ton projet en trois étapes concrètes, le troisième à tenir chaque jour une petite promesse envers toi. Fais-les dans l’ordre si tu peux : ils s’enchaînent.",
   exercices: [
     { k: 'ex1', titre: 'Ce que je repousse', type: 'tableau', rangs: 3,
       etiquettes: ['Un projet qui me tient à cœur', 'Une décision en attente', 'Une petite chose remise depuis longtemps'],
@@ -246,7 +246,7 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Du côté des pères',
+    titre: "Ai-je le droit d’aller plus loin ?",
     texte: "Pendant que ton carnet t’aide à oser agir, ton suivi t’invite à regarder ton père, ton grand-père et les hommes de ta lignée : ce que tu as reçu d’eux, en élan comme en retenue, et ce que tu choisis d’en faire. Ce que tu reconnais là-bas libère souvent ton passage à l’action ici."
   },
 

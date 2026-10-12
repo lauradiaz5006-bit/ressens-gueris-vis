@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mars 2027 : « Ta place dans la fratrie »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mars 2027 : « Quelles émotions avaient le droit d’exister ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-03-ea9f0fd173.pdf',
   nomMois: 'mars 2027',
   moisSuivant: 'avril',
-  titre: 'Ta place dans la fratrie',
-  sousTitre: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.",
+  titre: "Quelles émotions avaient le droit d’exister ?",
+  sousTitre: "Tronc de ton arbre de vie · Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.",
   citation: "Chaque enfant naît dans une famille différente, même sous le même toit.",
   audio: '',
   audioCourt: '',
@@ -258,13 +258,13 @@ window.GENESOLIA_CARNET = {
   ],
 
   carnet: {
-    titre: "Ma voix, ma confiance",
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Ta place dans la fratrie a souvent décidé si tu pouvais parler fort ou si tu devais te taire : ton carnet t’aide ce mois-ci à retrouver ta voix, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine. Reporte ton geste à ta juste place dans ton carnet, il devient un appui."
+    titre: "Ma direction, ma confiance",
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Ta place dans la fratrie a souvent décidé si tu pouvais parler fort ou si tu devais te taire : ton carnet t’aide ce mois-ci à écouter la direction que ta vie te montre, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine. Reporte ton geste à ta juste place dans ton carnet, il devient un appui."
   },
 
   aVenir: [
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
-    { mois: 'Mai', titre: 'Ta mère, tes mères', texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
-    { mois: 'Juin', titre: 'Du côté des pères', texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' }
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
+    { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
+    { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' }
   ]
 };

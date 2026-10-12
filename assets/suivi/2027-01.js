@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de janvier 2027 : « Ton prénom, ton héritage »
+/* Genesolia · Le Cercle · Mon suivi « Je me libère » de janvier 2027 : « Quelle peur je porte, et pour qui ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -11,8 +11,8 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/cercle/cercle-2027-01-6750c8248e.pdf',
   nomMois: 'janvier 2027',
   moisSuivant: 'février',
-  titre: 'Ton prénom, ton héritage',
-  sousTitre: "Découvrir l'histoire de ton prénom, ce qu'il porte de ta lignée, et en faire pleinement le tien.",
+  titre: "Quelle peur je porte, et pour qui ?",
+  sousTitre: "Tronc de ton arbre de vie · Découvrir l'histoire de ton prénom, ce qu'il porte de ta lignée, et en faire pleinement le tien.",
   citation: "Ton prénom a une histoire, et tu peux en écrire la suite.",
   audio: '',
   audioCourt: '',
@@ -259,8 +259,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Février', titre: 'Le couple et les schémas amoureux', texte: "Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
-    { mois: 'Mars', titre: 'Ta place dans la fratrie', texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Avril', titre: 'Les secrets et les non-dits', texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' }
+    { mois: 'Février', titre: "Quel projet a-t-on posé sur moi ?", texte: "Regarder les couples de ta lignée, repérer ce qui se répète en amour, et choisir l’amour que tu veux vivre.", image: 'assets/cartes/une-relation-vraie-mini.jpg' },
+    { mois: 'Mars', titre: "Quelles émotions avaient le droit d’exister ?", texte: "Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' }
   ]
 };

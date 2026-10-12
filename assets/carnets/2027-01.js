@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · Carnet de janvier 2027, « J'avance » : « Mon intention, mes valeurs »
    Le carnet du mois est le côté « J'avance » du Cercle : clarifier ses valeurs, poser l'intention de l'année, choisir ce qui compte.
-   Le côté libération (« Ton prénom, ton héritage ») est dans Mon suivi (assets/suivi/2027-01.js).
+   Le côté libération (« Quelle peur je porte, et pour qui ? ») est dans Mon suivi (assets/suivi/2027-01.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Clarifier, choisir, s’engager',
-  exercicesIntro: "Trois exercices, un par semaine environ. Le premier t’aide à retrouver tes valeurs dans ton histoire, le deuxième à choisir les trois qui comptent le plus en ce moment, le troisième à écrire ton intention de l’année et à la faire vivre. Fais-les dans l’ordre si tu peux : chacun prépare le suivant.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à retrouver tes valeurs dans ton histoire, le deuxième à choisir les trois qui comptent le plus en ce moment, le troisième à écrire ton intention de l’année et à la faire vivre. Fais-les dans l’ordre si tu peux : chacun prépare le suivant.",
   exercices: [
     { k: 'ex1', titre: 'Mes valeurs dans mon histoire', type: 'tableau', rangs: 3,
       etiquettes: ['Un moment où je me suis senti·e pleinement moi', 'Un moment qui m’a révolté·e', 'Une personne que j’admire'],
@@ -213,11 +213,20 @@ window.GENESOLIA_CARNET = {
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
      Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
   exerciceDuMois: {
-    titre: "Les pas de la lignée · Mes 3 valeurs",
+    titre: "Mes 3 valeurs · Les pas de la lignée",
     objectif: "recevoir la force de ma lignée et poser mon cap.",
-    sousObjectif: "rendre la peur par le corps, choisir mes 3 valeurs.",
-    duree: "Les pas de la lignée : environ 20 minutes, une fois en début de mois, après avoir écouté l’audio. Mes 3 valeurs : 15 minutes, puis 1 minute par jour.",
+    sousObjectif: "choisir mes 3 valeurs, rendre la peur par le corps.",
+    duree: "Mes 3 valeurs : 15 minutes, en début de mois. Les pas de la lignée : environ 20 minutes, une fois, après avoir écouté l’audio. Ensuite, 1 minute par jour.",
     temps: [
+      {
+        titre: "Mes 3 valeurs (15 minutes)",
+        etapes: [
+          "**Les moments où je me sens moi (5 minutes).** Note trois moments de ta vie où tu t’es senti·e pleinement toi, vivant·e, à ta place. Que se passait-il ?",
+          "**Ce qui compte (5 minutes).** Dans ces moments, quelles valeurs étaient présentes ? Par exemple : liberté, sécurité, amour, transmission, créativité, justice, simplicité, joie, loyauté envers moi-même. Entoure celles qui te parlent. Pour t’aider : [la liste des valeurs](liste-des-valeurs.html).",
+          "**Mes trois (3 minutes).** Garde les trois qui te ressemblent le plus. Pour chacune, écris une phrase : « Pour moi, la liberté, c’est… ».",
+          "**Mon intention (2 minutes).** Écris ton intention de l’année, appuyée sur ces trois valeurs."
+        ]
+      },
       {
         titre: "Les pas de la lignée (20 minutes)",
         intro: "Il te faut deux feuilles et un peu d’espace pour faire quelques pas.",
@@ -228,15 +237,6 @@ window.GENESOLIA_CARNET = {
           "**Recevoir la force (3 minutes).** Toujours face à eux, imagine qu’ils te tendent un cadeau : leur courage, leur endurance, leur savoir-faire, ce qu’ils avaient de plus beau. Ouvre les mains et reçois-le. Pose les mains sur ton ventre et dis : « Merci. Je reçois votre force, et je vis ma vie. »",
           "**Avancer vers mon année (5 minutes).** Retourne-toi vers la feuille « Mon année ». Fais un premier pas en nommant ta première valeur. Un deuxième pas avec ta deuxième valeur. Un troisième pas avec la troisième. Arrivé·e sur la feuille, dis ton intention pour l’année, en une phrase au présent : « Cette année, je vis… ».",
           "**Ancrer (2 minutes).** Reste debout sur ta feuille, les pieds bien posés. Sens la lignée derrière toi, qui te soutient, et l’année devant toi, qui t’accueille. Respire trois fois, profondément. Écris ton intention en grand sur la feuille « Mon année » et garde-la près de ton lit."
-        ]
-      },
-      {
-        titre: "Mes 3 valeurs (15 minutes)",
-        etapes: [
-          "**Les moments où je me sens moi (5 minutes).** Note trois moments de ta vie où tu t’es senti·e pleinement toi, vivant·e, à ta place. Que se passait-il ?",
-          "**Ce qui compte (5 minutes).** Dans ces moments, quelles valeurs étaient présentes ? Par exemple : liberté, sécurité, amour, transmission, créativité, justice, simplicité, joie, loyauté envers moi-même. Entoure celles qui te parlent. Pour t’aider : [la liste des valeurs](liste-des-valeurs.html).",
-          "**Mes trois (3 minutes).** Garde les trois qui te ressemblent le plus. Pour chacune, écris une phrase : « Pour moi, la liberté, c’est… ».",
-          "**Mon intention (2 minutes).** Écris ton intention de l’année, appuyée sur ces trois valeurs."
         ]
       }
     ],
@@ -252,13 +252,13 @@ window.GENESOLIA_CARNET = {
 
   /* Le côté libération du même mois, dans Mon suivi */
   suivi: {
-    titre: 'Ton prénom, ton héritage',
+    titre: "Quelle peur je porte, et pour qui ?",
     texte: "Pendant que ton carnet t’aide à choisir tes valeurs et à poser ton intention, ton suivi t’invite à découvrir l’histoire de ton prénom : qui l’a choisi, ce qu’il porte de ta lignée, et comment en faire pleinement le tien. Signer ton intention de ton prénom prend alors tout son sens."
   },
 
   aVenir: [
     { mois: 'Février', titre: 'M’aimer d’abord', texte: "Te traiter avec la douceur que tu offres aux autres, reconnaître tes besoins, et devenir ton tout premier appui.", image: 'assets/cartes/me-le-donner-mini.jpg' },
-    { mois: 'Mars', titre: 'Ma voix, ma confiance', texte: "Oser prendre la parole, t’affirmer avec douceur, et faire grandir ta confiance en toi.", image: 'assets/cartes/demander-mini.jpg' },
+    { mois: 'Mars', titre: 'Ma direction, ma confiance', texte: "Écouter la direction que ta vie te montre, faire grandir ta confiance en toi, et avancer vers elle un petit pas après l’autre.", image: 'assets/cartes/demander-mini.jpg' },
     { mois: 'Avril', titre: 'Dire vrai', texte: "Exprimer ce que tu ressens vraiment, avec des mots justes et bienveillants.", image: 'assets/cartes/une-relation-vraie-mini.jpg' }
   ]
 };
