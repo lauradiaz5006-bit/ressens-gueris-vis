@@ -1944,6 +1944,7 @@
       if (o.remplacer) S = { people: {}, rels: [], nid: 1 };
       var ids = {};
       if (o.meme && S.people[o.meme.arbre]) ids[o.meme.fichier] = o.meme.arbre;
+      if (o.memes) Object.keys(o.memes).forEach(function (k) { if (S.people[o.memes[k]]) ids[k] = o.memes[k]; });   // plusieurs personnes déjà dans l'arbre (Le fil d'or)
       Object.keys(d.people).forEach(function (k) {
         var src = d.people[k], p;
         if (ids[k]) {   // même personne déjà dans l'arbre : on complète seulement ce qui manque
@@ -2610,6 +2611,31 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('menu-arbres').hidden) { basculerMenuArbres(false); $('bt-arbres').focus(); } });
   majNomArbre();
 
+  /* Le fil d'or : ce que la personne a noté dans fil-d-or.html arrive dans son arbre, si elle l'a demandé.
+     Toi, tes parents et tes grands-parents déjà présents dans l'arbre sont complétés (notes ajoutées), les autres sont créés. */
+  function importerFilDor() {
+    if (ARBRE_ID || EXEMPLE || !new URLSearchParams(location.search).has('depuis-fil-d-or')) return;
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem('genesolia-fil-d-or-envoi') || 'null'); } catch (e) { d = null; }
+    history.replaceState(null, '', location.pathname);
+    if (!d || !d.people || !d.rels) return;
+    try { localStorage.removeItem('genesolia-fil-d-or-envoi'); } catch (e) {}
+    var memes = {}, moi = idMoi();
+    if (moi && d.people.toi) memes.toi = moi;
+    Object.keys(d.people).filter(function (k) { return /^[pm]{1,3}$/.test(k); }).sort(function (a, b) { return a.length - b.length; }).forEach(function (k) {
+      var enfant = k.length === 1 ? 'toi' : k.slice(0, -1), sexe = k.slice(-1) === 'm' ? 'f' : 'm';
+      if (!memes[enfant]) return;
+      var deja = parents(memes[enfant]).filter(function (id) { return S.people[id].sex === sexe; });
+      if (deja.length === 1) memes[k] = deja[0];
+    });
+    window.GenoArbre.importer(d, { moi: 'toi', memes: memes });
+    var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
+    b.innerHTML = 'Ton fil d’or est dans ton arbre. Ajoute maintenant les <b>noms</b>, les <b>prénoms</b> et les <b>dates de naissance</b> : touche chaque personne pour ouvrir sa fiche. <a href="#" data-fermer-bandeau>OK</a>';
+    document.body.appendChild(b);
+    b.querySelector('[data-fermer-bandeau]').addEventListener('click', function (e) { e.preventDefault(); b.remove(); });
+  }
+  function apresChargement() { importerFilDor(); exporterSiDemande(); }
+
   function demarrer() {
     if (surTelephone()) document.body.classList.add('porte-ouverte');
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
@@ -2629,7 +2655,7 @@
     chargerLocal();
     dessiner(); recentrer();
     statut(textStatutRepos());
-    if (!sb) { exporterSiDemande(); return; }
+    if (!sb) { apresChargement(); return; }
     sb.auth.getSession().then(function (r) {
       var s = r && r.data && r.data.session; if (!s) return;
       utilisateur = s.user;
@@ -2660,7 +2686,7 @@
           enregistrer();
         }
       });
-    }).then(exporterSiDemande, exporterSiDemande);
+    }).then(apresChargement, apresChargement);
   }
   demarrer();
 })();
