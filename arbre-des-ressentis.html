@@ -222,7 +222,7 @@
     <section class="ar-panneau" data-etape="3" hidden>
       <div class="conteneur">
         <h2>Ton arbre des ressentis</h2>
-        <p class="ar-chapeau">Chaque couleur autour d’une personne est une blessure. Touche une couleur ci-dessous pour suivre son fil dans l’arbre, ou touche une personne pour relire sa ligne de vie. Les âges en couleur se répondent d’une personne à l’autre.</p>
+        <p class="ar-chapeau">Chaque couleur autour d’une personne est une blessure. Touche une couleur ci-dessous pour suivre son fil dans l’arbre, ou touche une personne pour relire sa ligne de vie. Les âges en couleur se répondent d’une personne à l’autre, à 2 ans près.</p>
         <div class="ar-filtres" id="ar-filtres" role="group" aria-label="Suivre un fil dans l’arbre"></div>
         <div class="ar-cadre" id="ar-cadre"></div>
         <div class="ar-legende" id="ar-legende"></div>
@@ -330,6 +330,8 @@
     function blessure(id) { for (var i = 0; i < BLESSURES.length; i++) if (BLESSURES[i].id === id) return BLESSURES[i]; return null; }
     function liste(noms) { return noms.length < 2 ? noms.join('') : noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1]; }
     function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); }
+    /* « Vers 28 ans » ou « Entre 28 et 30 ans » */
+    function periode(g) { var fin = g.pts[g.pts.length - 1].a; return fin > g.debut ? 'Entre ' + g.debut + ' et ' + fin + ' ans' : 'Vers ' + g.debut + ' ans'; }
     function visionsToutes() { return VISIONS.concat(etat.visionsPerso || []); }
     function ids() { return ['toi'].concat(etat.ordre.filter(function (id) { return etat.personnes[id]; })); }
     /* Tout ce qu'une personne porte : ressenti général + étapes */
@@ -542,7 +544,7 @@
       var em = EMOTIONS.map(function (e) { return { e: e, qui: qui('em', e) }; }).filter(function (x) { return x.qui.length >= 2; });
       var vus = {}; tous.forEach(function (id) { Object.keys(P[id].vi).forEach(function (k) { vus[k] = P[id].vi[k]; }); });
       var vi = Object.keys(vus).map(function (k) { return { v: vus[k], qui: qui('vi', k) }; }).filter(function (x) { return x.qui.length >= 2; });
-      /* Les âges qui se répondent (à un an près), entre au moins deux personnes */
+      /* Les âges qui se répondent (à 2 ans près, car un âge noté de mémoire est souvent approximatif), entre au moins deux personnes */
       var pts = [];
       tous.forEach(function (id) {
         etat.personnes[id].etapes.forEach(function (e) { var a = ageNum(e.age); if (a != null) pts.push({ id: id, a: a, e: e }); });
@@ -550,7 +552,7 @@
       pts.sort(function (x, y) { return x.a - y.a; });
       var groupes = [], g = null;
       pts.forEach(function (pt) {
-        if (!g || pt.a - g.debut > 1) { g = { debut: pt.a, pts: [] }; groupes.push(g); }
+        if (!g || pt.a - g.debut > 2) { g = { debut: pt.a, pts: [] }; groupes.push(g); }
         g.pts.push(pt);
       });
       var ages = groupes.filter(function (g) { return g.pts.map(function (x) { return x.id; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).length >= 2; });
@@ -566,7 +568,7 @@
         Object.keys(P[id].vi).forEach(function (k) { if (P.toi && P.toi.vi[k]) { r.score += 2; r.vi.push(P[id].vi[k]); } });
         pts.filter(function (x) { return x.id === id; }).forEach(function (x) {
           moiAges.forEach(function (m) {
-            if (Math.abs(m.a - x.a) <= 1) {
+            if (Math.abs(m.a - x.a) <= 2) {
               r.score += 2; if (r.ages.indexOf(x.a) < 0) r.ages.push(x.a);
               if (m.e.bl.some(function (b) { return x.e.bl.indexOf(b) >= 0; }) || m.e.em.some(function (b) { return x.e.em.indexOf(b) >= 0; })) r.score += 2;
             }
@@ -650,7 +652,7 @@
         explic = vx ? '<p>La phrase <b>« ' + esc(vx.v) + ' »</b> se transmet chez ' + liste(lumiere.map(nomPhrase)) + '.</p>' : '';
       } else if (filtre === 'ages') {
         lumiere = []; A.ages.forEach(function (g) { g.pts.forEach(function (pt) { if (lumiere.indexOf(pt.id) < 0) lumiere.push(pt.id); }); });
-        explic = A.ages.map(function (g) { return '<p><b>Vers ' + g.debut + ' ans</b> : ' + g.pts.map(function (pt) { return esc(nomPhrase(pt.id)) + (pt.e.evt ? ' (' + esc(pt.e.evt) + ')' : ''); }).join(', ') + '.</p>'; }).join('');
+        explic = A.ages.map(function (g) { return '<p><b>' + periode(g) + '</b> : ' + g.pts.map(function (pt) { return esc(nomPhrase(pt.id)) + (pt.e.evt ? ' (' + esc(pt.e.evt) + ')' : ''); }).join(', ') + '.</p>'; }).join('');
       } else {
         explic = A.tous.length < 2
           ? '<p>Ton arbre attend ta lignée. Ajoute au moins une personne de ta famille à l’étape 2 pour voir apparaître ce qui se répète.</p>'
@@ -818,11 +820,11 @@
       }).join('') + '</ul>' : '<p class="ar-rien">Aucune émotion commune pour l’instant.</p>') + '</div>';
       /* Âges */
       h += '<div class="ar-carte"><h3>Les âges qui se répondent</h3>' + (A.ages.length ? '<ul>' + A.ages.map(function (g) {
-        return '<li><i style="background:#C2466E"></i><span><b>Vers ' + g.debut + ' ans</b> : ' + g.pts.map(function (pt) {
+        return '<li><i style="background:#C2466E"></i><span><b>' + periode(g) + '</b> : ' + g.pts.map(function (pt) {
           var m = pt.e.bl.map(function (b) { return blessure(b).nom.toLowerCase(); }).concat(pt.e.em.map(function (e) { return e.toLowerCase(); }));
           return esc(nomPhrase(pt.id)) + (pt.e.evt || m.length ? ' (' + esc([pt.e.evt].concat(m.length ? [m.join(', ')] : []).filter(Boolean).join(' · ')) + ')' : '');
         }).join(' ; ') + '</span></li>';
-      }).join('') + '</ul>' : '<p class="ar-rien">Note des âges, même approximatifs, pour voir si des moments de vie se répondent.</p>') + '</div>';
+      }).join('') + '</ul><p class="ar-rien" style="margin-top:.8rem">À 2 ans près : un âge noté de mémoire est souvent approximatif.</p>' : '<p class="ar-rien">Note des âges, même approximatifs, pour voir si des moments de vie se répondent.</p>') + '</div>';
       /* Visions */
       h += '<div class="ar-carte"><h3>Les phrases qui se transmettent</h3>' + (A.vi.length ? '<ul>' + A.vi.map(function (x) {
         return '<li><i style="background:#B98A55"></i><span><b>« ' + esc(x.v) + ' »</b> chez ' + esc(liste(x.qui.map(nomPhrase))) + '</span></li>';
