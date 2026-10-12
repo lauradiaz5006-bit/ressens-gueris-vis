@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Janvier t’invite à te mettre au chaud et à regarder tes peurs avec calme.",
+    saison: "Prends un moment pour respirer avec ta saison. Regarde tes peurs avec calme, à ton rythme.",
     theme: "Lis cette page comme une lettre. Si une période de l’année ou une date te vient en lisant, note-la quelque part.",
     voir: "Cette semaine, tu observes tes périodes sensibles. Chaque moment noté t’aide à mieux te connaître.",
     source: "Une date proche reste une piste. Range chaque information dans son tiroir, et garde ce qui te parle.",

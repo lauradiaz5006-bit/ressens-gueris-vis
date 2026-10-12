@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Respire avec la lumière de juin. Quelle que soit ton histoire avec ton père, elle a sa place ici, même si elle est faite d’absence.",
+    saison: "Prends un moment pour respirer avec ta saison. Quelle que soit ton histoire avec ton père, elle a sa place ici, même si elle est faite d’absence.",
     theme: "Lis cette page à ton rythme. Si elle serre un peu le cœur, pose ta main dessus et respire. Tu n’as rien à prouver.",
     voir: "Cette semaine, tu regardes les hommes de ta lignée comme on regarde de vieilles photos : avec curiosité, sans tribunal.",
     source: "Un père a d’abord été un fils. Ce que tu découvres de son enfance peut changer ta façon de le regarder.",

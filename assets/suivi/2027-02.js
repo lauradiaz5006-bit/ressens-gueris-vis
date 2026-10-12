@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Février t’invite à sentir ton propre élan, encore discret, déjà vivant.",
+    saison: "Prends un moment pour respirer avec ta saison. Sens ton propre élan, encore discret, déjà vivant.",
     theme: "Lis cette page comme une lettre. Si un prénom ou une attente te vient en lisant, note-le quelque part.",
     voir: "Cette semaine, tu regardes les prénoms de ta lignée. Même un prénom à l’histoire inconnue est déjà une information.",
     source: "Pose tes questions avec douceur, à ta famille comme à toi. Range chaque réponse dans son tiroir, et garde ce qui te parle.",

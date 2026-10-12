@@ -1,7 +1,7 @@
 /* Genesolia — application installable.
    Toujours le réseau en premier : le site reste à jour à chaque visite.
    Sans connexion, on ressert la dernière version vue de la page, ou la page « hors ligne ». */
-var CACHE = 'genesolia-v5';
+var CACHE = 'genesolia-v6';   /* v6 : fichiers du suivi et du carnet versionnés (?v=, assets/version.js) */
 var BASE = ['/', '/appli.html', '/offline.html', '/assets/site.css', '/assets/site.js', '/apple-touch-icon.png', '/assets/icones/icone-192.png'];
 
 self.addEventListener('install', function (e) {

@@ -537,3 +537,25 @@
 .mc-livre-case input{width:1.05rem;height:1.05rem;accent-color:#B7833F;flex:none}
 .mc-ta-saison{margin-top:1rem}
 @media print{.mc-livre-case,.mc-etapes-nav,.mc-livre-note{display:none!important}}
+/* Suivi : le point de départ, indispensable, en haut de la page */
+.mc-depart{margin:1.4rem 0 .8rem;padding:1.2rem 1.3rem;border-radius:16px;background:#FFF1E2;border:2px solid #B7833F;box-shadow:0 10px 30px rgba(107,47,91,.10)}
+.mc-depart-t{margin:0 0 .3rem;font:600 1.25rem/1.25 var(--display);color:var(--prune)}
+.mc-depart-cycle{margin:0 0 .7rem;color:#7A5A70;font-size:.95rem}
+.mc-depart-texte{margin:0 0 .8rem;font-weight:600}
+.mc-depart p:last-child{margin-bottom:0}
+.mc-depart-phrase{margin:0;font:400 1.15rem/1.4 var(--display);color:var(--prune)}
+.mc-depart-phrase span{display:block;font:700 .78rem/1.3 var(--texte);letter-spacing:.06em;text-transform:uppercase;color:#8A5A2B;margin-bottom:.2rem}
+.mc-depart-mod{margin:.45rem 0 0;font-size:.86rem}
+.mc-depart-fait{border-width:1px;box-shadow:none;background:#FFF6EC}
+/* Suivi : le sommaire du mois (replié sur téléphone, ouvert sur grand écran) */
+.mc-som-suivi{margin:.8rem 0 0;padding:.2rem 1.1rem;border-radius:16px;background:#FFF9F4;border:1px solid var(--rose-fonce)}
+.mc-som-suivi>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font:600 1rem var(--texte);color:var(--prune)}
+.mc-som-suivi ol{list-style:none;margin:0 0 .8rem;padding:0;display:grid;gap:0 1.2rem;grid-template-columns:1fr}
+.mc-som-suivi li{border-bottom:1px solid var(--filet,#EBCFD5)}
+.mc-som-suivi a,.mc-som-suivi button{display:flex;align-items:center;width:100%;min-height:44px;padding:.35rem 0;background:none;border:0;color:var(--prune);font:inherit;text-align:left;text-decoration:none;cursor:pointer}
+.mc-som-suivi a:hover,.mc-som-suivi button:hover{text-decoration:underline;text-decoration-color:var(--champagne)}
+@media (min-width:700px){.mc-som-suivi ol{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.mc-som-suivi ol{grid-template-columns:1fr 1fr 1fr}}
+@media print{.mc-depart,.mc-som-suivi{display:none!important}}
+.mc-tete .mc-depart{color:#3B2433;max-width:40rem;margin:1rem 0 .4rem}
+.mc-tete .mc-depart a:not(.btn){color:var(--prune);text-decoration:underline}

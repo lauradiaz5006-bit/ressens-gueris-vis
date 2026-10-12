@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Respire avec la rentrée. Ce mois-ci, tu regardes le travail des tiens avec curiosité, sans juger personne, ni eux, ni toi.",
+    saison: "Prends un moment pour respirer avec ta saison. Ce mois-ci, tu regardes le travail des tiens avec curiosité, sans juger personne, ni eux, ni toi.",
     theme: "Lis cette page en pensant aux mains de ta famille : celles qui ont semé, cousu, compté, enseigné, porté.",
     voir: "Cette semaine, tu remplis le tableau des métiers. Les cases vides sont aussi précieuses que les autres.",
     source: "Derrière chaque métier, il y a une époque et un choix, ou une absence de choix. Écoute les réponses avec tendresse.",

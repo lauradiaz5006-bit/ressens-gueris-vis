@@ -40,7 +40,7 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    saison: "Respire avec l’été. Ce mois-ci, tu voyages dans les lieux de ta lignée sans bouger de chez toi.",
+    saison: "Prends un moment pour respirer avec ta saison. Ce mois-ci, tu voyages dans les lieux de ta lignée sans bouger de chez toi.",
     theme: "Lis cette page comme une carte postale venue de loin. Laisse remonter les noms de lieux, les paysages, les accents.",
     voir: "Cette semaine, tu dessines la carte de ta famille. Une case vide est aussi une information.",
     source: "Les départs ont souvent été vécus en silence. Pose tes questions avec douceur, et accueille aussi les « je ne sais pas ».",
