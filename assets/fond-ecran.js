@@ -12,7 +12,14 @@
     ['assets/images/blog-reves-800.webp', 'La nuit douce'], ['assets/images/blog-reves-recurrents-800.webp', 'Le chemin de lumière'], ['assets/images/blog-jung-800.webp', 'Le livre dans les nuages'],
     ['assets/images/blog-journal-reves-800.webp', 'Le matin à la fenêtre'], ['assets/images/blog-deuil-800.webp', 'Les fleurs au bord du lac'], ['assets/images/sephiroth-800.webp', 'Les perles de lumière'],
     ['assets/images/blog-nombres-800.webp', 'Le cercle doré'], ['assets/images/blog-peuples-autochtones-800.webp', 'Le désert au couchant'], ['assets/images/blog-annee-personnelle-800.webp', 'L’horloge des saisons'],
-    ['assets/images/blog-secret-de-famille-800.webp', 'Le coffret de souvenirs']
+    ['assets/images/blog-secret-de-famille-800.webp', 'Le coffret de souvenirs'],
+    ['assets/images/vision-coeur-ouvert-800.webp', 'Le cœur ouvert'], ['assets/images/vision-amour-apaise-800.webp', 'L’amour apaisé'], ['assets/images/vision-grandir-ensemble-800.webp', 'Grandir ensemble'],
+    ['assets/images/vision-aimee-telle-quelle-800.webp', 'S’aimer tel·le quel·le'], ['assets/images/vision-ame-soeur-800.webp', 'L’âme sœur'], ['assets/images/vision-amour-reciproque-800.webp', 'L’amour réciproque'],
+    ['assets/images/vision-amour-securisant-800.webp', 'L’amour qui rassure'], ['assets/images/vision-avenir-a-deux-800.webp', 'L’avenir à deux'], ['assets/images/vision-choisir-amour-800.webp', 'Choisir l’amour'],
+    ['assets/images/vision-confiance-a-deux-800.webp', 'La confiance à deux'], ['assets/images/vision-couple-complice-800.webp', 'La complicité'], ['assets/images/vision-douceur-partagee-800.webp', 'La douceur partagée'],
+    ['assets/images/vision-etre-accueillie-800.webp', 'Être accueilli·e'], ['assets/images/vision-intimite-paisible-800.webp', 'L’intimité paisible'], ['assets/images/vision-joie-partagee-800.webp', 'La joie partagée'],
+    ['assets/images/vision-lettre-amour-800.webp', 'La lettre d’amour'], ['assets/images/vision-mains-unies-800.webp', 'Les mains unies'], ['assets/images/vision-relation-saine-800.webp', 'La relation sereine'],
+    ['assets/images/vision-se-retrouver-800.webp', 'Se retrouver'], ['assets/images/vision-tendresse-800.webp', 'La tendresse']
   ];
   var STYLES = {
     nuit: { nom: 'Nuit prune', fond: ['#2E1338', '#6B2F5B'], halo: 'rgba(243,220,192,.22)', titre: '#F3DCC0', texte: '#FFF4F6', doux: 'rgba(255,244,246,.75)', anneau: '#D9B27C' },
