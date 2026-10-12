@@ -1117,7 +1117,45 @@ window.GENESOLIA_IMPRESSION = {
     monEtape.then(function (x) { if (!x) monEtape = null; });
     return monEtape;
   }
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI };
+  /* Quel fichier ouvrir ? Même règle pour Mon suivi (mon-suivi-mois.html, dossier assets/suivi/) et Mon carnet (mon-carnet.html, dossier assets/carnets/) :
+     - ?mois=AAAA-MM (et &apercu) : le fichier de ce mois du calendrier (vérifications de Laura).
+     - Membre du Cercle : le parcours suit son mois d'abonnement (etape() ci-dessus). Étape 1 = le fichier 2026-10 … étape 12 = 2027-09.
+       Sans paramètre, l'étape en cours ; ?etape=N ouvre une étape déjà débloquée (toutes avec &apercu, ou pour l'offre 'admin').
+       Les réponses restent liées au fichier (même clé qu'avant). Le carnet et le suivi d'une même personne sont donc toujours à la même étape.
+     - Visiteur : comme avant, le plus récent déjà paru.
+     L'étape est donnée au moteur (assets/mon-carnet.js) dans window.GENESOLIA_ETAPE :
+     { n: numéro de ce fichier dans le parcours, enCours, debloquees, debut: 'AAAA-MM-JJ' si les semaines suivent le début de l'étape (sinon le calendrier) } */
+  function ouvrirParEtapes(o) {
+    var DISPONIBLES = ETAPES_SUIVI.concat(['2027-10']), ETAPES = ETAPES_SUIVI;   /* les fichiers déjà écrits (AAAA-MM.js) */
+    var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
+    var Q = new URLSearchParams(location.search), m = Q.get('mois'), et = parseInt(Q.get('etape'), 10);
+    var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
+    var demande = DISPONIBLES.indexOf(m) >= 0, mDemande = m;
+    function V(s) { return window.genesoliaVersion ? window.genesoliaVersion(s) : s; }   /* ?v=… (assets/version.js) */
+    function parDefaut() { return DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0]; }
+    if (demande && m > actuel && !apercu) m = parDefaut();
+    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">' + o.erreur + '</p>'; }; document.body.appendChild(s); }
+    function ouvrir() { charger(V(o.dossier + m + '.js'), function () { var plus = document.createElement('script'); plus.src = V('assets/plus/' + m + '.js'); plus.onload = plus.onerror = function () { charger(V('assets/mon-carnet.js'), function () {}); }; document.body.appendChild(plus); }); }
+    function choisir(info) {
+      var n;
+      if (info) {
+        if (info.admin && demande) m = mDemande;   /* la propriétaire relit aussi les mois à venir sans &apercu */
+        if (!demande) { n = et >= 1 && et <= (apercu ? 12 : info.debloquees) ? et : info.enCours; m = ETAPES[n - 1]; }
+        n = ETAPES.indexOf(m) + 1;
+        if (n) window.GENESOLIA_ETAPE = { n: n, enCours: info.enCours, debloquees: apercu ? 12 : info.debloquees, debut: n === info.enCours && !info.calendaire && !demande ? info.debut : null };
+      } else {
+        if (!demande) m = apercu && et >= 1 && et <= 12 ? ETAPES[et - 1] : parDefaut();
+        n = ETAPES.indexOf(m) + 1;
+        if (apercu && n) window.GENESOLIA_ETAPE = { n: n, enCours: n, debloquees: 12, debut: null };
+      }
+      ouvrir();
+    }
+    var fait = false;
+    function une(info) { if (fait) return; fait = true; choisir(info); }
+    setTimeout(function () { une(null); }, 6000);   /* filet : la page s'ouvre quoi qu'il arrive */
+    ((window.GenesoliaAcces && window.GenesoliaAcces.etape) || etape)().then(une, function () { une(null); });
+  }
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   if (aUnCompte()) membre().then(function (m) {
     if (!m) return;

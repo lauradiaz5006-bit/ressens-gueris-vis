@@ -12,16 +12,22 @@
   var C = window.GENESOLIA_CARNET; if (!C) return;
   var A = window.CARNET_ACCOMP || null;   /* accompagnement personnalisé : blessures, gestes, lecture de la roue (assets/carnet-accompagnement.js) */
   var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
-  var SUIVI = C.type === 'suivi', MODULE = C.type === 'module', T2 = !SUIVI && !MODULE && C.trame === 2, COEUR = SUIVI && !!C.coeur, CLE = C.cle || C.mois, PAGE_URL = C.page || 'mon-carnet.html', membre = false;
+  var SUIVI = C.type === 'suivi', MODULE = C.type === 'module', CARNET = !SUIVI && !MODULE, T2 = !SUIVI && !MODULE && C.trame === 2, COEUR = SUIVI && !!C.coeur, CLE = C.cle || C.mois, PAGE_URL = C.page || 'mon-carnet.html', membre = false;
   var CLE_LOCALE = 'genesolia-carnet-' + CLE;
-  /* ───── Le suivi par étapes (cycle 2 « Mon arbre de vie ») ─────
-     window.GENESOLIA_ETAPE vient de mon-suivi-mois.html (membre du Cercle, ou &apercu) : { n, enCours, debloquees, debut }.
+  /* ───── Le suivi (cycle 2 « Mon arbre de vie ») et le carnet (cycle 1) par étapes ─────
+     window.GENESOLIA_ETAPE vient de mon-suivi-mois.html ou de mon-carnet.html (assets/site.js, GenesoliaAcces.ouvrirParEtapes ; membre du Cercle, ou &apercu) : { n, enCours, debloquees, debut }.
+     Le carnet et le suivi d'une même personne sont toujours à la même étape ; les liens de l'un à l'autre passent par ?etape=N (vers()).
      Le parcours suit le mois d'abonnement : étape 1 = le fichier 2026-10 … étape 12 = 2027-09. La clé des réponses reste celle du fichier (C.cle).
      Ce qui reste au calendrier (la saison, son geste, sa citation, l'autel) utilise le vrai mois : SAISON_REELLE.
      debut : les semaines partent du début de l'étape (sinon, comme avant, du 1er du mois du fichier). */
-  var ET = SUIVI && window.GENESOLIA_ETAPE && window.GENESOLIA_ETAPE.n ? window.GENESOLIA_ETAPE : null;
+  var ET = (SUIVI || CARNET) && window.GENESOLIA_ETAPE && window.GENESOLIA_ETAPE.n ? window.GENESOLIA_ETAPE : null;
   var ARBRE_ETAPES = ['Qui sont les miens ?', 'Qu’est-ce que j’ai reçu ?', 'Quelle est ma place ?', 'Quelle peur je porte, et pour qui ?', 'Quel projet a-t-on posé sur moi ?', 'Quelles émotions avaient le droit d’exister ?',
     'Quelles phrases me guident ?', 'Comment ai-je appris à aimer ?', 'Ai-je le droit d’aller plus loin ?', 'Combien je m’autorise à recevoir ?', 'D’où venons-nous ?', 'Qu’est-ce que je transmets ?'];
+  /* Les 12 étapes du carnet (cycle 1) : le titre de chaque fichier assets/carnets/2026-10.js … 2027-09.js */
+  var CARNET_ETAPES = ['Mon point de départ', 'Mes forces, mes appuis', 'Ma place, mes limites', 'Mon intention, mes valeurs', 'M’aimer d’abord', 'Ma direction, ma confiance',
+    'Dire vrai', 'La vie circule à travers moi', 'Oser agir', 'Ma valeur', 'Mon chez-moi, mon élan', 'Ma vocation'];
+  /* Le lien vers le suivi ou le carnet de la même étape (ou du même mois, hors parcours par étapes) */
+  function vers(page) { return page + (ET ? '?etape=' + ET.n : '?mois=' + C.mois); }
   function partieArbre(n) { return ['Racines', 'Tronc', 'Branches', 'Fruits'][Math.floor((n - 1) / 3)] || ''; }
   var DEBUT_ET = ET && /^\d{4}-\d\d-\d\d$/.test(ET.debut || '') ? new Date(+ET.debut.slice(0, 4), +ET.debut.slice(5, 7) - 1, +ET.debut.slice(8, 10)) : null;
   var SAISON_REELLE = !!ET && !new URLSearchParams(location.search).get('mois');
@@ -330,7 +336,7 @@
     var z = document.getElementById('mc-tonmois'); if (!z) return;
     var pr = lireProfil(true); if (!pr) { formProfil(z); return; }
     if (pr.aConfirmer) { confirmerReperes(z, pr); return; }
-    var p = String(C.mois).split('-'), an = +p[0], mo = +p[1], arbre = null, r = null;
+    var p = String(SAISON_REELLE ? MOIS_SAISON_ISO : C.mois).split('-'), an = +p[0], mo = +p[1], arbre = null, r = null;   /* par étapes : le vrai mois */
     try { arbre = JSON.parse(localStorage.getItem('geno4') || 'null'); } catch (e) {}
     /* Sans compte, l'arbre de l'appareil a pu être rempli par une autre personne : on demande avant de s'en servir */
     var arbreAConfirmer = !!(arbre && arbre.people && !user && localStorage.getItem('genesolia-arbre-moi') !== '1');
@@ -556,7 +562,7 @@
   function introSemaine(i) {
     return '<div class="mc-sem-intro"><p class="mc-sem-titre">Semaine ' + (i + 1) + ' · ' + ETAPES_SEM[i][0] + '</p><p>' + ETAPES_SEM[i][1] + '</p></div>' +
       '<p class="mc-pont" data-pont="' + i + '" hidden></p>' +
-      '<p class="mc-seances-lien"><b>Tes deux séances du mois</b>, à écouter quand tu veux : <a href="#seance">la visualisation</a> · <a href="mon-suivi-mois.html?mois=' + esc(C.mois) + '#meditation">la libération</a></p>';
+      '<p class="mc-seances-lien"><b>Tes deux séances du mois</b>, à écouter quand tu veux : <a href="#seance">la visualisation</a> · <a href="' + esc(vers('mon-suivi-mois.html')) + '#meditation">la libération</a></p>';
   }
   function rappelGestes() {
     return A ? '<p class="mc-pourquoi mc-rappel-gestes">Tes gestes du mois t’accompagnent toutes les semaines : <a href="#gestes">les voir et les cocher</a>.</p>' : '';
@@ -657,8 +663,8 @@
       '<p class="mc-note mc-mention">Ce carnet propose une démarche symbolique de réflexion et de développement personnel. Il ne remplace pas un accompagnement médical ou psychologique.</p>';
   } });
   function autreLivre() {
-    var autre = SUIVI ? { sur: 'Le carnet « J’avance »', texte: 'Ton côté pour avancer : ta roue de la vie, ton objectif du mois, tes petits pas et ton intention qui prend vie.', lien: 'mon-carnet.html?mois=' + C.mois, bouton: 'Ouvrir mon carnet du mois' }
-      : { sur: 'Le suivi « Je me libère »', texte: 'Ton côté pour te libérer : voir ce qui se rejoue, remonter à la source, déposer ce qui ne t’appartient pas, poser un geste nouveau.', lien: 'mon-suivi-mois.html?mois=' + C.mois, bouton: 'Ouvrir mon suivi du mois' };
+    var autre = SUIVI ? { sur: 'Le carnet « J’avance »', texte: 'Ton côté pour avancer : ta roue de la vie, ton objectif du mois, tes petits pas et ton intention qui prend vie.', lien: vers('mon-carnet.html'), bouton: 'Ouvrir mon carnet du mois' }
+      : { sur: 'Le suivi « Je me libère »', texte: 'Ton côté pour te libérer : voir ce qui se rejoue, remonter à la source, déposer ce qui ne t’appartient pas, poser un geste nouveau.', lien: vers('mon-suivi-mois.html'), bouton: 'Ouvrir mon suivi du mois' };
     return '<aside class="mc-autre"><p class="mc-sur">Ton autre livre du mois</p><h3 class="mc-h">' + autre.sur + '</h3><p>' + autre.texte + '</p><p><a class="btn btn-plein" href="' + autre.lien + '">' + autre.bouton + '</a></p></aside>';
   }
   /* « À lire ce mois-ci » : les articles du blog reliés au mois (champ aLire du carnet), en bas du carnet */
@@ -679,11 +685,11 @@
   }
   function lienSuivi() {
     if (!C.suivi) return '';
-    return '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">Ce mois-ci, dans ton suivi « Je me libère »</p><p><b>' + esc(C.suivi.titre) + '.</b> ' + md(C.suivi.texte) + '</p><p><a class="btn btn-trait" href="mon-suivi-mois.html?mois=' + esc(C.mois) + '">Ouvrir mon suivi</a></p></aside>';
+    return '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">' + (ET ? 'À cette étape' : 'Ce mois-ci') + ', dans ton suivi « Je me libère »</p><p><b>' + esc(C.suivi.titre) + '.</b> ' + md(C.suivi.texte) + '</p><p><a class="btn btn-trait" href="' + esc(vers('mon-suivi-mois.html')) + '">Ouvrir mon suivi</a></p></aside>';
   }
   function aVenir() {
     if (!C.aVenir || !C.aVenir.length) return '';
-    return '<section class="mc-avenir"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le Cercle continue</p><h3 class="mc-h">Les prochains carnets</h3>' +
+    return '<section class="mc-avenir"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le Cercle continue</p><h3 class="mc-h">' + (ET ? 'Tes prochaines étapes' : 'Les prochains carnets') + '</h3>' +
       '<div class="mc-avenir-l">' + C.aVenir.map(function (a) {
         return '<article class="mc-av">' + (a.image ? '<img src="' + esc(a.image) + '" alt="" loading="lazy" width="120" height="120">' : '') + '<div><p class="mc-sem-n">' + esc(a.mois) + '</p><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + esc(a.texte) + '</p></div></article>';
       }).join('') + '</div><p class="mc-av-lien"><a class="btn btn-trait" href="mon-mois.html">Mes carnets précédents</a></p></section>';
@@ -709,7 +715,7 @@
     }
     var nat = MY.calculer(pr.date); if (!nat) return '';
     var p = String(C.mois).split('-'), an = +p[0], mo = +p[1] - 1;
-    var debut = dateSemaine(i), fin = i < 3 ? plusJ(debut, 6) : new Date(an, mo + 1, 0);
+    var debut = dateSemaine(i), fin = bornesSem(i)[1];
     var S = MT.SIGNES, jours = [], vagues = [];
     for (var d = debut; d <= fin; d = plusJ(d, 1)) {
       var r = MY.calculer(isoJ(d)), dv = plusJ(d, -(r.nombre - 1));
@@ -1094,6 +1100,7 @@
     var cloAncienne = PAGES.filter(function (p) { return p.id === 'cloture'; })[0];
     PAGES = [ouvertureT2(), semaineT2(0), semaineT2(1), semaineT2(2), semaineT2(3), { id: 'cloture', nom: cloAncienne.nom, g: cloAncienne.g, d: function () { return cloAncienne.d().replace('<div class="mc-actions">', cibleSuiteHtml() + '<div class="mc-actions">'); } }];
   }
+  if (CARNET && ET) PAGES.splice(PAGES.map(function (p) { return p.id; }).indexOf('ouverture') + 1, 0, saisonCarnet());
   if (SUIVI) PAGES = suiviPages();
   /* ───── Le suivi du cycle 2, autour de la cible du cœur (C.coeur) ─────
      La saison et l'autel, le thème, S1 Voir ce qui vient, S2 Ta boucle sous tes yeux (+ D'où vient ta boucle, Mon personnage),
@@ -1559,18 +1566,18 @@
   }
 
   /* ───── Le suivi par étapes : le titre et les 12 étapes de l'année ───── */
-  function titreEtape() { return 'Étape ' + ET.n + ' · ' + partieArbre(ET.n) + ' · ' + C.titre; }
+  function titreEtape() { return 'Étape ' + ET.n + ' · ' + (SUIVI ? partieArbre(ET.n) + ' · ' : '') + C.titre; }
   function navEtapes() {
     if (!ET) return '';
-    return '<details class="mc-etapes-nav"><summary>Étape ' + ET.n + ' sur 12 · ton année en 12 étapes</summary><ol>' + ARBRE_ETAPES.map(function (t, i) {
+    return '<details class="mc-etapes-nav"><summary>Étape ' + ET.n + ' sur 12 · ton année en 12 étapes</summary><ol>' + (SUIVI ? ARBRE_ETAPES : CARNET_ETAPES).map(function (t, i) {
       var n = i + 1, ok = n <= ET.debloquees, ici = n === ET.n;
-      var lab = '<span class="mc-et-n">Étape ' + n + '</span><span class="mc-et-t">' + esc(partieArbre(n)) + ' · ' + esc(t) + '</span>';
+      var lab = '<span class="mc-et-n">Étape ' + n + '</span><span class="mc-et-t">' + (SUIVI ? esc(partieArbre(n)) + ' · ' : '') + esc(t) + '</span>';
       return '<li class="' + (ici ? 'mc-et-ici' : ok ? 'mc-et-ok' : 'mc-et-avenir') + '">' +
-        (ici ? '<b aria-current="step">' + lab + '</b>' : ok ? '<a href="mon-suivi-mois.html?etape=' + n + (APERCU ? '&amp;apercu' : '') + '">' + lab + '</a>' : '<span>' + lab + '<em>à venir</em></span>') + '</li>';
+        (ici ? '<b aria-current="step">' + lab + '</b>' : ok ? '<a href="' + (SUIVI ? 'mon-suivi-mois.html' : 'mon-carnet.html') + '?etape=' + n + (APERCU ? '&amp;apercu' : '') + '">' + lab + '</a>' : '<span>' + lab + '<em>à venir</em></span>') + '</li>';
     }).join('') + '</ol></details>';
   }
 
-  /* ───── Mon livre de lignée : une case par section d'écriture (suivi) ─────
+  /* ───── Mon livre de lignée : une case par section d'écriture (suivi et carnet) ─────
      Chaque section (ou champ isolé) qui contient au moins un champ d'écriture reçoit une case « À mettre dans mon livre de lignée »,
      décochée par défaut (= personnel). Elle s'enregistre comme toutes les autres cases (D.v, même fichier, même clé de suivi) sous la clé
      « livre-<clé du premier champ d'écriture de la section> » : stable (les clés de champs ne changent jamais) et unique dans le mois.
@@ -1578,7 +1585,8 @@
      NOTE TECHNIQUE pour l'export de fin d'année (« mon carnet complet » et « mon livre de lignée », à venir) :
      - Les réponses d'une étape sont dans le coffre (GenesoliaCoffre.lire(sb, user, 'suivi-AAAA-MM')) ou, sans compte, dans
        localStorage['genesolia-carnet-suivi-AAAA-MM'] : { v: { clé: valeur }, t: { clé: horodatage } }.
-       Étape n = fichier ETAPES[n - 1] de mon-suivi-mois.html (étape 1 = suivi-2026-10 … étape 12 = suivi-2027-09).
+       Étape n = fichier n de assets/site.js ETAPES_SUIVI (étape 1 = suivi-2026-10 … étape 12 = suivi-2027-09).
+       Carnet (cycle 1) : même mécanisme, coffre 'carnet-AAAA-MM' ou localStorage['genesolia-carnet-AAAA-MM'] (clé du fichier, CLE_LOCALE).
      - Sections cochées d'une étape : Object.keys(D.v).filter(function (k) { return /^livre-/.test(k) && D.v[k] === true; }).
        Pour chacune, la clé du premier champ est k.slice(6). Pour retrouver tous les champs de la section, construire la page
        de l'étape (même moteur, sans l'afficher) puis lire les [data-k] du parent qui porte [data-livre="<k>"] (attribut posé ci-dessous).
@@ -1586,7 +1594,7 @@
      Ces clés « livre-… » sont exclues du calcul d'avancement (clesDe). */
   var LIVRE_NOTE = 'Ce que tu écris reste à toi. Coche « À mettre dans mon livre de lignée » pour ce que tu souhaites transmettre : à la fin de ton année, tu pourras télécharger ton livre.';
   function casesLivre() {
-    if (!SUIVI) return;
+    if (MODULE) return;
     var vus = [];
     racine.querySelectorAll('.mc-livre textarea[data-k], .mc-livre input[type=text][data-k]').forEach(function (el) {
       var bloc = el.closest('section') || el.closest('label');
@@ -1643,6 +1651,36 @@
     page('bilan', 'Mon bilan');
     z.innerHTML = L.join('');
   }
+  /* Le carnet (cycle 1) : le même sommaire des liens du mois, en haut (replié sur téléphone) */
+  function remplirSommaireCarnet() {
+    var z = racine.querySelector('[data-som-suivi]'); if (!z) return;
+    var L = [];
+    function lien(h, t) { L.push('<li><a href="' + h + '">' + esc(t) + '</a></li>'); }
+    function page(i, t, ancre) { L.push('<li><button type="button" data-page="' + i + '"' + (ancre ? ' data-ancre="' + esc(ancre) + '"' : '') + '>' + esc(t) + '</button></li>'); }
+    function dans(el, t) { if (!el || !el.id) return; var pg = el.closest('.mc-page'); if (pg) page(+pg.getAttribute('data-p'), t, el.id); }
+    lien('point-de-depart.html', 'Mon point de départ');
+    PAGES.forEach(function (p, i) { page(i, p.nom); });
+    dans(racine.querySelector('.mc-livre #mc-p-exmois'), 'Ton exercice du mois');
+    dans(racine.querySelector('.mc-livre #mc-seance'), 'Ta séance de visualisation, à lire');
+    lien(seanceUrl(1), 'Ma séance du mois, l’audio');
+    lien(vers('mon-suivi-mois.html'), 'Mon suivi « Je me libère »');
+    if (document.getElementById('mc-alire')) L.push('<li><button type="button" data-vers="mc-alire">À lire ce mois-ci</button></li>');
+    z.innerHTML = L.join('');
+  }
+  /* Le carnet par étapes : « Ta saison » suit le vrai mois du calendrier (assets/saisons.js), l'étape suit le parcours */
+  function saisonCarnet() {
+    var S = window.GENESOLIA_SAISONS, sa = S && S[MOIS_SAISON];
+    return { id: 'saison', nom: 'Ta saison', g: function () {
+      return gauche('saison', (sa ? sa.mois : NOM_MOIS) + ' · ta saison', sa ? sa.titre.charAt(0).toUpperCase() + sa.titre.slice(1) : 'Ta saison',
+        sa ? '<p class="mc-intro">' + esc(sa.texte) + '</p>' : '', sa ? '<p class="mc-permission"><b>Ce que ça veut dire pour toi :</b> ' + esc(sa.permission) + '</p>' : '');
+    }, d: function () {
+      return '<div class="mc-ta-saison"><p class="mc-consigne">Ton étape suit ton propre rythme, depuis ton arrivée dans Le Cercle. La saison, elle, suit le calendrier : voici ce que la nature t’offre en ce moment, pour accorder ton carnet au dehors.</p>' +
+        (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') +
+        encadre('Ton autel de saison', '<p>Va te promener et ramasse ce que la nature t’offre en ce moment : feuilles, branches, pierres, fleurs ou fruits secs. Avec une bougie et des couleurs qui s’accordent, crée-toi un petit autel : un espace qui protège ton énergie et te rappelle ton intention.</p>' +
+          '<p><a class="btn btn-plein" href="autel-de-saison.html?mois=' + esc(MOIS_SAISON_ISO) + '">Créer mon autel du mois</a></p>', 'mc-autel-encart') +
+        (sa ? '<blockquote class="mc-citation"' + (DECOR.citation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.citation)) + '\')"' : '') + '><span>' + esc(sa.citation) + '</span></blockquote>' : '') + '</div>';
+    } };
+  }
   /* Relecture (&apercu) : tous les liens vers le suivi et le carnet gardent &apercu, pour ouvrir exactement l'étape ou le mois demandé */
   function garderApercu() {
     if (!APERCU) return;
@@ -1662,9 +1700,9 @@
   function construire() {
     var fond = DECOR.couverture ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.couverture)) + '\')"' : '';
     racine.innerHTML =
-      '<header class="mc-tete"' + fond + '><p class="mc-sur">' + (ET ? 'Le Cercle · Ton suivi « Je me libère » · étape ' + ET.n + ' sur 12' : MODULE ?'Cycle 2 · Sors de la boucle · Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Cycle 1 · De la peur à la paix, en alignement avec soi · ' : 'Le carnet « J’avance » ') + (T2 ? esc(NOM_MOIS) : esc(de(NOM_MOIS))) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
+      '<header class="mc-tete"' + fond + '><p class="mc-sur">' + (ET ? (SUIVI ? 'Le Cercle · Ton suivi « Je me libère » · étape ' : 'Le Cercle · Ton carnet « J’avance » · étape ') + ET.n + ' sur 12' : MODULE ?'Cycle 2 · Sors de la boucle · Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Cycle 1 · De la peur à la paix, en alignement avec soi · ' : 'Le carnet « J’avance » ') + (T2 ? esc(NOM_MOIS) : esc(de(NOM_MOIS))) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
         '<p class="mc-perso" id="mc-perso" hidden></p><h1>' + esc(ET ? titreEtape() : C.titre) + '</h1><p>' + esc(C.sousTitre) + '</p>' + navEtapes() + (SUIVI ? departHtml() : '') +
-        (SUIVI ? '<p class="mc-livre-note">' + esc(LIVRE_NOTE) + '</p>' : '') +
+        (SUIVI || CARNET ? '<p class="mc-livre-note">' + esc(LIVRE_NOTE) + '</p>' : '') +
         '<div class="mc-barre"><div class="mc-progres" aria-label="Avancement du carnet"><span id="mc-progres-barre"></span></div><span id="mc-progres-texte"></span><span class="mc-etat" id="mc-etat" aria-live="polite"></span></div>' +
         '<div class="mc-boutons"><div class="mc-imp-zone"><button type="button" class="btn btn-trait" id="mc-imprimer" aria-expanded="false" aria-controls="mc-imp-choix">' + (SUIVI ? 'Imprimer mon suivi rempli' : MODULE ? 'Imprimer mon module rempli' : 'Imprimer mon carnet rempli') + '</button>' +
           '<div class="mc-imp-choix" id="mc-imp-choix" hidden><p>Quelle version veux-tu imprimer ?</p>' +
@@ -1672,10 +1710,10 @@
             '<button type="button" data-imprimer="decor"><b>Avec le décor</b><span>Les illustrations, les couleurs et les ornements.</span></button></div></div>' +
           (C.pdf ? '<a class="btn btn-trait" href="' + esc(C.pdf) + '" download>Version papier vierge (PDF)</a>' : '') +
           (MODULE ? '<a class="btn btn-trait" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Mon espace de formation</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a>' :
-            (SUIVI ? '<a class="btn btn-trait" href="mon-carnet.html?mois=' + esc(C.mois) + '">Mon carnet du mois</a>' : '<a class="btn btn-trait" href="mon-suivi-mois.html?mois=' + esc(C.mois) + '">Mon suivi du mois</a>') +
+            (SUIVI ? '<a class="btn btn-trait" href="' + esc(vers('mon-carnet.html')) + '">Mon carnet du mois</a>' : '<a class="btn btn-trait" href="' + esc(vers('mon-suivi-mois.html')) + '">Mon suivi du mois</a>') +
             '<a class="btn btn-trait" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Ma séance du mois</a>' +
             '<button type="button" class="btn btn-trait" data-ics>Ajouter mes rappels à mon agenda</button>') + '</div>' +
-        '<div class="mc-compte" id="mc-compte" hidden></div></header>' + (SUIVI ? sommaireSuiviHtml() : '') +
+        '<div class="mc-compte" id="mc-compte" hidden></div></header>' + (SUIVI || CARNET ? sommaireSuiviHtml() : '') +
       '<nav class="mc-onglets" aria-label="' + (MODULE ? 'Pages du module' : 'Pages du carnet') + '">' + PAGES.map(function (p, i) { return '<button type="button" data-page="' + i + '"' + (p.sem != null ? ' class="mc-onglet-sem"' : '') + '><span>' + (p.sem != null ? '✦' : '•') + '</span>' + esc(p.nom) + '</button>'; }).join('') + '</nav>' +
       '<div class="mc-livre" id="mc-livre">' + PAGES.map(function (p, i) {
         return '<article class="mc-page" id="page-' + p.id + '" data-p="' + i + '"' + (i ? ' hidden' : '') + ' aria-label="Page ' + (i + 1) + ' : ' + esc(p.nom) + '">' +
@@ -1688,7 +1726,7 @@
       '<p class="mc-aide-livre">Astuce : sur un grand écran, tourne les pages avec les flèches du clavier. Sur téléphone ou tablette, glisse du doigt vers la gauche ou la droite.</p>' +
       (MODULE ? '' : autreLivre()) + aLire();
     casesLivre();
-    if (SUIVI) remplirSommaire();
+    if (SUIVI) remplirSommaire(); else if (CARNET) remplirSommaireCarnet();
     garderApercu();
 
     racine.addEventListener('click', function (e) {
@@ -1749,7 +1787,7 @@
         var k = +z.getAttribute('data-pont'), s = X.semaines[k]; if (!s) return;
         if (Array.isArray(s)) s = { titre: s[0] };
         var nom = SUIVI ? 'Semaine ' + (k + 1) + ' · ' + ETAPES_SEM[k][0] : 'Semaine ' + (k + 1) + (s.nom ? ' · ' + s.nom : '');
-        var lien = SUIVI ? 'mon-carnet.html?mois=' + C.mois + '#semaine-' + (k + 1) : 'mon-suivi-mois.html?mois=' + C.mois + '#' + (s.cle || 'saison');
+        var lien = SUIVI ? vers('mon-carnet.html') + '#semaine-' + (k + 1) : vers('mon-suivi-mois.html') + '#' + (s.cle || 'saison');
         z.innerHTML = '<span>' + (SUIVI ? 'Cette semaine dans ton carnet « J’avance »' : 'Cette semaine dans ton suivi « Je me libère »') + '</span><b>' + esc(nom) + '</b>' + (s.titre ? ' · ' + esc(s.titre) : '') + ' <a href="' + esc(lien) + '">Ouvrir</a>';
         z.hidden = false;
       });

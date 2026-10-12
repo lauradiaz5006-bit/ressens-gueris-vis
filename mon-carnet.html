@@ -24,18 +24,13 @@
   <!-- Scripts avec leur numéro de version (assets/version.js), dans le même ordre qu'avant ; tous prêts avant DOMContentLoaded -->
   <script>(window.genesoliaEcrire || function (l) { l.forEach(function (s) { document.write('<script src="' + s + '"><\/script>'); }); })(['assets/site.js', 'assets/supabase.js', 'assets/mon-chemin.js', 'assets/notifs.js', 'assets/fond-ecran.js',
     'assets/astronomy.browser.min.js', 'assets/astrologie.js', 'assets/numerologie.js', 'assets/maya.js', 'assets/maya-textes.js', 'assets/maya-semaines.js',
-    'assets/carnet-accompagnement.js', 'assets/guide-textes.js', 'assets/guide-mois.js', 'assets/lieu-naissance.js']);</script>
+    'assets/carnet-accompagnement.js', 'assets/guide-textes.js', 'assets/guide-mois.js', 'assets/lieu-naissance.js', 'assets/saisons.js']);</script>
   <script>
-  /* Carnet demandé (?mois=AAAA-MM), sinon le plus récent déjà paru */
+  /* Quel carnet ouvrir ? Même règle que Mon suivi (assets/site.js : GenesoliaAcces.ouvrirParEtapes) :
+     ?mois=AAAA-MM (et &apercu) : le carnet de ce mois ; membre du Cercle : son étape (étape 1 = 2026-10 … étape 12 = 2027-09), ?etape=N ;
+     visiteur : comme avant, le plus récent déjà paru. Les réponses restent liées au fichier (même clé qu'avant). */
   (function () {
-    var DISPONIBLES = ['2026-10', '2026-11', '2026-12', '2027-01', '2027-02', '2027-03', '2027-04', '2027-05', '2027-06', '2027-07', '2027-08', '2027-09', '2027-10'];
-    var d = new Date(), actuel = d.getFullYear() + '-' + (d.getMonth() < 9 ? '0' : '') + (d.getMonth() + 1);
-    var m = new URLSearchParams(location.search).get('mois');
-    var apercu = /[?&]apercu\b/.test(location.search);   /* ?apercu : lire les mois à venir (relecture) */
-    if (DISPONIBLES.indexOf(m) < 0 || (m > actuel && !apercu)) m = DISPONIBLES.filter(function (x) { return x <= actuel; }).pop() || DISPONIBLES[0];
-    function charger(src, ok) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = function () { document.getElementById('carnet').innerHTML = '<p class="mc-chargement">Le carnet ne s’ouvre pas pour l’instant. Recharge la page.</p>'; }; document.body.appendChild(s); }
-    function V(s) { return window.genesoliaVersion ? window.genesoliaVersion(s) : s; }   /* ?v=… (assets/version.js) */
-    function go() { charger(V('assets/carnets/' + m + '.js'), function () { var plus = document.createElement('script'); plus.src = V('assets/plus/' + m + '.js'); plus.onload = plus.onerror = function () { charger(V('assets/mon-carnet.js'), function () {}); }; document.body.appendChild(plus); }); }
+    function go() { window.GenesoliaAcces.ouvrirParEtapes({ dossier: 'assets/carnets/', erreur: 'Le carnet ne s’ouvre pas pour l’instant. Recharge la page.' }); }
     /* les scripts « defer » (ciel, nombres, maya) sont prêts au DOMContentLoaded */
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
   })();

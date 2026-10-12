@@ -1,6 +1,6 @@
-/* Genesolia · Le Cercle · Carnet de novembre 2026, « J'avance » : « Mes forces, mes appuis »
-   Le carnet du mois est le côté « J'avance » du Cercle : reconnaître ses forces, ses ressources, ce sur quoi s'appuyer.
-   Le côté libération (« Qu’est-ce que j’ai reçu ? ») est dans Mon suivi (assets/suivi/2026-11.js).
+/* Genesolia · Le Cercle · Carnet de novembre 2026, « J'avance » : « Mes forces, mes appuis »
+   Le carnet du mois est le côté « J'avance » du Cercle : reconnaître ses forces, ses ressources, ce sur quoi s'appuyer.
+   Le côté libération (« Qu’est-ce que j’ai reçu ? ») est dans Mon suivi (assets/suivi/2026-11.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -40,12 +40,12 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    tonmois: "Lis ton mois comme une lettre écrite pour toi. Novembre invite à rentrer à l’intérieur : prends ce qui te réchauffe.",
+    tonmois: "Lis ton mois comme une lettre écrite pour toi. Prends ce qui te réchauffe, et laisse le reste.",
     ouverture: "Ta météo, ta roue et ton objectif : dix minutes, pas plus. Ce mois-ci, regarde aussi ce qui tient bon dans ta roue.",
     theme: "Rien à faire ici, seulement à lire. Laisse remonter les moments où tu as été plus fort·e que tu ne pensais.",
     comprendre: "La modestie, c’est joli, mais pas ce mois-ci. Ose nommer ce que tu fais bien, sans t’excuser.",
     exercices: "Commence par le premier exercice, au chaud, avec un thé. Tes fiertés sont plus nombreuses que tu ne crois.",
-    rituel: "Ta connexion de novembre passe par une pierre, une flamme et un merci. Simple, et tellement réconfortant.",
+    rituel: "Ta connexion de cette étape passe par une pierre, une flamme et un merci. Simple, et tellement réconfortant.",
     semaines: "Chaque semaine, un petit défi pour t’appuyer sur toi. Tu n’as rien à prouver, seulement à remarquer.",
     cloture: "Prends ce moment même si tout n’a pas été fait. Regarde surtout ce sur quoi tu as pu t’appuyer."
   },
@@ -53,19 +53,19 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois de tes appuis',
     texte: [
-      "Novembre, c'est la saison où la nature se retire. Les arbres sont presque nus, la lumière baisse tôt, et l'on a envie de rentrer, de se réchauffer, de se rassembler. Ce n'est pas un temps vide : c'est le moment où l'arbre se tient grâce à ce qu'il a de plus solide, son tronc et ses racines.",
-      "Ce carnet t'invite à faire pareil : regarder ce qui te tient debout. Tes forces, celles que tu utilises sans même y penser. Tes appuis, les personnes, les lieux, les habitudes qui te ressourcent. Et ce que tu as reçu de beau de celles et ceux qui sont venus avant toi. Quand on sait sur quoi s'appuyer, on traverse l'hiver plus sereinement."
+      "Il y a des moments où l’on a besoin de revenir à l’essentiel : ce qui tient, ce qui soutient, ce qui reste quand le reste vacille. En toute saison, un arbre se tient debout grâce à ce qu’il a de plus solide, son tronc et ses racines.",
+      "Ce carnet t'invite à faire pareil : regarder ce qui te tient debout. Tes forces, celles que tu utilises sans même y penser. Tes appuis, les personnes, les lieux, les habitudes qui te ressourcent. Et ce que tu as reçu de beau de celles et ceux qui sont venus avant toi. Quand on sait sur quoi s’appuyer, on traverse les périodes difficiles plus sereinement."
     ],
     sousTitre: 'Pourquoi regarder tes forces ?',
     texte2: [
       "On dit souvent que l'on avance plus vite en s'appuyant sur ses forces qu'en corrigeant ses faiblesses. Pourtant, quand on nous demande nos qualités, on bafouille, alors qu'on peut citer nos défauts en dix secondes. Ce qui nous vient facilement nous paraît normal, et nous ne le voyons plus.",
       "Une force, c'est ce que tu fais bien et qui te donne de l'énergie en même temps : écouter, organiser, faire rire, persévérer, créer du beau, apaiser une pièce tendue. Un appui, c'est ce qui te ressource quand le reste vacille : une amie, une marche en forêt, une recette, une phrase qu'on te disait enfant. Certaines de ces forces et de ces appuis t'ont été transmis : le courage d'une grand-mère, l'humour d'un oncle, des mains habiles qui viennent de loin.",
-      "Ce mois-ci, tu vas **reconnaître** tes forces, **rassembler** tes appuis, et **dire merci** à ce qui t'a été transmis de beau. En parallèle, ton suivi « Je me libère » t'invite à te tourner vers tes ancêtres : les deux avancent ensemble, l'un reçoit, l'autre rend."
+      "Ce mois-ci, tu vas **reconnaître** tes forces, **rassembler** tes appuis, et **dire merci** à ce qui t'a été transmis de beau. En parallèle, ton suivi « Je me libère » t'invite à te tourner vers tes ancêtres : les deux avancent ensemble, l'un reçoit, l'autre rend."
     ],
     exemplesTitre: 'Des forces que l’on ne voit plus',
     exemples: [
-      "**Au travail** : c'est toujours vers toi que l'on se tourne quand il faut calmer un client mécontent. Tu appelles ça « avoir l'habitude ». C'est une vraie force : l'apaisement.",
-      "**En famille** : tu te souviens des anniversaires de tout le monde et tu envoies un mot à chacun·e. Ce n'est pas « rien », c'est ta fidélité, et elle tient les liens.",
+      "**Au travail** : c'est toujours vers toi que l'on se tourne quand il faut calmer un client mécontent. Tu appelles ça « avoir l'habitude ». C'est une vraie force : l'apaisement.",
+      "**En famille** : tu te souviens des anniversaires de tout le monde et tu envoies un mot à chacun·e. Ce n'est pas « rien », c'est ta fidélité, et elle tient les liens.",
       "**Avec tes amis** : on te confie des secrets depuis l'école. Ta discrétion et ton écoute sont des appuis pour les autres, et elles peuvent l'être pour toi aussi.",
       "**Dans les moments durs** : tu as traversé un déménagement, une séparation, une période de doute, et tu as continué à te lever chaque matin. Ta persévérance est là, même quand tu ne la sens pas.",
       "**Dans ce que tu as reçu** : tu cuisines comme ta grand-mère, tu jardines comme ton père, tu racontes les histoires comme ta tante. Ces gestes sont des racines vivantes."
@@ -81,7 +81,7 @@ window.GENESOLIA_CARNET = {
       "Reconnaître tes forces, ce n'est pas te vanter. C'est voir clairement ce que tu sais faire, pour pouvoir t'en servir quand tu en as besoin. Une force que l'on ne voit pas reste au fond du tiroir ; une force que l'on nomme devient un outil.",
       "Pour repérer une force, cherche ce qui coche trois cases : tu le fais bien, tu le fais souvent sans effort, et ça te donne de l'énergie plutôt que de t'en prendre. Si l'une des cases manque, c'est peut-être une compétence apprise par obligation : utile, mais pas forcément nourrissante.",
       "Beaucoup de forces sont nées dans des moments difficiles. Celle ou celui qui a grandi dans une maison bruyante a souvent appris à garder son calme. Celle ou celui qui a dû se débrouiller tôt sait trouver des solutions. Tu peux remercier ces forces, même si tu n'as pas choisi la façon dont tu les as apprises.",
-      "Tes appuis, enfin, sont de quatre sortes : des **personnes** (une amie, un collègue, un parent), des **lieux** (un banc, une cuisine, une forêt), des **habitudes** (un bain, une musique, une marche) et un **héritage** (une recette, un savoir-faire, une phrase de famille). Les connaître, c'est savoir où aller quand le froid arrive."
+      "Tes appuis, enfin, sont de quatre sortes : des **personnes** (une amie, un collègue, un parent), des **lieux** (un banc, une cuisine, une forêt), des **habitudes** (un bain, une musique, une marche) et un **héritage** (une recette, un savoir-faire, une phrase de famille). Les connaître, c’est savoir où aller quand la fatigue arrive."
     ],
     reperes: [
       { titre: 'Une vraie force, c’est…', points: [
@@ -101,16 +101,16 @@ window.GENESOLIA_CARNET = {
     regarderIntro: "Réponds tranquillement, sans chercher la réponse modeste. Si tu bloques, pense à ce que tes proches te disent souvent.",
     regarder: [
       { k: 'forces-demande', q: "Pour quoi les autres viennent-ils te demander de l’aide, le plus souvent ?", ph: "Exemple : pour relire un courrier important, ou pour savoir comment parler à quelqu’un de délicat." },
-      { k: 'forces-facile', q: "Qu’est-ce que tu fais facilement, et qui semble difficile pour d’autres ?", ph: "Exemple : organiser un repas pour douze personnes sans stresser." },
+      { k: 'forces-facile', q: "Qu’est-ce que tu fais facilement, et qui semble difficile pour d’autres ?", ph: "Exemple : organiser un repas pour douze personnes sans m’affoler." },
       { k: 'forces-traverse', q: "Quelle épreuve as-tu traversée, et quelle force t’a aidé·e à tenir ?", ph: "Exemple : mon licenciement il y a trois ans. Ma capacité à rebondir, et à demander de l’aide à mes amies." },
       { k: 'forces-recu', q: "Quelle qualité as-tu reçue de ta famille, et dont tu es fier·e aujourd’hui ?", ph: "Exemple : le sens de l’accueil de ma grand-mère. Chez moi, il y a toujours une assiette de plus." }
     ],
     enLigneTitre: 'Sur Genesolia',
-    enLigne: "Le [test de l'arbre de vie](arbre-de-vie.html) t'aide à voir les sphères lumineuses de ta vie : ce sont souvent tes appuis. Et pour découvrir les talents et les métiers qui circulent dans ta famille, lis [les métiers transmis](metiers-transmis-genealogie.html). Ton suivi de novembre te propose de te tourner vers celles et ceux qui sont venus avant toi.",
+    enLigne: "Le [test de l'arbre de vie](arbre-de-vie.html) t'aide à voir les sphères lumineuses de ta vie : ce sont souvent tes appuis. Et pour découvrir les talents et les métiers qui circulent dans ta famille, lis [les métiers transmis](metiers-transmis-genealogie.html). Ton suivi, à cette étape, te propose de te tourner vers celles et ceux qui sont venus avant toi.",
     outils: [
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir ce qui est lumineux dans ta vie, et ce qui demande à être nourri.'],
       ['metiers-transmis-genealogie.html', 'Les métiers et talents transmis', 'Ce que ta lignée t’a donné, dans les mains comme dans le cœur.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : honorer tes ancêtres, recevoir ce qu’ils t’ont transmis, rendre ce qui ne t’appartient pas.']
+      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'À cette étape : honorer tes ancêtres, recevoir ce qu’ils t’ont transmis, rendre ce qui ne t’appartient pas.']
     ]
   },
 
@@ -120,7 +120,7 @@ window.GENESOLIA_CARNET = {
     { k: 'ex1', titre: 'Mes trois fiertés', type: 'tableau', rangs: 3,
       etiquettes: ['Quand j’étais enfant ou adolescent·e', 'Quand j’étais jeune adulte', 'Ces dernières années'],
       consigne: "Pour chacune de ces trois périodes de ta vie, retrouve un moment dont tu es fier·e : une chose réussie, osée ou traversée. Note ce qui s'est passé, la force que tu as utilisée, et où tu pourrais l'utiliser à nouveau ce mois-ci. Les petites fiertés comptent autant que les grandes.",
-      pourquoi: "Quand on aligne trois fiertés à des âges différents, on voit apparaître les forces qui nous accompagnent depuis toujours. Ce sont elles qui te tiendront debout cet hiver, et tu pourras les rappeler exprès.",
+      pourquoi: "Quand on aligne trois fiertés à des âges différents, on voit apparaître les forces qui nous accompagnent depuis toujours. Ce sont elles qui te tiendront debout dans les moments difficiles, et tu pourras les rappeler exprès.",
       colonnes: [
         { q: "Qu’as-tu réussi, osé ou traversé ?", ph: ["Exemple : à 11 ans, j’ai chanté seul·e à la fête de l’école malgré le trac", "Exemple : à 23 ans, je suis parti·e travailler dans une ville où je ne connaissais personne", "Exemple : l’an dernier, j’ai repris mes études tout en travaillant"] },
         { q: "Quelle force as-tu utilisée ce jour-là ?", ph: ["Exemple : le courage, et l’envie de partager ce que j’aime", "Exemple : l’audace et la capacité à créer des liens", "Exemple : l’organisation et la persévérance"] },
@@ -143,21 +143,21 @@ window.GENESOLIA_CARNET = {
       consigne: "Choisis une seule force, celle qui t'aiderait le plus en ce moment, et utilise-la exprès, chaque jour, dans une petite situation. Écris ton engagement, puis note chaque fois que tu l'as fait, et ce que tu as ressenti. Une force que l'on exerce grandit, comme un muscle.",
       pourquoi: "Utiliser consciemment une force, même dans un geste minuscule, renforce la confiance en soi bien plus que de corriger un défaut. Tu te prouves, jour après jour, que tu peux compter sur toi.",
       gestes: ["Utiliser ton humour pour détendre un moment tendu", "Mettre ta patience au service d’un proche", "Proposer ton aide pour organiser quelque chose", "Écouter une amie jusqu’au bout, sans conseiller", "Créer quelque chose de beau, même petit", "Oser dire ce que tu penses, avec douceur"],
-      q: "Ta force du mois : « Ce mois-ci, je choisis de m’appuyer sur ma… en… »",
+      q: "Ta force du mois : « Ce mois-ci, je choisis de m’appuyer sur ma… en… »",
       ph: "Exemple : ce mois-ci, je choisis de m’appuyer sur ma créativité en dessinant dix minutes chaque soir, au lieu de regarder mon téléphone.",
       journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu as utilisé ta force : quand, comment, et qu’as-tu ressenti ?", ph: "Exemple : mercredi, j’ai trouvé une solution pour le planning de l’équipe. Je me suis senti·e utile et fier·e." } }
   ],
 
   rituel: {
     titre: 'La pierre d’appui',
-    intro: "En novembre, la nature se replie sur l'essentiel : la terre, les racines, ce qui tient. Ce petit rituel symbolique t'invite à choisir une pierre qui portera tes forces tout l'hiver, et à dire merci à ce qui t'a été transmis de beau. Il se fait en quinze minutes, dehors puis au chaud.",
+    intro: "Ce petit rituel symbolique t’invite à revenir à l’essentiel : la terre, les racines, ce qui tient. Tu choisis une pierre qui portera tes forces tout au long de ton étape, et tu dis merci à ce qui t’a été transmis de beau. Il se fait en quinze minutes, dehors puis au chaud.",
     materiel: "Une petite pierre ramassée pendant une balade (ou un galet, un caillou du jardin), une bougie, un papier et un crayon. Si tu en as une, une photo d'une personne de ta famille qui t'inspire.",
     quand: "Fais-le en début de mois, après ton exercice des trois fiertés. Garde ensuite ta pierre dans ta poche ou près de ton lit : chaque fois que tu doutes, serre-la et rappelle-toi une de tes forces. Tu peux refaire le rituel à la nouvelle lune.",
     etapes: [
       "Pendant une balade, cherche une pierre qui t’attire par sa forme, sa couleur ou sa douceur. Ramasse-la et garde-la dans ta main jusqu’à la maison.",
       "Chez toi, allume la bougie. Pose la pierre devant toi, et respire trois fois profondément.",
-      "Prends la pierre dans ta main. Nomme à voix basse trois de tes forces, une par une : « Je suis… Je sais… Je peux… »",
-      "Pense à une personne qui t’a transmis quelque chose de beau, vivante ou disparue. Dis intérieurement : « Merci pour ce que tu m’as donné. Je le porte avec moi. »",
+      "Prends la pierre dans ta main. Nomme à voix basse trois de tes forces, une par une : « Je suis… Je sais… Je peux… »",
+      "Pense à une personne qui t’a transmis quelque chose de beau, vivante ou disparue. Dis intérieurement : « Merci pour ce que tu m’as donné. Je le porte avec moi. »",
       "Écris sur le papier ta force principale du mois, plie-le, et glisse-le sous la pierre ou à côté de la bougie.",
       "Reste une minute en silence, la pierre au creux de la main, à sentir son poids. Puis éteins la bougie (ne la laisse jamais sans surveillance) et note ici ce qui est venu."
     ],
@@ -169,31 +169,31 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Pose tes mains sur tes cuisses, paumes ouvertes. Ferme les yeux, ou laisse ton regard se poser devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Imagine que tu marches sur un chemin de novembre. L’air est frais, les feuilles craquent sous tes pas, et au loin tu vois une petite lumière chaude : un feu, dans une clairière.",
+      "Imagine que tu marches sur un chemin calme. L’air est doux, tes pas sont tranquilles, et au loin tu vois une petite lumière chaude : un feu, dans une clairière.",
       "Tu t’approches. Le feu crépite doucement. Il y a un tapis épais, une couverture. Tu t’assois. Tu sens la chaleur sur ton visage et sur tes mains.",
       "[pause]",
-      "Autour du feu, peu à peu, des silhouettes viennent s’asseoir. Ce sont tes appuis. Une amie qui te fait rire. Une personne de ta famille qui t’a appris quelque chose. Peut-être un professeur, un voisin, quelqu’un que tu n’as pas revu depuis longtemps. Laisse-les venir, sans chercher.",
-      "Chacun·e te regarde avec bienveillance. Tu n’as rien à prouver ici. Tu es accueilli·e tel·le que tu es.",
+      "Autour du feu, peu à peu, des silhouettes viennent s’asseoir. Ce sont tes appuis. Une amie qui te fait rire. Une personne de ta famille qui t’a appris quelque chose. Peut-être un professeur, un voisin, quelqu’un que tu as perdu de vue depuis longtemps. Laisse-les venir, simplement.",
+      "Chacun·e te regarde avec bienveillance. Ici, tu es libre d’être toi. Tu es accueilli·e tel·le que tu es.",
       "[longue pause]",
-      "Maintenant, imagine que l’une de ces personnes se penche vers toi et te dit une de tes forces : « Tu es courageux·se. » ou « Tu sais aimer. » ou « Tu ne lâches jamais. » Écoute. Laisse ce mot entrer en toi, comme la chaleur du feu.",
+      "Maintenant, imagine que l’une de ces personnes se penche vers toi et te dit une de tes forces : « Tu es courageux·se. » ou « Tu sais aimer. » ou « Tu tiens bon. » Écoute. Laisse ce mot entrer en toi, comme la chaleur du feu.",
       "Une autre personne te tend un petit objet. C’est ce que ta famille t’a transmis de beau : un geste, une recette, une façon de rire, un savoir-faire. Prends-le dans tes mains. Remercie-la intérieurement.",
       "[pause]",
-      "Sens comme tu es entouré·e. Même quand tu te crois seul·e, ce cercle est là, en toi. Tu peux y revenir chaque fois que tu as froid.",
-      "Dis intérieurement : « Je reconnais mes forces. Je m’appuie sur ce qui me tient. Je dis merci à ce qui m’a été donné. »",
+      "Sens comme tu es entouré·e. Même quand tu te crois seul·e, ce cercle est là, en toi. Tu peux y revenir chaque fois que tu en as besoin.",
+      "Dis intérieurement : « Je reconnais mes forces. Je m’appuie sur ce qui me tient. Je dis merci à ce qui m’a été donné. »",
       "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
     conseil: "Choisis un soir tranquille, une boisson chaude à côté de toi, une couverture sur les genoux. Si une personne disparue vient s’asseoir près du feu et qu’une émotion monte, reviens simplement à ton souffle et à la chaleur sur tes mains. Tu peux t’arrêter là et reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qui est venu s’asseoir autour du feu, et quelle force t’a-t-on dite ?", ph: "Exemple : ma tante Simone, et mon amie Léa. Ma tante m’a dit : « Tu es plus forte que tu ne crois. » J’ai eu chaud au cœur." }
+    note: { k: 'medit-note', q: "Qui est venu s’asseoir autour du feu, et quelle force t’a-t-on dite ?", ph: "Exemple : ma tante Simone, et mon amie Léa. Ma tante m’a dit : « Tu es plus forte que tu ne crois. » J’ai eu chaud au cœur." }
   },
 
   semaines: [
     { titre: 'Trois forces par jour', texte: "Chaque soir, note une chose que tu as bien faite dans la journée, et la force qui t'a permis de la faire. Même minuscule. Tu entraînes ton regard à voir ce qui va bien en toi.",
-      exemple: "Par exemple : « J’ai calmé mon fils avant l’école : ma patience. J’ai fini le dossier en avance : mon organisation. J’ai fait rire ma collègue : mon humour. » En fin de semaine, tu auras quinze preuves de tes forces.",
+      exemple: "Par exemple : « J’ai calmé mon fils avant l’école : ma patience. J’ai fini le dossier en avance : mon organisation. J’ai fait rire ma collègue : mon humour. » En fin de semaine, tu auras quinze preuves de tes forces.",
       ph: "Exemple : la patience revient presque tous les soirs. Je ne savais pas que je l’utilisais autant." },
-    { titre: 'Demander à trois proches', texte: "Envoie un message à trois personnes qui te connaissent bien, et demande-leur : « Selon toi, quelle est ma plus grande force ? » Lis leurs réponses sans les discuter, et garde-les précieusement.",
-      exemple: "Par exemple : ton frère répond « ta loyauté », ton amie « ta façon d’écouter », ta collègue « ton calme dans la tempête ». Souvent, les autres voient en nous ce que nous ne voyons plus.",
+    { titre: 'Demander à trois proches', texte: "Envoie un message à trois personnes qui te connaissent bien, et demande-leur : « Selon toi, quelle est ma plus grande force ? » Lis leurs réponses sans les discuter, et garde-les précieusement.",
+      exemple: "Par exemple : ton frère répond « ta loyauté », ton amie « ta façon d’écouter », ta collègue « ton calme dans la tempête ». Souvent, les autres voient en nous ce que nous ne voyons plus.",
       ph: "Exemple : deux personnes sur trois ont parlé de ma générosité. J’ai été ému·e, et un peu gêné·e aussi." },
-    { titre: 'Mon heure ressource', texte: "Choisis un de tes appuis (un lieu, une activité, une personne) et offre-lui une heure cette semaine. Note-la dans ton agenda comme un vrai rendez-vous, et honore-la, même s'il fait froid.",
+    { titre: 'Mon heure ressource', texte: "Choisis un de tes appuis (un lieu, une activité, une personne) et offre-lui une heure cette semaine. Note-la dans ton agenda comme un vrai rendez-vous, et honore-la, même si ta semaine est chargée.",
       exemple: "Par exemple : une heure à la piscine le jeudi soir, un café avec ta meilleure amie, une balade en forêt le dimanche matin. Si tu dois le déplacer, déplace-le, mais ne l’annule pas.",
       ph: "Exemple : j’ai marché une heure en forêt dimanche. Je suis rentré·e avec les joues rouges et la tête légère." },
     { titre: 'Faire vivre un héritage', texte: "Cette semaine, fais vivre une chose belle qui t'a été transmise : cuisiner une recette de famille, ressortir un savoir-faire, appeler un aîné pour lui dire merci. Puis refais ta roue dans ton bilan et regarde ce qui a bougé.",
@@ -206,11 +206,11 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-force', q: "Quelle force as-tu le plus utilisée ce mois-ci, et qu’est-ce qu’elle t’a permis ?", ph: "Exemple : mon courage. J’ai osé demander un entretien à ma responsable, et elle m’a écouté·e." },
     { k: 'fin-appuis', q: "Quel appui as-tu découvert ou retrouvé, et veux-tu garder ?", ph: "Exemple : la marche du samedi, et les appels du mardi avec ma cousine." },
     { k: 'fin-transmis', q: "Qu’est-ce qui t’a été transmis de beau, et que tu as envie de faire vivre ?", ph: "Exemple : le sens de la fête de ma grand-mère. J’ai envie d’inviter plus souvent." },
-    { k: 'fin-regard', q: "Qu’est-ce qui a changé dans ta façon de te regarder ?", ph: "Exemple : j’ose me dire que je suis fiable, sans ajouter « enfin, je crois »." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour décembre ?", ph: "Exemple : m’appuyer sur mon calme pendant les fêtes, et oser dire non une fois.", court: true }
+    { k: 'fin-regard', q: "Qu’est-ce qui a changé dans ta façon de te regarder ?", ph: "Exemple : j’ose me dire que je suis fiable, sans ajouter « enfin, je crois »." },
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : m’appuyer sur mon calme dans les moments chargés, et oser dire non une fois.", court: true }
   ],
 
-  /* ───── Nouvelle trame du carnet (cycle 1 « Vivre en paix ») : 4 bases chaque mois, un sujet différent selon le mois ─────
+  /* ───── Nouvelle trame du carnet (cycle 1 « Vivre en paix ») : 4 bases chaque mois, un sujet différent selon le mois ─────
      S1 Voir mes forces autrement · S2 Nourrir mon corps · S3 Grandir ma force · S4 Imaginer l'impossible.
      Les exercices profonds se téléchargent en PDF (mention de droits). Les clés existantes (ex1, ex2, ex3, sem1-…) sont gardées. */
   trame: 2,
@@ -228,7 +228,7 @@ window.GENESOLIA_CARNET = {
             "Sens le poids de ton corps, tes pieds sur le sol. Imagine des racines qui partent de ton bassin et descendent dans la terre.",
             "Rappelle-toi un moment où tu t’es sentie en sécurité, entourée, tranquille. Laisse revenir l’image, les sons, la sensation.",
             "Quand la sensation est là, pose ta main sur ton cœur et garde-la quelques secondes.",
-            "Dis intérieurement : « Je suis ici, maintenant, dans mon corps, en sécurité. » Puis relâche, et ouvre les yeux."
+            "Dis intérieurement : « Je suis ici, maintenant, dans mon corps, en sécurité. » Puis relâche, et ouvre les yeux."
           ],
           questions: [
             { k: 'corps-s4-geste', q: 'Mon souvenir de sécurité, relié à mon geste', ph: 'Exemple : le soir où je riais avec mes amies sur la plage, l’été dernier.' },
@@ -241,10 +241,10 @@ window.GENESOLIA_CARNET = {
           etapes: [
             "Installe-toi au calme. Allume la bougie, pose ta frise devant toi et respire lentement trois fois, en laissant ton ventre se gonfler.",
             "Imagine, assise face à toi, la petite fille que tu étais au premier moment de ta frise. Regarde ses yeux, sa posture, ses vêtements. Laisse-la être là, simplement.",
-            "Dis-lui ce que tu as trouvé formidable chez elle : « Tu as été tellement courageuse quand… » Prends le temps de le lui dire vraiment.",
+            "Dis-lui ce que tu as trouvé formidable chez elle : « Tu as été tellement courageuse quand… » Prends le temps de le lui dire vraiment.",
             "Demande-lui dans quel contexte cette force est née. Que se passait-il à la maison ? Que disait-on d’elle ? Qu’attendait-on d’elle ? Laisse venir les images et les phrases, sans forcer.",
-            "Repère ce qui s’est collé à sa force : une obligation (« je dois toujours… »), un rôle (celle qui sauve, celle qui ne se plaint jamais, celle qui porte tout), une croyance, une loyauté envers quelqu’un.",
-            "Parle-lui comme à une enfant que tu aimes : « Tu gardes cette force, elle t’appartient. Tu n’as plus besoin de porter ce qui allait avec. Tu peux poser ça, maintenant. » Imagine qu’elle dépose ce poids à côté d’elle, et qu’elle se redresse.",
+            "Repère ce qui s’est collé à sa force : une obligation (« je dois toujours… »), un rôle (celle qui sauve, celle qui ne se plaint jamais, celle qui porte tout), une croyance, une loyauté envers quelqu’un.",
+            "Parle-lui comme à une enfant que tu aimes : « Tu gardes cette force, elle t’appartient. Tu n’as plus besoin de porter ce qui allait avec. Tu peux poser ça, maintenant. » Imagine qu’elle dépose ce poids à côté d’elle, et qu’elle se redresse.",
             "Fais la même chose avec la jeune femme du deuxième moment, puis avec la femme du troisième.",
             "Pour finir, imagine que les trois viennent se placer en toi, au creux de ta poitrine, avec leurs forces et sans le poids. Respire. Pose ta main sur ton cœur, puis souffle la bougie."
           ],
@@ -286,10 +286,10 @@ window.GENESOLIA_CARNET = {
             intro: "Maintenant que tu sais d’où viennent tes forces et ce qui s’y était collé, tu offres à ton corps de nouvelles informations. Une quinzaine de minutes, allongée ou assise, au calme.",
             etapes: [
               "Ferme les yeux. Respire lentement. Parcours ton corps des pieds jusqu’à la tête, et repère les zones tendues, lourdes ou serrées.",
-              "Pose ta main sur la zone la plus tendue. Remercie-la : « Merci de m’avoir protégée. Tu as fait ton travail. »",
+              "Pose ta main sur la zone la plus tendue. Remercie-la : « Merci de m’avoir protégée. Tu as fait ton travail. »",
               "Demande-toi à qui appartient vraiment cette tension. Peut-être à toi, peut-être à une personne de ta famille dont tu as pris le poids sans le savoir.",
-              "Si elle ne t’appartient pas, dis intérieurement : « Ce stress appartient à… Je le reconnais, je le lui rends avec amour, et je le relâche. » Imagine-le quitter ton corps à chaque expiration.",
-              "Offre à cette zone une information nouvelle, comme si tu parlais à chacune de tes cellules : « Tu peux te détendre. Je suis en sécurité. Je garde ma force, sans le poids. »",
+              "Si elle ne t’appartient pas, dis intérieurement : « Cette tension appartient à… Je la reconnais, je la lui rends avec amour, et je la relâche. » Imagine-la quitter ton corps à chaque expiration.",
+              "Offre à cette zone une information nouvelle, comme si tu parlais à chacune de tes cellules : « Tu peux te détendre. Je suis en sécurité. Je garde ma force, sans le poids. »",
               "Respire dans la zone trois fois, lentement. Puis bouge doucement les doigts, les pieds, et ouvre les yeux."
             ],
             questions: [
@@ -309,7 +309,7 @@ window.GENESOLIA_CARNET = {
             "Repère une image mentale qui te fait douter de toi : toi qui bloques, qui échoues, qui te fais petite. Regarde-la quelques secondes, puis note-la.",
             "Crée maintenant l’image de toi qui utilises ta force avec aisance. Rends-la grande, lumineuse, en couleurs, avec les sons et ce que tu ressens. Note-la aussi.",
             "Place la première image en grand devant toi. Mets la nouvelle, toute petite et sombre, dans un coin de cette image.",
-            "En un éclair, dis « swish » : la petite image grandit et s’illumine jusqu’à tout recouvrir, pendant que l’ancienne rapetisse et s’éloigne jusqu’à disparaître.",
+            "En un éclair, dis « swish » : la petite image grandit et s’illumine jusqu’à tout recouvrir, pendant que l’ancienne rapetisse et s’éloigne jusqu’à disparaître.",
             "Ouvre les yeux et regarde un objet autour de toi pour effacer l’écran. Recommence cinq fois, de plus en plus vite.",
             "Pense à nouveau à l’ancienne image. Que se passe-t-il ? Souvent, elle est plus floue, plus loin, ou c’est la nouvelle qui revient d’elle-même."
           ],
@@ -324,12 +324,12 @@ window.GENESOLIA_CARNET = {
             { k: 'ampl-force', q: 'La force que je choisis d’amplifier ce mois-ci', ph: 'Exemple : mon courage.', court: true },
             { k: 'ampl-plaisir', q: 'Quand est-ce que je l’utilise avec plaisir, par choix ?', ph: 'Exemple : quand je propose une idée nouvelle au travail, ou quand j’ose une activité seule.' },
             { k: 'ampl-role', q: 'Quand est-ce que je l’utilise comme un rôle, par obligation ?', ph: 'Exemple : quand je fais semblant que tout va bien pour ne pas inquiéter ma famille.' },
-            { k: 'ampl-phrase', q: 'Ma phrase : « Je choisis d’être… parce que j’aime… »', ph: 'Exemple : je choisis d’être courageuse parce que j’aime me sentir vivante, pas parce qu’on attend de moi que je tienne.', court: true }
+            { k: 'ampl-phrase', q: 'Ma phrase : « Je choisis d’être… parce que j’aime… »', ph: 'Exemple : je choisis d’être courageuse parce que j’aime me sentir vivante, pas parce qu’on attend de moi que je tienne.', court: true }
           ] },
         loupe: { de: 2, titre: 'La loupe sur ma force', consigne: "Choisis une seule force, celle que tu viens d’amplifier, et utilise-la exprès chaque jour dans une petite situation. Observe-toi comme avec une loupe : ce que tu fais, ce que tu ressens dans ton corps, et le plaisir que tu y prends.",
           plaisir: { k: 'loupe-plaisir', q: 'Le plaisir que j’ai pris à utiliser ma force cette semaine' },
           corps: { k: 'loupe-corps', q: 'Ce qui change dans mon corps quand j’utilise ma force par plaisir', ph: 'Exemple : ma respiration est plus ample, je me tiens plus droite, je souris plus.' } },
-        coches: [{ k: 'sem3-c0', t: 'J’ai fait le swish cinq fois' }, { k: 'sem2-c0', t: 'J’ai écrit ma phrase « Je choisis d’être… »' }, { k: 'sem3-c1', t: 'J’ai utilisé ma force exprès chaque jour' }, { k: 'sem3-c3', t: 'J’ai suivi mon fil des 7 jours' }] },
+        coches: [{ k: 'sem3-c0', t: 'J’ai fait le swish cinq fois' }, { k: 'sem2-c0', t: 'J’ai écrit ma phrase « Je choisis d’être… »' }, { k: 'sem3-c1', t: 'J’ai utilisé ma force exprès chaque jour' }, { k: 'sem3-c3', t: 'J’ai suivi mon fil des 7 jours' }] },
 
       { base: 'Imaginer l’impossible', titre: 'Une foi solide en la vie',
         intro: "Dernière semaine du mois : tu imagines plus grand que ce que tu crois possible. Pas pour te mettre la pression, mais pour retrouver une foi solide en la vie. Tu fais ta part, la vie fait la sienne, parfois d’une façon que tu n’aurais pas imaginée.",
@@ -337,7 +337,7 @@ window.GENESOLIA_CARNET = {
           { k: 'imp-tout', q: 'Si tout était possible, sans limite d’argent, de temps ni de regard des autres, que vivrais-tu dans un an ?', ph: 'Exemple : je vivrais au bord de la mer, j’animerais des ateliers d’écriture, et je me réveillerais sans peur du lendemain.', lignes: 4 },
           { k: 'imp-part', q: 'Quelle petite part de ce rêve peux-tu commencer dès ce mois-ci ?', ph: 'Exemple : écrire chaque dimanche matin, et me renseigner sur un premier atelier.' }
         ] },
-        texte: { titre: 'Mon texte « Je suis »', pdf: true,
+        texte: { titre: 'Mon texte « Je suis »', pdf: true,
           consigne: "Ta visualisation du mois, c’est toi qui l’écris. Complète chaque phrase avec tes mots, au présent, comme si c’était déjà vrai. Puis relis ton texte : s’il ne te ressemble pas tout à fait, modifie-le jusqu’à ce qu’il sonne juste.",
           phrases: [
             { k: 'vis-1', avant: 'Je suis', ph: 'une femme solide, douce et libre' },
@@ -349,9 +349,9 @@ window.GENESOLIA_CARNET = {
             { k: 'vis-7', avant: 'Je dis merci pour', ph: 'tout ce qui vient vers moi' }
           ],
           relu: { k: 'vis-relu', q: 'J’ai relu mon texte : il est en accord avec moi' },
-          modif: { k: 'vis-modif', q: 'Ce que je modifie pour qu’il me ressemble vraiment (facultatif)', ph: 'Exemple : je remplace « solide » par « apaisée ».' },
+          modif: { k: 'vis-modif', q: 'Ce que je modifie pour qu’il me ressemble vraiment (facultatif)', ph: 'Exemple : je remplace « solide » par « apaisée ».' },
           lecture: { k: 'vis-lu', q: 'Je lis mon texte à voix haute, matin et soir, cette semaine' } },
-        coches: ['J’ai imaginé l’impossible et choisi une part à commencer', 'J’ai écrit et relu mon texte « Je suis »', 'Je l’ai lu à voix haute matin et soir', 'J’ai suivi mon fil des 7 jours'] }
+        coches: ['J’ai imaginé l’impossible et choisi une part à commencer', 'J’ai écrit et relu mon texte « Je suis »', 'Je l’ai lu à voix haute matin et soir', 'J’ai suivi mon fil des 7 jours'] }
     ]
   },
 
@@ -429,8 +429,8 @@ window.GENESOLIA_CARNET = {
   ],
 
   aVenir: [
-    { mois: 'Décembre', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, protéger ton énergie, et trouver ta juste place, même au cœur des fêtes.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Janvier', titre: 'Mon intention, mes valeurs', texte: "Clarifier ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' },
-    { mois: 'Février', titre: 'M’aimer d’abord', texte: "Te traiter avec la douceur que tu offres aux autres, et devenir ton tout premier appui.", image: 'assets/cartes/entiere-mini.jpg' }
+    { mois: 'Étape 3', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, protéger ton énergie, et trouver ta juste place, même dans les moments les plus chargés.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Étape 4', titre: 'Mon intention, mes valeurs', texte: "Clarifier ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' },
+    { mois: 'Étape 5', titre: 'M’aimer d’abord', texte: "Te traiter avec la douceur que tu offres aux autres, et devenir ton tout premier appui.", image: 'assets/cartes/entiere-mini.jpg' }
   ]
 };
