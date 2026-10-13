@@ -66,6 +66,11 @@
   </url>
 
   <url>
+    <loc>https://genesolia.fr/carnet-des-deux-cycles.html</loc>
+    <lastmod>2026-10-13</lastmod>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://genesolia.fr/fil-d-or.html</loc>
     <lastmod>2026-10-13</lastmod>
     <priority>0.80</priority>
@@ -81,12 +86,14 @@
   </url>
   <url>
     <loc>https://genesolia.fr/outils.html</loc>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://genesolia.fr/confidentialite.html</loc>
   </url>
   <url>
     <loc>https://genesolia.fr/methode.html</loc>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://genesolia.fr/blessures-de-l-ame.html</loc>
@@ -1866,7 +1873,7 @@
   </url>
   <url>
     <loc>https://genesolia.fr/offert.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
