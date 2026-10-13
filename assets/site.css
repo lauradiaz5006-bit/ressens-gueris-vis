@@ -411,7 +411,9 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .coffre-merci{padding:.8rem 1rem;border-radius:12px;background:#FBF0E4;color:var(--prune);font-weight:600}
 
 /* Membres : encart vers leurs deux livres */
-.encart-livres{grid-template-columns:1fr!important}
+.encart-livres{grid-template-columns:1fr!important;background:linear-gradient(135deg,#3B1747,#6B2F5B)!important;border:0!important;color:#F7E6EE}
+.encart-livres h2{color:#fff}
+.encart-livres .btn-plein{background:var(--champagne-clair);color:var(--prune);border-color:var(--champagne-clair)}
 .encart-livres .cadeau-texte p,.encart-livres .ef-sur{color:#F7E6EE}
 .encart-livres .ef-sur{color:#F3DCC0!important;font:600 .75rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase}
 .encart-livres .btn-trait{color:#fff;border-color:rgba(255,255,255,.6);background:transparent}
