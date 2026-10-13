@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roue des émotions interactive : nomme ce que tu ressens · Genesolia</title>
+  <meta name="description" content="La roue des émotions interactive et gratuite : 6 émotions de base, 72 nuances, ce que chaque émotion t’apprend, ton besoin, et ton journal des émotions.">
+  <link rel="canonical" href="https://genesolia.fr/roue-des-emotions.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="La roue des émotions interactive">
+  <meta property="og:description" content="La roue des émotions interactive et gratuite : 6 émotions de base, 72 nuances, ce que chaque émotion t’apprend, ton besoin, et ton journal des émotions.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/blog-emotion-ou-sentiment.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .re-fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem;display:flex;gap:.5rem}
+    .re-fil a{color:var(--prune-doux)}
+    .re-zone{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:2rem;align-items:start;padding:1rem 0 2rem}
+    .re-roue-cadre{position:relative;background:radial-gradient(closest-side,#FFFDFB,#FBEFF0);border:1px solid var(--rose);border-radius:28px;padding:1rem}
+    .re-roue{display:block;width:100%;max-width:620px;height:auto;margin:0 auto}
+    .re-seg{cursor:pointer;transition:opacity .15s}
+    .re-seg:hover path,.re-seg:focus path{filter:brightness(1.06)}
+    .re-seg:focus{outline:none}
+    .re-seg:focus-visible path{stroke:#4A2342;stroke-width:2.5}
+    .re-roue.a-choix .re-seg{opacity:.5}
+    .re-roue.a-choix .re-seg.actif,.re-roue.a-choix .re-seg.parent{opacity:1}
+    .re-roue text{pointer-events:none;font-family:var(--texte)}
+    .re-recherche{display:flex;gap:.5rem;margin-top:1rem}
+    .re-recherche input{flex:1;font:400 1rem var(--texte);padding:.65rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:12px;color:var(--prune);background:var(--blanc)}
+    .re-panneau{scroll-margin-top:5.5rem;position:sticky;top:5.5rem;background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.4rem 1.5rem;min-height:18rem}
+    .re-panneau .re-chemin{font:600 .78rem var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
+    .re-panneau h2{font-size:clamp(1.7rem,3vw,2.2rem);margin:.2rem 0 .5rem;display:flex;align-items:center;gap:.6rem}
+    .re-panneau h2 i{width:.9rem;height:.9rem;border-radius:50%;flex:none}
+    .re-def{font-size:1.05rem;color:var(--prune);margin-bottom:1rem}
+    .re-bloc{display:grid;gap:.7rem;margin:1rem 0}
+    .re-bloc div{padding:.75rem .95rem;border-radius:14px;background:linear-gradient(135deg,#FFF6EC,#FCEFF3)}
+    .re-bloc b{display:block;font:700 .78rem var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--champagne);margin-bottom:.2rem}
+    .re-bloc p{max-width:none;margin:0}
+    .re-accueil{font-family:var(--display);font-size:1.2rem;color:var(--prune);border-left:4px solid var(--champagne-clair);padding-left:.9rem;margin:1rem 0}
+    .re-vide p{color:var(--prune-doux)}
+    .re-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+    .re-liste{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+    .re-famille{background:var(--blanc);border:1px solid var(--rose);border-top:5px solid var(--c);border-radius:18px;padding:1rem}
+    .re-famille h3{margin-bottom:.6rem}
+    .re-famille p{display:flex;flex-wrap:wrap;gap:.35rem;margin:.35rem 0;max-width:none}
+    .re-chip{border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);border-radius:99px;padding:.3rem .75rem;font:600 .86rem/1.2 var(--texte);cursor:pointer}
+    .re-chip:hover{border-color:var(--c,var(--prune-doux))}
+    .re-chip-base{background:var(--c);border-color:var(--c);color:#fff;font-size:1rem}
+    .re-chip-fin{font-weight:400;color:var(--prune-doux);font-size:.82rem}
+    .re-journal{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:1rem}
+    .re-carte{background:var(--blanc);border:1.5px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.4rem}
+    .re-carte h3{margin-bottom:.7rem}
+    .re-champ{display:grid;gap:.35rem;margin-bottom:.9rem;font-size:.92rem;font-weight:600}
+    .re-champ input[type=text],.re-champ textarea,.re-champ select{font:400 1rem var(--texte);color:var(--prune);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--blanc);width:100%}
+    .re-champ textarea{min-height:4rem;resize:vertical}
+    .re-champ input[type=range]{width:100%;accent-color:#6B2F5B}
+    .re-corps{display:flex;flex-wrap:wrap;gap:.35rem}
+    .re-corps button[aria-pressed="true"],.re-chip[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .re-hist{list-style:none;display:grid;gap:.5rem;padding:0;max-height:22rem;overflow:auto}
+    .re-hist li{display:grid;grid-template-columns:auto 1fr;gap:.6rem;padding:.55rem 0;border-top:1px solid var(--rose);font-size:.93rem}
+    .re-hist li i{width:.75rem;height:.75rem;border-radius:50%;margin-top:.35rem}
+    .re-hist small{color:var(--prune-doux)}
+    .re-barres{display:grid;gap:.45rem;margin:.8rem 0}
+    .re-barre{display:grid;grid-template-columns:6.5rem 1fr 2rem;gap:.6rem;align-items:center;font-size:.9rem}
+    .re-barre div{height:.7rem;border-radius:99px;background:var(--rose);overflow:hidden}
+    .re-barre span{display:block;height:100%;border-radius:99px}
+    .re-comment{scroll-margin-top:7rem;padding:3.2rem 0 3rem;margin-top:2rem;background:linear-gradient(180deg,#FFF9F7,#FCEFF3);border-top:1px solid var(--rose)}
+    .re-sous-titre{font-size:1.4rem;margin:2.2rem 0 1rem}
+    .re-cartes-img{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .re-cartes-img article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden}
+    .re-cartes-img img{width:100%;height:11rem;object-fit:cover;display:block}
+    .re-cartes-img article>div{padding:1.1rem 1.2rem 1.3rem}
+    .re-cartes-img h4{font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.4rem;color:var(--prune)}
+    .re-cartes-img p{font-size:.95rem;color:var(--prune-doux);max-width:none}
+    .re-faq{display:grid;gap:.6rem}
+    .re-faq details{background:var(--blanc);border:1px solid var(--rose);border-radius:14px;padding:.9rem 1.1rem}
+    .re-faq summary{cursor:pointer;font-weight:600;color:var(--prune)}
+    .re-faq p{margin-top:.6rem;color:var(--prune-doux);max-width:none}
+    .re-note{font-size:.92rem;color:var(--prune-doux);margin-top:2rem}
+    @media (max-width:960px){.re-zone{grid-template-columns:1fr}.re-panneau{position:static}.re-liste{grid-template-columns:1fr 1fr}.re-cartes-img{grid-template-columns:1fr}}
+    @media (max-width:640px){.re-liste,.re-journal{grid-template-columns:1fr}.re-roue-cadre{padding:.4rem}}
+    @media print{.re-recherche,.re-actions,.re-liste-bloc,.re-comment,.re-form{display:none!important}.re-zone{grid-template-columns:1fr}}
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Outils", "item": "https://genesolia.fr/outils.html"}, {"@type": "ListItem", "position": 3, "name": "La roue des émotions", "item": "https://genesolia.fr/roue-des-emotions.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu’est-ce que la roue des émotions ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est un outil qui range les émotions en cercles : au centre, les grandes émotions de base, puis, en allant vers l’extérieur, des mots de plus en plus précis. Elle aide à passer de « je ne me sens pas bien » à « je me sens déçu·e » ou « je me sens seul·e », et donc à mieux comprendre ce dont tu as besoin."}}, {"@type": "Question", "name": "Quelles sont les émotions de base ?", "acceptedAnswer": {"@type": "Answer", "text": "On retient souvent six émotions de base : la joie, la tristesse, la peur, la colère, la surprise et le dégoût. Elles se retrouvent dans toutes les cultures et se lisent sur le visage. Toutes les autres nuances, comme la fierté, la solitude ou la culpabilité, en découlent."}}, {"@type": "Question", "name": "Comment utiliser la roue des émotions ?", "acceptedAnswer": {"@type": "Answer", "text": "Pars du centre : quelle grande émotion est la plus proche de ce que tu vis ? Puis avance vers l’extérieur pour trouver le mot le plus juste. Lis ensuite ce que cette émotion t’apprend, le besoin qu’elle signale et la question à te poser. Tu peux noter ton émotion du jour pour voir, au fil des semaines, ce qui revient."}}, {"@type": "Question", "name": "Pourquoi nommer ses émotions aide-t-il ?", "acceptedAnswer": {"@type": "Answer", "text": "Mettre un mot précis sur ce que tu ressens aide souvent à prendre un peu de recul : l’émotion devient quelque chose que tu observes, plutôt que quelque chose qui t’emporte. Le mot juste montre aussi le besoin qui se cache derrière, et ce que tu peux faire pour y répondre."}}, {"@type": "Question", "name": "Quelle différence entre émotion et sentiment ?", "acceptedAnswer": {"@type": "Answer", "text": "L’émotion est une vague courte qui traverse le corps, comme la colère ou la peur. Le sentiment s’installe dans la durée, nourri par les pensées et l’histoire, comme la rancœur ou la nostalgie. La roue t’aide à nommer les deux."}}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="re">
+    <section class="page-tete">
+      <div class="conteneur">
+        <nav class="re-fil" aria-label="Fil d’Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>La roue des émotions</nav>
+        <h1>La roue des émotions</h1>
+        <p class="intro">Mets un mot juste sur ce que tu ressens. Touche une émotion au centre de la roue, puis avance vers l’extérieur pour trouver la nuance la plus proche : la roue te dit ce que cette émotion t’apprend, le besoin qu’elle signale et la question à te poser.</p>
+        <p class="note" style="margin-top:.8rem">6 émotions de base, 72 nuances. Gratuit. Ton journal reste dans ton navigateur, sur cet appareil.</p>
+        <p style="margin-top:1rem"><a class="btn btn-trait" href="#comment">Comprendre comment t’en servir</a></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="conteneur">
+        <div class="re-zone">
+          <div>
+            <div class="re-roue-cadre"><svg class="re-roue" id="re-roue" viewBox="-310 -310 620 620" role="group" aria-label="La roue des émotions"></svg></div>
+            <form class="re-recherche" id="re-recherche" role="search">
+              <input type="text" id="re-cherche" list="re-mots" placeholder="Cherche un mot : déçue, jalousie, calme…" aria-label="Chercher une émotion">
+              <datalist id="re-mots"></datalist>
+              <button type="submit" class="btn btn-plein">Trouver</button>
+            </form>
+          </div>
+          <aside class="re-panneau" id="re-panneau" aria-live="polite"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="re-liste-bloc">
+      <div class="conteneur">
+        <h2>Toutes les émotions de la roue</h2>
+        <p class="ar-chapeau" style="color:var(--prune-doux);max-width:44rem">Sur téléphone, c’est souvent plus simple de choisir ici. Chaque famille part d’une émotion de base, puis se précise.</p>
+        <div class="re-liste"><div class="re-famille" style="--c:#D9A441"><h3><button type="button" class="re-chip re-chip-base" data-choix="joie">Joie</button></h3><p><button type="button" class="re-chip" data-choix="joie|0">Gaieté</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|0|0">Enjouement</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|0|1">Amusement</button></p><p><button type="button" class="re-chip" data-choix="joie|1">Fierté</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|1|0">Confiance</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|1|1">Dignité</button></p><p><button type="button" class="re-chip" data-choix="joie|2">Sérénité</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|2|0">Calme</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|2|1">Apaisement</button></p><p><button type="button" class="re-chip" data-choix="joie|3">Tendresse</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|3|0">Affection</button><button type="button" class="re-chip re-chip-fin" data-choix="joie|3|1">Gratitude</button></p></div><div class="re-famille" style="--c:#4E5D94"><h3><button type="button" class="re-chip re-chip-base" data-choix="tristesse">Tristesse</button></h3><p><button type="button" class="re-chip" data-choix="tristesse|0">Chagrin</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|0|0">Peine</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|0|1">Nostalgie</button></p><p><button type="button" class="re-chip" data-choix="tristesse|1">Solitude</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|1|0">Isolement</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|1|1">Abandon</button></p><p><button type="button" class="re-chip" data-choix="tristesse|2">Déception</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|2|0">Découragement</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|2|1">Regret</button></p><p><button type="button" class="re-chip" data-choix="tristesse|3">Mélancolie</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|3|0">Lassitude</button><button type="button" class="re-chip re-chip-fin" data-choix="tristesse|3|1">Vide</button></p></div><div class="re-famille" style="--c:#7A4FA0"><h3><button type="button" class="re-chip re-chip-base" data-choix="peur">Peur</button></h3><p><button type="button" class="re-chip" data-choix="peur|0">Inquiétude</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|0|0">Nervosité</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|0|1">Appréhension</button></p><p><button type="button" class="re-chip" data-choix="peur|1">Insécurité</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|1|0">Vulnérabilité</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|1|1">Impuissance</button></p><p><button type="button" class="re-chip" data-choix="peur|2">Frayeur</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|2|0">Effroi</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|2|1">Panique</button></p><p><button type="button" class="re-chip" data-choix="peur|3">Doute</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|3|0">Hésitation</button><button type="button" class="re-chip re-chip-fin" data-choix="peur|3|1">Confusion</button></p></div><div class="re-famille" style="--c:#C2463E"><h3><button type="button" class="re-chip re-chip-base" data-choix="colere">Colère</button></h3><p><button type="button" class="re-chip" data-choix="colere|0">Frustration</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|0|0">Agacement</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|0|1">Impatience</button></p><p><button type="button" class="re-chip" data-choix="colere|1">Rancœur</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|1|0">Amertume</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|1|1">Ressentiment</button></p><p><button type="button" class="re-chip" data-choix="colere|2">Indignation</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|2|0">Révolte</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|2|1">Sentiment d’injustice</button></p><p><button type="button" class="re-chip" data-choix="colere|3">Jalousie</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|3|0">Envie</button><button type="button" class="re-chip re-chip-fin" data-choix="colere|3|1">Possessivité</button></p></div><div class="re-famille" style="--c:#D97D8B"><h3><button type="button" class="re-chip re-chip-base" data-choix="surprise">Surprise</button></h3><p><button type="button" class="re-chip" data-choix="surprise|0">Étonnement</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|0|0">Stupéfaction</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|0|1">Émerveillement</button></p><p><button type="button" class="re-chip" data-choix="surprise|1">Choc</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|1|0">Désarroi</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|1|1">Sidération</button></p><p><button type="button" class="re-chip" data-choix="surprise|2">Curiosité</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|2|0">Intérêt</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|2|1">Fascination</button></p><p><button type="button" class="re-chip" data-choix="surprise|3">Enthousiasme</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|3|0">Élan</button><button type="button" class="re-chip re-chip-fin" data-choix="surprise|3|1">Excitation</button></p></div><div class="re-famille" style="--c:#9C6B78"><h3><button type="button" class="re-chip re-chip-base" data-choix="degout">Dégoût</button></h3><p><button type="button" class="re-chip" data-choix="degout|0">Rejet</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|0|0">Répulsion</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|0|1">Aversion</button></p><p><button type="button" class="re-chip" data-choix="degout|1">Mépris</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|1|0">Dédain</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|1|1">Jugement</button></p><p><button type="button" class="re-chip" data-choix="degout|2">Honte</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|2|0">Gêne</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|2|1">Humiliation</button></p><p><button type="button" class="re-chip" data-choix="degout|3">Culpabilité</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|3|0">Remords</button><button type="button" class="re-chip re-chip-fin" data-choix="degout|3|1">Embarras</button></p></div></div>
+      </div>
+    </section>
+
+    <section id="journal">
+      <div class="conteneur" style="padding:2.6rem 0 1rem">
+        <h2>Mon journal des émotions</h2>
+        <p style="color:var(--prune-doux);max-width:44rem">Note ton émotion du jour : au fil des semaines, tu verras ce qui revient, et ce dont tu as le plus souvent besoin.</p>
+        <div class="re-journal">
+          <form class="re-carte re-form" id="re-form">
+            <h3>Aujourd’hui</h3>
+            <label class="re-champ">Mon émotion<select id="re-j-emotion"></select></label>
+            <label class="re-champ"><span>Son intensité : <b id="re-j-val">5</b> sur 10</span><input type="range" id="re-j-intensite" min="1" max="10" value="5"></label>
+            <div class="re-champ">Où je la sens dans mon corps<div class="re-corps" id="re-j-corps"></div></div>
+            <label class="re-champ">Ce qui s’est passé<textarea id="re-j-quoi" maxlength="400" placeholder="Quelques mots suffisent"></textarea></label>
+            <label class="re-champ">Ce dont j’ai besoin<input type="text" id="re-j-besoin" maxlength="160" placeholder="Me reposer, en parler, poser une limite…"></label>
+            <button type="submit" class="btn btn-plein">Noter dans mon journal</button>
+            <p class="note" id="re-j-ok" style="margin-top:.6rem"></p>
+          </form>
+          <div class="re-carte">
+            <h3>Ce qui revient</h3>
+            <div id="re-bilan"></div>
+            <ul class="re-hist" id="re-hist"></ul>
+            <div class="re-actions">
+              <button type="button" class="btn btn-trait" id="re-imprimer">Imprimer ou enregistrer en PDF</button>
+              <button type="button" class="btn btn-trait" id="re-effacer">Effacer mon journal</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="re-comment" id="comment">
+      <div class="conteneur">
+        <h2>Comprendre comment t’en servir</h2>
+        <p style="color:var(--prune-doux);max-width:44rem">Une émotion bien nommée est déjà plus facile à traverser. La roue t’aide à trouver le mot juste, puis à écouter ce qu’il te dit.</p>
+        <div class="re-cartes-img">
+          <article><img src="assets/images/blog-emotion-ou-sentiment-800.webp" width="800" height="420" alt="Un coffret lumineux ouvert, entouré de fleurs" loading="lazy" decoding="async"><div><h4>Pars du centre</h4><p>Au centre, les six émotions de base : joie, tristesse, peur, colère, surprise, dégoût. Choisis celle qui est la plus proche de ce que tu vis, même si ce n’est qu’approximatif.</p></div></article>
+          <article><img src="assets/images/blog-emotions-et-hormones-800.webp" width="800" height="420" alt="Une femme qui pose la main sur son cœur" loading="lazy" decoding="async"><div><h4>Avance vers le mot juste</h4><p>Chaque cercle précise un peu plus : de la tristesse à la déception, puis au découragement. Le bon mot est celui qui te fait dire « oui, c’est exactement ça ».</p></div></article>
+          <article><img src="assets/images/blog-cinq-elements-emotions-800.webp" width="800" height="420" alt="Des éléments de la nature disposés en cercle" loading="lazy" decoding="async"><div><h4>Écoute ce qu’elle te dit</h4><p>Pour chaque émotion : ce qu’elle t’apprend, le besoin qu’elle signale, ce que tu peux sentir dans ton corps, une question à te poser et une phrase pour l’accueillir.</p></div></article>
+        </div>
+        <h3 class="re-sous-titre">Questions fréquentes</h3>
+        <div class="re-faq"><details><summary>Qu’est-ce que la roue des émotions ?</summary><p>C’est un outil qui range les émotions en cercles : au centre, les grandes émotions de base, puis, en allant vers l’extérieur, des mots de plus en plus précis. Elle aide à passer de « je ne me sens pas bien » à « je me sens déçu·e » ou « je me sens seul·e », et donc à mieux comprendre ce dont tu as besoin.</p></details><details><summary>Quelles sont les émotions de base ?</summary><p>On retient souvent six émotions de base : la joie, la tristesse, la peur, la colère, la surprise et le dégoût. Elles se retrouvent dans toutes les cultures et se lisent sur le visage. Toutes les autres nuances, comme la fierté, la solitude ou la culpabilité, en découlent.</p></details><details><summary>Comment utiliser la roue des émotions ?</summary><p>Pars du centre : quelle grande émotion est la plus proche de ce que tu vis ? Puis avance vers l’extérieur pour trouver le mot le plus juste. Lis ensuite ce que cette émotion t’apprend, le besoin qu’elle signale et la question à te poser. Tu peux noter ton émotion du jour pour voir, au fil des semaines, ce qui revient.</p></details><details><summary>Pourquoi nommer ses émotions aide-t-il ?</summary><p>Mettre un mot précis sur ce que tu ressens aide souvent à prendre un peu de recul : l’émotion devient quelque chose que tu observes, plutôt que quelque chose qui t’emporte. Le mot juste montre aussi le besoin qui se cache derrière, et ce que tu peux faire pour y répondre.</p></details><details><summary>Quelle différence entre émotion et sentiment ?</summary><p>L’émotion est une vague courte qui traverse le corps, comme la colère ou la peur. Le sentiment s’installe dans la durée, nourri par les pensées et l’histoire, comme la rancœur ou la nostalgie. La roue t’aide à nommer les deux.</p></details></div>
+        <h3 class="re-sous-titre">Pour aller plus loin</h3>
+        <p style="max-width:none">Lis <a href="emotion-ou-sentiment.html">la différence entre émotion et sentiment</a>, <a href="emotions-et-hormones.html">ce que ton corps fait quand tu ressens</a> et <a href="cinq-elements-emotions.html">les 5 éléments et les émotions</a>. Pour voir si une émotion revient d’une génération à l’autre, essaie <a href="fil-d-or.html">le fil d’or</a>.</p>
+        <p class="re-note">Un outil de connaissance de soi, en complément de tout suivi médical. Si une émotion pèse sur ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var D = [{"id": "joie", "nom": "Joie", "art": "la joie", "c": "#D9A441", "element": "Feu", "message": "Ce qui compte pour toi est là. La joie te montre ce qui te nourrit et ce qui a du sens.", "besoin": "Partager, célébrer, savourer.", "corps": "La poitrine qui s’ouvre, le sourire, l’envie de bouger, une sensation de légèreté.", "question": "Qu’est-ce qui me fait du bien en ce moment, et que j’aimerais retrouver plus souvent ?", "accueil": "Je savoure ce moment et je le laisse grandir.", "sous": [{"n": "Gaieté", "d": "Une joie légère et vive, qui donne envie de rire.", "t": ["Enjouement", "Amusement"]}, {"n": "Fierté", "d": "Le plaisir de reconnaître ce que tu as fait, ou ce que tu es.", "t": ["Confiance", "Dignité"]}, {"n": "Sérénité", "d": "Une paix tranquille, sans rien à prouver.", "t": ["Calme", "Apaisement"]}, {"n": "Tendresse", "d": "La douceur que tu ressens envers quelqu’un, ou envers toi.", "t": ["Affection", "Gratitude"]}]}, {"id": "tristesse", "nom": "Tristesse", "art": "la tristesse", "c": "#4E5D94", "element": "Métal", "message": "Quelque chose d’important te manque ou s’en va. La tristesse t’invite à reconnaître ce qui compte pour toi.", "besoin": "Être consolé·e, ralentir, dire au revoir.", "corps": "La gorge serrée, les larmes, les épaules qui tombent, l’envie de te retirer.", "question": "Qu’est-ce que je suis en train de perdre, de quitter ou de regretter ?", "accueil": "Je m’accorde le droit d’être triste, le temps qu’il faut.", "sous": [{"n": "Chagrin", "d": "Une peine profonde, après une perte ou une séparation.", "t": ["Peine", "Nostalgie"]}, {"n": "Solitude", "d": "Le sentiment d’être seul·e, même entouré·e.", "t": ["Isolement", "Abandon"]}, {"n": "Déception", "d": "L’écart entre ce que tu espérais et ce qui est arrivé.", "t": ["Découragement", "Regret"]}, {"n": "Mélancolie", "d": "Une tristesse diffuse, qui s’installe sans raison claire.", "t": ["Lassitude", "Vide"]}]}, {"id": "peur", "nom": "Peur", "art": "la peur", "c": "#7A4FA0", "element": "Eau", "message": "Quelque chose te semble menaçant. La peur veille sur ta sécurité et t’invite à la prudence.", "besoin": "Être rassuré·e, te protéger, retrouver des repères.", "corps": "Le cœur qui s’accélère, le ventre noué, le souffle court, l’envie de fuir ou de te figer.", "question": "De quoi ai-je besoin pour me sentir en sécurité, ici et maintenant ?", "accueil": "Je respire, je regarde autour de moi, et je cherche ce qui me rassure.", "sous": [{"n": "Inquiétude", "d": "L’attente tendue de ce qui pourrait arriver.", "t": ["Nervosité", "Appréhension"]}, {"n": "Insécurité", "d": "Le sentiment de manquer d’appui ou de protection.", "t": ["Vulnérabilité", "Impuissance"]}, {"n": "Frayeur", "d": "Une peur vive et soudaine.", "t": ["Effroi", "Panique"]}, {"n": "Doute", "d": "La peur de te tromper, qui empêche de choisir.", "t": ["Hésitation", "Confusion"]}]}, {"id": "colere", "nom": "Colère", "art": "la colère", "c": "#C2463E", "element": "Bois", "message": "Une limite a été franchie, ou une injustice te touche. La colère protège ce qui compte pour toi.", "besoin": "Être respecté·e, poser une limite, rétablir la justice.", "corps": "La chaleur qui monte, la mâchoire serrée, les poings fermés, une énergie qui pousse à agir.", "question": "Quelle limite ai-je besoin de poser, et auprès de qui ?", "accueil": "Ma colère a quelque chose à me dire : je l’écoute avant d’agir.", "sous": [{"n": "Frustration", "d": "Le sentiment d’être empêché·e d’obtenir ce que tu veux.", "t": ["Agacement", "Impatience"]}, {"n": "Rancœur", "d": "Une colère ancienne, gardée longtemps.", "t": ["Amertume", "Ressentiment"]}, {"n": "Indignation", "d": "La colère face à ce qui te paraît injuste.", "t": ["Révolte", "Sentiment d’injustice"]}, {"n": "Jalousie", "d": "La peur de perdre ce que tu as, ou le désir de ce que l’autre a.", "t": ["Envie", "Possessivité"]}]}, {"id": "surprise", "nom": "Surprise", "art": "la surprise", "c": "#D97D8B", "element": null, "message": "Quelque chose d’inattendu arrive. La surprise ouvre grand ton attention.", "besoin": "Comprendre, prendre le temps, t’ajuster.", "corps": "Les yeux grands ouverts, le souffle suspendu, un sursaut.", "question": "Qu’est-ce que cette nouveauté m’apprend, ou change pour moi ?", "accueil": "Je prends un instant pour comprendre avant de réagir.", "sous": [{"n": "Étonnement", "d": "Ce qui arrive dépasse ce que tu imaginais.", "t": ["Stupéfaction", "Émerveillement"]}, {"n": "Choc", "d": "Une surprise brutale, qui laisse sans voix.", "t": ["Désarroi", "Sidération"]}, {"n": "Curiosité", "d": "L’envie d’en savoir plus.", "t": ["Intérêt", "Fascination"]}, {"n": "Enthousiasme", "d": "Une surprise joyeuse, qui donne envie d’avancer.", "t": ["Élan", "Excitation"]}]}, {"id": "degout", "nom": "Dégoût", "art": "le dégoût", "c": "#9C6B78", "element": null, "message": "Quelque chose te semble inacceptable ou contraire à tes valeurs. Le dégoût te dit non.", "besoin": "Prendre de la distance, respecter tes valeurs.", "corps": "La bouche qui se pince, le nez qui se plisse, le corps qui recule.", "question": "Qu’est-ce qui, ici, va contre mes valeurs ?", "accueil": "J’ai le droit de dire non à ce qui va contre mes valeurs.", "sous": [{"n": "Rejet", "d": "Le besoin de repousser ce qui te dérange.", "t": ["Répulsion", "Aversion"]}, {"n": "Mépris", "d": "Le sentiment de valoir mieux, ou l’envie de rabaisser l’autre.", "t": ["Dédain", "Jugement"]}, {"n": "Honte", "d": "Le sentiment d’être mal vu·e, ou de manquer de valeur.", "t": ["Gêne", "Humiliation"]}, {"n": "Culpabilité", "d": "Le sentiment d’avoir mal agi envers quelqu’un.", "t": ["Remords", "Embarras"]}]}];
+    var CLE = 'genesolia-roue-emotions';
+    var NS = 'http://www.w3.org/2000/svg';
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function melange(hex, t) { var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; function m(x) { return Math.round(x + (255 - x) * t); } return 'rgb(' + m(r) + ',' + m(g) + ',' + m(b) + ')'; }
+    function pt(r, a) { return [r * Math.cos(a), r * Math.sin(a)]; }
+    function secteur(r0, r1, a0, a1) {
+      var p0 = pt(r1, a0), p1 = pt(r1, a1), p2 = pt(r0, a1), p3 = pt(r0, a0), g = (a1 - a0) > Math.PI ? 1 : 0;
+      return 'M' + p0[0].toFixed(2) + ' ' + p0[1].toFixed(2) + 'A' + r1 + ' ' + r1 + ' 0 ' + g + ' 1 ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2) +
+        'L' + p2[0].toFixed(2) + ' ' + p2[1].toFixed(2) + 'A' + r0 + ' ' + r0 + ' 0 ' + g + ' 0 ' + p3[0].toFixed(2) + ' ' + p3[1].toFixed(2) + 'Z';
+    }
+    var R = [46, 128, 212, 300];
+    var svg = document.getElementById('re-roue');
+    var segs = {};
+    function ajouterSeg(cle, r0, r1, a0, a1, fond, label, taille, couleurTexte) {
+      var g = document.createElementNS(NS, 'g'); g.setAttribute('class', 're-seg'); g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.setAttribute('aria-label', label); g.dataset.cle = cle;
+      var p = document.createElementNS(NS, 'path'); p.setAttribute('d', secteur(r0, r1, a0, a1)); p.setAttribute('fill', fond); p.setAttribute('stroke', '#FFFDFB'); p.setAttribute('stroke-width', '1.6');
+      g.appendChild(p);
+      var am = (a0 + a1) / 2, rm = (r0 + r1) / 2, deg = am * 180 / Math.PI, pos = pt(rm, am);
+      var rot = deg; if (deg > 90 && deg < 270) rot = deg + 180;
+      var t = document.createElementNS(NS, 'text'); t.setAttribute('x', pos[0].toFixed(1)); t.setAttribute('y', pos[1].toFixed(1));
+      t.setAttribute('text-anchor', 'middle'); t.setAttribute('dominant-baseline', 'central'); t.setAttribute('font-size', taille); t.setAttribute('font-weight', r0 < 50 ? 700 : 600);
+      t.setAttribute('fill', couleurTexte); t.setAttribute('transform', 'rotate(' + rot.toFixed(1) + ' ' + pos[0].toFixed(1) + ' ' + pos[1].toFixed(1) + ')');
+      t.textContent = label; g.appendChild(t);
+      svg.appendChild(g); segs[cle] = g;
+    }
+    var n = D.length, part = Math.PI * 2 / n, debut = -Math.PI / 2 - part / 2;
+    D.forEach(function (c, i) {
+      var a0 = debut + i * part, a1 = a0 + part;
+      ajouterSeg(c.id, R[0], R[1], a0, a1, c.c, c.nom, 17, '#FFFFFF');
+      var p2 = part / c.sous.length;
+      c.sous.forEach(function (s, j) {
+        var b0 = a0 + j * p2, b1 = b0 + p2;
+        ajouterSeg(c.id + '|' + j, R[1], R[2], b0, b1, melange(c.c, .45), s.n, s.n.length > 10 ? 11.5 : 13, '#3B1747');
+        var p3 = p2 / s.t.length;
+        s.t.forEach(function (t, k) {
+          ajouterSeg(c.id + '|' + j + '|' + k, R[2], R[3], b0 + k * p3, b0 + (k + 1) * p3, melange(c.c, .74), t, t.length > 12 ? 9.5 : 11, '#4A2342');
+        });
+      });
+    });
+    var centre = document.createElementNS(NS, 'circle'); centre.setAttribute('r', R[0] - 2); centre.setAttribute('fill', '#FFFDFB'); svg.appendChild(centre);
+    var tc = document.createElementNS(NS, 'text'); tc.setAttribute('text-anchor', 'middle'); tc.setAttribute('dominant-baseline', 'central'); tc.setAttribute('font-size', '12'); tc.setAttribute('fill', '#8E6383'); tc.setAttribute('font-family', 'Gilda Display,Georgia,serif'); tc.textContent = 'Je ressens…'; svg.appendChild(tc);
+
+    function trouver(cle) {
+      var x = String(cle).split('|'), c = D.filter(function (e) { return e.id === x[0]; })[0]; if (!c) return null;
+      var s = x.length > 1 ? c.sous[+x[1]] : null, t = x.length > 2 && s ? s.t[+x[2]] : null;
+      return { c: c, s: s, t: t, nom: t || (s && s.n) || c.nom, niveau: x.length };
+    }
+    var panneau = document.getElementById('re-panneau'), choisi = null;
+    function videPanneau() {
+      panneau.innerHTML = '<div class="re-vide"><p class="re-chemin">Ton émotion</p><h2>Qu’est-ce que tu ressens ?</h2><p>Touche une émotion dans la roue, ou cherche un mot. Commence par le centre si tu hésites : la joie, la tristesse, la peur, la colère, la surprise ou le dégoût.</p></div>';
+    }
+    function choisir(cle, defiler) {
+      var f = trouver(cle); if (!f) return;
+      choisi = cle;
+      svg.classList.add('a-choix');
+      Object.keys(segs).forEach(function (k) { segs[k].classList.toggle('actif', k === cle); segs[k].classList.toggle('parent', cle.indexOf(k + '|') === 0 || k.indexOf(cle + '|') === 0); });
+      var chemin = [f.c.nom]; if (f.s) chemin.push(f.s.n); if (f.t) chemin.push(f.t);
+      var def = f.t ? 'Une nuance de ' + f.s.n.toLowerCase() + ' : ' + f.s.d.charAt(0).toLowerCase() + f.s.d.slice(1) : f.s ? f.s.d : f.c.message;
+      var h = '<p class="re-chemin">' + esc(chemin.join(' · ')) + '</p><h2><i style="background:' + f.c.c + '"></i>' + esc(f.nom) + '</h2><p class="re-def">' + esc(def) + '</p>';
+      if (!f.s && f.c.sous.length) h += '<p style="color:var(--prune-doux);margin-bottom:.4rem">Ses nuances :</p><div class="re-corps">' + f.c.sous.map(function (s, j) { return '<button type="button" class="re-chip" data-choix="' + f.c.id + '|' + j + '">' + esc(s.n) + '</button>'; }).join('') + '</div>';
+      if (f.s && !f.t) h += '<div class="re-corps" style="margin-bottom:.4rem">' + f.s.t.map(function (t, k) { return '<button type="button" class="re-chip re-chip-fin" data-choix="' + cle + '|' + k + '">' + esc(t) + '</button>'; }).join('') + '</div>';
+      h += '<div class="re-bloc">' +
+        (f.s ? '<div><b>Ce que ' + esc(f.c.art) + ' t’apprend</b><p>' + esc(f.c.message) + '</p></div>' : '') +
+        '<div><b>Ton besoin</b><p>' + esc(f.c.besoin) + '</p></div>' +
+        '<div><b>Dans ton corps</b><p>' + esc(f.c.corps) + '</p></div>' +
+        '<div><b>La question à te poser</b><p>' + esc(f.c.question) + '</p></div>' +
+        (f.c.element ? '<div><b>Dans les 5 éléments</b><p>' + esc(f.c.art.charAt(0).toUpperCase() + f.c.art.slice(1)) + ' est associée à l’élément ' + esc(f.c.element) + '. <a href="cinq-elements-emotions.html">Lire les 5 éléments et les émotions</a></p></div>' : '') +
+        '</div><p class="re-accueil">« ' + esc(f.c.accueil) + ' »</p>' +
+        '<div class="re-actions"><button type="button" class="btn btn-plein" data-noter="' + cle + '">C’est ce que je ressens : le noter</button></div>';
+      panneau.innerHTML = h;
+      if (defiler && window.innerWidth < 960) panneau.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    svg.addEventListener('click', function (e) { var g = e.target.closest('.re-seg'); if (g) choisir(g.dataset.cle, true); });
+    svg.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var g = e.target.closest('.re-seg'); if (g) { e.preventDefault(); choisir(g.dataset.cle, true); } } });
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-choix]'); if (b) { choisir(b.getAttribute('data-choix'), true); if (b.closest('.re-liste')) document.getElementById('re-roue').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+      var nb = e.target.closest('[data-noter]'); if (nb) { document.getElementById('re-j-emotion').value = nb.getAttribute('data-noter'); document.getElementById('journal').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+
+    /* Recherche */
+    var tous = [];
+    D.forEach(function (c) { tous.push([c.nom, c.id]); c.sous.forEach(function (s, j) { tous.push([s.n, c.id + '|' + j]); s.t.forEach(function (t, k) { tous.push([t, c.id + '|' + j + '|' + k]); }); }); });
+    function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z ]/g, '').trim(); }
+    document.getElementById('re-mots').innerHTML = tous.map(function (x) { return '<option value="' + esc(x[0]) + '">'; }).join('');
+    document.getElementById('re-recherche').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var q = norm(document.getElementById('re-cherche').value); if (!q) return;
+      var r = tous.filter(function (x) { return norm(x[0]) === q; })[0] || tous.filter(function (x) { var w = norm(x[0]); return w.indexOf(q) === 0 || q.indexOf(w.slice(0, Math.max(4, w.length - 2))) === 0; })[0] || tous.filter(function (x) { return norm(x[0]).indexOf(q.slice(0, 4)) >= 0; })[0];
+      if (r) choisir(r[1], true);
+      else panneau.innerHTML = '<div class="re-vide"><p class="re-chemin">Recherche</p><h2>Mot introuvable</h2><p>Ce mot n’est pas encore dans la roue. Essaie un mot proche, ou pars du centre.</p></div>';
+    });
+
+    /* Journal */
+    var J = [];
+    try { J = JSON.parse(localStorage.getItem(CLE) || '[]') || []; } catch (e) { J = []; }
+    function garder() { try { localStorage.setItem(CLE, JSON.stringify(J)); } catch (e) {} }
+    var sel = document.getElementById('re-j-emotion');
+    sel.innerHTML = D.map(function (c) { return '<optgroup label="' + esc(c.nom) + '"><option value="' + c.id + '">' + esc(c.nom) + '</option>' + c.sous.map(function (s, j) { return '<option value="' + c.id + '|' + j + '">' + esc(s.n) + '</option>' + s.t.map(function (t, k) { return '<option value="' + c.id + '|' + j + '|' + k + '">· ' + esc(t) + '</option>'; }).join(''); }).join('') + '</optgroup>'; }).join('');
+    var CORPS = ['Tête', 'Gorge', 'Poitrine', 'Ventre', 'Épaules', 'Dos', 'Mains', 'Jambes'];
+    var zc = document.getElementById('re-j-corps');
+    zc.innerHTML = CORPS.map(function (z) { return '<button type="button" class="re-chip" aria-pressed="false" data-zone="' + z + '">' + z + '</button>'; }).join('');
+    zc.addEventListener('click', function (e) { var b = e.target.closest('[data-zone]'); if (b) b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); });
+    var rng = document.getElementById('re-j-intensite');
+    rng.addEventListener('input', function () { document.getElementById('re-j-val').textContent = rng.value; });
+    document.getElementById('re-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var zones = [].slice.call(zc.querySelectorAll('[aria-pressed="true"]')).map(function (b) { return b.getAttribute('data-zone'); });
+      J.unshift({ d: new Date().toISOString(), e: sel.value, i: +rng.value, z: zones, q: document.getElementById('re-j-quoi').value.trim().slice(0, 400), b: document.getElementById('re-j-besoin').value.trim().slice(0, 160) });
+      J = J.slice(0, 200); garder();
+      document.getElementById('re-j-quoi').value = ''; document.getElementById('re-j-besoin').value = '';
+      zc.querySelectorAll('[aria-pressed="true"]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      document.getElementById('re-j-ok').textContent = 'C’est noté. Merci de t’être écouté·e.';
+      dessinerJournal();
+    });
+    function dessinerJournal() {
+      var bil = document.getElementById('re-bilan'), hist = document.getElementById('re-hist');
+      if (!J.length) { bil.innerHTML = '<p style="color:var(--prune-doux)">Ton journal est vide pour l’instant. Note une première émotion : ce qui revient apparaîtra ici.</p>'; hist.innerHTML = ''; return; }
+      var cpt = {}; J.forEach(function (x) { var c = x.e.split('|')[0]; cpt[c] = (cpt[c] || 0) + 1; });
+      var max = Math.max.apply(null, Object.keys(cpt).map(function (k) { return cpt[k]; }));
+      bil.innerHTML = '<div class="re-barres">' + D.filter(function (c) { return cpt[c.id]; }).sort(function (a, b) { return cpt[b.id] - cpt[a.id]; }).map(function (c) {
+        return '<div class="re-barre"><span style="background:none;color:var(--prune)">' + esc(c.nom) + '</span><div><span style="width:' + Math.round(cpt[c.id] / max * 100) + '%;background:' + c.c + '"></span></div><b>' + cpt[c.id] + '</b></div>';
+      }).join('') + '</div>';
+      hist.innerHTML = J.slice(0, 30).map(function (x) {
+        var f = trouver(x.e); if (!f) return '';
+        var dt = new Date(x.d), jour = dt.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+        return '<li><i style="background:' + f.c.c + '"></i><div><b>' + esc(f.nom) + '</b> · ' + x.i + '/10 <small>' + esc(jour) + '</small>' +
+          (x.z && x.z.length ? '<br><small>' + esc(x.z.join(', ')) + '</small>' : '') + (x.q ? '<br>' + esc(x.q) : '') + (x.b ? '<br><small>Besoin : ' + esc(x.b) + '</small>' : '') + '</div></li>';
+      }).join('');
+    }
+    document.getElementById('re-imprimer').addEventListener('click', function () { window.print(); });
+    document.getElementById('re-effacer').addEventListener('click', function () { if (J.length && confirm('Effacer tout ton journal des émotions ?')) { J = []; garder(); dessinerJournal(); } });
+
+    videPanneau(); dessinerJournal();
+    var h = decodeURIComponent((location.hash || '').slice(1));
+    if (h && h !== 'comment' && h !== 'journal') { var r = tous.filter(function (x) { return norm(x[0]) === norm(h); })[0]; if (r) choisir(r[1], false); }
+  })();
+  </script>
+</body>
+</html>

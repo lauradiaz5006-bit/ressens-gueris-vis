@@ -360,7 +360,7 @@ window.GENESOLIA_IMPRESSION = {
     majEspace();
     window.GenesoliaMajEntete = majEspace;
     /* Sans compte, sur les outils : rappel discret que le travail s'efface à la fermeture du navigateur */
-    var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html', 'fil-d-or.html'];
+    var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html', 'roue-des-emotions.html', 'fil-d-or.html'];
     var vuNote = false; try { vuNote = sessionStorage.getItem('note-donnees') === 'vue'; } catch (e) {}
     if (OUTILS.indexOf(page) >= 0 && !vuNote && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
       var note = document.createElement('div');
@@ -442,6 +442,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
             '<li><a href="jeux-en-famille.html">Jeux en famille</a></li>' +
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
+            '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
