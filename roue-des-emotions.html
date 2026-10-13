@@ -80,6 +80,7 @@
     .re-faq details{background:var(--blanc);border:1px solid var(--rose);border-radius:14px;padding:.9rem 1.1rem}
     .re-faq summary{cursor:pointer;font-weight:600;color:var(--prune)}
     .re-faq p{margin-top:.6rem;color:var(--prune-doux);max-width:none}
+    .re-espace{font-size:.92rem;background:#FFF6EC;border:1px solid var(--champagne-clair);border-radius:12px;padding:.6rem .9rem;color:var(--prune);max-width:44rem;margin-top:.6rem}
     .re-note{font-size:.92rem;color:var(--prune-doux);margin-top:2rem}
     @media (max-width:960px){.re-zone{grid-template-columns:1fr}.re-panneau{position:static}.re-liste{grid-template-columns:1fr 1fr}.re-cartes-img{grid-template-columns:1fr}}
     @media (max-width:640px){.re-liste,.re-journal{grid-template-columns:1fr}.re-roue-cadre{padding:.4rem}}
@@ -129,6 +130,7 @@
       <div class="conteneur" style="padding:2.6rem 0 1rem">
         <h2>Mon journal des émotions</h2>
         <p style="color:var(--prune-doux);max-width:44rem">Note ton émotion du jour : au fil des semaines, tu verras ce qui revient, et ce dont tu as le plus souvent besoin.</p>
+        <p class="re-espace" id="re-espace">Sans compte, ton journal reste sur cet appareil. <a href="login.html?inscription">Crée ton espace gratuit</a> pour le garder partout et, si tu le souhaites, le relier à ton cycle.</p>
         <div class="re-journal">
           <form class="re-carte re-form" id="re-form">
             <h3>Aujourd’hui</h3>
@@ -173,11 +175,13 @@
 
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/emotions.js"></script>
   <script>
   (function () {
     'use strict';
-    var D = [{"id": "joie", "nom": "Joie", "art": "la joie", "c": "#D9A441", "element": "Feu", "message": "Ce qui compte pour toi est là. La joie te montre ce qui te nourrit et ce qui a du sens.", "besoin": "Partager, célébrer, savourer.", "corps": "La poitrine qui s’ouvre, le sourire, l’envie de bouger, une sensation de légèreté.", "question": "Qu’est-ce qui me fait du bien en ce moment, et que j’aimerais retrouver plus souvent ?", "accueil": "Je savoure ce moment et je le laisse grandir.", "sous": [{"n": "Gaieté", "d": "Une joie légère et vive, qui donne envie de rire.", "t": ["Enjouement", "Amusement"]}, {"n": "Fierté", "d": "Le plaisir de reconnaître ce que tu as fait, ou ce que tu es.", "t": ["Confiance", "Dignité"]}, {"n": "Sérénité", "d": "Une paix tranquille, sans rien à prouver.", "t": ["Calme", "Apaisement"]}, {"n": "Tendresse", "d": "La douceur que tu ressens envers quelqu’un, ou envers toi.", "t": ["Affection", "Gratitude"]}]}, {"id": "tristesse", "nom": "Tristesse", "art": "la tristesse", "c": "#4E5D94", "element": "Métal", "message": "Quelque chose d’important te manque ou s’en va. La tristesse t’invite à reconnaître ce qui compte pour toi.", "besoin": "Être consolé·e, ralentir, dire au revoir.", "corps": "La gorge serrée, les larmes, les épaules qui tombent, l’envie de te retirer.", "question": "Qu’est-ce que je suis en train de perdre, de quitter ou de regretter ?", "accueil": "Je m’accorde le droit d’être triste, le temps qu’il faut.", "sous": [{"n": "Chagrin", "d": "Une peine profonde, après une perte ou une séparation.", "t": ["Peine", "Nostalgie"]}, {"n": "Solitude", "d": "Le sentiment d’être seul·e, même entouré·e.", "t": ["Isolement", "Abandon"]}, {"n": "Déception", "d": "L’écart entre ce que tu espérais et ce qui est arrivé.", "t": ["Découragement", "Regret"]}, {"n": "Mélancolie", "d": "Une tristesse diffuse, qui s’installe sans raison claire.", "t": ["Lassitude", "Vide"]}]}, {"id": "peur", "nom": "Peur", "art": "la peur", "c": "#7A4FA0", "element": "Eau", "message": "Quelque chose te semble menaçant. La peur veille sur ta sécurité et t’invite à la prudence.", "besoin": "Être rassuré·e, te protéger, retrouver des repères.", "corps": "Le cœur qui s’accélère, le ventre noué, le souffle court, l’envie de fuir ou de te figer.", "question": "De quoi ai-je besoin pour me sentir en sécurité, ici et maintenant ?", "accueil": "Je respire, je regarde autour de moi, et je cherche ce qui me rassure.", "sous": [{"n": "Inquiétude", "d": "L’attente tendue de ce qui pourrait arriver.", "t": ["Nervosité", "Appréhension"]}, {"n": "Insécurité", "d": "Le sentiment de manquer d’appui ou de protection.", "t": ["Vulnérabilité", "Impuissance"]}, {"n": "Frayeur", "d": "Une peur vive et soudaine.", "t": ["Effroi", "Panique"]}, {"n": "Doute", "d": "La peur de te tromper, qui empêche de choisir.", "t": ["Hésitation", "Confusion"]}]}, {"id": "colere", "nom": "Colère", "art": "la colère", "c": "#C2463E", "element": "Bois", "message": "Une limite a été franchie, ou une injustice te touche. La colère protège ce qui compte pour toi.", "besoin": "Être respecté·e, poser une limite, rétablir la justice.", "corps": "La chaleur qui monte, la mâchoire serrée, les poings fermés, une énergie qui pousse à agir.", "question": "Quelle limite ai-je besoin de poser, et auprès de qui ?", "accueil": "Ma colère a quelque chose à me dire : je l’écoute avant d’agir.", "sous": [{"n": "Frustration", "d": "Le sentiment d’être empêché·e d’obtenir ce que tu veux.", "t": ["Agacement", "Impatience"]}, {"n": "Rancœur", "d": "Une colère ancienne, gardée longtemps.", "t": ["Amertume", "Ressentiment"]}, {"n": "Indignation", "d": "La colère face à ce qui te paraît injuste.", "t": ["Révolte", "Sentiment d’injustice"]}, {"n": "Jalousie", "d": "La peur de perdre ce que tu as, ou le désir de ce que l’autre a.", "t": ["Envie", "Possessivité"]}]}, {"id": "surprise", "nom": "Surprise", "art": "la surprise", "c": "#D97D8B", "element": null, "message": "Quelque chose d’inattendu arrive. La surprise ouvre grand ton attention.", "besoin": "Comprendre, prendre le temps, t’ajuster.", "corps": "Les yeux grands ouverts, le souffle suspendu, un sursaut.", "question": "Qu’est-ce que cette nouveauté m’apprend, ou change pour moi ?", "accueil": "Je prends un instant pour comprendre avant de réagir.", "sous": [{"n": "Étonnement", "d": "Ce qui arrive dépasse ce que tu imaginais.", "t": ["Stupéfaction", "Émerveillement"]}, {"n": "Choc", "d": "Une surprise brutale, qui laisse sans voix.", "t": ["Désarroi", "Sidération"]}, {"n": "Curiosité", "d": "L’envie d’en savoir plus.", "t": ["Intérêt", "Fascination"]}, {"n": "Enthousiasme", "d": "Une surprise joyeuse, qui donne envie d’avancer.", "t": ["Élan", "Excitation"]}]}, {"id": "degout", "nom": "Dégoût", "art": "le dégoût", "c": "#9C6B78", "element": null, "message": "Quelque chose te semble inacceptable ou contraire à tes valeurs. Le dégoût te dit non.", "besoin": "Prendre de la distance, respecter tes valeurs.", "corps": "La bouche qui se pince, le nez qui se plisse, le corps qui recule.", "question": "Qu’est-ce qui, ici, va contre mes valeurs ?", "accueil": "J’ai le droit de dire non à ce qui va contre mes valeurs.", "sous": [{"n": "Rejet", "d": "Le besoin de repousser ce qui te dérange.", "t": ["Répulsion", "Aversion"]}, {"n": "Mépris", "d": "Le sentiment de valoir mieux, ou l’envie de rabaisser l’autre.", "t": ["Dédain", "Jugement"]}, {"n": "Honte", "d": "Le sentiment d’être mal vu·e, ou de manquer de valeur.", "t": ["Gêne", "Humiliation"]}, {"n": "Culpabilité", "d": "Le sentiment d’avoir mal agi envers quelqu’un.", "t": ["Remords", "Embarras"]}]}];
+    var D = window.GENESOLIA_EMOTIONS;
     var CLE = 'genesolia-roue-emotions';
+    function compte() { return !!(window.GenesoliaCompte && window.GenesoliaCompte.actif()); }
     var NS = 'http://www.w3.org/2000/svg';
     function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function melange(hex, t) { var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; function m(x) { return Math.round(x + (255 - x) * t); } return 'rgb(' + m(r) + ',' + m(g) + ',' + m(b) + ')'; }
@@ -253,7 +257,7 @@
     svg.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { var g = e.target.closest('.re-seg'); if (g) { e.preventDefault(); choisir(g.dataset.cle, true); } } });
     document.addEventListener('click', function (e) {
       var b = e.target.closest('[data-choix]'); if (b) { choisir(b.getAttribute('data-choix'), true); if (b.closest('.re-liste')) document.getElementById('re-roue').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
-      var nb = e.target.closest('[data-noter]'); if (nb) { document.getElementById('re-j-emotion').value = nb.getAttribute('data-noter'); document.getElementById('journal').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      var nb = e.target.closest('[data-noter]'); if (nb) { if (compte()) { location.href = 'login.html?emotion=' + encodeURIComponent(nb.getAttribute('data-noter')) + '#journal'; return; } document.getElementById('re-j-emotion').value = nb.getAttribute('data-noter'); document.getElementById('journal').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
 
     /* Recherche */
@@ -310,6 +314,10 @@
     document.getElementById('re-effacer').addEventListener('click', function () { if (J.length && confirm('Effacer tout ton journal des émotions ?')) { J = []; garder(); dessinerJournal(); } });
 
     videPanneau(); dessinerJournal();
+    if (compte()) {
+      var zj = document.querySelector('#journal .re-journal'); if (zj) zj.outerHTML = '<div class="re-carte" style="margin-top:1rem"><h3>Ton journal est dans ton espace</h3><p style="color:var(--prune-doux)">Choisis ton émotion dans la roue puis « C’est ce que je ressens : le noter » : elle s’ouvre directement dans ton journal, avec ton calendrier et ce qui revient.</p><p style="margin-top:.8rem"><a class="btn btn-plein" href="login.html#journal">Ouvrir mon journal</a></p></div>';
+      var ze = document.getElementById('re-espace'); if (ze) ze.remove();
+    }
     var h = decodeURIComponent((location.hash || '').slice(1));
     if (h && h !== 'comment' && h !== 'journal') { var r = tous.filter(function (x) { return norm(x[0]) === norm(h); })[0]; if (r) choisir(r[1], false); }
   })();

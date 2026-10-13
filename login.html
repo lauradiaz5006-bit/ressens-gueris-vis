@@ -134,6 +134,87 @@
     .sy-bloc{border:1px solid var(--rose);border-radius:16px;padding:1rem 1.2rem;background:#fff}.sy-bloc h3{font-size:1.15rem;margin-bottom:.4rem}.sy-bloc ul{margin:0 0 0 1.1rem;display:grid;gap:.35rem;font-size:.93rem}
     .sy-cycle{background:linear-gradient(150deg,#FBF0E4,#fff)}.sy-pas .btn{margin-top:.6rem}.sy-note{font-size:.82rem;color:var(--prune-doux)}
     @media (max-width:600px){.sy-appel{grid-template-columns:1fr}}
+    /* Espace en tableau de bord : menu sur le côté, panneaux */
+    .espace.connectee .pub-avantages{display:none!important}
+    .tableau{max-width:1180px}
+    .eb{display:grid;grid-template-columns:220px minmax(0,1fr);gap:1.6rem;align-items:start}
+    .eb-menu{position:sticky;top:5.5rem;display:grid;gap:.3rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:.7rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    .eb-lien{display:flex;align-items:center;gap:.7rem;width:100%;border:0;background:none;border-radius:12px;padding:.7rem .8rem;font:600 .95rem/1.2 var(--texte);color:var(--prune-doux);cursor:pointer;text-align:left}
+    .eb-lien svg{width:1.3rem;height:1.3rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .eb-lien:hover{background:var(--nacre);color:var(--prune)}
+    .eb-lien[aria-current="page"]{background:linear-gradient(135deg,#FFF6EC,#FCEFF3);color:var(--prune);box-shadow:inset 3px 0 0 var(--champagne)}
+    .eb-panneau[hidden]{display:none}
+    .eb-outils-liste{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+    .eb-outils-liste a{display:grid;gap:.25rem;padding:.9rem 1rem;border:1px solid var(--rose);border-radius:14px;background:rgba(255,255,255,.8);text-decoration:none;color:var(--prune)}
+    .eb-outils-liste a:hover{border-color:var(--prune-doux)}
+    .eb-outils-liste span{font-size:.82rem;color:var(--prune-doux)}
+    .eb-etape{font:600 .78rem var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
+    .eb-puces{display:flex;flex-wrap:wrap;gap:.4rem}
+    .eb-puce{border:1.5px solid var(--c);background:var(--blanc);color:var(--prune);border-radius:99px;padding:.35rem .8rem;font:600 .86rem var(--texte);cursor:pointer}
+    .eb-puce:hover{background:var(--c);color:#fff}
+    .eb-auj{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+    .eb-auj span{display:inline-flex;align-items:center;gap:.35rem;font-weight:600;color:var(--prune)}
+    .eb-auj i{width:.7rem;height:.7rem;border-radius:50%}
+    @media (max-width:960px){.eb-outils-liste{grid-template-columns:1fr 1fr}}
+    @media (max-width:760px){
+      .eb{grid-template-columns:1fr;gap:1rem}
+      .eb-menu{position:sticky;top:4.2rem;z-index:15;display:flex;overflow-x:auto;padding:.4rem;gap:.2rem;scrollbar-width:none}
+      .eb-menu::-webkit-scrollbar{display:none}
+      .eb-lien{flex:none;width:auto;padding:.55rem .75rem;font-size:.86rem}
+      .eb-lien svg{width:1.1rem;height:1.1rem}
+      .eb-lien[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--champagne)}
+      .eb-outils-liste{grid-template-columns:1fr}
+    }
+    /* Journal des émotions */
+    .jo-tete{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:.6rem}
+    .jo-tete h2{font-size:1.6rem}
+    .jo-saison{border-left:4px solid var(--c);background:var(--blanc);border-radius:12px;padding:.6rem .9rem;display:grid}
+    .jo-saison b{color:var(--prune)}.jo-saison span{font-size:.88rem;color:var(--prune-doux)}
+    .jo-local{font-size:.88rem;background:#FFF6EC;border:1px solid var(--champagne-clair);border-radius:12px;padding:.6rem .9rem;color:var(--prune);margin-bottom:.6rem}
+    .jo-msg{min-height:1.3em;color:#7A5426;font-size:.92rem;margin-bottom:.4rem}.jo-msg.erreur{color:#8E2E40}
+    .jo-grille{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;align-items:start}
+    .jo-form{grid-row:span 2}
+    .jo-hist{grid-column:1/-1}
+    .jo-grille h3{font-size:1.25rem}.jo-grille h3 small{font:400 .82rem var(--texte);color:var(--prune-doux)}
+    .jo-puces{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.45rem}
+    .jo-puce{border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune);border-radius:99px;padding:.32rem .75rem;font:600 .86rem/1.2 var(--texte);cursor:pointer}
+    .jo-puce:hover{border-color:var(--c,var(--prune-doux))}
+    .jo-base{border-color:var(--c)}
+    .jo-fin{font-weight:400;font-size:.82rem}
+    .jo-puce[aria-pressed="true"]{background:var(--c,var(--prune));border-color:var(--c,var(--prune));color:#fff}
+    .jo-choisi{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;font-weight:700;color:var(--prune);margin:.2rem 0 .4rem}
+    .jo-choisi i{width:.8rem;height:.8rem;border-radius:50%}.jo-choisi span{font-weight:400;font-size:.88rem;color:var(--prune-doux)}
+    .jo-form textarea{width:100%;min-height:4rem;font:400 1rem var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.6rem .8rem;resize:vertical}
+    .jo-form input[type=range]{width:100%;accent-color:#6B2F5B}
+    .jo-cal-tete{display:flex;align-items:center;justify-content:space-between}
+    .jo-cal-tete h3{text-transform:capitalize}
+    .jo-nav{border:1px solid var(--rose);background:var(--blanc);border-radius:50%;width:2.2rem;height:2.2rem;font-size:1.3rem;line-height:1;color:var(--prune);cursor:pointer}
+    .jo-semaine,.jo-jours{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;text-align:center}
+    .jo-semaine span{font-size:.75rem;font-weight:700;color:var(--prune-doux)}
+    .jo-jour{position:relative;aspect-ratio:1;border:1px solid var(--rose);background:var(--blanc);border-radius:10px;cursor:pointer;display:grid;place-items:center;padding:0;color:var(--prune)}
+    .jo-jour b{font-size:.85rem}.jo-jour small{position:absolute;top:2px;right:4px;font-size:.58rem;color:var(--prune-doux)}
+    .jo-jour i{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:.55rem;height:.55rem;border-radius:50%;background:var(--c)}
+    .jo-jour[style]{background:color-mix(in srgb,var(--c) 14%,#fff)}
+    .jo-auj{border:2px solid var(--prune)}
+    .jo-hiver{box-shadow:inset 0 0 0 2px rgba(78,93,148,.35)}
+    .jo-legende{margin-top:.5rem}.jo-l-hiver{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;box-shadow:inset 0 0 0 2px rgba(78,93,148,.5);vertical-align:middle}
+    .jo-h4{font:700 .9rem var(--texte);color:var(--prune);margin:.8rem 0 .4rem}
+    .jo-barres{display:grid;gap:.45rem}
+    .jo-barre{display:grid;grid-template-columns:6rem 1fr 2rem;gap:.6rem;align-items:center;font-size:.9rem;color:var(--prune)}
+    .jo-barre div{height:.7rem;border-radius:99px;background:var(--rose);overflow:hidden}.jo-barre div span{display:block;height:100%;border-radius:99px}
+    .jo-phrases{list-style:none;padding:0;display:grid;gap:.4rem;font-size:.92rem;color:var(--prune)}
+    .jo-accord{display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;color:var(--prune);background:var(--nacre);border-radius:12px;padding:.7rem .8rem}
+    .jo-accord input{margin-top:.2rem;accent-color:#6B2F5B}
+    .jo-champs2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+    .jo-saison-texte{border-left:4px solid var(--c);padding-left:.8rem;color:var(--prune-doux)}.jo-saison-texte b{color:var(--prune)}
+    .jo-reglages summary{cursor:pointer;font-weight:600;color:var(--prune);font-size:.9rem;margin:.4rem 0}
+    #jo-liste,.jo-liste-jour{list-style:none;padding:0;display:grid;gap:.2rem}
+    #jo-liste li,.jo-liste-jour li{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;padding:.55rem 0;border-top:1px solid var(--rose);font-size:.92rem;color:var(--prune)}
+    #jo-liste li i,.jo-liste-jour li i{width:.75rem;height:.75rem;border-radius:50%;margin-top:.35rem}
+    #jo-liste small,.jo-liste-jour small{color:var(--prune-doux)}
+    .jo-suppr{background:none;border:0;color:var(--prune-doux);font-size:1.2rem;cursor:pointer;line-height:1}
+    @media (max-width:900px){.jo-grille{grid-template-columns:1fr}.jo-form{grid-row:auto}.jo-champs2{grid-template-columns:1fr}}
+    @media print{.eb-menu,.tb-tete,.jo-form,.jo-cycle,.jo-nav,.tb-actions{display:none!important}.eb{grid-template-columns:1fr}}
   </style>
 </head>
 <body class="nouveau">
@@ -184,18 +265,18 @@
     <aside class="pub-avantages" aria-labelledby="pa-titre">
       <div class="pa-tete">
         <div>
-          <p class="pa-sur">Le Cercle · <s>29 € par mois</s> · 1 mois offert</p>
+          <p class="pa-sur">Le Cercle · 1<sup>er</sup> mois offert</p>
           <h2 id="pa-titre">Teste tout Genesolia 1 mois gratuitement</h2>
         </div>
         <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
-        <p class="pa-apres">Après ton essai : 29 € par mois sans engagement, ou 24,90 € par mois sur 12 mois.</p>
+        <p class="pa-apres">Après ton mois offert : formule cycle 1 à 19,90 € par mois sans engagement, ou Le Cercle complet à 29,90 € par mois sur 12 mois (ou 329 € en une fois).</p>
       </div>
       <ul>
         <li><b>J'avance</b> : un nouveau carnet chaque mois, à remplir en ligne ou à imprimer</li>
         <li><b>Je me libère</b> : ton suivi semaine après semaine, avec la méthode des deux cycles</li>
         <li><b>Ton guide du mois complet</b> : ton calendrier et les dates de ton arbre</li>
         <li><b>Ton évolution</b> mois après mois, et Les 12 saisons dès ton 2<sup>e</sup> mois</li>
-        <li><b>29 € par mois sans engagement</b>, ou 24,90 € par mois sur 12 mois</li>
+        <li><b>19,90 € par mois</b> sans engagement pour le cycle 1, ou <b>29,90 € par mois</b> pour Le Cercle complet</li>
       </ul>
     </aside>
 
@@ -210,7 +291,47 @@
       </div>
       <p class="tb-message" id="tb-message" role="status" aria-live="polite"></p>
 
-      <div class="tb-grille">
+      <div class="eb">
+        <nav class="eb-menu" aria-label="Mon espace">
+          <button type="button" class="eb-lien" data-panneau="accueil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
+          <button type="button" class="eb-lien" data-panneau="arbre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6M12 15c-4 0-6-2.5-6-5.5S8.5 4 12 4s6 2.5 6 5.5S16 15 12 15zM9 21h6"/></svg><span>Mon arbre</span></button>
+          <button type="button" class="eb-lien" data-panneau="cercle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span>Le Cercle</span></button>
+          <button type="button" class="eb-lien" data-panneau="journal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2zM6 18a2 2 0 0 1 2-2h10M10 8h5"/></svg><span>Mon journal</span></button>
+          <button type="button" class="eb-lien" data-panneau="abonnement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4zM4 11h16"/></svg><span>Mon abonnement</span></button>
+          <button type="button" class="eb-lien" data-panneau="infos"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Mes infos</span></button>
+        </nav>
+        <div class="eb-panneaux">
+
+      <section class="eb-panneau" data-p="accueil" aria-label="Accueil">
+        <div class="tb-grille">
+          <article class="tb-carte tb-large" id="acc-cercle">
+            <h2>Le Cercle : un pas chaque mois</h2>
+            <p class="tb-aide">Un carnet pour avancer, un suivi pour déposer ce qui se rejoue, une séance audio par mois : tu sors pas à pas de ce qui se répète, à ton rythme.</p>
+            <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><button type="button" class="btn btn-trait" data-aller="cercle">Découvrir le Cercle</button></div>
+          </article>
+          <article class="tb-carte" id="acc-emotion">
+            <h2>Mon émotion du jour</h2>
+            <div id="acc-emotion-corps"><p class="tb-aide">Comment tu te sens aujourd’hui ?</p></div>
+          </article>
+          <article class="tb-carte">
+            <h2>Mon arbre familial</h2>
+            <p class="tb-aide">Ton arbre s'enregistre dans ton espace à chaque modification.</p>
+            <div class="tb-actions"><a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre</a><button type="button" class="btn btn-trait" data-aller="arbre">Mes arbres</button></div>
+          </article>
+          <article class="tb-carte tb-large eb-outils">
+            <h2>Mes outils</h2>
+            <div class="eb-outils-liste">
+              <a href="fil-d-or.html"><b>Le fil d’or</b><span>Remplis ton arbre à partir de tes ressentis</span></a>
+              <a href="roue-des-emotions.html"><b>La roue des émotions</b><span>Trouve le mot juste pour ce que tu ressens</span></a>
+              <a href="carnet-des-deux-cycles.html"><b>Le carnet des deux cycles</b><span>Comprends tes schémas répétitifs</span></a>
+              <a href="mon-guide.html"><b>Mon guide du mois</b><span>Ton mois personnel et ton calendrier</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="eb-panneau" data-p="arbre" aria-label="Mon arbre" hidden>
+        <div class="tb-grille">
         <section class="tb-carte tb-large" aria-labelledby="t-arbre">
           <h2 id="t-arbre">Mon arbre familial</h2>
           <div class="tb-chiffres" id="arbre-chiffres"><p class="tb-aide">Chargement de ton arbre…</p></div>
@@ -230,37 +351,53 @@
           <p class="tb-aide">Ton arbre s'enregistre ici à chaque modification. Les 30 dernières versions sont gardées : tu peux revenir en arrière depuis « Sauvegardes » dans l'arbre.</p>
         </section>
 
-        <section class="tb-carte tb-large tb-chemin" id="mon-chemin" aria-labelledby="t-chemin">
-          <div class="ch-tete"><h2 id="t-chemin">Mon chemin</h2><p class="tb-aide">Tous les tests que tu as faits sur Genesolia, avec leur date, pour voir ton évolution. Toi seul·e les vois. Tu peux effacer chaque résultat, ou tout.</p></div>
-          <div id="chemin-synthese"></div>
-          <div id="chemin-liste"><p class="tb-aide">Chargement de ton chemin…</p></div>
-          <div class="tb-actions ch-pied" id="chemin-pied" hidden><button class="btn btn-trait" type="button" id="chemin-tout-effacer">Tout effacer</button></div>
-          <div id="chemin-jaimes"></div>
-          <div id="chemin-documents"></div>
+        <section class="tb-carte" aria-labelledby="t-parcours">
+          <h2 id="t-parcours">Mon parcours guidé</h2>
+          <div id="parcours-resume"><p class="tb-aide">Chargement…</p></div>
+          <div class="tb-actions"><a class="btn btn-trait" href="parcours.html">Ouvrir le parcours</a></div>
         </section>
+        </div>
+      </section>
 
+      <section class="eb-panneau" data-p="cercle" aria-label="Le Cercle" hidden>
+        <div class="tb-grille" id="pan-cercle">
+          <article class="tb-carte tb-large">
+            <h2>Le Cercle</h2>
+            <p class="tb-aide">Chaque mois, une étape : ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue dans ta lignée, et ta séance audio du mois.</p>
+            <ul class="tb-liste">
+              <li><b>Formule cycle 1</b> : le carnet du mois et ta séance audio, 19,90 € par mois, sans engagement, 1<sup>er</sup> mois offert</li>
+              <li><b>Le Cercle complet</b> : tout le cycle 1, le suivi de ta lignée et la formation « Sors de la boucle », 29,90 € par mois sur 12 mois, ou 329 € en une fois</li>
+            </ul>
+            <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="eb-panneau" data-p="journal" aria-label="Mon journal" hidden>
+        <div id="journal-app"></div>
+      </section>
+
+      <section class="eb-panneau" data-p="abonnement" aria-label="Mon abonnement" hidden>
+        <div class="tb-grille">
         <section class="tb-carte" aria-labelledby="t-abo">
           <h2 id="t-abo">Mon abonnement</h2>
           <p class="tb-formule">Formule Découverte <span>gratuite</span></p>
           <ul class="tb-liste">
             <li>Ton arbre familial, sauvegardé dans ton espace</li>
             <li>L'historique de tes 30 dernières versions</li>
-            <li>Le test de l'arbre de vie et le parcours guidé</li>
-            <li>Le carnet des deux cycles à imprimer</li>
+            <li>Ton journal des émotions</li>
+            <li>Les outils gratuits : le fil d’or, la roue des émotions, le test de l'arbre de vie, le carnet des deux cycles</li>
           </ul>
-          <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>1 mois gratuit</span></p>
-          <p class="tb-aide">Après ton essai : 29 € par mois, sans engagement.</p>
+          <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>1<sup>er</sup> mois offert</span></p>
+          <p class="tb-aide"><b>Formule cycle 1</b> : 19,90 € par mois, sans engagement. <b>Le Cercle complet</b> : 29,90 € par mois sur 12 mois, ou 329 € en une fois.</p>
           <p class="tb-essai" id="essai-info" hidden></p>
-          <p class="tb-aide">Chaque mois, ton mois personnel en numérologie, ton calendrier et les dates de ton arbre qui tombent ce mois-ci. Avec le rapport complet de ton arbre, régénéré quand tu veux.</p>
-          <div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a><a class="btn btn-trait" href="mon-suivi.html">Mon suivi</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a><a class="btn btn-trait" href="mon-mois.html">Voir mon mois</a><a class="btn btn-trait" href="mon-mois.html#offert">Mon premier carnet offert</a></div>
+          <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
         </section>
+        </div>
+      </section>
 
-        <section class="tb-carte" aria-labelledby="t-parcours">
-          <h2 id="t-parcours">Mon parcours guidé</h2>
-          <div id="parcours-resume"><p class="tb-aide">Chargement…</p></div>
-          <div class="tb-actions"><a class="btn btn-trait" href="parcours.html">Ouvrir le parcours</a></div>
-        </section>
-
+      <section class="eb-panneau" data-p="infos" aria-label="Mes infos" hidden>
+        <div class="tb-grille">
         <section class="tb-carte" aria-labelledby="t-infos">
           <h2 id="t-infos">Mes informations</h2>
           <form id="form-prenom" class="tb-form">
@@ -296,11 +433,15 @@
             <button class="btn btn-trait tb-danger" type="button" id="bt-supprimer">Supprimer mon compte</button>
           </div>
           <div class="tb-suppr" id="zone-suppr" hidden>
-            <p>Ton arbre, son historique, ton parcours et ta photo seront effacés tout de suite, puis ton compte sera fermé. <b>C'est définitif.</b> Pense à télécharger une copie avant.</p>
+            <p>Ton arbre, son historique, ton parcours, ton journal des émotions et ta photo seront effacés tout de suite, puis ton compte sera fermé. <b>C'est définitif.</b> Pense à télécharger une copie avant.</p>
             <div class="champ"><label for="suppr-confirm">Pour confirmer, écris SUPPRIMER</label><input id="suppr-confirm" type="text" autocomplete="off"></div>
             <div class="tb-actions"><button class="btn btn-plein tb-danger-plein" type="button" id="bt-suppr-ok">Supprimer définitivement</button><button class="btn btn-trait" type="button" id="bt-suppr-annuler">Annuler</button></div>
           </div>
         </section>
+        </div>
+      </section>
+
+        </div>
       </div>
     </div>
   </main>
@@ -308,8 +449,9 @@
 
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/mon-chemin.js?v=1"></script>
-  <script src="assets/espace.js?v=2026-10-12"></script>
+  <script src="assets/emotions.js"></script>
+  <script src="assets/journal-emotions.js?v=1"></script>
+  <script src="assets/espace.js?v=2026-10-13"></script>
   <script>
   (function () {
     'use strict';
@@ -474,6 +616,7 @@
       $('carte-auth').hidden = true; $('carte-connecte').hidden = false;
       document.querySelector('.espace').classList.add('connectee');
       window.GenesoliaEspace.ouvrir(sb, user);
+      if (window.GenesoliaEspaceNav) window.GenesoliaEspaceNav.init(sb, user); else window.GenesoliaEspaceAttente = [sb, user];   /* le script de navigation n'est pas encore lu */
     }
     // Essai gratuit du Cercle : jours restants et lien pour gérer l'abonnement
     function afficherEssai(user) {
@@ -483,7 +626,7 @@
       var reste = Math.ceil((fin - new Date()) / 864e5);
       var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
       el.innerHTML = (reste > 0
-        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement passe à 29 € par mois, sauf si tu l\'arrêtes avant.'
+        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement passe à 19,90 € par mois, sauf si tu l\'arrêtes avant.'
         : 'Ton abonnement au Cercle est actif.') +
         (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
@@ -528,19 +671,76 @@
   })();
   </script>
   <script>
-  /* Membre du Cercle (abonnement, essai ou accès offert) : pas de publicité pour l'essai, et la carte « Mon abonnement » dit ce qu'elle a */
+  /* Navigation de l'espace (menu sur le côté) et accueil : émotion du jour, Le Cercle pour les membres */
   (function () {
-    if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
-    window.GenesoliaAcces.membre().then(function (m) {
-      if (!m) return;
-      document.querySelectorAll('.pub-avantages').forEach(function (a) { a.hidden = true; });
-      var abo = document.querySelector('[aria-labelledby="t-abo"]'); if (!abo) return;
-      var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
-      abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
-        '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), tes deux séances audio, ton guide du mois complet, ton mois personnel et ton suivi. Tout est réuni dans l’appli Le Cercle.</p>' +
-        '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a><a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi du mois</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>' +
-        (gestion ? '<a class="btn btn-trait" href="' + gestion.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
+    'use strict';
+    function $(id) { return document.getElementById(id); }
+    var PANNEAUX = ['accueil', 'arbre', 'cercle', 'journal', 'abonnement', 'infos'], sb = null, user = null, journalOuvert = false;
+    var D = window.GENESOLIA_EMOTIONS || [];
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function montrer(p, sansDefiler) {
+      if (PANNEAUX.indexOf(p) < 0) p = 'accueil';
+      document.querySelectorAll('.eb-panneau').forEach(function (x) { x.hidden = x.getAttribute('data-p') !== p; });
+      document.querySelectorAll('.eb-lien').forEach(function (b) { if (b.getAttribute('data-panneau') === p) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+      try { history.replaceState(null, '', location.pathname + location.search + (p === 'accueil' ? '' : '#' + p)); } catch (e) {}
+      if (p === 'journal' && !journalOuvert && window.GenesoliaJournal) { journalOuvert = true; window.GenesoliaJournal.ouvrir($('journal-app'), sb, user).then(accueilEmotion); }
+      if (!sansDefiler) { var t = document.querySelector('.eb'); if (t && t.getBoundingClientRect().top < 0) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); }
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-panneau],[data-aller]'); if (!b || !b.closest('#carte-connecte')) return;
+      montrer(b.getAttribute('data-panneau') || b.getAttribute('data-aller'));
     });
+    function accueilEmotion() {
+      var z = $('acc-emotion-corps'); if (!z) return;
+      var J = window.GenesoliaJournal, auj = J && journalOuvert ? J.aujourdhui() : [], cy = J && journalOuvert ? J.cycle() : null;
+      z.innerHTML = (cy ? '<p class="eb-etape">Jour ' + cy.jour + ' de ton cycle · ' + esc(cy.saison) + '</p>' : '') +
+        (auj.length ? '<div class="eb-auj">Aujourd’hui : ' + auj.map(function (x) { return '<span><i style="background:' + x.couleur + '"></i>' + esc(x.nom) + '</span>'; }).join(' ') + '</div>' : '<p class="tb-aide">Comment tu te sens aujourd’hui ?</p>') +
+        '<div class="eb-puces">' + D.map(function (c) { return '<button type="button" class="eb-puce" style="--c:' + c.c + '" data-noter="' + c.id + '">' + esc(c.nom) + '</button>'; }).join('') + '</div>' +
+        '<div class="tb-actions"><button type="button" class="btn btn-trait" data-aller="journal">Ouvrir mon journal</button></div>';
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-noter]'); if (!b || !b.closest('#acc-emotion')) return;
+      if (window.GenesoliaJournal) window.GenesoliaJournal.preparer(b.getAttribute('data-noter'));
+      montrer('journal');
+    });
+    var ETAPES = [['Sortir de l’alerte', 'Mon point de départ', 'Qui sont les miens ?'], ['Déposer l’armure', 'Mes forces, mes appuis', 'Qu’est-ce que j’ai reçu ?'], ['Prendre toute ma place', 'Ma place, mes limites', 'Quelle est ma place ?'], ['Rendre la peur à qui elle appartient', 'Mon intention, mes valeurs', 'Quelle peur je porte, et pour qui ?'], ['L’enfant qui peut enfin se reposer', 'M’aimer d’abord', 'Quel projet a-t-on posé sur moi ?'], ['Le dégel', 'Ma voix, ma confiance', 'Quelles émotions avaient le droit d’exister ?'], ['Je peux déplaire et rester en sécurité', 'Dire vrai', 'Quelles phrases me guident ?'], ['La vie circule à travers moi', 'Prendre soin de moi', 'Comment ai-je appris à aimer ?'], ['Franchir le seuil', 'Oser agir', 'Ai-je le droit d’aller plus loin ?'], ['Sortir du manque', 'Ma valeur', 'Combien je m’autorise à recevoir ?'], ['Habiter ma vie', 'Mon chez-moi, mon élan', 'D’où venons-nous ?'], ['De survivre à vivre', 'Ma vocation', 'Qu’est-ce que je transmets ?']];
+    function cercleMembre() {
+      if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
+      window.GenesoliaAcces.membre().then(function (m) {
+        if (!m) return;
+        document.querySelectorAll('.pub-avantages').forEach(function (a) { a.hidden = true; });
+        var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+        var liens = '<a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a><a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>';
+        var abo = document.querySelector('[aria-labelledby="t-abo"]');
+        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
+          '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), ta séance audio du mois, ton guide du mois complet et ton suivi.</p>' +
+          '<p class="tb-essai" id="essai-info" hidden></p>' +
+          '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
+        var pan = $('pan-cercle');
+        if (pan) pan.innerHTML = '<article class="tb-carte tb-large"><h2>Le Cercle</h2><p class="tb-aide">Tout ton mois est ici : ton carnet pour avancer, ton suivi pour déposer ce qui se rejoue dans ta lignée, ta séance audio et ton guide.</p><div class="tb-actions">' + liens + '<a class="btn btn-trait" href="cercle.html">L’appli Le Cercle</a></div></article>';
+        (window.GenesoliaAcces.etape ? window.GenesoliaAcces.etape() : Promise.resolve(null)).then(function (et) {
+          var acc = $('acc-cercle'); if (!acc) return;
+          var n = et && et.enCours ? et.enCours : null, e = n ? ETAPES[n - 1] : null;
+          acc.innerHTML = (e ? '<p class="eb-etape">Le Cercle · étape ' + n + ' sur 12</p><h2>' + esc(e[1]) + '</h2><p class="tb-aide">Ta séance du mois : <b>' + esc(e[0]) + '</b>. La question de ton suivi : <b>' + esc(e[2]) + '</b></p>'
+            : '<p class="eb-etape">Le Cercle</p><h2>Ton mois t’attend</h2><p class="tb-aide">Ton carnet, ton suivi et ta séance du mois.</p>') +
+            '<div class="tb-actions">' + liens + '</div>';
+        }, function () {});
+      });
+    }
+    window.GenesoliaEspaceNav = {
+      init: function (client, u) {
+        sb = client; user = u; journalOuvert = false;
+        var h = (location.hash || '').slice(1), q = new URLSearchParams(location.search).get('panneau');
+        montrer(PANNEAUX.indexOf(h) >= 0 ? h : (PANNEAUX.indexOf(q) >= 0 ? q : 'accueil'), true);
+        var em = new URLSearchParams(location.search).get('emotion');
+        if (em && window.GenesoliaJournal) { window.GenesoliaJournal.preparer(em); montrer('journal', true); }
+        /* l'émotion du jour sur l'accueil : on charge le journal en arrière-plan */
+        if (!journalOuvert && window.GenesoliaJournal) { journalOuvert = true; window.GenesoliaJournal.ouvrir($('journal-app'), sb, user).then(accueilEmotion); }
+        accueilEmotion();
+        cercleMembre();
+      }
+    };
+    if (window.GenesoliaEspaceAttente) { var at = window.GenesoliaEspaceAttente; window.GenesoliaEspaceAttente = null; window.GenesoliaEspaceNav.init(at[0], at[1]); }
   })();
   </script>
 </body>
