@@ -21,12 +21,28 @@
     .ar-fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem;display:flex;gap:.5rem}
     .ar-fil a{color:var(--prune-doux)}
     .ar-titre{display:flex;align-items:center;gap:1rem}
-    .ar-explique{max-width:44rem;margin-top:1.6rem}
-    .ar-explique h2{font-size:1.45rem;margin:1.4rem 0 .5rem}
-    .ar-explique p{margin-bottom:.7rem;max-width:none}
-    .ar-explique ol{padding-left:1.3rem;display:grid;gap:.45rem;margin-bottom:1rem}
-    .ar-explique b{font-weight:700}
-    .ar-exemple{padding:1rem 1.2rem;border-left:4px solid var(--champagne-clair);background:var(--blanc);border-radius:12px}
+    .ar-lien-comment{margin-top:1.2rem}
+    .ar-comment{scroll-margin-top:8.5rem;padding:3.5rem 0 3rem;margin-top:2rem;background:linear-gradient(180deg,#FFF9F7,#FCEFF3);border-top:1px solid var(--rose)}
+    .ar-comment h2{margin-bottom:.6rem}
+    .ar-sous-titre{font-size:1.4rem;margin:2.2rem 0 1rem}
+    .ar-cartes-img{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .ar-cartes-img article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .ar-cartes-img img{width:100%;height:11rem;object-fit:cover;display:block}
+    .ar-cartes-img article>div{padding:1.1rem 1.2rem 1.3rem}
+    .ar-cartes-img h4{font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.4rem;color:var(--prune)}
+    .ar-cartes-img p{font-size:.95rem;color:var(--prune-doux);max-width:none}
+    .ar-cartes-img b,.ar-tuiles b{font-weight:700;color:var(--prune)}
+    .ar-tuiles{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:0}
+    .ar-tuiles li{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.1rem}
+    .ar-tuiles span{display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--prune);color:var(--blanc);font-family:var(--display);margin-bottom:.6rem}
+    .ar-tuiles p{font-size:.93rem;color:var(--prune-doux);margin-top:.3rem;max-width:none}
+    .ar-exemple-bloc{display:grid;grid-template-columns:16rem 1fr;gap:1.4rem;align-items:center;margin-top:2rem;background:var(--blanc);border:1.5px solid var(--champagne-clair);border-radius:var(--rayon);overflow:hidden}
+    .ar-exemple-bloc img{width:100%;height:100%;min-height:11rem;object-fit:cover;display:block}
+    .ar-exemple-bloc>div{padding:1.2rem 1.4rem 1.2rem 0}
+    .ar-exemple-bloc p{max-width:none;color:var(--prune-doux)}
+    .ar-comment .ar-cle{max-width:none;margin-top:2rem}
+    @media (max-width:900px){.ar-cartes-img{grid-template-columns:1fr}.ar-tuiles{grid-template-columns:1fr 1fr}.ar-exemple-bloc{grid-template-columns:1fr}.ar-exemple-bloc>div{padding:0 1.2rem 1.2rem}.ar-exemple-bloc img{height:10rem;min-height:0}}
+    @media (max-width:520px){.ar-tuiles{grid-template-columns:1fr}}
     .ar-symbole{width:4.6rem;height:auto;flex:none}
     .ar-cle{margin-top:1.6rem;padding:1.3rem 1.5rem;border-radius:var(--rayon);background:var(--blanc);border:1.5px solid var(--champagne-clair);max-width:44rem}
     .ar-cle p{max-width:none}
@@ -143,7 +159,7 @@
     .ar-fin p{max-width:none;margin-bottom:.8rem}
 
     @media print{
-      .ar-etapes,.ar-suite,.ar-filtres,.ar-actions,.page-tete .ar-cle,.annonce,.cadeau-bas{display:none!important}
+      .ar-etapes,.ar-suite,.ar-filtres,.ar-actions,.ar-comment,.ar-lien-comment,.annonce,.cadeau-bas{display:none!important}
       .ar-impression .ar-panneau[data-etape="1"],.ar-impression .ar-panneau[data-etape="2"]{display:none!important}
       .ar-impression .ar-panneau[data-etape="3"],.ar-impression .ar-panneau[data-etape="4"]{display:block!important}
       .ar-cadre{overflow:visible;border:0}.ar-cadre svg{min-width:0}
@@ -163,25 +179,8 @@
         <nav class="ar-fil" aria-label="Fil d’Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>Le fil d’or</nav>
         <div class="ar-titre"><svg class="ar-symbole" viewBox="0 0 200 210" aria-hidden="true"><path d="M92 196C96 168 97 150 96 128M108 196C104 168 103 150 104 128" stroke="#C49A6C" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M100 132C88 116 72 108 56 104M100 128C112 112 128 104 146 102M100 124V82" stroke="#C49A6C" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M86 196q-14 2-26 8M114 196q14 2 26 8" stroke="#C49A6C" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(125.1 65.6) rotate(100) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(127.0 73.6) rotate(62) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(118.7 91.6) rotate(173) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(102.9 85.7) rotate(162) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(94.1 100.4) rotate(202) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(95.3 93.0) rotate(200) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(83.2 98.0) rotate(197) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(77.9 82.0) rotate(246) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(83.3 73.0) rotate(280) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(79.8 65.2) rotate(284) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(82.0 57.8) rotate(293) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(92.6 47.8) rotate(376) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(106.0 44.2) rotate(396) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(108.1 48.3) rotate(368) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(113.8 61.4) rotate(411) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(117.6 60.4) rotate(456) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(76.4 102.6) rotate(138) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(78.2 105.7) rotate(76) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(67.9 119.3) rotate(128) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(56.6 109.7) rotate(216) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(46.8 107.4) rotate(246) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(34.8 99.2) rotate(294) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(48.8 88.2) rotate(298) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(56.1 75.8) rotate(338) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(59.6 79.6) rotate(352) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(76.1 86.7) rotate(422) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(164.0 93.9) rotate(118) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(163.1 103.7) rotate(138) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(150.4 109.7) rotate(148) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(137.5 107.8) rotate(220) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(132.4 107.2) rotate(248) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(127.1 94.2) rotate(282) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(129.2 89.7) rotate(280) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(136.4 75.0) rotate(368) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(145.7 76.4) rotate(362) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(156.0 87.6) rotate(436) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(115.6 35.8) rotate(50) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(113.7 50.5) rotate(143) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(97.6 48.3) rotate(169) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(82.9 45.1) rotate(222) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(86.9 36.1) rotate(308) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(95.5 27.6) rotate(323) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(108.1 31.5) rotate(409) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(85.2 63.3) rotate(116) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(79.5 68.6) rotate(174) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(68.6 71.8) rotate(204) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(61.6 64.3) rotate(262) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(72.4 53.8) rotate(352) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(83.2 52.8) rotate(426) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(140.2 59.8) rotate(118) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(131.1 66.8) rotate(156) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(121.6 72.7) rotate(188) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(115.5 60.7) rotate(262) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(116.4 50.4) rotate(310) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(131.7 47.7) rotate(400) scale(0.75)"/></svg><h1>Le fil d’or</h1></div>
         <p class="intro">Le moyen le plus simple de remplir ton arbre généalogique : tu pars de ce que tu ressens et de ce que tu sais. Pas besoin de dates exactes ni de recherches.</p>
-        <div class="ar-explique">
-          <h2>À quoi sert le fil d’or ?</h2>
-          <p>Remplir un arbre généalogique peut sembler long : les dates, les noms, les lieux… Ici, tu commences par l’essentiel, ce que chacun·e a ressenti. Tu notes un événement de ta vie, par exemple un divorce, un départ, un voyage, un déménagement, une perte, et surtout <b>l’émotion ou le sentiment que tu as traversé</b> à ce moment-là : la peur, la tristesse, la colère, la solitude, la sensation d’être abandonné·e ou rejeté·e.</p>
-          <p>Puis tu fais de même pour ta mère, ta grand-mère, ta tante, ton père, avec ce que tu sais de leur vie ou ce que tu sens. L’outil rapproche ce qui se ressemble : la même émotion, la même blessure, le même âge. D’un coup d’œil, tu y vois plus clair sur ce qui se répète dans ta famille.</p>
-          <p>Quand tu le souhaites, tout ce que tu as noté part dans ton arbre généalogique : il te reste seulement à ajouter les noms, les prénoms et les dates de naissance.</p>
-          <h2>Comment ça marche ?</h2>
-          <ol>
-            <li><b>Ta vie.</b> Les moments qui t’ont marqué·e, ton âge à peu près, et ce que tu as ressenti : l’émotion, la blessure, ce que tu en as conclu.</li>
-            <li><b>Ta lignée.</b> La même chose pour les personnes de ta famille, avec ce que tu sais ou ce que tu sens.</li>
-            <li><b>Ton arbre.</b> Ton arbre se dessine. Touche une émotion ou une blessure pour voir son fil d’or relier les personnes.</li>
-            <li><b>Ce qui se répète.</b> La lignée qui résonne le plus avec toi, et ce qui revient : les émotions, les blessures, les âges (à 2 ans près) et les phrases.</li>
-          </ol>
-          <p class="ar-exemple"><b>Un exemple.</b> Léa a vécu une rupture à 28 ans, avec un sentiment d’abandon. Sa mère a divorcé à 30 ans et s’est sentie seule. Sa grand-mère avait 7 ans quand son père est parti, le même âge que Léa à la séparation de ses parents. Le fil d’or relie les trois femmes : l’abandon, côté maternel.</p>
-        </div>
-        <div class="ar-cle">
-          <p class="ar-cle-titre">Ici, une seule chose compte : ce que l’on ressent.</p>
-          <p>Pas besoin de dates exactes, de métiers ni de faits vérifiés. Ce qui compte, c’est <b>la blessure</b>, <b>l’émotion</b> et <b>ce que la vie a fait croire</b> (ta vision des choses). Un âge approximatif suffit : il sert seulement à voir les âges qui se répondent. Une phrase entendue dans la famille, comme « elle était toujours fatiguée », vaut beaucoup.</p>
-        </div>
         <p class="note" style="margin-top:1rem">Environ 20 minutes, en une ou plusieurs fois. Tes réponses restent dans ton navigateur, sur cet appareil.</p>
+        <p class="ar-lien-comment"><a class="btn btn-trait" href="#comment">Comprendre comment t’en servir</a></p>
       </div>
     </section>
 
@@ -278,6 +277,35 @@
           <button type="button" class="btn btn-trait" data-aller="3">Revenir à mon arbre</button>
           <a class="btn btn-trait" href="genosociogramme.html">Faire mon arbre familial complet</a>
         </div>
+      </div>
+    </section>
+
+    <section class="ar-comment" id="comment">
+      <div class="conteneur">
+        <h2>Comprendre comment t’en servir</h2>
+        <p class="ar-chapeau">Le moyen le plus simple de remplir ton arbre généalogique : tu pars de ce que tu ressens et de ce que tu sais. Pas besoin de dates exactes ni de recherches.</p>
+        <h3 class="ar-sous-titre">À quoi sert le fil d’or ?</h3>
+        <div class="ar-cartes-img">
+          <article><img src="assets/images/etat-interieur-800.webp" width="800" height="420" alt="Une femme assise en paix, la main sur le cœur" loading="lazy" decoding="async"><div><h4>Tu pars de ce que tu ressens</h4><p>Remplir un arbre généalogique peut sembler long : les dates, les noms, les lieux… Ici, tu commences par l’essentiel. Tu notes un événement de ta vie, par exemple un divorce, un départ, un voyage, un déménagement, une perte, et surtout <b>l’émotion ou le sentiment que tu as traversé</b> : la peur, la tristesse, la colère, la solitude, la sensation d’être abandonné·e ou rejeté·e.</p></div></article>
+          <article><img src="assets/images/blog-devenir-parent-au-meme-age-800.webp" width="800" height="420" alt="Des mains de plusieurs générations posées sur un album de famille" loading="lazy" decoding="async"><div><h4>Tu fais le lien avec ta famille</h4><p>Puis tu fais de même pour ta mère, ta grand-mère, ta tante, ton père, avec ce que tu sais de leur vie ou ce que tu sens. L’outil rapproche ce qui se ressemble : la même émotion, la même blessure, le même âge. D’un coup d’œil, tu y vois plus clair sur ce qui se répète.</p></div></article>
+          <article><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="Un arbre généalogique dessiné, entouré de photos anciennes" loading="lazy" decoding="async"><div><h4>Tout part dans ton arbre</h4><p>Quand tu le souhaites, tout ce que tu as noté part dans ton arbre généalogique, chaque personne à sa place. Il te reste seulement à ajouter les noms, les prénoms et les dates de naissance.</p></div></article>
+        </div>
+        <h3 class="ar-sous-titre">Comment ça marche ?</h3>
+        <ol class="ar-tuiles">
+          <li><span>1</span><b>Ta vie</b><p>Les moments qui t’ont marqué·e, ton âge à peu près, et ce que tu as ressenti : l’émotion, la blessure, ce que tu en as conclu.</p></li>
+          <li><span>2</span><b>Ta lignée</b><p>La même chose pour les personnes de ta famille, avec ce que tu sais ou ce que tu sens.</p></li>
+          <li><span>3</span><b>Ton arbre</b><p>Ton arbre se dessine. Touche une émotion ou une blessure pour voir son fil d’or relier les personnes.</p></li>
+          <li><span>4</span><b>Ce qui se répète</b><p>La lignée qui résonne le plus avec toi, et ce qui revient : les émotions, les blessures, les âges (à 2 ans près) et les phrases.</p></li>
+        </ol>
+        <div class="ar-exemple-bloc">
+          <img src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="Une boîte de lettres et de photos de famille" loading="lazy" decoding="async">
+          <div><h3>Un exemple</h3><p>Léa a vécu une rupture à 28 ans, avec un sentiment d’abandon. Sa mère a divorcé à 30 ans et s’est sentie seule. Sa grand-mère avait 7 ans quand son père est parti, le même âge que Léa à la séparation de ses parents. Le fil d’or relie les trois femmes : l’abandon, côté maternel.</p></div>
+        </div>
+        <div class="ar-cle">
+          <p class="ar-cle-titre">Ici, une seule chose compte : ce que l’on ressent.</p>
+          <p>Pas besoin de dates exactes, de métiers ni de faits vérifiés. Ce qui compte, c’est <b>la blessure</b>, <b>l’émotion</b> et <b>ce que la vie a fait croire</b> (ta vision des choses). Un âge approximatif suffit : il sert seulement à voir les âges qui se répondent. Une phrase entendue dans la famille, comme « elle était toujours fatiguée », vaut beaucoup.</p>
+        </div>
+        <p style="margin-top:1.6rem"><button type="button" class="btn btn-plein" data-aller="1">Commencer mon fil d’or</button></p>
       </div>
     </section>
   </main>
