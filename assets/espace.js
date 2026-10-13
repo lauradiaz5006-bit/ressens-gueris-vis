@@ -206,7 +206,7 @@
         var arbreNonSynchro = null;
         try { if (localStorage.getItem('geno4-synchro') !== 'ok') arbreNonSynchro = localStorage.getItem('geno4'); } catch (e) {}
         if (window.GenesoliaDonnees) window.GenesoliaDonnees.effacer();
-        try { localStorage.removeItem('genesolia-journal'); localStorage.removeItem('genesolia-journal-cycle'); } catch (e) {}
+        try { localStorage.removeItem('genesolia-journal'); } catch (e) {}   /* le réglage du cycle (clé propre au compte) reste sur l'appareil */
         try { if (arbreNonSynchro) localStorage.setItem('geno4', arbreNonSynchro); } catch (e) {}
         window.GenesoliaEspaceDeconnecte('Tu es déconnecté·e. Tes données restent en sécurité dans ton espace, et plus rien n’est gardé sur cet appareil.');
       });
@@ -220,7 +220,6 @@
       Promise.resolve()
         .then(function () { return photo ? sb.storage.from(BUCKET).remove([photo]) : null; })
         .then(function () { return sb.from('journal_emotions').delete().eq('user_id', user.id).then(function () {}, function () {}); })   // le journal (si la table existe)
-        .then(function () { return sb.from('journal_cycle').delete().eq('user_id', user.id).then(function () {}, function () {}); })
         .then(function () { return sb.from('arbres_versions').delete().eq('user_id', user.id); })
         .then(function (r) { if (r && r.error) throw r.error; return sb.from('arbres_supp').delete().eq('user_id', user.id); })   // leurs versions partent avec
         .then(function (r) { if (r && r.error) throw r.error; return sb.from('arbres').delete().eq('user_id', user.id); })
@@ -228,7 +227,7 @@
         .then(function () { return sb.auth.updateUser({ data: { full_name: null, photo: null } }); })
         .then(function () {
           try {
-            ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide', 'genesolia-exercices', 'genesolia-anniversaire', 'genesolia-journal', 'genesolia-journal-cycle'].forEach(function (k) { localStorage.removeItem(k); });
+            ['geno4', 'geno4-synchro', 'geno4-avant-connexion', 'parcours-guide', 'genesolia-exercices', 'genesolia-anniversaire', 'genesolia-journal', 'genesolia-journal-cycle', 'genesolia-journal-cycle-' + user.id].forEach(function (k) { localStorage.removeItem(k); });
             arbresSupp.forEach(function (a) { localStorage.removeItem('geno4-' + a.id); });
           } catch (e) {}
           return sb.auth.signOut();

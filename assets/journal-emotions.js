@@ -1,12 +1,15 @@
 /* Genesolia · Mon journal des émotions (espace client, panneau « Mon journal »).
-   Données : tables journal_emotions et journal_cycle (outils-internes/supabase-journal.sql), une ligne par personne (RLS).
+   Données : table journal_emotions (outils-internes/supabase-journal.sql), chaque personne ne lit que ses lignes (RLS).
    Tant que ces tables n'existent pas, ou sans compte, le journal reste dans ce navigateur (localStorage), et il le dit.
    Les émotions viennent de assets/emotions.js (mêmes clés que la roue des émotions).
-   Le cycle est facultatif et demande un accord explicite ; il sert seulement de repère (jour du cycle, saison intérieure). */
+   Le cycle est facultatif et demande un accord explicite ; il sert seulement de repère (jour du cycle, saison intérieure).
+   Par prudence (données de santé), les dates du cycle ne quittent JAMAIS l'appareil : elles restent dans ce navigateur,
+   sous une clé propre à chaque compte, et le jour du cycle est recalculé à l'affichage. Rien du cycle n'est envoyé à Supabase. */
 (function () {
   'use strict';
   var D = window.GENESOLIA_EMOTIONS || [];
-  var CLE_L = 'genesolia-journal', CLE_C = 'genesolia-journal-cycle';
+  var CLE_L = 'genesolia-journal', CLE_C0 = 'genesolia-journal-cycle';
+  function CLE_C() { return CLE_C0 + (user ? '-' + user.id : ''); }
   var ZONES = ['Tête', 'Gorge', 'Poitrine', 'Ventre', 'Épaules', 'Dos', 'Mains', 'Jambes'];
   var SAISONS = {
     hiver: ['Hiver intérieur', 'Le temps de tes règles : un moment pour ralentir et te retirer un peu.', '#4E5D94'],
@@ -40,16 +43,14 @@
 
   /* ---------- Stockage ---------- */
   function charger() {
-    if (!sb || !user) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C, null); return Promise.resolve(); }
-    return sb.from('journal_emotions').select('id,jour,cree_le,emotion,intensite,zones,note,besoin,jour_cycle,saison').order('jour', { ascending: false }).order('cree_le', { ascending: false }).limit(500).then(function (r) {
-      if (r.error) { if (absente(r.error)) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C, null); return; } throw r.error; }
-      mode = 'compte'; E = r.data || [];
-      return sb.from('journal_cycle').select('suivre,accord_le,debut,duree,regles,debuts').maybeSingle().then(function (x) { C = x.error ? null : x.data; });
+    if (!sb || !user) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null); return Promise.resolve(); }
+    return sb.from('journal_emotions').select('id,jour,cree_le,emotion,intensite,zones,note,besoin').order('jour', { ascending: false }).order('cree_le', { ascending: false }).limit(500).then(function (r) {
+      if (r.error) { if (absente(r.error)) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null); return; } throw r.error; }
+      mode = 'compte'; E = r.data || []; C = lireL(CLE_C(), null);
     });
   }
   function ajouter(e) {
-    var ic = infoCycle(e.jour); e.jour_cycle = ic ? ic.jour : null; e.saison = ic ? ic.saison : null;
-    if (mode === 'compte') return sb.from('journal_emotions').insert(e).select('id,jour,cree_le,emotion,intensite,zones,note,besoin,jour_cycle,saison').single().then(function (r) { if (r.error) throw r.error; E.unshift(r.data); });
+    if (mode === 'compte') return sb.from('journal_emotions').insert(e).select('id,jour,cree_le,emotion,intensite,zones,note,besoin').single().then(function (r) { if (r.error) throw r.error; E.unshift(r.data); });
     e.id = 'l' + Date.now(); e.cree_le = new Date().toISOString(); E.unshift(e); E = E.slice(0, 500); ecrireL(CLE_L, E); return Promise.resolve();
   }
   function retirer(id) {
@@ -57,20 +58,9 @@
     if (mode === 'compte') return sb.from('journal_emotions').delete().eq('id', id).then(function (r) { if (r.error) throw r.error; });
     ecrireL(CLE_L, E); return Promise.resolve();
   }
-  function sauverCycle(c) {
-    C = c;
-    if (mode === 'compte') {
-      var ligne = { suivre: !!c.suivre, accord_le: c.accord_le || null, debut: c.debut || null, duree: c.duree || 28, regles: c.regles || 5, debuts: c.debuts || [], maj: new Date().toISOString() };
-      return sb.from('journal_cycle').upsert(ligne, { onConflict: 'user_id' }).then(function (r) { if (r.error) throw r.error; });
-    }
-    ecrireL(CLE_C, c); return Promise.resolve();
-  }
-  function effacerCycle() {
-    C = null;
-    E.forEach(function (x) { x.jour_cycle = null; x.saison = null; });
-    if (mode === 'compte') return sb.from('journal_cycle').delete().eq('user_id', user.id).then(function () { return sb.from('journal_emotions').update({ jour_cycle: null, saison: null }).eq('user_id', user.id); });
-    try { localStorage.removeItem(CLE_C); } catch (e) {} ecrireL(CLE_L, E); return Promise.resolve();
-  }
+  /* Le cycle reste sur l'appareil, quel que soit le mode */
+  function sauverCycle(c) { C = c; ecrireL(CLE_C(), c); return Promise.resolve(); }
+  function effacerCycle() { C = null; try { localStorage.removeItem(CLE_C()); } catch (e) {} return Promise.resolve(); }
 
   /* ---------- Affichage ---------- */
   function message(t, erreur) { var m = racine.querySelector('.jo-msg'); if (m) { m.textContent = t || ''; m.className = 'jo-msg' + (erreur ? ' erreur' : ''); } }
@@ -132,7 +122,7 @@
   function ligneEntree(x, suppr) {
     var f = trouver(x.emotion); if (!f) return '';
     var dt = new Date(x.jour + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
-    return '<li><i style="background:' + f.c.c + '"></i><div><b>' + esc(f.nom) + '</b>' + (x.intensite ? ' · ' + x.intensite + '/10' : '') + ' <small>' + esc(dt) + (x.saison ? ' · ' + esc(SAISONS[x.saison][0].toLowerCase()) : '') + '</small>' +
+    return '<li><i style="background:' + f.c.c + '"></i><div><b>' + esc(f.nom) + '</b>' + (x.intensite ? ' · ' + x.intensite + '/10' : '') + ' <small>' + esc(dt) + (infoCycle(x.jour) ? ' · ' + esc(SAISONS[infoCycle(x.jour).saison][0].toLowerCase()) : '') + '</small>' +
       (x.zones && x.zones.length ? '<br><small>' + esc(x.zones.join(', ')) + '</small>' : '') + (x.note ? '<br>' + esc(x.note) : '') + (x.besoin ? '<br><small>Besoin : ' + esc(x.besoin) + '</small>' : '') + '</div>' +
       (suppr ? '<button type="button" class="jo-suppr" data-suppr="' + esc(x.id) + '" aria-label="Effacer">×</button>' : '') + '</li>';
   }
@@ -153,7 +143,7 @@
     if (topB.length) h += '<p class="tb-aide">Tes besoins qui reviennent : <b>' + topB.map(esc).join('</b>, <b>') + '</b>.</p>';
     if (C && C.suivre) {
       var phr = Object.keys(SAISONS).map(function (s) {
-        var ls = l.filter(function (x) { return x.saison === s; }); if (ls.length < 2) return '';
+        var ls = l.filter(function (x) { var ic = infoCycle(x.jour); return ic && ic.saison === s; }); if (ls.length < 2) return '';
         var n = {}; ls.forEach(function (x) { var f = trouver(x.emotion); if (f) n[f.nom] = (n[f.nom] || 0) + 1; });
         var top = Object.keys(n).sort(function (a, b) { return n[b] - n[a]; }).slice(0, 3).filter(function (k) { return n[k] > 1; });
         return top.length ? '<li><b style="color:' + SAISONS[s][2] + '">' + esc(SAISONS[s][0]) + '</b> : tu notes souvent ' + top.map(function (k) { return esc(k.toLowerCase()) + ' (' + n[k] + ')'; }).join(', ') + '.</li>' : '';
@@ -166,7 +156,7 @@
     var z = racine.querySelector('#jo-cycle');
     if (!C || !C.suivre) {
       z.innerHTML = '<h3>Relier mon journal à mon cycle</h3><p class="tb-aide">Facultatif. Si tu as des règles, ton journal peut indiquer le jour de ton cycle et ta « saison intérieure » : hiver, printemps, été, automne. Tu verras alors si certaines émotions reviennent à la même période. C’est un repère pour te connaître, pas une explication.</p>' +
-        '<label class="jo-accord"><input type="checkbox" id="jo-accord"> J’accepte que les dates de mon cycle soient enregistrées dans mon espace privé, uniquement pour ce journal. Je peux arrêter et tout effacer quand je veux.</label>' +
+        '<label class="jo-accord"><input type="checkbox" id="jo-accord"> J’accepte que les dates de mon cycle soient gardées sur cet appareil, uniquement pour ce journal. Elles ne sont envoyées nulle part, et je peux tout effacer quand je veux.</label>' +
         '<div class="jo-champs2"><div class="champ"><label for="jo-debut">Premier jour de tes dernières règles</label><input type="date" id="jo-debut" max="' + auj() + '"></div>' +
         '<div class="champ"><label for="jo-duree">Durée habituelle du cycle (jours)</label><input type="number" id="jo-duree" min="18" max="45" value="28"></div>' +
         '<div class="champ"><label for="jo-regles">Durée des règles (jours)</label><input type="number" id="jo-regles" min="1" max="10" value="5"></div></div>' +
@@ -180,7 +170,7 @@
       '<div class="champ"><label for="jo-duree">Durée du cycle</label><input type="number" id="jo-duree" min="18" max="45" value="' + (C.duree || 28) + '"></div>' +
       '<div class="champ"><label for="jo-regles">Durée des règles</label><input type="number" id="jo-regles" min="1" max="10" value="' + (C.regles || 5) + '"></div></div>' +
       '<div class="tb-actions"><button type="button" class="btn btn-trait" id="jo-enreg-cycle">Enregistrer</button><button type="button" class="btn btn-trait tb-danger" id="jo-arreter">Arrêter et effacer mon cycle</button></div></details>' +
-      '<p class="tb-aide">Les saisons sont calculées d’après tes réglages : ce sont des repères approximatifs.</p>';
+      '<p class="tb-aide">Les saisons sont calculées d’après tes réglages : ce sont des repères approximatifs. Les dates de ton cycle restent sur cet appareil uniquement.</p>';
   }
 
   /* ---------- Événements ---------- */
@@ -238,7 +228,7 @@
       racine = conteneur; sb = client || null; user = u || null;
       if (!racine.dataset.branche) { brancher(); racine.dataset.branche = '1'; }
       racine.innerHTML = '<p class="tb-aide">Chargement de ton journal…</p>';
-      return charger().catch(function () { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C, null); }).then(function () {
+      return charger().catch(function () { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null); }).then(function () {
         if (prepare) { choix = prepare; prepare = null; }
         dessiner();
       });
@@ -247,6 +237,6 @@
     aujourdhui: function () { var l = E.filter(function (x) { return x.jour === auj(); }); return l.map(function (x) { var f = trouver(x.emotion); return f ? { nom: f.nom, couleur: f.c.c } : null; }).filter(Boolean); },
     cycle: function () { var ic = infoCycle(auj()); return ic ? { jour: ic.jour, saison: SAISONS[ic.saison][0] } : null; },
     /* Pour l'export de « Mes données » */
-    exporter: function () { return { emotions: E.map(function (x) { var f = trouver(x.emotion); return Object.assign({ emotion_nom: f ? f.nom : x.emotion }, x); }), cycle: C }; }
+    exporter: function () { return { emotions: E.map(function (x) { var f = trouver(x.emotion); return Object.assign({ emotion_nom: f ? f.nom : x.emotion }, x); }), cycle_sur_cet_appareil: C }; }
   };
 })();
