@@ -9,6 +9,7 @@ window.GENESOLIA_CARNET = {
   module: 1,
   cle: 'module-1',
   page: 'mon-module.html',
+  pdf: 'assets/formation/cahier-module-1.pdf',
   offert: true,
   titre: 'La boucle et la spirale',
   sousTitre: "Repérer ce qui se répète dans ta vie, pour enfin pouvoir faire autrement.",

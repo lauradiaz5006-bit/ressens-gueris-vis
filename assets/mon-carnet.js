@@ -1261,7 +1261,7 @@
     var sur = 'Module ' + C.module;
     P.push({ id: 'ouverture', nom: 'Avant de commencer', g: function () {
       return gauche('ouverture', sur + ' · avant de commencer', C.titre, '<p class="mc-intro">' + md(O.intro || '') + '</p>',
-        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo et la séance</a></p>' +
+        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo du module</a></p>' +
         (C.seance ? '<p class="mc-note">La séance guidée du module : « ' + esc(C.seance) + ' », dans ton espace de formation.</p>' : ''));
     }, d: function () {
       if (!membre) return offreFormation();
@@ -1281,8 +1281,8 @@
       if (!membre) return offreFormation();
       return (K.histoire ? '<section class="mc-histoire"><p class="mc-sur">Pour commencer</p><h3 class="mc-h">' + esc(K.histoire.titre) + '</h3>' + paras(K.histoire.texte) + '</section>' : '') +
         paras(K.texte) +
-        (K.signes ? encadre('Quatre signes qui ne trompent pas', '<ol class="mc-liste">' + K.signes.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ol>', 'mc-encadre-rose') : '') +
-        (K.exemples ? encadre('Des boucles très courantes', '<ul class="mc-liste">' + K.exemples.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>') : '') +
+        (K.signes ? encadre(K.signesTitre || 'Quatre signes qui ne trompent pas', '<ol class="mc-liste">' + K.signes.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ol>', 'mc-encadre-rose') : '') +
+        (K.exemples ? encadre(K.exemplesTitre || 'Des boucles très courantes', '<ul class="mc-liste">' + K.exemples.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>') : '') +
         (K.question ? zone(K.question.k, K.question.q, { lignes: 2, ph: K.question.ph }) : '') +
         (K.retenir ? encadre('À retenir', '<ul class="mc-liste">' + K.retenir.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>', 'mc-encadre-or') : '') +
         citation();
