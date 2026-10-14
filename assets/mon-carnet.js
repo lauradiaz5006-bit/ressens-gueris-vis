@@ -1260,7 +1260,9 @@
      Le contenu vient de assets/modules/module-N.js ; la vidéo et la séance restent dans l'espace de formation (Systeme.io). */
   var FORM = window.GENESOLIA_FORMATION || {};
   function espaceFormation() { return FORM.espace || 'formation.html'; }
+  var VERROU = null;
   function offreFormation() {
+    if (VERROU) return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">Ce module s’ouvre à ton étape ' + VERROU.etape + '</p><p>Ta formation avance au rythme de ton abonnement, en commençant toujours par le module 1. Celui-ci s’ouvrira le ' + esc(VERROU.date) + '. D’ici là, continue ton module en cours.</p><p><a class="btn btn-plein" href="cercle.html">Retour au Cercle</a></p></aside>';
     return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">Ce module fait partie de la formation « Sors de la boucle »</p><p>Il s’ouvre avec la formation, ou avec Le Cercle complet sur 12 mois, qui l’inclut.</p><p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></aside>';
   }
   function modulePages() {
@@ -2254,7 +2256,19 @@
 
   function demarrer() { construire(); tonMois(); majSemainesMaya(); charger(); }
   /* Le suivi vérifie d'abord l'accès au Cercle (semaines 1 à 3 offertes, la semaine 4, la méditation et le bilan pour les membres) */
+  /* Formation : les modules s'ouvrent au fil de l'abonnement (formation.js, champ mois : 1, 2, 3, 5, 6, 8, 9, 11), en commençant toujours par le module 1 */
+  function moduleOuvert(m) {
+    var mo = ((FORM.modules || []).filter(function (x) { return x.n === C.module; })[0] || {}).mois || 1;
+    if (!m || mo <= 1 || !window.GenesoliaAcces || !window.GenesoliaAcces.etape) return Promise.resolve(m);
+    return window.GenesoliaAcces.etape().then(function (e) {
+      if (!e || e.admin || e.mois >= mo) return m;
+      var d = e.debut ? new Date(e.debut + 'T12:00:00') : new Date(); d.setMonth(d.getMonth() + mo - e.mois);
+      VERROU = { etape: mo, date: d.getDate() + (d.getDate() === 1 ? 'er' : '') + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][d.getMonth()] };
+      return false;
+    }, function () { return m; });
+  }
   if (MODULE && C.offert) { membre = true; demarrer(); }
-  else if ((SUIVI || MODULE) && window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(function (m) { membre = !!m; demarrer(); }, demarrer);
+  else if (MODULE && window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(moduleOuvert).then(function (m) { membre = !!m; demarrer(); }, demarrer);
+  else if (SUIVI && window.GenesoliaAcces && window.GenesoliaAcces.membre) window.GenesoliaAcces.membre().then(function (m) { membre = !!m; demarrer(); }, demarrer);
   else { membre = true; demarrer(); }
 })();
