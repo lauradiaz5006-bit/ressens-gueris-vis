@@ -31,7 +31,9 @@
   }
   function prochaine() { return acces ? plusMois(acces.cree_le, moisDepuis(acces.cree_le)) : null; }
   function etapeDe(s) { return ORDRE.indexOf(s.mois) + 1; }
-  function etapeEnCours() { return acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0; }
+  /* Le parcours démarre le jour de l'inscription : le premier mois (étape 1) est offert, la séance 1 est débloquée tout de suite */
+  function debut() { return acces ? new Date(acces.cree_le) : new Date(); }
+  function etapeEnCours() { return acces ? Math.min(moisDepuis(debut()), 12) : 0; }
   function debloquee(s) { return !!acces && cyclesPermis().indexOf(s.cycle) >= 0 && (etapeDe(s) <= etapeEnCours() || !!ouvertes[s.id]); }
   function abonner(t) { return '<p class="ms-verrou ms-abonne">' + t + ' <a href="abonnement.html">Tu veux t’abonner ?</a></p>'; }
   function pdV() { return (PD && PD.v) || {}; }
@@ -69,8 +71,8 @@
     var et = etapeEnCours(), n = CAT.liste.filter(function (s) { return s.cycle === cy && debloquee(s); }).length, t;
     if (n >= 12) t = 'Tu as débloqué <b>toutes tes séances</b>. Écoute-les aussi souvent que tu veux.';
     else {
-      t = n <= 1 ? 'Tu as débloqué <b>la séance 1</b> pour le moment.' : n === 2 ? 'Tu as débloqué <b>les séances 1 et 2</b>.' : 'Tu as débloqué <b>les ' + n + ' premières séances</b>.';
-      t += ' La séance ' + (et + 1) + ' se débloque à ton étape ' + (et + 1) + ', à partir du ' + dateCourte(plusMois(acces.cree_le, et)) + '.';
+      t = n <= 1 ? (et === 1 ? 'Ton premier mois est offert : tu as débloqué <b>la séance 1</b>.' : 'Tu as débloqué <b>la séance 1</b> pour le moment.') : n === 2 ? 'Tu as débloqué <b>les séances 1 et 2</b>.' : 'Tu as débloqué <b>les ' + n + ' premières séances</b>.';
+      t += ' La séance ' + (et + 1) + ' se débloque à ton étape ' + (et + 1) + ', à partir du ' + dateCourte(plusMois(debut(), et)) + '.';
     }
     return '<p class="ms-etat">' + t + '</p>';
   }
@@ -82,7 +84,7 @@
     if (ok) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
     else if (!acces) action = s.cycle === 1 ? abonner('Réservée aux membres du Cercle.') : abonner('Réservée aux abonné·es du Cercle complet.');
     else if (!permis) action = abonner('Réservée aux abonné·es du Cercle complet.');
-    else action = '<p class="ms-verrou">Se débloque à ton étape ' + n + ', à partir du ' + dateCourte(plusMois(acces.cree_le, n - 1)) + '.</p>';
+    else action = '<p class="ms-verrou">Se débloque à ton étape ' + n + ', à partir du ' + dateCourte(plusMois(debut(), n - 1)) + '.</p>';
     return '<article class="' + cls + '" id="seance-' + s.id + '">' +
       (s.image ? '<div class="ms-img"><img src="' + esc(s.image) + '" alt="" loading="lazy" width="800" height="450">' + (ok ? '' : '<span class="ms-cadenas" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>') + '</div>' : '') +
       '<p class="ms-badges"><span class="ms-mois">Séance ' + n + '</span>' + (cetEtape ? '<span class="ms-badge ms-badge-saison">Ton étape</span>' : '') + (toi ? '<span class="ms-badge">Pour toi</span>' : '') + (ok ? '<span class="ms-badge ms-badge-ok">Débloquée</span>' : '') + '</p>' +
