@@ -31,11 +31,9 @@
   }
   function prochaine() { return acces ? plusMois(acces.cree_le, moisDepuis(acces.cree_le)) : null; }
   function etapeDe(s) { return ORDRE.indexOf(s.mois) + 1; }
-  /* Les séances démarrent au lancement du Cercle (1er novembre 2026) : avant, le premier mois est offert et la séance 1 attend cette date */
-  var LANCEMENT = new Date(2026, 10, 1);
-  function debut() { var d = acces ? new Date(acces.cree_le) : LANCEMENT; return d < LANCEMENT ? LANCEMENT : d; }
-  function avantDebut() { return new Date() < debut(); }
-  function etapeEnCours() { return !acces || avantDebut() ? 0 : Math.min(moisDepuis(debut()), 12); }
+  /* Le parcours démarre le jour de l'inscription : le premier mois (étape 1) est offert, la séance 1 est débloquée tout de suite */
+  function debut() { return acces ? new Date(acces.cree_le) : new Date(); }
+  function etapeEnCours() { return acces ? Math.min(moisDepuis(debut()), 12) : 0; }
   function debloquee(s) { return !!acces && cyclesPermis().indexOf(s.cycle) >= 0 && (etapeDe(s) <= etapeEnCours() || !!ouvertes[s.id]); }
   function abonner(t) { return '<p class="ms-verrou ms-abonne">' + t + ' <a href="abonnement.html">Tu veux t’abonner ?</a></p>'; }
   function pdV() { return (PD && PD.v) || {}; }
@@ -71,10 +69,9 @@
       : '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
     if (cyclesPermis().indexOf(cy) < 0) return '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
     var et = etapeEnCours(), n = CAT.liste.filter(function (s) { return s.cycle === cy && debloquee(s); }).length, t;
-    if (!n && avantDebut()) return '<p class="ms-etat">Ton premier mois est offert. <b>Ta séance 1 se débloque le ' + dateCourte(debut()) + '</b>, puis une nouvelle séance à chaque étape.</p>';
     if (n >= 12) t = 'Tu as débloqué <b>toutes tes séances</b>. Écoute-les aussi souvent que tu veux.';
     else {
-      t = n <= 1 ? 'Tu as débloqué <b>la séance 1</b> pour le moment.' : n === 2 ? 'Tu as débloqué <b>les séances 1 et 2</b>.' : 'Tu as débloqué <b>les ' + n + ' premières séances</b>.';
+      t = n <= 1 ? (et === 1 ? 'Ton premier mois est offert : tu as débloqué <b>la séance 1</b>.' : 'Tu as débloqué <b>la séance 1</b> pour le moment.') : n === 2 ? 'Tu as débloqué <b>les séances 1 et 2</b>.' : 'Tu as débloqué <b>les ' + n + ' premières séances</b>.';
       t += ' La séance ' + (et + 1) + ' se débloque à ton étape ' + (et + 1) + ', à partir du ' + dateCourte(plusMois(debut(), et)) + '.';
     }
     return '<p class="ms-etat">' + t + '</p>';
