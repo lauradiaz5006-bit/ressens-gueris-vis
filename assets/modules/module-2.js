@@ -167,6 +167,11 @@ window.GENESOLIA_CARNET = {
     liePh: "Exemple : je dépense pour moi sans culpabiliser, et je garde la débrouillardise de ma grand-mère."
   },
 
+  allerPlusLoin: [
+    { titre: 'Ton suivi « Je me libère »', texte: "Le suivi de ton étape prolonge ce module dans ta lignée : repérer ce qui se rejoue, le rendre avec un rituel, et l'intégrer dans ta vie.", lien: 'mon-suivi-mois.html' },
+    { titre: 'Ton carnet « J’avance »', texte: "Le carnet de ton étape t'aide à construire ce que tu veux vivre, pas à pas, avec ton audio du mois.", lien: 'mon-carnet.html' }
+  ],
+
   bilan: [
     { k: 'bilan-decouvert', q: 'Ce que j’ai découvert sur ma famille', ph: 'Exemple : trois générations de femmes qui ont tout tenu seules.' },
     { k: 'bilan-rendre', q: 'Ce qui n’est pas à moi, et que je choisis de ne plus porter', ph: 'Exemple : la peur du manque de ma grand-mère.' },

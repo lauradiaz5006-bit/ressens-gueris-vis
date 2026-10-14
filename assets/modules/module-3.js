@@ -151,6 +151,11 @@ window.GENESOLIA_CARNET = {
     liePh: "Exemple : je laisse quelqu'un s'approcher, je dis ce que je ressens, et je reste."
   },
 
+  allerPlusLoin: [
+    { titre: 'Ton suivi « Je me libère »', texte: "Le suivi de ton étape prolonge ce module dans ta lignée : repérer ce qui se rejoue, le rendre avec un rituel, et l'intégrer dans ta vie.", lien: 'mon-suivi-mois.html' },
+    { titre: 'Ton carnet « J’avance »', texte: "Le carnet de ton étape t'aide à construire ce que tu veux vivre, pas à pas, avec ton audio du mois.", lien: 'mon-carnet.html' }
+  ],
+
   bilan: [
     { k: 'bilan-programme', q: 'Le programme invisible le plus fort que j’ai découvert', ph: 'Exemple : « Ne dérange pas », qui me fait tout porter seule.' },
     { k: 'bilan-fidele', q: 'À qui j’étais fidèle, et comment je peux l’aimer autrement', ph: 'Exemple : à ma grand-mère. Je peux l’aimer en gardant son courage, et en demandant de l’aide.' },

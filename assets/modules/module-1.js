@@ -144,7 +144,8 @@ window.GENESOLIA_CARNET = {
   },
 
   allerPlusLoin: [
-    { titre: 'Ce qui revient', texte: "Le cahier de la lignée qui prolonge ce module : repérer ta boucle trois fois, voir d'où elle vient, et poser ton premier geste différent.", lien: 'mon-suivi-mois.html' }
+    { titre: 'Ton suivi « Je me libère »', texte: "Le suivi de ton étape prolonge ce module dans ta lignée : repérer ce qui se rejoue, le rendre avec un rituel, et l'intégrer dans ta vie.", lien: 'mon-suivi-mois.html' },
+    { titre: 'Ton carnet « J’avance »', texte: "Le carnet de ton étape t'aide à construire ce que tu veux vivre, pas à pas, avec ton audio du mois.", lien: 'mon-carnet.html' }
   ],
 
   bilan: [

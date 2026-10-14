@@ -398,7 +398,9 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
-          '<li><a href="#" data-cookies>Gérer mes cookies</a></li></ul>' +
+          '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
+          '<li><a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></li>' +
+          '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
         (cercleInstalle ? '' : '<p class="pm-installer"><a href="cercle.html#installer">Installer Le Cercle sur ton téléphone</a></p>') +
         '<div class="pied-bas">' +
           '<span>Genesolia propose un travail symbolique de connaissance de soi et de sa lignée, en complément de tout suivi médical.</span>' +
@@ -469,6 +471,8 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
+            '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li>' +
             '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
