@@ -1,6 +1,7 @@
 /* Genesolia · Le Cercle · « Mes séances »
-   1 séance de plus par mois d'abonnement, dans chaque cycle autorisé (cycle 1 seul pour l'offre « cycle1 », cycles 1 et 2 pour Le Cercle complet).
-   La première ouverture vient après le point de départ : la page rappelle ce que la personne veut travailler et marque « Pour toi ».
+   Les séances se débloquent une par une, au fil des étapes : à l'étape N, les séances 1 à N de chaque cycle autorisé sont débloquées
+   (cycle 1 seul pour l'offre « cycle1 », cycles 1 et 2 pour Le Cercle complet). La page rappelle le point de départ et marque « Pour toi ».
+   Au premier « Écouter », la séance est enregistrée comme ouverte par le serveur (ouvrir_seance), dans l'ordre des étapes.
    Le compte est fait par le serveur (fonction ouvrir_seance) ; l'écoute passe par la fonction « seance-audio » (lien d'une heure).
    Textes et règles : outils-internes/supabase-seances.sql et assets/seances.js. */
 (function () {
@@ -29,6 +30,10 @@
     return Math.max(0, moisDepuis(acces.cree_le) - n);
   }
   function prochaine() { return acces ? plusMois(acces.cree_le, moisDepuis(acces.cree_le)) : null; }
+  function etapeDe(s) { return ORDRE.indexOf(s.mois) + 1; }
+  function etapeEnCours() { return acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0; }
+  function debloquee(s) { return !!acces && cyclesPermis().indexOf(s.cycle) >= 0 && (etapeDe(s) <= etapeEnCours() || !!ouvertes[s.id]); }
+  function abonner(t) { return '<p class="ms-verrou ms-abonne">' + t + ' <a href="abonnement.html">Tu veux t’abonner ?</a></p>'; }
   function pdV() { return (PD && PD.v) || {}; }
   function pdFait() { return !!pdV().fait; }
   function pdRes() { return pdV().resume || {}; }
@@ -42,7 +47,7 @@
   function travail() {
     var v = pdV(), r = pdRes();
     if (!pdFait()) return '<section class="ms-encadre ms-pd"><p class="ms-sur">Avant ta première séance</p><h2>Fais d’abord ton point de départ</h2>' +
-      '<p>Tes séances s’ouvrent une par une, au fil des mois. Pour choisir la bonne, il faut savoir ce que tu veux travailler : ton point de départ te le montre en quinze minutes.</p>' +
+      '<p>Tes séances se débloquent au fil de tes étapes. Ton point de départ, en quinze minutes, te montre ce que tu veux travailler : la page marquera alors les séances « Pour toi ».</p>' +
       '<p><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p></section>';
     var l = [];
     var c1 = v['c1-cible-1'] || r.cible1, c2 = v['c2-cible-1'] || r.cible2;
@@ -55,32 +60,32 @@
     }
     return '<section class="ms-encadre"><p class="ms-sur">Ce que tu veux travailler</p><h2>Ton point de départ</h2>' +
       (l.length ? '<ul class="ms-travail">' + l.join('') + '</ul>' : '') +
-      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Dans chaque cycle, celle de ton étape (la même dans ton carnet et dans ton suivi) est marquée « Ton étape ». Le choix reste le tien. <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
+      '<p class="ms-note">Les séances marquées « Pour toi » répondent à ce que tu vis. Dans chaque cycle, celle de ton étape (la même dans ton carnet et dans ton suivi) est marquée « Ton étape ». <a href="point-de-depart.html">Revoir mon point de départ</a></p></section>';
   }
   function etatCycle(cy) {
-    if (!acces) return '';
-    if (cyclesPermis().indexOf(cy) < 0) return '<p class="ms-etat">Ces séances sont incluses dans Le Cercle complet. <a href="abonnement.html">Découvrir Le Cercle complet</a></p>';
-    var c = credits(cy), p = prochaine();
-    if (!pdFait()) return '<p class="ms-etat">Tes séances s’ouvriront après ton point de départ.</p>';
-    return '<p class="ms-etat">' + (c > 0 ? (c === 1 ? 'Tu peux ouvrir <b>1 séance</b> ce mois-ci.' : 'Tu peux ouvrir <b>' + c + ' séances</b>.') : 'Ta séance de ce mois est ouverte.') +
-      (p ? ' Prochaine séance à ouvrir à partir du ' + dateCourte(p) + '.' : '') + '</p>';
+    if (!acces) return cy === 1 ? '<p class="ms-etat">Tes séances se débloquent une par une, au fil de tes étapes, dès ton entrée dans Le Cercle. <a href="abonnement.html">Découvrir Le Cercle</a></p>'
+      : '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
+    if (cyclesPermis().indexOf(cy) < 0) return '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
+    var et = etapeEnCours(), n = CAT.liste.filter(function (s) { return s.cycle === cy && debloquee(s); }).length, t;
+    if (n >= 12) t = 'Tu as débloqué <b>toutes tes séances</b>. Écoute-les aussi souvent que tu veux.';
+    else {
+      t = n <= 1 ? 'Tu as débloqué <b>la séance 1</b> pour le moment.' : n === 2 ? 'Tu as débloqué <b>les séances 1 et 2</b>.' : 'Tu as débloqué <b>les ' + n + ' premières séances</b>.';
+      t += ' La séance ' + (et + 1) + ' se débloque à ton étape ' + (et + 1) + ', à partir du ' + dateCourte(plusMois(acces.cree_le, et)) + '.';
+    }
+    return '<p class="ms-etat">' + t + '</p>';
   }
   function carte(s) {
-    var permis = acces && cyclesPermis().indexOf(s.cycle) >= 0, ouverte = !!ouvertes[s.id], dispo = permis && !ouverte && pdFait() && credits(s.cycle) > 0;
-    /* Cycles 1 et 2 : le carnet et le suivi avancent par étapes (mois d'abonnement, comme assets/site.js) ; la séance de l'étape en cours est mise en avant */
-    var et = acces ? Math.min(moisDepuis(acces.cree_le), 12) : 0, cetEtape = et > 0 && s.mois === ORDRE[et - 1];
-    var cetteSaison = et ? false : s.mois === new Date().getMonth() + 1, toi = pdFait() && permis && pourToi(s);
-    var cls = 'ms-carte' + (ouverte ? ' ms-ouverte' : '') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '') + (location.hash === '#seance-' + s.id ? ' ms-cible' : '');
+    var permis = !!acces && cyclesPermis().indexOf(s.cycle) >= 0, ok = debloquee(s), n = etapeDe(s), et = etapeEnCours();
+    var cetEtape = ok && et > 0 && n === et, toi = pdFait() && permis && pourToi(s);
+    var cls = 'ms-carte' + (ok ? ' ms-ouverte' : ' ms-fermee') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '') + (location.hash === '#seance-' + s.id ? ' ms-cible' : '');
     var action;
-    if (ouverte) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
-    else if (!acces) action = '<p class="ms-verrou">Réservée aux membres du Cercle</p>';
-    else if (!permis) action = '<p class="ms-verrou">Incluse dans Le Cercle complet</p>';
-    else if (!pdFait()) action = '<p class="ms-verrou">Après ton point de départ</p>';
-    else if (dispo && choix === s.id) action = '<p class="ms-confirme">Tu ouvres cette séance pour ton mois en cours. Elle restera ouverte tant que tu es membre.</p><p class="ms-boutons"><button type="button" class="btn btn-plein" data-ouvrir="' + s.id + '">Oui, je l’ouvre</button> <button type="button" class="btn btn-trait" data-annuler>Choisir une autre</button></p>';
-    else if (dispo) action = '<button type="button" class="btn btn-trait" data-choisir="' + s.id + '">Ouvrir cette séance</button>';
-    else action = '<p class="ms-verrou">À ouvrir un prochain mois</p>';
+    if (ok) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
+    else if (!acces) action = s.cycle === 1 ? abonner('Réservée aux membres du Cercle.') : abonner('Réservée aux abonné·es du Cercle complet.');
+    else if (!permis) action = abonner('Réservée aux abonné·es du Cercle complet.');
+    else action = '<p class="ms-verrou">Se débloque à ton étape ' + n + ', à partir du ' + dateCourte(plusMois(acces.cree_le, n - 1)) + '.</p>';
     return '<article class="' + cls + '" id="seance-' + s.id + '">' +
-      '<p class="ms-badges"><span class="ms-mois">' + esc(MOIS[s.mois - 1]) + '</span>' + (toi ? '<span class="ms-badge">Pour toi</span>' : '') + (cetteSaison ? '<span class="ms-badge ms-badge-saison">Ce mois-ci</span>' : '') + (cetEtape ? '<span class="ms-badge ms-badge-saison">Ton étape ' + et + '</span>' : '') + (ouverte ? '<span class="ms-badge ms-badge-ok">Ouverte</span>' : '') + '</p>' +
+      (s.image ? '<div class="ms-img"><img src="' + esc(s.image) + '" alt="" loading="lazy" width="800" height="450">' + (ok ? '' : '<span class="ms-cadenas" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>') + '</div>' : '') +
+      '<p class="ms-badges"><span class="ms-mois">Séance ' + n + '</span>' + (cetEtape ? '<span class="ms-badge ms-badge-saison">Ton étape</span>' : '') + (toi ? '<span class="ms-badge">Pour toi</span>' : '') + (ok ? '<span class="ms-badge ms-badge-ok">Débloquée</span>' : '') + '</p>' +
       '<h3>' + esc(s.titre) + '</h3>' + (s.sujet ? '<p class="ms-sujet">' + esc(s.sujet) + '</p>' : '') +
       '<p class="ms-voyage">' + esc(s.voyage) + '</p>' +
       (s.libere ? '<p class="ms-ligne"><span>Ce qu’elle libère</span>' + esc(s.libere) + '</p>' : '') +
@@ -89,9 +94,9 @@
   }
   function afficher() {
     var h = '<header class="ms-tete"><p class="ms-sur">Le Cercle</p><h1>Mes séances</h1>' +
-      '<p>Chaque mois, tu ouvres une nouvelle séance audio : celle qui te parle le plus, selon ce que tu traverses. Elle reste à toi tant que tu es membre, pour l’écouter aussi souvent que tu veux.</p></header>';
+      '<p>Tes séances audio se débloquent une par une, au fil de ton avancée : à chaque nouvelle étape, une nouvelle séance s’ouvre dans chaque cycle. Elles restent à toi tant que tu es membre, pour les écouter aussi souvent que tu veux.</p></header>';
     if (!user) h += '<section class="ms-encadre"><h2>Connecte-toi pour retrouver tes séances</h2><p><a class="btn btn-plein" href="login.html">Me connecter</a></p></section>';
-    else if (!acces) h += '<section class="ms-encadre"><h2>Tes séances arrivent avec Le Cercle</h2><p>Les séances audio font partie de l’abonnement au Cercle. Tu peux les découvrir ci-dessous.</p><p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle</a></p></section>';
+    else if (!acces) h += '<section class="ms-encadre"><h2>Tes séances arrivent avec Le Cercle</h2><p>Les séances audio font partie de l’abonnement au Cercle : la première se débloque dès ton entrée, puis une nouvelle à chaque étape. Tu peux les découvrir ci-dessous.</p><p><a class="btn btn-plein" href="abonnement.html">Tu veux t’abonner ?</a></p></section>';
     else h += travail();
     if (!base) h += '<p class="ms-note ms-attente">L’ouverture des séances se met en place : elle sera disponible très bientôt.</p>';
     [1, 2].forEach(function (cy) {
@@ -134,13 +139,22 @@
       })
       .catch(function () { bouton.disabled = false; z.innerHTML = '<p class="ms-note">La séance ne s’ouvre pas pour l’instant. Recharge la page.</p>'; });
   }
+  /* Une séance débloquée par l'étape est enregistrée comme ouverte au premier « Écouter » (le serveur vérifie l'abonnement et le nombre d'étapes) */
+  function enregistrer(id, bouton) {
+    bouton.disabled = true;
+    sb.rpc('ouvrir_seance', { p_seance: id }).then(function (r) {
+      var d = r && r.data; bouton.disabled = false;
+      if (!r.error && d && d.ok) { ouvertes[id] = +id.charAt(1); if (window.umami) try { window.umami.track('seance-ouverte', { seance: id }); } catch (x) {} ecouter(id, bouton); return; }
+      message(id, d && d.erreur === 'abonnement' ? 'Ton abonnement n’est plus actif.' : d && d.erreur === 'offre' ? 'Cette séance est réservée aux abonné·es du Cercle complet.' : 'La séance ne s’ouvre pas pour l’instant. Réessaie dans un instant, ou écris-nous à contact@genesolia.fr.');
+    }, function () { bouton.disabled = false; message(id, 'La séance ne s’ouvre pas pour l’instant. Recharge la page.'); });
+  }
   function message(id, t) { var z = racine.querySelector('[data-lecteur="' + id + '"]'); if (z) z.innerHTML = '<p class="ms-note">' + esc(t) + '</p>'; }
   racine.addEventListener('click', function (e) {
     var t = e.target;
     var c = t.closest('[data-choisir]'); if (c) { choix = c.getAttribute('data-choisir'); afficher(); var el = document.getElementById('seance-' + choix); if (el) el.querySelector('[data-ouvrir]').focus(); return; }
     if (t.closest('[data-annuler]')) { choix = ''; afficher(); return; }
     var o = t.closest('[data-ouvrir]'); if (o) { ouvrir(o.getAttribute('data-ouvrir'), o); return; }
-    var l = t.closest('[data-ecouter]'); if (l) { ecouter(l.getAttribute('data-ecouter'), l); return; }
+    var l = t.closest('[data-ecouter]'); if (l) { var id = l.getAttribute('data-ecouter'); if (ouvertes[id]) ecouter(id, l); else enregistrer(id, l); return; }
   });
 
   /* ───── Le chargement ───── */

@@ -465,6 +465,11 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .ms-etat{text-align:center;margin:0 auto 1.3rem;max-width:40rem}
 .ms-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(16.5rem,1fr));gap:1rem}
 .ms-carte{display:flex;flex-direction:column;gap:.5rem;padding:1.2rem 1.2rem 1.1rem;border-radius:16px;background:#fff;border:1.5px solid var(--champagne-clair);min-width:0}
+.ms-img{position:relative;margin:-1.2rem -1.2rem .4rem;aspect-ratio:16/10;overflow:hidden;border-radius:14px 14px 0 0;background:var(--rose)}
+.ms-img img{width:100%;height:100%;object-fit:cover;display:block}
+.ms-fermee .ms-img img{filter:saturate(.55) brightness(.92)}
+.ms-cadenas{position:absolute;right:.7rem;top:.7rem;width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--prune)}
+.ms-abonne a{font-style:normal;font-weight:600;color:var(--prune);text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
 .ms-carte h3{font:400 1.2rem/1.3 var(--display);margin:0}
 .ms-carte p{margin:0}
 .ms-toi{border-color:var(--champagne);box-shadow:0 6px 18px rgba(107,47,91,.08)}
