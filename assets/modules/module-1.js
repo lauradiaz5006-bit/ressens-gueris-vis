@@ -13,7 +13,6 @@ window.GENESOLIA_CARNET = {
   titre: 'La boucle et la spirale',
   sousTitre: "Repérer ce qui se répète dans ta vie, pour enfin pouvoir faire autrement.",
   citation: "Ce qui revient n'est pas un échec. C'est une invitation à regarder.",
-  seance: 'Sortir du pilote automatique',
 
   decor: {
     couverture: 'assets/formation/spirale.jpg',
@@ -38,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Dans ce premier module, tu apprends à remarquer le moment où ta boucle démarre. Commence par regarder la vidéo et écouter la séance « Sortir du pilote automatique » dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Dans ce premier module, tu apprends à remarquer le moment où ta boucle démarre. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point ce qui se répète dans ta vie pèse-t-il aujourd'hui ?",
     souhaitQ: "Qu'est-ce qui, dans ta vie, se passe toujours de la même façon, même quand tu voudrais que ce soit différent ?",
     souhaitPh: "Exemple : je dis oui à tout au travail, puis je rumine le soir que personne ne me respecte.",
@@ -144,7 +143,7 @@ window.GENESOLIA_CARNET = {
   },
 
   allerPlusLoin: [
-    { titre: 'Ce qui revient', texte: "Le cahier de la lignée qui prolonge ce module : repérer ta boucle trois fois, voir d'où elle vient, et poser ton premier geste différent.", lien: 'mon-suivi-mois.html?mois=2026-10' }
+    { titre: 'Ce qui revient', texte: "Le cahier de la lignée qui prolonge ce module : repérer ta boucle trois fois, voir d'où elle vient, et poser ton premier geste différent.", lien: 'mon-suivi-mois.html' }
   ],
 
   bilan: [
