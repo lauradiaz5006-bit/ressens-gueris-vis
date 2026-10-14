@@ -1626,47 +1626,6 @@
     racine.querySelector('[data-depart]').classList.toggle('mc-depart-fait', fait);
     racine.querySelector('[data-depart-t]').textContent = fait ? 'Ton point de départ' : 'Avant tout : ton point de départ';
   }
-  function sommaireSuiviHtml() {
-    var large = window.matchMedia && window.matchMedia('(min-width: 1000px)').matches;
-    return '<details class="mc-som-suivi"' + (large ? ' open' : '') + '><summary>Le sommaire de ton mois</summary><ol data-som-suivi></ol></details>';
-  }
-  function remplirSommaire() {
-    var z = racine.querySelector('[data-som-suivi]'); if (!z) return;
-    var ids = PAGES.map(function (p) { return p.id; }), L = [];
-    function lien(h, t) { L.push('<li><a href="' + h + '">' + esc(t) + '</a></li>'); }
-    function page(id, t, ancre) { var i = ids.indexOf(id); if (i >= 0) L.push('<li><button type="button" data-page="' + i + '"' + (ancre ? ' data-ancre="' + esc(ancre) + '"' : '') + '>' + esc(t) + '</button></li>'); }
-    function dans(el, t) { if (!el || !el.id) return; var pg = el.closest('.mc-page'); if (pg) page(PAGES[+pg.getAttribute('data-p')].id, t, el.id); }
-    lien('point-de-depart.html#etape-3', 'Mon point de départ');
-    lien('mode-emploi-suivi.html', 'Le mode d’emploi du suivi');
-    page('saison', ET ? 'Ta saison' : 'La saison');
-    page('theme', 'Le thème');
-    PAGES.forEach(function (p) { if (p.sem != null) page(p.id, p.nom); });
-    var em = racine.querySelector('.mc-livre .mc-sur-mois'); dans(em && em.nextElementSibling, 'Ton exercice du mois');
-    dans(racine.querySelector('.mc-livre .mc-protocole-mois[id]'), 'Ton protocole du mois');
-    dans(racine.querySelector('#mc-audio-moment'), 'Ton audio à écouter : c’est le moment');
-    lien(seanceUrl(2), 'Ma séance du mois, la méditation audio');
-    page('meditation', 'Ta méditation du mois, à lire');
-    lien('arbre-de-vie-affiche.html', 'Mon affiche « Mon arbre de vie »'.replace(/« /, '« ').replace(/ »/, ' »'));
-    if (document.getElementById('mc-alire')) L.push('<li><button type="button" data-vers="mc-alire">À lire ce mois-ci</button></li>');
-    page('bilan', 'Mon bilan');
-    z.innerHTML = L.join('');
-  }
-  /* Le carnet (cycle 1) : le même sommaire des liens du mois, en haut (replié sur téléphone) */
-  function remplirSommaireCarnet() {
-    var z = racine.querySelector('[data-som-suivi]'); if (!z) return;
-    var L = [];
-    function lien(h, t) { L.push('<li><a href="' + h + '">' + esc(t) + '</a></li>'); }
-    function page(i, t, ancre) { L.push('<li><button type="button" data-page="' + i + '"' + (ancre ? ' data-ancre="' + esc(ancre) + '"' : '') + '>' + esc(t) + '</button></li>'); }
-    function dans(el, t) { if (!el || !el.id) return; var pg = el.closest('.mc-page'); if (pg) page(+pg.getAttribute('data-p'), t, el.id); }
-    lien('point-de-depart.html', 'Mon point de départ');
-    PAGES.forEach(function (p, i) { page(i, p.nom); });
-    dans(racine.querySelector('.mc-livre #mc-p-exmois'), 'Ton exercice du mois');
-    dans(racine.querySelector('.mc-livre #mc-seance'), 'Ta séance de visualisation, à lire');
-    lien(seanceUrl(1), 'Ma séance du mois, l’audio');
-    lien(vers('mon-suivi-mois.html'), 'Mon suivi « Je me libère »');
-    if (document.getElementById('mc-alire')) L.push('<li><button type="button" data-vers="mc-alire">À lire ce mois-ci</button></li>');
-    z.innerHTML = L.join('');
-  }
   /* Le carnet par étapes : « Ta saison » suit le vrai mois du calendrier (assets/saisons.js), l'étape suit le parcours */
   function saisonCarnet() {
     var S = window.GENESOLIA_SAISONS, sa = S && S[MOIS_SAISON];
@@ -1711,9 +1670,9 @@
           (C.pdf ? '<a class="btn btn-trait" href="' + esc(C.pdf) + '" download>Version papier vierge (PDF)</a>' : '') +
           (MODULE ? '<a class="btn btn-trait" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Mon espace de formation</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a>' :
             (SUIVI ? '<a class="btn btn-trait" href="' + esc(vers('mon-carnet.html')) + '">Mon carnet du mois</a>' : '<a class="btn btn-trait" href="' + esc(vers('mon-suivi-mois.html')) + '">Mon suivi du mois</a>') +
-            '<a class="btn btn-trait" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Ma séance du mois</a>' +
+            '<a class="btn btn-trait" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Mon audio du mois</a>' +
             '<button type="button" class="btn btn-trait" data-ics>Ajouter mes rappels à mon agenda</button>') + '</div>' +
-        '<div class="mc-compte" id="mc-compte" hidden></div></header>' + (SUIVI || CARNET ? sommaireSuiviHtml() : '') +
+        '<div class="mc-compte" id="mc-compte" hidden></div></header>' +
       '<nav class="mc-onglets" aria-label="' + (MODULE ? 'Pages du module' : 'Pages du carnet') + '">' + PAGES.map(function (p, i) { return '<button type="button" data-page="' + i + '"' + (p.sem != null ? ' class="mc-onglet-sem"' : '') + '><span>' + (p.sem != null ? '✦' : '•') + '</span>' + esc(p.nom) + '</button>'; }).join('') + '</nav>' +
       '<div class="mc-livre" id="mc-livre">' + PAGES.map(function (p, i) {
         return '<article class="mc-page" id="page-' + p.id + '" data-p="' + i + '"' + (i ? ' hidden' : '') + ' aria-label="Page ' + (i + 1) + ' : ' + esc(p.nom) + '">' +
@@ -1726,7 +1685,6 @@
       '<p class="mc-aide-livre">Astuce : sur un grand écran, tourne les pages avec les flèches du clavier. Sur téléphone ou tablette, glisse du doigt vers la gauche ou la droite.</p>' +
       (MODULE ? '' : autreLivre()) + aLire();
     casesLivre();
-    if (SUIVI) remplirSommaire(); else if (CARNET) remplirSommaireCarnet();
     garderApercu();
 
     racine.addEventListener('click', function (e) {
