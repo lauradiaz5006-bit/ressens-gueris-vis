@@ -101,7 +101,7 @@ window.GENESOLIA_CARNET = {
         { q: 'Ce qui le fragilise', ph: 'Exemple : je m’excuse encore d’exister en réunion' },
         { q: 'Un petit pas pour le renforcer', ph: 'Exemple : prendre la parole une fois par réunion' }
       ],
-      apres: { k: 'm8ex2-date', q: 'La date de cette notation', ph: 'Exemple : le 14 mars. Je la refais le 14 juin.' } },
+      apres: { k: 'm8ex2-date', q: 'La date de cette notation', ph: 'Exemple : le 14 mars. Je la refais le 14 juin.', court: true } },
     { k: 'm8ex3', type: 'tableau', titre: 'Ma traversée',
       consigne: "Pour chaque étape, note ce qu'elle fait émerger en toi (souvenirs, émotions, résistances), et l'intention que tu veux poser. Ce sera la matière de ta lettre.",
       rangs: 9,
