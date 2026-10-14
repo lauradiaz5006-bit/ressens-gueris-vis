@@ -668,6 +668,13 @@
     return '<aside class="mc-autre"><p class="mc-sur">Ton autre livre du mois</p><h3 class="mc-h">' + autre.sur + '</h3><p>' + autre.texte + '</p><p><a class="btn btn-plein" href="' + autre.lien + '">' + autre.bouton + '</a></p></aside>';
   }
   /* « À lire ce mois-ci » : les articles du blog reliés au mois (champ aLire du carnet), en bas du carnet */
+  /* Les avis : un encart sous chaque livre (carnet, suivi, module), pour demander un retour et donner l'adresse de contact */
+  function avisHtml() {
+    var quoi = MODULE ? 'le module ' + C.module + ' de la formation' : SUIVI ? 'mon suivi « Je me libère »' : 'mon carnet « J’avance »';
+    return '<aside class="mc-encadre mc-encadre-or mc-avis"><p class="mc-encadre-t">Envoie-nous ton avis, on en a besoin</p>' +
+      '<p>Ce qui t’aide, ce qui manque, ce que tu aimerais trouver ici : chaque avis nous aide à faire grandir Le Cercle. Une question ou une idée ? Écris-nous aussi, on lit tout.</p>' +
+      '<p><a class="btn btn-plein" href="mailto:contact@genesolia.fr?subject=' + encodeURIComponent('Mon avis sur ' + quoi) + '">Envoyer mon avis</a> <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></p></aside>';
+  }
   function aLire() {
     var L = MODULE ? null : (C.lectures || C.aLire);
     return (L && L.length ? '<section class="mc-alire" id="mc-alire"><p class="mc-sur">Pour accompagner ton mois</p><h3 class="mc-h">À lire ce mois-ci</h3>' +
@@ -1261,7 +1268,7 @@
     var sur = 'Module ' + C.module;
     P.push({ id: 'ouverture', nom: 'Avant de commencer', g: function () {
       return gauche('ouverture', sur + ' · avant de commencer', C.titre, '<p class="mc-intro">' + md(O.intro || '') + '</p>',
-        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo et la séance</a></p>' +
+        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo du module</a></p>' +
         (C.seance ? '<p class="mc-note">La séance guidée du module : « ' + esc(C.seance) + ' », dans ton espace de formation.</p>' : ''));
     }, d: function () {
       if (!membre) return offreFormation();
@@ -1281,8 +1288,8 @@
       if (!membre) return offreFormation();
       return (K.histoire ? '<section class="mc-histoire"><p class="mc-sur">Pour commencer</p><h3 class="mc-h">' + esc(K.histoire.titre) + '</h3>' + paras(K.histoire.texte) + '</section>' : '') +
         paras(K.texte) +
-        (K.signes ? encadre('Quatre signes qui ne trompent pas', '<ol class="mc-liste">' + K.signes.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ol>', 'mc-encadre-rose') : '') +
-        (K.exemples ? encadre('Des boucles très courantes', '<ul class="mc-liste">' + K.exemples.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>') : '') +
+        (K.signes ? encadre(K.signesTitre || 'Quatre signes qui ne trompent pas', '<ol class="mc-liste">' + K.signes.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ol>', 'mc-encadre-rose') : '') +
+        (K.exemples ? encadre(K.exemplesTitre || 'Des boucles très courantes', '<ul class="mc-liste">' + K.exemples.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>') : '') +
         (K.question ? zone(K.question.k, K.question.q, { lignes: 2, ph: K.question.ph }) : '') +
         (K.retenir ? encadre('À retenir', '<ul class="mc-liste">' + K.retenir.map(function (x) { return '<li>' + md(x) + '</li>'; }).join('') + '</ul>', 'mc-encadre-or') : '') +
         citation();
@@ -1318,8 +1325,8 @@
           '<div class="mc-trois">' + zone('vision-1', 'Premier mot ou image', { court: true, ph: 'Exemple : une main ouverte' }) + zone('vision-2', 'Deuxième mot ou image', { court: true, ph: 'Exemple : le mot « libre »' }) + zone('vision-3', 'Troisième mot ou image', { court: true, ph: 'Exemple : un escalier en spirale' }) + '</div>' +
           (window.GenesoliaFond ? '<p class="gf-bouton"><button type="button" class="btn btn-trait" data-fond-ouvrir>Créer mon fond d’écran avec mes mots</button></p><div data-fond></div>' : '') + '</section>' +
         '<section class="mc-etape"><h3><span>3</span> Mon premier pas</h3>' + zone('obj-pas', 'Quel petit pas vers cette vision poses-tu dans les 48 heures ?', { court: true, ph: 'Exemple : demander de l’aide à ma collègue pour le dossier de vendredi' }) + '</section>' +
-        ((C.allerPlusLoin || []).length ? '<section class="mc-avenir"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Pour aller plus loin · facultatif</p><h3 class="mc-h">Les cahiers de la lignée liés à ce module</h3><div class="mc-avenir-l">' +
-          C.allerPlusLoin.map(function (a) { return '<article class="mc-av"><div><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + md(a.texte) + '</p><p><a class="btn btn-trait" href="' + esc(a.lien) + '">Ouvrir ce cahier</a></p></div></article>'; }).join('') + '</div></section>' : '');
+        ((C.allerPlusLoin || []).length ? '<section class="mc-avenir"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Pour aller plus loin · facultatif</p><h3 class="mc-h">Tes livres du Cercle, avec ce module</h3><div class="mc-avenir-l">' +
+          C.allerPlusLoin.map(function (a) { return '<article class="mc-av"><div><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + md(a.texte) + '</p><p><a class="btn btn-trait" href="' + esc(a.lien) + '">Ouvrir</a></p></div></article>'; }).join('') + '</div></section>' : '');
     } });
     P.push({ id: 'bilan', nom: 'Mon bilan', g: function () {
       return gauche('bilan', sur + ' · pour clore', 'Ce que ce module m’a appris', '<p class="mc-intro">Prends ce temps même si tout n’a pas été fait. Voir, c’est déjà ne plus être tout à fait dedans.</p>');
@@ -1683,7 +1690,7 @@
             '<span class="mc-folio">' + (2 * i + 2) + '</span></div></article>';
       }).join('') + '</div>' +
       '<p class="mc-aide-livre">Astuce : sur un grand écran, tourne les pages avec les flèches du clavier. Sur téléphone ou tablette, glisse du doigt vers la gauche ou la droite.</p>' +
-      (MODULE ? '' : autreLivre()) + aLire();
+      (MODULE ? '' : autreLivre()) + aLire() + avisHtml();
     casesLivre();
     garderApercu();
 

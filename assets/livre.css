@@ -559,3 +559,8 @@
 @media print{.mc-depart,.mc-som-suivi{display:none!important}}
 .mc-tete .mc-depart{color:#3B2433;max-width:40rem;margin:1rem 0 .4rem}
 .mc-tete .mc-depart a:not(.btn){color:var(--prune);text-decoration:underline}
+
+/* L’encart « Envoie-nous ton avis », sous chaque livre */
+.mc-avis{max-width:760px;margin:1.6rem auto}
+.mc-avis .btn{margin:0 .8rem .4rem 0}
+@media print{.mc-avis{display:none!important}}
