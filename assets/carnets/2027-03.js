@@ -45,7 +45,7 @@ window.GENESOLIA_CARNET = {
     theme: "Rien à faire ici, seulement à lire. Remarque les situations où tu te reconnais.",
     comprendre: "La confiance ne se trouve pas avant d’agir. Elle se construit en agissant, même avec le cœur qui bat.",
     exercices: "Le premier exercice se fait au calme, en vingt minutes. Sois honnête avec toi : personne ne lira ces lignes à ta place.",
-    rituel: "Ce mois-ci, ta connexion passe par le vent du printemps et ta propre voix. Ose la faire sonner, même tout bas.",
+    rituel: "Ce mois-ci, ta connexion passe par le vent qui souffle et ta propre voix. Ose la faire sonner, même tout bas.",
     semaines: "Chaque semaine, un petit défi de courage. Le but n’est pas d’être à l’aise, c’est d’essayer.",
     cloture: "Relis ton mois et compte les fois où tu as osé. Chacune compte, même celles où ta voix tremblait."
   },
@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "Le mois où ma direction se dessine",
     texte: [
-      "Mars, c’est le mois de l’élan. Les bourgeons percent, les oiseaux recommencent à chanter dès l’aube, et les giboulées alternent avec de grands ciels bleus. La nature ne demande pas la permission pour revenir à la vie : elle pousse, elle chante, elle prend sa place.",
+      "Pense à la nature au moment où elle reprend son élan. Les bourgeons percent, les oiseaux recommencent à chanter dès l’aube, et les averses alternent avec de grands ciels bleus. La nature ne demande pas la permission pour revenir à la vie : elle pousse, elle chante, elle prend sa place.",
       "Ce carnet t’invite à faire pareil avec ta voix. Oser donner ton avis en réunion, dire ce que tu veux au restaurant, demander une augmentation, refuser un service de trop, poser une question sans t’excuser. Pas en devenant quelqu’un d’autre, mais en laissant sortir celle ou celui que tu es déjà. Ta confiance n’a pas disparu : elle attend simplement que tu lui fasses un peu de place."
     ],
     sousTitre: "Pourquoi travailler sa voix et sa confiance ?",
@@ -150,12 +150,12 @@ window.GENESOLIA_CARNET = {
 
   rituel: {
     titre: "La graine et le vent",
-    intro: "En mars, le vent du printemps secoue les branches et réveille les graines. Ce rituel symbolique t’invite à semer une graine de confiance et à faire entendre ta voix au vent, dehors si tu peux. Il se fait en dix minutes, idéalement autour de l’équinoxe, quand le jour et la nuit sont à égalité.",
+    intro: "Le vent secoue les branches et réveille les graines. Ce rituel symbolique t’invite à semer une graine de confiance et à faire entendre ta voix au vent, dehors si tu peux. Il se fait en dix minutes, idéalement un jour où le vent souffle.",
     materiel: "Quelques graines (fleurs, basilic, lentilles), un petit pot avec de la terre, un papier et un crayon. Un balcon, un jardin, ou une fenêtre ouverte.",
-    quand: "Fais-le en début de mois ou autour du 20 mars, jour de l’équinoxe. Tu peux redire ta phrase chaque fois que tu arroses ton pot : il devient ton rappel de confiance pour tout le printemps.",
+    quand: "Fais-le en début de mois, ou au milieu de ton étape. Tu peux redire ta phrase chaque fois que tu arroses ton pot : il devient ton rappel de confiance pour les semaines qui viennent.",
     etapes: [
       "Installe-toi dehors ou devant une fenêtre ouverte. Sens l’air sur ton visage et respire trois fois profondément.",
-      "Sur le papier, écris une phrase qui commence par « J’ose… » : ce que tu veux oser dire ou faire ce printemps.",
+      "Sur le papier, écris une phrase qui commence par « J’ose… » : ce que tu veux oser dire ou faire dans les semaines qui viennent.",
       "Prends les graines dans ta main. Lis ta phrase à voix haute, une première fois doucement, puis une deuxième fois un peu plus fort.",
       "Sème les graines dans le pot en disant : « Je laisse pousser ma voix, à son rythme, comme ces graines. »",
       "Si tu es dehors, laisse le vent emporter quelques mots de plus : crie, chante ou murmure ce qui vient. Personne n’a besoin de l’entendre, sauf toi.",
@@ -169,7 +169,7 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement, le dos droit et soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Sens tes pieds sur le sol. Ils sont stables, ancrés. Imagine que la terre sous toi te porte, solide et patiente, comme elle porte les arbres qui se réveillent en ce mois de mars.",
+      "Sens tes pieds sur le sol. Ils sont stables, ancrés. Imagine que la terre sous toi te porte, solide et patiente, comme elle porte les arbres qui se réveillent.",
       "Porte maintenant ton attention sur ton ventre. Sens-le se gonfler doucement à chaque inspiration, se relâcher à chaque expiration. C’est là que naît ta voix : dans ton souffle, bien avant ta gorge.",
       "[pause]",
       "Imagine qu’au creux de ton ventre coule une petite source claire. Pendant longtemps, peut-être, des pierres l’ont recouverte : des « tais-toi », des « ce n’est pas le moment », des regards qui t’ont fait douter.",
@@ -205,16 +205,16 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-ose', q: "Qu’as-tu osé dire ou faire ce mois-ci, que tu n’aurais pas fait avant ?", ph: "Exemple : j’ai demandé mon vendredi en télétravail. On me l’a accordé." },
     { k: 'fin-situation', q: "Dans quelle situation ta voix se sent-elle plus libre maintenant ?", ph: "Exemple : en réunion. Je parle plus tôt, et je ne m’excuse plus avant." },
     { k: 'fin-qualite', q: "Quelle qualité t’a aidé·e à oser, et comment veux-tu continuer à t’en servir ?", ph: "Exemple : ma persévérance. Je veux m’en servir pour m’inscrire enfin à cette formation." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour avril ?", ph: "Exemple : continuer à donner mon avis chaque jour, et oser dire ce que je ressens vraiment à mes proches.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer à donner mon avis chaque jour, et oser dire ce que je ressens vraiment à mes proches.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
      Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
   exerciceDuMois: {
-    titre: "Mon équilibre et ma direction · Le rituel de l’équinoxe",
+    titre: "Mon équilibre et ma direction · Le rituel de l’équilibre",
     objectif: "écouter la direction que ma vie me montre.",
     sousObjectif: "voir mes défis du moment, mes forces et mes faiblesses, la direction que je repousse encore, et me projeter dans un an.",
-    duree: "début du mois : 45 min. Semaine de l’équinoxe, autour du 20 mars : le rituel, 30 min. Ensuite, 1 min par jour.",
+    duree: "début du mois : 45 min. Au milieu de ton étape : le rituel, 30 min. Ensuite, 1 min par jour.",
     temps: [
       {
         titre: "Début du mois · Regarder (45 min)",
@@ -222,14 +222,14 @@ window.GENESOLIA_CARNET = {
           "**Mes défis du moment (10 min).** Les 3 défis que tu vis en ce moment, dans quel domaine, depuis quand.",
           "**Mes forces, mes faiblesses (10 min).** Pour chaque défi, la force qui t’aide à le traverser, puis la faiblesse qui se montre.",
           "**La direction (10 min).** Ce que ta vie t’amène en ce moment : signes, rencontres, propositions, ce qui se répète. Quelle direction est-ce que je repousse encore ? Laquelle est-ce que je vois encore floue ? Que se passerait-il si je la prenais ? Termine par : « La direction que ma vie me montre, c’est… »",
-          "**Dans un an (15 min).** Ferme les yeux et imagine-toi dans un an, en ayant suivi cette direction. Où es-tu ? Avec qui ? Que fais-tu de tes journées ? Te sens-tu aligné·e ? Puis écris-toi : « Dans un an, je suis… Je vis… Je suis entouré·e de… Je me sens… Je suis fier·e de moi parce que… ». Date la lettre, glisse-la dans une enveloppe : « À ouvrir à l’équinoxe de mars prochain. »"
+          "**Dans un an (15 min).** Ferme les yeux et imagine-toi dans un an, en ayant suivi cette direction. Où es-tu ? Avec qui ? Que fais-tu de tes journées ? Te sens-tu aligné·e ? Puis écris-toi : « Dans un an, je suis… Je vis… Je suis entouré·e de… Je me sens… Je suis fier·e de moi parce que… ». Date la lettre, glisse-la dans une enveloppe : « À ouvrir dans un an, jour pour jour. »"
         ]
       },
       {
-        titre: "Semaine de l’équinoxe · Le rituel de l’équilibre (30 min)",
-        intro: "À l’équinoxe, le jour et la nuit ont la même durée : c’est le moment d’équilibrer ta lumière et ton ombre, puis de semer ta direction.",
+        titre: "Au milieu de ton étape · Le rituel de l’équilibre (30 min)",
+        intro: "Imagine le jour et la nuit à parts égales : c’est le moment d’équilibrer ta lumière et ton ombre, puis de semer ta direction.",
         etapes: [
-          "**Préparer l’autel (5 min).** Sur ton autel de saison, une bougie blanche pour ta lumière et tes forces, une bougie bleu nuit pour ton ombre et tes faiblesses. Entre les deux, un objet qui représente ta direction, et quelques fleurs ou graines de printemps.",
+          "**Préparer l’autel (5 min).** Sur ton autel de saison, une bougie blanche pour ta lumière et tes forces, une bougie bleu nuit pour ton ombre et tes faiblesses. Entre les deux, un objet qui représente ta direction, et quelques fleurs ou graines.",
           "**Équilibrer (10 min).** Allume les deux bougies. Main gauche ouverte, nomme tes faiblesses : « Je t’accueille, tu fais partie de moi. » Main droite ouverte, nomme tes forces : « Je te remercie. » Joins les mains au centre : « Ma lumière et mon ombre avancent ensemble. »",
           "**Semer (10 min).** Écris ta direction sur un petit papier, plie-le autour d’une graine et plante-les dans un pot : « Je sème ma direction. Je lui donne le temps de pousser. »",
           "**Clore (5 min).** Trois respirations, mains sur le cœur, puis souffle les bougies."
@@ -243,7 +243,7 @@ window.GENESOLIA_CARNET = {
     liens: [
       ["lettre-dans-un-an.html", "Écrire ta lettre de dans un an"]
     ],
-    ph: "Exemple : la direction que ma vie me montre, c’est d’enseigner. J’ai semé ma graine le 20 mars, dans le pot bleu de la cuisine."
+    ph: "Exemple : la direction que ma vie me montre, c’est d’enseigner. J’ai semé ma graine au milieu de mon étape, dans le pot bleu de la cuisine."
   },
 
   /* Le côté libération du même mois, dans Mon suivi */

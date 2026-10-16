@@ -45,7 +45,7 @@ window.GENESOLIA_CARNET = {
     theme: "Rien à faire ici, seulement à lire. Si une phrase te touche, arrête-toi un instant et respire avec elle.",
     comprendre: "Tu n’as pas à devenir une autre personne. Seulement à ajouter un peu de douceur dans ta façon de te parler.",
     exercices: "Un exercice par semaine, pas plus. Si tu te sens pressé·e, c’est le signe qu’il faut ralentir, même ici.",
-    rituel: "Ce mois-ci, ta connexion passe par les fleurs de mai et une petite flamme. Simple, joyeux, rien que pour toi.",
+    rituel: "Ce mois-ci, ta connexion passe par les fleurs et une petite flamme. Simple, joyeux, rien que pour toi.",
     semaines: "Chaque défi est une invitation, pas une obligation. Une semaine manquée n’efface rien : tu reprends là où tu en es.",
     cloture: "Regarde ton mois avec les yeux de quelqu’un qui t’aime. C’est exactement l’exercice de ce carnet."
   },
@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois où la vie circule',
     texte: [
-      "Mai déborde de vie. Les haies se couvrent de fleurs, les soirées s'allongent, les invitations se multiplient, et tout semble pousser plus vite qu'on ne peut le suivre. C'est un mois joyeux, et c'est souvent aussi un mois où l'on s'oublie un peu : on dit oui à tout, on remplit chaque soirée, on court d'un rendez-vous à l'autre, et l'on arrive au 31 un peu essoufflé·e.",
+      "Il y a des périodes qui débordent de vie. Les haies se couvrent de fleurs, les soirées s'allongent, les invitations se multiplient, et tout semble pousser plus vite qu'on ne peut le suivre. Ce sont des moments joyeux, et c'est souvent aussi là que l'on s'oublie un peu : on dit oui à tout, on remplit chaque soirée, on court d'un rendez-vous à l'autre, et l'on arrive à la fin du mois un peu essoufflé·e.",
       "Ce carnet t’invite à sentir cette vie qui circule aussi à travers toi. Elle vient de tes parents, de leurs parents avant eux, et elle continue avec toi. Ce mois-ci, tu regardes tes parents avec des yeux neufs : ce qu’ils ont reçu, ce qu’ils t’ont transmis, et ce que tu choisis de garder, avec la tendresse que tu offres si facilement aux autres."
     ],
     sousTitre: 'Pourquoi apprendre à se materner ?',
@@ -79,7 +79,7 @@ window.GENESOLIA_CARNET = {
     titre: 'Devenir ta propre présence bienveillante',
     texte: [
       "Chacun·e porte en soi plusieurs voix. Il y a souvent une voix exigeante, qui pousse, compare et corrige. Elle a été utile : elle t'a aidé·e à réussir, à tenir, à ne pas décevoir. Mais quand elle parle seule, elle finit par épuiser. Ce mois-ci, tu vas apprendre à faire grandir une autre voix, plus douce : celle d'une mère intérieure bienveillante.",
-      "Cette voix ne dit pas « laisse tout tomber ». Elle dit « tu as le droit d'être fatigué·e », « tu as fait de ton mieux », « de quoi as-tu besoin, là, maintenant ? ». Elle tient compte de ton rythme. Elle sait que tu n'as pas la même énergie un lundi matin qu'un vendredi soir, ni en mai qu'en novembre.",
+      "Cette voix ne dit pas « laisse tout tomber ». Elle dit « tu as le droit d'être fatigué·e », « tu as fait de ton mieux », « de quoi as-tu besoin, là, maintenant ? ». Elle tient compte de ton rythme. Elle sait que tu n'as pas la même énergie un lundi matin qu'un vendredi soir, ni d'un mois à l'autre.",
       "Se materner passe aussi par des gestes très concrets : manger assis·e, aller se coucher quand on tombe de fatigue, s'offrir une promenade sans but, dire non à une soirée de trop. Ce sont des gestes simples, et pourtant beaucoup d'entre nous attendent qu'on les leur offre, au lieu de se les offrir.",
       "Si tu n'as pas reçu cette douceur enfant, ou pas assez, ce n'est pas trop tard. La présence bienveillante se construit comme un muscle : un geste, une phrase, un choix à la fois. Et si tu l'as reçue, c'est le moment de te la redonner, à toi l'adulte."
     ],
@@ -149,15 +149,15 @@ window.GENESOLIA_CARNET = {
   ],
 
   rituel: {
-    titre: 'Le bouquet de mai',
-    intro: "En mai, la nature offre ses fleurs sans compter. Ce petit rituel symbolique t'invite à t'offrir à toi aussi un bouquet, et à honorer la personne que tu es, avec la même générosité. Il se fait en quinze minutes, un soir tranquille ou un matin de week-end.",
+    titre: 'Le bouquet de merci',
+    intro: "La nature offre ses fleurs sans compter. Ce petit rituel symbolique t'invite à t'offrir à toi aussi un bouquet, et à honorer la personne que tu es, avec la même générosité. Il se fait en quinze minutes, un soir tranquille ou un matin de week-end.",
     materiel: "Quelques fleurs ou herbes cueillies sur un chemin, dans un jardin, ou achetées au marché, un verre d’eau ou un petit vase, une bougie, et un papier.",
-    quand: "Fais-le en début de mois, après avoir rempli ta roue et ton objectif. Tu peux renouveler le bouquet chaque semaine : à chaque fois, c’est un petit merci à toi-même. Certaines personnes en font un rendez-vous de printemps, chaque année.",
+    quand: "Fais-le en début de mois, après avoir rempli ta roue et ton objectif. Tu peux renouveler le bouquet chaque semaine : à chaque fois, c’est un petit merci à toi-même. Certaines personnes en font un rendez-vous, chaque fois qu’elles ont besoin de douceur.",
     etapes: [
       "Choisis tes fleurs en prenant ton temps. Prends celles qui te font envie, pas celles qui seraient « bien ». C’est ton bouquet.",
       "Installe-les dans leur vase, à un endroit où tu les verras chaque jour : ta table de nuit, ton bureau, la table de la cuisine.",
       "Allume la bougie à côté. Respire trois fois profondément en regardant la flamme et les couleurs des fleurs.",
-      "Pour chaque fleur, dis intérieurement une chose que tu apprécies chez toi : « Merci pour ma patience », « Merci pour mon rire », « Merci d’avoir tenu cet hiver ».",
+      "Pour chaque fleur, dis intérieurement une chose que tu apprécies chez toi : « Merci pour ma patience », « Merci pour mon rire », « Merci d’avoir tenu bon ».",
       "Écris sur le papier une phrase douce que tu as envie de te redire tout le mois, et glisse-la au pied du vase.",
       "Éteins la bougie en disant : « Ce mois-ci, je me choisis aussi. » Puis note ici ce qui est venu."
     ],
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Pose tes mains sur ton ventre ou sur tes cuisses. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Laisse ton souffle trouver son propre rythme. Tu n’as rien à réussir, rien à prouver. Pour les dix minutes qui viennent, la seule personne dont tu t’occupes, c’est toi.",
-      "Imagine un jardin au mois de mai. L’herbe est tendre, les fleurs s’ouvrent partout, l’air est tiède et sent le lilas. Tu entends des oiseaux, le bourdonnement des abeilles, le vent léger dans les feuilles.",
+      "Imagine un jardin en fleurs. L’herbe est tendre, les fleurs s’ouvrent partout, l’air est tiède et sent le lilas. Tu entends des oiseaux, le bourdonnement des abeilles, le vent léger dans les feuilles.",
       "Au milieu du jardin, il y a un banc, à l’ombre d’un arbre en fleurs. Avance tranquillement vers lui, et assieds-toi. Sens le bois tiède sous toi, la lumière qui joue sur ton visage.",
       "[pause]",
       "Remarque ce que tu portes en arrivant : une fatigue, une liste, une inquiétude. Tu n’as pas besoin de t’en débarrasser. Pose-les simplement à côté de toi, sur le banc, comme un sac que l’on dépose enfin.",
@@ -208,7 +208,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-voix', q: "Qu’est-ce qui a changé dans ta façon de te parler ?", ph: "Exemple : quand je me trompe, je me dis plus souvent « ce n’est pas grave, qu’est-ce que j’apprends ? » au lieu de « tu es nul·le »." },
     { k: 'fin-rythme', q: "Qu’as-tu découvert sur ton propre rythme ?", ph: "Exemple : j’ai besoin d’une vraie pause en milieu d’après-midi, et je suis bien plus efficace après." },
     { k: 'fin-rituel-garde', q: "Quel geste de ce mois veux-tu garder comme une habitude ?", ph: "Exemple : mes dix minutes du matin sans téléphone, et le bouquet renouvelé chaque semaine." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour juin ?", ph: "Exemple : garder ma douceur, et l’utiliser pour oser enfin lancer mon projet.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : garder ma douceur, et l’utiliser pour oser enfin lancer mon projet.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
@@ -262,7 +262,7 @@ window.GENESOLIA_CARNET = {
 
   aVenir: [
     { mois: 'Juin', titre: 'Oser agir', texte: "Décider, structurer ton projet, passer à l’action, et tenir les engagements que tu prends envers toi.", image: 'assets/cartes/prochain-pas-mini.jpg' },
-    { mois: 'Juillet', titre: 'Ma valeur', texte: "Apprendre à recevoir, oser demander, et reconnaître ta juste valeur, dans l’abondance de l’été.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la rentrée.", image: 'assets/cartes/racines-appuis-mini.jpg' }
+    { mois: 'Juillet', titre: 'Ma valeur', texte: "Apprendre à recevoir, oser demander, et reconnaître ta juste valeur, dans toute l’abondance de la vie.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la suite.", image: 'assets/cartes/racines-appuis-mini.jpg' }
   ]
 };

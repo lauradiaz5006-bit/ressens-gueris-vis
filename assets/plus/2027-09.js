@@ -41,20 +41,20 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter ce que ta vocation a semé",
         texte: [
-          "Septembre touche à sa fin, et avec lui vient l’équinoxe, ce moment d’équilibre où le jour et la nuit se partagent le temps. C’est le bon moment pour récolter. En quelques semaines, tu as retrouvé des souvenirs d’enfance, reçu le regard des autres sur tes talents, osé un petit essai. Même si rien n’a encore changé dans ton emploi du temps, quelque chose a bougé : tu sais un peu mieux ce qui te rend vivant·e.",
-          "Récolter, c’est d’abord **dire merci**. Merci aux personnes qui ont pris le temps de te répondre, merci à l’enfant que tu étais et qui savait déjà ce qu’il aimait, merci à toi d’avoir ouvert ce cahier de rentrée. La gratitude n’est pas une politesse : elle t’aide à voir ce que tu possèdes déjà, au lieu de regarder seulement ce qui manque.",
+          "Ton étape touche à sa fin, comme un moment d’équilibre où le jour et la nuit se partagent le temps. C’est le bon moment pour récolter. En quelques semaines, tu as retrouvé des souvenirs d’enfance, reçu le regard des autres sur tes talents, osé un petit essai. Même si rien n’a encore changé dans ton emploi du temps, quelque chose a bougé : tu sais un peu mieux ce qui te rend vivant·e.",
+          "Récolter, c’est d’abord **dire merci**. Merci aux personnes qui ont pris le temps de te répondre, merci à l’enfant que tu étais et qui savait déjà ce qu’il aimait, merci à toi d’avoir ouvert ce cahier neuf. La gratitude n’est pas une politesse : elle t’aide à voir ce que tu possèdes déjà, au lieu de regarder seulement ce qui manque.",
           "Récolter, c’est aussi **donner vie à ton intention**. Cette semaine, tu imagines ton intention déjà réalisée, tu choisis une croyance qui la soutient, et tu poses trois mots sur ton tableau de vision. Par exemple, Karim a compris ce mois-ci qu’il aime transmettre. Il choisit les mots « expliquer, accueillir, transmettre », et la croyance « mes talents ont leur place au travail ». Le lundi suivant, il propose d’accompagner le prochain stagiaire de son service.",
-          "Enfin, récolter, c’est **refaire ta roue** et regarder ton travail et ta joie avec bienveillance. Un point gagné compte. Une envie retrouvée compte aussi. Garde ton cahier neuf près de toi : il portera tes prochaines graines jusqu’en octobre, le mois du bilan de ton année."
+          "Enfin, récolter, c’est **refaire ta roue** et regarder ton travail et ta joie avec bienveillance. Un point gagné compte. Une envie retrouvée compte aussi. Garde ton cahier neuf près de toi : il portera tes prochaines graines jusqu’à ta prochaine étape, celle du bilan de ton année."
         ]
       },
       jours: [
       "Feuillette tes notes du mois et recopie trois mots qui reviennent sur ce qui te rend vivant·e. Ce sont les premiers fruits de ta récolte.",
       "Envoie un merci à l’une des trois personnes qui t’ont parlé de tes talents. Dis-lui ce que sa réponse a changé pour toi.",
-      "Prépare ton rituel de l’équinoxe : choisis l’objet qui représente ton savoir-faire et pose-le près de ton cahier neuf, à un endroit que tu vois.",
+      "Prépare ton rituel de l’équilibre : choisis l’objet qui représente ton savoir-faire et pose-le près de ton cahier neuf, à un endroit que tu vois.",
       "Ferme les yeux deux minutes et imagine une journée de travail où ton intention est déjà réalisée. Note un détail précis : un lieu, un geste, un visage.",
-      "Choisis les trois mots de ton tableau de vision et écris-les sur un papier que tu glisses dans ton agenda de rentrée.",
+      "Choisis les trois mots de ton tableau de vision et écris-les sur un papier que tu glisses dans ton agenda.",
       "Après ta séance « La source de ta vocation », écris l’image de toi enfant qui est venue, et la phrase que tu as envie de lui dire.",
-      "Regarde ton mois : quel fil de ta vocation as-tu retrouvé ? Écris-le en une phrase, avec ce que tu emportes en octobre."
+      "Regarde ton mois : quel fil de ta vocation as-tu retrouvé ? Écris-le en une phrase, avec ce que tu emportes pour ta prochaine étape."
     ] }
   ],
   suivi: [

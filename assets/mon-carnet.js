@@ -398,7 +398,7 @@
       '<section class="mc-etape"><h3><span>4</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + bravo(5) + '<div data-phrase-jour></div></section>' +
       plus('lettre', 'Ta lettre de dans un an',
         '<p class="mc-consigne">Écris à la personne que tu es aujourd’hui, comme si tu étais déjà un an plus tard. Raconte-lui ce qui a changé, ce que tu as compris, ce que tu veux lui dire pour l’encourager.</p>' +
-        zone('proj-an', 'Ta lettre, écrite depuis ' + C.nomMois.replace(/\d+/, function (a) { return +a + 1; }) + ', à la personne que tu es aujourd’hui', { lignes: 7, ph: 'Exemple : Je t’écris depuis l’an prochain. Je sais que tu doutes en ce moment…' }) +
+        zone('proj-an', (DEBUT_ET ? 'Ta lettre, écrite depuis ' + MOIS_NOMS[DEBUT_ET.getMonth()] + ' ' + (DEBUT_ET.getFullYear() + 1) : ET ? 'Ta lettre, écrite dans un an' : 'Ta lettre, écrite depuis ' + C.nomMois.replace(/\d+/, function (a) { return +a + 1; })) + ', à la personne que tu es aujourd’hui', { lignes: 7, ph: 'Exemple : Je t’écris depuis l’an prochain. Je sais que tu doutes en ce moment…' }) +
         '<p class="mc-note">Si tu as un compte et que tu enregistres ta météo du début, ta lettre est gardée dans ton espace. Dans un an, elle t’y attendra.</p>' +
         '<p class="mc-guide-lien">Comment écrire cette lettre ? <a href="lettre-dans-un-an.html" target="_blank" rel="noopener">Lis le guide</a></p>' + prive()) +
       '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="debut">Enregistrer ma météo du début</button><p class="mc-retour" data-retour="debut" aria-live="polite"></p></div>';
@@ -697,8 +697,9 @@
   function aVenir() {
     if (!C.aVenir || !C.aVenir.length) return '';
     return '<section class="mc-avenir"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le Cercle continue</p><h3 class="mc-h">' + (ET ? 'Tes prochaines étapes' : 'Les prochains carnets') + '</h3>' +
-      '<div class="mc-avenir-l">' + C.aVenir.map(function (a) {
-        return '<article class="mc-av">' + (a.image ? '<img src="' + esc(a.image) + '" alt="" loading="lazy" width="120" height="120">' : '') + '<div><p class="mc-sem-n">' + esc(a.mois) + '</p><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + esc(a.texte) + '</p></div></article>';
+      '<div class="mc-avenir-l">' + C.aVenir.map(function (a, i) {
+        var lib = ET && !/^[ÉE]tape/.test(a.mois || '') ? 'Étape ' + (ET.n + i + 1) : a.mois;   /* par étapes : « Étape N » plutôt qu'un mois du calendrier */
+        return '<article class="mc-av">' + (a.image ? '<img src="' + esc(a.image) + '" alt="" loading="lazy" width="120" height="120">' : '') + '<div><p class="mc-sem-n">' + esc(lib) + '</p><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + esc(a.texte) + '</p></div></article>';
       }).join('') + '</div><p class="mc-av-lien"><a class="btn btn-trait" href="mon-mois.html">Mes carnets précédents</a></p></section>';
   }
 
@@ -1034,7 +1035,7 @@
         '<section class="mc-etape"><h3><span>5</span> Ta phrase du mois</h3>' + zone('phrase', 'Quelle phrase veux-tu te redire tout le mois ?', { court: true, ph: 'Exemple : ' + C.citation }) + bravo(5) + '<div data-phrase-jour></div></section>' +
         '<section class="mc-etape"><h3><span>6</span> Ta lettre à la fin du mois</h3><p class="mc-consigne">Imagine-toi le dernier jour du mois. Écris à la personne que tu es aujourd’hui, au présent, en commençant tes phrases par « Je suis… ». Comment te sens-tu ? Qu’est-ce qui a changé ? Qu’est-ce que tu as osé ?</p>' +
           '<div class="mc-amorces"><p class="mc-q">Pour t’aider à commencer, touche une amorce :</p>' + ['Je suis…', 'Aujourd’hui, je me sens…', 'J’ai osé…', 'Je suis fière de…'].map(function (a) { return '<button type="button" data-amorce="' + esc(a) + '" data-amorce-pour="lettre-un-mois">' + esc(a) + '</button>'; }).join('') + '</div>' +
-          zone('lettre-un-mois', 'Ma lettre, écrite depuis la fin du mois', { lignes: 7, ph: 'Exemple : Je suis le ' + (new Date(+String(C.mois).split('-')[0], +String(C.mois).split('-')[1], 0).getDate()) + ' ' + NOM_MOIS + '. Je suis plus calme…' }) + prive() + '</section>' +
+          zone('lettre-un-mois', 'Ma lettre, écrite depuis la fin du mois', { lignes: 7, ph: 'Exemple : Je suis le ' + (function () { var f = DEBUT_ET ? new Date(DEBUT_ET.getFullYear(), DEBUT_ET.getMonth() + 1, DEBUT_ET.getDate() - 1) : new Date(+String(C.mois).split('-')[0], +String(C.mois).split('-')[1], 0); return f.getDate() + ' ' + MOIS_NOMS[f.getMonth()]; })() + '. Je suis plus calme…' }) + prive() + '</section>' +
         intentionHtml(7) +
         '<div class="mc-actions"><button type="button" class="btn btn-plein" data-meteo="debut">Enregistrer mon début de mois</button><p class="mc-retour" data-retour="debut" aria-live="polite"></p></div>';
     } };
@@ -1263,7 +1264,7 @@
   var VERROU = null;
   function offreFormation() {
     if (VERROU) return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">Ce module s’ouvre à ton étape ' + VERROU.etape + '</p><p>Ta formation avance au rythme de ton abonnement, en commençant toujours par le module 1. Celui-ci s’ouvrira le ' + esc(VERROU.date) + '. D’ici là, continue ton module en cours.</p><p><a class="btn btn-plein" href="cercle.html">Retour au Cercle</a></p></aside>';
-    return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">Ce module fait partie de la formation « Sors de la boucle »</p><p>Il s’ouvre avec la formation, ou avec Le Cercle complet sur 12 mois, qui l’inclut.</p><p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></aside>';
+    return '<aside class="mc-encadre mc-encadre-or mc-verrou"><p class="mc-encadre-t">Ce module fait partie de la formation « Sors de la boucle »</p><p>Il s’ouvre avec la formation, ou avec Le Cercle, qui l’inclut.</p><p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></aside>';
   }
   function modulePages() {
     var P = [], O = C.ouverture || {}, K = C.comprendre || {}, T = C.outil || {}, J = C.jours || {}, V = C.avancer || {};

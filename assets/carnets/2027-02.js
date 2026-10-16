@@ -53,8 +53,8 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "Le mois où je m’aime d’abord",
     texte: [
-      "Février, c’est le mois où l’on parle d’amour partout. Les vitrines se remplissent de cœurs, on pense à l’autre, au couple, à ce qu’on offre et à ce qu’on reçoit. Mais il y a une relation qu’on oublie presque toujours : celle que tu as avec toi. Elle est pourtant la seule qui t’accompagnera chaque jour de ta vie.",
-      "Pendant que la lumière revient doucement, quelques minutes de plus chaque soir, ce carnet t’invite à rallumer la tienne. Te regarder avec la même tendresse que tu réserves à tes enfants, à ta meilleure amie, à ton chat. Reconnaître ce dont tu as besoin, sans te sentir égoïste. Et t’offrir, chaque semaine, un geste qui te dit : tu comptes, toi aussi."
+      "On parle d’amour partout : dans les chansons, les films, jusque dans les vitrines remplies de cœurs. On pense à l’autre, au couple, à ce qu’on offre et à ce qu’on reçoit. Mais il y a une relation qu’on oublie presque toujours : celle que tu as avec toi. Elle est pourtant la seule qui t’accompagnera chaque jour de ta vie.",
+      "Comme la lumière qui revient doucement après les jours courts, quelques minutes de plus chaque soir, ce carnet t’invite à rallumer la tienne. Te regarder avec la même tendresse que tu réserves à tes enfants, à ta meilleure amie, à ton chat. Reconnaître ce dont tu as besoin, sans te sentir égoïste. Et t’offrir, chaque semaine, un geste qui te dit : tu comptes, toi aussi."
     ],
     sousTitre: "Pourquoi s’aimer d’abord ?",
     texte2: [
@@ -100,7 +100,7 @@ window.GENESOLIA_CARNET = {
     regarderTitre: "Pour mieux t’aimer ce mois-ci, demande-toi",
     regarderIntro: "Prends ces questions une par une, sans chercher la réponse parfaite. Écris ce qui vient en premier : c’est souvent le plus vrai.",
     regarder: [
-      { k: 'besoin-oublie', q: "Quel besoin as-tu mis de côté depuis trop longtemps ?", ph: "Exemple : le besoin de calme. Je n’ai pas eu une soirée seule depuis la rentrée." },
+      { k: 'besoin-oublie', q: "Quel besoin as-tu mis de côté depuis trop longtemps ?", ph: "Exemple : le besoin de calme. Je n’ai pas eu une soirée seule depuis des mois." },
       { k: 'besoin-voix', q: "Quelle phrase dure te répètes-tu le plus souvent, et à qui ne la dirais-tu jamais ?", ph: "Exemple : « Tu es nulle en organisation. » Je ne la dirais jamais à ma fille." },
       { k: 'besoin-qualites', q: "Quelles sont trois qualités que les personnes qui t’aiment voient en toi ?", ph: "Exemple : ma générosité, mon humour, ma façon d’écouter sans juger." },
       { k: 'besoin-geste', q: "Quel geste simple te ferait sentir aimé·e par toi-même cette semaine ?", ph: "Exemple : prendre un bain le dimanche soir avec une musique douce, téléphone éteint." }
@@ -142,7 +142,7 @@ window.GENESOLIA_CARNET = {
     { k: 'ex3', titre: "Mon carnet de tendresse", type: 'texte',
       consigne: "Chaque jour de ce mois, offre-toi un petit geste de tendresse, rien que pour toi, et note-le ici avec ce que tu as ressenti. Ce n’est pas une récompense pour avoir bien travaillé : c’est un cadeau que tu te fais parce que tu existes.",
       pourquoi: "L’estime de soi grandit par des preuves, pas par des promesses. Chaque geste noté devient une preuve que tu sais veiller sur toi, et ces preuves, accumulées, changent la façon dont tu te regardes.",
-      gestes: ["Te préparer une boisson chaude et la boire assis·e, sans rien faire d’autre", "Mettre ton plus joli vêtement un jour ordinaire", "Te dire « merci » le soir pour une chose faite", "Marcher dix minutes au soleil de février", "T’acheter une fleur, juste pour toi", "Accepter un compliment avec un simple merci"],
+      gestes: ["Te préparer une boisson chaude et la boire assis·e, sans rien faire d’autre", "Mettre ton plus joli vêtement un jour ordinaire", "Te dire « merci » le soir pour une chose faite", "Marcher dix minutes au soleil", "T’acheter une fleur, juste pour toi", "Accepter un compliment avec un simple merci"],
       q: "Ton geste de tendresse : « Ce mois-ci, pour me montrer que je compte, je vais… »",
       ph: "Exemple : ce mois-ci, pour me montrer que je compte, je vais m’offrir chaque matin dix minutes de café au calme, avant de réveiller la maison.",
       journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu t’es offert ce geste : quand, et qu’as-tu ressenti ?", ph: "Exemple : jeudi, j’ai bu mon café à la fenêtre en regardant le jour se lever. Je me suis senti·e précieux·se, pour une fois." } }
@@ -150,7 +150,7 @@ window.GENESOLIA_CARNET = {
 
   rituel: {
     titre: "La lumière qui revient",
-    intro: "En février, la lumière revient discrètement : chaque soir, le jour s’attarde un peu plus. Ce rituel symbolique t’invite à rallumer ta propre lumière, avec une bougie, un miroir et quelques mots doux. Il se fait en dix minutes, un soir tranquille.",
+    intro: "Après les jours courts, la lumière revient discrètement : chaque soir, le jour s’attarde un peu plus. Ce rituel symbolique t’invite à rallumer ta propre lumière, avec une bougie, un miroir et quelques mots doux. Il se fait en dix minutes, un soir tranquille.",
     materiel: "Une bougie, un petit miroir (ou celui de ta salle de bain), un papier et un crayon. Si tu peux, une fleur ou une branche de saison posée à côté.",
     quand: "Fais-le en début de mois, un soir où tu as un peu de temps. Tu peux le refaire chaque fois que la petite voix critique devient trop forte. Certaines personnes le refont le soir de leur anniversaire.",
     etapes: [
@@ -165,12 +165,12 @@ window.GENESOLIA_CARNET = {
   },
 
   meditation: {
-    titre: "La lumière de février",
+    titre: "La lumière du soir",
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Sens ton corps se poser. Tes épaules descendent un peu. Ta mâchoire se desserre. Tu n’as rien à faire, rien à prouver. Juste être là, avec toi.",
-      "Imagine un soir de février. Dehors, il fait encore froid, mais tu remarques que le jour s’attarde un peu plus que la semaine dernière. Une lumière dorée se pose sur les toits, sur les branches nues. La lumière revient, sans bruit.",
+      "Imagine un soir tranquille. Dehors, l’air est frais, et tu remarques que le jour s’attarde un peu plus que la semaine dernière. Une lumière dorée se pose sur les toits, sur les branches encore nues. La lumière revient, sans bruit.",
       "[pause]",
       "Maintenant, porte ton attention au centre de ta poitrine. Imagine qu’une petite flamme y brille. Elle a toujours été là, même les jours où tu ne la voyais plus. Elle est chaude, douce, patiente.",
       "À chaque inspiration, la flamme grandit un peu. Sa chaleur se répand dans ta poitrine, dans tes épaules, le long de tes bras, jusqu’au bout de tes doigts. Puis dans ton ventre, tes jambes, tes pieds.",
@@ -205,7 +205,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-voix', q: "Qu’est-ce qui a changé dans ta façon de te parler ce mois-ci ?", ph: "Exemple : je me surprends à me dire « ce n’est pas grave » au lieu de « tu es nulle »." },
     { k: 'fin-besoin', q: "Quel besoin as-tu appris à mieux écouter, et comment le nourris-tu maintenant ?", ph: "Exemple : mon besoin de calme. Je garde dix minutes de silence après le travail, dans la voiture." },
     { k: 'fin-qualite', q: "Quelle qualité as-tu découverte ou acceptée chez toi ?", ph: "Exemple : ma douceur. Je pensais que c’était une faiblesse, je vois maintenant que c’est une force." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour mars ?", ph: "Exemple : continuer mon café du matin, et oser dire ce que je pense au moins une fois par semaine.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer mon café du matin, et oser dire ce que je pense au moins une fois par semaine.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.

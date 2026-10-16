@@ -15,7 +15,7 @@ window.GENESOLIA_PLUS = {
       "Repère une émotion forte de ta journée, fatigue, agacement ou tristesse. Écris quel besoin elle venait peut-être te signaler, sans chercher à la faire taire.",
       "Offre à ton corps un geste de deux minutes : un verre d’eau, un étirement, un pull plus chaud, une pause assise. Note ce qu’il a changé.",
       "Écris en une phrase un besoin de ton cœur, comme « J’ai besoin de reconnaissance ». Puis trouve une façon toute simple de te l’offrir toi-même aujourd’hui.",
-      "Donne à ton esprit cinq minutes de calme : sans écran, sans musique, sans tâche. Regarde par la fenêtre la lumière qui revient doucement en février.",
+      "Donne à ton esprit cinq minutes de calme : sans écran, sans musique, sans tâche. Regarde par la fenêtre la lumière du jour qui change doucement.",
       "Ose exprimer un besoin à une personne proche, en commençant par « J’ai besoin de… ». Une phrase courte, sans te justifier longuement.",
       "Relis ta semaine : quel besoin est revenu le plus souvent, et quel geste l’a le mieux nourri ? Garde ce geste pour la semaine prochaine."
     ] },

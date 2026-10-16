@@ -1,6 +1,6 @@
 /* Genesolia · Le Cercle · « Mes séances »
    Les séances se débloquent une par une, au fil des étapes : à l'étape N, les séances 1 à N de chaque cycle autorisé sont débloquées
-   (cycle 1 seul pour l'offre « cycle1 », cycles 1 et 2 pour Le Cercle complet). La page rappelle le point de départ et marque « Pour toi ».
+   (cycle 1 seul pour l'offre « cycle1 », cycles 1 et 2 pour Le Cercle). La page rappelle le point de départ et marque « Pour toi ».
    Au premier « Écouter », la séance est enregistrée comme ouverte par le serveur (ouvrir_seance), dans l'ordre des étapes.
    Le compte est fait par le serveur (fonction ouvrir_seance) ; l'écoute passe par la fonction « seance-audio » (lien d'une heure).
    Textes et règles : outils-internes/supabase-seances.sql et assets/seances.js. */
@@ -66,8 +66,8 @@
   }
   function etatCycle(cy) {
     if (!acces) return cy === 1 ? '<p class="ms-etat">Tes séances se débloquent une par une, au fil de tes étapes, dès ton entrée dans Le Cercle. <a href="abonnement.html">Découvrir Le Cercle</a></p>'
-      : '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
-    if (cyclesPermis().indexOf(cy) < 0) return '<p class="ms-etat">Réservé aux abonné·es du Cercle complet. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
+      : '<p class="ms-etat">Réservé aux abonné·es du Cercle. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
+    if (cyclesPermis().indexOf(cy) < 0) return '<p class="ms-etat">Réservé aux abonné·es du Cercle. <a href="abonnement.html">Tu veux t’abonner ?</a></p>';
     var et = etapeEnCours(), n = CAT.liste.filter(function (s) { return s.cycle === cy && debloquee(s); }).length, t;
     if (n >= 12) t = 'Tu as débloqué <b>toutes tes séances</b>. Écoute-les aussi souvent que tu veux.';
     else {
@@ -82,8 +82,8 @@
     var cls = 'ms-carte' + (ok ? ' ms-ouverte' : ' ms-fermee') + (!permis ? ' ms-grise' : '') + (toi ? ' ms-toi' : '') + (location.hash === '#seance-' + s.id ? ' ms-cible' : '');
     var action;
     if (ok) action = '<button type="button" class="btn btn-plein" data-ecouter="' + s.id + '">Écouter</button>';
-    else if (!acces) action = s.cycle === 1 ? abonner('Réservée aux membres du Cercle.') : abonner('Réservée aux abonné·es du Cercle complet.');
-    else if (!permis) action = abonner('Réservée aux abonné·es du Cercle complet.');
+    else if (!acces) action = s.cycle === 1 ? abonner('Réservée aux membres du Cercle.') : abonner('Réservée aux abonné·es du Cercle.');
+    else if (!permis) action = abonner('Réservée aux abonné·es du Cercle.');
     else action = '<p class="ms-verrou">Se débloque à ton étape ' + n + ', à partir du ' + dateCourte(plusMois(debut(), n - 1)) + '.</p>';
     return '<article class="' + cls + '" id="seance-' + s.id + '">' +
       (s.image ? '<div class="ms-img"><img src="' + esc(s.image) + '" alt="" loading="lazy" width="800" height="450">' + (ok ? '' : '<span class="ms-cadenas" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>') + '</div>' : '') +
@@ -121,7 +121,7 @@
       var d = r && r.data;
       if (r.error || !d) { bouton.disabled = false; message(id, 'L’ouverture n’a pas marché. Réessaie dans un instant.'); return; }
       if (!d.ok) {
-        var t = { mois: 'Tu as déjà ouvert ta séance de ce mois' + (d.prochaine ? ' : la prochaine s’ouvre à partir du ' + dateCourte(new Date(d.prochaine + 'T12:00:00')) : '') + '.', offre: 'Cette séance est incluse dans Le Cercle complet.', abonnement: 'Ton abonnement n’est plus actif.' }[d.erreur] || 'L’ouverture n’a pas marché.';
+        var t = { mois: 'Tu as déjà ouvert ta séance de ce mois' + (d.prochaine ? ' : la prochaine s’ouvre à partir du ' + dateCourte(new Date(d.prochaine + 'T12:00:00')) : '') + '.', offre: 'Cette séance est incluse dans Le Cercle.', abonnement: 'Ton abonnement n’est plus actif.' }[d.erreur] || 'L’ouverture n’a pas marché.';
         message(id, t); bouton.disabled = false; return;
       }
       ouvertes[id] = +id.charAt(1); choix = ''; afficher();
@@ -147,7 +147,7 @@
     sb.rpc('ouvrir_seance', { p_seance: id }).then(function (r) {
       var d = r && r.data; bouton.disabled = false;
       if (!r.error && d && d.ok) { ouvertes[id] = +id.charAt(1); if (window.umami) try { window.umami.track('seance-ouverte', { seance: id }); } catch (x) {} ecouter(id, bouton); return; }
-      message(id, d && d.erreur === 'abonnement' ? 'Ton abonnement n’est plus actif.' : d && d.erreur === 'offre' ? 'Cette séance est réservée aux abonné·es du Cercle complet.' : 'La séance ne s’ouvre pas pour l’instant. Réessaie dans un instant, ou écris-nous à contact@genesolia.fr.');
+      message(id, d && d.erreur === 'abonnement' ? 'Ton abonnement n’est plus actif.' : d && d.erreur === 'offre' ? 'Cette séance est réservée aux abonné·es du Cercle.' : 'La séance ne s’ouvre pas pour l’instant. Réessaie dans un instant, ou écris-nous à contact@genesolia.fr.');
     }, function () { bouton.disabled = false; message(id, 'La séance ne s’ouvre pas pour l’instant. Recharge la page.'); });
   }
   function message(id, t) { var z = racine.querySelector('[data-lecteur="' + id + '"]'); if (z) z.innerHTML = '<p class="ms-note">' + esc(t) + '</p>'; }

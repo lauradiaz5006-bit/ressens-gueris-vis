@@ -8,7 +8,7 @@ window.GENESOLIA_PLUS = {
       "Fais le tour de ton lieu de vie en silence, comme un·e invité·e. Repère l’endroit où ton regard se pose avec plaisir, et celui qu’il évite.",
       "Choisis le coin que tu vas transformer cette semaine. Prends-le en photo tel qu’il est aujourd’hui, pour pouvoir comparer à la fin.",
       "Retire de ce coin trois objets qui n’ont rien à y faire. Range-les ailleurs ou mets-les de côté, sans chercher à tout trier maintenant.",
-      "Ajoute à ton coin une chose qui te ressemble : une plante, une lampe, une photo, une pierre ramassée cet été. Assieds-toi deux minutes à côté.",
+      "Ajoute à ton coin une chose qui te ressemble : une plante, une lampe, une photo, une pierre ramassée en balade. Assieds-toi deux minutes à côté.",
       "Ouvre grand les fenêtres et écoute ton quartier pendant une minute. Note les bruits qui te font te sentir chez toi, et ceux qui te dérangent.",
       "Regarde la photo du début de semaine, puis ton coin aujourd’hui. Écris ce qui a changé, et ce que tu ressens en t’y installant."
     ] },
@@ -43,20 +43,20 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Engranger la douceur de ton lieu",
         texte: [
-          "Fin août, la moisson est rentrée et les soirées raccourcissent doucement. C’est le moment de regarder ce que ce mois t’a donné : un coin qui te ressemble, des marches au coucher du soleil, un lieu découvert, peut-être une envie de changement mieux comprise. Récolter, ce n’est pas vérifier que ton chez-moi est enfin parfait. C’est remarquer ce qui a bougé, même un seul coin.",
+          "Ton étape touche à sa fin, comme une moisson qu’on rentre. C’est le moment de regarder ce que ce mois t’a donné : un coin qui te ressemble, des marches au coucher du soleil, un lieu découvert, peut-être une envie de changement mieux comprise. Récolter, ce n’est pas vérifier que ton chez-moi est enfin parfait. C’est remarquer ce qui a bougé, même un seul coin.",
           "La gratitude envers ton lieu change ta façon de l’habiter. Quand tu remercies ton chez-moi pour l’abri, le repos, les repas partagés, tu cesses de le voir comme une liste de choses à réparer. Tu commences à le voir comme un allié. Et c’est souvent depuis un lieu où l’on se sent en sécurité que l’élan peut vraiment naître : on part plus librement quand on sait où revenir.",
           "Par exemple, Thomas trouvait son appartement trop petit pour s’y sentir bien. Ce mois-ci, il a seulement installé un fauteuil près de la fenêtre et pris l’habitude de marcher le soir. En refaisant sa roue, il voit que son chez-moi est passé de 4 à 6. Il n’a pas déménagé, mais il rentre désormais avec plaisir, et son rêve de vivre près de la nature lui paraît moins lointain, plus calme.",
-          "Cette semaine, tu donnes aussi vie à ton intention. Tu la visualises dans ton lieu, tu choisis une croyance qui la porte, et tu la résumes en trois mots. Le rituel du seuil et la maison intérieure te rappellent la même chose : être chez toi commence en toi, et tu emportes cet appui partout où tu vas, jusqu’à la rentrée."
+          "Cette semaine, tu donnes aussi vie à ton intention. Tu la visualises dans ton lieu, tu choisis une croyance qui la porte, et tu la résumes en trois mots. Le rituel du seuil et la maison intérieure te rappellent la même chose : être chez toi commence en toi, et tu emportes cet appui partout où tu vas, jusqu’à ta prochaine étape."
         ]
       },
       jours: [
         "Ce soir, regarde la lumière dorée entrer chez toi pendant cinq minutes, sans rien faire d’autre. Note une chose que ton lieu t’a offerte ce mois-ci.",
-        "Ferme les yeux et imagine ton intention réalisée, chez toi, un soir de septembre. Décris en trois lignes ce que tu vois, entends et ressens.",
+        "Ferme les yeux et imagine ton intention réalisée, chez toi, un soir du mois prochain. Décris en trois lignes ce que tu vois, entends et ressens.",
         "Choisis la croyance qui soutient ton intention, comme « j’ai le droit de m’installer ». Écris-la et pose-la près de ta porte d’entrée.",
         "Invite quelqu’un à passer chez toi, pour un café ou un verre au frais. Remarque ce que ça te fait de l’accueillir dans ton lieu.",
         "Repense à ta maison intérieure de la séance. Ajoute chez toi un détail qui lui ressemble : une couleur, une odeur, une lumière, un tissu.",
         "Envoie un message de remerciement à une personne qui t’a aidé·e à te sentir chez toi cette année : un voisin, une amie, un proche.",
-        "Relis ton mois : ton coin, tes marches, ton lieu nouveau, ta roue refaite. Écris en une phrase l’élan que tu emportes vers septembre."
+        "Relis ton mois : ton coin, tes marches, ton lieu nouveau, ta roue refaite. Écris en une phrase l’élan que tu emportes vers ta prochaine étape."
       ] }
   ],
   suivi: [
@@ -72,7 +72,7 @@ window.GENESOLIA_PLUS = {
     { jours: [
       "Choisis un départ de ta lignée dont tu as entendu parler. Écris en trois lignes ce que tu en sais : qui est parti, d’où, et vers où.",
       "Compte combien de fois tu as déménagé dans ta vie. À côté de chaque lieu, note un seul mot pour ce que tu as ressenti en partant.",
-      "Prépare ta question sur les lieux et les départs. Écris-la simplement, puis choisis à qui la poser pendant une visite ou un appel d’été.",
+      "Prépare ta question sur les lieux et les départs. Écris-la simplement, puis choisis à qui la poser pendant une visite ou un appel.",
       "Pose ta question aujourd’hui. Écoute aussi les silences et les « je ne sais pas », et note la réponse avec les mots de la personne.",
       "Place dans ton arbre familial un lieu de naissance ou un départ que tu viens d’apprendre. Une seule information suffit pour aujourd’hui.",
       "Pense à une personne partie de son pays ou de sa région. Écris ce qu’elle a peut-être laissé derrière elle : une langue, une maison, des proches.",
@@ -89,7 +89,7 @@ window.GENESOLIA_PLUS = {
       jours: [
         "Écris les trois départs que tu choisis pour ton exercice, un par ligne. À côté de chacun, note la première émotion qui vient.",
         "Pour l’un de ces départs, cherche la force qu’il t’a transmise : recommencer, t’adapter, oser. Écris-la, et dis merci intérieurement.",
-        "Choisis le lieu à qui tu vas écrire ta lettre. Ferme les yeux une minute et imagine-le en plein été, avec ses sons et ses odeurs.",
+        "Choisis le lieu à qui tu vas écrire ta lettre. Ferme les yeux une minute et imagine-le par une belle journée, avec ses sons et ses odeurs.",
         "Relis ta lettre à un lieu à voix haute. Arrête-toi sur la phrase où tu rends la nostalgie, et respire lentement trois fois.",
         "Prépare ta terre et ta graine pour le rituel. Avant de commencer, touche la terre du bout des doigts et remarque ce que tu ressens.",
         "Écoute la séance du chemin vers la maison, ou seulement sa fin. Note le lieu où tu es arrivé·e et ce que tu as déposé au bord de la route.",
@@ -102,11 +102,11 @@ window.GENESOLIA_PLUS = {
       "Apprends aujourd’hui le prénom d’un voisin, d’une commerçante ou du boulanger, et utilise-le pour dire bonjour. Remarque ce que ça change.",
       "Prends une minute pour t’occuper de la plante du rituel : arrose-la, tourne-la vers la lumière. Dis-lui doucement que tu restes là.",
       "Cuisine ou goûte un plat lié à un lieu de ta lignée. Partage-le si tu peux, et raconte en une phrase d’où il vient.",
-      "Relis ton journal du geste qui enracine. Écris ce qui te fait te sentir chez toi aujourd’hui, et ce que tu veux garder pour la rentrée."
+      "Relis ton journal du geste qui enracine. Écris ce qui te fait te sentir chez toi aujourd’hui, et ce que tu veux garder pour la suite."
     ],
       exercices: [
         { k: "plus4", titre: "Ce qui m’enracine, ceux qui m’entourent", type: "questions",
-          consigne: "Pour que ton geste qui enracine devienne une vraie habitude, prends quelques minutes pour l’ancrer dans ta vie. Réponds à ces trois questions en pensant à la rentrée et aux mois qui viennent.",
+          consigne: "Pour que ton geste qui enracine devienne une vraie habitude, prends quelques minutes pour l’ancrer dans ta vie. Réponds à ces trois questions en pensant aux semaines et aux mois qui viennent.",
           pourquoi: "On s’installe vraiment quelque part quand on y a des repères et des liens. Savoir quand tu refais ton geste, ce que tu gardes des lieux de ta lignée et qui t’entoure là où tu vis rend ton enracinement plus solide, même si un jour tu choisis de bouger.",
           questions: [
             { k: "plus4-a", q: "À quel moment de ta semaine refais-tu ton geste qui enracine, pour qu’il devienne un repère ?", ph: "Exemple : le dimanche matin, j’arrose mes plantes, puis je bois mon café sur le même banc du parc.", lignes: 2 },

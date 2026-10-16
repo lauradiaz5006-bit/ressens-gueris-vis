@@ -47,11 +47,11 @@ window.GENESOLIA_CARNET = {
     liberer: "Rendre une peur à ta lignée ne t’éloigne pas des tiens. Tu gardes leur courage et tu poses leur poids.",
     remplacer: "Une nouvelle phrase, un petit geste de permission. C’est ainsi que l’on commence à transmettre autre chose.",
     meditation: "Garde tes mains ouvertes, et si une émotion monte, reviens simplement à ton souffle. Tu peux reprendre un autre jour.",
-    bilan: "Regarde ce que tu t’autorises aujourd’hui que tu ne t’autorisais pas au début du mois. C’est ça, la récolte."
+    bilan: "Regarde ce que tu t’autorises aujourd’hui que tu ne t’autorisais pas au début de cette étape. C’est ça, la récolte."
   },
 
   theme: {
-    titre: 'Le mois de l’argent',
+    titre: 'Ma valeur, mon argent',
     texte: [
       "L'argent est l'un des sujets les plus chargés dans une famille. On en parle trop, ou jamais. Il rassemble autour d'une maison achetée ensemble, il divise autour d'un héritage, il laisse des souvenirs de fierté, de gêne ou de honte. Souvent, les enfants comprennent très tôt ce qu'il ne faut pas demander.",
       "Avec ce mois s'ouvre le troisième temps de l'année du Cercle, **Transmettre**. Après avoir vu ce qui revient, puis traversé les liens avec tes mères et tes pères, tu regardes maintenant ce qui se transmet de génération en génération, en commençant par l'argent. Tu ne cherches pas à juger tes parents ni tes aïeux, seulement à voir ce que tu portes, pour choisir ce que tu gardes, et ce que tu feras passer à ton tour."
@@ -176,7 +176,7 @@ window.GENESOLIA_CARNET = {
           ph: "Exemple : désormais, je me dis « mon travail a de la valeur, et j’ai le droit d’être bien payé·e », et je m’autorise à annoncer mon vrai tarif dès le premier rendez-vous.",
           journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu as osé recevoir, demander ou dépenser pour toi : quand, et qu’est-ce que ça t’a fait ?", ph: "Exemple : samedi, j’ai acheté les cerises sans regarder le prix. Je les ai mangées sur mon balcon, et j’ai pensé à mamie avec tendresse." } }
       ],
-      conseil: "Si le vieux réflexe revient malgré tout, ce n’est pas un échec : remarque-le après coup, et dis-toi « la prochaine fois ». Ton rapport à l’argent s’est construit sur des générations : il peut se transformer à ton rythme, sans te presser, comme un fruit qui mûrit en été." }
+      conseil: "Si le vieux réflexe revient malgré tout, ce n’est pas un échec : remarque-le après coup, et dis-toi « la prochaine fois ». Ton rapport à l’argent s’est construit sur des générations : il peut se transformer à ton rythme, sans te presser, comme un fruit qui mûrit au soleil." }
   ],
 
   meditation: {
@@ -192,7 +192,7 @@ window.GENESOLIA_CARNET = {
       "Chacune a vécu l'argent à sa manière, avec ce qu'elle avait et ce qu'elle savait, à son époque. Tu peux les regarder avec respect, sans rien leur reprocher, sans rien leur devoir non plus.",
       "Si tu portes une peur qui ne t'appartient pas, la peur de manquer, de perdre, de trop avoir, imagine que tu la poses doucement devant elles, comme un vieux sac. Dis intérieurement : « Je vous la rends. Je garde votre courage. »",
       "[longue pause]",
-      "Reviens à tes mains ouvertes. Imagine qu'elles reçoivent quelque chose de doux : une lumière dorée d’été, une chaleur, un mot. Laisse-les recevoir, simplement, sans rien rendre tout de suite.",
+      "Reviens à tes mains ouvertes. Imagine qu'elles reçoivent quelque chose de doux : une lumière dorée, une chaleur, un mot. Laisse-les recevoir, simplement, sans rien rendre tout de suite.",
       "Si une petite voix dit « ce n’est pas pour toi », remercie-la de t’avoir protégé·e, et laisse tes mains ouvertes un instant de plus.",
       "Sens que tu as le droit d'être là, de prendre ta place, de recevoir ta juste part. Derrière toi, ta lignée te regarde avancer, et tu peux lui dire merci pour tout ce qu'elle a construit.",
       "[pause]",
@@ -249,7 +249,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-histoire', q: "Qu’as-tu compris de l’histoire d’argent de ta lignée ?", ph: "Exemple : ma grand-mère a payé les dettes de mon grand-père en cachette. Sa honte est devenue la mienne." },
     { k: 'fin-laisse', q: "Qu’as-tu laissé à ta lignée, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : la peur de manquer. Je regarde mon compte moins souvent, et avec moins de peur." },
     { k: 'fin-autorise', q: "Que t’autorises-tu désormais, et quel geste de permission as-tu osé ?", ph: "Exemple : je m’autorise à être bien payé·e. J’ai annoncé mon nouveau tarif à deux clientes, et elles ont accepté." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en août, en regardant les lieux et les départs de ta lignée ?", ph: "Exemple : continuer à recevoir sans honte, et découvrir d’où vient ma famille, et où je me sens chez moi.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape, en regardant les lieux et les départs de ta lignée ?", ph: "Exemple : continuer à recevoir sans honte, et découvrir d’où vient ma famille, et où je me sens chez moi.", court: true }
   ],
 
   carnet: {

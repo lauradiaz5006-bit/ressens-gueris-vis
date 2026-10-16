@@ -45,7 +45,7 @@ window.GENESOLIA_CARNET = {
     theme: "Rien à faire ici, seulement à lire. Laisse revenir les moments où tu étais tellement absorbé·e que tu oubliais l’heure.",
     comprendre: "Une vocation n’est pas toujours un métier. C’est parfois une façon d’être au travail, un fil qui relie tout ce que tu aimes faire.",
     exercices: "Le premier exercice te fait voyager dans ton enfance. Prends une vieille photo de toi, si tu en as une.",
-    rituel: "Ce mois-ci, ta connexion passe par un cahier neuf et la lumière de l’équinoxe. Une page blanche, rien qu’à toi.",
+    rituel: "Ce mois-ci, ta connexion passe par un cahier neuf et la lumière du soir. Une page blanche, rien qu’à toi.",
     semaines: "Une heure pour ta vocation cette semaine vaut mieux qu’un grand projet repoussé à l’année prochaine.",
     cloture: "Regarde tes notes du mois : tu as sûrement retrouvé un fil. Même mince, c’est le tien."
   },
@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois de la vocation',
     texte: [
-      "Septembre, c’est la rentrée. Les cahiers neufs, les agendas vierges, la reprise du travail après l’été. C’est un moment où l’on se pose naturellement la question : est-ce que ce que je fais me ressemble ? Est-ce que je me lève le matin pour quelque chose qui a du sens pour moi ?",
+      "Pense aux cahiers neufs, aux agendas vierges, à la reprise du travail après une pause. Ce sont des moments où l’on se pose naturellement la question : est-ce que ce que je fais me ressemble ? Est-ce que je me lève le matin pour quelque chose qui a du sens pour moi ?",
       "Ce carnet t’invite à retrouver ce qui te fait vibrer. Pas forcément pour changer de métier demain, mais pour remettre un peu plus de toi dans ta vie professionnelle, et dans tes journées en général. Ta vocation n’est pas un grand destin caché quelque part : c’est souvent un fil que tu tiens déjà, depuis l’enfance, sans l’avoir remarqué."
     ],
     sousTitre: 'Qu’est-ce qu’une vocation ?',
@@ -98,7 +98,7 @@ window.GENESOLIA_CARNET = {
       ] }
     ],
     regarderTitre: 'Pour ta vocation, demande-toi',
-    regarderIntro: "Prends ces questions une par une, au calme, avec ton cahier de rentrée. Réponds avec la première idée qui vient : on corrigera plus tard, si besoin.",
+    regarderIntro: "Prends ces questions une par une, au calme, avec ton cahier neuf. Réponds avec la première idée qui vient : on corrigera plus tard, si besoin.",
     regarder: [
       { k: 'voc-enfant', q: "Qu’aimais-tu faire pendant des heures quand tu étais enfant ?", ph: "Exemple : construire des cabanes, inventer des histoires pour mes petits cousins, trier ma collection de pierres." },
       { k: 'voc-aide', q: "Pour quoi vient-on te chercher, au travail, en famille ou entre amis ?", ph: "Exemple : pour organiser les voyages, pour écouter quand ça ne va pas, pour réparer ce qui est cassé." },
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     enLigne: "Si une voie t’attire et que tu te bloques chaque fois que tu t’en approches, ton [suivi « Je me libère »](mon-suivi.html) t’aide ce mois-ci à regarder les métiers et les rêves de ta lignée. Tu peux aussi lire [les métiers transmis dans les familles](metiers-transmis-genealogie.html), et regarder ton [thème numérologique](theme-numerologique.html), qui parle de tes talents.",
     outils: [
       ['theme-numerologique.html', 'Mon thème numérologique', 'Ton chemin de vie et tes nombres, pour mettre des mots sur tes talents et ce qui te fait vibrer.'],
-      ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel de septembre et tes dates clés, pour savoir quand oser ton pas.'],
+      ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel du mois et tes dates clés, pour savoir quand oser ton pas.'],
       ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : les métiers de ta lignée, les vocations empêchées et les phrases sur le travail.']
     ]
   },
@@ -133,7 +133,7 @@ window.GENESOLIA_CARNET = {
       etiquettes: ['Une personne proche', 'Une personne de mon travail', 'Une personne qui me connaît depuis longtemps'],
       consigne: "Demande à trois personnes, par message ou de vive voix : « Pour quoi est-ce que je suis doué·e, selon toi ? Et à quel moment tu l’as vu ? » Note leurs réponses sans les discuter, même si elles te surprennent. Puis écris ce que tu en retiens.",
       pourquoi: "Nos talents nous semblent naturels, alors on ne les voit pas. Les autres, eux, les remarquent. Recevoir leur regard, c’est découvrir ce que tu offres déjà au monde, souvent sans le savoir.",
-      astuce: "Si tu n’oses pas demander, explique que c’est un exercice de rentrée. La plupart des gens sont touchés qu’on leur pose la question, et répondent avec beaucoup de chaleur.",
+      astuce: "Si tu n’oses pas demander, explique que c’est un exercice de ton carnet. La plupart des gens sont touchés qu’on leur pose la question, et répondent avec beaucoup de chaleur.",
       champs: [
         { q: "Qui as-tu interrogé ?", ph: ["Exemple : ma sœur Camille", "Exemple : Malik, mon collègue de bureau", "Exemple : ma marraine"] },
         { q: "Quel talent t’a-t-il ou elle reconnu ?", ph: ["Exemple : « Tu sais mettre les gens à l’aise »", "Exemple : « Tu expliques les choses compliquées très simplement »", "Exemple : « Tu as toujours su réparer ce qui était cassé »"] },
@@ -150,10 +150,10 @@ window.GENESOLIA_CARNET = {
   ],
 
   rituel: {
-    titre: 'Le cahier neuf de l’équinoxe',
-    intro: "Autour du 22 septembre, le jour et la nuit ont la même durée : c’est l’équinoxe d’automne, un moment d’équilibre avant que les jours raccourcissent. Ce petit rituel symbolique t’invite à ouvrir un cahier neuf, à remercier ce que tu as déjà accompli, et à écrire sur la première page ce que tu veux vivre dans ton travail. Il se fait en quinze minutes.",
+    titre: 'Le cahier neuf de l’équilibre',
+    intro: "Imagine le jour et la nuit à parts égales : un moment d’équilibre, comme un seuil entre deux temps. Ce petit rituel symbolique t’invite à ouvrir un cahier neuf, à remercier ce que tu as déjà accompli, et à écrire sur la première page ce que tu veux vivre dans ton travail. Il se fait en quinze minutes.",
     materiel: "Un cahier neuf ou un carnet que tu aimes, un stylo, une bougie, et un objet qui représente ce que tu sais faire : un outil, un pinceau, une photo, un livre.",
-    quand: "Fais-le le jour de l’équinoxe, le 22 ou le 23 septembre, ou un soir de rentrée où tu as un peu de calme. Tu peux le refaire à chaque grand tournant professionnel : un nouveau poste, un projet, une reconversion.",
+    quand: "Fais-le en début d’étape, un soir où tu as un peu de calme. Tu peux le refaire à chaque grand tournant professionnel : un nouveau poste, un projet, une reconversion.",
     etapes: [
       "Installe-toi au calme. Allume la bougie. Pose devant toi le cahier fermé et l’objet qui représente ton savoir-faire.",
       "Prends l’objet dans tes mains. Pense à tout ce que tu as appris, réussi, transmis depuis que tu travailles. Dis intérieurement : « Merci pour tout ce que je sais déjà faire. »",
@@ -170,8 +170,8 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Sens ton corps se poser. Laisse partir les listes, les rendez-vous, les mails de la rentrée. Pour quelques minutes, il n’y a rien à faire.",
-      "Imagine que tu marches dans une forêt de fin d’été. La lumière filtre entre les feuilles, qui commencent tout juste à dorer. Tu entends, quelque part, le bruit d’une source.",
+      "Sens ton corps se poser. Laisse partir les listes, les rendez-vous, les mails de la semaine. Pour quelques minutes, tu es simplement là.",
+      "Imagine que tu marches dans une forêt douce et lumineuse. La lumière filtre entre les feuilles, qui commencent tout juste à dorer. Tu entends, quelque part, le bruit d’une source.",
       "Suis ce bruit. Il te guide entre les arbres, sur un petit chemin de terre. Bientôt, tu arrives devant une source claire qui jaillit d’entre les pierres.",
       "[pause]",
       "Assieds-toi près d’elle. Regarde l’eau couler, sans effort, sans jamais s’arrêter. Cette source, c’est ce qui te fait vibrer. Elle coule en toi depuis toujours, même quand tu ne l’entends plus.",
@@ -183,7 +183,7 @@ window.GENESOLIA_CARNET = {
       "Dis intérieurement : « Ma vocation coule en moi. Je l’écoute, je la suis, un pas après l’autre. »",
       "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Fais-la un dimanche soir de septembre, avant la semaine, ou un matin tôt, avant que la maison s’éveille. Garde ton cahier de l’équinoxe à côté de toi : une idée vient souvent juste après.",
+    conseil: "Fais-la un dimanche soir, avant la semaine, ou un matin tôt, avant que la maison s’éveille. Garde ton cahier neuf à côté de toi : une idée vient souvent juste après.",
     note: { k: 'medit-source', q: "Quelle image de toi enfant, puis de toi aujourd’hui, est venue près de la source ?", ph: "Exemple : enfant, je construisais des cabanes. Aujourd’hui, je réaménageais le salon de mon amie. C’est le même plaisir." }
   },
 
@@ -207,16 +207,16 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-vibre', q: "Qu’as-tu découvert sur ce qui te fait vraiment vibrer ce mois-ci ?", ph: "Exemple : j’aime transmettre. Chaque fois que j’explique quelque chose à quelqu’un, je me sens à ma place." },
     { k: 'fin-talent', q: "Quel talent as-tu reconnu en toi, grâce aux autres ou à tes essais ?", ph: "Exemple : ma patience, et ma façon de mettre les gens à l’aise." },
     { k: 'fin-pas-voc', q: "Quel petit pas as-tu fait vers ta vocation, et qu’est-ce qu’il t’a appris ?", ph: "Exemple : j’ai appelé une formatrice. J’ai compris qu’une reconversion est possible, à mon rythme." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour octobre ?", ph: "Exemple : continuer à donner une heure par semaine à ce qui me fait vibrer, et faire le bilan de mon année.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer à donner une heure par semaine à ce qui me fait vibrer, et faire le bilan de mon année.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
      Étapes : une phrase, { t, liste, fin } ou un groupe { titre, etapes }. Clés de champ : exmois-note, exmois-fait. */
   exerciceDuMois: {
-    titre: "La récolte · Le rituel de l’équinoxe",
+    titre: "La récolte · Le rituel de l’équilibre",
     objectif: "reconnaître le chemin parcouru et accueillir ce qui m’appelle.",
     sousObjectif: "faire le bilan de l’année, garder ce qui a poussé, laisser ce qui a fini son temps, et écouter ma vocation.",
-    duree: "début du mois : 30 min. Semaine de l’équinoxe, autour du 22 septembre : le rituel, 30 min.",
+    duree: "début du mois : 30 min. Au milieu de ton étape : le rituel, 30 min.",
     temps: [
       {
         titre: "Début du mois (30 min)",
@@ -227,9 +227,9 @@ window.GENESOLIA_CARNET = {
         ]
       },
       {
-        titre: "Semaine de l’équinoxe · Le rituel de la récolte (30 min)",
+        titre: "Au milieu de ton étape · Le rituel de la récolte (30 min)",
         etapes: [
-          "**L’autel (5 min).** Sur ton autel de saison, des fruits, des feuilles d’automne, et tes deux bougies de mars. Si ta graine de mars a poussé, place-la au centre.",
+          "**L’autel (5 min).** Sur ton autel de saison, des fruits, des feuilles, et tes deux bougies de l’étape « Ma direction, ma confiance ». Si la graine semée alors a poussé, place-la au centre.",
           "**Remercier (10 min).** Allume les bougies. Pour chaque chose de ton panier « je garde » : « Merci pour… »",
           "**Laisser partir (10 min).** Écris ton panier « je laisse » sur un papier, puis confie-le à la terre ou au feu : « Je laisse partir ce qui a fini son temps. »",
           "**Accueillir (5 min).** Mains sur le cœur : « Je remercie pour ce qui a poussé. J’accueille l’année qui vient. » Souffle les bougies."

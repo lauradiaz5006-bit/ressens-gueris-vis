@@ -12,13 +12,13 @@ window.GENESOLIA_CARNET = {
   nomMois: 'mars 2027',
   moisSuivant: 'avril',
   titre: "Quelles émotions avaient le droit d’exister ?",
-  sousTitre: "Tronc de ton arbre de vie · Regarder la place que tu as reçue parmi tes frères et sœurs, et choisir celle que tu veux habiter aujourd’hui.",
-  citation: "Chaque enfant naît dans une famille différente, même sous le même toit.",
+  sousTitre: "Tronc de ton arbre de vie · Voir les émotions bienvenues et celles mises de côté dans ta famille, distinguer émotion et sentiment, et rendre à chacune sa place en toi.",
+  citation: "Une émotion qui a le droit d’exister peut enfin passer.",
   audio: '',
   audioCourt: '',
-  saisonLien: "Mars, c’est l’élan du printemps et ses giboulées : un grand soleil, puis une averse, puis le soleil encore. Sur la branche, chaque bourgeon sort à sa place, ni avant ni après les autres. C’est le bon moment pour regarder la tienne, parmi tes frères et sœurs, et sentir l’élan de choisir celle que tu veux habiter.",
-  intensiteQ: "À quel point le rôle que tu tiens dans ta fratrie pèse-t-il aujourd’hui ?",
-  souhaitPh: "Exemple : ce rôle de grande sœur responsable de tout, même à 40 ans.",
+  saisonLien: "Mars, c’est le mois des giboulées : un grand soleil, puis une averse, puis le soleil encore. Personne ne demande au ciel de choisir entre les deux. Tes émotions ressemblent à ce ciel de mars : elles arrivent, elles passent, et la lumière revient. C’est le bon moment pour regarder lesquelles avaient le droit de traverser ta famille, et laisser les tiennes circuler à nouveau.",
+  intensiteQ: "À quel point les émotions que tu gardes pour toi, sans pouvoir les montrer, t’encombrent-elles aujourd’hui ?",
+  souhaitPh: "Exemple : cette colère que je ravale au travail, et qui ressort le soir contre mes enfants.",
 
   decor: {
     couverture: 'assets/formation/montagne.jpg',
@@ -35,172 +35,173 @@ window.GENESOLIA_CARNET = {
       bilan: 'assets/guide/guide-livre-lumineux.webp'
     },
     cartes: {
-      theme: ['assets/cartes/ma-place-mini.jpg', "Ma place existe. Je n’ai pas à la mériter."]
+      theme: ['assets/cartes/faire-semblant-mini.jpg', "Toutes mes émotions ont le droit d’exister."]
     }
   },
 
   mots: {
-    saison: "Commence par respirer avec la saison. Que tu aies cinq frères et sœurs ou aucun, ta place compte.",
-    theme: "Lis cette page comme une lettre. Remarque les rôles dans lesquels tu te reconnais, sans te juger.",
-    voir: "Cette semaine, tu observes ta place et ton rôle, au présent comme dans ton enfance. Voir, c’est déjà commencer à choisir.",
-    source: "Les fratries de tes parents ont souvent beaucoup à t’apprendre sur la tienne. Prends ton temps.",
-    liberer: "Poser un rôle ne veut pas dire abandonner les tiens. Tu peux les aimer autant, en portant moins.",
-    remplacer: "Un petit geste différent, à ta juste place, suffit cette semaine. Ta famille s’ajustera, à son rythme.",
+    saison: "Commence par respirer avec le ciel du moment. Soleil ou averse, chaque émotion a le droit de passer.",
+    theme: "Lis cette page comme une lettre. Remarque les émotions dans lesquelles tu te reconnais, sans te juger.",
+    voir: "Cette semaine, tu observes la météo de tes émotions, chez toi comme dans ta famille. Voir, c’est déjà commencer à accueillir.",
+    source: "Les règles d’une famille sur les émotions se transmettent souvent sans un mot. Remonte le fil avec douceur, et prends ton temps.",
+    liberer: "Rendre sa place à une émotion ne veut pas dire te laisser déborder. Tu l’écoutes, puis tu choisis ce que tu en fais.",
+    remplacer: "Laisser passer une émotion, un petit moment à la fois, suffit cette semaine. Ta voix revient à son rythme.",
     meditation: "Une fois dans le mois, un soir tranquille. Si une émotion monte, reviens à ton souffle : tu peux t’arrêter à tout moment.",
-    bilan: "Prends ce moment même si tout n’a pas été fait. Tu as regardé ta place, et c’est déjà la prendre un peu."
+    bilan: "Prends ce moment même si tout n’a pas été fait. Tu as écouté tes émotions, et c’est déjà leur rendre un peu de place."
   },
 
   theme: {
-    titre: "Regarder ta place parmi les tiens",
+    titre: "Les émotions qui avaient leur place chez toi",
     texte: [
-      "Mars ramène le printemps. Les bourgeons sortent un à un, chacun à sa place sur la branche. C’est le bon moment pour regarder la tienne : celle que tu occupes parmi tes frères et sœurs, demi-frères et demi-sœurs, ou seul·e si tu es enfant unique.",
-      "Aîné·e, cadet·te, benjamin·e : ton rang a souvent dessiné un rôle, des attentes, des alliances et des rivalités. On te l’a parfois répété sans y penser : « c’est toi la grande », « lui, c’est le petit ». Ce mois-ci t’invite à observer cette place avec curiosité, sans reproche, pour mieux voir ce que tu veux en garder.",
-      "Tu continues le deuxième temps de ton année de suivi : **Traverser**, de janvier à juin. Après avoir appris à voir ce qui revient, tu traverses un à un les grands fils de ta lignée. Après celui de l’amour en février, voici celui des frères et sœurs."
+      "Dans chaque famille, certaines émotions sont bienvenues, d’autres simplement tolérées, d’autres encore mises de côté. Chez certain·es, on rit fort mais on ne pleure jamais devant les autres. Chez d’autres, la colère du père fait trembler la maison, et celle des enfants est interdite. Ces règles se disent rarement : elles se sentent, très tôt, dans un regard, un silence, une porte qui claque.",
+      "Tu continues le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après la peur héritée et le projet posé sur toi, tu regardes ce mois-ci les émotions qui avaient le droit d’exister dans ta famille, et celles qu’on a appris à cacher. Le but : rendre à chacune sa place, pour que ta voix retrouve toutes ses couleurs."
     ],
-    sousTitre: "Rangs, rôles et absents",
+    sousTitre: "Bienvenues, tolérées, mises de côté",
     texte2: [
-      "En psychogénéalogie, on observe que la place dans la fratrie compte autant que la famille elle-même. L’aîné·e reçoit souvent les responsabilités et les attentes, le ou la benjamin·e la liberté ou la protection, l’enfant du milieu cherche parfois sa place entre les deux. L’enfant unique, lui, porte seul·e tous les regards. À ces rangs s’ajoutent des rôles : le sage, la rebelle, celui qui fait rire, celle qui s’occupe de tout. On les endosse tôt, et on les reprend vite dès qu’on se retrouve en famille.",
-      "Une fratrie compte aussi ses absent·es : un frère mort jeune, une sœur jamais née, une grossesse dont on n’a pas parlé. Même invisibles, ces enfants changent souvent la place des autres. Un enfant né peu après un décès peut grandir avec l’impression de devoir compter pour deux. Il arrive aussi que la fratrie de tes parents se rejoue dans la tienne, une génération plus tard. Pour aller plus loin : [la place dans la fratrie](place-dans-la-fratrie.html).",
-      "Ce mois-ci, tu vas **voir** ta place et celles de ta lignée, **remonter** aux rôles et aux échos entre les fratries, **poser** ce qui ne t’appartient pas, et **choisir** un geste à ta juste place."
+      "En psychogénéalogie, on observe que les émotions se transmettent autant que les histoires. Une arrière-grand-mère qui a dû tenir seule pendant la guerre a peut-être appris à ne jamais montrer sa tristesse. Sa fille a grandi en entendant « on ne pleure pas pour si peu », et sa petite-fille, aujourd’hui, sourit quand elle a envie de crier. Une émotion mise de côté ne disparaît pas : elle se déguise. La colère devient fatigue, la tristesse devient agacement, la peur devient besoin de tout contrôler.",
+      "Pour les reconnaître, souviens-toi : une **émotion** est une vague courte, dans le corps, ici et maintenant ; un **sentiment** s’installe dans la durée, nourri par les pensées et l’histoire. Une émotion retenue longtemps peut devenir un sentiment : une colère ravalée devient rancœur, une tristesse cachée devient nostalgie. Pour aller plus loin : [émotion ou sentiment](emotion-ou-sentiment.html), [la roue des émotions](roue-des-emotions.html) pour trouver le mot juste, et [les cinq éléments et les émotions](cinq-elements-emotions.html), une lecture symbolique de chacune.",
+      "Ce mois-ci, tu vas **voir** la météo émotionnelle de ta famille et la tienne, **remonter** à la règle qui a appris à chacun·e quoi montrer et quoi cacher, **rendre** sa place à trois émotions mises de côté, et **laisser passer** une émotion au quotidien. Au moment où la vague monte, tu retrouves aussi le protocole en 60 secondes de ta formation."
     ],
-    exemplesTitre: "À quoi ressemble un rôle de fratrie, au quotidien",
+    exemplesTitre: "À quoi ressemble une émotion mise de côté, au quotidien",
     exemples: [
-      "**La grande qui gère** : c’est toujours toi qu’on appelle quand ta mère a un souci de papiers, même si ton frère habite à côté.",
-      "**Le petit qu’on ne prend pas au sérieux** : à 35 ans, tu as un métier et deux enfants, et on te demande encore « Tu es sûr de toi ? » à chaque décision.",
-      "**L’enfant du milieu invisible** : au repas de famille, la conversation passe au-dessus de toi, et tu finis par débarrasser la table sans rien dire.",
-      "**La comparaison qui continue** : ta sœur vient d’acheter une maison, et tu sens revenir le vieux pincement de l’école, quand ses notes étaient affichées sur le frigo.",
-      "**Le médiateur** : dès que deux membres de la famille se disputent, tu te retrouves au milieu, à calmer tout le monde, épuisé·e."
+      "**La colère qui devient sourire** : ton collègue présente ton travail comme le sien en réunion, tu souris, et le soir tu claques les placards sans savoir pourquoi.",
+      "**Les larmes retenues** : au cinéma, Camille sent les larmes monter et serre la mâchoire. Chez elle, on disait « arrête ton cinéma ».",
+      "**La joie qui se fait discrète** : tu décroches le poste dont tu rêvais, et ta première pensée est de ne pas trop le dire, « pour ne pas faire de jaloux ».",
+      "**La peur qu’on cache** : Karim ne dit jamais qu’il a peur. Chez lui, un garçon devait être fort. Alors il vérifie tout, tout le temps, et dort mal la veille de chaque rendez-vous important.",
+      "**La tristesse qui dérange** : quand ta fille pleure, tu sens monter une gêne immense, et tu dis très vite « allez, ce n’est rien »."
     ],
-    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Ton père appelle : la chaudière est en panne, « tu peux t’en occuper ? ». La boucle de l’aînée aurait dit oui aussitôt, en annulant sa soirée. La spirale respire, et répond : « Je ne peux pas ce soir. Appelle Julien, il est à dix minutes. » Le thème est le même, ta place a changé.",
-    question: { k: 'theme-place', q: "En une phrase, quelle place ou quel rôle tiens-tu encore dans ta fratrie ou ta famille aujourd’hui ?", ph: "Exemple : je suis toujours celle qui organise, prévient tout le monde et règle les problèmes." }
+    exempleSpirale: "La spirale, c’est la même scène, un cran plus haut. Ta sœur annule encore le déjeuner à la dernière minute. La boucle aurait répondu « pas de souci ! », puis ruminé toute la soirée. La spirale respire, sent la colère passer dans le ventre, et répond : « Je suis déçue, et un peu fâchée. On fixe une autre date ? » L’émotion a eu sa place, et le lien aussi.",
+    question: { k: 'theme-emo', q: "En une phrase, quelle émotion as-tu le plus de mal à montrer aujourd’hui, et devant qui ?", ph: "Exemple : la colère, surtout devant mes parents. Je deviens toute gentille et je me tais." }
   },
 
   semaines: [
-    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "Ta place, sous tes yeux",
-      intro: "Cette semaine, tu poses sur la table ta fratrie et celles de tes parents. Tu ne cherches pas encore à changer : tu regardes les rangs, les rôles, les absents, et ce que tu fais en pilote automatique dès que tu es avec les tiens.",
-      texte: "Commence par le tableau des fratries, au calme, une vingtaine de minutes. Puis, pendant la semaine, observe-toi chaque fois que tu parles à un frère, une sœur ou un parent, ou que tu parles d’eux.",
+    { cle: 'voir', nom: 'Voir', etape: 'Voir', titre: "La météo de tes émotions",
+      intro: "Cette semaine, tu poses sur la table les émotions de ta famille et les tiennes. Tu ne cherches pas encore à changer : tu regardes lesquelles étaient bienvenues, lesquelles étaient tolérées, et lesquelles on mettait de côté, et ce que tu en fais aujourd’hui en pilote automatique.",
+      texte: "Commence par le tableau des émotions permises et interdites chez vous, au calme, une vingtaine de minutes. Puis, pendant la semaine, observe les émotions qui montent en toi, et ce que tu en fais dans les secondes qui suivent.",
       exercices: [
-        { k: 'ex1', titre: "Les fratries de ma lignée", type: 'tableau', rangs: 3,
-          etiquettes: ['Ma fratrie', 'La fratrie de ma mère', 'La fratrie de mon père'],
-          consigne: "Pour chacune de ces trois fratries, note les enfants dans l’ordre des naissances, y compris les enfants disparus ou jamais nés si tu en connais. Puis indique le rôle qu’on donnait à chacun·e, en quelques mots, et ce qui te semble se répéter. Si tu es enfant unique, note-le simplement : c’est une place à part entière.",
-          pourquoi: "Quand on pose les fratries côte à côte, des échos apparaissent souvent : une même rivalité entre deux sœurs, un même fils qui part loin, une même aînée qui porte tout. Les voir, c’est comprendre que ton rôle ne vient pas seulement de toi.",
+        { k: 'ex1-emo', titre: "Les émotions permises et interdites chez nous", type: 'tableau', rangs: 4,
+          etiquettes: ['La colère', 'La tristesse', 'La peur', 'La joie'],
+          consigne: "Pour chacune de ces quatre émotions, donne la météo de ta famille quand tu étais enfant : soleil (bienvenue), nuage (tolérée) ou orage (mise de côté). Note qui l’exprimait et comment on réagissait, puis ce que tu en fais toi, aujourd’hui. Tu peux penser à la famille qui t’a élevé·e, et regarder aussi du côté de tes grands-parents si tu les as connus.",
+          pourquoi: "Quand on pose les quatre émotions côte à côte, la règle de la famille apparaît souvent d’un coup : une émotion réservée à une seule personne, une autre que personne ne montrait, une troisième qu’on transformait en blague. La voir, c’est comprendre que ta façon de ressentir ne vient pas seulement de toi.",
           colonnes: [
-            { q: "Qui sont les enfants, dans l’ordre des naissances ?", ph: ["Exemple : moi (1978), Julien (1981), Léa (1986)", "Exemple : un garçon mort à 2 ans, ma mère, puis tante Anne", "Exemple : mon père, enfant unique"] },
-            { q: "Quel rôle donnait-on à chacun·e ?", ph: ["Exemple : moi la responsable, Julien le rigolo, Léa le bébé", "Exemple : ma mère devait être sage et ne pas faire de peine", "Exemple : on attendait tout de lui, il devait réussir"] },
-            { q: "Qu’est-ce qui te semble se répéter ?", ph: ["Exemple : l’aînée qui s’occupe de tout", "Exemple : une fille qui naît après un deuil, comme moi après une fausse couche", "Exemple : un enfant sur qui reposent tous les espoirs"] }
+            { q: "Quelle météo chez toi, enfant : soleil, nuage ou orage ?", ph: ["Exemple : orage. Seul mon père avait le droit de se fâcher.", "Exemple : nuage. On pouvait être triste, mais dans sa chambre.", "Exemple : orage. « Tu n’as pas à avoir peur, tu es grand. »", "Exemple : soleil, sauf quand ma mère était fatiguée."] },
+            { q: "Qui l’exprimait, et comment réagissait-on ?", ph: ["Exemple : mon père criait, tout le monde se taisait. Ma mère, jamais.", "Exemple : ma grand-mère pleurait en cachette à la cuisine. On faisait semblant de ne rien voir.", "Exemple : personne. Ma mère disait « on ne va pas s’inquiéter pour rien ».", "Exemple : mon oncle Bruno, qui faisait rire tout le monde aux repas."] },
+            { q: "Et toi aujourd’hui, que fais-tu de cette émotion ?", ph: ["Exemple : je souris et je dis oui, puis j’ai mal au ventre.", "Exemple : je pleure seule sous la douche.", "Exemple : je fais comme si tout allait bien, et je prépare tout trois fois.", "Exemple : je ris facilement, sauf quand je réussis quelque chose."] }
           ],
-          apres: { k: 'ex1-repete', q: "Relis ton tableau. Qu’est-ce qui se répète d’une fratrie à l’autre, même un détail : un rang, un rôle, un départ, un absent ?", ph: "Exemple : dans les trois fratries, la fille aînée garde les plus petits et ne quitte jamais la région." } },
-        { k: 'voir-journal', titre: "Mon journal de fratrie", type: 'texte',
-          consigne: "Chaque fois que tu es en contact avec un frère, une sœur ou un parent cette semaine (appel, message, repas), ou que tu parles d’eux, note le rôle que tu as pris et ce que tu as fait sans y penser. Vise au moins trois situations.",
-          pourquoi: "Un rôle de fratrie se réactive en quelques secondes, souvent dès le premier mot au téléphone. Le remarquer au moment où il se met en route, c’est gagner un peu de liberté.",
-          q: "Ce que tu remarques, en général, sur le rôle qui revient",
-          ph: "Exemple : dès que ma sœur m’appelle, je prends une voix de maman et je lui donne des conseils qu’elle n’a pas demandés.",
-          journal: { k: 'voir-sit', n: 6, q: "Chaque situation : le jour, avec qui, le rôle que tu as pris, ce que tu as ressenti", ph: "Exemple : dimanche, déjeuner chez mes parents. J’ai fait la médiatrice entre mon frère et mon père. J’étais vidée en rentrant." } }
+          apres: { k: 'ex1-emo-repete', q: "Relis ton tableau. Quelle émotion était la plus mise de côté chez vous, et la retrouves-tu dans ta vie d’adulte ?", ph: "Exemple : la colère. Personne n’avait le droit sauf mon père, et aujourd’hui encore je la transforme en fatigue." } },
+        { k: 'voir-journal-emo', titre: "Mon journal des émotions", type: 'texte',
+          consigne: "Chaque fois qu’une émotion monte en toi cette semaine (une contrariété, une envie de pleurer, une inquiétude, un élan de joie), note-la, et ce que tu en as fait : la montrer, la cacher, la transformer, la laisser passer. Vise au moins trois moments. Si le mot juste ne vient pas, ouvre [la roue des émotions](roue-des-emotions.html).",
+          pourquoi: "Une émotion mise de côté se referme en quelques secondes, souvent avant même qu’on l’ait reconnue. La remarquer au moment où elle monte, c’est lui laisser un peu de place, et te laisser un peu de liberté.",
+          q: "Ce que tu remarques, en général, sur ce que tu fais de tes émotions",
+          ph: "Exemple : dès que je sens de la tristesse, je me lève et je range quelque chose. Je ne reste jamais avec elle plus de deux secondes.",
+          journal: { k: 'voir-sit-emo', n: 6, q: "Chaque moment : le jour, l’émotion, ce qui l’a fait monter, ce que tu en as fait", ph: "Exemple : jeudi, mon chef a critiqué mon dossier devant tout le monde. Colère. J’ai souri, et j’ai mangé un paquet de biscuits en rentrant." } }
       ],
-      conseil: "Si tu as perdu un frère ou une sœur, ou si certains liens sont rompus, avance doucement : tu peux remplir seulement ce qui te semble possible aujourd’hui. Si une émotion forte monte, pose le stylo, respire, et reprends un autre jour." },
+      conseil: "Si un souvenir difficile remonte en remplissant le tableau, avance doucement : tu peux remplir seulement ce qui te semble possible aujourd’hui. Pose le stylo, respire, et reprends un autre jour. Il n’y a pas de bonne ou de mauvaise émotion, seulement des émotions qui ont eu, ou non, le droit de passer." },
 
-    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "D’où vient ton rôle",
-      intro: "Un rôle de fratrie ne se choisit pas : il se reçoit, souvent avant même de savoir parler. Cette semaine, tu remontes le fil, avec douceur, pour voir ce qui a dessiné ta place et ce qu’elle doit aux fratries d’avant toi.",
+    { cle: 'source', nom: 'La source', etape: 'Remonter à la source', titre: "D’où vient la règle",
+      intro: "Une règle sur les émotions ne s’écrit nulle part : elle s’apprend en regardant les adultes, souvent avant même de savoir parler. Cette semaine, tu remontes le fil, avec douceur, pour voir qui exprimait quoi, et ce qui arrivait quand un enfant pleurait, se fâchait ou avait peur.",
       texte: [
-        "La place dans la fratrie touche souvent les deux cycles. Le **cycle de la racine** parle de sécurité : avoir sa place à la table, ne pas être de trop, être utile pour être gardé·e. Le **cycle du cœur** parle de lien : être aimé·e autant que les autres, être vu·e pour ce que l’on est, et pas pour le rôle que l’on tient.",
-        "Un rôle de la racine ressemble souvent à « je dois être utile pour avoir ma place » ou « je ne dois pas prendre trop de place ». Un rôle du cœur ressemble à « je dois faire rire pour être aimé·e » ou « je dois réussir pour qu’on me regarde ». Les deux se mêlent. On commence par la racine : se sentir à sa place, c’est la base pour tout le reste."
+        "Les émotions mises de côté touchent souvent les deux cycles. Le **cycle de la racine** parle de sécurité : garder sa place, ne pas être rejeté·e, rester à l’abri. Une règle de la racine ressemble à « si je montre ma colère, je risque ma place » ou « si j’ai peur, personne ne viendra ». Le **cycle du cœur** parle de lien : être aimé·e, ne pas déranger, garder l’affection des siens. Une règle du cœur ressemble à « si je suis triste, je dérange » ou « si je suis trop joyeuse, on va me trouver prétentieuse ».",
+        "Les deux se mêlent. On commence par la racine : quand une émotion semble menacer ta place, tout ton corps apprend à la retenir. Comprendre que cette règle protégeait l’enfant que tu étais permet de la regarder sans honte, et de voir qu’aujourd’hui, tu peux en choisir une autre."
       ],
       exercices: [
-        { k: 'source-arbre', titre: "Dans ton arbre, regarde les fratries", type: 'questions',
-          consigne: "Prends ces questions une par une. Si une réponse ne vient pas, passe à la suivante : elle viendra peut-être dans la semaine, en regardant une vieille photo ou en parlant avec un proche.",
-          pourquoi: "Souvent, on découvre que l’un de nos parents tenait le même rôle dans sa propre fratrie, ou qu’un enfant absent a changé la place de tous. Le voir change tout : ce n’est plus « mon caractère », c’est une place que je peux regarder et ajuster.",
-          choix: { k: 'cycle', q: "Aujourd’hui, ton rôle de fratrie touche surtout…", options: ['La racine : avoir ma place, ne pas être de trop', 'Le cœur : être aimé·e et vu·e pour moi', 'Les deux', 'Je ne sais pas encore'] },
+        { k: 'source-arbre-emo', titre: "Dans ta famille, regarde les émotions", type: 'questions',
+          consigne: "Prends ces questions une par une, avec ton tableau de la semaine dernière à côté de toi. Si une réponse ne vient pas, passe à la suivante : elle viendra peut-être dans la semaine, en regardant une vieille photo ou en parlant avec un proche.",
+          pourquoi: "Souvent, on découvre qu’un parent a lui-même appris à cacher la même émotion, parce que dans sa propre enfance elle était dangereuse ou mal reçue. Le voir change tout : ce n’est plus « je suis comme ça », c’est une règle reçue, que tu peux regarder et assouplir.",
+          choix: { k: 'cycle-emo', q: "Aujourd’hui, l’émotion que tu retiens le plus touche surtout…", options: ['La racine : si je la montre, je risque ma place', 'Le cœur : si je la montre, je dérange ou je déçois', 'Les deux', 'Je ne sais pas encore'] },
           questions: [
-            { k: 'source-rang', q: "Quel est ton rang, et que disait-on de ta place quand tu étais enfant ?", ph: "Exemple : je suis l’aînée. On me disait « tu es grande, tu dois montrer l’exemple » dès mes 5 ans." },
-            { k: 'source-role', q: "Quel rôle t’a-t-on donné enfant, et le portes-tu encore aujourd’hui ?", ph: "Exemple : celle qui console. Aujourd’hui encore, toute ma famille m’appelle quand ça ne va pas." },
-            { k: 'source-absent', q: "Y a-t-il un frère ou une sœur disparu·e, ou jamais né·e, dans ta fratrie ou celle de tes parents ?", ph: "Exemple : ma mère a perdu un bébé un an avant ma naissance. On n’en parlait presque jamais." },
-            { k: 'source-parents', q: "Quelle place tes parents occupaient-ils dans leur propre fratrie ?", ph: "Exemple : ma mère était aussi l’aînée, elle élevait ses quatre frères pendant que ma grand-mère travaillait." },
-            { k: 'source-echo', q: "Quelles rivalités ou alliances reviennent d’une génération à l’autre ?", ph: "Exemple : ma mère et sa sœur ne se parlent plus depuis l’héritage. Avec ma sœur, on se compare sans cesse." }
+            { k: 'source-exprimait-emo', q: "Dans ta famille, qui avait le droit d’exprimer quoi ?", ph: "Exemple : mon père, la colère. Ma mère, l’inquiétude. Les enfants, la joie, à condition de ne pas faire de bruit." },
+            { k: 'source-pleurer-emo', q: "Que se passait-il quand tu pleurais, enfant ?", ph: "Exemple : ma mère disait « arrête, tu vas me faire pleurer aussi ». J’ai appris à pleurer en silence." },
+            { k: 'source-colere-emo', q: "Que se passait-il quand tu te fâchais ?", ph: "Exemple : on m’envoyait dans ma chambre « jusqu’à ce que tu sois calmée ». Personne ne venait me demander pourquoi." },
+            { k: 'source-peur-emo', q: "Et quand tu avais peur, ou que tu étais très joyeux·se ?", ph: "Exemple : ma peur faisait rire mon frère. Ma joie, on me disait de la garder pour moi, « pour ne pas faire de peine à ta cousine »." },
+            { k: 'source-phrase-emo', q: "Quelle phrase entendais-tu souvent au sujet des émotions ?", ph: "Exemple : « On ne pleure pas pour si peu. » Ou : « Ne fais pas cette tête devant les invités. »" },
+            { k: 'source-lignee-emo', q: "Qu’ont traversé tes parents ou tes grands-parents qui a pu rendre cette émotion difficile à vivre ?", ph: "Exemple : ma grand-mère a perdu son mari jeune et a élevé seule quatre enfants. Elle disait : « Si je m’étais mise à pleurer, je ne me serais jamais arrêtée. »" }
           ] },
-        { k: 'source-question', titre: "Une question à ta famille", type: 'questions',
-          consigne: "Pose une seule question à un parent ou un proche sur la façon dont il ou elle vivait sa place dans sa propre fratrie. Par téléphone, à table ou par message. Choisis une question ouverte et légère. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
+        { k: 'source-question-emo', titre: "Une question à ta famille", type: 'questions',
+          consigne: "Pose une seule question à un parent ou un proche sur la façon dont on vivait les émotions chez lui ou chez elle, enfant. Par téléphone, à table ou par message. Choisis une question ouverte et légère. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
           questions: [
-            { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à mon père : « Comment c’était, d’être le seul garçon avec trois sœurs ? »", court: true },
-            { k: 'source-reponse', q: "Qu’as-tu appris ? Qu’est-ce qui résonne avec ta propre place ?", ph: "Exemple : il m’a dit qu’on lui demandait toujours de « faire l’homme de la maison » quand son père était absent. Mon frère a vécu exactement la même chose.", lignes: 3 }
+            { k: 'source-qui-emo', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à ma mère : « Chez tes parents, est-ce qu’on avait le droit de se mettre en colère ? »", court: true },
+            { k: 'source-reponse-emo', q: "Qu’as-tu appris ? Qu’est-ce qui résonne avec ta propre façon de ressentir ?", ph: "Exemple : elle m’a dit que son père ne supportait aucun cri à table. Elle a ri en disant « alors on boudait ». Je boude encore, moi aussi, au lieu de dire.", lignes: 3 }
           ] }
       ],
-      conseil: "Tu peux ajouter dans [ton arbre familial](genosociogramme.html) tous les enfants de chaque fratrie, y compris ceux dont on parle peu, avec leur rang : l’outil repère les répétitions de dates et de places. Pour comprendre les enfants nés après un deuil : [l’enfant de remplacement](enfant-de-remplacement.html)." },
+      conseil: "Tu peux noter dans [ton arbre familial](genosociogramme.html), à côté de chaque personne, l’émotion qu’elle montrait le plus et celle qu’elle gardait pour elle : des répétitions apparaissent souvent d’une génération à l’autre. Pour comprendre ce qui se passe dans le corps quand une émotion monte puis redescend : [émotions et hormones](emotions-et-hormones.html)." },
 
-    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Poser ce qui ne t’appartient pas",
-      intro: "Chaque rôle de fratrie t’a apporté quelque chose, et t’a aussi coûté. Cette semaine, tu regardes tes rôles en face, tu choisis ce que tu veux en faire, et tu redonnes symboliquement à chaque enfant de ta fratrie sa place, toi compris·e.",
+    { cle: 'liberer', nom: 'Libérer', etape: 'Libérer', titre: "Rendre sa place à chaque émotion",
+      intro: "Chaque émotion mise de côté t’a protégé·e, et t’a aussi coûté. Cette semaine, tu en regardes trois en face, tu choisis ce que tu veux en faire, puis tu vis ton protocole du mois : la lettre à une émotion. Le petit rituel des quatre bols t’aide, avant ou après, à redonner à chacune sa place.",
       exercices: [
-        { k: 'ex2', titre: "Mes rôles", type: 'blocs', nb: 3,
-          etiquettes: ['Premier rôle', 'Deuxième rôle', 'Troisième rôle'],
-          consigne: "Choisis trois rôles que tu as tenus ou tiens encore dans ta famille : la responsable, le médiateur, celle qu’on ne voit pas, celui qui réussit, la rigolote… Pour chacun, écris ce qu’il t’a apporté et ce qu’il te coûte aujourd’hui. Puis décide, simplement, ce que tu veux en faire : le garder, l’alléger, ou le poser. Rien n’est définitif.",
-          pourquoi: "Un rôle n’est ni bon ni mauvais : il t’a souvent aidé·e à trouver ta place. Reconnaître ce qu’il t’a apporté permet de le remercier au lieu de le rejeter, puis de décider librement de la place que tu veux lui laisser.",
-          astuce: "Alléger un rôle, c’est souvent garder la qualité et laisser la charge. La responsable peut garder son sens de l’organisation, sans tout organiser pour tout le monde.",
+        { k: 'ex2-emo', titre: "Mes émotions mises de côté", type: 'blocs', nb: 3,
+          etiquettes: ['Première émotion', 'Deuxième émotion', 'Troisième émotion'],
+          consigne: "Choisis trois émotions ou sentiments que tu as appris à cacher, à retenir ou à transformer : la colère, la tristesse, la peur, la joie, la jalousie, la fierté… Pour chacune, écris ce qu’elle protégeait, ce qu’elle t’a coûté, et ce que tu choisis aujourd’hui. Rien n’est définitif.",
+          pourquoi: "Mettre une émotion de côté n’était pas une erreur : c’était souvent la meilleure façon de garder ta place ou l’amour des tiens. Reconnaître ce qu’elle protégeait permet de remercier cette stratégie au lieu de te le reprocher, puis de choisir librement une autre façon de faire.",
+          astuce: "Rendre sa place à une émotion, ce n’est pas l’exprimer à n’importe qui, n’importe comment. C’est d’abord la reconnaître en toi, puis choisir le bon moment et la bonne personne pour la dire.",
           champs: [
-            { q: "Quel rôle tiens-tu, ou as-tu tenu, dans ta famille ?", ph: ["Exemple : la responsable, celle qui gère tout", "Exemple : la médiatrice entre mes parents", "Exemple : la sage, qui ne fait jamais de vagues"] },
-            { q: "Que t’a-t-il apporté, et que te coûte-t-il aujourd’hui ?", ph: ["Exemple : il m’a rendue autonome et fiable. Il me coûte ma fatigue et mes week-ends.", "Exemple : il m’a appris à écouter. Il me coûte mes propres disputes, que je n’ose jamais avoir.", "Exemple : on m’aimait pour ma gentillesse. Il me coûte ma colère, que je n’exprime jamais."] },
-            { q: "Que choisis-tu aujourd’hui : le garder, l’alléger ou le poser ?", ph: ["Exemple : l’alléger. Je garde l’organisation, je laisse les papiers de maman à mon frère une fois sur deux.", "Exemple : le poser. Je ne suis plus la messagère entre mes parents.", "Exemple : l’alléger. Je m’autorise une vague de temps en temps."] }
+            { q: "Quelle émotion as-tu appris à mettre de côté ?", ph: ["Exemple : la colère", "Exemple : la tristesse", "Exemple : la fierté"] },
+            { q: "Que protégeait-elle, peut-être ?", ph: ["Exemple : la paix à la maison, quand mon père criait déjà assez pour tout le monde", "Exemple : ma mère, qui était déjà si fatiguée", "Exemple : ma place parmi mes cousins, pour qu’on ne me trouve pas prétentieuse"] },
+            { q: "Que t’a-t-elle coûté ?", ph: ["Exemple : je dis oui à tout, et je suis épuisée", "Exemple : je me sens seule quand ça ne va pas", "Exemple : je minimise tout ce que je réussis"] },
+            { q: "Que choisis-tu aujourd’hui ?", ph: ["Exemple : je m’autorise à dire « ça ne me convient pas », calmement", "Exemple : j’appelle une amie quand je suis triste", "Exemple : je raconte une réussite par semaine à quelqu’un qui m’aime"] }
           ] }
       ],
       rituel: {
-        titre: "Les pierres de la fratrie",
-        intro: "Ce rituel symbolique te permet de voir chaque enfant à sa place, toi compris·e, et de reprendre la tienne, rien que la tienne. Fais-le une fois cette semaine, après le tableau des fratries et l’exercice des rôles. Compte une quinzaine de minutes.",
-        materiel: "Une petite pierre ou un caillou par enfant de ta fratrie, y compris les absents dont tu as connaissance. Ton carnet et un stylo. Si tu es enfant unique, prends une pierre pour toi et une pour l’enfant que tu aurais pu avoir à tes côtés.",
+        titre: "Les quatre bols",
+        intro: "Ce petit rituel symbolique te permet de voir chaque émotion à sa place, de la laisser se mélanger à l’eau puis passer, comme une averse qui traverse le ciel. Fais-le une fois cette semaine, dans un moment calme. Compte une quinzaine de minutes.",
+        materiel: "Quatre bols ou quatre verres transparents remplis d’eau claire, et quatre couleurs : quelques gouttes d’encre, d’aquarelle ou de colorant alimentaire. Si tu veux, inspire-toi des [cinq éléments](cinq-elements-emotions.html) : le vert du bois pour la colère, le bleu profond de l’eau pour la peur, le gris argenté du métal pour la tristesse, le rouge du feu pour la joie. Ton carnet et un stylo.",
         etapes: [
-          "Choisis un moment calme. Pose les pierres devant toi, sans ordre, et respire trois fois profondément.",
-          "Prends-les une à une, dans l’ordre des naissances, et nomme chaque enfant à voix haute ou intérieurement.",
-          "Aligne-les. Pour les absents, dis : « Tu fais partie de nous, tu as ta place. »",
-          "Pose ta main sur ta pierre et dis : « Je prends ma place, rien que ma place. Je vous laisse les vôtres. »",
-          "Si tu portes encore le rôle de quelqu’un d’autre, pose doucement une seconde pierre à côté de la sienne et dis : « Je te rends ce qui est à toi. »",
-          "Regarde la rangée quelques minutes. Range les pierres ensemble, dans un endroit choisi, et note ce qui est venu ci-dessous."
+          "Pose les quatre bols devant toi, en ligne. Respire trois fois profondément, et regarde l’eau claire.",
+          "Pour chaque bol, nomme une émotion à voix haute ou intérieurement : la colère, la tristesse, la peur, la joie. Verse une goutte de sa couleur, et dis : « Tu as ta place chez moi. »",
+          "Regarde la couleur se déployer dans l’eau, lentement, à sa façon. Elle bouge, elle s’étend, elle se mélange : c’est ce que fait une émotion quand on la laisse vivre.",
+          "Approche-toi du bol de l’émotion que ta famille mettait le plus de côté. Pose tes mains autour, et dis : « Je t’écoute. Qu’est-ce que tu viens me dire ? » Laisse venir un mot, une image, une sensation.",
+          "Verse doucement les quatre bols, ensemble, au pied d’une plante ou dans la terre du jardin. Dis : « Vous pouvez passer. Je garde votre message. »",
+          "Rince les bols à l’eau claire, et note ce qui est venu ci-dessous."
         ],
-        note: { k: 'rituel-note', q: "Après le rituel, note ce qui s’est passé : ce que tu as ressenti en nommant chaque enfant, et en posant ta main sur ta pierre.", ph: "Exemple : en nommant le bébé que ma mère a perdu, j’ai eu une grande émotion. Sur ma pierre, j’ai senti que j’avais le droit d’être juste moi, et pas deux enfants à la fois." }
+        note: { k: 'rituel-note-emo', q: "Après le rituel, note ce qui s’est passé : ce que tu as ressenti en nommant chaque émotion, et ce que t’a dit celle que tu as écoutée.", ph: "Exemple : en versant le vert de la colère, j’ai eu envie de rire, comme si c’était interdit. Elle m’a dit : « Je suis là pour te protéger, pas pour faire du mal. »" }
       },
-      conseil: "Nommer un enfant absent peut réveiller une émotion forte, même si tu ne l’as jamais connu. C’est normal. Fais une pause, bois un verre d’eau, sors marcher. Tu peux finir le rituel un autre jour." },
+      conseil: "Écouter une émotion longtemps retenue peut faire monter des larmes, de la colère ou un grand fou rire. C’est normal : elle reprend sa place. Fais une pause, bois un verre d’eau, sors marcher. Tu peux vivre le rituel et le protocole en deux fois." },
 
-    { cle: 'remplacer', nom: 'Remplacer', etape: 'Remplacer', titre: "Ta juste place",
-      intro: "Tu as vu ta place, tu sais d’où vient ton rôle, tu as rendu à chacun·e la sienne. Cette semaine, tu choisis un rôle à alléger et tu poses un petit geste différent, à ta juste place.",
+    { cle: 'remplacer', nom: 'Remplacer', etape: 'Remplacer', titre: "Laisser passer une émotion",
+      intro: "Tu as vu la météo de ta famille, tu sais d’où vient la règle, tu as rendu à tes émotions leur place. Cette semaine, tu choisis une émotion à laisser vivre, tu écris ta phrase de permission, et tu poses chaque jour un petit geste pour la laisser passer.",
       texte: [
-        "**La première pause.** Quand tu sens ton vieux rôle se mettre en route (prendre en charge, faire rire, t’effacer, calmer tout le monde), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Trois fois. Puis dis-toi : « Je te reconnais. Je ne suis plus l’enfant que j’étais. Aujourd’hui, je choisis ma place. »",
-        "**Le geste à ta juste place.** Tes frères, tes sœurs et tes parents ont l’habitude de ton rôle : ils peuvent être surpris. C’est normal. Un petit geste, répété avec douceur, laisse à chacun le temps de s’ajuster."
+        "**La première pause.** Quand tu sens une émotion monter et le vieux réflexe arriver (sourire, te taire, ranger, changer de sujet), respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Trois fois. Puis dis-toi : « Je te reconnais. Tu as le droit d’être là. Je t’écoute, et je choisis ce que j’en fais. »",
+        "**Le geste qui laisse passer.** Une émotion accueillie dure souvent quelques minutes, comme une averse. Un petit geste suffit pour la laisser traverser : la nommer, souffler, bouger, en parler. Les personnes autour de toi peuvent être surprises de t’entendre dire ce que tu ressens : laisse-leur le temps de s’habituer."
       ],
       exercices: [
-        { k: 'remplacer-lettre', titre: "La lettre à un frère ou une sœur", type: 'questions',
-          consigne: "Écris à un frère ou une sœur, présent·e, éloigné·e, disparu·e ou jamais né·e. Si tu es enfant unique, écris à l’enfant que tu aurais pu avoir à tes côtés. Dis-lui ce que tu as vécu à ta place, ce que tu as compris ce mois-ci, et ce que tu lui souhaites. Cette lettre est pour toi seul·e : tu ne l’enverras pas, sauf si tu en as vraiment envie.",
-          pourquoi: "Écrire à un frère ou une sœur, c’est se donner le droit de dire ce qui n’a jamais été dit, sans risque. Souvent, la rivalité ou la distance s’adoucit quand on reconnaît que chacun a grandi à sa place, avec ses propres difficultés.",
+        { k: 'permission-emo', titre: "Ma phrase de permission émotionnelle", type: 'questions',
+          consigne: "Choisis l’émotion que tu veux autoriser en premier, celle qui a été la plus mise de côté chez toi. Puis écris ta phrase de permission, au présent, avec tes mots : « J’ai le droit de… » ou « Ma … a sa place ». Relis-la chaque matin cette semaine, à voix haute si tu peux.",
+          pourquoi: "Une règle familiale s’est installée avec des phrases répétées. Une phrase de permission, choisie par toi et répétée chaque jour, commence à dessiner une nouvelle règle, la tienne.",
           questions: [
-            { k: 'lettre-a', q: "À qui écris-tu ?", ph: "Exemple : à mon petit frère Julien", court: true },
-            { k: 'lettre-texte', q: "Ta lettre : ce que tu as vécu à ta place, ce que tu as compris, ce que tu lui souhaites", ph: "Exemple : Julien, j’ai souvent été jalouse de ta liberté, pendant que je gardais Léa. J’ai compris que toi aussi, tu portais quelque chose : être celui qui fait rire pour détendre l’ambiance. Je te souhaite d’être pris au sérieux, et je me souhaite de souffler un peu.", lignes: 7 }
+            { k: 'permission-choix-emo', q: "Quelle émotion choisis-tu d’autoriser en premier ?", ph: "Exemple : la tristesse", court: true },
+            { k: 'permission-texte-emo', q: "Ta phrase de permission, au présent, avec tes mots", ph: "Exemple : « J’ai le droit d’être triste, et de le dire à quelqu’un qui m’aime. Ma tristesse ne dérange personne : elle me montre ce qui compte. »", lignes: 3 }
           ] },
-        { k: 'ex3', titre: "Mon geste à ma juste place", type: 'texte',
-          consigne: "Choisis un rôle à alléger et un geste concret pour cette semaine. Écris-le, puis note chaque fois que tu l’as posé, même maladroitement, et ce qui a changé. Ce geste rejoint ton carnet « J’avance » : prendre ta juste place, c’est aussi laisser parler ta voix.",
-          pourquoi: "Un rôle de fratrie ne se pose pas d’un coup : il s’allège à chaque fois que tu fais un petit pas de côté. Chaque essai montre à ta famille, et à toi, qu’une autre place est possible.",
-          gestes: ["Laisser un frère ou une sœur s’occuper d’une chose que tu fais toujours", "Dire « je ne peux pas cette fois » sans te justifier", "Ne pas intervenir dans une dispute qui ne te concerne pas", "Donner ton avis au repas de famille, même si on ne te le demande pas", "Demander de l’aide à un frère ou une sœur", "Raconter toi-même une nouvelle de ta vie, avant qu’on la raconte pour toi"],
-          q: "Ton geste : « La prochaine fois que mon vieux rôle se met en route, au lieu de…, je vais… »",
-          ph: "Exemple : au lieu de tout organiser pour l’anniversaire de maman, je vais proposer à Léa de s’occuper du gâteau et à Julien du cadeau.",
-          journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu l’as essayé : quand, et qu’est-ce qui a changé ?", ph: "Exemple : mercredi, j’ai laissé mon frère appeler le plombier pour papa. Il l’a fait, très bien. Je me suis sentie légère et un peu bizarre." } }
+        { k: 'ex3-emo', titre: "Je laisse passer une émotion", type: 'texte',
+          consigne: "Choisis un geste simple pour laisser passer une émotion quand elle monte, et pose-le au moins une fois par jour cette semaine. Écris-le, puis note chaque essai, même maladroit, et ce qui a changé. Ce geste rejoint ton carnet « J’avance » : quand tes émotions ont le droit de passer, ta voix retrouve sa confiance.",
+          pourquoi: "Une émotion qu’on laisse passer redescend souvent d’elle-même, en quelques minutes. Chaque essai montre à ton corps qu’il peut ressentir sans danger, et à tes proches qu’une autre façon de vivre les émotions est possible.",
+          gestes: ["Nommer à voix haute ce que je ressens : « Là, je suis fâchée »", "Souffler fort trois fois, ou secouer les mains", "Laisser couler des larmes, sans m’excuser", "Dire « ça me rend triste » au lieu de « ce n’est rien »", "Marcher dix minutes quand la colère monte", "Partager une joie avec quelqu’un, tout de suite, sans la minimiser"],
+          q: "Ton geste : « La prochaine fois qu’une émotion monte, au lieu de…, je vais… »",
+          ph: "Exemple : au lieu de sourire et de dire « pas de souci », je vais respirer et dire « je suis déçue, j’ai besoin d’un moment ».",
+          journal: { k: 'ex3-essais-emo', n: 6, q: "Chaque fois que tu l’as essayé : quand, quelle émotion, et qu’est-ce qui a changé ?", ph: "Exemple : mardi, j’ai dit à mon conjoint « ce que tu viens de dire m’a blessée ». Ma voix tremblait. Il s’est excusé, et la soirée a été douce." } }
       ],
-      conseil: "Si ta famille insiste pour que tu reprennes ton rôle, c’est normal : chacun a besoin de temps pour s’habituer. Garde ton geste petit et répète-le avec douceur. Si tu oublies et que le vieux rôle revient, remarque-le après coup : c’est déjà un pas." }
+      conseil: "Si le vieux réflexe revient et que tu caches encore une émotion, remarque-le après coup, sans te juger : c’est déjà un pas. Tu peux même revenir vers la personne le lendemain et dire « hier, j’étais en colère, et je ne l’ai pas dit ». Une émotion reconnue tard reste une émotion reconnue." }
   ],
 
   meditation: {
-    titre: "Le jardin de la fratrie",
-    intro: "Une séance guidée pour voir chaque enfant de ta fratrie à sa place, saluer les absents, et sentir les racines de ta propre place.",
+    titre: "L’eau qui se remet à couler",
+    intro: "Une séance guidée pour laisser les émotions longtemps retenues reprendre leur place, comme une eau qui se remet à couler, et retrouver ta voix.",
     texte: [
-      "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
+      "Je m’installe confortablement, le dos soutenu, les pieds bien posés. Je ferme les yeux, ou je laisse mon regard se poser doucement devant moi. Je respire profondément, trois fois… Mon corps se pose.",
       "[pause]",
-      "Sens le poids de ton corps sur le siège. Sens tes pieds sur le sol. Tu es en sécurité, ici et maintenant. Tu peux revenir à ton souffle à tout moment.",
-      "Imagine un jardin au début du printemps. L’air est frais, la lumière douce. Une averse vient de passer, et tout brille. Dans la terre, de jeunes pousses sortent, chacune à sa place.",
-      "Tu remarques une rangée de petits arbres. Chacun représente un enfant de ta fratrie. Certains sont grands, d’autres plus fragiles. Il y a peut-être un espace vide, là où un arbre n’a pas poussé.",
+      "Je sens mon corps sur le siège, mes pieds sur le sol. Je suis en sécurité, ici et maintenant. À chaque instant, je peux revenir à mon souffle.",
+      "J’imagine un ruisseau de montagne, au petit matin. L’air est frais, la lumière douce. Par endroits, l’eau est encore prise dans la glace, immobile et silencieuse, comme une émotion gardée longtemps à l’intérieur.",
+      "Je m’approche. Sous la glace, j’entends un tout petit bruit : l’eau est là, vivante, elle attend son moment. Un rayon de soleil touche la surface, et la glace commence doucement à fondre.",
       "[pause]",
-      "Approche-toi de l’arbre qui est toi. Regarde sa taille, ses branches, ses feuilles. Il a grandi à côté des autres, parfois dans leur ombre, parfois en les protégeant.",
-      "Regarde aussi les arbres voisins. Certains ont poussé en se penchant vers toi, d’autres en s’écartant. Il n’y a rien à corriger. Chacun a trouvé comme il a pu son chemin vers la lumière. Si un espace est vide, tu peux y poser doucement ta main et dire intérieurement : « Je te vois. Tu as ta place ici. »",
+      "Goutte après goutte, l’eau se remet à couler. Avec elle, une émotion remonte peut-être en moi : une colère ancienne, une tristesse, une peur, une joie restée discrète. Je l’accueille telle qu’elle est. Je remarque où elle se pose dans mon corps : la gorge, la poitrine, le ventre, les mains.",
+      "Je lui dis intérieurement : « Je te vois. Tu as le droit d’exister. Tu as ta place chez moi. » Je la laisse circuler, comme l’eau du ruisseau qui trouve son chemin entre les pierres.",
       "[longue pause]",
-      "Reviens vers ton arbre. Sens ses racines dans la terre, profondes et solides. Il n’a pas à prendre la place d’un autre, ni à porter ses branches. Il a juste à pousser vers la lumière.",
-      "Remarque un bourgeon nouveau sur l’une de tes branches. Il représente ce que tu veux faire grandir cette année, pour toi, à ta place. Dis-toi : « Ma place existe. Je n’ai pas à la mériter. »",
+      "L’eau coule de mieux en mieux. Elle chante sur les pierres. Chaque émotion arrive, traverse, et repart vers la vallée. Je reste sur la rive, calme et présent·e, et je regarde passer ce qui passe.",
+      "Ma gorge s’ouvre doucement. Ma voix revient, claire, à moi. Je me répète : « Toutes mes émotions ont le droit d’exister. Je les écoute, et je choisis ma direction. »",
       "[pause]",
-      "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
+      "Je respire profondément. Je sens mon corps, le sol, le siège sous moi. Je bouge doucement les doigts, les épaules. Et quand je suis prêt·e, j’ouvre les yeux."
     ],
-    conseil: "Choisis un moment où personne ne te dérangera pendant dix minutes, le soir ou un dimanche matin. Si l’espace vide d’un enfant absent réveille une émotion forte, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux arrêter la séance et la reprendre un autre jour.",
-    note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la séance ? Un arbre, un espace vide, une sensation, un mot…", ph: "Exemple : mon arbre se penchait pour protéger le plus petit. Quand il s’est redressé, j’ai respiré beaucoup plus large." }
+    conseil: "Choisis un moment calme, avec dix minutes pour toi. Si une émotion monte fort, ouvre les yeux, pose les pieds bien à plat et respire : tu peux t’arrêter là et reprendre un autre jour.",
+    note: { k: 'medit-note-emo', q: "Qu’est-ce qui t’est venu pendant la séance ? La glace, l’eau qui coule, une émotion, une sensation dans la voix…", ph: "Exemple : la glace était dans ma gorge. Quand l’eau s’est remise à couler, j’ai eu envie de pleurer, puis j’ai respiré très large." }
   },
 
   /* Le protocole du mois, cycle 2 « Mon arbre de vie » (version 3) : Explorer, Transformer, Intégrer.
@@ -248,22 +249,22 @@ window.GENESOLIA_CARNET = {
     ]
   },
 
-  bilanTitre: "Ce que ce mois a remis à sa place",
+  bilanTitre: "Ce que ce mois a remis en mouvement",
   bilan: [
-    { k: 'fin-role', q: "Quel rôle de fratrie as-tu repéré ce mois-ci ?", ph: "Exemple : celle qui s’occupe de tout et de tout le monde." },
-    { k: 'fin-origine', q: "Qu’as-tu compris de son origine, dans ta fratrie ou celles de tes parents ?", ph: "Exemple : ma mère était aussi l’aînée qui élevait ses frères. J’ai repris sa place sans le savoir." },
-    { k: 'fin-pose', q: "Quel rôle as-tu posé ou allégé, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : je ne gère plus les papiers de mon père seule. Je me sens moins fatiguée, et plus proche de mon frère." },
-    { k: 'fin-place', q: "Quelle place choisis-tu désormais dans ta famille ?", ph: "Exemple : la grande sœur qui aime, qui écoute, mais qui ne porte plus tout." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en avril ?", ph: "Exemple : continuer à laisser la place aux autres, et écouter ce qui ne se dit pas dans ma famille.", court: true }
+    { k: 'fin-emotion', q: "Quelle émotion mise de côté as-tu repérée ce mois-ci, chez toi ou dans ta famille ?", ph: "Exemple : la colère. Chez nous, seul mon père avait le droit de se fâcher." },
+    { k: 'fin-regle-emo', q: "Qu’as-tu compris de la règle qui l’entourait, et de ce qu’elle protégeait ?", ph: "Exemple : ma mère se taisait pour éviter les disputes. Je me taisais aussi, pour garder ma place." },
+    { k: 'fin-libere-emo', q: "Qu’as-tu laissé partir, avec ta lettre ou tes quatre bols, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : la honte de pleurer. J’ai pleuré devant une amie, et elle m’a prise dans ses bras. Je me sens plus vraie." },
+    { k: 'fin-permission-emo', q: "Quelle phrase de permission veux-tu garder près de toi ?", ph: "Exemple : « J’ai le droit d’être en colère, et de le dire calmement. »" },
+    { k: 'fin-intention-emo', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape ?", ph: "Exemple : écouter les phrases qu’on répétait chez nous, comme « on ne pleure pas pour si peu », et les réécrire avec mes mots.", court: true }
   ],
 
   carnet: {
     titre: "Ma direction, ma confiance",
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Ta place dans la fratrie a souvent décidé si tu pouvais parler fort ou si tu devais te taire : ton carnet t’aide ce mois-ci à écouter la direction que ta vie te montre, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine. Reporte ton geste à ta juste place dans ton carnet, il devient un appui."
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas. Une émotion qui a le droit d’exister devient une boussole : ta colère montre une limite, ta tristesse ce qui compte pour toi, ta peur ce qui demande à être protégé, ta joie la direction qui te fait du bien. Ton carnet t’aide ce mois-ci à écouter cette direction, à te souvenir de tes forces et à oser une phrase d’affirmation chaque semaine, avec ta voix à toi. Reporte ta phrase de permission dans ton carnet, elle devient un appui."
   },
 
   aVenir: [
-    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Écouter les silences de ta famille, repérer les indices, et oser, à ton rythme, poser une question.", image: 'assets/cartes/ce-silence-mini.jpg' },
+    { mois: 'Avril', titre: "Quelles phrases me guident ?", texte: "Collecter les phrases de ta famille, voir où elles agissent dans ta vie, et les réécrire avec tes propres mots.", image: 'assets/cartes/boucle-spirale-mini.jpg' },
     { mois: 'Mai', titre: "Comment ai-je appris à aimer ?", texte: "Regarder ce que tu as reçu de ta mère et des femmes de ta lignée, garder le meilleur et faire autrement.", image: 'assets/cartes/ma-mere-mini.jpg' },
     { mois: 'Juin', titre: "Ai-je le droit d’aller plus loin ?", texte: "Regarder ce que tu as reçu de ton père et des hommes de ta lignée, et trouver ta propre façon d’avancer.", image: 'assets/cartes/deux-parents-mini.jpg' }
   ]

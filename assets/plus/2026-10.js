@@ -22,9 +22,9 @@ window.GENESOLIA_PLUS = {
     ] },
     { comprendre: {
         titre: "Lâcher ce qui pèse pour faire de la place",
-        chapeau: "Cette semaine, tu fais comme l’arbre d’octobre : tu laisses tomber une exigence, une habitude ou un poids, pour garder ta sève pour ce que tu as choisi de nourrir.",
+        chapeau: "Cette semaine, tu fais comme l’arbre qui lâche ses feuilles : tu laisses tomber une exigence, une habitude ou un poids, pour garder ta sève pour ce que tu as choisi de nourrir.",
         texte: [
-          "Faire le point, c’est aussi accepter que tout ne tient pas dans ta vie en même temps. L’arbre d’octobre ne s’accroche pas à ses feuilles jaunies : il les laisse partir, et ce n’est pas une perte. C’est ainsi qu’il garde sa force pour l’hiver, et pour les bourgeons du printemps. Laisser partir, pour toi, c’est la même idée : déposer ce qui te coûte de l’énergie sans rien te rendre.",
+          "Faire le point, c’est aussi accepter que tout ne tient pas dans ta vie en même temps. L’arbre qui se dépouille ne s’accroche pas à ses feuilles jaunies : il les laisse partir, et ce n’est pas une perte. C’est ainsi qu’il garde sa force pour traverser les jours plus rudes, et pour ses bourgeons à venir. Laisser partir, pour toi, c’est la même idée : déposer ce qui te coûte de l’énergie sans rien te rendre.",
           "Ce que l’on lâche n’est pas toujours une chose visible. Souvent, c’est une exigence intérieure : vouloir tout faire bien, tout de suite, et seul·e. C’est une habitude qui te vide sans que tu la remarques, ou une comparaison avec la vie des autres. Ton exercice « Ce qui me nourrit, ce qui me vide » t’a peut-être déjà montré une ou deux fuites. Cette semaine, tu peux choisir d’en laisser tomber une, une seule. Pas besoin de tout régler : un seul lâcher bien choisi suffit à faire de la place.",
           "Par exemple, Nadia voulait nourrir sa joie, mais chaque soir elle répondait à ses messages de travail jusqu’à 22 h. Elle a décidé de poser son téléphone dans l’entrée à 20 h. Ce petit lâcher a libéré une heure, et c’est dans cette heure qu’elle a placé son petit pas : dix minutes de dessin, chaque soir, sans se presser.",
           "Laisser partir, c’est aussi te pardonner ce qui n’a pas été fait. Ta lettre du mois est là pour ça : dire ce que tu te pardonnes, ce que tu déposes, et ce dont tu es **fier·e**. Ton rendez-vous avec toi devient alors l’espace libéré où ton intention peut prendre racine, à ton rythme."
@@ -43,19 +43,19 @@ window.GENESOLIA_PLUS = {
         titre: "Récolter les fruits de ton premier mois",
         texte: [
           "Après trois semaines à observer, nourrir et laisser partir, vient le temps de récolter. Récolter, ce n’est pas faire les comptes de ce qui manque. C’est ramasser ce qui a poussé, même petit : une habitude tenue deux fois, un soir où tu t’es couché·e plus tôt, un merci qui t’a fait sourire. Dans un premier mois, ces petits fruits sont les plus précieux, parce qu’ils montrent que ta roue a commencé à tourner autrement.",
-          "La gratitude t’aide à les voir. Quand tu refais ta roue et que tu la compares à celle du début, regarde d’abord ce qui a gagné un point, puis remercie-toi pour ce que tu as osé. Un domaine qui n’a pas bougé n’est pas un échec : c’est une information pour le mois prochain. Par exemple, Sophie a vu sa joie passer de 3 à 4, mais son énergie rester à 5. Elle a remercié ses soirées de danse, et choisi de nourrir son sommeil en novembre.",
+          "La gratitude t’aide à les voir. Quand tu refais ta roue et que tu la compares à celle du début, regarde d’abord ce qui a gagné un point, puis remercie-toi pour ce que tu as osé. Un domaine qui n’a pas bougé n’est pas un échec : c’est une information pour le mois prochain. Par exemple, Sophie a vu sa joie passer de 3 à 4, mais son énergie rester à 5. Elle a remercié ses soirées de danse, et choisi de nourrir son sommeil le mois suivant.",
           "Cette semaine, tu donnes aussi vie à ton intention. Tu nommes ce que tu désires vraiment ressentir, tu imagines la scène comme si elle était déjà là, tu choisis une croyance qui te soutient, et tu poses trois mots sous tes yeux. C’est comme le bourgeon de ta séance de visualisation : il n’a pas besoin de fleurir tout de suite, il a besoin d’être vu et protégé.",
-          "Le rituel de la feuille d’automne referme le mois en douceur : tu déposes ce qui a fait son temps, et tu plantes ce que tu veux voir grandir. Tu repars avec ta sève, ton intention et ton premier pas."
+          "Le rituel de la feuille qui se dépose referme le mois en douceur : tu déposes ce qui a fait son temps, et tu plantes ce que tu veux voir grandir. Tu repars avec ta sève, ton intention et ton premier pas."
         ]
       },
       jours: [
-      "Note trois petites choses qui ont bougé dans ta vie depuis le 1er octobre, même minuscules. Pour chacune, écris un merci à toi.",
+      "Note trois petites choses qui ont bougé dans ta vie depuis le début de ton étape, même minuscules. Pour chacune, écris un merci à toi.",
       "Ferme les yeux une minute et imagine ton intention réalisée. Où es-tu, qui est là, que ressens-tu dans ton corps ? Écris trois mots au présent.",
       "Choisis tes trois mots ou images pour ton mini tableau de vision. Écris-les sur un papier et colle-le là où tu le verras chaque matin.",
-      "Pendant une balade, ramasse une feuille d’automne pour ton rituel. Garde-la dans ta poche toute la journée, en pensant à ce que tu vas déposer.",
+      "Pendant une balade, ramasse une feuille tombée pour ton rituel. Garde-la dans ta poche toute la journée, en pensant à ce que tu vas déposer.",
       "Redis-toi la croyance que tu as choisie, trois fois, en te regardant dans le miroir. Remarque si ta voix devient plus assurée la troisième fois.",
       "Refais ta roue de la vie et pose-la à côté de celle du début. Entoure le domaine qui a le plus bougé, et dis-lui merci.",
-      "Regard sur ta semaine et sur ton mois : quel petit pas veux-tu garder en novembre ? Écris-le en une phrase, comme une promesse douce."
+      "Regard sur ta semaine et sur ton mois : quel petit pas veux-tu garder pour ta prochaine étape ? Écris-le en une phrase, comme une promesse douce."
     ] }
   ],
   suivi: [
@@ -82,7 +82,7 @@ window.GENESOLIA_PLUS = {
         texte: [
           "Libérer une boucle ne veut pas dire la chasser. Elle s’est installée un jour pour te protéger : être sage pour éviter une colère, tout porter pour ne pas déranger, partir avant d’être quitté·e. Elle a été utile, et souvent, elle venait de plus loin que toi. Tes phrases intérieures en sont la trace : « Il faut se débrouiller seul·e », « Ne fais pas de vagues ». Tu les as entendues, puis tu as fini par les croire.",
           "Cette semaine, tu fais deux gestes. D’abord, tu attrapes ces phrases et tu cherches de qui elles viennent. Ensuite, tu rends symboliquement ce qui ne t’appartient pas, en remerciant la personne qui le portait avant toi. Remercier change tout : on ne se libère pas d’une loyauté en la rejetant, mais en la reconnaissant. Tu gardes l’amour et la force, tu laisses le poids. Par exemple, Julien a compris que sa phrase « Je ne dois rien demander » venait de son grand-père, qui avait grandi sans rien. Dans sa lettre, il l’a remercié pour son courage, puis lui a rendu cette phrase. Le lendemain, il a demandé de l’aide pour son déménagement.",
-          "La main suspendue, ton rituel de la semaine, fait le lien entre ce travail intérieur et ta vie de tous les jours. Au moment où la boucle démarre, ta main dit « pause » et te laisse une seconde pour choisir. Si rien ne bouge tout de suite, ce n’est pas grave : ce que tu as rendu continue de s’alléger, feuille après feuille, comme l’arbre d’octobre."
+          "La main suspendue, ton rituel de la semaine, fait le lien entre ce travail intérieur et ta vie de tous les jours. Au moment où la boucle démarre, ta main dit « pause » et te laisse une seconde pour choisir. Si rien ne bouge tout de suite, ce n’est pas grave : ce que tu as rendu continue de s’alléger, feuille après feuille, comme un arbre qui laisse partir ses feuilles."
         ]
       },
       jours: [

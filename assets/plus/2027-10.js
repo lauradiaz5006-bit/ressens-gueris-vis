@@ -2,7 +2,7 @@ window.GENESOLIA_PLUS = {
   mois: "2027-10",
   carnet: [
     { jours: [
-      "Ouvre ton espace et regarde ta roue d’octobre dernier une minute, sans rien analyser. Note juste le premier mot qui te vient en la voyant.",
+      "Ouvre ton espace et regarde ta roue d’il y a un an une minute, sans rien analyser. Note juste le premier mot qui te vient en la voyant.",
       "Relis ton premier carnet, « Mon point de départ ». Recopie une phrase que tu avais écrite et qui te fait sourire aujourd’hui.",
       "Choisis un domaine de ta roue qui a grandi cette année. Écris un geste précis qui explique ce point gagné.",
       "Pense à une habitude devenue naturelle depuis l’an dernier. Fais-la aujourd’hui en conscience, et remarque comme elle te demande peu d’effort.",
@@ -21,11 +21,11 @@ window.GENESOLIA_PLUS = {
     ] },
     { comprendre: {
         titre: "Laisser partir ce que l’année a fini de t’apprendre",
-        chapeau: "En octobre, l’arbre lâche ses feuilles sans regret. Libérer ton année, c’est faire pareil : garder la sève de ce que tu as vécu, et laisser partir ce qui a fini son temps.",
+        chapeau: "L’arbre lâche ses feuilles sans regret. Libérer ton année, c’est faire pareil : garder la sève de ce que tu as vécu, et laisser partir ce qui a fini son temps.",
         texte: [
           "Au bout d’une année, on a tendance à faire les comptes : ce qui a marché, ce qui n’a pas été fait, les carnets restés à moitié remplis. Cette semaine t’invite à autre chose. Libérer ton année, ce n’est pas l’effacer ni la juger. C’est reconnaître tout ce qu’elle t’a donné, puis laisser partir ce qui n’a plus à te suivre : un reproche, un regret, une vieille exigence envers toi-même.",
           "Il y a d’abord **les choses inachevées** : une habitude abandonnée en mars, un exercice jamais fait, une conversation repoussée. Tu peux décider, pour chacune, de la laisser partir ou de la garder pour plus tard, sans culpabilité. Il y a ensuite **la personne que tu étais**, celle qui a écrit la lettre il y a un an. Relire ses mots, c’est l’occasion de la remercier pour son courage, et de lui pardonner ses doutes. Ta lettre du mois prolonge ce geste : te pardonner, te dire ta fierté, te souhaiter du bien pour la suite.",
-          "Par exemple, Nadia relit sa lettre d’octobre dernier. Elle avait écrit : « J’espère que tu as enfin repris le piano. » Elle ne l’a pas fait. Pendant un instant, elle se sent en faute. Puis elle remarque tout ce qu’elle a vécu à la place : des soirées avec sa fille, des limites posées au travail, une paix nouvelle avec sa mère. Elle se pardonne le piano, le garde comme une envie douce, et remercie son année telle qu’elle a été.",
+          "Par exemple, Nadia relit sa lettre d’il y a un an. Elle avait écrit : « J’espère que tu as enfin repris le piano. » Elle ne l’a pas fait. Pendant un instant, elle se sent en faute. Puis elle remarque tout ce qu’elle a vécu à la place : des soirées avec sa fille, des limites posées au travail, une paix nouvelle avec sa mère. Elle se pardonne le piano, le garde comme une envie douce, et remercie son année telle qu’elle a été.",
           "Cette semaine, remercier les autres et te remercier toi-même fait partie du même mouvement. Ce que tu lâches allège ton pas. Ce que tu remercies devient une ressource pour ton prochain tour de spirale."
         ]
       },
@@ -41,19 +41,19 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter ton année, ouvrir la suivante",
         texte: [
-          "Voici la dernière semaine de ton premier tour de spirale. Les feuilles tombent, la lumière dorée de l’automne s’allonge sur les après-midi, et tu arrives au moment de la récolte. Tu as comparé tes roues, célébré une victoire, relu ta lettre, remercié celles et ceux qui t’ont accompagné·e. Il est temps de rassembler tout cela, et de choisir ce que tu emportes.",
+          "Voici la dernière semaine de ton premier tour de spirale. Comme un arbre qui a porté ses fruits, tu arrives au moment de la récolte. Tu as comparé tes roues, célébré une victoire, relu ta lettre, remercié celles et ceux qui t’ont accompagné·e. Il est temps de rassembler tout cela, et de choisir ce que tu emportes.",
           "Récolter, c’est d’abord **reconnaître ce qui a poussé**. Pas seulement les points gagnés sur ta roue, mais aussi les gestes devenus naturels, les phrases que tu te dis autrement, les liens retrouvés avec ta famille. Les douze feuilles de ton rituel sont là pour ça : un mot par mois, pour voir d’un coup toute la richesse de ton année. La gratitude que tu ressens alors n’est pas un point final, c’est une base solide pour la suite.",
-          "Récolter, c’est aussi **donner vie à ton intention**. Cette semaine, tu imagines la personne que tu seras dans un an, tu choisis une croyance qui t’accompagne et trois mots pour ton tableau de vision. Par exemple, Thomas a vu cette année sa joie passer de 3 à 7, mais ses amitiés sont restées en retrait. Il choisit les mots « partager, inviter, rire », et la croyance « j’ai beaucoup à offrir aux autres ». Le premier samedi de novembre, il invite deux amis à dîner.",
+          "Récolter, c’est aussi **donner vie à ton intention**. Cette semaine, tu imagines la personne que tu seras dans un an, tu choisis une croyance qui t’accompagne et trois mots pour ton tableau de vision. Par exemple, Thomas a vu cette année sa joie passer de 3 à 7, mais ses amitiés sont restées en retrait. Il choisit les mots « partager, inviter, rire », et la croyance « j’ai beaucoup à offrir aux autres ». Le premier samedi de sa nouvelle année, il invite deux amis à dîner.",
           "Enfin, refais ta roue et choisis le domaine que tu veux nourrir en premier. Tu n’es pas revenu·e au point de départ : tu es au même endroit de l’année, un tour plus haut. Le chemin continue de monter, à ton rythme, avec tout ce que tu sais maintenant de toi."
         ]
       },
       jours: [
       "Ramasse douze feuilles pendant une promenade, ou découpe douze petits papiers. Pose-les près de ta bougie, prêts pour ton rituel.",
-      "Feuillette tes carnets de l’année et laisse venir un mot pour chaque mois, sans chercher le mot parfait. Écris-les dans l’ordre, d’octobre à septembre.",
+      "Feuillette tes carnets de l’année et laisse venir un mot pour chaque mois, sans chercher le mot parfait. Écris-les dans l’ordre, de ta première à ta douzième étape.",
       "Ferme les yeux deux minutes et imagine-toi dans un an, ton intention réalisée. Note un détail : un lieu, une personne, une sensation.",
       "Choisis les trois mots de ton tableau de vision pour la nouvelle année. Écris-les en grand, là où tu les verras chaque matin.",
       "Après ta séance « Le chemin de l’année », note ce que tu as vu du haut de la colline, et la phrase que tu t’es dite.",
-      "Refais ta roue et pose-la à côté de celle d’octobre dernier. Entoure le domaine que tu choisis de nourrir en premier.",
+      "Refais ta roue et pose-la à côté de celle d’il y a un an. Entoure le domaine que tu choisis de nourrir en premier.",
       "Regarde ton mois et ton année : qu’emportes-tu dans ce nouveau tour de spirale ? Écris trois mots et une phrase de merci."
     ] }
   ],
@@ -62,7 +62,7 @@ window.GENESOLIA_PLUS = {
       "Note les dates de naissance que tu connais dans ta famille, sans rien calculer encore. Laisse un blanc pour celles que tu ignores.",
       "Écris ton âge aujourd’hui, puis l’âge de tes parents à ta naissance. Remarque simplement ce que ça te fait de les voir côte à côte.",
       "Regarde ton agenda des deux mois à venir. Entoure un anniversaire ou une date de mémoire, et note ce qu’elle évoque pour toi.",
-      "Sors marcher cinq minutes et respire l’odeur de l’automne. Note un souvenir ou un visage qui revient avec elle.",
+      "Sors marcher cinq minutes et respire l’odeur de l’air du jour. Note un souvenir ou un visage qui revient avec elle.",
       "Choisis un tournant de ta lignée et calcule l’âge qu’avait la personne à ce moment-là. Écris-le, sans en tirer de conclusion.",
       "Remarque une saison où tu te sens chaque année plus fragile ou plus joyeux·se. Écris-la en une ligne dans ton journal.",
       "Regarde ta semaine : quel écho d’âge ou de date t’a le plus surpris·e ? Écris-le, et ce que tu ressens à le voir écrit."
@@ -81,7 +81,7 @@ window.GENESOLIA_PLUS = {
         texte: [
           "Une date de famille peut peser longtemps sans qu’on sache pourquoi : un mois où l’on se sent plus fragile, un âge qu’on redoute, un anniversaire qu’on évite. Cette semaine, tu ne cherches pas à effacer ces dates. Tu les regardes en face, tu reconnais ce qu’elles ont représenté pour les tiens, et tu les rends à leur histoire. Elles restent dans ta mémoire, mais elles n’ont plus à décider de la façon dont tu vis ton calendrier.",
           "Rendre une date, ce n’est pas oublier les personnes qui l’ont vécue. C’est au contraire leur donner une place juste : celle d’un repère, pas d’un destin. Par exemple, Élise approche de 45 ans, l’âge où sa grand-mère est devenue veuve. Chaque automne, elle sent une inquiétude monter. Pendant le rituel, elle pose sur le fil un papier marqué « 45 ans, mamie Jeanne », remercie sa grand-mère pour sa force, et place son propre prénom au bout du fil. Pour son anniversaire, elle choisit un voyage avec son compagnon, une façon bien à elle de vivre cet âge.",
-          "Tes trois dates à toi, ta lettre à ton âge et le fil des saisons vont dans le même sens. Tu sépares ce qui appartient à ta lignée de ce qui t’appartient. Et comme c’est la fin de ton année de Cercle, tu peux aussi remercier ce premier tour de spirale : tout ce que tu as vu, posé et rendu depuis octobre dernier rend ta propre page plus libre à écrire."
+          "Tes trois dates à toi, ta lettre à ton âge et le fil du temps vont dans le même sens. Tu sépares ce qui appartient à ta lignée de ce qui t’appartient. Et comme c’est la fin de ton année de Cercle, tu peux aussi remercier ce premier tour de spirale : tout ce que tu as vu, posé et rendu depuis le début de ton parcours rend ta propre page plus libre à écrire."
         ]
       },
       jours: [

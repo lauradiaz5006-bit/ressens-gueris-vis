@@ -45,7 +45,7 @@ window.GENESOLIA_CARNET = {
     theme: "Rien à faire ici, seulement à lire. Remarque les moments où tu te dis : « Ça, c’est moi. »",
     comprendre: "Une émotion n’est jamais de trop. Elle te montre un besoin. La nommer, c’est déjà commencer à dire vrai.",
     exercices: "Commence par le premier exercice, au calme. Tu vas peut-être découvrir combien de choses tu gardes pour toi.",
-    rituel: "Ce mois-ci, ta connexion passe par les fleurs du printemps. Chaque mot vrai est une fleur que tu laisses s’ouvrir.",
+    rituel: "Ce mois-ci, ta connexion passe par les fleurs. Chaque mot vrai est une fleur que tu laisses s’ouvrir.",
     semaines: "Un petit défi de vérité chaque semaine, toujours avec douceur. Tu choisis à qui, quand et combien.",
     cloture: "Relis ton mois et remarque les relations qui ont changé, même un peu. C’est souvent là que la vérité fleurit."
   },
@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: "Le mois où je dis vrai",
     texte: [
-      "Avril, c’est la floraison. Les cerisiers s’ouvrent, les jardins se remplissent de couleurs, et la nature ne cache plus rien de sa vitalité. Tout ce qui attendait sous la terre pendant l’hiver se montre enfin, simplement, sans se demander si c’est trop.",
+      "Pense à la floraison. Les cerisiers s’ouvrent, les jardins se remplissent de couleurs, et la nature ne cache plus rien de sa vitalité. Tout ce qui attendait sous la terre pendant de longs mois se montre enfin, simplement, sans se demander si c’est trop.",
       "Ce carnet t’invite à laisser fleurir tes mots vrais. Dire « ça m’a blessé·e » au lieu de « ce n’est rien ». Dire « j’ai besoin de toi » au lieu d’attendre qu’on devine. Dire « je ne suis pas d’accord » sans claquer la porte. Dire aussi « je t’aime », « merci », « je suis fier·e de toi », ces mots qu’on garde souvent pour plus tard. Pas pour tout déballer, mais pour arrêter de faire semblant avec ce qui compte."
     ],
     sousTitre: "Pourquoi dire vrai ?",
@@ -150,11 +150,11 @@ window.GENESOLIA_CARNET = {
 
   rituel: {
     titre: "Le bouquet des mots vrais",
-    intro: "En avril, tout fleurit : les arbres, les talus, les jardins. Ce rituel symbolique t’invite à composer un bouquet où chaque fleur porte un mot vrai que tu veux laisser s’ouvrir dans ta vie. Il se fait en quinze minutes, dehors si tu peux, en pleine floraison.",
+    intro: "Quand tout fleurit, les arbres, les talus, les jardins, la nature se montre sans retenue. Ce rituel symbolique t’invite à composer un bouquet où chaque fleur porte un mot vrai que tu veux laisser s’ouvrir dans ta vie. Il se fait en quinze minutes, dehors si tu peux, au milieu de ce qui pousse.",
     materiel: "Quelques fleurs ou branches fleuries ramassées en balade (ou achetées), un vase ou un verre d’eau, de petits papiers, un crayon et un ruban si tu en as un.",
     quand: "Fais-le en début de mois, après avoir rempli ta roue. Garde ton bouquet tout le temps qu’il dure, et relis tes papiers chaque fois que tu changes l’eau. Quand les fleurs fanent, tu peux les rendre à la terre.",
     etapes: [
-      "Promène-toi et choisis trois à cinq fleurs ou branches qui t’attirent. Respire leur parfum et remercie la nature pour cette saison.",
+      "Promène-toi et choisis trois à cinq fleurs ou branches qui t’attirent. Respire leur parfum et remercie la nature pour ce qu’elle t’offre.",
       "Chez toi, installe-toi au calme. Sur chaque petit papier, écris un mot vrai que tu veux oser dire ce mois-ci : « merci », « non », « j’ai besoin », « je t’aime », « ça m’a blessé·e »…",
       "Pour chaque fleur, lis son mot à voix haute, puis place la fleur dans le vase en disant : « Je laisse ce mot s’ouvrir, comme cette fleur. »",
       "Noue le ruban autour du vase, ou pose les papiers au pied du bouquet.",
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Sens ton corps se poser. Tes épaules descendent. Ta gorge se détend. Tu n’as rien à dire, rien à prouver. Juste être là, tel·le que tu es.",
-      "Imagine un verger au mois d’avril. Les arbres sont couverts de fleurs blanches et roses. Une brise légère fait tomber quelques pétales qui tournoient dans la lumière. L’air sent bon. Tout est vivant, et rien ne se cache.",
+      "Imagine un verger en fleurs. Les arbres sont couverts de fleurs blanches et roses. Une brise légère fait tomber quelques pétales qui tournoient dans la lumière. L’air sent bon. Tout est vivant, tout se montre.",
       "[pause]",
       "Au milieu du verger, un petit lac à l’eau très claire. Approche-toi et regarde ton reflet. Il te montre ce que tu ressens vraiment, sous le sourire, sous le « ça va ». Regarde-le sans juger : de la fatigue, peut-être, de la tristesse, de la colère, ou une joie que tu n’oses pas montrer.",
       "Accueille ce que tu vois. Dis intérieurement : « Je te vois. Tu as le droit d’être là. » Sens comme ton reflet s’adoucit quand tu le reconnais.",
@@ -205,7 +205,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-mot-vrai', q: "Quel mot vrai as-tu osé dire ce mois-ci, et qu’est-ce qu’il a changé ?", ph: "Exemple : j’ai dit à ma belle-sœur que ses remarques me blessaient. Elle s’est excusée, et nos repas sont plus légers." },
     { k: 'fin-relation', q: "Quelle relation est devenue plus vraie, et comment le sens-tu ?", ph: "Exemple : avec mon compagnon. On se dit plus facilement ce qui ne va pas, et on se dispute moins." },
     { k: 'fin-emotion', q: "Quelle émotion as-tu appris à mieux reconnaître ou à mieux exprimer ?", ph: "Exemple : la tristesse. Je la cachais derrière la fatigue, maintenant je peux dire « je suis triste »." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour mai ?", ph: "Exemple : continuer mes mots vrais, et prendre davantage de temps pour moi, sans culpabiliser.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer mes mots vrais, et prendre davantage de temps pour moi, sans culpabiliser.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.

@@ -7,24 +7,24 @@ window.GENESOLIA_PLUS = {
       "Ce soir, note les oui de ta journée et écris à côté « vrai » ou « faux ». Ne te juge pas, compte seulement.",
       "Repère où ton corps réagit quand on te demande quelque chose : gorge, mâchoire, épaules, ventre. Écris l’endroit et la sensation en quelques mots.",
       "Relis tes messages de la journée et cherche un oui envoyé trop vite. Qu’aurais-tu répondu avec une minute de plus ?",
-      "Fais la liste de ce qui t’attend en décembre : repas, cadeaux, invitations. Entoure d’une autre couleur ce qui te réjouit vraiment.",
+      "Fais la liste de ce qui t’attend ce mois-ci : repas, cadeaux, invitations. Entoure d’une autre couleur ce qui te réjouit vraiment.",
       "Demande-toi : « Si je dis non, qu’est-ce que j’ai peur qu’il se passe ? » Écris la première réponse, puis regarde si elle est vraiment probable.",
       "Regard sur ta semaine : où sont tes faux oui, et avec qui reviennent-ils le plus souvent ? Deux lignes suffisent."
     ] },
     { jours: [
       "Choisis ta phrase pour dire non et répète-la trois fois à voix haute, devant un miroir ou en marchant. Remarque quand elle devient naturelle.",
-      "Pense à un moment des fêtes que tu attends avec joie. Écris un geste concret pour le protéger, puis inscris-le dans ton agenda.",
+      "Pense à un moment à venir que tu attends avec joie. Écris un geste concret pour le protéger, puis inscris-le dans ton agenda.",
       "Dis aujourd’hui un « pas maintenant » à une petite demande, sans te justifier. Puis observe ce qui se passe vraiment, et note-le.",
-      "Écris une phrase qui commence par « J’ai besoin de… » pour un moment des fêtes qui te demande beaucoup. Garde-la prête dans ton téléphone.",
+      "Écris une phrase qui commence par « J’ai besoin de… » pour un moment à venir qui te demande beaucoup. Garde-la prête dans ton téléphone.",
       "Pense à une personne qui pose ses limites avec douceur. Que dit-elle, comment se tient-elle ? Note une chose que tu peux lui emprunter.",
-      "Fais un geste du mois qui protège ton énergie : une soirée sans écran, une marche dans le froid, un coucher plus tôt. Coche-le.",
+      "Fais un geste du mois qui protège ton énergie : une soirée sans écran, une marche au grand air, un coucher plus tôt. Coche-le.",
       "Regard sur ta semaine : quel non as-tu osé, et qu’avais-tu imaginé qui ne s’est pas produit ? Écris-le en deux lignes."
     ] },
     { comprendre: {
         titre: "Lâcher le besoin de faire plaisir à tout le monde",
-        chapeau: "Cette semaine, en pleine préparation des fêtes, tu déposes la culpabilité de dire non et l’idée d’une fête parfaite, pour garder ton énergie pour ce qui compte.",
+        chapeau: "Cette semaine, au milieu de tes moments chargés, tu déposes la culpabilité de dire non et l’idée d’une fête parfaite, pour garder ton énergie pour ce qui compte.",
         texte: [
-          "Décembre approche de sa nuit la plus longue, et c’est souvent le moment où l’on en fait le plus. Laisser partir, ce mois-ci, c’est déposer ce qui t’empêche de respecter tes limites : la culpabilité qui suit chaque non, le besoin que tout le monde soit content, et l’image d’une fête parfaite où tu tiendrais tous les rôles à la fois. Tu n’as pas à tout porter seul·e.",
+          "Il y a des périodes où tout s’accélère, et c’est souvent là que l’on en fait le plus. Laisser partir, ce mois-ci, c’est déposer ce qui t’empêche de respecter tes limites : la culpabilité qui suit chaque non, le besoin que tout le monde soit content, et l’image d’une fête parfaite où tu tiendrais tous les rôles à la fois. Tu n’as pas à tout porter seul·e.",
           "La culpabilité est souvent la dernière à partir. Tu dis non, l’autre accepte, et pourtant une petite voix te reproche d’être égoïste. Cette voix vient de loin : elle a appris qu’être aimé·e, c’était dire oui. Tu peux la remercier de vouloir protéger tes liens, et lui rappeler qu’une limite posée avec douceur les protège aussi. Ta phrase pour dire non t’aide à le faire sans te justifier, encore et encore, jusqu’à ce que ce soit simple, presque naturel.",
           "Par exemple, Élise se sentait coupable chaque année de partir avant le dessert chez ses beaux-parents. Cette fois, elle a prévenu à l’avance : « Nous partons à 23 h. » À 23 h, elle s’est levée, a remercié tout le monde, et personne n’a protesté. Dans la voiture, elle a senti ses épaules redescendre. Elle a compris que la fête pouvait continuer sans elle, et qu’on l’aimait tout autant.",
           "Ta lettre du mois est l’endroit pour te pardonner tes oui de trop, laisser partir la fête parfaite, et être **fier·e** de chaque non doux. Tes pauses de dix minutes pendant les réunions de famille deviennent alors de petits espaces libres, où tu reviens à toi avant de retourner à table, plus calme."
@@ -33,7 +33,7 @@ window.GENESOLIA_PLUS = {
       jours: [
       "Écris la phrase que te souffle ta culpabilité après un non. Puis écris en dessous une réponse douce, comme le ferait une amie bienveillante.",
       "Utilise ta phrase pour dire non une fois aujourd’hui, même pour une petite chose. Note avec qui, et ce que tu as ressenti juste après.",
-      "Prévois dans ton agenda tes pauses des fêtes : à quel moment de chaque repas, et où tu iras prendre l’air pendant dix minutes.",
+      "Prévois dans ton agenda tes pauses pour tes grands repas : à quel moment de chaque repas, et où tu iras prendre l’air pendant dix minutes.",
       "Fais la liste de ce que la « fête parfaite » exigerait de toi. Barre une chose que tu laisses partir cette année, sans la remplacer.",
       "Écris dans ta lettre du mois un oui de trop que tu te pardonnes. Une ou deux phrases, avec la tendresse que tu offrirais à un·e ami·e.",
       "Pendant une réunion ou une soirée, prends ta pause de dix minutes. En revenant, note un mot pour dire comment tu te sens.",
@@ -42,16 +42,16 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter la lumière qui revient",
         texte: [
-          "Le solstice est passé, et la lumière revient, minute après minute. C’est le moment de récolter ce que ce mois t’a appris, au milieu des fêtes ou juste après. Récolter, ici, c’est remarquer chaque fois que tu t’es respecté·e : un non doux, une pause prise, une place choisie, un besoin dit à voix haute. Même si les fêtes ont tout bousculé, ces moments ont existé, et ils comptent. Note-les, même les plus petits.",
-          "La gratitude t’aide à les garder. Dis merci aux personnes qui ont accueilli tes limites sans drame, et à toi-même pour avoir osé. Dis merci aussi à cette année qui se termine, pour ce qu’elle t’a appris, le doux comme le plus difficile. Par exemple, Marc avait toujours découpé la volaille, debout en bout de table. Cette année, il a demandé à son fils de le faire, et s’est assis au milieu. Le soir, il a noté : « J’ai mangé chaud, et j’ai écouté mon fils raconter. » Un petit déplacement, une belle récolte.",
+          "Comme la lumière qui revient après une longue nuit, minute après minute, c’est le moment de récolter ce que ce mois t’a appris, au milieu de tes moments chargés ou juste après. Récolter, ici, c’est remarquer chaque fois que tu t’es respecté·e : un non doux, une pause prise, une place choisie, un besoin dit à voix haute. Même si ces moments ont tout bousculé, ces moments ont existé, et ils comptent. Note-les, même les plus petits.",
+          "La gratitude t’aide à les garder. Dis merci aux personnes qui ont accueilli tes limites sans drame, et à toi-même pour avoir osé. Dis merci aussi aux mois que tu viens de vivre, pour ce qu’elle t’a appris, le doux comme le plus difficile. Par exemple, Marc avait toujours découpé la volaille, debout en bout de table. Cette année, il a demandé à son fils de le faire, et s’est assis au milieu. Le soir, il a noté : « J’ai mangé chaud, et j’ai écouté mon fils raconter. » Un petit déplacement, une belle récolte.",
           "Cette semaine, tu donnes aussi vie à ton intention. Imagine-toi à ta juste place, ton intention réalisée : où es-tu assis·e, qui est près de toi, comment respires-tu ? Choisis une croyance qui te soutient, comme « Ma place existe, je n’ai pas à la mériter », et trois mots pour ton tableau de vision. Laisse-les briller comme la flamme de ta bougie.",
-          "Le cercle du solstice et ta maison de lumière referment l’année : tu sais ce que tu protèges à l’intérieur de ton cercle, et tu gardes la clé de ta porte pour entrer dans janvier. Tes limites deviennent ta lumière pour l’année qui commence."
+          "Le cercle de lumière et ta maison de lumière referment ton étape : tu sais ce que tu protèges à l’intérieur de ton cercle, et tu gardes la clé de ta porte pour entrer dans ta prochaine étape. Tes limites deviennent ta lumière pour la suite de ton parcours."
         ]
       },
       jours: [
       "Note trois moments de ce mois où tu t’es respecté·e : un non, une pause, une place choisie. Pour chacun, écris un merci à toi.",
       "Ose aujourd’hui un petit déplacement : une autre chaise, une tâche confiée, une préférence dite à voix haute. Note ce qui s’est passé.",
-      "Rassemble tes branches, tes pommes de pin ou tes cailloux pour le cercle du solstice. Pose-les près de ta bougie, prêts pour ton rituel.",
+      "Rassemble tes branches, tes pommes de pin ou tes cailloux pour ton cercle de lumière. Pose-les près de ta bougie, prêts pour ton rituel.",
       "Ferme les yeux une minute et imagine-toi à ta juste place, ton intention réalisée. Écris trois mots pour ce que tu ressens dans ton corps.",
       "Écris un message de remerciement à une personne qui a accueilli une de tes limites ce mois-ci, même sans le savoir.",
       "Refais ta roue et compare-la à celle du début du mois. Regarde quel domaine a gagné quand tu as protégé ton énergie.",

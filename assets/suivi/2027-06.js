@@ -51,10 +51,10 @@ window.GENESOLIA_CARNET = {
   },
 
   theme: {
-    titre: 'Le mois des pères',
+    titre: 'Ce que j’ai reçu de mon père',
     texte: [
-      "Juin ramène la fête des pères. Dans les vitrines, les cartes et les cadeaux montrent des pères souriants et proches. Pour certain·es, c'est un moment simple et joyeux. Pour d'autres, c'est un jour qui serre un peu le cœur : un père absent, silencieux, disparu trop tôt, jamais connu, ou une relation restée compliquée.",
-      "Ce mois clôt le deuxième temps de l'année du Cercle, **Traverser**. Après la lignée de tes mères en mai, tu regardes maintenant le côté paternel : ton père, son père, et les hommes qui les ont précédés. En juillet commencera le troisième temps, **Transmettre**. Tu avances à ton rythme, tu écris seulement ce qui te semble juste, et tu restes libre de t'arrêter où tu veux."
+      "Dans les films, les publicités et les albums photo, on voit souvent des pères souriants et proches. Pour certain·es, cette image est simple et joyeuse. Pour d'autres, elle serre un peu le cœur : un père absent, silencieux, disparu trop tôt, jamais connu, ou une relation restée compliquée.",
+      "Ce mois clôt le deuxième temps de l'année du Cercle, **Traverser**. Après la lignée de tes mères, à l’étape précédente, tu regardes maintenant le côté paternel : ton père, son père, et les hommes qui les ont précédés. À ta prochaine étape commencera le troisième temps, **Transmettre**. Tu avances à ton rythme, tu écris seulement ce qui te semble juste, et tu restes libre de t'arrêter où tu veux."
     ],
     sousTitre: 'Pourquoi regarder la lignée des pères ?',
     texte2: [
@@ -165,7 +165,7 @@ window.GENESOLIA_CARNET = {
       intro: "Tu as regardé les hommes de ta lignée, compris un peu de leur histoire, et rendu ce qui pesait. Cette semaine, tu choisis une qualité reçue du côté paternel, et tu la fais vivre consciemment, à ta façon, dans ta vie d’aujourd’hui.",
       texte: [
         "**La première pause.** Quand tu sens monter un vieux réflexe hérité, le silence, la colère qui gronde, l'envie de partir, respire : inspire lentement par le nez en comptant jusqu’à 5, retiens 2 secondes, expire par la bouche en comptant jusqu’à 7. Trois fois de suite. Puis dis-toi intérieurement : « Je te reconnais, tu viens des hommes de ma lignée. Aujourd’hui, je choisis autrement. »",
-        "**La qualité que tu fais vivre.** Chaque lignée paternelle porte aussi des trésors : le courage, la patience, l'habileté des mains, la loyauté, le sens de l'humour, l'amour de la terre. Choisir l'un d'eux et l'utiliser consciemment, c'est transformer un héritage subi en un héritage choisi. C'est aussi une belle façon d'ouvrir, dès juillet, le temps de la transmission."
+        "**La qualité que tu fais vivre.** Chaque lignée paternelle porte aussi des trésors : le courage, la patience, l'habileté des mains, la loyauté, le sens de l'humour, l'amour de la terre. Choisir l'un d'eux et l'utiliser consciemment, c'est transformer un héritage subi en un héritage choisi. C'est aussi une belle façon d'ouvrir, dès ta prochaine étape, le temps de la transmission."
       ],
       exercices: [
         { k: 'ex3', titre: 'La qualité que je reçois', type: 'texte',
@@ -186,7 +186,7 @@ window.GENESOLIA_CARNET = {
       "Installe-toi confortablement et ferme les yeux. Respire profondément, trois fois. Laisse tes épaules descendre, ton dos se poser, ton souffle ralentir.",
       "[pause]",
       "Avant de commencer, sache que tu peux t’arrêter à tout moment. Si quelque chose est trop fort, ouvre les yeux, sens tes pieds sur le sol, et reviens à ton souffle. Tu es en sécurité, ici et maintenant.",
-      "Imagine que tu marches dans un paysage calme, à la fin d'une journée d'été. L'air est doux, la lumière est dorée, l’herbe sent le foin. Devant toi, à quelques pas, se tient une silhouette d'homme. C'est ton père, tel que tu l'as connu, ou l'image que tu as de lui si tu ne l'as pas connu.",
+      "Imagine que tu marches dans un paysage calme, à la fin d'une belle journée. L'air est doux, la lumière est dorée, l’herbe sent le foin. Devant toi, à quelques pas, se tient une silhouette d'homme. C'est ton père, tel que tu l'as connu, ou l'image que tu as de lui si tu ne l'as pas connu.",
       "Tu peux t'approcher, ou rester à distance. Tu choisis. Rien ne t'oblige. Remarque simplement ce qui se passe en toi : de la chaleur, de la gêne, de la tristesse, de la colère, ou rien de particulier. Tout est accueilli.",
       "[pause]",
       "Derrière lui, tu devines son propre père. Et derrière encore, d'autres hommes, une longue file qui remonte le temps : des paysans, des ouvriers, des soldats, des artisans, des voyageurs. Chacun a porté ce qu'il a pu, avec ce qu'il avait reçu.",
@@ -250,7 +250,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-laisse', q: "Qu’as-tu laissé à la lignée des pères, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : le silence et la colère rentrée. J’ose dire plus facilement quand quelque chose ne va pas." },
     { k: 'fin-recois', q: "Que gardes-tu, et que reçois-tu avec gratitude, du côté paternel ?", ph: "Exemple : l’habileté des mains, l’amour de la nature, le sens de la parole donnée." },
     { k: 'fin-geste', q: "Quelle qualité as-tu fait vivre, et qu’est-ce qu’elle a changé ?", ph: "Exemple : la patience de mon grand-père. Les devoirs avec mon fils se passent mieux, et je me sens relié·e à lui." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en juillet, en regardant l’argent et ta valeur ?", ph: "Exemple : continuer à dire ce que je ressens, et regarder ce que ma famille m’a transmis sur l’argent.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape, en regardant l’argent et ta valeur ?", ph: "Exemple : continuer à dire ce que je ressens, et regarder ce que ma famille m’a transmis sur l’argent.", court: true }
   ],
 
   carnet: {

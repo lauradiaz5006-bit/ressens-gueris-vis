@@ -536,8 +536,8 @@ window.GENESOLIA_IMPRESSION = {
     zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +
       '<img class="cadeau-couv" src="assets/formation/module-1-apercu.jpg" width="662" height="936" alt="Aperçu du module 1 de la formation Sors de la boucle" loading="lazy">' +
       '<div class="cadeau-texte"><p class="ef-sur">La formation · Sors de la boucle</p><h2>Va plus loin que le mois : sors vraiment de ta boucle</h2>' +
-      '<p>Ton carnet t’aide à avancer, ton suivi à te libérer. La formation t’emmène au bout du chemin : 8 modules, 8 séances audio guidées, et à chaque étape un geste concret pour arrêter de rejouer la même histoire.</p>' +
-      '<ul class="ef-liste"><li>Le module 1 offert, pour tester</li><li>Un tarif réduit pour les membres du Cercle</li><li>À ton rythme, depuis chez toi</li></ul>' +
+      '<p>Ton carnet t’aide à avancer, ton suivi à te libérer. La formation t’emmène au bout du chemin : 8 modules en vidéo, un carnet pour chacun, et à chaque étape un geste concret pour arrêter de rejouer la même histoire.</p>' +
+      '<ul class="ef-liste"><li>Le module 1 offert, pour tester</li><li>Incluse dans Le Cercle, au fil de tes étapes</li><li>À ton rythme, depuis chez toi</li></ul>' +
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
   }
@@ -631,7 +631,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div class="ef-texte">' +
         '<p class="ef-sur">Nouvelle formation · module 1 offert ' + FORMATION.module1 + ' · inscriptions ' + FORMATION.date + '</p>' +
         '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
-        '<p>« Sors de la boucle » : 8 modules, 8 séances audio guidées et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
+        '<p>« Sors de la boucle » : 8 modules en vidéo, un cahier d\'exercices et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
         '<ul class="ef-avantages">' +
           '<li><b>Le module 1 offert</b>, envoyé par e-mail ' + FORMATION.module1 + ' : tu le testes avant de t\'inscrire</li>' +
           '<li><b>Le tarif fondatrice</b>, réservé à la liste</li>' +
@@ -655,8 +655,7 @@ window.GENESOLIA_IMPRESSION = {
       return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
         '<p>Tu es bien sur la liste. <b>' + FORMATION.module1.charAt(0).toUpperCase() + FORMATION.module1.slice(1) + '</b>, ton module 1 offert t\'arrive par e-mail, étape par étape :</p>' +
         '<ol class="liste-etapes">' +
-          '<li><b>La feuille de cours</b><span>pour comprendre ta boucle</span></li>' +
-          '<li><b>La séance audio guidée</b><span>20 minutes pour la vivre</span></li>' +
+          '<li><b>La vidéo du module</b><span>pour comprendre ta boucle</span></li>' +
           '<li><b>Le cahier d\'exercices</b><span>et ton carnet de 7 jours</span></li>' +
         '</ol>' +
         '<p class="discret">Tu as une semaine pour le tester. Les inscriptions ouvrent ensuite ' + FORMATION.date + ' : tu t\'inscris en priorité, au tarif fondatrice, 48 h avant l\'ouverture au public. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';

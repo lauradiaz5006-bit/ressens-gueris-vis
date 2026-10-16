@@ -258,8 +258,8 @@
       if (E.etape && E.etape.debut && !E.etape.calendaire) { var dd = E.etape.debut.split('-'); semS = Math.max(1, Math.min(4, Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(+dd[0], +dd[1] - 1, +dd[2])) / 6048e5) + 1)); }
       var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, semS) - 1];
       if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">' + (E.etape ? 'Étape ' + E.etape.enCours + ' · ' : '') + 'Ta semaine ' + semS + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
-      /* Mes séances : une séance audio à ouvrir chaque mois */
-      h += '<a class="ce-carte" href="mes-seances.html"><p class="ce-etiq">Mes séances</p><h3>Ta séance audio du mois</h3><p>Une nouvelle séance se débloque à chaque étape, dans chaque cycle. Elles restent à toi pour les réécouter.</p><span class="ce-bt">Écouter</span></a>';
+      /* Mes séances : deux séances audio par étape, une par cycle */
+      h += '<a class="ce-carte" href="mes-seances.html"><p class="ce-etiq">Mes séances</p><h3>Tes deux séances du mois</h3><p>À chaque étape, deux petits audios de libération se débloquent : un pour le cycle 1, un pour le cycle 2. Elles restent à toi pour les réécouter.</p><span class="ce-bt">Écouter</span></a>';
       /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
       var F = window.GENESOLIA_FORMATION;
       if (F && F.modules) {

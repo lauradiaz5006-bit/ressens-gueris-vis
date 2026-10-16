@@ -269,14 +269,14 @@
           <h2 id="pa-titre">Teste tout Genesolia 1 mois gratuitement</h2>
         </div>
         <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
-        <p class="pa-apres">Après ton mois offert : formule cycle 1 à 19,90 € par mois sans engagement, ou Le Cercle complet à 29,90 € par mois sur 12 mois (ou 329 € en une fois).</p>
+        <p class="pa-apres">Après ton mois offert : 29 € par mois sans engagement, ou 24,90 € par mois sur 12 mois. Tout est compris, la formation aussi.</p>
       </div>
       <ul>
         <li><b>J'avance</b> : un nouveau carnet chaque mois, à remplir en ligne ou à imprimer</li>
         <li><b>Je me libère</b> : ton suivi semaine après semaine, avec la méthode des deux cycles</li>
         <li><b>Ton guide du mois complet</b> : ton calendrier et les dates de ton arbre</li>
         <li><b>Ton évolution</b> mois après mois, et Les 12 saisons dès ton 2<sup>e</sup> mois</li>
-        <li><b>19,90 € par mois</b> sans engagement pour le cycle 1, ou <b>29,90 € par mois</b> pour Le Cercle complet</li>
+        <li><b>29 € par mois</b> sans engagement, ou <b>24,90 € par mois</b> sur 12 mois, formation « Sors de la boucle » comprise</li>
       </ul>
     </aside>
 
@@ -306,7 +306,7 @@
         <div class="tb-grille">
           <article class="tb-carte tb-large" id="acc-cercle">
             <h2>Le Cercle : un pas chaque mois</h2>
-            <p class="tb-aide">Un carnet pour avancer, un suivi pour déposer ce qui se rejoue, une séance audio par mois : tu sors pas à pas de ce qui se répète, à ton rythme.</p>
+            <p class="tb-aide">Un carnet pour avancer, un suivi pour déposer ce qui se rejoue, deux séances audio par mois : tu sors pas à pas de ce qui se répète, à ton rythme.</p>
             <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><button type="button" class="btn btn-trait" data-aller="cercle">Découvrir le Cercle</button></div>
           </article>
           <article class="tb-carte" id="acc-emotion">
@@ -363,10 +363,10 @@
         <div class="tb-grille" id="pan-cercle">
           <article class="tb-carte tb-large">
             <h2>Le Cercle</h2>
-            <p class="tb-aide">Chaque mois, une étape : ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue dans ta lignée, et ta séance audio du mois.</p>
+            <p class="tb-aide">Chaque mois, une étape : ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue dans ta lignée, et tes deux séances audio du mois, une par cycle.</p>
             <ul class="tb-liste">
-              <li><b>Formule cycle 1</b> : le carnet du mois et ta séance audio, 19,90 € par mois, sans engagement, 1<sup>er</sup> mois offert</li>
-              <li><b>Le Cercle complet</b> : tout le cycle 1, le suivi de ta lignée et la formation « Sors de la boucle », 29,90 € par mois sur 12 mois, ou 329 € en une fois</li>
+              <li><b>Tout compris</b> : ton carnet « J’avance », ton suivi « Je me libère », tes deux séances audio du mois et la formation « Sors de la boucle », un module à la fois</li>
+              <li><b>29 € par mois</b> sans engagement, ou <b>24,90 € par mois</b> sur 12 mois, 1<sup>er</sup> mois offert</li>
             </ul>
             <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
           </article>
@@ -389,7 +389,7 @@
             <li>Les outils gratuits : le fil d’or, la roue des émotions, le test de l'arbre de vie, le carnet des deux cycles</li>
           </ul>
           <p class="tb-formule" style="margin-top:1rem">Le Cercle <span>1<sup>er</sup> mois offert</span></p>
-          <p class="tb-aide"><b>Formule cycle 1</b> : 19,90 € par mois, sans engagement. <b>Le Cercle complet</b> : 29,90 € par mois sur 12 mois, ou 329 € en une fois.</p>
+          <p class="tb-aide"><b>Le Cercle</b> : 29 € par mois sans engagement, ou 24,90 € par mois sur 12 mois. Tout est compris, la formation aussi.</p>
           <p class="tb-essai" id="essai-info" hidden></p>
           <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
         </section>
@@ -626,7 +626,7 @@
       var reste = Math.ceil((fin - new Date()) / 864e5);
       var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
       el.innerHTML = (reste > 0
-        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement passe à 19,90 € par mois, sauf si tu l\'arrêtes avant.'
+        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement démarre à ta formule (29 € par mois, ou 24,90 € par mois sur 12 mois), sauf si tu l\'arrêtes avant.'
         : 'Ton abonnement au Cercle est actif.') +
         (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
@@ -713,16 +713,16 @@
         var liens = '<a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a><a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>';
         var abo = document.querySelector('[aria-labelledby="t-abo"]');
         if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
-          '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), ta séance audio du mois, ton guide du mois complet et ton suivi.</p>' +
+          '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), tes deux séances audio du mois, ton guide du mois complet et ton suivi.</p>' +
           '<p class="tb-essai" id="essai-info" hidden></p>' +
           '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
         var pan = $('pan-cercle');
-        if (pan) pan.innerHTML = '<article class="tb-carte tb-large"><h2>Le Cercle</h2><p class="tb-aide">Tout ton mois est ici : ton carnet pour avancer, ton suivi pour déposer ce qui se rejoue dans ta lignée, ta séance audio et ton guide.</p><div class="tb-actions">' + liens + '<a class="btn btn-trait" href="cercle.html">L’appli Le Cercle</a></div></article>';
+        if (pan) pan.innerHTML = '<article class="tb-carte tb-large"><h2>Le Cercle</h2><p class="tb-aide">Tout ton mois est ici : ton carnet pour avancer, ton suivi pour déposer ce qui se rejoue dans ta lignée, tes deux séances audio et ton guide.</p><div class="tb-actions">' + liens + '<a class="btn btn-trait" href="cercle.html">L’appli Le Cercle</a></div></article>';
         (window.GenesoliaAcces.etape ? window.GenesoliaAcces.etape() : Promise.resolve(null)).then(function (et) {
           var acc = $('acc-cercle'); if (!acc) return;
           var n = et && et.enCours ? et.enCours : null, e = n ? ETAPES[n - 1] : null;
           acc.innerHTML = (e ? '<p class="eb-etape">Le Cercle · étape ' + n + ' sur 12</p><h2>' + esc(e[1]) + '</h2><p class="tb-aide">Ta séance du mois : <b>' + esc(e[0]) + '</b>. La question de ton suivi : <b>' + esc(e[2]) + '</b></p>'
-            : '<p class="eb-etape">Le Cercle</p><h2>Ton mois t’attend</h2><p class="tb-aide">Ton carnet, ton suivi et ta séance du mois.</p>') +
+            : '<p class="eb-etape">Le Cercle</p><h2>Ton mois t’attend</h2><p class="tb-aide">Ton carnet, ton suivi et tes deux séances du mois.</p>') +
             '<div class="tb-actions">' + liens + '</div>';
         }, function () {});
       });

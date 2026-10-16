@@ -46,14 +46,14 @@ window.GENESOLIA_CARNET = {
     source: "Derrière chaque métier, il y a une époque et un choix, ou une absence de choix. Écoute les réponses avec tendresse.",
     liberer: "Tu peux remercier une phrase qui a aidé les tiens à tenir, et la laisser à son époque. C’est ça, rendre avec respect.",
     remplacer: "Un petit pas vers ce qui t’attire suffit. Ta lignée t’a donné du courage : tu peux t’en servir pour toi.",
-    meditation: "Un soir calme de rentrée. Si une émotion monte en pensant à un rêve empêché, reviens simplement à ton souffle.",
+    meditation: "Un soir calme. Si une émotion monte en pensant à un rêve empêché, reviens simplement à ton souffle.",
     bilan: "Regarde ce que tu as reconnu, et ce que tu as choisi. Tu montes encore d’un cran sur la spirale."
   },
 
   theme: {
-    titre: 'Le mois de la rentrée',
+    titre: 'Ma voie, mes métiers',
     texte: [
-      "Septembre, c’est la rentrée. Les cartables, les agendas neufs, la reprise du travail. C’est aussi un moment où l’on se demande : est-ce que ce que je fais me ressemble vraiment ? Est-ce que je l’ai choisi, ou est-ce que je l’ai suivi ?",
+      "Le travail occupe une grande place dans nos journées, et il arrive un moment où l’on se demande : est-ce que ce que je fais me ressemble vraiment ? Est-ce que je l’ai choisi, ou est-ce que je l’ai suivi ?",
       "Ton rapport au travail ne vient pas de nulle part. Tes parents, tes grands-parents ont exercé des métiers, rêvé d’autres vies, transmis des phrases sur l’argent et l’effort. Ce mois-ci, tu regardes cet héritage avec curiosité, sans juger personne : ni celles et ceux qui ont travaillé dur, ni toi qui cherches peut-être autre chose. Tu es dans le troisième temps de l’année du Cercle, **Transmettre** : tu choisis ce que tu gardes de leur travail, et ce que tu fais passer à ton tour."
     ],
     sousTitre: 'Le travail, une histoire de famille',
@@ -70,7 +70,7 @@ window.GENESOLIA_CARNET = {
       "**Le plafond invisible** : chaque fois qu’une promotion arrive, tu la refuses ou tu la sabotes, comme si gagner plus que tes parents était interdit.",
       "**La peur de l’instabilité** : tu restes dans un poste qui t’ennuie depuis dix ans, parce que chez vous « on ne quitte pas un CDI »."
     ],
-    exempleSpirale: "La spirale, c’est la même rentrée, un cran plus haut. Chaque septembre, tu promets de t’inscrire à ce cours de dessin, et chaque année tu te dis que « ce n’est pas sérieux », comme ton père qui disait que l’art ne nourrit pas son homme. Cette année, tu remercies ton père pour la sécurité qu’il t’a donnée, tu lui rends sa phrase, et tu t’inscris au cours du jeudi soir. Le thème est le même, ta place a changé.",
+    exempleSpirale: "La spirale, c’est la même envie, un cran plus haut. Chaque année, tu promets de t’inscrire à ce cours de dessin, et chaque fois tu te dis que « ce n’est pas sérieux », comme ton père qui disait que l’art ne nourrit pas son homme. Cette fois, tu remercies ton père pour la sécurité qu’il t’a donnée, tu lui rends sa phrase, et tu t’inscris au cours du jeudi soir. Le thème est le même, ta place a changé.",
     question: { k: 'theme-metier', q: "En une phrase, qu’est-ce que ta famille t’a transmis sur le travail ?", ph: "Exemple : qu’il faut travailler dur, ne jamais se plaindre, et que le plaisir viendra après." }
   },
 
@@ -198,7 +198,7 @@ window.GENESOLIA_CARNET = {
       "[pause]",
       "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un soir de rentrée où personne ne te dérangera pendant dix minutes. Si un regret ou une tristesse monte devant la table des rêves, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
+    conseil: "Choisis un soir calme où personne ne te dérangera pendant dix minutes. Si un regret ou une tristesse monte devant la table des rêves, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
     note: { k: 'medit-atelier', q: "Qu’est-ce qui t’est venu pendant la séance ? Un outil, un rêve en suspens, ce que tu as posé sur ta table…", ph: "Exemple : j’ai vu la machine à coudre de ma grand-mère, et un violon jamais joué. Sur ma table, j’ai posé un carnet de croquis." }
   },
 
@@ -249,7 +249,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-reconnais', q: "Que reconnais-tu, avec gratitude, du travail de ta lignée ?", ph: "Exemple : le courage de mes grands-parents, leur sérieux, et le savoir-faire des mains." },
     { k: 'fin-rendu', q: "Quelle phrase as-tu rendue, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : j’ai rendu « ce n’est pas un vrai métier » à mon père. Je me sens plus libre de parler de mon projet." },
     { k: 'fin-choisis', q: "Que choisis-tu pour ta vie professionnelle, même un tout petit pas ?", ph: "Exemple : je garde mon poste pour l’instant, et je suis l’atelier d’illustration du jeudi toute l’année." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en octobre ?", ph: "Exemple : continuer à dire mes nouvelles phrases, et regarder les âges et les dates de ma famille.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer après cette étape ?", ph: "Exemple : continuer à dire mes nouvelles phrases, et regarder les âges et les dates de ma famille.", court: true }
   ],
 
   carnet: {

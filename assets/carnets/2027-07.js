@@ -10,7 +10,7 @@ window.GENESOLIA_CARNET = {
   nomMois: 'juillet 2027',
   moisSuivant: 'août',
   titre: 'Ma valeur',
-  sousTitre: "Apprendre à recevoir, oser demander ce qui te revient, reconnaître ta juste valeur, et goûter l'abondance de l'été.",
+  sousTitre: "Apprendre à recevoir, oser demander ce qui te revient, reconnaître ta juste valeur, et goûter l'abondance de la vie.",
   pdf: '',
   image: 'assets/cartes/ma-place.jpg',
   citation: "Ta valeur n'a pas besoin d'être prouvée. Elle a besoin d'être reconnue, d'abord par toi.",
@@ -40,12 +40,12 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    tonmois: "Lis ton mois à l’ombre, tranquillement. Juillet n’exige rien de toi : prends ce qui te parle, et laisse mûrir le reste.",
-    ouverture: "Quelques minutes suffisent pour ouvrir ce mois. Ton objectif peut être léger : l’été est aussi fait pour recevoir.",
+    tonmois: "Lis ton mois tranquillement, dans un coin où tu te sens bien. Ce mois n’exige rien de toi : prends ce qui te parle, et laisse mûrir le reste.",
+    ouverture: "Quelques minutes suffisent pour ouvrir ce mois. Ton objectif peut être léger : ce mois est aussi fait pour recevoir.",
     theme: "Lis cette page comme on reçoit un compliment : sans le repousser. Remarque ce qui, en toi, a envie de dire « oui, mais… ».",
     comprendre: "Ta valeur ne dépend ni de ce que tu produis ni de ce que tu gagnes. Ce mois-ci, tu apprends à la regarder en face.",
-    exercices: "Un exercice par semaine, à ton rythme d’été. Le deuxième se fait très bien en terrasse, avec un verre frais.",
-    rituel: "Ce mois-ci, ta connexion passe par les fruits de l’été et la gratitude. Tout est là pour te rappeler que la vie donne.",
+    exercices: "Un exercice par semaine, à ton rythme. Le deuxième se fait très bien en terrasse ou au calme, avec une boisson que tu aimes.",
+    rituel: "Ce mois-ci, ta connexion passe par les fruits de saison et la gratitude. Tout est là pour te rappeler que la vie donne.",
     semaines: "Chaque semaine, un petit défi pour oser recevoir et demander. Si tu as envie de ralentir, ralentis : c’est aussi te respecter.",
     cloture: "Regarde tout ce que tu as reçu ce mois-ci, et tout ce que tu as osé demander. C’est ça, reconnaître ta valeur."
   },
@@ -53,8 +53,8 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois de la valeur',
     texte: [
-      "Juillet, c'est le plein soleil. Les blés se dorent, les fruits gonflent, la chaleur ralentit tout. La nature donne sans compter : abricots, cerises, tomates, longues soirées dehors. Et pourtant, beaucoup d'entre nous ont du mal à simplement recevoir. On rend un compliment aussitôt, on minimise ce qu'on a fait, on n'ose pas demander ce qui nous revient.",
-      "Ce carnet t'invite à profiter de cette abondance pour regarder ta propre valeur. Pas celle qu'on t'a donnée, ni celle que tu crois devoir mériter, mais celle qui est déjà là. Ce mois-ci, tu apprends à recevoir sans te justifier, à demander sans t'excuser, et à reconnaître ce que tu apportes au monde. Et comme juillet invite à ralentir, tu as aussi le droit de faire tout cela tranquillement."
+      "Pense à la nature en plein soleil : les blés se dorent, les fruits gonflent, la chaleur ralentit tout. Elle donne sans compter : abricots, cerises, tomates, longues soirées dehors. Et pourtant, beaucoup d'entre nous ont du mal à simplement recevoir. On rend un compliment aussitôt, on minimise ce qu'on a fait, on n'ose pas demander ce qui nous revient.",
+      "Ce carnet t'invite à profiter de cette abondance pour regarder ta propre valeur. Pas celle qu'on t'a donnée, ni celle que tu crois devoir mériter, mais celle qui est déjà là. Ce mois-ci, tu apprends à recevoir sans te justifier, à demander sans t'excuser, et à reconnaître ce que tu apportes au monde. Et comme ce mois t'invite à ralentir, tu as aussi le droit de faire tout cela tranquillement."
     ],
     sousTitre: 'Pourquoi est-ce si difficile de reconnaître sa valeur ?',
     texte2: [
@@ -115,7 +115,7 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Recevoir, reconnaître, demander',
-  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir l’équilibre entre ce que tu donnes et ce que tu reçois, le deuxième à rassembler les preuves concrètes de ta valeur, le troisième à oser une vraie demande. Prends ton temps : c’est l’été.",
+  exercicesIntro: "Pour aller plus loin, à côté de ton exercice du mois : trois exercices en plus, à faire si tu en as envie, un par semaine environ. Le premier t’aide à voir l’équilibre entre ce que tu donnes et ce que tu reçois, le deuxième à rassembler les preuves concrètes de ta valeur, le troisième à oser une vraie demande. Prends ton temps : rien ne presse.",
   exercices: [
     { k: 'ex1', titre: 'Ce que je donne, ce que je reçois', type: 'tableau', rangs: 3,
       etiquettes: ['Au travail', 'Dans mes relations', 'Avec moi-même'],
@@ -144,13 +144,13 @@ window.GENESOLIA_CARNET = {
       pourquoi: "La peur d’une demande est presque toujours plus grande que la demande elle-même. L’écrire d’abord la rend plus claire, et chaque petite demande osée t’entraîne pour les grandes. Même un refus t’apprend quelque chose : tu as osé.",
       gestes: ["Dire « merci » à un compliment, sans rien ajouter", "Demander de l’aide pour une tâche que je fais toujours seul·e", "Annoncer mon nouveau tarif sans me justifier", "Demander un entretien pour parler de mon salaire", "Accepter un cadeau ou une invitation sans proposer de rendre aussitôt", "M’offrir quelque chose de beau, rien que pour moi"],
       q: "Ta demande : « Je demande à…, de…, parce que… »",
-      ph: "Exemple : je demande à ma responsable un entretien avant le 31 juillet pour parler d’une augmentation, parce que j’ai pris en charge deux nouveaux clients cette année.",
+      ph: "Exemple : je demande à ma responsable un entretien avant la fin du mois pour parler d’une augmentation, parce que j’ai pris en charge deux nouveaux clients cette année.",
       journal: { k: 'ex3-essais', n: 6, q: "Chaque fois que tu as osé demander ou recevoir : quand, et que s’est-il passé ?", ph: "Exemple : jeudi, ma collègue m’a dit que ma présentation était excellente. J’ai dit « merci, j’y ai passé du temps ». Je me suis senti·e grandir." } }
   ],
 
   rituel: {
-    titre: 'La corbeille d’été',
-    intro: "En juillet, la terre donne ses fruits en abondance, sans rien demander en retour. Ce petit rituel symbolique t'invite à t'en inspirer : remercier pour ce que tu reçois déjà, et ouvrir tes mains à ce qui vient. Il se fait en quinze minutes, dehors ou près d'une fenêtre ouverte, à l'heure douce du soir.",
+    titre: 'La corbeille de gratitude',
+    intro: "La terre donne ses fruits en abondance, sans rien demander en retour. Ce petit rituel symbolique t'invite à t'en inspirer : remercier pour ce que tu reçois déjà, et ouvrir tes mains à ce qui vient. Il se fait en quinze minutes, dehors ou près d'une fenêtre ouverte, à l'heure douce du soir.",
     materiel: "Une petite corbeille ou un joli bol, quelques fruits de saison, une bougie, et un papier.",
     quand: "Fais-le en début de mois, après avoir rempli ta roue et ton objectif. Tu peux le refaire juste avant d’oser ta grande demande : il t’aide à te sentir dans l’abondance plutôt que dans le manque.",
     etapes: [
@@ -161,16 +161,16 @@ window.GENESOLIA_CARNET = {
       "Ouvre tes mains, paumes vers le ciel, et dis : « J’accueille ce qui me revient. Je reconnais ma juste valeur. »",
       "Partage les fruits, avec toi d’abord, puis avec ceux que tu aimes. Éteins la bougie et note ici ce que tu as remercié et reconnu."
     ],
-    note: { k: 'rituel-note', q: "Pour quoi as-tu dit merci, et quelle valeur as-tu reconnue en toi ?", ph: "Exemple : merci pour mes amies, pour ma nouvelle cliente, pour l’été. J’ai écrit : « Je suis fiable et créative, et ça a de la valeur. »" }
+    note: { k: 'rituel-note', q: "Pour quoi as-tu dit merci, et quelle valeur as-tu reconnue en toi ?", ph: "Exemple : merci pour mes amies, pour ma nouvelle cliente, pour ce beau mois. J’ai écrit : « Je suis fiable et créative, et ça a de la valeur. »" }
   },
 
   meditation: {
-    titre: 'Le verger en plein été',
+    titre: 'Le verger en plein soleil',
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Pose tes mains sur tes cuisses, paumes ouvertes vers le ciel. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Sens l’air sur tes paumes, leur chaleur, leur poids. Remarque si elles ont envie de se refermer, ou de rester ouvertes. Laisse-les comme elles sont.",
-      "Imagine un verger, un après-midi de juillet. Il fait chaud, mais tu marches à l’ombre des arbres. L’air sent l’abricot mûr et l’herbe sèche. Tu entends les cigales au loin, et le bruit léger des feuilles.",
+      "Imagine un verger, un après-midi de plein soleil. Il fait chaud, et tu marches à l’ombre des arbres. L’air sent l’abricot mûr et l’herbe sèche. Tu entends les cigales au loin, et le bruit léger des feuilles.",
       "Les branches sont lourdes de fruits. Il y en a partout, bien plus qu’il n’en faut. Personne ne les compte. Ils sont simplement là, offerts.",
       "[pause]",
       "Approche-toi d’un arbre. Un fruit se détache doucement et vient se poser dans ta main ouverte. Tu n’as rien eu à faire pour le mériter. Remarque ce que tu ressens : de la joie, de la gêne, l’envie de le rendre…",
@@ -183,7 +183,7 @@ window.GENESOLIA_CARNET = {
       "Dis intérieurement : « Je reçois avec gratitude. Je demande avec confiance. Je reconnais ma juste valeur. »",
       "Respire profondément. Sens à nouveau ton corps, le sol, le siège sous toi. Referme doucement tes mains, comme pour garder ce que tu as reçu. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un moment calme, à l’ombre ou dans la fraîcheur du soir, où personne ne te dérangera pendant dix minutes. Juillet invite à ralentir : si tu t’endors, laisse-toi faire, et recommence un autre jour.",
+    conseil: "Choisis un moment calme, à l’ombre ou dans la fraîcheur du soir, où personne ne te dérangera pendant dix minutes. Ce mois invite à ralentir : si tu t’endors, laisse-toi faire, et recommence un autre jour.",
     note: { k: 'medit-note', q: "Qu’est-ce qui t’est venu pendant la méditation ? Le fruit reçu, la petite voix, les fruits que tu portes, une sensation…", ph: "Exemple : j’ai eu envie de rendre le fruit tout de suite. Puis je l’ai gardé, et j’ai senti une chaleur dans la poitrine. Mes fruits à moi, c’était mon rire et ma patience." }
   },
 
@@ -198,17 +198,17 @@ window.GENESOLIA_CARNET = {
       exemple: "Par exemple : « J’ai reçu un message de mon frère, une glace offerte par ma voisine, la fraîcheur du soir sur le balcon. J’ai offert mon aide à un inconnu à la gare. » L’abondance commence par le regard.",
       ph: "Exemple : au bout de trois jours, j’ai remarqué que je reçois énormément, mais que je ne le voyais pas. Je me sens plus riche, au sens large." },
     { titre: 'Oser ma demande et refaire ma roue', texte: "Cette semaine, ose la demande de ton troisième exercice, si ce n’est pas encore fait. Puis refais ta roue de la vie dans ton bilan, en regardant surtout l’argent, le travail et la connexion à toi. Tu peux aussi refaire le [test de l’arbre de vie](arbre-de-vie.html) et voir ce qui a bougé dans [ton espace](login.html#mon-chemin).",
-      exemple: "Par exemple : tu as demandé ton entretien, et il est fixé à la rentrée. Ton domaine argent est passé de 3 à 5, non parce que ton salaire a changé, mais parce que tu as enfin osé. Célèbre-le.",
+      exemple: "Par exemple : tu as demandé ton entretien, et il est fixé au mois prochain. Ton domaine argent est passé de 3 à 5, non parce que ton salaire a changé, mais parce que tu as enfin osé. Célèbre-le.",
       ph: "Exemple : j’ai annoncé mon nouveau tarif à trois clientes. Deux ont dit oui tout de suite. Ma roue est plus ronde du côté du travail." }
   ],
 
   bilanTitre: 'Ce que ce mois t’a apporté',
   bilan: [
     { k: 'fin-recevoir', q: "Qu’as-tu appris à recevoir ce mois-ci, et qu’est-ce que ça t’a fait ?", ph: "Exemple : les compliments. Je dis merci sans me justifier, et je sens qu’ils me nourrissent vraiment." },
-    { k: 'fin-demande', q: "Quelle demande as-tu osée, et que s’est-il passé ?", ph: "Exemple : j’ai demandé un entretien pour mon salaire. Il aura lieu en septembre, et je me sens fier·e d’avoir osé." },
+    { k: 'fin-demande', q: "Quelle demande as-tu osée, et que s’est-il passé ?", ph: "Exemple : j’ai demandé un entretien pour mon salaire. Il aura lieu dans quelques semaines, et je me sens fier·e d’avoir osé." },
     { k: 'fin-valeur', q: "Qu’est-ce que tu reconnais aujourd’hui de ta valeur, que tu ne voyais pas au début du mois ?", ph: "Exemple : que mon calme et mon organisation sont rares, et qu’ils ont une vraie valeur pour mon équipe." },
     { k: 'fin-abondance', q: "Où as-tu senti l’abondance dans ta vie ce mois-ci ?", ph: "Exemple : dans mes amitiés, dans les longues soirées sur le balcon, et dans les fruits du marché que je me suis offerts sans compter." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour août ?", ph: "Exemple : garder mes mains ouvertes, et faire de mon chez-moi un endroit qui me ressemble.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : garder mes mains ouvertes, et faire de mon chez-moi un endroit qui me ressemble.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
@@ -217,7 +217,7 @@ window.GENESOLIA_CARNET = {
     titre: "Je reçois",
     objectif: "reconnaître ma valeur et m’autoriser à recevoir.",
     sousObjectif: "distinguer les valeurs qui sont à moi de celles que j’ai reçues de mes parents, et mesurer à quel point je les vis aujourd’hui.",
-    duree: "en deux jours. Jour 1 : 30 min. Jour 2 : 20 min. Ensuite, 2 min par jour. À télécharger : [la liste des valeurs](liste-des-valeurs.html) (aussi utilisée en janvier).",
+    duree: "en deux jours. Jour 1 : 30 min. Jour 2 : 20 min. Ensuite, 2 min par jour. À télécharger : [la liste des valeurs](liste-des-valeurs.html) (aussi utilisée à l’étape « Mon intention, mes valeurs »).",
     temps: [
       {
         titre: "Jour 1 · Mes valeurs (30 min)",
@@ -253,7 +253,7 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la rentrée.", image: 'assets/cartes/racines-appuis-mini.jpg' },
+    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la suite.", image: 'assets/cartes/racines-appuis-mini.jpg' },
     { mois: 'Septembre', titre: 'Ma vocation', texte: "Écouter ce qui t’anime vraiment, et donner plus de place à ce que tu aimes faire.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' },
     { mois: 'Octobre', titre: 'Mon bilan de l’année', texte: "Comparer tes roues, relire ta lettre, célébrer le chemin parcouru en une année dans Le Cercle.", image: 'assets/guide/guide-livre-lumineux.webp' }
   ]

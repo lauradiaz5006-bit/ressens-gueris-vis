@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois du point de départ',
     texte: [
-      "Octobre, c'est la saison où les arbres trient. Ils laissent tomber ce qui a fini son temps, et gardent leur sève pour l'essentiel. La rentrée est passée, les jours raccourcissent, et l'on sent naturellement le besoin de faire le point : qu'est-ce qui me fait du bien, qu'est-ce qui me coûte, où est-ce que je veux aller ?",
+      "Pense à un arbre qui trie : il laisse tomber ce qui a fini son temps, et garde sa sève pour l'essentiel. Au début d'un nouveau chemin, on ressent souvent le même élan, et l'on sent naturellement le besoin de faire le point : qu'est-ce qui me fait du bien, qu'est-ce qui me coûte, où est-ce que je veux aller ?",
       "Ce premier carnet du Cercle t'invite à faire comme l'arbre : regarder ta vie dans son ensemble, avec douceur, sans te juger. Pas pour tout changer d'un coup, mais pour choisir un endroit où mettre ton énergie ce mois-ci. Un seul. C'est souvent le plus petit pas, bien choisi, qui fait bouger tout le reste."
     ],
     sousTitre: 'Pourquoi une roue de la vie ?',
@@ -148,10 +148,10 @@ window.GENESOLIA_CARNET = {
   ],
 
   rituel: {
-    titre: 'La feuille d’automne',
-    intro: "En octobre, la nature lâche ce qui a fini son temps pour garder sa force pour l'essentiel. Ce petit rituel symbolique t'invite à faire pareil : déposer une chose que tu laisses partir, et planter l'intention de ton mois. Il se fait en dix minutes, dehors si tu peux.",
+    titre: 'La feuille qui se dépose',
+    intro: "Un arbre qui lâche ses feuilles laisse partir ce qui a fini son temps pour garder sa force pour l'essentiel. Ce petit rituel symbolique t'invite à faire pareil : déposer une chose que tu laisses partir, et planter l'intention de ton mois. Il se fait en dix minutes, dehors si tu peux.",
     materiel: "Une feuille d’arbre tombée (ou un petit papier si tu es en ville), un crayon, et un endroit au calme : un parc, un jardin, un balcon, ou près d’une fenêtre ouverte.",
-    quand: "Fais-le en début de mois, après avoir rempli ta roue. Tu peux le refaire à la pleine lune, ou chaque fois que tu sens que tu portes trop. Certaines personnes en font un rendez-vous d’automne, chaque année.",
+    quand: "Fais-le en début de mois, après avoir rempli ta roue. Tu peux le refaire à la pleine lune, ou chaque fois que tu sens que tu portes trop. Certaines personnes en font un rendez-vous, chaque fois qu’une étape s’achève.",
     etapes: [
       "Ramasse une feuille qui t’attire, ou prends un petit papier. Tiens-la dans ta main et respire trois fois profondément.",
       "Pense à une chose que tu veux laisser partir ce mois-ci : une habitude, une inquiétude, une exigence envers toi. Écris un mot pour la nommer.",
@@ -164,17 +164,17 @@ window.GENESOLIA_CARNET = {
   },
 
   meditation: {
-    titre: 'L’arbre en automne',
+    titre: 'L’arbre qui lâche ses feuilles',
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Sens tes pieds sur le sol. Imagine que, sous tes pieds, partent de fines racines qui descendent dans la terre, tranquillement, profondément. Tu es stable. Tu es soutenu·e.",
-      "Ton dos devient un tronc, droit et souple à la fois. Tes bras, tes épaules, deviennent des branches. Tu es un arbre, en automne, au milieu d’une belle lumière dorée.",
+      "Ton dos devient un tronc, droit et souple à la fois. Tes bras, tes épaules, deviennent des branches. Tu es un arbre, au milieu d’une belle lumière dorée.",
       "[pause]",
       "Regarde tes feuilles. Certaines sont encore vertes, pleines de vie : ce sont les domaines de ta vie qui te nourrissent. Remercie-les.",
       "D’autres ont jauni. Elles ont fait leur temps. Une fatigue, une inquiétude, une vieille habitude. Tu n’as pas besoin de les arracher. Laisse simplement le vent passer… et regarde-les tomber doucement, une à une.",
       "[longue pause]",
-      "Sens comme tes branches deviennent plus légères. Ta sève redescend vers le cœur de l’arbre, vers l’essentiel. Rien n’est perdu : tout ce qui tombe nourrira la terre pour le printemps.",
+      "Sens comme tes branches deviennent plus légères. Ta sève redescend vers le cœur de l’arbre, vers l’essentiel. Tout ce qui tombe nourrit la terre et prépare ce qui va pousser.",
       "Maintenant, choisis une branche. Celle du domaine que tu veux nourrir ce mois-ci. Imagine qu’un petit bourgeon s’y forme, bien protégé. C’est ton intention. Elle n’a pas besoin de fleurir tout de suite. Elle est là.",
       "[pause]",
       "Dis intérieurement : « Je garde l’essentiel. Je laisse partir ce qui a fait son temps. J’avance à mon rythme. »",
@@ -204,7 +204,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-domaine', q: "Qu’est-ce qui a bougé dans le domaine que tu as choisi de nourrir ?", ph: "Exemple : ma joie. Je danse deux fois par semaine, et je me sens plus légère." },
     { k: 'fin-habitude', q: "Quelle habitude qui te fait du bien veux-tu garder ?", ph: "Exemple : mes trois mercis du soir, et mon rendez-vous du samedi." },
     { k: 'fin-appui', q: "Sur quelle force t’es-tu appuyé·e ce mois-ci ?", ph: "Exemple : ma constance. Même fatigué·e, j’ai fait mes cinq minutes de marche." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour novembre ?", ph: "Exemple : continuer à nourrir ma joie, et m’appuyer davantage sur mes amies.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer à nourrir ma joie, et m’appuyer davantage sur mes amies.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
@@ -271,7 +271,7 @@ window.GENESOLIA_CARNET = {
 
   aVenir: [
     { mois: 'Novembre', titre: 'Mes forces, mes appuis', texte: "Reconnaître ce sur quoi tu peux t’appuyer : tes forces, tes ressources, et ce que ta lignée t’a transmis de beau.", image: 'assets/cartes/racines-appuis-mini.jpg' },
-    { mois: 'Décembre', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, et trouver ta juste place, même au cœur des fêtes.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Décembre', titre: 'Ma place, mes limites', texte: "Dire oui, dire non, et trouver ta juste place, même au cœur des grands moments de famille.", image: 'assets/cartes/ma-place-mini.jpg' },
     { mois: 'Janvier', titre: 'Mon intention, mes valeurs', texte: "Choisir ce qui compte vraiment pour toi, et poser l’intention de ton année.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };

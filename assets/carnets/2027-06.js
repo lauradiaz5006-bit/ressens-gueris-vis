@@ -41,11 +41,11 @@ window.GENESOLIA_CARNET = {
 
   mots: {
     tonmois: "Lis ton mois en repérant tes jours d’élan. Ce sont de bons moments pour poser les actions qui comptent.",
-    ouverture: "Dix minutes, et tu sauras par où commencer. Ton objectif de juin peut être petit : l’essentiel est qu’il soit à toi.",
+    ouverture: "Dix minutes, et tu sauras par où commencer. Ton objectif du mois peut être petit : l’essentiel est qu’il soit à toi.",
     theme: "Lis cette page sans te juger pour ce que tu as repoussé. Tout le monde remet à plus tard. Ce mois-ci, tu apprends à faire autrement.",
     comprendre: "Agir ne demande pas de courage géant. Il demande un pas assez petit pour que la peur n’ait pas le temps de répondre.",
     exercices: "Commence par le premier exercice : il te montre ce que tu repousses. Les deux autres t’aident à t’y mettre pour de bon.",
-    rituel: "Ce mois-ci, ta connexion passe par la lumière du solstice : une flamme, un coucher de soleil, une promesse à toi.",
+    rituel: "Ce mois-ci, ta connexion passe par la pleine lumière : une flamme, un coucher de soleil, une promesse à toi.",
     semaines: "Chaque semaine, une action concrète. Fais-la même imparfaitement : une chose faite vaut mieux que dix choses parfaites dans ta tête.",
     cloture: "Regarde tout ce que tu as osé ce mois-ci, même ce qui n’a pas marché. Chaque essai t’a rapproché·e de toi."
   },
@@ -53,8 +53,8 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois de l’élan',
     texte: [
-      "Juin, c'est la pleine lumière. Les journées n'en finissent plus, les cerises rougissent, les soirées se prolongent dehors. L'énergie est à son sommet, et pourtant, c'est souvent le moment où l'on mesure ce qu'on n'a pas encore fait : le projet promis en janvier, l'appel repoussé, la décision qu'on garde au chaud depuis des mois.",
-      "Ce carnet t'invite à profiter de cette lumière pour oser agir. Pas en devenant quelqu'un d'autre, ni en remplissant ton été de résolutions, mais en choisissant une chose qui compte pour toi et en lui donnant enfin une forme. Le solstice nous le rappelle : au plus haut de la lumière, les jours commencent déjà à raccourcir. C'est maintenant."
+      "Pense à ces journées de pleine lumière qui n'en finissent plus, quand les cerises rougissent et que les soirées se prolongent dehors. L'énergie est à son sommet, et pourtant, c'est souvent le moment où l'on mesure ce qu'on n'a pas encore fait : le projet promis il y a longtemps, l'appel repoussé, la décision qu'on garde au chaud depuis des mois.",
+      "Ce carnet t'invite à profiter de cette lumière pour oser agir. Pas en devenant quelqu'un d'autre, ni en remplissant tes semaines de résolutions, mais en choisissant une chose qui compte pour toi et en lui donnant enfin une forme. La lumière nous le rappelle : à peine arrivée à son sommet, elle commence déjà à décliner. C'est maintenant."
     ],
     sousTitre: 'Pourquoi on repousse, et comment s’y mettre',
     texte2: [
@@ -100,7 +100,7 @@ window.GENESOLIA_CARNET = {
     regarderTitre: 'Pour le projet que tu veux faire avancer, demande-toi',
     regarderIntro: "Prends le projet ou la décision de ton objectif du mois. Réponds à ces questions une par une, honnêtement, sans te juger.",
     regarder: [
-      { k: 'agir-quoi', q: "Qu’est-ce que tu veux vraiment faire avancer ce mois-ci, en une phrase simple ?", ph: "Exemple : envoyer ma candidature pour la formation de photographe avant le 30 juin." },
+      { k: 'agir-quoi', q: "Qu’est-ce que tu veux vraiment faire avancer ce mois-ci, en une phrase simple ?", ph: "Exemple : envoyer ma candidature pour la formation de photographe avant la fin du mois." },
       { k: 'agir-frein', q: "Qu’est-ce qui t’a retenu·e jusqu’ici, honnêtement ?", ph: "Exemple : la peur de ne pas être pris·e, et l’idée que je suis trop vieux·vieille pour changer de métier." },
       { k: 'agir-premier', q: "Quel est le tout premier pas, faisable en moins d’une heure cette semaine ?", ph: "Exemple : télécharger le dossier et lire la liste des pièces à fournir, mercredi soir." },
       { k: 'agir-appui', q: "Sur qui ou sur quoi peux-tu t’appuyer pour tenir ton engagement ?", ph: "Exemple : mon amie Nadia, à qui je vais envoyer un message chaque vendredi pour lui dire où j’en suis." }
@@ -130,12 +130,12 @@ window.GENESOLIA_CARNET = {
 
     { k: 'ex2', titre: 'Mon plan en trois étapes', type: 'blocs', nb: 3,
       etiquettes: ['Étape 1 : cette semaine', 'Étape 2 : d’ici quinze jours', 'Étape 3 : d’ici la fin du mois'],
-      consigne: "Prends le projet que tu veux faire avancer en juin, celui de ton objectif du mois. Découpe-le en trois étapes, de la plus facile à la plus engageante. Pour chacune, écris l'action précise, le moment exact où tu la feras, et ce qui pourrait te freiner, avec ta solution.",
+      consigne: "Prends le projet que tu veux faire avancer ce mois-ci, celui de ton objectif du mois. Découpe-le en trois étapes, de la plus facile à la plus engageante. Pour chacune, écris l'action précise, le moment exact où tu la feras, et ce qui pourrait te freiner, avec ta solution.",
       pourquoi: "Un projet entier fait peur, trois étapes rassurent. En prévoyant à l’avance ce qui pourrait te freiner, tu prépares ta réponse avant que l’obstacle n’arrive : c’est l’une des façons les plus efficaces de tenir ses engagements.",
       astuce: "Formule chaque étape avec un verbe d’action : écrire, appeler, envoyer, choisir, réserver. Si tu ne peux pas la cocher, c’est qu’elle est encore trop floue.",
       champs: [
         { q: "Quelle action précise vas-tu faire ?", ph: ["Exemple : écrire la présentation de mon atelier en dix lignes", "Exemple : appeler deux lieux qui pourraient m’accueillir", "Exemple : annoncer ma première date sur les réseaux"] },
-        { q: "Quand et où, exactement ?", ph: ["Exemple : mardi soir, de 20 h à 21 h, à la table du salon", "Exemple : vendredi midi, pendant ma pause, depuis le parc", "Exemple : le samedi 26 juin au matin, avec un café"] },
+        { q: "Quand et où, exactement ?", ph: ["Exemple : mardi soir, de 20 h à 21 h, à la table du salon", "Exemple : vendredi midi, pendant ma pause, depuis le parc", "Exemple : samedi matin, avec un café"] },
         { q: "Qu’est-ce qui pourrait te freiner, et comment vas-tu faire ?", ph: ["Exemple : la fatigue. Je prépare tout la veille pour n’avoir qu’à m’asseoir", "Exemple : la peur d’un refus. Je me rappelle qu’un non n’est pas un jugement sur moi", "Exemple : le doute de dernière minute. Je demande à Nadia de me relancer"] }
       ] },
 
@@ -149,19 +149,19 @@ window.GENESOLIA_CARNET = {
   ],
 
   rituel: {
-    titre: 'La flamme du solstice',
-    intro: "Le 21 juin, la lumière est à son sommet : c'est le jour le plus long de l'année. Ce petit rituel symbolique t'invite à profiter de cette pleine lumière pour poser un engagement envers toi, et à remercier pour l'élan déjà là. Il se fait en quinze minutes, au coucher du soleil si tu peux.",
+    titre: 'La flamme de mon engagement',
+    intro: "Imagine la lumière à son sommet, comme au jour le plus long de l'année. Ce petit rituel symbolique t'invite à puiser dans cette pleine lumière pour poser un engagement envers toi, et à remercier pour l'élan déjà là. Il se fait en quinze minutes, au coucher du soleil si tu peux.",
     materiel: "Une bougie, un papier et un crayon, et un endroit d’où tu vois le ciel : un jardin, un balcon, une fenêtre, un banc dans un parc.",
-    quand: "Le soir du solstice, ou un soir de la semaine qui l’entoure. Tu peux rallumer ta bougie chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
+    quand: "Un soir calme de ton étape, dès que tu te sens prêt·e. Tu peux rallumer ta bougie chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
     etapes: [
       "Installe-toi face au ciel, un peu avant le coucher du soleil. Allume la bougie et respire trois fois profondément.",
-      "Pense à tout ce que la première moitié de l’année t’a déjà apporté. Dis intérieurement trois mercis, pour trois choses que tu as vécues ou osées depuis janvier.",
-      "Pense maintenant au projet que tu veux faire avancer. Imagine-le, déjà en route, dans la pleine lumière de l’été.",
-      "Écris sur le papier ton engagement, au présent et avec une date : « D’ici le 30 juin, je… ».",
+      "Pense à tout ce que les mois passés t’ont déjà apporté. Dis intérieurement trois mercis, pour trois choses que tu as vécues ou osées depuis le début de ton parcours.",
+      "Pense maintenant au projet que tu veux faire avancer. Imagine-le, déjà en route, dans une pleine lumière.",
+      "Écris sur le papier ton engagement, au présent et avec une date : « D’ici la fin du mois, je… ».",
       "Lis-le à voix haute en regardant la flamme, puis le soleil qui descend. Dis : « Je choisis d’avancer, à mon rythme et avec confiance. »",
       "Garde le papier dans ce carnet ou sur ton bureau. Éteins la bougie, et note ici ce que tu as promis et ce que tu as ressenti."
     ],
-    note: { k: 'rituel-note', q: "Quels mercis as-tu dits, et quel engagement as-tu posé pour toi ?", ph: "Exemple : merci pour mon nouveau travail, pour mes amies, pour mon courage en mars. Mon engagement : « D’ici le 30 juin, j’envoie mon dossier de formation. »" }
+    note: { k: 'rituel-note', q: "Quels mercis as-tu dits, et quel engagement as-tu posé pour toi ?", ph: "Exemple : merci pour mon nouveau travail, pour mes amies, pour mon courage en mars. Mon engagement : « D’ici la fin du mois, j’envoie mon dossier de formation. »" }
   },
 
   meditation: {
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       "Installe-toi confortablement, le dos droit et souple, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
       "Sens le sol sous tes pieds, solide et stable. Sens ton dos qui te tient. Tu es là, pleinement, dans ce moment.",
-      "Imagine un sentier, un soir de juin. La lumière est dorée, l’air est doux, les blés frémissent de chaque côté. Au loin, sur une colline, tu aperçois un endroit qui t’attire : c’est là que mène ton projet.",
+      "Imagine un sentier, un soir tiède. La lumière est dorée, l’air est doux, les blés frémissent de chaque côté. Au loin, sur une colline, tu aperçois un endroit qui t’attire : c’est là que mène ton projet.",
       "Regarde le chemin. Il te semble peut-être long, ou flou. Tu n’as pas besoin de le voir en entier. Regarde seulement le premier mètre, juste devant tes pieds.",
       "[pause]",
       "Remarque ce qui te retient d’avancer. Une peur, une voix qui doute, un poids sur tes épaules. Ne lutte pas. Dis-lui simplement : « Je t’entends. Tu peux venir avec moi, mais c’est moi qui marche. »",
@@ -207,8 +207,8 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-ose', q: "Quelle est l’action dont tu es le plus fier·e ce mois-ci, et pourquoi ?", ph: "Exemple : avoir envoyé mon dossier de formation. Je repoussais depuis deux ans, et je l’ai fait en une soirée." },
     { k: 'fin-frein', q: "Qu’as-tu appris sur ce qui te freine, et sur la façon de le dépasser ?", ph: "Exemple : je me freine quand l’étape est trop floue. Dès que je la découpe en petits morceaux, j’avance." },
     { k: 'fin-promesse', q: "Quelle promesse envers toi as-tu tenue, et qu’est-ce que ça a changé dans ta confiance ?", ph: "Exemple : mes vingt minutes du matin. Je me sens plus solide, comme si je pouvais enfin compter sur moi." },
-    { k: 'fin-suite', q: "Quelle est la prochaine étape de ton projet, avec une date ?", ph: "Exemple : préparer mon entretien de sélection, d’ici le 15 juillet." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour juillet ?", ph: "Exemple : continuer à avancer à mon rythme, et oser enfin dire combien vaut mon travail.", court: true }
+    { k: 'fin-suite', q: "Quelle est la prochaine étape de ton projet, avec une date ?", ph: "Exemple : préparer mon entretien de sélection, d’ici le 15 du mois prochain." },
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : continuer à avancer à mon rythme, et oser enfin dire combien vaut mon travail.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
@@ -251,8 +251,8 @@ window.GENESOLIA_CARNET = {
   },
 
   aVenir: [
-    { mois: 'Juillet', titre: 'Ma valeur', texte: "Apprendre à recevoir, oser demander, et reconnaître ta juste valeur, dans l’abondance de l’été.", image: 'assets/cartes/ma-place-mini.jpg' },
-    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la rentrée.", image: 'assets/cartes/racines-appuis-mini.jpg' },
+    { mois: 'Juillet', titre: 'Ma valeur', texte: "Apprendre à recevoir, oser demander, et reconnaître ta juste valeur, dans toute l’abondance de la vie.", image: 'assets/cartes/ma-place-mini.jpg' },
+    { mois: 'Août', titre: 'Mon chez-moi, mon élan', texte: "Faire de ton lieu de vie un appui, et retrouver l’élan qui te porte pour la suite.", image: 'assets/cartes/racines-appuis-mini.jpg' },
     { mois: 'Septembre', titre: 'Ma vocation', texte: "Écouter ce qui t’anime vraiment, et donner plus de place à ce que tu aimes faire.", image: 'assets/cartes/ecrire-la-mienne-mini.jpg' }
   ]
 };

@@ -40,20 +40,20 @@ window.GENESOLIA_CARNET = {
   },
 
   mots: {
-    tonmois: "Lis ton mois comme on ouvre les volets d’une maison d’été : doucement, en laissant entrer ce qui te fait du bien.",
+    tonmois: "Lis ton mois comme on ouvre les volets d’une maison au matin : doucement, en laissant entrer ce qui te fait du bien.",
     ouverture: "Prends dix minutes, là où tu te sens bien. Ta météo, ta roue et ton objectif : regarde surtout ton domaine « chez-moi ».",
     theme: "Rien à faire ici, seulement à lire. Laisse venir les images de tes lieux, ceux d’hier et celui d’aujourd’hui.",
     comprendre: "Ton chez-moi n’a pas besoin d’être grand ni parfait. Il a besoin de te ressembler un peu plus chaque mois.",
     exercices: "Le premier exercice se fait en marchant chez toi, pièce par pièce. Prends ton carnet et laisse-toi guider par ce que tu ressens.",
     rituel: "Ce mois-ci, ta connexion passe par le seuil de ta porte et la lumière du soir. Un moment simple pour remercier ton lieu.",
-    semaines: "Un coin rangé, une marche, un lieu nouveau : en août, chaque petit mouvement compte double.",
+    semaines: "Un coin rangé, une marche, un lieu nouveau : ce mois-ci, chaque petit mouvement compte double.",
     cloture: "Regarde ton chez-moi avec les yeux du début du mois. Même un seul coin qui a changé, c’est un vrai pas."
   },
 
   theme: {
     titre: 'Le mois du chez-moi et de l’élan',
     texte: [
-      "Août, c’est le cœur de l’été. Certain·es partent, d’autres restent, d’autres encore rentrent dans une maison de famille rouverte pour quelques semaines. La lumière est dorée, le rythme ralentit, et l’on voit soudain son lieu de vie avec d’autres yeux : en rentrant de voyage, en rangeant une valise, en passant une soirée sur le balcon.",
+      "Il y a des périodes où le rythme ralentit. Certain·es partent, d’autres restent, d’autres encore rentrent dans une maison de famille rouverte pour quelques jours. La lumière change, et l’on voit soudain son lieu de vie avec d’autres yeux : en rentrant de voyage, en rangeant une valise, en passant une soirée sur le balcon.",
       "Ce carnet t’invite à te poser deux questions toutes simples. Est-ce que je me sens vraiment chez moi, là où je vis ? Et quel mouvement ai-je envie d’oser : ranger, transformer, déménager un jour peut-être, ou simplement bouger un peu plus dans ma vie ? Tu n’as rien à décider de définitif. Tu as seulement à écouter ce qui, en toi, a envie de bouger."
     ],
     sousTitre: 'Pourquoi le chez-moi compte autant ?',
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     enLigne: "Si ton envie de partir ou de rester te semble plus ancienne que toi, ton [suivi « Je me libère »](mon-suivi.html) t’emmène ce mois-ci vers les lieux et les départs de ta lignée. Et le [test de l’arbre de vie](arbre-de-vie.html) te montre en cinq minutes comment ton chez-moi s’accorde avec les autres sphères de ta vie.",
     outils: [
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses et celles à nourrir. Gardé avec sa date dans ton espace.'],
-      ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel d’août et tes dates clés, pour savoir quand oser ton mouvement.'],
+      ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel du mois et tes dates clés, pour savoir quand oser ton mouvement.'],
       ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : les lieux de ta lignée, les départs, et là où tu te sens chez toi.']
     ]
   },
@@ -137,10 +137,10 @@ window.GENESOLIA_CARNET = {
       champs: [
         { q: "Quel changement as-tu envie d’oser ?", ph: ["Exemple : repeindre le mur de ma chambre en vert sauge", "Exemple : transformer la chambre d’amis en atelier", "Exemple : vivre un jour près de la mer"] },
         { q: "Qu’est-ce qui te retient aujourd’hui ?", ph: ["Exemple : je repousse, je n’ai pas choisi la couleur", "Exemple : la peur de ne plus pouvoir recevoir ma famille", "Exemple : mon travail, et la peur d’être loin de mes proches"] },
-        { q: "Quel est ton tout premier pas, sans engagement ?", ph: ["Exemple : acheter deux échantillons de peinture samedi", "Exemple : vider l’armoire de la chambre d’amis", "Exemple : passer un week-end en septembre dans la ville qui m’attire"] }
+        { q: "Quel est ton tout premier pas, sans engagement ?", ph: ["Exemple : acheter deux échantillons de peinture samedi", "Exemple : vider l’armoire de la chambre d’amis", "Exemple : passer un week-end le mois prochain dans la ville qui m’attire"] }
       ] },
 
-    { k: 'ex3', titre: 'Mon élan d’été', type: 'texte',
+    { k: 'ex3', titre: 'Mon élan du mois', type: 'texte',
       consigne: "Le mouvement du corps entraîne souvent le mouvement de la vie. Choisis un geste tout simple qui te fait bouger, dehors ou chez toi, si petit qu’il est impossible de ne pas le faire. Fais-le, puis note chaque fois que tu l’as répété, et ce que tu as ressenti.",
       pourquoi: "Quand on se sent coincé·e quelque part, le corps le sent avant la tête. Bouger un peu chaque jour, changer de trajet, sortir à une autre heure, c’est rappeler à ton corps qu’il peut aller ailleurs. L’élan revient souvent par les pieds.",
       gestes: ["Marcher dix minutes après le dîner", "Prendre un autre chemin pour rentrer", "Danser sur une chanson en rangeant", "Ouvrir grand les fenêtres chaque matin", "Déplacer un objet pour changer ton regard", "Aller boire un café dans un quartier inconnu"],
@@ -151,9 +151,9 @@ window.GENESOLIA_CARNET = {
 
   rituel: {
     titre: 'Le seuil et la lumière du soir',
-    intro: "En août, les soirées sont longues et la lumière dorée s’attarde sur les murs. Ce petit rituel symbolique t’invite à remercier ton lieu de vie, à déposer ce qui l’alourdit, et à y inviter l’élan que tu veux pour la suite de l’été. Il se fait en dix minutes, au moment où le soleil descend.",
+    intro: "Le soir, la lumière dorée s’attarde sur les murs. Ce petit rituel symbolique t’invite à remercier ton lieu de vie, à déposer ce qui l’alourdit, et à y inviter l’élan que tu veux pour la suite. Il se fait en dix minutes, au moment où le soleil descend.",
     materiel: "Une bougie ou une petite lampe, un verre d’eau, quelques fleurs ou une branche cueillie dehors (ou une plante de la maison), et un endroit près de ta porte d’entrée ou d’une fenêtre ouverte.",
-    quand: "Fais-le un soir de début de mois, après avoir rempli ta roue, ou en rentrant de vacances pour retrouver ton chez-moi. Tu peux le refaire chaque fois que tu emménages quelque part, même pour quelques jours, ou à la pleine lune.",
+    quand: "Fais-le un soir de début de mois, après avoir rempli ta roue, ou en rentrant d’un voyage pour retrouver ton chez-moi. Tu peux le refaire chaque fois que tu emménages quelque part, même pour quelques jours, ou à la pleine lune.",
     etapes: [
       "Ouvre ta porte ou ta fenêtre. Allume la bougie près du seuil, pose le verre d’eau et les fleurs à côté. Respire trois fois en regardant la lumière du soir.",
       "Pense à ce que ton lieu t’a offert cette année : des nuits de repos, des repas, des rires, des moments seul·e. Dis intérieurement : « Merci pour l’abri que tu me donnes. »",
@@ -170,8 +170,8 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Sens le poids de ton corps, le sol sous tes pieds, l’air tiède de l’été sur ta peau. Tu n’as rien à faire, nulle part où aller. Tu es déjà arrivé·e.",
-      "Imagine maintenant un chemin, dans la lumière dorée d’un soir d’août. Au bout de ce chemin, il y a une maison. Ce n’est pas forcément une maison que tu connais : c’est ta maison intérieure, celle qui te ressemble vraiment.",
+      "Sens ton corps bien posé, le sol sous tes pieds, l’air tiède sur ta peau. Tu es ici, tranquille, à ta place. Tu es déjà arrivé·e.",
+      "Imagine maintenant un chemin, dans la lumière dorée d’un soir tiède. Au bout de ce chemin, il y a une maison. Peut-être une maison que tu connais, peut-être une maison nouvelle : c’est ta maison intérieure, celle qui te ressemble vraiment.",
       "Approche-toi doucement. Regarde la porte : sa couleur, sa matière, la poignée sous ta main. Ouvre-la, et entre.",
       "[pause]",
       "À l’intérieur, tout est à ta mesure. Regarde la lumière, les couleurs, les objets. Sens l’odeur de cette maison. Écoute ses sons : un parquet qui craque, le vent dans un rideau, le silence.",
@@ -183,7 +183,7 @@ window.GENESOLIA_CARNET = {
       "Dis intérieurement : « Je suis chez moi en moi. Où que j’aille, je peux revenir ici. J’ose le mouvement qui me fait envie, à mon rythme. »",
       "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Fais-la un soir d’été, fenêtre ouverte, ou un matin tranquille avant que la maison ne s’éveille. Si tu es en vacances loin de chez toi, c’est un beau moment pour la faire : ta maison intérieure voyage avec toi.",
+    conseil: "Fais-la un soir doux, fenêtre ouverte, ou un matin tranquille avant que la maison ne s’éveille. Si tu es en voyage loin de chez toi, c’est un beau moment pour la faire : ta maison intérieure voyage avec toi.",
     note: { k: 'medit-maison', q: "Comment était ta maison intérieure, et qu’as-tu vu par la fenêtre ?", ph: "Exemple : une petite maison en pierre, une cuisine pleine de soleil. Par la fenêtre, une forêt. J’ai envie de marcher plus souvent dans les bois." }
   },
 
@@ -207,7 +207,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-chezmoi', q: "Qu’est-ce qui a changé dans ton chez-moi ce mois-ci, et qu’est-ce que tu ressens en rentrant ?", ph: "Exemple : l’entrée est dégagée et j’ai un coin lecture. Je rentre le soir avec le sourire." },
     { k: 'fin-elan', q: "Quel mouvement as-tu osé, petit ou grand, et qu’est-ce qu’il t’a appris ?", ph: "Exemple : j’ai passé un week-end dans la ville qui m’attire. J’ai compris que c’est surtout la nature qui me manque." },
     { k: 'fin-lieu-garder', q: "Quelle habitude de mouvement ou de lieu veux-tu garder ?", ph: "Exemple : ma marche du soir, et mon café du matin dans mon coin." },
-    { k: 'fin-intention', q: "Quelle est ton intention pour septembre ?", ph: "Exemple : garder mon élan à la rentrée, et chercher ce qui me fait vraiment vibrer dans mon travail.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape ?", ph: "Exemple : garder mon élan, et chercher ce qui me fait vraiment vibrer dans mon travail.", court: true }
   ],
 
   /* L'exercice du mois, à faire seul·e (version finale) : affiché en semaine 1, après le thème.
