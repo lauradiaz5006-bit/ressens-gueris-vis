@@ -12,6 +12,7 @@ window.GENESOLIA_CARNET = {
   pdf: 'assets/formation/cahier-module-1.pdf',
   offert: true,
   titre: 'La boucle et la spirale',
+  objectifs: { principal: "Repérer la boucle qui revient dans ta vie.", specifique: "Reconnaître le moment où elle démarre et l'arrêter une première fois avec le geste de la main suspendue." },
   sousTitre: "Repérer ce qui se répète dans ta vie, pour enfin pouvoir faire autrement.",
   citation: "Ce qui revient n'est pas un échec. C'est une invitation à regarder.",
 

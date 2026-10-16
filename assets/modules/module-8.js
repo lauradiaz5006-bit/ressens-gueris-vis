@@ -10,6 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-8.pdf',
   titre: 'Ta montagne',
+  objectifs: { principal: "Relier tout le chemin parcouru et faire durer le changement.", specifique: "Mesurer ton évolution, rassembler ta boîte à outils et écrire ta lettre d'intention pour la suite." },
   sousTitre: "Relier tout le chemin parcouru, et poser ton intention pour la suite.",
   citation: "Tu n'as pas à atteindre le sommet. Seulement à continuer de monter, un pas après l'autre.",
 

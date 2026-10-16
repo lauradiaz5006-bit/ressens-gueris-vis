@@ -10,6 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-2.pdf',
   titre: 'Remonter à la source',
+  objectifs: { principal: "Comprendre d'où vient ta boucle.", specifique: "Retrouver ce qui s'est transmis dans ta famille, les âges et les dates qui se répondent (le syndrome d'anniversaire), et te demander « à qui ça appartient ? »." },
   sousTitre: "D'où vient ta boucle, et ce qui s'est peut-être transmis avant toi.",
   citation: "Ce qui reste invisible continue de choisir à ta place. Ce que tu vois, tu peux commencer à le choisir.",
 
