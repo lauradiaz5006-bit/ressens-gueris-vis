@@ -59,7 +59,7 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Quand une émotion n'a pas pu être vécue ou dite par une génération, elle passe plus loin, **comme une lettre jamais ouverte qui passe de main en main**. Celle qui la reçoit ne sait pas ce qu'elle contient. Mais elle sent qu'elle pèse.",
       "Une famille transmet aussi des façons de vivre : **des peurs** (manquer, être quittée, déranger), **des façons d'aimer** (se sacrifier, tout contrôler), **des silences** (un secret, un départ dont on ne parle jamais) et **des règles**, souvent dites en une phrase : « Il faut se débrouiller seule. » Personne ne décide de transmettre tout ça : ça passe par l'exemple, par l'ambiance, et surtout par ce qui n'est jamais dit.",
-      "Parfois, les dates se répondent : une rupture à l'âge exact où ta mère a vécu la sienne, une période difficile qui revient chaque année au même moment. Prends ce que tu trouves comme **une piste, pas comme une preuve**. Le bon critère, c'est ce que tu ressens."
+      "Parfois, les dates se répondent : une rupture à l'âge exact où ta mère a vécu la sienne, une période difficile qui revient chaque année au même moment. On appelle ça le **syndrome d'anniversaire**. Prends ce que tu trouves comme **une piste, pas comme une preuve**. Le bon critère, c'est ce que tu ressens."
     ],
     signesTitre: 'Trois familles d’indices',
     signes: [
@@ -79,7 +79,7 @@ window.GENESOLIA_CARNET = {
     retenir: [
       "Une famille transmet des peurs, des façons d'aimer, des silences et des règles, sans le décider.",
       "Reconnaître une transmission, c'est commencer à choisir, sans accuser personne.",
-      "Les âges et les dates qui se répondent sont des pistes : suis celles qui te touchent.",
+      "Les âges et les dates qui se répondent (le syndrome d'anniversaire) sont des pistes : suis celles qui te touchent.",
       "Ton outil du module : au moment où ta boucle démarre, demande-toi « À qui ça appartient ? »."
     ],
     question: { k: 'comp-indice', q: "Parmi ces indices, lequel te parle le plus aujourd'hui, et à qui te fait-il penser ?", ph: "Exemple : les phrases entendues. Ma grand-mère disait toujours « on ne sait jamais de quoi demain sera fait »." }
