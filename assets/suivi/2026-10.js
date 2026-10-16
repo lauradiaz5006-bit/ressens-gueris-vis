@@ -53,7 +53,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Voir ce qui revient',
     texte: [
-      "Octobre, la rentrée est passée, les jours raccourcissent. C'est souvent à ce moment de l'année que l'on remarque ce qui ne change pas : la même fatigue, la même dispute, le même type de relation, la même peur qui revient alors qu'on pensait l'avoir laissée derrière soi.",
+      "Au début d'un chemin comme celui-ci, c'est souvent là que l'on remarque ce qui ne change pas : la même fatigue, la même dispute, le même type de relation, la même peur qui revient alors qu'on pensait l'avoir laissée derrière soi.",
       "Ce premier mois de suivi t'invite à faire une chose simple et courageuse : regarder ce qui revient, sans te juger. Pas pour tout comprendre tout de suite, mais pour commencer à voir. On ne sort pas d'une boucle qu'on ne voit pas. Une fois qu'on la voit, on n'y entre plus tout à fait de la même façon."
     ],
     sousTitre: 'La boucle et la spirale',
@@ -357,7 +357,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-origine', q: "Qu’as-tu compris de son origine, dans ton histoire ou dans celle de ta famille ?", ph: "Exemple : chez nous, les femmes tenaient la maison sans jamais se plaindre. J’ai appris très tôt à faire pareil." },
     { k: 'fin-rendu', q: "Qu’as-tu rendu, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : j’ai rendu à ma grand-mère l’idée qu’il faut tout porter. Je me sens plus légère quand je demande de l’aide." },
     { k: 'fin-geste', q: "Quel geste différent as-tu osé, et qu’est-ce qu’il a changé ?", ph: "Exemple : j’ai demandé un délai à ma cheffe. Elle a dit oui, et j’ai passé un week-end tranquille." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en novembre ?", ph: "Exemple : continuer à dire « je te réponds demain », et écouter les histoires de ma famille.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape ?", ph: "Exemple : continuer à dire « je te réponds demain », et écouter les histoires de ma famille.", court: true }
   ],
 
   carnet: {
@@ -367,7 +367,7 @@ window.GENESOLIA_CARNET = {
 
   aVenir: [
     { mois: 'Novembre', titre: "Qu’est-ce que j’ai reçu ?", texte: "Honorer tes ancêtres, reconnaître ce qu’ils t’ont transmis, et rendre avec respect ce qui ne t’appartient pas.", image: 'assets/cercle/apercu-2026-11.jpg' },
-    { mois: 'Décembre', titre: "Quelle est ma place ?", texte: "Observer qui s’assoit où, honorer les absent·es, et trouver ta juste place au cœur des fêtes.", image: 'assets/guide/guide-cadeau.webp' },
+    { mois: 'Décembre', titre: "Quelle est ma place ?", texte: "Observer qui s’assoit où, honorer les absent·es, et trouver ta juste place au cœur de ta famille.", image: 'assets/guide/guide-cadeau.webp' },
     { mois: 'Janvier', titre: "Quelle peur je porte, et pour qui ?", texte: "Découvrir l’histoire de ton prénom, ce qu’il porte de ta lignée, et en faire pleinement le tien.", image: 'assets/guide/guide-transmission.webp' }
   ]
 };

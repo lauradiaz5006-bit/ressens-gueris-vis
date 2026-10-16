@@ -18,7 +18,7 @@ window.GENESOLIA_PLUS = {
       "Ce soir, choisis une réussite dont tu es fier·e. Raconte-la à voix haute, en deux phrases, comme si tu la présentais à quelqu’un qui ne te connaît pas.",
       "Ose aujourd’hui une demande un peu plus grande que celle de lundi. Remarque ton souffle juste avant de parler, puis respire et lance-toi.",
       "Choisis une compétence que tu utilises sans y penser. Écris une situation précise où elle a aidé quelqu’un, avec le jour et le lieu.",
-      "Offre-toi un petit plaisir d’été sans avoir à le mériter : un fruit, une glace, dix minutes au soleil. Dis-toi « je le reçois » en le savourant.",
+      "Offre-toi un petit plaisir sans avoir à le mériter : un fruit, une glace, dix minutes au soleil. Dis-toi « je le reçois » en le savourant.",
       "Relis tes demandes de la semaine. Combien ont été acceptées ? Note celle qui t’a le plus coûté, et ce que tu as appris en l’osant."
     ] },
     { comprendre: {
@@ -28,7 +28,7 @@ window.GENESOLIA_PLUS = {
           "Pour beaucoup, le plus difficile n’est pas de gagner sa valeur, c’est de la laisser entrer. On a appris à se faire petit·e, à ne pas déranger, à rendre aussitôt ce qu’on reçoit. Ces réflexes ont souvent eu une utilité : être aimé·e, rester à sa place, éviter un conflit. Aujourd’hui, ils prennent de la place sans que tu t’en rendes compte, comme de vieux habits rangés dans une armoire trop pleine.",
           "Libérer, ce mois-ci, ce n’est pas devenir quelqu’un d’autre. C’est repérer les petites habitudes qui disent « je ne vaux pas tant » et les poser une à une : l’excuse avant chaque demande, la remise accordée avant même qu’on te la demande, le cadeau refusé, la phrase « ce n’est rien » après un vrai effort. Chaque habitude posée libère un peu d’espace pour recevoir.",
           "Par exemple, Claire commençait chaque demande par « désolée de te déranger ». Cette semaine, elle s’entraîne à écrire sa demande, à barrer l’excuse, et à garder seulement l’essentiel : « Est-ce que tu peux m’aider samedi ? » Sa demande est plus courte, plus claire, et son amie dit oui sans hésiter. Claire n’a rien perdu de sa gentillesse : elle a juste cessé de s’excuser d’exister.",
-          "Ta lettre du mois t’aide à faire ce tri avec douceur. Tu peux te pardonner les fois où tu n’as pas osé, remercier la part de toi qui voulait te protéger, et lui dire qu’elle peut se reposer maintenant. Puis, en osant ta demande juste, tu montres à ton corps que demander ne le met pas en danger. Ce qui part laisse la place à ce qui arrive, comme un arbre d’été qui laisse tomber ses fleurs pour porter ses fruits."
+          "Ta lettre du mois t’aide à faire ce tri avec douceur. Tu peux te pardonner les fois où tu n’as pas osé, remercier la part de toi qui voulait te protéger, et lui dire qu’elle peut se reposer maintenant. Puis, en osant ta demande juste, tu montres à ton corps que demander ne le met pas en danger. Ce qui part laisse la place à ce qui arrive, comme un arbre qui laisse tomber ses fleurs pour porter ses fruits."
         ]
       },
       jours: [
@@ -43,10 +43,10 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter ce que tu as osé recevoir",
         texte: [
-          "Fin juillet, les vergers sont lourds et les paniers débordent. C’est le moment de regarder ce que ce mois t’a donné : les compliments que tu as laissés entrer, les demandes que tu as osées, les preuves de ta valeur que tu as rassemblées. Récolter, ce n’est pas compter ce qui manque encore. C’est remarquer ce qui a déjà mûri, même un tout petit fruit.",
+          "En fin d’étape, tes paniers débordent, comme ceux des vergers chargés de fruits. C’est le moment de regarder ce que ce mois t’a donné : les compliments que tu as laissés entrer, les demandes que tu as osées, les preuves de ta valeur que tu as rassemblées. Récolter, ce n’est pas compter ce qui manque encore. C’est remarquer ce qui a déjà mûri, même un tout petit fruit.",
           "La gratitude joue ici un rôle précieux. Quand tu dis merci pour ce que tu reçois, tu entraînes ton regard à voir l’abondance plutôt que le manque. Ce n’est pas une manière de te contenter de peu : c’est reconnaître que la vie te donne déjà beaucoup, et que tu as le droit d’en recevoir davantage. On demande plus facilement quand on se sent déjà riche de quelque chose.",
-          "Par exemple, Malik pensait avoir raté son mois parce que son entretien était reporté à septembre. En relisant son carnet d’abondance, il voit pourtant douze « merci » dits sans se justifier, trois demandes acceptées, et un ami venu l’aider à porter ses cartons. Il réalise que sa valeur a été reconnue bien plus souvent qu’il ne le croyait, à commencer par lui-même.",
-          "Cette semaine, tu donnes aussi vie à ton intention. Tu la visualises comme déjà réalisée, tu choisis une croyance qui la soutient, et tu la résumes en trois mots. La corbeille d’été et le verger de la séance te rappellent la même chose : tes mains peuvent rester ouvertes. Ce que tu as osé ce mois-ci ne disparaît pas en août, il devient une graine pour la suite."
+          "Par exemple, Malik pensait avoir raté son mois parce que son entretien était reporté de plusieurs semaines. En relisant son carnet d’abondance, il voit pourtant douze « merci » dits sans se justifier, trois demandes acceptées, et un ami venu l’aider à porter ses cartons. Il réalise que sa valeur a été reconnue bien plus souvent qu’il ne le croyait, à commencer par lui-même.",
+          "Cette semaine, tu donnes aussi vie à ton intention. Tu la visualises comme déjà réalisée, tu choisis une croyance qui la soutient, et tu la résumes en trois mots. La corbeille de gratitude et le verger de la séance te rappellent la même chose : tes mains peuvent rester ouvertes. Ce que tu as osé ce mois-ci ne disparaît pas à ta prochaine étape, il devient une graine pour la suite."
         ]
       },
       jours: [
@@ -106,7 +106,7 @@ window.GENESOLIA_PLUS = {
     ],
       exercices: [
         { k: "plus4", titre: "Ce que je garde, qui m’accompagne", type: "questions",
-          consigne: "Pour que ton geste de permission tienne dans le temps, prends quelques minutes pour l’ancrer. Réponds à ces trois questions en pensant aux semaines qui viennent, à la rentrée et au-delà.",
+          consigne: "Pour que ton geste de permission tienne dans le temps, prends quelques minutes pour l’ancrer. Réponds à ces trois questions en pensant aux semaines qui viennent, à tes prochaines étapes et au-delà.",
           pourquoi: "Un nouveau rapport à l’argent se construit dans la durée. Savoir quand tu refais ton geste, ce que tu gardes de ce mois et qui peut t’encourager le rend plus facile à répéter, même les jours où le vieux réflexe revient.",
           questions: [
             { k: "plus4-a", q: "À quel moment de ta semaine choisis-tu de refaire ton geste de permission, pour qu’il devienne une habitude ?", ph: "Exemple : le samedi matin au marché, je m’offre une chose que j’aime sans regarder le prix.", lignes: 2 },

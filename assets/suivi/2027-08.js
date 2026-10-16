@@ -46,14 +46,14 @@ window.GENESOLIA_CARNET = {
     source: "Les départs ont souvent été vécus en silence. Pose tes questions avec douceur, et accueille aussi les « je ne sais pas ».",
     liberer: "Tu peux garder l’amour d’un lieu sans porter sa nostalgie. Ce que tu rends, tu le poses avec respect.",
     remplacer: "Habiter ta vie, ça commence par un coin, un geste, une plante. Petit, mais à toi.",
-    meditation: "Un soir d’été, au calme. Si une émotion monte en pensant à un départ, reviens simplement à ton souffle et à tes pieds sur le sol.",
+    meditation: "Un soir, au calme. Si une émotion monte en pensant à un départ, reviens simplement à ton souffle et à tes pieds sur le sol.",
     bilan: "Regarde le chemin parcouru, de lieu en lieu. Tu montes encore d’un cran sur la spirale."
   },
 
   theme: {
-    titre: 'Le mois des lieux',
+    titre: 'Mes lieux, mes racines',
     texte: [
-      "Août est souvent le mois des retours : la maison de famille qu’on rouvre, le village des grands-parents, la région d’où l’on vient, la langue qu’on y entend encore. Pour d’autres, c’est un mois de voyage, loin de tout lieu d’origine, ou un mois où l’on reste seul·e en ville pendant que les autres partent.",
+      "Pour certain·es, les lieux de famille sont des lieux de retour : la maison de famille qu’on rouvre, le village des grands-parents, la région d’où l’on vient, la langue qu’on y entend encore. Pour d’autres, ce sont des lieux lointains, quittés depuis longtemps ou jamais connus, et l’on se sent parfois sans port d’attache.",
       "Ce mois-ci, tu regardes les lieux de ta lignée : ceux où l’on est né·e, ceux qu’on a quittés, ceux où l’on s’est installé, parfois sans le choisir. Et tu te demandes, simplement, où tu te sens vraiment chez toi aujourd’hui, et pourquoi. Tu es dans le troisième temps de l’année du Cercle, **Transmettre** : après avoir vu, puis traversé, tu choisis ce que tu gardes et ce que tu fais passer à ton tour."
     ],
     sousTitre: 'Partir, rester, revenir',
@@ -117,7 +117,7 @@ window.GENESOLIA_CARNET = {
             { k: 'source-protege', q: "Ta façon de vivre les lieux, partir souvent ou ne jamais bouger, t’a-t-elle protégé·e à un moment ? De quoi ?", ph: "Exemple : partir vite m’évitait de m’attacher et d’avoir mal en quittant, comme mon père qui changeait de ville à chaque crise." }
           ] },
         { k: 'source-question', titre: 'Une question à ta famille', type: 'questions',
-          consigne: "Pose une seule question à un membre de ta famille sur les lieux et les départs : d’où venaient vos aïeux, pourquoi ils sont partis, ce qu’ils ont laissé. Par téléphone, à table, pendant une visite d’été. Note sa réponse, même si elle te paraît sans importance. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
+          consigne: "Pose une seule question à un membre de ta famille sur les lieux et les départs : d’où venaient vos aïeux, pourquoi ils sont partis, ce qu’ils ont laissé. Par téléphone, à table, pendant une visite. Note sa réponse, même si elle te paraît sans importance. Pour t’aider : [les questions à poser à ta famille](questions-a-poser-a-sa-famille.html).",
           questions: [
             { k: 'source-qui', q: "À qui as-tu posé ta question, et laquelle ?", ph: "Exemple : à mon oncle : « Pourquoi papi a-t-il quitté le Portugal ? »", court: true },
             { k: 'source-reponse', q: "Qu’as-tu appris ? Qu’est-ce que ça te fait ?", ph: "Exemple : il est parti à 17 ans, à pied, sans dire au revoir à sa mère. Je comprends mieux pourquoi on ne parle jamais du pays chez nous.", lignes: 3 }
@@ -186,7 +186,7 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement et ferme les yeux. Respire profondément, trois fois. Laisse tes épaules descendre, ton dos se poser, ton souffle ralentir.",
       "[pause]",
-      "Imagine que tu marches sur une route, dans la lumière douce d’un soir d’été. L’air sent l’herbe chaude et le blé coupé. Le paysage change doucement autour de toi, au rythme de tes pas.",
+      "Imagine que tu marches sur une route, dans la lumière douce d’un beau soir. L’air sent l’herbe chaude et le blé coupé. Le paysage change doucement autour de toi, au rythme de tes pas.",
       "Tu traverses les lieux de ta lignée : un village, une ville, une campagne, un port, peut-être un autre pays. Tu n’as pas besoin de les reconnaître. Sens simplement qu’ils font partie de toi, comme des pages d’une même histoire.",
       "[pause]",
       "Sur le bord du chemin, des personnes de ta famille te regardent passer. Certaines sont parties, d’autres sont restées. Certaines ont porté une valise, d’autres ont gardé la maison. Chacune a fait de son mieux, avec ce qu’elle avait.",
@@ -198,7 +198,7 @@ window.GENESOLIA_CARNET = {
       "[pause]",
       "Respire profondément. Sens le sol sous toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un soir d’été, fenêtre ouverte, où personne ne te dérangera pendant dix minutes. Si penser à un départ te serre la gorge, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
+    conseil: "Choisis un soir calme, fenêtre ouverte, où personne ne te dérangera pendant dix minutes. Si penser à un départ te serre la gorge, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
     note: { k: 'medit-chemin', q: "Qu’est-ce qui t’est venu pendant la séance ? Un lieu, un visage, ce que tu as déposé, le lieu où tu es arrivé·e…", ph: "Exemple : j’ai vu un port, et ma grand-mère qui me faisait signe. J’ai déposé une valise. Je suis arrivé·e dans un jardin plein de tomates." }
   },
 
@@ -249,12 +249,12 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-laisse', q: "Qu’as-tu laissé aux lieux de ta lignée, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : j’ai rendu la tristesse de la maison vendue à ceux qui l’ont vécue. Je me sens plus libre de m’attacher à mon appartement." },
     { k: 'fin-garde', q: "Quelle force, quel goût, quelle tradition gardes-tu de ces lieux ?", ph: "Exemple : le courage de recommencer, et la cuisine de ma grand-mère, que je vais apprendre." },
     { k: 'fin-chez', q: "Qu’est-ce qui te fait te sentir chez toi aujourd’hui ?", ph: "Exemple : mon coin lecture, ma plante, les voisins qui me saluent, et le marché du samedi." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en septembre ?", ph: "Exemple : continuer à m’installer, et regarder ce que ma famille m’a transmis sur le travail.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape ?", ph: "Exemple : continuer à m’installer, et regarder ce que ma famille m’a transmis sur le travail.", court: true }
   ],
 
   carnet: {
     titre: 'Mon chez-moi, mon élan',
-    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas : ton coin à toi, ton élan d’été, ta roue de la vie. Reporte ton geste qui enracine dans ton carnet, il devient un appui pour ton domaine chez-moi."
+    texte: "Ce que tu libères ici nourrit ce que tu construis là-bas : ton coin à toi, ton élan, ta roue de la vie. Reporte ton geste qui enracine dans ton carnet, il devient un appui pour ton domaine chez-moi."
   },
 
   aVenir: [

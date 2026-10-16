@@ -54,7 +54,7 @@ window.GENESOLIA_CARNET = {
     titre: "Le projet posé sur toi",
     texte: [
       "Avant même ta naissance, quelqu’un a choisi ton prénom. Avec lui sont souvent venus des espoirs : ressembler à une grand-mère admirée, réussir là où un parent a dû renoncer, apporter de la joie dans une période difficile, prolonger une tradition ou au contraire ouvrir une page neuve. Ces attentes étaient souvent pleines d’amour. Elles ont parfois dessiné un chemin avant que tu puisses choisir le tien.",
-      "Tu continues le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après la peur héritée en janvier, tu regardes ce mois-ci le projet posé sur toi, pour te réapproprier ton prénom et ton chemin. De la peur héritée à la vie choisie, c’est le moment d’écrire ton propre contrat avec la vie."
+      "Tu continues le **tronc** de ton arbre de vie : tu comprends ce que tu portes. Après la peur héritée, à l’étape précédente, tu regardes ce mois-ci le projet posé sur toi, pour te réapproprier ton prénom et ton chemin. De la peur héritée à la vie choisie, c’est le moment d’écrire ton propre contrat avec la vie."
     ],
     sousTitre: "Prénoms, attentes et projet-sens",
     texte2: [
@@ -265,7 +265,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-attentes-feb', q: "Quelles attentes as-tu reconnues, et dans quel tiroir les ranges-tu ?", ph: "Exemple : reprendre la boulangerie. C’est un récit de ma mère, et une attente que je sentais très fort." },
     { k: 'fin-ancien-feb', q: "Qu’as-tu laissé à leur histoire avec l’ancien contrat, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : le « tout encaisser ». Je dis plus facilement ce qui me pèse, et je me sens plus légère." },
     { k: 'fin-contrat-feb', q: "Quelle phrase de ton contrat avec la vie veux-tu garder près de toi ?", ph: "Exemple : « Je choisis mon métier, et je m’autorise à changer d’avis. »" },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en mars ?", ph: "Exemple : regarder les émotions qui avaient leur place chez nous, et celles qu’on mettait de côté.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape ?", ph: "Exemple : regarder les émotions qui avaient leur place chez nous, et celles qu’on mettait de côté.", court: true }
   ],
 
   carnet: {

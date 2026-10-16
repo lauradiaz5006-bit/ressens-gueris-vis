@@ -46,7 +46,7 @@ window.GENESOLIA_CARNET = {
     theme: "Rien à faire ici, seulement à lire. Laisse remonter les visages, les moments, les petites victoires de l’année.",
     comprendre: "Un bilan n’est pas un examen. C’est un regard tendre sur le chemin, avec ses détours, ses pauses et ses élans.",
     exercices: "Pour le premier exercice, ouvre [ton espace](login.html#mon-chemin) : tes roues de l’année t’y attendent.",
-    rituel: "Ce mois-ci, ta connexion passe par douze feuilles d’automne et une bougie. Une feuille pour chaque mois vécu.",
+    rituel: "Ce mois-ci, ta connexion passe par douze feuilles et une bougie. Une feuille pour chaque mois vécu.",
     semaines: "Cette fois, les défis sont des cadeaux : relire, célébrer, remercier, choisir. Tu l’as bien mérité.",
     cloture: "C’est le dernier bilan de l’année. Prends ton temps. Tout ce que tu as fait compte, même ce qui n’a pas été fini."
   },
@@ -54,25 +54,25 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois du bilan',
     texte: [
-      "Octobre revient. Il y a un an, presque jour pour jour, tu ouvrais ton premier carnet du Cercle, « Mon point de départ ». Tu remplissais ta première roue de la vie, tu choisissais un domaine à nourrir, tu écrivais une lettre à la personne que tu serais un an plus tard. Cette personne, c’est toi, aujourd’hui.",
+      "La boucle se referme. Il y a un an, presque jour pour jour, tu ouvrais ton premier carnet du Cercle, « Mon point de départ ». Tu remplissais ta première roue de la vie, tu choisissais un domaine à nourrir, tu écrivais une lettre à la personne que tu serais un an plus tard. Cette personne, c’est toi, aujourd’hui.",
       "Ce dernier carnet de l’année t’invite à t’arrêter, à regarder le chemin parcouru, et à le célébrer. Pas pour te donner une note, mais pour reconnaître tout ce que tu as osé : les petits pas, les essais, les moments où tu as continué alors que c’était difficile. Et pour choisir, en conscience, ce que tu veux vivre maintenant."
     ],
     sousTitre: 'Pourquoi faire le bilan d’une année ?',
     texte2: [
       "On dit souvent que l’on surestime ce que l’on peut faire en un mois, et que l’on sous-estime ce que l’on peut faire en un an. Mois après mois, les changements semblent minuscules : un point gagné ici, une habitude là. Mais quand on regarde douze mois d’un coup, on voit souvent une vraie transformation.",
       "Faire le bilan, c’est **mesurer** ce qui a bougé, en comparant ta roue d’aujourd’hui à celle d’il y a un an ; **célébrer** ce que tu as vécu, les fiertés comme les difficultés traversées ; **relire** ta lettre de l’an dernier, pour voir ce qui s’est réalisé, ce qui a changé de forme, ce qui t’attend encore ; et **choisir** la suite, avec tout ce que tu sais maintenant de toi.",
-      "Ce mois-ci, la spirale boucle son premier tour. Tu reviens en octobre, au même endroit de l’année, mais tu n’es plus la même personne. En parallèle, ton suivi « Je me libère » t’invite à regarder les âges et les dates qui se répondent dans ta famille, et à vivre chacun d’eux à ta façon : les deux avancent ensemble, jusqu’au bout."
+      "Ce mois-ci, la spirale boucle son premier tour. Tu reviens au même endroit, un an plus tard, mais tu n’es plus la même personne. En parallèle, ton suivi « Je me libère » t’invite à regarder les âges et les dates qui se répondent dans ta famille, et à vivre chacun d’eux à ta façon : les deux avancent ensemble, jusqu’au bout."
     ],
     exemplesTitre: 'Ce qu’un bilan d’année peut te montrer',
     exemples: [
       "**Un domaine qui a beaucoup grandi** : ta joie était à 3 l’an dernier, elle est à 7. Tu ne l’avais pas remarqué, parce que ça s’est fait doucement.",
       "**Un domaine resté au même endroit** : ton argent n’a pas bougé. Ce n’est pas un échec : c’est peut-être le prochain domaine à nourrir.",
-      "**Une habitude devenue naturelle** : tes trois mercis du soir, ta marche du matin. Tu les fais sans y penser, alors qu’ils te demandaient un effort en octobre dernier.",
+      "**Une habitude devenue naturelle** : tes trois mercis du soir, ta marche du matin. Tu les fais sans y penser, alors qu’ils te demandaient un effort il y a un an.",
       "**Une phrase de ta lettre qui s’est réalisée** : tu avais écrit « j’oserai dire ce que je pense », et tu l’as fait, plusieurs fois.",
       "**Une découverte inattendue** : tu pensais travailler ton couple, et c’est ta relation à ta mère qui a le plus changé."
     ],
     exempleSpiraleTitre: 'Un exemple de spirale',
-    exempleSpirale: "En octobre dernier, ta roue montrait l’énergie à 3 et la connexion à toi à 2. Tu as choisi de marcher cinq minutes chaque matin. En novembre, tu as ajouté une ligne de gratitude, en janvier un soir sans écran. Aujourd’hui, ton énergie est à 6 et ta connexion à toi à 7. Tu relis ta lettre : tu avais écrit « J’espère que tu prends enfin du temps pour toi. » Tu souris. C’est fait, et ce n’est qu’un début.",
+    exempleSpirale: "Il y a un an, ta roue montrait l’énergie à 3 et la connexion à toi à 2. Tu as choisi de marcher cinq minutes chaque matin. Le mois suivant, tu as ajouté une ligne de gratitude, puis un soir sans écran. Aujourd’hui, ton énergie est à 6 et ta connexion à toi à 7. Tu relis ta lettre : tu avais écrit « J’espère que tu prends enfin du temps pour toi. » Tu souris. C’est fait, et ce n’est qu’un début.",
     question: { k: 'theme-annee', q: "Si tu devais résumer ton année dans Le Cercle en une phrase, que dirais-tu ?", ph: "Exemple : j’ai appris à m’écouter, à dire non sans culpabilité, et à voir d’où venaient mes vieilles peurs." }
   },
 
@@ -80,7 +80,7 @@ window.GENESOLIA_CARNET = {
     titre: 'Relire ton année avec tendresse',
     texte: [
       "Un bilan n’est pas un examen. Il ne s’agit pas de vérifier si tu as tout réussi, mais de reconnaître le chemin que tu as fait, avec ses détours, ses pauses et ses élans. Les mois où tu n’as rien ouvert font aussi partie du chemin : ils t’ont peut-être appris que tu avais besoin de repos.",
-      "Commence par **ce qui a grandi**. Regarde tes roues dans [ton espace](login.html#mon-chemin) : celle d’octobre dernier, et celle d’aujourd’hui. Note les domaines qui ont gagné des points, même un seul. Derrière chacun, il y a des gestes que tu as faits, des décisions que tu as prises. Ce sont tes victoires.",
+      "Commence par **ce qui a grandi**. Regarde tes roues dans [ton espace](login.html#mon-chemin) : celle d’il y a un an, et celle d’aujourd’hui. Note les domaines qui ont gagné des points, même un seul. Derrière chacun, il y a des gestes que tu as faits, des décisions que tu as prises. Ce sont tes victoires.",
       "Regarde ensuite **ce qui a résisté**. Un domaine qui n’a pas bougé, ou qui a baissé, n’est pas un échec : la vie a peut-être apporté une épreuve, un déménagement, une fatigue. Demande-toi ce qu’il t’a appris, et s’il a besoin d’attention maintenant, ou s’il peut encore attendre.",
       "Enfin, regarde **qui tu es devenu·e**. Au-delà des chiffres, qu’est-ce qui a changé dans ta façon de te parler, de réagir, de choisir ? C’est souvent là que se trouve la plus belle transformation de l’année : pas dans ce que tu as fait, mais dans la personne qui le fait."
     ],
@@ -103,9 +103,9 @@ window.GENESOLIA_CARNET = {
     regarder: [
       { k: 'an-fier', q: "De quoi es-tu le plus fier ou la plus fière, quand tu regardes cette année ?", ph: "Exemple : d’avoir continué, même les mois où j’étais fatigué·e, et d’avoir parlé à mon père de son enfance." },
       { k: 'an-change', q: "Qu’est-ce qui a changé dans ta façon de te parler ou de réagir ?", ph: "Exemple : je ne me dis plus « je suis nul·le » quand je me trompe. Je me dis « tu apprends »." },
-      { k: 'an-mois', q: "Quel carnet ou quel mois de l’année t’a le plus marqué·e, et pourquoi ?", ph: "Exemple : décembre, « Ma place, mes limites ». J’ai dit non pour la première fois au repas de Noël." },
+      { k: 'an-mois', q: "Quel carnet ou quel mois de l’année t’a le plus marqué·e, et pourquoi ?", ph: "Exemple : l’étape « Ma place, mes limites ». J’ai dit non pour la première fois à un grand repas de famille." },
       { k: 'an-attente', q: "Qu’est-ce qui attend encore ton attention, sans urgence ?", ph: "Exemple : mon rapport à l’argent. Je l’ai effleuré, mais je n’ai pas encore osé vraiment le regarder." },
-      { k: 'an-point', q: "Si tu pouvais faire gagner un point à un seul domaine pour bien commencer la nouvelle année, lequel choisirais-tu ?", ph: "Exemple : mes amitiés. J’ai beaucoup travaillé sur moi, j’ai envie de partager plus." }
+      { k: 'an-point', q: "Si tu pouvais faire gagner un point à un seul domaine pour bien commencer ta nouvelle année, lequel choisirais-tu ?", ph: "Exemple : mes amitiés. J’ai beaucoup travaillé sur moi, j’ai envie de partager plus." }
     ],
     enLigneTitre: 'Sur Genesolia',
     enLigne: "Tes roues, tes météos et ta lettre de l’an dernier sont gardées dans [ton espace](login.html#mon-chemin), et tous tes carnets de l’année t’attendent dans [mes carnets précédents](mon-mois.html). Tu peux aussi refaire le [test de l’arbre de vie](arbre-de-vie.html) et le comparer à ton premier.",
@@ -117,11 +117,11 @@ window.GENESOLIA_CARNET = {
   },
 
   exercicesTitre: 'Mesurer, célébrer, choisir',
-  exercicesIntro: "Trois exercices pour clore l’année. Le premier compare ta roue d’aujourd’hui à celle d’octobre dernier, le deuxième célèbre trois moments de ton année, le troisième te fait relire ta lettre et choisir la suite. Prends ton temps : c’est le plus beau rendez-vous de l’année.",
+  exercicesIntro: "Trois exercices pour clore l’année. Le premier compare ta roue d’aujourd’hui à celle d’il y a un an, le deuxième célèbre trois moments de ton année, le troisième te fait relire ta lettre et choisir la suite. Prends ton temps : c’est le plus beau rendez-vous de l’année.",
   exercices: [
     { k: 'ex1', titre: 'Mes deux roues', type: 'tableau', rangs: 3,
       etiquettes: ['Un domaine qui a grandi', 'Un domaine resté au même endroit', 'Un domaine qui a baissé ou qui attend'],
-      consigne: "Ouvre ta roue d’octobre dernier dans [ton espace](login.html#mon-chemin), et remplis celle de ce mois-ci dans ta météo du début. Choisis trois domaines : un qui a grandi, un qui est resté au même endroit, un qui a baissé ou qui attend encore. Pour chacun, note la note d’il y a un an et celle d’aujourd’hui, ce qui explique ce mouvement, et ce que tu en retiens. Si tu n’as pas ta roue de l’an dernier, fie-toi à ton souvenir.",
+      consigne: "Ouvre ta roue d’il y a un an dans [ton espace](login.html#mon-chemin), et remplis celle de ce mois-ci dans ta météo du début. Choisis trois domaines : un qui a grandi, un qui est resté au même endroit, un qui a baissé ou qui attend encore. Pour chacun, note la note d’il y a un an et celle d’aujourd’hui, ce qui explique ce mouvement, et ce que tu en retiens. Si tu n’as pas ta roue de l’an dernier, fie-toi à ton souvenir.",
       pourquoi: "Mois après mois, on ne voit pas toujours les progrès. En comparant deux roues à un an d’écart, tu vois d’un coup tout le chemin parcouru. Et tu comprends ce qui a vraiment fait la différence : ce sont ces gestes-là que tu pourras garder.",
       colonnes: [
         { q: "Quel domaine, et quelle note il y a un an, puis aujourd’hui ?", ph: ["Exemple : la joie, de 3 à 7", "Exemple : l’argent, 5 et toujours 5", "Exemple : la famille, de 6 à 4"] },
@@ -155,18 +155,18 @@ window.GENESOLIA_CARNET = {
 
   rituel: {
     titre: 'Les douze feuilles',
-    intro: "En octobre, la nature lâche ce qui a fini son temps et garde sa sève pour la saison suivante. Ce petit rituel symbolique t’invite à faire le tour de ton année, mois par mois, avec douze feuilles d’automne : une pour chaque mois vécu dans Le Cercle. Il se fait en quinze minutes, dehors si tu peux, ou près d’une fenêtre ouverte.",
+    intro: "Un arbre qui lâche ses feuilles laisse partir ce qui a fini son temps et garde sa sève pour la suite. Ce petit rituel symbolique t’invite à faire le tour de ton année, mois par mois, avec douze feuilles : une pour chaque mois vécu dans Le Cercle. Il se fait en quinze minutes, dehors si tu peux, ou près d’une fenêtre ouverte.",
     materiel: "Douze feuilles d’arbre tombées (ou douze petits papiers), un crayon, une bougie, et un endroit au calme : un parc, un jardin, un balcon, ou une table près d’une fenêtre.",
-    quand: "Fais-le après avoir rempli tes deux roues et relu ta lettre, un après-midi d’octobre ou un soir de pleine lune. Tu peux en faire un rendez-vous d’automne, chaque année, pour marquer chaque tour de spirale.",
+    quand: "Fais-le après avoir rempli tes deux roues et relu ta lettre, un après-midi tranquille ou un soir de pleine lune. Tu peux en faire un rendez-vous, chaque année, pour marquer chaque tour de spirale.",
     etapes: [
       "Installe-toi au calme. Allume la bougie. Dispose les douze feuilles en cercle, ou en spirale, devant toi. Respire trois fois profondément.",
-      "Prends la première feuille, pour octobre dernier. Écris un mot dessus : ce que ce mois t’a apporté. Repose-la. Fais de même pour chaque mois, jusqu’à septembre, sans chercher le mot parfait.",
+      "Prends la première feuille, pour ta première étape. Écris un mot dessus : ce que ce mois t’a apporté. Repose-la. Fais de même pour chaque mois, jusqu’à ta douzième étape, sans chercher le mot parfait.",
       "Regarde ta spirale de feuilles. Dis intérieurement : « Merci pour chaque mois de cette année. Merci pour ce que j’ai osé, pour ce que j’ai appris, et même pour ce que je n’ai pas fini. »",
       "Choisis une feuille qui porte quelque chose que tu veux laisser derrière toi. Dépose-la au pied d’un arbre, ou laisse le vent l’emporter. Les autres, garde-les dans ton carnet ou dans une boîte.",
       "Pose une main sur ton cœur. Dis à voix basse ton intention pour la nouvelle année qui s’ouvre.",
       "Laisse la bougie briller quelques minutes, puis éteins-la. Le soir, note ici les mots de ton année et l’intention que tu as posée."
     ],
-    note: { k: 'rituel-feuilles', q: "Quels mots as-tu écrits sur tes douze feuilles, laquelle as-tu laissée partir, et quelle intention as-tu posée ?", ph: "Exemple : départ, forces, place, valeurs, courage… J’ai laissé partir la feuille de février, « doute ». Mon intention : « Je continue, à mon rythme, avec confiance. »" }
+    note: { k: 'rituel-feuilles', q: "Quels mots as-tu écrits sur tes douze feuilles, laquelle as-tu laissée partir, et quelle intention as-tu posée ?", ph: "Exemple : départ, forces, place, valeurs, courage… J’ai laissé partir la feuille de ma cinquième étape, « doute ». Mon intention : « Je continue, à mon rythme, avec confiance. »" }
   },
 
   meditation: {
@@ -174,26 +174,26 @@ window.GENESOLIA_CARNET = {
     texte: [
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés au sol. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois…",
       "[pause]",
-      "Sens tes pieds sur le sol, ton dos soutenu, ton souffle qui va et vient. Tu es là, aujourd’hui, en octobre. Un an a passé depuis ton premier carnet.",
-      "Imagine un chemin qui monte doucement en spirale, autour d’une colline, dans la lumière dorée de l’automne. Les feuilles rousses craquent sous tes pas. Ce chemin, c’est ton année.",
-      "Commence à marcher. Au premier virage, tu retrouves l’automne dernier : la personne que tu étais, qui ouvrait son premier carnet. Regarde-la avec tendresse. Elle ne savait pas encore tout ce qu’elle allait découvrir.",
+      "Sens tes pieds sur le sol, ton dos soutenu, ton souffle qui va et vient. Tu es là, aujourd’hui. Un an a passé depuis ton premier carnet.",
+      "Imagine un chemin qui monte doucement en spirale, autour d’une colline, dans une lumière dorée. Les feuilles craquent doucement sous tes pas. Ce chemin, c’est ton année.",
+      "Commence à marcher. Au premier virage, tu retrouves le début de ton chemin : la personne que tu étais, qui ouvrait son premier carnet. Regarde-la avec tendresse. Tout ce qu’elle allait découvrir l’attendait déjà.",
       "[pause]",
-      "Continue de marcher. Tu traverses l’hiver, ses fêtes, ses intentions. Puis le printemps, ses élans. Puis l’été, sa lumière. À chaque saison, laisse venir une image, un visage, un moment. Tu n’as pas besoin de tout revoir. Ce qui vient est juste.",
+      "Continue de marcher. Tu traverses tes premières étapes, leurs appuis, leurs intentions. Puis tes élans. Puis ta lumière. À chaque étape, laisse venir une image, un visage, un moment. Accueille simplement ce qui vient. Ce qui vient est juste.",
       "Remarque les endroits où tu as trébuché, et vois comme tu t’es relevé·e. Remarque les endroits où tu as osé, et sens la fierté monter doucement dans ta poitrine.",
       "[longue pause]",
-      "Te voici revenu·e en octobre, au même endroit de l’année. Mais regarde : tu es plus haut sur la colline. Le paysage est plus large. Tu vois plus loin, plus clair.",
+      "Te voici revenu·e au même endroit, un an plus tard. Et regarde : tu es plus haut sur la colline. Le paysage est plus large. Tu vois plus loin, plus clair.",
       "Retourne-toi vers la personne que tu étais il y a un an, tout en bas du chemin. Dis-lui intérieurement : « Merci d’avoir commencé. Regarde où nous sommes. »",
       "[pause]",
       "Puis regarde devant toi. Le chemin continue, il monte encore. Tu n’as pas besoin de savoir où il mène. Dis simplement : « J’avance à mon rythme, avec tout ce que j’ai appris. »",
       "Respire profondément. Sens à nouveau ton corps, le sol, l’air autour de toi. Bouge doucement les doigts, les épaules. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Fais-la après avoir relu ta lettre, un soir tranquille ou un dimanche matin d’octobre. Si une émotion forte monte en revoyant certains moments, laisse-la passer, reviens à ton souffle et à tes pieds sur le sol. Tu peux faire une pause et reprendre plus tard.",
-    note: { k: 'medit-annee', q: "Qu’est-ce qui t’est venu pendant la méditation ? Une saison, un visage, un moment de fierté, ce que tu as vu du haut de la colline…", ph: "Exemple : j’ai revu le repas de Noël où j’ai dit non. En haut de la colline, j’ai vu une mer au loin. J’ai senti que j’avais envie de voyager." }
+    conseil: "Fais-la après avoir relu ta lettre, un soir tranquille ou un dimanche matin. Si une émotion forte monte en revoyant certains moments, laisse-la passer, reviens à ton souffle et à tes pieds sur le sol. Tu peux faire une pause et reprendre plus tard.",
+    note: { k: 'medit-annee', q: "Qu’est-ce qui t’est venu pendant la méditation ? Une étape, un visage, un moment de fierté, ce que tu as vu du haut de la colline…", ph: "Exemple : j’ai revu le grand repas de famille où j’ai dit non. En haut de la colline, j’ai vu une mer au loin. J’ai senti que j’avais envie de voyager." }
   },
 
   semaines: [
     { titre: 'Relire mes carnets', texte: "Cette semaine, prends un moment pour relire tes carnets de l’année, un ou deux par soir, dans [mes carnets précédents](mon-mois.html). Ne relis pas tout : arrête-toi sur tes victoires de la semaine, tes bilans, les phrases que tu avais choisies.",
-      exemple: "Par exemple : lundi, octobre et novembre ; mardi, décembre et janvier. Note à chaque fois une phrase qui te touche encore. À la fin de la semaine, tu auras un petit recueil de ton année.",
+      exemple: "Par exemple : lundi, tes deux premiers carnets ; mardi, les deux suivants. Note à chaque fois une phrase qui te touche encore. À la fin de la semaine, tu auras un petit recueil de ton année.",
       ph: "Exemple : en relisant mes carnets, j’ai vu que la même phrase revenait : « J’ai le droit de prendre ma place. » Elle est devenue vraie." },
     { titre: 'Célébrer une victoire', texte: "Cette semaine, choisis une victoire de ton année et célèbre-la vraiment : un repas, une sortie, un petit cadeau, une soirée avec les personnes qui t’ont soutenu·e. Dis à voix haute ce que tu fêtes.",
       exemple: "Par exemple : un dîner avec ton amie pour fêter ton premier « non » à ta mère, ou une journée au bord de la mer pour fêter ta joie retrouvée. On fête rarement ses progrès intérieurs : c’est le moment.",
@@ -201,7 +201,7 @@ window.GENESOLIA_CARNET = {
     { titre: 'Remercier', texte: "Cette semaine, remercie trois personnes qui t’ont aidé·e à avancer cette année, et remercie-toi aussi. Un message, une carte, un appel, ou une lettre à toi-même.",
       exemple: "Par exemple : un message à ton amie qui t’a écouté·e en février, une carte à ta tante qui t’a raconté l’histoire de la famille, et un mot posé sur ton miroir : « Merci d’avoir continué. »",
       ph: "Exemple : j’ai remercié ma tante pour toutes ses histoires. Elle a pleuré au téléphone. Et je me suis écrit un mot, que j’ai glissé dans mon carnet." },
-    { titre: 'Refaire ma roue et choisir la suite', texte: "En fin de semaine, refais ta roue de la vie dans ton bilan et compare-la avec celle du début du mois, et avec celle d’octobre dernier dans [ton espace](login.html#mon-chemin). Puis choisis le domaine que tu veux nourrir en premier dans la nouvelle année.",
+    { titre: 'Refaire ma roue et choisir la suite', texte: "En fin de semaine, refais ta roue de la vie dans ton bilan et compare-la avec celle du début du mois, et avec celle d’il y a un an dans [ton espace](login.html#mon-chemin). Puis choisis le domaine que tu veux nourrir en premier dans ta nouvelle année.",
       exemple: "Par exemple : ta roue a gagné en rondeur, ta joie et ta connexion à toi ont beaucoup grandi, ton argent attend encore. Tu choisis de commencer l’année par lui. Remercie-toi pour ce premier tour de spirale.",
       ph: "Exemple : ma roue n’a jamais été aussi ronde. Je commence la nouvelle année avec mes amitiés, parce que j’ai envie de partager tout ce que j’ai appris." }
   ],
@@ -211,7 +211,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-annee-grandi', q: "Qu’est-ce qui a le plus grandi en toi cette année ?", ph: "Exemple : la confiance. J’ose dire ce que je pense, et je ne m’excuse plus d’exister." },
     { k: 'fin-annee-habitude', q: "Quelles habitudes de l’année veux-tu emporter dans la suivante ?", ph: "Exemple : ma marche du matin, mes trois mercis, et mon rendez-vous du samedi avec moi." },
     { k: 'fin-annee-lettre', q: "Que dirais-tu, en une phrase, à la personne qui ouvrira son carnet dans un an ?", ph: "Exemple : « Continue d’avancer à ton rythme, tu es sur le bon chemin. »" },
-    { k: 'fin-intention', q: "Quelle est ton intention pour novembre, le premier mois de ta nouvelle année ?", ph: "Exemple : commencer doucement, nourrir mes amitiés, et garder tout ce que j’ai appris.", court: true }
+    { k: 'fin-intention', q: "Quelle est ton intention pour ta prochaine étape, le premier mois de ta nouvelle année ?", ph: "Exemple : commencer doucement, nourrir mes amitiés, et garder tout ce que j’ai appris.", court: true }
   ],
 
   /* Le côté libération du même mois, dans Mon suivi */

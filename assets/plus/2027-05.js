@@ -8,7 +8,7 @@ window.GENESOLIA_PLUS = {
       "Remarque ce que tu manges debout, en courant ou devant un écran aujourd’hui. Le soir, écris un repas que tu aimerais prendre assis·e, tranquillement.",
       "Écoute ta voix intérieure pendant une heure. Note une phrase dure qu’elle t’a dite, mot pour mot, sans essayer de la corriger pour l’instant.",
       "Repère ton heure de pleine énergie et ton heure creuse de la journée. Écris-les dans ta carte de ressourcement, à côté de tes matins et de tes soirées.",
-      "Fais quelque chose qui te ressource vraiment pendant cinq minutes : marcher sous les arbres, sentir une fleur de mai, t’asseoir au soleil. Note ce que tu ressens après.",
+      "Fais quelque chose qui te ressource vraiment pendant cinq minutes : marcher sous les arbres, sentir une fleur, t’asseoir au soleil. Note ce que tu ressens après.",
       "Relis ta semaine de matins. Les jours avec tes dix minutes étaient-ils différents des autres ? Écris en deux phrases ce que tu as découvert."
     ] },
     { jours: [
@@ -42,20 +42,20 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter la douceur que tu t’es offerte",
         texte: [
-          "Mai touche à sa fin, et les fleurs de ton bouquet ont peut-être déjà été renouvelées. Cette dernière semaine, tu récoltes. Tu regardes, avec les yeux de quelqu’un qui t’aime, tout ce que tu t’es offert ce mois-ci : des matins plus calmes, une phrase douce à la place d’une phrase dure, un non qui t’a rendu une soirée. Même si tout n’a pas été fait, chaque geste compte.",
-          "La gratitude, ce mois-ci, se tourne d’abord vers toi. Remercie ton corps qui t’a signalé sa fatigue, ta voix intérieure qui a commencé à s’adoucir, et la personne que tu es, qui a osé passer avant la liste. Remercie aussi ceux qui ont accueilli tes changements sans rien dire, et la saison, généreuse, qui t’a offert ses fleurs et ses longues soirées.",
+          "Ton étape touche à sa fin, et les fleurs de ton bouquet ont peut-être déjà été renouvelées. Cette dernière semaine, tu récoltes. Tu regardes, avec les yeux de quelqu’un qui t’aime, tout ce que tu t’es offert ce mois-ci : des matins plus calmes, une phrase douce à la place d’une phrase dure, un non qui t’a rendu une soirée. Même si tout n’a pas été fait, chaque geste compte.",
+          "La gratitude, ce mois-ci, se tourne d’abord vers toi. Remercie ton corps qui t’a signalé sa fatigue, ta voix intérieure qui a commencé à s’adoucir, et la personne que tu es, qui a osé passer avant la liste. Remercie aussi ceux qui ont accueilli tes changements sans rien dire, et la vie, généreuse, qui t’a offert ses fleurs et ses beaux moments.",
           "Puis tu donnes vie à ton intention. Imagine ta vie quand ta propre présence bienveillante est devenue une habitude : tu manges assis·e, tu te couches quand tu es fatigué·e, tu te félicites sans attendre qu’on le fasse pour toi. Choisis une croyance qui t’accompagne et trois mots pour ton tableau de vision. Par exemple, Inès choisit « lenteur, joie, confiance » et la croyance « je ne suis pas en retard, je suis à mon rythme ». Elle glisse ses trois mots au pied de son bouquet.",
-          "Ce que tu as semé en mai ne disparaît pas en juin. Ta douceur deviendra un appui : c’est elle qui te permettra d’oser agir sans te malmener. Garde ton bouquet, ta phrase douce et tes trois mots tout près de toi : ils te rappelleront, les jours pressés, que tu as le droit de ralentir."
+          "Ce que tu as semé ce mois-ci reste avec toi à ta prochaine étape. Ta douceur deviendra un appui : c’est elle qui te permettra d’oser agir sans te malmener. Garde ton bouquet, ta phrase douce et tes trois mots tout près de toi : ils te rappelleront, les jours pressés, que tu as le droit de ralentir."
         ]
       },
       jours: [
-      "Renouvelle ton bouquet de mai, ou ajoute une seule fleur. Pour cette fleur, dis-toi une chose que tu apprécies chez toi depuis le début du mois.",
+      "Renouvelle ton bouquet de merci, ou ajoute une seule fleur. Pour cette fleur, dis-toi une chose que tu apprécies chez toi depuis le début du mois.",
       "Écris trois mercis à toi-même pour ce mois : un matin offert, un non posé, une phrase douce. Lis-les à voix haute, lentement.",
       "Ferme les yeux deux minutes et imagine-toi dans quelques mois, à ton rythme, reposé·e. Remarque ton visage, ta façon de marcher, ce que tu t’offres.",
       "Choisis la croyance qui accompagne ton intention, par exemple « je mérite la douceur que j’offre aux autres ». Écris-la sur le papier glissé au pied de ton vase.",
       "Trouve trois mots pour ton tableau de vision, comme « calme, joie, lenteur ». Cherche une image ou un objet qui va avec, et pose-les ensemble.",
-      "Retrouve en pensée la fleur reçue sur le banc du jardin de mai. Décris sa couleur et son parfum en deux lignes, pour la garder avec toi.",
-      "Relis ton mois et ta roue. Écris la douceur que tu veux garder en juin, et une phrase de fierté pour la personne que tu as été en mai."
+      "Retrouve en pensée la fleur reçue sur le banc du jardin en fleurs. Décris sa couleur et son parfum en deux lignes, pour la garder avec toi.",
+      "Relis ton mois et ta roue. Écris la douceur que tu veux garder pour ta prochaine étape, et une phrase de fierté pour la personne que tu as été ce mois-ci."
     ] }
   ],
   suivi: [
@@ -101,7 +101,7 @@ window.GENESOLIA_PLUS = {
       "Demande de l’aide une fois aujourd’hui, pour une chose simple. Remarque ce que tu ressens avant, pendant et après avoir demandé.",
       "Raconte à un·e proche une histoire heureuse d’une femme de ta lignée. Choisis un souvenir lumineux : un rire, un courage, une recette.",
       "Repose-toi dix minutes sans t’en excuser, ni auprès des autres ni dans ta tête. Si la culpabilité arrive, fais ta première pause.",
-      "Relis tes essais de la semaine. Écris ce que tu as choisi de transmettre, et ce que tu emportes de tes mères vers juin."
+      "Relis tes essais de la semaine. Écris ce que tu as choisi de transmettre, et ce que tu emportes de tes mères vers ta prochaine étape."
     ],
       exercices: [
         { k: "plus4", titre: "Ce qui m’aide à transmettre autrement", type: "questions",

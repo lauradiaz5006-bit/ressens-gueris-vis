@@ -51,9 +51,9 @@ window.GENESOLIA_CARNET = {
   },
 
   theme: {
-    titre: 'Le mois des mères',
+    titre: 'Ce que j’ai reçu de ma mère',
     texte: [
-      "Mai est le mois de la fête des mères. Pour certain·es, c'est un jour simple et joyeux, avec des fleurs et un coup de fil. Pour d'autres, il réveille un manque, une distance, une relation compliquée, ou l'absence d'une mère partie trop tôt ou jamais connue. Toutes ces réalités ont leur place ici, sans hiérarchie.",
+      "Le mot « mère » résonne différemment pour chacun·e. Pour certain·es, il évoque un lien simple et joyeux, des fleurs et un coup de fil. Pour d'autres, il réveille un manque, une distance, une relation compliquée, ou l'absence d'une mère partie trop tôt ou jamais connue. Toutes ces réalités ont leur place ici, sans hiérarchie.",
       "Nous sommes au cœur du deuxième temps de l'année du Cercle, **Traverser** : après avoir appris à voir ce qui revient, tu traverses maintenant les grandes relations qui t'ont façonné·e. Ce mois-ci, tu regardes ta mère, ta grand-mère, et toutes les femmes qui ont compté pour toi comme des figures maternelles. Sans les idéaliser, sans les juger non plus : pour voir ce que tu as reçu, et ce que tu choisis de laisser."
     ],
     sousTitre: 'Pourquoi regarder la lignée des femmes ?',
@@ -186,7 +186,7 @@ window.GENESOLIA_CARNET = {
       "Installe-toi confortablement, le dos soutenu, les pieds bien posés. Ferme les yeux, ou laisse ton regard se poser doucement devant toi. Respire profondément, trois fois… Laisse ton corps se poser.",
       "[pause]",
       "Avant de commencer, sache que tu peux t’arrêter à tout moment. Si quelque chose est trop fort, ouvre les yeux, sens tes pieds sur le sol, et reviens à ton souffle. Tu es en sécurité, ici et maintenant.",
-      "Imagine un champ au mois de mai. L'herbe est haute, les fleurs s'ouvrent, l'air est tiède. Tu entends des oiseaux au loin, des abeilles autour des fleurs, et le bruit léger du vent.",
+      "Imagine un grand champ, doux et lumineux. L'herbe est haute, les fleurs s'ouvrent, l'air est tiède. Tu entends des oiseaux au loin, des abeilles autour des fleurs, et le bruit léger du vent.",
       "Devant toi, à quelques pas, se tient ta mère, telle que tu la connais, ou telle que tu l'imagines si tu ne l'as pas connue. Derrière elle, sa mère. Derrière encore, une longue file de femmes qui se perd dans la lumière.",
       "[pause]",
       "Tu n'as pas besoin de t'approcher plus que tu ne le souhaites. Reste à la distance qui te convient, même si elle est grande. Remarque simplement que chacune a donné la vie à la suivante, jusqu'à toi.",
@@ -250,7 +250,7 @@ window.GENESOLIA_CARNET = {
     { k: 'fin-recu', q: "Que reçois-tu de tes mères avec gratitude ?", ph: "Exemple : le courage, l’humour dans les moments durs, l’art de recevoir les autres." },
     { k: 'fin-rendu', q: "Qu’as-tu laissé avec respect, et qu’est-ce que tu ressens depuis ?", ph: "Exemple : l’idée qu’une femme doit s’oublier. Je me sens moins coupable de me reposer." },
     { k: 'fin-transmets', q: "Quel geste nouveau as-tu osé, et que choisis-tu de transmettre à ton tour ?", ph: "Exemple : je reste assis·e à table et je demande de l’aide. Je veux transmettre qu’on peut être forte et se reposer." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en juin, en regardant le côté de ton père ?", ph: "Exemple : continuer à me reposer sans culpabilité, et regarder avec douceur ce que j’ai reçu de mon père.", court: true }
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à ta prochaine étape, en regardant le côté de ton père ?", ph: "Exemple : continuer à me reposer sans culpabilité, et regarder avec douceur ce que j’ai reçu de mon père.", court: true }
   ],
 
   carnet: {

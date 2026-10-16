@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Contenus ajoutés d’avril 2027 (carnet « Dire vrai », suivi « Les secrets et les non-dits ») */
+/* Genesolia · Le Cercle · Contenus ajoutés d’avril 2027 (carnet « Dire vrai », suivi « Quelles phrases me guident ? ») */
 window.GENESOLIA_PLUS = {
   mois: "2027-04",
   carnet: [
@@ -42,10 +42,10 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter ce que tes mots vrais ont fait fleurir",
         texte: [
-          "Avril se termine, et ton bouquet a peut-être déjà fané. Pourtant, quelque chose a poussé : un mot vrai dit à ta sœur, un merci précis à une voisine, un non posé sans te justifier. Cette dernière semaine, tu prends le temps de récolter. Pas pour vérifier si tu as tout réussi, mais pour voir ce qui a changé, même un peu, dans tes relations et dans ta façon de te parler.",
+          "Ton étape se termine, et ton bouquet a peut-être déjà fané. Pourtant, quelque chose a poussé : un mot vrai dit à ta sœur, un merci précis à une voisine, un non posé sans te justifier. Cette dernière semaine, tu prends le temps de récolter. Pas pour vérifier si tu as tout réussi, mais pour voir ce qui a changé, même un peu, dans tes relations et dans ta façon de te parler.",
           "La gratitude est une belle façon de récolter. Remercie les personnes qui t’ont écouté·e, celles qui t’ont répondu avec tendresse, et remercie-toi aussi pour chaque fois où tu as osé. Chaque mot vrai demande un peu de courage, et ce courage mérite d’être vu. Regarde aussi les conversations plus difficiles : même quand l’autre n’a pas bien réagi, tu es resté·e fidèle à ce que tu ressens.",
           "Puis tu donnes vie à ton intention. Imagine la relation que tu veux voir grandir, comme si elle existait déjà : des repas où l’on se dit les choses, des « ça va » qui veulent vraiment dire quelque chose, des désaccords qui ne font plus peur. Choisis une croyance qui t’accompagne, et trois mots pour ton tableau. Par exemple, Karim choisit « vrai, doux, libre » et la croyance « je peux dire non et rester proche ». Il colle ses trois mots sur le frigo, à côté d’une photo de ses enfants.",
-          "Récolter, c’est enfin semer pour la suite. Les mots que tu as osés ce mois-ci restent avec toi. En mai, ils t’aideront à dire ce qui te fait du bien, à toi comme aux autres. Garde ton tableau à portée de vue, et reviens-y chaque fois qu’un « ça va » automatique te monte aux lèvres."
+          "Récolter, c’est enfin semer pour la suite. Les mots que tu as osés ce mois-ci restent avec toi. À ta prochaine étape, ils t’aideront à dire ce qui te fait du bien, à toi comme aux autres. Garde ton tableau à portée de vue, et reviens-y chaque fois qu’un « ça va » automatique te monte aux lèvres."
         ]
       },
       jours: [
@@ -55,63 +55,63 @@ window.GENESOLIA_PLUS = {
       "Ferme les yeux deux minutes et imagine une conversation vraie qui s’est bien passée, dans quelques mois. Remarque ta voix, ta posture, le visage de l’autre.",
       "Choisis la croyance qui accompagne ton intention, par exemple « je peux dire ce que je ressens et rester aimé·e ». Écris-la et dis-la trois fois à voix haute.",
       "Dis aujourd’hui un vrai oui, joyeux et entier, à quelque chose qui te fait envie. Savoure ce oui, et remarque comme il sonne autrement après tes non.",
-      "Relis ton mois d’avril en cinq minutes : le mot vrai dont tu es le plus fier·e, la relation qui a changé, la fleur que tu veux garder pour mai."
+      "Relis ton mois en cinq minutes : le mot vrai dont tu es le plus fier·e, la relation qui a changé, la fleur que tu veux garder pour ta prochaine étape."
     ] }
   ],
   suivi: [
     { jours: [
-      "Écris en haut d’une page « Chez nous, on ne parle pas de… », puis laisse venir trois fins de phrase, sans réfléchir ni juger ce qui arrive.",
-      "Regarde une photo de famille pendant deux minutes. Note qui est là, qui manque, et ce que tu ressens en la regardant. Tu n’as rien à interpréter.",
-      "Lors d’un appel ou d’un repas en famille, écoute simplement. Remarque un moment où la conversation change de sujet, et note-le le soir dans ton journal des silences.",
-      "Quand tu sens un silence, pose une main sur ta gorge ou sur ta poitrine. Respire lentement et nomme la sensation : serré, chaud, lourd, vide.",
-      "Liste trois prénoms de ta famille que l’on prononce rarement. À côté de chacun, écris ce que tu sais de cette personne, même une seule ligne.",
-      "Repense à une phrase entendue enfant pour clore un sujet : « laisse », « c’était une autre époque ». Écris-la, et note qui la disait.",
-      "Relis ta carte et ton journal de la semaine. Écris en deux phrases le silence qui t’a le plus parlé, et ce que ton corps t’en a dit."
+      "Écris en haut d’une page « Chez nous, on… », puis laisse venir trois fins de phrase, vite, sans juger ce qui arrive.",
+      "Choisis un domaine de ta collecte, l’argent ou les émotions par exemple. Note une règle de plus, et la voix qui la disait : son ton, ses mots exacts.",
+      "Lors d’un appel ou d’un repas en famille, écoute simplement. Remarque une phrase qui ressemble à une règle, et note-la le soir dans ton journal de la semaine.",
+      "Aujourd’hui, attrape une fois la règle qui parle dans ta tête juste avant d’agir. Note-la mot pour mot, avec ce que tu as fait ensuite.",
+      "Repense aux phrases sur ce que tu devais être : « une fille sage… », « un garçon fort… », « une femme, ça… ». Écris-en deux, et qui te les disait.",
+      "Pose une main sur ta poitrine et lis à voix basse une règle de ta collecte. Nomme la sensation qui vient : serré, chaud, calme, agité.",
+      "Relis ta collecte et ton journal. Écris en deux phrases la règle qui a décidé le plus souvent à ta place cette semaine."
     ] },
     { jours: [
-      "Ouvre ton arbre familial et entoure une zone floue : une date manquante, un prénom sans histoire. Regarde-la une minute, simplement, sans chercher à la remplir.",
-      "Relis ta carte des silences et trace un trait entre deux indices qui semblent se répondre : une date, un lieu, une personne. Note ce lien en une phrase.",
-      "Demande-toi si ce silence touche plutôt la racine (l’argent, l’origine, la place) ou le cœur (un amour, un départ). Écris ton intuition, même incertaine.",
-      "Cherche un objet de famille chez toi ou dans tes souvenirs : une boîte, une lettre, un bijou. Décris-le en trois lignes, et ce qu’il raconte peut-être.",
-      "Pense à une habitude de ta vie dont tu ignores l’origine. Écris-la, puis complète la phrase : « Peut-être que dans ma famille, avant moi, quelqu’un… »",
-      "Repère une période de l’année où l’humeur de ta famille change. Note ce que tu ressens toi-même à ce moment-là, sans tirer de conclusion.",
-      "Regarde les pièces du puzzle rassemblées cette semaine. Écris ce qui s’est éclairci, et accepte avec douceur ce qui restera peut-être flou."
+      "Choisis une règle de ta collecte. Écris en une ligne ce que tu sais de la vie de la personne qui la disait, à l’âge où elle l’a apprise.",
+      "Ouvre ton arbre familial et note, à côté d’un prénom, la règle que cette personne disait. Regarde si la même phrase revient chez ses parents.",
+      "Demande-toi si cette règle touche plutôt la racine (la sécurité, l’argent, ne pas se faire remarquer) ou le cœur (être aimé·e, garder sa place). Écris ton intuition, même incertaine.",
+      "Complète la phrase : « Cette règle protégeait ma famille de… » Puis : « Aujourd’hui, dans ma vie, elle me protège encore de… »",
+      "Souviens-toi d’un moment d’enfance où tu as suivi une règle pour être aimé·e. Écris ce que tu as reçu ce jour-là : un sourire, un « c’est bien », une place à table.",
+      "Écris la question que tu poseras à ta famille sur l’origine d’une règle. Formule-la simplement, sans reproche, comme une curiosité.",
+      "Écris la phrase de loyauté qui te retient le plus : « Si je fais autrement, je trahis… » Puis ajoute : « Et pourtant, je peux les aimer et choisir. »"
     ] },
     { comprendre: {
-        titre: "Poser le poids d’un silence qui n’est pas le tien",
+        titre: "Remercier une règle, et la ranger",
         texte: [
-          "Un silence de famille pèse rarement par ce qu’il cache. Il pèse par la gêne qu’il installe, par les sujets qu’on contourne, par cette impression diffuse qu’il ne faut pas poser de questions. Enfant, tu as peut-être appris à faire attention, à baisser les yeux, à te taire au bon moment. Ce n’était pas ton secret, et pourtant tu en as porté une part, dans ta gorge, dans tes épaules, dans ta façon de parler de toi.",
-          "Libérer, ce mois-ci, ne veut pas dire tout révéler ni accuser ceux qui se sont tus. Ils l’ont souvent fait pour protéger quelqu’un, par pudeur ou par peur. Libérer veut dire reconnaître : « Il y a eu quelque chose de lourd. Je le respecte. Je n’ai pas à le garder pour eux. » La lettre au silence te permet enfin de lui parler, sans risque pour personne. La fenêtre ouverte donne une forme à ce choix : un peu d’air entre, sans que rien ne soit forcé.",
-          "Par exemple, Sophie sentait depuis l’enfance une tension chaque fois qu’on parlait de sa tante Rose. Elle ne sait toujours pas ce qui s’est passé. Mais en écrivant « je reconnais que tu as protégé quelqu’un, et je te rends ce poids », elle a senti ses épaules descendre. Le secret est resté entier, et elle respire mieux. Cette semaine, tu peux faire comme elle : reconnaître, respecter, et reprendre ta liberté de parler."
+          "Une règle de famille ne disparaît pas parce qu’on la juge. Elle s’assouplit quand on la regarde en face, dans une scène réelle : ce que tu ressentais, ce que tu as dit, ce que tu as fait. C’est le rôle de ta carte ressens / dis / fais. Quand les trois ne vont pas dans le même sens, tu vois exactement où la règle décide à ta place, et quelle croyance ou quelle loyauté elle porte.",
+          "Libérer, ce mois-ci, ne veut pas dire rejeter ceux qui t’ont transmis ces règles. Ils les ont souvent reçues eux-mêmes, dans des vies plus dures, pour se protéger ou protéger les leurs. Libérer veut dire remercier, puis ranger : « Tu as protégé ma famille, un jour. Aujourd’hui, je te range. » La boîte des règles rendues donne une forme à ce choix : les mots anciens restent là, à leur place, et ils cessent de parler à ta place.",
+          "Par exemple, Inès entendait depuis l’enfance « chez nous, on ne dérange pas ». Au travail, elle n’osait jamais demander de délai, même débordée. Sur sa carte, elle a écrit : je ressens de la panique, je dis « aucun souci », je fais des nuits blanches. En rangeant le papier dans sa boîte, elle a remercié sa grand-mère, arrivée du Portugal sans un mot de français, pour qui déranger était dangereux. La semaine suivante, elle a demandé deux jours de plus. On les lui a donnés. Cette semaine, tu peux faire comme elle : voir, remercier, ranger, et reprendre tes propres mots."
         ]
       },
       jours: [
-      "Le matin, ouvre une fenêtre deux minutes. Respire l’air du printemps et dis-toi : « Je peux regarder ce silence sans avoir à le porter. »",
-      "Écris la première phrase de ta lettre au silence : « Toi, le silence de notre famille… » Arrête-toi là si c’est assez pour aujourd’hui.",
-      "Pense à la personne qui a gardé un secret. Écris une raison possible, par pudeur, par peur ou par amour, pour laquelle elle s’est tue.",
-      "Aujourd’hui, remarque une fois où toi-même tu te tais par vieille habitude. Pose ta main sur ta gorge et dis intérieurement : « Ce silence n’est pas le mien. »",
-      "Avant de dormir, retrouve en pensée la porte close de ta séance de libération. Pose ta main dessus et dis doucement : « Je sais que tu es là. »",
-      "Écris sur un petit papier un mot que tu reprends pour toi : « parole », « liberté », « air ». Place-le près de l’enveloppe de ton rituel.",
-      "Relis ta lettre et ta note de rituel. Écris en trois lignes ce que tu as reconnu, et ce qui te semble plus léger depuis la fenêtre ouverte."
+      "Choisis la première règle de ta carte ressens / dis / fais. Écris la scène en trois lignes : je ressens…, je dis…, je fais…",
+      "Sous une règle de ta carte, écris en une phrase la croyance qu’elle porte : « Si je…, alors… ».",
+      "Pense à la personne qui disait une de tes règles. Écris une raison possible, par peur, par fierté ou par amour, pour laquelle elle y tenait tant.",
+      "Aujourd’hui, remarque une fois où une règle rangée essaie de revenir. Souris intérieurement et dis : « Je te reconnais. Merci. Je choisis mes mots. »",
+      "Avant de dormir, retrouve en pensée la maison de ta méditation. Pose ta main sur un mot gravé, et dis doucement : « Merci. Je vois ce que tu as gardé. »",
+      "Écris sur un petit papier un mot que tu choisis pour toi : « parole », « liberté », « confiance ». Pose-le sur la boîte de ton rituel.",
+      "Relis ta carte et ta note de rituel. Écris en trois lignes les règles que tu as rangées, et ce qui te semble plus léger depuis."
     ],
       exercices: [
-        { k: "plus3", titre: "Ce que je ne porte plus", type: "questions",
-          consigne: "Après ta lettre et ton rituel, fais le tri entre ce qui appartient au silence de ta famille et ce qui t’appartient à toi. Réponds à ces trois questions simplement, en quelques lignes.",
-          pourquoi: "Un silence hérité se glisse souvent dans des habitudes très concrètes : se taire à table, ne pas oser demander, éviter certains sujets. Les nommer t’aide à voir ce que tu peux poser dès maintenant, sans attendre de tout savoir.",
+        { k: "plus3-ph", titre: "Ce que je garde, ce que je range", type: "questions",
+          consigne: "Après ta carte et ton rituel, fais le tri entre les règles de ta famille que tu gardes et celles que tu ranges. Réponds à ces trois questions simplement, en quelques lignes.",
+          pourquoi: "Toutes les règles ne sont pas à laisser : certaines te soutiennent. Les séparer clairement t’aide à garder le meilleur de ta lignée, sans te sentir obligé·e de tout reprendre ni de tout rejeter.",
           questions: [
-            { k: "plus3-a", q: "Quelle habitude de silence as-tu reprise de ta famille, sans l’avoir choisie ?", ph: "Exemple : je change de sujet dès qu’on me pose une question sur mon enfance, comme ma mère.", lignes: 2 },
-            { k: "plus3-b", q: "Qu’est-ce que tu choisis de ne plus porter pour les autres ?", ph: "Exemple : la gêne autour du prénom de mon grand-oncle. Je peux le dire sans baisser la voix.", lignes: 2 },
-            { k: "plus3-c", q: "Quelle parole aimerais-tu te rendre à la place ?", ph: "Exemple : le droit de raconter mes propres histoires, même celles qui ne sont pas parfaites.", lignes: 2 }
+            { k: "plus3-ph-a", q: "Quelle règle de ta famille gardes-tu avec gratitude, et pourquoi ?", ph: "Exemple : « Chez nous, on tient parole. » Elle me rend fiable, et j’en suis fière.", lignes: 2 },
+            { k: "plus3-ph-b", q: "Quelle règle as-tu rangée, et quelle croyance emporte-t-elle avec elle ?", ph: "Exemple : « On ne dérange pas ». Elle emporte l’idée que mes besoins gênent les autres.", lignes: 2 },
+            { k: "plus3-ph-c", q: "Quels mots choisis-tu à la place, pour toi ?", ph: "Exemple : « Mes besoins comptent, et je peux les dire simplement. »", lignes: 2 }
           ] }
       ] },
     { jours: [
-      "Entraîne-toi à la première pause : inspire en comptant jusqu’à 5, retiens 2 secondes, expire jusqu’à 7. Trois fois, à un moment calme, pour que ton corps s’en souvienne.",
-      "Relis tes trois questions possibles. Choisis la plus légère et dis-la à voix haute, seul·e, pour entendre comment elle sonne dans ta bouche.",
-      "Aujourd’hui, raconte à un·e proche un souvenir de ta propre vie que tu n’as jamais partagé, même tout petit. Remarque ce que ça te fait de le dire.",
-      "Quand le réflexe de changer de sujet arrive, fais ta première pause et ajoute une seule phrase. Note le soir ce que tu as dit, ou ce que tu aurais aimé dire.",
-      "Écris ta question dans ton carnet, avec la date du jour. La poser ou non reste ton choix : l’écrire, c’est déjà sortir du silence.",
-      "Remercie quelqu’un qui t’a raconté un bout de l’histoire familiale, par un message ou de vive voix, même s’il n’a pas tout dit.",
-      "Relis ton geste de parole et ses essais. Écris le moment de la semaine où ta parole t’a semblé la plus libre, et ce que tu veux garder pour mai."
+      "Entraîne-toi à la première pause : inspire en comptant jusqu’à 5, retiens 2 secondes, expire jusqu’à 7. Trois fois, à un moment calme, pour que ton corps s’en souvienne.",
+      "Relis ton geste « dire vrai ». Dis-le à voix haute, seul·e, pour entendre comment il sonne dans ta bouche.",
+      "Aujourd’hui, dis une préférence simple : un film, un plat, une heure de rendez-vous. Remarque que le lien tient, même si l’autre préférait autre chose.",
+      "Quand une vieille règle arrive, fais ta première pause et ajoute une seule phrase vraie. Note le soir ce que tu as dit, ou ce que tu aurais aimé dire.",
+      "Réécoute ta séance « Je peux déplaire et rester en sécurité », ou repense à un moment où tu as déplu un peu. Écris ce qui est resté solide dans le lien.",
+      "Remercie quelqu’un qui a accueilli un de tes mots vrais cette semaine, par un message ou de vive voix.",
+      "Relis ton geste et ses essais. Écris le moment où ta parole t’a semblé la plus libre, et ce que tu veux garder pour ta prochaine étape."
     ] }
   ]
 };

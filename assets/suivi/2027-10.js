@@ -54,8 +54,8 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois du bilan',
     texte: [
-      "Octobre, les feuilles tombent et la lumière change. L’automne invite à faire le point. Voilà un an que tu avances avec Le Cercle : en octobre dernier, tu regardais « Ce qui revient ». Aujourd’hui, tu reviens au même endroit de l’année, un tour plus haut, pour regarder le chemin parcouru, les découvertes, les questions posées, les liens retrouvés.",
-      "Ce mois-ci, tu t’intéresses au temps qui passe dans ta famille : les âges, les anniversaires, les dates qui semblent revenir. Non pour y lire l’avenir, mais pour mieux comprendre ton histoire et choisir comment tu veux vivre la suite. C’est le dernier mois du troisième temps de l’année, **Transmettre** : après avoir vu (d’octobre à décembre), puis traversé (de janvier à juin), tu choisis ce que tu fais passer, et tu boucles ton premier tour de spirale."
+      "Vient maintenant le moment de faire le point. Voilà un an que tu avances avec Le Cercle : au début de ton parcours, tu regardais « Ce qui revient ». Aujourd’hui, tu reviens au même endroit de la spirale, un tour plus haut, pour regarder le chemin parcouru, les découvertes, les questions posées, les liens retrouvés.",
+      "Ce mois-ci, tu t’intéresses au temps qui passe dans ta famille : les âges, les anniversaires, les dates qui semblent revenir. Non pour y lire l’avenir, mais pour mieux comprendre ton histoire et choisir comment tu veux vivre la suite. C’est le dernier mois du troisième temps de l’année, **Transmettre** : après avoir vu (des étapes 1 à 3), puis traversé (des étapes 4 à 9), tu choisis ce que tu fais passer, et tu boucles ton premier tour de spirale."
     ],
     sousTitre: 'Les âges en écho',
     texte2: [
@@ -148,9 +148,9 @@ window.GENESOLIA_CARNET = {
           ] }
       ],
       rituel: {
-        titre: 'Le fil des saisons',
+        titre: 'Le fil du temps',
         intro: "Ce rituel symbolique marque la fin d’une année de Cercle et t’aide à poser tes dates familiales avec douceur. Fais-le une fois cette semaine, après tes dates et ta lettre. Il dure environ quinze minutes.",
-        materiel: "Un long fil ou une ficelle, quelques feuilles d’automne ou petits papiers, une bougie si tu le souhaites, ce carnet et un stylo.",
+        materiel: "Un long fil ou une ficelle, quelques feuilles d’arbre ou petits papiers, une bougie si tu le souhaites, ce carnet et un stylo.",
         etapes: [
           "Choisis un moment calme. Pose le fil devant toi, bien à plat : il représente le temps de ta lignée. Respire trois fois.",
           "Sur chaque feuille ou papier, écris une date ou un âge important de ta famille, et place-le le long du fil.",
@@ -183,11 +183,11 @@ window.GENESOLIA_CARNET = {
 
   meditation: {
     titre: 'La spirale du temps',
-    intro: "La dernière séance de l’année : une marche en spirale dans la forêt d’automne, pour saluer les âges de ta lignée, poser les pieds sur ton propre tour, et remercier le chemin parcouru.",
+    intro: "La dernière séance de l’année : une marche en spirale dans une grande forêt, pour saluer les âges de ta lignée, poser les pieds sur ton propre tour, et remercier le chemin parcouru.",
     texte: [
       "Installe-toi confortablement, et ferme les yeux. Respire profondément, trois fois… Laisse ton corps se poser.",
       "[pause]",
-      "Imagine que tu marches dans une forêt d’automne. Les feuilles rousses craquent sous tes pas. L’air est frais, la lumière dorée. Tu respires l’odeur de la terre humide et des feuilles tombées.",
+      "Imagine que tu marches dans une grande forêt. Les feuilles craquent doucement sous tes pas. L’air est frais, la lumière dorée. Tu respires l’odeur de la terre humide et de la mousse.",
       "Au cœur de la forêt, tu découvres un chemin en spirale. Chaque tour représente une génération : tes parents, tes grands-parents, et plus loin encore.",
       "[pause]",
       "Tu remarques que certains endroits du chemin se ressemblent d’un tour à l’autre. Les mêmes âges, les mêmes saisons. Observe-les avec curiosité, sans inquiétude. Ce sont des repères, comme des pierres posées le long du chemin par celles et ceux qui sont passés avant toi.",
@@ -200,7 +200,7 @@ window.GENESOLIA_CARNET = {
       "[pause]",
       "Respire profondément. Sens ton corps, le sol, le siège sous toi. Bouge doucement les doigts. Et quand tu es prêt·e, ouvre les yeux."
     ],
-    conseil: "Choisis un soir d’automne où personne ne te dérangera pendant dix minutes, une bougie allumée si tu aimes. Si un souvenir ou un âge te serre la gorge, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
+    conseil: "Choisis un soir calme où personne ne te dérangera pendant dix minutes, une bougie allumée si tu aimes. Si un souvenir ou un âge te serre la gorge, ouvre les yeux, pose tes pieds bien à plat et respire : tu peux reprendre la séance un autre jour.",
     note: { k: 'medit-spirale', q: "Qu’est-ce qui t’est venu pendant la séance ? Une pierre sur le chemin, un visage, un moment de ton année, ce que tu as vu devant toi…", ph: "Exemple : j’ai vu une pierre marquée « 40 ans », je l’ai saluée et laissée. Sur mon tour, il y avait du soleil. J’ai pensé au jour où j’ai ouvert mon premier carnet." }
   },
 
@@ -208,9 +208,9 @@ window.GENESOLIA_CARNET = {
   bilan: [
     { k: 'fin-retiens', q: "Qu’as-tu découvert sur les âges et les dates de ta lignée ce mois-ci ?", ph: "Exemple : ma mère et ma grand-mère ont toutes les deux changé de vie à 38 ans. Mon envie de tout bouger cette année a une histoire." },
     { k: 'fin-echos', q: "Quels échos reconnais-tu, sans les subir, et comment choisis-tu de les vivre ?", ph: "Exemple : novembre me rend nostalgique. Je le reconnais, et je choisis d’en faire un mois de promenades et de photos de famille." },
-    { k: 'fin-annee-cercle', q: "Que t’a apporté cette année de Cercle, d’octobre dernier à aujourd’hui ?", ph: "Exemple : j’ai vu mes boucles, j’ai compris d’où elles venaient, et j’ose faire autrement. Je me sens plus libre, et plus proche de ma famille." },
-    { k: 'fin-boucle-spirale', q: "Repense à la boucle que tu avais repérée en octobre dernier. Comment la vis-tu aujourd’hui ?", ph: "Exemple : je disais oui à tout. Aujourd’hui, je dis « je te réponds demain », et souvent, je dis non sans culpabilité." },
-    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer en novembre, pour ton nouveau tour de spirale ?", ph: "Exemple : mon rapport à l’argent, et continuer à écouter les histoires de ma famille.", court: true }
+    { k: 'fin-annee-cercle', q: "Que t’a apporté cette année de Cercle, de ta première étape à aujourd’hui ?", ph: "Exemple : j’ai vu mes boucles, j’ai compris d’où elles venaient, et j’ose faire autrement. Je me sens plus libre, et plus proche de ma famille." },
+    { k: 'fin-boucle-spirale', q: "Repense à la boucle que tu avais repérée au tout début de ton parcours. Comment la vis-tu aujourd’hui ?", ph: "Exemple : je disais oui à tout. Aujourd’hui, je dis « je te réponds demain », et souvent, je dis non sans culpabilité." },
+    { k: 'fin-intention', q: "Qu’aimerais-tu continuer à libérer à présent, pour ton nouveau tour de spirale ?", ph: "Exemple : mon rapport à l’argent, et continuer à écouter les histoires de ma famille.", court: true }
   ],
 
   carnet: {

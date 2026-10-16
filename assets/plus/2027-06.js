@@ -24,7 +24,7 @@ window.GENESOLIA_PLUS = {
         titre: "Lâcher ce qui retient ton élan",
         chapeau: "Cette semaine, tu laisses partir ce qui te freine : la peur de mal faire, l’attente d’un feu vert, le perfectionnisme. Tu fais de la place pour avancer.",
         texte: [
-          "Pour avancer, il ne suffit pas toujours d’ajouter de la motivation. Souvent, il faut d’abord lâcher ce qui retient. Une peur de décevoir, l’idée qu’il faut tout savoir avant de commencer, l’attente d’une permission qui ne vient pas. Ces freins ont parfois une histoire : une phrase entendue enfant, un échec qui a marqué, un modèle de prudence dans la famille. Ils t’ont protégé·e des risques. Aujourd’hui, ils te privent de l’élan de juin.",
+          "Pour avancer, il ne suffit pas toujours d’ajouter de la motivation. Souvent, il faut d’abord lâcher ce qui retient. Une peur de décevoir, l’idée qu’il faut tout savoir avant de commencer, l’attente d’une permission qui ne vient pas. Ces freins ont parfois une histoire : une phrase entendue enfant, un échec qui a marqué, un modèle de prudence dans la famille. Ils t’ont protégé·e des risques. Aujourd’hui, ils te privent de l’élan de ce mois.",
           "Laisser partir, ce n’est pas te forcer à ne plus avoir peur. C’est reconnaître ta peur, la laisser venir avec toi, et décider que c’est toi qui avances. Ta promesse tenue chaque jour va dans ce sens : chaque fois que tu fais ce que tu t’étais dit, même en version « assez bien », un vieux doute perd un peu de sa force. Ta lettre du mois t’aide à te pardonner le temps passé à attendre, et à être fier·e de chaque pas déjà fait.",
           "Par exemple, Julien rêvait depuis deux ans de proposer des balades commentées dans sa ville. Il attendait d’avoir un site parfait. Cette semaine, il lâche cette exigence : il écrit trois lignes de présentation, les affiche à la boulangerie, et tient sa promesse de vingt minutes chaque matin. Deux personnes l’appellent. Le site viendra plus tard, son projet existe déjà.",
           "Si un jour tu ne tiens pas ta promesse, ne te juge pas : reprends le lendemain. Tenir sa parole envers soi, ce n’est pas ne jamais oublier, c’est revenir. Chaque retour te prouve que tu peux compter sur toi. Garde ta liste de jours tenus sous les yeux : elle deviendra vite ta meilleure preuve."
@@ -42,20 +42,20 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Récolter l’élan, célébrer chaque pas",
         texte: [
-          "Juin s’achève, et la lumière commence déjà à décroître après le solstice. C’est le bon moment pour récolter. Cette dernière semaine, tu regardes tout ce que tu as osé ce mois-ci : la décision prise en cinq minutes, l’heure d’action tenue, la promesse cochée plusieurs jours de suite, le message enfin envoyé. Même ce qui n’a pas marché compte, car chaque essai t’a appris quelque chose sur ta façon d’avancer.",
-          "La gratitude change la façon dont on regarde ses efforts. Au lieu de compter ce qui manque encore, tu remercies ce qui est déjà là : ton courage, les personnes qui t’ont relancé·e, la saison qui t’a donné de longues soirées. Célébrer n’est pas un détail : c’est ainsi que ton corps apprend qu’agir fait du bien, et qu’il aura envie de recommencer. Choisis une vraie fête, même petite, et offre-la-toi sans attendre que tout soit fini.",
+          "Ton étape s’achève, et ta lumière a eu le temps de grandir. C’est le bon moment pour récolter. Cette dernière semaine, tu regardes tout ce que tu as osé ce mois-ci : la décision prise en cinq minutes, l’heure d’action tenue, la promesse cochée plusieurs jours de suite, le message enfin envoyé. Même ce qui n’a pas marché compte, car chaque essai t’a appris quelque chose sur ta façon d’avancer.",
+          "La gratitude change la façon dont on regarde ses efforts. Au lieu de compter ce qui manque encore, tu remercies ce qui est déjà là : ton courage, les personnes qui t’ont relancé·e, les longues soirées qui t’ont offert du temps. Célébrer n’est pas un détail : c’est ainsi que ton corps apprend qu’agir fait du bien, et qu’il aura envie de recommencer. Choisis une vraie fête, même petite, et offre-la-toi sans attendre que tout soit fini.",
           "Puis tu donnes vie à ton intention. Imagine ton projet un peu plus loin sur le chemin, déjà en route : la première date annoncée, le dossier accepté, l’atelier ouvert. Ressens la fierté tranquille de celui ou celle qui a tenu ses promesses. Choisis une croyance qui t’accompagne et trois mots pour ton tableau de vision. Par exemple, Léa choisit « élan, clarté, joie » et la croyance « je n’ai pas besoin de tout savoir, seulement du prochain pas ». Elle les écrit sous la photo d’un sentier au coucher du soleil.",
-          "Ce que tu as commencé en juin peut continuer tout l’été, à ton rythme. Note ta prochaine étape avec une date : c’est ta façon de dire à ton projet que tu reviens."
+          "Ce que tu as commencé ce mois-ci peut continuer dans les mois qui viennent, à ton rythme. Note ta prochaine étape avec une date : c’est ta façon de dire à ton projet que tu reviens."
         ]
       },
       jours: [
       "Commence la liste de tout ce que tu as osé ce mois-ci, même les essais ratés. Écris au moins cinq lignes, et ajoutes-en une chaque jour de la semaine.",
-      "Rallume ta bougie du solstice, ou regarde le ciel un soir. Relis ton engagement écrit et dis trois mercis pour ce qui a déjà avancé.",
+      "Rallume ta bougie d’engagement, ou regarde le ciel un soir. Relis ton engagement écrit et dis trois mercis pour ce qui a déjà avancé.",
       "Ferme les yeux deux minutes et imagine ton projet un peu plus loin, déjà en route. Regarde derrière toi tous les petits pas faits ce mois-ci.",
       "Choisis la croyance qui accompagne ton intention, par exemple « je peux compter sur moi ». Écris-la et garde-la près de ton espace de travail.",
       "Trouve trois mots pour ton tableau de vision, comme « élan, clarté, confiance ». Note-les sur un papier avec la prochaine étape de ton projet.",
       "Offre-toi une vraie célébration pour ce mois : un repas, une sortie, un message à une amie. Choisis-la aujourd’hui et fixe sa date.",
-      "Relis ta liste des choses osées et ta roue. Écris l’action dont tu es le plus fier·e, et la prochaine étape de ton projet, avec une date en juillet."
+      "Relis ta liste des choses osées et ta roue. Écris l’action dont tu es le plus fier·e, et la prochaine étape de ton projet, avec une date le mois prochain."
     ] }
   ],
   suivi: [
@@ -101,7 +101,7 @@ window.GENESOLIA_PLUS = {
       "Dis à voix haute « je suis fier·e de moi » pour une chose faite aujourd’hui. Remarque ce que ça te fait d’entendre ces mots, de ta propre voix.",
       "Partage avec un·e proche une histoire d’un homme de ta lignée qui te rend fier·e : un courage, un savoir-faire, un trait d’humour.",
       "Quand un vieux réflexe hérité arrive, le silence ou la colère qui gronde, fais ta première pause et dis une émotion au lieu de la taire.",
-      "Relis tes essais de la semaine. Écris ce que ta qualité reçue a changé, et comment elle peut t’aider à oser agir en juillet."
+      "Relis tes essais de la semaine. Écris ce que ta qualité reçue a changé, et comment elle peut t’aider à oser agir à ta prochaine étape."
     ],
       exercices: [
         { k: "plus4", titre: "Ce qui me porte du côté des pères", type: "questions",

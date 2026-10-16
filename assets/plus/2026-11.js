@@ -20,14 +20,14 @@ window.GENESOLIA_PLUS = {
       "Offre-toi dix minutes dans un lieu qui te ressource, même près de chez toi : un banc, une fenêtre, un coin de cuisine. Note comment tu te sens après.",
       "Lis les réponses de tes proches sans les discuter. Recopie celle qui te touche le plus, et lis-la une fois à voix haute.",
       "Prends une force que l’on t’a dite et vérifie les trois cases : tu le fais bien, sans effort, et ça te donne de l’élan ? Coche ce qui est vrai.",
-      "Regard sur ta semaine : quel appui t’a le plus réchauffé·e ? Écris son nom, et comment tu vas le garder près de toi cet hiver."
+      "Regard sur ta semaine : quel appui t’a le plus réchauffé·e ? Écris son nom, et comment tu vas le garder près de toi dans les semaines qui viennent."
     ] },
     { corps: {"titre": "Relâcher l’alerte", "sur": "Ta séance corps · 5 minutes", "intro": "Une séance courte pour aider ton corps à quitter le mode alerte. Fais-la une première fois au calme, puis dès que tu sens la tension monter. Debout ou assis·e, comme tu préfères.", "etapes": ["Pose tes deux pieds bien à plat. Sens le sol qui te porte, le poids de ton corps qui descend.", "Inspire par le nez en comptant jusqu’à 4. Expire doucement par la bouche en comptant jusqu’à 6, comme si tu soufflais sur une bougie sans l’éteindre. Recommence cinq fois.", "Secoue tes mains, puis tes bras, puis tes épaules, pendant trente secondes, comme pour faire tomber des gouttes d’eau.", "Pose une main sur ta poitrine et l’autre sur ton ventre. Sens la chaleur de tes mains. Respire sous tes paumes, sans forcer.", "Dis intérieurement : « Là, maintenant, je suis en sécurité. Mon corps peut relâcher. »", "Regarde autour de toi et nomme trois choses que tu vois. Puis reviens doucement à ta journée."], "conseil": "Si un mouvement te met mal à l’aise, laisse-le de côté. Tu n’as rien à réussir : chaque expiration lente compte déjà.", "questions": [{"k": "corps-s3-avant", "q": "Avant et après la séance, comment était ton corps ? Note la tension de 0 à 10 et ce que tu as remarqué.", "ph": "Exemple : avant 7, les épaules hautes. Après 4, la respiration plus ample et les mains plus chaudes."}]},
       comprendre: {
         titre: "Laisser partir ce qui cache tes forces",
         chapeau: "Cette semaine, tu déposes ce qui recouvre tes forces : la fausse modestie, l’idée qu’il faut tenir seul·e, et les rôles appris par obligation qui ne te nourrissent plus.",
         texte: [
-          "En novembre, l’arbre a perdu presque toutes ses feuilles. Ce qui reste visible, c’est ce qui le tient : son tronc, ses branches, ses racines. Laisser partir, ce mois-ci, ce n’est pas te séparer de tes forces. C’est enlever ce qui les recouvre, pour qu’elles redeviennent visibles et utilisables, au moment où tu en as besoin. Sous l’écorce, la sève est toujours là.",
+          "Regarde un arbre qui a perdu presque toutes ses feuilles. Ce qui reste visible, c’est ce qui le tient : son tronc, ses branches, ses racines. Laisser partir, ce mois-ci, ce n’est pas te séparer de tes forces. C’est enlever ce qui les recouvre, pour qu’elles redeviennent visibles et utilisables, au moment où tu en as besoin. Sous l’écorce, la sève est toujours là.",
           "La première chose à déposer est souvent la fausse modestie : ce réflexe d’ajouter « enfin, je crois » après chaque qualité, ou de répondre « ce n’est rien » quand on te remercie. Vient ensuite l’idée qu’être fort·e, c’est tout porter sans aide. Une vraie force se partage, et elle grandit quand tu t’appuies aussi sur les autres. Enfin, certaines compétences t’ont été imposées par la vie : être toujours raisonnable, toujours disponible. Elles t’ont servi, tu peux les remercier, et choisir de ne plus les exercer à tout prix.",
           "Par exemple, Hélène avait toujours été « celle qui organise ». Elle le faisait bien, mais rentrait épuisée de chaque fête. En regardant ses trois fiertés, elle a vu que sa vraie force était la créativité, pas l’organisation. Cette semaine-là, elle a confié la liste des courses à son frère, et passé son heure ressource à peindre. Elle est rentrée avec les mains tachées de couleur, et le cœur léger.",
           "Ta lettre du mois t’aide à faire ce tri avec douceur : te pardonner d’avoir caché tes forces, laisser partir ce qui ne te nourrit plus, être **fier·e** de ce qui t’a tenu·e debout. En faisant de la place, tu laisses ta force du mois s’exercer chaque jour, comme un muscle qui se réveille."
@@ -37,7 +37,7 @@ window.GENESOLIA_PLUS = {
       "Aujourd’hui, quand on te remercie ou qu’on te fait un compliment, réponds seulement « merci ». Sans « ce n’est rien », sans « enfin, je crois ».",
       "Utilise ta force du mois exprès dans une petite situation, puis note en une ligne ce que tu as fait et ce que tu as ressenti.",
       "Écris une compétence que tu exerces par obligation et qui te vide. Remercie-la pour ce qu’elle t’a permis, puis note ce que tu veux en lâcher.",
-      "Inscris ton heure ressource dans ton agenda, avec l’appui que tu as choisi. Si le froid te freine, prévois une version au chaud, sans l’annuler.",
+      "Inscris ton heure ressource dans ton agenda, avec l’appui que tu as choisi. Si la météo te freine, prévois une version au chaud, sans l’annuler.",
       "Accepte une aide aujourd’hui, même minuscule : qu’on te porte un sac, qu’on te prête un livre, qu’on fasse la vaisselle. Remarque ce que ça te fait.",
       "Écris la phrase « Je suis fière de… » et complète-la avec une force qui t’a tenue debout cette année. Lis-la à voix haute.",
       "Regard sur ta semaine : qu’as-tu laissé partir pour que tes forces se voient mieux ? Écris-le en une phrase, et ce que ça a changé."
@@ -46,10 +46,10 @@ window.GENESOLIA_PLUS = {
       comprendre: {
         titre: "Récolter tes forces et dire merci",
         texte: [
-          "Novembre touche à sa fin, et c’est le moment de récolter. Pas une grande moisson : plutôt une poignée de choses solides que tu emportes dans l’hiver. Des forces que tu as nommées sans t’excuser, des appuis que tu as retrouvés, des gestes reçus de ta famille que tu as fait revivre. Ce sont eux qui te tiendront au chaud pendant les mois qui viennent.",
+          "Ton étape touche à sa fin, et c’est le moment de récolter. Pas une grande moisson : plutôt une poignée de choses solides que tu emportes avec toi. Des forces que tu as nommées sans t’excuser, des appuis que tu as retrouvés, des gestes reçus de ta famille que tu as fait revivre. Ce sont eux qui te tiendront au chaud pendant les mois qui viennent.",
           "La gratitude est la façon la plus simple de récolter. Dire merci à une force, c’est la rendre plus présente. Dire merci à un appui, c’est le garder vivant. Et dire merci à ce qui t’a été transmis, c’est relier ce que tu as reçu à ce que tu vis. Par exemple, Karim a refait le pain de son grand-père un dimanche, avec ses enfants. En pétrissant, il leur a raconté la boulangerie du village. Ce soir-là, il a écrit dans son carnet : « Merci pour mes mains habiles. » Ce savoir-faire est devenu un appui conscient, qu’il sait retrouver les jours de doute.",
           "Cette semaine, tu donnes aussi vie à ton intention. Appuie-toi sur tes forces pour l’imaginer réalisée : si tu sais persévérer, vois-toi tenir ton pas jusqu’au bout ; si tu sais créer des liens, vois les personnes qui t’entourent ce jour-là. Choisis une croyance qui te ressemble, comme « Je peux compter sur moi », et trois mots pour ton tableau de vision.",
-          "Ta pierre d’appui et le cercle autour du feu, dans ta séance de visualisation, referment le mois : tu sais désormais sur quoi t’appuyer, et vers qui te tourner quand le froid arrive. Garde-les près de toi : ils sont ta réserve de chaleur pour décembre."
+          "Ta pierre d’appui et le cercle autour du feu, dans ta séance de visualisation, referment le mois : tu sais désormais sur quoi t’appuyer, et vers qui te tourner quand la vie se fait plus froide. Garde-les près de toi : ils sont ta réserve de chaleur pour ta prochaine étape."
         ]
       },
       jours: [
@@ -59,7 +59,7 @@ window.GENESOLIA_PLUS = {
       "Garde ta pierre d’appui dans ta poche toute la journée. Chaque fois que tu la touches, dis intérieurement une de tes forces.",
       "Appelle ou écris à un·e aîné·e de ta famille pour lui dire merci pour une chose précise qu’il ou elle t’a transmise.",
       "Refais ta roue et compare-la à celle du début du mois. Regarde quel domaine s’est appuyé sur tes forces, et note-le.",
-      "Regard sur ta semaine : quel appui emportes-tu dans l’hiver ? Écris son nom, et une phrase pour le remercier.",
+      "Regard sur ta semaine : quel appui emportes-tu pour la suite ? Écris son nom, et une phrase pour le remercier.",
       "Relis ton texte « Je suis » à voix haute, puis recopie la phrase qui te touche le plus aujourd’hui. Garde-la sur toi toute la journée.",
       "Dernier jour du mois : relis ta lettre écrite depuis la fin du mois. Qu’est-ce qui est déjà vrai ? Écris-le en une phrase, et dis-toi merci."
     ] }

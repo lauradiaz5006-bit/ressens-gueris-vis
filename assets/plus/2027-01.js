@@ -23,7 +23,7 @@ window.GENESOLIA_PLUS = {
         titre: "Lâcher ce qui ne te ressemble plus",
         chapeau: "Une intention a besoin d’espace pour pousser. Cette semaine, tu laisses partir un engagement, une habitude ou une règle reçue qui ne ressemble plus à tes valeurs.",
         texte: [
-          "En janvier, on a souvent envie d’ajouter : une activité, un objectif, une bonne habitude de plus. Pourtant, une intention ne pousse pas dans un agenda déjà plein. Comme la graine que tu as mise en terre, elle a besoin d’un peu d’espace, de lumière et de temps. Lâcher prise, ce mois-ci, ce n’est pas renoncer à quelque chose d’important : c’est retirer ce qui prend la place de ce qui compte.",
+          "Au moment de poser une intention, on a souvent envie d’ajouter : une activité, un objectif, une bonne habitude de plus. Pourtant, une intention ne pousse pas dans un agenda déjà plein. Comme la graine que tu as mise en terre, elle a besoin d’un peu d’espace, de lumière et de temps. Lâcher prise, ce mois-ci, ce n’est pas renoncer à quelque chose d’important : c’est retirer ce qui prend la place de ce qui compte.",
           "Ce que l’on garde sans l’avoir choisi pèse souvent plus qu’on ne le croit. Un engagement pris pour faire plaisir, une habitude qui remplit les soirées, une règle reçue de ta famille que tu appliques sans y penser. Chacun de ces poids t’éloigne un peu de tes valeurs. Les regarder avec honnêteté, sans te juger, c’est déjà commencer à les poser. Tu n’as pas besoin de tout changer : une seule chose retirée suffit à faire entrer de l’air.",
           "Par exemple, Claire tient à la créativité, et elle passe ses jeudis soir dans une réunion d’association qu’elle n’ose plus quitter. Elle écrit un message simple pour se retirer, avec gratitude pour ce qu’elle y a appris. Le jeudi suivant, elle sort ses pinceaux. Rien de spectaculaire, et pourtant son intention de l’année a trouvé un endroit où vivre.",
           "Cette semaine, ta lettre du mois t’aide à faire ce tri avec douceur. Tu te pardonnes les oui que tu as dits à contrecœur, tu laisses partir ce qui ne te ressemble plus, et tu te dis que tu es fier·e d’avoir regardé en face. Lâcher, ce n’est pas perdre : c’est faire confiance à ce qui va pousser dans l’espace libéré."
@@ -41,20 +41,20 @@ window.GENESOLIA_PLUS = {
     { comprendre: {
         titre: "Ce que ton intention a déjà fait pousser",
         texte: [
-          "Il peut sembler étrange de parler de récolte en plein hiver. Dehors, rien ne paraît avoir bougé, et pourtant la graine que tu as semée a peut-être déjà percé la terre. C’est pareil pour ton intention : en un mois, elle a déjà produit des choses, souvent minuscules, qu’on oublie de regarder. Récolter, cette semaine, c’est prendre le temps de les voir.",
+          "Il peut sembler étrange de parler de récolte si tôt. En surface, rien ne paraît avoir bougé, et pourtant la graine que tu as semée a peut-être déjà percé la terre. C’est pareil pour ton intention : en un mois, elle a déjà produit des choses, souvent minuscules, qu’on oublie de regarder. Récolter, cette semaine, c’est prendre le temps de les voir.",
           "Relis tes choix alignés, ton mot de l’année, ce que tu as retiré de ton agenda. Chaque petit choix qui a ressemblé à tes valeurs est une preuve que ton intention vit déjà. La gratitude n’est pas une politesse : en remerciant ce qui a eu lieu, tu donnes à ton esprit une raison de continuer. On avance plus facilement vers ce qu’on a déjà commencé à vivre, et chaque merci rend le chemin un peu plus clair.",
-          "Par exemple, Malik avait choisi le mot « présence ». En relisant son mois, il remarque qu’il a éteint son téléphone pendant trois dîners, et qu’il a appelé son frère deux fois. Il note ces moments, les remercie, puis imagine décembre : la même présence, devenue simple et naturelle. Il écrit une croyance qui l’accompagne : « J’ai le temps d’être là. »",
-          "Cette semaine, tu donnes une image à ton intention. Tu la vois réalisée, tu choisis une croyance qui la soutient, et tu la résumes en trois mots pour ton tableau de vision. Puis tu signes ta lettre à la personne que tu seras en décembre. Tu n’as rien à promettre : seulement à garder ta boussole près de toi, et à continuer un pas à la fois."
+          "Par exemple, Malik avait choisi le mot « présence ». En relisant son mois, il remarque qu’il a éteint son téléphone pendant trois dîners, et qu’il a appelé son frère deux fois. Il note ces moments, les remercie, puis imagine sa vie dans un an : la même présence, devenue simple et naturelle. Il écrit une croyance qui l’accompagne : « J’ai le temps d’être là. »",
+          "Cette semaine, tu donnes une image à ton intention. Tu la vois réalisée, tu choisis une croyance qui la soutient, et tu la résumes en trois mots pour ton tableau de vision. Puis tu signes ta lettre à la personne que tu seras dans un an. Tu n’as rien à promettre : seulement à garder ta boussole près de toi, et à continuer un pas à la fois."
         ]
       },
       jours: [
         "Arrose ta graine d’intention et regarde-la quelques secondes. Note ce qui a poussé, en terre comme dans ta vie, depuis le début du mois.",
         "Relis toutes tes notes de choix alignés. Recopie les trois qui te rendent le plus fier·e sur une page, et dis merci à voix basse pour chacune.",
-        "Ferme les yeux deux minutes et imagine-toi en décembre prochain, ton intention vécue. Où es-tu, avec qui, que fais-tu ? Note trois détails précis.",
+        "Ferme les yeux deux minutes et imagine-toi dans un an, ton intention vécue. Où es-tu, avec qui, que fais-tu ? Note trois détails précis.",
         "Écris une croyance courte qui soutient ton intention, au présent, comme « J’ai le droit de choisir ce qui compte ». Colle-la près de ton mot de l’année.",
         "Choisis trois mots pour ton tableau de vision et trouve une image pour chacun : une photo, un dessin, une carte postale. Rassemble-les sur une même page.",
         "Envoie un message de remerciement à une personne qui a soutenu un de tes choix alignés ce mois-ci. Une phrase suffit, sincère et simple.",
-        "Regarde ton premier mois de l’année : quelle valeur t’a le plus guidé·e, et quel pas veux-tu garder en février ? Écris-le sous ta lettre signée."
+        "Regarde ton mois d’intention : quelle valeur t’a le plus guidé·e, et quel pas veux-tu garder pour ta prochaine étape ? Écris-le sous ta lettre signée."
       ] }
   ],
   suivi: [
