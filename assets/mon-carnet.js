@@ -2294,7 +2294,7 @@
 
   function demarrer() { construire(); tonMois(); majSemainesMaya(); charger(); }
   /* Le suivi vérifie d'abord l'accès au Cercle (semaines 1 à 3 offertes, la semaine 4, la méditation et le bilan pour les membres) */
-  /* Formation : les modules s'ouvrent au fil de l'abonnement (formation.js, champ mois : 1, 2, 3, 5, 6, 8, 9, 11), en commençant toujours par le module 1 */
+  /* Formation : les modules s'ouvrent au fil de l'abonnement (formation.js, champ mois : un module par mois, 1 à 8 ; un module ouvert le reste), en commençant toujours par le module 1 */
   function moduleOuvert(m) {
     var mo = ((FORM.modules || []).filter(function (x) { return x.n === C.module; })[0] || {}).mois || 1;
     if (!m || mo <= 1 || !window.GenesoliaAcces || !window.GenesoliaAcces.etape) return Promise.resolve(m);
