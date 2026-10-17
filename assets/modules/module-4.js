@@ -10,7 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-4.pdf',
   titre: 'Ce qui pèse',
-  objectifs: { principal: "Déposer ce que tu portes depuis trop longtemps.", specifique: "Écrire tes trois lettres, vivre le rituel du module et garder la lettre express pour les moments où ça déborde." },
+  objectifs: { principal: "Déposer ce que tu portes depuis trop longtemps.", specifique: "Écrire tes trois lettres, vivre le rituel du module et garder la lettre express pour les moments où ça déborde.", bonASavoir: "Ce module, c’est **déposer** : tu libères le passé une fois, en profondeur, avec tes trois lettres et le rituel. Au module 5, tu apprendras à **libérer** au moment précis où la boucle se déclenche." },
   sousTitre: "Trois lettres et un rituel pour déposer ce que tu portes depuis trop longtemps.",
   citation: "Ce qui n'a jamais été dit continue de peser. Le mettre en mots, c'est déjà le sortir de soi.",
 

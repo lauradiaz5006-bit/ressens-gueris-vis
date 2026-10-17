@@ -1307,7 +1307,7 @@
     var sur = 'Module ' + C.module;
     P.push({ id: 'ouverture', nom: 'Avant de commencer', g: function () {
       return gauche('ouverture', sur + ' · avant de commencer', C.titre, '<p class="mc-intro">' + md(O.intro || '') + '</p>' +
-        (C.objectifs ? '<aside class="mc-encadre mc-encadre-or mc-objectifs"><p class="mc-encadre-t">Ce que tu vas apprendre</p><p><b>Objectif principal :</b> ' + md(C.objectifs.principal) + '</p><p><b>Objectif spécifique :</b> ' + md(C.objectifs.specifique) + '</p></aside>' : ''),
+        (C.objectifs ? '<aside class="mc-encadre mc-encadre-or mc-objectifs"><p class="mc-encadre-t">Ce que tu vas apprendre</p><p><b>Objectif principal :</b> ' + md(C.objectifs.principal) + '</p><p><b>Objectif spécifique :</b> ' + md(C.objectifs.specifique) + '</p>' + (C.objectifs.bonASavoir ? '<p><b>Bon à savoir :</b> ' + md(C.objectifs.bonASavoir) + '</p>' : '') + '</aside>' : ''),
         '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo du module</a></p>' +
         (C.seance ? '<p class="mc-note">La séance guidée du module : « ' + esc(C.seance) + ' », dans ton espace de formation.</p>' : ''));
     }, d: function () {
