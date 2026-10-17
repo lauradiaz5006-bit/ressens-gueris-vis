@@ -10,6 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-6.pdf',
   titre: 'Clé 2 · Stopper les répétitions',
+  objectifs: { principal: "Comprendre pourquoi une boucle revient malgré tout.", specifique: "Descendre jusqu'à sa racine, couche après couche, et poser un geste concret dans les 48 heures." },
   sousTitre: "Quand une boucle revient malgré tout : descendre jusqu'à sa racine.",
   citation: "Ce n'est pas la case départ. C'est une couche plus profonde, et si elle se montre, c'est que tu es prête à la traverser.",
 

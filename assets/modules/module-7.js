@@ -10,6 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-7.pdf',
   titre: 'Clé 3 · Remplacer la mémoire',
+  objectifs: { principal: "Choisir ce que tu veux vivre à la place de ta boucle.", specifique: "Écrire le portrait de la personne que tu deviens et poser chaque jour un petit acte qui va dans ce sens." },
   sousTitre: "Choisir ce que tu veux vivre à la place, et commencer à le vivre.",
   citation: "Arrêter une boucle, c'est bien. Savoir ce qu'on veut à la place, c'est ce qui l'empêche de revenir.",
 
