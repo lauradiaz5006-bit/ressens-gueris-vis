@@ -10,7 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-5.pdf',
   titre: 'Clé 1 · Libérer la mémoire',
-  objectifs: { principal: "Libérer l'émotion au moment précis où la boucle se déclenche.", specifique: "Maîtriser le protocole en 5 étapes, puis sa version en 60 secondes, utilisable n'importe où." },
+  objectifs: { principal: "Libérer l'émotion au moment précis où la boucle se déclenche.", specifique: "Maîtriser le protocole en 5 étapes, puis sa version en 60 secondes, utilisable n'importe où.", bonASavoir: "Au module 4, tu as **déposé** le passé avec tes lettres et le rituel. Ici, tu apprends à **libérer** au moment précis où la boucle se déclenche, avec le protocole en 5 étapes et sa version en 60 secondes, à utiliser n’importe où." },
   sousTitre: "Un protocole en cinq étapes, au moment précis où la boucle se déclenche.",
   citation: "Tu ne peux pas empêcher une mémoire de se réveiller. Mais tu peux choisir ce que tu fais quand elle se réveille.",
 
