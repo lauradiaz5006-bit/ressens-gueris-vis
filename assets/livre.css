@@ -563,4 +563,19 @@
 /* L’encart « Envoie-nous ton avis », sous chaque livre */
 .mc-avis{max-width:760px;margin:1.6rem auto}
 .mc-avis .btn{margin:0 .8rem .4rem 0}
+.mc-avis-form{display:flex;flex-direction:column;gap:.8rem;margin-top:.6rem}
+.mc-avis-types{display:flex;flex-wrap:wrap;gap:.5rem}
+.mc-avis-types label{cursor:pointer}
+.mc-avis-types input{position:absolute;opacity:0;width:1px;height:1px}
+.mc-avis-types span{display:inline-block;padding:.35rem .9rem;border:1px solid var(--champagne-clair,#F1DCC0);border-radius:999px;background:#fff;font-size:.92rem}
+.mc-avis-types input:checked+span{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
+.mc-avis-types input:focus-visible+span{outline:2px solid #6B2F5B;outline-offset:2px}
+.mc-avis-l{display:block;font-size:.92rem;font-weight:600;color:#6B2F5B;flex:1;min-width:220px}
+.mc-avis-l span{font-weight:400;color:#8E6383}
+.mc-avis-l textarea,.mc-avis-l input{font:inherit;font-weight:400;color:#3E2A3A;border:1px solid #E7C3CC;border-radius:10px;padding:.6rem .75rem;background:#fff;width:100%;box-sizing:border-box;display:block;margin-top:.3rem}
+.mc-avis-ligne{display:flex;flex-wrap:wrap;gap:.8rem}
+.mc-avis-piege{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.mc-avis-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin:0}
+.mc-avis-etat{font-size:.9rem;color:#8A5A22}
+.mc-avis-merci{margin:0;color:#5A3A54}
 @media print{.mc-avis{display:none!important}}

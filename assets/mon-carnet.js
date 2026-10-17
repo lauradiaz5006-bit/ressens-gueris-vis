@@ -669,11 +669,47 @@
   }
   /* « À lire ce mois-ci » : les articles du blog reliés au mois (champ aLire du carnet), en bas du carnet */
   /* Les avis : un encart sous chaque livre (carnet, suivi, module), pour demander un retour et donner l'adresse de contact */
+  /* Avis, question ou idée : un formulaire rangé dans la table « demandes » de Supabase (formulaire « Avis du Cercle ») ; Laura les lit dans son tableau */
   function avisHtml() {
     var quoi = MODULE ? 'le module ' + C.module + ' de la formation' : SUIVI ? 'mon suivi « Je me libère »' : 'mon carnet « J’avance »';
+    var mail = ''; try { var ses = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); mail = (ses && ses.user && ses.user.email) || ''; } catch (x) {}
+    var types = [['avis', 'Un avis'], ['question', 'Une question'], ['idee', 'Une idée']];
     return '<aside class="mc-encadre mc-encadre-or mc-avis"><p class="mc-encadre-t">Envoie-nous ton avis, on en a besoin</p>' +
-      '<p>Ce qui t’aide, ce qui manque, ce que tu aimerais trouver ici : chaque avis nous aide à faire grandir Le Cercle. Une question ou une idée ? Écris-nous aussi, on lit tout.</p>' +
-      '<p><a class="btn btn-plein" href="mailto:contact@genesolia.fr?subject=' + encodeURIComponent('Mon avis sur ' + quoi) + '">Envoyer mon avis</a> <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></p></aside>';
+      '<p>Ce qui t’aide, ce qui manque, une question sur un exercice : chaque message est lu, et chaque avis aide à faire grandir Le Cercle.</p>' +
+      '<form class="mc-avis-form" data-quoi="' + esc(quoi) + '" novalidate>' +
+        '<div class="mc-avis-types" role="radiogroup" aria-label="Ton message est">' + types.map(function (x, i) {
+          return '<label><input type="radio" name="type" value="' + x[0] + '"' + (i ? '' : ' checked') + '> <span>' + x[1] + '</span></label>'; }).join('') + '</div>' +
+        '<label class="mc-avis-l">Ton message<textarea name="message" rows="4" maxlength="1500" required placeholder="Exemple : l’exercice de la semaine 2 m’a beaucoup aidée, mais je bloque sur…"></textarea></label>' +
+        '<div class="mc-avis-ligne"><label class="mc-avis-l">Ton prénom <span>(facultatif)</span><input type="text" name="prenom" maxlength="60" autocomplete="given-name"></label>' +
+        '<label class="mc-avis-l">Ton e-mail <span>(pour te répondre)</span><input type="email" name="email" maxlength="254" required autocomplete="email" value="' + esc(mail) + '"></label></div>' +
+        '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="mc-avis-piege" aria-hidden="true">' +
+        '<p class="mc-avis-actions"><button type="submit" class="btn btn-plein">Envoyer</button> <span class="mc-avis-etat" role="status"></span></p>' +
+      '</form></aside>';
+  }
+  if (!window.__mcAvis) {
+    window.__mcAvis = true;
+    document.addEventListener('submit', function (ev) {
+      var fm = ev.target; if (!fm || !fm.classList || !fm.classList.contains('mc-avis-form')) return;
+      ev.preventDefault();
+      var etat = fm.querySelector('.mc-avis-etat'), bt = fm.querySelector('button[type=submit]');
+      var g = function (n) { var el = fm.elements[n]; return el ? String(el.value || '').trim() : ''; };
+      var typ = (fm.querySelector('input[name=type]:checked') || {}).value || 'avis', msg = g('message'), mail = g('email');
+      if (g('_gotcha')) return;
+      if (msg.length < 3) { etat.textContent = 'Écris ton message avant d’envoyer.'; return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { etat.textContent = 'Ajoute ton e-mail, pour que l’on puisse te répondre.'; return; }
+      bt.disabled = true; etat.textContent = 'Envoi…';
+      fetch(SB_URL + '/rest/v1/demandes', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({ formulaire: 'Avis du Cercle', email: mail.slice(0, 254), prenom: g('prenom').slice(0, 60) || null, page: (location.pathname + location.search).slice(0, 120),
+          details: { type: typ, livret: fm.getAttribute('data-quoi') || '', message: msg.slice(0, 1500) } }) })
+        .then(function (r) { if (!r.ok) throw new Error('envoi'); })
+        .then(function () {
+          fm.innerHTML = '<p class="mc-avis-merci"><b>Merci, c’est bien reçu.</b> ' + (typ === 'question' ? 'Tu recevras une réponse par e-mail.' : 'Chaque message est lu avec attention.') + '</p>';
+          if (window.umami) try { window.umami.track('avis-cercle', { type: typ }); } catch (x) {}
+        }, function () {
+          bt.disabled = false;
+          etat.innerHTML = 'L’envoi n’a pas marché. Tu peux écrire directement à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.';
+        });
+    });
   }
   function aLire() {
     var L = MODULE ? null : (C.lectures || C.aLire);
