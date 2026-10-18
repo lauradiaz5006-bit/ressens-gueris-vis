@@ -174,7 +174,7 @@ async function envoyer(sb: ReturnType<typeof base>) {
   if (h < 9) { if (morts.size) await sb.from("notifs_abonnements").delete().in("endpoint", [...morts]); return json({ envoyees: 0, phrases }); }
 
   const { data: luneJ } = await sb.from("notifs_programme").select("id").eq("canal", "cercle").eq("ok_envoyer", true).eq("jour", auj).ilike("titre", "%lune%").limit(1);
-  const servis = await messagesPerso(sb, auj, !!(luneJ && luneJ.length), morts);
+  const servis = h <= 11 ? await messagesPerso(sb, auj, !!(luneJ && luneJ.length), morts) : new Set<string>();   // messages personnels le matin seulement (9h-11h)
   // On « réserve » d'abord les rappels du jour : un deuxième appel n'enverra rien en double.
   const { data: dues, error: e1 } = await sb.from("notifs_programme")
     .update({ envoye_le: new Date().toISOString() })
