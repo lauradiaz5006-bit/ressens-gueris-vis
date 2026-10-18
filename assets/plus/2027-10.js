@@ -3,7 +3,7 @@ window.GENESOLIA_PLUS = {
   carnet: [
     { jours: [
       "Ouvre ton espace et regarde ta roue d’il y a un an une minute, sans rien analyser. Note juste le premier mot qui te vient en la voyant.",
-      "Relis ton premier carnet, « Mon point de départ ». Recopie une phrase que tu avais écrite et qui te fait sourire aujourd’hui.",
+      "Relis ton premier carnet, « Mon premier pas ». Recopie une phrase que tu avais écrite et qui te fait sourire aujourd’hui.",
       "Choisis un domaine de ta roue qui a grandi cette année. Écris un geste précis qui explique ce point gagné.",
       "Pense à une habitude devenue naturelle depuis l’an dernier. Fais-la aujourd’hui en conscience, et remarque comme elle te demande peu d’effort.",
       "Ce soir, relis deux carnets de l’année. Note la victoire de la semaine qui te touche encore le plus.",

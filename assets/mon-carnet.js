@@ -24,7 +24,7 @@
   var ARBRE_ETAPES = ['Qui sont les miens ?', 'Qu’est-ce que j’ai reçu ?', 'Quelle est ma place ?', 'Quelle peur je porte, et pour qui ?', 'Quel projet a-t-on posé sur moi ?', 'Quelles émotions avaient le droit d’exister ?',
     'Quelles phrases me guident ?', 'Comment ai-je appris à aimer ?', 'Ai-je le droit d’aller plus loin ?', 'Combien je m’autorise à recevoir ?', 'D’où venons-nous ?', 'Qu’est-ce que je transmets ?'];
   /* Les 12 étapes du carnet (cycle 1) : le titre de chaque fichier assets/carnets/2026-10.js … 2027-09.js */
-  var CARNET_ETAPES = ['Mon point de départ', 'Mes forces, mes appuis', 'Ma place, mes limites', 'Mon intention, mes valeurs', 'M’aimer d’abord', 'Ma direction, ma confiance',
+  var CARNET_ETAPES = ['Mon premier pas', 'Mes forces, mes appuis', 'Ma place, mes limites', 'Mon intention, mes valeurs', 'M’aimer d’abord', 'Ma direction, ma confiance',
     'Dire vrai', 'La vie circule à travers moi', 'Oser agir', 'Ma valeur', 'Mon chez-moi, mon élan', 'Ma vocation'];
   /* Le lien vers le suivi ou le carnet de la même étape (ou du même mois, hors parcours par étapes) */
   function vers(page) { return page + (ET ? '?etape=' + ET.n : '?mois=' + C.mois); }

@@ -9,7 +9,7 @@ window.GENESOLIA_CARNET = {
   mois: '2026-10',
   nomMois: 'octobre 2026',
   moisSuivant: 'novembre',
-  titre: 'Mon point de départ',
+  titre: 'Mon premier pas',
   sousTitre: "Faire le point sur ta vie avec ta roue, choisir ce que tu veux nourrir, et avancer d'un petit pas chaque semaine.",
   pdf: '',
   image: 'assets/cercle/apercu-2026-10.jpg',

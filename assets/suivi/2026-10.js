@@ -361,7 +361,7 @@ window.GENESOLIA_CARNET = {
   ],
 
   carnet: {
-    titre: 'Mon point de départ',
+    titre: 'Mon premier pas',
     texte: "Ce que tu libères ici nourrit ce que tu construis là-bas : ta roue de la vie, ton objectif du mois et tes petits pas. Reporte ton geste différent dans ton carnet, il devient un appui."
   },
 
