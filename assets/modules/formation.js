@@ -4,7 +4,7 @@
    - mois : le mois de l'abonnement où chaque module s'ouvre (1 = le premier mois). Un module par mois, du mois 1 au mois 8 ; un module ouvert le reste jusqu'à la fin de l'abonnement, chacune avance à son rythme.
    - pret : true quand le carnet du module est écrit (assets/modules/module-N.js). */
 window.GENESOLIA_FORMATION = {
-  espace: 'https://lauradiaz5006.systeme.io/school/course/sors-de-la-boucle',
+  espace: '',
   modules: [
     { n: 1, titre: 'La boucle et la spirale', texte: 'Repérer ta boucle principale, celle qui revient partout.', mois: 1, pret: true },
     { n: 2, titre: 'Remonter à la source', texte: 'Ce qui s’est transmis dans ta famille, les âges et les dates qui se répondent.', mois: 2, pret: true },
