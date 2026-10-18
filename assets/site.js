@@ -294,11 +294,17 @@ window.GENESOLIA_IMPRESSION = {
     moi: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>',
     maison: '<path d="M4 11l8-7 8 7M6 9.5V20h12V9.5M10 20v-5h4v5"/>',
     arbre: '<circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="12" r="2.2"/><circle cx="12" cy="19" r="2.2"/><path d="M12 7.2v9.6M8 13l2.5 4.5M16 13l-2.5 4.5"/>',
-    outils: '<path d="M12 3l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.5z"/>'
+    outils: '<path d="M12 3l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 16l-5.2 3 1.4-5.9-4.6-4 6-.5z"/>',
+    module: '<rect x="3" y="5" width="18" height="13" rx="2.5"/><path d="M10.5 9.2v4.6l4-2.3z"/>',
+    formation: '<path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.2c1.6 1.5 3.4 2.3 5.5 2.3s3.9-.8 5.5-2.3V11M21.5 9v5"/>',
+    audio: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.8"/>'
   };
+  /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
+  var ESPACE_FORMATION = '';
   var ONGLETS = MODE === 'cercle' ? [
-    ['cercle.html', 'jour', 'Aujourd\u2019hui', ''], ['mon-carnet.html', 'carnet', 'Carnet'], ['mon-suivi-mois.html', 'suivi', 'Suivi'],
-    ['cercle.html#mois', 'mois', 'Mon mois', 'mois'], ['cercle.html#moi', 'moi', 'Moi', 'moi']
+    /* L'appli Le Cercle : uniquement les livres du mois, la formation et les audios (l'accueil et « Moi » restent dans l'en-tête) */
+    ['mon-carnet.html', 'carnet', 'Renaissance'], ['mon-suivi-mois.html', 'suivi', 'Libération'], ['mon-module.html', 'module', 'Module'],
+    [ESPACE_FORMATION || 'formation.html', 'formation', 'Formation'], ['mes-seances.html', 'audio', 'Audio']
   ] : [
     ['appli.html', 'maison', 'Accueil'], ['genosociogramme.html', 'arbre', 'Mon arbre'], ['offert.html', 'outils', 'Mes outils'],
     ['mon-suivi.html', 'suivi', 'Mon suivi'], ['login.html', 'moi', 'Mon espace']
@@ -308,8 +314,8 @@ window.GENESOLIA_IMPRESSION = {
     document.querySelectorAll('.barre-appli a').forEach(function (a) {
       var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
-      if (MODE === 'cercle' && (page === 'mon-suivi.html' || page === 'mon-module.html') && cible[0] === 'mon-suivi-mois.html') ok = true;
-      if (MODE === 'cercle' && (page === 'mon-guide.html' || page === 'mon-mois.html') && cible[1] === 'mois') ok = true;
+      if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
+      if (MODE === 'cercle' && (page === 'mon-mois.html' || page === 'point-de-depart.html') && cible[0] === 'mon-carnet.html') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
@@ -380,9 +386,23 @@ window.GENESOLIA_IMPRESSION = {
   var pied = document.querySelector('[data-pied]');
   if (pied && MODE) { pied.remove(); pied = null; }   /* une appli n'a pas de pied de page */
   /* Le Cercle ouvert une fois en appli : on le note, pour ne plus proposer de l'installer */
-  if (MODE === 'cercle') { try { localStorage.setItem('genesolia-cercle-installe', 'oui'); } catch (e) {} }
+  if (MODE === 'cercle' && autonome) { try { localStorage.setItem('genesolia-cercle-installe-v2', 'oui'); } catch (e) {} }   /* seulement l'appli vraiment installée (pas cercle.html ouvert dans le navigateur) */
   var cercleInstalle = autonome;
-  try { cercleInstalle = cercleInstalle || localStorage.getItem('genesolia-cercle-installe') === 'oui'; } catch (e) {}
+  try { cercleInstalle = cercleInstalle || localStorage.getItem('genesolia-cercle-installe-v2') === 'oui'; } catch (e) {}
+  /* Le dessin « Le Cercle dans ta poche », pour installer l'appli des membres */
+  function piedAppliCercle() {
+    return '<div class="pied-appli">' +
+      '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
+        '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
+        '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
+        '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' +
+        '<i></i><i></i><i></i><i></i></div>' +
+      '</div></div>' +
+      '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
+        '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
+        '<a href="cercle.html#installer" class="btn pa-bouton">Télécharger l’appli Le Cercle</a></div>' +
+    '</div>';
+  }
   /* Carnet et suivi du mois, dans le navigateur : un pied de page léger, réservé aux membres */
   if (pied && (page === 'mon-carnet.html' || page === 'mon-suivi-mois.html' || page === 'mes-seances.html')) {
     pied.className = 'pied pied-membres';
@@ -401,7 +421,7 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
           '<li><a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></li>' +
           '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
-        (cercleInstalle ? '' : '<p class="pm-installer"><a href="cercle.html#installer">Installer Le Cercle sur ton téléphone</a></p>') +
+        (cercleInstalle ? '' : piedAppliCercle()) +
         '<div class="pied-bas">' +
           '<span>Genesolia propose un travail symbolique de connaissance de soi et de sa lignée, en complément de tout suivi médical.</span>' +
           '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + '</span>' +
@@ -421,8 +441,8 @@ window.GENESOLIA_IMPRESSION = {
           (ESTCERCLE
             /* Pages du Cercle : c'est l'appli Le Cercle qu'on propose (installée depuis cercle.html, qui porte son icône) */
             ? '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
-              '<ul><li>Tes deux livres du mois, ton mois et ton suivi</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Installer Le Cercle</a></div>'
+              '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
+              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Télécharger l’appli Le Cercle</a></div>'
             : '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
               '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
               '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>') +
@@ -1165,6 +1185,8 @@ window.GENESOLIA_IMPRESSION = {
   if (aUnCompte()) membre().then(function (m) {
     if (!m) return;
     window.GenesoliaMembre = true;
+    /* Membre : en bas de chaque page du site, c'est l'appli Le Cercle qu'on propose (sauf si elle est déjà installée) */
+    if (!cercleInstalle) document.querySelectorAll('.pied .pied-appli').forEach(function (b) { b.outerHTML = piedAppliCercle(); });
     document.querySelectorAll('.carre-cercle').forEach(function (c) { c.remove(); });
     document.querySelectorAll('.cadeau:not(.encart-formation):not(.encart-livres)').forEach(function (bloc, n) {
       if (n > 0) { bloc.remove(); return; }

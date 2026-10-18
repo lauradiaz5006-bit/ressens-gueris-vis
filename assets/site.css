@@ -490,3 +490,5 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .ms-boutons{display:flex;flex-wrap:wrap;gap:.5rem}
 .ms-lecteur audio{width:100%;margin-top:.6rem}
 .ms-mention{font-size:.82rem;color:var(--prune-doux);text-align:center;max-width:40rem;margin:2rem auto 0}
+/* Appli Le Cercle : aucune publicité ni encart du site */
+.appli-cercle .carre-cercle,.appli-cercle .cadeau-bas,.appli-cercle .annonce,.appli-cercle .bandeau-info{display:none!important}
