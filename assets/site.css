@@ -515,3 +515,29 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .appli-cercle .cookies,.appli-cercle .chemin-toast{bottom:calc(7rem + env(safe-area-inset-bottom,0px))}
 @media (max-width:45.99rem){.appli-cercle .barre-appli a{font-size:.74rem;letter-spacing:0;padding:0 .1rem}}
 @media (min-width:46rem){.appli-cercle .barre-appli{max-width:48rem}.appli-cercle .barre-appli a{min-height:76px;font-size:.9rem}.appli-cercle .barre-appli svg{width:32px;height:32px}}
+/* Doré et paillettes : un filet d'or en haut, de fines paillettes dorées sur le prune, l'onglet actif en or brillant */
+.appli-cercle .barre-appli{background:
+  radial-gradient(1.2px 1.2px at 8% 30%,rgba(255,226,160,.9),transparent 60%),
+  radial-gradient(1px 1px at 23% 72%,rgba(255,236,190,.75),transparent 60%),
+  radial-gradient(1.4px 1.4px at 41% 22%,rgba(255,215,140,.85),transparent 60%),
+  radial-gradient(1px 1px at 57% 64%,rgba(255,240,200,.7),transparent 60%),
+  radial-gradient(1.3px 1.3px at 72% 35%,rgba(255,222,150,.9),transparent 60%),
+  radial-gradient(1px 1px at 86% 70%,rgba(255,236,190,.75),transparent 60%),
+  radial-gradient(1.2px 1.2px at 95% 25%,rgba(255,215,140,.8),transparent 60%),
+  linear-gradient(160deg,#5A2650,#3E1A3A);position:fixed}
+.appli-cercle .barre-appli::before{content:'';position:absolute;left:8%;right:8%;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#E8C27A 20%,#FFF1C9 50%,#E8C27A 80%,transparent);opacity:.95;pointer-events:none}
+@media (min-width:46rem){.appli-cercle .barre-appli{border:1px solid rgba(232,194,122,.55)}.appli-cercle .barre-appli::before{top:-1px}}
+.appli-cercle .barre-appli a[aria-current]{background:linear-gradient(135deg,#F6E2B8 0%,#E3BE77 45%,#FFF0C8 60%,#D9AE5F 100%);background-size:200% 200%;color:#4E2446;box-shadow:0 0 0 1px rgba(255,240,200,.6) inset,0 6px 18px rgba(227,190,119,.35);animation:barre-or 6s ease-in-out infinite}
+@keyframes barre-or{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.appli-cercle .barre-appli a:not([aria-current]):hover svg{color:#F3DCC0}
+@media (prefers-reduced-motion:reduce){.appli-cercle .barre-appli a[aria-current]{animation:none}}
+.appli-cercle .barre-appli{background:
+  radial-gradient(2px 2px at 6% 28%,#FFE7B0,transparent 70%),radial-gradient(1.6px 1.6px at 14% 78%,#FFF1CF,transparent 70%),
+  radial-gradient(2.4px 2.4px at 27% 18%,#F2CF86,transparent 70%),radial-gradient(1.5px 1.5px at 33% 60%,#FFF1CF,transparent 70%),
+  radial-gradient(2px 2px at 46% 84%,#FFE7B0,transparent 70%),radial-gradient(1.7px 1.7px at 52% 14%,#F2CF86,transparent 70%),
+  radial-gradient(2.2px 2.2px at 64% 66%,#FFE7B0,transparent 70%),radial-gradient(1.5px 1.5px at 71% 24%,#FFF1CF,transparent 70%),
+  radial-gradient(2.4px 2.4px at 83% 80%,#F2CF86,transparent 70%),radial-gradient(1.7px 1.7px at 90% 30%,#FFE7B0,transparent 70%),
+  radial-gradient(1.4px 1.4px at 97% 62%,#FFF1CF,transparent 70%),
+  linear-gradient(160deg,#5A2650,#3E1A3A)}
+.appli-cercle .barre-appli::before{height:3px;left:4%;right:4%}
+.appli-cercle .barre-appli a:not([aria-current]) svg{color:#E8C27A}
