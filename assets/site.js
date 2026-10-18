@@ -818,6 +818,14 @@ window.GENESOLIA_IMPRESSION = {
     liste.forEach(function (x) { var u = typoTexte(x.nodeValue); if (u !== x.nodeValue) x.nodeValue = u; });
   }
   window.GenesoliaTypo = typo;
+  /* « Revenir à mon livre » (data-retour) : on revient exactement là d'où l'on vient.
+     Onglet ouvert depuis le livre : on le ferme (le livre est resté ouvert dans l'autre onglet) ; sinon retour en arrière ; sinon le lien par défaut. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[data-retour]'); if (!a) return;
+    var memeSite = false; try { memeSite = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (x) {}
+    if (window.opener && !MODE) { e.preventDefault(); window.close(); setTimeout(function () { location.href = a.href; }, 300); return; }
+    if (memeSite && history.length > 1) { e.preventDefault(); history.back(); }
+  });
   /* Seulement sur les pages de lecture des applis : certains outils relisent leurs propres libellés pour enregistrer (parcours, blessures) */
   var PAGES_TYPO = PAGES_CERCLE.concat(['appli.html', 'login.html', 'bienvenue.html', 'abonnement.html', 'essai.html', 'carnet-des-deux-cycles.html']);
   if (document.body && PAGES_TYPO.indexOf(page) >= 0) {
