@@ -1154,7 +1154,7 @@ window.GENESOLIA_IMPRESSION = {
             var e = Math.min(mo, 12), deb = new Date(d.getFullYear(), d.getMonth() + e - 1, d.getDate());
             var actuel = n.getFullYear() + '-' + ('0' + (n.getMonth() + 1)).slice(-2), f = ETAPES_SUIVI[e - 1];
             var admin = a.offre === 'admin';
-            return { mois: mo, enCours: e, debloquees: admin ? 12 : e, admin: admin, fichier: f, calendaire: f === actuel,
+            return { mois: mo, enCours: e, debloquees: admin ? 12 : e, admin: admin, fichier: f, calendaire: false,   /* chaque membre a son propre calendrier : sa semaine 1 commence le jour de son inscription (avant : le 1er du mois quand l'étape tombait sur le mois en cours) */
               debut: deb.getFullYear() + '-' + ('0' + (deb.getMonth() + 1)).slice(-2) + '-' + ('0' + deb.getDate()).slice(-2) };
           });
       });

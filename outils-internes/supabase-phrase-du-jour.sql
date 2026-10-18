@@ -19,3 +19,7 @@ alter table public.notifs_abonnements add constraint notifs_abonnements_perso_he
 select cron.unschedule('notifs-cercle') where exists (select 1 from cron.job where jobname = 'notifs-cercle');
 select cron.schedule('notifs-cercle', '2 * * * *',
   $$ select net.http_post(url := 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/notifs-cercle', headers := '{"Content-Type": "application/json"}'::jsonb, body := '{}'::jsonb) $$);
+
+-- 18 octobre 2026 : appliqué dans Supabase (migration notifs_phrase_du_jour_et_messages_perso), avec en plus
+-- perso_jour (date du dernier message personnel du Cercle, un par jour au plus).
+alter table public.notifs_abonnements add column if not exists perso_jour date;
