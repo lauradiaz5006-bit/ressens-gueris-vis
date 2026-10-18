@@ -242,69 +242,17 @@
           (rs && rs.mode ? '<p class="ce-sous" style="margin:.4rem 0 0">Ton mode survie : ' + esc(rs.mode) + '</p>' : '') +
           '<span class="ce-bt">Refaire mon point de départ</span></a>';
       }
-      h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
-      /* les deux livres */
-      function livre(L, classe, sur, url) {
-        if (!L) return '';
-        var a = lire('genesolia-avancee-' + (L.cle || L.mois)), p = a && a.total ? Math.round(a.n / a.total * 100) : 0;
-        return '<a class="ce-livre ' + classe + '" href="' + url + '"><div><small>' + sur + '</small><b>' + esc(L.titre) + '</b></div>' +
-          '<div>' + (a && a.total ? '<div class="ce-mini"><i style="width:' + p + '%"></i></div>' : '') + '<span>' + (a && a.total ? a.n + (a.n > 1 ? ' pages faites' : ' page faite') + ' sur ' + a.total : 'Ouvrir le livre') + '</span></div></a>';
-      }
-      h += '<p class="ce-etiq" style="margin:.4rem .2rem .55rem">Tes livres ' + esc(de(nm)) + '</p><div class="ce-duo">' + livre(C, 'a', 'J’avance', 'mon-carnet.html') + livre(S, 'b', 'Je me libère' + (E.etape ? ' · étape ' + E.etape.enCours : ''), 'mon-suivi-mois.html') + '</div>';
-      /* reprendre où j'en étais */
-      var ac = C && lire('genesolia-avancee-' + C.mois);
-      if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Carnet · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-plus">Ouvrir</span></a>';
-      /* la semaine du suivi */
-      var semS = sem;   /* par étapes : la semaine se compte depuis le début de l'étape (sauf si l'étape est le mois du calendrier) */
+      /* Accueil simple (18 octobre 2026) : reprendre où tu en étais, ton point du jour, ton compte. Tout le reste est dans les livres (barre du bas). */
+      var semS = Math.min(4, Math.ceil(j / 7));
       if (E.etape && E.etape.debut && !E.etape.calendaire) { var dd = E.etape.debut.split('-'); semS = Math.max(1, Math.min(4, Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(+dd[0], +dd[1] - 1, +dd[2])) / 6048e5) + 1)); }
-      var w = S && S.semaines && S.semaines[Math.min(S.semaines.length, semS) - 1];
-      if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">' + (E.etape ? 'Étape ' + E.etape.enCours + ' · ' : '') + 'Ta semaine ' + semS + ' · ' + esc(w.etape || w.nom) + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Continuer</span></a>';
-      /* Mes séances : deux séances audio par étape, une par cycle */
-      h += '<a class="ce-carte" href="mes-seances.html"><p class="ce-etiq">Mes séances</p><h3>Tes deux séances du mois</h3><p>À chaque étape, deux petits audios de libération se débloquent : un pour le cycle 1, un pour le cycle 2. Elles restent à toi pour les réécouter.</p><span class="ce-bt">Écouter</span></a>';
-      /* ta formation (cycle 2) : le module en cours, son carnet dans l'appli, et les vidéos dans l'espace de formation (Systeme.io) */
-      var F = window.GENESOLIA_FORMATION;
-      if (F && F.modules) {
-        var moisAb = E.etape && E.etape.mois ? (E.etape.admin ? 99 : E.etape.mois) : 1, prets = F.modules.filter(function (m) { return m.pret && (m.mois || 1) <= moisAb; }),
-          mc = prets.filter(function (m) { var a = lire('genesolia-avancee-module-' + m.n); return !(a && a.total && a.n >= a.total); })[0] || prets[prets.length - 1], ms = prets.length && F.modules[prets[prets.length - 1].n];   /* le premier module ouvert pas encore fini : chacune avance à son rythme */
-        if (mc) {
-          var am = lire('genesolia-avancee-module-' + mc.n);
-          h += '<section class="ce-carte"><p class="ce-etiq">Ta formation · Sors de la boucle</p><h3>Module ' + mc.n + ' · ' + esc(mc.titre) + '</h3><p>' + esc(mc.texte) + '</p>' +
-            (am && am.total ? '<div class="ce-mini" style="margin:.5rem 0 .2rem"><i style="width:' + Math.round(am.n / am.total * 100) + '%"></i></div><p class="ce-r-etat" style="margin:0">' + am.n + (am.n > 1 ? ' pages faites' : ' page faite') + ' sur ' + am.total + '</p>' : '') +
-            '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0 0"><a class="btn btn-plein" href="mon-module.html?module=' + mc.n + '">Mon carnet du module</a><a class="btn btn-trait" href="' + esc(F.espace || 'formation.html') + '" target="_blank" rel="noopener">Les vidéos</a></p>' +
-            (prets.length > 1 ? '<p class="ce-sous" style="margin:.7rem 0 0">' + prets.length + ' modules ouverts : ' + prets.map(function (m) { return '<a href="mon-module.html?module=' + m.n + '">' + m.n + '</a>'; }).join(', ') + '. Ils restent ouverts, avance à ton rythme.</p>' : '') +
-            (ms ? '<p class="ce-sous" style="margin:.7rem 0 0">Le module ' + ms.n + ' · ' + esc(ms.titre) + ' s’ouvre à ton étape ' + ms.mois + '.</p>' : '') + '</section>';
-        }
-      }
-      /* l'intention du mois (ton objectif, écrit dans le carnet) */
-      var obj = E.carnet && E.carnet.v && String(E.carnet.v['obj-quoi'] || '').trim();
-      h += obj
-        ? '<a class="ce-carte" href="mon-carnet.html#ouverture"><p class="ce-etiq">Ton intention du mois</p><h3>« ' + esc(obj) + ' »</h3></a>'
-        : '<a class="ce-carte" href="mon-carnet.html#ouverture"><p class="ce-etiq">Ton intention du mois</p><h3>Pose ton objectif du mois</h3><p>Dix minutes au début de ton carnet : ta météo, ta roue, et ce que tu veux nourrir ce mois-ci.</p><span class="ce-plus">Commencer</span></a>';
-      /* la saison */
-      var sa = (window.GENESOLIA_SAISONS || {})[d.getMonth() + 1];
-      if (sa) h += '<button type="button" class="ce-carte" data-saison><p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h3>' + esc(sa.titre) + '</h3><p>' + esc(sa.permission || phrase1(sa.texte)) + '</p><span class="ce-plus">Lire la saison</span></button>';
-      /* tes deux séances du mois : visualisation (carnet « J'avance ») et libération (suivi « Je me libère ») */
-      function seance(L, quoi, url, titreDefaut) {
-        if (!L) return '';
-        var t = (L.meditation && L.meditation.titre) || titreDefaut;
-        return L.audio
-          ? '<div style="margin-top:.7rem"><p class="ce-etiq" style="margin:0 0 .2rem">' + quoi + '</p><h3>' + esc(t) + '</h3><audio controls preload="none" src="' + esc(L.audio) + '" style="width:100%;margin-top:.3rem"></audio></div>'
-          : '<a href="' + url + '" style="display:block;margin-top:.7rem;text-decoration:none;color:inherit"><p class="ce-etiq" style="margin:0 0 .2rem">' + quoi + '</p><h3>' + esc(t) + '</h3><span class="ce-plus">Lire le texte en attendant l’audio</span></a>';
-      }
-      if (C || S) h += '<section class="ce-carte"><p class="ce-etiq">Tes deux séances du mois</p><p>Plus de 20 minutes chacune, à écouter au calme, les yeux fermés.</p>' +
-        seance(C, 'Visualisation · J’avance', 'mon-carnet.html#rituel', 'Ta visualisation') + seance(S, 'Libération · Je me libère', 'mon-suivi-mois.html#meditation', 'Ta libération') + '</section>';
-      var suite = C && C.aVenir && C.aVenir[0];
-      if (suite) h += '<section class="ce-carte" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">Le mois prochain</p><h3>' + esc(suite.titre) + '</h3><p>' + esc(suite.texte) + '</p></section>';
-      h += '<div data-rappels-invite></div>';
+      var ac = C && lire('genesolia-avancee-' + (C.cle || C.mois)), w = S && S.semaines && S.semaines[Math.min(S.semaines.length, semS) - 1];
+      if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Renaissance · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-bt">Reprendre</span></a>';
+      else if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">Reprendre où tu en étais · semaine ' + semS + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Reprendre</span></a>';
+      else h += '<a class="ce-carte" href="mon-carnet.html"><p class="ce-etiq">Ton mois commence</p><h3>Ouvre Renaissance</h3><p>Ton carnet du mois t’attend.</p><span class="ce-bt">Commencer</span></a>';
+      h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
+      h += '<a class="ce-carte" href="#moi"><p class="ce-etiq">Mon compte</p><h3>Moi</h3><p>Tes infos, ton abonnement, tes rappels.</p><span class="ce-plus">Ouvrir</span></a>';
       afficher(h);
       pointDuJour();
-      inviteRappels();
-      if (N && E.user) setTimeout(function () { N.proposer({ canal: 'cercle', sb: sb, icone: 'assets/icones/cercle-192.png', titre: 'Veux-tu un petit rappel au bon moment\u00a0?', texte: 'Ton nouveau carnet, le début de chaque semaine, ta météo de fin de mois, les lunes. Un rappel au plus par jour.', ou: 'dans l’onglet Moi, rubrique Mes rappels', apres: function () { try { localStorage.setItem('genesolia-rappels-vu', '1'); } catch (x) {} var z = vue.querySelector('[data-rappels-invite]'); if (z) z.innerHTML = ''; } }); }, 1200);
-      var bs = vue.querySelector('[data-saison]');
-      if (bs) bs.addEventListener('click', function () {
-        ouvrirFeuille('<p class="ce-etiq">La saison ' + esc(de(sa.mois.toLowerCase())) + '</p><h2>' + esc(sa.titre) + '</h2><p>' + esc(sa.texte) + '</p>' +
-          (sa.permission ? '<p class="ce-f-garde">' + esc(sa.permission) + '</p>' : '') + (sa.geste ? '<p><b>Un geste pour ce mois :</b> ' + esc(sa.geste) + '</p>' : '') + (sa.citation ? '<p><i>' + esc(sa.citation) + '</i></p>' : ''), 'La saison');
-      });
     }
     function pointDuJour() {
       var z = document.getElementById('ce-point'); if (!z) return;
@@ -472,10 +420,8 @@
       function ligne(href, titre, texte, dl) { return '<a href="' + href + '"' + (dl ? ' download' : '') + (/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '') + '><div><b>' + titre + '</b>' + (texte ? '<span>' + texte + '</span>' : '') + '</div></a>'; }
       var h = '<h1 class="ce-h1">' + (E.prenom ? esc(E.prenom) : 'Ton espace') + '</h1><p class="ce-sous">' + (u && u.email ? esc(u.email) : 'Ton espace du Cercle') + '</p>';
       h += '<p class="ce-titre-liste">Ton mois</p><div class="ce-carte ce-liste">' +
-        ligne('login.html#mon-chemin', 'Ma météo intérieure', 'Mois après mois, et tes lettres') +
         ligne('mon-guide.html', 'Mon guide du mois complet', 'Tes nombres, ton ciel, ton signe maya') +
-        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') +
-        ligne('mon-suivi.html', 'Mon suivi semaine par semaine', 'Ton bilan de départ et ton journal') + '</div>';
+        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') + '</div>';
       h += '<p class="ce-titre-liste">À imprimer</p><div class="ce-carte ce-liste">' +
         (S && S.pdf ? ligne(esc(S.pdf), 'Le suivi du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
         (C && C.pdf ? ligne(esc(C.pdf), 'Le carnet du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
@@ -492,14 +438,12 @@
         for (var n = E.etape.debloquees; n >= 1; n--) if (n !== E.etape.enCours) et.push(ligne('mon-suivi-mois.html?etape=' + n, 'Étape ' + n + ' · ' + PARTIES[Math.floor((n - 1) / 3)], 'Ton suivi'));
         if (et.length) h += '<p class="ce-titre-liste">Tes étapes précédentes</p><div class="ce-carte ce-liste">' + et.join('') + '</div>';
       }
-      h += '<a class="ce-carte ce-formation" href="formation.html"><img src="assets/formation/module-1-apercu.jpg" width="72" height="102" alt="" loading="lazy"><div><p class="ce-etiq">La formation · Sors de la boucle</p><h3>Va plus loin que le mois</h3><p>8 modules en vidéo, un carnet à remplir pour chacun, un tarif réduit pour les membres du Cercle.</p></div></a>';
+      /* la formation : dans la barre du bas (Module, Formation), plus d'encart ici */
       h += '<p class="ce-titre-liste">Mes rappels</p><div class="ce-carte" data-rappels></div>';
       h += '<div data-phrase-jour></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
         (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
-        ligne('login.html', 'Mon espace Genesolia', 'Mon arbre, mes résultats, mes documents') +
-        ligne('index.html?appli=site', 'Le site Genesolia', 'Tous les outils et le blog') +
         ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés, jamais lus par Genesolia') +
         ligne('mentions-legales.html', 'Mentions légales', '') + '</div>';
       afficher(h);
