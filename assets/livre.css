@@ -259,7 +259,7 @@
 }
 .mc-boutons-l{display:flex;flex-wrap:wrap;gap:.5rem}
 @media print{
-  @page{margin:14mm 14mm 16mm}
+  @page{margin:20mm 20mm 22mm}
   header[data-entete],footer,.annonce,.bandeau-info,.cookies,.chemin-toast,.note-donnees,.carre-cercle,.cadeau-bas,.mc-onglets,.mc-nav,.mc-barre,.mc-boutons,.mc-compte,.mc-actions,.mc-aide-livre,.mc-volet,.mc-feuille,.mc-folio,.mc-btn-ics,.mc-audio,.mc-tableau-chiffres,.mc-av-lien{display:none!important}
   html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{background:#fff!important;font-size:11pt}
@@ -579,3 +579,76 @@
 .mc-avis-etat{font-size:.9rem;color:#8A5A22}
 .mc-avis-merci{margin:0;color:#5A3A54}
 @media print{.mc-avis{display:none!important}}
+/* ───── Les trois livres, reconnaissables d'un coup d'œil (octobre 2026) ─────
+   Carnet (cycle 1) : clair, « Ici, je m'aligne ». Suivi (cycle 2) : prune foncé, « Ici, je libère ».
+   Module (formation) : bleu nuit, « Formation · Sors de la boucle ». À l'impression, tout redevient blanc. */
+.mc-ruban{display:inline-block;margin:0 0 .7rem;padding:.38rem .95rem;border-radius:999px;font:700 .78rem/1.2 var(--texte);letter-spacing:.14em;text-transform:uppercase;background:#F3DCC0;color:#5E3A56}
+.mc-ruban-page{margin:0;padding:.75rem 1.2rem 0;font:700 .72rem/1.2 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:#8A5A22}
+@media (min-width:1200px){.mc-ruban-page{position:absolute;top:.7rem;left:0;right:0;text-align:center;padding:0;z-index:2;pointer-events:none}}
+/* Suivi : le livre prune */
+.mc-t-suivi .mc-ruban{background:#4E2446;color:#F3DCC0}
+.mc-t-suivi .mc-page{--papier:#4A2142;--encre:#FBEFF2;--encre-2:#F1DCE3;--prune:#F3DCC0;--prune-doux:#E9C7D3;--filet:#6E3C65;--rose:#5C2B54;--rose-fonce:#7A4570;--champagne:#E2B57E;--champagne-clair:#7A4E5E;--nacre:#552750;
+  background:linear-gradient(170deg,#55264D,#3F1B39 70%);border-color:#2E1029;box-shadow:0 18px 50px rgba(46,16,41,.35);color:#FBEFF2}
+.mc-t-suivi .mc-page :where(p,li,h2,h3,h4,label,span,b,strong,em,summary,td,th,figcaption,legend,small,div){color:inherit}
+.mc-t-suivi .mc-page .mc-ruban-page,.mc-t-suivi .mc-page .mc-pagenum{color:#E2B57E}
+.mc-t-suivi .mc-page :where(textarea,input[type=text],input:not([type]),input[type=date],input[type=time],select){background:#FFFDF8;color:#3B1F35;border-color:#B98A55}
+.mc-t-suivi .mc-page :where(textarea,input)::placeholder{color:#8E6383}
+/* dans le livre prune, les cartes d'exercices restent claires pour écrire et lire confortablement */
+.mc-t-suivi .mc-page :is(.mc-exercice,.mc-etape,.mc-encadre:not(.mc-audio-vif),.mc-bloc,.mc-rang,.mc-protocole-mois,.mc-rappel-obj,.mc-rappel-cible,.mc-volet-plie,.mc-citation,.mc-mot,.mc-permission,.mc-consigne,.mc-pourquoi,.mc-pont-fin,.mc-fait,.mc-jours-l label,.mc-jours-m,.mc-tableau,.mc-tab-ex,.mc-choix span,.mc-pastilles li,.mc-etapes li,.mc-proprio,.mc-pont){--papier:#FFFDF8;--encre:#4E2446;--encre-2:#5E3A56;--prune:#6B2F5B;--prune-doux:#8E6383;--filet:#EAD7CF;--rose:#F7E6E8;--rose-fonce:#EBCFD5;--champagne:#B98A55;--champagne-clair:#F3DCC0;--nacre:#FFF9F7;color:#4E2446}
+.mc-t-suivi .mc-page :is(.mc-exercice,.mc-etape,.mc-encadre:not(.mc-audio-vif),.mc-bloc,.mc-rang,.mc-protocole-mois,.mc-rappel-obj,.mc-rappel-cible,.mc-volet-plie,.mc-citation,.mc-mot,.mc-permission,.mc-consigne,.mc-pourquoi,.mc-pont-fin,.mc-fait,.mc-jours-l label,.mc-jours-m,.mc-tableau,.mc-tab-ex,.mc-choix span,.mc-pastilles li,.mc-etapes li,.mc-proprio,.mc-pont) a:where(:not(.btn)){color:#6B2F5B;text-decoration-color:#B98A55}
+.mc-t-suivi .mc-page :is(.mc-exercice,.mc-etape,.mc-encadre:not(.mc-audio-vif),.mc-bloc,.mc-rang,.mc-protocole-mois,.mc-rappel-obj,.mc-rappel-cible,.mc-volet-plie,.mc-citation,.mc-mot,.mc-permission,.mc-consigne,.mc-pourquoi,.mc-pont-fin,.mc-fait,.mc-jours-l label,.mc-jours-m,.mc-tableau,.mc-tab-ex,.mc-choix span,.mc-pastilles li,.mc-etapes li,.mc-proprio,.mc-pont) .btn-trait{color:#6B2F5B;border-color:#B98A55}
+.mc-t-suivi .mc-page :is(.mc-exercice,.mc-etape,.mc-encadre:not(.mc-audio-vif),.mc-bloc,.mc-rang,.mc-protocole-mois,.mc-rappel-obj,.mc-rappel-cible,.mc-volet-plie,.mc-citation,.mc-mot,.mc-permission,.mc-consigne,.mc-pourquoi,.mc-pont-fin,.mc-fait,.mc-jours-l label,.mc-jours-m,.mc-tableau,.mc-tab-ex,.mc-choix span,.mc-pastilles li,.mc-etapes li,.mc-proprio,.mc-pont) .btn-plein{background:#6B2F5B;color:#fff;border-color:#6B2F5B}
+.mc-t-suivi .mc-page a:where(:not(.btn)){color:#F3DCC0;text-decoration-color:#E2B57E}
+.mc-t-suivi .mc-page .btn-trait{color:#F3DCC0;border-color:#E2B57E;background:transparent}
+.mc-t-suivi .mc-page .btn-plein{background:#F3DCC0;color:#4E2446;border-color:#F3DCC0}
+.mc-t-suivi .mc-page img{opacity:.96}
+/* Module : bleu nuit de la formation */
+.mc-t-module .mc-ruban{background:#22345C;color:#EAF0FA}
+.mc-t-module .mc-page{border-color:#C9D5EA;border-top:6px solid #22345C;box-shadow:0 18px 50px rgba(34,52,92,.14);background:#F7F9FD}
+.mc-t-module .mc-page .mc-ruban-page,.mc-t-module .mc-page .mc-pagenum{color:#22345C}
+.mc-t-module .mc-page :where(h2,h3,.mc-sur){color:#22345C}
+.mc-t-module .mc-page .mc-encadre-or{background:#EEF3FB;border-color:#C9D5EA}
+/* Carnet : le livre clair, filet champagne en haut */
+.mc-t-carnet .mc-page{border-top:6px solid #E2B57E}
+/* Les audios, bien visibles */
+.btn.mc-btn-audio{background:#B98A55;color:#fff;border:2px solid #B98A55;font-weight:700}
+.btn.mc-btn-audio::before{content:'';display:inline-block;width:0;height:0;margin-right:.55rem;border-left:.6em solid currentColor;border-top:.38em solid transparent;border-bottom:.38em solid transparent;vertical-align:-.05em}
+.btn.mc-btn-audio:hover{background:#9C7040;border-color:#9C7040;color:#fff}
+.mc-encadre.mc-audio-vif{background:linear-gradient(150deg,#B98A55,#8E6383);border:0;color:#fff;padding:1.3rem 1.4rem}
+.mc-encadre.mc-audio-vif :where(p,.mc-encadre-t){color:#fff!important}
+.mc-encadre.mc-audio-vif .mc-encadre-t{font-size:1.15rem}
+.mc-encadre.mc-audio-vif .btn.mc-btn-audio{background:#fff;color:#6B2F5B;border-color:#fff}
+.mc-avis-carte{text-align:left;max-height:calc(100vh - 2rem);overflow:auto;padding-bottom:1.4rem}
+.mc-avis-carte p{font-size:.95rem}
+.mc-avis-carte h2{text-align:center}
+.mc-avis-carte p{margin:0 0 .8rem;color:var(--encre);line-height:1.55}
+.mc-avis-carte p:last-child{text-align:center;margin:1.2rem 0 0}
+@media print{
+  .mc-ruban,.mc-ruban-page{display:none!important}
+  .mc-t-suivi .mc-page,.mc-t-module .mc-page,.mc-t-carnet .mc-page{background:#fff!important;color:#2b1428!important;border:0!important}
+  .mc-t-suivi .mc-page *{color:#2b1428!important}
+  .mc-encadre.mc-audio-vif{background:#fff!important;border:1px solid #EBCFD5!important}
+}
+/* En-têtes : carnet clair, suivi prune (inchangé), module bleu nuit */
+.mc-t-carnet .mc-tete{color:#4E2446;background:linear-gradient(150deg,rgba(255,249,247,.94),rgba(243,220,192,.86)),var(--fond,none) center/cover,#FFF6EC}
+.mc-t-carnet .mc-tete :where(p,span,b,summary,li,label,a:not(.btn),div){color:inherit}
+.mc-t-carnet .mc-tete .mc-sur{color:#8A5A22}
+.mc-t-carnet .mc-tete h1{color:#6B2F5B}
+.mc-t-carnet .mc-tete>p:not(.mc-sur):not(.mc-perso):not(.mc-ruban){color:#5E3A56}
+.mc-t-carnet .mc-tete .btn-trait{color:#6B2F5B;border-color:#B98A55;background:rgba(255,255,255,.5)}
+.mc-t-carnet .mc-tete :where(.mc-cette-semaine,.mc-compte){background:rgba(255,255,255,.6);border-color:#E2C9A6}
+.mc-t-carnet .mc-ruban{background:#6B2F5B;color:#FFF4F6}
+.mc-t-carnet .mc-tete .mc-etat{color:#8A5A22}
+.mc-t-module .mc-tete{background:linear-gradient(150deg,rgba(20,33,61,.96),rgba(34,52,92,.88)),var(--fond,none) center/cover,#14213D}
+.mc-t-module .mc-ruban{background:#EAF0FA;color:#22345C}
+@media print{.mc-t-carnet .mc-tete,.mc-t-module .mc-tete{background:none!important}}
+.mc-t-carnet .mc-tete .mc-etapes-nav,.mc-t-carnet .mc-tete .mc-etapes-nav li>*{color:#4E2446}
+.mc-t-carnet .mc-tete .mc-etapes-nav>summary{color:#8A5A22}
+.mc-t-carnet .mc-tete .mc-etapes-nav a{background:rgba(107,47,91,.06)}
+.mc-t-carnet .mc-tete .mc-etapes-nav .mc-et-ici>b{background:rgba(107,47,91,.14)}
+.mc-t-carnet .mc-tete .mc-progres{background:rgba(107,47,91,.15)}
+.mc-t-carnet .mc-tete .mc-progres span{background:#B98A55}
+.mc-t-carnet .mc-tete .mc-compte a:not(.btn){color:#6B2F5B}
+.mc-t-module .mc-tete>p.mc-ruban{background:#EAF0FA;color:#22345C}
+.mc-t-suivi .mc-tete>p.mc-ruban{background:#2E1029;color:#F3DCC0}
+.mc-t-carnet .mc-tete>p.mc-ruban{background:#6B2F5B;color:#FFF4F6}
