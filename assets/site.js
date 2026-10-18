@@ -1193,6 +1193,8 @@ window.GENESOLIA_IMPRESSION = {
   if (aUnCompte()) membre().then(function (m) {
     if (!m) return;
     window.GenesoliaMembre = true;
+    /* Membre : dans le menu du site, « Le Cercle » (la page de vente) devient « Mon Cercle », son espace (cercle.html : même barre que l'appli). Invisible pour les autres. */
+    document.querySelectorAll('.entete .menu a.btn-plein[href="abonnement.html"]').forEach(function (b) { b.href = 'cercle.html'; b.textContent = 'Mon Cercle'; b.classList.add('btn-mon-cercle'); });
     /* Membre : en bas de chaque page du site, c'est l'appli Le Cercle qu'on propose (sauf si elle est déjà installée) */
     if (!cercleInstalle) document.querySelectorAll('.pied .pied-appli').forEach(function (b) { b.outerHTML = piedAppliCercle(); });
     document.querySelectorAll('.carre-cercle').forEach(function (c) { c.remove(); });
