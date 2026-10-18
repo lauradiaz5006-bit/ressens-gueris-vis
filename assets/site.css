@@ -500,3 +500,18 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .appli-astuce p:last-child{margin:0}
 .appli-alerte{text-align:left;padding:.7rem .85rem;border-radius:12px;background:#FCEFF3;border:1px solid #F1D3DC;font-size:.92rem;line-height:1.5;margin:0 0 .8rem}
 .appli-carte{max-height:calc(100vh - 2rem);overflow:auto}
+/* ───── Barre du bas de l'appli Le Cercle, plus grande et plus visible (18 octobre 2026) ───── */
+.appli-cercle .barre-appli{max-width:none;padding:.55rem .5rem calc(.6rem + env(safe-area-inset-bottom,0px));gap:.25rem;background:linear-gradient(160deg,#5A2650,#3E1A3A);border-top:0;border-radius:24px 24px 0 0;box-shadow:0 -10px 34px rgba(46,16,41,.28);backdrop-filter:none}
+@media (min-width:46rem){.appli-cercle .barre-appli{max-width:44rem;bottom:1rem;border:1px solid rgba(243,220,192,.25);border-radius:28px;padding:.6rem .6rem}}
+.appli-cercle .barre-appli a{min-height:64px;gap:.32rem;border-radius:18px;font:700 .8rem/1.1 var(--texte);letter-spacing:.01em;color:#E9CFDC;transition:background .2s,color .2s,transform .15s}
+.appli-cercle .barre-appli a:hover{background:rgba(255,255,255,.07);color:#fff}
+.appli-cercle .barre-appli a:active{transform:scale(.96)}
+.appli-cercle .barre-appli svg{width:28px;height:28px;stroke-width:1.8}
+.appli-cercle .barre-appli a[aria-current]{background:#F3DCC0;color:#4E2446;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.appli-cercle .barre-appli a[aria-current] svg{background:none;padding:0;margin:0;stroke-width:2.1}
+.appli-cercle .barre-appli a:focus-visible{outline:2px solid #F3DCC0;outline-offset:2px}
+@media (max-width:380px){.appli-cercle .barre-appli a{font-size:.72rem}.appli-cercle .barre-appli svg{width:26px;height:26px}}
+.appli-cercle body{padding-bottom:calc(6.6rem + env(safe-area-inset-bottom,0px))}
+.appli-cercle .cookies,.appli-cercle .chemin-toast{bottom:calc(7rem + env(safe-area-inset-bottom,0px))}
+@media (max-width:45.99rem){.appli-cercle .barre-appli a{font-size:.74rem;letter-spacing:0;padding:0 .1rem}}
+@media (min-width:46rem){.appli-cercle .barre-appli{max-width:48rem}.appli-cercle .barre-appli a{min-height:76px;font-size:.9rem}.appli-cercle .barre-appli svg{width:32px;height:32px}}
