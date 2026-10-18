@@ -1086,7 +1086,7 @@
     var r = pdRes(), v = pdV(), c1 = String(v['c1-cible-1'] || r.cible1 || '').trim(), rv = pdRoue(), aRoue = Object.keys(rv).length;
     racine.querySelectorAll('[data-pd-cible]').forEach(function (z) {
       z.innerHTML = c1 ? '<p class="mc-cite">« ' + esc(c1) + ' »</p>' + (r.mode ? '<p class="mc-note">Ton mode survie : ' + esc(r.mode) + '. ' + (r.domaine ? 'Ton domaine le plus fragile : ' + esc(r.domaine.charAt(0).toLowerCase() + r.domaine.slice(1)) + '.' : '') + '</p>' : '') + '<p class="mc-note">Tout ton carnet du mois s’oriente vers elle. <a href="point-de-depart.html#etape-4">Revoir mes cibles</a></p>'
-        : '<p class="mc-consigne">Ton carnet s’oriente sur ton point de départ : ta roue, ton mode survie, tes cibles. Fais-le d’abord, en quinze minutes, puis reviens ici.</p><p><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p>';
+        : '<p class="mc-consigne">Ton carnet s’oriente sur ton point de départ : ta roue, ton mode survie, tes cibles. Fais-le d’abord, en quinze minutes, puis reviens ici.</p><p><a class="btn btn-plein" href="point-de-depart.html">C’est parti</a></p>';
     });
     racine.querySelectorAll('[data-pd-cible-fin]').forEach(function (z) { z.innerHTML = c1 ? '<p class="mc-q">Ta cible ce mois-ci</p><p class="mc-cite">« ' + esc(c1) + ' »</p>' : ''; });
     racine.querySelectorAll('[data-rappel-cible]').forEach(function (z) { z.hidden = !c1; z.innerHTML = c1 ? '<span>Ta cible du cycle 1</span>« ' + esc(c1) + ' »' : ''; });
@@ -1240,7 +1240,7 @@
     }
     racine.querySelectorAll('[data-coeur-pd]').forEach(function (z) {
       z.innerHTML = (v['c2-cible-1'] || r.cible2) ? '<p class="mc-note">Tes besoins de libération du cycle 2, au point de départ : ' + ['c2-cible-1', 'c2-cible-2', 'c2-cible-3'].map(function (k) { return v[k]; }).filter(Boolean).map(function (x, n) { return (n + 1) + '. « ' + esc(x) + ' »'; }).join(' ') + '</p>'
-        : '<p class="mc-note">Commence par ton <a href="point-de-depart.html#etape-3">point de départ</a> : c’est là que tu poses ton besoin de libération, et tout ton suivi s’oriente dessus.</p>';
+        : '<p class="mc-note">Commence par ton <a href="point-de-depart.html">point de départ</a> : c’est là que tu poses ton besoin de libération, et tout ton suivi s’oriente dessus.</p>';
     });
   }
   function coeurPages() {
@@ -1660,16 +1660,17 @@
   function departCorps() {
     var c = departPhrase();
     return c ? '<p class="mc-depart-phrase"><span>Ton besoin de libération</span>« ' + esc(c) + ' »</p><p class="mc-depart-mod"><a href="point-de-depart.html#etape-3">Modifier mon point de départ</a></p>'
-      : '<p class="mc-depart-texte">Commence par ton point de départ : c’est là que tu poses ton besoin de libération, et tout ton suivi s’oriente dessus. Comme ton nom, ton prénom et ta date de naissance, il est indispensable.</p><p><a class="btn btn-plein" href="point-de-depart.html#etape-3">Faire mon point de départ</a></p>';
+      : '<p class="mc-depart-texte">Commence par ton point de départ : c’est là que tu poses ton besoin de libération, et tout ton suivi s’oriente dessus. Comme ton nom, ton prénom et ta date de naissance, il est indispensable.</p><p><a class="btn btn-plein" href="point-de-depart.html">C’est parti</a></p>';
   }
   function departHtml() {
     return '<aside class="mc-depart" data-depart><p class="mc-depart-t" data-depart-t>Avant tout : ton point de départ</p><p class="mc-depart-cycle">Ton cycle 2 parle de tes relations, de l’amour et de ta façon d’aimer.</p><div data-depart-corps>' + departCorps() + '</div></aside>';
   }
   function majDepart() {
     var z = racine.querySelector('[data-depart-corps]'); if (!z) return;
-    var fait = !!departPhrase();
+    var fait = !!departPhrase() || !!pdV().fait;
     z.innerHTML = departCorps();
     racine.querySelector('[data-depart]').classList.toggle('mc-depart-fait', fait);
+    racine.querySelector('[data-depart]').hidden = fait;   /* fait : le bloc disparaît, pour ne pas disperser */
     racine.querySelector('[data-depart-t]').textContent = fait ? 'Ton point de départ' : 'Avant tout : ton point de départ';
   }
   /* Le carnet par étapes : « Ta saison » suit le vrai mois du calendrier (assets/saisons.js), l'étape suit le parcours */
