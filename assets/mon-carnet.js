@@ -1121,7 +1121,7 @@
   function chargerPD() {
     var local = null; try { local = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); } catch (e) {}
     var CF = window.GenesoliaCoffre;
-    return (user && sb && CF && CF.accord(user) ? CF.lire(sb, user, 'point-de-depart').then(function (d) { return d || local; }, function () { return local; }) : Promise.resolve(local)).then(function (d) { PD = d; majPD(); majCoeur(); majRadars(); majDepart(); });
+    return (user && sb && CF && CF.accord(user) ? CF.lire(sb, user, 'point-de-depart').then(function (d) { if (!d && local && local.v && local.v.fait) CF.ecrire(sb, user, 'point-de-depart', local); return d || local; }, function () { return local; }) : Promise.resolve(local)).then(function (d) { PD = d; majPD(); majCoeur(); majRadars(); majDepart(); });
   }
   /* Un exercice en profondeur en PDF : on imprime cet exercice seul, avec la mention de droits */
   function imprimerExo(id) {

@@ -235,11 +235,12 @@
       var PD = (E.point && E.point.v) || lire('genesolia-carnet-point-de-depart') && lire('genesolia-carnet-point-de-depart').v || null, rs = PD && PD.resume;
       if (!PD || !PD.fait) h += '<a class="ce-carte" href="point-de-depart.html" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">À faire en arrivant · 15 minutes</p><h3>Mon point de départ</h3><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : tes deux livrets s’orientent sur ce que tu vis.</p><span class="ce-bt">' + (PD ? 'Continuer' : 'Commencer') + '</span></a>';
       else {
+        /* point de départ fait : plus rien à l'écran pour ne pas disperser, sauf au bout de 3 mois pour le refaire */
         var age = Math.floor((Date.now() - new Date(PD.fait + 'T12:00:00').getTime()) / 864e5);
-        h += '<a class="ce-carte" href="point-de-depart.html#etape-4"><p class="ce-etiq">Tes cibles</p>' +
+        if (age >= 90) h += '<a class="ce-carte" href="point-de-depart.html"><p class="ce-etiq">Tes cibles</p>' +
           (rs && rs.cible1 ? '<p><b>Vivre en paix :</b> ' + esc(rs.cible1) + '</p>' : '') + (rs && rs.cible2 ? '<p><b>Aimer en paix :</b> ' + esc(rs.cible2) + '</p>' : '') +
           (rs && rs.mode ? '<p class="ce-sous" style="margin:.4rem 0 0">Ton mode survie : ' + esc(rs.mode) + '</p>' : '') +
-          (age >= 90 ? '<span class="ce-bt">Refaire mon point de départ</span>' : '<span class="ce-plus">Revoir mon point de départ</span>') + '</a>';
+          '<span class="ce-bt">Refaire mon point de départ</span></a>';
       }
       h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
       /* les deux livres */
@@ -592,7 +593,11 @@
     function lirePoint(user) {
       var local = lire('genesolia-carnet-point-de-depart');
       if (!sb || !window.GenesoliaCoffre || !window.GenesoliaCoffre.accord(user)) return Promise.resolve(local);
-      return window.GenesoliaCoffre.lire(sb, user, 'point-de-depart').then(function (d) { return d || local; }, function () { return local; });
+      return window.GenesoliaCoffre.lire(sb, user, 'point-de-depart').then(function (d) {
+        /* fait sur cet appareil avant d'être connectée : on le range dans son espace, pour le retrouver partout */
+        if (!d && local && local.v && local.v.fait) window.GenesoliaCoffre.ecrire(sb, user, 'point-de-depart', local);
+        return d || local;
+      }, function () { return local; });
     }
 
     var d0 = moisDe(new Date());
