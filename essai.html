@@ -54,7 +54,6 @@
     <div class="e-boite">
       <ol class="e-etapes" aria-label="Étapes">
         <li id="et-1">Ton compte</li>
-        <li id="et-2">Ton bilan de départ</li>
         <li id="et-3">Ton mois gratuit</li>
       </ol>
       <div class="e-carte" id="e-carte" aria-live="polite"><p>Chargement…</p></div>
@@ -75,7 +74,7 @@
     try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
     function esc(t) { return String(t || '').replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
     function etape(n) {
-      [1, 2, 3].forEach(function (i) {
+      [1, 3].forEach(function (i) {   /* l'ancienne étape 2 (bilan de 3 questions) est retirée : le point de départ la remplace, juste après */
         var li = document.getElementById('et-' + i);
         li.className = i < n ? 'faite' : (i === n ? 'active' : '');
         if (i === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
@@ -90,51 +89,10 @@
       try { localStorage.setItem('retour-apres-connexion', 'essai.html'); } catch (e) {}
       carte.innerHTML =
         '<h1>Ton mois gratuit commence ici</h1>' +
-        '<p>Trois petites étapes, quelques minutes en tout. D\'abord, ton compte : c\'est là que vivront ton arbre, ton suivi et tes carnets.</p>' +
+        '<p>Deux petites étapes, quelques minutes en tout. D\'abord, ton compte : c\'est là que vivront ton arbre, ton suivi et tes carnets.</p>' +
         '<div class="e-offre"><p><s>29 € par mois</s></p><p class="e-gros">1 mois gratuit pour tester Le Cercle</p><p class="e-aide">Après ton essai : 29 € par mois, sans engagement · tu arrêtes en 1 clic</p></div>' +
         '<div class="e-actions"><a class="btn btn-plein" href="login.html?inscription&amp;retour=essai.html">Créer mon compte gratuit</a><a class="btn btn-trait" href="login.html?retour=essai.html">J\'ai déjà un compte</a></div>';
       suivi('essai-etape-1');
-    }
-
-    /* Étape 2 : le bilan de départ, enregistré dans le compte */
-    var BOUCLES = ['Je choisis toujours le même type de relation', 'Je m\'oublie pour les autres', 'L\'argent m\'échappe', 'Je n\'ose pas prendre ma place', 'Je revis les mêmes conflits en famille', 'Autre chose'];
-    var ATTENTES = ['Comprendre d\'où vient ce qui se répète', 'Avancer pas à pas, avec un rendez-vous chaque semaine', 'Explorer mon arbre et mes nombres', 'Prendre un temps pour moi'];
-    function etape2() {
-      etape(2);
-      var prenom = (user.user_metadata && user.user_metadata.full_name) || '';
-      carte.innerHTML =
-        '<h1>' + (prenom ? esc(prenom) + ', ton' : 'Ton') + ' bilan de départ</h1>' +
-        '<p>Trois questions pour que ton suivi parte de là où tu en es. Tes réponses restent privées, dans ton espace.</p>' +
-        '<form id="e-bilan" novalidate>' +
-          '<fieldset class="e-q"><legend>1. Quelle boucle aimerais-tu arrêter ?</legend>' +
-            BOUCLES.map(function (b) { return '<label><input type="checkbox" name="boucle" value="' + esc(b) + '"><span>' + esc(b) + '</span></label>'; }).join('') +
-          '</fieldset>' +
-          '<fieldset class="e-q"><legend>2. Qu\'est-ce qui se répète dans ta famille, d\'après toi ?</legend>' +
-            '<textarea name="famille" maxlength="800" placeholder="Quelques mots suffisent, ou rien du tout."></textarea><p class="e-aide">Facultatif.</p>' +
-          '</fieldset>' +
-          '<fieldset class="e-q"><legend>3. Qu\'attends-tu de ce premier mois ?</legend>' +
-            ATTENTES.map(function (a, i) { return '<label><input type="radio" name="attente" value="' + esc(a) + '"' + (i === 0 ? ' checked' : '') + '><span>' + esc(a) + '</span></label>'; }).join('') +
-          '</fieldset>' +
-          '<div class="e-actions"><button class="btn btn-plein" type="submit">Enregistrer mon bilan</button></div>' +
-          '<p class="e-erreur" role="alert"></p>' +
-        '</form>';
-      var f = document.getElementById('e-bilan');
-      f.addEventListener('submit', function (ev) {
-        ev.preventDefault();
-        var err = f.querySelector('.e-erreur'), btn = f.querySelector('button');
-        var boucles = [].slice.call(f.querySelectorAll('input[name=boucle]:checked')).map(function (c) { return c.value; });
-        if (!boucles.length) { err.textContent = 'Coche au moins une boucle.'; return; }
-        var att = f.querySelector('input[name=attente]:checked');
-        var bilan = { boucles: boucles, famille: f.famille.value.trim(), attente: att ? att.value : '', date: new Date().toISOString().slice(0, 10) };
-        btn.disabled = true; btn.textContent = 'Enregistrement…'; err.textContent = '';
-        sb.auth.updateUser({ data: { bilan: bilan } }).then(function (r) {
-          if (r.error) throw r.error;
-          user = r.data.user; suivi('essai-bilan'); etape3();
-        }).catch(function () {
-          btn.disabled = false; btn.textContent = 'Enregistrer mon bilan';
-          err.textContent = 'L\'enregistrement n\'a pas fonctionné. Réessaie dans un instant.';
-        });
-      });
     }
 
     /* Étape 3 : choisir sa formule et enregistrer sa carte (Stripe, 30 jours offerts) */
@@ -142,7 +100,7 @@
       etape(3);
       carte.innerHTML =
         '<h1>Ton mois gratuit t\'attend</h1>' +
-        '<p>Ton bilan est enregistré. Dernière étape : choisis ta formule. Rien n\'est prélevé pendant 30 jours.</p>' +
+        '<p>Dernière étape : choisis ta formule. Rien n\'est prélevé pendant 30 jours. Juste après, tu fais ton point de départ (15 minutes) : tout ton Cercle s\'oriente dessus.</p>' +
         '<div class="e-choix" role="radiogroup" aria-label="Formule">' +
           '<label><input type="radio" name="formule" value="mois"' + (formule === 'mois' ? ' checked' : '') + '> Au mois<b>0 € pendant 30 jours</b><span>puis 29 € par mois, sans engagement</span></label>' +
           '<label><input type="radio" name="formule" value="annee"' + (formule === 'annee' ? ' checked' : '') + '> Sur 12 mois<b>0 € pendant 30 jours</b><span>puis 24,90 € par mois, engagement 12 mois</span></label>' +
@@ -186,7 +144,7 @@
       if (!s) { etape1(); return; }
       user = s.user;
       try { localStorage.removeItem('retour-apres-connexion'); } catch (e) {}
-      if (user.user_metadata && user.user_metadata.bilan) etape3(); else etape2();
+      etape3();
     }).catch(etape1);
   })();
   </script>
