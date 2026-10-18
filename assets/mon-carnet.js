@@ -1121,7 +1121,7 @@
   function chargerPD() {
     var local = null; try { local = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); } catch (e) {}
     var CF = window.GenesoliaCoffre;
-    return (user && sb && CF && CF.accord(user) ? CF.lire(sb, user, 'point-de-depart').then(function (d) { return d || local; }, function () { return local; }) : Promise.resolve(local)).then(function (d) { PD = d; majPD(); majCoeur(); majRadars(); majDepart(); });
+    return (user && sb && CF && CF.accord(user) ? CF.lire(sb, user, 'point-de-depart').then(function (d) { if (!d && local && local.v && local.v.fait) CF.ecrire(sb, user, 'point-de-depart', local); return d || local; }, function () { return local; }) : Promise.resolve(local)).then(function (d) { PD = d; majPD(); majCoeur(); majRadars(); majDepart(); });
   }
   /* Un exercice en profondeur en PDF : on imprime cet exercice seul, avec la mention de droits */
   function imprimerExo(id) {
@@ -1713,7 +1713,7 @@
         '<p class="mc-perso" id="mc-perso" hidden></p><h1>' + esc(ET ? titreEtape() : C.titre) + '</h1><p>' + esc(C.sousTitre) + '</p>' + navEtapes() + (SUIVI ? departHtml() : '') +
         (SUIVI || CARNET ? '<p class="mc-livre-note">' + esc(LIVRE_NOTE) + '</p>' : '') +
         '<div class="mc-barre"><div class="mc-progres" aria-label="Avancement du carnet"><span id="mc-progres-barre"></span></div><span id="mc-progres-texte"></span><span class="mc-etat" id="mc-etat" aria-live="polite"></span></div>' +
-        '<div class="mc-boutons"><div class="mc-imp-zone"><button type="button" class="btn btn-trait" id="mc-imprimer" aria-expanded="false" aria-controls="mc-imp-choix">' + (SUIVI ? 'Imprimer mon suivi rempli' : MODULE ? 'Imprimer mon module rempli' : 'Imprimer mon carnet rempli') + '</button>' +
+        '<div class="mc-boutons"><div class="mc-imp-zone"><button type="button" class="btn btn-trait" id="mc-imprimer" aria-expanded="false" aria-controls="mc-imp-choix" aria-label="' + (SUIVI ? 'Imprimer mon suivi rempli' : MODULE ? 'Imprimer mon module rempli' : 'Imprimer mon carnet rempli') + '"><svg class="mc-ico-imp" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4.5A1.5 1.5 0 0 1 3 15.5v-6A1.5 1.5 0 0 1 4.5 8h15A1.5 1.5 0 0 1 21 9.5v6a1.5 1.5 0 0 1-1.5 1.5H17"/><path d="M7 13h10v8H7z"/></svg><span>' + (SUIVI ? 'Imprimer mon suivi rempli' : MODULE ? 'Imprimer mon module rempli' : 'Imprimer mon carnet rempli') + '</span></button>' +
           '<div class="mc-imp-choix" id="mc-imp-choix" hidden><p>Quelle version veux-tu imprimer ?</p>' +
             '<button type="button" data-imprimer="simple"><b>Simple</b><span>Le texte et tes réponses, sans images : économe en encre.</span></button>' +
             '<button type="button" data-imprimer="decor"><b>Avec le décor</b><span>Les illustrations, les couleurs et les ornements.</span></button></div></div>' +
