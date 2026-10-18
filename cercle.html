@@ -513,7 +513,7 @@
     /* ───── Navigation entre les onglets ───── */
     function router() {
       var h = (location.hash || '').replace('#', '');
-      if (h === 'installer') { history.replaceState(null, '', location.pathname + location.search); h = ''; setTimeout(function () { if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); }, 300); }
+      if (h === 'installer') { history.replaceState(null, '', location.pathname + location.search); h = ''; setTimeout(function () { var I = window.GenesoliaInstaller; if (I) (I.aide || I.ouvrir)(); }, 300); }   /* #installer (bouton « Télécharger l'appli Le Cercle ») : les instructions s'affichent toujours */
       fermerFeuille();
       if (!E.membre) return vuePorte();
       if (h === 'mois') vueMois(); else if (h === 'moi') vueMoi(); else vueAujourdhui();

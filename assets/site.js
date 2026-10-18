@@ -300,7 +300,7 @@ window.GENESOLIA_IMPRESSION = {
     audio: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.8"/>'
   };
   /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
-  var ESPACE_FORMATION = '';
+  var ESPACE_FORMATION = 'https://lauradiaz5006.systeme.io/school/course/sors-de-la-boucle';   /* l'espace élève de la formation sur Systeme.io (connexion : https://lauradiaz5006.systeme.io/dashboard/login) */
   var ONGLETS = MODE === 'cercle' ? [
     /* L'appli Le Cercle : uniquement les livres du mois, la formation et les audios (l'accueil et « Moi » restent dans l'en-tête) */
     ['mon-carnet.html', 'carnet', 'Renaissance'], ['mon-suivi-mois.html', 'suivi', 'Libération'], ['mon-module.html', 'module', 'Module'],
@@ -887,10 +887,12 @@ window.GENESOLIA_IMPRESSION = {
         : android
         ? '<ol><li>Touche le menu <b>⋮</b> en haut à droite de Chrome.</li><li>Choisis <b>Installer l\'application</b>. Si tu ne vois que « Ajouter à l\'écran d\'accueil », touche-le puis choisis <b>Installer</b> (et non « Créer un raccourci »).</li><li>Patiente quelques secondes : l\'icône ' + APPLI.nom + ' arrive avec tes applis. Ouvre-la depuis là, pas depuis Chrome.</li></ol>'
         : '<ol><li>Dans Chrome ou Edge, clique sur l\'icône <b>Installer</b> à droite de la barre d\'adresse (un petit écran avec une flèche).</li><li>Confirme avec <b>Installer</b>.</li><li>' + APPLI.nom + ' s\'ouvre dans sa propre fenêtre, et se retrouve avec tes applications.</li></ol><p>Sur téléphone, ouvre genesolia.fr et touche « Installer l\'appli » en bas de la page.</p>') +
+      (invite ? '<p><button type="button" class="btn btn-plein" data-installer-direct>Installer maintenant</button></p>' : '') +
       '<p class="appli-note">Gratuit, sans téléchargement dans un store. Tes outils s\'ouvrent en plein écran, comme une vraie appli.</p></div>';
     function fermer() { f.remove(); }
     f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('.appli-fermer')) fermer(); });
     document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { fermer(); document.removeEventListener('keydown', k); } });
+    f.addEventListener('click', function (e) { if (e.target.closest('[data-installer-direct]') && invite) { invite.prompt(); invite.userChoice.then(function () { invite = null; f.remove(); }); } });
     document.body.appendChild(f);
     f.querySelector('.appli-fermer').focus();
   }
@@ -903,7 +905,7 @@ window.GENESOLIA_IMPRESSION = {
     e.preventDefault();
     installer();
   });
-  window.GenesoliaInstaller = { ouvrir: installer, installee: function () { return installee; } };
+  window.GenesoliaInstaller = { ouvrir: installer, aide: aideInstall, installee: function () { return installee; } };
 
   /* Partage depuis le téléphone, avec l'image de la page quand c'est possible (Instagram, WhatsApp, Messenger…) */
   function partagerAvecImage(titre, adresse, image) {
