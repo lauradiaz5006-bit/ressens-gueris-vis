@@ -652,3 +652,15 @@
 .mc-t-module .mc-tete>p.mc-ruban{background:#EAF0FA;color:#22345C}
 .mc-t-suivi .mc-tete>p.mc-ruban{background:#2E1029;color:#F3DCC0}
 .mc-t-carnet .mc-tete>p.mc-ruban{background:#6B2F5B;color:#FFF4F6}
+/* Le bouton d'impression porte une petite icône ; sur téléphone, il ne reste qu'elle, en haut à droite de l'en-tête, et les autres boutons disparaissent */
+.mc-ico-imp{display:none;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mc-tete{position:relative}
+@media (max-width:760px){
+  .mc-boutons{margin:0}
+  .mc-boutons>*:not(.mc-imp-zone){display:none!important}
+  .mc-imp-zone{position:absolute;top:1rem;right:1rem;z-index:5}
+  #mc-imprimer{width:46px;height:46px;min-height:0;padding:0;border-radius:50%;display:grid;place-items:center}
+  #mc-imprimer span{display:none}
+  #mc-imprimer .mc-ico-imp{display:block}
+  .mc-imp-choix{left:auto;right:0}
+}
