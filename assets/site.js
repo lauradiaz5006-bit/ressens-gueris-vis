@@ -273,6 +273,8 @@ window.GENESOLIA_IMPRESSION = {
      Sinon : le site normal, rien ne change. */
   var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
+  /* Pages du Cercle : l'appli proposée à l'installation est Le Cercle (nom, icône ; manifeste cercle.webmanifest dans chaque page) */
+  if (ESTCERCLE && !window.GENESOLIA_APPLI) window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };
   var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
   /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
