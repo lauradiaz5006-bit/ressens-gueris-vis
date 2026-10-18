@@ -23,7 +23,7 @@
       bloc(5, 'Pour ouvrir ton autel', '<p>Allume les bougies, pose ta main sur ton cœur, et dis :</p><p class="au-phrase">' + esc(A.ouverture) + '</p>') +
       bloc(6, 'L’entretien, au fil des semaines', liste(A.entretien)) +
       bloc(7, 'La clôture, en fin de mois', '<p>' + esc(A.cloture) + '</p>') +
-      '<p class="au-boutons"><a class="btn btn-plein" href="mon-suivi-mois.html?mois=' + esc(m) + '#saison">Revenir à mon suivi</a><button type="button" class="btn btn-trait" onclick="window.print()">Imprimer ma fiche</button></p>' +
+      '<p class="au-boutons"><a class="btn btn-plein" data-retour href="mon-suivi-mois.html?mois=' + esc(m) + '#saison">Revenir à mon livre</a><button type="button" class="btn btn-trait" onclick="window.print()">Imprimer ma fiche</button></p>' +
       '<p class="note" style="text-align:center;margin-top:1rem">Ne laisse jamais une bougie allumée sans surveillance.</p>';
     var img = z.querySelector('[data-image] img');
     img.addEventListener('error', function () { img.parentNode.innerHTML = '<p>Ton autel de ' + esc(nm) + '</p>'; });
