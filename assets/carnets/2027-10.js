@@ -1,7 +1,7 @@
 /* Genesolia · Le Cercle · Carnet d'octobre 2027, « J'avance » : « Mon bilan de l'année »
    Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Les âges qui se répondent ») est dans Mon suivi (assets/suivi/2027-10.js).
-   Dernier carnet de l'année : il boucle la spirale ouverte en octobre 2026 avec « Mon point de départ ».
+   Dernier carnet de l'année : il boucle la spirale ouverte en octobre 2026 avec « Mon premier pas ».
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple affiché dans le champ }.
@@ -54,7 +54,7 @@ window.GENESOLIA_CARNET = {
   theme: {
     titre: 'Le mois du bilan',
     texte: [
-      "La boucle se referme. Il y a un an, presque jour pour jour, tu ouvrais ton premier carnet du Cercle, « Mon point de départ ». Tu remplissais ta première roue de la vie, tu choisissais un domaine à nourrir, tu écrivais une lettre à la personne que tu serais un an plus tard. Cette personne, c’est toi, aujourd’hui.",
+      "La boucle se referme. Il y a un an, presque jour pour jour, tu ouvrais ton premier carnet du Cercle, « Mon premier pas ». Tu remplissais ta première roue de la vie, tu choisissais un domaine à nourrir, tu écrivais une lettre à la personne que tu serais un an plus tard. Cette personne, c’est toi, aujourd’hui.",
       "Ce dernier carnet de l’année t’invite à t’arrêter, à regarder le chemin parcouru, et à le célébrer. Pas pour te donner une note, mais pour reconnaître tout ce que tu as osé : les petits pas, les essais, les moments où tu as continué alors que c’était difficile. Et pour choisir, en conscience, ce que tu veux vivre maintenant."
     ],
     sousTitre: 'Pourquoi faire le bilan d’une année ?',
@@ -111,7 +111,7 @@ window.GENESOLIA_CARNET = {
     enLigne: "Tes roues, tes météos et ta lettre de l’an dernier sont gardées dans [ton espace](login.html#mon-chemin), et tous tes carnets de l’année t’attendent dans [mes carnets précédents](mon-mois.html). Tu peux aussi refaire le [test de l’arbre de vie](arbre-de-vie.html) et le comparer à ton premier.",
     outils: [
       ['login.html#mon-chemin', 'Mon chemin', 'Tes roues, tes météos et ta lettre de dans un an, gardées avec leur date tout au long de l’année.'],
-      ['mon-mois.html', 'Mes carnets précédents', 'Relire tes carnets de l’année, de « Mon point de départ » à « Ma vocation ».'],
+      ['mon-mois.html', 'Mes carnets précédents', 'Relire tes carnets de l’année, de « Mon premier pas » à « Ma vocation ».'],
       ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : les âges et les dates qui se répondent, et la fin du premier tour de spirale.']
     ]
   },

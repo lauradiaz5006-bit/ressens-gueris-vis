@@ -24,7 +24,7 @@
   var ARBRE_ETAPES = ['Qui sont les miens ?', 'Qu’est-ce que j’ai reçu ?', 'Quelle est ma place ?', 'Quelle peur je porte, et pour qui ?', 'Quel projet a-t-on posé sur moi ?', 'Quelles émotions avaient le droit d’exister ?',
     'Quelles phrases me guident ?', 'Comment ai-je appris à aimer ?', 'Ai-je le droit d’aller plus loin ?', 'Combien je m’autorise à recevoir ?', 'D’où venons-nous ?', 'Qu’est-ce que je transmets ?'];
   /* Les 12 étapes du carnet (cycle 1) : le titre de chaque fichier assets/carnets/2026-10.js … 2027-09.js */
-  var CARNET_ETAPES = ['Mon point de départ', 'Mes forces, mes appuis', 'Ma place, mes limites', 'Mon intention, mes valeurs', 'M’aimer d’abord', 'Ma direction, ma confiance',
+  var CARNET_ETAPES = ['Mon premier pas', 'Mes forces, mes appuis', 'Ma place, mes limites', 'Mon intention, mes valeurs', 'M’aimer d’abord', 'Ma direction, ma confiance',
     'Dire vrai', 'La vie circule à travers moi', 'Oser agir', 'Ma valeur', 'Mon chez-moi, mon élan', 'Ma vocation'];
   /* Le lien vers le suivi ou le carnet de la même étape (ou du même mois, hors parcours par étapes) */
   function vers(page) { return page + (ET ? '?etape=' + ET.n : '?mois=' + C.mois); }
@@ -2301,8 +2301,9 @@
      Restent dans l'onglet : les ancres de la page, la connexion (elle revient au livre) et le même livre (une autre étape). */
   racine.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.hasAttribute('download')) return;
-    /* dans l'appli, tout reste dans l'appli : un nouvel onglet ferait sortir vers le navigateur, sans retour */
-    if (window.GenesoliaModeAppli) { try { if (new URL(a.href, location.href).origin === location.origin) a.removeAttribute('target'); } catch (x) {} return; }
+    /* dans l'appli installée, tout reste dans l'appli (un nouvel onglet ferait sortir vers le navigateur, sans retour) ; dans un navigateur, même dans « Mon Cercle », les autres pages s'ouvrent dans un nouvel onglet */
+    var installee = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+    if (installee) { try { if (new URL(a.href, location.href).origin === location.origin) a.removeAttribute('target'); } catch (x) {} return; }
     if (a.target) return;
     var h = a.getAttribute('href') || '';
     if (!h || h.charAt(0) === '#' || /^(mailto:|tel:|javascript:)/i.test(h)) return;

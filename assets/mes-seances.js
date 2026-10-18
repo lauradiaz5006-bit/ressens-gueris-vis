@@ -99,12 +99,17 @@
       '<p>Tes séances audio se débloquent une par une, au fil de ton avancée : à chaque nouvelle étape, une nouvelle séance s’ouvre dans chaque cycle. Elles restent à toi tant que tu es membre, pour les écouter aussi souvent que tu veux.</p></header>';
     if (!user) h += '<section class="ms-encadre"><h2>Connecte-toi pour retrouver tes séances</h2><p><a class="btn btn-plein" href="login.html">Me connecter</a></p></section>';
     else if (!acces) h += '<section class="ms-encadre"><h2>Tes séances arrivent avec Le Cercle</h2><p>Les séances audio font partie de l’abonnement au Cercle : la première se débloque dès ton entrée, puis une nouvelle à chaque étape. Tu peux les découvrir ci-dessous.</p><p><a class="btn btn-plein" href="abonnement.html">Tu veux t’abonner ?</a></p></section>';
-    else h += travail();
+    /* plus d'encadré « Ce que tu veux travailler » : les séances suivent les étapes, il n'y a pas de choix à faire */
     if (!base) h += '<p class="ms-note ms-attente">L’ouverture des séances se met en place : elle sera disponible très bientôt.</p>';
+    /* d'abord les séances débloquées (la plus récente en premier), puis, cycle par cycle, celles qui arrivent */
+    var actives = CAT.liste.filter(debloquee).sort(function (a, b) { return (etapeDe(b) - etapeDe(a)) || (a.cycle - b.cycle); });
+    if (actives.length) h += '<section class="ms-cycle ms-actives"><h2>À écouter maintenant</h2><p class="ms-cycle-st">Tes séances débloquées, à réécouter aussi souvent que tu veux.</p>' +
+      '<div class="ms-grille">' + actives.map(carte).join('') + '</div></section>';
     [1, 2].forEach(function (cy) {
       var C = CAT.cycles[cy] || {};
-      var liste = CAT.liste.filter(function (s) { return s.cycle === cy; }).sort(function (a, b) { return ORDRE.indexOf(a.mois) - ORDRE.indexOf(b.mois); });
-      h += '<section class="ms-cycle' + (acces && cyclesPermis().indexOf(cy) < 0 ? ' ms-cycle-grise' : '') + '"><h2>' + esc(C.titre) + '</h2><p class="ms-cycle-st">' + esc(C.sousTitre) + '</p>' + etatCycle(cy) +
+      var liste = CAT.liste.filter(function (s) { return s.cycle === cy && !debloquee(s); }).sort(function (a, b) { return ORDRE.indexOf(a.mois) - ORDRE.indexOf(b.mois); });
+      if (!liste.length) return;
+      h += '<section class="ms-cycle' + (acces && cyclesPermis().indexOf(cy) < 0 ? ' ms-cycle-grise' : '') + '"><h2>' + (actives.length ? 'À venir · ' : '') + esc(C.titre) + '</h2><p class="ms-cycle-st">' + esc(C.sousTitre) + '</p>' + etatCycle(cy) +
         '<div class="ms-grille">' + liste.map(carte).join('') + '</div></section>';
     });
     h += '<p class="ms-mention">Ces séances proposent une démarche symbolique de développement personnel. Elles ne remplacent pas un accompagnement médical ou psychologique. Écoute-les au calme, jamais en conduisant.</p>';

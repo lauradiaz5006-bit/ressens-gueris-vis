@@ -275,7 +275,8 @@ window.GENESOLIA_IMPRESSION = {
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   var autonome = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
-  if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search)) drapeau = 'cercle';
+  /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
+  if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search) || (ESTCERCLE && aUnCompte())) drapeau = 'cercle';
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
   var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
@@ -300,7 +301,7 @@ window.GENESOLIA_IMPRESSION = {
     audio: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.8"/>'
   };
   /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
-  var ESPACE_FORMATION = 'https://lauradiaz5006.systeme.io/school/course/sors-de-la-boucle';   /* l'espace élève de la formation sur Systeme.io (connexion : https://lauradiaz5006.systeme.io/dashboard/login) */
+  var ESPACE_FORMATION = '';   /* l'espace élève de la formation sur Systeme.io (connexion : https://lauradiaz5006.systeme.io/dashboard/login) */
   var ONGLETS = MODE === 'cercle' ? [
     /* L'appli Le Cercle : uniquement les livres du mois, la formation et les audios (l'accueil et « Moi » restent dans l'en-tête) */
     ['mon-carnet.html', 'carnet', 'Renaissance'], ['mon-suivi-mois.html', 'suivi', 'Libération'], ['mon-module.html', 'module', 'Module'],

@@ -664,3 +664,12 @@
   #mc-imprimer .mc-ico-imp{display:block}
   .mc-imp-choix{left:auto;right:0}
 }
+/* En-tête des livres : partout (ordinateur comme téléphone), seulement l'icône d'impression ; on navigue par la barre du Cercle */
+.mc-boutons{margin:0}
+.mc-boutons>*:not(.mc-imp-zone){display:none!important}
+.mc-imp-zone{position:absolute;top:1rem;right:1rem;z-index:5}
+#mc-imprimer{width:46px;height:46px;min-height:0;padding:0;border-radius:50%;display:grid;place-items:center}
+#mc-imprimer span{display:none}
+#mc-imprimer .mc-ico-imp{display:block}
+.mc-imp-choix{left:auto;right:0}
+@media (min-width:761px){.mc-imp-zone{top:1.6rem;right:1.6rem}}
