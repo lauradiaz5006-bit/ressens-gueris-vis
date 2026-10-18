@@ -2301,8 +2301,9 @@
      Restent dans l'onglet : les ancres de la page, la connexion (elle revient au livre) et le même livre (une autre étape). */
   racine.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.hasAttribute('download')) return;
-    /* dans l'appli, tout reste dans l'appli : un nouvel onglet ferait sortir vers le navigateur, sans retour */
-    if (window.GenesoliaModeAppli) { try { if (new URL(a.href, location.href).origin === location.origin) a.removeAttribute('target'); } catch (x) {} return; }
+    /* dans l'appli installée, tout reste dans l'appli (un nouvel onglet ferait sortir vers le navigateur, sans retour) ; dans un navigateur, même dans « Mon Cercle », les autres pages s'ouvrent dans un nouvel onglet */
+    var installee = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+    if (installee) { try { if (new URL(a.href, location.href).origin === location.origin) a.removeAttribute('target'); } catch (x) {} return; }
     if (a.target) return;
     var h = a.getAttribute('href') || '';
     if (!h || h.charAt(0) === '#' || /^(mailto:|tel:|javascript:)/i.test(h)) return;
