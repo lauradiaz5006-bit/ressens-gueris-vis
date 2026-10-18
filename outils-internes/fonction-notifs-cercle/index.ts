@@ -8,6 +8,10 @@
 // POST {} : appelée chaque heure par pg_cron. Envoie « Ma phrase du jour » à l'heure choisie, et les rappels du jour
 //        (table notifs_programme, case ok_envoyer cochée) à partir de 9h, heure de Paris : une seule fois chacun,
 //        et au plus un rappel du programme par appareil et par jour (le Cercle d'abord).
+//        Messages personnels du Cercle (une fois par jour, à partir de 9h, au plus un par appareil) : calculés pour chaque membre
+//        depuis SA date d'inscription (acces_premium.cree_le) : le jour où son étape s'ouvre (carnet, livret, séance audio, module),
+//        le jour où sa semaine commence, sa météo de fin d'étape ; les autres jours, un message de « Ton mois à toi »
+//        (mois personnel, d'après sa date de naissance, table reperes). Une lune du programme passe avant le message du jour.
 // Pas de vérification de jeton (verify_jwt désactivé) : les clés publiables de Supabase ne sont pas des jetons, et l'appel est sans danger.
 // GET ne donne que la clé publique ; l'envoi ne concerne que les rappels validés du jour, une seule fois (envoye_le) : le rappeler ne fait rien.
 // Secrets à créer par Laura dans Supabase (Edge Functions > Secrets) : VAPID_PUBLIC et VAPID_PRIVE
@@ -87,6 +91,80 @@ async function phrasesDuJour(sb: ReturnType<typeof base>, auj: string, h: number
   return ok;
 }
 
+/* ───── Messages personnels du Cercle ───── */
+const SITE = "https://genesolia.fr";
+const reduire = (n: number): number => { while (n > 9) n = String(n).split("").reduce((s, c) => s + +c, 0); return n; };
+const chiffres = (t: string | number) => String(t).replace(/\D/g, "").split("").reduce((s, c) => s + +c, 0);
+const dateISO = (d: Date) => d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+const jours = (a: string, b: string) => Math.round((Date.UTC(+b.slice(0, 4), +b.slice(5, 7) - 1, +b.slice(8, 10)) - Date.UTC(+a.slice(0, 4), +a.slice(5, 7) - 1, +a.slice(8, 10))) / 864e5);
+const phrase1 = (t: string, max = 170) => { const m = String(t || "").match(/^.+?[.!?](\s|$)/); let x = (m ? m[0] : String(t || "")).trim(); if (x.length > max) x = x.slice(0, max - 1).replace(/\s+\S*$/, "") + "…"; return x; };
+
+let TEXTES: Record<string, Record<string, string>> | null = null;
+async function textesMois() {
+  if (TEXTES) return TEXTES;
+  try {
+    const t = await (await fetch(SITE + "/assets/guide-textes.js")).text();
+    const w: Record<string, unknown> = {};
+    new Function("window", t)(w);
+    TEXTES = ((w.GUIDE_TEXTES as Record<string, unknown>)?.MOIS ?? null) as Record<string, Record<string, string>> | null;
+  } catch { TEXTES = null; }
+  return TEXTES;
+}
+
+/* L'étape de la personne, comme sur le site (assets/site.js, etape()) : un mois par étape depuis le jour de l'inscription */
+function etapeDe(creeLe: string, auj: string) {
+  const d = new Date(jourParis(new Date(creeLe)) + "T12:00:00"), n = new Date(auj + "T12:00:00");
+  let mo = (n.getFullYear() - d.getFullYear()) * 12 + (n.getMonth() - d.getMonth());
+  if (n.getDate() < d.getDate()) mo--;
+  const e = Math.min(Math.max(0, mo) + 1, 12);
+  const deb = new Date(d.getFullYear(), d.getMonth() + e - 1, d.getDate(), 12), fin = new Date(d.getFullYear(), d.getMonth() + e, d.getDate(), 12);
+  return { e, debut: dateISO(deb), duree: jours(dateISO(deb), dateISO(fin)) };
+}
+
+type Msg = { titre: string; texte: string; url: string };
+async function messagePerso(sb: ReturnType<typeof base>, userId: string, auj: string): Promise<{ msg: Msg | null; evenement: boolean }> {
+  const { data: acces } = await sb.from("acces_premium").select("offre, valide_jusqu, cree_le").eq("user_id", userId)
+    .gt("valide_jusqu", new Date().toISOString()).order("valide_jusqu", { ascending: false }).limit(1).maybeSingle();
+  if (!acces?.cree_le) return { msg: null, evenement: false };
+  const E = etapeDe(acces.cree_le, auj), k = jours(E.debut, auj);
+  if (k === 0) {
+    const mod = E.e <= 8 ? ", et ton module " + E.e + " de la formation" : "";
+    return { evenement: true, msg: E.e === 1
+      ? { titre: "Bienvenue dans Le Cercle", texte: "Ton étape 1 commence : ton carnet Renaissance, ton livret Libération, tes deux premières séances audio" + mod + ".", url: "/cercle.html" }
+      : { titre: "Ton étape " + E.e + " est ouverte", texte: "Un nouveau carnet Renaissance, un nouveau livret Libération, une nouvelle séance audio dans chaque cycle" + mod + ".", url: "/cercle.html" } };
+  }
+  if (k === 7 || k === 14 || k === 21) return { evenement: true, msg: { titre: "Ta semaine " + (k / 7 + 1) + " commence", texte: "Ton petit pas de la semaine t’attend dans Renaissance, et ta semaine dans Libération.", url: "/mon-carnet.html" } };
+  if (k === E.duree - 3) return { evenement: true, msg: { titre: "Ta météo de fin d’étape", texte: "Dix minutes pour ton bilan : tu verras tout le chemin parcouru depuis le début de ton étape.", url: "/mon-carnet.html" } };
+  // les autres jours : « Ton mois à toi », d'après sa date de naissance
+  const { data: rep } = await sb.from("reperes").select("date_naissance").eq("user_id", userId).maybeSingle();
+  const dn = String(rep?.date_naissance ?? ""), M = await textesMois();
+  if (!/^\d{4}-\d{2}-\d{2}/.test(dn) || !M) return { msg: null, evenement: false };
+  const an = +auj.slice(0, 4), mois = +auj.slice(5, 7), jour = +auj.slice(8, 10);
+  const mp = reduire(reduire(chiffres(dn.slice(8, 10)) + chiffres(dn.slice(5, 7)) + chiffres(an)) + mois), T = M[mp];
+  if (!T) return { msg: null, evenement: false };
+  const sujets: [string, string][] = [["theme", "Ton mois à toi"], ["amour", "Ton mois · en amour"], ["travail", "Ton mois · travail et décisions"], ["famille", "Ton mois · en famille"], ["defi", "Ton défi du mois"]];
+  const [cle, titre] = sujets[jour % sujets.length];
+  const texte = cle === "theme" ? "Mois personnel " + mp + " : " + T.theme + "." : phrase1(T[cle]);
+  return { evenement: false, msg: { titre, texte, url: "/mon-carnet.html#tonmois" } };
+}
+
+async function messagesPerso(sb: ReturnType<typeof base>, auj: string, lune: boolean, morts: Set<string>) {
+  const servis = new Set<string>();
+  const { data } = await sb.from("notifs_abonnements").select("endpoint, p256dh, auth, canaux, user_id, perso_jour")
+    .contains("canaux", ["cercle"]).not("user_id", "is", null).or("perso_jour.is.null,perso_jour.lt." + auj).limit(5000);
+  const cache = new Map<string, { msg: Msg | null; evenement: boolean }>();
+  for (const a of data ?? []) {
+    await sb.from("notifs_abonnements").update({ perso_jour: auj }).eq("endpoint", a.endpoint);   // réservé : une seule fois par jour
+    const r = cache.get(a.user_id) ?? await messagePerso(sb, a.user_id, auj);
+    cache.set(a.user_id, r);
+    if (!r.msg || (lune && !r.evenement)) continue;   // jour de lune : la lune du programme passe avant « Ton mois à toi »
+    const corps = JSON.stringify({ ...r.msg, tag: "perso-" + auj });
+    try { await webpush.sendNotification({ endpoint: a.endpoint, keys: { p256dh: a.p256dh, auth: a.auth } }, corps, { TTL: 43200 }); servis.add(a.endpoint); }
+    catch (x) { const c = (x as { statusCode?: number })?.statusCode; if (c === 404 || c === 410) morts.add(a.endpoint); }
+  }
+  return servis;
+}
+
 async function envoyer(sb: ReturnType<typeof base>) {
   if (!PUB || !PRIV) return json({ erreur: "Les secrets VAPID_PUBLIC et VAPID_PRIVE ne sont pas encore créés." }, 500);
   webpush.setVapidDetails("mailto:contact@genesolia.fr", PUB, PRIV);
@@ -95,13 +173,15 @@ async function envoyer(sb: ReturnType<typeof base>) {
   const phrases = await phrasesDuJour(sb, auj, h, morts);
   if (h < 9) { if (morts.size) await sb.from("notifs_abonnements").delete().in("endpoint", [...morts]); return json({ envoyees: 0, phrases }); }
 
+  const { data: luneJ } = await sb.from("notifs_programme").select("id").eq("canal", "cercle").eq("ok_envoyer", true).eq("jour", auj).ilike("titre", "%lune%").limit(1);
+  const servis = await messagesPerso(sb, auj, !!(luneJ && luneJ.length), morts);
   // On « réserve » d'abord les rappels du jour : un deuxième appel n'enverra rien en double.
   const { data: dues, error: e1 } = await sb.from("notifs_programme")
     .update({ envoye_le: new Date().toISOString() })
     .eq("ok_envoyer", true).is("envoye_le", null).gte("jour", hier).lte("jour", auj)
     .select("id, titre, texte, url, jour, canal, sauf_cercle");
   if (e1) return json({ erreur: e1.message }, 500);
-  if (!dues || !dues.length) { if (morts.size) await sb.from("notifs_abonnements").delete().in("endpoint", [...morts]); return json({ envoyees: 0, phrases }); }
+  if (!dues || !dues.length) { if (morts.size) await sb.from("notifs_abonnements").delete().in("endpoint", [...morts]); return json({ envoyees: 0, phrases, perso: servis.size }); }
   dues.sort((a, b) => (a.canal === b.canal ? 0 : a.canal === "cercle" ? -1 : 1));
 
   const abos: Abo[] = [];
@@ -115,6 +195,7 @@ async function envoyer(sb: ReturnType<typeof base>) {
   // Un seul rappel par appareil : le premier qui le concerne (le Cercle d'abord)
   const pour = new Map<number, Abo[]>();
   for (const a of abos) {
+    if (servis.has(a.endpoint)) continue;   // déjà un message personnel aujourd'hui : un seul par jour
     const c = a.canaux ?? [];
     const n = dues.find((d) => c.includes(d.canal) && !(d.sauf_cercle && c.includes("cercle")));
     if (n) pour.set(n.id, [...(pour.get(n.id) ?? []), a]);
@@ -138,7 +219,7 @@ async function envoyer(sb: ReturnType<typeof base>) {
   }
   // Les abonnements expirés (application désinstallée, notifications coupées) sont retirés
   if (morts.size) await sb.from("notifs_abonnements").delete().in("endpoint", [...morts]);
-  return json({ envoyees: bilan, phrases, retires: morts.size });
+  return json({ envoyees: bilan, phrases, perso: servis.size, retires: morts.size });
 }
 
 Deno.serve(async (req) => {
