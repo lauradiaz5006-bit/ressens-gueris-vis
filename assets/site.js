@@ -301,7 +301,7 @@ window.GENESOLIA_IMPRESSION = {
     audio: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.8"/>'
   };
   /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
-  var ESPACE_FORMATION = '';   /* l'espace élève de la formation sur Systeme.io (connexion : https://lauradiaz5006.systeme.io/dashboard/login) */
+  var ESPACE_FORMATION = 'https://genesolia.systeme.io/school/course/sors-de-la-boucle';   /* l'espace élève de la formation sur Systeme.io (connexion : https://genesolia.systeme.io/dashboard/login) */
   var ONGLETS = MODE === 'cercle' ? [
     /* L'appli Le Cercle : uniquement les livres du mois, la formation et les audios (l'accueil et « Moi » restent dans l'en-tête) */
     ['mon-carnet.html', 'carnet', 'Renaissance'], ['mon-suivi-mois.html', 'suivi', 'Libération'], ['mon-module.html', 'module', 'Module'],
