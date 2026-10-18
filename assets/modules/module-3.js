@@ -10,7 +10,7 @@ window.GENESOLIA_CARNET = {
   page: 'mon-module.html',
   pdf: 'assets/formation/cahier-module-3.pdf',
   titre: 'Les programmes invisibles',
-  objectifs: { principal: "Voir les croyances et les loyautés qui décident à ta place.", specifique: "Attraper les phrases de famille qui tournent dans ta tête et écrire tes propres phrases de permission." },
+  objectifs: { principal: "Identifier les programmes invisibles qui peuvent entretenir les schémas répétitifs.", specifique: "Reconnaître les croyances héritées, les loyautés invisibles et les injonctions, repérer les décalages entre ressentir, dire et faire, puis apprendre à utiliser la phrase de permission et l'outil « attraper la phrase »." },
   sousTitre: "Les phrases, les croyances et les loyautés qui décident encore à ta place.",
   citation: "Un programme a protégé quelqu'un, un jour. On ne le combat pas : on le remercie, et on le met à jour.",
 
