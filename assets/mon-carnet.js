@@ -662,6 +662,7 @@
       '<p class="mc-note mc-mention">Ce carnet propose une démarche symbolique de réflexion et de développement personnel. Il ne remplace pas un accompagnement médical ou psychologique.</p>';
   } });
   function autreLivre() {
+    return '';   /* retiré : chaque livre reste propre, on passe de l'un à l'autre par la barre de l'appli */
     var autre = SUIVI ? { sur: 'Le carnet « J’avance »', texte: 'Ton côté pour avancer : ta roue de la vie, ton objectif du mois, tes petits pas et ton intention qui prend vie.', lien: vers('mon-carnet.html'), bouton: 'Ouvrir mon carnet du mois' }
       : { sur: 'Le suivi « Je me libère »', texte: 'Ton côté pour te libérer : voir ce qui se rejoue, remonter à la source, déposer ce qui ne t’appartient pas, poser un geste nouveau.', lien: vers('mon-suivi-mois.html'), bouton: 'Ouvrir mon suivi du mois' };
     return '<aside class="mc-autre"><p class="mc-sur">Ton autre livre du mois</p><h3 class="mc-h">' + autre.sur + '</h3><p>' + autre.texte + '</p><p><a class="btn btn-plein" href="' + autre.lien + '">' + autre.bouton + '</a></p></aside>';
@@ -726,6 +727,7 @@
       '<p class="mc-image-actions"><a class="btn btn-plein" href="' + esc(C.image) + '" download>Enregistrer l’image</a> <a class="mc-insta" href="https://www.instagram.com/genesolia.officiel/" target="_blank" rel="noopener">Voir sur Instagram</a></p></section>';
   }
   function lienSuivi() {
+    return '';   /* retiré : plus de lien d'un livre à l'autre dans les pages */
     if (!C.suivi) return '';
     return '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">' + (ET ? 'À cette étape' : 'Ce mois-ci') + ', dans ton suivi « Je me libère »</p><p><b>' + esc(C.suivi.titre) + '.</b> ' + md(C.suivi.texte) + '</p><p><a class="btn btn-trait" href="' + esc(vers('mon-suivi-mois.html')) + '">Ouvrir mon suivi</a></p></aside>';
   }
@@ -896,7 +898,7 @@
       return '<section class="mc-etape"><h3><span>1</span> Là, maintenant</h3><div class="mc-rappel" data-rappel-souhait hidden></div>' + curseur('int-fin', C.intensiteQ || 'À quel point ce thème pèse-t-il dans ta vie aujourd’hui ?', 'presque pas', 'énormément') + '<div class="mc-compare-int" id="mc-compare-int"></div></section>' +
         '<section class="mc-etape"><h3><span>2</span> ' + esc(C.bilanTitre || 'Ce que ce mois t’a apporté') + '</h3>' + (C.bilan || []).map(function (b) { return zone(b.k, b.q, { lignes: 3, ph: b.ph }); }).join('') +
           zone('fin-merci', 'Pour quoi remercies-tu la personne que tu étais au début du mois ?', { lignes: 2, ph: 'Exemple : pour avoir osé regarder, même quand c’était inconfortable.' }) + '</section>' +
-        (C.carnet ? '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">Avec ton carnet « J’avance »</p><p><b>' + esc(C.carnet.titre) + '.</b> ' + md(C.carnet.texte) + '</p><p><a class="btn btn-trait" href="mon-carnet.html?mois=' + esc(C.mois) + '">Ouvrir mon carnet du mois</a></p></aside>' : '') +
+        (false && C.carnet ? '<aside class="mc-encadre mc-encadre-rose mc-suivi"><p class="mc-encadre-t">Avec ton carnet « J’avance »</p><p><b>' + esc(C.carnet.titre) + '.</b> ' + md(C.carnet.texte) + '</p><p><a class="btn btn-trait" href="mon-carnet.html?mois=' + esc(C.mois) + '">Ouvrir mon carnet du mois</a></p></aside>' : '') +
         aVenir() + '<p class="mc-note mc-mention">Ce suivi propose une démarche symbolique de réflexion et de développement personnel. Il ne remplace pas un accompagnement médical ou psychologique.</p>';
     } });
     return P;
@@ -1787,6 +1789,7 @@
   }
   /* ───── Le pont entre les deux livres du mois : chaque semaine annonce la même semaine de l'autre livre ───── */
   function chargerPont() {
+    return;   /* retiré : « Cette semaine dans ton autre livre » dispersait */
     var src = (SUIVI ? 'assets/carnets/' : 'assets/suivi/') + C.mois + '.js' + (window.GENESOLIA_V ? '?v=' + window.GENESOLIA_V : '');
     fetch(src).then(function (r) { return r.ok ? r.text() : ''; }).then(function (t) {
       if (!t) return;
@@ -2297,7 +2300,10 @@
   /* ───── Rester dans son livre : les liens vers une autre page s'ouvrent dans un nouvel onglet ─────
      Restent dans l'onglet : les ancres de la page, la connexion (elle revient au livre) et le même livre (une autre étape). */
   racine.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.target || a.hasAttribute('download')) return;
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.hasAttribute('download')) return;
+    /* dans l'appli, tout reste dans l'appli : un nouvel onglet ferait sortir vers le navigateur, sans retour */
+    if (window.GenesoliaModeAppli) { try { if (new URL(a.href, location.href).origin === location.origin) a.removeAttribute('target'); } catch (x) {} return; }
+    if (a.target) return;
     var h = a.getAttribute('href') || '';
     if (!h || h.charAt(0) === '#' || /^(mailto:|tel:|javascript:)/i.test(h)) return;
     var u; try { u = new URL(h, location.href); } catch (x) { return; }
