@@ -878,7 +878,7 @@ window.GENESOLIA_IMPRESSION = {
     var partage = '<svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true" style="display:inline;vertical-align:-3px"><path d="M10 2v10M6 6l4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9H4v9h12V9h-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
     f.innerHTML = '<div class="appli-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
       '<img src="' + APPLI.icone + '" alt="" width="64" height="64"><h2>' + APPLI.nom + ' sur ton téléphone</h2>' +
-      (integre ? '<p class="appli-alerte"><b>Tu es dans le navigateur d’une autre appli.</b> Pour installer ' + APPLI.nom + ', ouvre d’abord cette page dans ' + (iOS ? 'Safari' : 'Chrome') + ' (menu <b>•••</b> puis « Ouvrir dans le navigateur », ou copie le lien plus bas).</p>' : '') +
+      (integre ? '<p class="appli-alerte"><b>' + (/GSA\//i.test(ua) ? 'Tu es dans l’appli Google.' : 'Tu es dans le navigateur d’une autre appli.') + '</b> Pour installer ' + APPLI.nom + ', ouvre d’abord cette page dans ' + (iOS ? 'Safari' : 'Chrome') + ' (menu <b>•••</b> puis « Ouvrir dans le navigateur », ou copie le lien plus bas).</p>' : '') +
       '<p class="appli-intro">C’est gratuit et ça prend 30 secondes :</p>' +
       (iOS && chromeIOS
         ? '<ol><li>Touche le bouton <b>Partager</b> ' + partage + ' en haut à droite, dans la barre d\'adresse.</li><li>Choisis <b>Ajouter à l\'écran d\'accueil</b>.</li><li>Touche <b>Ajouter</b> : l\'icône ' + APPLI.nom + ' apparaît avec tes applis.</li></ol>'
@@ -893,7 +893,7 @@ window.GENESOLIA_IMPRESSION = {
         : '<ol><li>Dans Chrome ou Edge, clique sur l\'icône <b>Installer</b> à droite de la barre d\'adresse (un petit écran avec une flèche).</li><li>Confirme avec <b>Installer</b>.</li><li>' + APPLI.nom + ' s\'ouvre dans sa propre fenêtre, et se retrouve avec tes applications.</li></ol><p>Sur téléphone, ouvre genesolia.fr et touche « Installer l\'appli » en bas de la page.</p>') +
       (invite ? '<p><button type="button" class="btn btn-plein" data-installer-direct>Installer maintenant</button></p>' : '') +
       /* toujours : que faire si l'option n'apparaît pas */
-      '<div class="appli-astuce"><p><b>Tu ne vois pas « Sur l’écran d’accueil » ou « Installer » ?</b></p><p>Ouvre cette page dans ' + (iOS ? '<b>Safari</b>' : android ? '<b>Chrome</b>' : '<b>Safari</b> (iPhone) ou <b>Chrome</b> (Android)') + ' : les autres navigateurs, et les liens ouverts depuis Facebook, Instagram ou un e-mail, ne proposent pas toujours l’option. Copie le lien, puis colle-le dans ' + (iOS ? 'Safari' : android ? 'Chrome' : 'Safari ou Chrome') + '.</p>' +
+      '<div class="appli-astuce"><p><b>Tu ne vois pas « Sur l’écran d’accueil » ou « Installer » ?</b></p><p>Ouvre cette page dans ' + (iOS ? '<b>Safari</b>' : android ? '<b>Chrome</b>' : '<b>Safari</b> (iPhone) ou <b>Chrome</b> (Android)') + ' : l’appli <b>Google</b> (la recherche Google), et les liens ouverts depuis Facebook, Instagram ou un e-mail, ne proposent pas l’option. Copie le lien, puis colle-le dans ' + (iOS ? 'Safari' : android ? 'Chrome' : 'Safari ou Chrome') + '.</p>' +
       '<p><button type="button" class="btn btn-trait" data-copier-lien>Copier le lien</button></p></div>' +
       '<p class="appli-note">Gratuit, sans téléchargement dans un store. Tes outils s\'ouvrent en plein écran, comme une vraie appli.</p></div>';
     function fermer() { f.remove(); }
