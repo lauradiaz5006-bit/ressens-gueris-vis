@@ -561,8 +561,7 @@
   }
   function introSemaine(i) {
     return '<div class="mc-sem-intro"><p class="mc-sem-titre">Semaine ' + (i + 1) + ' · ' + ETAPES_SEM[i][0] + '</p><p>' + ETAPES_SEM[i][1] + '</p></div>' +
-      '<p class="mc-pont" data-pont="' + i + '" hidden></p>' +
-      '<p class="mc-seances-lien"><b>Tes deux séances du mois</b>, à écouter quand tu veux : <a href="#seance">la visualisation</a> · <a href="' + esc(vers('mon-suivi-mois.html')) + '#meditation">la libération</a></p>';
+      '<p class="mc-pont" data-pont="' + i + '" hidden></p>';
   }
   function rappelGestes() {
     return A ? '<p class="mc-pourquoi mc-rappel-gestes">Tes gestes du mois t’accompagnent toutes les semaines : <a href="#gestes">les voir et les cocher</a>.</p>' : '';
@@ -834,9 +833,9 @@
      L'ancre #seance-cN-MM met en avant, dans « Mes séances », la séance qui correspond au fichier de l'étape (même mois que assets/seances.js). */
   function seanceUrl(cy) { return 'mes-seances.html#seance-c' + cy + '-' + String(C.mois).split('-')[1]; }
   function audioEncart() {
-    return '<aside class="mc-encadre mc-encadre-or mc-audio-moment" id="mc-audio-moment"><p class="mc-encadre-t">Ton audio à écouter : c’est le moment</p>' +
+    return '<aside class="mc-encadre mc-audio-moment mc-audio-vif" id="mc-audio-moment"><p class="mc-encadre-t">Tes audios · c’est le moment de les écouter</p>' +
       '<p>Cette semaine, tu libères. C’est le meilleur moment pour écouter ta méditation audio du mois, avant ton protocole : au calme, assis·e ou allongé·e, quand personne ne te dérange. Tu pourras ensuite y revenir aussi souvent que tu veux.</p>' +
-      '<p><a class="btn btn-plein" href="' + seanceUrl(2) + '">Écouter ma séance du mois</a></p></aside>';
+      '<p><a class="btn mc-btn-audio" href="' + seanceUrl(2) + '">Écouter mes séances audio</a></p></aside>';
   }
   function suiviPages() {
     var P = [], S = window.GENESOLIA_SAISONS, sa = S && S[MOIS_SAISON];
@@ -1604,7 +1603,7 @@
     if (!series.length) { window.alert('Place d’abord les curseurs de ta roue : elle se dessinera, puis tu pourras l’imprimer.'); return; }
     var w = window.open('', '_blank'); if (!w) return;
     var lignes = ROUE.map(function (d) { return '<tr><td>' + esc(d[2]) + '</td><td>' + (typeof a[d[0]] === 'number' ? a[d[0]] : '') + '</td>' + (moment === 'fin' ? '<td>' + (typeof b[d[0]] === 'number' ? b[d[0]] : '') + '</td>' : '') + '</tr>'; }).join('');
-    w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ma roue de la vie · ' + esc(C.nomMois) + '</title><style>@page{size:A4;margin:16mm}body{font-family:Georgia,serif;color:#3B2433;max-width:720px;margin:1rem auto;padding:0 1rem}h1{color:#6B2F5B;font-weight:400;margin-bottom:.2rem}svg{width:100%;max-width:500px;display:block;margin:1rem auto}.mc-svg-lab{font:12px sans-serif;fill:#5A4752}table{width:100%;border-collapse:collapse;font-size:14px}td,th{border-bottom:1px solid #EBCFD5;padding:.4rem;text-align:left}.l span{margin-right:1.2rem}.l i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.3rem;vertical-align:-1px}p.n{font-size:12px;color:#7A6570}</style></head><body>' +
+    w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ma roue de la vie · ' + esc(C.nomMois) + '</title><style>@page{size:A4;margin:20mm}body{font-family:Georgia,serif;color:#3B2433;max-width:720px;margin:1rem auto;padding:0 1rem}h1{color:#6B2F5B;font-weight:400;margin-bottom:.2rem}svg{width:100%;max-width:500px;display:block;margin:1rem auto}.mc-svg-lab{font:12px sans-serif;fill:#5A4752}table{width:100%;border-collapse:collapse;font-size:14px}td,th{border-bottom:1px solid #EBCFD5;padding:.4rem;text-align:left}.l span{margin-right:1.2rem}.l i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:.3rem;vertical-align:-1px}p.n{font-size:12px;color:#7A6570}</style></head><body>' +
       '<h1>Ma roue de la vie</h1><p>' + esc(C.nomMois) + (prenom ? ' · ' + esc(prenom) : '') + '</p>' + radar(series, 'Ma roue de la vie') +
       (series.length > 1 ? '<p class="l"><span><i style="background:' + COUL_DEBUT + '"></i>Début du mois</span><span><i style="background:' + COUL_FIN + '"></i>Fin du mois</span></p>' : '') +
       '<table><tr><th>Domaine</th><th>Début</th>' + (moment === 'fin' ? '<th>Fin</th>' : '') + '</tr>' + lignes + '</table><p class="n">Genesolia · Le carnet du mois. Garde cette feuille près de toi, et compare-la le mois prochain.</p>' +
@@ -1703,10 +1702,14 @@
   var courante = 0, enCours = false;
   var reduit = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function modeLivre() { return window.matchMedia('(min-width: 1200px)').matches; }
+  /* Les trois livres se reconnaissent d'un coup d'œil : le carnet en clair (je m'aligne), le suivi en prune (je libère), le module aux couleurs de la formation */
+  var THEME = SUIVI ? 'suivi' : MODULE ? 'module' : 'carnet';
+  var RUBAN = SUIVI ? 'Ici, je libère' : MODULE ? 'Formation · Sors de la boucle' : 'Ici, je m’aligne';
   function construire() {
+    racine.classList.add('mc-t-' + THEME);
     var fond = DECOR.couverture ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.couverture)) + '\')"' : '';
     racine.innerHTML =
-      '<header class="mc-tete"' + fond + '><p class="mc-sur">' + (ET ? (SUIVI ? 'Le Cercle · Ton suivi « Je me libère » · étape ' : 'Le Cercle · Ton carnet « J’avance » · étape ') + ET.n + ' sur 12' : MODULE ?'Cycle 2 · Sors de la boucle · Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Cycle 1 · De la peur à la paix, en alignement avec soi · ' : 'Le carnet « J’avance » ') + (T2 ? esc(NOM_MOIS) : esc(de(NOM_MOIS))) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
+      '<header class="mc-tete"' + fond + '><p class="mc-ruban">' + RUBAN + '</p><p class="mc-sur">' + (ET ? (SUIVI ? 'Le Cercle · Ton suivi « Je me libère » · étape ' : 'Le Cercle · Ton carnet « J’avance » · étape ') + ET.n + ' sur 12' : MODULE ? 'Module ' + esc(C.module) + ' sur 8' : (COEUR ? 'Cycle 2 · Comment j’aime, et comment aimer plus grand · ' + esc(NOM_MOIS) + ' ' + esc(String(C.nomMois).split(' ')[1] || '') : 'Le Cercle · ' + (SUIVI ? 'Ton suivi « Je me libère » ' : T2 ? 'Cycle 1 · De la peur à la paix, en alignement avec soi · ' : 'Le carnet « J’avance » ') + (T2 ? esc(NOM_MOIS) : esc(de(NOM_MOIS))) + ' ' + esc(String(C.nomMois).split(' ')[1] || ''))) + '</p>' +
         '<p class="mc-perso" id="mc-perso" hidden></p><h1>' + esc(ET ? titreEtape() : C.titre) + '</h1><p>' + esc(C.sousTitre) + '</p>' + navEtapes() + (SUIVI ? departHtml() : '') +
         (SUIVI || CARNET ? '<p class="mc-livre-note">' + esc(LIVRE_NOTE) + '</p>' : '') +
         '<div class="mc-barre"><div class="mc-progres" aria-label="Avancement du carnet"><span id="mc-progres-barre"></span></div><span id="mc-progres-texte"></span><span class="mc-etat" id="mc-etat" aria-live="polite"></span></div>' +
@@ -1717,13 +1720,13 @@
           (C.pdf ? '<a class="btn btn-trait" href="' + esc(C.pdf) + '" download>Version papier vierge (PDF)</a>' : '') +
           (MODULE ? '<a class="btn btn-trait" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Mon espace de formation</a><a class="btn btn-trait" href="mon-carnet.html">Mon carnet du mois</a>' :
             (SUIVI ? '<a class="btn btn-trait" href="' + esc(vers('mon-carnet.html')) + '">Mon carnet du mois</a>' : '<a class="btn btn-trait" href="' + esc(vers('mon-suivi-mois.html')) + '">Mon suivi du mois</a>') +
-            '<a class="btn btn-trait" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Mon audio du mois</a>' +
+            '<a class="btn mc-btn-audio" href="' + seanceUrl(SUIVI ? 2 : 1) + '">Écouter mes séances audio</a>' +
             '<button type="button" class="btn btn-trait" data-ics>Ajouter mes rappels à mon agenda</button>') + '</div>' +
         '<div class="mc-compte" id="mc-compte" hidden></div></header>' +
       '<nav class="mc-onglets" aria-label="' + (MODULE ? 'Pages du module' : 'Pages du carnet') + '">' + PAGES.map(function (p, i) { return '<button type="button" data-page="' + i + '"' + (p.sem != null ? ' class="mc-onglet-sem"' : '') + '><span>' + (p.sem != null ? '✦' : '•') + '</span>' + esc(p.nom) + '</button>'; }).join('') + '</nav>' +
       '<div class="mc-livre" id="mc-livre">' + PAGES.map(function (p, i) {
         return '<article class="mc-page" id="page-' + p.id + '" data-p="' + i + '"' + (i ? ' hidden' : '') + ' aria-label="Page ' + (i + 1) + ' : ' + esc(p.nom) + '">' +
-          '<p class="mc-pagenum">Page ' + (i + 1) + ' sur ' + PAGES.length + ' · ' + esc(p.nom) + '</p>' +
+          '<p class="mc-ruban-page">' + RUBAN + '</p><p class="mc-pagenum">Page ' + (i + 1) + ' sur ' + PAGES.length + ' · ' + esc(p.nom) + '</p>' +
           '<div class="mc-g">' + p.g() + '<span class="mc-folio">' + (2 * i + 1) + '</span></div>' +
           '<div class="mc-d">' + p.d() +
             '<div class="mc-nav">' + (i ? '<button type="button" class="btn btn-trait" data-page="' + (i - 1) + '">Page précédente</button>' : '<span></span>') + (i < PAGES.length - 1 ? '<button type="button" class="btn btn-plein" data-page="' + (i + 1) + '">Page suivante</button>' : '') + '</div>' +
@@ -2290,6 +2293,37 @@
     setTimeout(function () { window.print(); }, 250);
   }
   window.addEventListener('afterprint', finImpression);
+  /* ───── Rester dans son livre : les liens vers une autre page s'ouvrent dans un nouvel onglet ─────
+     Restent dans l'onglet : les ancres de la page, la connexion (elle revient au livre) et le même livre (une autre étape). */
+  racine.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a || a.target || a.hasAttribute('download')) return;
+    var h = a.getAttribute('href') || '';
+    if (!h || h.charAt(0) === '#' || /^(mailto:|tel:|javascript:)/i.test(h)) return;
+    var u; try { u = new URL(h, location.href); } catch (x) { return; }
+    if (u.origin === location.origin && (/\/login\.html$/.test(u.pathname) || u.pathname === location.pathname)) return;
+    a.target = '_blank'; a.rel = 'noopener';
+  }, true);
+  /* ───── Avant d'écrire : où vont les réponses (une seule fois, « OK, j'ai compris ») ───── */
+  var CLE_AVIS = 'genesolia-avis-ecriture';
+  function avisVu() { try { return localStorage.getItem(CLE_AVIS) === '1'; } catch (x) { return false; } }
+  function avisEcriture(champ) {
+    if (avisVu() || document.getElementById('mc-avis-ecriture')) return;
+    var f = document.createElement('div');
+    f.className = 'appli-fenetre'; f.id = 'mc-avis-ecriture'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-labelledby', 'mc-avis-t');
+    f.innerHTML = '<div class="appli-carte mc-avis-carte"><h2 id="mc-avis-t">Avant d’écrire</h2>' +
+      '<p><b>Tes réponses s’enregistrent toutes seules</b>, au fil de ce que tu écris.</p>' +
+      '<p>Si tu es connecté·e, elles sont gardées dans ton espace, chiffrées. <b>L’équipe Genesolia ne les lit jamais.</b> La première fois, on te demande ton accord pour les garder.</p>' +
+      '<p>Sans compte, elles restent seulement sur cet appareil et s’effacent quand tu fermes la page.</p>' +
+      '<p>Tu préfères le papier ? Tu peux aussi imprimer ton livre et écrire à la main.</p>' +
+      '<p><button type="button" class="btn btn-plein" data-avis-ok>OK, j’ai compris</button></p></div>';
+    document.body.appendChild(f);
+    var ok = f.querySelector('[data-avis-ok]'); ok.focus();
+    ok.addEventListener('click', function () { try { localStorage.setItem(CLE_AVIS, '1'); } catch (x) {} f.remove(); if (champ && champ.focus) champ.focus(); });
+  }
+  racine.addEventListener('focusin', function (e) {
+    var t = e.target; if (!t || !t.matches || !t.matches('textarea, input[type=text], input:not([type])')) return;
+    if (!avisVu()) avisEcriture(t);
+  });
   window.GenesoliaCarnet = { aller: aller, preparerImpression: preparerImpression, finImpression: finImpression };
 
   function demarrer() { construire(); tonMois(); majSemainesMaya(); charger(); }

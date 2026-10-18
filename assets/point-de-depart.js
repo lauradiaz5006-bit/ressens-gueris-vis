@@ -96,7 +96,7 @@
     racine.addEventListener('input', changement);
     racine.addEventListener('change', changement);
     racine.addEventListener('pointerup', function (e) { if (e.target.type === 'range') changement({ target: e.target }); });
-    var h = (location.hash || '').replace('#etape-', ''); if (/^[1-5]$/.test(h)) etape = +h - 1;
+    /* Le point de départ s'ouvre toujours sur l'onglet 1, même quand un lien pointe vers une étape (#etape-N) */
   }
   function aller(i) {
     if (i < 0 || i >= ETAPES.length) return;
