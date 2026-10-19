@@ -2083,7 +2083,7 @@
     clearTimeout(minuteur);
     if (!user || !sb) { etat('Gardé jusqu’à la fermeture du navigateur'); return; }
     var CF = window.GenesoliaCoffre;
-    if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); return; }
+    if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
       (CF ? CF.ecrire(sb, user, CLE, D) : sb.from('carnets').upsert({ user_id: user.id, mois: CLE, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' }))
@@ -2126,7 +2126,7 @@
       (CF ? CF.lire(sb, user, CLE) : sb.from('carnets').select('data').eq('user_id', user.id).eq('mois', CLE).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; })).then(function (distant) {
         D = fusion(distant, local);
         appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
-        if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
+        if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
         else { etat('Enregistré et chiffré dans ton espace'); if (local && Object.keys(local.v || {}).length) sauver(); }
       });
       sb.from('resultats').select('titre,donnees,cree_le').eq('outil', 'meteo').order('cree_le', { ascending: false }).limit(24).then(function (x) {

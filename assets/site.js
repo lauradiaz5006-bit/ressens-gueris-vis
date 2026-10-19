@@ -42,14 +42,14 @@ window.GenesoliaCoffre = (function () {
   function demander(zone, sb, ok) {
     if (!zone) return;
     zone.hidden = false;
-    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ton espace privé, chiffré</p><p>Pour retrouver tes réponses sur tous tes appareils, elles sont gardées dans ton espace, <b>chiffrées</b>, et l’équipe Genesolia ne les lit jamais. Tu peux tout effacer quand tu veux depuis Mon espace.</p>' +
-      '<p><button type="button" class="btn btn-plein" data-coffre-oui>J’accepte que mes réponses soient gardées</button> <button type="button" class="btn btn-trait" data-coffre-non>Pas maintenant</button></p>' +
-      '<p class="coffre-note">Sans ton accord, tes réponses restent seulement sur cet appareil. <a href="confidentialite.html">Mes données</a></p></div>';
+    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ce que tu écris reste à toi</p><p><b>Genesolia n’a accès à rien de ce que tu écris.</b> Tes réponses sont enregistrées sur ton appareil.</p><p>Tu veux aussi les retrouver sur ton téléphone, ta tablette ou ton ordinateur ? Elles peuvent être gardées dans ton espace sous forme de <b>texte codé</b> : personne chez Genesolia ne peut le lire.</p>' +
+      '<p><button type="button" class="btn btn-plein" data-coffre-oui>Oui, je veux les retrouver partout</button> <button type="button" class="btn btn-trait" data-coffre-non>Seulement sur cet appareil</button></p>' +
+      '<p class="coffre-note">Tu peux changer d’avis et tout effacer quand tu veux, depuis Mon espace. <a href="confidentialite.html">Mes données</a></p></div>';
     zone.querySelector('[data-coffre-oui]').onclick = function (e) {
       e.target.disabled = true;
       sb.auth.updateUser({ data: { coffre_accord: new Date().toISOString() } }).then(function (r) {
         if (r && r.error) { e.target.disabled = false; return; }
-        zone.innerHTML = '<p class="coffre-merci">Merci. Tes réponses sont maintenant gardées, chiffrées, dans ton espace.</p>';
+        zone.innerHTML = '<p class="coffre-merci">C’est fait : tu retrouves tes réponses sur tous tes appareils, en texte codé. Genesolia ne peut pas les lire.</p>';
         setTimeout(function () { zone.hidden = true; }, 4000);
         ok && ok();
       });

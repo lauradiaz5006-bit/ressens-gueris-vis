@@ -278,7 +278,7 @@
       Object.keys(P).forEach(function (c) { if (c.slice(0, 7) !== m) return; jours++; if (P[c].r === 'o') { oui++; somme += P[c].i || 0; } });
       h += '<div class="ce-frise" aria-hidden="true">' + fr + '</div>' +
         '<div class="ce-ligne"><span>' + (jours ? 'Ce mois-ci : ' + oui + ' jour' + (oui > 1 ? 's' : '') + ' sur ' + jours : 'Touche oui ou non, chaque soir') + '</span>' + (oui ? '<span>force moyenne ' + Math.round(somme / oui) + '/10</span>' : '') + '</div>' +
-        '<p class="ce-discret">Gardé sur cet appareil seulement, rien n’est envoyé.</p>';
+        '<p class="ce-discret">Enregistré sur cet appareil seulement. Genesolia n’y a pas accès.</p>';
       z.innerHTML = h; typo(z);
       z.querySelectorAll('[data-r]').forEach(function (b) {
         b.addEventListener('click', function () {
