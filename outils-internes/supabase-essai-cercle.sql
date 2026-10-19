@@ -6,7 +6,7 @@
 --   - si l'accès est déjà ouvert : ne change rien (statut 'deja') ;
 --   - si un essai a déjà été utilisé et est fini : ne rouvre rien (statut 'utilise') ;
 --   - prépare le mail « Bienvenue dans Le Cercle » (table mails, envoyé par N8N dans les 10 minutes)
---     et une alerte pour Laura sur contact@genesolia.fr (à inscrire sur Systeme.io pour la formation).
+--     et une alerte pour Laura sur contact@genesolia.fr (l'inscription Systeme.io se fait seule : fonction inscription-formation).
 -- Plus tard, le paiement Stripe passera la même ligne en 'abonnement' (stripe_enregistrer) en gardant cree_le :
 -- les étapes continuent sans repartir de zéro.
 
@@ -67,7 +67,7 @@ begin
     'Le Cercle', 'Une nouvelle inscrite',
     coalesce(prenom, '(sans prénom)') || ' · ' || usr.email || E'\n\n' ||
     'Son mois offert court jusqu''au ' || fin_txt || '.' || E'\n\n' ||
-    'À faire : l''inscrire sur Systeme.io pour la formation « Sors de la boucle ».',
+    'Elle est inscrite automatiquement à la formation « Sors de la boucle » sur Systeme.io (tag « Le Cercle ») dès qu''elle ouvre son espace. Rien à faire.',
     true);
 
   return jsonb_build_object('ok', true, 'statut', 'ouvert', 'fin', fin);

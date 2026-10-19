@@ -573,6 +573,12 @@
     }).then(function (S) {
       E.S = S;
       if (!sb) return router();
+      function inscrireFormation(s) {   /* inscription automatique à « Sors de la boucle » sur Systeme.io (fonction inscription-formation), une fois par compte */
+        var k = 'genesolia-formation-inscrite-' + s.user.id;
+        try { if (localStorage.getItem(k)) return; } catch (e) {}
+        fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/inscription-formation', { method: 'POST', keepalive: true, headers: { Authorization: 'Bearer ' + s.access_token, 'Content-Type': 'application/json' }, body: '{}' })
+          .then(function (r) { return r.json(); }).then(function (d) { if (d && d.ok) { try { localStorage.setItem(k, '1'); } catch (e) {} } }).catch(function () {});
+      }
       sb.auth.getSession().then(function (r) {
         var s = r && r.data && r.data.session;
         if (!s) return router();
@@ -582,6 +588,7 @@
         if (window.GenesoliaNotifs) window.GenesoliaNotifs.rafraichir(sb);
         return Promise.all([membre(s.user), lireCarnet(s.user, E.C), rep, lirePoint(s.user)]).then(function (x) {
           E.membre = !!x[0]; E.carnet = x[1]; E.point = x[3];
+          if (E.membre) inscrireFormation(s);
           /* Le suivi suit le mois d'abonnement (étape 1 à 12, assets/site.js) : on affiche celui de l'étape en cours */
           var A = window.GenesoliaAcces;
           if (!E.membre || !A || !A.etape) return router();

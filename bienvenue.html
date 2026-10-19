@@ -83,6 +83,12 @@
       el.hidden = false;
     }
     if (!sb) return;
+    function inscrireFormation(s) {   /* inscription automatique à « Sors de la boucle » sur Systeme.io (fonction inscription-formation), une fois par compte */
+      var k = 'genesolia-formation-inscrite-' + s.user.id;
+      try { if (localStorage.getItem(k)) return; } catch (e) {}
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/inscription-formation', { method: 'POST', keepalive: true, headers: { Authorization: 'Bearer ' + s.access_token, 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.json(); }).then(function (d) { if (d && d.ok) { try { localStorage.setItem(k, '1'); } catch (e) {} } }).catch(function () {});
+    }
     sb.auth.getSession().then(function (r) {
       var s = r.data && r.data.session;
       if (!s) { location.replace('essai.html'); return; }
@@ -95,6 +101,7 @@
         var v = q.data && q.data.valide_jusqu && new Date(q.data.valide_jusqu);
         if (!v || v < new Date()) { location.replace('essai.html'); return; }   /* pas encore membre : on passe par l'essai */
         afficherFin(v);
+        inscrireFormation(s);
       });
     });
   })();
