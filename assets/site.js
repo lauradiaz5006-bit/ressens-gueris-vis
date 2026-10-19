@@ -624,7 +624,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Bandeau fin en haut des pages du site : Le Cercle, 1er mois offert (pas dans le tunnel, ni pour les membres) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
-  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html'];
+  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html'];
   var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
   if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
@@ -765,8 +765,33 @@ window.GENESOLIA_IMPRESSION = {
   };
   var PETIT_ECRAN = false;   /* avant : sur téléphone, le carré attendait 60 % de lecture ; il s'affiche maintenant tout de suite partout */
   function pdFait() { try { var x = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); return !!(x && x.v && x.v.fait); } catch (e) { return false; } }
+  /* Deuxième petit carré : la première séance audio offerte (cycle 1 ou cycle 2), contre l'e-mail.
+     Il prend la place du premier quand le point de départ est fait, ou quand le premier a été fermé. */
+  function seanceRecue() { try { return !!localStorage.getItem('genesolia-seance-offerte'); } catch (e) { return false; } }
+  function carreSeance() {
+    if (window.GenesoliaMembre || seanceRecue() || page === 'seance-offerte.html' || page === 'point-de-depart.html') return;
+    if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
+    try { if (sessionStorage.getItem('carre-seance-ferme') === '1') return; } catch (e) {}
+    var c = document.createElement('aside');
+    c.className = 'carre-cercle carre-seance';
+    c.setAttribute('aria-label', 'Ta première séance audio offerte');
+    c.innerHTML =
+      '<button type="button" class="cc-fermer" aria-label="Fermer">×</button>' +
+      '<img src="assets/cercle/couv-renaissance-petite.webp" alt="" width="60" height="85">' +
+      '<div><p class="cc-sur">Offert · séance audio complète</p>' +
+        '<p class="cc-titre">Ta première séance, offerte</p>' +
+        '<p class="cc-texte">Laquelle te parle le plus aujourd’hui ?</p>' +
+        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c1-10"><b>Cycle 1 · Sortir de l’alerte</b><span>Souffler, retrouver ta sécurité</span></a>' +
+        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c2-10"><b>Cycle 2 · L’arbre des liens</b><span>Comprendre comment tu aimes</span></a></div>';
+    c.querySelector('.cc-fermer').addEventListener('click', function () { c.remove(); try { sessionStorage.setItem('carre-seance-ferme', '1'); } catch (e) {} });
+    document.body.appendChild(c);
+    requestAnimationFrame(function () { c.classList.add('visible'); });
+  }
   function carreCercle() {
-    if (window.GenesoliaMembre || pdFait() || page === 'point-de-depart.html') return;   /* membre, ou point de départ déjà fait : rien à proposer */
+    if (window.GenesoliaMembre || page === 'point-de-depart.html') return;
+    var pdFerme = false; try { pdFerme = sessionStorage.getItem('carre-cercle-ferme') === '1'; } catch (e) {}
+    if (pdFait() || pdFerme) { carreSeance(); return; }   /* point de départ déjà fait, ou carré fermé : on propose la séance offerte */
     if (PETIT_ECRAN && !carreCercle.pret) {
       var attendre = function () {
         var h = document.documentElement, lu = (h.scrollTop + window.innerHeight) / Math.max(1, h.scrollHeight);
@@ -795,6 +820,7 @@ window.GENESOLIA_IMPRESSION = {
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
       try { sessionStorage.setItem('carre-cercle-ferme', '1'); } catch (e) {}
+      setTimeout(carreSeance, 600);   /* la séance offerte prend la place */
     });
     document.body.appendChild(c);
     requestAnimationFrame(function () { c.classList.add('visible'); });

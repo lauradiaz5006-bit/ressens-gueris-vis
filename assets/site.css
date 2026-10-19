@@ -267,6 +267,9 @@ section.bloc{padding:4.5rem 0}
 /* Petit carré en bas à gauche : premier carnet du Cercle offert */
 .carre-cercle{position:fixed;left:1rem;bottom:1rem;z-index:55;width:min(22rem,calc(100% - 2rem));display:grid;grid-template-columns:60px 1fr;gap:.9rem;align-items:start;padding:1rem 2.2rem 1rem 1rem;background:#2E1338;color:#F7E6EE;border:1px solid rgba(243,220,192,.35);border-radius:16px;box-shadow:0 18px 50px rgba(46,19,56,.35);font:400 .86rem/1.45 var(--texte);box-sizing:border-box;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
 .carre-cercle.visible{opacity:1;transform:none}
+.carre-seance .cc-choix{display:flex!important;flex-direction:column;align-items:flex-start;gap:.1rem;width:100%;box-sizing:border-box;margin-top:.45rem;text-align:left;line-height:1.25}
+.carre-seance .cc-choix b{font-weight:700}
+.carre-seance .cc-choix span{font-weight:400;font-size:.8em;opacity:.85}
 .carre-cercle img{width:60px;height:auto;border-radius:4px;box-shadow:0 6px 16px rgba(0,0,0,.35);transform:rotate(-3deg)}
 .carre-cercle p{margin:0}
 .cc-sur{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne-clair)}

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ta première séance audio, offerte · Le Cercle · Genesolia</title>
+  <meta name="description" content="Choisis ta première séance audio guidée du Cercle, offerte et complète : sortir de l’alerte (cycle 1) ou l’arbre des liens (cycle 2).">
+  <link rel="canonical" href="https://genesolia.fr/seance-offerte.html">
+  <meta property="og:title" content="Ta première séance audio, offerte · Le Cercle">
+  <meta property="og:description" content="Une séance guidée complète, à écouter autant de fois que tu veux.">
+  <meta property="og:image" content="https://genesolia.fr/assets/cercle/couv-renaissance.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .so-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B);padding:3.2rem 0 2.8rem}
+    .so-tete h1{color:#fff;margin-bottom:.8rem}
+    .so-tete .intro{color:#F7E6EE;font-size:1.1rem;max-width:40rem;margin:0}
+    .so-sur{font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin:0 0 1rem}
+    .so-choix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+    .so-carte{position:relative;display:flex;flex-direction:column;background:var(--blanc);border:2px solid var(--rose);border-radius:var(--rayon);overflow:hidden;cursor:pointer;text-align:left;font:inherit;color:inherit;padding:0}
+    .so-carte img{width:100%;height:190px;object-fit:cover;display:block}
+    .so-carte div{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.45rem}
+    .so-carte .so-cy{font:600 .75rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne)}
+    .so-carte h2{font-size:1.45rem;margin:0}
+    .so-carte p{margin:0;color:var(--prune-doux);font-size:.95rem;line-height:1.5}
+    .so-carte ul{margin:.3rem 0 0;padding:0;list-style:none;display:grid;gap:.35rem}
+    .so-carte li{position:relative;padding-left:1.2rem;font-size:.93rem;line-height:1.45}
+    .so-carte li::before{content:"";position:absolute;left:0;top:.5em;width:.5rem;height:.5rem;border-radius:50%;background:var(--champagne)}
+    .so-carte[aria-pressed="true"]{border-color:var(--prune);box-shadow:0 18px 40px rgba(107,47,91,.18)}
+    .so-carte[aria-pressed="true"]::after{content:"Ta séance";position:absolute;top:.8rem;right:.8rem;background:var(--prune);color:#fff;font:600 .75rem var(--texte);padding:.3rem .7rem;border-radius:99px}
+    .so-form{max-width:36rem;margin:2rem auto 0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .so-form h2{font-size:1.5rem;margin-bottom:.4rem}
+    .so-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;margin:1rem 0 .9rem}
+    .so-form label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .so-form input[type=text],.so-form input[type=email]{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%;box-sizing:border-box}
+    .so-accord{display:flex!important;gap:.6rem;align-items:flex-start;font-weight:400!important;font-size:.86rem!important;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+    .so-accord input{margin-top:.2rem;width:1.05rem;height:1.05rem;accent-color:var(--prune);flex-shrink:0}
+    .so-erreur{color:#A33A4A;font-size:.9rem;min-height:1.2em;margin:.6rem 0 0}
+    .so-ecoute{max-width:44rem;margin:0 auto;background:var(--blanc);border:2px solid var(--champagne);border-radius:var(--rayon);overflow:hidden;box-shadow:0 20px 50px rgba(107,47,91,.12)}
+    .so-ecoute img{width:100%;height:240px;object-fit:cover;display:block}
+    .so-ecoute > div{padding:1.6rem 1.8rem 1.8rem;display:flex;flex-direction:column;gap:.7rem}
+    .so-ecoute h2{font-size:1.7rem;margin:0}
+    .so-ecoute audio{width:100%;margin:.4rem 0}
+    .so-conseils{margin:0;padding:1rem 1.2rem;border-radius:14px;background:var(--nacre);font-size:.92rem;color:var(--prune-doux)}
+    .so-suite{max-width:44rem;margin:2rem auto 0;text-align:center;padding:2rem;border-radius:var(--rayon);background:linear-gradient(120deg,#2E1338,#6B2F5B);color:#FFF4F6}
+    .so-suite h2{color:#fff;font-size:1.6rem;margin-bottom:.6rem}
+    .so-suite p{color:#F7E6EE;margin:0 auto 1.2rem;max-width:34rem}
+    .so-suite .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .so-suite small{display:block;margin-top:.8rem;color:#E6CFDD}
+    .so-mention{max-width:44rem;margin:1.2rem auto 0;text-align:center;font-size:.82rem;color:var(--prune-doux)}
+    @media (max-width:720px){.so-choix,.so-champs{grid-template-columns:1fr}.so-form,.so-ecoute > div{padding:1.4rem}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="so-tete">
+      <div class="conteneur">
+        <p class="so-sur">Le Cercle · offert</p>
+        <h1>Ta première séance audio, offerte</h1>
+        <p class="intro">Une séance guidée complète, à écouter autant de fois que tu veux. Choisis celle qui te parle le plus aujourd’hui.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur" id="so-zone">
+        <div class="so-choix" role="group" aria-label="Choisis ta séance">
+          <button type="button" class="so-carte" data-s="c1-10" aria-pressed="false">
+            <img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="">
+            <div>
+              <p class="so-cy">Cycle 1 · De la peur à la paix</p>
+              <h2>Sortir de l’alerte</h2>
+              <p>L’alarme qui sonne en toi depuis des années baisse, cran par cran, jusqu’au silence.</p>
+              <ul><li>Si tu vis souvent sur le qui-vive, à tout porter</li><li>Pour souffler et retrouver un sentiment de sécurité</li><li>Ta phrase ressource : « C’est fini, je suis en sécurité maintenant »</li></ul>
+            </div>
+          </button>
+          <button type="button" class="so-carte" data-s="c2-10" aria-pressed="false">
+            <img src="assets/images/vision-relation-saine-800.webp" width="800" height="420" alt="">
+            <div>
+              <p class="so-cy">Cycle 2 · Comment j’aime</p>
+              <h2>L’arbre des liens</h2>
+              <p>Sous un figuier, tu dessines l’arbre de tes liens, tu reconnais ce qui te soutient et tu écris comment tu souhaites aimer.</p>
+              <ul><li>Si tu rejoues souvent la même histoire en amour</li><li>Pour voir d’où tu viens et ce qui te soutient</li><li>Ta ressource : une phrase d’amour qui vient de toi</li></ul>
+            </div>
+          </button>
+        </div>
+
+        <form class="so-form" id="so-form" novalidate hidden>
+          <h2 id="so-form-titre">Reçois ta séance</h2>
+          <p style="margin:0;color:var(--prune-doux)">Elle s’ouvre ici tout de suite, et tu la retrouves par e-mail pour la réécouter.</p>
+          <div class="so-champs">
+            <label>Prénom<input type="text" name="prenom" autocomplete="given-name"></label>
+            <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <label class="so-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir ma séance et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+          <button class="btn btn-plein" type="submit">Écouter ma séance</button>
+          <p class="so-erreur" role="alert"></p>
+        </form>
+      </div>
+      <p class="so-mention">Ces séances proposent une démarche symbolique de développement personnel. Elles ne remplacent pas un accompagnement médical ou psychologique. Écoute-les au calme, jamais en conduisant.</p>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var FN = 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/seance-offerte';
+    var CLE = 'genesolia-seance-offerte';
+    var INFOS = {
+      'c1-10': { titre: 'Sortir de l’alerte', cycle: 'Cycle 1 · De la peur à la paix', image: 'assets/images/blog-ciel-800.webp', voyage: 'L’alarme qui sonne en toi depuis des années baisse, cran par cran, jusqu’au silence.' },
+      'c2-10': { titre: 'L’arbre des liens', cycle: 'Cycle 2 · Comment j’aime', image: 'assets/images/vision-relation-saine-800.webp', voyage: 'Sous un figuier, tu dessines l’arbre de tes liens, tu reconnais ce qui te soutient et tu écris comment tu souhaites aimer.' }
+    };
+    var zone = document.getElementById('so-zone'), form = document.getElementById('so-form'), choisie = null;
+    function esc(t) { return String(t || '').replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
+    function suivi(n) { if (window.umami) try { window.umami.track(n); } catch (e) {} }
+    function lire() { try { return JSON.parse(localStorage.getItem(CLE) || 'null'); } catch (e) { return null; } }
+    function garder(o) { try { localStorage.setItem(CLE, JSON.stringify(o)); } catch (e) {} }
+
+    function choisir(s) {
+      choisie = s;
+      zone.querySelectorAll('.so-carte').forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-s') === s)); });
+      form.hidden = false;
+      document.getElementById('so-form-titre').textContent = 'Reçois « ' + INFOS[s].titre + ' »';
+      var j = (lire() || {}).j;
+      if (j) { ouvrir(s, { jeton: j, seance: s }); return; }   /* déjà inscrite sur ce navigateur : pas besoin de redonner son e-mail */
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    zone.querySelectorAll('.so-carte').forEach(function (c) { c.addEventListener('click', function () { choisir(c.getAttribute('data-s')); }); });
+
+    function ecoute(s, url) {
+      var I = INFOS[s], autre = s === 'c1-10' ? 'c2-10' : 'c1-10';
+      zone.innerHTML =
+        '<div class="so-ecoute"><img src="' + I.image + '" width="800" height="420" alt="">' +
+        '<div><p class="so-sur" style="color:var(--champagne);margin:0">' + esc(I.cycle) + '</p><h2>' + esc(I.titre) + '</h2><p style="margin:0;color:var(--prune-doux)">' + esc(I.voyage) + '</p>' +
+        '<audio controls preload="metadata" src="' + esc(url) + '">Ton navigateur ne lit pas l’audio.</audio>' +
+        '<p class="so-conseils">Installe-toi au calme, avec un casque si tu peux, assise ou allongée. Laisse-toi guider : il n’y a rien à réussir, seulement à écouter. Tu peux la réécouter autant de fois que tu veux, depuis cette page.</p>' +
+        '<p style="margin:0;font-size:.92rem"><a href="#" data-autre="' + autre + '">Écouter aussi « ' + esc(INFOS[autre].titre) + ' »</a></p></div></div>' +
+        '<div class="so-suite"><h2>Cette séance fait partie du Cercle</h2>' +
+        '<p>À chaque étape, deux nouvelles séances, ton carnet Renaissance pour sortir du mode survie, ton livret Libération pour aimer en accord avec toi, et la formation « Sors de la boucle ». Tout dans ton appli, 15 minutes par semaine.</p>' +
+        '<a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a><small>30 jours offerts · aucune carte demandée · sans engagement</small></div>';
+      zone.querySelector('[data-autre]').addEventListener('click', function (e) { e.preventDefault(); var j = (lire() || {}).j; if (j) ouvrir(autre, { jeton: j, seance: autre }); });
+      window.scrollTo({ top: zone.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+    }
+
+    function ouvrir(s, corps, bouton) {
+      var err = form.querySelector('.so-erreur');
+      return fetch(FN, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corps) })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          if (x.d && x.d.jeton) garder({ j: x.d.jeton, s: s });
+          if (x.d && x.d.url) { ecoute(s, x.d.url); suivi('seance-offerte-' + s); return; }
+          if (x.d && x.d.bientot) { err.textContent = 'Cette séance arrive très bientôt : tu la recevras par e-mail.'; return; }
+          if (x.d && x.d.erreur === 'jeton') { try { localStorage.removeItem(CLE); } catch (e) {} form.hidden = false; err.textContent = 'Indique ton e-mail pour ouvrir ta séance.'; return; }
+          err.textContent = x.d && x.d.erreur === 'email' ? 'Vérifie ton adresse e-mail.' : 'L’ouverture n’a pas fonctionné. Réessaie dans un instant.';
+        })
+        .catch(function () { err.textContent = 'L’ouverture n’a pas fonctionné. Vérifie ta connexion et réessaie.'; })
+        .then(function () { if (bouton) { bouton.disabled = false; bouton.textContent = 'Écouter ma séance'; } });
+    }
+
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.so-erreur'), bt = form.querySelector('button');
+      if (form._gotcha.value || !choisie) return;
+      var email = form.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case pour recevoir ta séance.'; return; }
+      err.textContent = ''; bt.disabled = true; bt.textContent = 'Ouverture…';
+      ouvrir(choisie, { email: email, prenom: form.prenom.value.trim(), accord: true, seance: choisie }, bt);
+    });
+
+    /* Arrivée depuis le mail (?s=…&j=…) ou depuis le petit carré (?s=…) */
+    var q = new URLSearchParams(location.search), s0 = q.get('s'), j0 = q.get('j');
+    if (j0 && /^[0-9a-f-]{36}$/i.test(j0)) garder({ j: j0, s: s0 });
+    if (s0 && INFOS[s0]) choisir(s0);
+  })();
+  </script>
+</body>
+</html>
