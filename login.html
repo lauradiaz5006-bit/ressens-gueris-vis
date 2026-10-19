@@ -266,16 +266,16 @@
       <div class="pa-tete">
         <div>
           <p class="pa-sur">Le Cercle · 1<sup>er</sup> mois offert</p>
-          <h2 id="pa-titre">Teste tout Genesolia 1 mois gratuitement</h2>
+          <h2 id="pa-titre">Découvre Le Cercle 1 mois, offert</h2>
         </div>
-        <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
+        <div class="pa-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="pa-lien" href="abonnement.html">Voir tous les avantages</a></div>
         <p class="pa-apres">Après ton mois offert : 29 € par mois sans engagement, ou 24,90 € par mois sur 12 mois. Tout est compris, la formation aussi.</p>
       </div>
       <ul>
-        <li><b>J'avance</b> : un nouveau carnet chaque mois, à remplir en ligne ou à imprimer</li>
-        <li><b>Je me libère</b> : ton suivi semaine après semaine, avec la méthode des deux cycles</li>
-        <li><b>Ton guide du mois complet</b> : ton calendrier et les dates de ton arbre</li>
-        <li><b>Ton évolution</b> mois après mois, et Les 12 saisons dès ton 2<sup>e</sup> mois</li>
+        <li><b>Renaissance</b> : ton carnet pour sortir du mode survie, une étape après l'autre</li>
+        <li><b>Libération</b> : ton livret pour comprendre comment tu aimes, et aimer plus grand</li>
+        <li><b>Tes séances audio</b> guidées et la formation « Sors de la boucle »</li>
+        <li><b>Ton appli Le Cercle</b>, ton mois personnel et ton évolution</li>
         <li><b>29 € par mois</b> sans engagement, ou <b>24,90 € par mois</b> sur 12 mois, formation « Sors de la boucle » comprise</li>
       </ul>
     </aside>
@@ -363,9 +363,9 @@
         <div class="tb-grille" id="pan-cercle">
           <article class="tb-carte tb-large">
             <h2>Le Cercle</h2>
-            <p class="tb-aide">Chaque mois, une étape : ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue dans ta lignée, et tes deux séances audio du mois, une par cycle.</p>
+            <p class="tb-aide">Une étape après l'autre : Renaissance, ton carnet pour sortir du mode survie, Libération, ton livret pour aimer plus grand, et tes séances audio, une par cycle.</p>
             <ul class="tb-liste">
-              <li><b>Tout compris</b> : ton carnet « J’avance », ton suivi « Je me libère », tes deux séances audio du mois et la formation « Sors de la boucle », un module à la fois</li>
+              <li><b>Tout compris</b> : Renaissance, Libération, tes séances audio et la formation « Sors de la boucle », un module à chaque étape</li>
               <li><b>29 € par mois</b> sans engagement, ou <b>24,90 € par mois</b> sur 12 mois, 1<sup>er</sup> mois offert</li>
             </ul>
             <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
@@ -558,7 +558,10 @@
       if (mdp.length < 8) { message('Le mot de passe doit faire au moins 8 caractères.'); return; }
       if (!sb) { message(traduire({ message: 'network' })); return; }
       occupe(f, true, 'Création…');
-      sb.auth.signUp({ email: email, password: mdp, options: { data: { full_name: prenom }, emailRedirectTo: RETOUR_URL } }).then(function (r) {
+      var vientEssai = retour === 'essai.html';
+      try { vientEssai = vientEssai || localStorage.getItem('retour-apres-connexion') === 'essai.html'; } catch (e2) {}
+      var meta = { full_name: prenom }; if (vientEssai) meta.parcours = 'cercle';   /* le lien de confirmation ramène vers l'essai, même ouvert sur un autre appareil */
+      sb.auth.signUp({ email: email, password: mdp, options: { data: meta, emailRedirectTo: RETOUR_URL } }).then(function (r) {
         occupe(f, false);
         if (r.error) {
           var t = traduire(r.error);
@@ -626,7 +629,7 @@
       var reste = Math.ceil((fin - new Date()) / 864e5);
       var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
       el.innerHTML = (reste > 0
-        ? 'Ton mois gratuit : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Ensuite, ton abonnement démarre à ta formule (29 € par mois, ou 24,90 € par mois sur 12 mois), sauf si tu l\'arrêtes avant.'
+        ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée : avant la fin, on t\'écrit pour te proposer de continuer, si tu le souhaites.'
         : 'Ton abonnement au Cercle est actif.') +
         (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
@@ -658,6 +661,8 @@
         // Ne jamais appeler Supabase directement dans ce rappel (blocage de la bibliothèque) : on diffère
         setTimeout(function () {
           if (!$('carte-connecte').hidden) return;
+          var mt = (session.user && session.user.user_metadata) || {};
+          if (confirmee && !retour && mt.parcours === 'cercle' && !mt.essai_debut) retour = 'essai.html';   /* inscription commencée depuis l'essai du Cercle */
           connecte(session.user, !!retour || confirmee);
           if (confirmee) window.GenesoliaEspaceInfo && window.GenesoliaEspaceInfo('Ton adresse est confirmée, bienvenue !');
         }, 0);
@@ -710,10 +715,10 @@
         if (!m) return;
         document.querySelectorAll('.pub-avantages').forEach(function (a) { a.hidden = true; });
         var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
-        var liens = '<a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a><a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>';
+        var liens = '<a class="btn btn-plein" href="mon-carnet.html">Renaissance, mon carnet</a><a class="btn btn-trait" href="mon-suivi-mois.html">Libération, mon livret</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>';
         var abo = document.querySelector('[aria-labelledby="t-abo"]');
         if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
-          '<p class="tb-aide">Tes deux livres du mois (« J’avance » et « Je me libère »), tes deux séances audio du mois, ton guide du mois complet et ton suivi.</p>' +
+          '<p class="tb-aide">Tes deux livres (Renaissance et Libération), tes séances audio, ta formation « Sors de la boucle » et ton guide du mois.</p>' +
           '<p class="tb-essai" id="essai-info" hidden></p>' +
           '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion.replace(/"/g, '&quot;') + '" target="_blank" rel="noopener">Gérer mon abonnement</a>' : '') + '</div>';
         var pan = $('pan-cercle');

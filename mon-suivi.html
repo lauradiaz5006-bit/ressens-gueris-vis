@@ -361,7 +361,7 @@
 
     /* ───── Affichage et interactions ───── */
     /* ───── L'offre du Cercle : le suivi en fait partie. Qui n'est pas membre voit d'abord ce qu'elle propose ─────
-       (1 mois gratuit pour tester, puis un abonnement mensuel). L'aperçu de la semaine 1 reste ouvert juste en dessous. */
+       (1 mois offert pour tester, puis un abonnement mensuel). L'aperçu de la semaine 1 reste ouvert juste en dessous. */
     var apercuOuvert = false;
     var ICO = {
       suivi: '<path d="M12 12m-1 0a1 1 0 1 0 2 0a4 4 0 1 0-8 0a7 7 0 1 0 14 0"/>',
@@ -373,10 +373,10 @@
     };
     function ico(k) { return '<span class="o-ico"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICO[k] + '</svg></span>'; }
     function blocPrix() {
-      return '<div class="o-prix"><p class="s-etiq">Le Cercle · 1 mois gratuit pour tester</p><p class="o-gros">Ton premier mois est offert</p>' +
+      return '<div class="o-prix"><p class="s-etiq">Le Cercle · 1 mois offert pour tester</p><p class="o-gros">Ton premier mois est offert</p>' +
         '<p>Tu as accès à tout, tout de suite. Si ça ne te convient pas, tu arrêtes avant la fin du mois et tu ne paies rien.</p>' +
         '<p class="o-apres">Ensuite, c’est un abonnement mensuel : <b>29 € par mois, sans engagement</b>, ou <b>24,90 € par mois</b> avec un engagement de 12 mois.</p>' +
-        '<div class="o-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a><a class="btn btn-trait" href="abonnement.html">Tout savoir sur Le Cercle</a></div></div>';
+        '<div class="o-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Tout savoir sur Le Cercle</a></div></div>';
     }
     function offre() {
       return blocPrix() +
@@ -390,9 +390,9 @@
         '<h2 class="o-titre">Ton suivi, semaine après semaine</h2><div class="o-semaines">' +
         '<div>Semaine 1<b>Voir</b></div><div>Semaine 2<b>La source</b></div><div>Semaine 3<b>Libérer</b></div><div>Semaine 4<b>Remplacer</b></div></div>' +
         '<h2 class="o-titre">Comment ça se passe</h2><ol class="o-etapes">' +
-        '<li><b>Tu commences ton mois gratuit</b> en trois minutes : ton espace, un court bilan, puis tu enregistres ta carte. Rien n’est prélevé pendant 30 jours.</li>' +
+        '<li><b>Tu ouvres ton mois offert</b> en deux minutes : ton compte, puis un clic. Aucune carte demandée.</li>' +
         '<li><b>Chaque semaine, un pas</b> : un exercice d’une quinzaine de minutes, à ton rythme, sur ton téléphone ou à imprimer.</li>' +
-        '<li><b>À la fin du mois, tu choisis</b> : tu reçois un rappel par e-mail avant la fin de ton mois gratuit. Tu continues avec l’abonnement mensuel, ou tu arrêtes en un clic depuis ton espace.</li></ol>' +
+        '<li><b>À la fin du mois, tu choisis</b> : avant la fin de ton mois offert, on t’écrit pour te proposer de continuer. Sans réponse de ta part, rien ne se passe.</li></ol>' +
         '<p class="o-confiance">Tout ce que tu écris est chiffré dans ton espace, et l’équipe Genesolia ne le lit jamais.</p>' +
         '<div style="margin-top:1.4rem">' + blocPrix() + '</div>' +
         '<p class="o-apercu"><button type="button" class="btn btn-trait" id="s-voir-apercu">Voir un aperçu de la semaine 1</button></p>';

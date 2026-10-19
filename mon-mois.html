@@ -320,7 +320,7 @@
       brancherOffert();
     }
     function boutonOffre() {
-      if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="essai.html">Commencer mon mois gratuit</a>';
+      if (!utilisateur) return '<a class="btn btn-plein" id="m-offre-bt" href="essai.html">Commencer mon mois offert</a>';
       if (CERCLE.lienAbonnement) return '<a class="btn btn-plein" id="m-offre-bt" href="' + esc(CERCLE.lienAbonnement + (CERCLE.lienAbonnement.indexOf('?') < 0 ? '?' : '&') + 'client_reference_id=' + encodeURIComponent(utilisateur.id) + '&prefilled_email=' + encodeURIComponent(utilisateur.email || '')) + '" target="_blank" rel="noopener">Rejoindre le Cercle</a>';
       return '<button class="btn btn-plein" id="m-offre-bt" type="button">Rejoindre le Cercle</button>';
     }

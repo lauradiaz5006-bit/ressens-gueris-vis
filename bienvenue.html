@@ -26,6 +26,9 @@
     .b-mot{max-width:44rem;margin:0 auto;text-align:center}
     .b-mot h2{font-size:1.8rem;margin-bottom:.8rem}
     .b-mot p{color:var(--prune-doux);margin-bottom:1rem}
+    .b-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+    .b-gros{font-size:1.08rem;padding:.95rem 1.8rem}
+    .b-clair{background:transparent;color:#fff;border:1.5px solid rgba(243,220,192,.6)}
     @media (max-width:760px){.b-grille{grid-template-columns:1fr}}
   </style>
 </head>
@@ -35,23 +38,23 @@
     <section class="b-tete">
       <div class="conteneur">
         <p class="a-sur" style="font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem">Bienvenue dans Le Cercle</p>
-        <h1 id="b-titre">Ton mois commence aujourd'hui</h1>
-        <p class="intro">Ton essai est activé. Ce mois-ci, tu reçois ton premier carnet, la semaine 1 de ton suivi et ton mois personnel. La suite arrive au fil des semaines et des mois.</p>
+        <h1 id="b-titre">Ton Cercle est ouvert</h1>
+        <p class="intro">Ton accès vient aussi de partir par e-mail. Tout est réuni dans ton appli Le Cercle : commence par ton point de départ, quinze minutes, et tout ton parcours s’oriente sur ce que tu vis.</p>
         <p class="b-fin" id="b-fin" hidden></p>
+        <div class="b-actions"><a class="btn btn-plein b-gros" href="cercle.html">Ouvrir mon Cercle</a><a class="btn b-clair" href="cercle.html#installer">Installer l’appli sur mon téléphone</a></div>
       </div>
     </section>
 
     <section class="bloc">
       <div class="conteneur">
-        <h2 style="margin-bottom:1.4rem">Par où commencer</h2>
+        <h2 style="margin-bottom:1.4rem">Ce qui t’attend dans ton Cercle</h2>
         <div class="b-grille">
-          <article class="b-carte"><p class="b-num">En premier · 15 minutes</p><h2>Mon point de départ</h2><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles. Tes deux livrets s’orientent ensuite sur ce que tu vis.</p><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></article>
-          <article class="b-carte"><p class="b-num">Tout au même endroit</p><h2>Ton appli Le Cercle</h2><p>Tes deux livres du mois, ton mois personnel et ton point du jour, avec une barre en bas pour passer de l’un à l’autre. Tu peux l’ajouter sur ton écran d’accueil.</p><a class="btn btn-plein" href="cercle.html">Ouvrir Le Cercle</a></article>
-          <article class="b-carte"><p class="b-num">Aujourd'hui</p><h2>Ton carnet du mois</h2><p>Dix pages à imprimer : le thème du mois, trois exercices, un rituel symbolique et une méditation à lire.</p><a class="btn btn-plein" href="mon-mois.html">Ouvrir mon mois et mon carnet</a></article>
-          <article class="b-carte"><p class="b-num">Cette semaine</p><h2>La semaine 1 de ton suivi</h2><p>Ton suivi part de ton bilan de départ. Un rendez-vous par semaine, à ton rythme.</p><a class="btn btn-trait" href="mon-suivi.html">Commencer ma semaine 1</a></article>
-          <article class="b-carte"><p class="b-num">Quand tu veux</p><h2>Ton guide du mois</h2><p>Ton nombre du mois, ton calendrier et les dates de ton arbre qui tombent ce mois-ci.</p><a class="btn btn-trait" href="mon-guide.html">Voir mon guide</a></article>
-          <article class="b-carte"><p class="b-num">Pour aller plus loin</p><h2>Ton arbre familial</h2><p>Plus tu le complètes, plus ton mois et ton rapport deviennent précis.</p><a class="btn btn-trait" href="genosociogramme.html">Compléter mon arbre</a></article>
+          <article class="b-carte"><p class="b-num">Cycle 1 · Ici, je m’aligne</p><h2>Renaissance</h2><p>Ton carnet pour sortir de la peur et du mode survie, et vivre en accord avec toi. Une étape après l’autre, un petit pas chaque semaine.</p></article>
+          <article class="b-carte"><p class="b-num">Cycle 2 · Ici, je libère</p><h2>Libération</h2><p>Ton livret pour comprendre comment tu aimes, déposer ce qui se rejoue dans ta lignée, et aimer plus grand.</p></article>
+          <article class="b-carte"><p class="b-num">À écouter</p><h2>Tes séances audio</h2><p>Une séance guidée pour chaque cycle, à écouter au calme, autant de fois que tu veux.</p></article>
+          <article class="b-carte"><p class="b-num">La formation</p><h2>Sors de la boucle</h2><p>Un module à chaque étape, en vidéo, avec son carnet. Ton accès à l’espace des vidéos arrive par e-mail.</p></article>
         </div>
+        <p style="margin-top:1.4rem;color:var(--prune-doux)">Et chaque jour, ton point du jour, ton mois personnel et ta météo intérieure, dans l’appli.</p>
       </div>
     </section>
 
@@ -74,23 +77,22 @@
     var SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
     var sb = null;
     try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
-    function afficherFin(debut) {
-      var fin = new Date(debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
+    function afficherFin(fin) {
       var el = document.getElementById('b-fin');
-      el.innerHTML = 'Ton mois gratuit dure jusqu\'au <b>' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</b> · ensuite 29 € par mois, sans engagement';
+      el.innerHTML = 'Ton mois offert dure jusqu\'au <b>' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '</b> · aucune carte demandée';
       el.hidden = false;
     }
-    if (window.umami) try { window.umami.track('essai-active'); } catch (e) {}
-    if (!sb) { afficherFin(new Date().toISOString().slice(0, 10)); return; }
+    if (!sb) return;
     sb.auth.getSession().then(function (r) {
       var s = r.data && r.data.session;
-      var aujourdhui = new Date().toISOString().slice(0, 10);
-      if (!s) { afficherFin(aujourdhui); return; }
-      var m = s.user.user_metadata || {};
-      if (m.full_name) document.getElementById('b-titre').textContent = m.full_name + ', ton mois commence aujourd\'hui';
-      if (m.essai_debut) { afficherFin(m.essai_debut); return; }
-      afficherFin(aujourdhui);
-      setTimeout(function () { sb.auth.updateUser({ data: { essai_debut: aujourdhui } }); }, 0);
+      if (!s) { location.replace('essai.html'); return; }
+      var m = s.user.user_metadata || {}, p = String(m.full_name || '').split(' ')[0];
+      if (p) document.getElementById('b-titre').textContent = p + ', ton Cercle est ouvert';
+      sb.from('acces_premium').select('valide_jusqu').maybeSingle().then(function (q) {
+        var v = q.data && q.data.valide_jusqu && new Date(q.data.valide_jusqu);
+        if (!v || v < new Date()) { location.replace('essai.html'); return; }   /* pas encore membre : on passe par l'essai */
+        afficherFin(v);
+      });
     });
   })();
   </script>
