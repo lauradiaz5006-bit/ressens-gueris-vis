@@ -33,7 +33,14 @@
     .b-gros{font-size:1.08rem;padding:.95rem 1.8rem}
     .b-clair{background:transparent;color:#fff;border:1.5px solid rgba(243,220,192,.6)}
     @media (max-width:760px){.b-grille{grid-template-columns:1fr}}
-  </style>
+      .t-guide{display:flex;gap:1.2rem;align-items:center;max-width:36rem;margin:2.2rem auto 0;padding:1rem 1.2rem;background:#fff;border:1px solid var(--rose,#F3E3E6);border-left:4px solid #B98A55;border-radius:16px;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(107,47,91,.08);text-align:left}
+    .t-guide img{width:84px;height:auto;border-radius:6px;box-shadow:0 8px 20px rgba(107,47,91,.25);flex:none}
+    .t-guide b{display:block;font-family:var(--display,serif);font-weight:400;font-size:1.25rem;color:var(--prune,#6B2F5B);margin:.15rem 0 .25rem}
+    .t-guide span span,.t-guide>span>span:not(.t-guide-k){display:block;font-size:.92rem;color:var(--prune-doux,#7a5570)}
+    .t-guide-k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;font-weight:700}
+    .t-guide u{display:inline-block;margin-top:.45rem;font-weight:700;color:var(--prune,#6B2F5B)}
+    .t-guide:hover{border-color:#B98A55;box-shadow:0 14px 34px rgba(107,47,91,.14)}
+</style>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -58,6 +65,7 @@
           <a class="b-carte b-lien" href="mon-module.html"><p class="b-num">La formation</p><h2>Sors de la boucle</h2><p>Un module par étape, des étapes 1 à 8, en vidéo, avec son carnet. Ton accès à l’espace des vidéos arrive par e-mail.</p><span class="b-ouvrir">Ouvrir →</span></a>
         </div>
         <p style="margin-top:1.4rem;color:var(--prune-doux)">Et chaque jour, ton point du jour, ton mois personnel et ta météo intérieure, dans l’appli.</p>
+        <a class="t-guide" href="assets/cercle/le-cercle-mode-d-emploi.pdf" target="_blank" rel="noopener"><img src="assets/cercle/mode-d-emploi-couv.webp" width="120" height="170" alt="" loading="lazy"><span><span class="t-guide-k">Le mode d’emploi · PDF · 10 pages</span><b>Le Cercle, pas à pas</b><span>De l’inscription à ta formation, chaque écran expliqué avec de vraies captures de l’appli.</span><u>Ouvrir le mode d’emploi</u></span></a>
       </div>
     </section>
 
