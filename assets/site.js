@@ -765,6 +765,66 @@ window.GENESOLIA_IMPRESSION = {
   };
   var PETIT_ECRAN = false;   /* avant : sur téléphone, le carré attendait 60 % de lecture ; il s'affiche maintenant tout de suite partout */
   function pdFait() { try { var x = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); return !!(x && x.v && x.v.fait); } catch (e) { return false; } }
+  /* Demande d'e-mail avant d'ouvrir un offert (point de départ ou séance audio), avec les grandes lignes et le mois offert du Cercle.
+     window.GenesoliaDemandeMail({ offre: 'point-de-depart' | 'c1-10' | 'c2-10', fermable: true, apres: function (jeton) {} }) */
+  var OFFERTS = {
+    'point-de-depart': { sur: 'Offert · 15 minutes', titre: 'Ton point de départ', image: 'assets/cercle/couv-point-depart-petite.webp',
+      liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : comment tu réagis quand tu as peur', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
+    'c1-10': { sur: 'Offert · séance complète', titre: 'Ta séance « Sortir de l’alerte »', image: 'assets/cercle/couv-renaissance-petite.webp',
+      liste: ['Cycle 1 · De la peur à la paix', 'L’alarme qui sonne en toi baisse, cran par cran, jusqu’au silence', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' },
+    'c2-10': { sur: 'Offert · séance complète', titre: 'Ta séance « L’arbre des liens »', image: 'assets/cercle/couv-liberation-petite.webp',
+      liste: ['Cycle 2 · Comment j’aime', 'Tu dessines l’arbre de tes liens et tu écris comment tu souhaites aimer', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' }
+  };
+  function escO(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function demandeMail(o) {
+    var O = OFFERTS[o.offre]; if (!O) return;
+    var ancien = document.querySelector('.offert-fenetre'); if (ancien) ancien.remove();
+    var f = document.createElement('div');
+    f.className = 'appli-fenetre offert-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', O.titre);
+    f.innerHTML = '<form class="appli-carte offert-carte" novalidate>' + (o.fermable === false ? '' : '<button type="button" class="appli-fermer" aria-label="Fermer">×</button>') +
+      '<img class="offert-couv" src="' + O.image + '" alt="" width="62" height="88"><p class="offert-sur">' + O.sur + '</p><h2>' + O.titre + '</h2>' +
+      '<ul class="compte-liste">' + O.liste.map(function (t) { return '<li>' + escO(t) + '</li>'; }).join('') + '</ul>' +
+      '<p class="offert-cercle"><b>En plus : ton accès gratuit au Cercle pendant 1 mois</b>, sans carte. Tes deux livres Renaissance et Libération, tes séances audio, la formation « Sors de la boucle » et ton appli.</p>' +
+      '<label class="offert-champ">Prénom<input name="prenom" autocomplete="given-name"></label>' +
+      '<label class="offert-champ">E-mail<input name="email" type="email" autocomplete="email" required></label>' +
+      '<label class="offert-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir mon offert et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html" target="_blank">Mes données</a></span></label>' +
+      '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">' +
+      '<button class="btn btn-plein" type="submit">' + O.bouton + '</button><p class="offert-erreur" role="alert"></p>' +
+      (o.fermable === false ? '<p class="offert-retour"><a href="/">Revenir au site</a></p>' : '') + '</form>';
+    var form = f.querySelector('form');
+    function fermer() { f.remove(); }
+    f.addEventListener('click', function (e) { if (o.fermable !== false && (e.target === f || e.target.closest('.appli-fermer'))) fermer(); });
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var err = form.querySelector('.offert-erreur'), bt = form.querySelector('button[type=submit]'), email = form.email.value.trim();
+      if (form._gotcha.value) return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
+      if (!form.accord.checked) { err.textContent = 'Coche la case pour recevoir ton offert.'; return; }
+      err.textContent = ''; bt.disabled = true; bt.textContent = 'Un instant…';
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/seance-offerte', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email, prenom: form.prenom.value.trim(), accord: true, seance: o.offre }) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d || !d.jeton) throw new Error(d && d.erreur || 'vide');
+          try { localStorage.setItem('genesolia-mail-offert', JSON.stringify({ j: d.jeton, t: Date.now() })); if (o.offre !== 'point-de-depart') localStorage.setItem('genesolia-seance-offerte', JSON.stringify({ j: d.jeton, s: o.offre })); } catch (e) {}
+          if (window.umami) try { window.umami.track('offert-mail-' + o.offre); } catch (e) {}
+          fermer(); if (o.apres) o.apres(d.jeton, d);
+        })
+        .catch(function (x) { bt.disabled = false; bt.textContent = O.bouton; err.textContent = String(x && x.message) === 'email' ? 'Vérifie ton adresse e-mail.' : 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+    document.body.appendChild(f);
+    var champ = form.querySelector('input[name=prenom]'); if (champ) setTimeout(function () { champ.focus(); }, 50);
+  }
+  window.GenesoliaDemandeMail = demandeMail;
+  window.GenesoliaMailOffert = function () { try { return !!localStorage.getItem('genesolia-mail-offert'); } catch (e) { return false; } };
+  /* Les boutons des petits carrés ouvrent d'abord la demande d'e-mail (sauf si elle l'a déjà donné) */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('.carre-cercle a[data-offre]'); if (!a) return;
+    var offre = a.getAttribute('data-offre'), href = a.getAttribute('href');
+    if (window.GenesoliaMailOffert()) return;   /* déjà donné : on va directement à l'offert */
+    e.preventDefault();
+    demandeMail({ offre: offre, apres: function (jeton) { location.href = offre === 'point-de-depart' ? href : 'seance-offerte.html?s=' + offre + '&j=' + jeton; } });
+  });
+
   /* Deuxième petit carré : la première séance audio offerte (cycle 1 ou cycle 2), contre l'e-mail.
      Il prend la place du premier quand le point de départ est fait, ou quand le premier a été fermé. */
   function seanceRecue() { try { return !!localStorage.getItem('genesolia-seance-offerte'); } catch (e) { return false; } }
@@ -782,8 +842,8 @@ window.GENESOLIA_IMPRESSION = {
       '<div><p class="cc-sur">Offert · séance audio complète</p>' +
         '<p class="cc-titre">Ta première séance, offerte</p>' +
         '<p class="cc-texte">Laquelle te parle le plus aujourd’hui ?</p>' +
-        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c1-10"><b>Cycle 1 · Sortir de l’alerte</b><span>Souffler, retrouver ta sécurité</span></a>' +
-        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c2-10"><b>Cycle 2 · L’arbre des liens</b><span>Comprendre comment tu aimes</span></a></div>';
+        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c1-10" data-offre="c1-10"><b>Cycle 1 · Sortir de l’alerte</b><span>Souffler, retrouver ta sécurité</span></a>' +
+        '<a class="cc-bouton cc-choix" href="seance-offerte.html?s=c2-10" data-offre="c2-10"><b>Cycle 2 · L’arbre des liens</b><span>Comprendre comment tu aimes</span></a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () { c.remove(); try { sessionStorage.setItem('carre-seance-ferme', '1'); } catch (e) {} });
     document.body.appendChild(c);
     requestAnimationFrame(function () { c.classList.add('visible'); });
@@ -816,7 +876,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div><p class="cc-sur">Offert · 15 minutes</p>' +
         '<p class="cc-titre">' + CARRE.titre + '</p>' +
         '<p class="cc-texte">Ta roue de la vie, ton mode survie et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
-        '<a class="cc-bouton" href="' + CARRE.lien + '">Je commence</a></div>';
+        '<a class="cc-bouton" href="' + CARRE.lien + '" data-offre="point-de-depart">Je commence</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
       try { sessionStorage.setItem('carre-cercle-ferme', '1'); } catch (e) {}
