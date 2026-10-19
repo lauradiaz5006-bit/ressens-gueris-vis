@@ -22,6 +22,9 @@
     .b-carte h2{font-size:1.35rem}
     .b-carte p{color:var(--prune-doux);font-size:.95rem}
     .b-carte .btn{margin-top:auto;align-self:flex-start}
+    a.b-lien{color:inherit;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s}
+    a.b-lien:hover,a.b-lien:focus-visible{transform:translateY(-2px);box-shadow:0 10px 26px rgba(107,47,91,.12);border-color:var(--champagne,#B98A55)}
+    .b-ouvrir{margin-top:auto;font-weight:600;color:var(--prune,#6B2F5B)}
     .b-num{font:600 .75rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne)}
     .b-mot{max-width:44rem;margin:0 auto;text-align:center}
     .b-mot h2{font-size:1.8rem;margin-bottom:.8rem}
@@ -49,10 +52,10 @@
       <div class="conteneur">
         <h2 style="margin-bottom:1.4rem">Ce qui t’attend dans ton Cercle</h2>
         <div class="b-grille">
-          <article class="b-carte"><p class="b-num">Cycle 1 · Ici, je m’aligne</p><h2>Renaissance</h2><p>Ton carnet pour sortir de la peur et du mode survie, et vivre en accord avec toi. Une étape après l’autre, un petit pas chaque semaine.</p></article>
-          <article class="b-carte"><p class="b-num">Cycle 2 · Ici, je libère</p><h2>Libération</h2><p>Ton livret pour comprendre comment tu aimes, déposer ce qui se rejoue dans ta lignée, et aimer plus grand.</p></article>
-          <article class="b-carte"><p class="b-num">À écouter</p><h2>Tes séances audio</h2><p>Deux séances guidées à chaque étape, une pour chaque cycle, à écouter au calme, autant de fois que tu veux.</p></article>
-          <article class="b-carte"><p class="b-num">La formation</p><h2>Sors de la boucle</h2><p>Un module par étape, des étapes 1 à 8, en vidéo, avec son carnet. Ton accès à l’espace des vidéos arrive par e-mail.</p></article>
+          <a class="b-carte b-lien" href="mon-carnet.html"><p class="b-num">Cycle 1 · Ici, je m’aligne</p><h2>Renaissance</h2><p>Ton carnet pour sortir de la peur et du mode survie, et vivre en accord avec toi. Une étape après l’autre, un petit pas chaque semaine.</p><span class="b-ouvrir">Ouvrir →</span></a>
+          <a class="b-carte b-lien" href="mon-suivi-mois.html"><p class="b-num">Cycle 2 · Ici, je libère</p><h2>Libération</h2><p>Ton livret pour comprendre comment tu aimes, déposer ce qui se rejoue dans ta lignée, et aimer plus grand.</p><span class="b-ouvrir">Ouvrir →</span></a>
+          <a class="b-carte b-lien" href="mes-seances.html"><p class="b-num">À écouter</p><h2>Tes séances audio</h2><p>Deux séances guidées à chaque étape, une pour chaque cycle, à écouter au calme, autant de fois que tu veux.</p><span class="b-ouvrir">Ouvrir →</span></a>
+          <a class="b-carte b-lien" href="mon-module.html"><p class="b-num">La formation</p><h2>Sors de la boucle</h2><p>Un module par étape, des étapes 1 à 8, en vidéo, avec son carnet. Ton accès à l’espace des vidéos arrive par e-mail.</p><span class="b-ouvrir">Ouvrir →</span></a>
         </div>
         <p style="margin-top:1.4rem;color:var(--prune-doux)">Et chaque jour, ton point du jour, ton mois personnel et ta météo intérieure, dans l’appli.</p>
       </div>
