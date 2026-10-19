@@ -258,7 +258,7 @@
     clearTimeout(minuteur);
     if (!user || !sb) { etat('Gardé dans ce navigateur jusqu’à sa fermeture. Crée ton espace pour le garder.'); return; }
     var CF = window.GenesoliaCoffre;
-    if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord.'); return; }
+    if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
       (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: true })).then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard.' : 'Enregistré et chiffré dans ton espace.'); }, function () { etat('Pas enregistré, réessaie plus tard.'); });
