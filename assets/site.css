@@ -269,6 +269,8 @@ section.bloc{padding:4.5rem 0}
 .carre-cercle.visible{opacity:1;transform:none}
 .carre-seance .cc-choix{display:flex!important;flex-direction:column;align-items:flex-start;gap:.1rem;width:100%;box-sizing:border-box;margin-top:.45rem;text-align:left;line-height:1.25}
 .carre-seance .cc-choix b{font-weight:700}
+.cc-autre{margin:.5rem 0 0;font-size:.8rem}
+.cc-autre a{color:#F3D08F;text-decoration:underline;text-underline-offset:2px}
 .offert-carte{text-align:left;max-height:calc(100vh - 2rem);overflow:auto}
 .offert-carte .offert-couv{display:block;width:62px!important;height:88px!important;object-fit:cover;margin:0 auto .6rem;border-radius:4px;box-shadow:0 8px 20px rgba(46,19,56,.3);transform:rotate(-3deg)}
 .offert-sur{text-align:center;font:600 .74rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .2rem}
