@@ -8,11 +8,11 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Le Cercle Genesolia : 1 mois gratuit pour sortir de ta boucle</title>
-  <meta name="description" content="Le Cercle Genesolia : ton carnet du mois pour avancer, ton suivi semaine après semaine pour te libérer, 1 mois gratuit, puis 29 € par mois sans engagement ou 24,90 € sur 12 mois.">
+  <title>Le Cercle Genesolia : 1 mois offert pour sortir de ta boucle</title>
+  <meta name="description" content="Le Cercle : 12 étapes pour passer de survivre à vivre. Deux livres, Renaissance et Libération, des séances audio guidées et la formation « Sors de la boucle », dans ton appli. 1er mois offert, sans carte.">
   <link rel="canonical" href="https://genesolia.fr/abonnement.html">
-  <meta property="og:title" content="Le Cercle Genesolia · 1 mois gratuit pour tester">
-  <meta property="og:description" content="Ton carnet du mois pour avancer, ton suivi pour te libérer. 29 € par mois sans engagement, ou 24,90 € sur 12 mois.">
+  <meta property="og:title" content="Le Cercle Genesolia · 1er mois offert, sans carte">
+  <meta property="og:description" content="Deux livres, des séances audio guidées et la formation « Sors de la boucle », dans ton appli Le Cercle. 1er mois offert, sans carte.">
   <meta property="og:image" content="https://genesolia.fr/assets/cercle/apercu-2026-10.jpg">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -214,6 +214,29 @@
       .t-glisser{display:block!important}
     }
     .t-glisser{display:none;text-align:center;font-size:.85rem;color:var(--prune-doux);margin:.4rem 0 0}
+    /* Refonte : six questions, piliers, chiffres, appli, sommaire, petits + */
+    .t-six{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-q{font-family:var(--display);font-size:1.08rem!important;line-height:1.4;color:var(--prune)!important}
+    .t-piliers{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-piliers .t-valeur{white-space:normal}
+    .t-audio{margin:1.6rem auto 0;max-width:44rem;text-align:center;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:2px solid var(--champagne)}
+    .t-audio p{max-width:none;margin:0}
+    .t-chiffres{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;text-align:center}
+    .t-chiffres li{color:var(--prune-doux);font-size:.92rem;line-height:1.4}
+    .t-chiffres b{display:block;font:400 2.6rem var(--display);color:var(--prune);line-height:1.1}
+    .t-barre-appli{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.2rem;max-width:none}
+    .t-barre-appli span{padding:.4rem .8rem;border-radius:99px;background:linear-gradient(135deg,#F3DCC0,#E8C48F);color:#2E1338;font-weight:600;font-size:.86rem}
+    .t-sommaire{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;counter-reset:s}
+    .t-sommaire li{counter-increment:s;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1rem 1rem 1rem 3.4rem;display:flex;flex-direction:column;gap:.2rem;font-size:.9rem;color:var(--prune-doux);line-height:1.4}
+    .t-sommaire li::before{content:counter(s);position:absolute;left:1rem;top:1rem;width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 .85rem var(--texte)}
+    .t-sommaire b{font:400 1.12rem var(--display);color:var(--prune)}
+    .t-sommaire i{color:var(--champagne);font-weight:600}
+    .t-legende{text-align:center;margin:1.2rem auto 0;font-size:.85rem;color:var(--prune-doux);max-width:none}
+    .t-chips{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:52rem}
+    .t-chips li{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.05rem;font-size:.93rem;color:var(--prune)}
+    .t-chips li::before{content:"+ ";color:var(--champagne);font-weight:700}
+    @media (max-width:960px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr 1fr}.t-chiffres{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr}.t-six{gap:.6rem}.t-six li{padding:.9rem 1.1rem}.t-six b{font-size:1.15rem;margin-bottom:.2rem}}
   </style>
 </head>
 <body class="nouveau">
@@ -223,83 +246,114 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Le Cercle Genesolia · 1 mois offert</p>
-          <h1>Ce qui se répète dans ta vie ne s'arrêtera pas tout seul.</h1>
-          <p class="intro">Chaque mois, un carnet pour avancer vers ce que tu veux, un suivi semaine après semaine pour te libérer de ce qui se rejoue, et deux séances audio guidées sur le thème du mois. Teste tout pendant 30 jours, gratuitement.</p>
+          <p class="a-sur">Le Cercle · 12 étapes · 2 cycles · 1 formation</p>
+          <h1>Tu voudrais enfin sortir de ce qui se répète dans ta vie, sans y passer des années ni alourdir ta charge mentale ?</h1>
+          <p class="intro">Le Cercle, c’est un an pour passer de survivre à vivre : deux livres pour avancer et te libérer, des séances audio guidées et la formation « Sors de la boucle ». Tout est réuni dans ton appli, une étape après l’autre.</p>
           <div class="a-offre">
             <p class="a-barre"><s>29 € par mois</s></p>
-            <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
-            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
-            <p class="a-petit">Ensuite 29 € par mois sans engagement, ou 24,90 € sur 12 mois</p>
+            <p class="a-gros">Ton 1<sup>er</sup> mois est offert</p>
+            <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+            <p class="a-petit">Aucune carte demandée · ensuite 29 € par mois sans engagement, ou 24,90 € sur 12 mois</p>
           </div>
         </div>
         <div class="t-couvs" aria-hidden="true">
           <img class="t-couv t-couv-1" src="assets/cercle/apercu-12-saisons.jpg" width="496" height="702" alt="">
-          <img class="t-couv t-couv-2" src="assets/cercle/apercu-2026-10.jpg" width="496" height="702" alt="">
+          <img class="t-couv t-couv-2" src="assets/cercle/apercu-2026-11.jpg" width="496" height="702" alt="">
         </div>
       </div>
     </section>
 
-    <div class="t-bandeau"><div class="conteneur"><span><b>30 jours</b> pour tout tester</span><span><b>0 €</b> prélevé pendant l'essai</span><span><b>1 clic</b> pour arrêter</span><span><b>Tes carnets</b> restent à toi</span></div></div>
+    <div class="t-bandeau"><div class="conteneur"><span><b>30 jours</b> offerts</span><span><b>Aucune carte</b> demandée</span><span><b>Sans</b> engagement</span><span><b>Tes réponses</b> restent à toi</span></div></div>
 
     <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Tu te reconnais ?</p>
-          <h2>Les visages changent. La fin de l'histoire, jamais.</h2>
+          <p class="a-etiq">Avant de commencer</p>
+          <h2>Tu te reconnais ?</h2>
         </div>
-        <ul class="t-douleurs">
-          <li><b>« Encore ! »</b>Le même type de relation, les mêmes disputes, la même fin. Avec d'autres personnes, dans d'autres décors.</li>
-          <li><b>La peur qui revient</b>Peur de manquer, d'être quitté·e, de ne pas être à ta place, alors même que tout va bien.</li>
-          <li><b>La réaction qui part toute seule</b>Tu sais très bien pourquoi tu réagis comme ça. Et pourtant, tu recommences.</li>
-          <li><b>L'histoire de ta mère</b>Parfois, tu as l'impression de rejouer la vie de ta mère ou de ta grand-mère, au même âge.</li>
+        <ul class="t-douleurs t-six">
+          <li><b>Relations</b>Tu voudrais être aimée pour qui tu es, sans retomber dans les mêmes schémas ?</li>
+          <li><b>Faire plaisir</b>Tu voudrais dire non sans culpabiliser, et rester aimée quand même ?</li>
+          <li><b>Projets</b>Tu voudrais aller au bout de tes projets, sans tout arrêter juste avant de réussir ?</li>
+          <li><b>Argent</b>Tu voudrais recevoir ce qui te revient, sans avoir l’impression de devoir le mériter ?</li>
+          <li><b>Fatigue</b>Tu voudrais enfin souffler, sans avoir à tout tenir seule ?</li>
+          <li><b>Déjà-vu</b>Tu as déjà beaucoup travaillé sur toi, et tu voudrais que ça change vraiment, sans recommencer de zéro ?</li>
         </ul>
         <div class="t-verite">
-          <p><b>Comprendre ne suffit pas.</b> Une boucle se défait avec du temps, des gestes répétés et un rendez-vous régulier. Seul·e, on lit un article, on fait un test, puis la vie reprend et la boucle aussi. Le Cercle est ce rendez-vous.</p>
-          <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+          <p><b>Si tu as répondu oui, ce n’est ni un hasard, ni ta faute.</b> Une boucle a toujours une source : une histoire de famille, une croyance héritée, une loyauté invisible. Quand tu la vois, tu peux en sortir. Comprendre ne suffit pas : il faut du temps, des gestes répétés et un rendez-vous régulier. Le Cercle est ce rendez-vous.</p>
+          <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
         </div>
       </div>
     </section>
 
     <section class="bloc bloc-doux">
-      <div class="conteneur t-split">
-        <img class="t-split-img" src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async">
-        <div>
-          <p class="a-etiq">La solution</p>
-          <h2>Un rendez-vous chaque mois, un pas chaque semaine</h2>
-          <p>Le Cercle t'accompagne mois après mois avec la méthode des deux cycles : la racine (sécurité, place, argent) et le cœur (amour, lien, peur d'être quitté·e).</p>
-          <ul class="t-coches">
-            <li>Tu sais <b>quoi faire cette semaine</b>, sans te disperser.</li>
-            <li>Tu relies ta vie à <b>ton arbre, tes nombres et ton ciel</b>.</li>
-            <li>Tu vois <b>ton chemin parcouru</b>, bilan après bilan.</li>
-          </ul>
-          <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Le programme</p>
+          <h2>Trois piliers, une année pour toi</h2>
+          <p>Tu voudrais être accompagnée tout au long de l’année, sans avoir à t’organiser seule ? À chaque étape, tout est prêt : tu ouvres ton appli, et tu avances.</p>
         </div>
+        <div class="t-contenus t-piliers">
+          <article><img src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 1 · De la peur à la paix</p><h3>Renaissance</h3><p class="t-q">Tu voudrais te sentir enfin en sécurité et en paix, sans vivre en alerte permanente ?</p><p>Ton carnet : ta roue de vie, un petit pas concret chaque semaine et ton bilan de fin d’étape. Avec ta séance audio pour sortir du mode survie, pas à pas.</p><span class="t-valeur">Tu y gagnes : ta sécurité intérieure, ta place, ta valeur</span></div></article>
+          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 2 · Comment j’aime</p><h3>Libération</h3><p class="t-q">Tu voudrais aimer et être aimée en accord avec toi, sans rejouer les histoires de ta famille ?</p><p>Ton livret : ton arbre de vie, des racines aux fruits, une question par étape et un protocole pour libérer. Avec ta séance audio pour déposer ce qui se transmet.</p><span class="t-valeur">Tu y gagnes : des liens plus vrais, un amour choisi</span></div></article>
+          <article><img src="assets/images/psychogenealogie-800.webp" srcset="assets/images/psychogenealogie-800.webp 800w, assets/images/psychogenealogie-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Des photos de famille anciennes posées sur une table" loading="lazy" decoding="async"><div><p class="a-etiq">Incluse · la formation</p><h3>Sors de la boucle</h3><p class="t-q">Tu voudrais comprendre et arrêter tes boucles, sans t’épuiser à tout analyser seule ?</p><p>8 modules en vidéo, un à chaque étape, avec livret, cahier d’exercices et fiche L’essentiel. Un module ouvert le reste jusqu’au bout.</p><span class="t-valeur">Incluse dans Le Cercle</span></div></article>
+        </div>
+        <div class="t-audio">
+          <p class="a-etiq">2 séances audio guidées à chaque étape</p>
+          <p class="t-q">Tu voudrais libérer en profondeur, sans rien préparer ni réfléchir ? Tu t’installes, tu écoutes, tu laisses faire.</p>
+        </div>
+        <ul class="t-chiffres">
+          <li><b>12</b>étapes, une par mois</li>
+          <li><b>24</b>séances audio dans l’année</li>
+          <li><b>8</b>modules de formation</li>
+          <li><b>1</b>point de départ pour savoir d’où tu pars</li>
+        </ul>
       </div>
     </section>
 
     <section class="bloc">
-      <div class="conteneur">
-        <div class="a-titre">
-          <p class="a-etiq">Ce que tu reçois</p>
-          <h2>Avancer et te libérer, chaque mois</h2>
-          <p>Deux chemins qui se complètent : le carnet pour te projeter et avancer, le suivi pour te libérer de ce qui se rejoue depuis longtemps. Tout se remplit en ligne ou s’imprime : tu choisis ce qui te va.</p>
-          <div class="guide centre"><img src="assets/guide/guide-coffret.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Tout arrive au fil des mois, comme un petit rendez-vous : ton carnet, ton suivi, ton guide.</p></div>
+      <div class="conteneur t-split">
+        <img class="t-split-img" src="assets/images/blog-ciel-800.webp" srcset="assets/images/blog-ciel-800.webp 800w, assets/images/blog-ciel-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un ciel étoilé avec un croissant de lune au-dessus de la mer" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Ton appli Le Cercle</p>
+          <h2>Tout au même endroit, dans ta poche</h2>
+          <p>Une icône sur ton écran d’accueil, et ton parcours s’ouvre là où tu l’avais laissé. Une barre en bas pour passer de l’un à l’autre :</p>
+          <p class="t-barre-appli"><span>Renaissance</span><span>Libération</span><span>Module</span><span>Formation</span><span>Audio</span></p>
+          <ul class="t-coches">
+            <li>Ton <b>point du jour</b> à chaque ouverture.</li>
+            <li>Tes réponses <b>sauvegardées</b> dans ton espace, sur téléphone, tablette ou ordinateur.</li>
+            <li>Tout <b>s’imprime</b> aussi, si tu préfères écrire à la main.</li>
+          </ul>
         </div>
-        <div class="t-contenus">
-          <article><img src="assets/cercle/apercu-2026-10.jpg" width="496" height="702" alt="Couverture du carnet d'octobre" loading="lazy" class="t-portrait"><div><h3>J'avance · Le carnet du mois</h3><p>À remplir en ligne ou à imprimer : ta météo intérieure, ton objectif du mois, le thème expliqué, trois exercices, un rituel, une méditation et ton bilan de fin de mois.</p><span class="t-valeur">Valeur 9 €</span></div></article>
-          <article><img class="" src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><h3>Je me libère · Ton suivi</h3><p>Le chemin des deux cycles, une semaine après l'autre : repérer ce qui se rejoue, remonter à sa source, t'en libérer et poser un geste nouveau. Avec ton journal privé et tes bilans.</p><span class="t-valeur">Inclus</span></div></article>
-          <article><img class="" src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant, les yeux fermés" loading="lazy" decoding="async"><div><h3>Deux séances audio chaque mois</h3><p>Sur le thème du mois, deux séances guidées de plus de 20 minutes : une de visualisation pour te projeter vers ce que tu veux vivre, une de libération pour déposer ce qui se rejoue. À écouter au calme, aussi souvent que tu veux. Les premières séances arrivent en novembre ; en octobre, leurs textes sont déjà dans tes livres.</p><span class="t-valeur">Inclus</span></div></article>
-          <article><img class="" src="assets/images/genosociogramme-800.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un arbre familial dessiné à la main, entouré de photos anciennes" loading="lazy" decoding="async"><div><h3>Ton guide du mois complet</h3><p>Ton nombre du mois, tes quatre semaines, ton calendrier, les dates de ton arbre qui tombent ce mois-ci et ce que ta famille a vécu à l'âge que tu as.</p><span class="t-valeur">Inclus</span></div></article>
-          <article><img class="" src="assets/images/blog-nombres-800.webp" srcset="assets/images/blog-nombres-800.webp 800w, assets/images/blog-nombres-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un cadran doré gravé de cercles et de géométrie fine" loading="lazy" decoding="async"><div><h3>Ton évolution, mois après mois</h3><p>Ta météo intérieure du début et de la fin de chaque mois, ta courbe d'évolution, et ta lettre de dans un an qui s'ouvre le moment venu.</p><span class="t-valeur">Inclus</span></div></article>
-          <article><img src="assets/cercle/apercu-12-saisons.jpg" width="496" height="702" alt="Couverture du livret Les 12 saisons" loading="lazy" class="t-portrait"><div><h3>Les 12 saisons</h3><p>Le livret de l'année, offert dès ton 2<sup>e</sup> mois : chaque mois, son énergie et ce qu'il réveille dans les familles.</p><span class="t-valeur">Valeur 15 €</span></div></article>
-          <article><img class="" src="assets/images/blog-ciel-800.webp" srcset="assets/images/blog-ciel-800.webp 800w, assets/images/blog-ciel-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un ciel étoilé avec un croissant de lune au-dessus de la mer" loading="lazy" decoding="async"><div><h3>Tous tes carnets, à toi</h3><p>Chaque carnet reste dans ton espace avec tes réponses : tu relis ton chemin quand tu veux, et tu gardes les PDF même si tu arrêtes.</p><span class="t-valeur">Inclus</span></div></article>
-        </div>
-
       </div>
     </section>
 
     <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Le sommaire</p>
+          <h2>Tes 12 étapes</h2>
+          <p>Ta semaine 1 commence le jour où tu entres dans Le Cercle, et chaque étape dure un mois. Ton arbre de vie se construit au fil du cycle 2 : racines, tronc, branches, puis fruits.</p>
+        </div>
+        <ol class="t-sommaire">
+          <li><b>Mon premier pas</b><span>Qui sont les miens ?</span><i>La boucle et la spirale</i></li>
+          <li><b>Mes forces, mes appuis</b><span>Qu’est-ce que j’ai reçu ?</span><i>Remonter à la source</i></li>
+          <li><b>Ma place, mes limites</b><span>Quelle est ma place ?</span><i>Les programmes invisibles</i></li>
+          <li><b>Mon intention, mes valeurs</b><span>Quelle peur je porte, et pour qui ?</span><i>Ce qui pèse</i></li>
+          <li><b>M’aimer d’abord</b><span>Quel projet a-t-on posé sur moi ?</span><i>Clé 1 · Libérer la mémoire</i></li>
+          <li><b>Ma voix, ma confiance</b><span>Quelles émotions avaient le droit d’exister ?</span><i>Clé 2 · Stopper les répétitions</i></li>
+          <li><b>Dire vrai</b><span>Quelles phrases me guident ?</span><i>Clé 3 · Remplacer la mémoire</i></li>
+          <li><b>Prendre soin de moi</b><span>Comment ai-je appris à aimer ?</span><i>Ta montagne</i></li>
+          <li><b>Oser agir</b><span>Ai-je le droit d’aller plus loin ?</span><i>Tes modules restent ouverts</i></li>
+          <li><b>Ma valeur</b><span>Combien je m’autorise à recevoir ?</span><i>Tes modules restent ouverts</i></li>
+          <li><b>Mon chez-moi, mon élan</b><span>D’où venons-nous ?</span><i>Tes modules restent ouverts</i></li>
+          <li><b>Ma vocation</b><span>Qu’est-ce que je transmets ?</span><i>Tes modules restent ouverts</i></li>
+        </ol>
+        <p class="t-legende"><b>En gras</b> : ton carnet Renaissance · ensuite, la question de ton livret Libération · <i>en italique</i>, ton module de formation.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Elles pourraient être toi</p>
@@ -311,10 +365,10 @@
             <img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
             <div>
               <p class="t-qui">Claire, 34 ans · « Toujours de trop »</p>
-              <p>Dans ses relations, au travail, même en famille, Claire finit toujours par se sentir de trop, et elle s'éloigne la première.</p>
+              <p>Dans ses relations, au travail, même en famille, Claire finit toujours par se sentir de trop, et elle s’éloigne la première.</p>
               <ul>
                 <li><b>Semaines 1 et 2</b> : en notant ce qui lui pèse, elle voit la même peur partout, celle de ne pas avoir sa place.</li>
-                <li><b>Dans son arbre</b> : sa grand-mère a été confiée à une tante à six ans, « pour une saison » qui a duré dix ans.</li>
+                <li><b>Dans son arbre</b> : sa grand-mère a été confiée à une tante à six ans, pour quelques mois qui ont duré dix ans.</li>
                 <li><b>Semaine 4</b> : quand le sentiment arrive, elle fait la pause et pose une question au lieu de partir.</li>
               </ul>
               <p class="t-apres">La boucle revient encore, mais Claire la voit arriver.</p>
@@ -323,14 +377,14 @@
           <article>
             <img src="assets/images/blog-argent-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
             <div>
-              <p class="t-qui">Nadia, 41 ans · « L'argent qui file »</p>
+              <p class="t-qui">Nadia, 41 ans · « L’argent qui file »</p>
               <p>Nadia gagne bien sa vie et vit pourtant avec la peur de manquer. Elle épargne, se prive, et se sent coupable à chaque dépense.</p>
               <ul>
-                <li><b>Le carnet du mois</b> l'invite à regarder les épreuves de sa lignée : son arrière-grand-père a tout perdu en 1931.</li>
-                <li><b>Son mois personnel</b> fait tomber une date de son arbre en novembre, le mois de cette faillite.</li>
-                <li><b>Son geste de la semaine</b> : chaque soir, noter une chose qui a suffi aujourd'hui.</li>
+                <li><b>Son carnet Renaissance</b> l’invite à regarder les épreuves de sa lignée : son arrière-grand-père a tout perdu en 1931.</li>
+                <li><b>Son mois personnel</b> lui montre que l’anniversaire de cette faillite tombe pendant son étape.</li>
+                <li><b>Son petit pas de la semaine</b> : chaque soir, noter une chose qui a suffi aujourd’hui.</li>
               </ul>
-              <p class="t-apres">Nadia distingue enfin sa peur de celle qu'on lui a transmise.</p>
+              <p class="t-apres">Nadia distingue enfin sa peur de celle qu’on lui a transmise.</p>
             </div>
           </article>
           <article>
@@ -340,36 +394,37 @@
               <p>Avec sa mère, chaque conversation finit en dispute. Toujours le même sujet : partir, faire sa vie ailleurs.</p>
               <ul>
                 <li><b>Son arbre</b> montre que sa mère est partie de chez elle à 23 ans, après une rupture avec sa propre mère.</li>
-                <li><b>Semaine 3</b> : Léa observe ce qui déclenche la dispute, et voit qu'elle commence toujours par la même phrase.</li>
-                <li><b>Le carnet</b> lui propose une lettre qu'elle n'enverra pas, pour dire ce qu'elle n'arrive pas à dire.</li>
+                <li><b>Semaine 3</b> : Léa observe ce qui déclenche la dispute, et voit qu’elle commence toujours par la même phrase.</li>
+                <li><b>Son livret Libération</b> lui propose une lettre qu’elle n’enverra pas, pour dire ce qu’elle n’arrive pas à dire.</li>
               </ul>
               <p class="t-apres">Léa ne rejoue plus la scène : elle choisit ses mots.</p>
             </div>
           </article>
         </div>
         <p class="t-glisser" aria-hidden="true">Fais glisser pour voir les trois parcours</p>
-        <p class="t-mention">Situations d'exemple, pour illustrer le déroulé du Cercle. Les prénoms et les détails sont inventés.</p>
-        <div style="text-align:center;margin-top:1.8rem"><a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a></div>
+        <p class="t-mention">Situations d’exemple, pour illustrer le déroulé du Cercle. Les prénoms et les détails sont inventés.</p>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Et les petits +</p>
+          <h2>Tout ce qui t’accompagne au quotidien</h2>
+        </div>
+        <ul class="t-chips">
+          <li>Ton nombre du mois</li><li>Ta semaine maya</li><li>Ta météo intérieure</li><li>Ton bilan d’étape</li><li>Ta courbe d’évolution</li><li>Ton calendrier et les dates de ton arbre</li><li>Ta phrase du jour</li><li>Ton journal privé</li><li>Le livret Les 12 saisons, dès ta 2<sup>e</sup> étape</li><li>Ton livre de lignée, au bout de l’année</li>
+        </ul>
       </div>
     </section>
 
     <section class="bloc" id="avis" hidden>
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Ils et elles ont testé</p>
-          <h2>Ce qu'en disent les premières membres</h2>
+          <p class="a-etiq">Elles ont testé</p>
+          <h2>Ce qu’en disent les premières membres</h2>
         </div>
         <div class="t-avis" id="t-avis"></div>
-      </div>
-    </section>
-
-    <section class="t-urgence">
-      <img class="t-hero-fond" src="assets/images/blog-deuil-800.webp" srcset="assets/images/blog-deuil-800.webp 800w, assets/images/blog-deuil-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
-      <div class="conteneur t-urgence-texte">
-        <p class="a-sur">Pourquoi maintenant</p>
-        <h2 id="t-urg-titre">Le carnet d'octobre : « Ce qui revient »</h2>
-        <p id="t-urg-texte">Octobre, la rentrée est passée et l'on remarque ce qui ne change pas : la même fatigue, la même dispute, la même peur. C'est le moment idéal pour repérer la boucle qui se rejoue dans ta vie et faire le premier pas pour en sortir. Chaque mois que tu laisses passer, elle se rejoue une fois de plus.</p>
-        <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
       </div>
     </section>
 
@@ -377,61 +432,37 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Les formules</p>
-          <h2>Le même Cercle, deux façons de payer</h2>
-          <p>Tout est compris dans les deux formules. Choisis la liberté du mois, ou le prix doux sur 12 mois.</p>
+          <h2>Le même Cercle, deux façons de continuer</h2>
+          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou le prix doux sur 12 mois.</p>
         </div>
         <div class="a-formules">
           <article class="a-carte vedette">
             <span class="a-badge">Tout compris</span>
             <h3>Le Cercle au mois</h3>
-            <p class="a-essai"><s>29 €</s>1 mois offert pour tester</p>
+            <p class="a-essai"><s>29 €</s>1<sup>er</sup> mois offert</p>
             <p class="a-prix">29 € <small>par mois ensuite, sans engagement</small></p>
             <ul>
-              <li><b>J'avance</b> : un nouveau carnet chaque mois, à remplir en ligne ou à imprimer, avec ta météo intérieure, ton objectif et ton bilan</li>
-              <li><b>Je me libère</b> : ton suivi semaine après semaine, construit sur la méthode des deux cycles, avec ton journal privé</li>
-              <li><b>Ton guide du mois complet</b> : ton nombre du mois, tes semaines, ton calendrier et les dates de ton arbre</li>
-              <li><b>Deux séances audio par mois</b> dès novembre, de plus de 20 minutes : une de visualisation, une de libération</li>
-              <li><b>Ton évolution</b> : ta courbe mois après mois et ta lettre de dans un an</li>
-              <li><b>Les 12 saisons</b>, offert dès ton 2<sup>e</sup> mois, et tous tes carnets gardés dans ton espace</li>
+              <li><b>Renaissance</b> : ton carnet du cycle 1, un petit pas chaque semaine</li>
+              <li><b>Libération</b> : ton livret du cycle 2 et ton arbre de vie</li>
+              <li><b>2 séances audio guidées</b> à chaque étape</li>
+              <li><b>La formation « Sors de la boucle »</b> : 8 modules en vidéo</li>
+              <li><b>Ton appli Le Cercle</b>, ton mois personnel et tous les petits +</li>
             </ul>
-            <a class="btn btn-plein" href="essai.html">Commencer mon mois gratuit</a>
-            <p class="a-note">Après ton essai : 29 € par mois, sans engagement. Rien n'est prélevé pendant 30 jours. Tu reçois un rappel avant la fin de l'essai, et tu arrêtes en 1 clic depuis ton espace.</p>
+            <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
+            <p class="a-note">Aucune carte demandée pour ton mois offert. Avant la fin, on t’écrit pour te proposer de continuer.</p>
           </article>
           <article class="a-carte">
             <h3>Le Cercle sur 12 mois</h3>
             <p class="a-prix">24,90 € <small>par mois, engagement 12 mois</small></p>
-            <p>Exactement le même contenu, à un prix plus doux. Pour celles et ceux qui veulent faire le chemin complet des douze carnets.</p>
+            <p>Exactement le même contenu, à un prix plus doux, pour faire le chemin complet des 12 étapes.</p>
             <ul>
-              <li>Un nouveau carnet chaque mois, pendant 12 mois</li>
               <li>Tout ce qui est compris dans la formule au mois</li>
-              <li>Près de 50 € d'économie sur l'année</li>
+              <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
+              <li>Près de 50 € d’économie sur l’année</li>
             </ul>
-            <a class="btn btn-trait" href="essai.html?formule=annee">Commencer mon mois gratuit</a>
-            <p class="a-note">Même essai gratuit de 30 jours, puis 24,90 € par mois pendant 12 mois.</p>
+            <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
+            <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
           </article>
-        </div>
-        <div class="t-pile" style="margin-top:2.4rem">
-          <div>
-            <p class="a-etiq">La différence</p>
-            <h2>Gratuit pour découvrir. Le Cercle pour avancer vraiment.</h2>
-            <ul>
-              <li><span>Tous les outils, tes livrets par mail, le parcours guidé</span><span>gratuit</span></li>
-              <li><span>Le carnet des deux cycles et ton premier carnet du Cercle</span><span>gratuit</span></li>
-              <li><span>Ton point de départ et la semaine 1 de ton suivi</span><span>gratuit</span></li>
-              <li><span>Un nouveau carnet interactif chaque mois</span><span>Le Cercle</span></li>
-              <li><span>Ton suivi complet, semaine après semaine</span><span>Le Cercle</span></li>
-              <li><span>Deux séances audio par mois (dès novembre), visualisation et libération</span><span>Le Cercle</span></li>
-              <li><span>Ton guide du mois complet et ton évolution</span><span>Le Cercle</span></li>
-              <li><span>Le livret Les 12 saisons</span><span>Le Cercle</span></li>
-            </ul>
-            <p class="t-total"><span>Sans engagement</span><b>29 € / mois</b></p>
-            <p class="t-total"><span>Sur 12 mois</span><b>24,90 € / mois</b></p>
-            <p class="t-toi"><span>Ton premier mois</span><b>0 €</b></p>
-          </div>
-          <div class="t-pile-cta">
-            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
-            <p class="t-rassure">Rien n'est prélevé pendant 30 jours · sans engagement · arrêt en 1 clic</p>
-          </div>
         </div>
       </div>
     </section>
@@ -439,22 +470,15 @@
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">En 3 minutes</p>
-          <h2>Ton essai commence aujourd'hui</h2>
+          <p class="a-etiq">En 2 minutes</p>
+          <h2>Ton mois offert commence aujourd’hui</h2>
         </div>
         <ol class="t-etapes">
           <li><b>Crée ton compte</b>Ton prénom, ton e-mail, un mot de passe. Ton espace est prêt.</li>
-          <li><b>Enregistre ta carte</b>Rien n'est prélevé pendant 30 jours. Tu reçois un rappel avant la fin.</li>
-          <li><b>Fais ton point de départ</b>15 minutes : ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles. Tout ton Cercle s'oriente dessus.</li>
+          <li><b>Ouvre ton mois offert</b>Un clic, aucune carte. Ton accès arrive aussi par e-mail.</li>
+          <li><b>Fais ton point de départ</b>15 minutes : ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles. Tout ton Cercle s’oriente dessus.</li>
         </ol>
-        <div class="a-titre" style="margin-top:2.6rem"><p class="a-etiq">Ensuite</p><h2>Tout arrive au fil des mois</h2><p>Pas de pile de PDF d'un coup : chaque mois, un nouveau rendez-vous t'attend dans ton espace. C'est ce rythme qui permet d'avancer vraiment.</p></div>
-        <ol class="a-rythme">
-          <li><b>Ton 1<sup>er</sup> mois</b>Ton point de départ, le carnet du mois, ton suivi semaine après semaine, tes deux séances audio (dès novembre) et ton guide du mois complet.</li>
-          <li><b>Chaque semaine</b>La suite de ton suivi : un thème, un exercice, un geste concret.</li>
-          <li><b>Ton 2<sup>e</sup> mois</b>Un nouveau carnet, et le livret Les 12 saisons.</li>
-                    <li><b>Ensuite, chaque mois</b>Un nouveau carnet, la suite de ton suivi, deux nouvelles séances audio, ton guide mis à jour et ta courbe d'évolution.</li>
-        </ol>
-        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a></div>
+        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a></div>
       </div>
     </section>
 
@@ -465,12 +489,12 @@
           <div>
             <h2>Zéro risque pour toi</h2>
             <ul class="t-coches">
-              <li><b>30 jours gratuits</b> pour tout tester : carnet, suivi, séances audio (dès novembre), guide du mois.</li>
-              <li><b>Un e-mail de rappel</b> quelques jours avant la fin de l'essai.</li>
-              <li><b>Arrêt en 1 clic</b> depuis Mon espace, sans justification.</li>
-              <li><b>Tes carnets restent à toi</b>, même si tu arrêtes.</li>
+              <li><b>30 jours offerts</b> pour tout découvrir : tes deux livres, tes séances audio, ta formation et ton appli.</li>
+              <li><b>Aucune carte demandée</b> : rien ne peut être prélevé.</li>
+              <li><b>On t’écrit avant la fin</b> pour te proposer de continuer. Sans réponse, ton mois offert s’arrête simplement.</li>
+              <li><b>Tes réponses restent à toi</b>, dans ton espace.</li>
             </ul>
-            <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
+            <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
           </div>
         </div>
       </div>
@@ -478,152 +502,58 @@
 
     <section class="bloc bloc-doux">
       <div class="conteneur a-lancement">
-        <img class="a-laura" src="assets/guide/laura-paysage.webp" width="640" height="640" alt="Laura, en illustration" loading="lazy">
         <p class="a-etiq">Un petit mot</p>
         <h2>Tu arrives au tout début</h2>
-        <p>Genesolia vient d'ouvrir. Tu fais partie des toutes premières personnes à nous rejoindre, et ça compte énormément pour nous.</p>
-        <p>Le site grandit chaque semaine. Si quelque chose ne marche pas, si une page n'est pas claire ou s'il te manque une idée, dis-le-nous : chaque message est lu, et beaucoup deviennent des améliorations. Merci d'être là dès le premier jour.</p>
-        <p class="a-signe">Laura</p>
-        <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Donner mon avis</a>
+        <p>Le Cercle vient d’ouvrir. Tu fais partie des toutes premières personnes à nous rejoindre, et ça compte énormément pour nous.</p>
+        <p>L’appli grandit chaque semaine. Si quelque chose ne marche pas, si une page n’est pas claire ou s’il te manque une idée, dis-le-nous : chaque message est lu, et beaucoup deviennent des améliorations.</p>
+        <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Le%20Cercle">Donner mon avis</a>
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+    <section class="bloc">
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
-        <details><summary>Est-ce que je m'engage pour un an ?</summary><p>Seulement si tu le choisis. La formule à 29 € par mois est sans engagement : tu arrêtes quand tu veux, depuis ton espace. La formule à 24,90 € par mois t'engage pour 12 mois, en échange d'un prix plus doux.</p></details>
-        <details><summary>Comment se passe le mois gratuit ?</summary><p>Tu crées ton compte, tu enregistres ta carte, puis tu fais ton point de départ. Rien n'est prélevé pendant 30 jours. Si tu continues, le premier paiement de 29 € a lieu le 31<sup>e</sup> jour.</p></details>
-        <details><summary>Est-ce que je reçois tout d'un coup ?</summary><p>Non, et c'est voulu. Tout est inclus, mais chaque contenu arrive à son moment : un nouveau carnet chaque mois, la suite de ton suivi chaque semaine, et Les 12 saisons dès ton 2<sup>e</sup> mois. Tes carnets restent ensuite dans ton espace.</p></details>
-        <details><summary>Et si je veux arrêter pendant l'essai ?</summary><p>Un clic depuis Mon espace, et tu ne paies rien. Tu reçois aussi un e-mail de rappel quelques jours avant la fin de l'essai.</p></details>
-        <details><summary>Je n'ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Compte une quinzaine de minutes par semaine pour ton suivi, et le carnet du mois se remplit à ton rythme. Tout reste dans ton espace : tu reprends où tu t'étais arrêté·e.</p></details>
-        <details><summary>Je connais mal mon histoire familiale. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Le suivi et les carnets fonctionnent même sans arbre complet, et t'aident à poser les bonnes questions à ta famille.</p></details>
-        <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Genesolia propose une lecture symbolique de ton histoire familiale, à faire seul·e, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
-        <details><summary>Je ne veux pas écrire mes réponses sur internet. C'est possible ?</summary><p>Oui. Chaque carnet et chaque suivi s'imprime : tu remplis à la main et tu fais ton bilan sur papier chaque mois. Et si tu écris en ligne, tes réponses sont chiffrées, et l'équipe Genesolia ne les lit jamais. Rien n'est gardé dans ton espace sans ton accord.</p></details>
-        <details><summary>Je garde mes carnets si j'arrête ?</summary><p>Oui. Les carnets et livrets que tu as téléchargés restent à toi.</p></details>
+        <details><summary>Comment se passe le mois offert ?</summary><p>Tu crées ton compte, tu ouvres ton mois offert en un clic, puis tu fais ton point de départ. Aucune carte n’est demandée. Pendant 30 jours, tout ton Cercle est ouvert.</p></details>
+        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou sur 12 mois (24,90 € par mois). Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
+        <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : tes deux livres, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
+        <details><summary>Mes semaines suivent-elles le calendrier ?</summary><p>Non, elles suivent ton propre rythme : ta semaine 1 commence le jour où tu entres dans Le Cercle, que ce soit le 1<sup>er</sup> ou le 18 du mois.</p></details>
+        <details><summary>Je n’ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Compte une quinzaine de minutes par semaine, et les séances audio s’écoutent quand tu veux. Tout reste dans ton appli : tu reprends où tu t’étais arrêtée.</p></details>
+        <details><summary>Je connais mal mon histoire familiale. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Tes livres t’aident à poser les bonnes questions à ta famille.</p></details>
+        <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Le Cercle propose une lecture symbolique de ton histoire familiale et des exercices de développement personnel, à faire seul·e, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
+        <details><summary>Je ne veux pas écrire mes réponses sur internet. C’est possible ?</summary><p>Oui. Chaque livre s’imprime : tu remplis à la main si tu préfères. Et si tu écris en ligne, tes réponses restent dans ton espace privé, et l’équipe Genesolia ne les lit jamais.</p></details>
       </div>
     </section>
+
     <section class="t-final">
       <img class="t-hero-fond" src="assets/images/blog-ancetres-reve-800.webp" srcset="assets/images/blog-ancetres-reve-800.webp 800w, assets/images/blog-ancetres-reve-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
       <div class="conteneur t-final-texte">
         <h2>Dans un mois, tu peux regarder ta boucle autrement.</h2>
-        <p>Ou la laisser se rejouer encore. Le premier pas est gratuit.</p>
-        <a class="btn btn-plein t-cta" href="essai.html">Commencer mon mois gratuit</a>
-        <p class="t-rassure">Rien n'est prélevé pendant 30 jours · sans engagement · arrêt en 1 clic</p>
+        <p>Ou la laisser se rejouer encore. Le premier pas est offert.</p>
+        <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+        <p class="t-rassure">30 jours offerts · aucune carte demandée · sans engagement</p>
       </div>
     </section>
+
     <section class="bloc" id="liste">
       <div class="conteneur">
         <div class="a-liste" id="a-liste">
-          <h2>Pas encore prêt·e ? Reste en lien</h2>
-          <p>Laisse ton e-mail : tu reçois ton premier carnet du Cercle tout de suite, et nos nouvelles (nouveaux carnets, packs, espace praticien·ne).</p>
+          <h2>Pas encore prête ? Reste en lien</h2>
+          <p>Laisse ton e-mail : tu reçois tout de suite un carnet du Cercle à découvrir, et nos nouvelles.</p>
           <form id="a-form" novalidate>
             <div class="a-champs">
               <label>Prénom<input type="text" name="prenom" autocomplete="given-name"></label>
               <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
             </div>
-            <fieldset class="a-choix">
-              <legend>Ce qui t'intéresse</legend>
-              <label><input type="checkbox" name="interet" value="Le Cercle au mois"> Le Cercle au mois</label>
-              <label><input type="checkbox" name="interet" value="Le Cercle sur 12 mois"> Le Cercle sur 12 mois</label>
-              <label><input type="checkbox" name="interet" value="Documents ou packs"> Des documents ou des packs</label>
-              <label><input type="checkbox" name="interet" value="Espace praticien"> L'espace praticien·ne</label>
-            </fieldset>
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
-            <label class="a-accord"><input type="checkbox" name="accord" required><span>J'accepte de recevoir le carnet et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
-            <button class="btn btn-plein" type="submit">Je veux être prévenu·e</button>
+            <label class="a-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir le carnet et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
+            <button class="btn btn-plein" type="submit">Recevoir le carnet</button>
             <p class="a-erreur" role="alert"></p>
           </form>
         </div>
       </div>
     </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="a-titre">
-          <p class="a-etiq">Sans abonnement</p>
-          <h2>Juste ce dont tu as besoin</h2>
-          <p>Sans abonnement, chaque document s'achète seul. Tous sont inclus dans Le Cercle.</p>
-        </div>
-        <div class="a-grille">
-          <article class="a-produit">
-            <h3>Un carnet du mois</h3>
-            <p>Dix pages à imprimer sur le thème du mois de ton choix.</p>
-            <p class="a-p">9 €</p>
-            <p class="a-inclus">Inclus dans Le Cercle</p>
-            <a class="btn btn-trait a-acheter" data-stripe="carnet" href="#liste">Acheter</a>
-          </article>
-          <article class="a-produit">
-            <h3>Le rapport de ton arbre</h3>
-            <p>La lecture complète de ton génosociogramme, en PDF.</p>
-            <p class="a-p">9 €</p>
-            <p class="a-inclus">Inclus dans Le Cercle</p>
-            <a class="btn btn-trait a-acheter" data-stripe="rapport" href="#liste">Acheter</a>
-          </article>
-          <article class="a-produit">
-            <h3>Ton livret de numérologie</h3>
-            <p>Ton chemin de vie, tes nombres et ton année personnelle, en PDF.</p>
-            <p class="a-p">12 €</p>
-            <p class="a-inclus">Inclus dans Le Cercle</p>
-            <a class="btn btn-trait a-acheter" data-stripe="numerologie" href="#liste">Acheter</a>
-          </article>
-          <article class="a-produit">
-            <h3>Les 12 saisons</h3>
-            <p>Le livret de l'année : chaque mois, son énergie et ce qu'il réveille dans les familles.</p>
-            <p class="a-p">15 €</p>
-            <p class="a-inclus">Inclus dans Le Cercle</p>
-            <a class="btn btn-trait a-acheter" data-stripe="saisons" href="#liste">Acheter</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc bloc-doux">
-      <div class="conteneur">
-        <div class="a-titre">
-          <p class="a-etiq">Les packs</p>
-          <h2>Plusieurs documents, un seul prix</h2>
-        </div>
-        <div class="a-packs">
-          <article class="a-pack">
-            <h3>Pack Lignée</h3>
-            <p>Le rapport de ton arbre, ton livret de numérologie et trois carnets du mois au choix.</p>
-            <p class="a-p">35 € <s>48 €</s></p>
-            <a class="btn btn-trait" data-stripe="packLignee" href="#liste">Choisir ce pack</a>
-          </article>
-          <article class="a-pack">
-            <h3>Pack L'année complète</h3>
-            <p>Les douze carnets de l'année et le livret Les 12 saisons, à télécharger d'un coup.</p>
-            <p class="a-p">79 € <s>123 €</s></p>
-            <a class="btn btn-trait" data-stripe="packAnnee" href="#liste">Choisir ce pack</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="a-titre">
-          <p class="a-etiq">Aussi sur Genesolia</p>
-          <h2>Pour aller plus loin</h2>
-        </div>
-        <div class="a-autres">
-          <article class="a-carte">
-            <h3>La formation « Sors de la boucle »</h3>
-            <p>8 modules en vidéo, un cahier d'exercices et un geste concret par module pour arrêter de répéter le même schéma. Rejoins la liste : module 1 offert le 1<sup>er</sup> novembre pour tester, inscriptions le 7 novembre.</p>
-            <p class="a-note">Incluse dans Le Cercle : un nouveau module s'ouvre au fil de tes étapes.</p>
-            <a class="btn btn-trait" href="formation.html">Découvrir la formation</a>
-          </article>
-          <article class="a-carte">
-            <h3>L'espace praticien·ne</h3>
-            <p>Pour les professionnel·les de l'accompagnement : dossiers client·es, notes privées et rapports personnalisés. Abonnement mensuel, en préparation.</p>
-            <a class="btn btn-trait" href="espace-praticien.html">Être prévenu·e</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
   </main>
-  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><s>29 €</s> <b>1 mois gratuit</b> <span>sans engagement</span></p><a class="btn btn-plein" href="essai.html">Commencer</a></div></div>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><s>29 €</s> <b>1<sup>er</sup> mois offert</b> <span>aucune carte demandée</span></p><a class="btn btn-plein" href="essai.html">Commencer</a></div></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>
@@ -646,25 +576,6 @@
       new IntersectionObserver(function (e) { vuHero = e[0].isIntersecting; maj(); }).observe(hero);
       if (fin) new IntersectionObserver(function (e) { vuFin = e[0].isIntersecting; maj(); }).observe(fin);
     }
-    /* « Pourquoi maintenant » suit le carnet du mois en cours (le texte d'octobre reste celui écrit à la main) */
-    (function () {
-      var d = new Date(), m = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2);
-      if (m <= '2026-10') return;
-      var sc = document.createElement('script'); sc.src = 'assets/carnets/' + m + '.js';
-      sc.onload = function () {
-        var C = window.GENESOLIA_CARNET; if (!C || !C.titre) return;
-        var nm = String(C.nomMois || '').split(' ')[0], de = /^[aeiouyhé]/i.test(nm) ? 'd’' + nm : 'de ' + nm;
-        document.getElementById('t-urg-titre').textContent = 'Le carnet ' + de + '\u00a0: «\u00a0' + C.titre + '\u00a0»';
-        document.getElementById('t-urg-texte').textContent = (C.sousTitre || '') + ' Chaque mois que tu laisses passer, ta boucle se rejoue une fois de plus. Commence ce mois-ci, avec le carnet ' + de + '.';
-        window.GENESOLIA_CARNET = null;
-      };
-      document.body.appendChild(sc);
-    })();
-    var LIENS = window.GENESOLIA_STRIPE || {};
-    document.querySelectorAll('[data-stripe]').forEach(function (a) {
-      var l = LIENS[a.getAttribute('data-stripe')];
-      if (l) { a.href = l; } else { a.textContent = 'Me prévenir'; }
-    });
     var form = document.getElementById('a-form');
     var CARNET = 'assets/cercle/cercle-2026-10-8b31e0c2a4.pdf';
     form.addEventListener('submit', function (ev) {
@@ -675,10 +586,9 @@
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
       if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour être prévenu·e.'; return; }
       err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
-      var choix = [].slice.call(form.querySelectorAll('input[name=interet]:checked')).map(function (c) { return c.value; });
       var data = new FormData();
       data.append('prenom', prenom); data.append('email', email);
-      data.append('interet', choix.join(', ') || 'non précisé');
+      data.append('interet', 'Le Cercle');
       data.append('liste', 'Ouverture abonnement');
       data.append('source', 'abonnement.html');
       data.append('_subject', 'Liste d\'attente : abonnement Le Cercle');
@@ -691,7 +601,7 @@
           if (window.umami) try { window.umami.track('liste-abonnement'); } catch (x) {}
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = 'Je veux être prévenu·e';
+          btn.disabled = false; btn.textContent = 'Recevoir le carnet';
           err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.';
         });
     });
