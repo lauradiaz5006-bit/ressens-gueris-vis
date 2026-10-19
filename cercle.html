@@ -504,9 +504,9 @@
     function vuePorte() {
       var C = E.C, u = E.user;
       afficher('<section class="ce-carte ce-porte"><img src="assets/icones/cercle-192.png" alt="" width="84" height="84"><h1 class="ce-h1">' + (u ? 'Ton Cercle t’attend' : 'Le Cercle, ton espace membre') + '</h1>' +
-        '<p>' + (u ? 'Cette appli est réservée aux membres du Cercle. Rejoins-le pour l’ouvrir.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
-        '<ul><li>Deux livres chaque mois : « J’avance » et « Je me libère »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
-        '<div class="ce-actions">' + (u ? '<a class="ce-bt" href="abonnement.html">Découvrir le Cercle</a>' : '<a class="ce-bt" href="login.html?retour=cercle.html">Me connecter</a><a class="ce-bt clair" href="abonnement.html">Découvrir le Cercle</a>') + '</div>' +
+        '<p>' + (u ? 'Cette appli est réservée aux membres du Cercle. Ton premier mois est offert, sans carte.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
+        '<ul><li>Deux livres à chaque étape : Renaissance et Libération</li><li>Tes séances audio et la formation « Sors de la boucle »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
+        '<div class="ce-actions">' + (u ? '<a class="ce-bt" href="essai.html">Ouvrir mon mois offert</a>' : '<a class="ce-bt" href="login.html?retour=cercle.html">Me connecter</a><a class="ce-bt clair" href="essai.html">Mon mois offert</a>') + '</div>' +
         (C ? '<p class="ce-discret" style="margin-top:1rem">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>');
     }
 
