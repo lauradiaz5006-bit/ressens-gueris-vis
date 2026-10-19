@@ -305,7 +305,7 @@ window.GENESOLIA_IMPRESSION = {
     formation: '<path d="M2.5 9L12 4.5 21.5 9 12 13.5z"/><path d="M6.5 11v4.2c1.6 1.5 3.4 2.3 5.5 2.3s3.9-.8 5.5-2.3V11M21.5 9v5"/>',
     audio: '<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4.5" height="6" rx="1.8"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.8"/>'
   };
-  /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
+  /* L'espace de formation sur Systeme.io (podcasts des modules). Vide : la page de la formation sur le site. */
   var ESPACE_FORMATION = 'https://genesolia.systeme.io/dashboard/login';   /* l'espace élève de la formation sur Systeme.io (connexion : https://genesolia.systeme.io/dashboard/login) */
   /* Avant d'ouvrir la formation sur Systeme.io : une fenêtre explique la connexion (compte séparé, mail d'accès, mot de passe).
      Elle revient tant que la personne n'a pas confirmé avoir son mot de passe. Le clic relance aussi l'inscription (sans effet si déjà faite). */
@@ -585,7 +585,7 @@ window.GENESOLIA_IMPRESSION = {
     zoneForm.innerHTML = '<div class="conteneur"><div class="cadeau encart-formation">' +
       '<img class="cadeau-couv" src="assets/formation/module-1-apercu.jpg" width="662" height="936" alt="Aperçu du module 1 de la formation Sors de la boucle" loading="lazy">' +
       '<div class="cadeau-texte"><p class="ef-sur">La formation · Sors de la boucle</p><h2>Va plus loin que le mois : sors vraiment de ta boucle</h2>' +
-      '<p>Ton carnet t’aide à avancer, ton suivi à te libérer. La formation t’emmène au bout du chemin : 8 modules en vidéo, un carnet pour chacun, et à chaque étape un geste concret pour arrêter de rejouer la même histoire.</p>' +
+      '<p>Ton carnet t’aide à avancer, ton suivi à te libérer. La formation t’emmène au bout du chemin : 8 modules en podcast, un carnet pour chacun, et à chaque étape un geste concret pour arrêter de rejouer la même histoire.</p>' +
       '<ul class="ef-liste"><li>Le module 1 offert, pour tester</li><li>Incluse dans Le Cercle, au fil de tes étapes</li><li>À ton rythme, depuis chez toi</li></ul>' +
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
@@ -675,7 +675,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div class="ef-texte">' +
         '<p class="ef-sur">La formation · disponible maintenant · module 1 offert</p>' +
         '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
-        '<p>« Sors de la boucle » : 8 modules en vidéo, un cahier d\'exercices et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
+        '<p>« Sors de la boucle » : 8 modules en podcast, un cahier d\'exercices et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
         '<ul class="ef-avantages">' +
           '<li><b>Le module 1 offert</b>, envoyé par e-mail tout de suite</li>' +
           '<li><b>La formation complète</b>, incluse dans Le Cercle : ton premier mois est offert, sans carte</li>' +
@@ -699,7 +699,7 @@ window.GENESOLIA_IMPRESSION = {
       return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
         '<p>C\'est noté. <b>Ton module 1 offert t\'arrive par e-mail</b>, étape par étape :</p>' +
         '<ol class="liste-etapes">' +
-          '<li><b>La vidéo du module</b><span>pour comprendre ta boucle</span></li>' +
+          '<li><b>Le podcast du module</b><span>pour comprendre ta boucle</span></li>' +
           '<li><b>Le cahier d\'exercices</b><span>et ton carnet de 7 jours</span></li>' +
         '</ol>' +
         '<p class="discret">Envie de toute la formation tout de suite ? Elle est incluse dans <a href="abonnement.html">Le Cercle</a>, avec ton premier mois offert, sans carte. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';

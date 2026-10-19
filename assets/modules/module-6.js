@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Dans ce module, tu apprends à reconnaître ce qui se passe quand une boucle que tu croyais réglée revient, et à descendre jusqu'à sa racine. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Dans ce module, tu apprends à reconnaître ce qui se passe quand une boucle que tu croyais réglée revient, et à descendre jusqu'à sa racine. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point la boucle qui revient te décourage-t-elle aujourd'hui ?",
     souhaitQ: "Quelle boucle revient, alors que tu pensais l'avoir réglée ?",
     souhaitPh: "Exemple : la peur de manquer. J'allais mieux avec l'argent, et un courrier m'a tout fait revivre.",

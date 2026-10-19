@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Dans ce module, tu remontes le fil de ta boucle pour voir d'où elle vient, et ce qui s'est peut-être transmis dans ta famille. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Dans ce module, tu remontes le fil de ta boucle pour voir d'où elle vient, et ce qui s'est peut-être transmis dans ta famille. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point ta boucle principale pèse-t-elle dans ta vie aujourd'hui ?",
     souhaitQ: "Quelle peur ou quelle réaction aimerais-tu mieux comprendre grâce à ce module ?",
     souhaitPh: "Exemple : ma panique dès qu'une dépense imprévue arrive, même quand j'ai de quoi payer.",

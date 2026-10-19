@@ -40,7 +40,7 @@ Deno.serve(async (req) => {
     // Un seul envoi par séance et par personne : le mail de la séance tout de suite, puis l'invitation au Cercle 2 jours après
     const { data: deja } = await sb.from("mails").select("id").eq("contact_id", c.id).eq("type", "seance_offerte_" + seance).limit(1);
     if (!deja || !deja.length) {
-      const avantages = "deux nouvelles séances guidées à chaque étape, ton carnet Renaissance pour sortir de la peur et du mode survie, ton livret Libération pour comprendre comment tu aimes et aimer plus grand, la formation « Sors de la boucle » en 8 modules vidéo, et ton appli avec ton point du jour et ton mois personnel";
+      const avantages = "deux nouvelles séances guidées à chaque étape, ton carnet Renaissance pour sortir de la peur et du mode survie, ton livret Libération pour comprendre comment tu aimes et aimer plus grand, la formation « Sors de la boucle » en 8 modules à écouter en podcast, et ton appli avec ton point du jour et ton mois personnel";
       const { data: suite } = await sb.from("mails").select("id").eq("contact_id", c.id).in("type", ["seance_offerte_suite", "offert_suite"]).limit(1);
       const envois: Record<string, unknown>[] = [PD ? {
         contact_id: c.id, email, prenom: prenom || null, type: "seance_offerte_" + seance, ok_envoyer: true,

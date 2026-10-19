@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "On entre dans les trois clés. La première est peut-être la plus utile au quotidien : libérer la mémoire au moment précis où elle se déclenche. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "On entre dans les trois clés. La première est peut-être la plus utile au quotidien : libérer la mémoire au moment précis où elle se déclenche. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point tes réactions automatiques t'embarquent-elles aujourd'hui ?",
     souhaitQ: "Quelle situation déclenche le plus souvent ta réaction automatique ?",
     souhaitPh: "Exemple : quand on me critique au travail, je me justifie pendant dix minutes.",

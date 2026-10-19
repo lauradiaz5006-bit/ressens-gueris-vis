@@ -39,7 +39,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Dans ce premier module, tu apprends à remarquer le moment où ta boucle démarre. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Dans ce premier module, tu apprends à remarquer le moment où ta boucle démarre. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point ce qui se répète dans ta vie pèse-t-il aujourd'hui ?",
     souhaitQ: "Qu'est-ce qui, dans ta vie, se passe toujours de la même façon, même quand tu voudrais que ce soit différent ?",
     souhaitPh: "Exemple : je dis oui à tout au travail, puis je rumine le soir que personne ne me respecte.",
