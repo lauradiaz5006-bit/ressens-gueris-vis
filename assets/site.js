@@ -264,7 +264,9 @@ window.GENESOLIA_IMPRESSION = {
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
-  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'cercle.html';  /* cercle.html : l'appli des membres, sans publicité */
+  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'cercle.html'   /* cercle.html : l'appli des membres, sans publicité */
+    || page === 'abonnement.html'                                                            /* la page de vente : une seule décision, pas d'autre encart */
+    || (page === 'login.html' && /[?&]retour=essai\.html/.test(location.search));          /* création du compte depuis l'essai : on reste sur les rails */
 
   /* ===== Mode appli =====
      « cercle » : l'appli Le Cercle. Elle commence sur cercle.html ; les pages du Cercle ouvertes depuis elle gardent
@@ -470,7 +472,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
-            '<li><a href="blessures-de-l-ame.html">Les blessures de l\'âme</a></li>' +
+            '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Guides</h4><ul>' +
             '<li><a href="quest-ce-qu-un-genosociogramme.html">Qu\'est-ce qu\'un génosociogramme ?</a></li>' +
@@ -484,7 +486,6 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="le-ciel-du-mois.html">Le ciel du mois</a></li>' +
             '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
-            '<li><a href="les-10-sephiroth.html">Les 10 Séphiroth</a></li>' +
             '<li><a href="syndrome-anniversaire.html">Le syndrome d\'anniversaire</a></li>' +
             '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
             '<li><a href="/#questions">Questions fréquentes</a></li></ul></div>' +
