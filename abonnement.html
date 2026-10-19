@@ -109,8 +109,8 @@
     .t-hero .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.8rem;max-width:36rem}
     .t-couvs{position:relative;height:420px}
     .t-couv{position:absolute;width:230px;height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
-    .t-couv-1{top:0;right:8%;transform:rotate(7deg);opacity:.92}
-    .t-couv-2{top:40px;right:34%;transform:rotate(-4deg)}
+    .t-couv-1{top:0;right:0;transform:rotate(8deg)}
+    .t-couv-2{top:50px;right:40%;transform:rotate(-5deg)}
     .t-cta{font-size:1.05rem;padding:1rem 1.7rem;box-shadow:0 12px 30px rgba(107,47,91,.28)}
     .a-offre .t-cta{box-shadow:0 12px 30px rgba(0,0,0,.3)}
     .t-rassure{margin:.8rem 0 0;font-size:.88rem;color:var(--prune-doux)}
@@ -250,6 +250,11 @@
     .t-ecoute p{font-size:.95rem;color:var(--prune-doux);margin:0 0 .7rem!important}
     .t-ecoute b{color:var(--prune)}
     .t-ecoute audio{width:100%;max-width:26rem;height:44px;border-radius:99px}
+    .t-semaine1{max-width:42rem;margin:0 auto;text-align:center;padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-semaine1 ol{list-style:none;margin:1rem 0 1.4rem;padding:0;display:grid;gap:.7rem;text-align:left}
+    .t-semaine1 li{padding-left:1.5rem;position:relative;line-height:1.5}
+    .t-semaine1 li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    @media (max-width:560px){.t-semaine1{padding:1.4rem}}
   </style>
 </head>
 <body class="nouveau">
@@ -261,7 +266,7 @@
         <div>
           <p class="a-sur">Programme en ligne · 12 étapes · 15 minutes par semaine</p>
           <h1>Tu voudrais enfin sortir de ce qui se répète dans ta vie, sans y passer des années ni alourdir ta charge mentale ?</h1>
-          <p class="intro">Le Cercle t’aide à voir d’où vient ce qui se rejoue (ton histoire de famille, tes croyances héritées) et à faire autrement, une étape par mois. Des exercices courts, des audios à écouter quand tu veux, tout dans ton appli.</p>
+          <p class="intro">En 12 étapes, tu repères d’où vient ce qui se rejoue (ton histoire de famille, tes croyances héritées), tu le vois arriver avant qu’il se rejoue, et tu choisis autre chose. 15 minutes par semaine, des audios à écouter quand tu veux, tout dans ton appli.</p>
           <div class="a-offre">
             <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
             <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
@@ -303,7 +308,7 @@
         <div class="a-titre">
           <p class="a-etiq">Le programme</p>
           <h2>Trois piliers, une année pour toi</h2>
-          <p>Tu voudrais être accompagnée tout au long de l’année, sans avoir à t’organiser seule ? À chaque étape, tout est prêt : tu ouvres ton appli, et tu avances.</p>
+          <p>À chaque étape, tout est prêt : tu ouvres ton appli, et tu avances. Rien à organiser, rien à chercher.</p>
         </div>
         <div class="t-contenus t-piliers">
           <article><img src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 1 · De la peur à la paix</p><h3>Renaissance</h3><p class="t-q">Tu voudrais te sentir enfin en sécurité et en paix, sans vivre en alerte permanente ?</p><p>Ton carnet : ta roue de vie, un petit pas concret chaque semaine et ton bilan de fin d’étape. Avec ta séance audio pour sortir du mode survie, pas à pas.</p><span class="t-valeur">Tu y gagnes : ta sécurité intérieure, ta place, ta valeur</span></div></article>
@@ -312,7 +317,7 @@
         </div>
         <div class="t-audio">
           <p class="a-etiq">2 séances audio guidées à chaque étape</p>
-          <p class="t-q">Tu voudrais déposer ce qui pèse depuis longtemps, sans rien préparer ni réfléchir ? Tu t’installes, tu écoutes, tu laisses faire.</p>
+          <p class="t-q">Pour déposer ce qui pèse depuis longtemps, sans rien préparer ni réfléchir : tu t’installes, tu écoutes, tu laisses faire.</p>
           <div class="t-ecoute">
             <p><b>Écoute un extrait de séance</b> · 30 secondes. Installe-toi, ferme les yeux, et vois si ça te parle.</p>
             <audio controls preload="none" src="assets/cercle/audio/extrait-seance.mp3">Ton navigateur ne lit pas l’audio.</audio>
@@ -345,6 +350,22 @@
             <li>Tes réponses <b>sauvegardées</b> dans ton espace, sur téléphone, tablette ou ordinateur.</li>
             <li>Tout <b>s’imprime</b> aussi, si tu préfères écrire à la main.</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="t-semaine1">
+          <p class="a-etiq">Ta première semaine, concrètement</p>
+          <ol>
+            <li><b>Jour 1</b> : ton point de départ, 15 minutes. Ta roue de la vie, ton mode survie, tes cibles.</li>
+            <li><b>Dans la semaine</b> : ta première séance audio, à écouter quand tu veux.</li>
+            <li><b>Chaque jour</b> : ton point du jour, deux minutes à l’ouverture de l’appli.</li>
+            <li><b>À la fin de la semaine</b> : ton premier petit pas, et tu vois déjà où ça coince.</li>
+          </ol>
+          <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+          <p class="t-rassure">30 jours offerts · aucune carte demandée</p>
         </div>
       </div>
     </section>
@@ -532,7 +553,7 @@
       <div class="conteneur a-lancement">
         <p class="a-etiq">Un petit mot</p>
         <h2>Tu arrives au tout début</h2>
-        <p>Le Cercle vient d’ouvrir. Chaque avis des premières personnes façonne Le Cercle : écris-nous, tout est lu.</p>
+        <p>Le Cercle vient d’ouvrir. Chaque avis des premières personnes le façonne : écris-nous, tout est lu.</p>
         <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Le%20Cercle">Donner mon avis</a>
       </div>
     </section>
@@ -564,13 +585,13 @@
     </section>
 
   </main>
-  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><s>29 €</s> <b>1<sup>er</sup> mois offert</b> <span>aucune carte demandée</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Ton 1<sup>er</sup> mois : 0 €</b> <span>ensuite 29 € par mois</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>
   (function () {
     /* ▼ VRAIS AVIS UNIQUEMENT, avec l'accord de la personne. Exemple :
-       { texte: "Ce que la personne a écrit.", qui: "Sophie, 38 ans", depuis: "membre depuis novembre" },
+       { texte: "Ce que la personne a écrit.", qui: "Sophie, 38 ans", depuis: "membre depuis 3 étapes" },
        Tant que la liste est vide, la section reste cachée. */
     var AVIS = [
     ];

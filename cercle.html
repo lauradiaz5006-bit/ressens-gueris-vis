@@ -237,7 +237,7 @@
       var C = E.C, S = E.S, d = new Date(), j = d.getDate(), sem = Math.min(4, Math.ceil(j / 7));
       var nm = C ? String(C.nomMois).split(' ')[0] : MOIS[d.getMonth()];
       var h = '<h1 class="ce-h1">' + (E.prenom ? 'Bonjour ' + esc(E.prenom) : 'Bonjour') + '</h1>' +
-        '<p class="ce-sous">' + cap(JOURS[d.getDay()]) + ' ' + j + ' ' + MOIS[d.getMonth()] + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ', semaine ' + semEtape() : '') + '</p>';
+        '<p class="ce-sous">' + cap(JOURS[d.getDay()]) + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ', semaine ' + semEtape() : '') + '</p>';
       /* mon point de départ : à faire en arrivant, puis ses cibles rappelées ici (à refaire tous les 3 mois) */
       var PD = (E.point && E.point.v) || lire('genesolia-carnet-point-de-depart') && lire('genesolia-carnet-point-de-depart').v || null, rs = PD && PD.resume;
       if (!PD || !PD.fait) h += '<a class="ce-carte" href="point-de-depart.html" style="background:#FCEFF3;border-color:#F1D3DC"><p class="ce-etiq">À faire en arrivant · 15 minutes</p><h3>Mon point de départ</h3><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : tes deux livrets s’orientent sur ce que tu vis.</p><span class="ce-bt">' + (PD ? 'Je continue' : 'C’est parti') + '</span></a>';
