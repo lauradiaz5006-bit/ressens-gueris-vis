@@ -3,13 +3,13 @@
 
   <url>
     <loc>https://genesolia.fr/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <priority>1.00</priority>
   </url>
 
   <url>
     <loc>https://genesolia.fr/formation.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <priority>0.90</priority>
   </url>
   <url>
@@ -18,8 +18,13 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://genesolia.fr/seance-offerte.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://genesolia.fr/abonnement.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <priority>0.80</priority>
   </url>
 
@@ -1877,7 +1882,7 @@
   </url>
   <url>
     <loc>https://genesolia.fr/offert.html</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
