@@ -157,7 +157,7 @@
       var nomMois = MOIS[r.mois - 1], M = T.MOIS[r.moisPerso], ML = N.MOIS_LONG[r.moisPerso];
       var signeMaya = r.maya ? MT.SIGNES[r.maya.natal.signe] : null;
       var h = '<div class="conteneur">';
-      h += '<div class="g-carte"><div><p class="g-sur">' + (r.prenom ? 'Le guide de ' + esc(r.prenom) : 'Ton guide') + '</p><h2>' + nomMois.charAt(0).toUpperCase() + nomMois.slice(1) + ' ' + r.annee + '</h2><p>' + esc(M.theme) + '</p>' +
+      h += '<div class="g-carte"><div><p class="g-sur">' + (r.prenom ? 'Le guide de ' + esc(String(r.prenom).replace(/[\s.,;:!]+$/, '')) : 'Ton guide') + '</p><h2>' + nomMois.charAt(0).toUpperCase() + nomMois.slice(1) + ' ' + r.annee + '</h2><p>' + esc(M.theme) + '</p>' +
         '<div class="g-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div></div>' +
         '<div class="g-nav"><button type="button" data-dec="-1">Mois précédent</button><button type="button" data-dec="1">Mois suivant</button></div></div>';
       h += '<div class="g-bloc"><p class="g-etiq">Le thème de ton mois</p><h3>' + esc(ML.titre) + '</h3><p>' + ML.texte + '</p></div>';
