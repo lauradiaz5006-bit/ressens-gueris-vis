@@ -763,7 +763,19 @@ window.GENESOLIA_IMPRESSION = {
     image: 'assets/cercle/couv-point-depart-petite.webp',
     lien: 'point-de-depart.html'
   };
-  var PETIT_ECRAN = false;   /* avant : sur téléphone, le carré attendait 60 % de lecture ; il s'affiche maintenant tout de suite partout */
+  var PETIT_ECRAN = false;
+  /* Téléphone : aucun petit carré (trop gênant sur un petit écran) */
+  var TELEPHONE = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+  /* Quel offert selon le sujet de la page ?
+     amour, couple, liens, fratrie, parents, abandon, rejet, trahison → la séance du cycle 2 (L'arbre des liens)
+     peur, argent, manque, émotions, stress, deuils, humiliation, injustice → la séance du cycle 1 (Sortir de l'alerte)
+     le reste (arbre, nombres, ciel, prénoms, outils…) → le point de départ */
+  function offertPertinent() {
+    var p = page.replace(/\.html$/, '');
+    if (/amour|couple|affecti|relation|imago|trahison|abandon|rejet|fratrie|parents|loyaute|seule|filles-garcons|choix-amoureux/.test(p)) return 'c2-10';
+    if (/peur|argent|manque|emotion|hormone|alerte|survie|stress|elements|deuil|guerre|humiliation|injustice|blessure|masques|gisant|remplacement/.test(p)) return 'c1-10';
+    return 'point-de-depart';
+  }
   function pdFait() { try { var x = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); return !!(x && x.v && x.v.fait); } catch (e) { return false; } }
   /* Demande d'e-mail avant d'ouvrir un offert (point de départ ou séance audio), avec les grandes lignes et le mois offert du Cercle.
      window.GenesoliaDemandeMail({ offre: 'point-de-depart' | 'c1-10' | 'c2-10', fermable: true, apres: function (jeton) {} }) */
@@ -828,15 +840,30 @@ window.GENESOLIA_IMPRESSION = {
   /* Deuxième petit carré : la première séance audio offerte (cycle 1 ou cycle 2), contre l'e-mail.
      Il prend la place du premier quand le point de départ est fait, ou quand le premier a été fermé. */
   function seanceRecue() { try { return !!localStorage.getItem('genesolia-seance-offerte'); } catch (e) { return false; } }
-  function carreSeance() {
-    if (window.GenesoliaMembre || seanceRecue() || page === 'seance-offerte.html' || page === 'point-de-depart.html') return;
+  var SEANCES_CARRE = {
+    'c1-10': { cycle: 'Cycle 1 · De la peur à la paix', titre: 'Sortir de l’alerte', texte: 'L’alarme qui sonne en toi depuis des années baisse, cran par cran, jusqu’au silence. Pour souffler et retrouver ta sécurité.', image: 'assets/cercle/couv-renaissance-petite.webp' },
+    'c2-10': { cycle: 'Cycle 2 · Comment j’aime', titre: 'L’arbre des liens', texte: 'Tu dessines l’arbre de tes liens et tu écris comment tu souhaites aimer. Pour comprendre ce qui se rejoue en amour.', image: 'assets/cercle/couv-liberation-petite.webp' }
+  };
+  function carreSeance(cible) {
+    if (TELEPHONE || window.GenesoliaMembre || seanceRecue() || page === 'seance-offerte.html' || page === 'point-de-depart.html') return;
     if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
     try { if (sessionStorage.getItem('carre-seance-ferme') === '1') return; } catch (e) {}
     var c = document.createElement('aside');
     c.className = 'carre-cercle carre-seance';
     c.setAttribute('aria-label', 'Ta première séance audio offerte');
-    c.innerHTML =
+    var S = SEANCES_CARRE[cible];
+    if (S) {   /* page en lien avec cette séance : on la propose, elle seule */
+      var autre = cible === 'c1-10' ? 'c2-10' : 'c1-10';
+      c.innerHTML =
+        '<button type="button" class="cc-fermer" aria-label="Fermer">×</button>' +
+        '<img src="' + S.image + '" alt="" width="60" height="85">' +
+        '<div><p class="cc-sur">Offert · séance audio complète</p>' +
+          '<p class="cc-titre">« ' + S.titre + ' »</p>' +
+          '<p class="cc-texte">' + S.texte + '</p>' +
+          '<a class="cc-bouton" href="seance-offerte.html?s=' + cible + '" data-offre="' + cible + '">Écouter ma séance offerte</a>' +
+          '<p class="cc-autre"><a href="seance-offerte.html?s=' + autre + '" data-offre="' + autre + '">Ou « ' + SEANCES_CARRE[autre].titre + ' » (' + SEANCES_CARRE[autre].cycle.split(' · ')[0].toLowerCase() + ')</a></p></div>';
+    } else c.innerHTML =
       '<button type="button" class="cc-fermer" aria-label="Fermer">×</button>' +
       '<img src="assets/cercle/couv-renaissance-petite.webp" alt="" width="60" height="85">' +
       '<div><p class="cc-sur">Offert · séance audio complète</p>' +
@@ -849,7 +876,9 @@ window.GENESOLIA_IMPRESSION = {
     requestAnimationFrame(function () { c.classList.add('visible'); });
   }
   function carreCercle() {
-    if (window.GenesoliaMembre || page === 'point-de-depart.html') return;
+    if (TELEPHONE || window.GenesoliaMembre || page === 'point-de-depart.html') return;
+    var offre = offertPertinent();
+    if (offre !== 'point-de-depart' && !seanceRecue()) { carreSeance(offre); return; }   /* page sur l'amour ou sur la peur : la séance qui lui parle */
     var pdFerme = false; try { pdFerme = sessionStorage.getItem('carre-cercle-ferme') === '1'; } catch (e) {}
     if (pdFait() || pdFerme) { carreSeance(); return; }   /* point de départ déjà fait, ou carré fermé : on propose la séance offerte */
     if (PETIT_ECRAN && !carreCercle.pret) {
