@@ -1314,6 +1314,15 @@ window.GENESOLIA_IMPRESSION = {
   }
   window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
+  /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */
+  if (page === 'abonnement.html' && aUnCompte() && !/[?&]voir=1\b/.test(location.search)) membre().then(function (m) { if (m) location.replace('cercle.html'); });
+  /* Lien « Le Cercle » du menu cliqué après une connexion faite sur la même page : on vérifie au clic */
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href="abonnement.html"]');
+    if (!a || window.GenesoliaMembre || !aUnCompte() || ev.metaKey || ev.ctrlKey) return;
+    ev.preventDefault();
+    membre().then(function (m) { location.href = m ? 'cercle.html' : 'abonnement.html'; }, function () { location.href = 'abonnement.html'; });
+  });
   if (aUnCompte()) membre().then(function (m) {
     if (!m) return;
     window.GenesoliaMembre = true;
