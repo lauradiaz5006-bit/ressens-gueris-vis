@@ -13,7 +13,7 @@
   <link rel="canonical" href="https://genesolia.fr/abonnement.html">
   <meta property="og:title" content="Le Cercle Genesolia · 1er mois offert, sans carte">
   <meta property="og:description" content="Deux livres, des séances audio guidées et la formation « Sors de la boucle », dans ton appli Le Cercle. 1er mois offert, sans carte.">
-  <meta property="og:image" content="https://genesolia.fr/assets/cercle/apercu-2026-10.jpg">
+  <meta property="og:image" content="https://genesolia.fr/assets/cercle/couv-renaissance.jpg">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
@@ -241,6 +241,11 @@
     .t-avant-apres p{max-width:none;margin:0 0 .7rem}
     .t-avant-apres .btn{margin-top:.6rem}
     @media (max-width:560px){.t-hero-grille{padding:2.2rem 0 2.4rem}.t-hero h1{font-size:1.85rem;margin-bottom:.8rem}.t-hero .intro{font-size:1rem;margin-bottom:1.1rem}}
+    .t-ecrans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .t-ecrans figure{margin:0;text-align:center}
+    .t-ecrans img{width:100%;height:auto;aspect-ratio:540/760;object-fit:cover;object-position:top;border-radius:24px;border:6px solid #2E1338;box-shadow:0 20px 45px rgba(46,19,56,.25)}
+    .t-ecrans figcaption{margin-top:.5rem;font:600 .85rem var(--texte);color:var(--prune)}
+    @media (max-width:860px){.t-ecrans{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}.t-ecrans::-webkit-scrollbar{display:none}.t-ecrans figure{flex:0 0 58%;scroll-snap-align:center}}
   </style>
 </head>
 <body class="nouveau">
@@ -260,8 +265,8 @@
           </div>
         </div>
         <div class="t-couvs" aria-hidden="true">
-          <img class="t-couv t-couv-1" src="assets/cercle/apercu-12-saisons.jpg" width="496" height="702" alt="">
-          <img class="t-couv t-couv-2" src="assets/cercle/apercu-2026-11.jpg" width="496" height="702" alt="">
+          <img class="t-couv t-couv-1" src="assets/cercle/couv-liberation.webp" width="496" height="702" alt="">
+          <img class="t-couv t-couv-2" src="assets/cercle/couv-renaissance.webp" width="496" height="702" alt="">
         </div>
       </div>
     </section>
@@ -316,7 +321,12 @@
 
     <section class="bloc">
       <div class="conteneur t-split">
-        <img class="t-split-img" src="assets/images/blog-ciel-800.webp" srcset="assets/images/blog-ciel-800.webp 800w, assets/images/blog-ciel-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 560px" width="800" height="420" alt="Un ciel étoilé avec un croissant de lune au-dessus de la mer" loading="lazy" decoding="async">
+        <div class="t-ecrans">
+          <figure><img src="assets/cercle/captures/renaissance-roue.webp" width="540" height="1126" alt="L’appli Le Cercle : la roue de la vie dans Renaissance" loading="lazy" decoding="async"><figcaption>Renaissance</figcaption></figure>
+          <figure><img src="assets/cercle/captures/audio-seance.webp" width="540" height="1126" alt="L’appli Le Cercle : une séance audio débloquée" loading="lazy" decoding="async"><figcaption>Tes séances audio</figcaption></figure>
+          <figure><img src="assets/cercle/captures/mon-mois.webp" width="540" height="1126" alt="L’appli Le Cercle : ton mois à toi, ton mois personnel et ton signe maya" loading="lazy" decoding="async"><figcaption>Ton mois à toi</figcaption></figure>
+          <figure><img src="assets/cercle/captures/module.webp" width="540" height="1126" alt="L’appli Le Cercle : le module 1 de la formation" loading="lazy" decoding="async"><figcaption>Ta formation</figcaption></figure>
+        </div>
         <div>
           <p class="a-etiq">Ton appli Le Cercle</p>
           <h2>Tout au même endroit, dans ta poche</h2>
