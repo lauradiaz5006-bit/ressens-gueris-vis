@@ -88,6 +88,9 @@
       if (!s) { location.replace('essai.html'); return; }
       var m = s.user.user_metadata || {}, p = String(m.full_name || '').split(' ')[0];
       if (p) document.getElementById('b-titre').textContent = p + ', ton Cercle est ouvert';
+      try { var pd = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null');
+        if (pd && pd.v && pd.v.fait) document.querySelector('.b-tete .intro').textContent = 'Ton accès vient aussi de partir par e-mail. Ton point de départ est déjà fait : tout ton parcours s’oriente déjà dessus. Ouvre ton Cercle, ta première étape t’attend.';
+      } catch (e) {}
       sb.from('acces_premium').select('valide_jusqu').maybeSingle().then(function (q) {
         var v = q.data && q.data.valide_jusqu && new Date(q.data.valide_jusqu);
         if (!v || v < new Date()) { location.replace('essai.html'); return; }   /* pas encore membre : on passe par l'essai */

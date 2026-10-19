@@ -76,9 +76,16 @@
     return '<h2>Mes cibles</h2><div class="pd-resume" data-resume></div>' + cibles(1, C.consigne1, C.exemples1) + cibles(2, C.consigne2, C.exemples2) + '<div class="pd-rythme">' + paras(C.rythme) + '</div>';
   }
   function pageFin() {
-    return '<h2>Ta synthèse</h2><div data-synthese></div><h3>Bienvenue dans le Cercle</h3>' + paras(T.fin) +
+    return '<h2>Ta synthèse</h2><div data-synthese></div>' +
+      '<div data-fin-membre><h3>Bienvenue dans le Cercle</h3>' + paras(T.fin) +
       '<p class="pd-boutons"><a class="btn btn-plein" href="mon-carnet.html">Ouvrir mon carnet du mois</a><a class="btn btn-trait" href="mon-module.html?module=1">Ouvrir le module 1</a><a class="btn btn-trait" href="cercle.html">Aller à mon Cercle</a></p>' +
-      '<p class="pd-mention">Tu pourras refaire ce point de départ tous les trois mois, depuis ton Cercle, pour voir le chemin parcouru.</p>';
+      '<p class="pd-mention">Tu pourras refaire ce point de départ tous les trois mois, depuis ton Cercle, pour voir le chemin parcouru.</p></div>' +
+      /* Pas encore membre : le point de départ est l'offert du site ; la suite naturelle, c'est le mois offert du Cercle */
+      '<div data-fin-visiteuse hidden><h3>Et maintenant ?</h3>' +
+      '<p>Tu sais d’où tu pars. Le Cercle t’accompagne à partir de là, une étape après l’autre : Renaissance pour sortir du mode survie, Libération pour aimer en accord avec toi, tes séances audio et la formation « Sors de la boucle ».</p>' +
+      '<p><b>Ton point de départ est repris tel quel dans ton Cercle : tu n’as rien à refaire.</b></p>' +
+      '<p class="pd-boutons"><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a></p>' +
+      '<p class="pd-mention">30 jours offerts · aucune carte demandée · sans engagement</p></div>';
   }
 
   function construire() {
@@ -287,4 +294,11 @@
 
   construire();
   charger();
+  /* Visiteuse (pas encore membre) : l'en-tête et la fin parlent de l'offert, et mènent au mois offert du Cercle */
+  (window.GenesoliaAcces && window.GenesoliaAcces.membre ? window.GenesoliaAcces.membre() : Promise.resolve(false)).then(function (m) {
+    if (m) return;
+    var sur = racine.querySelector('.pd-sur'); if (sur) sur.textContent = 'Offert · 15 minutes';
+    var a = racine.querySelector('[data-fin-membre]'), b = racine.querySelector('[data-fin-visiteuse]');
+    if (a) a.hidden = true; if (b) b.hidden = false;
+  }, function () {});
 })();

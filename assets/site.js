@@ -576,27 +576,15 @@ window.GENESOLIA_IMPRESSION = {
   document.querySelectorAll('[data-cadeau]').forEach(function (el, n) {
     var id = 'cadeau-' + n;
     el.className = 'cadeau';
+    /* L'offert du site : le point de départ (interactif, gardé dans son espace, repris tel quel si elle entre dans Le Cercle) */
     el.innerHTML =
-      '<img class="cadeau-couv" src="assets/carnet-apercu.jpg" width="662" height="936" alt="Couverture du carnet des deux cycles" loading="lazy">' +
+      '<img class="cadeau-couv" src="assets/cercle/couv-point-depart.webp" width="580" height="820" alt="Couverture : Mon point de départ" loading="lazy">' +
       '<div class="cadeau-texte">' +
-        '<h2>Le carnet des deux cycles, offert</h2>' +
-        '<p>À remplir en ligne ou à imprimer : la boucle et la spirale, tes deux cycles, ton résultat, les neuf étapes, les questions à poser à ta famille et ton arbre sur trois générations.</p>' +
-        '<p class="cadeau-ligne"><a class="btn btn-plein" href="carnet-des-deux-cycles.html">Le remplir en ligne</a></p>' +
-        '<p class="cadeau-ou">' + (inscrit ? 'Ou télécharge-le pour l’imprimer :' : 'Ou reçois-le en PDF pour l’imprimer :') + '</p>' +
-        '<div class="cadeau-zone" aria-live="polite">' +
-          (inscrit
-            ? '<a class="btn btn-trait" href="' + CARNET + '" download="carnet-des-deux-cycles-genesolia.pdf">Télécharger le PDF</a>'
-            : '<form class="cadeau-form" novalidate>' +
-                '<div class="cadeau-champs">' +
-                  '<label for="' + id + '-prenom">Prénom<input id="' + id + '-prenom" name="prenom" autocomplete="given-name" required></label>' +
-                  '<label for="' + id + '-email">E-mail<input id="' + id + '-email" name="email" type="email" autocomplete="email" required></label>' +
-                '</div>' +
-                '<label class="cadeau-accord"><input type="checkbox" name="accord" value="oui" required><span>J\'accepte de recevoir le carnet et des nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
-                '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="cadeau-piege" aria-hidden="true">' +
-                '<button class="btn btn-trait" type="submit">Recevoir le PDF</button>' +
-                '<p class="cadeau-erreur" role="alert"></p>' +
-              '</form>') +
-        '</div>' +
+        '<p class="ef-sur">Offert · 15 minutes</p>' +
+        '<h2>Ton point de départ</h2>' +
+        '<p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi. Tu découvres aussi si Le Cercle est fait pour toi.</p>' +
+        '<ul class="ef-liste"><li>Interactif, sur ton téléphone ou ton ordinateur</li><li>Tes résultats gardés dans ton espace</li><li>Repris tels quels si tu ouvres ton mois offert du Cercle : rien à refaire</li></ul>' +
+        '<p class="cadeau-ligne"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p>' +
       '</div>';
     var form = el.querySelector('form');
     if (!form) return;
@@ -755,7 +743,7 @@ window.GENESOLIA_IMPRESSION = {
       bt.addEventListener('click', function () {
         window.GenesoliaMesure.enregistrer(bt.getAttribute('data-choix'));
         b.classList.remove('visible');
-        if (auto) setTimeout(carreCercle, 1500);
+        if (auto) setTimeout(carreCercle, 200);
       });
     });
     document.body.appendChild(b);
@@ -768,17 +756,17 @@ window.GENESOLIA_IMPRESSION = {
     bandeauCookies(false);
   });
 
-  /* Petit carré en bas à gauche : le premier carnet du Cercle offert (jamais sur mon-carnet.html : la personne est déjà dans le carnet).
-     Pour le changer de mois : modifier les valeurs ci-dessous. Fermé, il revient à la prochaine visite. */
+  /* Petit carré en bas à gauche : le point de départ offert (la porte d'entrée du Cercle). Il s'affiche tout de suite.
+     Jamais pour une membre, ni si son point de départ est déjà fait. Fermé, il revient à la prochaine visite. */
   var CARRE = {
-    titre: 'Ce qui revient',
-    image: 'assets/cercle/apercu-2026-10.jpg',
-    lien: 'mon-mois.html#offert'
+    titre: 'Ton point de départ',
+    image: 'assets/cercle/couv-point-depart-petite.webp',
+    lien: 'point-de-depart.html'
   };
-  /* Sur téléphone, le petit carré attend que la personne ait lu un peu (60 % de la page) et ne s'ajoute jamais par-dessus une autre fenêtre */
-  var PETIT_ECRAN = window.matchMedia && window.matchMedia('(max-width: 760px)').matches;
+  var PETIT_ECRAN = false;   /* avant : sur téléphone, le carré attendait 60 % de lecture ; il s'affiche maintenant tout de suite partout */
+  function pdFait() { try { var x = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); return !!(x && x.v && x.v.fait); } catch (e) { return false; } }
   function carreCercle() {
-    if (window.GenesoliaMembre) return;   /* membre du Cercle : pas de publicité pour le carnet offert */
+    if (window.GenesoliaMembre || pdFait() || page === 'point-de-depart.html') return;   /* membre, ou point de départ déjà fait : rien à proposer */
     if (PETIT_ECRAN && !carreCercle.pret) {
       var attendre = function () {
         var h = document.documentElement, lu = (h.scrollTop + window.innerHeight) / Math.max(1, h.scrollHeight);
@@ -796,14 +784,14 @@ window.GENESOLIA_IMPRESSION = {
     } catch (e) {}
     var c = document.createElement('aside');
     c.className = 'carre-cercle';
-    c.setAttribute('aria-label', 'Le premier carnet du Cercle offert');
+    c.setAttribute('aria-label', 'Ton point de départ offert');
     c.innerHTML =
       '<button type="button" class="cc-fermer" aria-label="Fermer">×</button>' +
-      '<img src="' + CARRE.image + '" alt="" width="60" height="85" loading="lazy">' +
-      '<div><p class="cc-sur">Offert · 10 pages</p>' +
-        '<p class="cc-titre">Le premier carnet du Cercle : « ' + CARRE.titre + ' »</p>' +
-        '<p class="cc-texte">Le thème du mois, trois exercices, un rituel et une méditation à lire.</p>' +
-        '<a class="cc-bouton" href="' + CARRE.lien + '">Je le reçois</a></div>';
+      '<img src="' + CARRE.image + '" alt="" width="60" height="85">' +
+      '<div><p class="cc-sur">Offert · 15 minutes</p>' +
+        '<p class="cc-titre">' + CARRE.titre + '</p>' +
+        '<p class="cc-texte">Ta roue de la vie, ton mode survie et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
+        '<a class="cc-bouton" href="' + CARRE.lien + '">Je commence</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
       try { sessionStorage.setItem('carre-cercle-ferme', '1'); } catch (e) {}
@@ -811,7 +799,7 @@ window.GENESOLIA_IMPRESSION = {
     document.body.appendChild(c);
     requestAnimationFrame(function () { c.classList.add('visible'); });
   }
-  if (vu) setTimeout(carreCercle, 5000);
+  if (vu) setTimeout(carreCercle, 200);
 
   /* ===== Typographie française sur tout ce qui s'affiche =====
      Apostrophe courbe (l’arbre) et espace insécable avant : ; ? ! » et après « , pour qu'aucun signe ne se retrouve seul en début de ligne.

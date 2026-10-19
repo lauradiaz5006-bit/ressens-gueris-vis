@@ -104,6 +104,7 @@
       carte.innerHTML =
         '<h1>Ton mois offert t\'attend' + (prenom() ? ', ' + esc(prenom()) : '') + '</h1>' +
         '<p>Dernière étape : un clic, et ton Cercle s\'ouvre tout de suite, pour 30 jours.</p>' +
+        (pdFait() ? '<p class="e-offre" style="margin:1rem 0"><b>Ton point de départ est déjà fait.</b> Il est repris tel quel dans ton Cercle : tu n\'as rien à refaire.</p>' : '') +
         '<p><b>Dès aujourd\'hui, tu as :</b></p>' + CONTENU +
         '<div class="e-actions"><button class="btn btn-plein" type="button" id="e-ouvrir">Ouvrir mon mois offert</button></div>' +
         '<p class="e-rassure">Aucune carte demandée. Tu reçois ton accès par e-mail, et avant la fin de ton mois, on t\'écrit pour te proposer de continuer si tu le souhaites.</p>' +
@@ -150,6 +151,7 @@
       });
     }
 
+    function pdFait() { try { var x = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); return !!(x && x.v && x.v.fait); } catch (e) { return false; } }
     function esc(t) { return String(t || '').replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
     function prenom() { var n = (user && user.user_metadata && user.user_metadata.full_name) || ''; return n.split(' ')[0]; }
 
