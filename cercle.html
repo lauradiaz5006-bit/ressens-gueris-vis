@@ -256,7 +256,7 @@
       if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Renaissance · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-bt">Reprendre</span></a>';
       else if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">Reprendre où tu en étais · semaine ' + semS + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Reprendre</span></a>';
       else h += '<a class="ce-carte" href="mon-carnet.html"><p class="ce-etiq">Ton mois commence</p><h3>Ouvre Renaissance</h3><p>Ton carnet du mois t’attend.</p><span class="ce-bt">Commencer</span></a>';
-      h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';
+      if (E.etape && E.etape.enCours >= 2) h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';   /* le point du jour arrive à partir de l'étape 2 */
       h += '<a class="ce-carte" href="#moi"><p class="ce-etiq">Mon compte</p><h3>Moi</h3><p>Tes infos, ton abonnement, tes rappels.</p><span class="ce-plus">Ouvrir</span></a>';
       afficher(h);
       pointDuJour();
@@ -278,7 +278,7 @@
       Object.keys(P).forEach(function (c) { if (c.slice(0, 7) !== m) return; jours++; if (P[c].r === 'o') { oui++; somme += P[c].i || 0; } });
       h += '<div class="ce-frise" aria-hidden="true">' + fr + '</div>' +
         '<div class="ce-ligne"><span>' + (jours ? 'Ce mois-ci : ' + oui + ' jour' + (oui > 1 ? 's' : '') + ' sur ' + jours : 'Touche oui ou non, chaque soir') + '</span>' + (oui ? '<span>force moyenne ' + Math.round(somme / oui) + '/10</span>' : '') + '</div>' +
-        '<p class="ce-discret">Gardé sur ce téléphone seulement, rien n’est envoyé.</p>';
+        '<p class="ce-discret">Gardé sur cet appareil seulement, rien n’est envoyé.</p>';
       z.innerHTML = h; typo(z);
       z.querySelectorAll('[data-r]').forEach(function (b) {
         b.addEventListener('click', function () {
@@ -426,6 +426,8 @@
       var installee = window.GenesoliaInstaller && window.GenesoliaInstaller.installee();
       function ligne(href, titre, texte, dl) { return '<a href="' + href + '"' + (dl ? ' download' : '') + (/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '') + '><div><b>' + titre + '</b>' + (texte ? '<span>' + texte + '</span>' : '') + '</div></a>'; }
       var h = '<h1 class="ce-h1">' + (E.prenom ? esc(E.prenom) : 'Ton espace') + '</h1><p class="ce-sous">' + (u && u.email ? esc(u.email) : 'Ton espace du Cercle') + '</p>';
+      /* son abonnement : où elle en est (mois offert, étape), sans renvoyer vers la page de vente */
+      h += '<p class="ce-titre-liste">Mon abonnement</p><div class="ce-carte" data-abo><p>Le Cercle' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p></div>';
       h += '<p class="ce-titre-liste">Ton mois</p><div class="ce-carte ce-liste">' +
         ligne('mon-guide.html', 'Mon guide du mois complet', 'Tes nombres, ton ciel, ton signe maya') +
         ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') + '</div>';
@@ -450,10 +452,23 @@
       h += '<div data-phrase-jour></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
-        (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : ligne('abonnement.html', 'Mon abonnement', 'Les formules du Cercle')) +
+        (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : '') +
         ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés, jamais lus par Genesolia') +
-        ligne('mentions-legales.html', 'Mentions légales', '') + '</div>';
+        ligne('mentions-legales.html', 'Mentions légales', '') + '</div>' +
+        '<p style="text-align:center;margin:1.4rem 0 0"><button type="button" class="ce-bt clair" data-deconnexion>Me déconnecter</button></p>';
       afficher(h);
+      var bd = vue.querySelector('[data-deconnexion]');
+      if (bd) bd.addEventListener('click', function () { bd.disabled = true; (sb ? sb.auth.signOut() : Promise.resolve()).then(function () { location.href = 'login.html'; }, function () { location.href = 'login.html'; }); });
+      var za = vue.querySelector('[data-abo]');
+      if (za && sb) sb.from('acces_premium').select('offre, valide_jusqu, note').maybeSingle().then(function (q) {
+        var a = q && q.data; if (!a || !a.valide_jusqu) return;
+        var fin = new Date(a.valide_jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        var essai = /essai/i.test(a.note || '');
+        za.innerHTML = '<p><b>Le Cercle' + (essai ? ' · mois offert' : ' · actif') + '</b>' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p>' +
+          (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée : avant la fin, on t’écrit pour te proposer de continuer.</p>'
+                 : (a.offre === 'abonnement' ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>'));
+        typo(za);
+      }, function () {});
       var bi = vue.querySelector('[data-installer-appli]');
       if (bi) bi.addEventListener('click', function (e) { e.preventDefault(); if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
       reglageRappels(vue.querySelector('[data-rappels]'));
@@ -512,7 +527,7 @@
       var C = E.C, u = E.user;
       afficher('<section class="ce-carte ce-porte"><img src="assets/icones/cercle-192.png" alt="" width="84" height="84"><h1 class="ce-h1">' + (u ? 'Ton Cercle t’attend' : 'Le Cercle, ton espace membre') + '</h1>' +
         '<p>' + (u ? 'Cette appli est réservée aux membres du Cercle. Ton premier mois est offert, sans carte.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
-        '<ul><li>Deux livres à chaque étape : Renaissance et Libération</li><li>Tes séances audio et la formation « Sors de la boucle »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
+        '<ul><li>Tes deux livres, Renaissance et Libération, avec une nouvelle étape chaque mois</li><li>Tes séances audio et la formation « Sors de la boucle »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
         '<div class="ce-actions">' + (u ? '<a class="ce-bt" href="essai.html">Ouvrir mon mois offert</a>' : '<a class="ce-bt" href="login.html?retour=cercle.html">Me connecter</a><a class="ce-bt clair" href="essai.html">Mon mois offert</a>') + '</div>' +
         (C ? '<p class="ce-discret" style="margin-top:1rem">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>');
     }
