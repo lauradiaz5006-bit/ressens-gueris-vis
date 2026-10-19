@@ -281,13 +281,11 @@
       document.getElementById('m-imprimer').addEventListener('click', function () { window.print(); });
     }
     function blocOffert() {
-      var c = CARNETS[CERCLE.offert]; if (!c) return '';
-      var p = CERCLE.offert.split('-'), nm = MOIS[+p[1] - 1];
-      return '<div class="m-cadeau" id="offert"><img src="assets/cercle/apercu-' + CERCLE.offert + '.jpg" alt="Couverture du carnet ' + esc(de(nm)) + '" width="150" height="212" loading="lazy">' +
-        '<div><p class="m-etiq">Offert · le premier carnet du Cercle</p><h2>' + esc(c.titre) + '</h2><p>Le carnet ' + esc(de(nm)) + ', dix pages à imprimer : le thème du mois expliqué, trois exercices, un rituel symbolique et une méditation à lire. Il est à toi, gratuitement.</p>' +
-        '<form class="m-form" id="m-cadeau-form" novalidate><div class="m-ligne"><input name="prenom" placeholder="Ton prénom" aria-label="Ton prénom" autocomplete="given-name" style="max-width:11rem"><input type="email" name="email" required placeholder="Ton e-mail" aria-label="Ton e-mail" autocomplete="email" value="' + esc((utilisateur && utilisateur.email) || '') + '"></div>' +
-        '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none"><label class="m-accord"><input type="checkbox" name="accord" required> J\'accepte de recevoir le carnet et les nouvelles du Cercle par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html" target="_blank">Mes données</a></label>' +
-        '<button class="btn btn-plein" type="submit" style="margin-top:.8rem">Recevoir mon carnet offert</button><p class="m-erreur" role="alert"></p></form></div></div>';
+      /* L'offert : le point de départ (interactif, gardé dans son espace, repris dans Le Cercle) ; rien si c'est déjà fait */
+      try { var pd = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); if (pd && pd.v && pd.v.fait) return ''; } catch (e) {}
+      return '<div class="m-cadeau" id="offert"><img src="assets/cercle/couv-point-depart.webp" alt="Couverture : Mon point de départ" width="150" height="212" loading="lazy">' +
+        '<div><p class="m-etiq">Offert · 15 minutes</p><h2>Ton point de départ</h2><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : vois d’où tu pars et ce qui se rejoue pour toi. Tes résultats sont gardés dans ton espace, et repris tels quels si tu ouvres ton mois offert du Cercle.</p>' +
+        '<p style="margin-top:.8rem"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p></div></div>';
     }
     function brancherOffert() {
       var f = document.getElementById('m-cadeau-form'); if (!f) return;
