@@ -307,6 +307,30 @@ window.GENESOLIA_IMPRESSION = {
   };
   /* L'espace de formation sur Systeme.io (vidéos des modules). Vide : la page de la formation sur le site. */
   var ESPACE_FORMATION = 'https://genesolia.systeme.io/dashboard/login';   /* l'espace élève de la formation sur Systeme.io (connexion : https://genesolia.systeme.io/dashboard/login) */
+  /* Avant d'ouvrir la formation sur Systeme.io : une fenêtre explique la connexion (compte séparé, mail d'accès, mot de passe).
+     Elle revient tant que la personne n'a pas confirmé avoir son mot de passe. Le clic relance aussi l'inscription (sans effet si déjà faite). */
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href^="https://genesolia.systeme.io"]');
+    if (!a || ev.metaKey || ev.ctrlKey || a.closest('.appli-fenetre')) return;
+    try { if (localStorage.getItem('genesolia-formation-mdp')) return; } catch (e) {}
+    ev.preventDefault();
+    var cible = a.href;
+    try { session().then(function (x) { if (x && x.access_token) fetch(SB_BASE + '/functions/v1/inscription-formation', { method: 'POST', headers: { Authorization: 'Bearer ' + x.access_token, 'Content-Type': 'application/json' }, body: '{}' }).catch(function () {}); }); } catch (e) {}
+    var f = document.createElement('div');
+    f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Ta formation');
+    f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
+      '<h2>Ta formation « Sors de la boucle »</h2>' +
+      '<p>Ta formation a son propre espace, sur notre plateforme de formation <b>Systeme.io</b>. Tu y entres avec un mot de passe à part.</p>' +
+      '<p><b>Ton accès t’a été envoyé par e-mail</b>, par Systeme.io : ouvre-le et crée ton mot de passe (pense à regarder tes courriers indésirables). Ensuite, connecte-toi avec ton e-mail et ce mot de passe.</p>' +
+      '<p class="discret">Pas reçu ce mail ? Sur la page de connexion, touche « Mot de passe oublié ? » et indique ton e-mail : tu recevras un lien pour créer ton mot de passe.</p>' +
+      '<div class="compte-actions"><a class="btn btn-plein" href="' + cible + '" data-mdp>J’ai mon mot de passe, j’y vais</a>' +
+      '<a class="compte-lien" href="' + cible + '">Ouvrir la page de connexion</a></div></div>';
+    f.addEventListener('click', function (e) {
+      if (e.target === f || e.target.closest('.appli-fermer')) { f.remove(); return; }
+      if (e.target.closest('[data-mdp]')) { try { localStorage.setItem('genesolia-formation-mdp', '1'); } catch (x) {} }
+    });
+    document.body.appendChild(f); f.querySelector('.btn').focus();
+  }, true);
   var ONGLETS = MODE === 'cercle' ? [
     /* L'appli Le Cercle : uniquement les livres du mois, la formation et les audios (l'accueil et « Moi » restent dans l'en-tête) */
     ['mon-carnet.html', 'carnet', 'Renaissance'], ['mon-suivi-mois.html', 'suivi', 'Libération'], ['mon-module.html', 'module', 'Module'],
