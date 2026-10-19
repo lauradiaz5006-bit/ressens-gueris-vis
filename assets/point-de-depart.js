@@ -278,6 +278,8 @@
       var s = r.data && r.data.session;
       if (!s) {
         fin(local);
+        /* Visiteuse sans compte : l'e-mail d'abord (une seule fois), avec les grandes lignes et le mois offert du Cercle */
+        if (window.GenesoliaDemandeMail && window.GenesoliaMailOffert && !window.GenesoliaMailOffert()) window.GenesoliaDemandeMail({ offre: 'point-de-depart', fermable: false });
         var z = document.getElementById('pd-compte'); z.hidden = false;
         z.innerHTML = '<p><b>Sans compte, tes réponses restent dans ce navigateur tant qu’il est ouvert.</b> Crée ton espace gratuit pour les garder et les retrouver dans ton Cercle.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=point-de-depart.html">Créer mon espace</a> <a href="login.html?retour=point-de-depart.html">J’ai déjà un compte</a>';
         return;
