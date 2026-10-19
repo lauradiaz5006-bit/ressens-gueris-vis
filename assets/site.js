@@ -640,7 +640,7 @@ window.GENESOLIA_IMPRESSION = {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce annonce-cercle';
     bandeau.innerHTML =
-      '<a href="abonnement.html"><img class="annonce-livret" src="/assets/cercle/apercu-2026-11.webp" width="62" height="88" alt=""><span class="annonce-texte"><span class="annonce-pastille">Le Cercle</span> Et si ce qui se répète dans ta vie s’arrêtait enfin ? <u>Ton 1<sup>er</sup> mois est offert, sans carte</u> →</span></a>' +
+      '<a href="abonnement.html"><img class="annonce-livret" src="/assets/cercle/couv-renaissance-petite.webp" width="62" height="88" alt=""><span class="annonce-texte"><span class="annonce-pastille">Le Cercle</span> Et si ce qui se répète dans ta vie s’arrêtait enfin ? <u>Ton 1<sup>er</sup> mois est offert, sans carte</u> →</span></a>' +
       '<button type="button" aria-label="Fermer l\'annonce">×</button>';
     bandeau.querySelector('button').addEventListener('click', function () {
       bandeau.remove();
