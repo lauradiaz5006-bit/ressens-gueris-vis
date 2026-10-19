@@ -54,6 +54,7 @@ begin
     'Ton mois offert commence aujourd''hui',
     'Ton espace est prêt. Tout est réuni dans ton appli Le Cercle : Renaissance, ton carnet pour sortir du mode survie et vivre en accord avec toi, Libération, ton livret pour aimer plus grand, tes séances audio et ta formation « Sors de la boucle ».' || E'\n\n' ||
     'Pour bien commencer, une seule chose aujourd''hui : ton point de départ. Quinze minutes, et tout ton parcours s''oriente sur ce que tu vis.' || E'\n\n' ||
+    'Ta formation « Sors de la boucle » a son propre espace, sur notre plateforme de formation Systeme.io. Dès que tu ouvres ton Cercle, tu reçois un second e-mail, envoyé par Systeme.io, pour créer ton mot de passe de formation : ton module 1 t''y attend. Ensuite, touche « Formation » dans ton appli et connecte-toi avec ton e-mail et ce mot de passe. Astuce : choisis le même mot de passe que pour Le Cercle.' || E'\n\n' ||
     'Ton mois offert dure jusqu''au ' || fin_txt || '. Aucune carte ne t''a été demandée. Avant la fin, on t''écrit pour te proposer de continuer, si tu le souhaites.',
     'Ouvrir mon Cercle', 'https://genesolia.fr/cercle.html', 'assets/partage/deux-cycles.jpg',
     'Garde Le Cercle sur ton téléphone',
