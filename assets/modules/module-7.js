@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Quand une mémoire se libère, elle laisse un espace. Dans ce module, tu choisis consciemment ce que tu veux y mettre. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Quand une mémoire se libère, elle laisse un espace. Dans ce module, tu choisis consciemment ce que tu veux y mettre. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point te sens-tu claire sur ce que tu veux vivre aujourd'hui ?",
     souhaitQ: "Quel espace s'est libéré dans ta vie depuis le début de la formation ?",
     souhaitPh: "Exemple : j'attends moins après les autres, mais je ne sais pas encore quoi faire de ce temps.",

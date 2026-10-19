@@ -1295,7 +1295,7 @@
   if (COEUR) PAGES = coeurPages();
   /* ───── Le carnet d'un module de la formation (cycle 2) : le même livre, avec ses propres pages ─────
      Avant de commencer, comprendre, les exercices du cahier, l'outil et le fil des 7 jours, avancer, le bilan.
-     Le contenu vient de assets/modules/module-N.js ; la vidéo et la séance restent dans l'espace de formation (Systeme.io). */
+     Le contenu vient de assets/modules/module-N.js ; le podcast et la séance restent dans l'espace de formation (Systeme.io). */
   var FORM = window.GENESOLIA_FORMATION || {};
   function espaceFormation() { return FORM.espace || 'formation.html'; }
   var VERROU = null;
@@ -1309,7 +1309,7 @@
     P.push({ id: 'ouverture', nom: 'Avant de commencer', g: function () {
       return gauche('ouverture', sur + ' · avant de commencer', C.titre, '<p class="mc-intro">' + md(O.intro || '') + '</p>' +
         (C.objectifs ? '<aside class="mc-encadre mc-encadre-or mc-objectifs"><p class="mc-encadre-t">Ce que tu vas apprendre</p><p><b>Objectif principal :</b> ' + md(C.objectifs.principal) + '</p><p><b>Objectif spécifique :</b> ' + md(C.objectifs.specifique) + '</p>' + (C.objectifs.bonASavoir ? '<p><b>Bon à savoir :</b> ' + md(C.objectifs.bonASavoir) + '</p>' : '') + '</aside>' : ''),
-        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Regarder la vidéo du module</a></p>' +
+        '<p class="mc-espace"><a class="btn btn-plein" href="' + esc(espaceFormation()) + '" target="_blank" rel="noopener">Écouter le podcast du module</a></p>' +
         (C.seance ? '<p class="mc-note">La séance guidée du module : « ' + esc(C.seance) + ' », dans ton espace de formation.</p>' : ''));
     }, d: function () {
       if (!membre) return offreFormation();

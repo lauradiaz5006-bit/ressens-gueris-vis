@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Jusqu'ici, tu as surtout regardé et compris. Dans ce module, tu déposes, avec trois lettres et un rituel simple. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour préparer tes lettres.",
+    intro: "Jusqu'ici, tu as surtout regardé et compris. Dans ce module, tu déposes, avec trois lettres et un rituel simple. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour préparer tes lettres.",
     intensiteQ: "À quel point ce que tu portes pèse-t-il aujourd'hui ?",
     souhaitQ: "Qu'est-ce que tu as besoin de déposer en priorité ?",
     souhaitPh: "Exemple : le rôle de la petite fille sage qui arrange tout pour tout le monde.",

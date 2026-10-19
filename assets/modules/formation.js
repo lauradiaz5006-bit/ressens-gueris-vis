@@ -1,6 +1,6 @@
 /* Genesolia · Cycle 2 · La formation « Sors de la boucle » dans l'appli
    Un réglage, utilisé par la page des modules (mon-module.html) et par la carte « Ta formation » de l'appli Le Cercle.
-   - espace : le lien de connexion à ton espace de formation sur Systeme.io (vidéos et séances). Vide = la page formation.html.
+   - espace : le lien de connexion à ton espace de formation sur Systeme.io (podcasts et séances). Vide = la page formation.html.
    - mois : le mois de l'abonnement où chaque module s'ouvre (1 = le premier mois). Un module par mois, du mois 1 au mois 8 ; un module ouvert le reste jusqu'à la fin de l'abonnement, chacune avance à son rythme.
    - pret : true quand le carnet du module est écrit (assets/modules/module-N.js). */
 window.GENESOLIA_FORMATION = {

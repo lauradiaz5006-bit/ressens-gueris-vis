@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Dans ce module, tu regardes ce qui fait tenir ta boucle : les croyances héritées, les loyautés et les phrases qui décident à ta place. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Dans ce module, tu regardes ce qui fait tenir ta boucle : les croyances héritées, les loyautés et les phrases qui décident à ta place. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point te sens-tu coincée par ta boucle aujourd'hui ?",
     souhaitQ: "Qu'est-ce que tu refais encore, même en sachant que c'est ta boucle ?",
     souhaitPh: "Exemple : je sais que je devrais demander de l'aide, et je finis toujours par tout faire seule.",

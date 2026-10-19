@@ -37,7 +37,7 @@ window.GENESOLIA_CARNET = {
   },
 
   ouverture: {
-    intro: "Le dernier module : tu rassembles tes outils, tu situes tes six paliers, tu écris ta lettre d'intention et tu prépares la suite. Commence par regarder la vidéo du module dans ton espace de formation, puis reviens ici pour pratiquer.",
+    intro: "Le dernier module : tu rassembles tes outils, tu situes tes six paliers, tu écris ta lettre d'intention et tu prépares la suite. Commence par écouter le podcast du module dans ton espace de formation, puis reviens ici pour pratiquer.",
     intensiteQ: "À quel point ta boucle principale pèse-t-elle aujourd'hui, comparée au tout début ?",
     souhaitQ: "Qu'est-ce que tu veux ancrer pour la suite, maintenant que la formation se termine ?",
     souhaitPh: "Exemple : garder mes rituels, même quand la vie s'accélère.",
