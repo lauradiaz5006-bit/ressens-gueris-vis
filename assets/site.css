@@ -191,6 +191,18 @@ section.bloc{padding:4.5rem 0}
 .annonce a:hover u{text-decoration-thickness:2px}
 .annonce-pastille{display:inline-block;background:var(--champagne-clair);color:var(--prune);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:.12rem .55rem;margin-right:.3rem;vertical-align:1px}
 .annonce button{position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:0;color:#F7E6EE;font-size:1.3rem;line-height:1;cursor:pointer;padding:.2rem .4rem}
+/* Bandeau du Cercle : doré, pailleté, avec un petit livret */
+.annonce-cercle{padding:.7rem 2.8rem .7rem 1rem;font-size:1.05rem;background:linear-gradient(110deg,#3E1A3A 0%,#6B2F5B 45%,#4A1F45 100%);overflow:hidden;border-bottom:1px solid rgba(232,196,143,.55)}
+.annonce-cercle::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 8% 30%,#FCE9C4 50%,transparent 51%),radial-gradient(1px 1px at 18% 72%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 31% 22%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 44% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 26%,#FCE9C4 50%,transparent 51%),radial-gradient(2px 2px at 71% 70%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 83% 34%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 93% 76%,#FCE9C4 50%,transparent 51%);animation:annonce-paillettes 3.2s ease-in-out infinite alternate}
+.annonce-cercle::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:35%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(243,208,143,.28),transparent);animation:annonce-reflet 5.5s ease-in-out infinite}
+@keyframes annonce-paillettes{0%{opacity:.35}100%{opacity:1}}
+@keyframes annonce-reflet{0%{left:-40%}60%,100%{left:120%}}
+.annonce-cercle a{position:relative;z-index:1;display:inline-flex;align-items:center;gap:.8rem;text-align:left}
+.annonce-livret{width:30px;height:auto;flex-shrink:0;border-radius:3px;transform:rotate(-6deg);box-shadow:0 4px 12px rgba(0,0,0,.4),0 0 0 1px rgba(243,208,143,.7)}
+.annonce-cercle .annonce-pastille{background:linear-gradient(135deg,#FCE9C4,#E8C48F 55%,#C9994F);color:#3E1A3A;font-size:.78rem;box-shadow:0 0 10px rgba(243,208,143,.55)}
+.annonce-cercle a u{color:#F6D9A2;font-weight:600;text-decoration-color:rgba(246,217,162,.7)}
+.annonce-cercle button{z-index:2}
+@media (prefers-reduced-motion:reduce){.annonce-cercle::before,.annonce-cercle::after{animation:none}}
 .encart-formation{display:grid;grid-template-columns:1.4fr .6fr;gap:2.5rem;align-items:center;padding:2.6rem;border-radius:var(--rayon);background:radial-gradient(40rem 20rem at 85% 10%,rgba(231,167,158,.35),transparent 60%),linear-gradient(135deg,#3B1747,#6B2F5B);color:#F7E6EE;font-family:var(--texte);box-sizing:border-box;overflow:hidden}
 .encart-formation *{box-sizing:border-box}
 .encart-formation h2{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.15;color:#fff;margin:0 0 .9rem}
@@ -233,6 +245,8 @@ section.bloc{padding:4.5rem 0}
 .liste-etapes span{font-size:.9rem;color:var(--prune-doux)}
 @media (max-width:760px){
   .annonce{font-size:.84rem;padding-left:.8rem}
+  .annonce-cercle{font-size:.95rem;padding:.6rem 2.4rem .6rem .7rem}
+  .annonce-livret{width:26px}
   .encart-formation{grid-template-columns:1fr;padding:1.8rem 1.4rem;gap:1.5rem}
   .ef-visuel{order:-1}
   .ef-visuel img{max-width:150px}
