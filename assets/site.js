@@ -8,7 +8,7 @@
    Ne sont jamais effacés : les choix de cookies et quelques repères techniques sans donnée personnelle. */
 window.GenesoliaDonnees = (function () {
   var JETON = 'sb-qsvzzkjtjsznfntahvvh-auth-token', MARQUE_COMPTE = 'genesolia-donnees-compte', REGLE = 'genesolia-regle-v2';
-  var GARDER = /^(consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
+  var GARDER = /^(umami\.disabled|genesolia-ne-pas-compter|consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
   function connectee() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return !!(x && x.refresh_token); } catch (e) { return false; } }
   function idCompte() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return (x && x.user && x.user.id) || '1'; } catch (e) { return '1'; } }
   function effacer() {
@@ -130,8 +130,21 @@ window.GenesoliaReperes = (function () {
   return { lire: lire, enregistrer: enregistrer, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
 })();
 
+/* Ne pas compter les visites de la propriétaire (et des tests faits dans son navigateur) :
+   ouvrir une fois https://genesolia.fr/?ne-pas-me-compter sur chaque appareil ; ?me-compter pour annuler.
+   Umami lit « umami.disabled » ; Google Analytics n'est alors jamais chargé. */
+(function () {
+  try {
+    var q = location.search;
+    if (/[?&]ne-pas-me-compter\b/.test(q)) { localStorage.setItem('umami.disabled', '1'); localStorage.setItem('genesolia-ne-pas-compter', '1'); alert('C’est noté : tes visites sur cet appareil ne sont plus comptées (Umami et Google Analytics).'); }
+    else if (/[?&]me-compter\b/.test(q)) { localStorage.removeItem('umami.disabled'); localStorage.removeItem('genesolia-ne-pas-compter'); alert('Tes visites sur cet appareil sont de nouveau comptées.'); }
+  } catch (e) {}
+})();
+function genesoliaPasCompter() { try { return localStorage.getItem('genesolia-ne-pas-compter') === '1'; } catch (e) { return false; } }
+
 /* Mesure d'audience anonyme et sans cookie (Umami) */
 (function () {
+  if (genesoliaPasCompter()) return;
   var s = document.createElement('script');
   s.defer = true;
   s.src = 'https://cloud.umami.is/script.js';
@@ -146,7 +159,7 @@ window.GenesoliaMesure = (function () {
   var CLE = 'consentement-mesure', id = window.GENESOLIA_GA, charge = false;
   function choix() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
   function charger() {
-    if (charge || !id) return;
+    if (charge || !id || genesoliaPasCompter()) return;
     charge = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
