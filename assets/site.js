@@ -631,20 +631,26 @@ window.GENESOLIA_IMPRESSION = {
   };
   var annonceActive = new Date() < new Date(FORMATION.finAnnonce + 'T00:00:00');
 
-  /* Bandeau fin en haut de toutes les pages (sauf la page de la formation) */
+  /* Bandeau fin en haut des pages du site : Le Cercle, 1er mois offert (pas dans le tunnel, ni pour les membres) */
   var fermee = false;
-  try { fermee = sessionStorage.getItem('annonce-formation') === 'fermee'; } catch (e) {}
-  if (annonceActive && !fermee && !tunnel && page !== FORMATION.page && entete && (!ESTCERCLE || page === 'cercle.html')) {   /* pas de bandeau dans les pages membres : elles sont déjà inscrites */
+  try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
+  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html'];
+  if (!fermee && !tunnel && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce';
     bandeau.innerHTML =
-      '<a href="' + FORMATION.page + '"><span class="annonce-pastille">Nouveau</span> Formation « Sors de la boucle » : <u>rejoins la liste, reçois le module 1 offert ' + FORMATION.module1 + '</u>, teste-le, puis inscris-toi dès ' + FORMATION.date + '.</a>' +
+      '<a href="abonnement.html"><span class="annonce-pastille">Le Cercle</span> Et si ce qui se répète dans ta vie s’arrêtait enfin ? <u>Ton 1<sup>er</sup> mois est offert, sans carte</u> →</a>' +
       '<button type="button" aria-label="Fermer l\'annonce">×</button>';
     bandeau.querySelector('button').addEventListener('click', function () {
       bandeau.remove();
-      try { sessionStorage.setItem('annonce-formation', 'fermee'); } catch (e) {}
+      try { sessionStorage.setItem('annonce-cercle', 'fermee'); } catch (e) {}
     });
     entete.parentNode.insertBefore(bandeau, entete);
+    /* Déjà membre du Cercle : le bandeau ne sert à rien, on le retire */
+    setTimeout(function () {
+      var A = window.GenesoliaAcces;
+      if (A && A.membre && window.GenesoliaCompte && window.GenesoliaCompte.actif && window.GenesoliaCompte.actif()) A.membre().then(function (m) { if (m) bandeau.remove(); });
+    }, 0);
   }
 
   /* Encart à placer n'importe où : <div data-formation></div> */
