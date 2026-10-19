@@ -254,6 +254,7 @@ section.bloc{padding:4.5rem 0}
   .liste-formation .btn{width:100%}
 }
 @media print{.annonce,.encart-formation{display:none!important}}
+.page-tunnel .pied-appli{display:none!important}
 
 /* Photos en bandeau */
 .bandeau-photo{max-width:1100px;margin:2.2rem auto;padding:0 1.25rem}

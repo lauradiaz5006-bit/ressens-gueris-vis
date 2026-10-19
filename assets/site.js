@@ -285,6 +285,7 @@ window.GENESOLIA_IMPRESSION = {
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
   var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
+  if (tunnel && !MODE && page !== 'cercle.html') document.documentElement.classList.add('page-tunnel');   /* pas d'encart « appli gratuite » dans le pied de page du tunnel */
   /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */
   if (MODE === 'site' && page === 'index.html' && !/[?&]site\b/.test(location.search)) { location.replace('appli.html' + location.hash); return; }
   window.GenesoliaModeAppli = MODE;
@@ -636,7 +637,8 @@ window.GENESOLIA_IMPRESSION = {
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
   var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html'];
-  if (!fermee && !tunnel && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
+  var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
+  if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce annonce-cercle';
     bandeau.innerHTML =
