@@ -246,6 +246,10 @@
     .t-ecrans img{width:100%;height:auto;aspect-ratio:540/760;object-fit:cover;object-position:top;border-radius:24px;border:6px solid #2E1338;box-shadow:0 20px 45px rgba(46,19,56,.25)}
     .t-ecrans figcaption{margin-top:.5rem;font:600 .85rem var(--texte);color:var(--prune)}
     @media (max-width:860px){.t-ecrans{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}.t-ecrans::-webkit-scrollbar{display:none}.t-ecrans figure{flex:0 0 58%;scroll-snap-align:center}}
+    .t-ecoute{margin-top:1.1rem;padding-top:1.1rem;border-top:1px dashed var(--rose-fonce)}
+    .t-ecoute p{font-size:.95rem;color:var(--prune-doux);margin:0 0 .7rem!important}
+    .t-ecoute b{color:var(--prune)}
+    .t-ecoute audio{width:100%;max-width:26rem;height:44px;border-radius:99px}
   </style>
 </head>
 <body class="nouveau">
@@ -309,6 +313,10 @@
         <div class="t-audio">
           <p class="a-etiq">2 séances audio guidées à chaque étape</p>
           <p class="t-q">Tu voudrais déposer ce qui pèse depuis longtemps, sans rien préparer ni réfléchir ? Tu t’installes, tu écoutes, tu laisses faire.</p>
+          <div class="t-ecoute">
+            <p><b>Écoute un extrait de séance</b> · 30 secondes. Installe-toi, ferme les yeux, et vois si ça te parle.</p>
+            <audio controls preload="none" src="assets/cercle/audio/extrait-seance.mp3">Ton navigateur ne lit pas l’audio.</audio>
+          </div>
         </div>
         <ul class="t-chiffres">
           <li><b>12</b>étapes, une par mois</li>
