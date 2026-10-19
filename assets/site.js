@@ -614,8 +614,8 @@ window.GENESOLIA_IMPRESSION = {
   /* ===== Formation « Sors de la boucle » : annonce, encart et liste d'attente =====
      Pour changer la date ou masquer l'annonce, modifier les trois valeurs ci-dessous. */
   var FORMATION = {
-    date: 'le 7 novembre',                          /* ouverture des inscriptions */
-    module1: 'le 1er novembre',                     /* envoi du module 1 offert à la liste */
+    date: 'maintenant',                             /* tout est disponible (19/10/2026) */
+    module1: 'tout de suite',                       /* le module 1 offert part dès l'inscription à la liste */
     page: 'formation.html',
     finAnnonce: '2026-11-08'                        /* le bandeau disparaît à cette date */
   };
@@ -649,15 +649,15 @@ window.GENESOLIA_IMPRESSION = {
     el.className = 'encart-formation';
     el.innerHTML =
       '<div class="ef-texte">' +
-        '<p class="ef-sur">Nouvelle formation · module 1 offert ' + FORMATION.module1 + ' · inscriptions ' + FORMATION.date + '</p>' +
+        '<p class="ef-sur">La formation · disponible maintenant · module 1 offert</p>' +
         '<h2>Tu connais ton schéma. Maintenant, arrête de le répéter.</h2>' +
         '<p>« Sors de la boucle » : 8 modules en vidéo, un cahier d\'exercices et un geste concret par module pour arrêter la boucle dès le premier jour. À ton rythme, sur ton téléphone ou ton ordinateur.</p>' +
         '<ul class="ef-avantages">' +
-          '<li><b>Le module 1 offert</b>, envoyé par e-mail ' + FORMATION.module1 + ' : tu le testes avant de t\'inscrire</li>' +
-          '<li><b>Le tarif fondatrice</b>, réservé à la liste</li>' +
-          '<li><b>Accès 48 h avant</b> tout le monde</li>' +
+          '<li><b>Le module 1 offert</b>, envoyé par e-mail tout de suite</li>' +
+          '<li><b>La formation complète</b>, incluse dans Le Cercle : ton premier mois est offert, sans carte</li>' +
+          '<li><b>À ton rythme</b>, sur ton téléphone ou ton ordinateur</li>' +
         '</ul>' +
-        '<a class="btn btn-plein" href="' + FORMATION.page + '">Je rejoins la liste</a>' +
+        '<a class="btn btn-plein" href="' + FORMATION.page + '">Découvrir la formation</a>' +
         '<p class="ef-note">Gratuit et sans engagement.</p>' +
       '</div>' +
       '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="" width="580" height="820" loading="lazy"></div>';
@@ -673,12 +673,12 @@ window.GENESOLIA_IMPRESSION = {
     /* Plus de téléchargement immédiat : le module 1 est envoyé par e-mail, étape par étape, quand tout est prêt. */
     function bravo(prenom) {
       return '<div class="liste-merci"><p class="liste-merci-titre">' + (prenom ? 'Bienvenue ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Bienvenue !') + '</p>' +
-        '<p>Tu es bien sur la liste. <b>' + FORMATION.module1.charAt(0).toUpperCase() + FORMATION.module1.slice(1) + '</b>, ton module 1 offert t\'arrive par e-mail, étape par étape :</p>' +
+        '<p>C\'est noté. <b>Ton module 1 offert t\'arrive par e-mail</b>, étape par étape :</p>' +
         '<ol class="liste-etapes">' +
           '<li><b>La vidéo du module</b><span>pour comprendre ta boucle</span></li>' +
           '<li><b>Le cahier d\'exercices</b><span>et ton carnet de 7 jours</span></li>' +
         '</ol>' +
-        '<p class="discret">Tu as une semaine pour le tester. Les inscriptions ouvrent ensuite ' + FORMATION.date + ' : tu t\'inscris en priorité, au tarif fondatrice, 48 h avant l\'ouverture au public. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';
+        '<p class="discret">Envie de toute la formation tout de suite ? Elle est incluse dans <a href="abonnement.html">Le Cercle</a>, avec ton premier mois offert, sans carte. Pense à vérifier tes courriers indésirables et à ajouter notre adresse à tes contacts.</p></div>';
     }
     el.className = 'liste-formation';
     if (deja) { el.innerHTML = bravo(''); return; }
@@ -696,7 +696,7 @@ window.GENESOLIA_IMPRESSION = {
         '</div></fieldset>' +
         '<label class="liste-accord"><input type="checkbox" name="accord" value="oui" required><span>J\'accepte de recevoir le module 1 offert et les informations sur la formation par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
         '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="cadeau-piege" aria-hidden="true">' +
-        '<button class="btn btn-plein" type="submit">Je rejoins la liste et je reçois le module 1</button>' +
+        '<button class="btn btn-plein" type="submit">Je reçois le module 1 offert</button>' +
         '<p class="liste-erreur" role="alert"></p>' +
       '</form>';
     var form = el.querySelector('form');
@@ -719,7 +719,7 @@ window.GENESOLIA_IMPRESSION = {
           el.innerHTML = bravo(prenom);
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = 'Je rejoins la liste et je reçois le module 1';
+          btn.disabled = false; btn.textContent = 'Je reçois le module 1 offert';
           err.textContent = 'L\'envoi n\'a pas fonctionné. Vérifie ta connexion et réessaie dans un instant.';
         });
     });
