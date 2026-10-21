@@ -23,7 +23,7 @@
   /* ───────── Texte d'état sous le titre ───────── */
   function majStatut() {
     var z = $('fd-statut'); if (!z) return;
-    if (synchro) z.innerHTML = 'Ton fil d’or est enregistré dans ton espace, jamais partagé.';
+    if (synchro) z.innerHTML = 'Ton fil d’or est enregistré dans ton espace, chiffré et jamais partagé : l’équipe Genesolia ne le lit pas.';
     else if (user) z.innerHTML = 'Tes réponses restent dans ce navigateur, sur cet appareil. <a href="#fd-garder" data-fd-garder-lien>Garde-les dans ton espace</a> pour ne pas les perdre.';
     else z.innerHTML = 'Tes réponses restent dans ce navigateur, sur cet appareil. <a href="login.html?inscription&amp;retour=fil-d-or.html">Crée ton espace</a> pour ne pas les perdre.';
     dessinerOutils(); dessinerEncart();
@@ -36,7 +36,7 @@
     if (synchro || encartFerme()) { z.hidden = true; return; }
     z.hidden = false;
     z.innerHTML = '<div class="fd-encart"><p class="fd-encart-t">Garde ton fil d’or</p>' +
-      '<p>' + (user ? 'Garde-le dans ton espace pour le retrouver sur tous tes appareils. Il y est <b>chiffré</b> : personne d’autre que toi ne le lit.' : 'Crée ton espace avec ton e-mail pour le retrouver sur tous tes appareils. Il y est <b>chiffré</b> : personne d’autre que toi ne le lit.') + '</p>' +
+      '<p>' + (user ? 'Garde-le dans ton espace pour le retrouver sur tous tes appareils. Il y est <b>chiffré</b> : l’équipe Genesolia ne le lit pas.' : 'Crée ton espace avec ton e-mail pour le retrouver sur tous tes appareils. Il y est <b>chiffré</b> : l’équipe Genesolia ne le lit pas.') + '</p>' +
       '<div class="fd-encart-actions"><button type="button" class="btn btn-plein" data-fd-garder>Garder mon fil d’or</button><button type="button" class="fd-lien" data-fd-sans>Continuer sans compte</button></div>' +
       '<p class="fd-petit">Rien n’est envoyé tant que tu n’as pas choisi. <a href="confidentialite.html#fil-d-or">Mes données</a></p></div>';
   }
