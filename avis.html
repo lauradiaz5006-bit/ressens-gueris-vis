@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <title>Donner mon avis · Genesolia</title>
+  <meta name="description" content="Dis-nous ce que Genesolia t'a apporté : ton avis aide d'autres personnes à oser commencer.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://genesolia.fr/avis.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .page-avis{padding:3.5rem 0 3rem}
+    .av-carte{max-width:38rem;margin:0 auto;padding:2.2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}
+    .av-carte h1{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:.6rem}
+    .av-carte>p{margin-bottom:1.4rem;color:var(--prune-doux)}
+    .av-form{display:grid;gap:1rem}
+    .av-form label{display:grid;gap:.35rem;font-size:.92rem;font-weight:600;color:var(--prune)}
+    .av-form label small{font-weight:400;color:var(--prune-doux)}
+    .av-form input,.av-form textarea{font:inherit;font-weight:400;padding:.75rem .9rem;border:1px solid var(--rose-fonce);border-radius:12px;background:#fff;color:var(--prune);width:100%}
+    .av-form textarea{min-height:9rem;resize:vertical}
+    .av-ligne{display:grid;grid-template-columns:2fr 1fr;gap:.8rem}
+    .av-form .av-case{display:flex;gap:.6rem;align-items:flex-start;font-weight:400}
+    .av-form .av-case input{width:auto;margin-top:.25rem}
+    .av-err{color:#A3324B;font-size:.92rem;min-height:1.2em}
+    @media (max-width:560px){.av-carte{padding:1.4rem}.av-ligne{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="conteneur page-avis">
+    <div class="av-carte" id="zone" aria-live="polite">
+      <h1>Ton avis compte</h1>
+      <p>Qu'est-ce que Genesolia t'a apporté ? Un outil, un article, Le Cercle… Quelques lignes suffisent. Ton avis aide d'autres personnes à oser commencer.</p>
+      <form class="av-form" id="av-form" novalidate>
+        <div class="av-ligne">
+          <label>Ton prénom<input name="prenom" autocomplete="given-name" maxlength="40" required></label>
+          <label>Ton âge <small>(facultatif)</small><input name="age" type="number" inputmode="numeric" min="16" max="110"></label>
+        </div>
+        <label>Ta ville ou ta région <small>(facultatif)</small><input name="ville" autocomplete="address-level2" maxlength="60"></label>
+        <label>Ton avis<textarea name="texte" maxlength="600" required placeholder="Ce que j'ai découvert, ce qui a changé pour moi…"></textarea></label>
+        <label>Ton e-mail <small>(facultatif, jamais affiché : seulement si on doit te répondre)</small><input name="email" type="email" autocomplete="email"></label>
+        <label class="av-case"><input type="checkbox" name="accord"> <span>J'accepte que mon avis soit affiché sur le site, avec mon prénom, mon âge et ma ville.</span></label>
+        <p class="av-err" id="av-err" role="alert"></p>
+        <div><button class="btn btn-plein" type="submit">Envoyer mon avis</button></div>
+      </form>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var f = document.getElementById('av-form'), err = document.getElementById('av-err'), zone = document.getElementById('zone');
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); err.textContent = '';
+      var d = { prenom: f.prenom.value.trim(), age: f.age.value ? +f.age.value : null, ville: f.ville.value.trim(), texte: f.texte.value.trim(), email: f.email.value.trim(), accord: f.accord.checked, page: document.referrer ? document.referrer.slice(0, 80) : 'avis' };
+      if (!d.prenom) { err.textContent = 'Indique ton prénom.'; f.prenom.focus(); return; }
+      if (d.texte.length < 10) { err.textContent = 'Écris quelques mots de plus.'; f.texte.focus(); return; }
+      var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/avis', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+        .then(function (r) { if (!r.ok) throw 0; zone.innerHTML = '<h1>Merci ' + d.prenom.replace(/[<>&"]/g, '') + ' ✦</h1><p>Ton avis est bien arrivé. Merci de prendre ce temps : il compte vraiment.</p><a class="btn btn-plein" href="/">Revenir au site</a>'; })
+        .catch(function () { bt.disabled = false; bt.textContent = 'Envoyer mon avis'; err.innerHTML = 'L\'envoi n\'a pas abouti. Réessaie dans un instant, ou écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.'; });
+    });
+  })();
+  </script>
+</body>
+</html>

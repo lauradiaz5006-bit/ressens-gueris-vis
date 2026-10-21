@@ -454,11 +454,12 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="mes-seances.html">Mes séances</a></li>' +
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
+          '<li><a href="la-demarche.html">La démarche</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
           '<li><a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></li>' +
-          '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
+          '<li><a href="avis.html">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
         (cercleInstalle ? '' : piedAppliCercle()) +
         '<div class="pied-bas">' +
           '<span>Genesolia propose un travail symbolique de connaissance de soi et de sa lignée, en complément de tout suivi médical.</span>' +
@@ -528,8 +529,9 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="la-demarche.html">La démarche</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
-            '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li>' +
+            '<li><a href="avis.html">Envoie-nous ton avis, on en a besoin</a></li>' +
             '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
@@ -1462,4 +1464,25 @@ window.GENESOLIA_IMPRESSION = {
       }
     };
   }
+})();
+
+/* Avis publiés (Supabase, fonction « avis ») : window.GenesoliaAvis(cb) et blocs [data-avis-publies] */
+(function () {
+  var URL_AVIS = 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/avis', attente = null;
+  window.GenesoliaAvis = function (cb) {
+    if (!attente) attente = fetch(URL_AVIS).then(function (r) { return r.ok ? r.json() : { avis: [] }; }).catch(function () { return { avis: [] }; })
+      .then(function (r) { return (r && r.avis || []).map(function (a) { return { texte: a.texte, qui: a.prenom + (a.age ? ', ' + a.age + ' ans' : '') + (a.ville ? ' · ' + a.ville : '') }; }); });
+    attente.then(cb);
+  };
+  var blocs = document.querySelectorAll('[data-avis-publies]');
+  if (!blocs.length) return;
+  var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  window.GenesoliaAvis(function (liste) {
+    if (!liste.length) return;
+    blocs.forEach(function (b) {
+      var n = +b.getAttribute('data-avis-publies') || 3, zone = b.querySelector('[data-avis-liste]') || b;
+      zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + '</figcaption></figure>'; }).join('');
+      b.hidden = false;
+    });
+  });
 })();
