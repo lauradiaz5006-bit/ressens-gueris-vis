@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/assets/icones/cercle.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icones/cercle-apple-180.png">
+  <link rel="manifest" href="/cercle.webmanifest">
+  <meta name="theme-color" content="#55224B">
+  <meta name="apple-mobile-web-app-title" content="Le Cercle">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Ta question du mois · Le Cercle</title>
+  <meta name="description" content="Pose ta question, de façon anonyme. Chaque mois, les réponses sont publiées pour toutes les membres du Cercle.">
+  <link rel="canonical" href="https://genesolia.fr/question-du-mois.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #qm{--encre:#4A2342;--doux:#8E6383;--ligne:#F1DDE2;max-width:46rem;margin:0 auto;padding:1.2rem 1rem 2.5rem;color:var(--encre)}
+    .qm-tete{position:relative;overflow:hidden;border-radius:24px;padding:1.8rem 1.4rem;margin-bottom:1.2rem;color:#fff;background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%)}
+    .qm-tete::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 10% 20%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 30% 75%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 70% 25%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 88% 70%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 52% 50%,#fff 50%,transparent 51%);animation:qmS 4s ease-in-out infinite}
+    @keyframes qmS{0%,100%{opacity:.4}50%{opacity:1}}
+    @media (prefers-reduced-motion:reduce){.qm-tete::before{animation:none}}
+    .qm-tete>*{position:relative}
+    .qm-tete p.qm-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#F3DCC0;margin:0 0 .4rem}
+    .qm-tete h1{color:#fff;font-size:clamp(1.7rem,6vw,2.2rem);margin:0 0 .5rem}
+    .qm-tete p{color:#F7E6EE;margin:0}
+    .qm-carte{background:#fff;border-radius:20px;padding:1.2rem 1.25rem;margin:0 0 1rem;box-shadow:0 6px 18px rgba(107,47,91,.07);border:1px solid var(--ligne)}
+    .qm-carte h2{font-size:1.35rem;margin:0 0 .6rem}
+    .qm-carte label{display:grid;gap:.35rem;font-weight:600;font-size:.92rem;margin-bottom:.8rem}
+    .qm-carte select,.qm-carte textarea{font:inherit;font-weight:400;padding:.7rem .85rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--encre);width:100%}
+    .qm-carte textarea{min-height:8rem;resize:vertical}
+    .qm-discret{font-size:.85rem;color:var(--doux);margin:.4rem 0 0}
+    .qm-err{color:#A3324B;font-size:.9rem;min-height:1.1em;margin:.3rem 0}
+    .qm-rep{border-top:1px solid var(--ligne);padding-top:1rem;margin-top:1rem}
+    .qm-rep:first-of-type{border-top:0;padding-top:0;margin-top:0}
+    .qm-q{font-family:var(--display);font-size:1.12rem;color:#3B1747;margin:0 0 .5rem}
+    .qm-q::before{content:"✦ ";color:var(--champagne)}
+    .qm-r p{margin:0 0 .6rem;color:var(--encre)}
+    .qm-r audio{width:100%;margin-top:.4rem}
+    .qm-mois{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:1.2rem 0 .6rem}
+    .qm-vide{color:var(--doux)}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="qm">
+    <div class="qm-tete">
+      <p class="qm-etiq">Le Cercle · chaque mois</p>
+      <h1>Ta question du mois</h1>
+      <p>Une question sur ton étape, ton arbre, une boucle qui revient ? Pose-la ici, de façon anonyme. Chaque mois, les réponses aux questions les plus partagées sont publiées pour toutes les membres.</p>
+    </div>
+
+    <section class="qm-carte" id="qm-zone" aria-live="polite">
+      <h2>Pose ta question</h2>
+      <form id="qm-form" novalidate>
+        <label>Elle touche plutôt à…
+          <select name="theme">
+            <option value="">Je ne sais pas</option>
+            <option>Mon étape du mois</option>
+            <option>Mon arbre, ma famille</option>
+            <option>Mes relations, l'amour</option>
+            <option>L'argent, le travail, ma place</option>
+            <option>Les séances audio, la formation</option>
+            <option>Autre chose</option>
+          </select>
+        </label>
+        <label>Ta question
+          <textarea name="texte" maxlength="1000" required placeholder="Par exemple : pourquoi je ressens de la culpabilité quand je dis non à ma mère ?"></textarea>
+        </label>
+        <p class="qm-err" id="qm-err" role="alert"></p>
+        <button class="btn btn-plein" type="submit">Envoyer ma question</button>
+        <p class="qm-discret">Anonyme : ni ton prénom ni ton e-mail ne sont envoyés. N'écris pas de nom ni de détail qui permettrait de te reconnaître. Ce n'est pas un espace d'urgence : si tu traverses un moment difficile, parles-en à un·e professionnel·le ou appelle le 3114.</p>
+      </form>
+    </section>
+
+    <section class="qm-carte" aria-labelledby="qm-rep-t">
+      <h2 id="qm-rep-t">Les réponses du mois</h2>
+      <div id="qm-reponses"><p class="qm-vide">Les premières réponses arrivent début novembre. Pose ta question dès maintenant : elle sera peut-être la première.</p></div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    /* ▼ RÉPONSES PUBLIÉES, sans prénom. Le mois le plus récent en premier. Exemple :
+       { mois: 'Novembre 2026', q: 'La question, reformulée.', r: 'Ta réponse.\n\nUn deuxième paragraphe.', audio: 'assets/cercle/reponses/2026-11-1.mp3' },
+       audio est facultatif. */
+    var REPONSES = [
+    ];
+    var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    if (REPONSES.length) {
+      var h = '', dernier = '';
+      REPONSES.forEach(function (x) {
+        if (x.mois !== dernier) { h += '<p class="qm-mois">' + esc(x.mois) + '</p>'; dernier = x.mois; }
+        h += '<div class="qm-rep"><p class="qm-q">' + esc(x.q) + '</p><div class="qm-r">' + String(x.r || '').split(/\n{2,}/).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+          (x.audio ? '<audio controls preload="none" src="' + esc(x.audio) + '"></audio>' : '') + '</div></div>';
+      });
+      document.getElementById('qm-reponses').innerHTML = h;
+    }
+    var f = document.getElementById('qm-form'), err = document.getElementById('qm-err');
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); err.textContent = '';
+      var t = f.texte.value.trim();
+      if (t.length < 10) { err.textContent = 'Écris ta question en quelques mots de plus.'; f.texte.focus(); return; }
+      var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/question-du-mois', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ texte: t, theme: f.theme.value }) })
+        .then(function (r) { if (!r.ok) throw 0; document.getElementById('qm-zone').innerHTML = '<h2>Merci ✦</h2><p>Ta question est bien arrivée. Les réponses du mois sont publiées ici, début de mois prochain.</p><a class="btn btn-trait" href="cercle.html">Revenir à mon Cercle</a>'; })
+        .catch(function () { bt.disabled = false; bt.textContent = 'Envoyer ma question'; err.textContent = 'L\'envoi n\'a pas abouti. Réessaie dans un instant.'; });
+    });
+  })();
+  </script>
+</body>
+</html>

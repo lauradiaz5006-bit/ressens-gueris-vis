@@ -142,7 +142,7 @@
         '<p class="so-conseils">Installe-toi au calme, avec un casque si tu peux, assise ou allongée. Laisse-toi guider : il n’y a rien à réussir, seulement à écouter. Tu peux la réécouter autant de fois que tu veux, depuis cette page.</p>' +
         '<p style="margin:0;font-size:.92rem"><a href="#" data-autre="' + autre + '">Écouter aussi « ' + esc(INFOS[autre].titre) + ' »</a></p></div></div>' +
         '<div class="so-suite"><h2>Cette séance fait partie du Cercle</h2>' +
-        '<p>À chaque étape, deux nouvelles séances, ton carnet Renaissance pour sortir du mode survie, ton livret Libération pour aimer en accord avec toi, et la formation « Sors de la boucle ». Tout dans ton appli, 15 minutes par semaine.</p>' +
+        '<p>À chaque étape, deux nouvelles séances, ton carnet Renaissance pour sortir du mode survie, ton livret Libération pour aimer en accord avec toi, et la formation « Sors de la boucle ». Tout dans ton appli, à ton rythme.</p>' +
         '<a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a><small>30 jours offerts · aucune carte demandée · sans engagement</small></div>';
       zone.querySelector('[data-autre]').addEventListener('click', function (e) { e.preventDefault(); var j = (lire() || {}).j; if (j) ouvrir(autre, { jeton: j, seance: autre }); });
       window.scrollTo({ top: zone.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
