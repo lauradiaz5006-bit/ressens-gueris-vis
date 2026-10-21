@@ -69,12 +69,19 @@
     });
   }
   function change() { if (!synchro) return; clearTimeout(minuteur); minuteur = setTimeout(envoyer, 900); }
+  /* La base réordonne les clés (jsonb) : on compare le contenu, pas le texte ; les champs vides ne comptent pas */
+  function canon(v) {
+    if (Array.isArray(v)) return v.map(canon);
+    if (v && typeof v === 'object') { var o = {}; Object.keys(v).sort().forEach(function (k) { var x = canon(v[k]); if (x !== '' && x !== null && x !== undefined && !(Array.isArray(x) && !x.length)) o[k] = x; }); return o; }
+    return v;
+  }
+  function memeContenu(a, b) { return JSON.stringify(canon(a)) === JSON.stringify(canon(b)); }
   function demarrerSynchro() {
     CF.lire(sb, user, MOIS).then(function (d) {
       var distant = d && d.etat ? d : null, localVide = F.vide();
       if (!distant) { synchro = true; if (!localVide) envoyer(); majStatut(); return; }
       if (localVide) { F.remplacer(distant.etat); try { localStorage.setItem(F.cle + '-maj', distant.maj || ''); } catch (e) {} synchro = true; majStatut(); return; }
-      if (JSON.stringify(distant.etat) === JSON.stringify(F.etat())) { synchro = true; majStatut(); return; }
+      if (memeContenu(distant.etat, F.etat()) || (distant.maj && distant.maj === majLocale())) { synchro = true; majStatut(); return; }
       choisirVersion(distant);
     }).catch(function () { majStatut(); });
   }
