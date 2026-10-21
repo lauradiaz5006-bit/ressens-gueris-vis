@@ -269,6 +269,7 @@ window.GENESOLIA_IMPRESSION = {
     ['genosociogramme.html', 'Ton arbre familial'],
     ['offert.html', 'Outils gratuits'],
     ['blog.html', 'Blog'],
+    ['espace-praticien.html', 'Praticien'],
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['abonnement.html', 'Le Cercle'];

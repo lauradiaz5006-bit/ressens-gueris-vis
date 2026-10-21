@@ -31,7 +31,7 @@
       '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
       '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon espace, <b>chiffrées</b> : l’équipe Genesolia ne les lit pas.</span></label>' +
       '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
-      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Tarif fondateur pour la liste d’attente : 19 € par mois.</p></form></div>';
+      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Tarif fondateur (liste fondateur) : 19 € par mois.</p></form></div>';
     var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
     f.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
@@ -61,11 +61,11 @@
       (actif() ? '<form class="pr-nouveau" id="pr-nouv"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></form>' : '') +
       '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><section class="pr-carte"><h2>Mon cabinet</h2><form class="pr-form" id="pr-cab"><label>Nom du cabinet<input type="text" name="cabinet" maxlength="80" value="' + esc(prat.cabinet) + '"></label><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
-      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>, et expire au bout de 14 jours.</p><p class="pr-aide" style="margin:0">Pas d’informations médicales dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p></section></aside></div>';
+      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>, et expire au bout de 14 jours.</p><p class="pr-aide">Tes notes de séance t’appartiennent : elles ne sont jamais copiées dans l’espace de ta cliente. Si elle te demande ce que tu as noté sur elle, tu peux les exporter depuis « Notes de séance », en PDF.</p><p class="pr-aide" style="margin:0">Pas d’informations médicales dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p></section></aside></div>';
     chargerDossiers();
   }
   function chargerDossiers() {
-    sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('maj', { ascending: false }).then(function (r) {
+    sb.from('arbres_supp').select('id,nom,data,maj,remise_autorisee').eq('user_id', user.id).order('maj', { ascending: false }).then(function (r) {
       var l = document.getElementById('pr-liste'); if (!l) return;
       if (r.error) { l.innerHTML = '<p class="pr-vide">Tes dossiers n’ont pas pu être chargés. Recharge la page dans un instant.</p>'; return; }
       var tous = r.data || [];
@@ -81,7 +81,9 @@
           '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
           '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
           (actif() ? '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' : '') +
-          '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div></div>';
+          '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
+          '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : ma cliente peut télécharger et garder son arbre</span></label>' +
+          '<p class="pr-aide">Une fois cochée, ta cliente pourra télécharger son arbre et le garder dans son propre espace. Tes notes de séance ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
       }).join('');
     });
   }
@@ -90,7 +92,7 @@
   /* ───────── Notes par séance (chiffrées) ───────── */
   function notes(id) {
     var d = dossier(id), cle = 'seances-' + id, liste = [];
-    var f = fenetre('<h2>Notes de séance · ' + esc(d ? d.nom : '') + '</h2><p class="pr-aide">Chiffrées dans ton espace : l’équipe Genesolia ne les lit pas.</p>' +
+    var f = fenetre('<h2>Notes de séance · ' + esc(d ? d.nom : '') + '</h2><p class="pr-aide">Chiffrées dans ton espace : l’équipe Genesolia ne les lit pas.</p><div class="pr-nouveau" style="margin:0 0 .9rem"><button class="btn btn-trait" type="button" data-export-notes>Exporter les notes (PDF)</button></div><p class="pr-aide" id="pr-export-msg" role="status"></p>' +
       '<form class="pr-form" id="pr-note" style="max-width:none"><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que tu observes<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><p class="pr-err" id="pr-note-msg" role="status"></p><div><button class="btn btn-plein" type="submit">Ajouter cette note</button></div></form><div id="pr-seances"><p class="pr-vide">Chargement…</p></div>');
     function dessiner() {
       var zs = f.querySelector('#pr-seances');
@@ -103,7 +105,39 @@
       liste.push({ id: 's' + Date.now(), jour: this.jour.value || new Date().toISOString().slice(0, 10), texte: t });
       var form = this; sauver().then(function () { form.texte.value = ''; m.textContent = 'Note ajoutée, chiffrée.'; dessiner(); }, function () { liste.pop(); m.textContent = 'La note n’a pas pu être enregistrée. Réessaie.'; });
     });
+    f.querySelector('[data-export-notes]').addEventListener('click', function () {
+      var m = f.querySelector('#pr-export-msg'), bt = this;
+      if (!liste.length) { m.textContent = 'Aucune note à exporter pour ce dossier.'; return; }
+      bt.disabled = true;
+      exporterNotes(d ? d.nom : '', liste).then(function () { bt.disabled = false; m.textContent = ''; }, function () { bt.disabled = false; m.textContent = 'Le PDF n’a pas pu être créé. Réessaie.'; });
+    });
     f.addEventListener('click', function (e) { var b = e.target.closest('[data-suppr-note]'); if (!b || !confirm('Supprimer cette note ?')) return; var avant = liste; liste = liste.filter(function (s) { return s.id !== b.getAttribute('data-suppr-note'); }); sauver().then(dessiner, function () { liste = avant; }); });
+  }
+
+  /* Export PDF des notes d'un dossier, au nom du cabinet, fabriqué sur l'appareil (rien n'est envoyé) */
+  function jsPDFcharger() {
+    if (window.jspdf) return Promise.resolve(window.jspdf.jsPDF);
+    return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = 'assets/jspdf.umd.min.js'; s.onload = function () { ok(window.jspdf.jsPDF); }; s.onerror = ko; document.head.appendChild(s); });
+  }
+  function exporterNotes(nomDossier, liste) {
+    return jsPDFcharger().then(function (J) {
+      var doc = new J({ unit: 'mm', format: 'a4' }), pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 18, y = m, lw = pw - 2 * m;
+      function place(h) { if (y + h > ph - m) { doc.addPage(); y = m; } }
+      doc.setTextColor(107, 47, 91);
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text((prat && prat.cabinet) || 'Mon cabinet', m, y); y += 9;
+      doc.setFontSize(17); doc.text('Notes de séance', m, y); y += 7;
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text((nomDossier ? 'Dossier : ' + nomDossier + ' · ' : '') + 'exporté le ' + date(new Date()), m, y); y += 10;
+      liste.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).forEach(function (s) {
+        var lignes = doc.splitTextToSize(String(s.texte || ''), lw);
+        place(12); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(date(s.jour) || 'Sans date', m, y); y += 6;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+        lignes.forEach(function (l) { place(5.4); doc.text(l, m, y); y += 5.4; });
+        y += 5;
+      });
+      var n = doc.getNumberOfPages();
+      for (var i = 1; i <= n; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150, 120, 140); doc.text('Document personnel de ' + ((prat && prat.cabinet) || 'ton cabinet') + ' · page ' + i + ' sur ' + n, m, ph - 8); }
+      doc.save('notes-' + String(nomDossier || 'dossier').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.pdf');
+    });
   }
 
   /* ───────── Partage en lecture ───────── */
@@ -124,6 +158,19 @@
     fond.addEventListener('click', function (e) { if (e.target === fond || e.target.closest('[data-fermer]')) fond.remove(); });
     return fond;
   }
+
+  /* ───────── Remise de l'arbre à la cliente (case par dossier) ───────── */
+  document.addEventListener('change', function (e) {
+    var c = e.target.closest && e.target.closest('[data-remise]'); if (!c) return;
+    var id = c.getAttribute('data-remise'), v = c.checked, m = z.querySelector('[data-remise-msg="' + id + '"]');
+    c.disabled = true;
+    sb.from('arbres_supp').update({ remise_autorisee: v }).eq('id', id).then(function (r) {
+      c.disabled = false;
+      if (r.error) { c.checked = !v; if (m) m.textContent = 'Pas enregistré. Réessaie.'; return; }
+      var d = dossier(id); if (d) d.remise_autorisee = v;
+      if (m) m.textContent = v ? 'Enregistré. Envoie-lui un lien de partage : elle y trouvera les boutons pour télécharger et garder son arbre.' : 'Enregistré. Ce que ta cliente a déjà gardé reste dans son espace.';
+    });
+  });
 
   /* ───────── Événements ───────── */
   document.addEventListener('submit', function (e) {

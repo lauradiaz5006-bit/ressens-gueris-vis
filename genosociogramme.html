@@ -220,6 +220,15 @@
     /* Exemple */
     .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
     .bandeau-exemple a{color:var(--champagne-clair)}
+    .remise-partage{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:41;width:min(560px,calc(100% - 24px));box-sizing:border-box;background:#fff;border:1px solid var(--rose);border-radius:20px;padding:1rem 1.1rem;box-shadow:0 14px 36px rgba(107,47,91,.22);font:400 .92rem/1.5 var(--texte);color:var(--prune)}
+    .remise-partage p{margin:0 0 .7rem}
+    .remise-boutons,.remise-formats{display:flex;flex-wrap:wrap;gap:.5rem}
+    .remise-formats{margin-top:.5rem}
+    .remise-partage .bt{min-height:46px;justify-content:center;flex:1 1 200px}
+    .remise-partage .remise-msg{margin:.6rem 0 0;font-size:.88rem}
+    .remise-partage .remise-msg:empty{display:none}
+    .remise-partage a{color:var(--prune);font-weight:600}
+    @media (max-width:560px){.remise-boutons .bt,.remise-formats .bt{flex:1 1 100%}}
 
     /* Téléphone */
     .porte{display:none;padding:2.2rem 16px 3rem}
@@ -756,7 +765,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-21f"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-21g"></script>
   <script src="assets/import-arbre.js?v=2026-10-10a"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/arbre-telephone.js?v=2026-10-21b"></script>
