@@ -82,7 +82,7 @@
       '<p class="pd-mention">Tu pourras refaire ce point de départ tous les trois mois, depuis ton Cercle, pour voir le chemin parcouru.</p></div>' +
       /* Pas encore membre : le point de départ est l'offert du site ; la suite naturelle, c'est le mois offert du Cercle */
       '<div data-fin-visiteuse hidden><h3>Et maintenant ?</h3>' +
-      '<p>Tu sais d’où tu pars. Le Cercle t’accompagne à partir de là, une étape après l’autre : Renaissance pour sortir du mode survie, Libération pour aimer en accord avec toi, tes séances audio et la formation « Sors de la boucle ».</p>' +
+      '<p>Tu sais d’où tu pars. Le Cercle t’accompagne à partir de là, une étape après l’autre : Renaissance pour sortir du mode survie (toujours en alerte, à tout tenir à bout de bras), Libération pour aimer en accord avec toi, tes séances audio et la formation « Sors de la boucle ».</p>' +
       '<p><b>Ton point de départ est repris tel quel dans ton Cercle : tu n’as rien à refaire.</b></p>' +
       '<p class="pd-boutons"><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a></p>' +
       '<p class="pd-mention">30 jours offerts · aucune carte demandée · sans engagement</p></div>';

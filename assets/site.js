@@ -623,7 +623,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div class="cadeau-texte">' +
         '<p class="ef-sur">Offert · 15 minutes</p>' +
         '<h2>Ton point de départ</h2>' +
-        '<p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi. Tu découvres aussi si Le Cercle est fait pour toi.</p>' +
+        '<p>Ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi. Tu découvres aussi si Le Cercle est fait pour toi.</p>' +
         '<ul class="ef-liste"><li>Interactif, sur ton téléphone ou ton ordinateur</li><li>Tes résultats gardés dans ton espace</li><li>Repris tels quels si tu ouvres ton mois offert du Cercle : rien à refaire</li></ul>' +
         '<p class="cadeau-ligne"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p>' +
       '</div>';
@@ -822,7 +822,7 @@ window.GENESOLIA_IMPRESSION = {
      window.GenesoliaDemandeMail({ offre: 'point-de-depart' | 'c1-10' | 'c2-10', fermable: true, apres: function (jeton) {} }) */
   var OFFERTS = {
     'point-de-depart': { sur: 'Offert · 15 minutes', titre: 'Ton point de départ', image: 'assets/cercle/couv-point-depart-petite.webp',
-      liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : comment tu réagis quand tu as peur', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
+      liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : quand tu es toujours en alerte, à tout tenir à bout de bras, comment tu réagis', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
     'c1-10': { sur: 'Offert · séance complète', titre: 'Ta séance « Sortir de l’alerte »', image: 'assets/cercle/couv-renaissance-petite.webp',
       liste: ['Cycle 1 · De la peur à la paix', 'L’alarme qui sonne en toi baisse, cran par cran, jusqu’au silence', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' },
     'c2-10': { sur: 'Offert · séance complète', titre: 'Ta séance « L’arbre des liens »', image: 'assets/cercle/couv-liberation-petite.webp',
@@ -945,7 +945,7 @@ window.GENESOLIA_IMPRESSION = {
       '<img src="' + CARRE.image + '" alt="" width="60" height="85">' +
       '<div><p class="cc-sur">Offert · 15 minutes</p>' +
         '<p class="cc-titre">' + CARRE.titre + '</p>' +
-        '<p class="cc-texte">Ta roue de la vie, ton mode survie et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
+        '<p class="cc-texte">Ta roue de la vie, ton mode survie (quand tu es toujours en alerte) et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
         '<a class="cc-bouton" href="' + CARRE.lien + '" data-offre="point-de-depart">Je commence</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();

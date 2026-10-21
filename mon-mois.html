@@ -284,7 +284,7 @@
       /* L'offert : le point de départ (interactif, gardé dans son espace, repris dans Le Cercle) ; rien si c'est déjà fait */
       try { var pd = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); if (pd && pd.v && pd.v.fait) return ''; } catch (e) {}
       return '<div class="m-cadeau" id="offert"><img src="assets/cercle/couv-point-depart.webp" alt="Couverture : Mon point de départ" width="150" height="212" loading="lazy">' +
-        '<div><p class="m-etiq">Offert · 15 minutes</p><h2>Ton point de départ</h2><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : vois d’où tu pars et ce qui se rejoue pour toi. Tes résultats sont gardés dans ton espace, et repris tels quels si tu ouvres ton mois offert du Cercle.</p>' +
+        '<div><p class="m-etiq">Offert · 15 minutes</p><h2>Ton point de départ</h2><p>Ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes blessures du cœur et tes cibles : vois d’où tu pars et ce qui se rejoue pour toi. Tes résultats sont gardés dans ton espace, et repris tels quels si tu ouvres ton mois offert du Cercle.</p>' +
         '<p style="margin-top:.8rem"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p></div></div>';
     }
     function brancherOffert() {
