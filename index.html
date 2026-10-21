@@ -166,8 +166,17 @@
     .porte-duree{font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--champagne)}
     .porte-carte strong{font:400 1.35rem/1.2 var(--display)}
     .porte-carte span:last-child{color:var(--prune-doux);line-height:1.55}
-    .portes-plus{text-align:center;margin:1.4rem 0 0;color:var(--prune-doux)}
+    .portes-plus{text-align:center;margin:1.4rem auto 0;max-width:none;color:var(--prune-doux)}
     @media (max-width:860px){.portes-accueil{grid-template-columns:1fr}}
+    .langages-titre{text-align:center;font:400 1.3rem var(--display);color:var(--prune);margin:2.2rem 0 1rem}
+    .langages-accueil{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+    .langage{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:.8rem;align-items:center;text-decoration:none;color:var(--prune);background:linear-gradient(140deg,#FBEFF2,#FFF6EC);border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;min-height:64px}
+    .langage-ico{grid-row:1/3;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center}
+    .langage-ico svg{width:22px;height:22px;fill:none;stroke:var(--prune);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .langage strong{font:400 1.12rem var(--display)}
+    .langage span:last-child{font-size:.82rem;color:var(--prune-doux)}
+    @media (max-width:860px){.langages-accueil{grid-template-columns:1fr 1fr}}
+    @media (max-width:420px){.langages-accueil{grid-template-columns:1fr}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -299,7 +308,14 @@
           <a class="porte-carte" href="ta-vie-en-reel.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">3 minutes · chaque semaine</span><strong>Ta vie en réel</strong><span>Quand ça recommence : ce qui se joue, ce qui se rejoue dans ta famille, et les mots pour le dire.</span></a>
           <a class="porte-carte" href="parcours.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">10 minutes</span><strong>Trouver mon cycle</strong><span>Sécurité ou amour : repère ton cycle et ta blessure, et repars avec ton point de départ.</span></a>
         </div>
-        <p class="portes-plus">Numérologie, astrologie, rêves, prénom, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
+        <h3 class="langages-titre">Et quatre langages pour voir d’où ça vient</h3>
+        <div class="langages-accueil">
+          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes nombres</strong><span>Ton thème numérologique gratuit</span></a>
+          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes étoiles</strong><span>Ton thème astral gratuit</span></a>
+          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
+          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
+        </div>
+        <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
       </div>
     </section>
 
