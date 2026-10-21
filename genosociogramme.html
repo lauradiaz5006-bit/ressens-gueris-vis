@@ -43,7 +43,13 @@
     .ma-message{font-size:.84rem;line-height:1.5;color:var(--prune);background:#FFF6EC;border:1px solid var(--champagne-clair,#EAD7BC);border-radius:10px;padding:.6rem .7rem;margin-top:.3rem;display:grid;gap:.35rem}
     .ma-message a{color:var(--prune);font-weight:600}
     .sr-seul{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .barre .groupe{display:flex;gap:.35rem;align-items:center}
+    .barre .groupe{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap;min-width:0}
+    .barre{max-width:100vw;box-sizing:border-box}
+    .plus-menu{position:relative}
+    .menu-plus{position:absolute;top:calc(100% + .4rem);right:0;z-index:45;min-width:14rem;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:14px;box-shadow:0 16px 40px rgba(107,47,91,.16);padding:.4rem;display:grid;gap:.2rem}
+    .menu-plus[hidden]{display:none}
+    .menu-plus .bt{width:100%;justify-content:flex-start;text-align:left;border-color:transparent}
+    .menu-plus #bt-nouveau-barre{color:#A3324B}
     .barre .sep{width:1px;height:22px;background:var(--rose-fonce);margin:0 .25rem}
     .bt{font:600 .82rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.5rem .85rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;white-space:nowrap}
     .bt:hover{border-color:var(--prune)}
@@ -445,17 +451,22 @@
     </div>
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
+      <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
       <button class="bt" type="button" id="bt-numero" aria-haspopup="dialog">Numérologie</button>
       <button class="bt" type="button" id="bt-astro" aria-haspopup="dialog">Astrologie</button>
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image" data-compte="l’image de ton arbre">Télécharger l'image</button>
-      <button class="bt" type="button" id="bt-imprimer" data-compte="ton arbre à imprimer">Imprimer</button>
-      <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
-      <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
-      <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
       <button class="bt bt-dore" type="button" id="bt-dore" aria-pressed="false" title="Changer l'apparence de l'arbre">Arbre doré</button>
       <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog">Mon arbre à encadrer</button>
-      <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
+      <div class="plus-menu">
+        <button class="bt" type="button" id="bt-plus" aria-haspopup="true" aria-expanded="false" aria-controls="menu-plus" title="Imprimer, importer, sauvegardes…">•••<span class="sr-seul"> Plus d'options</span></button>
+        <div class="menu-plus" id="menu-plus" role="menu" hidden>
+          <button class="bt" type="button" role="menuitem" id="bt-imprimer" data-compte="ton arbre à imprimer">Imprimer</button>
+          <button class="bt" type="button" role="menuitem" id="bt-importer-barre">Importer un arbre</button>
+          <button class="bt" type="button" role="menuitem" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
+          <button class="bt" type="button" role="menuitem" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
+        </div>
+      </div>
     </div>
     <span class="sep" aria-hidden="true"></span>
     <span class="statut" id="statut" aria-live="polite"></span>
@@ -477,7 +488,7 @@
           </div>
           <button class="lien-import" type="button" id="bt-importer-vide">J'ai déjà un arbre en PDF ou GEDCOM : l'importer</button>
           <button class="lien-import" type="button" data-tuto>Première fois ? Voir comment ça marche</button>
-          <small>Ton arbre reste dans ton navigateur. Connecte-toi pour le retrouver sur un autre ordinateur.</small>
+          <small id="vide-note">Ton arbre reste dans ce navigateur. <a href="login.html?retour=genosociogramme.html">Connecte-toi</a> pour le retrouver sur un autre ordinateur.</small>
         </div>
       </div>
 
@@ -715,7 +726,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-21"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-21b"></script>
   <script src="assets/import-arbre.js?v=2026-10-10a"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/arbre-telephone.js?v=2026-10-21"></script>
