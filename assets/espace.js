@@ -106,8 +106,29 @@
         + ((d.parcours_historique || []).length ? '<p class="tb-aide">Tes parcours précédents : ' + d.parcours_historique.slice().reverse().map(function (x) { return esc(THEMES[x.theme] || x.theme) + (x.updatedAt ? ' (' + esc(dateFr(x.updatedAt)) + ')' : ''); }).join(' · ') + '</p>' : '');
       else zp.innerHTML = '<p class="tb-aide">Tu n’as pas encore fait le parcours guidé. Quelques questions pour nommer ce qui se répète dans ta vie, dix minutes environ.</p>';
       chargerArbresSupp();
+      chargerFilDor();
     });
   }
+
+  /* ── Le fil d'or (table carnets, ligne « fil-d-or », chiffrée) ── */
+  function chargerFilDor() {
+    var z = $('fil-d-or-resume'), bt = $('bt-effacer-fil'), CF = window.GenesoliaCoffre; if (!z || !CF) return;
+    CF.lire(sb, user, 'fil-d-or').then(function (d) {
+      if (!d || !d.etat || !d.etat.personnes) { z.innerHTML = '<p class="tb-aide">Ton fil d’or n’est pas gardé dans ton espace. Pars de ce que tu ressens : ta vie, puis ta lignée. Choisis « Garder mon fil d’or » pour le retrouver ici.</p>'; if (bt) bt.hidden = true; return; }
+      var n = Object.keys(d.etat.personnes).length;
+      z.innerHTML = '<p class="tb-aide">Gardé dans ton espace, chiffré : <b>' + n + ' personne' + (n > 1 ? 's' : '') + '</b>' + (d.maj ? ', modifié le ' + esc(new Date(d.maj).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })) : '') + '.</p>';
+      if (bt) bt.hidden = false;
+    }, function () { z.innerHTML = '<p class="tb-aide">Ton fil d’or n’a pas pu être chargé pour l’instant.</p>'; });
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('#bt-effacer-fil')) return;
+    if (!confirm('Effacer ton fil d’or dans ton espace et sur cet appareil ? Ce n’est pas réversible.')) return;
+    sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'fil-d-or').then(function (r) {
+      if (r && r.error) { alert('L’effacement n’a pas abouti. Réessaie dans un instant.'); return; }
+      try { localStorage.removeItem('genesolia-arbre-ressentis'); localStorage.removeItem('genesolia-arbre-ressentis-maj'); } catch (x) {}
+      chargerFilDor();
+    });
+  });
 
   /* ── Plusieurs arbres (table arbres_supp) ── */
   var arbresSupp = [];
