@@ -664,7 +664,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Bandeau fin en haut des pages du site : Le Cercle, 1er mois offert (pas dans le tunnel, ni pour les membres) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
-  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html'];
+  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html', 'praticien.html', 'espace-praticien.html'];
   var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
   if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
@@ -886,7 +886,7 @@ window.GENESOLIA_IMPRESSION = {
   };
   function carreSeance(cible) {
     if (TELEPHONE || window.GenesoliaMembre || seanceRecue() || page === 'seance-offerte.html' || page === 'point-de-depart.html') return;
-    if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || page === 'praticien.html' || document.querySelector('.carre-cercle')) return;
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
     try { if (sessionStorage.getItem('carre-seance-ferme') === '1') return; } catch (e) {}
     var c = document.createElement('aside');
@@ -932,7 +932,7 @@ window.GENESOLIA_IMPRESSION = {
       return;
     }
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
-    if (tunnel || page === 'mon-mois.html' || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || page === 'praticien.html' || document.querySelector('.carre-cercle')) return;
     try {
       if (sessionStorage.getItem('carre-cercle-ferme') === '1') return;
     } catch (e) {}

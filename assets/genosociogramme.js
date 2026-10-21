@@ -2349,7 +2349,8 @@
       'table{width:100%;border-collapse:collapse;margin:3mm 0 5mm}td,th{text-align:left;padding:2mm 3mm;border-bottom:.6pt solid #EBCFD5;font-size:10pt}th{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:#6B2F5B;background:#F7E6E8}' +
       '.discret{color:#8E6383;font-size:8.5pt}.fin{margin-top:8mm;padding:5mm 6mm;border-radius:4mm;background:#6B2F5B;color:#F7E6EE}.fin b{color:#fff}';
     var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Le rapport de ton arbre · Genesolia</title><style>' + C + '</style></head><body>';
-    h += '<section class="couv"><div class="marque">Genesolia</div><div><div class="sur">Rapport personnel · ' + esc(dateLongue(d)) + '</div><h1>Le rapport<br>de ton arbre</h1>' +
+    var CAB = PRATICIEN && ARBRE_ID ? PRATICIEN.cabinet : null;
+    h += '<section class="couv"><div class="marque">' + (CAB ? esc(CAB) : 'Genesolia') + '</div><div><div class="sur">' + (CAB ? 'Préparé par ' + esc(CAB) + ' · ' : 'Rapport personnel · ') + esc(dateLongue(d)) + '</div><h1>Le rapport<br>de ton arbre</h1>' +
       '<p>Ce que ton arbre familial laisse apparaître : les dates, les âges, les prénoms et les façons de vivre qui se répètent, avec des pistes de réflexion pour chacun.</p>' +
       '<div class="chiffres"><div><b>' + st.personnes + '</b><span>personnes</span></div><div><b>' + st.generations + '</b><span>générations</span></div><div><b>' + reps.length + '</b><span>répétitions repérées</span></div></div></div>' +
       '<p class="discret" style="color:#E3C9DA">Ce rapport propose une lecture symbolique de ton histoire familiale. Il ne remplace pas un avis médical ou psychologique.</p></section>';
@@ -2382,6 +2383,10 @@
     if (st.sansEvt.length) h += '<h3>Les personnes sans événement noté</h3><p>' + esc(st.sansEvt.slice(0, 30).join(', ')) + (st.sansEvt.length > 30 ? '…' : '') + '</p><p class="discret">Un départ, une séparation, un déménagement, une réussite, un secret… même approximatif, avec un âge, c’est ce qui fait apparaître les répétitions.</p>';
     h += '<h3>Les questions à poser à ta famille</h3><ol><li>Comment se sont rencontrés tes grands-parents, et comment l’histoire a-t-elle continué ?</li><li>Qui est parti, ou dont on ne parle plus ?</li><li>Qu’est-ce qui a été dur pour eux, à quel âge ?</li><li>D’où viennent les prénoms de la famille ?</li><li>Quelles phrases revenaient souvent à table ?</li></ol>';
     h += '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html</div>';
+    if (ANNOTATIONS && ANNOTATIONS.length) {
+      h += '<section class="page"><div class="sur2">Annexe</div><h2>Les notes de séance</h2><p class="intro">Les observations de ' + esc(CAB || 'ton·ta praticien·ne') + ', séance après séance.</p>' +
+        ANNOTATIONS.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).map(function (n) { return '<div class="rep" style="--c:#B98A55"><b>' + esc(dateLongue(new Date(n.jour + 'T12:00:00'))) + '</b><p>' + esc(n.texte).replace(/\n/g, '<br>') + '</p></div>'; }).join('') + '</section>';
+    }
     h += '<p class="discret" style="margin-top:6mm">Rapport généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce rapport propose une lecture symbolique de ton histoire familiale, à partir des informations que tu as saisies. Il ne remplace pas un avis médical ou psychologique.</p></section>';
     return h + '</body></html>';
   }
@@ -2391,7 +2396,8 @@
     /* Sur téléphone : nouvel onglet ouvert au moment du clic (l'impression d'un cadre caché n'y fonctionne pas) */
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var w = mobile ? window.open('', '_blank') : null;
-    chargerAstro().catch(function () {}).then(polices).then(function (css) {
+    var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {
       var e = svgExport(css);
       if (w) {
         var barre = '<div class="barre-rapport" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>Ton rapport Genesolia</span><button onclick="window.print()" style="border:0;border-radius:99px;padding:.55rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif">Enregistrer en PDF</button></div><style>@media print{.barre-rapport{display:none!important}}</style>';
@@ -2448,6 +2454,7 @@
       accesRapport = acces;
       if (acces) {
         corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
+          (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
           '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante, et laisse les marges sur <b>« Par défaut »</b>.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
@@ -2934,13 +2941,56 @@
   }
   function apresChargement() { importerFilDor(); exporterSiDemande(); }
 
+  /* ───────── Espace praticien : lien vers le cabinet, mode séance, rapport au nom du cabinet ───────── */
+  var PRATICIEN = null;
+  function chargerPraticien() {
+    if (!sb || !utilisateur) return;
+    sb.from('praticiens').select('cabinet,acces_jusqu').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
+      if (r.error || !r.data) return;
+      PRATICIEN = r.data; document.body.classList.add('est-praticien');
+      var t = document.querySelector('.titre-arbre');
+      if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = 'praticien.html'; a.textContent = 'Mon cabinet'; t.insertBefore(a, t.firstChild); }
+      var m = document.getElementById('menu-plus');
+      if (m && !document.getElementById('bt-seance')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'bt'; b.setAttribute('role', 'menuitem'); b.id = 'bt-seance'; b.textContent = 'Mode séance'; b.addEventListener('click', modeSeance); m.insertBefore(b, m.firstChild); }
+    }, function () {});
+  }
+  function modeSeance() {
+    document.body.classList.add('mode-seance');
+    try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {}
+    var q = document.createElement('button'); q.type = 'button'; q.className = 'bt plein quitter-seance'; q.textContent = 'Quitter le mode séance';
+    document.body.appendChild(q);
+    function quitter() { document.body.classList.remove('mode-seance'); q.remove(); try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} setTimeout(recentrer, 60); }
+    q.addEventListener('click', quitter);
+    document.addEventListener('fullscreenchange', function f() { if (!document.fullscreenElement && document.body.classList.contains('mode-seance')) { quitter(); } document.removeEventListener('fullscreenchange', f); });
+    setTimeout(recentrer, 120);
+  }
+  var ANNOTATIONS = null;   /* notes de séance du dossier, ajoutées en annexe du rapport si le·la praticien·ne le choisit */
+  function chargerAnnotations() {
+    var CF = window.GenesoliaCoffre;
+    if (!PRATICIEN || !ARBRE_ID || !CF || !sb || !utilisateur) return Promise.resolve(null);
+    return CF.lire(sb, utilisateur, 'seances-' + ARBRE_ID).then(function (x) { return (x && x.seances) || []; }, function () { return []; });
+  }
+
   function demarrer() {
     /* Téléphone : la vue « une personne au centre » (assets/arbre-telephone.js) remplace la porte ; ?dessin force le dessin complet */
     var qs = new URLSearchParams(location.search);
-    if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin')) document.body.classList.add('mobile-arbre');
-    else if (surTelephone()) document.body.classList.add('porte-ouverte');
+    if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin') && !qs.has('partage')) document.body.classList.add('mobile-arbre');
+    else if (surTelephone() && !qs.has('partage')) document.body.classList.add('porte-ouverte');
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
 
+    /* Lien de partage d'un·e praticien·ne (?partage=<jeton>) : l'arbre en lecture, sans ses notes, rien n'est enregistré */
+    if (qs.has('partage')) {
+      EXEMPLE = true; document.body.classList.add('arbre-partage');
+      fetch(SB_URL + '/rest/v1/rpc/partage_lire', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_jeton: qs.get('partage') }) })
+        .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (d) {
+          var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
+          if (!d || !d.people) { b.innerHTML = 'Ce lien n’est plus valable. Demande un nouveau lien à ton·ta praticien·ne.'; document.body.appendChild(b); statut(''); return; }
+          charger(d); dessiner(); recentrer();
+          b.innerHTML = 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+          document.body.appendChild(b); statut('');
+        });
+      return;
+    }
     if (new URLSearchParams(location.search).has('exemple')) {
       EXEMPLE = true;
       fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (d) {
@@ -2962,6 +3012,7 @@
       utilisateur = s.user;
       statut(textStatutRepos());
       chargerListeArbres();
+      chargerPraticien();
       if (ARBRE_ID) return chargerArbreSupp();
       return sb.from('arbres').select('data').eq('user_id', utilisateur.id).maybeSingle().then(function (res) {
         if (res.error) return;

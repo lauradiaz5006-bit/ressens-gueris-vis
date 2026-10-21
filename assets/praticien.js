@@ -1,0 +1,164 @@
+/* Genesolia · Mon cabinet (praticien.html) : l'Espace praticien.
+   - Sans compte : créer son espace, puis revenir ici.
+   - Connecté·e, pas encore praticien·ne : nom du cabinet + conditions + accord pour les notes chiffrées, puis essai de 30 jours
+     (fonction praticien_commencer, outils-internes/supabase-praticien.sql).
+   - Praticien·ne : dossiers clients illimités (table arbres_supp), notes par séance CHIFFRÉES (coffre, ligne « seances-<dossier> »),
+     lien de partage en lecture pour le client (table partages_arbre), nom du cabinet.
+   Après l'essai sans abonnement : les dossiers restent consultables, on ne peut plus en créer ni partager. */
+(function () {
+  'use strict';
+  var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+  var z = document.getElementById('pr'), CF = window.GenesoliaCoffre, sb = null, user = null, prat = null, dossiers = [];
+  try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
+  function actif() { return prat && new Date(prat.acces_jusqu) > new Date(); }
+  function joursRestants() { return prat ? Math.max(0, Math.ceil((new Date(prat.acces_jusqu) - Date.now()) / 864e5)) : 0; }
+  function indispo() { z.innerHTML = '<div class="pr-carte"><h2>L’Espace praticien ouvre très bientôt</h2><p class="pr-aide">Il est en cours de mise en place. Inscris-toi sur la liste d’attente pour être prévenu·e en premier, avec le tarif fondateur.</p><a class="btn btn-plein" href="espace-praticien.html#liste">Rejoindre la liste d’attente</a></div>'; }
+
+  /* ───────── Sans compte ───────── */
+  function porte() {
+    z.innerHTML = '<p class="pr-etiq">Espace praticien</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ton cabinet en ligne</h1>' +
+      '<div class="pr-carte"><p class="pr-aide">Crée ton espace (ou connecte-toi), puis ouvre ton cabinet : <b>30 jours d’essai, sans carte</b>. Autant de dossiers client·es que tu veux, des notes par séance chiffrées, et un lien pour montrer son arbre à ton·ta client·e.</p>' +
+      '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=praticien.html">Créer mon espace</a><a class="btn btn-trait" href="login.html?retour=praticien.html">J’ai déjà un espace</a></div></div>';
+  }
+
+  /* ───────── Ouvrir son cabinet (essai de 30 jours) ───────── */
+  function inscription() {
+    z.innerHTML = '<p class="pr-etiq">Espace praticien · 30 jours d’essai</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ouvre ton cabinet</h1>' +
+      '<div class="pr-carte"><form class="pr-form" id="pr-ins" novalidate>' +
+      '<label>Le nom de ton cabinet<input type="text" name="cabinet" maxlength="80" autocomplete="organization" placeholder="Cabinet Claire Martin, psychogénéalogie"></label>' +
+      '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
+      '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon espace, <b>chiffrées</b> : l’équipe Genesolia ne les lit pas.</span></label>' +
+      '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
+      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Tarif fondateur pour la liste d’attente : 19 € par mois.</p></form></div>';
+    var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); err.textContent = '';
+      var cab = f.cabinet.value.trim();
+      if (!cab) { err.textContent = 'Indique le nom de ton cabinet.'; f.cabinet.focus(); return; }
+      if (!f.cgu.checked) { err.textContent = 'Coche la case sur l’usage de l’Espace praticien.'; return; }
+      if (!f.coffre.checked) { err.textContent = 'Coche la case pour garder tes notes de séance, chiffrées.'; return; }
+      var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
+      var accord = CF && CF.accord(user) ? Promise.resolve() : sb.auth.updateUser({ data: { coffre_accord: new Date().toISOString() } }).then(function (r) { if (r && r.data && r.data.user) user = r.data.user; });
+      accord.then(function () { return sb.rpc('praticien_commencer', { p_cabinet: cab }); }).then(function (r) {
+        if (r.error) { if (/function|does not exist|schema cache|PGRST20/i.test(r.error.message || '')) { indispo(); return; } throw r.error; }
+        prat = r.data; cabinet();
+      }).catch(function () { bt.disabled = false; bt.textContent = 'Commencer mes 30 jours'; err.textContent = 'L’ouverture n’a pas abouti. Réessaie dans un instant.'; });
+    });
+  }
+
+  /* ───────── Le cabinet ───────── */
+  function etat() {
+    if (!actif()) return '<span class="pr-etat fini">' + (prat.formule === 'essai' ? 'Ton essai est terminé' : 'Ton abonnement est arrêté') + ' · tes dossiers restent consultables</span>';
+    if (prat.formule === 'essai') return '<span class="pr-etat">Essai · encore <b>' + joursRestants() + ' jour' + (joursRestants() > 1 ? 's' : '') + '</b></span>';
+    return '<span class="pr-etat">Abonnement actif jusqu’au ' + date(prat.acces_jusqu) + '</span>';
+  }
+  function cabinet() {
+    z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">Espace praticien</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' +
+      (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (prat.fondateur ? ' (ton tarif fondateur : 19 € par mois)' : '') + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-bientot>M’abonner</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
+      '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
+      (actif() ? '<form class="pr-nouveau" id="pr-nouv"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></form>' : '') +
+      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div></section>' +
+      '<aside><section class="pr-carte"><h2>Mon cabinet</h2><form class="pr-form" id="pr-cab"><label>Nom du cabinet<input type="text" name="cabinet" maxlength="80" value="' + esc(prat.cabinet) + '"></label><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
+      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>, et expire au bout de 14 jours.</p><p class="pr-aide" style="margin:0">Pas d’informations médicales dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p></section></aside></div>';
+    chargerDossiers();
+  }
+  function chargerDossiers() {
+    sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('maj', { ascending: false }).then(function (r) {
+      var l = document.getElementById('pr-liste'); if (!l) return;
+      if (r.error) { l.innerHTML = '<p class="pr-vide">Tes dossiers n’ont pas pu être chargés. Recharge la page dans un instant.</p>'; return; }
+      dossiers = r.data || [];
+      if (!dossiers.length) { l.innerHTML = '<p class="pr-vide">Aucun dossier pour l’instant. Crée le premier avec le prénom ou les initiales de ton·ta client·e.</p>'; return; }
+      l.innerHTML = dossiers.map(function (d) {
+        var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
+        return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
+          '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
+          '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
+          (actif() ? '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' : '') +
+          '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div></div>';
+      }).join('');
+    });
+  }
+  function dossier(id) { return dossiers.filter(function (d) { return d.id === id; })[0]; }
+
+  /* ───────── Notes par séance (chiffrées) ───────── */
+  function notes(id) {
+    var d = dossier(id), cle = 'seances-' + id, liste = [];
+    var f = fenetre('<h2>Notes de séance · ' + esc(d ? d.nom : '') + '</h2><p class="pr-aide">Chiffrées dans ton espace : l’équipe Genesolia ne les lit pas.</p>' +
+      '<form class="pr-form" id="pr-note" style="max-width:none"><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que tu observes<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><p class="pr-err" id="pr-note-msg" role="status"></p><div><button class="btn btn-plein" type="submit">Ajouter cette note</button></div></form><div id="pr-seances"><p class="pr-vide">Chargement…</p></div>');
+    function dessiner() {
+      var zs = f.querySelector('#pr-seances');
+      zs.innerHTML = liste.length ? liste.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }).map(function (s, i) { return '<div class="pr-seance"><small>' + date(s.jour) + '</small><p>' + esc(s.texte) + '</p><button class="pr-lien" type="button" data-suppr-note="' + esc(s.id) + '">Supprimer</button></div>'; }).join('') : '<p class="pr-vide">Aucune note pour ce dossier.</p>';
+    }
+    function sauver() { return CF.ecrire(sb, user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; }); }
+    CF.lire(sb, user, cle).then(function (x) { liste = (x && x.seances) || []; dessiner(); }, function () { f.querySelector('#pr-seances').innerHTML = '<p class="pr-vide">Les notes n’ont pas pu être chargées.</p>'; });
+    f.querySelector('#pr-note').addEventListener('submit', function (e) {
+      e.preventDefault(); var t = this.texte.value.trim(), m = f.querySelector('#pr-note-msg'); if (!t) { m.textContent = 'Écris ta note.'; return; }
+      liste.push({ id: 's' + Date.now(), jour: this.jour.value || new Date().toISOString().slice(0, 10), texte: t });
+      var form = this; sauver().then(function () { form.texte.value = ''; m.textContent = 'Note ajoutée, chiffrée.'; dessiner(); }, function () { liste.pop(); m.textContent = 'La note n’a pas pu être enregistrée. Réessaie.'; });
+    });
+    f.addEventListener('click', function (e) { var b = e.target.closest('[data-suppr-note]'); if (!b || !confirm('Supprimer cette note ?')) return; var avant = liste; liste = liste.filter(function (s) { return s.id !== b.getAttribute('data-suppr-note'); }); sauver().then(dessiner, function () { liste = avant; }); });
+  }
+
+  /* ───────── Partage en lecture ───────── */
+  function partager(id) {
+    var d = dossier(id), exp = new Date(Date.now() + 14 * 864e5).toISOString();
+    sb.from('partages_arbre').insert({ user_id: user.id, arbre_id: id, expire_le: exp }).select('jeton').single().then(function (r) {
+      if (r.error) { alert('Le lien n’a pas pu être créé. Réessaie dans un instant.'); return; }
+      var url = 'https://genesolia.fr/genosociogramme.html?partage=' + r.data.jeton;
+      var f = fenetre('<h2>Lien pour ' + esc(d ? d.nom : 'ton·ta client·e') + '</h2><p class="pr-aide">Ce lien montre l’arbre en lecture, <b>sans tes notes</b>. Il expire le ' + date(exp) + '.</p><input type="text" readonly value="' + esc(url) + '" style="width:100%;box-sizing:border-box;font:inherit;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px"><div class="pr-nouveau" style="margin-top:.8rem"><button class="btn btn-plein" type="button" data-copier>Copier le lien</button></div><p class="pr-aide" data-copie-msg></p>');
+      f.querySelector('[data-copier]').onclick = function () { var i = f.querySelector('input'); i.select(); (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { f.querySelector('[data-copie-msg]').textContent = 'Lien copié.'; }, function () { document.execCommand && document.execCommand('copy'); }); };
+    });
+  }
+
+  function fenetre(html) {
+    var fond = document.createElement('div'); fond.className = 'pr-fond'; fond.setAttribute('role', 'dialog'); fond.setAttribute('aria-modal', 'true');
+    fond.innerHTML = '<div class="pr-fenetre"><div style="text-align:right"><button class="pr-lien" type="button" data-fermer>Fermer</button></div>' + html + '</div>';
+    document.body.appendChild(fond);
+    fond.addEventListener('click', function (e) { if (e.target === fond || e.target.closest('[data-fermer]')) fond.remove(); });
+    return fond;
+  }
+
+  /* ───────── Événements ───────── */
+  document.addEventListener('submit', function (e) {
+    if (e.target.id === 'pr-nouv') {
+      e.preventDefault(); var nom = e.target.nom.value.trim(); if (!nom) { e.target.nom.focus(); return; }
+      var bt = e.target.querySelector('button'); bt.disabled = true;
+      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2 } }).select('id').single().then(function (r) {
+        bt.disabled = false;
+        if (r.error) { alert('Le dossier n’a pas pu être créé. Réessaie dans un instant.'); return; }
+        location.href = 'genosociogramme.html?arbre=' + r.data.id;
+      });
+    }
+    if (e.target.id === 'pr-cab') {
+      e.preventDefault(); var c = e.target.cabinet.value.trim(), m = document.getElementById('pr-cab-msg'); if (!c) return;
+      sb.from('praticiens').update({ cabinet: c.slice(0, 80) }).eq('user_id', user.id).then(function (r) { if (r.error) { m.textContent = 'Pas enregistré. Réessaie.'; return; } prat.cabinet = c; m.textContent = 'Enregistré.'; var h = z.querySelector('.pr-tete h1'); if (h) h.textContent = c; });
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var b;
+    if ((b = e.target.closest('[data-notes]'))) notes(b.getAttribute('data-notes'));
+    else if ((b = e.target.closest('[data-partager]'))) partager(b.getAttribute('data-partager'));
+    else if ((b = e.target.closest('[data-renommer]'))) {
+      var d = dossier(b.getAttribute('data-renommer')), n = prompt('Nouveau nom du dossier', d ? d.nom : ''); if (!n || !n.trim()) return;
+      sb.from('arbres_supp').update({ nom: n.trim().slice(0, 60) }).eq('id', d.id).then(function (r) { if (!r.error) chargerDossiers(); });
+    } else if ((b = e.target.closest('[data-supprimer]'))) {
+      var d2 = dossier(b.getAttribute('data-supprimer'));
+      if (!confirm('Supprimer le dossier « ' + (d2 ? d2.nom : '') + ' » et son arbre ? Ce n’est pas réversible.')) return;
+      sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'seances-' + d2.id).then(function () { return sb.from('arbres_supp').delete().eq('id', d2.id); }).then(function (r) { if (r && r.error) { alert('La suppression n’a pas abouti.'); return; } chargerDossiers(); });
+    } else if ((b = e.target.closest('[data-bientot]'))) { var m = z.querySelector('[data-bientot-msg]'); if (m) m.textContent = 'Bientôt disponible. Tes dossiers restent consultables en attendant.'; }
+  });
+
+  /* ───────── Démarrage ───────── */
+  if (!sb || !CF) { indispo(); return; }
+  sb.auth.getSession().then(function (r) {
+    var s = r && r.data && r.data.session; if (!s) { porte(); return; }
+    user = s.user;
+    sb.from('praticiens').select('*').eq('user_id', user.id).maybeSingle().then(function (x) {
+      if (x.error) { if (/relation|does not exist|schema cache|PGRST20/i.test(x.error.message || '')) { indispo(); return; } z.innerHTML = '<p class="pr-vide">Ton cabinet n’a pas pu s’ouvrir. Recharge la page.</p>'; return; }
+      if (!x.data) { inscription(); return; }
+      prat = x.data; cabinet();
+    });
+  });
+})();
