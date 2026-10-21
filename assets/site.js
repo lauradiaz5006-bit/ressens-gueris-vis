@@ -201,13 +201,14 @@ window.GenesoliaMesure = (function () {
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
   cercleMois: '',     /* Le Cercle 29 €/mois, essai 30 jours */
-  cercleAn: '',       /* Le Cercle 24,90 €/mois avec engagement 12 mois, essai 30 jours */
+  cercleAn: '',       /* Le Cercle 24 €/mois avec engagement 12 mois, essai 30 jours */
+  cercleAnnee: '',    /* Le Cercle 249 € l'année en une fois */
+  passMois: '',       /* Le Pass 10 €/mois sans engagement */
+  pass3Mois: '',      /* Le Pass 27 € les 3 mois, en une fois */
   carnet: '',         /* un carnet du mois, 9 € */
   rapport: '',        /* le rapport de ton arbre, 9 € */
   numerologie: '',    /* ton livret de numérologie, 12 € */
   saisons: '',        /* Les 12 saisons, 15 € */
-  packLignee: '',     /* Pack Lignée, 35 € */
-  packAnnee: '',      /* Pack L'année complète, 79 € */
   astral: '',         /* ton livret du thème astral */
   arbreDeVie: '',     /* ton livret de l'arbre de vie */
   mayaDuo: '',        /* votre analyse maya à deux */
@@ -455,6 +456,7 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="la-demarche.html">La démarche</a></li>' +
+          '<li><a href="tarifs.html">Tarifs</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
@@ -529,6 +531,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="tarifs.html">Tarifs</a></li>' +
             '<li><a href="la-demarche.html">La démarche</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
             '<li><a href="avis.html">Envoie-nous ton avis, on en a besoin</a></li>' +

@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
   if (!prenom || texte.length < 10) return json({ erreur: "champs" }, 400);
   const { error } = await sb.from("avis").insert({ prenom, texte, ville, age, email, page, accord_publication: accord });
   if (error) {
-    const { error: e2 } = await sb.from("demandes").insert({ formulaire: "Avis", prenom, email, page, details: { texte, ville, age, accord_publication: accord } });
+    const { error: e2 } = await sb.from("demandes").insert({ formulaire: "Avis", prenom, email: email ?? "sans e-mail", page, details: { texte, ville, age, accord_publication: accord } });
     if (e2) return json({ erreur: "enregistrement" }, 500);
   }
   return json({ ok: true });

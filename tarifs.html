@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <title>Tarifs · Genesolia : gratuit, le Pass et Le Cercle</title>
+  <meta name="description" content="Les outils de Genesolia sont gratuits. Le Pass à 10 € par mois, sans engagement, et Le Cercle à 29 € par mois pour être accompagnée sur 12 étapes. 1er mois du Cercle offert.">
+  <link rel="canonical" href="https://genesolia.fr/tarifs.html">
+  <meta property="og:title" content="Tarifs Genesolia">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .tarifs{padding:3.5rem 0 2rem}
+    .tf-tete{text-align:center;max-width:40rem;margin:0 auto 2.4rem}
+    .tf-tete p{color:var(--prune-doux);margin-top:.7rem}
+    .tf-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;align-items:stretch}
+    .tf-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 1.6rem;display:flex;flex-direction:column;gap:.9rem;position:relative}
+    .tf-carte.tf-mis{border:2px solid var(--prune);box-shadow:0 18px 40px rgba(107,47,91,.12)}
+    .tf-badge{position:absolute;top:-.8rem;left:50%;transform:translateX(-50%);background:var(--prune);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;border-radius:999px;white-space:nowrap}
+    .tf-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .tf-carte h2{font-size:1.7rem;margin:0}
+    .tf-role{color:var(--prune-doux);font-size:.95rem;margin:0}
+    .tf-prix{font:400 2.4rem/1 var(--display);color:var(--prune);margin:.3rem 0 0}
+    .tf-prix small{font:400 .95rem var(--texte,inherit);color:var(--prune-doux)}
+    .tf-autres{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;color:var(--prune)}
+    .tf-carte ul.tf-liste{list-style:none;padding:0;margin:.4rem 0 0;display:grid;gap:.5rem;font-size:.95rem;color:var(--prune)}
+    .tf-liste li{position:relative;padding-left:1.3rem}
+    .tf-liste li::before{content:"✦";position:absolute;left:0;color:var(--champagne)}
+    .tf-liste li.tf-plus{font-weight:600}
+    .tf-carte .btn{margin-top:auto;text-align:center}
+    .tf-note{font-size:.85rem;color:var(--prune-doux);text-align:center;margin:0}
+    .tf-ligne{max-width:46rem;margin:2.4rem auto 0;text-align:center;font-family:var(--display);font-size:1.25rem;color:var(--prune)}
+    .tf-cadeau{max-width:46rem;margin:2rem auto 0;display:flex;gap:1.2rem;align-items:center;background:var(--blanc);border:1px dashed var(--rose-fonce);border-radius:var(--rayon);padding:1.3rem 1.5rem}
+    .tf-cadeau b{font:400 1.2rem var(--display);color:var(--prune)}
+    .tf-cadeau p{margin:.2rem 0 0;font-size:.93rem;color:var(--prune-doux)}
+    .tf-cadeau .btn{margin-left:auto;white-space:nowrap}
+    .tf-confiance{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:2.2rem 0 0}
+    .tf-confiance span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.9rem;color:var(--prune)}
+    .tf-faq{max-width:46rem;margin:3rem auto 0}
+    .tf-faq h2{font-size:1.6rem;margin-bottom:1rem;text-align:center}
+    .tf-faq details{border-bottom:1px solid var(--rose);padding:.9rem 0}
+    .tf-faq summary{cursor:pointer;font-weight:600;color:var(--prune)}
+    .tf-faq details p{margin:.6rem 0 0;color:var(--prune-doux)}
+    .tf-legal{text-align:center;font-size:.82rem;color:var(--prune-doux);margin-top:2rem}
+    @keyframes scintille{0%,100%{opacity:.35}50%{opacity:1}}
+    .etoiles::before,.etoiles::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 72%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 35% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 48% 85%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 14%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 74% 58%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 26%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 93% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 15% 50%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 56% 45%,#F3DCC0 50%,transparent 51%);
+      animation:scintille 4s ease-in-out infinite}
+    .etoiles::after{transform:translate(3%,6%) scale(1.1);animation-delay:2s;opacity:.7}
+    .etoile{position:absolute;color:#F3DCC0;text-shadow:0 0 10px rgba(243,220,192,.9);pointer-events:none;animation:scintille 3s ease-in-out infinite;line-height:1;z-index:1}
+    .tf-hero{position:relative;overflow:hidden;border-radius:28px;padding:3rem 1.6rem 2.8rem;text-align:center;margin-bottom:2.6rem;
+      background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%);color:#fff;box-shadow:0 24px 60px rgba(107,47,91,.25)}
+    .tf-hero>*{position:relative;z-index:1}
+    .tf-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.2rem)}
+    .tf-hero h1 em{font-style:normal;background:linear-gradient(100deg,#fff3d6,#e9b871 45%,#fff3d6 70%,#d9a35a);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .tf-hero p{color:#F7E6EE;max-width:38rem;margin:.8rem auto 0}
+    .tf-photo{margin:-1.8rem -1.6rem .4rem;height:150px;overflow:hidden;border-radius:var(--rayon) var(--rayon) 0 0;position:relative}
+    .tf-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .tf-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.9))}
+    .tf-carte{overflow:visible}
+    .tf-carte.tf-pass{background:linear-gradient(180deg,#fff,#FCEFF3)}
+    .tf-carte.tf-mis{background:radial-gradient(120% 70% at 50% 0%,#8A4677 0%,#6B2F5B 50%,#3E1B38 100%);color:#fff;border:1px solid rgba(243,220,192,.7);box-shadow:0 0 0 4px rgba(243,220,192,.18),0 24px 60px rgba(107,47,91,.35)}
+    .tf-carte.tf-mis>*{position:relative;z-index:1}
+    .tf-carte.tf-mis>.tf-badge,.tf-carte.tf-mis>.tf-cielwrap,.tf-carte.tf-mis>.etoile{position:absolute}
+    .tf-carte.tf-mis>.tf-cielwrap{z-index:0}
+    .tf-carte.tf-mis>.tf-badge{z-index:3}
+    .tf-carte.tf-mis .tf-photo::after{background:linear-gradient(180deg,transparent,rgba(107,47,91,.95))}
+    .tf-carte.tf-mis h2,.tf-carte.tf-mis .tf-prix,.tf-carte.tf-mis .tf-liste,.tf-carte.tf-mis .tf-autres{color:#fff}
+    .tf-carte.tf-mis .tf-role,.tf-carte.tf-mis .tf-prix small,.tf-carte.tf-mis .tf-note{color:#F7E6EE}
+    .tf-carte.tf-mis .tf-etiq{color:#F3DCC0}
+    .tf-carte.tf-mis .tf-liste li::before{color:#F3DCC0;text-shadow:0 0 8px rgba(243,220,192,.8)}
+    .tf-carte.tf-mis .btn-plein{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;border:0;box-shadow:0 10px 30px rgba(233,184,113,.45)}
+    .tf-badge{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;z-index:3}
+    .tf-cielwrap{position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0}
+    .tf-cadeau img{width:84px;height:84px;object-fit:cover;border-radius:14px;flex:none;box-shadow:0 8px 20px rgba(107,47,91,.2)}
+    .tf-ligne::before,.tf-ligne::after{content:" ✦ ";color:var(--champagne)}
+    @media (prefers-reduced-motion:reduce){.etoiles::before,.etoiles::after,.etoile{animation:none}}
+    @media (max-width:960px){.tf-grille{grid-template-columns:1fr;max-width:30rem;margin:0 auto}.tf-carte.tf-mis{order:-1}.tf-carte:first-child{order:1}}
+    @media (max-width:560px){.tf-cadeau{flex-direction:column;align-items:flex-start}.tf-cadeau .btn{margin-left:0}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="conteneur tarifs">
+    <div class="tf-hero etoiles">
+      <span class="etoile" style="top:18%;left:9%;font-size:1.4rem" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:62%;left:16%;font-size:.9rem;animation-delay:1s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:22%;right:11%;font-size:1.1rem;animation-delay:.5s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:70%;right:8%;font-size:1.5rem;animation-delay:1.6s" aria-hidden="true">✦</span>
+      <h1>Choisis <em>ton chemin</em></h1>
+      <p>Les outils restent gratuits. Pour aller plus loin, deux formules : le Pass pour comprendre et suivre ton mois, Le Cercle pour être accompagnée et avancer.</p>
+    </div>
+
+    <div class="tf-grille">
+      <section class="tf-carte" aria-labelledby="t-gratuit">
+        <div class="tf-photo"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Découvrir</span>
+        <h2 id="t-gratuit">Gratuit</h2>
+        <p class="tf-role">Pour commencer, sans compte et sans carte.</p>
+        <p class="tf-prix">0 €</p>
+        <ul class="tf-liste">
+          <li>Ton arbre familial et ce qui s'y répète</li>
+          <li>Le test du cycle (10 minutes)</li>
+          <li>Numérologie, thème astral, arbre de vie, rêves : les versions courtes</li>
+          <li>Le ciel du mois et ton guide du mois</li>
+        </ul>
+        <a class="btn btn-trait" href="offert.html">Voir les outils gratuits</a>
+      </section>
+
+      <section class="tf-carte tf-pass" aria-labelledby="t-pass">
+        <div class="tf-photo"><img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Comprendre</span>
+        <h2 id="t-pass">Le Pass</h2>
+        <p class="tf-role">Pour suivre ton mois et ton histoire, semaine après semaine.</p>
+        <p class="tf-prix">10 € <small>par mois, sans engagement</small></p>
+        <ul class="tf-autres"><li>ou 27 € les 3 mois</li></ul>
+        <ul class="tf-liste">
+          <li><b>Ton mois à toi</b>, chaque mois : ton mois personnel et le ciel du mois appliqué à ton thème</li>
+          <li><b>Ton agenda</b> : ta semaine, les lunes et les dates de ton arbre</li>
+          <li><b>Des rappels sur ton téléphone</b>, que tu choisis un par un</li>
+          <li><b>Tous les livrets complets</b>, pour toi et pour tes proches</li>
+          <li>Les 12 saisons, le livret de l'année</li>
+        </ul>
+        <button type="button" class="btn btn-trait" data-pass>Bientôt disponible</button>
+      </section>
+
+      <section class="tf-carte tf-mis" aria-labelledby="t-cercle">
+        <span class="tf-badge">1<sup>er</sup> mois offert</span>
+        <div class="tf-cielwrap etoiles" aria-hidden="true"></div>
+        <span class="etoile" style="top:46%;right:7%;font-size:1.1rem" aria-hidden="true">✦</span>
+        <span class="etoile" style="bottom:22%;left:6%;font-size:.8rem;animation-delay:1.2s" aria-hidden="true">✦</span>
+        <div class="tf-photo"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Avancer</span>
+        <h2 id="t-cercle">Le Cercle</h2>
+        <p class="tf-role">Pour être accompagnée sur 12 étapes et sortir de tes boucles.</p>
+        <p class="tf-prix">29 € <small>par mois, sans engagement</small></p>
+        <ul class="tf-autres"><li>ou 24 € par mois sur 12 mois</li><li>ou 249 € l'année, en une fois</li></ul>
+        <ul class="tf-liste">
+          <li class="tf-plus">Tout le Pass, et en plus :</li>
+          <li>Ton parcours en 12 étapes : carnet Renaissance et livret Libération</li>
+          <li>2 séances audio par mois, une pour chaque cycle</li>
+          <li>La formation « Sors de la boucle » : 8 modules, livrets et exercices</li>
+          <li>Ta question du mois, et les réponses publiées chaque mois</li>
+          <li>Ton livre de lignée, au bout de l'année</li>
+        </ul>
+        <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
+        <p class="tf-note">Aucune carte demandée pour ton mois offert.</p>
+      </section>
+    </div>
+
+    <p class="tf-ligne">Le Cercle, c'est le Pass, plus tout l'accompagnement. Tu passes de l'un à l'autre sans rien perdre.</p>
+
+    <div class="tf-cadeau">
+      <img src="assets/images/arbre-de-vie-800.webp" alt="" loading="lazy" decoding="async">
+      <div><b>Ton arbre imprimé et envoyé</b><p>Ton arbre doré, en poster ou encadré, livré chez toi. De 45 à 69 €, livraison comprise en France métropolitaine.</p></div>
+      <a class="btn btn-trait" href="genosociogramme.html">Créer mon arbre</a>
+    </div>
+
+    <div class="tf-confiance" aria-label="Nos engagements">
+      <span>Sans engagement au mois</span><span>Tu arrêtes en un clic, depuis ton espace</span><span>Paiement sécurisé</span><span>Tes données restent privées</span>
+    </div>
+
+    <section class="tf-faq" aria-labelledby="t-faq">
+      <h2 id="t-faq">Questions fréquentes</h2>
+      <details><summary>Quelle différence entre le Pass et Le Cercle ?</summary><p>Le Pass t'aide à comprendre : ton mois, ton agenda, tes livrets. Le Cercle t'accompagne pour avancer : un parcours en 12 étapes, des séances audio, une formation et une question chaque mois. Le Cercle contient tout le Pass.</p></details>
+      <details><summary>Je peux arrêter quand je veux ?</summary><p>Oui, pour le Pass et pour Le Cercle au mois : tu arrêtes depuis ton espace, en un clic, et tu gardes l'accès jusqu'à la fin du mois payé. Les formules sur 3 mois, sur 12 mois ou à l'année vont jusqu'au bout de la période choisie.</p></details>
+      <details><summary>Je peux passer du Pass au Cercle ?</summary><p>Oui, à tout moment. Ton mois, ton agenda et tes livrets restent en place : le parcours s'ajoute.</p></details>
+      <details><summary>Les livrets pour mes proches, comment ça marche ?</summary><p>Tu indiques la date de naissance de la personne et tu obtiens son livret. Fais-le avec son accord, et pour un enfant, en tant que parent.</p></details>
+      <details><summary>J'ai le prix fondatrice à 24,90 €. Il change ?</summary><p>Non. Les 100 premières qui continuent après leur mois offert gardent 24,90 € par mois, sans engagement, tant qu'elles restent.</p></details>
+    </section>
+
+    <p class="tf-legal">Prix en euros, toutes taxes comprises. <a href="confidentialite.html">Confidentialité</a></p>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>document.querySelectorAll('[data-pass]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); if (a.nextElementSibling && a.nextElementSibling.classList.contains('tf-note')) return; var n = document.createElement('p'); n.className = 'tf-note'; n.setAttribute('role', 'status'); n.textContent = 'Bientôt disponible ✦ Le Pass ouvre très vite. En attendant, ton 1er mois du Cercle est offert, et il contient tout le Pass.'; a.after(n); }); });</script>
+</body>
+</html>

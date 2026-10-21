@@ -49,7 +49,7 @@
     .a-titre p{color:var(--prune-doux);margin-top:.7rem}
     .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
 
-    .a-formules{display:grid;grid-template-columns:1.25fr 1fr;gap:1.4rem;align-items:stretch}
+    .a-formules{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1.2rem;align-items:stretch}
     .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
     .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
     .a-carte h3{font-size:1.6rem}
@@ -201,6 +201,7 @@
     .t-mois b{font:400 1.2rem var(--display);color:var(--prune)}
     .t-mois p{max-width:none;font-size:.93rem;line-height:1.5;color:var(--prune-doux)}
     .t-mois .t-duree{font-size:.85rem;color:var(--prune)}
+    .t-moyenne{text-align:center;max-width:40rem;margin:1.6rem auto 0;color:var(--prune);font-size:.98rem}
     .t-temps{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1.6rem 0 0}
     .t-temps span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.92rem;color:var(--prune)}
     .t-fin{margin-top:2.4rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 2rem;max-width:46rem;margin-left:auto;margin-right:auto}
@@ -289,9 +290,9 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Programme en ligne · 12 étapes · 15 minutes par semaine</p>
+          <p class="a-sur">Programme en ligne · 12 étapes · à ton rythme</p>
           <h1>Tu voudrais enfin sortir de ce qui se répète dans ta vie, sans y passer des années ni alourdir ta charge mentale ?</h1>
-          <p class="intro">En 12 étapes, tu repères d’où vient ce qui se rejoue (ton histoire de famille, tes croyances héritées), tu le vois arriver avant qu’il se rejoue, et tu choisis autre chose. 15 minutes par semaine, des audios à écouter quand tu veux, tout dans ton appli.</p>
+          <p class="intro">En 12 étapes, tu repères d’où vient ce qui se rejoue (ton histoire de famille, tes croyances héritées), tu le vois arriver avant qu’il se rejoue, et tu choisis autre chose. À ton rythme, des audios à écouter quand tu veux, tout dans ton appli.</p>
           <div class="a-offre">
             <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
             <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
@@ -485,16 +486,17 @@
         <div class="a-titre">
           <p class="a-etiq">Concrètement</p>
           <h2>Un mois type dans Le Cercle</h2>
-          <p>Chaque étape dure un mois. Voici ce que tu fais, semaine après semaine, et le temps que ça te prend.</p>
+          <p>Chaque étape dure un mois. Voici ce que tu fais, semaine après semaine, à ton rythme.</p>
         </div>
         <ol class="t-mois">
-          <li><img src="assets/cercle/captures/renaissance-roue.webp" width="540" height="1126" alt="Capture du carnet Renaissance : la roue de la vie" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 1</span><b>Tu ouvres ton étape</b><p>Ton carnet du mois, ta roue de la vie et la question de ton livret Libération.</p><span class="t-duree">Environ 15 minutes</span></div></li>
-          <li><img src="assets/cercle/captures/audio-seance.webp" width="540" height="1126" alt="Capture d’une séance audio du Cercle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 2</span><b>Tu écoutes</b><p>Ta séance audio de l’étape, au calme, quand tu veux. Tu peux la réécouter autant de fois que tu le souhaites.</p><span class="t-duree">15 minutes</span></div></li>
-          <li><img src="assets/cercle/captures/module.webp" width="540" height="1126" alt="Capture d’un module de la formation Sors de la boucle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 3</span><b>Tu comprends et tu essaies</b><p>Ton module de formation en podcast, puis ton petit pas concret de la semaine.</p><span class="t-duree">15 à 20 minutes</span></div></li>
-          <li><img src="assets/cercle/captures/mon-mois.webp" width="540" height="1126" alt="Capture de la page Mon mois : mois personnel et signe maya" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 4</span><b>Tu fais le point</b><p>Ton bilan de fin d’étape et ton suivi : ce qui a bougé, ce que tu gardes pour le mois suivant.</p><span class="t-duree">Environ 10 minutes</span></div></li>
+          <li><img src="assets/cercle/captures/renaissance-roue.webp" width="540" height="1126" alt="Capture du carnet Renaissance : la roue de la vie" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 1</span><b>Tu ouvres ton étape</b><p>Ton carnet du mois, ta roue de la vie et la question de ton livret Libération.</p></div></li>
+          <li><img src="assets/cercle/captures/audio-seance.webp" width="540" height="1126" alt="Capture d’une séance audio du Cercle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 2</span><b>Tu écoutes</b><p>Tes deux séances audio du mois, une pour le cycle 1 et une pour le cycle 2. Tu peux les réécouter autant de fois que tu veux.</p></div></li>
+          <li><img src="assets/cercle/captures/module.webp" width="540" height="1126" alt="Capture d’un module de la formation Sors de la boucle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 3</span><b>Tu comprends et tu essaies</b><p>Ton module de formation, en podcast avec diapos, puis tes exercices et ton petit pas de la semaine.</p></div></li>
+          <li><img src="assets/cercle/captures/mon-mois.webp" width="540" height="1126" alt="Capture de la page Mon mois : mois personnel et signe maya" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 4</span><b>Tu fais le point</b><p>Ton bilan de fin d’étape et ton suivi : ce qui a bougé, ce que tu gardes pour le mois suivant.</p></div></li>
         </ol>
-        <div class="t-temps" aria-label="Le temps que ça demande">
-          <span>Environ 15 minutes par semaine</span><span>Sur ton téléphone, à ton rythme</span><span>Une semaine ratée ? Tu reprends où tu en étais</span>
+        <p class="t-moyenne">En moyenne chaque mois : 2 séances audio d’environ 20 minutes, un module de formation d’environ 30 minutes (étapes 1 à 8), et tes exercices à ton rythme.</p>
+        <div class="t-temps" aria-label="À ton rythme">
+          <span>Sur ton téléphone, à ton rythme</span><span>Une semaine ratée ? Tu reprends où tu en étais</span>
         </div>
         <div class="t-fin">
           <h3>À la fin de tes 12 étapes, tu as</h3>
@@ -535,8 +537,8 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Les formules</p>
-          <h2>Le même Cercle, deux façons de continuer</h2>
-          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou le prix doux sur 12 mois. Deux livres, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
+          <h2>Le même Cercle, trois façons de continuer</h2>
+          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois, le prix doux sur 12 mois ou l’année en une fois. Deux livres, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
         </div>
         <div class="a-formules">
           <article class="a-carte vedette">
@@ -549,20 +551,34 @@
               <li><b>Libération</b> : ton livret du cycle 2 et ton arbre de vie</li>
               <li><b>2 séances audio guidées</b> à chaque étape</li>
               <li><b>La formation « Sors de la boucle »</b> : 8 modules en podcast</li>
+              <li><b>Ta question du mois</b>, anonyme, et les réponses publiées chaque mois</li>
               <li><b>Ton appli Le Cercle</b>, ton mois personnel et tous les petits +</li>
             </ul>
             <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-note">Aucune carte demandée pour ton mois offert. Avant la fin, on t’écrit pour te proposer de continuer. Prix fondatrice : 24,90 € par mois, toujours sans engagement, pour les 100 premières.</p>
           </article>
           <article class="a-carte">
-            <span class="a-badge">Tout compris</span>
+            <span class="a-badge">Prix doux</span>
             <h3>Le Cercle sur 12 mois</h3>
-            <p class="a-prix">24,90 € <small>par mois, engagement 12 mois</small></p>
-            <p>Exactement le même contenu, à un prix plus doux, pour faire le chemin complet des 12 étapes. <b>Tu fais partie des 100 premières ?</b> Tu as déjà ce prix, sans engagement : cette formule ne te concerne pas.</p>
+            <p class="a-prix">24 € <small>par mois, engagement 12 mois</small></p>
+            <p>Exactement le même contenu, à un prix plus doux, pour faire le chemin complet des 12 étapes, sans grosse somme d’avance. <b>Tu fais partie des 100 premières ?</b> Tu as déjà 24,90 € sans engagement : garde ce prix, ou passe à l’année.</p>
             <ul>
               <li>Tout ce qui est compris dans la formule au mois</li>
               <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
-              <li>Près de 50 € d’économie sur l’année</li>
+              <li>60 € d’économie sur l’année, soit 2 mois offerts</li>
+            </ul>
+            <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
+            <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
+          </article>
+          <article class="a-carte">
+            <span class="a-badge">Le plus avantageux</span>
+            <h3>Le Cercle à l’année</h3>
+            <p class="a-prix">249 € <small>pour 12 mois, en une fois</small></p>
+            <p>Le même Cercle, payé une seule fois pour toute l’année : c’est la formule la moins chère, environ 20,75 € par mois.</p>
+            <ul>
+              <li>Tout ce qui est compris dans la formule au mois</li>
+              <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
+              <li>99 € d’économie, plus de 3 mois offerts</li>
             </ul>
             <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
@@ -618,12 +634,12 @@
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
         <details><summary>Comment se passe le mois offert ?</summary><p>Tu crées ton compte, tu ouvres ton mois offert en un clic, puis tu fais ton point de départ. Aucune carte n’est demandée. Pendant 30 jours, tout ton Cercle est ouvert.</p></details>
-        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou sur 12 mois (24,90 € par mois). Si tu fais partie des 100 premières, tu gardes 24,90 € par mois sans engagement, tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
+        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement), sur 12 mois (24 € par mois) ou à l’année (249 € en une fois). Si tu fais partie des 100 premières, tu gardes 24,90 € par mois sans engagement, tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
         <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : tes deux livres, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
         <details><summary>Mes semaines suivent-elles le calendrier ?</summary><p>Non, elles suivent ton propre rythme : ta semaine 1 commence le jour où tu entres dans Le Cercle, que ce soit le 1<sup>er</sup> ou le 18 du mois.</p></details>
         <details><summary>J’ai déjà tout essayé. Pourquoi ce serait différent ?</summary><p>Parce que Le Cercle ne te demande pas de tout comprendre d’un coup. Il te fait regarder d’où vient ta boucle dans ton histoire familiale, puis poser un petit geste nouveau chaque semaine, pendant un an. C’est la régularité qui change les choses, pas une prise de conscience isolée.</p></details>
         <details><summary>Et si j’arrête en cours de route ?</summary><p>La formule au mois est sans engagement : tu arrêtes quand tu veux. Tes réponses restent dans ton espace, et ce que tu as imprimé reste à toi.</p></details>
-        <details><summary>Je n’ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Compte une quinzaine de minutes par semaine, et les séances audio s’écoutent quand tu veux. Tout reste dans ton appli : tu reprends où tu t’étais arrêtée.</p></details>
+        <details><summary>Je n’ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Tu avances à ton rythme : en moyenne, 2 séances audio d’environ 20 minutes et un module d’environ 30 minutes par mois, à écouter quand tu veux. Tout reste dans ton appli : tu reprends où tu t’étais arrêtée.</p></details>
         <details><summary>Je connais mal mon histoire familiale. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Tes livres t’aident à poser les bonnes questions à ta famille.</p></details>
         <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Le Cercle propose une lecture symbolique de ton histoire familiale et des exercices de développement personnel, à faire seule, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
         <details><summary>Je ne veux pas écrire mes réponses sur internet. C’est possible ?</summary><p>Oui. Chaque livre s’imprime : tu remplis à la main si tu préfères. Et si tu écris en ligne, tes réponses restent dans ton espace privé, et l’équipe Genesolia ne les lit jamais.</p></details>
