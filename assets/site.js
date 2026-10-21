@@ -65,13 +65,9 @@ window.GenesoliaCoffre = (function () {
       return q.maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; });
     });
   }
+  /* Écriture TOUJOURS chiffrée : plus de repli en clair (les fonctions sont installées). En cas d'erreur, rien n'est écrit en clair : l'appelant réessaie. */
   function ecrire(sb, user, mois, data) {
-    var rpc = mois === null ? sb.rpc('parcours_ecrire', { p_data: data }) : sb.rpc('carnet_ecrire', { p_mois: mois, p_data: data });
-    return rpc.then(function (r) {
-      if (!r.error) return r;
-      return mois === null ? sb.from('parcours').upsert({ user_id: user.id, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id' })
-        : sb.from('carnets').upsert({ user_id: user.id, mois: mois, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' });
-    });
+    return mois === null ? sb.rpc('parcours_ecrire', { p_data: data }) : sb.rpc('carnet_ecrire', { p_mois: mois, p_data: data });
   }
   return { accord: accord, demander: demander, lire: lire, ecrire: ecrire };
 })();

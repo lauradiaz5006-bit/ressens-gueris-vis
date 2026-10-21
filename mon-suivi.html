@@ -201,7 +201,7 @@
       minuteurSave = setTimeout(function () {
         var CF = window.GenesoliaCoffre;
         if (CF && !CF.accord(utilisateur)) return;   /* sans accord, le suivi reste sur l'appareil */
-        (CF ? CF.ecrire(sb, utilisateur, null, D) : sb.from('parcours').upsert({ user_id: utilisateur.id, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id' })).then(function () {
+        (CF ? CF.ecrire(sb, utilisateur, null, D) : Promise.resolve({ error: 'coffre absent' })).then(function () {
           var o = document.querySelectorAll('.s-ok'); o.forEach(function (x) { x.textContent = 'Enregistré'; setTimeout(function () { x.textContent = ''; }, 1500); });
         }, function () {});
       }, immediat ? 0 : 800);
