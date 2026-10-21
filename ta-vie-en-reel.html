@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ta vie en réel : quand ça recommence, comprends ce qui se rejoue · Genesolia</title>
+  <meta name="description" content="Amour, parents, argent, travail, amitié, enfants : une situation vraie chaque semaine. Ce qui se joue, ce qui se rejoue peut-être dans ta famille, un geste pour aujourd'hui et les mots pour le dire. Gratuit, sans compte.">
+  <link rel="canonical" href="https://genesolia.fr/ta-vie-en-reel.html">
+  <meta property="og:title" content="Ta vie en réel · Genesolia">
+  <meta property="og:description" content="Quand ça recommence, comprends ce qui se rejoue en 3 minutes. Une nouvelle situation chaque semaine.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/relations-1600.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .vr-tete{background:radial-gradient(120% 100% at 90% 0%,#E7A79E 0%,#B5617A 35%,#6B2F5B 75%);color:#FFF4F6}
+    .vr-tete .conteneur{padding:3.2rem 0 3rem;max-width:46rem}
+    .vr-sur{display:inline-block;margin:0 0 1rem;padding:.35rem .85rem;border-radius:99px;background:rgba(255,255,255,.16);border:1px solid rgba(255,244,246,.4);font:600 .76rem var(--texte);letter-spacing:.1em;text-transform:uppercase}
+    .vr-tete h1{color:#fff;font-size:clamp(2rem,6vw,3rem);line-height:1.1;margin:0 0 1rem}
+    .vr-tete p{color:#FFF4F6;font-size:1.06rem;line-height:1.6;max-width:38rem;margin:0}
+    .vr-zone{width:min(46rem,100% - 2rem);margin-inline:auto}
+    .vr-bloc{padding:2.4rem 0}
+    .vr-etiq{font:600 .74rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .5rem}
+    .vr-semaine{background:var(--blanc);border:1px solid var(--rose);border-radius:24px;padding:1.5rem 1.3rem;box-shadow:0 18px 44px rgba(107,47,91,.08);margin-top:-2.2rem;position:relative}
+    .vr-badge{display:inline-block;background:var(--prune);color:#fff;font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px;margin-bottom:.8rem}
+    .vr-titre{font:400 clamp(1.5rem,4.6vw,2rem)/1.2 var(--display);color:var(--prune);margin:0 0 1rem}
+    .vr-themes{display:flex;gap:.35rem;flex-wrap:wrap;margin:0 0 .9rem}
+    .vr-themes span{font:600 .72rem var(--texte);color:var(--prune);background:#FBEFF2;border-radius:99px;padding:.22rem .6rem}
+    .vr-sms{display:flex;flex-direction:column;gap:.45rem;padding:1rem;margin:0 0 1.2rem;border-radius:20px;background:#F7EEF1}
+    .vr-sms p{margin:0;max-width:82%;padding:.6rem .85rem;border-radius:18px;font-size:.95rem;line-height:1.4}
+    .vr-sms .autre{align-self:flex-start;background:#fff;color:var(--prune);border-bottom-left-radius:6px}
+    .vr-sms .moi{align-self:flex-end;background:var(--prune);color:#fff;border-bottom-right-radius:6px}
+    .vr-part{padding:.95rem 0;border-top:1px dashed var(--rose)}
+    .vr-part h3{font:600 .82rem var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--prune);margin:0 0 .4rem}
+    .vr-part p{margin:0;color:var(--prune-doux);line-height:1.6}
+    .vr-part.vr-geste{background:#FFF6EC;border:1px solid var(--champagne-clair);border-radius:16px;padding:1rem;margin:.4rem 0}
+    .vr-copie{display:block;margin:.4rem 0 0;padding:.75rem .9rem;border-radius:14px;background:#FBEFF2;color:var(--prune)!important;font-style:italic}
+    .vr-copier{margin-top:.5rem;font:600 .85rem var(--texte);color:var(--prune);background:none;border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.5rem .9rem;min-height:40px;cursor:pointer}
+    .vr-vote{margin-top:1rem;padding:1.1rem;border-radius:18px;background:linear-gradient(140deg,#FBEFF2,#FFF6EC)}
+    .vr-vote h3{font:400 1.25rem var(--display);color:var(--prune);margin:0 0 .7rem}
+    .vr-vote-bt{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}
+    .vr-vote-bt button{min-height:48px;font:600 .9rem var(--texte);color:var(--prune);background:#fff;border:1.5px solid var(--rose-fonce);border-radius:14px;cursor:pointer;padding:.4rem}
+    .vr-vote-bt button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .vr-vote-bt button:disabled{cursor:default}
+    .vr-total{margin:.7rem 0 0;font-size:.88rem;color:var(--prune-doux)}
+    .vr-barres{display:grid;gap:.3rem;margin-top:.5rem}
+    .vr-barre{display:grid;grid-template-columns:7.5rem 1fr 2.6rem;gap:.5rem;align-items:center;font-size:.82rem;color:var(--prune-doux)}
+    .vr-barre i{display:block;height:.5rem;border-radius:99px;background:#fff;overflow:hidden}
+    .vr-barre i b{display:block;height:100%;background:linear-gradient(90deg,#B5617A,#C9A46A);border-radius:99px}
+    .vr-cercle-ligne{margin:1rem 0 0;padding-top:.9rem;border-top:1px dashed var(--rose);font-size:.92rem;color:var(--prune-doux);line-height:1.55}
+    .vr-cercle-ligne a{color:var(--prune);font-weight:600}
+    .vr-question{margin-top:1.4rem;padding:1.4rem 1.3rem;border-radius:22px;background:#2E1338;color:#F7E6EE}
+    .vr-question .vr-etiq{color:var(--champagne)}
+    .vr-question p.q{font:400 clamp(1.3rem,4vw,1.6rem)/1.3 var(--display);color:#fff;margin:0 0 .8rem}
+    .vr-question p{margin:0 0 1rem;line-height:1.55}
+    .vr-question .btn{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .vr-toi{background:var(--blanc);border:1px solid var(--rose);border-radius:24px;padding:1.5rem 1.3rem}
+    .vr-toi h2{font-size:clamp(1.5rem,4.6vw,2rem);margin:0 0 .5rem}
+    .vr-toi > p{color:var(--prune-doux);margin:0 0 1rem;line-height:1.55}
+    .vr-toi label{display:grid;gap:.35rem;font-weight:600;font-size:.95rem;color:var(--prune);margin-bottom:.9rem}
+    .vr-toi textarea{font:400 1rem/1.5 var(--texte);color:var(--prune);border:1.5px solid var(--rose-fonce);border-radius:14px;padding:.75rem .9rem;min-height:5.5rem;resize:vertical;background:#FFFBFC;width:100%;box-sizing:border-box}
+    .vr-toi .vr-note{font-size:.84rem;color:var(--prune-doux);margin:.2rem 0 0}
+    .vr-cercle{margin-top:1.2rem;padding:1.4rem 1.3rem;border-radius:22px;background:linear-gradient(140deg,#6B2F5B,#B5617A);color:#FFF4F6}
+    .vr-cercle h3{font:400 clamp(1.3rem,4vw,1.7rem)/1.25 var(--display);color:#fff;margin:0 0 .5rem}
+    .vr-cercle p{margin:0 0 1rem;line-height:1.55}
+    .vr-cercle .btn{background:#fff;border-color:#fff;color:var(--prune)}
+    .vr-filtres{display:flex;gap:.4rem;overflow-x:auto;padding:.2rem 0 .8rem;margin:0 0 .4rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .vr-filtres::-webkit-scrollbar{display:none}
+    .vr-filtres button{flex:none;min-height:42px;font:600 .88rem var(--texte);color:var(--prune);background:#fff;border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.45rem 1rem;cursor:pointer}
+    .vr-filtres button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .vr-liste{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .vr-item{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;overflow:hidden}
+    .vr-item > button{display:grid;gap:.25rem;width:100%;text-align:left;background:none;border:0;padding:1rem 1.1rem;cursor:pointer;font:inherit;color:var(--prune)}
+    .vr-item > button small{font:600 .72rem var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--champagne)}
+    .vr-item > button span{font:400 1.12rem/1.3 var(--display)}
+    .vr-item > button[aria-expanded="true"]{background:#FBF3F5}
+    .vr-item .vr-corps{padding:0 1.1rem 1.2rem}
+    .vr-item .vr-corps[hidden]{display:none}
+    .vr-vide{color:var(--prune-doux);text-align:center;padding:1rem}
+    .vr-jeunes{margin:0 0 1rem;padding:.8rem 1rem;border-radius:14px;background:#FCE7E2;color:var(--prune);font-size:.92rem}
+    @media (min-width:761px){.vr-semaine,.vr-toi{padding:2rem 2.2rem}}
+    @media (max-width:420px){.vr-barre{grid-template-columns:6.4rem 1fr 2.4rem}.vr-vote-bt button{font-size:.84rem}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://genesolia.fr/"},{"@type":"ListItem","position":2,"name":"Ta vie en réel","item":"https://genesolia.fr/ta-vie-en-reel.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="vr-tete">
+      <div class="conteneur">
+        <p class="vr-sur">Ta vie en réel · une nouvelle situation chaque semaine</p>
+        <h1>Quand ça recommence, comprends ce qui se rejoue en 3 minutes</h1>
+        <p>Amour, parents, argent, travail, amitié, enfants : des situations vraies du quotidien. Pour chacune, ce qui se joue, ce qui se rejoue peut-être dans ta famille, un geste pour aujourd’hui et les mots pour le dire.</p>
+      </div>
+    </section>
+
+    <div class="vr-zone">
+      <section class="vr-semaine" id="semaine" aria-label="La situation de la semaine"><p class="vr-vide">Chargement…</p></section>
+      <div id="question-semaine"></div>
+    </div>
+
+    <section class="vr-bloc">
+      <div class="vr-zone">
+        <div class="vr-toi" id="et-toi">
+          <p class="vr-etiq">Et toi ?</p>
+          <h2>« Ça se répète encore. Qu’est-ce que je ne vois pas ? »</h2>
+          <p>Un endroit pour poser ce que tu ressens, là, tout de suite. Écris comme ça vient : personne ne le lira.</p>
+          <label>Ce qui se répète pour moi, en ce moment<textarea id="toi-repete" placeholder="Encore une fois, je…"></textarea></label>
+          <label>Ce que je ne vois peut-être pas encore en moi<textarea id="toi-vois" placeholder="Et si c’était parce que…"></textarea></label>
+          <label>Qui, dans ma famille, a déjà vécu quelque chose qui ressemble à ça ?<textarea id="toi-famille" placeholder="Ma mère, ma grand-mère, un oncle…"></textarea></label>
+          <button class="vr-copier" type="button" id="toi-copier">Copier ce que j’ai écrit</button>
+          <p class="vr-note">Rien n’est enregistré ni envoyé : ce que tu écris disparaît quand tu fermes la page. Copie-le si tu veux le garder.</p>
+          <div class="vr-cercle">
+            <p class="vr-etiq" style="color:var(--champagne-clair)">Le Cercle</p>
+            <h3>Voir enfin ce qui se rejoue, et faire autrement</h3>
+            <p>Chaque mois, deux livres pour avancer pas à pas : comprendre d’où vient ce qui se répète dans ta vie, et poser des actes nouveaux. Avec les audios du mois et la formation « Sors de la boucle ».</p>
+            <a class="btn" href="abonnement.html">Découvrir Le Cercle · 1er mois offert</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vr-bloc bloc-doux" id="bibliotheque">
+      <div class="vr-zone">
+        <p class="vr-etiq">La bibliothèque</p>
+        <h2 style="font-size:clamp(1.5rem,4.6vw,2rem);margin:0 0 1rem">Toutes les situations</h2>
+        <div id="vr-jeunes"></div>
+        <div class="vr-filtres" id="filtres" role="group" aria-label="Filtrer les situations par thème"></div>
+        <ul class="vr-liste" id="liste"></ul>
+      </div>
+    </section>
+
+    <section class="vr-bloc">
+      <div class="vr-zone" style="text-align:center">
+        <p style="color:var(--prune-doux);max-width:34rem;margin:0 auto">Ces situations sont des pistes de lecture, pas des vérités sur ta vie ni sur ta famille. Tu as entre 18 et 25 ans ? Retrouve aussi <a href="tes-20-ans.html">l’espace Jeune femme</a>, avec le guide pour régler un conflit et les images à poster.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/vie-en-reel/situations.js?v=2026-10-21"></script>
+  <script src="assets/vie-en-reel/page.js?v=2026-10-21"></script>
+</body>
+</html>
