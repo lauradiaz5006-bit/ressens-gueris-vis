@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
+    .explorer{display:flex;flex-wrap:wrap;gap:.6rem}
+    .explorer a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.55rem 1.1rem;text-decoration:none;background:var(--blanc);font-size:.97rem;transition:border-color .2s}
+    .explorer a:hover{border-color:var(--prune)}
     .cy-q{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.2rem 0 .5rem}
     .cy-bl{margin-top:.8rem;font-size:.93rem}
     .blessures{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
@@ -138,7 +141,7 @@
         <div>
           <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
           <p class="intro">Presque tout ce qui se répète touche à deux besoins : te sentir en sécurité, et aimer et être aimé·e. Ici, tu repères ton cycle et ta blessure, tu vois ce qui se transmet dans ta famille, et tu apprends à faire autrement.</p>
-          <div class="guide"><img src="assets/guide/guide-bienvenue.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Bienvenue. Commence par ce qui t'appelle : <a href="offert.html">les outils gratuits</a> sont là pour toi.</p></div>
+          <div class="guide"><img src="assets/guide/guide-bienvenue.webp" width="88" height="88" alt="Illustration de bienvenue" loading="lazy"><p class="guide-bulle">Bienvenue. Commence par ce qui t'appelle : <a href="offert.html">les outils gratuits</a> sont là pour toi.</p></div>
           <div class="actions">
             <a class="btn btn-plein" href="parcours.html">Trouver mon cycle (10 min)</a>
             <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
@@ -241,21 +244,7 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Les blessures qui se rejouent</h2><p>Rejet, abandon, humiliation, trahison, injustice : ce qui t'a blessé·e enfant revient souvent sous d'autres visages. Reconnaître ta blessure, c'est voir d'où vient la boucle.</p></div>
-        <div class="blessures">
-          <a href="blessure-de-rejet.html"><b>Le rejet</b><span>Ai-je le droit d'exister ?</span><em>Racine</em></a>
-          <a href="blessure-d-humiliation.html"><b>L'humiliation</b><span>Ai-je le droit d'avoir des besoins ?</span><em>Racine</em></a>
-          <a href="blessure-d-injustice.html"><b>L'injustice</b><span>Ai-je le droit d'être imparfait·e ?</span><em>Racine</em></a>
-          <a href="blessure-d-abandon.html"><b>L'abandon</b><span>Vais-je rester seul·e ?</span><em>Cœur</em></a>
-          <a href="blessure-de-trahison.html"><b>La trahison</b><span>Puis-je faire confiance ?</span><em>Cœur</em></a>
-        </div>
-        <div class="actions" style="margin-top:1.4rem"><a class="btn btn-trait" href="blessures-de-l-ame.html">Reconnaître ma blessure</a></div>
-      </div>
-    </section>
-
-    <section class="bloc" id="quatre">
+        <section class="bloc" id="quatre">
       <div class="conteneur">
         <div class="bloc-tete">
           <h2>Autour : quatre langages pour voir d'où ça vient</h2>
@@ -275,61 +264,7 @@
     </section>
 
 
-    <section class="bloc bloc-doux">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Des outils pour avancer concrètement</h2>
-          <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
-        </div>
-        <div class="liste-outils">
-          <a class="outil" href="blessures-de-l-ame.html"><h3>Les blessures de l'âme</h3><span class="duree">5 minutes</span><p>Rejet, abandon, humiliation, trahison, injustice : reconnaître celle qui se rejoue.</p></a>
-          <a class="outil" href="ton-prenom.html"><h3>Ton prénom</h3><span class="duree">1 minute</span><p>Son origine, son histoire, son nombre et sa place sur l'arbre de vie.</p></a>
-          <a class="outil" href="theme-astral.html"><h3>Ton thème astral</h3><span class="duree">2 minutes</span><p>Soleil, Lune, ascendant, planètes et maisons, reliés à ton histoire familiale.</p></a>
-          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique</h3><span class="duree">2 minutes</span><p>Chemin de vie, nombres du nom, cycles et grandes périodes de ta vie.</p></a>
-          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">30 minutes</span><p>Ton génosociogramme : les répétitions, les nombres et les signes de toute ta lignée.</p></a>
-          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">5 minutes</span><p>Vingt affirmations pour voir quelles sphères sont lumineuses chez toi, et lesquelles demandent à être nourries.</p></a>
-          <a class="outil" href="parcours.html"><h3>Le parcours guidé</h3><span class="duree">10 minutes</span><p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes émotions et ta vie.</p></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Par où commencer</h2>
-        </div>
-        <ol class="etapes">
-          <li><h3>Nomme ce qui revient</h3><p>Le parcours guidé t'aide à mettre des mots sur une situation, une émotion ou une relation qui se répète.</p><a href="parcours.html">Faire le parcours</a></li>
-          <li><h3>Dessine tes racines</h3><p>Note ce que tu sais de ta famille. Les dates et les événements comptent plus qu'un arbre complet.</p><a href="genosociogramme.html">Ouvrir mon arbre</a></li>
-          <li><h3>Relie et observe</h3><p>Repère les échos entre ta vie et celle de tes ancêtres : un âge, une place, un événement.</p><a href="heriter.html">Lire comment faire</a></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="bloc portes-entree" aria-labelledby="portes-titre">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2 id="portes-titre">Une question, une porte d'entrée</h2>
-          <p>Choisis la phrase qui te parle aujourd'hui. Chaque image t'emmène vers l'outil qui y répond.</p>
-        </div>
-        <ul class="portes-grille"><li><a href="genosociogramme.html"><img src="assets/portes/genosociogramme.webp" width="640" height="640" alt="Ton histoire a des racines. Explore ton arbre familial." loading="lazy"></a></li><li><a href="genosociogramme-vierge.html"><img src="assets/portes/genosociogramme-vierge.webp" width="640" height="640" alt="Une première page suffit. Commence ton génosociogramme." loading="lazy"></a></li><li><a href="arbre-de-vie.html"><img src="assets/portes/arbre-de-vie.webp" width="640" height="640" alt="Et toi, comment vas-tu vraiment ? Découvre le test de l'arbre de vie." loading="lazy"></a></li><li><a href="methode.html"><img src="assets/portes/deux-cycles.webp" width="640" height="640" alt="Pourquoi cette situation revient-elle ? Explore le parcours des deux cycles." loading="lazy"></a></li><li><a href="psychogenealogie.html"><img src="assets/portes/psychogenealogie.webp" width="640" height="640" alt="Chaque famille a une histoire. Ouvre la conversation." loading="lazy"></a></li><li><a href="schemas-repetitifs-en-amour.html"><img src="assets/portes/relations.webp" width="640" height="640" alt="Et si tu écoutais tes besoins ? Explore tes schémas relationnels." loading="lazy"></a></li><li><a href="theme-numerologique.html"><img src="assets/portes/etat-interieur.webp" width="640" height="640" alt="Un rendez-vous avec toi-même. Découvre ton thème numérologique." loading="lazy"></a></li><li><a href="theme-astral.html"><img src="assets/portes/genesolia.webp" width="640" height="640" alt="Un ciel de naissance à explorer. Découvre ton thème astral." loading="lazy"></a></li></ul>
-        <p class="portes-insta">Ces images sont aussi sur <a href="https://www.instagram.com/genesolia.officiel/" target="_blank" rel="noopener">notre Instagram</a> : partage celle qui pourrait parler à quelqu'un.</p>
-      </div>
-    </section>
-
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="vingt">
-          <h2>Tu as entre 18 et 25 ans ?</h2>
-          <p>Un espace rien que pour toi : choisis ta situation (il ne répond plus, tes parents, l'argent, ta place) et repars avec ce qui se joue, un geste pour aujourd'hui et les mots pour le dire.</p>
-          <div><a class="btn" style="background:#fff;color:var(--prune)" href="tes-20-ans.html">Découvrir l'espace Jeune femme</a></div>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="bloc">
+                    <section class="bloc">
       <div class="conteneur">
         <div class="cercle-accueil">
           <div>
@@ -343,33 +278,24 @@
       </div>
     </section>
 
-    <section class="bloc">
+                <section class="bloc">
       <div class="conteneur">
-        <div class="bloc-tete"><h2>Sur le blog</h2><p>Des articles concrets pour avancer pas à pas.</p></div>
-        <div class="blog-cartes">
-          <a href="schemas-repetitifs-en-amour.html"><img src="assets/accueil/blog-amour.webp" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></div></a>
-          <a href="questions-a-poser-a-sa-famille.html"><img src="assets/accueil/blog-famille.webp" width="720" height="405" alt="" loading="lazy"><div><span>8 min</span><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></div></a>
-          <a href="symbolique-des-reves.html"><img src="assets/images/blog-reves-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>La symbolique des rêves</h3><p>Une langue que l'humanité parle depuis toujours, de Jung aux peuples anciens.</p></div></a>
-          <a href="rever-des-morts-et-des-ancetres.html"><img src="assets/images/blog-ancetres-reve-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>Rêver des morts et des ancêtres</h3><p>Ce que disent les traditions, et ce que ces rêves racontent de ta famille.</p></div></a>
-        </div>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="blog.html">Tous les articles</a></div>
+        <div class="bloc-tete"><h2>Explorer aussi</h2><p>D'autres portes d'entrée, gratuites, pour aller plus loin à ton rythme.</p></div>
+        <nav class="explorer" aria-label="Explorer aussi">
+          <a href="blessures-de-l-ame.html">Les blessures du cœur</a>
+          <a href="ton-prenom.html">Ton prénom</a>
+          <a href="arbre-de-vie.html">Le test de l'arbre de vie</a>
+          <a href="genosociogramme.html?exemple">Un exemple de génosociogramme</a>
+          <a href="tableau-de-vision.html">Ton tableau de vision</a>
+          <a href="jeux-en-famille.html">Jeux en famille</a>
+          <a href="cartes.html">Images à partager</a>
+          <a href="tes-20-ans.html">Tu as entre 18 et 25 ans ?</a>
+          <a href="blog.html">Le blog</a>
+        </nav>
       </div>
     </section>
 
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Des images à partager</h2><p>Des phrases pour t'affirmer, poser tes limites ou faire passer un message. Gratuites, prêtes pour ton post ou ta story.</p></div>
-        <ul class="partage">
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/ton-silence-mini.webp" width="540" height="675" alt="Ton silence ne m'atteint plus." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/limites-mini.webp" width="540" height="675" alt="Mes limites ne sont pas négociables." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/je-me-choisis-mini.webp" width="540" height="675" alt="Je me choisis." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/vu-mini.webp" width="540" height="675" alt="Vu. Et je n'ai rien à répondre." loading="lazy"></a></li>
-        </ul>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="cartes.html">Voir toutes les images</a></div>
-      </div>
-    </section>
-
-    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+<section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
 
     <section class="bloc" id="questions">
       <div class="conteneur">
