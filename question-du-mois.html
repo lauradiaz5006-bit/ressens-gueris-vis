@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex">
   <title>Ta question du mois · Le Cercle</title>
-  <meta name="description" content="Pose ta question, de façon anonyme. Chaque mois, les réponses sont publiées pour toutes les membres du Cercle.">
+  <meta name="description" content="Pose ta question. Chaque mois, les réponses sont publiées pour toutes les membres du Cercle, sans prénom.">
   <link rel="canonical" href="https://genesolia.fr/question-du-mois.html">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -47,7 +47,7 @@
     <div class="qm-tete">
       <p class="qm-etiq">Le Cercle · chaque mois</p>
       <h1>Ta question du mois</h1>
-      <p>Une question sur ton étape, ton arbre, une boucle qui revient ? Pose-la ici, de façon anonyme. Chaque mois, les réponses aux questions les plus partagées sont publiées pour toutes les membres.</p>
+      <p>Une question sur ton étape, ton arbre, une boucle qui revient ? Pose-la ici. Chaque mois, les réponses aux questions les plus partagées sont publiées pour toutes les membres, sans prénom.</p>
     </div>
 
     <section class="qm-carte" id="qm-zone" aria-live="polite">
@@ -69,7 +69,7 @@
         </label>
         <p class="qm-err" id="qm-err" role="alert"></p>
         <button class="btn btn-plein" type="submit">Envoyer ma question</button>
-        <p class="qm-discret">Anonyme : ni ton prénom ni ton e-mail ne sont envoyés. Ta question est lue pour pouvoir y répondre, sans savoir qui l’a écrite : n’écris pas de nom ni de détail qui permettrait de te reconnaître. Ce n'est pas un espace d'urgence : si tu traverses un moment difficile, parles-en à un·e professionnel·le ou appelle le 3114.</p>
+        <p class="qm-discret">Ta question est envoyée avec ton prénom et ton e-mail, pour que l’on sache qui l’a posée et que l’on puisse te répondre. Elle n’est jamais partagée : dans les réponses publiées, ton prénom n’apparaît pas. Ce n'est pas un espace d'urgence : si tu traverses un moment difficile, parles-en à un·e professionnel·le ou appelle le 3114.</p>
       </form>
     </section>
 
@@ -80,6 +80,7 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
   <script>
   (function () {
     /* ▼ RÉPONSES PUBLIÉES, sans prénom. Le mois le plus récent en premier. Exemple :
@@ -98,14 +99,20 @@
       document.getElementById('qm-reponses').innerHTML = h;
     }
     var f = document.getElementById('qm-form'), err = document.getElementById('qm-err');
+    /* le jeton de la membre connectée : la question est liée à son compte */
+    var sbq = null; try { sbq = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg'); } catch (e) {}
+    function jeton() { return sbq ? sbq.auth.getSession().then(function (r) { return r && r.data && r.data.session ? r.data.session.access_token : null; }) : Promise.resolve(null); }
     f.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
       var t = f.texte.value.trim();
       if (t.length < 10) { err.textContent = 'Écris ta question en quelques mots de plus.'; f.texte.focus(); return; }
       var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
-      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/question-du-mois', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ texte: t, theme: f.theme.value }) })
+      jeton().then(function (j) {
+        if (!j) throw 'connexion';
+        return fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/question-du-mois', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + j }, body: JSON.stringify({ texte: t, theme: f.theme.value }) });
+      })
         .then(function (r) { if (!r.ok) throw 0; document.getElementById('qm-zone').innerHTML = '<h2>Merci ✦</h2><p>Ta question est bien arrivée. Les réponses du mois sont publiées ici, début de mois prochain.</p><a class="btn btn-trait" href="cercle.html">Revenir à mon Cercle</a>'; })
-        .catch(function () { bt.disabled = false; bt.textContent = 'Envoyer ma question'; err.textContent = 'L\'envoi n\'a pas abouti. Réessaie dans un instant.'; });
+        .catch(function (x) { bt.disabled = false; bt.textContent = 'Envoyer ma question'; if (x === 'connexion') err.innerHTML = 'Connecte-toi à ton espace pour poser ta question. <a href="login.html?retour=question-du-mois.html">Me connecter</a>'; else err.textContent = 'L\'envoi n\'a pas abouti. Réessaie dans un instant.'; });
     });
   })();
   </script>
