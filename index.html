@@ -19,9 +19,25 @@
   <link rel="stylesheet" href="assets/site.css">
   <style>
     /* ACCUEIL */
-    .explorer{display:flex;flex-wrap:wrap;gap:.6rem}
-    .explorer a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.55rem 1.1rem;text-decoration:none;background:var(--blanc);font-size:.97rem;transition:border-color .2s}
-    .explorer a:hover{border-color:var(--prune)}
+    .explorer-ciel{position:relative;overflow:hidden;border-radius:28px;padding:2.4rem 1.6rem 2.2rem;text-align:center;
+      background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%);color:#fff;box-shadow:0 24px 60px rgba(107,47,91,.25)}
+    .explorer-ciel::before,.explorer-ciel::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 72%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 35% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 48% 85%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 14%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 74% 58%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 26%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 93% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 15% 50%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 56% 45%,#F3DCC0 50%,transparent 51%);
+      animation:scintille 4s ease-in-out infinite}
+    .explorer-ciel::after{transform:translate(3%,6%) scale(1.1);animation-delay:2s;opacity:.7}
+    @keyframes scintille{0%,100%{opacity:.35}50%{opacity:1}}
+    .explorer-ciel .bloc-tete{position:relative;margin:0 auto 1.6rem;max-width:40rem;text-align:center;display:block}
+    .explorer-ciel .etoile{position:absolute;color:#F3DCC0;text-shadow:0 0 10px rgba(243,220,192,.9);pointer-events:none;animation:scintille 3s ease-in-out infinite;line-height:1}
+    .explorer-ciel h2{color:#fff}
+    .explorer-ciel .bloc-tete p{color:#F7E6EE;margin-inline:auto}
+    .explorer{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem}
+    .explorer a{position:relative;display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.25rem;border-radius:999px;text-decoration:none;font-size:.98rem;color:var(--prune);
+      background:linear-gradient(180deg,#FFFFFF,#FCEFF3);border:1px solid rgba(243,220,192,.9);
+      box-shadow:0 0 0 3px rgba(243,220,192,.18),0 8px 22px rgba(30,8,28,.35),0 0 18px rgba(243,220,192,.35);transition:transform .25s,box-shadow .25s}
+    .explorer a::before{content:"✦";color:var(--champagne);font-size:.85em}
+    .explorer a:hover,.explorer a:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 3px rgba(243,220,192,.45),0 12px 28px rgba(30,8,28,.45),0 0 30px rgba(243,220,192,.7)}
+    @media (prefers-reduced-motion:reduce){.explorer-ciel::before,.explorer-ciel::after{animation:none}.explorer a{transition:none}}
+    @media (max-width:640px){.explorer-ciel{padding:2rem .8rem 1.8rem;border-radius:22px}.explorer{gap:.55rem}.explorer a{font-size:.86rem;padding:.55rem .85rem;gap:.35rem}}
     .cy-q{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.2rem 0 .5rem}
     .cy-bl{margin-top:.8rem;font-size:.93rem}
     .blessures{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
@@ -280,6 +296,7 @@
 
                 <section class="bloc">
       <div class="conteneur">
+        <div class="explorer-ciel"><span class="etoile" aria-hidden="true" style="top:9%;left:6%;font-size:22px">✦</span><span class="etoile" aria-hidden="true" style="top:14%;right:9%;font-size:16px;animation-delay:.8s">✦</span><span class="etoile" aria-hidden="true" style="top:46%;left:2.5%;font-size:12px;animation-delay:1.6s">✦</span><span class="etoile" aria-hidden="true" style="bottom:10%;right:4%;font-size:20px;animation-delay:.4s">✦</span><span class="etoile" aria-hidden="true" style="bottom:7%;left:18%;font-size:14px;animation-delay:2.2s">✦</span><span class="etoile" aria-hidden="true" style="top:6%;left:58%;font-size:11px;animation-delay:1.2s">✦</span>
         <div class="bloc-tete"><h2>Explorer aussi</h2><p>D'autres portes d'entrée, gratuites, pour aller plus loin à ton rythme.</p></div>
         <nav class="explorer" aria-label="Explorer aussi">
           <a href="blessures-de-l-ame.html">Les blessures du cœur</a>
@@ -292,6 +309,7 @@
           <a href="tes-20-ans.html">Tu as entre 18 et 25 ans ?</a>
           <a href="blog.html">Le blog</a>
         </nav>
+        </div>
       </div>
     </section>
 
