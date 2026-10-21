@@ -262,12 +262,8 @@ window.GENESOLIA_IMPRESSION = {
   var MARQUE = 'Genesolia';
   var MENU = [
     ['methode.html', 'Les deux cycles'],
-    ['blessures-de-l-ame.html', 'Tes blessures'],
-    ['genosociogramme.html', 'Ta famille'],
-    ['theme-numerologique.html', 'Tes nombres'],
-    ['theme-astral.html', 'Tes étoiles'],
-    ['offert.html', 'Tout est offert'],
-    ['mon-suivi.html', 'Mon suivi'],
+    ['genosociogramme.html', 'Ton arbre familial'],
+    ['offert.html', 'Outils gratuits'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
@@ -392,7 +388,6 @@ window.GENESOLIA_IMPRESSION = {
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
           '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
-          '<a class="btn btn-jeunes"' + (BOUTON_JEUNES[0] === page ? ' aria-current="page"' : '') + ' href="' + BOUTON_JEUNES[0] + '">' + BOUTON_JEUNES[1] + '</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
           (MODE ? '<span class="menu-legal"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="#" data-cookies>Cookies</a></span>' : '') +
         '</nav>' +
@@ -494,7 +489,7 @@ window.GENESOLIA_IMPRESSION = {
           '<div><a class="marque" href="/">' + MARQUE + '</a>' +
             '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
           '<div><h4>Les outils</h4><ul>' +
-            '<li><a href="offert.html">Tout est offert</a></li>' +
+            '<li><a href="offert.html">Outils gratuits</a></li>' +
             '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
             '<li><a href="parcours.html">Parcours guidé</a></li>' +
             '<li><a href="mon-suivi.html">Mon suivi</a></li>' +
