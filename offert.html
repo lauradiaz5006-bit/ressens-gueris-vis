@@ -65,7 +65,10 @@
     .o-vingt p{color:#FFF4F6;max-width:36rem}
     .o-vingt .btn{background:#fff;color:var(--prune);border-color:#fff}
     .o-cercle{display:grid;grid-template-columns:auto 1fr;gap:2.4rem;align-items:center;padding:2.6rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:1px solid var(--champagne-clair)}
-    .o-cercle img{width:170px;height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(46,19,56,.25);transform:rotate(-3deg)}
+    .o-couvs{position:relative;width:230px;height:250px}
+    .o-couvs img{position:absolute;width:150px;height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(46,19,56,.28)}
+    .o-couv-1{right:0;top:0;transform:rotate(5deg)}
+    .o-couv-2{left:0;top:30px;transform:rotate(-4deg)}
     .o-cercle h2{margin-bottom:.8rem}
     .o-cercle p{max-width:none;margin-bottom:1rem}
     .o-cercle .o-plus{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.4rem;list-style:none;margin:0 0 1.4rem;padding:0}
@@ -74,7 +77,7 @@
     .o-cercle .actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
     .o-cercle small{color:var(--prune-doux)}
     @media (max-width:960px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr 1fr}}
-    @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-cercle img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
+    @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-couvs{width:200px;height:215px;margin-inline:auto}.o-couvs img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
     @media (max-width:560px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr}.o-tete .conteneur{padding:3rem 0}}
     .o-vie{display:grid;gap:.5rem;padding:1.8rem;border-radius:var(--rayon);text-decoration:none;color:var(--prune);background:linear-gradient(125deg,#FCE4E8 0%,#F9E6D2 60%,#F3DCC0 100%);border:1px solid #EBC9A6;box-shadow:0 16px 40px rgba(185,138,85,.18);transition:transform .2s}
     .o-vie:hover{transform:translateY(-2px)}
@@ -258,16 +261,16 @@
     <section class="bloc o-section" id="cercle">
       <div class="conteneur">
         <div class="o-cercle">
-          <img src="assets/cercle/apercu-2026-10.webp" width="496" height="702" alt="Couverture du carnet d'octobre du Cercle" loading="lazy">
+          <div class="o-couvs"><img class="o-couv-1" src="assets/cercle/couv-liberation.webp" width="496" height="702" alt="Couverture de Libération, cycle 2 du Cercle" loading="lazy"><img class="o-couv-2" src="assets/cercle/couv-renaissance.webp" width="496" height="702" alt="Couverture de Renaissance, cycle 1 du Cercle" loading="lazy"></div>
           <div>
             <p class="a-etiq" style="font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem">Et si tu veux aller plus loin</p>
-            <h2>Le Cercle : un rendez-vous chaque mois</h2>
-            <p>Tout ce qui est sur cette page reste gratuit. Le Cercle ajoute ce qui aide vraiment à avancer : le rythme.</p>
+            <h2>Le Cercle · Ta place, ton choix, ta vie</h2>
+            <p>Tout ce qui est sur cette page reste gratuit. Le Cercle t’accompagne chaque mois pour sortir de ce qui se répète, à ton rythme.</p>
             <ul class="o-plus">
-              <li>Un nouveau carnet à imprimer chaque mois</li>
-              <li>Ton suivi semaine après semaine</li>
-              <li>Ton mois personnel et la lettre du ciel</li>
-              <li>Tous les livrets, débloqués au fil des mois</li>
+              <li>Ton parcours guidé en 12 étapes : Renaissance et Libération</li>
+              <li>Deux séances audio par mois, d’environ 20 minutes</li>
+              <li>La formation « Sors de la boucle »</li>
+              <li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li>
             </ul>
             <div class="actions"><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle · 1 mois offert</a><small>Sans engagement, arrêt en 1 clic</small></div>
           </div>
