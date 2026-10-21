@@ -1123,7 +1123,10 @@
   }
 
   var reps = [];
+  var minuteurAnnonce = null;
+  function annoncer() { clearTimeout(minuteurAnnonce); minuteurAnnonce = setTimeout(function () { try { document.dispatchEvent(new CustomEvent('geno-change')); } catch (e) {} }, 30); }   /* la vue téléphone (assets/arbre-telephone.js) se redessine */
   function dessiner(garderId) {
+    annoncer();
     cacheLiens = null;
     var ancien = (garderId && plan && plan.pos[garderId]) ? { x: plan.pos[garderId].x, y: plan.pos[garderId].y } : null;
     plan = calculerPlan();
@@ -1936,6 +1939,9 @@
     exemple: function () { return EXEMPLE; },
     etat: function () { var e = JSON.parse(JSON.stringify(S)); e.libelles = JSON.parse(JSON.stringify(NOM_EVT)); return e; },   // lecture seule (export GEDCOM)
     ouvrir: ouvrir, fermer: fermer,
+    fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },   // vue téléphone : ouvrir la fiche d'une personne
+    repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: r.desc, fort: !!r.fort }; }); },
+    connecte: function () { return !!utilisateur; },
     personnes: function () { return Object.keys(S.people).map(function (id) { return { id: id, nom: nomAffiche(S.people[id]), moi: S.people[id].role === 'moi' }; }); },
     // d : { people, rels } avec les identifiants du fichier ; o : { remplacer, moi, meme: { fichier, arbre } }
     importer: function (d, o) {
@@ -2637,7 +2643,10 @@
   function apresChargement() { importerFilDor(); exporterSiDemande(); }
 
   function demarrer() {
-    if (surTelephone()) document.body.classList.add('porte-ouverte');
+    /* Téléphone : la vue « une personne au centre » (assets/arbre-telephone.js) remplace la porte ; ?dessin force le dessin complet */
+    var qs = new URLSearchParams(location.search);
+    if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin')) document.body.classList.add('mobile-arbre');
+    else if (surTelephone()) document.body.classList.add('porte-ouverte');
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
 
     if (new URLSearchParams(location.search).has('exemple')) {
