@@ -1518,8 +1518,8 @@ window.GENESOLIA_IMPRESSION = {
    (3,15 % + 0,25 €) et conversion (2 %) inclus, au taux du 21/10/2026 (1 € = 1,58 $ CA), arrondis vers le haut. À revoir tous les 3 mois.
    Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
 (function () {
-  var PAGES = ['abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
-  var CAD = { '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '0': '0' };
+  var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
+  var CAD = { '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '409', '0': '0' };   /* 19 et 240 : Espace praticien */
   var CLE = 'genesolia-devise';
   var page = location.pathname.split('/').pop();
   function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }
