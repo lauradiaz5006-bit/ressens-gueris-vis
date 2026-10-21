@@ -118,6 +118,15 @@
     .check.on .box{background:var(--terra-fonce);border-color:var(--terra-fonce)}
     .check.on .box::after{content:"";width:8px;height:5px;border-left:2px solid white;border-bottom:2px solid white;transform:rotate(-45deg) translateY(-1px)}
 
+    .res-mail{margin-top:1.4rem;padding:1.4rem 1.4rem 1.2rem;border-radius:14px;background:linear-gradient(180deg,#FCEFF3,#FFFFFF 80%);border:1px solid var(--cream2)}
+    .res-mail h3{font-family:inherit;font-size:1.25rem;color:var(--terra-fonce);margin:0 0 .35rem}
+    .res-mail p{margin:0 0 .9rem;color:var(--soft);font-size:.92rem;line-height:1.6}
+    .res-mail .rm-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.6rem}
+    .res-mail input[type=text],.res-mail input[type=email]{width:100%;border:1px solid rgba(107,47,91,.2);border-radius:8px;background:#fff;padding:.75rem .9rem;font:inherit;color:var(--ink)}
+    .res-mail label.rm-accord{display:flex;gap:.55rem;align-items:flex-start;font-size:.82rem;color:var(--soft);margin:.8rem 0 1rem;line-height:1.5}
+    .res-mail .rm-ok{color:var(--terra-fonce);font-weight:500;margin:0}
+    .res-mail .rm-err{color:#A6324E;font-size:.85rem;margin:.6rem 0 0}
+    @media (max-width:560px){.res-mail .rm-champs{grid-template-columns:1fr}}
     .reveal-box{background:linear-gradient(150deg,var(--night),#4B2115);color:white;border-radius:6px;padding:1.8rem;margin-top:1.5rem;position:relative;overflow:hidden;}
     .reveal-box::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 10%,rgba(231,167,158,.2),transparent 55%)}
     .reveal-box *{position:relative;z-index:1}
@@ -322,6 +331,17 @@
       <h2>Tu as franchi<br><em>la première porte</em></h2>
       <p class="lead">Cette synthèse n'enferme rien. Elle te donne seulement une première carte pour continuer à comprendre ce qui se répète.</p>
       <div class="reveal-box" id="summary-box"></div>
+      <form class="res-mail" id="res-mail" novalidate>
+        <h3>Reçois ton résultat détaillé</h3>
+        <p>Ta lecture complète, ton cycle et tes 3 premiers gestes pour cette semaine, dans ta boîte mail. Sans compte, en un instant.</p>
+        <div class="rm-champs">
+          <input type="text" name="prenom" autocomplete="given-name" placeholder="Ton prénom (facultatif)" aria-label="Ton prénom (facultatif)" maxlength="60">
+          <input type="email" name="email" autocomplete="email" placeholder="Ton e-mail" aria-label="Ton e-mail" required maxlength="200">
+        </div>
+        <label class="rm-accord"><input type="checkbox" name="accord" required> J’accepte de recevoir mon résultat et les e-mails de Genesolia. Je peux me désinscrire en un clic.</label>
+        <button class="btn-main" type="submit">Recevoir mon résultat</button>
+        <p class="rm-err" id="rm-err" role="alert"></p>
+      </form>
       <div id="sync-to-tree" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(107,47,91,.07);border:1px solid rgba(107,47,91,.2);border-radius:6px;">
         <p style="font-size:.82rem;color:var(--terra-fonce);font-weight:500;margin-bottom:6px">Parcours sauvegardé dans ton espace</p>
         <p style="font-size:.76rem;color:var(--soft);line-height:1.6;margin-bottom:10px">Ton thème principal et tes indices ont été ajoutés à ton génosociogramme sous forme de notes.</p>
@@ -473,6 +493,28 @@
     initAuth();
   </script>
   <footer data-pied></footer>
-  <script src="assets/site.js"></script>
+  <script src="assets/site.js">
+    /* Résultat détaillé par e-mail : fonction Supabase « resultat-parcours » (mail envoyé par Supabase dans les 10 minutes) */
+    (function(){
+      var f=document.getElementById('res-mail'); if(!f) return;
+      var err=document.getElementById('rm-err');
+      f.addEventListener('submit',function(ev){
+        ev.preventDefault(); err.textContent='';
+        var email=(f.email.value||'').trim();
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){err.textContent='Vérifie ton adresse e-mail.';return;}
+        if(!f.accord.checked){err.textContent='Coche la case pour recevoir ton résultat.';return;}
+        if(!state.theme){err.textContent='Choisis d\'abord ta porte d\'entrée, à la première étape.';return;}
+        var b=f.querySelector('button'); b.disabled=true; b.textContent='Un instant…';
+        fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/resultat-parcours',{method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email:email,prenom:(f.prenom.value||'').trim(),accord:true,theme:state.theme,emotion:state.emotion||'',niveau:state.level||0,indices:state.checks||[]})})
+          .then(function(r){return r.json();})
+          .then(function(r){
+            if(r&&r.ok){f.innerHTML='<h3>C’est parti</h3><p class="rm-ok">Ton résultat arrive dans ta boîte mail dans quelques minutes. Pense à regarder dans les promotions ou les indésirables.</p>';}
+            else throw new Error();
+          })
+          .catch(function(){b.disabled=false;b.textContent='Recevoir mon résultat';err.textContent='L’envoi n’a pas fonctionné. Réessaie dans un instant.';});
+      });
+    })();
+</script>
 </body>
 </html>
