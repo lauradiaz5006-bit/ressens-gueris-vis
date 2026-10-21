@@ -145,11 +145,14 @@
   function limite(t) { var z = $('arbres-limite'); z.innerHTML = t || ''; z.hidden = !t; }
   function chargerArbresSupp() {
     sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('cree_le', { ascending: true }).then(function (r) {
-      arbresSupp = r.error ? [] : (r.data || []);
+      var tousSupp = r.error ? [] : (r.data || []);
+      arbresSupp = tousSupp.filter(function (a) { return !(a.data && a.data.dossier === 'client'); });   /* les dossiers client·es sont dans Mon cabinet */
+      var nbClients = tousSupp.length - arbresSupp.length;
       var d = (ligne && ligne.data) || {};
       $('liste-arbres').innerHTML = ligneArbre('genosociogramme.html', 'Mon arbre (principal)', nbPers(d), ligne && ligne.updated_at) +
         arbresSupp.map(function (a) { return ligneArbre('genosociogramme.html?arbre=' + encodeURIComponent(a.id), a.nom || 'Autre arbre', nbPers(a.data), a.maj); }).join('') +
-        (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '');
+        (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '') +
+        (nbClients ? '<p class="tb-aide">Tes ' + nbClients + ' dossier' + (nbClients > 1 ? 's' : '') + ' client·es sont dans <a href="praticien.html">Mon cabinet</a>.</p>' : '');
       $('mes-arbres').hidden = false;
     });
   }

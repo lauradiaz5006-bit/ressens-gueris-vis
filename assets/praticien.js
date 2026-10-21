@@ -59,7 +59,7 @@
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (prat.fondateur ? ' (ton tarif fondateur : 19 € par mois)' : '') + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-bientot>M’abonner</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
       (actif() ? '<form class="pr-nouveau" id="pr-nouv"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></form>' : '') +
-      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div></section>' +
+      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><section class="pr-carte"><h2>Mon cabinet</h2><form class="pr-form" id="pr-cab"><label>Nom du cabinet<input type="text" name="cabinet" maxlength="80" value="' + esc(prat.cabinet) + '"></label><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
       '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>, et expire au bout de 14 jours.</p><p class="pr-aide" style="margin:0">Pas d’informations médicales dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p></section></aside></div>';
     chargerDossiers();
@@ -68,7 +68,12 @@
     sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('maj', { ascending: false }).then(function (r) {
       var l = document.getElementById('pr-liste'); if (!l) return;
       if (r.error) { l.innerHTML = '<p class="pr-vide">Tes dossiers n’ont pas pu être chargés. Recharge la page dans un instant.</p>'; return; }
-      dossiers = r.data || [];
+      var tous = r.data || [];
+      dossiers = tous.filter(function (d) { return d.data && d.data.dossier === 'client'; });
+      var perso = tous.filter(function (d) { return !(d.data && d.data.dossier === 'client'); });
+      var zp = document.getElementById('pr-perso');
+      if (zp) zp.innerHTML = perso.length ? '<details><summary>Mes arbres personnels (' + perso.length + ')</summary><p class="pr-aide">Ils ne sont pas comptés comme dossiers client·es. Si l’un d’eux est en fait le dossier d’un·e client·e, déplace-le ici.</p>' + perso.map(function (d) { return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b></div><div class="pr-actions"><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a><button class="pr-lien" type="button" data-vers-client="' + esc(d.id) + '">C’est un dossier client·e</button></div></div>'; }).join('') + '</details>' : '';
+      zp && (window.__persoPr = perso);
       if (!dossiers.length) { l.innerHTML = '<p class="pr-vide">Aucun dossier pour l’instant. Crée le premier avec le prénom ou les initiales de ton·ta client·e.</p>'; return; }
       l.innerHTML = dossiers.map(function (d) {
         var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
@@ -125,7 +130,7 @@
     if (e.target.id === 'pr-nouv') {
       e.preventDefault(); var nom = e.target.nom.value.trim(); if (!nom) { e.target.nom.focus(); return; }
       var bt = e.target.querySelector('button'); bt.disabled = true;
-      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2 } }).select('id').single().then(function (r) {
+      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client' } }).select('id').single().then(function (r) {
         bt.disabled = false;
         if (r.error) { alert('Le dossier n’a pas pu être créé. Réessaie dans un instant.'); return; }
         location.href = 'genosociogramme.html?arbre=' + r.data.id;
@@ -147,6 +152,11 @@
       var d2 = dossier(b.getAttribute('data-supprimer'));
       if (!confirm('Supprimer le dossier « ' + (d2 ? d2.nom : '') + ' » et son arbre ? Ce n’est pas réversible.')) return;
       sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'seances-' + d2.id).then(function () { return sb.from('arbres_supp').delete().eq('id', d2.id); }).then(function (r) { if (r && r.error) { alert('La suppression n’a pas abouti.'); return; } chargerDossiers(); });
+    } else if ((b = e.target.closest('[data-vers-client]'))) {
+      var pd = (window.__persoPr || []).filter(function (x) { return x.id === b.getAttribute('data-vers-client'); })[0]; if (!pd) return;
+      if (!confirm('Classer « ' + (pd.nom || '') + ' » dans tes dossiers client·es ?')) return;
+      var nd = Object.assign({}, pd.data || {}, { dossier: 'client' });
+      sb.from('arbres_supp').update({ data: nd }).eq('id', pd.id).then(function (r) { if (!r.error) chargerDossiers(); });
     } else if ((b = e.target.closest('[data-bientot]'))) { var m = z.querySelector('[data-bientot-msg]'); if (m) m.textContent = 'Bientôt disponible. Tes dossiers restent consultables en attendant.'; }
   });
 

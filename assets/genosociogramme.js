@@ -272,6 +272,17 @@
     return res;
   }
   function lienDe(id) { if (!cacheLiens) cacheLiens = calculerLiens(); return cacheLiens[id] || ''; }
+  /* Dossier client·e d'un·e praticien·ne : la personne au centre est « Client·e », pas « Toi » (affichage seulement) */
+  var DOSSIER_CLIENT = false;
+  function libLien(l) { return DOSSIER_CLIENT && l === 'Toi' ? 'Client·e' : l; }
+  function textesDossierClient() {
+    if (!DOSSIER_CLIENT) return;
+    var c = document.querySelector('.vide-carte'); if (!c) return;
+    var h = c.querySelector('h2'), p = c.querySelector('p'), b = $('bt-commencer');
+    if (h) h.textContent = 'L’arbre commence par ton·ta client·e';
+    if (p) p.textContent = 'Place ton·ta client·e dans l’arbre, puis ajoute ses parents, ses grands-parents, ses frères et sœurs. Les répétitions apparaissent au fil de la saisie.';
+    if (b) b.textContent = 'Placer ton·ta client·e';
+  }
 
   /* ───────── Placement automatique ───────── */
   function calculerPlan() {
@@ -919,11 +930,15 @@
           ok = dj >= conc - 365 && dj <= nj;
           quand = dj < conc ? dureeTxt(conc - dj) + ' avant sa conception (' + dureeTxt(nj - dj) + ' avant sa naissance)' : 'pendant la grossesse (' + dureeTxt(nj - dj) + ' avant sa naissance)';
         } else { ok = ad === an || ad === an - 1; quand = ad === an ? 'l’année de sa naissance' : 'l’année avant sa naissance'; }
-        if (ok && ad <= an) concus.push({ g: g, d: d, txt: nomA(g) + ' : ' + nom(d) + ', ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' ' + quand, proche: (parentsDe[g.id] || []).indexOf(did) >= 0 || freres(g.id).indexOf(did) >= 0 });
+        if (ok && ad <= an) concus.push({ g: g, d: d, pendant: plein(g.naiss) && plein(d.deces) ? enJours(d.deces) >= enJours(g.naiss) - 266 : false, txt: nomA(g) + ' : ' + nom(d) + ', ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' ' + quand, proche: (parentsDe[g.id] || []).indexOf(did) >= 0 || freres(g.id).indexOf(did) >= 0 });
       });
     });
     if (concus.length) reps.push({ type: 'gisant', qk: 'conception', fort: concus.some(function (x) { return x.proche; }), tags: 'conception concu deuil grossesse projet sens',
-      label: concus.length > 1 ? 'Conçu·e pendant un deuil, ' + concus.length + ' fois' : conc(concus[0].g).replace(/^c/, 'C') + ' pendant un deuil : ' + nom(concus[0].g), desc: concus.slice(0, 6).map(function (x) { return x.txt; }).join(' ; ') + '.',
+      label: concus.every(function (x) { return x.pendant; })
+        ? (concus.length > 1 ? 'Un deuil pendant la grossesse, ' + concus.length + ' fois' : 'Un deuil pendant la grossesse : ' + nom(concus[0].g))
+        : concus.some(function (x) { return x.pendant; })
+          ? 'Conçu·e ou attendu·e pendant un deuil, ' + concus.length + ' fois'
+          : (concus.length > 1 ? 'Conçu·e pendant un deuil, ' + concus.length + ' fois' : conc(concus[0].g).replace(/^c/, 'C') + ' pendant un deuil : ' + nom(concus[0].g)), desc: concus.slice(0, 6).map(function (x) { return x.txt; }).join(' ; ') + '.',
       ids: [].concat.apply([], concus.map(function (x) { return [x.g.id, x.d.id]; })) });
     // 8. Un enfant qui naît après la perte d'un frère ou d'une sœur (dans les 24 mois)
     function libPerte(p, min) { var t = p.grossesse === 'fc' ? 'une fausse couche' : 'un enfant mort-né'; return nomComplet(p) ? nomComplet(p) + ' (' + t + ')' : min ? t : t.charAt(0).toUpperCase() + t.slice(1); }
@@ -1174,7 +1189,7 @@
   }
   function dessinPersonne(p, pos, o) {
     var moi = p.role === 'moi', sel = o.sel === p.id, att = o.attenue && o.attenue.indexOf(p.id) < 0;
-    var lien = lienDe(p.id), pt = petit(p), rr = pt ? RP : R;
+    var lien = libLien(lienDe(p.id)), pt = petit(p), rr = pt ? RP : R;
     var nom = nomComplet(p);
     var h = '<g class="personne" data-id="' + esc(p.id) + '" transform="translate(' + pos.x + ',' + pos.y + ')"' + (o.export ? '' : ' tabindex="0" role="button" aria-label="' + esc((nom || (pt ? GROSS[p.grossesse] : '') || lien || 'Personne sans prénom') + (lien && nom ? ', ' + lien : '')) + '"') + (att ? ' opacity=".22"' : '') + '>';
     if (!o.export) h += '<rect class="zone-clic" x="' + (-SLOT / 2 + 6) + '" y="' + (-R - 10) + '" width="' + (SLOT - 12) + '" height="' + (BAS_TEXTE + R + 12) + '" fill="transparent"/>';
@@ -2819,6 +2834,7 @@
       var dc = res.data.data || {};
       annexes = {};
       Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
+      DOSSIER_CLIENT = annexes.dossier === 'client'; textesDossierClient();
       charger(dc);
       try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
       selId = null; repActive = null; dessiner(); recentrer(); majBarreActions();
