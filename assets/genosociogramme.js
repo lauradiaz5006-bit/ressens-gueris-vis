@@ -2125,27 +2125,90 @@
     h += '<text x="' + (W - m) + '" y="' + ly + '" text-anchor="end" font-family="\'Nunito Sans\',sans-serif" font-size="11" font-weight="600" fill="' + CHAMPAGNE + '">genesolia.fr</text>';
     return { svg: h + '</svg>', W: W, H: H };
   }
+  /* Lien de partage, quand la praticienne a coché « Travail terminé » : la cliente télécharge son arbre ou le garde dans son espace (sans notes ni repères) */
+  function remiseCliente(jeton, cabinet, auto) {
+    var z = document.createElement('section'); z.className = 'remise-partage'; z.setAttribute('aria-label', 'Garder ton arbre');
+    z.innerHTML = '<p><b>Ton arbre est à toi.</b> Télécharge-le ou garde-le dans ton espace Genesolia. Les notes de séance ne sont jamais partagées.</p>' +
+      '<div class="remise-boutons"><button type="button" class="bt plein" data-r="garder">Garder mon arbre dans mon espace</button><button type="button" class="bt" data-r="dl" aria-expanded="false">Télécharger mon arbre</button></div>' +
+      '<div class="remise-formats" hidden><button type="button" class="bt" data-r="png">Image (PNG)</button><button type="button" class="bt" data-r="pdf">PDF</button></div>' +
+      '<p class="remise-msg" role="status"></p>';
+    document.body.appendChild(z);
+    var msg = z.querySelector('.remise-msg');
+    function pdf() {
+      var jp = window.jspdf ? Promise.resolve(window.jspdf.jsPDF) : new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = 'assets/jspdf.umd.min.js'; sc.onload = function () { ok(window.jspdf.jsPDF); }; sc.onerror = ko; document.head.appendChild(sc); });
+      return Promise.all([jp, canvasArbre()]).then(function (x) {
+        var J = x[0], r = x[1], pay = r.W >= r.H, doc = new J({ orientation: pay ? 'landscape' : 'portrait', unit: 'mm', format: 'a4' });
+        var pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 12;
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.setTextColor(107, 47, 91); doc.text('Mon arbre familial', m, m + 4);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text((cabinet ? 'Partagé par ' + cabinet + ' · ' : '') + new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }), m, m + 10);
+        var lw = pw - 2 * m, lh = ph - 2 * m - 14, k = Math.min(lw / r.W, lh / r.H);
+        doc.addImage(r.canvas.toDataURL('image/jpeg', 0.92), 'JPEG', m + (lw - r.W * k) / 2, m + 14, r.W * k, r.H * k);
+        doc.save('mon-arbre.pdf');
+      });
+    }
+    function garder() {
+      if (!sb) { msg.textContent = 'La connexion n’a pas pu s’établir. Réessaie dans un instant.'; return; }
+      var bt = z.querySelector('[data-r="garder"]'); bt.disabled = true; msg.textContent = 'Un instant…';
+      sb.auth.getSession().then(function (r) {
+        var ses = r && r.data && r.data.session;
+        if (!ses) {
+          try { localStorage.setItem('genesolia-garder', JSON.stringify({ j: jeton, t: Date.now() })); } catch (e) {}
+          msg.innerHTML = 'Connecte-toi ou crée ton espace gratuit : tu reviendras ici, et ton arbre sera copié dans ton espace.';
+          setTimeout(function () { location.href = 'login.html?retour=genosociogramme.html'; }, 900);
+          return;
+        }
+        return sb.rpc('partage_garder', { p_jeton: jeton }).then(function (x) {
+          var d = x && x.data;
+          if (x.error || !d || d.erreur) {
+            bt.disabled = false;
+            msg.textContent = d && d.erreur === 'non-autorise' ? 'Ton·ta praticien·ne n’a pas encore ouvert la remise de cet arbre.' : d && d.erreur === 'lien' ? 'Ce lien n’est plus valable. Demande un nouveau lien à ton·ta praticien·ne.' : 'La copie n’a pas abouti. Réessaie dans un instant.';
+            return;
+          }
+          var lien = d.ou === 'supp' && d.id ? 'genosociogramme.html?arbre=' + encodeURIComponent(d.id) : 'genosociogramme.html';
+          bt.hidden = true;
+          msg.innerHTML = (d.deja ? 'Cet arbre est déjà dans ton espace.' : 'C’est fait : ton arbre est dans ton espace. Il t’appartient, sans les notes de séance.') + ' <a href="' + lien + '">Ouvrir mon arbre</a> · <a href="espace.html">Mon espace</a>';
+        });
+      }).catch(function () { bt.disabled = false; msg.textContent = 'La copie n’a pas abouti. Réessaie dans un instant.'; });
+    }
+    z.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-r]'); if (!b) return;
+      var a = b.getAttribute('data-r');
+      if (a === 'dl') { var f = z.querySelector('.remise-formats'); f.hidden = !f.hidden; b.setAttribute('aria-expanded', String(!f.hidden)); }
+      else if (a === 'png') { b.disabled = true; canvasArbre().then(function (r) { r.canvas.toBlob(function (bl) { telecharger(bl, 'mon-arbre.png'); b.disabled = false; }, 'image/png'); }, function () { b.disabled = false; msg.textContent = 'L’image n’a pas pu être créée.'; }); }
+      else if (a === 'pdf') { b.disabled = true; pdf().then(function () { b.disabled = false; }, function () { b.disabled = false; msg.textContent = 'Le PDF n’a pas pu être créé.'; }); }
+      else if (a === 'garder') garder();
+    });
+    if (auto) garder();
+  }
   function telecharger(blob, nom) {
     var url = URL.createObjectURL(blob), a = document.createElement('a');
     a.href = url; a.download = nom; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
   }
   function arbreVide() { if (!Object.keys(S.people).length) { alert('Ton arbre est vide pour l’instant.'); return true; } return false; }
+  /* L'arbre dessiné sur un canvas (image PNG, PDF du lien de partage) : tout se fait sur l'appareil */
+  function canvasArbre() {
+    return polices().then(function (css) {
+      var e = svgExport(css);
+      return new Promise(function (ok, ko) {
+        var img = new Image();
+        img.onload = function () {
+          var k = Math.min(2, 6000 / Math.max(e.W, e.H));
+          var c = document.createElement('canvas'); c.width = Math.round(e.W * k); c.height = Math.round(e.H * k);
+          var ctx = c.getContext('2d'); ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height); ctx.scale(k, k); ctx.drawImage(img, 0, 0);
+          ok({ canvas: c, W: e.W, H: e.H });
+        };
+        img.onerror = ko;
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(e.svg);
+      });
+    });
+  }
   $('bt-image').addEventListener('click', function () {
     if (arbreVide()) return;
     var b = this; b.disabled = true;
-    polices().then(function (css) {
-      var e = svgExport(css);
-      var img = new Image();
-      img.onload = function () {
-        var k = Math.min(2, 6000 / Math.max(e.W, e.H));
-        var c = document.createElement('canvas'); c.width = Math.round(e.W * k); c.height = Math.round(e.H * k);
-        var ctx = c.getContext('2d'); ctx.scale(k, k); ctx.drawImage(img, 0, 0);
-        c.toBlob(function (bl) { telecharger(bl, 'mon-genosociogramme.png'); b.disabled = false; }, 'image/png');
-      };
-      img.onerror = function () { b.disabled = false; alert('L’image n’a pas pu être créée. Essaie « Imprimer » puis « Enregistrer en PDF ».'); };
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(e.svg);
-    });
+    canvasArbre().then(function (r) {
+      r.canvas.toBlob(function (bl) { telecharger(bl, 'mon-genosociogramme.png'); b.disabled = false; }, 'image/png');
+    }, function () { b.disabled = false; alert('L’image n’a pas pu être créée. Essaie « Imprimer » puis « Enregistrer en PDF ».'); });
   });
   $('bt-svg').addEventListener('click', function () {
     if (arbreVide()) return;
@@ -3005,9 +3068,15 @@
           charger(d); dessiner(); recentrer();
           b.innerHTML = 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
           document.body.appendChild(b); statut('');
+          if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
         });
       return;
     }
+    /* Retour de connexion après « Garder mon arbre dans mon espace » : on revient sur le lien de partage pour finir la copie */
+    try {
+      var gj = JSON.parse(localStorage.getItem('genesolia-garder') || 'null');
+      if (gj) { localStorage.removeItem('genesolia-garder'); if (Date.now() - gj.t < 2 * 864e5 && /^[0-9a-f-]{36}$/.test(gj.j)) { location.replace('genosociogramme.html?partage=' + gj.j + '&garder=1'); return; } }
+    } catch (e) {}
     if (new URLSearchParams(location.search).has('exemple')) {
       EXEMPLE = true;
       fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (d) {

@@ -1,0 +1,8 @@
+-- Appliqué le 21/10/2026 (migration remise_arbre_cliente) : la cliente garde son arbre quand la praticienne l'autorise.
+-- 1. arbres_supp.remise_autorisee (boolean, false par défaut) : case « Travail terminé » par dossier.
+-- 2. remises_arbre (jeton, user_id, ou, arbre_id, cree_le) : trace des remises, évite les doublons. RLS sans policy.
+-- 3. partage_lire(jeton) renvoie aussi « remise ».
+-- 4. partage_garder(jeton) (security definer, comptes connectés seulement) : copie personnes (sans notes ni repères),
+--    liens et mise en page dans l'arbre principal de la cliente s'il est vide, sinon dans un nouvel arbre
+--    « Mon arbre (remis par <cabinet>) ». Refuse si lien expiré ou case décochée.
+-- Le texte complet est dans l'historique des migrations Supabase (remise_arbre_cliente).
