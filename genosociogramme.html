@@ -166,6 +166,22 @@
     .puces input{border:none;background:transparent;padding:.25rem;flex:1;min-width:9rem;font:400 .95rem/1.3 var(--texte);color:var(--prune);outline:none}
     .puce{display:inline-flex;align-items:center;gap:.3rem;background:var(--rose);border-radius:999px;padding:.25rem .3rem .25rem .65rem;font-size:.82rem;color:var(--prune)}
     .puce button{border:none;background:none;color:var(--prune);cursor:pointer;font-size:1rem;line-height:1;padding:0 .2rem}
+    .aide-reperes{font-size:.8rem;line-height:1.45;color:var(--prune-doux);margin:-.15rem 0 .45rem}
+    .reperes-liste{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.45rem}
+    .reperes-liste[hidden],.reperes-dispo[hidden]{display:none}
+    .puce-repere{background:var(--blanc);border:1.5px solid var(--rc)}
+    .puce-repere::before{content:"";width:.6rem;height:.6rem;border-radius:3px;background:var(--rc);margin-left:-.25rem}
+    .repere-ajout{display:flex;gap:.4rem}
+    .repere-ajout input{flex:1;min-width:0;font:400 .95rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.55rem .7rem}
+    .reperes-dispo{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.5rem}
+    .etiq-dispo{font-size:.76rem;color:var(--prune-doux);margin-right:.15rem}
+    .puce-dispo{border:1px dashed var(--rc);background:transparent;border-radius:999px;padding:.22rem .65rem;font:400 .8rem/1.3 var(--texte);color:var(--prune);cursor:pointer}
+    .puce-dispo:hover,.puce-dispo:focus-visible{background:var(--nacre)}
+    .rep .rep-lect{display:block;margin-top:.45rem;padding-top:.4rem;border-top:1px dashed var(--rose);font-size:.78rem;line-height:1.45;color:var(--prune)}
+    .rep .rep-lect b{display:block;font-weight:600;font-size:.74rem;color:var(--c);margin-bottom:.15rem}
+    .rep .rep-lect span{display:block;font-size:.78rem;margin-top:.15rem}
+    .reps-visibles{display:grid;gap:.5rem;margin-bottom:.6rem}
+    .reps-titre-auto{margin-top:.2rem}
     .evts{display:grid;gap:.45rem;margin-bottom:.5rem}
     .evt,.evt-entete{display:grid;grid-template-columns:1fr 4.6rem 5.4rem 2rem;gap:.4rem;align-items:center}
     .evt select,.evt input{font:400 .88rem/1.2 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:9px;padding:.5rem .5rem;width:100%;min-width:0}
@@ -575,6 +591,12 @@
 
         <h3 class="sous-titre">Traits de caractère</h3>
         <div class="puces" id="fp-traits"><input type="text" id="fp-trait" placeholder="Écris un trait, puis Entrée" aria-label="Ajouter un trait de caractère"></div>
+
+        <h3 class="sous-titre" id="fp-reperes-titre">Ce que je repère</h3>
+        <p class="aide-reperes" id="fp-reperes-aide">Tes propres mots : un trait, une habitude, un métier, une façon d’aimer… Ils restent dans ton arbre.</p>
+        <div class="reperes-liste" id="fp-reperes" hidden></div>
+        <div class="repere-ajout"><input type="text" id="fp-repere" maxlength="40" autocomplete="off" aria-labelledby="fp-reperes-titre" aria-describedby="fp-reperes-aide"><button class="bt" type="button" id="fp-repere-ajout">Ajouter</button></div>
+        <div class="reperes-dispo" id="fp-reperes-dispo" hidden></div>
 
         <h3 class="sous-titre">Événements marquants</h3>
         <div class="evt-entete" aria-hidden="true"><span>Événement</span><span>Âge</span><span>Année</span><span></span></div>
