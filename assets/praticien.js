@@ -13,8 +13,8 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
   function actif() { return prat && new Date(prat.acces_jusqu) > new Date(); }
-  /* Tarif fondateur : tout cabinet ouvert avant le 1er janvier 2027 garde 19 € par mois */
-  function fondateur() { return !!(prat && (prat.fondateur || (prat.cree_le && new Date(prat.cree_le) < new Date('2027-01-01T00:00:00+01:00')))); }
+  /* Tarif fondateur : tout cabinet ouvert jusqu’au 31 mars 2027 garde 19 € par mois */
+  function fondateur() { return !!(prat && (prat.fondateur || (prat.cree_le && new Date(prat.cree_le) < new Date('2027-04-01T00:00:00+02:00')))); }
   function fait(k) { try { return localStorage.getItem('pr-fait-' + k) === '1'; } catch (e) { return false; } }
   function marquer(k) { try { localStorage.setItem('pr-fait-' + k, '1'); } catch (e) {} }
   function joursRestants() { return prat ? Math.max(0, Math.ceil((new Date(prat.acces_jusqu) - Date.now()) / 864e5)) : 0; }
@@ -37,7 +37,7 @@
       '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
       '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon espace, <b>chiffrées</b> : l’équipe Genesolia ne les lit pas.</span></label>' +
       '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
-      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Cabinet ouvert avant le 1er janvier 2027 : <b>tarif fondateur, 19 € par mois</b>, garanti tant que ton abonnement continue.</p></form></div>';
+      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Cabinet ouvert jusqu’au 31 mars 2027 : <b>tarif fondateur, 19 € par mois</b>, garanti tant que ton abonnement continue.</p></form></div>';
     var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
     f.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
