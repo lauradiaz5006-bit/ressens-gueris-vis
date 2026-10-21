@@ -99,12 +99,14 @@
     "Qu'est-ce que je ressens, là, juste avant d'écrire ?"
   ];
 
-  /* ---------- Les situations des 18-25 ans : elles vivent dans assets/vie-en-reel/situations.js (une seule source avec « Ta vie en réel ») ---------- */
+  /* ---------- Les situations du premier lot : elles vivent dans assets/vie-en-reel/situations.js (une seule source avec « Ta vie en réel ») ---------- */
   var SITUATIONS = (window.GENESOLIA_SITUATIONS || []).filter(function (s) { return s.jeunes; });
 
   var ORDRE = ['silence','pas-ensemble','meme-genre','conflit-couple','conflit-famille','dire-non','amies-eloignent','etudes','partir','parents-separes','ma-mere','retard','ma-place','sais-pas','argent','seule','semblant','honte-origines'];
   SITUATIONS.sort(function (a, b) { return ORDRE.indexOf(a.id) - ORDRE.indexOf(b.id); });
 
+  /* ---------- L'outil (seulement si la page l'affiche) ---------- */
+  if (document.getElementById('grille-vt')) (function () {
   /* ---------- L'outil ---------- */
   var CLE_VUES = 'vingt-ans-vues';
   var grille = document.getElementById('grille-vt');
@@ -225,6 +227,7 @@
     if (b) afficher(b.getAttribute('data-id'));
   });
   dessinerGrille();
+  })();
 
   /* ---------- Les phrases transmises ---------- */
   var PHRASES = [
@@ -324,7 +327,7 @@
   /* ---------- Les trois questions du mini-arbre ---------- */
   var QS = [
     ['Tu peux me dire les prénoms de tes parents et de tes grands-parents, et d\'où ils venaient ?', 'Pour placer les noms sur ton arbre.'],
-    ["Qu'est-ce que tu faisais à mon âge ? Tu vivais où, avec qui ?", 'Pour comparer vos vingt ans.'],
+    ["Qu'est-ce que tu faisais à mon âge ? Tu vivais où, avec qui ?", 'Pour comparer vos vies au même âge.'],
     ["Quelle histoire de la famille tu aimerais que je connaisse ?", 'Pour laisser la personne choisir ce qu\'elle raconte.']
   ];
   var ol = document.getElementById('qs');
