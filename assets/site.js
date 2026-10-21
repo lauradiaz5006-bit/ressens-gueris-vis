@@ -1069,6 +1069,21 @@ window.GENESOLIA_IMPRESSION = {
     installer();
   });
   window.GenesoliaInstaller = { ouvrir: installer, aide: aideInstall, installee: function () { return installee; } };
+
+  /* Discussion en direct (Crisp) : bulle en bas à droite. Pas dans l'appli installée ni sur ses écrans à onglets du bas (elle les cacherait),
+     ni sur le lien de partage reçu par les client·es d'un·e praticien·ne, ni en mode séance. */
+  (function () {
+    if (MODE || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;
+    window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
+    var sc = document.createElement('script'); sc.src = 'https://client.crisp.chat/l.js'; sc.async = 1; document.head.appendChild(sc);
+    var cache = null;
+    function maj() {
+      var c = document.body && (document.body.classList.contains('mode-seance') || document.body.classList.contains('mobile-arbre'));
+      if (c === cache) return; cache = c;
+      window.$crisp.push(['do', c ? 'chat:hide' : 'chat:show']);
+    }
+    if (document.body) { maj(); new MutationObserver(maj).observe(document.body, { attributes: true, attributeFilter: ['class'] }); }
+  })();
   /* #installer (bouton « Télécharge Genesolia sur ton mobile » depuis une page du Cercle) : les instructions s'ouvrent ; cercle.html gère le sien */
   if (location.hash === '#installer' && page !== 'cercle.html') { history.replaceState(null, '', location.pathname + location.search); setTimeout(aideInstall, 300); }
 
