@@ -276,10 +276,10 @@
     .mt-sym{flex:none;width:26px;height:26px;border:2px solid var(--prune);background:#fff;box-sizing:border-box;position:relative}
     .mt-sym.mt-f{border-radius:50%}.mt-sym.mt-m{border-radius:4px}.mt-sym.mt-u{border-radius:6px;transform:rotate(45deg) scale(.85)}
     .mt-sym.mt-moi{background:var(--prune)}
-    .mt-sym.mt-dcd::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:2px;background:var(--prune);transform:rotate(-45deg)}
+    .mt-sym.mt-dcd::after,.mt-sym.mt-dcd::before{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:2px;background:var(--prune);transform:rotate(-45deg)}.mt-sym.mt-dcd::before{transform:rotate(45deg)}
     .mt-centre .mt-sym{width:40px;height:40px;border-color:#F3DCC0;background:transparent}
     .mt-centre .mt-sym.mt-moi{background:#F3DCC0}
-    .mt-centre .mt-sym.mt-dcd::after{background:#F3DCC0}
+    .mt-centre .mt-sym.mt-dcd::after,.mt-centre .mt-sym.mt-dcd::before{background:#F3DCC0}
     .mt-discret{font-size:.84rem;color:var(--prune-doux);text-align:center;margin-top:1rem}
     .mt-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.97);border-top:1px solid var(--rose);padding:.35rem .4rem calc(.35rem + env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
     .mt-nav button{background:none;border:0;padding:.65rem .2rem;font:600 .82rem var(--texte);color:var(--prune-doux);border-radius:12px;cursor:pointer}
@@ -756,10 +756,10 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-21e"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-21f"></script>
   <script src="assets/import-arbre.js?v=2026-10-10a"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
-  <script src="assets/arbre-telephone.js?v=2026-10-21"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-21b"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });

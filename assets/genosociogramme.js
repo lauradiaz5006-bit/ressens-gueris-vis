@@ -744,7 +744,7 @@
     // Prénoms
     var pr = {};
     liste.forEach(function (p) { var k = norm(p.prenom); if (k) (pr[k] = pr[k] || []).push(p); });
-    Object.keys(pr).forEach(function (k) { var g = pr[k]; if (g.length >= 2) reps.push({ type: 'prenom', c: COUL.prenom, label: 'Un prénom qui revient : ' + g[0].prenom, desc: g.map(function (p) { var l = lienDe(p.id); return (l ? nomBase(p) : nom(p)) + (l && l !== 'Toi' ? ' (' + l.toLowerCase() + ')' : l === 'Toi' ? ' (toi)' : ''); }).join(', ') + '.', ids: g.map(function (p) { return p.id; }) }); });
+    Object.keys(pr).forEach(function (k) { var g = pr[k]; if (g.length >= 2) reps.push({ type: 'prenom', c: COUL.prenom, label: 'Un prénom qui revient : ' + g[0].prenom, desc: g.map(function (p) { var l = lienDe(p.id); return (l ? nomBase(p) : nom(p)) + (l && l !== 'Toi' ? ' (' + l.toLowerCase() + ')' : l === 'Toi' ? (DOSSIER_CLIENT ? ' (client·e)' : ' (toi)') : ''); }).join(', ') + '.', ids: g.map(function (p) { return p.id; }) }); });
     // Métiers
     var mt = {};
     liste.forEach(function (p) { if (!p.metier) return; var k = groupeMetier(p.metier) || norm(p.metier); (mt[k] = mt[k] || []).push(p); });
@@ -1052,7 +1052,7 @@
       var nG = Object.keys(gens).length, sep = LG.separer(ids), dansL = {}, dansA = {};
       sep.lignee.forEach(function (c) { c.forEach(function (i) { dansL[i] = 1; }); });
       sep.alliance.forEach(function (c) { c.forEach(function (i) { if (!dansL[i]) dansA[i] = 1; }); });
-      var quiTxt = function (l) { return l.map(function (p) { var li = lienDe(p.id); return (li ? nomBase(p) : nom(p)) + (li === 'Toi' ? ' (toi)' : li ? ' (' + li.toLowerCase() + ')' : ''); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); };
+      var quiTxt = function (l) { return l.map(function (p) { var li = lienDe(p.id); return (li ? nomBase(p) : nom(p)) + (li === 'Toi' ? (DOSSIER_CLIENT ? ' (client·e)' : ' (toi)') : li ? ' (' + li.toLowerCase() + ')' : ''); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); };
       var L = ps.filter(function (p) { return dansL[p.id]; }), Al = ps.filter(function (p) { return dansA[p.id]; }), Au = ps.filter(function (p) { return !dansL[p.id] && !dansA[p.id]; });
       var morceauxR = [];
       if (L.length) morceauxR.push('Dans ta lignée : ' + quiTxt(L));
@@ -1876,7 +1876,7 @@
     var p = S.people[id]; if (!p) return;
     fiche = { id: id, nouveau: !!nouveau, avant: instantAvant || null, traits: (p.traits || []).slice(), reperes: nettoyerReperes(p.reperes) };
     var lien = lienDe(id);
-    $('fp-titre').textContent = nouveau ? (lien && lien !== 'Toi' ? 'Nouvelle personne : ' + lien.toLowerCase() : 'Nouvelle personne') : (nomComplet(p) || lien || 'Sans prénom');
+    $('fp-titre').textContent = nouveau ? (lien && lien !== 'Toi' ? 'Nouvelle personne : ' + lien.toLowerCase() : 'Nouvelle personne') : (nomComplet(p) || libLien(lien) || 'Sans prénom');
     $('fp-sous').textContent = nouveau ? 'Remplis ce que tu sais, tout le reste est facultatif.' : (lien || '');
     document.querySelectorAll('input[name="sexe"]').forEach(function (r) { r.checked = r.value === (p.sex || 'u'); });
     $('fp-prenom').value = p.prenom || '';
@@ -2227,6 +2227,7 @@
     fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; }); },
     connecte: function () { return !!utilisateur; },
+    dossierClient: function () { return DOSSIER_CLIENT; },   // arbre d'un·e client·e (cabinet) : la vue téléphone parle de « son » arbre
     personnes: function () { return Object.keys(S.people).map(function (id) { return { id: id, nom: nomAffiche(S.people[id]), moi: S.people[id].role === 'moi' }; }); },
     // d : { people, rels } avec les identifiants du fichier ; o : { remplacer, moi, meme: { fichier, arbre } }
     importer: function (d, o) {
