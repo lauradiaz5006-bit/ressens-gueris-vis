@@ -172,7 +172,33 @@
       .ar-lignee h3,.ar-lignee b{color:var(--prune)!important}
       .ar-barre div{background:var(--rose)!important}.ar-personnes span{background:var(--rose)!important}
     }
-  </style>
+  
+    /* Garder, copier, effacer (assets/fil-d-or-espace.js) */
+    .fd-sauve{margin-top:1rem;background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:.2rem 1rem}
+    .fd-sauve summary{cursor:pointer;padding:.75rem 0;font-weight:600;color:var(--prune)}
+    .fd-outils{display:grid;gap:.9rem;padding:0 0 1rem}
+    .fd-bloc{border-top:1px solid var(--rose);padding-top:.9rem}
+    .fd-bloc p{margin:0 0 .6rem;font-size:.93rem;color:var(--prune-doux)}
+    .fd-bloc .fd-bloc-t{font-weight:600;color:var(--prune);margin-bottom:.3rem}
+    .fd-encart{margin:1.4rem 0 .4rem;background:linear-gradient(135deg,#FFF6EA,#FCEFF3);border:1px solid #EBD3B4;border-radius:20px;padding:1.2rem 1.3rem}
+    .fd-encart p{margin:0 0 .7rem;color:var(--prune)}
+    .fd-encart-t{font:400 1.3rem var(--display);color:var(--prune)!important}
+    .fd-encart-actions{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .fd-encart-actions .btn{min-height:46px}
+    .fd-lien{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .95rem var(--texte);cursor:pointer;padding:.6rem .4rem;min-height:44px}
+    .fd-petit{font-size:.84rem;color:var(--prune-doux);margin:.6rem 0 0}
+    .fd-effacer{border-color:#D9A7B3}
+    .fd-fond{position:fixed;inset:0;z-index:200;background:rgba(74,33,66,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+    .fd-fenetre{background:var(--blanc);border-radius:22px;max-width:30rem;width:100%;padding:1.5rem 1.4rem;box-shadow:0 30px 80px rgba(74,33,66,.3);max-height:92vh;overflow-y:auto}
+    .fd-fenetre h2{font-size:1.5rem;margin:0 0 .6rem}
+    .fd-fenetre p{color:var(--prune-doux);margin:0 0 1rem}
+    .fd-versions{display:grid;gap:.6rem;margin-bottom:1rem}
+    .fd-version{display:grid;gap:.2rem;text-align:left;padding:1rem;border:1.5px solid var(--rose);border-radius:16px;background:#fff;font:inherit;color:var(--prune);cursor:pointer;min-height:56px}
+    .fd-version:hover,.fd-version:focus-visible{border-color:var(--prune)}
+    .fd-version span{font-size:.88rem;color:var(--prune-doux)}
+    @media (max-width:560px){.fd-encart-actions .btn{width:100%}}
+    @media print{.fd-sauve,#fd-garder{display:none!important}}
+</style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu’est-ce qu’un arbre généalogique émotionnel ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est un arbre familial qui part des ressentis plutôt que des dates : pour chaque personne, tu notes les grandes étapes de sa vie et l’émotion ou le sentiment traversé à ce moment-là. Les ressemblances d’une génération à l’autre apparaissent alors plus facilement."}}, {"@type": "Question", "name": "Qu’est-ce que l’héritage émotionnel ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est ce qui se transmet dans une famille sans forcément se dire : des peurs, des façons d’aimer, des phrases répétées, des loyautés. Le fil d’or t’aide à le repérer en rapprochant tes ressentis de ceux de ta mère, de ta grand-mère ou de ton père."}}, {"@type": "Question", "name": "Qu’est-ce qu’un schéma répétitif transgénérationnel ?", "acceptedAnswer": {"@type": "Answer", "text": "C’est une situation ou une émotion qui revient d’une génération à l’autre : une séparation au même âge, la même blessure d’abandon, la même peur de manquer. Ce sont des pistes de réflexion, jamais des preuves. La méthode des deux cycles aide à les lire."}}, {"@type": "Question", "name": "Faut-il connaître les dates exactes pour remplir son arbre ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Ici, un âge approximatif suffit, et tu notes ce que tu sais ou ce que tu sens. Quand tu le souhaites, tout part dans ton arbre généalogique, où tu peux ajouter ensuite les noms, les prénoms et les dates de naissance."}}]}</script>
 </head>
 <body class="nouveau">
@@ -184,7 +210,8 @@
         <nav class="ar-fil" aria-label="Fil d’Ariane"><a href="outils.html">Outils</a><span aria-hidden="true">/</span>Le fil d’or</nav>
         <div class="ar-titre"><svg class="ar-symbole" viewBox="0 0 200 210" aria-hidden="true"><path d="M92 196C96 168 97 150 96 128M108 196C104 168 103 150 104 128" stroke="#C49A6C" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M100 132C88 116 72 108 56 104M100 128C112 112 128 104 146 102M100 124V82" stroke="#C49A6C" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M86 196q-14 2-26 8M114 196q14 2 26 8" stroke="#C49A6C" stroke-width="4" stroke-linecap="round" fill="none" opacity=".7"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(125.1 65.6) rotate(100) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(127.0 73.6) rotate(62) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(118.7 91.6) rotate(173) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(102.9 85.7) rotate(162) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(94.1 100.4) rotate(202) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(95.3 93.0) rotate(200) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(83.2 98.0) rotate(197) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(77.9 82.0) rotate(246) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(83.3 73.0) rotate(280) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(79.8 65.2) rotate(284) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(82.0 57.8) rotate(293) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(92.6 47.8) rotate(376) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(106.0 44.2) rotate(396) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(108.1 48.3) rotate(368) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(113.8 61.4) rotate(411) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(117.6 60.4) rotate(456) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(76.4 102.6) rotate(138) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(78.2 105.7) rotate(76) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(67.9 119.3) rotate(128) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(56.6 109.7) rotate(216) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(46.8 107.4) rotate(246) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(34.8 99.2) rotate(294) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(48.8 88.2) rotate(298) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(56.1 75.8) rotate(338) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(59.6 79.6) rotate(352) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(76.1 86.7) rotate(422) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(164.0 93.9) rotate(118) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(163.1 103.7) rotate(138) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(150.4 109.7) rotate(148) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(137.5 107.8) rotate(220) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(132.4 107.2) rotate(248) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(127.1 94.2) rotate(282) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(129.2 89.7) rotate(280) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(136.4 75.0) rotate(368) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(145.7 76.4) rotate(362) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(156.0 87.6) rotate(436) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(115.6 35.8) rotate(50) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(113.7 50.5) rotate(143) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(97.6 48.3) rotate(169) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(82.9 45.1) rotate(222) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(86.9 36.1) rotate(308) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(95.5 27.6) rotate(323) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(108.1 31.5) rotate(409) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(85.2 63.3) rotate(116) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(79.5 68.6) rotate(174) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#C49A6C" transform="translate(68.6 71.8) rotate(204) scale(0.95)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(61.6 64.3) rotate(262) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(72.4 53.8) rotate(352) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(83.2 52.8) rotate(426) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(140.2 59.8) rotate(118) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#EBCB93" transform="translate(131.1 66.8) rotate(156) scale(1.05)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#F1D8A6" transform="translate(121.6 72.7) rotate(188) scale(1.15)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#D4A867" transform="translate(115.5 60.7) rotate(262) scale(0.85)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(116.4 50.4) rotate(310) scale(0.75)"/><path d="M0 0C5 -7 14 -7 20 0C14 7 5 7 0 0Z" fill="#E2BE82" transform="translate(131.7 47.7) rotate(400) scale(0.75)"/></svg><h1>Le fil d’or</h1></div>
         <p class="intro">Le moyen le plus simple de remplir ton arbre généalogique : tu pars de ce que tu ressens et de ce que tu sais. Pas besoin de dates exactes ni de recherches.</p>
-        <p class="note" style="margin-top:1rem">Environ 20 minutes, en une ou plusieurs fois. Tes réponses restent dans ton navigateur, sur cet appareil.</p>
+        <p class="note" style="margin-top:1rem">Environ 20 minutes, en une ou plusieurs fois. <span id="fd-statut">Tes réponses restent dans ce navigateur, sur cet appareil. <a href="login.html?inscription&amp;retour=fil-d-or.html">Crée ton espace</a> pour ne pas les perdre.</span></p>
+        <details class="fd-sauve"><summary>Garder, copier ou effacer mon fil d’or</summary><div id="fd-outils"></div></details>
         <p class="ar-lien-comment"><a class="btn btn-trait" href="#comment">Comprendre comment t’en servir</a></p>
       </div>
     </section>
@@ -206,6 +233,7 @@
         <h2>Ta vie, ce que tu as ressenti</h2>
         <p class="ar-chapeau">Note les moments qui t’ont marqué·e : une séparation, un départ, une perte, un déménagement, une naissance, un moment où tout a basculé. Pour chacun, l’âge que tu avais (environ) et surtout ce que tu as ressenti. Commence par ce qui te vient, sans chercher l’ordre.</p>
         <div id="fiche-toi"></div>
+        <div id="fd-garder" hidden></div>
         <div class="ar-suite">
           <span></span>
           <button type="button" class="btn btn-plein" data-aller="2">Continuer avec ta lignée</button>
@@ -273,7 +301,8 @@
           <div class="actions ar-actions">
             <a class="btn btn-plein" href="exercice-ressenti-ancetre.html">Déposer ce qui ne m’appartient pas</a>
             <button type="button" class="btn btn-plein" id="ar-vers-arbre">Mettre dans mon arbre généalogique</button>
-            <button type="button" class="btn btn-trait" id="ar-imprimer">Imprimer ou enregistrer en PDF</button>
+            <button type="button" class="btn btn-plein" id="fd-pdf">Télécharger mon fil d’or (PDF)</button>
+            <button type="button" class="btn btn-trait" id="ar-imprimer">Imprimer</button>
             <button type="button" class="btn btn-trait" id="ar-recommencer">Recommencer</button>
           </div>
         </div>
@@ -380,7 +409,10 @@
     var minuteur = null;
     function garder() {
       clearTimeout(minuteur);
-      minuteur = setTimeout(function () { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) {} }, 250);
+      minuteur = setTimeout(function () {
+        try { localStorage.setItem(CLE, JSON.stringify(etat)); localStorage.setItem(CLE + '-maj', new Date().toISOString()); } catch (e) {}
+        if (window.FilDorEspace) window.FilDorEspace.change();   /* sauvegarde dans l'espace (assets/fil-d-or-espace.js) */
+      }, 250);
     }
 
     /* ---------- Outils ---------- */
@@ -982,10 +1014,49 @@
       etat.personnes.toi.etapes.push(nouvelleEtape());
       filtre = 'tout'; choisi = null;
       dessinerFiches(); aller('1');
+      if (window.FilDorEspace) window.FilDorEspace.change();
     });
+
+    /* Pont avec assets/fil-d-or-espace.js (espace, copies, PDF) : lecture, remplacement, contenu pour le PDF */
+    window.FilDor = {
+      cle: CLE,
+      etat: function () { return JSON.parse(JSON.stringify(etat)); },
+      vide: function () { return !etat.ordre.filter(function (id) { return etat.personnes[id] && remplie(id); }).length && !remplie('toi'); },
+      nb: function () { return ids().filter(remplie).length; },
+      remplacer: function (e) {
+        if (!e || !e.personnes || !e.personnes.toi) return false;
+        etat = e; etat.ordre = etat.ordre || []; etat.visionsPerso = etat.visionsPerso || [];
+        try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (x) {}
+        filtre = 'tout'; choisi = null; dessinerFiches(); aller(etapeActive || '1'); return true;
+      },
+      reinitialiser: function () {
+        try { localStorage.removeItem(CLE); localStorage.removeItem(CLE + '-maj'); } catch (x) {}
+        etat = { v: 1, ordre: [], seq: 0, visionsPerso: [], personnes: { toi: nouvellePersonne('toi') } };
+        etat.personnes.toi.etapes.push(nouvelleEtape());
+        filtre = 'tout'; choisi = null; dessinerFiches(); aller('1');
+      },
+      /* Le contenu à mettre en page : personnes (lignes de vie) et ce qui se répète */
+      contenu: function () {
+        var A = analyse();
+        var pers = ids().filter(remplie).map(function (id) {
+          var p = etat.personnes[id];
+          return { qui: id === 'toi' ? 'Toi' + (p.prenom ? ' (' + p.prenom + ')' : '') : libelle(id, true) + (p.prenom ? ' (' + p.prenom + ')' : ''), cote: cote(id), global: motsDe(p.global || {}),
+            etapes: (p.etapes || []).filter(function (x) { return x.age || x.evt || x.texte || (x.bl || []).length || (x.em || []).length || (x.vi || []).length; }).map(function (x) { return { age: x.age, evt: x.evt, mots: motsDe(x), texte: x.texte }; }) };
+        });
+        return {
+          personnes: pers,
+          blessures: A.bl.map(function (x) { return x.b.nom + ' : ' + liste(x.qui.map(nomPhrase)); }),
+          emotions: A.em.map(function (x) { return x.e + ' : ' + liste(x.qui.map(nomPhrase)); }),
+          ages: A.ages.map(function (g) { return periode(g) + ' : ' + liste(g.pts.map(function (pt) { return nomPhrase(pt.id) + (pt.e.evt ? ' (' + pt.e.evt + ')' : ''); })); }),
+          phrases: A.vi.map(function (x) { return '« ' + x.v + ' » : ' + liste(x.qui.map(nomPhrase)); })
+        };
+      }
+    };
 
     dessinerFiches();
   })();
   </script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/fil-d-or-espace.js?v=2026-10-21"></script>
 </body>
 </html>
