@@ -15,7 +15,7 @@
   if (hd) hd.after(racine); else document.body.prepend(racine);
   document.body.classList.add('mt-pret');
 
-  var onglet = 'arbre', centre = null, questionnaire = null;
+  var onglet = 'arbre', centre = null, questionnaire = null, passerelle = false;
   try { centre = sessionStorage.getItem(CLE_CENTRE); } catch (e) {}
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -70,8 +70,20 @@
     { cle: 'gpm', titre: 'Les parents de <em>ta mère</em>', aide: 'Tes grands-parents du côté de ta mère.', champs: [['gm', 'Prénom de ta grand-mère', 'text'], ['gp', 'Prénom de ton grand-père', 'text']], si: 'mere' },
     { cle: 'gpp', titre: 'Les parents de <em>ton père</em>', aide: 'Tes grands-parents du côté de ton père.', champs: [['gm', 'Prénom de ta grand-mère', 'text'], ['gp', 'Prénom de ton grand-père', 'text']], si: 'pere' }
   ];
-  function etapesActives() { return Q.filter(function (q) { return !q.si || (questionnaire.rep[q.si] && questionnaire.rep[q.si].prenom); }); }
+  function etapesActives() { return Q.filter(function (q) { var r = questionnaire.rep[q.si]; return !q.si || r === undefined || !!(r && r.prenom); }); }
+  /* Premier écran : une porte principale (les prénoms, 2 min) et le fil d'or en lien secondaire ; ?porte=fil-d-or inverse l'ordre (liens publiés sur les blessures, l'amour…) */
+  var FIL = new URLSearchParams(location.search).get('porte') === 'fil-d-or';
+  function afficherAccueil() {
+    var prenoms = '<button type="button" class="btn ' + (FIL ? 'btn-trait' : 'btn-plein') + ' mt-porte" data-q="commencer">Commencer mon arbre · 2 min</button>';
+    var fil = FIL ? '<a class="btn btn-plein mt-porte" href="fil-d-or.html">Commencer par ce que je ressens · le fil d’or</a>' : '<a class="mt-lien-fil" href="fil-d-or.html">Ou commence par ce que tu ressens : <b>le fil d’or</b></a>';
+    racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Ton arbre familial · gratuit</span><h1>Ce qui se répète dans ta famille <em>commence ici</em></h1>' +
+      '<p class="mt-aide">' + (FIL ? 'Pars des moments qui t’ont marquée et de ce que ta lignée a ressenti : ton arbre se dessine à partir de là.' : 'Toi, tes parents, tes grands-parents : quelques prénoms suffisent, une question à la fois.') + '</p>' +
+      '<div class="mt-portes">' + (FIL ? fil + prenoms : prenoms + fil) + '</div>' +
+      '<p class="mt-discret">Sans inscription pour commencer. <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
+    racine.querySelector('[data-q="commencer"]').addEventListener('click', function () { questionnaire.i = 0; afficherQuestion(); });
+  }
   function afficherQuestion() {
+    if (questionnaire.i < 0) { afficherAccueil(); return; }
     var liste = etapesActives(), q = liste[questionnaire.i], r = questionnaire.rep[q.cle] || {};
     var h = '<div class="mt-q"><div class="mt-q-haut"><span class="mt-etiq">Ton arbre · ' + (questionnaire.i + 1) + ' sur ' + liste.length + '</span>' +
       '<div class="mt-barre" aria-hidden="true"><i style="width:' + Math.round((questionnaire.i + 1) / liste.length * 100) + '%"></i></div></div>' +
@@ -83,10 +95,10 @@
       else h += '<label>' + esc(c[1]) + '<input name="' + c[0] + '" ' + (c[2] === 'date' ? 'inputmode="numeric" placeholder="14/03/1985 ou 1985"' : 'autocomplete="off" autocapitalize="words"') + ' value="' + esc(c[2] === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.split('-').reverse().join('/') : v) + '"></label>';
     });
     h += '<p class="mt-err" role="alert"></p><div class="mt-q-actions">' +
-      (questionnaire.i > 0 ? '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' : '') +
+      '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' +
       (q.cle !== 'toi' ? '<button type="button" class="btn btn-trait" data-q="passer">Je ne sais pas</button>' : '') +
       '<button type="submit" class="btn btn-plein">' + (questionnaire.i === liste.length - 1 ? 'Voir mon arbre' : 'Suivant') + '</button></div></form>' +
-      (questionnaire.i === 0 ? '<p class="mt-discret">Ton arbre se garde sur ce téléphone' + (G.connecte && G.connecte() ? ' et dans ton espace' : '') + '. <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p>' : '') + '</div>';
+      (questionnaire.i === 0 ? '<p class="mt-discret">Ton arbre se garde sur ce téléphone' + (G.connecte && G.connecte() ? ' et dans ton espace' : '') + '.</p>' : '') + '</div>';
     racine.innerHTML = h;
     var f = racine.querySelector('form'), sexe = r.sexe || '';
     racine.querySelectorAll('[data-sexe]').forEach(function (b) { b.addEventListener('click', function () { sexe = b.getAttribute('data-sexe'); racine.querySelectorAll('[data-sexe]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); }); });
@@ -135,7 +147,7 @@
     questionnaire = null;
     G.importer({ people: people, rels: rels }, { moi: 'toi' });
     var e = E(); centre = moiId(e); garderCentre();
-    onglet = 'arbre'; rendre(true);
+    passerelle = true; onglet = 'arbre'; rendre(); window.scrollTo(0, 0);
   }
 
   /* ───────── Vue centrée sur une personne ───────── */
@@ -147,6 +159,11 @@
     var ps = parentsDe(e, centre), mere = ps.find(function (x) { return e.people[x].sex === 'f'; }), pere = ps.find(function (x) { return e.people[x].sex === 'm'; });
     ps.forEach(function (x) { if (x !== mere && x !== pere) { if (!mere) mere = x; else if (!pere) pere = x; } });
     var h = '';
+    /* l'arbre de ce téléphone mis de côté à la connexion (ton espace avait déjà un arbre) : on peut le récupérer */
+    var deCote = null; try { deCote = localStorage.getItem('geno4-avant-connexion'); } catch (x) {}
+    var bAnn = document.getElementById('bt-annuler');
+    if (deCote && bAnn && !bAnn.disabled) h += '<div class="mt-info"><p>Ton espace avait déjà un arbre : c’est lui qui s’affiche. L’arbre commencé sur ce téléphone a été mis de côté.</p><button type="button" class="btn btn-trait" data-recuperer>Reprendre l’arbre de ce téléphone</button></div>';
+    if (passerelle) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personnes') + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
     if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à toi</button>';
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (estMoi ? 'Tes parents' : 'Ses parents') + '</p><div class="mt-duo">' +
       (mere ? carte(e, mere) : vide('mere', 'Ajouter ' + ton + ' mère')) + (pere ? carte(e, pere) : vide('pere', 'Ajouter ' + ton2 + ' père')) + '</div></div>';
@@ -175,7 +192,7 @@
   function rendre(focusCentre) {
     if (questionnaire) return;
     var e = E();
-    if (!Object.keys(e.people).length) { questionnaire = { i: 0, rep: {} }; afficherQuestion(); return; }
+    if (!Object.keys(e.people).length) { questionnaire = { i: -1, rep: {} }; afficherQuestion(); return; }
     var nbR = ((G.repetitions && G.repetitions()) || []).length;
     var corps = onglet === 'reps' ? vueReps() : onglet === 'rapport' ? vueRapport(e) : vueArbre(e);
     racine.innerHTML = '<div class="mt-haut"><h1 class="mt-titre">Mon arbre familial</h1><button type="button" class="mt-menu-bt" aria-haspopup="true" aria-expanded="false" aria-label="Plus d’options">•••</button></div>' +
@@ -269,10 +286,12 @@
     if ((t = ev.target.closest('[data-aller]'))) { onglet = t.getAttribute('data-aller'); rendre(); window.scrollTo(0, 0); return; }
     if ((t = ev.target.closest('[data-clic]'))) { var b = document.getElementById(t.getAttribute('data-clic')); if (b) b.click(); return; }
     if ((t = ev.target.closest('.mt-menu-bt'))) { ouvrirMenu(t); return; }
+    if ((t = ev.target.closest('[data-passerelle]'))) { passerelle = false; rendre(); return; }
+    if ((t = ev.target.closest('[data-recuperer]'))) { var ba = document.getElementById('bt-annuler'); if (ba) ba.click(); try { localStorage.removeItem('geno4-avant-connexion'); } catch (x) {} rendre(); return; }
   });
   document.addEventListener('geno-change', function () {
     /* arbre arrivé depuis ton espace pendant la 1re question : on montre l'arbre */
-    if (questionnaire && questionnaire.i === 0 && Object.keys(E().people).length) questionnaire = null;
+    if (questionnaire && questionnaire.i <= 0 && Object.keys(E().people).length) questionnaire = null;
     if (!document.body.classList.contains('mt-dessin') && !document.querySelector('.mt-fond')) rendre(); });
   rendre();
 })();
