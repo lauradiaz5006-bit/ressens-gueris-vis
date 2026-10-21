@@ -61,7 +61,7 @@
     var res = zone.querySelector('.vr-resultat');
     if (!t) { res.innerHTML = mien ? '<p class="vr-total">Merci pour ta réponse.</p>' : '<p class="vr-total">Réponds en un clic : c’est anonyme.</p>'; return; }
     var n = t.oui + t.plusieurs + t.ma_vie;
-    if (!n) { res.innerHTML = '<p class="vr-total">Sois la première personne à répondre. C’est anonyme.</p>'; return; }
+    if (n < 20) { res.innerHTML = '<p class="vr-total">' + (mien ? 'Merci pour ta réponse. Les résultats s’afficheront dès qu’il y aura assez de réponses.' : 'Réponds en un clic : c’est anonyme.') + '</p>'; return; }   /* pas de compteur tant qu'il y a moins de 20 réponses */
     res.innerHTML = '<p class="vr-total"><b>' + n + '</b> personne' + (n > 1 ? 's ont' : ' a') + ' répondu' + (mien ? ', avec toi' : '') + '.</p><div class="vr-barres">' +
       REPONSES.map(function (r) { var v = t[r[0] === 'ma-vie' ? 'ma_vie' : r[0]], p = Math.round(v / n * 100); return '<div class="vr-barre"><span>' + r[1] + '</span><i><b style="width:' + p + '%"></b></i><span>' + p + ' %</span></div>'; }).join('') + '</div>';
   }
