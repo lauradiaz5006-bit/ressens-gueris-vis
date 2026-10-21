@@ -1286,7 +1286,20 @@
     if (selId && !S.people[selId]) selId = null;
     dessiner(); majBarreActions(); enregistrer();
   }
-  function statut(t) { $('statut').innerHTML = t; }
+  function statut(t) {
+    $('statut').innerHTML = t;
+    var n = $('vide-note');   /* l'encart d'accueil dit la même chose que la barre */
+    if (n) n.innerHTML = utilisateur ? 'Ton arbre s’enregistre dans ton espace à chaque modification.' : 'Ton arbre reste dans ce navigateur. <a href="login.html?retour=genosociogramme.html">Connecte-toi</a> pour le retrouver sur un autre ordinateur.';
+  }
+  /* Menu « ••• » de la barre : imprimer, importer, sauvegardes, vider */
+  (function () {
+    var b = $('bt-plus'), m = $('menu-plus'); if (!b || !m) return;
+    function fermerPlus() { m.hidden = true; b.setAttribute('aria-expanded', 'false'); }
+    b.addEventListener('click', function (e) { e.stopPropagation(); var o = m.hidden; m.hidden = !o; b.setAttribute('aria-expanded', String(o)); if (o) { var f = m.querySelector('button'); if (f) f.focus(); } });
+    m.addEventListener('click', function () { setTimeout(fermerPlus, 0); });
+    document.addEventListener('click', function (e) { if (!m.hidden && !e.target.closest('.plus-menu')) fermerPlus(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !m.hidden) { fermerPlus(); b.focus(); } });
+  })();
   function textStatutRepos() {
     if (EXEMPLE) return '';
     if (utilisateur) return 'Enregistré dans ton espace';
