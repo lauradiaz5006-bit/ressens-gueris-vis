@@ -13,7 +13,7 @@
   <link rel="canonical" href="https://genesolia.fr/espace-praticien.html">
   <meta property="og:title" content="Espace praticien Genesolia · le génosociogramme de tes client·es en quelques minutes">
   <meta property="og:description" content="Un outil de travail pour les professionnel·les de l'accompagnement : arbre en ligne, pistes repérées automatiquement, dossiers client·es et rapport à ton logo.">
-  <meta property="og:image" content="https://genesolia.fr/assets/images/genosociogramme-1600.webp">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/praticien/mode-seance-1600.webp">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     .p-tete{position:relative;overflow:hidden;color:#FFF4F6;background:#2E1338}
@@ -101,64 +101,174 @@
       .a-liste,.p-tarif{padding:1.5rem}
       .p-tete .conteneur{padding:3rem 0}
     }
+    .p-tete{background:radial-gradient(120% 90% at 85% 20%,#6B2F5B 0%,#2E1338 60%)}
+    .p-tete::after{display:none}
+    .p-tete .conteneur.p-tete-grille{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr);gap:2.6rem;align-items:center;padding:4rem 0 4.2rem}
+    .p-tete .p-tete-texte{max-width:none}
+    .p-tete h1{font-size:clamp(2rem,3.6vw,3rem)}
+    .p-pour b{color:var(--champagne-clair);font-weight:600}
+    .p-ecran{margin:0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(46,19,56,.28),0 0 0 1px rgba(107,47,91,.12)}
+    .p-ecran img{display:block;width:100%;height:auto}
+    .p-ecran-barre{display:flex;align-items:center;gap:.4rem;padding:.55rem .8rem;background:#F6EEF1;border-bottom:1px solid var(--rose)}
+    .p-ecran-barre i{width:.6rem;height:.6rem;border-radius:50%;background:var(--rose-fonce)}
+    .p-ecran-barre span{margin-left:.6rem;font-size:.75rem;color:var(--prune-doux)}
+    .p-ecran-tete{transform:rotate(-1deg)}
+    .p-ecran-papier{max-width:26rem;margin-inline:auto;border-radius:14px;background:#4A1F4C}
+    .p-ligne{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:3rem;align-items:center;margin-top:4rem}
+    .p-ligne:first-of-type{margin-top:0}
+    .p-ligne-inverse{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+    .p-ligne-inverse .p-ecran{order:2}
+    .p-ligne-texte h3{font:400 clamp(1.5rem,2.6vw,2rem)/1.2 var(--display);color:var(--prune);margin:.2rem 0 .9rem}
+    .p-ligne-texte p:not(.a-etiq){color:var(--prune-doux);line-height:1.65;margin:0 0 .8rem}
+    .p-tels{display:flex;gap:1.2rem;justify-content:center;align-items:flex-start}
+    .p-tel{margin:0;width:min(15rem,46%);border-radius:28px;overflow:hidden;border:6px solid #2E1338;box-shadow:0 24px 50px rgba(46,19,56,.25);background:#fff}
+    .p-tel img{display:block;width:100%;height:auto}
+    .p-tel-decale{margin-top:2.5rem}
+    .p-compare-zone{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:18px;border:1px solid var(--rose);background:var(--blanc)}
+    .p-compare{width:100%;min-width:40rem;border-collapse:collapse;font-size:.92rem}
+    .p-compare th,.p-compare td{padding:.85rem 1rem;text-align:left;border-bottom:1px solid var(--rose);color:var(--prune-doux);vertical-align:top}
+    .p-compare thead th{font:600 .8rem var(--texte);letter-spacing:.04em;color:var(--prune);background:#FBF3F5}
+    .p-compare tbody th{font-weight:600;color:var(--prune);width:30%}
+    .p-compare .p-nous{background:#FFF6EC;color:var(--prune);font-weight:600}
+    .p-compare thead .p-nous{background:var(--prune);color:#fff}
+    .p-compare tr:last-child th,.p-compare tr:last-child td{border-bottom:0}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .p-annuaire{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#F7E6EE}
+    .p-annuaire h2{color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);margin:.2rem 0 .8rem}
+    .p-annuaire p{color:#F7E6EE;max-width:44rem;line-height:1.6}
+    .p-annuaire b{color:var(--champagne-clair)}
+    .p-annuaire .a-etiq{color:var(--champagne)}
+    .p-annuaire-plus{font-size:.9rem;opacity:.85;margin-top:.6rem}
+    .p-annuaire .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .p-ecole{max-width:44rem;margin:0 auto;text-align:center}
+    .p-ecole h2{font-size:clamp(1.5rem,2.8vw,2rem);margin-bottom:.7rem}
+    .p-ecole p{color:var(--prune-doux);margin:0 auto 1.2rem}
+    @media (max-width:960px){.p-tete .conteneur.p-tete-grille{grid-template-columns:1fr;padding:3rem 0}.p-ecran-tete{transform:none}.p-ligne,.p-ligne-inverse{grid-template-columns:1fr;gap:1.6rem}.p-ligne-inverse .p-ecran{order:0}.p-annuaire{grid-template-columns:1fr;padding:1.8rem}}
+    @media (max-width:560px){.p-tete .conteneur.p-tete-grille{padding:2.4rem 0}.p-tel{border-width:4px;border-radius:22px}.p-tel-decale{margin-top:1.6rem}.p-annuaire .btn{width:100%;justify-content:center;box-sizing:border-box}}
   </style>
-  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Espace praticien", "item": "https://genesolia.fr/espace-praticien.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Genesolia est-il un outil thérapeutique ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec ton·ta client·e, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien."}}, {"@type": "Question", "name": "Mon·ma client·e voit-il ou elle mes notes ?", "acceptedAnswer": {"@type": "Answer", "text": "Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si ton·ta client·e te demande ce que tu as noté, tu peux exporter tes notes en PDF."}}, {"@type": "Question", "name": "Comment mon·ma client·e garde-t-il ou elle son arbre ?", "acceptedAnswer": {"@type": "Answer", "text": "Quand le travail est terminé, tu coches « Travail terminé » dans son dossier et tu lui envoies un lien de partage. Il ou elle peut alors télécharger l’arbre en image ou en PDF, ou le garder dans son propre espace Genesolia, gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste chez lui ou chez elle."}}, {"@type": "Question", "name": "Combien coûte l’Espace praticien ?", "acceptedAnswer": {"@type": "Answer", "text": "24 € par mois sans engagement, ou 240 € l’année, avec 30 jours d’essai sans carte. Les personnes inscrites sur la liste fondateur ont le tarif fondateur : 19 € par mois, garanti tant que l’abonnement continue."}}, {"@type": "Question", "name": "Que se passe-t-il à la fin de l’essai ?", "acceptedAnswer": {"@type": "Answer", "text": "Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement."}}, {"@type": "Question", "name": "Où sont hébergées les données de mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "En Europe (Irlande). Les notes de séance sont chiffrées, et un dossier se supprime en un clic à la demande de ton·ta client·e."}}]}]</script>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Espace praticien", "item": "https://genesolia.fr/espace-praticien.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Genesolia est-il un outil thérapeutique ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec tes client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien."}}, {"@type": "Question", "name": "Comment fonctionne le tarif fondateur ?", "acceptedAnswer": {"@type": "Answer", "text": "Si tu ouvres ton cabinet avant le 1er janvier 2027, tu paieras 19 € par mois au lieu de 24 € quand tu passeras à l’abonnement, et ce prix reste le tien tant que ton abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture du cabinet suffit."}}, {"@type": "Question", "name": "Mes client·es voient-ils mes notes ?", "acceptedAnswer": {"@type": "Answer", "text": "Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si une cliente te demande ce que tu as noté sur elle, tu peux exporter tes notes en PDF."}}, {"@type": "Question", "name": "Comment mes client·es gardent-ils leur arbre ?", "acceptedAnswer": {"@type": "Answer", "text": "Quand le travail est terminé, tu coches « Travail terminé » dans le dossier et tu envoies le lien de partage. Ta cliente peut alors télécharger son arbre en image ou en PDF, ou le garder dans son propre espace Genesolia, gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste chez elle."}}, {"@type": "Question", "name": "Mes client·es doivent-ils créer un compte ?", "acceptedAnswer": {"@type": "Answer", "text": "Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin."}}, {"@type": "Question", "name": "Que se passe-t-il à la fin de l’essai ?", "acceptedAnswer": {"@type": "Answer", "text": "Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement."}}, {"@type": "Question", "name": "Où sont hébergées les données de mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de ta cliente."}}]}]</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
   <main>
     <section class="p-tete">
-      <img class="p-tete-fond" src="assets/images/genosociogramme-1600.webp" srcset="assets/images/genosociogramme-800.webp 800w, assets/images/genosociogramme-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" fetchpriority="high">
-      <div class="conteneur"><div class="p-tete-texte">
-        <p class="p-sur">Espace praticien · ouvert</p>
-        <h1>Le génosociogramme de tes client·es, prêt en quelques minutes</h1>
-        <p class="intro">Un cabinet en ligne pour les professionnel·les de l’accompagnement : un dossier par client·e, l’arbre dessiné en séance, les répétitions qui ressortent toutes seules, tes notes privées, et l’arbre remis à ton·ta client·e quand le travail est terminé.</p>
-        <div class="p-actions">
-          <a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet · 30 jours d’essai</a>
-          <a class="btn btn-trait" href="#etapes">Voir comment ça marche</a>
+      <div class="conteneur p-tete-grille">
+        <div class="p-tete-texte">
+          <p class="p-sur">Espace praticien · tarif fondateur jusqu’au 31 décembre</p>
+          <h1>Le génosociogramme de tes client·es, prêt en quelques minutes</h1>
+          <p class="intro">Un cabinet en ligne pour les professionnel·les de l’accompagnement : un dossier par client·e, l’arbre en plein écran pendant la séance, les répétitions qui ressortent toutes seules, et l’arbre remis à la fin du travail.</p>
+          <div class="p-actions">
+            <a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet · 30 jours d’essai</a>
+            <a class="btn btn-trait" href="#outil">Voir l’outil</a>
+          </div>
+          <p class="p-pour">Sans carte bancaire. Cabinet ouvert avant le 1er janvier 2027 : <b>19 € par mois au lieu de 24 €</b>, garanti tant que ton abonnement continue.</p>
         </div>
-        <p class="p-pour">Sans carte bancaire pendant l’essai. Pour les psychogénéalogistes, thérapeutes, coachs, sophrologues, hypnothérapeutes et toutes les personnes qui accompagnent.</p>
-      </div></div>
+        <figure class="p-ecran p-ecran-tete"><div class="p-ecran-barre" aria-hidden="true"><i></i><i></i><i></i><span>Mode séance</span></div><img class="" src="assets/images/praticien/mode-seance-1600.webp" srcset="assets/images/praticien/mode-seance-800.webp 800w, assets/images/praticien/mode-seance-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 55vw" width="1600" height="1000" alt="Le mode séance : l’arbre familial en plein écran, sur quatre générations, avec ses symboles et ses répétitions" fetchpriority="high"></figure>
+      </div>
     </section>
 
-    <section class="bloc" id="etapes">
+    <section class="bloc" id="outil">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">L’outil, tel qu’il est</p>
+          <h2>Ce que tu verras en ouvrant ton cabinet</h2>
+          <p>Ces images viennent de l’outil, avec une famille fictive.</p>
+        </div>
+        <div class="p-ligne">
+          <figure class="p-ecran"><img class="" src="assets/images/praticien/repetitions-1600.webp" srcset="assets/images/praticien/repetitions-800.webp 800w, assets/images/praticien/repetitions-1600.webp 1600w" sizes="(max-width: 760px) 100vw, 50vw" width="1600" height="923" alt="Le panneau « Ce qui se répète » à côté de l’arbre : syndrome anniversaire, prénoms, deuils, avec les questions à explorer" loading="lazy"></figure>
+          <div class="p-ligne-texte">
+            <p class="a-etiq">Ce qui se répète</p>
+            <h3>Les répétitions ressortent pendant la saisie</h3>
+            <p>Dates anniversaires, âges, prénoms qui reviennent, places dans la fratrie, deuils, métiers : plus de 25 pistes sont repérées automatiquement. Chacune est reliée aux personnes concernées dans l’arbre, avec des questions pour en parler en séance.</p>
+            <p>Tu gagnes le temps du repérage, et tu gardes le tien pour l’écoute.</p>
+          </div>
+        </div>
+        <div class="p-ligne p-ligne-inverse">
+          <figure class="p-ecran p-ecran-papier"><img class="" src="assets/images/praticien/rapport-900.webp" srcset="assets/images/praticien/rapport-450.webp 450w, assets/images/praticien/rapport-900.webp 900w" sizes="(max-width: 760px) 100vw, 40vw" width="900" height="1091" alt="La couverture du rapport PDF « Préparé par » le nom du cabinet, avec le nombre de personnes, de générations et de répétitions" loading="lazy"></figure>
+          <div class="p-ligne-texte">
+            <p class="a-etiq">Le rapport</p>
+            <h3>Un rapport PDF au nom de ton cabinet</h3>
+            <p>L’arbre, les chiffres clés, chaque répétition expliquée avec ses pistes de réflexion, la lignée en nombres et en étoiles si ta pratique les utilise. La couverture porte le nom de ton cabinet.</p>
+            <p>Tu peux y ajouter tes notes de séance en annexe, si tu le choisis.</p>
+          </div>
+        </div>
+        <div class="p-ligne">
+          <div class="p-tels">
+            <figure class="p-tel"><img class="" src="assets/images/praticien/telephone-640.webp" srcset="assets/images/praticien/telephone-320.webp 320w, assets/images/praticien/telephone-640.webp 640w" sizes="(max-width: 760px) 45vw, 18rem" width="640" height="1275" alt="Sur téléphone, le dossier d’une cliente : la personne au centre, ses parents, son couple, ses frères et sœurs" loading="lazy"></figure>
+            <figure class="p-tel p-tel-decale"><img class="" src="assets/images/praticien/partage-640.webp" srcset="assets/images/praticien/partage-320.webp 320w, assets/images/praticien/partage-640.webp 640w" sizes="(max-width: 760px) 45vw, 18rem" width="640" height="1385" alt="Le lien de partage reçu par la cliente, avec les boutons « Garder mon arbre dans mon espace » et « Télécharger mon arbre »" loading="lazy"></figure>
+          </div>
+          <div class="p-ligne-texte">
+            <p class="a-etiq">Sur téléphone, et pour tes client·es</p>
+            <h3>L’arbre suit tes client·es, et finit chez eux</h3>
+            <p>Sur téléphone, l’arbre se lit d’un coup d’œil : la personne au centre, sa famille autour, une case à toucher pour ajouter quelqu’un.</p>
+            <p>Entre deux séances, tes client·es regardent leur arbre par un lien. Quand le travail est terminé, ils le téléchargent ou le gardent dans leur espace Genesolia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="etapes">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Comment ça marche</p>
           <h2>Du premier rendez-vous à l’arbre remis</h2>
         </div>
         <ol class="p-etapes">
-          <li><span class="p-num">1</span><b>Ouvre ton cabinet</b>Ton nom de cabinet, et c’est parti : 30 jours pour l’utiliser avec tes vrai·es client·es.</li>
-          <li><span class="p-num">2</span><b>Crée un dossier par client·e</b>Son prénom ou ses initiales suffisent. Tu dessines l’arbre en séance, ou tu importes son fichier Geneanet ou GEDCOM.</li>
+          <li><span class="p-num">1</span><b>Ouvre ton cabinet</b>Ton nom de cabinet, et c’est parti : 30 jours pour l’utiliser avec tes vrai·es client·es. Un dossier exemple t’attend pour tout essayer.</li>
+          <li><span class="p-num">2</span><b>Crée un dossier par client·e</b>Un prénom ou des initiales suffisent. Tu dessines l’arbre en séance, ou tu importes un fichier Geneanet ou GEDCOM.</li>
           <li><span class="p-num">3</span><b>Travaille l’arbre ensemble</b>Le mode séance affiche l’arbre en plein écran. Les répétitions ressortent, et tu notes ce que tu observes, séance après séance.</li>
-          <li><span class="p-num">4</span><b>Partage, puis remets l’arbre</b>Un lien en lecture pendant le suivi. Quand le travail est terminé, tu coches une case : ton·ta client·e télécharge son arbre ou le garde dans son propre espace.</li>
+          <li><span class="p-num">4</span><b>Partage, puis remets l’arbre</b>Un lien en lecture pendant le suivi. Quand le travail est terminé, tu coches une case : tes client·es repartent avec leur arbre.</li>
         </ol>
         <div class="p-partage">
           <h3>Le lien de partage, en deux temps</h3>
-          <p class="p-partage-intro">Tu crées un lien depuis le dossier et tu l’envoies à ton·ta client·e. C’est toi qui décides de ce qu’il ou elle peut en faire.</p>
+          <p class="p-partage-intro">Tu crées un lien depuis le dossier et tu l’envoies. C’est toi qui décides de ce que tes client·es peuvent en faire.</p>
           <div class="p-temps">
             <div class="p-temps-carte">
               <p class="p-temps-etiq">Pendant le suivi</p>
-              <p class="p-temps-titre">Ton·ta client·e regarde son arbre</p>
+              <p class="p-temps-titre">Tes client·es regardent leur arbre</p>
               <ul>
-                <li>Le lien ouvre son arbre <b>en lecture seule</b> : il ou elle le voit, le parcourt, le montre à sa famille.</li>
+                <li>Le lien ouvre l’arbre <b>en lecture seule</b> : on le voit, on le parcourt, on le montre à sa famille.</li>
                 <li>Pas de téléchargement, pas de copie : l’arbre reste dans ton cabinet.</li>
                 <li>Tu continues à le compléter en séance : le lien montre toujours la dernière version.</li>
               </ul>
             </div>
             <div class="p-temps-carte p-temps-fin">
               <p class="p-temps-etiq">Travail terminé</p>
-              <p class="p-temps-titre">Ton·ta client·e repart avec son arbre</p>
+              <p class="p-temps-titre">Tes client·es repartent avec leur arbre</p>
               <ul>
-                <li>Dans son dossier, tu coches <b>« Travail terminé »</b>.</li>
-                <li>Sur le lien, deux boutons apparaissent : <b>télécharger</b> son arbre (image ou PDF) et <b>le garder dans son espace</b> Genesolia, gratuit.</li>
-                <li>L’arbre gardé lui appartient : il ou elle peut le compléter seul·e, sans passer par toi.</li>
+                <li>Dans le dossier, tu coches <b>« Travail terminé »</b>.</li>
+                <li>Sur le lien, deux boutons apparaissent : <b>télécharger</b> l’arbre (image ou PDF) et <b>le garder dans son espace</b> Genesolia, gratuit.</li>
+                <li>L’arbre gardé leur appartient : ils peuvent le compléter seuls, sans passer par toi.</li>
               </ul>
             </div>
           </div>
-          <p class="p-partage-note"><b>Dans les deux cas, tes notes de séance ne sont jamais visibles ni copiées.</b> Le lien expire au bout de 14 jours : si besoin, tu en crées un nouveau en un clic. Tu peux décocher « Travail terminé » à tout moment, et ce que ton·ta client·e a déjà gardé reste chez lui ou chez elle.</p>
+          <p class="p-partage-note"><b>Dans les deux cas, tes notes de séance ne sont jamais visibles ni copiées.</b> Un lien reste valable 14 jours et se renouvelle en un clic depuis le dossier. Tu peux décocher « Travail terminé » à tout moment : ce qui a déjà été gardé reste chez tes client·es.</p>
         </div>
         <p class="p-cta"><a class="btn btn-plein" href="praticien.html">Commencer mes 30 jours d’essai</a></p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Pourquoi pas autre chose ?</p>
+          <h2>Ce que les autres façons de faire ne font pas</h2>
+        </div>
+        <div class="p-compare-zone">
+          <table class="p-compare">
+            <thead><tr><th scope="col"><span class="sr">Ce dont tu as besoin</span></th><th scope="col">Papier et crayon</th><th scope="col">Logiciel de dessin</th><th scope="col">Logiciel de généalogie</th><th scope="col" class="p-nous">Genesolia</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Dessiner le génosociogramme</th><td>Long</td><td>À la main</td><td>Arbre classique</td><td class="p-nous">Oui, symboles compris</td></tr>
+              <tr><th scope="row">Repérer les répétitions (dates, âges, prénoms, fratrie)</th><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">Automatique</td></tr>
+              <tr><th scope="row">Questions à explorer en séance</th><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">Pour chaque piste</td></tr>
+              <tr><th scope="row">Un dossier rangé par client·e</th><td>Classeur</td><td>Fichiers</td><td>En partie</td><td class="p-nous">Oui, illimité</td></tr>
+              <tr><th scope="row">Notes de séance privées</th><td>Carnet</td><td>Non</td><td>Non</td><td class="p-nous">Chiffrées</td></tr>
+              <tr><th scope="row">Rapport au nom de ton cabinet</th><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">En PDF</td></tr>
+              <tr><th scope="row">Remettre l’arbre à tes client·es</th><td>Une photocopie</td><td>Une image</td><td>Non</td><td class="p-nous">Lien, PDF, ou leur propre espace</td></tr>
+              <tr><th scope="row">En français, pensé pour la psychogénéalogie</th><td>Oui</td><td>Non</td><td>Non</td><td class="p-nous">Oui</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -170,20 +280,33 @@
         </div>
         <ul class="p-grille">
           <li><span class="p-statut p-dispo">Inclus</span><b>Dossiers client·es illimités</b>Un arbre par client·e, rangé à part de tes arbres personnels, retrouvé en un clic.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Notes de séance chiffrées</b>Tes observations par séance, chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Exportables en PDF au nom de ton cabinet.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Notes de séance chiffrées</b>Tes observations par séance, chiffrées avant d’être enregistrées, exportables en PDF au nom de ton cabinet.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Mode séance</b>L’arbre en plein écran, sans menus, pour le regarder à deux.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de partage en lecture</b>Ton·ta client·e voit son arbre entre deux séances, sans tes notes. Le lien expire au bout de 14 jours.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>L’arbre remis à ton·ta client·e</b>Quand tu le décides, il ou elle télécharge son arbre (image ou PDF) ou le garde dans son espace Genesolia gratuit. Tes notes restent à toi.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de partage</b>Tes client·es voient leur arbre entre deux séances, sans tes notes. Il se renouvelle en un clic.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>L’arbre remis à la fin</b>Quand tu le décides, tes client·es le téléchargent ou le gardent dans leur espace gratuit. Tes notes restent à toi.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Rapport au nom de ton cabinet</b>Le rapport de l’arbre en PDF, « préparé par » ton cabinet, avec tes notes en annexe si tu le choisis.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Plus de 25 pistes repérées</b>Âges, dates, prénoms, places dans la fratrie, deuils : les répétitions sont repérées automatiquement, avec des questions guidées.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Ce que je repère</b>Tes propres mots posés sur les personnes, en couleur. Quand un mot revient d’une génération à l’autre, l’arbre le montre.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Import Geneanet et GEDCOM</b>Ton·ta client·e a déjà fait des recherches ? Importe son fichier au lieu de tout ressaisir. Numérologie et astrologie reliées à l’arbre, si ta pratique les utilise.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Plus de 25 pistes repérées</b>Âges, dates, prénoms, places dans la fratrie, deuils : repérés automatiquement, avec des questions guidées.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Tes propres repères, en couleur</b>Pose tes mots sur les personnes (« s’efface », « porte la famille »…). Quand un mot revient d’une génération à l’autre, l’arbre le montre.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Import Geneanet et GEDCOM</b>Pas besoin de tout ressaisir. Numérologie et astrologie reliées à l’arbre, si ta pratique les utilise.</li>
         </ul>
-        <p class="p-bientot-t">Bientôt : ta fiche dans l’annuaire des praticien·nes, ton logo et tes couleurs sur le rapport, un avantage sur Le Cercle pour tes client·es.</p>
       </div>
     </section>
 
-    <section class="bloc" id="tarif">
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="p-annuaire">
+          <div>
+            <p class="a-etiq">Bientôt</p>
+            <h2>L’annuaire des praticien·nes Genesolia</h2>
+            <p>Des particuliers dessinent leur arbre sur Genesolia, puis cherchent quelqu’un pour les accompagner. L’annuaire leur présentera les cabinets abonnés, près de chez eux ou en visio. <b>Les cabinets ouverts avant le 1er janvier 2027 y seront présentés en premier.</b></p>
+            <p class="p-annuaire-plus">Arrivent aussi : ton logo et tes couleurs sur le rapport, et un avantage sur Le Cercle à offrir à tes client·es.</p>
+          </div>
+          <a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="tarif">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Tarif</p>
@@ -194,8 +317,8 @@
           <div>
             <ul>
               <li><b>30 jours d’essai</b>, sans carte, avec tes vrai·es client·es</li>
-              <li><b>Tarif fondateur : 19 € par mois</b>, réservé aux personnes inscrites sur la liste fondateur, garanti tant que ton abonnement continue</li>
-              <li><b>Autant de dossiers que tu veux</b>, avec leurs rapports et leurs exports <b>au nom de ton cabinet</b></li>
+              <li><b>Tarif fondateur : 19 € par mois</b> si tu ouvres ton cabinet avant le 1er janvier 2027, garanti tant que ton abonnement continue</li>
+              <li><b>Autant de dossiers que tu veux</b>, avec leurs rapports et leurs exports au nom de ton cabinet</li>
               <li>Après l’essai sans abonnement, tes dossiers restent consultables</li>
             </ul>
             <a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet</a>
@@ -205,7 +328,7 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+    <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Confidentialité</p>
@@ -214,123 +337,39 @@
         </div>
         <ul class="p-confi">
           <li><b>Hébergement en Europe</b> : les données sont stockées sur des serveurs situés en Irlande.</li>
-          <li><b>Notes chiffrées</b> : tes notes de séance sont chiffrées dans ton espace. Elles ne sont jamais montrées dans le lien de partage, ni copiées dans l’espace de ton·ta client·e.</li>
+          <li><b>Notes chiffrées</b> : tes notes de séance sont chiffrées avant d’être enregistrées. Elles ne sont jamais montrées dans le lien de partage, ni copiées dans l’espace de tes client·es.</li>
           <li><b>L’arbre remis seulement si tu le décides</b> : tant que tu n’as pas coché « Travail terminé », le lien reste en lecture seule.</li>
           <li><b>Pas de données de santé</b> : l’Espace praticien est un outil de psychogénéalogie et d’accompagnement. Il n’est pas fait pour noter des informations médicales.</li>
-          <li><b>Suppression à la demande</b> : un dossier et ses notes se suppriment en un clic, dès que ton·ta client·e le demande.</li>
-          <li><b>Contrat de sous-traitance RGPD</b> : en préparation, il te sera fourni.</li>
+          <li><b>Suppression à la demande</b> : un dossier et ses notes se suppriment en un clic, dès que ta cliente le demande.</li>
         </ul>
       </div>
     </section>
 
-    <section class="bloc" id="liste">
+    <section class="bloc bloc-doux">
       <div class="conteneur">
-        <div class="a-liste">
-          <h2>Le tarif fondateur : 19 € par mois</h2>
-          <p>Inscris-toi pour garder le tarif fondateur quand tu passeras à l’abonnement. Gratuit et sans engagement. Quelques questions sur ta pratique nous aident à préparer ce qui compte pour toi.</p>
-          <form id="p-form" novalidate>
-            <div class="a-champs">
-              <label>Prénom<input type="text" name="prenom" autocomplete="given-name"></label>
-              <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
-            </div>
-            <div class="a-champs">
-              <label>Ta pratique
-                <select name="metier">
-                  <option value="">Choisis…</option>
-                  <option>Psychogénéalogiste</option>
-                  <option>Thérapeute</option>
-                  <option>Psychologue</option>
-                  <option>Coach</option>
-                  <option>Sophrologue</option>
-                  <option>Hypnothérapeute</option>
-                  <option>Constellations familiales</option>
-                  <option>Astrologue ou numérologue</option>
-                  <option value="Autre">Autre</option>
-                </select>
-              </label>
-              <label>Ta ville<input type="text" name="ville" autocomplete="address-level2"></label>
-            </div>
-            <label class="p-autre" hidden style="margin-bottom:.9rem">Précise ta pratique<input type="text" name="metier_autre"></label>
-            <div class="a-champs">
-              <label>Client·es par mois
-                <select name="clients">
-                  <option value="">Choisis…</option>
-                  <option>Moins de 5</option>
-                  <option>5 à 15</option>
-                  <option>16 à 30</option>
-                  <option>Plus de 30</option>
-                </select>
-              </label>
-            </div>
-            <fieldset class="a-choix">
-              <legend>Ce qui compte le plus pour toi</legend>
-              <label><input type="checkbox" name="priorite" value="Dossiers multiples"> Plusieurs dossiers client·es</label>
-              <label><input type="checkbox" name="priorite" value="Rapport à mon logo"> Le rapport à mon logo</label>
-              <label><input type="checkbox" name="priorite" value="Annuaire"> La fiche dans l'annuaire</label>
-              <label><input type="checkbox" name="priorite" value="Partage client"> Le partage avec mon·ma client·e</label>
-              <label><input type="checkbox" name="priorite" value="Notation pro complète"> La notation professionnelle complète</label>
-              <label><input type="checkbox" name="priorite" value="Export GEDCOM"> L'export GEDCOM</label>
-            </fieldset>
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
-            <label class="a-accord"><input type="checkbox" name="accord" required><span>J'accepte que Genesolia conserve ces informations pour me réserver le tarif fondateur de l'Espace praticien. Je peux demander leur suppression à tout moment. <a href="confidentialite.html">Mes données</a></span></label>
-            <button class="btn btn-plein" type="submit">Garder le tarif fondateur</button>
-            <p class="a-erreur" role="alert"></p>
-          </form>
+        <div class="p-ecole">
+          <h2>Tu animes une formation en psychogénéalogie ?</h2>
+          <p>Tes élèves travaillent sur leur propre génosociogramme : Genesolia leur fait gagner le dessin et le repérage. Écris-nous pour un accès dédié à ta promotion.</p>
+          <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Genesolia%20pour%20une%20formation">Écrire à Genesolia</a>
         </div>
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+    <section class="bloc">
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
-        <details><summary>Genesolia est-il un outil thérapeutique ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec ton·ta client·e, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien.</p></details>
-        <details><summary>Mon·ma client·e voit-il ou elle mes notes ?</summary><p>Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si ton·ta client·e te demande ce que tu as noté, tu peux exporter tes notes en PDF.</p></details>
-        <details><summary>Comment mon·ma client·e garde-t-il ou elle son arbre ?</summary><p>Quand le travail est terminé, tu coches « Travail terminé » dans son dossier et tu lui envoies un lien de partage. Il ou elle peut alors télécharger l’arbre en image ou en PDF, ou le garder dans son propre espace Genesolia, gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste chez lui ou chez elle.</p></details>
-        <details><summary>Combien coûte l’Espace praticien ?</summary><p>24 € par mois sans engagement, ou 240 € l’année, avec 30 jours d’essai sans carte. Les personnes inscrites sur la liste fondateur ont le tarif fondateur : 19 € par mois, garanti tant que l’abonnement continue.</p></details>
+        <details><summary>Genesolia est-il un outil thérapeutique ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec tes client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien.</p></details>
+        <details><summary>Comment fonctionne le tarif fondateur ?</summary><p>Si tu ouvres ton cabinet avant le 1er janvier 2027, tu paieras 19 € par mois au lieu de 24 € quand tu passeras à l’abonnement, et ce prix reste le tien tant que ton abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture du cabinet suffit.</p></details>
+        <details><summary>Mes client·es voient-ils mes notes ?</summary><p>Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si une cliente te demande ce que tu as noté sur elle, tu peux exporter tes notes en PDF.</p></details>
+        <details><summary>Comment mes client·es gardent-ils leur arbre ?</summary><p>Quand le travail est terminé, tu coches « Travail terminé » dans le dossier et tu envoies le lien de partage. Ta cliente peut alors télécharger son arbre en image ou en PDF, ou le garder dans son propre espace Genesolia, gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste chez elle.</p></details>
+        <details><summary>Mes client·es doivent-ils créer un compte ?</summary><p>Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin.</p></details>
         <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement.</p></details>
-        <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). Les notes de séance sont chiffrées, et un dossier se supprime en un clic à la demande de ton·ta client·e.</p></details>
+        <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de ta cliente.</p></details>
         <p class="p-cta" style="margin-top:1.6rem"><a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet · 30 jours d’essai</a></p>
       </div>
     </section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script>
-  (function () {
-    var form = document.getElementById('p-form');
-    var autre = form.querySelector('.p-autre');
-    form.metier.addEventListener('change', function () { autre.hidden = form.metier.value !== 'Autre'; });
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var err = form.querySelector('.a-erreur'), btn = form.querySelector('button');
-      var email = form.email.value.trim(), prenom = form.prenom.value.trim();
-      if (form._gotcha.value) return;
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Vérifie ton adresse e-mail.'; return; }
-      if (!form.accord.checked) { err.textContent = 'Coche la case d\'accord pour rejoindre la liste.'; return; }
-      err.textContent = ''; btn.disabled = true; btn.textContent = 'Envoi en cours…';
-      var metier = form.metier.value === 'Autre' ? 'Autre : ' + (form.metier_autre.value.trim() || 'non précisé') : (form.metier.value || 'non précisé');
-      var choix = [].slice.call(form.querySelectorAll('input[name=priorite]:checked')).map(function (c) { return c.value; });
-      var data = new FormData();
-      data.append('prenom', prenom); data.append('email', email);
-      data.append('metier', metier);
-      data.append('ville', form.ville.value.trim() || 'non précisé');
-      data.append('clients_par_mois', form.clients.value || 'non précisé');
-      data.append('priorites', choix.join(', ') || 'non précisé');
-      data.append('liste', 'Espace praticien');
-      data.append('source', 'espace-praticien.html');
-      data.append('_subject', 'Liste d\'attente : Espace praticien');
-      window.GenesoliaEnvoyer('Espace praticien', data)
-        .then(function () {
-          form.outerHTML = '<p class="a-merci">' + (prenom ? 'Merci ' + prenom.replace(/[<>&"]/g, '') + ' !' : 'Merci !') + ' Ton tarif fondateur est réservé : 19 € par mois quand tu passeras à l\'abonnement.</p>' +
-            '<p style="margin-top:.6rem">Tu peux ouvrir ton cabinet dès maintenant : <a href="praticien.html">commencer mes 30 jours d\'essai</a>.</p>';
-          if (window.umami) try { window.umami.track('liste-praticien'); } catch (x) {}
-        })
-        .catch(function () {
-          btn.disabled = false; btn.textContent = 'Garder le tarif fondateur';
-          err.textContent = 'L\'envoi n\'a pas fonctionné. Réessaie dans un instant.';
-        });
-    });
-  })();
-  </script>
 </body>
 </html>
