@@ -6,7 +6,7 @@
 
    Les champs :
      id        : un mot unique, en minuscules, avec des tirets (il sert aussi au vote et au lien direct ta-vie-en-reel.html#id)
-     semaine   : le lundi où elle devient « la situation de la semaine », au format 'AAAA-MM-JJ'
+     semaine   : le lundi où elle devient « la situation de la semaine », au format 'AAAA-MM-JJ' (sans semaine : elle va tout de suite dans la bibliothèque)
      themes    : un ou plusieurs parmi 'amour', 'parents', 'argent', 'travail', 'amitie', 'enfants', 'place'
      titre     : la phrase qu'on se dit, telle qu'on la pense
      sms       : l'échange type SMS : [['moi', '…'], ['autre', '…'], …]  ('moi' à droite, 'autre' à gauche)
@@ -20,6 +20,54 @@
    Règles d'écriture : tutoiement, point médian, pas d'emoji, pas de flèche, aucun mot de santé (guérison, thérapie, soin, trauma…). */
 (function () {
   var NOUVELLES = [
+    {
+      id: 'charge-mentale', themes: ['place', 'enfants'],
+      titre: 'Je pense à tout, pour tout le monde, tout le temps',
+      sms: [['autre', 'Tu sais où sont les clés de la voiture ?'], ['moi', 'Dans le tiroir. Et n’oublie pas, rendez-vous chez le dentiste pour la petite jeudi.'], ['moi', '(et le cadeau d’anniversaire, et la réunion, et les courses…)']],
+      joue: 'Tu tiens la liste invisible de toute la maison : les dates, les rendez-vous, ce qui manque dans le frigo. Même quand tu ne fais rien, ta tête travaille. Ce n’est pas un défaut d’organisation : c’est un rôle que tu as pris, souvent sans l’avoir choisi, parce que si tu lâches, tu as peur que tout s’écroule.',
+      lignee: 'Qui portait la maison dans ta famille ? Une mère qui pensait à tout pendant que les autres « aidaient » ? Une grand-mère qui ne s’asseyait jamais à table ? Ce rôle de celle qui tient tout passe très souvent de mère en fille.',
+      geste: 'Écris tout ce que tu as en tête pour la semaine, sans trier. Puis entoure trois choses que quelqu’un d’autre peut prendre entièrement, de A à Z, sans que tu vérifies.',
+      mots: 'J’ai besoin qu’on se répartisse vraiment les choses. Pas que tu m’aides : que tu prennes en charge, du début à la fin. Tu choisis lesquelles ?',
+      famille: 'Maman, est-ce que tu avais l’impression de devoir penser à tout pour toute la famille ? Comment tu tenais ?',
+      question: 'Dans ta lignée, quelle femme a porté la maison seule, et qu’aurait-elle aimé qu’on prenne pour elle ?',
+      pratique: ''
+    },
+    {
+      id: 'parents-qui-vieillissent', themes: ['parents'],
+      titre: 'Mes parents vieillissent, et je deviens le parent de mes parents',
+      sms: [['autre', 'Tu pourras m’emmener à la banque mardi ? Je ne comprends plus rien à leurs papiers.'], ['moi', 'Oui maman, je m’arrangerai.'], ['moi', '(je ne sais pas comment je vais tout faire)']],
+      joue: 'Les rôles s’inversent doucement. Tu t’inquiètes pour eux, tu organises, tu prends des décisions à leur place, et en même temps tu as encore envie qu’ils soient tes parents. C’est un passage difficile : on fait le deuil d’une image tout en restant présent·e.',
+      lignee: 'Comment tes parents se sont-ils occupés de leurs propres parents ? Qui, dans la famille, s’est retrouvé·e à tout porter : la fille aînée, celle qui habitait le plus près, celle qui n’avait « pas d’enfants » ? Les familles reproduisent souvent la même répartition, sans en parler.',
+      geste: 'Fais la liste de ce que tu fais pour tes parents. À côté, écris qui d’autre pourrait en prendre une part : frère, sœur, voisin, service. Choisis une seule chose à partager cette semaine.',
+      mots: 'Je veux être là pour papa et maman, et je ne peux pas tout porter seule. On peut s’organiser à plusieurs ?',
+      famille: 'Papa, quand tes parents ont vieilli, qui s’est occupé d’eux ? Comment ça s’est réparti entre vous ?',
+      question: 'Dans ta famille, qui s’est toujours occupé·e des parents âgés, et qui n’a jamais eu à le faire ?',
+      pratique: ''
+    },
+    {
+      id: 'separation-recommencer', themes: ['amour'],
+      titre: 'On s’est séparés, et je me demande ce que j’ai raté',
+      sms: [['autre', 'Comment tu vas depuis la séparation ?'], ['moi', 'Ça va. Enfin, je crois.'], ['moi', 'Je n’arrête pas de me demander à quel moment ça a basculé.']],
+      joue: 'Après une séparation, on refait le film en boucle : ce qu’on aurait dû dire, faire, voir. Ce n’est pas forcément de la faiblesse : c’est le besoin de comprendre pour ne pas revivre la même chose. Mais tant que la question est « qu’est-ce qui ne va pas chez moi ? », elle tourne en rond.',
+      lignee: 'Comment se terminaient les histoires d’amour dans ta famille ? Des séparations brutales, des couples qui restaient malgré tout, des départs dont on ne parlait pas ? La façon dont on quitte et dont on est quitté·e se transmet aussi.',
+      geste: 'Écris trois choses que tu as apprises sur toi dans cette histoire. Pas ce que tu as raté : ce que tu sais maintenant, et que tu ne savais pas avant.',
+      mots: 'J’ai besoin de temps pour comprendre ce qui s’est passé entre nous. Je ne cherche pas un coupable, juste à ne pas revivre la même chose.',
+      famille: 'Maman, est-ce que tu as déjà vécu une séparation ? Comment tu t’en es remise ?',
+      question: 'Quelle histoire d’amour de ta lignée s’est arrêtée sans qu’on sache vraiment pourquoi ?',
+      pratique: ''
+    },
+    {
+      id: 'belle-famille', themes: ['parents', 'amour'],
+      titre: 'Avec ma belle-famille, je ne trouve jamais ma place',
+      sms: [['autre', 'Ma mère demande si on vient dimanche.'], ['moi', 'Encore ? On y était il y a quinze jours.'], ['autre', 'Tu sais comment elle est…']],
+      joue: 'Chez eux, tu te sens de passage, évaluée, jamais tout à fait de la famille. Et ton ou ta partenaire ne voit pas le problème, ou n’ose pas prendre position. Ce qui se joue souvent : deux familles avec deux façons de vivre, et toi au milieu, qui essaies d’être acceptée sans t’effacer.',
+      lignee: 'Comment ta mère s’entendait-elle avec sa belle-mère ? Et ta grand-mère ? Les tensions entre belles-familles sont parfois une vieille histoire qui se rejoue, avec les mêmes rôles : celle qui juge, celle qui se tait, celui qui ne choisit pas.',
+      geste: 'Écris ce dont tu as besoin pour te sentir mieux chez eux : une limite de temps, un sujet à éviter, un geste de ton ou ta partenaire. Une seule chose, précise.',
+      mots: 'Je n’ai rien contre ta famille, mais j’ai besoin que tu sois à mes côtés quand ça se passe mal. On peut en parler avant dimanche ?',
+      famille: 'Maman, comment ça se passait avec la famille de papa au début ? Tu te sentais acceptée ?',
+      question: 'Dans ta lignée, quelle femme a dû faire sa place dans une famille qui n’était pas la sienne ?',
+      pratique: ''
+    },
     {
       id: 'me-comparer', semaine: '2027-01-25', themes: ['place', 'amitie'],
       titre: 'Je me compare tout le temps aux autres, et je perds à chaque fois',

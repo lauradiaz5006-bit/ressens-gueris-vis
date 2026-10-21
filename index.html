@@ -9,8 +9,8 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Génosociogramme en ligne gratuit, numérologie et thème astral · Genesolia</title>
-  <meta name="description" content="Génosociogramme en ligne gratuit, thème numérologique, thème astral et rêves : des outils sans inscription pour comprendre ce qui se répète dans ta famille et sortir de tes schémas.">
+  <title>Génosociogramme en ligne gratuit : comprendre ce qui se répète dans ta famille · Genesolia</title>
+  <meta name="description" content="Génosociogramme en ligne gratuit, sans inscription : dessine ton arbre familial, vois ce qui se répète d’une génération à l’autre (dates, prénoms, schémas) et comprends d’où viennent tes boucles.">
   <meta property="og:title" content="Genesolia · Génosociogramme en ligne gratuit et outils pour comprendre ce qui se répète">
   <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
   <meta property="og:type" content="website">
@@ -145,7 +145,20 @@
       .deux{grid-template-columns:1fr}
       .croisement{grid-template-columns:1fr}
     }
-  </style>
+      .offres-accueil{text-align:center}
+    .offres-accueil h2{margin:.3rem auto 1.6rem;max-width:36rem}
+    .offres-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;text-align:left}
+    .offre-carte{position:relative;display:flex;flex-direction:column;gap:.5rem;background:var(--blanc);border:1px solid var(--rose);border-radius:20px;padding:1.4rem}
+    .offre-carte p{margin:0;color:var(--prune-doux);line-height:1.55}
+    .offre-carte .btn{margin-top:auto;align-self:flex-start}
+    .offre-nom{font:400 1.4rem var(--display)!important;color:var(--prune)!important}
+    .offre-prix{font:400 1.8rem var(--display)!important;color:var(--prune)!important}
+    .offre-prix small{font:400 .85rem var(--texte);color:var(--prune-doux)}
+    .offre-reco{border:2px solid var(--champagne);background:linear-gradient(170deg,#FFF6EC,var(--blanc) 55%)}
+    .offre-badge{position:absolute;top:-.8rem;left:1.2rem;background:var(--prune);color:#fff!important;font:600 .72rem var(--texte);letter-spacing:.06em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px}
+    .offres-note{margin:1.2rem 0 0;font-size:.9rem;color:var(--prune-doux)}
+    @media (max-width:860px){.offres-grille{grid-template-columns:1fr}}
+</style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
 </head>
@@ -291,15 +304,15 @@
 
                     <section class="bloc">
       <div class="conteneur">
-        <div class="cercle-accueil">
-          <div>
-            <p class="cercle-sur">Le Cercle · ton rendez-vous du mois</p>
-            <h2>Chaque mois, ce que disent tes nombres, ton arbre et le ciel</h2>
-            <p>Ton mois personnel, ton calendrier jour par jour, les dates de ta famille qui tombent ce mois-ci, un carnet de dix pages à imprimer et le livret des 12 saisons. Le premier carnet est offert.</p>
-            <div class="actions"><a class="btn btn-plein" href="mon-mois.html#offert">Recevoir le carnet offert</a><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a></div>
-            <p class="cercle-prix">1<sup>er</sup> mois offert, sans carte, puis 29&nbsp;€ par mois, sans engagement.</p>
+        <div class="offres-accueil">
+          <p class="cercle-sur">Trois façons d’avancer</p>
+          <h2>Commence gratuitement, va plus loin quand tu veux</h2>
+          <div class="offres-grille">
+            <div class="offre-carte"><p class="offre-nom">Gratuit</p><p class="offre-prix">0 €</p><p>Ton arbre familial, les tests et les outils, sans inscription. Le carnet des deux cycles et le module 1 de la formation, offerts.</p><a class="btn btn-trait" href="offert.html">Voir les outils gratuits</a></div>
+            <div class="offre-carte"><p class="offre-nom">Le Pass</p><p class="offre-prix">10 € <small>par mois</small></p><p>Toutes les analyses de ton arbre, ton mois personnel avec ton agenda et ses rappels, tous les livrets et les 12 saisons.</p><a class="btn btn-trait" href="tarifs.html">Découvrir le Pass</a></div>
+            <div class="offre-carte offre-reco"><p class="offre-badge">1<sup>er</sup> mois offert</p><p class="offre-nom">Le Cercle</p><p class="offre-prix">29 € <small>par mois</small></p><p>Tout le Pass, plus deux livres par mois pour voir ce qui se rejoue et faire autrement, deux audios d’environ 20 minutes et la formation « Sors de la boucle ».</p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle</a></div>
           </div>
-          <img src="assets/cercle/apercu-2026-10.webp" width="150" height="212" alt="Couverture du carnet du mois" loading="lazy">
+          <p class="offres-note">Sans carte pour le mois offert, sans engagement. <a href="tarifs.html">Tous les tarifs</a></p>
         </div>
       </div>
     </section>

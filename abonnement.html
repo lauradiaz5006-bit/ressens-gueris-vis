@@ -281,6 +281,15 @@
     .t-guide-k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;font-weight:700}
     .t-guide u{display:inline-block;margin-top:.45rem;font-weight:700;color:var(--prune,#6B2F5B)}
     .t-guide:hover{border-color:#B98A55;box-shadow:0 14px 34px rgba(107,47,91,.14)}
+  .t-livres{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.4rem;-webkit-overflow-scrolling:touch}
+  .t-livre{flex:0 0 min(36rem,88vw);margin:0;scroll-snap-align:center;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18),0 0 0 1px rgba(107,47,91,.1)}
+  .t-livre-barre{display:flex;gap:.35rem;padding:.5rem .75rem;background:#F6EEF1;border-bottom:1px solid var(--rose)}
+  .t-livre-barre i{width:.55rem;height:.55rem;border-radius:50%;background:var(--rose-fonce)}
+  .t-livre img{display:block;width:100%;height:auto}
+  .t-livre figcaption{padding:.8rem 1rem;font-size:.9rem;color:var(--prune-doux)}
+  .t-livre figcaption b{color:var(--prune)}
+  .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
+  @media (min-width:1200px){.t-livres-note{display:none}}
 </style>
 </head>
 <body class="nouveau">
@@ -478,6 +487,22 @@
           <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
           <p class="t-rassure">30 jours offerts · aucune carte demandée</p>
         </div>
+      </div>
+    </section>
+
+    <section class="bloc" id="feuilleter">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">À l’intérieur</p>
+          <h2>Feuillette tes deux livres du mois</h2>
+          <p>Ce que tu ouvres chaque mois, tel quel, sur ordinateur. Sur téléphone, les pages se tournent du doigt.</p>
+        </div>
+        <div class="t-livres">
+          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-renaissance-semaine-1200.webp" srcset="assets/cercle/captures/carnet-renaissance-semaine-600.webp 600w, assets/cercle/captures/carnet-renaissance-semaine-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1036" alt="Le carnet Renaissance, semaine 1 : le thème du mois et la roue de la vie" loading="lazy" decoding="async"><figcaption><b>Renaissance</b> · Semaine 1 : le thème du mois et ta roue de la vie</figcaption></figure>
+          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-liberation-saison-1200.webp" srcset="assets/cercle/captures/carnet-liberation-saison-600.webp 600w, assets/cercle/captures/carnet-liberation-saison-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1036" alt="Le livret Libération en octobre : la saison du lâcher-prise, l’autel de saison et l’arbre de vie" loading="lazy" decoding="async"><figcaption><b>Libération</b> · Ta saison : le lâcher-prise, ton autel et ton arbre de vie</figcaption></figure>
+          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-renaissance-meteo-1200.webp" srcset="assets/cercle/captures/carnet-renaissance-meteo-600.webp 600w, assets/cercle/captures/carnet-renaissance-meteo-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1036" alt="Le carnet Renaissance : la météo du début de mois, avec des curseurs pour l’énergie, l’humeur et la confiance" loading="lazy" decoding="async"><figcaption><b>Renaissance</b> · Ta météo du début de mois, en quelques curseurs</figcaption></figure>
+        </div>
+        <p class="t-livres-note">Glisse pour voir les pages suivantes.</p>
       </div>
     </section>
 
