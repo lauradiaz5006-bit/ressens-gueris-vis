@@ -371,7 +371,7 @@ window.GENESOLIA_IMPRESSION = {
     var jeton = null; try { jeton = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
     var nomU = String((jeton && jeton.user && jeton.user.user_metadata && (jeton.user.user_metadata.full_name || jeton.user.user_metadata.prenom)) || '').trim();
     entete.className = 'entete entete-appli';
-    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="cercle.html"><img src="/assets/icones/cercle-192.png" alt="" width="30" height="30">Le Cercle</a>' +
+    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="cercle.html"><img src="/assets/icones/cercle-192.png" alt="Logo du Cercle Genesolia" width="30" height="30">Le Cercle</a>' +
       '<a class="ea-moi" href="cercle.html#moi" aria-label="Moi : mon espace du Cercle">' + (nomU ? nomU.charAt(0).toUpperCase().replace(/[<>&"]/g, '') : '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICO.moi + '</svg>') + '</a></div>';
     entete = null;
   }
@@ -692,7 +692,7 @@ window.GENESOLIA_IMPRESSION = {
         '<a class="btn btn-plein" href="' + FORMATION.page + '">Découvrir la formation</a>' +
         '<p class="ef-note">Gratuit et sans engagement.</p>' +
       '</div>' +
-      '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="" width="580" height="820" loading="lazy"></div>';
+      '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="Aperçu du module 1 de la formation Sors de la boucle" width="580" height="820" loading="lazy"></div>';
   });
 
   /* Formulaire de liste d'attente : <div data-liste-formation></div> */
