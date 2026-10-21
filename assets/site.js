@@ -231,6 +231,13 @@ window.GENESOLIA_PRODUITS = {
   cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
 };
 
+/* ===== Essai de 10 jours des analyses de l'arbre =====
+   Gratuit pour toujours : dessiner son arbre (1 arbre). Les analyses (ce qui se répète, le fil d'or en arbre et ce qui se répète,
+   la numérologie et l'astrologie reliées à l'arbre, le rapport) : 10 jours offerts dès la création du compte, puis avec le Pass,
+   Le Cercle ou l'Espace praticien (table acces_premium, offre « pass », « cercle », « praticien »…).
+   actif: false tant que le Pass n'est pas payable : rien n'est bloqué. depuis : début des 10 jours pour les comptes créés avant. */
+window.GENESOLIA_ESSAI = { actif: false, jours: 10, depuis: '2026-11-01' };
+
 /* ===== Arbre imprimé et envoyé (Mon arbre à encadrer) : prix TTC affichés, livraison comprise =====
    actif: false cache l'offre. Chaque format a son lien Stripe dans GENESOLIA_STRIPE (même nom que « stripe »).
    Prix à ajuster après ta commande test : prix TTC = coût livré TTC + au moins 30 € (25 € HT de marge). */
