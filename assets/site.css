@@ -592,3 +592,16 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 [data-devise-ici]{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.6rem;margin:0 auto 1.4rem;font-size:.88rem;color:var(--prune-doux)}
 .pied-bas .devise-choix button[aria-pressed="false"]{color:inherit}
 .prix-cad .tf-legal-eur{display:none}
+
+/* Essai de 10 jours des analyses (assets/essai.js) */
+.es-fond{position:fixed;inset:0;z-index:300;background:rgba(74,33,66,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.es-fenetre{position:relative;background:var(--blanc);border-radius:22px;max-width:28rem;width:100%;padding:1.6rem 1.4rem;box-shadow:0 30px 80px rgba(74,33,66,.3)}
+.es-fenetre h2{font-size:1.45rem;margin:0 1.6rem .6rem 0}
+.es-fenetre p{color:var(--prune-doux);margin:0 0 1.1rem}
+.es-actions{display:grid;gap:.6rem}
+.es-actions .btn{text-align:center}
+.es-fermer{position:absolute;top:.7rem;right:.8rem;background:none;border:0;font-size:1.5rem;color:var(--prune-doux);cursor:pointer;width:40px;height:40px}
+.es-bandeau{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:55;margin:0;background:var(--prune);color:#fff;border-radius:999px;padding:.55rem 1.1rem;font-size:.85rem;box-shadow:0 10px 30px rgba(107,47,91,.3);max-width:calc(100% - 24px);text-align:center}
+.es-bandeau a{color:#F3DCC0}
+body.mobile-arbre .es-bandeau{bottom:76px}
+.essai-fini #reps,.essai-fini .panneau .liste,.essai-fini .mt-rep{filter:blur(6px);pointer-events:none;user-select:none}
