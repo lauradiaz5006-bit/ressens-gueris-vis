@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex">
   <title>Le Cercle · Genesolia</title>
-  <meta name="description" content="Ton espace du Cercle : tes deux livres du mois, ton mois personnel, ton suivi et ta météo intérieure.">
+  <meta name="description" content="Ton espace du Cercle : ton parcours du mois, ton mois personnel, ton suivi et ta météo intérieure.">
   <link rel="canonical" href="https://genesolia.fr/cercle.html">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -530,7 +530,7 @@
       var C = E.C, u = E.user;
       afficher('<section class="ce-carte ce-porte"><img src="assets/icones/cercle-192.png" alt="" width="84" height="84"><h1 class="ce-h1">' + (u ? 'Ton Cercle t’attend' : 'Le Cercle, ton espace membre') + '</h1>' +
         '<p>' + (u ? 'Cette appli est réservée aux membres du Cercle. Ton premier mois est offert, sans carte.' : 'Connecte-toi pour ouvrir ton Cercle.') + '</p>' +
-        '<ul><li>Tes deux livres, Renaissance et Libération, avec une nouvelle étape chaque mois</li><li>Tes séances audio et la formation « Sors de la boucle »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
+        '<ul><li>Ton parcours guidé, Renaissance et Libération, avec une nouvelle étape chaque mois</li><li>Tes séances audio et la formation « Sors de la boucle »</li><li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li><li>Ton point du jour et ta météo intérieure, mois après mois</li></ul>' +
         '<div class="ce-actions">' + (u ? '<a class="ce-bt" href="essai.html">Ouvrir mon mois offert</a>' : '<a class="ce-bt" href="login.html?retour=cercle.html">Me connecter</a><a class="ce-bt clair" href="essai.html">Mon mois offert</a>') + '</div>' +
         (C ? '<p class="ce-discret" style="margin-top:1rem">Le carnet ' + esc(de(String(C.nomMois).split(' ')[0])) + ' est offert : <a href="mon-carnet.html?mois=' + esc(C.mois) + '">l’ouvrir</a>.</p>' : '') + '</section>');
     }
