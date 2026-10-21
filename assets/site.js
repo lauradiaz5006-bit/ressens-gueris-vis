@@ -837,7 +837,7 @@ window.GENESOLIA_IMPRESSION = {
     f.innerHTML = '<form class="appli-carte offert-carte" novalidate>' + (o.fermable === false ? '' : '<button type="button" class="appli-fermer" aria-label="Fermer">×</button>') +
       '<img class="offert-couv" src="' + O.image + '" alt="" width="62" height="88"><p class="offert-sur">' + O.sur + '</p><h2>' + O.titre + '</h2>' +
       '<ul class="compte-liste">' + O.liste.map(function (t) { return '<li>' + escO(t) + '</li>'; }).join('') + '</ul>' +
-      '<p class="offert-cercle"><b>En plus : ton accès gratuit au Cercle pendant 1 mois</b>, sans carte. Tes deux livres Renaissance et Libération, tes séances audio, la formation « Sors de la boucle » et ton appli.</p>' +
+      '<p class="offert-cercle"><b>En plus : ton accès gratuit au Cercle pendant 1 mois</b>, sans carte. Ton parcours guidé (Renaissance et Libération), tes séances audio, la formation « Sors de la boucle » et ton appli.</p>' +
       '<label class="offert-champ">Prénom<input name="prenom" autocomplete="given-name"></label>' +
       '<label class="offert-champ">E-mail<input name="email" type="email" autocomplete="email" required></label>' +
       '<label class="offert-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir mon offert et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html" target="_blank">Mes données</a></span></label>' +
@@ -1392,7 +1392,7 @@ window.GENESOLIA_IMPRESSION = {
     document.querySelectorAll('.cadeau:not(.encart-formation):not(.encart-livres)').forEach(function (bloc, n) {
       if (n > 0) { bloc.remove(); return; }
       bloc.classList.add('encart-livres');
-      bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Tes deux livres du mois t’attendent</h2>' +
+      bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Ton étape du mois t’attend</h2>' +
         '<p>Ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
         '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a></p></div>';
     });
