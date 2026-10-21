@@ -2471,6 +2471,7 @@
   }
 
   function imprimerRapport(btn) {
+    if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
     /* Sur téléphone : nouvel onglet ouvert au moment du clic (l'impression d'un cadre caché n'y fonctionne pas) */
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -3036,6 +3037,7 @@
   }
   function modeSeance() {
     document.body.classList.add('mode-seance');
+    try { localStorage.setItem('pr-fait-seance', '1'); } catch (e) {}   /* « Pour bien commencer » du cabinet */
     try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {}
     var q = document.createElement('button'); q.type = 'button'; q.className = 'bt plein quitter-seance'; q.textContent = 'Quitter le mode séance';
     document.body.appendChild(q);

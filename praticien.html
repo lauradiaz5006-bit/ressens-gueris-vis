@@ -35,6 +35,20 @@
     .pr-dossier small{display:block;color:var(--prune-doux);font-size:.84rem;margin-top:.15rem}
     .pr-actions{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
     .pr-actions .btn{padding:.55rem .9rem;font-size:.88rem;min-height:40px}
+    .pr-deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .pr-deux small{font-weight:400;color:var(--prune-doux)}
+    .pr-deux select{font:inherit;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune)}
+    .pr-exemple{margin-top:.9rem;padding:1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair,#F3DCC0)}
+    .pr-exemple p{margin:0 0 .7rem;font-size:.92rem;line-height:1.5}
+    .pr-debut h2 small{font:600 .8rem var(--texte);color:var(--prune-doux);margin-left:.4rem}
+    .pr-debut ol{list-style:none;margin:.4rem 0 .8rem;padding:0;display:grid;gap:.5rem}
+    .pr-debut li{display:flex;gap:.6rem;align-items:center;font-size:.94rem}
+    .pr-debut li>span:first-child{width:20px;height:20px;flex:none;border-radius:50%;border:2px solid var(--rose-fonce,#D9A7B6)}
+    .pr-debut li.ok{color:var(--prune-doux);text-decoration:line-through}
+    .pr-debut li.ok>span:first-child{background:var(--prune);border-color:var(--prune);box-shadow:inset 0 0 0 3px #fff}
+    .pr-fin-essai{border:2px solid var(--champagne,#C9A46A)}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    @media (max-width:560px){.pr-deux{grid-template-columns:1fr}}
     .pr-remise{grid-column:1/-1;border-top:1px dashed var(--rose);padding-top:.7rem}
     .pr-remise label{display:flex;gap:.6rem;align-items:flex-start;font-weight:600;font-size:.94rem;cursor:pointer;line-height:1.4}
     .pr-remise input{width:22px;height:22px;flex:none;margin:.05rem 0 0;accent-color:var(--prune)}
@@ -62,6 +76,6 @@
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/praticien.js?v=2026-10-21e"></script>
+  <script src="assets/praticien.js?v=2026-10-21f"></script>
 </body>
 </html>

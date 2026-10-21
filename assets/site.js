@@ -607,7 +607,7 @@ window.GENESOLIA_IMPRESSION = {
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
   }
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && !document.querySelector('[data-cadeau]')) {   /* pas d'encart « carnet offert » dans le carnet lui-même */
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && page !== 'praticien.html' && page !== 'espace-praticien.html' && !document.querySelector('[data-cadeau]')) {   /* ni dans le cabinet ni sur la page pro : ce sont des outils de travail */   /* pas d'encart « carnet offert » dans le carnet lui-même */
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
