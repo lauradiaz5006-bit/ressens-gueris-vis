@@ -109,7 +109,6 @@
   var biblio = publiees.filter(function (s) { return s !== semaine; });
   if (JEUNES) biblio.sort(function (a, b) { return (b.jeunes ? 1 : 0) - (a.jeunes ? 1 : 0); });
   else biblio.sort(function (a, b) { return (b.semaine || '') < (a.semaine || '') ? -1 : (b.semaine || '') > (a.semaine || '') ? 1 : 0; });
-  if (JEUNES) document.getElementById('vr-jeunes').innerHTML = '<p class="vr-jeunes">Les situations des 18-25 ans sont en premier. Les autres sont juste en dessous.</p>';
   var presents = {}; biblio.forEach(function (s) { (s.themes || []).forEach(function (t) { presents[t] = 1; }); });
   var filtre = 'tout', zf = document.getElementById('filtres'), zl = document.getElementById('liste');
   zf.innerHTML = '<button type="button" data-f="tout" aria-pressed="true">Tout</button>' + Object.keys(THEMES).filter(function (t) { return presents[t]; }).map(function (t) { return '<button type="button" data-f="' + t + '" aria-pressed="false">' + esc(THEMES[t]) + '</button>'; }).join('');
