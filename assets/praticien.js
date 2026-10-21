@@ -14,7 +14,7 @@
   function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
   function actif() { return prat && new Date(prat.acces_jusqu) > new Date(); }
   function joursRestants() { return prat ? Math.max(0, Math.ceil((new Date(prat.acces_jusqu) - Date.now()) / 864e5)) : 0; }
-  function indispo() { z.innerHTML = '<div class="pr-carte"><h2>L’Espace praticien ouvre très bientôt</h2><p class="pr-aide">Il est en cours de mise en place. Inscris-toi sur la liste d’attente pour être prévenu·e en premier, avec le tarif fondateur.</p><a class="btn btn-plein" href="espace-praticien.html#liste">Rejoindre la liste d’attente</a></div>'; }
+  function indispo() { z.innerHTML = '<div class="pr-carte"><h2>L’Espace praticien ouvre très bientôt</h2><p class="pr-aide">Il est en cours de mise en place. Reviens dans quelques jours.</p><a class="btn btn-plein" href="espace-praticien.html">Découvrir l’Espace praticien</a></div>'; }
 
   /* ───────── Sans compte ───────── */
   function porte() {
@@ -31,7 +31,7 @@
       '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
       '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon espace, <b>chiffrées</b> : l’équipe Genesolia ne les lit pas.</span></label>' +
       '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
-      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Tarif fondateur (liste fondateur) : 19 € par mois.</p></form></div>';
+      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année.</p></form></div>';
     var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
     f.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
@@ -56,7 +56,7 @@
   }
   function cabinet() {
     z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">Espace praticien</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' +
-      (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (prat.fondateur ? ' (ton tarif fondateur : 19 € par mois)' : '') + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-bientot>M’abonner</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
+      (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-bientot>M’abonner</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
       (actif() ? '<form class="pr-nouveau" id="pr-nouv"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></form>' : '') +
       '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
