@@ -46,6 +46,39 @@
     .tf-faq summary{cursor:pointer;font-weight:600;color:var(--prune)}
     .tf-faq details p{margin:.6rem 0 0;color:var(--prune-doux)}
     .tf-legal{text-align:center;font-size:.82rem;color:var(--prune-doux);margin-top:2rem}
+    @keyframes scintille{0%,100%{opacity:.35}50%{opacity:1}}
+    .etoiles::before,.etoiles::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 72%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 35% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 48% 85%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 14%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 74% 58%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 26%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 93% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 15% 50%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 56% 45%,#F3DCC0 50%,transparent 51%);
+      animation:scintille 4s ease-in-out infinite}
+    .etoiles::after{transform:translate(3%,6%) scale(1.1);animation-delay:2s;opacity:.7}
+    .etoile{position:absolute;color:#F3DCC0;text-shadow:0 0 10px rgba(243,220,192,.9);pointer-events:none;animation:scintille 3s ease-in-out infinite;line-height:1;z-index:1}
+    .tf-hero{position:relative;overflow:hidden;border-radius:28px;padding:3rem 1.6rem 2.8rem;text-align:center;margin-bottom:2.6rem;
+      background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%);color:#fff;box-shadow:0 24px 60px rgba(107,47,91,.25)}
+    .tf-hero>*{position:relative;z-index:1}
+    .tf-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.2rem)}
+    .tf-hero h1 em{font-style:normal;background:linear-gradient(100deg,#fff3d6,#e9b871 45%,#fff3d6 70%,#d9a35a);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .tf-hero p{color:#F7E6EE;max-width:38rem;margin:.8rem auto 0}
+    .tf-photo{margin:-1.8rem -1.6rem .4rem;height:150px;overflow:hidden;border-radius:var(--rayon) var(--rayon) 0 0;position:relative}
+    .tf-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .tf-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.9))}
+    .tf-carte{overflow:visible}
+    .tf-carte.tf-pass{background:linear-gradient(180deg,#fff,#FCEFF3)}
+    .tf-carte.tf-mis{background:radial-gradient(120% 70% at 50% 0%,#8A4677 0%,#6B2F5B 50%,#3E1B38 100%);color:#fff;border:1px solid rgba(243,220,192,.7);box-shadow:0 0 0 4px rgba(243,220,192,.18),0 24px 60px rgba(107,47,91,.35)}
+    .tf-carte.tf-mis>*{position:relative;z-index:1}
+    .tf-carte.tf-mis>.tf-badge,.tf-carte.tf-mis>.tf-cielwrap,.tf-carte.tf-mis>.etoile{position:absolute}
+    .tf-carte.tf-mis>.tf-cielwrap{z-index:0}
+    .tf-carte.tf-mis>.tf-badge{z-index:3}
+    .tf-carte.tf-mis .tf-photo::after{background:linear-gradient(180deg,transparent,rgba(107,47,91,.95))}
+    .tf-carte.tf-mis h2,.tf-carte.tf-mis .tf-prix,.tf-carte.tf-mis .tf-liste,.tf-carte.tf-mis .tf-autres{color:#fff}
+    .tf-carte.tf-mis .tf-role,.tf-carte.tf-mis .tf-prix small,.tf-carte.tf-mis .tf-note{color:#F7E6EE}
+    .tf-carte.tf-mis .tf-etiq{color:#F3DCC0}
+    .tf-carte.tf-mis .tf-liste li::before{color:#F3DCC0;text-shadow:0 0 8px rgba(243,220,192,.8)}
+    .tf-carte.tf-mis .btn-plein{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;border:0;box-shadow:0 10px 30px rgba(233,184,113,.45)}
+    .tf-badge{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;z-index:3}
+    .tf-cielwrap{position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0}
+    .tf-cadeau img{width:84px;height:84px;object-fit:cover;border-radius:14px;flex:none;box-shadow:0 8px 20px rgba(107,47,91,.2)}
+    .tf-ligne::before,.tf-ligne::after{content:" ✦ ";color:var(--champagne)}
+    @media (prefers-reduced-motion:reduce){.etoiles::before,.etoiles::after,.etoile{animation:none}}
     @media (max-width:960px){.tf-grille{grid-template-columns:1fr;max-width:30rem;margin:0 auto}.tf-carte.tf-mis{order:-1}.tf-carte:first-child{order:1}}
     @media (max-width:560px){.tf-cadeau{flex-direction:column;align-items:flex-start}.tf-cadeau .btn{margin-left:0}}
   </style>
@@ -53,13 +86,18 @@
 <body class="nouveau">
   <header data-entete></header>
   <main class="conteneur tarifs">
-    <div class="tf-tete">
-      <h1>Tarifs</h1>
+    <div class="tf-hero etoiles">
+      <span class="etoile" style="top:18%;left:9%;font-size:1.4rem" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:62%;left:16%;font-size:.9rem;animation-delay:1s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:22%;right:11%;font-size:1.1rem;animation-delay:.5s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:70%;right:8%;font-size:1.5rem;animation-delay:1.6s" aria-hidden="true">✦</span>
+      <h1>Choisis <em>ton chemin</em></h1>
       <p>Les outils restent gratuits. Pour aller plus loin, deux formules : le Pass pour comprendre et suivre ton mois, Le Cercle pour être accompagnée et avancer.</p>
     </div>
 
     <div class="tf-grille">
       <section class="tf-carte" aria-labelledby="t-gratuit">
+        <div class="tf-photo"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
         <span class="tf-etiq">Découvrir</span>
         <h2 id="t-gratuit">Gratuit</h2>
         <p class="tf-role">Pour commencer, sans compte et sans carte.</p>
@@ -73,7 +111,8 @@
         <a class="btn btn-trait" href="offert.html">Voir les outils gratuits</a>
       </section>
 
-      <section class="tf-carte" aria-labelledby="t-pass">
+      <section class="tf-carte tf-pass" aria-labelledby="t-pass">
+        <div class="tf-photo"><img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
         <span class="tf-etiq">Comprendre</span>
         <h2 id="t-pass">Le Pass</h2>
         <p class="tf-role">Pour suivre ton mois et ton histoire, semaine après semaine.</p>
@@ -91,6 +130,10 @@
 
       <section class="tf-carte tf-mis" aria-labelledby="t-cercle">
         <span class="tf-badge">1<sup>er</sup> mois offert</span>
+        <div class="tf-cielwrap etoiles" aria-hidden="true"></div>
+        <span class="etoile" style="top:46%;right:7%;font-size:1.1rem" aria-hidden="true">✦</span>
+        <span class="etoile" style="bottom:22%;left:6%;font-size:.8rem;animation-delay:1.2s" aria-hidden="true">✦</span>
+        <div class="tf-photo"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
         <span class="tf-etiq">Avancer</span>
         <h2 id="t-cercle">Le Cercle</h2>
         <p class="tf-role">Pour être accompagnée sur 12 étapes et sortir de tes boucles.</p>
@@ -112,6 +155,7 @@
     <p class="tf-ligne">Le Cercle, c'est le Pass, plus tout l'accompagnement. Tu passes de l'un à l'autre sans rien perdre.</p>
 
     <div class="tf-cadeau">
+      <img src="assets/images/arbre-de-vie-800.webp" alt="" loading="lazy" decoding="async">
       <div><b>Ton arbre imprimé et envoyé</b><p>Ton arbre doré, en poster ou encadré, livré chez toi. De 45 à 69 €, livraison comprise en France métropolitaine.</p></div>
       <a class="btn btn-trait" href="genosociogramme.html">Créer mon arbre</a>
     </div>
