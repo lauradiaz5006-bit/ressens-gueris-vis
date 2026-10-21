@@ -2086,8 +2086,8 @@
     if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
-      (CF ? CF.ecrire(sb, user, CLE, D) : sb.from('carnets').upsert({ user_id: user.id, mois: CLE, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' }))
-        .then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré et chiffré dans ton espace'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
+      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: 'coffre absent' }))
+        .then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard' : 'Enregistré et chiffré dans ton espace : l’équipe Genesolia ne le lit pas'); }, function () { etat('Pas enregistré, réessaie plus tard'); });
     }, 900);
   }
   /* Fusion champ par champ : la réponse la plus récente gagne (D.t garde l'heure de chaque réponse) */
@@ -2127,7 +2127,7 @@
         D = fusion(distant, local);
         appliquer(); chargerAccompagnement(); if (T2 || SUIVI) chargerPD();
         if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord'); CF.demander(document.getElementById('mc-compte'), sb, function () { user.user_metadata = Object.assign({}, user.user_metadata, { coffre_accord: new Date().toISOString() }); sauver(); }); }
-        else { etat('Enregistré et chiffré dans ton espace'); if (local && Object.keys(local.v || {}).length) sauver(); }
+        else { etat('Enregistré et chiffré dans ton espace : l’équipe Genesolia ne le lit pas'); if (local && Object.keys(local.v || {}).length) sauver(); }
       });
       sb.from('resultats').select('titre,donnees,cree_le').eq('outil', 'meteo').order('cree_le', { ascending: false }).limit(24).then(function (x) {
         historique = (x && x.data) || [];
