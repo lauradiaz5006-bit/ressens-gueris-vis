@@ -193,6 +193,21 @@
     .t-parcours li::before{content:"";position:absolute;left:0;top:.6em;width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne)}
     .t-apres{margin-top:auto;padding-top:.8rem;border-top:1px dashed var(--rose-fonce);font-family:var(--display);font-size:1.1rem!important;color:var(--prune)}
     .t-mention{max-width:none;text-align:center;margin-top:1.2rem;font-size:.85rem;color:var(--prune-doux)}
+    .t-mois{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem;list-style:none;margin:0;padding:0}
+    .t-mois li{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-mois img{width:100%;height:auto;aspect-ratio:540/640;object-fit:cover;object-position:top;display:block;background:var(--rose)}
+    .t-mois li>div{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.4rem}
+    .t-mois .t-sem{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .t-mois b{font:400 1.2rem var(--display);color:var(--prune)}
+    .t-mois p{max-width:none;font-size:.93rem;line-height:1.5;color:var(--prune-doux)}
+    .t-mois .t-duree{font-size:.85rem;color:var(--prune)}
+    .t-temps{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1.6rem 0 0}
+    .t-temps span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.92rem;color:var(--prune)}
+    .t-fin{margin-top:2.4rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 2rem;max-width:46rem;margin-left:auto;margin-right:auto}
+    .t-fin h3{font-size:1.45rem;margin-bottom:.8rem}
+    .t-fin ul{margin:0;padding-left:1.2rem;display:grid;gap:.45rem;color:var(--prune)}
+    @media (max-width:960px){.t-mois{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:560px){.t-mois{grid-template-columns:1fr}.t-mois img{aspect-ratio:540/520}.t-fin{padding:1.4rem}}
     .t-avis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
     .t-avis figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem}
     .t-avis blockquote{margin:0 0 1rem;font-family:var(--display);font-size:1.15rem;line-height:1.5;color:var(--prune)}
@@ -465,6 +480,35 @@
       </div>
     </section>
 
+    <section class="bloc bloc-doux" id="mois-type">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Concrètement</p>
+          <h2>Un mois type dans Le Cercle</h2>
+          <p>Chaque étape dure un mois. Voici ce que tu fais, semaine après semaine, et le temps que ça te prend.</p>
+        </div>
+        <ol class="t-mois">
+          <li><img src="assets/cercle/captures/renaissance-roue.webp" width="540" height="1126" alt="Capture du carnet Renaissance : la roue de la vie" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 1</span><b>Tu ouvres ton étape</b><p>Ton carnet du mois, ta roue de la vie et la question de ton livret Libération.</p><span class="t-duree">Environ 15 minutes</span></div></li>
+          <li><img src="assets/cercle/captures/audio-seance.webp" width="540" height="1126" alt="Capture d’une séance audio du Cercle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 2</span><b>Tu écoutes</b><p>Ta séance audio de l’étape, au calme, quand tu veux. Tu peux la réécouter autant de fois que tu le souhaites.</p><span class="t-duree">15 minutes</span></div></li>
+          <li><img src="assets/cercle/captures/module.webp" width="540" height="1126" alt="Capture d’un module de la formation Sors de la boucle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 3</span><b>Tu comprends et tu essaies</b><p>Ton module de formation en podcast, puis ton petit pas concret de la semaine.</p><span class="t-duree">15 à 20 minutes</span></div></li>
+          <li><img src="assets/cercle/captures/mon-mois.webp" width="540" height="1126" alt="Capture de la page Mon mois : mois personnel et signe maya" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 4</span><b>Tu fais le point</b><p>Ton bilan de fin d’étape et ton suivi : ce qui a bougé, ce que tu gardes pour le mois suivant.</p><span class="t-duree">Environ 10 minutes</span></div></li>
+        </ol>
+        <div class="t-temps" aria-label="Le temps que ça demande">
+          <span>Environ 15 minutes par semaine</span><span>Sur ton téléphone, à ton rythme</span><span>Une semaine ratée ? Tu reprends où tu en étais</span>
+        </div>
+        <div class="t-fin">
+          <h3>À la fin de tes 12 étapes, tu as</h3>
+          <ul>
+            <li>ton arbre de vie complet, des racines aux fruits ;</li>
+            <li>tes 12 carnets et tes 12 bilans, à relire quand tu veux ;</li>
+            <li>les 8 modules de la formation « Sors de la boucle », avec leurs livrets et cahiers d’exercices ;</li>
+            <li>ta roue de la vie du premier jour, à comparer avec celle d’aujourd’hui ;</li>
+            <li>et surtout, des gestes à toi pour voir venir tes boucles et faire autrement.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
@@ -608,11 +652,15 @@
     var AVIS = [
     ];
     var zoneAvis = document.getElementById('t-avis');
-    if (AVIS.length && zoneAvis) {
-      var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-      zoneAvis.innerHTML = AVIS.map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.depuis ? ' · ' + esc(a.depuis) : '') + '</figcaption></figure>'; }).join('');
+    var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var montrerAvis = function (liste) {
+      if (!liste.length || !zoneAvis) return;
+      zoneAvis.innerHTML = liste.slice(0, 6).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.depuis ? ' · ' + esc(a.depuis) : '') + '</figcaption></figure>'; }).join('');
       document.getElementById('avis').hidden = false;
-    }
+    };
+    montrerAvis(AVIS);
+    /* Avis envoyés depuis avis.html et validés dans Supabase (table avis, case « publie ») */
+    if (window.GenesoliaAvis) window.GenesoliaAvis(function (liste) { montrerAvis(AVIS.concat(liste)); });
     var barre = document.getElementById('t-barre'), hero = document.querySelector('.t-hero'), fin = document.querySelector('.t-final');
     if (barre && hero && 'IntersectionObserver' in window) {
       var vuHero = true, vuFin = false;

@@ -573,3 +573,13 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
   linear-gradient(160deg,#5A2650,#3E1A3A)}
 .appli-cercle .barre-appli::before{height:3px;left:4%;right:4%}
 .appli-cercle .barre-appli a:not([aria-current]) svg{color:#E8C27A}
+
+/* Avis publiés (accueil) */
+.avis-publies{padding-top:2rem;padding-bottom:1rem}
+.avis-publies h2{text-align:center;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:1.4rem}
+.avis-liste{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.1rem}
+.avis-liste figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.4rem 1.5rem}
+.avis-liste blockquote{margin:0 0 .8rem;font-family:var(--display);font-size:1.08rem;line-height:1.5;color:var(--prune)}
+.avis-liste figcaption{font-size:.86rem;color:var(--prune-doux)}
+.avis-lien{text-align:center;margin-top:1.1rem;font-size:.92rem}
+@media (max-width:860px){.avis-liste{grid-template-columns:1fr}}
