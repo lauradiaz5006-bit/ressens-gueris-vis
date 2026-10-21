@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <title>Mon cabinet · Espace praticien · Genesolia</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://genesolia.fr/praticien.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #pr{max-width:62rem;margin:0 auto;padding:2rem 16px 3rem;color:var(--prune)}
+    .pr-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
+    .pr-tete h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:0}
+    .pr-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .3rem}
+    .pr-etat{display:inline-block;border-radius:999px;padding:.45rem .9rem;font-size:.88rem;background:#FCEFF3;border:1px solid var(--rose)}
+    .pr-etat.fini{background:#FFF0E8;border-color:#EBC3A8}
+    .pr-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.4rem;margin:0 0 1.2rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .pr-carte h2{font-size:1.4rem;margin:0 0 .8rem}
+    .pr-aide{color:var(--prune-doux);font-size:.93rem;margin:0 0 1rem}
+    .pr-form{display:grid;gap:.9rem;max-width:32rem}
+    .pr-form label{display:grid;gap:.35rem;font-weight:600;font-size:.93rem}
+    .pr-form input[type=text]{font:inherit;font-weight:400;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;width:100%;box-sizing:border-box;color:var(--prune)}
+    .pr-case{display:flex!important;grid-template-columns:none!important;gap:.6rem;align-items:flex-start;font-weight:400!important}
+    .pr-case input{margin-top:.25rem;width:20px;height:20px;flex:none}
+    .pr-err{color:#A3324B;font-size:.9rem;min-height:1.1em;margin:0}
+    .pr-nouveau{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
+    .pr-nouveau input{flex:1 1 14rem;font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-liste{display:grid;gap:.6rem}
+    .pr-dossier{display:grid;grid-template-columns:1fr auto;gap:.6rem 1rem;align-items:center;border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;background:#FFFBFC}
+    .pr-dossier b{font-weight:600;font-size:1.02rem;overflow-wrap:anywhere}
+    .pr-dossier small{display:block;color:var(--prune-doux);font-size:.84rem;margin-top:.15rem}
+    .pr-actions{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
+    .pr-actions .btn{padding:.55rem .9rem;font-size:.88rem;min-height:40px}
+    .pr-lien{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .88rem var(--texte);cursor:pointer;padding:.5rem}
+    .pr-vide{color:var(--prune-doux);text-align:center;padding:1rem}
+    .pr-fond{position:fixed;inset:0;z-index:200;background:rgba(74,33,66,.45);display:flex;align-items:flex-end;justify-content:center}
+    @media (min-width:700px){.pr-fond{align-items:center;padding:16px}}
+    .pr-fenetre{background:var(--blanc);width:100%;max-width:40rem;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:1.4rem 1.3rem calc(1.4rem + env(safe-area-inset-bottom))}
+    @media (min-width:700px){.pr-fenetre{border-radius:22px}}
+    .pr-fenetre h2{font-size:1.4rem;margin:0 0 .4rem}
+    .pr-seance{border-top:1px solid var(--rose);padding:.8rem 0}
+    .pr-seance p{margin:.3rem 0 0;white-space:pre-wrap}
+    .pr-seance small{color:var(--prune-doux)}
+    .pr-fenetre textarea{width:100%;box-sizing:border-box;min-height:7rem;font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-fenetre input[type=date]{font:inherit;padding:.6rem .8rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-grille{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem}
+    @media (max-width:860px){.pr-grille{grid-template-columns:1fr}.pr-dossier{grid-template-columns:1fr}.pr-actions{justify-content:flex-start}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="pr" aria-live="polite"><p class="pr-aide">Ton cabinet s’ouvre…</p></main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/praticien.js?v=2026-10-21"></script>
+</body>
+</html>

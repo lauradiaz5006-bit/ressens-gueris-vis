@@ -12,9 +12,13 @@
 
   function session() { try { var s = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); return s && s.access_token ? s : null; } catch (e) { return null; } }
   function abonnee(s) {
-    return fetch(SB + '/rest/v1/acces_premium?select=offre,valide_jusqu', { headers: { apikey: CLE, Authorization: 'Bearer ' + s.access_token } })
-      .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; })
-      .then(function (l) { return (l || []).some(function (a) { return /^(pass|cercle|abonnement|offert|praticien|admin)$/.test(a.offre) && new Date(a.valide_jusqu) > new Date(); }); });
+    var h = { headers: { apikey: CLE, Authorization: 'Bearer ' + s.access_token } };
+    var lire = function (u) { return fetch(SB + u, h).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }); };
+    return Promise.all([lire('/rest/v1/acces_premium?select=offre,valide_jusqu'), lire('/rest/v1/praticiens?select=acces_jusqu')]).then(function (r) {
+      var ap = (r[0] || []).some(function (a) { return /^(pass|cercle|abonnement|offert|pro|praticien|admin)$/.test(a.offre) && new Date(a.valide_jusqu) > new Date(); });
+      var pr = (r[1] || []).some(function (p) { return new Date(p.acces_jusqu) > new Date(); });   /* praticien·ne en essai ou abonné·e */
+      return ap || pr;
+    });
   }
   function fenetre(titre, texte, boutons) {
     var f = document.createElement('div'); f.className = 'es-fond'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-labelledby', 'es-t');
