@@ -40,6 +40,7 @@
     .ap-duo .ap-carte{margin:0;min-height:8.5rem;display:flex;flex-direction:column;justify-content:space-between}
     @media (min-width:700px){#appli{padding-top:1rem}.ap-grille{grid-template-columns:repeat(4,1fr)}}
     @media (max-width:340px){.ap-grille{grid-template-columns:repeat(2,1fr)}.ap-duo{grid-template-columns:1fr}}
+    .ap-vie{background:linear-gradient(125deg,#FCE4E8,#F9E6D2 60%,#F3DCC0);border-color:#EBC9A6}
   </style>
 </head>
 <body class="nouveau">
@@ -54,6 +55,12 @@
       <span class="ap-plus">Ouvrir</span>
     </a>
 
+    <a class="ap-carte ap-vie" href="ta-vie-en-reel.html" id="ap-vie">
+      <p class="ap-etiq">Ta vie en réel · cette semaine</p><h2 id="ap-vie-titre">Quand ça recommence</h2>
+      <p>Ce qui se joue, ce qui se rejoue dans ta famille, et les mots pour le dire. 3 minutes.</p>
+      <span class="ap-plus">Lire la situation</span>
+    </a>
+
     <div class="ap-duo">
       <a class="ap-carte" href="mon-suivi.html"><div><p class="ap-etiq">Mon suivi</p><h2>Sortir de ta boucle</h2></div><span class="ap-plus">Continuer</span></a>
       <a class="ap-carte ap-or" href="abonnement.html" id="ap-cercle"><div><p class="ap-etiq">Le Cercle</p><h2>Deux livres chaque mois</h2></div><span class="ap-plus">Découvrir</span></a>
@@ -65,6 +72,7 @@
       <a class="ap-tuile" href="blessures-de-l-ame.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 7.5l-1.5 4 3 1.5-1.5 4"/></svg></span>Tes blessures</a>
       <a class="ap-tuile" href="theme-numerologique.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span>Tes nombres</a>
       <a class="ap-tuile" href="theme-astral.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span>Tes étoiles</a>
+      <a class="ap-tuile" href="symbolique-des-reves.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/><path d="M6 7l.5 1 1 .5-1 .5L6 10l-.5-1-1-.5 1-.5z"/></svg></span>Tes rêves</a>
       <a class="ap-tuile" href="ton-signe-maya.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 12h8M8 15h5"/><circle cx="16" cy="15" r="1" fill="currentColor"/></svg></span>Ton signe maya</a>
       <a class="ap-tuile" href="ton-prenom.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span>Ton prénom</a>
       <a class="ap-tuile" href="parcours.html"><span class="ap-ico"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></svg></span>Parcours guidé</a>
@@ -89,6 +97,16 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/vie-en-reel/situations.js?v=2026-10-21c"></script>
+  <script>
+  /* La situation de la semaine de « Ta vie en réel » (même règle que la page : le lundi le plus récent déjà arrivé) */
+  (function () {
+    var S = window.GENESOLIA_SITUATIONS || [], d = new Date(), j = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    var l = S.filter(function (x) { return x.semaine && x.semaine <= j; }).sort(function (a, b) { return a.semaine < b.semaine ? 1 : -1; });
+    var t = document.getElementById('ap-vie-titre'), c = document.getElementById('ap-vie');
+    if (l[0] && t) { t.textContent = '« ' + l[0].titre + ' »'; c.href = 'ta-vie-en-reel.html#' + l[0].id; }
+  })();
+  </script>
   <script src="assets/notifs.js"></script>
   <script>
   (function () {
