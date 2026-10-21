@@ -333,6 +333,13 @@
     .mt-info p{margin:0;font-size:.92rem}
     @media (prefers-reduced-motion:reduce){.mt-feuille{animation:none}.mt-barre i{transition:none}}
 
+
+    /* Espace praticien : mode séance, arbre partagé */
+    body.mode-seance header[data-entete],body.mode-seance .barre,body.mode-seance .panneau,body.mode-seance footer,body.mode-seance .annonce,body.mode-seance .note-donnees,body.mode-seance .legende-symb,body.mode-seance .es-bandeau{display:none!important}
+    body.mode-seance .zone{position:fixed;inset:0;z-index:80;height:100vh!important;background:var(--fond,#FFF9F7)}
+    .quitter-seance{position:fixed;right:18px;top:18px;z-index:90;box-shadow:0 10px 30px rgba(107,47,91,.3)}
+    body.arbre-partage .barre .groupe,body.arbre-partage .barre .sep,body.arbre-partage .choix-arbre,body.arbre-partage #actions-perso,body.arbre-partage #vide,body.arbre-partage .note-donnees{display:none!important}
+    #lien-cabinet{margin-right:.4rem}
     /* Rapport */
     #bt-rapport{background:var(--champagne-clair);border-color:var(--champagne);color:var(--prune)}
     #bt-rapport:hover{border-color:var(--prune)}
@@ -749,7 +756,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-21c"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-21d"></script>
   <script src="assets/import-arbre.js?v=2026-10-10a"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/arbre-telephone.js?v=2026-10-21"></script>
