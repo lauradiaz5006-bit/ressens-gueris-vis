@@ -139,7 +139,7 @@
   /* Lien direct vers une situation : ta-vie-en-reel.html#id */
   var h = decodeURIComponent((location.hash || '').slice(1));
   if (h && semaine && h === semaine.id) setTimeout(function () { zs.scrollIntoView({ block: 'start' }); }, 50);
-  else if (h) { var li = document.getElementById(h); if (li && li.classList.contains('vr-item')) setTimeout(function () { ouvrir(li, true); }, 50); }
+  else if (h) { var li = document.getElementById(h); if (li && li.classList.contains('vr-item')) setTimeout(function () { ouvrir(li, true); }, 50); else if (li) setTimeout(function () { li.scrollIntoView({ block: 'start' }); }, 120); }   /* #conflit, #phrases… : la page a grandi pendant le rendu, on revient au bon endroit */
 
   /* ───────── « Et toi ? » : rien n'est enregistré ───────── */
   var bt = document.getElementById('toi-copier');

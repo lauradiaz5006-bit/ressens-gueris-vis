@@ -272,7 +272,7 @@ window.GENESOLIA_IMPRESSION = {
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['abonnement.html', 'Le Cercle'];
-  var BOUTON_JEUNES = ['tes-20-ans.html', 'Jeune femme'];  /* espace 18-25 ans et images pour les réseaux */
+  var BOUTON_JEUNES = ['ta-vie-en-reel.html', 'Ta vie en réel'];  /* situations du quotidien, une par semaine (ex-espace « Jeune femme ») */
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -504,7 +504,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
             '<li><a href="theme-astral.html">Thème astral</a></li>' +
             '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
-            '<li><a href="tes-20-ans.html">Jeune femme</a></li>' +
+            '<li><a href="ta-vie-en-reel.html">Ta vie en réel</a></li>' +
             '<li><a href="cartes.html">Images à partager</a></li>' +
             '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
             '<li><a href="jeux-en-famille.html">Jeux en famille</a></li>' +

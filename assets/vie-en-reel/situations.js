@@ -202,7 +202,7 @@
     }
   ];
 
-  /* Les situations du premier lot (ex-espace « Jeune femme », 18-25 ans) : toujours visibles dans la bibliothèque et sur tes-20-ans.html */
+  /* Les situations du premier lot (ex-espace « Jeune femme ») : toujours visibles dans la bibliothèque */
   var PREMIER_LOT = 
 [
     {
