@@ -158,6 +158,25 @@
     .offre-badge{position:absolute;top:-.8rem;left:1.2rem;background:var(--prune);color:#fff!important;font:600 .72rem var(--texte);letter-spacing:.06em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px}
     .offres-note{margin:1.2rem 0 0;font-size:.9rem;color:var(--prune-doux)}
     @media (max-width:860px){.offres-grille{grid-template-columns:1fr}}
+    .portes-accueil{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .porte-carte{display:flex;flex-direction:column;gap:.45rem;text-decoration:none;color:var(--prune);background:var(--blanc);border:1px solid var(--rose);border-radius:20px;overflow:hidden;padding-bottom:1.2rem;transition:transform .2s}
+    .porte-carte:hover{transform:translateY(-2px)}
+    .porte-carte img{width:100%;height:150px;object-fit:cover;margin-bottom:.4rem}
+    .porte-carte > span,.porte-carte strong{padding:0 1.2rem}
+    .porte-duree{font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--champagne)}
+    .porte-carte strong{font:400 1.35rem/1.2 var(--display)}
+    .porte-carte span:last-child{color:var(--prune-doux);line-height:1.55}
+    .portes-plus{text-align:center;margin:1.4rem auto 0;max-width:none;color:var(--prune-doux)}
+    @media (max-width:860px){.portes-accueil{grid-template-columns:1fr}}
+    .langages-titre{text-align:center;font:400 1.3rem var(--display);color:var(--prune);margin:2.2rem 0 1rem}
+    .langages-accueil{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+    .langage{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:.8rem;align-items:center;text-decoration:none;color:var(--prune);background:linear-gradient(140deg,#FBEFF2,#FFF6EC);border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;min-height:64px}
+    .langage-ico{grid-row:1/3;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center}
+    .langage-ico svg{width:22px;height:22px;fill:none;stroke:var(--prune);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .langage strong{font:400 1.12rem var(--display)}
+    .langage span:last-child{font-size:.82rem;color:var(--prune-doux)}
+    @media (max-width:860px){.langages-accueil{grid-template-columns:1fr 1fr}}
+    @media (max-width:420px){.langages-accueil{grid-template-columns:1fr}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -254,7 +273,6 @@
       </div>
     </section>
 
-    <section class="bloc" style="padding-bottom:0"><div class="conteneur"><div data-formation></div></div></section>
 
     <section class="bloc" id="cycles">
       <div class="conteneur">
@@ -282,24 +300,25 @@
       </div>
     </section>
 
-        <section class="bloc" id="quatre">
+    <section class="bloc bloc-doux" id="commencer">
       <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Autour : quatre langages pour voir d'où ça vient</h2>
-          <p>Ta famille, tes nombres, tes étoiles et tes rêves éclairent chacun une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Par où commencer ?</h2><p>Trois portes, gratuites. Choisis celle qui te parle aujourd’hui.</p></div>
+        <div class="portes-accueil">
+          <a class="porte-carte" href="genosociogramme.html"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">Gratuit · sans inscription</span><strong>Dessiner mon arbre familial</strong><span>Ton génosociogramme en ligne : les dates, les prénoms et les schémas qui reviennent ressortent tout seuls.</span></a>
+          <a class="porte-carte" href="ta-vie-en-reel.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">3 minutes · chaque semaine</span><strong>Ta vie en réel</strong><span>Quand ça recommence : ce qui se joue, ce qui se rejoue dans ta famille, et les mots pour le dire.</span></a>
+          <a class="porte-carte" href="parcours.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">10 minutes</span><strong>Trouver mon cycle</strong><span>Sécurité ou amour : repère ton cycle et ta blessure, et repars avec ton point de départ.</span></a>
         </div>
-        <div class="portes">
-          <a class="porte-l" href="genosociogramme.html"><img class="porte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="Génosociogramme dessiné sur un papier ancien, entouré de photos de famille" loading="lazy" decoding="async"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
-          <a class="porte-l" href="theme-numerologique.html"><img class="porte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="Numérologie : une roue des nombres dorée dans une lumière rose" loading="lazy" decoding="async"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de <span class="lien-inline">ton prénom</span> sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
-          <a class="porte-l" href="theme-astral.html"><img class="porte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="Astrologie : un ciel étoilé et la lune au-dessus de la mer" loading="lazy" decoding="async"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
-          <a class="porte-l" href="symbolique-des-reves.html"><img class="porte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="Rêves : une fenêtre ouverte sur la nuit et la lune" loading="lazy" decoding="async"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
+        <h3 class="langages-titre">Et quatre langages pour voir d’où ça vient</h3>
+        <div class="langages-accueil">
+          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes nombres</strong><span>Ton thème numérologique gratuit</span></a>
+          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes étoiles</strong><span>Ton thème astral gratuit</span></a>
+          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
+          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
         </div>
-        <div class="relie">
-          <p><strong>Tout se relie dans ton arbre.</strong> Ajoute ta famille : l'outil compare les nombres, les signes et les prénoms de chacun·e, et fait apparaître les échos entre les générations. Le rapport de ton arbre les explique, avec des pistes pour sortir de la boucle.</p>
-          <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre familial</a><a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a></div>
-        </div>
+        <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
       </div>
     </section>
+
 
 
                     <section class="bloc">
@@ -317,26 +336,7 @@
       </div>
     </section>
 
-                <section class="bloc">
-      <div class="conteneur">
-        <div class="explorer-ciel"><span class="etoile" aria-hidden="true" style="top:9%;left:6%;font-size:22px">✦</span><span class="etoile" aria-hidden="true" style="top:14%;right:9%;font-size:16px;animation-delay:.8s">✦</span><span class="etoile" aria-hidden="true" style="top:46%;left:2.5%;font-size:12px;animation-delay:1.6s">✦</span><span class="etoile" aria-hidden="true" style="bottom:10%;right:4%;font-size:20px;animation-delay:.4s">✦</span><span class="etoile" aria-hidden="true" style="bottom:7%;left:18%;font-size:14px;animation-delay:2.2s">✦</span><span class="etoile" aria-hidden="true" style="top:6%;left:58%;font-size:11px;animation-delay:1.2s">✦</span>
-        <div class="bloc-tete"><h2>Explorer aussi</h2><p>D'autres portes d'entrée, gratuites, pour aller plus loin à ton rythme.</p></div>
-        <nav class="explorer" aria-label="Explorer aussi">
-          <a href="blessures-de-l-ame.html">Les blessures du cœur</a>
-          <a href="ton-prenom.html">Ton prénom</a>
-          <a href="arbre-de-vie.html">Le test de l'arbre de vie</a>
-          <a href="genosociogramme.html?exemple">Un exemple de génosociogramme</a>
-          <a href="tableau-de-vision.html">Ton tableau de vision</a>
-          <a href="jeux-en-famille.html">Jeux en famille</a>
-          <a href="cartes.html">Images à partager</a>
-          <a href="ta-vie-en-reel.html">Ta vie en réel</a>
-          <a href="blog.html">Le blog</a>
-        </nav>
-        </div>
-      </div>
-    </section>
 
-<section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
 
     <section class="bloc" id="questions">
       <div class="conteneur">
@@ -352,7 +352,7 @@
       </div>
     </section>
   
-    <section class="bloc" data-liens-outils><div class="conteneur"><h2 style="font-size:1.4rem;margin-bottom:1rem">Tous les outils Genesolia</h2><ul style="list-style:none;columns:3 14rem;gap:1.5rem;margin:0"><li style="margin-bottom:.5rem"><a href="genosociogramme.html">Génosociogramme en ligne gratuit</a></li><li style="margin-bottom:.5rem"><a href="genosociogramme-vierge.html">Génosociogramme vierge à imprimer</a></li><li style="margin-bottom:.5rem"><a href="methode.html">La méthode des deux cycles</a></li><li style="margin-bottom:.5rem"><a href="blessures-de-l-ame.html">Les blessures de l'âme</a></li><li style="margin-bottom:.5rem"><a href="mon-suivi.html">Mon suivi</a></li><li style="margin-bottom:.5rem"><a href="calcul-syndrome-anniversaire.html">Syndrome d'anniversaire</a></li><li style="margin-bottom:.5rem"><a href="theme-numerologique.html">Thème numérologique</a></li><li style="margin-bottom:.5rem"><a href="ton-prenom.html">Signification de ton prénom</a></li><li style="margin-bottom:.5rem"><a href="prenoms.html">Les prénoms de A à Z</a></li><li style="margin-bottom:.5rem"><a href="theme-astral.html">Thème astral gratuit</a></li><li style="margin-bottom:.5rem"><a href="ton-signe-maya.html">Ton signe maya</a></li><li style="margin-bottom:.5rem"><a href="mon-guide.html">Ton guide du mois</a></li><li style="margin-bottom:.5rem"><a href="le-ciel-du-mois.html">Le ciel du mois</a></li><li style="margin-bottom:.5rem"><a href="symbolique-des-reves.html">La symbolique des rêves</a></li><li style="margin-bottom:.5rem"><a href="blog.html">Le blog</a></li></ul></div></section>
+
   </main>
 
   <footer data-pied></footer>
