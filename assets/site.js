@@ -1485,3 +1485,51 @@ window.GENESOLIA_IMPRESSION = {
     });
   });
 })();
+
+/* ===== Prix en dollars canadiens (Québec, Canada) =====
+   Par défaut en euros ; en dollars canadiens si le fuseau horaire de l'appareil est au Canada, ou si la personne le choisit
+   (choix gardé sur l'appareil). Aucune localisation par adresse IP.
+   Montants calculés pour que le net reçu soit le même qu'avec une carte européenne : frais Stripe cartes internationales
+   (3,15 % + 0,25 €) et conversion (2 %) inclus, au taux du 21/10/2026 (1 € = 1,58 $ CA), arrondis vers le haut. À revoir tous les 3 mois.
+   Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
+(function () {
+  var PAGES = ['abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
+  var CAD = { '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '0': '0' };
+  var CLE = 'genesolia-devise';
+  var page = location.pathname.split('/').pop();
+  function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }
+  function devise() { var d = null; try { d = localStorage.getItem(CLE); } catch (e) {} return d === 'cad' || d === 'eur' ? d : (auCanada() ? 'cad' : 'eur'); }
+  window.GenesoliaDevise = { actuelle: devise, choisir: function (d) { try { localStorage.setItem(CLE, d); } catch (e) {} location.reload(); } };
+  var actif = devise() === 'cad' && PAGES.indexOf(page) >= 0;
+  function convertir(n) {
+    var t = n.nodeValue; if (!/€/.test(t)) return;
+    var u = t.replace(/moins d[’']\s?1[\s  ]?€/g, 'moins de 2 $ CA')
+      .replace(/(\d+(?:,\d+)?)[\s  ]?€/g, function (m, x) { return CAD[x] ? CAD[x] + ' $ CA' : m; });
+    if (u !== t) n.nodeValue = u;
+  }
+  function parcourir(r) {
+    if (!r) return;
+    if (r.nodeType === 3) { convertir(r); return; }
+    if (r.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA|INPUT)$/.test(r.nodeName) || (r.closest && r.closest('[data-garder-euros]'))) return;
+    var w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())) { if (n.parentNode && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName) && !(n.parentNode.closest && n.parentNode.closest('[data-garder-euros]'))) convertir(n); }
+  }
+  function choix() {
+    var d = devise();
+    return '<span class="devise-choix" role="group" aria-label="Devise des prix"><button type="button" data-devise="eur" aria-pressed="' + (d === 'eur') + '">€</button><button type="button" data-devise="cad" aria-pressed="' + (d === 'cad') + '">$ CA</button></span>';
+  }
+  function demarrer() {
+    /* le choix de devise, en bas de chaque page et en haut des tarifs */
+    var pb = document.querySelector('.pied-bas');
+    if (pb && !pb.querySelector('.devise-choix')) { var s = document.createElement('span'); s.className = 'devise-pied'; s.innerHTML = 'Prix affichés en ' + choix(); pb.appendChild(s); }
+    document.querySelectorAll('[data-devise-ici]').forEach(function (z) {
+      z.innerHTML = choix() + (devise() === 'cad' ? '<span class="devise-note">Prix en dollars canadiens, conversion et frais bancaires inclus.</span>' : '<span class="devise-note">Tu es au Québec ou au Canada ? Affiche les prix en dollars canadiens.</span>');
+    });
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-devise]'); if (b) window.GenesoliaDevise.choisir(b.getAttribute('data-devise')); });
+    if (!actif) return;
+    document.documentElement.classList.add('prix-cad');
+    parcourir(document.body);
+    if ('MutationObserver' in window) new MutationObserver(function (l) { l.forEach(function (m) { if (m.type === 'characterData') convertir(m.target); else m.addedNodes.forEach(parcourir); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else setTimeout(demarrer, 0);
+})();
