@@ -443,7 +443,7 @@ window.GENESOLIA_IMPRESSION = {
       '</div></div>' +
       '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
         '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-        '<a href="cercle.html#installer" class="btn pa-bouton">Télécharger l’appli Le Cercle</a></div>' +
+        '<a href="cercle.html#installer" class="btn pa-bouton">Télécharge l’appli Le Cercle</a></div>' +
     '</div>';
   }
   /* Carnet et suivi du mois, dans le navigateur : un pied de page léger, réservé aux membres */
@@ -480,17 +480,17 @@ window.GENESOLIA_IMPRESSION = {
           '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
             '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
             '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
-            (ESTCERCLE ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
+            (page === 'cercle.html' ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
             '<i></i><i></i><i></i><i></i></div>' +
           '</div></div>' +
-          (ESTCERCLE
-            /* Pages du Cercle : c'est l'appli Le Cercle qu'on propose (installée depuis cercle.html, qui porte son icône) */
+          (page === 'cercle.html'
+            /* L'espace des membres : c'est l'appli Le Cercle qu'on propose. Ailleurs, l'appli Genesolia ; elle est remplacée par Le Cercle plus bas si la personne est membre */
             ? '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
               '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Télécharger l’appli Le Cercle</a></div>'
+              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Télécharge l’appli Le Cercle</a></div>'
             : '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
               '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
-              '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>') +
+              (ESTCERCLE ? '<a href="appli.html#installer" class="btn pa-bouton">' : '<a href="#" class="btn pa-bouton" data-installer-bandeau>') + 'Télécharge Genesolia sur ton mobile</a></div>') +   /* pages du Cercle : leur manifeste installe Le Cercle, on passe donc par l'accueil de l'appli Genesolia */
         '</div>' +
         '<div class="pied-grille">' +
           '<div><a class="marque" href="/">' + MARQUE + '</a>' +
@@ -1069,6 +1069,8 @@ window.GENESOLIA_IMPRESSION = {
     installer();
   });
   window.GenesoliaInstaller = { ouvrir: installer, aide: aideInstall, installee: function () { return installee; } };
+  /* #installer (bouton « Télécharge Genesolia sur ton mobile » depuis une page du Cercle) : les instructions s'ouvrent ; cercle.html gère le sien */
+  if (location.hash === '#installer' && page !== 'cercle.html') { history.replaceState(null, '', location.pathname + location.search); setTimeout(aideInstall, 300); }
 
   /* Partage depuis le téléphone, avec l'image de la page quand c'est possible (Instagram, WhatsApp, Messenger…) */
   function partagerAvecImage(titre, adresse, image) {
@@ -1370,7 +1372,7 @@ window.GENESOLIA_IMPRESSION = {
     /* Membre : dans le menu du site, « Le Cercle » (la page de vente) devient « Mon Cercle », son espace (cercle.html : même barre que l'appli). Invisible pour les autres. */
     document.querySelectorAll('.entete .menu a.btn-plein[href="abonnement.html"]').forEach(function (b) { b.href = 'cercle.html'; b.textContent = 'Mon Cercle'; b.classList.add('btn-mon-cercle'); });
     /* Membre : en bas de chaque page du site, c'est l'appli Le Cercle qu'on propose (sauf si elle est déjà installée) */
-    if (!cercleInstalle) document.querySelectorAll('.pied .pied-appli').forEach(function (b) { b.outerHTML = piedAppliCercle(); });
+    document.querySelectorAll('.pied .pied-appli').forEach(function (b) { if (cercleInstalle) b.remove(); else b.outerHTML = piedAppliCercle(); });   /* appli Le Cercle déjà installée : plus rien à proposer */
     document.querySelectorAll('.carre-cercle').forEach(function (c) { c.remove(); });
     document.querySelectorAll('.cadeau:not(.encart-formation):not(.encart-livres)').forEach(function (bloc, n) {
       if (n > 0) { bloc.remove(); return; }
