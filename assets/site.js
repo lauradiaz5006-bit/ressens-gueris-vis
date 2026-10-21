@@ -269,7 +269,6 @@ window.GENESOLIA_IMPRESSION = {
     ['genosociogramme.html', 'Ton arbre familial'],
     ['offert.html', 'Outils gratuits'],
     ['blog.html', 'Blog'],
-    ['espace-praticien.html', 'Praticien'],
     ['login.html', 'Mon espace']
   ];
   var BOUTON = ['abonnement.html', 'Le Cercle'];
@@ -393,6 +392,7 @@ window.GENESOLIA_IMPRESSION = {
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
           '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
+          '<a class="menu-pro" href="espace-praticien.html"' + (page === 'espace-praticien.html' ? ' aria-current="page"' : '') + '>Tu es praticien·ne ?</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
           (MODE ? '<span class="menu-legal"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="#" data-cookies>Cookies</a></span>' : '') +
         '</nav>' +
