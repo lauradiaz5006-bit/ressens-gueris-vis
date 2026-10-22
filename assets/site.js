@@ -196,11 +196,11 @@ window.GenesoliaMesure = (function () {
    Abonnements : activer « essai gratuit de 30 jours » dans Stripe, et la page de confirmation
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
-  cercleMois: 'https://buy.stripe.com/14A00c5ff1JTgyNcCP43S0d',     /* Le Cercle 29 €/mois, essai 30 jours */
+  cercleMois: 'https://buy.stripe.com/aFafZa6jj2NX6Yd9qD43S0h',     /* Le Cercle 29 €/mois, essai 30 jours */
   cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois avec engagement 12 mois, essai 30 jours */
   cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
   passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',       /* Le Pass 10 €/mois sans engagement */
-  pass3Mois: 'https://buy.stripe.com/aFafZa6jj2NX6Yd9qD43S0h',      /* Le Pass 27 € les 3 mois, en une fois */
+  pass3Mois: 'https://buy.stripe.com/cNi8wIcHHgEN6YdcCP43S0i',      /* Le Pass 27 € les 3 mois, en une fois */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
   praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
@@ -213,9 +213,9 @@ window.GENESOLIA_STRIPE = {
   mayaDuo: 'https://buy.stripe.com/aFa3co6jjdsB5U9fP143S04',        /* votre analyse maya à deux */
   arbreEncadrer: '',  /* ton arbre à encadrer (fichier HD) */
   impressionA4: '',   /* arbre imprimé, poster A4 */
-  impressionA3: '',   /* arbre imprimé, poster A3 */
-  impressionA4Cadre: '', /* arbre imprimé, A4 encadré */
-  impressionA3Cadre: '', /* arbre imprimé, A3 encadré */
+  impressionA3: 'https://buy.stripe.com/9B600cbDD9cl5U96er43S02',   /* arbre imprimé, poster A3 */
+  impressionA4Cadre: 'https://buy.stripe.com/8x25kw7nn0FP2HXeKX43S01', /* arbre imprimé, A4 encadré */
+  impressionA3Cadre: 'https://buy.stripe.com/7sY28k3773S1cix9qD43S00', /* arbre imprimé, A3 encadré */
   gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
