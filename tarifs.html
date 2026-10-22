@@ -128,7 +128,8 @@
           <li><b>Tous les livrets complets</b>, pour toi et pour tes proches</li>
           <li>Les 12 saisons, le livret de l'année</li>
         </ul>
-        <button type="button" class="btn btn-trait" data-pass>Bientôt disponible</button>
+        <a class="btn btn-plein" href="#" data-payer="passMois" data-bientot-texte="Bientôt disponible ✦ Le Pass ouvre très vite. En attendant, ton 1er mois du Cercle est offert, et il contient tout le Pass.">Prendre le Pass, 10 € par mois</a>
+        <a class="tf-lien-3mois" href="#" data-payer="pass3Mois" data-bientot-texte="Bientôt disponible ✦ Le Pass ouvre très vite. En attendant, ton 1er mois du Cercle est offert, et il contient tout le Pass.">ou 27 € pour 3 mois</a>
       </section>
 
       <section class="tf-carte tf-mis" aria-labelledby="t-cercle">
@@ -182,6 +183,5 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script>document.querySelectorAll('[data-pass]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); if (a.nextElementSibling && a.nextElementSibling.classList.contains('tf-note')) return; var n = document.createElement('p'); n.className = 'tf-note'; n.setAttribute('role', 'status'); n.textContent = 'Bientôt disponible ✦ Le Pass ouvre très vite. En attendant, ton 1er mois du Cercle est offert, et il contient tout le Pass.'; a.after(n); }); });</script>
 </body>
 </html>
