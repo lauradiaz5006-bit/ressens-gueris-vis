@@ -16,7 +16,7 @@ const OFFRES: Record<string, Offre> = {
   passMois: { fam: "pass" }, pass3Mois: { fam: "pass", mois: 3 },
   cercleMois: { fam: "cercle" }, cercleFondatrice: { fam: "cercle" }, cercleAn: { fam: "cercle" }, cercleAnnee: { fam: "cercle", mois: 12 },
   praticienMois: { fam: "praticien", formule: "mois" }, praticienFondateur: { fam: "praticien", formule: "fondateur" },
-  praticienAn: { fam: "praticien", formule: "annee", mois: 12 },
+  praticienAn: { fam: "praticien", formule: "annee", mois: 12 }, praticienFondateurAn: { fam: "praticien", formule: "annee", mois: 12 },
 };
 const MEMBRE = ["cercle", "offert", "admin", "abonnement"];
 const JOUR = 864e5;
@@ -35,7 +35,7 @@ async function ouvrir(uid: string, cle: string, fin: Date | null, nouvelAchat: b
     if (!fin) fin = plusMois(new Date(), o.mois ?? 1);
     if (nouvelAchat && p?.formule === "essai" && resteP > 0) fin = new Date(fin.getTime() + resteP);   // abonnement pris pendant l'essai : les jours restants s'ajoutent
     if (!nouvelAchat && p && new Date(p.acces_jusqu) > fin) fin = new Date(p.acces_jusqu);            // un renouvellement ne raccourcit jamais l'accès
-    const ligne = { acces_jusqu: fin.toISOString(), formule: o.formule, fondateur: !!(p?.fondateur || o.formule === "fondateur") };
+    const ligne = { acces_jusqu: fin.toISOString(), formule: o.formule, fondateur: !!(p?.fondateur || o.formule === "fondateur" || cle === "praticienFondateurAn") };
     if (p) await sb.from("praticiens").update(ligne).eq("user_id", uid);
     else await sb.from("praticiens").insert({ user_id: uid, cabinet: "Mon cabinet", ...ligne });
     return;

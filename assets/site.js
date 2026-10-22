@@ -204,6 +204,7 @@ window.GENESOLIA_STRIPE = {
   pass3Mois: 'https://buy.stripe.com/14AdR28rragp1DT8mz43S0k',      /* Le Pass 27 € les 3 mois, en une fois */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
+  praticienFondateurAn: '', /* Espace praticien, tarif fondateur 190 € l'année */
   praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
   carnet: 'https://buy.stripe.com/28E6oA7nn9cl82hauH43S0m',         /* un carnet du mois, 9 € */
   rapport: 'https://buy.stripe.com/aFacMYgXXcox3M18mz43S09',        /* le rapport de ton arbre, 9 € */
@@ -1544,7 +1545,7 @@ window.GENESOLIA_IMPRESSION = {
    Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
 (function () {
   var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
-  var CAD = { '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '400', '0': '0' };   /* 19 et 240 : Espace praticien */
+  var CAD = { '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '400', '190': '320', '0': '0' };   /* 19 et 240 : Espace praticien */
   var CLE = 'genesolia-devise';
   var page = location.pathname.split('/').pop();
   function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }
