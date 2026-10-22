@@ -217,7 +217,7 @@ window.GENESOLIA_STRIPE = {
   impressionA3: 'https://buy.stripe.com/9B600cbDD9cl5U96er43S02',   /* arbre imprimé, poster A3 */
   impressionA4Cadre: 'https://buy.stripe.com/8x25kw7nn0FP2HXeKX43S01', /* arbre imprimé, A4 encadré */
   impressionA3Cadre: 'https://buy.stripe.com/7sY28k3773S1cix9qD43S00', /* arbre imprimé, A3 encadré */
-  gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
+  gestion: 'https://billing.stripe.com/p/login/7sY28k3773S1cix9qD43S00'         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
 /* ===== Produits : gratuit ou payant, UN SEUL réglage par produit =====
