@@ -2111,7 +2111,7 @@
     var h = '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">';
     if (css) h += '<style>' + css + '</style>';
     h += '<rect width="100%" height="100%" fill="#FFF9F7"/>';
-    h += '<text x="' + m + '" y="40" font-family="\'Gilda Display\',Georgia,serif" font-size="24" fill="' + PRUNE + '">Mon génosociogramme</text>';
+    h += '<text x="' + m + '" y="40" font-family="\'Gilda Display\',Georgia,serif" font-size="24" fill="' + PRUNE + '">' + (DOSSIER_CLIENT ? 'Ton génosociogramme' : 'Mon génosociogramme') + '</text>';
     var d = new Date();
     h += '<text x="' + (W - m) + '" y="40" text-anchor="end" font-family="\'Nunito Sans\',sans-serif" font-size="12" fill="' + PRUNE_DOUX + '">' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + '</text>';
     h += '<g transform="translate(' + dx + ',' + dy + ')">' + dessinRelations(pl) + dessinLiens(pl);
@@ -2732,7 +2732,7 @@
   function sectionNumeroRapport() {
     if (!NUM) return '';
     var L = numeroLignee(); if (L.liste.length < 2) return '';
-    var h = '<section class="section page"><div class="sur2">Numérologie</div><h2>' + (DOSSIER_CLIENT ? 'Sa' : 'Ta') + ' lignée en nombres</h2><p class="intro">Chaque personne de ton arbre porte des nombres, calculés à partir de ses prénoms, de son nom et de sa date de naissance. Quand les mêmes nombres reviennent d’une génération à l’autre, ils dessinent des échos : une autre façon de regarder ce qui se transmet.</p>';
+    var h = '<section class="section page"><div class="sur2">Numérologie</div><h2>Ta lignée en nombres</h2><p class="intro">Chaque personne de ton arbre porte des nombres, calculés à partir de ses prénoms, de son nom et de sa date de naissance. Quand les mêmes nombres reviennent d’une génération à l’autre, ils dessinent des échos : une autre façon de regarder ce qui se transmet.</p>';
     h += '<table><tr><th>Personne</th><th>Lien</th><th>Chemin de vie</th><th>Expression</th><th>Héréditaire</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + (x.t.chemin || '') + '</td><td>' + (x.t.expression || '') + '</td><td>' + (x.t.hereditaire || '') + '</td></tr>'; }).join('') + '</table>';
     if (L.moi && L.moi.t.chemin) {
       var C = NUM.NOMBRES[L.moi.t.chemin];
@@ -2845,7 +2845,7 @@
   function sectionAstroRapport() {
     if (!window.Astrologie || !window.ASTRO_TEXTES) return '';
     var L = astroLignee(), AT = window.ASTRO_TEXTES; if (L.liste.length < 2) return '';
-    var h = '<section class="section page"><div class="sur2">Astrologie</div><h2>' + (DOSSIER_CLIENT ? 'Sa' : 'Ta') + ' lignée dans les étoiles</h2><p class="intro">' + esc(AT.INTRO.lignee) + '</p>';
+    var h = '<section class="section page"><div class="sur2">Astrologie</div><h2>Ta lignée dans les étoiles</h2><p class="intro">' + esc(AT.INTRO.lignee) + '</p>';
     h += '<table><tr><th>Personne</th><th>Lien</th><th>Soleil</th><th>Lune</th><th>Élément</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + AT.SIGNES[x.soleil].nom + '</td><td>' + AT.SIGNES[x.lune].nom + (x.luneIncertaine ? ' (?)' : '') + '</td><td>' + x.element + '</td></tr>'; }).join('') + '</table>';
     if (L.moi) h += '<h3>Ton Soleil en ' + AT.SIGNES[L.moi.soleil].nom + '</h3><p>' + esc(AT.SOLEIL[L.moi.soleil]) + '</p><h3>Ta Lune en ' + AT.SIGNES[L.moi.lune].nom + (L.moi.luneIncertaine ? ' (à vérifier avec ton heure de naissance)' : '') + '</h3><p>' + esc(AT.LUNE[L.moi.lune]) + '</p>';
     h += '<p class="discret">Calcul à midi, heure de Paris : pour ton thème complet avec ton ascendant, rends-toi sur genesolia.fr/theme-astral.html.</p></section>';

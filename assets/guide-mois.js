@@ -69,7 +69,7 @@
     for (var j = 1; j <= n; j++) {
       var l = AS.longitude('mercure', jourUTC(annee, mois, j)), v = ((l - prev + 540) % 360) - 180, r = v < 0;
       if (r) retro.push(j);
-      if (avant !== null && r !== avant) stations.push({ jour: j, type: r ? 'debut' : 'fin' });
+      if (avant !== null && r !== avant && j > 1) stations.push({ jour: j - 1, type: r ? 'debut' : 'fin' });   /* la station a lieu la veille du premier jour de changement de sens */
       avant = r; prev = l;
     }
     if (!retro.length) return null;
