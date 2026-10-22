@@ -409,6 +409,17 @@
     }
     @media (min-width:1101px){ .bt-panneau{display:none} }
     @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
+    /* Téléphone, arbre complet (dossier praticien, ?dessin) : barre d'outils sur une seule ligne qui défile de côté, le menu « … » s'ouvre en bas de l'écran */
+    @media (max-width:760px){
+      .barre{gap:.4rem;padding:.45rem 16px}
+      .barre .titre-arbre{width:100%}
+      .barre .groupe{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}
+      .barre .groupe::-webkit-scrollbar{display:none}
+      .barre .groupe .bt{flex-shrink:0;white-space:nowrap}
+      .barre .sep{display:none}
+      .barre .statut{white-space:normal;max-width:100%;font-size:.8rem}
+      .menu-plus{position:fixed;left:12px;right:12px;bottom:12px;top:auto;min-width:0}
+    }
     /* Style « arbre doré » */
     body.arbre-dore #dessin{background:transparent}
     body.arbre-dore #dessin [stroke="#6B2F5B"]{stroke:#A87A3D}
