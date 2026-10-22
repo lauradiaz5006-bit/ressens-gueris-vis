@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet d'octobre 2026, « J'avance » : « Mon point de départ »
-   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+/* Genesolia · Le Cercle · Carnet d'octobre 2026, « Renaissance » : « Mon point de départ »
+   Le carnet du mois est le côté « Renaissance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Qui sont les miens ? », la boucle et les deux cycles) est dans Mon suivi (assets/suivi/2026-10.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "La roue de la vie est un outil que l'on utilise beaucoup pour faire le point sur sa vie. Elle découpe ta vie en dix domaines : ton énergie, l'amour, ta famille, tes amitiés, ton travail, l'argent, ton chez-moi, la joie, ton évolution personnelle et ta connexion à toi-même. Pour chacun, tu te demandes simplement : à quel point suis-je comblé·e aujourd'hui, de 0 à 10 ?",
       "Quand on relie les points, on obtient une roue. Plus elle est ronde, plus ta vie roule de façon fluide. Là où elle se creuse, ça cahote. L'idée n'est pas d'avoir 10 partout, personne n'a 10 partout. L'idée est de voir où tu en es, de choisir ce que tu veux nourrir, et de mesurer, mois après mois, comment ta roue s'arrondit.",
-      "Ce mois-ci, tu vas **faire le point** avec ta roue, **choisir** le domaine que tu veux nourrir, et **avancer** d'un petit pas chaque semaine. En parallèle, ton suivi « Je me libère » t'aide à repérer ce qui se rejoue et te freine : les deux avancent ensemble."
+      "Ce mois-ci, tu vas **faire le point** avec ta roue, **choisir** le domaine que tu veux nourrir, et **avancer** d'un petit pas chaque semaine. En parallèle, ton livret « Libération » t'aide à repérer ce qui se rejoue et te freine : les deux avancent ensemble."
     ],
     exemplesTitre: 'Ce que ta roue peut te montrer',
     exemples: [
@@ -109,7 +109,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses et celles à nourrir. Gardé avec sa date dans ton espace.'],
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour savoir où mettre ton énergie.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : repérer ce qui revient dans ta vie, et d’où ça vient.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : repérer ce qui revient dans ta vie, et d’où ça vient.']
     ]
   },
 

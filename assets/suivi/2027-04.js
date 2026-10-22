@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'avril 2027 : « Quelles phrases me guident ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'avril 2027 : « Quelles phrases me guident ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -166,7 +166,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'dire-vrai-ph', titre: "Mon geste « dire vrai »", type: 'texte',
-          consigne: "Choisis un geste « dire vrai » à la place d’une règle que tu as rangée. Écris-le, puis essaie-le chaque jour, même en tout petit. Note chaque essai et ce qui s’est passé dans le lien : souvent, bien moins que ce que tu craignais. Ce geste rejoint ton carnet « J’avance » : dire vrai, c’est parler avec tes mots plutôt qu’avec ceux de la lignée.",
+          consigne: "Choisis un geste « dire vrai » à la place d’une règle que tu as rangée. Écris-le, puis essaie-le chaque jour, même en tout petit. Note chaque essai et ce qui s’est passé dans le lien : souvent, bien moins que ce que tu craignais. Ce geste rejoint ton carnet « Renaissance » : dire vrai, c’est parler avec tes mots plutôt qu’avec ceux de la lignée.",
           pourquoi: "Une règle de famille se change par l’expérience, pas seulement par la réflexion. Chaque fois que tu dis vrai et que le lien tient, ton corps apprend une nouvelle règle : je peux être moi, et rester aimé·e. C’est cette découverte, répétée, qui remplace les vieux « Chez nous, on… ».",
           gestes: ["Dire « non, pas cette fois » à une demande", "Dire « je ne suis pas d’accord », calmement, une fois", "Dire « j’ai besoin d’aide » au lieu de tout faire seul·e", "Dire « je suis fatigué·e » quand c’est vrai", "Dire « ça m’a fait de la peine » au lieu de sourire", "Parler d’argent simplement, sans t’excuser"],
           q: "Ton geste : « Là où la règle disait…, moi je vais… »",

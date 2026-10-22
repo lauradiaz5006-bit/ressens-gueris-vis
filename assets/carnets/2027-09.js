@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de septembre 2027, « J'avance » : « Ma vocation »
-   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+/* Genesolia · Le Cercle · Carnet de septembre 2027, « Renaissance » : « Ma vocation »
+   Le carnet du mois est le côté « Renaissance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« Qu’est-ce que je transmets ? ») est dans Mon suivi (assets/suivi/2027-09.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "On parle souvent de vocation quand trois choses se rencontrent : **ce que tu aimes faire**, ce moment où le temps s’arrête ; **ce que tu sais bien faire**, tes talents, ceux que les autres remarquent avant toi ; et **ce qui a du sens pour toi**, ce qui te semble utile, beau ou juste dans le monde.",
       "Quand ces trois cercles se rejoignent, même un peu, le travail devient plus léger. Tu peux être comptable et vibrer en aidant une petite entreprise à s’en sortir. Tu peux être agent·e d’accueil en maison de retraite et trouver ta vocation dans les rires partagés avec les personnes âgées. Tu peux aussi découvrir que ta vocation se vit en dehors du travail : dans une association, un atelier, une passion du dimanche.",
-      "Ce mois-ci, tu vas **retrouver** ce qui te fait vibrer, **reconnaître** tes talents, et **tester** un petit pas vers ce qui t’attire. En parallèle, ton suivi « Je me libère » t’aide à regarder les métiers de ta lignée et les rêves professionnels restés en suspens : les deux avancent ensemble."
+      "Ce mois-ci, tu vas **retrouver** ce qui te fait vibrer, **reconnaître** tes talents, et **tester** un petit pas vers ce qui t’attire. En parallèle, ton livret « Libération » t’aide à regarder les métiers de ta lignée et les rêves professionnels restés en suspens : les deux avancent ensemble."
     ],
     exemplesTitre: 'Ce que ta vocation peut te souffler',
     exemples: [
@@ -107,11 +107,11 @@ window.GENESOLIA_CARNET = {
       { k: 'voc-point', q: "Qu’est-ce qui ferait gagner un seul point à ton domaine travail d’ici la fin du mois ?", ph: "Exemple : passer une heure par semaine sur la partie de mon travail que j’aime vraiment, la formation des nouveaux." }
     ],
     enLigneTitre: 'Sur Genesolia',
-    enLigne: "Si une voie t’attire et que tu te bloques chaque fois que tu t’en approches, ton [suivi « Je me libère »](mon-suivi.html) t’aide ce mois-ci à regarder les métiers et les rêves de ta lignée. Tu peux aussi lire [les métiers transmis dans les familles](metiers-transmis-genealogie.html), et regarder ton [thème numérologique](theme-numerologique.html), qui parle de tes talents.",
+    enLigne: "Si une voie t’attire et que tu te bloques chaque fois que tu t’en approches, ton [suivi « Libération »](mon-suivi.html) t’aide ce mois-ci à regarder les métiers et les rêves de ta lignée. Tu peux aussi lire [les métiers transmis dans les familles](metiers-transmis-genealogie.html), et regarder ton [thème numérologique](theme-numerologique.html), qui parle de tes talents.",
     outils: [
       ['theme-numerologique.html', 'Mon thème numérologique', 'Ton chemin de vie et tes nombres, pour mettre des mots sur tes talents et ce qui te fait vibrer.'],
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel du mois et tes dates clés, pour savoir quand oser ton pas.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : les métiers de ta lignée, les vocations empêchées et les phrases sur le travail.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : les métiers de ta lignée, les vocations empêchées et les phrases sur le travail.']
     ]
   },
 

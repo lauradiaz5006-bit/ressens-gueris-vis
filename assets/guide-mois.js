@@ -73,7 +73,14 @@
       avant = r; prev = l;
     }
     if (!retro.length) return null;
-    return { jours: retro.length, debut: retro[0], fin: retro[retro.length - 1], stations: stations };
+    /* la vraie période, même si elle déborde du mois (ex. du 24 octobre au 13 novembre) : jour de la station de départ, jour de la reprise */
+    function vitesse(d) { var a = AS.longitude('mercure', new Date(+d - 864e5)), b = AS.longitude('mercure', new Date(+d)); return ((b - a + 540) % 360) - 180; }
+    var t0 = +jourUTC(annee, mois, retro[0]), t1 = +jourUTC(annee, mois, retro[retro.length - 1]), k;
+    for (k = 0; k < 40 && vitesse(t0 - 864e5) < 0; k++) t0 -= 864e5;
+    for (k = 0; k < 40 && vitesse(t1 + 864e5) < 0; k++) t1 += 864e5;
+    var MOIS_FR = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    function jfr(t) { var d = new Date(t); return d.getUTCDate() + (d.getUTCDate() === 1 ? 'er' : '') + ' ' + MOIS_FR[d.getUTCMonth()]; }
+    return { jours: retro.length, debut: retro[0], fin: retro[retro.length - 1], stations: stations, periode: 'du ' + jfr(t0 - 864e5) + ' au ' + jfr(t1) };
   }
 
   function maya(annee, mois, dateNaiss) {

@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de février 2027 : « Quel projet a-t-on posé sur moi ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de février 2027 : « Quel projet a-t-on posé sur moi ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -171,7 +171,7 @@ window.GENESOLIA_CARNET = {
             { k: 'lettre-prenom-texte-feb', q: "Ta lettre : ce que tu aimes, ce qu’il porte de ta famille, ce que tu laisses, et ta phrase « Mon prénom m’invite à vivre… »", ph: "Exemple : Cher prénom que je porte, enfant je te trouvais trop ancien. Tu portes ma grand-mère, son courage et sa façon de tout encaisser. Je garde son courage, et je laisse le « tout encaisser » à son histoire. Mon prénom m’invite à vivre avec force et avec joie.", lignes: 8 }
           ] },
         { k: 'contrat-geste-feb', titre: "Mon contrat, au quotidien", type: 'texte',
-          consigne: "Choisis une phrase de ton contrat avec la vie et un petit geste qui va avec, pour cette semaine. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste rejoint aussi ton carnet « J’avance ».",
+          consigne: "Choisis une phrase de ton contrat avec la vie et un petit geste qui va avec, pour cette semaine. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste rejoint aussi ton carnet « Renaissance ».",
           pourquoi: "Un contrat prend vie quand il se traduit en gestes. Chaque fois que tu agis selon ton propre choix, l’ancien contrat perd de sa force et ton prénom devient un appui.",
           gestes: ["Me présenter avec mon prénom complet", "Demander gentiment qu’on utilise mon vrai prénom", "Signer mes messages de mon prénom", "Faire une chose que je choisis, pour moi seul·e", "Dire mon prénom en me regardant dans le miroir", "Relire mon contrat chaque matin"],
           q: "Ton geste : « Mon contrat dit… Cette semaine, je vais… »",

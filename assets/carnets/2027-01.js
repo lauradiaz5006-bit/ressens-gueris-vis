@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de janvier 2027, « J'avance » : « Mon intention, mes valeurs »
-   Le carnet du mois est le côté « J'avance » du Cercle : clarifier ses valeurs, poser l'intention de l'année, choisir ce qui compte.
+/* Genesolia · Le Cercle · Carnet de janvier 2027, « Renaissance » : « Mon intention, mes valeurs »
+   Le carnet du mois est le côté « Renaissance » du Cercle : clarifier ses valeurs, poser l'intention de l'année, choisir ce qui compte.
    Le côté libération (« Quelle peur je porte, et pour qui ? ») est dans Mon suivi (assets/suivi/2027-01.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "On observe que les résolutions s’essoufflent souvent au bout de quelques semaines, parce qu’elles viennent de ce qu’on « devrait » faire. Une intention ancrée dans tes valeurs tient mieux : elle parle de ce qui te fait vibrer, pas de ce qui te manque.",
       "Une valeur, c'est ce qui est important pour toi, au point que tu te sens toi-même quand tu la vis, et mal à l'aise quand on la piétine : la liberté, la loyauté, la créativité, la justice, la tendresse, l'aventure, la transmission… Certaines te viennent de ta famille, d'autres se sont construites contre elle, d'autres encore sont nées de ton propre chemin. Toutes méritent d'être regardées.",
-      "Ce mois-ci, tu vas **clarifier** tes valeurs, **choisir** les trois qui comptent le plus en ce moment, et **poser** l'intention de ton année. En parallèle, ton suivi « Je me libère » t’invite à regarder la peur que tu portes, et pour qui : poser ton intention sur un socle de confiance prend alors tout son sens."
+      "Ce mois-ci, tu vas **clarifier** tes valeurs, **choisir** les trois qui comptent le plus en ce moment, et **poser** l'intention de ton année. En parallèle, ton livret « Libération » t’invite à regarder la peur que tu portes, et pour qui : poser ton intention sur un socle de confiance prend alors tout son sens."
     ],
     exemplesTitre: 'Quand tes choix et tes valeurs ne se rencontrent pas',
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['annee-personnelle-2027.html', 'Mon année personnelle 2027', 'Ton nombre de l’année, pour poser ton intention au bon rythme.'],
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses de ta vie au seuil de cette étape.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'À cette étape : la peur que tu portes, et la part que tu choisis de rendre.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'À cette étape : la peur que tu portes, et la part que tu choisis de rendre.']
     ]
   },
 

@@ -96,7 +96,7 @@ window.GENESOLIA_PLUS = {
       exercices: [
         { k: "plus3-feb", titre: "Ce que l’enfant attendait d’entendre", type: "questions",
           consigne: "Pendant ton protocole, tu as accueilli l’enfant que tu étais. Réponds à ces trois questions pour prolonger cet accueil, et voir ce que tu peux t’offrir aujourd’hui.",
-          pourquoi: "L’enfant que tu étais attendait parfois des mots simples : « tu as ta place », « tu es aimé·e tel·le que tu es ». Te les offrir aujourd’hui, comme t’y invite ton carnet « J’avance » ce mois-ci, rend ton contrat avec la vie plus solide.",
+          pourquoi: "L’enfant que tu étais attendait parfois des mots simples : « tu as ta place », « tu es aimé·e tel·le que tu es ». Te les offrir aujourd’hui, comme t’y invite ton carnet « Renaissance » ce mois-ci, rend ton contrat avec la vie plus solide.",
           questions: [
             { k: "plus3-feb-a", q: "Qu’avait besoin d’entendre l’enfant que tu étais ?", ph: "Exemple : « Tu peux être toi, même si tu es différente de ta grand-mère. »", lignes: 2 },
             { k: "plus3-feb-b", q: "Qu’as-tu ressenti en lui disant « Bienvenue, tu as ta place » ?", ph: "Exemple : une grande douceur dans la poitrine, et l’envie de prendre la photo dans mes mains.", lignes: 2 },

@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'août 2027 : « D’où venons-nous ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'août 2027 : « D’où venons-nous ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste qui enracine', type: 'texte',
-          consigne: "Choisis ton geste pour habiter ta vie là où tu es, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « J’avance », pour ton domaine chez-moi.",
+          consigne: "Choisis ton geste pour habiter ta vie là où tu es, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « Renaissance », pour ton domaine chez-moi.",
           pourquoi: "On ne change pas en un jour une habitude de départ ou d’immobilité qui a traversé des générations. Mais chaque geste d’installation, répété, dit à ton corps qu’il a le droit de rester, et de choisir.",
           gestes: ["Vider un carton resté fermé", "Accrocher une photo d’un lieu de ta lignée", "Saluer un voisin par son prénom", "Cuisiner un plat du pays de tes aïeux", "T’asseoir chaque semaine au même endroit dehors", "Arroser ta plante en disant « je suis là »"],
           q: "Ton geste : « La prochaine fois que je me sens de passage, au lieu de…, je vais… »",

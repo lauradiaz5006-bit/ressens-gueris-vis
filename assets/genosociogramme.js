@@ -282,6 +282,10 @@
     if (h) h.textContent = 'L’arbre commence par ton·ta client·e';
     if (p) p.textContent = 'Place ton·ta client·e dans l’arbre, puis ajoute ses parents, ses grands-parents, ses frères et sœurs. Les répétitions apparaissent au fil de la saisie.';
     if (b) b.textContent = 'Placer ton·ta client·e';
+    /* l'outil parle du dossier de la personne accompagnée, pas de la famille de la praticienne */
+    var h1 = document.querySelector('.titre-arbre h1'); if (h1 && h1.firstChild && h1.firstChild.nodeType === 3) h1.firstChild.nodeValue = 'Dossier client·e';
+    var lm = $('fp-moi-ligne'); if (lm && lm.lastChild && lm.lastChild.nodeType === 3) lm.lastChild.nodeValue = ' C’est mon·ma client·e';
+    [['bt-rapport', 'Le rapport'], ['bt-encadrer', 'Arbre à encadrer'], ['fa-titre', 'Sa lignée dans les étoiles'], ['fn-titre', 'Sa lignée en nombres'], ['fr-titre', 'Le rapport de son arbre']].forEach(function (x) { var e = $(x[0]); if (e) e.textContent = x[1]; });
   }
 
   /* ───────── Placement automatique ───────── */
@@ -928,7 +932,7 @@
         if (plein(g.naiss) && plein(d.deces)) {
           var nj = enJours(g.naiss), dj = enJours(d.deces), conc = nj - 266;
           ok = dj >= conc - 365 && dj <= nj;
-          quand = dj < conc ? dureeTxt(conc - dj) + ' avant sa conception (' + dureeTxt(nj - dj) + ' avant sa naissance)' : 'pendant la grossesse (' + dureeTxt(nj - dj) + ' avant sa naissance)';
+          quand = dj === nj ? 'le jour même de sa naissance' : dj < conc ? dureeTxt(conc - dj) + ' avant sa conception (' + dureeTxt(nj - dj) + ' avant sa naissance)' : 'pendant la grossesse (' + (nj - dj < 15 ? (nj - dj) + ' jour' + (nj - dj > 1 ? 's' : '') : dureeTxt(nj - dj)) + ' avant sa naissance)';
         } else { ok = ad === an || ad === an - 1; quand = ad === an ? 'l’année de sa naissance' : 'l’année avant sa naissance'; }
         if (ok && ad <= an) concus.push({ g: g, d: d, pendant: plein(g.naiss) && plein(d.deces) ? enJours(d.deces) >= enJours(g.naiss) - 266 : false, txt: nomA(g) + ' : ' + nom(d) + ', ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' ' + quand, proche: (parentsDe[g.id] || []).indexOf(did) >= 0 || freres(g.id).indexOf(did) >= 0 });
       });
@@ -1477,7 +1481,7 @@
     if (!Object.keys(S.people).length) { z.innerHTML = '<p class="rep-aide">Commence par te placer dans l’arbre.</p>'; return; }
     if (!n) {
       z.innerHTML = '<p class="rep-aide">Rien pour l’instant. Ajoute <b>les dates</b>, <b>les métiers</b> et <b>les événements marquants</b> de chacun : les répétitions apparaissent ici toutes seules.</p>' +
-        (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
+        (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
       return;
     }
     // Exercices « Ce que je ressens, ce qu'il ou elle a vécu » : ils s'accumulent ici, à faire quand on a le temps
@@ -1514,7 +1518,7 @@
     var visR = visibles.filter(function (i) { return reps[i].type === 'repere'; }), visA = visibles.filter(function (i) { return reps[i].type !== 'repere'; });
     z.innerHTML = (mots.length ? info : blocExo) +
       (visR.length ? '<div class="reps-groupe reps-visibles"><p class="exos-titre">Tes répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>' + (visA.length ? '<p class="exos-titre reps-titre-auto">Ce que l’arbre fait apparaître <span>' + visA.length + '</span></p>' : '') : '') +
-      visA.map(carte).join('') + (idMoi() ? '' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>');
+      visA.map(carte).join('') + (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
   }
 
   /* ───────── Historique et sauvegarde ───────── */
@@ -2533,7 +2537,7 @@
     verifierAcces().then(function (acces) {
       accesRapport = acces;
       if (acces) {
-        corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
+        corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>' + (DOSSIER_CLIENT ? 'Le rapport est inclus dans ton Espace praticien.' : 'Ton rapport est offert.') + '</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
           '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante, et laisse les marges sur <b>« Par défaut »</b>.</p>';
@@ -2720,7 +2724,7 @@
       '</tbody></table></div>';
     if (L.incomplets) h += '<p class="rap-aide">' + L.incomplets + ' personne' + (L.incomplets > 1 ? 's n’ont' : ' n’a') + ' pas encore de prénom ni de date complète.</p>';
     h += '<p class="rap-aide">Pour un calcul juste, indique dans la fiche de chacun·e <b>tous ses prénoms</b> et son <b>nom de naissance</b> (celui de jeune fille pour les femmes mariées), et la date de naissance complète.</p>';
-    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a><a class="bt rap-gros" href="ton-prenom.html">Lire mon prénom</a><a class="bt rap-gros" href="mon-mois.html">Voir mon mois</a></div>';
+    h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-numero-rapport">Comprendre chaque écho dans ' + (DOSSIER_CLIENT ? 'le' : 'mon') + ' rapport</button><a class="bt rap-gros" href="theme-numerologique.html">Voir mon thème complet</a><a class="bt rap-gros" href="ton-prenom.html">Lire mon prénom</a><a class="bt rap-gros" href="mon-mois.html">Voir mon mois</a></div>';
     corps.innerHTML = h;
     $('bt-numero-rapport').addEventListener('click', function () { fermer('fen-numero'); ouvrirRapport(); });
     ouvrir('fen-numero');
@@ -2728,7 +2732,7 @@
   function sectionNumeroRapport() {
     if (!NUM) return '';
     var L = numeroLignee(); if (L.liste.length < 2) return '';
-    var h = '<section class="section page"><div class="sur2">Numérologie</div><h2>Ta lignée en nombres</h2><p class="intro">Chaque personne de ton arbre porte des nombres, calculés à partir de ses prénoms, de son nom et de sa date de naissance. Quand les mêmes nombres reviennent d’une génération à l’autre, ils dessinent des échos : une autre façon de regarder ce qui se transmet.</p>';
+    var h = '<section class="section page"><div class="sur2">Numérologie</div><h2>' + (DOSSIER_CLIENT ? 'Sa' : 'Ta') + ' lignée en nombres</h2><p class="intro">Chaque personne de ton arbre porte des nombres, calculés à partir de ses prénoms, de son nom et de sa date de naissance. Quand les mêmes nombres reviennent d’une génération à l’autre, ils dessinent des échos : une autre façon de regarder ce qui se transmet.</p>';
     h += '<table><tr><th>Personne</th><th>Lien</th><th>Chemin de vie</th><th>Expression</th><th>Héréditaire</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + (x.t.chemin || '') + '</td><td>' + (x.t.expression || '') + '</td><td>' + (x.t.hereditaire || '') + '</td></tr>'; }).join('') + '</table>';
     if (L.moi && L.moi.t.chemin) {
       var C = NUM.NOMBRES[L.moi.t.chemin];
@@ -2833,7 +2837,7 @@
         return '<tr' + (x.moi ? ' class="toi"' : '') + '><td><b>' + esc(x.nom) + '</b>' + (x.lien ? '<small>' + esc(x.lien) + '</small>' : '') + '</td><td style="font-family:var(--texte);font-size:.86rem">' + AT.SIGNES[x.soleil].nom + '</td><td style="font-family:var(--texte);font-size:.86rem">' + AT.SIGNES[x.lune].nom + (x.luneIncertaine ? ' ?' : '') + '</td><td style="font-family:var(--texte);font-size:.86rem">' + x.element + '</td></tr>';
       }).join('') + '</tbody></table></div>';
       h += '<p class="rap-aide">Calcul à midi, heure de Paris, faute d’heure de naissance : le Soleil est fiable, la Lune peut changer de signe dans la journée (marquée « ? »).</p>';
-      h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-astro-rapport">Comprendre chaque écho dans mon rapport</button><a class="bt rap-gros" href="theme-astral.html">Mon thème astral complet</a></div>';
+      h += '<div class="nl-actions"><button class="bt plein rap-gros" type="button" id="bt-astro-rapport">Comprendre chaque écho dans ' + (DOSSIER_CLIENT ? 'le' : 'mon') + ' rapport</button><a class="bt rap-gros" href="theme-astral.html">' + (DOSSIER_CLIENT ? 'Le thème astral complet' : 'Mon thème astral complet') + '</a></div>';
       corps.innerHTML = h;
       $('bt-astro-rapport').addEventListener('click', function () { fermer('fen-astro'); ouvrirRapport(); });
     }, function () { corps.innerHTML = '<p class="rap-texte">Le calcul n’a pas pu se charger. Recharge la page.</p>'; });
@@ -2841,7 +2845,7 @@
   function sectionAstroRapport() {
     if (!window.Astrologie || !window.ASTRO_TEXTES) return '';
     var L = astroLignee(), AT = window.ASTRO_TEXTES; if (L.liste.length < 2) return '';
-    var h = '<section class="section page"><div class="sur2">Astrologie</div><h2>Ta lignée dans les étoiles</h2><p class="intro">' + esc(AT.INTRO.lignee) + '</p>';
+    var h = '<section class="section page"><div class="sur2">Astrologie</div><h2>' + (DOSSIER_CLIENT ? 'Sa' : 'Ta') + ' lignée dans les étoiles</h2><p class="intro">' + esc(AT.INTRO.lignee) + '</p>';
     h += '<table><tr><th>Personne</th><th>Lien</th><th>Soleil</th><th>Lune</th><th>Élément</th></tr>' + L.liste.map(function (x) { return '<tr><td>' + esc(x.nom) + '</td><td>' + esc(x.lien || '') + '</td><td>' + AT.SIGNES[x.soleil].nom + '</td><td>' + AT.SIGNES[x.lune].nom + (x.luneIncertaine ? ' (?)' : '') + '</td><td>' + x.element + '</td></tr>'; }).join('') + '</table>';
     if (L.moi) h += '<h3>Ton Soleil en ' + AT.SIGNES[L.moi.soleil].nom + '</h3><p>' + esc(AT.SOLEIL[L.moi.soleil]) + '</p><h3>Ta Lune en ' + AT.SIGNES[L.moi.lune].nom + (L.moi.luneIncertaine ? ' (à vérifier avec ton heure de naissance)' : '') + '</h3><p>' + esc(AT.LUNE[L.moi.lune]) + '</p>';
     h += '<p class="discret">Calcul à midi, heure de Paris : pour ton thème complet avec ton ascendant, rends-toi sur genesolia.fr/theme-astral.html.</p></section>';

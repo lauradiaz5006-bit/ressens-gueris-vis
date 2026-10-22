@@ -663,7 +663,7 @@
           : '';
         el.innerHTML = (paye ? 'Ton abonnement au Cercle est actif.'
           : enCours
-            ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée. Tu peux continuer dès maintenant ou à la fin de ton mois offert, comme tu le sens.' + (fondatrice ? ' Tu fais partie des 100 premières : ton prix fondatrice est de 24,90 € par mois, sans engagement.' : '')
+            ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée. Tu peux continuer dès maintenant ou à la fin de ton mois offert : tes jours offerts restants s’ajoutent à ton abonnement.' + (fondatrice ? ' Tu fais partie des 100 premières : ton prix fondatrice est de 24,90 € par mois, sans engagement.' : '')
             : 'Ton mois offert est terminé. Tu peux continuer Le Cercle quand tu veux.') +
           continuer + (gestion && paye ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '" target="_blank" rel="noopener">Gérer ou arrêter mon abonnement</a>' : '');
         el.hidden = false;

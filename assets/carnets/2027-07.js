@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de juillet 2027, « J'avance » : « Ma valeur »
-   Le carnet du mois est le côté « J'avance » du Cercle : apprendre à recevoir, oser demander, reconnaître ta juste valeur, goûter l'abondance.
+/* Genesolia · Le Cercle · Carnet de juillet 2027, « Renaissance » : « Ma valeur »
+   Le carnet du mois est le côté « Renaissance » du Cercle : apprendre à recevoir, oser demander, reconnaître ta juste valeur, goûter l'abondance.
    Le côté libération (« Combien je m’autorise à recevoir ? », les phrases familiales sur l'argent) est dans Mon suivi (assets/suivi/2027-07.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "On apprend très tôt à se mesurer : aux notes, aux félicitations, aux comparaisons. Peu à peu, on finit par croire que notre valeur dépend de ce que l'on fait, de ce que l'on gagne, ou de ce que les autres pensent de nous. Alors on donne beaucoup, on travaille dur, et l'on a du mal à recevoir, comme si on n'y avait pas tout à fait droit.",
       "On observe souvent que la juste valeur repose sur trois gestes simples : **recevoir** ce qui t'est offert sans le minimiser, **demander** ce dont tu as besoin et ce qui te revient, et **oser** afficher ce que vaut ton travail, ton temps et ta présence. Ces trois gestes ouvrent la porte à l'abondance : non pas forcément plus d'argent tout de suite, mais plus de place, plus de reconnaissance, plus de légèreté.",
-      "Ce mois-ci, tu vas **regarder** l'équilibre entre ce que tu donnes et ce que tu reçois, **rassembler** les preuves de ta valeur, et **oser** une vraie demande. En parallèle, ton suivi « Je me libère » t'invite à écouter les phrases de ta famille sur l'argent : elles expliquent souvent pourquoi recevoir te semble si compliqué."
+      "Ce mois-ci, tu vas **regarder** l'équilibre entre ce que tu donnes et ce que tu reçois, **rassembler** les preuves de ta valeur, et **oser** une vraie demande. En parallèle, ton livret « Libération » t'invite à écouter les phrases de ta famille sur l'argent : elles expliquent souvent pourquoi recevoir te semble si compliqué."
     ],
     exemplesTitre: 'À quoi ressemble une valeur qu’on n’ose pas voir, au quotidien',
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour choisir le bon moment pour demander.'],
       ['argent-et-lignee.html', 'L’argent et la lignée', 'Comprendre comment les histoires d’argent se transmettent, et comment s’en libérer à son rythme.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : l’argent et ta valeur, les phrases familiales et ce que tu t’autorises à recevoir.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : l’argent et ta valeur, les phrases familiales et ce que tu t’autorises à recevoir.']
     ]
   },
 

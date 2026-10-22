@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2027 : « Les âges qui se répondent »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'octobre 2027 : « Les âges qui se répondent »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Dernier mois de l'année du Cercle : il boucle la spirale ouverte en octobre 2026 avec « Ce qui revient ».
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
@@ -171,7 +171,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste qui célèbre', type: 'texte',
-          consigne: "Choisis ton geste pour vivre une date ou un âge à ta façon, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ajoute aussi la façon dont tu as fêté ton année de Cercle. Ce geste devient un appui dans ton carnet « J’avance », pour ton bilan de l’année.",
+          consigne: "Choisis ton geste pour vivre une date ou un âge à ta façon, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ajoute aussi la façon dont tu as fêté ton année de Cercle. Ce geste devient un appui dans ton carnet « Renaissance », pour ton bilan de l’année.",
           pourquoi: "Un écho reconnu perd beaucoup de sa force. Un écho que l’on transforme en moment choisi devient une ressource. Chaque date vécue à ta façon dit à ton corps que l’avenir n’est pas écrit d’avance.",
           gestes: ["Fêter un anniversaire que tu évitais", "Faire une promenade le jour d’une date de mémoire", "Cuisiner le plat préféré d’un·e ancêtre", "T’offrir une journée rien qu’à toi à une saison difficile", "Écrire une carte à une personne de ta famille le jour de sa fête", "Fêter ton année de Cercle avec quelqu’un que tu aimes"],
           q: "Ton geste : « La prochaine fois que cette date ou cet âge arrive, au lieu de…, je vais… »",

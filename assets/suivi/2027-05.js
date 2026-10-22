@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mai 2027 : « Comment ai-je appris à aimer ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de mai 2027 : « Comment ai-je appris à aimer ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -169,7 +169,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste que je transmets', type: 'texte',
-          consigne: "Choisis un geste nouveau, à la place d'un geste hérité qui pèse. Écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste rejoint ton carnet « J’avance » : il fait partie de ta façon de te materner.",
+          consigne: "Choisis un geste nouveau, à la place d'un geste hérité qui pèse. Écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste rejoint ton carnet « Renaissance » : il fait partie de ta façon de te materner.",
           pourquoi: "Une lignée change par petits gestes répétés. Chaque fois que tu fais autrement, tu ne trahis pas tes mères : tu continues leur histoire avec ce qu’elles n’ont pas pu s’offrir.",
           gestes: ["M’asseoir à table jusqu’à la fin du repas", "Dire « je t’aime » au lieu de seulement le montrer", "Demander de l’aide une fois par jour", "Me reposer sans m’en excuser", "Me féliciter à voix haute pour une chose réussie", "Raconter à un proche une histoire heureuse d’une femme de ma lignée"],
           q: "Ton geste : « Là où mes mères…, moi je choisis de… »",
