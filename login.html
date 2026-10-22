@@ -640,11 +640,17 @@
       if (!m.essai_debut || !el) return;
       var fin = new Date(m.essai_debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
       var reste = Math.ceil((fin - new Date()) / 864e5);
-      var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+      var S = window.GENESOLIA_STRIPE || {}, gestion = S.gestion;
+      var continuer = (reste > 0 && (S.cercleMois || S.cercleAn || S.cercleAnnee))
+        ? '<span style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem">' +
+          (S.cercleMois ? '<a class="btn btn-plein" href="#" data-payer="cercleMois">Continuer, 29 € par mois</a>' : '') +
+          (S.cercleAn ? '<a class="btn btn-trait" href="#" data-payer="cercleAn">24 € par mois sur 12 mois</a>' : '') +
+          (S.cercleAnnee ? '<a class="btn btn-trait" href="#" data-payer="cercleAnnee">249 € l’année</a>' : '') + '</span>'
+        : '';
       el.innerHTML = (reste > 0
         ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée : avant la fin, on t\'écrit pour te proposer de continuer, si tu le souhaites.'
         : 'Ton abonnement au Cercle est actif.') +
-        (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
+        continuer + (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
       el.hidden = false;
     }
     window.GenesoliaEspaceDeconnecte = function (texte) {

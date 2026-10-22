@@ -201,6 +201,9 @@ window.GENESOLIA_STRIPE = {
   cercleAnnee: '',    /* Le Cercle 249 € l'année en une fois */
   passMois: '',       /* Le Pass 10 €/mois sans engagement */
   pass3Mois: '',      /* Le Pass 27 € les 3 mois, en une fois */
+  praticienMois: '',      /* Espace praticien 24 €/mois */
+  praticienFondateur: '', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
+  praticienAn: '',        /* Espace praticien 240 € l'année */
   carnet: '',         /* un carnet du mois, 9 € */
   rapport: '',        /* le rapport de ton arbre, 9 € */
   numerologie: '',    /* ton livret de numérologie, 12 € */
@@ -1255,7 +1258,8 @@ window.GENESOLIA_IMPRESSION = {
       ]).then(function (r) {
         var produits = {}; (r[0] || []).forEach(function (a) { produits[a.produit] = true; });
         var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle' || a.offre === 'admin') && new Date(a.valide_jusqu) > new Date(); });   /* 'admin' : la propriétaire (relecture), membre comme 'offert' */
-        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout };
+        var pass = (r[1] || []).some(function (a) { return a.offre === 'pass' && new Date(a.valide_jusqu) > new Date(); });   /* le Pass : livrets et analyses, sans le parcours du Cercle */
+        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout, pass: pass };
       });
     });
     mesAcces.then(function (a) { if (!a) mesAcces = null; });
@@ -1264,7 +1268,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Promise<boolean> : true si la personne peut utiliser ce produit (gratuit, acheté, ou membre du Cercle) */
   function aAcces(cle) {
     if (!estPayant(cle)) return Promise.resolve(true);
-    return chargerAcces().then(function (a) { return !!(a && (a.tout || a.produits[cle])); });
+    return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass || a.produits[cle])); });
   }
   function lienPaiement(cle, a) {
     var base = (window.GENESOLIA_STRIPE || {})[cle]; if (!base || !a || !a.uid) return '';
@@ -1370,7 +1374,27 @@ window.GENESOLIA_IMPRESSION = {
     setTimeout(function () { une(null); }, 6000);   /* filet : la page s'ouvre quoi qu'il arrive */
     ((window.GenesoliaAcces && window.GenesoliaAcces.etape) || etape)().then(une, function () { une(null); });
   }
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes };
+  /* Boutons de paiement [data-payer="clé"] : lien Stripe de GENESOLIA_STRIPE, avec l'id du compte (client_reference_id) pour que
+     la fonction Supabase « stripe-webhook » ouvre le bon accès. Sans compte : création du compte d'abord. Lien vide : « Bientôt disponible ». */
+  function payer(cle, el) {
+    if (!(window.GENESOLIA_STRIPE || {})[cle]) {
+      var txt = (el && el.getAttribute('data-bientot-texte')) || 'Bientôt disponible.';
+      var zoneMsg = el && el.closest('div,section,form') && el.closest('div,section,form').querySelector('[data-bientot-msg]');
+      if (zoneMsg) zoneMsg.textContent = txt;
+      else if (el && !(el.nextElementSibling && el.nextElementSibling.classList.contains('tf-note'))) { var n = document.createElement('p'); n.className = 'tf-note'; n.setAttribute('role', 'status'); n.textContent = txt; el.after(n); }
+      return;
+    }
+    if (!aUnCompte()) { demanderCompte('ton abonnement'); return; }
+    chargerAcces().then(function (a) {
+      var l = lienPaiement(cle, a);
+      if (l) location.href = l; else demanderCompte('ton abonnement');
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-payer]'); if (!el) return;
+    e.preventDefault(); payer(el.getAttribute('data-payer'), el);
+  });
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */
   if (page === 'abonnement.html' && aUnCompte() && !/[?&]voir=1\b/.test(location.search)) membre().then(function (m) { if (m) location.replace('cercle.html'); });
@@ -1519,7 +1543,7 @@ window.GENESOLIA_IMPRESSION = {
    Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
 (function () {
   var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
-  var CAD = { '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '409', '0': '0' };   /* 19 et 240 : Espace praticien */
+  var CAD = { '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '409', '0': '0' };   /* 19 et 240 : Espace praticien */
   var CLE = 'genesolia-devise';
   var page = location.pathname.split('/').pop();
   function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }
