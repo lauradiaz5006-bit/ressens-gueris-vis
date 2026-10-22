@@ -30,17 +30,23 @@ function plusMois(depuis: Date, n: number) { const d = new Date(depuis); d.setMo
 async function ouvrir(uid: string, cle: string, fin: Date | null, nouvelAchat: boolean) {
   const o = OFFRES[cle]; if (!o) return;   // livrets, arbres imprimés : la ligne « achats » suffit
   if (o.fam === "praticien") {
-    const { data: p } = await sb.from("praticiens").select("acces_jusqu,fondateur").eq("user_id", uid).maybeSingle();
-    if (!fin) fin = plusMois(p && new Date(p.acces_jusqu) > new Date() ? new Date(p.acces_jusqu) : new Date(), o.mois ?? 1);
+    const { data: p } = await sb.from("praticiens").select("acces_jusqu,fondateur,formule").eq("user_id", uid).maybeSingle();
+    const resteP = p && new Date(p.acces_jusqu) > new Date() ? new Date(p.acces_jusqu).getTime() - Date.now() : 0;
+    if (!fin) fin = plusMois(new Date(), o.mois ?? 1);
+    if (nouvelAchat && p?.formule === "essai" && resteP > 0) fin = new Date(fin.getTime() + resteP);   // abonnement pris pendant l'essai : les jours restants s'ajoutent
+    if (!nouvelAchat && p && new Date(p.acces_jusqu) > fin) fin = new Date(p.acces_jusqu);            // un renouvellement ne raccourcit jamais l'accès
     const ligne = { acces_jusqu: fin.toISOString(), formule: o.formule, fondateur: !!(p?.fondateur || o.formule === "fondateur") };
     if (p) await sb.from("praticiens").update(ligne).eq("user_id", uid);
     else await sb.from("praticiens").insert({ user_id: uid, cabinet: "Mon cabinet", ...ligne });
     return;
   }
-  const { data: a } = await sb.from("acces_premium").select("offre,valide_jusqu").eq("user_id", uid).maybeSingle();
+  const { data: a } = await sb.from("acces_premium").select("offre,valide_jusqu,note").eq("user_id", uid).maybeSingle();
   const actif = a && new Date(a.valide_jusqu) > new Date();
-  if (o.fam === "pass" && actif && MEMBRE.includes(a.offre)) return;   // déjà membre du Cercle : le Cercle contient le Pass
-  if (!fin) fin = plusMois(actif && a.offre === o.fam ? new Date(a.valide_jusqu) : new Date(), o.mois ?? 1);
+  const enEssai = !!(actif && /essai/i.test(a.note || ""));
+  if (o.fam === "pass" && actif && MEMBRE.includes(a.offre) && !enEssai) return;   // déjà membre du Cercle : le Cercle contient le Pass
+  if (!fin) fin = plusMois(actif && a.offre === o.fam && !enEssai ? new Date(a.valide_jusqu) : new Date(), o.mois ?? 1);
+  if (nouvelAchat && enEssai) fin = new Date(fin.getTime() + (new Date(a.valide_jusqu).getTime() - Date.now()));   // pris pendant le mois offert : les jours restants s'ajoutent
+  if (!nouvelAchat && actif && new Date(a.valide_jusqu) > fin) fin = new Date(a.valide_jusqu);                     // un renouvellement ne raccourcit jamais l'accès
   const { error } = await sb.from("acces_premium").upsert({ user_id: uid, offre: o.fam, valide_jusqu: fin.toISOString(), note: "Stripe " + cle }, { onConflict: "user_id" });
   if (error) throw error;
   if (o.fam === "cercle" && nouvelAchat) {   // passage du Pass au Cercle : on arrête l'abonnement au Pass pour ne pas payer deux fois

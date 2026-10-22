@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet d'août 2027, « J'avance » : « Mon chez-moi, mon élan »
-   Le carnet du mois est le côté « J'avance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
+/* Genesolia · Le Cercle · Carnet d'août 2027, « Renaissance » : « Mon chez-moi, mon élan »
+   Le carnet du mois est le côté « Renaissance » du Cercle : faire le point, choisir ce que l'on veut nourrir, avancer pas à pas.
    Le côté libération (« D’où venons-nous ? ») est dans Mon suivi (assets/suivi/2027-08.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "Ton lieu de vie est le domaine de ta roue que tu vois chaque jour, en te levant et en te couchant. Quand il te ressemble, il te recharge sans que tu y penses. Quand il te pèse, il te prend de l’énergie en silence : le désordre de l’entrée, la pièce où tu n’aimes pas rester, l’impression d’être de passage.",
       "Se sentir chez soi, ce n’est pas une question de mètres carrés ni de décoration. C’est se sentir **en sécurité**, **à sa place**, et **libre** de faire évoluer son lieu. Une chambre en colocation peut être un vrai chez-soi, et une grande maison peut rester étrangère.",
-      "Ce mois-ci, tu vas **regarder** ton chez-moi pièce par pièce, **choisir** le changement que tu as envie d’oser, et **remettre du mouvement** dans ta vie, dans ton corps comme dans tes projets. En parallèle, ton suivi « Je me libère » t’emmène vers les lieux de ta lignée, les départs et les racines : les deux avancent ensemble."
+      "Ce mois-ci, tu vas **regarder** ton chez-moi pièce par pièce, **choisir** le changement que tu as envie d’oser, et **remettre du mouvement** dans ta vie, dans ton corps comme dans tes projets. En parallèle, ton livret « Libération » t’emmène vers les lieux de ta lignée, les départs et les racines : les deux avancent ensemble."
     ],
     exemplesTitre: 'Ce que ton chez-moi peut te montrer',
     exemples: [
@@ -107,11 +107,11 @@ window.GENESOLIA_CARNET = {
       { k: 'lieu-point', q: "Qu’est-ce qui ferait gagner un seul point à ton chez-moi d’ici la fin du mois ?", ph: "Exemple : vider le fauteuil de la chambre et en faire mon coin à moi." }
     ],
     enLigneTitre: 'Sur Genesolia',
-    enLigne: "Si ton envie de partir ou de rester te semble plus ancienne que toi, ton [suivi « Je me libère »](mon-suivi.html) t’emmène ce mois-ci vers les lieux et les départs de ta lignée. Et le [test de l’arbre de vie](arbre-de-vie.html) te montre en cinq minutes comment ton chez-moi s’accorde avec les autres sphères de ta vie.",
+    enLigne: "Si ton envie de partir ou de rester te semble plus ancienne que toi, ton [suivi « Libération »](mon-suivi.html) t’emmène ce mois-ci vers les lieux et les départs de ta lignée. Et le [test de l’arbre de vie](arbre-de-vie.html) te montre en cinq minutes comment ton chez-moi s’accorde avec les autres sphères de ta vie.",
     outils: [
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir les sphères lumineuses et celles à nourrir. Gardé avec sa date dans ton espace.'],
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel du mois et tes dates clés, pour savoir quand oser ton mouvement.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : les lieux de ta lignée, les départs, et là où tu te sens chez toi.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : les lieux de ta lignée, les départs, et là où tu te sens chez toi.']
     ]
   },
 

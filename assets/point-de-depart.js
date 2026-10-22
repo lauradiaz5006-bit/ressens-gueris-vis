@@ -220,7 +220,7 @@
     if (r.blessures.length || pese.length) {
       h += '<section class="pd-synth"><p class="pd-res-t">3 · Dans tes liens</p>' +
         (r.blessures.length ? '<p>Ce qui te parle le plus : <b>' + r.blessures.map(function (k) { return NOMS_BL[k].toLowerCase(); }).join(' et ') + '</b>. Ce n’est pas une étiquette : un repère pour savoir où regarder avec douceur.</p>' : '') +
-        (pese.length ? '<p>Ce qui pèse sur ton cœur en ce moment : ' + pese.map(esc).join(', ') + '. Tu n’as rien à régler d’un coup : le reconnaître, c’est déjà lui faire de la place.</p>' : '') + '</section>';
+        (pese.length ? '<p>Ce qui pèse sur ton cœur en ce moment : ' + pese.map(function (x) { return esc(String(x).replace(/\.$/, '').replace(/^\w/, function (c) { return c.toLowerCase(); }).replace(/\bma vie\b/g, 'ta vie').replace(/\bma famille\b/g, 'ta famille').replace(/\bque je porte\b/g, 'que tu portes').replace(/\bme touche\b/g, 'te touche')); }).join(', ') + '. Tu n’as rien à régler d’un coup : le reconnaître, c’est déjà lui faire de la place.</p>' : '') + '</section>';
     }
     var c1 = D.v['c1-cible-1'], c2 = D.v['c2-cible-1'];
     h += '<section class="pd-synth"><p class="pd-res-t">4 · Comment tu vas avancer</p><ul>' +

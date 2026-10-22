@@ -158,7 +158,7 @@
       var signeMaya = r.maya ? MT.SIGNES[r.maya.natal.signe] : null;
       var h = '<div class="conteneur">';
       h += '<div class="g-carte"><div><p class="g-sur">' + (r.prenom ? 'Le guide de ' + esc(String(r.prenom).replace(/[\s.,;:!]+$/, '')) : 'Ton guide') + '</p><h2>' + nomMois.charAt(0).toUpperCase() + nomMois.slice(1) + ' ' + r.annee + '</h2><p>' + esc(M.theme) + '</p>' +
-        '<div class="g-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div></div>' +
+        '<div class="g-puces"><span>Mois personnel ' + r.moisPerso + '</span><span>Année personnelle ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Signe maya ' + r.maya.natal.nombre + ' ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div></div>' +
         '<div class="g-nav"><button type="button" data-dec="-1">Mois précédent</button><button type="button" data-dec="1">Mois suivant</button></div></div>';
       h += '<div class="g-bloc"><p class="g-etiq">Le thème de ton mois</p><h3>' + esc(ML.titre) + '</h3><p>' + ML.texte + '</p></div>';
       h += '<div class="g-bloc"><p class="g-etiq">Tes dates clés</p><ul class="g-dates">' + (r.dates.length ? r.dates.map(function (d) { return '<li>' + jourCourt(d.jour) + '<span' + (d.famille ? ' class="fam"' : '') + '>' + esc(d.quoi) + '</span></li>'; }).join('') : '<li><span>Un mois sans grand rendez-vous du ciel : profite-en pour avancer à ton rythme.</span></li>') + '</ul></div>';
@@ -171,7 +171,7 @@
       });
       r.eclipses.forEach(function (e) { c += '<div><h4>Éclipse ' + e.type + ' du ' + (+e.jour.slice(8)) + ' ' + nomMois + '</h4><p>' + (e.type === 'solaire' ? T.ECLIPSE_SOLAIRE : T.ECLIPSE_LUNAIRE) + '</p></div>'; });
       r.aspects.slice(0, 3).forEach(function (a) { c += '<div><h4>' + G.nomPlanete(a.planete) + ' ' + G.nomAspect(a.aspect) + ' ' + (a.cible === 'soleil' ? 'à ton Soleil' : 'à ta Lune') + '</h4><p>' + T.ASPECTS[a.planete][a.cible][a.aspect] + '</p></div>'; });
-      if (r.mercure) c += '<div><h4>Mercure rétrograde ' + (r.mercure.debut === 1 && r.mercure.fin === new Date(Date.UTC(r.annee, r.mois, 0)).getUTCDate() ? 'tout le mois' : 'du ' + r.mercure.debut + ' au ' + r.mercure.fin + ' ' + nomMois) + '</h4><p>' + T.MERCURE_RETRO + '</p></div>';
+      if (r.mercure) c += '<div><h4>Mercure rétrograde ' + (r.mercure.periode || ('du ' + r.mercure.debut + ' au ' + r.mercure.fin + ' ' + nomMois)) + '</h4><p>' + T.MERCURE_RETRO + '</p></div>';
       if (r.maisons) {
         c += '<div><h4>Jupiter dans ta maison ' + r.jupiter.maison + ' · ' + T.MAISONS_NOMS[r.jupiter.maison] + '</h4><p>' + T.JUPITER_MAISON[r.jupiter.maison] + '</p></div>';
         c += '<div><h4>Saturne dans ta maison ' + r.saturne.maison + ' · ' + T.MAISONS_NOMS[r.saturne.maison] + '</h4><p>' + T.SATURNE_MAISON[r.saturne.maison] + '</p></div>';

@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet d'avril 2027, « J'avance » : « Dire vrai »
-   Le carnet du mois est le côté « J'avance » du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
+/* Genesolia · Le Cercle · Carnet d'avril 2027, « Renaissance » : « Dire vrai »
+   Le carnet du mois est le côté « Renaissance » du Cercle : exprimer ce que l'on ressent, communication bienveillante, authenticité.
    Le côté libération (« Quelles phrases me guident ? ») est dans Mon suivi (assets/suivi/2027-04.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "Faire semblant coûte beaucoup d’énergie. Sourire quand on est en colère, dire oui quand on pense non, répondre « ça va » quand ça ne va pas : chaque petit décalage entre ce qu’on ressent et ce qu’on montre fatigue un peu plus. Et il éloigne des autres, car on ne peut être vraiment proche de quelqu’un qui ne nous voit jamais tel·le que l’on est.",
       "Dire vrai ne veut pas dire être brutal·e. La **communication bienveillante** propose une façon simple de dire les choses en quatre temps : ce qui s’est passé (les faits, sans jugement), ce que tu ressens, ce dont tu as besoin, et ce que tu demandes. « Quand tu regardes ton téléphone pendant que je parle, je me sens seul·e. J’ai besoin d’attention. Est-ce que tu veux bien le poser pendant le dîner ? »",
-      "Ce mois-ci, tu vas **nommer** ce que tu ressens vraiment, **apprendre** à le dire en quatre temps, et **oser** un mot vrai chaque jour. En parallèle, ton suivi « Je me libère » écoute les silences de ta famille : on apprend souvent à se taire là où les générations d’avant ont dû se taire."
+      "Ce mois-ci, tu vas **nommer** ce que tu ressens vraiment, **apprendre** à le dire en quatre temps, et **oser** un mot vrai chaque jour. En parallèle, ton livret « Libération » écoute les silences de ta famille : on apprend souvent à se taire là où les générations d’avant ont dû se taire."
     ],
     exemplesTitre: "Quand on fait semblant, au quotidien",
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['cartes.html', 'Tirer une carte à deux', "Une phrase pour ouvrir une conversation vraie avec quelqu’un que tu aimes."],
       ['mon-guide.html', 'Mon guide du mois', "Ton nombre du mois, ton ciel et tes dates clés, pour choisir le bon moment pour une conversation importante."],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', "Ce mois-ci : écouter les silences de ta famille et oser, à ton rythme, poser une question."]
+      ['mon-suivi.html', 'Mon livret « Libération »', "Ce mois-ci : écouter les silences de ta famille et oser, à ton rythme, poser une question."]
     ]
   },
 

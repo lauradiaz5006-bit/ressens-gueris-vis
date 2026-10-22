@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de novembre 2026 : « Qu’est-ce que j’ai reçu ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de novembre 2026 : « Qu’est-ce que j’ai reçu ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3-nov', titre: "Le don que je fais vivre", type: 'texte',
-          consigne: "Choisis un don de ton inventaire et fais-le vivre en conscience cette semaine. Écris ton engagement, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce don devient aussi un appui dans ton carnet « J’avance ».",
+          consigne: "Choisis un don de ton inventaire et fais-le vivre en conscience cette semaine. Écris ton engagement, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce don devient aussi un appui dans ton carnet « Renaissance ».",
           pourquoi: "Ce que l’on reçoit en conscience devient un choix. Chaque fois que tu fais vivre un don de ta lignée, ta feuille dorée prend racine dans ta vie de tous les jours.",
           gestes: ["Cuisiner une recette de famille et raconter son histoire", "Oser une chose courageuse, comme cette personne l’aurait fait", "Transmettre un savoir-faire à un proche", "Reprendre un geste hérité : coudre, jardiner, bricoler", "Accepter une aide, là où l’ancêtre portait tout seul·e", "Rire de bon cœur, comme ton grand-père savait le faire"],
           q: "Ton geste : « Cette semaine, pour faire vivre le don de…, je vais… »",

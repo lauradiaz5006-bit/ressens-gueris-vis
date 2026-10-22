@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de décembre 2026 : « Quelle est ma place ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de décembre 2026 : « Quelle est ma place ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -172,7 +172,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'deplacement-dec', titre: "Le déplacement", type: 'texte',
-          consigne: "Choisis ton déplacement pour cette semaine : une place, un rôle, un geste différent, en famille, avec tes proches ou avec toi-même, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « J’avance ».",
+          consigne: "Choisis ton déplacement pour cette semaine : une place, un rôle, un geste différent, en famille, avec tes proches ou avec toi-même, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « Renaissance ».",
           pourquoi: "Une famille est un équilibre : quand une personne bouge, même un peu, les autres s’ajustent. Ton petit déplacement ouvre une possibilité pour toi, et parfois pour tout ton entourage.",
           gestes: ["M’asseoir à une autre place", "Rester assis·e pendant le plat principal", "Confier le service à quelqu’un d’autre", "Prononcer le prénom d’un·e absent·e, à voix haute ou en silence", "Laisser une tension se dérouler entre les personnes qu’elle concerne", "Partir à l’heure que j’ai choisie"],
           q: "Ton déplacement : « Dans ce lien, au lieu de…, je vais… »",

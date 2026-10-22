@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de juin 2027, « J'avance » : « Oser agir »
-   Le carnet du mois est le côté « J'avance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
+/* Genesolia · Le Cercle · Carnet de juin 2027, « Renaissance » : « Oser agir »
+   Le carnet du mois est le côté « Renaissance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
    Le côté libération (« Ai-je le droit d’aller plus loin ? », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "On ne remet presque jamais à plus tard par paresse. On repousse parce que la tâche paraît trop grosse, parce qu'on a peur de mal faire, de déranger, d'échouer, ou au contraire de réussir et de devoir changer. Parfois aussi, on attend un feu vert de quelqu'un qui ne viendra jamais.",
       "On sait qu'une envie devient une action quand elle passe par trois étapes : **décider** clairement ce que l'on veut, **structurer** le chemin en petites étapes concrètes, et **s'engager** envers soi avec une date, une heure, un lieu. Ce n'est pas la motivation qui fait avancer, c'est la clarté du prochain pas.",
-      "Ce mois-ci, tu vas **repérer** ce que tu repousses, **découper** ton projet en étapes faciles, et **tenir** chaque semaine une promesse envers toi. En parallèle, ton suivi « Je me libère » t'invite à regarder le côté de ton père et des hommes de ta lignée : ce que tu as reçu d'eux éclaire souvent ta façon d'oser, ou de te retenir."
+      "Ce mois-ci, tu vas **repérer** ce que tu repousses, **découper** ton projet en étapes faciles, et **tenir** chaque semaine une promesse envers toi. En parallèle, ton livret « Libération » t'invite à regarder le côté de ton père et des hommes de ta lignée : ce que tu as reçu d'eux éclaire souvent ta façon d'oser, ou de te retenir."
     ],
     exemplesTitre: 'À quoi ressemble ce qu’on repousse, au quotidien',
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour choisir les meilleurs jours pour agir.'],
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir quelle sphère de ta vie a le plus besoin d’élan en ce moment.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : du côté des pères, ce que tu as reçu de la lignée des hommes.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : du côté des pères, ce que tu as reçu de la lignée des hommes.']
     ]
   },
 

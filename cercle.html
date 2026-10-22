@@ -254,7 +254,7 @@
       if (E.etape && E.etape.debut && !E.etape.calendaire) { var dd = E.etape.debut.split('-'); semS = Math.max(1, Math.min(4, Math.floor((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(+dd[0], +dd[1] - 1, +dd[2])) / 6048e5) + 1)); }
       var ac = C && lire('genesolia-avancee-' + (C.cle || C.mois)), w = S && S.semaines && S.semaines[Math.min(S.semaines.length, semS) - 1];
       if (ac && ac.suite && ac.n > 0) h += '<a class="ce-carte" href="mon-carnet.html#' + esc(ac.suite.page) + '"><p class="ce-etiq">Reprendre où tu en étais</p><h3>Renaissance · ' + esc(ac.suite.nom) + '</h3><p>Ton carnet t’attend à la bonne page.</p><span class="ce-bt">Reprendre</span></a>';
-      else if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">Reprendre où tu en étais · semaine ' + semS + '</p><h3>' + esc(w.titre) + '</h3><p>' + esc(phrase1(w.intro)) + '</p><span class="ce-bt">Reprendre</span></a>';
+      else if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">Reprendre où tu en étais · semaine ' + semS + '</p><h3>Libération · ' + esc(['Voir ce qui vient', 'Ta boucle sous tes yeux', 'Libérer', 'Mon geste différent'][semS - 1] || w.titre) + '</h3><p>Ton livret t’attend à la bonne semaine.</p><span class="ce-bt">Reprendre</span></a>';
       else h += '<a class="ce-carte" href="mon-carnet.html"><p class="ce-etiq">Ton mois commence</p><h3>Ouvre Renaissance</h3><p>Ton carnet du mois t’attend.</p><span class="ce-bt">Commencer</span></a>';
       if (E.etape && E.etape.enCours >= 2) h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';   /* le point du jour arrive à partir de l'étape 2 */
       h += '<a class="ce-carte" href="question-du-mois.html"><p class="ce-etiq">Chaque mois</p><h3>Ta question du mois</h3><p>Pose ta question, et lis les réponses publiées pour toutes les membres, sans prénom.</p><span class="ce-plus">Ouvrir</span></a>';
@@ -471,7 +471,7 @@
         function rendre(places) {
           var fondatrice = places > 0 && Sx.cercleFondatrice;
           za.innerHTML = '<p><b>Le Cercle' + (essai ? ' · mois offert' : ' · actif') + '</b>' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p>' +
-            (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée. Tu peux continuer dès maintenant ou à la fin de ton mois offert, comme tu le sens.</p>' +
+            (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée. Tu peux continuer dès maintenant ou à la fin de ton mois offert : tes jours offerts restants s’ajoutent à ton abonnement.</p>' +
                      '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem">' + (fondatrice ? bt('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bt('cercleMois', 'Continuer, 29 € par mois', true)) + bt('cercleAn', '24 € par mois sur 12 mois') + bt('cercleAnnee', '249 € l’année') + '</p>'
                    : paye ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' + (gestion ? '<p style="margin-top:.6rem"><a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a></p>' : '')
                    : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>');

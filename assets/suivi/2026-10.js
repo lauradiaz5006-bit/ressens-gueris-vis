@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2026 : « Qui sont les miens ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'octobre 2026 : « Qui sont les miens ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -160,7 +160,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste différent', type: 'texte',
-          consigne: "Choisis ton geste, écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « J’avance ».",
+          consigne: "Choisis ton geste, écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « Renaissance ».",
           pourquoi: "On ne change pas une boucle en une fois, on la change en y glissant un grain de sable. Chaque essai, même raté, affaiblit le pilote automatique.",
           gestes: ["Respirer trois fois avant de répondre", "Dire « je te réponds demain »", "Demander au lieu d’attendre qu’on devine", "Sortir marcher dix minutes", "Écrire ce que tu ressens avant d’envoyer un message", "Dire « non, pas cette fois », sans te justifier"],
           q: "Ton geste différent : « La prochaine fois que ma boucle démarre, au lieu de…, je vais… »",

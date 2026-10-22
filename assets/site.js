@@ -290,7 +290,7 @@ window.GENESOLIA_IMPRESSION = {
      l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
      « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
      Sinon : le site normal, rien ne change. */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'question-du-mois.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   /* Pages du Cercle : l'appli proposée à l'installation est Le Cercle (nom, icône ; manifeste cercle.webmanifest dans chaque page) */
   if (ESTCERCLE && !window.GENESOLIA_APPLI) window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };
@@ -362,7 +362,7 @@ window.GENESOLIA_IMPRESSION = {
       var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
       if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
-      if (MODE === 'cercle' && (page === 'mon-mois.html' || page === 'point-de-depart.html') && cible[0] === 'mon-carnet.html') ok = true;
+      if (MODE === 'cercle' && page === 'mon-mois.html' && cible[0] === 'mon-carnet.html') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
@@ -465,7 +465,7 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="la-demarche.html">La démarche</a></li>' +
           '<li><a href="tarifs.html">Tarifs</a></li>' +
-          '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
+          '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
           '<li><a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></li>' +
@@ -534,7 +534,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
             '<li><a href="/#questions">Questions fréquentes</a></li></ul></div>' +
           '<div><h4>Informations</h4><ul>' +
-            '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
+            '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
             '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
@@ -1418,8 +1418,8 @@ window.GENESOLIA_IMPRESSION = {
       if (n > 0) { bloc.remove(); return; }
       bloc.classList.add('encart-livres');
       bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Ton étape du mois t’attend</h2>' +
-        '<p>Ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
-        '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a></p></div>';
+        '<p>Ton carnet « Renaissance » pour construire ce que tu veux, ton livret « Libération » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
+        '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « Renaissance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon livret « Libération »</a></p></div>';
     });
   });
 
@@ -1544,7 +1544,7 @@ window.GENESOLIA_IMPRESSION = {
    Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
 (function () {
   var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
-  var CAD = { '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '409', '0': '0' };   /* 19 et 240 : Espace praticien */
+  var CAD = { '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '400', '0': '0' };   /* 19 et 240 : Espace praticien */
   var CLE = 'genesolia-devise';
   var page = location.pathname.split('/').pop();
   function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }

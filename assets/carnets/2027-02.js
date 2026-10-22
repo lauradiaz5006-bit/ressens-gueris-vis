@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de février 2027, « J'avance » : « M'aimer d'abord »
-   Le carnet du mois est le côté « J'avance » du Cercle : estime de soi, besoins, se traiter comme on traite ceux qu'on aime.
+/* Genesolia · Le Cercle · Carnet de février 2027, « Renaissance » : « M'aimer d'abord »
+   Le carnet du mois est le côté « Renaissance » du Cercle : estime de soi, besoins, se traiter comme on traite ceux qu'on aime.
    Le côté libération (« Quel projet a-t-on posé sur moi ? ») est dans Mon suivi (assets/suivi/2027-02.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "S’aimer d’abord, ce n’est pas se préférer aux autres. C’est arrêter de passer en dernier. Quand ton réservoir est vide, tu donnes avec fatigue, parfois avec rancœur. Quand il est plein, tu donnes avec joie, et tu sais aussi recevoir. L’estime de soi n’est pas un luxe : c’est le sol sur lequel tout le reste se construit.",
       "L’estime de soi repose sur trois piliers simples. **Te reconnaître** : voir tes qualités, tes efforts, ce que tu fais bien, même quand personne ne le remarque. **Te respecter** : écouter tes besoins et leur faire une place. **Te parler avec douceur** : remplacer la petite voix qui critique par une voix qui encourage.",
-      "Ce mois-ci, tu vas **observer** comment tu te parles, **nommer** tes besoins essentiels, et **t’offrir** un geste de tendresse chaque jour. En parallèle, ton suivi « Je me libère » regarde les couples de ta lignée et ta façon d’aimer : les deux se répondent, car on aime souvent les autres comme on a appris à s’aimer soi-même."
+      "Ce mois-ci, tu vas **observer** comment tu te parles, **nommer** tes besoins essentiels, et **t’offrir** un geste de tendresse chaque jour. En parallèle, ton livret « Libération » regarde les couples de ta lignée et ta façon d’aimer : les deux se répondent, car on aime souvent les autres comme on a appris à s’aimer soi-même."
     ],
     exemplesTitre: "Quand on oublie de s’aimer, au quotidien",
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['cartes.html', 'Tirer une carte du jour', "Une phrase douce pour la journée, à garder sur toi ou à recopier dans ton carnet."],
       ['mon-guide.html', 'Mon guide du mois', "Ton nombre du mois, ton ciel et tes dates clés, pour savoir quand t’accorder du repos."],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', "Ce mois-ci : regarder les couples de ta lignée et choisir l’amour que tu veux vivre."]
+      ['mon-suivi.html', 'Mon livret « Libération »', "Ce mois-ci : regarder les couples de ta lignée et choisir l’amour que tu veux vivre."]
     ]
   },
 

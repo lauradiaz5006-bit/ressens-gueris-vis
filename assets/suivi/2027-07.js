@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juillet 2027 : « Combien je m’autorise à recevoir ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de juillet 2027 : « Combien je m’autorise à recevoir ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -169,7 +169,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Mon geste de permission', type: 'texte',
-          consigne: "Choisis une nouvelle phrase sur l'argent, et un petit geste de permission qui va avec. Écris-les, puis note chaque fois que tu as osé recevoir, demander ou dépenser pour toi, même un tout petit peu, et ce que ça t'a fait. Ce geste rejoint ton carnet « J’avance » : il nourrit ta juste valeur.",
+          consigne: "Choisis une nouvelle phrase sur l'argent, et un petit geste de permission qui va avec. Écris-les, puis note chaque fois que tu as osé recevoir, demander ou dépenser pour toi, même un tout petit peu, et ce que ça t'a fait. Ce geste rejoint ton carnet « Renaissance » : il nourrit ta juste valeur.",
           pourquoi: "On ne change pas une règle d’argent en la contredisant une fois, mais en vivant autrement, petit à petit. Chaque geste de permission, même minuscule, apprend à ton corps qu’il peut recevoir sans danger.",
           gestes: ["Accepter un compliment ou un cadeau en disant seulement « merci »", "M’offrir une chose qui me fait plaisir, sans me justifier", "Annoncer mon tarif ou mon prix sans baisser la voix", "Parler d’argent simplement avec un proche", "Demander ce qui me revient : un remboursement, un paiement, un service rendu", "Mettre de côté une petite somme rien que pour un plaisir"],
           q: "Ta nouvelle phrase et ton geste : « Désormais, je me dis… et je m’autorise à… »",

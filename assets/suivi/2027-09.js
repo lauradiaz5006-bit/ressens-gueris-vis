@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de septembre 2027 : « Qu’est-ce que je transmets ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de septembre 2027 : « Qu’est-ce que je transmets ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le pas vers ma voie', type: 'texte',
-          consigne: "Choisis ton petit pas, écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce qui a changé. Ce pas devient aussi un appui dans ton carnet « J’avance », pour ta vocation.",
+          consigne: "Choisis ton petit pas, écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce qui a changé. Ce pas devient aussi un appui dans ton carnet « Renaissance », pour ta vocation.",
           pourquoi: "On ne transforme pas en un jour un rapport au travail qui a traversé des générations. Mais chaque petit pas vers ce qui te ressemble dit à ton corps qu’il a le droit de choisir, sans perdre sa sécurité.",
           gestes: ["Chercher une formation qui t’attire", "Appeler quelqu’un qui fait ce métier", "Bloquer une heure par semaine pour ton projet", "Dire « je n’ai pas besoin de m’épuiser pour bien faire »", "Partir à l’heure un soir par semaine", "Montrer ton travail créatif à une personne de confiance"],
           q: "Ton pas : « La prochaine fois que la vieille phrase arrive, au lieu de…, je vais… »",

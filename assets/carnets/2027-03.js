@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de mars 2027, « J'avance » : « Ma direction, ma confiance »
-   Le carnet du mois est le côté « J'avance » du Cercle : écouter la direction que sa vie montre, s'affirmer, faire grandir sa confiance en soi.
+/* Genesolia · Le Cercle · Carnet de mars 2027, « Renaissance » : « Ma direction, ma confiance »
+   Le carnet du mois est le côté « Renaissance » du Cercle : écouter la direction que sa vie montre, s'affirmer, faire grandir sa confiance en soi.
    Le côté libération (« Quelles émotions avaient le droit d’exister ? ») est dans Mon suivi (assets/suivi/2027-03.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "La confiance en soi, ce n’est pas ne jamais avoir peur. C’est savoir que tu peux agir même avec la peur, et que tu te relèveras si ça ne se passe pas comme prévu. Elle se construit comme un muscle : chaque petit acte de courage la renforce un peu.",
       "S’affirmer, c’est trouver le juste milieu entre se taire pour ne pas déranger et imposer son avis. C’est dire calmement ce que tu penses, ce que tu ressens et ce que tu veux, tout en respectant l’autre. On appelle souvent ça l’**affirmation de soi** : ni paillasson, ni hérisson, simplement toi, debout.",
-      "Ce mois-ci, tu vas **repérer** où ta voix se fait petite, **te souvenir** de tes réussites et de tes forces, et **oser** une phrase d’affirmation chaque semaine. En parallèle, ton suivi « Je me libère » regarde ta place dans la fratrie : c’est souvent là que l’on a appris à parler fort, à se taire, ou à laisser parler les autres."
+      "Ce mois-ci, tu vas **repérer** où ta voix se fait petite, **te souvenir** de tes réussites et de tes forces, et **oser** une phrase d’affirmation chaque semaine. En parallèle, ton livret « Libération » regarde ta place dans la fratrie : c’est souvent là que l’on a appris à parler fort, à se taire, ou à laisser parler les autres."
     ],
     exemplesTitre: "Quand ta voix se fait petite, au quotidien",
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['cartes.html', 'Tirer une carte de courage', "Une phrase à garder sur toi avant une réunion, un appel ou une conversation importante."],
       ['mon-guide.html', 'Mon guide du mois', "Ton nombre du mois, ton ciel et tes dates clés, pour choisir le bon moment pour oser."],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', "Ce mois-ci : regarder ta place dans la fratrie, et choisir celle que tu veux habiter aujourd’hui."]
+      ['mon-suivi.html', 'Mon livret « Libération »', "Ce mois-ci : regarder ta place dans la fratrie, et choisir celle que tu veux habiter aujourd’hui."]
     ]
   },
 
