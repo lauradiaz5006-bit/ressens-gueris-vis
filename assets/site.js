@@ -197,20 +197,20 @@ window.GenesoliaMesure = (function () {
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
   cercleMois: '',     /* Le Cercle 29 €/mois, essai 30 jours */
-  cercleAn: '',       /* Le Cercle 24 €/mois avec engagement 12 mois, essai 30 jours */
-  cercleAnnee: '',    /* Le Cercle 249 € l'année en une fois */
-  passMois: '',       /* Le Pass 10 €/mois sans engagement */
-  pass3Mois: '',      /* Le Pass 27 € les 3 mois, en une fois */
-  praticienMois: '',      /* Espace praticien 24 €/mois */
-  praticienFondateur: '', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
-  praticienAn: '',        /* Espace praticien 240 € l'année */
+  cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois avec engagement 12 mois, essai 30 jours */
+  cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
+  passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',       /* Le Pass 10 €/mois sans engagement */
+  pass3Mois: 'https://buy.stripe.com/aFafZa6jj2NX6Yd9qD43S0h',      /* Le Pass 27 € les 3 mois, en une fois */
+  praticienMois: 'https://buy.stripe.com/14A00c5ff1JTgyNcCP43S0d',      /* Espace praticien 24 €/mois */
+  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
+  praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
   carnet: '',         /* un carnet du mois, 9 € */
-  rapport: '',        /* le rapport de ton arbre, 9 € */
-  numerologie: '',    /* ton livret de numérologie, 12 € */
-  saisons: '',        /* Les 12 saisons, 15 € */
-  astral: '',         /* ton livret du thème astral */
-  arbreDeVie: '',     /* ton livret de l'arbre de vie */
-  mayaDuo: '',        /* votre analyse maya à deux */
+  rapport: 'https://buy.stripe.com/aFacMYgXXcox3M18mz43S09',        /* le rapport de ton arbre, 9 € */
+  numerologie: 'https://buy.stripe.com/8x228kfTT0FP4Q546j43S06',    /* ton livret de numérologie, 12 € */
+  saisons: 'https://buy.stripe.com/8x228k4bb9cl96l0U743S03',        /* Les 12 saisons, 15 € */
+  astral: 'https://buy.stripe.com/eVq4gsgXX0FP5U96er43S07',         /* ton livret du thème astral */
+  arbreDeVie: 'https://buy.stripe.com/9B6cMY4bb4W582hcCP43S05',     /* ton livret de l'arbre de vie */
+  mayaDuo: 'https://buy.stripe.com/aFa3co6jjdsB5U9fP143S04',        /* votre analyse maya à deux */
   arbreEncadrer: '',  /* ton arbre à encadrer (fichier HD) */
   impressionA4: '',   /* arbre imprimé, poster A4 */
   impressionA3: '',   /* arbre imprimé, poster A3 */
