@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ton année 2027 : astrologie et numérologie mois par mois, calculées pour toi · Genesolia</title>
+  <meta name="description" content="Ton agenda de l'année, mois par mois : ton année et tes mois personnels, les passages des planètes sur ton thème, les lunes dans tes maisons et les dates de ta famille.">
+  <link rel="canonical" href="https://genesolia.fr/ton-annee.html">
+  <meta property="og:title" content="Ton année, mois par mois, calculée pour toi">
+  <meta property="og:description" content="Tes nombres, le ciel sur ton thème et les dates de ta famille, réunis dans un agenda de l'année.">
+  <meta property="og:image" content="https://genesolia.fr/assets/formation/spirale.jpg">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .y-tete{position:relative;overflow:hidden;padding:3rem 0 3.2rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .y-tete .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+    .y-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .y-tete h1{margin-bottom:1rem}
+    .y-tete .intro{font-size:1.1rem;color:var(--prune-doux)}
+    .y-tete ul{margin:1rem 0 0 1.1rem;color:var(--prune-doux)}
+    .y-form{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.7rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .y-form h2{font-size:1.45rem;margin-bottom:.3rem}
+    .y-form>p{font-size:.9rem;color:var(--prune-doux);margin-bottom:1rem}
+    .y-champ{display:grid;gap:.3rem;margin-bottom:.85rem;position:relative}
+    .y-champ label{font:600 .82rem/1.2 var(--texte)}
+    .y-champ small{font-size:.78rem;color:var(--prune-doux)}
+    .y-form input[type=text],.y-form input[type=date],.y-form input[type=time]{font:inherit;padding:.72rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:12px;background:var(--nacre);color:var(--prune);width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+    .y-form input[readonly]{background:#F7EEF1;font-weight:600;cursor:default}
+    .y-deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .y-deux>*,.y-champ,.y-tete .conteneur>*{min-width:0}
+    .y-case{display:flex;gap:.5rem;align-items:center;font-size:.85rem;color:var(--prune-doux);margin:-.3rem 0 .8rem}
+    .g-sugg{position:absolute;left:0;right:0;top:100%;z-index:5;list-style:none;background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:12px;box-shadow:0 18px 40px rgba(107,47,91,.15);overflow:hidden;margin-top:.2rem}
+    .g-sugg li{padding:.55rem .8rem;cursor:pointer;font-size:.92rem}.g-sugg li small{color:var(--prune-doux);margin-left:.3rem}.g-sugg li:hover,.g-sugg li[aria-selected=true]{background:var(--rose)}
+    .y-form .btn{width:100%;margin-top:.3rem}
+    .y-erreur{color:#A1384F;font-size:.88rem;margin-top:.5rem;min-height:1.2em}
+    .y-res .conteneur{max-width:60rem}
+    .y-carte{padding:2rem;border-radius:var(--rayon);color:#fff;background:radial-gradient(30rem 18rem at 90% 0%,rgba(243,220,192,.45),transparent 60%),linear-gradient(150deg,#7B3A6A,#3E1736)}
+    .y-carte .y-sur{color:var(--champagne-clair);margin:0}
+    .y-carte h2{color:#fff;font-size:2.2rem;margin:.3rem 0 .5rem}
+    .y-carte p{color:#F7E6E8;margin:0;max-width:44rem}
+    .y-puces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+    .y-puces span{border:1px solid rgba(243,220,192,.5);border-radius:99px;padding:.3rem .8rem;font-size:.84rem;color:#fff}
+    .y-annees{display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
+    .y-annees button{font:inherit;font-size:.88rem;border:1px solid rgba(243,220,192,.6);background:transparent;color:#fff;border-radius:99px;padding:.4rem 1rem;cursor:pointer}
+    .y-annees button[aria-pressed=true]{background:var(--champagne-clair);color:var(--prune);border-color:var(--champagne-clair);font-weight:600}
+    .y-bloc{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.5rem;margin-top:1.2rem}
+    .y-bloc h3{font-size:1.3rem;margin-bottom:.5rem}
+    .y-bloc p{color:var(--prune-doux);max-width:none}
+    .y-etiq{font:600 .74rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .y-forts{display:grid;gap:.8rem}
+    .y-fort{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;padding:1rem 0;border-bottom:1px solid var(--rose)}
+    .y-fort:last-child{border:0;padding-bottom:0}
+    .y-fort i{font-style:normal;display:grid;place-items:center;width:2.6rem;height:2.6rem;border-radius:50%;font-family:var(--display);font-size:1.1rem;color:var(--prune);background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne)}
+    .y-fort h4{font:400 1.12rem var(--display);color:var(--prune);margin-bottom:.2rem}
+    .y-fort .quand{font:600 .78rem var(--texte);letter-spacing:.06em;color:var(--champagne);margin-bottom:.35rem}
+    .y-fort p{font-size:.95rem}
+    .y-sommaire{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.6rem 0 .4rem}
+    .y-sommaire a{font-size:.84rem;text-decoration:none;border:1px solid var(--rose-fonce);border-radius:99px;padding:.3rem .75rem;color:var(--prune);background:var(--blanc)}
+    .y-sommaire a.ferme{opacity:.55}
+    .y-mois{margin-top:1.6rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose-fonce);overflow:hidden;scroll-margin-top:5rem}
+    .y-mtete{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;padding:1.3rem 1.5rem;background:linear-gradient(120deg,#FFF6EC,var(--blanc) 70%);border-bottom:1px solid var(--rose)}
+    .y-num{width:3.4rem;height:3.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;color:var(--prune);background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:1.5px solid var(--champagne)}
+    .y-mtete h3{font-size:1.5rem;margin:0;text-transform:capitalize}
+    .y-mtete p{margin:.15rem 0 0;font-size:.92rem;color:var(--prune-doux)}
+    .y-mcorps{padding:1.2rem 1.5rem 1.5rem}
+    .y-ton{font-size:.96rem;color:var(--prune-doux);margin-bottom:1rem}
+    .y-agenda{list-style:none;margin:0;display:grid}
+    .y-agenda li{display:grid;grid-template-columns:3.6rem 1fr;gap:.9rem;padding:.75rem 0;border-top:1px solid var(--rose)}
+    .y-agenda .d{text-align:center;font:400 1.4rem/1 var(--display);color:var(--prune)}
+    .y-agenda .d small{display:block;font:600 .64rem/1.5 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
+    .y-agenda b{display:block;font-weight:600;color:var(--prune)}
+    .y-agenda span{display:block;font-size:.9rem;color:var(--prune-doux);margin-top:.15rem}
+    .y-agenda em{display:inline-block;font-style:normal;font:600 .64rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;border-radius:99px;padding:.25rem .5rem;margin-bottom:.3rem}
+    .y-agenda .ciel em{background:#F3E8F6;color:#6B2F5B}
+    .y-agenda .nb em{background:#FFF1DE;color:#8A5A1E}
+    .y-agenda .fam em{background:#FCE4EA;color:#A23B57}
+    .y-agenda .toi{background:linear-gradient(90deg,#FFF6EC,transparent)}
+    .y-fond{margin-top:.9rem;padding:.9rem 1rem;border-radius:14px;background:var(--nacre);font-size:.9rem;color:var(--prune-doux)}
+    .y-fond b{color:var(--prune)}
+    .y-geste{margin-top:.9rem;font-size:.92rem;color:var(--prune)}
+    .y-geste b{font-weight:600}
+    .y-verrou{position:relative;margin-top:1.6rem}
+    .y-verrou .y-flou{filter:blur(6px);pointer-events:none;user-select:none;max-height:40rem;overflow:hidden}
+    .y-offre{position:absolute;left:50%;top:4rem;transform:translateX(-50%);width:min(32rem,92%);background:var(--blanc);border:1.5px solid var(--champagne);border-radius:var(--rayon);padding:1.7rem;text-align:center;box-shadow:0 30px 70px rgba(107,47,91,.18)}
+    .y-offre h3{font-size:1.5rem;margin-bottom:.5rem}
+    .y-offre p{color:var(--prune-doux);margin-bottom:1rem}
+    .y-offre ul{list-style:none;text-align:left;display:grid;gap:.35rem;margin:0 0 1.2rem;font-size:.93rem;color:var(--prune-doux)}
+    .y-offre li::before{content:"·";color:var(--champagne);font-weight:700;margin-right:.5rem}
+    .y-offre .btn{width:100%}
+    .y-offre .y-ou{display:block;margin-top:.8rem;font-size:.9rem}
+    .y-actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem}
+    .note{font-size:.86rem;color:var(--prune-doux)}
+    .y-tete.y-replie{display:none}
+    @media(max-width:860px){.y-tete .conteneur{grid-template-columns:1fr}.y-carte h2{font-size:1.8rem}}
+    @media(max-width:480px){.y-deux{grid-template-columns:1fr;gap:0}.y-form{padding:1.2rem}.y-carte{padding:1.4rem}.y-bloc{padding:1.2rem}.y-mtete{padding:1.1rem}.y-mcorps{padding:1rem 1.1rem 1.2rem}.y-agenda li{grid-template-columns:3rem 1fr;gap:.7rem}.y-offre{top:2.5rem;padding:1.3rem}}
+    @media print{header,footer,.y-tete,.y-actions,.y-annees,.y-sommaire,.annonce,.bandeau-info,.cookies,.y-verrou,[data-seo-texte]{display:none!important}body{background:#fff}.y-mois,.y-bloc,.y-carte{break-inside:avoid}.y-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Ton année mois par mois", "item": "https://genesolia.fr/ton-annee.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="y-tete">
+      <div class="conteneur">
+        <div>
+          <p class="y-sur">Ton agenda de l'année</p>
+          <h1>Ton année, mois par mois</h1>
+          <p class="intro">Le ciel est le même pour tout le monde, mais il ne touche pas ta vie comme celle de ta voisine. Ton année réunit, mois après mois, tes nombres, les passages des planètes sur ton thème et les dates de ta famille, dans un agenda à lire et à garder.</p>
+          <ul><li>Ton année personnelle et chacun de tes mois personnels</li><li>Les grands passages des planètes sur ton Soleil et ta Lune</li><li>Les lunes et les éclipses dans tes maisons</li><li>Les anniversaires et les âges en écho de ta famille</li></ul>
+        </div>
+        <form class="y-form" id="y-form" novalidate>
+          <h2>Tes repères de naissance</h2>
+          <p id="y-intro-reperes">Ils servent à calculer ton année. Sans compte, ils restent sur ton appareil.</p>
+          <div class="y-champ"><label for="y-prenom">Tous tes prénoms</label><input type="text" id="y-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa Marie Jeanne"></div>
+          <div class="y-champ"><label for="y-nom">Ton nom de naissance (facultatif)</label><input type="text" id="y-nom" name="nom" autocomplete="family-name"></div>
+          <div class="y-deux">
+            <div class="y-champ"><label for="y-date">Date de naissance</label><input type="date" id="y-date" name="date" min="1900-01-01" max="2030-12-31" required></div>
+            <div class="y-champ"><label for="y-heure">Heure</label><input type="time" id="y-heure" name="heure"></div>
+          </div>
+          <label class="y-case"><input type="checkbox" id="y-sans-heure"> Je ne connais pas mon heure de naissance</label>
+          <div class="y-champ"><label for="y-lieu">Lieu de naissance</label><input type="text" id="y-lieu" name="lieu-naissance" placeholder="Commence à taper ta ville" spellcheck="false"><ul class="g-sugg" id="y-sugg" role="listbox" hidden></ul><small id="y-lieu-info">Avec ton heure, il dit dans quels domaines de ta vie tombent les lunes et les grands passages.</small></div>
+          <p class="note" id="y-note-reperes" hidden></p>
+          <button class="btn btn-plein" type="submit">Voir mon année</button>
+          <p class="y-erreur" role="alert" id="y-erreur"></p>
+          <p class="note">Le calcul se fait sur ton appareil.</p>
+        </form>
+      </div>
+    </section>
+    <section class="bloc y-res" id="resultat" hidden aria-live="polite"></section>
+
+    <section class="bloc bloc-doux" data-seo-texte><div class="conteneur" style="max-width:46rem"><h2>Une année calculée pour toi, et pas pour ton signe</h2>
+<p>Un horoscope annuel parle à tous les natifs d'un même signe. Ici, ton année part de ta propre carte : ta date de naissance donne ton année personnelle et chacun de tes mois personnels en numérologie ; ta date, ton heure et ton lieu de naissance situent ton Soleil, ta Lune, ton ascendant et tes maisons. On regarde ensuite, jour après jour, ce que les planètes lentes de l'année viennent toucher dans ce thème.</p>
+<p>Un passage de Saturne sur ton Soleil, une éclipse dans ta maison 4, un mois personnel 7 : ce sont des repères pour savoir quand semer, quand consolider et quand ralentir. Si ton arbre familial est rempli sur Genesolia, les anniversaires de naissance et de départ de ta famille, et les âges en écho, s'ajoutent à ton agenda : ce sont souvent des moments où quelque chose se réveille sans qu'on sache pourquoi.</p>
+<p>Ce n'est pas une prédiction : c'est une lecture symbolique pour t'accompagner. Garde ce qui te parle, laisse le reste. Tu peux aussi calculer <a href="theme-astral.html">ton thème astral</a> et <a href="theme-numerologique.html">ton thème numérologique</a> en entier.</p></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/astronomy.browser.min.js"></script>
+  <script src="assets/astrologie.js"></script>
+  <script src="assets/astrologie-textes.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script src="assets/maya.js"></script>
+  <script src="assets/maya-textes.js"></script>
+  <script src="assets/guide-textes.js"></script>
+  <script src="assets/guide-mois.js"></script>
+  <script src="assets/lieu-naissance.js"></script>
+  <script src="assets/ton-annee.js?v=1"></script>
+</body>
+</html>
