@@ -14,7 +14,7 @@ const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SE
 type Offre = { fam: "pass" | "cercle" | "praticien"; mois?: number; formule?: string };
 const OFFRES: Record<string, Offre> = {
   passMois: { fam: "pass" }, pass3Mois: { fam: "pass", mois: 3 },
-  cercleMois: { fam: "cercle" }, cercleAn: { fam: "cercle" }, cercleAnnee: { fam: "cercle", mois: 12 },
+  cercleMois: { fam: "cercle" }, cercleFondatrice: { fam: "cercle" }, cercleAn: { fam: "cercle" }, cercleAnnee: { fam: "cercle", mois: 12 },
   praticienMois: { fam: "praticien", formule: "mois" }, praticienFondateur: { fam: "praticien", formule: "fondateur" },
   praticienAn: { fam: "praticien", formule: "annee", mois: 12 },
 };
