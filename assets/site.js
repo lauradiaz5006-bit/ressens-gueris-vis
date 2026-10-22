@@ -1209,7 +1209,7 @@ window.GENESOLIA_IMPRESSION = {
     f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Crée ton espace pour télécharger');
     f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
       '<img src="/assets/icones/icone-192.png" alt="" width="64" height="64"><h2>' + (quoi ? esc(quoi.charAt(0).toUpperCase() + quoi.slice(1)) : 'Ton document') + ' t\'attend</h2>' +
-      '<p>Pour le télécharger, crée ton espace Genesolia : c\'est gratuit et ça prend une minute.</p>' +
+      (quoi === 'ton abonnement' ? '<p>Pour t\'abonner, connecte-toi à ton espace Genesolia (ou crée-le, c\'est gratuit) : ton accès s\'ouvrira dessus dès le paiement.</p>' : '<p>Pour le télécharger, crée ton espace Genesolia : c\'est gratuit et ça prend une minute.</p>') +
       '<ul class="compte-liste"><li>Tous tes livrets et tes tests gardés au même endroit, avec leur date</li><li>Ton évolution, test après test</li><li>Ton arbre familial sauvegardé</li></ul>' +
       '<div class="compte-actions"><a class="btn btn-plein" href="login.html?inscription&retour=' + encodeURIComponent(ici) + '">Créer mon espace gratuit</a><a class="compte-lien" href="login.html?retour=' + encodeURIComponent(ici) + '">J\'ai déjà un compte</a></div></div>';
     function fermer() { f.remove(); }
