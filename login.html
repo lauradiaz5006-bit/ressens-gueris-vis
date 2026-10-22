@@ -641,17 +641,28 @@
       var fin = new Date(m.essai_debut + 'T00:00:00'); fin.setDate(fin.getDate() + 30);
       var reste = Math.ceil((fin - new Date()) / 864e5);
       var S = window.GENESOLIA_STRIPE || {}, gestion = S.gestion;
-      var continuer = (reste > 0 && (S.cercleMois || S.cercleAn || S.cercleAnnee))
-        ? '<span style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem">' +
-          (S.cercleMois ? '<a class="btn btn-plein" href="#" data-payer="cercleMois">Continuer, 29 € par mois</a>' : '') +
-          (S.cercleAn ? '<a class="btn btn-trait" href="#" data-payer="cercleAn">24 € par mois sur 12 mois</a>' : '') +
-          (S.cercleAnnee ? '<a class="btn btn-trait" href="#" data-payer="cercleAnnee">249 € l’année</a>' : '') + '</span>'
-        : '';
-      el.innerHTML = (reste > 0
-        ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée : avant la fin, on t\'écrit pour te proposer de continuer, si tu le souhaites.'
-        : 'Ton abonnement au Cercle est actif.') +
-        continuer + (gestion ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
-      el.hidden = false;
+      var CERCLE = ['cercleMois', 'cercleFondatrice', 'cercleAn', 'cercleAnnee'];
+      function bouton(cle, texte, plein) { return S[cle] ? '<a class="btn ' + (plein ? 'btn-plein' : 'btn-trait') + '" href="#" data-payer="' + cle + '">' + texte + '</a>' : ''; }
+      function afficher(paye, places) {
+        var fondatrice = places > 0 && S.cercleFondatrice;
+        var continuer = !paye && (S.cercleMois || S.cercleAn || S.cercleAnnee)
+          ? '<span style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem">' +
+            (fondatrice ? bouton('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bouton('cercleMois', 'Continuer, 29 € par mois', true)) +
+            bouton('cercleAn', '24 € par mois sur 12 mois') + bouton('cercleAnnee', '249 € l’année') + '</span>'
+          : '';
+        el.innerHTML = (paye ? 'Ton abonnement au Cercle est actif.'
+          : reste > 0
+            ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée : avant la fin, on t\'écrit pour te proposer de continuer, si tu le souhaites.' + (fondatrice ? ' Tu fais partie des 100 premières : ton prix fondatrice est de 24,90 € par mois, sans engagement.' : '')
+            : 'Ton mois offert est terminé. Tu peux continuer Le Cercle quand tu veux.') +
+          continuer + (gestion && paye ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '">Gérer ou arrêter mon abonnement</a>' : '');
+        el.hidden = false;
+      }
+      if (!sb) { afficher(false, 0); return; }
+      Promise.all([
+        sb.from('achats').select('produit').eq('user_id', user.id).in('produit', CERCLE).limit(1),
+        S.cercleFondatrice ? sb.rpc('places_fondatrice') : Promise.resolve({ data: 0 })
+      ]).then(function (r) { afficher(!!(r[0].data && r[0].data.length), Number(r[1].data) || 0); },
+              function () { afficher(false, 0); });
     }
     window.GenesoliaEspaceDeconnecte = function (texte) {
       $('carte-connecte').hidden = true; $('carte-auth').hidden = false;
