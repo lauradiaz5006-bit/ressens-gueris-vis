@@ -253,6 +253,7 @@
     /* ── Téléphone : une personne au centre (assets/arbre-telephone.js) ── */
     #mt{display:none}
     body.mobile-arbre.mt-pret #mt{display:block}
+    body.mobile-arbre.mt-pret:not(.mt-dessin){height:auto;min-height:100vh;overflow:auto}   /* téléphone : la page défile jusqu'en bas pendant les questions */
     body.mobile-arbre.mt-pret .barre,body.mobile-arbre.mt-pret .zone,body.mobile-arbre.mt-pret .porte{display:none}
     body.mobile-arbre.mt-pret.mt-dessin #mt{display:none}
     body.mobile-arbre.mt-pret.mt-dessin .zone{display:block}
