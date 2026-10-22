@@ -103,7 +103,7 @@
   function afficherQuestion() {
     if (questionnaire.i < 0) { afficherAccueil(); return; }
     var liste = etapesActives(), q = liste[questionnaire.i], r = questionnaire.rep[q.cle] || {};
-    var h = '<div class="mt-q"><div class="mt-q-haut"><span class="mt-etiq">' + (CLI() ? 'Dossier client·e' : 'Ton arbre') + ' · ' + (questionnaire.i + 1) + ' sur ' + liste.length + '</span>' +
+    var h = '<div class="mt-q"><div class="mt-q-haut"><span class="mt-etiq">' + (CLI() ? 'Dossier client·e' : 'Ton arbre') + ' · question ' + (questionnaire.i + 1) + '</span>' +
       '<div class="mt-barre" aria-hidden="true"><i style="width:' + Math.round((questionnaire.i + 1) / liste.length * 100) + '%"></i></div></div>' +
       '<h1>' + q.titre + '</h1><p class="mt-aide">' + esc(q.aide) + '</p><form class="mt-form" novalidate>';
     q.champs.forEach(function (c) {
@@ -116,7 +116,7 @@
       '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' +
       (q.cle !== 'toi' ? '<button type="button" class="btn btn-trait" data-q="passer">Je ne sais pas</button>' : '') +
       '<button type="submit" class="btn btn-plein">' + (questionnaire.i === liste.length - 1 ? (CLI() ? 'Voir l’arbre' : 'Voir mon arbre') : 'Suivant') + '</button></div></form>' +
-      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans ton cabinet.' : 'Ton arbre se garde sur ce téléphone' + (G.connecte && G.connecte() ? ' et dans ton espace' : '') + '.') + '</p>' : '') + '</div>';
+      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans ton cabinet.' : (G.connecte && G.connecte() ? 'Ton arbre se garde dans ton espace.' : 'Sans compte, ton arbre reste dans ce navigateur jusqu’à sa fermeture.')) + '</p>' : '') + '</div>';
     racine.innerHTML = h;
     var f = racine.querySelector('form'), sexe = r.sexe || '';
     racine.querySelectorAll('[data-sexe]').forEach(function (b) { b.addEventListener('click', function () { sexe = b.getAttribute('data-sexe'); racine.querySelectorAll('[data-sexe]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); }); });
@@ -183,9 +183,9 @@
     if (deCote && bAnn && !bAnn.disabled) h += '<div class="mt-info"><p>Ton espace avait déjà un arbre : c’est lui qui s’affiche. L’arbre commencé sur ce téléphone a été mis de côté.</p><button type="button" class="btn btn-trait" data-recuperer>Reprendre l’arbre de ce téléphone</button></div>';
     if (!(G.connecte && G.connecte())) {
       var essaiOn = (window.GENESOLIA_ESSAI || {}).actif;
-      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement sur ce téléphone. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>10 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
+      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>10 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
     }
-    if (passerelle && !CLI()) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personnes') + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
+    if (passerelle && !CLI()) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personne' + (ids.length > 1 ? 's' : '')) + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
     if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à ' + (CLI() ? 'ton·ta client·e' : 'toi') + '</button>';
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Tes parents' : 'Ses parents') + '</p><div class="mt-duo">' +
       (mere ? carte(e, mere) : vide('mere', 'Ajouter ' + ton + ' mère')) + (pere ? carte(e, pere) : vide('pere', 'Ajouter ' + ton2 + ' père')) + '</div></div>';

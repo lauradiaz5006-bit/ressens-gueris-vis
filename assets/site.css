@@ -608,3 +608,4 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .es-bandeau a{color:#F3DCC0}
 body.mobile-arbre .es-bandeau{bottom:76px}
 .essai-fini #reps,.essai-fini .panneau .liste,.essai-fini .mt-rep{filter:blur(6px);pointer-events:none;user-select:none}
+body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart en bas à la fois (ex. thème numérologique) */

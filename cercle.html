@@ -454,7 +454,6 @@
       h += '<div data-phrase-jour></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
-        (gestion ? ligne(esc(gestion), 'Gérer mon abonnement', 'Changer, arrêter, factures') : '') +
         ligne('assets/cercle/le-cercle-mode-d-emploi.pdf', 'Le mode d’emploi du Cercle', 'PDF de 10 pages, chaque écran expliqué') +
         ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés, jamais lus par Genesolia') +
         ligne('mentions-legales.html', 'Mentions légales', '') + '</div>' +
@@ -467,10 +466,19 @@
         var a = q && q.data; if (!a || !a.valide_jusqu) return;
         var fin = new Date(a.valide_jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
         var essai = /essai/i.test(a.note || '');
-        za.innerHTML = '<p><b>Le Cercle' + (essai ? ' · mois offert' : ' · actif') + '</b>' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p>' +
-          (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée : avant la fin, on t’écrit pour te proposer de continuer.</p>'
-                 : (a.offre === 'abonnement' ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>'));
-        typo(za);
+        var paye = /^Stripe/.test(a.note || ''), Sx = window.GENESOLIA_STRIPE || {};
+        function bt(cle, texte, plein) { return Sx[cle] ? '<a class="btn ' + (plein ? 'btn-plein' : 'btn-trait') + '" href="#" data-payer="' + cle + '">' + texte + '</a>' : ''; }
+        function rendre(places) {
+          var fondatrice = places > 0 && Sx.cercleFondatrice;
+          za.innerHTML = '<p><b>Le Cercle' + (essai ? ' · mois offert' : ' · actif') + '</b>' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p>' +
+            (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée. Tu peux continuer dès maintenant ou à la fin de ton mois offert, comme tu le sens.</p>' +
+                     '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem">' + (fondatrice ? bt('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bt('cercleMois', 'Continuer, 29 € par mois', true)) + bt('cercleAn', '24 € par mois sur 12 mois') + bt('cercleAnnee', '249 € l’année') + '</p>'
+                   : paye ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' + (gestion ? '<p style="margin-top:.6rem"><a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a></p>' : '')
+                   : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>');
+          typo(za);
+        }
+        if (essai && Sx.cercleFondatrice) sb.rpc('places_fondatrice').then(function (r) { rendre(Number(r && r.data) || 0); }, function () { rendre(0); });
+        else rendre(0);
       }, function () {});
       var bi = vue.querySelector('[data-installer-appli]');
       if (bi) bi.addEventListener('click', function (e) { e.preventDefault(); if (window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
