@@ -180,9 +180,12 @@
       liens += '<path d="M' + x1 + ' ' + a._y + 'H' + x2 + '" stroke="' + OR_FONCE + '" stroke-width="3.5" stroke-dasharray="' + (p._g >= 2 ? '10 8' : 'none') + '" opacity=".8"/>';
     });
 
+    /* « Avec mes enfants » : une rangée au pied du tronc, parmi les racines (du plus âgé à gauche au plus jeune à droite) */
+    var enfD = (donnees.enfants || []).slice(0, 6), pasE = enfD.length > 4 ? 340 : 400;
+    enfD.forEach(function (q, i) { q._x = Math.round(W / 2 + (i - (enfD.length - 1) / 2) * pasE); q._y = 3010; q._g = 0; q._et = etiquette(q, M); });
     /* Personnes */
     var pers = '';
-    gens.concat(fs).forEach(function (p) {
+    gens.concat(fs, enfD).forEach(function (p) {
       var x = p._x, y = p._y, moiMeme = p === moi, rr = M.rayon[p._g], f = p.sexe === 'f', e = p._et;
       var fond = moiMeme ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4';
       pers += '<g filter="url(#ae-ombre)">' + (f ? '<circle cx="' + x + '" cy="' + y + '" r="' + rr + '" fill="' + fond + '" stroke="' + OR + '" stroke-width="5"/>' : '<rect x="' + (x - rr) + '" y="' + (y - rr) + '" width="' + rr * 2 + '" height="' + rr * 2 + '" rx="6" fill="' + fond + '" stroke="' + OR + '" stroke-width="5"/>') + '</g>';
@@ -322,6 +325,9 @@
     /* Frères et sœurs : de part et d'autre du tronc, au niveau des petits buissons (si la cliente les inclut) */
     var fs = (donnees.freresSoeurs || []).slice(0, 4), FS_X = [[.29, .71], [.29, .71, .12, .88]][fs.length > 2 ? 1 : 0];
     fs.forEach(function (f, i) { f._fg = 1; h += medaillon(f, Math.round(FS_X[i] * W), 2820, 150, 120, 1, max, false); });
+    /* « Avec mes enfants » : au pied de l'arbre, sur les racines, du plus âgé au plus jeune */
+    var enfF = (donnees.enfants || []).slice(0, 6), pasF = enfF.length > 4 ? 320 : 360;
+    enfF.forEach(function (q, i) { h += medaillon(q, Math.round(W / 2 + (i - (enfF.length - 1) / 2) * pasF), fs.length ? 3150 : 3080, 150, 118, 1, max, false); });
     var titre = '<text x="' + W / 2 + '" y="178" text-anchor="middle" class="ae-titre" font-size="118">' + esc(donnees.titre || 'Mon arbre') + '</text>' +
       (donnees.sousTitre ? '<text x="' + W / 2 + '" y="252" text-anchor="middle" class="ae-sous" font-size="34">' + esc(donnees.sousTitre) + '</text>' : '');
     var pied = '<text x="' + W / 2 + '" y="3430" text-anchor="middle" class="ae-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
@@ -402,7 +408,7 @@
     var st = o.style || donnees.style;
     if (st === 'grand' && window.ArbreGrand) return window.ArbreGrand.svg(donnees, { fond: o.decor || undefined, medaillon: (o.sprites && o.sprites.medaillon) || 'assets/arbre/medaillon-or.png', apercu: o.apercu, fondPerdu: o.fondPerdu });
     if (st === 'descendants' && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: !!donnees.a3, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
-    if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: true, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: !donnees.portrait, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
   window.ArbreEncadrer = { svg: svgStyle, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };

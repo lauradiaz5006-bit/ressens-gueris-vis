@@ -131,7 +131,7 @@
     /* d'abord le rangement parfait (prénoms complets, puis premier prénom seulement), sinon les rangées en quinconce */
     var res = null, RANGE = '';
     (PARFAIT ? ['complet', 'court'] : ['']).filter(function (x) { return x !== null; }).some(function (mode) {
-      RANGE = mode; var taille = PARFAIT ? (a3 ? 64 : 74) : (a3 ? 40 : 50); res = essai(taille);   /* à l'horizontale : le texte grandit quand il y a de la place */
+      RANGE = mode; var taille = PARFAIT ? (a3 ? 96 : 110) : (a3 ? 80 : 96); res = essai(taille);   /* à l'horizontale : le texte grandit quand il y a de la place */
       while (!res.ok && taille > min) { taille -= 2; res = essai(taille); }
       return res.ok;
     });
@@ -141,7 +141,7 @@
   /* « Avec mes enfants » : une rangée au pied de l'arbre, sous la personne choisie ; on garde sa place en bas de page */
   function reserverEnfants(donnees, a3) {
     var l = (donnees.enfants || []).slice(0, 6); if (!l.length) return null;
-    var fz = a3 ? 30 : 36;
+    var fz = a3 ? 48 : 56;
     l.forEach(function (q) { q._e = etiquette(q, fz, false); q._g = -1; });
     var hE = Math.max.apply(null, l.map(function (q) { return q._e.h; })), sous = MOTIF === 'medaillons' ? 230 : 0;
     var bas0 = BAS; BAS -= hE + 80 + sous;
@@ -206,7 +206,7 @@
       var yEnfant = p._yb - p._e.h, yParent = Math.max.apply(null, ps.map(function (q) { return q._yb; }));
       var yBarre = yEnfant - Math.max(28, (yEnfant - yParent) * .5) + (p._alt ? -12 : 12), e = Math.max(3, 9 - p._g * 1.3);
       var xs = ps.map(function (q) { return q._x; }).concat([p._x]), x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
-      traits += '<path d="M' + f1(p._x) + ' ' + f1(yEnfant) + 'V' + f1(yBarre) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>';
+      if (!(p.couple && !ENF)) traits += '<path d="M' + f1(p._x) + ' ' + f1(yEnfant) + 'V' + f1(yBarre) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>';   /* couple sans enfants : pas de trait qui descend vers rien */
       traits += '<path d="M' + f1(x0) + ' ' + f1(yBarre) + 'H' + f1(x1) + '" stroke="#B08048" stroke-width="' + e + '" fill="none" stroke-linecap="round"/>';
       ps.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yBarre) + 'V' + f1(q._yb) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>'; });
     });
@@ -299,5 +299,11 @@
       '.li-pied{font-family:' + NS + ';font-size:32px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.85}.li-fil{font-family:' + GN + ';font-size:300px;fill:' + PRUNE + '}</style></defs>' +
       fond + coins + titre + traits + cartes + pied + filigrane + '</svg>';
   }
-  window.ArbreLignee = { svg: svg, capacite: capacite };
+  /* taille du texte obtenue pour n générations, dans une orientation donnée (0 si ça ne tient pas) : sert à choisir portrait ou paysage */
+  function taille(donnees, a3, paysage, motif, n) {
+    format(paysage); MOTIF = motif || ''; reserverEnfants(donnees, a3);
+    var r = miseEnPage(ranger(donnees.moi, n), n, a3, []);
+    return r && r.ok ? r.plan[Math.min(1, n - 1)].fz : 0;
+  }
+  window.ArbreLignee = { svg: svg, capacite: capacite, taille: taille };
 })();
