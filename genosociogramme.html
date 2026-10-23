@@ -476,15 +476,15 @@
     .fe-apercu-z{position:relative}
     .fe-badge{display:inline-block;margin-left:.3rem;padding:.08rem .45rem;border-radius:999px;background:#8E2F5E;color:#fff;font:700 .68rem var(--texte);vertical-align:middle}
     .fe-apercu{cursor:zoom-in}
-    .fe-loupe{position:absolute;top:.6rem;right:.6rem;display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .8rem;border-radius:999px;border:1px solid var(--champagne-clair);background:rgba(255,255,255,.94);color:var(--prune);font:700 .85rem var(--texte);cursor:pointer;box-shadow:0 4px 14px rgba(74,33,66,.18)}
+    .fe-loupe{position:static;display:flex;margin:.55rem auto 0;align-items:center;gap:.35rem;padding:.4rem .85rem;border-radius:999px;border:1px solid var(--champagne);background:#fff;color:var(--prune);font:600 .82rem var(--texte);cursor:pointer}.fe-loupe:hover{border-color:var(--prune)}
     .fe-loupe svg{width:18px;height:18px}
     .fe-zoom{position:fixed;inset:0;z-index:2000;background:rgba(36,14,32,.92);display:flex;flex-direction:column}
     .fe-zoom-barre{display:flex;gap:.5rem;justify-content:center;padding:.7rem;flex:none}
     .fe-zoom-barre button{min-width:44px;padding:.5rem .9rem;border-radius:999px;border:0;background:#fff;color:#4A0F36;font:700 1rem var(--texte);cursor:pointer}
     .fe-zoom-barre .fe-zoom-x{background:#E8C899}
-    .fe-zoom-vue{flex:1;overflow:hidden;touch-action:none;cursor:grab;display:flex;align-items:center;justify-content:center}
+    .fe-zoom-vue{flex:1;overflow:hidden;touch-action:none;cursor:grab;position:relative}
     .fe-zoom-vue:active{cursor:grabbing}
-    .fe-zoom-img{width:min(96vw,calc((100vh - 90px) * 1.42));transform-origin:0 0;will-change:transform}
+    .fe-zoom-img{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
     .fe-zoom-img>svg{display:block;width:100%;height:auto}
     .fe-commander{width:100%;font-size:1.05rem}
     .fe-sous-t{margin:.9rem 0 0;font-weight:700;color:var(--prune)}
@@ -504,7 +504,7 @@
     .fe-reglages{display:flex;flex-direction:column;gap:.7rem}
     .fe-champ{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;font-weight:600;color:var(--prune)}
     .fe-champ input,.fe-champ select{font:inherit;font-weight:400;padding:.6rem .8rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff}
-    .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}
+    .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}.fe-style-aide{margin:.45rem 0 0;line-height:1.45}
     .fe-imp{margin-top:.6rem;padding:1rem 1.1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair);display:flex;flex-direction:column;gap:.6rem}
     .fe-imp-titre{font-family:var(--display);font-size:1.2rem;margin:0;color:var(--prune)}
     .fe-imp-form{display:flex;flex-direction:column;gap:.6rem;position:relative}
@@ -919,11 +919,11 @@
   })();
   </script>
   <script src="assets/export-gedcom.js?v=2026-10-09"></script>
-  <script src="assets/arbre-lignee.js?v=7"></script>
+  <script src="assets/arbre-lignee.js?v=9"></script>
   <script src="assets/arbre-descendants.js?v=2"></script>
-  <script src="assets/arbre-grand.js?v=6"></script>
-  <script src="assets/arbre-encadrer.js?v=17"></script>
-  <script src="assets/arbre-encadrer-page.js?v=25"></script>
+  <script src="assets/arbre-grand.js?v=7"></script>
+  <script src="assets/arbre-encadrer.js?v=18"></script>
+  <script src="assets/arbre-encadrer-page.js?v=27"></script>
 
   <script>
   (function () {

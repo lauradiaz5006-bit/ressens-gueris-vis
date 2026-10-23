@@ -23,10 +23,25 @@
   function f1(n) { return (+n).toFixed(1); }
 
   /* Le texte d'un médaillon : prénom(s), NOM, dates, le plus grand possible sans sortir du cercle */
-  function medaillon(p, x, y, r) {
+  /* taille la plus grande où le texte tient : prénoms complets, sinon le premier prénom (sert à donner la même taille à toute une rangée) */
+  function mesure(p, r) {
+    var pre = String(p.prenom || '').trim().split(/\s+/).filter(Boolean), fz0 = Math.max(MIN, Math.round(r * .42)), f1 = 0, f2 = 0;
+    for (var t = fz0; t >= MIN && !f1; t--) if (essaiL(p, r, t, pre.join(' '))) f1 = t;
+    if (pre.length > 1) for (t = fz0; t >= MIN && !f2; t--) if (essaiL(p, r, t, pre[0])) f2 = t;
+    return f1 && f1 >= f2 * .8 ? { fz: f1, complet: true } : { fz: f2 || f1 || MIN, complet: !f2 };
+  }
+  function essaiL(p, r, t, prenom) {
+    var nom = String(p.nom || '').toUpperCase(), dates = (p.naissance || '') + (p.deces ? '–' + p.deces : '');
+    var l = [[prenom, t, GN, false, 'gr-nom'], [nom, t * .86, NS, true, 'gr-nf'], [dates, Math.max(MIN, t * .8), NS, true, 'gr-date']].filter(function (z) { return z[0]; });
+    var h = l.reduce(function (s, z) { return s + z[1] * 1.12; }, 0), yy = -h / 2, ok = true;
+    l.forEach(function (z) { var mid = yy + z[1] * .56, ch = 2 * Math.sqrt(Math.max(0, r * r - mid * mid)); if (larg(z[0], z[1], z[2], z[3]) > ch * .94) ok = false; yy += z[1] * 1.12; });
+    return ok ? l : null;
+  }
+  function medaillon(p, x, y, r, fixe) {
     var pre = String(p.prenom || '').trim().split(/\s+/).filter(Boolean), nom = String(p.nom || '').toUpperCase();
     var dates = (p.naissance || '') + (p.deces ? '–' + p.deces : '');
     var lignes = null, fz = Math.max(MIN, Math.round(r * .42));
+    if (fixe) lignes = (fixe.complet ? essaiL(p, r, fixe.fz, pre.join(' ')) : null) || essaiL(p, r, fixe.fz, pre[0] || '');
     function essai(t, prenom) {
       var l = [[prenom, t, GN, false, 'gr-nom'], [nom, t * .86, NS, true, 'gr-nf'], [dates, Math.max(MIN, t * .8), NS, true, 'gr-date']].filter(function (z) { return z[0]; });
       var h = l.reduce(function (s, z) { return s + z[1] * 1.12; }, 0), yy = -h / 2, ok = true;
@@ -35,6 +50,7 @@
     }
     /* d'abord tous les prénoms (le texte peut un peu rapetisser), puis le premier prénom seulement si la place manque vraiment */
     var fz0 = fz, seuil = Math.max(MIN, Math.round(fz0 * .55));
+    if (lignes) fz = 0;
     for (; fz >= seuil && !lignes; fz--) lignes = essai(fz, pre.join(' '));
     for (fz = fz0; fz >= MIN && !lignes; fz--) lignes = essai(fz, pre.join(' ')) || (pre.length > 1 ? essai(fz, pre[0]) : null);
     if (!lignes) lignes = essai(MIN, pre[0] || '') || [[pre[0] || '', MIN, GN, false, 'gr-nom'], [nom, MIN, NS, true, 'gr-nf'], [dates, MIN, NS, true, 'gr-date']].filter(function (z) { return z[0]; });
@@ -52,19 +68,34 @@
   function svg(donnees, o) {
     o = o || {};
     var h = '', max = Math.min(5, donnees.nbGen || 5);
+    /* une même taille de texte pour toute une rangée (la plus petite de la rangée), pour que l'ensemble reste régulier */
+    var places = [], pris = {};
     (function poser(p, g, i) {
       if (!p || g >= max) return;
-      h += medaillon(p, X[g][i], Y[g][i], R[g] * .8);
+      places.push({ p: p, g: g, i: i }); pris[g + ':' + i] = 1;
       poser(p.pere, g + 1, i * 2); poser(p.mere, g + 1, i * 2 + 1);
     })(donnees.moi, 0, 0);
+    var taille = {};
+    places.forEach(function (q) { var m = mesure(q.p, R[q.g] * .8); q.m = m; taille[q.g] = Math.min(taille[q.g] || 999, m.fz); });
+    places.forEach(function (q) { h += medaillon(q.p, X[q.g][q.i], Y[q.g][q.i], R[q.g] * .8, { fz: taille[q.g], complet: q.m.complet || essaiL(q.p, R[q.g] * .8, taille[q.g], String(q.p.prenom || '').trim()) !== null }); });
+    /* médaillons sans ancêtre connu : un petit brin doré, pour qu'ils paraissent voulus plutôt qu'inachevés */
+    for (var g0 = 1; g0 < max; g0++) X[g0].forEach(function (x0, i0) {
+      if (pris[g0 + ':' + i0]) return;
+      var y0 = Y[g0][i0], r0 = R[g0] * .8, k0 = r0 / 60;
+      h += '<circle cx="' + x0 + '" cy="' + y0 + '" r="' + f1(r0 * 1.02) + '" fill="#FDF8EF" opacity=".75"/>' +
+        '<g transform="translate(' + x0 + ' ' + y0 + ') scale(' + f1(k0) + ')" fill="#C9A06A" opacity=".85"><path d="M0 26C-1 10 0 -6 3 -24" stroke="#B08048" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+        '<path d="M2 -6C10 -16 20 -16 26 -12C20 -4 10 -2 2 -6Z"/><path d="M1 6C-8 -2 -18 -2 -24 2C-18 10 -8 12 1 6Z"/><path d="M3 -22C6 -32 12 -36 18 -36C16 -28 10 -22 3 -22Z"/><circle cx="-3" cy="16" r="3.4" fill="#B7577B"/></g>';
+    });
     /* « Avec mes enfants » : de petits médaillons dorés parmi les racines, reliés au médaillon du bas */
     var enf = (donnees.enfants || []).slice(0, 6), eH = '', CJ = donnees.conjoint || null;
     if (enf.length) {
       /* du plus âgé (à gauche) au plus jeune (à droite), de part et d'autre du médaillon du bas */
       /* des médaillons peints (les mêmes que l'arbre), aussi grands que ceux des grands-parents, de part et d'autre de toi ; avec le conjoint, les deux côtés s'écartent d'un cran pour rester symétriques */
-      var RE = enf.length > 4 ? 112 : 128, YE = 2225, PAS = enf.length > 4 ? 285 : 330, nG = Math.ceil(enf.length / 2), sc = RE / 152;
+      /* nombre impair : celui du milieu se place juste sous toi, les autres de part et d'autre, à égale distance */
+      var impair = enf.length % 2 === 1, RE = impair ? 100 : enf.length > 4 ? 112 : 128, YE = 2225, PAS = enf.length > 4 ? 285 : 330, nG = Math.floor(enf.length / 2), sc = RE / 152, mil = impair ? nG : -1;
       enf.forEach(function (q, i) {
-        var e0 = R[0] + RE + 70 + (CJ ? PAS : 0), dx = i < nG ? -(e0 + (nG - 1 - i) * PAS) : e0 + (i - nG) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
+        var j = impair && i > mil ? i - 1 : i;
+        var e0 = R[0] + RE + 70 + (CJ ? PAS : 0), dx = i === mil ? 0 : j < nG ? -(e0 + (nG - 1 - j) * PAS) : e0 + (j - nG) * PAS, x = X[0][0] + dx, y = i === mil ? Y[0][0] + R[0] + 14 + RE : YE, sg = dx < 0 ? -1 : 1;
         /* pas de trait : les racines peintes relient déjà les enfants au médaillon du bas */
         eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + f1(RE * .95) + '" fill="#FDF8EF"/>';
         eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(x - 360 * sc) + '" y="' + f1(y - 279 * sc) + '" width="' + f1(780 * sc) + '" height="' + f1(540 * sc) + '"/>'
@@ -86,9 +117,10 @@
     if (m) { l1 = m[1]; l2 = m[2]; } else if (larg(t, 88, GN) > 560) { var mots = t.split(' '), k = Math.ceil(mots.length / 2); l1 = mots.slice(0, k).join(' '); l2 = mots.slice(k).join(' '); }
     var tz = Math.min(88, Math.floor(88 * 560 / Math.max(larg(l1, 88, GN), larg(l2 || ' ', 88, GN), 1)));
     var sous = String(donnees.sousTitre || '').split(/\s+·\s+/);
-    var titre = '<text x="' + W / 2 + '" y="' + (l2 ? 370 : 420) + '" text-anchor="middle" class="gr-titre" font-size="' + tz + '">' + esc(l1) + '</text>' +
-      (l2 ? '<text x="' + W / 2 + '" y="' + f1(370 + tz * 1.1) + '" text-anchor="middle" class="gr-titre" font-size="' + tz + '">' + esc(l2) + '</text>' : '') +
-      sous.map(function (s, i) { return '<text x="' + W / 2 + '" y="' + (575 + i * 46) + '" text-anchor="middle" class="gr-sous" font-size="' + (i ? 26 : 28) + '">' + esc(s) + '</text>'; }).join('');
+    /* titre au-dessus de la rangée du haut, sur une ligne, sous-titre dessous : rien de coincé entre les médaillons */
+    var tz1 = Math.min(104, Math.floor(104 * 1500 / Math.max(larg(t, 104, GN), 1)));
+    var titre = '<text x="' + W / 2 + '" y="215" text-anchor="middle" class="gr-titre" font-size="' + tz1 + '">' + esc(t) + '</text>' +
+      (sous.join('') ? '<text x="' + W / 2 + '" y="290" text-anchor="middle" class="gr-sous" font-size="28">' + esc(sous.join(' · ')) + '</text>' : '');
     var pied = '<text x="' + (W - 230) + '" y="' + (H - 150) + '" text-anchor="end" class="gr-pied">GENESOLIA · genesolia.fr</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-25 ' + W / 2 + ' ' + H / 2 + ')"><text x="' + W / 2 + '" y="' + (H / 2 - 60) + '" text-anchor="middle" class="gr-fil">APERÇU</text><text x="' + W / 2 + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="gr-fil">GENESOLIA</text></g>' : '';
     var B = o.fondPerdu ? Math.round(4 * H / 210) : 0;
