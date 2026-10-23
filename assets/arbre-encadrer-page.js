@@ -690,4 +690,6 @@
     });
   }
   bt.addEventListener('click', function () { afficher(); window.GenoArbre.ouvrir('fen-encadrer'); });
+  /* lien direct genosociogramme.html#encadrer (page Idées cadeaux) : la fenêtre de l'affiche s'ouvre toute seule */
+  if (location.hash === '#encadrer') setTimeout(function () { bt.click(); }, 600);
 })();
