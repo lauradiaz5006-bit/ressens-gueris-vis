@@ -1022,7 +1022,7 @@
     });
     if (premiers.length >= 2) reps.push({ type: 'depart', qk: 'premier', fort: premiers.length >= 3, tags: 'premier enfant aine perte deces', label: 'La perte du premier enfant, ' + premiers.length + ' fois', desc: premiers.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: [].concat.apply([], premiers.map(function (x) { return x.ids; })) });
     // 10. Le même âge pour devenir parent, sur 3 générations ou plus
-    function agePremier(p) { var an = annee(p && p.naiss); if (!an) return null; var e = (enfantsDe[p.id] || []).map(function (x) { return annee(S.people[x].naiss); }).filter(Boolean); return e.length ? Math.min.apply(null, e) - an : null; }
+    function agePremier(p) { var an = annee(p && p.naiss); if (!an) return null; var e = (enfantsDe[p.id] || []).map(function (x) { var c = S.people[x]; if (!annee(c.naiss)) return null; var ex = ageEntre(p.naiss, c.naiss); return ex != null ? ex : annee(c.naiss) - an; }).filter(function (v) { return v != null; }); return e.length ? Math.min.apply(null, e) : null; }
     chaine(function (pa, en) { var x = agePremier(pa), y = agePremier(en); return x != null && y != null && x >= 14 && y >= 14 && Math.abs(x - y) <= 2; }).forEach(function (l) {
       reps.push({ type: 'schema', qk: 'ageparent', tags: 'age parent premier enfant devenir mere pere', label: 'Parent au même âge, sur ' + l.length + ' générations', desc: l.map(function (id) { var p = S.people[id]; return nom(p) + ' : ' + agePremier(p) + ' ans'; }).reverse().join(', puis ') + '.', ids: l });
     });
@@ -1169,7 +1169,17 @@
       prenom: ['Qui a choisi le prénom de ' + prenomC + ', et pourquoi ?', 'Qu’est-ce que ce prénom lui évoque ?'],
       manque: ['Qui est là pour ' + prenomC + ' quand un parent manque ?', 'Comment lui parle-t-on de ce parent ?'],
       date: ['Comment cette date est-elle vécue autour de ' + prenomC + ' ?', 'Que lui a-t-on raconté de cette personne ?'],
-      ageparent: ['Comment l’âge de devenir parent s’est-il décidé à chaque génération ?', 'Et ' + prenomC + ', comment se situe-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' par rapport à cet âge ?']
+      ageparent: ['Que sait ' + prenomC + ' de l’âge auquel ses parents et grands-parents ont eu leurs enfants ?', 'Qu’observes-tu chez ' + il + ' quand on parle de devenir parent ?'],
+      depart: ['Que sait ' + prenomC + ' de ces départs ?', 'Comment en parle-t-on devant ' + il + ' ?'],
+      epreuve: ['Qu’observes-tu chez ' + prenomC + ' qui ressemble à cette histoire ?', 'Que lui en a-t-on raconté ?'],
+      schema: ['Qu’observes-tu chez ' + prenomC + ' qui fait écho à cette façon de faire ?', 'Qu’aimerais-tu lui transmettre de différent ?'],
+      separation: ['Comment ' + prenomC + ' a-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' vécu les séparations autour de ' + il + ' ?', 'Que lui dit-on de ce qu’on fait quand un couple va mal ?'],
+      metier: ['Qu’est-ce qui attire ' + prenomC + ' aujourd’hui ?', 'Qu’attend-on de ' + il + ' dans la famille ?'],
+      enfants: ['Quelle place ' + prenomC + ' a-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' dans sa fratrie ?', 'Attendait-on une fille ou un garçon avant sa naissance ?'],
+      taille: ['Quelle place ' + prenomC + ' a-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' dans sa fratrie ?', 'Attendait-on une fille ou un garçon avant sa naissance ?'],
+      ombre: ['Qui pourrait raconter à ' + prenomC + ' ce qui manque à l’arbre ?', 'Sur quels sujets lui répond-on de façon évasive ?'],
+      repere: ['Qu’observes-tu chez ' + prenomC + ' qui ressemble à ce que tu as repéré ?', 'Que veux-tu lui transmettre, et que veux-tu laisser ?'],
+      _: ['Qu’est-ce que cette histoire peut dire de la place de ' + prenomC + ' ?', 'Qu’observes-tu chez ' + il + ' qui y fait écho ?']
     } : {};
     // L'article du blog qui explique chaque piste
     var A = function (u, t) { return { u: u, t: t }; };
@@ -1190,9 +1200,8 @@
     QUESTIONS.taille = QUESTIONS.enfants; ARTICLES.taille = ARTICLES.enfants; ARTICLES.separation = ARTICLES.schema;
     reps.forEach(function (r) {
       var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
-      var k2 = r.qk2 && QUESTIONS[r.qk2] ? r.qk2 : k;
-      var QA = moi && r.ids.indexOf(moi.id) >= 0 ? QUESTIONS_AUTRE : {};
-      r.q = QA[k2] || QA[k] || QUESTIONS[k2 === 'nepresmoi' && autre ? 'nepres' : k2] || QUESTIONS[k] || null;
+      var k2 = r.qk2 && (QUESTIONS[r.qk2] || QUESTIONS_AUTRE[r.qk2]) ? r.qk2 : k;
+      r.q = autre ? (QUESTIONS_AUTRE[k2] || QUESTIONS_AUTRE[k] || QUESTIONS_AUTRE._) : (QUESTIONS[k2] || QUESTIONS[k] || null);
       r.art = ARTICLES[k] || null;
     });
 
@@ -1298,7 +1307,7 @@
     return symbole(p, RP) + ' fill="#FFFFFF" stroke="' + PRUNE + '" stroke-width="1.6"/>' + croix(p.sex === 'm' ? RP : x, 1.4);   // mort-né
   }
   function dessinPersonne(p, pos, o) {
-    var moi = p.role === 'moi', sel = o.sel === p.id, att = o.attenue && o.attenue.indexOf(p.id) < 0;
+    var moi = (vuDepuis && S.people[vuDepuis] && !o.export) ? p.id === vuDepuis : p.role === 'moi', sel = o.sel === p.id, att = o.attenue && o.attenue.indexOf(p.id) < 0;
     var lien = libLien(lienDe(p.id)), pt = petit(p), rr = pt ? RP : R;
     var nom = nomComplet(p);
     var h = '<g class="personne" data-id="' + esc(p.id) + '" transform="translate(' + pos.x + ',' + pos.y + ')"' + (o.export ? '' : ' tabindex="0" role="button" aria-label="' + esc((nom || (pt ? GROSS[p.grossesse] : '') || lien || 'Personne sans prénom') + (lien && nom ? ', ' + lien : '')) + '"') + (att ? ' opacity=".22"' : '') + '>';
@@ -1580,6 +1589,96 @@
       desc: l.map(function (p) { var ad = ageDeces(p), ev = (p.events || []).map(function (e) { return (NOM_EVT[e.type] || e.type || '').toLowerCase(); }).filter(Boolean); return nomComplet(p) + (p.naiss ? ' (' + annee(p.naiss) + ')' : '') + (ad != null ? ', ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans' : '') + (ev.length ? ', ' + ev.join(', ') : ''); }).join(' ; ') + '.',
       ids: l.map(function (p) { return p.id; }), tags: 'prenom', cle: 'synth:' + q };
   }
+  function portraitDe(id) {
+    var p = S.people[id]; if (!p) return [];
+    var tiers = p.role !== 'moi' || DOSSIER_CLIENT, pr = String(p.prenom || '').split(/[\s-]+/)[0] || nomComplet(p) || 'cette personne';
+    var il = p.sex === 'f' ? 'elle' : 'il', sa = tiers ? 'sa' : 'ta', ses = tiers ? 'ses' : 'tes';
+    var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    var asc = {}; (function up(x) { parents(x).forEach(function (q) { if (!asc[q]) { asc[q] = 1; up(q); } }); })(id);
+    var zone = {}; Object.keys(asc).forEach(function (a) { zone[a] = 1; freresDirects(a).forEach(function (f) { zone[f] = 1; }); });
+    freresDirects(id).forEach(function (f) { zone[f] = 1; }); delete zone[id];
+    var Z = Object.keys(zone).map(function (k) { return S.people[k]; }).filter(function (q) { return q && !petit(q); });
+    var nm = function (q) { return nomComplet(q) || libLien(lienDe(q.id)) || 'Sans prénom'; };
+    var de = function (t) { return /^[aeiouyéèêâîôûh]/i.test(t) ? 'd’' + t : 'de ' + t; };
+    var out = [], C = { a: COUL.anniversaire, d: COUL.date, p: COUL.prenom, s: COUL.schema, g: COUL.gisant };
+    function carteP(type, c, label, desc, ids) { out.push({ synth: true, portrait: true, type: type, c: c, label: label, desc: desc, ids: [id].concat(ids || []), cle: 'portrait:' + type + ':' + out.length }); }
+    // 1. son âge
+    var age = ageActuel(p);
+    if (age != null) {
+      var memes = [];
+      Z.forEach(function (q) {
+        var ad = ageDeces(q); if (ad != null && Math.abs(ad - age) <= 1) memes.push({ q: q, t: (q.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans' });
+        (q.events || []).forEach(function (e) { var ea = parseInt(e.age, 10); if (!isNaN(ea) && Math.abs(ea - age) <= 1) memes.push({ q: q, t: '« ' + (NOM_EVT[e.type] || e.type || '').toLowerCase() + ' » à ' + ea + ' ans' }); });
+      });
+      carteP('anniversaire', C.a, (tiers ? pr + ' a ' : 'Tu as ') + age + ' an' + (age > 1 ? 's' : '') + ' : qui a vécu quelque chose à cet âge ?',
+        memes.length ? 'Dans ' + sa + ' lignée, autour de ' + age + ' ans : ' + memes.slice(0, 5).map(function (m) { return nm(m.q) + ', ' + m.t; }).join(' ; ') + '.' : 'Rien n’est encore noté autour de ' + age + ' ans dans ' + sa + ' lignée : ni décès, ni événement. Ajouter les âges des grands moments de la famille peut faire apparaître un écho.',
+        memes.map(function (m) { return m.q.id; }));
+    }
+    // 2. sa date de naissance
+    var mj = String(p.naiss || '').match(/^\d{4}-(\d{2})-(\d{2})$/);
+    if (mj) {
+      var ref = Date.UTC(2001, +mj[1] - 1, +mj[2]), proches = [];
+      Z.forEach(function (q) { [['naiss', 'naissance'], ['deces', 'décès']].forEach(function (k) {
+        var m = String(q[k[0]] || '').match(/^\d{4}-(\d{2})-(\d{2})$/); if (!m) return;
+        var e = Math.abs(Date.UTC(2001, +m[1] - 1, +m[2]) - ref) / 864e5; e = Math.min(e, 365 - e);
+        if (e <= 7) proches.push({ q: q, e: e, t: k[1] + ' ' + de(nm(q)) + ' le ' + (+m[2]) + ' ' + MOIS[+m[1] - 1] + (e ? ' (' + e + ' jour' + (e > 1 ? 's' : '') + ' d’écart)' : ' (le même jour)') });
+      }); });
+      proches.sort(function (x, y) { return x.e - y.e; });
+      carteP('date', C.d, (tiers ? 'Né' + (p.sex === 'f' ? 'e' : '') + ' le ' : 'Ton anniversaire, le ') + (+mj[2]) + ' ' + MOIS[+mj[1] - 1] + ' : les dates proches dans ' + sa + ' lignée',
+        proches.length ? proches.slice(0, 5).map(function (x) { return x.t; }).join(' ; ') + '.' : 'Aucune naissance ni aucun décès noté à moins d’une semaine de cette date dans ' + sa + ' lignée.',
+        proches.map(function (x) { return x.q.id; }));
+    }
+    // 3. son prénom
+    var p1 = norm(String(p.prenom || '').split(/[\s-]+/)[0]);
+    if (p1) {
+      var mm = Object.keys(S.people).filter(function (k) { return k !== id && norm(String(S.people[k].prenom || '').split(/[\s-]+/)[0]) === p1; }).map(function (k) { return S.people[k]; });
+      var ech = []; if (window.PrenomsEchos) Object.keys(asc).forEach(function (a) { var q = S.people[a], qa = String(q.prenom || '').split(/[\s-]+/)[0]; if (!qa || norm(qa) === p1) return; var r = window.PrenomsEchos.comparer(String(p.prenom).split(/[\s-]+/)[0], qa); if (r.score >= 6) ech.push(q); });
+      carteP('prenom', C.p, (tiers ? 'Le prénom de ' + pr : 'Ton prénom'),
+        mm.length ? 'Il est aussi porté par ' + mm.slice(0, 4).map(nm).join(', ') + '.' : ech.length ? 'Il ne reprend aucun prénom de la famille, mais il fait écho à ' + ech.slice(0, 3).map(nm).join(', ') + ' (des sons proches).' : 'Un prénom neuf dans l’arbre : il ne reprend aucun prénom de la famille.',
+        mm.concat(ech).map(function (q) { return q.id; }));
+    }
+    // 4. sa place dans la fratrie, et qui avait la même avant
+    function place(x) {
+      var f = [x].concat(freresDirects(x)).map(function (k) { return S.people[k]; }).filter(function (q) { return q && !petit(q); });
+      f.sort(function (a, b) { return String(a.naiss || '9999').localeCompare(String(b.naiss || '9999')); });
+      var q0 = S.people[x], rang = f.indexOf(q0) + 1, n = f.length, memeSexe = f.filter(function (q) { return q.sex === q0.sex; }).length;
+      var seul = n > 1 && memeSexe === 1 ? (q0.sex === 'f' ? 'la seule fille' : q0.sex === 'm' ? 'le seul garçon' : '') : '';
+      var pos = n === 1 ? 'enfant unique' : rang === 1 ? (q0.sex === 'f' ? 'l’aînée' : 'l’aîné') : rang === n ? (q0.sex === 'f' ? 'la cadette' : 'le cadet') : (rang + 'e de ' + n + ' enfants');
+      return { n: n, rang: rang, seul: seul, pos: pos, cle: n === 1 ? 'unique' : seul ? 'seul-' + q0.sex : rang === 1 ? 'aine' : rang === n ? 'cadet' : 'milieu' };
+    }
+    var pl = place(id);
+    var memePl = pl.cle === 'unique' ? [] : Object.keys(asc).map(function (a) { return S.people[a]; }).filter(function (q) { return q && freresDirects(q.id).length > 0 && place(q.id).cle === pl.cle; });   // une fratrie non renseignée ne dit rien : on ne compare que les fratries notées
+    carteP('schema', C.s, (tiers ? 'La place de ' + pr : 'Ta place') + ' dans ' + (tiers ? 'sa' : 'ta') + ' fratrie',
+      (tiers ? pr + ' est ' : 'Tu es ') + (pl.n === 1 ? 'enfant unique, d’après l’arbre' : pl.pos + (pl.n > 1 && pl.pos.indexOf('enfants') < 0 ? ' de ' + pl.n + ' enfants' : '') + (pl.seul ? ', ' + pl.seul : '')) + '. ' +
+      (pl.cle === 'unique' ? 'Les frères et sœurs des parents et grands-parents sont-ils tous notés ? Ils permettraient de voir qui a eu la même place.' : memePl.length ? 'Même place avant ' + (tiers ? il === 'elle' ? 'elle' : 'lui' : 'toi') + ' : ' + memePl.slice(0, 4).map(function (q) { var x = place(q.id); return nm(q) + ' (' + (x.seul || x.pos) + ')'; }).join(', ') + '.' : 'Personne de ' + sa + ' lignée directe n’avait la même place, d’après les fratries notées dans l’arbre.'),
+      memePl.map(function (q) { return q.id; }));
+    // 5. l'âge de ses parents à sa naissance, comparé à la lignée
+    function agesA(x) { return parents(x).map(function (k) { var q = S.people[k], a1 = ageEntre(q.naiss, S.people[x].naiss); if (a1 == null && annee(q.naiss) && annee(S.people[x].naiss)) a1 = annee(S.people[x].naiss) - annee(q.naiss); return a1 != null && a1 > 10 && a1 < 70 ? { q: q, a: a1 } : null; }).filter(Boolean); }
+    var a0 = agesA(id);
+    if (a0.length) {
+      var gens = [], f = [id], vus = {};
+      for (var g = 0; g < 3 && f.length; g++) { var suiv = []; f.forEach(function (x) { if (vus[x]) return; vus[x] = 1; var l = agesA(x); if (l.length && x !== id) gens.push('à la naissance ' + de(nm(S.people[x])) + ' : ' + l.map(function (y) { return nm(y.q) + ' ' + y.a + ' ans'; }).join(', ')); parents(x).forEach(function (k) { suiv.push(k); }); }); f = suiv; }
+      var tous = []; Object.keys(asc).forEach(function (a) { agesA(a).forEach(function (y) { tous.push(y.a); }); });
+      var minL = tous.length ? Math.min.apply(null, tous) : null, maxL = tous.length ? Math.max.apply(null, tous) : null;
+      var note = a0.map(function (y) { return y.a; }).some(function (v) { return minL != null && v < minL; }) ? ' C’est plus jeune que tous les parents de la lignée notés dans l’arbre.' : a0.map(function (y) { return y.a; }).some(function (v) { return maxL != null && v > maxL; }) ? ' C’est plus tard que tous les parents de la lignée notés dans l’arbre.' : '';
+      carteP('schema', C.s, 'L’âge des parents à ' + (tiers ? 'la naissance ' + de(pr) : 'ta naissance'),
+        a0.map(function (y) { return nm(y.q) + ' avait ' + y.a + ' ans'; }).join(', ') + '.' + note + (gens.length ? ' Dans la lignée, ' + gens.slice(0, 4).join(' ; ') + '.' : ''),
+        a0.map(function (y) { return y.q.id; }));
+    }
+    // 6. le contexte de sa conception : un deuil ou un départ dans l'année
+    var mn = String(p.naiss || '').match(/^(\d{4})-(\d{2})-(\d{2})$/), anN = annee(p.naiss);
+    if (anN) {
+      var evs = [], ZC = Z.concat(parents(id).map(function (k) { return S.people[k]; }));
+      ZC.forEach(function (q) {
+        var md = String(q.deces || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (mn && md) { var dj = (Date.UTC(+mn[1], +mn[2] - 1, +mn[3]) - Date.UTC(+md[1], +md[2] - 1, +md[3])) / 864e5; if (dj >= 0 && dj <= 266 + 365) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' ' + dureeTxt(dj) + ' avant ' + (tiers ? 'sa' : 'ta') + ' naissance'); }
+        else if (annee(q.deces) && (annee(q.deces) === anN || annee(q.deces) === anN - 1)) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + annee(q.deces));
+      });
+      parents(id).forEach(function (k) { var q = S.people[k]; (q.events || []).forEach(function (e) { var ea = parseInt(e.age, 10), an = annee(q.naiss); if (isNaN(ea) || !an) return; if (an + ea === anN || an + ea === anN - 1) evs.push(nm(q) + ' : « ' + (NOM_EVT[e.type] || e.type || '').toLowerCase() + ' » vers ' + (an + ea)); }); });
+      if (evs.length) carteP('gisant', C.g, 'Autour de ' + (tiers ? 'la conception de ' + pr : 'ta conception'), 'Dans l’année qui précède ' + (tiers ? 'sa' : 'ta') + ' naissance : ' + evs.slice(0, 4).join(' ; ') + '. Que traversait la famille quand ' + (tiers ? pr + ' a été attendu' + (p.sex === 'f' ? 'e' : '') : 'tu as été attendu·e') + ' ?', []);
+    }
+    return out;
+  }
   function dessinerPanneau() {
     reps = reps.filter(function (r) { return !r.synth; });
     var n = reps.length;
@@ -1612,7 +1711,7 @@
     // « Vu depuis » : toi, tes enfants, ton ou ta partenaire, tes parents, tes frères et sœurs (et la personne choisie)
     var moiId = idMoi(), cercle = [];
     function ajC(id) { if (id && S.people[id] && cercle.indexOf(id) < 0 && id !== moiId) cercle.push(id); }
-    if (moiId) { enfants(moiId).forEach(function (e) { ajC(e); enfants(e).forEach(ajC); }); partenaires(moiId).forEach(ajC); parents(moiId).forEach(ajC); freresDirects(moiId).forEach(ajC); }
+    if (moiId) { enfants(moiId).forEach(function (e) { ajC(e); enfants(e).forEach(ajC); }); parents(moiId).forEach(ajC); freresDirects(moiId).forEach(ajC); }
     ajC(vuDepuis);
     var nomVu = function (id) { var p = S.people[id], l = lienDe(id); return (nomComplet(p) || l || 'Sans prénom') + (l && l !== 'Toi' ? ' (' + libLien(l).toLowerCase() + ')' : ''); };
     var blocVue = '<div class="rep-vue"><label>Vu depuis <select id="rep-vu"><option value="">' + (moiId ? (DOSSIER_CLIENT ? 'Mon·ma client·e' : 'Moi') : 'Tout l’arbre') + '</option>' +
@@ -1630,7 +1729,10 @@
       }
       if (manque) blocVue += '<p class="rep-manque">' + esc(manque.t) + ' <button type="button" class="rep-petit" data-ajout-parent="' + esc(c) + '">' + esc(manque.b) + '</button></p>';
     }
-    var visibles = reps.map(function (r, i) { return i; });
+    var PORT = c && !mots.length ? portraitDe(c) : [];
+    reps = PORT.concat(reps);
+    var idxPort = PORT.map(function (r, i) { return i; });
+    var visibles = reps.map(function (r, i) { return i; }).filter(function (i) { return !reps[i].portrait; });
     var info = '';
     if (mots.length) {
       var cp = carteprenom(recherche);
@@ -1652,9 +1754,15 @@
       if (autreC && !r.ids.some(function (id) { return dansL[id]; })) { horsL.push(i); return false; }
       return true;
     });
+    var cM = {}, cP = {}; if (autreC) { coteDe(c, 'mere').forEach(function (x) { cM[x] = 1; }); coteDe(c, 'pere').forEach(function (x) { cP[x] = 1; }); }
+    function etiqCote(r) {
+      if (!autreC || r.synth || r.ids.indexOf(c) >= 0) return '';
+      var m = r.ids.some(function (x) { return cM[x]; }), pp = r.ids.some(function (x) { return cP[x]; });
+      return '<span class="rep-cote">' + (m && !pp ? 'Dans la lignée de sa mère' : pp && !m ? 'Dans la lignée de son père' : 'Dans sa famille') + ', pas directement ' + (pc.sex === 'f' ? 'elle' : 'lui') + '</span>';
+    }
     function carte(i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null, av = avisDe(r);
-      return '<div class="rep-bloc' + (av ? ' avis-' + av.v : '') + '"><button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' +
+      return '<div class="rep-bloc' + (av ? ' avis-' + av.v : '') + '"><button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong>' + etiqCote(r) + '<span>' + esc(r.desc) + '</span>' +
         (r.lect && r.lect.length ? '<span class="rep-lect"><b>Lectures possibles</b>' + r.lect.map(function (l) { return '<span>' + esc(l.label) + ' : ' + esc(String(l.desc).replace(/\.$/, '')) + '.</span>'; }).join('') + '</span>' : '') +
         (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
         (r.completer && r.completer.length ? '<div class="rep-completer">' + r.completer.map(function (id) { return S.people[id] ? '<button type="button" class="rep-petit" data-completer="' + esc(id) + '">Compléter ' + esc(nomComplet(S.people[id]) || 'la fiche') + '</button>' : ''; }).join('') + '</div>' : '') +
@@ -1665,34 +1773,33 @@
     }
     var ecartees = visibles.filter(function (i) { var a = avisDe(reps[i]); return a && a.v === 'non'; });
     var actives = visibles.filter(function (i) { return ecartees.indexOf(i) < 0; });
-    var nAct = actives.filter(function (i) { return !reps[i].synth; }).length;
+    var nAct = actives.filter(function (i) { return !reps[i].synth; }).length;   // = répétitions visibles + toutes les pistes par thème
     $('compte').textContent = nAct; $('compte-bouton').textContent = nAct;
     var visR = actives.filter(function (i) { return reps[i].type === 'repere'; }), visA = actives.filter(function (i) { return reps[i].type !== 'repere'; });
-    var h = blocVue + (mots.length ? info : blocExo);
+    var h = blocVue + (mots.length ? info : (autreC ? '' : blocExo));
+    if (idxPort.length) h += '<div class="reps-groupe reps-portrait"><p class="exos-titre">Ce qui part ' + (autreC || DOSSIER_CLIENT ? 'de ' + esc(prC) : 'de toi') + '</p>' + idxPort.map(carte).join('') + '</div>';
     if (visR.length) h += '<div class="reps-groupe reps-visibles"><p class="exos-titre">' + (autreC || DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>';
+    var THEME = { anniversaire: 'Les âges qui se répondent', gisant: 'Naissances et deuils', depart: 'Départs précoces', date: 'Dates qui reviennent', epreuve: 'Mêmes événements', schema: 'Schémas familiaux', metier: 'Métiers', prenom: 'Prénoms' };
+    var ORDRE_T = ['anniversaire', 'gisant', 'date', 'depart', 'schema', 'epreuve', 'prenom', 'metier'];
+    var parT = {};
     if (mots.length) h += visA.map(carte).join('');
     else {
-      // les 3 pistes les plus fortes en tête, le reste rangé par thème (replié)
       var parScore = function (x, y) { return reps[y].score - reps[x].score; };
-      var top = visA.filter(function (i) { return !reps[i].faible && !reps[i].loin; }).sort(parScore).slice(0, 3);
-      if (!top.length) top = visA.filter(function (i) { return !reps[i].faible; }).sort(parScore).slice(0, 3);
-      if (top.length) h += '<div class="reps-groupe reps-top"><p class="exos-titre">' + (autreC ? 'Ses' : DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' ' + top.length + ' piste' + (top.length > 1 ? 's' : '') + ' principale' + (top.length > 1 ? 's' : '') + '</p>' + top.map(carte).join('') + '</div>';
-      // ce qui touche les enfants (vu depuis toi)
+      // les pistes principales : vu depuis un enfant, seulement celles qui le touchent directement
+      var cand = visA.filter(function (i) { return !reps[i].faible && (autreC ? reps[i].ids.indexOf(c) >= 0 : !reps[i].loin); });
+      var top = cand.sort(parScore).slice(0, 3);
+      if (!top.length && !autreC) top = visA.filter(function (i) { return !reps[i].faible; }).sort(parScore).slice(0, 3);
+      if (top.length) h += '<div class="reps-groupe reps-top"><p class="exos-titre">' + (autreC || DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' piste' + (top.length > 1 ? 's' : '') + ' principale' + (top.length > 1 ? 's' : '') + ' <span>' + top.length + '</span></p>' + top.map(carte).join('') + '</div>';
       if (!autreC && moiId) {
         var enf = enfants(moiId).filter(function (e) { return S.people[e] && !petit(S.people[e]); });
-        var lignes = enf.map(function (e) { var le = {}; ligneeDe(e).forEach(function (x) { le[x] = 1; }); var n = reps.filter(function (r) { return r.ids.indexOf(e) >= 0; }).length; return { e: e, n: n }; }).filter(function (x) { return x.n; });
-        if (lignes.length) h += '<div class="reps-groupe reps-enfants"><p class="exos-titre">Ce qui touche ' + (DOSSIER_CLIENT ? 'ses' : 'tes') + ' enfants</p><p class="rep-aide">Regarde l’arbre depuis chacun d’eux : son âge, sa date de naissance, son prénom, sa place.</p>' + lignes.map(function (x) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(x.e) + '">' + esc(nomComplet(S.people[x.e]) || (DOSSIER_CLIENT ? 'Son enfant' : 'Mon enfant')) + ' <span>' + x.n + ' piste' + (x.n > 1 ? 's' : '') + '</span></button>'; }).join('') + '</div>';
+        if (enf.length) h += '<div class="reps-groupe reps-enfants"><p class="exos-titre">Ce qui touche ' + (DOSSIER_CLIENT ? 'ses' : 'tes') + ' enfants</p><p class="rep-aide">Regarde l’arbre depuis chacun d’eux : son âge, sa date de naissance, son prénom, sa place.</p>' + enf.map(function (e) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(e) + '">' + esc(nomComplet(S.people[e]) || (DOSSIER_CLIENT ? 'Son enfant' : 'Mon enfant')) + ' <span>Voir sa lecture ›</span></button>'; }).join('') + '</div>';
       }
-      var reste = visA.filter(function (i) { return top.indexOf(i) < 0; });
-      if (reste.length) {
-        var parT = {}; reste.forEach(function (i) { var t = reps[i].type; (parT[t] = parT[t] || []).push(i); });
-        var THEME = { anniversaire: 'Les âges qui se répondent', gisant: 'Naissances et deuils', depart: 'Les départs précoces', date: 'Les dates qui reviennent', epreuve: 'Les mêmes événements', schema: 'Les schémas familiaux', metier: 'Les métiers', prenom: 'Les prénoms' };
-        h += '<p class="exos-titre reps-titre-auto">' + (top.length ? 'Les autres pistes, par thème' : 'Ce que l’arbre fait apparaître') + ' <span>' + reste.length + '</span></p>' +
-          ['anniversaire', 'gisant', 'date', 'depart', 'schema', 'epreuve', 'prenom', 'metier'].filter(function (t) { return parT[t]; }).map(function (t) {
-            var l = parT[t].sort(function (x, y) { return reps[y].score - reps[x].score; });
-            return '<details class="rep-theme-bloc"' + (repActive && l.some(function (i) { return reps[i].cle === repActive.cle; }) ? ' open' : '') + '><summary>' + THEME[t] + ' <span>' + l.length + '</span></summary>' + l.map(carte).join('') + '</details>';
-          }).join('');
-      }
+      visA.forEach(function (i) { var t = reps[i].type; (parT[t] = parT[t] || []).push(i); });
+      if (visA.length) h += '<p class="exos-titre reps-titre-auto">Toutes ' + (autreC ? 'ses' : DOSSIER_CLIENT ? 'ses' : 'tes') + ' pistes, par thème <span>' + visA.length + '</span></p>' +
+        ORDRE_T.filter(function (t) { return parT[t]; }).map(function (t) {
+          var l = parT[t].sort(parScore);
+          return '<details class="rep-theme-bloc" data-theme="' + t + '"' + (repActive && l.some(function (i) { return reps[i].cle === repActive.cle; }) ? ' open' : '') + '><summary>' + THEME[t] + ' <span>' + l.length + '</span></summary>' + l.map(carte).join('') + '</details>';
+        }).join('');
     }
     if (horsL.length && !mots.length) h += '<details class="rep-theme-bloc rep-ailleurs"><summary>Ailleurs dans l’arbre <span>' + horsL.length + '</span></summary><p class="rep-aide">Ces pistes ne touchent pas la lignée de ' + esc(prC) + '.</p>' + horsL.map(carte).join('') + '</details>';
     if (ecartees.length) h += '<details class="rep-theme-bloc rep-ecartees"><summary>Pistes écartées <span>' + ecartees.length + '</span></summary>' + ecartees.map(carte).join('') + '</details>';
@@ -1700,7 +1807,7 @@
     z.innerHTML = h;
     // le menu des thèmes affiche combien de pistes il y a dans chacun
     var selT = $('rep-theme');
-    if (selT) RECH_SUGG.forEach(function (x, k) { var o = selT.options[k + 1]; if (!o) return; var mm = norm(x[0]).split(/\s+/), n = reps.filter(function (r) { return !r.synth && correspond(r, mm); }).length; o.textContent = x[1] + (n ? ' (' + n + ')' : ''); });
+    if (selT) selT.innerHTML = '<option value="">Aller à un thème…</option>' + ORDRE_T.filter(function (t) { return parT[t]; }).map(function (t) { return '<option value="' + t + '">' + THEME[t] + ' (' + parT[t].length + ')</option>'; }).join('');
   }
 
   /* ───────── Historique et sauvegarde ───────── */
@@ -2225,7 +2332,7 @@
     sugg.innerHTML = '<select id="rep-theme" aria-label="Choisir un thème"><option value="">Choisir un thème…</option>' + RECH_SUGG.map(function (x) { return '<option value="' + esc(x[0]) + '">' + esc(x[1]) + '</option>'; }).join('') + '</select>';
     var sel = $('rep-theme'), t = null;
     champ.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { recherche = champ.value; repActive = null; sel.value = ''; dessinerPanneau(); }, 150); });
-    sel.addEventListener('change', function () { champ.value = sel.value; recherche = sel.value; repActive = null; dessinerPanneau(); });
+    sel.addEventListener('change', function () { var t = sel.value; if (!t) return; if (recherche) { recherche = ''; champ.value = ''; dessinerPanneau(); } var d = document.querySelector('.rep-theme-bloc[data-theme="' + t + '"]'); if (d) { d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'start' }); } sel.value = ''; });
   })();
   function avisChange(cle, v, note) {
     S.avis = S.avis || {};
