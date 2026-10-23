@@ -473,7 +473,7 @@ window.GENESOLIA_IMPRESSION = {
   function piedAppliCercle() {
     return '<div class="pied-appli">' +
       '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
-        '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
+        '<div class="pa-barre" aria-hidden="true"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
         '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
         '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' +
         '<i></i><i></i><i></i><i></i></div>' +
@@ -515,7 +515,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div class="conteneur">' +
         '<div class="pied-appli">' +
           '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
-            '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
+            '<div class="pa-barre" aria-hidden="true"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
             '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
             (page === 'cercle.html' ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
             '<i></i><i></i><i></i><i></i></div>' +
@@ -1112,7 +1112,12 @@ window.GENESOLIA_IMPRESSION = {
   (function () {
     if (MODE || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;
     window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
-    var sc = document.createElement('script'); sc.src = 'https://client.crisp.chat/l.js'; sc.async = 1; document.head.appendChild(sc);
+    /* sur téléphone, la bulle n'arrive qu'après un défilement ou 15 secondes : elle ne cache plus le premier écran (« Dessiner mon arbre ») */
+    var charge = false;
+    function charger() { if (charge) return; charge = true; window.removeEventListener('scroll', auDefile); var sc = document.createElement('script'); sc.src = 'https://client.crisp.chat/l.js'; sc.async = 1; document.head.appendChild(sc); }
+    function auDefile() { if ((window.scrollY || 0) > 400) charger(); }
+    if (window.matchMedia && matchMedia('(max-width: 760px)').matches) { window.addEventListener('scroll', auDefile, { passive: true }); setTimeout(charger, 15000); }
+    else charger();
     var cache = null;
     function maj() {
       var c = document.body && (document.body.classList.contains('mode-seance') || document.body.classList.contains('mobile-arbre'));
