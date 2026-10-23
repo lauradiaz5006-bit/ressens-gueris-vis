@@ -428,7 +428,34 @@
     body.arbre-dore #dessin path[fill="none"],body.arbre-dore #dessin line{stroke:#C49A5B}
     body.arbre-dore #dessin .personne > circle:not(.halo),body.arbre-dore #dessin .personne > rect:not(.zone-clic),body.arbre-dore #dessin .personne > path:not(.halo){filter:drop-shadow(0 3px 6px rgba(168,122,61,.28))}
     body.arbre-dore #dessin text[fill="#6B2F5B"]{fill:#5A3A16}
-    .bt-encadrer{background:linear-gradient(135deg,#F3DCC0,#E2C48E);border-color:#B98A55;color:#3A2410;font-weight:700}
+    .bt-encadrer{background:linear-gradient(135deg,#6B2F5B,#8E2F5E);border-color:#6B2F5B;color:#fff;font-weight:700;box-shadow:0 6px 16px rgba(107,47,91,.28);display:inline-flex;align-items:center;gap:.45rem}
+    .bt-encadrer:hover{filter:brightness(1.08)}
+    .bt-encadrer svg{width:18px;height:18px;flex:none}
+    .bt-encadrer small{font-weight:600;font-size:.74rem;padding:.12rem .45rem;border-radius:999px;background:#F3DCC0;color:#4A0F36}
+    .fe-apercu-z{position:relative}
+    .fe-apercu{cursor:zoom-in}
+    .fe-loupe{position:absolute;top:.6rem;right:.6rem;display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .8rem;border-radius:999px;border:1px solid var(--champagne-clair);background:rgba(255,255,255,.94);color:var(--prune);font:700 .85rem var(--texte);cursor:pointer;box-shadow:0 4px 14px rgba(74,33,66,.18)}
+    .fe-loupe svg{width:18px;height:18px}
+    .fe-zoom{position:fixed;inset:0;z-index:2000;background:rgba(36,14,32,.92);display:flex;flex-direction:column}
+    .fe-zoom-barre{display:flex;gap:.5rem;justify-content:center;padding:.7rem;flex:none}
+    .fe-zoom-barre button{min-width:44px;padding:.5rem .9rem;border-radius:999px;border:0;background:#fff;color:#4A0F36;font:700 1rem var(--texte);cursor:pointer}
+    .fe-zoom-barre .fe-zoom-x{background:#E8C899}
+    .fe-zoom-vue{flex:1;overflow:hidden;touch-action:none;cursor:grab;display:flex;align-items:center;justify-content:center}
+    .fe-zoom-vue:active{cursor:grabbing}
+    .fe-zoom-img{width:min(96vw,calc((100vh - 90px) * 1.42));transform-origin:0 0;will-change:transform}
+    .fe-zoom-img>svg{display:block;width:100%;height:auto}
+    .fe-commander{width:100%;font-size:1.05rem}
+    .fe-sous-t{margin:.9rem 0 0;font-weight:700;color:var(--prune)}
+    .fe-vierge{display:flex;gap:.8rem;align-items:center;margin-top:.4rem;padding:.7rem .8rem;border:1px solid var(--champagne-clair);border-left:4px solid #B98A55;border-radius:14px;background:#fff;color:inherit;text-decoration:none}
+    .fe-vierge img{width:96px;height:auto;border-radius:6px;box-shadow:0 4px 12px rgba(107,47,91,.18);flex:none}
+    .fe-vierge b{display:block;color:var(--prune)}
+    .fe-vierge span span{display:block;font-size:.85rem;color:var(--prune-doux,#7a5570)}
+    .fe-vierge u{display:inline-block;margin-top:.25rem;font-weight:700;color:var(--prune)}
+    .mt-encadre{display:grid;grid-template-columns:84px 1fr;gap:.8rem;align-items:center;background:linear-gradient(135deg,#FFF6EA,#FCEFF3);border:1px solid #EBD3B4;border-radius:18px;padding:.9rem 1rem;margin:1.2rem 0}
+    .mt-encadre img{width:84px;height:auto;border-radius:8px;box-shadow:0 6px 16px rgba(107,47,91,.2)}
+    .mt-encadre p{margin:0 0 .5rem;font-size:.92rem;color:var(--prune)}
+    .mt-encadre b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem}
+    .mt-encadre .btn{width:100%}
     .fe-fenetre{max-width:960px;width:100%}
     .fe-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.4rem;align-items:start}
     .fe-apercu>svg{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 10px 30px rgba(74,33,66,.18)}
@@ -517,7 +544,7 @@
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image" data-compte="l’image de ton arbre">Télécharger l'image</button>
       <button class="bt bt-dore" type="button" id="bt-dore" aria-pressed="false" title="Changer l'apparence de l'arbre">Arbre doré</button>
-      <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog">Mon arbre à encadrer</button>
+      <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 16l3-4 2.5 3 2-2.5L17 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Mon arbre encadré <small>dès 45 €</small></button>
       <div class="plus-menu">
         <button class="bt" type="button" id="bt-plus" aria-haspopup="true" aria-expanded="false" aria-controls="menu-plus" title="Imprimer, importer, sauvegardes…">•••<span class="sr-seul"> Plus d'options</span></button>
         <div class="menu-plus" id="menu-plus" role="menu" hidden>
@@ -796,7 +823,7 @@
   <script src="assets/genosociogramme.js?v=2026-10-21h"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
-  <script src="assets/arbre-telephone.js?v=2026-10-21b"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-23"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
@@ -832,7 +859,7 @@
   <script src="assets/export-gedcom.js?v=2026-10-09"></script>
   <script src="assets/arbre-lignee.js?v=1"></script>
   <script src="assets/arbre-encadrer.js?v=10"></script>
-  <script src="assets/arbre-encadrer-page.js?v=10"></script>
+  <script src="assets/arbre-encadrer-page.js?v=11"></script>
 
   <script>
   (function () {
