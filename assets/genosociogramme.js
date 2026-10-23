@@ -51,7 +51,7 @@
   /* ───────── État ───────── */
   var S = { people: {}, rels: [], nid: 1 };
   var sb = null, utilisateur = null, EXEMPLE = false;
-  var selId = null, repActive = null;
+  var selId = null, repActive = null, vuDepuis = null, coteFiltre = '';
   var vue = { x: 0, y: 0, k: 1 };
   var plan = null;          // dernier placement calculé
   var pile = [];            // historique pour Annuler
@@ -140,6 +140,24 @@
   function partenaires(id) { return S.rels.filter(function (r) { return r.type === 'couple' && (r.from === id || r.to === id); }).map(function (r) { return r.from === id ? r.to : r.from; }).filter(existe); }
   function relCouple(a, b) { return S.rels.find(function (r) { return r.type === 'couple' && ((r.from === a && r.to === b) || (r.from === b && r.to === a)); }); }
   function idMoi() { var k = Object.keys(S.people).find(function (id) { return S.people[id].role === 'moi'; }); return k || null; }
+  /* « Vu depuis » : la personne à partir de qui le panneau lit les répétitions (toi par défaut, ou un enfant, un parent…) */
+  function idCentre() { return vuDepuis && S.people[vuDepuis] ? vuDepuis : idMoi(); }
+  function ligneeDe(id) {   // la personne, ses ascendants, ses frères et sœurs et ses descendants
+    var acc = {}; if (!id || !S.people[id]) return [];
+    acc[id] = 1;
+    (function up(x) { parents(x).forEach(function (p) { if (!acc[p]) { acc[p] = 1; up(p); } }); })(id);
+    freresDirects(id).forEach(function (f) { acc[f] = 1; });
+    (function down(x) { enfants(x).forEach(function (e) { if (!acc[e]) { acc[e] = 1; down(e); } }); })(id);
+    return Object.keys(acc);
+  }
+  function coteDe(id, cote) {   // côté mère ou côté père : ce parent, ses ascendants et ses frères et sœurs
+    var par = parents(id).map(function (p) { return S.people[p]; }).find(function (p) { return p && p.sex === (cote === 'mere' ? 'f' : 'm'); });
+    if (!par) return [];
+    var acc = {}; acc[par.id] = 1;
+    (function up(x) { parents(x).forEach(function (p) { if (!acc[p]) { acc[p] = 1; up(p); } freresDirects(p).forEach(function (f) { acc[f] = 1; }); }); })(par.id);
+    freresDirects(par.id).forEach(function (f) { acc[f] = 1; });
+    return Object.keys(acc);
+  }
   function groupesFratrie() {
     var uf = {};
     function f(x) { if (!uf[x]) uf[x] = x; return uf[x] === x ? x : (uf[x] = f(uf[x])); }
@@ -243,8 +261,8 @@
     'DU': ['Autre parent de ton enfant', 'Autre parent de ton enfant', 'Autre parent de ton enfant']
   };
   var cacheLiens = null;
-  function calculerLiens() {
-    var moi = idMoi(), res = {};
+  function calculerLiens(base) {
+    var moi = base || idMoi(), res = {};
     if (!moi) return res;
     var g = groupesFratrie();
     var chemin = {}; chemin[moi] = ''; var file = [moi];
@@ -524,9 +542,15 @@
     }
     var PL = (plan && plan.pos && Object.keys(S.people).every(function (id) { return plan.pos[id]; })) ? plan : calculerPlan();   // les générations (une ligne du dessin = une génération)
     var LG = outilsLignee();
-    var moi = S.people[idMoi()];
+    var moi = S.people[idCentre()];
+    var autre = !!(moi && moi.role !== 'moi');   // lecture depuis une autre personne que toi
+    var prenomC = moi ? (String(moi.prenom || '').split(/[\s-]+/)[0] || nomBase(moi)) : '';
+    var calcL = autre ? calculerLiens(moi.id) : null;
+    function lienC(id) { return calcL ? (calcL[id] || '') : lienDe(id); }
+    function aAge(n) { return autre ? prenomC + ' a ' + n + ' ans. ' : 'Tu as ' + n + ' ans. '; }
+    function qualif(l) { return l === 'Toi' ? (autre ? '' : DOSSIER_CLIENT ? ' (client·e)' : ' (toi)') : l ? ' (' + l.toLowerCase() + ')' : ''; }
 
-    // Syndrome anniversaire : ton âge aujourd'hui
+    // Syndrome anniversaire : l'âge aujourd'hui de la personne au centre
     if (moi) {
       var age = ageActuel(moi);
       if (age != null) {
@@ -543,7 +567,7 @@
           if (!morceauxT.length) return;
           /* à un an près : l'âge que j'ai, que je vais avoir ou que je viens d'avoir */
           var agesV = Object.keys(parAge).map(Number).concat(morts ? [ad] : []), suite = agesV.every(function (x) { return x === age; }) ? 'l’âge que j’ai aujourd’hui' : agesV.every(function (x) { return x >= age; }) ? 'l’âge que je vais avoir' : agesV.every(function (x) { return x <= age; }) ? 'l’âge que je viens d’avoir' : 'à un an près l’âge que j’ai aujourd’hui';
-          reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: { a: nom(p), l: morceauxE.join(', ') + ', ' + suite } });
+          reps.push({ type: 'anniversaire', qk2: morts ? 'decesage' : null, c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: aAge(age) + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: autre ? null : { a: nom(p), l: morceauxE.join(', ') + ', ' + suite } });
         });
       }
     }
@@ -559,16 +583,18 @@
       var g = dm[j]; var ids = []; g.forEach(function (x) { if (ids.indexOf(x.p.id) < 0) ids.push(x.p.id); });
       var dec = g.filter(function (x) { return x.quoi === 'décès'; }), nai = g.filter(function (x) { return x.quoi === 'naissance'; });
       if (ids.length === 2 && dec.length === 1 && nai.length === 1 && famille(dec[0].p)[nai[0].p.id] && annee(nai[0].p.naiss) !== annee(dec[0].p.deces)) return;   // repris par « Un décès près d'un anniversaire » ou « Né·e près de l'anniversaire d'un décès »
+      if (!dec.length && nai.every(function (x) { return x.p.naiss === nai[0].p.naiss; })) return;   // des jumeaux : même jour de naissance, pas une date qui revient
       if (ids.length >= 2) {
         var parts = j.split('/');
         var mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+parts[1] - 1];
-        reps.push({ type: 'date', c: COUL.date, label: 'Une date qui revient : le ' + (+parts[0]) + ' ' + mois, desc: g.map(function (x) { return x.quoi + ' de ' + nom(x.p); }).join(', ') + '.', ids: ids });
+        var ansD = g.map(function (x) { return annee(x.quoi === 'décès' ? x.p.deces : x.p.naiss); }).filter(Boolean), eaD = ansD.length > 1 ? Math.max.apply(null, ansD) - Math.min.apply(null, ansD) : null;
+        reps.push({ type: 'date', c: COUL.date, ea: eaD, faible: eaD != null && eaD > 75, label: 'Une date qui revient : le ' + (+parts[0]) + ' ' + mois, desc: g.map(function (x) { return x.quoi + ' de ' + nom(x.p); }).join(', ') + '.', ids: ids });
       }
     });
     // Départs précoces : parmi tes proches (jusqu'aux arrière-grands-parents, oncles et tantes) quand « toi » est placé·e
     function jeune(p) { var ad = ageDeces(p); return a(p, 'deces-precoce') || (ad != null && ad < 50); }
     var anAuj = new Date().getFullYear(), anMax = Math.max.apply(null, liste.map(function (p) { var x = annee(p.naiss); return x && x <= anAuj ? x : 0; }));
-    var proches = moi ? liste.filter(function (p) { return !!lienDe(p.id); }) : liste.filter(function (p) { return (annee(p.naiss) || 0) >= anMax - 100; });
+    var proches = moi ? liste.filter(function (p) { return !!lienC(p.id); }) : liste.filter(function (p) { return (annee(p.naiss) || 0) >= anMax - 100; });
     var jeunes = proches.filter(jeune);
     if (jeunes.length >= 2) reps.push({ type: 'depart', c: COUL.depart, label: 'Des départs précoces', desc: jeunes.map(function (p) { var ad = ageDeces(p); return nom(p) + (ad != null ? ' (' + ad + ' ans)' : ''); }).join(', ') + '.', ids: jeunes.map(function (p) { return p.id; }) });
 
@@ -627,14 +653,15 @@
         var raisons = [t];
         if (memePrenom(d, g)) raisons.push('porte ' + (prenom1(d) === prenom1(g) ? 'son prénom' : 'une forme de son prénom'));
         liens.push(nomA(g) + ' : ' + raisons.join(', ')); ids.push(g.id);
-        if (moi && g.id === moi.id) exoMoi = raisons.join(', ').replace(/^né(e|·e)? /, 'je suis ' + ne(g) + ' ').replace(/ porte /, ' je porte ');
+        if (moi && !autre && g.id === moi.id) exoMoi = raisons.join(', ').replace(/^né(e|·e)? /, 'je suis ' + ne(g) + ' ').replace(/ porte /, ' je porte ');
       });
       if (!liens.length) return;
       var age = ageDeces(d);
       reps.push({ type: 'gisant', c: COUL.gisant, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
     });
     // Né·e près de l'anniversaire d'un décès survenu des années plus tôt (une date qui revient, pas un gisant)
-    var presAnniv = {};
+    // Une seule carte par personne née ; la plus proche (jours, années, même fratrie) en tête.
+    var nesPres = {};
     liste.forEach(function (d) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(String(d.deces || ''))) return;
       var ad = annee(d.deces), fam = famille(d);
@@ -643,17 +670,20 @@
         var an = annee(g.naiss); if (!an || an <= ad) return;
         var e = ecartJM(d.deces, g.naiss); if (e == null || e > 7) return;
         var dj = jours(d.deces, g.naiss); if (dj != null && dj <= 365 + 266) return;   // né·e autour du décès : c'est la piste du gisant
-        var ecartAns = dj != null ? Math.round(dj / 365.25) : an - ad, toi = moi && g.id === moi.id;
-        var quand = e === 0 ? 'le jour anniversaire du décès' : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de l’anniversaire du décès';
-        /* une seule carte par personne, même si plusieurs décès tombent près de sa date de naissance */
-        var x = presAnniv[g.id];
-        if (!x) { x = presAnniv[g.id] = { type: 'date', c: COUL.date, label: (g.sex === 'f' ? 'Née' : g.sex === 'u' ? 'Né·e' : 'Né') + ' près de l’anniversaire d’un décès : ' + nom(g), morceaux: [], ids: [g.id], exo: null }; reps.push(x); }
-        x.morceaux.push(quand + ' de ' + nom(d) + ' (' + dateLongueFr(d.deces) + '), ' + ecartAns + ' an' + (ecartAns > 1 ? 's' : '') + ' plus tôt');
-        if (x.ids.indexOf(d.id) < 0) x.ids.unshift(d.id);
-        if (toi && !x.exo) x.exo = { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + dateLongueFr(d.deces) + ' ; je suis ' + ne(g) + ' ' + quand.replace('du décès', 'de ce décès') };
-        if (x.morceaux.length > 1) x.label = x.label.replace(/d’un décès|de \d+ décès/, 'de ' + x.morceaux.length + ' décès');
-        x.desc = nomBase(g) + ' est ' + ne(g) + ' le ' + dateLongueFr(g.naiss) + ', ' + x.morceaux.join(' ; et ') + '.';
+        var ecartAns = dj != null ? Math.round(dj / 365.25) : an - ad;
+        var proche = parents(g.id).indexOf(d.id) >= 0 || freresDirects(g.id).indexOf(d.id) >= 0 || parents(g.id).some(function (pp) { return parents(pp).indexOf(d.id) >= 0 || freresDirects(pp).indexOf(d.id) >= 0; });
+        (nesPres[g.id] = nesPres[g.id] || []).push({ d: d, e: e, ea: ecartAns, proche: proche });
       });
+    });
+    Object.keys(nesPres).forEach(function (gid) {
+      var g = S.people[gid], l = nesPres[gid].sort(function (x, y) { return (x.e - y.e) || (y.proche - x.proche) || (x.ea - y.ea); });
+      var toi = moi && !autre && g.id === moi.id, m = l[0];
+      var phr = function (x) { return (x.e === 0 ? 'le jour anniversaire du décès de ' : 'à ' + x.e + ' jour' + (x.e > 1 ? 's' : '') + ' de l’anniversaire du décès de ') + nom(x.d) + ' (' + dateLongueFr(x.d.deces) + ', ' + x.ea + ' an' + (x.ea > 1 ? 's' : '') + ' plus tôt)'; };
+      reps.push({ type: 'date', qk2: toi ? 'nepresmoi' : 'nepres', c: COUL.date, ej: m.e, ea: m.ea, proche: m.proche, faible: m.e > 3 || m.ea > 75,
+        label: (g.sex === 'f' ? 'Née' : g.sex === 'u' ? 'Né·e' : 'Né') + ' près de l’anniversaire d’un décès : ' + nom(g),
+        desc: nomBase(g) + ' est ' + ne(g) + ' le ' + dateLongueFr(g.naiss) + ', ' + phr(m) + (l.length > 1 ? '. Aussi ' + l.slice(1, 3).map(phr).join(' ; ') : '') + '.',
+        ids: [g.id].concat(l.slice(0, 3).map(function (x) { return x.d.id; })),
+        exo: toi ? { a: nom(m.d), l: (m.d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + dateLongueFr(m.d.deces) + ' ; je suis ' + ne(g) + ' ' + (m.e === 0 ? 'le jour anniversaire de ce décès' : 'à ' + m.e + ' jour' + (m.e > 1 ? 's' : '') + ' de l’anniversaire de ce décès') } : null });
     });
     // Un décès le jour (ou à une semaine près) de l'anniversaire d'un descendant ou d'un proche déjà né
     liste.forEach(function (d) {
@@ -664,9 +694,9 @@
         var e = ecartJM(d.deces, g.naiss); if (e == null || e > 7) return;
         var ag = ageEntre(g.naiss, d.deces); if (ag == null || ag < 1) return;   // déjà né·e, au moins un an avant
         if (g.deces && annee(g.deces) < +md[1]) return;
-        var toi = moi && g.id === moi.id, quand = (+md[3] === 1 ? '1er' : +md[3]) + ' ' + MOIS_N[+md[2] - 1] + ' ' + md[1];
+        var toi = moi && !autre && g.id === moi.id, quand = (+md[3] === 1 ? '1er' : +md[3]) + ' ' + MOIS_N[+md[2] - 1] + ' ' + md[1];
         var age = (toi ? 'tes ' : 'des ') + ag + ' ans' + (toi ? '' : ' de ' + nom(g));
-        reps.push({ type: 'date', c: COUL.date, label: 'Un décès près d’un anniversaire : ' + nom(d),
+        reps.push({ type: 'date', c: COUL.date, ej: e, faible: e > 3, label: 'Un décès près d’un anniversaire : ' + nom(d),
           desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour ' + (toi ? 'de ' : '') + age : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' ' + (toi ? 'de ' : '') + age) + '.',
           ids: [d.id, g.id], exo: toi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + quand + ', ' + (e === 0 ? 'le jour de mes ' + ag + ' ans' : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de mes ' + ag + ' ans') } : null });
       });
@@ -758,7 +788,7 @@
     // Prénoms
     var pr = {};
     liste.forEach(function (p) { var k = norm(p.prenom); if (k) (pr[k] = pr[k] || []).push(p); });
-    Object.keys(pr).forEach(function (k) { var g = pr[k]; if (g.length >= 2) reps.push({ type: 'prenom', c: COUL.prenom, label: 'Un prénom qui revient : ' + g[0].prenom, desc: g.map(function (p) { var l = lienDe(p.id); return (l ? nomBase(p) : nom(p)) + (l && l !== 'Toi' ? ' (' + l.toLowerCase() + ')' : l === 'Toi' ? (DOSSIER_CLIENT ? ' (client·e)' : ' (toi)') : ''); }).join(', ') + '.', ids: g.map(function (p) { return p.id; }) }); });
+    Object.keys(pr).forEach(function (k) { var g = pr[k]; if (g.length >= 2) reps.push({ type: 'prenom', c: COUL.prenom, label: 'Un prénom qui revient : ' + g[0].prenom, desc: g.map(function (p) { var l = lienC(p.id); return (l ? nomBase(p) : nom(p)) + qualif(l); }).join(', ') + '.', ids: g.map(function (p) { return p.id; }) }); });
     // Métiers
     var mt = {};
     liste.forEach(function (p) { if (!p.metier) return; var k = groupeMetier(p.metier) || norm(p.metier); (mt[k] = mt[k] || []).push(p); });
@@ -806,10 +836,10 @@
         if (!estDebut) return;
         var l = long(p.id); if (l.length >= (min || 3)) res.push(l);
       });
-      /* deux enfants d'une même lignée donnent deux suites presque identiques : on ne garde que la plus longue */
+      // une seule carte quand deux suites partagent les mêmes personnes : on garde la plus longue
       res.sort(function (x, y) { return y.length - x.length; });
       var garde = [];
-      res.forEach(function (l) { if (!garde.some(function (k) { return l.slice(1).every(function (id) { return k.indexOf(id) >= 0; }); })) garde.push(l); });
+      res.forEach(function (l) { if (!garde.some(function (k) { return l.filter(function (i) { return k.indexOf(i) >= 0; }).length >= 2; })) garde.push(l); });
       return garde;
     }
     var premierPrenom = function (p) { return norm(p && p.prenom).split(/[\s-]+/).slice(0, 2).join(' '); };
@@ -879,13 +909,14 @@
           var pa = p.prenom.split(/[\s-]+/)[0], qa = q.prenom.split(/[\s-]+/)[0];
           if (window.PrenomsEchos.norm(pa) === window.PrenomsEchos.norm(qa)) return;
           var r = window.PrenomsEchos.comparer(pa, qa), cle = [p.id, q.id].sort().join('+');
-          if (r.score >= 4 && !dejaEcho[cle]) { dejaEcho[cle] = 1; echos.push({ p: p, q: q, g: x[1], r: r }); }
+          if (r.score >= 5 && !dejaEcho[cle]) { dejaEcho[cle] = 1; echos.push({ p: p, q: q, g: x[1], r: r }); }
         });
       });
       echos.sort(function (a, b) { return b.r.score - a.r.score; }).slice(0, 4).forEach(function (e) {
-        reps.push({ type: 'prenom', fort: e.r.score >= 6, tags: 'prenom cache forme racine lettres son ressemble echo',
-          label: 'Des prénoms qui se répondent : ' + e.q.prenom.split(/[\s-]+/)[0] + ' et ' + e.p.prenom.split(/[\s-]+/)[0],
-          desc: nomA(e.q) + ' et ' + nom(e.p) + ', à ' + e.g + ' génération' + (e.g > 1 ? 's' : '') + ' d’écart : ' + e.r.liens.map(function (l) { return l.texte.replace(/\.$/, ''); }).join(' ; ').toLowerCase() + '.',
+        var pq = e.q.prenom.split(/[\s-]+/)[0], pp = e.p.prenom.split(/[\s-]+/)[0];
+        reps.push({ type: 'prenom', fort: e.r.score >= 7, faible: e.r.score < 6, tags: 'prenom cache forme racine lettres son ressemble echo',
+          label: 'Des prénoms qui se répondent : ' + pq + ' et ' + pp,
+          desc: nomA(e.q) + ' et ' + nom(e.p) + ', à ' + e.g + ' génération' + (e.g > 1 ? 's' : '') + ' d’écart, portent des prénoms qui se ressemblent : on retrouve dans « ' + pp + ' » ' + (e.r.score >= 6 ? 'presque tous les sons' : 'une partie des sons') + ' de « ' + pq + ' ». Est-ce un hasard, ou un clin d’œil de la famille ?',
           ids: [e.q.id, e.p.id] });
       });
     }
@@ -907,7 +938,7 @@
     Object.keys(fratries).forEach(function (k) { var n = fratries[k].length; if (n >= 2) (parTaille[n] = parTaille[n] || []).push(k); });
     Object.keys(parTaille).forEach(function (n) {
       var l = parTaille[n]; if (l.length < 3) return;
-      reps.push({ type: 'schema', tags: 'enfants nombre fratrie taille', label: n + ' enfants, dans ' + l.length + ' familles', desc: l.slice(0, 6).map(function (k) { return k.split('+').map(function (id) { return nom(S.people[id]); }).join(' et '); }).join(' ; ') + '.', ids: [].concat.apply([], l.map(function (k) { return k.split('+').concat(fratries[k].map(function (e) { return e.id; })); })) });
+      reps.push({ type: 'schema', qk: 'taille', faible: true, tags: 'enfants nombre fratrie taille', label: n + ' enfants, dans ' + l.length + ' familles', desc: l.slice(0, 6).map(function (k) { return k.split('+').map(function (id) { return nom(S.people[id]); }).join(' et '); }).join(' ; ') + '.', ids: [].concat.apply([], l.map(function (k) { return k.split('+').concat(fratries[k].map(function (e) { return e.id; })); })) });
     });
     // 6. Métiers : la rupture après une longue lignée, et le métier qui saute une génération
     chaine(function (pa, en) { return pa && en && pa.sex === en.sex && cleMetier(pa) && cleMetier(pa) === cleMetier(en) && cleMetier(pa) !== 'foyer'; }).forEach(function (l) {
@@ -966,8 +997,15 @@
         var sb = S.people[sid]; if (petit(sb) && !perte(sb)) return;
         var pt = perte(sb), dFin = sb.deces || (pt ? sb.naiss : ''), ad = pt ? 0 : ageDeces(sb), fin = annee(dFin); if (!fin || ad == null || ad >= 18) return;
         var ecart = plein(g.naiss) && plein(dFin) ? (enJours(g.naiss) - enJours(dFin)) / 30.4 : (an - fin) * 12;
-        if (ecart < 0 || ecart > 24) return;
         var memeSexe = g.sex && g.sex === sb.sex, memeNom = morceaux(g).some(function (t) { return morceaux(sb).some(function (u) { return racine(t) === racine(u); }); });
+        var memePr = !pt && prenom1(g) && prenom1(g) === prenom1(sb);
+        if (ecart < 0 || (ecart > 24 && !memePr)) return;
+        if (ecart > 24) {   // le prénom d'un enfant disparu, repris des années plus tard
+          reps.push({ type: 'gisant', qk: 'remplacement', fort: true, tags: 'enfant remplacement frere soeur prenom repris disparu',
+            label: 'Le prénom d’un' + (sb.sex === 'f' ? 'e sœur disparue' : ' frère disparu') + ' : ' + nom(g),
+            desc: nom(sb) + ' est ' + (sb.sex === 'f' ? 'décédée' : 'décédé') + (ad < 1 ? ' avant 1 an' : ' à ' + ad + ' an' + (ad > 1 ? 's' : '')) + ' en ' + fin + '. ' + Math.round(ecart / 12) + ' an' + (Math.round(ecart / 12) > 1 ? 's' : '') + ' plus tard, ' + nomA(g) + ' reçoit le même prénom.', ids: [sb.id, g.id] });
+          return;
+        }
         reps.push({ type: 'gisant', qk: 'remplacement', fort: !!(memeSexe || memeNom), tags: 'enfant remplacement frere soeur perte' + (pt ? ' fausse couche mort-ne grossesse' : ''),
           label: 'Né' + (g.sex === 'f' ? 'e' : '') + ' après la perte d’un' + (sb.sex === 'f' ? 'e sœur' : sb.sex === 'm' ? ' frère' : ' frère ou d’une sœur') + ' : ' + nom(g),
           desc: (pt ? libPerte(sb) + ' en ' + fin : nom(sb) + ' est ' + (sb.sex === 'f' ? 'décédée' : 'décédé') + (ad < 1 ? ' avant 1 an' : ' à ' + ad + ' an' + (ad > 1 ? 's' : '')) + ' en ' + fin) + ', puis ' + nomA(g) + ' arrive ' + (plein(g.naiss) && plein(dFin) ? dureeTxt(enJours(g.naiss) - enJours(dFin)) + ' après' : ecart < 1 ? 'quelques semaines après' : Math.round(ecart) + ' mois après') + (memeSexe ? ', du même sexe' : '') + (memeNom ? ', avec un prénom proche' : '') + '.', ids: [sb.id, g.id] });
@@ -988,6 +1026,12 @@
     chaine(function (pa, en) { var x = agePremier(pa), y = agePremier(en); return x != null && y != null && x >= 14 && y >= 14 && Math.abs(x - y) <= 2; }).forEach(function (l) {
       reps.push({ type: 'schema', qk: 'ageparent', tags: 'age parent premier enfant devenir mere pere', label: 'Parent au même âge, sur ' + l.length + ' générations', desc: l.map(function (id) { var p = S.people[id]; return nom(p) + ' : ' + agePremier(p) + ' ans'; }).reverse().join(', puis ') + '.', ids: l });
     });
+    // 10 bis. Des séparations ou des divorces d'une génération à l'autre, dans la même lignée
+    function aSepare(p) { return !!p && (S.rels.some(function (r) { return r.type === 'couple' && (r.from === p.id || r.to === p.id) && (r.statut === 'separe' || r.statut === 'divorce'); }) || (p.events || []).some(function (e) { return e.type === 'rupture'; })); }
+    chaine(function (pa, en) { return aSepare(pa) && aSepare(en); }, 2).forEach(function (l) {
+      reps.push({ type: 'schema', qk: 'separation', fort: l.length >= 3, tags: 'separation divorce rupture couple generation',
+        label: 'Des séparations sur ' + l.length + ' générations', desc: l.map(function (id) { return nom(S.people[id]); }).reverse().join(', puis ') + ' : chacun·e a vécu une séparation ou un divorce.', ids: l });
+    });
     // 11. Contexte historique : les hommes en âge d'être mobilisés pendant les guerres
     var GUERRES = [[1870, 1871, 'la guerre de 1870'], [1914, 1918, 'la Première Guerre mondiale'], [1939, 1945, 'la Seconde Guerre mondiale'], [1946, 1954, 'la guerre d’Indochine'], [1954, 1962, 'la guerre d’Algérie']];
     var mobil = [];
@@ -995,16 +1039,16 @@
       var l = liste.filter(function (p) { var an = annee(p.naiss), fin = annee(p.deces); return p.sex === 'm' && !petit(p) && an && an + 18 <= gu[1] && an + 45 >= gu[0] && (!fin || fin >= gu[0]); });
       if (l.length) mobil.push({ txt: gu[2] + ' : ' + l.slice(0, 8).map(function (p) { return nom(p) + ' (' + (Math.max(gu[0], annee(p.naiss) + 18) - annee(p.naiss)) + ' ans en ' + Math.max(gu[0], annee(p.naiss) + 18) + ')'; }).join(', ') + (l.length > 8 ? '…' : ''), ids: l.map(function (p) { return p.id; }) });
     });
-    if (mobil.length) reps.push({ type: 'epreuve', qk: 'guerre', tags: 'guerre histoire mobilise contexte socio', label: 'En âge d’être mobilisés', desc: mobil.map(function (x) { return x.txt; }).join(' ; ') + '. Ce n’est qu’une question d’âge : que sait-on de ce qu’ils ont vécu ?', ids: [].concat.apply([], mobil.map(function (x) { return x.ids; })) });
+    if (mobil.length) reps.push({ type: 'epreuve', qk: 'guerre', faible: true, tags: 'guerre histoire mobilise contexte socio', label: 'En âge d’être mobilisés', desc: mobil.map(function (x) { return x.txt; }).join(' ; ') + '. Ce n’est qu’une question d’âge : que sait-on de ce qu’ils ont vécu ?', ids: [].concat.apply([], mobil.map(function (x) { return x.ids; })) });
     // 12. Zones d'ombre : un grand écart dans une fratrie, un ancêtre direct sans aucune date
     var ombres = [], idsO = [];
     Object.keys(fratries).forEach(function (k) {
       var f = fratries[k].filter(function (e) { return annee(e.naiss); }).sort(function (x, y) { return annee(x.naiss) - annee(y.naiss); });
       for (var i = 1; i < f.length; i++) { var ec = annee(f[i].naiss) - annee(f[i - 1].naiss); if (ec > 6) { ombres.push(ec + ' ans entre ' + nom(f[i - 1]) + ' et ' + nom(f[i])); idsO.push(f[i - 1].id, f[i].id); } }
     });
-    var sansDate = liste.filter(function (p) { return !p.naiss && !p.deces && (enfantsDe[p.id] || []).length && (!moi || !!lienDe(p.id)); });
+    var sansDate = liste.filter(function (p) { return !p.naiss && !p.deces && (enfantsDe[p.id] || []).length && (!moi || !!lienC(p.id)); });
     if (sansDate.length) { ombres.push('aucune date pour ' + sansDate.slice(0, 6).map(nom).join(', ') + (sansDate.length > 6 ? '…' : '')); sansDate.forEach(function (p) { idsO.push(p.id); }); }
-    if (ombres.length) reps.push({ type: 'schema', qk: 'ombre', tags: 'zone ombre secret ecart fratrie manque date inconnu', label: 'Des zones d’ombre à explorer', desc: ombres.slice(0, 6).join(' ; ') + '. Ce sont des questions, pas des conclusions.', ids: idsO });
+    if (ombres.length) reps.push({ type: 'schema', qk: 'ombre', faible: true, completer: sansDate.slice(0, 6).map(function (p) { return p.id; }), tags: 'zone ombre secret ecart fratrie manque date inconnu', label: 'Des zones d’ombre à explorer', desc: ombres.slice(0, 6).join(' ; ') + '. Ce sont des questions, pas des conclusions.' + (sansDate.length ? ' ' + sansDate.length + ' date' + (sansDate.length > 1 ? 's' : '') + ' manquante' + (sansDate.length > 1 ? 's' : '') + ' pourrai' + (sansDate.length > 1 ? 'ent' : 't') + ' faire apparaître de nouvelles répétitions.' : ''), ids: idsO });
 
     /* ── Argent et trajectoire sociale (loyautés invisibles, transfuge de classe : notions publiques) ── */
     var PERTES = ['faillite', 'pauvrete', 'perte-emploi', 'declassement'];
@@ -1028,7 +1072,7 @@
     if (moi && ageActuel(moi) != null) {
       var ancM = ancetresDe(moi.id), ageM = ageActuel(moi);
       avecAge.filter(function (x) { return ancM[x.p.id] && x.e.age - ageM >= 0 && x.e.age - ageM <= 2; }).forEach(function (x) {
-        reps.push({ type: 'anniversaire', qk: 'reversage', tags: 'argent revers age approche anniversaire', label: 'Tu approches d’un âge sensible : ' + x.e.age + ' ans', desc: 'Tu as ' + ageM + ' ans. ' + nom(x.p) + ' a vécu « ' + libE(x.e.type) + ' » à ' + x.e.age + ' ans. Ce n’est pas une prédiction : juste un repère à regarder avec douceur.', ids: [moi.id, x.p.id] });
+        reps.push({ type: 'anniversaire', qk: 'reversage', tags: 'argent revers age approche anniversaire', label: (autre ? prenomC + ' approche' : 'Tu approches') + ' d’un âge sensible : ' + x.e.age + ' ans', desc: aAge(ageM) + nom(x.p) + ' a vécu « ' + libE(x.e.type) + ' » à ' + x.e.age + ' ans. Ce n’est pas une prédiction : juste un repère à regarder avec douceur.', ids: [moi.id, x.p.id] });
       });
     }
     // 15. Un héritage conflictuel, puis une rupture dans les 5 ans (chez la personne ou ses frères et sœurs)
@@ -1070,7 +1114,7 @@
       var nG = Object.keys(gens).length, sep = LG.separer(ids), dansL = {}, dansA = {};
       sep.lignee.forEach(function (c) { c.forEach(function (i) { dansL[i] = 1; }); });
       sep.alliance.forEach(function (c) { c.forEach(function (i) { if (!dansL[i]) dansA[i] = 1; }); });
-      var quiTxt = function (l) { return l.map(function (p) { var li = lienDe(p.id); return (li ? nomBase(p) : nom(p)) + (li === 'Toi' ? (DOSSIER_CLIENT ? ' (client·e)' : ' (toi)') : li ? ' (' + li.toLowerCase() + ')' : ''); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); };
+      var quiTxt = function (l) { return l.map(function (p) { var li = lienC(p.id); return (li ? nomBase(p) : nom(p)) + qualif(li); }).join(', ').replace(/, ([^,]*)$/, ' et $1'); };
       var L = ps.filter(function (p) { return dansL[p.id]; }), Al = ps.filter(function (p) { return dansA[p.id]; }), Au = ps.filter(function (p) { return !dansL[p.id] && !dansA[p.id]; });
       var morceauxR = [];
       if (L.length) morceauxR.push('Dans ta lignée : ' + quiTxt(L));
@@ -1106,8 +1150,25 @@
       ascension: ['Comment la famille a-t-elle vécu cette réussite, puis ce revers ?', 'Dans quel milieu te sens-tu chez toi ?'],
       reversdeuil: ['Quel soutien cette personne représentait-elle ?', 'Sur quoi peux-tu t’appuyer aujourd’hui ?'],
       manque: ['Qui s’est occupé de l’enfant après ce départ, et comment ?', 'Comment parlait-on du parent qui manquait ?'],
-      repere: ['D’où vient ce que tu as repéré : de l’exemple, d’une histoire, d’une fidélité ?', 'Que veux-tu garder, et que veux-tu laisser ?']
+      repere: ['D’où vient ce que tu as repéré : de l’exemple, d’une histoire, d’une fidélité ?', 'Que veux-tu garder, et que veux-tu laisser ?'],
+      decesage: ['Qu’as-tu envie de vivre que cette personne n’a pas pu vivre ?', 'Que sais-tu de ce qu’elle vivait à cet âge ?'],
+      nepres: ['Qu’a-t-on raconté de cette naissance, si proche de cette date ?', 'Cette date est-elle encore marquée dans la famille ?'],
+      nepresmoi: ['Que t’a-t-on raconté de ta naissance ?', 'Comment vis-tu la période de ton anniversaire ?'],
+      separation: ['Comment parlait-on des séparations dans ta famille ?', 'Qu’as-tu appris, enfant, de ce qu’on fait quand un couple va mal ?']
     };
+    // Vu depuis un enfant ou un proche : des questions pour la personne qui l'observe
+    var il = moi && moi.sex === 'f' ? 'elle' : 'lui', ae = moi && moi.sex === 'f' ? 'e' : '';
+    var QUESTIONS_AUTRE = autre ? {
+      anniversaire: ['Qu’observes-tu chez ' + prenomC + ' en ce moment ?', 'Que sait-' + (moi.sex === 'f' ? 'elle' : 'il') + ' de cette personne ?'],
+      decesage: ['Qu’observes-tu chez ' + prenomC + ' en ce moment ?', 'Que lui a-t-on raconté de cette personne ?'],
+      nepres: ['Que lui a-t-on raconté de sa naissance ?', 'Comment cette date est-elle vécue autour de ' + il + ' ?'],
+      nepresmoi: ['Que lui a-t-on raconté de sa naissance ?', 'Comment cette date est-elle vécue autour de ' + il + ' ?'],
+      gisant: ['Que sait ' + prenomC + ' de cette personne disparue ?', 'Qui a choisi son prénom, et pourquoi ?'],
+      conception: ['Que traversait la famille quand ' + prenomC + ' a été attendu' + ae + ' ?', 'Comment sa naissance a-t-elle été accueillie ?'],
+      remplacement: ['A-t-on comparé ' + prenomC + ' à l’enfant qui manquait ?', 'Que lui a-t-on dit de cet enfant ?'],
+      prenom: ['Qui a choisi le prénom de ' + prenomC + ', et pourquoi ?', 'Qu’est-ce que ce prénom lui évoque ?'],
+      manque: ['Qui est là pour ' + prenomC + ' quand un parent manque ?', 'Comment lui parle-t-on de ce parent ?']
+    } : {};
     // L'article du blog qui explique chaque piste
     var A = function (u, t) { return { u: u, t: t }; };
     var ARTICLES = {
@@ -1124,9 +1185,12 @@
       reversdeuil: A('argent-et-lignee.html', 'Argent et histoire familiale'), secret: A('secret-de-famille.html', 'Les secrets de famille'),
       ageevt: A('devenir-parent-au-meme-age.html', 'Les âges qui se répondent'), manque: A('deuil-non-fait-mort-jeune.html', 'Le deuil non fait')
     };
+    QUESTIONS.taille = QUESTIONS.enfants; ARTICLES.taille = ARTICLES.enfants; ARTICLES.separation = ARTICLES.schema;
     reps.forEach(function (r) {
       var k = r.qk || (/secret|non-dit/i.test(r.label) ? 'secret' : /au même âge/.test(r.label) ? 'ageevt' : '') || (/cousins/.test(r.label) ? 'cousins' : /fratries|enfants, dans/.test(r.label) ? 'enfants' : r.type);
-      r.q = QUESTIONS[k] || null;
+      var k2 = r.qk2 && QUESTIONS[r.qk2] ? r.qk2 : k;
+      var QA = moi && r.ids.indexOf(moi.id) >= 0 ? QUESTIONS_AUTRE : {};
+      r.q = QA[k2] || QA[k] || QUESTIONS[k2 === 'nepresmoi' && autre ? 'nepres' : k2] || QUESTIONS[k] || null;
       r.art = ARTICLES[k] || null;
     });
 
@@ -1146,6 +1210,29 @@
       couleurEtRang(r);
     });
     reps.sort(function (x, y) { return x.rang - y.rang; });
+
+    // Score de proximité : les pistes les plus parlantes en premier (même fratrie, lignée directe, écarts courts)
+    var BASE_S = { anniversaire: 6, gisant: 6, repere: 5, depart: 4, schema: 3, date: 3, epreuve: 3, metier: 2, prenom: 2 };
+    var QK_S = { guerre: 0.5, taille: 1, ombre: 1, ageparent: 2, remplacement: 6, conception: 5, manque: 5, premier: 4, reversage: 4, separation: 3 };
+    // distance en générations depuis la personne au centre (parents, enfants, frères et sœurs, couples)
+    var distC = {};
+    if (moi) { distC[moi.id] = 0; var fileD = [moi.id];
+      while (fileD.length) { var xd = fileD.shift(), dd = distC[xd];
+        [].concat(parents(xd), enfants(xd), freresDirects(xd), partenaires(xd)).forEach(function (y) { if (distC[y] === undefined) { distC[y] = dd + 1; fileD.push(y); } }); } }
+    reps.forEach(function (r) {
+      var sc = (QK_S[r.qk] != null ? QK_S[r.qk] : (BASE_S[r.type] || 2)) + (r.fort ? 3 : 0);
+      if (moi) {
+        var autres = r.ids.filter(function (i) { return i !== moi.id; }), dm = autres.length ? Math.min.apply(null, autres.map(function (i) { return distC[i] === undefined ? 99 : distC[i]; })) : 0;
+        if (r.ids.indexOf(moi.id) >= 0) sc += 2;
+        sc += dm <= 2 ? 2 : dm === 3 ? 0.5 : dm === 4 ? -1 : dm <= 6 ? -2.5 : -4;
+        r.dist = dm; if (dm > 4) r.loin = true;
+      }
+      if (r.ej != null) sc -= r.ej * 0.4;
+      if (r.ea != null) sc += r.ea <= 10 ? 2 : r.ea <= 30 ? 0.5 : r.ea <= 75 ? -1 : -3;
+      if (r.proche) sc += 2;
+      if (r.faible) sc -= 3;
+      r.score = Math.round(sc * 10) / 10;
+    });
 
     // Une seule carte par fait : quand plusieurs pistes parlent des mêmes personnes (ou d'une partie d'entre elles)
     // dans la même famille de pistes, elles deviennent des « lectures possibles » de la carte la plus large.
@@ -1168,14 +1255,17 @@
       if (!h) { r.lect = []; hotes.push(r); return; }
       h.lect.push({ label: r.label, desc: r.desc });
       if (r.fort && !h.fort) { h.fort = true; couleurEtRang(h); }
+      if (r.score > h.score) h.score = r.score;
+      if (!r.faible) h.faible = false;
+      if (r.completer && !h.completer) h.completer = r.completer;
       if (!h.exo && r.exo) h.exo = r.exo;
       h.tags = (h.tags || '') + ' ' + norm(r.label + ' ' + r.desc) + ' ' + (r.tags || '');
     });
-    reps = hotes.sort(function (x, y) { return x.rang - y.rang; });
+    reps = hotes.sort(function (x, y) { return (y.score - x.score) || (x.rang - y.rang); });
     // Un prénom seul qui revient n'apprend pas grand-chose dans un grand arbre : on n'en garde que 3
     var nbPrenoms = 0;
     reps = reps.filter(function (r) { return !(r.type === 'prenom' && !r.fort && ++nbPrenoms > 3); });
-    reps.forEach(function (r, i) { r.cle = r.type + ':' + r.ids.slice().sort().join(',') + ':' + i; });
+    reps.forEach(function (r, i) { r.cle = r.type + ':' + r.ids.slice().sort().join(',') + ':' + i; r.cleA = r.type + ':' + (r.qk || '') + ':' + uniques(r.ids).sort().join(','); });
     return reps;
   }
 
@@ -1386,7 +1476,7 @@
     reps = detecter();
     if (repActive && !reps.some(function (r) { return r.cle === repActive.cle; })) repActive = null;
     if (ancien && plan.pos[garderId]) { vue.x += (ancien.x - plan.pos[garderId].x) * vue.k; vue.y += (ancien.y - plan.pos[garderId].y) * vue.k; }
-    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : null };
+    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : (vuDepuis && S.people[vuDepuis] ? ligneeDe(vuDepuis) : null) };
     var h = '<g id="monde">' + dessinRelations(plan) + dessinLiens(plan) + dessinRepetition(plan, repActive);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], plan.pos[id], o); });
     h += '</g>';
@@ -1445,6 +1535,7 @@
     var bar = $('actions-perso');
     if (!selId || !S.people[selId]) { bar.innerHTML = ''; bar.classList.remove('visible'); return; }
     var b = '<button type="button" class="principal" data-act="modifier">Modifier</button>';
+    b += '<button type="button" data-act="vu">' + (S.people[selId].role === 'moi' ? (DOSSIER_CLIENT ? 'Ses répétitions' : 'Mes répétitions') : 'Ses répétitions') + '</button>';
     var np0 = parents(selId).length;
     if (np0 < 2) b += '<button type="button" data-act="parent">' + (np0 ? '+ Parent' : '+ Parents') + '</button>';
     b += '<button type="button" data-act="couple">+ Conjoint·e</button>';
@@ -1512,6 +1603,31 @@
       '<p class="rep-aide">Continue ton arbre : les exercices t’attendent ici, à faire quand tu as le temps.</p>' +
       aFaire.map(function (x) { var st = statut(x.a); return '<a class="exo exo-' + st + '" style="--c:' + x.c + '" href="' + lienExo(x) + '"><b>' + esc(x.a) + '</b><span class="exo-st">' + LIB[st] + '</span>' + (x.l ? '<small>' + esc(auTu(x.l)) + '</small>' : '') + '</a>'; }).join('') + '</div>' : '';
     var mots = norm(recherche).split(/[\s'’,-]+/).filter(function (m) { return m.length >= 2; });
+    var AV = S.avis || {};
+    function avisDe(r) { return AV[r.cleA] || null; }
+    var c = idCentre(), pc = c ? S.people[c] : null, autreC = !!(pc && pc.role !== 'moi');
+    var prC = pc ? (String(pc.prenom || '').split(/[\s-]+/)[0] || nomComplet(pc) || 'cette personne') : '';
+    // « Vu depuis » : toi, tes enfants, ton ou ta partenaire, tes parents, tes frères et sœurs (et la personne choisie)
+    var moiId = idMoi(), cercle = [];
+    function ajC(id) { if (id && S.people[id] && cercle.indexOf(id) < 0 && id !== moiId) cercle.push(id); }
+    if (moiId) { enfants(moiId).forEach(function (e) { ajC(e); enfants(e).forEach(ajC); }); partenaires(moiId).forEach(ajC); parents(moiId).forEach(ajC); freresDirects(moiId).forEach(ajC); }
+    ajC(vuDepuis);
+    var nomVu = function (id) { var p = S.people[id], l = lienDe(id); return (nomComplet(p) || l || 'Sans prénom') + (l && l !== 'Toi' ? ' (' + libLien(l).toLowerCase() + ')' : ''); };
+    var blocVue = '<div class="rep-vue"><label>Vu depuis <select id="rep-vu"><option value="">' + (moiId ? (DOSSIER_CLIENT ? 'Mon·ma client·e' : 'Moi') : 'Tout l’arbre') + '</option>' +
+      cercle.map(function (id) { return '<option value="' + esc(id) + '"' + (id === vuDepuis ? ' selected' : '') + '>' + esc(nomVu(id)) + '</option>'; }).join('') + '</select></label>' +
+      (c ? '<label>Côté <select id="rep-cote"><option value="">Toute la famille</option><option value="mere"' + (coteFiltre === 'mere' ? ' selected' : '') + '>Côté mère</option><option value="pere"' + (coteFiltre === 'pere' ? ' selected' : '') + '>Côté père</option></select></label>' : '') + '</div>';
+    if (autreC) { var agC = ageActuel(pc); blocVue += '<p class="rep-centre">Vu depuis <b>' + esc(prC) + '</b>' + (agC != null ? ', ' + agC + ' an' + (agC > 1 ? 's' : '') : '') + ' : ses répétitions et celles de sa lignée. <button type="button" class="lien-texte" data-vu="">Revenir à ' + (DOSSIER_CLIENT ? 'mon·ma client·e' : 'moi') + '</button></p>'; }
+    // Un parent manque dans l'arbre : la moitié des répétitions n'apparaît pas
+    if (pc) {
+      var pps = parents(c).map(function (x) { return S.people[x]; }), manque = null;
+      if (!pps.length) manque = { t: autreC ? 'Les parents de ' + prC + ' ne sont pas encore dans l’arbre : ses répétitions familiales n’apparaissent pas encore.' : (DOSSIER_CLIENT ? 'Ses parents ne sont pas encore dans l’arbre.' : 'Tes parents ne sont pas encore dans l’arbre : tes répétitions familiales n’apparaissent pas encore.'), b: autreC || DOSSIER_CLIENT ? '+ Ajouter ses parents' : '+ Ajouter tes parents' };
+      else if (pps.length === 1) {
+        var mq = pps[0].sex === 'f' ? 'pere' : pps[0].sex === 'm' ? 'mere' : '';
+        if (mq) { var ma = mq === 'mere', pos = autreC || DOSSIER_CLIENT ? (ma ? 'sa' : 'son') : (ma ? 'ta' : 'ton'), qui = ma ? 'mère' : 'père';
+          manque = { t: 'La lignée de ' + pos + ' ' + qui + ' n’est pas encore dans l’arbre : la moitié de ' + (autreC || DOSSIER_CLIENT ? 'ses' : 'tes') + ' répétitions n’apparaît pas.', b: '+ Ajouter ' + pos + ' ' + qui }; }
+      }
+      if (manque) blocVue += '<p class="rep-manque">' + esc(manque.t) + ' <button type="button" class="rep-petit" data-ajout-parent="' + esc(c) + '">' + esc(manque.b) + '</button></p>';
+    }
     var visibles = reps.map(function (r, i) { return i; });
     var info = '';
     if (mots.length) {
@@ -1519,20 +1635,70 @@
       if (cp) reps.unshift(cp);
       visibles = []; reps.forEach(function (r, i) { if (r.synth || correspond(r, mots)) visibles.push(i); });
       var sg = RECH_SUGG.find(function (x) { return norm(x[0]) === norm(recherche).trim(); });
-      info = '<p class="rep-aide">' + (visibles.length ? visibles.length + ' résultat' + (visibles.length > 1 ? 's' : '') + ' pour « ' + esc(recherche.trim()) + ' ».' : 'Rien trouvé pour « ' + esc(recherche.trim()) + ' » dans ton arbre.' + (sg ? ' ' + esc(sg[2]) : ' Essaie un prénom, un métier, ou une suggestion ci-dessus.')) + '</p>';
+      // un prénom tapé : proposer d'abord la lecture depuis cette personne
+      var cible = norm(recherche).replace(/[^a-z]/g, ''), gens = cible.length >= 3 ? Object.keys(S.people).filter(function (id) { var w = norm(S.people[id].prenom).split(/[\s'’-]+/)[0].replace(/[^a-z]/g, ''); return w && w === cible; }).slice(0, 3) : [];
+      info = gens.map(function (id) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(id) + '">Voir les répétitions de ' + esc(nomComplet(S.people[id]) || prC) + '</button>'; }).join('') +
+        '<p class="rep-aide">' + (visibles.length ? visibles.length + ' résultat' + (visibles.length > 1 ? 's' : '') + ' pour « ' + esc(recherche.trim()) + ' ».' : 'Rien trouvé pour « ' + esc(recherche.trim()) + ' » dans ton arbre.' + (sg ? ' ' + esc(sg[2]) : ' Essaie un prénom, un métier, ou une suggestion ci-dessus.')) + '</p>';
     }
+    // filtres : la lignée de la personne au centre, puis le côté
+    var dansL = {}, horsL = [];
+    if (autreC) ligneeDe(c).forEach(function (id) { dansL[id] = 1; });
+    var setCote = {}; if (coteFiltre && c) coteDe(c, coteFiltre).forEach(function (id) { setCote[id] = 1; });
+    visibles = visibles.filter(function (i) {
+      var r = reps[i]; if (r.synth) return true;
+      if (coteFiltre && c && !r.ids.some(function (id) { return setCote[id]; })) return false;
+      if (autreC && !r.ids.some(function (id) { return dansL[id]; })) { horsL.push(i); return false; }
+      return true;
+    });
     function carte(i) { var r = reps[i];
-      var st = r.exo ? statut(r.exo.a) : null;
-      return '<div class="rep-bloc"><button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' +
+      var st = r.exo ? statut(r.exo.a) : null, av = avisDe(r);
+      return '<div class="rep-bloc' + (av ? ' avis-' + av.v : '') + '"><button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' +
         (r.lect && r.lect.length ? '<span class="rep-lect"><b>Lectures possibles</b>' + r.lect.map(function (l) { return '<span>' + esc(l.label) + ' : ' + esc(String(l.desc).replace(/\.$/, '')) + '.</span>'; }).join('') + '</span>' : '') +
         (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
+        (r.completer && r.completer.length ? '<div class="rep-completer">' + r.completer.map(function (id) { return S.people[id] ? '<button type="button" class="rep-petit" data-completer="' + esc(id) + '">Compléter ' + esc(nomComplet(S.people[id]) || 'la fiche') + '</button>' : ''; }).join('') + '</div>' : '') +
         (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
-        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '') + '</div>';
+        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '') +
+        (r.synth ? '' : '<div class="rep-avis" role="group" aria-label="Ton avis sur cette piste">' + [['oui', 'Ça me parle'], ['creuser', 'À creuser'], ['non', 'Pas pour moi']].map(function (x) { return '<button type="button" data-avis="' + x[0] + '" data-cle="' + esc(r.cleA) + '" aria-pressed="' + (av && av.v === x[0] ? 'true' : 'false') + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+          (av && av.v !== 'non' ? '<input type="text" class="rep-note" data-note="' + esc(r.cleA) + '" maxlength="300" placeholder="Une petite note pour toi…" value="' + esc(av.note || '') + '">' : '')) + '</div>';
     }
-    var visR = visibles.filter(function (i) { return reps[i].type === 'repere'; }), visA = visibles.filter(function (i) { return reps[i].type !== 'repere'; });
-    z.innerHTML = (mots.length ? info : blocExo) +
-      (visR.length ? '<div class="reps-groupe reps-visibles"><p class="exos-titre">Tes répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>' + (visA.length ? '<p class="exos-titre reps-titre-auto">Ce que l’arbre fait apparaître <span>' + visA.length + '</span></p>' : '') : '') +
-      visA.map(carte).join('') + (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
+    var ecartees = visibles.filter(function (i) { var a = avisDe(reps[i]); return a && a.v === 'non'; });
+    var actives = visibles.filter(function (i) { return ecartees.indexOf(i) < 0; });
+    var nAct = actives.filter(function (i) { return !reps[i].synth; }).length;
+    $('compte').textContent = nAct; $('compte-bouton').textContent = nAct;
+    var visR = actives.filter(function (i) { return reps[i].type === 'repere'; }), visA = actives.filter(function (i) { return reps[i].type !== 'repere'; });
+    var h = blocVue + (mots.length ? info : blocExo);
+    if (visR.length) h += '<div class="reps-groupe reps-visibles"><p class="exos-titre">' + (autreC ? 'Ses' : 'Tes') + ' répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>';
+    if (mots.length) h += visA.map(carte).join('');
+    else {
+      // les 3 pistes les plus fortes en tête, le reste rangé par thème (replié)
+      var parScore = function (x, y) { return reps[y].score - reps[x].score; };
+      var top = visA.filter(function (i) { return !reps[i].faible && !reps[i].loin; }).sort(parScore).slice(0, 3);
+      if (!top.length) top = visA.filter(function (i) { return !reps[i].faible; }).sort(parScore).slice(0, 3);
+      if (top.length) h += '<div class="reps-groupe reps-top"><p class="exos-titre">' + (autreC ? 'Ses' : DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' ' + top.length + ' piste' + (top.length > 1 ? 's' : '') + ' principale' + (top.length > 1 ? 's' : '') + '</p>' + top.map(carte).join('') + '</div>';
+      // ce qui touche les enfants (vu depuis toi)
+      if (!autreC && moiId && !DOSSIER_CLIENT) {
+        var enf = enfants(moiId).filter(function (e) { return S.people[e] && !petit(S.people[e]); });
+        var lignes = enf.map(function (e) { var le = {}; ligneeDe(e).forEach(function (x) { le[x] = 1; }); var n = reps.filter(function (r) { return r.ids.indexOf(e) >= 0; }).length; return { e: e, n: n }; }).filter(function (x) { return x.n; });
+        if (lignes.length) h += '<div class="reps-groupe reps-enfants"><p class="exos-titre">Ce qui touche tes enfants</p><p class="rep-aide">Regarde l’arbre depuis chacun d’eux : son âge, sa date de naissance, son prénom, sa place.</p>' + lignes.map(function (x) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(x.e) + '">' + esc(nomComplet(S.people[x.e]) || 'Mon enfant') + ' <span>' + x.n + ' piste' + (x.n > 1 ? 's' : '') + '</span></button>'; }).join('') + '</div>';
+      }
+      var reste = visA.filter(function (i) { return top.indexOf(i) < 0; });
+      if (reste.length) {
+        var parT = {}; reste.forEach(function (i) { var t = reps[i].type; (parT[t] = parT[t] || []).push(i); });
+        var THEME = { anniversaire: 'Les âges qui se répondent', gisant: 'Naissances et deuils', depart: 'Les départs précoces', date: 'Les dates qui reviennent', epreuve: 'Les mêmes événements', schema: 'Les schémas familiaux', metier: 'Les métiers', prenom: 'Les prénoms' };
+        h += '<p class="exos-titre reps-titre-auto">' + (top.length ? 'Les autres pistes, par thème' : 'Ce que l’arbre fait apparaître') + ' <span>' + reste.length + '</span></p>' +
+          ['anniversaire', 'gisant', 'date', 'depart', 'schema', 'epreuve', 'prenom', 'metier'].filter(function (t) { return parT[t]; }).map(function (t) {
+            var l = parT[t].sort(function (x, y) { return reps[y].score - reps[x].score; });
+            return '<details class="rep-theme-bloc"' + (repActive && l.some(function (i) { return reps[i].cle === repActive.cle; }) ? ' open' : '') + '><summary>' + THEME[t] + ' <span>' + l.length + '</span></summary>' + l.map(carte).join('') + '</details>';
+          }).join('');
+      }
+    }
+    if (horsL.length && !mots.length) h += '<details class="rep-theme-bloc rep-ailleurs"><summary>Ailleurs dans l’arbre <span>' + horsL.length + '</span></summary><p class="rep-aide">Ces pistes ne touchent pas la lignée de ' + esc(prC) + '.</p>' + horsL.map(carte).join('') + '</details>';
+    if (ecartees.length) h += '<details class="rep-theme-bloc rep-ecartees"><summary>Pistes écartées <span>' + ecartees.length + '</span></summary>' + ecartees.map(carte).join('') + '</details>';
+    if (!idMoi()) h += DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>';
+    z.innerHTML = h;
+    // le menu des thèmes affiche combien de pistes il y a dans chacun
+    var selT = $('rep-theme');
+    if (selT) RECH_SUGG.forEach(function (x, k) { var o = selT.options[k + 1]; if (!o) return; var mm = norm(x[0]).split(/\s+/), n = reps.filter(function (r) { return !r.synth && correspond(r, mm); }).length; o.textContent = x[1] + (n ? ' (' + n + ')' : ''); });
   }
 
   /* ───────── Historique et sauvegarde ───────── */
@@ -1579,8 +1745,8 @@
     return r;
   }
   function donneesCompte() {
-    if (ARBRE_ID) return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2 });
-    return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2 }); }
+    if (ARBRE_ID) return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} });
+    return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} }); }
   function envoyer() {
     clearTimeout(minuteur); minuteur = null;
     if (!utilisateur || !sb) return;
@@ -1602,7 +1768,7 @@
   }
   function enregistrer() {
     if (EXEMPLE || arbreBloque) return;
-    try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
+    try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} })); } catch (e) {}
     if (!utilisateur || !sb) { statut(textStatutRepos()); return; }
     enAttente = true; marquerSynchro(false);
     clearTimeout(minuteur);
@@ -1617,7 +1783,7 @@
   window.addEventListener('online', envoyerSiBesoin);
   function charger(d) {
     d = d || {};
-    S = { people: d.people || {}, rels: Array.isArray(d.rels) ? d.rels : [], nid: d.nid || 1 };
+    S = { people: d.people || {}, rels: Array.isArray(d.rels) ? d.rels : [], nid: d.nid || 1, avis: (d.avis && typeof d.avis === 'object' && !Array.isArray(d.avis)) ? d.avis : {} };
     Object.keys(S.people).forEach(function (id) {
       var p = S.people[id]; p.id = id;
       if (!Array.isArray(p.traits)) p.traits = [];
@@ -2042,6 +2208,7 @@
     var b = e.target.closest('[data-act]'); if (!b || !selId) return;
     var act = b.getAttribute('data-act');
     if (act === 'modifier') ouvrirFiche(selId, false);
+    else if (act === 'vu') { vuDepuis = S.people[selId].role === 'moi' ? null : selId; coteFiltre = ''; recherche = ''; var ch = $('rep-cherche'); if (ch) ch.value = ''; document.body.classList.add('panneau-ouvert'); dessiner(); var zz = $('reps'); if (zz) zz.scrollTop = 0; }
     else if (act === 'relation') {   // la fiche, ouverte directement sur l'ajout d'un lien relationnel
       ouvrirFiche(selId, false);
       $('fp-lier-type').value = 'rel-proche';
@@ -2058,7 +2225,29 @@
     champ.addEventListener('input', function () { clearTimeout(t); t = setTimeout(function () { recherche = champ.value; repActive = null; sel.value = ''; dessinerPanneau(); }, 150); });
     sel.addEventListener('change', function () { champ.value = sel.value; recherche = sel.value; repActive = null; dessinerPanneau(); });
   })();
+  function avisChange(cle, v, note) {
+    S.avis = S.avis || {};
+    var a = S.avis[cle];
+    if (v === undefined) { if (a) { a.note = note; } }
+    else if (a && a.v === v) delete S.avis[cle];
+    else S.avis[cle] = { v: v, note: (a && a.note) || '' };
+    enregistrer();
+  }
+  $('reps').addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.id === 'rep-vu') { vuDepuis = t.value || null; coteFiltre = ''; repActive = null; dessiner(); return; }
+    if (t.id === 'rep-cote') { coteFiltre = t.value; repActive = null; dessinerPanneau(); return; }
+    if (t.matches && t.matches('[data-note]')) avisChange(t.getAttribute('data-note'), undefined, t.value.slice(0, 300));
+  });
   $('reps').addEventListener('click', function (e) {
+    var v = e.target.closest('[data-vu]');
+    if (v) { vuDepuis = v.getAttribute('data-vu') || null; coteFiltre = ''; recherche = ''; var ch = $('rep-cherche'); if (ch) ch.value = ''; repActive = null; dessiner(); $('reps').scrollTop = 0; return; }
+    var av = e.target.closest('[data-avis]');
+    if (av) { avisChange(av.getAttribute('data-cle'), av.getAttribute('data-avis')); dessinerPanneau(); return; }
+    var cp = e.target.closest('[data-completer]');
+    if (cp) { ouvrirFiche(cp.getAttribute('data-completer'), false); return; }
+    var ap = e.target.closest('[data-ajout-parent]');
+    if (ap) { var pid = ap.getAttribute('data-ajout-parent'); selId = pid; majBarreActions(); ouvrirAjout('parent', pid); return; }
     var b = e.target.closest('[data-rep]'); if (!b) return;
     var r = reps[+b.getAttribute('data-rep')];
     repActive = (repActive && repActive.cle === r.cle) ? null : r;
@@ -2315,7 +2504,7 @@
     var b = e.target.closest('[data-version]'); if (!b) return;
     var v = versions[+b.getAttribute('data-version')]; if (!v || !v.data) return;
     if (!confirm('Remplacer ton arbre actuel par la version du ' + dateFr(v.enregistre_le) + ' ? Ton arbre actuel sera lui aussi gardé dans l\u2019historique.')) return;
-    memoriser(); charger(v.data); selId = null; repActive = null;
+    memoriser(); charger(v.data); selId = null; repActive = null; vuDepuis = null;
     fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer(); envoyer();
   });
   $('bt-sauve').addEventListener('click', function () {
@@ -2339,7 +2528,7 @@
         var d = JSON.parse(r.result);
         if (!d || typeof d.people !== 'object') throw new Error();
         if (Object.keys(S.people).length && !confirm('Remplacer ton arbre actuel par celui du fichier ? Tu pourras revenir en arrière avec « Annuler ».')) return;
-        memoriser(); charger(d); selId = null; repActive = null;
+        memoriser(); charger(d); selId = null; repActive = null; vuDepuis = null;
         fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer();
       } catch (err) { alert('Ce fichier ne contient pas d’arbre lisible.'); }
       e.target.value = '';
@@ -2388,14 +2577,14 @@
         if (r.type === 'couple') { if (!relCouple(a, b)) S.rels.push({ from: a, to: b, type: 'couple', statut: r.statut || 'marie' }); return; }
         if (!S.rels.some(function (x) { return x.type === r.type && x.from === a && x.to === b; })) S.rels.push({ from: a, to: b, type: r.type });
       });
-      selId = null; repActive = null;
+      selId = null; repActive = null; vuDepuis = null;
       dessiner(); recentrer(); majBarreActions(); enregistrer();
     }
   };
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
     if (!confirm((ARBRE_ID ? 'Vider l’arbre « ' + arbreNom + ' » pour repartir de zéro ?' : 'Effacer tout ton arbre pour repartir de zéro ?') + '\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
-    memoriser(); S = { people: {}, rels: [], nid: 1 }; selId = null; repActive = null;
+    memoriser(); S = { people: {}, rels: [], nid: 1 }; selId = null; repActive = null; vuDepuis = null;
     fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer();
   });
 
@@ -2475,7 +2664,8 @@
   function dateLongue(d) { return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }); }
 
   function htmlRapport(css, e) {
-    var reps = detecter(), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
+    var AVR = S.avis || {};   // les pistes écartées sortent du rapport, celles qui parlent passent en premier
+    var reps = detecter().filter(function (r) { return !(AVR[r.cleA] && AVR[r.cleA].v === 'non'); }).sort(function (x, y) { var ax = AVR[x.cleA] && AVR[x.cleA].v === 'oui' ? 0 : 1, ay = AVR[y.cleA] && AVR[y.cleA].v === 'oui' ? 0 : 1; return ax - ay || (y.score || 0) - (x.score || 0); }), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
     var C = '@page{size:A4;margin:15mm 12mm 17mm}' + css +
       '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{margin:0;padding:0 6mm;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.8pt;line-height:1.68}p{margin:0 0 3mm}' +
       'h1,h2,h3{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;line-height:1.15;margin:0}' +
@@ -2514,7 +2704,7 @@
     groupes.forEach(function (g, i) {
       var T = TEXTES_RAPPORT[g.type];
       h += '<section class="section page"><div class="sur2">Thème ' + (i + 1) + '</div><h2>' + esc(T.titre) + '</h2><p class="intro">' + esc(T.intro) + '</p>';
-      h += g.items.map(function (r) { return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + '</b><p>' + esc(descComplete(r)) + '</p></div>'; }).join('');
+      h += g.items.map(function (r) { var av = AVR[r.cleA]; return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + (av && av.v === 'oui' ? ' · ça me parle' : av && av.v === 'creuser' ? ' · à creuser' : '') + '</b><p>' + esc(descComplete(r)) + '</p>' + (av && av.note ? '<p><i>Ma note : ' + esc(av.note) + '</i></p>' : '') + '</div>'; }).join('');
       h += '<div class="pistes"><b>Pistes de réflexion</b><ol>' + T.pistes.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
       h += '<div class="geste"><b>Pour sortir de la boucle</b>' + esc(T.geste) + '</div>';
       h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
@@ -3014,8 +3204,8 @@
       Object.keys(dc).forEach(function (k) { if (['people', 'rels', 'nid', 'v', 'nodePos'].indexOf(k) < 0) annexes[k] = dc[k]; });
       DOSSIER_CLIENT = annexes.dossier === 'client'; textesDossierClient();
       charger(dc);
-      try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
-      selId = null; repActive = null; dessiner(); recentrer(); majBarreActions();
+      try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} })); } catch (e) {}
+      selId = null; repActive = null; vuDepuis = null; dessiner(); recentrer(); majBarreActions();
       statut(textStatutRepos());
     });
   }
@@ -3233,7 +3423,7 @@
           }
           charger(dc);
           marquerSynchro(true);
-          try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2 })); } catch (e) {}
+          try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} })); } catch (e) {}
           selId = null; dessiner(); recentrer(); majBarreActions();
         } else if (Object.keys(S.people).length) {
           enregistrer();
