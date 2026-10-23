@@ -384,8 +384,9 @@
     o = o || {};
     if (o.cadre !== undefined && o.format) { var a = svgStyle(donnees, Object.assign({}, o, { cadre: undefined, format: undefined, scene: false, fondPerdu: false })); return enCadre(a, o); }
     var st = o.style || donnees.style;
+    if (st === 'grand' && window.ArbreGrand) return window.ArbreGrand.svg(donnees, { fond: o.decor || undefined, apercu: o.apercu, fondPerdu: o.fondPerdu });
     if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: true, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
-  window.ArbreEncadrer = { svg: svgStyle, paysage: function (st) { return st in PAYSAGE; }, styles: [['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré']] };
+  window.ArbreEncadrer = { svg: svgStyle, paysage: function (st) { return st in PAYSAGE || st === 'grand'; }, styles: [['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré']] };
 })();

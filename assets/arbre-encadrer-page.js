@@ -12,8 +12,9 @@
   var capA4 = 4, capA3 = 5;
   function paysage(st) { return !!(window.ArbreEncadrer.paysage && window.ArbreEncadrer.paysage(st || choix.style)); }
   function motif() { return choix.style === 'medaillons' ? 'medaillons' : ''; }
-  function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : 'a4cadre'; }
-  function a4Max() { return paysage() ? capA4 : 4; }
+  function grand() { return choix.style === 'grand'; }   /* « Grand arbre » : l'arbre peint, 5 générations, en A3 seulement */
+  function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : (grand() ? 'a3cadre' : 'a4cadre'); }
+  function a4Max() { return grand() ? 0 : paysage() ? capA4 : 4; }
 
   function annee(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -77,8 +78,8 @@
   /* opt.hd : décor haute définition (téléchargement, impression) ; opt.fondPerdu : 4 mm en plus pour l'imprimeur */
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
-    var fig = donnees.style === 'figuier', pay = paysage(donnees.style), med = donnees.style === 'medaillons';
-    return Promise.all([pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+    var fig = donnees.style === 'figuier', pay = paysage(donnees.style), med = donnees.style === 'medaillons', gr = donnees.style === 'grand';
+    return Promise.all([gr ? enDataUrl(opt.hd ? 'assets/arbre/grand-arbre.jpg' : 'assets/arbre/grand-arbre-ecran.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
@@ -105,7 +106,10 @@
     var titre = donnees && document.getElementById('fe-titre') ? document.getElementById('fe-titre').value : null;
     var sous = donnees && document.getElementById('fe-sous') ? document.getElementById('fe-sous').value : null;
     var nb;
-    if (paysage() && window.ArbreLignee) {
+    if (grand()) {
+      dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb; capA4 = 0; capA3 = 5;
+      nb = Math.min(choix.nbGen || 5, dispo);
+    } else if (paysage() && window.ArbreLignee) {
       var tout = lignee(choix.depart, 10);
       dispo = tout ? tout.nb : 0;
       capA4 = tout ? window.ArbreLignee.capacite(tout, false, true, motif()) : 2;
@@ -121,7 +125,9 @@
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; }
   }
   function afficher() {
-    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true };
+    var premier = !choix.choisi;
+    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true, choisi: choix.choisi };
+    if (premier) { choix.style = 'grand'; donnees = null; recalculer(); if (!donnees || donnees.nb < 3) choix.style = 'figuier'; }
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
@@ -129,7 +135,7 @@
     }
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
     corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="cadre" aria-selected="true">Dans son cadre</button><button type="button" role="tab" data-vue="affiche" aria-selected="false">L’affiche</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu-z"><div class="fe-apercu" id="fe-apercu" title="Cliquer pour agrandir"><p class="rap-texte">Un instant…</p></div><button type="button" class="fe-loupe" id="fe-loupe" aria-label="Agrandir l’aperçu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Agrandir</button></div><p class="fe-legende" id="fe-legende"></p></div><div class="fe-reglages">' +
-      '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + '</span></label>'; }).join('') + '</div></div>' +
+      '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + (x[0] === 'grand' ? ' <small class="fe-badge">Le plus complet</small>' : '') + '</span></label>'; }).join('') + '</div></div>' +
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
@@ -148,7 +154,7 @@
     document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
-    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(); choix.style = r.value; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); }); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(); choix.style = r.value; choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-loupe').addEventListener('click', loupe);
@@ -267,19 +273,19 @@
   function majGens() {
     var sel = document.getElementById('fe-gens'); if (!sel || !donnees) return;
     var opts = [];
-    var maxN = paysage() ? Math.min(dispo, capA3) : Math.min(dispo, 5);
-    for (var n = 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n - 1] || n + ' générations') + (n > a4Max() ? ' (A3 seulement)' : '') + '</option>');
+    var maxN = Math.min(dispo, grand() ? 5 : paysage() ? capA3 : 5);
+    for (var n = 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n - 1] || n + ' générations') + (n > a4Max() && !grand() ? ' (A3 seulement)' : '') + '</option>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
-    if (aide) aide.textContent = paysage()
+    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations (31 médaillons) : il s’imprime en A3, pour que chaque nom reste bien lisible.' : paysage()
       ? (donnees.nbGen > capA4 ? 'Lisible en A3 seulement avec autant de générations : l’A4 est désactivé.' : (Math.min(dispo, capA3) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + Math.min(dispo, capA3) + ' générations en A3.' : ''))
       : (dispo < 5 && dispo < 4 ? '' : donnees.nbGen === 5 ? 'Cinq générations : lisible en A3 seulement. L’A4 est désactivé.' : (dispo >= 5 ? 'Ton arbre va plus loin : choisis « Cinq générations » pour l’A3.' : ''));
     if (!choix.sousModifie && document.getElementById('fe-sous')) document.getElementById('fe-sous').value = donnees.sousTitre;
     /* formats d'impression : l'A4 n'est pas proposé avec cinq générations */
     document.querySelectorAll('#fe-imp-form input[name=format]').forEach(function (r) {
       var f = (IMP.formats || []).filter(function (x) { return x.id === r.value; })[0] || {}, a4 = /^a4/.test(f.id || '');
-      r.disabled = donnees.nbGen > a4Max() && a4 && !(paysage() && !choix.nbGen);   /* styles à l'horizontale en réglage automatique : l'A4 reste proposé, avec ses générations */ r.closest('label').classList.toggle('fe-off', r.disabled);
-      if (r.disabled && r.checked) { var a3 = document.querySelector('#fe-imp-form input[name=format]:not(:disabled)'); if (a3) a3.checked = true; }
+      r.disabled = a4 && (grand() || (donnees.nbGen > a4Max() && !(paysage() && !choix.nbGen)));   /* styles à l'horizontale en réglage automatique : l'A4 reste proposé, avec ses générations */ r.closest('label').classList.toggle('fe-off', r.disabled);
+      if (r.disabled && r.checked) { var a3 = document.querySelector('#fe-imp-form input[name=format][value="' + (/cadre/.test(r.value) ? 'a3cadre' : 'a3') + '"]') || document.querySelector('#fe-imp-form input[name=format]:not(:disabled)'); if (a3) a3.checked = true; }
     });
   }
   /* Ce que la cliente reçoit (fiches Gelato « prêt à accrocher », papier premium mat 200 g) */
