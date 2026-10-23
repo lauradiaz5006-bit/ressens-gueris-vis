@@ -137,8 +137,17 @@
     return res;
   }
 
+  /* « Avec mes enfants » : une rangée au pied de l'arbre, sous la personne choisie ; on garde sa place en bas de page */
+  function reserverEnfants(donnees, a3) {
+    var l = (donnees.enfants || []).slice(0, 6); if (!l.length) return null;
+    var fz = a3 ? 30 : 36;
+    l.forEach(function (q) { q._e = etiquette(q, fz, false); q._g = -1; });
+    var hE = Math.max.apply(null, l.map(function (q) { return q._e.h; })), sous = MOTIF === 'medaillons' ? 230 : 0;
+    var bas0 = BAS; BAS -= hE + 80 + sous;
+    return { liste: l, h: hE, bas: bas0 };
+  }
   function capacite(donnees, a3, paysage, motif) {
-    format(paysage); MOTIF = motif || '';
+    format(paysage); MOTIF = motif || ''; reserverEnfants(donnees, a3);
     var best = 2;
     for (var n = 3; n <= 9; n++) {
       var gens = ranger(donnees.moi, n);
@@ -151,7 +160,8 @@
   function svg(donnees, o) {
     o = o || {};
     var a3 = !!(o.a3 || o.format === 'a3'), moi = donnees.moi, fs = (donnees.freresSoeurs || []).slice(0, 4);
-    var max = donnees.nbGen || capacite(donnees, a3, o.paysage, o.motif); format(o.paysage); MOTIF = o.motif || ''; if (o.sprites) SPRITES = o.sprites; max = max;
+    var max = donnees.nbGen || capacite(donnees, a3, o.paysage, o.motif); format(o.paysage); MOTIF = o.motif || ''; if (o.sprites) SPRITES = o.sprites;
+    var ENF = reserverEnfants(donnees, a3);
     var gens = ranger(moi, max), M = miseEnPage(gens, max, a3, fs), plan = M.plan;
 
     /* Rangées du bas (toi) vers le haut ; l'espace restant est réparti entre les rangées */
@@ -192,6 +202,16 @@
       traits += '<path d="M' + f1(x0) + ' ' + f1(yBarre) + 'H' + f1(x1) + '" stroke="#B08048" stroke-width="' + e + '" fill="none" stroke-linecap="round"/>';
       ps.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yBarre) + 'V' + f1(q._yb) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>'; });
     });
+    if (ENF) {   /* les enfants : centrés sous la personne choisie, reliés à elle par un trait doré */
+      var totE = ENF.liste.reduce(function (s2, q) { return s2 + q._e.w; }, 0) + (ENF.liste.length - 1) * 50, xe = moi._x - totE / 2;
+      if (xe < MARGE) xe = MARGE; if (xe + totE > W - MARGE) xe = W - MARGE - totE;
+      ENF.liste.forEach(function (q) { q._x = xe + q._e.w / 2; xe += q._e.w + 50; q._yb = ENF.bas; });
+      var yHaut = ENF.bas - ENF.h, yDepart = moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0), yB = yHaut - 34;
+      var xsE = ENF.liste.map(function (q) { return q._x; }).concat([moi._x]);
+      traits += '<path d="M' + f1(moi._x) + ' ' + f1(yDepart) + 'V' + f1(yB) + '" stroke="#B08048" stroke-width="6" fill="none"/>';
+      traits += '<path d="M' + f1(Math.min.apply(null, xsE)) + ' ' + f1(yB) + 'H' + f1(Math.max.apply(null, xsE)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
+      ENF.liste.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yB) + 'V' + f1(q._yb - q._e.h) + '" stroke="#B08048" stroke-width="5" fill="none"/>'; });
+    }
     if (fs.length) {   /* frères et sœurs : un trait commun au-dessus de la rangée */
       var tous = [moi].concat(fs), yf = moi._yb - moi._e.h - 30, xa = Math.min.apply(null, tous.map(function (q) { return q._x; })), xb = Math.max.apply(null, tous.map(function (q) { return q._x; }));
       traits += '<path d="M' + f1(xa) + ' ' + f1(yf) + 'H' + f1(xb) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".8"/>';
@@ -217,7 +237,7 @@
     function fleuron(x, y, t) {   /* petit ornement doré posé sur le médaillon */
       return '<g transform="translate(' + f1(x) + ' ' + f1(y) + ') scale(' + (t / 40).toFixed(3) + ')" fill="#B08048"><path d="M0 -38C6 -28 6 -18 0 -8C-6 -18 -6 -28 0 -38Z"/><path d="M-4 -8C-14 -10 -22 -18 -22 -26C-14 -24 -8 -18 -4 -8Z"/><path d="M4 -8C14 -10 22 -18 22 -26C14 -24 8 -18 4 -8Z"/><rect x="-10" y="-8" width="20" height="5" rx="2"/></g>';
     }
-    gens.concat(fs).forEach(function (q) {
+    gens.concat(fs, ENF ? ENF.liste : []).forEach(function (q) {
       var e = q._e, x = q._x, yb = q._yb, yt = yb - e.h, moiMeme = q === moi, f = q.sexe === 'f';
       if (e.rr) {
         var rr = e.rr, cy = yt + e.cy, sy = Math.max(10, Math.round(rr * .3)), cs = moiMeme ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4', sc;
