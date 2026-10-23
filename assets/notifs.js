@@ -120,7 +120,10 @@
   function proposer(o) {
     o = o || {};
     var deja = null; try { deja = localStorage.getItem(CLE_PROPOSE + '-' + o.canal); } catch (e) {}
-    if (deja || !installee()) return;
+    if (!installee()) return;
+    /* déjà autorisées sur cet appareil : on (ré)inscrit sans rien demander */
+    if (supporte() && Notification.permission === 'granted') { if (canaux().indexOf(o.canal) < 0) activer(o.canal, o.sb); try { localStorage.setItem(CLE_PROPOSE + '-' + o.canal, '1'); } catch (x) {} return; }
+    if (deja || (supporte() && Notification.permission === 'denied')) return;
     etat(o.canal).then(function (e) {
       if (e !== 'inactif' || document.querySelector('.gn-voile')) return;
       try { localStorage.setItem(CLE_PROPOSE + '-' + o.canal, '1'); } catch (x) {}

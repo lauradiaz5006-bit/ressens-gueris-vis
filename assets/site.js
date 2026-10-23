@@ -21,7 +21,7 @@
    Ne sont jamais effacés : les choix de cookies et quelques repères techniques sans donnée personnelle. */
 window.GenesoliaDonnees = (function () {
   var JETON = 'sb-qsvzzkjtjsznfntahvvh-auth-token', MARQUE_COMPTE = 'genesolia-donnees-compte', REGLE = 'genesolia-regle-v2';
-  var GARDER = /^(umami\.disabled|genesolia-ne-pas-compter|consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
+  var GARDER = /^(umami\.disabled|genesolia-ne-pas-compter|consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*|genesolia-rappels-.*|genesolia-phrase-du-jour)$/;   /* rappels : réglages de l'appareil, jamais effacés (sinon l'appli redemande les notifications à chaque ouverture) */
   function connectee() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return !!(x && x.refresh_token); } catch (e) { return false; } }
   function idCompte() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return (x && x.user && x.user.id) || '1'; } catch (e) { return '1'; } }
   function effacer() {
