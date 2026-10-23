@@ -211,5 +211,105 @@
       (o.decor !== false ? '<image href="' + esc(o.decor || 'assets/arbre/decor-a4.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' : '') +
       titre + '<g>' + h + '</g>' + liens + pers + pied + filigrane + '</svg>';
   }
-  window.ArbreEncadrer = { svg: svg };
+  /* ───────── Style « Figuier » : illustration peinte (assets/arbre/figuier.jpg) + médaillons dorés posés par le site ─────────
+     Les médaillons sont placés à des endroits fixes du feuillage, étage par étage (1, 2, 4, 8, 16) ;
+     un ancêtre inconnu = pas de médaillon (le feuillage reste visible). Pas de frères et sœurs dans ce style.
+     options.scene : la même affiche posée sur la photo avec les fleurs (assets/arbre/figuier-scene.jpg), pour l'écran seulement. */
+  var FIG = {
+    /* par étage : y du centre, demi-largeur et demi-hauteur du médaillon ovale */
+    2: [[2600, 210, 180], [1950, 230, 190]],
+    3: [[2620, 210, 175], [1900, 220, 180], [1100, 225, 185]],
+    4: [[2640, 200, 165], [2050, 205, 165], [1450, 200, 160], [830, 141, 122]],
+    5: [[2660, 190, 150], [2130, 190, 150], [1660, 175, 135], [1180, 140, 112], [720, 134, 92]]
+  };
+  var FIG_X = {
+    1: [.5], 2: [.30, .70], 4: [.16, .39, .61, .84],
+    8: [.085, .204, .323, .441, .559, .677, .796, .915],
+    16: [.06, .119, .177, .236, .295, .353, .412, .471, .529, .588, .647, .705, .764, .823, .881, .94]
+  };
+  /* L'affiche (2480 x 3508) dans la photo de mise en scène (1055 x 1491) */
+  var FIG_SCENE = { w: 1055, h: 1491, x: 55, y: 66, k: 949 / 2480 };
+
+  /* Largeur réelle d'un texte (mesurée avec les polices du site quand c'est possible) */
+  var ctxMesure = null;
+  function largeurTexte(t, taille, police, gras) {
+    try {
+      if (!ctxMesure && typeof document !== 'undefined') ctxMesure = document.createElement('canvas').getContext('2d');
+      if (ctxMesure) { ctxMesure.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctxMesure.measureText(t).width; }
+    } catch (e) {}
+    return t.length * taille * (gras ? .62 : .5);
+  }
+  function medaillon(p, cx, cy, RX, RY, g, max, moiMeme) {
+    var M = MISE[Math.max(3, max)], f = p.sexe === 'f', A3 = max === 5;
+    var minDate = A3 ? 24 : 34, minNom = A3 ? 21 : 30;   /* 8 points pour les dates, 7 pour les noms, à l'impression */
+    var GN = '"Gilda Display",Georgia,serif', NS = '"Nunito Sans",sans-serif';
+    var fz = Math.min(M.nom[g] + 6, RY * .4), fn = Math.max(Math.round(fz * .78), minNom), fd = Math.max(M.date[g], minDate);
+    var nom = String(p.nom || '').toUpperCase(), dates = (p.naissance || '') + (p.deces ? ' – ' + p.deces : '');
+    function corde(dy) { var q = 1 - Math.pow(dy / RY, 2); return q > 0 ? 2 * RX * Math.sqrt(q) * .9 : 0; }
+    function coupe(taille) {
+      var mots = String(p.prenom || '').trim().split(/\s+/), lignes = [mots.join(' ')];
+      if (largeurTexte(lignes[0], taille, GN) > RX * 1.55 && mots.length > 1) {
+        var best = null;
+        for (var k = 1; k < mots.length; k++) { var a = mots.slice(0, k).join(' '), b = mots.slice(k).join(' '), m = Math.max(largeurTexte(a, taille, GN), largeurTexte(b, taille, GN)); if (!best || m < best.m) best = { m: m, l: [a, b] }; }
+        lignes = best.l;
+      }
+      return lignes;
+    }
+    var pre, lignes, essai = 0;
+    for (;;) {
+      pre = coupe(fz);
+      lignes = pre.map(function (l) { return { t: l, taille: fz, police: GN, cls: 'ae-nom', h: fz * 1.05 }; });
+      if (nom) lignes.push({ t: nom, taille: fn, police: NS, gras: true, cls: 'ae-nf', h: fn * 1.2 });
+      if (dates) lignes.push({ t: dates, taille: fd, police: NS, gras: true, cls: 'ae-date', h: fd * 1.25 });
+      var H = lignes.reduce(function (s2, l) { return s2 + l.h; }, 0), y = -H / 2 + 6, ok = true;
+      lignes.forEach(function (l) { l.dy = y + l.h * .78; y += l.h; if (largeurTexte(l.t, l.taille, l.police, l.gras) > corde(l.dy - l.taille * .35)) ok = false; });
+      if (ok || essai++ > 40) break;
+      /* on réduit d'abord le prénom, puis le nom, puis les dates, sans passer sous les minimums */
+      if (fz > Math.max(minDate, fn + 2)) fz -= 2; else if (fn > minNom) fn -= 1; else if (fd > minDate) fd -= 1; else break;
+    }
+    var h = '<g filter="url(#ae-ombre)"><ellipse cx="' + cx + '" cy="' + cy + '" rx="' + RX + '" ry="' + RY + '" fill="#FBF6EC"/></g>' +
+      '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (RX - 7) + '" ry="' + (RY - 7) + '" fill="none" stroke="url(#ae-or)" stroke-width="13"/>' +
+      '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (RX - 20) + '" ry="' + (RY - 20) + '" fill="none" stroke="' + OR + '" stroke-width="2" opacity=".5"/>';
+    if (moiMeme) h += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (RX + 14) + '" ry="' + (RY + 14) + '" fill="none" stroke="' + OR_CLAIR + '" stroke-width="3"/>';
+    /* le symbole (cercle = femme, carré = homme) est serti en haut du médaillon, comme un bijou */
+    var s = Math.max(16, RY * .15), sy = cy - RY + 4, fond = moiMeme ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4';
+    h += f ? '<circle cx="' + cx + '" cy="' + sy.toFixed(1) + '" r="' + s.toFixed(1) + '" fill="' + fond + '" stroke="' + OR + '" stroke-width="4"/>'
+      : '<rect x="' + (cx - s).toFixed(1) + '" y="' + (sy - s).toFixed(1) + '" width="' + (2 * s).toFixed(1) + '" height="' + (2 * s).toFixed(1) + '" rx="4" fill="' + fond + '" stroke="' + OR + '" stroke-width="4"/>';
+    lignes.forEach(function (l) { h += '<text x="' + cx + '" y="' + (cy + l.dy).toFixed(1) + '" text-anchor="middle" class="' + l.cls + '" font-size="' + l.taille + '">' + esc(l.t) + '</text>'; });
+    return h;
+  }
+  function svgFiguier(donnees, o) {
+    var max = Math.min(5, Math.max(2, donnees.nbGen || 4)), L = FIG[max], moi = donnees.moi, h = '';
+    function poser(p, g, i) {
+      if (!p || g >= max) return;
+      var n = Math.pow(2, g), cx = Math.round(FIG_X[n][i] * W), cy = L[g][0];
+      if (g === 4) cy += (i % 2 ? 100 : -100);   /* 16 médaillons en quinconce */
+      h += medaillon(p, cx, cy, L[g][1], L[g][2], g, max, p === moi);
+      poser(p.pere, g + 1, i * 2); poser(p.mere, g + 1, i * 2 + 1);
+    }
+    poser(moi, 0, 0);
+    var titre = '<text x="' + W / 2 + '" y="178" text-anchor="middle" class="ae-titre" font-size="118">' + esc(donnees.titre || 'Mon arbre') + '</text>' +
+      (donnees.sousTitre ? '<text x="' + W / 2 + '" y="252" text-anchor="middle" class="ae-sous" font-size="34">' + esc(donnees.sousTitre) + '</text>' : '');
+    var pied = '<text x="' + W / 2 + '" y="3430" text-anchor="middle" class="ae-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
+    var filigrane = o.apercu ? '<g opacity=".16" transform="rotate(-30 1240 1754)"><text x="1240" y="1650" text-anchor="middle" class="ae-filigrane">APERÇU</text><text x="1240" y="2050" text-anchor="middle" class="ae-filigrane">GENESOLIA</text></g>' : '';
+    var defs = '<defs><linearGradient id="ae-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9CF98"/><stop offset=".5" stop-color="' + OR + '"/><stop offset="1" stop-color="' + OR_FONCE + '"/></linearGradient>' +
+      '<filter id="ae-ombre" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#6B4A20" flood-opacity=".3"/></filter>' +
+      '<style>.ae-titre{font-family:"Gilda Display",Georgia,serif;fill:' + PRUNE + '}.ae-sous{font-family:"Nunito Sans",sans-serif;letter-spacing:8px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
+      '.ae-nom{font-family:"Gilda Display",Georgia,serif;fill:#4A0F36}.ae-nf{font-family:"Nunito Sans",sans-serif;font-weight:700;letter-spacing:2px;fill:#4A0F36}.ae-date{font-family:"Nunito Sans",sans-serif;font-weight:700;fill:#9A3A68;letter-spacing:1px}' +
+      '.ae-pied{font-family:"Nunito Sans",sans-serif;font-size:32px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.85}.ae-filigrane{font-family:"Gilda Display",serif;font-size:300px;fill:' + PRUNE + '}</style></defs>';
+    var contenu = titre + h + pied + filigrane;
+    if (o.scene) {   /* mise en scène : l'affiche posée sur le lin avec les fleurs (écran seulement) */
+      var S = FIG_SCENE;
+      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + S.w + ' ' + S.h + '" width="' + S.w + '" height="' + S.h + '">' + defs +
+        '<image href="' + esc(o.scene === true ? 'assets/arbre/figuier-scene.jpg' : o.scene) + '" width="' + S.w + '" height="' + S.h + '"/>' +
+        '<g transform="translate(' + S.x + ' ' + S.y + ') scale(' + S.k + ')">' + contenu + '</g></svg>';
+    }
+    var B = o.fondPerdu ? Math.round(4 * W / 210) : 0;
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '">' + defs +
+      '<image href="' + esc(o.decor || 'assets/arbre/figuier-ecran.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' +
+      contenu + '</svg>';
+  }
+
+  function svgStyle(donnees, o) { o = o || {}; return (o.style || donnees.style) === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o); }
+  window.ArbreEncadrer = { svg: svgStyle, styles: [['dore', 'Arbre doré'], ['figuier', 'Figuier']] };
 })();

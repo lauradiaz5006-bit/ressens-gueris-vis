@@ -7,7 +7,7 @@
   if (!bt || !fen || !window.ArbreEncadrer || !window.GenoArbre) return;
   var corps = document.getElementById('fe-corps'), cache = {};
   var GEN = ['Une génération', 'Deux générations', 'Trois générations', 'Quatre générations', 'Cinq générations'];
-  var choix = { depart: '', nbGen: 0, sousModifie: false };   /* réglages de la cliente dans la fenêtre */
+  var choix = { depart: '', nbGen: 0, sousModifie: false, style: 'figuier', vue: 'affiche' };   /* réglages de la cliente dans la fenêtre */
 
   function annee(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -36,7 +36,7 @@
       gens = Math.max(gens, g + 1);
       var n = annee(p.naiss); if (n && (!plusVieux || n < plusVieux)) plusVieux = n;
       if (n && (!plusJeune || n > plusJeune)) plusJeune = n;
-      if (!p.deces && !p.decede && (!n || n > new Date().getFullYear() - 105)) vivant = true;
+      if (!p.deces && !p.decede && n && n > new Date().getFullYear() - 105) vivant = true;   /* sans date de naissance, on ne suppose pas la personne en vie */
       var o = { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: n, deces: annee(p.deces) || (p.decede ? '?' : null) };
       if (g < maxG - 1) {
         var ps = parentsDe(id), pere = null, mere = null;
@@ -50,7 +50,7 @@
     parentsDe(moi).forEach(function (par) { enfantsDe(par).forEach(function (e) { if (e !== moi) fs[e] = 1; }); });
     rels.forEach(function (r) { if (r.type === 'fratrie') { if (r.from === moi && P[r.to]) fs[r.to] = 1; if (r.to === moi && P[r.from]) fs[r.from] = 1; } });
     var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '?' : null) }; });
-    freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && (!f.naissance || f.naissance > new Date().getFullYear() - 105)) vivant = true; });
+    freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     var nomFamille = racine.nom || (racine.pere && racine.pere.nom) || '';
     /* Majuscule au nom de famille : « charron » donne « Charron » */
     nomFamille = String(nomFamille).trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/ (De|Du|Des|La|Le|D’|D') /g, function (m) { return m.toLowerCase(); });
@@ -71,7 +71,8 @@
   /* opt.hd : décor haute définition (téléchargement, impression) ; opt.fondPerdu : 4 mm en plus pour l'imprimeur */
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
-    return Promise.all([enDataUrl(opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg'), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2')])
+    var fig = donnees.style === 'figuier';
+    return Promise.all([enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2')])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
         return window.ArbreEncadrer.svg(donnees, { decor: d[0], apercu: apercu, fondPerdu: !!opt.fondPerdu }).replace('<style>', '<style>' + polices);
@@ -101,16 +102,18 @@
     donnees = lignee(choix.depart, nb);
     if (donnees && titre != null) donnees.titre = titre || donnees.titre;
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
+    if (donnees) donnees.style = choix.style;
   }
   function afficher() {
-    choix = { depart: '', nbGen: 0, sousModifie: false };
+    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'affiche' };
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
       return;
     }
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
-    corps.innerHTML = '<div class="fe-grille"><div class="fe-apercu" id="fe-apercu"><p class="rap-texte">Un instant…</p></div><div class="fe-reglages">' +
+    corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="affiche" aria-selected="true">Ce que tu reçois</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu" id="fe-apercu"><p class="rap-texte">Un instant…</p></div></div><div class="fe-reglages">' +
+      '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + '</span></label>'; }).join('') + '</div></div>' +
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
@@ -124,6 +127,8 @@
     var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
     document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { choix.style = r.value; if (r.value !== 'figuier') choix.vue = 'affiche'; recalculer(); dessiner(); }); });
+    document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-pdf').addEventListener('click', imprimer);
     brancherImpression();
@@ -247,7 +252,9 @@
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
     var d = lire(), verif = window.GenesoliaAcces ? window.GenesoliaAcces.verifier('arbreEncadrer') : Promise.resolve(true);
-    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, { apercu: !ok }); });
+    var vues = document.getElementById('fe-vues'), scene = choix.vue === 'scene' && d.style === 'figuier';
+    if (vues) { vues.hidden = d.style !== 'figuier'; vues.querySelectorAll('[data-vue]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-vue') === (scene ? 'scene' : 'affiche'))); }); }
+    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, { apercu: !ok, scene: scene }); });
   }
   function statut(t) { var s = document.getElementById('fe-statut'); if (s) s.textContent = t; }
   /* Par mail d'abord : la page de l'arbre (à enregistrer en PDF ou imprimer), avec un lien de secours */
