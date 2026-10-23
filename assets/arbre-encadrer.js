@@ -120,7 +120,7 @@
     placer(moi, 0, M.gauche, M.droite, M, max, gens);
     gens.forEach(function (p) { p._et = etiquette(p, M); p._monte = false; });
     var fs = donnees.freresSoeurs || [], tous = [moi];
-    fs.forEach(function (f, i) { f._x = W / 2 + (i % 2 ? -1 : 1) * 340 * (Math.floor(i / 2) + 1); f._y = M.lignes[0]; f._g = 0; f._et = etiquette(f, M); tous.push(f); });
+    var nD = 0, nG = 0; fs.forEach(function (f) { var d = f.demi ? (f.cote === 'mere' ? 1 : -1) : (nD <= nG ? 1 : -1); var k = d > 0 ? nD++ : nG++; f._x = W / 2 + d * (340 * (k + 1) + (f.demi ? 140 : 0)); f._y = M.lignes[0]; f._g = 0; f._et = etiquette(f, M); tous.push(f); });
     for (var gg = 0; gg < max; gg++) {
       var rang = gens.filter(function (q) { return q._g === gg; }).concat(gg === 0 ? fs : []);
       if (rang.length > 1) ecarter(rang, 70, W - 70);
