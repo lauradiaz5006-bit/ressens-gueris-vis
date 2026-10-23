@@ -56,15 +56,17 @@
     cache[url] = fetch(url).then(function (r) { return r.blob(); }).then(function (b) { return new Promise(function (ok) { var f = new FileReader(); f.onload = function () { ok(f.result); }; f.readAsDataURL(b); }); });
     return cache[url];
   }
-  function svgAutonome(donnees, apercu) {
-    return Promise.all([enDataUrl('assets/arbre/decor-a4.jpg'), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2')])
+  /* opt.hd : décor haute définition (téléchargement, impression) ; opt.fondPerdu : 4 mm en plus pour l'imprimeur */
+  function svgAutonome(donnees, apercu, opt) {
+    opt = opt || {};
+    return Promise.all([enDataUrl(opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg'), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2')])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
-        return window.ArbreEncadrer.svg(donnees, { decor: d[0], apercu: apercu }).replace('<style>', '<style>' + polices);
+        return window.ArbreEncadrer.svg(donnees, { decor: d[0], apercu: apercu, fondPerdu: !!opt.fondPerdu }).replace('<style>', '<style>' + polices);
       });
   }
   function versPng(svg, largeur, jpeg) {
-    var lw = largeur || 2480, lh = Math.round(lw * 3508 / 2480);
+    var t = svg.match(/width="(\d+)" height="(\d+)"/), lw = largeur || 2480, lh = Math.round(lw * (t ? t[2] / t[1] : 3508 / 2480));
     return new Promise(function (ok, ko) {
       var img = new Image(), url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
       img.onload = function () {
@@ -127,12 +129,29 @@
       '</form></div>';
   }
   function session() { try { var x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); return x && x.access_token ? x : null; } catch (e) { return null; } }
-  function deposer(blob, nom) {
-    var x = session(), d = new Date(), chemin = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + '-' + nom + '.jpg';
-    var hd = { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': 'image/jpeg', 'x-upsert': 'false' };
+  function deposer(blob, nom, ext, type) {
+    var x = session(), d = new Date(), chemin = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + '-' + nom + '.' + (ext || 'jpg');
+    var hd = { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': type || 'image/jpeg', 'x-upsert': 'false' };
     if (x && x.expires_at * 1000 > Date.now()) hd.Authorization = 'Bearer ' + x.access_token;
     return fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/storage/v1/object/impressions/' + chemin, { method: 'POST', headers: hd, body: blob })
       .then(function (r) { return r.ok ? chemin : ''; }).catch(function () { return ''; });
+  }
+  /* Fichier pour l'imprimeur (normes Gelato) : PDF à la taille du format + 4 mm de fond perdu, décor HD, une image aplatie.
+     Si le PDF ne peut pas être déposé, on dépose la même image en JPEG (accepté aussi par Gelato). Renvoie le chemin dans Storage, ou ''. */
+  function chargerJsPdf() {
+    return window.jspdf ? Promise.resolve(window.jspdf.jsPDF) : new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = 'assets/jspdf.umd.min.js'; sc.onload = function () { ok(window.jspdf.jsPDF); }; sc.onerror = ko; document.head.appendChild(sc); });
+  }
+  function fichierImprimeur(d, fmt) {
+    var nom = nomFichier(d) + '-' + fmt.id, mm = fmt.mm || [218, 305];
+    return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versPng(svg, fmt.largeur, true); }).then(function (jpeg) {
+      var enJpeg = function () { return deposer(jpeg, nom, 'jpg', 'image/jpeg'); };
+      return Promise.all([chargerJsPdf(), jpeg.arrayBuffer()]).then(function (x) {
+        var doc = new x[0]({ orientation: 'portrait', unit: 'mm', format: mm, compress: true, putOnlyUsedFonts: true });
+        doc.setProperties({ title: d.titre + ' · Genesolia', creator: 'Genesolia' });
+        doc.addImage(new Uint8Array(x[1]), 'JPEG', 0, 0, mm[0], mm[1], undefined, 'NONE');
+        return deposer(doc.output('blob'), nom, 'pdf', 'application/pdf');
+      }).then(function (chemin) { return chemin || enJpeg(); }, enJpeg);
+    }).catch(function () { return ''; });
   }
   function brancherImpression() {
     var pv = document.getElementById('fe-imp-prevenir');
@@ -163,7 +182,7 @@
       var fmt = IMP.formats.filter(function (x2) { return x2.id === (f.querySelector('input[name=format]:checked') || {}).value; })[0] || IMP.formats[0];
       var d = lire(), lien = (window.GENESOLIA_STRIPE || {})[fmt.stripe] || '';
       bt.disabled = true; st.textContent = 'Préparation de ton arbre en haute définition…';
-      svgAutonome(d, false).then(function (svg) { return versPng(svg, fmt.largeur, true); }).then(function (blob) { return deposer(blob, nomFichier(d) + '-' + fmt.id); }, function () { return ''; }).then(function (chemin) {
+      fichierImprimeur(d, fmt).then(function (chemin) {
         var fd = new FormData(f); fd.delete('accord'); fd.delete('format');
         fd.append('format', fmt.id); fd.append('format_nom', fmt.nom); fd.append('prix', fmt.prix); fd.append('titre', d.titre); fd.append('sous_titre', d.sousTitre || '');
         fd.append('fichier', chemin || 'à régénérer depuis l’arbre de la cliente'); fd.append('pays', 'France'); fd.append('paiement', lien ? 'stripe' : 'a-envoyer');
@@ -200,7 +219,7 @@
   function telechargerPng() {
     if (!direct && window.GenesoliaParMail) return parMail(telechargerPng);
     var d = lire(); statut('Préparation de ton image…');
-    svgAutonome(d, false).then(versPng).then(function (b) {
+    svgAutonome(d, false, { hd: true }).then(function (svg) { return versPng(svg); }).then(function (b) {
       var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nomFichier(d) + '.png';
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
       statut('Ton image est téléchargée.');
@@ -213,7 +232,7 @@
     if (!w) { statut('Autorise les fenêtres pour ce site, puis réessaie.'); return; }
     w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>' + esc(d.titre) + '</title><style>@page{size:A4;margin:0}html,body{margin:0}svg{display:block;width:210mm;height:297mm}.barre{position:fixed;top:0;left:0;right:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}}</style></head><body><div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div><p style="padding:80px 20px;font:16px sans-serif">Un instant…</p></body></html>');
     w.document.close();
-    svgAutonome(d, false).then(function (svg) {
+    svgAutonome(d, false, { hd: true }).then(function (svg) {
       w.document.body.innerHTML = '<div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div>' + svg;
       setTimeout(function () { try { w.focus(); w.print(); } catch (e) {} }, 700);
       if (window.umami) try { window.umami.track('arbre-encadrer-pdf'); } catch (e) {}
