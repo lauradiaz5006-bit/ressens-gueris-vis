@@ -13,6 +13,13 @@
   function paysage(st) { return !!(window.ArbreEncadrer.paysage && window.ArbreEncadrer.paysage(st || choix.style)); }
   function motif() { return choix.style === 'medaillons' ? 'medaillons' : ''; }
   function remplis(p, g, max) { return !p || g >= max ? 0 : 1 + remplis(p.pere, g + 1, max) + remplis(p.mere, g + 1, max); }
+  /* « avec mes enfants » : pour le Grand arbre et les styles à l'horizontale */
+  function avecEnfantsPossible() { return choix.style === 'grand' || paysage(); }
+  function majEnfants() {
+    var l = document.getElementById('fe-enfants-l'); if (!l || !donnees) return;
+    l.hidden = !donnees.nbEnfants || !avecEnfantsPossible();
+    var t = document.getElementById('fe-enfants-t'); if (t) t.textContent = (donnees.departEstMoi ? 'Avec mes enfants' : 'Avec ses enfants') + ' (' + donnees.nbEnfants + '), au pied de l’arbre';
+  }
   function grand() { return choix.style === 'grand'; }   /* « Grand arbre » : l'arbre peint, 5 générations, en A3 seulement */
   function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : (grand() ? 'a3cadre' : 'a4cadre'); }
   function a4Max() { return grand() ? 0 : paysage() ? capA4 : 4; }
@@ -59,6 +66,9 @@
     rels.forEach(function (r) { if (r.type === 'fratrie') { if (r.from === moi && P[r.to]) fs[r.to] = 1; if (r.to === moi && P[r.from]) fs[r.from] = 1; } });
     var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '?' : null) }; });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
+    /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
+    var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '?' : null) }; })
+      .sort(function (a, b) { return (a.naissance || 9999) - (b.naissance || 9999); }).slice(0, 6);
     var nomFamille = racine.nom || (racine.pere && racine.pere.nom) || '';
     /* Majuscule au nom de famille : « charron » donne « Charron » */
     nomFamille = String(nomFamille).trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/ (De|Du|Des|La|Le|D’|D') /g, function (m) { return m.toLowerCase(); });
@@ -66,7 +76,7 @@
       titre: nomFamille ? 'La famille ' + nomFamille : 'Notre famille',
       /* « à aujourd'hui » seulement si quelqu'un de l'arbre est en vie ; sinon jusqu'à la naissance la plus récente */
       sousTitre: GEN[Math.min(gens, GEN.length) - 1] + (plusVieux ? ' · de ' + plusVieux + ' à ' + (vivant || !plusJeune || plusJeune === plusVieux ? 'aujourd’hui' : plusJeune) : ''),
-      moi: racine, freresSoeurs: freres, nb: gens, nbGen: gens, depart: moi
+      moi: racine, freresSoeurs: freres, enfants: enfants, nb: gens, nbGen: gens, depart: moi, departEstMoi: P[moi].role === 'moi'
     };
   }
 
@@ -113,6 +123,7 @@
     } else if (paysage() && window.ArbreLignee) {
       var tout = lignee(choix.depart, 10);
       dispo = tout ? tout.nb : 0;
+      if (tout && !choix.enfants) tout.enfants = [];   /* la rangée des enfants prend un peu de hauteur */
       capA4 = tout ? window.ArbreLignee.capacite(tout, false, true, motif()) : 2;
       capA3 = tout ? Math.max(capA4, window.ArbreLignee.capacite(tout, true, true, motif())) : 2;
       nb = Math.min(choix.nbGen || (/^a3/.test(formatChoisi()) ? capA3 : capA4), capA3, dispo);
@@ -123,11 +134,11 @@
     donnees = lignee(choix.depart, nb);
     if (donnees && titre != null) donnees.titre = titre || donnees.titre;
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
-    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; }
+    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; }
   }
   function afficher() {
     var premier = !choix.choisi;
-    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true, choisi: choix.choisi };
+    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true, enfants: true, choisi: choix.choisi };
     /* le Grand arbre d'office quand au moins la moitié de ses 31 médaillons sera remplie ; sinon le Figuier, qui n'a pas de place vide */
     if (premier) { choix.style = 'grand'; donnees = null; recalculer(); if (!donnees || donnees.nb < 3 || remplis(donnees.moi, 0, 5) < 16) choix.style = 'figuier'; }
     donnees = null; recalculer();
@@ -141,6 +152,7 @@
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
+      '<label class="fe-case" id="fe-enfants-l" hidden><input type="checkbox" id="fe-enfants"' + (choix.enfants ? ' checked' : '') + '> <span id="fe-enfants-t">Avec mes enfants, au pied de l’arbre</span></label>' +
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
       '<label class="fe-champ">Sous-titre<input type="text" id="fe-sous" maxlength="60" value="' + esc(donnees.sousTitre) + '"></label>' +
       blocImpression() +
@@ -151,12 +163,13 @@
       '<a class="fe-vierge" href="assets/modeles/arbre-vierge-5-generations-genesolia.pdf" download data-compte="ton arbre vierge à remplir"><img src="assets/modeles/arbre-vierge-apercu.webp" width="120" height="85" alt="" loading="lazy"><span><b>La version vierge, à remplir à la main</b><span>Le même arbre doré, 31 médaillons vides sur 5 générations. PDF gratuit, A4 paysage.</span><u>Télécharger le modèle vierge</u></span></a>' +
       (payant && P ? '<p class="fe-aide">' + esc(P.prix) + ', ou compris dans Le Cercle.</p>' : '') +
       '<p class="fe-aide" id="fe-statut" aria-live="polite"></p></div></div>';
-    majGens(); dessiner();
+    majGens(); majEnfants(); dessiner();
     var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
-    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; dessiner(); });
+    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; majEnfants(); dessiner(); });
+    document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; if (paysage() && !grand()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
-    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(); choix.style = r.value; choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); }); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(); choix.style = r.value; choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); majGens(); majEnfants(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-loupe').addEventListener('click', loupe);
@@ -262,7 +275,7 @@
         var fd = new FormData(f); fd.delete('accord'); fd.delete('format');
         fd.append('format', fmt.id); fd.append('format_nom', fmt.nom); fd.append('prix', fmt.prix); fd.append('titre', d.titre); fd.append('sous_titre', d.sousTitre || '');
         fd.append('fichier', chemin || 'à régénérer depuis l’arbre de la cliente'); fd.append('pays', 'France'); fd.append('paiement', lien ? 'stripe' : 'a-envoyer');
-        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000)); fd.append('ref', ref); fd.append('style', d.style || ''); fd.append('generations', String(d.nbGen || '')); fd.append('orientation', paysage(d.style) ? 'paysage' : 'portrait');
+        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000)); fd.append('ref', ref); fd.append('style', d.style || ''); fd.append('generations', String(d.nbGen || '')); fd.append('enfants', String((d.enfants || []).length)); fd.append('orientation', paysage(d.style) ? 'paysage' : 'portrait');
         if (lienPaiement) fd.append('lien_paiement', lienPaiement);   /* pour la relance « ton arbre t'attend » si le paiement n'aboutit pas */
         /* pas de mail avant le paiement : la confirmation part quand Stripe a validé le paiement (fonction stripe-webhook) */
         return window.GenesoliaEnvoyer('Commande impression', fd, lien ? '' : 'genesolia-commande');

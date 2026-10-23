@@ -57,6 +57,20 @@
       h += medaillon(p, X[g][i], Y[g][i], R[g] * .8);
       poser(p.pere, g + 1, i * 2); poser(p.mere, g + 1, i * 2 + 1);
     })(donnees.moi, 0, 0);
+    /* « Avec mes enfants » : de petits médaillons dorés parmi les racines, reliés au médaillon du bas */
+    var enf = (donnees.enfants || []).slice(0, 6), eH = '';
+    if (enf.length) {
+      /* du plus âgé (à gauche) au plus jeune (à droite), de part et d'autre du médaillon du bas */
+      var RE = 98, YE = 2285, nG = Math.ceil(enf.length / 2);
+      enf.forEach(function (q, i) {
+        var dx = i < nG ? -(430 + (nG - 1 - i) * 235) : 430 + (i - nG) * 235, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
+        var x0 = X[0][0] + sg * R[0] * .72, y0 = Y[0][0] + R[0] * .7;
+        eH += '<path d="M' + f1(x0) + ' ' + f1(y0) + 'C' + f1(x0 + sg * 60) + ' ' + f1(y0 + 60) + ' ' + f1(x - sg * 40) + ' ' + (y - RE - 70) + ' ' + f1(x) + ' ' + (y - RE - 10) + '" stroke="#B08048" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>';
+        eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + RE + '" fill="#FDF8EF" stroke="url(#gr-or)" stroke-width="11"/><circle cx="' + f1(x) + '" cy="' + y + '" r="' + (RE - 14) + '" fill="none" stroke="#C9A06A" stroke-width="2" opacity=".7"/>';
+        eH += '<g transform="translate(' + f1(x) + ' ' + (y - RE + 2) + ') scale(.75)" fill="#B08048"><path d="M0 -38C6 -28 6 -18 0 -8C-6 -18 -6 -28 0 -38Z"/><path d="M-4 -8C-14 -10 -22 -18 -22 -26C-14 -24 -8 -18 -4 -8Z"/><path d="M4 -8C14 -10 22 -18 22 -26C14 -24 8 -18 4 -8Z"/><rect x="-10" y="-8" width="20" height="5" rx="2"/></g>';
+        eH += medaillon(q, Math.round(x), y, RE * .8);
+      });
+    }
     /* titre dans le creux, entre les deux moitiés de l'arbre */
     var t = String(donnees.titre || 'Notre famille').trim(), l1 = t, l2 = '';
     var m = /^(La famille|Les|Famille)\s+(.+)$/i.exec(t);
@@ -70,11 +84,11 @@
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-25 ' + W / 2 + ' ' + H / 2 + ')"><text x="' + W / 2 + '" y="' + (H / 2 - 60) + '" text-anchor="middle" class="gr-fil">APERÇU</text><text x="' + W / 2 + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="gr-fil">GENESOLIA</text></g>' : '';
     var B = o.fondPerdu ? Math.round(4 * H / 210) : 0;
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-generations="' + max + '">' +
-      '<defs><style>.gr-titre{font-family:' + GN + ';fill:' + PRUNE + '}.gr-sous{font-family:' + NS + ';font-weight:700;letter-spacing:5px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
+      '<defs><linearGradient id="gr-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6CB95"/><stop offset=".5" stop-color="#B98A55"/><stop offset="1" stop-color="#9A6E38"/></linearGradient><style>.gr-titre{font-family:' + GN + ';fill:' + PRUNE + '}.gr-sous{font-family:' + NS + ';font-weight:700;letter-spacing:5px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
       '.gr-nom{font-family:' + GN + ';fill:#4A0F36}.gr-nf{font-family:' + NS + ';font-weight:700;letter-spacing:.5px;fill:#4A0F36}.gr-date{font-family:' + NS + ';font-weight:700;fill:#9A3A68}' +
       '.gr-pied{font-family:' + NS + ';font-size:26px;letter-spacing:6px;fill:' + PRUNE + ';opacity:.7}.gr-fil{font-family:' + GN + ';font-size:300px;fill:' + PRUNE + '}</style></defs>' +
       '<image href="' + esc(o.fond || 'assets/arbre/grand-arbre-ecran.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' +
-      titre + h + pied + filigrane + '</svg>';
+      titre + eH + h + pied + filigrane + '</svg>';
   }
   window.ArbreGrand = { svg: svg, generations: 5 };
 })();
