@@ -48,10 +48,33 @@
     });
     return h;
   }
+  /* Rameau retombant (façon figuier pleureur) : il monte un peu vers l'extérieur, s'arrondit puis retombe,
+     avec des feuilles qui pendent le long de la courbe */
+  function retombant(x, y, cote, L, epais, r) {
+    var cx = x + cote * L * (.45 + r() * .15), cy = y - L * (.45 + r() * .2), ex = x + cote * L * (.8 + r() * .2), ey = y + L * (.35 + r() * .3);
+    var c = [], g = [], d = [];
+    for (var i = 0; i <= 28; i++) {
+      var t = i / 28, u = 1 - t;
+      c.push([u * u * x + 2 * u * t * cx + t * t * ex, u * u * y + 2 * u * t * cy + t * t * ey]);
+    }
+    c.forEach(function (pt, i) {
+      var q = c[Math.min(i + 1, 28)], o = c[Math.max(i - 1, 0)], tx = q[0] - o[0], ty = q[1] - o[1], m = Math.sqrt(tx * tx + ty * ty) || 1, l = (epais + (1 - epais) * i / 28) / 2;
+      g.push([pt[0] - ty / m * l, pt[1] + tx / m * l]); d.unshift([pt[0] + ty / m * l, pt[1] - tx / m * l]);
+    });
+    var h = '<path d="M' + g.concat(d).map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('L') + 'Z" fill="url(#ae-or)"/>';
+    c.forEach(function (pt, i) {
+      if (i < 6 || r() > .6) return;
+      var pend = i > 12, a = pend ? 90 + (r() - .5) * 50 - cote * 15 : -90 + cote * (40 + r() * 40), t2 = (pend ? 30 : 26) * (.75 + r() * .5);
+      h += feuille(pt[0], pt[1], a, t2, [OR, OR_CLAIR, OR_FONCE][Math.floor(r() * 3)], (.6 + r() * .35).toFixed(2));
+    });
+    h += feuille(ex, ey, 95 - cote * 10, 40, OR_CLAIR, .9);
+    return h;
+  }
   /* Petites pousses décoratives au bout d'une branche */
   function pousses(x, y, angle, r, n, long) {
     var h = '';
     for (var i = 0; i < n; i++) {
+      if (i % 2) { h += retombant(x, y, i % 4 === 1 ? -1 : 1, long * (.9 + r() * .5), 6, r); continue; }
       var a = angle + (r() - .5) * 110, L = long * (.55 + r() * .6), x2 = x + Math.cos(a * Math.PI / 180) * L, y2 = y + Math.sin(a * Math.PI / 180) * L;
       var b = ruban(x, y, x2, y2, 7, 1.2, (r() - .5) * 40, r);
       h += '<path d="' + b.d + '" fill="url(#ae-or)"/>' + feuillage(b.points, r, .55, 34) + feuille(x2, y2, a, 40, OR_CLAIR, .9);
@@ -156,6 +179,7 @@
           var a0 = b.points[k], a1 = b.points[k + 1], dir = Math.atan2(a1[1] - a0[1], a1[0] - a0[0]) * 180 / Math.PI;
           var cote = q._x < W / 2 ? -1 : 1, ang = dir + cote * (35 + r() * 45) * (r() < .25 ? -1 : 1), L = 110 + r() * 170 - p._g * 15;
           var x3 = a0[0] + Math.cos(ang * Math.PI / 180) * L, y3 = a0[1] + Math.sin(ang * Math.PI / 180) * L;
+          if (r() < .65) { h += retombant(a0[0], a0[1], cote, L * 1.15, Math.max(5, epaisseur[p._g] * .3), r); continue; }
           var tw = ruban(a0[0], a0[1], x3, y3, Math.max(5, epaisseur[p._g] * .3), 1.2, (r() - .5) * 50, r);
           h += '<path d="' + tw.d + '" fill="url(#ae-or)"/>' + feuillage(tw.points, r, .75, 40) + feuille(x3, y3, ang, 44, [OR_CLAIR, OR][Math.floor(r() * 2)], .9);
         }
