@@ -164,6 +164,8 @@
   function svg(donnees, o) {
     o = o || {};
     var a3 = o.a3 || (o.format === 'a3') || false, moi = donnees.moi, fs = (donnees.freresSoeurs || []).slice(0, 4), CJ = donnees.conjoint || null;
+    /* demi-frères et demi-sœurs : à part, du côté du parent en commun, reliés à lui seul (la mère à droite, le père à gauche) */
+    var fsDemiM = fs.filter(function (f) { return f.demi && f.cote === 'mere' && moi.mere; }), fsDemiP = fs.filter(function (f) { return f.demi && f.cote === 'pere' && moi.pere; }), fsPlein = fs.filter(function (f) { return fsDemiM.indexOf(f) < 0 && fsDemiP.indexOf(f) < 0; });
     /* unions : les autres parents de ses enfants, chacun à côté d'elle, à la même taille, comme sur un arbre généalogique classique */
     var UN = !moi.couple && !CJ && donnees.unions && donnees.unions.length ? donnees.unions.slice(0, 3) : [];
     function partenaire(q) { return q === CJ || UN.indexOf(q) >= 0; }
@@ -183,11 +185,12 @@
         /* toi au centre, frères et sœurs de part et d'autre */
         /* avec le conjoint : il se place juste à droite de toi, les frères et sœurs passent à gauche */
         var rang0 = [moi];
-        if (CJ) { fs.forEach(function (f) { rang0.unshift(f); }); rang0.push(CJ); }
+        if (CJ) { fsPlein.forEach(function (f) { rang0.unshift(f); }); rang0.push(CJ); }
         else if (UN.length) {   /* 1re union à droite, 2e à gauche, 3e à droite après la 1re ; frères et sœurs tout à gauche */
-          if (UN[1]) rang0.unshift(UN[1]); fs.forEach(function (f) { rang0.unshift(f); }); rang0.push(UN[0]); if (UN[2]) rang0.push(UN[2]);
+          if (UN[1]) rang0.unshift(UN[1]); fsPlein.forEach(function (f) { rang0.unshift(f); }); rang0.push(UN[0]); if (UN[2]) rang0.push(UN[2]);
         }
-        else fs.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
+        else fsPlein.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
+        fsDemiP.forEach(function (f) { rang0.unshift(f); }); fsDemiM.forEach(function (f) { rang0.push(f); });   /* les demis au bout, côté de leur parent */
         /* Médaillons : seul toi as le grand médaillon et ses racines ; frères, sœurs et autres parents ont un médaillon comme les autres (même taille).
            La rangée doit tenir dans la largeur : sinon son texte rapetisse (jamais sous 8 points). */
         var ecartU = function (a, b) { return (partenaire(a) && b === moi) || (a === moi && partenaire(b)) || (partenaire(a) && partenaire(b)) ? (moi._e.rr ? 40 : 130) : 60; };
@@ -240,7 +243,7 @@
       var e0 = [Math.min.apply(null, rang0.map(function (q) { return q._x - q._e.w / 2; })), Math.max.apply(null, rang0.map(function (q) { return q._x + q._e.w / 2; }))];
       if (tient(e0)) return;
       var ordres = [rang0.slice()];
-      if (fs.length) ordres.push(rang0.filter(function (q) { return fs.indexOf(q) < 0; }).concat(fs.slice().reverse()));   /* frères et sœurs à droite */
+      if (fsPlein.length) ordres.push(fsDemiP.slice().reverse().concat(rang0.filter(function (q) { return fs.indexOf(q) < 0; }), fsPlein.slice().reverse(), fsDemiM));   /* frères et sœurs à droite */
       var fz0 = f0;
       for (;;) {
         for (var k = 0; k < ordres.length; k++) if (tient(poser(ordres[k]))) { aligner(); return; }
@@ -328,11 +331,19 @@
       var yC = moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2, xa0 = moi._x + (moi._e.rr ? moi._e.rr : moi._e.w / 2), xb0 = CJ._x - (CJ._e.rr ? CJ._e.rr : CJ._e.w / 2);
       traits += '<path d="M' + f1(xa0) + ' ' + f1(yC) + 'H' + f1(xb0) + '" stroke="#B08048" stroke-width="6" fill="none"' + (CJ.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
     }
-    if (fs.length) {   /* frères et sœurs : un trait commun au-dessus de la rangée */
-      var tous = [moi].concat(fs), yf = moi._yb - moi._e.h - 30, xa = Math.min.apply(null, tous.map(function (q) { return q._x; })), xb = Math.max.apply(null, tous.map(function (q) { return q._x; }));
+    if (fsPlein.length) {   /* frères et sœurs : un trait commun au-dessus de la rangée */
+      var tous = [moi].concat(fsPlein), yf = moi._yb - moi._e.h - 30, xa = Math.min.apply(null, tous.map(function (q) { return q._x; })), xb = Math.max.apply(null, tous.map(function (q) { return q._x; }));
       traits += '<path d="M' + f1(xa) + ' ' + f1(yf) + 'H' + f1(xb) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".8"/>';
-      fs.forEach(function (f) { traits += '<path d="M' + f1(f._x) + ' ' + f1(yf) + 'V' + f1(f._yb - f._e.h) + '" stroke="' + OR_FONCE + '" stroke-width="4" opacity=".8"' + (f.demi ? ' stroke-dasharray="10 9"' : '') + '/>'; });   /* demi-frère, demi-sœur : en pointillé */
+      fsPlein.forEach(function (f) { traits += '<path d="M' + f1(f._x) + ' ' + f1(yf) + 'V' + f1(f._yb - f._e.h) + '" stroke="' + OR_FONCE + '" stroke-width="4" opacity=".8"' + (f.demi ? ' stroke-dasharray="10 9"' : '') + '/>'; });
     }
+    /* demi-frères et demi-sœurs : un trait en pointillé qui part de leur seul parent commun, pas de tes deux parents */
+    [[moi.mere, fsDemiM], [moi.pere, fsDemiP]].forEach(function (x) {
+      var par = x[0], l = x[1]; if (!l.length || !par || par._x == null) return;
+      var yd = Math.max.apply(null, l.map(function (f) { return f._yb - f._e.h; })) - 46, xs = l.map(function (f) { return f._x; }).concat([par._x]);
+      traits += '<path d="M' + f1(par._x) + ' ' + f1(par._yb) + 'V' + f1(yd) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".8" stroke-dasharray="10 9"/>';
+      traits += '<path d="M' + f1(Math.min.apply(null, xs)) + ' ' + f1(yd) + 'H' + f1(Math.max.apply(null, xs)) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".8" stroke-dasharray="10 9"/>';
+      l.forEach(function (f) { traits += '<path d="M' + f1(f._x) + ' ' + f1(yd) + 'V' + f1(f._yb - f._e.h) + '" stroke="' + OR_FONCE + '" stroke-width="4" opacity=".8" stroke-dasharray="10 9"/>'; });
+    });
 
     /* Étiquettes : une carte crème bordée d'or, le symbole (rond = femme, carré = homme) serti en haut */
     var cartes = '';

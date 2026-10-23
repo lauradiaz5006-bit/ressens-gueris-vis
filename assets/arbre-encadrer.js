@@ -323,8 +323,13 @@
     }
     gens.forEach(function (p) { h += medaillon(p, Math.round(p._fx), p._fy, L[p._fg][1], L[p._fg][2], p._fg, max, p === moi); });
     /* Frères et sœurs : de part et d'autre du tronc, au niveau des petits buissons (si la cliente les inclut) */
-    var fs = (donnees.freresSoeurs || []).slice(0, 4), FS_X = [[.29, .71], [.29, .71, .12, .88]][fs.length > 2 ? 1 : 0];
-    fs.forEach(function (f, i) { f._fg = 1; h += medaillon(f, Math.round(FS_X[i] * W), 2820, 150, 120, 1, max, false); });
+    var fs = (donnees.freresSoeurs || []).slice(0, 4), nM = fs.filter(function (f) { return f.demi && f.cote === 'mere'; }).length, nP = fs.filter(function (f) { return f.demi && f.cote === 'pere'; }).length;
+    var FS_X = [[.29, .71], [.29, .71, .12, .88]][fs.length > 2 || nM > 1 || nP > 1 ? 1 : 0];
+    /* places : à gauche côté père, à droite côté mère ; les demi-frères et demi-sœurs vont du côté de leur parent commun */
+    var gauche = FS_X.filter(function (v) { return v < .5; }), droite = FS_X.filter(function (v) { return v > .5; }), libres = [];
+    fs.forEach(function (f) { if (f.demi && f.cote === 'mere' && droite.length) f._px = droite.shift(); else if (f.demi && f.cote === 'pere' && gauche.length) f._px = gauche.shift(); });
+    fs.forEach(function (f) { if (f._px == null) f._px = (gauche.length >= droite.length ? gauche : droite).shift(); });
+    fs.forEach(function (f) { f._fg = 1; h += medaillon(f, Math.round(f._px * W), 2820, 150, 120, 1, max, false); delete f._px; });
     /* « Avec mes enfants » : au pied de l'arbre, sur les racines, du plus âgé au plus jeune */
     var enfF = (donnees.enfants || []).slice(0, 6), pasF = enfF.length > 4 ? 320 : 360;
     enfF.forEach(function (q, i) { h += medaillon(q, Math.round(W / 2 + (i - (enfF.length - 1) / 2) * pasF), fs.length ? 3150 : 3080, 150, 118, 1, max, false); });
