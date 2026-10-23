@@ -177,7 +177,7 @@
         else fs.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
         rang0.forEach(function (q) { q._e = etiquette(q, Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), false, q !== CJ); q._x0 = W / 2; });
         var tot = rang0.reduce(function (s, q) { return s + q._e.w; }, 0) + (rang0.length - 1) * 60, x = W / 2 - tot / 2;
-        rang0.forEach(function (q, i) { q._x = x + q._e.w / 2; x += q._e.w + (q === moi && CJ ? 130 : 60); q._yb = L.bas; });
+        rang0.forEach(function (q, i) { q._x = x + q._e.w / 2; x += q._e.w + (q === moi && CJ ? (q._e.rr ? 40 : 130) : 60); q._yb = L.bas; });
         var dm = W / 2 - moi._x; rang0.forEach(function (q) { q._x += dm; });
         if (CJ) {   /* le conjoint à la même hauteur que toi (centre contre centre) */
           var centre = function (q) { return q._e.cy != null ? q._yb - q._e.h + q._e.cy : q._yb - q._e.h / 2; };
@@ -210,11 +210,11 @@
       ps.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yBarre) + 'V' + f1(q._yb) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>'; });
     });
     if (ENF) {   /* les enfants : centrés sous la personne choisie, reliés à elle par un trait doré */
-      var xPar = CJ ? (moi._x + CJ._x) / 2 : moi._x;   /* avec le conjoint, les enfants partent du milieu du couple */
+      var CJm = CJ && !moi._e.rr, xPar = CJm ? (moi._x + CJ._x) / 2 : moi._x;   /* médaillons : les enfants restent dans l'axe, sous tes racines (symétrie) ; en cartes, ils partent du milieu du couple */
       var totE = ENF.liste.reduce(function (s2, q) { return s2 + q._e.w; }, 0) + (ENF.liste.length - 1) * 50, xe = xPar - totE / 2;
       if (xe < MARGE) xe = MARGE; if (xe + totE > W - MARGE) xe = W - MARGE - totE;
       ENF.liste.forEach(function (q) { q._x = xe + q._e.w / 2; xe += q._e.w + 50; q._yb = ENF.bas; });
-      var yHaut = ENF.bas - ENF.h, yDepart = CJ ? (moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2) : moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0), yB = yHaut - 34;
+      var yHaut = ENF.bas - ENF.h, yDepart = CJm ? (moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2) : moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0), yB = yHaut - 34;
       var xsE = ENF.liste.map(function (q) { return q._x; }).concat([xPar]);
       traits += '<path d="M' + f1(xPar) + ' ' + f1(yDepart) + 'V' + f1(yB) + '" stroke="#B08048" stroke-width="6" fill="none"/>';
       traits += '<path d="M' + f1(Math.min.apply(null, xsE)) + ' ' + f1(yB) + 'H' + f1(Math.max.apply(null, xsE)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';

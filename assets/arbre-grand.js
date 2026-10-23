@@ -61,10 +61,10 @@
     var enf = (donnees.enfants || []).slice(0, 6), eH = '', CJ = donnees.conjoint || null;
     if (enf.length) {
       /* du plus âgé (à gauche) au plus jeune (à droite), de part et d'autre du médaillon du bas */
-      /* des médaillons peints (les mêmes que l'arbre), aussi grands que ceux des grands-parents, de part et d'autre de toi */
+      /* des médaillons peints (les mêmes que l'arbre), aussi grands que ceux des grands-parents, de part et d'autre de toi ; avec le conjoint, les deux côtés s'écartent d'un cran pour rester symétriques */
       var RE = enf.length > 4 ? 112 : 128, YE = 2225, PAS = enf.length > 4 ? 285 : 330, nG = Math.ceil(enf.length / 2), sc = RE / 152;
       enf.forEach(function (q, i) {
-        var dx = i < nG ? -(R[0] + RE + 70 + (nG - 1 - i) * PAS) : R[0] + RE + 70 + (i - nG + (CJ ? 1 : 0)) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
+        var e0 = R[0] + RE + 70 + (CJ ? PAS : 0), dx = i < nG ? -(e0 + (nG - 1 - i) * PAS) : e0 + (i - nG) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
         /* pas de trait : les racines peintes relient déjà les enfants au médaillon du bas */
         eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + f1(RE * .95) + '" fill="#FDF8EF"/>';
         eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(x - 360 * sc) + '" y="' + f1(y - 279 * sc) + '" width="' + f1(780 * sc) + '" height="' + f1(540 * sc) + '"/>'
