@@ -110,7 +110,7 @@
       var v = r[c[0]] || '';
       if (c[2] === 'sexe') h += '<div class="mt-choix" role="group" aria-label="' + (CLI() ? 'Ton·ta client·e est' : 'Tu es') + '"><button type="button" data-sexe="f" aria-pressed="' + (v === 'f') + '">Une femme</button><button type="button" data-sexe="m" aria-pressed="' + (v === 'm') + '">Un homme</button></div>';
       else if (c[2] === 'case') h += '<label class="mt-case"><input type="checkbox" name="' + c[0] + '"' + (v ? ' checked' : '') + '> ' + esc(c[1]) + '</label>';
-      else h += '<label>' + esc(c[1]) + '<input name="' + c[0] + '" ' + (c[2] === 'date' ? 'inputmode="numeric" placeholder="14/03/1985 ou 1985"' : 'autocomplete="off" autocapitalize="words"') + ' value="' + esc(c[2] === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.split('-').reverse().join('/') : v) + '"></label>';
+      else h += '<label>' + esc(c[1]) + '<input name="' + c[0] + '" ' + (c[2] === 'date' ? 'class="date-saisie" inputmode="numeric" placeholder="14/03/1985 ou 1985"' : 'autocomplete="off" autocapitalize="words"') + ' value="' + esc(c[2] === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.split('-').reverse().join('/') : v) + '"></label>';
     });
     h += '<p class="mt-err" role="alert"></p><div class="mt-q-actions">' +
       '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' +
@@ -235,9 +235,9 @@
     fond.innerHTML = '<form class="mt-feuille" novalidate><span class="mt-poignee" aria-hidden="true"></span><h2>' + esc(titre) + '</h2>' +
       '<label>Prénom<input name="prenom" autocomplete="off" autocapitalize="words"></label>' +
       (f[1] ? '' : '<div class="mt-choix" role="group" aria-label="Sexe"><button type="button" data-sexe="f" aria-pressed="false">Femme</button><button type="button" data-sexe="m" aria-pressed="false">Homme</button></div>') +
-      '<label>Naissance <small>(la date ou l’année)</small><input name="naiss" inputmode="numeric" placeholder="14/03/1985 ou 1985"></label>' +
+      '<label>Naissance <small>(la date ou l’année)</small><input name="naiss" class="date-saisie" inputmode="numeric" placeholder="14/03/1985 ou 1985"></label>' +
       '<label class="mt-case"><input type="checkbox" name="decede"> Décédé·e</label>' +
-      '<label class="mt-deces" hidden>Décès <small>(la date ou l’année)</small><input name="deces" inputmode="numeric" placeholder="02/11/2010 ou 2010"></label>' +
+      '<label class="mt-deces" hidden>Décès <small>(la date ou l’année)</small><input name="deces" class="date-saisie" inputmode="numeric" placeholder="02/11/2010 ou 2010"></label>' +
       '<p class="mt-err" role="alert"></p>' +
       '<div class="mt-q-actions"><button type="button" class="btn btn-trait" data-fermer>Annuler</button><button type="submit" class="btn btn-plein">Ajouter</button></div>' +
       '<button type="button" class="mt-plus-details" data-details>Ajouter et compléter tous les détails</button></form>';

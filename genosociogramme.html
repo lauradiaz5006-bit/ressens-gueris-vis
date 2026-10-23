@@ -702,8 +702,8 @@
           <div class="champ"><label for="fp-nom">Nom de famille</label><input type="text" id="fp-nom" autocomplete="off"></div>
         </div>
         <div class="deux-col">
-          <div class="champ"><label for="fp-naiss">Naissance</label><input type="text" id="fp-naiss" inputmode="numeric" placeholder="1952 ou 14/03/1952" autocomplete="off"><span class="aide">L'année suffit.</span></div>
-          <div class="champ"><label for="fp-deces">Décès</label><input type="text" id="fp-deces" inputmode="numeric" placeholder="Vide si en vie" autocomplete="off"></div>
+          <div class="champ"><label for="fp-naiss">Naissance</label><input type="text" id="fp-naiss" class="date-saisie" inputmode="numeric" placeholder="1952 ou 14/03/1952" autocomplete="off"><span class="aide">L'année suffit.</span></div>
+          <div class="champ"><label for="fp-deces">Décès</label><input type="text" id="fp-deces" class="date-saisie" inputmode="numeric" placeholder="Vide si en vie" autocomplete="off"></div>
         </div>
         <label class="case"><input type="checkbox" id="fp-decede"> Décédé·e, date inconnue</label>
         <div class="deux-col">
@@ -899,7 +899,8 @@
   <script src="assets/genosociogramme.js?v=2026-10-23p"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
-  <script src="assets/arbre-telephone.js?v=2026-10-23d"></script>
+  <script src="assets/date-deroulante.js?v=1"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-23e"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
