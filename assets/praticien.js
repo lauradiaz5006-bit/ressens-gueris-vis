@@ -36,7 +36,7 @@
       '<div class="pr-deux"><label>Ta pratique <small>(facultatif)</small><select name="pratique"><option value="">Choisis…</option><option>Psychogénéalogiste</option><option>Thérapeute</option><option>Coach</option><option>Sophrologue</option><option>Hypnothérapeute</option><option>Astrologue ou numérologue</option><option>Autre</option></select></label>' +
       '<label>Ta ville <small>(facultatif)</small><input type="text" name="ville" maxlength="80" autocomplete="address-level2"></label></div>' +
       '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
-      '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon espace, <b>chiffrées</b> : l’équipe Genesolia ne les lit pas.</span></label>' +
+      '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon cabinet, <b>chiffrées</b> : elles ne s’ouvrent que depuis mon compte.</span></label>' +
       '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
       '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Cabinet ouvert jusqu’au 31 mars 2027 : <b>tarif fondateur, 19 € par mois</b>, garanti tant que ton abonnement continue.</p></form></div>';
     var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
@@ -68,10 +68,10 @@
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (ton tarif fondateur : 19 € par mois, ou 190 € l’année)' : '') + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">M’abonner au mois</button> <button class="btn btn-trait" type="button" data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       (actif() && prat.formule === 'essai' ? '<div class="pr-carte' + (joursRestants() <= 5 ? ' pr-fin-essai' : '') + '"><h2>' + (joursRestants() <= 5 ? 'Plus que ' : 'Ton essai : encore ') + joursRestants() + ' jour' + (joursRestants() > 1 ? 's' : '') + (joursRestants() <= 5 ? ' d’essai' : '') + '</h2><p class="pr-aide">Pour garder la création de dossiers, les partages et les rapports à ton nom : ' + (fondateur() ? '<b>ton tarif fondateur, 19 € par mois ou 190 € l’année</b> au lieu de 24 €, garanti tant que ton abonnement continue' : '24 € par mois sans engagement, ou 240 € l’année') + '. Tes dossiers restent à toi dans tous les cas. Si tu t’abonnes avant la fin, tes jours d’essai restants s’ajoutent à ton abonnement.</p><button class="btn btn-plein" type="button" data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">M’abonner au mois</button> <button class="btn btn-trait" type="button" data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
-      (actif() ? '<form class="pr-nouveau" id="pr-nouv"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></form>' : '') +
+      (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, grossesses interrompues).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
       '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon cabinet</h2><form class="pr-form" id="pr-cab"><label>Nom du cabinet<input type="text" name="cabinet" maxlength="80" value="' + esc(prat.cabinet) + '"></label><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
-      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton espace : l’équipe Genesolia ne les lit pas. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>. Il reste valable 14 jours et se renouvelle en un clic.</p><p class="pr-aide">Tes notes de séance t’appartiennent : elles ne sont jamais copiées dans l’espace de ta cliente. Si elle te demande ce que tu as noté sur elle, tu peux les exporter depuis « Notes de séance », en PDF.</p><p class="pr-aide" style="margin:0">Pas d’informations médicales dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p></section></aside></div>';
+      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton cabinet. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>. Il reste valable 14 jours, tu choisis ce qu’il montre et tu peux le désactiver à tout moment.</p><p class="pr-aide">Tes notes de séance t’appartiennent : elles ne sont jamais copiées dans l’espace de ton·ta client·e. S’il ou elle te demande ce que tu as noté, tu peux les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier, tu peux aussi commander l’arbre encadré de ton·ta client·e : un beau cadeau de fin d’accompagnement à glisser dans ton offre.</p></section></aside></div>';
     chargerDossiers();
   }
   function chargerDossiers() {
@@ -86,16 +86,19 @@
       zp && (window.__persoPr = perso);
       debut();
       if (!dossiers.length) { l.innerHTML = '<p class="pr-vide">Aucun dossier pour l’instant. Crée le premier avec le prénom ou les initiales de ton·ta client·e.</p>' + (actif() ? '<div class="pr-exemple"><p><b>Envie d’essayer d’abord ?</b> Ouvre un dossier exemple déjà rempli, avec une famille fictive : tu verras les répétitions ressortir tout de suite.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir un dossier exemple</button></div>' : ''); return; }
+      var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
       l.innerHTML = dossiers.map(function (d) {
         var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
         return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
           '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
+          '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
+          '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
           '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
-          (actif() ? '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' : '') +
+          '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
           '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
           '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</span></label>' +
-          '<p class="pr-aide">Une fois cochée, ta cliente pourra télécharger son arbre et le garder dans son propre espace. Tes notes de séance ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
-      }).join('');
+          '<p class="pr-aide">Une fois la case cochée, ton·ta client·e peut télécharger son arbre depuis le lien de partage et le garder dans son propre espace. Avant, rien ne peut être téléchargé ni imprimé. Tes notes ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
+      }).join('') + (actif() && !aExemple ? '<div class="pr-exemple"><p><b>Un dossier exemple pour tout essayer :</b> une famille fictive déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à tes vrais dossiers.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir le dossier exemple</button></div>' : '');
     });
   }
   /* « Pour bien commencer » : 4 étapes, cochées au fil de l'usage (rien n'est envoyé, tout reste sur cet appareil) */
@@ -104,8 +107,8 @@
     var et = [['Créer un premier dossier', dossiers.length > 0], ['Ouvrir le mode séance', fait('seance')], ['Générer un rapport', fait('rapport')], ['Envoyer un lien de partage', fait('partage')]];
     var n = et.filter(function (x) { return x[1]; }).length;
     if (n === et.length || fait('debut-masque')) { zd.innerHTML = ''; return; }
-    zd.innerHTML = '<section class="pr-carte pr-debut"><h2>Pour bien commencer <small>' + n + ' sur ' + et.length + '</small></h2><ol>' + et.map(function (x) { return '<li' + (x[1] ? ' class="ok"' : '') + '><span aria-hidden="true"></span>' + x[0] + (x[1] ? '<span class="sr"> (fait)</span>' : '') + '</li>'; }).join('') + '</ol>' +
-      '<p class="pr-aide" style="margin:0">Le mode séance et le rapport se trouvent dans le menu ••• d’un dossier ouvert. <button class="pr-lien" type="button" data-debut-masquer>Masquer</button></p></section>';
+    zd.innerHTML = '<section class="pr-carte pr-debut"><h2>Pour bien commencer <small style="white-space:nowrap">' + n + ' sur ' + et.length + '</small></h2><ol>' + et.map(function (x) { return '<li' + (x[1] ? ' class="ok"' : '') + '><span aria-hidden="true"></span>' + x[0] + (x[1] ? '<span class="sr"> (fait)</span>' : '') + '</li>'; }).join('') + '</ol>' +
+      '<p class="pr-aide" style="margin:0">Le mode séance, le rapport et le partage sont sur chaque dossier, et dans la barre du dossier ouvert. <button class="pr-lien" type="button" data-debut-masquer>Masquer</button></p></section>';
   }
   function dossierExemple(bt) {
     bt.disabled = true; bt.textContent = 'Un instant…';
@@ -119,77 +122,12 @@
   }
   function dossier(id) { return dossiers.filter(function (d) { return d.id === id; })[0]; }
 
-  /* ───────── Notes par séance (chiffrées) ───────── */
-  function notes(id) {
-    var d = dossier(id), cle = 'seances-' + id, liste = [];
-    var f = fenetre('<h2>Notes de séance · ' + esc(d ? d.nom : '') + '</h2><p class="pr-aide">Chiffrées dans ton espace : l’équipe Genesolia ne les lit pas.</p><div class="pr-nouveau" style="margin:0 0 .9rem"><button class="btn btn-trait" type="button" data-export-notes>Exporter les notes (PDF)</button></div><p class="pr-aide" id="pr-export-msg" role="status"></p>' +
-      '<form class="pr-form" id="pr-note" style="max-width:none"><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que tu observes<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><p class="pr-err" id="pr-note-msg" role="status"></p><div><button class="btn btn-plein" type="submit">Ajouter cette note</button></div></form><div id="pr-seances"><p class="pr-vide">Chargement…</p></div>');
-    function dessiner() {
-      var zs = f.querySelector('#pr-seances');
-      zs.innerHTML = liste.length ? liste.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }).map(function (s, i) { return '<div class="pr-seance"><small>' + date(s.jour) + '</small><p>' + esc(s.texte) + '</p><button class="pr-lien" type="button" data-suppr-note="' + esc(s.id) + '">Supprimer</button></div>'; }).join('') : '<p class="pr-vide">Aucune note pour ce dossier.</p>';
-    }
-    function sauver() { return CF.ecrire(sb, user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; }); }
-    CF.lire(sb, user, cle).then(function (x) { liste = (x && x.seances) || []; dessiner(); }, function () { f.querySelector('#pr-seances').innerHTML = '<p class="pr-vide">Les notes n’ont pas pu être chargées.</p>'; });
-    f.querySelector('#pr-note').addEventListener('submit', function (e) {
-      e.preventDefault(); var t = this.texte.value.trim(), m = f.querySelector('#pr-note-msg'); if (!t) { m.textContent = 'Écris ta note.'; return; }
-      liste.push({ id: 's' + Date.now(), jour: this.jour.value || new Date().toISOString().slice(0, 10), texte: t });
-      var form = this; sauver().then(function () { form.texte.value = ''; m.textContent = 'Note ajoutée, chiffrée.'; dessiner(); }, function () { liste.pop(); m.textContent = 'La note n’a pas pu être enregistrée. Réessaie.'; });
-    });
-    f.querySelector('[data-export-notes]').addEventListener('click', function () {
-      var m = f.querySelector('#pr-export-msg'), bt = this;
-      if (!liste.length) { m.textContent = 'Aucune note à exporter pour ce dossier.'; return; }
-      bt.disabled = true;
-      exporterNotes(d ? d.nom : '', liste).then(function () { bt.disabled = false; m.textContent = ''; }, function () { bt.disabled = false; m.textContent = 'Le PDF n’a pas pu être créé. Réessaie.'; });
-    });
-    f.addEventListener('click', function (e) { var b = e.target.closest('[data-suppr-note]'); if (!b || !confirm('Supprimer cette note ?')) return; var avant = liste; liste = liste.filter(function (s) { return s.id !== b.getAttribute('data-suppr-note'); }); sauver().then(dessiner, function () { liste = avant; }); });
-  }
+  /* ───────── Notes par séance et partage : assets/praticien-outils.js (mêmes outils que dans le dossier ouvert) ───────── */
+  var PO = window.GenesoliaPratique;
+  function notes(id) { var d = dossier(id); PO.notes({ sb: sb, user: user, id: id, nom: d ? d.nom : '', cabinet: prat && prat.cabinet }); }
+  function partager(id) { var d = dossier(id); PO.partager({ sb: sb, user: user, id: id, nom: d ? d.nom : '', actif: actif(), remise: !!(d && d.remise_autorisee) }).addEventListener('click', function () { setTimeout(debut, 50); }); }
 
-  /* Export PDF des notes d'un dossier, au nom du cabinet, fabriqué sur l'appareil (rien n'est envoyé) */
-  function jsPDFcharger() {
-    if (window.jspdf) return Promise.resolve(window.jspdf.jsPDF);
-    return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = 'assets/jspdf.umd.min.js'; s.onload = function () { ok(window.jspdf.jsPDF); }; s.onerror = ko; document.head.appendChild(s); });
-  }
-  function exporterNotes(nomDossier, liste) {
-    return jsPDFcharger().then(function (J) {
-      var doc = new J({ unit: 'mm', format: 'a4' }), pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 18, y = m, lw = pw - 2 * m;
-      function place(h) { if (y + h > ph - m) { doc.addPage(); y = m; } }
-      doc.setTextColor(107, 47, 91);
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text((prat && prat.cabinet) || 'Mon cabinet', m, y); y += 9;
-      doc.setFontSize(17); doc.text('Notes de séance', m, y); y += 7;
-      doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text((nomDossier ? 'Dossier : ' + nomDossier + ' · ' : '') + 'exporté le ' + date(new Date()), m, y); y += 10;
-      liste.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).forEach(function (s) {
-        var lignes = doc.splitTextToSize(String(s.texte || ''), lw);
-        place(12); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(date(s.jour) || 'Sans date', m, y); y += 6;
-        doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
-        lignes.forEach(function (l) { place(5.4); doc.text(l, m, y); y += 5.4; });
-        y += 5;
-      });
-      var n = doc.getNumberOfPages();
-      for (var i = 1; i <= n; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150, 120, 140); doc.text('Document personnel de ' + ((prat && prat.cabinet) || 'ton cabinet') + ' · page ' + i + ' sur ' + n, m, ph - 8); }
-      doc.save('notes-' + String(nomDossier || 'dossier').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.pdf');
-    });
-  }
-
-  /* ───────── Partage en lecture ───────── */
-  function partager(id) {
-    var d = dossier(id), exp = new Date(Date.now() + 14 * 864e5).toISOString();
-    sb.from('partages_arbre').insert({ user_id: user.id, arbre_id: id, expire_le: exp }).select('jeton').single().then(function (r) {
-      if (r.error) { alert('Le lien n’a pas pu être créé. Réessaie dans un instant.'); return; }
-      var url = 'https://genesolia.fr/genosociogramme.html?partage=' + r.data.jeton; marquer('partage'); debut();
-      var f = fenetre('<h2>Lien pour ' + esc(d ? d.nom : 'ton·ta client·e') + '</h2><p class="pr-aide">Ce lien montre l’arbre en lecture, <b>sans tes notes</b>. Il expire le ' + date(exp) + '.</p><input type="text" readonly value="' + esc(url) + '" style="width:100%;box-sizing:border-box;font:inherit;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px"><div class="pr-nouveau" style="margin-top:.8rem"><button class="btn btn-plein" type="button" data-copier>Copier le lien</button></div><p class="pr-aide" data-copie-msg></p>');
-      f.querySelector('[data-copier]').onclick = function () { var i = f.querySelector('input'); i.select(); (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { f.querySelector('[data-copie-msg]').textContent = 'Lien copié.'; }, function () { document.execCommand && document.execCommand('copy'); }); };
-    });
-  }
-
-  function fenetre(html) {
-    var fond = document.createElement('div'); fond.className = 'pr-fond'; fond.setAttribute('role', 'dialog'); fond.setAttribute('aria-modal', 'true');
-    fond.innerHTML = '<div class="pr-fenetre"><div style="text-align:right"><button class="pr-lien" type="button" data-fermer>Fermer</button></div>' + html + '</div>';
-    document.body.appendChild(fond);
-    fond.addEventListener('click', function (e) { if (e.target === fond || e.target.closest('[data-fermer]')) fond.remove(); });
-    return fond;
-  }
-
-  /* ───────── Remise de l'arbre à la cliente (case par dossier) ───────── */
+  /* ───────── Remise de l'arbre au·à la client·e (case par dossier) ───────── */
   document.addEventListener('change', function (e) {
     var c = e.target.closest && e.target.closest('[data-remise]'); if (!c) return;
     var id = c.getAttribute('data-remise'), v = c.checked, m = z.querySelector('[data-remise-msg="' + id + '"]');
@@ -198,16 +136,18 @@
       c.disabled = false;
       if (r.error) { c.checked = !v; if (m) m.textContent = 'Pas enregistré. Réessaie.'; return; }
       var d = dossier(id); if (d) d.remise_autorisee = v;
-      if (m) m.textContent = v ? 'Enregistré. Envoie-lui un lien de partage : elle y trouvera les boutons pour télécharger et garder son arbre.' : 'Enregistré. Ce que ta cliente a déjà gardé reste dans son espace.';
+      if (m) m.textContent = v ? 'Enregistré. Envoie un lien de partage : ton·ta client·e y trouvera les boutons pour télécharger et garder son arbre.' : 'Enregistré. Ce que ton·ta client·e a déjà gardé reste dans son espace.';
     });
   });
 
   /* ───────── Événements ───────── */
   document.addEventListener('submit', function (e) {
     if (e.target.id === 'pr-nouv') {
-      e.preventDefault(); var nom = e.target.nom.value.trim(); if (!nom) { e.target.nom.focus(); return; }
+      e.preventDefault(); var nom = e.target.nom.value.trim(), er = document.getElementById('pr-nouv-err'); if (!nom) { e.target.nom.focus(); return; }
+      if (!e.target.accord.checked) { if (er) er.textContent = 'Coche la case : l’accord de ton·ta client·e est nécessaire pour créer son dossier.'; return; }
+      if (er) er.textContent = '';
       var bt = e.target.querySelector('button'); bt.disabled = true;
-      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client' } }).select('id').single().then(function (r) {
+      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
         bt.disabled = false;
         if (r.error) { alert('Le dossier n’a pas pu être créé. Réessaie dans un instant.'); return; }
         location.href = 'genosociogramme.html?arbre=' + r.data.id;

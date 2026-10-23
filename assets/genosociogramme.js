@@ -293,6 +293,7 @@
   /* Dossier client·e d'un·e praticien·ne : la personne au centre est « Client·e », pas « Toi » (affichage seulement) */
   var DOSSIER_CLIENT = false;
   function libLien(l) { return DOSSIER_CLIENT && l === 'Toi' ? 'Client·e' : l; }
+  function prenomClient() { var m = idMoi(), p = m ? S.people[m] : null; return (p && String(p.prenom || '').trim().split(/[\s-]+/)[0]) || ''; }
   function textesDossierClient() {
     if (!DOSSIER_CLIENT) return;
     var c = document.querySelector('.vide-carte'); if (!c) return;
@@ -304,6 +305,9 @@
     var h1 = document.querySelector('.titre-arbre h1'); if (h1 && h1.firstChild && h1.firstChild.nodeType === 3) h1.firstChild.nodeValue = 'Dossier client·e';
     var lm = $('fp-moi-ligne'); if (lm && lm.lastChild && lm.lastChild.nodeType === 3) lm.lastChild.nodeValue = ' C’est mon·ma client·e';
     [['bt-rapport', 'Le rapport'], ['bt-encadrer', 'Arbre à encadrer'], ['fa-titre', 'Sa lignée dans les étoiles'], ['fn-titre', 'Sa lignée en nombres'], ['fr-titre', 'Le rapport de son arbre']].forEach(function (x) { var e = $(x[0]); if (e) e.textContent = x[1]; });
+    var ft = $('fr-titre'), fp = ft && ft.parentNode.querySelector('p');
+    if (fp) fp.textContent = 'Les répétitions de son arbre expliquées, avec des pistes de réflexion et un geste à essayer pour chacune.';
+    outilsCabinet();
   }
 
   /* ───────── Placement automatique ───────── */
@@ -1680,7 +1684,7 @@
     return out;
   }
   function dessinerPanneau() {
-    reps = reps.filter(function (r) { return !r.synth; });
+    reps = reps.filter(function (r) { return !r.synth && visiblePartage(r); });
     var n = reps.length;
     $('compte').textContent = n; $('compte-bouton').textContent = n; $('bt-reps-pdf').hidden = !n;
     var z = $('reps');
@@ -1714,10 +1718,10 @@
     if (moiId) { enfants(moiId).forEach(function (e) { ajC(e); enfants(e).forEach(ajC); }); parents(moiId).forEach(ajC); freresDirects(moiId).forEach(ajC); }
     ajC(vuDepuis);
     var nomVu = function (id) { var p = S.people[id], l = lienDe(id); return (nomComplet(p) || l || 'Sans prénom') + (l && l !== 'Toi' ? ' (' + libLien(l).toLowerCase() + ')' : ''); };
-    var blocVue = '<div class="rep-vue"><label>Vu depuis <select id="rep-vu"><option value="">' + (moiId ? (DOSSIER_CLIENT ? 'Mon·ma client·e' : 'Moi') : 'Tout l’arbre') + '</option>' +
+    var blocVue = '<div class="rep-vue"><label>Vu depuis <select id="rep-vu"><option value="">' + (moiId ? (DOSSIER_CLIENT ? esc(prenomClient() || 'Mon·ma client·e') : 'Moi') : 'Tout l’arbre') + '</option>' +
       cercle.map(function (id) { return '<option value="' + esc(id) + '"' + (id === vuDepuis ? ' selected' : '') + '>' + esc(nomVu(id)) + '</option>'; }).join('') + '</select></label>' +
       (c ? '<label>Côté <select id="rep-cote"><option value="">Toute la famille</option><option value="mere"' + (coteFiltre === 'mere' ? ' selected' : '') + '>Côté mère</option><option value="pere"' + (coteFiltre === 'pere' ? ' selected' : '') + '>Côté père</option></select></label>' : '') + '</div>';
-    if (autreC) { var agC = ageActuel(pc); blocVue += '<p class="rep-centre">Vu depuis <b>' + esc(prC) + '</b>' + (agC != null ? ', ' + agC + ' an' + (agC > 1 ? 's' : '') : '') + ' : ses répétitions et celles de sa lignée. <button type="button" class="lien-texte" data-vu="">Revenir à ' + (DOSSIER_CLIENT ? 'mon·ma client·e' : 'moi') + '</button></p>'; }
+    if (autreC) { var agC = ageActuel(pc); blocVue += '<p class="rep-centre">Vu depuis <b>' + esc(prC) + '</b>' + (agC != null ? ', ' + agC + ' an' + (agC > 1 ? 's' : '') : '') + ' : ses répétitions et celles de sa lignée. <button type="button" class="lien-texte" data-vu="">Revenir à ' + (DOSSIER_CLIENT ? esc(prenomClient() || 'mon·ma client·e') : 'moi') + '</button></p>'; }
     // Un parent manque dans l'arbre : la moitié des répétitions n'apparaît pas
     if (pc) {
       var pps = parents(c).map(function (x) { return S.people[x]; }), manque = null;
@@ -1774,7 +1778,7 @@
     var ecartees = visibles.filter(function (i) { var a = avisDe(reps[i]); return a && a.v === 'non'; });
     var actives = visibles.filter(function (i) { return ecartees.indexOf(i) < 0; });
     var nAct = actives.filter(function (i) { return !reps[i].synth; }).length;   // = répétitions visibles + toutes les pistes par thème
-    $('compte').textContent = nAct; $('compte-bouton').textContent = nAct;
+    $('compte').textContent = nAct + idxPort.length; $('compte-bouton').textContent = nAct + idxPort.length;   // = toutes les cartes du panneau (portrait compris), sans les pistes écartées
     var visR = actives.filter(function (i) { return reps[i].type === 'repere'; }), visA = actives.filter(function (i) { return reps[i].type !== 'repere'; });
     var h = blocVue + (mots.length ? info : (autreC ? '' : blocExo));
     if (idxPort.length) h += '<div class="reps-groupe reps-portrait"><p class="exos-titre">Ce qui part ' + (autreC || DOSSIER_CLIENT ? 'de ' + esc(prC) : 'de toi') + '</p>' + idxPort.map(carte).join('') + '</div>';
@@ -1836,7 +1840,7 @@
   })();
   function textStatutRepos() {
     if (EXEMPLE) return '';
-    if (utilisateur) return 'Enregistré dans ton espace';
+    if (utilisateur) return DOSSIER_CLIENT ? 'Enregistré dans ton cabinet' : 'Enregistré dans ton espace';
     if (ARBRE_ID) return 'Cet arbre est dans ton espace · <a href="login.html?retour=genosociogramme.html">Me connecter pour l\u2019ouvrir</a>';
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
@@ -2692,7 +2696,11 @@
   };
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
-    if (!confirm((ARBRE_ID ? 'Vider l’arbre « ' + arbreNom + ' » pour repartir de zéro ?' : 'Effacer tout ton arbre pour repartir de zéro ?') + '\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
+    if (DOSSIER_CLIENT && arbreNom) {
+      var tape = prompt('Vider le dossier « ' + arbreNom + ' » ? Toutes les personnes et leurs informations seront retirées.\n\nPour confirmer, tape le nom du dossier :', '');
+      if (tape == null) return;
+      if (tape.trim().toLowerCase() !== arbreNom.trim().toLowerCase()) { alert('Le nom ne correspond pas : le dossier n’a pas été vidé.'); return; }
+    } else if (!confirm((ARBRE_ID ? 'Vider l’arbre « ' + arbreNom + ' » pour repartir de zéro ?' : 'Effacer tout ton arbre pour repartir de zéro ?') + '\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
     memoriser(); S = { people: {}, rels: [], nid: 1 }; selId = null; repActive = null; vuDepuis = null;
     fermer('fen-sauve'); dessiner(); recentrer(); majBarreActions(); enregistrer();
   });
@@ -2774,7 +2782,7 @@
 
   function htmlRapport(css, e) {
     var AVR = S.avis || {};   // les pistes écartées sortent du rapport, celles qui parlent passent en premier
-    var reps = detecter().filter(function (r) { return !(AVR[r.cleA] && AVR[r.cleA].v === 'non'); }).sort(function (x, y) { var ax = AVR[x.cleA] && AVR[x.cleA].v === 'oui' ? 0 : 1, ay = AVR[y.cleA] && AVR[y.cleA].v === 'oui' ? 0 : 1; return ax - ay || (y.score || 0) - (x.score || 0); }), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
+    var reps = detecter().filter(function (r) { return !(AVR[r.cleA] && AVR[r.cleA].v === 'non') && (!RAP_RETENUES || (AVR[r.cleA] && (AVR[r.cleA].v === 'oui' || AVR[r.cleA].v === 'creuser'))); }).sort(function (x, y) { var ax = AVR[x.cleA] && AVR[x.cleA].v === 'oui' ? 0 : 1, ay = AVR[y.cleA] && AVR[y.cleA].v === 'oui' ? 0 : 1; return ax - ay || (y.score || 0) - (x.score || 0); }), groupes = grouperReps(reps), st = statsArbre(), d = new Date();
     var C = '@page{size:A4;margin:15mm 12mm 17mm}' + css +
       '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}body{margin:0;padding:0 6mm;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.8pt;line-height:1.68}p{margin:0 0 3mm}' +
       'h1,h2,h3{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;line-height:1.15;margin:0}' +
@@ -2792,8 +2800,8 @@
       'table{width:100%;border-collapse:collapse;margin:3mm 0 5mm}td,th{text-align:left;padding:2mm 3mm;border-bottom:.6pt solid #EBCFD5;font-size:10pt}th{font-size:8pt;letter-spacing:.08em;text-transform:uppercase;color:#6B2F5B;background:#F7E6E8}' +
       '.discret{color:#8E6383;font-size:8.5pt}.fin{margin-top:8mm;padding:5mm 6mm;border-radius:4mm;background:#6B2F5B;color:#F7E6EE}.fin b{color:#fff}';
     var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Le rapport de ton arbre · Genesolia</title><style>' + C + '</style></head><body>';
-    var CAB = PRATICIEN && ARBRE_ID ? PRATICIEN.cabinet : null;
-    h += '<section class="couv"><div class="marque">' + (CAB ? esc(CAB) : 'Genesolia') + '</div><div><div class="sur">' + (CAB ? 'Préparé par ' + esc(CAB) + ' · ' : 'Rapport personnel · ') + esc(dateLongue(d)) + '</div><h1>Le rapport<br>de ton arbre</h1>' +
+    var CAB = PRATICIEN && ARBRE_ID ? PRATICIEN.cabinet : null, PC = DOSSIER_CLIENT ? prenomClient() : '';
+    h += '<section class="couv"><div class="marque">' + (CAB ? esc(CAB) : 'Genesolia') + '</div><div><div class="sur">' + (CAB ? 'Préparé par ' + esc(CAB) + ' · ' : 'Rapport personnel · ') + esc(dateLongue(d)) + '</div><h1>Le rapport<br>de ton arbre</h1>' + (PC ? '<p style="font-size:15pt;color:#fff;margin:0 0 4mm">Pour ' + esc(PC) + '</p>' : '') +
       '<p>Ce que ton arbre familial laisse apparaître : les dates, les âges, les prénoms et les façons de vivre qui se répètent, avec des pistes de réflexion pour chacun.</p>' +
       '<div class="chiffres"><div><b>' + st.personnes + '</b><span>personnes</span></div><div><b>' + st.generations + '</b><span>générations</span></div><div><b>' + reps.length + '</b><span>répétitions repérées</span></div></div></div>' +
       '<p class="discret" style="color:#E3C9DA">Ce rapport propose une lecture symbolique de ton histoire familiale. Il ne remplace pas un avis médical ou psychologique.</p></section>';
@@ -2815,7 +2823,7 @@
       h += '<section class="section page"><div class="sur2">Thème ' + (i + 1) + '</div><h2>' + esc(T.titre) + '</h2><p class="intro">' + esc(T.intro) + '</p>';
       h += g.items.map(function (r) { var av = AVR[r.cleA]; return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + (av && av.v === 'oui' ? ' · ça me parle' : av && av.v === 'creuser' ? ' · à creuser' : '') + '</b><p>' + esc(descComplete(r)) + '</p>' + (av && av.note ? '<p><i>Ma note : ' + esc(av.note) + '</i></p>' : '') + '</div>'; }).join('');
       h += '<div class="pistes"><b>Pistes de réflexion</b><ol>' + T.pistes.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ol></div>';
-      h += '<div class="geste"><b>Pour sortir de la boucle</b>' + esc(T.geste) + '</div>';
+      h += '<div class="geste"><b>' + (DOSSIER_CLIENT ? 'Un geste à essayer' : 'Pour sortir de la boucle') + '</b>' + esc(T.geste) + '</div>';
       h += '<div class="notes"><h3>Mes notes</h3>' + new Array(7).join('<div class="lignes"></div>') + '</div></section>';
     });
     h += sectionNumeroRapport();
@@ -2825,7 +2833,8 @@
     if (st.sansDate.length) h += '<h3>Les dates de naissance manquantes</h3><p>' + esc(st.sansDate.slice(0, 30).join(', ')) + (st.sansDate.length > 30 ? '…' : '') + '</p>';
     if (st.sansEvt.length) h += '<h3>Les personnes sans événement noté</h3><p>' + esc(st.sansEvt.slice(0, 30).join(', ')) + (st.sansEvt.length > 30 ? '…' : '') + '</p><p class="discret">Un départ, une séparation, un déménagement, une réussite, un secret… même approximatif, avec un âge, c’est ce qui fait apparaître les répétitions.</p>';
     h += '<h3>Les questions à poser à ta famille</h3><ol><li>Comment se sont rencontrés tes grands-parents, et comment l’histoire a-t-elle continué ?</li><li>Qui est parti, ou dont on ne parle plus ?</li><li>Qu’est-ce qui a été dur pour eux, à quel âge ?</li><li>D’où viennent les prénoms de la famille ?</li><li>Quelles phrases revenaient souvent à table ?</li></ol>';
-    h += '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html</div>';
+    h += DOSSIER_CLIENT ? '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à la regarder autrement. Garde ce rapport pour tes prochaines séances' + (CAB ? ' avec ' + esc(CAB) : '') + ' : il suit ton arbre à mesure qu’il se complète.</div>'
+      : '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html</div>';
     if (ANNOTATIONS && ANNOTATIONS.length) {
       h += '<section class="page"><div class="sur2">Annexe</div><h2>Les notes de séance</h2><p class="intro">Les observations de ' + esc(CAB || 'ton·ta praticien·ne') + ', séance après séance.</p>' +
         ANNOTATIONS.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).map(function (n) { return '<div class="rep" style="--c:#B98A55"><b>' + esc(dateLongue(new Date(n.jour + 'T12:00:00'))) + '</b><p>' + esc(n.texte).replace(/\n/g, '<br>') + '</p></div>'; }).join('') + '</section>';
@@ -2841,12 +2850,13 @@
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var w = mobile ? window.open('', '_blank') : null;
     var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
     chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {
       var e = svgExport(css);
       if (w) {
         var barre = '<div class="barre-rapport" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>Ton rapport Genesolia</span><button onclick="window.print()" style="border:0;border-radius:99px;padding:.55rem 1rem;background:#F3DCC0;color:#6B2F5B;font:700 14px sans-serif">Enregistrer en PDF</button></div><style>@media print{.barre-rapport{display:none!important}}</style>';
         try { w.document.open(); w.document.write(htmlRapport(css, e).replace(/<head>/i, '<head><meta name="viewport" content="width=device-width, initial-scale=1">').replace(/<body([^>]*)>/i, '<body$1>' + barre)); w.document.close(); } catch (x) {}
-        if (btn) { btn.disabled = false; btn.textContent = 'Générer mon rapport (PDF)'; }
+        if (btn) { btn.disabled = false; btn.textContent = DOSSIER_CLIENT ? 'Générer le rapport (PDF)' : 'Générer mon rapport (PDF)'; }
         return;
       }
       var f = document.createElement('iframe');
@@ -2856,7 +2866,7 @@
       var doc = f.contentDocument; doc.open(); doc.write(htmlRapport(css, e)); doc.close();
       setTimeout(function () {
         f.contentWindow.focus(); f.contentWindow.print();
-        if (btn) { btn.disabled = false; btn.textContent = 'Générer mon rapport (PDF)'; }
+        if (btn) { btn.disabled = false; btn.textContent = DOSSIER_CLIENT ? 'Générer le rapport (PDF)' : 'Générer mon rapport (PDF)'; }
         setTimeout(function () { f.remove(); }, 2000);
       }, 500);
     });
@@ -2899,7 +2909,8 @@
       if (acces) {
         corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>' + (DOSSIER_CLIENT ? 'Le rapport est inclus dans ton Espace praticien.' : 'Ton rapport est offert.') + '</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
-          '<button class="bt plein rap-gros" type="button" id="bt-generer">Générer mon rapport (PDF)</button>' +
+          (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
+          '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
           '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante, et laisse les marges sur <b>« Par défaut »</b>.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
         return;
@@ -3435,7 +3446,7 @@
   function apresChargement() { importerFilDor(); exporterSiDemande(); }
 
   /* ───────── Espace praticien : lien vers le cabinet, mode séance, rapport au nom du cabinet ───────── */
-  var PRATICIEN = null;
+  var PRATICIEN = null, OUTILS_FAITS = false, RAP_RETENUES = false;
   function chargerPraticien() {
     if (!sb || !utilisateur) return;
     sb.from('praticiens').select('cabinet,acces_jusqu').eq('user_id', utilisateur.id).maybeSingle().then(function (r) {
@@ -3443,19 +3454,59 @@
       PRATICIEN = r.data; document.body.classList.add('est-praticien');
       var t = document.querySelector('.titre-arbre');
       if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = 'praticien.html'; a.textContent = 'Mon cabinet'; t.insertBefore(a, t.firstChild); }
-      var m = document.getElementById('menu-plus');
-      if (m && !document.getElementById('bt-seance')) { var b = document.createElement('button'); b.type = 'button'; b.className = 'bt'; b.setAttribute('role', 'menuitem'); b.id = 'bt-seance'; b.textContent = 'Mode séance'; b.addEventListener('click', modeSeance); m.insertBefore(b, m.firstChild); }
+      outilsCabinet();
     }, function () {});
   }
+  /* Dossier client·e ouvert : Mode séance, Notes de séance et Partager toujours visibles dans la barre */
+  function outilsCabinet() {
+    if (OUTILS_FAITS || !PRATICIEN || !ARBRE_ID || !DOSSIER_CLIENT) return;
+    var t = document.querySelector('.titre-arbre'); if (!t) return;
+    OUTILS_FAITS = true; document.body.classList.add('dossier-cabinet');
+    var g = document.createElement('div'); g.className = 'groupe groupe-cabinet';
+    g.innerHTML = '<button class="bt plein" type="button" id="bt-seance">Mode séance</button><button class="bt" type="button" id="bt-notes-dossier" aria-haspopup="dialog">Notes de séance</button><button class="bt" type="button" id="bt-partager-dossier" aria-haspopup="dialog">Partager</button>';
+    t.parentNode.insertBefore(g, t.nextSibling);
+    $('bt-seance').addEventListener('click', modeSeance);
+    $('bt-notes-dossier').addEventListener('click', notesDossier);
+    $('bt-partager-dossier').addEventListener('click', partagerDossier);
+    var q = new URLSearchParams(location.search);
+    if (q.has('seance')) setTimeout(modeSeance, 300);
+    else if (q.has('rapport')) setTimeout(function () { var b = $('bt-rapport'); if (b) b.click(); }, 300);
+  }
+  function notesDossier() {
+    var GP = window.GenesoliaPratique; if (!GP || !PRATICIEN) return;
+    document.body.classList.remove('seance-reps');
+    var br = document.querySelector('.barre-seance [data-s="reps"]'); if (br) br.setAttribute('aria-pressed', 'false');
+    GP.notes({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, cabinet: PRATICIEN.cabinet, tiroir: true });
+  }
+  function partagerDossier() {
+    var GP = window.GenesoliaPratique; if (!GP || !PRATICIEN) return;
+    sb.from('arbres_supp').select('remise_autorisee').eq('id', ARBRE_ID).maybeSingle().then(function (r) {
+      GP.partager({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date(), remise: !!(r && r.data && r.data.remise_autorisee) });
+    });
+  }
   function modeSeance() {
+    if (document.body.classList.contains('mode-seance')) return;
     document.body.classList.add('mode-seance');
     try { localStorage.setItem('pr-fait-seance', '1'); } catch (e) {}   /* « Pour bien commencer » du cabinet */
     try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {}
-    var q = document.createElement('button'); q.type = 'button'; q.className = 'bt plein quitter-seance'; q.textContent = 'Quitter le mode séance';
+    var q = document.createElement('div'); q.className = 'barre-seance'; q.setAttribute('role', 'toolbar'); q.setAttribute('aria-label', 'Mode séance');
+    q.innerHTML = '<button type="button" class="bt" data-s="reps" aria-pressed="false">Ce qui se répète</button>' + (PRATICIEN && ARBRE_ID ? '<button type="button" class="bt" data-s="notes">Notes</button>' : '') +
+      '<button type="button" class="bt" data-s="plein">Plein écran</button><button type="button" class="bt plein" data-s="quitter">Quitter le mode séance</button>';
     document.body.appendChild(q);
-    function quitter() { document.body.classList.remove('mode-seance'); q.remove(); try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} setTimeout(recentrer, 60); }
-    q.addEventListener('click', quitter);
-    document.addEventListener('fullscreenchange', function f() { if (!document.fullscreenElement && document.body.classList.contains('mode-seance')) { quitter(); } document.removeEventListener('fullscreenchange', f); });
+    function majPlein() { var b = q.querySelector('[data-s="plein"]'); if (b) b.hidden = !!document.fullscreenElement || !document.documentElement.requestFullscreen; }
+    function quitter() {
+      document.body.classList.remove('mode-seance', 'seance-reps'); q.remove(); var ti = document.querySelector('.pr-tiroir'); if (ti) ti.remove();
+      document.removeEventListener('fullscreenchange', majPlein);
+      try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} setTimeout(recentrer, 60);
+    }
+    majPlein(); document.addEventListener('fullscreenchange', majPlein);
+    q.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-s]'); if (!b) return; var s = b.getAttribute('data-s');
+      if (s === 'quitter') quitter();
+      else if (s === 'plein') { try { document.documentElement.requestFullscreen().catch(function () {}); } catch (x) {} }
+      else if (s === 'notes') notesDossier();
+      else if (s === 'reps') { var ti = document.querySelector('.pr-tiroir'); if (ti) ti.remove(); var on = document.body.classList.toggle('seance-reps'); b.setAttribute('aria-pressed', String(on)); setTimeout(recentrer, 60); }
+    });
     setTimeout(recentrer, 120);
   }
   var ANNOTATIONS = null;   /* notes de séance du dossier, ajoutées en annexe du rapport si le·la praticien·ne le choisit */
@@ -3464,6 +3515,21 @@
     if (!PRATICIEN || !ARBRE_ID || !CF || !sb || !utilisateur) return Promise.resolve(null);
     return CF.lire(sb, utilisateur, 'seances-' + ARBRE_ID).then(function (x) { return (x && x.seances) || []; }, function () { return []; });
   }
+
+  /* Lien de partage : ce que le·la praticien·ne a choisi de ne pas montrer */
+  var PARTAGE = null;
+  function visiblePartage(r) {
+    if (!PARTAGE) return true;
+    if (PARTAGE.masquer.indexOf(r.cleA) >= 0) return false;
+    if (PARTAGE.delicat) {
+      if (r.type === 'gisant' || r.type === 'depart') return false;
+      if ((r.ids || []).some(function (id) { return S.people[id] && S.people[id].grossesse; })) return false;
+      if (/deuil|deces|décès|mort|perte|ivg|fausse/i.test((r.tags || '') + ' ' + (r.label || ''))) return false;
+    }
+    return true;
+  }
+  document.addEventListener('contextmenu', function (e) { if (document.body.classList.contains('partage-verrou') && e.target.closest && e.target.closest('#dessin,.panneau')) e.preventDefault(); });
+  document.addEventListener('keydown', function (e) { if (document.body.classList.contains('partage-verrou') && (e.ctrlKey || e.metaKey) && /^[ps]$/i.test(e.key)) e.preventDefault(); });
 
   function demarrer() {
     /* Téléphone : la vue « une personne au centre » (assets/arbre-telephone.js) remplace la porte ; ?dessin force le dessin complet */
@@ -3479,6 +3545,10 @@
         .then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }).then(function (d) {
           var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
           if (!d || !d.people) { b.innerHTML = 'Ce lien n’est plus valable. Demande un nouveau lien à ton·ta praticien·ne.'; document.body.appendChild(b); statut(''); return; }
+          var op = d.options || {};
+          PARTAGE = { masquer: d.masquer || [], delicat: !!op.delicat };
+          if (d.remise !== true) document.body.classList.add('partage-verrou');
+          if (op.reps === false) document.body.classList.add('partage-sans-reps');
           charger(d); dessiner(); recentrer();
           b.innerHTML = 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
           document.body.appendChild(b); statut('');
