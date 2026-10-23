@@ -1,3 +1,16 @@
+/* ===== Anciens iPad / Safari (iOS 13 et avant) : ils ignorent :where(), donc toute la remise à zéro de la mise en page.
+   On leur redonne les mêmes règles, sans :where() et avec le même poids, pour que la page ne se décale pas. ===== */
+(function () {
+  try { document.querySelector(':where(body)'); return; } catch (e) {}
+  var css = '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}' +
+    'img,svg{display:block;max-width:100%}a{color:inherit}' +
+    'h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;letter-spacing:.005em}' +
+    'h1{font-size:2.6rem}h2{font-size:1.9rem}h3{font-size:1.35rem}p{max-width:var(--mesure)}' +
+    '.pied h4,.pied ul,.pied li,.pied p,.pied span{margin:0;padding:0}';
+  var st = document.createElement('style'); st.textContent = css;
+  (document.head || document.documentElement).insertBefore(st, (document.head || document.documentElement).firstChild);
+  document.documentElement.className += ' vieux-navigateur';
+})();
 /* Genesolia — éléments communs à toutes les pages.
    Le nom de la marque, le menu et le pied de page se modifient ICI, une seule fois. */
 /* ===== Données gardées dans le navigateur, comme sur les autres sites =====

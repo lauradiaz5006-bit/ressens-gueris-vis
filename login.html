@@ -490,6 +490,8 @@
       if (html) m.innerHTML = t; else m.textContent = t;
     }
     function effacerMessage() { $('message').className = 'message'; $('message').textContent = ''; }
+    /* navigateur trop ancien pour la connexion (iPad bloqué en iOS 14 ou avant) : on le dit clairement, au lieu de « pas de connexion internet » */
+    if (!sb) message('Ton navigateur est trop ancien pour te connecter. Mets à jour ton iPad ou ton téléphone (Réglages › Général › Mise à jour logicielle), ou connecte-toi depuis un autre appareil.');
 
     function traduire(err) {
       var t = String((err && (err.message || err.error_description)) || '').toLowerCase();
