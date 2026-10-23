@@ -219,8 +219,8 @@
     /* par étage : y du centre, demi-largeur et demi-hauteur du médaillon ovale */
     2: [[2600, 210, 180], [1950, 230, 190]],
     3: [[2620, 210, 175], [1900, 220, 180], [1100, 225, 185]],
-    4: [[2640, 200, 165], [2050, 205, 165], [1450, 200, 160], [830, 141, 122]],
-    5: [[2660, 190, 150], [2130, 190, 150], [1660, 175, 135], [1180, 140, 112], [720, 134, 92]]
+    4: [[2640, 200, 165], [2050, 205, 165], [1450, 200, 160], [830, 136, 122]],
+    5: [[2660, 190, 150], [2130, 190, 150], [1660, 175, 135], [1180, 134, 112], [720, 122, 88]]
   };
   var FIG_X = {
     1: [.5], 2: [.30, .70], 4: [.16, .39, .61, .84],
@@ -280,14 +280,37 @@
   }
   function svgFiguier(donnees, o) {
     var max = Math.min(5, Math.max(2, donnees.nbGen || 4)), L = FIG[max], moi = donnees.moi, h = '';
-    function poser(p, g, i) {
+    /* Placement : chaque branche reçoit une largeur à la mesure des ancêtres connus (l'arbre reste centré
+       quand une branche est vide), puis les médaillons d'une même rangée s'écartent pour ne jamais se toucher,
+       avec au moins 5 mm de marge sur les côtés (le cadre en cache une partie). */
+    var MARGE = 70, ECART = 20, gens = [];
+    poids(moi, 0, max);
+    (function placerF(p, g, x0, x1) {
       if (!p || g >= max) return;
-      var n = Math.pow(2, g), cx = Math.round(FIG_X[n][i] * W), cy = L[g][0];
-      if (g === 4) cy += (i % 2 ? 100 : -100);   /* 16 médaillons en quinconce */
-      h += medaillon(p, cx, cy, L[g][1], L[g][2], g, max, p === moi);
-      poser(p.pere, g + 1, i * 2); poser(p.mere, g + 1, i * 2 + 1);
+      p._fx = (x0 + x1) / 2; p._fg = g; p._fy = L[g][0]; gens.push(p);
+      var wp = p.pere && g < max - 1 ? p.pere._poids : 0, wm = p.mere && g < max - 1 ? p.mere._poids : 0, tot = wp + wm;
+      if (!tot) return;
+      var mil = x0 + (x1 - x0) * wp / tot;
+      if (wp) placerF(p.pere, g + 1, x0, mil);
+      if (wm) placerF(p.mere, g + 1, mil, x1);
+    })(moi, 0, 60, W - 60);
+    for (var g = 1; g < max; g++) {
+      var rang = gens.filter(function (q) { return q._fg === g; }).sort(function (a, b) { return a._fx - b._fx; }), rx = L[g][1];
+      if (!rang.length) continue;
+      var serre = rang.some(function (q, i) { return i && q._fx - rang[i - 1]._fx < 2 * rx + ECART; });
+      var groupes = serre && g === 4 ? [rang.filter(function (q, i) { return !(i % 2); }), rang.filter(function (q, i) { return i % 2; })] : [rang];
+      if (groupes.length > 1) { groupes[0].forEach(function (q) { q._fy -= 100; }); groupes[1].forEach(function (q) { q._fy += 100; }); }
+      groupes.forEach(function (liste) {
+        var e = 2 * rx + ECART, x0 = MARGE + rx, x1 = W - MARGE - rx;
+        for (var i = 1; i < liste.length; i++) if (liste[i]._fx - liste[i - 1]._fx < e) liste[i]._fx = liste[i - 1]._fx + e;
+        var depasse = liste[liste.length - 1]._fx - x1; if (depasse > 0) liste.forEach(function (q) { q._fx -= depasse; });
+        if (liste[0]._fx < x0) { liste[0]._fx = x0; for (var j = 1; j < liste.length; j++) if (liste[j]._fx - liste[j - 1]._fx < e) liste[j]._fx = liste[j - 1]._fx + e; }
+      });
     }
-    poser(moi, 0, 0);
+    gens.forEach(function (p) { h += medaillon(p, Math.round(p._fx), p._fy, L[p._fg][1], L[p._fg][2], p._fg, max, p === moi); });
+    /* Frères et sœurs : de part et d'autre du tronc, au niveau des petits buissons (si la cliente les inclut) */
+    var fs = (donnees.freresSoeurs || []).slice(0, 4), FS_X = [[.29, .71], [.29, .71, .12, .88]][fs.length > 2 ? 1 : 0];
+    fs.forEach(function (f, i) { f._fg = 1; h += medaillon(f, Math.round(FS_X[i] * W), 2820, 150, 120, 1, max, false); });
     var titre = '<text x="' + W / 2 + '" y="178" text-anchor="middle" class="ae-titre" font-size="118">' + esc(donnees.titre || 'Mon arbre') + '</text>' +
       (donnees.sousTitre ? '<text x="' + W / 2 + '" y="252" text-anchor="middle" class="ae-sous" font-size="34">' + esc(donnees.sousTitre) + '</text>' : '');
     var pied = '<text x="' + W / 2 + '" y="3430" text-anchor="middle" class="ae-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
