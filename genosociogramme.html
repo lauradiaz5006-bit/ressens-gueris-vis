@@ -611,7 +611,7 @@
       <div class="panneau-tete">
         <h2 id="titre-panneau">Ce qui se répète</h2>
         <span class="compte" id="compte">0</span>
-        <button class="bt-reps-pdf" type="button" id="bt-reps-pdf" hidden title="Enregistrer toute la liste en PDF">PDF</button>
+        <button class="bt-reps-pdf" type="button" id="bt-reps-pdf" data-compte="la liste de ce qui se répète" hidden title="Enregistrer toute la liste en PDF">PDF</button>
         <button class="fermer replier" type="button" id="bt-replier" aria-label="Fermer le panneau">×</button>
       </div>
       <div class="panneau-recherche">
@@ -807,6 +807,20 @@
     </div>
   </div>
 
+  <div class="fenetre-fond" id="fen-telecharger">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="ft-titre" style="max-width:460px">
+      <div class="fen-tete">
+        <div><h2 id="ft-titre">Télécharger ton arbre</h2><p>Que veux-tu garder ?</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" style="display:grid;gap:.7rem">
+        <button class="bt" type="button" id="ft-image" style="justify-content:center;padding:.8rem">L’arbre seul · image</button>
+        <button class="bt plein" type="button" id="ft-pdf" style="justify-content:center;padding:.8rem">L’arbre + ce qui se répète · PDF</button>
+        <p style="margin:0;font-size:.82rem;color:var(--prune-doux)">Pour le PDF, une fenêtre d’impression s’ouvre : choisis « Enregistrer au format PDF ».</p>
+      </div>
+    </div>
+  </div>
+
   <div class="fenetre-fond" id="fen-rapport">
     <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="fr-titre">
       <div class="fen-tete">
@@ -823,10 +837,10 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-23"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-23c"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
-  <script src="assets/arbre-telephone.js?v=2026-10-23c"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-23d"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });

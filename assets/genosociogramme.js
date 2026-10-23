@@ -2207,13 +2207,20 @@
       });
     });
   }
+  /* « Télécharger l'image » : s'il y a des répétitions, on laisse choisir l'arbre seul (image) ou l'arbre + « Ce qui se répète » (PDF) */
   $('bt-image').addEventListener('click', function () {
     if (arbreVide()) return;
-    var b = this; b.disabled = true;
+    if (!detecter().length) return telechargerPng(this);
+    ouvrir('fen-telecharger');
+  });
+  $('ft-image').addEventListener('click', function () { fermer('fen-telecharger'); telechargerPng($('bt-image')); });
+  $('ft-pdf').addEventListener('click', function () { fermer('fen-telecharger'); imprimerReps(this, true); });
+  function telechargerPng(b) {
+    b.disabled = true;
     canvasArbre().then(function (r) {
       r.canvas.toBlob(function (bl) { telecharger(bl, 'mon-genosociogramme.png'); b.disabled = false; }, 'image/png');
     }, function () { b.disabled = false; alert('L’image n’a pas pu être créée. Essaie « Imprimer » puis « Enregistrer en PDF ».'); });
-  });
+ }
   $('bt-svg').addEventListener('click', function () {
     if (arbreVide()) return;
     polices().then(function (css) { telecharger(new Blob([svgExport(css).svg], { type: 'image/svg+xml' }), 'mon-genosociogramme.svg'); });
@@ -2593,7 +2600,7 @@
   $('bt-rapport').addEventListener('click', ouvrirRapport);
 
   /* « Ce qui se répète » en PDF : toute la colonne de droite (sans le filtre de recherche), à imprimer ou garder */
-  function htmlReps(css) {
+  function htmlReps(css, e) {
     var l = detecter(), d = new Date(), m = idMoi() && S.people[idMoi()], nom = m && m.nom ? String(m.nom).trim() : '';
     var C = '@page{size:A4;margin:15mm 13mm 16mm}' + css + '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
       'body{margin:0;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.5pt;line-height:1.55}' +
@@ -2601,7 +2608,8 @@
       '.tete{border-bottom:.6pt solid #EBCFD5;padding-bottom:4mm;margin-bottom:5mm}.sur{font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;margin-bottom:2mm}.tete p{margin:2mm 0 0;color:#6E4466}' +
       '.rep{border:.6pt solid #EBCFD5;border-left:2.4mm solid var(--c);border-radius:3mm;padding:3mm 4mm;margin:0 0 3mm;break-inside:avoid}.rep b{display:block;font-weight:600;color:var(--c);font-size:10.5pt;margin-bottom:1mm}.rep p{margin:0}' +
       '.lect,.q{margin-top:2mm;padding-top:2mm;border-top:.6pt dashed #EBCFD5;font-size:9.5pt}.lect b{font-size:9pt}.q{font-style:italic;color:#6E4466}.art{font-size:9pt;color:#8E6383;margin-top:1.5mm}' +
-      '.pied{margin-top:7mm;font-size:8.5pt;color:#8E6383}';
+      '.pied{margin-top:7mm;font-size:8.5pt;color:#8E6383}' +
+      (e ? '@page arbre{size:A4 ' + (e.W >= e.H ? 'landscape' : 'portrait') + ';margin:10mm}.arbre{page:arbre;break-after:page;margin-bottom:6mm}.arbre svg{display:block;width:100%;height:auto;max-height:' + (e.W >= e.H ? '188mm' : '275mm') + '}' : '');
     function carte(r) {
       return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + '</b><p>' + esc(r.desc) + '</p>' +
         (r.lect && r.lect.length ? '<div class="lect"><b>Lectures possibles</b>' + r.lect.map(function (x) { return '<div>' + esc(x.label) + ' : ' + esc(String(x.desc).replace(/\.$/, '')) + '.</div>'; }).join('') + '</div>' : '') +
@@ -2610,6 +2618,7 @@
     }
     var R = l.filter(function (r) { return r.type === 'repere'; }), A = l.filter(function (r) { return r.type !== 'repere'; });
     var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ce qui se répète' + (nom ? ' · famille ' + esc(nom) : '') + ' · Genesolia</title><style>' + C + '</style></head><body>' +
+      (e ? '<section class="arbre">' + e.svg.replace('<svg ', '<svg preserveAspectRatio="xMidYMin meet" ') + '</section>' : '') +
       '<div class="tete"><div class="sur">Genesolia · ' + esc(dateLongue(d)) + '</div><h1>Ce qui se répète' + (nom ? '<br><span style="font-size:17pt">dans la famille ' + esc(nom) + '</span>' : '') + '</h1>' +
       '<p>' + l.length + ' répétition' + (l.length > 1 ? 's' : '') + ' repérée' + (l.length > 1 ? 's' : '') + ' dans ' + (DOSSIER_CLIENT ? 'cet arbre' : 'ton arbre') + ' (' + Object.keys(S.people).length + ' personnes).</p></div>';
     if (!l.length) h += '<p>Rien n’apparaît encore. Ajoute les dates, les métiers et les événements marquants de chacun : les répétitions apparaissent toutes seules.</p>';
@@ -2617,15 +2626,15 @@
     if (A.length) h += (R.length ? '<h2>Ce que l’arbre fait apparaître</h2>' : '') + A.map(carte).join('');
     return h + '<p class="pied">Généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce sont des pistes de lecture symbolique, pas des vérités sur ta famille. Elles ne remplacent pas un avis médical ou psychologique.</p></body></html>';
   }
-  function imprimerReps(btn) {
+  function imprimerReps(btn, avecArbre) {
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var w = mobile ? window.open('', '_blank') : null, txt = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation…'; }
     function fin() { if (btn) { btn.disabled = false; btn.textContent = txt; } }
     polices().then(function (css) {
-      var html = htmlReps(css);
+      var html = htmlReps(css, avecArbre ? svgExport(css) : null);
       if (w) {
-        var barre = '<style>@media print{.barre-reps{display:none!important}}</style><div class="barre-reps" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>Ce qui se répète</span><button onclick="this.parentNode.remove();window.print()" style="font:inherit;padding:.45rem .8rem;border:0;border-radius:99px;background:#fff;color:#6B2F5B">Enregistrer en PDF</button></div>';
+        var barre = '<style>@media print{.barre-reps{display:none!important}}@media screen{body{padding:0 16px 24px}.barre-reps{margin:0 -16px 22px}}</style><div class="barre-reps" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>' + (avecArbre ? 'Ton arbre et ce qui se répète' : 'Ce qui se répète') + '</span><button onclick="this.parentNode.remove();window.print()" style="font:inherit;padding:.45rem .8rem;border:0;border-radius:99px;background:#fff;color:#6B2F5B">Enregistrer en PDF</button></div>';
         try { w.document.open(); w.document.write(html.replace(/<head>/i, '<head><meta name="viewport" content="width=device-width, initial-scale=1">').replace(/<body>/i, '<body>' + barre)); w.document.close(); } catch (x) {}
         return fin();
       }
