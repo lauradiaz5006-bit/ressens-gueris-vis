@@ -207,7 +207,7 @@
     var r = (G.repetitions && G.repetitions()) || [];
     if (!r.length) return '<div class="mt-vide-reps"><h2>Ce qui se répète</h2><p>Rien n’apparaît encore. Les répétitions se révèlent quand tu ajoutes des <b>dates de naissance et de décès</b>, des <b>métiers</b> et des <b>événements</b> (deuils, départs, secrets…) dans les fiches.</p><button type="button" class="btn btn-plein" data-aller="arbre">Compléter mon arbre</button></div>';
     return '<h2 class="mt-h2">Ce qui se répète <span>' + r.length + '</span></h2>' + r.map(function (x) { return '<article class="mt-rep' + (x.fort ? ' mt-fort' : '') + '"><h3>' + esc(x.label) + '</h3><p>' + esc(x.desc) + '</p></article>'; }).join('') +
-      '<p class="mt-discret">Ce sont des pistes de lecture, pas des vérités sur ta famille.</p>';
+      (G.imprimerReps ? '<button type="button" class="btn btn-trait mt-reps-pdf" data-reps-pdf data-compte="la liste de ce qui se répète">Enregistrer la liste en PDF</button>' : '') + '<p class="mt-discret">Ce sont des pistes de lecture, pas des vérités sur ta famille.</p>';
   }
   function vueRapport(e) {
     var n = Object.keys(e.people).length;
@@ -307,6 +307,7 @@
     var t;
     if ((t = ev.target.closest('[data-centre]'))) { var id = t.getAttribute('data-centre'); if (id === centre) { G.fiche(id); return; } centre = id; garderCentre(); rendre(); window.scrollTo(0, 0); return; }
     if ((t = ev.target.closest('[data-ajout]'))) { feuilleAjout(t.getAttribute('data-ajout')); return; }
+    if ((t = ev.target.closest('[data-reps-pdf]'))) { G.imprimerReps(t); return; }
     if ((t = ev.target.closest('[data-fiche]'))) { G.fiche(t.getAttribute('data-fiche')); return; }
     if ((t = ev.target.closest('[data-aller]'))) { onglet = t.getAttribute('data-aller'); rendre(); window.scrollTo(0, 0); return; }
     if ((t = ev.target.closest('[data-clic]'))) { var b = document.getElementById(t.getAttribute('data-clic')); if (b) b.click(); return; }

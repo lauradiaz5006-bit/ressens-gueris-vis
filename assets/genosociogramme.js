@@ -89,7 +89,7 @@
   function deMetiers(m) { var p = pluriel(String(m || '').toLowerCase()); return de(p) + p; }
   /* Les exercices sont écrits avec les mots de la personne (« je ») ; dans le panneau, on les affiche en « tu » */
   function auTu(s) {
-    return String(s || '').replace(/l’âge que j’ai aujourd’hui/g, 'l’âge que tu as aujourd’hui').replace(/l'âge que j'ai aujourd'hui/g, 'l’âge que tu as aujourd’hui')
+    return String(s || '').replace(/l’âge que j’ai aujourd’hui/g, 'l’âge que tu as aujourd’hui').replace(/l’âge que je vais avoir/g, 'l’âge que tu vas avoir').replace(/l’âge que je viens d’avoir/g, 'l’âge que tu viens d’avoir').replace(/l'âge que j'ai aujourd'hui/g, 'l’âge que tu as aujourd’hui')
       .replace(/\bje suis\b/g, 'tu es').replace(/\bje porte\b/g, 'tu portes').replace(/\bj’ai\b/g, 'tu as').replace(/\bmes\b/g, 'tes').replace(/\bma\b/g, 'ta').replace(/\bmon\b/g, 'ton');
   }
   /* Ce que je repère : des mots libres posés sur une personne ; chaque mot garde toujours la même couleur (jamais de vert) */
@@ -123,7 +123,7 @@
   function aujourdhui() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   function decede(p) { return !!(p.deces || p.decede); }
   function ageDeces(p) { var a = ageEntre(p.naiss, p.deces); return (a != null && a >= 0) ? a : null; }
-  function ageActuel(p) { if (decede(p) || !annee(p.naiss)) return null; var a = ageEntre(p.naiss, aujourdhui()); return (a != null && a >= 0 && a < 125) ? a : null; }
+  function ageActuel(p) { if (decede(p) || !annee(p.naiss)) return null; var a = ageEntre(p.naiss, aujourdhui()); return (a != null && a >= 0 && a <= 105) ? a : null; }   /* au-delà, la date de décès manque sûrement : pas d'âge affiché */
   function texteDates(p) {
     var b = annee(p.naiss), d = annee(p.deces);
     if (b && d) return b + ' – ' + d;
@@ -565,7 +565,9 @@
           Object.keys(parAge).sort().forEach(function (ea) { var t = parAge[ea].map(function (l) { return '« ' + l + ' »'; }).join(' et ') + ' à ' + ea + ' ans'; morceauxT.push('a vécu ' + t); morceauxE.push('a vécu ' + t); });
           if (morts) { morceauxT.push('est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans'); morceauxE.push((p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans'); }
           if (!morceauxT.length) return;
-          reps.push({ type: 'anniversaire', qk2: morts ? 'decesage' : null, c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: aAge(age) + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: autre ? null : { a: nom(p), l: morceauxE.join(', ') + ', l’âge que j’ai aujourd’hui' } });
+          /* à un an près : l'âge que j'ai, que je vais avoir ou que je viens d'avoir */
+          var agesV = Object.keys(parAge).map(Number).concat(morts ? [ad] : []), suite = agesV.every(function (x) { return x === age; }) ? 'l’âge que j’ai aujourd’hui' : agesV.every(function (x) { return x >= age; }) ? 'l’âge que je vais avoir' : agesV.every(function (x) { return x <= age; }) ? 'l’âge que je viens d’avoir' : 'à un an près l’âge que j’ai aujourd’hui';
+          reps.push({ type: 'anniversaire', qk2: morts ? 'decesage' : null, c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: aAge(age) + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: autre ? null : { a: nom(p), l: morceauxE.join(', ') + ', ' + suite } });
         });
       }
     }
@@ -633,7 +635,7 @@
       if (!jeune(d)) return;
       var liens = [], ids = [d.id], exoMoi = null;
       liste.forEach(function (g) {
-        if (g.id === d.id || !fam[g.id]) return;
+        if (g.id === d.id || !fam[g.id] || parents(g.id).indexOf(d.id) >= 0) return;   // un parent mort juste après la naissance de son enfant n'est pas un gisant (voir plus bas)
         var an = annee(g.naiss); if (!an || an <= annee(d.naiss || '')) return;
         var dj = jours(d.deces, g.naiss), autour, t;
         if (dj != null) {
@@ -716,6 +718,8 @@
     if (departsNaissance.length >= 2) {
       var idsDN = []; departsNaissance.forEach(function (x) { x.ids.forEach(function (i) { if (idsDN.indexOf(i) < 0) idsDN.push(i); }); });
       reps.push({ type: 'gisant', fam: ['depart'], c: COUL.gisant, label: 'Un parent qui part juste après une naissance, ' + departsNaissance.length + ' fois', desc: departsNaissance.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: idsDN });
+    } else if (departsNaissance.length === 1) {   // un seul cas : on le montre quand même, sans parler de répétition
+      reps.push({ type: 'depart', fam: ['depart'], c: COUL.depart, label: 'Un parent qui part juste après une naissance', desc: departsNaissance[0].txt + '.', ids: departsNaissance[0].ids });
     }
 
     // Un parent qui manque tôt : décès, départ (« abandon ») ou séparation des parents avant les 12 ans de l'enfant, sur au moins 2 générations
@@ -873,7 +877,7 @@
       var fin = annee(d.deces) || annee(d.naiss); if (!fin) return;
       var fam = famille(d);
       liste.forEach(function (g) {
-        if (g.id === d.id || !fam[g.id]) return;
+        if (g.id === d.id || !fam[g.id] || parents(g.id).indexOf(d.id) >= 0) return;   // porter le prénom de son propre parent : transmission ordinaire, pas un prénom caché
         var an = annee(g.naiss); if (!an || an < fin || an - fin > 30) return;
         var mg = morceaux(g), tout = mg.join(''), forme = null;
         md.forEach(function (td) {
@@ -890,7 +894,7 @@
         var fortC = c.l.some(function (x) { var ad = ageDeces(x.d); return (ad != null && ad < 30) || (annee(x.d.deces) && x.ecart <= 5); });
         reps.push({ type: 'prenom', fort: fortC, tags: 'prenom cache symbolique memoire porte un autre',
           label: 'Un prénom qui en porte un autre : ' + c.g.prenom,
-          desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.jours != null ? ' (' + dureeTxt(x.jours) + (x.jours < 0 ? ' après' : ' avant') + ' sa naissance)' : x.ecart === 0 ? ' (l’année de sa naissance)' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant sa naissance)') : ''); }).join(' ; ') + '.',
+          desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.jours != null ? ' (' + dureeTxt(x.jours) + (x.jours < 0 ? ' après' : ' avant') + ' la naissance de ' + nomA(c.g) + ')' : x.ecart === 0 ? ' (l’année de la naissance de ' + nomA(c.g) + ')' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant la naissance de ' + nomA(c.g) + ')') : ''); }).join(' ; ') + '.',
           ids: [c.g.id].concat(c.l.slice(0, 3).map(function (x) { return x.d.id; })) });
       });
     // 4 bis. Des prénoms qui se répondent sous une autre forme (même racine, mêmes lettres, même son) entre ascendants et descendants
@@ -1577,7 +1581,7 @@
   function dessinerPanneau() {
     reps = reps.filter(function (r) { return !r.synth; });
     var n = reps.length;
-    $('compte').textContent = n; $('compte-bouton').textContent = n;
+    $('compte').textContent = n; $('compte-bouton').textContent = n; $('bt-reps-pdf').hidden = !n;
     var z = $('reps');
     if (!Object.keys(S.people).length) { z.innerHTML = '<p class="rep-aide">Commence par te placer dans l’arbre.</p>'; return; }
     if (!n) {
@@ -2252,6 +2256,45 @@
   $('bt-panneau').addEventListener('click', function () { document.body.classList.toggle('panneau-ouvert'); });
   $('bt-replier').addEventListener('click', function () { document.body.classList.remove('panneau-ouvert'); });
   window.addEventListener('resize', placerActions);
+  /* Agrandir « Ce qui se répète » à côté de l'arbre (pas d'autre onglet : on garde le lien carte ↔ arbre) */
+  (function () {
+    var pan = document.querySelector('.panneau'), bt = $('bt-agrandir'), poi = $('panneau-poignee'); if (!pan || !bt || !poi) return;
+    function lire(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function ecrire(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+    function maj() {
+      var large = document.body.classList.contains('panneau-large');
+      bt.textContent = large ? 'Réduire' : 'Agrandir'; bt.setAttribute('aria-pressed', String(large));
+      pan.classList.toggle('deux-colonnes', pan.getBoundingClientRect().width >= 600);
+    }
+    function apres() { maj(); placerActions(); recentrer(); }
+    var l = parseInt(lire('genesolia-panneau-l'), 10);
+    if (lire('genesolia-panneau-large') === '1') document.body.classList.add('panneau-large');
+    if (l >= 260) pan.style.setProperty('--pl', l + 'px');
+    maj();
+    bt.addEventListener('click', function () {
+      var large = !document.body.classList.contains('panneau-large');
+      document.body.classList.toggle('panneau-large', large); pan.style.removeProperty('--pl');
+      ecrire('genesolia-panneau-large', large ? '1' : null); ecrire('genesolia-panneau-l', null);
+      setTimeout(apres, 30);
+    });
+    function tirer(x0, w0) {
+      document.body.classList.add('panneau-tire');
+      function bouge(ev) { var x = ev.touches ? ev.touches[0].clientX : ev.clientX, w = Math.max(260, Math.min(window.innerWidth * 0.72, w0 + (x0 - x))); pan.style.setProperty('--pl', Math.round(w) + 'px'); maj(); }
+      function fin() {
+        document.removeEventListener('pointermove', bouge); document.removeEventListener('pointerup', fin); document.body.classList.remove('panneau-tire');
+        var w = Math.round(pan.getBoundingClientRect().width); document.body.classList.toggle('panneau-large', w > 420);
+        ecrire('genesolia-panneau-l', String(w)); ecrire('genesolia-panneau-large', w > 420 ? '1' : null); apres();
+      }
+      document.addEventListener('pointermove', bouge); document.addEventListener('pointerup', fin);
+    }
+    poi.addEventListener('pointerdown', function (ev) { ev.preventDefault(); tirer(ev.clientX, pan.getBoundingClientRect().width); });
+    poi.addEventListener('keydown', function (ev) {   /* au clavier : flèches gauche / droite */
+      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return; ev.preventDefault();
+      var w = Math.max(260, Math.min(window.innerWidth * 0.72, pan.getBoundingClientRect().width + (ev.key === 'ArrowLeft' ? 40 : -40)));
+      pan.style.setProperty('--pl', Math.round(w) + 'px'); document.body.classList.toggle('panneau-large', w > 420); ecrire('genesolia-panneau-l', String(Math.round(w))); apres();
+    });
+    window.addEventListener('resize', maj);
+  })();
   window.addEventListener('pageshow', function (e) { if (e.persisted) dessiner(); });   // retour depuis un exercice : mettre à jour les statuts
 
   $('bt-commencer').addEventListener('click', function () {
@@ -2406,13 +2449,20 @@
       });
     });
   }
+  /* « Télécharger l'image » : s'il y a des répétitions, on laisse choisir l'arbre seul (image) ou l'arbre + « Ce qui se répète » (PDF) */
   $('bt-image').addEventListener('click', function () {
     if (arbreVide()) return;
-    var b = this; b.disabled = true;
+    if (!detecter().length) return telechargerPng(this);
+    ouvrir('fen-telecharger');
+  });
+  $('ft-image').addEventListener('click', function () { fermer('fen-telecharger'); telechargerPng($('bt-image')); });
+  $('ft-pdf').addEventListener('click', function () { fermer('fen-telecharger'); imprimerReps(this, true); });
+  function telechargerPng(b) {
+    b.disabled = true;
     canvasArbre().then(function (r) {
       r.canvas.toBlob(function (bl) { telecharger(bl, 'mon-genosociogramme.png'); b.disabled = false; }, 'image/png');
     }, function () { b.disabled = false; alert('L’image n’a pas pu être créée. Essaie « Imprimer » puis « Enregistrer en PDF ».'); });
-  });
+ }
   $('bt-svg').addEventListener('click', function () {
     if (arbreVide()) return;
     polices().then(function (css) { telecharger(new Blob([svgExport(css).svg], { type: 'image/svg+xml' }), 'mon-genosociogramme.svg'); });
@@ -2492,6 +2542,7 @@
     ouvrir: ouvrir, fermer: fermer,
     fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; }); },
+    imprimerReps: function (btn) { imprimerReps(btn); },   // vue téléphone : « Ce qui se répète » en PDF
     connecte: function () { return !!utilisateur; },
     dossierClient: function () { return DOSSIER_CLIENT; },   // arbre d'un·e client·e (cabinet) : la vue téléphone parle de « son » arbre
     personnes: function () { return Object.keys(S.people).map(function (id) { return { id: id, nom: nomAffiche(S.people[id]), moi: S.people[id].role === 'moi' }; }); },
@@ -2790,6 +2841,54 @@
     z.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   $('bt-rapport').addEventListener('click', ouvrirRapport);
+
+  /* « Ce qui se répète » en PDF : toute la colonne de droite (sans le filtre de recherche), à imprimer ou garder */
+  function htmlReps(css, e) {
+    var l = detecter(), d = new Date(), m = idMoi() && S.people[idMoi()], nom = m && m.nom ? String(m.nom).trim() : '';
+    var C = '@page{size:A4;margin:15mm 13mm 16mm}' + css + '*{box-sizing:border-box}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
+      'body{margin:0;font-family:"Nunito Sans",sans-serif;color:#4E2A47;font-size:10.5pt;line-height:1.55}' +
+      'h1,h2{font-family:"Gilda Display",Georgia,serif;font-weight:400;color:#6B2F5B;margin:0;line-height:1.15}h1{font-size:26pt}h2{font-size:15pt;margin:7mm 0 3mm;break-after:avoid}' +
+      '.tete{border-bottom:.6pt solid #EBCFD5;padding-bottom:4mm;margin-bottom:5mm}.sur{font-size:8pt;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;margin-bottom:2mm}.tete p{margin:2mm 0 0;color:#6E4466}' +
+      '.rep{border:.6pt solid #EBCFD5;border-left:2.4mm solid var(--c);border-radius:3mm;padding:3mm 4mm;margin:0 0 3mm;break-inside:avoid}.rep b{display:block;font-weight:600;color:var(--c);font-size:10.5pt;margin-bottom:1mm}.rep p{margin:0}' +
+      '.lect,.q{margin-top:2mm;padding-top:2mm;border-top:.6pt dashed #EBCFD5;font-size:9.5pt}.lect b{font-size:9pt}.q{font-style:italic;color:#6E4466}.art{font-size:9pt;color:#8E6383;margin-top:1.5mm}' +
+      '.pied{margin-top:7mm;font-size:8.5pt;color:#8E6383}' +
+      (e ? '@page arbre{size:A4 ' + (e.W >= e.H ? 'landscape' : 'portrait') + ';margin:10mm}.arbre{page:arbre;break-after:page;margin-bottom:6mm}.arbre svg{display:block;width:100%;height:auto;max-height:' + (e.W >= e.H ? '188mm' : '275mm') + '}' : '');
+    function carte(r) {
+      return '<div class="rep" style="--c:' + r.c + '"><b>' + esc(r.label) + '</b><p>' + esc(r.desc) + '</p>' +
+        (r.lect && r.lect.length ? '<div class="lect"><b>Lectures possibles</b>' + r.lect.map(function (x) { return '<div>' + esc(x.label) + ' : ' + esc(String(x.desc).replace(/\.$/, '')) + '.</div>'; }).join('') + '</div>' : '') +
+        (r.q ? '<div class="q">' + r.q.map(esc).join('<br>') + '</div>' : '') +
+        (r.art ? '<div class="art">À lire sur genesolia.fr : ' + esc(r.art.t) + '</div>' : '') + '</div>';
+    }
+    var R = l.filter(function (r) { return r.type === 'repere'; }), A = l.filter(function (r) { return r.type !== 'repere'; });
+    var h = '<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Ce qui se répète' + (nom ? ' · famille ' + esc(nom) : '') + ' · Genesolia</title><style>' + C + '</style></head><body>' +
+      (e ? '<section class="arbre">' + e.svg.replace('<svg ', '<svg preserveAspectRatio="xMidYMin meet" ') + '</section>' : '') +
+      '<div class="tete"><div class="sur">Genesolia · ' + esc(dateLongue(d)) + '</div><h1>Ce qui se répète' + (nom ? '<br><span style="font-size:17pt">dans la famille ' + esc(nom) + '</span>' : '') + '</h1>' +
+      '<p>' + l.length + ' répétition' + (l.length > 1 ? 's' : '') + ' repérée' + (l.length > 1 ? 's' : '') + ' dans ' + (DOSSIER_CLIENT ? 'cet arbre' : 'ton arbre') + ' (' + Object.keys(S.people).length + ' personnes).</p></div>';
+    if (!l.length) h += '<p>Rien n’apparaît encore. Ajoute les dates, les métiers et les événements marquants de chacun : les répétitions apparaissent toutes seules.</p>';
+    if (R.length) h += '<h2>Les répétitions visibles</h2>' + R.map(carte).join('');
+    if (A.length) h += (R.length ? '<h2>Ce que l’arbre fait apparaître</h2>' : '') + A.map(carte).join('');
+    return h + '<p class="pied">Généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce sont des pistes de lecture symbolique, pas des vérités sur ta famille. Elles ne remplacent pas un avis médical ou psychologique.</p></body></html>';
+  }
+  function imprimerReps(btn, avecArbre) {
+    var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var w = mobile ? window.open('', '_blank') : null, txt = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation…'; }
+    function fin() { if (btn) { btn.disabled = false; btn.textContent = txt; } }
+    polices().then(function (css) {
+      var html = htmlReps(css, avecArbre ? svgExport(css) : null);
+      if (w) {
+        var barre = '<style>@media print{.barre-reps{display:none!important}}@media screen{body{padding:0 16px 24px}.barre-reps{margin:0 -16px 22px}}</style><div class="barre-reps" style="position:sticky;top:0;z-index:9;display:flex;gap:.6rem;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#6B2F5B;color:#fff;font:600 14px/1.3 sans-serif"><span>' + (avecArbre ? 'Ton arbre et ce qui se répète' : 'Ce qui se répète') + '</span><button onclick="this.parentNode.remove();window.print()" style="font:inherit;padding:.45rem .8rem;border:0;border-radius:99px;background:#fff;color:#6B2F5B">Enregistrer en PDF</button></div>';
+        try { w.document.open(); w.document.write(html.replace(/<head>/i, '<head><meta name="viewport" content="width=device-width, initial-scale=1">').replace(/<body>/i, '<body>' + barre)); w.document.close(); } catch (x) {}
+        return fin();
+      }
+      var f = document.createElement('iframe');
+      f.setAttribute('aria-hidden', 'true'); f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0';
+      document.body.appendChild(f);
+      var doc = f.contentDocument; doc.open(); doc.write(html); doc.close();
+      setTimeout(function () { f.contentWindow.focus(); f.contentWindow.print(); fin(); setTimeout(function () { f.remove(); }, 2000); }, 500);
+    });
+  }
+  $('bt-reps-pdf').addEventListener('click', function () { imprimerReps(this); });
 
 
   /* Échos (nombres, signes) : dans ta lignée seulement entre personnes reliées par le sang, sinon « par alliance » */
