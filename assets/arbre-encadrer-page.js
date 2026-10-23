@@ -6,12 +6,13 @@
   var bt = document.getElementById('bt-encadrer'), fen = document.getElementById('fen-encadrer');
   if (!bt || !fen || !window.ArbreEncadrer || !window.GenoArbre) return;
   var corps = document.getElementById('fe-corps'), cache = {};
-  var GEN = ['Une génération', 'Deux générations', 'Trois générations', 'Quatre générations', 'Cinq générations'];
+  var GEN = ['Une génération', 'Deux générations', 'Trois générations', 'Quatre générations', 'Cinq générations', 'Six générations', 'Sept générations', 'Huit générations', 'Neuf générations', 'Dix générations'];
   var choix = { depart: '', nbGen: 0, sousModifie: false, style: 'figuier', vue: 'affiche', freres: true };   /* réglages de la cliente dans la fenêtre */
   /* Styles à l'horizontale (Lignée, Médaillons) : autant de générations que la feuille en porte lisiblement (8 points au moins) */
   var capA4 = 4, capA3 = 5;
   function paysage(st) { return !!(window.ArbreEncadrer.paysage && window.ArbreEncadrer.paysage(st || choix.style)); }
   function motif() { return choix.style === 'medaillons' ? 'medaillons' : ''; }
+  function remplis(p, g, max) { return !p || g >= max ? 0 : 1 + remplis(p.pere, g + 1, max) + remplis(p.mere, g + 1, max); }
   function grand() { return choix.style === 'grand'; }   /* « Grand arbre » : l'arbre peint, 5 générations, en A3 seulement */
   function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : (grand() ? 'a3cadre' : 'a4cadre'); }
   function a4Max() { return grand() ? 0 : paysage() ? capA4 : 4; }
@@ -64,7 +65,7 @@
     return {
       titre: nomFamille ? 'La famille ' + nomFamille : 'Notre famille',
       /* « à aujourd'hui » seulement si quelqu'un de l'arbre est en vie ; sinon jusqu'à la naissance la plus récente */
-      sousTitre: GEN[Math.min(gens, 5) - 1] + (plusVieux ? ' · de ' + plusVieux + ' à ' + (vivant || !plusJeune || plusJeune === plusVieux ? 'aujourd’hui' : plusJeune) : ''),
+      sousTitre: GEN[Math.min(gens, GEN.length) - 1] + (plusVieux ? ' · de ' + plusVieux + ' à ' + (vivant || !plusJeune || plusJeune === plusVieux ? 'aujourd’hui' : plusJeune) : ''),
       moi: racine, freresSoeurs: freres, nb: gens, nbGen: gens, depart: moi
     };
   }
@@ -127,7 +128,8 @@
   function afficher() {
     var premier = !choix.choisi;
     choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true, choisi: choix.choisi };
-    if (premier) { choix.style = 'grand'; donnees = null; recalculer(); if (!donnees || donnees.nb < 3) choix.style = 'figuier'; }
+    /* le Grand arbre d'office quand au moins la moitié de ses 31 médaillons sera remplie ; sinon le Figuier, qui n'a pas de place vide */
+    if (premier) { choix.style = 'grand'; donnees = null; recalculer(); if (!donnees || donnees.nb < 3 || remplis(donnees.moi, 0, 5) < 16) choix.style = 'figuier'; }
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
@@ -165,6 +167,12 @@
 
   /* ===== Le recevoir imprimé : la commande part dans la table demandes, le fichier HD dans Storage (impressions), puis Stripe ===== */
   var IMP = window.GENESOLIA_IMPRESSION || {};
+  function quandOuverture() { var j = new Date(IMP.ouverture + 'T00:00:00'); return (j.getDate() === 1 ? '1er' : j.getDate()) + ' ' + ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][j.getMonth()]; }
+  /* avant l'ouverture de la vente : pas de prix ni de délai annoncés comme si l'on pouvait commander */
+  (function () {
+    if (ouvert() || !IMP.actif) return;
+    var b = document.querySelector('#bt-encadrer small'); if (b) b.textContent = 'Nouveau';
+  })();
   function ouvert() { return !IMP.ouverture || new Date() >= new Date(IMP.ouverture + 'T00:00:00') || /test-impression/.test(location.search + location.hash); }
   function prixMin() { var p = (IMP.formats || []).map(function (f) { return parseFloat(String(f.prix).replace(',', '.')); }).filter(function (n) { return !isNaN(n); }); return p.length ? String(Math.min.apply(null, p)).replace('.', ',') + ' €' : ''; }
   function blocImpression() {
@@ -277,7 +285,8 @@
     for (var n = 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n - 1] || n + ' générations') + (n > a4Max() && !grand() ? ' (A3 seulement)' : '') + '</option>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
-    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations (31 médaillons) : il s’imprime en A3, pour que chaque nom reste bien lisible.' : paysage()
+    var vides = grand() ? (Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen)) + (31 - (Math.pow(2, donnees.nbGen) - 1)) : 0;
+    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations (31 médaillons) et s’imprime en A3, pour que chaque nom reste bien lisible.' + (vides ? ' ' + vides + ' médaillon' + (vides > 1 ? 's resteront vides' : ' restera vide') + ' (ancêtres inconnus) : tu pourras les compléter à la main, ou choisir un autre style.' : ' Tous les médaillons seront remplis.') : paysage()
       ? (donnees.nbGen > capA4 ? 'Lisible en A3 seulement avec autant de générations : l’A4 est désactivé.' : (Math.min(dispo, capA3) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + Math.min(dispo, capA3) + ' générations en A3.' : ''))
       : (dispo < 5 && dispo < 4 ? '' : donnees.nbGen === 5 ? 'Cinq générations : lisible en A3 seulement. L’A4 est désactivé.' : (dispo >= 5 ? 'Ton arbre va plus loin : choisis « Cinq générations » pour l’A3.' : ''));
     if (!choix.sousModifie && document.getElementById('fe-sous')) document.getElementById('fe-sous').value = donnees.sousTitre;
@@ -315,7 +324,7 @@
     var format = /^a3/.test(fid) ? 'a3' : 'a4', cadre = /cadre/.test(fid) ? 'bois' : '';
     d.a3 = format === 'a3';   /* styles à l'horizontale : tailles de texte prévues pour le format */
     var leg = document.getElementById('fe-legende');
-    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(dimensions(INFOS[format + (cadre ? 'cadre' : '')] || '') + ' · livré en 3 à 7 jours ouvrés') :
+    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(dimensions(INFOS[format + (cadre ? 'cadre' : '')] || '') + (ouvert() ? ' · livré en 3 à 7 jours ouvrés' : ' · à commander à partir du ' + quandOuverture())) :
       vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois l’affiche seule ou dans son cadre, sans les fleurs.' : 'L’affiche telle qu’elle sera imprimée (le cadre recouvre environ 3 mm sur chaque bord).';
     verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); });
   }
