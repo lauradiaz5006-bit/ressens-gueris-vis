@@ -141,7 +141,7 @@
   /* « Avec mes enfants » : une rangée au pied de l'arbre, sous la personne choisie ; on garde sa place en bas de page */
   function reserverEnfants(donnees, a3) {
     var l = (donnees.enfants || []).slice(0, 6); if (!l.length) return null;
-    var fz = a3 ? 48 : 56;
+    var fz = a3 ? 60 : 70;
     l.forEach(function (q) { q._e = etiquette(q, fz, false); q._g = -1; });
     var hE = Math.max.apply(null, l.map(function (q) { return q._e.h; })), sous = MOTIF === 'medaillons' ? 230 : 0;
     var bas0 = BAS; BAS -= hE + 80 + sous;
@@ -161,6 +161,9 @@
   function svg(donnees, o) {
     o = o || {};
     var a3 = !!(o.a3 || o.format === 'a3'), moi = donnees.moi, fs = (donnees.freresSoeurs || []).slice(0, 4), CJ = donnees.conjoint || null;
+    /* unions : les autres parents de ses enfants, chacun à côté d'elle, à la même taille, comme sur un arbre généalogique classique */
+    var UN = !moi.couple && !CJ && donnees.unions && donnees.unions.length ? donnees.unions.slice(0, 3) : [];
+    function partenaire(q) { return q === CJ || UN.indexOf(q) >= 0; }
     var max = donnees.nbGen || capacite(donnees, a3, o.paysage, o.motif); format(o.paysage); MOTIF = o.motif || ''; if (o.sprites) SPRITES = o.sprites;
     var ENF = reserverEnfants(donnees, a3);
     var gens = ranger(moi, max), M = miseEnPage(gens, max, a3, fs), plan = M.plan;
@@ -178,15 +181,19 @@
         /* avec le conjoint : il se place juste à droite de toi, les frères et sœurs passent à gauche */
         var rang0 = [moi];
         if (CJ) { fs.forEach(function (f) { rang0.unshift(f); }); rang0.push(CJ); }
-        else fs.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
-        rang0.forEach(function (q) { q._e = etiquette(q, Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), false, q !== CJ); q._x0 = W / 2; });
-        var tot = rang0.reduce(function (s, q) { return s + q._e.w; }, 0) + (rang0.length - 1) * 60, x = W / 2 - tot / 2;
-        rang0.forEach(function (q, i) { q._x = x + q._e.w / 2; x += q._e.w + (q === moi && CJ ? (q._e.rr ? 40 : 130) : 60); q._yb = L.bas; });
-        var dm = W / 2 - moi._x; rang0.forEach(function (q) { q._x += dm; });
-        if (CJ) {   /* le conjoint à la même hauteur que toi (centre contre centre) */
-          var centre = function (q) { return q._e.cy != null ? q._yb - q._e.h + q._e.cy : q._yb - q._e.h / 2; };
-          CJ._yb += centre(moi) - centre(CJ);
+        else if (UN.length) {   /* 1re union à droite, 2e à gauche, 3e à droite après la 1re ; frères et sœurs tout à gauche */
+          if (UN[1]) rang0.unshift(UN[1]); fs.forEach(function (f) { rang0.unshift(f); }); rang0.push(UN[0]); if (UN[2]) rang0.push(UN[2]);
         }
+        else fs.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
+        rang0.forEach(function (q) { q._e = etiquette(q, Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), false, !partenaire(q)); q._x0 = W / 2; });
+        if (UN.length) { var hMax = Math.max.apply(null, rang0.map(function (q) { return q._e.h; })), wMax = Math.max.apply(null, [moi].concat(UN).map(function (q) { return q._e.w; }));
+          [moi].concat(UN).forEach(function (q) { if (!q._e.rr) { q._e.w = wMax; q._e.h = hMax; } }); }   /* toi et les autres parents : des cartes de même taille */
+        var ecartU = function (a, b) { return (partenaire(a) && b === moi) || (a === moi && partenaire(b)) || (partenaire(a) && partenaire(b)) ? (moi._e.rr ? 40 : 130) : 60; };
+        var tot = rang0.reduce(function (s, q, i) { return s + q._e.w + (i ? ecartU(rang0[i - 1], q) : 0); }, 0), x = W / 2 - tot / 2;
+        rang0.forEach(function (q, i) { q._x = x + q._e.w / 2; x += q._e.w + (i < rang0.length - 1 ? ecartU(q, rang0[i + 1]) : 0); q._yb = L.bas; });
+        var dm = W / 2 - moi._x; rang0.forEach(function (q) { q._x += dm; });
+        var centre = function (q) { return q._e.cy != null ? q._yb - q._e.h + q._e.cy : q._yb - q._e.h / 2; };
+        (CJ ? [CJ] : UN).forEach(function (q) { q._yb += centre(moi) - centre(q); });   /* les conjoints à la même hauteur que toi (centre contre centre) */
         continue;
       }
       liste.forEach(function (q) { q._e = etiquette(q, L.fz, L.court); });
@@ -198,14 +205,14 @@
 
     /* Si tout tient sur une seule ligne par génération, chaque personne se place exactement sous ses deux parents :
        aucun trait ne se croise et chaque famille reste groupée */
-    if (M.range) bienRange(moi, CJ ? fs.concat([CJ]) : fs, plan);
+    if (M.range) bienRange(moi, fs.concat(CJ ? [CJ] : UN), plan);
     /* rien ne doit sortir de la feuille : si les frères et sœurs (ou le conjoint) débordent d'un côté, tout l'arbre glisse de l'autre */
     (function () {
-      var t = gens.concat(fs, CJ ? [CJ] : []).filter(function (q) { return q._e && q._x != null && !q.couple; }); if (!t.length) return;
+      var t = gens.concat(fs, CJ ? [CJ] : UN).filter(function (q) { return q._e && q._x != null && !q.couple; }); if (!t.length) return;
       var g0 = Math.min.apply(null, t.map(function (q) { return q._x - Math.max(q._e.rr || 0, q._e.w / 2); })), d0 = Math.max.apply(null, t.map(function (q) { return q._x + Math.max(q._e.rr || 0, q._e.w / 2); }));
       var dx = g0 < MARGE ? MARGE - g0 : d0 > W - MARGE ? (W - MARGE) - d0 : 0;
       if (dx && (d0 - g0) > W - 2 * MARGE) dx = (W - (g0 + d0)) / 2;   /* trop large des deux côtés : on centre */
-      if (dx) gens.concat(fs, CJ ? [CJ] : []).forEach(function (q) { if (q._x != null) q._x += dx; });
+      if (dx) gens.concat(fs, CJ ? [CJ] : UN).forEach(function (q) { if (q._x != null) q._x += dx; });
     })();
 
     /* Traits : du haut de l'étiquette de l'enfant à une barre, puis au bas de l'étiquette de chaque parent */
@@ -229,7 +236,40 @@
       traits += '<path d="M' + f1(x0) + ' ' + f1(yBarre) + 'H' + f1(x1) + '" stroke="#B08048" stroke-width="' + e + '" fill="none" stroke-linecap="round"/>';
       ps.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yBarre) + 'V' + f1(q._yb) + '" stroke="#B08048" stroke-width="' + e + '" fill="none"/>'; });
     });
-    if (ENF) {   /* les enfants : centrés sous la personne choisie, reliés à elle par un trait doré */
+    var yCm = moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2;
+    if (UN.length) {   /* chaque union : un trait (pointillé si séparés) ; ses enfants dessous, à partir du milieu du trait */
+      var bord = function (q, cote) { return q._x + cote * (q._e.rr ? q._e.rr : q._e.w / 2); };
+      UN.forEach(function (u, k) {
+        var d = u.separe ? ' stroke-dasharray="14 10"' : '', gauche = u._x < moi._x;
+        if (k < 2) {
+          var xa1 = gauche ? bord(u, 1) : bord(moi, 1), xb1 = gauche ? bord(moi, -1) : bord(u, -1);
+          traits += '<path d="M' + f1(xa1) + ' ' + f1(yCm) + 'H' + f1(xb1) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>';
+          u._xm = (xa1 + xb1) / 2; u._ym = yCm;
+        } else {   /* 3e union : le trait passe au-dessus de la 1re */
+          var yh = Math.min(moi._yb - moi._e.h, UN[0]._yb - UN[0]._e.h, u._yb - u._e.h) - 26;
+          traits += '<path d="M' + f1(moi._x + moi._e.w * .3) + ' ' + f1(moi._yb - moi._e.h) + 'V' + f1(yh) + 'H' + f1(u._x - u._e.w * .3) + 'V' + f1(u._yb - u._e.h) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>';
+          u._xm = (bord(UN[0], 1) + bord(u, -1)) / 2; u._ym = yh;
+        }
+      });
+    }
+    if (ENF && UN.length) {
+      var groupes = [];
+      ENF.liste.forEach(function (q) { var k = q._u >= 0 && q._u < UN.length ? q._u : -1, gr = groupes.filter(function (x) { return x.k === k; })[0]; if (!gr) { gr = { k: k, l: [], xp: k < 0 ? moi._x : UN[k]._xm, yp: k < 0 ? moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0) : UN[k]._ym }; groupes.push(gr); } gr.l.push(q); });
+      groupes.sort(function (a, b) { return a.xp - b.xp; });
+      var GAP = 50, GAPG = 120, xe2 = -1e9;
+      groupes.forEach(function (gr) { var w = gr.l.reduce(function (s2, q) { return s2 + q._e.w; }, 0) + (gr.l.length - 1) * GAP; gr.w = w; gr.x0 = Math.max(gr.xp - w / 2, xe2); xe2 = gr.x0 + w + GAPG; });
+      var gG = groupes[0].x0, gD = groupes[groupes.length - 1].x0 + groupes[groupes.length - 1].w, dxg = 0;
+      if (gG < MARGE) dxg = MARGE - gG; if (gD + dxg > W - MARGE) dxg = (W - MARGE) - gD;
+      var yHautG = ENF.bas - ENF.h, yBG = yHautG - 34;
+      groupes.forEach(function (gr, i) {
+        var xx = gr.x0 + dxg; gr.l.forEach(function (q) { q._x = xx + q._e.w / 2; xx += q._e.w + GAP; q._yb = ENF.bas; });
+        var yb = yBG - (groupes.length > 1 ? (i % 2) * 18 : 0), xsG = gr.l.map(function (q) { return q._x; }).concat([gr.xp]);
+        traits += '<path d="M' + f1(gr.xp) + ' ' + f1(gr.yp) + 'V' + f1(yb) + '" stroke="#B08048" stroke-width="5" fill="none"/>';
+        traits += '<path d="M' + f1(Math.min.apply(null, xsG)) + ' ' + f1(yb) + 'H' + f1(Math.max.apply(null, xsG)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
+        gr.l.forEach(function (q) { traits += '<path d="M' + f1(q._x) + ' ' + f1(yb) + 'V' + f1(q._yb - q._e.h) + '" stroke="#B08048" stroke-width="5" fill="none"/>'; });
+      });
+    }
+    if (ENF && !UN.length) {   /* les enfants : centrés sous la personne choisie, reliés à elle par un trait doré */
       var CJm = CJ && !moi._e.rr, xPar = CJm ? (moi._x + CJ._x) / 2 : moi._x;   /* médaillons : les enfants restent dans l'axe, sous tes racines (symétrie) ; en cartes, ils partent du milieu du couple */
       var totE = ENF.liste.reduce(function (s2, q) { return s2 + q._e.w; }, 0) + (ENF.liste.length - 1) * 50, xe = xPar - totE / 2;
       if (xe < MARGE) xe = MARGE; if (xe + totE > W - MARGE) xe = W - MARGE - totE;
@@ -269,7 +309,7 @@
     function fleuron(x, y, t) {   /* petit ornement doré posé sur le médaillon */
       return '<g transform="translate(' + f1(x) + ' ' + f1(y) + ') scale(' + (t / 40).toFixed(3) + ')" fill="#B08048"><path d="M0 -38C6 -28 6 -18 0 -8C-6 -18 -6 -28 0 -38Z"/><path d="M-4 -8C-14 -10 -22 -18 -22 -26C-14 -24 -8 -18 -4 -8Z"/><path d="M4 -8C14 -10 22 -18 22 -26C14 -24 8 -18 4 -8Z"/><rect x="-10" y="-8" width="20" height="5" rx="2"/></g>';
     }
-    gens.concat(fs, ENF ? ENF.liste : [], CJ ? [CJ] : []).forEach(function (q) {
+    gens.concat(fs, ENF ? ENF.liste : [], CJ ? [CJ] : UN).forEach(function (q) {
       if (q.couple) return;
       var e = q._e, x = q._x, yb = q._yb, yt = yb - e.h, moiMeme = q === moi, f = q.sexe === 'f';
       if (e.rr) {
