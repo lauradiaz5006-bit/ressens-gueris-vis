@@ -353,11 +353,11 @@
   /* ───────── « Dans son cadre » : l'affiche dans le cadre Gelato, à l'échelle, accrochée au mur (écran seulement) ─────────
      Cadre « prêt à accrocher » Gelato : baguette de 12 mm vue de face, 22 mm d'épaisseur, plexiglas, bois naturel ou blanc.
      Le rebord du cadre recouvre environ 3 mm de l'affiche sur chaque bord. o.format : 'a4' | 'a3' ; o.cadre : 'bois' | 'blanc' | '' (poster seul). */
-  var CADRE = { baguette: 12, rebord: 3, largeurMm: { a4: 210, a3: 297 } };
+  var CADRE = { baguette: 12, rebord: 3, largeurMm: { a4: 210, a3: 297, g50: 500, g70: 700 } };   /* grands formats : la même baguette paraît plus fine */
   function enCadre(affiche, o) {
     /* l'affiche peut être en portrait (2480 x 3508) ou à l'horizontale (3508 x 2480) */
     var tl = affiche.match(/width="(\d+)" height="(\d+)"/), AW = tl ? +tl[1] : W, AH = tl ? +tl[2] : H, paysage = AW > AH;
-    var mm = AW / ((CADRE.largeurMm[o.format] || 210) * (paysage ? Math.SQRT2 : 1)), fw = o.cadre ? Math.round(CADRE.baguette * mm) : 0, lip = o.cadre ? Math.round(CADRE.rebord * mm) : 0;
+    var mm = AW / ((CADRE.largeurMm[o.format] || 210) * (paysage ? (/^g/.test(o.format) ? 1.4 : Math.SQRT2) : 1)), fw = o.cadre ? Math.round(CADRE.baguette * mm) : 0, lip = o.cadre ? Math.round(CADRE.rebord * mm) : 0;
     var iw = AW - 2 * lip, ih = AH - 2 * lip, ow = iw + 2 * fw, oh = ih + 2 * fw, marge = Math.round(ow * .16), VW = ow + 2 * marge, VH = oh + 2 * marge + Math.round(marge * .4);
     var bois = o.cadre === 'blanc' ? ['#FBF9F5', '#EEE9E1', '#E3DCD1'] : ['#E2C69D', '#CDA674', '#B8895A'];
     var interne = affiche.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, ''), vb = (affiche.match(/viewBox="([^"]+)"/) || [])[1] || ('0 0 ' + AW + ' ' + AH);
@@ -418,9 +418,10 @@
   function svgStyle0(donnees, o) {
     var st = o.style || donnees.style;
     if (st === 'grand' && window.ArbreGrand) return window.ArbreGrand.svg(donnees, { fond: o.decor || undefined, medaillon: (o.sprites && o.sprites.medaillon) || 'assets/arbre/medaillon-or.png', apercu: o.apercu, fondPerdu: o.fondPerdu });
-    if (st === 'descendants' && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: !!donnees.a3, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
-    if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: !donnees.portrait, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st === 'eventail' && window.ArbreEventail) return window.ArbreEventail.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st === 'descendants' && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: !donnees.portrait, a3: donnees.a3 || false, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
-  window.ArbreEncadrer = { svg: svgStyle, sceneOk: sceneOk, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
+  window.ArbreEncadrer = { svg: svgStyle, sceneOk: sceneOk, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants' || st === 'eventail'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
 })();

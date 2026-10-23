@@ -94,6 +94,11 @@ const GELATO_PRODUITS: Record<string, string> = Object.assign({
   a3cadre: "frame_and_poster_mounted_product_frs_a3_frc_natural-wood_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a3_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
   a4cadreBlanc: "frame_and_poster_mounted_product_frs_210x297mm_frc_white_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a4_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
   a3cadreBlanc: "frame_and_poster_mounted_product_frs_a3_frc_white_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a3_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
+  // grands formats (catalogue Gelato vérifié le 23/10/2026)
+  g50: "flat_product_pf_500x700-mm_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_sft_none_set_none_ver",
+  g70: "flat_product_pf_700x1000-mm_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_sft_none_set_none_ver",
+  g50cadre: "frame_and_poster_mounted_product_frs_500x700-mm_frc_natural-wood_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_500x700-mm_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
+  g70cadre: "frame_and_poster_mounted_product_frs_700x1000-mm_frc_natural-wood_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_700x1000-mm_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
 }, (() => { try { return JSON.parse(Deno.env.get("GELATO_PRODUITS") ?? "{}"); } catch { return {}; } })());
 const ALERTE = "contact@genesolia.fr";
 
@@ -104,8 +109,12 @@ const FORMATS: Record<string, string> = {
   a3: "Poster A3, 29,7 × 42 cm, sur papier mat 200 g",
   a4cadre: "A4 encadré : cadre en bois naturel et plexiglas, environ 23,4 × 32,1 cm, livré monté, prêt à accrocher",
   a3cadre: "A3 encadré : cadre en bois naturel et plexiglas, environ 32,1 × 44,4 cm, livré monté, prêt à accrocher",
+  g50: "Grand poster 50 × 70 cm, sur papier mat 200 g",
+  g70: "Très grand poster 70 × 100 cm, sur papier mat 200 g",
+  g50cadre: "50 × 70 cm encadré : cadre en bois naturel et plexiglas, environ 52,4 × 72,4 cm, livré monté, prêt à accrocher",
+  g70cadre: "70 × 100 cm encadré : cadre en bois naturel et plexiglas, environ 72,4 × 102,4 cm, livré monté, prêt à accrocher",
 };
-const STYLES: Record<string, string> = { grand: "Grand arbre", figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons", famille: "Notre famille", descendants: "Descendants" };
+const STYLES: Record<string, string> = { grand: "Grand arbre", figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons", famille: "Notre famille", descendants: "Descendants", eventail: "Éventail" };
 const prenomDe = (d: any) => String(d.prenom || "").trim().split(/\s+/)[0] || null;
 const adresseDe = (x: any) => [x.nom_complet, (x.adresse ?? "") + (x.complement ? ", " + x.complement : ""), (x.code_postal ?? "") + " " + (x.ville ?? ""), "France"].filter((l) => String(l ?? "").trim()).join("\n");
 
@@ -129,7 +138,7 @@ async function confirmerCliente(d: any, x: any) {
     surtitre: `Commande n° G-${d.id}`,
     titre: "Ta commande est confirmée",
     texte: `Merci pour ta commande ! Ton paiement de ${x.montant_paye} € est bien reçu.\n\n${recap}\n\nLivraison à :\n${adresseDe(x)}\n\n` +
-      `Ton arbre est imprimé pour toi, à la commande, puis expédié dans un emballage protégé. Il arrive chez toi en 3 à 7 jours ouvrés (un peu plus pendant les fêtes de fin d'année). Tu reçois un e-mail avec le numéro de suivi dès qu'il part.\n\n` +
+      `Ton arbre est imprimé pour toi, à la commande, puis expédié dans un emballage protégé. Il arrive chez toi en ${/^g/.test(String(x.format)) ? "6 à 11" : "3 à 7"} jours ouvrés (un peu plus pendant les fêtes de fin d'année). Tu reçois un e-mail avec le numéro de suivi dès qu'il part.\n\n` +
       `Une faute dans l'adresse, un prénom ou une date ? Réponds à ce mail le plus vite possible, idéalement dans la journée : on peut encore corriger avant l'impression.`,
     encadre_titre: "À la réception",
     encadre_texte: `Si ton arbre arrive abîmé, présente un défaut d'impression ou ne correspond pas à ta commande, réponds à ce mail avec une photo dans les 14 jours : il est réimprimé et renvoyé gratuitement, ou remboursé. C'est un objet personnalisé : il ne peut pas être retourné pour un changement d'avis. [Les conditions complètes](${SITE}/cgv.html#arbre-imprime)`,
