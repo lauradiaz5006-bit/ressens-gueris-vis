@@ -25,6 +25,8 @@
 
 /* ===== Base des nouvelles pages ===== */
 :where(body.nouveau) *,:where(body.nouveau) *::before,:where(body.nouveau) *::after{box-sizing:border-box;margin:0;padding:0}
+/* titre lu par les lecteurs d'écran, invisible à l'écran */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 html{scroll-behavior:smooth;overflow-x:hidden}body{overflow-x:clip}   /* tablette : rien ne doit élargir la page (sinon Safari dézoome et le menu se décale) */
 .pied a{overflow-wrap:anywhere}
 body.nouveau{margin:0;font-family:var(--texte);font-size:1.0625rem;line-height:1.65;color:var(--prune);background:var(--nacre);-webkit-font-smoothing:antialiased}
@@ -610,3 +612,10 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 body.mobile-arbre .es-bandeau{bottom:76px}
 .essai-fini #reps,.essai-fini .panneau .liste,.essai-fini .mt-rep{filter:blur(6px);pointer-events:none;user-select:none}
 body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart en bas à la fois (ex. thème numérologique) */
+/* Téléphone : des cibles assez grandes pour le doigt (44 px conseillés) */
+@media (max-width:760px){
+  .annonce button{min-width:40px;min-height:40px}
+  .devise-choix button{min-width:40px;min-height:40px}
+  .pied li a{display:inline-block;padding:.45rem 0}
+  input[type=checkbox],input[type=radio]{min-width:20px;min-height:20px}
+}
