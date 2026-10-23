@@ -74,7 +74,7 @@
     var mini = a3 ? 26 : 36, cj = d.conjoint || null;
     var modes = [[0, 0], [1, 0], [0, 1], [1, 1]];   /* [prénom court, enfants en colonne] */
     for (var m = 0; m < modes.length; m++) {
-      for (var fz = 84; fz >= mini; fz -= 2) {
+      for (var fz = 110; fz >= mini; fz -= 2) {
         var r = mesurer(couper(d.moi, 0, max), fz, !!modes[m][0], cj, !!modes[m][1]);
         if (r.sw <= W - 2 * MARGE && hauteur(r) <= BAS - HAUT) return { r: r, fz: fz, court: !!modes[m][0] };
       }
@@ -97,7 +97,7 @@
     var noeuds = tous(R, []), nG = Math.max.apply(null, noeuds.map(function (n) { return n.g; })) + 1;
     /* hauteurs : la plus haute étiquette de chaque rangée, rangées réparties entre le titre et le bas */
     var hRang = []; noeuds.forEach(function (n) { hRang[n.g] = Math.max(hRang[n.g] || 0, n.e.h, n.ec ? n.ec.h : 0); if (n.pile) hRang[n.g + 1] = Math.max(hRang[n.g + 1] || 0, n.hPile); });
-    var libre = BAS - HAUT - hRang.reduce(function (s, h) { return s + h; }, 0), pas = nG > 1 ? Math.min(360, libre / (nG - 1)) : 0;
+    var libre = BAS - HAUT - hRang.reduce(function (s, h) { return s + h; }, 0), pas = nG > 1 ? Math.min(440, libre / (nG - 1)) : 0;
     var total = hRang.reduce(function (s, h) { return s + h; }, 0) + pas * (nG - 1), y = HAUT + Math.max(0, (BAS - HAUT - total) / 2), yTop = [];
     for (var g = 0; g < nG; g++) { yTop[g] = y; y += hRang[g] + pas; }
     /* racine et conjoint côte à côte, le couple centré au-dessus des enfants */
