@@ -145,7 +145,7 @@
     l.forEach(function (q) { q._e = etiquette(q, fz, false); q._g = -1; });
     var hE = Math.max.apply(null, l.map(function (q) { return q._e.h; })), sous = MOTIF === 'medaillons' ? 230 : 0;
     var bas0 = BAS; BAS -= hE + 80 + sous;
-    return { liste: l, h: hE, bas: bas0 };
+    return { liste: l, h: hE, bas: bas0, fz: fz };
   }
   function capacite(donnees, a3, paysage, motif) {
     format(paysage); MOTIF = motif || ''; reserverEnfants(donnees, a3);
@@ -168,6 +168,9 @@
     /* Rangées du bas (toi) vers le haut ; l'espace restant est réparti entre les rangées */
     var libre = (BAS - HAUT) - M.total, pas = max > 1 ? libre / (max - 1) : 0, y = BAS;
     for (var g = 0; g < max; g++) { plan[g].bas = y; y -= plan[g].h + pas; }
+    /* les enfants jamais plus grands que la rangée au-dessus d'eux : l'ensemble garde des tailles régulières */
+    if (ENF) { var fzRef = Math.round(plan[0].fz * (moi.couple ? 1 : 1.25)), fzE = Math.min(ENF.fz, moi.couple && max > 1 ? plan[1].fz : fzRef);
+      if (fzE < ENF.fz) ENF.liste.forEach(function (q) { q._e = etiquette(q, fzE, false); }); }
     for (g = 0; g < max; g++) {
       var L = plan[g], liste = gens.filter(function (q) { return q._g === g; }).sort(function (a, b) { return a._x0 - b._x0; });
       if (g === 0) {
@@ -196,13 +199,29 @@
     /* Si tout tient sur une seule ligne par génération, chaque personne se place exactement sous ses deux parents :
        aucun trait ne se croise et chaque famille reste groupée */
     if (M.range) bienRange(moi, CJ ? fs.concat([CJ]) : fs, plan);
+    /* rien ne doit sortir de la feuille : si les frères et sœurs (ou le conjoint) débordent d'un côté, tout l'arbre glisse de l'autre */
+    (function () {
+      var t = gens.concat(fs, CJ ? [CJ] : []).filter(function (q) { return q._e && q._x != null && !q.couple; }); if (!t.length) return;
+      var g0 = Math.min.apply(null, t.map(function (q) { return q._x - Math.max(q._e.rr || 0, q._e.w / 2); })), d0 = Math.max.apply(null, t.map(function (q) { return q._x + Math.max(q._e.rr || 0, q._e.w / 2); }));
+      var dx = g0 < MARGE ? MARGE - g0 : d0 > W - MARGE ? (W - MARGE) - d0 : 0;
+      if (dx && (d0 - g0) > W - 2 * MARGE) dx = (W - (g0 + d0)) / 2;   /* trop large des deux côtés : on centre */
+      if (dx) gens.concat(fs, CJ ? [CJ] : []).forEach(function (q) { if (q._x != null) q._x += dx; });
+    })();
 
     /* Traits : du haut de l'étiquette de l'enfant à une barre, puis au bas de l'étiquette de chaque parent */
     var traits = '', alt = {};
     /* familles d'une même rangée : une barre sur deux un peu plus haute, pour que deux barres voisines ne se confondent jamais */
     gens.slice().sort(function (a, b) { return a._g - b._g || a._x - b._x; }).forEach(function (p) { alt[p._g] = (alt[p._g] || 0) + 1; p._alt = alt[p._g] % 2; });
+    var coeur = '';
     gens.forEach(function (p) {
       var ps = [p.pere, p.mere].filter(function (q) { return q && q._g === p._g + 1; }); if (!ps.length) return;
+      if (p.couple && ps.length === 2) {   /* « Notre famille » : le couple relié à hauteur des cartes, un cœur au milieu */
+        var a = ps[0]._x < ps[1]._x ? ps[0] : ps[1], b = a === ps[0] ? ps[1] : ps[0], yc = Math.max(a._yb - a._e.h / 2, b._yb - b._e.h / 2);
+        var xa = a._x + a._e.w / 2, xb = b._x - b._e.w / 2, xm = (xa + xb) / 2;
+        traits += '<path d="M' + f1(xa) + ' ' + f1(yc) + 'H' + f1(xb) + '" stroke="#B08048" stroke-width="7" fill="none"/>';
+        coeur = '<path transform="translate(' + f1(xm) + ' ' + f1(yc) + ') scale(1.5)" d="M0 10C-14 0 -18 -8 -13 -13C-9 -17 -3 -15 0 -10C3 -15 9 -17 13 -13C18 -8 14 0 0 10Z" fill="#8E2F5E" stroke="#FBF5EA" stroke-width="2.5"/>';
+        p._x = xm; p._yc = yc; return;
+      }
       var yEnfant = p._yb - p._e.h, yParent = Math.max.apply(null, ps.map(function (q) { return q._yb; }));
       var yBarre = yEnfant - Math.max(28, (yEnfant - yParent) * .5) + (p._alt ? -12 : 12), e = Math.max(3, 9 - p._g * 1.3);
       var xs = ps.map(function (q) { return q._x; }).concat([p._x]), x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
@@ -215,7 +234,7 @@
       var totE = ENF.liste.reduce(function (s2, q) { return s2 + q._e.w; }, 0) + (ENF.liste.length - 1) * 50, xe = xPar - totE / 2;
       if (xe < MARGE) xe = MARGE; if (xe + totE > W - MARGE) xe = W - MARGE - totE;
       ENF.liste.forEach(function (q) { q._x = xe + q._e.w / 2; xe += q._e.w + 50; q._yb = ENF.bas; });
-      var yHaut = ENF.bas - ENF.h, yDepart = CJm ? (moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2) : moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0), yB = yHaut - 34;
+      var yHaut = ENF.bas - ENF.h, yDepart = moi.couple && moi._yc != null ? moi._yc + 16 : CJm ? (moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2) : moi._yb + (MOTIF === 'medaillons' && moi._e.rr ? moi._e.rr * 1.1 : 0), yB = yHaut - 34;
       var xsE = ENF.liste.map(function (q) { return q._x; }).concat([xPar]);
       traits += '<path d="M' + f1(xPar) + ' ' + f1(yDepart) + 'V' + f1(yB) + '" stroke="#B08048" stroke-width="6" fill="none"/>';
       traits += '<path d="M' + f1(Math.min.apply(null, xsE)) + ' ' + f1(yB) + 'H' + f1(Math.max.apply(null, xsE)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
@@ -297,7 +316,7 @@
       '<style>.li-titre{font-family:' + GN + ';font-size:128px;fill:' + PRUNE + '}.li-sous{font-family:' + NS + ';font-size:38px;letter-spacing:9px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
       '.li-nom{font-family:' + GN + ';fill:#4A0F36}.li-nf{font-family:' + NS + ';font-weight:700;letter-spacing:1.5px;fill:#4A0F36}.li-date{font-family:' + NS + ';font-weight:700;fill:#9A3A68}' +
       '.li-pied{font-family:' + NS + ';font-size:32px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.85}.li-fil{font-family:' + GN + ';font-size:300px;fill:' + PRUNE + '}</style></defs>' +
-      fond + coins + titre + traits + cartes + pied + filigrane + '</svg>';
+      fond + coins + titre + traits + cartes + coeur + pied + filigrane + '</svg>';
   }
   /* taille du texte obtenue pour n générations, dans une orientation donnée (0 si ça ne tient pas) : sert à choisir portrait ou paysage */
   function taille(donnees, a3, paysage, motif, n) {

@@ -41,7 +41,7 @@
     if (fa) {
       var hc = famille() && donnees.couple && donnees.horsCouple && donnees.horsCouple.length;
       fa.hidden = !(famille() && (donnees.sansCouple || hc));
-      fa.textContent = hc ? (donnees.horsCouple.length > 1 ? donnees.horsCouple.slice(0, -1).join(', ') + ' et ' + donnees.horsCouple.slice(-1) + ' ne sont pas notés comme enfants de vous deux' : donnees.horsCouple[0] + ' n’est pas noté·e comme enfant de vous deux') + ' : « Notre famille » ne montre sous le couple que vos enfants communs. Pour tous tes enfants, choisis le Grand arbre, la Lignée ou les Médaillons.'
+      fa.textContent = famille() && donnees.raisonFamille ? donnees.raisonFamille + ' n’est pas l’autre parent de tous tes enfants : « Notre famille » montre ta lignée et tous tes enfants, sans lui. (Pour l’ajouter, il faut qu’il soit noté comme parent de chacun.)' : hc ? (donnees.horsCouple.length > 1 ? donnees.horsCouple.slice(0, -1).join(', ') + ' et ' + donnees.horsCouple.slice(-1) + ' ne sont pas notés comme enfants de vous deux' : donnees.horsCouple[0] + ' n’est pas noté·e comme enfant de vous deux') + ' : « Notre famille » ne montre sous le couple que vos enfants communs. Pour tous tes enfants, choisis le Grand arbre, la Lignée ou les Médaillons.'
         : '« Notre famille » réunit ton couple et vos deux lignées. Ajoute ton conjoint dans l’arbre (lien « couple ») et ses parents : ils apparaîtront ici à côté de toi.';
     }
     if (ac) { ac.hidden = !(donnees.conjointRefus && (avecEnfantsPossible() || desc())) || famille(); ac.textContent = donnees.conjointRefus ? donnees.conjointRefus + ' n’est pas l’autre parent de tous les enfants : pour ne rien laisser croire de faux, il n’est pas ajouté à côté de toi.' : ''; }
@@ -65,9 +65,24 @@
   function saisonPossible(x) {
     if (!x) return false;
     if (x.style === 'famille') { var c = couple('', 4); return !!c; }
-    if (x.style === 'descendants') { var d = descendants('', 3); return !!(d && d.nb >= 3); }
+    if (x.style === 'descendants') {   /* une grand-mère (ou un grand-père) : la mère ou le père de « moi », s'il a des petits-enfants */
+      var S0 = window.GenoArbre.etat(), P0 = S0.people || {}, r0 = S0.rels || [], m0 = Object.keys(P0).filter(function (id) { return P0[id].role === 'moi'; })[0];
+      var par = m0 ? r0.filter(function (r) { return r.type === 'parent' && r.to === m0 && P0[r.from]; }).map(function (r) { return r.from; }).sort(function (a, b) { return (P0[b].sex === 'f') - (P0[a].sex === 'f'); }) : [];
+      for (var i = 0; i < par.length; i++) { var d = descendants(par[i], 3); if (d && d.nb >= 3) { x.racine = par[i]; return true; } }
+      var d2 = descendants('', 3); return !!(d2 && d2.nb >= 3);
+    }
     return true;
   }
+  /* une phrase par style, sous les boutons : ce que montre l'affiche */
+  var DESCR = {
+    famille: 'Ton couple, vos deux lignées côte à côte, et vos enfants au pied.',
+    grand: 'Le grand arbre peint : toi au tronc, 5 générations d’ancêtres dans des médaillons dorés. En A3.',
+    figuier: 'Un figuier peint à la main, tes ancêtres dans ses branches.',
+    medaillons: 'Tes ancêtres dans des médaillons dorés, rangée par rangée.',
+    lignee: 'L’arbre le plus complet : toutes tes générations, jusqu’aux plus anciennes.',
+    dore: 'Un arbre doré dessiné sur papier crème, tes ancêtres sur ses branches.',
+    descendants: 'L’arbre qui descend : une personne (une grand-mère, un arrière-grand-père…), ses enfants, petits-enfants et arrière-petits-enfants. Le cadeau idéal pour des grands-parents : choisis-les juste en dessous.'
+  };
   function famille(st) { return (st || choix.style) === 'famille'; }   /* « Notre famille » : le couple, ses deux lignées, leurs enfants */
   function desc(st) { return (st || choix.style) === 'descendants'; }   /* « Descendants » : une personne (ou un couple), ses enfants, petits-enfants… */   /* « Grand arbre » : l'arbre peint, 5 générations, en A3 seulement */
   function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : (grand() ? 'a3cadre' : 'a4cadre'); }
@@ -96,12 +111,11 @@
     var ids = Object.keys(P).filter(function (id) { return enfantsDe(id).length; }); if (!ids.length) return null;
     var moi = Object.keys(P).filter(function (id) { return P[id].role === 'moi'; })[0];
     /* par défaut : la mère (ou le père) de « moi » si elle a des petits-enfants, sinon moi, sinon la personne la plus âgée qui a des enfants */
-    var defaut = null;
-    if (moi) parentsDe(moi).sort(function (a, b) { return (P[b].sex === 'f') - (P[a].sex === 'f'); }).forEach(function (x) { if (!defaut && enfantsDe(x).some(function (e) { return enfantsDe(e).length; })) defaut = x; });
-    if (!defaut && moi && enfantsDe(moi).length) defaut = moi;
+    var defaut = moi && enfantsDe(moi).length ? moi : null;   /* toi d'abord, si tu as des enfants ; sinon ta mère ou ton père, s'ils ont des petits-enfants */
+    if (!defaut && moi) parentsDe(moi).sort(function (a, b) { return (P[b].sex === 'f') - (P[a].sex === 'f'); }).forEach(function (x) { if (!defaut && enfantsDe(x).some(function (e) { return enfantsDe(e).length; })) defaut = x; });
     var racineId = depart && P[depart] && enfantsDe(depart).length ? depart : defaut || ids.sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); })[0];
     var maxG = nbGen || 4, plusVieux = null, gens = 0, vus = {};
-    function fiche(p) { return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '†' : null) }; }
+    function fiche(p) { return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; }
     function construire(id, g) {
       if (vus[id]) return null; vus[id] = 1;
       var p = P[id], o = fiche(p); gens = Math.max(gens, g + 1);
@@ -128,7 +142,9 @@
     };
   }
   /* « Notre famille » : toi et ton conjoint côte à côte, chacun avec ses ancêtres, et vos enfants communs au pied */
+  var raisonFamille = '';
   function couple(depart, nbGen) {
+    raisonFamille = '';
     var S = window.GenoArbre.etat(), P = S.people || {}, rels = S.rels || [];
     var L1 = lignee(depart, Math.max(1, (nbGen || 10) - 1)); if (!L1) return null;
     var moi = L1.depart;
@@ -137,8 +153,12 @@
     if (!unions[0]) return null;
     var cj = unions[0].id, L2 = lignee(cj, Math.max(1, (nbGen || 10) - 1));
     function enfantsDe(id) { return rels.filter(function (r) { return r.type === 'parent' && r.from === id && P[r.to]; }).map(function (r) { return r.to; }); }
-    var deCj = enfantsDe(cj), communs = enfantsDe(moi).filter(function (e, i, t) { return t.indexOf(e) === i && deCj.indexOf(e) >= 0; })
-      .map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '†' : null) }; })
+    var deCj = enfantsDe(cj);
+    /* une mère (ou un père) dont les enfants ne sont pas tous de ce conjoint : « Notre famille » devient sa lignée avec TOUS ses enfants */
+    var mesEnf = enfantsDe(moi);
+    if (mesEnf.length && !mesEnf.every(function (e) { return deCj.indexOf(e) >= 0; })) { raisonFamille = String(P[cj].prenom || 'Ton conjoint').split(/\s+/)[0]; return null; }
+    var communs = enfantsDe(moi).filter(function (e, i, t) { return t.indexOf(e) === i && deCj.indexOf(e) >= 0; })
+      .map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
       .sort(function (a, b) { return (a.naissance || 9999) - (b.naissance || 9999); }).slice(0, 6);
     var hors = enfantsDe(moi).concat(deCj).filter(function (e, i, t) { return t.indexOf(e) === i && !communs.some(function (c) { return c._id === e; }) && !(enfantsDe(moi).indexOf(e) >= 0 && deCj.indexOf(e) >= 0); }).map(function (e) { return P[e].prenom || ''; }).filter(Boolean);
     var p1 = String(L1.moi.prenom || '').split(/\s+/)[0], p2 = String(L2.moi.prenom || '').split(/\s+/)[0], n = Math.max(L1.nb, L2.nb) + 1;
@@ -166,7 +186,7 @@
       var n = annee(p.naiss); if (n && (!plusVieux || n < plusVieux)) plusVieux = n;
       if (n && (!plusJeune || n > plusJeune)) plusJeune = n;
       if (!p.deces && !p.decede && n && n > new Date().getFullYear() - 105) vivant = true;   /* sans date de naissance, on ne suppose pas la personne en vie */
-      var o = { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: n, deces: annee(p.deces) || (p.decede ? '†' : null) };
+      var o = { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: n, deces: annee(p.deces) || null };
       if (g < maxG - 1) {
         var ps = parentsDe(id), pere = null, mere = null;
         ps.forEach(function (x) { if (P[x].sex === 'f' && !mere) mere = x; else if (P[x].sex === 'm' && !pere) pere = x; });
@@ -178,10 +198,10 @@
     var racine = construire(moi, 0), fs = {};
     parentsDe(moi).forEach(function (par) { enfantsDe(par).forEach(function (e) { if (e !== moi) fs[e] = 1; }); });
     rels.forEach(function (r) { if (r.type === 'fratrie') { if (r.from === moi && P[r.to]) fs[r.to] = 1; if (r.to === moi && P[r.from]) fs[r.from] = 1; } });
-    var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '†' : null) }; });
+    var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
-    var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || (p.decede ? '†' : null) }; })
+    var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
       .sort(function (a, b) { return (a.naissance || 9999) - (b.naissance || 9999); }).slice(0, 6);
     /* son ou sa conjoint·e : l'union en cours en priorité. Affiché seulement s'il est l'autre parent de TOUS ses enfants
        (sinon il laisserait croire qu'il est le parent de tous) */
@@ -190,7 +210,7 @@
     var cj = unions[0] ? unions[0].id : null, enfantsIds = enfantsDe(moi), conjoint = null, conjointRefus = '';
     if (cj) {
       var tousDeLui = enfantsIds.every(function (e) { return parentsDe(e).indexOf(cj) >= 0; });
-      if (tousDeLui) { var pc = P[cj]; conjoint = { prenom: pc.prenom || '', nom: pc.nom || '', sexe: pc.sex === 'f' ? 'f' : 'm', naissance: annee(pc.naiss), deces: annee(pc.deces) || (pc.decede ? '†' : null), separe: unions[0].fini }; }
+      if (tousDeLui) { var pc = P[cj]; conjoint = { prenom: pc.prenom || '', nom: pc.nom || '', sexe: pc.sex === 'f' ? 'f' : 'm', naissance: annee(pc.naiss), deces: annee(pc.deces) || null, separe: unions[0].fini }; }
       else conjointRefus = (P[cj].prenom || 'Ton conjoint');
     }
     var nomFamille = racine.nom || (racine.pere && racine.pere.nom) || '';
@@ -255,8 +275,10 @@
       var tout = (famille() && couple(choix.depart, 10)) || lignee(choix.depart, 10);
       dispo = tout ? tout.nb : 0;
       if (tout && !choix.enfants) tout.enfants = [];   /* la rangée des enfants prend un peu de hauteur */
-      capA4 = tout ? window.ArbreLignee.capacite(tout, false, true, motif()) : 2;
-      capA3 = tout ? Math.max(capA4, window.ArbreLignee.capacite(tout, true, true, motif())) : 2;
+      /* jusqu'où l'arbre reste lisible : à l'horizontale, ou en portrait (plus haut : plus de générations) ; Notre famille reste à l'horizontale */
+      var AL = window.ArbreLignee, port = !(famille() && tout && tout.couple);
+      capA4 = tout ? Math.max(AL.capacite(tout, false, true, motif()), port ? AL.capacite(tout, false, false, motif()) : 0) : 2;
+      capA3 = tout ? Math.max(capA4, AL.capacite(tout, true, true, motif()), port ? AL.capacite(tout, true, false, motif()) : 0) : 2;
       if (famille() && tout && tout.couple) { capA4 = Math.min(capA4, 5); capA3 = Math.min(capA3, 6); }   /* deux lignées côte à côte : on s'arrête aux arrière-grands-parents en A4, pour garder un texte confortable */
       nb = Math.min(choix.nbGen || (/^a3/.test(formatChoisi()) ? capA3 : capA4), capA3, dispo);
     } else {
@@ -264,14 +286,14 @@
       nb = Math.min(choix.nbGen || Math.min(dispo, 4), dispo);
     }
     if (!desc()) donnees = (famille() && couple(choix.depart, nb)) || lignee(choix.depart, nb);
-    if (donnees && famille() && !donnees.couple) donnees.sansCouple = true;   /* pas de conjoint noté : on montre la Lignée, avec un mot d'explication */
+    if (donnees && famille() && !donnees.couple) { donnees.sansCouple = true; donnees.raisonFamille = raisonFamille; if (!choix.titreModifie) donnees.titre = 'Notre famille'; }   /* pas de conjoint noté : on montre la Lignée, avec un mot d'explication */
     if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
     /* portrait ou paysage : la Lignée (et Médaillons, Notre famille) prend le sens où son texte est le plus grand */
     if (donnees && lig() && !grand() && !desc() && window.ArbreLignee && window.ArbreLignee.taille) {
       var a3o = /^a3/.test(formatChoisi()), fzL = window.ArbreLignee.taille(donnees, a3o, true, motif(), donnees.nbGen), fzP = window.ArbreLignee.taille(donnees, a3o, false, motif(), donnees.nbGen);
-      donnees.portrait = fzP > fzL * 1.15;
+      donnees.portrait = !(famille() && donnees.couple) && fzP > fzL * 1.15;
     }
     /* le sous-titre compte les rangées imprimées : les enfants au pied de l'arbre font une génération de plus */
     if (donnees && !choix.sousModifie && /^\S+ générations?/.test(donnees.sousTitre || '')) {
@@ -285,7 +307,7 @@
     /* le Grand arbre d'office quand au moins la moitié de ses 31 médaillons sera remplie ; sinon le Figuier, qui n'a pas de place vide */
     if (premier) { choix.style = 'grand'; donnees = null; recalculer(); if (!donnees || donnees.nb < 3 || remplis(donnees.moi, 0, 5) < 16) choix.style = 'figuier'; }
     var SA = saison(); if (SA && !saisonPossible(SA)) SA = SA.autre && saisonPossible(SA.autre) ? Object.assign({}, SA, SA.autre) : null;
-    if (premier && SA) choix.style = SA.style;   /* en période de fête : le modèle cadeau d'office */
+    if (premier && SA) { choix.style = SA.style; if (SA.style === 'descendants' && SA.racine) choix.depart = SA.racine; }   /* en période de fête : le modèle cadeau d'office */
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
@@ -294,7 +316,7 @@
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
     corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="cadre" aria-selected="true">Dans son cadre</button><button type="button" role="tab" data-vue="affiche" aria-selected="false">L’affiche</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu-z"><div class="fe-apercu" id="fe-apercu" title="Cliquer pour agrandir"><p class="rap-texte">Un instant…</p></div><button type="button" class="fe-loupe" id="fe-loupe" aria-label="Agrandir l’aperçu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Agrandir</button></div><p class="fe-legende" id="fe-legende"></p><p class="fe-coupes" id="fe-coupes" hidden></p></div><div class="fe-reglages">' +
       (SA ? '<div class="fe-saison"><span class="fe-saison-t">' + esc(SA.badge) + '</span> ' + esc(SA.texte) + (choix.style !== SA.style ? ' <button type="button" class="fe-saison-bt" data-saison="' + SA.style + '">Voir ce modèle</button>' : '') + '</div>' : '') +
-      '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + (x[0] === 'grand' ? ' <small class="fe-badge">Le plus complet</small>' : '') + '</span></label>'; }).join('') + '</div></div>' +
+      '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + (x[0] === 'grand' ? ' <small class="fe-badge">Le plus complet</small>' : '') + '</span></label>'; }).join('') + '</div><p class="fe-aide fe-style-aide" id="fe-style-aide">' + esc(DESCR[choix.style] || '') + '</p></div>' +
       '<label class="fe-champ"><span id="fe-depart-t">' + (desc() ? 'Les descendants de qui ?' : 'À partir de qui ?') + '</span><select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
@@ -335,7 +357,7 @@
     document.getElementById('fe-titre').addEventListener('input', function () { var z = document.getElementById('fe-titres'); if (z) z.querySelectorAll('[data-titre]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-titre') === document.getElementById('fe-titre').value.trim())); }); });
     var bs = corps.querySelector('[data-saison]');
     if (bs) bs.addEventListener('click', function () { var r = corps.querySelector('input[name=fe-style][value="' + bs.getAttribute('data-saison') + '"]'); if (r) { r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); } bs.remove(); });
-    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = lig(), avantD = desc(); choix.style = r.value; if (avantD !== desc()) changerMode(); choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== lig() || lig()) choix.nbGen = 0; recalculer(); if (!choix.titreModifie && donnees) document.getElementById('fe-titre').value = donnees.titre; majGens(); majEnfants(); dessiner(); }); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = lig(), avantD = desc(); choix.style = r.value; var sa = document.getElementById('fe-style-aide'); if (sa) sa.textContent = DESCR[choix.style] || ''; if (avantD !== desc()) changerMode(); choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== lig() || lig()) choix.nbGen = 0; recalculer(); if (!choix.titreModifie && donnees) document.getElementById('fe-titre').value = donnees.titre; majGens(); majEnfants(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-loupe').addEventListener('click', loupe);
@@ -476,9 +498,13 @@
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
     var vides = grand() ? (Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen)) + (31 - (Math.pow(2, donnees.nbGen) - 1)) : 0;
-    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations (31 médaillons) et s’imprime en A3, pour que chaque nom reste bien lisible.' + (vides ? ' ' + vides + ' médaillon' + (vides > 1 ? 's resteront vides' : ' restera vide') + ' (ancêtres inconnus) : tu pourras les compléter à la main, ou choisir un autre style.' : ' Tous les médaillons seront remplis.') : lig()
-      ? (donnees.nbGen > capA4 ? 'Lisible en A3 seulement avec autant de générations : l’A4 est désactivé.' : (Math.min(dispo, capA3) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + Math.min(dispo, capA3) + ' générations en A3.' : ''))
-      : (dispo < 5 && dispo < 4 ? '' : donnees.nbGen === 5 ? 'Cinq générations : lisible en A3 seulement. L’A4 est désactivé.' : (dispo >= 5 ? 'Ton arbre va plus loin : choisis « Cinq générations » pour l’A3.' : ''));
+    /* les textes d'aide parlent comme le menu : en rangées imprimées, enfants compris */
+    function lab(n) { var t = GEN[Math.max(1, Math.min(n + plus, GEN.length)) - 1] || (n + plus) + ' générations'; return '« ' + t + ' »'; }
+    var loin = grand() || !lig() ? ((lignee(choix.depart, 10) || { nb: 0 }).nb) : dispo;
+    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations d’ancêtres (31 médaillons) et s’imprime en A3, pour que chaque nom reste bien lisible.' + (vides ? ' ' + vides + ' médaillon' + (vides > 1 ? 's resteront vides' : ' restera vide') + ' (ancêtres inconnus).' : ' Tous les médaillons seront remplis.') + (loin > 5 ? ' Ton arbre remonte plus loin : le style « Lignée » peut montrer toutes tes générations.' : '')
+      : lig()
+      ? (donnees.nbGen > capA4 ? 'Lisible en A3 seulement avec autant de générations : l’A4 est désactivé.' : (Math.min(dispo, capA3) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + lab(Math.min(dispo, capA3)) + ' en A3.' : ''))
+      : (donnees.nbGen === 5 ? lab(5) + ' : lisible en A3 seulement. L’A4 est désactivé.' + (loin > 5 ? ' Ton arbre remonte plus loin : le style « Lignée » peut tout montrer.' : '') : (dispo >= 5 ? 'Ton arbre va plus loin : choisis ' + lab(5) + ' pour l’A3.' : ''));
     if (!choix.sousModifie && document.getElementById('fe-sous')) document.getElementById('fe-sous').value = donnees.sousTitre;
     /* formats d'impression : l'A4 n'est pas proposé avec cinq générations */
     document.querySelectorAll('#fe-imp-form input[name=format]').forEach(function (r) {
@@ -486,6 +512,9 @@
       r.disabled = a4 && (grand() || (donnees.nbGen > a4Max() && !(lig() && !choix.nbGen)));   /* styles à l'horizontale en réglage automatique : l'A4 reste proposé, avec ses générations */ r.closest('label').classList.toggle('fe-off', r.disabled);
       if (r.disabled && r.checked) { var a3 = document.querySelector('#fe-imp-form input[name=format][value="' + (/cadre/.test(r.value) ? 'a3cadre' : 'a3') + '"]') || document.querySelector('#fe-imp-form input[name=format]:not(:disabled)'); if (a3) a3.checked = true; }
     });
+    /* le bouton « Commander » annonce le prix le plus bas parmi les formats possibles (Grand arbre : A3 seulement) */
+    var ok = [].filter.call(document.querySelectorAll('#fe-imp-form input[name=format]'), function (r) { return !r.disabled; }).map(function (r) { var f = (IMP.formats || []).filter(function (x) { return x.id === r.value; })[0]; return f ? parseFloat(String(f.prix).replace(',', '.')) : NaN; }).filter(function (n) { return !isNaN(n); });
+    var bo = document.getElementById('fe-imp-ouvrir'); if (bo && ok.length) bo.textContent = 'Commander mon arbre encadré · dès ' + String(Math.min.apply(null, ok)).replace('.', ',') + ' €';
   }
   /* Ce que la cliente reçoit (fiches Gelato « prêt à accrocher », papier premium mat 200 g) */
   var INFOS = {
@@ -506,8 +535,8 @@
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
     var d = lire(), verif = window.GenesoliaAcces ? window.GenesoliaAcces.verifier('arbreEncadrer') : Promise.resolve(true);
-    var vue = choix.vue === 'scene' && d.style !== 'figuier' ? 'cadre' : choix.vue, vues = document.getElementById('fe-vues');
-    if (vues) vues.querySelectorAll('[data-vue]').forEach(function (b) { var v = b.getAttribute('data-vue'); b.hidden = v === 'scene' && d.style !== 'figuier'; b.setAttribute('aria-selected', String(v === vue)); });
+    var sc = window.ArbreEncadrer.sceneOk ? window.ArbreEncadrer.sceneOk(d) : d.style === 'figuier', vue = choix.vue === 'scene' && !sc ? 'cadre' : choix.vue, vues = document.getElementById('fe-vues');
+    if (vues) vues.querySelectorAll('[data-vue]').forEach(function (b) { var v = b.getAttribute('data-vue'); b.hidden = v === 'scene' && !sc; b.setAttribute('aria-selected', String(v === vue)); });
     /* le format montré : celui coché dans la commande, sinon l'A4 encadré (l'A3 encadré en cinq générations) */
     var coche = document.querySelector('#fe-imp-form input[name=format]:checked'), fid = coche && !coche.disabled ? coche.value : (d.nbGen > a4Max() ? 'a3cadre' : 'a4cadre');
     var f = ((window.GENESOLIA_IMPRESSION || {}).formats || []).filter(function (x) { return x.id === fid; })[0];
@@ -538,16 +567,22 @@
     var o = document.createElement('div'); o.className = 'fe-zoom'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Aperçu agrandi');
     o.innerHTML = '<div class="fe-zoom-barre"><button type="button" data-z="-" aria-label="Dézoomer">−</button><button type="button" data-z="1">Ajuster</button><button type="button" data-z="+" aria-label="Zoomer">+</button><button type="button" data-z="x" class="fe-zoom-x" aria-label="Fermer">Fermer ✕</button></div><div class="fe-zoom-vue"><div class="fe-zoom-img"></div></div>';
     var img = o.querySelector('.fe-zoom-img'), vue = o.querySelector('.fe-zoom-vue'); img.innerHTML = svg.outerHTML;
-    var k = 1, x = 0, y = 0;
+    /* l'affiche entière d'abord (portrait ou paysage), centrée ; « Ajuster » y revient ; la molette fait défiler, Ctrl + molette (ou pincer) zoome */
+    var k = 1, x = 0, y = 0, vb = (svg.getAttribute('viewBox') || '0 0 2480 3508').split(/[\s,]+/).map(Number), ratio = vb[2] / vb[3];
+    function ajuster() {
+      var r = vue.getBoundingClientRect(), w = Math.min(r.width - 24, (r.height - 24) * ratio);
+      img.style.width = w + 'px'; k = 1; x = (r.width - w) / 2; y = (r.height - w / ratio) / 2; poser();
+    }
     function poser() { img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + k + ')'; }
     function zoom(f, cx, cy) {
       var r = vue.getBoundingClientRect(); cx = cx == null ? r.width / 2 : cx - r.left; cy = cy == null ? r.height / 2 : cy - r.top;
-      var nk = Math.max(1, Math.min(6, k * f)); x = cx - (cx - x) * nk / k; y = cy - (cy - y) * nk / k; k = nk; if (k === 1) { x = 0; y = 0; } poser();
+      var nk = Math.max(1, Math.min(6, k * f)); if (nk === 1) { ajuster(); return; } x = cx - (cx - x) * nk / k; y = cy - (cy - y) * nk / k; k = nk; poser();
     }
     function fermer() { o.remove(); document.removeEventListener('keydown', touche); }
     function touche(e) { if (e.key === 'Escape') fermer(); else if (e.key === '+' || e.key === '=') zoom(1.4); else if (e.key === '-') zoom(1 / 1.4); }
-    o.querySelector('.fe-zoom-barre').addEventListener('click', function (e) { var b = e.target.closest('[data-z]'); if (!b) return; var z = b.getAttribute('data-z'); if (z === 'x') fermer(); else if (z === '1') { k = 1; x = 0; y = 0; poser(); } else zoom(z === '+' ? 1.4 : 1 / 1.4); });
-    vue.addEventListener('wheel', function (e) { e.preventDefault(); zoom(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX, e.clientY); }, { passive: false });
+    o.querySelector('.fe-zoom-barre').addEventListener('click', function (e) { var b = e.target.closest('[data-z]'); if (!b) return; var z = b.getAttribute('data-z'); if (z === 'x') fermer(); else if (z === '1') ajuster(); else zoom(z === '+' ? 1.4 : 1 / 1.4); });
+    vue.addEventListener('wheel', function (e) { e.preventDefault(); if (e.ctrlKey || e.metaKey) zoom(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX, e.clientY); else { x -= e.deltaX; y -= e.deltaY; poser(); } }, { passive: false });
+    window.addEventListener('resize', function () { if (document.body.contains(o)) ajuster(); });
     vue.addEventListener('dblclick', function (e) { zoom(k > 2.5 ? 1 / k : 2, e.clientX, e.clientY); });
     var pts = {}, depart = null;
     vue.addEventListener('pointerdown', function (e) { vue.setPointerCapture(e.pointerId); pts[e.pointerId] = [e.clientX, e.clientY]; depart = null; });
@@ -562,7 +597,7 @@
     });
     ['pointerup', 'pointercancel'].forEach(function (t) { vue.addEventListener(t, function (e) { delete pts[e.pointerId]; depart = null; }); });
     document.addEventListener('keydown', touche);
-    document.body.appendChild(o); zoom(1);
+    document.body.appendChild(o); ajuster();
   }
   function statut(t) { var s = document.getElementById('fe-statut'); if (s) s.textContent = t; }
   /* Par mail d'abord : la page de l'arbre (à enregistrer en PDF ou imprimer), avec un lien de secours */

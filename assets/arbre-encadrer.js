@@ -174,7 +174,7 @@
       tous.forEach(function (q) { liens += '<path d="M' + q._x + ' ' + y0 + 'V' + (q._y - M.rayon[0]) + '" stroke="' + OR_FONCE + '" stroke-width="4"/>'; });
     }
     /* Couples : trait fin entre les deux parents de chaque personne (s'ils sont sur la même ligne et que leurs étiquettes ne se touchent pas) */
-    gens.forEach(function (p) {
+    if (false) gens.forEach(function (p) {   /* plus de trait de couple : il traversait le tronc ; les branches relient déjà chacun */
       var a = p.pere, b = p.mere; if (!a || !b || a._x == null || b._x == null || a._y !== b._y) return;
       var x1 = a._x + M.rayon[a._g] + 4, x2 = b._x - M.rayon[b._g] - 4; if (x2 - x1 < 20) return;
       liens += '<path d="M' + x1 + ' ' + a._y + 'H' + x2 + '" stroke="' + OR_FONCE + '" stroke-width="3.5" stroke-dasharray="' + (p._g >= 2 ? '10 8' : 'none') + '" opacity=".8"/>';
@@ -182,7 +182,7 @@
 
     /* « Avec mes enfants » : une rangée au pied du tronc, parmi les racines (du plus âgé à gauche au plus jeune à droite) */
     var enfD = (donnees.enfants || []).slice(0, 6), pasE = enfD.length > 4 ? 340 : 400;
-    enfD.forEach(function (q, i) { q._x = Math.round(W / 2 + (i - (enfD.length - 1) / 2) * pasE); q._y = 3010; q._g = 0; q._et = etiquette(q, M); });
+    enfD.forEach(function (q, i) { q._x = Math.round(W / 2 + (i - (enfD.length - 1) / 2) * pasE); q._y = 2965; q._g = 0; q._et = etiquette(q, M); });
     /* Personnes */
     var pers = '';
     gens.concat(fs, enfD).forEach(function (p) {
@@ -389,8 +389,19 @@
   function svgStyle(donnees, o) {
     o = o || {};
     if (o.cadre !== undefined && o.format) { var a = svgStyle(donnees, Object.assign({}, o, { cadre: undefined, format: undefined, scene: false, fondPerdu: false })); return enCadre(a, o); }
+    var st = o.style || donnees.style;
+    /* mise en scène (écran seulement) pour toute affiche en portrait : posée sur le lin avec les fleurs, comme le Figuier */
+    if (o.scene && st !== 'figuier') {
+      var aff = dedicace(svgStyle0(donnees, Object.assign({}, o, { scene: false })), donnees.dedicace), S = FIG_SCENE;
+      var vb = /viewBox="([-\d.]+) ([-\d.]+) ([\d.]+) ([\d.]+)"/.exec(aff);
+      if (vb && +vb[4] > +vb[3]) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + S.w + ' ' + S.h + '" width="' + S.w + '" height="' + S.h + '"><image href="assets/arbre/figuier-scene.jpg" width="' + S.w + '" height="' + S.h + '"/>' +
+        aff.replace(/^<svg /, '<svg x="' + S.x + '" y="' + S.y + '" width="' + (W * S.k).toFixed(1) + '" height="' + (H * S.k).toFixed(1) + '" ').replace(/ width="\d+" height="\d+"(?=[^>]*>)/, '') + '</svg>';
+      return aff;
+    }
     return dedicace(svgStyle0(donnees, o), donnees.dedicace);
   }
+  /* une affiche en portrait peut être mise en scène */
+  function sceneOk(donnees) { var st = donnees.style; return st === 'figuier' || st === 'dore' || (st in PAYSAGE && !!donnees.portrait); }
   /* Option cadeau : le petit mot remplace la signature en bas de l'affiche, en italique */
   function dedicace(svg, mot) {
     mot = String(mot || '').trim(); if (!mot) return svg;
@@ -411,5 +422,5 @@
     if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: !donnees.portrait, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
-  window.ArbreEncadrer = { svg: svgStyle, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
+  window.ArbreEncadrer = { svg: svgStyle, sceneOk: sceneOk, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
 })();
