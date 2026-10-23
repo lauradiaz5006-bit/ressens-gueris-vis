@@ -1,4 +1,4 @@
-/* Genesolia · « Mon arbre à encadrer » : arbre doré dessiné sur le décor A4 (assets/arbre/decor-a4.jpg).
+/* Genesolia · « Mon arbre à encadrer » : arbre doré dessiné sur un papier crème (assets/arbre/papier-dore.jpg, sans lin ni fleurs : seule la mise en scène les montre).
    Les branches suivent la lignée : le tronc porte la personne, chaque branche monte vers un parent,
    puis vers ses parents, jusqu'aux arrière-grands-parents.
    ArbreEncadrer.svg(donnees, options) -> chaîne SVG (viewBox 2480 x 3508, format A4 ; l'A3 est le même dessin agrandi)
@@ -208,7 +208,7 @@
       '<style>.ae-titre{font-family:"Gilda Display",Georgia,serif;font-size:132px;fill:' + PRUNE + '}.ae-sous{font-family:"Nunito Sans",sans-serif;font-size:40px;letter-spacing:9px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
       '.ae-nom{font-family:"Gilda Display",Georgia,serif;fill:#4A0F36}.ae-nf{font-family:"Nunito Sans",sans-serif;font-weight:700;letter-spacing:2px;fill:#4A0F36}.ae-date{font-family:"Nunito Sans",sans-serif;font-weight:700;fill:#9A3A68;letter-spacing:1px}' +
       '.ae-pied{font-family:"Nunito Sans",sans-serif;font-size:34px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.9}.ae-filigrane{font-family:"Gilda Display",serif;font-size:300px;fill:' + PRUNE + '}</style></defs>' +
-      (o.decor !== false ? '<image href="' + esc(o.decor || 'assets/arbre/decor-a4.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' : '') +
+      (o.decor !== false ? '<image href="' + esc(o.decor || 'assets/arbre/papier-dore.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' : '') +
       titre + '<g>' + h + '</g>' + liens + pers + pied + filigrane + '</svg>';
   }
   /* ───────── Style « Figuier » : illustration peinte (assets/arbre/figuier.jpg) + médaillons dorés posés par le site ─────────
