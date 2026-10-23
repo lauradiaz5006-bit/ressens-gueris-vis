@@ -183,7 +183,7 @@
     if (deCote && bAnn && !bAnn.disabled) h += '<div class="mt-info"><p>Ton espace avait déjà un arbre : c’est lui qui s’affiche. L’arbre commencé sur ce téléphone a été mis de côté.</p><button type="button" class="btn btn-trait" data-recuperer>Reprendre l’arbre de ce téléphone</button></div>';
     if (!(G.connecte && G.connecte())) {
       var essaiOn = (window.GENESOLIA_ESSAI || {}).actif;
-      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>10 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
+      h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>30 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
     }
     if (passerelle && !CLI()) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personne' + (ids.length > 1 ? 's' : '')) + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
     if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à ' + (CLI() ? 'ton·ta client·e' : 'toi') + '</button>';

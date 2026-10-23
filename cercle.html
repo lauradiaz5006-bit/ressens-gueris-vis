@@ -472,7 +472,7 @@
           var fondatrice = places > 0 && Sx.cercleFondatrice;
           za.innerHTML = '<p><b>Le Cercle' + (essai ? ' · mois offert' : ' · actif') + '</b>' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p>' +
             (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée. Tu peux continuer quand tu veux avant la fin de ton mois offert : ton accès continue sans coupure.</p>' +
-                     '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem">' + (fondatrice ? bt('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bt('cercleMois', 'Continuer, 29 € par mois', true)) + bt('cercleAn', '24 € par mois sur 12 mois') + bt('cercleAnnee', '249 € l’année') + '</p>'
+                     '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem">' + (fondatrice ? bt('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bt('cercleMois', 'Continuer, 29 € par mois', true)) + bt('cercleAnnee', '249 € l’année') + '</p>'
                    : paye ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' + (gestion ? '<p style="margin-top:.6rem"><a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a></p>' : '')
                    : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>');
           typo(za);
