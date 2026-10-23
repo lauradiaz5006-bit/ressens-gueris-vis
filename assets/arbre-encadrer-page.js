@@ -7,7 +7,7 @@
   if (!bt || !fen || !window.ArbreEncadrer || !window.GenoArbre) return;
   var corps = document.getElementById('fe-corps'), cache = {};
   var GEN = ['Une génération', 'Deux générations', 'Trois générations', 'Quatre générations', 'Cinq générations'];
-  var choix = { depart: '', nbGen: 0, sousModifie: false, style: 'figuier', vue: 'affiche' };   /* réglages de la cliente dans la fenêtre */
+  var choix = { depart: '', nbGen: 0, sousModifie: false, style: 'figuier', vue: 'affiche', freres: true };   /* réglages de la cliente dans la fenêtre */
 
   function annee(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -102,10 +102,10 @@
     donnees = lignee(choix.depart, nb);
     if (donnees && titre != null) donnees.titre = titre || donnees.titre;
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
-    if (donnees) donnees.style = choix.style;
+    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; }
   }
   function afficher() {
-    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'affiche' };
+    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'affiche', freres: true };
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
@@ -116,6 +116,7 @@
       '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + '</span></label>'; }).join('') + '</div></div>' +
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
+      '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
       '<label class="fe-champ">Sous-titre<input type="text" id="fe-sous" maxlength="60" value="' + esc(donnees.sousTitre) + '"></label>' +
       '<p class="fe-aide">Image haute définition, prête à imprimer ou à faire encadrer. Les branches suivent la lignée de la personne choisie.</p>' +
@@ -125,7 +126,8 @@
       '<p class="fe-aide" id="fe-statut" aria-live="polite"></p>' + blocImpression() + '</div></div>';
     majGens(); dessiner();
     var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
-    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
+    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; dessiner(); });
+    document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
     document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { choix.style = r.value; if (r.value !== 'figuier') choix.vue = 'affiche'; recalculer(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
