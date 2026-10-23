@@ -419,26 +419,50 @@
       if (b.membres.length !== 2) return;
       var m0 = b.membres[0], m1 = b.membres[1], a0 = ancreDe(m0), a1 = ancreDe(m1), inverser = false;
       function moitieGauche(m) { var fd = famDe[m]; return fd.k < (fd.f.enfants.length - 1) / 2; }
-      if (a0 != null && a1 != null) inverser = a0 > a1 + 1;
+      var t0 = jumeauDe(m0), t1 = jumeauDe(m1);
+      if (t0 && blocDe[t0] && blocDe[t0] !== b && a1 == null) inverser = px(t0) > b.x;   // à côté de son jumeau
+      else if (t1 && blocDe[t1] && blocDe[t1] !== b && a0 == null) inverser = px(t1) < b.x;
+      else if (a0 != null && a1 != null) inverser = a0 > a1 + 1;
       else if (a0 != null) inverser = moitieGauche(m0);
       else if (a1 != null) inverser = !moitieGauche(m1);
       if (inverser) { b.membres = [m1, m0]; decal[m1] = -SLOT / 2; decal[m0] = SLOT / 2; }
     }
     /* Un frère ou une sœur en couple avec quelqu'un d'une autre famille va au bord de sa fratrie, du côté de la famille de l'autre :
        sinon le trait de sa fratrie et celui de la belle-famille se croisent (ex. la sœur de la mère placée entre le père et ses frères). */
+    /* Lignée directe : l'ancêtre de toi va au bord de sa fratrie, du côté de l'autre parent (au centre de l'arbre),
+       ses frères et sœurs vers l'extérieur : les deux lignées ne s'entremêlent plus. */
+    function ascendants(id) {
+      var vu = {}, file = id ? [id] : [];
+      while (file.length) { var a = file.shift(); if (vu[a]) continue; vu[a] = 1; par[a].forEach(function (b) { file.push(b); }); }
+      return vu;
+    }
+    function directions() {
+      var d = {};
+      if (!moi || par[moi].length !== 2) return d;
+      var p0 = par[moi][0], p1 = par[moi][1], x0 = px(p0), x1 = px(p1);
+      if (Math.abs(x0 - x1) < 1) return d;
+      var A0 = ascendants(p0), A1 = ascendants(p1);
+      Object.keys(A0).forEach(function (k) { if (!A1[k]) d[k] = x1 > x0 ? 1 : -1; });
+      Object.keys(A1).forEach(function (k) { if (!A0[k]) d[k] = x0 > x1 ? 1 : -1; });
+      return d;
+    }
     function reordonnerFratries(c) {
+      var dir = directions();
       familles.forEach(function (fa) {
         if (fa.enfants.length < 2 || blocDe[fa.enfants[0]].comp !== c) return;
         var a = fa.parents.length ? moy(fa.parents.map(px)) : moy(fa.enfants.map(px));
         var cote = {};
         fa.enfants.forEach(function (ch) {
+          if (dir[ch]) { cote[ch] = dir[ch]; return; }
           var autres = blocDe[ch].membres.filter(function (m) { return m !== ch && famDe[m] && famDe[m].f !== fa && famDe[m].f.parents.length; });
           if (!autres.length) { cote[ch] = 0; return; }
           var ap = moy(autres.map(function (m) { return moy(famDe[m].f.parents.map(px)); }));
           cote[ch] = Math.abs(ap - a) < SLOT ? 0 : ap < a ? -1 : 1;
         });
+        fa.enfants.forEach(function (ch) { var t = jumeauDe(ch); if (t && cote[t] && !cote[ch]) cote[ch] = cote[t]; });   // des jumeaux restent ensemble
         var g = fa.enfants.filter(function (x) { return cote[x] < 0; }), m = fa.enfants.filter(function (x) { return !cote[x]; }), d = fa.enfants.filter(function (x) { return cote[x] > 0; });
         if (!g.length && !d.length) return;
+        g.sort(function (x, y) { return (dir[x] ? 0 : 1) - (dir[y] ? 0 : 1); }); d.sort(function (x, y) { return (dir[x] ? 1 : 0) - (dir[y] ? 1 : 0); });
         fa.enfants = g.concat(m, d);
         fa.enfants.forEach(function (ch, k) { famDe[ch] = { f: fa, k: k }; });
       });
