@@ -160,7 +160,7 @@
       return;
     }
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
-    corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="cadre" aria-selected="true">Dans son cadre</button><button type="button" role="tab" data-vue="affiche" aria-selected="false">L’affiche</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu-z"><div class="fe-apercu" id="fe-apercu" title="Cliquer pour agrandir"><p class="rap-texte">Un instant…</p></div><button type="button" class="fe-loupe" id="fe-loupe" aria-label="Agrandir l’aperçu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Agrandir</button></div><p class="fe-legende" id="fe-legende"></p></div><div class="fe-reglages">' +
+    corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="cadre" aria-selected="true">Dans son cadre</button><button type="button" role="tab" data-vue="affiche" aria-selected="false">L’affiche</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu-z"><div class="fe-apercu" id="fe-apercu" title="Cliquer pour agrandir"><p class="rap-texte">Un instant…</p></div><button type="button" class="fe-loupe" id="fe-loupe" aria-label="Agrandir l’aperçu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Agrandir</button></div><p class="fe-legende" id="fe-legende"></p><p class="fe-coupes" id="fe-coupes" hidden></p></div><div class="fe-reglages">' +
       '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + (x[0] === 'grand' ? ' <small class="fe-badge">Le plus complet</small>' : '') + '</span></label>'; }).join('') + '</div></div>' +
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
@@ -354,7 +354,21 @@
     var leg = document.getElementById('fe-legende');
     if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(dimensions(INFOS[format + (cadre ? 'cadre' : '')] || '') + (ouvert() ? ' · livré en 3 à 7 jours ouvrés' : ' · à commander à partir du ' + quandOuverture())) :
       vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois l’affiche seule ou dans son cadre, sans les fleurs.' : 'L’affiche telle qu’elle sera imprimée (le cadre recouvre environ 3 mm sur chaque bord).';
-    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); });
+    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); nomsCoupes(z.querySelector('svg'), d); });
+  }
+  /* Alerte « nom raccourci » : un prénom ou un nom qu'on ne retrouve pas en entier sur l'affiche (trop long pour sa place) */
+  function nomsCoupes(svg, d) {
+    var p = document.getElementById('fe-coupes'); if (!p) return;
+    if (!svg) { p.hidden = true; return; }
+    function n(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ''); }
+    var texte = n([].map.call(svg.querySelectorAll('text'), function (t) { return t.textContent; }).join(' '));
+    var gens = [], vus = {};
+    (function aller(q) { if (!q || vus[q.id || (q.prenom + q.nom)]) return; vus[q.id || (q.prenom + q.nom)] = 1; gens.push(q); aller(q.pere); aller(q.mere); })(d.moi);
+    (d.freresSoeurs || []).concat(d.enfants || [], d.conjoint ? [d.conjoint] : []).forEach(function (q) { if (q) gens.push(q); });
+    var coupes = gens.filter(function (q) { var pr = n(q.prenom), no = n(q.nom); return (pr && texte.indexOf(pr) < 0) || (no && texte.indexOf(no) < 0); })
+      .map(function (q) { return [q.prenom, q.nom].filter(Boolean).join(' ').trim(); }).filter(Boolean);
+    p.hidden = !coupes.length;
+    if (coupes.length) p.innerHTML = '<b>Vérifie ' + (coupes.length > 1 ? 'ces noms' : 'ce nom') + ' :</b> ' + coupes.slice(0, 6).map(esc).join(', ') + (coupes.length > 6 ? '…' : '') + ' ' + (coupes.length > 1 ? 'sont trop longs' : 'est trop long') + ' pour sa place et ' + (coupes.length > 1 ? 'apparaissent' : 'apparaît') + ' raccourci' + (coupes.length > 1 ? 's' : '') + ' sur l’affiche. Si tu préfères, garde un seul prénom dans sa fiche.';
   }
   /* Loupe : l'aperçu en grand, avec zoom (boutons, molette, pincement) et déplacement à la souris ou au doigt */
   function loupe() {
