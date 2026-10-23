@@ -214,7 +214,12 @@
     rels.forEach(function (r) { if (r.type === 'fratrie') { if (r.from === moi && P[r.to]) fs[r.to] = 1; if (r.to === moi && P[r.from]) fs[r.from] = 1; } });
     /* demi-frère ou demi-sœur : un seul parent en commun (noté), pour ne pas laisser croire aux mêmes deux parents */
     var pm = parentsDe(moi);
-    var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id], pf = parentsDe(id), communs = pf.filter(function (x) { return pm.indexOf(x) >= 0; }).length; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: pm.length === 2 && communs === 1 }; });
+    var freres = Object.keys(fs).slice(0, 4).map(function (id) {
+      var p = P[id], pf = parentsDe(id), com = pf.filter(function (x) { return pm.indexOf(x) >= 0; }), demi = pm.length === 2 && com.length === 1;
+      /* demi-frère, demi-sœur : du côté du parent en commun (la mère ou le père), pour qu'il ne passe pas pour l'enfant de tes deux parents */
+      var autre = pm.filter(function (x) { return x !== com[0]; })[0], cote = !demi ? '' : (P[com[0]].sex === 'f' || (P[com[0]].sex !== 'm' && P[autre] && P[autre].sex === 'm')) ? 'mere' : 'pere';
+      return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: demi, cote: cote };
+    }).sort(function (a, b) { return (a.demi ? 1 : 0) - (b.demi ? 1 : 0); });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
     var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { _id: id, prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
@@ -401,6 +406,8 @@
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-loupe').addEventListener('click', loupe);
+    /* téléphone : pincer l'aperçu ouvre la loupe (qui sait zoomer et dézoomer) au lieu d'agrandir toute la page, dont on ne savait plus ressortir */
+    document.getElementById('fe-apercu').addEventListener('touchstart', function (e) { if (e.touches.length > 1) { e.preventDefault(); if (!document.querySelector('.fe-zoom')) loupe(); } }, { passive: false });
     document.getElementById('fe-apercu').addEventListener('click', loupe);
     document.getElementById('fe-pdf').addEventListener('click', imprimer);
     brancherImpression();
