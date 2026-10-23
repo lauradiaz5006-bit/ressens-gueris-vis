@@ -297,7 +297,8 @@
     body.mobile-arbre.mt-pret:not(.mt-dessin){height:auto;min-height:100vh;overflow:auto}   /* téléphone : la page défile jusqu'en bas pendant les questions */
     body.mobile-arbre.mt-pret .barre,body.mobile-arbre.mt-pret .zone,body.mobile-arbre.mt-pret .porte{display:none}
     body.mobile-arbre.mt-pret.mt-dessin #mt{display:none}
-    body.mobile-arbre.mt-pret.mt-dessin .zone{display:block}
+    body.mobile-arbre.mt-pret.mt-dessin .zone{display:flex}
+    body.mobile-arbre.mt-pret.mt-dessin header[data-entete],body.mobile-arbre.mt-pret.mt-dessin .annonce,body.mobile-arbre.mt-pret.mt-dessin footer,body.mobile-arbre.mt-pret.mt-dessin .es-bandeau{display:none!important}
     .mt-revenir{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;box-shadow:0 10px 30px rgba(107,47,91,.35)}
     #mt{padding:1rem 16px 6.5rem;max-width:34rem;margin:0 auto;color:var(--prune)}
     .mt-haut{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
@@ -896,7 +897,7 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
   <script src="assets/praticien-outils.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-23p"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-23t"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/date-deroulante.js?v=1"></script>
