@@ -11,6 +11,9 @@
   /* Format : portrait (2480 x 3508) ou paysage (3508 x 2480, o.paysage) */
   function format(paysage) { W = paysage ? 3508 : 2480; H = paysage ? 2480 : 3508; HAUT = paysage ? 560 : 700; BAS = H - (paysage ? 420 : 338); KMAX = paysage ? 2 : 4; PARFAIT = !!paysage; }   /* zone de l'arbre et écart minimal entre deux étiquettes */
 
+  /* taille du papier par rapport à l'A4 : false = A4, true = A3, ou un nombre (50 × 70 cm ≈ 2,4 ; 70 × 100 cm ≈ 3,3).
+     Le texte doit faire au moins 8 points imprimés : 34 px en A4, moins en plus grand (la page est plus grande). */
+  function ech(a3) { return typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ctx = null;
   function larg(t, taille, police, gras) {
@@ -103,7 +106,7 @@
 
   /* Mise en page : taille du texte, nombre de lignes en quinconce par rangée, hauteur de chaque rangée */
   function miseEnPage(gens, max, a3, fs) {
-    var min = a3 ? 24 : 34, rangs = [];
+    var min = Math.max(9, Math.round(34 / ech(a3))), rangs = [];
     for (var g = 0; g < max; g++) rangs.push(gens.filter(function (q) { return q._g === g; }).sort(function (a, b) { return a._x0 - b._x0; }));
     function essai(taille) {
       var plan = [], total = 0, ok = true;
@@ -124,7 +127,7 @@
         plan.push({ fz: fz, k: trouve.k, court: trouve.court, hb: hb, h: trouve.k * hb + (trouve.k - 1) * 14 });
         total += plan[g].h;
       }
-      var liens = (max - 1) * (a3 ? 70 : 90);   /* place minimale pour les traits entre deux rangées */
+      var liens = (max - 1) * Math.round(90 / Math.pow(ech(a3), .75));   /* place minimale pour les traits entre deux rangées */
       if (RANGE && rangs[0][0] && largeurRangee(rangs[0][0]).l > W - 2 * MARGE) ok = false;
       return { plan: plan, ok: ok && total + liens <= BAS - HAUT, total: total, range: !!RANGE };
     }
@@ -150,7 +153,7 @@
   function capacite(donnees, a3, paysage, motif) {
     format(paysage); MOTIF = motif || ''; reserverEnfants(donnees, a3);
     var best = 2;
-    for (var n = 3; n <= 9; n++) {
+    for (var n = 3; n <= 14; n++) {
       var gens = ranger(donnees.moi, n);
       if (!gens.some(function (q) { return q._g === n - 1; })) break;
       if (miseEnPage(gens, n, a3, []).ok) best = n; else break;
@@ -160,7 +163,7 @@
 
   function svg(donnees, o) {
     o = o || {};
-    var a3 = !!(o.a3 || o.format === 'a3'), moi = donnees.moi, fs = (donnees.freresSoeurs || []).slice(0, 4), CJ = donnees.conjoint || null;
+    var a3 = o.a3 || (o.format === 'a3') || false, moi = donnees.moi, fs = (donnees.freresSoeurs || []).slice(0, 4), CJ = donnees.conjoint || null;
     /* unions : les autres parents de ses enfants, chacun à côté d'elle, à la même taille, comme sur un arbre généalogique classique */
     var UN = !moi.couple && !CJ && donnees.unions && donnees.unions.length ? donnees.unions.slice(0, 3) : [];
     function partenaire(q) { return q === CJ || UN.indexOf(q) >= 0; }
@@ -188,7 +191,7 @@
         /* Médaillons : seul toi as le grand médaillon et ses racines ; frères, sœurs et autres parents ont un médaillon comme les autres (même taille).
            La rangée doit tenir dans la largeur : sinon son texte rapetisse (jamais sous 8 points). */
         var ecartU = function (a, b) { return (partenaire(a) && b === moi) || (a === moi && partenaire(b)) || (partenaire(a) && partenaire(b)) ? (moi._e.rr ? 40 : 130) : 60; };
-        var minR = a3 ? 24 : 34, f0 = Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), tot = 0;
+        var minR = Math.max(9, Math.round(34 / ech(a3))), f0 = Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), tot = 0;
         var mesurer0 = function (fz0) {
           rang0.forEach(function (q) { q._e = etiquette(q, fz0, false, MOTIF === 'medaillons' ? q === moi : !partenaire(q)); q._x0 = W / 2; });
           if (MOTIF === 'medaillons') { var autres = rang0.filter(function (q) { return q !== moi; }), wA = Math.max.apply(null, autres.map(function (q) { return q._e.w; }).concat([0])), hA = Math.max.apply(null, autres.map(function (q) { return q._e.h; }).concat([0]));
@@ -390,7 +393,7 @@
       (donnees.sousTitre ? '<text x="' + W / 2 + '" y="' + (H < W ? 480 : 552) + '" text-anchor="middle" class="li-sous">' + esc(donnees.sousTitre) + '</text>' : '');
     var pied = '<text x="' + W / 2 + '" y="' + (H - 178) + '" text-anchor="middle" class="li-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-30 ' + W / 2 + ' ' + H / 2 + ')"><text x="' + W / 2 + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="li-fil">APERÇU</text><text x="' + W / 2 + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="li-fil">GENESOLIA</text></g>' : '';
-    var B = o.fondPerdu ? Math.round(4 * Math.min(W, H) / 210) : 0;
+    var B = o.fondPerdu ? Math.round(4 * Math.min(W, H) / (210 * (typeof a3 === "number" ? a3 : 1))) : 0;   /* 4 mm du papier réel (grands formats : a3 = échelle) */
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-personnes="' + (gens.length + fs.length) + '" data-generations="' + max + '">' +
       '<defs><radialGradient id="li-papier" cx=".5" cy=".45" r=".75"><stop offset="0" stop-color="#FFFBF4"/><stop offset=".7" stop-color="#F8F0E3"/><stop offset="1" stop-color="#EFE3D0"/></radialGradient>' +
       '<linearGradient id="li-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6CB95"/><stop offset=".5" stop-color="' + OR + '"/><stop offset="1" stop-color="' + OR_FONCE + '"/></linearGradient>' +

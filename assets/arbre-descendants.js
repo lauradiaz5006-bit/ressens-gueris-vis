@@ -71,7 +71,7 @@
 
   /* plus grande taille de texte qui tient dans la largeur ; null si rien ne tient */
   function ajuster(d, max, a3) {
-    var mini = a3 ? 26 : 36, cj = d.conjoint || null;
+    var e0 = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, mini = Math.max(10, Math.round(36 / e0)), cj = d.conjoint || null;
     var modes = [[0, 0], [1, 0], [0, 1], [1, 1]];   /* [prénom court, enfants en colonne] */
     for (var m = 0; m < modes.length; m++) {
       for (var fz = 110; fz >= mini; fz -= 2) {
@@ -90,8 +90,9 @@
 
   function svg(d, o) {
     o = o || {};
-    var a3 = !!(o.a3 || d.a3), cap = capacite(d, a3), max = Math.max(2, Math.min(d.nbGen || cap, cap, 4));
-    var aj = ajuster(d, max, a3) || { r: mesurer(couper(d.moi, 0, max), a3 ? 26 : 36, true, d.conjoint), fz: a3 ? 26 : 36, court: true };
+    var a3 = o.a3 || d.a3 || false, cap = capacite(d, a3), max = Math.max(2, Math.min(d.nbGen || cap, cap, 4));
+    var fzm = Math.max(10, Math.round(36 / (typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1)));
+    var aj = ajuster(d, max, a3) || { r: mesurer(couper(d.moi, 0, max), fzm, true, d.conjoint), fz: fzm, court: true };
     var R = aj.r, cj = d.conjoint || null;
     placer(R, MARGE + (W - 2 * MARGE - R.sw) / 2);
     var noeuds = tous(R, []), nG = Math.max.apply(null, noeuds.map(function (n) { return n.g; })) + 1;
@@ -149,7 +150,7 @@
       (d.sousTitre ? '<text x="' + W / 2 + '" y="490" text-anchor="middle" class="de-sous">' + esc(d.sousTitre) + '</text>' : '');
     var pied = '<text x="' + W / 2 + '" y="' + (H - 178) + '" text-anchor="middle" class="li-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-30 ' + W / 2 + ' ' + H / 2 + ')"><text x="' + W / 2 + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="de-fil">APERÇU</text><text x="' + W / 2 + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="de-fil">GENESOLIA</text></g>' : '';
-    var B = o.fondPerdu ? Math.round(4 * Math.min(W, H) / 210) : 0;
+    var B = o.fondPerdu ? Math.round(4 * Math.min(W, H) / (210 * (typeof a3 === "number" ? a3 : 1))) : 0;   /* 4 mm du papier réel (grands formats : a3 = échelle) */
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-personnes="' + (noeuds.length + (cj ? 1 : 0)) + '" data-generations="' + nG + '">' +
       '<defs><radialGradient id="de-papier" cx=".5" cy=".45" r=".75"><stop offset="0" stop-color="#FFFBF4"/><stop offset=".7" stop-color="#F8F0E3"/><stop offset="1" stop-color="#EFE3D0"/></radialGradient>' +
       '<style>.de-titre{font-family:' + GN + ';font-size:128px;fill:' + PRUNE + '}.de-sous{font-family:' + NS + ';font-size:38px;letter-spacing:9px;fill:' + OR_FONCE + ';text-transform:uppercase}' +

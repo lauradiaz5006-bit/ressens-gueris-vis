@@ -231,6 +231,10 @@ window.GENESOLIA_STRIPE = {
   impressionA3: 'https://buy.stripe.com/9B600cbDD9cl5U96er43S02',   /* arbre imprimé, poster A3 */
   impressionA4Cadre: 'https://buy.stripe.com/8x25kw7nn0FP2HXeKX43S01', /* arbre imprimé, A4 encadré */
   impressionA3Cadre: 'https://buy.stripe.com/7sY28k3773S1cix9qD43S00', /* arbre imprimé, A3 encadré */
+  impressionG50: '',        /* arbre imprimé, grand poster 50 × 70 cm (lien Stripe à coller) */
+  impressionG70: '',        /* arbre imprimé, très grand poster 70 × 100 cm (lien Stripe à coller) */
+  impressionG50Cadre: '',   /* arbre imprimé, 50 × 70 cm encadré (lien Stripe à coller) */
+  impressionG70Cadre: '',   /* arbre imprimé, 70 × 100 cm encadré (lien Stripe à coller) */
   gestion: 'https://billing.stripe.com/p/login/7sY28k3773S1cix9qD43S00'         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
@@ -269,7 +273,14 @@ window.GENESOLIA_IMPRESSION = {
     { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2575, mm: [218, 305] },
     { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3002, mm: [305, 428] },
     { id: 'a4cadre', nom: 'A4 encadré, cadre bois naturel',    prix: '59 €', stripe: 'impressionA4Cadre', largeur: 2575, mm: [218, 305] },
-    { id: 'a3cadre', nom: 'A3 encadré, cadre bois naturel',    prix: '69 €', stripe: 'impressionA3Cadre', largeur: 3002, mm: [305, 428] }
+    { id: 'a3cadre', nom: 'A3 encadré, cadre bois naturel',    prix: '69 €', stripe: 'impressionA3Cadre', largeur: 3002, mm: [305, 428] },
+    /* grands formats (Lignée, Médaillons, Notre famille, Descendants, Éventail) : imprimés en Europe, livrés en 6 à 11 jours ouvrés.
+       Tant que son lien Stripe (plus haut) est vide, la commande arrive quand même, sans paiement : il faut alors envoyer le lien de paiement à la main.
+       largeur : réglée au moment du fichier (le plus net possible). */
+    { id: 'g50',      nom: 'Grand poster 50 × 70 cm',                 prix: '59 €',  stripe: 'impressionG50',      largeur: 3300, mm: [508, 708], grand: true },
+    { id: 'g70',      nom: 'Très grand poster 70 × 100 cm',           prix: '69 €',  stripe: 'impressionG70',      largeur: 3300, mm: [708, 1008], grand: true },
+    { id: 'g50cadre', nom: '50 × 70 cm encadré, bois naturel',  prix: '129 €', stripe: 'impressionG50Cadre', largeur: 3300, mm: [508, 708], grand: true },
+    { id: 'g70cadre', nom: '70 × 100 cm encadré, bois naturel', prix: '169 €', stripe: 'impressionG70Cadre', largeur: 3300, mm: [708, 1008], grand: true }
   ]
 };
 
