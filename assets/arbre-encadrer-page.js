@@ -15,8 +15,21 @@
   function remplis(p, g, max) { return !p || g >= max ? 0 : 1 + remplis(p.pere, g + 1, max) + remplis(p.mere, g + 1, max); }
   /* « avec mes enfants » : pour le Grand arbre et les styles à l'horizontale */
   function avecEnfantsPossible() { return choix.style === 'grand' || paysage(); }
+  /* Titres proposés, quel que soit le modèle : « La famille X », « Notre famille »… ; le champ reste libre */
+  function majTitres() {
+    var z = document.getElementById('fe-titres'), champ = document.getElementById('fe-titre'); if (!z || !champ || !donnees) return;
+    var l = [], L = lignee(choix.depart, 1), D = desc() ? descendants(choix.depart, 1) : null;
+    function ajoute(t) { if (t && l.indexOf(t) < 0) l.push(t); }
+    if (D) ajoute(D.titre);
+    if (L && !desc()) ajoute(L.titre);
+    if (D && D.moi && D.moi.nom) ajoute('La famille ' + String(D.moi.nom).trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }));
+    if (famille() && L && L.titre !== 'Notre famille') ajoute(L.titre);
+    ajoute('Notre famille'); ajoute('Notre arbre');
+    z.innerHTML = l.map(function (t) { return '<button type="button" class="fe-titre-bt" data-titre="' + esc(t) + '" aria-pressed="' + (champ.value.trim() === t) + '">' + esc(t) + '</button>'; }).join('') + '<span class="fe-titres-aide">ou écris le tien</span>';
+  }
   function majEnfants() {
     var l = document.getElementById('fe-enfants-l'); if (!l || !donnees) return;
+    majTitres();
     l.hidden = !donnees.nbEnfants || !avecEnfantsPossible();
     var lc = document.getElementById('fe-conjoint-l'), ac = document.getElementById('fe-conjoint-aide');
     if (desc()) l.hidden = true;
@@ -268,6 +281,7 @@
       '<p class="fe-aide" id="fe-famille-aide" hidden>« Notre famille » réunit ton couple et vos deux lignées. Ajoute ton conjoint dans l’arbre (lien « couple ») et ses parents : ils apparaîtront ici à côté de toi.</p>' +
       '<label class="fe-case" id="fe-enfants-l" hidden><input type="checkbox" id="fe-enfants"' + (choix.enfants ? ' checked' : '') + '> <span id="fe-enfants-t">Avec mes enfants, au pied de l’arbre</span></label>' +
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
+      '<div class="fe-titres" id="fe-titres" aria-label="Titres proposés"></div>' +
       '<label class="fe-champ">Sous-titre<input type="text" id="fe-sous" maxlength="60" value="' + esc(donnees.sousTitre) + '"></label>' +
       blocImpression() +
       '<p class="fe-sous-t">Ou le télécharger pour l’imprimer toi-même</p>' +
@@ -293,6 +307,11 @@
     document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; if (paysage() && !grand()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
+    document.getElementById('fe-titres').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-titre]'); if (!b) return;
+      document.getElementById('fe-titre').value = b.getAttribute('data-titre'); choix.titreModifie = true; majTitres(); dessiner();
+    });
+    document.getElementById('fe-titre').addEventListener('input', function () { var z = document.getElementById('fe-titres'); if (z) z.querySelectorAll('[data-titre]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-titre') === document.getElementById('fe-titre').value.trim())); }); });
     var bs = corps.querySelector('[data-saison]');
     if (bs) bs.addEventListener('click', function () { var r = corps.querySelector('input[name=fe-style][value="' + bs.getAttribute('data-saison') + '"]'); if (r) { r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); } bs.remove(); });
     document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(), avantD = desc(); choix.style = r.value; if (avantD !== desc()) changerMode(); choix.choisi = true; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); if (!choix.titreModifie && donnees) document.getElementById('fe-titre').value = donnees.titre; majGens(); majEnfants(); dessiner(); }); });
