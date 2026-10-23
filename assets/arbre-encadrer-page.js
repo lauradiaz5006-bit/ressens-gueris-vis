@@ -320,7 +320,7 @@
       if (famille() && tout && tout.couple) { capA4 = Math.min(capA4, 5); capA3 = Math.min(capA3, 6); CAP.a4 = capA4; CAP.a3 = capA3; CAP.g50 = Math.min(CAP.g50, 7); CAP.g70 = Math.min(CAP.g70, 8); }   /* deux lignées côte à côte : on s'arrête aux arrière-grands-parents en A4, pour garder un texte confortable */
       nb = Math.min(choix.nbGen || CAP[classe(formatChoisi())], capMax(), dispo);
     } else {
-      dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb;
+      dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb; capA4 = 4; capA3 = 5; CAP = { a4: 4, a3: 5, g50: 0, g70: 0 };   /* Figuier, Arbre doré : 4 générations en A4, 5 en A3 */
       nb = Math.min(choix.nbGen || Math.min(dispo, 4), dispo);
     }
     if (!desc()) donnees = (famille() && couple(choix.depart, nb)) || lignee(choix.depart, nb);
