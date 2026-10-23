@@ -251,7 +251,7 @@ window.GENESOLIA_ESSAI = { actif: false, jours: 10, depuis: '2026-11-01' };
 window.GENESOLIA_IMPRESSION = {
   actif: true,
   ouverture: '2026-11-01',   /* avant cette date : « Bientôt disponible », sans commande (test possible avec ?test-impression dans l'adresse) */
-  livraison: 'Livraison comprise en France métropolitaine, en 3 à 7 jours ouvrés',
+  livraison: 'Livré en 3 à 7 jours ouvrés, livraison comprise, en France métropolitaine',
   formats: [
     { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2575, mm: [218, 305] },
     { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3002, mm: [305, 428] },

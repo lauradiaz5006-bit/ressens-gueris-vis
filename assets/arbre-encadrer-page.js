@@ -262,7 +262,7 @@
     '<li><b>Ton arbre imprimé</b> sur un papier mat épais de 200 g, aux couleurs douces, sans reflet.</li>' +
     '<li><b>Encadré</b> : cadre en bois naturel, baguette fine de 1,2 cm, 2,2 cm d’épaisseur, protégé par un plexiglas incassable. Il arrive <b>déjà monté, prêt à accrocher</b>, avec des attaches au dos pour le mettre en hauteur (vis ou clous non fournis).</li>' +
     '<li><b>Dimensions</b> : A4 encadré environ 23,4 × 32,1 cm, A3 encadré environ 32,1 × 44,4 cm. Le cadre recouvre environ 3 mm de l’affiche sur chaque bord : rien d’important n’y est placé.</li>' +
-    '<li><b>Fabriqué pour toi</b>, à la commande, puis expédié sous 3 à 7 jours ouvrés dans un emballage protégé, en France métropolitaine. Livraison comprise.</li>' +
+    '<li><b>Livré chez toi en 3 à 7 jours ouvrés</b> après ta commande, fabrication comprise : il est imprimé pour toi, à la commande, puis expédié dans un emballage protégé, en France métropolitaine. Livraison comprise.</li>' +
     '<li><b>Tranquillité</b> : s’il arrive abîmé ou s’il y a une erreur d’impression, envoie-nous une photo dans les 14 jours, il est réimprimé ou remboursé. Un colis perdu est renvoyé. Comme c’est un objet personnalisé, il ne peut pas être repris pour un changement d’avis. Les couleurs peuvent varier légèrement entre l’écran et le papier.</li>' +
     '</ul><p><a href="cgv.html#arbre-imprime" target="_blank">Conditions de vente de l’arbre imprimé</a></p></details>';
   function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); return donnees; }
@@ -276,7 +276,7 @@
     var f = ((window.GENESOLIA_IMPRESSION || {}).formats || []).filter(function (x) { return x.id === fid; })[0];
     var format = /^a3/.test(fid) ? 'a3' : 'a4', cadre = /cadre/.test(fid) ? 'bois' : '';
     var leg = document.getElementById('fe-legende');
-    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(INFOS[format + (cadre ? 'cadre' : '')] || '') :
+    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc((INFOS[format + (cadre ? 'cadre' : '')] || '') + ' · livré en 3 à 7 jours ouvrés') :
       vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois l’affiche seule ou dans son cadre, sans les fleurs.' : 'L’affiche telle qu’elle sera imprimée (le cadre recouvre environ 3 mm sur chaque bord).';
     verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); });
   }
