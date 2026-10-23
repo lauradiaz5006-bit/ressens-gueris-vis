@@ -140,7 +140,7 @@ section.bloc{padding:4.5rem 0}
 .burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--prune);padding:0}
 @media (max-width:1240px){
   .burger{display:grid;place-items:center}
-  .menu{position:fixed;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--rose-fonce);padding:.5rem 1.25rem 1.25rem;display:none}
+  .menu{position:fixed;top:4.25rem;right:0;left:0;inset:4.25rem 0 auto 0;flex-direction:column;align-items:stretch;gap:0;background:var(--nacre);border-bottom:1px solid var(--rose-fonce);padding:.5rem 1.25rem 1.25rem;display:none}
   .menu.ouvert{display:flex}
   .menu a{padding:.85rem 0;border-bottom:1px solid var(--rose);font-size:1.05rem}
   .menu .btn{margin-top:1rem;border-bottom:0}
@@ -197,7 +197,7 @@ section.bloc{padding:4.5rem 0}
 .annonce button{position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:0;color:#F7E6EE;font-size:1.3rem;line-height:1;cursor:pointer;padding:.2rem .4rem}
 /* Bandeau du Cercle : doré, pailleté, avec un petit livret */
 .annonce-cercle{padding:.7rem 2.8rem .7rem 1rem;font-size:1.05rem;background:linear-gradient(110deg,#3E1A3A 0%,#6B2F5B 45%,#4A1F45 100%);overflow:hidden;border-bottom:1px solid rgba(232,196,143,.55)}
-.annonce-cercle::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 8% 30%,#FCE9C4 50%,transparent 51%),radial-gradient(1px 1px at 18% 72%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 31% 22%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 44% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 26%,#FCE9C4 50%,transparent 51%),radial-gradient(2px 2px at 71% 70%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 83% 34%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 93% 76%,#FCE9C4 50%,transparent 51%);animation:annonce-paillettes 3.2s ease-in-out infinite alternate}
+.annonce-cercle::before{content:"";position:absolute;top:0;right:0;bottom:0;left:0;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 8% 30%,#FCE9C4 50%,transparent 51%),radial-gradient(1px 1px at 18% 72%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 31% 22%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 44% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 26%,#FCE9C4 50%,transparent 51%),radial-gradient(2px 2px at 71% 70%,#F3D08F 50%,transparent 51%),radial-gradient(1px 1px at 83% 34%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 93% 76%,#FCE9C4 50%,transparent 51%);animation:annonce-paillettes 3.2s ease-in-out infinite alternate}
 .annonce-cercle::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:35%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(243,208,143,.28),transparent);animation:annonce-reflet 5.5s ease-in-out infinite}
 @keyframes annonce-paillettes{0%{opacity:.35}100%{opacity:1}}
 @keyframes annonce-reflet{0%{left:-40%}60%,100%{left:120%}}
@@ -353,7 +353,7 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 /* Application installable */
 .menu-appli{font-weight:700;color:var(--corail-encre,#A4473D)!important}
 @media (min-width:1241px){.menu-appli{display:none!important}}
-.appli-fenetre{position:fixed;inset:0;z-index:200;background:rgba(46,19,56,.55);display:grid;place-items:end center;padding:1rem}
+.appli-fenetre{position:fixed;top:0;right:0;bottom:0;left:0;z-index:200;background:rgba(46,19,56,.55);display:grid;place-items:end center;padding:1rem}
 @media (min-width:640px){.appli-fenetre{place-items:center}}
 .appli-carte{position:relative;width:min(26rem,100%);background:var(--nacre);border-radius:24px;padding:2rem 1.6rem 1.6rem;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.3);font-family:var(--texte);color:var(--prune)}
 .appli-carte img{width:64px;height:64px;border-radius:16px;margin:0 auto 1rem;display:block}
@@ -598,7 +598,7 @@ section[data-seo-texte] .questions details p{margin-bottom:.4rem}
 .prix-cad .tf-legal-eur{display:none}
 
 /* Essai de 10 jours des analyses (assets/essai.js) */
-.es-fond{position:fixed;inset:0;z-index:300;background:rgba(74,33,66,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.es-fond{position:fixed;top:0;right:0;bottom:0;left:0;z-index:300;background:rgba(74,33,66,.45);display:flex;align-items:center;justify-content:center;padding:16px}
 .es-fenetre{position:relative;background:var(--blanc);border-radius:22px;max-width:28rem;width:100%;padding:1.6rem 1.4rem;box-shadow:0 30px 80px rgba(74,33,66,.3)}
 .es-fenetre h2{font-size:1.45rem;margin:0 1.6rem .6rem 0}
 .es-fenetre p{color:var(--prune-doux);margin:0 0 1.1rem}
