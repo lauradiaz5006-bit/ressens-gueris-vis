@@ -84,7 +84,7 @@
     return best.l;
   }
   function etiquette(p, M) {
-    var g = p._g, fz = M.nom[g], fd = M.date[g], fn = Math.max(Math.round(fz * .8), M.nom.length === 5 ? 22 : 30);   /* au moins 7 points imprimés */
+    var g = p._g, fz = M.nom[g], fd = M.date[g], fn = Math.max(Math.round(fz * .8), M.nom.length === 5 ? 24 : 34);   /* au moins 8 points imprimés */
     var pre = lignesNom(p.prenom, fz, 15 * fz * .5), nom = String(p.nom || '').toUpperCase(), dates = (p.naissance || '') + (p.deces ? ' – ' + p.deces : '');
     var w = Math.max.apply(null, pre.map(function (l) { return l.length * fz * .5; }).concat([nom.length * fn * .68, dates.length * fd * .6])) + 40;
     var h = pre.length * fz * 1.08 + (nom ? fn * 1.15 : 0) + (dates ? fd * 1.25 : 0) + 22;
@@ -241,7 +241,7 @@
   }
   function medaillon(p, cx, cy, RX, RY, g, max, moiMeme) {
     var M = MISE[Math.max(3, max)], f = p.sexe === 'f', A3 = max === 5;
-    var minDate = A3 ? 24 : 34, minNom = A3 ? 21 : 30;   /* 8 points pour les dates, 7 pour les noms, à l'impression */
+    var minDate = A3 ? 24 : 34, minNom = A3 ? 24 : 34;   /* 8 points minimum à l'impression, pour les dates comme pour les noms */
     var GN = '"Gilda Display",Georgia,serif', NS = '"Nunito Sans",sans-serif';
     var fz = Math.min(M.nom[g] + 6, RY * .4), fn = Math.max(Math.round(fz * .78), minNom), fd = Math.max(M.date[g], minDate);
     var nom = String(p.nom || '').toUpperCase(), dates = (p.naissance || '') + (p.deces ? ' – ' + p.deces : '');
@@ -252,10 +252,19 @@
         var best = null;
         for (var k = 1; k < mots.length; k++) { var a = mots.slice(0, k).join(' '), b = mots.slice(k).join(' '), m = Math.max(largeurTexte(a, taille, GN), largeurTexte(b, taille, GN)); if (!best || m < best.m) best = { m: m, l: [a, b] }; }
         lignes = best.l;
+        /* trois prénoms ou plus trop longs pour deux lignes : une ligne par groupe de prénoms */
+        if (mots.length > 2 && best.m > RX * 1.55) {
+          var b3 = null;
+          for (var i3 = 1; i3 < mots.length - 1; i3++) for (var j3 = i3 + 1; j3 < mots.length; j3++) {
+            var l3 = [mots.slice(0, i3).join(' '), mots.slice(i3, j3).join(' '), mots.slice(j3).join(' ')], m3 = Math.max.apply(null, l3.map(function (x) { return largeurTexte(x, taille, GN); }));
+            if (!b3 || m3 < b3.m) b3 = { m: m3, l: l3 };
+          }
+          lignes = b3.l;
+        }
       }
       return lignes;
     }
-    var pre, lignes, essai = 0;
+    var pre, lignes, essai = 0, RY0 = RY;
     for (;;) {
       pre = coupe(fz);
       lignes = pre.map(function (l) { return { t: l, taille: fz, police: GN, cls: 'ae-nom', h: fz * 1.05 }; });
@@ -263,9 +272,11 @@
       if (dates) lignes.push({ t: dates, taille: fd, police: NS, gras: true, cls: 'ae-date', h: fd * 1.25 });
       var H = lignes.reduce(function (s2, l) { return s2 + l.h; }, 0), y = -H / 2 + 6, ok = true;
       lignes.forEach(function (l) { l.dy = y + l.h * .78; y += l.h; if (largeurTexte(l.t, l.taille, l.police, l.gras) > corde(l.dy - l.taille * .35)) ok = false; });
-      if (ok || essai++ > 40) break;
+      if (ok || essai++ > 80) break;
       /* on réduit d'abord le prénom, puis le nom, puis les dates, sans passer sous les minimums */
-      if (fz > Math.max(minDate, fn + 2)) fz -= 2; else if (fn > minNom) fn -= 1; else if (fd > minDate) fd -= 1; else break;
+      if (fz > Math.max(minDate, fn + 2)) fz -= 2; else if (fn > minNom) fn -= 1; else if (fd > minDate) fd -= 1;
+      /* déjà aux tailles minimales : le médaillon s'agrandit un peu (jusqu'à +35 %) plutôt que de couper le texte */
+      else if (RY < RY0 * 1.35) { RY += 6; RX += 3; } else break;
     }
     var h = '<g filter="url(#ae-ombre)"><ellipse cx="' + cx + '" cy="' + cy + '" rx="' + RX + '" ry="' + RY + '" fill="#FBF6EC"/></g>' +
       '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (RX - 7) + '" ry="' + (RY - 7) + '" fill="none" stroke="url(#ae-or)" stroke-width="13"/>' +
