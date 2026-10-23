@@ -543,7 +543,7 @@
     var PL = (plan && plan.pos && Object.keys(S.people).every(function (id) { return plan.pos[id]; })) ? plan : calculerPlan();   // les générations (une ligne du dessin = une génération)
     var LG = outilsLignee();
     var moi = S.people[idCentre()];
-    var autre = !!(moi && moi.role !== 'moi');   // lecture depuis une autre personne que toi
+    var autre = !!(moi && (moi.role !== 'moi' || DOSSIER_CLIENT));   // lecture depuis une autre personne que toi (ou dossier d'un·e client·e : on parle d'elle ou de lui)
     var prenomC = moi ? (String(moi.prenom || '').split(/[\s-]+/)[0] || nomBase(moi)) : '';
     var calcL = autre ? calculerLiens(moi.id) : null;
     function lienC(id) { return calcL ? (calcL[id] || '') : lienDe(id); }
@@ -1167,7 +1167,9 @@
       conception: ['Que traversait la famille quand ' + prenomC + ' a été attendu' + ae + ' ?', 'Comment sa naissance a-t-elle été accueillie ?'],
       remplacement: ['A-t-on comparé ' + prenomC + ' à l’enfant qui manquait ?', 'Que lui a-t-on dit de cet enfant ?'],
       prenom: ['Qui a choisi le prénom de ' + prenomC + ', et pourquoi ?', 'Qu’est-ce que ce prénom lui évoque ?'],
-      manque: ['Qui est là pour ' + prenomC + ' quand un parent manque ?', 'Comment lui parle-t-on de ce parent ?']
+      manque: ['Qui est là pour ' + prenomC + ' quand un parent manque ?', 'Comment lui parle-t-on de ce parent ?'],
+      date: ['Comment cette date est-elle vécue autour de ' + prenomC + ' ?', 'Que lui a-t-on raconté de cette personne ?'],
+      ageparent: ['Comment l’âge de devenir parent s’est-il décidé à chaque génération ?', 'Et ' + prenomC + ', comment se situe-t-' + (moi.sex === 'f' ? 'elle' : 'il') + ' par rapport à cet âge ?']
     } : {};
     // L'article du blog qui explique chaque piste
     var A = function (u, t) { return { u: u, t: t }; };
@@ -1659,7 +1661,7 @@
         (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
         (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '') +
         (r.synth ? '' : '<div class="rep-avis" role="group" aria-label="Ton avis sur cette piste">' + [['oui', 'Ça me parle'], ['creuser', 'À creuser'], ['non', 'Pas pour moi']].map(function (x) { return '<button type="button" data-avis="' + x[0] + '" data-cle="' + esc(r.cleA) + '" aria-pressed="' + (av && av.v === x[0] ? 'true' : 'false') + '">' + x[1] + '</button>'; }).join('') + '</div>' +
-          (av && av.v !== 'non' ? '<input type="text" class="rep-note" data-note="' + esc(r.cleA) + '" maxlength="300" placeholder="Une petite note pour toi…" value="' + esc(av.note || '') + '">' : '')) + '</div>';
+          (av && av.v !== 'non' ? '<input type="text" class="rep-note" data-note="' + esc(r.cleA) + '" maxlength="300" placeholder="' + (DOSSIER_CLIENT ? 'Une note de séance…' : 'Une petite note pour toi…') + '" value="' + esc(av.note || '') + '">' : '')) + '</div>';
     }
     var ecartees = visibles.filter(function (i) { var a = avisDe(reps[i]); return a && a.v === 'non'; });
     var actives = visibles.filter(function (i) { return ecartees.indexOf(i) < 0; });
@@ -1667,7 +1669,7 @@
     $('compte').textContent = nAct; $('compte-bouton').textContent = nAct;
     var visR = actives.filter(function (i) { return reps[i].type === 'repere'; }), visA = actives.filter(function (i) { return reps[i].type !== 'repere'; });
     var h = blocVue + (mots.length ? info : blocExo);
-    if (visR.length) h += '<div class="reps-groupe reps-visibles"><p class="exos-titre">' + (autreC ? 'Ses' : 'Tes') + ' répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>';
+    if (visR.length) h += '<div class="reps-groupe reps-visibles"><p class="exos-titre">' + (autreC || DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>';
     if (mots.length) h += visA.map(carte).join('');
     else {
       // les 3 pistes les plus fortes en tête, le reste rangé par thème (replié)
@@ -1676,10 +1678,10 @@
       if (!top.length) top = visA.filter(function (i) { return !reps[i].faible; }).sort(parScore).slice(0, 3);
       if (top.length) h += '<div class="reps-groupe reps-top"><p class="exos-titre">' + (autreC ? 'Ses' : DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' ' + top.length + ' piste' + (top.length > 1 ? 's' : '') + ' principale' + (top.length > 1 ? 's' : '') + '</p>' + top.map(carte).join('') + '</div>';
       // ce qui touche les enfants (vu depuis toi)
-      if (!autreC && moiId && !DOSSIER_CLIENT) {
+      if (!autreC && moiId) {
         var enf = enfants(moiId).filter(function (e) { return S.people[e] && !petit(S.people[e]); });
         var lignes = enf.map(function (e) { var le = {}; ligneeDe(e).forEach(function (x) { le[x] = 1; }); var n = reps.filter(function (r) { return r.ids.indexOf(e) >= 0; }).length; return { e: e, n: n }; }).filter(function (x) { return x.n; });
-        if (lignes.length) h += '<div class="reps-groupe reps-enfants"><p class="exos-titre">Ce qui touche tes enfants</p><p class="rep-aide">Regarde l’arbre depuis chacun d’eux : son âge, sa date de naissance, son prénom, sa place.</p>' + lignes.map(function (x) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(x.e) + '">' + esc(nomComplet(S.people[x.e]) || 'Mon enfant') + ' <span>' + x.n + ' piste' + (x.n > 1 ? 's' : '') + '</span></button>'; }).join('') + '</div>';
+        if (lignes.length) h += '<div class="reps-groupe reps-enfants"><p class="exos-titre">Ce qui touche ' + (DOSSIER_CLIENT ? 'ses' : 'tes') + ' enfants</p><p class="rep-aide">Regarde l’arbre depuis chacun d’eux : son âge, sa date de naissance, son prénom, sa place.</p>' + lignes.map(function (x) { return '<button type="button" class="rep-vu-btn" data-vu="' + esc(x.e) + '">' + esc(nomComplet(S.people[x.e]) || (DOSSIER_CLIENT ? 'Son enfant' : 'Mon enfant')) + ' <span>' + x.n + ' piste' + (x.n > 1 ? 's' : '') + '</span></button>'; }).join('') + '</div>';
       }
       var reste = visA.filter(function (i) { return top.indexOf(i) < 0; });
       if (reste.length) {
