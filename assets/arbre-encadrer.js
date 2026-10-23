@@ -344,6 +344,42 @@
       contenu + '</svg>';
   }
 
-  function svgStyle(donnees, o) { o = o || {}; return (o.style || donnees.style) === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o); }
+  /* ───────── « Dans son cadre » : l'affiche dans le cadre Gelato, à l'échelle, accrochée au mur (écran seulement) ─────────
+     Cadre « prêt à accrocher » Gelato : baguette de 12 mm vue de face, 22 mm d'épaisseur, plexiglas, bois naturel ou blanc.
+     Le rebord du cadre recouvre environ 3 mm de l'affiche sur chaque bord. o.format : 'a4' | 'a3' ; o.cadre : 'bois' | 'blanc' | '' (poster seul). */
+  var CADRE = { baguette: 12, rebord: 3, largeurMm: { a4: 210, a3: 297 } };
+  function enCadre(affiche, o) {
+    var mm = W / (CADRE.largeurMm[o.format] || 210), fw = o.cadre ? Math.round(CADRE.baguette * mm) : 0, lip = o.cadre ? Math.round(CADRE.rebord * mm) : 0;
+    var iw = W - 2 * lip, ih = H - 2 * lip, ow = iw + 2 * fw, oh = ih + 2 * fw, marge = Math.round(ow * .16), VW = ow + 2 * marge, VH = oh + 2 * marge + Math.round(marge * .4);
+    var bois = o.cadre === 'blanc' ? ['#FBF9F5', '#EEE9E1', '#E3DCD1'] : ['#E2C69D', '#CDA674', '#B8895A'];
+    var interne = affiche.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, ''), vb = (affiche.match(/viewBox="([^"]+)"/) || [])[1] || ('0 0 ' + W + ' ' + H);
+    var x0 = marge, y0 = marge, h = '';
+    h += '<defs><linearGradient id="ec-mur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3EDE5"/><stop offset="1" stop-color="#E6DDD2"/></linearGradient>' +
+      '<linearGradient id="ec-bois" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + bois[0] + '"/><stop offset=".5" stop-color="' + bois[1] + '"/><stop offset="1" stop-color="' + bois[2] + '"/></linearGradient>' +
+      '<pattern id="ec-veine" width="220" height="14" patternUnits="userSpaceOnUse"><path d="M0 4C60 2 120 7 220 4M0 10C80 12 150 8 220 11" stroke="' + (o.cadre === 'blanc' ? '#D9D1C4' : '#9C7044') + '" stroke-width="1.6" fill="none" opacity="' + (o.cadre === 'blanc' ? '.25' : '.35') + '"/></pattern>' +
+      '<linearGradient id="ec-reflet" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".35" stop-color="#fff" stop-opacity=".05"/><stop offset=".36" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient>' +
+      '<filter id="ec-ombre" x="-10%" y="-10%" width="125%" height="130%"><feDropShadow dx="0" dy="' + Math.round(ow * .012) + '" stdDeviation="' + Math.round(ow * .014) + '" flood-color="#3D2A1A" flood-opacity=".35"/></filter></defs>';
+    h += '<rect width="' + VW + '" height="' + VH + '" fill="url(#ec-mur)"/>';
+    if (o.cadre) {
+      h += '<g filter="url(#ec-ombre)"><rect x="' + x0 + '" y="' + y0 + '" width="' + ow + '" height="' + oh + '" fill="url(#ec-bois)"/></g>' +
+        '<rect x="' + x0 + '" y="' + y0 + '" width="' + ow + '" height="' + oh + '" fill="url(#ec-veine)"/>' +
+        /* biseau : lumière en haut à gauche, ombre en bas à droite */
+        '<path d="M' + x0 + ' ' + y0 + 'h' + ow + 'l-' + fw + ' ' + fw + 'h-' + (ow - 2 * fw) + 'v' + (oh - 2 * fw) + 'l-' + fw + ' ' + fw + 'z" fill="#fff" opacity=".18"/>' +
+        '<path d="M' + (x0 + ow) + ' ' + (y0 + oh) + 'h-' + ow + 'l' + fw + '-' + fw + 'h' + (ow - 2 * fw) + 'v-' + (oh - 2 * fw) + 'l' + fw + '-' + fw + 'z" fill="#000" opacity=".12"/>';
+    }
+    var ax = x0 + fw, ay = y0 + fw;
+    /* poster seul : l'ombre est portée par un simple rectangle derrière (une ombre sur l'affiche entière serait trop lente à dessiner) */
+    if (!o.cadre) h += '<g filter="url(#ec-ombre)"><rect x="' + ax + '" y="' + ay + '" width="' + iw + '" height="' + ih + '" fill="#FFFBF3"/></g>';
+    h += '<svg x="' + ax + '" y="' + ay + '" width="' + iw + '" height="' + ih + '" viewBox="' + lip + ' ' + lip + ' ' + iw + ' ' + ih + '" preserveAspectRatio="none">' + interne + '</svg>';
+    if (o.cadre) h += '<rect x="' + ax + '" y="' + ay + '" width="' + iw + '" height="' + ih + '" fill="none" stroke="#3D2A1A" stroke-opacity=".25" stroke-width="' + Math.max(4, Math.round(fw * .06)) + '"/>' +
+      '<rect x="' + ax + '" y="' + ay + '" width="' + iw + '" height="' + ih + '" fill="url(#ec-reflet)"/>';
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + VW + ' ' + VH + '" width="' + VW + '" height="' + VH + '">' + h + '</svg>';
+  }
+
+  function svgStyle(donnees, o) {
+    o = o || {};
+    if (o.cadre !== undefined && o.format) { var a = svgStyle(donnees, Object.assign({}, o, { cadre: undefined, format: undefined, scene: false, fondPerdu: false })); return enCadre(a, o); }
+    return (o.style || donnees.style) === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
+  }
   window.ArbreEncadrer = { svg: svgStyle, styles: [['dore', 'Arbre doré'], ['figuier', 'Figuier']] };
 })();

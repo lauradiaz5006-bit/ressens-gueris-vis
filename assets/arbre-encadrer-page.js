@@ -105,14 +105,14 @@
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; }
   }
   function afficher() {
-    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'affiche', freres: true };
+    choix = { depart: '', nbGen: 0, sousModifie: false, style: choix.style || 'figuier', vue: 'cadre', freres: true };
     donnees = null; recalculer();
     if (!donnees || !donnees.moi || donnees.nb < 2) {
       corps.innerHTML = '<p class="rap-texte">Ajoute au moins tes parents à ton arbre pour obtenir ton arbre à encadrer. Plus il remonte loin, plus il est beau : jusqu’à tes arrière-grands-parents.</p>';
       return;
     }
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
-    corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="affiche" aria-selected="true">Ce que tu reçois</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu" id="fe-apercu"><p class="rap-texte">Un instant…</p></div></div><div class="fe-reglages">' +
+    corps.innerHTML = '<div class="fe-grille"><div><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="cadre" aria-selected="true">Dans son cadre</button><button type="button" role="tab" data-vue="affiche" aria-selected="false">L’affiche</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mise en scène</button></div><div class="fe-apercu" id="fe-apercu"><p class="rap-texte">Un instant…</p></div><p class="fe-legende" id="fe-legende"></p></div><div class="fe-reglages">' +
       '<div class="fe-champ">Style<div class="fe-styles" role="radiogroup">' + window.ArbreEncadrer.styles.map(function (x) { return '<label><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + '><span>' + esc(x[1]) + '</span></label>'; }).join('') + '</div></div>' +
       '<label class="fe-champ">À partir de qui ?<select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === donnees.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label>' +
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
@@ -129,7 +129,7 @@
     document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
-    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { choix.style = r.value; if (r.value !== 'figuier') choix.vue = 'affiche'; recalculer(); dessiner(); }); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { choix.style = r.value; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; recalculer(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-pdf').addEventListener('click', imprimer);
@@ -149,7 +149,7 @@
     return '<div class="fe-imp"><p class="fe-imp-titre">Le recevoir imprimé, prêt à encadrer</p><p class="fe-aide">Imprimé sur un beau papier mat épais et envoyé chez toi (ou chez la personne à qui tu l’offres). ' + esc(IMP.livraison || '') + '.</p>' +
       '<button class="bt rap-gros" type="button" id="fe-imp-ouvrir">Je le reçois imprimé</button>' +
       '<form class="fe-imp-form" id="fe-imp-form" hidden novalidate>' +
-        '<fieldset class="fe-formats"><legend>Format</legend>' + IMP.formats.map(function (f, i) { return '<label class="fe-format"><input type="radio" name="format" value="' + esc(f.id) + '"' + (i === 1 ? ' checked' : '') + '><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></label>'; }).join('') + '</fieldset>' +
+        RECU + '<fieldset class="fe-formats"><legend>Format</legend>' + IMP.formats.map(function (f, i) { return '<label class="fe-format"><input type="radio" name="format" value="' + esc(f.id) + '"' + (f.id === 'a4cadre' ? ' checked' : '') + '><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></label>'; }).join('') + '</fieldset>' +
         '<div class="fe-deux"><label class="fe-champ">Ton prénom<input name="prenom" autocomplete="given-name" required></label><label class="fe-champ">Ton e-mail<input name="email" type="email" autocomplete="email" required></label></div>' +
         '<label class="fe-champ">Nom et prénom du destinataire<input name="nom_complet" autocomplete="name" required></label>' +
         '<label class="fe-champ">Adresse<input name="adresse" autocomplete="address-line1" required></label>' +
@@ -203,7 +203,8 @@
     }
     var o = document.getElementById('fe-imp-ouvrir'), f = document.getElementById('fe-imp-form'); if (!o || !f) return;
     var x = session(); if (x && x.user && x.user.email) f.email.value = x.user.email;
-    o.addEventListener('click', function () { f.hidden = false; o.hidden = true; majGens(); f.prenom.focus(); });
+    o.addEventListener('click', function () { f.hidden = false; o.hidden = true; majGens(); dessiner(); f.prenom.focus(); });
+    f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.vue = 'cadre'; dessiner(); } });
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var st = document.getElementById('fe-imp-statut'), bt = f.querySelector('button[type=submit]');
@@ -251,13 +252,33 @@
       if (r.disabled && r.checked) { var a3 = document.querySelector('#fe-imp-form input[name=format]:not(:disabled)'); if (a3) a3.checked = true; }
     });
   }
+  /* Ce que la cliente reçoit (fiches Gelato « prêt à accrocher », papier premium mat 200 g) */
+  var INFOS = {
+    a4cadre: 'Cadre en bois naturel, environ 23,4 × 32,1 cm, livré monté et prêt à accrocher',
+    a3cadre: 'Cadre en bois naturel, environ 32,1 × 44,4 cm, livré monté et prêt à accrocher',
+    a4: 'Poster seul 21 × 29,7 cm, sur papier mat épais', a3: 'Poster seul 29,7 × 42 cm, sur papier mat épais'
+  };
+  var RECU = '<details class="fe-recu"><summary>Ce que tu reçois</summary><ul>' +
+    '<li><b>Ton arbre imprimé</b> sur un papier mat épais de 200 g, aux couleurs douces, sans reflet.</li>' +
+    '<li><b>Encadré</b> : cadre en bois naturel, baguette fine de 1,2 cm, 2,2 cm d’épaisseur, protégé par un plexiglas incassable. Il arrive <b>déjà monté, prêt à accrocher</b>, avec des attaches au dos pour le mettre en hauteur (vis ou clous non fournis).</li>' +
+    '<li><b>Dimensions</b> : A4 encadré environ 23,4 × 32,1 cm, A3 encadré environ 32,1 × 44,4 cm. Le cadre recouvre environ 3 mm de l’affiche sur chaque bord : rien d’important n’y est placé.</li>' +
+    '<li><b>Fabriqué pour toi</b>, à la commande, puis expédié sous 3 à 7 jours ouvrés dans un emballage protégé, en France métropolitaine. Livraison comprise.</li>' +
+    '<li><b>Tranquillité</b> : s’il arrive abîmé ou s’il y a une erreur d’impression, envoie-nous une photo dans les 14 jours, il est réimprimé ou remboursé. Un colis perdu est renvoyé. Comme c’est un objet personnalisé, il ne peut pas être repris pour un changement d’avis. Les couleurs peuvent varier légèrement entre l’écran et le papier.</li>' +
+    '</ul><p><a href="cgv.html#arbre-imprime" target="_blank">Conditions de vente de l’arbre imprimé</a></p></details>';
   function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); return donnees; }
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
     var d = lire(), verif = window.GenesoliaAcces ? window.GenesoliaAcces.verifier('arbreEncadrer') : Promise.resolve(true);
-    var vues = document.getElementById('fe-vues'), scene = choix.vue === 'scene' && d.style === 'figuier';
-    if (vues) { vues.hidden = d.style !== 'figuier'; vues.querySelectorAll('[data-vue]').forEach(function (b) { b.setAttribute('aria-selected', String(b.getAttribute('data-vue') === (scene ? 'scene' : 'affiche'))); }); }
-    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, { apercu: !ok, scene: scene }); });
+    var vue = choix.vue === 'scene' && d.style !== 'figuier' ? 'cadre' : choix.vue, vues = document.getElementById('fe-vues');
+    if (vues) vues.querySelectorAll('[data-vue]').forEach(function (b) { var v = b.getAttribute('data-vue'); b.hidden = v === 'scene' && d.style !== 'figuier'; b.setAttribute('aria-selected', String(v === vue)); });
+    /* le format montré : celui coché dans la commande, sinon l'A4 encadré (l'A3 encadré en cinq générations) */
+    var coche = document.querySelector('#fe-imp-form input[name=format]:checked'), fid = coche && !coche.disabled ? coche.value : (d.nbGen === 5 ? 'a3cadre' : 'a4cadre');
+    var f = ((window.GENESOLIA_IMPRESSION || {}).formats || []).filter(function (x) { return x.id === fid; })[0];
+    var format = /^a3/.test(fid) ? 'a3' : 'a4', cadre = /cadre/.test(fid) ? 'bois' : '';
+    var leg = document.getElementById('fe-legende');
+    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(INFOS[format + (cadre ? 'cadre' : '')] || '') :
+      vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois l’affiche seule ou dans son cadre, sans les fleurs.' : 'L’affiche telle qu’elle sera imprimée (le cadre recouvre environ 3 mm sur chaque bord).';
+    verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); });
   }
   function statut(t) { var s = document.getElementById('fe-statut'); if (s) s.textContent = t; }
   /* Par mail d'abord : la page de l'arbre (à enregistrer en PDF ou imprimer), avec un lien de secours */
