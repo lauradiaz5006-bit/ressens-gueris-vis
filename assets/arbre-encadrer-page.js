@@ -132,7 +132,7 @@
       nb = Math.min(choix.nbGen || Math.min(dispo, 4), dispo);
     }
     donnees = lignee(choix.depart, nb);
-    if (donnees && titre != null) donnees.titre = titre || donnees.titre;
+    if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; }
   }
@@ -164,8 +164,8 @@
       (payant && P ? '<p class="fe-aide">' + esc(P.prix) + ', ou compris dans Le Cercle.</p>' : '') +
       '<p class="fe-aide" id="fe-statut" aria-live="polite"></p></div></div>';
     majGens(); majEnfants(); dessiner();
-    var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
-    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; majEnfants(); dessiner(); });
+    var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; else choix.titreModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
+    document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); if (!choix.titreModifie) document.getElementById('fe-titre').value = donnees.titre; if (!choix.sousModifie) document.getElementById('fe-sous').value = donnees.sousTitre; majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; majEnfants(); dessiner(); });
     document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; if (paysage() && !grand()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });

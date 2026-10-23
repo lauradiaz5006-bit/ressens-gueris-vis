@@ -89,7 +89,7 @@
   function deMetiers(m) { var p = pluriel(String(m || '').toLowerCase()); return de(p) + p; }
   /* Les exercices sont écrits avec les mots de la personne (« je ») ; dans le panneau, on les affiche en « tu » */
   function auTu(s) {
-    return String(s || '').replace(/l’âge que j’ai aujourd’hui/g, 'l’âge que tu as aujourd’hui').replace(/l'âge que j'ai aujourd'hui/g, 'l’âge que tu as aujourd’hui')
+    return String(s || '').replace(/l’âge que j’ai aujourd’hui/g, 'l’âge que tu as aujourd’hui').replace(/l’âge que je vais avoir/g, 'l’âge que tu vas avoir').replace(/l’âge que je viens d’avoir/g, 'l’âge que tu viens d’avoir').replace(/l'âge que j'ai aujourd'hui/g, 'l’âge que tu as aujourd’hui')
       .replace(/\bje suis\b/g, 'tu es').replace(/\bje porte\b/g, 'tu portes').replace(/\bj’ai\b/g, 'tu as').replace(/\bmes\b/g, 'tes').replace(/\bma\b/g, 'ta').replace(/\bmon\b/g, 'ton');
   }
   /* Ce que je repère : des mots libres posés sur une personne ; chaque mot garde toujours la même couleur (jamais de vert) */
@@ -123,7 +123,7 @@
   function aujourdhui() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   function decede(p) { return !!(p.deces || p.decede); }
   function ageDeces(p) { var a = ageEntre(p.naiss, p.deces); return (a != null && a >= 0) ? a : null; }
-  function ageActuel(p) { if (decede(p) || !annee(p.naiss)) return null; var a = ageEntre(p.naiss, aujourdhui()); return (a != null && a >= 0 && a < 125) ? a : null; }
+  function ageActuel(p) { if (decede(p) || !annee(p.naiss)) return null; var a = ageEntre(p.naiss, aujourdhui()); return (a != null && a >= 0 && a <= 105) ? a : null; }   /* au-delà, la date de décès manque sûrement : pas d'âge affiché */
   function texteDates(p) {
     var b = annee(p.naiss), d = annee(p.deces);
     if (b && d) return b + ' – ' + d;
@@ -541,7 +541,9 @@
           Object.keys(parAge).sort().forEach(function (ea) { var t = parAge[ea].map(function (l) { return '« ' + l + ' »'; }).join(' et ') + ' à ' + ea + ' ans'; morceauxT.push('a vécu ' + t); morceauxE.push('a vécu ' + t); });
           if (morts) { morceauxT.push('est ' + (p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans'); morceauxE.push((p.sex === 'f' ? 'décédée' : 'décédé') + ' à ' + ad + ' ans'); }
           if (!morceauxT.length) return;
-          reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: { a: nom(p), l: morceauxE.join(', ') + ', l’âge que j’ai aujourd’hui' } });
+          /* à un an près : l'âge que j'ai, que je vais avoir ou que je viens d'avoir */
+          var agesV = Object.keys(parAge).map(Number).concat(morts ? [ad] : []), suite = agesV.every(function (x) { return x === age; }) ? 'l’âge que j’ai aujourd’hui' : agesV.every(function (x) { return x >= age; }) ? 'l’âge que je vais avoir' : agesV.every(function (x) { return x <= age; }) ? 'l’âge que je viens d’avoir' : 'à un an près l’âge que j’ai aujourd’hui';
+          reps.push({ type: 'anniversaire', c: COUL.anniversaire, label: 'Syndrome anniversaire : ' + nom(p), desc: 'Tu as ' + age + ' ans. ' + nom(p) + ' ' + morceauxT.join(', et ') + '.', ids: [moi.id, p.id], exo: { a: nom(p), l: morceauxE.join(', ') + ', ' + suite } });
         });
       }
     }
@@ -632,6 +634,7 @@
       reps.push({ type: 'gisant', c: COUL.gisant, exo: exoMoi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + ad + (age != null ? ' à ' + age + ' ans' : '') + ' ; ' + exoMoi } : null, label: 'Piste du gisant : ' + nom(d), desc: nomA(d) + ' est ' + (d.sex === 'f' ? 'décédée' : 'décédé') + (age != null ? ' à ' + age + ' ans' : '') + ' en ' + ad + '. ' + liens.join(' ; ') + '.', ids: ids });
     });
     // Né·e près de l'anniversaire d'un décès survenu des années plus tôt (une date qui revient, pas un gisant)
+    var presAnniv = {};
     liste.forEach(function (d) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(String(d.deces || ''))) return;
       var ad = annee(d.deces), fam = famille(d);
@@ -642,9 +645,14 @@
         var dj = jours(d.deces, g.naiss); if (dj != null && dj <= 365 + 266) return;   // né·e autour du décès : c'est la piste du gisant
         var ecartAns = dj != null ? Math.round(dj / 365.25) : an - ad, toi = moi && g.id === moi.id;
         var quand = e === 0 ? 'le jour anniversaire du décès' : 'à ' + e + ' jour' + (e > 1 ? 's' : '') + ' de l’anniversaire du décès';
-        reps.push({ type: 'date', c: COUL.date, label: (g.sex === 'f' ? 'Née' : g.sex === 'u' ? 'Né·e' : 'Né') + ' près de l’anniversaire d’un décès : ' + nom(g),
-          desc: nomBase(g) + ' est ' + ne(g) + ' le ' + dateLongueFr(g.naiss) + ', ' + quand + ' de ' + nom(d) + ' (' + dateLongueFr(d.deces) + '), ' + ecartAns + ' an' + (ecartAns > 1 ? 's' : '') + ' plus tôt.',
-          ids: [d.id, g.id], exo: toi ? { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + dateLongueFr(d.deces) + ' ; je suis ' + ne(g) + ' ' + quand.replace('du décès', 'de ce décès') } : null });
+        /* une seule carte par personne, même si plusieurs décès tombent près de sa date de naissance */
+        var x = presAnniv[g.id];
+        if (!x) { x = presAnniv[g.id] = { type: 'date', c: COUL.date, label: (g.sex === 'f' ? 'Née' : g.sex === 'u' ? 'Né·e' : 'Né') + ' près de l’anniversaire d’un décès : ' + nom(g), morceaux: [], ids: [g.id], exo: null }; reps.push(x); }
+        x.morceaux.push(quand + ' de ' + nom(d) + ' (' + dateLongueFr(d.deces) + '), ' + ecartAns + ' an' + (ecartAns > 1 ? 's' : '') + ' plus tôt');
+        if (x.ids.indexOf(d.id) < 0) x.ids.unshift(d.id);
+        if (toi && !x.exo) x.exo = { a: nom(d), l: (d.sex === 'f' ? 'décédée' : 'décédé') + ' le ' + dateLongueFr(d.deces) + ' ; je suis ' + ne(g) + ' ' + quand.replace('du décès', 'de ce décès') };
+        if (x.morceaux.length > 1) x.label = x.label.replace(/d’un décès|de \d+ décès/, 'de ' + x.morceaux.length + ' décès');
+        x.desc = nomBase(g) + ' est ' + ne(g) + ' le ' + dateLongueFr(g.naiss) + ', ' + x.morceaux.join(' ; et ') + '.';
       });
     });
     // Un décès le jour (ou à une semaine près) de l'anniversaire d'un descendant ou d'un proche déjà né
@@ -798,7 +806,11 @@
         if (!estDebut) return;
         var l = long(p.id); if (l.length >= (min || 3)) res.push(l);
       });
-      return res;
+      /* deux enfants d'une même lignée donnent deux suites presque identiques : on ne garde que la plus longue */
+      res.sort(function (x, y) { return y.length - x.length; });
+      var garde = [];
+      res.forEach(function (l) { if (!garde.some(function (k) { return l.slice(1).every(function (id) { return k.indexOf(id) >= 0; }); })) garde.push(l); });
+      return garde;
     }
     var premierPrenom = function (p) { return norm(p && p.prenom).split(/[\s-]+/).slice(0, 2).join(' '); };
     chaine(function (pa, en) { return pa && en && pa.sex === en.sex && premierPrenom(pa) && premierPrenom(pa) === premierPrenom(en); }).forEach(function (l) {
@@ -852,7 +864,7 @@
         var fortC = c.l.some(function (x) { var ad = ageDeces(x.d); return (ad != null && ad < 30) || (annee(x.d.deces) && x.ecart <= 5); });
         reps.push({ type: 'prenom', fort: fortC, tags: 'prenom cache symbolique memoire porte un autre',
           label: 'Un prénom qui en porte un autre : ' + c.g.prenom,
-          desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.jours != null ? ' (' + dureeTxt(x.jours) + (x.jours < 0 ? ' après' : ' avant') + ' sa naissance)' : x.ecart === 0 ? ' (l’année de sa naissance)' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant sa naissance)') : ''); }).join(' ; ') + '.',
+          desc: nomA(c.g) + ' porte « ' + c.l.map(function (x) { return x.forme; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' », « ') + ' » : ' + c.l.slice(0, 3).map(function (x) { return nomA(x.d) + ', ' + x.pb.join(', ') + (annee(x.d.deces) ? (x.jours != null ? ' (' + dureeTxt(x.jours) + (x.jours < 0 ? ' après' : ' avant') + ' la naissance de ' + nomA(c.g) + ')' : x.ecart === 0 ? ' (l’année de la naissance de ' + nomA(c.g) + ')' : ' (' + x.ecart + ' an' + (x.ecart > 1 ? 's' : '') + ' avant la naissance de ' + nomA(c.g) + ')') : ''); }).join(' ; ') + '.',
           ids: [c.g.id].concat(c.l.slice(0, 3).map(function (x) { return x.d.id; })) });
       });
     // 4 bis. Des prénoms qui se répondent sous une autre forme (même racine, mêmes lettres, même son) entre ascendants et descendants
