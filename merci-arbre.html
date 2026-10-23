@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Merci pour ta commande · Genesolia</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .m-tete{background:linear-gradient(120deg,#2E1338,#6B2F5B);color:#F7E6EE;padding:3.5rem 0 3rem}
+    .m-tete h1{color:#fff;margin-bottom:.8rem}
+    .m-tete .intro{color:#F7E6EE;font-size:1.12rem;max-width:40rem}
+    .m-etapes{list-style:none;padding:0;margin:0;display:grid;gap:1rem;max-width:44rem;counter-reset:e}
+    .m-etapes li{background:var(--blanc,#fff);border:1px solid var(--rose,#F3E3E6);border-radius:var(--rayon,16px);padding:1.2rem 1.4rem 1.2rem 4rem;position:relative;counter-increment:e}
+    .m-etapes li::before{content:counter(e);position:absolute;left:1.2rem;top:1.1rem;width:1.9rem;height:1.9rem;border-radius:50%;background:#6B2F5B;color:#fff;font-weight:700;display:grid;place-items:center;font-size:.95rem}
+    .m-etapes b{display:block;color:var(--prune,#6B2F5B);margin-bottom:.2rem}
+    .m-etapes span{color:var(--prune-doux,#7a5570);font-size:.97rem}
+    .m-garantie{max-width:44rem;margin-top:1.6rem;padding:1.1rem 1.3rem;background:#FBF1EE;border-left:3px solid #B98A55;border-radius:12px;color:var(--prune-doux,#5B3A52)}
+    .m-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+    .m-clair{background:transparent;color:#fff;border:1.5px solid rgba(243,220,192,.6)}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="m-tete">
+      <div class="conteneur">
+        <p style="font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem">Paiement reçu</p>
+        <h1>Merci, ta commande est confirmée</h1>
+        <p class="intro">Ton arbre va être imprimé pour toi. Un e-mail de confirmation arrive dans les minutes qui suivent, avec le récapitulatif de ta commande et l’adresse de livraison. Tu ne le vois pas ? Regarde dans tes courriers indésirables.</p>
+        <div class="m-actions"><a class="btn btn-plein" href="genosociogramme.html">Retrouver mon arbre</a><a class="btn m-clair" href="cgv.html#arbre-imprime">Les conditions de livraison</a></div>
+      </div>
+    </section>
+    <section class="bloc">
+      <div class="conteneur">
+        <h2 style="margin-bottom:1.4rem">Et maintenant ?</h2>
+        <ol class="m-etapes">
+          <li><b>On vérifie ton arbre</b><span>Prénoms, dates, adresse : une faute ? Réponds vite au mail de confirmation, idéalement dans la journée, on corrige avant l’impression.</span></li>
+          <li><b>Il est imprimé pour toi</b><span>À la commande, sur papier mat 200 g aux couleurs douces. Les formats encadrés sont montés dans leur cadre en bois, prêts à accrocher.</span></li>
+          <li><b>Il part, bien protégé</b><span>Tu reçois un e-mail avec le numéro de suivi dès qu’il est expédié.</span></li>
+          <li><b>Il arrive chez toi</b><span>En 3 à 7 jours ouvrés après ta commande, en France métropolitaine, livraison comprise. Un peu plus pendant les fêtes de fin d’année.</span></li>
+        </ol>
+        <p class="m-garantie">Ton arbre arrive abîmé, avec un défaut d’impression, ou ne correspond pas à ta commande ? Écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a> avec une photo dans les 14 jours : il est réimprimé et renvoyé gratuitement, ou remboursé.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
