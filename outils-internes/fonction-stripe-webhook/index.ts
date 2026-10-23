@@ -105,7 +105,7 @@ const FORMATS: Record<string, string> = {
   a4cadre: "A4 encadré : cadre en bois naturel et plexiglas, environ 23,4 × 32,1 cm, livré monté, prêt à accrocher",
   a3cadre: "A3 encadré : cadre en bois naturel et plexiglas, environ 32,1 × 44,4 cm, livré monté, prêt à accrocher",
 };
-const STYLES: Record<string, string> = { figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons" };
+const STYLES: Record<string, string> = { grand: "Grand arbre", figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons" };
 const prenomDe = (d: any) => String(d.prenom || "").trim().split(/\s+/)[0] || null;
 const adresseDe = (x: any) => [x.nom_complet, (x.adresse ?? "") + (x.complement ? ", " + x.complement : ""), (x.code_postal ?? "") + " " + (x.ville ?? ""), "France"].filter((l) => String(l ?? "").trim()).join("\n");
 
