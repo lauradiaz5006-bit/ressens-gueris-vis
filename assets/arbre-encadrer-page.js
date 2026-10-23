@@ -215,6 +215,9 @@
       '<form class="fe-imp-form" id="fe-imp-form" hidden novalidate>' +
         RECU + '<fieldset class="fe-formats"><legend>Format</legend>' + IMP.formats.map(function (f, i) { return '<label class="fe-format"><input type="radio" name="format" value="' + esc(f.id) + '"' + (f.id === 'a4cadre' ? ' checked' : '') + '><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></label>'; }).join('') + '</fieldset>' +
         '<div class="fe-deux"><label class="fe-champ">Ton prénom<input name="prenom" autocomplete="given-name" required></label><label class="fe-champ">Ton e-mail<input name="email" type="email" autocomplete="email" required></label></div>' +
+        '<label class="fe-case fe-cadeau"><input type="checkbox" name="cadeau" value="oui" id="fe-cadeau"> <span>C’est un cadeau</span></label>' +
+        '<div class="fe-cadeau-z" id="fe-cadeau-z" hidden><label class="fe-champ">Un petit mot, imprimé en bas de l’affiche (facultatif)<input name="mot" id="fe-mot" maxlength="80" placeholder="Pour mamie, avec tout notre amour · Noël 2026"></label>' +
+        '<p class="fe-aide">Tu le vois tout de suite sur l’aperçu. Indique ci-dessous le nom et l’adresse de la personne : le colis part directement chez elle.</p></div>' +
         '<label class="fe-champ">Nom et prénom du destinataire<input name="nom_complet" autocomplete="name" required></label>' +
         '<label class="fe-champ">Adresse<input name="adresse" autocomplete="address-line1" required></label>' +
         '<label class="fe-champ">Complément (bâtiment, étage…)<input name="complement" autocomplete="address-line2"></label>' +
@@ -270,6 +273,11 @@
     var o = document.getElementById('fe-imp-ouvrir'), f = document.getElementById('fe-imp-form'); if (!o || !f) return;
     var x = session(); if (x && x.user && x.user.email) f.email.value = x.user.email;
     o.addEventListener('click', function () { f.hidden = false; o.hidden = true; majGens(); dessiner(); f.prenom.focus(); });
+    /* option cadeau : le petit mot s'imprime en bas de l'affiche, à la place de la signature Genesolia */
+    var tm = null;
+    function majMot() { var c = document.getElementById('fe-cadeau'), m = document.getElementById('fe-mot'); document.getElementById('fe-cadeau-z').hidden = !c.checked; choix.mot = c.checked ? m.value.replace(/\s+/g, ' ').trim() : ''; clearTimeout(tm); tm = setTimeout(dessiner, 250); }
+    document.getElementById('fe-cadeau').addEventListener('change', majMot);
+    document.getElementById('fe-mot').addEventListener('input', majMot);
     f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.vue = 'cadre'; if (paysage() && !choix.nbGen) { recalculer(); majGens(); } dessiner(); } });
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -340,7 +348,7 @@
     '</ul><p><a href="cgv.html#arbre-imprime" target="_blank">Conditions de vente de l’arbre imprimé</a></p></details>';
   /* à l'horizontale, les dimensions s'écrivent largeur × hauteur : « 23,4 × 32,1 cm » devient « 32,1 × 23,4 cm » */
   function dimensions(t) { return paysage() ? String(t).replace(/(\d+(?:,\d+)?) × (\d+(?:,\d+)?) cm/, '$2 × $1 cm') + ', à l’horizontale' : t; }
-  function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); return donnees; }
+  function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); donnees.dedicace = choix.mot || ''; return donnees; }
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
     var d = lire(), verif = window.GenesoliaAcces ? window.GenesoliaAcces.verifier('arbreEncadrer') : Promise.resolve(true);
