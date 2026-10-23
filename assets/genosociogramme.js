@@ -424,6 +424,25 @@
       else if (a1 != null) inverser = !moitieGauche(m1);
       if (inverser) { b.membres = [m1, m0]; decal[m1] = -SLOT / 2; decal[m0] = SLOT / 2; }
     }
+    /* Un frère ou une sœur en couple avec quelqu'un d'une autre famille va au bord de sa fratrie, du côté de la famille de l'autre :
+       sinon le trait de sa fratrie et celui de la belle-famille se croisent (ex. la sœur de la mère placée entre le père et ses frères). */
+    function reordonnerFratries(c) {
+      familles.forEach(function (fa) {
+        if (fa.enfants.length < 2 || blocDe[fa.enfants[0]].comp !== c) return;
+        var a = fa.parents.length ? moy(fa.parents.map(px)) : moy(fa.enfants.map(px));
+        var cote = {};
+        fa.enfants.forEach(function (ch) {
+          var autres = blocDe[ch].membres.filter(function (m) { return m !== ch && famDe[m] && famDe[m].f !== fa && famDe[m].f.parents.length; });
+          if (!autres.length) { cote[ch] = 0; return; }
+          var ap = moy(autres.map(function (m) { return moy(famDe[m].f.parents.map(px)); }));
+          cote[ch] = Math.abs(ap - a) < SLOT ? 0 : ap < a ? -1 : 1;
+        });
+        var g = fa.enfants.filter(function (x) { return cote[x] < 0; }), m = fa.enfants.filter(function (x) { return !cote[x]; }), d = fa.enfants.filter(function (x) { return cote[x] > 0; });
+        if (!g.length && !d.length) return;
+        fa.enfants = g.concat(m, d);
+        fa.enfants.forEach(function (ch, k) { famDe[ch] = { f: fa, k: k }; });
+      });
+    }
     function resoudre(liste, souhait) {
       var arr = liste.map(function (b) { var d = souhait.get(b); return { b: b, d: d == null ? b.x : d }; });
       arr.sort(function (a, c) { return (a.d - c.d) || (a.b.x - c.b.x) || (a.b.ordre - c.b.ordre); });
@@ -444,8 +463,9 @@
         var x = 0;
         parGen[gg].sort(function (a, b) { return a.ordre - b.ordre; }).forEach(function (b) { b.x = x + b.w / 2; x += b.w + ECART; });
       });
-      for (var it = 0; it < 16; it++) {
+      for (var it = 0; it < 24; it++) {
         var gi, souhait;
+        if (it === 8) reordonnerFratries(c);
         for (gi = gens.length - 2; gi >= 0; gi--) {
           souhait = new Map();
           parGen[gens[gi]].forEach(function (b) { var d = depuisEnfants(b); if (d == null) d = depuisParents(b); souhait.set(b, d); });
@@ -1510,7 +1530,7 @@
     var b = plan.boite, W = t.clientWidth, H = t.clientHeight;
     var droite = 30, bas = 70, haut = 70;
     var k = Math.min(1.1, (W - 60 - droite) / (b.x2 - b.x1), (H - haut - bas) / (b.y2 - b.y1));
-    k = Math.max(0.3, k);
+    k = Math.max(W < 600 ? 0.06 : 0.3, k);   /* téléphone : « Voir tout l'arbre » doit vraiment tout montrer */
     vue.k = k;
     vue.x = (W - droite) / 2 - ((b.x1 + b.x2) / 2) * k;
     vue.y = haut + (H - haut - bas) / 2 - ((b.y1 + b.y2) / 2) * k;
