@@ -1525,12 +1525,14 @@
     var m = $('monde'); if (m) m.setAttribute('transform', 'translate(' + vue.x + ',' + vue.y + ') scale(' + vue.k + ')');
     placerActions();
   }
+  var kMinVue = 0.25;
   function recentrer() {
     var t = $('toile'); if (!plan || !plan.boite) { vue = { x: t.clientWidth / 2, y: t.clientHeight / 2, k: 1 }; appliquerVue(); return; }
     var b = plan.boite, W = t.clientWidth, H = t.clientHeight;
     var droite = 30, bas = 70, haut = 70;
     var k = Math.min(1.1, (W - 60 - droite) / (b.x2 - b.x1), (H - haut - bas) / (b.y2 - b.y1));
     k = Math.max(W < 600 ? 0.06 : 0.3, k);   /* téléphone : « Voir tout l'arbre » doit vraiment tout montrer */
+    kMinVue = k;
     vue.k = k;
     vue.x = (W - droite) / 2 - ((b.x1 + b.x2) / 2) * k;
     vue.y = haut + (H - haut - bas) / 2 - ((b.y1 + b.y2) / 2) * k;
@@ -1549,7 +1551,7 @@
   function zoomer(f, cx, cy) {
     var t = $('toile');
     if (cx == null) { cx = t.clientWidth / 2; cy = t.clientHeight / 2; }
-    var nk = Math.min(2.2, Math.max(0.25, vue.k * f));
+    var nk = Math.min(2.2, Math.max(Math.min(0.25, kMinVue), vue.k * f));   /* on peut toujours revenir à la vue d'ensemble, même très petite */
     vue.x = cx - (cx - vue.x) * (nk / vue.k); vue.y = cy - (cy - vue.y) * (nk / vue.k); vue.k = nk;
     appliquerVue();
   }
@@ -2303,18 +2305,43 @@
   $('fp-suppr').addEventListener('click', function () { if (fiche) supprimer(fiche.id); });
 
   /* ───────── Interactions sur la toile ───────── */
-  var toile = $('toile'), glisse = null;
+  var toile = $('toile'), glisse = null, doigts = new Map(), pince = null;
+  /* deux doigts sur l'écran : on agrandit ou on rapetisse l'arbre (et on le déplace en même temps) */
+  function mesurePince() {
+    var p = Array.from(doigts.values()), r = toile.getBoundingClientRect();
+    return { d: Math.max(1, Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y)), x: (p[0].x + p[1].x) / 2 - r.left, y: (p[0].y + p[1].y) / 2 - r.top };
+  }
   toile.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'touch') {
+      doigts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (doigts.size === 2) { glisse = null; toile.classList.remove('glisse'); pince = mesurePince(); return; }
+      if (doigts.size > 2) return;
+    }
     if (e.button !== 0 || e.target.closest('.actions-perso,.zoom,.legende-symb,.vide-carte')) return;
     glisse = { x: e.clientX, y: e.clientY, vx: vue.x, vy: vue.y, bouge: false, cible: e.target.closest('.personne') };
   });
   window.addEventListener('pointermove', function (e) {
+    if (doigts.has(e.pointerId)) doigts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pince && doigts.size >= 2) {
+      var m = mesurePince();
+      vue.x += m.x - pince.x; vue.y += m.y - pince.y;
+      zoomer(m.d / pince.d, m.x, m.y);
+      pince = m; return;
+    }
     if (!glisse) return;
     var dx = e.clientX - glisse.x, dy = e.clientY - glisse.y;
     if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) > 4) { glisse.bouge = true; toile.classList.add('glisse'); }
     if (glisse.bouge) { vue.x = glisse.vx + dx; vue.y = glisse.vy + dy; appliquerVue(); }
   });
-  window.addEventListener('pointerup', function () {
+  function finDoigt(e) {
+    if (!doigts.has(e.pointerId)) return false;
+    doigts.delete(e.pointerId);
+    if (pince) { if (doigts.size < 2) pince = null; return true; }
+    return false;
+  }
+  window.addEventListener('pointercancel', function (e) { finDoigt(e); glisse = null; toile.classList.remove('glisse'); });
+  window.addEventListener('pointerup', function (e) {
+    if (finDoigt(e)) { glisse = null; return; }
     if (!glisse) return;
     var g = glisse; glisse = null; toile.classList.remove('glisse');
     if (g.bouge) return;
