@@ -6,6 +6,8 @@
 // Arbre imprimé : client_reference_id = imp__<référence de la commande> (colonne details.ref de la table demandes).
 //   Après paiement : la commande part chez Gelato en BROUILLON (rien n'est imprimé ni payé avant que Laura valide
 //   dans son tableau de bord Gelato), puis un e-mail « à valider » part vers contact@genesolia.fr (table mails).
+//   La cliente reçoit « Commande confirmée » (récapitulatif, adresse, délai, garanties) et sa relance « ton arbre t'attend » est annulée.
+//   Expédition et livraison : fonction gelato-suivi (mails « en route » avec le suivi, puis « arrivé »).
 //   Secret : GELATO_API_KEY (ou un secret dont le nom contient « gelato »). Produits : GELATO_PRODUITS ci-dessous.
 //   Sans clé ou sans référence : pas d'envoi à Gelato, l'e-mail donne tout pour passer la commande à la main.
 import Stripe from "npm:stripe@17.7.0";
@@ -95,6 +97,43 @@ const GELATO_PRODUITS: Record<string, string> = Object.assign({
 }, (() => { try { return JSON.parse(Deno.env.get("GELATO_PRODUITS") ?? "{}"); } catch { return {}; } })());
 const ALERTE = "contact@genesolia.fr";
 
+/* ───────── Mails à la cliente (table mails, envoyés par la fonction envoi-mails) ───────── */
+const SITE = "https://genesolia.fr";
+const FORMATS: Record<string, string> = {
+  a4: "Poster A4, 21 × 29,7 cm, sur papier mat 200 g",
+  a3: "Poster A3, 29,7 × 42 cm, sur papier mat 200 g",
+  a4cadre: "A4 encadré : cadre en bois naturel et plexiglas, environ 23,4 × 32,1 cm, livré monté, prêt à accrocher",
+  a3cadre: "A3 encadré : cadre en bois naturel et plexiglas, environ 32,1 × 44,4 cm, livré monté, prêt à accrocher",
+};
+const STYLES: Record<string, string> = { figuier: "Figuier peint", dore: "Arbre doré" };
+const prenomDe = (d: any) => String(d.prenom || "").trim().split(/\s+/)[0] || null;
+const adresseDe = (x: any) => [x.nom_complet, (x.adresse ?? "") + (x.complement ? ", " + x.complement : ""), (x.code_postal ?? "") + " " + (x.ville ?? ""), "France"].filter((l) => String(l ?? "").trim()).join("\n");
+
+async function confirmerCliente(d: any, x: any) {
+  if (!d.email) return;
+  // la relance « ton arbre t'attend » n'a plus lieu d'être
+  await sb.from("mails").update({ ok_envoyer: false }).eq("type", "commande-attente").eq("envoye", false).eq("email", d.email);
+  const titre = x.titre || "Ton arbre";
+  const recap = [
+    `Ton arbre : « ${titre} »${x.sous_titre ? ", " + x.sous_titre : ""}`,
+    x.style ? `Style : ${STYLES[x.style] ?? x.style}` : "",
+    `Format : ${FORMATS[x.format] ?? x.format_nom ?? x.format}`,
+    `Prix payé : ${x.montant_paye} €, livraison comprise`,
+  ].filter(Boolean).join("\n");
+  await sb.from("mails").insert({
+    email: d.email, prenom: prenomDe(d), type: "commande-confirmee",
+    objet: `Commande confirmée : « ${titre} »`,
+    surtitre: `Commande n° G-${d.id}`,
+    titre: "Ta commande est confirmée",
+    texte: `Merci pour ta commande ! Ton paiement de ${x.montant_paye} € est bien reçu.\n\n${recap}\n\nLivraison à :\n${adresseDe(x)}\n\n` +
+      `Ton arbre est imprimé pour toi, à la commande, puis expédié dans un emballage protégé. Il arrive chez toi en 3 à 7 jours ouvrés (un peu plus pendant les fêtes de fin d'année). Tu reçois un e-mail avec le numéro de suivi dès qu'il part.\n\n` +
+      `Une faute dans l'adresse, un prénom ou une date ? Réponds à ce mail le plus vite possible, idéalement dans la journée : on peut encore corriger avant l'impression.`,
+    encadre_titre: "À la réception",
+    encadre_texte: `Si ton arbre arrive abîmé, présente un défaut d'impression ou ne correspond pas à ta commande, réponds à ce mail avec une photo dans les 14 jours : il est réimprimé et renvoyé gratuitement, ou remboursé. C'est un objet personnalisé : il ne peut pas être retourné pour un changement d'avis. [Les conditions complètes](${SITE}/cgv.html#arbre-imprime)`,
+    bouton_texte: "Retrouver mon arbre", bouton_lien: SITE + "/genosociogramme.html",
+  });
+}
+
 async function alerter(objet: string, titre: string, texte: string, lien?: string, bouton?: string) {
   await sb.from("mails").insert({ email: ALERTE, prenom: "Laura", type: "alerte-impression", objet, titre, texte,
     bouton_texte: lien ? (bouton ?? "Ouvrir") : null, bouton_lien: lien ?? null });
@@ -109,7 +148,10 @@ async function impression(session: any, ref: string) {
   }
   const x = d.details ?? {};
   if (x.paiement_statut === "payé") return;   // Stripe peut renvoyer le même événement
-  const maj: Record<string, unknown> = { ...x, paiement_statut: "payé", stripe_session: session.id, montant_paye: (session.amount_total ?? 0) / 100 };
+  const maj: Record<string, unknown> = { ...x, paiement_statut: "payé", stripe_session: session.id, montant_paye: (session.amount_total ?? 0) / 100, paye_le: new Date().toISOString() };
+  // payé tout de suite (un nouvel essai de Stripe ne renverra pas les mails), puis confirmation à la cliente
+  await sb.from("demandes").update({ details: maj }).eq("id", d.id);
+  try { await confirmerCliente(d, maj); } catch (e) { console.error("confirmation cliente", e); }
   let lienFichier = "";
   if (x.fichier && !/régénérer/.test(x.fichier)) {
     const { data: s } = await sb.storage.from("impressions").createSignedUrl(x.fichier, 60 * 24 * 3600);   // 60 jours : le temps de valider et d'imprimer
