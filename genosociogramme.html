@@ -95,7 +95,7 @@
 
     /* Panneau des répétitions */
     .panneau{position:relative;width:var(--pl,300px);max-width:72vw;flex-shrink:0;border-left:1px solid var(--rose);background:var(--blanc);display:flex;flex-direction:column;min-height:0}
-    .panneau-tete{display:flex;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
+    .panneau-tete{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
     .panneau-tete h2{font-size:1.15rem;margin-right:auto}
     /* Agrandir le panneau : bouton (300 px ↔ 45 %) et poignée à la souris ; en grand, les cartes passent sur deux colonnes */
     body.panneau-large .panneau{width:var(--pl,45vw)}

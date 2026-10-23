@@ -25,7 +25,8 @@
 
 /* ===== Base des nouvelles pages ===== */
 :where(body.nouveau) *,:where(body.nouveau) *::before,:where(body.nouveau) *::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}body{overflow-x:clip}   /* tablette : rien ne doit élargir la page (sinon Safari dézoome et le menu se décale) */
+.pied a{overflow-wrap:anywhere}
 body.nouveau{margin:0;font-family:var(--texte);font-size:1.0625rem;line-height:1.65;color:var(--prune);background:var(--nacre);-webkit-font-smoothing:antialiased}
 body:where(.nouveau) :where(img,svg){display:block;max-width:100%}
 :where(body.nouveau) a{color:inherit}
