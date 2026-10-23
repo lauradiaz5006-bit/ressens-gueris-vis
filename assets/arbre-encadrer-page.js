@@ -215,19 +215,20 @@
       var fmt = IMP.formats.filter(function (x2) { return x2.id === (f.querySelector('input[name=format]:checked') || {}).value; })[0] || IMP.formats[0];
       if (donnees.nbGen === 5 && /^a4/.test(fmt.id)) { st.textContent = 'Avec cinq générations, choisis un format A3.'; return; }
       var d = lire(), lien = (window.GENESOLIA_STRIPE || {})[fmt.stripe] || '';
+      /* référence de la commande : relie le paiement Stripe à cette commande (et donc à l'envoi chez l'imprimeur) */
+      var ref = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
       bt.disabled = true; st.textContent = 'Préparation de ton arbre en haute définition…';
       fichierImprimeur(d, fmt).then(function (chemin) {
         var fd = new FormData(f); fd.delete('accord'); fd.delete('format');
         fd.append('format', fmt.id); fd.append('format_nom', fmt.nom); fd.append('prix', fmt.prix); fd.append('titre', d.titre); fd.append('sous_titre', d.sousTitre || '');
         fd.append('fichier', chemin || 'à régénérer depuis l’arbre de la cliente'); fd.append('pays', 'France'); fd.append('paiement', lien ? 'stripe' : 'a-envoyer');
-        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000));
+        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000)); fd.append('ref', ref); fd.append('style', d.style || ''); fd.append('generations', String(d.nbGen || ''));
         return window.GenesoliaEnvoyer('Commande impression', fd, 'genesolia-commande');
       }).then(function () {
         if (window.umami) try { window.umami.track('commande-impression-' + fmt.id); } catch (e) {}
         if (lien) {
-          var x3 = session(), ref = (x3 && x3.user ? x3.user.id + '__' : '') ;
           st.textContent = 'Commande enregistrée. Direction le paiement sécurisé…';
-          location.href = lien + (lien.indexOf('?') < 0 ? '?' : '&') + 'prefilled_email=' + encodeURIComponent(f.email.value.trim()) + (ref ? '&client_reference_id=' + encodeURIComponent(ref + 'impression-' + fmt.id) : '');
+          location.href = lien + (lien.indexOf('?') < 0 ? '?' : '&') + 'prefilled_email=' + encodeURIComponent(f.email.value.trim()) + '&client_reference_id=' + encodeURIComponent('imp__' + ref);
           return;
         }
         f.outerHTML = '<p class="fe-merci">Merci ! Ta commande est bien reçue : <b>' + esc(fmt.nom) + '</b>, ' + esc(fmt.prix) + '. Tu reçois une confirmation par e-mail, puis le lien de paiement sécurisé. Ton arbre part à l’impression dès le paiement reçu.</p>';
