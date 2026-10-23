@@ -1523,11 +1523,11 @@
     }
     function carte(i) { var r = reps[i];
       var st = r.exo ? statut(r.exo.a) : null;
-      return '<button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' +
+      return '<div class="rep-bloc"><button type="button" class="rep" style="--c:' + r.c + '" data-rep="' + i + '" aria-pressed="' + (repActive && repActive.cle === r.cle ? 'true' : 'false') + '"><strong>' + esc(r.label) + '</strong><span>' + esc(r.desc) + '</span>' +
         (r.lect && r.lect.length ? '<span class="rep-lect"><b>Lectures possibles</b>' + r.lect.map(function (l) { return '<span>' + esc(l.label) + ' : ' + esc(String(l.desc).replace(/\.$/, '')) + '.</span>'; }).join('') + '</span>' : '') +
         (r.q ? '<em class="rep-q">' + r.q.map(esc).join('<br>') + '</em>' : '') + '</button>' +
         (r.art ? '<a class="rep-lire" style="--c:' + r.c + '" href="' + r.art.u + '" target="_blank" rel="noopener">Lire l’article : ' + esc(r.art.t) + ' ↗</a>' : '') +
-        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '');
+        (r.exo ? '<a class="rep-exo" style="--c:' + r.c + '" href="' + lienExo(r.exo) + '">' + (st === 'fait' ? 'Revoir l’exercice avec ' : st === 'commence' ? 'Reprendre l’exercice avec ' : 'Faire l’exercice avec ') + esc(r.exo.a) + '</a>' : '') + '</div>';
     }
     var visR = visibles.filter(function (i) { return reps[i].type === 'repere'; }), visA = visibles.filter(function (i) { return reps[i].type !== 'repere'; });
     z.innerHTML = (mots.length ? info : blocExo) +
@@ -2067,6 +2067,45 @@
   $('bt-panneau').addEventListener('click', function () { document.body.classList.toggle('panneau-ouvert'); });
   $('bt-replier').addEventListener('click', function () { document.body.classList.remove('panneau-ouvert'); });
   window.addEventListener('resize', placerActions);
+  /* Agrandir « Ce qui se répète » à côté de l'arbre (pas d'autre onglet : on garde le lien carte ↔ arbre) */
+  (function () {
+    var pan = document.querySelector('.panneau'), bt = $('bt-agrandir'), poi = $('panneau-poignee'); if (!pan || !bt || !poi) return;
+    function lire(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function ecrire(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+    function maj() {
+      var large = document.body.classList.contains('panneau-large');
+      bt.textContent = large ? 'Réduire' : 'Agrandir'; bt.setAttribute('aria-pressed', String(large));
+      pan.classList.toggle('deux-colonnes', pan.getBoundingClientRect().width >= 600);
+    }
+    function apres() { maj(); placerActions(); recentrer(); }
+    var l = parseInt(lire('genesolia-panneau-l'), 10);
+    if (lire('genesolia-panneau-large') === '1') document.body.classList.add('panneau-large');
+    if (l >= 260) pan.style.setProperty('--pl', l + 'px');
+    maj();
+    bt.addEventListener('click', function () {
+      var large = !document.body.classList.contains('panneau-large');
+      document.body.classList.toggle('panneau-large', large); pan.style.removeProperty('--pl');
+      ecrire('genesolia-panneau-large', large ? '1' : null); ecrire('genesolia-panneau-l', null);
+      setTimeout(apres, 30);
+    });
+    function tirer(x0, w0) {
+      document.body.classList.add('panneau-tire');
+      function bouge(ev) { var x = ev.touches ? ev.touches[0].clientX : ev.clientX, w = Math.max(260, Math.min(window.innerWidth * 0.72, w0 + (x0 - x))); pan.style.setProperty('--pl', Math.round(w) + 'px'); maj(); }
+      function fin() {
+        document.removeEventListener('pointermove', bouge); document.removeEventListener('pointerup', fin); document.body.classList.remove('panneau-tire');
+        var w = Math.round(pan.getBoundingClientRect().width); document.body.classList.toggle('panneau-large', w > 420);
+        ecrire('genesolia-panneau-l', String(w)); ecrire('genesolia-panneau-large', w > 420 ? '1' : null); apres();
+      }
+      document.addEventListener('pointermove', bouge); document.addEventListener('pointerup', fin);
+    }
+    poi.addEventListener('pointerdown', function (ev) { ev.preventDefault(); tirer(ev.clientX, pan.getBoundingClientRect().width); });
+    poi.addEventListener('keydown', function (ev) {   /* au clavier : flèches gauche / droite */
+      if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return; ev.preventDefault();
+      var w = Math.max(260, Math.min(window.innerWidth * 0.72, pan.getBoundingClientRect().width + (ev.key === 'ArrowLeft' ? 40 : -40)));
+      pan.style.setProperty('--pl', Math.round(w) + 'px'); document.body.classList.toggle('panneau-large', w > 420); ecrire('genesolia-panneau-l', String(Math.round(w))); apres();
+    });
+    window.addEventListener('resize', maj);
+  })();
   window.addEventListener('pageshow', function (e) { if (e.persisted) dessiner(); });   // retour depuis un exercice : mettre à jour les statuts
 
   $('bt-commencer').addEventListener('click', function () {
