@@ -3,6 +3,11 @@
 // Stripe > Développeurs > Webhooks > Ajouter une destination : https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/stripe-webhook
 // Événements : checkout.session.completed, checkout.session.async_payment_succeeded, invoice.paid, customer.subscription.deleted.
 // Le site ajoute à chaque lien de paiement client_reference_id = <id du compte>__<clé du lien> (ex. …__passMois).
+// Arbre imprimé : client_reference_id = imp__<référence de la commande> (colonne details.ref de la table demandes).
+//   Après paiement : la commande part chez Gelato en BROUILLON (rien n'est imprimé ni payé avant que Laura valide
+//   dans son tableau de bord Gelato), puis un e-mail « à valider » part vers contact@genesolia.fr (table mails).
+//   Secret : GELATO_API_KEY. Références des produits : GELATO_PRODUITS ci-dessous (ou secret GELATO_PRODUITS en JSON).
+//   Sans clé ou sans référence : pas d'envoi à Gelato, l'e-mail donne tout pour passer la commande à la main.
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
@@ -57,6 +62,8 @@ async function ouvrir(uid: string, cle: string, fin: Date | null, nouvelAchat: b
 
 async function paiement(session: any) {
   const ref = String(session.client_reference_id || "");
+  const imp = /^imp__([a-z0-9]{6,40})$/.exec(ref);
+  if (imp) { await impression(session, imp[1]); return; }
   const m = /^([0-9a-f-]{36})__([A-Za-z0-9]{1,40})$/.exec(ref);
   if (!m) { console.log("Paiement sans client_reference_id exploitable", session.id); return; }
   const [, uid, cle] = m;
@@ -68,6 +75,59 @@ async function paiement(session: any) {
   if (error) throw error;
   const fin = sub ? finAbonnement(await stripe.subscriptions.retrieve(sub)) : null;
   await ouvrir(uid, cle, fin, true);
+}
+
+/* ───────── Arbre imprimé → Gelato (brouillon) ───────── */
+const GELATO_CLE = (Deno.env.get("GELATO_API_KEY") ?? "").trim();
+const GELATO_PRODUITS: Record<string, string> = Object.assign({
+  a4: "", a3: "", a4cadre: "", a3cadre: "",   /* référence (productUid) Gelato de chaque format du site */
+}, (() => { try { return JSON.parse(Deno.env.get("GELATO_PRODUITS") ?? "{}"); } catch { return {}; } })());
+const ALERTE = "contact@genesolia.fr";
+
+async function alerter(objet: string, titre: string, texte: string, lien?: string, bouton?: string) {
+  await sb.from("mails").insert({ email: ALERTE, prenom: "Laura", type: "alerte-impression", objet, titre, texte,
+    bouton_texte: lien ? (bouton ?? "Ouvrir") : null, bouton_lien: lien ?? null });
+}
+
+async function impression(session: any, ref: string) {
+  const { data: d } = await sb.from("demandes").select("id,email,prenom,details").eq("formulaire", "Commande impression").eq("details->>ref", ref).order("cree_le", { ascending: false }).limit(1).maybeSingle();
+  if (!d) {
+    await alerter("Arbre imprimé payé : commande introuvable", "Un arbre imprimé a été payé, mais sa commande est introuvable",
+      `Paiement Stripe ${session.id}, ${(session.amount_total ?? 0) / 100} €, ${session.customer_details?.email ?? ""}. Référence : ${ref}. Retrouve la commande dans Supabase (table demandes) et passe-la à la main sur Gelato.`);
+    return;
+  }
+  const x = d.details ?? {};
+  if (x.paiement_statut === "payé") return;   // Stripe peut renvoyer le même événement
+  const maj: Record<string, unknown> = { ...x, paiement_statut: "payé", stripe_session: session.id, montant_paye: (session.amount_total ?? 0) / 100 };
+  let lienFichier = "";
+  if (x.fichier && !/régénérer/.test(x.fichier)) {
+    const { data: s } = await sb.storage.from("impressions").createSignedUrl(x.fichier, 60 * 24 * 3600);   // 60 jours : le temps de valider et d'imprimer
+    lienFichier = s?.signedUrl ?? "";
+  }
+  const produit = GELATO_PRODUITS[x.format] ?? "";
+  const nom = String(x.nom_complet ?? "").trim().split(/\s+/), prenomL = nom.shift() || d.prenom || "", nomL = nom.join(" ") || prenomL;
+  const resume = `${x.format_nom ?? x.format} · ${x.prix ?? ""} payé (${maj.montant_paye} €)\n${x.nom_complet}\n${x.adresse}${x.complement ? ", " + x.complement : ""}\n${x.code_postal} ${x.ville}${x.telephone ? "\nTél. " + x.telephone : ""}\nE-mail : ${d.email}`;
+  if (GELATO_CLE && produit && lienFichier) {
+    const r = await fetch("https://order.gelatoapis.com/v4/orders", { method: "POST", headers: { "X-API-KEY": GELATO_CLE, "Content-Type": "application/json" },
+      body: JSON.stringify({ orderType: "draft", orderReferenceId: "genesolia-" + d.id, customerReferenceId: String(d.email || "client").slice(0, 100), currency: "EUR",
+        items: [{ itemReferenceId: "arbre-" + d.id, productUid: produit, files: [{ type: "default", url: lienFichier }], quantity: 1 }],
+        shippingAddress: { firstName: prenomL, lastName: nomL, addressLine1: x.adresse ?? "", addressLine2: x.complement ?? "", city: x.ville ?? "", postCode: x.code_postal ?? "",
+          country: "FR", email: d.email ?? "", phone: x.telephone ?? "" } }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && j.id) {
+      maj.gelato_id = j.id; maj.gelato_statut = "brouillon";
+      await sb.from("demandes").update({ details: maj }).eq("id", d.id);
+      await alerter("Arbre imprimé à valider sur Gelato", "Nouvelle commande à valider sur Gelato",
+        `${resume}\n\nLa commande est dans ton tableau de bord Gelato en brouillon (n° ${j.id}). Vérifie l'aperçu et l'adresse, puis clique sur « Valider » : rien n'est imprimé ni payé avant.`,
+        "https://dashboard.gelato.com/orders", "Ouvrir Gelato");
+      return;
+    }
+    maj.gelato_erreur = String(r.status) + " " + JSON.stringify(j).slice(0, 400);
+  } else maj.gelato_erreur = !GELATO_CLE ? "clé Gelato absente" : !produit ? "référence produit Gelato manquante pour " + x.format : "fichier introuvable";
+  await sb.from("demandes").update({ details: maj }).eq("id", d.id);
+  await alerter("Arbre imprimé payé : à passer sur Gelato", "Un arbre imprimé a été payé",
+    `${resume}\n\nLa commande n'a pas pu partir toute seule chez Gelato (${maj.gelato_erreur}). Passe-la à la main dans Gelato avec le fichier ci-dessous (lien valable 60 jours).`,
+    lienFichier || undefined, "Télécharger le fichier");
 }
 
 async function achatDeLAbonnement(sub: string) {
