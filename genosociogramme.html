@@ -97,6 +97,7 @@
     .panneau{width:300px;flex-shrink:0;border-left:1px solid var(--rose);background:var(--blanc);display:flex;flex-direction:column;min-height:0}
     .panneau-tete{display:flex;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
     .panneau-tete h2{font-size:1.15rem;margin-right:auto}
+    .bt-reps-pdf{font:600 .74rem/1 var(--texte);padding:.4rem .7rem;border:1px solid var(--rose);border-radius:99px;background:var(--blanc);color:var(--prune);cursor:pointer}.bt-reps-pdf:hover{border-color:var(--prune)}.bt-reps-pdf[hidden]{display:none}
     .compte{background:var(--prune);color:var(--blanc);font:600 .75rem/1 var(--texte);border-radius:999px;padding:.3rem .55rem}
     .panneau-corps{overflow-y:auto;padding:.8rem;display:grid;gap:.55rem;align-content:start;flex:1}
     .rep{border:1px solid var(--rose);border-left:4px solid var(--c);border-radius:12px;padding:.7rem .8rem;background:var(--blanc);text-align:left;cursor:pointer;font:inherit;color:inherit;width:100%}
@@ -610,6 +611,7 @@
       <div class="panneau-tete">
         <h2 id="titre-panneau">Ce qui se répète</h2>
         <span class="compte" id="compte">0</span>
+        <button class="bt-reps-pdf" type="button" id="bt-reps-pdf" hidden title="Enregistrer toute la liste en PDF">PDF</button>
         <button class="fermer replier" type="button" id="bt-replier" aria-label="Fermer le panneau">×</button>
       </div>
       <div class="panneau-recherche">
@@ -821,10 +823,10 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-21h"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-23"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
-  <script src="assets/arbre-telephone.js?v=2026-10-23b"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-23c"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
