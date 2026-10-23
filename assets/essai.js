@@ -1,6 +1,6 @@
-/* Genesolia · essai de 10 jours des analyses de l'arbre (réglage : GENESOLIA_ESSAI dans assets/site.js).
+/* Genesolia · essai de 30 jours des analyses de l'arbre (réglage : GENESOLIA_ESSAI dans assets/site.js).
    Chargé par genosociogramme.html et fil-d-or.html. Tant que actif vaut false, rien n'est bloqué.
-   Après les 10 jours, sans Pass / Cercle / Espace praticien : les analyses se mettent en pause, l'arbre reste visible et modifiable. */
+   Après les 30 jours, sans Pass / Cercle / Espace praticien : les analyses se mettent en pause, l'arbre reste visible et modifiable. */
 (function () {
   'use strict';
   var C = window.GENESOLIA_ESSAI || { actif: false };

@@ -211,7 +211,7 @@ window.GenesoliaMesure = (function () {
 window.GENESOLIA_STRIPE = {
   cercleMois: 'https://buy.stripe.com/aFafZa6jj2NX6Yd9qD43S0h',     /* Le Cercle 29 €/mois, essai 30 jours */
   cercleFondatrice: 'https://buy.stripe.com/14AdR25ff6095U90U743S0l', /* Le Cercle, prix fondatrice 24,90 €/mois (100 premières après le mois offert) */
-  cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois avec engagement 12 mois, essai 30 jours */
+  cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
   cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
   passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',       /* Le Pass 10 €/mois sans engagement */
   pass3Mois: 'https://buy.stripe.com/14AdR28rragp1DT8mz43S0k',      /* Le Pass 27 € les 3 mois, en une fois */
@@ -249,12 +249,12 @@ window.GENESOLIA_PRODUITS = {
   cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
 };
 
-/* ===== Essai de 10 jours des analyses de l'arbre =====
+/* ===== Essai de 30 jours des analyses de l'arbre =====
    Gratuit pour toujours : dessiner son arbre (1 arbre). Les analyses (ce qui se répète, le fil d'or en arbre et ce qui se répète,
-   la numérologie et l'astrologie reliées à l'arbre, le rapport) : 10 jours offerts dès la création du compte, puis avec le Pass,
+   la numérologie et l'astrologie reliées à l'arbre, le rapport) : 30 jours offerts dès la création du compte, puis avec le Pass,
    Le Cercle ou l'Espace praticien (table acces_premium, offre « pass », « cercle », « praticien »…).
-   actif: false tant que le Pass n'est pas payable : rien n'est bloqué. depuis : début des 10 jours pour les comptes créés avant. */
-window.GENESOLIA_ESSAI = { actif: false, jours: 10, depuis: '2026-11-01' };
+   actif: false tant que le Pass n'est pas payable : rien n'est bloqué. depuis : début des 30 jours pour les comptes créés avant. */
+window.GENESOLIA_ESSAI = { actif: false, jours: 30, depuis: '2026-11-01' };
 
 /* ===== Arbre imprimé et envoyé (Mon arbre à encadrer) : prix TTC affichés, livraison comprise =====
    actif: false cache l'offre. Chaque format a son lien Stripe dans GENESOLIA_STRIPE (même nom que « stripe »).
