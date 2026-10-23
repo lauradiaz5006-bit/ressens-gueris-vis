@@ -35,6 +35,7 @@
 
   /* Étiquette : prénom(s) sur une ou deux lignes, NOM, dates */
   function etiquette(q, fz, court, uneLigne) {
+    if (q.couple) return { w: 0, h: 0, l: [] };   /* « Notre famille » : le couple est la rangée au-dessus ; ce point invisible relie le couple aux enfants */
     var fn = Math.max(Math.round(fz * .8), fz < 34 ? fz : 34), fd = Math.max(Math.round(fz * .78), fz < 34 ? fz : 34);
     var mots = String(q.prenom || '').trim().split(/\s+/).filter(Boolean), pre = court ? [mots[0] || ''] : [mots.join(' ')];
     if (!court && !uneLigne && mots.length > 1 && larg(pre[0], fz, GN) > Math.max(larg(NOM(q), fn, NS, true), larg(datesDe(q), fd, NS, true)) * 1.25) {
@@ -250,6 +251,7 @@
       return '<g transform="translate(' + f1(x) + ' ' + f1(y) + ') scale(' + (t / 40).toFixed(3) + ')" fill="#B08048"><path d="M0 -38C6 -28 6 -18 0 -8C-6 -18 -6 -28 0 -38Z"/><path d="M-4 -8C-14 -10 -22 -18 -22 -26C-14 -24 -8 -18 -4 -8Z"/><path d="M4 -8C14 -10 22 -18 22 -26C14 -24 8 -18 4 -8Z"/><rect x="-10" y="-8" width="20" height="5" rx="2"/></g>';
     }
     gens.concat(fs, ENF ? ENF.liste : [], CJ ? [CJ] : []).forEach(function (q) {
+      if (q.couple) return;
       var e = q._e, x = q._x, yb = q._yb, yt = yb - e.h, moiMeme = q === moi, f = q.sexe === 'f';
       if (e.rr) {
         var rr = e.rr, cy = yt + e.cy, sy = Math.max(10, Math.round(rr * .3)), cs = moiMeme ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4', sc;
