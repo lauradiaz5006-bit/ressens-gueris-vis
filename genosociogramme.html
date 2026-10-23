@@ -390,6 +390,19 @@
     body.mode-seance header[data-entete],body.mode-seance .barre,body.mode-seance .panneau,body.mode-seance footer,body.mode-seance .annonce,body.mode-seance .note-donnees,body.mode-seance .legende-symb,body.mode-seance .es-bandeau{display:none!important}
     body.mode-seance .zone{position:fixed;inset:0;z-index:80;height:100vh!important;background:var(--fond,#FFF9F7)}
     .quitter-seance{position:fixed;right:18px;top:18px;z-index:90;box-shadow:0 10px 30px rgba(107,47,91,.3)}
+    body.mode-seance .pr-tiroir{padding-top:4.4rem}
+    .barre-seance{position:fixed;right:18px;top:18px;z-index:220;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end;max-width:calc(100vw - 36px)}
+    .barre-seance .bt{box-shadow:0 10px 30px rgba(107,47,91,.22);background:var(--blanc)}.barre-seance .bt.plein{background:var(--prune);color:#fff}
+    .barre-seance .bt[aria-pressed=true]{background:var(--prune);color:#fff;border-color:var(--prune)}.barre-seance [hidden]{display:none}
+    body.mode-seance.seance-reps .panneau{display:flex!important;position:fixed;top:0;right:0;bottom:0;width:min(28rem,100vw);max-width:100vw;z-index:85;box-shadow:-18px 0 40px rgba(74,33,66,.22);padding-top:3.6rem}
+    body.mode-seance.seance-reps .panneau-poignee,body.mode-seance.seance-reps #bt-agrandir,body.mode-seance.seance-reps #bt-replier{display:none!important}
+    .groupe-cabinet .bt.plein{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .menu-plus #bt-nouveau-barre{margin-top:.35rem;border-top:1px solid var(--rose)!important;border-radius:0 0 10px 10px}
+    .panneau-tete h2{white-space:nowrap}
+    body.partage-verrou #bt-reps-pdf,body.arbre-partage .exos,body.arbre-partage .rep-exo{display:none!important}
+    body.partage-verrou #dessin,body.partage-verrou .panneau{-webkit-user-select:none;user-select:none}
+    body.partage-sans-reps .panneau,body.partage-sans-reps #bt-panneau{display:none!important}
+    @media print{body.partage-verrou>*{display:none!important}body.partage-verrou::after{content:"Cet arbre est partagé en lecture seule.";display:block;padding:2cm;font:16pt sans-serif;color:#6B2F5B}}
     body.arbre-partage .barre .groupe,body.arbre-partage .barre .sep,body.arbre-partage .choix-arbre,body.arbre-partage #actions-perso,body.arbre-partage #vide,body.arbre-partage .note-donnees{display:none!important}
     #lien-cabinet{margin-right:.4rem}
     /* Rapport */
@@ -882,7 +895,8 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-23h2"></script>
+  <script src="assets/praticien-outils.js?v=1"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-23p"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/arbre-telephone.js?v=2026-10-23d"></script>

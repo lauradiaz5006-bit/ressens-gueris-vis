@@ -406,6 +406,18 @@
       majEntete();
       chargerArbre();
       chargerChemin();
+      carteCabinet();
     }
   };
+  /* Praticien·ne : une carte « Mon cabinet » en tête de l'accueil */
+  function carteCabinet() {
+    if (document.getElementById('acc-cabinet')) return;
+    sb.from('praticiens').select('cabinet').eq('user_id', user.id).maybeSingle().then(function (r) {
+      if (!r || r.error || !r.data || document.getElementById('acc-cabinet')) return;
+      var g = document.querySelector('[data-p="accueil"] .tb-grille'); if (!g) return;
+      var c = document.createElement('article'); c.className = 'tb-carte tb-large'; c.id = 'acc-cabinet';
+      c.innerHTML = '<h2>Mon cabinet · ' + esc(r.data.cabinet || 'Espace praticien') + '</h2><p class="tb-aide">Tes dossiers client·es, tes notes de séance, le mode séance, les rapports et les liens de partage.</p><div class="tb-actions"><a class="btn btn-plein" href="praticien.html">Ouvrir mon cabinet</a></div>';
+      g.insertBefore(c, g.firstChild);
+    }, function () {});
+  }
 })();
