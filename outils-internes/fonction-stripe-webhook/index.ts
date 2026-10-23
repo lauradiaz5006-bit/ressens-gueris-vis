@@ -6,7 +6,7 @@
 // Arbre imprimé : client_reference_id = imp__<référence de la commande> (colonne details.ref de la table demandes).
 //   Après paiement : la commande part chez Gelato en BROUILLON (rien n'est imprimé ni payé avant que Laura valide
 //   dans son tableau de bord Gelato), puis un e-mail « à valider » part vers contact@genesolia.fr (table mails).
-//   Secret : GELATO_API_KEY. Références des produits : GELATO_PRODUITS ci-dessous (ou secret GELATO_PRODUITS en JSON).
+//   Secret : GELATO_API_KEY (ou un secret dont le nom contient « gelato »). Produits : GELATO_PRODUITS ci-dessous.
 //   Sans clé ou sans référence : pas d'envoi à Gelato, l'e-mail donne tout pour passer la commande à la main.
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
@@ -78,9 +78,20 @@ async function paiement(session: any) {
 }
 
 /* ───────── Arbre imprimé → Gelato (brouillon) ───────── */
-const GELATO_CLE = (Deno.env.get("GELATO_API_KEY") ?? "").trim();
+/* La clé : secret GELATO_API_KEY, ou à défaut le premier secret dont le nom contient « gelato » (ex. « Gelato genesolia ») */
+const GELATO_CLE = (() => {
+  const env = Deno.env.toObject(); if (env.GELATO_API_KEY) return env.GELATO_API_KEY.trim();
+  const k = Object.keys(env).find((n) => /gelato/i.test(n) && !/produit/i.test(n)); return k ? env[k].trim() : "";
+})();
+/* Produits Gelato (catalogue « Mounted Framed Poster » = livré monté, prêt à accrocher ; papier premium mat 200 g ; portrait).
+   Lus dans le catalogue Gelato le 23/10/2026. */
 const GELATO_PRODUITS: Record<string, string> = Object.assign({
-  a4: "", a3: "", a4cadre: "", a3cadre: "",   /* référence (productUid) Gelato de chaque format du site */
+  a4: "flat_product_pf_a4_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_sft_none_set_none_ver",
+  a3: "flat_product_pf_a3_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_sft_none_set_none_ver",
+  a4cadre: "frame_and_poster_mounted_product_frs_210x297mm_frc_natural-wood_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a4_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
+  a3cadre: "frame_and_poster_mounted_product_frs_a3_frc_natural-wood_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a3_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
+  a4cadreBlanc: "frame_and_poster_mounted_product_frs_210x297mm_frc_white_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a4_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
+  a3cadreBlanc: "frame_and_poster_mounted_product_frs_a3_frc_white_frm_wood_frp_w12xt22-mm_gt_plexiglass__pf_a3_pt_200-gsm-uncoated_cl_4-0_ct_none_prt_none_ver",
 }, (() => { try { return JSON.parse(Deno.env.get("GELATO_PRODUITS") ?? "{}"); } catch { return {}; } })());
 const ALERTE = "contact@genesolia.fr";
 
