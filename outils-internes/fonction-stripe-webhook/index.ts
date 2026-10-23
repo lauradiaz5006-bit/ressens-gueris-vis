@@ -105,7 +105,7 @@ const FORMATS: Record<string, string> = {
   a4cadre: "A4 encadré : cadre en bois naturel et plexiglas, environ 23,4 × 32,1 cm, livré monté, prêt à accrocher",
   a3cadre: "A3 encadré : cadre en bois naturel et plexiglas, environ 32,1 × 44,4 cm, livré monté, prêt à accrocher",
 };
-const STYLES: Record<string, string> = { grand: "Grand arbre", figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons" };
+const STYLES: Record<string, string> = { grand: "Grand arbre", figuier: "Figuier peint", dore: "Arbre doré", lignee: "Lignée", medaillons: "Médaillons", famille: "Notre famille", descendants: "Descendants" };
 const prenomDe = (d: any) => String(d.prenom || "").trim().split(/\s+/)[0] || null;
 const adresseDe = (x: any) => [x.nom_complet, (x.adresse ?? "") + (x.complement ? ", " + x.complement : ""), (x.code_postal ?? "") + " " + (x.ville ?? ""), "France"].filter((l) => String(l ?? "").trim()).join("\n");
 
@@ -120,6 +120,7 @@ async function confirmerCliente(d: any, x: any) {
     `Ton arbre : « ${titre} »${x.sous_titre ? ", " + x.sous_titre : ""}`,
     x.style ? `Style : ${STYLES[x.style] ?? x.style}` : "",
     `Format : ${fmtTexte}`,
+    x.cadeau === "oui" ? `Cadeau${x.mot ? `, avec le petit mot imprimé : « ${x.mot} »` : ""}` : "",
     `Prix payé : ${x.montant_paye} €, livraison comprise`,
   ].filter(Boolean).join("\n");
   await sb.from("mails").insert({
@@ -162,7 +163,7 @@ async function impression(session: any, ref: string) {
   /* arbre à l'horizontale (styles Lignée, Médaillons) : même produit Gelato, en orientation horizontale */
   const produit = (GELATO_PRODUITS[x.format] ?? "").replace(/_ver$/, x.orientation === "paysage" ? "_hor" : "_ver");
   const nom = String(x.nom_complet ?? "").trim().split(/\s+/), prenomL = nom.shift() || d.prenom || "", nomL = nom.join(" ") || prenomL;
-  const resume = `${x.format_nom ?? x.format}${x.orientation === "paysage" ? " (horizontal)" : ""} · ${x.prix ?? ""} payé (${maj.montant_paye} €)\n${x.nom_complet}\n${x.adresse}${x.complement ? ", " + x.complement : ""}\n${x.code_postal} ${x.ville}${x.telephone ? "\nTél. " + x.telephone : ""}\nE-mail : ${d.email}`;
+  const resume = `${x.format_nom ?? x.format}${x.orientation === "paysage" ? " (horizontal)" : ""} · ${x.prix ?? ""} payé (${maj.montant_paye} €)\n${x.nom_complet}\n${x.adresse}${x.complement ? ", " + x.complement : ""}\n${x.code_postal} ${x.ville}${x.telephone ? "\nTél. " + x.telephone : ""}\nE-mail : ${d.email}${x.cadeau === "oui" ? "\nCadeau" + (x.mot ? " · mot : « " + x.mot + " »" : "") : ""}`;
   if (GELATO_CLE && produit && lienFichier) {
     const r = await fetch("https://order.gelatoapis.com/v4/orders", { method: "POST", headers: { "X-API-KEY": GELATO_CLE, "Content-Type": "application/json" },
       body: JSON.stringify({ orderType: "draft", orderReferenceId: "genesolia-" + d.id, customerReferenceId: String(d.email || "client").slice(0, 100), currency: "EUR",
