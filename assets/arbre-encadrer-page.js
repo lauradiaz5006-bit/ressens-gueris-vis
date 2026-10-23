@@ -36,7 +36,11 @@
     l.hidden = !donnees.nbEnfants || !avecEnfantsPossible();
     var lc = document.getElementById('fe-conjoint-l'), ac = document.getElementById('fe-conjoint-aide');
     if (desc()) l.hidden = true;
-    if (lc) { lc.hidden = !donnees.aConjoint || !(avecEnfantsPossible() || desc()) || famille(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1); if (tc && c0 && c0.conjoint) tc.textContent = (donnees.departEstMoi ? 'Avec mon conjoint · ' : 'Avec son conjoint · ') + (c0.conjoint.prenom + ' ' + c0.conjoint.nom).trim(); }
+    if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
+      if (tc && c0 && c0.conjoint) tc.textContent = (donnees.departEstMoi ? 'Avec mon conjoint · ' : 'Avec son conjoint · ') + (c0.conjoint.prenom + ' ' + c0.conjoint.nom).trim();
+      else if (tc && c0 && c0.unions) { var hs = c0.unions.every(function (u) { return u.sexe === 'm'; }), fs0 = c0.unions.every(function (u) { return u.sexe === 'f'; }), qui = hs ? 'les pères' : fs0 ? 'les mères' : 'l’autre parent';
+        tc.textContent = (donnees.departEstMoi ? 'Avec ' + qui + ' de mes enfants' : 'Avec ' + qui + ' de ses enfants') + (c0.unions.length > 1 ? ' (' + c0.unions.length + ')' : '') + ' · ' + c0.unions.map(function (u) { return u.prenom; }).filter(Boolean).join(', ');
+        if (!lig() || grand()) tc.textContent += ' — visibles sur Lignée et Médaillons'; } }
     var fa = document.getElementById('fe-famille-aide');
     if (fa) {
       var hc = famille() && donnees.couple && donnees.horsCouple && donnees.horsCouple.length;
@@ -201,7 +205,7 @@
     var freres = Object.keys(fs).slice(0, 4).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
-    var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
+    var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { _id: id, prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
       .sort(function (a, b) { return (a.naissance || 9999) - (b.naissance || 9999); }).slice(0, 6);
     /* son ou sa conjoint·e : l'union en cours en priorité. Affiché seulement s'il est l'autre parent de TOUS ses enfants
        (sinon il laisserait croire qu'il est le parent de tous) */
@@ -213,6 +217,19 @@
       if (tousDeLui) { var pc = P[cj]; conjoint = { prenom: pc.prenom || '', nom: pc.nom || '', sexe: pc.sex === 'f' ? 'f' : 'm', naissance: annee(pc.naiss), deces: annee(pc.deces) || null, separe: unions[0].fini }; }
       else conjointRefus = (P[cj].prenom || 'Ton conjoint');
     }
+    /* Les autres parents de ses enfants (unions passées ou actuelles) : chacun à côté d'elle, ses enfants sous leur union.
+       Sert quand le conjoint n'est pas le parent de tous (familles recomposées) ou qu'il y a plusieurs unions. */
+    var partenaires = [];
+    function fiche(id) { var q = P[id]; return { prenom: q.prenom || '', nom: q.nom || '', sexe: q.sex === 'f' ? 'f' : 'm', naissance: annee(q.naiss), deces: annee(q.deces) || null }; }
+    function partenaire(id) {
+      var k = partenaires.map(function (x) { return x.id; }).indexOf(id); if (k >= 0) return k;
+      var u = unions.filter(function (x) { return x.id === id; })[0];
+      partenaires.push({ id: id, p: fiche(id), separe: u ? u.fini : true }); return partenaires.length - 1;
+    }
+    enfants.forEach(function (c) { var autre = parentsDe(c._id).filter(function (x) { return x !== moi; })[0]; c._u = autre ? partenaire(autre) : -1; });
+    unions.forEach(function (u) { partenaire(u.id); });   /* une union sans enfant noté apparaît aussi */
+    partenaires = partenaires.slice(0, 3); enfants.forEach(function (c) { if (c._u > 2) c._u = -1; });
+    var avecUnions = !conjoint && partenaires.length > 0;
     var nomFamille = racine.nom || (racine.pere && racine.pere.nom) || '';
     /* Majuscule au nom de famille : « charron » donne « Charron » */
     nomFamille = String(nomFamille).trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); }).replace(/ (De|Du|Des|La|Le|D’|D') /g, function (m) { return m.toLowerCase(); });
@@ -220,7 +237,8 @@
       titre: nomFamille ? 'La famille ' + nomFamille : 'Notre famille',
       /* « à aujourd'hui » seulement si quelqu'un de l'arbre est en vie ; sinon jusqu'à la naissance la plus récente */
       sousTitre: GEN[Math.min(gens, GEN.length) - 1] + (plusVieux ? ' · de ' + plusVieux + ' à ' + (vivant || !plusJeune || plusJeune === plusVieux ? 'aujourd’hui' : plusJeune) : ''),
-      moi: racine, freresSoeurs: freres, enfants: enfants, conjoint: conjoint, conjointRefus: conjointRefus, nb: gens, nbGen: gens, depart: moi, departEstMoi: P[moi].role === 'moi'
+      moi: racine, freresSoeurs: freres, enfants: enfants, conjoint: conjoint, conjointRefus: avecUnions ? '' : conjointRefus,
+      unions: avecUnions ? partenaires.map(function (x) { var o = x.p; o.separe = x.separe; return o; }) : null, nb: gens, nbGen: gens, depart: moi, departEstMoi: P[moi].role === 'moi'
     };
   }
 
@@ -289,7 +307,7 @@
     if (donnees && famille() && !donnees.couple) { donnees.sansCouple = true; donnees.raisonFamille = raisonFamille; if (!choix.titreModifie) donnees.titre = 'Notre famille'; }   /* pas de conjoint noté : on montre la Lignée, avec un mot d'explication */
     if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
-    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
+    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres) donnees.freresSoeurs = []; donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; donnees.aUnions = !!(donnees.unions && donnees.unions.length); if (!choix.conjoint) donnees.unions = null; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
     /* portrait ou paysage : la Lignée (et Médaillons, Notre famille) prend le sens où son texte est le plus grand */
     if (donnees && lig() && !grand() && !desc() && window.ArbreLignee && window.ArbreLignee.taille) {
       var a3o = /^a3/.test(formatChoisi()), fzL = window.ArbreLignee.taille(donnees, a3o, true, motif(), donnees.nbGen), fzP = window.ArbreLignee.taille(donnees, a3o, false, motif(), donnees.nbGen);

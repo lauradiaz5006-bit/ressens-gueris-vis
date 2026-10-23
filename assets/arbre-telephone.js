@@ -51,7 +51,12 @@
     if (ps.indexOf(id) >= 0) return f ? 'Ta mère' : p.sex === 'm' ? 'Ton père' : 'Ton parent';
     for (var i = 0; i < ps.length; i++) if (parentsDe(e, ps[i]).indexOf(id) >= 0) { var cote = e.people[ps[i]].sex === 'f' ? ' maternel' : e.people[ps[i]].sex === 'm' ? ' paternel' : ''; return (f ? 'Ta grand-mère' : p.sex === 'm' ? 'Ton grand-père' : 'Ton grand-parent') + (cote ? (f ? cote + 'le' : cote) : ''); }
     for (var j = 0; j < ps.length; j++) { var gps = parentsDe(e, ps[j]); for (var k = 0; k < gps.length; k++) if (parentsDe(e, gps[k]).indexOf(id) >= 0) return f ? 'Ton arrière-grand-mère' : 'Ton arrière-grand-père'; }
-    if (conjoints(e, m).indexOf(id) >= 0) return f ? 'Ta conjointe' : 'Ton conjoint';
+    if (conjoints(e, m).indexOf(id) >= 0) {   /* union terminée : « ex », et de qui c'est le parent */
+      var r0 = e.rels.filter(function (r) { return r.type === 'couple' && ((r.from === m && r.to === id) || (r.to === m && r.from === id)); })[0], ex = r0 && (r0.statut === 'separe' || r0.statut === 'divorce');
+      var leurs = enfantsDe(e, m).filter(function (c) { return parentsDe(e, c).indexOf(id) >= 0; }).map(function (c) { return String(e.people[c].prenom || '').split(/\s+/)[0]; }).filter(Boolean);
+      if (leurs.length) return (f ? 'Mère de ' : p.sex === 'm' ? 'Père de ' : 'Parent de ') + (leurs.length > 1 ? leurs.slice(0, -1).join(', ') + ' et ' + leurs[leurs.length - 1] : leurs[0]);
+      return ex ? (f ? 'Ton ex-conjointe' : 'Ton ex-conjoint') : (f ? 'Ta conjointe' : 'Ton conjoint');
+    }
     if (enfantsDe(e, m).indexOf(id) >= 0) return f ? 'Ta fille' : p.sex === 'm' ? 'Ton fils' : 'Ton enfant';
     if (fratrie(e, m).indexOf(id) >= 0) return f ? 'Ta sœur' : p.sex === 'm' ? 'Ton frère' : 'Ta fratrie';
     for (var n = 0; n < ps.length; n++) if (fratrie(e, ps[n]).indexOf(id) >= 0) return f ? 'Ta tante' : p.sex === 'm' ? 'Ton oncle' : '';
@@ -195,7 +200,7 @@
     /* l'arbre à encadrer, bien visible dès que l'arbre a trois personnes */
     if (!CLI() && ids.length >= 3 && document.getElementById('bt-encadrer')) h += '<div class="mt-encadre"><img src="assets/modeles/arbre-vierge-apercu.webp" width="84" height="59" alt="" loading="lazy"><div><p><b>Ton arbre encadré</b>Ta lignée sur un bel arbre doré, imprimée et livrée chez toi, ou à télécharger.</p><button type="button" class="btn btn-plein" data-clic="bt-encadrer">Voir mon arbre encadré' + (venteOuverte() ? ' · dès 45 €' : '') + '</button></div></div>';
     var cj = conjoints(e, centre);
-    h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Ton couple' : 'Son couple') + '</p><div class="mt-ligne">' + cj.map(function (x) { return carte(e, x); }).join('') + vide('conjoint', cj.length ? 'Ajouter une autre union' : 'Ajouter ' + (toi ? 'ton' : 'son') + ' conjoint') + '</div></div>';
+    h += '<div class="mt-rang"><p class="mt-rang-t">' + (cj.length > 1 ? (toi ? 'Tes unions' : 'Ses unions') : (toi ? 'Ton couple' : 'Son couple')) + '</p><div class="mt-ligne">' + cj.map(function (x) { return carte(e, x); }).join('') + vide('conjoint', cj.length ? 'Ajouter une autre union' : 'Ajouter ' + (toi ? 'ton' : 'son') + ' conjoint') + '</div></div>';
     var fr = fratrie(e, centre);
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Tes frères et sœurs' : 'Ses frères et sœurs') + '</p><div class="mt-ligne">' + fr.map(function (x) { return carte(e, x); }).join('') + vide('fratrie', 'Ajouter un frère ou une sœur') + '</div></div>';
     var en = enfantsDe(e, centre);
