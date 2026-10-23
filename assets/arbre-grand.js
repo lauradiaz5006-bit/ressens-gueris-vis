@@ -33,7 +33,10 @@
       l.forEach(function (z) { var mid = yy + z[1] * .56, ch = 2 * Math.sqrt(Math.max(0, r * r - mid * mid)); if (larg(z[0], z[1], z[2], z[3]) > ch * .94) ok = false; yy += z[1] * 1.12; });
       return ok ? l : null;
     }
-    for (; fz >= MIN && !lignes; fz--) lignes = essai(fz, pre.join(' ')) || (pre.length > 1 ? essai(fz, pre[0]) : null);
+    /* d'abord tous les prénoms (le texte peut un peu rapetisser), puis le premier prénom seulement si la place manque vraiment */
+    var fz0 = fz, seuil = Math.max(MIN, Math.round(fz0 * .55));
+    for (; fz >= seuil && !lignes; fz--) lignes = essai(fz, pre.join(' '));
+    for (fz = fz0; fz >= MIN && !lignes; fz--) lignes = essai(fz, pre.join(' ')) || (pre.length > 1 ? essai(fz, pre[0]) : null);
     if (!lignes) lignes = essai(MIN, pre[0] || '') || [[pre[0] || '', MIN, GN, false, 'gr-nom'], [nom, MIN, NS, true, 'gr-nf'], [dates, MIN, NS, true, 'gr-date']].filter(function (z) { return z[0]; });
     var h = lignes.reduce(function (s, z) { return s + z[1] * 1.12; }, 0), ty = y - h / 2, out = '<circle cx="' + x + '" cy="' + y + '" r="' + f1(r * 1.02) + '" fill="#FDF8EF" opacity=".92"/>';
     /* le NOM le plus long peut toucher le bord : il est resserré pour rester dans le cercle */

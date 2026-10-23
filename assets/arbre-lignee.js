@@ -130,7 +130,7 @@
     /* d'abord le rangement parfait (prénoms complets, puis premier prénom seulement), sinon les rangées en quinconce */
     var res = null, RANGE = '';
     (PARFAIT ? ['complet', 'court'] : ['']).filter(function (x) { return x !== null; }).some(function (mode) {
-      RANGE = mode; var taille = a3 ? 40 : 50; res = essai(taille);
+      RANGE = mode; var taille = PARFAIT ? (a3 ? 64 : 74) : (a3 ? 40 : 50); res = essai(taille);   /* à l'horizontale : le texte grandit quand il y a de la place */
       while (!res.ok && taille > min) { taille -= 2; res = essai(taille); }
       return res.ok;
     });
