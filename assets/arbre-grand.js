@@ -61,14 +61,15 @@
     var enf = (donnees.enfants || []).slice(0, 6), eH = '';
     if (enf.length) {
       /* du plus âgé (à gauche) au plus jeune (à droite), de part et d'autre du médaillon du bas */
-      var RE = 98, YE = 2285, nG = Math.ceil(enf.length / 2);
+      /* des médaillons peints (les mêmes que l'arbre), aussi grands que ceux des grands-parents, de part et d'autre de toi */
+      var RE = enf.length > 4 ? 112 : 128, YE = 2225, PAS = enf.length > 4 ? 285 : 330, nG = Math.ceil(enf.length / 2), sc = RE / 152;
       enf.forEach(function (q, i) {
-        var dx = i < nG ? -(430 + (nG - 1 - i) * 235) : 430 + (i - nG) * 235, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
-        var x0 = X[0][0] + sg * R[0] * .72, y0 = Y[0][0] + R[0] * .7;
-        eH += '<path d="M' + f1(x0) + ' ' + f1(y0) + 'C' + f1(x0 + sg * 60) + ' ' + f1(y0 + 60) + ' ' + f1(x - sg * 40) + ' ' + (y - RE - 70) + ' ' + f1(x) + ' ' + (y - RE - 10) + '" stroke="#B08048" stroke-width="6" fill="none" stroke-linecap="round" opacity=".85"/>';
-        eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + RE + '" fill="#FDF8EF" stroke="url(#gr-or)" stroke-width="11"/><circle cx="' + f1(x) + '" cy="' + y + '" r="' + (RE - 14) + '" fill="none" stroke="#C9A06A" stroke-width="2" opacity=".7"/>';
-        eH += '<g transform="translate(' + f1(x) + ' ' + (y - RE + 2) + ') scale(.75)" fill="#B08048"><path d="M0 -38C6 -28 6 -18 0 -8C-6 -18 -6 -28 0 -38Z"/><path d="M-4 -8C-14 -10 -22 -18 -22 -26C-14 -24 -8 -18 -4 -8Z"/><path d="M4 -8C14 -10 22 -18 22 -26C14 -24 8 -18 4 -8Z"/><rect x="-10" y="-8" width="20" height="5" rx="2"/></g>';
-        eH += medaillon(q, Math.round(x), y, RE * .8);
+        var dx = i < nG ? -(R[0] + RE + 70 + (nG - 1 - i) * PAS) : R[0] + RE + 70 + (i - nG) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
+        /* pas de trait : les racines peintes relient déjà les enfants au médaillon du bas */
+        eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + f1(RE * .95) + '" fill="#FDF8EF"/>';
+        eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(x - 360 * sc) + '" y="' + f1(y - 279 * sc) + '" width="' + f1(780 * sc) + '" height="' + f1(540 * sc) + '"/>'
+          : '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + RE + '" fill="none" stroke="url(#gr-or)" stroke-width="11"/>';
+        eH += medaillon(q, Math.round(x), y, RE * .78);
       });
     }
     /* titre dans le creux, entre les deux moitiés de l'arbre */
