@@ -607,7 +607,7 @@
       if (!jeune(d)) return;
       var liens = [], ids = [d.id], exoMoi = null;
       liste.forEach(function (g) {
-        if (g.id === d.id || !fam[g.id]) return;
+        if (g.id === d.id || !fam[g.id] || parents(g.id).indexOf(d.id) >= 0) return;   // un parent mort juste après la naissance de son enfant n'est pas un gisant (voir plus bas)
         var an = annee(g.naiss); if (!an || an <= annee(d.naiss || '')) return;
         var dj = jours(d.deces, g.naiss), autour, t;
         if (dj != null) {
@@ -680,6 +680,8 @@
     if (departsNaissance.length >= 2) {
       var idsDN = []; departsNaissance.forEach(function (x) { x.ids.forEach(function (i) { if (idsDN.indexOf(i) < 0) idsDN.push(i); }); });
       reps.push({ type: 'gisant', fam: ['depart'], c: COUL.gisant, label: 'Un parent qui part juste après une naissance, ' + departsNaissance.length + ' fois', desc: departsNaissance.map(function (x) { return x.txt; }).join(' ; ') + '.', ids: idsDN });
+    } else if (departsNaissance.length === 1) {   // un seul cas : on le montre quand même, sans parler de répétition
+      reps.push({ type: 'depart', fam: ['depart'], c: COUL.depart, label: 'Un parent qui part juste après une naissance', desc: departsNaissance[0].txt + '.', ids: departsNaissance[0].ids });
     }
 
     // Un parent qui manque tôt : décès, départ (« abandon ») ou séparation des parents avant les 12 ans de l'enfant, sur au moins 2 générations
@@ -833,7 +835,7 @@
       var fin = annee(d.deces) || annee(d.naiss); if (!fin) return;
       var fam = famille(d);
       liste.forEach(function (g) {
-        if (g.id === d.id || !fam[g.id]) return;
+        if (g.id === d.id || !fam[g.id] || parents(g.id).indexOf(d.id) >= 0) return;   // porter le prénom de son propre parent : transmission ordinaire, pas un prénom caché
         var an = annee(g.naiss); if (!an || an < fin || an - fin > 30) return;
         var mg = morceaux(g), tout = mg.join(''), forme = null;
         md.forEach(function (td) {
