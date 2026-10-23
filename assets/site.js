@@ -415,6 +415,23 @@ window.GENESOLIA_IMPRESSION = {
     };
     majEspace();
     window.GenesoliaMajEntete = majEspace;
+    /* Praticien·ne connecté·e : « Tu es praticien·ne ? » devient « Mon espace praticien » (et plus la page de vente) */
+    (function () {
+      var lien = entete.querySelector('.menu-pro'); if (!lien) return;
+      function marquer(oui) { if (!oui) return; lien.href = 'praticien.html'; lien.textContent = 'Mon espace praticien'; lien.removeAttribute('aria-current'); }
+      var x = null; try { x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
+      if (!x || !x.access_token || !x.user) { try { localStorage.removeItem('genesolia-est-praticien'); } catch (e) {} return; }
+      var cle = 'genesolia-est-praticien', memo = null; try { memo = localStorage.getItem(cle); } catch (e) {}
+      if (memo === x.user.id) marquer(true);
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/praticiens?select=user_id&user_id=eq.' + encodeURIComponent(x.user.id), {
+        headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', Authorization: 'Bearer ' + x.access_token }
+      }).then(function (r) { return r.ok ? r.json() : null; }).then(function (l) {
+        if (!l) return;
+        var oui = l.length > 0;
+        try { if (oui) localStorage.setItem(cle, x.user.id); else localStorage.removeItem(cle); } catch (e) {}
+        marquer(oui);
+      }).catch(function () {});
+    })();
     /* Sans compte, sur les outils : rappel discret que le travail s'efface à la fermeture du navigateur */
     var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html', 'roue-des-emotions.html', 'fil-d-or.html'];
     var vuNote = false; try { vuNote = sessionStorage.getItem('note-donnees') === 'vue'; } catch (e) {}
