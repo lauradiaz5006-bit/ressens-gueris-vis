@@ -58,19 +58,27 @@
       poser(p.pere, g + 1, i * 2); poser(p.mere, g + 1, i * 2 + 1);
     })(donnees.moi, 0, 0);
     /* « Avec mes enfants » : de petits médaillons dorés parmi les racines, reliés au médaillon du bas */
-    var enf = (donnees.enfants || []).slice(0, 6), eH = '';
+    var enf = (donnees.enfants || []).slice(0, 6), eH = '', CJ = donnees.conjoint || null;
     if (enf.length) {
       /* du plus âgé (à gauche) au plus jeune (à droite), de part et d'autre du médaillon du bas */
       /* des médaillons peints (les mêmes que l'arbre), aussi grands que ceux des grands-parents, de part et d'autre de toi */
       var RE = enf.length > 4 ? 112 : 128, YE = 2225, PAS = enf.length > 4 ? 285 : 330, nG = Math.ceil(enf.length / 2), sc = RE / 152;
       enf.forEach(function (q, i) {
-        var dx = i < nG ? -(R[0] + RE + 70 + (nG - 1 - i) * PAS) : R[0] + RE + 70 + (i - nG) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
+        var dx = i < nG ? -(R[0] + RE + 70 + (nG - 1 - i) * PAS) : R[0] + RE + 70 + (i - nG + (CJ ? 1 : 0)) * PAS, x = X[0][0] + dx, y = YE, sg = dx < 0 ? -1 : 1;
         /* pas de trait : les racines peintes relient déjà les enfants au médaillon du bas */
         eH += '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + f1(RE * .95) + '" fill="#FDF8EF"/>';
         eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(x - 360 * sc) + '" y="' + f1(y - 279 * sc) + '" width="' + f1(780 * sc) + '" height="' + f1(540 * sc) + '"/>'
           : '<circle cx="' + f1(x) + '" cy="' + y + '" r="' + RE + '" fill="none" stroke="url(#gr-or)" stroke-width="11"/>';
         eH += medaillon(q, Math.round(x), y, RE * .78);
       });
+    }
+    /* le conjoint : un médaillon peint à droite de toi, relié par un trait doré (pointillé s'ils sont séparés) */
+    if (CJ) {
+      var RC = 128, xc = X[0][0] + R[0] + RC + 75, yc = Y[0][0] - 10, scc = RC / 152;
+      eH += '<path d="M' + (X[0][0] + R[0] - 4) + ' ' + Y[0][0] + 'L' + f1(xc - RC + 6) + ' ' + yc + '" stroke="#B08048" stroke-width="8" fill="none" stroke-linecap="round"' + (CJ.separe ? ' stroke-dasharray="16 12"' : '') + '/>';
+      eH += '<circle cx="' + f1(xc) + '" cy="' + yc + '" r="' + f1(RC * .95) + '" fill="#FDF8EF"/>';
+      eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(xc - 360 * scc) + '" y="' + f1(yc - 279 * scc) + '" width="' + f1(780 * scc) + '" height="' + f1(540 * scc) + '"/>' : '<circle cx="' + f1(xc) + '" cy="' + yc + '" r="' + RC + '" fill="none" stroke="url(#gr-or)" stroke-width="11"/>';
+      eH += medaillon(CJ, Math.round(xc), yc, RC * .78);
     }
     /* titre dans le creux, entre les deux moitiés de l'arbre */
     var t = String(donnees.titre || 'Notre famille').trim(), l1 = t, l2 = '';
