@@ -8,6 +8,12 @@
   var corps = document.getElementById('fe-corps'), cache = {};
   var GEN = ['Une génération', 'Deux générations', 'Trois générations', 'Quatre générations', 'Cinq générations'];
   var choix = { depart: '', nbGen: 0, sousModifie: false, style: 'figuier', vue: 'affiche', freres: true };   /* réglages de la cliente dans la fenêtre */
+  /* Styles à l'horizontale (Lignée, Médaillons) : autant de générations que la feuille en porte lisiblement (8 points au moins) */
+  var capA4 = 4, capA3 = 5;
+  function paysage(st) { return !!(window.ArbreEncadrer.paysage && window.ArbreEncadrer.paysage(st || choix.style)); }
+  function motif() { return choix.style === 'medaillons' ? 'medaillons' : ''; }
+  function formatChoisi() { var c = document.querySelector('#fe-imp-form input[name=format]:checked'); return c && !c.disabled ? c.value : 'a4cadre'; }
+  function a4Max() { return paysage() ? capA4 : 4; }
 
   function annee(d) { var m = String(d || '').match(/(\d{4})/); return m ? +m[1] : null; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -71,11 +77,12 @@
   /* opt.hd : décor haute définition (téléchargement, impression) ; opt.fondPerdu : 4 mm en plus pour l'imprimeur */
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
-    var fig = donnees.style === 'figuier';
-    return Promise.all([enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2')])
+    var fig = donnees.style === 'figuier', pay = paysage(donnees.style), med = donnees.style === 'medaillons';
+    return Promise.all([pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/decor-hd.jpg' : 'assets/arbre/decor-a4.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+      med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
-        return window.ArbreEncadrer.svg(donnees, { decor: d[0], apercu: apercu, fondPerdu: !!opt.fondPerdu }).replace('<style>', '<style>' + polices);
+        return window.ArbreEncadrer.svg(donnees, { decor: d[0], apercu: apercu, fondPerdu: !!opt.fondPerdu, sprites: med ? { medaillon: d[4], racine: d[5] } : undefined }).replace('<style>', '<style>' + polices);
       });
   }
   function versPng(svg, largeur, jpeg) {
@@ -97,8 +104,17 @@
   function recalculer() {
     var titre = donnees && document.getElementById('fe-titre') ? document.getElementById('fe-titre').value : null;
     var sous = donnees && document.getElementById('fe-sous') ? document.getElementById('fe-sous').value : null;
-    dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb;
-    var nb = Math.min(choix.nbGen || Math.min(dispo, 4), dispo);
+    var nb;
+    if (paysage() && window.ArbreLignee) {
+      var tout = lignee(choix.depart, 10);
+      dispo = tout ? tout.nb : 0;
+      capA4 = tout ? window.ArbreLignee.capacite(tout, false, true, motif()) : 2;
+      capA3 = tout ? Math.max(capA4, window.ArbreLignee.capacite(tout, true, true, motif())) : 2;
+      nb = Math.min(choix.nbGen || (/^a3/.test(formatChoisi()) ? capA3 : capA4), capA3, dispo);
+    } else {
+      dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb;
+      nb = Math.min(choix.nbGen || Math.min(dispo, 4), dispo);
+    }
     donnees = lignee(choix.depart, nb);
     if (donnees && titre != null) donnees.titre = titre || donnees.titre;
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
@@ -122,6 +138,7 @@
       '<p class="fe-aide">Image haute définition, prête à imprimer ou à faire encadrer. Les branches suivent la lignée de la personne choisie.</p>' +
       '<button class="bt plein rap-gros" type="button" id="fe-png" data-compte="ton arbre à encadrer" data-produit="arbreEncadrer">Télécharger l’image HD</button>' +
       '<button class="bt rap-gros" type="button" id="fe-pdf" data-compte="ton arbre à encadrer" data-produit="arbreEncadrer">Imprimer ou enregistrer en PDF</button>' +
+      '<p class="fe-aide">Tu préfères l’écrire à la main ? <a href="assets/modeles/arbre-vierge-5-generations-genesolia.pdf" download data-compte="ton arbre vierge à remplir">Télécharge le modèle vierge décoré</a> (PDF gratuit, 5 générations).</p>' +
       (payant && P ? '<p class="fe-aide">' + esc(P.prix) + ', ou compris dans Le Cercle.</p>' : '') +
       '<p class="fe-aide" id="fe-statut" aria-live="polite"></p>' + blocImpression() + '</div></div>';
     majGens(); dessiner();
@@ -129,7 +146,7 @@
     document.getElementById('fe-depart').addEventListener('change', function (e) { choix.depart = e.target.value; choix.nbGen = 0; recalculer(); majGens(); document.getElementById('fe-freres-l').hidden = !donnees.nbFreres; dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
-    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { choix.style = r.value; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; recalculer(); dessiner(); }); });
+    document.querySelectorAll('input[name=fe-style]').forEach(function (r) { r.addEventListener('change', function () { var avant = paysage(); choix.style = r.value; if (r.value !== 'figuier' && choix.vue === 'scene') choix.vue = 'cadre'; if (avant !== paysage() || paysage()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); }); });
     document.getElementById('fe-vues').addEventListener('click', function (e) { var b = e.target.closest('[data-vue]'); if (!b) return; choix.vue = b.getAttribute('data-vue'); dessiner(); });
     document.getElementById('fe-png').addEventListener('click', telechargerPng);
     document.getElementById('fe-pdf').addEventListener('click', imprimer);
@@ -175,11 +192,13 @@
     return window.jspdf ? Promise.resolve(window.jspdf.jsPDF) : new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = 'assets/jspdf.umd.min.js'; sc.onload = function () { ok(window.jspdf.jsPDF); }; sc.onerror = ko; document.head.appendChild(sc); });
   }
   function fichierImprimeur(d, fmt) {
-    var nom = nomFichier(d) + '-' + fmt.id, mm = fmt.mm || [218, 305];
-    return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versPng(svg, fmt.largeur, true); }).then(function (jpeg) {
+    var pay = paysage(d.style), mm0 = fmt.mm || [218, 305], mm = pay ? [mm0[1], mm0[0]] : mm0, larg = pay ? Math.round(mm[0] / 25.4 * 300) : fmt.largeur;
+    var nom = nomFichier(d) + '-' + fmt.id + (pay ? '-horizontal' : '');
+    d.a3 = /^a3/.test(fmt.id);
+    return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versPng(svg, larg, true); }).then(function (jpeg) {
       var enJpeg = function () { return deposer(jpeg, nom, 'jpg', 'image/jpeg'); };
       return Promise.all([chargerJsPdf(), jpeg.arrayBuffer()]).then(function (x) {
-        var doc = new x[0]({ orientation: 'portrait', unit: 'mm', format: mm, compress: true, putOnlyUsedFonts: true });
+        var doc = new x[0]({ orientation: pay ? 'landscape' : 'portrait', unit: 'mm', format: mm0, compress: true, putOnlyUsedFonts: true });
         doc.setProperties({ title: d.titre + ' · Genesolia', creator: 'Genesolia' });
         doc.addImage(new Uint8Array(x[1]), 'JPEG', 0, 0, mm[0], mm[1], undefined, 'NONE');
         return deposer(doc.output('blob'), nom, 'pdf', 'application/pdf');
@@ -204,7 +223,7 @@
     var o = document.getElementById('fe-imp-ouvrir'), f = document.getElementById('fe-imp-form'); if (!o || !f) return;
     var x = session(); if (x && x.user && x.user.email) f.email.value = x.user.email;
     o.addEventListener('click', function () { f.hidden = false; o.hidden = true; majGens(); dessiner(); f.prenom.focus(); });
-    f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.vue = 'cadre'; dessiner(); } });
+    f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.vue = 'cadre'; if (paysage() && !choix.nbGen) { recalculer(); majGens(); } dessiner(); } });
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var st = document.getElementById('fe-imp-statut'), bt = f.querySelector('button[type=submit]');
@@ -214,7 +233,7 @@
       if (!/^\d{5}$/.test(f.code_postal.value.trim())) { st.textContent = 'Vérifie le code postal (5 chiffres, France métropolitaine).'; return; }
       if (!f.accord.checked) { st.textContent = 'Coche la case pour confirmer l’aperçu.'; return; }
       var fmt = IMP.formats.filter(function (x2) { return x2.id === (f.querySelector('input[name=format]:checked') || {}).value; })[0] || IMP.formats[0];
-      if (donnees.nbGen === 5 && /^a4/.test(fmt.id)) { st.textContent = 'Avec cinq générations, choisis un format A3.'; return; }
+      if (donnees.nbGen > a4Max() && /^a4/.test(fmt.id)) { st.textContent = 'Avec autant de générations, choisis un format A3.'; return; }
       var d = lire(), lien = (window.GENESOLIA_STRIPE || {})[fmt.stripe] || '';
       /* référence de la commande : relie le paiement Stripe à cette commande (et donc à l'envoi chez l'imprimeur) */
       var ref = Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
@@ -224,7 +243,7 @@
         var fd = new FormData(f); fd.delete('accord'); fd.delete('format');
         fd.append('format', fmt.id); fd.append('format_nom', fmt.nom); fd.append('prix', fmt.prix); fd.append('titre', d.titre); fd.append('sous_titre', d.sousTitre || '');
         fd.append('fichier', chemin || 'à régénérer depuis l’arbre de la cliente'); fd.append('pays', 'France'); fd.append('paiement', lien ? 'stripe' : 'a-envoyer');
-        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000)); fd.append('ref', ref); fd.append('style', d.style || ''); fd.append('generations', String(d.nbGen || ''));
+        fd.append('arbre', JSON.stringify(d.moi).slice(0, 3000)); fd.append('ref', ref); fd.append('style', d.style || ''); fd.append('generations', String(d.nbGen || '')); fd.append('orientation', paysage(d.style) ? 'paysage' : 'portrait');
         if (lienPaiement) fd.append('lien_paiement', lienPaiement);   /* pour la relance « ton arbre t'attend » si le paiement n'aboutit pas */
         /* pas de mail avant le paiement : la confirmation part quand Stripe a validé le paiement (fonction stripe-webhook) */
         return window.GenesoliaEnvoyer('Commande impression', fd, lien ? '' : 'genesolia-commande');
@@ -243,15 +262,18 @@
   function majGens() {
     var sel = document.getElementById('fe-gens'); if (!sel || !donnees) return;
     var opts = [];
-    for (var n = 2; n <= Math.min(dispo, 5); n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + GEN[n - 1] + (n === 5 ? ' (A3 seulement)' : '') + '</option>');
+    var maxN = paysage() ? Math.min(dispo, capA3) : Math.min(dispo, 5);
+    for (var n = 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n - 1] || n + ' générations') + (n > a4Max() ? ' (A3 seulement)' : '') + '</option>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
-    if (aide) aide.textContent = dispo < 5 && dispo < 4 ? '' : donnees.nbGen === 5 ? 'Cinq générations : lisible en A3 seulement. L’A4 est désactivé.' : (dispo >= 5 ? 'Ton arbre va plus loin : choisis « Cinq générations » pour l’A3.' : '');
+    if (aide) aide.textContent = paysage()
+      ? (donnees.nbGen > capA4 ? 'Lisible en A3 seulement avec autant de générations : l’A4 est désactivé.' : (Math.min(dispo, capA3) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + Math.min(dispo, capA3) + ' générations en A3.' : ''))
+      : (dispo < 5 && dispo < 4 ? '' : donnees.nbGen === 5 ? 'Cinq générations : lisible en A3 seulement. L’A4 est désactivé.' : (dispo >= 5 ? 'Ton arbre va plus loin : choisis « Cinq générations » pour l’A3.' : ''));
     if (!choix.sousModifie && document.getElementById('fe-sous')) document.getElementById('fe-sous').value = donnees.sousTitre;
     /* formats d'impression : l'A4 n'est pas proposé avec cinq générations */
     document.querySelectorAll('#fe-imp-form input[name=format]').forEach(function (r) {
       var f = (IMP.formats || []).filter(function (x) { return x.id === r.value; })[0] || {}, a4 = /^a4/.test(f.id || '');
-      r.disabled = donnees.nbGen === 5 && a4; r.closest('label').classList.toggle('fe-off', r.disabled);
+      r.disabled = donnees.nbGen > a4Max() && a4 && !(paysage() && !choix.nbGen);   /* styles à l'horizontale en réglage automatique : l'A4 reste proposé, avec ses générations */ r.closest('label').classList.toggle('fe-off', r.disabled);
       if (r.disabled && r.checked) { var a3 = document.querySelector('#fe-imp-form input[name=format]:not(:disabled)'); if (a3) a3.checked = true; }
     });
   }
@@ -268,6 +290,8 @@
     '<li><b>Livré chez toi en 3 à 7 jours ouvrés</b> après ta commande, fabrication comprise : il est imprimé pour toi, à la commande, puis expédié dans un emballage protégé, en France métropolitaine. Livraison comprise.</li>' +
     '<li><b>Tranquillité</b> : s’il arrive abîmé ou s’il y a une erreur d’impression, envoie-nous une photo dans les 14 jours, il est réimprimé ou remboursé. Un colis perdu est renvoyé. Comme c’est un objet personnalisé, il ne peut pas être repris pour un changement d’avis. Les couleurs peuvent varier légèrement entre l’écran et le papier.</li>' +
     '</ul><p><a href="cgv.html#arbre-imprime" target="_blank">Conditions de vente de l’arbre imprimé</a></p></details>';
+  /* à l'horizontale, les dimensions s'écrivent largeur × hauteur : « 23,4 × 32,1 cm » devient « 32,1 × 23,4 cm » */
+  function dimensions(t) { return paysage() ? String(t).replace(/(\d+(?:,\d+)?) × (\d+(?:,\d+)?) cm/, '$2 × $1 cm') + ', à l’horizontale' : t; }
   function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); return donnees; }
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
@@ -275,11 +299,12 @@
     var vue = choix.vue === 'scene' && d.style !== 'figuier' ? 'cadre' : choix.vue, vues = document.getElementById('fe-vues');
     if (vues) vues.querySelectorAll('[data-vue]').forEach(function (b) { var v = b.getAttribute('data-vue'); b.hidden = v === 'scene' && d.style !== 'figuier'; b.setAttribute('aria-selected', String(v === vue)); });
     /* le format montré : celui coché dans la commande, sinon l'A4 encadré (l'A3 encadré en cinq générations) */
-    var coche = document.querySelector('#fe-imp-form input[name=format]:checked'), fid = coche && !coche.disabled ? coche.value : (d.nbGen === 5 ? 'a3cadre' : 'a4cadre');
+    var coche = document.querySelector('#fe-imp-form input[name=format]:checked'), fid = coche && !coche.disabled ? coche.value : (d.nbGen > a4Max() ? 'a3cadre' : 'a4cadre');
     var f = ((window.GENESOLIA_IMPRESSION || {}).formats || []).filter(function (x) { return x.id === fid; })[0];
     var format = /^a3/.test(fid) ? 'a3' : 'a4', cadre = /cadre/.test(fid) ? 'bois' : '';
+    d.a3 = format === 'a3';   /* styles à l'horizontale : tailles de texte prévues pour le format */
     var leg = document.getElementById('fe-legende');
-    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc((INFOS[format + (cadre ? 'cadre' : '')] || '') + ' · livré en 3 à 7 jours ouvrés') :
+    if (leg) leg.innerHTML = vue === 'cadre' ? esc((f ? f.nom : (format === 'a3' ? 'A3' : 'A4') + ' encadré') + (f ? ' · ' + f.prix : '')) + '<br>' + esc(dimensions(INFOS[format + (cadre ? 'cadre' : '')] || '') + ' · livré en 3 à 7 jours ouvrés') :
       vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois l’affiche seule ou dans son cadre, sans les fleurs.' : 'L’affiche telle qu’elle sera imprimée (le cadre recouvre environ 3 mm sur chaque bord).';
     verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, vue === 'cadre' ? { apercu: !ok, cadre: cadre, format: format } : { apercu: !ok, scene: vue === 'scene' }); });
   }
@@ -290,13 +315,13 @@
     var d = lire();
     window.GenesoliaParMail.envoyer({ quoi: 'ton arbre à encadrer', secours: function () { direct = true; try { secours(); } finally { direct = false; } },
       html: svgAutonome(d, false).then(function (svg) {
-        return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>' + esc(d.titre) + ' · Genesolia</title><style>@page{size:A4;margin:0}html,body{margin:0;background:#fff}svg{display:block;width:210mm;max-width:100%;height:auto;margin:0 auto}.barre{position:sticky;top:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}svg{width:210mm;height:297mm}}</style></head><body><div class="barre">Ton arbre Genesolia<button onclick="print()">Enregistrer en PDF</button></div>' + svg + '</body></html>';
+        return '<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>' + esc(d.titre) + ' · Genesolia</title><style>@page{size:A4' + (paysage(d.style) ? ' landscape' : '') + ';margin:0}html,body{margin:0;background:#fff}svg{display:block;width:' + (paysage(d.style) ? '297mm' : '210mm') + ';max-width:100%;height:auto;margin:0 auto}.barre{position:sticky;top:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}svg{width:' + (paysage(d.style) ? '297mm;height:210mm' : '210mm;height:297mm') + '}}</style></head><body><div class="barre">Ton arbre Genesolia<button onclick="print()">Enregistrer en PDF</button></div>' + svg + '</body></html>';
       }) });
   }
   function telechargerPng() {
     if (!direct && window.GenesoliaParMail) return parMail(telechargerPng);
     var d = lire(); statut('Préparation de ton image…');
-    svgAutonome(d, false, { hd: true }).then(function (svg) { return versPng(svg); }).then(function (b) {
+    svgAutonome(d, false, { hd: true }).then(function (svg) { return versPng(svg, paysage(d.style) ? 3508 : 2480); }).then(function (b) {
       var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = nomFichier(d) + '.png';
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
       statut('Ton image est téléchargée.');
@@ -307,7 +332,7 @@
     if (!direct && window.GenesoliaParMail) return parMail(imprimer);
     var d = lire(), w = window.open('', '_blank');
     if (!w) { statut('Autorise les fenêtres pour ce site, puis réessaie.'); return; }
-    w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>' + esc(d.titre) + '</title><style>@page{size:A4;margin:0}html,body{margin:0}svg{display:block;width:210mm;height:297mm}.barre{position:fixed;top:0;left:0;right:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}}</style></head><body><div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div><p style="padding:80px 20px;font:16px sans-serif">Un instant…</p></body></html>');
+    w.document.write('<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>' + esc(d.titre) + '</title><style>@page{size:A4' + (paysage(d.style) ? ' landscape' : '') + ';margin:0}html,body{margin:0}svg{display:block;width:' + (paysage(d.style) ? '297mm;height:210mm' : '210mm;height:297mm') + '}.barre{position:fixed;top:0;left:0;right:0;padding:12px;background:#4A0F36;color:#fff;font:16px sans-serif;text-align:center}.barre button{margin-left:10px;padding:8px 16px;border-radius:99px;border:0;background:#E8C899;font-weight:700}@media print{.barre{display:none}}</style></head><body><div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div><p style="padding:80px 20px;font:16px sans-serif">Un instant…</p></body></html>');
     w.document.close();
     svgAutonome(d, false, { hd: true }).then(function (svg) {
       w.document.body.innerHTML = '<div class="barre">Ton arbre est prêt<button onclick="print()">Enregistrer en PDF</button></div>' + svg;

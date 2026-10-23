@@ -349,10 +349,12 @@
      Le rebord du cadre recouvre environ 3 mm de l'affiche sur chaque bord. o.format : 'a4' | 'a3' ; o.cadre : 'bois' | 'blanc' | '' (poster seul). */
   var CADRE = { baguette: 12, rebord: 3, largeurMm: { a4: 210, a3: 297 } };
   function enCadre(affiche, o) {
-    var mm = W / (CADRE.largeurMm[o.format] || 210), fw = o.cadre ? Math.round(CADRE.baguette * mm) : 0, lip = o.cadre ? Math.round(CADRE.rebord * mm) : 0;
-    var iw = W - 2 * lip, ih = H - 2 * lip, ow = iw + 2 * fw, oh = ih + 2 * fw, marge = Math.round(ow * .16), VW = ow + 2 * marge, VH = oh + 2 * marge + Math.round(marge * .4);
+    /* l'affiche peut être en portrait (2480 x 3508) ou à l'horizontale (3508 x 2480) */
+    var tl = affiche.match(/width="(\d+)" height="(\d+)"/), AW = tl ? +tl[1] : W, AH = tl ? +tl[2] : H, paysage = AW > AH;
+    var mm = AW / ((CADRE.largeurMm[o.format] || 210) * (paysage ? Math.SQRT2 : 1)), fw = o.cadre ? Math.round(CADRE.baguette * mm) : 0, lip = o.cadre ? Math.round(CADRE.rebord * mm) : 0;
+    var iw = AW - 2 * lip, ih = AH - 2 * lip, ow = iw + 2 * fw, oh = ih + 2 * fw, marge = Math.round(ow * .16), VW = ow + 2 * marge, VH = oh + 2 * marge + Math.round(marge * .4);
     var bois = o.cadre === 'blanc' ? ['#FBF9F5', '#EEE9E1', '#E3DCD1'] : ['#E2C69D', '#CDA674', '#B8895A'];
-    var interne = affiche.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, ''), vb = (affiche.match(/viewBox="([^"]+)"/) || [])[1] || ('0 0 ' + W + ' ' + H);
+    var interne = affiche.replace(/^<svg[^>]*>/, '').replace(/<\/svg>\s*$/, ''), vb = (affiche.match(/viewBox="([^"]+)"/) || [])[1] || ('0 0 ' + AW + ' ' + AH);
     var x0 = marge, y0 = marge, h = '';
     h += '<defs><linearGradient id="ec-mur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3EDE5"/><stop offset="1" stop-color="#E6DDD2"/></linearGradient>' +
       '<linearGradient id="ec-bois" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + bois[0] + '"/><stop offset=".5" stop-color="' + bois[1] + '"/><stop offset="1" stop-color="' + bois[2] + '"/></linearGradient>' +
@@ -376,10 +378,14 @@
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + VW + ' ' + VH + '" width="' + VW + '" height="' + VH + '">' + h + '</svg>';
   }
 
+  /* Styles à l'horizontale (assets/arbre-lignee.js) : « Lignée » (cartes) et « Médaillons » (médaillons peints) */
+  var PAYSAGE = { lignee: '', medaillons: 'medaillons' };
   function svgStyle(donnees, o) {
     o = o || {};
     if (o.cadre !== undefined && o.format) { var a = svgStyle(donnees, Object.assign({}, o, { cadre: undefined, format: undefined, scene: false, fondPerdu: false })); return enCadre(a, o); }
-    return (o.style || donnees.style) === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
+    var st = o.style || donnees.style;
+    if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: true, a3: !!donnees.a3, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
-  window.ArbreEncadrer = { svg: svgStyle, styles: [['dore', 'Arbre doré'], ['figuier', 'Figuier']] };
+  window.ArbreEncadrer = { svg: svgStyle, paysage: function (st) { return st in PAYSAGE; }, styles: [['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['dore', 'Arbre doré']] };
 })();
