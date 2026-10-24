@@ -1,140 +1,141 @@
-/* Genesolia · « Ma lignée en lumière » : une colonne de lumière qui relie la terre au ciel, la personne choisie en son cœur,
-   dans une grande sphère blanche ; autour d'elle, chaque personne de sa lignée dans sa propre sphère de lumière, à sa place :
-   les vivants dans une sphère blanche lumineuse, les défunts dans une sphère blanche nacrée, entourée d'un halo de protection.
-   Les ancêtres s'élèvent génération après génération vers le ciel ; les enfants reposent dans la lumière de la terre.
-   Affiche en portrait (2480 x 3508, A4 ; l'A3 est le même dessin agrandi).
-   ArbreLumiere.svg(donnees, o) -> chaîne SVG ; donnees.moi = { prenom, nom, naissance, deces, pere, mere }, donnees.enfants (facultatif). */
+/* Genesolia · « Ma lignée en lumière » : sur le décor peint (assets/arbre/lumiere-fond.jpg : soleil, colonne de lumière,
+   feuillage doré et bordeaux, Terre et racines), le site dessine lui-même les sphères de lumière, au nombre exact de la lignée :
+   la personne au-dessus de la Terre, ses parents, grands-parents… jusqu'à 5 générations, chacun dans sa sphère avec son cartouche.
+   Les vivants dans une sphère blanche au liseré doré ; les défunts dans une sphère blanche nacrée, avec un halo de protection.
+   Affiche en portrait (2480 x 3508, A4 ; l'A3 est le même dessin agrandi). Le décor (2:3) est posé en pleine hauteur, fond blanc sur les côtés.
+   ArbreLumiere.svg(donnees, o) -> chaîne SVG ; donnees.moi = { prenom, nom, naissance, deces, pere, mere } ; o.decor : image du décor (data URL pour le fichier HD). */
 (function () {
   'use strict';
-  var W = 2480, H = 3508, CX = W / 2, CY = 1960;
+  var W = 2480, H = 3508, CX = W / 2, DW = Math.round(H * 2 / 3), DX = (W - DW) / 2;
   var GN = '"Gilda Display",Georgia,serif', NS = '"Nunito Sans",sans-serif';
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function f1(n) { return (Math.round(n * 10) / 10).toString(); }
-  function alea(g) { var s = g || 7; return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; }; }
   var ctx = null;
   function larg(t, taille, police, gras) {
     try { if (!ctx) ctx = document.createElement('canvas').getContext('2d'); ctx.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctx.measureText(t).width; } catch (e) { return String(t).length * taille * .55; }
   }
   function datesDe(p) { return (p.naissance == null ? '' : String(p.naissance)) + (p.deces ? ' – ' + p.deces : ''); }
-  /* en vie : pas de date de décès, et née il y a moins de 105 ans (sans date de naissance, on ne suppose rien : sphère nacrée) */
   function vivant(p) { return !p.deces && !p.decede && p.naissance && p.naissance > new Date().getFullYear() - 105; }
-
   function rangs(moi, max) {
     var R = [[moi]];
     for (var g = 1; g < max; g++) { var l = [], un = false; R[g - 1].forEach(function (p) { l.push(p ? p.pere || null : null, p ? p.mere || null : null); if (p && (p.pere || p.mere)) un = true; }); if (!un) break; R.push(l); }
     return R;
   }
 
-  /* le texte d'une personne (prénom, NOM, dates) et le rayon de la sphère qui le contient */
-  function lignes(p, fz) {
-    var mots = String(p.prenom || '').trim().split(/\s+/).filter(Boolean), pre = mots.join(' ');
-    var l = [];
-    if (pre && larg(pre, fz, GN) > fz * 6.5 && mots.length > 1) l.push([mots[0], fz, GN, 'lu-nom'], [mots.slice(1).join(' '), fz, GN, 'lu-nom']); else if (pre) l.push([pre, fz, GN, 'lu-nom']);
-    if (p.nom) l.push([String(p.nom).toUpperCase(), Math.round(fz * .74), NS, 'lu-nf']);
-    if (datesDe(p)) l.push([datesDe(p), Math.round(fz * .7), NS, 'lu-date']);
-    return l;
+  /* le texte du cartouche : prénom, NOM, dates (les dates seulement s'il y a la place) ; taille réduite jusqu'à ce que ça tienne */
+  function texte(p, fz, wMax, min, avecDates) {
+    var pre = String(p.prenom || '').trim().split(/\s+/)[0] || '', nom = String(p.nom || '').toUpperCase(), dt = avecDates ? datesDe(p) : '';
+    for (var f = fz; f >= min; f--) {
+      var l = [[pre, f, GN, 'lu-nom'], [nom, Math.round(f * .74), NS, 'lu-nf'], [dt, Math.round(f * .68), NS, 'lu-date']].filter(function (z) { return z[0]; });
+      if (l.every(function (z) { return larg(z[0], z[1], z[2], z[3] !== 'lu-nom') <= wMax; })) return l;
+    }
+    return [[pre, min, GN, 'lu-nom'], [nom, Math.round(min * .8), NS, 'lu-nf']].filter(function (z) { return z[0]; });
   }
-  function rayon(l) {
-    var w = Math.max.apply(null, l.map(function (z) { return larg(z[0], z[1], z[2], z[3] === 'lu-nf' || z[3] === 'lu-date'); }).concat([10]));
-    var h = l.reduce(function (s, z) { return s + z[1] * 1.12; }, 0);
-    return Math.sqrt(Math.pow(w / 2 + 18, 2) + Math.pow(h / 2 + 10, 2)) * 1.06;
-  }
+  function hauteur(l) { return l.reduce(function (s, z) { return s + z[1] * 1.15; }, 0); }
 
-  /* une sphère de lumière, le nom à l'intérieur */
-  function sphere(x, y, rs, l, etat) {
-    var defunt = etat === 'defunt', coeur = etat === 'coeur';
-    var h = '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rs * (coeur ? 1.9 : 1.6)) + '" fill="url(#' + (defunt ? 'lu-halo-n' : 'lu-halo') + ')"/>';
-    if (defunt) h += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rs * 1.16) + '" fill="none" stroke="#EDE6FF" stroke-width="' + f1(Math.max(2, rs * .025)) + '" opacity=".55"/>';
-    h += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rs) + '" fill="url(#' + (defunt ? 'lu-sphere-n' : 'lu-sphere') + ')"/>' +
-      '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(rs - 2) + '" fill="none" stroke="#FFFFFF" stroke-width="' + f1(Math.max(2, rs * .035)) + '" opacity=".95"/>' +
-      '<path d="M' + f1(x - rs * .62) + ' ' + f1(y - rs * .42) + 'A' + f1(rs * .78) + ' ' + f1(rs * .78) + ' 0 0 1 ' + f1(x + rs * .1) + ' ' + f1(y - rs * .76) + '" fill="none" stroke="#FFFFFF" stroke-width="' + f1(rs * .07) + '" stroke-linecap="round" opacity=".8"/>';
-    var hh = l.reduce(function (s, z) { return s + z[1] * 1.12; }, 0), ty = y - hh / 2;
-    l.forEach(function (z) { ty += z[1] * 1.12; h += '<text x="' + f1(x) + '" y="' + f1(ty - z[1] * .22) + '" text-anchor="middle" class="' + z[3] + '" font-size="' + z[1] + '">' + esc(z[0]) + '</text>'; });
+  /* une silhouette douce, ni homme ni femme, dans la sphère */
+  var NCLIP = 0;
+  function silhouette(x, y, r) {
+    var k = r / 100, id = 'lu-c' + (++NCLIP);
+    return '<clipPath id="' + id + '"><circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r * .96) + '"/></clipPath>' +
+      '<g clip-path="url(#' + id + ')"><g transform="translate(' + f1(x) + ' ' + f1(y + r * .12) + ') scale(' + k.toFixed(3) + ')">' +
+      '<ellipse cx="0" cy="10" rx="46" ry="62" fill="#FFF3D6" opacity=".55" filter="url(#lu-doux)"/>' +
+      '<g fill="url(#lu-corps)" opacity=".92"><circle cx="0" cy="-44" r="15"/>' +
+      '<path d="M-7 -30C-8 -26 -10 -23 -26 -18C-38 -14 -42 -4 -43 8L-47 40C-48 50 -44 58 -40 70L40 70C44 58 48 50 47 40L43 8C42 -4 38 -14 26 -18C10 -23 8 -26 7 -30C3 -28 -3 -28 -7 -30Z"/></g></g></g>';
+  }
+  function etincelles(x, y, r, s) {
+    var h = '', t = s;
+    for (var i = 0; i < 7; i++) { t = (t * 16807) % 2147483647; var a = t / 2147483647 * 6.283; t = (t * 16807) % 2147483647; var d = r * (.35 + .5 * t / 2147483647); h += '<circle cx="' + f1(x + Math.cos(a) * d) + '" cy="' + f1(y + Math.sin(a) * d) + '" r="' + f1(Math.max(1.5, r * .03)) + '" fill="#FFFFFF" opacity=".9"/>'; }
     return h;
   }
+  /* la sphère de lumière, son petit lotus doré, puis le cartouche avec le nom */
+  function personne(x, y, r, l, cw, etat, graine) {
+    var defunt = etat === 'defunt', h = '';
+    var teinte = ['lu-t1', 'lu-t2', 'lu-t3', 'lu-t4'][graine % 4];
+    h += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r * 1.7) + '" fill="url(#' + (defunt ? 'lu-halo-n' : 'lu-halo') + ')"/>';
+    if (defunt) h += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r * 1.14) + '" fill="none" stroke="#E9E3FA" stroke-width="' + f1(Math.max(2, r * .03)) + '" opacity=".8"/>';
+    h += '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r) + '" fill="url(#' + (defunt ? 'lu-sphere-n' : 'lu-sphere') + ')"/>' +
+      '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r) + '" fill="url(#' + teinte + ')" opacity="' + (defunt ? '.55' : '.8') + '"/>' + silhouette(x, y, r) + etincelles(x, y, r, graine) +
+      '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="' + f1(r) + '" fill="none" stroke="url(#' + (defunt ? 'lu-nacre' : 'lu-or') + ')" stroke-width="' + f1(Math.max(2.5, r * .055)) + '"/>' +
+      '<path d="M' + f1(x - r * .55) + ' ' + f1(y - r * .5) + 'A' + f1(r * .75) + ' ' + f1(r * .75) + ' 0 0 1 ' + f1(x + r * .05) + ' ' + f1(y - r * .78) + '" fill="none" stroke="#FFFFFF" stroke-width="' + f1(r * .06) + '" stroke-linecap="round" opacity=".85"/>';
+    /* lotus */
+    var ly = y + r * .92, s = r * .32;
+    h += '<g transform="translate(' + f1(x) + ' ' + f1(ly) + ') scale(' + (s / 40).toFixed(3) + ')" fill="url(#lu-or)" stroke="#9A6E38" stroke-width="1.5"><path d="M0 -34C10 -20 10 -8 0 4C-10 -8 -10 -20 0 -34Z"/><path d="M-4 2C-20 -2 -30 -14 -32 -26C-18 -22 -9 -12 -4 2Z"/><path d="M4 2C20 -2 30 -14 32 -26C18 -22 9 -12 4 2Z"/><path d="M-6 4C-26 6 -40 -2 -46 -10C-30 -12 -16 -6 -6 4Z"/><path d="M6 4C26 6 40 -2 46 -10C30 -12 16 -6 6 4Z"/></g>';
+    /* cartouche */
+    var ch = hauteur(l) + 26, cy = y + r + 14, e = Math.min(ch * .35, 22);
+    h += '<path d="M' + f1(x - cw / 2 + e) + ' ' + f1(cy) + 'H' + f1(x + cw / 2 - e) + 'L' + f1(x + cw / 2) + ' ' + f1(cy + e) + 'V' + f1(cy + ch - e) + 'L' + f1(x + cw / 2 - e) + ' ' + f1(cy + ch) + 'H' + f1(x - cw / 2 + e) + 'L' + f1(x - cw / 2) + ' ' + f1(cy + ch - e) + 'V' + f1(cy + e) + 'Z" fill="#FFFDF8" stroke="url(#lu-or)" stroke-width="' + f1(Math.max(2.5, ch * .045)) + '"/>' +
+      '<path d="M' + f1(x - cw / 2 + e + 6) + ' ' + f1(cy + 6) + 'H' + f1(x + cw / 2 - e - 6) + 'M' + f1(x - cw / 2 + e + 6) + ' ' + f1(cy + ch - 6) + 'H' + f1(x + cw / 2 - e - 6) + '" stroke="#E2C48E" stroke-width="1.5" opacity=".8"/>';
+    var ty = cy + 13;
+    l.forEach(function (z) { ty += z[1] * 1.15; h += '<text x="' + f1(x) + '" y="' + f1(ty - z[1] * .22) + '" text-anchor="middle" class="' + z[3] + '" font-size="' + z[1] + '">' + esc(z[0]) + '</text>'; });
+    return { svg: h, bas: cy + ch };
+  }
+  function feuille(x, y, a, t, c) { return '<path d="M0 0C' + f1(t * .3) + ' ' + f1(-t * .34) + ' ' + f1(t * .75) + ' ' + f1(-t * .26) + ' ' + f1(t) + ' 0C' + f1(t * .75) + ' ' + f1(t * .26) + ' ' + f1(t * .3) + ' ' + f1(t * .34) + ' 0 0Z" fill="' + c + '" opacity=".9" transform="translate(' + f1(x) + ' ' + f1(y) + ') rotate(' + Math.round(a) + ')"/>'; }
 
   function svg(d, o) {
     o = o || {};
-    var a3 = d.a3 || false, ech = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, min = Math.max(18, Math.round(34 / ech));
-    var max = Math.max(2, Math.min(d.nbGen || 4, 5)), R = rangs(d.moi, max), r = alea(29);
-    /* le ciel étoilé, des poussières d'or près de la terre */
-    var ciel = '';
-    for (var i = 0; i < 280; i++) { var sx = r() * W, sy = r() * 1700, sr = r() < .08 ? 3.4 : 1 + r() * 1.6; ciel += '<circle cx="' + f1(sx) + '" cy="' + f1(sy) + '" r="' + f1(sr) + '" fill="#FFF8EC" opacity="' + (.3 + r() * .55).toFixed(2) + '"/>'; }
-    for (i = 0; i < 110; i++) { var gx = 200 + r() * (W - 400), gy = 2800 + r() * 420; ciel += '<circle cx="' + f1(gx) + '" cy="' + f1(gy) + '" r="' + f1(1 + r() * 2.4) + '" fill="#FFE3A8" opacity="' + (.25 + r() * .5).toFixed(2) + '"/>'; }
-    /* la colonne de lumière, large et douce, de la terre jusqu'au ciel */
-    var col = '<rect x="' + (CX - 420) + '" y="-200" width="840" height="' + (H - 380) + '" fill="url(#lu-col-l)" opacity=".55" filter="url(#lu-flou-l)"/>' +
-      '<rect x="' + (CX - 250) + '" y="-200" width="500" height="' + (H - 420) + '" fill="url(#lu-col)" opacity=".9"/>' +
-      '<rect x="' + (CX - 90) + '" y="-200" width="180" height="' + (H - 440) + '" fill="url(#lu-col)" opacity=".85" filter="url(#lu-flou)"/>';
-    /* des particules de lumière qui montent dans la colonne */
-    for (i = 0; i < 120; i++) { var px = CX + (r() - .5) * 460, py = 200 + r() * (H - 900); col += '<circle cx="' + f1(px) + '" cy="' + f1(py) + '" r="' + f1(1.5 + r() * 3) + '" fill="#FFFFFF" opacity="' + (.35 + r() * .5).toFixed(2) + '"/>'; }
-    /* la terre et ses racines de lumière, sous la colonne */
-    var terre = '<path d="M-200 ' + (H - 640) + 'Q' + CX + ' ' + (H - 860) + ' ' + (W + 200) + ' ' + (H - 640) + 'V' + (H + 200) + 'H-200Z" fill="url(#lu-terre)"/>' +
-      '<ellipse cx="' + CX + '" cy="' + (H - 760) + '" rx="620" ry="90" fill="url(#lu-halo)" opacity=".9"/>';
-    for (i = 0; i < 11; i++) {
-      var a = Math.PI * (.08 + .84 * i / 10), L = 360 + r() * 200, x2 = CX + Math.cos(a) * L * 1.7, y2 = H - 700 + Math.sin(a) * L * .55;
-      terre += '<path d="M' + CX + ' ' + (H - 770) + 'Q' + f1(CX + Math.cos(a) * L * .5) + ' ' + f1(H - 710 + Math.sin(a) * 40) + ' ' + f1(x2) + ' ' + f1(y2) + '" stroke="#FFE2A6" stroke-width="' + f1(6 - Math.abs(i - 5) * .8) + '" fill="none" opacity=".5" stroke-linecap="round"/>';
+    var a3 = d.a3 || false, ech = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, min = Math.max(14, Math.round(34 / ech));
+    var max = Math.max(2, Math.min(d.nbGen || 4, 5)), R = rangs(d.moi, max), n = R.length;
+    /* places : la personne juste au-dessus de la Terre, la génération la plus ancienne sous le soleil */
+    var yM = 2280, yT = n > 4 ? 840 : n > 3 ? 900 : 1180, G0 = n > 2 ? 430 : yM - yT, pasY = n > 2 ? (yM - G0 - yT) / (n - 2) : 0;   /* plus d'espace entre la personne (grande sphère) et ses parents */
+    var SPAN = [0, 760, 1520, 1960, 2260], RAY = [118, 92, n > 4 ? 72 : 80, n > 4 ? 56 : 64, 44], FZ = [58, 46, n > 4 ? 36 : 40, n > 4 ? 32 : 36, 28];
+    var parts = [], graine = 11;
+    var p0 = { x: CX, y: yM, r: RAY[0], g: 0, p: d.moi };
+    parts.push(p0);
+    var parRang = [[p0]];
+    for (var g = 1; g < n; g++) {
+      var nb = Math.pow(2, g), slot = SPAN[g] / nb, rr = Math.min(RAY[g], slot * .36), y = yM - G0 - (g - 1) * pasY, lst = [];
+      for (var k = 0; k < nb; k++) { var q = R[g][k]; var x = CX - SPAN[g] / 2 + slot * (k + .5); var it = q ? { x: x, y: y, r: rr, g: g, p: q, k: k, slot: slot } : null; lst.push(it); if (it) parts.push(it); }
+      parRang.push(lst);
     }
-    /* un cercle de protection, discret, autour de la colonne (le tore vu de face) */
-    var tore = '';
-    for (var k = 0; k < 7; k++) { var rx = 1060 - k * 26, ry = 330 - k * 14; tore += '<ellipse cx="' + CX + '" cy="' + (CY + 60) + '" rx="' + rx + '" ry="' + ry + '" fill="none" stroke="#FFF1DA" stroke-width="' + (k ? 1.6 : 3) + '" opacity="' + (k ? .16 : .32) + '"/>'; }
-
-    /* les générations : de plus en plus haut vers le ciel, en arches autour de la colonne */
-    var ARC = [null, { rx: 640, ry: 30, cy: CY - 60, fz: 54 }, { rx: 860, ry: 260, cy: 1560, fz: 46 }, { rx: 1030, ry: 380, cy: 1330, fz: 38 }, { rx: 1120, ry: 470, cy: 1130, fz: 30 }];
-    var bulles = [];
-    for (var g = 1; g < R.length; g++) {
-      var A = ARC[g], n = Math.pow(2, g), fz = Math.max(min, A.fz), ls = [], rmax = 0;
-      for (var j = 0; j < n; j++) { var q = R[g][j]; if (!q) continue; var l = lignes(q, fz); rmax = Math.max(rmax, rayon(l)); ls.push([j, q, l]); }
-      /* toutes les sphères d'une génération ont la même taille ; elles ne se touchent jamais */
-      var arc = Math.PI * Math.sqrt((A.rx * A.rx + A.ry * A.ry) / 2) * .88, rG = Math.min(rmax, arc / n / 2 - 14);
-      if (rG < rmax) { var kk = rG / rmax; fz = Math.max(min, Math.floor(fz * kk)); ls.forEach(function (x) { x[2] = lignes(x[1], fz); }); rG = Math.max(rG, Math.max.apply(null, ls.map(function (x) { return rayon(x[2]); }))); }
-      ls.forEach(function (x) {
-        var t = (x[0] + .5) / n, ang = g === 1 ? (x[0] ? .04 : .96) * Math.PI : Math.PI * (.94 - .88 * t);
-        bulles.push({ x: CX + A.rx * Math.cos(ang), y: A.cy - A.ry * Math.sin(ang), r: rG, l: x[2], p: x[1] });
+    /* les branches dorées : de la sphère de chaque enfant vers le cartouche de chacun de ses parents */
+    var branches = '', feuilles = '', personnes = '', bas = {};
+    parts.forEach(function (it) {
+      var slotW = it.g ? it.slot : 560, cw = Math.min(slotW * .94, it.r * (it.g ? 3.1 : 3.6));
+      var l = texte(it.p, Math.max(min, FZ[it.g]), cw - 24, min, it.g < 4);
+      var r = personne(it.x, it.y, it.r, l, cw, it.g === 0 ? 'vivant' : vivant(it.p) ? 'vivant' : 'defunt', graine += 97);
+      it.html = r.svg; it.bas = r.bas;
+    });
+    for (g = 0; g < n - 1; g++) {
+      parRang[g].forEach(function (c, k) {
+        if (!c) return;
+        [parRang[g + 1][2 * k], parRang[g + 1][2 * k + 1]].forEach(function (pa, j) {
+          if (!pa) return;
+          var x1 = c.x, y1 = c.y - c.r * 1.02, x2 = pa.x, y2 = pa.bas, my = (y1 + y2) / 2, ep = Math.max(3.5, 8 - g * 1.2);
+          branches += '<path d="M' + f1(x1 + (j ? 1 : -1) * c.r * .25) + ' ' + f1(y1 + c.r * .1) + 'C' + f1(x1 + (j ? 1 : -1) * c.r * .4) + ' ' + f1(my) + ' ' + f1(x2) + ' ' + f1(my + (y2 - my) * .3) + ' ' + f1(x2) + ' ' + f1(y2) + '" fill="none" stroke="url(#lu-or)" stroke-width="' + f1(ep) + '" stroke-linecap="round"/>';
+          var fx = (x1 + x2) / 2 + (j ? 1 : -1) * 6, fy = my, t = Math.max(18, 38 - g * 5), s = j ? 1 : -1;
+          feuilles += feuille(fx, fy, s > 0 ? -30 : -150, t, '#8E2F5E') + feuille(fx, fy + 6, s > 0 ? 20 : 160, t * .85, '#C9A06A') + feuille(fx - s * 4, fy - 4, s > 0 ? -80 : -100, t * .7, '#B7577B');
+        });
       });
     }
-    /* la personne, au cœur de la colonne */
-    var l0 = lignes(d.moi, Math.max(min, 66)), r0 = Math.max(210, rayon(l0));
-    /* les fils de lumière : de chacun vers ses parents */
-    var fils = '', pos = [];
-    bulles.forEach(function (b) { pos.push(b); });
-    function chercher(p) { for (var m = 0; m < pos.length; m++) if (pos[m].p === p) return pos[m]; return null; }
-    (function relier(p, x, y) { [p.pere, p.mere].forEach(function (q) { var b = q && chercher(q); if (!b) return; fils += '<path d="M' + f1(x) + ' ' + f1(y) + 'Q' + f1((x + b.x) / 2) + ' ' + f1(Math.min(y, b.y) - 40) + ' ' + f1(b.x) + ' ' + f1(b.y) + '" stroke="#FFF1D6" stroke-width="3" fill="none" opacity=".35"/>'; relier(q, b.x, b.y); }); })(d.moi, CX, CY);
-    var sph = bulles.map(function (b) { return sphere(b.x, b.y, b.r, b.l, vivant(b.p) ? 'vivant' : 'defunt'); }).join('');
-    sph += sphere(CX, CY, r0, l0, 'coeur');
-    /* les enfants, dans la lumière de la terre */
-    var enf = (d.enfants || []).slice(0, 6), ens = '';
-    if (enf.length) {
-      var fe = Math.max(min, 36), le = enf.map(function (q) { return lignes(q, fe); }), re = Math.max.apply(null, le.map(rayon));
-      var pas = Math.min(2 * re + 70, (W - 360) / enf.length), x0 = CX - pas * (enf.length - 1) / 2, ye = H - 560;
-      enf.forEach(function (q, m) { fils += '<path d="M' + CX + ' ' + f1(CY + r0) + 'Q' + CX + ' ' + f1(ye - 60) + ' ' + f1(x0 + m * pas) + ' ' + f1(ye) + '" stroke="#FFF1D6" stroke-width="3" fill="none" opacity=".35"/>'; ens += sphere(x0 + m * pas, ye, re, le[m], vivant(q) ? 'vivant' : 'defunt'); });
-    }
+    parts.slice().reverse().forEach(function (it) { personnes += it.html; });
 
-    var titre = '<text x="' + CX + '" y="300" text-anchor="middle" class="lu-titre">' + esc(d.titre || 'Ma lignée en lumière') + '</text>' +
-      (d.sousTitre ? '<text x="' + CX + '" y="390" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');
-    var phrase = '<text x="' + CX + '" y="' + (H - 300) + '" text-anchor="middle" class="lu-phrase">Que la lumière de ma lignée me protège et m’accompagne.</text>';
-    var leg = '<g class="lu-leg"><circle cx="' + (CX - 470) + '" cy="' + (H - 212) + '" r="16" fill="url(#lu-sphere)" stroke="#fff" stroke-width="2"/><text x="' + (CX - 444) + '" y="' + (H - 201) + '">en vie</text>' +
-      '<circle cx="' + (CX + 60) + '" cy="' + (H - 212) + '" r="16" fill="url(#lu-sphere-n)" stroke="#fff" stroke-width="2"/><text x="' + (CX + 86) + '" y="' + (H - 201) + '">dans la lumière</text></g>';
-    var pied = '<text x="' + CX + '" y="' + (H - 130) + '" text-anchor="middle" class="lu-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
-    var filigrane = o.apercu ? '<g opacity=".12" transform="rotate(-30 ' + CX + ' ' + H / 2 + ')"><text x="' + CX + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="lu-fil">APERÇU</text><text x="' + CX + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="lu-fil">GENESOLIA</text></g>' : '';
+    var decor = o.decor || 'assets/arbre/lumiere-fond.jpg';
+    var titre = '<text x="' + CX + '" y="' + (yT - (n > 3 ? 220 : 330)) + '" text-anchor="middle" class="lu-titre">' + esc(d.titre || 'Ma lignée en lumière') + '</text>' +
+      (d.sousTitre ? '<text x="' + CX + '" y="' + (yT - (n > 3 ? 155 : 260)) + '" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');
+    var phrase = '<text x="' + CX + '" y="' + (H - 64) + '" text-anchor="middle" class="lu-phrase">Que la lumière de ma lignée me protège et m’accompagne.</text>';
+    var pied = '<text x="' + (W - DX - 30) + '" y="' + (H - 30) + '" text-anchor="end" class="lu-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
+    var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-30 ' + CX + ' ' + H / 2 + ')"><text x="' + CX + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="lu-fil">APERÇU</text><text x="' + CX + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="lu-fil">GENESOLIA</text></g>' : '';
     var B = o.fondPerdu ? Math.round(4 * W / 210) : 0;
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-generations="' + R.length + '">' +
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-generations="' + n + '">' +
       '<defs>' +
-      '<linearGradient id="lu-ciel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#120720"/><stop offset=".35" stop-color="#2C123F"/><stop offset=".62" stop-color="#55285A"/><stop offset=".8" stop-color="#B07473"/><stop offset="1" stop-color="#E7BC86"/></linearGradient>' +
-      '<linearGradient id="lu-terre" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A4A3A" stop-opacity=".9"/><stop offset=".5" stop-color="#3B2018"/><stop offset="1" stop-color="#1E0F0B"/></linearGradient>' +
-      '<linearGradient id="lu-col" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFF6E6" stop-opacity="0"/><stop offset=".3" stop-color="#FFF6E6" stop-opacity=".45"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity=".85"/><stop offset=".7" stop-color="#FFF6E6" stop-opacity=".45"/><stop offset="1" stop-color="#FFF6E6" stop-opacity="0"/></linearGradient>' +
-      '<linearGradient id="lu-col-l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE8C8" stop-opacity="0"/><stop offset=".5" stop-color="#FFE8C8" stop-opacity=".6"/><stop offset="1" stop-color="#FFE8C8" stop-opacity="0"/></linearGradient>' +
-      '<radialGradient id="lu-halo"><stop offset=".55" stop-color="#FFF6E2" stop-opacity=".55"/><stop offset=".75" stop-color="#FFE6BC" stop-opacity=".22"/><stop offset="1" stop-color="#FFE6BC" stop-opacity="0"/></radialGradient>' +
-      '<radialGradient id="lu-halo-n"><stop offset=".55" stop-color="#F4F0FF" stop-opacity=".55"/><stop offset=".78" stop-color="#E4DDFF" stop-opacity=".24"/><stop offset="1" stop-color="#E4DDFF" stop-opacity="0"/></radialGradient>' +
-      '<radialGradient id="lu-sphere" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".65" stop-color="#FFFDF8" stop-opacity=".97"/><stop offset=".9" stop-color="#FFF3DC" stop-opacity=".92"/><stop offset="1" stop-color="#FFE7BD" stop-opacity=".9"/></radialGradient>' +
-      '<radialGradient id="lu-sphere-n" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".65" stop-color="#FBFAFF" stop-opacity=".96"/><stop offset=".9" stop-color="#EEEAFB" stop-opacity=".92"/><stop offset="1" stop-color="#DCD6F2" stop-opacity=".9"/></radialGradient>' +
-      '<linearGradient id="lu-fondu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".12" stop-color="#fff" stop-opacity="0"/><stop offset=".24" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient>' +
-      '<mask id="lu-masque" maskUnits="userSpaceOnUse" x="-200" y="-200" width="' + (W + 400) + '" height="' + (H + 400) + '"><rect x="-200" y="0" width="' + (W + 400) + '" height="' + H + '" fill="url(#lu-fondu)"/></mask>' +
-      '<filter id="lu-flou" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>' +
-      '<filter id="lu-flou-l" x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="60"/></filter>' +
-      '<style>.lu-titre{font-family:' + GN + ';font-size:132px;fill:#FFF3DE}.lu-sous{font-family:' + NS + ';font-size:36px;letter-spacing:9px;fill:#F2D3A2;text-transform:uppercase}' +
+      '<linearGradient id="lu-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D79C"/><stop offset=".5" stop-color="#C9973F"/><stop offset="1" stop-color="#9A6E38"/></linearGradient>' +
+      '<linearGradient id="lu-nacre" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#D9D2EE"/><stop offset="1" stop-color="#BBAFD8"/></linearGradient>' +
+      '<radialGradient id="lu-halo"><stop offset=".5" stop-color="#FFF1CC" stop-opacity=".95"/><stop offset=".72" stop-color="#FFDA96" stop-opacity=".45"/><stop offset="1" stop-color="#FFDA96" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="lu-halo-n"><stop offset=".6" stop-color="#F6F2FF" stop-opacity=".75"/><stop offset=".82" stop-color="#E2DBFA" stop-opacity=".35"/><stop offset="1" stop-color="#E2DBFA" stop-opacity="0"/></radialGradient>' +
+      '<radialGradient id="lu-sphere" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FFF8EE"/><stop offset=".85" stop-color="#F8E6EE"/><stop offset="1" stop-color="#EBDDF1"/></radialGradient>' +
+      '<radialGradient id="lu-sphere-n" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FAF9FF"/><stop offset=".85" stop-color="#ECE8F8"/><stop offset="1" stop-color="#DCD5EE"/></radialGradient>' +
+      '<linearGradient id="lu-corps" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFBF2"/><stop offset=".6" stop-color="#F8DDB0"/><stop offset="1" stop-color="#EFC48A" stop-opacity=".6"/></linearGradient>' +
+      '<radialGradient id="lu-t1" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#E9C3DA"/></radialGradient>' +
+      '<radialGradient id="lu-t2" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#CFC6EE"/></radialGradient>' +
+      '<radialGradient id="lu-t3" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#C9DCF0"/></radialGradient>' +
+      '<radialGradient id="lu-t4" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#F3D7A6"/></radialGradient>' +
+      '<filter id="lu-doux" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>' +
+      '<style>.lu-titre{font-family:' + GN + ';font-size:118px;fill:#6B2F5B;paint-order:stroke;stroke:#FFFFFF;stroke-width:14px}.lu-sous{font-family:' + NS + ';font-size:34px;letter-spacing:9px;fill:#9A6E38;text-transform:uppercase;paint-order:stroke;stroke:#FFFFFF;stroke-width:10px}' +
       '.lu-nom{font-family:' + GN + ';fill:#4A0F36}.lu-nf{font-family:' + NS + ';font-weight:700;letter-spacing:1.5px;fill:#5A2147}.lu-date{font-family:' + NS + ';font-weight:700;fill:#9A6E38}' +
-      '.lu-phrase{font-family:' + GN + ';font-style:italic;font-size:56px;fill:#FFEBC9}.lu-leg text{font-family:' + NS + ';font-size:32px;letter-spacing:2px;fill:#F6DDB4}.lu-pied{font-family:' + NS + ';font-size:30px;letter-spacing:8px;fill:#F6DDB4;opacity:.85}.lu-fil{font-family:' + GN + ';font-size:300px;fill:#FFFFFF}</style></defs>' +
-      '<rect x="-200" y="-200" width="' + (W + 400) + '" height="' + (H + 400) + '" fill="url(#lu-ciel)"/>' + ciel + terre + '<g mask="url(#lu-masque)">' + col + '</g>' + tore + fils + sph + ens + titre + phrase + leg + pied + filigrane + '</svg>';
+      '.lu-phrase{font-family:' + GN + ';font-style:italic;font-size:46px;fill:#6B2F5B;paint-order:stroke;stroke:#FFFFFF;stroke-width:12px}.lu-pied{font-family:' + NS + ';font-size:24px;letter-spacing:6px;fill:#9A6E38;paint-order:stroke;stroke:#FFFFFF;stroke-width:8px}.lu-fil{font-family:' + GN + ';font-size:300px;fill:#6B2F5B}</style></defs>' +
+      '<rect x="-200" y="-200" width="' + (W + 400) + '" height="' + (H + 400) + '" fill="#FFFFFF"/>' +
+      '<image href="' + esc(decor) + '" x="' + f1(DX) + '" y="0" width="' + DW + '" height="' + H + '" preserveAspectRatio="xMidYMid slice"/>' +
+      titre + branches + feuilles + personnes + phrase + pied + filigrane + '</svg>';
   }
   window.ArbreLumiere = { svg: svg };
 })();

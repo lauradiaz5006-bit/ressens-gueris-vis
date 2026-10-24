@@ -36,7 +36,7 @@
   function motif() { return /medaillons$/.test(choix.style) ? 'medaillons' : ''; }
   function remplis(p, g, max) { return !p || g >= max ? 0 : 1 + remplis(p.pere, g + 1, max) + remplis(p.mere, g + 1, max); }
   /* « avec mes enfants » : pour le Grand arbre et les styles à l'horizontale */
-  function avecEnfantsPossible() { return !desc() && !ev(); }   /* tous les modèles, sauf Descendants (où les enfants sont déjà l'arbre) */
+  function avecEnfantsPossible() { return !desc() && !ev() && choix.style !== 'lumiere'; }   /* tous les modèles, sauf Descendants (où les enfants sont déjà l'arbre) */
   /* Titres proposés, quel que soit le modèle : « La famille X », « Notre famille »… ; le champ reste libre */
   function majTitres() {
     var z = document.getElementById('fe-titres'), champ = document.getElementById('fe-titre'); if (!z || !champ || !donnees) return;
@@ -113,7 +113,7 @@
     desc_eventail: 'L’éventail : la personne au centre, chaque branche de la famille dans sa couleur, jusqu’aux arrière-petits-enfants.',
     famille_medaillons: 'Votre couple et vos deux lignées dans des médaillons dorés, vos enfants au pied.',
     famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.',
-    lumiere: 'Chaque personne de ta lignée dans une sphère de lumière, portée par un grand tore entre terre et ciel : toi au cœur, tes ancêtres qui s’élèvent vers le ciel, tes enfants dans la lumière de la terre. Une image qui protège et met ta lignée en lumière, à télécharger.'
+    lumiere: 'Une colonne de lumière entre la Terre et le soleil : toi au-dessus de la Terre, chaque personne de ta lignée dans sa sphère de lumière, à sa place (les défunts dans une sphère nacrée, avec un halo de protection). Une image qui protège et met ta lignée en lumière, à télécharger.'
   };
   /* la sorte d'arbre : une phrase sous chaque choix */
   function typesPour(id) {
@@ -338,7 +338,7 @@
     opt = opt || {};
     var fig = donnees.style === 'figuier', pay = paysage(donnees.style), gr = donnees.style === 'grand', med = /medaillons$/.test(donnees.style) || (gr && ((donnees.enfants || []).length > 0 || !!donnees.conjoint));
     var doreD = donnees.style === 'desc_dore', lum = donnees.style === 'lumiere';   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
-    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : pay || lum ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : lum ? enDataUrl(opt.hd ? 'assets/arbre/lumiere-fond.jpg' : 'assets/arbre/lumiere-fond-ecran.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
