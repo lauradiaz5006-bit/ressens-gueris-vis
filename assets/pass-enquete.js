@@ -121,3 +121,73 @@ window.PASS_QUESTIONS = [
   'Qu’est-ce que ton intuition te souffle sur ta lignée, aujourd’hui ?',
   'Quel prénom de ta famille aimerais-tu entendre plus souvent ?'
 ];
+
+/* ───────── Le Pass · le chemin d'un ressenti (version 2) ─────────
+   Chaque ressenti déposé devient un « fil » qui suit le même chemin, comme une boucle qui devient spirale :
+   Voir (ce qui se passe) → À qui ça appartient (moi ou ma lignée, racine ou cœur) → Enquêter (questions, où chercher)
+   → Libérer → La spirale (ce qui change). Les pistes ci-dessus (PASS_ENQUETE) servent dans « Enquêter ».
+   LIBERER.provisoire : en attente des textes de libération de Laura. */
+window.PASS_FIL = {
+  EMOTIONS: ['Peur', 'Peur de manquer', 'Tristesse', 'Colère', 'Honte', 'Culpabilité', 'Solitude', 'Impuissance', 'Vide', 'Fatigue'],   /* les mêmes que le fil d'or */
+  BLESSURES: [['abandon', 'Abandon'], ['rejet', 'Rejet'], ['trahison', 'Trahison'], ['humiliation', 'Humiliation'], ['injustice', 'Injustice']],
+  CORPS: ['La gorge', 'La poitrine', 'Le ventre', 'Les épaules', 'La tête', 'Le dos', 'Les mains', 'Partout', 'Je ne sais pas'],
+  PEURS: ['Peur de manquer', 'Peur d’être abandonné·e', 'Peur de ne pas avoir ma place', 'Peur de déplaire', 'Peur d’être trahi·e', 'Peur de réussir', 'Peur d’être vu·e', 'Peur du conflit', 'Peur de perdre ceux que j’aime', 'Peur de ne pas être assez'],
+  ETAPES: [
+    { id: 'voir', titre: 'Voir', court: 'Ce qui se passe',
+      souffle: 'Tu n’as rien à réparer pour l’instant. Juste regarder ce qui se passe, comme on regarde la météo : sans te juger. Une boucle qu’on voit commence déjà à ralentir.' },
+    { id: 'aqui', titre: 'À qui ça appartient ?', court: 'Moi ou ma lignée',
+      souffle: 'Certains ressentis sont à toi : ils parlent de ta vie. D’autres sont plus vieux que toi : ils sont arrivés avec la lignée, comme un paquet qu’on t’a confié sans te le dire. Ton intuition sait souvent faire la différence avant ta tête.' },
+    { id: 'enqueter', titre: 'Enquêter', court: 'Chercher la source',
+      souffle: 'Une mémoire se laisse approcher par des questions simples, des papiers, des photos, des dates. Tu n’as pas besoin de tout trouver : une seule pièce du puzzle suffit souvent à faire bouger quelque chose.' },
+    { id: 'liberer', titre: 'Libérer', court: 'Rendre et garder',
+      souffle: 'Ce qui a été vu peut être rendu. Rendre, ce n’est pas rejeter quelqu’un : c’est laisser à chacun ce qui lui appartient, avec respect, et garder pour toi ce qui te fait grandir.' },
+    { id: 'spirale', titre: 'La spirale', court: 'Ce qui change',
+      souffle: 'Le thème reviendra peut-être, mais tu le reconnaîtras plus vite, et tu réagiras autrement. C’est ça, la spirale : chaque passage te fait monter d’un cran. Ta fréquence change, et ce qui vibrait en boucle peut enfin s’élever.' }
+  ],
+  /* « À qui ça appartient ? » : des questions d'intuition, à sentir plus qu'à réfléchir */
+  INTUITION: [
+    'Si ce ressenti avait un âge, quel âge aurait-il ?',
+    'Est-il plus fort que ce que la situation demande ?',
+    'Quand il est là, te sens-tu toi-même, ou un peu comme quelqu’un d’autre ?',
+    'Si tu le posais devant toi, à qui aurais-tu envie de le tendre ?'
+  ],
+  CYCLES: {
+    racine: { nom: 'Cycle 1 · la racine', court: 'la racine', texte: 'Ta place, ta sécurité, le droit d’exister et de ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
+    coeur: { nom: 'Cycle 2 · le cœur', court: 'le cœur', texte: 'Ta façon d’aimer et d’être aimé·e, tes liens, la peur d’être quitté·e.', signes: ['des relations qui se ressemblent', 'donner beaucoup pour être aimé·e', 'peur d’être quitté·e, ou partir avant'] }
+  },
+  /* Enquêter : ce que tu peux demander, et où chercher, selon le cycle */
+  QUESTIONS: {
+    racine: ['Où vivaient-ils ? Ont-ils dû quitter une maison, une terre, un pays ?', 'Y a-t-il eu un manque d’argent, une faillite, une maison perdue ?', 'Un enfant confié, placé, né hors mariage ou reconnu tard ?', 'Qui a dû travailler très jeune, ou tout porter pour les autres ?', 'Quelle phrase sur l’argent ou la sécurité revenait à table ?'],
+    coeur: ['Comment se sont-ils rencontrés ? Étaient-ils libres de choisir ?', 'Y a-t-il eu un premier amour avant, une séparation, un veuvage, un remariage ?', 'Un enfant préféré, un enfant moins regardé ?', 'Qui est parti, et qui a été quitté ?', 'Que disait-on de l’amour, du mariage, des hommes, des femmes ?']
+  },
+  BLESSURE_Q: {
+    abandon: 'Qui, dans ta lignée, a perdu quelqu’un trop tôt, ou a été laissé seul ?',
+    rejet: 'Qui n’a pas été attendu, ou pas désiré comme il était ?',
+    trahison: 'Une promesse rompue, un héritage disputé, une confiance perdue ?',
+    humiliation: 'Une honte qu’on cachait : une faute, une pauvreté, une naissance ?',
+    injustice: 'Qui a été traité autrement que les autres, dans la fratrie ou ailleurs ?'
+  },
+  OU: {
+    racine: [['Les recensements', 'les archives départementales en ligne : qui vivait sous le même toit, les métiers'], ['Les actes de naissance', 'les mentions en marge : reconnaissance, adoption, mariage, décès'], ['Les registres matricules', 'les archives départementales : les parcours de guerre des hommes de ta lignée'], ['Les actes notariés', 'une maison vendue, un héritage, une dette']],
+    coeur: [['Les actes de mariage', 'les témoins, la date à comparer avec la naissance du premier enfant'], ['Les mentions de divorce', 'en marge des actes de mariage et de naissance'], ['Les lettres et les photos', 'le dos des photos, les faire-part, les cartes gardées dans une boîte'], ['Le livret de famille', 'les enfants nés, ceux partis trop tôt, les remariages']],
+    tous: [['Ceux qui sont encore là', 'une seule question, posée avec douceur'], ['Le cimetière', 'les tombes réunissent parfois ceux qu’on ne connaissait pas']]
+  },
+  /* Libérer : texte provisoire, en attendant les libérations de Laura */
+  LIBERER: {
+    provisoire: true,
+    etapes: [
+      'Assieds-toi, les pieds bien posés au sol. Pose une main sur ton cœur.',
+      'Pense à la personne à qui ce ressenti appartient, ou à « celui ou celle qui l’a porté avant moi ».',
+      'Dis-lui, à voix basse : « Je te vois. Ce que tu as vécu était lourd. Je te rends ce qui est à toi, avec respect. »',
+      'Puis : « Je garde ta force, ton courage, ce que tu m’as transmis de beau. »',
+      'Respire trois fois lentement. À chaque expiration, imagine que le paquet se dépose devant elle ou lui, dans une lumière douce.'
+    ]
+  },
+  SPIRALE: [
+    'Quand le thème est revenu, l’as-tu reconnu plus vite ?',
+    'Qu’as-tu fait autrement, même un tout petit peu ?',
+    'Qu’est-ce qui est plus léger dans ton corps aujourd’hui ?'
+  ],
+  /* Les pistes du livre à proposer dans « Enquêter », selon le cycle */
+  PISTES: { racine: ['noms', 'dates', 'absents', 'ciel'], coeur: ['voix', 'repete', 'corps', 'absents'] }
+};

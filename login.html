@@ -149,6 +149,7 @@
     .eb-outils-liste a{display:grid;gap:.25rem;padding:.9rem 1rem;border:1px solid var(--rose);border-radius:14px;background:rgba(255,255,255,.8);text-decoration:none;color:var(--prune)}
     .eb-outils-liste a:hover{border-color:var(--prune-doux)}
     .eb-outils-liste span{font-size:.82rem;color:var(--prune-doux)}
+    .eb-espaces a{background:linear-gradient(150deg,#3B1747,#6B2F5B);border:0;color:#FFE6B8}.eb-espaces a span{color:#EBD3E2}.eb-espaces a:hover{filter:brightness(1.08)}
     .eb-etape{font:600 .78rem var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne)}
     .eb-puces{display:flex;flex-wrap:wrap;gap:.4rem}
     .eb-puce{border:1.5px solid var(--c);background:var(--blanc);color:var(--prune);border-radius:99px;padding:.35rem .8rem;font:600 .86rem var(--texte);cursor:pointer}
@@ -310,6 +311,10 @@
             <h2>Le Cercle : un pas chaque mois</h2>
             <p class="tb-aide">Un carnet pour avancer, un suivi pour déposer ce qui se rejoue, deux séances audio par mois : tu sors pas à pas de ce qui se répète, à ton rythme.</p>
             <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><button type="button" class="btn btn-trait" data-aller="cercle">Découvrir le Cercle</button></div>
+          </article>
+          <article class="tb-carte tb-large eb-outils" id="acc-espaces" hidden>
+            <h2>Mes espaces</h2>
+            <div class="eb-outils-liste eb-espaces" id="acc-espaces-l"></div>
           </article>
           <article class="tb-carte" id="acc-emotion">
             <h2>Mon émotion du jour</h2>
@@ -761,6 +766,20 @@
         if (acc) acc.innerHTML = '<p class="eb-etape">Le Pass</p><h2>Ton enquête t’attend</h2><p class="tb-aide">Ta prochaine étape, l’agenda de ta lignée et ton mois à toi.</p><div class="tb-actions"><a class="btn btn-plein" href="pass.html">Mon enquête</a><a class="btn btn-trait" href="pass.html#agenda">Mon agenda</a></div>';
       }, function () {});
     }
+    /* « Mes espaces » : chaque espace ouvert à la personne (Le Cercle, Le Pass, Genesolia Pro), pour passer de l'un à l'autre */
+    function mesEspaces() {
+      if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
+      var pro = sb && user ? sb.from('praticiens').select('user_id').eq('user_id', user.id).then(function (x) { return !!(x && x.data && x.data.length); }, function () { return false; }) : Promise.resolve(false);
+      Promise.all([window.GenesoliaAcces.membre(), window.GenesoliaAcces.pass ? window.GenesoliaAcces.pass() : false, pro]).then(function (r) {
+        var l = [];
+        if (r[0]) l.push(['cercle.html', 'Le Cercle', 'Ton carnet, ton suivi, tes séances']);
+        if (r[1]) l.push(['pass.html', 'Mon enquête', 'Tes ressentis, ton fil d’or, ton agenda, ton bilan']);
+        if (r[2]) l.push(['pro.html', 'Genesolia Pro', 'Ton espace praticien et tes dossiers']);
+        var z = $('acc-espaces'); if (!z || !l.length) return;
+        $('acc-espaces-l').innerHTML = l.map(function (x) { return '<a href="' + x[0] + '"><b>' + esc(x[1]) + '</b><span>' + esc(x[2]) + '</span></a>'; }).join('');
+        z.hidden = false;
+      }, function () {});
+    }
     function cercleMembre() {
       if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
       window.GenesoliaAcces.membre().then(function (m) {
@@ -797,6 +816,7 @@
         accueilEmotion();
         cercleMembre();
         passMembre();
+        mesEspaces();
       }
     };
     if (window.GenesoliaEspaceAttente) { var at = window.GenesoliaEspaceAttente; window.GenesoliaEspaceAttente = null; window.GenesoliaEspaceNav.init(at[0], at[1]); }
