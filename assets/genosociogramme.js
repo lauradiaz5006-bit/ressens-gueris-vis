@@ -3142,6 +3142,100 @@
       if (confirm('Le PDF n’a pas pu être créé sur cet appareil. Ouvrir le rapport pour l’enregistrer en PDF depuis l’impression ?')) imprimerRapportFenetre(btn);
     });
   }
+  /* ───────── Le rapport en Word (.docx), pour retoucher le texte : même contenu que le PDF, mis en forme simplement ───────── */
+  function rapportWord(btn) {
+    var lib = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du fichier Word…'; }
+    var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
+    function fin() { if (btn) { btn.disabled = false; btn.textContent = lib; } }
+    Promise.all([script('assets/docx.min.js', 'docx'), chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); })]).then(polices).then(function (css) {
+      var html = htmlRapport(css, svgExport(css));
+      return canvasArbre().then(function (r) { return new Promise(function (ok) { r.canvas.toBlob(function (b) { b.arrayBuffer().then(function (ab) { ok({ data: ab, W: r.W, H: r.H }); }); }, 'image/png'); }); }, function () { return null; })
+        .then(function (img) { return docxDepuisHtml(html, img); });
+    }).then(function (blob) {
+      telecharger(blob, nomFichier('rapport-genosociogramme').replace(/\.pdf$/, '.docx')); fin();
+    }).catch(function () { fin(); alert('Le fichier Word n’a pas pu être créé sur cet appareil. Le PDF reste disponible.'); });
+  }
+  function docxDepuisHtml(html, img) {
+    var D = window.docx, doc = new DOMParser().parseFromString(html, 'text/html'), enfants = [], sautAvant = false;
+    var PRUNE_X = '6B2F5B', DOUX = '8E6383', OR = 'B98A55';
+    function t(el) { if (!el) return ''; var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll('br'), function (b) { b.replaceWith(' '); }); return (c.textContent || '').replace(/\s+/g, ' ').trim(); }
+    function runs(el, base) {   // le texte d'un élément, avec le gras et l'italique
+      var out = [];
+      (function w(n, gras, ital) {
+        [].forEach.call(n.childNodes, function (c) {
+          if (c.nodeType === 3) { var v = c.nodeValue.replace(/\s+/g, ' '); if (v) out.push(new D.TextRun(Object.assign({ text: v, bold: gras || undefined, italics: ital || undefined }, base || {}))); }
+          else if (c.nodeType === 1) { if (c.tagName === 'BR') out.push(new D.TextRun({ break: 1 })); else w(c, gras || /^(B|STRONG)$/.test(c.tagName), ital || /^(I|EM)$/.test(c.tagName)); }
+        });
+      })(el, false, false);
+      return out;
+    }
+    function para(o) { if (sautAvant) { o.pageBreakBefore = true; sautAvant = false; } enfants.push(new D.Paragraph(o)); }
+    function tableau(tb) {
+      var lignes = [].map.call(tb.querySelectorAll('tr'), function (tr, i) {
+        return new D.TableRow({ tableHeader: i === 0, children: [].map.call(tr.children, function (td) {
+          return new D.TableCell({ shading: td.tagName === 'TH' ? { fill: 'F7E6E8' } : undefined, margins: { top: 60, bottom: 60, left: 100, right: 100 }, children: [new D.Paragraph({ children: runs(td, td.tagName === 'TH' ? { bold: true, size: 18, color: PRUNE_X } : { size: 20 }) })] });
+        }) });
+      });
+      if (sautAvant) { para({ children: [] }); }
+      enfants.push(new D.Table({ width: { size: 100, type: D.WidthType.PERCENTAGE }, rows: lignes }));
+      enfants.push(new D.Paragraph({ children: [] }));
+    }
+    function bloc(el) {
+      var c = el.classList;
+      if (c.contains('page')) sautAvant = true;
+      if (c.contains('couv')) {
+        var m = el.querySelector('.marque'), sur = el.querySelector('.sur'), h1 = el.querySelector('h1'), ps = el.querySelectorAll('p');
+        if (m) para({ children: [new D.TextRun({ text: t(m), size: 26, color: PRUNE_X, font: 'Georgia' })] });
+        if (sur) para({ spacing: { before: 600 }, children: [new D.TextRun({ text: t(sur).toUpperCase(), size: 18, bold: true, color: OR })] });
+        if (h1) para({ heading: D.HeadingLevel.TITLE, children: [new D.TextRun({ text: t(h1), size: 64, color: PRUNE_X, font: 'Georgia' })] });
+        [].forEach.call(ps, function (p) { if (!p.closest('.chiffres')) para({ spacing: { after: 160 }, children: runs(p, { size: 22, color: '4E2A47' }) }); });
+        var ch = [].map.call(el.querySelectorAll('.chiffres div'), function (d) { return t(d.querySelector('b')) + ' ' + t(d.querySelector('span')); });
+        if (ch.length) para({ spacing: { before: 200 }, children: [new D.TextRun({ text: ch.join('  ·  '), bold: true, size: 24, color: PRUNE_X })] });
+        sautAvant = true; return;
+      }
+      if (c.contains('arbre-img')) {
+        if (img) { var lw = 600, lh = Math.round(lw * img.H / img.W); if (lh > 760) { lh = 760; lw = Math.round(lh * img.W / img.H); } para({ alignment: D.AlignmentType.CENTER, children: [new D.ImageRun({ type: 'png', data: img.data, transformation: { width: lw, height: lh } })] }); }
+        return;
+      }
+      if (c.contains('rep')) {
+        var b = el.querySelector('b'), coul = (el.getAttribute('style') || '').match(/#([0-9a-f]{6})/i);
+        var bord = { left: { style: D.BorderStyle.SINGLE, size: 18, color: coul ? coul[1] : PRUNE_X, space: 8 } };
+        if (b) para({ border: bord, spacing: { before: 120 }, children: [new D.TextRun({ text: t(b), bold: true, color: coul ? coul[1] : PRUNE_X, size: 20 })] });
+        [].forEach.call(el.querySelectorAll('p'), function (p) { para({ border: bord, spacing: { after: 60 }, children: runs(p, { size: 20 }) }); });
+        return;
+      }
+      if (c.contains('pistes') || c.contains('geste') || c.contains('fin')) {
+        var fond = c.contains('pistes') ? 'FFF5EA' : c.contains('geste') ? 'FCEFF3' : 'F3E8F0';
+        var tb = el.querySelector(':scope > b');
+        if (tb) para({ shading: { fill: fond }, spacing: { before: 160 }, children: [new D.TextRun({ text: t(tb), bold: true, color: c.contains('geste') ? 'B5485C' : PRUNE_X, size: 20 })] });
+        var lis = el.querySelectorAll('li');
+        if (lis.length) [].forEach.call(lis, function (li, i) { para({ shading: { fill: fond }, children: [new D.TextRun({ text: (i + 1) + '. ', bold: true, size: 20 })].concat(runs(li, { size: 20 })) }); });
+        else { var cl = el.cloneNode(true), bb = cl.querySelector(':scope > b'); if (bb && !c.contains('fin')) bb.remove(); para({ shading: { fill: fond }, spacing: { after: 160 }, children: runs(cl, { size: 20 }) }); }
+        return;
+      }
+      if (c.contains('notes')) { para({ heading: D.HeadingLevel.HEADING_3, children: [new D.TextRun({ text: 'Mes notes', color: PRUNE_X })] }); for (var k = 0; k < 4; k++) para({ border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'EBCFD5', space: 1 } }, spacing: { after: 240 }, children: [] }); return; }
+      if (c.contains('sur2')) { para({ spacing: { before: 120 }, children: [new D.TextRun({ text: t(el).toUpperCase(), bold: true, size: 16, color: OR })] }); return; }
+      var tag = el.tagName;
+      if (tag === 'H2') { para({ heading: D.HeadingLevel.HEADING_1, children: [new D.TextRun({ text: t(el), color: PRUNE_X, font: 'Georgia', size: 40 })] }); return; }
+      if (tag === 'H3') { para({ heading: D.HeadingLevel.HEADING_2, children: [new D.TextRun({ text: t(el), color: PRUNE_X, font: 'Georgia', size: 28 })] }); return; }
+      if (tag === 'P') { if (t(el)) para({ spacing: { after: 120 }, children: runs(el, c.contains('discret') ? { size: 17, color: DOUX } : { size: 21 }) }); return; }
+      if (tag === 'TABLE') { tableau(el); return; }
+      if (tag === 'OL' || tag === 'UL') { [].forEach.call(el.children, function (li, i) { para({ indent: { left: 360 }, children: [new D.TextRun({ text: (tag === 'OL' ? (i + 1) + '. ' : '• '), size: 21 })].concat(runs(li, { size: 21 })) }); }); return; }
+      if (el.children.length) { [].forEach.call(el.children, bloc); return; }
+      if (t(el)) para({ children: runs(el, { size: 21 }) });
+    }
+    [].forEach.call(doc.body.children, bloc);
+    var d = new D.Document({
+      creator: 'Genesolia', title: 'Le rapport de ton arbre',
+      styles: { default: { document: { run: { font: 'Calibri', size: 21, color: '4E2A47' } } } },
+      sections: [{ properties: { page: { margin: { top: 1000, bottom: 1000, left: 1000, right: 1000 } } },
+        footers: { default: new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.RIGHT, children: [new D.TextRun({ text: 'genesolia.fr · page ', size: 16, color: DOUX }), new D.TextRun({ children: [D.PageNumber.CURRENT], size: 16, color: DOUX })] })] }) },
+        children: enfants }]
+    });
+    return D.Packer.toBlob(d);
+  }
   function imprimerRapportFenetre(btn) {
     if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
@@ -3210,8 +3304,10 @@
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
-          '<p class="rap-aide">Le rapport se télécharge directement en PDF, prêt à envoyer ou à imprimer.</p>';
+          '<button class="bt rap-gros" type="button" id="bt-generer-word" style="margin-top:.5rem">Version Word, à retoucher (.docx)</button>' +
+          '<p class="rap-aide">Le PDF est prêt à envoyer ou à imprimer. La version Word s’ouvre dans Word, Pages ou Google Docs : tu peux retoucher le texte avant de le remettre.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
+        $('bt-generer-word').addEventListener('click', function () { rapportWord(this); });
         return;
       }
       var h = contenuApercu(reps);
