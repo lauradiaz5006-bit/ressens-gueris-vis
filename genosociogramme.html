@@ -261,6 +261,7 @@
     /* Exemple */
     .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
     .bandeau-exemple a{color:var(--champagne-clair)}
+    @media (max-width:760px){.bandeau-exemple{top:auto;left:12px;right:84px;transform:none;max-width:none;bottom:calc(14px + env(safe-area-inset-bottom,0px));font-size:.82rem;padding:.55rem 1rem;border-radius:16px}}
     .remise-partage{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:41;width:min(560px,calc(100% - 24px));box-sizing:border-box;background:#fff;border:1px solid var(--rose);border-radius:20px;padding:1rem 1.1rem;box-shadow:0 14px 36px rgba(107,47,91,.22);font:400 .92rem/1.5 var(--texte);color:var(--prune)}
     .remise-partage p{margin:0 0 .7rem}
     .remise-boutons,.remise-formats{display:flex;flex-wrap:wrap;gap:.5rem}
@@ -876,6 +877,7 @@
       </div>
       <div class="fen-corps" style="display:grid;gap:.7rem">
         <button class="bt" type="button" id="ft-image" style="justify-content:center;padding:.8rem">L’arbre seul · image</button>
+        <button class="bt" type="button" id="ft-arbre-pdf" style="justify-content:center;padding:.8rem">L’arbre seul · PDF</button>
         <button class="bt plein" type="button" id="ft-pdf" style="justify-content:center;padding:.8rem">L’arbre + ce qui se répète · PDF</button>
         <p style="margin:0;font-size:.82rem;color:var(--prune-doux)">Pour le PDF, une fenêtre d’impression s’ouvre : choisis « Enregistrer au format PDF ».</p>
       </div>
@@ -899,7 +901,7 @@
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
   <script src="assets/praticien-outils.js?v=2"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-24b"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-24p"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/date-deroulante.js?v=1"></script>

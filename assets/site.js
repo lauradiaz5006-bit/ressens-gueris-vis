@@ -167,8 +167,10 @@ window.GENESOLIA_GA = 'G-CL135D3MXM';
 window.GenesoliaMesure = (function () {
   var CLE = 'consentement-mesure', id = window.GENESOLIA_GA, charge = false;
   function choix() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  /* Appli Genesolia Pro : jamais de Google Analytics (Umami seul, sans cookie), donc pas de bandeau à faire accepter */
+  function pro() { try { return /\/pro\.html$/.test(location.pathname) || sessionStorage.getItem('genesolia-appli') === 'pro'; } catch (e) { return false; } }
   function charger() {
-    if (charge || !id || genesoliaPasCompter()) return;
+    if (charge || !id || genesoliaPasCompter() || pro()) return;
     charge = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
@@ -202,7 +204,7 @@ window.GenesoliaMesure = (function () {
   var c = choix();
   if (c && expire()) { try { localStorage.removeItem(CLE); } catch (e) {} c = null; }
   if (c === 'oui') charger();
-  return { choix: choix, enregistrer: enregistrer };
+  return { choix: choix, enregistrer: enregistrer, pro: pro };
 })();
 
 /* ===== Paiements Stripe : coller ici chaque lien de paiement (Stripe > Liens de paiement) =====
@@ -325,6 +327,7 @@ window.GENESOLIA_IMPRESSION = {
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
   /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
   if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search) || (ESTCERCLE && aUnCompte())) drapeau = 'cercle';
+  else if (/[?&]appli=pro\b/.test(location.search) || (drapeau === 'pro' && (page === 'genosociogramme.html' || page === 'login.html'))) drapeau = 'pro';   /* un dossier ouvert depuis l'appli Pro reste dans l'appli Pro */
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
   /* Appli Genesolia Pro (pro.html) : l'Espace praticien en appli. Ni barre du bas du site, ni encarts, sur toutes ses pages */
   if (page === 'pro.html') drapeau = 'pro';
@@ -462,7 +465,7 @@ window.GENESOLIA_IMPRESSION = {
     /* Sans compte, sur les outils : rappel discret que le travail s'efface à la fermeture du navigateur */
     var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html', 'roue-des-emotions.html', 'fil-d-or.html'];
     var vuNote = false; try { vuNote = sessionStorage.getItem('note-donnees') === 'vue'; } catch (e) {}
-    if (OUTILS.indexOf(page) >= 0 && !vuNote && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
+    if (OUTILS.indexOf(page) >= 0 && !vuNote && drapeau !== 'pro' && !/[?&]exemple\b/.test(location.search) && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
       var note = document.createElement('div');
       note.className = 'note-donnees'; note.setAttribute('role', 'note');
       note.innerHTML = '<div class="conteneur"><p>Sans compte, ton travail est gardé jusqu’à la fermeture de ton navigateur. <a href="login.html?inscription&amp;retour=' + page + '">Crée ton espace gratuit</a> pour le retrouver plus tard.</p><button type="button" aria-label="Fermer">×</button></div>';
@@ -840,7 +843,7 @@ window.GENESOLIA_IMPRESSION = {
     });
     document.body.appendChild(b);
   }
-  if (!vu) bandeauCookies(true);
+  if (!vu && !window.GenesoliaMesure.pro()) bandeauCookies(true);
   document.addEventListener('click', function (e) {
     var l = e.target.closest && e.target.closest('[data-cookies]');
     if (!l) return;
