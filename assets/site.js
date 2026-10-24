@@ -1693,10 +1693,24 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   if (document.readyState === 'complete') lancer(); else window.addEventListener('load', lancer);
 })();
 
-/* Les livres dans les articles : en bas des articles qui correspondent à un thème de « L'enquête de ma lignée »
-   (et des outils de la lignée), un encart vers le livre, avant l'encart offert. */
+/* Les livres Genesolia partout sur le site :
+   - en bas de chaque page (avant l'encart offert), un encart publicitaire : « L'enquête de ma lignée » sur les articles de la lignée,
+     « Racines » sur les pages du Cercle, les deux livres ailleurs ;
+   - sur la page d'accueil, un bandeau juste sous l'ouverture.
+   Jamais dans les applis (Le Cercle, Pro), le questionnaire, la connexion, l'espace membre, les pages légales ni sur les pages des livres. */
 (function () {
   var page = location.pathname.split('/').pop() || 'index.html';
+  var L = window.GENESOLIA_LIVRES || {}; if (!L.enquete || !L.racines) return;
+  var app = document.documentElement.classList.contains('appli'), dr = '';
+  try { dr = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
+  if (app || dr === 'pro') return;
+  var SANS = ['pro.html', 'praticien.html', 'praticien-partage.html', 'espace-praticien.html', 'conditions-praticien.html', 'questionnaire.html', 'login.html', 'code.html',
+    'essai.html', 'bienvenue.html', 'merci-arbre.html', 'desinscription.html', 'offline.html', 'cercle.html', 'appli.html', 'mon-document.html',
+    'mon-carnet.html', 'mon-suivi.html', 'mon-suivi-mois.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'mes-seances.html', 'point-de-depart.html',
+    'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'question-du-mois.html',
+    'cgv.html', 'mentions-legales.html', 'confidentialite.html', 'conditions-utilisation.html',
+    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'offrir.html'];
+  if (SANS.indexOf(page) >= 0) return;
   var THEMES = {
     'memoire-transgenerationnelle.html': 'la mémoire transgénérationnelle', 'syndrome-anniversaire.html': 'le syndrome d’anniversaire',
     'deuil-non-fait-mort-jeune.html': 'les deuils non faits', 'enfant-de-remplacement.html': 'l’enfant de remplacement',
@@ -1706,26 +1720,58 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     'guerre-et-memoire-familiale.html': 'la guerre et l’exil', 'argent-et-lignee.html': 'l’argent dans la lignée', 'peur-de-manquer-d-argent.html': 'la peur de manquer',
     'metiers-transmis-genealogie.html': 'les métiers transmis', 'schemas-repetitifs-en-amour.html': 'les schémas en amour', 'blessures-de-l-ame.html': 'les cinq blessures de l’âme',
     'masques-des-5-blessures.html': 'les cinq blessures de l’âme', 'reves-recurrents-et-memoire-familiale.html': 'les rêves qui reviennent', 'toussaint-ancetres-et-deuils.html': 'honorer ses ancêtres',
-    'fil-d-or.html': '', 'comment-faire-son-genosociogramme.html': '', 'questions-a-poser-a-sa-famille.html': '', 'psychogenealogie.html': '', 'heriter.html': ''
+    'fil-d-or.html': '', 'comment-faire-son-genosociogramme.html': '', 'questions-a-poser-a-sa-famille.html': '', 'psychogenealogie.html': '', 'heriter.html': '',
+    'symboles-genosociogramme.html': '', 'exemple-genosociogramme.html': '', 'genosociogramme-vierge.html': '', 'annuaire.html': ''
   };
-  if (!(page in THEMES)) return;
-  var pied = document.querySelector('[data-pied]'); if (!pied) return;
-  var L = (window.GENESOLIA_LIVRES || {}).enquete; if (!L) return;
+  var CERCLE = ['abonnement.html', 'tarifs.html', 'formation.html', 'parcours.html', 'methode.html', 'la-demarche.html', 'seance-offerte.html', 'dependance-affective.html', 'relation-floue.html'];
   if (!document.getElementById('livre-encart-css')) {
     var st = document.createElement('style'); st.id = 'livre-encart-css';
-    st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC}' +
-      '.livre-encart img{width:150px;height:auto;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.livre-encart .le-sur{font:700 .75rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A6E38;margin:0 0 .3rem}' +
+    st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;box-shadow:0 12px 34px rgba(107,47,91,.08)}' +
+      '.livre-encart.le-deux{grid-template-columns:250px 1fr}.le-couv{display:flex;justify-content:center;align-items:flex-end}.le-couv a{display:block}' +
+      '.livre-encart img{width:150px;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.le-deux .le-couv img{width:120px}.le-deux .le-couv a+a{margin-left:-14px;transform:translateY(10px)}' +
+      '.livre-encart .le-sur{font:700 .75rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A6E38;margin:0 0 .3rem}' +
       '.livre-encart h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 .5rem}.livre-encart p{margin:0 0 .9rem}.livre-encart .le-bt{display:flex;flex-wrap:wrap;gap:.5rem}' +
-      '.livre-bientot{opacity:.7;cursor:default;pointer-events:none}@media (max-width:620px){.livre-encart{grid-template-columns:1fr;text-align:center}.livre-encart img{margin:0 auto;width:130px}.livre-encart .le-bt{justify-content:center}}';
+      '.livre-accueil{padding:1.6rem 0 .4rem}.livre-accueil .livre-encart{padding:1.3rem 1.6rem}' +
+      '.livre-bientot{opacity:.7;cursor:default;pointer-events:none}' +
+      '@media (max-width:680px){.livre-encart,.livre-encart.le-deux{grid-template-columns:1fr;text-align:center;padding:1.3rem}.livre-encart img{margin:0 auto;width:120px}.le-deux .le-couv img{width:105px}.livre-encart .le-bt{justify-content:center}.livre-encart .le-bt .btn{flex:1 1 100%;min-height:46px}}';
     document.head.appendChild(st);
   }
-  var t = THEMES[page];
-  var z = document.createElement('section'); z.className = 'bloc'; z.setAttribute('aria-label', 'Le livre');
-  z.innerHTML = '<div class="conteneur"><div class="livre-encart"><img src="' + L.image + '" width="543" height="900" alt="Le livre L’enquête de ma lignée" loading="lazy">' +
-    '<div><p class="le-sur">Le livre · à remplir en famille</p><h2>L’enquête de ma lignée</h2>' +
-    '<p>' + (t ? 'Tout ce que tu viens de lire sur ' + t + ', expliqué pas à pas parmi 18 thèmes, ' : '18 thèmes expliqués, ') + 'avec ton arbre sur 5 générations, des entretiens guidés pour recueillir le ressenti de chacun et le fil d’or pour voir ce qui se répète.</p>' +
-    '<div class="le-bt"><a class="btn btn-plein" href="' + L.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.extrait + '" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.page + '">Acheter</a></div></div></div></div>';
-  var avant = document.querySelector('.cadeau-bas') || pied;
-  avant.parentNode.insertBefore(z, avant);
-  if (window.GenesoliaLivresBoutons) window.GenesoliaLivresBoutons(z);
+  function img(l, alt, cl) { return '<a href="' + l.page + '"><img src="' + l.image + '" width="543" height="900" alt="' + alt + '" loading="lazy"></a>'; }
+  function deux(sur, titre, texte) {
+    return '<div class="livre-encart le-deux"><div class="le-couv">' + img(L.enquete, 'Le livre L’enquête de ma lignée') + img(L.racines, 'Le livre Racines') + '</div>' +
+      '<div><p class="le-sur">' + sur + '</p><h2>' + titre + '</h2><p>' + texte + '</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="offrir.html">Idées à offrir</a></div></div></div>';
+  }
+  var html;
+  if (page in THEMES) {
+    var t = THEMES[page];
+    html = '<div class="livre-encart">' + img(L.enquete, 'Le livre L’enquête de ma lignée') +
+      '<div><p class="le-sur">Le livre · à remplir en famille</p><h2>L’enquête de ma lignée</h2>' +
+      '<p>' + (t ? 'Tout ce que tu viens de lire sur ' + t + ', expliqué pas à pas parmi 18 thèmes, ' : '18 thèmes expliqués, ') + 'avec ton arbre sur 5 générations, des entretiens guidés pour recueillir le ressenti de chacun et le fil d’or pour voir ce qui se répète.</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="' + L.enquete.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.enquete.page + '">Acheter</a></div></div></div>';
+  } else if (CERCLE.indexOf(page) >= 0) {
+    html = '<div class="livre-encart">' + img(L.racines, 'Le livre Racines') +
+      '<div><p class="le-sur">Le livre · Le Cercle, livre 1</p><h2>Racines, sur papier</h2>' +
+      '<p>Trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place : un cahier à écrire, un petit rendez-vous chaque jour, avec exercices, rituels et méditations.</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="' + L.racines.page + '">Découvrir Racines</a><a class="btn btn-trait" href="' + L.racines.page + '#feuilleter">Feuilleter quelques pages</a><a class="btn btn-trait" data-livre-acheter="racines" href="' + L.racines.page + '">Acheter</a></div></div></div>';
+  } else if (page === 'index.html') {
+    html = '';
+  } else {
+    html = deux('Les livres Genesolia', 'Ton histoire, sur papier', 'Deux livres à écrire, à ton rythme : <b>L’enquête de ma lignée</b>, à remplir en famille pour comprendre ce qui se transmet, et <b>Racines</b>, trois mois pour sortir de l’alerte et prendre ta place.');
+  }
+  var pied = document.querySelector('[data-pied]');
+  if (html && pied) {
+    var z = document.createElement('section'); z.className = 'bloc'; z.setAttribute('aria-label', 'Les livres Genesolia');
+    z.innerHTML = '<div class="conteneur">' + html + '</div>';
+    var avant = document.querySelector('.cadeau-bas') || pied;
+    avant.parentNode.insertBefore(z, avant);
+    if (window.GenesoliaLivresBoutons) window.GenesoliaLivresBoutons(z);
+  }
+  /* Page d'accueil : le bandeau des livres juste sous l'ouverture */
+  var ouv = page === 'index.html' && document.querySelector('main > .ouverture');
+  if (ouv) {
+    var b = document.createElement('section'); b.className = 'livre-accueil'; b.setAttribute('aria-label', 'Les livres Genesolia');
+    b.innerHTML = '<div class="conteneur">' + deux('Nouveau · les livres Genesolia', 'Ton histoire de famille, sur papier', 'À écrire seul·e ou en famille : <b>L’enquête de ma lignée</b> pour rassembler ton histoire et voir ce qui se répète, et <b>Racines</b> pour sortir de l’alerte et prendre ta place. Les premières pages sont offertes.') + '</div>';
+    ouv.parentNode.insertBefore(b, ouv.nextSibling);
+  }
 })();
