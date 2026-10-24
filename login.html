@@ -244,7 +244,7 @@
       <form id="form-inscription" novalidate hidden>
         <div class="champ"><label for="i-prenom">Prénom ou pseudo</label><input id="i-prenom" type="text" autocomplete="given-name"><span class="aide">Facultatif. Juste pour te dire bonjour.</span></div>
         <div class="champ"><label for="i-email">E-mail</label><input id="i-email" type="email" autocomplete="email" required></div>
-        <div class="champ"><label for="i-mdp">Mot de passe</label><div class="mdp"><input id="i-mdp" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="voir" data-voir="i-mdp">Afficher</button></div><span class="aide">8 caractères minimum.</span></div>
+        <div class="champ"><label for="i-mdp">Mot de passe</label><div class="mdp"><input id="i-mdp" type="password" autocomplete="new-password" minlength="10" required><button type="button" class="voir" data-voir="i-mdp">Afficher</button></div><span class="aide">10 caractères minimum.</span></div>
         <button class="btn btn-plein valider" type="submit">Créer mon compte</button>
       </form>
 
@@ -257,7 +257,7 @@
 
       <form id="form-nouveau" novalidate hidden>
         <p class="aide" style="font-size:.92rem;margin-bottom:1rem">Choisis ton nouveau mot de passe.</p>
-        <div class="champ"><label for="n-mdp">Nouveau mot de passe</label><div class="mdp"><input id="n-mdp" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="voir" data-voir="n-mdp">Afficher</button></div><span class="aide">8 caractères minimum.</span></div>
+        <div class="champ"><label for="n-mdp">Nouveau mot de passe</label><div class="mdp"><input id="n-mdp" type="password" autocomplete="new-password" minlength="10" required><button type="button" class="voir" data-voir="n-mdp">Afficher</button></div><span class="aide">10 caractères minimum.</span></div>
         <button class="btn btn-plein valider" type="submit">Enregistrer mon mot de passe</button>
       </form>
 
@@ -414,7 +414,7 @@
           </form>
           <div class="champ"><span class="tb-etiq">E-mail</span><p class="tb-valeur" id="p-email"></p><span class="tb-aide">Pour changer d'adresse, écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.</span></div>
           <form id="form-mdp" class="tb-form">
-            <div class="champ"><label for="p-mdp">Nouveau mot de passe</label><div class="mdp"><input id="p-mdp" type="password" autocomplete="new-password" minlength="8"><button type="button" class="voir" data-voir="p-mdp">Afficher</button></div><span class="tb-aide">8 caractères minimum.</span></div>
+            <div class="champ"><label for="p-mdp">Nouveau mot de passe</label><div class="mdp"><input id="p-mdp" type="password" autocomplete="new-password" minlength="10"><button type="button" class="voir" data-voir="p-mdp">Afficher</button></div><span class="tb-aide">10 caractères minimum.</span></div>
             <button class="btn btn-trait" type="submit">Changer mon mot de passe</button>
           </form>
         </section>
@@ -504,7 +504,7 @@
       if (code === 'user_already_exists' || /already registered|already been registered|user already exists/.test(t)) return 'DEJA';
       if (code === 'invalid_credentials' || /invalid login credentials/.test(t)) return 'E-mail ou mot de passe incorrect.';
       if (code === 'email_not_confirmed' || /email not confirmed/.test(t)) return 'NONCONFIRME';
-      if (code === 'weak_password' || /password should be|weak password|password is too/.test(t)) return 'Ce mot de passe est trop simple ou trop connu. Choisis-en un plus long (8 caractères minimum).';
+      if (code === 'weak_password' || /password should be|weak password|password is too/.test(t)) return 'Ce mot de passe est trop simple ou trop connu. Choisis-en un plus long (10 caractères minimum).';
       if (code === 'validation_failed' || /invalid email|unable to validate email|email address .* is invalid/.test(t)) return 'Cette adresse e-mail ne semble pas valide.';
       if (code === 'same_password' || /should be different/.test(t)) return 'Le nouveau mot de passe doit être différent de l’ancien.';
       if (/failed to fetch|network|load failed/.test(t)) return 'Pas de connexion internet pour le moment. Vérifie ta connexion et réessaie.';
@@ -571,7 +571,7 @@
       e.preventDefault(); effacerMessage();
       var prenom = $('i-prenom').value.trim(), email = $('i-email').value.trim(), mdp = $('i-mdp').value, f = this;
       if (!emailValide(email)) { message('Indique une adresse e-mail valide.'); return; }
-      if (mdp.length < 8) { message('Le mot de passe doit faire au moins 8 caractères.'); return; }
+      if (mdp.length < 10) { message('Le mot de passe doit faire au moins 10 caractères.'); return; }
       if (!sb) { message(traduire({ message: 'network' })); return; }
       occupe(f, true, 'Création…');
       var vientEssai = retour === 'essai.html';
@@ -614,7 +614,7 @@
     $('form-nouveau').addEventListener('submit', function (e) {
       e.preventDefault(); effacerMessage();
       var mdp = $('n-mdp').value, f = this;
-      if (mdp.length < 8) { message('Le mot de passe doit faire au moins 8 caractères.'); return; }
+      if (mdp.length < 10) { message('Le mot de passe doit faire au moins 10 caractères.'); return; }
       occupe(f, true, 'Enregistrement…');
       sb.auth.updateUser({ password: mdp }).then(function (r) {
         occupe(f, false);
