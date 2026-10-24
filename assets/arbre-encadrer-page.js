@@ -53,7 +53,8 @@
     l.hidden = !donnees.nbEnfants || !avecEnfantsPossible();
     var lc = document.getElementById('fe-conjoint-l'), ac = document.getElementById('fe-conjoint-aide');
     if (desc()) l.hidden = true;
-    var lf = document.getElementById('fe-freres-l'); if (lf) lf.hidden = !donnees.nbFreres || ev() || choix.style === 'famille_eventail';   /* l'éventail : les ancêtres seulement */
+    var lf = document.getElementById('fe-freres-l'); if (lf) lf.hidden = !donnees.nbFreres || ev() || choix.style === 'famille_eventail';
+    var da = document.getElementById('fe-demis-aide'); if (da) { var peint = grand() || choix.style === 'figuier' || choix.style === 'dore' || ev(); da.hidden = !(donnees.nbDemis && peint && typeDe() === 'ancetres'); }   /* l'éventail : les ancêtres seulement */
     if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
       if (tc && c0 && c0.conjoint) tc.textContent = (donnees.departEstMoi ? 'Avec mon conjoint · ' : 'Avec son conjoint · ') + (c0.conjoint.prenom + ' ' + c0.conjoint.nom).trim();
       else if (tc && c0 && c0.unions) { var hs = c0.unions.every(function (u) { return u.sexe === 'm'; }), fs0 = c0.unions.every(function (u) { return u.sexe === 'f'; }), qui = hs ? 'les pères' : fs0 ? 'les mères' : 'l’autre parent';
@@ -162,12 +163,15 @@
     function fiche(p) { return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; }
     function construire(id, g) {
       if (vus[id]) return null; vus[id] = 1;
-      var p = P[id], o = fiche(p); gens = Math.max(gens, g + 1);
+      var p = P[id], o = fiche(p); o._id = id; gens = Math.max(gens, g + 1);
       if (o.naissance && (!plusVieux || o.naissance < plusVieux)) plusVieux = o.naissance;
       if (g > 0) {   /* son conjoint (l'autre parent de ses enfants, sinon son union) : écrit sous son nom */
         var cjs = rels.filter(function (r) { return r.type === 'couple' && (r.from === id || r.to === id); }).map(function (r) { return r.from === id ? r.to : r.from; }).filter(function (x) { return P[x]; });
         var ens = enfantsDe(id), par = ens.length ? parentsDe(ens[0]).filter(function (x) { return x !== id; })[0] : null;
         var c0 = par && P[par] ? par : cjs[0]; if (c0) o.cj = fiche(P[c0]);
+        /* enfants de plusieurs unions : tous les autres parents sont écrits sous son nom */
+        var aps = ens.map(function (e) { return parentsDe(e).filter(function (x) { return x !== id; })[0]; }).filter(function (x, i, t) { return x && P[x] && t.indexOf(x) === i; });
+        if (aps.length > 1) { o.cj = fiche(P[aps[0]]); o.cj2 = fiche(P[aps[1]]); }
       }
       o.enf = g < maxG - 1 ? enfantsDe(id).sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); }).map(function (e) { return construire(e, g + 1); }).filter(Boolean) : [];
       return o;
@@ -183,11 +187,26 @@
       var e0 = enfantsDe(racineId), autres = e0.length ? parentsDe(e0[0]).filter(function (x) { return x !== racineId; }) : [];
       if (autres[0] && e0.every(function (e) { return parentsDe(e).indexOf(autres[0]) >= 0; })) conjoint = fiche(P[autres[0]]);
     }
+    /* plusieurs unions (une grand-mère remariée…) : chaque autre parent à côté d'elle, ses enfants sous leur union, comme sur un arbre classique */
+    var unionsD = null;
+    if (!conjoint) {
+      var apL = [];
+      enfantsDe(racineId).forEach(function (e) { var ap = parentsDe(e).filter(function (x) { return x !== racineId; })[0]; if (ap && apL.indexOf(ap) < 0) apL.push(ap); });
+      if (apL.length) {
+        apL = apL.slice(0, 2);
+        unionsD = apL.map(function (ap) { var u = rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === racineId) || (r.to === ap && r.from === racineId)); })[0], f = fiche(P[ap]); f.separe = !!(u && (u.statut === 'separe' || u.statut === 'divorce')); f._id = ap; return f; });
+        (racine.enf || []).forEach(function (c) { var ap = parentsDe(c._id).filter(function (x) { return x !== racineId; })[0]; c._u = apL.indexOf(ap); });
+        /* les enfants de la 2e union à gauche, ceux d'un parent inconnu au milieu, ceux de la 1re union à droite */
+        var rangU = function (c) { return c._u === 1 ? 0 : c._u === 0 ? 2 : 1; };
+        racine.enf = (racine.enf || []).map(function (c, i) { return [c, i]; }).sort(function (a, b) { return rangU(a[0]) - rangU(b[0]) || a[1] - b[1]; }).map(function (x) { return x[0]; });
+        conjointRefus = '';
+      }
+    }
     var pr = String(racine.prenom || '').trim().split(/\s+/)[0], nomF = String(racine.nom || '').trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); });
     var titre = pr ? 'La famille ' + (/^[aeiouyéèêàâîïôûh]/i.test(pr) ? 'd’' : 'de ') + pr : (nomF ? 'La famille ' + nomF : 'Notre famille');
     return {
       titre: titre, sousTitre: GEN[Math.min(gens, GEN.length) - 1] + (plusVieux ? ' · depuis ' + plusVieux : ''),
-      moi: racine, freresSoeurs: [], enfants: [], conjoint: conjoint, conjointRefus: conjointRefus, nb: gens, nbGen: gens, depart: racineId, departEstMoi: P[racineId].role === 'moi', descendants: true
+      moi: racine, freresSoeurs: [], enfants: [], conjoint: conjoint, conjointRefus: conjointRefus, unions: unionsD, nb: gens, nbGen: gens, depart: racineId, departEstMoi: P[racineId].role === 'moi', descendants: true
     };
   }
   /* « Notre famille » : toi et ton conjoint côte à côte, chacun avec ses ancêtres, et vos enfants communs au pied */
@@ -253,7 +272,10 @@
       var p = P[id], pf = parentsDe(id), com = pf.filter(function (x) { return pm.indexOf(x) >= 0; }), demi = pm.length === 2 && com.length === 1;
       /* demi-frère, demi-sœur : du côté du parent en commun (la mère ou le père), pour qu'il ne passe pas pour l'enfant de tes deux parents */
       var autre = pm.filter(function (x) { return x !== com[0]; })[0], cote = !demi ? '' : (P[com[0]].sex === 'f' || (P[com[0]].sex !== 'm' && P[autre] && P[autre].sex === 'm')) ? 'mere' : 'pere';
-      return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: demi, cote: cote };
+      /* l'autre parent d'un demi-frère ou d'une demi-sœur (le 2e mari de ta mère, par exemple) : dessiné à côté du parent en commun */
+      var ap = demi ? pf.filter(function (x) { return pm.indexOf(x) < 0; })[0] : null, un = ap ? rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === com[0]) || (r.to === ap && r.from === com[0])); })[0] : null;
+      var autre = ap && P[ap] ? { _id: ap, prenom: P[ap].prenom || '', nom: P[ap].nom || '', sexe: P[ap].sex === 'f' ? 'f' : 'm', naissance: annee(P[ap].naiss), deces: annee(P[ap].deces) || null, separe: !!(un && (un.statut === 'separe' || un.statut === 'divorce')) } : null;
+      return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: demi, cote: cote, autre: autre };
     }).sort(function (a, b) { return (a.demi ? 1 : 0) - (b.demi ? 1 : 0); });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
@@ -373,7 +395,9 @@
     if (donnees && famille() && !donnees.couple) { donnees.sansCouple = true; donnees.raisonFamille = raisonFamille; if (!choix.titreModifie) donnees.titre = 'Notre famille'; }   /* pas de conjoint noté : on montre la Lignée, avec un mot d'explication */
     if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
-    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; if (!choix.freres || ev() || choix.style === 'famille_eventail') donnees.freresSoeurs = [];   /* l'éventail ne montre pas les frères et sœurs */ donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; donnees.aUnions = !!(donnees.unions && donnees.unions.length); if (!choix.conjoint) donnees.unions = null; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
+    if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; donnees.nbDemis = donnees.freresSoeurs.filter(function (f) { return f.demi; }).length;
+      if (!choix.freres || ev() || choix.style === 'famille_eventail' || grand()) donnees.freresSoeurs = [];   /* l'éventail et le Grand arbre ne montrent pas les frères et sœurs */
+      else if (choix.style === 'figuier' || choix.style === 'dore') donnees.freresSoeurs = donnees.freresSoeurs.filter(function (f) { return !f.demi; });   /* arbres peints : la lignée directe, sans les demi-frères et demi-sœurs (leur autre parent n'y aurait pas de place) */ donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; donnees.aUnions = !!(donnees.unions && donnees.unions.length); if (!choix.conjoint) donnees.unions = null; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
     /* portrait ou paysage : la Lignée (et Médaillons, Notre famille) prend le sens où son texte est le plus grand */
     if (donnees && lig() && !grand() && !desc() && !ev() && window.ArbreLignee && window.ArbreLignee.taille) {
       var a3o = ECH[classe(formatChoisi())], fzL = window.ArbreLignee.taille(donnees, a3o, true, motif(), donnees.nbGen), fzP = window.ArbreLignee.taille(donnees, a3o, false, motif(), donnees.nbGen);
@@ -409,6 +433,7 @@
       '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
       '<label class="fe-case" id="fe-conjoint-l" hidden><input type="checkbox" id="fe-conjoint"' + (choix.conjoint ? ' checked' : '') + '> <span id="fe-conjoint-t">Avec mon conjoint</span></label><p class="fe-aide" id="fe-conjoint-aide" hidden></p>' +
+      '<p class="fe-aide" id="fe-demis-aide" hidden>Ce style montre ta lignée directe. Pour voir aussi tes demi-frères et demi-sœurs, avec leur autre parent à côté du tien, choisis le style Lignée ou Médaillons.</p>' +
       '<p class="fe-aide" id="fe-famille-aide" hidden></p>' +
       '<label class="fe-case" id="fe-enfants-l" hidden><input type="checkbox" id="fe-enfants"' + (choix.enfants ? ' checked' : '') + '> <span id="fe-enfants-t">Avec mes enfants, au pied de l’arbre</span></label>' +
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
@@ -731,7 +756,8 @@
     var gens = [], vus = {};
     (function aller(q) { if (q && q.couple) { aller(q.pere); aller(q.mere); return; } if (!q || vus[q.id || (q.prenom + q.nom + q.naissance)]) return; vus[q.id || (q.prenom + q.nom + q.naissance)] = 1; gens.push(q); aller(q.pere); aller(q.mere); (q.enf || []).forEach(aller); })(d.moi);
     (d.freresSoeurs || []).concat(d.enfants || [], d.conjoint ? [d.conjoint] : []).forEach(function (q) { if (q) gens.push(q); });
-    var coupes = gens.filter(function (q) { var pr = n(q.prenom), no = n(q.nom); return (pr && texte.indexOf(pr) < 0) || (no && texte.indexOf(no) < 0); })
+    /* une personne absente de ce style (conjoint, frères et sœurs non dessinés) n'est pas « raccourcie » : on ne signale que celles dont on voit une partie du nom */
+    var coupes = gens.filter(function (q) { var pr = n(q.prenom), no = n(q.nom), p1 = n(String(q.prenom || '').trim().split(/[\s-]+/)[0]); if (p1 && texte.indexOf(p1) < 0) return false; return (pr && texte.indexOf(pr) < 0) || (no && texte.indexOf(no) < 0); })
       .map(function (q) { return [q.prenom, q.nom].filter(Boolean).join(' ').trim(); }).filter(Boolean);
     p.hidden = !coupes.length;
     if (coupes.length) p.innerHTML = '<b>Vérifie ' + (coupes.length > 1 ? 'ces noms' : 'ce nom') + ' :</b> ' + coupes.slice(0, 6).map(esc).join(', ') + (coupes.length > 6 ? '…' : '') + ' ' + (coupes.length > 1 ? 'sont trop longs' : 'est trop long') + ' pour sa place et ' + (coupes.length > 1 ? 'apparaissent' : 'apparaît') + ' raccourci' + (coupes.length > 1 ? 's' : '') + ' sur l’affiche. Si tu préfères, garde un seul prénom dans sa fiche.';

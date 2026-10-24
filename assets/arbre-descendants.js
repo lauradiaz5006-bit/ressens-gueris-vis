@@ -12,7 +12,7 @@
   var MARGE = 200, HAUT = 640, BAS0 = H - 330, BAS = BAS0, ECART = 34;
   /* Habillages : '' = cartes crème (Lignée), 'medaillons' = médaillons dorés, 'dore' = l'arbre doré qui pousse vers le haut
      (la personne au pied du tronc, ses descendants dans les branches), sur papier texturé. */
-  var THEME = '', SPRITE = 'assets/arbre/medaillon-or.png';
+  var THEME = '', SPRITE = 'assets/arbre/medaillon-or.png', UNS = [];   /* UNS : les autres parents de ses enfants (plusieurs unions), à côté de la personne */
   function theme(t) { THEME = t === 'medaillons' || t === 'dore' ? t : ''; BAS = THEME === 'dore' ? BAS0 - 150 : BAS0; }
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -31,7 +31,7 @@
   function NOM(p) { return String(p.nom || '').toUpperCase(); }
 
   /* étiquette : prénom(s), NOM, dates ; « court » = le premier prénom seulement */
-  function cjTexte(q) { var c = q.cj; return c ? ('& ' + (String(c.prenom || '').trim().split(/\s+/)[0] || '') + ' ' + NOM(c)).trim() : ''; }
+  function cjTexte(q, c) { c = c || q.cj; return c ? ('& ' + (String(c.prenom || '').trim().split(/\s+/)[0] || '') + ' ' + NOM(c)).trim() : ''; }
   function etiquette(q, fz, court, vert) {
     var fn = Math.round(fz * .8), fd = Math.round(fz * .78);
     if (vert) {   /* étiquette verticale : « Prénom NOM » puis dates (et le conjoint), lue de bas en haut */
@@ -39,7 +39,7 @@
       var l1 = [[prev, fz, GN, false, 'de-nom'], [NOM(q), fn, NS, true, 'de-nf']].filter(function (z) { return z[0]; }), dv = datesDe(q), cv = cjTexte(q);
       var lv = [l1.length ? l1 : [['?', fz, GN, false, 'de-nom']]];
       if (vert === 2) { if (dv) lv.push([[dv, fd, NS, true, 'de-date']]); } else if (dv) lv[0] = lv[0].concat([[dv, fd, NS, true, 'de-date']]);
-      if (cv) lv.push([[cv, fd, GN, false, 'de-cj']]);
+      if (cv) lv.push([[cv + (q.cj2 ? ' · ' + cjTexte(q, q.cj2) : ''), fd, GN, false, 'de-cj']]);
       var lon = Math.max.apply(null, lv.map(function (li) { return li.reduce(function (s0, z) { return s0 + larg(z[0], z[1], z[2], z[3]) * 1.04 + (z[4] === 'de-nf' ? z[0].length * 1.5 : 0); }, 0) + (li.length - 1) * fz * .35; }));
       var ep = lv.length * fz * 1.18 + 10, sy0 = Math.max(9, Math.round(fz * .36)), rmv = THEME === 'medaillons' ? Math.max(sy0 + 4, ep * .42) : 0;
       return { v: true, lv: lv, l: [[prev, fz]], w: Math.round(ep), h: Math.round(lon + 30 + sy0 + (rmv ? 2 * rmv + 10 : 0)), rmv: rmv, lon: lon };
@@ -53,6 +53,7 @@
     if (NOM(q)) l.push([NOM(q), fn, NS, true, 'de-nf']);
     if (datesDe(q)) l.push([datesDe(q), fd, NS, true, 'de-date']);
     if (cjTexte(q)) l.push([cjTexte(q), fd, GN, false, 'de-cj']);
+    if (q.cj2) l.push([cjTexte(q, q.cj2), fd, GN, false, 'de-cj']);
     if (!l.length) l.push(['?', fz, GN, false, 'de-nom']);
     var w = Math.max.apply(null, l.map(function (x) { return larg(x[0], x[1], x[2], x[3]); })) + 40;
     var h = l.reduce(function (s, x) { return s + x[1] * 1.16; }, 0) + 38;
@@ -73,7 +74,8 @@
   function mesurer(n, fz, court, cj, pile) {
     n.e = etiquette(n.p, n.g === 0 ? Math.round(fz * 1.2) : fz, court, n.g >= VG ? (VERT || 2) : 0);
     n.ec = n.g === 0 && cj ? etiquette(cj, Math.round(fz * 1.2), court) : null;
-    var propre = n.ec ? 2 * Math.max(n.e.w, n.ec.w) + 120 : n.e.w;
+    n.ecs = n.g === 0 && !cj && UNS.length ? UNS.map(function (u) { return etiquette(u, Math.round(fz * 1.2), court); }) : null;
+    var propre = n.ec ? 2 * Math.max(n.e.w, n.ec.w) + 120 : n.ecs ? n.e.w + 2 * Math.max.apply(null, n.ecs.map(function (e) { return e.w + 120; })) : n.e.w;
     n.enf.forEach(function (c) { mesurer(c, fz, court, null, pile); });
     n.pile = !!(pile && n.g > 0 && n.enf.length > 1 && n.enf.every(function (c) { return !c.enf.length; }));
     var enfants = n.pile ? Math.max.apply(null, n.enf.map(function (c) { return c.sw; })) + 60
@@ -85,7 +87,7 @@
   /* hauteur totale minimale (rangées + petits écarts), pour savoir si l'arbre tient dans la page */
   function hauteur(r) {
     var l = tous(r, []), hR = [], nG = 0;
-    l.forEach(function (n) { nG = Math.max(nG, n.g + 1); var h = Math.max(n.e.h, n.ec ? n.ec.h : 0); hR[n.g] = Math.max(hR[n.g] || 0, h); if (n.pile) hR[n.g + 1] = Math.max(hR[n.g + 1] || 0, n.hPile); });
+    l.forEach(function (n) { nG = Math.max(nG, n.g + 1); var h = Math.max(n.e.h, n.ec ? n.ec.h : 0, n.ecs ? Math.max.apply(null, n.ecs.map(function (e) { return e.h; })) : 0); hR[n.g] = Math.max(hR[n.g] || 0, h); if (n.pile) hR[n.g + 1] = Math.max(hR[n.g + 1] || 0, n.hPile); });
     return hR.reduce(function (s, h) { return s + (h || 0); }, 0) + 110 * (nG - 1);
   }
   function placer(n, x0) {
@@ -101,6 +103,7 @@
   var VERT = 0;
   function ajuster(d, max, a3) {
     var e0 = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, mini = Math.max(10, Math.round(36 / e0)), cj = d.conjoint || null;
+    UNS = !cj && d.unions && d.unions.length ? d.unions.slice(0, 2) : [];
     /* [prénom court, enfants en colonne, première génération verticale, lignes des étiquettes verticales] :
        d'abord les étiquettes à plat, puis à la verticale à partir de la génération la plus basse possible */
     var modes = THEME === 'dore' ? [[0, 0, 99, 0], [1, 0, 99, 0]] : [[0, 0, 99, 0], [1, 0, 99, 0], [0, 1, 99, 0], [1, 1, 99, 0]];   /* l'arbre doré : pas de colonne d'enfants (il pousse vers le haut) */
@@ -142,7 +145,7 @@
     placer(R, MARGE + (W - 2 * MARGE - R.sw) / 2);
     var noeuds = tous(R, []), nG = Math.max.apply(null, noeuds.map(function (n) { return n.g; })) + 1;
     /* hauteurs : la plus haute étiquette de chaque rangée, rangées réparties entre le titre et le bas */
-    var hRang = []; noeuds.forEach(function (n) { hRang[n.g] = Math.max(hRang[n.g] || 0, n.e.h, n.ec ? n.ec.h : 0); if (n.pile) hRang[n.g + 1] = Math.max(hRang[n.g + 1] || 0, n.hPile); });
+    var hRang = []; noeuds.forEach(function (n) { hRang[n.g] = Math.max(hRang[n.g] || 0, n.e.h, n.ec ? n.ec.h : 0, n.ecs ? Math.max.apply(null, n.ecs.map(function (e) { return e.h; })) : 0); if (n.pile) hRang[n.g + 1] = Math.max(hRang[n.g + 1] || 0, n.hPile); });
     noeuds.forEach(function (n) { if (n.e.v) n.e.h = hRang[n.g]; });   /* cartes verticales d'une même rangée : même hauteur */
     var libre = BAS - HAUT - hRang.reduce(function (s, h) { return s + h; }, 0), pas = nG > 1 ? Math.min(440, libre / (nG - 1)) : 0;
     var total = hRang.reduce(function (s, h) { return s + h; }, 0) + pas * (nG - 1), y = HAUT + Math.max(0, (BAS - HAUT - total) / 2), yTop = [];
@@ -152,6 +155,9 @@
     /* racine et conjoint côte à côte, le couple centré au-dessus des enfants */
     var xr = R.x, xc = null;
     if (R.ec) { xr = R.x - 60 - R.e.w / 2; xc = R.x + 60 + R.ec.w / 2; }   /* le milieu du trait du couple pile au-dessus des enfants */
+    /* plusieurs unions : la 1re à droite, la 2e à gauche ; chacune a son trait d'union, ses enfants partent de son milieu */
+    var UNI = (R.ecs || []).map(function (e, k) { var s0 = k ? -1 : 1, x = xr + s0 * (R.e.w / 2 + 120 + e.w / 2); return { e: e, p: UNS[k], x: x, xm: xr + s0 * (R.e.w / 2 + 60) }; });
+    function depart0(c) { var u = c && c.p && c.p._u >= 0 ? UNI[c.p._u] : null; return u ? u.xm : R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr; }
     R.xd = xr;
 
     var traits = '', cartes = '';
@@ -233,11 +239,16 @@
         traits += '<path d="M' + f1(xr + R.e.w / 2) + ' ' + f1(yc) + 'H' + f1(xc - R.ec.w / 2) + '" stroke="#B08048" stroke-width="6" fill="none"' + (cj.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
         cartes += carte(cj, R.ec, xc, ytc, false);
       }
+      if (n.g === 0) UNI.forEach(function (u, k) {
+        var ycu = yTop[0] + hRang[0] / 2, s0 = k ? -1 : 1, xa = xr + s0 * R.e.w / 2, xb = u.x - s0 * u.e.w / 2;
+        traits += '<path d="M' + f1(Math.min(xa, xb)) + ' ' + f1(ycu) + 'H' + f1(Math.max(xa, xb)) + '" stroke="#B08048" stroke-width="6" fill="none"' + (u.p.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
+        cartes += carte(u.p, u.e, u.x, yTop[0] + (hRang[0] - u.e.h) / 2, false);
+      });
       if (!n.enf.length) { if (DORE && n.g > 0) traits += pousses(x, yt + 4, yt - HAUT - 30, aj.fz); return; }
       if (DORE) {   /* branches dorées effilées, du haut de l'étiquette du parent vers le bas de celle de chaque enfant */
-        var xp0 = n.g === 0 ? (R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr) : n.x, yp0 = n.g === 0 ? yTop[0] + 6 : yt + 8, ep0 = epBranche(n.g);
+        var yp0 = n.g === 0 ? yTop[0] + 6 : yt + 8, ep0 = epBranche(n.g);
         n.enf.forEach(function (c, i) {
-          var yc0 = yTop[c.g] + (hRang[c.g] - c.e.h) / 2 + c.e.h - 6, dx = c.x - xp0;
+          var xp0 = n.g === 0 ? depart0(c) : n.x, yc0 = yTop[c.g] + (hRang[c.g] - c.e.h) / 2 + c.e.h - 6, dx = c.x - xp0;
           var b = ruban(xp0 + Math.max(-ep0 * .4, Math.min(ep0 * .4, dx * .05)), yp0, c.x, yc0, ep0, ep0 * .45, (dx > 0 ? -1 : 1) * Math.min(90, Math.abs(dx) * .12) + (rnd() - .5) * 30);
           traits += '<path d="' + b.d + '" fill="url(#de-or)"/>' + feuillage(b.points, .62, Math.max(26, aj.fz * .5));
         });
@@ -250,11 +261,17 @@
         return;
       }
       /* traits : du parent (ou du milieu du couple) vers la barre, puis vers chaque enfant */
-      var xp = n.g === 0 ? (R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr) : n.x, y0 = n.g === 0 && R.ec ? yTop[0] + hRang[0] / 2 : yt + n.e.h, yB = yTop[n.g + 1] - Math.min(70, pas / 2);
-      var xs = n.enf.map(function (c) { return c.x; }).concat([xp]);
-      traits += '<path d="M' + f1(xp) + ' ' + f1(y0) + 'V' + f1(yB) + '" stroke="#B08048" stroke-width="5" fill="none"/>';
-      traits += '<path d="M' + f1(Math.min.apply(null, xs)) + ' ' + f1(yB) + 'H' + f1(Math.max.apply(null, xs)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
-      n.enf.forEach(function (c) { var yc2 = yTop[c.g] + (hRang[c.g] - c.e.h) / 2; traits += '<path d="M' + f1(c.x) + ' ' + f1(yB) + 'V' + f1(yc2) + '" stroke="#B08048" stroke-width="5" fill="none"/>'; });
+      /* les enfants de chaque union forment un groupe, relié au milieu de son trait d'union (ou à la personne seule) */
+      var grp = [];
+      n.enf.forEach(function (c) { var k = n.g === 0 && UNI.length && c.p._u >= 0 ? c.p._u : -1, gr = grp.filter(function (x) { return x.k === k; })[0]; if (!gr) { gr = { k: k, l: [] }; grp.push(gr); } gr.l.push(c); });
+      grp.forEach(function (gr, i) {
+        var xp = n.g === 0 ? (gr.k >= 0 ? UNI[gr.k].xm : R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr) : n.x;
+        var y0 = n.g === 0 && (R.ec || gr.k >= 0) ? yTop[0] + hRang[0] / 2 : yt + n.e.h, yB = yTop[n.g + 1] - Math.min(70, pas / 2) + (grp.length > 1 ? (i % 2 ? -16 : 16) : 0);
+        var xs = gr.l.map(function (c) { return c.x; }).concat([xp]);
+        traits += '<path d="M' + f1(xp) + ' ' + f1(y0) + 'V' + f1(yB) + '" stroke="#B08048" stroke-width="5" fill="none"/>';
+        traits += '<path d="M' + f1(Math.min.apply(null, xs)) + ' ' + f1(yB) + 'H' + f1(Math.max.apply(null, xs)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
+        gr.l.forEach(function (c) { var yc2 = yTop[c.g] + (hRang[c.g] - c.e.h) / 2; traits += '<path d="M' + f1(c.x) + ' ' + f1(yB) + 'V' + f1(yc2) + '" stroke="#B08048" stroke-width="5" fill="none"/>'; });
+      });
     });
 
     if (DORE) {   /* le tronc sous la personne, et ses racines */
