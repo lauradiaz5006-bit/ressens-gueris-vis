@@ -77,7 +77,7 @@
     n.ecs = n.g === 0 && !cj && UNS.length ? UNS.map(function (u) { return etiquette(u, Math.round(fz * 1.2), court); }) : null;
     var propre = n.ec ? 2 * Math.max(n.e.w, n.ec.w) + 120 : n.ecs ? n.e.w + 2 * Math.max.apply(null, n.ecs.map(function (e) { return e.w + 120; })) : n.e.w;
     n.enf.forEach(function (c) { mesurer(c, fz, court, null, pile); });
-    n.pile = !!(pile && n.g > 0 && n.enf.length > 1 && n.enf.every(function (c) { return !c.enf.length; }));
+    n.pile = !!(pile && n.g > 0 && n.enf.length > 1 && !n.p.unions && n.enf.every(function (c) { return !c.enf.length; }));   /* enfants de plusieurs unions : jamais en colonne (chaque union garde son groupe) */
     var enfants = n.pile ? Math.max.apply(null, n.enf.map(function (c) { return c.sw; })) + 60
       : n.enf.reduce(function (s, c) { return s + c.sw; }, 0) + Math.max(0, n.enf.length - 1) * ecart(n.g + 1);
     n.sw = Math.max(propre, enfants); n.swE = enfants;
@@ -262,8 +262,23 @@
       }
       /* traits : du parent (ou du milieu du couple) vers la barre, puis vers chaque enfant */
       /* les enfants de chaque union forment un groupe, relié au milieu de son trait d'union (ou à la personne seule) */
-      var grp = [];
-      n.enf.forEach(function (c) { var k = n.g === 0 && UNI.length && c.p._u >= 0 ? c.p._u : -1, gr = grp.filter(function (x) { return x.k === k; })[0]; if (!gr) { gr = { k: k, l: [] }; grp.push(gr); } gr.l.push(c); });
+      var grp = [], multi = n.g > 0 && n.p.unions && n.p.unions.length > 1;
+      n.enf.forEach(function (c) { var k = (n.g === 0 && UNI.length || multi) && c.p._u >= 0 ? c.p._u : -1, gr = grp.filter(function (x) { return x.k === k; })[0]; if (!gr) { gr = { k: k, l: [] }; grp.push(gr); } gr.l.push(c); });
+      if (multi && grp.length > 1) {   /* plusieurs unions plus bas dans l'arbre : un trait commun, puis un groupe par union, le prénom de l'autre parent écrit sur son trait */
+        var yE = yt + n.e.h, yB2 = yTop[n.g + 1] - Math.min(70, pas / 2), yA = yE + (yB2 - yE) * .4, fzl = Math.max(Math.round(aj.fz * .55), 18);
+        grp.forEach(function (gr) { gr.xg = gr.l.reduce(function (s0, c) { return s0 + c.x; }, 0) / gr.l.length; });
+        var xsA = grp.map(function (gr) { return gr.xg; }).concat([n.x]);
+        traits += '<path d="M' + f1(n.x) + ' ' + f1(yE) + 'V' + f1(yA) + '" stroke="#B08048" stroke-width="5" fill="none"/>';
+        traits += '<path d="M' + f1(Math.min.apply(null, xsA)) + ' ' + f1(yA) + 'H' + f1(Math.max.apply(null, xsA)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
+        grp.forEach(function (gr) {
+          var xsG = gr.l.map(function (c) { return c.x; }).concat([gr.xg]), u = gr.k >= 0 ? n.p.unions[gr.k] : null;
+          traits += '<path d="M' + f1(gr.xg) + ' ' + f1(yA) + 'V' + f1(yB2) + '" stroke="#B08048" stroke-width="5" fill="none"' + (u && u.separe ? '' : '') + '/>';
+          traits += '<path d="M' + f1(Math.min.apply(null, xsG)) + ' ' + f1(yB2) + 'H' + f1(Math.max.apply(null, xsG)) + '" stroke="#B08048" stroke-width="5" fill="none" stroke-linecap="round"/>';
+          gr.l.forEach(function (c) { var yc2 = yTop[c.g] + (hRang[c.g] - c.e.h) / 2; traits += '<path d="M' + f1(c.x) + ' ' + f1(yB2) + 'V' + f1(yc2) + '" stroke="#B08048" stroke-width="5" fill="none"/>'; });
+          if (u) cartes += '<text x="' + f1(gr.xg) + '" y="' + f1((yA + yB2) / 2 + fzl * .35) + '" text-anchor="middle" class="de-cj" font-size="' + fzl + '" paint-order="stroke" stroke="#FBF5EA" stroke-width="' + Math.round(fzl * .5) + '" stroke-linejoin="round">avec ' + esc(String(u.prenom || '').trim().split(/\s+/)[0] || NOM(u)) + '</text>';
+        });
+        return;
+      }
       grp.forEach(function (gr, i) {
         var xp = n.g === 0 ? (gr.k >= 0 ? UNI[gr.k].xm : R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr) : n.x;
         var y0 = n.g === 0 && (R.ec || gr.k >= 0) ? yTop[0] + hRang[0] / 2 : yt + n.e.h, yB = yTop[n.g + 1] - Math.min(70, pas / 2) + (grp.length > 1 ? (i % 2 ? -16 : 16) : 0);
