@@ -1373,11 +1373,11 @@
     }
     if (moi) h += symbole(p, R + 5) + ' fill="none" stroke="' + PRUNE + '" stroke-width="1.6"/>';
     h += symbole(p, R) + ' fill="' + (moi ? '#FBE6EA' : '#FFFFFF') + '" stroke="' + PRUNE + '" stroke-width="1.8"/>';
-    if (decede(p)) {
+    if (DATE_VUE ? decedeEn(p, DATE_VUE) : decede(p)) {
       var d = p.sex === 'f' ? R * 0.7 : p.sex === 'm' ? R : R * 0.72;
       h += '<path d="M' + (-d) + ' ' + (-d) + 'L' + d + ' ' + d + 'M' + d + ' ' + (-d) + 'L' + (-d) + ' ' + d + '" stroke="' + PRUNE + '" stroke-width="1.6" stroke-linecap="round"/>';
     } else {
-      var age = ageActuel(p);
+      var age = DATE_VUE ? ageEn(p, DATE_VUE) : ageActuel(p);
       if (age != null) h += '<text y="5" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="14" font-weight="600" fill="' + PRUNE + '">' + age + '</text>';
     }
     if (o.badges && o.badges[p.id]) {
@@ -1556,7 +1556,7 @@
     reps = detecter();
     if (repActive && !reps.some(function (r) { return r.cle === repActive.cle; })) repActive = null;
     if (ancien && plan.pos[garderId]) { vue.x += (ancien.x - plan.pos[garderId].x) * vue.k; vue.y += (ancien.y - plan.pos[garderId].y) * vue.k; }
-    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : (vuDepuis && S.people[vuDepuis] ? ligneeDe(vuDepuis) : null) };
+    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : DATE_VUE ? presentsEn(DATE_VUE) : (vuDepuis && S.people[vuDepuis] ? ligneeDe(vuDepuis) : null) };
     var h = '<g id="monde">' + dessinRelations(plan) + dessinLiens(plan) + dessinRepetition(plan, repActive);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], plan.pos[id], o); });
     h += '</g>';
@@ -1565,6 +1565,81 @@
     $('vide').classList.toggle('visible', !Object.keys(S.people).length);
     dessinerPanneau();
     majAnnuler();
+    if (DATE_VUE) majTemps();
+  }
+  /* ───────── Remonter le temps : la famille à une année donnée, la frise, et les échos d'âge de cette année-là ─────────
+     Les personnes pas encore nées sont estompées, les âges sont ceux de l'année choisie, une personne décédée plus tard n'a pas encore sa croix.
+     « Cette année-là » relie la vue aux répétitions : qui a, cette année-là, l'âge auquel quelqu'un d'autre de la lignée a vécu un moment marquant. */
+  var DATE_VUE = null;
+  function anNaiss(p) { return annee(p.naiss); }
+  function decedeEn(p, y) { if (!decede(p)) return false; var ad = annee(p.deces); return ad ? ad <= y : true; }
+  function ageEn(p, y) { var an = anNaiss(p); if (!an || an > y || decedeEn(p, y)) return null; var a = y - an; return a >= 0 && a <= 105 ? a : null; }
+  function presentsEn(y) { return Object.keys(S.people).filter(function (id) { var an = anNaiss(S.people[id]); return !an || an <= y; }); }
+  function momentsDe(p) {   // les moments datés d'une personne : naissance, décès, événements (année ou âge)
+    var l = [], an = anNaiss(p);
+    if (an) l.push({ y: an, k: 'naissance', t: 'Naissance de ' + nomAffiche(p) });
+    var ad = annee(p.deces); if (ad) l.push({ y: ad, k: 'deces', t: 'Décès de ' + nomAffiche(p) + (an ? ', à ' + (ad - an) + ' ans' : '') });
+    (p.events || []).forEach(function (e) {
+      var y = +e.year || (an && e.age !== '' && e.age != null && !isNaN(+e.age) ? an + (+e.age) : null);
+      if (y) l.push({ y: y, k: 'evt', t: nomAffiche(p) + ' : ' + (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() + (an ? ', à ' + (y - an) + ' ans' : ''), age: an ? y - an : null, type: e.type, id: p.id, qui: nomAffiche(p), quoi: (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() });
+    });
+    return l;
+  }
+  function tousMoments() { var l = []; Object.keys(S.people).forEach(function (id) { l = l.concat(momentsDe(S.people[id])); }); return l.sort(function (a, b) { return a.y - b.y; }); }
+  function bornesTemps() {
+    var ys = tousMoments().map(function (m) { return m.y; }), auj = new Date().getFullYear();
+    return ys.length ? { min: Math.min.apply(null, ys), max: Math.max(auj, Math.max.apply(null, ys)) } : null;
+  }
+  function majTemps() {
+    var z = $('temps'); if (!z || !DATE_VUE) return;
+    var y = DATE_VUE, b = bornesTemps() || { min: y, max: y }, ms = tousMoments();
+    $('temps-annee').textContent = y;
+    $('temps-curseur').min = b.min; $('temps-curseur').max = b.max; $('temps-curseur').value = y;
+    var vivants = presentsEn(y).filter(function (id) { return ageEn(S.people[id], y) != null; });
+    var cette = ms.filter(function (m) { return m.y === y; }).map(function (m) { return m.t; });
+    // échos : quelqu'un a, cette année-là, l'âge où une autre personne a vécu un moment marquant (à un an près)
+    var echos = [];
+    vivants.forEach(function (id) {
+      var a = ageEn(S.people[id], y);
+      ms.forEach(function (m) {
+        if (m.k !== 'evt' || m.age == null || m.id === id || Math.abs(m.age - a) > 1 || m.y === y) return;
+        echos.push(nomAffiche(S.people[id]) + ' a ' + a + ' ans, l’âge où ' + m.qui + ' a vécu « ' + m.quoi + ' » (' + m.y + ').');
+      });
+    });
+    echos = echos.filter(function (t, i) { return echos.indexOf(t) === i; }).slice(0, 6);
+    $('temps-liste').innerHTML =
+      '<p><b>' + vivants.length + ' personne' + (vivants.length > 1 ? 's' : '') + ' en vie</b>' + (vivants.length ? ' : ' + vivants.slice(0, 10).map(function (id) { return esc(nomCourt(id)) + ' (' + ageEn(S.people[id], y) + ' ans)'; }).join(', ') + (vivants.length > 10 ? '…' : '') : '') + '</p>' +
+      (cette.length ? '<p><b>Cette année-là</b> : ' + cette.map(esc).join(' · ') + '</p>' : '') +
+      (echos.length ? '<p class="temps-echos"><b>Échos d’âge</b> : ' + echos.map(esc).join(' ') + '</p>' : '');
+    // la frise : un repère par moment, cliquable
+    var W = 1000, span = Math.max(1, b.max - b.min), xs = function (v) { return 20 + (v - b.min) / span * (W - 40); };
+    var f = '<line x1="20" y1="22" x2="' + (W - 20) + '" y2="22" stroke="#E7CBD3" stroke-width="2"/>';
+    var COUL = { naissance: '#4F8A6B', deces: '#6B2F5B', evt: '#C08A2E' };
+    ms.forEach(function (m) { f += '<circle cx="' + xs(m.y).toFixed(1) + '" cy="22" r="' + (m.k === 'evt' ? 4 : 5) + '" fill="' + COUL[m.k] + '" data-annee="' + m.y + '" style="cursor:pointer"><title>' + m.y + ' · ' + esc(m.t) + '</title></circle>'; });
+    f += '<line x1="' + xs(y).toFixed(1) + '" y1="6" x2="' + xs(y).toFixed(1) + '" y2="38" stroke="#C0573F" stroke-width="2.5"/>';
+    f += '<text x="20" y="54" font-size="12" fill="#8E6383">' + b.min + '</text><text x="' + (W - 20) + '" y="54" font-size="12" text-anchor="end" fill="#8E6383">' + b.max + '</text>';
+    $('temps-frise').innerHTML = f;
+    var sel = $('temps-cles');
+    sel.innerHTML = '<option value="">Aller à un moment…</option>' + ms.filter(function (m) { return m.k !== 'evt'; }).map(function (m) { return '<option value="' + m.y + '">' + m.y + ' · ' + esc(m.t) + '</option>'; }).join('');
+  }
+  function ouvrirTemps() {
+    var b = bornesTemps();
+    if (!b) { alert('Ajoute d’abord des dates de naissance ou des moments datés : c’est avec elles que l’arbre remonte le temps.'); return; }
+    var moi = idMoi(), am = moi && anNaiss(S.people[moi]);
+    DATE_VUE = am || b.max;
+    $('temps').hidden = false; document.body.classList.add('temps-ouvert');
+    dessiner(); recentrer();
+  }
+  function fermerTemps() { DATE_VUE = null; $('temps').hidden = true; document.body.classList.remove('temps-ouvert'); dessiner(); recentrer(); }
+  function allerAnnee(y) { y = +y; if (!y) return; DATE_VUE = y; dessiner(); }
+  if ($('bt-temps')) {
+    $('bt-temps').addEventListener('click', function () { if (DATE_VUE) fermerTemps(); else ouvrirTemps(); });
+    $('temps-fermer').addEventListener('click', fermerTemps);
+    $('temps-curseur').addEventListener('input', function () { allerAnnee(this.value); });
+    $('temps-moins').addEventListener('click', function () { allerAnnee(DATE_VUE - 1); });
+    $('temps-plus').addEventListener('click', function () { allerAnnee(DATE_VUE + 1); });
+    $('temps-cles').addEventListener('change', function () { allerAnnee(this.value); this.value = ''; });
+    $('temps-frise').addEventListener('click', function (e) { var c = e.target.closest('[data-annee]'); if (c) allerAnnee(c.getAttribute('data-annee')); });
   }
   function appliquerVue() {
     var m = $('monde'); if (m) m.setAttribute('transform', 'translate(' + vue.x + ',' + vue.y + ') scale(' + vue.k + ')');
@@ -1574,7 +1649,7 @@
   function recentrer() {
     var t = $('toile'); if (!plan || !plan.boite) { vue = { x: t.clientWidth / 2, y: t.clientHeight / 2, k: 1 }; appliquerVue(); return; }
     var b = plan.boite, W = t.clientWidth, H = t.clientHeight;
-    var droite = 30, bas = 70, haut = 70;
+    var droite = 30, bas = document.body.classList.contains('temps-ouvert') && $('temps') ? $('temps').offsetHeight + 40 : 70, haut = 70;
     var k = Math.min(1.1, (W - 60 - droite) / (b.x2 - b.x1), (H - haut - bas) / (b.y2 - b.y1));
     k = Math.max(W < 600 ? 0.06 : 0.3, k);   /* téléphone : « Voir tout l'arbre » doit vraiment tout montrer */
     kMinVue = k;
