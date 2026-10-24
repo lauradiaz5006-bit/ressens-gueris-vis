@@ -20,10 +20,10 @@
   var TYPES = {
     ancetres: [['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['dore', 'Arbre doré'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail']],
     descendants: [['descendants', 'Lignée'], ['desc_medaillons', 'Médaillons'], ['desc_dore', 'Arbre doré'], ['desc_eventail', 'Éventail']],
-    famille: [['famille', 'Lignée'], ['famille_medaillons', 'Médaillons'], ['famille_eventail', 'Éventail']],
+    famille: [['famille', 'Lignée'], ['famille_medaillons', 'Médaillons'], ['famille_eventail', 'Éventail'], ['famille_lumiere', 'En lumière']],
     lumiere: [['lumiere', 'Sphères de lumière']]
   };
-  function lumiere(st) { return (st || choix.style) === 'lumiere'; }   /* « Ma lignée en lumière » : à télécharger (pas encore chez l'imprimeur) */
+  function lumiere(st) { return /lumiere$/.test(st || choix.style); }   /* « Ma lignée en lumière » : à télécharger (pas encore chez l'imprimeur) */
   function typeDe(st) { st = st || choix.style; return st === 'lumiere' ? 'lumiere' : /^desc/.test(st) ? 'descendants' : /^famille/.test(st) ? 'famille' : 'ancetres'; }
   function themeD(st) { st = st || choix.style; return st === 'desc_medaillons' ? 'medaillons' : st === 'desc_dore' ? 'dore' : ''; }
   function capDesc(t, e) { return choix.style === 'desc_eventail' && window.ArbreEventailDesc ? window.ArbreEventailDesc.capacite(t, e) : window.ArbreDescendants.capacite(t, e, themeD()); }
@@ -113,6 +113,7 @@
     desc_eventail: 'L’éventail : la personne au centre, chaque branche de la famille dans sa couleur, jusqu’aux arrière-petits-enfants.',
     famille_medaillons: 'Votre couple et vos deux lignées dans des médaillons dorés, vos enfants au pied.',
     famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.',
+    famille_lumiere: 'Votre couple au-dessus de la Terre, un cœur de lumière entre vous, vos enfants dans la lumière de la Terre, et vos deux lignées qui s’élèvent vers le soleil, chacun dans sa sphère de lumière. Choisis le nombre de générations : juste vos parents, ou jusqu’aux plus anciens.',
     lumiere: 'Une colonne de lumière entre la Terre et le soleil : toi au-dessus de la Terre, chaque personne de ta lignée dans sa sphère de lumière, à sa place (les défunts dans une sphère nacrée, avec un halo de protection). Une image qui protège et met ta lignée en lumière, à télécharger.'
   };
   /* la sorte d'arbre : une phrase sous chaque choix */
@@ -227,7 +228,7 @@
     var deCj = enfantsDe(cj);
     /* une mère (ou un père) dont les enfants ne sont pas tous de ce conjoint : « Notre famille » devient sa lignée avec TOUS ses enfants */
     var mesEnf = enfantsDe(moi);
-    if (mesEnf.length && !mesEnf.every(function (e) { return deCj.indexOf(e) >= 0; })) { raisonFamille = String(P[cj].prenom || 'Ton conjoint').split(/\s+/)[0]; return null; }
+    if (mesEnf.length && !mesEnf.every(function (e) { return deCj.indexOf(e) >= 0; }) && choix.style !== 'famille_lumiere') { raisonFamille = String(P[cj].prenom || 'Ton conjoint').split(/\s+/)[0]; return null; }
     var communs = enfantsDe(moi).filter(function (e, i, t) { return t.indexOf(e) === i && deCj.indexOf(e) >= 0; })
       .map(function (id) { var p = P[id]; return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
       .sort(function (a, b) { return (a.naissance || 9999) - (b.naissance || 9999); }).slice(0, 6);
@@ -337,7 +338,7 @@
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
     var fig = donnees.style === 'figuier', pay = paysage(donnees.style), gr = donnees.style === 'grand', med = /medaillons$/.test(donnees.style) || (gr && ((donnees.enfants || []).length > 0 || !!donnees.conjoint));
-    var doreD = donnees.style === 'desc_dore', lum = donnees.style === 'lumiere';   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
+    var doreD = donnees.style === 'desc_dore', lum = /lumiere$/.test(donnees.style);   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
     return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : lum ? enDataUrl(opt.hd ? 'assets/arbre/lumiere-fond.jpg' : 'assets/arbre/lumiere-fond-ecran.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
@@ -404,7 +405,8 @@
     }
     if (!desc()) donnees = (famille() && couple(choix.depart, nb)) || lignee(choix.depart, nb);
     if (donnees && famille() && !donnees.couple) { donnees.sansCouple = true; donnees.raisonFamille = raisonFamille; if (!choix.titreModifie) donnees.titre = 'Notre famille'; }   /* pas de conjoint noté : on montre la Lignée, avec un mot d'explication */
-    if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
+    if (donnees && lumiere()) { donnees.titre = choix.titreModifie && titre != null ? titre.trim() : ''; if (!choix.sousModifie) donnees.sousTitre = ''; }   /* en lumière : pas de titre imposé, la personne écrit le sien (ou rien) */
+    else if (donnees && titre != null && choix.titreModifie) donnees.titre = titre || donnees.titre;   /* sinon le titre suit la personne choisie (« La famille Epinette ») */
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; donnees.nbDemis = donnees.freresSoeurs.filter(function (f) { return f.demi; }).length;
       if (!choix.freres || ev() || choix.style === 'famille_eventail' || grand()) donnees.freresSoeurs = [];   /* l'éventail et le Grand arbre ne montrent pas les frères et sœurs */
@@ -465,6 +467,7 @@
     function appliquer() {
       choix.nbGen = 0; recalculer();
       if (!choix.titreModifie && donnees) document.getElementById('fe-titre').value = donnees.titre;
+      var ti = document.getElementById('fe-titre'), so = document.getElementById('fe-sous'); if (ti) ti.placeholder = lumiere() ? 'Ton titre, si tu veux (facultatif)' : ''; if (so) { so.placeholder = lumiere() ? 'Facultatif' : ''; if (lumiere() && !choix.sousModifie) so.value = ''; }
       if (!choix.sousModifie && donnees) document.getElementById('fe-sous').value = donnees.sousTitre;
       var sa = document.getElementById('fe-style-aide'); if (sa) sa.textContent = DESCR[choix.style] || '';
       majGens(); majEnfants(); dessiner();
@@ -773,7 +776,7 @@
     '</ul><p><a href="cgv.html#arbre-imprime" target="_blank">Conditions de vente de l’arbre imprimé</a></p></details>';
   /* à l'horizontale, les dimensions s'écrivent largeur × hauteur : « 23,4 × 32,1 cm » devient « 32,1 × 23,4 cm » */
   function dimensions(t) { return paysage() ? String(t).replace(/(\d+(?:,\d+)?) × (\d+(?:,\d+)?) cm/, '$2 × $1 cm') + ', à l’horizontale' : t; }
-  function lire() { donnees.titre = document.getElementById('fe-titre').value.trim() || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); donnees.dedicace = choix.mot || ''; return donnees; }
+  function lire() { var tv = document.getElementById('fe-titre').value.trim(); donnees.titre = lumiere() ? tv : tv || donnees.titre; donnees.sousTitre = document.getElementById('fe-sous').value.trim(); donnees.dedicace = choix.mot || ''; return donnees; }
   function dessiner() {
     var z = document.getElementById('fe-apercu'); if (!z) return;
     var d = lire(), verif = window.GenesoliaAcces ? window.GenesoliaAcces.verifier('arbreEncadrer') : Promise.resolve(true);
