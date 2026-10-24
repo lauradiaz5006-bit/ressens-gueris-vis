@@ -82,6 +82,16 @@
     @media (prefers-reduced-motion:reduce){.etoiles::before,.etoiles::after,.etoile{animation:none}}
     @media (max-width:960px){.tf-grille{grid-template-columns:1fr;max-width:30rem;margin:0 auto}.tf-carte.tf-mis{order:-1}.tf-carte:first-child{order:1}}
     @media (max-width:560px){.tf-cadeau{flex-direction:column;align-items:flex-start}.tf-cadeau .btn{margin-left:0}}
+    .tf-badge-bientot{background:var(--champagne)}
+    .tf-indispo{margin-top:auto;text-align:center;opacity:.6;cursor:default;pointer-events:none}
+    .tf-bientot{max-width:60rem;margin:2.6rem auto 0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem 1.8rem;scroll-margin-top:6rem}
+    .tf-bientot h2{margin:.3rem 0 .8rem}
+    .tf-bi-intro{color:var(--prune-doux);margin:0 0 .8rem;max-width:46rem}
+    .tf-bi-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.2rem 0}
+    .tf-bi-grille div{border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .tf-bi-grille h3{font-size:1.15rem;margin:0 0 .4rem;color:var(--prune)}
+    .tf-bi-grille p{margin:0;font-size:.93rem;color:var(--prune-doux)}
+    .tf-bi-note{margin:.5rem 0 0;font-size:.95rem;color:var(--prune)}
   </style>
 </head>
 <body class="nouveau">
@@ -115,6 +125,7 @@
       </section>
 
       <section class="tf-carte tf-pass" aria-labelledby="t-pass">
+        <span class="tf-badge tf-badge-bientot">Bientôt disponible</span>
         <div class="tf-photo"><img src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
         <span class="tf-etiq">Comprendre</span>
         <h2 id="t-pass">Le Pass</h2>
@@ -129,8 +140,8 @@
           <li><b>Tous les livrets complets</b>, pour toi et pour tes proches</li>
           <li>Les 12 saisons, le livret de l'année</li>
         </ul>
-        <a class="btn btn-plein" href="#" data-payer="passMois" data-bientot-texte="Le paiement est momentanément indisponible. Réessaie dans quelques minutes, ou écris-nous à contact@genesolia.fr.">Prendre le Pass, 10 € par mois</a>
-        <a class="tf-lien-3mois" href="#" data-payer="pass3Mois" data-bientot-texte="Le paiement est momentanément indisponible. Réessaie dans quelques minutes, ou écris-nous à contact@genesolia.fr.">ou 27 € pour 3 mois</a>
+        <span class="btn btn-trait tf-indispo" aria-disabled="true">Bientôt disponible</span>
+        <a class="tf-lien-3mois" href="#pass-bientot">Voir ce qui arrive</a>
       </section>
 
       <section class="tf-carte tf-mis" aria-labelledby="t-cercle">
@@ -158,6 +169,22 @@
     </div>
 
     <p class="tf-ligne">Le Cercle, c'est le Pass, plus tout l'accompagnement. Tu passes de l'un à l'autre sans rien perdre.</p>
+
+    <section class="tf-bientot" id="pass-bientot" aria-labelledby="t-bientot">
+      <p class="tf-etiq">Bientôt disponible</p>
+      <h2 id="t-bientot">Le Pass · Mon enquête</h2>
+      <p class="tf-bi-intro">Le Cercle t’accompagne pour avancer, avec un carnet et un suivi. Le Pass sera l’appli de l’enquête : tu explores ton histoire comme dans le livre <a href="enquete-de-ma-lignee.html">L’enquête de ma lignée</a>, avec les dates de ton arbre, l’astrologie et la numérologie reliées. Deux offres bien distinctes.</p>
+      <p class="tf-bi-intro">Une appli à installer sur ton téléphone, avec une barre en bas et cinq onglets :</p>
+      <div class="tf-bi-grille">
+        <div><h3>Aujourd’hui</h3><p>Ton jour personnel, la lune, la date de ta lignée qui tombe ce jour-là (« Il y a 40 ans, ta grand-mère se mariait ») et la question d’enquête du jour.</p></div>
+        <div><h3>Mon enquête</h3><p>Les 6 étapes du livre, en ligne : Rassembler (avec ton arbre), Ceux qui racontent (entretiens guidés, avec les réponses enregistrées), les 18 thèmes, le fil d’or, Transformer, Transmettre. Une jauge montre ton avancée.</p></div>
+        <div><h3>Mon agenda</h3><p>Ton agenda, par semaine et par mois : les dates de ta lignée (naissances, mariages, décès, échos d’âge), les lunes, tes jours et ton mois personnels, les grands moments du ciel. Tu choisis les rappels un par un.</p></div>
+        <div><h3>Mon ciel</h3><p>Ton mois à toi, ton thème, ta numérologie et ton année, reliés à ta lignée.</p></div>
+        <div><h3>Mes livrets</h3><p>Tous les livrets, pour toi et tes proches, et Les 12 saisons.</p></div>
+      </div>
+      <p class="tf-bi-note"><b>Les rappels</b> : seulement l’enquête, les dates de ta lignée, les lunes et ton mois. Rien sur les étapes du Cercle.</p>
+      <p class="tf-bi-note">Le Pass n’est pas encore ouvert : il n’est pas possible de s’abonner pour l’instant.</p>
+    </section>
 
     <div class="tf-cadeau" data-garder-euros>
       <img src="assets/images/arbre-de-vie-800.webp" alt="" loading="lazy" decoding="async">

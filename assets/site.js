@@ -215,8 +215,8 @@ window.GENESOLIA_STRIPE = {
   cercleFondatrice: 'https://buy.stripe.com/14AdR25ff6095U90U743S0l', /* Le Cercle, prix fondatrice 24,90 €/mois (100 premières après le mois offert) */
   cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
   cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
-  passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',       /* Le Pass 10 €/mois sans engagement */
-  pass3Mois: 'https://buy.stripe.com/14AdR28rragp1DT8mz43S0k',      /* Le Pass 27 € les 3 mois, en une fois */
+  passMois: '',       /* Le Pass 10 €/mois : fermé, bientôt disponible (lien Stripe : https://buy.stripe.com/14A00cbDD88h3M18mz43S0j) */
+  pass3Mois: '',      /* Le Pass 27 € les 3 mois : fermé, bientôt disponible (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (espaces ouverts jusqu'au 31 mars 2027) */
   praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, tarif fondateur 190 € l'année */
