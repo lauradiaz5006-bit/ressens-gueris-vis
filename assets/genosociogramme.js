@@ -2615,6 +2615,85 @@
     a.href = url; a.download = nom; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
   }
+  /* ───────── Un vrai fichier PDF, sans fenêtre d'impression (rapport, « Ce qui se répète », arbre) ─────────
+     Le document est mis en page dans un cadre caché, découpé en pages A4 sans couper un paragraphe ni une carte,
+     puis chaque page est dessinée (html2canvas) et rangée dans le PDF (jsPDF). Tout se fait sur l'appareil. */
+  function script(src, glob) {
+    if (window[glob]) return Promise.resolve(window[glob]);
+    return new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = src; sc.onload = function () { ok(window[glob]); }; sc.onerror = ko; document.head.appendChild(sc); });
+  }
+  function pdfDepuisHtml(html, nom) {
+    var MM = 96 / 25.4, MH = 15, MB = 17, ML = 12, LARG = 210 - 2 * ML, W = Math.round(LARG * MM), PH = Math.floor((297 - MH - MB) * MM);
+    return Promise.all([script('assets/jspdf.umd.min.js', 'jspdf'), script('assets/html2canvas.min.js', 'html2canvas')]).then(function () {
+      var f = document.createElement('iframe');
+      f.setAttribute('aria-hidden', 'true'); f.setAttribute('tabindex', '-1');
+      f.style.cssText = 'position:fixed;left:-' + (W + 200) + 'px;top:0;width:' + W + 'px;height:' + PH + 'px;border:0;visibility:hidden';
+      document.body.appendChild(f);
+      var doc = f.contentDocument; doc.open(); doc.write(html.replace('</head>', '<style>html,body{background:#fff}.couv{height:' + (PH - 2) + 'px!important}</style></head>')); doc.close();
+      var pret = (doc.fonts && doc.fonts.ready ? doc.fonts.ready : Promise.resolve()).then(function () { return new Promise(function (ok) { setTimeout(ok, 250); }); });
+      return pret.then(function () {
+        var H = Math.ceil(doc.documentElement.scrollHeight); f.style.height = H + 'px';
+        function haut(el) { var r = el.getBoundingClientRect(); return [r.top, r.bottom]; }
+        var W2 = doc.defaultView, BLOC = /^(block|flex|grid|table|table-row|list-item|flow-root)$/;
+        function bloc(el) { return BLOC.test(W2.getComputedStyle(el).display); }
+        /* à ne pas couper : les cartes, et tout bloc qui ne contient plus d'autre bloc (un paragraphe, une ligne, un petit texte) */
+        var blocs = [].filter.call(doc.body.querySelectorAll('*'), function (el) {
+          if (el.matches('.rep,.pistes,.geste,.notes,.chiffres,.arbre-img,.arbre,.fin,.couv,.tete,svg,tr')) return true;
+          if (el.closest('svg') || !bloc(el) || !el.getBoundingClientRect().height) return false;
+          return ![].some.call(el.children, bloc);
+        }).map(haut);
+        var titres = [].map.call(doc.querySelectorAll('h1,h2,h3,.sur2,.sur'), function (el) { return haut(el)[1]; });
+        var forces = [].map.call(doc.querySelectorAll('.page'), function (el) { return haut(el)[0]; })
+          .concat([].map.call(doc.querySelectorAll('.couv,.arbre'), function (el) { return haut(el)[1]; })).filter(function (y) { return y > 1 && y < H - 1; }).sort(function (a, b) { return a - b; });
+        var cands = [H]; blocs.forEach(function (b) { cands.push(b[0], b[1]); });
+        function libre(y) {
+          var avant = 0; blocs.forEach(function (b) { if (b[1] <= y + .5 && b[1] > avant) avant = b[1]; });
+          if (titres.some(function (t) { return Math.abs(t - avant) < 1.5; })) return false;   /* jamais un titre seul en bas de page */
+          return !blocs.some(function (b) { return b[0] < y - .5 && b[1] > y + .5 && b[1] - b[0] < PH; });
+        }
+        var pages = [], debut = 0, garde = 0;
+        while (debut < H - 4 && garde++ < 200) {
+          var lim = debut + PH, fin = 0;
+          forces.forEach(function (y) { if (!fin && y > debut + 4 && y <= lim) fin = y; });
+          if (!fin) cands.forEach(function (y) { if (y > debut + PH * .35 && y <= lim && y > fin && libre(y)) fin = y; });
+          if (!fin) fin = Math.min(lim, H);
+          var d0 = debut;
+          if (blocs.some(function (b) { return b[0] < fin - 2 && b[1] > d0 + 2; })) pages.push([debut, fin]);   /* pas de page blanche */
+          debut = fin;
+          while (forces.length && forces[0] <= debut + 4) forces.shift();
+        }
+        var J = window.jspdf.jsPDF, pdf = new J({ unit: 'mm', format: 'a4', compress: true }), k = LARG / W;
+        var ech = Math.min(2, 2.5e6 / (W * PH));
+        return pages.reduce(function (pr, pg, i) {
+          return pr.then(function () {
+            return window.html2canvas(doc.body, { scale: ech, x: 0, y: pg[0], width: W, height: Math.ceil(pg[1] - pg[0]), windowWidth: W, windowHeight: H, backgroundColor: '#ffffff', logging: false, useCORS: true }).then(function (c) {
+              if (i) pdf.addPage();
+              pdf.addImage(c.toDataURL('image/jpeg', 0.9), 'JPEG', ML, MH, LARG, (pg[1] - pg[0]) * k);
+              pdf.setFont('helvetica', 'normal'); pdf.setFontSize(8); pdf.setTextColor(142, 99, 131);
+              pdf.text((i + 1) + ' / ' + pages.length, 210 - ML, 297 - 8, { align: 'right' });
+            });
+          });
+        }, Promise.resolve()).then(function () { pdf.save(nom); f.remove(); }, function (x) { f.remove(); throw x; });
+      });
+    });
+  }
+  function nomFichier(base) {
+    var n = (DOSSIER_CLIENT && typeof prenomClient === 'function' ? prenomClient() : '') || '';
+    n = n.normalize ? n.normalize('NFD').replace(/[̀-ͯ]/g, '') : n;
+    n = n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    return base + (n ? '-' + n : '') + '.pdf';
+  }
+  /* L'arbre seul en PDF (A4, à l'horizontale s'il est plus large que haut) */
+  function arbrePdf(b) {
+    var txt = b ? b.textContent : '';
+    if (b) { b.disabled = true; b.textContent = 'Préparation…'; }
+    return Promise.all([script('assets/jspdf.umd.min.js', 'jspdf'), canvasArbre()]).then(function (x) {
+      var r = x[1], pay = r.W >= r.H, doc = new window.jspdf.jsPDF({ orientation: pay ? 'landscape' : 'portrait', unit: 'mm', format: 'a4' });
+      var pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 10, kk = Math.min((pw - 2 * m) / r.W, (ph - 2 * m) / r.H);
+      doc.addImage(r.canvas.toDataURL('image/jpeg', 0.92), 'JPEG', (pw - r.W * kk) / 2, m, r.W * kk, r.H * kk);
+      doc.save(nomFichier('genosociogramme'));
+    }).catch(function () { alert('Le PDF n’a pas pu être créé. Essaie « Imprimer » puis « Enregistrer en PDF ».'); }).then(function () { if (b) { b.disabled = false; b.textContent = txt; } });
+  }
   function arbreVide() { if (!Object.keys(S.people).length) { alert('Ton arbre est vide pour l’instant.'); return true; } return false; }
   /* L'arbre dessiné sur un canvas (image PNG, PDF du lien de partage) : tout se fait sur l'appareil */
   function canvasArbre() {
@@ -2636,11 +2715,12 @@
   /* « Télécharger l'image » : s'il y a des répétitions, on laisse choisir l'arbre seul (image) ou l'arbre + « Ce qui se répète » (PDF) */
   $('bt-image').addEventListener('click', function () {
     if (arbreVide()) return;
-    if (!detecter().length) return telechargerPng(this);
+    var ap = $('ft-pdf'); if (ap) ap.hidden = !detecter().length;
     ouvrir('fen-telecharger');
   });
   $('ft-image').addEventListener('click', function () { fermer('fen-telecharger'); telechargerPng($('bt-image')); });
-  $('ft-pdf').addEventListener('click', function () { fermer('fen-telecharger'); imprimerReps(this, true); });
+  $('ft-pdf').addEventListener('click', function () { fermer('fen-telecharger'); imprimerReps($('bt-image'), true); });
+  $('ft-arbre-pdf').addEventListener('click', function () { fermer('fen-telecharger'); arbrePdf($('bt-image')); });
   function telechargerPng(b) {
     b.disabled = true;
     canvasArbre().then(function (r) {
@@ -2925,6 +3005,19 @@
 
   function imprimerRapport(btn) {
     if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
+    var lib = DOSSIER_CLIENT ? 'Générer le rapport (PDF)' : 'Générer mon rapport (PDF)';
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF… (quelques secondes)'; }
+    var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
+    chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {
+      return pdfDepuisHtml(htmlRapport(css, svgExport(css)), nomFichier('rapport-genosociogramme'));
+    }).then(function () { if (btn) { btn.disabled = false; btn.textContent = lib; } }, function () {
+      if (btn) { btn.disabled = false; btn.textContent = lib; }
+      if (confirm('Le PDF n’a pas pu être créé sur cet appareil. Ouvrir le rapport pour l’enregistrer en PDF depuis l’impression ?')) imprimerRapportFenetre(btn);
+    });
+  }
+  function imprimerRapportFenetre(btn) {
+    if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation du rapport…'; }
     /* Sur téléphone : nouvel onglet ouvert au moment du clic (l'impression d'un cadre caché n'y fonctionne pas) */
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -2991,7 +3084,7 @@
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
-          '<p class="rap-aide">Une fenêtre d’impression s’ouvre : choisis <b>« Enregistrer au format PDF »</b> comme imprimante, et laisse les marges sur <b>« Par défaut »</b>.</p>';
+          '<p class="rap-aide">Le rapport se télécharge directement en PDF, prêt à envoyer ou à imprimer.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
         return;
       }
@@ -3070,6 +3163,12 @@
     return h + '<p class="pied">Généré le ' + esc(dateLongue(d)) + ' sur genesolia.fr. Ce sont des pistes de lecture symbolique, pas des vérités sur ta famille. Elles ne remplacent pas un avis médical ou psychologique.</p></body></html>';
   }
   function imprimerReps(btn, avecArbre) {
+    var t0 = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF…'; }
+    polices().then(function (css) { return pdfDepuisHtml(htmlReps(css, avecArbre ? svgExport(css) : null), nomFichier(avecArbre ? 'arbre-et-ce-qui-se-repete' : 'ce-qui-se-repete')); })
+      .then(function () { if (btn) { btn.disabled = false; btn.textContent = t0; } }, function () { if (btn) { btn.disabled = false; btn.textContent = t0; } imprimerRepsFenetre(btn, avecArbre); });
+  }
+  function imprimerRepsFenetre(btn, avecArbre) {
     var mobile = /iphone|ipad|ipod|android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var w = mobile ? window.open('', '_blank') : null, txt = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Préparation…'; }
@@ -3616,7 +3715,7 @@
     /* Téléphone : la vue « une personne au centre » (assets/arbre-telephone.js) remplace la porte ; ?dessin force le dessin complet */
     var qs = new URLSearchParams(location.search);
     if (window.matchMedia('(max-width: 760px)').matches && !qs.has('exemple') && !qs.has('dessin') && !qs.has('partage')) document.body.classList.add('mobile-arbre');
-    else if (surTelephone() && !qs.has('partage')) document.body.classList.add('porte-ouverte');
+    else if (surTelephone() && !qs.has('partage') && !qs.has('exemple')) document.body.classList.add('porte-ouverte');   /* l'exemple se regarde directement, même sur téléphone */
     try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) { sb = null; }
 
     /* Lien de partage d'un·e praticien·ne (?partage=<jeton>) : l'arbre en lecture, sans ses notes, rien n'est enregistré */
@@ -3647,7 +3746,7 @@
       fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (d) {
         charger(d); dessiner(); recentrer();
         var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
-        b.innerHTML = 'Exemple fictif : la famille de Léa. Rien n’est enregistré. <a href="genosociogramme.html">Créer mon propre arbre</a>';
+        b.innerHTML = espacePro() === 'pro.html' ? 'Démo : la famille de Léa (fictive). Rien n’est enregistré. <a href="pro.html">Revenir à Genesolia Pro</a>' : 'Exemple fictif : la famille de Léa. Rien n’est enregistré. <a href="genosociogramme.html">Créer mon propre arbre</a>';
         document.body.appendChild(b);
         statut('');
         numeroSiDemande();

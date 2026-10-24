@@ -20,6 +20,7 @@
     #pr{max-width:62rem;margin:0 auto;padding:2rem 16px 3rem;color:var(--prune)}
     .pr-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
     .pr-tete h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:0}
+    #pr>h1{margin:0 0 1.2rem}
     .pr-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .3rem}
     .pr-etat{display:inline-block;border-radius:999px;padding:.45rem .9rem;font-size:.88rem;background:#FCEFF3;border:1px solid var(--rose)}
     .pr-etat.fini{background:#FFF0E8;border-color:#EBC3A8}
@@ -96,14 +97,14 @@
   <nav class="pro-bas" aria-label="Genesolia Pro">
     <a href="#pr-dos-t" data-pro="dossiers" class="actif"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>
     <a href="#pr-nouv" data-pro="nouveau"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Nouveau</a>
-    <a href="genosociogramme.html?exemple" data-pro="demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>
+    <a href="genosociogramme.html?exemple&amp;appli=pro" data-pro="demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>
     <a href="#pr-cab" data-pro="activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>
   </nav>
   <script>window.GENESOLIA_APPLI = { nom: 'Genesolia Pro', icone: '/assets/icones/pro-apple-180.png' };</script>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/praticien-outils.js?v=2"></script>
-  <script src="assets/praticien.js?v=2026-10-24c"></script>
+  <script src="assets/praticien.js?v=2026-10-24p"></script>
   <script>
   /* Barre du bas de l'appli Pro : aller aux dossiers, créer un dossier, mon activité */
   (function () {
@@ -116,7 +117,8 @@
     }
     bas.addEventListener('click', function (e) {
       var a = e.target.closest('a[data-pro]'); if (!a) return;
-      var k = a.getAttribute('data-pro'); if (k === 'demo') return;
+      var k = a.getAttribute('data-pro');
+      if (k === 'demo') { if (window.GenesoliaPro) { e.preventDefault(); window.GenesoliaPro.demo(); } return; }
       e.preventDefault();
       bas.querySelectorAll('a').forEach(function (x) { x.classList.toggle('actif', x === a); });
       if (k === 'dossiers') aller('#pr-dos-t') || window.scrollTo({ top: 0, behavior: 'smooth' });
