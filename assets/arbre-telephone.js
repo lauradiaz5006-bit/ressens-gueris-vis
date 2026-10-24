@@ -198,7 +198,7 @@
     h += '<div class="mt-coeur">' + carte(e, centre, 'mt-centre') +
       '<button type="button" class="btn btn-plein mt-fiche" data-fiche="' + esc(centre) + '">Compléter ' + (toi ? 'ma' : 'sa') + ' fiche</button></div>';
     /* l'arbre à encadrer, bien visible dès que l'arbre a trois personnes */
-    if (!CLI() && ids.length >= 3 && document.getElementById('bt-encadrer')) h += '<div class="mt-encadre"><img src="assets/modeles/arbre-vierge-apercu.webp" width="84" height="59" alt="" loading="lazy"><div><p><b>Ton arbre encadré</b>Ta lignée sur un bel arbre doré, imprimée et livrée chez toi, ou à télécharger.</p><button type="button" class="btn btn-plein" data-clic="bt-encadrer">Voir mon arbre encadré' + (venteOuverte() ? ' · dès 45 €' : '') + '</button></div></div>';
+    if (!CLI() && ids.length >= 3 && document.getElementById('bt-encadrer')) h += '<div class="mt-encadre"><img src="assets/modeles/arbre-vierge-apercu.webp" width="84" height="59" alt="" loading="lazy"><div><p><b>Ton arbre en poster</b>Ta lignée sur un bel arbre doré, imprimée et livrée chez toi, ou à télécharger.</p><button type="button" class="btn btn-plein" data-clic="bt-encadrer">' + (venteOuverte() ? 'Commander mon arbre en poster · dès 45 €' : 'Voir mon arbre en poster') + '</button></div></div>';
     var cj = conjoints(e, centre);
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (cj.length > 1 ? (toi ? 'Tes unions' : 'Ses unions') : (toi ? 'Ton couple' : 'Son couple')) + '</p><div class="mt-ligne">' + cj.map(function (x) { return carte(e, x); }).join('') + vide('conjoint', cj.length ? 'Ajouter une autre union' : 'Ajouter ' + (toi ? 'ton' : 'son') + ' conjoint') + '</div></div>';
     var fr = fratrie(e, centre);
@@ -293,7 +293,7 @@
 
   function venteOuverte() { var I = window.GENESOLIA_IMPRESSION || {}; return !I.ouverture || new Date() >= new Date(I.ouverture + 'T00:00:00') || /test-impression/.test(location.search); }
   /* ───────── Menu « ••• » : les outils de l'ordinateur, rangés ───────── */
-  var MENU = [['bt-numero', 'Numérologie de ma famille'], ['bt-astro', 'Astrologie de ma famille'], ['dessin', 'Voir tout l’arbre'], ['bt-image', 'Télécharger l’image'], ['bt-imprimer', 'Imprimer'], ['bt-importer-barre', 'Importer un arbre (PDF ou GEDCOM)'], ['bt-sauve', 'Sauvegardes'], ['bt-encadrer', 'Mon arbre encadré'], ['bt-tuto', 'Comment ça marche ?']];
+  var MENU = [['bt-numero', 'Numérologie de ma famille'], ['bt-astro', 'Astrologie de ma famille'], ['dessin', 'Voir tout l’arbre'], ['bt-image', 'Télécharger l’image'], ['bt-imprimer', 'Imprimer'], ['bt-importer-barre', 'Importer un arbre (PDF ou GEDCOM)'], ['bt-sauve', 'Sauvegardes'], ['bt-encadrer', 'Mon arbre en poster · dès 45 €'], ['bt-tuto', 'Comment ça marche ?']];
   function ouvrirMenu(bt) {
     var ex = document.querySelector('.mt-menu'); if (ex) { ex.remove(); bt.setAttribute('aria-expanded', 'false'); return; }
     var m = document.createElement('div'); m.className = 'mt-menu'; m.setAttribute('role', 'menu');
