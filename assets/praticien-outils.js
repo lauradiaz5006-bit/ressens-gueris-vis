@@ -56,7 +56,7 @@ window.GenesoliaPratique = (function () {
       var doc = new J({ unit: 'mm', format: 'a4' }), pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 18, y = m, lw = pw - 2 * m;
       function place(h) { if (y + h > ph - m) { doc.addPage(); y = m; } }
       doc.setTextColor(107, 47, 91);
-      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text(cabinet || 'Mon cabinet', m, y); y += 9;
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text(cabinet || 'Mon Espace praticien', m, y); y += 9;
       doc.setFontSize(17); doc.text('Notes de séance', m, y); y += 7;
       doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text((nomDossier ? 'Dossier : ' + nomDossier + ' · ' : '') + 'exporté le ' + date(new Date()), m, y); y += 10;
       liste.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).forEach(function (s) {
@@ -67,14 +67,14 @@ window.GenesoliaPratique = (function () {
         y += 5;
       });
       var n = doc.getNumberOfPages();
-      for (var i = 1; i <= n; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150, 120, 140); doc.text('Document personnel de ' + (cabinet || 'ton cabinet') + ' · page ' + i + ' sur ' + n, m, ph - 8); }
+      for (var i = 1; i <= n; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150, 120, 140); doc.text('Document personnel de ' + (cabinet || 'ton Espace praticien') + ' · page ' + i + ' sur ' + n, m, ph - 8); }
       doc.save('notes-' + String(nomDossier || 'dossier').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.pdf');
     });
   }
   /* o : { sb, user, id, nom, cabinet, tiroir } */
   function notes(o) {
     var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [];
-    var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans ton cabinet. Elles ne sont jamais montrées sur le lien de partage ni copiées dans l’espace de ton·ta client·e.</p>' +
+    var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans ton Espace praticien. Elles ne sont jamais montrées sur le lien de partage ni copiées dans l’espace de ton·ta client·e.</p>' +
       '<form class="pr-o-form" data-note-form><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que tu observes<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><p class="pr-o-msg" data-note-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Ajouter cette note</button><button class="btn btn-trait bt" type="button" data-export-notes>Exporter en PDF</button></div></form>' +
       '<div data-seances><p class="pr-o-aide">Chargement…</p></div>', o.tiroir);
     function dessiner() {
@@ -114,7 +114,7 @@ window.GenesoliaPratique = (function () {
   /* o : { sb, user, id, nom, actif, remise } */
   function partager(o) {
     var f = fenetre('<h2>Partager l’arbre de ' + esc(o.nom || 'ton·ta client·e') + '</h2>' +
-      '<p class="pr-o-aide">Le lien montre l’arbre en lecture, <b>sans tes notes</b>. ' + (o.remise ? 'Le travail est marqué terminé : ton·ta client·e pourra télécharger et garder son arbre.' : 'Tant que « Travail terminé » n’est pas coché dans ton cabinet, rien ne peut être téléchargé ni imprimé depuis ce lien.') + '</p>' +
+      '<p class="pr-o-aide">Le lien montre l’arbre en lecture, <b>sans tes notes</b>. ' + (o.remise ? 'Le travail est marqué terminé : ton·ta client·e pourra télécharger et garder son arbre.' : 'Tant que « Travail terminé » n’est pas coché dans ton Espace praticien, rien ne peut être téléchargé ni imprimé depuis ce lien.') + '</p>' +
       '<div data-actifs><p class="pr-o-aide">Chargement des liens…</p></div>' +
       (o.actif ? '<h3>Nouveau lien</h3><form class="pr-o-form" data-nouveau-lien>' +
         '<label class="pr-o-case"><input type="checkbox" name="reps" checked> <span>Montrer « Ce qui se répète »</span></label>' +

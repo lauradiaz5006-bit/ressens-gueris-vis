@@ -1886,7 +1886,7 @@
   })();
   function textStatutRepos() {
     if (EXEMPLE) return '';
-    if (utilisateur) return DOSSIER_CLIENT ? 'Enregistré dans ton cabinet' : 'Enregistré dans ton espace';
+    if (utilisateur) return DOSSIER_CLIENT ? 'Enregistré dans ton Espace praticien' : 'Enregistré dans ton espace';
     if (ARBRE_ID) return 'Cet arbre est dans ton espace · <a href="login.html?retour=genosociogramme.html">Me connecter pour l\u2019ouvrir</a>';
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
@@ -3524,7 +3524,7 @@
       if (r.error || !r.data) return;
       PRATICIEN = r.data; document.body.classList.add('est-praticien');
       var t = document.querySelector('.titre-arbre');
-      if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = 'praticien.html'; a.textContent = 'Mon cabinet'; t.insertBefore(a, t.firstChild); }
+      if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = 'praticien.html'; a.textContent = 'Mon Espace praticien'; t.insertBefore(a, t.firstChild); }
       outilsCabinet();
     }, function () {});
   }
