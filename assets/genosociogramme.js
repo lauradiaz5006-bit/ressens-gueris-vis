@@ -2726,6 +2726,15 @@
     ouvrir: ouvrir, fermer: fermer,
     fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; }); },
+    /* vue téléphone : les mêmes cartes et le même compte que le panneau « Ce qui se répète » de l'ordinateur
+       (« Ce qui part de toi » compris, sans les pistes marquées « Pas pour moi ») */
+    lecture: function () {
+      var base = detecter().filter(function (r) { return !r.synth && visiblePartage(r); }), AV = S.avis || {};
+      var reps = base.filter(function (r) { return !(AV[r.cleA] && AV[r.cleA].v === 'non'); }).map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; });
+      var c = idCentre(), pc = c ? S.people[c] : null, port = base.length && pc ? portraitDe(c) : [];
+      var tiers = DOSSIER_CLIENT || (pc && pc.role !== 'moi'), prC = pc ? (String(pc.prenom || '').split(/[\s-]+/)[0] || nomComplet(pc) || 'cette personne') : '';
+      return { portrait: port.map(function (r) { return { label: r.label, desc: r.desc }; }), titrePortrait: 'Ce qui part ' + (tiers ? 'de ' + prC : 'de toi'), reps: reps, total: port.length + reps.length };
+    },
     imprimerReps: function (btn) { imprimerReps(btn); },   // vue téléphone : « Ce qui se répète » en PDF
     connecte: function () { return !!utilisateur; },
     dossierClient: function () { return DOSSIER_CLIENT; },   // arbre d'un·e client·e (cabinet) : la vue téléphone parle de « son » arbre

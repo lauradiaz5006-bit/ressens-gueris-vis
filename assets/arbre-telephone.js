@@ -208,10 +208,17 @@
     h += '<p class="mt-discret">' + ids.length + ' personne' + (ids.length > 1 ? 's' : '') + ' dans ' + (CLI() ? 'cet arbre' : 'ton arbre') + ' · touche quelqu’un pour le mettre au centre.</p>';
     return h;
   }
+  function lecture() {   /* même contenu et même compte que sur ordinateur (assets/genosociogramme.js, lecture) */
+    if (G.lecture) return G.lecture();
+    var r = (G.repetitions && G.repetitions()) || []; return { portrait: [], titrePortrait: '', reps: r, total: r.length };
+  }
   function vueReps() {
-    var r = (G.repetitions && G.repetitions()) || [];
-    if (!r.length) return '<div class="mt-vide-reps"><h2>Ce qui se répète</h2><p>Rien n’apparaît encore. Les répétitions se révèlent quand tu ajoutes des <b>dates de naissance et de décès</b>, des <b>métiers</b> et des <b>événements</b> (deuils, départs, secrets…) dans les fiches.</p><button type="button" class="btn btn-plein" data-aller="arbre">Compléter mon arbre</button></div>';
-    return '<h2 class="mt-h2">Ce qui se répète <span>' + r.length + '</span></h2>' + r.map(function (x) { return '<article class="mt-rep' + (x.fort ? ' mt-fort' : '') + '"><h3>' + esc(x.label) + '</h3><p>' + esc(x.desc) + '</p></article>'; }).join('') +
+    var L = lecture(), r = L.reps, pt = L.portrait;
+    function carteR(x) { return '<article class="mt-rep' + (x.fort ? ' mt-fort' : '') + '"><h3>' + esc(x.label) + '</h3><p>' + esc(x.desc) + '</p></article>'; }
+    if (!L.total) return '<div class="mt-vide-reps"><h2>Ce qui se répète</h2><p>Rien n’apparaît encore. Les répétitions se révèlent quand tu ajoutes des <b>dates de naissance et de décès</b>, des <b>métiers</b> et des <b>événements</b> (deuils, départs, secrets…) dans les fiches.</p><button type="button" class="btn btn-plein" data-aller="arbre">Compléter mon arbre</button></div>';
+    return '<h2 class="mt-h2">Ce qui se répète <span>' + L.total + '</span></h2>' +
+      (pt.length ? '<p class="mt-groupe">' + esc(L.titrePortrait) + '</p>' + pt.map(carteR).join('') : '') +
+      (r.length ? (pt.length ? '<p class="mt-groupe">' + (CLI() ? 'Dans sa lignée' : 'Dans ta lignée') + '</p>' : '') + r.map(carteR).join('') : '') +
       (G.imprimerReps ? '<button type="button" class="btn btn-trait mt-reps-pdf" data-reps-pdf data-compte="la liste de ce qui se répète">Enregistrer la liste en PDF</button>' : '') + '<p class="mt-discret">Ce sont des pistes de lecture, pas des vérités sur ta famille.</p>';
   }
   function vueRapport(e) {
@@ -222,7 +229,7 @@
     if (questionnaire) { if (questionnaire.i < 0 && questionnaire.cli !== CLI()) { questionnaire.cli = CLI(); afficherAccueil(); } return; }
     var e = E();
     if (!Object.keys(e.people).length) { questionnaire = { i: -1, rep: {} }; afficherQuestion(); return; }
-    var nbR = ((G.repetitions && G.repetitions()) || []).length;
+    var nbR = lecture().total;
     var corps = onglet === 'reps' ? vueReps() : onglet === 'rapport' ? vueRapport(e) : vueArbre(e);
     racine.innerHTML = '<div class="mt-haut"><h1 class="mt-titre">' + (CLI() ? 'Dossier client·e' : 'Mon arbre familial') + '</h1><button type="button" class="mt-menu-bt" aria-haspopup="true" aria-expanded="false" aria-label="Plus d’options">•••</button></div>' +
       '<div class="mt-corps">' + corps + '</div>' +
