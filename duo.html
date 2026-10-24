@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Le Duo Genesolia : retrouver l’amour ensemble</title>
+  <meta name="description" content="Le Duo : un parcours à deux en 12 étapes, un livret par mois. Une partie Nous deux à vivre ensemble, une partie Moi avec toi rien qu’à toi, et vos deux lignées.">
+  <meta property="og:title" content="Le Duo Genesolia · retrouver l’amour ensemble">
+  <meta property="og:description" content="Un parcours à deux en 12 étapes, un livret par mois, deux espaces reliés.">
+  <meta property="og:image" content="https://genesolia.fr/assets/duo/couv-nous-deux.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
+    .a-tete .conteneur{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center;padding:4rem 0}
+    .a-sur{font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem}
+    .a-tete h1{color:#fff;margin-bottom:1.1rem}
+    .a-tete .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.6rem;max-width:36rem}
+    .a-date{display:inline-block;padding:.55rem 1.1rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.4);font-weight:600}
+    .a-date b{color:var(--champagne-clair)}
+    .a-offre{display:inline-block;padding:1.1rem 1.4rem;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(243,220,192,.4)}
+    .a-offre .a-barre{margin:0;font-size:1.05rem;color:#E6CFDD}
+    .a-offre .a-barre s{opacity:.8}
+    .a-offre .a-gros{margin:.2rem 0 .8rem;font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.1;color:#fff}
+    .a-offre .btn{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .a-offre .a-petit{margin:.7rem 0 0;font-size:.86rem;color:#E6CFDD}
+    .a-essai{margin:0;font-family:var(--display);font-size:1.7rem;line-height:1.15;color:var(--prune)}
+    .a-essai s{font:400 1.1rem var(--texte);color:var(--prune-doux);margin-right:.4rem}
+    .a-lancement{max-width:44rem;margin:0 auto;text-align:center}
+    .a-lancement h2{font-size:1.8rem;margin-bottom:.8rem}
+    .a-lancement p{color:var(--prune-doux);margin-bottom:1rem}
+    .a-laura{display:block;width:150px;height:150px;margin:0 auto 1.2rem;border-radius:50%;object-fit:cover;box-shadow:0 16px 40px rgba(107,47,91,.18)}
+    .a-signe{font:400 1.6rem var(--display);color:var(--prune)!important;margin:.2rem 0 1.2rem!important}
+    .a-acheter{margin-top:.6rem;align-self:flex-start;font-size:.88rem;padding:.45rem .95rem}
+    .a-rythme{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;counter-reset:r}
+    .a-rythme li{counter-increment:r;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:3rem 1.1rem 1.2rem;font-size:.92rem;color:var(--prune-doux);line-height:1.5}
+    .a-rythme li::before{content:counter(r);position:absolute;top:1rem;left:1.1rem;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--champagne-clair);color:var(--prune);font:600 .85rem var(--texte)}
+    .a-rythme b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem;color:var(--prune);margin-bottom:.35rem}
+    @media (max-width:960px){.a-rythme{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.a-rythme{grid-template-columns:1fr}}
+    .a-couv{justify-self:center;width:min(240px,70%);height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.45);transform:rotate(3deg)}
+
+    .a-titre{text-align:center;max-width:42rem;margin:0 auto 2.4rem}
+    .a-titre p{color:var(--prune-doux);margin-top:.7rem}
+    .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+
+    .a-formules{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1.2rem;align-items:stretch}
+    .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
+    .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
+    .a-carte h3{font-size:1.6rem}
+    .a-prix{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--prune)}
+    .a-prix small{font:400 1rem var(--texte);color:var(--prune-doux)}
+    .a-carte ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .a-carte li{position:relative;padding-left:1.5rem;line-height:1.5}
+    .a-carte li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    .a-carte .btn{margin-top:auto;align-self:flex-start}
+    .a-note{font-size:.88rem;color:var(--prune-doux)}
+    .a-badge{align-self:flex-start;font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;background:var(--prune);color:#fff;border-radius:99px;padding:.25rem .7rem}
+
+    .a-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
+    .a-produit{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .a-produit h3{font-size:1.2rem}
+    .a-produit p{font-size:.93rem;color:var(--prune-doux)}
+    .a-produit .a-p{margin-top:auto;font-family:var(--display);font-size:1.5rem;color:var(--prune)}
+    .a-produit .a-inclus{font:600 .78rem var(--texte);color:var(--champagne)}
+
+    .a-packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+    .a-pack{border-radius:var(--rayon);padding:1.8rem;background:var(--rose);display:flex;flex-direction:column;gap:.7rem}
+    .a-pack h3{font-size:1.4rem}
+    .a-pack .a-p{font-family:var(--display);font-size:1.8rem}
+    .a-pack .a-p s{font:400 1rem var(--texte);color:var(--prune-doux);margin-left:.4rem}
+
+    .a-autres{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+
+    .a-liste{max-width:40rem;margin:0 auto;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    .a-liste h2{font-size:1.7rem;margin-bottom:.4rem}
+    .a-liste > p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .a-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;margin-bottom:.9rem}
+    .a-liste label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .a-liste input[type=text],.a-liste input[type=email]{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%;box-sizing:border-box}
+    .a-choix{border:0;padding:0;margin:0 0 1rem;display:grid;gap:.4rem}
+    .a-choix legend{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+    .a-choix label{display:flex;gap:.55rem;align-items:center;font-weight:400}
+    .a-choix input,.a-accord input{accent-color:var(--prune);width:1.05rem;height:1.05rem;flex-shrink:0}
+    .a-liste .a-accord{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+    .a-accord input{margin-top:.2rem}
+    .a-erreur{margin:.7rem 0 0;font-size:.9rem;color:#A33A4A;min-height:1.2em}
+    .a-merci{font-family:var(--display);font-size:1.3rem}
+
+    @media (max-width:960px){.a-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:860px){
+      .a-tete .conteneur{grid-template-columns:1fr;padding:3rem 0}
+      .a-couv{width:160px}
+      .a-formules,.a-packs,.a-autres{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){.a-grille{grid-template-columns:1fr}.a-champs{grid-template-columns:1fr}.a-carte,.a-liste{padding:1.5rem}}
+
+    /* Tunnel de vente */
+    .t-hero{position:relative;overflow:hidden;color:#FFF4F6;background:#2E1338}
+    .t-hero-fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+    .t-hero::after,.t-urgence::after,.t-final::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(46,19,56,.95) 0%,rgba(46,19,56,.78) 45%,rgba(107,47,91,.25) 100%)}
+    .t-hero-grille{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:3rem;align-items:center;padding:5rem 0 4.5rem}
+    .t-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.08;margin-bottom:1.2rem}
+    .t-hero .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.8rem;max-width:36rem}
+    .t-couvs{position:relative;height:420px}
+    .t-couv{position:absolute;width:230px;height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+    .t-couv-1{top:0;right:0;transform:rotate(8deg)}
+    .t-couv-2{top:50px;right:40%;transform:rotate(-5deg)}
+    .t-cta{font-size:1.05rem;padding:1rem 1.7rem;box-shadow:0 12px 30px rgba(107,47,91,.28)}
+    .a-offre .t-cta{box-shadow:0 12px 30px rgba(0,0,0,.3)}
+    .t-rassure{margin:.8rem 0 0;font-size:.88rem;color:var(--prune-doux)}
+    .t-bandeau{background:var(--prune);color:#F7E6EE;font-size:.95rem}
+    .t-bandeau .conteneur{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 1.5rem;padding:1rem 0}
+    .t-bandeau b{color:var(--champagne-clair)}
+    .t-douleurs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+    .t-douleurs li{background:var(--blanc);border:1px solid var(--rose);border-top:4px solid var(--corail);border-radius:18px;padding:1.4rem;color:var(--prune-doux);line-height:1.55;font-size:.95rem}
+    .t-douleurs b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.4rem}
+    .t-verite{max-width:44rem;margin:2.4rem auto 0;text-align:center}
+    .t-verite p{font-size:1.12rem;margin-bottom:1.4rem;max-width:none}
+    .t-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .t-split-img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--rayon);box-shadow:0 24px 60px rgba(107,47,91,.16)}
+    .t-split h2{margin-bottom:1rem}
+    .t-split p{margin-bottom:1rem}
+    .t-coches{list-style:none;margin:0 0 1.5rem;padding:0;display:grid;gap:.6rem}
+    .t-coches li{position:relative;padding-left:2rem;line-height:1.5}
+    .t-coches li::before{content:"";position:absolute;left:0;top:.15em;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--champagne) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat}
+    .t-contenus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}
+    .t-contenus article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-contenus article>img{width:100%;height:190px;object-fit:cover;display:block}
+    .t-contenus article>img.t-portrait{object-fit:contain;background:linear-gradient(135deg,#FCEFF3,#FFF6EC);padding:1rem 0}
+    .t-contenus article>div{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .t-contenus h3{font-size:1.3rem}
+    .t-contenus p{font-size:.94rem;color:var(--prune-doux)}
+    .t-valeur{margin-top:auto;align-self:flex-start;font:600 .8rem var(--texte);letter-spacing:.04em;color:var(--prune);background:var(--champagne-clair);border-radius:99px;padding:.3rem .8rem}
+    .t-pile{margin-top:3rem;display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);box-shadow:0 20px 50px rgba(107,47,91,.1)}
+    .t-pile h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.2rem}
+    .t-pile ul{list-style:none;margin:0;padding:0}
+    .t-pile li,.t-total,.t-toi{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px dashed var(--rose-fonce)}
+    .t-total{margin:0;border-bottom:0;font-weight:600}
+    .t-total s{color:var(--prune-doux)}
+    .t-toi{margin:0;border:0;padding-top:.2rem;font-family:var(--display);font-size:1.6rem;color:var(--prune)}
+    .t-toi b{font-weight:400;font-size:2.4rem;line-height:1}
+    .t-pile-cta{text-align:center}
+    .t-pile p,.t-risque p,.t-contenus p,.t-douleurs li,.t-hero .a-offre p{max-width:none}
+    .t-etapes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;counter-reset:e}
+    .t-etapes li{counter-increment:e;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:3.6rem 1.4rem 1.4rem;color:var(--prune-doux);line-height:1.55}
+    .t-etapes li::before{content:counter(e);position:absolute;top:1.1rem;left:1.4rem;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 1rem var(--texte)}
+    .t-etapes b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.35rem}
+    .t-urgence,.t-final{position:relative;overflow:hidden;background:#2E1338;color:#FFF4F6}
+    .t-urgence-texte,.t-final-texte{position:relative;z-index:1;padding:5rem 0;max-width:40rem}
+    .t-urgence h2,.t-final h2{color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+    .t-urgence p,.t-final p{color:#F7E6EE;font-size:1.1rem;margin-bottom:1.6rem}
+    .t-urgence .btn-plein,.t-final .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .t-final .t-rassure{color:#E6CFDD;margin-top:.9rem}
+    .t-final-texte{margin-inline:auto;text-align:center}
+    .t-risque{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:52rem;margin:0 auto;padding:2.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-risque h2{margin-bottom:1rem}
+    .t-sceau{width:150px;height:150px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:3px double var(--champagne);color:var(--prune)}
+    .t-sceau span{font:400 2.6rem var(--display);line-height:1}
+    .t-sceau small{font-size:.8rem;font-weight:600}
+    .t-barre{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,249,247,.97);border-top:1px solid var(--rose-fonce);box-shadow:0 -10px 30px rgba(107,47,91,.1);backdrop-filter:blur(6px)}
+    .t-barre .conteneur{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.7rem 0}
+    .t-barre p{margin:0;font-size:.95rem}
+    .t-barre s{color:var(--prune-doux)}
+    .t-barre b{font-family:var(--display);font-weight:400;font-size:1.2rem;white-space:nowrap}
+    .t-barre .btn{white-space:nowrap;flex:none}
+    .t-barre span{color:var(--prune-doux);font-size:.85rem}
+    .t-barre .btn{padding:.65rem 1.3rem}
+    .appli .t-barre{bottom:calc(4.6rem + env(safe-area-inset-bottom,0px))}
+    body.avec-barre{padding-bottom:4.5rem}
+    @media (max-width:960px){.t-douleurs{grid-template-columns:1fr 1fr}.t-contenus{grid-template-columns:1fr 1fr}}
+    @media (max-width:860px){
+      .t-hero-grille{grid-template-columns:1fr;padding:3.5rem 0}
+      .t-couvs{display:none}
+      .t-split,.t-pile,.t-etapes{grid-template-columns:1fr}
+      .t-risque{grid-template-columns:1fr;justify-items:center;text-align:left}
+      .t-pile{padding:1.6rem}
+    }
+    @media (max-width:560px){.t-douleurs,.t-contenus{grid-template-columns:1fr}.t-barre span{display:none}.t-bandeau .conteneur{display:grid;grid-template-columns:1fr 1fr}}
+    .t-parcours{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}
+    .t-parcours article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-parcours img{width:100%;height:170px;object-fit:cover;display:block}
+    .t-parcours article>div{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+    .t-parcours p,.t-parcours li{max-width:none;font-size:.95rem;line-height:1.55}
+    .t-qui{font:400 1.25rem var(--display);color:var(--prune);line-height:1.25!important;font-size:1.25rem!important}
+    .t-parcours ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;color:var(--prune-doux)}
+    .t-parcours li{position:relative;padding-left:1.1rem}
+    .t-parcours li::before{content:"";position:absolute;left:0;top:.6em;width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne)}
+    .t-apres{margin-top:auto;padding-top:.8rem;border-top:1px dashed var(--rose-fonce);font-family:var(--display);font-size:1.1rem!important;color:var(--prune)}
+    .t-mention{max-width:none;text-align:center;margin-top:1.2rem;font-size:.85rem;color:var(--prune-doux)}
+    .t-mois{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem;list-style:none;margin:0;padding:0}
+    .t-mois li{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-mois img{width:100%;height:auto;aspect-ratio:540/640;object-fit:cover;object-position:top;display:block;background:var(--rose)}
+    .t-mois li>div{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.4rem}
+    .t-mois .t-sem{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .t-mois b{font:400 1.2rem var(--display);color:var(--prune)}
+    .t-mois p{max-width:none;font-size:.93rem;line-height:1.5;color:var(--prune-doux)}
+    .t-mois .t-duree{font-size:.85rem;color:var(--prune)}
+    .t-moyenne{text-align:center;max-width:40rem;margin:1.6rem auto 0;color:var(--prune);font-size:.98rem}
+    .t-temps{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1.6rem 0 0}
+    .t-temps span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.92rem;color:var(--prune)}
+    .t-fin{margin-top:2.4rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 2rem;max-width:46rem;margin-left:auto;margin-right:auto}
+    .t-fin h3{font-size:1.45rem;margin-bottom:.8rem}
+    .t-fin ul{margin:0;padding-left:1.2rem;display:grid;gap:.45rem;color:var(--prune)}
+    @media (max-width:960px){.t-mois{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:560px){.t-mois{grid-template-columns:1fr}.t-mois img{aspect-ratio:540/520}.t-fin{padding:1.4rem}}
+    .t-avis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+    .t-avis figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem}
+    .t-avis blockquote{margin:0 0 1rem;font-family:var(--display);font-size:1.15rem;line-height:1.5;color:var(--prune)}
+    .t-avis figcaption{font-size:.88rem;color:var(--prune-doux)}
+    @media (max-width:960px){.t-parcours,.t-avis{grid-template-columns:1fr}}
+    /* Téléphone : la page reste complète mais se lit plus vite (cartes compactes, exemples à faire glisser) */
+    @media (max-width:560px){
+      .t-contenus{gap:.7rem}
+      .t-contenus article{display:grid;grid-template-columns:84px 1fr;align-items:start}
+      .t-contenus article>img,.t-contenus article>img.t-portrait{width:84px;height:100%;min-height:112px;padding:0}
+      .t-contenus article>img.t-portrait{object-fit:cover}
+      .t-contenus article>div{padding:.9rem 1rem;gap:.3rem}
+      .t-contenus h3{font-size:1.1rem}
+      .t-contenus p{font-size:.88rem;line-height:1.5}
+      .t-parcours{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}
+      .t-parcours::-webkit-scrollbar{display:none}
+      .t-parcours article{flex:0 0 86%;scroll-snap-align:center}
+      .t-parcours img{height:120px}
+      .t-parcours article>div{padding:1.1rem 1.15rem 1.2rem;gap:.6rem}
+      .t-glisser{display:block!important}
+    }
+    .t-glisser{display:none;text-align:center;font-size:.85rem;color:var(--prune-doux);margin:.4rem 0 0}
+    /* Refonte : six questions, piliers, chiffres, appli, sommaire, petits + */
+    .t-six{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-q{font-family:var(--display);font-size:1.08rem!important;line-height:1.4;color:var(--prune)!important}
+    .t-piliers{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-piliers .t-valeur{white-space:normal}
+    .t-audio{margin:1.6rem auto 0;max-width:44rem;text-align:center;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:2px solid var(--champagne)}
+    .t-audio p{max-width:none;margin:0}
+    .t-chiffres{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;text-align:center}
+    .t-chiffres li{color:var(--prune-doux);font-size:.92rem;line-height:1.4}
+    .t-chiffres b{display:block;font:400 2.6rem var(--display);color:var(--prune);line-height:1.1}
+    .t-barre-appli{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.2rem;max-width:none}
+    .t-barre-appli span{padding:.4rem .8rem;border-radius:99px;background:linear-gradient(135deg,#F3DCC0,#E8C48F);color:#2E1338;font-weight:600;font-size:.86rem}
+    .t-sommaire{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;counter-reset:s}
+    .t-sommaire li{counter-increment:s;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1rem 1rem 1rem 3.4rem;display:flex;flex-direction:column;gap:.2rem;font-size:.9rem;color:var(--prune-doux);line-height:1.4}
+    .t-sommaire li::before{content:counter(s);position:absolute;left:1rem;top:1rem;width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 .85rem var(--texte)}
+    .t-sommaire b{font:400 1.12rem var(--display);color:var(--prune)}
+    .t-sommaire i{color:var(--champagne);font-weight:600}
+    .t-legende{text-align:center;margin:1.2rem auto 0;font-size:.85rem;color:var(--prune-doux);max-width:none}
+    .t-chips{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:52rem}
+    .t-chips li{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.05rem;font-size:.93rem;color:var(--prune)}
+    .t-chips li::before{content:"+ ";color:var(--champagne);font-weight:700}
+    @media (max-width:960px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr 1fr}.t-chiffres{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr}.t-six{gap:.6rem}.t-six li{padding:.9rem 1.1rem}.t-six b{font-size:1.15rem;margin-bottom:.2rem}}
+    .t-avant-apres{max-width:40rem;margin:2.2rem auto 0;text-align:center;padding:1.8rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:2px solid var(--champagne)}
+    .t-avant-apres p{max-width:none;margin:0 0 .7rem}
+    .t-avant-apres .btn{margin-top:.6rem}
+    @media (max-width:560px){.t-hero-grille{padding:2.2rem 0 2.4rem}.t-hero h1{font-size:1.85rem;margin-bottom:.8rem}.t-hero .intro{font-size:1rem;margin-bottom:1.1rem}}
+    .t-ecrans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .t-ecrans figure{margin:0;text-align:center}
+    .t-ecrans img{width:100%;height:auto;aspect-ratio:540/760;object-fit:cover;object-position:top;border-radius:24px;border:6px solid #2E1338;box-shadow:0 20px 45px rgba(46,19,56,.25)}
+    .t-ecrans figcaption{margin-top:.5rem;font:600 .85rem var(--texte);color:var(--prune)}
+    @media (max-width:860px){.t-ecrans{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}.t-ecrans::-webkit-scrollbar{display:none}.t-ecrans figure{flex:0 0 58%;scroll-snap-align:center}}
+    .t-ecoute{margin-top:1.1rem;padding-top:1.1rem;border-top:1px dashed var(--rose-fonce)}
+    .t-ecoute p{font-size:.95rem;color:var(--prune-doux);margin:0 0 .7rem!important}
+    .t-ecoute b{color:var(--prune)}
+    .t-ecoute audio{width:100%;max-width:26rem;height:44px;border-radius:99px}
+    .t-semaine1{max-width:42rem;margin:0 auto;text-align:center;padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-semaine1 ol{list-style:none;margin:1rem 0 1.4rem;padding:0;display:grid;gap:.7rem;text-align:left}
+    .t-semaine1 li{padding-left:1.5rem;position:relative;line-height:1.5}
+    .t-semaine1 li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    @media (max-width:560px){.t-semaine1{padding:1.4rem}}
+    .a-fondatrice{margin:.6rem 0 0;font-size:.88rem;color:#F6D9A2}
+    .a-fondatrice b{color:#FCE9C4}
+      .t-guide{display:flex;gap:1.2rem;align-items:center;max-width:36rem;margin:2.2rem auto 0;padding:1rem 1.2rem;background:#fff;border:1px solid var(--rose,#F3E3E6);border-left:4px solid #B98A55;border-radius:16px;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(107,47,91,.08);text-align:left}
+    .t-guide img{width:84px;height:auto;border-radius:6px;box-shadow:0 8px 20px rgba(107,47,91,.25);flex:none}
+    .t-guide b{display:block;font-family:var(--display,serif);font-weight:400;font-size:1.25rem;color:var(--prune,#6B2F5B);margin:.15rem 0 .25rem}
+    .t-guide span span,.t-guide>span>span:not(.t-guide-k){display:block;font-size:.92rem;color:var(--prune-doux,#7a5570)}
+    .t-guide-k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;font-weight:700}
+    .t-guide u{display:inline-block;margin-top:.45rem;font-weight:700;color:var(--prune,#6B2F5B)}
+    .t-guide:hover{border-color:#B98A55;box-shadow:0 14px 34px rgba(107,47,91,.14)}
+  .t-livres{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.4rem;-webkit-overflow-scrolling:touch}
+  .t-livre{flex:0 0 min(36rem,88vw);margin:0;scroll-snap-align:center;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18),0 0 0 1px rgba(107,47,91,.1)}
+  .t-livre-barre{display:flex;gap:.35rem;padding:.5rem .75rem;background:#F6EEF1;border-bottom:1px solid var(--rose)}
+  .t-livre-barre i{width:.55rem;height:.55rem;border-radius:50%;background:var(--rose-fonce)}
+  .t-livre img{display:block;width:100%;height:auto}
+  .t-livre figcaption{padding:.8rem 1rem;font-size:.9rem;color:var(--prune-doux)}
+  .t-livre figcaption b{color:var(--prune)}
+  .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
+  @media (min-width:1200px){.t-livres-note{display:none}}
+    .d-brouillon{background:#2E1338;color:#F3DCC0;font:600 .82rem var(--texte);letter-spacing:.06em;text-align:center;padding:.5rem 16px}
+    .d-prudence{max-width:44rem;margin:1.4rem auto 0;text-align:center;font-size:.88rem;color:var(--prune-doux)}
+</style>
+</head>
+<body class="nouveau">
+  <div class="d-brouillon">BROUILLON · page non publiée, non référencée · prix et formules à valider</div>
+  <header data-entete></header>
+  <main>
+    <section class="t-hero">
+      <img class="t-hero-fond" src="assets/images/blog-imago-choix-amoureux-1600.webp" srcset="assets/images/blog-imago-choix-amoureux-800.webp 800w, assets/images/blog-imago-choix-amoureux-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" fetchpriority="high">
+      <div class="conteneur t-hero-grille">
+        <div>
+          <p class="a-sur">Parcours à deux · 12 étapes · un livret par mois</p>
+          <h1>Retrouver l’amour ensemble, sans rejouer l’histoire de vos familles</h1>
+          <p class="intro">Un couple, c’est la rencontre de deux arbres. Le Duo vous aide à voir ce que chacun·e porte de sa lignée, à sortir des scènes qui se rejouent, et à choisir votre façon de vous aimer. Un livret par mois, deux espaces reliés : une partie à vivre ensemble, une partie rien qu’à toi.</p>
+          <div class="a-offre">
+            <p class="a-gros">20 € par mois, pour vous deux</p>
+            <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+            <p class="a-petit">Sans engagement. Une personne s’inscrit et invite l’autre par un lien.</p>
+            <p class="a-fondatrice"><b>Seul·e pour commencer ?</b> 10 € par mois, l’autre peut te rejoindre plus tard.</p>
+          </div>
+        </div>
+        <div class="t-couvs" aria-hidden="true">
+          <img class="t-couv t-couv-1" src="assets/duo/couv-moi-avec-toi.webp" width="496" height="702" alt="">
+          <img class="t-couv t-couv-2" src="assets/duo/couv-nous-deux.webp" width="496" height="702" alt="">
+        </div>
+      </div>
+    </section>
+
+    <div class="t-bandeau"><div class="conteneur"><span><b>12 livrets</b>, un par mois</span><span><b>2 espaces</b> reliés</span><span><b>Sans</b> engagement</span><span><b>Ta partie</b> reste à toi</span></div></div>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Avant de commencer</p>
+          <h2>Vous vous reconnaissez ?</h2>
+        </div>
+        <ul class="t-douleurs t-six">
+          <li><b>La même dispute</b>Vous voudriez arrêter de vous disputer pour les mêmes choses, sans savoir comment ça commence ?</li>
+          <li><b>La distance</b>Vous voudriez retrouver la complicité du début, sans attendre que le quotidien vous la rende ?</li>
+          <li><b>Se parler</b>Tu voudrais te sentir écouté·e jusqu’au bout, sans devoir te défendre ?</li>
+          <li><b>Ta place</b>Tu voudrais dire ce dont tu as besoin, sans t’effacer ni tout porter ?</li>
+          <li><b>Vos familles</b>Vous voudriez trouver votre place entre vos deux familles, sans choisir un camp ?</li>
+          <li><b>Déjà-vu</b>Tu voudrais aimer autrement que tes parents, sans savoir par où commencer ?</li>
+        </ul>
+        <div class="t-verite">
+          <p><b>Si vous avez répondu oui, ce n’est ni un hasard, ni la faute de l’un·e ou de l’autre.</b> Chacun·e arrive dans le couple avec sa lignée : la façon dont ses parents s’aimaient, se disputaient, se réconciliaient. Sans le vouloir, on rejoue. Quand on le voit, on peut choisir. Le Duo est ce rendez-vous, une fois par mois, pour vous deux.</p>
+          <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Le parcours</p>
+          <h2>Un livret par mois, à deux voix</h2>
+          <p>Chaque mois, tout est prêt dans l’appli : vous ouvrez votre livret, et vous avancez. Le Duo suit la méthode des deux cycles de Genesolia, pensée pour le couple.</p>
+        </div>
+        <div class="t-contenus t-piliers">
+          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Ensemble · une heure par mois</p><h3>Nous deux</h3><p class="t-q">Vous voudriez vous parler sans vous blesser, et vous retrouver vraiment ?</p><p>L’exercice du mois, à faire ensemble, pas à pas : le dialogue en miroir, la carte de l’autre, la demande claire, nos façons d’aimer. Vos réponses communes vont dans votre espace partagé.</p><span class="t-valeur">Vous y gagnez : une écoute vraie, une complicité retrouvée</span></div></article>
+          <article><img src="assets/images/vision-lettre-amour-800.webp" srcset="assets/images/vision-lettre-amour-800.webp 800w, assets/images/vision-lettre-amour-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une lettre posée entre des fleurs et une bougie" loading="lazy" decoding="async"><div><p class="a-etiq">Rien qu’à toi · dans ton espace</p><h3>Moi avec toi</h3><p class="t-q">Tu voudrais comprendre ce que tu rejoues dans ton couple, et oser dire ce dont tu as besoin ?</p><p>Tes questions d’écriture du mois : ta place, tes peurs, tes besoins, tes limites. Ta partie reste privée, tu choisis ce que tu partages.</p><span class="t-valeur">Tu y gagnes : ta juste place dans le couple</span></div></article>
+          <article><img src="assets/images/vision-relation-saine-800.webp" srcset="assets/images/vision-relation-saine-800.webp 800w, assets/images/vision-relation-saine-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux arbres côte à côte dont les branches se rejoignent" loading="lazy" decoding="async"><div><p class="a-etiq">La touche Genesolia</p><h3>Les deux lignées</h3><p class="t-q">Vous voudriez voir ce que vos familles se racontent à travers vous ?</p><p>Chaque mois, chacun·e regarde ce qu’il·elle a reçu de sa lignée sur le thème du livret : comment ses parents s’aimaient, se disputaient, ce qui se répète. Votre affiche « Nos deux arbres » se complète au fil de l’année.</p><span class="t-valeur">Vous y gagnez : un amour choisi, à votre façon</span></div></article>
+        </div>
+        <div class="t-audio">
+          <p class="a-etiq">Chaque semaine · 15 minutes</p>
+          <p class="t-q">Le rendez-vous de la semaine : trois questions, toujours les mêmes, posées à tour de rôle. Ce qui m’a fait du bien avec toi, ce qui a été difficile pour moi, ce dont j’ai besoin la semaine prochaine. On écoute, on se remercie.</p>
+        </div>
+        <ul class="t-chiffres">
+          <li><b>12</b>livrets, un par mois</li>
+          <li><b>2</b>espaces reliés</li>
+          <li><b>1 h</b>ensemble chaque mois</li>
+          <li><b>15 min</b>de rendez-vous par semaine</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur t-split">
+        <img class="t-split-img" src="assets/images/vision-couple-complice-800.webp" width="800" height="600" alt="Un ciel rose et doré au coucher du soleil" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Vos deux espaces</p>
+          <h2>Chacun·e son espace, et un espace pour vous deux</h2>
+          <p>L’un·e s’inscrit et invite l’autre par un lien. Vos deux espaces sont aussitôt reliés : vous avancez au même rythme, chacun·e sur son téléphone, sa tablette ou son ordinateur.</p>
+          <p class="t-barre-appli"><span>Nous deux</span><span>Moi avec toi</span><span>Nos lignées</span><span>Notre semaine</span></p>
+          <ul class="t-coches">
+            <li>La partie <b>Nous deux</b> est commune : ce que vous y écrivez, vous le voyez tous les deux.</li>
+            <li>La partie <b>Moi avec toi</b> reste <b>privée</b> : tu choisis, réponse par réponse, ce que tu partages.</li>
+            <li>Chaque livret <b>s’imprime</b>, si vous préférez écrire à la main.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="t-semaine1">
+          <p class="a-etiq">Votre première semaine, concrètement</p>
+          <ol>
+            <li><b>Jour 1</b> : tu crées ton espace et tu envoies le lien d’invitation à ton·ta partenaire.</li>
+            <li><b>Dans la semaine</b> : chacun·e remplit sa roue de notre couple, seul·e, en dix minutes.</li>
+            <li><b>Un soir, ensemble</b> : vous comparez vos deux roues, sans vous défendre, et vous choisissez ce que vous voulez faire grandir.</li>
+            <li><b>À la fin de la semaine</b> : votre premier rendez-vous de quinze minutes.</li>
+          </ol>
+          <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+          <p class="t-rassure">Sans engagement · ta partie reste privée</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Le sommaire</p>
+          <h2>Vos 12 livrets</h2>
+          <p>Votre étape 1 commence le jour où vous entrez dans Le Duo, et chaque étape dure un mois. Votre affiche « Nos deux arbres » se construit au fil de l’année : racines, troncs, branches, puis fruits.</p>
+        </div>
+        <ol class="t-sommaire">
+          <li><b>Notre point de départ</b><span>D’où partons-nous, ensemble ?</span><i>La roue de notre couple</i></li>
+          <li><b>Ce qui nous porte</b><span>Que connais-tu vraiment de moi ?</span><i>La carte de l’autre</i></li>
+          <li><b>Ta place, ma place</b><span>Où chacun·e se tient-il·elle ?</span><i>Notre couple en objets</i></li>
+          <li><b>Baisser la garde</b><span>Quelle peur se réveille entre nous ?</span><i>Le signal d’alerte</i></li>
+          <li><b>Les enfants que nous étions</b><span>Qu’est-ce que j’attends encore de toi ?</span><i>Les deux enfants</i></li>
+          <li><b>Le dialogue en miroir</b><span>Quelles émotions ont le droit d’exister ?</span><i>Écouter jusqu’au bout</i></li>
+          <li><b>La demande claire</b><span>Qu’est-ce que je n’ose pas te dire ?</span><i>Du reproche à la demande</i></li>
+          <li><b>Les deux lignées</b><span>Comment avons-nous appris à aimer ?</span><i>Nos façons d’aimer</i></li>
+          <li><b>Oser ensemble</b><span>Avons-nous le droit d’aller plus loin ?</span><i>Nos rêves côte à côte</i></li>
+          <li><b>Donner et recevoir</b><span>Qu’est-ce que je m’autorise à recevoir de toi ?</span><i>La balance du couple</i></li>
+          <li><b>Notre chez-nous</b><span>D’où venons-nous, l’un·e et l’autre ?</span><i>La carte de nos lieux</i></li>
+          <li><b>Ce que nous transmettons</b><span>Qu’est-ce que notre couple choisit de transmettre ?</span><i>Nos vœux</i></li>
+        </ol>
+        <p class="t-legende"><b>En gras</b> : le titre du livret · ensuite, la question du mois · <i>en italique</i>, l’exercice « Nous deux ».</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Ils pourraient être vous</p>
+          <h2>Quatre semaines dans Le Duo</h2>
+          <p>Trois parcours pour voir concrètement comment avancent les semaines.</p>
+        </div>
+        <div class="t-parcours">
+          <article>
+            <img src="assets/images/blog-etapes-du-couple-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+            <div>
+              <p class="t-qui">Inès et Marc · « Toujours la même dispute »</p>
+              <p>Dès que Marc rentre tard, la soirée tourne au reproche. Inès parle de plus en plus fort, Marc se tait de plus en plus.</p>
+              <ul>
+                <li><b>Semaine 1</b> : en remplissant chacun·e leur roue, ils voient qu’ils ont noté le même domaine en premier : se parler.</li>
+                <li><b>Leurs deux lignées</b> : la mère d’Inès attendait son mari chaque soir ; le père de Marc fuyait les disputes au garage.</li>
+                <li><b>Semaine 4</b> : ils choisissent un mot-signal, et une pause de vingt minutes avant de reprendre.</li>
+              </ul>
+              <p class="t-apres">Ils voient la scène arriver, et la jouent autrement.</p>
+            </div>
+          </article>
+          <article>
+            <img src="assets/images/vision-amour-apaise-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+            <div>
+              <p class="t-qui">Sofia · « Seule à vouloir avancer »</p>
+              <p>Sofia sent la distance s’installer. Son compagnon n’est pas prêt à « faire un programme ». Elle commence seule.</p>
+              <ul>
+                <li><b>Sa partie Moi avec toi</b> l’aide à voir qu’elle attend de lui ce qu’elle attendait déjà de son père : qu’il la remarque.</li>
+                <li><b>Semaine 3</b> : elle remplace un reproche par une demande claire, et il dit oui.</li>
+                <li><b>Semaine 4</b> : curieux, il lui demande ce qu’elle lit. Elle lui envoie le lien.</li>
+              </ul>
+              <p class="t-apres">Sofia a avancé pour elle, et la porte s’est ouverte pour deux.</p>
+            </div>
+          </article>
+          <article>
+            <img src="assets/images/vision-amour-reciproque-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async">
+            <div>
+              <p class="t-qui">Léo et Sam · « Entre nos deux familles »</p>
+              <p>Chaque fête de famille devient un casse-tête. Chacun·e se sent pris·e entre ses parents et l’autre.</p>
+              <ul>
+                <li><b>Leur carte de l’autre</b> leur apprend ce que chacun·e redoute vraiment pendant ces fêtes.</li>
+                <li><b>Leurs deux lignées</b> : dans les deux familles, le couple passait après les parents.</li>
+                <li><b>Semaine 4</b> : ils posent ensemble une règle simple pour les fêtes, et l’annoncent à leurs familles.</li>
+              </ul>
+              <p class="t-apres">Ils restent fidèles à leurs familles, et d’abord à leur couple.</p>
+            </div>
+          </article>
+        </div>
+        <p class="t-glisser" aria-hidden="true">Fais glisser pour voir les trois parcours</p>
+        <p class="t-mention">Situations d’exemple, pour illustrer le déroulé du Duo. Les prénoms et les détails sont inventés.</p>
+        <div class="t-avant-apres">
+          <p><b>Avant :</b> vous vous comprenez après coup, quand la dispute a déjà eu lieu.</p>
+          <p><b>Après quelques semaines :</b> vous la voyez venir, vous savez d’où elle vient, et vous avez un geste pour faire autrement.</p>
+          <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+          <p class="t-rassure">Sans engagement · ta partie reste privée</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="mois-type">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Concrètement</p>
+          <h2>Un mois type dans Le Duo</h2>
+          <p>Chaque étape dure un mois. Voici ce que vous faites, semaine après semaine, à votre rythme.</p>
+        </div>
+        <ol class="t-mois">
+          <li><img src="assets/duo/couv-nous-deux.webp" width="496" height="702" alt="La couverture de la partie Nous deux" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 1</span><b>Vous ouvrez votre livret</b><p>Le thème du mois, votre météo à deux, et la phrase du mois.</p></div></li>
+          <li><img src="assets/duo/couv-moi-avec-toi.webp" width="496" height="702" alt="La couverture de la partie Moi avec toi" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 2</span><b>Chacun·e de son côté</b><p>Ta partie Moi avec toi et tes questions sur ta lignée, dans ton espace, à ton rythme.</p></div></li>
+          <li><img src="assets/images/vision-couple-complice-800.webp" width="800" height="1422" alt="Un ciel rose au coucher du soleil" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 3</span><b>Votre heure à deux</b><p>L’exercice Nous deux, pas à pas, avec ses consignes et ses questions.</p></div></li>
+          <li><img src="assets/images/vision-amour-apaise-800.webp" width="800" height="1422" alt="Une fenêtre ouverte sur un coucher de soleil" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 4</span><b>Vous faites le point</b><p>Votre météo refaite, une phrase pour vos deux arbres, et ce que vous gardez pour le mois suivant.</p></div></li>
+        </ol>
+        <p class="t-moyenne">En moyenne chaque mois : une heure ensemble pour l’exercice Nous deux, environ une heure chacun·e de son côté, et quinze minutes de rendez-vous par semaine.</p>
+        <div class="t-temps" aria-label="À votre rythme">
+          <span>Sans audio : tout se lit et s’écrit</span><span>Un mois chargé ? Vous reprenez où vous en étiez</span>
+        </div>
+        <div class="t-fin">
+          <h3>À la fin de vos 12 étapes, vous avez</h3>
+          <ul>
+            <li>votre affiche « Nos deux arbres », des racines aux fruits ;</li>
+            <li>vos 12 livrets, à relire quand vous voulez ;</li>
+            <li>la roue de votre couple du premier jour, à comparer avec celle d’aujourd’hui ;</li>
+            <li>vos vœux, écrits l’un·e pour l’autre ;</li>
+            <li>et surtout, des gestes à vous pour vous parler, vous écouter et vous retrouver.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Et les petits +</p>
+          <h2>Tout ce qui vous accompagne au quotidien</h2>
+        </div>
+        <ul class="t-chips">
+          <li>La roue de votre couple</li><li>Votre météo à deux</li><li>Le rendez-vous de la semaine</li><li>Un petit geste par jour</li><li>Le mot-signal pour faire une pause</li><li>Votre affiche Nos deux arbres</li><li>La phrase du mois</li><li>Ton journal privé</li><li>Chaque livret à imprimer</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="bloc" id="avis" hidden>
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Ils ont testé</p>
+          <h2>Ce qu’en disent les couples du Duo</h2>
+        </div>
+        <div class="t-avis" id="t-avis"></div>
+      </div>
+    </section>
+
+    <section class="bloc" id="formules">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Les formules</p>
+          <h2>Le même Duo, à deux ou pour commencer seul·e</h2>
+          <p>Vos 12 livrets, vos deux espaces reliés et votre affiche : à deux, moins de 70 centimes par jour.</p>
+        </div>
+        <div class="a-formules">
+          <article class="a-carte vedette">
+            <span class="a-badge">Tout compris</span>
+            <h3>Le Duo à deux</h3>
+            <p class="a-prix">20 € <small>par mois, pour vous deux, sans engagement</small></p>
+            <ul>
+              <li><b>Nous deux</b> : l’exercice du mois à faire ensemble</li>
+              <li><b>Moi avec toi</b> : la partie de chacun·e, dans son espace privé</li>
+              <li><b>Les deux lignées</b> : ce que vos familles se racontent à travers vous</li>
+              <li><b>Deux espaces reliés</b> : une personne paie, l’autre est invitée par lien</li>
+              <li><b>Le rendez-vous de la semaine</b> et le petit geste du jour</li>
+              <li><b>Votre affiche</b> « Nos deux arbres »</li>
+            </ul>
+            <a class="btn btn-plein" href="#formules">Commencer à deux</a>
+            <p class="a-note">Sans engagement : vous arrêtez quand vous voulez. Chacun·e garde ses réponses.</p>
+          </article>
+          <article class="a-carte">
+            <span class="a-badge">Pour commencer</span>
+            <h3>Le Duo seul·e</h3>
+            <p class="a-prix">10 € <small>par mois, sans engagement</small></p>
+            <p>Tu avances avec ta partie, à ton rythme. Ton·ta partenaire peut te rejoindre quand il·elle le souhaite.</p>
+            <ul>
+              <li>La partie <b>Moi avec toi</b> des 12 livrets</li>
+              <li><b>Les deux lignées</b>, de ton côté</li>
+              <li>Les exercices Nous deux, à lire en attendant</li>
+            </ul>
+            <a class="btn btn-trait" href="#formules">Commencer seul·e</a>
+            <p class="a-note">Quand l’autre te rejoint, tu passes à la formule à deux, et vous continuez à partir de ton étape.</p>
+          </article>
+          <article class="a-carte">
+            <span class="a-badge">Le plus avantageux</span>
+            <h3>Le Duo à l’année</h3>
+            <p class="a-prix">199 € <small>pour 12 mois, pour vous deux</small></p>
+            <p>Le même Duo à deux, payé une seule fois pour toute l’année : environ 16,60 € par mois.</p>
+            <ul>
+              <li>Tout ce qui est compris dans le Duo à deux</li>
+              <li>Vos 12 livrets, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
+              <li>41 € d’économie sur l’année</li>
+            </ul>
+            <a class="btn btn-trait" href="#formules">Choisir l’année</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">En 3 gestes</p>
+          <h2>Votre Duo commence aujourd’hui</h2>
+        </div>
+        <ol class="t-etapes">
+          <li><b>Crée ton espace</b>Ton prénom, ton e-mail, un mot de passe. Ton espace est prêt.</li>
+          <li><b>Invite ton·ta partenaire</b>Tu lui envoies ton lien, par e-mail ou par message. Son espace se relie au tien en un clic.</li>
+          <li><b>Faites votre point de départ</b>Chacun·e sa roue de notre couple, puis votre première heure à deux. Tout votre Duo s’oriente dessus.</li>
+        </ol>
+        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a></div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="t-risque">
+          <div class="t-sceau" aria-hidden="true"><span>2</span><small>espaces reliés</small></div>
+          <div>
+            <h2>Simple, et sans engagement</h2>
+            <ul class="t-coches">
+              <li><b>Une seule inscription</b> pour vous deux : l’autre rejoint par un lien.</li>
+              <li><b>Sans engagement</b> : vous arrêtez quand vous voulez.</li>
+              <li><b>Ta partie reste à toi</b> : rien n’est partagé sans ton accord.</li>
+              <li><b>Seul·e d’abord, si tu préfères</b> : l’autre peut te rejoindre plus tard.</li>
+            </ul>
+            <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur a-lancement">
+        <p class="a-etiq">Un petit mot</p>
+        <h2>Pourquoi Le Duo</h2>
+        <p>On peut beaucoup avancer pour soi. Mais un couple, c’est deux histoires qui se rencontrent, et il faut parfois les regarder ensemble. Le Duo reprend la méthode des deux cycles, pensée pour deux : se sentir en sécurité l’un·e avec l’autre, puis comprendre comment chacun·e a appris à aimer.</p>
+        <p class="a-signe">Laura</p>
+        <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Une%20question%20sur%20Le%20Duo">Poser une question</a>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur questions" style="max-width:48rem">
+        <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
+        <details><summary>Comment fonctionnent nos deux espaces ?</summary><p>L’un·e de vous s’inscrit et choisit la formule à deux, puis envoie un lien d’invitation à l’autre. En cliquant, l’autre crée son compte, et vos deux espaces sont reliés. Vous avancez au même rythme, chacun·e sur son appareil.</p></details>
+        <details><summary>Est-ce que mon·ma partenaire peut lire mes réponses ?</summary><p>Seulement celles de la partie Nous deux, que vous remplissez ensemble. Ta partie Moi avec toi et tes notes sur ta lignée restent privées. Tu peux choisir de partager une réponse, une par une. L’équipe Genesolia ne lit jamais vos réponses.</p></details>
+        <details><summary>Mon·ma partenaire n’est pas prêt·e. Puis-je commencer seul·e ?</summary><p>Oui, avec la formule seul·e à 10 € par mois. Tu avances avec ta partie et ta lignée, et tu peux lire les exercices à deux. Si l’autre te rejoint, vous passez à la formule à deux et vous continuez à partir de ton étape.</p></details>
+        <details><summary>Est-ce que nous recevons tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment. Ce rythme laisse le temps de vivre les exercices entre vous. Ce qui est ouvert le reste.</p></details>
+        <details><summary>Combien de temps faut-il prévoir ?</summary><p>En moyenne, une heure ensemble par mois, environ une heure chacun·e de son côté, et quinze minutes de rendez-vous par semaine. Un mois chargé ? Vous reprenez où vous en étiez.</p></details>
+        <details><summary>Y a-t-il des audios ?</summary><p>Non. Le Duo se lit et s’écrit : un livret par mois, à remplir dans l’appli ou à imprimer.</p></details>
+        <details><summary>Nous connaissons mal nos histoires familiales. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Les livrets vous aident à poser les bonnes questions à vos familles.</p></details>
+        <details><summary>Est-ce pour tous les couples ?</summary><p>Oui : mariés ou non, ensemble depuis un an ou depuis trente ans, avec ou sans enfants. Le Duo est fait pour les couples qui veulent avancer ensemble, que ça aille bien ou que quelque chose s’use.</p></details>
+        <details><summary>Est-ce du conseil conjugal ?</summary><p>Non. Le Duo est un parcours de réflexion à deux : une lecture symbolique de vos histoires familiales et des exercices de développement personnel, à faire chez vous, à votre rythme. Il ne remplace pas un accompagnement conjugal, médical ou psychologique.</p></details>
+        <details><summary>Et si on arrête en cours de route ?</summary><p>Les formules au mois sont sans engagement : vous arrêtez quand vous voulez. Chacun·e garde ses réponses dans son espace.</p></details>
+        <p class="d-prudence">Si tu te sens en insécurité dans ta relation, Le Duo n’est pas adapté : parles-en à une personne de confiance ou à un·e professionnel·le.</p>
+      </div>
+    </section>
+
+    <section class="t-final">
+      <img class="t-hero-fond" src="assets/images/vision-relation-saine-800.webp" srcset="assets/images/vision-relation-saine-800.webp 800w, assets/images/vision-relation-saine-1600.webp 1600w" sizes="100vw" width="1600" height="2844" alt="" loading="lazy">
+      <div class="conteneur t-final-texte">
+        <h2>Dans un mois, vous pouvez vous parler autrement.</h2>
+        <p>Ou laisser la même scène se rejouer encore. Le premier livret vous attend.</p>
+        <a class="btn btn-plein t-cta" href="#formules">Commencer à deux</a>
+        <p class="t-rassure">Deux espaces reliés · ta partie reste privée · sans engagement</p>
+      </div>
+    </section>
+
+  </main>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Le Duo : 20 € par mois</b> <span>pour vous deux</span></p><a class="btn btn-plein" href="#formules">Commencer à deux</a></div></div>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    /* ▼ VRAIS AVIS UNIQUEMENT, avec l'accord des personnes. Tant que la liste est vide, la section reste cachée. */
+    var AVIS = [
+    ];
+    var zoneAvis = document.getElementById('t-avis');
+    var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    if (AVIS.length && zoneAvis) {
+      zoneAvis.innerHTML = AVIS.slice(0, 6).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.depuis ? ' · ' + esc(a.depuis) : '') + '</figcaption></figure>'; }).join('');
+      document.getElementById('avis').hidden = false;
+    }
+    var barre = document.getElementById('t-barre'), hero = document.querySelector('.t-hero'), fin = document.querySelector('.t-final');
+    if (barre && hero && 'IntersectionObserver' in window) {
+      var vuHero = true, vuFin = false;
+      var maj = function () { var cacher = vuHero || vuFin; barre.hidden = cacher; document.body.classList.toggle('avec-barre', !cacher); };
+      new IntersectionObserver(function (e) { vuHero = e[0].isIntersecting; maj(); }).observe(hero);
+      if (fin) new IntersectionObserver(function (e) { vuFin = e[0].isIntersecting; maj(); }).observe(fin);
+    }
+  })();
+  </script>
+</body>
+</html>
