@@ -327,7 +327,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
-  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'questionnaire.html' || page === 'cercle.html'   /* cercle.html : l'appli des membres, sans publicité */
+  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'questionnaire.html' || page === 'cercle.html' || page === 'pass.html'   /* cercle.html, pass.html : les applis des membres, sans publicité */
     || page === 'abonnement.html'                                                            /* la page de vente : une seule décision, pas d'autre encart */
     || (page === 'login.html' && /[?&]retour=essai\.html/.test(location.search));          /* création du compte depuis l'essai : on reste sur les rails */
 
@@ -1383,6 +1383,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   }
   /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
+  /* le Pass (ou Le Cercle, qui le contient) : l'appli « Mon enquête », Mon mois, l'agenda */
+  function pass() { return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass)); }, function () { return false; }); }
   /* Le suivi par étapes (cycle 2) : le parcours suit le mois d'abonnement, pas le mois du calendrier.
      Mois d'abonnement compté depuis acces_premium.cree_le, mois 1 le premier mois (même calcul que v_mois dans
      outils-internes/supabase-seances.sql et que moisDepuis() dans mes-seances.js). Étape en cours = min(mois, 12).
@@ -1477,7 +1479,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     var el = e.target.closest('[data-payer]'); if (!el) return;
     e.preventDefault(); payer(el.getAttribute('data-payer'), el);
   });
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, pass: pass, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */
   if (page === 'abonnement.html' && aUnCompte() && !/[?&]voir=1\b/.test(location.search)) membre().then(function (m) { if (m) location.replace('cercle.html'); });
@@ -1706,7 +1708,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     'mon-carnet.html', 'mon-suivi.html', 'mon-suivi-mois.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'mes-seances.html', 'point-de-depart.html',
     'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'question-du-mois.html',
     'cgv.html', 'mentions-legales.html', 'confidentialite.html', 'conditions-utilisation.html',
-    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'offrir.html'];
+    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'offrir.html', 'pass.html'];
   if (SANS.indexOf(page) >= 0) return;
   var THEMES = {
     'memoire-transgenerationnelle.html': 'la mémoire transgénérationnelle', 'syndrome-anniversaire.html': 'le syndrome d’anniversaire',

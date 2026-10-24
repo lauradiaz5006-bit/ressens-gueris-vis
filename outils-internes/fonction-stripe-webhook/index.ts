@@ -216,8 +216,8 @@ async function remercier(uid: string, cle: string, session: any) {
   const prenom = String(u?.user?.user_metadata?.full_name ?? session.customer_details?.name ?? "").trim().split(/\s+/)[0] || null;
   const o = OFFRES[cle], nom = NOMS[cle] ?? cle, montant = session.amount_total ?? 0, abo = !!session.subscription;
   const fam = o?.fam;
-  const lien = fam === "cercle" ? SITE + "/cercle.html" : fam === "praticien" ? SITE + "/praticien.html" : SITE + "/login.html";
-  const bouton = fam === "cercle" ? "Ouvrir mon Cercle" : fam === "praticien" ? "Ouvrir mon Espace praticien" : "Ouvrir mon espace";
+  const lien = fam === "cercle" ? SITE + "/cercle.html" : fam === "pass" ? SITE + "/pass.html" : fam === "praticien" ? SITE + "/praticien.html" : SITE + "/login.html";
+  const bouton = fam === "cercle" ? "Ouvrir mon Cercle" : fam === "pass" ? "Ouvrir mon enquête" : fam === "praticien" ? "Ouvrir mon Espace praticien" : "Ouvrir mon espace";
   const surtitre = fam === "cercle" ? "Le Cercle" : fam === "pass" ? "Le Pass" : fam === "praticien" ? "Espace praticien" : "Genesolia";
   const { data: c } = await sb.rpc("n8n_enregistrer_contact", { p_email: email, p_prenom: prenom, p_champs: { compte: true, user_id: uid } });
   await sb.from("mails").insert({
