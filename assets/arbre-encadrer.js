@@ -390,7 +390,7 @@
   }
 
   /* Styles à l'horizontale (assets/arbre-lignee.js) : « Lignée » (cartes) et « Médaillons » (médaillons peints) */
-  var PAYSAGE = { lignee: '', medaillons: 'medaillons', famille: '' };   /* « Notre famille » : la Lignée, avec le couple et les deux lignées */
+  var PAYSAGE = { lignee: '', medaillons: 'medaillons', famille: '', famille_medaillons: 'medaillons' };   /* « Notre famille » : la Lignée, avec le couple et les deux lignées */
   function svgStyle(donnees, o) {
     o = o || {};
     if (o.cadre !== undefined && o.format) { var a = svgStyle(donnees, Object.assign({}, o, { cadre: undefined, format: undefined, scene: false, fondPerdu: false })); return enCadre(a, o); }
@@ -423,10 +423,12 @@
   function svgStyle0(donnees, o) {
     var st = o.style || donnees.style;
     if (st === 'grand' && window.ArbreGrand) return window.ArbreGrand.svg(donnees, { fond: o.decor || undefined, medaillon: (o.sprites && o.sprites.medaillon) || 'assets/arbre/medaillon-or.png', apercu: o.apercu, fondPerdu: o.fondPerdu });
-    if (st === 'eventail' && window.ArbreEventail) return window.ArbreEventail.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st === 'desc_eventail' && window.ArbreEventailDesc) return window.ArbreEventailDesc.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (/^desc/.test(st) && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied, theme: st === 'desc_medaillons' ? 'medaillons' : st === 'desc_dore' ? 'dore' : '', sprites: o.sprites, decor: o.decor });
+    if ((st === 'eventail' || st === 'famille_eventail') && window.ArbreEventail) return window.ArbreEventail.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     if (st === 'descendants' && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     if (st in PAYSAGE && window.ArbreLignee) return window.ArbreLignee.svg(donnees, { paysage: !donnees.portrait, a3: donnees.a3 || false, motif: PAYSAGE[st], sprites: o.sprites, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     return st === 'figuier' ? svgFiguier(donnees, o) : svg(donnees, o);
   }
-  window.ArbreEncadrer = { svg: svgStyle, sceneOk: sceneOk, paysage: function (st) { return st in PAYSAGE || st === 'grand' || st === 'descendants' || st === 'eventail'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
+  window.ArbreEncadrer = { svg: svgStyle, sceneOk: sceneOk, paysage: function (st) { return st in PAYSAGE || st === 'grand' || /^desc/.test(st) || st === 'eventail' || st === 'famille_eventail'; }, styles: [['famille', 'Notre famille'], ['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail'], ['dore', 'Arbre doré'], ['descendants', 'Descendants']] };
 })();

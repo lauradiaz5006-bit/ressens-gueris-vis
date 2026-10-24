@@ -274,15 +274,12 @@ window.GENESOLIA_IMPRESSION = {
   formats: [
     { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2575, mm: [218, 305] },
     { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3002, mm: [305, 428] },
-    { id: 'a4cadre', nom: 'A4 encadré, cadre bois naturel',    prix: '59 €', stripe: 'impressionA4Cadre', largeur: 2575, mm: [218, 305] },
-    { id: 'a3cadre', nom: 'A3 encadré, cadre bois naturel',    prix: '69 €', stripe: 'impressionA3Cadre', largeur: 3002, mm: [305, 428] },
     /* grands formats (Lignée, Médaillons, Notre famille, Descendants, Éventail) : imprimés en Europe, livrés en 6 à 11 jours ouvrés.
        Tant que son lien Stripe (plus haut) est vide, la commande arrive quand même, sans paiement : il faut alors envoyer le lien de paiement à la main.
        largeur : réglée au moment du fichier (le plus net possible). */
     { id: 'g50',      nom: 'Grand poster 50 × 70 cm',                 prix: '59 €',  stripe: 'impressionG50',      largeur: 3300, mm: [508, 708], grand: true },
-    { id: 'g70',      nom: 'Très grand poster 70 × 100 cm',           prix: '69 €',  stripe: 'impressionG70',      largeur: 3300, mm: [708, 1008], grand: true },
-    { id: 'g50cadre', nom: '50 × 70 cm encadré, bois naturel',  prix: '129 €', stripe: 'impressionG50Cadre', largeur: 3300, mm: [508, 708], grand: true },
-    { id: 'g70cadre', nom: '70 × 100 cm encadré, bois naturel', prix: '169 €', stripe: 'impressionG70Cadre', largeur: 3300, mm: [708, 1008], grand: true }
+    { id: 'g70',      nom: 'Très grand poster 70 × 100 cm',           prix: '69 €',  stripe: 'impressionG70',      largeur: 3300, mm: [708, 1008], grand: true }
+    /* posters seuls (plus d'encadrés depuis le 24/10/2026) : papier d'art mat 200 g/m² non couché chez Gelato */
   ]
 };
 

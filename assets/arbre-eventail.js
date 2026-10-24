@@ -151,11 +151,22 @@
     var traits = '<path d="M' + CX + ' ' + (CY - P.r0) + 'V' + f1(CY - P.rayon) + '" stroke="' + OR + '" stroke-width="5"/>';
     /* toi, au centre : une demi-lune prune, ton nom en clair */
     var moi = d.moi, r0 = P.r0, fz0 = Math.max(min, Math.min(Math.round(P.fzB * 1.5), 64));
-    var l0 = lignes(moi, 3, fz0, min, true);
+    /* « Notre famille » en éventail : le couple dans le premier anneau (sa lignée à gauche, celle de l'autre à droite), leurs enfants au centre */
+    function lignesCentre(fz, complet) {
+      if (!moi.couple) return lignes(moi, 3, fz, min, complet);
+      var ens = (d.enfants || []).map(function (e) { return String(e.prenom || '').trim().split(/\s+/)[0]; }).filter(Boolean);
+      var pr = function (q) { return q ? String(q.prenom || '').trim().split(/\s+/)[0] : ''; };
+      if (!ens.length) return [[[pr(moi.pere), pr(moi.mere)].filter(Boolean).join(' & ') || 'Notre famille', fz, GN, false, 'ev-nom']];
+      var t = ens.length > 1 ? ens.slice(0, -1).join(', ') + ' & ' + ens[ens.length - 1] : ens[0];
+      var l = [[t, fz, GN, false, 'ev-nom']];
+      if (ens.length > 2 && !complet) l = [[ens.slice(0, Math.ceil(ens.length / 2)).join(', '), fz, GN, false, 'ev-nom'], [(ens.length > 1 ? '& ' : '') + ens.slice(Math.ceil(ens.length / 2)).join(', ').replace(/, ([^,]*)$/, ' & $1'), fz, GN, false, 'ev-nom']];
+      return l;
+    }
+    var l0 = lignesCentre(fz0, true);
     /* chaque ligne doit tenir dans la demi-lune, à sa hauteur */
     function tient(l) { var h = hauteur(l), yc = r0 * .44, y = yc + h / 2; return l.every(function (x) { var top = y; y -= x[1] * 1.18; return 2 * Math.sqrt(Math.max(0, r0 * r0 - top * top)) * .86 >= larg(x[0], x[1], x[2], x[3]); }); }
     var complet = true;
-    while (!tient(l0)) { if (complet && fz0 < 44) { complet = false; fz0 = Math.max(min, Math.min(Math.round(P.fzB * 1.5), 64)); } else if (fz0 > min) fz0--; else break; l0 = lignes(moi, 3, fz0, min, complet); }
+    while (!tient(l0)) { if (complet && fz0 < 44) { complet = false; fz0 = Math.max(min, Math.min(Math.round(P.fzB * 1.5), 64)); } else if (fz0 > min) fz0--; else break; l0 = lignesCentre(fz0, complet); }
     var centre = '<path d="M' + f1(CX - r0) + ' ' + CY + 'A' + r0 + ' ' + r0 + ' 0 0 1 ' + f1(CX + r0) + ' ' + CY + 'Z" fill="' + PRUNE + '"/>' +
       '<path d="M' + f1(CX - r0 + 16) + ' ' + CY + 'A' + (r0 - 16) + ' ' + (r0 - 16) + ' 0 0 1 ' + f1(CX + r0 - 16) + ' ' + CY + '" fill="none" stroke="' + OR_CLAIR + '" stroke-width="3" opacity=".8"/>' +
       '<g transform="translate(' + CX + ' ' + f1(CY - r0 * .44) + ')" class="ev-moi">' + bloc(l0) + '</g>';
@@ -164,8 +175,9 @@
       '<path d="M' + f1(CX - Rx - 22) + ' ' + CY + 'A' + f1(Rx + 22) + ' ' + f1(Rx + 22) + ' 0 0 1 ' + f1(CX + Rx + 22) + ' ' + CY + '" fill="none" stroke="' + OR_CLAIR + '" stroke-width="3"/>' +
       '<path d="M' + f1(CX - Rx - 22) + ' ' + CY + 'H' + f1(CX + Rx + 22) + '" stroke="' + OR + '" stroke-width="5"/>';
     var fzC = Math.max(min, 36);
-    var cotes = R.length > 1 ? '<text x="' + f1(CX - Rx / 2) + '" y="' + (CY + 78) + '" text-anchor="middle" class="ev-cote" font-size="' + fzC + '">Côté paternel</text>' +
-      '<text x="' + f1(CX + Rx / 2) + '" y="' + (CY + 78) + '" text-anchor="middle" class="ev-cote" font-size="' + fzC + '">Côté maternel</text>' : '';
+    var pc = function (q) { return q ? String(q.prenom || '').trim().split(/\s+/)[0] : ''; }, cg = moi.couple ? 'Lignée de ' + pc(moi.pere) : 'Côté paternel', cd = moi.couple ? 'Lignée de ' + pc(moi.mere) : 'Côté maternel';
+    var cotes = R.length > 1 ? '<text x="' + f1(CX - Rx / 2) + '" y="' + (CY + 78) + '" text-anchor="middle" class="ev-cote" font-size="' + fzC + '">' + esc(cg) + '</text>' +
+      '<text x="' + f1(CX + Rx / 2) + '" y="' + (CY + 78) + '" text-anchor="middle" class="ev-cote" font-size="' + fzC + '">' + esc(cd) + '</text>' : '';
     var feuille = function (x, yy, a, t, coul) { return '<path d="M0 0C' + t * .35 + ' ' + -t * .28 + ' ' + t * .75 + ' ' + -t * .22 + ' ' + t + ' 0C' + t * .75 + ' ' + t * .22 + ' ' + t * .35 + ' ' + t * .28 + ' 0 0Z" fill="' + coul + '" transform="translate(' + x + ' ' + yy + ') rotate(' + a + ')"/>'; };
     var titre = '<text x="' + W / 2 + '" y="300" text-anchor="middle" class="li-titre">' + esc(d.titre || 'Mon arbre') + '</text>' +
       '<g transform="translate(0 -84)"><path d="M' + (W / 2 - 360) + ' 470C' + (W / 2 - 150) + ' 446 ' + (W / 2 + 150) + ' 494 ' + (W / 2 + 360) + ' 466" stroke="' + OR + '" stroke-width="3" fill="none"/>' +
