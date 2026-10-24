@@ -423,7 +423,7 @@
   function svgStyle0(donnees, o) {
     var st = o.style || donnees.style;
     if (st === 'grand' && window.ArbreGrand) return window.ArbreGrand.svg(donnees, { fond: o.decor || undefined, medaillon: (o.sprites && o.sprites.medaillon) || 'assets/arbre/medaillon-or.png', apercu: o.apercu, fondPerdu: o.fondPerdu });
-    if (st === 'lumiere' && window.ArbreLumiere) return window.ArbreLumiere.svg(donnees, { apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
+    if (st === 'lumiere' && window.ArbreLumiere) return window.ArbreLumiere.svg(donnees, { apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied, decor: o.decor });
     if (st === 'desc_eventail' && window.ArbreEventailDesc) return window.ArbreEventailDesc.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
     if (/^desc/.test(st) && window.ArbreDescendants) return window.ArbreDescendants.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied, theme: st === 'desc_medaillons' ? 'medaillons' : st === 'desc_dore' ? 'dore' : '', sprites: o.sprites, decor: o.decor });
     if ((st === 'eventail' || st === 'famille_eventail') && window.ArbreEventail) return window.ArbreEventail.svg(donnees, { a3: donnees.a3 || false, apercu: o.apercu, fondPerdu: o.fondPerdu, pied: o.pied });
