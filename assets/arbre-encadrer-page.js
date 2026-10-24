@@ -257,7 +257,7 @@
       var n = annee(p.naiss); if (n && (!plusVieux || n < plusVieux)) plusVieux = n;
       if (n && (!plusJeune || n > plusJeune)) plusJeune = n;
       if (!p.deces && !p.decede && n && n > new Date().getFullYear() - 105) vivant = true;   /* sans date de naissance, on ne suppose pas la personne en vie */
-      var o = { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: n, deces: annee(p.deces) || null };
+      var o = { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: n, deces: annee(p.deces) || null, decede: !!p.decede };
       if (g < maxG - 1) {
         var ps = parentsDe(id), pere = null, mere = null;
         ps.forEach(function (x) { if (P[x].sex === 'f' && !mere) mere = x; else if (P[x].sex === 'm' && !pere) pere = x; });
@@ -609,7 +609,7 @@
     return window.jspdf ? Promise.resolve(window.jspdf.jsPDF) : new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = 'assets/jspdf.umd.min.js'; sc.onload = function () { ok(window.jspdf.jsPDF); }; sc.onerror = ko; document.head.appendChild(sc); });
   }
   /* Grands formats : l'image est dessinée en bandes horizontales (chaque bande reste sous la limite du navigateur, iPhone compris),
-     pour atteindre 200 dpi sur toute l'affiche (Gelato conseille 150 dpi au moins, 300 idéal). Les bandes se recouvrent de 2 pixels : aucun liseré blanc. */
+     pour atteindre 300 dpi sur ordinateur (200 sur iPhone) sur toute l'affiche (Gelato conseille 150 dpi au moins, 300 idéal). Les bandes se recouvrent de 2 pixels : aucun liseré blanc. */
   function versBandes(svg, lw, maxPx) {
     var t = svg.match(/width="(\d+)" height="(\d+)"/), lh = Math.round(lw * (t ? t[2] / t[1] : 1.414)), hb = Math.max(256, Math.floor(maxPx / lw));
     return new Promise(function (ok, ko) {
@@ -649,7 +649,7 @@
     }
     var repli = function () { return simple(Math.round(Math.min(mm[0] / 25.4 * 300, Math.sqrt((ios ? 16e6 : 40e6) * mm[0] / mm[1])))); };
     if (!grandF) return simple(larg).catch(function () { return ''; });
-    var lw200 = Math.round(mm[0] / 25.4 * 200);
+    var lw200 = Math.round(mm[0] / 25.4 * (ios ? 200 : 300));   /* 300 dpi sur ordinateur ; 200 dpi sur iPhone et iPad (au-delà, Safari ne sait plus dessiner l'image) */
     return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versBandes(svg, lw200, ios ? 12e6 : 30e6); }).then(function (r) {
       return Promise.all([chargerJsPdf()].concat(r.bandes.map(function (x) { return x.b.arrayBuffer(); }))).then(function (x) {
         return enPdf(x[0], r.bandes.map(function (bd, i) { return { u8: new Uint8Array(x[i + 1]), y: bd.y, h: bd.h }; }), r.lh);
