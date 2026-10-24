@@ -187,7 +187,7 @@
     $('form-mdp').addEventListener('submit', function (e) {
       e.preventDefault();
       var v = $('p-mdp').value;
-      if (v.length < 8) { info('Le mot de passe doit faire au moins 8 caractères.', true); return; }
+      if (v.length < 10) { info('Le mot de passe doit faire au moins 10 caractères.', true); return; }
       sb.auth.updateUser({ password: v }).then(function (r) {
         if (r.error) {
           var t = String(r.error.message || '').toLowerCase();
