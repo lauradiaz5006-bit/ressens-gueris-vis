@@ -76,7 +76,7 @@
   function formulaire(cabinet) {
     var h = '<p class="gq-etiq">Avant ta séance' + (cabinet ? ' avec ' + esc(cabinet) : '') + '</p><h1>Ton histoire familiale, en quelques pages</h1>' +
       '<p class="gq-intro">' + (cabinet ? esc(cabinet) + ' t’a envoyé ce questionnaire' : 'Ton·ta praticien·ne t’a envoyé ce questionnaire') + ' pour préparer votre séance. Note ce que tu sais, à ton rythme : tes réponses arriveront dans son espace, et ton arbre sera déjà dessiné quand vous vous verrez.</p>' +
-      '<div class="gq-astuce"><b>Une case vide est une information.</b> Laisse vide ce que tu ne sais pas, et écris « on m’a dit que… » quand c’est un récit plutôt qu’un fait. Ton brouillon reste sur cet appareil jusqu’à l’envoi : tu peux revenir plus tard avec le même lien.</div>';
+      '<div class="gq-astuce"><b>Une case vide est une information.</b> Laisse vide ce que tu ne sais pas, et écris « on m’a dit que… » quand c’est un récit plutôt qu’un fait. Ton brouillon reste sur cet appareil jusqu’à l’envoi : tu peux revenir plus tard avec le même lien. Tes réponses ne seront lues que par ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + '.</div>';
     h += '<section class="gq-carte"><h2>Toi</h2><p>Commence par toi.</p>' + personne('toi', 'Toi', '', { moi: true, ouvert: true }) + '</section>';
     h += '<section class="gq-carte"><h2>Tes parents</h2><p>Les parents qui t’ont donné la vie. Si tu ne les connais pas, laisse vide : c’est une information aussi.</p>' +
       personne('m', 'Ta mère', 'f', { ouvert: true }) + personne('p', 'Ton père', 'm') +
@@ -94,8 +94,9 @@
       '<label>Ce qui te semble se répéter dans ta famille<textarea data-g="repete" maxlength="2000">' + esc(G.repete || '') + '</textarea></label>' +
       '<label>Ce qui t’amène à cet accompagnement, aujourd’hui<textarea data-g="attente" maxlength="2000">' + esc(G.attente || '') + '</textarea></label>' +
       '<label><span>Ce dont on ne parle pas dans ta famille <small>(si tu veux en dire un mot)</small></span><textarea data-g="silences" maxlength="2000">' + esc(G.silences || '') + '</textarea></label></div></section>';
-    h += '<div class="gq-fin"><button class="btn btn-plein" type="button" data-envoyer style="width:100%">Envoyer mes réponses' + (cabinet ? ' à ' + esc(cabinet) : '') + '</button><p class="gq-err" role="alert"></p><p class="gq-sauve"></p>' +
-      '<p class="gq-sauve">Tes réponses ne sont lues que par ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + '. Elles sont hébergées en Europe (Irlande). Tu ne pourras plus les modifier après l’envoi.</p></div>';
+    h += '<div class="gq-fin"><p class="gq-confid"><b>Qui lit tes réponses ?</b> Seulement ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ', dans son espace protégé. Elles sont hébergées en Europe (Irlande), ne sont ni revendues ni partagées, et ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ' peut les supprimer à ta demande. <a href="confidentialite.html" target="_blank" rel="noopener">Confidentialité</a></p>' +
+      '<button class="btn btn-plein" type="button" data-envoyer style="width:100%">Envoyer mes réponses' + (cabinet ? ' à ' + esc(cabinet) : '') + '</button><p class="gq-err" role="alert"></p><p class="gq-sauve"></p>' +
+      '<p class="gq-sauve">Tu ne pourras plus les modifier après l’envoi.</p></div>';
     var ouverts = [].map.call(z.querySelectorAll('details[open]'), function (d) { return d.getAttribute('data-pers'); });
     z.innerHTML = h;
     ouverts.forEach(function (k) { var d = z.querySelector('details[data-pers="' + k + '"]'); if (d) d.open = true; });
