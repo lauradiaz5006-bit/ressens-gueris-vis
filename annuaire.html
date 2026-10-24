@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Annuaire des praticien·nes en psychogénéalogie · Genesolia</title>
+  <meta name="description" content="Trouve un·e praticien·ne en psychogénéalogie près de chez toi ou en visio, pour t’accompagner dans la lecture de ton arbre familial et de ce qui se répète dans ta lignée.">
+  <link rel="canonical" href="https://genesolia.fr/annuaire.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .an-tete{background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#F7E6EE}
+    .an-tete .conteneur{padding:3.2rem 0 2.8rem;max-width:52rem}
+    .an-tete h1{color:#fff;font-size:clamp(2rem,4.5vw,3rem);line-height:1.1;margin:0 0 .9rem}
+    .an-tete p{color:#F7E6EE;font-size:1.08rem;max-width:42rem;margin:0}
+    .an-etiq{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair,#F3DCC0);margin:0 0 .6rem}
+    .an-filtres{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1.6rem 0 1.2rem}
+    .an-filtres input[type=search],.an-filtres select{font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune)}
+    .an-filtres input[type=search]{flex:1 1 16rem}
+    .an-filtres label{display:flex;gap:.45rem;align-items:center;font-size:.93rem}
+    .an-filtres label input{width:20px;height:20px;accent-color:var(--prune)}
+    .an-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin:0 0 2rem}
+    .an-carte{background:#fff;border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem;display:flex;flex-direction:column;gap:.55rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .an-carte h2{font-size:1.35rem;margin:0}
+    .an-act{color:var(--champagne);font-weight:600;font-size:.88rem;margin:0}
+    .an-lieu{color:var(--prune-doux);font-size:.9rem;margin:0}
+    .an-badges{display:flex;flex-wrap:wrap;gap:.35rem}
+    .an-badges span{font-size:.78rem;font-weight:600;padding:.25rem .6rem;border-radius:99px;background:#FCEFF3;color:var(--prune)}
+    .an-pres{font-size:.95rem;line-height:1.55;margin:0;white-space:pre-line}
+    .an-contact{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:auto;padding-top:.4rem}
+    .an-contact .btn{padding:.55rem .95rem;font-size:.88rem;min-height:40px}
+    .an-vide{text-align:center;color:var(--prune-doux);padding:2rem 1rem;background:#fff;border:1px dashed var(--rose);border-radius:var(--rayon)}
+    .an-note{font-size:.88rem;color:var(--prune-doux);max-width:46rem}
+    .an-pro{margin:2.4rem 0 3rem;padding:1.6rem;border-radius:var(--rayon);background:#FFF6EC;border:1px solid #F3DCC0;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+    .an-pro p{margin:0;max-width:36rem}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="an-tete"><div class="conteneur">
+      <p class="an-etiq">Annuaire</p>
+      <h1>Te faire accompagner dans la lecture de ton arbre</h1>
+      <p>Ton arbre fait apparaître des dates, des prénoms, des façons de vivre qui se répètent. Pour aller plus loin, un·e praticien·ne peut t’aider à les regarder et à choisir ce que tu gardes. Toutes et tous utilisent Genesolia avec leurs client·es.</p>
+    </div></section>
+    <section class="bloc"><div class="conteneur">
+      <div class="an-filtres" role="search">
+        <input type="search" id="an-q" placeholder="Une ville, un code postal, un nom" aria-label="Chercher une ville, un code postal ou un nom" autocomplete="off">
+        <select id="an-pratique" aria-label="Pratique"><option value="">Toutes les pratiques</option></select>
+        <label><input type="checkbox" id="an-visio"> En visio</label>
+      </div>
+      <div id="an-liste" class="an-liste" aria-live="polite"><p class="an-vide">Chargement…</p></div>
+      <p class="an-note">Les fiches sont rédigées par les praticien·nes et relues par Genesolia avant leur mise en ligne. Genesolia ne choisit pas pour toi et ne garantit pas les accompagnements : prends le temps d’échanger avec la personne avant de commencer. Un accompagnement ne remplace pas un avis médical.</p>
+      <div class="an-pro"><p><b>Tu es praticien·ne ?</b> Ta fiche dans l’annuaire est comprise dans ton Espace praticien Genesolia.</p><a class="btn btn-plein" href="espace-praticien.html">Découvrir l’Espace praticien</a></div>
+    </div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB = 'https://qsvzzkjtjsznfntahvvh.supabase.co', CLE = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', toutes = [];
+    var z = document.getElementById('an-liste');
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function sans(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+    function lien(u) { return /^https?:\/\//i.test(u || '') ? esc(u) : ''; }
+    function carte(f) {
+      var lieu = [f.ville, f.code_postal ? '(' + f.code_postal + ')' : '', f.pays && f.pays !== 'France' ? f.pays : ''].filter(Boolean).join(' ');
+      var c = [];
+      if (lien(f.lien_rdv)) c.push('<a class="btn btn-plein" href="' + lien(f.lien_rdv) + '" target="_blank" rel="noopener nofollow">Prendre rendez-vous</a>');
+      if (lien(f.site_web)) c.push('<a class="btn btn-trait" href="' + lien(f.site_web) + '" target="_blank" rel="noopener nofollow">Son site</a>');
+      if (f.email_public) c.push('<a class="btn btn-trait" href="mailto:' + esc(f.email_public) + '">Écrire</a>');
+      if (f.telephone) c.push('<a class="btn btn-trait" href="tel:' + esc(String(f.telephone).replace(/[^\d+]/g, '')) + '">' + esc(f.telephone) + '</a>');
+      return '<article class="an-carte"><h2>' + esc(f.nom) + '</h2>' + (f.activite || f.pratique ? '<p class="an-act">' + esc([f.pratique, f.activite].filter(Boolean).join(' · ')) + '</p>' : '') +
+        (lieu ? '<p class="an-lieu">' + esc(lieu) + '</p>' : '') +
+        '<div class="an-badges">' + (f.presentiel ? '<span>En cabinet</span>' : '') + (f.visio ? '<span>En visio</span>' : '') + '</div>' +
+        (f.presentation ? '<p class="an-pres">' + esc(f.presentation) + '</p>' : '') + '<div class="an-contact">' + c.join('') + '</div></article>';
+    }
+    function rendre() {
+      var q = sans(document.getElementById('an-q').value).trim(), pr = document.getElementById('an-pratique').value, vi = document.getElementById('an-visio').checked;
+      var l = toutes.filter(function (f) {
+        if (pr && f.pratique !== pr) return false;
+        if (vi && !f.visio) return false;
+        if (!q) return true;
+        var h = sans([f.nom, f.activite, f.ville, f.code_postal, f.pays].join(' '));
+        return h.indexOf(q) >= 0 || (/^\d{2}/.test(q) && String(f.code_postal || '').indexOf(q.slice(0, 2)) === 0);
+      });
+      z.innerHTML = l.length ? l.map(carte).join('') : '<p class="an-vide">' + (toutes.length ? 'Personne ne correspond encore à ta recherche. Essaie « En visio » : beaucoup de praticien·nes accompagnent à distance.' : 'Les premières fiches arrivent. Reviens bientôt, ou commence dès maintenant ton arbre : il te servira le jour de ta première séance.<br><br><a class="btn btn-plein" href="genosociogramme.html">Commencer mon arbre</a>') + '</p>';
+    }
+    fetch(SB + '/rest/v1/annuaire_praticiens?select=user_id,nom,activite,pratique,ville,code_postal,pays,visio,presentiel,presentation,site_web,lien_rdv,telephone,email_public,cree_le&order=cree_le.asc', { headers: { apikey: CLE } })
+      .then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; }).then(function (l) {
+        toutes = Array.isArray(l) ? l : [];
+        var ps = toutes.map(function (f) { return f.pratique; }).filter(function (p, i, a) { return p && a.indexOf(p) === i; }).sort();
+        document.getElementById('an-pratique').insertAdjacentHTML('beforeend', ps.map(function (p) { return '<option>' + esc(p) + '</option>'; }).join(''));
+        rendre();
+      });
+    ['an-q', 'an-pratique', 'an-visio'].forEach(function (id) { document.getElementById(id).addEventListener('input', rendre); document.getElementById(id).addEventListener('change', rendre); });
+  })();
+  </script>
+</body>
+</html>

@@ -566,6 +566,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
+            '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Guides</h4><ul>' +
