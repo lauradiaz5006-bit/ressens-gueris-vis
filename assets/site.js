@@ -1638,3 +1638,27 @@ window.GENESOLIA_IMPRESSION = {
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else setTimeout(demarrer, 0);
 })();
+
+/* Connexion en deux étapes : un compte qui l'a activée et dont la session n'est pas encore confirmée (aal1) doit taper son code.
+   Vérification locale (le jeton de session), sans appel réseau ; la fenêtre du code ne s'ouvre que si c'est nécessaire. */
+(function () {
+  function aVerifier() {
+    try {
+      var s = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null');
+      if (!s || !s.access_token || !s.user) return false;
+      var f = (s.user.factors || []).some(function (x) { return x.status === 'verified'; }); if (!f) return false;
+      var p = JSON.parse(decodeURIComponent(escape(atob(s.access_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+      return p.aal !== 'aal2';
+    } catch (e) { return false; }
+  }
+  function lancer() {
+    if (!aVerifier() || !window.supabase) return;
+    function go() {
+      var sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg');
+      window.GenesoliaDeuxEtapes.verifier(sb).then(function () { setTimeout(function () { if (!aVerifier()) location.reload(); }, 400); });   /* jamais de boucle : on ne recharge que si la session est bien confirmée */
+    }
+    if (window.GenesoliaDeuxEtapes) go();
+    else { var sc = document.createElement('script'); sc.src = 'assets/deux-etapes.js?v=1'; sc.onload = go; document.head.appendChild(sc); }
+  }
+  if (document.readyState === 'complete') lancer(); else window.addEventListener('load', lancer);
+})();
