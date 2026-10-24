@@ -416,6 +416,13 @@ window.GENESOLIA_IMPRESSION = {
       '<a class="ea-moi" href="cercle.html#moi" aria-label="Moi : mon espace du Cercle">' + (nomU ? nomU.charAt(0).toUpperCase().replace(/[<>&"]/g, '') : '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICO.moi + '</svg>') + '</a></div>';
     entete = null;
   }
+  /* Dans l'appli Genesolia Pro, un dossier ouvert garde l'en-tête de l'appli : le retour aux dossiers, sans le menu du site */
+  if (entete && drapeau === 'pro' && page !== 'pro.html') {
+    entete.className = 'entete entete-appli entete-pro';
+    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="pro.html"><img src="/assets/icones/pro-192.png" alt="" width="30" height="30">Genesolia Pro</a>' +
+      '<a class="ea-retour" href="pro.html" style="margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--rose);border-radius:99px;padding:.45rem .9rem;font:600 .86rem var(--texte);color:var(--prune);text-decoration:none;background:#fff">‹ Mes dossiers</a></div>';
+    entete = null;
+  }
   if (entete) {
     var liens = MENU.map(function (l) {
       return '<a href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
@@ -448,7 +455,7 @@ window.GENESOLIA_IMPRESSION = {
     /* Praticien·ne connecté·e : « Tu es praticien·ne ? » devient « Mon espace praticien » (et plus la page de vente) */
     (function () {
       var lien = entete.querySelector('.menu-pro'); if (!lien) return;
-      function marquer(oui) { if (!oui) return; lien.href = 'praticien.html'; lien.textContent = 'Mon espace praticien'; lien.removeAttribute('aria-current'); }
+      function marquer(oui) { if (!oui) return; lien.href = 'pro.html'; lien.textContent = 'Mon espace praticien'; lien.removeAttribute('aria-current'); }
       var x = null; try { x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
       if (!x || !x.access_token || !x.user) { try { localStorage.removeItem('genesolia-est-praticien'); } catch (e) {} return; }
       var cle = 'genesolia-est-praticien', memo = null; try { memo = localStorage.getItem(cle); } catch (e) {}

@@ -47,6 +47,12 @@
     .p-prix{font-family:var(--display);color:var(--prune);text-align:center}
     .p-prix small{display:block;font:400 .9rem var(--texte);color:var(--prune-doux)}
     .p-prix b{display:block;font-weight:400;font-size:3rem;line-height:1}
+    .p-appli{display:grid;grid-template-columns:auto 1fr;gap:2.4rem;align-items:center}
+    .p-appli-ecrans{display:flex;gap:1rem}.p-appli-ecrans figure{margin:0;text-align:center}
+    .p-appli-ecrans img{display:block;width:200px;height:auto;border-radius:26px;border:6px solid #2E1338;box-shadow:0 18px 40px rgba(46,19,56,.18)}
+    .p-appli-ecrans figcaption{font-size:.85rem;color:var(--prune-doux);margin-top:.5rem}
+    .p-appli-barre{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}.p-appli-barre span{padding:.35rem .8rem;border-radius:99px;background:linear-gradient(160deg,#5A2650,#3E1A3A);color:#F6E2B8;font-size:.82rem;font-weight:700}
+    @media (max-width:860px){.p-appli{grid-template-columns:1fr}.p-appli-ecrans{justify-content:center}.p-appli-ecrans img{width:min(42vw,200px)}}
     .p-tarif ul{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.55rem}
     .p-tarif li,.p-confi li{position:relative;padding-left:1.5rem;line-height:1.5}
     .p-tarif li::before,.p-confi li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
@@ -183,7 +189,7 @@
           <h1>Le logiciel qui dessine le génosociogramme de tes client·es en quelques minutes</h1>
           <p class="intro">Un logiciel en ligne pour les professionnel·les de l’accompagnement : un dossier par client·e, l’arbre en plein écran pendant la séance, les répétitions qui ressortent toutes seules, et l’arbre remis à la fin du travail.</p>
           <div class="p-actions">
-            <a class="btn btn-plein" href="praticien.html">Ouvrir mon Espace praticien · 30 jours d’essai</a>
+            <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien · 30 jours d’essai</a>
             <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir la démo</a>
           </div>
           <p class="p-pour">Sans carte bancaire. Espace ouvert jusqu’au 31 mars 2027 : <b>19 € par mois (ou 190 € l’année) au lieu de 24 €</b>, garanti tant que ton abonnement continue. <a href="conditions-praticien.html" style="color:inherit">Conditions de l’Espace praticien</a>.</p>
@@ -305,7 +311,28 @@
           </div>
           <p class="p-partage-note"><b>Dans les deux cas, tes notes de séance ne sont jamais visibles ni copiées.</b> Un lien reste valable 14 jours, se renouvelle en un clic depuis le dossier et se désactive à tout moment. Tu choisis aussi ce qu’il montre : l’arbre seul, ou avec les répétitions, sans les pistes délicates si tu préfères. Tu peux décocher « Travail terminé » à tout moment : ce qui a déjà été gardé reste chez tes client·es.</p>
         </div>
-        <p class="p-cta"><a class="btn btn-plein" href="praticien.html">Commencer mes 30 jours d’essai</a></p>
+        <p class="p-cta"><a class="btn btn-plein" href="pro.html">Commencer mes 30 jours d’essai</a></p>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur p-appli">
+        <div class="p-appli-ecrans">
+          <figure><img src="assets/images/praticien/appli-pro-dossiers.webp" width="540" height="1168" alt="L’appli Genesolia Pro : tes dossiers client·es et la barre du bas" loading="lazy" decoding="async"><figcaption>Tes dossiers</figcaption></figure>
+          <figure><img src="assets/images/praticien/appli-pro-dossier-ouvert.webp" width="540" height="1168" alt="L’appli Genesolia Pro : un dossier ouvert sur téléphone" loading="lazy" decoding="async"><figcaption>Un dossier ouvert</figcaption></figure>
+        </div>
+        <div>
+          <p class="a-etiq">Ton appli Genesolia Pro</p>
+          <h2>Ton Espace praticien, dans ta poche</h2>
+          <p>Une icône sur ton écran d’accueil, et ton Espace praticien s’ouvre comme une vraie appli. Une barre en bas pour passer de l’un à l’autre :</p>
+          <p class="p-appli-barre"><span>Dossiers</span><span>Nouveau</span><span>Démo</span><span>Mon activité</span></p>
+          <ul class="p-confi">
+            <li>Le <b>mode séance</b> et tes <b>notes</b> à portée de main, même en rendez-vous.</li>
+            <li>Les mêmes dossiers sur ton téléphone, ta tablette et ton ordinateur.</li>
+            <li>Gratuit avec ton Espace praticien, sans passer par un magasin d’applis.</li>
+          </ul>
+          <a class="btn btn-plein" href="pro.html#installer">Installer l’appli Genesolia Pro</a>
+        </div>
       </div>
     </section>
 
@@ -369,6 +396,7 @@
           <li><span class="p-statut p-dispo">Inclus</span><b>Plus de 25 pistes repérées</b>Âges, dates, prénoms, places dans la fratrie, deuils : repérés automatiquement, avec des questions guidées.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Tes propres repères, en couleur</b>Pose tes mots sur les personnes (« s’efface », « porte la famille »…). Quand un mot revient d’une génération à l’autre, l’arbre le montre.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Import Geneanet et GEDCOM</b>Pas besoin de tout ressaisir. Numérologie et astrologie reliées à l’arbre, si ta pratique les utilise.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>L’appli Genesolia Pro</b>Ton Espace praticien sur l’écran d’accueil de ton téléphone : tes dossiers, le mode séance et tes notes d’un geste.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Questionnaire avant séance</b>Ton·ta client·e remplit sa famille chez lui·elle, sans compte. Ses réponses arrivent dans son dossier, et l’arbre se dessine en un clic.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Remonter le temps</b>La famille l’année d’une naissance ou d’un deuil, la frise de la lignée, et les échos d’âge de cette année-là.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>11 liens relationnels</b>Fusionnel, ambivalent, coupé, alliance, secret partagé, enfant confident·e… et un lien libre avec ton propre mot.</li>
@@ -389,7 +417,7 @@
             <p>Des particuliers dessinent leur arbre sur Genesolia, puis cherchent quelqu’un pour les accompagner. <a href="annuaire.html" style="color:#fff">L’annuaire</a> leur présente les praticien·nes abonné·es, près de chez soi ou en visio. Ta fiche se remplit depuis ton Espace praticien. <b>Les premières fiches sont présentées en premier.</b></p>
             <p class="p-annuaire-plus">Arrivent aussi : ton logo et tes couleurs sur le rapport, et un avantage sur Le Cercle à offrir à tes client·es.</p>
           </div>
-          <a class="btn btn-plein" href="praticien.html">Ouvrir mon Espace praticien</a>
+          <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a>
         </div>
       </div>
     </section>
@@ -410,7 +438,7 @@
               <li>Après l’essai sans abonnement, tes dossiers restent consultables</li>
               <li>L’arbre dessiné à partir de tes notes (bientôt) : en option, pour les abonné·es uniquement. L’essai de 30 jours comprend tout le reste.</li>
             </ul>
-            <a class="btn btn-plein" href="praticien.html">Ouvrir mon Espace praticien</a>
+            <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a>
             <p class="p-note" style="margin-top:.8rem">Moins d’un tiers de séance par mois. L’outil gratuit reste réservé à un usage personnel : avec des client·es, c’est l’Espace praticien.</p>
           </div>
         </div>
@@ -443,18 +471,18 @@
         <details><summary>Faut-il un compte à mes client·es ?</summary><p>Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin.</p></details>
         <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement.</p></details>
         <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de ton·ta client·e.</p></details>
-        <p class="p-cta" style="margin-top:1.6rem"><a class="btn btn-plein" href="praticien.html">Ouvrir mon Espace praticien · 30 jours d’essai</a></p>
+        <p class="p-cta" style="margin-top:1.6rem"><a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien · 30 jours d’essai</a></p>
       </div>
     </section>
   </main>
-  <div class="p-colle" aria-hidden="true"><a class="btn btn-plein" href="praticien.html" tabindex="-1">Ouvrir mon Espace praticien · 30 jours d’essai</a></div>
+  <div class="p-colle" aria-hidden="true"><a class="btn btn-plein" href="pro.html" tabindex="-1">Ouvrir mon Espace praticien · 30 jours d’essai</a></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>
   /* Sur téléphone : le bouton « Ouvrir mon Espace praticien » reste en bas de l'écran une fois le haut de page passé, et s'efface sur les autres boutons et le pied de page */
   (function () {
     var c = document.querySelector('.p-colle'); if (!c || !('IntersectionObserver' in window)) return;
-    var vus = new Set(), cibles = [].slice.call(document.querySelectorAll('.p-tete, footer, main a.btn-plein[href="praticien.html"]'));
+    var vus = new Set(), cibles = [].slice.call(document.querySelectorAll('.p-tete, footer, main a.btn-plein[href="pro.html"]'));
     var io = new IntersectionObserver(function (l) { l.forEach(function (e) { if (e.isIntersecting) vus.add(e.target); else vus.delete(e.target); }); var on = !vus.size; c.classList.toggle('visible', on); c.setAttribute('aria-hidden', String(!on)); c.querySelector('a').tabIndex = on ? 0 : -1; });
     cibles.forEach(function (t) { io.observe(t); });
   })();

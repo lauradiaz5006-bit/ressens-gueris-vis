@@ -3865,7 +3865,7 @@
   }
   function apresChargement() { importerFilDor(); exporterSiDemande(); }
 
-  function espacePro() { try { return sessionStorage.getItem('genesolia-appli') === 'pro' ? 'pro.html' : 'praticien.html'; } catch (e) { return 'praticien.html'; } }
+  function espacePro() { return 'pro.html'; }   /* l'Espace praticien s'ouvre dans l'appli Genesolia Pro (praticien.html y renvoie) */
   /* ───────── Espace praticien : lien vers le cabinet, mode séance, rapport au nom du cabinet ───────── */
   var PRATICIEN = null, OUTILS_FAITS = false, RAP_RETENUES = false;
   function chargerPraticien() {
