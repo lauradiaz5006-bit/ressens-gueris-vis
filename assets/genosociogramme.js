@@ -1474,8 +1474,16 @@
     return h;
   }
 
-  /* Liens relationnels entre deux personnes : proximité (trois traits), conflit (zigzag), rupture (trait coupé), distance (pointillé léger) */
-  var NATURES = { proche: ['Proximité, fusion', '#4F8A6B'], conflit: ['Conflit', '#C0573F'], rupture: ['Rupture', '#5D6B8A'], distance: ['Distance', '#A08E78'] };
+  /* Liens relationnels entre deux personnes (conventions du génogramme, McGoldrick) :
+     proximité (deux traits), fusionnel (trois traits), conflit (zigzag), ambivalent (traits + zigzag), rupture (trait coupé, deux barres),
+     coupé sans conflit (trait interrompu), distance (pointillé léger), alliance (double trait bleu), secret partagé (tirets et point),
+     confident·e (flèche vers l'adulte porté·e : un enfant qui porte un parent), lien libre (avec le mot de la praticienne) */
+  var NATURES = {
+    proche: ['Proximité', '#4F8A6B'], fusion: ['Fusionnel', '#2F6E52'], conflit: ['Conflit', '#C0573F'], ambivalent: ['Ambivalent (proche et conflictuel)', '#A0563E'],
+    rupture: ['Rupture', '#5D6B8A'], coupe: ['Coupé, sans conflit', '#7B8597'], distance: ['Distance', '#A08E78'], alliance: ['Alliance', '#3E6FA8'],
+    secret: ['Secret partagé', '#6B2F5B'], confident: ['Confident·e de (porte cet adulte)', '#C08A2E'], libre: ['Lien libre (ton mot)', '#8E6383']
+  };
+  var LEG_NATURES = { proche: 'Deux traits verts : proximité', fusion: 'Trois traits verts : fusionnel', conflit: 'Zigzag : conflit', ambivalent: 'Traits et zigzag : ambivalent', rupture: 'Trait coupé : rupture', coupe: 'Trait interrompu : coupé sans conflit', distance: 'Pointillé léger : distance', alliance: 'Double trait bleu : alliance', secret: 'Tirets et point : secret partagé', confident: 'Flèche dorée : confident·e' };
   function dessinRelations(pl) {
     var pos = pl.pos, h = '';
     S.rels.forEach(function (r) {
@@ -1499,11 +1507,24 @@
       }
       function trace(s0, s1, d) { var m = Math.max(1, Math.ceil((s1 - s0) / 6)), z = 'M' + en(s0, d); for (var j = 1; j <= m; j++) z += 'L' + en(s0 + (s1 - s0) * j / m, d); return z; }
       var coul = NATURES[r.nature][1], st = ' fill="none" stroke="' + coul + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"', p;
-      if (r.nature === 'proche') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
-      else if (r.nature === 'conflit') { var nz = Math.max(2, Math.round(lg / 9)); p = 'M' + en(0, 0); for (i = 1; i < nz; i++) p += 'L' + en(lg * i / nz, i % 2 ? -5 : 5); p += 'L' + en(lg, 0); }
-      else if (r.nature === 'rupture') { var mi = lg / 2; p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7); }
-      else p = trace(0, lg, 0);
-      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + (r.nature === 'distance' ? ' stroke-dasharray="2 6" stroke-opacity=".8"' : '') + '/>';
+      var zig = function (d0) { var nz = Math.max(2, Math.round(lg / 9)), z = 'M' + en(0, d0); for (var j = 1; j < nz; j++) z += 'L' + en(lg * j / nz, d0 + (j % 2 ? -5 : 5)); return z + 'L' + en(lg, d0); };
+      var mi = lg / 2, dash = '', plus = '';
+      if (r.nature === 'proche') p = trace(0, lg, -2.6) + trace(0, lg, 2.6);
+      else if (r.nature === 'fusion') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
+      else if (r.nature === 'conflit') p = zig(0);
+      else if (r.nature === 'ambivalent') { p = trace(0, lg, -5) + trace(0, lg, 5); plus = '<path class="relation" opacity=".85" d="' + zig(0) + '" fill="none" stroke="#C0573F" stroke-width="1.4" stroke-linejoin="round"/>'; }
+      else if (r.nature === 'rupture') p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7);
+      else if (r.nature === 'coupe') p = trace(0, mi - 9, 0) + trace(mi + 9, lg, 0);
+      else if (r.nature === 'alliance') p = trace(0, lg, -2.2) + trace(0, lg, 2.2);
+      else if (r.nature === 'secret') { p = trace(0, lg, 0); dash = ' stroke-dasharray="7 5"'; var cs = en(mi, 0).split(' '); plus = '<circle cx="' + cs[0] + '" cy="' + cs[1] + '" r="4.5" fill="' + NATURES.secret[1] + '"/>'; }
+      else if (r.nature === 'confident') { p = trace(0, lg, 0) + 'M' + en(mi - 6, -6) + 'L' + en(mi + 5, 0) + 'L' + en(mi - 6, 6); }
+      else if (r.nature === 'libre') {
+        p = trace(0, lg, 0); dash = ' stroke-dasharray="4 4"';
+        var cl = en(mi, 0).split(' '), mot = String(r.mot || '').slice(0, 24);
+        if (mot) plus = '<text x="' + cl[0] + '" y="' + (+cl[1] - 7).toFixed(1) + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11" font-weight="600" fill="' + NATURES.libre[1] + '" paint-order="stroke" stroke="#fff" stroke-width="3">' + esc(mot) + '</text>';
+      }
+      else { p = trace(0, lg, 0); if (r.nature === 'distance') dash = ' stroke-dasharray="2 6" stroke-opacity=".8"'; }
+      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + dash + '/>' + plus;
     });
     return h;
   }
@@ -2172,6 +2193,7 @@
       if (!autre || !S.people[autre]) return;
       h += '<div class="lien"><span>' + lib + '<b>' + esc(nomCourt(autre)) + '</b></span>' +
         (r.type === 'relation' ? '<select data-nature="' + i + '" aria-label="Nature du lien">' + Object.keys(NATURES).map(function (k) { return '<option value="' + k + '"' + (r.nature === k ? ' selected' : '') + '>' + NATURES[k][0] + '</option>'; }).join('') + '</select>' : '') +
+        (r.type === 'relation' && r.nature === 'libre' ? '<input type="text" data-mot="' + i + '" maxlength="24" value="' + esc(r.mot || '') + '" placeholder="Ton mot" aria-label="Le mot de ce lien" style="max-width:9rem">' : '') +
         (r.type === 'couple' ? '<select data-statut="' + i + '" aria-label="Situation du couple">' + STATUTS.map(function (s) { return '<option value="' + s[0] + '"' + ((r.statut || 'marie') === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' : '') +
         '<button type="button" class="suppr" data-retirer="' + i + '" aria-label="Retirer ce lien">×</button></div>';
     });
@@ -2188,7 +2210,9 @@
   });
   $('fp-liens').addEventListener('change', function (e) {
     var nt = e.target.closest('[data-nature]');
-    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessiner(fiche.id); enregistrer(); return; }
+    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessinerLiensFiche(); dessiner(fiche.id); enregistrer(); return; }
+    var mt = e.target.closest('[data-mot]');
+    if (mt) { memoriser(); S.rels[+mt.getAttribute('data-mot')].mot = mt.value.trim().slice(0, 24); dessiner(fiche.id); enregistrer(); return; }
     var s = e.target.closest('[data-statut]'); if (!s) return;
     memoriser();
     S.rels[+s.getAttribute('data-statut')].statut = s.value;
@@ -2202,6 +2226,7 @@
     if (/^rel-/.test(t)) {
       if (S.rels.some(function (x) { return x.type === 'relation' && ((x.from === id && x.to === o) || (x.from === o && x.to === id)); })) { err.textContent = 'Un lien relationnel existe déjà avec cette personne : change sa nature dans la liste ci-dessus.'; return; }
       r = { from: id, to: o, type: 'relation', nature: t.slice(4) };
+      if (r.nature === 'libre') { var mot = prompt('Le mot de ce lien (par exemple : protecteur, rivalité, dette) :', ''); if (mot === null) return; r.mot = mot.trim().slice(0, 24); }
     }
     else if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
     else {
@@ -2528,7 +2553,8 @@
     if (tous.some(function (p) { return p.adopte; })) plus.push('Trait pointillé : adopté·e');
     if (tous.some(function (p) { return p.place; })) plus.push('Placé·e : en famille d’accueil');
     if (tous.some(function (p) { return jumeauDe(p.id); })) plus.push('Traits en V : jumeaux');
-    [['proche', 'Trois traits verts : proximité'], ['conflit', 'Zigzag : conflit'], ['rupture', 'Trait coupé : rupture'], ['distance', 'Pointillé léger : distance']].forEach(function (x) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === x[0] && existe(r.from) && existe(r.to); })) plus.push(x[1]); });
+    Object.keys(LEG_NATURES).forEach(function (k) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === k && existe(r.from) && existe(r.to); })) plus.push(LEG_NATURES[k]); });
+    if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === 'libre' && existe(r.from) && existe(r.to); })) plus.push('Tirets avec un mot : lien libre');
     var lignesPlus = [];
     plus.forEach(function (t) { var d = lignesPlus.length - 1; if (d >= 0 && (lignesPlus[d] + ' · ' + t).length * 5.8 <= W - 2 * m) lignesPlus[d] += ' · ' + t; else lignesPlus.push(t); });
     H += Math.max(0, lignesPlus.length - 1) * 18;
