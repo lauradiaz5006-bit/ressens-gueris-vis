@@ -441,7 +441,7 @@
         '<form class="fe-imp-prevenir" id="fe-imp-prevenir" novalidate><div class="fe-deux"><input name="email" type="email" autocomplete="email" placeholder="Ton e-mail" aria-label="Ton e-mail" required><button class="bt rap-gros" type="submit">Me prévenir</button></div><p class="fe-aide" id="fe-prev-statut" aria-live="polite"></p></form></div>';
     }
     return '<div class="fe-imp"><p class="fe-imp-titre">Le recevoir imprimé, prêt à encadrer</p><p class="fe-aide">Imprimé sur un beau papier mat épais et envoyé chez toi (ou chez la personne à qui tu l’offres). ' + esc(IMP.livraison || '') + '.</p>' +
-      '<button class="bt plein rap-gros fe-commander" type="button" id="fe-imp-ouvrir">Commander mon arbre encadré · dès ' + esc(prixMin()) + '</button>' +
+      '<button class="bt plein rap-gros fe-commander" type="button" id="fe-imp-ouvrir">Commander mon poster · dès ' + esc(prixMin()) + '</button>' +
       '<form class="fe-imp-form" id="fe-imp-form" hidden novalidate>' +
         RECU + '<fieldset class="fe-formats"><legend>Format</legend>' + IMP.formats.map(function (f, i) { return '<label class="fe-format"><input type="radio" name="format" value="' + esc(f.id) + '"' + (f.id === 'a4cadre' ? ' checked' : '') + '><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></label>'; }).join('') + (IMP.formats.some(function (f) { return f.grand; }) ? '<p class="fe-aide fe-grands-aide">Grands formats 50 × 70 et 70 × 100 cm : livrés en 6 à 11 jours ouvrés.</p>' : '') + '</fieldset>' +
         '<div class="fe-deux"><label class="fe-champ">Ton prénom<input name="prenom" autocomplete="given-name" required></label><label class="fe-champ">Ton e-mail<input name="email" type="email" autocomplete="email" required></label></div>' +
@@ -588,7 +588,7 @@
     });
     /* le bouton « Commander » annonce le prix le plus bas parmi les formats possibles (Grand arbre : A3 seulement) */
     var ok = [].filter.call(document.querySelectorAll('#fe-imp-form input[name=format]'), function (r) { return !r.disabled; }).map(function (r) { var f = (IMP.formats || []).filter(function (x) { return x.id === r.value; })[0]; return f ? parseFloat(String(f.prix).replace(',', '.')) : NaN; }).filter(function (n) { return !isNaN(n); });
-    var bo = document.getElementById('fe-imp-ouvrir'); if (bo && ok.length) bo.textContent = 'Commander mon arbre encadré · dès ' + String(Math.min.apply(null, ok)).replace('.', ',') + ' €';
+    var bo = document.getElementById('fe-imp-ouvrir'); if (bo && ok.length) bo.textContent = 'Commander mon poster · dès ' + String(Math.min.apply(null, ok)).replace('.', ',') + ' €';
   }
   /* Ce que la cliente reçoit (fiches Gelato « prêt à accrocher », papier premium mat 200 g) */
   var INFOS = {
