@@ -326,8 +326,11 @@ window.GENESOLIA_IMPRESSION = {
   /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
   if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search) || (ESTCERCLE && aUnCompte())) drapeau = 'cercle';
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
+  /* Appli Genesolia Pro (pro.html) : l'Espace praticien en appli. Ni barre du bas du site, ni encarts, sur toutes ses pages */
+  if (page === 'pro.html') drapeau = 'pro';
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
-  var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
+  if (drapeau === 'pro') tunnel = true;
+  var MODE = drapeau === 'pro' ? '' : drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
   if (tunnel && !MODE && page !== 'cercle.html') document.documentElement.classList.add('page-tunnel');   /* pas d'encart « appli gratuite » dans le pied de page du tunnel */
   /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */

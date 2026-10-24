@@ -93,7 +93,7 @@
       racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Dossier client·e</span><h1>L’arbre de ton·ta client·e <em>commence ici</em></h1>' +
         '<p class="mt-aide">Ton·ta client·e, ses parents, ses grands-parents : quelques prénoms suffisent, une question à la fois.</p>' +
         '<div class="mt-portes"><button type="button" class="btn btn-plein mt-porte" data-q="commencer">Commencer l’arbre · 2 min</button></div>' +
-        '<p class="mt-discret"><a href="praticien.html">Revenir à mon Espace praticien</a> · <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
+        '<p class="mt-discret"><a href="' + (function () { try { return sessionStorage.getItem('genesolia-appli') === 'pro' ? 'pro.html' : 'praticien.html'; } catch (e) { return 'praticien.html'; } })() + '">Revenir à mon Espace praticien</a> · <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
       racine.querySelector('[data-q="commencer"]').addEventListener('click', function () { questionnaire.i = 0; afficherQuestion(); });
       return;
     }
