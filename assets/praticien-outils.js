@@ -153,6 +153,7 @@ window.GenesoliaPratique = (function () {
         bt.disabled = false;
         if (r.error) { fn.querySelector('[data-nouveau]').innerHTML = '<p class="pr-o-msg">Le lien n’a pas pu être créé. Réessaie dans un instant.</p>'; return; }
         fn.querySelector('[data-nouveau]').innerHTML = '<p class="pr-o-aide" style="margin:.4rem 0 0">Ton lien est prêt, en haut de la liste. Copie-le pour l’envoyer.</p>';
+        marquer('partage');   /* « Envoyer un lien de partage » est fait dès que le lien existe */
         liens();
       });
     });

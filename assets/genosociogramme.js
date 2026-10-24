@@ -68,7 +68,7 @@
   /* Une durée en jours, en mots : « quelques jours », « 9 mois », « 2 ans » */
   function dureeTxt(j) {
     j = Math.abs(j);
-    if (j < 15) return 'quelques jours';
+    if (j < 15) return j + ' jour' + (j > 1 ? 's' : '');   /* le nombre exact : « 3 jours », jamais « quelques jours » quand c'est le jour même */
     var m = Math.round(j / 30.44);
     if (m < 1) return 'quelques semaines';
     if (m < 24) return m + ' mois';
@@ -690,7 +690,7 @@
           autour = dj >= -280 && dj <= 365 + 266;
           if (autour) {
             var cj = dj - 266;   // conception par rapport au décès
-            t = dj < 0 ? ne(g) + ' ' + dureeTxt(dj) + ' avant ce décès'
+            t = dj === 0 ? ne(g) + ' le jour même de ce décès' : dj < 0 ? ne(g) + ' ' + dureeTxt(dj) + ' avant ce décès'
               : ne(g) + ' ' + dureeTxt(dj) + ' après ce décès, ' + conc(g) + ' ' + (Math.abs(cj) < 15 ? 'au moment du deuil' : dureeTxt(cj) + (cj < 0 ? ' avant' : ' après'));
           }
         } else {
@@ -758,7 +758,7 @@
         var par = S.people[pid], ad = annee(par && par.deces); if (!ad) return;
         var dj = jours(enf.naiss, par.deces), ok = dj != null ? (dj >= -280 && dj <= 730) : (ad >= an && ad <= an + 2);
         if (!ok) return;
-        var quand = dj != null ? (dj < 0 ? dureeTxt(dj) + ' avant la naissance de ' + nomA(enf) : dureeTxt(dj) + ' après la naissance de ' + nomA(enf))
+        var quand = dj != null ? (dj === 0 ? 'le jour même de la naissance de ' + nomA(enf) : dj < 0 ? dureeTxt(dj) + ' avant la naissance de ' + nomA(enf) : dureeTxt(dj) + ' après la naissance de ' + nomA(enf))
           : (ad === an ? 'l’année de la naissance de ' + nomA(enf) : (ad - an) + ' an' + (ad - an > 1 ? 's' : '') + ' après la naissance de ' + nomA(enf));
         departsNaissance.push({ txt: nomA(par) + ' meurt en ' + ad + (ageDeces(par) != null ? ', à ' + ageDeces(par) + ' ans' : '') + ', ' + quand, ids: [par.id, enf.id] });
       });
@@ -1721,7 +1721,7 @@
       var evs = [], ZC = Z.concat(parents(id).map(function (k) { return S.people[k]; }));
       ZC.forEach(function (q) {
         var md = String(q.deces || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        if (mn && md) { var dj = (Date.UTC(+mn[1], +mn[2] - 1, +mn[3]) - Date.UTC(+md[1], +md[2] - 1, +md[3])) / 864e5; if (dj >= 0 && dj <= 266 + 365) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' ' + dureeTxt(dj) + ' avant ' + (tiers ? 'sa' : 'ta') + ' naissance'); }
+        if (mn && md) { var dj = (Date.UTC(+mn[1], +mn[2] - 1, +mn[3]) - Date.UTC(+md[1], +md[2] - 1, +md[3])) / 864e5; if (dj >= 0 && dj <= 266 + 365) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' ' + (dj === 0 ? 'le jour même de ' : dureeTxt(dj) + ' avant ') + (tiers ? 'sa' : 'ta') + ' naissance'); }
         else if (annee(q.deces) && (annee(q.deces) === anN || annee(q.deces) === anN - 1)) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + annee(q.deces));
       });
       parents(id).forEach(function (k) { var q = S.people[k]; (q.events || []).forEach(function (e) { var ea = parseInt(e.age, 10), an = annee(q.naiss); if (isNaN(ea) || !an) return; if (an + ea === anN || an + ea === anN - 1) evs.push(nm(q) + ' : « ' + (NOM_EVT[e.type] || e.type || '').toLowerCase() + ' » vers ' + (an + ea)); }); });
