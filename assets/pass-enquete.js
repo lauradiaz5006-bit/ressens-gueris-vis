@@ -126,7 +126,7 @@ window.PASS_QUESTIONS = [
    Chaque ressenti déposé devient un « fil » qui suit le même chemin, comme une boucle qui devient spirale :
    Voir (ce qui se passe) → À qui ça appartient (moi ou ma lignée, racine ou cœur) → Enquêter (questions, où chercher)
    → Libérer → La spirale (ce qui change). Les pistes ci-dessus (PASS_ENQUETE) servent dans « Enquêter ».
-   Libérer et La spirale reprennent les clés du livre « Ressens · Guéris · Vis » (clés 1, 2 et 3), en tutoiement. */
+   Libérer et La spirale reprennent les clés de libération de Laura (clés 1, 2 et 3), en tutoiement. */
 window.PASS_FIL = {
   EMOTIONS: ['Peur', 'Peur de manquer', 'Tristesse', 'Colère', 'Honte', 'Culpabilité', 'Solitude', 'Impuissance', 'Vide', 'Fatigue'],   /* les mêmes que le fil d'or */
   BLESSURES: [['abandon', 'Abandon'], ['rejet', 'Rejet'], ['trahison', 'Trahison'], ['humiliation', 'Humiliation'], ['injustice', 'Injustice']],
@@ -146,14 +146,14 @@ window.PASS_FIL = {
   ],
   /* « À qui ça appartient ? » : nommer (livre, clé 1, étape 2) */
   INTUITION: [
-    'Qui a déjà vécu cette situation dans ma famille ?',
+    'Qui a déjà vécu cette situation dans ma famille ? Un parent ? Plus loin ?',
     'D’où vient cette peur, cette colère, cette honte ?',
     'Est-ce vraiment ce qui se passe… ou une vieille mémoire qui se rejoue ?',
     'Si ce ressenti avait un âge, quel âge aurait-il ?'
   ],
   CYCLES: {
-    racine: { nom: 'Cycle 1 · la racine', court: 'la racine', texte: 'Ta place, ta sécurité, le droit d’exister et de ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
-    coeur: { nom: 'Cycle 2 · le cœur', court: 'le cœur', texte: 'Ta façon d’aimer et d’être aimé·e, tes liens, la peur d’être quitté·e.', signes: ['des relations qui se ressemblent', 'donner beaucoup pour être aimé·e', 'peur d’être quitté·e, ou partir avant'] }
+    racine: { nom: 'Cycle 1', court: 'le cycle 1', texte: 'Survivre, le droit d’exister, ta place, ta sécurité, ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
+    coeur: { nom: 'Cycle 2', court: 'le cycle 2', texte: 'Aimer et être aimé·e, tes liens, la peur d’être quitté·e.', signes: ['des relations qui se ressemblent', 'donner beaucoup pour être aimé·e', 'peur d’être quitté·e, ou partir avant'] }
   },
   /* Enquêter : ce que tu peux demander, et où chercher, selon le cycle */
   QUESTIONS: {
@@ -172,7 +172,7 @@ window.PASS_FIL = {
     coeur: [['Les actes de mariage', 'les témoins, la date à comparer avec la naissance du premier enfant'], ['Les mentions de divorce', 'en marge des actes de mariage et de naissance'], ['Les lettres et les photos', 'le dos des photos, les faire-part, les cartes gardées dans une boîte'], ['Le livret de famille', 'les enfants nés, ceux partis trop tôt, les remariages']],
     tous: [['Ceux qui sont encore là', 'une seule question, posée avec douceur'], ['Le cimetière', 'les tombes réunissent parfois ceux qu’on ne connaissait pas']]
   },
-  /* Libérer : les clés du livre « Ressens · Guéris · Vis » (clé 1 : libérer la mémoire ; clé 2 : la couche profonde, quand le thème revient) */
+  /* Libérer : clé 1, libérer la mémoire ; clé 2, la couche profonde, quand le thème revient */
   LIBERER: {
     respirer: 'Inspire lentement par le nez (5 secondes), retiens (2 secondes), expire longuement par la bouche (7 secondes). Au moins trois fois. La respiration coupe le pilote automatique : ton corps voulait réagir « comme d’habitude ».',
     phrase: 'Je te vois, mémoire de {nom}. Je te reconnais, mémoire de {source}. Merci d’être là, car tu me permets de libérer les mémoires de ma lignée et d’y mettre fin.',
@@ -210,7 +210,16 @@ window.PASS_FIL = {
     'Qu’as-tu fait autrement, même un tout petit peu ?',
     'Qu’est-ce qui est plus léger dans ton corps aujourd’hui ?'
   ],
-  LIVRE: 'Ressens · Guéris · Vis : les 3 clés de la libération, les couches qui remontent, et comment remplacer une mémoire par ce que tu choisis.',
+  /* La question qui revient à chaque fois */
+  QUESTION: 'À qui est cette incohérence, cette distorsion dans mon être ? À un parent ? Plus loin ? Est-ce que je répète un problème de cette vie, ou une mémoire plus ancienne ?',
+  AQUI: [['moi', 'De cette vie : un problème que je répète'], ['parent', 'D’un parent'], ['loin', 'De plus loin dans ma lignée'], ['ancienne', 'D’une mémoire plus ancienne, je ne sais pas d’où']],
+  HUMEURS: ['Paix', 'Joie', 'Élan', 'Gratitude', 'Fatigue', 'Tristesse', 'Inquiétude', 'Colère', 'Vide'],
+  /* Les protocoles de libération. Pour en ajouter un : { id, titre, court, etapes: [{ titre, texte }], questions: ['…'] }.
+     cle1 et cle2 ont leur affichage complet (respiration guidée, phrase qui se compose, etc.). */
+  PROTOCOLES: [
+    { id: 'cle1', titre: 'Libérer la mémoire', court: 'Respirer, nommer, reconnaître, transmuter, réorienter. Quand une mémoire s’active.' },
+    { id: 'cle2', titre: 'La couche profonde', court: 'Quand le thème revient alors que tu l’avais déjà travaillé.' }
+  ],
   /* Les pistes du livre à proposer dans « Enquêter », selon le cycle */
   PISTES: { racine: ['noms', 'dates', 'absents', 'ciel'], coeur: ['voix', 'repete', 'corps', 'absents'] }
 };
