@@ -58,7 +58,7 @@ Deno.serve(async (req) => {
     await sb.from("mails").insert({
       email: d.email, prenom: prenomDe(d), type: "commande-expediee",
       objet: `Ton arbre « ${titre} » est en route`, surtitre: `Commande n° G-${d.id}`, titre: "Ton arbre est en route",
-      texte: `Bonne nouvelle : ton arbre « ${titre} » est imprimé et vient de partir. Il est emballé avec soin pour voyager sans se plier ni s'abîmer.\n\n` +
+      texte: `Bonne nouvelle : ton arbre « ${titre} » est imprimé et vient de partir. Il est bien emballé pour voyager sans se plier ni s'abîmer.\n\n` +
         (suivi.code ? `Numéro de suivi : ${suivi.code}${suivi.transporteur ? " (" + suivi.transporteur + ")" : ""}\n\n` : "") +
         `Il arrive en général sous quelques jours ouvrés. Le suivi peut mettre quelques heures à s'afficher chez le transporteur : si rien n'apparaît tout de suite, réessaie un peu plus tard.\n\n` +
         `Pense à prévoir quelqu'un pour le recevoir, ou à vérifier ta boîte aux lettres et ton avis de passage.`,
