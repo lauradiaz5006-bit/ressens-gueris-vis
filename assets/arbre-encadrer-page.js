@@ -20,9 +20,11 @@
   var TYPES = {
     ancetres: [['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['dore', 'Arbre doré'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail']],
     descendants: [['descendants', 'Lignée'], ['desc_medaillons', 'Médaillons'], ['desc_dore', 'Arbre doré'], ['desc_eventail', 'Éventail']],
-    famille: [['famille', 'Lignée'], ['famille_medaillons', 'Médaillons'], ['famille_eventail', 'Éventail']]
+    famille: [['famille', 'Lignée'], ['famille_medaillons', 'Médaillons'], ['famille_eventail', 'Éventail']],
+    lumiere: [['lumiere', 'Sphères de lumière']]
   };
-  function typeDe(st) { st = st || choix.style; return /^desc/.test(st) ? 'descendants' : /^famille/.test(st) ? 'famille' : 'ancetres'; }
+  function lumiere(st) { return (st || choix.style) === 'lumiere'; }   /* « Ma lignée en lumière » : à télécharger (pas encore chez l'imprimeur) */
+  function typeDe(st) { st = st || choix.style; return st === 'lumiere' ? 'lumiere' : /^desc/.test(st) ? 'descendants' : /^famille/.test(st) ? 'famille' : 'ancetres'; }
   function themeD(st) { st = st || choix.style; return st === 'desc_medaillons' ? 'medaillons' : st === 'desc_dore' ? 'dore' : ''; }
   function capDesc(t, e) { return choix.style === 'desc_eventail' && window.ArbreEventailDesc ? window.ArbreEventailDesc.capacite(t, e) : window.ArbreDescendants.capacite(t, e, themeD()); }
   function capMax() { return grandsFormats() ? CAP.g70 : grand() ? 5 : capA3; }
@@ -53,9 +55,9 @@
     l.hidden = !donnees.nbEnfants || !avecEnfantsPossible();
     var lc = document.getElementById('fe-conjoint-l'), ac = document.getElementById('fe-conjoint-aide');
     if (desc()) l.hidden = true;
-    var lf = document.getElementById('fe-freres-l'); if (lf) lf.hidden = !donnees.nbFreres || ev() || choix.style === 'famille_eventail';
+    var lf = document.getElementById('fe-freres-l'); if (lf) lf.hidden = !donnees.nbFreres || ev() || choix.style === 'famille_eventail' || lumiere();
     var da = document.getElementById('fe-demis-aide'); if (da) { var peint = grand() || choix.style === 'figuier' || choix.style === 'dore' || ev(); da.hidden = !(donnees.nbDemis && peint && typeDe() === 'ancetres'); }   /* l'éventail : les ancêtres seulement */
-    if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
+    if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille() || lumiere(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
       if (tc && c0 && c0.conjoint) tc.textContent = (donnees.departEstMoi ? 'Avec mon conjoint · ' : 'Avec son conjoint · ') + (c0.conjoint.prenom + ' ' + c0.conjoint.nom).trim();
       else if (tc && c0 && c0.unions) { var hs = c0.unions.every(function (u) { return u.sexe === 'm'; }), fs0 = c0.unions.every(function (u) { return u.sexe === 'f'; }), qui = hs ? 'les pères' : fs0 ? 'les mères' : 'l’autre parent';
         tc.textContent = (donnees.departEstMoi ? 'Avec ' + qui + ' de mes enfants' : 'Avec ' + qui + ' de ses enfants') + (c0.unions.length > 1 ? ' (' + c0.unions.length + ')' : '') + ' · ' + c0.unions.map(function (u) { return u.prenom; }).filter(Boolean).join(', ');
@@ -110,7 +112,8 @@
     desc_dore: 'Un arbre doré qui pousse : la personne au pied du tronc, ses enfants et petits-enfants dans les branches.',
     desc_eventail: 'L’éventail : la personne au centre, chaque branche de la famille dans sa couleur, jusqu’aux arrière-petits-enfants.',
     famille_medaillons: 'Votre couple et vos deux lignées dans des médaillons dorés, vos enfants au pied.',
-    famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.'
+    famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.',
+    lumiere: 'Chaque personne de ta lignée dans une sphère de lumière, portée par un grand tore entre terre et ciel : toi au cœur, tes ancêtres qui s’élèvent vers le ciel, tes enfants dans la lumière de la terre. Une image qui protège et met ta lignée en lumière, à télécharger.'
   };
   /* la sorte d'arbre : une phrase sous chaque choix */
   function typesPour(id) {
@@ -121,7 +124,8 @@
     return [
       { id: 'ancetres', nom: moi ? 'Mes ancêtres' : 'Ses ancêtres', aide: moi ? 'Toi, tes parents, tes grands-parents… en remontant' : 'Ses parents, ses grands-parents… en remontant', ok: aParents, non: 'Ajoute ses parents dans l’arbre' },
       { id: 'descendants', nom: moi ? 'Mes descendants' : 'Ses descendants', aide: 'Ses enfants, petits-enfants, arrière-petits-enfants', ok: aEnfants, non: 'Aucun enfant noté' },
-      { id: 'famille', nom: moi ? 'Notre famille' : 'Son couple', aide: 'Le couple, ses deux lignées et leurs enfants', ok: aCouple, non: 'Aucun conjoint noté' }
+      { id: 'famille', nom: moi ? 'Notre famille' : 'Son couple', aide: 'Le couple, ses deux lignées et leurs enfants', ok: aCouple, non: 'Aucun conjoint noté' },
+      { id: 'lumiere', nom: moi ? 'Ma lignée en lumière' : 'Sa lignée en lumière', aide: 'Les ancêtres dans des sphères de lumière, entre terre et ciel', ok: aParents, non: 'Ajoute ses parents dans l’arbre' }
     ];
   }
   function famille(st) { return /^famille/.test(st || choix.style); }   /* « Notre famille » : le couple, ses deux lignées, leurs enfants */
@@ -333,8 +337,8 @@
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
     var fig = donnees.style === 'figuier', pay = paysage(donnees.style), gr = donnees.style === 'grand', med = /medaillons$/.test(donnees.style) || (gr && ((donnees.enfants || []).length > 0 || !!donnees.conjoint));
-    var doreD = donnees.style === 'desc_dore';   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
-    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+    var doreD = donnees.style === 'desc_dore', lum = donnees.style === 'lumiere';   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
+    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : pay || lum ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
@@ -404,6 +408,7 @@
     if (donnees && sous != null && choix.sousModifie) donnees.sousTitre = sous;
     if (donnees) { donnees.style = choix.style; donnees.nbFreres = donnees.freresSoeurs.length; donnees.nbDemis = donnees.freresSoeurs.filter(function (f) { return f.demi; }).length;
       if (!choix.freres || ev() || choix.style === 'famille_eventail' || grand()) donnees.freresSoeurs = [];   /* l'éventail et le Grand arbre ne montrent pas les frères et sœurs */
+      else if (lumiere()) donnees.freresSoeurs = [];
       else if (choix.style === 'figuier' || choix.style === 'dore') donnees.freresSoeurs = donnees.freresSoeurs.filter(function (f) { return !f.demi; });   /* arbres peints : la lignée directe, sans les demi-frères et demi-sœurs (leur autre parent n'y aurait pas de place) */ donnees.nbEnfants = donnees.enfants.length; if (!choix.enfants || !avecEnfantsPossible()) donnees.enfants = []; donnees.aConjoint = !!donnees.conjoint; donnees.aUnions = !!(donnees.unions && donnees.unions.length); if (!choix.conjoint) donnees.unions = null; if (!choix.conjoint || !(avecEnfantsPossible() || desc())) donnees.conjoint = null; }
     /* portrait ou paysage : la Lignée (et Médaillons, Notre famille) prend le sens où son texte est le plus grand */
     if (donnees && lig() && !grand() && !desc() && !ev() && window.ArbreLignee && window.ArbreLignee.taille) {
@@ -446,7 +451,7 @@
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
       '<div class="fe-titres" id="fe-titres" aria-label="Titres proposés"></div>' +
       '<label class="fe-champ">Sous-titre<input type="text" id="fe-sous" maxlength="60" value="' + esc(donnees.sousTitre) + '"></label></div>' +
-      '<div class="fe-etape">' + etape(5, 'Ton poster') + blocImpression() + '</div>' +
+      '<div class="fe-etape">' + etape(5, '<b id="fe-etape5" style="font-weight:inherit">Ton poster</b>') + blocImpression() + '<p class="fe-aide fe-lum-note" id="fe-lum-note" hidden>Ta lignée en lumière se télécharge pour l’instant : en image haute définition ou en PDF, juste en dessous, à imprimer où tu veux ou à garder près de toi.</p></div>' +
       '<p class="fe-sous-t">Ou le télécharger pour l’imprimer toi-même</p>' +
       '<p class="fe-aide">Image haute définition, prête à imprimer.</p>' +
       '<button class="bt plein rap-gros" type="button" id="fe-png" data-compte="ton arbre en poster" data-produit="arbreEncadrer">Télécharger l’image HD</button>' +
@@ -514,6 +519,7 @@
   var ICONES = {
     ancetres: '<svg viewBox="0 0 40 40"><circle cx="20" cy="33" r="4"/><circle cx="10" cy="19" r="3.4"/><circle cx="30" cy="19" r="3.4"/><circle cx="5" cy="6" r="2.8"/><circle cx="15" cy="6" r="2.8"/><circle cx="25" cy="6" r="2.8"/><circle cx="35" cy="6" r="2.8"/><path d="M20 29V24M20 24H10V22.4M20 24H30V22.4M10 15.6V11H5V8.8M10 11H15V8.8M30 15.6V11H25V8.8M30 11H35V8.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     descendants: '<svg viewBox="0 0 40 40"><circle cx="20" cy="6" r="4"/><circle cx="10" cy="20" r="3.4"/><circle cx="30" cy="20" r="3.4"/><circle cx="5" cy="34" r="2.8"/><circle cx="15" cy="34" r="2.8"/><circle cx="25" cy="34" r="2.8"/><circle cx="35" cy="34" r="2.8"/><path d="M20 10V15H10V16.6M20 15H30V16.6M10 23.4V28H5V31.2M10 28H15V31.2M30 23.4V28H25V31.2M30 28H35V31.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+    lumiere: '<svg viewBox="0 0 40 40"><circle cx="20" cy="21" r="6"/><circle cx="9" cy="14" r="3"/><circle cx="31" cy="14" r="3"/><circle cx="14" cy="5" r="2.4"/><circle cx="26" cy="5" r="2.4"/><ellipse cx="20" cy="21" rx="17" ry="7" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 1V39" stroke="currentColor" stroke-width="1.2" opacity=".6"/></svg>',
     famille: '<svg viewBox="0 0 40 40"><circle cx="14" cy="22" r="3.6"/><circle cx="26" cy="22" r="3.6"/><circle cx="7" cy="8" r="2.8"/><circle cx="16" cy="8" r="2.8"/><circle cx="24" cy="8" r="2.8"/><circle cx="33" cy="8" r="2.8"/><circle cx="15" cy="35" r="2.8"/><circle cx="25" cy="35" r="2.8"/><path d="M14 18.4V14H7V10.8M14 14H16V10.8M26 18.4V14H24V10.8M26 14H33V10.8M17.6 22H22.4M20 22V28H15V32.2M20 28H25V32.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
   };
   /* 3. Le style : une petite vignette de chaque style, dessinée avec l'arbre de la personne */
@@ -602,24 +608,53 @@
   function chargerJsPdf() {
     return window.jspdf ? Promise.resolve(window.jspdf.jsPDF) : new Promise(function (ok, ko) { var sc = document.createElement('script'); sc.src = 'assets/jspdf.umd.min.js'; sc.onload = function () { ok(window.jspdf.jsPDF); }; sc.onerror = ko; document.head.appendChild(sc); });
   }
+  /* Grands formats : l'image est dessinée en bandes horizontales (chaque bande reste sous la limite du navigateur, iPhone compris),
+     pour atteindre 200 dpi sur toute l'affiche (Gelato conseille 150 dpi au moins, 300 idéal). Les bandes se recouvrent de 2 pixels : aucun liseré blanc. */
+  function versBandes(svg, lw, maxPx) {
+    var t = svg.match(/width="(\d+)" height="(\d+)"/), lh = Math.round(lw * (t ? t[2] / t[1] : 1.414)), hb = Math.max(256, Math.floor(maxPx / lw));
+    return new Promise(function (ok, ko) {
+      var img = new Image(), url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' })), bandes = [], y = 0;
+      img.onload = function () {
+        (function suivante() {
+          if (y >= lh) { URL.revokeObjectURL(url); ok({ bandes: bandes, lh: lh }); return; }
+          var h = Math.min(hb, lh - y), hd = Math.min(h + 2, lh - y), c = document.createElement('canvas'); c.width = lw; c.height = hd;
+          var ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, lw, hd); ctx.drawImage(img, 0, -y, lw, lh);
+          c.toBlob(function (b) { c.width = c.height = 1; if (!b) { URL.revokeObjectURL(url); ko(new Error('bande')); return; } bandes.push({ b: b, y: y, h: hd }); y += h; setTimeout(suivante, 0); }, 'image/jpeg', .9);
+        })();
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); ko(new Error('image')); };
+      img.src = url;
+    });
+  }
   function fichierImprimeur(d, fmt) {
     var pay = paysage(d.style), mm0 = fmt.mm || [218, 305], mm = pay ? [mm0[1], mm0[0]] : mm0, larg = pay ? Math.round(mm[0] / 25.4 * 300) : fmt.largeur;
-    /* grands formats : le plus net possible sans dépasser ce que le navigateur sait dessiner (≈ 16 millions de pixels sur iPhone et iPad) */
-    if (classe(fmt.id) === 'g50' || classe(fmt.id) === 'g70') {
-      var ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      larg = Math.round(Math.min(mm[0] / 25.4 * 300, Math.sqrt((ios ? 16e6 : 40e6) * mm[0] / mm[1])));
-    }
+    var grandF = classe(fmt.id) === 'g50' || classe(fmt.id) === 'g70', ios = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     var nom = nomFichier(d) + '-' + fmt.id + (pay ? '-horizontal' : '');
     d.a3 = ECH[classe(fmt.id)];
-    return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versPng(svg, larg, true); }).then(function (jpeg) {
-      var enJpeg = function () { return deposer(jpeg, nom, 'jpg', 'image/jpeg'); };
-      return Promise.all([chargerJsPdf(), jpeg.arrayBuffer()]).then(function (x) {
-        var doc = new x[0]({ orientation: pay ? 'landscape' : 'portrait', unit: 'mm', format: mm0, compress: true, putOnlyUsedFonts: true });
-        doc.setProperties({ title: d.titre + ' · Genesolia', creator: 'Genesolia' });
-        doc.addImage(new Uint8Array(x[1]), 'JPEG', 0, 0, mm[0], mm[1], undefined, 'NONE');
-        return deposer(doc.output('blob'), nom, 'pdf', 'application/pdf');
-      }).then(function (chemin) { return chemin || enJpeg(); }, enJpeg);
-    }).catch(function () { return ''; });
+    function enPdf(Pdf, parts, lh) {
+      var doc = new Pdf({ orientation: pay ? 'landscape' : 'portrait', unit: 'mm', format: mm0, compress: true, putOnlyUsedFonts: true });
+      doc.setProperties({ title: d.titre + ' · Genesolia', creator: 'Genesolia' });
+      parts.forEach(function (x) { doc.addImage(x.u8, 'JPEG', 0, x.y / lh * mm[1], mm[0], x.h / lh * mm[1], undefined, 'NONE'); });
+      return deposer(doc.output('blob'), nom, 'pdf', 'application/pdf');
+    }
+    /* une seule image (A4, A3 à 300 dpi ; et en secours pour les grands formats) */
+    function simple(lw) {
+      return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versPng(svg, lw, true); }).then(function (jpeg) {
+        var enJpeg = function () { return deposer(jpeg, nom, 'jpg', 'image/jpeg'); };
+        return Promise.all([chargerJsPdf(), jpeg.arrayBuffer()]).then(function (x) {
+          var t = Math.round(lw * mm[1] / mm[0]);
+          return enPdf(x[0], [{ u8: new Uint8Array(x[1]), y: 0, h: t }], t);
+        }).then(function (chemin) { return chemin || enJpeg(); }, enJpeg);
+      });
+    }
+    var repli = function () { return simple(Math.round(Math.min(mm[0] / 25.4 * 300, Math.sqrt((ios ? 16e6 : 40e6) * mm[0] / mm[1])))); };
+    if (!grandF) return simple(larg).catch(function () { return ''; });
+    var lw200 = Math.round(mm[0] / 25.4 * 200);
+    return svgAutonome(d, false, { hd: true, fondPerdu: true }).then(function (svg) { return versBandes(svg, lw200, ios ? 12e6 : 30e6); }).then(function (r) {
+      return Promise.all([chargerJsPdf()].concat(r.bandes.map(function (x) { return x.b.arrayBuffer(); }))).then(function (x) {
+        return enPdf(x[0], r.bandes.map(function (bd, i) { return { u8: new Uint8Array(x[i + 1]), y: bd.y, h: bd.h }; }), r.lh);
+      });
+    }).then(function (chemin) { return chemin || repli(); }, repli).catch(function () { return ''; });
   }
   function brancherImpression() {
     var pv = document.getElementById('fe-imp-prevenir');
@@ -749,8 +784,11 @@
     var f = ((window.GENESOLIA_IMPRESSION || {}).formats || []).filter(function (x) { return x.id === fid; })[0];
     var cl = classe(fid), grandF = cl === 'g50' || cl === 'g70';
     d.a3 = ECH[cl];   /* styles à l'horizontale : tailles de texte prévues pour le format */
+    var imp = corps.querySelector('.fe-imp'), ln = document.getElementById('fe-lum-note'), e5 = document.getElementById('fe-etape5');
+    if (imp) imp.style.display = lumiere() ? 'none' : ''; if (ln) ln.hidden = !lumiere(); if (e5) e5.textContent = lumiere() ? 'À télécharger' : 'Ton poster';
     var leg = document.getElementById('fe-legende');
-    if (leg) leg.innerHTML = vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois le poster seul, sans les fleurs.' :
+    if (leg && lumiere()) { leg.innerHTML = 'À télécharger : image haute définition (300 dpi) ou PDF à imprimer'; }
+    else if (leg) leg.innerHTML = vue === 'scene' ? 'Mise en scène pour l’inspiration : tu reçois le poster seul, sans les fleurs.' :
       esc(f ? f.nom + ' · ' + f.prix : 'Poster A4') + '<br>' + esc(dimensions(INFOS[cl] || '') + (ouvert() ? (grandF ? ' · livré en 6 à 11 jours ouvrés' : ' · livré en 3 à 7 jours ouvrés') : ' · à commander à partir du ' + quandOuverture()));
     verif.then(function (ok) { z.innerHTML = window.ArbreEncadrer.svg(d, { apercu: !ok, scene: vue === 'scene' }); nomsCoupes(z.querySelector('svg'), d); });
   }
