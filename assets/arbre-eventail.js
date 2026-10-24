@@ -16,7 +16,12 @@
   function minFz(a3) { return Math.max(8, Math.round(34 / ech(a3))); }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ctx = null;
+  var MEMO = {};   /* les mêmes noms sont mesurés des centaines de fois pendant la mise en page : on garde chaque mesure */
   function larg(t, taille, police, gras) {
+    var cle = t + '|' + taille + '|' + police + '|' + (gras ? 1 : 0); if (MEMO[cle] != null) return MEMO[cle];
+    var l = larg0(t, taille, police, gras); try { if (document.fonts && document.fonts.status === 'loaded') MEMO[cle] = l; } catch (e) {} return l;
+  }
+  function larg0(t, taille, police, gras) {
     try { if (!ctx && typeof document !== 'undefined') ctx = document.createElement('canvas').getContext('2d'); if (ctx) { ctx.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctx.measureText(t).width; } } catch (e) {}
     return String(t).length * taille * (gras ? .62 : .5);
   }
@@ -70,7 +75,11 @@
         }
         if (plat) { anneaux.push({ g: g, r0: r, r1: r + plat.h, fz: plat.fz, mode: 3, radial: false, complet: true }); r += plat.h; continue; }
       }
-      /* sinon le texte suit le rayon : la place disponible est la largeur de la part, au bord intérieur */
+      /* sinon le texte suit le rayon : la place disponible est la largeur de la part, au bord intérieur.
+         Anneaux très nombreux (grands formats, 9 générations et plus) : si la part est trop étroite pour une ligne,
+         l'anneau précédent s'élargit et celui-ci commence plus loin du centre, là où la part est assez large. */
+      var rBesoin = (min * 1.18 / .86) / (2 * Math.sin(th / 2));
+      if (r < rBesoin && anneaux.length) { anneaux[anneaux.length - 1].r1 = rBesoin; r = rBesoin; corde = 2 * r * Math.sin(th / 2); }
       var dispo = corde * .86, choix = null;
       for (var mode = 3; mode >= 1 && !choix; mode--) {
         for (var fz = Math.round(fzB); fz >= min; fz--) {

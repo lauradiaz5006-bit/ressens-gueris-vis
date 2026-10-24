@@ -1,5 +1,6 @@
 /* Genesolia · style « Grand arbre » : l'arbre doré peint (assets/arbre/grand-arbre.jpg), à l'horizontale,
-   avec un médaillon par ancêtre sur 5 générations : 1, 2, 4, 8, 16 (31 médaillons).
+   avec un médaillon par ancêtre sur 5 générations : 1, 2, 4, 8, 16 (31 médaillons) ;
+   ou sur 4 générations (15 médaillons) avec le même dessin sans la rangée du haut (assets/arbre/grand-arbre-4.jpg).
    Le nom de chaque personne est écrit dans son médaillon ; un ancêtre inconnu laisse le médaillon vide.
    Prévu pour l'A3 : 8 points imprimés au moins = 24 px dans ce dessin (3508 x 2480).
    ArbreGrand.svg(donnees, o) -> chaîne SVG ; o.fond : image de fond (URL ou data:), o.apercu, o.fondPerdu. */
@@ -67,7 +68,7 @@
 
   function svg(donnees, o) {
     o = o || {};
-    var h = '', max = Math.min(5, donnees.nbGen || 5);
+    var h = '', max = Math.max(4, Math.min(5, donnees.nbGen || 5));   /* deux dessins : 4 rangées (grand-arbre-4) ou 5 rangées */
     /* une même taille de texte pour toute une rangée (la plus petite de la rangée), pour que l'ensemble reste régulier */
     var places = [], pris = {};
     (function poser(p, g, i) {
@@ -119,8 +120,9 @@
     var sous = String(donnees.sousTitre || '').split(/\s+·\s+/);
     /* titre au-dessus de la rangée du haut, sur une ligne, sous-titre dessous : rien de coincé entre les médaillons */
     var tz1 = Math.min(104, Math.floor(104 * 1500 / Math.max(larg(t, 104, GN), 1)));
-    var titre = '<text x="' + W / 2 + '" y="215" text-anchor="middle" class="gr-titre" font-size="' + tz1 + '">' + esc(t) + '</text>' +
-      (sous.join('') ? '<text x="' + W / 2 + '" y="290" text-anchor="middle" class="gr-sous" font-size="28">' + esc(sous.join(' · ')) + '</text>' : '');
+    var yT = max < 5 ? 420 : 215;   /* sur le dessin à 4 rangées, le haut est libre : le titre descend un peu */
+    var titre = '<text x="' + W / 2 + '" y="' + yT + '" text-anchor="middle" class="gr-titre" font-size="' + tz1 + '">' + esc(t) + '</text>' +
+      (sous.join('') ? '<text x="' + W / 2 + '" y="' + (yT + 75) + '" text-anchor="middle" class="gr-sous" font-size="28">' + esc(sous.join(' · ')) + '</text>' : '');
     var pied = '<text x="' + (W - 230) + '" y="' + (H - 150) + '" text-anchor="end" class="gr-pied">GENESOLIA · genesolia.fr</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-25 ' + W / 2 + ' ' + H / 2 + ')"><text x="' + W / 2 + '" y="' + (H / 2 - 60) + '" text-anchor="middle" class="gr-fil">APERÇU</text><text x="' + W / 2 + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="gr-fil">GENESOLIA</text></g>' : '';
     var B = o.fondPerdu ? Math.round(4 * H / 210) : 0;
@@ -128,7 +130,7 @@
       '<defs><linearGradient id="gr-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6CB95"/><stop offset=".5" stop-color="#B98A55"/><stop offset="1" stop-color="#9A6E38"/></linearGradient><style>.gr-titre{font-family:' + GN + ';fill:' + PRUNE + '}.gr-sous{font-family:' + NS + ';font-weight:700;letter-spacing:5px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
       '.gr-nom{font-family:' + GN + ';fill:#4A0F36}.gr-nf{font-family:' + NS + ';font-weight:700;letter-spacing:.5px;fill:#4A0F36}.gr-date{font-family:' + NS + ';font-weight:700;fill:#9A3A68}' +
       '.gr-pied{font-family:' + NS + ';font-size:26px;letter-spacing:6px;fill:' + PRUNE + ';opacity:.7}.gr-fil{font-family:' + GN + ';font-size:300px;fill:' + PRUNE + '}</style></defs>' +
-      '<image href="' + esc(o.fond || 'assets/arbre/grand-arbre-ecran.jpg') + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' +
+      '<image href="' + esc(o.fond || ('assets/arbre/grand-arbre' + (max < 5 ? '-4' : '') + '-ecran.jpg')) + '" x="' + (-B) + '" y="' + (-B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" preserveAspectRatio="xMidYMid slice"/>' +
       titre + eH + h + pied + filigrane + '</svg>';
   }
   window.ArbreGrand = { svg: svg, generations: 5 };

@@ -16,7 +16,12 @@
   function ech(a3) { return typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ctx = null;
+  var MEMO = {};   /* les mêmes noms sont mesurés des centaines de fois pendant la mise en page : on garde chaque mesure */
   function larg(t, taille, police, gras) {
+    var cle = t + '|' + taille + '|' + police + '|' + (gras ? 1 : 0); if (MEMO[cle] != null) return MEMO[cle];
+    var l = larg0(t, taille, police, gras); try { if (document.fonts && document.fonts.status === 'loaded') MEMO[cle] = l; } catch (e) {} return l;
+  }
+  function larg0(t, taille, police, gras) {
     try { if (!ctx && typeof document !== 'undefined') ctx = document.createElement('canvas').getContext('2d'); if (ctx) { ctx.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctx.measureText(t).width; } } catch (e) {}
     return String(t).length * taille * (gras ? .62 : .5);
   }
@@ -37,8 +42,17 @@
   function ranger(moi, max) { var gens = []; nettoyer(moi); poids(moi, 0, max); placer(moi, 0, MARGE, W - MARGE, max, gens); return gens; }
 
   /* Étiquette : prénom(s) sur une ou deux lignes, NOM, dates */
-  function etiquette(q, fz, court, uneLigne) {
-    if (q.couple) return { w: 0, h: 0, l: [] };   /* « Notre famille » : le couple est la rangée au-dessus ; ce point invisible relie le couple aux enfants */
+  function etiquette(q, fz, court, uneLigne, vert) {
+    if (q.couple) return { w: 0, h: 0, l: [] };
+    if (vert) {   /* rangée très remplie (grands formats) : l'étiquette se lit de bas en haut, sur 2 lignes (prénom NOM, puis dates) ou 1 seule */
+      var fnv = Math.max(Math.round(fz * .8), fz < 34 ? fz : 34), fdv = Math.max(Math.round(fz * .78), fz < 34 ? fz : 34);
+      var mv = String(q.prenom || '').trim().split(/\s+/).filter(Boolean), prev = court ? (mv[0] || '') : mv.join(' ');
+      var l1 = [[prev, fz, GN, false, 'li-nom'], [NOM(q), fnv, NS, true, 'li-nf']].filter(function (z) { return z[0]; }), dv = datesDe(q);
+      var lv = vert === 2 ? [l1].concat(dv ? [[[dv, fdv, NS, true, 'li-date']]] : []) : [l1.concat(dv ? [[dv, fdv, NS, true, 'li-date']] : [])];
+      var lon = Math.max.apply(null, lv.map(function (li) { return li.reduce(function (s0, z) { return s0 + larg(z[0], z[1], z[2], z[3]) * 1.04 + (z[4] === 'li-nf' ? z[0].length * 1.5 : 0); }, 0) + (li.length - 1) * fz * .35; }));
+      var ep = lv.length * fz * 1.18 + (vert === 1 ? 6 : 12), sy0 = Math.max(9, Math.round(fz * .36));
+      return { l: [[prev, fz]], lv: lv, v: true, lon: lon, w: Math.round(ep), h: Math.round(lon + 30 + sy0 + (MOTIF === 'medaillons' ? ep * .84 : 0)) };
+    }   /* « Notre famille » : le couple est la rangée au-dessus ; ce point invisible relie le couple aux enfants */
     var fn = Math.max(Math.round(fz * .8), fz < 34 ? fz : 34), fd = Math.max(Math.round(fz * .78), fz < 34 ? fz : 34);
     var mots = String(q.prenom || '').trim().split(/\s+/).filter(Boolean), pre = court ? [mots[0] || ''] : [mots.join(' ')];
     if (!court && !uneLigne && mots.length > 1 && larg(pre[0], fz, GN) > Math.max(larg(NOM(q), fn, NS, true), larg(datesDe(q), fd, NS, true)) * 1.25) {
@@ -78,14 +92,15 @@
 
   /* Rangement « parfait » (une ligne par génération) : chaque personne exactement sous ses deux parents,
      les branches rapprochées au plus près rangée par rangée (méthode de Reingold et Tilford). Aucun trait ne se croise. */
-  var EC = 32;
+  var EC = 32, VG = 99;   /* VG : première génération dont les étiquettes sont verticales (plus serrées : 10 px entre deux) */
+  function ecg(g) { return g >= VG ? 6 : EC; }
   function parentsDe(p) { return [p.pere, p.mere].filter(function (q) { return q && q._g === p._g + 1; }); }
   function contour(p) {
     var w = p._e.w / 2, ps = parentsDe(p), L = [-w], R = [w];
     if (ps.length === 1) { var c = contour(ps[0]); ps[0]._rel = 0; c.L.forEach(function (v, d) { L[d + 1] = v; R[d + 1] = c.R[d]; }); }
     else if (ps.length === 2) {
       var a = contour(ps[0]), b = contour(ps[1]), sep = 0;
-      for (var d = 0; d < Math.min(a.R.length, b.L.length); d++) sep = Math.max(sep, a.R[d] - b.L[d] + EC);
+      for (var d = 0; d < Math.min(a.R.length, b.L.length); d++) sep = Math.max(sep, a.R[d] - b.L[d] + ecg(p._g + 1 + d));
       ps[0]._rel = -sep / 2; ps[1]._rel = sep / 2;
       for (d = 0; d < Math.max(a.L.length, b.L.length); d++) {
         var l = [], r = [];
@@ -113,10 +128,14 @@
       for (var g = 0; g < max; g++) {
         var fz = Math.max(min, Math.round(taille * (1 - g * .06))), liste = rangs[g], trouve = null;
         if (g === 0) { liste.concat(fs).forEach(function (q) { q._e = etiquette(q, Math.round(fz * (MOTIF ? 1.05 : 1.25)), false, true); }); trouve = { k: 1, court: false }; }
+        else if (RANGE === 'v2' || RANGE === 'v21' || RANGE === 'v1') {   /* les rangées à partir de VG en vertical (2 lignes ; 1 seule pour la dernière en « v21 », pour toutes en « v1 »), les autres en entier */
+          var vv = g >= VG ? (RANGE === 'v2' || (RANGE === 'v21' && g < max - 1) ? 2 : 1) : 0;
+          liste.forEach(function (q) { q._e = etiquette(q, fz, false, false, vv); }); trouve = { k: 1, court: false, v: vv };
+        }
         else if (RANGE) { liste.forEach(function (q) { q._e = etiquette(q, fz, RANGE === 'court'); }); trouve = { k: 1, court: RANGE === 'court' }; }
         else [false, true].some(function (court) {
           liste.forEach(function (q) { q._e = etiquette(q, fz, court); });
-          for (var k = 1; k <= KMAX; k++) {
+          for (var k = 1; k <= Math.min(KMAX, KQ); k++) {
             var sous = []; for (var s = 0; s < k; s++) sous.push(liste.filter(function (q, i) { return i % k === s; }));
             if (sous.every(etaler)) { trouve = { k: k, court: court }; return true; }
           }
@@ -124,7 +143,7 @@
         });
         if (!trouve) { ok = false; trouve = { k: KMAX, court: true }; }
         var hb = Math.max.apply(null, (g === 0 ? liste.concat(fs) : liste).map(function (q) { return q._e.h; }).concat([0]));
-        plan.push({ fz: fz, k: trouve.k, court: trouve.court, hb: hb, h: trouve.k * hb + (trouve.k - 1) * 14 });
+        plan.push({ fz: fz, k: trouve.k, court: trouve.court, v: trouve.v || 0, hb: hb, h: trouve.k * hb + (trouve.k - 1) * 14 });
         total += plan[g].h;
       }
       var liens = (max - 1) * Math.round(90 / Math.pow(ech(a3), .75));   /* place minimale pour les traits entre deux rangées */
@@ -132,12 +151,26 @@
       return { plan: plan, ok: ok && total + liens <= BAS - HAUT, total: total, range: !!RANGE };
     }
     /* d'abord le rangement parfait (prénoms complets, puis premier prénom seulement), sinon les rangées en quinconce */
-    var res = null, RANGE = '';
-    (PARFAIT ? ['complet', 'court'] : ['']).filter(function (x) { return x !== null; }).some(function (mode) {
-      RANGE = mode; var taille = PARFAIT ? (a3 ? 96 : 110) : (a3 ? 80 : 96); res = essai(taille);   /* à l'horizontale : le texte grandit quand il y a de la place */
-      while (!res.ok && taille > min) { taille -= 2; res = essai(taille); }
-      return res.ok;
+    /* puis, si les rangées du haut sont trop remplies : étiquettes verticales à partir d'une génération (le moins possible),
+       avant les rangées en quinconce (dernier recours, en portrait). En portrait, la quinconce sur 2 lignes reste prioritaire. */
+    var res = null, RANGE = '', KQ = 99;
+    var modes = PARFAIT ? ['complet', 'court', 'v2', 'v21', 'v1'] : ['q2', 'v2', 'v21', 'v1', ''];
+    modes.some(function (mode) {
+      KQ = mode === 'q2' ? 2 : 99; RANGE = mode === 'q2' ? '' : mode;
+      var vgs = /^v/.test(mode) ? [] : [99];
+      if (!vgs.length) for (var v0 = max - 1; v0 >= 1; v0--) vgs.push(v0);
+      return vgs.some(function (v) {
+        VG = v; var taille = PARFAIT || RANGE ? (a3 ? 96 : 110) : (a3 ? 80 : 96); res = essai(taille);   /* à l'horizontale : le texte grandit quand il y a de la place */
+        if (res.ok) return true;
+        /* la plus grande taille de texte qui tient : on essaie d'abord la plus petite (si elle ne tient pas, rien ne tiendra), puis par dichotomie */
+        var bas0 = essai(min); if (!bas0.ok) { res = bas0; return false; }
+        var lo = min, hi = taille, best = bas0;
+        while (hi - lo > 2) { var mi = Math.round((lo + hi) / 2), r2 = essai(mi); if (r2.ok) { lo = mi; best = r2; } else hi = mi; }
+        res = essai(lo); if (!res.ok) res = best;
+        return true;
+      });
     });
+    res.vg = VG;
     return res;
   }
 
@@ -212,7 +245,8 @@
         (CJ ? [CJ] : UN).forEach(function (q) { q._yb += centre(moi) - centre(q); });   /* les conjoints à la même hauteur que toi (centre contre centre) */
         continue;
       }
-      liste.forEach(function (q) { q._e = etiquette(q, L.fz, L.court); });
+      liste.forEach(function (q) { q._e = etiquette(q, L.fz, L.court, false, L.v); });
+      if (L.v) { var hv = Math.max.apply(null, liste.map(function (q) { return q._e.h; })); liste.forEach(function (q) { q._e.h = hv; }); }   /* cartes verticales d'une même rangée : même hauteur, comme une frise */
       for (var s = 0; s < L.k; s++) {
         var sl = liste.filter(function (q, i) { return i % L.k === s; }); etaler(sl);
         sl.forEach(function (q) { q._yb = L.bas - (L.k - 1 - s) * (L.hb + 14); });   /* la première ligne est la plus haute */
@@ -381,6 +415,33 @@
           : '<rect x="' + f1(x - sy) + '" y="' + f1(cy - sy) + '" width="' + 2 * sy + '" height="' + 2 * sy + '" rx="3" fill="' + cs + '" stroke="' + OR + '" stroke-width="3"/>';
         var ty2 = cy + rr + 18;
         e.l.forEach(function (l) { ty2 += l[1] * 1.02; cartes += '<text x="' + f1(x) + '" y="' + f1(ty2) + '" text-anchor="middle" class="' + l[4] + '" font-size="' + l[1] + '" paint-order="stroke" stroke="#FBF5EA" stroke-width="7" stroke-linejoin="round">' + esc(l[0]) + '</text>'; ty2 += l[1] * .14; });
+        return;
+      }
+      if (e.v) {   /* étiquette verticale : la carte est haute et étroite, le texte se lit de bas en haut */
+        var fzv = e.lv[0][0][1], sv = Math.max(9, Math.round(fzv * .36)), cv = moiMeme ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4', ep = e.lv.length * fzv * 1.18;
+        if (MOTIF === 'medaillons') {   /* Médaillons : un petit médaillon doré en haut, le nom écrit dessous, sans carte */
+          var rm = Math.max(sv + 4, e.w * .42);
+          cartes += '<circle cx="' + f1(x) + '" cy="' + f1(yt + rm) + '" r="' + f1(rm) + '" fill="#FFFBF3" stroke="url(#li-or)" stroke-width="' + f1(Math.max(2.5, rm * .22)) + '"/>';
+          cartes += f ? '<circle cx="' + f1(x) + '" cy="' + f1(yt + rm) + '" r="' + f1(rm * .42) + '" fill="' + cv + '"/>' : '<rect x="' + f1(x - rm * .38) + '" y="' + f1(yt + rm * .62) + '" width="' + f1(rm * .76) + '" height="' + f1(rm * .76) + '" rx="2" fill="' + cv + '"/>';
+          var yfin = yt + 2 * rm + 10 + e.lon;   /* le nom part juste sous le médaillon ; un fin trait doré le relie au trait du bas */
+          if (yb - yfin > 8) cartes += '<path d="M' + f1(x) + ' ' + f1(yfin + 6) + 'V' + f1(yb) + '" stroke="#B08048" stroke-width="2.5"/>';
+          cartes += '<g transform="translate(' + f1(x) + ' ' + f1(yt + 2 * rm + 10) + ') rotate(-90)">';
+          e.lv.forEach(function (li, k) {
+            var yy = -ep / 2 + (k + .78) * fzv * 1.18;
+            cartes += '<text x="0" y="' + f1(yy) + '" text-anchor="end" paint-order="stroke" stroke="#FBF5EA" stroke-width="5" stroke-linejoin="round">' + li.map(function (z, j) { return '<tspan class="' + z[4] + '" font-size="' + z[1] + '"' + (j ? ' dx="' + f1(fzv * .35) + '"' : '') + '>' + esc(z[0]) + '</tspan>'; }).join('') + '</text>';
+          });
+          cartes += '</g>';
+          return;
+        }
+        cartes += '<rect x="' + f1(x - e.w / 2) + '" y="' + f1(yt) + '" width="' + f1(e.w) + '" height="' + f1(e.h) + '" rx="' + f1(Math.min(12, e.w / 3)) + '" fill="#FFFCF6" stroke="' + OR + '" stroke-width="2.5"/>';
+        cartes += f ? '<circle cx="' + f1(x) + '" cy="' + f1(yt) + '" r="' + sv + '" fill="' + cv + '" stroke="' + OR + '" stroke-width="2.5"/>'
+          : '<rect x="' + f1(x - sv) + '" y="' + f1(yt - sv) + '" width="' + 2 * sv + '" height="' + 2 * sv + '" rx="2" fill="' + cv + '" stroke="' + OR + '" stroke-width="2.5"/>';
+        cartes += '<g transform="translate(' + f1(x) + ' ' + f1(yt + (e.h + sv) / 2) + ') rotate(-90)">';
+        e.lv.forEach(function (li, k) {
+          var yy = -ep / 2 + (k + .78) * fzv * 1.18;
+          cartes += '<text x="0" y="' + f1(yy) + '" text-anchor="middle">' + li.map(function (z, j) { return '<tspan class="' + z[4] + '" font-size="' + z[1] + '"' + (j ? ' dx="' + f1(fzv * .35) + '"' : '') + '>' + esc(z[0]) + '</tspan>'; }).join('') + '</text>';
+        });
+        cartes += '</g>';
         return;
       }
       cartes += '<rect x="' + f1(x - e.w / 2) + '" y="' + f1(yt) + '" width="' + f1(e.w) + '" height="' + f1(e.h) + '" rx="' + f1(Math.min(22, e.h / 4)) + '" fill="#FFFCF6" stroke="' + (moiMeme ? '#8E2F5E' : OR) + '" stroke-width="' + (moiMeme ? 5 : 3) + '"/>';
