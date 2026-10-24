@@ -152,7 +152,7 @@
       $('liste-arbres').innerHTML = ligneArbre('genosociogramme.html', 'Mon arbre (principal)', nbPers(d), ligne && ligne.updated_at) +
         arbresSupp.map(function (a) { return ligneArbre('genosociogramme.html?arbre=' + encodeURIComponent(a.id), a.nom || 'Autre arbre', nbPers(a.data), a.maj); }).join('') +
         (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '') +
-        (nbClients ? '<p class="tb-aide">Tes ' + nbClients + ' dossier' + (nbClients > 1 ? 's' : '') + ' client·es sont dans <a href="praticien.html">Mon Espace praticien</a>.</p>' : '');
+        (nbClients ? '<p class="tb-aide">Tes ' + nbClients + ' dossier' + (nbClients > 1 ? 's' : '') + ' client·es sont dans <a href="pro.html">Mon Espace praticien</a>.</p>' : '');
       $('mes-arbres').hidden = false;
     });
   }
@@ -416,7 +416,7 @@
       if (!r || r.error || !r.data || document.getElementById('acc-cabinet')) return;
       var g = document.querySelector('[data-p="accueil"] .tb-grille'); if (!g) return;
       var c = document.createElement('article'); c.className = 'tb-carte tb-large'; c.id = 'acc-cabinet';
-      c.innerHTML = '<h2>Mon Espace praticien · ' + esc(r.data.cabinet || 'Espace praticien') + '</h2><p class="tb-aide">Tes dossiers client·es, tes notes de séance, le mode séance, les rapports et les liens de partage.</p><div class="tb-actions"><a class="btn btn-plein" href="praticien.html">Ouvrir mon Espace praticien</a></div>';
+      c.innerHTML = '<h2>Mon Espace praticien · ' + esc(r.data.cabinet || 'Espace praticien') + '</h2><p class="tb-aide">Tes dossiers client·es, tes notes de séance, le mode séance, les rapports et les liens de partage.</p><div class="tb-actions"><a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a></div>';
       g.insertBefore(c, g.firstChild);
     }, function () {});
   }
