@@ -111,6 +111,45 @@
     .pa-phrase{margin:.3rem 0 0;padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#FFF4E6;font:400 1.12rem/1.55 var(--display)}
     .pa-deux-c{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
     @media (max-width:520px){.pa-deux-c{grid-template-columns:1fr}}
+    /* La question, la libération en cours, les personnes */
+    .pa-grande-q{background:linear-gradient(150deg,#2E1338,#6B2F5B);color:#FFF4E6;border:0}
+    .pa-grande-q .pa-etiq,.pa-bloc.pa-grande-q h4{color:#F3DCC0}
+    .pa-grande-q p{font:400 1.08rem/1.5 var(--display)!important;margin:0}
+    .pa-bloc.pa-grande-q{padding:1rem 1.1rem;border-radius:18px}
+    .pa-en-cours{border:1.5px solid #E2C48E;background:linear-gradient(160deg,#FFFCF5,#FFF6EC)}
+    .pa-en-cours h2{margin-bottom:.2rem!important}
+    .pa-gens{list-style:none;margin:.2rem 0 .3rem;padding:0;display:grid;gap:.4rem}
+    .pa-gens button{display:flex;gap:.7rem;align-items:center;width:100%;padding:.5rem .6rem;border-radius:14px;border:1px solid var(--ligne);background:#fff;font:inherit;color:var(--encre);text-align:left;cursor:pointer}
+    .pa-gens b{display:block;color:var(--prune)}.pa-gens span{font-size:.84rem;color:var(--doux);line-height:1.35}
+    .pa-mini{flex:none;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#E9DCE6);border:1.5px dashed #D9C3CF}
+    .pa-mini.paix{border:0;box-shadow:0 0 0 3px #FFF4DA,0 0 14px 4px rgba(242,217,160,.9)}.pa-mini.mitige{border:2.5px solid #E8893A;box-shadow:0 0 10px rgba(232,137,58,.45)}
+    .pa-sv-et{font:700 13px var(--texte);fill:#FFE6B8}.pa-et{color:#E2B04A;margin-right:.3rem}
+    .pa-commun{padding:.6rem .8rem;border-radius:12px;background:#FFF6E3;border:1px solid #EBD3BC;color:#7A5226;font-size:.9rem;margin:0 0 .8rem}
+    .pa-protos{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+    .pa-protos button{padding:.75rem .8rem;border-radius:14px;border:1.5px solid #EBCFD5;background:#fff;text-align:left;font:inherit;cursor:pointer;color:var(--encre)}
+    .pa-protos button[aria-pressed="true"]{border-color:#B0507A;background:#FCEFF3;box-shadow:0 0 0 2px rgba(176,80,122,.15)}
+    .pa-protos b{display:block;font:400 1.02rem/1.2 var(--display);color:var(--prune);margin-bottom:.2rem}.pa-protos span{font-size:.8rem;color:var(--doux);line-height:1.35}
+    /* Le fil d'or dans l'appli */
+    .pa-intro{padding:.8rem .9rem;border-radius:14px;background:#FBF4EA;border:1px solid #EBD3BC;margin:0 0 .8rem}.pa-intro p{font-size:.9rem!important}
+    .pa-onglets-f{display:flex;gap:.35rem;overflow-x:auto;padding:.1rem 0 .5rem;margin:0 -.2rem .3rem;-webkit-overflow-scrolling:touch}
+    .pa-onglets-f button,.pa-onglets-f select{flex:none;min-height:40px;padding:.4rem .8rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--prune);font:600 .85rem/1.2 var(--texte);cursor:pointer}
+    .pa-onglets-f button[aria-selected="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
+    .pa-onglets-f small{opacity:.75;font-weight:700;margin-left:.15rem}
+    .pa-onglets-f select{background:#FBF0E4;border-color:#EBD3BC}
+    .pa-pers-f label{display:block;font-weight:600;margin:.3rem 0 .3rem;font-size:.9rem}
+    .pa-pers-f input{width:100%;box-sizing:border-box;min-height:44px;padding:.55rem .8rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit}
+    .pa-moments{list-style:none;padding:0;margin:.7rem 0 0;display:grid;gap:.4rem}
+    .pa-moments button{display:grid;grid-template-columns:3rem 1fr;gap:.7rem;align-items:center;width:100%;padding:.55rem .6rem;border-radius:14px;border:1px solid var(--ligne);background:#FFFCFA;text-align:left;font:inherit;color:var(--encre);cursor:pointer}
+    .pa-age{display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:linear-gradient(135deg,#FFF1CF,#E2C48E);font:400 1.15rem/1 var(--display);color:#5A3A1A}.pa-age small{font:600 .6rem/1 var(--texte);display:block}
+    .pa-moments b{display:block;color:var(--prune);font-weight:600;line-height:1.35}.pa-moments small{display:block;color:#9A3A68;font-size:.8rem;margin-top:.15rem}
+    /* Le chemin du mois */
+    .pa-frise{list-style:none;padding:0;margin:.3rem 0 .4rem;position:relative}
+    .pa-frise::before{content:"";position:absolute;left:1.05rem;top:.6rem;bottom:.6rem;width:2px;background:#F1E3E8}
+    .pa-frise li{display:grid;grid-template-columns:2.2rem 1fr;gap:.6rem;align-items:start;position:relative;padding:.3rem 0}
+    .pa-frise li>b{width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #E7A79E;font:400 .95rem/1 var(--display);color:var(--prune);position:relative}
+    .pa-frise li.libere>b,.pa-frise li.spirale>b{border-color:#E2B04A;background:#FFF6E3}.pa-frise li.gesteDate>b{border-color:#5FA88A}
+    .pa-frise button{border:0;background:none;text-align:left;font:inherit;color:var(--encre);padding:.35rem 0;cursor:pointer}
+    .pa-frise button span{display:block;font-weight:600;line-height:1.35}.pa-frise small{display:block;color:var(--doux);font-size:.82rem}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -169,7 +208,7 @@
     .pa-jour .jp{position:absolute;top:.2rem;right:.3rem;font:400 .72rem/1 var(--display);color:#B98A55}
     .pa-jour .pts{display:flex;gap:2px;flex-wrap:wrap;margin-top:auto}
     .pa-jour .pts i{width:7px;height:7px;border-radius:50%}
-    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}.pts .g,.pa-legende .g,.pa-pt.g{background:#5FA88A}
+    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}.pts .g,.pa-legende .g,.pa-pt.g{background:#5FA88A}.pts .h,.pa-legende .h,.pa-pt.h{background:#C9B6E4}
     .pa-pt{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.45rem;vertical-align:middle}
     .jpl{font:400 1.05rem/1 var(--display);color:#B98A55}
     .pa-jour.auj{border:2px solid #B0507A}
@@ -267,7 +306,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=3"></script>
-  <script src="assets/pass.js?v=4"></script>
+  <script src="assets/pass-enquete.js?v=4"></script>
+  <script src="assets/pass.js?v=5"></script>
 </body>
 </html>
