@@ -1752,12 +1752,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   } else if (CERCLE.indexOf(page) >= 0) {
     html = '<div class="livre-encart">' + img(L.racines, 'Le livre Racines') +
       '<div><p class="le-sur">Le livre · Le Cercle, livre 1</p><h2>Racines, sur papier</h2>' +
-      '<p>Trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place : un cahier à écrire, un petit rendez-vous chaque jour, avec exercices, rituels et méditations.</p>' +
+      '<p>Les exercices du Cercle en version papier. Trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place : un cahier à écrire, un petit rendez-vous chaque jour, avec exercices, rituels et méditations.</p>' +
       '<div class="le-bt"><a class="btn btn-plein" href="' + L.racines.page + '">Découvrir Racines</a><a class="btn btn-trait" href="' + L.racines.page + '#feuilleter">Feuilleter quelques pages</a><a class="btn btn-trait" data-livre-acheter="racines" href="' + L.racines.page + '">Acheter</a></div></div></div>';
   } else if (page === 'index.html') {
     html = '';
   } else {
-    html = deux('Les livres Genesolia', 'Ton histoire, sur papier', 'Deux livres à écrire, à ton rythme : <b>L’enquête de ma lignée</b>, à remplir en famille pour comprendre ce qui se transmet, et <b>Racines</b>, trois mois pour sortir de l’alerte et prendre ta place.');
+    html = deux('Les livres Genesolia', 'Ton histoire, sur papier', 'Deux livres à écrire, à ton rythme : <b>L’enquête de ma lignée</b>, à remplir en famille pour comprendre ce qui se transmet, et <b>Racines</b>, les exercices du Cercle en version papier, trois mois pour sortir de l’alerte et prendre ta place.');
   }
   var pied = document.querySelector('[data-pied]');
   if (html && pied) {
@@ -1771,7 +1771,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var ouv = page === 'index.html' && document.querySelector('main > .ouverture');
   if (ouv) {
     var b = document.createElement('section'); b.className = 'livre-accueil'; b.setAttribute('aria-label', 'Les livres Genesolia');
-    b.innerHTML = '<div class="conteneur">' + deux('Nouveau · les livres Genesolia', 'Ton histoire de famille, sur papier', 'À écrire seul·e ou en famille : <b>L’enquête de ma lignée</b> pour rassembler ton histoire et voir ce qui se répète, et <b>Racines</b> pour sortir de l’alerte et prendre ta place. Les premières pages sont offertes.') + '</div>';
+    b.innerHTML = '<div class="conteneur">' + deux('Nouveau · les livres Genesolia', 'Ton histoire de famille, sur papier', 'À écrire seul·e ou en famille : <b>L’enquête de ma lignée</b> pour rassembler ton histoire et voir ce qui se répète, et <b>Racines</b>, les exercices du Cercle en version papier, pour sortir de l’alerte et prendre ta place. Les premières pages sont offertes.') + '</div>';
     ouv.parentNode.insertBefore(b, ouv.nextSibling);
   }
 })();
