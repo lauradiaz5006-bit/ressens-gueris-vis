@@ -1821,9 +1821,27 @@
         else if (annee(q.deces) && (annee(q.deces) === anN || annee(q.deces) === anN - 1)) evs.push(nm(q) + ' est ' + (q.sex === 'f' ? 'décédée' : 'décédé') + ' en ' + annee(q.deces));
       });
       parents(id).forEach(function (k) { var q = S.people[k]; (q.events || []).forEach(function (e) { var ea = parseInt(e.age, 10), an = annee(q.naiss); if (isNaN(ea) || !an) return; if (an + ea === anN || an + ea === anN - 1) evs.push(nm(q) + ' : « ' + (NOM_EVT[e.type] || e.type || '').toLowerCase() + ' » vers ' + (an + ea)); }); });
-      if (evs.length) carteP('gisant', C.g, 'Autour de ' + (tiers ? 'la conception de ' + pr : 'ta conception'), 'Dans l’année qui précède ' + (tiers ? 'sa' : 'ta') + ' naissance : ' + evs.slice(0, 4).join(' ; ') + '. Que traversait la famille quand ' + (tiers ? pr + ' a été attendu' + (p.sex === 'f' ? 'e' : '') : 'tu as été attendu·e') + ' ?', []);
+      if (evs.length) carteP('gisant', C.g, 'Autour de ' + (tiers ? 'la conception de ' + pr : 'ta conception'), 'Autour de ' + (tiers ? 'sa' : 'ta') + ' naissance : ' + evs.slice(0, 4).join(' ; ') + '. Que traversait la famille quand ' + (tiers ? pr + ' a été attendu' + (p.sex === 'f' ? 'e' : '') : 'tu as été attendu·e') + ' ?', []);
     }
     return out;
+  }
+  /* « À compléter » : les trous de l'arbre qui empêchent des répétitions d'apparaître (dates, parents, décès sans date, fratrie sans parents) */
+  function blocTrous() {
+    var l = [], vus = {};
+    function aj(id, t) { if (l.length < 40) l.push({ id: id, t: t }); }
+    var ids = Object.keys(S.people).filter(function (id) { return !petit(S.people[id]); });
+    ids.forEach(function (id) { var p = S.people[id]; if (!annee(p.naiss)) aj(id, nomAffiche(p) + ' : date de naissance'); });
+    ids.forEach(function (id) { var p = S.people[id]; if (p.decede && !annee(p.deces)) aj(id, nomAffiche(p) + ' : année du décès'); });
+    S.rels.forEach(function (r) { if (r.type !== 'fratrie') return; [r.from, r.to].forEach(function (id) { if (existe(id) && !vus['f' + id] && !parents(id).length) { vus['f' + id] = 1; aj(id, nomAffiche(S.people[id]) + ' : ses parents ne sont pas reliés'); } }); });
+    var moi = idMoi();
+    if (moi) {
+      var pm = parents(moi);
+      if (pm.length < 2) aj(moi, (DOSSIER_CLIENT ? 'Un parent de ' + nomAffiche(S.people[moi]) : 'Un de tes parents') + ' manque');
+      pm.forEach(function (x) { if (parents(x).length < 2) aj(x, 'Un parent de ' + nomAffiche(S.people[x]) + ' manque (génération des grands-parents)'); });
+    }
+    if (!l.length) return '';
+    return '<details class="trous"><summary>À compléter <span>' + l.length + '</span></summary><p class="rep-aide">Chaque date ou parent ajouté peut faire apparaître une répétition. Clique pour aller à la personne.</p><ul>' +
+      l.map(function (x) { return '<li><button type="button" data-trou="' + esc(x.id) + '">' + esc(x.t) + '</button></li>'; }).join('') + '</ul></details>';
   }
   function dessinerPanneau() {
     reps = reps.filter(function (r) { return !r.synth && visiblePartage(r); });
@@ -1832,7 +1850,7 @@
     var z = $('reps');
     if (!Object.keys(S.people).length) { z.innerHTML = '<p class="rep-aide">Commence par te placer dans l’arbre.</p>'; return; }
     if (!n) {
-      z.innerHTML = '<p class="rep-aide">Rien pour l’instant. Ajoute <b>les dates</b>, <b>les métiers</b> et <b>les événements marquants</b> de chacun : les répétitions apparaissent ici toutes seules.</p>' +
+      z.innerHTML = blocTrous() + '<p class="rep-aide">Rien pour l’instant. Ajoute <b>les dates</b>, <b>les métiers</b> et <b>les événements marquants</b> de chacun : les répétitions apparaissent ici toutes seules.</p>' +
         (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
       return;
     }
@@ -1922,7 +1940,7 @@
     var nAct = actives.filter(function (i) { return !reps[i].synth; }).length;   // = répétitions visibles + toutes les pistes par thème
     $('compte').textContent = nAct + idxPort.length; $('compte-bouton').textContent = nAct + idxPort.length;   // = toutes les cartes du panneau (portrait compris), sans les pistes écartées
     var visR = actives.filter(function (i) { return reps[i].type === 'repere'; }), visA = actives.filter(function (i) { return reps[i].type !== 'repere'; });
-    var h = blocVue + (mots.length ? info : (autreC ? '' : blocExo));
+    var h = blocVue + (mots.length ? info : (autreC ? '' : blocExo + blocTrous()));
     if (idxPort.length) h += '<div class="reps-groupe reps-portrait"><p class="exos-titre">Ce qui part ' + (autreC || DOSSIER_CLIENT ? 'de ' + esc(prC) : 'de toi') + '</p>' + idxPort.map(carte).join('') + '</div>';
     if (visR.length) h += '<div class="reps-groupe reps-visibles"><p class="exos-titre">' + (autreC || DOSSIER_CLIENT ? 'Ses' : 'Tes') + ' répétitions visibles <span>' + visR.length + '</span></p>' + visR.map(carte).join('') + '</div>';
     var THEME = { anniversaire: 'Les âges qui se répondent', gisant: 'Naissances et deuils', depart: 'Départs précoces', date: 'Dates qui reviennent', epreuve: 'Mêmes événements', schema: 'Schémas familiaux', metier: 'Métiers', prenom: 'Prénoms' };
@@ -2524,6 +2542,7 @@
     if (t.matches && t.matches('[data-note]')) avisChange(t.getAttribute('data-note'), undefined, t.value.slice(0, 300));
   });
   $('reps').addEventListener('click', function (e) {
+    var tr = e.target.closest('[data-trou]'); if (tr) { var tid = tr.getAttribute('data-trou'); if (S.people[tid]) choisir(tid); return; }
     var v = e.target.closest('[data-vu]');
     if (v) { vuDepuis = v.getAttribute('data-vu') || null; coteFiltre = ''; recherche = ''; var ch = $('rep-cherche'); if (ch) ch.value = ''; repActive = null; dessiner(); $('reps').scrollTop = 0; return; }
     var av = e.target.closest('[data-avis]');
