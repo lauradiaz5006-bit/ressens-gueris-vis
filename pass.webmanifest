@@ -2,7 +2,7 @@
   "id": "/pass.html",
   "name": "Mon enquête · Le Pass Genesolia",
   "short_name": "Mon enquête",
-  "description": "Ton enquête de lignée, étape par étape : fil d'or, arbre, agenda de ta lignée, ton ciel et tes nombres.",
+  "description": "Dépose tes ressentis, cherche à qui ils appartiennent, enquête dans ta lignée et libère : ton fil d'or, ton agenda et ton bilan.",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "/pass.html?source=appli",
@@ -18,7 +18,8 @@
     { "src": "/assets/icones/pass-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Mon enquête", "url": "/pass.html#enquete" },
-    { "name": "Mon agenda", "url": "/pass.html#agenda" }
+    { "name": "Mon fil d'or", "url": "/pass.html#fil" },
+    { "name": "Mon agenda", "url": "/pass.html#agenda" },
+    { "name": "Mon bilan", "url": "/pass.html#bilan" }
   ]
 }

@@ -636,7 +636,7 @@
         var parts = j.split('/');
         var mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][+parts[1] - 1];
         var ansD = g.map(function (x) { return annee(x.quoi === 'décès' ? x.p.deces : x.p.naiss); }).filter(Boolean), eaD = ansD.length > 1 ? Math.max.apply(null, ansD) - Math.min.apply(null, ansD) : null;
-        reps.push({ type: 'date', c: COUL.date, ea: eaD, faible: eaD != null && eaD > 75, label: 'Une date qui revient : le ' + (+parts[0]) + ' ' + mois, desc: g.map(function (x) { return x.quoi + ' de ' + nom(x.p); }).join(', ') + '.', ids: ids });
+        reps.push({ type: 'date', jm: j, c: COUL.date, ea: eaD, faible: eaD != null && eaD > 75, label: 'Une date qui revient : le ' + (+parts[0]) + ' ' + mois, desc: g.map(function (x) { return x.quoi + ' de ' + nom(x.p); }).join(', ') + '.', ids: ids });
       }
     });
     // Départs précoces : parmi tes proches (jusqu'aux arrière-grands-parents, oncles et tantes) quand « toi » est placé·e
@@ -2019,7 +2019,11 @@
   }
   function donneesCompte() {
     if (ARBRE_ID) return Object.assign({}, annexes, { people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} });
-    return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} }); }
+    return Object.assign({}, annexes, { exercices: fusionnerExos(annexes.exercices, lireExos()) }, { people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} }, lectureCompte()); }
+  /* « Ce qui se répète », gardé avec l'arbre : l'appli du Pass (pass.html) le lit pour l'agenda et le bilan, sans recharger tout l'arbre */
+  function lectureCompte() {
+    try { var L = window.GenoArbre && window.GenoArbre.lecture ? window.GenoArbre.lecture() : null; return L ? { lecture: { maj: new Date().toISOString().slice(0, 10), portrait: L.portrait, reps: L.reps } } : {}; } catch (e) { return {}; }
+  }
   function envoyer() {
     clearTimeout(minuteur); minuteur = null;
     if (!utilisateur || !sb) return;
@@ -2955,7 +2959,7 @@
        (« Ce qui part de toi » compris, sans les pistes marquées « Pas pour moi ») */
     lecture: function () {
       var base = detecter().filter(function (r) { return !r.synth && visiblePartage(r); }), AV = S.avis || {};
-      var reps = base.filter(function (r) { return !(AV[r.cleA] && AV[r.cleA].v === 'non'); }).map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; });
+      var reps = base.filter(function (r) { return !(AV[r.cleA] && AV[r.cleA].v === 'non'); }).map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort, jm: r.jm || undefined }; });
       var c = idCentre(), pc = c ? S.people[c] : null, port = base.length && pc ? portraitDe(c) : [];
       var tiers = DOSSIER_CLIENT || (pc && pc.role !== 'moi'), prC = pc ? (String(pc.prenom || '').split(/[\s-]+/)[0] || nomComplet(pc) || 'cette personne') : '';
       return { portrait: port.map(function (r) { return { label: r.label, desc: r.desc }; }), titrePortrait: 'Ce qui part ' + (tiers ? 'de ' + prC : 'de toi'), reps: reps, total: port.length + reps.length };
@@ -4058,6 +4062,8 @@
           marquerSynchro(true);
           try { localStorage.setItem(CLE_LOCALE, JSON.stringify({ people: S.people, rels: S.rels, nid: S.nid, v: 2, avis: S.avis || {} })); } catch (e) {}
           selId = null; dessiner(); recentrer(); majBarreActions();
+          /* « Ce qui se répète » change avec l'âge : on le remet à jour une fois par jour pour l'appli du Pass */
+          if (!dc.lecture || dc.lecture.maj !== new Date().toISOString().slice(0, 10)) { clearTimeout(minuteur); enAttente = true; minuteur = setTimeout(envoyer, 4000); }
         } else if (Object.keys(S.people).length) {
           enregistrer();
         }
