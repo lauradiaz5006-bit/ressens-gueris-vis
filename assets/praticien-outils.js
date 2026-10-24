@@ -183,7 +183,7 @@ window.GenesoliaPratique = (function () {
               '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-plein bt plein" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ajouter à l’arbre</a>') +
               '<button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Supprimer ces réponses</button></div></div>';
           }
-          return '<div class="pr-o-actif"><div><b>Envoyé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +
+          return '<div class="pr-o-actif"><div><b>Créé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +
             '<input class="pr-o-url" type="text" readonly value="' + esc(urlQ(q.jeton)) + '" aria-label="Adresse du questionnaire">' +
             '<div class="pr-o-boutons"><button class="btn btn-trait bt" type="button" data-q-copier="' + esc(q.jeton) + '">Copier le lien</button><button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Désactiver ce lien</button></div><p class="pr-o-msg" data-q-copie="' + esc(q.jeton) + '"></p></div>';
         }).join('') : '<p class="pr-o-aide">Aucun questionnaire en cours pour ce dossier.</p>';

@@ -95,6 +95,7 @@
       '<label>Ce qui t’amène à cet accompagnement, aujourd’hui<textarea data-g="attente" maxlength="2000">' + esc(G.attente || '') + '</textarea></label>' +
       '<label><span>Ce dont on ne parle pas dans ta famille <small>(si tu veux en dire un mot)</small></span><textarea data-g="silences" maxlength="2000">' + esc(G.silences || '') + '</textarea></label></div></section>';
     h += '<div class="gq-fin"><p class="gq-confid"><b>Qui lit tes réponses ?</b> Seulement ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ', dans son espace protégé. Elles sont hébergées en Europe (Irlande), ne sont ni revendues ni partagées, et ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ' peut les supprimer à ta demande. <a href="confidentialite.html" target="_blank" rel="noopener">Confidentialité</a></p>' +
+      '<label class="gq-accord"><input type="checkbox" data-accord> <span>J’accepte de transmettre ces informations, y compris sensibles (deuils, moments marquants), à ' + (cabinet ? esc(cabinet) : 'mon·ma praticien·ne') + ', pour préparer mon accompagnement.</span></label>' +
       '<button class="btn btn-plein" type="button" data-envoyer style="width:100%">Envoyer mes réponses' + (cabinet ? ' à ' + esc(cabinet) : '') + '</button><p class="gq-err" role="alert"></p><p class="gq-sauve"></p>' +
       '<p class="gq-sauve">Tu ne pourras plus les modifier après l’envoi.</p></div>';
     var ouverts = [].map.call(z.querySelectorAll('details[open]'), function (d) { return d.getAttribute('data-pers'); });
@@ -184,6 +185,8 @@
 
   function envoyer(b) {
     var err = z.querySelector('.gq-err'); err.textContent = '';
+    var acc = z.querySelector('[data-accord]');
+    if (!acc || !acc.checked) { err.textContent = 'Coche la case d’accord pour envoyer tes réponses.'; if (acc) acc.focus(); return; }
     var faux = erreurs();
     if (faux.length) { err.textContent = 'Une date n’est pas comprise. Écris-la ainsi : 12/03/1958, ou seulement l’année.'; var d = faux[0].closest('details'); if (d) d.open = true; faux[0].focus(); return; }
     var r = resultat();

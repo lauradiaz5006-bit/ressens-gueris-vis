@@ -44,14 +44,19 @@
     .gq-confid{background:#fff;border:1px solid var(--rose);border-radius:14px;padding:.75rem .9rem;font-size:.86rem;line-height:1.45;color:var(--prune-doux);margin:0 0 .7rem}.gq-confid b{color:var(--prune)}
     .gq-err{color:#A3324B;font-size:.92rem;min-height:1.2em;margin:.4rem 0 0}
     .gq-sauve{color:var(--prune-doux);font-size:.82rem;margin:.4rem 0 0}
+    /* En-tête réduit au logo : la cliente reste sur son questionnaire */
+    header[data-entete=simple] .menu,header[data-entete=simple] .burger,header[data-entete=simple] .entete-actions{display:none!important}
+    header[data-entete=simple] .marque{pointer-events:none}
+    .gq-accord{display:flex!important;gap:.6rem;align-items:flex-start!important;font-weight:400!important;font-size:.92rem!important;line-height:1.45;margin:0 0 .8rem}
+    .gq-accord input{width:22px;height:22px;flex:none;margin:.1rem 0 0;accent-color:var(--prune)}
     .gq-merci{text-align:center;padding:2.4rem 1.2rem}
   </style>
 </head>
 <body class="nouveau">
-  <header data-entete></header>
+  <header data-entete="simple"></header>
   <main id="gq" aria-live="polite"><p class="gq-intro">Ton questionnaire s’ouvre…</p></main>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/questionnaire.js?v=2"></script>
+  <script src="assets/questionnaire.js?v=3"></script>
 </body>
 </html>
