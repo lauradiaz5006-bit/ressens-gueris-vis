@@ -640,7 +640,7 @@
 
   PAGES.push({ id: 'cloture', nom: 'Mon bilan du mois', g: function () {
     return gauche('cloture', 'Pour clore le mois · 10 minutes', 'Ma météo de fin de mois',
-      '<p class="mc-intro">Prends ce temps à la fin du mois, même si tout n’a pas été fait. Tu vas comparer avec ton début de mois : c’est souvent là que l’on voit tout le chemin parcouru.</p><p>Un point gagné sur un curseur, c’est un vrai mouvement. Un point perdu, c’est une information, pas un échec : le mois a peut-être été chargé.</p>');
+      '<p class="mc-intro">Tu vas comparer avec ton début de mois, pour mesurer ce qui a bougé.</p><p>Un point gagné sur un curseur, c’est un vrai mouvement. Un point perdu, c’est une information, pas un échec : le mois a peut-être été chargé.</p>');
   }, d: function () {
     return '<section class="mc-etape"><h3><span>1</span> Là, maintenant, comment te sens-tu ?</h3>' + blocEchelles('mf') + '<div class="mc-graphes" id="mc-graphes"></div></section>' +
       '<section class="mc-etape"><h3><span>2</span> Ta roue de la vie, un mois plus tard</h3><p class="mc-consigne">Note à nouveau chaque domaine, sans regarder tes réponses du début. Les deux roues se superposent : regarde ce qui s’est arrondi.</p>' + blocRoue('rf') + boutonsRoue('fin') + '</section>' +
@@ -892,7 +892,7 @@
         zone(M.note.k, M.note.q, { lignes: 3, ph: M.note.ph });
     } });
     P.push({ id: 'bilan', nom: 'Mon bilan', g: function () {
-      return gauche('bilan', 'Pour clore le mois · 10 minutes', 'Ce qui s’est libéré', '<p class="mc-intro">Prends ce temps même si tout n’a pas été fait. Libérer, ce n’est pas effacer : c’est porter plus léger, et reconnaître plus vite. Chaque mois, tu montes d’un cran sur la spirale.</p>');
+      return gauche('bilan', 'Pour clore le mois · 10 minutes', 'Ce qui s’est libéré', '<p class="mc-intro">Libérer, ce n’est pas effacer : c’est porter plus léger, et reconnaître plus vite. Chaque mois, tu montes d’un cran sur la spirale.</p>');
     }, d: function () {
       if (!membre) return offreCercle();
       return '<section class="mc-etape"><h3><span>1</span> Là, maintenant</h3><div class="mc-rappel" data-rappel-souhait hidden></div>' + curseur('int-fin', C.intensiteQ || 'À quel point ce thème pèse-t-il dans ta vie aujourd’hui ?', 'presque pas', 'énormément') + '<div class="mc-compare-int" id="mc-compare-int"></div></section>' +
@@ -1370,7 +1370,7 @@
           C.allerPlusLoin.map(function (a) { return '<article class="mc-av"><div><p class="mc-av-t">' + esc(a.titre) + '</p><p>' + md(a.texte) + '</p><p><a class="btn btn-trait" href="' + esc(a.lien) + '">Ouvrir</a></p></div></article>'; }).join('') + '</div></section>' : '');
     } });
     P.push({ id: 'bilan', nom: 'Mon bilan', g: function () {
-      return gauche('bilan', sur + ' · pour clore', 'Ce que ce module m’a appris', '<p class="mc-intro">Prends ce temps même si tout n’a pas été fait. Voir, c’est déjà ne plus être tout à fait dedans.</p>');
+      return gauche('bilan', sur + ' · pour clore', 'Ce que ce module m’a appris', '<p class="mc-intro">Voir, c’est déjà ne plus être tout à fait dedans.</p>');
     }, d: function () {
       if (!membre) return offreFormation();
       return '<section class="mc-etape"><h3><span>1</span> Là, maintenant</h3><div class="mc-rappel" data-rappel-souhait hidden></div>' + curseur('int-fin', O.intensiteQ || 'À quel point ce thème pèse-t-il dans ta vie aujourd’hui ?', 'presque pas', 'énormément') + '<div class="mc-compare-int" id="mc-compare-int"></div></section>' +
