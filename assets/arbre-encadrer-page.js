@@ -161,46 +161,45 @@
     var racineId = depart && P[depart] && enfantsDe(depart).length ? depart : defaut || ids.sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); })[0];
     var maxG = nbGen || 4, plusVieux = null, gens = 0, vus = {};
     function fiche(p) { return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; }
+    function sans(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim(); }
+    /* Les unions d'une personne, exactement comme dans l'arbre : chaque autre parent de ses enfants, puis ses conjoints sans enfant noté.
+       Un enfant dont l'autre parent n'est pas noté est rattaché au conjoint dont il porte le nom, seulement s'il n'y en a qu'un (sinon il reste rattaché à la personne seule). */
+    function unionsDe(id) {
+      var ens = enfantsDe(id).sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); }), liste = [], de = {};
+      ens.forEach(function (e) { var ap = parentsDe(e).filter(function (x) { return x !== id; })[0]; if (ap) { if (liste.indexOf(ap) < 0) liste.push(ap); de[e] = liste.indexOf(ap); } });
+      var cps = rels.filter(function (r) { return r.type === 'couple' && (r.from === id || r.to === id) && P[r.from === id ? r.to : r.from]; });
+      cps.forEach(function (r) { var x = r.from === id ? r.to : r.from; if (liste.indexOf(x) < 0) liste.push(x); });
+      ens.forEach(function (e) {
+        if (de[e] != null) return;
+        var nomE = ' ' + sans((P[e].prenom || '') + ' ' + (P[e].nom || '')).replace(/[-’']/g, ' ') + ' ';
+        var cand = liste.filter(function (x) { var n = sans(P[x].nom); return n && n !== sans(P[id].nom) && nomE.indexOf(' ' + n + ' ') >= 0; });
+        if (cand.length === 1) de[e] = liste.indexOf(cand[0]);
+      });
+      var fiches = liste.map(function (x) { var r = cps.filter(function (c) { return c.from === x || c.to === x; })[0], f = fiche(P[x]); f._id = x; f.separe = !!(r && (r.statut === 'separe' || r.statut === 'divorce')); return f; });
+      return { liste: liste, fiches: fiches, de: de, ens: ens };
+    }
     function construire(id, g) {
       if (vus[id]) return null; vus[id] = 1;
       var p = P[id], o = fiche(p); o._id = id; gens = Math.max(gens, g + 1);
       if (o.naissance && (!plusVieux || o.naissance < plusVieux)) plusVieux = o.naissance;
-      if (g > 0) {   /* son conjoint (l'autre parent de ses enfants, sinon son union) : écrit sous son nom */
-        var cjs = rels.filter(function (r) { return r.type === 'couple' && (r.from === id || r.to === id); }).map(function (r) { return r.from === id ? r.to : r.from; }).filter(function (x) { return P[x]; });
-        var ens = enfantsDe(id), par = ens.length ? parentsDe(ens[0]).filter(function (x) { return x !== id; })[0] : null;
-        var c0 = par && P[par] ? par : cjs[0]; if (c0) o.cj = fiche(P[c0]);
-        /* enfants de plusieurs unions : tous les autres parents sont écrits sous son nom */
-        var aps = ens.map(function (e) { return parentsDe(e).filter(function (x) { return x !== id; })[0]; }).filter(function (x, i, t) { return x && P[x] && t.indexOf(x) === i; });
-        if (aps.length > 1) { o.cj = fiche(P[aps[0]]); o.cj2 = fiche(P[aps[1]]); }
+      var U = unionsDe(id);
+      if (g > 0 && U.fiches.length) {   /* ses conjoints (les autres parents de ses enfants, puis ses unions) : écrits sous son nom */
+        o.cj = U.fiches[0]; if (U.fiches[1]) o.cj2 = U.fiches[1];
+        if (U.fiches.length > 1) o.unions = U.fiches.slice(0, 3);
       }
-      o.enf = g < maxG - 1 ? enfantsDe(id).sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); }).map(function (e) { return construire(e, g + 1); }).filter(Boolean) : [];
+      o.enf = g < maxG - 1 ? U.ens.map(function (e) { var c = construire(e, g + 1); if (c) c._u = U.de[e] != null ? U.de[e] : -1; return c; }).filter(Boolean) : [];
+      if (g > 0 && o.unions) o.enf = o.enf.map(function (c, i) { return [c, i]; }).sort(function (a, b) { return (a[0]._u < 0 ? 99 : a[0]._u) - (b[0]._u < 0 ? 99 : b[0]._u) || a[1] - b[1]; }).map(function (x) { return x[0]; });   /* les enfants groupés par union */
       return o;
     }
-    var racine = construire(racineId, 0);
-    var unions = rels.filter(function (r) { return r.type === 'couple' && (r.from === racineId || r.to === racineId); }).map(function (r) { return { id: r.from === racineId ? r.to : r.from, fini: r.statut === 'separe' || r.statut === 'divorce' }; }).filter(function (u) { return P[u.id]; });
-    unions.sort(function (a, b) { return a.fini - b.fini; });
-    var cj = unions[0] ? unions[0].id : null, conjoint = null, conjointRefus = '';
-    if (cj) {
-      if (enfantsDe(racineId).every(function (e) { return parentsDe(e).indexOf(cj) >= 0; })) { conjoint = fiche(P[cj]); conjoint.separe = unions[0].fini; }
-      else conjointRefus = P[cj].prenom || 'Son conjoint';
-    } else {   /* pas d'union notée : l'autre parent commun de tous les enfants */
-      var e0 = enfantsDe(racineId), autres = e0.length ? parentsDe(e0[0]).filter(function (x) { return x !== racineId; }) : [];
-      if (autres[0] && e0.every(function (e) { return parentsDe(e).indexOf(autres[0]) >= 0; })) conjoint = fiche(P[autres[0]]);
-    }
-    /* plusieurs unions (une grand-mère remariée…) : chaque autre parent à côté d'elle, ses enfants sous leur union, comme sur un arbre classique */
-    var unionsD = null;
-    if (!conjoint) {
-      var apL = [];
-      enfantsDe(racineId).forEach(function (e) { var ap = parentsDe(e).filter(function (x) { return x !== racineId; })[0]; if (ap && apL.indexOf(ap) < 0) apL.push(ap); });
-      if (apL.length) {
-        apL = apL.slice(0, 2);
-        unionsD = apL.map(function (ap) { var u = rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === racineId) || (r.to === ap && r.from === racineId)); })[0], f = fiche(P[ap]); f.separe = !!(u && (u.statut === 'separe' || u.statut === 'divorce')); f._id = ap; return f; });
-        (racine.enf || []).forEach(function (c) { var ap = parentsDe(c._id).filter(function (x) { return x !== racineId; })[0]; c._u = apL.indexOf(ap); });
-        /* les enfants de la 2e union à gauche, ceux d'un parent inconnu au milieu, ceux de la 1re union à droite */
-        var rangU = function (c) { return c._u === 1 ? 0 : c._u === 0 ? 2 : 1; };
-        racine.enf = (racine.enf || []).map(function (c, i) { return [c, i]; }).sort(function (a, b) { return rangU(a[0]) - rangU(b[0]) || a[1] - b[1]; }).map(function (x) { return x[0]; });
-        conjointRefus = '';
-      }
+    var racine = construire(racineId, 0), U0 = unionsDe(racineId), conjoint = null, conjointRefus = '', unionsD = null;
+    var tousDeLui = U0.liste.length && U0.ens.every(function (e) { return U0.de[e] === 0; });
+    if (U0.liste.length === 1 && (tousDeLui || !U0.ens.some(function (e) { return U0.de[e] == null || U0.de[e] < 0; }))) { conjoint = U0.fiches[0]; }
+    else if (U0.liste.length) {
+      /* plusieurs unions (une grand-mère remariée…), ou des enfants d'un autre parent : chaque conjoint à côté d'elle, ses enfants sous leur union */
+      unionsD = U0.fiches.slice(0, 2);
+      (racine.enf || []).forEach(function (c) { if (c._u > 1) c._u = -1; });
+      var rangU = function (c) { return c._u === 1 ? 0 : c._u === 0 ? 2 : 1; };   /* la 2e union à gauche, un parent inconnu au milieu, la 1re à droite */
+      racine.enf = (racine.enf || []).map(function (c, i) { return [c, i]; }).sort(function (a, b) { return rangU(a[0]) - rangU(b[0]) || a[1] - b[1]; }).map(function (x) { return x[0]; });
     }
     var pr = String(racine.prenom || '').trim().split(/\s+/)[0], nomF = String(racine.nom || '').trim().toLowerCase().replace(/(^|[\s\-'’])(\S)/g, function (m, a, b) { return a + b.toUpperCase(); });
     var titre = pr ? 'La famille ' + (/^[aeiouyéèêàâîïôûh]/i.test(pr) ? 'd’' : 'de ') + pr : (nomF ? 'La famille ' + nomF : 'Notre famille');
@@ -273,7 +272,15 @@
       /* demi-frère, demi-sœur : du côté du parent en commun (la mère ou le père), pour qu'il ne passe pas pour l'enfant de tes deux parents */
       var autre = pm.filter(function (x) { return x !== com[0]; })[0], cote = !demi ? '' : (P[com[0]].sex === 'f' || (P[com[0]].sex !== 'm' && P[autre] && P[autre].sex === 'm')) ? 'mere' : 'pere';
       /* l'autre parent d'un demi-frère ou d'une demi-sœur (le 2e mari de ta mère, par exemple) : dessiné à côté du parent en commun */
-      var ap = demi ? pf.filter(function (x) { return pm.indexOf(x) < 0; })[0] : null, un = ap ? rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === com[0]) || (r.to === ap && r.from === com[0])); })[0] : null;
+      var ap = demi ? pf.filter(function (x) { return pm.indexOf(x) < 0; })[0] : null;
+      /* autre parent non noté : le conjoint du parent en commun dont le demi-frère porte le nom, s'il n'y en a qu'un */
+      if (demi && !ap) {
+        var sansA = function (t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }, nomF = ' ' + sansA((p.prenom || '') + ' ' + (p.nom || '')).replace(/[-’']/g, ' ') + ' ';
+        var cands = rels.filter(function (r) { return r.type === 'couple' && (r.from === com[0] || r.to === com[0]); }).map(function (r) { return r.from === com[0] ? r.to : r.from; })
+          .filter(function (x) { var n = sansA(P[x] && P[x].nom); return P[x] && pm.indexOf(x) < 0 && n && n !== sansA(P[com[0]].nom) && nomF.indexOf(' ' + n + ' ') >= 0; });
+        if (cands.length === 1) ap = cands[0];
+      }
+      var un = ap ? rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === com[0]) || (r.to === ap && r.from === com[0])); })[0] : null;
       var autre = ap && P[ap] ? { _id: ap, prenom: P[ap].prenom || '', nom: P[ap].nom || '', sexe: P[ap].sex === 'f' ? 'f' : 'm', naissance: annee(P[ap].naiss), deces: annee(P[ap].deces) || null, separe: !!(un && (un.statut === 'separe' || un.statut === 'divorce')) } : null;
       return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: demi, cote: cote, autre: autre };
     }).sort(function (a, b) { return (a.demi ? 1 : 0) - (b.demi ? 1 : 0); });
