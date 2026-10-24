@@ -99,11 +99,20 @@
           '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
           '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
           '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
+          '<button class="btn btn-trait" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
           '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
           '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
           '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</span></label>' +
           '<p class="pr-aide">Une fois la case cochée, ton·ta client·e peut télécharger son arbre depuis le lien de partage et le garder dans son propre espace. Avant, rien ne peut être téléchargé ni imprimé. Tes notes ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
       }).join('') + (actif() && !aExemple ? '<div class="pr-exemple"><p><b>Un dossier exemple pour tout essayer :</b> une famille fictive déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à tes vrais dossiers.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir le dossier exemple</button></div>' : '');
+      reponsesRecues();
+    });
+  }
+  /* Questionnaires remplis, pas encore ajoutés à l'arbre : le bouton du dossier le signale */
+  function reponsesRecues() {
+    sb.from('questionnaires_client').select('arbre_id').not('rempli_le', 'is', null).is('importe_le', null).then(function (r) {
+      if (r.error || !r.data) return;
+      r.data.forEach(function (q) { var b = z.querySelector('[data-questionnaire="' + q.arbre_id + '"]'); if (b) { b.classList.remove('btn-trait'); b.classList.add('btn-plein'); b.textContent = 'Réponses reçues'; } });
     });
   }
   /* « Pour bien commencer » : 4 étapes, cochées au fil de l'usage (rien n'est envoyé, tout reste sur cet appareil) */
@@ -167,6 +176,7 @@
     var b;
     if ((b = e.target.closest('[data-notes]'))) notes(b.getAttribute('data-notes'));
     else if ((b = e.target.closest('[data-partager]'))) partager(b.getAttribute('data-partager'));
+    else if ((b = e.target.closest('[data-questionnaire]'))) { var dq = dossier(b.getAttribute('data-questionnaire')); PO.questionnaire({ sb: sb, user: user, id: dq.id, nom: dq.nom, actif: actif() }); }
     else if ((b = e.target.closest('[data-exemple]'))) dossierExemple(b);
     else if ((b = e.target.closest('[data-debut-masquer]'))) { marquer('debut-masque'); debut(); }
     else if ((b = e.target.closest('[data-renommer]'))) {

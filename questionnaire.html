@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Avant ta séance · Genesolia</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Le questionnaire à remplir avant ta séance : ta famille, ses dates et ce que tu en ressens.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #gq{max-width:46rem;margin:0 auto;padding:2rem 16px 4rem;color:var(--prune)}
+    #gq h1{font-size:clamp(1.9rem,5vw,2.5rem);margin:0 0 .6rem;line-height:1.12}
+    .gq-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .4rem}
+    .gq-intro{color:var(--prune-doux);margin:0 0 1.3rem}
+    .gq-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.2rem 1.2rem 1.3rem;margin:0 0 1.1rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .gq-carte h2{font-size:1.45rem;margin:0 0 .3rem}
+    .gq-carte>p{color:var(--prune-doux);font-size:.93rem;margin:0 0 .9rem}
+    .gq-pers{border:1px solid #F0D9DF;border-radius:16px;background:#FFFBFC;margin:0 0 .7rem}
+    .gq-pers>summary{cursor:pointer;list-style:none;padding:.85rem 1rem;font-weight:600;display:flex;justify-content:space-between;gap:.6rem;align-items:center}
+    .gq-pers>summary::-webkit-details-marker{display:none}
+    .gq-pers>summary small{font-weight:400;color:var(--prune-doux);font-size:.84rem}
+    .gq-pers>summary:after{content:'+';font:400 1.4rem/1 var(--texte);color:var(--champagne)}
+    .gq-pers[open]>summary:after{content:'–'}
+    .gq-corps{padding:0 1rem 1rem;display:grid;gap:.75rem}
+    .gq-grille{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    @media (max-width:560px){.gq-grille{grid-template-columns:1fr}}
+    #gq label{display:grid;gap:.3rem;font-weight:600;font-size:.9rem}
+    #gq label small{font-weight:400;color:var(--prune-doux)}
+    #gq input[type=text],#gq select,#gq textarea{font:inherit;font-weight:400;padding:.7rem .85rem;border:1px solid #E5C6CF;border-radius:12px;width:100%;box-sizing:border-box;color:var(--prune);background:#fff}
+    #gq textarea{min-height:5.5rem;resize:vertical}
+    #gq input.gq-faux{border-color:#C2466E;background:#FFF5F7}
+    .gq-case{display:flex!important;gap:.55rem;align-items:center;font-weight:400!important}
+    .gq-case input{width:20px;height:20px;accent-color:var(--prune)}
+    .gq-evts{display:grid;gap:.5rem}
+    .gq-evt{display:grid;grid-template-columns:1.6fr .6fr 1.6fr auto;gap:.45rem;align-items:center}
+    @media (max-width:560px){.gq-evt{grid-template-columns:1fr 5rem auto}.gq-evt input[data-k=note]{grid-column:1/-1;grid-row:2}}
+    .gq-x{border:0;background:none;color:var(--prune-doux);font-size:1.3rem;cursor:pointer;padding:.2rem .4rem}
+    .gq-plus{justify-self:start;border:1px dashed var(--rose-fonce,#D9A7B6);background:#fff;color:var(--prune);border-radius:99px;padding:.5rem .95rem;font:600 .86rem var(--texte);cursor:pointer}
+    .gq-astuce{background:#FFF6EC;border:1px solid #F3DCC0;border-radius:14px;padding:.8rem 1rem;font-size:.9rem;margin:0 0 1.1rem}
+    .gq-fin{position:sticky;bottom:0;background:linear-gradient(transparent,#FFF9F7 30%);padding:1.2rem 0 calc(.6rem + env(safe-area-inset-bottom,0px))}
+    .gq-err{color:#A3324B;font-size:.92rem;min-height:1.2em;margin:.4rem 0 0}
+    .gq-sauve{color:var(--prune-doux);font-size:.82rem;margin:.4rem 0 0}
+    .gq-merci{text-align:center;padding:2.4rem 1.2rem}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="gq" aria-live="polite"><p class="gq-intro">Ton questionnaire s’ouvre…</p></main>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/questionnaire.js?v=1"></script>
+</body>
+</html>
