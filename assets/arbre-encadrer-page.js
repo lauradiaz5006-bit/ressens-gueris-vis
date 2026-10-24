@@ -134,6 +134,11 @@
       if (vus[id]) return null; vus[id] = 1;
       var p = P[id], o = fiche(p); gens = Math.max(gens, g + 1);
       if (o.naissance && (!plusVieux || o.naissance < plusVieux)) plusVieux = o.naissance;
+      if (g > 0) {   /* son conjoint (l'autre parent de ses enfants, sinon son union) : écrit sous son nom */
+        var cjs = rels.filter(function (r) { return r.type === 'couple' && (r.from === id || r.to === id); }).map(function (r) { return r.from === id ? r.to : r.from; }).filter(function (x) { return P[x]; });
+        var ens = enfantsDe(id), par = ens.length ? parentsDe(ens[0]).filter(function (x) { return x !== id; })[0] : null;
+        var c0 = par && P[par] ? par : cjs[0]; if (c0) o.cj = fiche(P[c0]);
+      }
       o.enf = g < maxG - 1 ? enfantsDe(id).sort(function (a, b) { return (annee(P[a].naiss) || 9999) - (annee(P[b].naiss) || 9999); }).map(function (e) { return construire(e, g + 1); }).filter(Boolean) : [];
       return o;
     }
@@ -269,7 +274,7 @@
   function svgAutonome(donnees, apercu, opt) {
     opt = opt || {};
     var fig = donnees.style === 'figuier', pay = paysage(donnees.style), gr = donnees.style === 'grand', med = donnees.style === 'medaillons' || (gr && ((donnees.enfants || []).length > 0 || !!donnees.conjoint));
-    return Promise.all([gr ? enDataUrl(opt.hd ? 'assets/arbre/grand-arbre.jpg' : 'assets/arbre/grand-arbre-ecran.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
@@ -297,7 +302,7 @@
     var sous = donnees && document.getElementById('fe-sous') ? document.getElementById('fe-sous').value : null;
     var nb;
     if (desc() && window.ArbreDescendants) {
-      var tout4 = descendants(choix.depart, 4), D = window.ArbreDescendants;
+      var tout4 = descendants(choix.depart, 7), D = window.ArbreDescendants;
       dispo = tout4 ? tout4.nb : 0;
       if (tout4 && !choix.conjoint) tout4.conjoint = null;
       capA4 = tout4 ? D.capacite(tout4, false) : 2; capA3 = tout4 ? Math.max(capA4, D.capacite(tout4, true)) : 2;
@@ -311,8 +316,11 @@
       CAP = { a4: capA4, a3: capA3, g50: toutE ? Math.max(capA3, E.capacite(toutE, ECH.g50)) : 2, g70: 0 }; CAP.g70 = toutE ? Math.max(CAP.g50, E.capacite(toutE, ECH.g70)) : 2;
       nb = Math.min(choix.nbGen || CAP[classe(formatChoisi())], capMax(), dispo);
     } else if (grand()) {
-      dispo = (lignee(choix.depart, 5) || { nb: 0 }).nb; capA4 = 0; capA3 = 5; CAP = { a4: 0, a3: 5, g50: 5, g70: 5 };
-      nb = Math.min(choix.nbGen || 5, dispo);
+      /* Grand arbre : 4 ou 5 générations, sur le dessin qui a exactement ce nombre de rangées (aucun médaillon peint en trop).
+         Par défaut, la 5e rangée seulement si au moins la moitié des seize ancêtres est connue. */
+      var tg = lignee(choix.depart, 5); dispo = (tg || { nb: 0 }).nb; capA4 = 0; capA3 = 5; CAP = { a4: 0, a3: 5, g50: 5, g70: 5 };
+      var r5 = tg && tg.moi ? remplis(tg.moi, 0, 5) - remplis(tg.moi, 0, 4) : 0;
+      nb = Math.max(4, Math.min(choix.nbGen || (dispo >= 5 && r5 >= 8 ? 5 : 4), dispo, 5));
     } else if (lig() && window.ArbreLignee) {
       var tout = (famille() && couple(choix.depart, 14)) || lignee(choix.depart, 14);
       dispo = tout ? tout.nb : 0;
@@ -546,14 +554,17 @@
     var opts = [];
     var maxN = Math.min(dispo, capMax());
     var plus = desc() ? 0 : (donnees.couple ? -1 : 0) + (donnees.enfants && donnees.enfants.length ? 1 : 0);   /* comme le sous-titre : les rangées imprimées (enfants compris) */
-    for (var n = 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n + plus - 1] || (n + plus) + ' générations') + (grand() ? '' : { a4: '', a3: n > 5 || lig() ? ' (A3 ou plus)' : ' (A3 seulement)', g50: ' (50 × 70 cm ou plus)', g70: ' (70 × 100 cm)' }[classeMin(n)]) + '</option>');
+    /* le Grand arbre n'existe qu'en 4 ou 5 générations ; il demande au moins les arrière-grands-parents */
+    var gR = document.querySelector('input[name=fe-style][value=grand]'), dG = (lignee(choix.depart, 5) || { nb: 0 }).nb;
+    if (gR) { gR.disabled = dG < 4; gR.closest('label').title = dG < 4 ? 'Le Grand arbre demande au moins 4 générations (jusqu’à tes arrière-grands-parents).' : ''; }
+    for (var n = grand() ? 4 : 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n + plus - 1] || (n + plus) + ' générations') + (grand() ? '' : { a4: '', a3: n > 5 || lig() ? ' (A3 ou plus)' : ' (A3 seulement)', g50: ' (50 × 70 cm ou plus)', g70: ' (70 × 100 cm)' }[classeMin(n)]) + '</option>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
-    var vides = grand() ? (Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen)) + (31 - (Math.pow(2, donnees.nbGen) - 1)) : 0;
+    var vides = grand() ? Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen) : 0;   /* le dessin a exactement les rangées choisies */
     /* les textes d'aide parlent comme le menu : en rangées imprimées, enfants compris */
     function lab(n) { var t = GEN[Math.max(1, Math.min(n + plus, GEN.length)) - 1] || (n + plus) + ' générations'; return '« ' + t + ' »'; }
     var loin = grand() || !lig() ? ((lignee(choix.depart, 10) || { nb: 0 }).nb) : dispo;
-    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 5 générations d’ancêtres (31 médaillons) et s’imprime en A3, pour que chaque nom reste bien lisible.' + (vides ? ' ' + vides + ' médaillon' + (vides > 1 ? 's resteront vides' : ' restera vide') + ' (ancêtres inconnus).' : ' Tous les médaillons seront remplis.') + (loin > 5 ? ' Ton arbre remonte plus loin : le style « Lignée » peut montrer toutes tes générations.' : '')
+    if (aide) aide.textContent = grand() ? 'Le Grand arbre porte 4 ou 5 générations (15 ou 31 médaillons) et s’imprime en A3, pour que chaque nom reste bien lisible.' + (vides ? ' ' + vides + ' médaillon' + (vides > 1 ? 's resteront vides' : ' restera vide') + ' (ancêtres inconnus) : complète ton arbre' + (donnees.nbGen > 4 ? ', ou choisis 4 générations.' : ' pour un poster complet.') : ' Tous les médaillons seront remplis.') + (loin > 5 ? ' Ton arbre remonte plus loin : le style « Lignée » peut montrer toutes tes générations.' : '')
       : lig()
       ? (donnees.nbGen > capA3 ? 'Avec autant de générations, ton arbre s’imprime en grand format (' + (donnees.nbGen > CAP.g50 ? '70 × 100 cm' : '50 × 70 ou 70 × 100 cm') + ') : chaque nom reste lisible.'
         : donnees.nbGen > capA4 ? 'Lisible à partir de l’A3 avec autant de générations : l’A4 est désactivé.'
@@ -568,6 +579,7 @@
       r.closest('label').hidden = big && !grandsFormats();   /* styles à l'horizontale en réglage automatique : l'A4 reste proposé, avec ses générations */ r.closest('label').classList.toggle('fe-off', r.disabled);
       if (r.disabled && r.checked) r.__aRemplacer = true;
     });
+    var gA = document.querySelector('#fe-imp-form .fe-grands-aide'); if (gA) gA.hidden = !grandsFormats();   /* grands formats masqués : leur délai aussi */
     /* format coché devenu impossible : le plus petit format possible, avec ou sans cadre comme avant */
     [].forEach.call(document.querySelectorAll('#fe-imp-form input[name=format]'), function (r) {
       if (!r.__aRemplacer) return; r.__aRemplacer = false;

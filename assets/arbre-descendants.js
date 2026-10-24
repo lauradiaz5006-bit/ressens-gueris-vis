@@ -2,7 +2,9 @@
    petits-enfants, arrière-petits-enfants. Le cadeau type pour des grands-parents.
    À l'horizontale (3508 x 2480), dans le même esprit que la Lignée : étiquettes crème, traits dorés.
    ArbreDescendants.svg(donnees, o) -> chaîne SVG ; donnees.moi = { prenom, nom, sexe, naissance, deces, enf: [...] }, donnees.conjoint (facultatif)
-   ArbreDescendants.capacite(donnees, a3) -> nombre maximal de générations lisibles (2 à 4). */
+   ArbreDescendants.capacite(donnees, a3) -> nombre maximal de générations lisibles (2 à 7).
+   Chaque descendant peut avoir son conjoint (q.cj) : il s'écrit sous lui, « & Prénom NOM ».
+   Rangées très remplies (grands formats) : les étiquettes se lisent de bas en haut, plus serrées. */
 (function () {
   'use strict';
   var W = 3508, H = 2480, OR = '#B98A55', OR_FONCE = '#9A6E38', OR_CLAIR = '#D9B77E', PRUNE = '#5A2147';
@@ -11,7 +13,12 @@
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ctx = null;
+  var MEMO = {};
   function larg(t, taille, police, gras) {
+    var cle = t + '|' + taille + '|' + police + '|' + (gras ? 1 : 0); if (MEMO[cle] != null) return MEMO[cle];
+    var l = larg0(t, taille, police, gras); try { if (document.fonts && document.fonts.status === 'loaded') MEMO[cle] = l; } catch (e) {} return l;
+  }
+  function larg0(t, taille, police, gras) {
     try { if (!ctx && typeof document !== 'undefined') ctx = document.createElement('canvas').getContext('2d'); if (ctx) { ctx.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctx.measureText(t).width; } } catch (e) {}
     return String(t).length * taille * (gras ? .62 : .5);
   }
@@ -20,8 +27,19 @@
   function NOM(p) { return String(p.nom || '').toUpperCase(); }
 
   /* étiquette : prénom(s), NOM, dates ; « court » = le premier prénom seulement */
-  function etiquette(q, fz, court) {
+  function cjTexte(q) { var c = q.cj; return c ? ('& ' + (String(c.prenom || '').trim().split(/\s+/)[0] || '') + ' ' + NOM(c)).trim() : ''; }
+  function etiquette(q, fz, court, vert) {
     var fn = Math.round(fz * .8), fd = Math.round(fz * .78);
+    if (vert) {   /* étiquette verticale : « Prénom NOM » puis dates (et le conjoint), lue de bas en haut */
+      var mv = String(q.prenom || '').trim().split(/\s+/).filter(Boolean), prev = court ? (mv[0] || '') : mv.join(' ');
+      var l1 = [[prev, fz, GN, false, 'de-nom'], [NOM(q), fn, NS, true, 'de-nf']].filter(function (z) { return z[0]; }), dv = datesDe(q), cv = cjTexte(q);
+      var lv = [l1.length ? l1 : [['?', fz, GN, false, 'de-nom']]];
+      if (vert === 2) { if (dv) lv.push([[dv, fd, NS, true, 'de-date']]); } else if (dv) lv[0] = lv[0].concat([[dv, fd, NS, true, 'de-date']]);
+      if (cv) lv.push([[cv, fd, GN, false, 'de-cj']]);
+      var lon = Math.max.apply(null, lv.map(function (li) { return li.reduce(function (s0, z) { return s0 + larg(z[0], z[1], z[2], z[3]) * 1.04 + (z[4] === 'de-nf' ? z[0].length * 1.5 : 0); }, 0) + (li.length - 1) * fz * .35; }));
+      var ep = lv.length * fz * 1.18 + 10, sy0 = Math.max(9, Math.round(fz * .36));
+      return { v: true, lv: lv, l: [[prev, fz]], w: Math.round(ep), h: Math.round(lon + 30 + sy0) };
+    }
     var mots = String(q.prenom || '').trim().split(/\s+/).filter(Boolean), pre = court ? [mots[0] || ''] : [mots.join(' ')];
     if (!court && mots.length > 1 && larg(pre[0], fz, GN) > Math.max(larg(NOM(q), fn, NS, true), larg(datesDe(q), fd, NS, true)) * 1.25) {
       var best = null; for (var k = 1; k < mots.length; k++) { var a = mots.slice(0, k).join(' '), b = mots.slice(k).join(' '), m = Math.max(larg(a, fz, GN), larg(b, fz, GN)); if (!best || m < best.m) best = { m: m, l: [a, b] }; }
@@ -30,6 +48,7 @@
     var l = pre.filter(Boolean).map(function (t) { return [t, fz, GN, false, 'de-nom']; });
     if (NOM(q)) l.push([NOM(q), fn, NS, true, 'de-nf']);
     if (datesDe(q)) l.push([datesDe(q), fd, NS, true, 'de-date']);
+    if (cjTexte(q)) l.push([cjTexte(q), fd, GN, false, 'de-cj']);
     if (!l.length) l.push(['?', fz, GN, false, 'de-nom']);
     var w = Math.max.apply(null, l.map(function (x) { return larg(x[0], x[1], x[2], x[3]); })) + 40;
     var h = l.reduce(function (s, x) { return s + x[1] * 1.16; }, 0) + 38;
@@ -41,15 +60,16 @@
   function profondeur(p) { return 1 + Math.max.apply(null, [0].concat((p.enf || []).map(profondeur))); }
 
   /* pile : quand la dernière génération est trop nombreuse, les enfants d'un même parent se rangent en colonne sous lui */
-  var PILE = 24;
+  var PILE = 24, VG = 99;   /* VG : première génération en étiquettes verticales */
+  function ecart(g) { return g >= VG ? 8 : ECART; }
   function mesurer(n, fz, court, cj, pile) {
-    n.e = etiquette(n.p, n.g === 0 ? Math.round(fz * 1.2) : fz, court);
+    n.e = etiquette(n.p, n.g === 0 ? Math.round(fz * 1.2) : fz, court, n.g >= VG ? (VERT || 2) : 0);
     n.ec = n.g === 0 && cj ? etiquette(cj, Math.round(fz * 1.2), court) : null;
     var propre = n.ec ? 2 * Math.max(n.e.w, n.ec.w) + 120 : n.e.w;
     n.enf.forEach(function (c) { mesurer(c, fz, court, null, pile); });
     n.pile = !!(pile && n.g > 0 && n.enf.length > 1 && n.enf.every(function (c) { return !c.enf.length; }));
     var enfants = n.pile ? Math.max.apply(null, n.enf.map(function (c) { return c.sw; })) + 60
-      : n.enf.reduce(function (s, c) { return s + c.sw; }, 0) + Math.max(0, n.enf.length - 1) * ECART;
+      : n.enf.reduce(function (s, c) { return s + c.sw; }, 0) + Math.max(0, n.enf.length - 1) * ecart(n.g + 1);
     n.sw = Math.max(propre, enfants); n.swE = enfants;
     n.hPile = n.pile ? n.enf.reduce(function (s, c) { return s + c.e.h; }, 0) + (n.enf.length - 1) * PILE : 0;
     return n;
@@ -64,33 +84,42 @@
     if (n.pile) { n.x = x0 + n.sw / 2; n.enf.forEach(function (c) { c.x = n.x + 30; }); return; }
     if (!n.enf.length) { n.x = x0 + n.sw / 2; return; }
     var x = x0 + (n.sw - n.swE) / 2;
-    n.enf.forEach(function (c) { placer(c, x); x += c.sw + ECART; });
+    n.enf.forEach(function (c) { placer(c, x); x += c.sw + ecart(c.g); });
     n.x = (n.enf[0].x + n.enf[n.enf.length - 1].x) / 2;
   }
   function tous(n, l) { l.push(n); n.enf.forEach(function (c) { tous(c, l); }); return l; }
 
   /* plus grande taille de texte qui tient dans la largeur ; null si rien ne tient */
+  var VERT = 0;
   function ajuster(d, max, a3) {
     var e0 = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, mini = Math.max(10, Math.round(36 / e0)), cj = d.conjoint || null;
-    var modes = [[0, 0], [1, 0], [0, 1], [1, 1]];   /* [prénom court, enfants en colonne] */
+    /* [prénom court, enfants en colonne, première génération verticale, lignes des étiquettes verticales] :
+       d'abord les étiquettes à plat, puis à la verticale à partir de la génération la plus basse possible */
+    var modes = [[0, 0, 99, 0], [1, 0, 99, 0], [0, 1, 99, 0], [1, 1, 99, 0]];
+    [2, 1].forEach(function (nl) { for (var v = max - 1; v >= 1; v--) modes.push([0, 0, v, nl]); });
+    function ok(r) { return r.sw <= W - 2 * MARGE && hauteur(r) <= BAS - HAUT; }
     for (var m = 0; m < modes.length; m++) {
-      for (var fz = 110; fz >= mini; fz -= 2) {
-        var r = mesurer(couper(d.moi, 0, max), fz, !!modes[m][0], cj, !!modes[m][1]);
-        if (r.sw <= W - 2 * MARGE && hauteur(r) <= BAS - HAUT) return { r: r, fz: fz, court: !!modes[m][0] };
-      }
+      VG = modes[m][2]; VERT = modes[m][3];
+      var essai = function (fz) { return mesurer(couper(d.moi, 0, max), fz, !!modes[m][0], cj, !!modes[m][1]); };
+      var r = essai(110); if (ok(r)) return { r: r, fz: 110, court: !!modes[m][0] };
+      r = essai(mini); if (!ok(r)) continue;   /* même au plus petit, ça ne tient pas : mode suivant */
+      var lo = mini, hi = 110, best = r;
+      while (hi - lo > 2) { var mi = Math.round((lo + hi) / 2), r2 = essai(mi); if (ok(r2)) { lo = mi; best = r2; } else hi = mi; }
+      r = essai(lo); return { r: ok(r) ? r : best, fz: lo, court: !!modes[m][0] };
     }
+    VG = 99; VERT = 0;
     return null;
   }
   function capacite(d, a3) {
     if (!d || !d.moi) return 2;
-    var p = Math.min(4, profondeur(d.moi));
+    var p = Math.min(7, profondeur(d.moi));
     for (var m = p; m >= 2; m--) if (ajuster(d, m, a3)) return m;
     return 2;
   }
 
   function svg(d, o) {
     o = o || {};
-    var a3 = o.a3 || d.a3 || false, cap = capacite(d, a3), max = Math.max(2, Math.min(d.nbGen || cap, cap, 4));
+    var a3 = o.a3 || d.a3 || false, cap = capacite(d, a3), max = Math.max(2, Math.min(d.nbGen || cap, cap, 7));
     var fzm = Math.max(10, Math.round(36 / (typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1)));
     var aj = ajuster(d, max, a3) || { r: mesurer(couper(d.moi, 0, max), fzm, true, d.conjoint), fz: fzm, court: true };
     var R = aj.r, cj = d.conjoint || null;
@@ -98,6 +127,7 @@
     var noeuds = tous(R, []), nG = Math.max.apply(null, noeuds.map(function (n) { return n.g; })) + 1;
     /* hauteurs : la plus haute étiquette de chaque rangée, rangées réparties entre le titre et le bas */
     var hRang = []; noeuds.forEach(function (n) { hRang[n.g] = Math.max(hRang[n.g] || 0, n.e.h, n.ec ? n.ec.h : 0); if (n.pile) hRang[n.g + 1] = Math.max(hRang[n.g + 1] || 0, n.hPile); });
+    noeuds.forEach(function (n) { if (n.e.v) n.e.h = hRang[n.g]; });   /* cartes verticales d'une même rangée : même hauteur */
     var libre = BAS - HAUT - hRang.reduce(function (s, h) { return s + h; }, 0), pas = nG > 1 ? Math.min(440, libre / (nG - 1)) : 0;
     var total = hRang.reduce(function (s, h) { return s + h; }, 0) + pas * (nG - 1), y = HAUT + Math.max(0, (BAS - HAUT - total) / 2), yTop = [];
     for (var g = 0; g < nG; g++) { yTop[g] = y; y += hRang[g] + pas; }
@@ -108,6 +138,14 @@
 
     var traits = '', cartes = '';
     function carte(q, e, x, yt, racine) {
+      if (e.v) {
+        var fv = q.sexe === 'f', fzv = e.lv[0][0][1], sv = Math.max(9, Math.round(fzv * .36)), cv = fv ? '#D98AA1' : '#EFC3B4', ep = e.lv.length * fzv * 1.18;
+        var tv = '<rect x="' + f1(x - e.w / 2) + '" y="' + f1(yt) + '" width="' + f1(e.w) + '" height="' + f1(e.h) + '" rx="' + f1(Math.min(12, e.w / 3)) + '" fill="#FFFCF6" stroke="' + OR + '" stroke-width="2.5"/>';
+        tv += fv ? '<circle cx="' + f1(x) + '" cy="' + f1(yt) + '" r="' + sv + '" fill="' + cv + '" stroke="' + OR + '" stroke-width="2.5"/>' : '<rect x="' + f1(x - sv) + '" y="' + f1(yt - sv) + '" width="' + 2 * sv + '" height="' + 2 * sv + '" rx="2" fill="' + cv + '" stroke="' + OR + '" stroke-width="2.5"/>';
+        tv += '<g transform="translate(' + f1(x) + ' ' + f1(yt + (e.h + sv) / 2) + ') rotate(-90)">';
+        e.lv.forEach(function (li, k) { var yy = -ep / 2 + (k + .78) * fzv * 1.18; tv += '<text x="0" y="' + f1(yy) + '" text-anchor="middle">' + li.map(function (z, j) { return '<tspan class="' + z[4] + '" font-size="' + z[1] + '"' + (j ? ' dx="' + f1(fzv * .35) + '"' : '') + '>' + esc(z[0]) + '</tspan>'; }).join('') + '</text>'; });
+        return tv + '</g>';
+      }
       var f = q.sexe === 'f', h = e.h, s = Math.max(11, Math.round(e.l[0][1] * .36)), c = racine ? '#8E2F5E' : f ? '#D98AA1' : '#EFC3B4';
       var t = '<rect x="' + f1(x - e.w / 2) + '" y="' + f1(yt) + '" width="' + f1(e.w) + '" height="' + f1(h) + '" rx="' + f1(Math.min(22, h / 4)) + '" fill="#FFFCF6" stroke="' + (racine ? '#8E2F5E' : OR) + '" stroke-width="' + (racine ? 5 : 3) + '"/>';
       t += f ? '<circle cx="' + f1(x) + '" cy="' + f1(yt) + '" r="' + s + '" fill="' + c + '" stroke="' + OR + '" stroke-width="3"/>'
@@ -154,7 +192,7 @@
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-personnes="' + (noeuds.length + (cj ? 1 : 0)) + '" data-generations="' + nG + '">' +
       '<defs><radialGradient id="de-papier" cx=".5" cy=".45" r=".75"><stop offset="0" stop-color="#FFFBF4"/><stop offset=".7" stop-color="#F8F0E3"/><stop offset="1" stop-color="#EFE3D0"/></radialGradient>' +
       '<style>.de-titre{font-family:' + GN + ';font-size:128px;fill:' + PRUNE + '}.de-sous{font-family:' + NS + ';font-size:38px;letter-spacing:9px;fill:' + OR_FONCE + ';text-transform:uppercase}' +
-      '.de-nom{font-family:' + GN + ';fill:#4A0F36}.de-nf{font-family:' + NS + ';font-weight:700;letter-spacing:1.5px;fill:#4A0F36}.de-date{font-family:' + NS + ';font-weight:700;fill:#9A3A68}' +
+      '.de-nom{font-family:' + GN + ';fill:#4A0F36}.de-nf{font-family:' + NS + ';font-weight:700;letter-spacing:1.5px;fill:#4A0F36}.de-date{font-family:' + NS + ';font-weight:700;fill:#9A3A68}.de-cj{font-family:' + GN + ';font-style:italic;fill:#6B2F5B}' +
       '.li-pied{font-family:' + NS + ';font-size:32px;letter-spacing:8px;fill:' + PRUNE + ';opacity:.85}.de-fil{font-family:' + GN + ';font-size:300px;fill:' + PRUNE + '}</style></defs>' +
       fond + titre + traits + cartes + pied + filigrane + '</svg>';
   }
