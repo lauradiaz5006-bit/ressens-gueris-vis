@@ -394,6 +394,10 @@
     .mt-plus-details{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .9rem var(--texte);cursor:pointer;padding:.2rem}
     body.mobile-arbre .fenetre-fond{align-items:flex-end;padding:0}
     body.mobile-arbre .fenetre-fond .fenetre{border-radius:24px 24px 0 0;max-height:92vh;overflow-y:auto;margin:0}
+    /* téléphone : le titre de la fenêtre reste en haut quand on fait défiler (il n'est plus coupé à moitié) */
+    body.mobile-arbre .fenetre-fond .fen-tete{position:sticky;top:0;z-index:5;background:var(--blanc);border-radius:24px 24px 0 0;padding:1rem 1.2rem .7rem;box-shadow:0 8px 14px -12px rgba(74,33,66,.35)}
+    body.mobile-arbre .fenetre-fond .fen-tete h2{font-size:1.35rem}
+    body.mobile-arbre #fen-encadrer .fen-tete p{display:none}
     .mt-accueil h1{font-size:2.1rem}
     .mt-portes{display:grid;gap:.8rem;margin:1.4rem 0 .4rem}
     .mt-porte{width:100%;text-align:center;padding:1rem}
