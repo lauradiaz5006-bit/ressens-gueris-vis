@@ -1384,7 +1384,7 @@
       o.badges[p.id].slice(0, 4).forEach(function (c, i) { h += '<circle cx="' + (R + 9) + '" cy="' + (-R + 4 + i * 12) + '" r="5" fill="' + c + '" stroke="#fff" stroke-width="1.5"/>'; });
     }
     var y = R + 19;
-    h += '<text y="' + y + '" text-anchor="middle" font-family="\'Gilda Display\',Georgia,serif" font-size="15" fill="' + (nom ? PRUNE : PRUNE_DOUX) + '"' + (nom ? '' : ' font-style="italic"') + '>' + esc(couper(nom || 'Sans prénom', 19)) + '</text>';
+    h += '<text y="' + y + '" text-anchor="middle" font-family="\'Gilda Display\',Georgia,serif" font-size="15" fill="' + (nom ? PRUNE : PRUNE_DOUX) + '"' + (nom ? '' : ' font-style="italic"') + '>' + esc(couper(nom || (document.body.classList.contains('partage-supervision') && lien ? lien : 'Sans prénom'), 19)) + '</text>';
     var dt = texteDates(p);
     if (dt) { y += 16; h += '<text y="' + y + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11.5" fill="' + PRUNE_DOUX + '">' + esc(dt) + '</text>'; }
     if (p.metier) { y += 15; h += '<text y="' + y + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11" font-style="italic" fill="' + CHAMPAGNE + '">' + esc(couper(p.metier, 22)) + '</text>'; }
@@ -3979,11 +3979,13 @@
           var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
           if (!d || !d.people) { b.innerHTML = 'Ce lien n’est plus valable. Demande un nouveau lien à ton·ta praticien·ne.'; document.body.appendChild(b); statut(''); return; }
           var op = d.options || {};
+          if (op.supervision) document.body.classList.add('partage-supervision');
           PARTAGE = { masquer: d.masquer || [], delicat: !!op.delicat };
           if (d.remise !== true) document.body.classList.add('partage-verrou');
           if (op.reps === false) document.body.classList.add('partage-sans-reps');
           charger(d); dessiner(); recentrer();
-          b.innerHTML = 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+          b.innerHTML = op.supervision ? 'Dossier anonymisé pour la supervision' + (d.cabinet ? ', partagé par ' + esc(d.cabinet) : '') + ' · en lecture' : 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+
           document.body.appendChild(b); statut('');
           if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
         });

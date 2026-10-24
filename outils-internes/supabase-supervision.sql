@@ -1,0 +1,5 @@
+-- Lien de supervision (appliqué le 24 octobre 2026, migration « partage_supervision_anonyme »)
+-- partage_lire : si options.supervision, le dossier est anonymisé dans la base avant de partir
+--   (prénoms, noms, lieux, notes, repères et mots des liens libres retirés ; dates réduites à l'année ; jamais de remise).
+-- partage_garder : refuse un lien de supervision.
+-- Le texte complet des deux fonctions est celui de la migration dans Supabase (Database > Migrations).

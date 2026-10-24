@@ -108,6 +108,7 @@ window.GenesoliaPratique = (function () {
   }
   function resumeOptions(op) {
     op = op || {};
+    if (op.supervision) return 'Supervision : dossier anonymisé' + (op.reps === false ? ', sans « Ce qui se répète »' : '');
     if (op.reps === false) return 'L’arbre seul, sans « Ce qui se répète »';
     return op.delicat ? 'L’arbre et les répétitions, sans les pistes délicates' : 'L’arbre et toutes les répétitions';
   }
@@ -120,6 +121,7 @@ window.GenesoliaPratique = (function () {
         '<label class="pr-o-case"><input type="checkbox" name="reps" checked> <span>Montrer « Ce qui se répète »</span></label>' +
         '<label class="pr-o-case"><input type="checkbox" name="delicat"> <span>Cacher les pistes délicates : deuils, pertes de grossesse, IVG, départs précoces</span></label>' +
         '<p class="pr-o-aide" style="margin:0">Les pistes que tu as marquées « Pas pour moi » dans le dossier ne sont jamais montrées.</p>' +
+        '<label class="pr-o-case"><input type="checkbox" name="supervision"> <span><b>Lien de supervision</b> : pour ta superviseure ou ta formatrice. Le dossier est anonymisé avant de quitter la base : ni prénoms, ni noms, ni lieux, ni dates exactes (les années restent), ni notes. Chacun·e apparaît par sa place (mère, grand-père…). Jamais téléchargeable.</span></label>' +
         '<div><button class="btn btn-plein bt plein" type="submit">Créer le lien (valable 14 jours)</button></div><div data-nouveau></div></form>'
         : '<p class="pr-o-aide">Pour créer un nouveau lien, il faut l’abonnement. Tu peux toujours désactiver les liens déjà envoyés.</p>'));
     var za = f.querySelector('[data-actifs]');
@@ -147,7 +149,7 @@ window.GenesoliaPratique = (function () {
     var fn = f.querySelector('[data-nouveau-lien]');
     if (fn) fn.addEventListener('submit', function (e) {
       e.preventDefault();
-      var bt = fn.querySelector('button[type=submit]'), op = { reps: fn.reps.checked, delicat: fn.reps.checked && fn.delicat.checked }, exp = new Date(Date.now() + 14 * 864e5).toISOString();
+      var bt = fn.querySelector('button[type=submit]'), op = { reps: fn.reps.checked, delicat: fn.reps.checked && fn.delicat.checked, supervision: fn.supervision.checked }, exp = new Date(Date.now() + 14 * 864e5).toISOString();
       bt.disabled = true;
       o.sb.from('partages_arbre').insert({ user_id: o.user.id, arbre_id: o.id, expire_le: exp, options: op }).select('jeton').single().then(function (r) {
         bt.disabled = false;
