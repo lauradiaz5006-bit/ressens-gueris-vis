@@ -74,45 +74,65 @@
   function svg(d, o) {
     o = o || {};
     var a3 = d.a3 || false, ech = typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1, min = Math.max(14, Math.round(34 / ech));
-    var max = Math.max(2, Math.min(d.nbGen || 4, 5)), R = rangs(d.moi, max), n = R.length;
-    /* places : la personne juste au-dessus de la Terre, la génération la plus ancienne sous le soleil */
-    var yM = 2280, yT = n > 4 ? 840 : n > 3 ? 900 : 1180, G0 = n > 2 ? 430 : yM - yT, pasY = n > 2 ? (yM - G0 - yT) / (n - 2) : 0;   /* plus d'espace entre la personne (grande sphère) et ses parents */
-    var SPAN = [0, 760, 1520, 1960, 2260], RAY = [118, 92, n > 4 ? 72 : 80, n > 4 ? 56 : 64, 44], FZ = [58, 46, n > 4 ? 36 : 40, n > 4 ? 32 : 36, 28];
-    var parts = [], graine = 11;
-    var p0 = { x: CX, y: yM, r: RAY[0], g: 0, p: d.moi };
-    parts.push(p0);
-    var parRang = [[p0]];
+    var COUPLE = !!d.moi.couple, max = Math.max(2, Math.min(d.nbGen || 4, 5)), R = rangs(d.moi, max), n = R.length;
+    var enf = COUPLE ? (d.enfants || []).slice(0, 6) : [];
+    /* places : la personne (ou le couple) juste au-dessus de la Terre, la génération la plus ancienne sous le soleil ;
+       en couple avec enfants, les enfants au-dessus de la Terre et le couple au-dessus d'eux */
+    var b0 = COUPLE ? 1 : 0, nR = n - b0, yM = COUPLE && enf.length ? 1930 : 2280, yT = nR > 3 ? 840 : nR > 2 ? 900 : 1180;
+    var G0 = nR > 2 ? (COUPLE && enf.length ? 380 : 430) : yM - yT, pasY = nR > 2 ? (yM - G0 - yT) / (nR - 2) : 0;
+    var SPAN = [0, 760, 1520, 1960, 2260], RAY = [118, COUPLE ? 104 : 92, nR > 4 ? 72 : 80, nR > 4 ? 56 : 64, 44], FZ = [58, COUPLE ? 50 : 46, nR > 4 ? 36 : 40, nR > 4 ? 32 : 36, 28];
+    var parts = [], graine = 11, parRang = [];
+    function yDe(g) { return g === b0 ? yM : yM - G0 - (g - b0 - 1) * pasY; }
+    if (!COUPLE) { var p0 = { x: CX, y: yM, r: RAY[0], g: 0, p: d.moi }; parts.push(p0); parRang.push([p0]); } else parRang.push([null]);
     for (var g = 1; g < n; g++) {
-      var nb = Math.pow(2, g), slot = SPAN[g] / nb, rr = Math.min(RAY[g], slot * .36), y = yM - G0 - (g - 1) * pasY, lst = [];
-      for (var k = 0; k < nb; k++) { var q = R[g][k]; var x = CX - SPAN[g] / 2 + slot * (k + .5); var it = q ? { x: x, y: y, r: rr, g: g, p: q, k: k, slot: slot } : null; lst.push(it); if (it) parts.push(it); }
+      var nb = Math.pow(2, g), span = COUPLE && g === 1 ? 820 : SPAN[g], slot = span / nb, rr = Math.min(RAY[g], slot * .36), y = yDe(g), lst = [];
+      for (var k = 0; k < nb; k++) { var q = R[g][k]; var x = CX - span / 2 + slot * (k + .5); var it = q ? { x: x, y: y, r: rr, g: g, p: q, k: k, slot: slot } : null; lst.push(it); if (it) parts.push(it); }
       parRang.push(lst);
     }
+    /* les enfants du couple, dans la lumière de la Terre */
+    var enfP = [];
+    if (enf.length) {
+      var ns = enf.length, spanE = Math.min(2100, 420 * ns), slotE = spanE / ns, rE = Math.min(84, slotE * .36);
+      enf.forEach(function (q, m) { var it = { x: CX - spanE / 2 + slotE * (m + .5), y: 2330, r: rE, g: 1, p: q, slot: slotE, enfant: true }; enfP.push(it); parts.push(it); });
+    }
     /* les branches dorées : de la sphère de chaque enfant vers le cartouche de chacun de ses parents */
-    var branches = '', feuilles = '', personnes = '', bas = {};
+    var branches = '', feuilles = '', personnes = '', coeur = '';
     parts.forEach(function (it) {
       var slotW = it.g ? it.slot : 560, cw = Math.min(slotW * .94, it.r * (it.g ? 3.1 : 3.6));
-      var l = texte(it.p, Math.max(min, FZ[it.g]), cw - 24, min, it.g < 4);
+      var l = texte(it.p, Math.max(min, it.enfant ? 40 : FZ[it.g]), cw - 24, min, it.g < 4);
       var r = personne(it.x, it.y, it.r, l, cw, it.g === 0 ? 'vivant' : vivant(it.p) ? 'vivant' : 'defunt', graine += 97);
       it.html = r.svg; it.bas = r.bas;
     });
-    for (g = 0; g < n - 1; g++) {
+    function branche(x1, y1, x2, y2, ep, g, j) {
+      var my = (y1 + y2) / 2;
+      branches += '<path d="M' + f1(x1) + ' ' + f1(y1) + 'C' + f1(x1) + ' ' + f1(my) + ' ' + f1(x2) + ' ' + f1(my + (y2 - my) * .3) + ' ' + f1(x2) + ' ' + f1(y2) + '" fill="none" stroke="url(#lu-or)" stroke-width="' + f1(ep) + '" stroke-linecap="round"/>';
+      var fx = (x1 + x2) / 2 + (j ? 1 : -1) * 6, fy = my, t = Math.max(18, 38 - g * 5), s = j ? 1 : -1;
+      feuilles += feuille(fx, fy, s > 0 ? -30 : -150, t, '#8E2F5E') + feuille(fx, fy + 6, s > 0 ? 20 : 160, t * .85, '#C9A06A') + feuille(fx - s * 4, fy - 4, s > 0 ? -80 : -100, t * .7, '#B7577B');
+    }
+    for (g = b0; g < n - 1; g++) {
       parRang[g].forEach(function (c, k) {
         if (!c) return;
         [parRang[g + 1][2 * k], parRang[g + 1][2 * k + 1]].forEach(function (pa, j) {
           if (!pa) return;
-          var x1 = c.x, y1 = c.y - c.r * 1.02, x2 = pa.x, y2 = pa.bas, my = (y1 + y2) / 2, ep = Math.max(3.5, 8 - g * 1.2);
-          branches += '<path d="M' + f1(x1 + (j ? 1 : -1) * c.r * .25) + ' ' + f1(y1 + c.r * .1) + 'C' + f1(x1 + (j ? 1 : -1) * c.r * .4) + ' ' + f1(my) + ' ' + f1(x2) + ' ' + f1(my + (y2 - my) * .3) + ' ' + f1(x2) + ' ' + f1(y2) + '" fill="none" stroke="url(#lu-or)" stroke-width="' + f1(ep) + '" stroke-linecap="round"/>';
-          var fx = (x1 + x2) / 2 + (j ? 1 : -1) * 6, fy = my, t = Math.max(18, 38 - g * 5), s = j ? 1 : -1;
-          feuilles += feuille(fx, fy, s > 0 ? -30 : -150, t, '#8E2F5E') + feuille(fx, fy + 6, s > 0 ? 20 : 160, t * .85, '#C9A06A') + feuille(fx - s * 4, fy - 4, s > 0 ? -80 : -100, t * .7, '#B7577B');
+          branche(c.x + (j ? 1 : -1) * c.r * .25, c.y - c.r * .92, pa.x, pa.bas, Math.max(3.5, 8 - g * 1.2), g, j);
         });
       });
     }
-    parts.slice().reverse().forEach(function (it) { personnes += it.html; });
+    if (COUPLE) {   /* le cœur de lumière entre les deux, et les enfants qui en descendent */
+      var cp = parRang[1].filter(Boolean), xh = CX, yh = yM;
+      if (cp.length === 2) branches += '<path d="M' + f1(cp[0].x + cp[0].r) + ' ' + f1(yh) + 'H' + f1(cp[1].x - cp[1].r) + '" stroke="url(#lu-or)" stroke-width="6" fill="none"/>';
+      coeur = '<circle cx="' + f1(xh) + '" cy="' + f1(yh) + '" r="70" fill="url(#lu-halo)"/><path transform="translate(' + f1(xh) + ' ' + f1(yh) + ') scale(2.3)" d="M0 10C-14 0 -18 -8 -13 -13C-9 -17 -3 -15 0 -10C3 -15 9 -17 13 -13C18 -8 14 0 0 10Z" fill="url(#lu-or)" stroke="#FFF6E2" stroke-width="1.5"/>';
+      var yd = Math.max.apply(null, cp.map(function (c) { return c.bas; }).concat([yh + 40]));
+      enfP.forEach(function (e, m) { branche(xh, yd + 6, e.x, e.y - e.r * .95, 5, 1, e.x > xh ? 1 : 0); });
+      if (enfP.length) branches += '<path d="M' + f1(xh) + ' ' + f1(yh + 26) + 'V' + f1(yd + 6) + '" stroke="url(#lu-or)" stroke-width="5"/>';
+    }
+    parts.slice().reverse().forEach(function (it) { personnes += it.html; }); personnes += coeur;
 
     var decor = o.decor || 'assets/arbre/lumiere-fond.jpg';
-    var titre = '<text x="' + CX + '" y="' + (yT - (n > 3 ? 220 : 330)) + '" text-anchor="middle" class="lu-titre">' + esc(d.titre || 'Ma lignée en lumière') + '</text>' +
-      (d.sousTitre ? '<text x="' + CX + '" y="' + (yT - (n > 3 ? 155 : 260)) + '" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');
-    var phrase = '<text x="' + CX + '" y="' + (H - 64) + '" text-anchor="middle" class="lu-phrase">Que la lumière de ma lignée me protège et m’accompagne.</text>';
+    /* le titre : seulement s'il a été écrit (rien d'imposé) */
+    var titre = (d.titre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 220 : 330)) + '" text-anchor="middle" class="lu-titre">' + esc(d.titre) + '</text>' : '') +
+      (d.sousTitre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 155 : 260)) + '" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');
+    var phrase = '<text x="' + CX + '" y="' + (H - 64) + '" text-anchor="middle" class="lu-phrase">' + (COUPLE ? 'Que la lumière de nos lignées nous protège et nous accompagne.' : 'Que la lumière de ma lignée me protège et m’accompagne.') + '</text>';
     var pied = '<text x="' + (W - DX - 30) + '" y="' + (H - 30) + '" text-anchor="end" class="lu-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-30 ' + CX + ' ' + H / 2 + ')"><text x="' + CX + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="lu-fil">APERÇU</text><text x="' + CX + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="lu-fil">GENESOLIA</text></g>' : '';
     var B = o.fondPerdu ? Math.round(4 * W / 210) : 0;
