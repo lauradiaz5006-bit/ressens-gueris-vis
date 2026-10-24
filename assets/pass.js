@@ -109,7 +109,7 @@
   function phaseDuJour(dt) {
     if (!A) return '';
     var ph = A.MoonPhase(dt);
-    return ph < 22.5 || ph >= 337.5 ? 'Nouvelle lune' : ph < 67.5 ? 'Premier croissant' : ph < 112.5 ? 'Premier quartier' : ph < 157.5 ? 'Lune gibbeuse croissante' : ph < 202.5 ? 'Pleine lune' : ph < 247.5 ? 'Lune gibbeuse décroissante' : ph < 292.5 ? 'Dernier quartier' : 'Dernier croissant';
+    return ph < 12 || ph >= 348 ? 'Nouvelle lune' : ph < 78 ? 'Premier croissant' : ph < 102 ? 'Premier quartier' : ph < 168 ? 'Lune gibbeuse croissante' : ph < 192 ? 'Pleine lune' : ph < 258 ? 'Lune gibbeuse décroissante' : ph < 282 ? 'Dernier quartier' : 'Dernier croissant';
   }
 
   /* ───── Les dates de la lignée : anniversaires de naissance et de départ, échos d'âge, dates du fil d'or ───── */
