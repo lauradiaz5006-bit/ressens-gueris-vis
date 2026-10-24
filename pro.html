@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icones/pro-apple-180.png">
+  <link rel="manifest" href="/pro.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Genesolia Pro">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2E1338">
+  <title>Genesolia Pro</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Ton espace praticien Genesolia : les arbres de tes client·es, tes notes de séance et leurs rapports.">
+  <link rel="canonical" href="https://genesolia.fr/pro.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #pr{max-width:62rem;margin:0 auto;padding:2rem 16px 3rem;color:var(--prune)}
+    .pr-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
+    .pr-tete h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:0}
+    .pr-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .3rem}
+    .pr-etat{display:inline-block;border-radius:999px;padding:.45rem .9rem;font-size:.88rem;background:#FCEFF3;border:1px solid var(--rose)}
+    .pr-etat.fini{background:#FFF0E8;border-color:#EBC3A8}
+    .pr-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.4rem;margin:0 0 1.2rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .pr-carte h2{font-size:1.4rem;margin:0 0 .8rem}
+    .pr-aide{color:var(--prune-doux);font-size:.93rem;margin:0 0 1rem}
+    .pr-form{display:grid;gap:.9rem;max-width:32rem}
+    .pr-form label{display:grid;gap:.35rem;font-weight:600;font-size:.93rem}
+    .pr-form input[type=text]{font:inherit;font-weight:400;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;width:100%;box-sizing:border-box;color:var(--prune)}
+    .pr-case{display:flex!important;grid-template-columns:none!important;gap:.6rem;align-items:flex-start;font-weight:400!important}
+    .pr-case input{margin-top:.25rem;width:20px;height:20px;flex:none}
+    .pr-err{color:#A3324B;font-size:.9rem;min-height:1.1em;margin:0}
+    .pr-nouveau{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
+    .pr-nouveau input[type=text]{flex:1 1 14rem;font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-liste{display:grid;gap:.6rem}
+    .pr-dossier{display:grid;grid-template-columns:1fr;gap:.6rem 1rem;align-items:center;border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;background:#FFFBFC}
+    .pr-dossier b{font-weight:600;font-size:1.02rem;overflow-wrap:anywhere}
+    .pr-dossier small{display:block;color:var(--prune-doux);font-size:.84rem;margin-top:.15rem}
+    .pr-actions{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-start}
+    .pr-actions .btn{padding:.55rem .9rem;font-size:.88rem;min-height:40px}
+    .pr-deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+    .pr-deux small{font-weight:400;color:var(--prune-doux)}
+    .pr-deux select{font:inherit;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune)}
+    .pr-exemple{margin-top:.9rem;padding:1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair,#F3DCC0)}
+    .pr-exemple p{margin:0 0 .7rem;font-size:.92rem;line-height:1.5}
+    .pr-debut h2 small{display:block;font:600 .8rem var(--texte);color:var(--prune-doux);margin:.25rem 0 0}
+    .pr-debut ol{list-style:none;margin:.4rem 0 .8rem;padding:0;display:grid;gap:.5rem}
+    .pr-debut li{display:flex;gap:.6rem;align-items:center;font-size:.94rem}
+    .pr-debut li>span:first-child{width:20px;height:20px;flex:none;border-radius:50%;border:2px solid var(--rose-fonce,#D9A7B6)}
+    .pr-debut li.ok{color:var(--prune-doux);text-decoration:line-through}
+    .pr-debut li.ok>span:first-child{background:var(--prune);border-color:var(--prune);box-shadow:inset 0 0 0 3px #fff}
+    .pr-fin-essai{border:2px solid var(--champagne,#C9A46A)}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    @media (max-width:560px){.pr-deux{grid-template-columns:1fr}}
+    .pr-remise{grid-column:1/-1;border-top:1px dashed var(--rose);padding-top:.7rem}
+    .pr-remise label{display:flex;gap:.6rem;align-items:flex-start;font-weight:600;font-size:.94rem;cursor:pointer;line-height:1.4}
+    .pr-remise input{width:22px;height:22px;flex:none;margin:.05rem 0 0;accent-color:var(--prune)}
+    .pr-remise .pr-aide{margin:.35rem 0 0 2rem;font-size:.86rem}
+    .pr-remise .pr-aide:empty{display:none}
+    .pr-lien{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .88rem var(--texte);cursor:pointer;padding:.5rem}
+    .pr-vide{color:var(--prune-doux);text-align:center;padding:1rem}
+    .pr-fond{position:fixed;inset:0;z-index:200;background:rgba(74,33,66,.45);display:flex;align-items:flex-end;justify-content:center}
+    @media (min-width:700px){.pr-fond{align-items:center;padding:16px}}
+    .pr-fenetre{background:var(--blanc);width:100%;max-width:40rem;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:1.4rem 1.3rem calc(1.4rem + env(safe-area-inset-bottom))}
+    @media (min-width:700px){.pr-fenetre{border-radius:22px}}
+    .pr-fenetre h2{font-size:1.4rem;margin:0 0 .4rem}
+    .pr-seance{border-top:1px solid var(--rose);padding:.8rem 0}
+    .pr-seance p{margin:.3rem 0 0;white-space:pre-wrap}
+    .pr-seance small{color:var(--prune-doux)}
+    .pr-fenetre textarea{width:100%;box-sizing:border-box;min-height:7rem;font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-fenetre input[type=date]{font:inherit;padding:.6rem .8rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
+    .pr-grille{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem}
+    @media (max-width:860px){.pr-grille{grid-template-columns:1fr}}
+    /* ── Appli Genesolia Pro ── */
+    body.pro{background:#FFF9F7;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+    .pro-haut{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:.7rem;padding:calc(.7rem + env(safe-area-inset-top,0px)) 16px .7rem;background:#2E1338;color:#FFF4F6}
+    .pro-haut img{width:34px;height:34px;border-radius:9px}
+    .pro-haut b{font:400 1.25rem var(--display);letter-spacing:.01em}
+    .pro-haut small{display:block;font:600 .66rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair,#F3DCC0)}
+    .pro-haut .pro-inst{margin-left:auto;border:1px solid rgba(243,220,192,.6);background:transparent;color:#FFF4F6;border-radius:99px;padding:.45rem .85rem;font:600 .82rem var(--texte);cursor:pointer}
+    .pro-test{max-width:none;margin:0;padding:.45rem 16px;background:#FFF0E0;color:#7A4E2F;font-size:.8rem;text-align:center}
+    .pro-bas{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--rose);padding:.35rem 4px calc(.35rem + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(46,19,56,.08)}
+    .pro-bas a{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.35rem 2px;color:var(--prune-doux);text-decoration:none;font:600 .72rem var(--texte);border-radius:12px}
+    .pro-bas a.actif,.pro-bas a:hover{color:var(--prune);background:#FCEFF3}
+    .pro-bas svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    @media (min-width:900px){.pro-bas{left:50%;right:auto;transform:translateX(-50%);bottom:14px;width:30rem;border:1px solid var(--rose);border-radius:20px;padding:.35rem}body.pro{padding-bottom:100px}}
+  </style>
+</head>
+<body class="nouveau pro">
+  <div class="pro-haut"><img src="/assets/icones/pro-192.png" alt=""><div><small>Espace praticien</small><b>Genesolia Pro</b></div><button type="button" class="pro-inst" data-installer hidden>Installer l’appli</button></div>
+  <p class="pro-test">Aperçu de l’appli Genesolia Pro, en test avant sa mise en ligne.</p>
+  <h1 class="sr-only">Genesolia Pro · Mon Espace praticien</h1>
+  <main id="pr" aria-live="polite"><p class="pr-aide">Ton Espace praticien s’ouvre…</p></main>
+  <nav class="pro-bas" aria-label="Genesolia Pro">
+    <a href="#pr-dos-t" data-pro="dossiers" class="actif"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>
+    <a href="#pr-nouv" data-pro="nouveau"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Nouveau</a>
+    <a href="genosociogramme.html?exemple" data-pro="demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>
+    <a href="#pr-cab" data-pro="activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>
+  </nav>
+  <script>window.GENESOLIA_APPLI = { nom: 'Genesolia Pro', icone: '/assets/icones/pro-apple-180.png' };</script>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/praticien-outils.js?v=2"></script>
+  <script src="assets/praticien.js?v=2026-10-24c"></script>
+  <script>
+  /* Barre du bas de l'appli Pro : aller aux dossiers, créer un dossier, mon activité */
+  (function () {
+    var bas = document.querySelector('.pro-bas');
+    function aller(sel, focus) {
+      var el = document.querySelector(sel); if (!el) return false;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (focus) { var i = el.querySelector('input[type=text]'); if (i) setTimeout(function () { i.focus(); }, 350); }
+      return true;
+    }
+    bas.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-pro]'); if (!a) return;
+      var k = a.getAttribute('data-pro'); if (k === 'demo') return;
+      e.preventDefault();
+      bas.querySelectorAll('a').forEach(function (x) { x.classList.toggle('actif', x === a); });
+      if (k === 'dossiers') aller('#pr-dos-t') || window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (k === 'nouveau') { if (!aller('#pr-nouv', true)) aller('#pr-dos-t'); }
+      if (k === 'activite') aller('#pr-cab');
+    });
+  })();
+  </script>
+</body>
+</html>

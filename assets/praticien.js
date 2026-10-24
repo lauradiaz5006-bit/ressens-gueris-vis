@@ -22,10 +22,11 @@
   function indispo() { z.innerHTML = '<div class="pr-carte"><h2>L’Espace praticien ouvre très bientôt</h2><p class="pr-aide">Il est en cours de mise en place. Reviens dans quelques jours.</p><a class="btn btn-plein" href="espace-praticien.html">Découvrir l’Espace praticien</a></div>'; }
 
   /* ───────── Sans compte ───────── */
+  var ICI = /pro\.html$/.test(location.pathname) ? 'pro.html' : 'praticien.html';   /* appli Genesolia Pro ou page du site */
   function porte() {
     z.innerHTML = '<p class="pr-etiq">Espace praticien</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ton Espace praticien</h1>' +
       '<div class="pr-carte"><p class="pr-aide">Crée ton espace (ou connecte-toi), puis ouvre ton Espace praticien : <b>30 jours d’essai, sans carte</b>. Autant de dossiers client·es que tu veux, des notes par séance chiffrées, et un lien pour montrer son arbre à ton·ta client·e.</p>' +
-      '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=praticien.html">Créer mon espace</a><a class="btn btn-trait" href="login.html?retour=praticien.html">J’ai déjà un espace</a></div></div>';
+      '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + ICI + '">Créer mon espace</a><a class="btn btn-trait" href="login.html?retour=' + ICI + '">J’ai déjà un espace</a></div></div>';
   }
 
   /* ───────── Ouvrir son cabinet (essai de 30 jours) ───────── */

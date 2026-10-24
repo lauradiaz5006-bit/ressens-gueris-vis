@@ -3516,6 +3516,7 @@
   }
   function apresChargement() { importerFilDor(); exporterSiDemande(); }
 
+  function espacePro() { try { return sessionStorage.getItem('genesolia-appli') === 'pro' ? 'pro.html' : 'praticien.html'; } catch (e) { return 'praticien.html'; } }
   /* ───────── Espace praticien : lien vers le cabinet, mode séance, rapport au nom du cabinet ───────── */
   var PRATICIEN = null, OUTILS_FAITS = false, RAP_RETENUES = false;
   function chargerPraticien() {
@@ -3524,7 +3525,7 @@
       if (r.error || !r.data) return;
       PRATICIEN = r.data; document.body.classList.add('est-praticien');
       var t = document.querySelector('.titre-arbre');
-      if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = 'praticien.html'; a.textContent = 'Mon Espace praticien'; t.insertBefore(a, t.firstChild); }
+      if (t && !document.getElementById('lien-cabinet')) { var a = document.createElement('a'); a.id = 'lien-cabinet'; a.className = 'bt'; a.href = espacePro(); a.textContent = 'Mon Espace praticien'; t.insertBefore(a, t.firstChild); }
       outilsCabinet();
     }, function () {});
   }
