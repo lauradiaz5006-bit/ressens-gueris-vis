@@ -168,7 +168,7 @@ window.GenesoliaMesure = (function () {
   var CLE = 'consentement-mesure', id = window.GENESOLIA_GA, charge = false;
   function choix() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
   /* Appli Genesolia Pro : jamais de Google Analytics (Umami seul, sans cookie), donc pas de bandeau à faire accepter */
-  function pro() { try { return /\/pro\.html$/.test(location.pathname) || sessionStorage.getItem('genesolia-appli') === 'pro'; } catch (e) { return false; } }
+  function pro() { try { return /\/(pro|questionnaire)\.html$/.test(location.pathname) || sessionStorage.getItem('genesolia-appli') === 'pro'; } catch (e) { return false; } }   /* questionnaire.html : la page qu'un·e client·e remplit pour sa praticienne, sans mesure Google */
   function charger() {
     if (charge || !id || genesoliaPasCompter() || pro()) return;
     charge = true;
@@ -310,7 +310,7 @@ window.GENESOLIA_IMPRESSION = {
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
-  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'cercle.html'   /* cercle.html : l'appli des membres, sans publicité */
+  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'questionnaire.html' || page === 'cercle.html'   /* cercle.html : l'appli des membres, sans publicité */
     || page === 'abonnement.html'                                                            /* la page de vente : une seule décision, pas d'autre encart */
     || (page === 'login.html' && /[?&]retour=essai\.html/.test(location.search));          /* création du compte depuis l'essai : on reste sur les rails */
 

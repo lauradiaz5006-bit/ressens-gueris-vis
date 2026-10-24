@@ -160,5 +160,62 @@ window.GenesoliaPratique = (function () {
     return f;
   }
 
-  return { fenetre: fenetre, notes: notes, partager: partager, esc: esc, date: date };
+  /* ───────── Questionnaire avant séance : un lien que le·la client·e remplit chez lui·elle, sans compte ───────── */
+  function urlQ(j) { return 'https://genesolia.fr/questionnaire.html?q=' + j; }
+  var LIB_G = { repete: 'Ce qui lui semble se répéter', attente: 'Ce qui l’amène', silences: 'Ce dont on ne parle pas' };
+  /* o : { sb, user, id, nom, actif, dansArbre } */
+  function questionnaire(o) {
+    var f = fenetre('<h2>Questionnaire avant séance' + (o.nom ? ' · ' + esc(o.nom) : '') + '</h2>' +
+      '<p class="pr-o-aide">Envoie ce lien à ton·ta client·e : il·elle remplit chez lui·elle, sans compte, sa famille proche, les dates, les moments marquants et ce qu’il·elle en ressent. Ses réponses arrivent ici, et tu les ajoutes à son arbre en un clic avant la séance.</p>' +
+      '<div data-q-liste><p class="pr-o-aide">Chargement…</p></div>' +
+      (o.actif ? '<div class="pr-o-boutons" style="margin-top:.6rem"><button class="btn btn-plein bt plein" type="button" data-q-creer>Créer un lien (valable 21 jours)</button></div><p class="pr-o-msg" data-q-msg role="status"></p>'
+        : '<p class="pr-o-aide">Pour envoyer un nouveau questionnaire, il faut l’abonnement. Les réponses déjà reçues restent ici.</p>'));
+    var zl = f.querySelector('[data-q-liste]'), liste = [];
+    function charger() {
+      o.sb.from('questionnaires_client').select('jeton,expire_le,cree_le,rempli_le,importe_le,reponses').eq('arbre_id', o.id).order('cree_le', { ascending: false }).then(function (r) {
+        if (r.error) { zl.innerHTML = '<p class="pr-o-aide">Les questionnaires n’ont pas pu être chargés.</p>'; return; }
+        liste = (r.data || []).filter(function (q) { return q.rempli_le || new Date(q.expire_le) > new Date(); });
+        zl.innerHTML = liste.length ? liste.map(function (q) {
+          if (q.rempli_le) {
+            var g = (q.reponses && q.reponses.general) || {}, n = q.reponses && q.reponses.people ? Object.keys(q.reponses.people).length : 0;
+            return '<div class="pr-o-actif"><div><b>Réponses reçues le ' + date(q.rempli_le) + '</b> · ' + n + ' personne' + (n > 1 ? 's' : '') + '<br><small>' + (q.importe_le ? 'Ajoutées à l’arbre le ' + date(q.importe_le) : 'Pas encore ajoutées à l’arbre') + '</small></div>' +
+              Object.keys(LIB_G).filter(function (k) { return g[k]; }).map(function (k) { return '<div><small>' + LIB_G[k] + '</small><p style="margin:.15rem 0 0;white-space:pre-wrap">' + esc(g[k]) + '</p></div>'; }).join('') +
+              '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-plein bt plein" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ajouter à l’arbre</a>') +
+              '<button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Supprimer ces réponses</button></div></div>';
+          }
+          return '<div class="pr-o-actif"><div><b>Envoyé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +
+            '<input class="pr-o-url" type="text" readonly value="' + esc(urlQ(q.jeton)) + '" aria-label="Adresse du questionnaire">' +
+            '<div class="pr-o-boutons"><button class="btn btn-trait bt" type="button" data-q-copier="' + esc(q.jeton) + '">Copier le lien</button><button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Désactiver ce lien</button></div><p class="pr-o-msg" data-q-copie="' + esc(q.jeton) + '"></p></div>';
+        }).join('') : '<p class="pr-o-aide">Aucun questionnaire en cours pour ce dossier.</p>';
+      });
+    }
+    charger();
+    f.addEventListener('click', function (e) {
+      var b;
+      if ((b = e.target.closest('[data-q-creer]'))) {
+        b.disabled = true;
+        var exp = new Date(Date.now() + 21 * 864e5).toISOString();
+        o.sb.from('questionnaires_client').insert({ user_id: o.user.id, arbre_id: o.id, expire_le: exp }).select('jeton').single().then(function (r) {
+          b.disabled = false;
+          var m = f.querySelector('[data-q-msg]');
+          if (r.error) { m.textContent = 'Le lien n’a pas pu être créé. Réessaie dans un instant.'; return; }
+          m.textContent = 'Ton lien est prêt, en haut de la liste. Copie-le pour l’envoyer.';
+          charger();
+        });
+      } else if ((b = e.target.closest('[data-q-copier]'))) {
+        var j = b.getAttribute('data-q-copier'), i = b.closest('.pr-o-actif').querySelector('input'); i.select();
+        var msg = f.querySelector('[data-q-copie="' + j + '"]'), ok = function () { msg.textContent = 'Lien copié. Tu peux le coller dans ton message.'; };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(urlQ(j)).then(ok, function () { try { document.execCommand('copy'); ok(); } catch (x) {} });
+        else { try { document.execCommand('copy'); ok(); } catch (x) {} }
+      } else if ((b = e.target.closest('[data-q-suppr]'))) {
+        var q = liste.filter(function (x) { return x.jeton === b.getAttribute('data-q-suppr'); })[0];
+        if (!confirm(q && q.rempli_le ? 'Supprimer ces réponses ? Ce qui est déjà dans l’arbre y reste.' : 'Désactiver ce lien ? Ton·ta client·e ne pourra plus remplir le questionnaire.')) return;
+        b.disabled = true;
+        o.sb.from('questionnaires_client').delete().eq('jeton', b.getAttribute('data-q-suppr')).then(function (r) { if (r.error) { b.disabled = false; alert('Ça n’a pas abouti. Réessaie.'); return; } charger(); });
+      }
+    });
+    return f;
+  }
+
+  return { fenetre: fenetre, notes: notes, partager: partager, questionnaire: questionnaire, esc: esc, date: date };
 })();
