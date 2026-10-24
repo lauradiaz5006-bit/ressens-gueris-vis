@@ -77,6 +77,7 @@ async function paiement(session: any) {
   if (error) throw error;
   const fin = sub ? finAbonnement(await stripe.subscriptions.retrieve(sub)) : null;
   await ouvrir(uid, cle, fin, true);
+  try { await remercier(uid, cle, session); } catch (e) { console.error("remercier", e); }
 }
 
 /* ───────── Arbre imprimé → Gelato (brouillon) ───────── */
@@ -146,8 +147,8 @@ async function confirmerCliente(d: any, x: any) {
   });
 }
 
-async function alerter(objet: string, titre: string, texte: string, lien?: string, bouton?: string) {
-  await sb.from("mails").insert({ email: ALERTE, prenom: "Laura", type: "alerte-impression", objet, titre, texte,
+async function alerter(objet: string, titre: string, texte: string, lien?: string, bouton?: string, type = "alerte-impression") {
+  await sb.from("mails").insert({ email: ALERTE, prenom: "Laura", type, objet, titre, texte,
     bouton_texte: lien ? (bouton ?? "Ouvrir") : null, bouton_lien: lien ?? null });
 }
 
@@ -196,6 +197,44 @@ async function impression(session: any, ref: string) {
     lienFichier || undefined, "Télécharger le fichier");
 }
 
+/* ───────── Achat confirmé : mail de remerciement à la cliente + alerte à Laura (table mails) ───────── */
+const NOMS: Record<string, string> = {
+  passMois: "Le Pass, 10 € par mois", pass3Mois: "Le Pass, 3 mois",
+  cercleMois: "Le Cercle, 29 € par mois", cercleFondatrice: "Le Cercle, prix fondatrice à 24,90 € par mois", cercleAn: "Le Cercle, 24 € par mois sur 12 mois", cercleAnnee: "Le Cercle, à l'année",
+  praticienMois: "l'Espace praticien, 24 € par mois", praticienFondateur: "l'Espace praticien, tarif fondateur à 19 € par mois",
+  praticienAn: "l'Espace praticien, 240 € l'année", praticienFondateurAn: "l'Espace praticien, tarif fondateur à 190 € l'année",
+  carnet: "ton carnet du mois", rapport: "le rapport de ton arbre", numerologie: "ton livret de numérologie", saisons: "Les 12 saisons",
+  astral: "ton livret du thème astral", arbreDeVie: "ton livret de l'arbre de vie", mayaDuo: "votre analyse maya à deux", arbreEncadrer: "ton arbre à encadrer",
+};
+const GESTION = "https://billing.stripe.com/p/login/7sY28k3773S1cix9qD43S00";
+const euros = (c: number) => (c / 100).toFixed(2).replace(".", ",").replace(",00", "") + " €";
+
+async function remercier(uid: string, cle: string, session: any) {
+  const { data: u } = await sb.auth.admin.getUserById(uid);
+  const email = String(u?.user?.email ?? session.customer_details?.email ?? "").toLowerCase();
+  if (!email) return;
+  const prenom = String(u?.user?.user_metadata?.full_name ?? session.customer_details?.name ?? "").trim().split(/\s+/)[0] || null;
+  const o = OFFRES[cle], nom = NOMS[cle] ?? cle, montant = session.amount_total ?? 0, abo = !!session.subscription;
+  const fam = o?.fam;
+  const lien = fam === "cercle" ? SITE + "/cercle.html" : fam === "praticien" ? SITE + "/praticien.html" : SITE + "/login.html";
+  const bouton = fam === "cercle" ? "Ouvrir mon Cercle" : fam === "praticien" ? "Ouvrir mon Espace praticien" : "Ouvrir mon espace";
+  const surtitre = fam === "cercle" ? "Le Cercle" : fam === "pass" ? "Le Pass" : fam === "praticien" ? "Espace praticien" : "Genesolia";
+  const { data: c } = await sb.rpc("n8n_enregistrer_contact", { p_email: email, p_prenom: prenom, p_champs: { compte: true, user_id: uid } });
+  await sb.from("mails").insert({
+    contact_id: c?.id ?? null, email, prenom, type: "achat_merci",
+    objet: "Merci ! Ton achat est confirmé", surtitre, titre: "Merci pour ta confiance",
+    texte: `Ton achat est confirmé : **${nom}**.` + (montant > 0 ? ` Ton paiement de ${euros(montant)} est bien reçu.` : " Rien n'est prélevé aujourd'hui.") + "\n\n" +
+      (o ? "Ton accès est ouvert dès maintenant. Tu retrouves tout dans ton espace, avec ton e-mail et ton mot de passe." : "Tu le retrouves dans ton espace, avec ton e-mail et ton mot de passe.") + "\n\n" +
+      "Une question ? Réponds simplement à ce mail : on te répond personnellement.",
+    bouton_texte: bouton, bouton_lien: lien,
+    encadre_titre: abo ? "Ton abonnement" : null,
+    encadre_texte: abo ? `Tu peux le gérer ou l'arrêter à tout moment, sans frais, depuis [ton espace de paiement](${GESTION}).` : null,
+  });
+  await alerter(`Nouvelle vente : ${nom}` + (montant > 0 ? ` (${euros(montant)})` : ""), "Une nouvelle vente",
+    `${prenom ?? "(sans prénom)"} · ${email}\n\nAchat : ${nom}\nMontant : ${montant > 0 ? euros(montant) : "0 € aujourd'hui (essai ou paiement différé)"}` + (abo ? "\nAbonnement Stripe : " + session.subscription : ""),
+    "https://dashboard.stripe.com/payments", "Ouvrir Stripe", "vente_alerte");
+}
+
 async function achatDeLAbonnement(sub: string) {
   const { data } = await sb.from("achats").select("user_id,produit").eq("stripe_abonnement", sub).order("cree_le", { ascending: false }).limit(1).maybeSingle();
   return data;
@@ -225,6 +264,11 @@ Deno.serve(async (req) => {
         const fin = new Date((o.ended_at ?? Math.floor(Date.now() / 1000)) * 1000).toISOString();
         if (off.fam === "praticien") await sb.from("praticiens").update({ acces_jusqu: fin }).eq("user_id", a.user_id);
         else await sb.from("acces_premium").update({ valide_jusqu: fin }).eq("user_id", a.user_id).eq("offre", off.fam);
+        try {
+          const { data: u } = await sb.auth.admin.getUserById(a.user_id);
+          await alerter(`Abonnement arrêté : ${NOMS[a.produit] ?? a.produit}`, "Un abonnement s'est arrêté",
+            `${u?.user?.email ?? a.user_id}\n\nAbonnement : ${NOMS[a.produit] ?? a.produit}\nAccès jusqu'au : ${new Date(fin).toLocaleDateString("fr-FR")}`, undefined, undefined, "vente_alerte");
+        } catch (e) { console.error("alerte arrêt", e); }
       }
     }
     return new Response(JSON.stringify({ recu: true }), { headers: { "Content-Type": "application/json" } });
