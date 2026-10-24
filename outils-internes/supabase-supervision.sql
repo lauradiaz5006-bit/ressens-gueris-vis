@@ -3,3 +3,4 @@
 --   (prénoms, noms, lieux, notes, repères et mots des liens libres retirés ; dates réduites à l'année ; jamais de remise).
 -- partage_garder : refuse un lien de supervision.
 -- Le texte complet des deux fonctions est celui de la migration dans Supabase (Database > Migrations).
+-- Complément (migration « deux_etapes_complet ») : en supervision, le métier et les traits de caractère sont aussi retirés.

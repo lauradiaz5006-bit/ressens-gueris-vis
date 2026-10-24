@@ -77,7 +77,7 @@
       if (f.telephone) c.push('<a class="btn btn-trait" href="tel:' + esc(String(f.telephone).replace(/[^\d+]/g, '')) + '">' + esc(f.telephone) + '</a>');
       return '<article class="an-carte"><h2>' + esc(f.nom) + '</h2>' + (f.activite || f.pratique ? '<p class="an-act">' + esc([f.pratique, f.activite].filter(Boolean).join(' · ')) + '</p>' : '') +
         (lieu ? '<p class="an-lieu">' + esc(lieu) + '</p>' : '') +
-        '<div class="an-badges">' + (f.presentiel ? '<span>En cabinet</span>' : '') + (f.visio ? '<span>En visio</span>' : '') + '</div>' +
+        '<div class="an-badges">' + (f.presentiel ? '<span>En présentiel</span>' : '') + (f.visio ? '<span>En visio</span>' : '') + '</div>' +
         (f.presentation ? '<p class="an-pres">' + esc(f.presentation) + '</p>' : '') + '<div class="an-contact">' + c.join('') + '</div></article>';
     }
     function rendre() {

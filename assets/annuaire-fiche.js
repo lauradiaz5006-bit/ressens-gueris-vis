@@ -4,7 +4,7 @@
 window.GenesoliaAnnuaire = (function () {
   'use strict';
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  var PRATIQUES = ['Psychogénéalogiste', 'Thérapeute', 'Coach', 'Sophrologue', 'Hypnothérapeute', 'Astrologue ou numérologue', 'Autre'];
+  var PRATIQUES = ['Psychogénéalogiste', 'Praticien·ne en relation d’aide', 'Coach', 'Sophrologue', 'Hypnose', 'Astrologue ou numérologue', 'Autre'];
   function url(v) { v = String(v || '').trim(); if (!v) return null; if (!/^https?:\/\//i.test(v)) v = 'https://' + v; return /^https?:\/\/[^\s.]+\.[^\s]+$/i.test(v) ? v.slice(0, 200) : false; }
 
   function fiche(sb, user, prat, z, actif) {
@@ -22,7 +22,7 @@ window.GenesoliaAnnuaire = (function () {
         '<label>Ta pratique<select name="pratique"><option value="">Choisis…</option>' + PRATIQUES.map(function (p) { return '<option' + (f.pratique === p ? ' selected' : '') + '>' + p + '</option>'; }).join('') + '</select></label>' +
         '<div class="pr-deux"><label>Ville<input type="text" name="ville" maxlength="80" value="' + esc(f.ville) + '"></label><label>Code postal<input type="text" name="code_postal" maxlength="10" value="' + esc(f.code_postal) + '"></label></div>' +
         '<label>Pays<input type="text" name="pays" maxlength="40" value="' + esc(f.pays || 'France') + '"></label>' +
-        '<label class="pr-case"><input type="checkbox" name="presentiel"' + (f.presentiel ? ' checked' : '') + '> <span>Je reçois en cabinet</span></label>' +
+        '<label class="pr-case"><input type="checkbox" name="presentiel"' + (f.presentiel ? ' checked' : '') + '> <span>Je reçois en présentiel</span></label>' +
         '<label class="pr-case"><input type="checkbox" name="visio"' + (f.visio ? ' checked' : '') + '> <span>J’accompagne en visio</span></label>' +
         '<label><span>Ta présentation <small>(700 caractères au plus)</small></span><textarea name="presentation" maxlength="700" rows="5" style="font:inherit;font-weight:400;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)">' + esc(f.presentation) + '</textarea></label>' +
         '<label><span>Ton site <small>(facultatif)</small></span><input type="text" name="site_web" maxlength="200" value="' + esc(f.site_web) + '" placeholder="https://"></label>' +
