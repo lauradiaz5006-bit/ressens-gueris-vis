@@ -1727,13 +1727,13 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   if (!document.getElementById('livre-encart-css')) {
     var st = document.createElement('style'); st.id = 'livre-encart-css';
     st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;box-shadow:0 12px 34px rgba(107,47,91,.08)}' +
-      '.livre-encart.le-deux{grid-template-columns:280px 1fr}.le-couv{display:flex;justify-content:center;align-items:flex-end}.le-couv a{display:block}' +
-      '.livre-encart img{width:150px;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.le-deux .le-couv img{width:140px}.le-deux .le-couv a+a{margin-left:-22px}' +
+      '.livre-encart.le-deux{grid-template-columns:300px 1fr}.le-couv{display:flex;justify-content:center;align-items:flex-end}.le-couv a{display:block}' +
+      '.livre-encart img{width:150px;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.le-deux .le-couv{gap:18px}.le-deux .le-couv img{width:135px}' +
       '.livre-encart .le-sur{font:700 .75rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A6E38;margin:0 0 .3rem}' +
       '.livre-encart h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 .5rem}.livre-encart p{margin:0 0 .9rem}.livre-encart .le-bt{display:flex;flex-wrap:wrap;gap:.5rem}' +
       '.livre-accueil{padding:1.6rem 0 .4rem}.livre-accueil .livre-encart{padding:1.3rem 1.6rem}' +
       '.livre-bientot{opacity:.7;cursor:default;pointer-events:none}' +
-      '@media (max-width:680px){.livre-encart,.livre-encart.le-deux{grid-template-columns:1fr;text-align:center;padding:1.3rem}.livre-encart img{margin:0 auto;width:120px}.le-deux .le-couv img{width:105px}.livre-encart .le-bt{justify-content:center}.livre-encart .le-bt .btn{flex:1 1 100%;min-height:46px}}';
+      '@media (max-width:680px){.livre-encart,.livre-encart.le-deux{grid-template-columns:1fr;text-align:center;padding:1.3rem}.livre-encart img{margin:0 auto;width:120px}.le-deux .le-couv img{width:110px}.livre-encart .le-bt{justify-content:center}.livre-encart .le-bt .btn{flex:1 1 100%;min-height:46px}}';
     document.head.appendChild(st);
   }
   function img(l, alt, cl) { return '<a href="' + l.page + '"><img src="' + l.image + '" width="543" height="900" alt="' + alt + '" loading="lazy"></a>'; }
