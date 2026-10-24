@@ -286,6 +286,26 @@ window.GENESOLIA_IMPRESSION = {
   ]
 };
 
+/* ===== Les livres Genesolia (Amazon) =====
+   Colle ici le lien Amazon de chaque livre dès qu'il est en ligne, et son prix. Tant que « amazon » est vide,
+   les boutons affichent « Bientôt sur Amazon » partout sur le site (pages des livres, page Offrir, encarts des articles). */
+window.GENESOLIA_LIVRES = {
+  enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-de-ma-lignee-3d.webp',
+    amazon: '', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
+  racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-3d.webp',
+    amazon: '', prix: '', extrait: '' }
+};
+/* <a data-livre-acheter="enquete"> devient « Acheter sur Amazon · prix » quand le lien existe, sinon « Bientôt sur Amazon » (sans lien) */
+window.GenesoliaLivresBoutons = function (racine) {
+  var L = window.GENESOLIA_LIVRES || {};
+  [].forEach.call((racine || document).querySelectorAll('[data-livre-acheter]'), function (a) {
+    var l = L[a.getAttribute('data-livre-acheter')]; if (!l) return;
+    if (l.amazon) { a.href = l.amazon; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Acheter sur Amazon' + (l.prix ? ' · ' + l.prix : ''); a.removeAttribute('aria-disabled'); a.classList.remove('livre-bientot'); }
+    else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); a.classList.add('livre-bientot'); a.textContent = 'Bientôt sur Amazon'; }
+  });
+};
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.GenesoliaLivresBoutons(); }); else window.GenesoliaLivresBoutons();
+
 /* Liens des e-mails de connexion : si Supabase renvoie sur une autre page que Mon espace, on y redirige avec le jeton */
 (function () {
   var h = location.hash || '', q = location.search || '';
@@ -572,6 +592,8 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
             '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
+            '<li><a href="livres.html">Les livres Genesolia</a></li>' +
+            '<li><a href="offrir.html">Offrir</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
@@ -1669,4 +1691,41 @@ window.GENESOLIA_IMPRESSION = {
     else { var sc = document.createElement('script'); sc.src = 'assets/deux-etapes.js?v=1'; sc.onload = go; document.head.appendChild(sc); }
   }
   if (document.readyState === 'complete') lancer(); else window.addEventListener('load', lancer);
+})();
+
+/* Les livres dans les articles : en bas des articles qui correspondent à un thème de « L'enquête de ma lignée »
+   (et des outils de la lignée), un encart vers le livre, avant l'encart offert. */
+(function () {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  var THEMES = {
+    'memoire-transgenerationnelle.html': 'la mémoire transgénérationnelle', 'syndrome-anniversaire.html': 'le syndrome d’anniversaire',
+    'deuil-non-fait-mort-jeune.html': 'les deuils non faits', 'enfant-de-remplacement.html': 'l’enfant de remplacement',
+    'projet-sens-conception-deuil.html': 'le projet-sens', 'jumeau-perdu.html': 'le jumeau perdu', 'secret-de-famille.html': 'les secrets de famille',
+    'loyaute-familiale-invisible.html': 'les loyautés invisibles', 'prenom-transmis-psychogenealogie.html': 'le prénom transmis',
+    'place-dans-la-fratrie.html': 'la place dans la fratrie', 'filles-garcons-fratrie.html': 'la place dans la fratrie', 'implexe-mariage-entre-cousins.html': 'les ancêtres communs',
+    'guerre-et-memoire-familiale.html': 'la guerre et l’exil', 'argent-et-lignee.html': 'l’argent dans la lignée', 'peur-de-manquer-d-argent.html': 'la peur de manquer',
+    'metiers-transmis-genealogie.html': 'les métiers transmis', 'schemas-repetitifs-en-amour.html': 'les schémas en amour', 'blessures-de-l-ame.html': 'les cinq blessures de l’âme',
+    'masques-des-5-blessures.html': 'les cinq blessures de l’âme', 'reves-recurrents-et-memoire-familiale.html': 'les rêves qui reviennent', 'toussaint-ancetres-et-deuils.html': 'honorer ses ancêtres',
+    'fil-d-or.html': '', 'comment-faire-son-genosociogramme.html': '', 'questions-a-poser-a-sa-famille.html': '', 'psychogenealogie.html': '', 'heriter.html': ''
+  };
+  if (!(page in THEMES)) return;
+  var pied = document.querySelector('[data-pied]'); if (!pied) return;
+  var L = (window.GENESOLIA_LIVRES || {}).enquete; if (!L) return;
+  if (!document.getElementById('livre-encart-css')) {
+    var st = document.createElement('style'); st.id = 'livre-encart-css';
+    st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC}' +
+      '.livre-encart img{width:150px;height:auto;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.livre-encart .le-sur{font:700 .75rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A6E38;margin:0 0 .3rem}' +
+      '.livre-encart h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 .5rem}.livre-encart p{margin:0 0 .9rem}.livre-encart .le-bt{display:flex;flex-wrap:wrap;gap:.5rem}' +
+      '.livre-bientot{opacity:.7;cursor:default;pointer-events:none}@media (max-width:620px){.livre-encart{grid-template-columns:1fr;text-align:center}.livre-encart img{margin:0 auto;width:130px}.livre-encart .le-bt{justify-content:center}}';
+    document.head.appendChild(st);
+  }
+  var t = THEMES[page];
+  var z = document.createElement('section'); z.className = 'bloc'; z.setAttribute('aria-label', 'Le livre');
+  z.innerHTML = '<div class="conteneur"><div class="livre-encart"><img src="' + L.image + '" width="543" height="900" alt="Le livre L’enquête de ma lignée" loading="lazy">' +
+    '<div><p class="le-sur">Le livre · à remplir en famille</p><h2>L’enquête de ma lignée</h2>' +
+    '<p>' + (t ? 'Tout ce que tu viens de lire sur ' + t + ', expliqué pas à pas parmi 18 thèmes, ' : '18 thèmes expliqués, ') + 'avec ton arbre sur 5 générations, des entretiens guidés pour recueillir le ressenti de chacun et le fil d’or pour voir ce qui se répète.</p>' +
+    '<div class="le-bt"><a class="btn btn-plein" href="' + L.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.extrait + '" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.page + '">Acheter</a></div></div></div></div>';
+  var avant = document.querySelector('.cadeau-bas') || pied;
+  avant.parentNode.insertBefore(z, avant);
+  if (window.GenesoliaLivresBoutons) window.GenesoliaLivresBoutons(z);
 })();
