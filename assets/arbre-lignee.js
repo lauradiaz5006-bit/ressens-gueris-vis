@@ -210,6 +210,7 @@
     var libre = (BAS - HAUT) - M.total, pas = max > 1 ? libre / (max - 1) : 0, y = BAS;
     for (var g = 0; g < max; g++) { plan[g].bas = y; y -= plan[g].h + pas; }
     /* les enfants jamais plus grands que la rangée au-dessus d'eux : l'ensemble garde des tailles régulières */
+    var fzRang = 0;
     var fzE = 0; if (ENF) { var fzRef = Math.round(plan[0].fz * (moi.couple ? 1 : 1.25)), fzE = Math.min(ENF.fz, moi.couple && max > 1 ? plan[1].fz : fzRef);
       if (fzE < ENF.fz) ENF.liste.forEach(function (q) { q._e = etiquette(q, fzE, false); }); }
     for (g = 0; g < max; g++) {
@@ -229,6 +230,7 @@
         var ecartU = function (a, b) { return (partenaire(a) && b === moi) || (a === moi && partenaire(b)) || (partenaire(a) && partenaire(b)) ? (moi._e.rr ? 40 : 130) : 60; };
         var minR = Math.max(9, Math.round(34 / ech(a3))), f0 = Math.round(L.fz * (MOTIF ? 1.05 : 1.25)), tot = 0;
         var mesurer0 = function (fz0) {
+          fzRang = fz0;
           rang0.forEach(function (q) { q._e = etiquette(q, fz0, false, MOTIF === 'medaillons' ? q === moi : !partenaire(q)); q._x0 = W / 2; });
           if (MOTIF === 'medaillons') { var autres = rang0.filter(function (q) { return q !== moi; }), wA = Math.max.apply(null, autres.map(function (q) { return q._e.w; }).concat([0])), hA = Math.max.apply(null, autres.map(function (q) { return q._e.h; }).concat([0]));
             autres.forEach(function (q) { q._e.w = wA; q._e.h = hA; }); }
@@ -281,12 +283,16 @@
       var fz0 = f0;
       for (;;) {
         for (var k = 0; k < ordres.length; k++) if (tient(poser(ordres[k]))) { aligner(); return; }
+        /* la rangée tient seule dans la largeur : on la fait glisser pour qu'elle reste dans la feuille (toi un peu décalé sous tes parents) plutôt que de rapetisser le texte */
+        for (k = 0; k < ordres.length; k++) { var eo = poser(ordres[k]); if (eo[1] - eo[0] <= W - 2 * MARGE) { var dr = eo[0] < MARGE ? MARGE - eo[0] : eo[1] > W - MARGE ? (W - MARGE) - eo[1] : 0; ordres[k].forEach(function (q) { q._x += dr; }); aligner(); return; } }
         if (fz0 <= minR) break;
         fz0 = Math.max(minR, fz0 - 2); mesurer0(fz0);
         if (ENF) ENF.liste.forEach(function (q) { q._e = etiquette(q, Math.min(fzE || ENF.fz, fz0), false); });   /* les enfants jamais plus grands que la rangée du dessus */
       }
       poser(ordres[0]); aligner();
     })();
+    /* tes enfants jamais écrits plus gros que toi et tes conjoints (la rangée du dessus) */
+    if (ENF && fzRang) ENF.liste.forEach(function (q) { if (q._e && q._e.l[0] && q._e.l[0][1] > fzRang) q._e = etiquette(q, fzRang, false); });
     /* rien ne doit sortir de la feuille : si les frères et sœurs (ou le conjoint) débordent d'un côté, tout l'arbre glisse de l'autre */
     (function () {
       var t = gens.concat(fs, CJ ? [CJ] : UN).filter(function (q) { return q._e && q._x != null && !q.couple; }); if (!t.length) return;
