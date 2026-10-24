@@ -432,11 +432,12 @@
       h += '<p class="ce-titre-liste">Mon abonnement</p><div class="ce-carte" data-abo><p>Le Cercle' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p></div>';
       h += '<p class="ce-titre-liste">Ton mois</p><div class="ce-carte ce-liste">' +
         ligne('mon-guide.html', 'Mon guide du mois complet', 'Tes nombres, ton ciel, ton signe maya') +
-        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') + '</div>';
+        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') +
+        ligne('#mois', 'Mon mois en un coup d’œil', 'Ton énergie du mois et tes dates clés') + '</div>';
       h += '<p class="ce-titre-liste">À imprimer</p><div class="ce-carte ce-liste">' +
         (S && S.pdf ? ligne(esc(S.pdf), 'Le suivi du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
         (C && C.pdf ? ligne(esc(C.pdf), 'Le carnet du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
-        ligne('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'Les 12 saisons', 'Le livret de l’année', true) + '</div>';
+        ((!E.etape || !E.etape.enCours || E.etape.enCours >= 2) ? ligne('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'Les 12 saisons', 'Le livret de l’année', true) : '') + '</div>';   /* Les 12 saisons : dès la 2e étape, comme annoncé (abonnement.html, mon-mois.html) */
       /* les livres des mois passés */
       var passes = [], m = C ? precedent(C.mois) : '';
       while (m && m >= PREMIER && passes.length < 12) { passes.push(m); m = precedent(m); }

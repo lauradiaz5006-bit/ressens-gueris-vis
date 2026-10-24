@@ -169,11 +169,9 @@
       var people = data.people || {}, ids = Object.keys(people);
       var moiId = ids.filter(function (id) { return people[id].role === 'moi'; })[0];
       var moi = moiId ? people[moiId] : null;
-      /* date absente de l'arbre : on reprend tes repères de naissance (carnet, guide), déjà connus */
-      if (!moi || !parse(moi.naiss)) {
-        var rep = null; try { rep = JSON.parse(localStorage.getItem('genesolia-guide') || 'null'); } catch (e) {}
-        if (rep && parse(rep.date) && !rep.aConfirmer) moi = Object.assign({}, moi || {}, { prenom: (moi && moi.prenom) || rep.prenom || '', nom: (moi && moi.nom) || rep.nom || '', naiss: rep.date, role: 'moi' });
-      }
+      /* tes repères de naissance (ceux du guide et du carnet) passent en premier : mêmes nombres sur toutes les pages ; l'arbre seulement s'ils manquent */
+      var rep = null; try { rep = JSON.parse(localStorage.getItem('genesolia-guide') || 'null'); } catch (e) {}
+      if (rep && parse(rep.date) && !rep.aConfirmer) moi = Object.assign({}, moi || {}, { prenom: rep.prenom || (moi && moi.prenom) || '', nom: rep.nom || (moi && moi.nom) || '', naiss: rep.date, role: 'moi' });
       var r = { moi: moi, dates: [], echos: [], ronds: [] };
       if (!moi || !parse(moi.naiss)) return r;
       r.t = N.theme(moi.prenom || '', moi.nom || '', moi.naiss, auj);
