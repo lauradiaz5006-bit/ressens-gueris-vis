@@ -2602,7 +2602,32 @@
     if (ouverte || dansChamp || EXEMPLE) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); annuler(); }
     else if ((e.key === 'Delete' || e.key === 'Backspace') && selId) { e.preventDefault(); supprimer(selId); }
+    else if (!e.ctrlKey && !e.metaKey && !e.altKey) raccourci(e);
   });
+  /* Raccourcis clavier (utiles en séance) : sur la personne choisie, P parent, E enfant, C conjoint·e, F frère ou sœur, L lien relationnel, M ou Entrée sa fiche ;
+     R « Ce qui se répète », T remonter le temps, N notes de séance, ? l'aide */
+  var RACCOURCIS = { p: 'parent', e: 'enfant', c: 'couple', f: 'fratrie', l: 'relation', m: 'modifier' };
+  function raccourci(e) {
+    var k = e.key.toLowerCase();
+    if (k === '?') { e.preventDefault(); aideRaccourcis(); return; }
+    if (k === 't' && $('bt-temps')) { e.preventDefault(); $('bt-temps').click(); return; }
+    if (k === 'n' && $('bt-notes-dossier')) { e.preventDefault(); $('bt-notes-dossier').click(); return; }
+    if (k === 'r') { var br = document.querySelector('.barre-seance [data-s="reps"]'); if (br) { e.preventDefault(); br.click(); } return; }
+    if (!selId || !S.people[selId]) return;
+    if (k === 'enter') k = 'm';
+    var act = RACCOURCIS[k]; if (!act) return;
+    if (act === 'parent' && parents(selId).length >= 2) return;
+    e.preventDefault();
+    var bt = document.querySelector('#actions-perso [data-act="' + act + '"]');
+    if (bt) bt.click(); else if (act === 'modifier') ouvrirFiche(selId, false); else if (act !== 'relation') ouvrirAjout(act, selId);
+  }
+  function aideRaccourcis() {
+    var v = document.querySelector('.aide-raccourcis'); if (v) { v.remove(); return; }
+    var d = document.createElement('div'); d.className = 'aide-raccourcis'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Raccourcis clavier');
+    d.innerHTML = '<b>Raccourcis clavier</b><p>Clique une personne, puis :</p><ul><li><kbd>P</kbd> ajouter un parent</li><li><kbd>E</kbd> un enfant</li><li><kbd>C</kbd> un·e conjoint·e</li><li><kbd>F</kbd> un frère ou une sœur</li><li><kbd>L</kbd> un lien relationnel</li><li><kbd>M</kbd> ou <kbd>Entrée</kbd> sa fiche</li><li><kbd>Suppr</kbd> la retirer</li></ul><ul><li><kbd>R</kbd> ce qui se répète (mode séance)</li><li><kbd>T</kbd> remonter le temps</li><li><kbd>N</kbd> notes de séance</li><li><kbd>Ctrl</kbd> + <kbd>Z</kbd> annuler</li><li><kbd>Échap</kbd> fermer</li></ul><button type="button" class="bt">Fermer</button>';
+    document.body.appendChild(d);
+    d.querySelector('button').addEventListener('click', function () { d.remove(); });
+  }
 
   /* ───────── Export, impression ───────── */
   var policesEmbarquees = null;
@@ -3802,7 +3827,7 @@
     try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {}
     var q = document.createElement('div'); q.className = 'barre-seance'; q.setAttribute('role', 'toolbar'); q.setAttribute('aria-label', 'Mode séance');
     q.innerHTML = '<button type="button" class="bt" data-s="reps" aria-pressed="false">Ce qui se répète</button>' + (PRATICIEN && ARBRE_ID ? '<button type="button" class="bt" data-s="notes">Notes</button>' : '') +
-      '<button type="button" class="bt" data-s="plein">Plein écran</button><button type="button" class="bt plein" data-s="quitter">Quitter le mode séance</button>';
+      '<button type="button" class="bt" data-s="plein">Plein écran</button><button type="button" class="bt" data-s="aide" title="Raccourcis clavier">Raccourcis <kbd>?</kbd></button><button type="button" class="bt plein" data-s="quitter">Quitter le mode séance</button>';
     document.body.appendChild(q);
     function majPlein() { var b = q.querySelector('[data-s="plein"]'); if (b) b.hidden = !!document.fullscreenElement || !document.documentElement.requestFullscreen; }
     function quitter() {
@@ -3815,6 +3840,7 @@
       var b = e.target.closest('[data-s]'); if (!b) return; var s = b.getAttribute('data-s');
       if (s === 'quitter') quitter();
       else if (s === 'plein') { try { document.documentElement.requestFullscreen().catch(function () {}); } catch (x) {} }
+      else if (s === 'aide') aideRaccourcis();
       else if (s === 'notes') notesDossier();
       else if (s === 'reps') { var ti = document.querySelector('.pr-tiroir'); if (ti) ti.remove(); var on = document.body.classList.toggle('seance-reps'); b.setAttribute('aria-pressed', String(on)); setTimeout(recentrer, 60); }
     });

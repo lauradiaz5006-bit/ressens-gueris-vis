@@ -73,7 +73,7 @@
       (essaiAvant ? essai : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
       (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, grossesses interrompues).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
-      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
+      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de ton activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de tes rapports et de tes liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
       '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Tes notes de séance sont chiffrées dans ton Espace praticien. Le lien de partage montre l’arbre à ton·ta client·e, <b>sans tes notes</b>. Il reste valable 14 jours, tu choisis ce qu’il montre et tu peux le désactiver à tout moment.</p><p class="pr-aide">Tes notes de séance t’appartiennent : elles ne sont jamais copiées dans l’espace de ton·ta client·e. S’il ou elle te demande ce que tu as noté, tu peux les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e te demande d’effacer son dossier ? Supprime-le ici.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier, tu peux aussi commander l’arbre encadré de ton·ta client·e : un beau cadeau de fin d’accompagnement à glisser dans ton offre.</p></section></aside></div>' + (essaiAvant ? '' : essai);
     var ic = document.querySelector('#pr-cab input[name=cabinet]'); if (ic && !ic.value) ic.value = prat.cabinet || '';   /* certains navigateurs vident le champ en restaurant la page */
@@ -90,28 +90,41 @@
       if (zp) zp.innerHTML = perso.length ? '<details><summary>Mes arbres personnels (' + perso.length + ')</summary><p class="pr-aide">Ils ne sont pas comptés comme dossiers client·es. Si l’un d’eux est en fait le dossier d’un·e client·e, déplace-le ici.</p>' + perso.map(function (d) { return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b></div><div class="pr-actions"><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a><button class="pr-lien" type="button" data-vers-client="' + esc(d.id) + '">C’est un dossier client·e</button></div></div>'; }).join('') + '</details>' : '';
       zp && (window.__persoPr = perso);
       debut();
+      RECUES = null;
       if (!dossiers.length) { l.innerHTML = '<p class="pr-vide">Aucun dossier pour l’instant. Crée le premier avec le prénom ou les initiales de ton·ta client·e.</p>' + (actif() ? '<div class="pr-exemple"><p><b>Envie d’essayer d’abord ?</b> Ouvre un dossier exemple déjà rempli, avec une famille fictive : tu verras les répétitions ressortir tout de suite.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir un dossier exemple</button></div>' : ''); return; }
-      var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
-      l.innerHTML = dossiers.map(function (d) {
-        var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
-        return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
-          '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
-          '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
-          '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
-          '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
-          '<button class="btn btn-trait" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
-          '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
-          '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
-          '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</span></label>' +
-          '<p class="pr-aide">Une fois la case cochée, ton·ta client·e peut télécharger son arbre depuis le lien de partage et le garder dans son propre espace. Avant, rien ne peut être téléchargé ni imprimé. Tes notes ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
-      }).join('') + (actif() && !aExemple ? '<div class="pr-exemple"><p><b>Un dossier exemple pour tout essayer :</b> une famille fictive déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à tes vrais dossiers.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir le dossier exemple</button></div>' : '');
-      reponsesRecues();
+      rendreDossiers();
     });
   }
+  /* La liste des dossiers, avec la recherche et le tri (dès 4 dossiers) */
+  var FILTRE = { q: '', tri: 'maj' };
+  function rendreDossiers() {
+    var l = document.getElementById('pr-liste'); if (!l) return;
+    var zf = document.getElementById('pr-filtre'); if (zf) zf.hidden = dossiers.length < 4;
+    var q = FILTRE.q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    var vus = dossiers.filter(function (d) { return !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; });
+    vus.sort(function (a, b) { return FILTRE.tri === 'nom' ? String(a.nom || '').localeCompare(String(b.nom || ''), 'fr') : FILTRE.tri === 'ancien' ? (a.maj < b.maj ? -1 : 1) : (a.maj < b.maj ? 1 : -1); });
+    var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
+    l.innerHTML = (vus.length ? '' : '<p class="pr-vide">Aucun dossier ne correspond à « ' + esc(FILTRE.q) + ' ».</p>') + vus.map(function (d) {
+      var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
+      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
+        '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
+        '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
+        '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
+        '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
+        '<button class="btn btn-trait" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
+        '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
+        '<button class="pr-lien" type="button" data-renommer="' + esc(d.id) + '">Renommer</button><button class="pr-lien" type="button" data-supprimer="' + esc(d.id) + '">Supprimer</button></div>' +
+        '<div class="pr-remise"><label><input type="checkbox" data-remise="' + esc(d.id) + '"' + (d.remise_autorisee ? ' checked' : '') + '> <span>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</span></label>' +
+        '<p class="pr-aide">Une fois la case cochée, ton·ta client·e peut télécharger son arbre depuis le lien de partage et le garder dans son propre espace. Avant, rien ne peut être téléchargé ni imprimé. Tes notes ne sont jamais partagées.</p><p class="pr-aide" data-remise-msg="' + esc(d.id) + '" role="status"></p></div></div>';
+    }).join('') + (actif() && !aExemple ? '<div class="pr-exemple"><p><b>Un dossier exemple pour tout essayer :</b> une famille fictive déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à tes vrais dossiers.</p><button class="btn btn-trait" type="button" data-exemple>Ouvrir le dossier exemple</button></div>' : '');
+    reponsesRecues();
+  }
   /* Questionnaires remplis, pas encore ajoutés à l'arbre : le bouton du dossier le signale */
+  var RECUES = null;
   function reponsesRecues() {
-    sb.from('questionnaires_client').select('arbre_id').not('rempli_le', 'is', null).is('importe_le', null).then(function (r) {
+    (RECUES ? Promise.resolve({ data: RECUES }) : sb.from('questionnaires_client').select('arbre_id').not('rempli_le', 'is', null).is('importe_le', null)).then(function (r) {
       if (r.error || !r.data) return;
+      RECUES = r.data;
       r.data.forEach(function (q) { var b = z.querySelector('[data-questionnaire="' + q.arbre_id + '"]'); if (b) { b.classList.remove('btn-trait'); b.classList.add('btn-plein'); b.textContent = 'Réponses reçues'; } });
     });
   }
@@ -153,6 +166,9 @@
       if (m) m.textContent = v ? 'Enregistré. Envoie un lien de partage : ton·ta client·e y trouvera les boutons pour télécharger et garder son arbre.' : 'Enregistré. Ce que ton·ta client·e a déjà gardé reste dans son espace.';
     });
   });
+
+  document.addEventListener('input', function (e) { if (e.target.id === 'pr-cherche') { FILTRE.q = e.target.value; rendreDossiers(); } });
+  document.addEventListener('change', function (e) { if (e.target.id === 'pr-tri') { FILTRE.tri = e.target.value; rendreDossiers(); } });
 
   /* ───────── Événements ───────── */
   document.addEventListener('submit', function (e) {
