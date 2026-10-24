@@ -98,6 +98,19 @@
     .pa-ou b{display:block;color:var(--prune);font-size:.93rem}.pa-ou span{font-size:.85rem;color:var(--doux)}
     .pa-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin-top:1rem}
     .pa-lien-s{border:0;background:none;color:var(--doux);text-decoration:underline;font:inherit;font-size:.85rem;cursor:pointer;min-height:44px}
+    /* Libérer : les 5 étapes de la clé */
+    .pa-feuille input:not([type=checkbox]){width:100%;box-sizing:border-box;min-height:46px;padding:.6rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit;background:#fff;color:var(--encre)}
+    .pa-lib{margin:1rem 0}
+    .pa-lib-e{display:grid;grid-template-columns:2.2rem 1fr;gap:.7rem;padding:.9rem 0;border-top:1px solid var(--ligne)}
+    .pa-lib-e>span{width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#E2C48E,#B98A55);color:#fff;font:400 1.05rem/1 var(--display)}
+    .pa-lib-e h4{font:400 1.2rem/1.2 var(--display);color:#3B1747;margin:.2rem 0 .35rem}
+    .pa-lib-e p{margin:0 0 .4rem;line-height:1.55}.pa-lib-e ol{margin:0;padding-left:1.1rem}.pa-lib-e li{margin:.35rem 0;line-height:1.55}
+    .pa-resp{display:flex;align-items:center;gap:1.2rem;margin:.6rem 0 .2rem}
+    .pa-resp i{flex:none;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font:600 .74rem/1.2 var(--texte);font-style:normal;color:#5A2147;background:radial-gradient(circle,#FFF4DA,#F2D9A0);box-shadow:0 0 22px rgba(226,196,142,.7);transition:transform 1s ease-in-out;text-align:center}
+    .pa-resp .pa-bt{margin:0}
+    .pa-phrase{margin:.3rem 0 0;padding:1rem 1.1rem;border-radius:16px;background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#FFF4E6;font:400 1.12rem/1.55 var(--display)}
+    .pa-deux-c{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    @media (max-width:520px){.pa-deux-c{grid-template-columns:1fr}}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -156,7 +169,7 @@
     .pa-jour .jp{position:absolute;top:.2rem;right:.3rem;font:400 .72rem/1 var(--display);color:#B98A55}
     .pa-jour .pts{display:flex;gap:2px;flex-wrap:wrap;margin-top:auto}
     .pa-jour .pts i{width:7px;height:7px;border-radius:50%}
-    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}
+    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}.pts .g,.pa-legende .g,.pa-pt.g{background:#5FA88A}
     .pa-pt{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.45rem;vertical-align:middle}
     .jpl{font:400 1.05rem/1 var(--display);color:#B98A55}
     .pa-jour.auj{border:2px solid #B0507A}
@@ -254,7 +267,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=2"></script>
-  <script src="assets/pass.js?v=3"></script>
+  <script src="assets/pass-enquete.js?v=3"></script>
+  <script src="assets/pass.js?v=4"></script>
 </body>
 </html>

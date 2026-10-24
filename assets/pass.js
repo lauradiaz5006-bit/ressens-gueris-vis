@@ -385,6 +385,8 @@
         : '<p class="pa-discret">Plus ton fil d’or et ton arbre se remplissent, plus tu verras ici ce qui, dans ta lignée, répond à ce ressenti.</p>';
     } else if (id === 'aqui') {
       h += '<div class="pa-bloc"><h4>Écoute ton intuition</h4>' + (PF.INTUITION || []).map(function (q, k) { return zoneTexte('i' + k, q, (r.intuition || {})[k]); }).join('') + '</div>';
+      h += '<div class="pa-bloc"><h4>Nomme la mémoire</h4><label for="pa-t-nom">Mémoire de…</label><input id="pa-t-nom" data-t="nom" maxlength="80" value="' + esc(r.nom || '') + '" placeholder="' + esc(nomSuggere(r)) + '">' +
+        '<p class="pa-discret">Si tu ne vois pas encore d’où elle vient, nomme-la simplement : « la mémoire de peur », « la mémoire de honte ». C’est déjà la reconnaître.</p></div>';
       h += '<div class="pa-bloc"><h4>À qui ça appartient ?</h4>' + puces('aqui', [['moi', 'À moi, à ma vie'], ['lignee', 'À quelqu’un de ma lignée'], ['?', 'Je ne sais pas encore']], [r.aqui], false);
       var P = personnes();
       h += '<div id="pa-qui-z"' + (r.aqui === 'lignee' ? '' : ' hidden') + '><label for="pa-qui">À qui, à ton avis ?</label><select id="pa-qui"><option value="">Quelqu’un que je ne connais pas</option>' + P.map(function (p) { return '<option value="' + esc(p.k) + '"' + (r.qui === p.k ? ' selected' : '') + '>' + esc(p.prenom + ' · ' + p.lien.toLowerCase()) + '</option>'; }).join('') + '</select>' + (P.length ? '' : '<p class="pa-discret">Ajoute les tiens dans ton arbre ou ton fil d’or pour les retrouver ici.</p>') + '</div></div>';
@@ -405,14 +407,50 @@
       h += '<div class="pa-bloc">' + zoneTexte('trouve', 'Ce que j’ai trouvé, entendu ou senti', (r.enquete || {}).trouve, 'Une date, une phrase, un papier, un rêve…') + '</div>';
       h += livre(pi ? pi.livre : 'Le livre te donne une page pour chaque personne de ta lignée, à remplir à la main et à transmettre.');
     } else if (id === 'liberer') {
-      var L = PF.LIBERER || { etapes: [] }, qp = r.qui ? personne(r.qui) : null;
-      h += '<div class="pa-bloc pa-geste"><h4>' + (qp ? 'Rendre à ' + esc(qp.prenom) : 'Rendre à la lignée') + '</h4><ol>' + L.etapes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol></div>';
-      h += '<div class="pa-bloc">' + zoneTexte('rends', 'Ce que je rends', r.rends, 'Je te rends ta peur de…') + zoneTexte('garde', 'Ce que je garde', r.garde, 'Je garde ton courage, ta douceur…') + '</div>';
+      var Lb = PF.LIBERER || {}, prof = r.profond != null ? r.profond : dejaLibere(r);
+      h += '<label class="pa-coche"><input type="checkbox" id="pa-profond"' + (prof ? ' checked' : '') + '> Ce thème était déjà venu et je l’avais travaillé : c’est une couche plus profonde</label>' + (prof ? '<p class="pa-discret">Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond. La couche du dessous ne pouvait se montrer qu’une fois celle du dessus libérée.</p>' : '');
+      h += '<div class="pa-lib"><div class="pa-lib-e"><span>1</span><div><h4>Respirer</h4><p>' + esc(Lb.respirer) + '</p><div class="pa-resp" aria-live="polite"><i></i><button type="button" class="pa-bt clair" data-respirer>Respirer avec moi</button></div></div></div>';
+      h += '<div class="pa-lib-e"><span>2</span><div><h4>Nommer</h4>' + (prof ? (Lb.couches || []).map(function (q, k) { return zoneTexte('c' + k, q, r['c' + k]); }).join('') : '') +
+        '<label for="pa-t-nom2">Le nom de la mémoire</label><input id="pa-t-nom2" data-t="nom" maxlength="80" value="' + esc(r.nom || '') + '" placeholder="' + esc(nomSuggere(r)) + '">' +
+        '<label for="pa-t-source">Mémoire de qui, ou de quoi ?</label><input id="pa-t-source" data-t="source" maxlength="120" value="' + esc(r.source || sourceSuggeree(r)) + '" placeholder="ma grand-mère qui a tout perdu, mon père qui partait…"></div></div>';
+      h += '<div class="pa-lib-e"><span>3</span><div><h4>Reconnaître</h4><p class="pa-discret">Dis-la à voix haute si tu peux, sinon intérieurement. Ton corps va vouloir réagir comme d’habitude : continue de respirer, écoute ton cœur.</p><blockquote class="pa-phrase" id="pa-phrase-lib">' + esc(phraseLib(r, prof)) + '</blockquote></div></div>';
+      h += '<div class="pa-lib-e"><span>4</span><div><h4>Transmuter</h4><ol>' + (Lb.transmuter || []).concat(prof ? Lb.profond || [] : []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="pa-discret">Tu peux répéter doucement : ' + (Lb.mantras || []).map(function (m) { return '« ' + esc(m) + ' »'; }).join(' ') + '</p></div></div>';
+      h += '<div class="pa-lib-e"><span>5</span><div><h4>Réorienter</h4>' + (Lb.reorienter || []).map(function (q, k) { return zoneTexte('o' + k, q, r['o' + k]); }).join('') +
+        '<div class="pa-deux-c"><div>' + zoneTexte('ancienne', 'Mon ancienne réaction', r.ancienne, 'Je me justifie, je fuis…') + '</div><div>' + zoneTexte('nouvelle', 'Ma nouvelle réponse', r.nouvelle, '« Merci, je vais y réfléchir. »') + '</div></div>' +
+        '<label for="pa-t-verite">Ma nouvelle vérité</label><input id="pa-t-verite" data-t="verite" maxlength="160" value="' + esc(r.verite || '') + '" placeholder="Je suis en sécurité. Je peux m’attacher en toute confiance.">' +
+        '<p class="pa-discret" id="pa-affirm">' + esc((Lb.affirmation || '').replace('{verite}', r.verite || '…')) + '</p></div></div></div>';
+      var gs = (Lb.gestes || []).map(function (g) { return g[0] + ' : ' + g[1]; });
+      h += '<div class="pa-bloc pa-geste"><h4>Ton geste dans les 48 heures</h4><p style="margin:0 0 .5rem">Ton corps et ta lignée ont toujours réagi de la même façon. Un petit acte concret, dans le sens de ta nouvelle vérité, crée une nouvelle empreinte.</p><p class="pa-discret" style="color:#F3DCC0">' + esc(gs.join(' · ')) + '</p>' +
+        '<label for="pa-t-geste" style="color:#fff">Mon geste</label><input id="pa-t-geste" data-t="geste" maxlength="140" value="' + esc(r.geste || '') + '">' +
+        '<label for="pa-t-gdate" style="color:#fff">Le jour</label><input id="pa-t-gdate" type="date" data-t="gesteDate" value="' + esc(r.gesteDate || iso(new Date(Date.now() + 864e5))) + '"><p class="pa-discret" style="color:#F3DCC0">Il apparaît dans ton agenda.</p></div>';
+      h += '<p class="pa-discret">Ces clés viennent du livre « Ressens · Guéris · Vis ». Chaque fois que tu fais ce chemin, la mémoire s’affaiblit : rien ne change du jour au lendemain, et c’est normal.</p>';
     } else if (id === 'spirale') {
-      h += '<div class="pa-bloc">' + (PF.SPIRALE || []).map(function (q, k) { return zoneTexte('s' + k, q, (r.sp || {})[k]); }).join('') + '</div>';
+      var op = (PF.OPPOSES || {})[(r.em || [])[0]] || '';
+      h += '<div class="pa-bloc"><h4>Ce que je choisis à la place</h4><label for="pa-t-choix">L’opposé de ma mémoire</label><input id="pa-t-choix" data-t="choix" maxlength="120" value="' + esc(r.choix || '') + '" placeholder="' + esc(op || 'La sécurité, l’abondance, une vie entourée…') + '">' +
+        '<p class="pa-discret">Sois précise : plus c’est concret, plus ta tête peut suivre la nouvelle direction. Si une autre mémoire se réveille en l’écrivant, c’est normal : tu pourras la déposer aussi.</p>' +
+        (PF.ENVIES || []).map(function (q, k) { return '<label for="pa-t-e' + k + '">' + esc(q) + '</label><input id="pa-t-e' + k + '" data-t="e' + k + '" maxlength="120" value="' + esc(r['e' + k] || '') + '">'; }).join('') + '</div>';
+      h += '<div class="pa-bloc"><h4>Quand le thème revient</h4>' + (PF.SPIRALE || []).map(function (q, k) { return zoneTexte('s' + k, q, (r.sp || {})[k]); }).join('') + '</div>';
       if (r.libere) h += '<p class="pa-discret">Mémoire libérée le ' + esc(dateCourte(r.libere)) + '. Elle apparaît dans ton agenda et ton bilan.</p>';
     }
     return h;
+  }
+  function nomSuggere(r) { var e = (r.em || [])[0]; return e ? 'la mémoire de ' + e.toLowerCase() : 'la mémoire de peur'; }
+  function sourceSuggeree(r) { var q = r.qui ? personne(r.qui) : null; return q ? q.lien.toLowerCase().replace(/^(ton|ta|un|une) /, function (m) { return { 'ton ': 'mon ', 'ta ': 'ma ', 'un ': 'un ', 'une ': 'une ' }[m]; }) + ' ' + q.prenom : ''; }
+  function phraseLib(r, prof) {
+    var L = PF.LIBERER || {}, nom = String(r.nom || nomSuggere(r)).replace(/^(la )?mémoire de /i, ''), src = r.source || sourceSuggeree(r) || 'celle ou celui qui l’a portée avant moi';
+    return (prof ? L.phraseProfonde : L.phrase || '').replace('{nom}', nom).replace('{source}', src);
+  }
+  function dejaLibere(r) { return D.etat.ressentis.some(function (x) { return x.id !== r.id && x.libere && x.date <= r.date && (x.em || []).some(function (e) { return (r.em || []).indexOf(e) >= 0; }); }); }
+  var respMinuteur = null;
+  function respirer(z) {
+    var rond = z.querySelector('i'), bt = z.querySelector('button'), n = 0, temps = [['Inspire…', 5000, 1.35], ['Retiens…', 2000, 1.35], ['Expire…', 7000, .7]];
+    clearTimeout(respMinuteur); bt.disabled = true;
+    (function pas(k) {
+      if (!document.body.contains(z)) return;
+      if (k === 3) { n++; if (n >= 3) { rond.textContent = 'C’est bien.'; rond.style.transform = 'scale(1)'; bt.disabled = false; bt.textContent = 'Encore une fois'; return; } k = 0; }
+      var t = temps[k]; rond.textContent = t[0]; rond.style.transitionDuration = (t[1] / 1000) + 's'; rond.style.transform = 'scale(' + t[2] + ')';
+      respMinuteur = setTimeout(function () { pas(k + 1); }, t[1]);
+    })(0);
   }
   function livre(t) { return '<a class="pa-livre" href="enquete-de-ma-lignee.html"><img src="assets/livres/enquete-de-ma-lignee-3d.webp" alt="" width="64" height="106" loading="lazy"><span><b>Pour aller plus loin, dans le livre</b><span>' + esc(t) + '</span></span></a>'; }
   function brancherEtape(z, r, i) {
@@ -424,11 +462,14 @@
       else if (/^s\d$/.test(k)) { r.sp = r.sp || {}; r.sp[k.slice(1)] = v; }
       else if (k === 'trouve') { r.enquete = r.enquete || { q: {} }; r.enquete.trouve = v; }
       else r[k] = v;
+      var ph = z.querySelector('#pa-phrase-lib'); if (ph && (k === 'nom' || k === 'source')) ph.textContent = phraseLib(r, r.profond != null ? r.profond : dejaLibere(r));
+      var af = z.querySelector('#pa-affirm'); if (af && k === 'verite') af.textContent = ((PF.LIBERER || {}).affirmation || '').replace('{verite}', v || '…');
       sauver();
     });
     z.addEventListener('change', function (e) {
       var q = e.target.closest('[data-q]'); if (q) { r.enquete = r.enquete || { q: {} }; r.enquete.q = r.enquete.q || {}; if (q.checked) r.enquete.q[q.getAttribute('data-q')] = iso(new Date()); else delete r.enquete.q[q.getAttribute('data-q')]; sauver(); return; }
       if (e.target.id === 'pa-qui') { r.qui = e.target.value; sauver(); return; }
+      if (e.target.id === 'pa-profond') { r.profond = e.target.checked; sauver(); ouvrirFil(r.id, i); return; }
       var g = e.target.closest('[data-groupe]'); if (!g) return;
       var nom = g.getAttribute('data-groupe'), v = lirePuces(z, nom)[0] || '';
       if (nom === 'aqui') { r.aqui = v; var qz = z.querySelector('#pa-qui-z'); if (qz) qz.hidden = v !== 'lignee'; }
@@ -437,6 +478,7 @@
     });
     z.addEventListener('click', function (e) {
       var p = e.target.closest('[data-pas]'); if (p && !p.disabled) { ouvrirFil(r.id, +p.getAttribute('data-pas')); return; }
+      if (e.target.closest('[data-respirer]')) { respirer(e.target.closest('.pa-resp')); return; }
       if (e.target.closest('[data-suite]')) {
         var auj = iso(new Date());
         if (E.id === 'liberer') r.libere = auj;
@@ -512,6 +554,7 @@
       var d = dateComplete(r.date); if (d && d.a === a && d.m === m + 1) add(d.j, { type: 'e', cle: 'res-' + r.id, texte: 'Ressenti : ' + (r.em && r.em.length ? r.em.join(', ').toLowerCase() : String(r.quoi || '').slice(0, 60)), fil: r.id });
       var l = dateComplete(r.libere); if (l && l.a === a && l.m === m + 1) add(l.j, { type: 'lib', cle: 'lib-' + r.id, texte: 'Mémoire libérée' + (r.qui && personne(r.qui) ? ' · rendue à ' + personne(r.qui).prenom : ''), fil: r.id });
       var s = dateComplete(r.spirale); if (s && s.a === a && s.m === m + 1) add(s.j, { type: 'lib', cle: 'spi-' + r.id, texte: 'Un fil devenu spirale', fil: r.id });
+      var g = dateComplete(r.gesteDate); if (g && r.geste && g.a === a && g.m === m + 1) add(g.j, { type: 'g', cle: 'geste-' + r.id, texte: 'Mon geste : ' + r.geste, fil: r.id });
       /* un an après une libération : une date à fêter */
       if (l && l.a < a && l.m === m + 1) add(l.j, { type: 'lib', cle: 'anlib-' + r.id, texte: 'Il y a ' + (a - l.a) + ' an' + (a - l.a > 1 ? 's' : '') + ', tu libérais une mémoire', fil: r.id });
     });
@@ -543,7 +586,7 @@
       var dt = new Date(a, m, j), ev = E[j] || [], jp = jourPerso(dt), cl = (iso(dt) === iso(auj) ? ' auj' : '') + (iso(dt) === iso(jourChoisi) ? ' choisi' : '');
       h += '<button type="button" class="pa-jour' + cl + '" data-jour="' + j + '"><span class="n">' + j + '</span>' + (jp ? '<span class="jp">' + jp + '</span>' : '') + '<span class="pts">' + ev.slice(0, 5).map(function (e) { return '<i class="' + e.type + '"></i>'; }).join('') + '</span></button>';
     }
-    h += '</div><p class="pa-legende"><span><i class="l"></i>naissance</span><span><i class="f"></i>départ</span><span><i class="r"></i>date qui revient</span><span><i class="e"></i>ressenti</span><span><i class="lib"></i>libération</span><span><i class="m"></i>lune</span><span><i class="n"></i>note</span><span><b class="jpl">5</b> jour personnel</span></p>';
+    h += '</div><p class="pa-legende"><span><i class="l"></i>naissance</span><span><i class="f"></i>départ</span><span><i class="r"></i>date qui revient</span><span><i class="e"></i>ressenti</span><span><i class="lib"></i>libération</span><span><i class="g"></i>mon geste</span><span><i class="m"></i>lune</span><span><i class="n"></i>note</span><span><b class="jpl">5</b> jour personnel</span></p>';
     var pm = periodeMois(a, m), ea = a === auj.getFullYear() ? echosAge(a) : [];
     if (pm.length) h += '<section class="pa-carte"><p class="pa-etiq">Ce qui revient en ' + MOIS[m] + '</p><ul class="pa-echos">' + pm.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></section>';
     if (ea.length) h += '<section class="pa-carte"><p class="pa-etiq">Échos d’âge, cette année</p><ul class="pa-echos">' + ea.slice(0, 5).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><p class="pa-discret">Une piste, pas une prédiction : un âge qui se répond invite à poser une question.</p></section>';
@@ -625,6 +668,11 @@
     h += '</div><div>';
     var lib = Rs.filter(function (r) { return r.libere; }), spi = Rs.filter(function (r) { return r.spirale; });
     h += '<section class="pa-carte"><p class="pa-etiq">Ton chemin</p><p class="pa-stats"><span><b>' + Rs.length + '</b>ressenti' + (Rs.length > 1 ? 's' : '') + ' déposé' + (Rs.length > 1 ? 's' : '') + '</span><span><b>' + lib.length + '</b>mémoire' + (lib.length > 1 ? 's' : '') + ' libérée' + (lib.length > 1 ? 's' : '') + '</span><span><b>' + spi.length + '</b>devenu' + (spi.length > 1 ? 's' : '') + ' spirale</span></p>';
+    if (Rs.length) {
+      var prem = Rs.map(function (r) { return r.date; }).sort()[0], d0 = dateComplete(prem), now = new Date(), mois = d0 ? (now.getFullYear() - d0.a) * 12 + now.getMonth() + 1 - d0.m : 0, ph = null;
+      (PF.PHASES || []).some(function (x) { if (mois < x[0]) { ph = x; return true; } return false; });
+      if (ph) h += '<p class="pa-lab">Où tu en es · ' + esc(ph[1]) + '</p><p class="pa-discret" style="margin-top:0">' + esc(ph[2]) + '</p>';
+    }
     var ra = Rs.filter(function (r) { return r.cycle === 'racine' || r.cycle === 'deux'; }).length, co = Rs.filter(function (r) { return r.cycle === 'coeur' || r.cycle === 'deux'; }).length;
     if (ra + co) h += '<p class="pa-lab">Racine ou cœur</p><div class="pa-barres"><span style="flex:' + (ra || .001) + '" class="ra">La racine · ' + ra + '</span><span style="flex:' + (co || .001) + '" class="co">Le cœur · ' + co + '</span></div>';
     var em = {}; Rs.forEach(function (r) { (r.em || []).forEach(function (x) { em[x] = (em[x] || 0) + 1; }); });

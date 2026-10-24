@@ -126,7 +126,7 @@ window.PASS_QUESTIONS = [
    Chaque ressenti déposé devient un « fil » qui suit le même chemin, comme une boucle qui devient spirale :
    Voir (ce qui se passe) → À qui ça appartient (moi ou ma lignée, racine ou cœur) → Enquêter (questions, où chercher)
    → Libérer → La spirale (ce qui change). Les pistes ci-dessus (PASS_ENQUETE) servent dans « Enquêter ».
-   LIBERER.provisoire : en attente des textes de libération de Laura. */
+   Libérer et La spirale reprennent les clés du livre « Ressens · Guéris · Vis » (clés 1, 2 et 3), en tutoiement. */
 window.PASS_FIL = {
   EMOTIONS: ['Peur', 'Peur de manquer', 'Tristesse', 'Colère', 'Honte', 'Culpabilité', 'Solitude', 'Impuissance', 'Vide', 'Fatigue'],   /* les mêmes que le fil d'or */
   BLESSURES: [['abandon', 'Abandon'], ['rejet', 'Rejet'], ['trahison', 'Trahison'], ['humiliation', 'Humiliation'], ['injustice', 'Injustice']],
@@ -134,22 +134,22 @@ window.PASS_FIL = {
   PEURS: ['Peur de manquer', 'Peur d’être abandonné·e', 'Peur de ne pas avoir ma place', 'Peur de déplaire', 'Peur d’être trahi·e', 'Peur de réussir', 'Peur d’être vu·e', 'Peur du conflit', 'Peur de perdre ceux que j’aime', 'Peur de ne pas être assez'],
   ETAPES: [
     { id: 'voir', titre: 'Voir', court: 'Ce qui se passe',
-      souffle: 'Tu n’as rien à réparer pour l’instant. Juste regarder ce qui se passe, comme on regarde la météo : sans te juger. Une boucle qu’on voit commence déjà à ralentir.' },
-    { id: 'aqui', titre: 'À qui ça appartient ?', court: 'Moi ou ma lignée',
-      souffle: 'Certains ressentis sont à toi : ils parlent de ta vie. D’autres sont plus vieux que toi : ils sont arrivés avec la lignée, comme un paquet qu’on t’a confié sans te le dire. Ton intuition sait souvent faire la différence avant ta tête.' },
+      souffle: 'Le corps réagit avant la tête : la gorge qui se serre, le ventre qui se contracte, le cœur qui s’accélère. C’est ton alarme. Au lieu de plonger dedans, fais un petit pas de côté : « Tiens, voilà la peur qui arrive. » Tu la décris, donc tu n’es pas elle. Dans cet espace, la libération devient possible.' },
+    { id: 'aqui', titre: 'À qui ça appartient ?', court: 'Nommer la mémoire',
+      souffle: 'Certains ressentis sont à toi. D’autres sont plus vieux que toi : ils sont arrivés avec la lignée, comme un paquet confié sans le dire. Nommer la mémoire, c’est déjà la reconnaître, et reconnaître, c’est commencer à faire baisser son intensité.' },
     { id: 'enqueter', titre: 'Enquêter', court: 'Chercher la source',
-      souffle: 'Une mémoire se laisse approcher par des questions simples, des papiers, des photos, des dates. Tu n’as pas besoin de tout trouver : une seule pièce du puzzle suffit souvent à faire bouger quelque chose.' },
-    { id: 'liberer', titre: 'Libérer', court: 'Rendre et garder',
-      souffle: 'Ce qui a été vu peut être rendu. Rendre, ce n’est pas rejeter quelqu’un : c’est laisser à chacun ce qui lui appartient, avec respect, et garder pour toi ce qui te fait grandir.' },
-    { id: 'spirale', titre: 'La spirale', court: 'Ce qui change',
-      souffle: 'Le thème reviendra peut-être, mais tu le reconnaîtras plus vite, et tu réagiras autrement. C’est ça, la spirale : chaque passage te fait monter d’un cran. Ta fréquence change, et ce qui vibrait en boucle peut enfin s’élever.' }
+      souffle: 'Savoir d’où vient une mémoire ouvre l’empathie : tu comprends que cette émotion vient parfois de tes ancêtres, de ce qu’ils ont traversé. Une question simple, un papier, une photo, une date : une seule pièce du puzzle suffit souvent à faire bouger quelque chose.' },
+    { id: 'liberer', titre: 'Libérer', court: 'La mémoire retourne au soleil',
+      souffle: 'Une mémoire non libérée est comme une bulle sombre où une part de ton énergie est restée figée, à l’âge où elle s’est formée. Libérer, c’est faire circuler à travers elle une énergie plus claire, comme de l’eau chaude sur un glaçon : elle fond, et l’énergie te revient. En la libérant, tu ne te libères pas seulement toi : tu libères ta lignée, celle d’avant et celle qui vient.' },
+    { id: 'spirale', titre: 'La spirale', court: 'Remplacer la mémoire',
+      souffle: 'Ce que tu émets revient vers toi. Une mémoire de peur appelle la peur, et la boucle s’entretient. Quand tu émets consciemment présence, amour, sécurité, ces fréquences résonnent avec ce qui leur ressemble : la boucle devient une spirale qui monte. Une mémoire libérée laisse un espace : remplis-le avec ce que tu choisis, sinon l’ancienne histoire revient s’y loger.' }
   ],
-  /* « À qui ça appartient ? » : des questions d'intuition, à sentir plus qu'à réfléchir */
+  /* « À qui ça appartient ? » : nommer (livre, clé 1, étape 2) */
   INTUITION: [
-    'Si ce ressenti avait un âge, quel âge aurait-il ?',
-    'Est-il plus fort que ce que la situation demande ?',
-    'Quand il est là, te sens-tu toi-même, ou un peu comme quelqu’un d’autre ?',
-    'Si tu le posais devant toi, à qui aurais-tu envie de le tendre ?'
+    'Qui a déjà vécu cette situation dans ma famille ?',
+    'D’où vient cette peur, cette colère, cette honte ?',
+    'Est-ce vraiment ce qui se passe… ou une vieille mémoire qui se rejoue ?',
+    'Si ce ressenti avait un âge, quel âge aurait-il ?'
   ],
   CYCLES: {
     racine: { nom: 'Cycle 1 · la racine', court: 'la racine', texte: 'Ta place, ta sécurité, le droit d’exister et de ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
@@ -172,22 +172,45 @@ window.PASS_FIL = {
     coeur: [['Les actes de mariage', 'les témoins, la date à comparer avec la naissance du premier enfant'], ['Les mentions de divorce', 'en marge des actes de mariage et de naissance'], ['Les lettres et les photos', 'le dos des photos, les faire-part, les cartes gardées dans une boîte'], ['Le livret de famille', 'les enfants nés, ceux partis trop tôt, les remariages']],
     tous: [['Ceux qui sont encore là', 'une seule question, posée avec douceur'], ['Le cimetière', 'les tombes réunissent parfois ceux qu’on ne connaissait pas']]
   },
-  /* Libérer : texte provisoire, en attendant les libérations de Laura */
+  /* Libérer : les clés du livre « Ressens · Guéris · Vis » (clé 1 : libérer la mémoire ; clé 2 : la couche profonde, quand le thème revient) */
   LIBERER: {
-    provisoire: true,
-    etapes: [
-      'Assieds-toi, les pieds bien posés au sol. Pose une main sur ton cœur.',
-      'Pense à la personne à qui ce ressenti appartient, ou à « celui ou celle qui l’a porté avant moi ».',
-      'Dis-lui, à voix basse : « Je te vois. Ce que tu as vécu était lourd. Je te rends ce qui est à toi, avec respect. »',
-      'Puis : « Je garde ta force, ton courage, ce que tu m’as transmis de beau. »',
-      'Respire trois fois lentement. À chaque expiration, imagine que le paquet se dépose devant elle ou lui, dans une lumière douce.'
-    ]
+    respirer: 'Inspire lentement par le nez (5 secondes), retiens (2 secondes), expire longuement par la bouche (7 secondes). Au moins trois fois. La respiration coupe le pilote automatique : ton corps voulait réagir « comme d’habitude ».',
+    phrase: 'Je te vois, mémoire de {nom}. Je te reconnais, mémoire de {source}. Merci d’être là, car tu me permets de libérer les mémoires de ma lignée et d’y mettre fin.',
+    phraseProfonde: 'Je te vois, mémoire de {nom}. Je te reconnais, mémoire de {source}. Je comprends maintenant que tu étais cachée sous la première couche. Merci de te révéler maintenant, car je suis prêt·e à te libérer. Tu me permets de libérer les mémoires les plus profondes de ma lignée et d’y mettre fin.',
+    transmuter: [
+      'Ferme les yeux et porte ton attention sur ton cœur. À chaque inspiration, tu reçois l’énergie de vie. À chaque expiration, elle grandit, comme un phare de plus en plus lumineux, rempli d’amour, de paix et de clarté.',
+      'Vois la mémoire comme une boule sombre ou une fumée. À chaque expiration, le phare de ton cœur envoie sa lumière vers elle. Dis-lui intérieurement : « Stop, je te reconnais. Je t’aime. Maintenant, retourne au soleil. »',
+      'Regarde-la monter vers le soleil et se dissoudre complètement dans sa lumière. Souffle après souffle, laisse le calme s’installer.',
+      'Si l’émotion est forte, tapote doucement le haut de ton ventre et laisse-la te traverser pendant que tu continues.'
+    ],
+    profond: [
+      'Vois un faisceau de lumière descendre en toi, puis à travers tes racines, jusqu’à tes ancêtres.',
+      'Il traverse la mémoire de celle ou celui qui l’a portée avant toi, et de toute la lignée.',
+      'À chaque inspiration, envoie un jet de lumière vers la mémoire, puis vers l’ancêtre. Dis intérieurement : « Je libère cette mémoire pour nous tous. »'
+    ],
+    mantras: ['Je suis libre de toutes mémoires.', 'Je suis la paix en action.', 'Je suis en sécurité.'],
+    reorienter: ['De quoi ai-je vraiment besoin dans cette situation ?', 'Quelle réponse serait alignée avec qui je veux être, et non avec qui ma lignée était ?', 'Quelle solution me ferait ressentir de la paix, de la fierté, de la cohérence ?'],
+    couches: ['Quelle est la situation exacte qui s’est produite ?', 'Qu’est-ce qu’elle révèle de ma vraie peur, sous celle que j’avais déjà travaillée ?', 'Qui, dans ma lignée, a vécu cette peur très fort ?'],
+    affirmation: 'Cette mémoire est libérée avec les ancêtres de ma lignée. Je choisis maintenant une nouvelle vérité : {verite}',
+    gestes: [['Peur de manquer', 'Mettre 5 € de côté : « je peux garder »'], ['Peur d’être abandonné·e', 'Accepter un rendez-vous, dire oui à une invitation'], ['Peur de réussir', 'Appeler quelqu’un de ta famille et lui parler de ton projet'], ['Peur de l’échec', 'Partager ton travail, postuler à une opportunité'], ['Peur de l’autorité', 'Régler un papier administratif dans le calme']]
   },
+  /* La spirale : clé 3, remplacer la mémoire */
+  OPPOSES: { 'Peur': 'La sécurité', 'Peur de manquer': 'L’abondance', 'Tristesse': 'La joie', 'Colère': 'La paix', 'Honte': 'La fierté d’être moi', 'Culpabilité': 'Le droit d’être heureux·se', 'Solitude': 'Une vie entourée', 'Impuissance': 'Mon pouvoir d’agir', 'Vide': 'Ce qui me nourrit', 'Fatigue': 'L’élan' },
+  ENVIES: ['Quelque chose que je veux avoir', 'Quelque chose que je veux faire', 'Quelque chose que je veux être'],
+  /* Où tu en es : les phases du livre, depuis ton premier ressenti */
+  PHASES: [
+    [3, 'Le nettoyage de surface', 'Tu travailles les mémoires évidentes et les réactions de tous les jours. Le chemin peut servir plusieurs fois par semaine.'],
+    [6, 'La consolidation', 'Les déclencheurs sont moins fréquents. Tu te sens mieux dans l’ensemble.'],
+    [12, 'La stabilisation', 'Des semaines tranquilles, puis soudain une vague : ce n’est pas un retour en arrière, c’est une couche plus profonde qui devient enfin visible.'],
+    [24, 'La transformation profonde', 'Tu touches les dernières racines de la lignée, une ou deux fois par mois.'],
+    [999, 'L’intégration', 'Le chemin est devenu un réflexe. Les mémoires sont largement dissoutes.']
+  ],
   SPIRALE: [
     'Quand le thème est revenu, l’as-tu reconnu plus vite ?',
     'Qu’as-tu fait autrement, même un tout petit peu ?',
     'Qu’est-ce qui est plus léger dans ton corps aujourd’hui ?'
   ],
+  LIVRE: 'Ressens · Guéris · Vis : les 3 clés de la libération, les couches qui remontent, et comment remplacer une mémoire par ce que tu choisis.',
   /* Les pistes du livre à proposer dans « Enquêter », selon le cycle */
   PISTES: { racine: ['noms', 'dates', 'absents', 'ciel'], coeur: ['voix', 'repete', 'corps', 'absents'] }
 };
