@@ -261,6 +261,19 @@
     /* Exemple */
     .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
     .bandeau-exemple a{color:var(--champagne-clair)}
+    .temps{position:absolute;left:16px;right:16px;bottom:16px;z-index:30;max-width:52rem;margin:0 auto;background:rgba(255,255,255,.97);border:1px solid var(--rose);border-radius:18px;box-shadow:0 14px 34px rgba(74,33,66,.18);padding:.7rem 1rem .8rem;font-size:.88rem;color:var(--prune)}
+    .temps[hidden]{display:none}
+    .aide-raccourcis{position:fixed;right:16px;bottom:16px;z-index:220;width:min(22rem,calc(100vw - 32px));background:#fff;border:1px solid var(--rose);border-radius:16px;box-shadow:0 14px 34px rgba(74,33,66,.2);padding:1rem 1.1rem;font-size:.88rem;color:var(--prune)}
+    .aide-raccourcis p{margin:.2rem 0 .4rem;color:var(--prune-doux)}.aide-raccourcis ul{list-style:none;margin:0 0 .6rem;padding:0;display:grid;gap:.25rem}
+    kbd{display:inline-block;min-width:1.3em;padding:.05rem .35rem;border:1px solid #E5C6CF;border-bottom-width:2px;border-radius:6px;background:#FFF9F7;font:600 .78rem var(--texte);text-align:center;color:var(--prune)}
+    .temps-tete{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+    .temps-tete p{margin:0;font:400 1.15rem var(--display)}.temps-tete b{font-weight:400;color:#C0573F}
+    .temps-tete select{margin-left:auto;font:inherit;font-size:.82rem;max-width:15rem;padding:.35rem .5rem;border:1px solid #E5C6CF;border-radius:10px;background:#fff;color:inherit}
+    #temps-curseur{width:100%;accent-color:#C0573F;margin:.5rem 0 0}
+    #temps-frise{display:block;width:100%;height:46px}
+    .temps-liste p{margin:.25rem 0 0;line-height:1.45}.temps-echos{color:#8A4A2E}
+    body.temps-ouvert .legende-symb{display:none}
+    #bt-temps[aria-pressed=true],body.temps-ouvert #bt-temps{background:#FCEFF3;border-color:#C0573F}
     @media (max-width:760px){.bandeau-exemple{top:auto;left:12px;right:84px;transform:none;max-width:none;bottom:calc(14px + env(safe-area-inset-bottom,0px));font-size:.82rem;padding:.55rem 1rem;border-radius:16px}}
     .remise-partage{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:41;width:min(560px,calc(100% - 24px));box-sizing:border-box;background:#fff;border:1px solid var(--rose);border-radius:20px;padding:1rem 1.1rem;box-shadow:0 14px 36px rgba(107,47,91,.22);font:400 .92rem/1.5 var(--texte);color:var(--prune)}
     .remise-partage p{margin:0 0 .7rem}
@@ -596,6 +609,7 @@
     <div class="groupe">
       <button class="bt" type="button" id="bt-annuler" disabled title="Annuler (Ctrl+Z)"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3L2 6l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 6H10a4 4 0 010 8H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Annuler</button>
       <button class="bt" type="button" id="bt-centrer">Recentrer</button>
+      <button class="bt" type="button" id="bt-temps" aria-controls="temps" title="Voir la famille à une année donnée">Remonter le temps</button>
       <button class="bt bt-tuto" type="button" id="bt-tuto" aria-haspopup="dialog">Comment ça marche ?</button>
     </div>
     <span class="sep" aria-hidden="true"></span>
@@ -660,6 +674,14 @@
         <span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1 8h14" stroke="#A08E78" stroke-width="1.4" stroke-dasharray="1.5 3" stroke-linecap="round"/></svg>Distance</span>
         <a href="symboles-genosociogramme.html" target="_blank" rel="noopener">Tous les symboles</a> <a href="#apropos" id="lien-apropos">À propos de cet outil</a>
       </div>
+
+      <section class="temps" id="temps" hidden aria-label="Remonter le temps">
+        <div class="temps-tete"><button type="button" class="bt" id="temps-moins" aria-label="Année précédente">‹</button><p>La famille en <b id="temps-annee"></b></p><button type="button" class="bt" id="temps-plus" aria-label="Année suivante">›</button>
+          <select id="temps-cles" aria-label="Aller à un moment"></select><button type="button" class="bt" id="temps-fermer">Revenir à aujourd’hui</button></div>
+        <input type="range" id="temps-curseur" aria-label="Choisir l’année">
+        <svg id="temps-frise" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-label="Frise de la famille"></svg>
+        <div id="temps-liste" class="temps-liste"></div>
+      </section>
 
       <div class="zoom">
         <button type="button" id="bt-zplus" aria-label="Zoomer">+</button>
@@ -751,10 +773,17 @@
               <option value="parent">Parent de</option>
               <option value="enfant">Enfant de</option>
               <optgroup label="Lien relationnel">
-                <option value="rel-proche">Proximité, fusion avec</option>
+                <option value="rel-proche">Proximité avec</option>
+                <option value="rel-fusion">Fusionnel avec</option>
                 <option value="rel-conflit">Conflit avec</option>
+                <option value="rel-ambivalent">Ambivalent avec (proche et conflictuel)</option>
                 <option value="rel-rupture">Rupture avec</option>
+                <option value="rel-coupe">Coupé, sans conflit, avec</option>
                 <option value="rel-distance">Distance avec</option>
+                <option value="rel-alliance">Alliance avec</option>
+                <option value="rel-secret">Secret partagé avec</option>
+                <option value="rel-confident">Confident·e de (porte cet adulte)</option>
+                <option value="rel-libre">Lien libre (ton mot) avec</option>
               </optgroup>
             </select>
             <select id="fp-lier-qui" aria-label="Personne à lier"></select>
@@ -900,8 +929,8 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/praticien-outils.js?v=5"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-24r"></script>
+  <script src="assets/praticien-outils.js?v=6"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-24x"></script>
   <script src="assets/import-arbre.js?v=2026-10-23"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
   <script src="assets/date-deroulante.js?v=1"></script>

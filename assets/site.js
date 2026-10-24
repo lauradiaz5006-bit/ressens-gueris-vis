@@ -566,6 +566,7 @@ window.GENESOLIA_IMPRESSION = {
             '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
+            '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Guides</h4><ul>' +
@@ -1637,4 +1638,28 @@ window.GENESOLIA_IMPRESSION = {
     if ('MutationObserver' in window) new MutationObserver(function (l) { l.forEach(function (m) { if (m.type === 'characterData') convertir(m.target); else m.addedNodes.forEach(parcourir); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else setTimeout(demarrer, 0);
+})();
+
+/* Connexion en deux étapes : un compte qui l'a activée et dont la session n'est pas encore confirmée (aal1) doit taper son code.
+   Vérification locale (le jeton de session), sans appel réseau ; la fenêtre du code ne s'ouvre que si c'est nécessaire. */
+(function () {
+  function aVerifier() {
+    try {
+      var s = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null');
+      if (!s || !s.access_token || !s.user) return false;
+      var f = (s.user.factors || []).some(function (x) { return x.status === 'verified'; }); if (!f) return false;
+      var p = JSON.parse(decodeURIComponent(escape(atob(s.access_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+      return p.aal !== 'aal2';
+    } catch (e) { return false; }
+  }
+  function lancer() {
+    if (!aVerifier() || !window.supabase) return;
+    function go() {
+      var sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg');
+      window.GenesoliaDeuxEtapes.verifier(sb).then(function () { setTimeout(function () { if (!aVerifier()) location.reload(); }, 400); });   /* jamais de boucle : on ne recharge que si la session est bien confirmée */
+    }
+    if (window.GenesoliaDeuxEtapes) go();
+    else { var sc = document.createElement('script'); sc.src = 'assets/deux-etapes.js?v=1'; sc.onload = go; document.head.appendChild(sc); }
+  }
+  if (document.readyState === 'complete') lancer(); else window.addEventListener('load', lancer);
 })();

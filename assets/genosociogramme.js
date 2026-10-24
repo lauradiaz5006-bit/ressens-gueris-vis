@@ -1373,18 +1373,18 @@
     }
     if (moi) h += symbole(p, R + 5) + ' fill="none" stroke="' + PRUNE + '" stroke-width="1.6"/>';
     h += symbole(p, R) + ' fill="' + (moi ? '#FBE6EA' : '#FFFFFF') + '" stroke="' + PRUNE + '" stroke-width="1.8"/>';
-    if (decede(p)) {
+    if (DATE_VUE ? decedeEn(p, DATE_VUE) : decede(p)) {
       var d = p.sex === 'f' ? R * 0.7 : p.sex === 'm' ? R : R * 0.72;
       h += '<path d="M' + (-d) + ' ' + (-d) + 'L' + d + ' ' + d + 'M' + d + ' ' + (-d) + 'L' + (-d) + ' ' + d + '" stroke="' + PRUNE + '" stroke-width="1.6" stroke-linecap="round"/>';
     } else {
-      var age = ageActuel(p);
+      var age = DATE_VUE ? ageEn(p, DATE_VUE) : ageActuel(p);
       if (age != null) h += '<text y="5" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="14" font-weight="600" fill="' + PRUNE + '">' + age + '</text>';
     }
     if (o.badges && o.badges[p.id]) {
       o.badges[p.id].slice(0, 4).forEach(function (c, i) { h += '<circle cx="' + (R + 9) + '" cy="' + (-R + 4 + i * 12) + '" r="5" fill="' + c + '" stroke="#fff" stroke-width="1.5"/>'; });
     }
     var y = R + 19;
-    h += '<text y="' + y + '" text-anchor="middle" font-family="\'Gilda Display\',Georgia,serif" font-size="15" fill="' + (nom ? PRUNE : PRUNE_DOUX) + '"' + (nom ? '' : ' font-style="italic"') + '>' + esc(couper(nom || 'Sans prénom', 19)) + '</text>';
+    h += '<text y="' + y + '" text-anchor="middle" font-family="\'Gilda Display\',Georgia,serif" font-size="15" fill="' + (nom ? PRUNE : PRUNE_DOUX) + '"' + (nom ? '' : ' font-style="italic"') + '>' + esc(couper(nom || (document.body.classList.contains('partage-supervision') && lien ? lien : 'Sans prénom'), 19)) + '</text>';
     var dt = texteDates(p);
     if (dt) { y += 16; h += '<text y="' + y + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11.5" fill="' + PRUNE_DOUX + '">' + esc(dt) + '</text>'; }
     if (p.metier) { y += 15; h += '<text y="' + y + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11" font-style="italic" fill="' + CHAMPAGNE + '">' + esc(couper(p.metier, 22)) + '</text>'; }
@@ -1474,8 +1474,16 @@
     return h;
   }
 
-  /* Liens relationnels entre deux personnes : proximité (trois traits), conflit (zigzag), rupture (trait coupé), distance (pointillé léger) */
-  var NATURES = { proche: ['Proximité, fusion', '#4F8A6B'], conflit: ['Conflit', '#C0573F'], rupture: ['Rupture', '#5D6B8A'], distance: ['Distance', '#A08E78'] };
+  /* Liens relationnels entre deux personnes (conventions du génogramme, McGoldrick) :
+     proximité (deux traits), fusionnel (trois traits), conflit (zigzag), ambivalent (traits + zigzag), rupture (trait coupé, deux barres),
+     coupé sans conflit (trait interrompu), distance (pointillé léger), alliance (double trait bleu), secret partagé (tirets et point),
+     confident·e (flèche vers l'adulte porté·e : un enfant qui porte un parent), lien libre (avec le mot de la praticienne) */
+  var NATURES = {
+    proche: ['Proximité', '#4F8A6B'], fusion: ['Fusionnel', '#2F6E52'], conflit: ['Conflit', '#C0573F'], ambivalent: ['Ambivalent (proche et conflictuel)', '#A0563E'],
+    rupture: ['Rupture', '#5D6B8A'], coupe: ['Coupé, sans conflit', '#7B8597'], distance: ['Distance', '#A08E78'], alliance: ['Alliance', '#3E6FA8'],
+    secret: ['Secret partagé', '#6B2F5B'], confident: ['Confident·e de (porte cet adulte)', '#C08A2E'], libre: ['Lien libre (ton mot)', '#8E6383']
+  };
+  var LEG_NATURES = { proche: 'Deux traits verts : proximité', fusion: 'Trois traits verts : fusionnel', conflit: 'Zigzag : conflit', ambivalent: 'Traits et zigzag : ambivalent', rupture: 'Trait coupé : rupture', coupe: 'Trait interrompu : coupé sans conflit', distance: 'Pointillé léger : distance', alliance: 'Double trait bleu : alliance', secret: 'Tirets et point : secret partagé', confident: 'Flèche dorée : confident·e' };
   function dessinRelations(pl) {
     var pos = pl.pos, h = '';
     S.rels.forEach(function (r) {
@@ -1499,11 +1507,24 @@
       }
       function trace(s0, s1, d) { var m = Math.max(1, Math.ceil((s1 - s0) / 6)), z = 'M' + en(s0, d); for (var j = 1; j <= m; j++) z += 'L' + en(s0 + (s1 - s0) * j / m, d); return z; }
       var coul = NATURES[r.nature][1], st = ' fill="none" stroke="' + coul + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"', p;
-      if (r.nature === 'proche') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
-      else if (r.nature === 'conflit') { var nz = Math.max(2, Math.round(lg / 9)); p = 'M' + en(0, 0); for (i = 1; i < nz; i++) p += 'L' + en(lg * i / nz, i % 2 ? -5 : 5); p += 'L' + en(lg, 0); }
-      else if (r.nature === 'rupture') { var mi = lg / 2; p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7); }
-      else p = trace(0, lg, 0);
-      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + (r.nature === 'distance' ? ' stroke-dasharray="2 6" stroke-opacity=".8"' : '') + '/>';
+      var zig = function (d0) { var nz = Math.max(2, Math.round(lg / 9)), z = 'M' + en(0, d0); for (var j = 1; j < nz; j++) z += 'L' + en(lg * j / nz, d0 + (j % 2 ? -5 : 5)); return z + 'L' + en(lg, d0); };
+      var mi = lg / 2, dash = '', plus = '';
+      if (r.nature === 'proche') p = trace(0, lg, -2.6) + trace(0, lg, 2.6);
+      else if (r.nature === 'fusion') p = trace(0, lg, -4.5) + trace(0, lg, 0) + trace(0, lg, 4.5);
+      else if (r.nature === 'conflit') p = zig(0);
+      else if (r.nature === 'ambivalent') { p = trace(0, lg, -5) + trace(0, lg, 5); plus = '<path class="relation" opacity=".85" d="' + zig(0) + '" fill="none" stroke="#C0573F" stroke-width="1.4" stroke-linejoin="round"/>'; }
+      else if (r.nature === 'rupture') p = trace(0, mi - 7, 0) + trace(mi + 7, lg, 0) + 'M' + en(mi - 7, -7) + 'L' + en(mi - 7, 7) + 'M' + en(mi + 7, -7) + 'L' + en(mi + 7, 7);
+      else if (r.nature === 'coupe') p = trace(0, mi - 9, 0) + trace(mi + 9, lg, 0);
+      else if (r.nature === 'alliance') p = trace(0, lg, -2.2) + trace(0, lg, 2.2);
+      else if (r.nature === 'secret') { p = trace(0, lg, 0); dash = ' stroke-dasharray="7 5"'; var cs = en(mi, 0).split(' '); plus = '<circle cx="' + cs[0] + '" cy="' + cs[1] + '" r="4.5" fill="' + NATURES.secret[1] + '"/>'; }
+      else if (r.nature === 'confident') { p = trace(0, lg, 0) + 'M' + en(mi - 6, -6) + 'L' + en(mi + 5, 0) + 'L' + en(mi - 6, 6); }
+      else if (r.nature === 'libre') {
+        p = trace(0, lg, 0); dash = ' stroke-dasharray="4 4"';
+        var cl = en(mi, 0).split(' '), mot = String(r.mot || '').slice(0, 24);
+        if (mot) plus = '<text x="' + cl[0] + '" y="' + (+cl[1] - 7).toFixed(1) + '" text-anchor="middle" font-family="\'Nunito Sans\',sans-serif" font-size="11" font-weight="600" fill="' + NATURES.libre[1] + '" paint-order="stroke" stroke="#fff" stroke-width="3">' + esc(mot) + '</text>';
+      }
+      else { p = trace(0, lg, 0); if (r.nature === 'distance') dash = ' stroke-dasharray="2 6" stroke-opacity=".8"'; }
+      h += '<path class="relation" opacity=".85" d="' + p + '"' + st + dash + '/>' + plus;
     });
     return h;
   }
@@ -1535,7 +1556,7 @@
     reps = detecter();
     if (repActive && !reps.some(function (r) { return r.cle === repActive.cle; })) repActive = null;
     if (ancien && plan.pos[garderId]) { vue.x += (ancien.x - plan.pos[garderId].x) * vue.k; vue.y += (ancien.y - plan.pos[garderId].y) * vue.k; }
-    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : (vuDepuis && S.people[vuDepuis] ? ligneeDe(vuDepuis) : null) };
+    var o = { sel: selId, badges: badgesDe(reps), attenue: repActive ? repActive.ids : DATE_VUE ? presentsEn(DATE_VUE) : (vuDepuis && S.people[vuDepuis] ? ligneeDe(vuDepuis) : null) };
     var h = '<g id="monde">' + dessinRelations(plan) + dessinLiens(plan) + dessinRepetition(plan, repActive);
     Object.keys(S.people).forEach(function (id) { h += dessinPersonne(S.people[id], plan.pos[id], o); });
     h += '</g>';
@@ -1544,6 +1565,81 @@
     $('vide').classList.toggle('visible', !Object.keys(S.people).length);
     dessinerPanneau();
     majAnnuler();
+    if (DATE_VUE) majTemps();
+  }
+  /* ───────── Remonter le temps : la famille à une année donnée, la frise, et les échos d'âge de cette année-là ─────────
+     Les personnes pas encore nées sont estompées, les âges sont ceux de l'année choisie, une personne décédée plus tard n'a pas encore sa croix.
+     « Cette année-là » relie la vue aux répétitions : qui a, cette année-là, l'âge auquel quelqu'un d'autre de la lignée a vécu un moment marquant. */
+  var DATE_VUE = null;
+  function anNaiss(p) { return annee(p.naiss); }
+  function decedeEn(p, y) { if (!decede(p)) return false; var ad = annee(p.deces); return ad ? ad <= y : true; }
+  function ageEn(p, y) { var an = anNaiss(p); if (!an || an > y || decedeEn(p, y)) return null; var a = y - an; return a >= 0 && a <= 105 ? a : null; }
+  function presentsEn(y) { return Object.keys(S.people).filter(function (id) { var an = anNaiss(S.people[id]); return !an || an <= y; }); }
+  function momentsDe(p) {   // les moments datés d'une personne : naissance, décès, événements (année ou âge)
+    var l = [], an = anNaiss(p);
+    if (an) l.push({ y: an, k: 'naissance', t: 'Naissance de ' + nomAffiche(p) });
+    var ad = annee(p.deces); if (ad) l.push({ y: ad, k: 'deces', t: 'Décès de ' + nomAffiche(p) + (an ? ', à ' + (ad - an) + ' ans' : '') });
+    (p.events || []).forEach(function (e) {
+      var y = +e.year || (an && e.age !== '' && e.age != null && !isNaN(+e.age) ? an + (+e.age) : null);
+      if (y) l.push({ y: y, k: 'evt', t: nomAffiche(p) + ' : ' + (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() + (an ? ', à ' + (y - an) + ' ans' : ''), age: an ? y - an : null, type: e.type, id: p.id, qui: nomAffiche(p), quoi: (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() });
+    });
+    return l;
+  }
+  function tousMoments() { var l = []; Object.keys(S.people).forEach(function (id) { l = l.concat(momentsDe(S.people[id])); }); return l.sort(function (a, b) { return a.y - b.y; }); }
+  function bornesTemps() {
+    var ys = tousMoments().map(function (m) { return m.y; }), auj = new Date().getFullYear();
+    return ys.length ? { min: Math.min.apply(null, ys), max: Math.max(auj, Math.max.apply(null, ys)) } : null;
+  }
+  function majTemps() {
+    var z = $('temps'); if (!z || !DATE_VUE) return;
+    var y = DATE_VUE, b = bornesTemps() || { min: y, max: y }, ms = tousMoments();
+    $('temps-annee').textContent = y;
+    $('temps-curseur').min = b.min; $('temps-curseur').max = b.max; $('temps-curseur').value = y;
+    var vivants = presentsEn(y).filter(function (id) { return ageEn(S.people[id], y) != null; });
+    var cette = ms.filter(function (m) { return m.y === y; }).map(function (m) { return m.t; });
+    // échos : quelqu'un a, cette année-là, l'âge où une autre personne a vécu un moment marquant (à un an près)
+    var echos = [];
+    vivants.forEach(function (id) {
+      var a = ageEn(S.people[id], y);
+      ms.forEach(function (m) {
+        if (m.k !== 'evt' || m.age == null || m.id === id || Math.abs(m.age - a) > 1 || m.y === y) return;
+        echos.push(nomAffiche(S.people[id]) + ' a ' + a + ' ans, l’âge où ' + m.qui + ' a vécu « ' + m.quoi + ' » (' + m.y + ').');
+      });
+    });
+    echos = echos.filter(function (t, i) { return echos.indexOf(t) === i; }).slice(0, 6);
+    $('temps-liste').innerHTML =
+      '<p><b>' + vivants.length + ' personne' + (vivants.length > 1 ? 's' : '') + ' en vie</b>' + (vivants.length ? ' : ' + vivants.slice(0, 10).map(function (id) { return esc(nomCourt(id)) + ' (' + ageEn(S.people[id], y) + ' ans)'; }).join(', ') + (vivants.length > 10 ? '…' : '') : '') + '</p>' +
+      (cette.length ? '<p><b>Cette année-là</b> : ' + cette.map(esc).join(' · ') + '</p>' : '') +
+      (echos.length ? '<p class="temps-echos"><b>Échos d’âge</b> : ' + echos.map(esc).join(' ') + '</p>' : '');
+    // la frise : un repère par moment, cliquable
+    var W = 1000, span = Math.max(1, b.max - b.min), xs = function (v) { return 20 + (v - b.min) / span * (W - 40); };
+    var f = '<line x1="20" y1="22" x2="' + (W - 20) + '" y2="22" stroke="#E7CBD3" stroke-width="2"/>';
+    var COUL = { naissance: '#4F8A6B', deces: '#6B2F5B', evt: '#C08A2E' };
+    ms.forEach(function (m) { f += '<circle cx="' + xs(m.y).toFixed(1) + '" cy="22" r="' + (m.k === 'evt' ? 4 : 5) + '" fill="' + COUL[m.k] + '" data-annee="' + m.y + '" style="cursor:pointer"><title>' + m.y + ' · ' + esc(m.t) + '</title></circle>'; });
+    f += '<line x1="' + xs(y).toFixed(1) + '" y1="6" x2="' + xs(y).toFixed(1) + '" y2="38" stroke="#C0573F" stroke-width="2.5"/>';
+    f += '<text x="20" y="54" font-size="12" fill="#8E6383">' + b.min + '</text><text x="' + (W - 20) + '" y="54" font-size="12" text-anchor="end" fill="#8E6383">' + b.max + '</text>';
+    $('temps-frise').innerHTML = f;
+    var sel = $('temps-cles');
+    sel.innerHTML = '<option value="">Aller à un moment…</option>' + ms.filter(function (m) { return m.k !== 'evt'; }).map(function (m) { return '<option value="' + m.y + '">' + m.y + ' · ' + esc(m.t) + '</option>'; }).join('');
+  }
+  function ouvrirTemps() {
+    var b = bornesTemps();
+    if (!b) { alert('Ajoute d’abord des dates de naissance ou des moments datés : c’est avec elles que l’arbre remonte le temps.'); return; }
+    var moi = idMoi(), am = moi && anNaiss(S.people[moi]);
+    DATE_VUE = am || b.max;
+    $('temps').hidden = false; document.body.classList.add('temps-ouvert');
+    dessiner(); recentrer();
+  }
+  function fermerTemps() { DATE_VUE = null; $('temps').hidden = true; document.body.classList.remove('temps-ouvert'); dessiner(); recentrer(); }
+  function allerAnnee(y) { y = +y; if (!y) return; DATE_VUE = y; dessiner(); }
+  if ($('bt-temps')) {
+    $('bt-temps').addEventListener('click', function () { if (DATE_VUE) fermerTemps(); else ouvrirTemps(); });
+    $('temps-fermer').addEventListener('click', fermerTemps);
+    $('temps-curseur').addEventListener('input', function () { allerAnnee(this.value); });
+    $('temps-moins').addEventListener('click', function () { allerAnnee(DATE_VUE - 1); });
+    $('temps-plus').addEventListener('click', function () { allerAnnee(DATE_VUE + 1); });
+    $('temps-cles').addEventListener('change', function () { allerAnnee(this.value); this.value = ''; });
+    $('temps-frise').addEventListener('click', function (e) { var c = e.target.closest('[data-annee]'); if (c) allerAnnee(c.getAttribute('data-annee')); });
   }
   function appliquerVue() {
     var m = $('monde'); if (m) m.setAttribute('transform', 'translate(' + vue.x + ',' + vue.y + ') scale(' + vue.k + ')');
@@ -1553,7 +1649,7 @@
   function recentrer() {
     var t = $('toile'); if (!plan || !plan.boite) { vue = { x: t.clientWidth / 2, y: t.clientHeight / 2, k: 1 }; appliquerVue(); return; }
     var b = plan.boite, W = t.clientWidth, H = t.clientHeight;
-    var droite = 30, bas = 70, haut = 70;
+    var droite = 30, bas = document.body.classList.contains('temps-ouvert') && $('temps') ? $('temps').offsetHeight + 40 : 70, haut = 70;
     var k = Math.min(1.1, (W - 60 - droite) / (b.x2 - b.x1), (H - haut - bas) / (b.y2 - b.y1));
     k = Math.max(W < 600 ? 0.06 : 0.3, k);   /* téléphone : « Voir tout l'arbre » doit vraiment tout montrer */
     kMinVue = k;
@@ -2172,6 +2268,7 @@
       if (!autre || !S.people[autre]) return;
       h += '<div class="lien"><span>' + lib + '<b>' + esc(nomCourt(autre)) + '</b></span>' +
         (r.type === 'relation' ? '<select data-nature="' + i + '" aria-label="Nature du lien">' + Object.keys(NATURES).map(function (k) { return '<option value="' + k + '"' + (r.nature === k ? ' selected' : '') + '>' + NATURES[k][0] + '</option>'; }).join('') + '</select>' : '') +
+        (r.type === 'relation' && r.nature === 'libre' ? '<input type="text" data-mot="' + i + '" maxlength="24" value="' + esc(r.mot || '') + '" placeholder="Ton mot" aria-label="Le mot de ce lien" style="max-width:9rem">' : '') +
         (r.type === 'couple' ? '<select data-statut="' + i + '" aria-label="Situation du couple">' + STATUTS.map(function (s) { return '<option value="' + s[0] + '"' + ((r.statut || 'marie') === s[0] ? ' selected' : '') + '>' + s[1] + '</option>'; }).join('') + '</select>' : '') +
         '<button type="button" class="suppr" data-retirer="' + i + '" aria-label="Retirer ce lien">×</button></div>';
     });
@@ -2188,7 +2285,9 @@
   });
   $('fp-liens').addEventListener('change', function (e) {
     var nt = e.target.closest('[data-nature]');
-    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessiner(fiche.id); enregistrer(); return; }
+    if (nt) { memoriser(); S.rels[+nt.getAttribute('data-nature')].nature = nt.value; dessinerLiensFiche(); dessiner(fiche.id); enregistrer(); return; }
+    var mt = e.target.closest('[data-mot]');
+    if (mt) { memoriser(); S.rels[+mt.getAttribute('data-mot')].mot = mt.value.trim().slice(0, 24); dessiner(fiche.id); enregistrer(); return; }
     var s = e.target.closest('[data-statut]'); if (!s) return;
     memoriser();
     S.rels[+s.getAttribute('data-statut')].statut = s.value;
@@ -2202,6 +2301,7 @@
     if (/^rel-/.test(t)) {
       if (S.rels.some(function (x) { return x.type === 'relation' && ((x.from === id && x.to === o) || (x.from === o && x.to === id)); })) { err.textContent = 'Un lien relationnel existe déjà avec cette personne : change sa nature dans la liste ci-dessus.'; return; }
       r = { from: id, to: o, type: 'relation', nature: t.slice(4) };
+      if (r.nature === 'libre') { var mot = prompt('Le mot de ce lien (par exemple : protecteur, rivalité, dette) :', ''); if (mot === null) return; r.mot = mot.trim().slice(0, 24); }
     }
     else if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
     else {
@@ -2502,7 +2602,32 @@
     if (ouverte || dansChamp || EXEMPLE) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') { e.preventDefault(); annuler(); }
     else if ((e.key === 'Delete' || e.key === 'Backspace') && selId) { e.preventDefault(); supprimer(selId); }
+    else if (!e.ctrlKey && !e.metaKey && !e.altKey) raccourci(e);
   });
+  /* Raccourcis clavier (utiles en séance) : sur la personne choisie, P parent, E enfant, C conjoint·e, F frère ou sœur, L lien relationnel, M ou Entrée sa fiche ;
+     R « Ce qui se répète », T remonter le temps, N notes de séance, ? l'aide */
+  var RACCOURCIS = { p: 'parent', e: 'enfant', c: 'couple', f: 'fratrie', l: 'relation', m: 'modifier' };
+  function raccourci(e) {
+    var k = e.key.toLowerCase();
+    if (k === '?') { e.preventDefault(); aideRaccourcis(); return; }
+    if (k === 't' && $('bt-temps')) { e.preventDefault(); $('bt-temps').click(); return; }
+    if (k === 'n' && $('bt-notes-dossier')) { e.preventDefault(); $('bt-notes-dossier').click(); return; }
+    if (k === 'r') { var br = document.querySelector('.barre-seance [data-s="reps"]'); if (br) { e.preventDefault(); br.click(); } return; }
+    if (!selId || !S.people[selId]) return;
+    if (k === 'enter') k = 'm';
+    var act = RACCOURCIS[k]; if (!act) return;
+    if (act === 'parent' && parents(selId).length >= 2) return;
+    e.preventDefault();
+    var bt = document.querySelector('#actions-perso [data-act="' + act + '"]');
+    if (bt) bt.click(); else if (act === 'modifier') ouvrirFiche(selId, false); else if (act !== 'relation') ouvrirAjout(act, selId);
+  }
+  function aideRaccourcis() {
+    var v = document.querySelector('.aide-raccourcis'); if (v) { v.remove(); return; }
+    var d = document.createElement('div'); d.className = 'aide-raccourcis'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Raccourcis clavier');
+    d.innerHTML = '<b>Raccourcis clavier</b><p>Clique une personne, puis :</p><ul><li><kbd>P</kbd> ajouter un parent</li><li><kbd>E</kbd> un enfant</li><li><kbd>C</kbd> un·e conjoint·e</li><li><kbd>F</kbd> un frère ou une sœur</li><li><kbd>L</kbd> un lien relationnel</li><li><kbd>M</kbd> ou <kbd>Entrée</kbd> sa fiche</li><li><kbd>Suppr</kbd> la retirer</li></ul><ul><li><kbd>R</kbd> ce qui se répète (mode séance)</li><li><kbd>T</kbd> remonter le temps</li><li><kbd>N</kbd> notes de séance</li><li><kbd>Ctrl</kbd> + <kbd>Z</kbd> annuler</li><li><kbd>Échap</kbd> fermer</li></ul><button type="button" class="bt">Fermer</button>';
+    document.body.appendChild(d);
+    d.querySelector('button').addEventListener('click', function () { d.remove(); });
+  }
 
   /* ───────── Export, impression ───────── */
   var policesEmbarquees = null;
@@ -2528,7 +2653,8 @@
     if (tous.some(function (p) { return p.adopte; })) plus.push('Trait pointillé : adopté·e');
     if (tous.some(function (p) { return p.place; })) plus.push('Placé·e : en famille d’accueil');
     if (tous.some(function (p) { return jumeauDe(p.id); })) plus.push('Traits en V : jumeaux');
-    [['proche', 'Trois traits verts : proximité'], ['conflit', 'Zigzag : conflit'], ['rupture', 'Trait coupé : rupture'], ['distance', 'Pointillé léger : distance']].forEach(function (x) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === x[0] && existe(r.from) && existe(r.to); })) plus.push(x[1]); });
+    Object.keys(LEG_NATURES).forEach(function (k) { if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === k && existe(r.from) && existe(r.to); })) plus.push(LEG_NATURES[k]); });
+    if (S.rels.some(function (r) { return r.type === 'relation' && r.nature === 'libre' && existe(r.from) && existe(r.to); })) plus.push('Tirets avec un mot : lien libre');
     var lignesPlus = [];
     plus.forEach(function (t) { var d = lignesPlus.length - 1; if (d >= 0 && (lignesPlus[d] + ' · ' + t).length * 5.8 <= W - 2 * m) lignesPlus[d] += ' · ' + t; else lignesPlus.push(t); });
     H += Math.max(0, lignesPlus.length - 1) * 18;
@@ -2994,7 +3120,7 @@
     if (st.sansEvt.length) h += '<h3>Les personnes sans événement noté</h3><p>' + esc(st.sansEvt.slice(0, 30).join(', ')) + (st.sansEvt.length > 30 ? '…' : '') + '</p><p class="discret">Un départ, une séparation, un déménagement, une réussite, un secret… même approximatif, avec un âge, c’est ce qui fait apparaître les répétitions.</p>';
     h += '<h3>Les questions à poser à ta famille</h3><ol><li>Comment se sont rencontrés tes grands-parents, et comment l’histoire a-t-elle continué ?</li><li>Qui est parti, ou dont on ne parle plus ?</li><li>Qu’est-ce qui a été dur pour eux, à quel âge ?</li><li>D’où viennent les prénoms de la famille ?</li><li>Quelles phrases revenaient souvent à table ?</li></ol>';
     h += DOSSIER_CLIENT ? '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à la regarder autrement. Garde ce rapport pour tes prochaines séances' + (CAB ? ' avec ' + esc(CAB) : '') + ' : il suit ton arbre à mesure qu’il se complète.</div>'
-      : '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html</div>';
+      : '<div class="fin"><b>Et maintenant ?</b> Repérer une répétition, c’est déjà commencer à en sortir. Si tu veux aller plus loin, la formation « Sors de la boucle » t’accompagne pas à pas pour arrêter de répéter ce qui se transmet. Plus d’informations sur genesolia.fr/formation.html. Pour être accompagné·e par un·e praticien·ne près de chez toi ou en visio : genesolia.fr/annuaire.html</div>';
     if (ANNOTATIONS && ANNOTATIONS.length) {
       h += '<section class="page"><div class="sur2">Annexe</div><h2>Les notes de séance</h2><p class="intro">Les observations de ' + esc(CAB || 'ton·ta praticien·ne') + ', séance après séance.</p>' +
         ANNOTATIONS.slice().sort(function (a, b) { return a.jour < b.jour ? -1 : 1; }).map(function (n) { return '<div class="rep" style="--c:#B98A55"><b>' + esc(dateLongue(new Date(n.jour + 'T12:00:00'))) + '</b><p>' + esc(n.texte).replace(/\n/g, '<br>') + '</p></div>'; }).join('') + '</section>';
@@ -3015,6 +3141,100 @@
       if (btn) { btn.disabled = false; btn.textContent = lib; }
       if (confirm('Le PDF n’a pas pu être créé sur cet appareil. Ouvrir le rapport pour l’enregistrer en PDF depuis l’impression ?')) imprimerRapportFenetre(btn);
     });
+  }
+  /* ───────── Le rapport en Word (.docx), pour retoucher le texte : même contenu que le PDF, mis en forme simplement ───────── */
+  function rapportWord(btn) {
+    var lib = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du fichier Word…'; }
+    var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
+    RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
+    function fin() { if (btn) { btn.disabled = false; btn.textContent = lib; } }
+    Promise.all([script('assets/docx.min.js', 'docx'), chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); })]).then(polices).then(function (css) {
+      var html = htmlRapport(css, svgExport(css));
+      return canvasArbre().then(function (r) { return new Promise(function (ok) { r.canvas.toBlob(function (b) { b.arrayBuffer().then(function (ab) { ok({ data: ab, W: r.W, H: r.H }); }); }, 'image/png'); }); }, function () { return null; })
+        .then(function (img) { return docxDepuisHtml(html, img); });
+    }).then(function (blob) {
+      telecharger(blob, nomFichier('rapport-genosociogramme').replace(/\.pdf$/, '.docx')); fin();
+    }).catch(function () { fin(); alert('Le fichier Word n’a pas pu être créé sur cet appareil. Le PDF reste disponible.'); });
+  }
+  function docxDepuisHtml(html, img) {
+    var D = window.docx, doc = new DOMParser().parseFromString(html, 'text/html'), enfants = [], sautAvant = false;
+    var PRUNE_X = '6B2F5B', DOUX = '8E6383', OR = 'B98A55';
+    function t(el) { if (!el) return ''; var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll('br'), function (b) { b.replaceWith(' '); }); return (c.textContent || '').replace(/\s+/g, ' ').trim(); }
+    function runs(el, base) {   // le texte d'un élément, avec le gras et l'italique
+      var out = [];
+      (function w(n, gras, ital) {
+        [].forEach.call(n.childNodes, function (c) {
+          if (c.nodeType === 3) { var v = c.nodeValue.replace(/\s+/g, ' '); if (v) out.push(new D.TextRun(Object.assign({ text: v, bold: gras || undefined, italics: ital || undefined }, base || {}))); }
+          else if (c.nodeType === 1) { if (c.tagName === 'BR') out.push(new D.TextRun({ break: 1 })); else w(c, gras || /^(B|STRONG)$/.test(c.tagName), ital || /^(I|EM)$/.test(c.tagName)); }
+        });
+      })(el, false, false);
+      return out;
+    }
+    function para(o) { if (sautAvant) { o.pageBreakBefore = true; sautAvant = false; } enfants.push(new D.Paragraph(o)); }
+    function tableau(tb) {
+      var lignes = [].map.call(tb.querySelectorAll('tr'), function (tr, i) {
+        return new D.TableRow({ tableHeader: i === 0, children: [].map.call(tr.children, function (td) {
+          return new D.TableCell({ shading: td.tagName === 'TH' ? { fill: 'F7E6E8' } : undefined, margins: { top: 60, bottom: 60, left: 100, right: 100 }, children: [new D.Paragraph({ children: runs(td, td.tagName === 'TH' ? { bold: true, size: 18, color: PRUNE_X } : { size: 20 }) })] });
+        }) });
+      });
+      if (sautAvant) { para({ children: [] }); }
+      enfants.push(new D.Table({ width: { size: 100, type: D.WidthType.PERCENTAGE }, rows: lignes }));
+      enfants.push(new D.Paragraph({ children: [] }));
+    }
+    function bloc(el) {
+      var c = el.classList;
+      if (c.contains('page')) sautAvant = true;
+      if (c.contains('couv')) {
+        var m = el.querySelector('.marque'), sur = el.querySelector('.sur'), h1 = el.querySelector('h1'), ps = el.querySelectorAll('p');
+        if (m) para({ children: [new D.TextRun({ text: t(m), size: 26, color: PRUNE_X, font: 'Georgia' })] });
+        if (sur) para({ spacing: { before: 600 }, children: [new D.TextRun({ text: t(sur).toUpperCase(), size: 18, bold: true, color: OR })] });
+        if (h1) para({ heading: D.HeadingLevel.TITLE, children: [new D.TextRun({ text: t(h1), size: 64, color: PRUNE_X, font: 'Georgia' })] });
+        [].forEach.call(ps, function (p) { if (!p.closest('.chiffres')) para({ spacing: { after: 160 }, children: runs(p, { size: 22, color: '4E2A47' }) }); });
+        var ch = [].map.call(el.querySelectorAll('.chiffres div'), function (d) { return t(d.querySelector('b')) + ' ' + t(d.querySelector('span')); });
+        if (ch.length) para({ spacing: { before: 200 }, children: [new D.TextRun({ text: ch.join('  ·  '), bold: true, size: 24, color: PRUNE_X })] });
+        sautAvant = true; return;
+      }
+      if (c.contains('arbre-img')) {
+        if (img) { var lw = 600, lh = Math.round(lw * img.H / img.W); if (lh > 760) { lh = 760; lw = Math.round(lh * img.W / img.H); } para({ alignment: D.AlignmentType.CENTER, children: [new D.ImageRun({ type: 'png', data: img.data, transformation: { width: lw, height: lh } })] }); }
+        return;
+      }
+      if (c.contains('rep')) {
+        var b = el.querySelector('b'), coul = (el.getAttribute('style') || '').match(/#([0-9a-f]{6})/i);
+        var bord = { left: { style: D.BorderStyle.SINGLE, size: 18, color: coul ? coul[1] : PRUNE_X, space: 8 } };
+        if (b) para({ border: bord, spacing: { before: 120 }, children: [new D.TextRun({ text: t(b), bold: true, color: coul ? coul[1] : PRUNE_X, size: 20 })] });
+        [].forEach.call(el.querySelectorAll('p'), function (p) { para({ border: bord, spacing: { after: 60 }, children: runs(p, { size: 20 }) }); });
+        return;
+      }
+      if (c.contains('pistes') || c.contains('geste') || c.contains('fin')) {
+        var fond = c.contains('pistes') ? 'FFF5EA' : c.contains('geste') ? 'FCEFF3' : 'F3E8F0';
+        var tb = el.querySelector(':scope > b');
+        if (tb) para({ shading: { fill: fond }, spacing: { before: 160 }, children: [new D.TextRun({ text: t(tb), bold: true, color: c.contains('geste') ? 'B5485C' : PRUNE_X, size: 20 })] });
+        var lis = el.querySelectorAll('li');
+        if (lis.length) [].forEach.call(lis, function (li, i) { para({ shading: { fill: fond }, children: [new D.TextRun({ text: (i + 1) + '. ', bold: true, size: 20 })].concat(runs(li, { size: 20 })) }); });
+        else { var cl = el.cloneNode(true), bb = cl.querySelector(':scope > b'); if (bb && !c.contains('fin')) bb.remove(); para({ shading: { fill: fond }, spacing: { after: 160 }, children: runs(cl, { size: 20 }) }); }
+        return;
+      }
+      if (c.contains('notes')) { para({ heading: D.HeadingLevel.HEADING_3, children: [new D.TextRun({ text: 'Mes notes', color: PRUNE_X })] }); for (var k = 0; k < 4; k++) para({ border: { bottom: { style: D.BorderStyle.SINGLE, size: 4, color: 'EBCFD5', space: 1 } }, spacing: { after: 240 }, children: [] }); return; }
+      if (c.contains('sur2')) { para({ spacing: { before: 120 }, children: [new D.TextRun({ text: t(el).toUpperCase(), bold: true, size: 16, color: OR })] }); return; }
+      var tag = el.tagName;
+      if (tag === 'H2') { para({ heading: D.HeadingLevel.HEADING_1, children: [new D.TextRun({ text: t(el), color: PRUNE_X, font: 'Georgia', size: 40 })] }); return; }
+      if (tag === 'H3') { para({ heading: D.HeadingLevel.HEADING_2, children: [new D.TextRun({ text: t(el), color: PRUNE_X, font: 'Georgia', size: 28 })] }); return; }
+      if (tag === 'P') { if (t(el)) para({ spacing: { after: 120 }, children: runs(el, c.contains('discret') ? { size: 17, color: DOUX } : { size: 21 }) }); return; }
+      if (tag === 'TABLE') { tableau(el); return; }
+      if (tag === 'OL' || tag === 'UL') { [].forEach.call(el.children, function (li, i) { para({ indent: { left: 360 }, children: [new D.TextRun({ text: (tag === 'OL' ? (i + 1) + '. ' : '• '), size: 21 })].concat(runs(li, { size: 21 })) }); }); return; }
+      if (el.children.length) { [].forEach.call(el.children, bloc); return; }
+      if (t(el)) para({ children: runs(el, { size: 21 }) });
+    }
+    [].forEach.call(doc.body.children, bloc);
+    var d = new D.Document({
+      creator: 'Genesolia', title: 'Le rapport de ton arbre',
+      styles: { default: { document: { run: { font: 'Calibri', size: 21, color: '4E2A47' } } } },
+      sections: [{ properties: { page: { margin: { top: 1000, bottom: 1000, left: 1000, right: 1000 } } },
+        footers: { default: new D.Footer({ children: [new D.Paragraph({ alignment: D.AlignmentType.RIGHT, children: [new D.TextRun({ text: 'genesolia.fr · page ', size: 16, color: DOUX }), new D.TextRun({ children: [D.PageNumber.CURRENT], size: 16, color: DOUX })] })] }) },
+        children: enfants }]
+    });
+    return D.Packer.toBlob(d);
   }
   function imprimerRapportFenetre(btn) {
     if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
@@ -3084,8 +3304,10 @@
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
-          '<p class="rap-aide">Le rapport se télécharge directement en PDF, prêt à envoyer ou à imprimer.</p>';
+          '<button class="bt rap-gros" type="button" id="bt-generer-word" style="margin-top:.5rem">Version Word, à retoucher (.docx)</button>' +
+          '<p class="rap-aide">Le PDF est prêt à envoyer ou à imprimer. La version Word s’ouvre dans Word, Pages ou Google Docs : tu peux retoucher le texte avant de le remettre.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
+        $('bt-generer-word').addEventListener('click', function () { rapportWord(this); });
         return;
       }
       var h = contenuApercu(reps);
@@ -3701,7 +3923,7 @@
     try { if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function () {}); } catch (e) {}
     var q = document.createElement('div'); q.className = 'barre-seance'; q.setAttribute('role', 'toolbar'); q.setAttribute('aria-label', 'Mode séance');
     q.innerHTML = '<button type="button" class="bt" data-s="reps" aria-pressed="false">Ce qui se répète</button>' + (PRATICIEN && ARBRE_ID ? '<button type="button" class="bt" data-s="notes">Notes</button>' : '') +
-      '<button type="button" class="bt" data-s="plein">Plein écran</button><button type="button" class="bt plein" data-s="quitter">Quitter le mode séance</button>';
+      '<button type="button" class="bt" data-s="plein">Plein écran</button><button type="button" class="bt" data-s="aide" title="Raccourcis clavier">Raccourcis <kbd>?</kbd></button><button type="button" class="bt plein" data-s="quitter">Quitter le mode séance</button>';
     document.body.appendChild(q);
     function majPlein() { var b = q.querySelector('[data-s="plein"]'); if (b) b.hidden = !!document.fullscreenElement || !document.documentElement.requestFullscreen; }
     function quitter() {
@@ -3714,6 +3936,7 @@
       var b = e.target.closest('[data-s]'); if (!b) return; var s = b.getAttribute('data-s');
       if (s === 'quitter') quitter();
       else if (s === 'plein') { try { document.documentElement.requestFullscreen().catch(function () {}); } catch (x) {} }
+      else if (s === 'aide') aideRaccourcis();
       else if (s === 'notes') notesDossier();
       else if (s === 'reps') { var ti = document.querySelector('.pr-tiroir'); if (ti) ti.remove(); var on = document.body.classList.toggle('seance-reps'); b.setAttribute('aria-pressed', String(on)); setTimeout(recentrer, 60); }
     });
@@ -3756,11 +3979,13 @@
           var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
           if (!d || !d.people) { b.innerHTML = 'Ce lien n’est plus valable. Demande un nouveau lien à ton·ta praticien·ne.'; document.body.appendChild(b); statut(''); return; }
           var op = d.options || {};
+          if (op.supervision) document.body.classList.add('partage-supervision');
           PARTAGE = { masquer: d.masquer || [], delicat: !!op.delicat };
           if (d.remise !== true) document.body.classList.add('partage-verrou');
           if (op.reps === false) document.body.classList.add('partage-sans-reps');
           charger(d); dessiner(); recentrer();
-          b.innerHTML = 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+          b.innerHTML = op.supervision ? 'Dossier anonymisé pour la supervision' + (d.cabinet ? ', partagé par ' + esc(d.cabinet) : '') + ' · en lecture' : 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture';
+
           document.body.appendChild(b); statut('');
           if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
         });
