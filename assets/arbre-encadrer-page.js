@@ -881,4 +881,14 @@
     });
   }
   bt.addEventListener('click', function () { afficher(); window.GenoArbre.ouvrir('fen-encadrer'); });
+  /* genosociogramme.html#encadrer ouvre la fenêtre du poster ; #lumiere l'ouvre sur « Ma lignée en lumière » (liens de la page Offrir et de l'appli du Pass) */
+  function ouvrirParLien() {
+    var h = location.hash; if (h !== '#encadrer' && h !== '#lumiere') return;
+    setTimeout(function () {
+      if (h === '#lumiere') { choix.style = 'lumiere'; choix.choisi = true; }
+      afficher(); window.GenoArbre.ouvrir('fen-encadrer');
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    }, 900);
+  }
+  if (document.readyState === 'complete') ouvrirParLien(); else window.addEventListener('load', ouvrirParLien);
 })();

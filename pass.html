@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/assets/icones/pass.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icones/pass-apple-180.png">
+  <link rel="manifest" href="/pass.webmanifest">
+  <meta name="theme-color" content="#3B1747">
+  <meta name="apple-mobile-web-app-title" content="Mon enquête">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Le Pass · Mon enquête · Genesolia</title>
+  <meta name="description" content="Ton enquête de lignée, étape par étape : ton fil d'or, ton arbre, tes dates, ton ciel et tes nombres, avec un agenda de ta lignée.">
+  <link rel="canonical" href="https://genesolia.fr/pass.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* L'appli « Le Pass · Mon enquête » : Aujourd'hui (#), Mon enquête (#enquete), Mon agenda (#agenda), Mon ciel (#ciel), Mes livrets (#livrets) */
+    body.pa-app{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+    #pass{--encre:#3B1747;--doux:#7E5C77;--ligne:#EFDCE3;--or:#B98A55;max-width:46rem;margin:0 auto;padding:.4rem 1rem 2rem;color:var(--encre)}
+    .pa-h1{font:400 clamp(1.7rem,6.4vw,2.2rem)/1.15 var(--display);color:#3B1747;margin:.7rem 0 .15rem}
+    .pa-sous{color:var(--doux);font-size:.95rem;margin:0 0 1.1rem}
+    .pa-carte{display:block;background:#fff;border-radius:20px;padding:1.05rem 1.15rem;margin:0 0 .85rem;box-shadow:0 6px 18px rgba(107,47,91,.07);border:1px solid var(--ligne);color:var(--encre);text-decoration:none}
+    a.pa-carte{cursor:pointer}
+    .pa-etiq{font:700 .7rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:0 0 .4rem}
+    .pa-carte h2,.pa-carte h3{font:400 1.25rem/1.25 var(--display);color:var(--prune);margin:0 0 .4rem}
+    .pa-carte p{margin:0 0 .4rem;font-size:.95rem;line-height:1.55}
+    .pa-carte p:last-child{margin-bottom:0}
+    .pa-nuit{background:linear-gradient(160deg,#1F0B2A,#4A1E52 60%,#7A3A68);color:#F7E6EE;border:0;position:relative;overflow:hidden}
+    .pa-nuit::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(255,231,180,.35),transparent 40%),radial-gradient(1.5px 1.5px at 20% 30%,#fff,transparent),radial-gradient(1.5px 1.5px at 60% 70%,#fff,transparent),radial-gradient(1px 1px at 40% 50%,#fff,transparent),radial-gradient(1px 1px at 75% 40%,#fff,transparent);pointer-events:none}
+    .pa-nuit>*{position:relative}
+    .pa-nuit h2{color:#fff}.pa-nuit .pa-etiq{color:#F3DCC0}
+    .pa-carte .pa-gros{font:400 3.2rem/1 var(--display);color:#FFE6B8;margin:.25rem 0 .35rem}
+    .pa-bt{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:.55rem;padding:.55rem 1.15rem;border-radius:99px;background:var(--prune);color:#fff;font:700 .92rem/1 var(--texte);border:0;text-decoration:none;cursor:pointer}
+    .pa-bt.clair{background:#FBF0E4;color:var(--prune)}
+    .pa-bt.or{background:linear-gradient(135deg,#E2C48E,#B98A55);color:#3B1747}
+    .pa-discret{font-size:.82rem;color:var(--doux);margin-top:.45rem}
+    .pa-chargement{padding:3rem 0;text-align:center;color:var(--doux)}
+    /* Échos et dates du jour */
+    .pa-liste{list-style:none;margin:.3rem 0 0;padding:0}
+    .pa-liste li{display:grid;grid-template-columns:2.4rem 1fr;gap:.6rem;align-items:start;padding:.55rem 0}
+    .pa-liste li+li{border-top:1px solid var(--ligne)}
+    .pa-pastille{width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font:400 1rem/1 var(--display);background:#FBF0E4;color:var(--prune)}
+    .pa-pastille.l{background:#2E1338;color:#FFE6B8}.pa-pastille.f{background:#F6E3E8}
+    /* Enquête */
+    .pa-jauge{height:8px;border-radius:9px;background:#F1E3E8;overflow:hidden;margin:.5rem 0 .3rem}
+    .pa-jauge i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,#E2C48E,#B0507A)}
+    .pa-chemin{list-style:none;margin:0;padding:0;position:relative}
+    .pa-chemin::before{content:"";position:absolute;left:1.35rem;top:1.2rem;bottom:1.2rem;width:2px;background:linear-gradient(#E2C48E,#D9A7B6)}
+    .pa-chemin li{position:relative;margin:0 0 .7rem}
+    .pa-etape{display:grid;grid-template-columns:2.7rem 1fr auto;gap:.8rem;align-items:center;width:100%;padding:.8rem .9rem .8rem .2rem;background:#fff;border:1px solid var(--ligne);border-radius:18px;text-align:left;font:inherit;color:var(--encre);cursor:pointer;box-shadow:0 4px 14px rgba(107,47,91,.05)}
+    .pa-etape b{display:block;font:400 1.08rem/1.25 var(--display);color:var(--prune)}
+    .pa-etape span{display:block;font-size:.83rem;color:var(--doux);margin-top:.1rem}
+    .pa-etape .pa-num{display:grid;margin-top:0;font-size:1.05rem;width:2.3rem;height:2.3rem;border-radius:50%;display:grid;place-items:center;margin-left:.25rem;font:400 1.05rem/1 var(--display);background:#fff;border:2px solid #E2C48E;color:#9A6E38;position:relative;z-index:1}
+    .pa-etape.fait .pa-num{color:#fff;background:linear-gradient(135deg,#E2C48E,#B98A55);border-color:#B98A55;color:#fff}
+    .pa-etape.encours{border-color:#B0507A;box-shadow:0 0 0 2px rgba(176,80,122,.15),0 6px 18px rgba(107,47,91,.08)}
+    .pa-etape.encours .pa-num{background:#B0507A;border-color:#B0507A;color:#fff}.pa-etape:not(.fait):not(.encours) .pa-num{color:#9A6E38}
+    .pa-etape.ferme{opacity:.55;cursor:default}
+    .pa-etape em{font-style:normal;font-size:.75rem;font-weight:700;color:#9A6E38;white-space:nowrap}
+    /* Le panneau d'une étape */
+    .pa-voile{position:fixed;inset:0;z-index:150;background:rgba(31,11,42,.5);opacity:0;transition:opacity .25s}
+    .pa-voile.ouvert{opacity:1}
+    .pa-feuille{position:fixed;left:0;right:0;bottom:0;z-index:151;max-width:46rem;margin:0 auto;max-height:92vh;display:flex;flex-direction:column;background:#FFF9F4;border-radius:26px 26px 0 0;box-shadow:0 -16px 50px rgba(31,11,42,.35);transform:translateY(105%);transition:transform .3s ease}
+    .pa-feuille.ouvert{transform:none}
+    .pa-f-tete{padding:1rem 3.6rem .2rem 1.4rem;position:relative}
+    .pa-f-fermer{position:absolute;top:.6rem;right:.7rem;width:44px;height:44px;border-radius:50%;border:0;background:#F6E3E8;color:var(--prune);font-size:1.4rem;cursor:pointer}
+    .pa-f-corps{overflow-y:auto;padding:.3rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom,0px))}
+    .pa-f-corps h2{font:400 1.6rem/1.2 var(--display);color:#3B1747;margin:.1rem 0 .6rem}
+    .pa-souffle{font-family:var(--display);font-size:1.13rem;line-height:1.5;color:#5A2147;margin:0 0 1rem}
+    .pa-bloc{margin:0 0 1.1rem}
+    .pa-bloc h3{font:700 .72rem/1.3 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#A2753F;margin:0 0 .45rem}
+    .pa-bloc ul{margin:0;padding-left:1.15rem}.pa-bloc li{margin:.3rem 0;line-height:1.5}.pa-bloc li::marker{color:var(--or)}
+    .pa-q label{display:block;font-weight:600;margin:.6rem 0 .3rem;line-height:1.4}
+    .pa-q textarea{width:100%;box-sizing:border-box;min-height:84px;padding:.7rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit;background:#fff;resize:vertical}
+    .pa-geste{padding:1rem 1.1rem;border-radius:18px;background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#F7E6EE;line-height:1.6}
+    .pa-geste h3{color:#F3DCC0}
+    .pa-livre{display:grid;grid-template-columns:64px 1fr;gap:.9rem;align-items:center;padding:.9rem 1rem;border-radius:18px;background:#FBF4EA;border:1px solid #EBD3BC;text-decoration:none;color:var(--encre)}
+    .pa-livre img{width:64px;height:auto;filter:drop-shadow(0 8px 12px rgba(74,33,66,.2))}
+    .pa-livre b{color:var(--prune)}.pa-livre span{display:block;font-size:.88rem;color:var(--doux);margin-top:.2rem}
+    .pa-outils{display:flex;flex-wrap:wrap;gap:.5rem}
+    .pa-sauve{font-size:.8rem;color:var(--doux);min-height:1.2em;margin:.3rem 0 0}
+    /* Agenda */
+    .pa-mois-tete{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.2rem 0 .7rem}
+    .pa-mois-tete h2{font:400 1.45rem/1.2 var(--display);color:#3B1747;margin:0;text-transform:capitalize}
+    .pa-mois-tete button{width:44px;height:44px;border-radius:50%;border:1px solid var(--ligne);background:#fff;color:var(--prune);font-size:1.2rem;cursor:pointer}
+    .pa-grille{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:0 0 .8rem}
+    .pa-grille .js{font:700 .68rem/1 var(--texte);text-align:center;color:var(--doux);padding:.3rem 0;text-transform:uppercase;letter-spacing:.05em}
+    .pa-jour{position:relative;aspect-ratio:1/1.08;border-radius:12px;background:#fff;border:1px solid var(--ligne);padding:.25rem .3rem;font:inherit;color:var(--encre);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-width:0}
+    .pa-jour.vide{visibility:hidden}
+    .pa-jour .n{font-weight:700;font-size:.85rem}
+    .pa-jour .jp{position:absolute;top:.2rem;right:.3rem;font:400 .72rem/1 var(--display);color:#B98A55}
+    .pa-jour .pts{display:flex;gap:2px;flex-wrap:wrap;margin-top:auto}
+    .pa-jour .pts i{width:7px;height:7px;border-radius:50%}
+    .pts .l{background:#2E1338}.pts .f{background:#B0507A}.pts .e{background:#B98A55}.pts .m{background:#6E9BC8}
+    .pa-jour.auj{border:2px solid #B0507A}
+    .pa-jour.choisi{background:#FCEFF3;border-color:#B0507A}
+    .pa-legende{display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-size:.78rem;color:var(--doux);margin:0 0 .9rem}
+    .pa-legende i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.3rem;vertical-align:middle}
+    .pa-evt{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center;padding:.6rem 0}
+    .pa-evt+.pa-evt{border-top:1px solid var(--ligne)}
+    .pa-evt p{margin:0;font-size:.93rem;line-height:1.45}
+    .pa-evt small{display:block;color:var(--doux);font-size:.8rem}
+    .pa-cloche{width:44px;height:44px;border-radius:50%;border:1.5px solid #EBCFD5;background:#fff;color:#B98A55;cursor:pointer;display:grid;place-items:center}
+    .pa-cloche[aria-pressed="true"]{background:#B0507A;border-color:#B0507A;color:#fff}
+    .pa-cloche svg{width:20px;height:20px}
+    .pa-note{display:flex;gap:.5rem;margin-top:.6rem}
+    .pa-note input{flex:1;min-height:44px;padding:.5rem .8rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit}
+    /* Livrets */
+    .pa-grille-l{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .pa-grille-l .pa-carte{margin:0;display:flex;flex-direction:column;gap:.3rem}
+    .pa-grille-l h3{font-size:1.05rem!important}
+    /* Porte (sans le Pass) */
+    .pa-porte{text-align:center;padding:1.8rem 1.3rem}
+    .pa-porte ul{text-align:left;margin:1rem auto;max-width:28rem;padding-left:1.1rem}
+    .pa-porte li{margin:.35rem 0}.pa-porte li::marker{color:var(--or)}
+    /* La barre du bas */
+    .pa-barre{position:fixed;left:0;right:0;bottom:0;z-index:120;background:linear-gradient(180deg,#3B1747,#2A0F33);border-top:1px solid rgba(226,196,142,.35);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 -8px 24px rgba(31,11,42,.25)}
+    .pa-barre a{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.35rem .1rem;min-height:52px;border-radius:14px;color:#E9CFE0;text-decoration:none;font:600 .68rem/1.1 var(--texte);text-align:center}
+    .pa-barre svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .pa-barre a[aria-current="page"]{color:#FFE2A6;background:rgba(255,226,166,.1)}
+    body.pa-app #crisp-chatbox,body.pa-app .crisp-client{display:none!important}
+    @media (min-width:760px){#pass{padding-top:1rem}.pa-grille-l{grid-template-columns:repeat(3,1fr)}}
+    @media (prefers-reduced-motion:reduce){.pa-feuille,.pa-voile{transition:none}}
+  </style>
+  <script>window.GENESOLIA_APPLI = { nom: 'Mon enquête', icone: '/assets/icones/pass-apple-180.png' };</script>
+</head>
+<body class="nouveau pa-app">
+  <header data-entete></header>
+  <main id="pass"><div id="pa-vue"><p class="pa-chargement">Ton enquête s’ouvre…</p></div></main>
+  <nav class="pa-barre" aria-label="Mon enquête">
+    <a href="#" data-onglet="jour"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Aujourd’hui</a>
+    <a href="#enquete" data-onglet="enquete"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.6-4.6"/><path d="M11 8v3l2 1.5"/></svg>Mon enquête</a>
+    <a href="#agenda" data-onglet="agenda"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><circle cx="12" cy="15" r="1.2"/></svg>Mon agenda</a>
+    <a href="#ciel" data-onglet="ciel"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/><path d="M17 3.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/></svg>Mon ciel</a>
+    <a href="#livrets" data-onglet="livrets"><svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>Mes livrets</a>
+  </nav>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/numerologie.js"></script>
+  <script src="assets/astronomy.browser.min.js"></script>
+  <script src="assets/pass-enquete.js?v=1"></script>
+  <script src="assets/pass.js?v=1"></script>
+</body>
+</html>

@@ -359,6 +359,7 @@
     function verifierAcces() {
       if (!sb || !utilisateur) return Promise.resolve(false);
       if (CERCLE.libre) return Promise.resolve(true);
+      if (window.GenesoliaAcces && window.GenesoliaAcces.pass) return window.GenesoliaAcces.pass().catch(function () { return false; });   /* le Pass ouvre Mon mois (Le Cercle aussi) */
       if (window.GenesoliaAcces && window.GenesoliaAcces.membre) return window.GenesoliaAcces.membre().catch(function () { return false; });   /* même règle que tout le site (offre « cercle » comprise) */
       return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
         .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });

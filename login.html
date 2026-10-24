@@ -748,6 +748,19 @@
       montrer('journal');
     });
     var ETAPES = [['Sortir de l’alerte', 'Mon premier pas', 'Qui sont les miens ?'], ['Déposer l’armure', 'Mes forces, mes appuis', 'Qu’est-ce que j’ai reçu ?'], ['Prendre toute ma place', 'Ma place, mes limites', 'Quelle est ma place ?'], ['Rendre la peur à qui elle appartient', 'Mon intention, mes valeurs', 'Quelle peur je porte, et pour qui ?'], ['L’enfant qui peut enfin se reposer', 'M’aimer d’abord', 'Quel projet a-t-on posé sur moi ?'], ['Le dégel', 'Ma voix, ma confiance', 'Quelles émotions avaient le droit d’exister ?'], ['Je peux déplaire et rester en sécurité', 'Dire vrai', 'Quelles phrases me guident ?'], ['La vie circule à travers moi', 'Prendre soin de moi', 'Comment ai-je appris à aimer ?'], ['Franchir le seuil', 'Oser agir', 'Ai-je le droit d’aller plus loin ?'], ['Sortir du manque', 'Ma valeur', 'Combien je m’autorise à recevoir ?'], ['Habiter ma vie', 'Mon chez-moi, mon élan', 'D’où venons-nous ?'], ['De survivre à vivre', 'Ma vocation', 'Qu’est-ce que je transmets ?']];
+    /* Le Pass seul (sans Le Cercle) : l'appli « Mon enquête » */
+    function passMembre() {
+      if (!window.GenesoliaAcces || !window.GenesoliaAcces.pass || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
+      Promise.all([window.GenesoliaAcces.pass(), window.GenesoliaAcces.membre()]).then(function (r) {
+        if (!r[0] || r[1]) return;
+        var abo = document.querySelector('[aria-labelledby="t-abo"]'), gestion = (window.GENESOLIA_STRIPE || {}).gestion;
+        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Pass <span>actif</span></p>' +
+          '<p class="tb-aide">Ton enquête de lignée étape par étape, l’agenda de ta lignée, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>' +
+          '<div class="tb-actions"><a class="btn btn-plein" href="pass.html">Ouvrir mon enquête</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion + '">Gérer mon abonnement</a>' : '') + '</div>';
+        var acc = $('acc-cercle');
+        if (acc) acc.innerHTML = '<p class="eb-etape">Le Pass</p><h2>Ton enquête t’attend</h2><p class="tb-aide">Ta prochaine étape, l’agenda de ta lignée et ton mois à toi.</p><div class="tb-actions"><a class="btn btn-plein" href="pass.html">Mon enquête</a><a class="btn btn-trait" href="pass.html#agenda">Mon agenda</a></div>';
+      }, function () {});
+    }
     function cercleMembre() {
       if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
       window.GenesoliaAcces.membre().then(function (m) {
@@ -783,6 +796,7 @@
         if (!journalOuvert && window.GenesoliaJournal) { journalOuvert = true; window.GenesoliaJournal.ouvrir($('journal-app'), sb, user).then(accueilEmotion); }
         accueilEmotion();
         cercleMembre();
+        passMembre();
       }
     };
     if (window.GenesoliaEspaceAttente) { var at = window.GenesoliaEspaceAttente; window.GenesoliaEspaceAttente = null; window.GenesoliaEspaceNav.init(at[0], at[1]); }

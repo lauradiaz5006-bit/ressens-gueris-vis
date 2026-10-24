@@ -1,0 +1,24 @@
+{
+  "id": "/pass.html",
+  "name": "Mon enquête · Le Pass Genesolia",
+  "short_name": "Mon enquête",
+  "description": "Ton enquête de lignée, étape par étape : fil d'or, arbre, agenda de ta lignée, ton ciel et tes nombres.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/pass.html?source=appli",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#3B1747",
+  "background_color": "#FFF9F7",
+  "categories": ["lifestyle", "education"],
+  "icons": [
+    { "src": "/assets/icones/pass-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icones/pass-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icones/pass-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/icones/pass-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mon enquête", "url": "/pass.html#enquete" },
+    { "name": "Mon agenda", "url": "/pass.html#agenda" }
+  ]
+}
