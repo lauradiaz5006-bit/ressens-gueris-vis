@@ -132,6 +132,7 @@
     .p-compare .p-nous{background:#FFF6EC;color:var(--prune);font-weight:600}
     .p-compare thead .p-nous{background:var(--prune);color:#fff}
     .p-compare tr:last-child th,.p-compare tr:last-child td{border-bottom:0}
+    @media (max-width:700px){.p-compare .p-nous{position:sticky;right:0;z-index:1;box-shadow:-8px 0 12px -8px rgba(107,47,91,.25)}}   /* sur téléphone, la colonne Genesolia reste visible, les autres glissent dessous */
     .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
     .p-annuaire{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#F7E6EE}
     .p-annuaire h2{color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);margin:.2rem 0 .8rem}
