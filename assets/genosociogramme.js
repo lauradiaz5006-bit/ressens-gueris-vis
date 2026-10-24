@@ -1578,7 +1578,7 @@
   function momentsDe(p) {   // les moments datés d'une personne : naissance, décès, événements (année ou âge)
     var l = [], an = anNaiss(p);
     if (an) l.push({ y: an, k: 'naissance', t: 'Naissance de ' + nomAffiche(p) });
-    var ad = annee(p.deces); if (ad) l.push({ y: ad, k: 'deces', t: 'Décès de ' + nomAffiche(p) + (an ? ', à ' + (ad - an) + ' ans' : '') });
+    var ad = annee(p.deces); if (ad) l.push({ y: ad, k: 'deces', t: 'Décès de ' + nomAffiche(p) + (an ? ', à ' + (ad - an) + ' ans' : ''), age: an ? ad - an : null, id: p.id, qui: nomAffiche(p), quoi: 'décès' });
     (p.events || []).forEach(function (e) {
       var y = +e.year || (an && e.age !== '' && e.age != null && !isNaN(+e.age) ? an + (+e.age) : null);
       if (y) l.push({ y: y, k: 'evt', t: nomAffiche(p) + ' : ' + (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() + (an ? ', à ' + (y - an) + ' ans' : ''), age: an ? y - an : null, type: e.type, id: p.id, qui: nomAffiche(p), quoi: (NOM_EVT[e.type] || 'un moment marquant').toLowerCase() });
@@ -1602,11 +1602,11 @@
     vivants.forEach(function (id) {
       var a = ageEn(S.people[id], y);
       ms.forEach(function (m) {
-        if (m.k !== 'evt' || m.age == null || m.id === id || Math.abs(m.age - a) > 1 || m.y === y) return;
-        echos.push(nomAffiche(S.people[id]) + ' a ' + a + ' ans, l’âge où ' + m.qui + ' a vécu « ' + m.quoi + ' » (' + m.y + ').');
+        if ((m.k !== 'evt' && m.k !== 'deces') || m.age == null || m.id === id || Math.abs(m.age - a) > 1 || m.y === y) return;
+        echos.push(nomAffiche(S.people[id]) + ' a ' + a + ' ans, l’âge où ' + m.qui + (m.k === 'deces' ? ' est ' + (S.people[m.id] && S.people[m.id].sex === 'f' ? 'décédée' : S.people[m.id] && S.people[m.id].sex === 'm' ? 'décédé' : 'décédé·e') : ' a vécu « ' + m.quoi + ' »') + ' (' + m.y + ').');
       });
     });
-    echos = echos.filter(function (t, i) { return echos.indexOf(t) === i; }).slice(0, 6);
+    echos = echos.filter(function (t, i) { return echos.indexOf(t) === i; }).sort(function (x, z) { return (/décéd/.test(z) ? 1 : 0) - (/décéd/.test(x) ? 1 : 0); }).slice(0, 6);
     $('temps-liste').innerHTML =
       '<p><b>' + vivants.length + ' personne' + (vivants.length > 1 ? 's' : '') + ' en vie</b>' + (vivants.length ? ' : ' + vivants.slice(0, 10).map(function (id) { return esc(nomCourt(id)) + ' (' + ageEn(S.people[id], y) + ' ans)'; }).join(', ') + (vivants.length > 10 ? '…' : '') : '') + '</p>' +
       (cette.length ? '<p><b>Cette année-là</b> : ' + cette.map(esc).join(' · ') + '</p>' : '') +
@@ -2808,7 +2808,7 @@
           while (forces.length && forces[0] <= debut + 4) forces.shift();
         }
         var J = window.jspdf.jsPDF, pdf = new J({ unit: 'mm', format: 'a4', compress: true }), k = LARG / W;
-        var ech = Math.min(2, 2.5e6 / (W * PH));
+        var ech = Math.min(1.6, 2.5e6 / (W * PH));   /* 1,6 : net à l'impression, deux fois plus rapide qu'à 2 */
         return pages.reduce(function (pr, pg, i) {
           return pr.then(function () {
             return window.html2canvas(doc.body, { scale: ech, x: 0, y: pg[0], width: W, height: Math.ceil(pg[1] - pg[0]), windowWidth: W, windowHeight: H, backgroundColor: '#ffffff', logging: false, useCORS: true }).then(function (c) {
@@ -3151,7 +3151,7 @@
   function imprimerRapport(btn) {
     if (PRATICIEN) try { localStorage.setItem('pr-fait-rapport', '1'); } catch (e) {}
     var lib = DOSSIER_CLIENT ? 'Générer le rapport (PDF)' : 'Générer mon rapport (PDF)';
-    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF… (quelques secondes)'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Préparation du PDF… (environ 30 secondes)'; }
     var avecNotes = !!(document.getElementById('rap-avec-notes') && document.getElementById('rap-avec-notes').checked);
     RAP_RETENUES = !!(document.getElementById('rap-retenues') && document.getElementById('rap-retenues').checked);
     chargerAstro().catch(function () {}).then(function () { return avecNotes ? chargerAnnotations().then(function (a) { ANNOTATIONS = a; }) : (ANNOTATIONS = null); }).then(polices).then(function (css) {

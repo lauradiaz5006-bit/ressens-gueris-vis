@@ -37,6 +37,7 @@
     .pr-nouveau input[type=text]{flex:1 1 14rem;font:inherit;padding:.75rem .9rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}
     .pr-filtre{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 .8rem}.pr-filtre[hidden]{display:none}.pr-filtre input{flex:1 1 12rem;font:inherit;padding:.65rem .85rem;border:1px solid #E5C6CF;border-radius:12px;color:var(--prune)}.pr-filtre select{font:inherit;padding:.6rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune)}
     .pr-ia{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:0 0 1rem}.pr-ia .btn[disabled]{opacity:.55;cursor:not-allowed}.pr-ia small{color:var(--prune-doux);font-size:.84rem}
+    .pr-form select{font:inherit;font-weight:400;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune);width:100%}
     .pr-liste{display:grid;gap:.6rem}
     .pr-dossier{display:grid;grid-template-columns:1fr;gap:.6rem 1rem;align-items:center;border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;background:#FFFBFC}
     .pr-dossier b{font-weight:600;font-size:1.02rem;overflow-wrap:anywhere}
@@ -77,6 +78,8 @@
     .pr-grille{display:grid;grid-template-columns:2fr 1fr;gap:1.2rem}
     @media (max-width:860px){.pr-grille{grid-template-columns:1fr}}
     /* ── Appli Genesolia Pro ── */
+    /* sous l'en-tête violet collant : les onglets s'arrêtent juste en dessous */
+    #pr-liste,#pr-nouv,#pr-cab,#pr-dos-t,#pr-cab-carte{scroll-margin-top:calc(84px + env(safe-area-inset-top,0px))}
     body.pro{background:#FFF9F7;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
     .pro-haut{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:.7rem;padding:calc(.7rem + env(safe-area-inset-top,0px)) 16px .7rem;background:#2E1338;color:#FFF4F6}
     .pro-haut img{width:34px;height:34px;border-radius:9px}
@@ -106,9 +109,9 @@
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/deux-etapes.js?v=1"></script>
-  <script src="assets/annuaire-fiche.js?v=1"></script>
+  <script src="assets/annuaire-fiche.js?v=2"></script>
   <script src="assets/praticien-outils.js?v=6"></script>
-  <script src="assets/praticien.js?v=2026-10-24v"></script>
+  <script src="assets/praticien.js?v=2026-10-24w"></script>
   <script>
   /* Barre du bas de l'appli Pro : aller aux dossiers, créer un dossier, mon activité */
   (function () {
@@ -125,9 +128,9 @@
       if (k === 'demo') { if (window.GenesoliaPro) { e.preventDefault(); window.GenesoliaPro.demo(); } return; }
       e.preventDefault();
       bas.querySelectorAll('a').forEach(function (x) { x.classList.toggle('actif', x === a); });
-      if (k === 'dossiers') aller('#pr-dos-t') || window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (k === 'dossiers') aller('#pr-liste') || window.scrollTo({ top: 0, behavior: 'smooth' });
       if (k === 'nouveau') { if (!aller('#pr-nouv', true)) aller('#pr-dos-t'); }
-      if (k === 'activite') aller('#pr-cab');
+      if (k === 'activite') { var cab = document.getElementById('pr-cab'); if (cab && cab.closest('section')) { cab.closest('section').id = cab.closest('section').id || 'pr-cab-carte'; aller('#' + cab.closest('section').id); } else aller('#pr-cab'); }
     });
   })();
   </script>

@@ -19,3 +19,7 @@ begin
     end if;
   end loop;
 end $$;
+
+-- Complément (migration « deux_etapes_complet ») : la même règle sur arbres_supp_versions, arbres_versions, arbres, parcours,
+-- annuaire_praticiens ; et carnet_lire, carnet_ecrire, parcours_lire, parcours_ecrire refusent une session non confirmée
+-- (raise exception 'deux etapes') pour un compte qui a activé la double étape.

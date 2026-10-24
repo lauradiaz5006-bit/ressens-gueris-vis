@@ -1128,7 +1128,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Discussion en direct (Crisp) : bulle en bas à droite. Pas dans l'appli installée ni sur ses écrans à onglets du bas (elle les cacherait),
      ni sur le lien de partage reçu par les client·es d'un·e praticien·ne, ni en mode séance. */
   (function () {
-    if (MODE || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;
+    if (MODE || drapeau === 'pro' || page === 'questionnaire.html' || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;   /* appli Pro : la bulle cachait l'onglet « Mon activité » */
     window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
     /* sur téléphone, la bulle n'arrive qu'après un défilement ou 15 secondes : elle ne cache plus le premier écran (« Dessiner mon arbre ») */
     var charge = false;
