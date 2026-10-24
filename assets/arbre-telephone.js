@@ -93,7 +93,7 @@
       racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Dossier client·e</span><h1>L’arbre de ton·ta client·e <em>commence ici</em></h1>' +
         '<p class="mt-aide">Ton·ta client·e, ses parents, ses grands-parents : quelques prénoms suffisent, une question à la fois.</p>' +
         '<div class="mt-portes"><button type="button" class="btn btn-plein mt-porte" data-q="commencer">Commencer l’arbre · 2 min</button></div>' +
-        '<p class="mt-discret"><a href="praticien.html">Revenir à mon cabinet</a> · <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
+        '<p class="mt-discret"><a href="praticien.html">Revenir à mon Espace praticien</a> · <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
       racine.querySelector('[data-q="commencer"]').addEventListener('click', function () { questionnaire.i = 0; afficherQuestion(); });
       return;
     }
@@ -121,7 +121,7 @@
       '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' +
       (q.cle !== 'toi' ? '<button type="button" class="btn btn-trait" data-q="passer">Je ne sais pas</button>' : '') +
       '<button type="submit" class="btn btn-plein">' + (questionnaire.i === liste.length - 1 ? (CLI() ? 'Voir l’arbre' : 'Voir mon arbre') : 'Suivant') + '</button></div></form>' +
-      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans ton cabinet.' : (G.connecte && G.connecte() ? 'Ton arbre se garde dans ton espace.' : 'Sans compte, ton arbre reste dans ce navigateur jusqu’à sa fermeture.')) + '</p>' : '') + '</div>';
+      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans ton Espace praticien.' : (G.connecte && G.connecte() ? 'Ton arbre se garde dans ton espace.' : 'Sans compte, ton arbre reste dans ce navigateur jusqu’à sa fermeture.')) + '</p>' : '') + '</div>';
     racine.innerHTML = h;
     var f = racine.querySelector('form'), sexe = r.sexe || '';
     racine.querySelectorAll('[data-sexe]').forEach(function (b) { b.addEventListener('click', function () { sexe = b.getAttribute('data-sexe'); racine.querySelectorAll('[data-sexe]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); }); });

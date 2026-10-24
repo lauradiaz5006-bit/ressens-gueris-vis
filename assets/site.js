@@ -216,7 +216,7 @@ window.GENESOLIA_STRIPE = {
   passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',       /* Le Pass 10 €/mois sans engagement */
   pass3Mois: 'https://buy.stripe.com/14AdR28rragp1DT8mz43S0k',      /* Le Pass 27 € les 3 mois, en une fois */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
-  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (cabinets ouverts jusqu'au 31 mars 2027) */
+  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (espaces ouverts jusqu'au 31 mars 2027) */
   praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, tarif fondateur 190 € l'année */
   praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
   carnet: 'https://buy.stripe.com/28E6oA7nn9cl82hauH43S0m',         /* un carnet du mois, 9 € */
