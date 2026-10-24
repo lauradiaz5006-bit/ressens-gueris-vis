@@ -1,0 +1,9 @@
+-- Appliqué le 24/10/2026 (migration « mails_parcours_et_rythme ») :
+-- 1. preparer_mails_fin_essai : tarif fondateur praticien à l'année = 190 € (et non 240 €)
+-- 2. trigger mails_temperer (avant insertion dans mails) :
+--    - « Bienvenue dans Le Cercle » ou « Bienvenue dans ton Espace praticien » annule les mails généraux du compte encore à venir (compte_j0, compte_j2)
+--    - compte_j0 / compte_j2 ne partent pas pour une membre du Cercle ni pour une praticienne
+--    - mails d'accompagnement (compte_j2, offert_suite, arbre_pause, avis, cercle_carnet) : au moins 24 h entre deux pour une même personne
+-- 3. trigger praticien_bienvenue (après insertion dans praticiens, formule essai) : mail de bienvenue tout de suite + alerte à Laura
+-- 4. trigger demandes_relance_arbre : relance « Ton arbre t'attend » 3 h après une commande d'arbre imprimé non payée (voir relance-arbre-imprime.sql)
+-- Le code complet est dans la base (Supabase > Database > Functions).
