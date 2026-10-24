@@ -52,7 +52,7 @@
     @media(max-width:960px){.nav-links{display:none}.nav-burger{display:flex}}
 
     /* SYNC BANNER */
-    .sync-banner{position:sticky;top:68px;z-index:61;background:rgba(107,47,91,.08);border-bottom:1px solid rgba(107,47,91,.18);padding:.55rem 1.3rem;display:none;align-items:center;justify-content:space-between;gap:1rem;}
+    .sync-banner{position:relative;z-index:61;background:rgba(107,47,91,.08);border-bottom:1px solid rgba(107,47,91,.18);padding:.55rem 1.3rem;display:none;align-items:center;justify-content:space-between;gap:1rem;}
     .sync-banner.show{display:flex;}
     .sync-banner p{font-size:.75rem;color:var(--terra-fonce);line-height:1.5;}
     .sync-banner a{font-size:.72rem;font-weight:600;color:var(--terra-fonce);border:1px solid rgba(107,47,91,.35);border-radius:100px;padding:.25rem .75rem;white-space:nowrap;transition:all .15s;}
@@ -410,7 +410,7 @@
       var { data } = await sb.from('arbres').select('data').eq('user_id', currentUser.id).single();
       if (data && data.data && data.data.parcours) {
         var p = data.data.parcours;
-        state.id = p.id || p.updatedAt || ''; state.theme = p.theme || ''; state.note = p.note || ''; state.emotion = p.emotion || ''; state.level = p.level || 5; state.checks = p.checks || [];
+        state.id = p.id || p.updatedAt || ''; state.theme = p.theme || ''; state.note = p.note || ''; state.emotion = p.emotion || ''; state.level = (p.level > 10 ? Math.max(1,Math.min(10,Math.round(p.level/10))) : (parseInt(p.level,10) || 5)); state.checks = p.checks || [];
         if (state.theme) { var btn = document.querySelector('.choice[data-theme="'+state.theme+'"]'); if (btn) { btn.classList.add('sel'); document.getElementById('btn-s1').disabled = false; } }
         if (state.note) document.getElementById('theme-note').value = state.note;
       }
@@ -486,8 +486,8 @@
     /* choices */
     document.querySelectorAll('.choice').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.choice').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.theme=btn.dataset.theme; document.getElementById('btn-s1').disabled=false; saveParcours(); }); });
     document.getElementById('theme-note').addEventListener('input',function(e){ state.note=e.target.value; saveParcours(); });
-    document.querySelectorAll('.pill').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.emotion=btn.dataset.emotion; state.level=parseInt(btn.dataset.level||'5',10); document.getElementById('range').value=Math.max(1,Math.min(10,Math.round(state.level/10))); document.getElementById('range-val').textContent=document.getElementById('range').value; document.getElementById('intensity').style.display='block'; document.getElementById('btn-s2').disabled=false; saveParcours(); }); });
-    document.getElementById('range').addEventListener('input',function(e){ state.level=e.target.value; document.getElementById('range-val').textContent=e.target.value; saveParcours(); });
+    document.querySelectorAll('.pill').forEach(function(btn){ btn.addEventListener('click',function(){ document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('sel');}); btn.classList.add('sel'); state.emotion=btn.dataset.emotion; state.level=Math.max(1,Math.min(10,Math.round(parseInt(btn.dataset.level||'50',10)/10))); document.getElementById('range').value=state.level; document.getElementById('range-val').textContent=document.getElementById('range').value; document.getElementById('intensity').style.display='block'; document.getElementById('btn-s2').disabled=false; saveParcours(); }); });
+    document.getElementById('range').addEventListener('input',function(e){ state.level=parseInt(e.target.value,10); document.getElementById('range-val').textContent=e.target.value; saveParcours(); });
 
     updateProgress();
     initAuth();
