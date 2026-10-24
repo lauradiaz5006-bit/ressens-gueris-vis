@@ -290,9 +290,9 @@ window.GENESOLIA_IMPRESSION = {
    Colle ici le lien Amazon de chaque livre dès qu'il est en ligne, et son prix. Tant que « amazon » est vide,
    les boutons affichent « Bientôt sur Amazon » partout sur le site (pages des livres, page Offrir, encarts des articles). */
 window.GENESOLIA_LIVRES = {
-  enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-de-ma-lignee-3d.webp',
+  enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-de-ma-lignee-3d.webp?v=4',
     amazon: '', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
-  racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-3d.webp',
+  racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-3d.webp?v=4',
     amazon: '', prix: '', extrait: '' }
 };
 /* <a data-livre-acheter="enquete"> devient « Acheter sur Amazon · prix » quand le lien existe, sinon « Bientôt sur Amazon » (sans lien) */
