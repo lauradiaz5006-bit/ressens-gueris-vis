@@ -97,7 +97,7 @@
       D.accord = !!(window.GenesoliaCoffre && window.GenesoliaCoffre.accord(D.user));
       var C = window.GenesoliaCoffre, GA = window.GenesoliaAcces || {};
       return Promise.all([
-        GA.pass ? GA.pass() : Promise.resolve(false),
+        GA.spirale ? GA.spirale() : GA.pass ? GA.pass() : Promise.resolve(false),
         sb.from('arbres').select('data').eq('user_id', D.user.id).maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; }, function () { return null; }),
         C && D.accord ? C.lire(sb, D.user, 'fil-d-or').then(function (x) { return x && x.etat ? x.etat : null; }, function () { return null; }) : Promise.resolve(null),
         window.GenesoliaReperes ? window.GenesoliaReperes.lire(sb, D.user) : Promise.resolve(null),
@@ -417,7 +417,7 @@
     /* sur ordinateur seulement : les liens vers le reste du site (sur téléphone, on reste dans l'appli) */
     h += '<div class="pa-bureau">';
     if (b) h += '<section class="pa-carte"><p class="pa-etiq">Ton ciel, en détail</p><div class="pa-outils"><a class="pa-bt clair" href="mon-mois.html">Mon mois</a><a class="pa-bt clair" href="theme-numerologique.html">Mes nombres</a><a class="pa-bt clair" href="theme-astral.html">Mon ciel de naissance</a></div></section>';
-    if (!D.cercle) h += '<section class="pa-carte pa-cercle-plus"><p class="pa-etiq">Ce que Le Cercle ajoute à ton Pass</p><ul class="pa-echos"><li>Un carnet chaque mois (Renaissance) et un livret pour déposer ce qui se rejoue (Libération)</li><li>Deux séances audio guidées par mois</li><li>La formation « Sors de la boucle », en 8 modules</li><li>Ton guide du mois et la question du mois</li></ul><a class="pa-bt clair" href="abonnement.html">Découvrir Le Cercle</a></section>';
+    if (!D.cercle) h += '<section class="pa-carte pa-cercle-plus"><p class="pa-etiq">Une autre offre : Le Cercle</p><p>Envie d’un parcours guidé, mois par mois ? Le Cercle est un programme accompagné, différent de Ma spirale :</p><ul class="pa-echos"><li>Un carnet chaque mois (Renaissance) et un livret pour déposer ce qui se rejoue (Libération)</li><li>Deux séances audio guidées par mois</li><li>La formation « Sors de la boucle », en 8 modules</li><li>Ton guide du mois et la question du mois</li></ul><a class="pa-bt clair" href="abonnement.html">Découvrir Le Cercle</a></section>';
     h += '<section class="pa-carte"><p class="pa-etiq">Mes livrets, compris dans ton Pass</p><div class="pa-outils">' + [['Mes nombres', 'theme-numerologique.html'], ['Mon thème astral', 'theme-astral.html'], ['L’arbre de vie', 'arbre-de-vie.html'], ['Le rapport de mon arbre', 'genosociogramme.html'], ['Les 12 saisons', 'assets/cercle/les-12-saisons-c4709f2dad.pdf'], ['Ma lignée en lumière', 'genosociogramme.html#lumiere']].map(function (x) { return '<a class="pa-bt clair" href="' + x[1] + '"' + (/\.pdf$/.test(x[1]) ? ' download' : '') + '>' + x[0] + '</a>'; }).join('') + '</div></section></div>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);

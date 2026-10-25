@@ -770,7 +770,7 @@
     function mesEspaces() {
       if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
       var pro = sb && user ? sb.from('praticiens').select('user_id').eq('user_id', user.id).then(function (x) { return !!(x && x.data && x.data.length); }, function () { return false; }) : Promise.resolve(false);
-      Promise.all([window.GenesoliaAcces.membre(), window.GenesoliaAcces.pass ? window.GenesoliaAcces.pass() : false, pro]).then(function (r) {
+      Promise.all([window.GenesoliaAcces.membre(), window.GenesoliaAcces.spirale ? window.GenesoliaAcces.spirale() : false, pro]).then(function (r) {
         var l = [];
         if (r[0]) l.push(['cercle.html', 'Le Cercle', 'Ton carnet, ton suivi, tes séances']);
         if (r[1]) l.push(['pass.html', 'Ma spirale', 'Tes ressentis, ton fil d’or, ton agenda, ton bilan']);
