@@ -763,10 +763,18 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       try { sessionStorage.setItem('annonce-cercle', 'fermee'); } catch (e) {}
     });
     entete.parentNode.insertBefore(bandeau, entete);
-    /* Déjà membre du Cercle : le bandeau ne sert à rien, on le retire */
+    /* Cliente connectée : à la place du Cercle, le bandeau de Noël (jusqu'au 6 janvier) ; après, membre du Cercle : plus de bandeau */
+    var NOEL_FIN = new Date('2027-01-06T23:59:59');
+    function bandeauNoel() {
+      bandeau.className = 'annonce annonce-cercle annonce-noel';
+      bandeau.querySelector('a').outerHTML = '<a href="offrir.html#noel"><span class="annonce-noel-etoile" aria-hidden="true">✦</span><span class="annonce-texte"><span class="annonce-pastille">Noël</span> Des cadeaux qui ont du sens : la carte cadeau du Cercle, les livres à remplir en famille. <span style="white-space:nowrap"><u>Voir les idées de Noël</u><svg class="annonce-chevron" viewBox="0 0 10 16" width="8" height="12" aria-hidden="true" style="display:inline-block;margin-left:.4em;vertical-align:-1px"><path d="M2 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></a>';
+    }
     setTimeout(function () {
-      var A = window.GenesoliaAcces;
-      if (A && A.membre && window.GenesoliaCompte && window.GenesoliaCompte.actif && window.GenesoliaCompte.actif()) A.membre().then(function (m) { if (m) bandeau.remove(); });
+      var A = window.GenesoliaAcces, C = window.GenesoliaCompte, connectee = !!(C && C.actif && C.actif());
+      if (!connectee) return;
+      if (new Date() < NOEL_FIN && page !== 'offrir.html') { bandeauNoel(); return; }
+      if (new Date() < NOEL_FIN) { bandeau.remove(); return; }   /* déjà sur la page des idées de Noël */
+      if (A && A.membre) A.membre().then(function (m) { if (m) bandeau.remove(); });
     }, 0);
   }
 
