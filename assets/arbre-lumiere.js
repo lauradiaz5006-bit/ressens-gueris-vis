@@ -128,7 +128,7 @@
     }
     parts.slice().reverse().forEach(function (it) { personnes += it.html; }); personnes += coeur;
 
-    var decor = o.decor || 'assets/arbre/lumiere-fond.jpg';
+    var decor = o.decor || (d.style === 'blanc_lumiere' ? 'assets/arbre/lumiere-blanc.jpg' : 'assets/arbre/lumiere-fond.jpg');   /* « Sur fond blanc » : le même décor, épuré (sans le feuillage), liseré doré */
     /* le titre : seulement s'il a été écrit (rien d'imposé) */
     var titre = (d.titre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 220 : 330)) + '" text-anchor="middle" class="lu-titre">' + esc(d.titre) + '</text>' : '') +
       (d.sousTitre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 155 : 260)) + '" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');

@@ -21,10 +21,10 @@
     ancetres: [['grand', 'Grand arbre'], ['figuier', 'Figuier'], ['dore', 'Arbre doré'], ['medaillons', 'Médaillons'], ['lignee', 'Lignée'], ['eventail', 'Éventail']],
     descendants: [['descendants', 'Lignée'], ['desc_medaillons', 'Médaillons'], ['desc_dore', 'Arbre doré'], ['desc_eventail', 'Éventail']],
     famille: [['famille', 'Lignée'], ['famille_medaillons', 'Médaillons'], ['famille_eventail', 'Éventail'], ['famille_lumiere', 'En lumière']],
-    lumiere: [['lumiere', 'Sphères de lumière']]
+    lumiere: [['lumiere', 'Sphères de lumière'], ['blanc_lumiere', 'Sur fond blanc']]
   };
   function lumiere(st) { return /lumiere$/.test(st || choix.style); }   /* « Ma lignée en lumière » : à télécharger (pas encore chez l'imprimeur) */
-  function typeDe(st) { st = st || choix.style; return st === 'lumiere' ? 'lumiere' : /^desc/.test(st) ? 'descendants' : /^famille/.test(st) ? 'famille' : 'ancetres'; }
+  function typeDe(st) { st = st || choix.style; return st === 'lumiere' || st === 'blanc_lumiere' ? 'lumiere' : /^desc/.test(st) ? 'descendants' : /^famille/.test(st) ? 'famille' : 'ancetres'; }
   function themeD(st) { st = st || choix.style; return st === 'desc_medaillons' ? 'medaillons' : st === 'desc_dore' ? 'dore' : ''; }
   function capDesc(t, e) { return choix.style === 'desc_eventail' && window.ArbreEventailDesc ? window.ArbreEventailDesc.capacite(t, e) : window.ArbreDescendants.capacite(t, e, themeD()); }
   function capMax() { return grandsFormats() ? CAP.g70 : grand() ? 5 : capA3; }
@@ -36,7 +36,7 @@
   function motif() { return /medaillons$/.test(choix.style) ? 'medaillons' : ''; }
   function remplis(p, g, max) { return !p || g >= max ? 0 : 1 + remplis(p.pere, g + 1, max) + remplis(p.mere, g + 1, max); }
   /* « avec mes enfants » : pour le Grand arbre et les styles à l'horizontale */
-  function avecEnfantsPossible() { return !desc() && !ev() && choix.style !== 'lumiere'; }   /* tous les modèles, sauf Descendants (où les enfants sont déjà l'arbre) */
+  function avecEnfantsPossible() { return !desc() && !ev() && choix.style !== 'lumiere' && choix.style !== 'blanc_lumiere'; }   /* tous les modèles, sauf Descendants (où les enfants sont déjà l'arbre) */
   /* Titres proposés, quel que soit le modèle : « La famille X », « Notre famille »… ; le champ reste libre */
   function majTitres() {
     var z = document.getElementById('fe-titres'), champ = document.getElementById('fe-titre'); if (!z || !champ || !donnees) return;
@@ -114,6 +114,7 @@
     famille_medaillons: 'Votre couple et vos deux lignées dans des médaillons dorés, vos enfants au pied.',
     famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.',
     famille_lumiere: 'Votre couple au-dessus de la Terre, un cœur de lumière entre vous, vos enfants dans la lumière de la Terre, et vos deux lignées qui s’élèvent vers le soleil, chacun dans sa sphère de lumière. Choisis le nombre de générations : juste vos parents, ou jusqu’aux plus anciens.',
+    blanc_lumiere: 'La même lignée en lumière, épurée : sur fond blanc, avec un fin liseré doré, le soleil, la colonne de lumière et une Terre tout en douceur.',
     lumiere: 'Une colonne de lumière entre la Terre et le soleil : toi au-dessus de la Terre, chaque personne de ta lignée dans sa sphère de lumière, à sa place (les défunts dans une sphère nacrée, avec un halo de protection). Une image qui protège et met ta lignée en lumière, à télécharger.'
   };
   /* la sorte d'arbre : une phrase sous chaque choix */
@@ -339,7 +340,7 @@
     opt = opt || {};
     var fig = donnees.style === 'figuier', pay = paysage(donnees.style), gr = donnees.style === 'grand', med = /medaillons$/.test(donnees.style) || (gr && ((donnees.enfants || []).length > 0 || !!donnees.conjoint));
     var doreD = donnees.style === 'desc_dore', lum = /lumiere$/.test(donnees.style);   /* l'arbre doré des descendants : à l'horizontale, sur le papier texturé */
-    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : lum ? enDataUrl(opt.hd ? 'assets/arbre/lumiere-fond.jpg' : 'assets/arbre/lumiere-fond-ecran.jpg') : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
+    return Promise.all([gr ? enDataUrl('assets/arbre/grand-arbre' + ((donnees.nbGen || 5) < 5 ? '-4' : '') + (opt.hd ? '.jpg' : '-ecran.jpg')) : doreD ? enDataUrl(opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg') : lum ? enDataUrl(donnees.style === 'blanc_lumiere' ? (opt.hd ? 'assets/arbre/lumiere-blanc.jpg' : 'assets/arbre/lumiere-blanc-ecran.jpg') : (opt.hd ? 'assets/arbre/lumiere-fond.jpg' : 'assets/arbre/lumiere-fond-ecran.jpg')) : pay ? '' : enDataUrl(fig ? (opt.hd ? 'assets/arbre/figuier.jpg' : 'assets/arbre/figuier-ecran.jpg') : (opt.hd ? 'assets/arbre/papier-dore-hd.jpg' : 'assets/arbre/papier-dore.jpg')), enDataUrl('assets/polices/gilda-display-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-400-normal.woff2'), enDataUrl('assets/polices/nunito-sans-latin-600-normal.woff2'),
       med ? enDataUrl('assets/arbre/medaillon-or.png') : '', med ? enDataUrl('assets/arbre/racine-or.png') : ''])
       .then(function (d) {
         var polices = '@font-face{font-family:"Gilda Display";src:url(' + d[1] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:400;src:url(' + d[2] + ') format("woff2")}@font-face{font-family:"Nunito Sans";font-weight:600 800;src:url(' + d[3] + ') format("woff2")}';
