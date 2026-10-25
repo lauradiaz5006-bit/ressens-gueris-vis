@@ -22,5 +22,20 @@
       else dire(p, d.url);
     }
   });
+  /* « Être prévenue à l'ouverture » : l'adresse rejoint les demandes (Supabase), aucun e-mail ne part tout seul */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-prevenir-spirale]'); if (!b) return;
+    var z = b.closest('[data-prevenir-zone]'), f = z && z.querySelector('form'); if (!f) return;
+    b.hidden = true; f.hidden = false; var i = f.querySelector('input'); if (i) i.focus();
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target.closest('[data-prevenir-zone] form'); if (!f) return;
+    e.preventDefault();
+    var z = f.closest('[data-prevenir-zone]'), m = z.querySelector('.ms-prev-msg, .pa-prev-msg'), i = f.querySelector('input'), v = String(i.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.textContent = 'Vérifie ton adresse e-mail.'; i.focus(); return; }
+    var bt = f.querySelector('button'); bt.disabled = true;
+    var env = window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Ma spirale : prévenir à l’ouverture', { email: v, offre: 'Le Pass · Ma spirale' }) : Promise.reject();
+    env.then(function () { f.hidden = true; m.textContent = 'C’est noté : tu seras prévenue à l’ouverture, le 1er novembre.'; }, function () { bt.disabled = false; m.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+  });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', etat); else etat();
 })();
