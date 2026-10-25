@@ -439,12 +439,13 @@
     var payant = window.GenesoliaAcces && window.GenesoliaAcces.payant('arbreEncadrer'), P = window.GenesoliaAcces ? window.GenesoliaAcces.produit('arbreEncadrer') : null;
     function etape(n, t) { return '<p class="fe-etape-t"><span>' + n + '</span>' + t + '</p>'; }
     corps.innerHTML = '<div class="fe-grille"><div class="fe-gauche"><div class="fe-vues" id="fe-vues" role="tablist"><button type="button" role="tab" data-vue="affiche" aria-selected="true">Le poster</button><button type="button" role="tab" data-vue="scene" aria-selected="false">Mis en scène</button></div><div class="fe-apercu-z"><div class="fe-apercu" id="fe-apercu" title="Cliquer pour agrandir"><p class="rap-texte">Un instant…</p></div><button type="button" class="fe-loupe" id="fe-loupe" aria-label="Agrandir l’aperçu"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Agrandir</button></div><p class="fe-legende" id="fe-legende"></p><p class="fe-coupes" id="fe-coupes" hidden></p></div><div class="fe-reglages">' +
+      '<p class="fe-suite">Personnalise ton poster juste en dessous : pour qui, le style, le nombre de générations, le titre et le format.</p>' +
       (SA ? '<div class="fe-saison"><span class="fe-saison-t">' + esc(SA.badge) + '</span> ' + esc(SA.texte) + (choix.style !== SA.style ? ' <button type="button" class="fe-saison-bt" data-saison="' + SA.style + '">Voir ce modèle</button>' : '') + '</div>' : '') +
       '<div class="fe-etape">' + etape(1, 'Pour qui ?') + '<label class="fe-champ"><span class="fe-cache">La personne</span><select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === choix.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label></div>' +
       '<div class="fe-etape">' + etape(2, 'Quel arbre ?') + '<div class="fe-types" id="fe-types" role="radiogroup" aria-label="Quel arbre"></div></div>' +
       '<div class="fe-etape">' + etape(3, 'Le style') + '<div class="fe-styles" id="fe-styles" role="radiogroup" aria-label="Le style"></div><p class="fe-aide fe-style-aide" id="fe-style-aide"></p></div>' +
-      '<div class="fe-etape">' + etape(4, 'Les détails') +
-      '<label class="fe-champ">Générations<select id="fe-gens"></select></label><p class="fe-aide" id="fe-gens-aide"></p>' +
+      '<div class="fe-etape">' + etape(4, 'Combien de générations ?') + '<div class="fe-gens" id="fe-gens" role="radiogroup" aria-label="Nombre de générations"></div><p class="fe-aide" id="fe-gens-aide"></p></div>' +
+      '<div class="fe-etape">' + etape(5, 'Les détails') +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
       '<label class="fe-case" id="fe-conjoint-l" hidden><input type="checkbox" id="fe-conjoint"' + (choix.conjoint ? ' checked' : '') + '> <span id="fe-conjoint-t">Avec mon conjoint</span></label><p class="fe-aide" id="fe-conjoint-aide" hidden></p>' +
       '<p class="fe-aide" id="fe-demis-aide" hidden>Ce style montre ta lignée directe. Pour voir aussi tes demi-frères et demi-sœurs, avec leur autre parent à côté du tien, choisis le style Lignée ou Médaillons.</p>' +
@@ -453,7 +454,7 @@
       '<label class="fe-champ">Titre<input type="text" id="fe-titre" maxlength="40" value="' + esc(donnees.titre) + '"></label>' +
       '<div class="fe-titres" id="fe-titres" aria-label="Titres proposés"></div>' +
       '<label class="fe-champ">Sous-titre<input type="text" id="fe-sous" maxlength="60" value="' + esc(donnees.sousTitre) + '"></label></div>' +
-      '<div class="fe-etape">' + etape(5, '<b id="fe-etape5" style="font-weight:inherit">Ton poster</b>') + blocImpression() + '<p class="fe-aide fe-lum-note" id="fe-lum-note" hidden>Ta lignée en lumière se télécharge pour l’instant : en image haute définition ou en PDF, juste en dessous, à imprimer où tu veux ou à garder près de toi.</p></div>' +
+      '<div class="fe-etape">' + etape(6, '<b id="fe-etape5" style="font-weight:inherit">Ton poster</b>') + blocImpression() + '<p class="fe-aide fe-lum-note" id="fe-lum-note" hidden>Ta lignée en lumière se télécharge pour l’instant : en image haute définition ou en PDF, juste en dessous, à imprimer où tu veux ou à garder près de toi.</p></div>' +
       '<p class="fe-sous-t">Ou le télécharger pour l’imprimer toi-même</p>' +
       '<p class="fe-aide">Image haute définition, prête à imprimer.</p>' +
       '<button class="bt plein rap-gros" type="button" id="fe-png" data-compte="ton arbre en poster" data-produit="arbreEncadrer">Télécharger l’image HD</button>' +
@@ -461,11 +462,13 @@
       '<a class="fe-vierge" href="assets/modeles/arbre-vierge-5-generations-genesolia.pdf" download data-compte="ton arbre vierge à remplir"><img src="assets/modeles/arbre-vierge-apercu.webp" width="120" height="85" alt="" loading="lazy"><span><b>La version vierge, à remplir à la main</b><span>Le même arbre doré, 31 médaillons vides sur 5 générations. PDF gratuit, A4 paysage.</span><u>Télécharger le modèle vierge</u></span></a>' +
       (payant && P ? '<p class="fe-aide">' + esc(P.prix) + ', ou compris dans Le Cercle.</p>' : '') +
       '<p class="fe-aide" id="fe-statut" aria-live="polite"></p></div></div>';
+    if (donnees) choix.nbGen = donnees.nbGen;   /* fixé dès l'ouverture : changer de format ne change plus le nombre de générations */
     majTypes(); majStyles(); majGens(); majEnfants(); dessiner(); vignettes();
     var t; ['fe-titre', 'fe-sous'].forEach(function (id) { document.getElementById(id).addEventListener('input', function () { if (id === 'fe-sous') choix.sousModifie = true; else choix.titreModifie = true; clearTimeout(t); t = setTimeout(dessiner, 250); }); });
     /* après un changement de personne, d'arbre ou de style : tout suit (générations, titre, cases, aperçu) */
     function appliquer() {
-      choix.nbGen = 0; recalculer();
+      var garder = choix.gensManuel ? choix.nbGen : 0;
+      choix.nbGen = garder; recalculer(); if (donnees) choix.nbGen = donnees.nbGen;   /* le nombre de générations reste celui qu'elle a choisi ; il ne change plus avec le format */
       if (!choix.titreModifie && donnees) document.getElementById('fe-titre').value = donnees.titre;
       var ti = document.getElementById('fe-titre'), so = document.getElementById('fe-sous'); if (ti) ti.placeholder = lumiere() ? 'Ton titre, si tu veux (facultatif)' : ''; if (so) { so.placeholder = lumiere() ? 'Facultatif' : ''; if (lumiere() && !choix.sousModifie) so.value = ''; }
       if (!choix.sousModifie && donnees) document.getElementById('fe-sous').value = donnees.sousTitre;
@@ -479,7 +482,7 @@
       choix.style = st; choix.choisi = true; appliquer(); majTypes(); majStyles(); vignettes();
     }
     document.getElementById('fe-depart').addEventListener('change', function (e) {
-      choix.depart = e.target.value; choix.nbGen = 0;
+      choix.depart = e.target.value;
       var ok = typesPour(choix.depart), ici = ok.filter(function (x) { return x.id === typeDe(); })[0];
       if (!ici || !ici.ok) { var autre = ok.filter(function (x) { return x.ok; })[0]; if (autre) { choisirType(autre.id); return; } }
       appliquer(); majTypes(); majStyles(); vignettes();
@@ -487,9 +490,9 @@
     document.getElementById('fe-types').addEventListener('change', function (e) { if (e.target.name === 'fe-type') choisirType(e.target.value); });
     document.getElementById('fe-styles').addEventListener('change', function (e) { if (e.target.name === 'fe-style') choisirStyle(e.target.value); });
     document.getElementById('fe-conjoint').addEventListener('change', function (e) { choix.conjoint = e.target.checked; recalculer(); dessiner(); });
-    document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; if (lig() && !grand()) choix.nbGen = 0; recalculer(); majGens(); dessiner(); });
+    document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
-    document.getElementById('fe-gens').addEventListener('change', function (e) { choix.nbGen = +e.target.value; recalculer(); majGens(); dessiner(); });
+    document.getElementById('fe-gens').addEventListener('change', function (e) { if (e.target.name !== 'fe-gen') return; choix.nbGen = +e.target.value; choix.gensManuel = true; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-titres').addEventListener('click', function (e) {
       var b = e.target.closest('[data-titre]'); if (!b) return;
       document.getElementById('fe-titre').value = b.getAttribute('data-titre'); choix.titreModifie = true; majTitres(); dessiner();
@@ -726,7 +729,7 @@
     /* le Grand arbre n'existe qu'en 4 ou 5 générations ; il demande au moins les arrière-grands-parents */
     var gR = document.querySelector('input[name=fe-style][value=grand]'), dG = (lignee(choix.depart, 5) || { nb: 0 }).nb;
     if (gR) { gR.disabled = dG < 4; gR.closest('label').title = dG < 4 ? 'Le Grand arbre demande au moins 4 générations (jusqu’à tes arrière-grands-parents).' : ''; }
-    for (var n = grand() ? 4 : 2; n <= maxN; n++) opts.push('<option value="' + n + '"' + (n === donnees.nbGen ? ' selected' : '') + '>' + (GEN[n + plus - 1] || (n + plus) + ' générations') + (grand() ? '' : { a4: '', a3: n > 5 || lig() ? ' (A3 ou plus)' : ' (A3 seulement)', g50: ' (50 × 70 cm ou plus)', g70: ' (70 × 100 cm)' }[classeMin(n)]) + '</option>');
+    for (var n = grand() ? 4 : 2; n <= maxN; n++) opts.push('<label class="fe-gen-c"><input type="radio" name="fe-gen" value="' + n + '"' + (n === donnees.nbGen ? ' checked' : '') + '><span><b>' + (n + plus) + '</b> génération' + (n + plus > 1 ? 's' : '') + '<small>' + (grand() ? 'en A3' : { a4: 'dès l’A4', a3: n > 5 || lig() ? 'dès l’A3' : 'en A3', g50: 'dès 50 × 70 cm', g70: 'en 70 × 100 cm' }[classeMin(n)]) + '</small></span></label>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
     var vides = grand() ? Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen) : 0;   /* le dessin a exactement les rangées choisies */
