@@ -64,6 +64,9 @@
     .pa-puces{display:flex;flex-wrap:wrap;gap:.4rem}
     .pa-puces button{min-height:40px;padding:.4rem .85rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--prune);font:600 .88rem/1.2 var(--texte);cursor:pointer}
     .pa-puces button[aria-pressed="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
+    .pa-puce-l{display:inline-flex;align-items:center;min-height:40px;padding:.4rem .85rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--prune);font:600 .88rem/1.2 var(--texte);text-decoration:none}
+    .pa-puce-l[aria-pressed="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
+    .pa-pour{margin:0 0 .9rem}
     .pa-coche{display:flex!important;gap:.55rem;align-items:flex-start;font-weight:600;margin:1rem 0 .4rem}
     .pa-coche input{width:20px;height:20px;margin-top:.1rem;accent-color:#B0507A;flex:none}
     /* Les fils (ressentis) */
@@ -358,6 +361,35 @@
     body.pa-fige{position:fixed;left:0;right:0;width:100%;overflow:hidden}
     .pa-2col>div{min-width:0}
     body.pa-app #crisp-chatbox,body.pa-app .crisp-client{display:none!important}
+    /* Le pied de chaque fenêtre : Enregistrer, toujours visible */
+    .pa-f-pied{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .7rem;padding:.65rem 1.1rem calc(.65rem + env(safe-area-inset-bottom,0px));border-top:1px solid #EFDCE3;background:#FFF9F4;border-radius:0 0 26px 26px}
+    .pa-f-pied .pa-bt{margin:0;min-height:44px;padding:.5rem 1rem}
+    .pa-f-bts{display:flex;gap:.5rem;margin-left:auto}
+    .pa-f-msg{flex:1 1 9rem;margin:0;font-size:.84rem;line-height:1.35;color:#7E5C77}
+    .pa-f-msg.ok{color:#6B2F5B;font-weight:700}
+    .pa-f-msg button{margin-top:.3rem}
+    .pa-f-corps{padding-bottom:1.2rem}
+    .pa-conf{font-size:.8rem;color:#7E5C77;margin:-.2rem 0 .8rem}
+    .pa-nom-aide{font-size:.8rem;color:#7E5C77;margin:.15rem 0 .6rem}
+    /* Les onglets de la fiche : un fondu à droite pour montrer qu'on peut glisser */
+    @media (max-width:999px){.pa-onglets-s{-webkit-mask-image:linear-gradient(90deg,#000 82%,transparent);mask-image:linear-gradient(90deg,#000 82%,transparent);padding-right:2.4rem}}
+    /* Sur téléphone : le grand pied de page du site devient une ligne */
+    .pa-pied-m{display:none}
+    @media (max-width:999px){body.pa-app [data-pied]{display:none}.pa-pied-m{display:block;margin:0;padding:1rem 1rem 1.4rem;text-align:center;font-size:.78rem;line-height:1.5;color:#7E5C77}.pa-pied-m a{color:inherit}}
+    /* Toute ma vie, en plein écran */
+    .pa-plein{position:fixed;inset:0;z-index:170;background:#FFF9F4;display:flex;flex-direction:column}
+    .pa-plein-t{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 1rem .5rem 1.2rem;border-bottom:1px solid #EFDCE3}
+    .pa-plein-t h2{font:400 1.4rem/1.2 var(--display);color:#3B1747;margin:0}
+    .pa-plein-c{flex:1;overflow:auto;padding:1rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom,0px))}
+    .pa-plein .pa-fr-defil{max-width:none}
+    /* Le protocole qui aide à trouver l'âge */
+    .pa-venu{border-color:#E2C48E;background:#FFFBF2}
+    .pa-securite{background:#FFF6E3;border:1px solid #E2C48E;border-radius:16px;padding:.8rem 1rem;margin:.8rem 0;line-height:1.5}
+    .pa-monte-l{display:inline-block;margin:.4rem 0;font-weight:700;color:#9A3A68}
+    .pa-image{font-size:.88rem;color:#7E5C77;font-style:italic;margin:.2rem 0 .8rem}
+    .pa-inconnu{display:inline-flex;margin:.45rem 0 .2rem}
+    .pa-note-ok{display:flex;align-items:center;gap:.8rem;margin-top:.6rem}.pa-note-ok .pa-bt{margin:0}.pa-note-ok span{font-weight:700;color:#6B2F5B}
+    .pa-spi{border-color:#E2C48E}
     @media (min-width:760px){#pass{padding-top:1rem}}
     @media (max-width:380px){.pa-deux,.pa-cycles{grid-template-columns:1fr}}
     /* Ordinateur : un espace, la barre à gauche, deux colonnes */
@@ -406,15 +438,16 @@
     <a href="#actions" data-onglet="actions"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.8l5-.7z"/></svg>Mes actions</a>
     <div class="pa-espaces"><p>Mes espaces</p><div id="pa-espaces"></div></div>
   </nav>
-  <datalist id="pa-persos"><option value="la Victime"><option value="le Sauveur·se"><option value="le Persécuteur·rice"><option value="la Peur"><option value="la Petite fille"><option value="la Gardienne"><option value="le Soldat"><option value="l’Invisible"><option value="la Délaissée"></datalist>
+  <datalist id="pa-persos"></datalist>
   <main id="pass"><div id="pa-vue"><p class="pa-chargement">Ton enquête s’ouvre…</p></div></main>
   </div>
+  <p class="pa-pied-m">Genesolia · une lecture symbolique, pas un avis médical · <a href="confidentialite.html">Confidentialité</a></p>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=9"></script>
-  <script src="assets/pass.js?v=10"></script>
+  <script src="assets/pass-enquete.js?v=10"></script>
+  <script src="assets/pass.js?v=11"></script>
 </body>
 </html>
