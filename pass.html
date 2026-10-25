@@ -419,6 +419,10 @@
     .pa-bulle.sel{outline:3px solid #F2D9A0;outline-offset:2px}
     .pa-bulle.prise{cursor:grabbing;z-index:3;box-shadow:0 12px 28px rgba(0,0,0,.45)}
     .pa-titre-sc{margin-top:.4rem}
+    /* Installée sur l'écran d'accueil : pas d'en-tête du site, l'appli commence en haut de l'écran */
+    html.pa-autonome [data-entete]{display:none!important}
+    html.pa-autonome .pa-cadre{padding-top:env(safe-area-inset-top,0px)}
+    .pa-code{margin:1.2rem auto 0;max-width:22rem;text-align:left}.pa-code label{display:block;font-weight:600;margin-bottom:.35rem}.pa-code div{display:flex;gap:.4rem}.pa-code input{flex:1;min-height:46px;padding:.5rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit}.pa-code .pa-bt{margin:0}
     .pa-barre a.pa-ferme{opacity:.45;cursor:not-allowed;position:relative}
     .pa-barre a.pa-ferme em{font-style:normal;font-size:.55rem;line-height:1;padding:.12rem .3rem;border-radius:99px;background:#F2D9A0;color:#3B1747;position:absolute;top:.1rem;right:.15rem}
     @media (min-width:1000px){.pa-barre a.pa-ferme em{position:static;margin-left:auto;font-size:.7rem}}
@@ -520,12 +524,12 @@
   </div>
   <p class="pa-pied-m">Genesolia · une lecture symbolique, pas un avis médical · <a href="confidentialite.html">Confidentialité</a></p>
   <footer data-pied></footer>
-  <script src="assets/site.js"></script>
+  <script src="assets/site.js?v=spirale1"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=23"></script>
+  <script src="assets/pass.js?v=24"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>

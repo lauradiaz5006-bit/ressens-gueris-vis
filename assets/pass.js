@@ -27,6 +27,9 @@
   /* pas encore connectée : le lien est retenu sur cet appareil le temps de la connexion (login.html ne garde que « pass.html ») */
   try { if (LIEN_TEST) localStorage.setItem('genesolia-spirale-test', '1'); else if (localStorage.getItem('genesolia-spirale-test') === '1') LIEN_TEST = true; } catch (e) {}
   var vue = document.getElementById('pa-vue');
+  /* Installée sur l'écran d'accueil : Ma spirale seule, sans l'en-tête du site */
+  var AUTONOME = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if (AUTONOME) document.documentElement.classList.add('pa-autonome');
   var D = { user: null, acces: false, arbre: null, fil: null, naissance: null, prenoms: '', nom: '', prenom: '', etat: null, accord: false, cercle: false, pro: false };
   var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   var JS = ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
@@ -399,7 +402,14 @@
       '<ul><li>Moi : déposer un ressenti ou un rêve, ta note du jour, tes schémas en cours</li><li>Mon fil d’or : ta frise de vie et celle de ta lignée</li><li>Mon agenda : les dates de ta lignée, les lunes, tes libérations et tes gestes</li><li>Mon bilan : ta lignée en sphères de lumière, et tes schémas devenus spirale</li><li>Mes actions : tous les protocoles, prêts à suivre</li></ul>' +
       '<p><b>Le Pass</b> · 10 € par mois, sans engagement, ou 27 € les 3 mois.</p>' +
       '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#bientot">S’abonner · bientôt disponible</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">' + (LIEN_TEST ? 'Me connecter pour tester Ma spirale' : 'Me connecter') + '</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
-      '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div></section>');
+      '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div>' +
+      (u ? '<form class="pa-code" id="pa-code" novalidate><label for="pa-code-t">Tu as un code test ?</label><div><input id="pa-code-t" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ton code"><button type="submit" class="pa-bt">Ouvrir</button></div><p class="pa-erreur" role="alert"></p></form>' : '') + '</section>');
+    var fc = document.getElementById('pa-code');
+    if (fc) fc.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (fc.querySelector('#pa-code-t').value.trim().toLowerCase() !== CODE_TEST) { fc.querySelector('.pa-erreur').textContent = 'Ce code ne fonctionne pas.'; return; }
+      sb.auth.updateUser({ data: { spirale_test: new Date().toISOString() } }).then(function (r) { if (r && r.error) { fc.querySelector('.pa-erreur').textContent = 'Réessaie dans un instant.'; return; } location.reload(); });
+    });
   }
 
   /* ── 1. Moi ── */
