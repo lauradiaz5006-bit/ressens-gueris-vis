@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>M’abonner au Cercle · Genesolia</title>
+  <meta name="description" content="Abonne-toi au Cercle directement : offre de Noël à 24,90 € par mois au lieu de 29 €, sans engagement, ou 249 € l’année.">
+  <link rel="canonical" href="https://genesolia.fr/s-abonner.html">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
+  <style>
+    .sa{padding:2.6rem 0 3.5rem}
+    .sa-boite{max-width:40rem;margin:0 auto;text-align:center;padding:2.2rem 1.6rem;border-radius:var(--rayon);background:radial-gradient(120% 90% at 85% 0%,#8C3F74,rgba(140,63,116,0) 60%),linear-gradient(150deg,#5A2350,#3A1535);color:#F6E7C8;box-shadow:0 24px 50px rgba(58,21,53,.25),inset 0 0 0 1px rgba(233,201,138,.45)}
+    .sa-boite h1{color:#FFF3DC;font-size:clamp(2rem,5vw,2.8rem);margin:.8rem 0 .5rem}
+    .sa-boite p{margin:0 auto .8rem;color:#EBD5E2}
+    .sa-boite b{color:#FFF3DC}
+    .sa-choix{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:1.3rem 0}
+    .sa-choix .btn{flex-direction:column;align-items:center;gap:.15rem;min-width:15rem;padding:.9rem 1.4rem;line-height:1.2}
+    .sa-choix .btn span{font-size:1.15rem;font-weight:700}.sa-choix .btn s{opacity:.6;font-weight:400;margin-right:.3rem}
+    .sa-choix .btn small{font-size:.8rem;font-weight:400;opacity:.85}
+    .sa-choix .btn-plein{background:linear-gradient(90deg,#F3DCA5,#D4A24C,#F3DCA5);color:#3A1535;border-color:transparent}
+    .sa-choix .btn-trait{color:#FFF3DC;border-color:rgba(243,220,165,.7);background:transparent}
+    .sa-note{font-size:.86rem}.sa-note a,.sa-boite a.lien{color:#F6D9A2}
+    .sa-liste{list-style:none;padding:0;margin:1rem auto;max-width:28rem;text-align:left;display:grid;gap:.45rem}
+    .sa-liste li{padding-left:1.4rem;position:relative}.sa-liste li::before{content:"✦";position:absolute;left:0;color:#F3D08F}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="sa"><div class="conteneur">
+    <div class="sa-boite">
+      <span class="promo-noel">✦ Offre de Noël</span>
+      <h1>Rejoindre Le Cercle</h1>
+      <p>Ton parcours guidé en 12 étapes, une étape chaque mois, pour sortir de ce qui se répète.</p>
+      <ul class="sa-liste">
+        <li>Ton carnet Renaissance et ton livret Libération</li>
+        <li>2 séances audio guidées à chaque étape</li>
+        <li>La formation « Sors de la boucle », 8 modules</li>
+        <li>Ton appli Le Cercle et ta question du mois</li>
+      </ul>
+      <div id="sa-zone"><p>Un instant…</p></div>
+      <p class="sa-note">Paiement sécurisé par Stripe. Sans engagement au mois : tu arrêtes quand tu veux, depuis ton espace. L’offre de Noël est réservée aux 100 premières, et ce prix te reste tant que tu restes.</p>
+      <p class="sa-note">Pour offrir Le Cercle : <a href="offrir.html#carte-cadeau">la carte cadeau 3 ou 6 mois</a>.</p>
+    </div>
+  </div></main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script>
+  /* Page d'abonnement direct (lien des mails de fin d'essai) : jamais l'essai, seulement le paiement.
+     Pas connectée : connexion ou compte gratuit, puis retour ici. Connectée : boutons de paiement Stripe (data-payer, avec son compte). */
+  (function () {
+    var z = document.getElementById('sa-zone'), URL_SB = 'https://qsvzzkjtjsznfntahvvh.supabase.co', CLE = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var sb = null; try { sb = window.supabase.createClient(URL_SB, CLE); } catch (e) {}
+    var S = window.GENESOLIA_STRIPE || {};
+    function boutons(places, essai) {
+      var noel = places > 0 && S.cercleFondatrice;
+      z.innerHTML = (essai ? '<p>' + essai + '</p>' : '') + '<div class="sa-choix">' +
+        (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>29 €</s> 24,90 € par mois</span><small>Offre de Noël, sans engagement</small></a>'
+              : '<a class="btn btn-plein" href="#" data-payer="cercleMois"><span>29 € par mois</span><small>sans engagement</small></a>') +
+        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>en une fois, environ 20,75 € par mois</small></a></div>';
+    }
+    function places() {
+      return fetch(URL_SB + '/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: CLE, 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.ok ? r.json() : 1; }).catch(function () { return 1; });
+    }
+    (sb ? sb.auth.getSession() : Promise.resolve({ data: {} })).then(function (s) {
+      var user = s && s.data && s.data.session && s.data.session.user;
+      if (!user) {
+        z.innerHTML = '<p><b>D’abord, ton espace Genesolia.</b> Connecte-toi, ou crée ton compte gratuit : tu reviens ici juste après pour t’abonner, et ton accès s’ouvre dès le paiement.</p>' +
+          '<div class="sa-choix"><a class="btn btn-plein" href="login.html?retour=s-abonner.html"><span>Me connecter</span><small>j’ai déjà un compte</small></a>' +
+          '<a class="btn btn-trait" href="login.html?inscription&retour=s-abonner.html"><span>Créer mon compte</span><small>gratuit, une minute</small></a></div>';
+        return;
+      }
+      Promise.all([sb.from('acces_premium').select('offre,valide_jusqu,note').eq('user_id', user.id).maybeSingle(), places()]).then(function (r) {
+        var a = r[0] && r[0].data, n = Number(r[1]), valide = a && new Date(a.valide_jusqu) > new Date();
+        if (valide && /^Stripe/.test(a.note || '')) { z.innerHTML = '<p><b>Ton abonnement au Cercle est actif.</b></p><div class="sa-choix"><a class="btn btn-plein" href="cercle.html"><span>Ouvrir mon Cercle</span></a></div>'; return; }
+        var essai = valide && /essai/i.test(a.note || '') ? 'Ton mois offert court jusqu’au <b>' + new Date(a.valide_jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '</b> : abonne-toi maintenant, ton accès continue sans coupure.' : '';
+        boutons(isNaN(n) ? 1 : n, essai);
+      }, function () { boutons(1, ''); });
+    });
+  })();
+  </script>
+</body>
+</html>
