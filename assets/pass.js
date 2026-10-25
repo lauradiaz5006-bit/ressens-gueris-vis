@@ -502,29 +502,51 @@
     vueMoi();
   }
 
-  /* ── Déposer un ressenti ── */
+  /* ── Les aides « Je ne sais pas » : des relances au lieu d'une case vide ── */
+  function aide(h, titre) { return '<details class="pa-aide"><summary>' + esc(titre || 'Je ne sais pas') + '</summary><div class="pa-aide-c">' + h + '</div></details>'; }
+  function debuts(l, cible) { return '<div class="pa-debuts">' + l.map(function (t) { return '<button type="button" data-debut="' + esc(t) + '" data-cible="' + cible + '">' + esc(t) + '</button>'; }).join('') + '</div>'; }
+  var AIDE_EM = '<p>Commence par où tu le sens :</p><ul class="pa-echos"><li>Serré dans la gorge : souvent une tristesse, ou des mots retenus.</li><li>Noué dans le ventre : souvent une peur.</li><li>Chaud dans la poitrine, les mâchoires, les poings : souvent une colère.</li><li>Le visage qui chauffe, l’envie de disparaître : souvent une honte.</li><li>Lourd sur les épaules : souvent une fatigue, ou trop de choses portées.</li><li>Vide, froid : souvent une solitude.</li></ul><p class="pa-discret">Tu peux aussi écrire juste « mal » ou « pas bien » : c’est déjà un début.</p>';
+  function aideCorps() { return '<p>Un scan de 20 secondes : ferme les yeux, descends de la tête aux pieds. Où c’est différent ?</p><button type="button" class="pa-bt clair" data-scan>Faire le scan avec moi</button><p class="pa-scan" aria-live="polite"></p><p class="pa-discret">« Je ne sens rien » est une vraie réponse : beaucoup de gens sont coupés de leur corps. Ça revient avec le temps.</p>'; }
+  var scanM = null;
+  function scan(b) {
+    var z = b.parentNode.querySelector('.pa-scan'), l = ['Ferme les yeux, respire.', 'Ta tête, ton visage…', 'Ta gorge, ta nuque…', 'Tes épaules, ta poitrine…', 'Ton ventre…', 'Ton dos…', 'Tes jambes, tes pieds…', 'Où c’était différent ? Touche-le dans la liste.'];
+    clearTimeout(scanM); b.disabled = true;
+    (function pas(k) { if (!document.body.contains(z)) return; z.textContent = l[k]; if (k < l.length - 1) scanM = setTimeout(function () { pas(k + 1); }, 2700); else b.disabled = false; })(0);
+  }
+  document.addEventListener('click', function (e) {
+    var d = e.target.closest('[data-debut]');
+    if (d) { var c = document.querySelector(d.getAttribute('data-cible')); if (c) { c.value = c.value.trim() ? c.value.trim() + ' ' + d.getAttribute('data-debut') : d.getAttribute('data-debut'); c.focus(); c.dispatchEvent(new Event('input', { bubbles: true })); } return; }
+    var sb2 = e.target.closest('[data-scan]'); if (sb2) scan(sb2);
+  });
+  function pucesBl(nom, choisis, multi) { var P = PF.BLESSURES_P || {}; return puces(nom, (PF.BLESSURES || []).map(function (b) { return [b[0], (P[b[0]] ? '« ' + P[b[0]] + ' » · ' : '') + b[1].toLowerCase()]; }), choisis, multi); }
+  function blocMonte() { var M = (PF.ACTIONS || []).filter(function (x) { return x.id === 'monte'; })[0] || { etapes: [] }; return '<div class="pa-fort"><p><b>C’est fort.</b> Avant tout, reviens ici et maintenant.</p>' + sphereResp() + '<ol>' + M.etapes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p>On remplit le reste plus tard : dépose juste ces quelques mots, ta fiche se complétera les jours suivants.</p>' + (M.securite ? '<p class="pa-discret">' + esc(M.securite) + '</p>' : '') + '</div>'; }
+
+  /* ── Déposer un ressenti : un mode rapide en 3 questions, le reste plus tard ── */
   function ouvrirDepot(schemaId) {
-    var z = feuille('<p class="pa-etiq">Je dépose un ressenti</p><h2>Qu’est-ce qui se passe ?</h2><p class="pa-souffle">' + esc(ETAPES[0] ? ETAPES[0].souffle : '') + '</p>' +
-      '<form class="pa-form" id="pa-depot" novalidate><label for="pa-quoi">Ce qui s’est passé, en quelques mots</label><textarea id="pa-quoi" maxlength="1500" placeholder="Ce matin, quand…"></textarea>' +
-      '<p class="pa-lab">Ce que tu ressens</p>' + puces('em', PF.EMOTIONS || [], [], true) +
-      '<p class="pa-lab">Une blessure qui se réveille ? <small>(si tu la sens)</small></p>' + puces('bl', PF.BLESSURES || [], [], true) +
-      '<label for="pa-force">Avec quelle force ? <b id="pa-force-v">5</b>/10</label><input type="range" id="pa-force" min="0" max="10" value="5">' +
-      '<p class="pa-lab">Où le sens-tu dans ton corps ?</p>' + puces('corps', PF.CORPS || [], [], true) +
+    var z = feuille('<p class="pa-etiq">Je dépose un ressenti</p><h2>Qu’est-ce qui se passe ?</h2><p class="pa-def">Trois questions suffisent. Le reste se complète les jours suivants : ta fiche te montre ce qui manque.</p>' +
+      '<form class="pa-form" id="pa-depot" novalidate><label for="pa-quoi">1 · Ce qui s’est passé, en quelques mots</label><textarea id="pa-quoi" maxlength="1500" placeholder="Ce matin, quand…"></textarea>' +
+      aide(debuts(['Aujourd’hui, quand…', 'J’ai senti…', 'J’aurais voulu…'], '#pa-quoi') + '<p class="pa-discret">Trois mots suffisent.</p>') +
+      '<p class="pa-lab">2 · Ce que tu ressens</p>' + puces('em', PF.EMOTIONS || [], [], true) + aide(AIDE_EM) +
+      '<p class="pa-lab">3 · Où le sens-tu dans ton corps ?</p>' + puces('corps', PF.CORPS || [], [], true) + aide(aideCorps()) +
+      '<label for="pa-force">Avec quelle force ? <b id="pa-force-v">5</b>/10</label><input type="range" id="pa-force" min="0" max="10" value="5"><div id="pa-fort-z" hidden>' + blocMonte() + '</div>' +
+      ((D.etat.schemas || []).length ? '<label for="pa-schema">Ça rejoint quel schéma ?</label><select id="pa-schema"><option value="nouveau">Un nouveau schéma</option>' + (D.etat.schemas || []).map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(cap(x.nom || 'Un schéma')) + '</option>'; }).join('') + '</select><p class="pa-discret">Un schéma, c’est ce qui se répète : il relie tes ressentis qui se ressemblent.</p>' : '<input type="hidden" id="pa-schema" value="nouveau">') +
+      '<details class="pa-plus-loin" id="pa-plus"><summary>Aller plus loin maintenant <small>(facultatif)</small></summary>' +
+      '<p class="pa-lab">Une phrase que tu te dis ? <small>(la blessure qui se réveille)</small></p>' + pucesBl('bl', [], true) +
       '<p class="pa-lab">Comment le sens-tu ?</p>' + puces('sensation', PF.SENSATIONS || [], [], true) +
       '<p class="pa-lab">Ce que tu fais à chaque fois</p>' + puces('reaction', (PF.SCHEMA || {}).reactions || [], [], true) +
       '<p class="pa-lab">Est-ce que ça revient dans ta vie ?</p>' + puces('revient', [['oui', 'Oui, souvent'], ['parfois', 'Parfois'], ['non', 'C’est la première fois']], [], false) +
       '<label for="pa-premiere">La première fois, tu avais quel âge ? <small>(à peu près)</small></label><input id="pa-premiere" inputmode="numeric" maxlength="12" placeholder="8 ans">' +
       '<div class="pa-puces pa-exemples"><button type="button" data-age-inconnu aria-pressed="false">Je ne sais pas : le protocole va m’aider à le trouver</button></div>' +
       '<div id="pa-ages-z" hidden><label for="pa-ages">Et les autres fois ?</label><input id="pa-ages" maxlength="60" placeholder="15 ans, 31 ans…"></div>' +
-      '<label for="pa-phrase">Une phrase qui tourne dans ta tête ? <small>(facultatif)</small></label><input id="pa-phrase" maxlength="120" placeholder="On finit toujours par…">' +
-      '<label for="pa-schema">Ça rejoint quel schéma ?</label><select id="pa-schema"><option value="nouveau">Un nouveau schéma</option>' + (D.etat.schemas || []).map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(cap(x.nom || 'Un schéma')) + '</option>'; }).join('') + '</select><p class="pa-discret">Un schéma, c’est ce qui se répète : il relie tes ressentis qui se ressemblent.</p>' +
-      '<label class="pa-coche"><input type="checkbox" id="pa-afil" checked> Ajouter ce moment à mon fil d’or</label>' +
+      '<label for="pa-phrase">Une phrase qui tourne dans ta tête ?</label><input id="pa-phrase" maxlength="120" placeholder="On finit toujours par…">' + aide(debuts(['Je vais encore…', 'On finit toujours par…', 'Je ne suis pas assez…', 'Personne ne…'], '#pa-phrase')) +
+      '<label class="pa-coche"><input type="checkbox" id="pa-afil" checked> Ajouter ce moment à mon fil d’or</label></details>' +
       '<button class="pa-bt or" type="submit">Déposer</button><p class="pa-erreur" role="alert"></p></form>', { enregistrer: function () { var fm = document.getElementById('pa-depot'); if (fm) { if (fm.requestSubmit) fm.requestSubmit(); else fm.dispatchEvent(new Event('submit', { cancelable: true })); } return false; } });
     var f = z.querySelector('#pa-depot');
     if (schemaId) f.querySelector('#pa-schema').value = schemaId; else if (!(D.etat.schemas || []).length) f.querySelector('#pa-schema').value = 'nouveau';
     var ageInconnu = f.querySelector('[data-age-inconnu]');
     ageInconnu.addEventListener('click', function () { ageInconnu.setAttribute('aria-pressed', ageInconnu.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); });
-    f.querySelector('#pa-force').addEventListener('input', function (e) { f.querySelector('#pa-force-v').textContent = e.target.value; });
+    /* à 8 sur 10 ou plus : d'abord revenir au calme */
+    f.querySelector('#pa-force').addEventListener('input', function (e) { f.querySelector('#pa-force-v').textContent = e.target.value; var fo = +e.target.value >= 8, zz = f.querySelector('#pa-fort-z'); if (fo && zz.hidden) { zz.hidden = false; f.querySelector('#pa-plus').open = false; } else if (!fo) zz.hidden = true; });
     f.addEventListener('change', function () { var rv = lirePuces(f, 'revient')[0]; f.querySelector('#pa-ages-z').hidden = !(rv === 'oui' || rv === 'parfois'); });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -537,6 +559,7 @@
       var sc = sv === 'nouveau' || !trouverSchema(sv) ? creerSchema(r) : trouverSchema(sv); lierSchema(sc, r);
       sauver();
       if (ageInconnu.getAttribute('aria-pressed') === 'true' && !premiereDe(sc)) { flash = ''; location.hash = 'actions/vie/' + sc.id + '/age'; return; }
+      if (r.force >= 8) { flash = 'C’est gardé. Le reste peut attendre : prends soin de toi.'; ouvrirSchema(sc.id, 'voir'); return; }
       flash = 'C’est gardé.';
       ouvrirSchema(sc.id, 'ou');
     });
