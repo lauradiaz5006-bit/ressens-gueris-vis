@@ -20,6 +20,12 @@
   var sb = null; try { sb = window.supabase.createClient(SB_URL, SB_KEY); } catch (e) {}
   var PISTES = window.PASS_ENQUETE || [], QUESTIONS = window.PASS_QUESTIONS || [], PF = window.PASS_FIL || {}, N = window.Numerologie, A = window.Astronomy;
   var EXEMPLE = /[?&]exemple\b/.test(location.search);
+  /* Le lien test (avant l'ouverture du Pass) : pass.html?test=k7q3-spirale, ouvert avec un compte connecté.
+     Il marque le compte (user_metadata.spirale_test) : ensuite Ma spirale s'ouvre sur tous ses appareils, avec sa vraie sauvegarde.
+     Rien à voir avec Le Cercle : ni son accès, ni son essai ne changent. */
+  var CODE_TEST = 'k7q3-spirale', LIEN_TEST = new RegExp('[?&]test=' + CODE_TEST + '\\b').test(location.search);
+  /* pas encore connectée : le lien est retenu sur cet appareil le temps de la connexion (login.html ne garde que « pass.html ») */
+  try { if (LIEN_TEST) localStorage.setItem('genesolia-spirale-test', '1'); else if (localStorage.getItem('genesolia-spirale-test') === '1') LIEN_TEST = true; } catch (e) {}
   var vue = document.getElementById('pa-vue');
   var D = { user: null, acces: false, arbre: null, fil: null, naissance: null, prenoms: '', nom: '', prenom: '', etat: null, accord: false, cercle: false, pro: false };
   var MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -105,7 +111,10 @@
         GA.membre ? GA.membre() : Promise.resolve(false),
         sb.from('praticiens').select('user_id').eq('user_id', D.user.id).then(function (x) { return !!(x && x.data && x.data.length); }, function () { return false; })
       ]).then(function (x) {
-        D.acces = !!x[0];
+        var meta = D.user.user_metadata || {};
+        D.acces = !!x[0] || !!meta.spirale_test || LIEN_TEST;
+        if (LIEN_TEST && !meta.spirale_test) sb.auth.updateUser({ data: { spirale_test: new Date().toISOString() } }).then(function (r) { if (!(r && r.error)) { try { localStorage.removeItem('genesolia-spirale-test'); } catch (e) {} } }, function () {});
+        else if (meta.spirale_test) { try { localStorage.removeItem('genesolia-spirale-test'); } catch (e) {} }
         D.arbre = x[1] && x[1].people && Object.keys(x[1].people).length ? x[1] : lireL('geno4');
         D.fil = x[2] || lireL('genesolia-arbre-ressentis');
         if (x[3] && x[3].date) { D.naissance = x[3].date; D.prenoms = x[3].prenoms || ''; D.nom = x[3].nom || ''; D.prenom = x[3].prenom; }
@@ -389,7 +398,7 @@
       '<h1 class="pa-h1">Ma spirale</h1><p>L’espace pour regarder ce qui se répète dans ta vie, comprendre d’où ça vient, le libérer et avancer : de la boucle à la spirale.</p>' +
       '<ul><li>Moi : déposer un ressenti ou un rêve, ta note du jour, tes schémas en cours</li><li>Mon fil d’or : ta frise de vie et celle de ta lignée</li><li>Mon agenda : les dates de ta lignée, les lunes, tes libérations et tes gestes</li><li>Mon bilan : ta lignée en sphères de lumière, et tes schémas devenus spirale</li><li>Mes actions : tous les protocoles, prêts à suivre</li></ul>' +
       '<p><b>Le Pass</b> · 10 € par mois, sans engagement, ou 27 € les 3 mois.</p>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#bientot">S’abonner · bientôt disponible</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">Me connecter</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
+      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#bientot">S’abonner · bientôt disponible</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">' + (LIEN_TEST ? 'Me connecter pour tester Ma spirale' : 'Me connecter') + '</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
       '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div></section>');
   }
 
