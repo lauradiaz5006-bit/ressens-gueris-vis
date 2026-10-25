@@ -13,7 +13,13 @@
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const CLE_STRIPE = Deno.env.get("STRIPE_SECRET_KEY") ?? "", SECRET_WEBHOOK = Deno.env.get("STRIPE_WEBHOOK_SECRET") ?? "";
+/* La clé secrète (sk_ ou rk_) : STRIPE_SECRET_KEY2 d'abord, sinon STRIPE_SECRET_KEY.
+   Le secret du webhook (whsec_) : STRIPE_WEBHOOK_SECRET, et par sécurité tout autre secret Stripe qui commence par whsec_. */
+const ENV = Deno.env.toObject();
+const CLE_STRIPE = ["STRIPE_SECRET_KEY2", "STRIPE_SECRET_KEY"].map((n) => (ENV[n] ?? "").trim()).find((v) => /^(sk|rk)_/.test(v)) ?? "";
+const SECRETS_WEBHOOK = [ENV.STRIPE_WEBHOOK_SECRET ?? ""].concat(Object.keys(ENV).filter((n) => /stripe/i.test(n)).map((n) => ENV[n]))
+  .map((v) => (v ?? "").trim()).filter((v, i, a) => /^whsec_/.test(v) && a.indexOf(v) === i);
+const SECRET_WEBHOOK = SECRETS_WEBHOOK[0] ?? "";
 const stripe = new Stripe(CLE_STRIPE || "sk_test_absente", { httpClient: Stripe.createFetchHttpClient() });
 const crypto = Stripe.createSubtleCryptoProvider();
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
@@ -109,7 +115,7 @@ async function carteCadeau(session: any, ref: string) {
     texte: `Ton paiement de ${euros(session.amount_total ?? x.montant_centimes)} est bien reçu : ta carte cadeau de **${x.mois} mois du Cercle** pour ${pour} est prête.\n\nSon code : **${code}**\n\n` +
       (x.envoi === "mail" ? `Comme tu l'as choisi, elle partira par e-mail à ${x.email_destinataire} le ${dateTxt}, à 8 h, avec ton petit mot. Tu peux aussi l'imprimer pour la glisser sous le sapin.`
         : `Tu peux l'imprimer, la glisser sous le sapin ou la transférer : tout est sur la page de ta carte.`) +
-      `\n\nPour l'activer, il suffit d'aller sur ${SITE}/carte-cadeau.html et d'entrer le code, quand on le souhaite : Le Cercle s'ouvre alors pour ${x.mois} mois. Pas d'abonnement, rien n'est prélevé ensuite.`,
+      `\n\nPour l'activer, il suffit d'aller sur ${SITE}/carte-cadeau.html et d'entrer le code, quand on le souhaite dans l'année : Le Cercle s'ouvre alors pour ${x.mois} mois, une étape chaque mois. Pas d'abonnement, rien n'est prélevé ensuite.`,
     bouton_texte: "Voir et imprimer la carte", bouton_lien: page,
   });
   if (x.envoi === "mail" && x.email_destinataire) {
@@ -117,7 +123,7 @@ async function carteCadeau(session: any, ref: string) {
       email: x.email_destinataire, prenom: x.pour_prenom, type: "carte_cadeau_recue", a_envoyer_le: new Date(x.envoyer_le + "T07:00:00Z").toISOString(),
       objet: `${x.de_prenom ? x.de_prenom + " t'offre" : "On t'offre"} ${x.mois} mois du Cercle`, surtitre: "Une carte cadeau pour toi", titre: x.pour_prenom ? `${x.pour_prenom}, un cadeau t'attend` : "Un cadeau t'attend",
       texte: `${de} t'offre **${x.mois} mois du Cercle** de Genesolia : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans ta vie et dans ta lignée, avec un carnet chaque mois, deux séances audio guidées par mois et la formation « Sors de la boucle ».` +
-        (x.message ? `\n\nSon petit mot :\n« ${x.message} »` : "") + `\n\nTon code : **${code}**\n\nTu l'actives quand tu veux, en quelques secondes. Pas d'abonnement, rien ne sera prélevé.`,
+        (x.message ? `\n\nSon petit mot :\n« ${x.message} »` : "") + `\n\nTon code : **${code}**\n\nTu l'actives quand tu veux dans l'année qui vient, en quelques secondes : Le Cercle s'ouvre alors pour ${x.mois} mois, une étape chaque mois. Pas d'abonnement, rien ne sera prélevé.`,
       bouton_texte: "Découvrir ma carte", bouton_lien: pageCode,
     });
   }
@@ -288,11 +294,11 @@ async function achatDeLAbonnement(sub: string) {
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("ok");
-  if (!CLE_STRIPE || !SECRET_WEBHOOK) return new Response("Secrets Stripe manquants", { status: 503 });
+  if (!SECRET_WEBHOOK) return new Response("Secret du webhook Stripe manquant", { status: 503 });   // sans clé secrète, les paiements sont quand même enregistrés et les accès ouverts
   const corps = await req.text();
   let ev: any;
-  try { ev = await stripe.webhooks.constructEventAsync(corps, req.headers.get("stripe-signature") ?? "", SECRET_WEBHOOK, undefined, crypto); }
-  catch (e) { return new Response("Signature invalide", { status: 400 }); }
+  for (const s of SECRETS_WEBHOOK) { try { ev = await stripe.webhooks.constructEventAsync(corps, req.headers.get("stripe-signature") ?? "", s, undefined, crypto); break; } catch (_) { /* secret suivant */ } }
+  if (!ev) return new Response("Signature invalide", { status: 400 });
   try {
     const o = ev.data.object;
     if (ev.type === "checkout.session.completed" || ev.type === "checkout.session.async_payment_succeeded") {

@@ -7,11 +7,13 @@
 //   POST { action: "voir", ref } ou { action: "voir", code } → la carte à afficher (sans adresses e-mail).
 //        Le code n'est renvoyé qu'avec la ref (l'acheteuse) ; avec le code, on sait déjà le code.
 //   POST { action: "utiliser", code } + Authorization: Bearer <jeton de la personne connectée>
-//        → ouvre Le Cercle pour 3 ou 6 mois (table acces_premium) et marque la carte utilisée.
+//        → ouvre Le Cercle pour 3 ou 6 mois (table acces_premium) et marque la carte utilisée. Valable 1 an après l'achat.
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 
-const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") ?? "sk_test_absente", { httpClient: Stripe.createFetchHttpClient() });
+/* la clé secrète Stripe : STRIPE_SECRET_KEY2 d'abord, sinon STRIPE_SECRET_KEY (seulement si c'est bien une clé sk_ ou rk_) */
+const CLE = ["STRIPE_SECRET_KEY2", "STRIPE_SECRET_KEY"].map((n) => (Deno.env.get(n) ?? "").trim()).find((v) => /^(sk|rk)_/.test(v)) ?? "";
+const stripe = new Stripe(CLE || "sk_test_absente", { httpClient: Stripe.createFetchHttpClient() });
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
 const SITE = "https://genesolia.fr";
 
@@ -48,7 +50,7 @@ async function acheter(b: any) {
   const s = await stripe.checkout.sessions.create({
     mode: "payment", locale: "fr", customer_email: email, client_reference_id: "cad__" + ref,
     line_items: [{ quantity: 1, price_data: { currency: "eur", unit_amount: c.prix, product_data: { name: c.nom,
-      description: `${c.mois} mois du Cercle à offrir, à activer quand la personne le souhaite. Sans abonnement : rien n’est prélevé ensuite.` } } }],
+      description: `${c.mois} mois du Cercle à offrir, à activer dans l’année. Sans abonnement : rien n’est prélevé ensuite.` } } }],
     success_url: `${SITE}/carte-cadeau.html?ref=${ref}`, cancel_url: `${SITE}/offrir.html#carte-cadeau`,
     metadata: { carte_cadeau: ref }, payment_intent_data: { description: c.nom, metadata: { carte_cadeau: ref } },
   });
@@ -58,12 +60,15 @@ async function acheter(b: any) {
 async function voir(b: any) {
   const parRef = /^[a-z0-9]{20}$/.test(String(b.ref || "")), code = String(b.code || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
   if (!parRef && code.length < 8) return rep({ erreur: "Code incomplet." }, 400);
-  const q = sb.from("cartes_cadeaux").select("code,offre,mois,statut,de_prenom,pour_prenom,message,envoi,envoyer_le,email_destinataire");
+  const q = sb.from("cartes_cadeaux").select("code,offre,mois,statut,de_prenom,pour_prenom,message,envoi,envoyer_le,email_destinataire,paye_le");
   const { data: x } = parRef ? await q.eq("ref", b.ref).maybeSingle() : await q.eq("code", fmt(code)).maybeSingle();
   if (!x) return rep({ erreur: "Cette carte est introuvable. Vérifie le code." }, 404);
-  return rep({ carte: { code: parRef ? x.code : fmt(code), offre: x.offre, mois: x.mois, statut: x.statut, de: x.de_prenom, pour: x.pour_prenom, message: x.message,
+  const fin = x.paye_le ? finValidite(x.paye_le) : null, expiree = x.statut === "payee" && fin && fin < new Date();
+  return rep({ carte: { code: parRef ? x.code : fmt(code), offre: x.offre, mois: x.mois, statut: expiree ? "expiree" : x.statut, valable_jusqu: fin ? fin.toISOString().slice(0, 10) : null, de: x.de_prenom, pour: x.pour_prenom, message: x.message,
     envoi: parRef ? x.envoi : undefined, envoyer_le: parRef ? x.envoyer_le : undefined, dest: parRef && x.email_destinataire ? x.email_destinataire.replace(/^(.).*(@.*)$/, "$1…$2") : undefined } });
 }
+/* Une carte est valable 1 an après son achat */
+function finValidite(paye: string) { const d = new Date(paye); d.setFullYear(d.getFullYear() + 1); return d; }
 /* CERCLE-XXXX-XXXX : on l'écrit toujours sous cette forme, quel que soit ce qu'elle a tapé */
 function fmt(c: string) { c = c.replace(/^CERCLE/, ""); return "CERCLE-" + c.slice(0, 4) + "-" + c.slice(4, 8); }
 
@@ -72,10 +77,11 @@ async function utiliser(b: any, req: Request) {
   const { data: u } = await sb.auth.getUser(jeton);
   const uid = u?.user?.id; if (!uid) return rep({ erreur: "connexion" }, 401);
   const code = fmt(String(b.code || "").toUpperCase().replace(/[^A-Z0-9]/g, ""));
-  const { data: x } = await sb.from("cartes_cadeaux").select("id,mois,statut,utilise_par").eq("code", code).maybeSingle();
+  const { data: x } = await sb.from("cartes_cadeaux").select("id,mois,statut,utilise_par,paye_le").eq("code", code).maybeSingle();
   if (!x) return rep({ erreur: "Ce code est introuvable. Vérifie les lettres et les chiffres." }, 404);
   if (x.statut === "utilisee") return rep(x.utilise_par === uid ? { ok: true, deja: true } : { erreur: "Cette carte a déjà été activée." }, x.utilise_par === uid ? 200 : 409);
   if (x.statut !== "payee") return rep({ erreur: "Cette carte n’est pas encore active." }, 409);
+  if (x.paye_le && finValidite(x.paye_le) < new Date()) return rep({ erreur: "Cette carte a dépassé sa date de validité (un an après l’achat). Écris-nous à contact@genesolia.fr." }, 410);
   // on la prend d'abord (une seule personne peut l'activer), puis on ouvre l'accès
   const { data: pris } = await sb.from("cartes_cadeaux").update({ statut: "utilisee", utilise_par: uid, utilise_le: new Date().toISOString() }).eq("id", x.id).eq("statut", "payee").select("id");
   if (!pris?.length) return rep({ erreur: "Cette carte a déjà été activée." }, 409);

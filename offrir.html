@@ -14,7 +14,7 @@
   <meta property="og:title" content="Offrir son histoire de famille · Genesolia">
   <meta property="og:description" content="L’arbre de la famille en poster, et des livres à remplir ensemble.">
   <meta property="og:image" content="https://genesolia.fr/assets/cadeaux/arbre-medaillons.webp">
-  <link rel="stylesheet" href="assets/site.css?v=cadeau1">
+  <link rel="stylesheet" href="assets/site.css?v=cadeau2">
   <style>
     .of-tete{text-align:center;padding:3rem 0 1.4rem}
     .of-tete .of-sur{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9A6E38;margin:0 0 .6rem}
@@ -41,6 +41,7 @@
     .of-moments{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:1.2rem 0 0}
     .of-moments span{padding:.35rem .9rem;border-radius:99px;background:#FCEFF3;color:var(--prune);font-size:.88rem;font-weight:600}
     /* la carte cadeau du Cercle */
+    .cg-visuel{width:100%;height:auto;border-radius:var(--rayon);margin:0 0 1.6rem;box-shadow:0 18px 40px rgba(107,47,91,.12)}
     .cg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:2rem;align-items:start;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem;box-shadow:0 18px 40px rgba(107,47,91,.08)}
     .cg-apercu{position:sticky;top:6rem}
     .cg-apercu small{display:block;text-align:center;color:var(--prune-doux);font-size:.85rem;margin-top:.8rem}
@@ -94,8 +95,9 @@
     <script>(function () { if (new Date() > new Date('2027-01-06T23:59:59')) { var n = document.getElementById('noel'); if (n) n.hidden = true; } })();</script>
     <section class="bloc" id="carte-cadeau"><div class="conteneur">
       <div class="of-sec">
+        <img class="cg-visuel" src="assets/noel/carte-cadeau-cercle-768.webp" srcset="assets/noel/carte-cadeau-cercle-768.webp 768w, assets/noel/carte-cadeau-cercle-1536.webp 1536w" sizes="(max-width:1200px) 100vw, 1150px" width="1536" height="1024" alt="Offre Le Cercle : la carte cadeau, 3 ou 6 mois de parcours guidé, à offrir dès 79 €, sans abonnement">
         <h2>La carte cadeau du Cercle</h2>
-        <p class="of-intro">Offre quelques mois du Cercle : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans sa vie et dans sa lignée. Un carnet chaque mois, deux séances audio guidées, la formation « Sors de la boucle ». Pas d’abonnement : la personne active sa carte quand elle le souhaite, et rien n’est prélevé ensuite.</p>
+        <p class="of-intro">Offre quelques mois du Cercle : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans sa vie et dans sa lignée. Un carnet chaque mois, deux séances audio guidées, la formation « Sors de la boucle ». Pas d’abonnement : la personne active sa carte quand elle le souhaite dans l’année, Le Cercle s’ouvre une étape chaque mois, et rien n’est prélevé ensuite.</p>
         <div class="cg">
           <div class="cg-apercu"><div id="cg-carte"></div><small>La carte, telle qu’elle la recevra</small></div>
           <form class="cg-form" id="cg-form" novalidate>
@@ -171,7 +173,7 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script src="assets/carte-cadeau.js?v=1"></script>
+  <script src="assets/carte-cadeau.js?v=2"></script>
   <script>
   /* La carte cadeau du Cercle : aperçu en direct, puis paiement Stripe (fonction carte-cadeau) */
   (function () {
