@@ -11,7 +11,7 @@
   <meta name="robots" content="noindex">
   <meta name="description" content="Connecte-toi à ton espace Genesolia pour retrouver ton arbre familial et ton parcours, sur n’importe quel appareil.">
   <title>Mon espace · Genesolia</title>
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
   <style>
     .espace{min-height:calc(100vh - 70px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 16px;background:
       radial-gradient(40rem 26rem at 80% 10%,rgba(248,214,200,.55),transparent 60%),
@@ -666,7 +666,7 @@
         var fondatrice = places > 0 && S.cercleFondatrice;
         var continuer = !paye && (S.cercleMois || S.cercleAn || S.cercleAnnee)
           ? '<span style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem">' +
-            (fondatrice ? bouton('cercleFondatrice', 'Continuer, 24,90 € par mois (prix fondatrice)', true) : bouton('cercleMois', 'Continuer, 29 € par mois', true)) +
+            (fondatrice ? bouton('cercleFondatrice', '✦ Offre de Noël : 24,90 € par mois au lieu de 29 €', true) : bouton('cercleMois', 'Continuer, 29 € par mois', true)) +
             bouton('cercleAnnee', '249 € l’année') + '</span>'
           : '';
         el.innerHTML = (paye ? 'Ton abonnement au Cercle est actif.'

@@ -252,7 +252,7 @@ async function impression(session: any, ref: string) {
 /* ───────── Achat confirmé : mail de remerciement à la cliente + alerte à Laura (table mails) ───────── */
 const NOMS: Record<string, string> = {
   passMois: "Le Pass, 10 € par mois", pass3Mois: "Le Pass, 3 mois",
-  cercleMois: "Le Cercle, 29 € par mois", cercleFondatrice: "Le Cercle, prix fondatrice à 24,90 € par mois", cercleAn: "Le Cercle, 24 € par mois sur 12 mois", cercleAnnee: "Le Cercle, à l'année",
+  cercleMois: "Le Cercle, 29 € par mois", cercleFondatrice: "Le Cercle, offre de Noël à 24,90 € par mois", cercleAn: "Le Cercle, 24 € par mois sur 12 mois", cercleAnnee: "Le Cercle, à l'année",
   praticienMois: "l'Espace praticien, 24 € par mois", praticienFondateur: "l'Espace praticien, tarif fondateur à 19 € par mois",
   praticienAn: "l'Espace praticien, 240 € l'année", praticienFondateurAn: "l'Espace praticien, tarif fondateur à 190 € l'année",
   carnet: "ton carnet du mois", rapport: "le rapport de ton arbre", numerologie: "ton livret de numérologie", saisons: "Les 12 saisons",
