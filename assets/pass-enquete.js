@@ -235,8 +235,8 @@ window.PASS_FIL = {
   },
   ROLES: [
     ['victime', 'Victime', '« Ça m’arrive toujours à moi. » Tu subis, tu attends qu’on te sauve.', 'Reprendre ton pouvoir : qu’est-ce que je peux choisir, là, maintenant ?'],
-    ['sauveur', 'Sauveur', '« Sans moi, ils n’y arriveront pas. » Tu portes les autres, tu t’oublies.', 'Soutenir sans porter : laisser à l’autre sa force, et revenir à toi.'],
-    ['bourreau', 'Persécuteur', '« C’est de ta faute. » Tu reproches, tu contrôles, tu durcis.', 'T’affirmer sans attaquer : dire ce dont tu as besoin.']
+    ['sauveur', 'Sauveur·se', '« Sans moi, ils n’y arriveront pas. » Tu portes les autres, tu t’oublies.', 'Soutenir sans porter : laisser à l’autre sa force, et revenir à toi.'],
+    ['bourreau', 'Persécuteur·rice', '« C’est de ta faute. » Tu reproches, tu contrôles, tu durcis.', 'T’affirmer sans attaquer : dire ce dont tu as besoin.']
   ],
   /* Les rêves : symboles (des pistes, jamais des certitudes) */
   REVES: {
@@ -255,9 +255,9 @@ window.PASS_FIL = {
     sensations: ['Serré', 'Lourd', 'Chaud', 'Agité', 'Froid', 'Vide'],
     reactions: ['Fuir', 'Contrôler', 'Tout donner', 'Me taire', 'Me justifier', 'Attaquer', 'M’effacer', 'Me couper de tout'],
     tiroirs: [['sais', 'Je sais'], ['raconte', 'On m’a raconté'], ['suppose', 'Je suppose']],
-    statuts: [['comprendre', 'À comprendre'], ['liberation', 'En libération'], ['suivi', 'En suivi'], ['classe', 'Affaire classée']],
-    personnages: ['la Victime', 'le Sauveur', 'le Persécuteur', 'la Peur', 'la Petite fille', 'la Gardienne', 'le Soldat', 'l’Invisible'],
-    roles: [['victime', 'Victime'], ['sauveur', 'Sauveur'], ['bourreau', 'Persécuteur'], ['controle', 'Celle qui contrôle'], ['effacee', 'Celle qui s’efface']],
+    statuts: [['comprendre', 'À comprendre'], ['liberation', 'En libération'], ['suivi', 'En suivi'], ['classe', 'Devenu spirale']],
+    personnages: ['la Victime', 'le Sauveur·se', 'le Persécuteur·rice', 'la Peur', 'la Petite fille', 'la Gardienne', 'le Soldat', 'l’Invisible'],
+    roles: [['victime', 'Victime'], ['sauveur', 'Sauveur·se'], ['bourreau', 'Persécuteur·rice'], ['controle', 'Je contrôle tout'], ['effacee', 'Je m’efface']],
     neuf: [['Émergence', 'Quelque chose attire ton attention. Tu sens qu’un même schéma est à l’œuvre.'], ['Initiation', 'Tu commences à observer. Tu repères ce qui déclenche la répétition.'], ['Rencontre avec l’ombre', 'Ce que tu évitais de regarder apparaît clairement.'], ['Épreuves', 'La situation se rejoue, parfois plus fort, comme pour être enfin vue.'], ['Lâcher l’ancien', 'L’ancienne façon de réagir n’a plus de sens. Tu la laisses partir.'], ['Transformation', 'Ce que tu as vécu devient une compréhension, et non plus un poids.'], ['Élévation', 'Tu agis autrement, naturellement, sans avoir à te forcer.'], ['Transmission', 'Ce que tu as compris profite à ceux qui t’entourent et à ceux qui viennent après toi.'], ['Renaissance', 'Le thème n’est plus une question. Le cycle est complet.']]
   },
   /* Mes actions : les protocoles et les fiches, sur une page à part (comme les audios du Cercle).

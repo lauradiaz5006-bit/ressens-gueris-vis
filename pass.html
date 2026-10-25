@@ -224,7 +224,7 @@
     .pa-onglets-s button[aria-selected="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
     .pa-frise-b{display:grid;grid-template-columns:6.4rem 1fr;border:1px solid var(--ligne);border-radius:14px;overflow:hidden;background:#fff;margin:.3rem 0 .8rem}
     .pa-fr-noms{display:flex;flex-direction:column;padding-top:1px;border-right:1px solid var(--ligne);background:#FFF9F4}
-    .pa-fr-noms span{height:58px;display:flex;align-items:center;padding:0 .5rem;font-size:.74rem;line-height:1.2;color:var(--doux);box-sizing:border-box}.pa-fr-noms .toi{font-weight:800;color:#9A6E38}
+    .pa-fr-noms span{height:92px;display:flex;align-items:flex-start;padding-top:10px;padding:0 .5rem;font-size:.74rem;line-height:1.2;color:var(--doux);box-sizing:border-box}.pa-fr-noms .toi{font-weight:800;color:#9A6E38}
     .pa-fr-defil{overflow-x:auto;-webkit-overflow-scrolling:touch}.pa-frise-svg{display:block}
     .pa-fr-age{font:600 10px var(--texte);fill:#B49AAE}.pa-fr-ici{font:700 10px var(--texte);fill:#9A3A68}
     .pa-fr-t{font:600 10px var(--texte);fill:#5A2147}.pa-fr-t.perso{font-style:italic;fill:#9A3A68}
@@ -243,6 +243,19 @@
     .pa-filtre-f{margin:.2rem 0 .3rem}
     .pts .sv,.pa-legende .sv,.pa-pt.sv{background:#9A3A68}
     .pa-bureau{display:none}@media (min-width:1000px){.pa-bureau{display:block}.pa-outils.pa-bureau{display:flex}}
+    /* Corrections du 25 octobre (2) */
+    .pa-accord{border:2px solid #E2C48E;background:#FFF9EE}
+    .pa-jauge-c{padding:.8rem .9rem;border-radius:14px;background:#FFF9F0;border:1px solid #EBD3BC;margin:0 0 1rem}.pa-jauge-c p{margin:.3rem 0 0;font-size:.9rem}
+    .pa-jauge9{display:grid;grid-template-columns:repeat(9,1fr);gap:3px;margin:.2rem 0 .3rem}.pa-jauge9 i{height:9px;border-radius:5px;background:#F1E3E8}.pa-jauge9 i.ok{background:linear-gradient(90deg,#E2C48E,#B0507A)}
+    .pa-onglets-s button{display:flex;flex-direction:column;align-items:center;line-height:1.15}.pa-onglets-s small{font-weight:600;font-size:.66rem;opacity:.75;margin-top:.1rem}
+    .pa-onglets-s button.fait:not([aria-selected="true"]){border-color:#E2C48E;background:#FFF6E3}.pa-onglets-s button.ici:not([aria-selected="true"]){border-color:#B0507A}
+    .pa-fiche-f{padding:.7rem .8rem;border-radius:14px;background:#FFF9F4;border:1px solid var(--ligne);margin:0 0 .6rem}
+    .pa-fiche-f label{display:block;font-weight:600;font-size:.85rem;margin:.5rem 0 .2rem}.pa-fiche-f .pa-lab{margin:0 0 .2rem}.pa-fiche-f small{font-weight:400;color:var(--doux)}
+    .pa-fiche-f .pa-lien-s{min-height:36px}
+    .pa-note-j .pa-puces{margin-bottom:.35rem}.pa-note-j input,.pa-note-j select{width:100%;box-sizing:border-box;min-height:44px;padding:.5rem .8rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit;background:#fff;margin:.2rem 0}
+    .pa-note-j label{display:block;font-weight:600;margin:.7rem 0 .2rem;font-size:.95rem}
+    .pa-pistes{margin-top:.8rem;padding:.7rem .8rem;border-radius:12px;background:#F6F4FC;border:1px solid #DCD6F0}
+    .pa-fr-t{font:600 11px var(--texte)}.pa-fr-ici{font:700 10px var(--texte);fill:#fff}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -274,7 +287,7 @@
     .pa-feuille.ouvert{transform:none}
     .pa-f-tete{padding:1rem 3.6rem .2rem 1.4rem;position:relative}
     .pa-f-fermer{position:absolute;top:.6rem;right:.7rem;width:44px;height:44px;border-radius:50%;border:0;background:#F6E3E8;color:var(--prune);font-size:1.4rem;cursor:pointer}
-    .pa-f-corps{overflow-y:auto;padding:.3rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom,0px))}
+    .pa-f-corps{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:.3rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom,0px))}
     .pa-f-corps h2{font:400 1.6rem/1.2 var(--display);color:#3B1747;margin:.1rem 0 .6rem}
     .pa-souffle{font-family:var(--display);font-size:1.13rem;line-height:1.5;color:#5A2147;margin:0 0 1rem}
     .pa-bloc{margin:0 0 1.1rem}
@@ -342,7 +355,7 @@
     .pa-barre svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
     .pa-barre a[aria-current="page"]{color:#FFE2A6;background:rgba(255,226,166,.1)}
     .pa-marque,.pa-espaces{display:none}
-    body.pa-fige{overflow:hidden}
+    body.pa-fige{position:fixed;left:0;right:0;width:100%;overflow:hidden}
     .pa-2col>div{min-width:0}
     body.pa-app #crisp-chatbox,body.pa-app .crisp-client{display:none!important}
     @media (min-width:760px){#pass{padding-top:1rem}}
@@ -393,7 +406,7 @@
     <a href="#actions" data-onglet="actions"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.8l5-.7z"/></svg>Mes actions</a>
     <div class="pa-espaces"><p>Mes espaces</p><div id="pa-espaces"></div></div>
   </nav>
-  <datalist id="pa-persos"><option value="la Victime"><option value="le Sauveur"><option value="le Persécuteur"><option value="la Peur"><option value="la Petite fille"><option value="la Gardienne"><option value="le Soldat"><option value="l’Invisible"><option value="la Délaissée"></datalist>
+  <datalist id="pa-persos"><option value="la Victime"><option value="le Sauveur·se"><option value="le Persécuteur·rice"><option value="la Peur"><option value="la Petite fille"><option value="la Gardienne"><option value="le Soldat"><option value="l’Invisible"><option value="la Délaissée"></datalist>
   <main id="pass"><div id="pa-vue"><p class="pa-chargement">Ton enquête s’ouvre…</p></div></main>
   </div>
   <footer data-pied></footer>
@@ -401,7 +414,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=8"></script>
-  <script src="assets/pass.js?v=9"></script>
+  <script src="assets/pass-enquete.js?v=9"></script>
+  <script src="assets/pass.js?v=10"></script>
 </body>
 </html>
