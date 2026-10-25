@@ -114,7 +114,7 @@
     famille_medaillons: 'Votre couple et vos deux lignées dans des médaillons dorés, vos enfants au pied.',
     famille_eventail: 'L’éventail du couple : ta lignée à gauche, celle de ton conjoint à droite, vos enfants au centre.',
     famille_lumiere: 'Votre couple au-dessus de la Terre, un cœur de lumière entre vous, vos enfants dans la lumière de la Terre, et vos deux lignées qui s’élèvent vers le soleil, chacun dans sa sphère de lumière. Choisis le nombre de générations : juste vos parents, ou jusqu’aux plus anciens.',
-    blanc_lumiere: 'La même lignée en lumière, épurée : sur fond blanc, avec un fin liseré doré, le soleil, la colonne de lumière et une Terre tout en douceur.',
+    blanc_lumiere: 'La même lignée en lumière, épurée : sur fond blanc, enveloppée d’une forme arrondie de lumière dorée, avec le soleil, la colonne de lumière et une Terre tout en douceur.',
     lumiere: 'Une colonne de lumière entre la Terre et le soleil : toi au-dessus de la Terre, chaque personne de ta lignée dans sa sphère de lumière, à sa place (les défunts dans une sphère nacrée, avec un halo de protection). Une image qui protège et met ta lignée en lumière, à télécharger.'
   };
   /* la sorte d'arbre : une phrase sous chaque choix */
