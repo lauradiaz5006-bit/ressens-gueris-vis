@@ -325,6 +325,14 @@
   .ms-compare tbody th{color:var(--prune);font-weight:700;width:22%}
   .ms-compare td{color:var(--prune-doux)}
   @media (max-width:560px){.ms-compare table{font-size:.86rem}.ms-compare th,.ms-compare td{padding:.65rem .6rem}}
+  .ms-deux{grid-template-columns:1fr 1fr;max-width:30rem}
+  .ms-aime{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1rem}
+  .ms-aime.centre{justify-content:center}
+  .ms-aime-b{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:99px;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff;font:600 .95rem var(--texte);cursor:pointer}
+  .ms-aime-b svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ms-aime-b[aria-pressed="true"] svg{fill:#F08DB0;stroke:#F08DB0}
+  .ms-aime-msg{flex-basis:100%;margin:.3rem 0 0;color:#FFE6B8;font-size:.95rem}
+  .ms-aime-msg:empty{display:none}
   .ms-etiq-b{align-self:flex-start;padding:.3rem .8rem;border-radius:99px;background:#F6E3E8;color:var(--prune);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   @media (max-width:960px){.ms-ecrans{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:860px){.ms-offres,.ms-actions{grid-template-columns:1fr}.ms-trois{grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.ms-tel{max-width:240px}}
@@ -343,10 +351,10 @@
           <p class="intro">Ce qui revient sans cesse dans ta vie a une source : un âge où une partie de toi s’est figée, ou une histoire de ta lignée. Ma spirale est l’outil que tu ouvres à ce moment-là : tu déposes, tu comprends d’où ça vient, tu libères avec des protocoles prêts à suivre, et tu suis ton avancée. Sans programme, à ton rythme.</p>
           <div class="a-offre">
             <p class="a-gros">Le Pass · 10 € par mois</p>
-            <span class="ms-bientot" id="bientot-hero">Bientôt disponible</span>
+            <span class="ms-bientot" id="bientot-hero">En ligne le 1<sup>er</sup> novembre</span>
             <p class="a-petit">Sans engagement, ou 27 € les 3 mois. <a href="#bientot" style="color:#FFE6B8">Ma spirale ou Le Cercle ?</a></p>
           </div>
-          <p style="margin-top:1.2rem"><a class="btn btn-trait" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.7)" href="pass.html?exemple">Voir Ma spirale en exemple</a></p>
+          <p style="margin-top:1.2rem"><a class="btn btn-trait" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.7)" href="pass.html?exemple">Voir Ma spirale en exemple</a></p><div class="ms-aime clair" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
         </div>
         <img class="ms-tel" src="assets/pass/captures/moi.webp" width="540" height="1124" alt="Ma spirale sur téléphone : l’accueil, avec « Je dépose un ressenti » et les schémas en cours">
       </div>
@@ -400,7 +408,7 @@
           <p class="a-etiq">Dans ta poche</p>
           <h2>Ton espace, comme une appli</h2>
           <p>Une icône sur ton écran d’accueil, et Ma spirale s’ouvre. Une barre en bas pour passer d’un espace à l’autre.</p>
-          <p class="t-barre-appli" style="justify-content:center"><span>Moi</span><span>Mon fil d’or</span><span>Mon agenda</span><span>Mon bilan</span><span>Mes actions</span></p>
+          <p class="t-barre-appli" style="justify-content:center"><span>Moi</span><span>Mon fil d’or</span><span>Mon agenda</span><span>Mon bilan</span><span>Mon théâtre</span><span>Mes actions</span></p>
         </div>
         <div class="ms-ecrans">
           <figure><img src="assets/pass/captures/moi.webp" width="540" height="1124" alt="L’accueil de Ma spirale" loading="lazy" decoding="async"><figcaption><b>Moi</b>Tes schémas, ta note du jour</figcaption></figure>
@@ -412,6 +420,26 @@
     </section>
 
     <section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <div class="ms-ecrans ms-deux">
+          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : une scène avec les personnages de la vie et de la lignée, reliés par des fils dorés" loading="lazy" decoding="async"><figcaption><b>La scène</b>Tes personnages, autour de toi</figcaption></figure>
+          <figure><img src="assets/pass/captures/theatre-face.webp" width="540" height="1124" alt="Face à un personnage : ce que le lien pèse, ce que tu ressens, ce que tu deviens" loading="lazy" decoding="async"><figcaption><b>Face à lui</b>Ce que le lien pèse</figcaption></figure>
+        </div>
+        <div>
+          <p class="a-etiq">Mon théâtre</p>
+          <h2>Les personnages qui se rejouent dans ta vie</h2>
+          <p>Sur une grande scène, tu places autour de toi les personnes de ta lignée et celles de ta vie : ton père, ton ex, ton patron, une amie. Tu les rapproches, tu les éloignes, tu notes ce que tu ressens face à chacun et ce que le lien pèse aujourd’hui.</p>
+          <ul class="t-coches">
+            <li>C’est <b>ta vision</b>, avec ton vécu : ici, on regarde ce qui se rejoue en toi.</li>
+            <li>Un <b>fil doré</b> relie ceux de ta vie que tu ressens comme quelqu’un de ta lignée : « Tu ressens Tom comme tu ressens ton père : froid. »</li>
+            <li>Des <b>photos datées</b> de ta scène, pour voir les liens s’affiner, libération après libération.</li>
+          </ul>
+          <a class="btn btn-plein" href="pass.html?exemple#theatre/sn1">Essayer la scène de Léa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Sur ordinateur</p>
@@ -488,12 +516,12 @@
         </div>
         <div class="ms-offres" style="margin-top:2rem">
           <div class="ms-offre mis">
-            <span class="ms-etiq-b">Bientôt disponible</span>
+            <span class="ms-etiq-b">En ligne le 1<sup>er</sup> novembre</span>
             <h3>Ma spirale · le Pass</h3>
             <p class="ms-prix">10 € <small>par mois, sans engagement</small></p>
             <p>ou 27 € les 3 mois, en une fois. Avec Ma spirale : ton agenda, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>
-            <span class="ms-gris" aria-disabled="true">Bientôt disponible</span>
-            <p class="t-rassure">Le Pass n’est pas encore ouvert : il n’est pas possible de s’abonner pour l’instant. En attendant, <a href="pass.html?exemple">essaie l’exemple</a>.</p>
+            <span class="ms-gris" aria-disabled="true">Ouverture le 1<sup>er</sup> novembre</span>
+            <p class="t-rassure">Le Pass ouvre le 1<sup>er</sup> novembre : reviens à partir de cette date pour t’abonner. En attendant, <a href="pass.html?exemple">essaie l’exemple</a>.</p>
           </div>
           <div class="ms-offre">
             <span class="ms-etiq-b">Une autre offre</span>
@@ -526,11 +554,13 @@
         <h2>Ta boucle peut devenir spirale.</h2>
         <p>Regarde à quoi ressemble Ma spirale, avec l’exemple de Léa.</p>
         <a class="btn btn-plein t-cta" href="pass.html?exemple">Voir Ma spirale en exemple</a>
-        <p class="t-rassure">Le Pass · 10 € par mois · bientôt disponible</p>
+        <div class="ms-aime clair centre" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
+        <p class="t-rassure">Le Pass · 10 € par mois · en ligne le 1<sup>er</sup> novembre</p>
       </div>
     </section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
