@@ -536,6 +536,22 @@
     .mt-encadre b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem}
     .mt-encadre .btn{width:100%}
     .fe-fenetre{max-width:960px;width:100%}
+    /* Combien de générations : des boutons bien visibles */
+    .fe-gens{display:flex;flex-wrap:wrap;gap:.5rem}
+    .fe-gen-c{position:relative;cursor:pointer}
+    .fe-gen-c input{position:absolute;opacity:0;pointer-events:none}
+    .fe-gen-c span{display:flex;flex-direction:column;align-items:center;min-width:5.6rem;padding:.55rem .8rem;border:1.5px solid var(--champagne-clair);border-radius:14px;background:#fff;color:var(--prune);font-size:.85rem;line-height:1.2;text-align:center}
+    .fe-gen-c span b{font:400 1.6rem/1 var(--display)}
+    .fe-gen-c span small{font-size:.72rem;color:var(--prune-doux);margin-top:.2rem}
+    .fe-gen-c input:checked+span{border-color:var(--prune);background:#FCEFF3;box-shadow:0 0 0 3px rgba(107,47,91,.12)}
+    .fe-gen-c input:focus-visible+span{outline:2px solid var(--champagne);outline-offset:2px}
+    /* Téléphone : l'aperçu reste petit, pour qu'on voie tout de suite qu'il y a des choix à faire en dessous */
+    @media (max-width:760px){
+      .fe-apercu>svg{max-height:34vh;width:auto;max-width:100%;margin:0 auto}
+      .fe-gauche .fe-vues button{padding-top:.35rem;padding-bottom:.35rem;font-size:.85rem}
+    }
+    .fe-suite{display:none;margin:.7rem 0 0;padding:.6rem .8rem;border-radius:12px;background:#FCEFF3;color:var(--prune);font-size:.88rem;font-weight:600;text-align:center}
+    @media (max-width:760px){.fe-suite{display:block}}
     .fe-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.4rem;align-items:start}
     .fe-apercu>svg{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 10px 30px rgba(74,33,66,.18)}
     .fe-reglages{display:flex;flex-direction:column;gap:.7rem}
@@ -1009,7 +1025,7 @@
   <script src="assets/arbre-grand.js?v=8"></script>
   <script src="assets/arbre-lumiere.js?v=5"></script>
   <script src="assets/arbre-encadrer.js?v=26"></script>
-  <script src="assets/arbre-encadrer-page.js?v=44"></script>
+  <script src="assets/arbre-encadrer-page.js?v=45"></script>
 
   <script>
   (function () {
