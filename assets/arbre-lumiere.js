@@ -128,13 +128,24 @@
     }
     parts.slice().reverse().forEach(function (it) { personnes += it.html; }); personnes += coeur;
 
-    var decor = o.decor || (d.style === 'blanc_lumiere' ? 'assets/arbre/lumiere-blanc.jpg' : 'assets/arbre/lumiere-fond.jpg');   /* « Sur fond blanc » : le même décor, épuré (sans le feuillage), liseré doré */
+    var decor = o.decor || (d.style === 'blanc_lumiere' ? 'assets/arbre/lumiere-blanc.jpg' : 'assets/arbre/lumiere-fond.jpg');   /* « Sur fond blanc » : le même décor, épuré (sans le feuillage), en 3307 x 4961 px (A3 à 300 dpi) */
     /* le titre : seulement s'il a été écrit (rien d'imposé) */
     var titre = (d.titre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 220 : 330)) + '" text-anchor="middle" class="lu-titre">' + esc(d.titre) + '</text>' : '') +
       (d.sousTitre ? '<text x="' + CX + '" y="' + (yT - (nR > 3 ? 155 : 260)) + '" text-anchor="middle" class="lu-sous">' + esc(d.sousTitre) + '</text>' : '');
     var phrase = '<text x="' + CX + '" y="' + (H - 64) + '" text-anchor="middle" class="lu-phrase">' + (COUPLE ? 'Que la lumière de nos lignées nous protège et nous accompagne.' : 'Que la lumière de ma lignée me protège et m’accompagne.') + '</text>';
     var pied = '<text x="' + (W - DX - 30) + '" y="' + (H - 30) + '" text-anchor="end" class="lu-pied">' + esc(o.pied || 'GENESOLIA · genesolia.fr') + '</text>';
     var filigrane = o.apercu ? '<g opacity=".14" transform="rotate(-30 ' + CX + ' ' + H / 2 + ')"><text x="' + CX + '" y="' + (H / 2 - 100) + '" text-anchor="middle" class="lu-fil">APERÇU</text><text x="' + CX + '" y="' + (H / 2 + 300) + '" text-anchor="middle" class="lu-fil">GENESOLIA</text></g>' : '';
+    /* « Sur fond blanc » : pas de cadre, une forme arrondie d'énergie, discrète, qui enveloppe la lignée (dessinée en vectoriel : nette à 300 dpi) */
+    var energie = '';
+    if (d.style === 'blanc_lumiere') {
+      var ex = 70, ey = 70, ew = W - 140, rb = 360, yb = H - 150, rt = ew / 2;
+      var forme = 'M' + ex + ' ' + (ey + rt) + 'A' + rt + ' ' + rt + ' 0 0 1 ' + (ex + ew) + ' ' + (ey + rt) + 'V' + (yb - rb) + 'Q' + (ex + ew) + ' ' + yb + ' ' + (ex + ew - rb) + ' ' + yb + 'H' + (ex + rb) + 'Q' + ex + ' ' + yb + ' ' + ex + ' ' + (yb - rb) + 'Z';
+      energie = '<g fill="none" stroke-linecap="round">' +
+        '<path d="' + forme + '" stroke="#F2D9A4" stroke-width="22" opacity=".45" filter="url(#lu-aura)"/>' +
+        '<path d="' + forme + '" stroke="url(#lu-or)" stroke-width="3" opacity=".75"/>' +
+        '<path d="' + forme + '" stroke="#E7C27C" stroke-width="7" stroke-dasharray="0 46" opacity=".55"/>' +
+        '</g>';
+    }
     var B = o.fondPerdu ? Math.round(4 * W / 210) : 0;
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (-B) + ' ' + (-B) + ' ' + (W + 2 * B) + ' ' + (H + 2 * B) + '" width="' + (W + 2 * B) + '" height="' + (H + 2 * B) + '" data-generations="' + n + '">' +
       '<defs>' +
@@ -150,12 +161,13 @@
       '<radialGradient id="lu-t3" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#C9DCF0"/></radialGradient>' +
       '<radialGradient id="lu-t4" cx=".5" cy=".45" r=".6"><stop offset=".35" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#F3D7A6"/></radialGradient>' +
       '<filter id="lu-doux" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>' +
+      '<filter id="lu-aura" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="14"/></filter>' +
       '<style>.lu-titre{font-family:' + GN + ';font-size:118px;fill:#6B2F5B;paint-order:stroke;stroke:#FFFFFF;stroke-width:14px}.lu-sous{font-family:' + NS + ';font-size:34px;letter-spacing:9px;fill:#9A6E38;text-transform:uppercase;paint-order:stroke;stroke:#FFFFFF;stroke-width:10px}' +
       '.lu-nom{font-family:' + GN + ';fill:#4A0F36}.lu-nf{font-family:' + NS + ';font-weight:700;letter-spacing:1.5px;fill:#5A2147}.lu-date{font-family:' + NS + ';font-weight:700;fill:#9A6E38}' +
       '.lu-phrase{font-family:' + GN + ';font-style:italic;font-size:46px;fill:#6B2F5B;paint-order:stroke;stroke:#FFFFFF;stroke-width:12px}.lu-pied{font-family:' + NS + ';font-size:24px;letter-spacing:6px;fill:#9A6E38;paint-order:stroke;stroke:#FFFFFF;stroke-width:8px}.lu-fil{font-family:' + GN + ';font-size:300px;fill:#6B2F5B}</style></defs>' +
       '<rect x="-200" y="-200" width="' + (W + 400) + '" height="' + (H + 400) + '" fill="#FFFFFF"/>' +
       '<image href="' + esc(decor) + '" x="' + f1(DX) + '" y="0" width="' + DW + '" height="' + H + '" preserveAspectRatio="xMidYMid slice"/>' +
-      titre + branches + feuilles + personnes + phrase + pied + filigrane + '</svg>';
+      energie + titre + branches + feuilles + personnes + phrase + pied + filigrane + '</svg>';
   }
   window.ArbreLumiere = { svg: svg };
 })();
