@@ -317,6 +317,14 @@
   .ms-offre .ms-gris{display:inline-block;align-self:flex-start;padding:.85rem 1.4rem;border-radius:99px;background:#EFE6EC;color:#7E5C77;font-weight:700}
   .ms-offre .btn{align-self:flex-start}
   .ms-offre p{margin:0;max-width:none}
+  .ms-compare{max-width:56rem;margin:0 auto;overflow-x:auto}
+  .ms-compare table{width:100%;border-collapse:separate;border-spacing:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;font-size:.95rem}
+  .ms-compare th,.ms-compare td{padding:.85rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rose);line-height:1.45}
+  .ms-compare tr:last-child th,.ms-compare tr:last-child td{border-bottom:0}
+  .ms-compare thead th{font:400 1.15rem var(--display);color:var(--prune);background:#FFF6EC}
+  .ms-compare tbody th{color:var(--prune);font-weight:700;width:22%}
+  .ms-compare td{color:var(--prune-doux)}
+  @media (max-width:560px){.ms-compare table{font-size:.86rem}.ms-compare th,.ms-compare td{padding:.65rem .6rem}}
   .ms-etiq-b{align-self:flex-start;padding:.3rem .8rem;border-radius:99px;background:#F6E3E8;color:var(--prune);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   @media (max-width:960px){.ms-ecrans{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:860px){.ms-offres,.ms-actions{grid-template-columns:1fr}.ms-trois{grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.ms-tel{max-width:240px}}
@@ -330,13 +338,13 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">L’appli du Pass · téléphone et ordinateur</p>
-          <h1>Ma spirale : sors de ce qui se répète, une boucle après l’autre</h1>
-          <p class="intro">Ce qui revient sans cesse dans ta vie a une source : un âge où une partie de toi s’est figée, ou une histoire de ta lignée. Ma spirale t’aide à la trouver, à la libérer avec des protocoles prêts à suivre, et à avancer. Un espace d’introspection, dans ta poche.</p>
+          <p class="a-sur">Ton outil du quotidien · en autonomie · téléphone et ordinateur</p>
+          <h1>Ma spirale : quand quelque chose remonte, tu as un endroit où aller</h1>
+          <p class="intro">Ce qui revient sans cesse dans ta vie a une source : un âge où une partie de toi s’est figée, ou une histoire de ta lignée. Ma spirale est l’outil que tu ouvres à ce moment-là : tu déposes, tu comprends d’où ça vient, tu libères avec des protocoles prêts à suivre, et tu suis ton avancée. Sans programme, à ton rythme.</p>
           <div class="a-offre">
             <p class="a-gros">Le Pass · 10 € par mois</p>
             <span class="ms-bientot" id="bientot-hero">Bientôt disponible</span>
-            <p class="a-petit">Déjà incluse dans Le Cercle, avec ton 1<sup>er</sup> mois offert. <a href="#bientot" style="color:#FFE6B8">Voir les offres</a></p>
+            <p class="a-petit">Sans engagement, ou 27 € les 3 mois. <a href="#bientot" style="color:#FFE6B8">Ma spirale ou Le Cercle ?</a></p>
           </div>
           <p style="margin-top:1.2rem"><a class="btn btn-trait" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.7)" href="pass.html?exemple">Voir Ma spirale en exemple</a></p>
         </div>
@@ -462,25 +470,38 @@
     <section class="bloc bloc-doux" id="bientot">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Les offres</p>
-          <h2>Comment avoir Ma spirale</h2>
+          <p class="a-etiq">Deux offres différentes</p>
+          <h2>Ma spirale ou Le Cercle ?</h2>
+          <p>Ma spirale est un outil que tu utilises seul·e, quand tu en as besoin. Le Cercle est un parcours guidé, avec un rendez-vous chaque mois. Le Cercle n’inclut pas Ma spirale.</p>
         </div>
-        <div class="ms-offres">
-          <div class="ms-offre">
-            <span class="ms-etiq-b">Bientôt disponible</span>
-            <h3>Le Pass</h3>
-            <p class="ms-prix">10 € <small>par mois, sans engagement</small></p>
-            <p>ou 27 € les 3 mois, en une fois. Ma spirale, ton agenda, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>
-            <span class="ms-gris" aria-disabled="true">Bientôt disponible</span>
-            <p class="t-rassure">Le Pass n’est pas encore ouvert : il n’est pas possible de s’abonner pour l’instant.</p>
-          </div>
+        <div class="ms-compare">
+          <table>
+            <thead><tr><th></th><th>Ma spirale · le Pass</th><th>Le Cercle</th></tr></thead>
+            <tbody>
+              <tr><th>C’est quoi</th><td>Un outil d’introspection, dans ta poche</td><td>Un programme accompagné en 12 étapes</td></tr>
+              <tr><th>Quand</th><td>Quand quelque chose remonte, à n’importe quel moment</td><td>Une étape par mois, à suivre dans l’ordre</td></tr>
+              <tr><th>Ce que tu fais</th><td>Tu déposes tes ressentis, tu remontes à la source, tu libères avec les protocoles, tu suis ta note sur 10</td><td>Tu suis ton carnet, tu écoutes tes séances audio, tu avances dans la formation « Sors de la boucle »</td></tr>
+              <tr><th>Pour qui</th><td>Tu veux un outil, et avancer à ta façon</td><td>Tu veux être guidé·e, avec un cadre et du contenu chaque mois</td></tr>
+              <tr><th>Prix</th><td>10 € par mois, ou 27 € les 3 mois</td><td>29 € par mois, 1<sup>er</sup> mois offert</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ms-offres" style="margin-top:2rem">
           <div class="ms-offre mis">
-            <span class="ms-etiq-b">1<sup>er</sup> mois offert</span>
+            <span class="ms-etiq-b">Bientôt disponible</span>
+            <h3>Ma spirale · le Pass</h3>
+            <p class="ms-prix">10 € <small>par mois, sans engagement</small></p>
+            <p>ou 27 € les 3 mois, en une fois. Avec Ma spirale : ton agenda, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>
+            <span class="ms-gris" aria-disabled="true">Bientôt disponible</span>
+            <p class="t-rassure">Le Pass n’est pas encore ouvert : il n’est pas possible de s’abonner pour l’instant. En attendant, <a href="pass.html?exemple">essaie l’exemple</a>.</p>
+          </div>
+          <div class="ms-offre">
+            <span class="ms-etiq-b">Une autre offre</span>
             <h3>Le Cercle</h3>
             <p class="ms-prix">29 € <small>par mois, sans engagement</small></p>
-            <p>Ma spirale est incluse, avec en plus ton parcours en 12 étapes, 2 séances audio par mois et la formation « Sors de la boucle ».</p>
-            <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
-            <p class="t-rassure">Aucune carte demandée. <a href="abonnement.html">Découvrir Le Cercle</a></p>
+            <p>Si tu préfères être guidé·e : ton parcours en 12 étapes, 2 séances audio par mois et la formation « Sors de la boucle ».</p>
+            <a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a>
+            <p class="t-rassure">1<sup>er</sup> mois offert, aucune carte demandée.</p>
           </div>
         </div>
       </div>
@@ -494,7 +515,7 @@
         <details><summary>Je connais mal ma famille.</summary><p>Tu peux avancer quand même. L’appli te propose les questions à poser à tes proches, et si tu ne connais pas ta lignée, tu travailles avec la famille qui t’a élevé·e.</p></details>
         <details><summary>Et si ça revient après une libération ?</summary><p>Ce n’est pas un retour en arrière : c’est souvent une couche plus profonde qui se montre. Tu rouvres ton schéma, et le protocole « La couche profonde » t’accompagne.</p></details>
         <details><summary>Qui peut lire ce que j’écris ?</summary><p>Personne d’autre que toi. Tout est chiffré dans ton espace. Seuls les rêves que tu choisis de partager sortent de ton espace, sans ton nom.</p></details>
-        <details><summary>Quelle différence avec Le Cercle ?</summary><p>Ma spirale est l’appli du Pass. Le Cercle la contient, et ajoute un parcours guidé en 12 étapes, des séances audio et une formation.</p></details>
+        <details><summary>Quelle différence avec Le Cercle ?</summary><p>Ce sont deux offres séparées. Ma spirale est un outil que tu ouvres quand tu en as besoin, sans programme. Le Cercle est un parcours guidé, une étape par mois, avec des séances audio et une formation. Le Cercle n’inclut pas Ma spirale.</p></details>
         <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Si une histoire est trop lourde à porter, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
       </div>
     </section>
@@ -505,7 +526,7 @@
         <h2>Ta boucle peut devenir spirale.</h2>
         <p>Regarde à quoi ressemble Ma spirale, avec l’exemple de Léa.</p>
         <a class="btn btn-plein t-cta" href="pass.html?exemple">Voir Ma spirale en exemple</a>
-        <p class="t-rassure">Le Pass · bientôt disponible · déjà inclus dans Le Cercle</p>
+        <p class="t-rassure">Le Pass · 10 € par mois · bientôt disponible</p>
       </div>
     </section>
   </main>

@@ -1344,7 +1344,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         var produits = {}; (r[0] || []).forEach(function (a) { produits[a.produit] = true; });
         var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle' || a.offre === 'admin') && new Date(a.valide_jusqu) > new Date(); });   /* 'admin' : la propriétaire (relecture), membre comme 'offert' */
         var pass = (r[1] || []).some(function (a) { return a.offre === 'pass' && new Date(a.valide_jusqu) > new Date(); });   /* le Pass : livrets et analyses, sans le parcours du Cercle */
-        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout, pass: pass };
+        var admin = (r[1] || []).some(function (a) { return a.offre === 'admin' && new Date(a.valide_jusqu) > new Date(); });
+        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout, pass: pass, admin: admin };
       });
     });
     mesAcces.then(function (a) { if (!a) mesAcces = null; });
@@ -1387,6 +1388,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
   /* le Pass (ou Le Cercle, qui le contient) : l'appli « Ma spirale », Mon mois, l'agenda */
   function pass() { return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass)); }, function () { return false; }); }
+  /* Ma spirale (pass.html) : seulement avec le Pass. Le Cercle est une autre offre et ne l'inclut pas (décision du 25 octobre 2026). La propriétaire (admin) y a accès pour relire. */
+  function spirale() { return chargerAcces().then(function (a) { return !!(a && (a.pass || a.admin)); }, function () { return false; }); }
   /* Le suivi par étapes (cycle 2) : le parcours suit le mois d'abonnement, pas le mois du calendrier.
      Mois d'abonnement compté depuis acces_premium.cree_le, mois 1 le premier mois (même calcul que v_mois dans
      outils-internes/supabase-seances.sql et que moisDepuis() dans mes-seances.js). Étape en cours = min(mois, 12).
@@ -1481,7 +1484,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     var el = e.target.closest('[data-payer]'); if (!el) return;
     e.preventDefault(); payer(el.getAttribute('data-payer'), el);
   });
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, pass: pass, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, pass: pass, spirale: spirale, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */
   if (page === 'abonnement.html' && aUnCompte() && !/[?&]voir=1\b/.test(location.search)) membre().then(function (m) { if (m) location.replace('cercle.html'); });
