@@ -318,6 +318,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     ['methode.html', 'Les deux cycles'],
     ['genosociogramme.html', 'Ton arbre familial'],
     ['offert.html', 'Outils gratuits'],
+    ['ma-spirale.html', 'Ma spirale'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
@@ -328,7 +329,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var page = location.pathname.split('/').pop() || 'index.html';
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
   var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'questionnaire.html' || page === 'cercle.html' || page === 'pass.html'   /* cercle.html, pass.html : les applis des membres, sans publicité */
-    || page === 'abonnement.html'                                                            /* la page de vente : une seule décision, pas d'autre encart */
+    || page === 'abonnement.html' || page === 'ma-spirale.html'                              /* les pages de vente : une seule décision, pas d'autre encart */
     || (page === 'login.html' && /[?&]retour=essai\.html/.test(location.search));          /* création du compte depuis l'essai : on reste sur les rails */
 
   /* ===== Mode appli =====
@@ -616,6 +617,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="ma-spirale.html">Ma spirale · l\'appli du Pass</a></li>' +
             '<li><a href="tarifs.html">Tarifs</a></li>' +
             '<li><a href="la-demarche.html">La démarche</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
@@ -1383,7 +1385,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   }
   /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
-  /* le Pass (ou Le Cercle, qui le contient) : l'appli « Mon enquête », Mon mois, l'agenda */
+  /* le Pass (ou Le Cercle, qui le contient) : l'appli « Ma spirale », Mon mois, l'agenda */
   function pass() { return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass)); }, function () { return false; }); }
   /* Le suivi par étapes (cycle 2) : le parcours suit le mois d'abonnement, pas le mois du calendrier.
      Mois d'abonnement compté depuis acces_premium.cree_le, mois 1 le premier mois (même calcul que v_mois dans
