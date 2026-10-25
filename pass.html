@@ -408,6 +408,22 @@
     .pa-bulle.sel{outline:3px solid #F2D9A0;outline-offset:2px}
     .pa-bulle.prise{cursor:grabbing;z-index:3;box-shadow:0 12px 28px rgba(0,0,0,.45)}
     .pa-titre-sc{margin-top:.4rem}
+    .pa-barre a.pa-ferme{opacity:.45;cursor:not-allowed;position:relative}
+    .pa-barre a.pa-ferme em{font-style:normal;font-size:.55rem;line-height:1;padding:.12rem .3rem;border-radius:99px;background:#F2D9A0;color:#3B1747;position:absolute;top:.1rem;right:.15rem}
+    @media (min-width:1000px){.pa-barre a.pa-ferme em{position:static;margin-left:auto;font-size:.7rem}}
+    .pa-fils line.lien{stroke-linecap:round;vector-effect:non-scaling-stroke}
+    .pa-fils line.or{stroke:#F2D9A0;stroke-dasharray:9 5;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.95;filter:drop-shadow(0 0 3px rgba(242,217,160,.7))}
+    .pa-fils line.or.nouveau{stroke-dasharray:100;stroke-dashoffset:100;animation:pa-trace 1.8s ease forwards}
+    @keyframes pa-trace{to{stroke-dashoffset:0}}
+    @media (prefers-reduced-motion:reduce){.pa-fils line.or.nouveau{animation:none;stroke-dashoffset:0}}
+    .pa-sous-scene{text-align:center;margin:-.2rem 0 .6rem}
+    .pa-trait{display:inline-block;width:22px;margin-right:.4rem;vertical-align:middle}
+    .pa-tiens{display:inline-block;margin:.3rem 0;padding:.6rem .95rem;border-radius:18px 18px 18px 4px;border:0;background:#FFF1D6;color:#5A2147;font:600 .9rem/1.35 var(--texte);cursor:pointer;box-shadow:0 4px 12px rgba(185,138,85,.25)}
+    .pa-tiens-nom{margin:.3rem 0 .6rem;font-weight:700;color:#6B2F5B}
+    .pa-tiens-q{margin:.4rem 0;padding:.7rem .9rem;border-radius:14px;background:#FBF4EA;border:1px solid #EBD3BC}.pa-tiens-q p{margin:0 0 .4rem}
+    .pa-tiens-c{border-color:#E2C48E;background:#FFFBF2}
+    .pa-tiens-c label{display:block;font-weight:600;margin:.4rem 0 .35rem}
+    .pa-tiens-c textarea{width:100%;box-sizing:border-box;min-height:80px;padding:.65rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit;background:#fff;color:var(--encre)}
     .pa-face label{display:block;font-weight:600;margin:.2rem 0 .35rem;line-height:1.4}
     .pa-face textarea{width:100%;box-sizing:border-box;min-height:88px;padding:.65rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit;background:#fff;color:var(--encre);resize:vertical;margin-bottom:.6rem}
     input.pa-titre-sc{width:100%;box-sizing:border-box;border:0;border-bottom:2px dashed #EBCFD5;padding:.2rem 0;font:400 clamp(1.6rem,5vw,2.2rem)/1.2 var(--display);background:transparent;color:#3B1747}
@@ -498,6 +514,6 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=18"></script>
+  <script src="assets/pass.js?v=19"></script>
 </body>
 </html>
