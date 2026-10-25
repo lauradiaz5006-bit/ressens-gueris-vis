@@ -686,7 +686,10 @@
     function majMot() { var c = document.getElementById('fe-cadeau'), m = document.getElementById('fe-mot'); document.getElementById('fe-cadeau-z').hidden = !c.checked; choix.mot = c.checked ? m.value.replace(/\s+/g, ' ').trim() : ''; clearTimeout(tm); tm = setTimeout(dessiner, 250); }
     document.getElementById('fe-cadeau').addEventListener('change', majMot);
     document.getElementById('fe-mot').addEventListener('input', majMot);
-    f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.formatManuel = true; if (lig() && !choix.nbGen) { recalculer(); majGens(); } dessiner(); } });
+    f.addEventListener('change', function (e) { if (e.target.name === 'format') { choix.formatManuel = true;
+      /* tant qu'elle n'a pas choisi elle-même le nombre de générations, un grand format montre tout ce qu'il peut porter (jusqu'à 8 ou 9 générations en 70 × 100 cm) */
+      if (lig() && !choix.gensManuel) { choix.nbGen = 0; recalculer(); if (donnees) choix.nbGen = donnees.nbGen; majGens(); }
+      dessiner(); } });
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var st = document.getElementById('fe-imp-statut'), bt = f.querySelector('button[type=submit]');
