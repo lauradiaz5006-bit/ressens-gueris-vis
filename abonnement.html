@@ -50,6 +50,16 @@
     .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
 
     .a-formules{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1.2rem;align-items:stretch}
+    .a-acheter-boite{max-width:44rem;margin:0 auto;text-align:center;padding:2.2rem 1.8rem;border-radius:var(--rayon);background:radial-gradient(120% 90% at 85% 0%,#8C3F74,rgba(140,63,116,0) 60%),linear-gradient(150deg,#5A2350,#3A1535);color:#F6E7C8;box-shadow:0 24px 50px rgba(58,21,53,.25),inset 0 0 0 1px rgba(233,201,138,.45)}
+    .a-acheter-boite h2{color:#FFF3DC;margin:.8rem 0 .5rem}
+    .a-acheter-boite p{margin:0 auto .8rem;color:#EBD5E2}
+    .a-acheter-choix{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:1.2rem 0}
+    .a-acheter-choix .btn{flex-direction:column;align-items:center;gap:.15rem;min-width:15rem;padding:.9rem 1.4rem;line-height:1.2}
+    .a-acheter-choix .btn span{font-size:1.15rem;font-weight:700}.a-acheter-choix .btn s{opacity:.6;font-weight:400;margin-right:.3rem}
+    .a-acheter-choix .btn small{font-size:.8rem;font-weight:400;opacity:.85}
+    .a-acheter-choix .btn-plein{background:linear-gradient(90deg,#F3DCA5,#D4A24C,#F3DCA5);color:#3A1535;border-color:transparent}
+    .a-acheter-choix .btn-trait{color:#FFF3DC;border-color:rgba(243,220,165,.7);background:transparent}
+    .a-acheter-note{font-size:.86rem}.a-acheter-note a{color:#F6D9A2}
     .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
     .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
     .a-carte h3{font-size:1.6rem}
@@ -308,6 +318,7 @@
           <div class="a-offre">
             <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
             <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+            <p class="a-petit"><a href="#acheter" style="color:#F6D9A2">Ou m’abonner directement</a></p>
             <p class="a-petit">Aucune carte demandée. Ensuite 29 € par mois, sans engagement.</p>
             <p class="a-fondatrice"><span class="promo-noel">✦ Offre de Noël</span> <span class="promo-prix">Après ton mois offert : <s>29 €</s> <b>24,90 € par mois</b></span><br>Sans engagement, et ce prix te reste tant que tu restes. Réservée aux 100 premières.</p>
           </div>
@@ -614,6 +625,31 @@
         </div>
       </div>
     </section>
+
+    <section class="bloc a-acheter" id="acheter" aria-labelledby="acheter-titre">
+      <div class="conteneur">
+        <div class="a-acheter-boite">
+          <span class="promo-noel">✦ Offre de Noël</span>
+          <h2 id="acheter-titre">Rejoindre Le Cercle maintenant</h2>
+          <p>Tu sais déjà que c’est pour toi, ou ton mois offert se termine ? Abonne-toi directement : ton accès s’ouvre tout de suite, ou continue sans coupure si tu es dans ton mois offert.</p>
+          <div class="a-acheter-choix">
+            <a class="btn btn-plein" href="#" data-payer="cercleFondatrice" id="acheter-noel"><span><s>29 €</s> 24,90 € par mois</span><small>Offre de Noël, sans engagement</small></a>
+            <a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>en une fois, environ 20,75 € par mois</small></a>
+          </div>
+          <p class="a-acheter-note">Paiement sécurisé par Stripe. Il te faut un compte Genesolia (gratuit) : on te le propose si tu n’en as pas. L’offre de Noël est réservée aux 100 premières, et ce prix te reste tant que tu restes.</p>
+          <p class="a-acheter-note">Pour offrir Le Cercle : <a href="offrir.html#carte-cadeau">la carte cadeau 3 ou 6 mois</a>.</p>
+        </div>
+      </div>
+    </section>
+    <script>
+    /* L'offre de Noël (24,90 €) tant qu'il reste des places, sinon 29 € par mois */
+    (function () {
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.ok ? r.json() : null; }).then(function (n) {
+          if (n === 0) { var b = document.getElementById('acheter-noel'); b.setAttribute('data-payer', 'cercleMois'); b.innerHTML = '<span>29 € par mois</span><small>sans engagement</small>'; }
+        }).catch(function () {});
+    })();
+    </script>
 
     <section class="bloc bloc-doux">
       <div class="conteneur">
