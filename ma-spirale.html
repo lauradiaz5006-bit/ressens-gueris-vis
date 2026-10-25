@@ -333,6 +333,20 @@
   .ms-aime-b[aria-pressed="true"] svg{fill:#F08DB0;stroke:#F08DB0}
   .ms-aime-msg{flex-basis:100%;margin:.3rem 0 0;color:#FFE6B8;font-size:.95rem}
   .ms-aime-msg:empty{display:none}
+  .ms-essai{margin-top:.2rem;background:var(--champagne)!important;border-color:var(--champagne)!important;color:#2E1338!important}
+  .ms-sous-cta{margin:.6rem 0 1rem;font-size:.9rem;color:#E6CFDD;max-width:none}
+  .ms-prix-l{margin:.9rem 0 0;font-size:.9rem;color:#E6CFDD;max-width:none}
+  .ms-prevenir{margin-top:.2rem}
+  .ms-prevenir.centre{display:flex;flex-direction:column;align-items:center;margin-top:1rem}
+  .ms-prev-b{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.7)!important}
+  .ms-prev-f{margin-top:.6rem;max-width:26rem}
+  .ms-prev-f label{display:block;font-size:.9rem;color:#F7E6EE;margin-bottom:.35rem}
+  .ms-prev-f div{display:flex;gap:.5rem;flex-wrap:wrap}
+  .ms-prev-f input{flex:1 1 12rem;min-height:46px;padding:.6rem .9rem;border-radius:99px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.95);font:inherit;color:#2E1338}
+  .ms-prev-note{font-size:.8rem;color:#E6CFDD;margin:.4rem 0 0;max-width:none}
+  .ms-prev-msg{margin:.5rem 0 0;color:#FFE6B8;font-weight:600;max-width:none}.ms-prev-msg:empty{display:none}
+  .ms-actions-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:860px){.ms-actions-3{grid-template-columns:1fr}}
   .ms-etiq-b{align-self:flex-start;padding:.3rem .8rem;border-radius:99px;background:#F6E3E8;color:var(--prune);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
   @media (max-width:960px){.ms-ecrans{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media (max-width:860px){.ms-offres,.ms-actions{grid-template-columns:1fr}.ms-trois{grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.ms-tel{max-width:240px}}
@@ -346,21 +360,18 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Ton outil du quotidien · en autonomie · téléphone et ordinateur</p>
+          <p class="a-sur">Ton outil du quotidien · téléphone et ordinateur</p>
           <h1>Ma spirale : quand quelque chose remonte, tu as un endroit où aller</h1>
-          <p class="intro">Ce qui revient sans cesse dans ta vie a une source : un âge où une partie de toi s’est figée, ou une histoire de ta lignée. Ma spirale est l’outil que tu ouvres à ce moment-là : tu déposes, tu comprends d’où ça vient, tu libères avec des protocoles prêts à suivre, et tu suis ton avancée. Sans programme, à ton rythme.</p>
-          <div class="a-offre">
-            <p class="a-gros">Le Pass · 10 € par mois</p>
-            <span class="ms-bientot" id="bientot-hero">En ligne le 1<sup>er</sup> novembre</span>
-            <p class="a-petit">Sans engagement, ou 27 € les 3 mois. <a href="#bientot" style="color:#FFE6B8">Ma spirale ou Le Cercle ?</a></p>
-          </div>
-          <p style="margin-top:1.2rem"><a class="btn btn-trait" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.7)" href="pass.html?exemple">Voir Ma spirale en exemple</a></p><div class="ms-aime clair" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
+          <p class="intro">Tu déposes ce que tu ressens, tu retrouves d’où ça vient dans ta vie et ta lignée, et tu le libères avec des protocoles faits pour toi.</p>
+          <a class="btn btn-plein t-cta ms-essai" href="pass.html?exemple">Essayer avec l’exemple de Léa</a>
+          <p class="ms-sous-cta">Sans inscription · rien n’est enregistré · 2 minutes</p>
+          <div class="ms-prevenir" data-prevenir-zone><button type="button" class="btn btn-trait ms-prev-b" data-prevenir-spirale>Être prévenue à l’ouverture</button><form class="ms-prev-f" hidden novalidate><label for="ms-prev-h">Ton e-mail, pour être prévenue le 1<sup>er</sup> novembre</label><div><input id="ms-prev-h" type="email" autocomplete="email" required placeholder="prenom@exemple.fr"><button type="submit" class="btn btn-plein">Me prévenir</button></div><p class="ms-prev-note">Ton adresse sert seulement à te prévenir de l’ouverture.</p></form><p class="ms-prev-msg" aria-live="polite"></p></div>
+          <p class="ms-prix-l">Le Pass · 10 € par mois, sans engagement · en ligne le 1<sup>er</sup> novembre</p>
+          <div class="ms-aime clair" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
         </div>
         <img class="ms-tel" src="assets/pass/captures/moi.webp" width="540" height="1124" alt="Ma spirale sur téléphone : l’accueil, avec « Je dépose un ressenti » et les schémas en cours">
       </div>
     </section>
-
-    <div class="t-bandeau"><div class="conteneur"><span><b>Sur ton téléphone</b> comme une appli</span><span><b>Sur ordinateur</b> aussi</span><span><b>Chiffré</b>, rien que pour toi</span><span><b>Sans</b> engagement</span></div></div>
 
     <section class="bloc">
       <div class="conteneur">
@@ -375,12 +386,32 @@
           <li><b>Tu ne sais pas par où commencer</b>Pas de souvenirs, une famille mal connue, des mots qui ne viennent pas.</li>
         </ul>
         <div class="t-verite">
-          <p><b>Une boucle tourne toujours au même endroit. Une spirale monte.</b> Le thème peut revenir, mais tu le reconnais, et tu réagis autrement. Ma spirale t’accompagne pas à pas, de la boucle à la spirale.</p>
+          <p><b>Si oui, ce n’est pas un hasard : c’est un schéma. Et un schéma se libère.</b></p>
         </div>
       </div>
     </section>
 
     <section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <div class="ms-ecrans ms-deux">
+          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : une scène avec les personnages de la vie et de la lignée, reliés par des fils dorés" loading="lazy" decoding="async"><figcaption><b>La scène</b>Tes personnages, autour de toi</figcaption></figure>
+          <figure><img src="assets/pass/captures/theatre-face.webp" width="540" height="1124" alt="Face à un personnage : ce que le lien pèse, ce que tu ressens, ce que tu deviens" loading="lazy" decoding="async"><figcaption><b>Face à lui</b>Ce que le lien pèse</figcaption></figure>
+        </div>
+        <div>
+          <p class="a-etiq">Mon théâtre</p>
+          <h2>Tu le sens froid… tiens, comme ton père.</h2>
+          <p>Place les personnes de ta vie et de ta lignée autour de toi, plus près ou plus loin. Note ce que tu ressens de chacun. Un fil doré relie ceux qui se ressemblent : tu vois enfin ce qui se rejoue.</p>
+          <ul class="t-coches">
+            <li>C’est <b>ta vision</b>, avec ton vécu : ici, on regarde ce qui se rejoue en toi.</li>
+            <li>Un <b>fil doré</b> relie ceux de ta vie que tu ressens comme quelqu’un de ta lignée : « Tu ressens Tom comme tu ressens ton père : froid. »</li>
+            <li>Des <b>photos datées</b> de ta scène, pour voir les liens s’affiner, libération après libération.</li>
+          </ul>
+          <a class="btn btn-plein" href="pass.html?exemple#theatre/sn1">Ouvrir la scène de Léa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Comment ça marche</p>
@@ -399,6 +430,24 @@
           <figure><img src="assets/pass/captures/frise.webp" width="540" height="1124" alt="La frise de vie : la première fois et aujourd’hui" loading="lazy" decoding="async"><figcaption><b>Ma frise</b>La première fois, puis les autres</figcaption></figure>
           <figure><img src="assets/pass/captures/protocole.webp" width="540" height="1124" alt="Un protocole de libération rempli avec ta fiche" loading="lazy" decoding="async"><figcaption><b>Je libère</b>Un protocole fait pour toi</figcaption></figure>
         </div>
+        <p style="text-align:center;margin-top:2rem"><a class="btn btn-plein" href="pass.html?exemple&amp;schema=s1">Voir la fiche d’un schéma</a></p>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Mes actions</p>
+          <h2>Quand tu ne sais pas, tout est prêt</h2>
+          <p>Chaque protocole se remplit avec ta fiche : ton âge la première fois, la personne de ta lignée, le nom de ton schéma. Tu n’as rien à inventer.</p>
+        </div>
+        <ul class="ms-actions ms-actions-3">
+          <li><b>Trouver ma première fois</b>Retrouver un ressenti à sa source : l’âge que tu te sens, une scène, même floue.</li>
+          <li><b>Libérer la mémoire de ma vie, puis de ma lignée</b>Retrouver la partie de toi restée figée, et rendre ce qui ne t’appartient pas, en gardant la force des tiens.</li>
+          <li><b>Si ça monte fort</b>Revenir ici et maintenant, avec la respiration guidée. À 8 sur 10 ou plus, l’appli te le propose d’elle-même.</li>
+        </ul>
+        <p class="t-legende">Et à chaque question où l’on peut bloquer, un « Je ne sais pas » ouvre une aide : des débuts de phrase, le corps, les périodes de ta vie.</p>
+        <p style="text-align:center;margin-top:1.6rem"><a class="btn btn-plein" href="pass.html?exemple">Essayer avec l’exemple de Léa</a></p>
       </div>
     </section>
 
@@ -406,8 +455,8 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Dans ta poche</p>
-          <h2>Ton espace, comme une appli</h2>
-          <p>Une icône sur ton écran d’accueil, et Ma spirale s’ouvre. Une barre en bas pour passer d’un espace à l’autre.</p>
+          <h2>Ton chemin se voit</h2>
+          <p>Ta frise, ton bilan, tes schémas devenus spirale : ton chemin se voit. Un lien qui s’affine ne veut pas dire que tu aimes moins. Ça veut dire que tu portes moins.</p>
           <p class="t-barre-appli" style="justify-content:center"><span>Moi</span><span>Mon fil d’or</span><span>Mon agenda</span><span>Mon bilan</span><span>Mon théâtre</span><span>Mes actions</span></p>
         </div>
         <div class="ms-ecrans">
@@ -420,26 +469,6 @@
     </section>
 
     <section class="bloc bloc-doux">
-      <div class="conteneur t-split">
-        <div class="ms-ecrans ms-deux">
-          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : une scène avec les personnages de la vie et de la lignée, reliés par des fils dorés" loading="lazy" decoding="async"><figcaption><b>La scène</b>Tes personnages, autour de toi</figcaption></figure>
-          <figure><img src="assets/pass/captures/theatre-face.webp" width="540" height="1124" alt="Face à un personnage : ce que le lien pèse, ce que tu ressens, ce que tu deviens" loading="lazy" decoding="async"><figcaption><b>Face à lui</b>Ce que le lien pèse</figcaption></figure>
-        </div>
-        <div>
-          <p class="a-etiq">Mon théâtre</p>
-          <h2>Les personnages qui se rejouent dans ta vie</h2>
-          <p>Sur une grande scène, tu places autour de toi les personnes de ta lignée et celles de ta vie : ton père, ton ex, ton patron, une amie. Tu les rapproches, tu les éloignes, tu notes ce que tu ressens face à chacun et ce que le lien pèse aujourd’hui.</p>
-          <ul class="t-coches">
-            <li>C’est <b>ta vision</b>, avec ton vécu : ici, on regarde ce qui se rejoue en toi.</li>
-            <li>Un <b>fil doré</b> relie ceux de ta vie que tu ressens comme quelqu’un de ta lignée : « Tu ressens Tom comme tu ressens ton père : froid. »</li>
-            <li>Des <b>photos datées</b> de ta scène, pour voir les liens s’affiner, libération après libération.</li>
-          </ul>
-          <a class="btn btn-plein" href="pass.html?exemple#theatre/sn1">Essayer la scène de Léa</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Sur ordinateur</p>
@@ -452,25 +481,6 @@
     </section>
 
     <section class="bloc">
-      <div class="conteneur">
-        <div class="a-titre">
-          <p class="a-etiq">Mes actions</p>
-          <h2>Quand tu ne sais pas, tout est prêt</h2>
-          <p>Chaque protocole se remplit avec ta fiche : ton âge la première fois, la personne de ta lignée, le nom de ton schéma. Tu n’as rien à inventer.</p>
-        </div>
-        <ul class="ms-actions">
-          <li><b>Trouver ma première fois</b>Retrouver un ressenti à sa source : l’âge que tu te sens, une scène, même floue. Ta fiche et ta frise se remplissent toutes seules.</li>
-          <li><b>Comprendre d’où ça vient</b>Qui, dans ta famille, réagit comme toi ? Les questions à poser à tes proches, et la question qui revient : à qui est cette incohérence dans mon être ?</li>
-          <li><b>Libérer la mémoire de ma vie</b>Retrouver la partie de toi restée figée, et la ramener dans ton cœur.</li>
-          <li><b>Libérer la mémoire de ma lignée</b>Rendre ce qui ne t’appartient pas, garder la force des tiens, et avancer vers la paix, et vers le pardon si tu le souhaites.</li>
-          <li><b>Poser une intention</b>Ce que tu veux à la place, écrit au présent, posé puis lâché.</li>
-          <li><b>Si ça monte fort</b>Revenir ici et maintenant, avec la respiration guidée. Et à 8 sur 10 ou plus, l’appli te le propose d’elle-même.</li>
-        </ul>
-        <p class="t-legende">Et à chaque question où l’on peut bloquer, un « Je ne sais pas » ouvre une aide : des débuts de phrase, le corps, les périodes de ta vie.</p>
-      </div>
-    </section>
-
-    <section class="bloc bloc-doux">
       <div class="conteneur t-split">
         <img class="ms-tel" src="assets/pass/captures/reve.webp" width="540" height="1124" alt="Un rêve noté, avec la case pour le partager de façon anonyme" loading="lazy" decoding="async">
         <div>
@@ -487,7 +497,7 @@
       </div>
     </section>
 
-    <section class="bloc">
+    <section class="bloc bloc-doux">
       <div class="conteneur" style="max-width:46rem;text-align:center">
         <p class="a-etiq">Rien que pour toi</p>
         <h2 style="margin-bottom:1rem">Personne d’autre que toi ne lit ce que tu écris</h2>
@@ -495,7 +505,7 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux" id="bientot">
+    <section class="bloc" id="bientot">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Deux offres différentes</p>
@@ -535,7 +545,7 @@
       </div>
     </section>
 
-    <section class="bloc">
+    <section class="bloc bloc-doux">
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
         <details><summary>Faut-il installer quelque chose ?</summary><p>Non. Ma spirale s’ouvre dans ton navigateur. Sur ton téléphone, ajoute-la à ton écran d’accueil : elle s’ouvre alors comme une appli, avec sa barre en bas.</p></details>
@@ -551,9 +561,10 @@
     <section class="t-final">
       <img class="t-hero-fond" src="assets/images/blog-ancetres-reve-800.webp" srcset="assets/images/blog-ancetres-reve-800.webp 800w, assets/images/blog-ancetres-reve-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
       <div class="conteneur t-final-texte">
-        <h2>Ta boucle peut devenir spirale.</h2>
-        <p>Regarde à quoi ressemble Ma spirale, avec l’exemple de Léa.</p>
-        <a class="btn btn-plein t-cta" href="pass.html?exemple">Voir Ma spirale en exemple</a>
+        <h2>Essaie avant de décider.</h2>
+        <p>L’exemple de Léa est ouvert : sans inscription, rien n’est enregistré.</p>
+        <a class="btn btn-plein t-cta" href="pass.html?exemple">Essayer avec l’exemple de Léa</a>
+        <div class="ms-prevenir centre" data-prevenir-zone><button type="button" class="btn btn-trait ms-prev-b" data-prevenir-spirale>Être prévenue à l’ouverture</button><form class="ms-prev-f" hidden novalidate><label for="ms-prev-b">Ton e-mail, pour être prévenue le 1<sup>er</sup> novembre</label><div><input id="ms-prev-b" type="email" autocomplete="email" required placeholder="prenom@exemple.fr"><button type="submit" class="btn btn-plein">Me prévenir</button></div><p class="ms-prev-note">Ton adresse sert seulement à te prévenir de l’ouverture.</p></form><p class="ms-prev-msg" aria-live="polite"></p></div>
         <div class="ms-aime clair centre" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
         <p class="t-rassure">Le Pass · 10 € par mois · en ligne le 1<sup>er</sup> novembre</p>
       </div>
