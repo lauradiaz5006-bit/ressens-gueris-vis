@@ -12,7 +12,7 @@
   <meta name="description" content="Tu as reçu une carte cadeau du Cercle ? Entre ton code pour l’activer : Le Cercle s’ouvre pour 3 ou 6 mois, sans abonnement.">
   <link rel="canonical" href="https://genesolia.fr/carte-cadeau.html">
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="assets/site.css?v=cadeau1">
+  <link rel="stylesheet" href="assets/site.css?v=cadeau2">
   <style>
     .kc{padding:2.6rem 0 3.5rem}
     .kc-tete{text-align:center;margin:0 auto 1.6rem;max-width:40rem}
@@ -48,14 +48,14 @@
     </div>
     <div class="kc-zone">
       <div id="kc-carte"></div>
-      <p class="kc-imprime">Pour activer cette carte : genesolia.fr/carte-cadeau.html, puis entrer le code.<br>Le Cercle s’ouvre alors pour la durée offerte, sans abonnement.</p>
+      <p class="kc-imprime">Pour activer cette carte : genesolia.fr/carte-cadeau.html, puis entrer le code.<br>Le Cercle s’ouvre alors pour la durée offerte, sans abonnement. Carte valable 1 an.</p>
       <div id="kc-action"></div>
     </div>
   </div></main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script src="assets/supabase.js"></script>
-  <script src="assets/carte-cadeau.js?v=1"></script>
+  <script src="assets/carte-cadeau.js?v=2"></script>
   <script>
   (function () {
     var C = window.GenesoliaCarte, esc = C.esc, $ = function (id) { return document.getElementById(id); };
@@ -138,6 +138,7 @@
       C.appeler('voir', { code: code }).then(function (r) {
         if (r.carte) {
           carte(r.carte);
+          if (r.carte.statut === 'expiree') { tete('Carte cadeau', 'Cette carte a expiré', 'Elle était valable un an après l’achat. Écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a> : on regarde avec toi.'); $('kc-action').innerHTML = ''; return; }
           if (r.carte.statut === 'utilisee') { tete('Carte cadeau', 'Cette carte est déjà activée', 'Si c’est la tienne, ouvre ton Cercle avec ton compte.'); action('<a class="btn btn-plein" href="cercle.html">Ouvrir mon Cercle</a>'); return; }
           tete('Une carte cadeau pour toi', (r.carte.pour ? esc(r.carte.pour) + ', un' : 'Un') + ' cadeau t’attend', (r.carte.de ? esc(r.carte.de) + ' t’offre ' : 'On t’offre ') + r.carte.mois + ' mois du Cercle : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans ta vie et dans ta lignée.');
           formulaire(r.carte.code);

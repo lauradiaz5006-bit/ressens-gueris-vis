@@ -26,6 +26,7 @@
         '<p class="cc-pour">' + (c.pour ? 'Pour <b>' + esc(c.pour) + '</b>' : 'Pour toi') + (c.de ? '<span> · de la part de <b>' + esc(c.de) + '</b></span>' : '') + '</p>' +
         (c.message ? '<p class="cc-mot">« ' + esc(c.message) + ' »</p>' : '') +
         '<p class="cc-code"><span>' + (c.code ? esc(c.code) : 'CERCLE-····-····') + '</span></p>' +
+        '<p class="cc-valide">' + (c.valable_jusqu ? 'À activer avant le ' + esc(new Date(c.valable_jusqu + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })) : 'Valable 1 an') + '</p>' +
       '</div></div>';
   }
   function appeler(action, data, jeton) {

@@ -652,3 +652,4 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
 .noel-grille img{width:100%;height:auto;aspect-ratio:4/5;display:block}
 @media (max-width:900px){.noel-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){.noel-grille a{transition:none}}
+.cc-valide{font-size:clamp(.55rem,1.6vw,.68rem);letter-spacing:.08em;color:#E9C98A;margin-top:.55em!important;opacity:.9}
