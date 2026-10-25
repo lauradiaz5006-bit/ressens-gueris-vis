@@ -12,7 +12,7 @@
   <meta name="description" content="Racines, les exercices du Cercle en version papier : trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place. 217 pages illustrées à écrire. ">
   <link rel="canonical" href="https://genesolia.fr/racines.html">
   <meta property="og:title" content="Racines · Le Cercle, livre 1">
-  <meta property="og:description" content="Les exercices du Cercle en version papier : trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place. Bientôt disponible.">
+  <meta property="og:description" content="Les exercices du Cercle en version papier : trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place. Disponible sur Amazon, 18,99 €.">
   <meta property="og:image" content="https://genesolia.fr/assets/livre/racines-couverture.jpg">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -90,23 +90,12 @@
           <p class="lv-sur">Le Cercle · Livre 1</p>
           <h1>Racines</h1>
           <p class="lv-sous">Les exercices du Cercle en version papier : trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place.</p>
-          <p class="lv-bientot">Bientôt disponible : plus que quelques jours</p>
-          <p class="lv-achat" hidden><a class="btn btn-plein" data-livre-acheter="racines" href="#">Acheter sur Amazon</a> <a class="btn btn-trait lv-btn-clair" href="#feuilleter">Feuilleter quelques pages</a></p>
+          <p class="lv-achat"><a class="btn btn-plein" data-livre-acheter="racines" href="https://www.amazon.fr/dp/B0HP7WPZQD" target="_blank" rel="noopener">Acheter sur Amazon · 18,99 €</a> <a class="btn btn-trait lv-btn-clair" href="#feuilleter">Feuilleter quelques pages</a></p>
           <ul class="lv-points">
             <li>217 pages illustrées, tout en couleur, à écrire</li>
             <li>Ton point de départ, puis trois étapes avec Renaissance et Libération</li>
             <li>Un petit rendez-vous chaque jour, des exercices, des rituels et des méditations à lire</li>
           </ul>
-          <form class="lv-form" id="lv-form" novalidate>
-            <h2>Sois prévenu·e de sa sortie</h2>
-            <p class="discret">Laisse ton e-mail pour être prévenu·e dès que le livre est disponible.</p>
-            <div class="lv-ligne">
-              <input type="email" name="email" autocomplete="email" placeholder="Ton e-mail" aria-label="Ton e-mail" required maxlength="120">
-              <button class="btn btn-plein" type="submit">Me prévenir</button>
-            </div>
-            <label class="lv-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir un e-mail de Genesolia à la sortie du livre. <a href="confidentialite.html">Mes données</a></span></label>
-            <p class="lv-msg" role="alert" aria-live="polite"></p>
-          </form>
         </div>
         <div class="lv-visuel"><img src="assets/livres/racines-3d.webp?v=4" width="543" height="900" alt="Le livre Racines, Le Cercle livre 1, couverture violette avec un arbre doré"></div>
       </div>
@@ -195,19 +184,6 @@
     mobile.addEventListener ? mobile.addEventListener('change', maj) : mobile.addListener(maj);
     maj();
 
-    /* Liste d'attente : l'e-mail va dans la table demandes_site (type « livre-racines »). */
-    var form = document.getElementById('lv-form'), msg = form.querySelector('.lv-msg');
-    form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      var mail = form.email.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) { msg.textContent = 'Vérifie ton e-mail.'; return; }
-      if (!form.accord.checked) { msg.textContent = 'Coche la case pour être prévenu·e.'; return; }
-      var bt = form.querySelector('button'); bt.disabled = true; msg.textContent = '';
-      window.GenesoliaDemande('livre-racines', mail.toLowerCase()).then(function (ok) {
-        if (ok) form.innerHTML = '<p class="lv-merci"><b>Merci, c’est noté.</b> Tu recevras un e-mail dès que Racines est disponible.</p>';
-        else { bt.disabled = false; msg.textContent = 'Un souci est survenu, réessaie dans un instant.'; }
-      });
-    });
   })();
   </script>
   <script>
