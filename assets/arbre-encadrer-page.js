@@ -416,7 +416,7 @@
     /* portrait ou paysage : la Lignée (et Médaillons, Notre famille) prend le sens où son texte est le plus grand */
     if (donnees && lig() && !grand() && !desc() && !ev() && window.ArbreLignee && window.ArbreLignee.taille) {
       var a3o = ECH[classe(formatChoisi())], fzL = window.ArbreLignee.taille(donnees, a3o, true, motif(), donnees.nbGen), fzP = window.ArbreLignee.taille(donnees, a3o, false, motif(), donnees.nbGen);
-      donnees.portrait = !(famille() && donnees.couple) && fzP > fzL * 1.15;
+      donnees.portrait = !(famille() && donnees.couple) && (fzP > fzL * 1.15 || (motif() === 'medaillons' && donnees.nbGen >= 6));   /* Médaillons avec beaucoup de générations : toujours en hauteur (à l'horizontale, les noms se tassaient à la verticale) */
     }
     /* le sous-titre compte les rangées imprimées : les enfants au pied de l'arbre font une génération de plus */
     if (donnees && !choix.sousModifie && /^\S+ générations?/.test(donnees.sousTitre || '')) {
