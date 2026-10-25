@@ -134,7 +134,7 @@
     .pa-onglets-f{display:flex;gap:.35rem;overflow-x:auto;padding:.1rem 0 .5rem;margin:0 -.2rem .3rem;-webkit-overflow-scrolling:touch}
     .pa-onglets-f button,.pa-onglets-f select{flex:none;min-height:40px;padding:.4rem .8rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--prune);font:600 .85rem/1.2 var(--texte);cursor:pointer}
     .pa-onglets-f button[aria-selected="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
-    .pa-onglets-f small{opacity:.75;font-weight:700;margin-left:.15rem}
+    .pa-onglets-f small{opacity:.75;font-weight:700;margin-left:.15rem}.pa-onglets-f em{font-style:normal;font-weight:400;opacity:.8;font-size:.78rem}
     .pa-onglets-f select{background:#FBF0E4;border-color:#EBD3BC}
     .pa-pers-f label{display:block;font-weight:600;margin:.3rem 0 .3rem;font-size:.9rem}
     .pa-pers-f input{width:100%;box-sizing:border-box;min-height:44px;padding:.55rem .8rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit}
@@ -188,6 +188,21 @@
     .pa-partage{margin:1rem 0;padding:.6rem .8rem;border-radius:14px;background:#F6F4FC;border:1px solid #DCD6F0}
     .pa-apercu{margin:.4rem 0 0;padding:.7rem .8rem;border-radius:12px;background:#fff;border:1px dashed #B9B3DA;font-size:.88rem;line-height:1.5;white-space:pre-wrap}
     @media (max-width:420px){.pa-portes{grid-template-columns:1fr}}
+    /* Corrections du 25 octobre : définitions, offre, exemple, légende */
+    .pa-def{font-size:.8rem;line-height:1.45;color:var(--doux);margin:-.3rem 0 .7rem;font-style:italic}
+    .pa-carte .pa-def{margin:.1rem 0 .5rem}
+    .pa-offre{display:inline-block;margin-left:.4rem;padding:.15rem .6rem;border-radius:99px;background:#FBF0E4;border:1px solid #EBD3BC;color:#7A5226;font:700 .72rem/1.4 var(--texte);letter-spacing:.04em;vertical-align:middle;white-space:nowrap}
+    .pa-cercle-plus{background:#FFFCF8}
+    .pa-exemple-b{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;margin:.6rem 0 .4rem;padding:.75rem 1rem;border-radius:16px;background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#FFF4E6}
+    .pa-exemple-b p{margin:0;font-size:.9rem;line-height:1.4}.pa-exemple-b .pa-bt{margin:0}
+    .pa-exemple-b.bas{margin-top:1.4rem}
+    .pa-legende-d{margin:0 0 .9rem}.pa-legende-d summary{cursor:pointer;font-weight:700;font-size:.85rem;color:#9A3A68;min-height:32px}
+    .pa-legende-d .pa-legende{margin:.4rem 0 0}
+    .pa-jp-opt{margin:-.3rem 0 .5rem;text-align:right}
+    .pa-jp-opt button{min-height:36px;padding:.3rem .8rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--doux);font:600 .8rem/1 var(--texte);cursor:pointer}
+    .pa-jp-opt button[aria-pressed="true"]{background:#FBF0E4;border-color:#E2C48E;color:#7A5226}
+    @media (max-width:600px){.pa-jour .jp{font-size:.6rem;opacity:.7}}
+    .pa-livre .pa-plus{display:inline-block;margin-top:.3rem}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -344,7 +359,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=5"></script>
-  <script src="assets/pass.js?v=6"></script>
+  <script src="assets/pass-enquete.js?v=6"></script>
+  <script src="assets/pass.js?v=7"></script>
 </body>
 </html>
