@@ -99,6 +99,8 @@
         ],
         liens: { 'a:p2': { t: 'mitige', peurs: ['Peur d’être abandonné·e'], loyaute: true, note: 'Beaucoup d’amour, et la même peur d’être quittée.' }, 'a:p4': { t: 'paix', peurs: ['Peur de manquer'] } }
       });
+      D.etat.reves = [{ id: 'v1', date: il(5), texte: 'J’étais dans la maison de Jeanne, l’eau montait dans la cuisine et je cherchais ma valise.', types: ['symbole', 'lignee'], symboles: ['Maison', 'Eau', 'Perdre quelque chose'], em: ['Peur'], qui: ['a:p4'] }];
+      var r2 = D.etat.ressentis[1]; r2.porte = 'lignee'; r2.intention = 'Je suis en sécurité. Je peux recevoir et garder.'; r2.intentionPosee = il(18); r2.vois = 'Je vois que la peur de manquer de Jeanne vit dans mon ventre.'; r2.voisDate = il(30); r2.roles = ['sauveur'];
       D.etat.humeurs = {}; D.etat.humeurs[il(0)] = ['Paix']; D.etat.humeurs[il(2)] = ['Fatigue', 'Inquiétude']; D.etat.humeurs[il(3)] = ['Tristesse']; D.etat.humeurs[il(6)] = ['Joie'];
     });
   }
@@ -280,7 +282,7 @@
   }
   function lirePuces(z, nom) { var g = z.querySelector('[data-groupe="' + nom + '"]'); return g ? [].map.call(g.querySelectorAll('[aria-pressed="true"]'), function (b) { return b.getAttribute('data-v'); }) : []; }
   document.addEventListener('click', function (e) {
-    var b = e.target.closest('.pa-puces button'); if (!b) return;
+    var b = e.target.closest('.pa-puces button'); if (!b || b.closest('.pa-exemples')) return;
     var g = b.parentNode;
     if (!g.hasAttribute('data-multi')) g.querySelectorAll('button').forEach(function (x) { if (x !== b) x.setAttribute('aria-pressed', 'false'); });
     b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
@@ -337,7 +339,8 @@
       h += '<a class="pa-carte" href="#fil"><p class="pa-etiq">Ta base</p><p class="pa-stats">' + (nbArbre() ? '<span><b>' + nbArbre() + '</b>personnes dans ton arbre</span>' : '') + (nbMoments() ? '<span><b>' + nbMoments() + '</b>moments dans ton fil d’or</span>' : '') + (nr ? '<span><b>' + nr + '</b>répétitions repérées</span>' : '') + '</p><span class="pa-plus">Voir ma base</span></a>';
     }
     h += '</div><div>';
-    h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Quand quelque chose remonte</p><h2>Une émotion, une situation qui se répète ?</h2><p>Au lieu de la garder pour toi, viens la déposer ici. On regarde ensemble à qui elle appartient, et comment la libérer.</p><button type="button" class="pa-bt or" data-depot>Je dépose un ressenti</button></section>';
+    h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Quand quelque chose remonte</p><h2>Une émotion, une situation qui se répète ?</h2><p>Au lieu de la garder pour toi, viens la déposer ici. On regarde ensemble à qui elle appartient, et comment la libérer.</p><div class="pa-outils"><button type="button" class="pa-bt or" data-depot>Je dépose un ressenti</button><button type="button" class="pa-bt clair" data-reve="new">Je note un rêve</button></div></section>';
+    h += blocIntentions();
     if (enCours.length) h += carteEnCours(enCours[0]) + (enCours.length > 1 ? '<p class="pa-titre-s">Mes autres fils</p>' + enCours.slice(1, 3).map(carteFil).join('') + (enCours.length > 3 ? '<a class="pa-bt clair" href="#fil">Voir tous mes fils</a>' : '') : '');
     h += '<section class="pa-carte pa-grande-q"><p class="pa-etiq">La question à te poser, chaque fois</p><p>' + esc(PF.QUESTION || '') + '</p></section>';
     h += '<section class="pa-carte"><p class="pa-etiq">La question du jour</p><p class="pa-q-jour">' + esc(q) + '</p><p class="pa-discret">Laisse venir la première réponse, sans la juger.</p></section>';
@@ -346,6 +349,17 @@
     h += '<section class="pa-carte"><p class="pa-etiq">Mes livrets, compris dans ton Pass</p><div class="pa-outils">' + [['Mes nombres', 'theme-numerologique.html'], ['Mon thème astral', 'theme-astral.html'], ['L’arbre de vie', 'arbre-de-vie.html'], ['Analyse à deux', 'ton-signe-maya.html'], ['Le rapport de mon arbre', 'genosociogramme.html'], ['Les 12 saisons', 'assets/cercle/les-12-saisons-c4709f2dad.pdf'], ['Ma lignée en lumière', 'genosociogramme.html#lumiere']].map(function (x) { return '<a class="pa-bt clair" href="' + x[1] + '"' + (/\.pdf$/.test(x[1]) ? ' download' : '') + '>' + x[0] + '</a>'; }).join('') + '</div></section>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);
+  }
+  /* Les intentions posées : la nouvelle lune qui revient, et le corps qui réapprend chaque jour */
+  function blocIntentions() {
+    var auj = iso(new Date()), I = D.etat.ressentis.filter(function (r) { return r.intentionPosee && !r.spirale; });
+    if (!I.length) return '';
+    return '<section class="pa-carte pa-intentions"><p class="pa-etiq">Mes intentions posées</p>' + I.map(function (r) {
+      var lu = lunesApres(r.intentionPosee, 6), due = lu.filter(function (d) { return d <= auj && !((r.lunes || {})[d] && Object.keys(r.lunes[d]).length); })[0], proch = lu.filter(function (d) { return d > auj; })[0], fait = !!(r.corpsJ || {})[auj];
+      return '<div class="pa-int"><div class="pa-graine petite"></div><div><p class="pa-int-t">« ' + esc(r.intention || '') + ' »</p>' +
+        (due ? '<button type="button" class="pa-bt or" data-fil="' + esc(r.id) + '" data-etape="4">Nouvelle lune : qu’est-ce qui a bougé ?</button>' : '<p class="pa-discret">Elle revient à la nouvelle lune du ' + esc(dateCourte(proch || '')) + '.</p>') +
+        '<button type="button" class="pa-corps-j" data-corps-j="' + esc(r.id) + '" aria-pressed="' + fait + '">' + (fait ? '✓ Ton corps a eu sa minute de sécurité aujourd’hui' : 'Ma minute de sécurité pour le corps, aujourd’hui') + '</button></div></div>';
+    }).join('') + '</section>';
   }
   /* La libération en cours, avec les personnes concernées */
   function carteEnCours(r) {
@@ -431,78 +445,111 @@
   }
   function boutonSuite(r, id) {
     if (id === 'liberer') return '<button type="button" class="pa-bt or" data-suite>J’ai libéré cette mémoire</button>';
-    if (id === 'spirale') return '<button type="button" class="pa-bt or" data-suite>Mon fil devient spirale</button>';
+    if (id === 'intention') return r.intentionPosee ? '<button type="button" class="pa-bt" data-suite>Continuer : réapprendre</button>' : '';
+    if (id === 'reapprendre') return '<button type="button" class="pa-bt or" data-suite>Ma mémoire est devenue spirale</button>';
     return '<button type="button" class="pa-bt" data-suite>Étape suivante</button>';
   }
   function zoneTexte(cle, label, val, ph) { return '<label for="pa-t-' + cle + '">' + esc(label) + '</label><textarea id="pa-t-' + cle + '" data-t="' + cle + '" maxlength="3000"' + (ph ? ' placeholder="' + esc(ph) + '"' : '') + '>' + esc(val || '') + '</textarea>'; }
+  function champ(cle, label, val, ph, max) { return '<label for="pa-t-' + cle + '">' + esc(label) + '</label><input id="pa-t-' + cle + '" data-t="' + cle + '" maxlength="' + (max || 160) + '" value="' + esc(val || '') + '"' + (ph ? ' placeholder="' + esc(ph) + '"' : '') + '>'; }
+  function porteDe(r) { if (r.porte) return r.porte; var a = r.aqui; return a === 'moi' ? 'vie' : a === 'parent' || a === 'loin' || a === 'lignee' ? 'lignee' : a === 'ancienne' || a === '?' ? 'ancienne' : ''; }
+  /* Les mêmes émotions déjà déposées */
+  function memesRessentis(r) { return D.etat.ressentis.filter(function (x) { return x.id !== r.id && (x.em || []).some(function (e) { return (r.em || []).indexOf(e) >= 0; }); }); }
   function contenuEtape(r, id) {
-    var h = '';
+    var h = '', qp = r.qui ? personne(r.qui) : null, porte = porteDe(r);
     if (id === 'voir') {
       h += '<div class="pa-resume">' + (r.corps && r.corps.length ? '<p><b>Dans ton corps :</b> ' + esc(r.corps.join(', ').toLowerCase()) + '</p>' : '') + (r.revient ? '<p><b>Ça revient :</b> ' + esc({ oui: 'oui, souvent', parfois: 'parfois', non: 'c’est la première fois' }[r.revient] || '') + (r.ages ? ' (' + esc(r.ages) + ')' : '') + '</p>' : '') + (r.phrase ? '<p><b>La phrase :</b> « ' + esc(r.phrase) + ' »</p>' : '') + (r.fil ? '<p class="pa-discret">Ajouté à ton fil d’or.</p>' : '') + '</div>';
-      var ec = echosRessenti(r);
-      h += ec.length ? '<div class="pa-bloc"><h4>Ce qui lui répond dans ta lignée</h4><ul class="pa-echos">' + ec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'
-        : '<p class="pa-discret">Plus ton fil d’or et ton arbre se remplissent, plus tu verras ici ce qui, dans ta lignée, répond à ce ressenti.</p>';
+      var ec = echosRessenti(r), ms = memesRessentis(r);
+      if (ms.length) ec.unshift('Tu as déjà déposé ' + (ms.length > 1 ? ms.length + ' fois' : 'une fois') + ' cette émotion : ' + liste(ms.slice(0, 3).map(function (x) { return dateCourte(x.date); })) + '. Elle revient : c’est une mémoire qui se montre.');
+      reps().forEach(function (x) { if ((r.bl || []).indexOf('abandon') >= 0 && /départ|absent|parti/i.test(x.label + x.desc)) ec.push('Dans ton arbre : ' + x.label + '.'); });
+      h += ec.length ? '<div class="pa-bloc pa-miroir"><h4>Ce que ta vie et ta lignée te montrent</h4><ul class="pa-echos">' + ec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>'
+        : '<p class="pa-discret">Plus ton fil d’or et ton arbre se remplissent, plus l’appli te montre ce qui, dans ta vie et ta lignée, ressemble à ce que tu vis.</p>';
+      h += '<div class="pa-bloc pa-prise">' + zoneTexte('vois', 'Je vois que…', r.vois, 'Je vois que chaque fois qu’on s’éloigne, je redeviens la petite fille qui attend sur le quai…') + '<p class="pa-discret">C’est ta prise de conscience. Elle est datée et rejoint ton agenda.</p></div>';
     } else if (id === 'aqui') {
       h += '<div class="pa-bloc pa-grande-q"><h4>La question</h4><p>' + esc(PF.QUESTION || '') + '</p></div>';
+      h += '<div class="pa-bloc"><h4>Où est la mémoire sur ta ligne du temps ?</h4><div class="pa-portes">' + (PF.PORTES || []).map(function (x) { return '<button type="button" data-porte="' + x[0] + '" aria-pressed="' + (porte === x[0]) + '"><b>' + esc(x[1]) + '</b><span>' + esc(x[2]) + '</span></button>'; }).join('') + '</div>';
+      if (porte === 'vie') {
+        var ag = ageA(new Date()) || 60, vAge = r.ageFige != null ? r.ageFige : '';
+        var F = (D.fil && D.fil.personnes && D.fil.personnes.toi && D.fil.personnes.toi.etapes) || [];
+        h += '<div class="pa-frise-vie"><label for="pa-age-f">À quel âge cette partie de toi s’est-elle figée ? <b id="pa-age-v">' + (vAge !== '' ? vAge + ' ans' : '') + '</b></label><input type="range" id="pa-age-f" min="0" max="' + ag + '" value="' + (vAge !== '' ? vAge : Math.min(8, ag)) + '">' +
+          (F.filter(plein).length ? '<p class="pa-discret">Tes moments du fil d’or :</p><div class="pa-puces">' + F.filter(plein).map(function (e) { var a = ageNum(e.age); return a != null ? '<button type="button" data-age="' + a + '" aria-pressed="' + (+vAge === a) + '">' + a + ' ans · ' + esc(String(e.evt || '').slice(0, 30)) + '</button>' : ''; }).join('') + '</div>' : '') + '</div>';
+      } else if (porte === 'lignee') {
+        var P = personnes().filter(function (p) { return p.gen > 0 || /couple|sœur|frère/i.test(p.lien); }).sort(function (x, y) { return x.gen - y.gen; });
+        h += '<p class="pa-discret">Qui l’a portée avant toi ? Laisse venir le premier nom.</p><div class="pa-qui-l">' + P.map(function (p) { return '<button type="button" data-qui="' + esc(p.k) + '" aria-pressed="' + (r.qui === p.k) + '"><i class="pa-mini ' + (((D.etat.liens || {})[p.k] || {}).t || '') + '"></i><b>' + esc(p.prenom) + '</b><span>' + esc(p.lien.replace(/^(Ton|Ta|Une|Un) /, '')) + '</span></button>'; }).join('') + '<button type="button" data-qui="" aria-pressed="' + (!r.qui) + '"><i class="pa-mini"></i><b>Je ne sais pas</b><span>quelqu’un d’avant</span></button></div>' + (P.length ? '' : '<p class="pa-discret">Ajoute les tiens dans ton fil d’or pour les retrouver ici.</p>');
+      }
+      h += '</div>';
       h += '<div class="pa-bloc"><h4>Écoute ton intuition</h4>' + (PF.INTUITION || []).map(function (q, k) { return zoneTexte('i' + k, q, (r.intuition || {})[k]); }).join('') + '</div>';
-      var aq = aquiDe(r);
-      h += '<div class="pa-bloc"><h4>D’où vient-elle ?</h4>' + puces('aqui', PF.AQUI || [], [aq], false);
-      var P = personnes().slice().sort(function (x, y) { return aq === 'parent' ? (x.lien.match(/mère|père/) ? 0 : 1) - (y.lien.match(/mère|père/) ? 0 : 1) : y.gen - x.gen; });
-      h += '<div id="pa-qui-z"' + (aq === 'parent' || aq === 'loin' ? '' : ' hidden') + '><label for="pa-qui">À qui, à ton avis ?</label><select id="pa-qui"><option value="">Quelqu’un que je ne connais pas</option>' + P.map(function (p) { return '<option value="' + esc(p.k) + '"' + (r.qui === p.k ? ' selected' : '') + '>' + esc(p.prenom + ' · ' + p.lien.toLowerCase()) + '</option>'; }).join('') + '</select>' + (P.length ? '' : '<p class="pa-discret">Ajoute les tiens dans ton fil d’or ou ton arbre pour les retrouver ici.</p>') + '</div></div>';
-      h += '<div class="pa-bloc"><h4>Nomme la mémoire</h4><label for="pa-t-nom">Mémoire de…</label><input id="pa-t-nom" data-t="nom" maxlength="80" value="' + esc(r.nom || '') + '" placeholder="' + esc(nomSuggere(r)) + '">' +
-        '<p class="pa-discret">Si tu ne vois pas encore d’où elle vient, nomme-la simplement : « la mémoire de peur », « la mémoire de honte ». C’est déjà la reconnaître.</p></div>';
+      h += '<div class="pa-bloc"><h4>Nomme la mémoire</h4>' + champ('nom', 'Mémoire de…', r.nom, nomSuggere(r), 80) + '</div>';
       var sug = cycleSuggere(r), C = PF.CYCLES || {};
-      h += '<div class="pa-bloc"><h4>Cycle 1 ou cycle 2 ?</h4><div class="pa-cycles">' + ['racine', 'coeur'].map(function (c) { return '<div><b>' + esc(C[c].nom) + '</b><span>' + esc(C[c].texte) + '</span><span class="pa-discret">' + esc(C[c].signes.join(' · ')) + '</span></div>'; }).join('') + '</div>' +
-        puces('cycle', [['racine', 'Cycle 1'], ['coeur', 'Cycle 2'], ['deux', 'Les deux']], [r.cycle || ''], false) + (sug && !r.cycle ? '<p class="pa-discret">Ce que tu as déposé fait penser ' + (sug === 'deux' ? 'aux deux cycles' : sug === 'racine' ? 'au cycle 1' : 'au cycle 2') + '. C’est une piste : c’est toi qui sens.</p>' : '') + '</div>';
-    } else if (id === 'enqueter') {
-      var cyc = r.cycle === 'racine' || r.cycle === 'coeur' ? [r.cycle] : ['racine', 'coeur'], Q = [], vus = r.enquete && r.enquete.q || {};
-      cyc.forEach(function (c) { Q = Q.concat(((PF.QUESTIONS || {})[c] || []).slice(0, cyc.length > 1 ? 3 : 5)); });
-      (r.bl || []).forEach(function (b) { if ((PF.BLESSURE_Q || {})[b]) Q.push(PF.BLESSURE_Q[b]); });
-      var qui = r.qui ? personne(r.qui) : null;
-      h += '<div class="pa-bloc"><h4>Les questions à poser' + (qui ? ' autour de ' + esc(qui.prenom) : '') + '</h4><p class="pa-discret">À ceux qui sont encore là, ou à toi-même. Coche celles que tu as posées.</p><ul class="pa-coches">' + Q.map(function (q, k) { return '<li><label><input type="checkbox" data-q="' + k + '"' + (vus[k] ? ' checked' : '') + '> ' + esc(q) + '</label></li>'; }).join('') + '</ul></div>';
-      var OU = []; cyc.forEach(function (c) { OU = OU.concat(((PF.OU || {})[c] || []).slice(0, cyc.length > 1 ? 2 : 4)); }); OU = OU.concat((PF.OU || {}).tous || []);
-      h += '<div class="pa-bloc"><h4>Où chercher</h4><ul class="pa-ou">' + OU.map(function (o) { return '<li><b>' + esc(o[0]) + '</b><span>' + esc(o[1]) + '</span></li>'; }).join('') + '</ul></div>';
-      var ids = (PF.PISTES || {})[cyc[0]] || [], pid = ids[(r.date || '').length ? (+r.date.slice(-2)) % ids.length : 0], pi = null;
-      PISTES.forEach(function (p) { if (p.id === pid) pi = p; });
-      if (pi) h += '<div class="pa-bloc pa-geste"><h4>Une piste pour cette semaine · ' + esc(pi.titre) + '</h4><ul>' + pi.enquete.slice(0, 2).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><p style="margin:.6rem 0 0">' + esc(pi.geste) + '</p>' + (pi.outils && pi.outils.length ? '<div class="pa-outils">' + pi.outils.filter(function (o) { return o[1].charAt(0) !== '#'; }).map(function (o) { return '<a class="pa-bt nuit" href="' + esc(o[1]) + '">' + esc(o[0]) + '</a>'; }).join('') + '</div>' : '') + '</div>';
-      h += '<div class="pa-bloc">' + zoneTexte('trouve', 'Ce que j’ai trouvé, entendu ou senti', (r.enquete || {}).trouve, 'Une date, une phrase, un papier, un rêve…') + '</div>';
-      h += livre(pi ? pi.livre : 'Le livre te donne une page pour chaque personne de ta lignée, à remplir à la main et à transmettre.');
+      h += '<div class="pa-bloc"><h4>Cycle 1 ou cycle 2 ?</h4><div class="pa-cycles">' + ['racine', 'coeur'].map(function (c) { return '<div><b>' + esc(C[c].nom) + '</b><span>' + esc(C[c].texte) + '</span></div>'; }).join('') + '</div>' +
+        puces('cycle', [['racine', 'Cycle 1'], ['coeur', 'Cycle 2'], ['deux', 'Les deux']], [r.cycle || ''], false) + (sug && !r.cycle ? '<p class="pa-discret">Ce que tu as déposé fait penser ' + (sug === 'deux' ? 'aux deux cycles' : sug === 'racine' ? 'au cycle 1' : 'au cycle 2') + '. C’est toi qui sens.</p>' : '') + '</div>';
+      h += '<details class="pa-plus-loin"' + (porte === 'lignee' || porte === 'ancienne' ? ' open' : '') + '><summary>Enquêter plus loin</summary>' + blocEnquete(r) + '</details>';
     } else if (id === 'liberer') {
       var Lb = PF.LIBERER || {}, pid = protoDe(r), prof = pid === 'cle2', PR = PF.PROTOCOLES || [], P0 = null;
       PR.forEach(function (x) { if (x.id === pid) P0 = x; });
-      h += '<div class="pa-bloc"><h4>Ton protocole</h4><div class="pa-protos">' + PR.map(function (x) { return '<button type="button" data-proto="' + esc(x.id) + '" aria-pressed="' + (x.id === pid) + '"><b>' + esc(x.titre) + '</b><span>' + esc(x.court) + '</span></button>'; }).join('') + '</div>' +
-        (prof ? '<p class="pa-discret">Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond. La couche du dessous ne pouvait se montrer qu’une fois celle du dessus libérée.</p>' : '') + '</div>';
+      var LP = (PF.LIB_PORTE || {})[porte];
+      if (LP) {
+        var qui = qp ? qp.prenom : 'celle ou celui qui l’a portée', ageT = r.ageFige != null ? r.ageFige + ' ans' : 'l’âge où tout s’est figé';
+        h += '<div class="pa-bloc pa-geste"><h4>' + esc(LP.titre.replace('{qui}', qui)) + '</h4><ol>' + LP.etapes.map(function (t) { return '<li>' + esc(t.replace(/\{qui\}/g, qui).replace('{age}', ageT)) + '</li>'; }).join('') + '</ol></div>';
+      } else h += '<p class="pa-discret">Tu n’as pas encore situé la mémoire sur ta ligne du temps. Tu peux revenir à l’étape « Où est-elle ? », ou libérer quand même.</p>';
+      if (PR.length > 1) h += '<div class="pa-bloc"><h4>Ton protocole</h4><div class="pa-protos">' + PR.map(function (x) { return '<button type="button" data-proto="' + esc(x.id) + '" aria-pressed="' + (x.id === pid) + '"><b>' + esc(x.titre) + '</b><span>' + esc(x.court) + '</span></button>'; }).join('') + '</div>' + (prof ? '<p class="pa-discret">Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond.</p>' : '') + '</div>';
       if (P0 && P0.etapes) {
-        h += '<div class="pa-lib">' + P0.etapes.map(function (x, k) { return '<div class="pa-lib-e"><span>' + (k + 1) + '</span><div><h4>' + esc(x.titre) + '</h4><p>' + esc(x.texte) + '</p></div></div>'; }).join('') + '</div>' +
-          (P0.questions || []).map(function (q, k) { return zoneTexte('p' + pid + k, q, r['p' + pid + k]); }).join('');
+        h += '<div class="pa-lib">' + P0.etapes.map(function (x, k) { return '<div class="pa-lib-e"><span>' + (k + 1) + '</span><div><h4>' + esc(x.titre) + '</h4><p>' + esc(x.texte) + '</p></div></div>'; }).join('') + '</div>' + (P0.questions || []).map(function (q, k) { return zoneTexte('p' + pid + k, q, r['p' + pid + k]); }).join('');
       } else {
-      h += '<div class="pa-lib"><div class="pa-lib-e"><span>1</span><div><h4>Respirer</h4><p>' + esc(Lb.respirer) + '</p><div class="pa-resp" aria-live="polite"><i></i><button type="button" class="pa-bt clair" data-respirer>Respirer avec moi</button></div></div></div>';
-      h += '<div class="pa-lib-e"><span>2</span><div><h4>Nommer</h4>' + (prof ? (Lb.couches || []).map(function (q, k) { return zoneTexte('c' + k, q, r['c' + k]); }).join('') : '') +
-        '<label for="pa-t-nom2">Le nom de la mémoire</label><input id="pa-t-nom2" data-t="nom" maxlength="80" value="' + esc(r.nom || '') + '" placeholder="' + esc(nomSuggere(r)) + '">' +
-        '<label for="pa-t-source">Mémoire de qui, ou de quoi ?</label><input id="pa-t-source" data-t="source" maxlength="120" value="' + esc(r.source || sourceSuggeree(r)) + '" placeholder="ma grand-mère qui a tout perdu, mon père qui partait…"></div></div>';
-      h += '<div class="pa-lib-e"><span>3</span><div><h4>Reconnaître</h4><p class="pa-discret">Dis-la à voix haute si tu peux, sinon intérieurement. Ton corps va vouloir réagir comme d’habitude : continue de respirer, écoute ton cœur.</p><blockquote class="pa-phrase" id="pa-phrase-lib">' + esc(phraseLib(r, prof)) + '</blockquote></div></div>';
-      h += '<div class="pa-lib-e"><span>4</span><div><h4>Transmuter</h4><ol>' + (Lb.transmuter || []).concat(prof ? Lb.profond || [] : []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="pa-discret">Tu peux répéter doucement : ' + (Lb.mantras || []).map(function (m) { return '« ' + esc(m) + ' »'; }).join(' ') + '</p></div></div>';
-      h += '<div class="pa-lib-e"><span>5</span><div><h4>Réorienter</h4>' + (Lb.reorienter || []).map(function (q, k) { return zoneTexte('o' + k, q, r['o' + k]); }).join('') +
-        '<div class="pa-deux-c"><div>' + zoneTexte('ancienne', 'Mon ancienne réaction', r.ancienne, 'Je me justifie, je fuis…') + '</div><div>' + zoneTexte('nouvelle', 'Ma nouvelle réponse', r.nouvelle, '« Merci, je vais y réfléchir. »') + '</div></div>' +
-        '<label for="pa-t-verite">Ma nouvelle vérité</label><input id="pa-t-verite" data-t="verite" maxlength="160" value="' + esc(r.verite || '') + '" placeholder="Je suis en sécurité. Je peux m’attacher en toute confiance.">' +
-        '<p class="pa-discret" id="pa-affirm">' + esc((Lb.affirmation || '').replace('{verite}', r.verite || '…')) + '</p></div></div></div>';
+        h += '<div class="pa-lib"><div class="pa-lib-e"><span>1</span><div><h4>Respirer</h4><p>' + esc(Lb.respirer) + '</p>' + sphereResp() + '</div></div>';
+        h += '<div class="pa-lib-e"><span>2</span><div><h4>Nommer</h4>' + (prof ? (Lb.couches || []).map(function (q, k) { return zoneTexte('c' + k, q, r['c' + k]); }).join('') : '') + champ('nom', 'Le nom de la mémoire', r.nom, nomSuggere(r), 80) + champ('source', 'Mémoire de qui, ou de quoi ?', r.source || sourceSuggeree(r) || (porte === 'vie' && r.ageFige != null ? 'moi à ' + r.ageFige + ' ans' : ''), 'ma grand-mère qui a tout perdu, moi à 8 ans…', 120) + '</div></div>';
+        h += '<div class="pa-lib-e"><span>3</span><div><h4>Reconnaître</h4><p class="pa-discret">Dis-la à voix haute si tu peux, sinon intérieurement.</p><blockquote class="pa-phrase" id="pa-phrase-lib">' + esc(phraseLib(r, prof)) + '</blockquote></div></div>';
+        h += '<div class="pa-lib-e"><span>4</span><div><h4>Transmuter</h4><ol>' + (Lb.transmuter || []).concat(prof ? Lb.profond || [] : []).map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p class="pa-discret">Tu peux répéter doucement : ' + (Lb.mantras || []).map(function (m) { return '« ' + esc(m) + ' »'; }).join(' ') + '</p></div></div>';
+        h += '<div class="pa-lib-e"><span>5</span><div><h4>Réorienter</h4>' + (Lb.reorienter || []).map(function (q, k) { return zoneTexte('o' + k, q, r['o' + k]); }).join('') + '<div class="pa-deux-c"><div>' + zoneTexte('ancienne', 'Mon ancienne réaction', r.ancienne, 'Je me justifie, je fuis…') + '</div><div>' + zoneTexte('nouvelle', 'Ma nouvelle réponse', r.nouvelle, '« Merci, je vais y réfléchir. »') + '</div></div></div></div></div>';
       }
-      var gs = (Lb.gestes || []).map(function (g) { return g[0] + ' : ' + g[1]; });
-      h += '<div class="pa-bloc pa-geste"><h4>Ton geste dans les 48 heures</h4><p style="margin:0 0 .5rem">Ton corps et ta lignée ont toujours réagi de la même façon. Un petit acte concret, dans le sens de ta nouvelle vérité, crée une nouvelle empreinte.</p><p class="pa-discret" style="color:#F3DCC0">' + esc(gs.join(' · ')) + '</p>' +
-        '<label for="pa-t-geste" style="color:#fff">Mon geste</label><input id="pa-t-geste" data-t="geste" maxlength="140" value="' + esc(r.geste || '') + '">' +
-        '<label for="pa-t-gdate" style="color:#fff">Le jour</label><input id="pa-t-gdate" type="date" data-t="gesteDate" value="' + esc(r.gesteDate || iso(new Date(Date.now() + 864e5))) + '"><p class="pa-discret" style="color:#F3DCC0">Il apparaît dans ton agenda.</p></div>';
-      h += '<p class="pa-discret">Chaque fois que tu fais ce chemin, la mémoire s’affaiblit : rien ne change du jour au lendemain, et c’est normal.</p>';
-    } else if (id === 'spirale') {
-      var op = (PF.OPPOSES || {})[(r.em || [])[0]] || '';
-      h += '<div class="pa-bloc"><h4>Ce que je choisis à la place</h4><label for="pa-t-choix">L’opposé de ma mémoire</label><input id="pa-t-choix" data-t="choix" maxlength="120" value="' + esc(r.choix || '') + '" placeholder="' + esc(op || 'La sécurité, l’abondance, une vie entourée…') + '">' +
-        '<p class="pa-discret">Sois précise : plus c’est concret, plus ta tête peut suivre la nouvelle direction. Si une autre mémoire se réveille en l’écrivant, c’est normal : tu pourras la déposer aussi.</p>' +
-        (PF.ENVIES || []).map(function (q, k) { return '<label for="pa-t-e' + k + '">' + esc(q) + '</label><input id="pa-t-e' + k + '" data-t="e' + k + '" maxlength="120" value="' + esc(r['e' + k] || '') + '">'; }).join('') + '</div>';
-      h += '<div class="pa-bloc"><h4>Quand le thème revient</h4>' + (PF.SPIRALE || []).map(function (q, k) { return zoneTexte('s' + k, q, (r.sp || {})[k]); }).join('') + '</div>';
-      if (r.libere) h += '<p class="pa-discret">Mémoire libérée le ' + esc(dateCourte(r.libere)) + '. Elle apparaît dans ton agenda et ton bilan.</p>';
+      h += '<div class="pa-bloc pa-geste"><h4>Ton geste dans les 48 heures</h4><p style="margin:0 0 .5rem">Un petit acte concret, dans le sens de ce que tu choisis, crée une nouvelle empreinte.</p><p class="pa-discret" style="color:#F3DCC0">' + esc((Lb.gestes || []).map(function (g) { return g[0] + ' : ' + g[1]; }).join(' · ')) + '</p>' +
+        '<label for="pa-t-geste" style="color:#fff">Mon geste</label><input id="pa-t-geste" data-t="geste" maxlength="140" value="' + esc(r.geste || '') + '"><label for="pa-t-gdate" style="color:#fff">Le jour</label><input id="pa-t-gdate" type="date" data-t="gesteDate" value="' + esc(r.gesteDate || iso(new Date(Date.now() + 864e5))) + '"></div>';
+    } else if (id === 'intention') {
+      var I = PF.INTENTION || {}, op = (PF.OPPOSES || {})[(r.em || [])[0]] || '';
+      if (r.intentionPosee) {
+        h += '<div class="pa-posee"><div class="pa-graine"></div><p class="pa-etiq">Intention posée le ' + esc(dateCourte(r.intentionPosee)) + '</p><p class="pa-phrase">' + esc(r.intention || '') + '</p><p>' + esc(I.lacher) + '</p><p class="pa-discret">Elle reviendra le ' + esc(lunesApres(r.intentionPosee, 1).map(dateCourte).join('')) + ', à la nouvelle lune.</p></div>';
+      } else {
+        h += '<div class="pa-lib"><div class="pa-lib-e"><span>1</span><div><h4>Te centrer</h4><p>' + esc(I.centrer) + '</p>' + sphereResp() + '</div></div>';
+        h += '<div class="pa-lib-e"><span>2</span><div><h4>L’écrire</h4><p>' + esc(I.ecrire) + '</p>' + (op ? '<p class="pa-discret">L’opposé de ta mémoire : ' + esc(op.toLowerCase()) + '.</p>' : '') + zoneTexte('intention', 'Mon intention', r.intention, I.exemples ? I.exemples[0] : '') +
+          '<div class="pa-puces pa-exemples">' + (I.exemples || []).map(function (x) { return '<button type="button" data-exemple="' + esc(x) + '">' + esc(x) + '</button>'; }).join('') + '</div></div></div>';
+        h += '<div class="pa-lib-e"><span>3</span><div><h4>La poser</h4><p>' + esc(I.acter) + '</p><button type="button" class="pa-tenir" data-tenir aria-label="Garder appuyé pour poser mon intention"><i></i><span>Garder appuyé</span></button></div></div></div>';
+      }
+      h += '<details class="pa-plus-loin"><summary>Ce que je veux avoir, faire, être</summary>' + champ('choix', 'Ce que je choisis à la place de ma mémoire', r.choix, op || 'La sécurité, l’abondance…', 120) + (PF.ENVIES || []).map(function (q, k) { return champ('e' + k, q, r['e' + k], '', 120); }).join('') + '</details>';
+    } else if (id === 'reapprendre') {
+      var RP = PF.REAPPRENDRE || {}, auj = new Date();
+      h += '<div class="pa-bloc"><h4>Ton corps · réapprendre la sécurité</h4><p>' + esc(RP.corps) + '</p>' + (r.corps && r.corps.length ? '<p class="pa-discret">Ton corps se met en alerte : ' + esc(r.corps.join(', ').toLowerCase()) + '. Cette alerte appartient ' + (porte === 'vie' ? 'à la petite fille de ' + (r.ageFige != null ? r.ageFige + ' ans' : 'ton passé') : porte === 'lignee' ? (qp ? 'à ' + qp.prenom : 'à ta lignée') : 'à une mémoire ancienne') + ', pas à aujourd’hui.</p>' : '') +
+        '<div class="pa-semaine">' + [6, 5, 4, 3, 2, 1, 0].map(function (n) { var d = new Date(auj.getTime() - n * 864e5), k = iso(d), on = !!(r.corpsJ || {})[k]; return '<button type="button" data-corps="' + k + '" aria-pressed="' + on + '"><small>' + JS[(d.getDay() + 6) % 7] + '</small>' + (on ? '✓' : d.getDate()) + '</button>'; }).join('') + '</div></div>';
+      h += '<div class="pa-bloc"><h4>Tes pensées</h4><p class="pa-discret">' + esc(RP.pensees) + '</p>' + champ('phrase', 'L’ancienne phrase', r.phrase, 'On finit toujours par me laisser', 120) + champ('nphrase', 'Ma nouvelle phrase', r.nphrase, r.intention || 'Je mérite qu’on reste.', 160) + '</div>';
+      h += '<div class="pa-bloc"><h4>Tes gestes</h4><p class="pa-discret">' + esc(RP.gestes) + '</p><div class="pa-deux-c"><div>' + zoneTexte('ancienne', 'Avant, je…', r.ancienne) + '</div><div>' + zoneTexte('nouvelle', 'Maintenant, je…', r.nouvelle) + '</div></div></div>';
+      h += '<div class="pa-bloc"><h4>Le rôle que tu prends</h4><p class="pa-discret">Dans cette situation, sans te juger : quel rôle joues-tu ?</p>' + puces('role', (PF.ROLES || []).map(function (x) { return [x[0], x[1]]; }), r.roles || [], true) +
+        (PF.ROLES || []).filter(function (x) { return (r.roles || []).indexOf(x[0]) >= 0; }).map(function (x) { return '<div class="pa-role"><p><b>' + esc(x[1]) + '</b> · ' + esc(x[2]) + '</p><p class="pa-or">' + esc(x[3]) + '</p></div>'; }).join('') +
+        ((r.roles || []).length ? '<label for="pa-role-qui">Qui jouait ce rôle dans ta lignée ?</label><select id="pa-role-qui"><option value="">Je ne sais pas</option>' + personnes().map(function (p) { return '<option value="' + esc(p.k) + '"' + (r.roleQui === p.k ? ' selected' : '') + '>' + esc(p.prenom + ' · ' + p.lien.toLowerCase()) + '</option>'; }).join('') + '</select>' : '') + '</div>';
+      var lu = r.intentionPosee ? lunesApres(r.intentionPosee, 6) : [], passees = lu.filter(function (d) { return d <= iso(auj); });
+      h += '<div class="pa-bloc"><h4>À chaque nouvelle lune</h4>' + (r.intentionPosee ? '' : '<p class="pa-discret">Pose d’abord ton intention : elle reviendra à chaque nouvelle lune.</p>');
+      if (r.intentionPosee) h += '<p class="pa-discret">Ton intention : « ' + esc(r.intention || '') + ' ». Prochaine nouvelle lune : ' + esc(dateCourte(lu.filter(function (d) { return d > iso(auj); })[0] || '')) + '.</p>' +
+        passees.reverse().map(function (d) { var L = (r.lunes || {})[d] || {}; return '<div class="pa-lune"><p class="pa-etiq">Nouvelle lune du ' + esc(dateCourte(d)) + '</p>' + (RP.lune || []).map(function (q, k) { return '<label for="pa-l-' + d + k + '">' + esc(q) + '</label><input id="pa-l-' + d + k + '" data-lune="' + d + '" data-k="' + k + '" maxlength="200" value="' + esc(L[k] || '') + '">'; }).join('') + '</div>'; }).join('');
+      h += '</div>';
     }
     return h;
   }
-  function aquiDe(r) { return r.aqui === 'lignee' ? 'loin' : r.aqui === '?' ? 'ancienne' : r.aqui || ''; }
+  function blocEnquete(r) {
+    var h = '', cyc = r.cycle === 'racine' || r.cycle === 'coeur' ? [r.cycle] : ['racine', 'coeur'], Q = [], vus = r.enquete && r.enquete.q || {}, qui = r.qui ? personne(r.qui) : null;
+    cyc.forEach(function (c) { Q = Q.concat(((PF.QUESTIONS || {})[c] || []).slice(0, cyc.length > 1 ? 3 : 5)); });
+    (r.bl || []).forEach(function (b) { if ((PF.BLESSURE_Q || {})[b]) Q.push(PF.BLESSURE_Q[b]); });
+    h += '<div class="pa-bloc"><h4>Les questions à poser' + (qui ? ' autour de ' + esc(qui.prenom) : '') + '</h4><ul class="pa-coches">' + Q.map(function (q, k) { return '<li><label><input type="checkbox" data-q="' + k + '"' + (vus[k] ? ' checked' : '') + '> ' + esc(q) + '</label></li>'; }).join('') + '</ul></div>';
+    var OU = []; cyc.forEach(function (c) { OU = OU.concat(((PF.OU || {})[c] || []).slice(0, cyc.length > 1 ? 2 : 4)); }); OU = OU.concat((PF.OU || {}).tous || []);
+    h += '<div class="pa-bloc"><h4>Où chercher</h4><ul class="pa-ou">' + OU.map(function (o) { return '<li><b>' + esc(o[0]) + '</b><span>' + esc(o[1]) + '</span></li>'; }).join('') + '</ul></div>';
+    h += '<div class="pa-bloc">' + zoneTexte('trouve', 'Ce que j’ai trouvé, entendu ou senti', (r.enquete || {}).trouve, 'Une date, une phrase, un papier, un rêve…') + '</div>';
+    return h + livre('Le livre te donne une page pour chaque personne de ta lignée, à remplir à la main et à transmettre.');
+  }
+  function sphereResp() { return '<div class="pa-resp" aria-live="polite"><i></i><button type="button" class="pa-bt clair" data-respirer>Respirer avec moi</button></div>'; }
+  /* Les nouvelles lunes après une date (iso) */
+  function lunesApres(k, n) {
+    var d = dateComplete(k), l = []; if (!d || !A) return l;
+    var t = new Date(d.a, d.m - 1, d.j + 1);
+    for (var i = 0; i < n; i++) { var x = A.SearchMoonPhase(0, t, 40); if (!x) break; l.push(iso(x.date)); t = new Date(x.date.getTime() + 2 * 864e5); }
+    return l;
+  }
+  function aquiDe(r) { return porteDe(r); }
   function protoDe(r) { return r.protocole || (r.profond ? 'cle2' : dejaLibere(r) ? 'cle2' : 'cle1'); }
   function nomSuggere(r) { var e = (r.em || [])[0]; return e ? 'la mémoire de ' + e.toLowerCase() : 'la mémoire de peur'; }
   function sourceSuggeree(r) { var q = r.qui ? personne(r.qui) : null; return q ? q.lien.toLowerCase().replace(/^(ton|ta|un|une) /, function (m) { return { 'ton ': 'mon ', 'ta ': 'ma ', 'un ': 'un ', 'une ': 'une ' }[m]; }) + ' ' + q.prenom : ''; }
@@ -526,40 +573,125 @@
   function brancherEtape(z, r, i) {
     var E = ETAPES[i];
     z.addEventListener('input', function (e) {
+      var lu = e.target.closest('[data-lune]'); if (lu) { r.lunes = r.lunes || {}; var d = lu.getAttribute('data-lune'); r.lunes[d] = r.lunes[d] || {}; r.lunes[d][lu.getAttribute('data-k')] = lu.value; sauver(); return; }
+      if (e.target.id === 'pa-age-f') { r.ageFige = +e.target.value; z.querySelector('#pa-age-v').textContent = r.ageFige + ' ans'; sauver(); return; }
       var t = e.target.closest('[data-t]'); if (!t) return;
       var k = t.getAttribute('data-t'), v = t.value;
       if (/^i\d$/.test(k)) { r.intuition = r.intuition || {}; r.intuition[k.slice(1)] = v; }
       else if (/^s\d$/.test(k)) { r.sp = r.sp || {}; r.sp[k.slice(1)] = v; }
       else if (k === 'trouve') { r.enquete = r.enquete || { q: {} }; r.enquete.trouve = v; }
-      else r[k] = v;
+      else { r[k] = v; if (k === 'vois' && v && !r.voisDate) r.voisDate = iso(new Date()); }
       var ph = z.querySelector('#pa-phrase-lib'); if (ph && (k === 'nom' || k === 'source')) ph.textContent = phraseLib(r, protoDe(r) === 'cle2');
-      var af = z.querySelector('#pa-affirm'); if (af && k === 'verite') af.textContent = ((PF.LIBERER || {}).affirmation || '').replace('{verite}', v || '…');
       sauver();
     });
     z.addEventListener('change', function (e) {
       var q = e.target.closest('[data-q]'); if (q) { r.enquete = r.enquete || { q: {} }; r.enquete.q = r.enquete.q || {}; if (q.checked) r.enquete.q[q.getAttribute('data-q')] = iso(new Date()); else delete r.enquete.q[q.getAttribute('data-q')]; sauver(); return; }
-      if (e.target.id === 'pa-qui') { r.qui = e.target.value; sauver(); return; }
-      if (e.target.id === 'pa-profond') { r.profond = e.target.checked; sauver(); ouvrirFil(r.id, i); return; }
+      if (e.target.id === 'pa-role-qui') { r.roleQui = e.target.value; sauver(); return; }
       var g = e.target.closest('[data-groupe]'); if (!g) return;
-      var nom = g.getAttribute('data-groupe'), v = lirePuces(z, nom)[0] || '';
-      if (nom === 'aqui') { r.aqui = v; var qz = z.querySelector('#pa-qui-z'); if (qz) qz.hidden = !(v === 'parent' || v === 'loin'); }
-      if (nom === 'cycle') r.cycle = v;
+      var nom = g.getAttribute('data-groupe');
+      if (nom === 'cycle') r.cycle = lirePuces(z, nom)[0] || '';
+      if (nom === 'role') { r.roles = lirePuces(z, 'role'); sauver(); ouvrirFil(r.id, i); return; }
       sauver();
     });
     z.addEventListener('click', function (e) {
       var p = e.target.closest('[data-pas]'); if (p && !p.disabled) { ouvrirFil(r.id, +p.getAttribute('data-pas')); return; }
       if (e.target.closest('[data-respirer]')) { respirer(e.target.closest('.pa-resp')); return; }
       var pr = e.target.closest('[data-proto]'); if (pr) { r.protocole = pr.getAttribute('data-proto'); sauver(); ouvrirFil(r.id, i); return; }
+      var po = e.target.closest('[data-porte]'); if (po) { r.porte = po.getAttribute('data-porte'); if (r.porte !== 'lignee') r.qui = r.porte === 'vie' ? '' : r.qui; sauver(); ouvrirFil(r.id, i); return; }
+      var qb = e.target.closest('[data-qui]'); if (qb) { r.qui = qb.getAttribute('data-qui'); z.querySelectorAll('[data-qui]').forEach(function (b) { b.setAttribute('aria-pressed', b === qb); }); sauver(); return; }
+      var ab = e.target.closest('[data-age]'); if (ab) { r.ageFige = +ab.getAttribute('data-age'); sauver(); ouvrirFil(r.id, i); return; }
+      var ex = e.target.closest('[data-exemple]'); if (ex) { var ta = z.querySelector('#pa-t-intention'); if (ta) { ta.value = ex.getAttribute('data-exemple'); r.intention = ta.value; sauver(); } return; }
+      var cp = e.target.closest('[data-corps]'); if (cp) { r.corpsJ = r.corpsJ || {}; var ck = cp.getAttribute('data-corps'); if (r.corpsJ[ck]) delete r.corpsJ[ck]; else r.corpsJ[ck] = 1; sauver(); ouvrirFil(r.id, i); return; }
       if (e.target.closest('[data-suite]')) {
         var auj = iso(new Date());
         if (E.id === 'liberer') r.libere = auj;
-        if (E.id === 'spirale') { r.spirale = auj; sauver(); fermerFeuille(); return; }
+        if (E.id === 'reapprendre') { r.spirale = auj; sauver(); fermerFeuille(); return; }
         r.etape = Math.max(r.etape || 0, i + 1); sauver(); ouvrirFil(r.id); return;
       }
       if (e.target.closest('[data-suppr-fil]') && confirm('Supprimer ce ressenti et tout ce que tu as écrit dessus ?')) {
         D.etat.ressentis = D.etat.ressentis.filter(function (x) { return x.id !== r.id; }); sauver(); fermerFeuille();
       }
     });
+    /* Poser l'intention : garder le doigt appuyé trois secondes */
+    var tb = z.querySelector('[data-tenir]');
+    if (tb) {
+      var tm = null;
+      var debut = function (e) { e.preventDefault(); if (!String(r.intention || '').trim()) { tb.querySelector('span').textContent = 'Écris d’abord ton intention'; return; } tb.classList.add('tient'); tb.querySelector('span').textContent = 'Reste centrée…'; tm = setTimeout(function () { r.intentionPosee = iso(new Date()); r.etape = Math.max(r.etape || 0, i + 1); if (navigator.vibrate) navigator.vibrate(60); sauver(); ouvrirFil(r.id, i); }, 3000); };
+      var fin = function () { if (tm) { clearTimeout(tm); tm = null; } if (!r.intentionPosee) { tb.classList.remove('tient'); tb.querySelector('span').textContent = 'Garder appuyé'; } };
+      tb.addEventListener('pointerdown', debut); tb.addEventListener('pointerup', fin); tb.addEventListener('pointerleave', fin); tb.addEventListener('pointercancel', fin);
+      tb.addEventListener('keydown', function (e) { if ((e.key === ' ' || e.key === 'Enter') && !tm) debut(e); });
+      tb.addEventListener('keyup', fin);
+    }
+  }
+
+  /* ── Les rêves ── */
+  function trouverReve(id) { var l = D.etat.reves || []; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; }
+  /* Pour un partage anonyme : on retire les prénoms connus, les adresses e-mail et les numéros */
+  function anonymiser(t) {
+    var noms = [D.prenom].concat(String(D.prenoms || '').split(/\s+/), D.nom).concat(personnes().map(function (p) { return p.prenom; }));
+    var F = (D.fil && D.fil.personnes) || {}; Object.keys(F).forEach(function (k) { if (F[k].prenom) noms.push(F[k].prenom); });
+    t = String(t || '').replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, '[e-mail]').replace(/(\+?\d[\d .-]{7,}\d)/g, '[numéro]');
+    noms.filter(function (n) { return n && n.length > 1; }).forEach(function (n) { t = t.replace(new RegExp('(^|[^\\wÀ-ÿ])' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?=$|[^\\wÀ-ÿ])', 'gi'), '$1[prénom]'); });
+    return t;
+  }
+  function ouvrirReve(id) {
+    var R = D.etat.reves = D.etat.reves || [], v = id === 'new' ? null : trouverReve(id), neuf = !v;
+    if (neuf) v = { id: 'v' + Date.now().toString(36), date: iso(new Date()), texte: '', types: [], symboles: [], em: [], qui: [] };
+    var RV = PF.REVES || {}, P = personnes();
+    var h = '<p class="pa-etiq">' + (neuf ? 'Je note un rêve' : 'Mon rêve du ' + esc(dateCourte(v.date))) + '</p><h2>Ton rêve</h2><p class="pa-souffle">Note-le vite, avant qu’il ne s’efface : les images, les lieux, les personnes, ce que tu as ressenti au réveil. Certains rêves rangent ce que tu vis en ce moment, d’autres portent des symboles forts, ou la visite de quelqu’un de ta lignée.</p>' +
+      '<form class="pa-form" novalidate onsubmit="return false"><label for="pa-rv-t">Ce que j’ai rêvé</label><textarea id="pa-rv-t" maxlength="4000" placeholder="J’étais dans la maison de ma grand-mère…">' + esc(v.texte) + '</textarea>' +
+      '<p class="pa-lab">Ce rêve…</p>' + puces('rv-types', RV.types || [], v.types, true) +
+      '<p class="pa-lab">Les symboles</p>' + puces('rv-sym', (RV.symboles || []).map(function (x) { return x[0]; }), v.symboles, true) + '<div id="pa-rv-pistes"></div>' +
+      '<p class="pa-lab">Au réveil, je ressentais</p>' + puces('rv-em', (PF.EMOTIONS || []).concat(['Paix', 'Joie']), v.em, true) +
+      (P.length ? '<p class="pa-lab">Quelqu’un de ma lignée y était</p>' + puces('rv-qui', P.map(function (p) { return [p.k, p.prenom]; }), v.qui, true) : '') + '<div id="pa-rv-echos"></div>' +
+      '<div class="pa-partage"><label class="pa-coche"><input type="checkbox" id="pa-rv-ok"' + (v.partage ? ' checked disabled' : '') + '> J’accepte que Genesolia utilise ce rêve, de façon totalement anonyme, pour écrire des articles sur les rêves</label>' +
+      '<div id="pa-rv-apercu"' + (v.partage ? '' : ' hidden') + '></div></div>' +
+      '<div class="pa-outils"><button type="button" class="pa-bt or" data-rv-ok>' + (neuf ? 'Garder mon rêve' : 'C’est noté') + '</button>' + (!neuf ? '<button type="button" class="pa-bt clair" data-rv-fil>Ce rêve parle d’une mémoire : la suivre</button><button type="button" class="pa-lien-s" data-rv-suppr>Supprimer ce rêve</button>' : '') + '</div></form>';
+    var z = feuille(h);
+    function lire() { v.texte = z.querySelector('#pa-rv-t').value; v.types = lirePuces(z, 'rv-types'); v.symboles = lirePuces(z, 'rv-sym'); v.em = lirePuces(z, 'rv-em'); v.qui = lirePuces(z, 'rv-qui'); }
+    function pistes() {
+      var sy = lirePuces(z, 'rv-sym'), m = {}; (RV.symboles || []).forEach(function (x) { m[x[0]] = x[1]; });
+      z.querySelector('#pa-rv-pistes').innerHTML = sy.length ? '<ul class="pa-echos">' + sy.map(function (x) { return '<li><b>' + esc(x) + '</b> · ' + esc(m[x]) + '</li>'; }).join('') + '</ul><p class="pa-discret">Des pistes, jamais des certitudes : c’est toi qui sens ce que ton rêve veut dire.</p>' : '';
+      var ec = [], qs = lirePuces(z, 'rv-qui');
+      qs.forEach(function (k) { var p = personne(k); if (!p) return; var t = p.prenom + ' (' + p.lien.toLowerCase() + ')'; if (p.parti && p.anneeD) t += ' est parti' + (p.f ? 'e' : '') + ' le ' + p.anneeD.j + ' ' + MOIS[p.anneeD.m - 1] + ' ' + p.anneeD.a; var c = communs(p); if (c.length) t += ' · vous avez ' + c.join(', '); var dr = (D.etat.reves || []).filter(function (x) { return x.id !== v.id && (x.qui || []).indexOf(k) >= 0; }).length; if (dr) t += ' · déjà venu' + (p.f ? 'e' : '') + ' dans ' + dr + ' autre' + (dr > 1 ? 's' : '') + ' rêve' + (dr > 1 ? 's' : ''); ec.push(t + '. Que vient-' + (p.f ? 'elle' : 'il') + ' te dire, ou te rendre ?'); });
+      var memes = (D.etat.reves || []).filter(function (x) { return x.id !== v.id && (x.symboles || []).some(function (y) { return sy.indexOf(y) >= 0; }); });
+      if (memes.length) ec.push('Ces symboles sont déjà venus dans ' + memes.length + ' rêve' + (memes.length > 1 ? 's' : '') + ' : ils insistent.');
+      z.querySelector('#pa-rv-echos').innerHTML = ec.length ? '<div class="pa-bloc"><h4>Ce que ce rêve réveille</h4><ul class="pa-echos">' + ec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' : '';
+    }
+    function apercu() { var ok = z.querySelector('#pa-rv-ok'), a = z.querySelector('#pa-rv-apercu'); a.hidden = !ok.checked; if (ok.checked) a.innerHTML = v.partage ? '<p class="pa-discret">Partagé anonymement le ' + esc(dateCourte(v.partage)) + '. Merci.</p>' : '<p class="pa-discret">Voici exactement ce qui sera envoyé, sans ton nom, ton e-mail ni ton compte. Les prénoms sont retirés : relis et enlève tout ce qui pourrait te reconnaître.</p><blockquote class="pa-apercu">' + esc(anonymiser(z.querySelector('#pa-rv-t').value)) + '</blockquote>'; }
+    pistes(); if (v.partage) apercu();
+    z.addEventListener('change', function (e) { if (e.target.id === 'pa-rv-ok') apercu(); else pistes(); });
+    z.addEventListener('input', function (e) { if (e.target.id === 'pa-rv-t' && z.querySelector('#pa-rv-ok').checked && !v.partage) apercu(); });
+    z.addEventListener('click', function (e) {
+      if (e.target.closest('[data-rv-ok]')) {
+        lire(); if (!v.texte.trim() && !v.symboles.length) { fermerFeuille(); return; }
+        if (neuf) R.push(v);
+        if (z.querySelector('#pa-rv-ok').checked && !v.partage) partagerReve(v);
+        sauver(); fermerFeuille(); return;
+      }
+      if (e.target.closest('[data-rv-fil]')) {
+        lire(); var r = { id: 'r' + Date.now().toString(36), date: iso(new Date()), quoi: 'Mon rêve : ' + String(v.texte || '').slice(0, 300), em: v.em.filter(function (x) { return (PF.EMOTIONS || []).indexOf(x) >= 0; }), bl: [], corps: [], revient: v.types.indexOf('revient') >= 0 ? 'oui' : '', etape: 0, intuition: {}, enquete: { q: {} }, reve: v.id, qui: v.qui[0] || '', porte: v.qui.length ? 'lignee' : '' };
+        D.etat.ressentis.push(r); v.fil = r.id; sauver(); ouvrirFil(r.id); return;
+      }
+      if (e.target.closest('[data-rv-suppr]') && confirm('Supprimer ce rêve ?')) { D.etat.reves = R.filter(function (x) { return x.id !== v.id; }); sauver(); fermerFeuille(); }
+    });
+  }
+  function partagerReve(v) {
+    v.partage = iso(new Date());
+    if (EXEMPLE || !sb) return;
+    sb.from('reves_anonymes').insert({ mois: v.date.slice(0, 7), texte: anonymiser(v.texte).slice(0, 4000), symboles: v.symboles, emotions: v.em, types: v.types }).then(function (r) { if (r && r.error) { delete v.partage; sauver(); } }, function () { delete v.partage; sauver(); });
+  }
+  function blocReves() {
+    var R = (D.etat.reves || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    var h = '<section class="pa-carte"><p class="pa-etiq">Mes rêves</p>';
+    if (!R.length) h += '<p>Tes rêves sont remplis d’indices. Note-les ici : l’appli relie leurs symboles et les personnes qui y viennent à ta lignée.</p>';
+    else {
+      var sy = {}; R.forEach(function (v) { (v.symboles || []).forEach(function (x) { sy[x] = (sy[x] || 0) + 1; }); });
+      var rec = Object.keys(sy).filter(function (x) { return sy[x] > 1; });
+      if (rec.length) h += '<p class="pa-discret"><b>Les symboles qui reviennent :</b> ' + esc(rec.map(function (x) { return x.toLowerCase() + ' (' + sy[x] + ')'; }).join(', ')) + '</p>';
+      h += '<ul class="pa-moments">' + R.slice(0, 5).map(function (v) { return '<li><button type="button" data-reve="' + esc(v.id) + '"><span class="pa-age rv">☾</span><span><b>' + esc(String(v.texte || 'Un rêve').slice(0, 70)) + '</b><small>' + esc(dateCourte(v.date) + ((v.symboles || []).length ? ' · ' + v.symboles.join(', ').toLowerCase() : '')) + '</small></span></button></li>'; }).join('') + '</ul>';
+    }
+    return h + '<div class="pa-outils"><button type="button" class="pa-bt clair" data-reve="new">Je note un rêve</button></div></section>';
   }
 
   /* ── 2. Mon fil d'or ── */
@@ -578,6 +710,7 @@
     h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Tirer un nouveau fil</p><p>Chaque ressenti suit le même chemin : <b>' + ETAPES.map(function (E) { return esc(E.titre); }).join('</b>, <b>') + '</b>.</p><button type="button" class="pa-bt or" data-depot>Je dépose un ressenti</button></section>';
     h += enCours.length ? '<p class="pa-titre-s">Mes fils en cours</p>' + enCours.map(carteFil).join('') : '';
     h += finis.length ? '<p class="pa-titre-s">Devenus spirale</p>' + finis.map(carteFil).join('') : '';
+    h += blocReves();
     h += livre('Pour écrire ton enquête à la main, la remplir en famille et la transmettre : 166 pages, 18 thèmes expliqués.');
     if (D.user && !D.accord && !EXEMPLE) h += '<div id="pa-coffre"></div>';
     h += '</div></div>';
@@ -687,9 +820,13 @@
       var l = dateComplete(r.libere); if (l && l.a === a && l.m === m + 1) add(l.j, { type: 'lib', cle: 'lib-' + r.id, texte: 'Mémoire libérée' + (r.nom ? ' : ' + r.nom.replace(/^la /, '') : ''), sous: qt ? 'Rendue à ' + qt + liensDates(q) : '', fil: r.id });
       var s = dateComplete(r.spirale); if (s && s.a === a && s.m === m + 1) add(s.j, { type: 'lib', cle: 'spi-' + r.id, texte: 'Un fil devenu spirale', fil: r.id });
       var g = dateComplete(r.gesteDate); if (g && r.geste && g.a === a && g.m === m + 1) add(g.j, { type: 'g', cle: 'geste-' + r.id, texte: 'Mon geste : ' + r.geste, fil: r.id });
+      var ip = dateComplete(r.intentionPosee); if (ip && ip.a === a && ip.m === m + 1) add(ip.j, { type: 'int', cle: 'int-' + r.id, texte: 'Intention posée : « ' + (r.intention || '') + ' »', fil: r.id });
+      if (r.intentionPosee && !r.spirale) lunesApres(r.intentionPosee, 6).forEach(function (k) { var x = dateComplete(k); if (x.a === a && x.m === m + 1) add(x.j, { type: 'int', cle: 'lun-' + r.id + k, texte: 'Nouvelle lune : ton intention revient', sous: '« ' + (r.intention || '') + ' » · qu’est-ce qui a bougé ?', fil: r.id, etape: 4 }); });
+      var vs = dateComplete(r.voisDate); if (vs && vs.a === a && vs.m === m + 1) add(vs.j, { type: 'e', cle: 'vois-' + r.id, texte: 'Prise de conscience', sous: String(r.vois || '').slice(0, 120), fil: r.id });
       /* un an après une libération : une date à fêter */
       if (l && l.a < a && l.m === m + 1) add(l.j, { type: 'lib', cle: 'anlib-' + r.id, texte: 'Il y a ' + (a - l.a) + ' an' + (a - l.a > 1 ? 's' : '') + ', tu libérais une mémoire', fil: r.id });
     });
+    (D.etat.reves || []).forEach(function (v) { var d = dateComplete(v.date); if (d && d.a === a && d.m === m + 1) add(d.j, { type: 'rv', cle: 'reve-' + v.id, texte: 'Un rêve' + ((v.symboles || []).length ? ' : ' + v.symboles.join(', ').toLowerCase() : ''), sous: String(v.texte || '').slice(0, 100), reve: v.id }); });
     var notes = D.etat.notes || {};
     Object.keys(notes).forEach(function (k) { if (+k.slice(0, 4) === a && +k.slice(5, 7) === m + 1) (notes[k] || []).forEach(function (t, n) { add(+k.slice(8, 10), { type: 'n', cle: 'note-' + k + '-' + n, texte: t, note: true }); }); });
     return E;
@@ -707,13 +844,14 @@
     var l = [];
     D.etat.ressentis.forEach(function (r) {
       var q = r.qui ? personne(r.qui) : null;
-      [['date', 'Tu déposes'], ['libere', 'Tu libères'], ['gesteDate', 'Ton geste'], ['spirale', 'Devenu spirale']].forEach(function (c) {
+      [['date', 'Tu déposes'], ['voisDate', 'Tu prends conscience'], ['libere', 'Tu libères'], ['gesteDate', 'Ton geste'], ['intentionPosee', 'Tu poses ton intention'], ['spirale', 'Devenu spirale']].forEach(function (c) {
         var d = dateComplete(r[c[0]]); if (!d || d.a !== a || d.m !== m + 1) return;
         if (c[0] === 'gesteDate' && !r.geste) return;
-        var t = c[0] === 'date' ? (r.em || []).join(', ').toLowerCase() || String(r.quoi || '').slice(0, 50) : c[0] === 'libere' ? (r.nom || 'une mémoire') : c[0] === 'gesteDate' ? r.geste : (r.choix || '');
+        var t = c[0] === 'date' ? (r.em || []).join(', ').toLowerCase() || String(r.quoi || '').slice(0, 50) : c[0] === 'voisDate' ? String(r.vois || '').slice(0, 70) : c[0] === 'libere' ? (r.nom || 'une mémoire') : c[0] === 'gesteDate' ? r.geste : c[0] === 'intentionPosee' ? '« ' + String(r.intention || '').slice(0, 70) + ' »' : '';
         l.push({ j: d.j, k: c[0], fil: r.id, t: c[1] + (t ? ' : ' + t : ''), q: q });
       });
     });
+    (D.etat.reves || []).forEach(function (v) { var d = dateComplete(v.date); if (d && d.a === a && d.m === m + 1) l.push({ j: d.j, k: 'reve', reve: v.id, t: 'Un rêve' + ((v.symboles || []).length ? ' : ' + v.symboles.join(', ').toLowerCase() : ''), q: null }); });
     var HU = D.etat.humeurs || {}, cpt = {};
     Object.keys(HU).forEach(function (k) { var d = dateComplete(k); if (d && d.a === a && d.m === m + 1) (HU[k] || []).forEach(function (x) { cpt[x] = (cpt[x] || 0) + 1; }); });
     return { l: l.sort(function (x, y) { return x.j - y.j; }), humeurs: cpt };
@@ -747,11 +885,11 @@
       var dt = new Date(a, m, j), ev = E[j] || [], jp = jourPerso(dt), cl = (iso(dt) === iso(auj) ? ' auj' : '') + (iso(dt) === iso(jourChoisi) ? ' choisi' : '');
       h += '<button type="button" class="pa-jour' + cl + '" data-jour="' + j + '"><span class="n">' + j + '</span>' + (jp ? '<span class="jp">' + jp + '</span>' : '') + '<span class="pts">' + ev.slice(0, 5).map(function (e) { return '<i class="' + e.type + '"></i>'; }).join('') + '</span></button>';
     }
-    h += '</div><p class="pa-legende"><span><i class="l"></i>naissance</span><span><i class="f"></i>départ</span><span><i class="r"></i>date qui revient</span><span><i class="e"></i>ressenti</span><span><i class="lib"></i>libération</span><span><i class="g"></i>mon geste</span><span><i class="h"></i>état d’âme</span><span><i class="m"></i>lune</span><span><i class="n"></i>note</span><span><b class="jpl">5</b> jour personnel</span></p>';
+    h += '</div><p class="pa-legende"><span><i class="l"></i>naissance</span><span><i class="f"></i>départ</span><span><i class="r"></i>date qui revient</span><span><i class="e"></i>ressenti</span><span><i class="lib"></i>libération</span><span><i class="g"></i>mon geste</span><span><i class="h"></i>état d’âme</span><span><i class="int"></i>intention</span><span><i class="rv"></i>rêve</span><span><i class="m"></i>lune</span><span><i class="n"></i>note</span><span><b class="jpl">5</b> jour personnel</span></p>';
     var pm = periodeMois(a, m), ea = a === auj.getFullYear() ? echosAge(a) : [], cm = cheminMois(a, m);
     if (cm.l.length || Object.keys(cm.humeurs).length) {
       h += '<section class="pa-carte"><p class="pa-etiq">Ton chemin en ' + MOIS[m] + '</p>';
-      if (cm.l.length) h += '<ul class="pa-frise">' + cm.l.map(function (x) { return '<li class="' + x.k + '"><b>' + x.j + '</b><button type="button" data-fil="' + esc(x.fil) + '"><span>' + esc(x.t) + '</span>' + (x.q ? '<small>avec ' + esc(x.q.prenom + ', ' + x.q.lien.toLowerCase()) + '</small>' : '') + '</button></li>'; }).join('') + '</ul>';
+      if (cm.l.length) h += '<ul class="pa-frise">' + cm.l.map(function (x) { return '<li class="' + x.k + '"><b>' + x.j + '</b><button type="button" ' + (x.reve ? 'data-reve="' + esc(x.reve) + '"' : 'data-fil="' + esc(x.fil) + '"') + '><span>' + esc(x.t) + '</span>' + (x.q ? '<small>avec ' + esc(x.q.prenom + ', ' + x.q.lien.toLowerCase()) + '</small>' : '') + '</button></li>'; }).join('') + '</ul>';
       var hk = Object.keys(cm.humeurs).sort(function (x, y) { return cm.humeurs[y] - cm.humeurs[x]; });
       if (hk.length) h += '<p class="pa-discret"><b>Tes états d’âme :</b> ' + hk.map(function (x) { return esc(x.toLowerCase()) + ' (' + cm.humeurs[x] + ' jour' + (cm.humeurs[x] > 1 ? 's' : '') + ')'; }).join(', ') + '</p>';
       h += '</section>';
@@ -776,7 +914,8 @@
       var on = !!(D.etat.rappels || {})[e.cle], btn;
       if (e.note) btn = '<button type="button" class="pa-cloche" data-suppr="' + esc(e.cle) + '" aria-label="Supprimer cette note">×</button>';
       else if (e.humeur) btn = '';
-      else if (e.fil) btn = '<button type="button" class="pa-cloche" data-fil="' + esc(e.fil) + '" aria-label="Ouvrir ce fil">›</button>';
+      else if (e.reve) btn = '<button type="button" class="pa-cloche" data-reve="' + esc(e.reve) + '" aria-label="Ouvrir ce rêve">›</button>';
+      else if (e.fil) btn = '<button type="button" class="pa-cloche" data-fil="' + esc(e.fil) + '"' + (e.etape != null ? ' data-etape="' + e.etape + '"' : '') + ' aria-label="Ouvrir">›</button>';
       else btn = '<button type="button" class="pa-cloche" data-rappel="' + esc(e.cle) + '" data-texte="' + esc(e.texte) + '" data-date="' + k + '" aria-pressed="' + on + '" aria-label="' + (on ? 'Retirer le rappel' : 'Me le rappeler') + '">' + CLOCHE + '</button>';
       return '<div class="pa-evt"><p><i class="pa-pt ' + e.type + '"></i>' + esc(e.texte) + (e.sous ? '<small>' + esc(e.sous) + '</small>' : '') + (e.note ? '<small>Ta note</small>' : '') + '</p>' + btn + '</div>';
     }).join('') : '<p class="pa-discret">Rien de particulier dans ta lignée ce jour-là.</p>';
@@ -847,7 +986,7 @@
     var ra = Rs.filter(function (r) { return r.cycle === 'racine' || r.cycle === 'deux'; }).length, co = Rs.filter(function (r) { return r.cycle === 'coeur' || r.cycle === 'deux'; }).length;
     if (ra + co) h += '<p class="pa-lab">Cycle 1 ou cycle 2</p><div class="pa-barres"><span style="flex:' + (ra || .001) + '" class="ra">Cycle 1 · ' + ra + '</span><span style="flex:' + (co || .001) + '" class="co">Cycle 2 · ' + co + '</span></div>';
     var aq = {}; Rs.forEach(function (r) { var x = aquiDe(r); if (x) aq[x] = (aq[x] || 0) + 1; });
-    if (Object.keys(aq).length) h += '<p class="pa-discret"><b>D’où viennent tes mémoires :</b> ' + (PF.AQUI || []).filter(function (x) { return aq[x[0]]; }).map(function (x) { return esc(x[1].replace(/ :.*$/, '').toLowerCase()) + ' (' + aq[x[0]] + ')'; }).join(', ') + '</p>';
+    if (Object.keys(aq).length) h += '<p class="pa-discret"><b>D’où viennent tes mémoires :</b> ' + (PF.PORTES || []).filter(function (x) { return aq[x[0]]; }).map(function (x) { return esc(x[1].toLowerCase()) + ' (' + aq[x[0]] + ')'; }).join(', ') + '</p>';
     var em = {}; Rs.forEach(function (r) { (r.em || []).forEach(function (x) { em[x] = (em[x] || 0) + 1; }); });
     var tE = Object.keys(em).sort(function (a, b) { return em[b] - em[a]; }).slice(0, 4);
     if (tE.length) h += '<p class="pa-discret"><b>Ce qui revient le plus :</b> ' + tE.map(function (x) { return esc(x.toLowerCase()) + ' (' + em[x] + ')'; }).join(', ') + '</p>';
@@ -863,6 +1002,12 @@
     if (sem.length) h += '<section class="pa-carte"><p class="pa-etiq">Ceux qui te ressemblent</p><ul class="pa-gens">' + sem.slice(0, 6).map(function (x) { var t = (L[x.p.k] || {}).t; return '<li><button type="button" data-personne="' + esc(x.p.k) + '"><i class="pa-mini ' + (t || '') + '"></i><span><b>' + esc(x.p.prenom) + '</b>' + esc(x.p.lien.toLowerCase() + ' · ' + x.c.join(', ')) + '</span></button></li>'; }).join('') + '</ul><p class="pa-discret">Par les nombres ou par le ciel, ces personnes te ressemblent : elles méritent qu’on les regarde. Qu’ont-elles vécu à ton âge ? Que portent-elles que tu reconnais ?</p></section>';
     var lr = (D.etat.ressentis || []).filter(function (r) { return r.qui; });
     if (lr.length) { var parP = {}; lr.forEach(function (r) { (parP[r.qui] = parP[r.qui] || []).push(r); }); h += '<section class="pa-carte"><p class="pa-etiq">Tes mémoires et tes ancêtres</p><ul class="pa-echos">' + Object.keys(parP).map(function (k) { var q = personne(k); if (!q) return ''; var rr = parP[k]; return '<li><b>' + esc(q.prenom) + '</b> · ' + esc(q.lien.toLowerCase()) + ' : ' + esc(rr.map(function (r) { return (r.nom || (r.em || [])[0] || 'un ressenti').toLowerCase() + (r.libere ? ' (libérée le ' + dateCourte(r.libere) + ')' : ' (en cours)'); }).join(', ')) + '</li>'; }).join('') + '</ul></section>'; }
+    var ints = Rs.filter(function (r) { return r.intentionPosee; });
+    if (ints.length) h += '<section class="pa-carte"><p class="pa-etiq">Tes intentions</p><ul class="pa-liste">' + ints.map(function (r) { return '<li><span class="pa-pastille or">' + (r.spirale ? '✓' : '✦') + '</span><span><b>« ' + esc(r.intention || '') + ' »</b><br><small>' + esc('Posée le ' + dateCourte(r.intentionPosee) + (r.nom ? ' · après ' + r.nom : '') + (r.spirale ? ' · devenue spirale' : '')) + '</small></span></li>'; }).join('') + '</ul></section>';
+    var ro = {}; Rs.forEach(function (r) { (r.roles || []).forEach(function (x) { ro[x] = (ro[x] || 0) + 1; }); });
+    if (Object.keys(ro).length) h += '<section class="pa-carte"><p class="pa-etiq">Les rôles que tu prends</p><p>' + esc((PF.ROLES || []).filter(function (x) { return ro[x[0]]; }).map(function (x) { return x[1] + ' (' + ro[x[0]] + ')'; }).join(' · ')) + '</p><p class="pa-discret">Les voir, c’est déjà pouvoir en sortir.</p></section>';
+    var RVs = D.etat.reves || [];
+    if (RVs.length) { var syb = {}; RVs.forEach(function (v) { (v.symboles || []).forEach(function (x) { syb[x] = (syb[x] || 0) + 1; }); }); var tsy = Object.keys(syb).sort(function (a, b) { return syb[b] - syb[a]; }).slice(0, 4); h += '<section class="pa-carte"><p class="pa-etiq">Tes rêves</p><p>' + RVs.length + ' rêve' + (RVs.length > 1 ? 's' : '') + ' noté' + (RVs.length > 1 ? 's' : '') + (tsy.length ? ' · ' + esc(tsy.map(function (x) { return x.toLowerCase(); }).join(', ')) : '') + '</p></section>'; }
     var nr = reps().length; if (nr) h += '<a class="pa-carte" href="#fil"><p class="pa-etiq">Ce qui se répète</p><p>' + nr + ' piste' + (nr > 1 ? 's' : '') + ' repérée' + (nr > 1 ? 's' : '') + ' dans ton arbre.</p><span class="pa-plus">Voir ma base</span></a>';
     h += '<p class="pa-outils"><button type="button" class="pa-bt clair" data-imprimer>Imprimer mon bilan</button><a class="pa-bt clair" href="genosociogramme.html#lumiere">Ma lignée en lumière (poster)</a></p>';
     h += '</div></div>';
@@ -916,7 +1061,9 @@
     var fp = e.target.closest('[data-fil-p]'); if (fp) { filSel = fp.getAttribute('data-fil-p'); rafraichir(); return; }
     var fm = e.target.closest('[data-fil-m]'); if (fm) { ouvrirMoment(fm.getAttribute('data-fil-m')); return; }
     if (e.target.closest('[data-fil-suppr]')) { var F0 = filEtat(), x0 = F0.personnes[filSel]; if (x0 && (!(x0.etapes || []).some(plein) || confirm('Retirer cette personne et ses moments de ton fil d’or ?'))) { delete F0.personnes[filSel]; F0.ordre = F0.ordre.filter(function (k) { return k !== filSel; }); filSel = 'toi'; sauverFil(); rafraichir(); } return; }
-    var f = e.target.closest('[data-fil]'); if (f) { ouvrirFil(f.getAttribute('data-fil')); return; }
+    var cj = e.target.closest('[data-corps-j]'); if (cj) { var rr = trouver(cj.getAttribute('data-corps-j')), kk = iso(new Date()); if (rr) { rr.corpsJ = rr.corpsJ || {}; if (rr.corpsJ[kk]) delete rr.corpsJ[kk]; else rr.corpsJ[kk] = 1; sauver(); rafraichir(); } return; }
+    var rv = e.target.closest('[data-reve]'); if (rv) { ouvrirReve(rv.getAttribute('data-reve')); return; }
+    var f = e.target.closest('[data-fil]'); if (f) { ouvrirFil(f.getAttribute('data-fil'), f.hasAttribute('data-etape') ? +f.getAttribute('data-etape') : null); return; }
     var pe = e.target.closest('[data-personne]'); if (pe) { ouvrirPersonne(pe.getAttribute('data-personne')); return; }
     if (e.target.closest('[data-imprimer]')) { window.print(); return; }
     var m = e.target.closest('[data-mois]'); if (m) { vueMoisD = new Date(vueMoisD.getFullYear(), vueMoisD.getMonth() + +m.getAttribute('data-mois'), 1); jourChoisi = null; vueAgenda(); return; }

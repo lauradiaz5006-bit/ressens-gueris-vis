@@ -132,18 +132,31 @@ window.PASS_FIL = {
   BLESSURES: [['abandon', 'Abandon'], ['rejet', 'Rejet'], ['trahison', 'Trahison'], ['humiliation', 'Humiliation'], ['injustice', 'Injustice']],
   CORPS: ['La gorge', 'La poitrine', 'Le ventre', 'Les épaules', 'La tête', 'Le dos', 'Les mains', 'Partout', 'Je ne sais pas'],
   PEURS: ['Peur de manquer', 'Peur d’être abandonné·e', 'Peur de ne pas avoir ma place', 'Peur de déplaire', 'Peur d’être trahi·e', 'Peur de réussir', 'Peur d’être vu·e', 'Peur du conflit', 'Peur de perdre ceux que j’aime', 'Peur de ne pas être assez'],
+  /* Le chemin d'une mémoire : voir, la situer dans le temps, libérer, poser l'intention, réapprendre */
   ETAPES: [
-    { id: 'voir', titre: 'Voir', court: 'Ce qui se passe',
-      souffle: 'Le corps réagit avant la tête : la gorge qui se serre, le ventre qui se contracte, le cœur qui s’accélère. C’est ton alarme. Au lieu de plonger dedans, fais un petit pas de côté : « Tiens, voilà la peur qui arrive. » Tu la décris, donc tu n’es pas elle. Dans cet espace, la libération devient possible.' },
-    { id: 'aqui', titre: 'À qui ça appartient ?', court: 'Nommer la mémoire',
-      souffle: 'Certains ressentis sont à toi. D’autres sont plus vieux que toi : ils sont arrivés avec la lignée, comme un paquet confié sans le dire. Nommer la mémoire, c’est déjà la reconnaître, et reconnaître, c’est commencer à faire baisser son intensité.' },
-    { id: 'enqueter', titre: 'Enquêter', court: 'Chercher la source',
-      souffle: 'Savoir d’où vient une mémoire ouvre l’empathie : tu comprends que cette émotion vient parfois de tes ancêtres, de ce qu’ils ont traversé. Une question simple, un papier, une photo, une date : une seule pièce du puzzle suffit souvent à faire bouger quelque chose.' },
-    { id: 'liberer', titre: 'Libérer', court: 'La mémoire retourne au soleil',
-      souffle: 'Une mémoire non libérée est comme une bulle sombre où une part de ton énergie est restée figée, à l’âge où elle s’est formée. Libérer, c’est faire circuler à travers elle une énergie plus claire, comme de l’eau chaude sur un glaçon : elle fond, et l’énergie te revient. En la libérant, tu ne te libères pas seulement toi : tu libères ta lignée, celle d’avant et celle qui vient.' },
-    { id: 'spirale', titre: 'La spirale', court: 'Remplacer la mémoire',
-      souffle: 'Ce que tu émets revient vers toi. Une mémoire de peur appelle la peur, et la boucle s’entretient. Quand tu émets consciemment présence, amour, sécurité, ces fréquences résonnent avec ce qui leur ressemble : la boucle devient une spirale qui monte. Une mémoire libérée laisse un espace : remplis-le avec ce que tu choisis, sinon l’ancienne histoire revient s’y loger.' }
+    { id: 'voir', titre: 'Voir', court: 'La prise de conscience',
+      souffle: 'Le corps réagit avant la tête : la gorge qui se serre, le ventre qui se contracte. C’est ton alarme. Fais un petit pas de côté : « Tiens, voilà la peur qui arrive. » Tu la décris, donc tu n’es pas elle. Regarde ce qui, dans ta vie et dans ta lignée, ressemble à ce que tu vis : c’est la mémoire qui se montre.' },
+    { id: 'aqui', titre: 'Où est-elle ?', court: 'Sur la ligne du temps',
+      souffle: 'Une mémoire est toujours quelque part sur la ligne du temps : dans ta vie, à un âge où une partie de toi s’est figée, ou plus haut, dans ta lignée, chez quelqu’un qui l’a portée avant toi. Ton intuition sait souvent où avant ta tête.' },
+    { id: 'liberer', titre: 'Libérer', court: 'Rendre ou retrouver',
+      souffle: 'Une mémoire non libérée est comme une bulle sombre où une part de ton énergie est restée figée. Libérer, c’est faire circuler à travers elle une énergie plus claire, comme de l’eau chaude sur un glaçon : elle fond, et l’énergie te revient. En la libérant, tu libères aussi ta lignée, celle d’avant et celle qui vient.' },
+    { id: 'intention', titre: 'L’intention', court: 'Poser la première pierre',
+      souffle: 'Une mémoire libérée laisse un espace. Si tu ne le remplis pas, l’ancienne histoire revient s’y loger. L’intention, c’est ce que tu choisis d’y mettre : bien centrée, posée du plus profond de toi, puis lâchée avec confiance. L’énergie suit l’intention.' },
+    { id: 'reapprendre', titre: 'Réapprendre', court: 'Le corps, les pensées, les gestes',
+      souffle: 'Une mémoire a appris à ton corps à se mettre en alerte, parfois depuis des générations. Après l’intention vient le vrai travail : réapprendre la sécurité au corps, d’autres pensées, d’autres gestes. Petit à petit, la boucle devient spirale.' }
   ],
+  /* Les trois portes de la ligne du temps */
+  PORTES: [
+    ['vie', 'Dans ma vie', 'Une partie de moi s’est figée à un âge'],
+    ['lignee', 'Dans ma lignée', 'Quelqu’un l’a portée avant moi'],
+    ['ancienne', 'Plus ancienne', 'Je ne sais pas d’où, mais elle est vieille']
+  ],
+  /* Libérer selon la porte (avant les étapes communes de la clé 1) */
+  LIB_PORTE: {
+    vie: { titre: 'Retrouver la partie de toi', etapes: ['Ferme les yeux. Vois-toi à {age}, dans la scène où tout s’est figé. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grande maintenant, je m’occupe de nous. »', 'Tends-lui la main. Imagine qu’elle revient vers toi et se pose dans ton cœur. L’énergie restée figée là-bas circule de nouveau en toi.'] },
+    lignee: { titre: 'Libérer {qui}', etapes: ['Vois {qui} devant toi, dans une lumière douce. Regarde ce qu’elle ou il a traversé.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, avec respect et avec amour. Je garde ta force. »', 'Vois le paquet se déposer devant elle ou lui, puis la lumière l’envelopper et le dissoudre. Elle ou il peut se reposer, et toi, avancer.'] },
+    ancienne: { titre: 'Libérer pour toute la lignée', etapes: ['Vois un faisceau de lumière descendre en toi, puis à travers tes racines, génération après génération, aussi loin que tu peux sentir.', 'Dis : « À celles et ceux qui ont porté cette mémoire avant moi : je vous vois. Je la libère pour nous tous. »', 'Laisse la lumière remonter jusqu’à toi. Ce qui était lourd devient léger.'] }
+  },
   /* « À qui ça appartient ? » : nommer (livre, clé 1, étape 2) */
   INTUITION: [
     'Qui a déjà vécu cette situation dans ma famille ? Un parent ? Plus loin ?',
@@ -205,6 +218,31 @@ window.PASS_FIL = {
     [24, 'La transformation profonde', 'Tu touches les dernières racines de la lignée, une ou deux fois par mois.'],
     [999, 'L’intégration', 'Le chemin est devenu un réflexe. Les mémoires sont largement dissoutes.']
   ],
+  /* L'intention : se centrer, acter, lâcher */
+  INTENTION: {
+    centrer: 'Pose les pieds au sol, une main sur le cœur. Respire avec la sphère jusqu’à te sentir centrée.',
+    ecrire: 'Écris-la au présent, comme si c’était déjà vrai, avec des mots qui te font vibrer.',
+    exemples: ['Je suis en sécurité. Je peux recevoir et garder.', 'Je suis digne d’un amour stable.', 'Ma place existe, je la prends.', 'Mon succès honore ma lignée.'],
+    acter: 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi. Puis garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume.',
+    lacher: 'C’est posé. Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'
+  },
+  /* Réapprendre : le suivi du corps, des pensées, des gestes et des rôles */
+  REAPPRENDRE: {
+    corps: 'Chaque jour, une minute : les pieds bien posés, une main sur le ventre, respire lentement et dis à ton corps : « Je suis en sécurité, ici et maintenant. » Il a appris l’alerte, il peut apprendre la sécurité.',
+    pensees: 'Quand l’ancienne phrase revient, remarque-la, sans te juger, et remplace-la par ta nouvelle phrase.',
+    gestes: 'Un geste différent, même minuscule, chaque fois que la situation revient.',
+    lune: ['Qu’est-ce qui a bougé dans ton corps ?', 'Et dans tes pensées ?', 'Et dans tes gestes, tes réactions ?']
+  },
+  ROLES: [
+    ['victime', 'Victime', '« Ça m’arrive toujours à moi. » Tu subis, tu attends qu’on te sauve.', 'Reprendre ton pouvoir : qu’est-ce que je peux choisir, là, maintenant ?'],
+    ['sauveur', 'Sauveur', '« Sans moi, ils n’y arriveront pas. » Tu portes les autres, tu t’oublies.', 'Soutenir sans porter : laisser à l’autre sa force, et revenir à toi.'],
+    ['bourreau', 'Persécuteur', '« C’est de ta faute. » Tu reproches, tu contrôles, tu durcis.', 'T’affirmer sans attaquer : dire ce dont tu as besoin.']
+  ],
+  /* Les rêves : symboles (des pistes, jamais des certitudes) */
+  REVES: {
+    types: [['emotion', 'Il parle de ce que je vis en ce moment'], ['symbole', 'Il a des symboles forts'], ['lignee', 'Quelqu’un de ma lignée y était'], ['revient', 'Il revient souvent']],
+    symboles: [['Eau', 'tes émotions, leur calme ou leur tempête'], ['Maison', 'toi, ton intérieur, parfois ta lignée'], ['Chute', 'une perte de contrôle, une peur de lâcher'], ['Poursuite', 'ce que tu fuis ou évites de regarder'], ['Un défunt', 'un lien à regarder, un message, quelque chose à rendre ou à recevoir'], ['Un bébé', 'un projet neuf, une partie de toi qui naît, ou un enfant de la lignée'], ['Les dents', 'la peur de perdre, de vieillir, de ne plus pouvoir mordre dans la vie'], ['Un examen', 'la peur d’être jugée, de ne pas être à la hauteur'], ['Un voyage, un train', 'ton chemin, une étape qui commence ou qu’on rate'], ['Un animal', 'ton instinct, une force ou une peur'], ['Le feu', 'une colère, ou une transformation'], ['La lumière', 'une protection, une ouverture'], ['Être nue', 'la peur d’être vue, d’être exposée'], ['Perdre quelque chose', 'une part de toi que tu cherches']]
+  },
   SPIRALE: [
     'Quand le thème est revenu, l’as-tu reconnu plus vite ?',
     'Qu’as-tu fait autrement, même un tout petit peu ?',

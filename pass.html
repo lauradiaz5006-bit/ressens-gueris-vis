@@ -150,6 +150,44 @@
     .pa-frise li.libere>b,.pa-frise li.spirale>b{border-color:#E2B04A;background:#FFF6E3}.pa-frise li.gesteDate>b{border-color:#5FA88A}
     .pa-frise button{border:0;background:none;text-align:left;font:inherit;color:var(--encre);padding:.35rem 0;cursor:pointer}
     .pa-frise button span{display:block;font-weight:600;line-height:1.35}.pa-frise small{display:block;color:var(--doux);font-size:.82rem}
+    /* Voir, la ligne du temps, l'intention, réapprendre, les rêves */
+    .pa-miroir{padding:.9rem 1rem;border-radius:16px;background:#FFF9F0;border:1px solid #EBD3BC}
+    .pa-prise textarea{border-color:#E2C48E;background:#FFFCF5;min-height:96px}
+    .pa-portes{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;margin:0 0 .8rem}
+    .pa-portes button,.pa-qui-l button{padding:.7rem .6rem;border-radius:14px;border:1.5px solid #EBCFD5;background:#fff;font:inherit;color:var(--encre);cursor:pointer;text-align:left}
+    .pa-portes button[aria-pressed="true"],.pa-qui-l button[aria-pressed="true"]{border-color:#B0507A;background:#FCEFF3;box-shadow:0 0 0 2px rgba(176,80,122,.15)}
+    .pa-portes b{display:block;font:400 1rem/1.2 var(--display);color:var(--prune);margin-bottom:.2rem}.pa-portes span{font-size:.78rem;color:var(--doux);line-height:1.3;display:block}
+    .pa-frise-vie input[type=range]{width:100%;accent-color:#B0507A;margin:.4rem 0}
+    .pa-frise-vie label{display:block;font-weight:600}.pa-frise-vie label b{color:#9A3A68;font-family:var(--display);font-size:1.15rem}
+    .pa-qui-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.2rem,1fr));gap:.45rem}
+    .pa-qui-l button{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.25rem}
+    .pa-qui-l b{color:var(--prune)}.pa-qui-l span{font-size:.75rem;color:var(--doux)}
+    .pa-plus-loin{margin:1rem 0;border-top:1px solid var(--ligne);padding-top:.7rem}.pa-plus-loin summary{cursor:pointer;font-weight:700;color:#9A3A68;min-height:32px}
+    .pa-tenir{position:relative;display:grid;place-items:center;width:150px;height:150px;margin:1rem auto .4rem;border:0;border-radius:50%;background:radial-gradient(circle,#FFFDF6,#F6E7C6);box-shadow:0 0 30px rgba(226,196,142,.5);cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none}
+    .pa-tenir i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#E2B04A 0deg,transparent 0deg);-webkit-mask:radial-gradient(circle,transparent 66px,#000 67px);mask:radial-gradient(circle,transparent 66px,#000 67px)}
+    .pa-tenir.tient i{animation:pa-rempli 3s linear forwards}
+    @property --pa-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+    @keyframes pa-rempli{from{--pa-a:0deg}to{--pa-a:360deg}}
+    .pa-tenir.tient i{background:conic-gradient(#E2B04A var(--pa-a),transparent var(--pa-a))}
+    .pa-tenir.tient{box-shadow:0 0 60px 10px rgba(242,193,78,.65);transition:box-shadow 3s}
+    .pa-tenir span{position:relative;font:700 .85rem/1.2 var(--texte);color:#7A5226;padding:0 1.2rem;text-align:center}
+    .pa-posee{text-align:center;padding:1rem;border-radius:20px;background:radial-gradient(circle at 50% 0%,#FFF6DD,#FFFCF7 70%);border:1px solid #EBD3BC}
+    .pa-graine{width:58px;height:58px;margin:0 auto .5rem;border-radius:50%;background:radial-gradient(circle,#fff,#F2D9A0 60%,rgba(242,217,160,0) 72%);box-shadow:0 0 30px 8px rgba(242,193,78,.45)}
+    .pa-graine.petite{width:34px;height:34px;margin:0;flex:none;box-shadow:0 0 16px 4px rgba(242,193,78,.4)}
+    .pa-int{display:flex;gap:.8rem;align-items:flex-start;padding:.6rem 0}.pa-int+.pa-int{border-top:1px solid var(--ligne)}
+    .pa-int-t{font:400 1.08rem/1.4 var(--display)!important;color:#5A2147}
+    .pa-corps-j{display:block;margin-top:.5rem;padding:.55rem .8rem;border-radius:12px;border:1.5px dashed #9DC7B5;background:#F4FBF8;color:#2F6B55;font:600 .85rem/1.3 var(--texte);cursor:pointer;text-align:left;min-height:44px}
+    .pa-corps-j[aria-pressed="true"]{border-style:solid;background:#E3F4EC}
+    .pa-semaine{display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-top:.6rem}
+    .pa-semaine button{min-height:48px;border-radius:12px;border:1.5px solid #CFE5DA;background:#fff;color:#2F6B55;font:700 .9rem/1.1 var(--texte);cursor:pointer}
+    .pa-semaine button[aria-pressed="true"]{background:#5FA88A;border-color:#5FA88A;color:#fff}.pa-semaine small{display:block;font-weight:600;font-size:.62rem;opacity:.8;text-transform:uppercase}
+    .pa-role{padding:.6rem .8rem;border-radius:12px;background:#FBF4EA;margin:.5rem 0}.pa-role p{margin:0 0 .25rem;font-size:.9rem}
+    .pa-feuille select{margin-top:.2rem}
+    .pa-lune{padding:.7rem .8rem;border-radius:14px;background:#F6F4FC;border:1px solid #DCD6F0;margin:.5rem 0}
+    .pa-age.rv{background:linear-gradient(135deg,#E6E4FA,#9C9FE0);color:#2B2E6B;font-size:1.3rem}
+    .pa-partage{margin:1rem 0;padding:.6rem .8rem;border-radius:14px;background:#F6F4FC;border:1px solid #DCD6F0}
+    .pa-apercu{margin:.4rem 0 0;padding:.7rem .8rem;border-radius:12px;background:#fff;border:1px dashed #B9B3DA;font-size:.88rem;line-height:1.5;white-space:pre-wrap}
+    @media (max-width:420px){.pa-portes{grid-template-columns:1fr}}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -208,7 +246,7 @@
     .pa-jour .jp{position:absolute;top:.2rem;right:.3rem;font:400 .72rem/1 var(--display);color:#B98A55}
     .pa-jour .pts{display:flex;gap:2px;flex-wrap:wrap;margin-top:auto}
     .pa-jour .pts i{width:7px;height:7px;border-radius:50%}
-    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}.pts .g,.pa-legende .g,.pa-pt.g{background:#5FA88A}.pts .h,.pa-legende .h,.pa-pt.h{background:#C9B6E4}
+    .pts .l,.pa-legende .l,.pa-pt.l{background:#2E1338}.pts .f,.pa-legende .f,.pa-pt.f{background:#B0507A}.pts .r,.pa-legende .r,.pa-pt.r{background:#8A5BC0}.pts .e,.pa-legende .e,.pa-pt.e{background:#E7A79E}.pts .lib,.pa-legende .lib,.pa-pt.lib{background:#E2B04A;box-shadow:0 0 0 2px #FFF1CF}.pts .m,.pa-legende .m,.pa-pt.m{background:#6E9BC8}.pts .n,.pa-legende .n,.pa-pt.n{background:#B98A55}.pts .g,.pa-legende .g,.pa-pt.g{background:#5FA88A}.pts .h,.pa-legende .h,.pa-pt.h{background:#C9B6E4}.pts .int,.pa-legende .int,.pa-pt.int{background:#F2C14E;box-shadow:0 0 0 2px #FFF4DA}.pts .rv,.pa-legende .rv,.pa-pt.rv{background:#4B4F9C}
     .pa-pt{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.45rem;vertical-align:middle}
     .jpl{font:400 1.05rem/1 var(--display);color:#B98A55}
     .pa-jour.auj{border:2px solid #B0507A}
@@ -306,7 +344,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=4"></script>
-  <script src="assets/pass.js?v=5"></script>
+  <script src="assets/pass-enquete.js?v=5"></script>
+  <script src="assets/pass.js?v=6"></script>
 </body>
 </html>
