@@ -215,6 +215,34 @@
     .pa-lg .pa-puces,.pa-lg input[data-c="quoi"],.pa-lg .pa-lien-s{grid-column:1/-1}
     .pa-lg .pa-lien-s{justify-self:start;min-height:32px}
     .pa-lien-sch{display:inline-flex;align-items:center;margin:.1rem 0 .5rem;padding:.35rem .75rem;border-radius:99px;border:1px solid #EBD3BC;background:#FBF4EA;color:#7A5226;font:700 .82rem/1.2 var(--texte);cursor:pointer}
+    /* Le parcours d'un schéma, la frise, Mes actions */
+    .pa-neuf{display:inline-flex;gap:3px;margin:.1rem 0 .45rem}.pa-neuf i{width:16px;height:6px;border-radius:4px;background:#F1E3E8}.pa-neuf i.fait{background:#E2C48E}.pa-neuf i.ici{background:#B0507A}
+    .pa-neuf-b{padding:.6rem .8rem;border-radius:14px;background:#FFF9F0;border:1px solid #EBD3BC;margin:0 0 .8rem}.pa-neuf-b p{margin:0 0 .35rem;font-size:.86rem;line-height:1.45}
+    .pa-proch{display:block;margin-top:.4rem;font-weight:700;font-size:.86rem;color:#9A3A68}
+    .pa-onglets-s{display:flex;gap:.3rem;overflow-x:auto;margin:0 -.2rem .9rem;padding:.1rem .2rem .3rem;-webkit-overflow-scrolling:touch}
+    .pa-onglets-s button{flex:none;min-height:40px;padding:.4rem .8rem;border-radius:99px;border:1.5px solid #EBCFD5;background:#fff;color:var(--prune);font:700 .82rem/1.2 var(--texte);cursor:pointer}
+    .pa-onglets-s button[aria-selected="true"]{background:#6B2F5B;border-color:#6B2F5B;color:#fff}
+    .pa-frise-b{display:grid;grid-template-columns:6.4rem 1fr;border:1px solid var(--ligne);border-radius:14px;overflow:hidden;background:#fff;margin:.3rem 0 .8rem}
+    .pa-fr-noms{display:flex;flex-direction:column;padding-top:1px;border-right:1px solid var(--ligne);background:#FFF9F4}
+    .pa-fr-noms span{height:58px;display:flex;align-items:center;padding:0 .5rem;font-size:.74rem;line-height:1.2;color:var(--doux);box-sizing:border-box}.pa-fr-noms .toi{font-weight:800;color:#9A6E38}
+    .pa-fr-defil{overflow-x:auto;-webkit-overflow-scrolling:touch}.pa-frise-svg{display:block}
+    .pa-fr-age{font:600 10px var(--texte);fill:#B49AAE}.pa-fr-ici{font:700 10px var(--texte);fill:#9A3A68}
+    .pa-fr-t{font:600 10px var(--texte);fill:#5A2147}.pa-fr-t.perso{font-style:italic;fill:#9A3A68}
+    .pa-carte-lib{padding:.9rem 1rem;border-radius:16px;border:1.5px solid #EBD3BC;background:#FFFCF7;margin:0 0 .8rem}.pa-carte-lib.fait{border-color:#E2C48E;background:#FFF6E3}
+    .pa-carte-lib p{margin:0 0 .3rem}
+    .pa-verrou{padding:.6rem .8rem;border-radius:12px;background:#F6F4FC;border:1px solid #DCD6F0}
+    .pa-jauge-note{display:flex;gap:1rem;align-items:center;padding:.8rem 1rem;border-radius:16px;background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#FFF4E6;margin:0 0 1rem}
+    .pa-jauge-note div{flex:none;display:flex;align-items:baseline}.pa-jauge-note b{font:400 2.6rem/1 var(--display);color:#FFE6B8}.pa-jauge-note span{font-size:.9rem;margin-left:.15rem}.pa-jauge-note p{margin:0;font-size:.88rem;line-height:1.45}
+    .pa-suivi-f{padding:.9rem 1rem;border-radius:16px;background:#FFF9F4;border:1px solid var(--ligne)}
+    .pa-suivi-f input[type=range]{width:100%;accent-color:#B0507A}
+    .pa-grille-a{display:grid;grid-template-columns:1fr;gap:.6rem}@media (min-width:700px){.pa-grille-a{grid-template-columns:1fr 1fr}}
+    .pa-action{margin:0}.pa-action h3{margin-bottom:.25rem!important}
+    .pa-proto{margin:.6rem 0 0;padding-left:1.2rem}.pa-proto li{margin:.55rem 0;line-height:1.6}.pa-proto li::marker{color:var(--or);font-weight:700}
+    .pa-retour{display:inline-block;margin-top:.6rem;font-weight:700;color:#9A3A68;text-decoration:none;min-height:32px}
+    .pa-lien-b{border:0;background:none;padding:0;font:inherit;color:var(--prune);cursor:pointer;text-align:left}
+    .pa-filtre-f{margin:.2rem 0 .3rem}
+    .pts .sv,.pa-legende .sv,.pa-pt.sv{background:#9A3A68}
+    .pa-bureau{display:none}@media (min-width:1000px){.pa-bureau{display:block}.pa-outils.pa-bureau{display:flex}}
     .pa-rep{border-top:1px solid var(--ligne);padding:.55rem 0}.pa-rep:first-of-type{border-top:0}
     .pa-rep summary{cursor:pointer;font-weight:600;color:var(--prune);line-height:1.4}
     .pa-rep p{margin:.4rem 0 0!important;font-size:.88rem!important;color:var(--doux)}
@@ -307,7 +335,7 @@
     .pa-porte ul{text-align:left;margin:1rem auto;max-width:30rem;padding-left:1.1rem}
     .pa-porte li{margin:.35rem 0}.pa-porte li::marker{color:var(--or)}
     /* La barre : en bas sur téléphone */
-    .pa-barre{position:fixed;left:0;right:0;bottom:0;z-index:120;background:linear-gradient(180deg,#3B1747,#2A0F33);border-top:1px solid rgba(226,196,142,.35);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(4,1fr);box-shadow:0 -8px 24px rgba(31,11,42,.25)}
+    .pa-barre{position:fixed;left:0;right:0;bottom:0;z-index:120;background:linear-gradient(180deg,#3B1747,#2A0F33);border-top:1px solid rgba(226,196,142,.35);padding:.35rem .3rem calc(.35rem + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 -8px 24px rgba(31,11,42,.25)}
     .pa-barre[hidden]{display:none}
     .cookies{bottom:calc(5.4rem + env(safe-area-inset-bottom,0px));z-index:130}
     .pa-barre a{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.35rem .1rem;min-height:52px;border-radius:14px;color:#E9CFE0;text-decoration:none;font:600 .7rem/1.1 var(--texte);text-align:center}
@@ -362,8 +390,10 @@
     <a href="#fil" data-onglet="fil"><svg viewBox="0 0 24 24"><path d="M12 12.5c0-1 .8-1.6 1.6-1.6 1.2 0 2 1 2 2.2 0 1.8-1.5 3.1-3.4 3.1-2.5 0-4.3-2-4.3-4.5C7.9 8.6 10.3 6.3 13.3 6.3c3.6 0 6.2 2.9 6.2 6.5 0 4.3-3.4 7.7-7.7 7.7"/><path d="M11.8 20.5C7 20.5 3.5 17 3.5 12.4"/></svg>Mon fil d’or</a>
     <a href="#agenda" data-onglet="agenda"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><circle cx="12" cy="15" r="1.2"/></svg>Mon agenda</a>
     <a href="#bilan" data-onglet="bilan"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="4.3" r="1.8"/><circle cx="18.7" cy="16" r="1.8"/><circle cx="5.3" cy="16" r="1.8"/><path d="M12 6.1v3.3M17.2 15.1l-3-1.7M6.8 15.1l3-1.7"/></svg>Mon bilan</a>
+    <a href="#actions" data-onglet="actions"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.8l5-.7z"/></svg>Mes actions</a>
     <div class="pa-espaces"><p>Mes espaces</p><div id="pa-espaces"></div></div>
   </nav>
+  <datalist id="pa-persos"><option value="la Victime"><option value="le Sauveur"><option value="le Persécuteur"><option value="la Peur"><option value="la Petite fille"><option value="la Gardienne"><option value="le Soldat"><option value="l’Invisible"><option value="la Délaissée"></datalist>
   <main id="pass"><div id="pa-vue"><p class="pa-chargement">Ton enquête s’ouvre…</p></div></main>
   </div>
   <footer data-pied></footer>
@@ -371,7 +401,7 @@
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
-  <script src="assets/pass-enquete.js?v=7"></script>
-  <script src="assets/pass.js?v=8"></script>
+  <script src="assets/pass-enquete.js?v=8"></script>
+  <script src="assets/pass.js?v=9"></script>
 </body>
 </html>
