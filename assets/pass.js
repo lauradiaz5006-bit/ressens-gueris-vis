@@ -152,6 +152,7 @@
         scenes: [{ id: 'sn1', titre: 'Les hommes de ma vie', schema: 's1', cree: il(30), moi: { x: 50, y: 58 }, places: { pt1: { x: 24, y: 18, dos: true, poids: 'lourd' }, pt2: { x: 22, y: 40, poids: 'leger' }, pt3: { x: 78, y: 22, poids: 'lourd' }, pt4: { x: 76, y: 72, poids: 'present' }, pt5: { x: 40, y: 84, poids: 'leger' } },
           ressentis: { pt1: 'Je l’attends encore, comme sur le quai.', pt3: 'Il est loin, et je cours après lui.' }, devient: { pt1: ['La Petite fille', 'Gorge serrée'], pt3: ['Je cours après', 'Je donne tout'] }, filsVus: ['pt1|pt3', 'pt1|pt4', 'pt2|pt3', 'pt2|pt4'],
           photos: [{ date: il(30), moi: { x: 50, y: 60 }, places: { pt1: { x: 42, y: 40, poids: 'lourd' }, pt2: { x: 20, y: 40, poids: 'present' }, pt3: { x: 60, y: 44, poids: 'lourd' }, pt4: { x: 70, y: 70, poids: 'lourd' } }, note: 'Tout le monde est collé à moi.' }] }] };
+      D.etat.notesJour = {}; D.etat.notesJour[il(4)] = { corps: ['La gorge'], sens: ['Serré'], pense: 'Elle va encore annuler' };
       D.etat.schemas[1].prises = [{ date: il(20), texte: 'Je vois que je cherche chez Tom ce que je n’ai pas eu de mon père.', source: 'Mon théâtre · Les hommes de ma vie' }];
       D.etat.ressentis[0].schema = 's1'; D.etat.ressentis[1].schema = 's2'; D.etat.reves[0].schema = 's2';
       D.etat.humeurs = {}; D.etat.humeurs[il(2)] = ['Fatigue', 'Inquiétude']; D.etat.humeurs[il(3)] = ['Tristesse']; D.etat.humeurs[il(6)] = ['Joie'];
@@ -471,11 +472,30 @@
     if (pr) { var l = personnes(); for (var i = 0; i < l.length; i++) if (l[i].prenom.toLowerCase() === pr) return l[i]; }
     return null;
   }
+  /* « Tiens… » : l'appli montre une ressemblance ; ce qu'elle rejoint n'apparaît que si elle touche la bulle */
+  function bulleTiens(t, rev) { return '<div class="pa-tiens-z"><button type="button" class="pa-tiens" data-tiens-rev>' + esc(t) + '</button><div class="pa-tiens-nom" hidden>' + rev + '</div></div>'; }
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-tiens-rev]'); if (b) { var n = b.parentNode.querySelector('.pa-tiens-nom'); if (n) n.hidden = !n.hidden; } });
+  function tonCorps(c) { c = String(c || ''); if (c === 'Partout') return 'partout dans ton corps'; return c.replace(/^La /, 'ta ').replace(/^Le /, 'ton ').replace(/^Les /, 'tes ').replace(/^L’/, 'ton '); }
+  /* Où ce corps a déjà parlé : les notes du jour passées et les schémas */
+  function dejaCorps(corps, sauf) {
+    var l = [], NJ = D.etat.notesJour || {};
+    Object.keys(NJ).sort().reverse().forEach(function (k) { if (k === sauf) return; if ((NJ[k].corps || []).indexOf(corps) >= 0) l.push({ t: 'le ' + dateCourte(k) + ', dans ta note du jour' }); });
+    (D.etat.schemas || []).forEach(function (x) { if ((x.corps || []).indexOf(corps) >= 0) l.push({ t: 'dans ton schéma « ' + x.nom + ' »', sc: x.id }); });
+    return l;
+  }
+  function tiensCorps(corpsL, sauf, rejoindre) {
+    for (var i = 0; i < corpsL.length; i++) {
+      var c = corpsL[i]; if (c === 'Je ne sens rien') continue;
+      var d = dejaCorps(c, sauf); if (!d.length) continue;
+      return bulleTiens('Tiens… tu as déjà senti ça dans ' + tonCorps(c) + '.', '<p>' + esc(cap(liste(d.slice(0, 3).map(function (x) { return x.t; })))) + '.</p>' + (rejoindre ? d.filter(function (x) { return x.sc; }).slice(0, 2).map(function (x) { return '<button type="button" class="pa-bt clair" data-rejoindre="' + esc(x.sc) + '">Ça rejoint « ' + esc(trouverSchema(x.sc).nom) + ' »</button>'; }).join('') : ''));
+    }
+    return '';
+  }
   /* La note du jour, en une minute */
   function blocNoteJour(dt) {
     var k = iso(dt), NJ = (D.etat.notesJour = D.etat.notesJour || {}), n = NJ[k] || {}, hm = (D.etat.humeurs || {})[k] || [], S = PF.SCHEMA || {};
     var h = '<section class="pa-carte pa-note-j"><p class="pa-etiq">Ma note du jour · 1 minute</p>' +
-      '<p class="pa-lab">Mon corps</p>' + puces('nj-corps', PF.CORPS || [], n.corps || [], true) + puces('nj-sens', PF.SENSATIONS || [], n.sens || [], true) +
+      '<p class="pa-lab">Mon corps</p>' + puces('nj-corps', PF.CORPS || [], n.corps || [], true) + puces('nj-sens', PF.SENSATIONS || [], n.sens || [], true) + '<div id="pa-nj-tiens">' + tiensCorps(n.corps || [], k) + '</div>' +
       '<label for="pa-nj-pense">Mes pensées</label><input id="pa-nj-pense" data-nj="pense" maxlength="160" value="' + esc(n.pense || '') + '" placeholder="Ce qui tourne dans ma tête aujourd’hui">' +
       '<p class="pa-lab">Mon émotion</p>' + puces('humeur', PF.HUMEURS || [], hm, true) +
       '<p class="pa-lab">Ce que j’ai fait</p>' + puces('nj-fait', [['habitude', 'Ma réaction habituelle'], ['nouveau', 'Mon nouveau geste']], [n.fait || ''], false) + '<input data-nj="faitT" maxlength="160" value="' + esc(n.faitT || '') + '" placeholder="En quelques mots" aria-label="Ce que j’ai fait, en quelques mots">' +
@@ -541,7 +561,7 @@
       '<form class="pa-form" id="pa-depot" novalidate><label for="pa-quoi">1 · Ce qui s’est passé, en quelques mots</label><textarea id="pa-quoi" maxlength="1500" placeholder="Ce matin, quand…"></textarea>' +
       aide(debuts(['Aujourd’hui, quand…', 'J’ai senti…', 'J’aurais voulu…'], '#pa-quoi') + '<p class="pa-discret">Trois mots suffisent.</p>') +
       '<p class="pa-lab">2 · Ce que tu ressens</p>' + puces('em', PF.EMOTIONS || [], [], true) + aide(AIDE_EM) +
-      '<p class="pa-lab">3 · Où le sens-tu dans ton corps ?</p>' + puces('corps', PF.CORPS || [], [], true) + aide(aideCorps()) +
+      '<p class="pa-lab">3 · Où le sens-tu dans ton corps ?</p>' + puces('corps', PF.CORPS || [], [], true) + '<div id="pa-dep-tiens"></div>' + aide(aideCorps()) +
       '<label for="pa-force">Avec quelle force ? <b id="pa-force-v">5</b>/10</label><input type="range" id="pa-force" min="0" max="10" value="5"><div id="pa-fort-z" hidden>' + blocMonte() + '</div>' +
       ((D.etat.schemas || []).length ? '<label for="pa-schema">Ça rejoint quel schéma ?</label><select id="pa-schema"><option value="nouveau">Un nouveau schéma</option>' + (D.etat.schemas || []).map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(cap(x.nom || 'Un schéma')) + '</option>'; }).join('') + '</select><p class="pa-discret">Un schéma, c’est ce qui se répète : il relie tes ressentis qui se ressemblent.</p>' : '<input type="hidden" id="pa-schema" value="nouveau">') +
       '<details class="pa-plus-loin" id="pa-plus"><summary>Aller plus loin maintenant <small>(facultatif)</small></summary>' +
@@ -561,6 +581,8 @@
     ageInconnu.addEventListener('click', function () { ageInconnu.setAttribute('aria-pressed', ageInconnu.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); });
     /* à 8 sur 10 ou plus : d'abord revenir au calme */
     f.querySelector('#pa-force').addEventListener('input', function (e) { f.querySelector('#pa-force-v').textContent = e.target.value; var fo = +e.target.value >= 8, zz = f.querySelector('#pa-fort-z'); if (fo && zz.hidden) { zz.hidden = false; f.querySelector('#pa-plus').open = false; } else if (!fo) zz.hidden = true; });
+    f.addEventListener('change', function (e) { if (e.target.closest('[data-groupe="corps"]')) f.querySelector('#pa-dep-tiens').innerHTML = tiensCorps(lirePuces(f, 'corps'), '', !!f.querySelector('select#pa-schema')); });
+    f.addEventListener('click', function (e) { var rj = e.target.closest('[data-rejoindre]'); if (rj) { var se = f.querySelector('select#pa-schema'); if (se) { se.value = rj.getAttribute('data-rejoindre'); rj.textContent = '✓ C’est noté'; } } });
     f.addEventListener('change', function () { var rv = lirePuces(f, 'revient')[0]; f.querySelector('#pa-ages-z').hidden = !(rv === 'oui' || rv === 'parfois'); });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -1245,8 +1267,8 @@
       var ec = [], qs = lirePuces(z, 'rv-qui');
       qs.forEach(function (k) { var p = personne(k); if (!p) return; var t = p.prenom + ' (' + p.lien.toLowerCase() + ')'; if (p.parti && p.anneeD) t += ' est parti' + (p.f ? 'e' : '') + ' le ' + p.anneeD.j + ' ' + MOIS[p.anneeD.m - 1] + ' ' + p.anneeD.a; var c = communs(p); if (c.length) t += ' · vous avez ' + c.join(', '); var dr = (D.etat.reves || []).filter(function (x) { return x.id !== v.id && (x.qui || []).indexOf(k) >= 0; }).length; if (dr) t += ' · déjà venu' + (p.f ? 'e' : '') + ' dans ' + dr + ' autre' + (dr > 1 ? 's' : '') + ' rêve' + (dr > 1 ? 's' : ''); ec.push(t + '. Que vient-' + (p.f ? 'elle' : 'il') + ' te dire, ou te rendre ?'); });
       var memes = (D.etat.reves || []).filter(function (x) { return x.id !== v.id && (x.symboles || []).some(function (y) { return sy.indexOf(y) >= 0; }); });
-      if (memes.length) ec.push('Ces symboles sont déjà venus dans ' + memes.length + ' rêve' + (memes.length > 1 ? 's' : '') + ' : ils insistent.');
-      z.querySelector('#pa-rv-echos').innerHTML = ec.length ? '<div class="pa-bloc"><h4>Ce que ce rêve réveille</h4><ul class="pa-echos">' + ec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' : '';
+      var tiensRv = memes.length ? bulleTiens('Tiens… ce symbole est déjà venu dans tes rêves.', '<p>' + esc(cap(liste(memes.slice(0, 3).map(function (x) { return 'le ' + dateCourte(x.date) + ' (' + (x.symboles || []).filter(function (y) { return sy.indexOf(y) >= 0; }).join(', ').toLowerCase() + ')'; })))) + '. Il insiste : qu’est-ce qu’il vient te dire ?</p>') : '';
+      z.querySelector('#pa-rv-echos').innerHTML = tiensRv + (ec.length ? '<div class="pa-bloc"><h4>Ce que ce rêve réveille</h4><ul class="pa-echos">' + ec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>' : '');
     }
     function apercu() { var ok = z.querySelector('#pa-rv-ok'), a = z.querySelector('#pa-rv-apercu'); a.hidden = !ok.checked; if (ok.checked) a.innerHTML = v.partage ? '<p class="pa-discret">Partagé anonymement le ' + esc(dateCourte(v.partage)) + '. Merci.</p>' : '<p class="pa-discret">Voici exactement ce qui sera envoyé, sans ton nom, ton e-mail ni ton compte. Les prénoms sont retirés : relis et enlève tout ce qui pourrait te reconnaître.</p><blockquote class="pa-apercu">' + esc(anonymiser(z.querySelector('#pa-rv-t').value)) + '</blockquote>'; }
     pistes(); if (v.partage) apercu();
@@ -1700,7 +1722,15 @@
     ids.forEach(function (a) { ids.forEach(function (b) { var A = persoT(a), B = persoT(b); if (!A || !B || A.qui !== 'lignee' || B.qui !== 'vie') return; var com = (A.symptomes || []).filter(function (t) { return (B.symptomes || []).indexOf(t) >= 0; }); if (com.length) l.push({ a: a, b: b, com: com, cle: cleFil(a, b) }); }); });
     return l;
   }
-  function phraseMiroir(f) { var A = persoT(f.a), B = persoT(f.b); return 'Tu ressens ' + B.nom + ' (' + lienTon(B) + ') comme tu ressens ' + A.nom + ' (' + lienTon(A) + ') : ' + liste(f.com.map(petit)) + '.'; }
+  /* Ses mots (froid, qui part) d'un côté, les phrases de famille de l'autre */
+  function estPhrase(t) { return phrasesFamille().indexOf(t) >= 0 || String(t).split(' ').length > 4; }
+  function descPerso(p, l) { var mots = (l || p.symptomes || []).filter(function (t) { return !estPhrase(t); }), ph = (l || p.symptomes || []).filter(estPhrase); return { mots: mots, ph: ph }; }
+  function phraseMiroir(f) {
+    var A = persoT(f.a), B = persoT(f.b), d = descPerso(null, f.com), t = 'Tu ressens ' + B.nom + ' (' + lienTon(B) + ') comme tu ressens ' + A.nom + ' (' + lienTon(A) + ')';
+    t += d.mots.length ? ' : ' + liste(d.mots.map(petit)) + '.' : '.';
+    if (d.ph.length) t += ' Chez les deux, tu retrouves « ' + d.ph.join(' », « ') + ' ».';
+    return t;
+  }
   function bulleT(p, pl, sel) {
     var c = p.couleur || '#6B2F5B';
     return '<button type="button" class="pa-bulle' + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/></svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>';
@@ -1741,7 +1771,7 @@
     if (fn) h += '<section class="pa-carte pa-tiens-c"><p class="pa-etiq">Un fil doré vient d’apparaître</p><p>' + esc(phraseMiroir(fn)) + '</p><label for="pa-t-prise">Qu’est-ce que ça te fait de voir ça ?</label><textarea id="pa-t-prise" maxlength="600" placeholder="Je vois que je cherche chez Tom ce que je n’ai pas eu de mon père…"></textarea><div class="pa-outils"><button type="button" class="pa-bt or" data-t-prise>Je le note</button><button type="button" class="pa-lien-s" data-t-prise-plus-tard>Plus tard</button></div>' + (sc.schema ? '<p class="pa-discret">Ta réponse rejoint ton schéma comme une prise de conscience.</p>' : '') + '</section>';
     if (sel) {
       var pl = sc.places[sel.id];
-      h += '<section class="pa-carte pa-face"><p class="pa-etiq">Face à ' + esc(sel.nom) + ' · ' + esc(lienPerso(sel)) + '</p>' + ((sel.symptomes || []).length ? '<p class="pa-discret" style="margin-top:0">Tu ' + leLa(sel) + ' ressens ' + esc(liste(sel.symptomes.map(petit))) + '.</p>' : '') +
+      h += '<section class="pa-carte pa-face"><p class="pa-etiq">Face à ' + esc(sel.nom) + ' · ' + esc(lienPerso(sel)) + '</p>' + (function () { var d = descPerso(sel); return (d.mots.length ? '<p class="pa-discret" style="margin-top:0">Tu ' + leLa(sel) + ' ressens ' + esc(liste(d.mots.map(petit))) + '.' + (d.ph.length ? ' Tu retrouves chez ' + (genreDe(sel) === 'f' ? 'elle' : 'lui') + ' « ' + esc(d.ph.join(' », « ')) + ' ».' : '') + '</p>' : d.ph.length ? '<p class="pa-discret" style="margin-top:0">Tu retrouves chez ' + (genreDe(sel) === 'f' ? 'elle' : 'lui') + ' « ' + esc(d.ph.join(' », « ')) + ' ».</p>' : ''); })() +
         '<p class="pa-lab">Ce lien pèse comment aujourd’hui ?</p><div class="pa-puces" data-groupe="t-poids">' + POIDS.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + ((pl.poids || 'present') === x[0]) + '"><i class="pa-trait" style="border-top:' + Math.max(1.5, x[2] * .6) + 'px ' + (x[4] ? 'dashed' : 'solid') + ' ' + x[3] + '"></i>' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
         '<label for="pa-t-ress">Qu’est-ce que tu ressens face à ' + esc(sel.nom) + ', à cette place ?</label><textarea id="pa-t-ress" data-t-ress="' + esc(sel.id) + '" maxlength="600" placeholder="Je me sens petite, j’ai envie de reculer…">' + esc(sc.ressentis[sel.id] || '') + '</textarea>' +
         '<p class="pa-lab">Ce que je deviens face à ' + (genreDe(sel) === 'f' ? 'elle' : genreDe(sel) === 'm' ? 'lui' : 'lui ou elle') + '</p>' + puces('t-dev', devientProposes().concat((sc.devient[sel.id] || []).filter(function (t) { return devientProposes().indexOf(t) < 0; })), sc.devient[sel.id] || [], true) +
@@ -1758,7 +1788,7 @@
     brancherScene(sc);
     if (photoApres === sc.id) { photoApres = ''; photoScene(sc); }
   }
-  function lignePerso(p) { return '<button type="button" class="pa-perso-l" data-t-perso="' + esc(p.id) + '"><i style="background:' + esc(p.couleur || '#6B2F5B') + '"></i><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + ((p.symptomes || []).length ? ' · je ' + leLa(p) + ' ressens ' + esc(liste(p.symptomes.slice(0, 2).map(petit))) : '') + '</small></span></button>'; }
+  function lignePerso(p) { return '<button type="button" class="pa-perso-l" data-t-perso="' + esc(p.id) + '"><i style="background:' + esc(p.couleur || '#6B2F5B') + '"></i><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + (descPerso(p).mots.length ? ' · je ' + leLa(p) + ' ressens ' + esc(liste(descPerso(p).mots.slice(0, 2).map(petit))) : '') + '</small></span></button>'; }
   /* Glisser les bulles : la place se garde en % de la scène, les liens suivent */
   function brancherScene(sc) {
     var z = document.getElementById('pa-scene'); if (!z) return;
@@ -1973,7 +2003,7 @@
     var g = e.target.closest('[data-groupe="humeur"]');
     if (g) { var k = document.getElementById('pa-jour-detail') && jourChoisi && g.closest('#pa-jour-detail') ? iso(jourChoisi) : iso(new Date()), H = D.etat.humeurs = D.etat.humeurs || {}, v = lirePuces(g.parentNode, 'humeur'); if (v.length) H[k] = v; else delete H[k]; sauver(); if (g.closest('#pa-jour-detail')) rafraichir(); return; }
     var gj = e.target.closest('[data-groupe^="nj-"]');
-    if (gj) { var kj = iso(new Date()), NJ2 = D.etat.notesJour = D.etat.notesJour || {}, nn = gj.getAttribute('data-groupe').slice(3), vv = lirePuces(gj.parentNode, gj.getAttribute('data-groupe')); (NJ2[kj] = NJ2[kj] || {})[nn] = nn === 'fait' ? vv[0] || '' : vv; sauver(); return; }
+    if (gj) { var kj = iso(new Date()), NJ2 = D.etat.notesJour = D.etat.notesJour || {}, nn = gj.getAttribute('data-groupe').slice(3), vv = lirePuces(gj.parentNode, gj.getAttribute('data-groupe')); (NJ2[kj] = NJ2[kj] || {})[nn] = nn === 'fait' ? vv[0] || '' : vv; sauver(); if (nn === 'corps') { var zt = document.getElementById('pa-nj-tiens'); if (zt) zt.innerHTML = tiensCorps(vv, kj); } return; }
     if (e.target.getAttribute('data-nj') === 'schema') { var kj2 = iso(new Date()), NJ3 = D.etat.notesJour = D.etat.notesJour || {}; (NJ3[kj2] = NJ3[kj2] || {}).schema = e.target.value; sauver(); return; }
     var aj = e.target.closest('[data-fil-ajout]');
     if (aj && aj.value) { var F = filEtat(), v2 = aj.value, id; if (/^r:/.test(v2)) { F.seq = (F.seq || 0) + 1; id = 'a' + F.seq; F.personnes[id] = nouvPers(id, v2.slice(2)); } else { id = v2; F.personnes[id] = nouvPers(id, ''); } F.ordre.push(id); filSel = id; sauverFil(); rafraichir(); }
@@ -1983,7 +2013,7 @@
 
   if (EXEMPLE) {
     var cadre = document.getElementById('pass'), lien = 'login.html?inscription&retour=' + encodeURIComponent('pass.html');
-    var bandeau = function (bas) { var d = document.createElement('div'); d.className = 'pa-exemple-b' + (bas ? ' bas' : ''); d.innerHTML = '<p><b>Exemple</b> · Léa est fictive : rien de ce que tu touches ici n’est enregistré.</p><a class="pa-bt or" href="' + lien + '">Créer mon espace gratuit</a>'; return d; };
+    var bandeau = function (bas) { var d = document.createElement('div'); d.className = 'pa-exemple-b' + (bas ? ' bas' : ''); d.innerHTML = '<p><b>Exemple</b> · Léa est fictive : rien de ce que tu touches ici n’est enregistré. Ma spirale ouvre le 1<sup>er</sup> novembre.</p><div class="pa-aime" data-aime-zone><button type="button" class="pa-bt clair" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="pa-bt clair" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><a class="pa-bt or" href="' + lien + '">Créer mon espace gratuit</a><p class="pa-aime-msg" data-aime-msg aria-live="polite"></p></div>'; return d; };
     cadre.insertBefore(bandeau(false), vue); cadre.appendChild(bandeau(true));
   }
   (function () { var dl = document.getElementById('pa-persos'); if (dl) dl.innerHTML = ((PF.SCHEMA || {}).personnages || []).map(function (x) { return '<option value="' + esc(x) + '">'; }).join(''); })();
