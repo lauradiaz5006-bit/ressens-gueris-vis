@@ -1,4 +1,4 @@
-/* Genesolia · l'appli du Pass, « Mon enquête » (pass.html).
+/* Genesolia · l'appli du Pass, « Ma spirale » (pass.html ; anciennement « Mon enquête »).
    Quatre espaces liés, en bas sur téléphone et à gauche sur ordinateur :
    1. Moi (#)            : tes repères (astro et nombres), ta base (arbre ou fil d'or), « je dépose un ressenti », tes fils en cours.
    2. Mon fil d'or (#fil): ta base (ton fil d'or et ce qui se répète dans ton arbre) et chaque ressenti devenu un fil à suivre :
@@ -63,7 +63,7 @@
   window.addEventListener('pagehide', flush);
   function marque(t) { document.querySelectorAll('[data-sauve]').forEach(function (z) { z.textContent = t; }); }
   /* Le bouton « Enregistrer » : tout de suite, puis « C'est gardé » dans le pied de la fenêtre */
-  function msgPied(t, ok, accord) { document.querySelectorAll('[data-sauve-f]').forEach(function (z) { z.innerHTML = esc(t) + (accord ? '<br><button type="button" class="pa-bt or" data-accord>J’accepte, garder mon enquête</button>' : ''); z.classList.toggle('ok', !!ok); }); }
+  function msgPied(t, ok, accord) { document.querySelectorAll('[data-sauve-f]').forEach(function (z) { z.innerHTML = esc(t) + (accord ? '<br><button type="button" class="pa-bt or" data-accord>J’accepte, garder mes notes</button>' : ''); z.classList.toggle('ok', !!ok); }); }
   function sauverMaintenant(fin) {
     var dit = function (t, ok, ac) { msgPied(t, ok, ac); if (fin) fin(t); };
     if (EXEMPLE) return dit('C’est gardé pour cette visite (exemple : rien n’est enregistré).', true);
@@ -261,7 +261,7 @@
     var age = ageA(new Date());
     var vi = [];
     if (r.phrase) { vi.push(r.phrase); F.visionsPerso = F.visionsPerso || []; if (F.visionsPerso.indexOf(r.phrase) < 0) F.visionsPerso.push(r.phrase); }
-    t.etapes.push({ age: age != null ? String(age) : '', evt: String(r.quoi || '').slice(0, 140), bl: (r.bl || []).slice(), em: (r.em || []).slice(), vi: vi, texte: 'Déposé dans Mon enquête le ' + dateCourte(r.date) + '.' });
+    t.etapes.push({ age: age != null ? String(age) : '', evt: String(r.quoi || '').slice(0, 140), bl: (r.bl || []).slice(), em: (r.em || []).slice(), vi: vi, texte: 'Déposé dans Ma spirale le ' + dateCourte(r.date) + '.' });
     D.fil = F; r.fil = true;
     sauverFil(true);
   }
@@ -314,7 +314,7 @@
   /* Cliente connectée sans accord : un seul bandeau, en haut de chaque écran, pour garder l'enquête dans son espace */
   function bandeauAccord() {
     if (EXEMPLE || !D.user || D.accord) return '';
-    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ton enquête, gardée dans ton espace</p><p>Pour la retrouver sur tous tes appareils, ton enquête est gardée dans ton espace Genesolia, <b>chiffrée</b> : personne d’autre que toi ne la lit. Il nous faut ton accord une fois, c’est la loi pour des données aussi personnelles.</p><button type="button" class="pa-bt or" data-accord>J’accepte, garder mon enquête</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
+    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ce que tu écris, gardé dans ton espace</p><p>Pour le retrouver sur tous tes appareils, ce que tu écris dans Ma spirale est gardé dans ton espace Genesolia, <b>chiffré</b> : personne d’autre que toi ne le lit. Il nous faut ton accord une fois, c’est la loi pour des données aussi personnelles.</p><button type="button" class="pa-bt or" data-accord>J’accepte, garder mes notes</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
   }
   /* chaque frise s'ouvre cadrée sur ses points (de la première fois à aujourd'hui) ; si tout ne tient pas, elle part de la première fois */
   function centrerFrises(z) { (z || document).querySelectorAll('.pa-fr-defil[data-ici]').forEach(function (el) { var a = +el.getAttribute('data-min'), b = +el.getAttribute('data-max'), w = el.clientWidth; if (!w) return; el.scrollLeft = isNaN(a) ? Math.max(0, +el.getAttribute('data-ici') - w / 2) : b - a + 40 <= w ? Math.max(0, (a + b) / 2 - w / 2) : Math.max(0, a - 50); }); }
@@ -375,10 +375,10 @@
   function vuePorte() {
     var u = !!D.user;
     afficher('<section class="pa-carte pa-porte"><img src="assets/icones/pass-192.png" alt="" width="84" height="84" style="border-radius:22px;box-shadow:0 10px 26px rgba(31,11,42,.25)">' +
-      '<h1 class="pa-h1">Mon enquête de lignée</h1><p>Un espace pour déposer ce que tu ressens, chercher à qui ça appartient, enquêter dans ta lignée et transformer ce qui tourne en boucle en spirale.</p>' +
-      '<ul><li>Moi : tes repères, ton ciel et tes nombres, et un endroit où déposer chaque ressenti</li><li>Mon fil d’or : ta base, et chaque ressenti suivi pas à pas, jusqu’à la libération</li><li>Mon agenda : les dates de ta lignée, ce qui revient, tes ressentis et tes libérations</li><li>Mon bilan : ta lignée en sphères de lumière, avec les liens que tu ressens</li></ul>' +
+      '<h1 class="pa-h1">Ma spirale</h1><p>L’espace pour regarder ce qui se répète dans ta vie, comprendre d’où ça vient, le libérer et avancer : de la boucle à la spirale.</p>' +
+      '<ul><li>Moi : déposer un ressenti ou un rêve, ta note du jour, tes schémas en cours</li><li>Mon fil d’or : ta frise de vie et celle de ta lignée</li><li>Mon agenda : les dates de ta lignée, les lunes, tes libérations et tes gestes</li><li>Mon bilan : ta lignée en sphères de lumière, et tes schémas devenus spirale</li><li>Mes actions : tous les protocoles, prêts à suivre</li></ul>' +
       '<p><b>Le Pass</b> · 10 € par mois, sans engagement, ou 27 € les 3 mois.</p>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="tarifs.html#t-pass">Prendre le Pass</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">Me connecter</a><a class="pa-bt clair" href="tarifs.html#t-pass">Découvrir le Pass</a>') +
+      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#bientot">S’abonner · bientôt disponible</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">Me connecter</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
       '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div></section>');
   }
 
@@ -1530,7 +1530,7 @@
     Object.keys(R).forEach(function (cle) {
       var r = R[cle], d = String(r.date || '').replace(/-/g, ''); if (!/^\d{8}$/.test(d)) return;
       var annuel = !/^lune-|^note-/.test(cle), t = String(r.texte || '').replace(/[,;\\]/g, ' ');
-      l.push('BEGIN:VEVENT', 'UID:' + cle + '@genesolia.fr', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', 'DTSTART;VALUE=DATE:' + d, 'SUMMARY:' + t, 'DESCRIPTION:Mon enquête Genesolia · genesolia.fr/pass.html#agenda');
+      l.push('BEGIN:VEVENT', 'UID:' + cle + '@genesolia.fr', 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', 'DTSTART;VALUE=DATE:' + d, 'SUMMARY:' + t, 'DESCRIPTION:Ma spirale Genesolia · genesolia.fr/pass.html#agenda');
       if (annuel) l.push('RRULE:FREQ=YEARLY');
       l.push('BEGIN:VALARM', 'TRIGGER:-PT15H', 'ACTION:DISPLAY', 'DESCRIPTION:' + t, 'END:VALARM', 'BEGIN:VALARM', 'TRIGGER:PT9H', 'ACTION:DISPLAY', 'DESCRIPTION:' + t, 'END:VALARM', 'END:VEVENT');
     });
