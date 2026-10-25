@@ -390,6 +390,19 @@
     .pa-inconnu{display:inline-flex;margin:.45rem 0 .2rem}
     .pa-note-ok{display:flex;align-items:center;gap:.8rem;margin-top:.6rem}.pa-note-ok .pa-bt{margin:0}.pa-note-ok span{font-weight:700;color:#6B2F5B}
     .pa-spi{border-color:#E2C48E}
+    /* Les aides « Je ne sais pas » */
+    .pa-aide{margin:.1rem 0 .5rem}
+    .pa-aide>summary{display:inline-flex;align-items:center;min-height:32px;cursor:pointer;font-size:.86rem;font-weight:700;color:#9A3A68;list-style:none}
+    .pa-aide>summary::-webkit-details-marker{display:none}
+    .pa-aide>summary::before{content:'?';display:inline-grid;place-items:center;width:20px;height:20px;margin-right:.4rem;border-radius:50%;background:#F6E3E8;font-size:.75rem}
+    .pa-aide-c{margin:.3rem 0 .4rem;padding:.75rem .9rem;border-radius:14px;background:#FBF4EA;border:1px solid #EBD3BC;font-size:.92rem;line-height:1.5}
+    .pa-aide-c p{margin:.2rem 0 .5rem}.pa-aide-c .pa-echos{margin:.2rem 0 .4rem}
+    .pa-debuts{display:flex;flex-wrap:wrap;gap:.35rem;margin:.2rem 0 .3rem}
+    .pa-debuts button{min-height:36px;padding:.3rem .75rem;border-radius:99px;border:1.5px dashed #D9B98F;background:#fff;color:#6B2F5B;font:600 .85rem/1.2 var(--texte);cursor:pointer}
+    .pa-scan{font-family:var(--display);font-size:1.15rem;color:#5A2147;min-height:1.6em;margin:.4rem 0}
+    .pa-fort{margin:.4rem 0 .9rem;padding:.9rem 1rem;border-radius:18px;background:#FFF6E3;border:1.5px solid #E2C48E;line-height:1.5}
+    .pa-fort ol{margin:.4rem 0;padding-left:1.2rem}
+    .pa-chemins{margin:.3rem 0 0;padding:0;list-style:none}.pa-chemins li{margin:0 0 .7rem}.pa-chemins b{display:block;color:#5A2147}
     @media (min-width:760px){#pass{padding-top:1rem}}
     @media (max-width:380px){.pa-deux,.pa-cycles{grid-template-columns:1fr}}
     /* Ordinateur : un espace, la barre à gauche, deux colonnes */
@@ -448,6 +461,6 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=10"></script>
-  <script src="assets/pass.js?v=11"></script>
+  <script src="assets/pass.js?v=12"></script>
 </body>
 </html>
