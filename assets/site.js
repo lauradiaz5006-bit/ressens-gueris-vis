@@ -349,9 +349,11 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
   /* Appli Genesolia Pro (pro.html) : l'Espace praticien en appli. Ni barre du bas du site, ni encarts, sur toutes ses pages */
   if (page === 'pro.html') drapeau = 'pro';
+  /* Ma spirale (pass.html) : son appli à elle, avec sa propre barre du bas. Ni la barre du site, ni celle du Cercle */
+  if (page === 'pass.html') drapeau = 'pass';
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
   if (drapeau === 'pro') tunnel = true;
-  var MODE = drapeau === 'pro' ? '' : drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
+  var MODE = drapeau === 'pro' || drapeau === 'pass' ? '' : drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
   if (tunnel && !MODE && page !== 'cercle.html') document.documentElement.classList.add('page-tunnel');   /* pas d'encart « appli gratuite » dans le pied de page du tunnel */
   /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */
