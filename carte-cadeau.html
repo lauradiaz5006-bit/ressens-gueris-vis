@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ma carte cadeau du Cercle · Genesolia</title>
+  <meta name="description" content="Tu as reçu une carte cadeau du Cercle ? Entre ton code pour l’activer : Le Cercle s’ouvre pour 3 ou 6 mois, sans abonnement.">
+  <link rel="canonical" href="https://genesolia.fr/carte-cadeau.html">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/site.css?v=cadeau1">
+  <style>
+    .kc{padding:2.6rem 0 3.5rem}
+    .kc-tete{text-align:center;margin:0 auto 1.6rem;max-width:40rem}
+    .kc-tete .kc-sur{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9A6E38;margin:0 0 .5rem}
+    .kc-tete h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 .6rem}
+    .kc-tete p{color:var(--prune-doux);margin:0 auto}
+    .kc-zone{max-width:36rem;margin:0 auto}
+    .kc-boite{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.4rem;margin-top:1.4rem;text-align:center}
+    .kc-boite p{margin:0 auto .8rem}
+    .kc-boite .btn{margin:.25rem}
+    .kc-code{display:flex;gap:.5rem;max-width:26rem;margin:0 auto}
+    .kc-code input{flex:1;min-width:0;font:700 1.05rem ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:.7rem;border:1px solid var(--rose-fonce);border-radius:12px;color:var(--prune);background:#FFFCFA}
+    .kc-err{color:#A23A3A;font-weight:600;font-size:.94rem;margin:.7rem auto 0!important}
+    .kc-ok{color:#6B2F5B;font-weight:700}
+    .kc-petit{font-size:.88rem;color:var(--prune-doux)}
+    .kc-attente{display:inline-block;width:1.1rem;height:1.1rem;border:2px solid var(--rose-fonce);border-top-color:var(--prune);border-radius:50%;animation:kc-t 1s linear infinite;vertical-align:-3px;margin-right:.4rem}
+    @keyframes kc-t{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){.kc-attente{animation:none}}
+    @media print{
+      [data-entete],[data-pied],.kc-tete,.kc-boite,.cookies{display:none!important}
+      .kc{padding:0}.kc-imprime{display:block!important;text-align:center;margin-top:1.2rem;font-size:11pt;color:#3A1535}
+    }
+    .kc-imprime{display:none}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="kc"><div class="conteneur">
+    <div class="kc-tete" id="kc-tete">
+      <p class="kc-sur">Carte cadeau</p>
+      <h1>Le Cercle, en cadeau</h1>
+      <p>Entre le code de ta carte pour l’activer : Le Cercle s’ouvre pour toi, sans abonnement.</p>
+    </div>
+    <div class="kc-zone">
+      <div id="kc-carte"></div>
+      <p class="kc-imprime">Pour activer cette carte : genesolia.fr/carte-cadeau.html, puis entrer le code.<br>Le Cercle s’ouvre alors pour la durée offerte, sans abonnement.</p>
+      <div id="kc-action"></div>
+    </div>
+  </div></main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/carte-cadeau.js?v=1"></script>
+  <script>
+  (function () {
+    var C = window.GenesoliaCarte, esc = C.esc, $ = function (id) { return document.getElementById(id); };
+    var q = new URLSearchParams(location.search), ref = q.get('ref'), code = (q.get('code') || '').toUpperCase();
+    var MEM = 'genesolia-carte-cadeau';
+    if (!code) { try { var m = JSON.parse(localStorage.getItem(MEM) || 'null'); if (m && Date.now() - m.t < 2 * 864e5) code = m.c; } catch (e) {} }
+    var sb = null; try { sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg'); } catch (e) {}
+    function tete(sur, h1, p) { $('kc-tete').innerHTML = '<p class="kc-sur">' + sur + '</p><h1>' + h1 + '</h1>' + (p ? '<p>' + p + '</p>' : ''); }
+    function carte(c) { $('kc-carte').innerHTML = C.html(c); }
+    function action(h) { $('kc-action').innerHTML = '<div class="kc-boite">' + h + '</div>'; }
+    function dateFr(d) { return new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }); }
+
+    /* 1. Après le paiement : l'acheteuse voit sa carte (le code arrive dès que Stripe a confirmé) */
+    if (ref) {
+      var essais = 0;
+      tete('Merci', 'Ta carte cadeau', 'Le paiement est en train d’être confirmé…');
+      carte({}); action('<p><span class="kc-attente" aria-hidden="true"></span>On prépare ta carte, quelques secondes…</p>');
+      (function voir() {
+        C.appeler('voir', { ref: ref }).then(function (r) {
+          var c = r.carte;
+          if (!c) { action('<p class="kc-err">' + esc(r.erreur || 'Carte introuvable.') + '</p>'); return; }
+          if (c.statut === 'attente') {
+            carte(c);
+            if (++essais < 30) { setTimeout(voir, 3000); return; }
+            action('<p>Le paiement est encore en cours de confirmation. Tu recevras ta carte par e-mail dès qu’il est validé.</p><p class="kc-petit">Rien n’est arrivé d’ici une heure ? Écris-nous : <a href="contact.html">contact</a>.</p>');
+            return;
+          }
+          carte(c);
+          var lien = location.origin + '/carte-cadeau.html?code=' + encodeURIComponent(c.code);
+          tete('Merci', 'Ta carte est prête', c.envoi === 'mail' ? 'Elle partira par e-mail à ' + esc(c.dest || 'la personne') + ' le ' + esc(dateFr(c.envoyer_le)) + ', à 8 h. Tu la reçois aussi par e-mail.' : 'Imprime-la, glisse-la sous le sapin ou transfère-la : tu la reçois aussi par e-mail.');
+          action('<p>Son code : <b class="kc-ok">' + esc(c.code) + '</b></p>' +
+            '<button type="button" class="btn btn-plein" data-imprimer>Imprimer la carte</button>' +
+            '<button type="button" class="btn btn-trait" data-partager>' + (navigator.share ? 'Envoyer la carte' : 'Copier le lien de la carte') + '</button>' +
+            '<p class="kc-petit" style="margin-top:.8rem">Pour l’activer, la personne va sur genesolia.fr/carte-cadeau.html et entre le code, quand elle le souhaite.</p>');
+          $('kc-action').addEventListener('click', function (e) {
+            if (e.target.closest('[data-imprimer]')) window.print();
+            if (e.target.closest('[data-partager]')) {
+              var txt = (c.pour ? c.pour + ', ' : '') + 'un cadeau pour toi : ' + c.mois + ' mois du Cercle de Genesolia.';
+              if (navigator.share) navigator.share({ title: 'Ta carte cadeau', text: txt, url: lien }).catch(function () {});
+              else if (navigator.clipboard) navigator.clipboard.writeText(lien).then(function () { e.target.textContent = 'Lien copié'; });
+            }
+          });
+        });
+      })();
+      return;
+    }
+
+    /* 2. La personne qui reçoit la carte : elle la voit, puis l'active avec son compte */
+    function formulaire(val, msg) {
+      action('<form id="kc-form" novalidate><p><label for="kc-code"><b>Le code de ta carte</b></label></p>' +
+        '<div class="kc-code"><input id="kc-code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="CERCLE-XXXX-XXXX" value="' + esc(val || '') + '"><button type="submit" class="btn btn-plein">Activer</button></div>' +
+        (msg ? '<p class="kc-err" role="alert">' + msg + '</p>' : '') +
+        '<p class="kc-petit" style="margin-top:.9rem">Il te faut un compte Genesolia (gratuit) : on te le propose à l’étape suivante si tu n’en as pas.</p></form>');
+      $('kc-form').addEventListener('submit', function (e) { e.preventDefault(); activer($('kc-code').value.trim().toUpperCase()); });
+    }
+    function activer(c) {
+      if (c.replace(/[^A-Z0-9]/g, '').length < 8) { formulaire(c, 'Le code est incomplet : il ressemble à CERCLE-XXXX-XXXX.'); return; }
+      action('<p><span class="kc-attente" aria-hidden="true"></span>Un instant…</p>');
+      (sb ? sb.auth.getSession() : Promise.resolve({ data: {} })).then(function (s) {
+        var jeton = s && s.data && s.data.session && s.data.session.access_token;
+        if (!jeton) {
+          try { localStorage.setItem(MEM, JSON.stringify({ c: c, t: Date.now() })); } catch (e) {}
+          action('<p><b>Dernière étape : ton compte.</b><br>Connecte-toi ou crée ton compte gratuit, puis tu reviens ici et ta carte s’active.</p>' +
+            '<a class="btn btn-plein" href="login.html?inscription&retour=carte-cadeau.html">Créer mon compte</a><a class="btn btn-trait" href="login.html?retour=carte-cadeau.html">J’ai déjà un compte</a>');
+          return;
+        }
+        C.appeler('utiliser', { code: c }, jeton).then(function (r) {
+          if (r.ok) {
+            try { localStorage.removeItem(MEM); } catch (e) {}
+            tete('C’est fait', 'Bienvenue dans Le Cercle', r.deja ? 'Cette carte est déjà activée sur ton compte.' : 'Ta carte est activée : Le Cercle est ouvert pour toi' + (r.fin ? ', jusqu’au ' + new Date(r.fin).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '') + '.');
+            action('<a class="btn btn-plein" href="cercle.html">Ouvrir mon Cercle</a><p class="kc-petit" style="margin-top:.8rem">Pas d’abonnement : rien ne sera prélevé à la fin.</p>');
+            return;
+          }
+          if (r._statut === 401) { try { localStorage.setItem(MEM, JSON.stringify({ c: c, t: Date.now() })); } catch (e) {} location.href = 'login.html?retour=carte-cadeau.html'; return; }
+          formulaire(c, esc(r.erreur || 'L’activation n’a pas abouti. Réessaie dans un instant.'));
+        });
+      });
+    }
+    if (code) {
+      C.appeler('voir', { code: code }).then(function (r) {
+        if (r.carte) {
+          carte(r.carte);
+          if (r.carte.statut === 'utilisee') { tete('Carte cadeau', 'Cette carte est déjà activée', 'Si c’est la tienne, ouvre ton Cercle avec ton compte.'); action('<a class="btn btn-plein" href="cercle.html">Ouvrir mon Cercle</a>'); return; }
+          tete('Une carte cadeau pour toi', (r.carte.pour ? esc(r.carte.pour) + ', un' : 'Un') + ' cadeau t’attend', (r.carte.de ? esc(r.carte.de) + ' t’offre ' : 'On t’offre ') + r.carte.mois + ' mois du Cercle : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans ta vie et dans ta lignée.');
+          formulaire(r.carte.code);
+        } else { carte({}); formulaire(code, esc(r.erreur || 'Carte introuvable.')); }
+      });
+    } else { carte({}); formulaire(''); }
+  })();
+  </script>
+</body>
+</html>

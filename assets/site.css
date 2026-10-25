@@ -619,3 +619,36 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
   .pied li a{display:inline-block;padding:.45rem 0}
   input[type=checkbox],input[type=radio]{min-width:20px;min-height:20px}
 }
+
+/* ===== Carte cadeau du Cercle (assets/carte-cadeau.js) ===== */
+.cc-carte{position:relative;aspect-ratio:1.6/1;width:100%;max-width:34rem;margin:0 auto;border-radius:22px;overflow:hidden;color:#F6E7C8;
+  background:radial-gradient(120% 90% at 85% 0%,#8C3F74 0%,rgba(140,63,116,0) 60%),radial-gradient(90% 80% at 0% 100%,#2A0F27 0%,rgba(42,15,39,0) 70%),linear-gradient(150deg,#5A2350,#3A1535);
+  box-shadow:0 24px 50px rgba(58,21,53,.35),inset 0 0 0 1px rgba(233,201,138,.35);font-family:var(--texte)}
+.cc-carte::before{content:"";position:absolute;inset:10px;border:1px solid rgba(233,201,138,.55);border-radius:15px;pointer-events:none}
+.cc-carte::after{content:"";position:absolute;inset:14px;border:1px solid rgba(233,201,138,.22);border-radius:12px;pointer-events:none}
+.cc-ciel{position:absolute;inset:0;width:100%;height:100%;color:#E9C98A;opacity:.75}
+.cc-int{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6% 9%}
+.cc-int p{margin:0;max-width:none}
+.cc-marque{font:700 clamp(.5rem,1.6vw,.68rem)/1 var(--texte);letter-spacing:.24em;text-transform:uppercase;color:#E9C98A}
+.cc-titre{font:400 clamp(1.9rem,7.4vw,3.3rem)/1.02 var(--display);color:#FFF3DC;margin:.35em 0 .1em!important;letter-spacing:.01em}
+.cc-mois{font:400 clamp(.95rem,3.3vw,1.45rem)/1.2 var(--display);color:#E9C98A}
+.cc-mois b{font-weight:400;background:linear-gradient(90deg,#F3DCA5,#C99A4E,#F3DCA5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cc-pour{font-size:clamp(.72rem,2.3vw,.95rem);margin-top:.8em!important;color:#F6E7C8}
+.cc-pour b{font-weight:700;color:#FFF3DC}
+.cc-mot{font:italic 400 clamp(.68rem,2.1vw,.88rem)/1.35 var(--texte);color:#EBD5E2;margin-top:.45em!important;max-width:28em!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-code{margin-top:.9em!important}
+.cc-code span{display:inline-block;padding:.35em .9em;border-radius:99px;border:1px solid rgba(233,201,138,.6);font:700 clamp(.66rem,2.1vw,.86rem)/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:#FFF3DC;background:rgba(0,0,0,.18)}
+@media print{.cc-carte{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none}}
+
+/* ===== Noël : les affiches (assets/noel/), visibles jusqu'au 6 janvier ===== */
+.noel{padding:3rem 0;background:radial-gradient(80% 60% at 50% 0%,#FCEFF3,rgba(252,239,243,0) 70%)}
+.noel-tete{text-align:center;margin:0 auto 1.6rem;max-width:40rem}
+.noel-tete p:first-child{font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#9A6E38;margin:0 auto .4rem}
+.noel-tete h2{margin:0 0 .4rem}
+.noel-tete p{color:var(--prune-doux);margin:0 auto}
+.noel-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.noel-grille a{display:block;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px rgba(58,21,53,.18);transition:transform .2s,box-shadow .2s}
+.noel-grille a:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(58,21,53,.26)}
+.noel-grille img{width:100%;height:auto;aspect-ratio:4/5;display:block}
+@media (max-width:900px){.noel-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.noel-grille a{transition:none}}
