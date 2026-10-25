@@ -297,10 +297,11 @@
     /* Le panneau d'une étape */
     .pa-voile{position:fixed;inset:0;z-index:150;background:rgba(31,11,42,.5);opacity:0;transition:opacity .25s}
     .pa-voile.ouvert{opacity:1}
-    .pa-feuille{position:fixed;left:0;right:0;bottom:0;z-index:151;max-width:46rem;margin:0 auto;max-height:92vh;display:flex;flex-direction:column;background:#FFF9F4;border-radius:26px 26px 0 0;box-shadow:0 -16px 50px rgba(31,11,42,.35);transform:translateY(105%);transition:transform .3s ease}
+    .pa-feuille{position:fixed;left:0;right:0;bottom:0;z-index:151;max-width:46rem;margin:0 auto;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:#FFF9F4;border-radius:26px 26px 0 0;box-shadow:0 -16px 50px rgba(31,11,42,.35);transform:translateY(105%);transition:transform .3s ease}
     .pa-feuille.ouvert{transform:none}
     .pa-f-tete{padding:1rem 3.6rem .2rem 1.4rem;position:relative}
-    .pa-f-fermer{position:absolute;top:.6rem;right:.7rem;width:44px;height:44px;border-radius:50%;border:0;background:#F6E3E8;color:var(--prune);font-size:1.4rem;cursor:pointer}
+    .pa-fil-t{margin-top:.9rem}.pa-fil-t .pa-outils{margin-top:.5rem}.pa-site{margin-top:1rem;text-align:center}
+    .pa-f-fermer{position:absolute;z-index:5;touch-action:manipulation;top:.6rem;right:.7rem;width:48px;height:48px;border-radius:50%;border:0;background:#F6E3E8;color:var(--prune);font-size:1.4rem;cursor:pointer}
     .pa-f-corps{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:.3rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom,0px))}
     .pa-f-corps h2{font:400 1.6rem/1.2 var(--display);color:#3B1747;margin:.1rem 0 .6rem}
     .pa-souffle{font-family:var(--display);font-size:1.13rem;line-height:1.5;color:#5A2147;margin:0 0 1rem}
@@ -528,14 +529,14 @@
   <datalist id="pa-persos"></datalist>
   <main id="pass"><div id="pa-vue"><p class="pa-chargement">Ton enquête s’ouvre…</p></div></main>
   </div>
-  <p class="pa-pied-m">Genesolia · une lecture symbolique, pas un avis médical · <a href="confidentialite.html">Confidentialité</a></p>
+  <p class="pa-pied-m">Genesolia · une lecture symbolique, pas un avis médical · <a href="confidentialite.html" target="_blank" rel="noopener">Confidentialité</a></p>
   <footer data-pied></footer>
   <script src="assets/site.js?v=spirale1"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=26"></script>
+  <script src="assets/pass.js?v=27"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
