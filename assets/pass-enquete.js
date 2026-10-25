@@ -6,7 +6,7 @@
 window.PASS_ENQUETE = [
   {
     id: 'fil', court: 'Le premier fil', titre: 'Tirer le premier fil',
-    souffle: 'Toute enquête commence par un détail qui ne laisse pas tranquille. Le tien, c’est ce que tu as ressenti. Avant les noms et les dates, pose ce qui t’a marquée : c’est le fil d’or qui va guider tout le reste.',
+    souffle: 'Toute enquête commence par un détail qui ne laisse pas tranquille. Le tien, c’est ce que tu as ressenti. Avant les noms et les dates, pose ce qui t’a marqué·e : c’est le fil d’or qui va guider tout le reste.',
     enquete: ['Ouvre ton fil d’or et note au moins trois moments de ta vie : l’âge que tu avais, ce qui s’est passé, ce que tu as ressenti.', 'Ajoute une personne de ta famille dont tu sens que l’histoire résonne avec la tienne, même si tu en sais peu.'],
     ressens: ['Quel moment de ta vie est revenu en premier, sans que tu le cherches ?', 'Si ton histoire avait une couleur aujourd’hui, laquelle serait-elle ?'],
     geste: 'Avant de commencer, pose une main sur ton cœur et dis à voix basse : « J’ouvre mon enquête avec douceur. Je prends ce qui vient, je laisse le reste pour plus tard. »',
@@ -102,7 +102,7 @@ window.PASS_QUESTIONS = [
   'Quel geste de ta mère ou de ta grand-mère refais-tu sans y penser ?',
   'Si une ancêtre pouvait t’accompagner aujourd’hui, laquelle choisirais-tu ?',
   'Quelle phrase de ta famille entends-tu encore dans ta tête ?',
-  'Qu’est-ce qui t’a rendue fière de ta lignée, une seule fois ?',
+  'Qu’est-ce qui t’a rendu·e fier·e de ta lignée, une seule fois ?',
   'Quel lieu de ta famille aimerais-tu revoir ?',
   'Quelle émotion as-tu le droit de vivre, que les tiens n’avaient pas ?',
   'Qu’est-ce que tu fais différemment de tes parents, et qui te fait du bien ?',
@@ -141,7 +141,7 @@ window.PASS_FIL = {
     { id: 'liberer', titre: 'Libérer', court: 'Rendre ou retrouver',
       souffle: 'Une mémoire non libérée est comme une bulle sombre où une part de ton énergie est restée figée. Libérer, c’est faire circuler à travers elle une énergie plus claire, comme de l’eau chaude sur un glaçon : elle fond, et l’énergie te revient. En la libérant, tu libères aussi ta lignée, celle d’avant et celle qui vient.' },
     { id: 'intention', titre: 'L’intention', court: 'Poser la première pierre',
-      souffle: 'Une mémoire libérée laisse un espace. Si tu ne le remplis pas, l’ancienne histoire revient s’y loger. L’intention, c’est ce que tu choisis d’y mettre : bien centrée, posée du plus profond de toi, puis lâchée avec confiance. L’énergie suit l’intention.' },
+      souffle: 'Une mémoire libérée laisse un espace. Si tu ne le remplis pas, l’ancienne histoire revient s’y loger. L’intention, c’est ce que tu choisis d’y mettre : bien centré·e, posée du plus profond de toi, puis lâchée avec confiance. L’énergie suit l’intention.' },
     { id: 'reapprendre', titre: 'Réapprendre', court: 'Le corps, les pensées, les gestes',
       souffle: 'Une mémoire a appris à ton corps à se mettre en alerte, parfois depuis des générations. Après l’intention vient le vrai travail : réapprendre la sécurité au corps, d’autres pensées, d’autres gestes. Petit à petit, la boucle devient spirale.' }
   ],
@@ -153,7 +153,7 @@ window.PASS_FIL = {
   ],
   /* Libérer selon la porte (avant les étapes communes de la clé 1) */
   LIB_PORTE: {
-    vie: { titre: 'Retrouver la partie de toi', etapes: ['Ferme les yeux. Vois-toi à {age}, dans la scène où tout s’est figé. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grande maintenant, je m’occupe de nous. »', 'Tends-lui la main. Imagine qu’elle revient vers toi et se pose dans ton cœur. L’énergie restée figée là-bas circule de nouveau en toi.'] },
+    vie: { titre: 'Retrouver la partie de toi', etapes: ['Ferme les yeux. Vois-toi à {age}, dans la scène où tout s’est figé. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grand·e maintenant, je m’occupe de nous. »', 'Tends-lui la main. Imagine qu’elle revient vers toi et se pose dans ton cœur. L’énergie restée figée là-bas circule de nouveau en toi.'] },
     lignee: { titre: 'Libérer {qui}', etapes: ['Vois {qui} devant toi, dans une lumière douce. Regarde ce qu’elle ou il a traversé.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, avec respect et avec amour. Je garde ta force. »', 'Vois le paquet se déposer devant elle ou lui, puis la lumière l’envelopper et le dissoudre. Elle ou il peut se reposer, et toi, avancer.'] },
     ancienne: { titre: 'Libérer pour toute la lignée', etapes: ['Vois un faisceau de lumière descendre en toi, puis à travers tes racines, génération après génération, aussi loin que tu peux sentir.', 'Dis : « À celles et ceux qui ont porté cette mémoire avant moi : je vous vois. Je la libère pour nous tous. »', 'Laisse la lumière remonter jusqu’à toi. Ce qui était lourd devient léger.'] }
   },
@@ -220,7 +220,7 @@ window.PASS_FIL = {
   ],
   /* L'intention : se centrer, acter, lâcher */
   INTENTION: {
-    centrer: 'Pose les pieds au sol, une main sur le cœur. Respire avec la sphère jusqu’à te sentir centrée.',
+    centrer: 'Pose les pieds au sol, une main sur le cœur. Respire avec la sphère jusqu’à te sentir centré·e.',
     ecrire: 'Écris-la au présent, comme si c’était déjà vrai, avec des mots qui te font vibrer.',
     exemples: ['Je suis en sécurité. Je peux recevoir et garder.', 'Je suis digne d’un amour stable.', 'Ma place existe, je la prends.', 'Mon succès honore ma lignée.'],
     acter: 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi. Puis garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume.',
