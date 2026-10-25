@@ -130,7 +130,21 @@ window.PASS_QUESTIONS = [
 window.PASS_FIL = {
   EMOTIONS: ['Peur', 'Peur de manquer', 'Tristesse', 'Colère', 'Honte', 'Culpabilité', 'Solitude', 'Impuissance', 'Vide', 'Fatigue'],   /* les mêmes que le fil d'or */
   BLESSURES: [['abandon', 'Abandon'], ['rejet', 'Rejet'], ['trahison', 'Trahison'], ['humiliation', 'Humiliation'], ['injustice', 'Injustice']],
-  CORPS: ['La gorge', 'La poitrine', 'Le ventre', 'Les épaules', 'La tête', 'Le dos', 'Les mains', 'Partout', 'Je ne sais pas'],
+  /* Une seule liste du corps et des sensations partout (dépôt, fiche, note du jour, suivi) : sinon aucun rapprochement possible */
+  CORPS: ['La tête', 'La gorge', 'La poitrine', 'Le ventre', 'Les épaules', 'Le dos', 'Les mains', 'Les jambes', 'Partout', 'Je ne sens rien'],
+  SENSATIONS: ['Serré', 'Lourd', 'Chaud', 'Froid', 'Agité', 'Vide', 'Calme'],
+  /* Les blessures dites avec les phrases qu'on se dit */
+  BLESSURES_P: { abandon: 'On me laisse', rejet: 'Je n’ai pas ma place', trahison: 'Je ne peux compter sur personne', humiliation: 'J’ai honte, on me rabaisse', injustice: 'Ce n’est pas juste, je dois être parfait·e' },
+  /* Le nom proposé pour un schéma : ce qui se répète, pas l'émotion (modifiable) */
+  NOMS: { abandon: 'la peur d’être quitté·e', rejet: 'la peur de ne pas avoir ma place', trahison: 'la peur d’être trahi·e', humiliation: 'la peur d’être rabaissé·e', injustice: 'la peur de ne pas être assez', 'Peur de manquer': 'la peur de manquer', 'Solitude': 'la peur d’être seul·e', 'Honte': 'la peur d’être rabaissé·e', 'Culpabilité': 'la peur de mal faire', 'Impuissance': 'la peur de ne rien pouvoir', 'Colère': 'la colère qui monte', 'Peur': 'la peur qui revient', 'Tristesse': 'la tristesse qui revient', 'Vide': 'le vide qui revient', 'Fatigue': 'la fatigue qui revient' },
+  /* Ce que je veux à la place, l'intention et les gestes, selon la blessure */
+  PAR_BLESSURE: {
+    abandon: { place: 'Une présence qui reste, à commencer par la mienne', intention: 'Je suis digne d’un amour qui reste. Je ne me quitte plus.', gestes: ['Dire oui à une invitation', 'Appeler quelqu’un, juste pour prendre des nouvelles', 'Passer une heure seul·e, avec douceur, sans rien prouver'] },
+    rejet: { place: 'Ma place, sans avoir à la mériter', intention: 'Ma place existe, je la prends.', gestes: ['Donner ton avis une fois, en réunion ou en famille', 'T’asseoir au milieu, pas au bord', 'Demander une chose dont tu as besoin'] },
+    trahison: { place: 'La confiance, à commencer par moi', intention: 'Je peux faire confiance, et je tiens mes promesses envers moi.', gestes: ['Confier une petite tâche sans la vérifier', 'Tenir une promesse faite à toi-même', 'Dire à quelqu’un ce que tu attends de lui'] },
+    humiliation: { place: 'La fierté d’être moi', intention: 'Je suis fier·ère d’être moi. Ma voix compte.', gestes: ['Recevoir un compliment en disant juste merci', 'Montrer quelque chose que tu as fait', 'Porter un vêtement que tu aimes vraiment'] },
+    injustice: { place: 'La justesse, et le droit d’être imparfait·e', intention: 'Je suis assez, tel·le que je suis. Je peux recevoir et garder.', gestes: ['Laisser une chose imparfaite, volontairement', 'Mettre 5 € de côté : « je peux garder »', 'T’accorder une pause sans la justifier'] }
+  },
   PEURS: ['Peur de manquer', 'Peur d’être abandonné·e', 'Peur de ne pas avoir ma place', 'Peur de déplaire', 'Peur d’être trahi·e', 'Peur de réussir', 'Peur d’être vu·e', 'Peur du conflit', 'Peur de perdre ceux que j’aime', 'Peur de ne pas être assez'],
   /* Le chemin d'une mémoire : voir, la situer dans le temps, libérer, poser l'intention, réapprendre */
   ETAPES: [
@@ -222,7 +236,7 @@ window.PASS_FIL = {
   INTENTION: {
     centrer: 'Pose les pieds au sol, une main sur le cœur. Respire avec la sphère jusqu’à te sentir centré·e.',
     ecrire: 'Écris-la au présent, comme si c’était déjà vrai, avec des mots qui te font vibrer.',
-    exemples: ['Je suis en sécurité. Je peux recevoir et garder.', 'Je suis digne d’un amour stable.', 'Ma place existe, je la prends.', 'Mon succès honore ma lignée.'],
+    exemples: ['Je suis en sécurité, ici et maintenant.', 'Je suis digne d’un amour stable.', 'Ma place existe, je la prends.', 'Mon succès honore ma lignée.'],
     acter: 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi. Puis garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume.',
     lacher: 'C’est posé. Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'
   },
@@ -235,13 +249,13 @@ window.PASS_FIL = {
   },
   ROLES: [
     ['victime', 'Victime', '« Ça m’arrive toujours à moi. » Tu subis, tu attends qu’on te sauve.', 'Reprendre ton pouvoir : qu’est-ce que je peux choisir, là, maintenant ?'],
-    ['sauveur', 'Sauveur·se', '« Sans moi, ils n’y arriveront pas. » Tu portes les autres, tu t’oublies.', 'Soutenir sans porter : laisser à l’autre sa force, et revenir à toi.'],
+    ['sauveur', 'Sauveur·euse', '« Sans moi, ils n’y arriveront pas. » Tu portes les autres, tu t’oublies.', 'Soutenir sans porter : laisser à l’autre sa force, et revenir à toi.'],
     ['bourreau', 'Persécuteur·rice', '« C’est de ta faute. » Tu reproches, tu contrôles, tu durcis.', 'T’affirmer sans attaquer : dire ce dont tu as besoin.']
   ],
   /* Les rêves : symboles (des pistes, jamais des certitudes) */
   REVES: {
     types: [['emotion', 'Il parle de ce que je vis en ce moment'], ['symbole', 'Il a des symboles forts'], ['lignee', 'Quelqu’un de ma lignée y était'], ['revient', 'Il revient souvent']],
-    symboles: [['Eau', 'tes émotions, leur calme ou leur tempête'], ['Maison', 'toi, ton intérieur, parfois ta lignée'], ['Chute', 'une perte de contrôle, une peur de lâcher'], ['Poursuite', 'ce que tu fuis ou évites de regarder'], ['Un défunt', 'un lien à regarder, un message, quelque chose à rendre ou à recevoir'], ['Un bébé', 'un projet neuf, une partie de toi qui naît, ou un enfant de la lignée'], ['Les dents', 'la peur de perdre, de vieillir, de ne plus pouvoir mordre dans la vie'], ['Un examen', 'la peur d’être jugée, de ne pas être à la hauteur'], ['Un voyage, un train', 'ton chemin, une étape qui commence ou qu’on rate'], ['Un animal', 'ton instinct, une force ou une peur'], ['Le feu', 'une colère, ou une transformation'], ['La lumière', 'une protection, une ouverture'], ['Être nue', 'la peur d’être vue, d’être exposée'], ['Perdre quelque chose', 'une part de toi que tu cherches']]
+    symboles: [['Eau', 'tes émotions, leur calme ou leur tempête'], ['Maison', 'toi, ton intérieur, parfois ta lignée'], ['Chute', 'une perte de contrôle, une peur de lâcher'], ['Poursuite', 'ce que tu fuis ou évites de regarder'], ['Un défunt', 'un lien à regarder, un message, quelque chose à rendre ou à recevoir'], ['Un bébé', 'un projet neuf, une partie de toi qui naît, ou un enfant de la lignée'], ['Les dents', 'la peur de perdre, de vieillir, de ne plus pouvoir mordre dans la vie'], ['Un examen', 'la peur d’être jugé·e, de ne pas être à la hauteur'], ['Un voyage, un train', 'ton chemin, une étape qui commence ou qu’on rate'], ['Un animal', 'ton instinct, une force ou une peur'], ['Le feu', 'une colère, ou une transformation'], ['La lumière', 'une protection, une ouverture'], ['Être nu·e', 'la peur d’être vu·e, d’être exposé·e'], ['Perdre quelque chose', 'une part de toi que tu cherches']]
   },
   SPIRALE: [
     'Quand le thème est revenu, l’as-tu reconnu plus vite ?',
@@ -252,30 +266,38 @@ window.PASS_FIL = {
   SCHEMA: {
     couleurs: { abandon: '#6B2F5B', rejet: '#D9705F', trahison: '#B98A55', humiliation: '#C2466E', injustice: '#4E5D94' },   /* les mêmes partout, sans vert */
     domaines: ['Couple', 'Argent', 'Travail', 'Famille', 'Amis', 'Corps', 'Moi-même'],
-    sensations: ['Serré', 'Lourd', 'Chaud', 'Agité', 'Froid', 'Vide'],
+    sensations: ['Serré', 'Lourd', 'Chaud', 'Froid', 'Agité', 'Vide', 'Calme'],
     reactions: ['Fuir', 'Contrôler', 'Tout donner', 'Me taire', 'Me justifier', 'Attaquer', 'M’effacer', 'Me couper de tout'],
     tiroirs: [['sais', 'Je sais'], ['raconte', 'On m’a raconté'], ['suppose', 'Je suppose']],
     statuts: [['comprendre', 'À comprendre'], ['liberation', 'En libération'], ['suivi', 'En suivi'], ['classe', 'Devenu spirale']],
-    personnages: ['la Victime', 'le Sauveur·se', 'le Persécuteur·rice', 'la Peur', 'la Petite fille', 'la Gardienne', 'le Soldat', 'l’Invisible'],
-    roles: [['victime', 'Victime'], ['sauveur', 'Sauveur·se'], ['bourreau', 'Persécuteur·rice'], ['controle', 'Je contrôle tout'], ['effacee', 'Je m’efface']],
+    personnages: ['la Petite fille', 'le Petit garçon', 'l’Invisible', 'la Forte', 'le Fort', 'la Sauveuse', 'le Sauveur', 'la Gentille', 'le Gentil', 'la Délaissée', 'le Délaissé', 'la Parfaite', 'le Parfait', 'la Victime', 'la Gardienne', 'le Soldat', 'la Peur'],
+    roles: [['victime', 'Victime'], ['sauveur', 'Sauveur·euse'], ['bourreau', 'Persécuteur·rice'], ['controle', 'Je contrôle tout'], ['effacee', 'Je m’efface']],
     neuf: [['Émergence', 'Quelque chose attire ton attention. Tu sens qu’un même schéma est à l’œuvre.'], ['Initiation', 'Tu commences à observer. Tu repères ce qui déclenche la répétition.'], ['Rencontre avec l’ombre', 'Ce que tu évitais de regarder apparaît clairement.'], ['Épreuves', 'La situation se rejoue, parfois plus fort, comme pour être enfin vue.'], ['Lâcher l’ancien', 'L’ancienne façon de réagir n’a plus de sens. Tu la laisses partir.'], ['Transformation', 'Ce que tu as vécu devient une compréhension, et non plus un poids.'], ['Élévation', 'Tu agis autrement, naturellement, sans avoir à te forcer.'], ['Transmission', 'Ce que tu as compris profite à ceux qui t’entourent et à ceux qui viennent après toi.'], ['Renaissance', 'Le thème n’est plus une question. Le cycle est complet.']]
   },
   /* Mes actions : les protocoles et les fiches, sur une page à part (comme les audios du Cercle).
      Pour en ajouter une : { id, titre, court, pour: 'vie' | 'lignee' | 'intention' | '', etapes: ['…'] }. Laura enverra les versions définitives. */
   ACTIONS: [
-    { id: 'vie', titre: 'Libérer la mémoire de ma vie', court: 'Retrouver la partie de toi restée figée à l’âge de la première fois.', pour: 'vie',
-      etapes: ['Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.', 'Vois-toi à l’âge de la première fois, dans la scène, avec les personnes qui étaient là. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grand·e maintenant, je m’occupe de nous. »', 'Nomme la mémoire : « Je te vois, mémoire de… Je te reconnais. Merci d’être là, car tu me permets de m’en libérer. »', 'Depuis ton cœur, envoie une lumière douce vers la scène. Dis : « Stop, je te reconnais. Je t’aime. Maintenant, retourne au soleil. » Regarde-la se dissoudre.', 'Tends la main à la partie de toi, et laisse-la revenir dans ton cœur. L’énergie restée figée circule de nouveau en toi.'] },
-    { id: 'lignee', titre: 'Libérer la mémoire de ma lignée', court: 'Rendre à la personne de ta lignée ce qui lui appartient, et garder sa force.', pour: 'lignee',
-      etapes: ['Respire avec la sphère, trois fois, les pieds bien posés au sol.', 'Vois devant toi la personne de ta lignée liée à ce schéma, dans une lumière douce. Regarde ce qu’elle a traversé.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, avec respect et avec amour. Je garde ta force. »', 'Vois un faisceau de lumière descendre en toi, puis à travers tes racines jusqu’à elle, et plus loin dans la lignée. Dis : « Je libère cette mémoire pour nous tous. »', 'Vois le paquet se déposer devant elle, puis la lumière le dissoudre. Elle peut se reposer ; toi, avancer.'] },
+    { id: 'vie', titre: 'Libérer la mémoire de ma vie', court: 'Retrouver la partie de toi restée figée à l’âge de la première fois.', pour: 'vie', image: true,
+      etapes: ['Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.', 'Vois-toi {age}{avec}{scene}. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grand·e maintenant, je m’occupe de nous. »', 'Nomme la mémoire : « Je te vois, mémoire de {nom}. Je te reconnais. Merci d’être là, car tu me permets de m’en libérer. »', 'Depuis ton cœur, envoie une lumière douce vers la scène. Dis : « Stop, je te reconnais. Je t’aime. Maintenant, retourne au soleil. » Regarde-la se dissoudre.', 'Tends la main à la partie de toi, et laisse-la revenir dans ton cœur. L’énergie restée figée circule de nouveau en toi.'],
+      /* quand l'âge de la première fois n'est pas encore trouvé : le protocole aide à le laisser venir */
+      trouver: ['Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.', 'Repense à ce que tu as déposé : {nom}. Laisse la sensation revenir dans ton corps, là où tu la sens.', 'Demande-toi doucement : « Quand je ressens ça, je me sens quel âge ? » Ne cherche pas, laisse venir le premier âge, même flou.', 'Laisse venir une scène, même floue : un lieu, une lumière, quelqu’un qui est là. Tu n’as pas besoin de la date exacte : un âge à peu près, une scène floue, c’est déjà assez.', 'Regarde l’enfant que tu étais avec douceur. Dis-lui : « Je te vois. Tu as fait de ton mieux. Je suis grand·e maintenant, je m’occupe de nous. »', 'Tends-lui la main, et laisse-la revenir dans ton cœur. Puis note l’âge et la scène qui sont venus.'] },
+    { id: 'lignee', titre: 'Libérer la mémoire de ma lignée', court: 'Rendre à la personne de ta lignée ce qui lui appartient, et garder sa force.', pour: 'lignee', image: true,
+      douceur: 'Tu n’as pas à pardonner ni à aimer pour rendre. Avec respect, ou simplement « je te rends ce qui est à toi », c’est suffisant.',
+      etapes: ['Respire avec la sphère, trois fois, les pieds bien posés au sol.', 'Vois devant toi {qui}{quiage}, dans une lumière douce. Regarde ce qu’elle ou il a traversé{quoi}.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, mémoire de {nom}. Je garde ta force. »', 'Vois un faisceau de lumière descendre en toi, puis à travers tes racines jusqu’à elle ou lui, et plus loin dans la lignée. Dis : « Je libère cette mémoire pour nous tous. »', 'Vois le paquet se déposer devant elle ou lui, puis la lumière le dissoudre. Elle ou il peut se reposer ; toi, avancer.'] },
     { id: 'intention', titre: 'Poser une intention', court: 'Se centrer, l’écrire, la poser du plus profond de soi, puis lâcher.', pour: 'intention',
-      etapes: ['Pose les pieds au sol, une main sur le cœur. Respire jusqu’à te sentir centré·e.', 'Écris ce que tu veux à la place, au présent, comme si c’était déjà vrai : « Je suis en sécurité. Je peux recevoir et garder. »', 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi.', 'Garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume : c’est posé.', 'Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'] },
+      etapes: ['Pose les pieds au sol, une main sur le cœur. Respire jusqu’à te sentir centré·e.', 'Écris ce que tu veux à la place de {nom}, au présent, comme si c’était déjà vrai : « {intention} »', 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi.', 'Garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume : c’est posé.', 'Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'] },
     { id: 'profond', titre: 'La couche profonde', court: 'Quand ça revient plus fort alors que tu l’avais travaillé.', pour: '',
-      etapes: ['Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond.', 'Demande-toi : quelle est la situation exacte ? Qu’est-ce qu’elle révèle de ma vraie peur, sous celle que j’avais déjà travaillée ? Qui, dans ma lignée, a vécu cette peur très fort ?', 'Dis : « Je te vois, mémoire de… Je comprends maintenant que tu étais cachée sous la première couche. Merci de te révéler, je suis prêt·e à te libérer. »', 'Dans les 48 heures, pose un petit geste concret dans le sens de ta nouvelle vérité.'] },
+      etapes: ['Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond.', 'Demande-toi : quelle est la situation exacte ? Qu’est-ce qu’elle révèle de ma vraie peur, sous celle que j’avais déjà travaillée ? Qui, dans ma lignée, a vécu cette peur très fort ?', 'Dis : « Je te vois, mémoire de {nom}. Je comprends maintenant que tu étais cachée sous la première couche. Merci de te révéler, je suis prêt·e à te libérer. »', 'Dans les 48 heures, pose un petit geste concret dans le sens de ta nouvelle vérité.'] },
     { id: 'corps', titre: 'La minute de sécurité du corps', court: 'Chaque jour, apprendre au corps une autre réponse que l’alerte.', pour: '',
       etapes: ['Pose les pieds au sol, une main sur le ventre.', 'Respire lentement, plus longtemps à l’expiration.', 'Dis à ton corps : « Je suis en sécurité, ici et maintenant. »', 'Il a appris l’alerte, il peut apprendre la sécurité.'] },
     { id: 'monte', titre: 'Si ça monte fort', court: 'Revenir ici et maintenant.', pour: '',
-      etapes: ['Pose les pieds au sol.', 'Respire trois fois, lentement.', 'Nomme cinq objets autour de toi, à voix haute.', 'Tu peux reprendre un autre jour : rien ne presse.'] }
+      etapes: ['Pose les pieds au sol.', 'Respire avec la sphère, trois fois, lentement.', 'Nomme cinq objets autour de toi, à voix haute.', 'Tu peux reprendre un autre jour : rien ne presse.'],
+      securite: 'Si ça dure plusieurs jours, ou si c’est trop lourd à porter seul·e, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.' }
   ],
+  /* Les repères de la note sur 10 */
+  NOTE: [[0, 'ça me prend comme avant'], [5, 'je le vois venir et je respire'], [10, 'la situation arrive et je reste calme']],
+  IMAGE: 'Si tu ne vois pas d’image, sens-le, ou dis-le simplement : ça marche aussi.',
+  CONFIANCE: 'Personne d’autre que toi ne lit ce que tu écris ici.',
   /* La question qui revient à chaque fois */
   QUESTION: 'À qui est cette incohérence, cette distorsion dans mon être ? À un parent ? Plus loin ? Est-ce que je répète un problème de cette vie, ou une mémoire plus ancienne ?',
   AQUI: [['moi', 'De cette vie : un problème que je répète'], ['parent', 'D’un parent'], ['loin', 'De plus loin dans ma lignée'], ['ancienne', 'D’une mémoire plus ancienne, je ne sais pas d’où']],
