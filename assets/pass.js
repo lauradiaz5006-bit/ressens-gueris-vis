@@ -123,6 +123,8 @@
         if (x[3] && x[3].date) { D.naissance = x[3].date; D.prenoms = x[3].prenoms || ''; D.nom = x[3].nom || ''; D.prenom = x[3].prenom; }
         D.etat = completer(x[4] || lireL(CLE));
         D.cercle = !!x[5]; D.pro = !!x[6];
+        /* accès donné depuis Supabase (testeuses) : la session gardée peut être ancienne, on relit le compte une fois */
+        if (!D.acces) return sb.auth.getUser().then(function (g) { var u = g && g.data && g.data.user; if (u && (u.user_metadata || {}).spirale_test) { D.user = u; D.acces = true; } }, function () {});
       });
     });
   }
