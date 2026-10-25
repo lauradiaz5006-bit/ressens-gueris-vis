@@ -160,8 +160,10 @@
           { id: 'pt2', nom: 'Henri', qui: 'lignee', cle: 'a:p5', couleur: '#2E2433', symptomes: ['Froid', 'Distant'] },
           { id: 'pt3', nom: 'Tom', qui: 'vie', role: 'Ex', genre: 'm', couleur: '#7FA7D9', symptomes: ['Froid', 'Qui part', 'Les hommes finissent toujours par partir'] },
           { id: 'pt4', nom: 'Le Chef', qui: 'vie', role: 'Patron·ne', genre: 'm', couleur: '#4E5D94', symptomes: ['Froid', 'Qui juge'] },
-          { id: 'pt5', nom: 'Sarah', qui: 'vie', role: 'Ami·e', genre: 'f', couleur: '#D4A24C', symptomes: ['Qui protège'] }],
-        scenes: [{ id: 'sn1', titre: 'Les hommes de ma vie', schema: 's1', cree: il(30), moi: { x: 50, y: 58 }, places: { pt1: { x: 24, y: 18, dos: true, poids: 'lourd' }, pt2: { x: 22, y: 40, poids: 'leger' }, pt3: { x: 78, y: 22, poids: 'lourd' }, pt4: { x: 76, y: 72, poids: 'present' }, pt5: { x: 40, y: 84, poids: 'leger' } },
+          { id: 'pt5', nom: 'Sarah', qui: 'vie', role: 'Ami·e', genre: 'f', couleur: '#D4A24C', symptomes: ['Qui protège'] },
+          { id: 'pt6', nom: 'L’amour', type: 'desir', couleur: '#D4A24C', symptomes: [] },
+          { id: 'pt7', nom: 'Les factures', type: 'symbole', couleur: '#8A8494', symptomes: [] }],
+        scenes: [{ id: 'sn1', titre: 'Les hommes de ma vie', schema: 's1', cree: il(30), moi: { x: 50, y: 58 }, places: { pt1: { x: 24, y: 18, dos: true, poids: 'lourd' }, pt2: { x: 22, y: 40, poids: 'leger' }, pt3: { x: 72, y: 32, poids: 'lourd', taille: '3' }, pt4: { x: 76, y: 76, poids: 'present' }, pt5: { x: 40, y: 84, poids: 'leger' }, pt6: { x: 70, y: 9, taille: '3' }, pt7: { x: 24, y: 64, taille: '3', poids: 'lourd' } },
           ressentis: { pt1: 'Je l’attends encore, comme sur le quai.', pt3: 'Il est loin, et je cours après lui.' }, devient: { pt1: ['La Petite fille', 'Gorge serrée'], pt3: ['Je cours après', 'Je donne tout'] }, filsVus: ['pt1|pt3', 'pt1|pt4', 'pt2|pt3', 'pt2|pt4'],
           photos: [{ date: il(30), moi: { x: 50, y: 60 }, places: { pt1: { x: 42, y: 40, poids: 'lourd' }, pt2: { x: 20, y: 40, poids: 'present' }, pt3: { x: 60, y: 44, poids: 'lourd' }, pt4: { x: 70, y: 70, poids: 'lourd' } }, note: 'Tout le monde est collé à moi.' }] }] };
       D.etat.notesJour = {}; D.etat.notesJour[il(4)] = { corps: ['La gorge'], sens: ['Serré'], pense: 'Elle va encore annuler' };
@@ -1723,7 +1725,13 @@
   function clair(c) { var h = String(c || '').replace('#', ''); if (h.length !== 6) return false; var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16); return (r * 299 + g * 587 + b * 114) / 1000 > 160; }
   function genreDe(p) { if (p.qui === 'lignee' && p.cle && personne(p.cle)) return personne(p.cle).f ? 'f' : 'm'; return p.genre || ''; }
   function leLa(p) { var g = genreDe(p); return g === 'f' ? 'la' : g === 'm' ? 'le' : 'le ou la'; }
-  function lienPerso(p) { if (p.qui === 'lignee') { var q = p.cle ? personne(p.cle) : null; return q ? q.lien.replace(/^(Ton|Ta) /, '').toLowerCase() : 'ma lignée'; } return String(p.role || 'ma vie').toLowerCase(); }
+  /* Sur la scène, en plus des personnages : ce qu'elle désire (« L'amour ») et ses symboles (« La peur », « Les factures ») */
+  var TAILLES = [['1', 'Petite', .8], ['2', 'Moyenne', 1], ['3', 'Grande', 1.3], ['4', 'Très grande', 1.65]];
+  var T_DESIRS = ['L’amour', 'La paix', 'La sécurité', 'La liberté', 'L’abondance', 'Un foyer', 'La confiance', 'Ma place', 'Mon projet', 'La joie'];
+  var T_SYMBOLES = ['La peur', 'Les factures', 'Les impôts', 'L’argent', 'Le travail', 'Le temps', 'La solitude', 'Le regard des autres', 'Le passé', 'La colère'];
+  function typeDe(p) { return p && (p.type === 'desir' || p.type === 'symbole') ? p.type : 'perso'; }
+  function tailleDe(pl) { var t = TAILLES.filter(function (x) { return x[0] === String((pl && pl.taille) || '2'); })[0]; return t ? t[2] : 1; }
+  function lienPerso(p) { if (typeDe(p) === 'desir') return 'ce que je désire'; if (typeDe(p) === 'symbole') return 'symbole'; if (p.qui === 'lignee') { var q = p.cle ? personne(p.cle) : null; return q ? q.lien.replace(/^(Ton|Ta) /, '').toLowerCase() : 'ma lignée'; } return String(p.role || 'ma vie').toLowerCase(); }
   /* « ton père », « ta patronne », « ton ex » */
   function lienTon(p) {
     if (p.qui === 'lignee') { var q = p.cle ? personne(p.cle) : null; return q ? q.lien.toLowerCase() : 'quelqu’un de ta lignée'; }
@@ -1750,20 +1758,38 @@
     if (d.ph.length) t += ' Chez les deux, tu retrouves « ' + d.ph.join(' », « ') + ' ».';
     return t;
   }
+  var ICONES_T = { perso: '<circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/>', desir: '<path d="M8 1.2l1.9 4.3 4.6.4-3.5 3 1.1 4.6L8 11l-4.1 2.5 1.1-4.6-3.5-3 4.6-.4z"/>', symbole: '<path d="M8 1.5l6 6.5-6 6.5-6-6.5z"/>' };
   function bulleT(p, pl, sel) {
-    var c = p.couleur || '#6B2F5B';
-    return '<button type="button" class="pa-bulle' + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/></svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>';
+    var c = p.couleur || '#6B2F5B', ty = typeDe(p);
+    return '<button type="button" class="pa-bulle t-' + ty + (pl.dos ? ' dos' : '') + (sel ? ' sel' : '') + '" data-bulle="' + esc(p.id) + '" style="left:' + pl.x + '%;top:' + pl.y + '%;--t:' + tailleDe(pl) + ';background:' + c + ';color:' + (clair(c) ? '#2E1338' : '#fff') + '" aria-label="' + esc(p.nom + ', ' + lienPerso(p)) + '"><svg viewBox="0 0 16 16" aria-hidden="true">' + ICONES_T[ty] + '</svg><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + '</small></span></button>';
+  }
+  /* Ce que la scène montre : entre elle et ce qu'elle désire, qui prend le plus de place, qui est collé à elle */
+  function lectureScene(sc) {
+    var l = [], ids = Object.keys(sc.places).filter(persoT), m = sc.moi;
+    function dist(a, b) { return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)); }
+    ids.filter(function (k) { return typeDe(persoT(k)) === 'desir'; }).forEach(function (k) {
+      var D0 = persoT(k), d = sc.places[k], dd = dist(m, d), entre = [];
+      ids.forEach(function (j) { if (j === k) return; var q = sc.places[j], vx = d.x - m.x, vy = d.y - m.y, L2 = vx * vx + vy * vy || 1, t = ((q.x - m.x) * vx + (q.y - m.y) * vy) / L2; if (t <= .08 || t >= .95) return; var px = m.x + t * vx, py = m.y + t * vy; if (dist(q, { x: px, y: py }) < 11 + 4 * tailleDe(q)) entre.push(persoT(j)); });
+      l.push((dd < 25 ? D0.nom + ' est près de toi.' : dd > 45 ? D0.nom + ' est loin de toi.' : D0.nom + ' est à mi-chemin.') + (entre.length ? ' Entre toi et ' + petit(D0.nom) + ', il y a ' + liste(entre.map(function (x) { return x.nom + (typeDe(x) === 'perso' ? ' (' + lienTon(x) + ')' : ''); })) + '.' : ''));
+    });
+    var gros = ids.filter(function (k) { return tailleDe(sc.places[k]) >= 1.3; }).sort(function (a, b) { return tailleDe(sc.places[b]) - tailleDe(sc.places[a]); });
+    if (gros.length) l.push(liste(gros.slice(0, 3).map(function (k) { return persoT(k).nom; })) + (gros.length > 1 ? ' prennent' : ' prend') + ' beaucoup de place sur ta scène.');
+    var colles = ids.filter(function (k) { return typeDe(persoT(k)) !== 'desir' && dist(m, sc.places[k]) < 20; });
+    if (colles.length) l.push('Tout près de toi : ' + liste(colles.map(function (k) { return persoT(k).nom; })) + '.');
+    var lourds = ids.filter(function (k) { return sc.places[k].poids === 'lourd'; });
+    if (lourds.length) l.push('Le lien le plus lourd : ' + liste(lourds.map(function (k) { return persoT(k).nom; })) + '.');
+    return l;
   }
   /* Les liens de toi à chacun (épaisseur = ce que ça pèse), et les fils dorés du miroir */
   function svgLiens(sc) {
     var s = '<svg class="pa-fils" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">';
-    Object.keys(sc.places).forEach(function (k) { var pl = sc.places[k], P = poidsDe(pl.poids); if (!persoT(k)) return; s += '<line class="lien" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '" style="stroke:' + P[3] + ';stroke-width:' + P[2] + 'px' + (P[4] ? ';stroke-dasharray:' + P[4] : '') + '"/>'; });
+    Object.keys(sc.places).forEach(function (k) { var pl = sc.places[k], P = poidsDe(pl.poids), pp = persoT(k); if (!pp) return; if (typeDe(pp) === 'desir') { s += '<line class="lien chemin" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '"/>'; return; } s += '<line class="lien" data-lien="' + esc(k) + '" x1="' + sc.moi.x + '" y1="' + sc.moi.y + '" x2="' + pl.x + '" y2="' + pl.y + '" style="stroke:' + P[3] + ';stroke-width:' + P[2] + 'px' + (P[4] ? ';stroke-dasharray:' + P[4] : '') + '"/>'; });
     if (!sc.sansFils) filsDores(sc).forEach(function (f) { var a = sc.places[f.a], b = sc.places[f.b], w = Math.max(poidsDe(a.poids)[2], poidsDe(b.poids)[2]); s += '<line class="or' + (sc.filNouveau === f.cle ? ' nouveau' : '') + '" pathLength="100" data-fil-a="' + esc(f.a) + '" data-fil-b="' + esc(f.b) + '" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '" style="stroke-width:' + Math.max(2, w * .5) + 'px"/>'; });
     return s + '</svg>';
   }
   function miniScene(moi, places) {
     var ks = Object.keys(places || {});
-    return '<svg class="pa-mini-sc" viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="8"/>' + (moi ? ks.map(function (k) { var x = places[k], P = poidsDe(x.poids); return persoT(k) ? '<line x1="' + moi.x + '" y1="' + moi.y + '" x2="' + x.x + '" y2="' + x.y + '" stroke="' + P[3] + '" stroke-width="' + (P[2] / 2.2) + '"' + (P[4] ? ' stroke-dasharray="2 3"' : '') + '/>' : ''; }).join('') : '') + ks.map(function (k) { var p = persoT(k), x = places[k]; return p ? '<circle cx="' + x.x + '" cy="' + x.y + '" r="5" fill="' + (p.couleur || '#6B2F5B') + '"/>' : ''; }).join('') + (moi ? '<circle cx="' + moi.x + '" cy="' + moi.y + '" r="6" fill="#F2D9A0" stroke="#fff" stroke-width="1.5"/>' : '') + '</svg>';
+    return '<svg class="pa-mini-sc" viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="8"/>' + (moi ? ks.map(function (k) { var x = places[k], P = poidsDe(x.poids); return persoT(k) ? '<line x1="' + moi.x + '" y1="' + moi.y + '" x2="' + x.x + '" y2="' + x.y + '" stroke="' + P[3] + '" stroke-width="' + (P[2] / 2.2) + '"' + (P[4] ? ' stroke-dasharray="2 3"' : '') + '/>' : ''; }).join('') : '') + ks.map(function (k) { var p = persoT(k), x = places[k], r = 5 * tailleDe(x); return !p ? '' : typeDe(p) === 'symbole' ? '<rect x="' + (x.x - r) + '" y="' + (x.y - r) + '" width="' + 2 * r + '" height="' + 2 * r + '" transform="rotate(45 ' + x.x + ' ' + x.y + ')" fill="' + (p.couleur || '#6B2F5B') + '"/>' : '<circle cx="' + x.x + '" cy="' + x.y + '" r="' + r + '" fill="' + (p.couleur || '#6B2F5B') + '"' + (typeDe(p) === 'desir' ? ' stroke="#FFF4DA" stroke-width="1.5"' : '') + '/>'; }).join('') + (moi ? '<circle cx="' + moi.x + '" cy="' + moi.y + '" r="6" fill="#F2D9A0" stroke="#fff" stroke-width="1.5"/>' : '') + '</svg>';
   }
   function placeLibre(sc) { var n = Object.keys(sc.places).length, ang = n * 2.4 + .6; return { x: Math.round(50 + 30 * Math.cos(ang)), y: Math.round(50 + 30 * Math.sin(ang)), poids: 'present' }; }
   var choixT = '', photoApres = '', protoPerso = null;
@@ -1773,7 +1799,7 @@
       h = '<h1 class="pa-h1">Mon théâtre</h1><p class="pa-sous">Les personnages qui se rejouent dans ta vie. Place-les sur la scène, autour de toi, là où tu les sens.</p>';
       if (!(D.etat.vu || {}).theatre) h += '<section class="pa-carte pa-intro"><p><b>Comment ça marche.</b> Tu crées une scène, puis tes personnages : des personnes de ta lignée et des personnes de ta vie (ton patron, une amie, ton ex…), avec un nom et une couleur. Tu les places sur la scène, plus près ou plus loin de toi. Puis tu notes ce que tu ressens de chacun : comment tu le ou la vois, toi, depuis ta place. Un fil doré relie ceux de ta vie que tu ressens comme quelqu’un de ta lignée.</p><button type="button" class="pa-bt clair" data-t-vu>J’ai compris</button></section>';
       h += '<div class="pa-2col"><div><p class="pa-titre-s">1 · Mes scènes</p><button type="button" class="pa-bt or" data-t-scene-new>Nouvelle scène</button>' + (T.scenes.length ? T.scenes.map(function (s) { var n = Object.keys(s.places || {}).length, x = s.schema ? trouverSchema(s.schema) : null; return '<a class="pa-carte pa-scene-c" href="#theatre/' + esc(s.id) + '">' + miniScene(s.moi, s.places) + '<span><span class="pa-etiq">' + n + ' personnage' + (n > 1 ? 's' : '') + (s.photos && s.photos.length ? ' · ' + s.photos.length + ' photo' + (s.photos.length > 1 ? 's' : '') : '') + '</span><b>' + esc(s.titre || 'Ma scène') + '</b>' + (x ? '<small>Schéma : ' + esc(x.nom) + '</small>' : '') + '</span></a>'; }).join('') : '<p class="pa-discret">Commence par une scène : tes personnages se créent ensuite, depuis la scène. Tu peux aussi mettre en scène un schéma, depuis sa fiche.</p>') +
-        '</div><div><p class="pa-titre-s">2 · Mes personnages</p>' + (T.persos.length ? '<div class="pa-persos-l">' + T.persos.map(lignePerso).join('') + '</div>' : '<p class="pa-discret">Tes personnages se créent depuis une scène, et restent gardés pour toutes tes scènes.</p>') + '</div></div>';
+        '</div><div><p class="pa-titre-s">2 · Mes personnages</p>' + (T.persos.length ? '<div class="pa-persos-l">' + T.persos.filter(function (p) { return typeDe(p) === 'perso'; }).map(lignePerso).join('') + '</div>' + (T.persos.some(function (p) { return typeDe(p) !== 'perso'; }) ? '<p class="pa-titre-s">Mes désirs et mes symboles</p><div class="pa-persos-l">' + T.persos.filter(function (p) { return typeDe(p) !== 'perso'; }).map(lignePerso).join('') + '</div>' : '') : '<p class="pa-discret">Tes personnages se créent depuis une scène, et restent gardés pour toutes tes scènes.</p>') + '</div></div>';
       return afficher(h);
     }
     sc.places = sc.places || {}; sc.moi = sc.moi || { x: 50, y: 50 }; sc.ressentis = sc.ressentis || {}; sc.devient = sc.devient || {}; sc.photos = sc.photos || []; sc.filsVus = sc.filsVus || [];
@@ -1786,12 +1812,22 @@
       '<button type="button" class="pa-bulle moi" data-bulle="moi" style="left:' + sc.moi.x + '%;top:' + sc.moi.y + '%" aria-label="Toi"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="4.5" r="3"/><path d="M2.5 15c.6-3.6 2.8-5.6 5.5-5.6s4.9 2 5.5 5.6z"/></svg><span><b>' + esc(D.prenom || 'Moi') + '</b><small>moi</small></span></button>' +
       dans.map(function (p) { return bulleT(p, sc.places[p.id], sel === p); }).join('') + (dans.length ? '' : '<p class="pa-scene-vide">Ajoute tes personnages sur la scène</p>') + '</div>' +
       '<p class="pa-discret pa-sous-scene">Un lien qui s’affine ne veut pas dire que tu aimes moins. Ça veut dire que tu portes moins.</p>' +
-      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ajout>Ajouter un personnage</button><button type="button" class="pa-bt clair" data-t-photo>Garder une photo de la scène</button></div></div><div>';
+      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ajout>Ajouter un personnage</button><button type="button" class="pa-bt clair" data-t-elem="desir">Ce que je désire</button><button type="button" class="pa-bt clair" data-t-elem="symbole">Un symbole</button><button type="button" class="pa-bt clair" data-t-photo>Garder une photo de la scène</button></div></div><div>';
     if (fn) h += '<section class="pa-carte pa-tiens-c"><p class="pa-etiq">Un fil doré vient d’apparaître</p><p>' + esc(phraseMiroir(fn)) + '</p><label for="pa-t-prise">Qu’est-ce que ça te fait de voir ça ?</label><textarea id="pa-t-prise" maxlength="600" placeholder="Je vois que je cherche chez Tom ce que je n’ai pas eu de mon père…"></textarea><div class="pa-outils"><button type="button" class="pa-bt or" data-t-prise>Je le note</button><button type="button" class="pa-lien-s" data-t-prise-plus-tard>Plus tard</button></div>' + (sc.schema ? '<p class="pa-discret">Ta réponse rejoint ton schéma comme une prise de conscience.</p>' : '') + '</section>';
-    if (sel) {
+    var lec = lectureScene(sc);
+    if (lec.length) h += '<section class="pa-carte pa-lecture"><p class="pa-etiq">Ce que ta scène montre · une piste, pas une preuve</p><ul class="pa-echos">' + lec.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul><label for="pa-t-genere">Entre ce que tu veux et ce que tu vis, qu’est-ce que ta scène te dit ?</label><textarea id="pa-t-genere" maxlength="600" placeholder="Je veux l’amour, mais je garde mes ex tout près de moi…"></textarea><div class="pa-outils"><button type="button" class="pa-bt clair" data-t-genere>Je le note</button></div></section>';
+    var tailleH = function (pl0) { return '<p class="pa-lab">La place que ça prend</p><div class="pa-puces" data-groupe="t-taille">' + TAILLES.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + (String(pl0.taille || '2') === x[0]) + '">' + esc(x[1]) + '</button>'; }).join('') + '</div>'; };
+    if (sel && typeDe(sel) !== 'perso') {
+      var ple = sc.places[sel.id];
+      h += '<section class="pa-carte pa-face"><p class="pa-etiq">' + (typeDe(sel) === 'desir' ? 'Ce que je désire' : 'Symbole') + ' · ' + esc(sel.nom) + '</p>' + tailleH(ple) +
+        (typeDe(sel) === 'symbole' ? '<p class="pa-lab">Ça pèse comment aujourd’hui ?</p><div class="pa-puces" data-groupe="t-poids">' + POIDS.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + ((ple.poids || 'present') === x[0]) + '"><i class="pa-trait" style="border-top:' + Math.max(1.5, x[2] * .6) + 'px ' + (x[4] ? 'dashed' : 'solid') + ' ' + x[3] + '"></i>' + esc(x[1]) + '</button>'; }).join('') + '</div>' : '<p class="pa-discret">Un chemin doré va de toi à ce que tu désires. Regarde ce qui se trouve dessus.</p>') +
+        '<label for="pa-t-ress">' + (typeDe(sel) === 'desir' ? 'Qu’est-ce que tu ressens en regardant ' + esc(petit(sel.nom)) + ', à cette place ?' : 'Qu’est-ce que tu ressens face à ' + esc(petit(sel.nom)) + ', à cette place ?') + '</label><textarea id="pa-t-ress" data-t-ress="' + esc(sel.id) + '" maxlength="600">' + esc(sc.ressentis[sel.id] || '') + '</textarea>' +
+        '<div class="pa-outils"><button type="button" class="pa-bt clair" data-t-elem-mod="' + esc(sel.id) + '">Modifier</button><button type="button" class="pa-lien-s" data-t-retirer="' + esc(sel.id) + '">Retirer de la scène</button></div></section>';
+    }
+    if (sel && typeDe(sel) === 'perso') {
       var pl = sc.places[sel.id];
       h += '<section class="pa-carte pa-face"><p class="pa-etiq">Face à ' + esc(sel.nom) + ' · ' + esc(lienPerso(sel)) + '</p>' + (function () { var d = descPerso(sel); return (d.mots.length ? '<p class="pa-discret" style="margin-top:0">Tu ' + leLa(sel) + ' ressens ' + esc(liste(d.mots.map(petit))) + '.' + (d.ph.length ? ' Tu retrouves chez ' + (genreDe(sel) === 'f' ? 'elle' : 'lui') + ' « ' + esc(d.ph.join(' », « ')) + ' ».' : '') + '</p>' : d.ph.length ? '<p class="pa-discret" style="margin-top:0">Tu retrouves chez ' + (genreDe(sel) === 'f' ? 'elle' : 'lui') + ' « ' + esc(d.ph.join(' », « ')) + ' ».</p>' : ''); })() +
-        '<p class="pa-lab">Ce lien pèse comment aujourd’hui ?</p><div class="pa-puces" data-groupe="t-poids">' + POIDS.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + ((pl.poids || 'present') === x[0]) + '"><i class="pa-trait" style="border-top:' + Math.max(1.5, x[2] * .6) + 'px ' + (x[4] ? 'dashed' : 'solid') + ' ' + x[3] + '"></i>' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
+        tailleH(pl) + '<p class="pa-lab">Ce lien pèse comment aujourd’hui ?</p><div class="pa-puces" data-groupe="t-poids">' + POIDS.map(function (x) { return '<button type="button" data-v="' + x[0] + '" aria-pressed="' + ((pl.poids || 'present') === x[0]) + '"><i class="pa-trait" style="border-top:' + Math.max(1.5, x[2] * .6) + 'px ' + (x[4] ? 'dashed' : 'solid') + ' ' + x[3] + '"></i>' + esc(x[1]) + '</button>'; }).join('') + '</div>' +
         '<label for="pa-t-ress">Qu’est-ce que tu ressens face à ' + esc(sel.nom) + ', à cette place ?</label><textarea id="pa-t-ress" data-t-ress="' + esc(sel.id) + '" maxlength="600" placeholder="Je me sens petite, j’ai envie de reculer…">' + esc(sc.ressentis[sel.id] || '') + '</textarea>' +
         '<p class="pa-lab">Ce que je deviens face à ' + (genreDe(sel) === 'f' ? 'elle' : genreDe(sel) === 'm' ? 'lui' : 'lui ou elle') + '</p>' + puces('t-dev', devientProposes().concat((sc.devient[sel.id] || []).filter(function (t) { return devientProposes().indexOf(t) < 0; })), sc.devient[sel.id] || [], true) +
         '<div class="pa-puces"><button type="button" data-t-dos aria-pressed="' + !!pl.dos + '">Il ou elle me tourne le dos</button></div><div class="pa-outils"><button type="button" class="pa-bt clair" data-t-perso="' + esc(sel.id) + '">Ce que je ressens de ' + (genreDe(sel) === 'f' ? 'elle' : genreDe(sel) === 'm' ? 'lui' : 'lui ou elle') + '</button><button type="button" class="pa-lien-s" data-t-retirer="' + esc(sel.id) + '">Retirer de la scène</button></div></section>';
@@ -1807,7 +1843,7 @@
     brancherScene(sc);
     if (photoApres === sc.id) { photoApres = ''; photoScene(sc); }
   }
-  function lignePerso(p) { return '<button type="button" class="pa-perso-l" data-t-perso="' + esc(p.id) + '"><i style="background:' + esc(p.couleur || '#6B2F5B') + '"></i><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + (descPerso(p).mots.length ? ' · je ' + leLa(p) + ' ressens ' + esc(liste(descPerso(p).mots.slice(0, 2).map(petit))) : '') + '</small></span></button>'; }
+  function lignePerso(p) { return '<button type="button" class="pa-perso-l t-' + typeDe(p) + '" data-t-' + (typeDe(p) === 'perso' ? 'perso' : 'elem-mod') + '="' + esc(p.id) + '"><i style="background:' + esc(p.couleur || '#6B2F5B') + '"></i><span><b>' + esc(p.nom) + '</b><small>' + esc(lienPerso(p)) + (descPerso(p).mots.length ? ' · je ' + leLa(p) + ' ressens ' + esc(liste(descPerso(p).mots.slice(0, 2).map(petit))) : '') + '</small></span></button>'; }
   /* Glisser les bulles : la place se garde en % de la scène, les liens suivent */
   function brancherScene(sc) {
     var z = document.getElementById('pa-scene'); if (!z) return;
@@ -1870,7 +1906,7 @@
     function tiens(v) {
       var zt = z.querySelector('#pa-tiens'), autres = T.persos.filter(function (x) { return x !== p && (x.symptomes || []).indexOf(v) >= 0; });
       if (autres.length) { zt.innerHTML = '<button type="button" class="pa-tiens" data-t-tiens>Tiens… tu as déjà ressenti ça pour quelqu’un.</button><p class="pa-tiens-nom" hidden>' + esc(liste(autres.map(function (x) { return x.nom + ', ' + lienTon(x); }))) + ' : « ' + esc(petit(v)) + ' ».</p>'; return; }
-      var aut = T.persos.filter(function (x) { return x !== p; });
+      var aut = T.persos.filter(function (x) { return x !== p && typeDe(x) === 'perso'; });
       zt.innerHTML = '<div class="pa-tiens-q"><p>Qui d’autre tu sens comme ça, dans ta vie ou dans ta lignée ?</p>' + (aut.length ? '<div class="pa-puces pa-exemples">' + aut.map(function (x) { return '<button type="button" data-t-aussi="' + esc(x.id) + '" data-v2="' + esc(v) + '">' + esc(x.nom) + '</button>'; }).join('') + '</div>' : '') + '<button type="button" class="pa-lien-s" data-t-aussi-new="' + esc(v) + '">Créer un nouveau personnage</button></div>';
     }
     z.addEventListener('change', function (e) {
@@ -1889,10 +1925,33 @@
     });
     function placerSi(pp) { if (!pourScene) return; var sc = sceneT(pourScene); if (sc && !sc.places[pp.id]) { sc.places[pp.id] = placeLibre(sc); choixT = pp.id; } }
   }
+  function ouvrirElementT(id, type, pourScene) {
+    var T = theatre(), p = id ? persoT(id) : null, neuf = !p; type = p ? typeDe(p) : type;
+    if (neuf) p = { id: 'pt' + Date.now().toString(36), nom: '', type: type, couleur: type === 'desir' ? '#D4A24C' : '#8A8494', symptomes: [] };
+    var deja = T.persos.filter(function (x) { return typeDe(x) === type && x !== p && pourScene && !sceneT(pourScene).places[x.id]; });
+    var SUG = (type === 'desir' ? T_DESIRS : T_SYMBOLES).filter(function (t) { return !T.persos.some(function (x) { return x.nom === t; }); });
+    var h = '<p class="pa-etiq">' + (type === 'desir' ? 'Ce que je désire' : 'Un symbole') + '</p><h2>' + (type === 'desir' ? 'Qu’est-ce que tu veux dans ta vie ?' : 'Qu’est-ce qui prend de la place dans ta vie ?') + '</h2>' +
+      '<p class="pa-discret">' + (type === 'desir' ? 'Place-le sur la scène, là où tu le sens aujourd’hui : près de toi, ou loin. Tu verras ce qui se trouve entre toi et lui.' : 'Une peur, les factures, le travail… C’est toi qui l’écris. Place-le là où tu le sens, et donne-lui la taille qu’il prend.') + '</p>' +
+      (neuf && deja.length ? '<p class="pa-lab">Déjà créés</p><div class="pa-persos-l">' + deja.map(function (x) { return '<button type="button" class="pa-perso-l" data-t-place-el="' + esc(x.id) + '"><i style="background:' + esc(x.couleur) + '"></i><span><b>' + esc(x.nom) + '</b></span></button>'; }).join('') + '</div>' : '') +
+      '<form class="pa-form" novalidate onsubmit="return false"><label for="pa-el-nom">' + (type === 'desir' ? 'Ce que je désire' : 'Mon symbole') + '</label><input id="pa-el-nom" maxlength="40" value="' + esc(p.nom) + '" placeholder="' + (type === 'desir' ? 'L’amour, la paix, mon projet…' : 'La peur, les factures, les impôts…') + '">' +
+      (SUG.length ? '<div class="pa-debuts">' + SUG.map(function (t) { return '<button type="button" data-el-sug="' + esc(t) + '">' + esc(t) + '</button>'; }).join('') + '</div>' : '') +
+      '<p class="pa-lab">Sa couleur</p><div class="pa-couleurs">' + COULEURS_T.map(function (c) { return '<button type="button" data-t-coul="' + c[0] + '" aria-pressed="' + (p.couleur === c[0]) + '" style="background:' + c[0] + '" aria-label="' + c[1] + '"></button>'; }).join('') + '</div>' +
+      '<div class="pa-outils"><button type="button" class="pa-bt or" data-el-ok>' + (neuf && pourScene ? 'Placer sur la scène' : 'C’est noté') + '</button>' + (neuf ? '' : '<button type="button" class="pa-lien-s" data-el-suppr>Supprimer</button>') + '</div><p class="pa-erreur" role="alert"></p></form>';
+    var z = feuille(h, { enregistrer: function () { return lire(); } });
+    function lire() { var n = z.querySelector('#pa-el-nom').value.trim(); if (!n) { z.querySelector('.pa-erreur').textContent = 'Écris-le en quelques mots.'; return false; } p.nom = n.slice(0, 40); if (T.persos.indexOf(p) < 0) T.persos.push(p); return true; }
+    function placer(x) { var sc = pourScene && sceneT(pourScene); if (sc && !sc.places[x.id]) { var pl = placeLibre(sc); if (type === 'desir') { pl.x = 85; pl.y = 12; } sc.places[x.id] = pl; choixT = x.id; } }
+    z.addEventListener('click', function (e) {
+      var sg = e.target.closest('[data-el-sug]'); if (sg) { z.querySelector('#pa-el-nom').value = sg.getAttribute('data-el-sug'); return; }
+      var c = e.target.closest('[data-t-coul]'); if (c) { p.couleur = c.getAttribute('data-t-coul'); z.querySelectorAll('[data-t-coul]').forEach(function (b) { b.setAttribute('aria-pressed', b === c); }); return; }
+      var pe = e.target.closest('[data-t-place-el]'); if (pe) { placer(persoT(pe.getAttribute('data-t-place-el'))); sauver(); fermerFeuille(); return; }
+      if (e.target.closest('[data-el-ok]')) { if (!lire()) return; placer(p); sauver(); fermerFeuille(); return; }
+      if (e.target.closest('[data-el-suppr]') && confirm('Supprimer de toutes tes scènes ?')) { T.persos = T.persos.filter(function (x) { return x !== p; }); T.scenes.forEach(function (s0) { delete (s0.places || {})[p.id]; }); sauver(); fermerFeuille(); }
+    });
+  }
   function ajouterSurScene(sc) {
-    var hors = theatre().persos.filter(function (p) { return !sc.places[p.id]; });
+    var hors = theatre().persos.filter(function (p) { return !sc.places[p.id] && typeDe(p) === 'perso'; });
     if (!hors.length) return ouvrirPersoT('new', sc.id);
-    var z = feuille('<p class="pa-etiq">Ajouter sur la scène</p><h2>Qui vient sur la scène ?</h2><div class="pa-persos-l">' + hors.map(function (p) { return lignePerso(p).replace('data-t-perso=', 'data-t-place='); }).join('') + '</div><button type="button" class="pa-bt or" data-t-nouveau>Créer un nouveau personnage</button>');
+    var z = feuille('<p class="pa-etiq">Ajouter sur la scène</p><h2>Qui vient sur la scène ?</h2><div class="pa-persos-l">' + hors.map(function (p) { return lignePerso(p).replace(/data-t-(perso|elem-mod)=/, 'data-t-place='); }).join('') + '</div><button type="button" class="pa-bt or" data-t-nouveau>Créer un nouveau personnage</button>');
     z.addEventListener('click', function (e) {
       var b = e.target.closest('[data-t-place]'); if (b) { var id = b.getAttribute('data-t-place'); sc.places[id] = placeLibre(sc); choixT = id; sauver(); fermerFeuille(); return; }
       if (e.target.closest('[data-t-nouveau]')) ouvrirPersoT('new', sc.id);
@@ -1931,6 +1990,8 @@
     if (e.target.closest('[data-t-vu]')) { D.etat.vu = D.etat.vu || {}; D.etat.vu.theatre = iso(new Date()); sauver(); rafraichir(); return; }
     if (e.target.closest('[data-t-scene-new]')) { nouvelleScene(); return; }
     var tp = e.target.closest('[data-t-perso]'); if (tp) { ouvrirPersoT(tp.getAttribute('data-t-perso'), sc ? sc.id : ''); return; }
+    var em = e.target.closest('[data-t-elem-mod]'); if (em) { ouvrirElementT(em.getAttribute('data-t-elem-mod'), '', sc ? sc.id : ''); return; }
+    var ne = e.target.closest('[data-t-elem]'); if (ne && sc) { ouvrirElementT('', ne.getAttribute('data-t-elem'), sc.id); return; }
     if (!sc) return;
     if (e.target.closest('[data-t-ajout]')) { ajouterSurScene(sc); return; }
     if (e.target.closest('[data-t-photo]')) { photoScene(sc); return; }
@@ -1940,6 +2001,12 @@
       var t = (document.getElementById('pa-t-prise') || {}).value || ''; t = t.trim();
       if (t) { var pr = { date: iso(new Date()), texte: t.slice(0, 600), source: 'Mon théâtre · ' + (sc.titre || '') }, x = sc.schema ? trouverSchema(sc.schema) : null; if (x) { x.prises = x.prises || []; x.prises.push(pr); } else { sc.prises = sc.prises || []; sc.prises.push(pr); } }
       sc.filNouveau = ''; sauver(); rafraichir(); return;
+    }
+    if (e.target.closest('[data-t-genere]')) {
+      var tg = ((document.getElementById('pa-t-genere') || {}).value || '').trim(); if (!tg) return;
+      var prg = { date: iso(new Date()), texte: tg.slice(0, 600), source: 'Mon théâtre · ' + (sc.titre || '') }, xs = sc.schema ? trouverSchema(sc.schema) : null;
+      if (xs) { xs.prises = xs.prises || []; xs.prises.push(prg); } else { sc.prises = sc.prises || []; sc.prises.push(prg); }
+      sauver(); var bt = e.target.closest('[data-t-genere]'); bt.textContent = '✓ C’est noté'; bt.disabled = true; return;
     }
     if (e.target.closest('[data-t-prise-plus-tard]')) { sc.filNouveau = ''; sauver(); rafraichir(); return; }
     var lb = e.target.closest('[data-t-liberer]'); if (lb) { var A = persoT(lb.getAttribute('data-t-liberer')); protoPerso = A ? { cle: A.cle, nom: A.nom, lien: lienTon(A), f: genreDe(A) === 'f' } : null; location.hash = 'actions/lignee' + (sc.schema ? '/' + sc.schema : ''); return; }
@@ -1956,6 +2023,7 @@
     if (e.target.hasAttribute('data-t-schema')) { sc.schema = e.target.value; sauver(); return; }
     var g = e.target.closest('[data-groupe]'); if (!g || !choixT || !sc.places[choixT]) return;
     var n = g.getAttribute('data-groupe');
+    if (n === 't-taille') { sc.places[choixT].taille = lirePuces(g.parentNode, 't-taille')[0] || '2'; sauver(); rafraichir(); return; }
     if (n === 't-poids') { sc.places[choixT].poids = lirePuces(g.parentNode, 't-poids')[0] || 'present'; sc.poidsMaj = iso(new Date()); sauver(); rafraichir(); }
     else if (n === 't-dev') { sc.devient[choixT] = lirePuces(g.parentNode, 't-dev'); sauver(); }
   });

@@ -409,11 +409,17 @@
     .pa-fils{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
     .pa-fils line{stroke:#F2D9A0;stroke-width:.6;stroke-dasharray:1.6 1.2;opacity:.9;vector-effect:non-scaling-stroke}
     .pa-fils line{stroke-width:2}
-    .pa-bulle{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:.35rem;padding:.35rem .7rem .35rem .45rem;border-radius:99px;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 16px rgba(0,0,0,.35);font:inherit;cursor:grab;touch-action:none;max-width:44%;text-align:left;line-height:1.1}
+    .pa-bulle{position:absolute;transform:translate(-50%,-50%) scale(var(--t,1));display:flex;align-items:center;gap:.35rem;padding:.35rem .7rem .35rem .45rem;border-radius:99px;border:2px solid rgba(255,255,255,.85);box-shadow:0 6px 16px rgba(0,0,0,.35);font:inherit;cursor:grab;touch-action:none;max-width:44%;text-align:left;line-height:1.1}
     .pa-bulle svg{flex:none;width:22px;height:22px;fill:currentColor;opacity:.9}
     .pa-bulle span{display:flex;flex-direction:column;min-width:0}
     .pa-bulle b{font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .pa-bulle small{font-size:.62rem;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pa-bulle.t-desir{border-color:#FFF4DA;box-shadow:0 0 0 3px rgba(242,217,160,.35),0 0 26px rgba(242,217,160,.65)}
+    .pa-bulle.t-symbole{border-radius:12px;border-style:solid;border-color:rgba(255,255,255,.6)}
+    .pa-fils line.chemin{stroke:#F2D9A0;stroke-width:2px;stroke-dasharray:2 6;stroke-linecap:round;opacity:.85;vector-effect:non-scaling-stroke}
+    .pa-lecture{border-color:#E2C48E;background:#FFFBF2}.pa-lecture label{display:block;font-weight:600;margin:.6rem 0 .35rem}
+    .pa-lecture textarea{width:100%;box-sizing:border-box;min-height:80px;padding:.65rem .8rem;border:1.5px solid #EBCFD5;border-radius:14px;font:inherit;background:#fff;color:var(--encre)}
+    .pa-perso-l.t-desir i{box-shadow:0 0 0 2px #F2D9A0}.pa-perso-l.t-symbole i{border-radius:6px}
     .pa-bulle.moi{background:radial-gradient(circle,#FFF4DA,#F2D9A0);color:#3B1747;border-color:#fff;box-shadow:0 0 24px rgba(242,217,160,.7);z-index:2}
     .pa-bulle.dos{border-style:dashed;opacity:.75}
     .pa-bulle.sel{outline:3px solid #F2D9A0;outline-offset:2px}
@@ -529,7 +535,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=24"></script>
+  <script src="assets/pass.js?v=25"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
