@@ -64,6 +64,8 @@ async function ouvrir(uid: string, cle: string, fin: Date | null, nouvelAchat: b
 
 async function paiement(session: any) {
   const ref = String(session.client_reference_id || "");
+  const cad = /^cad__([a-z0-9]{20})$/.exec(ref);
+  if (cad) { await carteCadeau(session, cad[1]); return; }
   const imp = /^imp__([a-z0-9]{6,40})$/.exec(ref);
   if (imp) { await impression(session, imp[1]); return; }
   const m = /^([0-9a-f-]{36})__([A-Za-z0-9]{1,40})$/.exec(ref);
@@ -75,9 +77,53 @@ async function paiement(session: any) {
   const { error } = await sb.from("achats").insert({ user_id: uid, produit: cle, montant_centimes: session.amount_total ?? null, stripe_session: session.id,
     stripe_client: typeof session.customer === "string" ? session.customer : session.customer?.id ?? null, stripe_abonnement: sub });
   if (error) throw error;
-  const fin = sub ? finAbonnement(await stripe.subscriptions.retrieve(sub)) : null;
+  // si Stripe ne répond pas (clé absente ou fausse), l'accès s'ouvre quand même pour un mois ; la facture suivante (invoice.paid) le prolonge
+  let fin: Date | null = null;
+  if (sub) { try { fin = finAbonnement(await stripe.subscriptions.retrieve(sub)); } catch (e) { console.error("abonnement illisible", e); } }
   await ouvrir(uid, cle, fin, true);
   try { await remercier(uid, cle, session); } catch (e) { console.error("remercier", e); }
+}
+
+/* ───────── Carte cadeau du Cercle (fonction carte-cadeau) : client_reference_id = cad__<ref> ─────────
+   Payée : on lui donne son code (CERCLE-XXXX-XXXX), puis les mails : l'acheteuse (tout de suite), la personne qui la reçoit
+   (seulement si l'acheteuse l'a choisi, à la date choisie, 8 h), et l'alerte de vente à Laura. */
+async function carteCadeau(session: any, ref: string) {
+  const { data: x } = await sb.from("cartes_cadeaux").select("*").eq("ref", ref).maybeSingle();
+  if (!x) { await alerter("Carte cadeau payée : introuvable", "Une carte cadeau a été payée, mais elle est introuvable", `Paiement Stripe ${session.id}, ${(session.amount_total ?? 0) / 100} €, ${session.customer_details?.email ?? ""}. Référence : ${ref}.`, undefined, undefined, "vente_alerte"); return; }
+  if (x.statut !== "attente") return;   // Stripe peut renvoyer le même événement
+  const A = "ABCDEFGHJKMNPQRSTUVWXYZ23456789", tire = () => Array.from(globalThis.crypto.getRandomValues(new Uint8Array(8)), (b) => A[b % A.length]).join("");
+  let code = "";
+  for (let i = 0; i < 5 && !code; i++) {
+    const c = tire(), essai = "CERCLE-" + c.slice(0, 4) + "-" + c.slice(4);
+    const { data: ok } = await sb.from("cartes_cadeaux").update({ code: essai, statut: "payee", stripe_session: session.id, paye_le: new Date().toISOString(), montant_centimes: session.amount_total ?? x.montant_centimes })
+      .eq("id", x.id).eq("statut", "attente").select("id");
+    if (ok?.length) code = essai; else { const { data: y } = await sb.from("cartes_cadeaux").select("statut").eq("id", x.id).maybeSingle(); if (y?.statut !== "attente") return; }
+  }
+  if (!code) throw new Error("code de carte cadeau impossible à créer");
+  const pour = x.pour_prenom || "la personne à qui tu l'offres", de = x.de_prenom || "Quelqu'un qui tient à toi";
+  const dateTxt = x.envoyer_le ? new Date(x.envoyer_le + "T12:00:00Z").toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }) : "";
+  const page = `${SITE}/carte-cadeau.html?ref=${ref}`, pageCode = `${SITE}/carte-cadeau.html?code=${code}`;
+  await sb.from("mails").insert({
+    email: x.email_acheteuse, prenom: x.de_prenom, type: "carte_cadeau_achat",
+    objet: "Ta carte cadeau du Cercle est prête", surtitre: "Carte cadeau · Le Cercle", titre: "Merci, ta carte est prête",
+    texte: `Ton paiement de ${euros(session.amount_total ?? x.montant_centimes)} est bien reçu : ta carte cadeau de **${x.mois} mois du Cercle** pour ${pour} est prête.\n\nSon code : **${code}**\n\n` +
+      (x.envoi === "mail" ? `Comme tu l'as choisi, elle partira par e-mail à ${x.email_destinataire} le ${dateTxt}, à 8 h, avec ton petit mot. Tu peux aussi l'imprimer pour la glisser sous le sapin.`
+        : `Tu peux l'imprimer, la glisser sous le sapin ou la transférer : tout est sur la page de ta carte.`) +
+      `\n\nPour l'activer, il suffit d'aller sur ${SITE}/carte-cadeau.html et d'entrer le code, quand on le souhaite : Le Cercle s'ouvre alors pour ${x.mois} mois. Pas d'abonnement, rien n'est prélevé ensuite.`,
+    bouton_texte: "Voir et imprimer la carte", bouton_lien: page,
+  });
+  if (x.envoi === "mail" && x.email_destinataire) {
+    await sb.from("mails").insert({
+      email: x.email_destinataire, prenom: x.pour_prenom, type: "carte_cadeau_recue", a_envoyer_le: new Date(x.envoyer_le + "T07:00:00Z").toISOString(),
+      objet: `${x.de_prenom ? x.de_prenom + " t'offre" : "On t'offre"} ${x.mois} mois du Cercle`, surtitre: "Une carte cadeau pour toi", titre: x.pour_prenom ? `${x.pour_prenom}, un cadeau t'attend` : "Un cadeau t'attend",
+      texte: `${de} t'offre **${x.mois} mois du Cercle** de Genesolia : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans ta vie et dans ta lignée, avec un carnet chaque mois, deux séances audio guidées par mois et la formation « Sors de la boucle ».` +
+        (x.message ? `\n\nSon petit mot :\n« ${x.message} »` : "") + `\n\nTon code : **${code}**\n\nTu l'actives quand tu veux, en quelques secondes. Pas d'abonnement, rien ne sera prélevé.`,
+      bouton_texte: "Découvrir ma carte", bouton_lien: pageCode,
+    });
+  }
+  await alerter(`Nouvelle vente : carte cadeau Le Cercle ${x.mois} mois (${euros(session.amount_total ?? x.montant_centimes)})`, "Une carte cadeau vendue",
+    `${x.email_acheteuse}\n\nCarte : Le Cercle, ${x.mois} mois\nCode : ${code}\nPour : ${x.pour_prenom ?? "(sans prénom)"}${x.envoi === "mail" ? `\nEnvoi par mail à ${x.email_destinataire} le ${dateTxt}` : "\nRemise par l'acheteuse"}`,
+    "https://dashboard.stripe.com/payments", "Ouvrir Stripe", "vente_alerte");
 }
 
 /* ───────── Arbre imprimé → Gelato (brouillon) ───────── */
@@ -217,8 +263,8 @@ async function remercier(uid: string, cle: string, session: any) {
   const o = OFFRES[cle], nom = NOMS[cle] ?? cle, montant = session.amount_total ?? 0, abo = !!session.subscription;
   const fam = o?.fam;
   const lien = fam === "cercle" ? SITE + "/cercle.html" : fam === "pass" ? SITE + "/pass.html" : fam === "praticien" ? SITE + "/praticien.html" : SITE + "/login.html";
-  const bouton = fam === "cercle" ? "Ouvrir mon Cercle" : fam === "pass" ? "Ouvrir mon enquête" : fam === "praticien" ? "Ouvrir mon Espace praticien" : "Ouvrir mon espace";
-  const surtitre = fam === "cercle" ? "Le Cercle" : fam === "pass" ? "Le Pass" : fam === "praticien" ? "Espace praticien" : "Genesolia";
+  const bouton = fam === "cercle" ? "Ouvrir mon Cercle" : fam === "pass" ? "Ouvrir Ma spirale" : fam === "praticien" ? "Ouvrir mon Espace praticien" : "Ouvrir mon espace";
+  const surtitre = fam === "cercle" ? "Le Cercle" : fam === "pass" ? "Ma spirale" : fam === "praticien" ? "Espace praticien" : "Genesolia";
   const { data: c } = await sb.rpc("n8n_enregistrer_contact", { p_email: email, p_prenom: prenom, p_champs: { compte: true, user_id: uid } });
   await sb.from("mails").insert({
     contact_id: c?.id ?? null, email, prenom, type: "achat_merci",

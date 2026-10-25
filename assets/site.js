@@ -290,7 +290,7 @@ window.GENESOLIA_LIVRES = {
   enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-de-ma-lignee-3d.webp?v=4',
     amazon: '', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
   racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-3d.webp?v=4',
-    amazon: '', prix: '', extrait: '' }
+    amazon: 'https://www.amazon.fr/dp/B0HP7WPZQD', prix: '', extrait: '' }
 };
 /* <a data-livre-acheter="enquete"> devient « Acheter sur Amazon · prix » quand le lien existe, sinon « Bientôt sur Amazon » (sans lien) */
 window.GenesoliaLivresBoutons = function (racine) {
