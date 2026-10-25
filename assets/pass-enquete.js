@@ -248,6 +248,16 @@ window.PASS_FIL = {
     'Qu’as-tu fait autrement, même un tout petit peu ?',
     'Qu’est-ce qui est plus léger dans ton corps aujourd’hui ?'
   ],
+  /* La fiche « Mon schéma » : ce qui relie les ressentis entre eux */
+  SCHEMA: {
+    couleurs: { abandon: '#6B2F5B', rejet: '#D9705F', trahison: '#B98A55', humiliation: '#C2466E', injustice: '#4E5D94' },   /* les mêmes partout, sans vert */
+    domaines: ['Couple', 'Argent', 'Travail', 'Famille', 'Amis', 'Corps', 'Moi-même'],
+    sensations: ['Serré', 'Lourd', 'Chaud', 'Agité', 'Froid', 'Vide'],
+    reactions: ['Fuir', 'Contrôler', 'Tout donner', 'Me taire', 'Me justifier', 'Attaquer', 'M’effacer', 'Me couper de tout'],
+    tiroirs: [['sais', 'Je sais'], ['raconte', 'On m’a raconté'], ['suppose', 'Je suppose']],
+    statuts: [['comprendre', 'À comprendre'], ['liberation', 'En libération'], ['spirale', 'Devenu spirale']],
+    neuf: [['Émergence', 'Quelque chose attire ton attention. Tu sens qu’un même schéma est à l’œuvre.'], ['Initiation', 'Tu commences à observer. Tu repères ce qui déclenche la répétition.'], ['Rencontre avec l’ombre', 'Ce que tu évitais de regarder apparaît clairement.'], ['Épreuves', 'La situation se rejoue, parfois plus fort, comme pour être enfin vue.'], ['Lâcher l’ancien', 'L’ancienne façon de réagir n’a plus de sens. Tu la laisses partir.'], ['Transformation', 'Ce que tu as vécu devient une compréhension, et non plus un poids.'], ['Élévation', 'Tu agis autrement, naturellement, sans avoir à te forcer.'], ['Transmission', 'Ce que tu as compris profite à ceux qui t’entourent et à ceux qui viennent après toi.'], ['Renaissance', 'Le thème n’est plus une question. Le cycle est complet.']]
+  },
   /* La question qui revient à chaque fois */
   QUESTION: 'À qui est cette incohérence, cette distorsion dans mon être ? À un parent ? Plus loin ? Est-ce que je répète un problème de cette vie, ou une mémoire plus ancienne ?',
   AQUI: [['moi', 'De cette vie : un problème que je répète'], ['parent', 'D’un parent'], ['loin', 'De plus loin dans ma lignée'], ['ancienne', 'D’une mémoire plus ancienne, je ne sais pas d’où']],
