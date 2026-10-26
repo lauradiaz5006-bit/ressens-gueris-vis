@@ -660,7 +660,8 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
 .nb-c img{display:block;width:calc(100% + 2.2rem);max-width:none;height:auto;aspect-ratio:4/3;margin:-1.2rem -1.1rem .8rem;border-radius:18px 18px 0 0}
 .nb-style{font-size:.84rem!important;color:#7A5320!important;font-weight:600}
 .nb-grille-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.nb-col img{aspect-ratio:1/1!important}
+.nb-v img{aspect-ratio:1/1!important}.nb-o img{aspect-ratio:24/19!important}.nb-o p{font-style:normal!important}
+.nb-sous{text-align:center;font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:#9A6E38;margin:1.6rem 0 .9rem;font-weight:600}
 .nb-col p{font-style:italic}
 .nb-c h3{font-size:1.08rem;margin:.6rem 0 .35rem}
 .nb-c p{font-size:.9rem;color:var(--prune-doux);margin:0 0 .6rem}
@@ -668,7 +669,7 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
 .nb-ok .nb-badge{background:linear-gradient(90deg,#6B2F5B,#8C3F74);color:#FFF3DC}
 .nb-c .btn{font-size:.88rem;padding:.5rem 1rem}
 @media (max-width:900px){.nb-grille,.nb-grille-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.nb-grille,.nb-grille-3{grid-template-columns:1fr}}
+@media (max-width:520px){.nb-grille{grid-template-columns:1fr}.nb-grille-3{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}.nb-col h3{font-size:.95rem}.nb-col p{font-size:.8rem}}
 .cc-valide{font-size:clamp(.55rem,1.6vw,.68rem);letter-spacing:.08em;color:#E9C98A;margin-top:.55em!important;opacity:.9}
 /* Bandeau de Noël (clientes connectées, jusqu'au 6 janvier) */
 .annonce-noel-etoile{font-size:1.3rem;color:#F3D08F;text-shadow:0 0 12px rgba(243,208,143,.8);flex-shrink:0}
