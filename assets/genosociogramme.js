@@ -393,13 +393,19 @@
       fa.parents.forEach(function (p) { var b = blocDe[p]; if (vus.indexOf(b) < 0) { vus.push(b); if (!famsParBloc.has(b)) famsParBloc.set(b, []); famsParBloc.get(b).push(fa); } });
     });
 
+    /* Lignée directe (toi et tes ascendants) : dans une fratrie, c'est l'enfant de ta lignée qui guide la place des parents,
+       pour que ses frères et sœurs restent collés à lui ou elle au lieu de rester loin, sous les parents (de longs traits vides). */
+    var direct = ascendants(moi);
     function depuisEnfants(b) {
       var fs = famsParBloc.get(b); if (!fs) return null;
       var s = 0, n = 0;
       fs.forEach(function (fa) {
         var miens = fa.parents.filter(function (p) { return blocDe[p] === b; });
-        var cx = moy(fa.enfants.map(px)), off = moy(miens.map(function (m) { return decal[m]; }));
-        s += (cx - off) * fa.enfants.length; n += fa.enfants.length;
+        var off = moy(miens.map(function (m) { return decal[m]; })), nE = fa.enfants.length;
+        fa.enfants.forEach(function (c, k) {
+          var w = direct[c] && nE > 1 ? nE * 3 : 1;
+          s += (px(c) - (k - (nE - 1) / 2) * SLOT - off) * w; n += w;
+        });
       });
       return n ? s / n : null;
     }
@@ -416,6 +422,14 @@
     }
     function ancreDe(m) { var fd = famDe[m]; return (fd && fd.f.parents.length) ? moy(fd.f.parents.map(px)) : null; }
     function ajusterBloc(b) {
+      if (b.membres.length === 3) {   /* une personne et deux partenaires : chaque partenaire du côté de sa propre famille */
+        var mb = b.membres, pv = mb[1], g0 = mb[0], d0 = mb[2], ag = ancreDe(g0), ad = ancreDe(d0), ap = ancreDe(pv), ref = ap != null ? ap : b.x, inv = false;
+        if (ag != null && ad != null) inv = ag > ad + 1;
+        else if (ag != null) inv = ag > ref + 1;
+        else if (ad != null) inv = ad < ref - 1;
+        if (inv) { b.membres = [d0, pv, g0]; decal[d0] = -SLOT; decal[g0] = SLOT; }
+        return;
+      }
       if (b.membres.length !== 2) return;
       var m0 = b.membres[0], m1 = b.membres[1], a0 = ancreDe(m0), a1 = ancreDe(m1), inverser = false;
       function moitieGauche(m) { var fd = famDe[m]; return fd.k < (fd.f.enfants.length - 1) / 2; }
