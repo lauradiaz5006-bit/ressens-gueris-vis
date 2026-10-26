@@ -319,6 +319,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     ['genosociogramme.html', 'Ton arbre familial'],
     ['offert.html', 'Outils gratuits'],
     ['ma-spirale.html', 'Ma spirale'],
+    ['offrir.html', 'Idées cadeaux'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
