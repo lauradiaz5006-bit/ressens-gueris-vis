@@ -2326,6 +2326,18 @@
       if (r.nature === 'libre') { var mot = prompt('Le mot de ce lien (par exemple : protecteur, rivalité, dette) :', ''); if (mot === null) return; r.mot = mot.trim().slice(0, 24); }
     }
     else if (t === 'couple') { if (relCouple(id, o)) { err.textContent = 'Ce lien existe déjà.'; return; } r = { from: id, to: o, type: 'couple', statut: 'marie' }; }
+    else if (t === 'fratrie') {
+      var pa = parents(id), pb = parents(o);
+      if (S.rels.some(function (x) { return x.type === 'fratrie' && ((x.from === id && x.to === o) || (x.from === o && x.to === id)); }) || (pa.length && pa.slice().sort().join() === pb.slice().sort().join())) { err.textContent = 'Ce lien existe déjà.'; return; }
+      if (pa.indexOf(o) >= 0 || pb.indexOf(id) >= 0 || estAncetre(id, o) || estAncetre(o, id)) { err.textContent = 'Impossible : l’un est déjà l’ancêtre de l’autre.'; return; }
+      memoriser();
+      /* l'un a ses parents dans l'arbre, l'autre non : l'autre devient leur enfant aussi (ils se placent ensemble sous leurs parents) */
+      if (pa.length && !pb.length) pa.forEach(function (p) { S.rels.push({ from: p, to: o, type: 'parent' }); });
+      else if (pb.length && !pa.length) pb.forEach(function (p) { S.rels.push({ from: p, to: id, type: 'parent' }); });
+      else S.rels.push({ from: id, to: o, type: 'fratrie' });
+      dessinerLiensFiche(); dessiner(id); majBarreActions(); enregistrer();
+      return;
+    }
     else {
       var parent = t === 'parent' ? id : o, enfant = t === 'parent' ? o : id;
       if (parents(enfant).indexOf(parent) >= 0) { err.textContent = 'Ce lien existe déjà.'; return; }
