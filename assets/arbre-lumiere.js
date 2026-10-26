@@ -138,8 +138,11 @@
     /* « Sur fond blanc » : pas de cadre, une forme arrondie d'énergie, discrète, qui enveloppe la lignée (dessinée en vectoriel : nette à 300 dpi) */
     var energie = '';
     if (d.style === 'blanc_lumiere') {
-      var ex = 70, ey = 70, ew = W - 140, rb = 360, yb = H - 150, rt = ew / 2;
-      var forme = 'M' + ex + ' ' + (ey + rt) + 'A' + rt + ' ' + rt + ' 0 0 1 ' + (ex + ew) + ' ' + (ey + rt) + 'V' + (yb - rb) + 'Q' + (ex + ew) + ' ' + yb + ' ' + (ex + ew - rb) + ' ' + yb + 'H' + (ex + rb) + 'Q' + ex + ' ' + yb + ' ' + ex + ' ' + (yb - rb) + 'Z';
+      /* plus large, et ouverte en haut : le soleil et sa colonne de lumière passent, rien n'est coupé */
+      var ex = 34, ey = 70, ew = W - 68, rb = 360, yb = H - 150, rt = ew / 2, ccx = ex + rt, ccy = ey + rt, ouv = 20 * Math.PI / 180;
+      function pa(t) { return f1(ccx + rt * Math.cos(t)) + ' ' + f1(ccy - rt * Math.sin(t)); }
+      var forme = 'M' + pa(Math.PI / 2 + ouv) + 'A' + rt + ' ' + rt + ' 0 0 0 ' + ex + ' ' + ccy + 'V' + (yb - rb) + 'Q' + ex + ' ' + yb + ' ' + (ex + rb) + ' ' + yb + 'H' + f1(ccx) +
+        'M' + pa(Math.PI / 2 - ouv) + 'A' + rt + ' ' + rt + ' 0 0 1 ' + (ex + ew) + ' ' + ccy + 'V' + (yb - rb) + 'Q' + (ex + ew) + ' ' + yb + ' ' + (ex + ew - rb) + ' ' + yb + 'H' + f1(ccx);
       energie = '<g fill="none" stroke-linecap="round">' +
         '<path d="' + forme + '" stroke="#F2D9A4" stroke-width="22" opacity=".45" filter="url(#lu-aura)"/>' +
         '<path d="' + forme + '" stroke="url(#lu-or)" stroke-width="3" opacity=".75"/>' +
