@@ -135,7 +135,7 @@
       var g = an.g, n = Math.pow(2, g), th = Math.PI / n, teinte = g % 2;
       for (var k = 0; k < n; k++) {
         var q = R[g][k], enfant = R[g - 1][k >> 1];
-        if (!q && !enfant) continue;   /* au-delà d'un ancêtre inconnu : rien */
+        /* grille complète : chaque ancêtre possible a sa case (vide si on ne le connaît pas), pour voir toutes les générations choisies */
         var a0 = Math.PI - k * th, a1 = a0 - th, cote = k < n / 2 ? 'p' : 'm';
         parts += '<path d="' + part(an.r0, an.r1, a0, a1) + '" fill="' + (q ? TEINTES[cote][teinte] : VIDE) + '" stroke="' + OR_CLAIR + '" stroke-width="2.5"/>';
         if (!q) continue;
