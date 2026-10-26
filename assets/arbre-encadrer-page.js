@@ -57,7 +57,9 @@
     if (desc()) l.hidden = true;
     var lf = document.getElementById('fe-freres-l'); if (lf) lf.hidden = !donnees.nbFreres || ev() || choix.style === 'famille_eventail' || lumiere();
     var da = document.getElementById('fe-demis-aide'); if (da) { var peint = grand() || choix.style === 'figuier' || choix.style === 'dore' || ev(); da.hidden = !(donnees.nbDemis && peint && typeDe() === 'ancetres'); }   /* l'éventail : les ancêtres seulement */
-    if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille() || lumiere(); var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
+    /* Figuier et Arbre doré n'ont pas de place pour un conjoint ; le Grand arbre en a une seule (l'autre parent de tous les enfants) */
+    var peintSansCj = (choix.style === 'figuier' || choix.style === 'dore' || (grand() && !donnees.aConjoint)) && (donnees.aConjoint || donnees.aUnions);
+    if (lc) { lc.hidden = !(donnees.aConjoint || donnees.aUnions) || !(avecEnfantsPossible() || desc()) || famille() || lumiere() || peintSansCj; var tc = document.getElementById('fe-conjoint-t'), c0 = desc() ? descendants(choix.depart, 1) : lignee(choix.depart, 1);
       if (tc && c0 && c0.conjoint) tc.textContent = (donnees.departEstMoi ? 'Avec mon conjoint · ' : 'Avec son conjoint · ') + (c0.conjoint.prenom + ' ' + c0.conjoint.nom).trim();
       else if (tc && c0 && c0.unions) { var hs = c0.unions.every(function (u) { return u.sexe === 'm'; }), fs0 = c0.unions.every(function (u) { return u.sexe === 'f'; }), qui = hs ? 'les pères' : fs0 ? 'les mères' : 'l’autre parent';
         tc.textContent = (donnees.departEstMoi ? 'Avec ' + qui + ' de mes enfants' : 'Avec ' + qui + ' de ses enfants') + (c0.unions.length > 1 ? ' (' + c0.unions.length + ')' : '') + ' · ' + c0.unions.map(function (u) { return u.prenom; }).filter(Boolean).join(', ');
@@ -70,6 +72,7 @@
         : '« Notre famille » réunit ton couple et vos deux lignées. Ajoute ton conjoint dans l’arbre (lien « couple ») et ses parents : ils apparaîtront ici à côté de toi.';
     }
     if (ac) { ac.hidden = !(donnees.conjointRefus && (avecEnfantsPossible() || desc())) || famille(); ac.textContent = donnees.conjointRefus ? donnees.conjointRefus + ' n’est pas l’autre parent de tous les enfants : pour ne rien laisser croire de faux, il n’est pas ajouté à côté de toi.' : ''; }
+    if (ac && peintSansCj) { ac.hidden = false; ac.textContent = (grand() ? 'Le Grand arbre n’a de place que pour un conjoint, l’autre parent de tous tes enfants.' : 'Ce style peint n’a pas de place pour ' + (donnees.aUnions && !donnees.aConjoint ? 'tes conjoints' : 'ton conjoint') + '.') + ' Pour les montrer à côté de toi, choisis le style Lignée ou Médaillons.'; }
     var t = document.getElementById('fe-enfants-t'); if (t) t.textContent = (famille() ? (donnees.departEstMoi ? 'Avec nos enfants' : 'Avec leurs enfants') : donnees.departEstMoi ? 'Avec mes enfants' : 'Avec ses enfants') + ' (' + donnees.nbEnfants + '), ' + (choix.style === 'famille_eventail' ? 'au centre' : 'au pied de l’arbre');
   }
   function grand() { return choix.style === 'grand'; }
