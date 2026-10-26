@@ -428,9 +428,9 @@
       var a3o = ECH[classe(formatChoisi())], fzL = window.ArbreLignee.taille(donnees, a3o, true, motif(), donnees.nbGen), fzP = window.ArbreLignee.taille(donnees, a3o, false, motif(), donnees.nbGen);
       donnees.portrait = !(famille() && donnees.couple) && (fzP > fzL * 1.15 || (motif() === 'medaillons' && donnees.nbGen >= 6));   /* Médaillons avec beaucoup de générations : toujours en hauteur (à l'horizontale, les noms se tassaient à la verticale) */
     }
-    /* le sous-titre compte les rangées imprimées : les enfants au pied de l'arbre font une génération de plus */
+    /* le sous-titre compte comme le menu des générations */
     if (donnees && !choix.sousModifie && /^\S+ générations?/.test(donnees.sousTitre || '')) {
-      var nR = desc() ? donnees.nb : (donnees.couple ? donnees.nbGen - 1 : donnees.nbGen) + (donnees.enfants && donnees.enfants.length ? 1 : 0);
+      var nR = desc() ? donnees.nb : donnees.couple ? donnees.nbGen - 1 + (donnees.enfants && donnees.enfants.length ? 1 : 0) : donnees.nbGen;   /* comme le menu : toi = 1re génération, tes enfants en plus */
       donnees.sousTitre = donnees.sousTitre.replace(/^\S+ générations?/, GEN[Math.max(1, Math.min(nR, GEN.length)) - 1]);
     }
   }
