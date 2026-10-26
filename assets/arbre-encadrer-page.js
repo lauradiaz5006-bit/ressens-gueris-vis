@@ -536,9 +536,14 @@
   /* 3. Le style : une petite vignette de chaque style, dessinée avec l'arbre de la personne */
   /* Le nombre de générations se choisit d'abord ; les styles suivent. Les dessins peints portent 5 générations au plus ;
      Lignée, Médaillons, Éventail et Descendants vont plus loin (en grand format). */
-  function maxStyle(st) { return st === 'grand' || st === 'figuier' || st === 'dore' || lumiere(st) ? 5 : 99; }
+  /* Au-delà, les noms deviennent illisibles même en 70 × 100 cm : peints 5, Lignée et Médaillons 7, Éventail 9 */
+  var MAX_LISIBLE = 7, MAX_EVENTAIL = 9;
+  function maxStyle(st) { return st === 'grand' || st === 'figuier' || st === 'dore' || lumiere(st) ? 5 : st === 'eventail' ? MAX_EVENTAIL : MAX_LISIBLE; }
+  function maxTypeLisible() { var t = typeDe(); return t === 'lumiere' ? 5 : t === 'ancetres' ? MAX_EVENTAIL : MAX_LISIBLE; }
+  /* part des cases remplies (ancêtres connus) sur n générations, toi compris */
+  function remplissage(n) { var l = lignee(choix.depart, n); return l && l.moi ? remplis(l.moi, 0, n) / (Math.pow(2, n) - 1) : 0; }
   function minStyle(st) { return st === 'grand' ? 4 : 2; }
-  function styleLarge() { return { ancetres: /medaillons$/.test(choix.style) ? 'medaillons' : 'lignee', descendants: 'descendants', famille: 'famille', lumiere: choix.style }[typeDe()]; }
+  function styleLarge() { return { ancetres: choix.nbGen > MAX_LISIBLE ? 'eventail' : /medaillons$/.test(choix.style) ? 'medaillons' : 'lignee', descendants: 'descendants', famille: 'famille', lumiere: choix.style }[typeDe()]; }
   function maxType() {
     if (typeDe() === 'lumiere') return Math.min(5, (lignee(choix.depart, 5) || { nb: 0 }).nb);
     var garde = Object.assign({}, choix), dGarde = donnees, cGarde = [CAP, capA4, capA3, dispo], m = 2;
@@ -556,7 +561,11 @@
     }).join('');
     var sa = document.getElementById('fe-style-aide'); if (sa) sa.textContent = DESCR[choix.style] || '';
     var sg = document.getElementById('fe-styles-gens'), grises = TYPES[typeDe()].filter(function (x) { return choix.gensManuel && choix.nbGen > maxStyle(x[0]); });
-    if (sg) { sg.hidden = !grises.length; sg.textContent = grises.length ? 'Avec ' + choix.nbGen + ' générations : ' + grises.map(function (x) { return x[1]; }).join(', ') + (grises.length > 1 ? ' vont' : ' va') + ' jusqu’à 5 générations. Choisis-en moins pour ' + (grises.length > 1 ? 'ces styles' : 'ce style') + '.' : ''; }
+    if (sg) {
+      var parMax = {}; grises.forEach(function (x) { var m = maxStyle(x[0]); (parMax[m] = parMax[m] || []).push(x[1]); });
+      var bouts = Object.keys(parMax).sort(function (a, b) { return b - a; }).map(function (m) { var l = parMax[m]; return l.join(', ') + (l.length > 1 ? ' vont' : ' va') + ' jusqu’à ' + m + ' générations'; });
+      sg.hidden = !grises.length; sg.textContent = grises.length ? 'Avec ' + choix.nbGen + ' générations : ' + bouts.join(' ; ') + '. Choisis-en moins pour ' + (grises.length > 1 ? 'ces styles' : 'ce style') + '.' : '';
+    }
     z.querySelectorAll('label.fe-off input').forEach(function (r) { r.disabled = true; });
     var cache = vignettes.cache || {}; z.querySelectorAll('[data-vign]').forEach(function (v) { var k = vignettes.cle + '|' + v.getAttribute('data-vign'); if (cache[k]) v.innerHTML = cache[k]; });
   }
@@ -617,6 +626,7 @@
         '<div class="fe-deux"><label class="fe-champ">Code postal<input name="code_postal" autocomplete="postal-code" inputmode="numeric" required></label><label class="fe-champ">Ville<input name="ville" autocomplete="address-level2" required></label></div>' +
         '<label class="fe-champ">Téléphone (pour le livreur, facultatif)<input name="telephone" type="tel" autocomplete="tel"></label>' +
         '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">' +
+        '<p class="fe-recap" id="fe-recap" hidden></p>' +
         '<label class="fe-accord"><input type="checkbox" name="accord" required> <span>J’ai vérifié l’aperçu (prénoms, dates, titre). C’est un objet personnalisé, fabriqué pour moi : il ne peut pas être repris ni échangé, sauf défaut d’impression. <a href="confidentialite.html" target="_blank">Mes données</a></span></label>' +
         '<button class="bt plein rap-gros" type="submit">Commander</button><p class="fe-aide" id="fe-imp-statut" aria-live="polite"></p>' +
       '</form></div>';
@@ -747,12 +757,15 @@
   function majGens() {
     var sel = document.getElementById('fe-gens'); if (!sel || !donnees) return;
     var opts = [];
-    var maxN = Math.max(Math.min(dispo, capMax()), maxType());   /* tout ce que l'arbre permet : le style s'adapte ensuite */
+    var maxN = Math.min(Math.max(Math.min(dispo, capMax()), maxType()), maxTypeLisible());   /* tout ce que l'arbre permet, dans la limite lisible : le style s'adapte ensuite */
+    var anc = typeDe() === 'ancetres', pleinJusqua = 0;
+    if (anc) for (var q = 2; q <= maxN; q++) if (remplissage(q) >= 0.9) pleinJusqua = q;
     var plus = desc() ? 0 : (donnees.couple ? -1 : 0) + (donnees.enfants && donnees.enfants.length ? 1 : 0);   /* comme le sous-titre : les rangées imprimées (enfants compris) */
     /* le Grand arbre n'existe qu'en 4 ou 5 générations ; il demande au moins les arrière-grands-parents */
     var gR = document.querySelector('input[name=fe-style][value=grand]'), dG = (lignee(choix.depart, 5) || { nb: 0 }).nb;
     if (gR) { var gHors = choix.gensManuel && (choix.nbGen > 5 || choix.nbGen < 4); gR.disabled = dG < 4 || gHors; gR.closest('label').classList.toggle('fe-off', gR.disabled); gR.closest('label').title = dG < 4 ? 'Le Grand arbre demande au moins 4 générations (jusqu’à tes arrière-grands-parents).' : gHors ? 'Le Grand arbre porte 4 ou 5 générations.' : ''; }
-    for (var n = 2; n <= maxN; n++) opts.push('<label class="fe-gen-c"><input type="radio" name="fe-gen" value="' + n + '"' + (n === donnees.nbGen ? ' checked' : '') + '><span><b>' + (n + plus) + '</b> génération' + (n + plus > 1 ? 's' : '') + '<small>' + (grand() ? 'en A3' : (n > maxStyle(choix.style) ? 'en grand format' : { a4: 'dès l’A4', a3: n > 5 || lig() ? 'dès l’A3' : 'en A3', g50: 'dès 50 × 70 cm', g70: 'en 70 × 100 cm' }[classeMin(n)])) + '</small></span></label>');
+    for (var n = 2; n <= maxN; n++) opts.push('<label class="fe-gen-c"><input type="radio" name="fe-gen" value="' + n + '"' + (n === donnees.nbGen ? ' checked' : '') + '><span><b>' + (n + plus) + '</b> génération' + (n + plus > 1 ? 's' : '') + '<small>' + (grand() ? 'en A3' : (n > maxStyle(choix.style) ? (n > MAX_LISIBLE ? 'en éventail' : 'en grand format') : { a4: 'dès l’A4', a3: n > 5 || lig() ? 'dès l’A3' : 'en A3', g50: 'dès 50 × 70 cm', g70: 'en 70 × 100 cm' }[classeMin(n)])) + '</small>' +
+      (anc ? (function () { var r = remplissage(n); return '<small class="fe-plein' + (r >= 0.9 ? ' ok' : '') + '">' + (r >= 0.995 ? 'complet' : r >= 0.9 ? 'presque complet' : 'rempli à ' + Math.max(1, Math.round(r * 100)) + ' %') + '</small>'; })() : '') + '</span></label>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
     var vides = grand() ? Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen) : 0;   /* le dessin a exactement les rangées choisies */
@@ -765,6 +778,19 @@
         : donnees.nbGen > capA4 ? 'Lisible à partir de l’A3 avec autant de générations : l’A4 est désactivé.'
         : (Math.min(dispo, CAP.g70) > donnees.nbGen ? 'Ton arbre va plus loin : jusqu’à ' + lab(Math.min(dispo, capA3)) + ' en A3' + (Math.min(dispo, CAP.g70) > Math.min(dispo, capA3) ? ', et ' + lab(Math.min(dispo, CAP.g70)) + ' en grand format 70 × 100 cm.' : '.') : ''))
       : (donnees.nbGen === 5 ? lab(5) + ' : lisible en A3 seulement. L’A4 est désactivé.' + (loin > 5 ? ' Ton arbre remonte plus loin : le style « Lignée » peut tout montrer.' : '') : (dispo >= 5 ? 'Ton arbre va plus loin : choisis ' + lab(5) + ' pour l’A3.' : ''));
+    if (aide && anc && !grand()) {
+      var rN = remplissage(donnees.nbGen), plus2 = [];
+      if (donnees.nbGen > MAX_LISIBLE) plus2.push('Au-delà de ' + (MAX_LISIBLE + plus) + ' générations, seul l’Éventail garde chaque nom lisible : ton arbre s’ouvre en demi-cercle, ' + (donnees.departEstMoi ? 'toi' : 'la personne') + ' au centre.');
+      if (rN < 0.9) plus2.push('Avec ' + (donnees.nbGen + plus) + ' générations, ' + (ev() ? 'ton éventail' : 'ton poster') + ' sera rempli à ' + Math.max(1, Math.round(rN * 100)) + ' % : les ancêtres que tu ne connais pas encore restent des places vides.' + (pleinJusqua >= 2 ? ' Pour un poster bien rempli, choisis ' + (pleinJusqua + plus) + ' génération' + (pleinJusqua + plus > 1 ? 's' : '') + '.' : ''));
+      if (plus2.length) aide.textContent = plus2.join(' ') + (aide.textContent ? ' ' + aide.textContent : '');
+    }
+    /* au moment de commander : ce qu'elle va recevoir, dit clairement */
+    var rc = document.getElementById('fe-recap');
+    if (rc) {
+      var rR = anc && !grand() ? remplissage(donnees.nbGen) : 1;
+      rc.hidden = rR >= 0.9;
+      rc.innerHTML = rR >= 0.9 ? '' : '<b>À savoir avant de commander :</b> ton poster montre ' + (donnees.nbGen + plus) + ' générations et il est rempli à ' + Math.max(1, Math.round(rR * 100)) + ' %. Les ancêtres que tu ne connais pas encore restent des places vides, comme sur l’aperçu.' + (pleinJusqua >= 2 ? ' Pour un poster bien rempli, reviens à l’étape 3 et choisis ' + (pleinJusqua + plus) + ' génération' + (pleinJusqua + plus > 1 ? 's' : '') + '.' : '');
+    }
     if (!choix.sousModifie && document.getElementById('fe-sous')) document.getElementById('fe-sous').value = donnees.sousTitre;
     /* formats d'impression : l'A4 n'est pas proposé avec cinq générations */
     document.querySelectorAll('#fe-imp-form input[name=format]').forEach(function (r) {
