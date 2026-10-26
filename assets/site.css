@@ -652,6 +652,18 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
 .noel-grille img{width:100%;height:auto;aspect-ratio:4/5;display:block}
 @media (max-width:900px){.noel-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){.noel-grille a{transition:none}}
+.noel-bientot{margin-top:2.4rem}
+.nb-titre{text-align:center;margin:0 0 .3rem}
+.nb-intro{text-align:center;color:var(--prune-doux);margin:0 auto 1.2rem;max-width:34rem}
+.nb-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.nb-c{position:relative;background:#fff;border:1px solid rgba(201,151,63,.35);border-radius:18px;padding:1.2rem 1.1rem 1.1rem;box-shadow:0 10px 24px rgba(58,21,53,.08)}
+.nb-c h3{font-size:1.08rem;margin:.6rem 0 .35rem}
+.nb-c p{font-size:.9rem;color:var(--prune-doux);margin:0 0 .6rem}
+.nb-badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .6rem;border-radius:999px;background:#F6E7C8;color:#7A5320}
+.nb-ok .nb-badge{background:linear-gradient(90deg,#6B2F5B,#8C3F74);color:#FFF3DC}
+.nb-c .btn{font-size:.88rem;padding:.5rem 1rem}
+@media (max-width:900px){.nb-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.nb-grille{grid-template-columns:1fr}}
 .cc-valide{font-size:clamp(.55rem,1.6vw,.68rem);letter-spacing:.08em;color:#E9C98A;margin-top:.55em!important;opacity:.9}
 /* Bandeau de Noël (clientes connectées, jusqu'au 6 janvier) */
 .annonce-noel-etoile{font-size:1.3rem;color:#F3D08F;text-shadow:0 0 12px rgba(243,208,143,.8);flex-shrink:0}
