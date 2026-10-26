@@ -288,7 +288,7 @@ window.GENESOLIA_IMPRESSION = {
    les boutons affichent « Bientôt sur Amazon » partout sur le site (pages des livres, page Offrir, encarts des articles). */
 window.GENESOLIA_LIVRES = {
   enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-de-ma-lignee-3d.webp?v=4',
-    amazon: '', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
+    amazon: 'https://www.amazon.fr/dp/B0HPBM5BQ7', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
   racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-3d.webp?v=4',
     amazon: 'https://www.amazon.fr/dp/B0HP7WPZQD', prix: '18,99 €', extrait: '' }
 };
