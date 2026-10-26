@@ -813,16 +813,100 @@
     var b = annee(p.naiss), d = annee(p.deces);
     return b && d ? b + ' – ' + d : b ? (p.sex === 'f' ? 'née en ' : p.sex === 'm' ? 'né en ' : 'naissance ') + b : d ? '† ' + d : (p.decede ? 'décédé·e' : '');
   }
+  /* ── Reconnaître les personnes du fichier déjà présentes dans l'arbre ──
+     1. même prénom (le premier, ou l'un des prénoms), même nom, sexe et années compatibles ;
+     2. puis, de proche en proche : les parents, enfants et conjoint·es d'une personne reconnue
+        sont cherché·es parmi les siens dans l'arbre (le prénom suffit, le nom peut différer : nom de naissance, d'épouse). */
+  function sansAccent(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]+/g, ' ').trim(); }
+  function prenomsDe(s) { return sansAccent(s).split(' ').filter(Boolean); }
+  function prenomOk(a, b, souple) {
+    var A = prenomsDe(a), B = prenomsDe(b);
+    if (!A.length || !B.length) return false;
+    if (souple) return A.some(function (x) { return B.indexOf(x) >= 0; });
+    return B.indexOf(A[0]) >= 0 || A.indexOf(B[0]) >= 0;
+  }
+  function nomOk(a, b) {
+    var A = sansAccent(a).replace(/^(de|du|des|le|la) /, ''), B = sansAccent(b).replace(/^(de|du|des|le|la) /, '');
+    if (!A || !B) return false;
+    return A === B || (' ' + A + ' ').indexOf(' ' + B + ' ') >= 0 || (' ' + B + ' ').indexOf(' ' + A + ' ') >= 0;
+  }
+  function sexeOk(a, b) { return !(/^[mf]$/.test(a || '') && /^[mf]$/.test(b || '') && a !== b); }
+  /* 0 : incompatible ; 1 : rien à comparer ; 2 : même année */
+  function anOk(x, y) { var a = annee(x), b = annee(y); return a && b ? (Math.abs(a - b) <= 1 ? 2 : 0) : 1; }
+  function compatible(f, t) {
+    var n = anOk(f.naiss, t.naiss), d = anOk(f.deces, t.deces);
+    if (!n || !d || !sexeOk(f.sex, t.sex)) return 0;
+    return 1 + (n === 2 ? 2 : 0) + (d === 2 ? 2 : 0);
+  }
+  function reconnaitre(r) {
+    var E = G.etat ? G.etat() : { people: {}, rels: [] }, T = E.people || {}, TR = E.rels || [], memes = {}, pris = {}, pourquoi = {};
+    var tIds = Object.keys(T);
+    if (!tIds.length) return { memes: memes, pourquoi: pourquoi, arbre: T };
+    function proches(rels, id, sens) {
+      return rels.filter(function (x) {
+        if (sens === 'parent') return x.type === 'parent' && x.to === id;
+        if (sens === 'enfant') return x.type === 'parent' && x.from === id;
+        return x.type === 'couple' && (x.from === id || x.to === id);
+      }).map(function (x) { return sens === 'parent' ? x.from : sens === 'enfant' ? x.to : (x.from === id ? x.to : x.from); });
+    }
+    function lier(f, t, raison) { memes[f] = t; pris[t] = 1; pourquoi[f] = raison; }
+    // 1. par le nom complet
+    var cand = {};
+    r.personnes.forEach(function (f) {
+      cand[f.id] = tIds.map(function (t) {
+        var p = T[t]; if (!prenomOk(f.prenom, p.prenom) || !nomOk(f.nom, p.nom)) return null;
+        var s = compatible(f, p); return s ? { t: t, s: s } : null;
+      }).filter(Boolean).sort(function (a, b) { return b.s - a.s; });
+    });
+    var parT = {};   // combien de personnes du fichier visent chaque personne de l'arbre
+    r.personnes.forEach(function (f) { if (cand[f.id][0]) parT[cand[f.id][0].t] = (parT[cand[f.id][0].t] || 0) + 1; });
+    r.personnes.forEach(function (f) {
+      var c = cand[f.id]; if (!c.length) return;
+      var net = c.length === 1 || c[0].s > c[1].s;           // un seul choix, ou un choix clairement meilleur
+      if (net && parT[c[0].t] === 1 && !pris[c[0].t]) lier(f.id, c[0].t, c[0].s >= 3 ? 'par son nom et ses dates' : 'par son nom');
+    });
+    // 2. de proche en proche
+    var encore = true, tours = 0;
+    while (encore && tours++ < 30) {
+      encore = false;
+      Object.keys(memes).forEach(function (f) {
+        ['parent', 'enfant', 'couple'].forEach(function (sens) {
+          var cotesT = proches(TR, memes[f], sens).filter(function (t) { return T[t] && !pris[t]; });
+          proches(r.rels, f, sens).forEach(function (fr) {
+            if (memes[fr]) return;
+            var pf = r.personnes.filter(function (x) { return x.id === fr; })[0]; if (!pf) return;
+            var ok = cotesT.filter(function (t) {
+              var p = T[t];
+              return !pris[t] && compatible(pf, p) && (prenomOk(pf.prenom, p.prenom, true) || (!prenomsDe(pf.prenom).length && nomOk(pf.nom, p.nom)));
+            });
+            if (ok.length === 1) { lier(fr, ok[0], sens === 'parent' ? 'comme parent de ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0]) : sens === 'enfant' ? 'comme enfant de ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0]) : 'en couple avec ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0])); encore = true; }
+          });
+        });
+      });
+    }
+    return { memes: memes, pourquoi: pourquoi, arbre: T };
+  }
   function afficher() {
     var r = resultat, par = {};
     r.personnes.forEach(function (p) { par[p.id] = p; });
     var arbre = G.personnes(), moiArbre = arbre.some(function (p) { return p.moi; });
     var opts = r.personnes.map(function (p) { return '<option value="' + p.id + '">' + esc(nomP(p)) + (datesP(p) ? ' (' + esc(datesP(p)) + ')' : '') + '</option>'; }).join('');
     var h = '<p class="fi-aide">' + (r.ascendant ? 'Arbre ascendant reconnu : les parents de chaque personne viennent de la place des boîtes dans le document. Un ancêtre présent dans deux branches n’apparaît qu’une fois.' : 'Les liens entre parents et enfants sont déduits de l’ordre du document.') + ' Décoche ce qui ne va pas : tu pourras tout compléter et corriger ensuite dans ton arbre.</p>';
+    var REC = arbre.length ? reconnaitre(r) : { memes: {}, pourquoi: {}, arbre: {} }, nRec = Object.keys(REC.memes).length;
+    r.memes = REC.memes;
     if (arbre.length) {
       h += '<div class="champ"><span class="etiq">Ton arbre contient déjà ' + arbre.length + ' personne' + (arbre.length > 1 ? 's' : '') + '</span>' +
-        '<div class="choix"><label><input type="radio" name="fi-mode" value="ajouter" checked><span>Ajouter à mon arbre</span></label><label><input type="radio" name="fi-mode" value="remplacer"><span>Remplacer mon arbre</span></label></div></div>' +
-        '<div class="champ" id="fi-bloc-meme"><label for="fi-meme-doc">Quelqu’un du document est déjà dans ton arbre ?</label>' +
+        '<div class="choix"><label><input type="radio" name="fi-mode" value="ajouter" checked><span>Compléter mon arbre</span></label><label><input type="radio" name="fi-mode" value="remplacer"><span>Remplacer mon arbre</span></label></div></div>';
+      h += '<div class="champ" id="fi-bloc-rec">' + (nRec
+        ? '<span class="etiq">Déjà dans ton arbre : ' + nRec + ' personne' + (nRec > 1 ? 's' : '') + ' reconnue' + (nRec > 1 ? 's' : '') + '</span>' +
+          '<span class="aide">Elles ne seront pas ajoutées une deuxième fois : leurs fiches seront seulement complétées, et les nouvelles personnes viendront s’y rattacher. Décoche si ce n’est pas la même personne.</span><div class="fi-liste fi-rec">' +
+          r.personnes.filter(function (p) { return REC.memes[p.id]; }).map(function (p) {
+            var t = REC.arbre[REC.memes[p.id]] || {};
+            return '<label class="fi-ligne"><input type="checkbox" data-rec="' + esc(p.id) + '" checked><span><b>' + esc(nomP(p)) + '</b>' + (datesP(p) ? '<span class="fi-dates">' + esc(datesP(p)) + '</span>' : '') +
+              '<span class="fi-info">est ' + esc(nomP(t)) + (datesP(t) ? ' (' + esc(datesP(t)) + ')' : '') + ' de ton arbre · reconnu·e ' + esc(REC.pourquoi[p.id]) + '</span></span></label>';
+          }).join('') + '</div>'
+        : '<span class="etiq">Personne du document n’a été reconnue dans ton arbre</span><span class="aide">Sans personne en commun, la partie importée se place à côté de ton arbre. Si quelqu’un est pourtant le ou la même (écrit autrement), indique-le juste en dessous : tout se rattachera à elle ou lui.</span>') + '</div>';
+      h += '<div class="champ" id="fi-bloc-meme"><label for="fi-meme-doc">' + (nRec ? 'Quelqu’un d’autre du document est déjà dans ton arbre ?' : 'Quelqu’un du document est déjà dans ton arbre ?') + '</label>' +
         '<div class="deux-col"><select id="fi-meme-doc" aria-label="Personne du document"><option value="">Non</option>' + opts + '</select>' +
         '<select id="fi-meme-arbre" aria-label="Personne de ton arbre">' + arbre.map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.nom) + '</option>'; }).join('') + '</select></div>' +
         '<span class="aide">Les deux fiches seront réunies en une seule, ce qui relie le document à ton arbre.</span></div>';
@@ -840,6 +924,7 @@
       h += '<label class="fi-ligne"><input type="checkbox" data-fi="' + p.id + '" checked><span><b>' + esc(nomP(p)) + '</b><span class="fi-dates">' + esc(datesP(p)) + '</span>' +
         (infos ? '<span class="fi-info">' + esc(infos) + '</span>' : '') +
         (liens.length ? '<span class="fi-info">' + esc(liens.join(' · ')) + '</span>' : '') +
+        (REC.memes[p.id] ? '<span class="fi-reconnu" data-rec-note="' + esc(p.id) + '">Déjà dans ton arbre : sa fiche sera complétée</span>' : '') +
         p.doutes.map(function (d) { return '<span class="fi-doute">À vérifier : ' + esc(d) + '</span>'; }).join('') + '</span></label>';
     });
     h += '</div><p class="fi-aide" id="fi-limite" hidden></p><p class="erreur" id="fi-erreur" role="alert"></p>';
@@ -850,10 +935,16 @@
     function maj() {
       var mode = document.querySelector('input[name="fi-mode"]:checked'), remplacer = !mode || mode.value === 'remplacer';
       if ($('fi-bloc-meme')) $('fi-bloc-meme').hidden = remplacer;
+      if ($('fi-bloc-rec')) $('fi-bloc-rec').hidden = remplacer;
       $('fi-bloc-moi').hidden = !remplacer && moiArbre;
-      var n = document.querySelectorAll('[data-fi]:checked').length;
-      $('fi-ok').textContent = 'Importer ' + n + ' personne' + (n > 1 ? 's' : '');
-      $('fi-ok').disabled = !n;
+      var n = 0, c = 0, man = !remplacer && $('fi-meme-doc') ? $('fi-meme-doc').value : '';
+      document.querySelectorAll('[data-fi]').forEach(function (x) {
+        var id = x.getAttribute('data-fi'), rc = document.querySelector('[data-rec="' + id + '"]'), deja = !remplacer && (id === man || (rc && rc.checked));
+        var note = document.querySelector('[data-rec-note="' + id + '"]'); if (note) note.hidden = !deja;
+        if (!x.checked) return; if (deja) c++; else n++;
+      });
+      $('fi-ok').textContent = remplacer || !c ? 'Importer ' + n + ' personne' + (n > 1 ? 's' : '') : (n ? 'Ajouter ' + n + ' nouvelle' + (n > 1 ? 's' : '') + ' personne' + (n > 1 ? 's' : '') + ' et compléter ' + c + ' fiche' + (c > 1 ? 's' : '') : 'Compléter ' + c + ' fiche' + (c > 1 ? 's' : ''));
+      $('fi-ok').disabled = !(n + c);
     }
     // Distance à toi, pour informer (on n'enlève plus personne)
     function limiter(moiId) {
@@ -877,7 +968,7 @@
         (horsLien ? '<b>' + horsLien + ' personne' + (horsLien > 1 ? 's' : '') + '</b> sans lien trouvé avec toi : elles sont importées aussi, tu pourras les relier dans l’arbre. Décoche celles que tu ne veux pas.' : '');
     }
     $('fi-corps').onchange = function (e) {
-      if (e.target.matches('[data-fi]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
+      if (e.target.matches('[data-fi], [data-rec]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
       if (e.target.id === 'fi-moi') limiter(e.target.value === '-' ? '' : e.target.value);
       maj();
     };
@@ -905,7 +996,10 @@
       people[p.id] = { prenom: p.prenom, nom: p.nom, sex: p.sex, naiss: p.naiss, deces: p.deces, decede: !!(p.deces || p.decede), metier: p.metier, lieu: p.lieu, notes: p.notes, events: p.events };
     });
     var rels = resultat.rels.filter(function (x) { return garder[x.from] && garder[x.to]; });
-    G.importer({ people: people, rels: rels }, { remplacer: remplacer, moi: moi && moi !== '-' ? moi : '', meme: meme });
+    var memes = {};
+    if (!remplacer) document.querySelectorAll('[data-rec]:checked').forEach(function (c) { var k = c.getAttribute('data-rec'); if (garder[k] && resultat.memes && resultat.memes[k]) memes[k] = resultat.memes[k]; });
+    if (meme) { Object.keys(memes).forEach(function (k) { if (memes[k] === meme.arbre) delete memes[k]; }); delete memes[meme.fichier]; }
+    G.importer({ people: people, rels: rels }, { remplacer: remplacer, moi: moi && moi !== '-' ? moi : '', meme: meme, memes: memes });
     resultat = null;
     G.fermer('fen-import');
   });
