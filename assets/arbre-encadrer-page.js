@@ -444,8 +444,8 @@
       (SA ? '<div class="fe-saison"><span class="fe-saison-t">' + esc(SA.badge) + '</span> ' + esc(SA.texte) + (choix.style !== SA.style ? ' <button type="button" class="fe-saison-bt" data-saison="' + SA.style + '">Voir ce modèle</button>' : '') + '</div>' : '') +
       '<div class="fe-etape">' + etape(1, 'Pour qui ?') + '<label class="fe-champ"><span class="fe-cache">La personne</span><select id="fe-depart">' + departs().map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === choix.depart ? ' selected' : '') + '>' + esc(x.nom) + (x.an ? ' (' + x.an + ')' : '') + (x.moi ? ' · moi' : '') + '</option>'; }).join('') + '</select></label></div>' +
       '<div class="fe-etape">' + etape(2, 'Quel arbre ?') + '<div class="fe-types" id="fe-types" role="radiogroup" aria-label="Quel arbre"></div></div>' +
-      '<div class="fe-etape">' + etape(3, 'Le style') + '<div class="fe-styles" id="fe-styles" role="radiogroup" aria-label="Le style"></div><p class="fe-aide fe-style-aide" id="fe-style-aide"></p></div>' +
-      '<div class="fe-etape">' + etape(4, 'Combien de générations ?') + '<div class="fe-gens" id="fe-gens" role="radiogroup" aria-label="Nombre de générations"></div><p class="fe-aide" id="fe-gens-aide"></p></div>' +
+      '<div class="fe-etape">' + etape(3, 'Combien de générations ?') + '<div class="fe-gens" id="fe-gens" role="radiogroup" aria-label="Nombre de générations"></div><p class="fe-aide" id="fe-gens-aide"></p></div>' +
+      '<div class="fe-etape">' + etape(4, 'Le style') + '<p class="fe-aide" id="fe-styles-gens" hidden></p><div class="fe-styles" id="fe-styles" role="radiogroup" aria-label="Le style"></div><p class="fe-aide fe-style-aide" id="fe-style-aide"></p></div>' +
       '<div class="fe-etape">' + etape(5, 'Les détails') +
       '<label class="fe-case" id="fe-freres-l"' + (donnees.nbFreres ? '' : ' hidden') + '><input type="checkbox" id="fe-freres"' + (choix.freres ? ' checked' : '') + '> Inclure les frères et sœurs</label>' +
       '<label class="fe-case" id="fe-conjoint-l" hidden><input type="checkbox" id="fe-conjoint"' + (choix.conjoint ? ' checked' : '') + '> <span id="fe-conjoint-t">Avec mon conjoint</span></label><p class="fe-aide" id="fe-conjoint-aide" hidden></p>' +
@@ -493,7 +493,11 @@
     document.getElementById('fe-conjoint').addEventListener('change', function (e) { choix.conjoint = e.target.checked; recalculer(); dessiner(); });
     document.getElementById('fe-enfants').addEventListener('change', function (e) { choix.enfants = e.target.checked; recalculer(); majGens(); dessiner(); });
     document.getElementById('fe-freres').addEventListener('change', function (e) { choix.freres = e.target.checked; recalculer(); dessiner(); });
-    document.getElementById('fe-gens').addEventListener('change', function (e) { if (e.target.name !== 'fe-gen') return; choix.nbGen = +e.target.value; choix.gensManuel = true; recalculer(); majGens(); dessiner(); });
+    document.getElementById('fe-gens').addEventListener('change', function (e) {
+      if (e.target.name !== 'fe-gen') return; choix.nbGen = +e.target.value; choix.gensManuel = true;
+      if (choix.nbGen > maxStyle(choix.style) || choix.nbGen < minStyle(choix.style)) { choix.style = choix.nbGen < minStyle(choix.style) ? 'figuier' : styleLarge(); choix.choisi = true; choix.dernier[typeDe()] = choix.style; var sa = document.getElementById('fe-style-aide'); if (sa) sa.textContent = DESCR[choix.style] || ''; }
+      var n0 = choix.nbGen; recalculer(); choix.nbGen = n0; majStyles(); majGens(); majEnfants(); dessiner(); vignettes();
+    });
     document.getElementById('fe-titres').addEventListener('click', function (e) {
       var b = e.target.closest('[data-titre]'); if (!b) return;
       document.getElementById('fe-titre').value = b.getAttribute('data-titre'); choix.titreModifie = true; majTitres(); dessiner();
@@ -530,15 +534,30 @@
     famille: '<svg viewBox="0 0 40 40"><circle cx="14" cy="22" r="3.6"/><circle cx="26" cy="22" r="3.6"/><circle cx="7" cy="8" r="2.8"/><circle cx="16" cy="8" r="2.8"/><circle cx="24" cy="8" r="2.8"/><circle cx="33" cy="8" r="2.8"/><circle cx="15" cy="35" r="2.8"/><circle cx="25" cy="35" r="2.8"/><path d="M14 18.4V14H7V10.8M14 14H16V10.8M26 18.4V14H24V10.8M26 14H33V10.8M17.6 22H22.4M20 22V28H15V32.2M20 28H25V32.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
   };
   /* 3. Le style : une petite vignette de chaque style, dessinée avec l'arbre de la personne */
+  /* Le nombre de générations se choisit d'abord ; les styles suivent. Les dessins peints portent 5 générations au plus ;
+     Lignée, Médaillons, Éventail et Descendants vont plus loin (en grand format). */
+  function maxStyle(st) { return st === 'grand' || st === 'figuier' || st === 'dore' || lumiere(st) ? 5 : 99; }
+  function minStyle(st) { return st === 'grand' ? 4 : 2; }
+  function styleLarge() { return { ancetres: /medaillons$/.test(choix.style) ? 'medaillons' : 'lignee', descendants: 'descendants', famille: 'famille', lumiere: choix.style }[typeDe()]; }
+  function maxType() {
+    if (typeDe() === 'lumiere') return Math.min(5, (lignee(choix.depart, 5) || { nb: 0 }).nb);
+    var garde = Object.assign({}, choix), dGarde = donnees, cGarde = [CAP, capA4, capA3, dispo], m = 2;
+    try { choix.style = styleLarge(); choix.nbGen = 0; recalculer(); m = Math.min(dispo, capMax()); } catch (e) {}
+    choix = garde; donnees = dGarde; CAP = cGarde[0]; capA4 = cGarde[1]; capA3 = cGarde[2]; dispo = cGarde[3];
+    return Math.max(2, m);
+  }
   function majStyles() {
     var z = document.getElementById('fe-styles'); if (!z) return;
     var dG = (lignee(choix.depart, 5) || { nb: 0 }).nb;
     z.innerHTML = TYPES[typeDe()].map(function (x) {
-      var off = x[0] === 'grand' && dG < 4;
+      var off = (x[0] === 'grand' && dG < 4) || (choix.gensManuel && (choix.nbGen > maxStyle(x[0]) || choix.nbGen < minStyle(x[0])));
       return '<label class="fe-style-c' + (off ? ' fe-off' : '') + '"' + (off ? ' title="Le Grand arbre demande au moins 4 générations (jusqu’aux arrière-grands-parents)."' : '') + '><input type="radio" name="fe-style" value="' + x[0] + '"' + (x[0] === choix.style ? ' checked' : '') + (off ? ' disabled' : '') + '>' +
         '<span class="fe-vign" data-vign="' + x[0] + '"></span><b>' + esc(x[1]) + (x[0] === 'grand' ? ' <small class="fe-badge">Le plus complet</small>' : '') + '</b></label>';
     }).join('');
     var sa = document.getElementById('fe-style-aide'); if (sa) sa.textContent = DESCR[choix.style] || '';
+    var sg = document.getElementById('fe-styles-gens'), grises = TYPES[typeDe()].filter(function (x) { return choix.gensManuel && choix.nbGen > maxStyle(x[0]); });
+    if (sg) { sg.hidden = !grises.length; sg.textContent = grises.length ? 'Avec ' + choix.nbGen + ' générations : ' + grises.map(function (x) { return x[1]; }).join(', ') + (grises.length > 1 ? ' vont' : ' va') + ' jusqu’à 5 générations. Choisis-en moins pour ' + (grises.length > 1 ? 'ces styles' : 'ce style') + '.' : ''; }
+    z.querySelectorAll('label.fe-off input').forEach(function (r) { r.disabled = true; });
     var cache = vignettes.cache || {}; z.querySelectorAll('[data-vign]').forEach(function (v) { var k = vignettes.cle + '|' + v.getAttribute('data-vign'); if (cache[k]) v.innerHTML = cache[k]; });
   }
   /* les vignettes se dessinent une par une, après l'aperçu, pour ne pas ralentir la fenêtre */
@@ -728,12 +747,12 @@
   function majGens() {
     var sel = document.getElementById('fe-gens'); if (!sel || !donnees) return;
     var opts = [];
-    var maxN = Math.min(dispo, capMax());
+    var maxN = Math.max(Math.min(dispo, capMax()), maxType());   /* tout ce que l'arbre permet : le style s'adapte ensuite */
     var plus = desc() ? 0 : (donnees.couple ? -1 : 0) + (donnees.enfants && donnees.enfants.length ? 1 : 0);   /* comme le sous-titre : les rangées imprimées (enfants compris) */
     /* le Grand arbre n'existe qu'en 4 ou 5 générations ; il demande au moins les arrière-grands-parents */
     var gR = document.querySelector('input[name=fe-style][value=grand]'), dG = (lignee(choix.depart, 5) || { nb: 0 }).nb;
-    if (gR) { gR.disabled = dG < 4; gR.closest('label').title = dG < 4 ? 'Le Grand arbre demande au moins 4 générations (jusqu’à tes arrière-grands-parents).' : ''; }
-    for (var n = grand() ? 4 : 2; n <= maxN; n++) opts.push('<label class="fe-gen-c"><input type="radio" name="fe-gen" value="' + n + '"' + (n === donnees.nbGen ? ' checked' : '') + '><span><b>' + (n + plus) + '</b> génération' + (n + plus > 1 ? 's' : '') + '<small>' + (grand() ? 'en A3' : { a4: 'dès l’A4', a3: n > 5 || lig() ? 'dès l’A3' : 'en A3', g50: 'dès 50 × 70 cm', g70: 'en 70 × 100 cm' }[classeMin(n)]) + '</small></span></label>');
+    if (gR) { var gHors = choix.gensManuel && (choix.nbGen > 5 || choix.nbGen < 4); gR.disabled = dG < 4 || gHors; gR.closest('label').classList.toggle('fe-off', gR.disabled); gR.closest('label').title = dG < 4 ? 'Le Grand arbre demande au moins 4 générations (jusqu’à tes arrière-grands-parents).' : gHors ? 'Le Grand arbre porte 4 ou 5 générations.' : ''; }
+    for (var n = 2; n <= maxN; n++) opts.push('<label class="fe-gen-c"><input type="radio" name="fe-gen" value="' + n + '"' + (n === donnees.nbGen ? ' checked' : '') + '><span><b>' + (n + plus) + '</b> génération' + (n + plus > 1 ? 's' : '') + '<small>' + (grand() ? 'en A3' : (n > maxStyle(choix.style) ? 'en grand format' : { a4: 'dès l’A4', a3: n > 5 || lig() ? 'dès l’A3' : 'en A3', g50: 'dès 50 × 70 cm', g70: 'en 70 × 100 cm' }[classeMin(n)])) + '</small></span></label>');
     sel.innerHTML = opts.join('');
     var aide = document.getElementById('fe-gens-aide');
     var vides = grand() ? Math.pow(2, donnees.nbGen) - 1 - remplis(donnees.moi, 0, donnees.nbGen) : 0;   /* le dessin a exactement les rangées choisies */
