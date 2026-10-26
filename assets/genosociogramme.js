@@ -2997,7 +2997,9 @@
         var a = ids[r.from], b = ids[r.to];
         if (!a || !b || a === b) return;
         if (r.type === 'couple') { if (!relCouple(a, b)) S.rels.push({ from: a, to: b, type: 'couple', statut: r.statut || 'marie' }); return; }
-        if (!S.rels.some(function (x) { return x.type === r.type && x.from === a && x.to === b; })) S.rels.push({ from: a, to: b, type: r.type });
+        if (S.rels.some(function (x) { return x.type === r.type && x.from === a && x.to === b; })) return;
+        if (r.type === 'parent' && S.rels.filter(function (x) { return x.type === 'parent' && x.to === b; }).length >= 2) return;   // déjà ses deux parents dans l'arbre
+        S.rels.push({ from: a, to: b, type: r.type });
       });
       selId = null; repActive = null; vuDepuis = null;
       dessiner(); recentrer(); majBarreActions(); enregistrer();
