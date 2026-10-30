@@ -124,6 +124,10 @@
     /* Mugs : seulement ceux qui ont une belle photo (mise en scène), à la place de celle de Gelato */
     var MUGS = { '4f5360f2-ae10-4df0-958e-ad300231760b': 'assets/boutique/mug-ancetres.webp', '3ac4634b-f06d-4d42-9e11-0f0a88eba3f7': 'assets/boutique/mug-entiere.webp' };
     c.produits = (c.produits || []).filter(function (p) { if (p.type !== 'mug') return true; if (!MUGS[p.id]) return false; p.photos = [{ src: MUGS[p.id], option: '' }]; return true; });
+    /* Photos portées, placées en premier (les photos Gelato restent après) */
+    var PORTE = { '8a1094af-2e8a-4c41-85ee-976304488ff8': ['assets/boutique/tshirt-ancetres.webp', ''], '80c01b03-9cfd-4c05-90d7-1f3e9ff0027a': ['assets/boutique/tshirt-ancetres.webp', ''],
+      'd3224375-7071-40b0-a452-f8472195bc20': ['assets/boutique/capuche-entiere.webp', 'Blanc'], 'dd7d9872-7234-4db9-99a6-d2c6a607bb1c': ['assets/boutique/capuche-entiere.webp', ''] };
+    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (x) p.photos = [{ src: x[0], option: x[1] }].concat((p.photos || []).filter(function (f) { return !(x[1] && f.option === x[1]); })); });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
