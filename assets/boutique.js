@@ -145,6 +145,8 @@
   /* ───── Les clics ───── */
   document.addEventListener('click', function (e) {
     var c = e.target.closest('[data-p]'); if (c) { fiche(c.getAttribute('data-p')); return; }
+    var ia = e.target.closest('[data-aller-type]'); if (ia && CAT) { var pt = CAT.produits.filter(function (x) { return x.type === ia.getAttribute('data-aller-type'); })[0]; if (pt) fiche(pt.id); return; }
+    var fa = e.target.closest('[data-aller-famille]'); if (fa) { var bt = document.querySelector('[data-famille="' + fa.getAttribute('data-aller-famille') + '"]'); if (bt) bt.click(); document.getElementById('bq-barre').scrollIntoView({ behavior: 'smooth' }); return; }
     var f = e.target.closest('[data-famille]'); if (f) { filtre = f.getAttribute('data-famille'); document.querySelectorAll('[data-famille]').forEach(function (b) { b.setAttribute('aria-pressed', b === f); }); cartes(); return; }
     if (e.target.closest('#bq-panier-bt')) { panier(true); return; }
     var p = document.getElementById('bq-panier');
