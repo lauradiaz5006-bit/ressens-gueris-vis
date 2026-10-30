@@ -63,6 +63,8 @@
       l = m;
     }
     grille.innerHTML = l.length ? l.map(function (p) {
+      if (p.famille === 'livres') return '<a class="bq-carte" href="' + esc(p.lien) + '" target="_blank" rel="noopener"><span class="bq-img"><img src="' + esc(p.photos[0].src) + '" alt="" loading="lazy" decoding="async"></span>' +
+        '<span class="bq-type">Livre papier · Amazon</span><span class="bq-phrase">' + esc(p.phrase) + '</span><span class="bq-prix">' + (p.prixTexte ? esc(p.prixTexte) + ' · ' : '') + 'Acheter sur Amazon</span></a>';
       return '<button type="button" class="bq-carte" data-p="' + esc(p.id) + '"><span class="bq-img"><img src="' + esc(photo(p)) + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span></button>';
     }).join('') : '<p class="bq-vide">Rien ici pour l’instant.</p>';
@@ -70,7 +72,7 @@
   /* les autres motifs du même vêtement */
   function freres(p) { return CAT.produits.filter(function (x) { return x.type === p.type && x.famille === 'vetements'; }).sort(function (a, b) { return norm(a.phrase).localeCompare(norm(b.phrase)); }); }
   function filtres() {
-    var ph = []; CAT.produits.forEach(function (p) { var n = norm(p.phrase); if (!/^Calendrier/.test(n) && ph.indexOf(n) < 0) ph.push(n); }); ph.sort();
+    var ph = []; CAT.produits.forEach(function (p) { var n = norm(p.phrase); if (p.famille !== 'livres' && !/^Calendrier/.test(n) && ph.indexOf(n) < 0) ph.push(n); }); ph.sort();
     document.getElementById('bq-phrases').innerHTML = '<option value="">Toutes les phrases</option>' + ph.map(function (t) { return '<option value="' + esc(t) + '">' + esc(t) + '</option>'; }).join('');
   }
 
@@ -192,6 +194,9 @@
     /* Coques iPhone 16 : Gelato ne les livre pas encore en France, on ne les propose pas */
     c.produits.forEach(function (p) { if (p.type === 'coque') p.variantes = p.variantes.filter(function (v) { return !/iPhone 16/i.test(v.taille || ''); }); });
     c.produits = c.produits.filter(function (p) { return p.variantes.length; });
+    /* Les livres : un lien direct vers Amazon (pas dans le panier) */
+    var LV = window.GENESOLIA_LIVRES || {};
+    ['racines', 'enquete'].forEach(function (k) { var b = LV[k]; if (b && b.amazon) c.produits.push({ id: 'livre-' + k, type: 'livre', famille: 'livres', nomType: 'Livre', phrase: b.titre, titre: b.titre, lien: b.amazon, prixTexte: b.prix || '', photos: [{ src: b.image, option: '', cle: '' }], variantes: [], prixMin: 0 }); });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
