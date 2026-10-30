@@ -759,11 +759,11 @@
       Promise.all([window.GenesoliaAcces.pass(), window.GenesoliaAcces.membre()]).then(function (r) {
         if (!r[0] || r[1]) return;
         var abo = document.querySelector('[aria-labelledby="t-abo"]'), gestion = (window.GENESOLIA_STRIPE || {}).gestion;
-        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Pass <span>actif</span></p>' +
+        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Ma spirale <span>actif</span></p>' +
           '<p class="tb-aide">Ton enquête de lignée étape par étape, l’agenda de ta lignée, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>' +
           '<div class="tb-actions"><a class="btn btn-plein" href="pass.html">Ouvrir Ma spirale</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion + '">Gérer mon abonnement</a>' : '') + '</div>';
         var acc = $('acc-cercle');
-        if (acc) acc.innerHTML = '<p class="eb-etape">Le Pass</p><h2>Ta spirale t’attend</h2><p class="tb-aide">Ta prochaine étape, l’agenda de ta lignée et ton mois à toi.</p><div class="tb-actions"><a class="btn btn-plein" href="pass.html">Ma spirale</a><a class="btn btn-trait" href="pass.html#agenda">Mon agenda</a></div>';
+        if (acc) acc.innerHTML = '<p class="eb-etape">Ma spirale</p><h2>Ta spirale t’attend</h2><p class="tb-aide">Ta prochaine étape, l’agenda de ta lignée et ton mois à toi.</p><div class="tb-actions"><a class="btn btn-plein" href="pass.html">Ma spirale</a><a class="btn btn-trait" href="pass.html#agenda">Mon agenda</a></div>';
       }, function () {});
     }
     /* « Mes espaces » : chaque espace ouvert à la personne (Le Cercle, Le Pass, Genesolia Pro), pour passer de l'un à l'autre */

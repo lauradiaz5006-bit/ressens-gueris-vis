@@ -34,7 +34,7 @@
     var z = f.closest('[data-prevenir-zone]'), m = z.querySelector('.ms-prev-msg, .pa-prev-msg'), i = f.querySelector('input'), v = String(i.value || '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.textContent = 'Vérifie ton adresse e-mail.'; i.focus(); return; }
     var bt = f.querySelector('button'); bt.disabled = true;
-    var env = window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Ma spirale : prévenir à l’ouverture', { email: v, offre: 'Le Pass · Ma spirale' }) : Promise.reject();
+    var env = window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Ma spirale : prévenir à l’ouverture', { email: v, offre: 'Ma spirale' }) : Promise.reject();
     env.then(function () { f.hidden = true; m.textContent = 'C’est noté : tu seras prévenue à l’ouverture, le 1er novembre.'; }, function () { bt.disabled = false; m.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
   });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', etat); else etat();

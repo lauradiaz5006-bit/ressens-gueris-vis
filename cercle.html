@@ -259,7 +259,7 @@
       if (E.etape && E.etape.enCours >= 2) h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';   /* le point du jour arrive à partir de l'étape 2 */
       h += '<a class="ce-carte" href="question-du-mois.html"><p class="ce-etiq">Chaque mois</p><h3>Ta question du mois</h3><p>Pose ta question, et lis les réponses publiées pour toutes les membres, sans prénom.</p><span class="ce-plus">Ouvrir</span></a>';
       h += '<a class="ce-carte" href="#moi"><p class="ce-etiq">Mon compte</p><h3>Moi</h3><p>Tes infos, ton abonnement, tes rappels.</p><span class="ce-plus">Ouvrir</span></a>';
-      h += '<p class="ce-discret" style="text-align:center;margin-top:1rem">Ce que tu écris dans ton Cercle est chiffré dans ton espace : l’équipe Genesolia ne le lit pas.</p>';
+      h += '<p class="ce-discret" style="text-align:center;margin-top:1rem">Ce que tu écris dans ton Cercle est gardé dans ton espace privé.</p>';
       afficher(h);
       pointDuJour();
     }
@@ -455,8 +455,9 @@
       h += '<div data-phrase-jour></div>';
       h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
+        ligne('pass.html', 'Ma spirale', 'Incluse dans ton Cercle : tes ressentis, tes schémas, tes protocoles') +
         ligne('assets/cercle/le-cercle-mode-d-emploi.pdf', 'Le mode d’emploi du Cercle', 'PDF de 10 pages, chaque écran expliqué') +
-        ligne('confidentialite.html', 'Mes données', 'Tes écrits sont chiffrés, jamais lus par Genesolia') +
+        ligne('confidentialite.html', 'Mes données', 'Ce que tu écris, et où c’est gardé') +
         ligne('mentions-legales.html', 'Mentions légales', '') + '</div>' +
         '<p style="text-align:center;margin:1.4rem 0 0"><button type="button" class="ce-bt clair" data-deconnexion>Me déconnecter</button></p>';
       afficher(h);

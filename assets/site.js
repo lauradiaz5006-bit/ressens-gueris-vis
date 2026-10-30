@@ -215,8 +215,8 @@ window.GENESOLIA_STRIPE = {
   cercleFondatrice: 'https://buy.stripe.com/14AdR25ff6095U90U743S0l', /* Le Cercle, prix fondatrice 24,90 €/mois (100 premières après le mois offert) */
   cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
   cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
-  passMois: '',       /* Le Pass 10 €/mois : fermé, bientôt disponible (lien Stripe : https://buy.stripe.com/14A00cbDD88h3M18mz43S0j) */
-  pass3Mois: '',      /* Le Pass 27 € les 3 mois : fermé, bientôt disponible (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
+  passMois: 'https://buy.stripe.com/14A00cbDD88h3M18mz43S0j',   /* Ma spirale 10 €/mois */
+  pass3Mois: 'https://buy.stripe.com/14AdR28rragp1DT8mz43S0k',  /* Ma spirale 27 € les 3 mois */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
   praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (espaces ouverts jusqu'au 31 mars 2027) */
   praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, tarif fondateur 190 € l'année */
@@ -621,7 +621,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
-            '<li><a href="ma-spirale.html">Ma spirale · l\'appli du Pass</a></li>' +
+            '<li><a href="ma-spirale.html">Ma spirale</a></li>' +
             '<li><a href="tarifs.html">Tarifs</a></li>' +
             '<li><a href="la-demarche.html">La démarche</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +

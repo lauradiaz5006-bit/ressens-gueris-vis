@@ -62,11 +62,11 @@
     marque('Enregistrement…');
     minuteur = setTimeout(function () {
       if (!(sb && D.user && D.accord)) { marque(texteSauve()); return; }
-      window.GenesoliaCoffre.ecrire(sb, D.user, 'enquete', D.etat).then(function (r) { marque(r && r.error ? 'Pas encore enregistré dans ton espace : réessaie dans un instant.' : 'Gardé dans ton espace, chiffré.'); }, function () { marque('Pas encore enregistré dans ton espace : réessaie dans un instant.'); });
+      window.GenesoliaCoffre.ecrire(sb, D.user, 'enquete', D.etat).then(function (r) { marque(r && r.error ? 'Pas encore enregistré dans ton espace : réessaie dans un instant.' : 'Gardé dans ton espace privé.'); }, function () { marque('Pas encore enregistré dans ton espace : réessaie dans un instant.'); });
     }, 700);
   }
   /* Où est gardée l'enquête : dans l'espace, chiffrée (avec l'accord), jamais seulement dans le navigateur pour une cliente connectée */
-  function texteSauve() { return EXEMPLE ? 'Exemple : rien n’est enregistré.' : D.accord ? 'Gardé dans ton espace, chiffré. Genesolia ne le lit pas.' : 'Pas encore gardé dans ton espace : donne ton accord en haut de la page.'; }
+  function texteSauve() { return EXEMPLE ? 'Exemple : rien n’est enregistré.' : D.accord ? 'Gardé dans ton espace privé.' : 'Pas encore gardé dans ton espace : donne ton accord en haut de la page.'; }
   function flush() { if (minuteur && sb && D.user && D.accord && !EXEMPLE) { clearTimeout(minuteur); minuteur = null; window.GenesoliaCoffre.ecrire(sb, D.user, 'enquete', D.etat); } }
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') flush(); });
   window.addEventListener('pagehide', flush);
@@ -350,7 +350,7 @@
   /* Cliente connectée sans accord : un seul bandeau, en haut de chaque écran, pour garder l'enquête dans son espace */
   function bandeauAccord() {
     if (EXEMPLE || !D.user || D.accord) return '';
-    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ce que tu écris, gardé dans ton espace</p><p>Pour le retrouver sur tous tes appareils, ce que tu écris dans Ma spirale est gardé dans ton espace Genesolia, <b>chiffré</b> : l’équipe Genesolia ne le lit pas. Il nous faut ton accord une fois, c’est la loi pour des données aussi personnelles.</p><button type="button" class="pa-bt or" data-accord>J’accepte, garder mes notes</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
+    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ce que tu écris, gardé dans ton espace</p><p>Pour le retrouver sur tous tes appareils, ce que tu écris dans Ma spirale est gardé dans ton espace Genesolia, privé. Il nous faut ton accord une fois, c’est la loi pour des données aussi personnelles.</p><button type="button" class="pa-bt or" data-accord>J’accepte, garder mes notes</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
   }
   /* chaque frise s'ouvre cadrée sur ses points (de la première fois à aujourd'hui) ; si tout ne tient pas, elle part de la première fois */
   function centrerFrises(z) { (z || document).querySelectorAll('.pa-fr-defil[data-ici]').forEach(function (el) { var a = +el.getAttribute('data-min'), b = +el.getAttribute('data-max'), w = el.clientWidth; if (!w) return; el.scrollLeft = isNaN(a) ? Math.max(0, +el.getAttribute('data-ici') - w / 2) : b - a + 40 <= w ? Math.max(0, (a + b) / 2 - w / 2) : Math.max(0, a - 50); }); }
@@ -415,8 +415,8 @@
     afficher('<section class="pa-carte pa-porte"><img src="assets/icones/pass-192.png" alt="" width="84" height="84" style="border-radius:22px;box-shadow:0 10px 26px rgba(31,11,42,.25)">' +
       '<h1 class="pa-h1">Ma spirale</h1><p>L’espace pour regarder ce qui se répète dans ta vie, comprendre d’où ça vient, le libérer et avancer : de la boucle à la spirale.</p>' +
       '<ul><li>Moi : déposer un ressenti ou un rêve, ta note du jour, tes schémas en cours</li><li>Mon fil d’or : ta frise de vie et celle de ta lignée</li><li>Mon agenda : les dates de ta lignée, les lunes, tes libérations et tes gestes</li><li>Mon bilan : ta lignée en sphères de lumière, et tes schémas devenus spirale</li><li>Mes actions : tous les protocoles, prêts à suivre</li></ul>' +
-      '<p><b>Le Pass</b> · 10 € par mois, sans engagement, ou 27 € les 3 mois.</p>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '' : '<a class="pa-bt" href="login.html?retour=pass.html">' + (LIEN_TEST ? 'Me connecter pour tester Ma spirale' : 'Me connecter') + '</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
+      '<p><b>Ma spirale</b> · 10 € par mois, sans engagement, ou 27 € les 3 mois.</p>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#offre" data-payer="passMois">S’abonner</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">' + (LIEN_TEST ? 'Me connecter pour tester Ma spirale' : 'Me connecter') + '</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
       '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div>' +
       (u ? '<form class="pa-code" id="pa-code" novalidate><label for="pa-code-t">Tu as un code test ?</label><div><input id="pa-code-t" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ton code"><button type="submit" class="pa-bt">Ouvrir</button></div><p class="pa-erreur" role="alert"></p></form>' : '') + '</section>');
     var fc = document.getElementById('pa-code');
@@ -431,7 +431,7 @@
   function vueMoi() {
     var dt = new Date(), jp = jourPerso(dt), mp = moisPerso(dt), b = naissance(), ap = b && N ? N.anneePerso(b.j, b.m, dt.getFullYear()) : null, ch = chemin(), so = soleil();
     var SC = (D.etat.schemas || []).map(completerSchema), enCours = SC.filter(function (x) { return !x.classe; }), classes = SC.filter(function (x) { return x.classe; });
-    var h = '<h1 class="pa-h1">' + (D.prenom ? 'Bonjour ' + esc(D.prenom) : 'Bonjour') + '</h1><p class="pa-sous">' + cap(dt.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) + ' · ' + esc(phaseDuJour(dt)) + ' <span class="pa-offre">Ton offre : ' + (D.cercle ? 'Le Cercle' : 'Le Pass') + '</span></p><div class="pa-2col"><div>';
+    var h = '<h1 class="pa-h1">' + (D.prenom ? 'Bonjour ' + esc(D.prenom) : 'Bonjour') + '</h1><p class="pa-sous">' + cap(dt.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) + ' · ' + esc(phaseDuJour(dt)) + ' <span class="pa-offre">Ton offre : ' + (D.cercle ? 'Le Cercle' : 'Ma spirale') + '</span></p><div class="pa-2col"><div>';
     h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Quand quelque chose remonte</p><h2>Qu’est-ce que tu ressens ?</h2><p>Une émotion, une situation qui se répète : dépose-la ici. Elle rejoint un schéma, et on avance pas à pas : ta frise, la libération, ton intention, ton suivi.</p><div class="pa-outils"><button type="button" class="pa-bt or" data-aller-note>Je dépose un ressenti</button><button type="button" class="pa-bt clair" data-reve="new">Je note un rêve</button></div></section>';
     if (enCours.length) h += '<p class="pa-titre-s">Mes schémas en cours</p><p class="pa-def">Un schéma, c’est ce qui se répète. Chacun avance dans les 9 étapes du cycle, jusqu’à devenir spirale.</p>' + enCours.map(carteSchema).join('');
     var sv3 = enCours.filter(function (x) { return x.attenteSouvenir && !premiereDe(x) && joursDepuis(x.attenteSouvenir) >= 3; });
@@ -2280,8 +2280,8 @@
 
   if (EXEMPLE) {
     var cadre = document.getElementById('pass'), lien = 'login.html?inscription&retour=' + encodeURIComponent('pass.html');
-    var bandeau = function (bas) { var d = document.createElement('div'); d.className = 'pa-exemple-b' + (bas ? ' bas' : ''); d.innerHTML = '<p><b>Exemple</b> · Léa est fictive : rien de ce que tu touches ici n’est enregistré. Ma spirale ouvre le 1<sup>er</sup> novembre.</p><div class="pa-aime" data-aime-zone><button type="button" class="pa-bt clair" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="pa-bt clair" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="pa-aime-msg" data-aime-msg aria-live="polite"></p></div>' +
-      '<div class="pa-prevenir" data-prevenir-zone><button type="button" class="pa-bt or" data-prevenir-spirale>Être prévenue à l’ouverture</button><form hidden novalidate><input type="email" autocomplete="email" required placeholder="Ton e-mail" aria-label="Ton e-mail, pour être prévenue de l’ouverture"><button type="submit" class="pa-bt or">Me prévenir</button></form><p class="pa-prev-msg" aria-live="polite"></p></div>'; return d; };
+    var bandeau = function (bas) { var d = document.createElement('div'); d.className = 'pa-exemple-b' + (bas ? ' bas' : ''); d.innerHTML = '<p><b>Exemple</b> · Léa est fictive : rien de ce que tu touches ici n’est enregistré. Ma spirale · 10 € par mois, sans engagement.</p><div class="pa-aime" data-aime-zone><button type="button" class="pa-bt clair" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="pa-bt clair" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="pa-aime-msg" data-aime-msg aria-live="polite"></p></div>' +
+      '<p><a class="pa-bt or" href="ma-spirale.html#offre" data-payer="passMois">S’abonner</a></p>'; return d; };
     cadre.insertBefore(bandeau(false), vue); cadre.appendChild(bandeau(true));
   }
   (function () { var dl = document.getElementById('pa-persos'); if (dl) dl.innerHTML = ((PF.SCHEMA || {}).personnages || []).map(function (x) { return '<option value="' + esc(x) + '">'; }).join(''); })();
