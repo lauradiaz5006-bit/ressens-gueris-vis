@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://genesolia.fr/pass.html">
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    /* L'appli « Le Pass · Ma spirale » : Moi (#), Mon fil d'or (#fil), Mon agenda (#agenda), Mon bilan (#bilan).
+    /* L'appli « Ma spirale » : Moi (#), Mon fil d'or (#fil), Mon agenda (#agenda), Mon bilan (#bilan).
        Téléphone : la barre en bas. Ordinateur (1000 px et plus) : un espace avec la barre à gauche et deux colonnes. */
     body.pa-app{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
     #pass{--encre:#3B1747;--doux:#7E5C77;--ligne:#EFDCE3;--or:#B98A55;max-width:46rem;margin:0 auto;padding:.4rem 1rem 2rem;color:var(--encre);min-width:0}
@@ -513,11 +513,11 @@
       .pa-nuit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
     @media (prefers-reduced-motion:reduce){.pa-feuille,.pa-voile{transition:none}}
-  .pa-ciel summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}.pa-ciel summary::-webkit-details-marker{display:none}.pa-ciel summary .pa-etiq{margin:0}.pa-ciel summary small{opacity:.8}.pa-ciel[open] summary{margin-bottom:.8rem}
-    .pa-faire{display:block;margin:.5rem 0 .2rem;font-size:.9rem;line-height:1.45;opacity:.9}.pa-faire b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
-    .pa-monte-fixe{position:fixed;right:14px;bottom:86px;z-index:60;border:0;border-radius:99px;padding:.6rem 1rem;background:#1F0B2A;color:#FFE6B8;font:inherit;font-weight:700;font-size:.9rem;box-shadow:0 6px 18px rgba(31,11,42,.3);cursor:pointer}
-    @media (min-width:900px){.pa-monte-fixe{bottom:22px}}
-  </style>
+  .pa-sos[hidden]{display:none}.pa-ici{display:block;margin-top:.4em}
+.pa-sos{position:fixed;right:16px;bottom:calc(var(--pa-nav,72px) + 14px);z-index:60;background:#7A2E55;color:#fff;border:0;border-radius:999px;padding:.7em 1.1em;font:inherit;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer}
+.pa-barre9{display:flex;gap:4px;margin:.6em 0}.pa-barre9 i{flex:1;height:8px;border-radius:4px;background:#E8DCE2}.pa-barre9 i.fait{background:#C9A15A}.pa-barre9 i.ici{background:#B0507A}
+.pa-ciel-pli summary{cursor:pointer;list-style:revert}.pa-danger{margin-top:.8em}
+</style>
   <script>window.GENESOLIA_APPLI = { nom: 'Ma spirale', icone: '/assets/icones/pass-apple-180.png' };</script>
 </head>
 <body class="nouveau pa-app">
@@ -543,7 +543,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=29"></script>
+  <script src="assets/pass.js?v=30"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
