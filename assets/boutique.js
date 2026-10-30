@@ -15,7 +15,11 @@
   function nomType(p) { return /brillant/i.test(p.titre) ? 'Poster encadré brillant' : p.nomType; }
   function libOption(p) { return p.type === 'encadre' ? 'Cadre' : p.type === 'baguettes' ? 'Baguettes' : p.famille === 'vetements' ? 'Couleur' : 'Option'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
-  function photo(p, opt) { var l = p.photos || []; var x = opt ? l.filter(function (f) { return f.option === opt; })[0] : null; return url((x || l[0] || {}).src); }
+  /* la photo de la variante choisie : même taille et même couleur, sinon même taille, sinon même couleur, sinon la première */
+  function photo(p, opt, cle) { var l = p.photos || [], x = null;
+    if (cle) x = l.filter(function (f) { return f.cle === cle && (f.option || '') === (opt || ''); })[0] || l.filter(function (f) { return f.cle === cle; })[0];
+    if (!x && opt) x = l.filter(function (f) { return f.option === opt; })[0];
+    return url((x || l[0] || {}).src); }
   function url(s) { return /^assets\//.test(s || '') ? s : PUB + s; }
   /* la description, sans la fiche technique en anglais ajoutée par Gelato */
   /* Matières, d'après les modèles choisis sur Gelato */
@@ -63,7 +67,7 @@
     function dispo(t, o) { return p.variantes.some(function (v) { return (v.taille || '') === t && (v.option || '') === o; }); }
     function rendre() {
       if (!variante()) { var v0 = p.variantes.filter(function (v) { return (v.taille || '') === choix.t; })[0] || p.variantes[0]; choix.t = v0.taille || ''; choix.o = v0.option || ''; }
-      var v = variante(), ph = p.photos || [], princ = photo(p, choix.o);
+      var v = variante(), princ = photo(p, choix.o, v && v.cle), ph = (p.photos || []).filter(function (f) { return !f.cle || !v || f.cle === v.cle; });
       d.querySelector('.bq-f-corps').innerHTML =
         '<div class="bq-f-photos"><img class="bq-f-grande" src="' + esc(princ) + '" alt="' + esc(nomType(p) + ' « ' + norm(p.phrase) + ' »') + '">' +
         (ph.length > 1 ? '<div class="bq-f-mini">' + ph.map(function (f) { return '<button type="button" data-ph="' + esc(url(f.src)) + '"><img src="' + esc(url(f.src)) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') + '</div>' +
