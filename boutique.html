@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La boutique Genesolia : posters, vêtements et mugs « Je suis celle qui ose »</title>
+  <meta name="description" content="La collection « Je suis celle qui ose » : posters, posters encadrés, t-shirts, sweats, mugs et coques avec des phrases sur la lignée et la liberté de choisir sa vie. Imprimé à la demande, livraison offerte en France métropolitaine.">
+  <link rel="canonical" href="https://genesolia.fr/boutique.html">
+  <meta property="og:title" content="La boutique Genesolia · Je suis celle qui ose">
+  <meta property="og:description" content="Des phrases à garder sous les yeux : posters, vêtements et mugs. Imprimé à la demande, livraison offerte.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/arbre-de-vie-800.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .bq-tete{text-align:center;padding:2.8rem 0 1.2rem}
+    .bq-sur{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9A6E38;margin:0 0 .6rem}
+    .bq-tete h1{font-size:clamp(2.1rem,5vw,3.1rem);margin:0 0 .7rem}
+    .bq-tete p{color:var(--prune-doux);max-width:40rem;margin:0 auto;font-size:1.05rem}
+    .bq-atouts{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.4rem;margin:1.2rem 0 0;padding:0;list-style:none;font-size:.9rem;color:var(--prune)}
+    .bq-atouts li::before{content:"✦";color:var(--champagne);margin-right:.4rem}
+    .bq-merci{max-width:44rem;margin:0 auto 1.4rem;padding:1.2rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;text-align:center}
+    .bq-merci h2{margin:0 0 .4rem}.bq-merci p{margin:0;color:var(--prune-doux)}
+    .bq-barre{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;margin:0 0 1.2rem}
+    .bq-onglets{display:flex;flex-wrap:wrap;gap:.4rem}
+    .bq-onglets button{border:1px solid var(--rose);background:var(--blanc);color:var(--prune);border-radius:999px;padding:.5rem 1rem;font:inherit;font-size:.92rem;cursor:pointer}
+    .bq-onglets button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .bq-barre select{border:1px solid var(--rose);border-radius:999px;padding:.5rem .9rem;font:inherit;font-size:.9rem;color:var(--prune);background:var(--blanc);max-width:100%}
+    .bq-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
+    .bq-carte{display:flex;flex-direction:column;gap:.35rem;text-align:left;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:.6rem .6rem .9rem;cursor:pointer;font:inherit;color:inherit;transition:transform .2s,box-shadow .2s}
+    .bq-carte:hover,.bq-carte:focus-visible{transform:translateY(-3px);box-shadow:0 14px 30px rgba(107,47,91,.12)}
+    .bq-img{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#F7F1EC}
+    .bq-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .bq-type{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9A6E38;padding:0 .2rem}
+    .bq-phrase{font-family:var(--display,Georgia,serif);font-size:1.02rem;line-height:1.3;color:var(--prune);padding:0 .2rem}
+    .bq-prix{font-weight:600;color:var(--prune);padding:0 .2rem;margin-top:auto}
+    .bq-vide{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:2rem 0}
+    .bq-chargement{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:3rem 0}
+    #bq-panier-bt{position:fixed;right:1rem;bottom:1rem;z-index:40;display:flex;align-items:center;gap:.5rem;background:var(--prune);color:#fff;border:0;border-radius:999px;padding:.8rem 1.2rem;font:inherit;font-weight:600;box-shadow:0 12px 30px rgba(59,23,71,.3);cursor:pointer}
+    #bq-panier-bt b{background:#fff;color:var(--prune);border-radius:999px;min-width:1.5rem;padding:0 .35rem;text-align:center}
+    #bq-panier-bt[hidden]{display:none}
+    dialog.bq-fiche{width:min(980px,calc(100vw - 2rem));max-height:calc(100vh - 2rem);border:0;border-radius:22px;padding:0;box-shadow:0 30px 80px rgba(46,19,56,.35);color:var(--encre,#3B1747)}
+    dialog.bq-fiche::backdrop{background:rgba(46,19,56,.45)}
+    .bq-f-tete{position:sticky;top:0;display:flex;justify-content:flex-end;padding:.6rem .6rem 0;background:#fff;z-index:2}
+    .bq-f-tete button{border:0;background:#F5EAEF;color:var(--prune);width:2.4rem;height:2.4rem;border-radius:50%;font-size:1.4rem;cursor:pointer}
+    .bq-f-corps{display:grid;grid-template-columns:1.1fr 1fr;gap:1.6rem;padding:0 1.6rem 1.6rem}
+    .bq-f-grande{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;background:#F7F1EC;display:block}
+    .bq-f-mini{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
+    .bq-f-mini button{border:1px solid var(--rose);padding:0;border-radius:10px;overflow:hidden;width:64px;height:64px;background:#fff;cursor:pointer}
+    .bq-f-mini img{width:100%;height:100%;object-fit:cover;display:block}
+    .bq-f-info h2{font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.25;margin:.3rem 0 .6rem}
+    .bq-f-prix{font-size:1.5rem;font-weight:600;color:var(--prune);margin:0 0 .8rem}.bq-f-prix small{font-size:.85rem;font-weight:400;color:var(--prune-doux)}
+    .bq-lab{font-weight:600;margin:.8rem 0 .4rem;font-size:.92rem}
+    .bq-choix{display:flex;flex-wrap:wrap;gap:.4rem}
+    .bq-choix button{border:1.5px solid var(--rose);background:#fff;color:var(--prune);border-radius:12px;padding:.5rem .8rem;font:inherit;font-size:.9rem;cursor:pointer}
+    .bq-choix button[aria-pressed="true"]{border-color:var(--prune);background:#F8EEF3;font-weight:600}
+    .bq-choix button.bq-ind{opacity:.45}
+    .bq-f-achat{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1.2rem 0 .4rem}
+    .bq-qte{display:flex;align-items:center;gap:.4rem;font-size:.92rem}.bq-qte select{border:1px solid var(--rose);border-radius:10px;padding:.45rem .5rem;font:inherit}
+    .bq-ok{min-height:1.2em;margin:.3rem 0;color:#7A4A2E;font-size:.92rem}
+    .bq-lien{border:0;background:none;color:var(--prune);text-decoration:underline;font:inherit;cursor:pointer;padding:0}
+    .bq-f-plus{list-style:none;padding:0;margin:.8rem 0;display:grid;gap:.3rem;font-size:.9rem;color:var(--prune-doux)}.bq-f-plus li::before{content:"✦";color:var(--champagne);margin-right:.45rem}
+    .bq-desc summary{cursor:pointer;font-weight:600}.bq-desc p{font-size:.9rem;color:var(--prune-doux)}
+    .bq-panier{position:fixed;inset:0;z-index:60;background:rgba(46,19,56,0);transition:background .25s}
+    .bq-panier.ouvert{background:rgba(46,19,56,.45)}
+    .bq-p-boite{position:absolute;top:0;right:0;bottom:0;width:min(440px,100vw);background:#FFFBF8;box-shadow:-20px 0 60px rgba(46,19,56,.25);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
+    .bq-panier.ouvert .bq-p-boite{transform:none}
+    .bq-p-tete{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid var(--rose)}
+    .bq-p-tete h2{margin:0;font-size:1.4rem}
+    .bq-p-tete button{border:0;background:#F5EAEF;color:var(--prune);width:2.3rem;height:2.3rem;border-radius:50%;font-size:1.3rem;cursor:pointer}
+    .bq-p-corps{padding:1rem 1.2rem 2rem;overflow:auto;flex:1}
+    .bq-lignes{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.9rem}
+    .bq-lignes li{display:grid;grid-template-columns:64px 1fr auto;gap:.7rem;align-items:start}
+    .bq-lignes img{width:64px;height:64px;object-fit:cover;border-radius:10px;background:#F7F1EC}
+    .bq-lignes b{display:block;font-size:.88rem}.bq-lignes span{display:block;font-size:.88rem;color:var(--prune)}.bq-lignes small{display:block;color:var(--prune-doux);font-size:.8rem}
+    .bq-l-q{display:flex;align-items:center;gap:.4rem;margin-top:.35rem}
+    .bq-l-q button:not(.bq-lien){width:1.8rem;height:1.8rem;border:1px solid var(--rose);background:#fff;border-radius:50%;cursor:pointer;color:var(--prune)}
+    .bq-l-prix{margin:0;font-weight:600}
+    .bq-total{display:flex;justify-content:space-between;font-size:1.15rem;border-top:1px solid var(--rose);padding-top:.8rem;margin:0 0 .5rem}
+    .bq-livr{font-size:.85rem;color:var(--prune-doux);margin:0 0 1rem}
+    .bq-payer{width:100%}
+    .bq-err{color:#9B2C2C;font-size:.9rem;min-height:1em}.bq-cgv{font-size:.8rem;color:var(--prune-doux);text-align:center;margin:.3rem 0 0}
+    body.bq-fige{overflow:hidden}
+    @media (max-width:1000px){.bq-grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:760px){.bq-grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.bq-f-corps{grid-template-columns:1fr;padding:0 1rem 1.2rem}.bq-phrase{font-size:.95rem}.bq-barre{flex-direction:column;align-items:stretch}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="bq">
+    <section class="bq-tete"><div class="conteneur">
+      <p class="bq-sur">La boutique Genesolia</p>
+      <h1>Je suis celle qui ose</h1>
+      <p>Des phrases à garder sous les yeux, pour soi ou pour offrir : sur ce qu’on reçoit de sa lignée, et sur ce qu’on choisit d’en faire.</p>
+      <ul class="bq-atouts"><li>Imprimé à la demande</li><li>Livraison offerte en France métropolitaine</li><li>Paiement sécurisé</li></ul>
+    </div></section>
+
+    <section class="bloc" style="padding-top:1rem"><div class="conteneur">
+      <div class="bq-merci" id="bq-merci" hidden><h2>Merci pour ta commande</h2><p>Ton paiement est bien reçu. Tu vas recevoir un e-mail de confirmation, puis un autre avec le suivi dès que ton colis part.</p></div>
+      <div class="bq-barre">
+        <div class="bq-onglets" role="group" aria-label="Filtrer la boutique">
+          <button type="button" data-famille="tout" aria-pressed="true">Tout</button>
+          <button type="button" data-famille="posters" aria-pressed="false">Posters</button>
+          <button type="button" data-famille="vetements" aria-pressed="false">Vêtements</button>
+          <button type="button" data-famille="maison" aria-pressed="false">Mugs, coques et calendrier</button>
+        </div>
+        <select id="bq-phrases" aria-label="Choisir une phrase"><option value="">Toutes les phrases</option></select>
+      </div>
+      <div class="bq-grille" id="bq-grille"><p class="bq-chargement">La boutique se prépare…</p></div>
+    </div></section>
+  </main>
+
+  <button type="button" id="bq-panier-bt" hidden>Mon panier <b>0</b></button>
+  <dialog class="bq-fiche" id="bq-fiche" aria-labelledby="bq-f-titre"><div class="bq-f-tete"><button type="button" data-f-fermer aria-label="Fermer">×</button></div><div class="bq-f-corps"></div></dialog>
+  <div class="bq-panier" id="bq-panier" hidden><div class="bq-p-boite" role="dialog" aria-modal="true" aria-label="Mon panier"><div class="bq-p-tete"><h2>Mon panier</h2><button type="button" data-p-fermer aria-label="Fermer">×</button></div><div class="bq-p-corps"></div></div></div>
+
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/boutique.js?v=1"></script>
+</body>
+</html>

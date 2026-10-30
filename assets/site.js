@@ -320,6 +320,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     ['offert.html', 'Outils gratuits'],
     ['ma-spirale.html', 'Ma spirale'],
     ['offrir.html', 'Idées cadeaux'],
+    ['boutique.html', 'Boutique'],
     ['blog.html', 'Blog'],
     ['login.html', 'Mon espace']
   ];
