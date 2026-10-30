@@ -28,6 +28,9 @@
     capuche: 'Sweat à capuche Gildan Heavy Blend 18500, 50 % coton, 50 % polyester, intérieur molletonné, poche kangourou.' + LAV,
     hoodie: 'Hoodie premium Lane Seven LS13001, 80 % coton, 20 % polyester, molleton épais et très doux, poche kangourou.' + LAV,
     mug: 'Mug en céramique, 325 ml, intérieur rose. Va au lave-vaisselle et au micro-ondes.',
+    poster: 'Papier mat 200 g/m² (0,26 mm), surface lisse, sans reflet, certifié FSC. Livré sans cadre.',
+    encadre: 'Papier semi-brillant 170 g/m² (0,19 mm). Cadre en pin massif avec plexiglas, prêt à accrocher (attache fournie). Cadre de 20 à 25 mm d’épaisseur et de 10 à 14 mm de large. Couleurs : bois naturel, bois foncé, noir ou blanc.',
+    baguettes: 'Papier mat 200 g/m² (0,22 mm). Baguettes de suspension en pin massif, en haut et en bas. Couleurs : bois naturel, bois foncé, noir ou blanc.',
     calendrier: 'Calendrier mural 2027, format 14,8 × 40 cm, 13 pages (une couverture et un mois par page), papier couché satiné 250 g, reliure spirale avec crochet, prêt à accrocher.',
     coque: 'Coque souple et transparente sur les côtés, finition satinée, impression résistante aux rayures. Accès à tous les boutons et à la recharge.'
   };
