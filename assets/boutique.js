@@ -120,6 +120,8 @@
   if (merci) { try { localStorage.removeItem(CLE); } catch (e) {} var m = document.getElementById('bq-merci'); if (m) m.hidden = false; }
   majCompteur();
   fetch(PUB + 'catalogue.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (c) {
+    /* Les mugs sont retirés en attendant de belles photos : remettre en enlevant ce filtre */
+    c.produits = (c.produits || []).filter(function (p) { return p.type !== 'mug'; });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
