@@ -184,7 +184,8 @@
       'bc031ac8-1c75-4368-9e4a-1d658debb3ac': [['baguettes-racines-50x70', 'Baguettes en bois naturel', '50x70']], // Poster avec baguettes · racines, 50 × 70 bois naturel
       'ace53bb4-8152-4725-b1e7-f6fccddf2307': [['tfemme-entiere', '']],                  // T-shirt femme · entière
       '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']],
-      'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']]                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir
+      'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']],
+      'f8d4cb8a-310d-49a8-97f9-ed8904ba5b18': [['capuche-celles', 'Blanc'], ['capuche-celles-2', ''], ['capuche-celles-3', '']] // Sweat à capuche blanc · ce qui s'arrête                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir
     };
     c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
       p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });
