@@ -28,6 +28,7 @@
     capuche: 'Sweat à capuche Gildan Heavy Blend 18500, 50 % coton, 50 % polyester, intérieur molletonné, poche kangourou.' + LAV,
     hoodie: 'Hoodie premium Lane Seven LS13001, 80 % coton, 20 % polyester, molleton épais et très doux, poche kangourou.' + LAV,
     mug: 'Mug en céramique, 325 ml, intérieur rose. Va au lave-vaisselle et au micro-ondes.',
+    calendrier: 'Calendrier mural 2027, format 14,8 × 40 cm, 13 pages (une couverture et un mois par page), papier couché satiné 250 g, reliure spirale avec crochet, prêt à accrocher.',
     coque: 'Coque souple et transparente sur les côtés, finition satinée, impression résistante aux rayures. Accès à tous les boutons et à la recharge.'
   };
   function descr(p) { return String(p.description || '').split(/\s(?:Paper Finishing|Ready-to-hang|Paper Weight|Frame Material|Sustainable Paper|Available Sizes|Product features|Size guide)\s?:/i)[0].replace(/\s*Genesolia\s*[–-]\s*genesolia\.fr\s*$/i, '').trim(); }
@@ -52,7 +53,8 @@
   function fiche(id) {
     var p = CAT.produits.filter(function (x) { return x.id === id; })[0]; if (!p) return;
     var tailles = [], options = []; p.variantes.forEach(function (v) { if (v.taille && tailles.indexOf(v.taille) < 0) tailles.push(v.taille); if (v.option && options.indexOf(v.option) < 0) options.push(v.option); });
-    var choix = { t: tailles[0] || '', o: options[0] || '', q: 1 };
+    var o0 = ((p.photos || [])[0] || {}).option; /* la couleur de la première photo est choisie d'abord */
+    var choix = { t: tailles[0] || '', o: (o0 && options.indexOf(o0) >= 0 ? o0 : options[0]) || '', q: 1 };
     var d = document.getElementById('bq-fiche');
     function variante() { return p.variantes.filter(function (v) { return (v.taille || '') === choix.t && (v.option || '') === choix.o; })[0] || null; }
     function dispo(t, o) { return p.variantes.some(function (v) { return (v.taille || '') === t && (v.option || '') === o; }); }
@@ -138,9 +140,22 @@
     var MUGS = { '4f5360f2-ae10-4df0-958e-ad300231760b': 'assets/boutique/mug-ancetres.webp', '3ac4634b-f06d-4d42-9e11-0f0a88eba3f7': 'assets/boutique/mug-entiere.webp' };
     c.produits = (c.produits || []).filter(function (p) { if (p.type !== 'mug') return true; if (!MUGS[p.id]) return false; p.photos = [{ src: MUGS[p.id], option: '' }]; return true; });
     /* Photos portées, placées en premier (les photos Gelato restent après) */
-    var PORTE = { '80c01b03-9cfd-4c05-90d7-1f3e9ff0027a': ['assets/boutique/tshirt-ancetres.webp', ''],
-      'd3224375-7071-40b0-a452-f8472195bc20': ['assets/boutique/capuche-entiere.webp', 'Blanc'], '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': ['assets/boutique/coque-celles.webp', ''] };
-    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (x) p.photos = [{ src: x[0], option: x[1] }].concat((p.photos || []).filter(function (f) { return !(x[1] && f.option === x[1]); })); });
+    /* Photos de Laura, placées en premier (les photos Gelato restent après). [fichier, couleur] : la couleur remplace la photo Gelato de cette couleur */
+    var PORTE = {
+      '80c01b03-9cfd-4c05-90d7-1f3e9ff0027a': [['tshirt-ancetres', '']],                 // T-shirt classique · ancêtres
+      'd3224375-7071-40b0-a452-f8472195bc20': [['capuche-entiere', 'Blanc']],            // Sweat à capuche blanc · entière
+      '8133217c-9628-48e4-a328-dff2e58789a7': [['tshirt-entiere', '']],                  // T-shirt classique · entière
+      'b3fc1393-8799-4211-a316-4bb11a3b2db2': [['court-entiere', '']],                   // T-shirt court femme · entière
+      'afa57379-cd46-4269-bc1b-aa19fbac1a54': [['capuche-excuse-rose', 'Rose clair']],   // Sweat à capuche rose clair · m'excuse
+      '7b51a4ee-c89f-4fb7-84e9-ce07c12b0e47': [['sweat-excuse-rose', 'Rose clair']],     // Sweat col rond rose clair · m'excuse
+      '29b62026-25e3-493a-b800-2321e6facb8b': [['court-excuse', '']],                    // T-shirt court femme · m'excuse
+      '2320a9df-35e3-48d3-bd07-1a254ed31e9b': [['tshirt-excuse', '']],                   // T-shirt classique · m'excuse
+      '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': [['coque-celles', ''], ['coque-celles-2', '']], // Coque · ce qui s'arrête
+      '8621d0ba-1782-4b6a-a37e-ae30ce229165': [['coque-aimer', '']],                     // Coque · aimer sans m'oublier
+      '7f4e7d40-7898-4192-987d-8c3ca8de4327': [['calendrier', '']]                       // Calendrier 2027
+    };
+    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.map(function (y) { return y[1]; }).filter(Boolean);
+      p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1] }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf(f.option) < 0; })); });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
