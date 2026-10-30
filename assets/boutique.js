@@ -18,6 +18,18 @@
   function photo(p, opt) { var l = p.photos || []; var x = opt ? l.filter(function (f) { return f.option === opt; })[0] : null; return url((x || l[0] || {}).src); }
   function url(s) { return /^assets\//.test(s || '') ? s : PUB + s; }
   /* la description, sans la fiche technique en anglais ajoutée par Gelato */
+  /* Matières, d'après les modèles choisis sur Gelato */
+  var LAV = ' Lavage à 30 °C sur l’envers, pas de sèche-linge, ne pas repasser sur l’impression.';
+  var MATIERE = {
+    tshirt: 'T-shirt unisexe col rond, tissu « performance » 100 % polyester, léger et respirant.' + LAV,
+    tfemme: 'T-shirt femme Gildan Softstyle 64000L, 100 % coton filé, doux et léger, coupe ajustée.' + LAV,
+    tcourt: 'T-shirt femme Champion T453W, 100 % coton, coupe courte.' + LAV,
+    sweat: 'Sweat col rond Gildan Heavy Blend 18000, 50 % coton, 50 % polyester, intérieur molletonné.' + LAV,
+    capuche: 'Sweat à capuche Gildan Heavy Blend 18500, 50 % coton, 50 % polyester, intérieur molletonné, poche kangourou.' + LAV,
+    hoodie: 'Hoodie premium Lane Seven LS13001, 80 % coton, 20 % polyester, molleton épais et très doux, poche kangourou.' + LAV,
+    mug: 'Mug en céramique, 325 ml, intérieur rose. Va au lave-vaisselle et au micro-ondes.',
+    coque: 'Coque souple et transparente sur les côtés, finition satinée, impression résistante aux rayures. Accès à tous les boutons et à la recharge.'
+  };
   function descr(p) { return String(p.description || '').split(/\s(?:Paper Finishing|Ready-to-hang|Paper Weight|Frame Material|Sustainable Paper|Available Sizes|Product features|Size guide)\s?:/i)[0].replace(/\s*Genesolia\s*[–-]\s*genesolia\.fr\s*$/i, '').trim(); }
   function index() { var o = {}; (CAT.produits || []).forEach(function (p) { p.variantes.forEach(function (v) { o[v.id] = { p: p, v: v }; }); }); return o; }
 
@@ -57,7 +69,8 @@
         '<div class="bq-f-achat"><label class="bq-qte">Quantité <select data-q>' + [1, 2, 3, 4, 5].map(function (n) { return '<option' + (n === choix.q ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn btn-plein" data-ajout' + (v ? '' : ' disabled') + '>Ajouter au panier</button></div><p class="bq-ok" role="status" aria-live="polite"></p>' +
         '<ul class="bq-f-plus"><li>Imprimé à la demande, rien n’est produit en trop</li><li>Livraison offerte en France métropolitaine</li><li>Un défaut ou un article abîmé : réimprimé ou remboursé</li></ul>' +
-        (descr(p) ? '<details class="bq-desc"><summary>Description</summary><p>' + esc(descr(p)) + '</p></details>' : '') + '</div>';
+        (descr(p) ? '<details class="bq-desc"><summary>Description</summary><p>' + esc(descr(p)) + '</p></details>' : '') +
+        (MATIERE[p.type] ? '<details class="bq-desc" open><summary>Matière et entretien</summary><p>' + esc(MATIERE[p.type]) + '</p></details>' : '') + '</div>';
     }
     d.onclick = function (e) {
       if (e.target === d || e.target.closest('[data-f-fermer]')) { fermer(); return; }
@@ -126,8 +139,7 @@
     c.produits = (c.produits || []).filter(function (p) { if (p.type !== 'mug') return true; if (!MUGS[p.id]) return false; p.photos = [{ src: MUGS[p.id], option: '' }]; return true; });
     /* Photos portées, placées en premier (les photos Gelato restent après) */
     var PORTE = { '80c01b03-9cfd-4c05-90d7-1f3e9ff0027a': ['assets/boutique/tshirt-ancetres.webp', ''],
-      'd3224375-7071-40b0-a452-f8472195bc20': ['assets/boutique/capuche-entiere.webp', 'Blanc'], 'dd7d9872-7234-4db9-99a6-d2c6a607bb1c': ['assets/boutique/capuche-entiere.webp', ''],
-      '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': ['assets/boutique/coque-celles.webp', ''] };
+      'd3224375-7071-40b0-a452-f8472195bc20': ['assets/boutique/capuche-entiere.webp', 'Blanc'], '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': ['assets/boutique/coque-celles.webp', ''] };
     c.produits.forEach(function (p) { var x = PORTE[p.id]; if (x) p.photos = [{ src: x[0], option: x[1] }].concat((p.photos || []).filter(function (f) { return !(x[1] && f.option === x[1]); })); });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
