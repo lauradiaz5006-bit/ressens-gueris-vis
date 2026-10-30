@@ -513,7 +513,11 @@
       .pa-nuit{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     }
     @media (prefers-reduced-motion:reduce){.pa-feuille,.pa-voile{transition:none}}
-  </style>
+  .pa-sos[hidden]{display:none}.pa-ici{display:block;margin-top:.4em}
+.pa-sos{position:fixed;right:16px;bottom:calc(var(--pa-nav,72px) + 14px);z-index:60;background:#7A2E55;color:#fff;border:0;border-radius:999px;padding:.7em 1.1em;font:inherit;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.2);cursor:pointer}
+.pa-barre9{display:flex;gap:4px;margin:.6em 0}.pa-barre9 i{flex:1;height:8px;border-radius:4px;background:#E8DCE2}.pa-barre9 i.fait{background:#C9A15A}.pa-barre9 i.ici{background:#B0507A}
+.pa-ciel-pli summary{cursor:pointer;list-style:revert}.pa-danger{margin-top:.8em}
+</style>
   <script>window.GENESOLIA_APPLI = { nom: 'Ma spirale', icone: '/assets/icones/pass-apple-180.png' };</script>
 </head>
 <body class="nouveau pa-app">
@@ -539,7 +543,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/astronomy.browser.min.js"></script>
   <script src="assets/pass-enquete.js?v=11"></script>
-  <script src="assets/pass.js?v=28"></script>
+  <script src="assets/pass.js?v=29"></script>
   <script src="assets/spirale-aime.js"></script>
 </body>
 </html>
