@@ -170,10 +170,14 @@
       '7f4e7d40-7898-4192-987d-8c3ca8de4327': [['calendrier', ''], ['calendrier-12', ''], ['calendrier-3', ''], ['calendrier-1', ''], ['calendrier-2', '']], // Calendrier 2027
       'bc031ac8-1c75-4368-9e4a-1d658debb3ac': [['baguettes-racines-50x70', 'Baguettes en bois naturel', '50x70']], // Poster avec baguettes · racines, 50 × 70 bois naturel
       'ace53bb4-8152-4725-b1e7-f6fccddf2307': [['tfemme-entiere', '']],                  // T-shirt femme · entière
-      '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']]                    // Coque · née pour choisir
+      '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']],
+      'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']]                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir
     };
     c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
       p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });
+    /* Coques iPhone 16 : Gelato ne les livre pas encore en France, on ne les propose pas */
+    c.produits.forEach(function (p) { if (p.type === 'coque') p.variantes = p.variantes.filter(function (v) { return !/iPhone 16/i.test(v.taille || ''); }); });
+    c.produits = c.produits.filter(function (p) { return p.variantes.length; });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
