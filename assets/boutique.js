@@ -49,6 +49,19 @@
     /* Vêtements : un seul article par modèle, le motif se choisit dans la fiche (sauf si une phrase est filtrée) */
     if (!phraseF) { var vus = {}; l = l.filter(function (p) { if (p.famille !== 'vetements') return true; if (vus[p.type]) return false; vus[p.type] = 1; return true; })
       .map(function (p) { if (p.famille !== 'vetements') return p; var fr = freres(p), b = fr.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; return b || p; }); }
+    /* Vue « Tout » : on mélange (un poster, un vêtement, un objet…), et les articles avec une vraie photo d'abord, pour que la page soit variée dès l'arrivée */
+    if (filtre === 'tout' && !phraseF) {
+      var aPhoto = function (p) { return /^assets\//.test(((p.photos || [])[0] || {}).src || '') ? 0 : 1; };
+      var tas = { posters: [], vetements: [], maison: [] };
+      l.forEach(function (p) { (tas[p.famille] = tas[p.famille] || []).push(p); });
+      Object.keys(tas).forEach(function (k) { tas[k].sort(function (a, b) { return aPhoto(a) - aPhoto(b); }); });
+      /* les posters : on alterne aussi poster, encadré, baguettes */
+      var pt = {}; tas.posters.forEach(function (p) { (pt[p.type] = pt[p.type] || []).push(p); }); var pk = Object.keys(pt), pm = [];
+      for (var i = 0; pm.length < tas.posters.length; i++) pk.forEach(function (k) { if (pt[k][i]) pm.push(pt[k][i]); });
+      tas.posters = pm; var m = [], f = ['vetements', 'posters', 'maison'].concat(Object.keys(tas).filter(function (k) { return ['vetements', 'posters', 'maison'].indexOf(k) < 0; }));
+      for (var j = 0; m.length < l.length; j++) f.forEach(function (k) { if ((tas[k] || [])[j]) m.push(tas[k][j]); });
+      l = m;
+    }
     grille.innerHTML = l.length ? l.map(function (p) {
       return '<button type="button" class="bq-carte" data-p="' + esc(p.id) + '"><span class="bq-img"><img src="' + esc(photo(p)) + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span></button>';
