@@ -46,22 +46,28 @@
     var l = CAT.produits.filter(function (p) { return (filtre === 'tout' || p.famille === filtre) && (!phraseF || norm(p.phrase) === phraseF); });
     var ordre = { posters: 0, vetements: 1, maison: 2 };
     l.sort(function (a, b) { return (ordre[a.famille] - ordre[b.famille]) || norm(a.phrase).localeCompare(norm(b.phrase)) || a.prixMin - b.prixMin; });
+    /* Vêtements : un seul article par modèle, le motif se choisit dans la fiche (sauf si une phrase est filtrée) */
+    if (!phraseF) { var vus = {}; l = l.filter(function (p) { if (p.famille !== 'vetements') return true; if (vus[p.type]) return false; vus[p.type] = 1; return true; })
+      .map(function (p) { if (p.famille !== 'vetements') return p; var fr = freres(p), b = fr.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; return b || p; }); }
     grille.innerHTML = l.length ? l.map(function (p) {
       return '<button type="button" class="bq-carte" data-p="' + esc(p.id) + '"><span class="bq-img"><img src="' + esc(photo(p)) + '" alt="" loading="lazy" decoding="async"></span>' +
-        '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">« ' + esc(norm(p.phrase)) + ' »</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span></button>';
+        '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span></button>';
     }).join('') : '<p class="bq-vide">Rien ici pour l’instant.</p>';
   }
+  /* les autres motifs du même vêtement */
+  function freres(p) { return CAT.produits.filter(function (x) { return x.type === p.type && x.famille === 'vetements'; }).sort(function (a, b) { return norm(a.phrase).localeCompare(norm(b.phrase)); }); }
   function filtres() {
     var ph = []; CAT.produits.forEach(function (p) { var n = norm(p.phrase); if (!/^Calendrier/.test(n) && ph.indexOf(n) < 0) ph.push(n); }); ph.sort();
     document.getElementById('bq-phrases').innerHTML = '<option value="">Toutes les phrases</option>' + ph.map(function (t) { return '<option value="' + esc(t) + '">' + esc(t) + '</option>'; }).join('');
   }
 
   /* ───── La fiche d'un produit ───── */
-  function fiche(id) {
+  function fiche(id, garder) {
     var p = CAT.produits.filter(function (x) { return x.id === id; })[0]; if (!p) return;
     var tailles = [], options = []; p.variantes.forEach(function (v) { if (v.taille && tailles.indexOf(v.taille) < 0) tailles.push(v.taille); if (v.option && options.indexOf(v.option) < 0) options.push(v.option); });
     var o0 = ((p.photos || [])[0] || {}).option; /* la couleur de la première photo est choisie d'abord */
     var choix = { t: tailles[0] || '', o: (o0 && options.indexOf(o0) >= 0 ? o0 : options[0]) || '', q: 1 };
+    if (garder) { if (tailles.indexOf(garder.t) >= 0) choix.t = garder.t; if (options.indexOf(garder.o) >= 0) choix.o = garder.o; choix.q = garder.q || 1; }
     var d = document.getElementById('bq-fiche');
     function variante() { return p.variantes.filter(function (v) { return (v.taille || '') === choix.t && (v.option || '') === choix.o; })[0] || null; }
     function dispo(t, o) { return p.variantes.some(function (v) { return (v.taille || '') === t && (v.option || '') === o; }); }
@@ -73,6 +79,7 @@
         (ph.length > 1 ? '<div class="bq-f-mini">' + ph.map(function (f) { return '<button type="button" data-ph="' + esc(url(f.src)) + '"><img src="' + esc(url(f.src)) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') + '</div>' +
         '<div class="bq-f-info"><p class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</p><h2 id="bq-f-titre">« ' + esc(norm(p.phrase)) + ' »</h2>' +
         '<p class="bq-f-prix">' + (v ? eur(v.prix) : '') + ' <small>livraison offerte</small></p>' +
+        (p.famille === 'vetements' && freres(p).length > 1 ? '<p class="bq-lab">Motif</p><select class="bq-motif" data-motif aria-label="Motif">' + freres(p).map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === p.id ? ' selected' : '') + '>' + esc(norm(x.phrase)) + '</option>'; }).join('') + '</select>' : '') +
         (tailles.length > 1 || (tailles.length === 1 && p.famille !== 'maison') ? '<p class="bq-lab">' + libTaille(p) + '</p><div class="bq-choix" data-c="t">' + tailles.map(function (t) { return '<button type="button" data-v="' + esc(t) + '" aria-pressed="' + (t === choix.t) + '"' + (dispo(t, choix.o) || !choix.o ? '' : ' class="bq-ind"') + '>' + esc(t) + '</button>'; }).join('') + '</div>' : '') +
         (options.length ? '<p class="bq-lab">' + libOption(p) + '</p><div class="bq-choix" data-c="o">' + options.map(function (o) { return '<button type="button" data-v="' + esc(o) + '" aria-pressed="' + (o === choix.o) + '"' + (dispo(choix.t, o) ? '' : ' class="bq-ind"') + '>' + esc(o) + '</button>'; }).join('') + '</div>' : '') +
         '<div class="bq-f-achat"><label class="bq-qte">Quantité <select data-q>' + [1, 2, 3, 4, 5].map(function (n) { return '<option' + (n === choix.q ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
@@ -92,7 +99,7 @@
       }
       if (e.target.closest('[data-voir-panier]')) { fermer(); panier(true); }
     };
-    d.onchange = function (e) { if (e.target.matches('[data-q]')) choix.q = +e.target.value || 1; };
+    d.onchange = function (e) { if (e.target.matches('[data-q]')) choix.q = +e.target.value || 1; if (e.target.matches('[data-motif]')) fiche(e.target.value, choix); };
     rendre(); ouvert = p.id;
     if (d.showModal) { if (!d.open) d.showModal(); } else d.setAttribute('open', '');
     try { history.replaceState(null, '', '#' + p.slug); } catch (e) {}
@@ -160,10 +167,13 @@
       '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': [['coque-celles', ''], ['coque-celles-2', '']], // Coque · ce qui s'arrête
       '8621d0ba-1782-4b6a-a37e-ae30ce229165': [['coque-aimer', '']],
       '19aa2d12-239a-4224-a937-29dfff0976e6': [['mug-aimer', ''], ['mug-aimer-2', '']],              // Mug · aimer sans m'oublier                     // Coque · aimer sans m'oublier
-      '7f4e7d40-7898-4192-987d-8c3ca8de4327': [['calendrier', '']]                       // Calendrier 2027
+      '7f4e7d40-7898-4192-987d-8c3ca8de4327': [['calendrier', ''], ['calendrier-12', ''], ['calendrier-3', ''], ['calendrier-1', ''], ['calendrier-2', '']], // Calendrier 2027
+      'bc031ac8-1c75-4368-9e4a-1d658debb3ac': [['baguettes-racines-50x70', 'Baguettes en bois naturel', '50x70']], // Poster avec baguettes · racines, 50 × 70 bois naturel
+      'ace53bb4-8152-4725-b1e7-f6fccddf2307': [['tfemme-entiere', '']],                  // T-shirt femme · entière
+      '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']]                    // Coque · née pour choisir
     };
-    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.map(function (y) { return y[1]; }).filter(Boolean);
-      p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1] }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf(f.option) < 0; })); });
+    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
+      p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
