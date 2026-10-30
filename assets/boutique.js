@@ -137,13 +137,13 @@
   majCompteur();
   fetch(PUB + 'catalogue.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (c) {
     /* Mugs : seulement ceux qui ont une belle photo (mise en scène), à la place de celle de Gelato */
-    var MUGS = { '4f5360f2-ae10-4df0-958e-ad300231760b': 'assets/boutique/mug-ancetres.webp', '3ac4634b-f06d-4d42-9e11-0f0a88eba3f7': 'assets/boutique/mug-entiere.webp' };
+    var MUGS = { '4f5360f2-ae10-4df0-958e-ad300231760b': 'assets/boutique/mug-ancetres.webp', '3ac4634b-f06d-4d42-9e11-0f0a88eba3f7': 'assets/boutique/mug-entiere.webp', '19aa2d12-239a-4224-a937-29dfff0976e6': 'assets/boutique/mug-aimer.webp' };
     c.produits = (c.produits || []).filter(function (p) { if (p.type !== 'mug') return true; if (!MUGS[p.id]) return false; p.photos = [{ src: MUGS[p.id], option: '' }]; return true; });
     /* Photos portées, placées en premier (les photos Gelato restent après) */
     /* Photos de Laura, placées en premier (les photos Gelato restent après). [fichier, couleur] : la couleur remplace la photo Gelato de cette couleur */
     var PORTE = {
       '80c01b03-9cfd-4c05-90d7-1f3e9ff0027a': [['tshirt-ancetres', '']],                 // T-shirt classique · ancêtres
-      'd3224375-7071-40b0-a452-f8472195bc20': [['capuche-entiere', 'Blanc']],            // Sweat à capuche blanc · entière
+      'd3224375-7071-40b0-a452-f8472195bc20': [['capuche-entiere', 'Blanc'], ['capuche-entiere-2', '']],            // Sweat à capuche blanc · entière
       '8133217c-9628-48e4-a328-dff2e58789a7': [['tshirt-entiere', '']],                  // T-shirt classique · entière
       'b3fc1393-8799-4211-a316-4bb11a3b2db2': [['court-entiere', '']],                   // T-shirt court femme · entière
       'afa57379-cd46-4269-bc1b-aa19fbac1a54': [['capuche-excuse-rose', 'Rose clair']],   // Sweat à capuche rose clair · m'excuse
@@ -151,7 +151,8 @@
       '29b62026-25e3-493a-b800-2321e6facb8b': [['court-excuse', '']],                    // T-shirt court femme · m'excuse
       '2320a9df-35e3-48d3-bd07-1a254ed31e9b': [['tshirt-excuse', '']],                   // T-shirt classique · m'excuse
       '89e92248-1cad-4a5b-9ea9-0fe2684a5f27': [['coque-celles', ''], ['coque-celles-2', '']], // Coque · ce qui s'arrête
-      '8621d0ba-1782-4b6a-a37e-ae30ce229165': [['coque-aimer', '']],                     // Coque · aimer sans m'oublier
+      '8621d0ba-1782-4b6a-a37e-ae30ce229165': [['coque-aimer', '']],
+      '19aa2d12-239a-4224-a937-29dfff0976e6': [['mug-aimer', ''], ['mug-aimer-2', '']],              // Mug · aimer sans m'oublier                     // Coque · aimer sans m'oublier
       '7f4e7d40-7898-4192-987d-8c3ca8de4327': [['calendrier', '']]                       // Calendrier 2027
     };
     c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.map(function (y) { return y[1]; }).filter(Boolean);
