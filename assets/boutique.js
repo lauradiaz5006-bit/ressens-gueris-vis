@@ -15,7 +15,8 @@
   function nomType(p) { return /brillant/i.test(p.titre) ? 'Poster encadré brillant' : p.nomType; }
   function libOption(p) { return p.type === 'encadre' ? 'Cadre' : p.type === 'baguettes' ? 'Baguettes' : p.famille === 'vetements' ? 'Couleur' : 'Option'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
-  function photo(p, opt) { var l = p.photos || []; var x = opt ? l.filter(function (f) { return f.option === opt; })[0] : null; return PUB + (x || l[0] || {}).src; }
+  function photo(p, opt) { var l = p.photos || []; var x = opt ? l.filter(function (f) { return f.option === opt; })[0] : null; return url((x || l[0] || {}).src); }
+  function url(s) { return /^assets\//.test(s || '') ? s : PUB + s; }
   /* la description, sans la fiche technique en anglais ajoutée par Gelato */
   function descr(p) { return String(p.description || '').split(/\s(?:Paper Finishing|Ready-to-hang|Paper Weight|Frame Material|Sustainable Paper|Available Sizes|Product features|Size guide)\s?:/i)[0].replace(/\s*Genesolia\s*[–-]\s*genesolia\.fr\s*$/i, '').trim(); }
   function index() { var o = {}; (CAT.produits || []).forEach(function (p) { p.variantes.forEach(function (v) { o[v.id] = { p: p, v: v }; }); }); return o; }
@@ -48,7 +49,7 @@
       var v = variante(), ph = p.photos || [], princ = photo(p, choix.o);
       d.querySelector('.bq-f-corps').innerHTML =
         '<div class="bq-f-photos"><img class="bq-f-grande" src="' + esc(princ) + '" alt="' + esc(nomType(p) + ' « ' + norm(p.phrase) + ' »') + '">' +
-        (ph.length > 1 ? '<div class="bq-f-mini">' + ph.map(function (f) { return '<button type="button" data-ph="' + esc(PUB + f.src) + '"><img src="' + esc(PUB + f.src) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') + '</div>' +
+        (ph.length > 1 ? '<div class="bq-f-mini">' + ph.map(function (f) { return '<button type="button" data-ph="' + esc(url(f.src)) + '"><img src="' + esc(url(f.src)) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') + '</div>' +
         '<div class="bq-f-info"><p class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</p><h2 id="bq-f-titre">« ' + esc(norm(p.phrase)) + ' »</h2>' +
         '<p class="bq-f-prix">' + (v ? eur(v.prix) : '') + ' <small>livraison offerte</small></p>' +
         (tailles.length > 1 || (tailles.length === 1 && p.famille !== 'maison') ? '<p class="bq-lab">' + libTaille(p) + '</p><div class="bq-choix" data-c="t">' + tailles.map(function (t) { return '<button type="button" data-v="' + esc(t) + '" aria-pressed="' + (t === choix.t) + '"' + (dispo(t, choix.o) || !choix.o ? '' : ' class="bq-ind"') + '>' + esc(t) + '</button>'; }).join('') + '</div>' : '') +
@@ -120,8 +121,9 @@
   if (merci) { try { localStorage.removeItem(CLE); } catch (e) {} var m = document.getElementById('bq-merci'); if (m) m.hidden = false; }
   majCompteur();
   fetch(PUB + 'catalogue.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (c) {
-    /* Les mugs sont retirés en attendant de belles photos : remettre en enlevant ce filtre */
-    c.produits = (c.produits || []).filter(function (p) { return p.type !== 'mug'; });
+    /* Mugs : seulement ceux qui ont une belle photo (mise en scène), à la place de celle de Gelato */
+    var MUGS = { '4f5360f2-ae10-4df0-958e-ad300231760b': 'assets/boutique/mug-ancetres.webp', '3ac4634b-f06d-4d42-9e11-0f0a88eba3f7': 'assets/boutique/mug-entiere.webp' };
+    c.produits = (c.produits || []).filter(function (p) { if (p.type !== 'mug') return true; if (!MUGS[p.id]) return false; p.photos = [{ src: MUGS[p.id], option: '' }]; return true; });
     CAT = c; filtres(); cartes(); majCompteur(); z.classList.add('pret');
     var h = location.hash.replace('#', '');
     if (h === 'panier') panier(true);
