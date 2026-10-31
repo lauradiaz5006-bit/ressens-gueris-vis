@@ -2007,7 +2007,7 @@
   (function () {
     var b = $('bt-plus'), m = $('menu-plus'); if (!b || !m) return;
     function fermerPlus() { m.hidden = true; b.setAttribute('aria-expanded', 'false'); }
-    b.addEventListener('click', function (e) { e.stopPropagation(); var o = m.hidden; m.hidden = !o; b.setAttribute('aria-expanded', String(o)); if (o) { var f = m.querySelector('button'); if (f) f.focus(); } });
+    b.addEventListener('click', function (e) { e.stopPropagation(); var o = m.hidden; m.hidden = !o; b.setAttribute('aria-expanded', String(o)); if (o) { m.style.left = ''; m.style.right = ''; var r = m.getBoundingClientRect(); if (getComputedStyle(m).position !== 'fixed' && r.left < 8) { m.style.right = 'auto'; m.style.left = '0'; } var f = m.querySelector('button'); if (f) f.focus(); } });
     m.addEventListener('click', function () { setTimeout(fermerPlus, 0); });
     document.addEventListener('click', function (e) { if (!m.hidden && !e.target.closest('.plus-menu')) fermerPlus(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !m.hidden) { fermerPlus(); b.focus(); } });
