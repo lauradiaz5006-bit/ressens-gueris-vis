@@ -646,7 +646,7 @@
       '<p class="pa-lab">2 · Ce que tu ressens</p>' + puces('em', PF.EMOTIONS || [], [], true) + aide(AIDE_EM) +
       '<p class="pa-lab">3 · Où le sens-tu dans ton corps ?</p>' + puces('corps', PF.CORPS || [], [], true) + '<div id="pa-dep-tiens"></div>' + aide(aideCorps()) +
       '<label for="pa-force">Avec quelle force ? <b id="pa-force-v">5</b>/10</label><input type="range" id="pa-force" min="0" max="10" value="5"><div id="pa-fort-z" hidden>' + blocMonte() + '</div>' +
-      blocNature() + '<div id="pa-sch-z">' + blocOrigine() + '<div id="pa-nomsch-z"><label for="pa-nomsch">Comment tu l’appelles ? <small>(ce qui se répète)</small></label><input id="pa-nomsch" maxlength="80" placeholder="La peur d’être quittée"></div>' +
+      '<div id="pa-sch-z">' + blocOrigine() + '<div id="pa-nomsch-z"><label for="pa-nomsch">Comment tu l’appelles ? <small>(ce qui se répète)</small></label><input id="pa-nomsch" maxlength="80" placeholder="La peur d’être quittée"></div>' +
       ((D.etat.schemas || []).length ? '<label for="pa-schema">Ça rejoint quel schéma ?</label><select id="pa-schema"><option value="nouveau">Un nouveau schéma</option>' + (D.etat.schemas || []).map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(cap(x.nom || 'Un schéma')) + '</option>'; }).join('') + '</select><p class="pa-discret">Un schéma, c’est ce qui se répète : il relie tes ressentis qui se ressemblent.</p>' : '<input type="hidden" id="pa-schema" value="nouveau">') + '</div>' +
       '<details class="pa-plus-loin" id="pa-plus"><summary>Aller plus loin maintenant <small>(facultatif)</small></summary>' +
       '<p class="pa-lab">Une phrase que tu te dis ? <small>(la blessure qui se réveille)</small></p>' + pucesBl('bl', [], true) +
@@ -671,7 +671,7 @@
     f.addEventListener('click', function (e) { var rj = e.target.closest('[data-rejoindre]'); if (rj) { var se = f.querySelector('select#pa-schema'); if (se) { se.value = rj.getAttribute('data-rejoindre'); rj.textContent = '✓ C’est noté'; } } });
     f.addEventListener('change', function () { var rv = lirePuces(f, 'revient')[0]; f.querySelector('#pa-ages-z').hidden = !(rv === 'oui' || rv === 'parfois');
       var na = lirePuces(f, 'nature')[0] || '', og = lirePuces(f, 'origine');
-      f.querySelector('#pa-sch-z').hidden = na === 'emotion'; f.querySelector('#pa-origine').hidden = !(na === 'repete' || na === 'connu');
+      f.querySelector('#pa-origine').hidden = false;
       f.querySelector('#pa-or-vie').hidden = og.indexOf('vie') < 0; f.querySelector('#pa-or-lig').hidden = og.indexOf('lignee') < 0; });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -682,7 +682,6 @@
       if (f.querySelector('#pa-afil').checked) ajouterAuFil(r);
       D.etat.ressentis.push(r);
       /* juste une émotion : gardée, sans schéma ni frise */
-      if (nature === 'emotion') { sauver(); suiteDepot(r, null); return; }
       var sv = f.querySelector('#pa-schema').value;
       var neuf = sv === 'nouveau' || !trouverSchema(sv), sc = neuf ? creerSchema(r) : trouverSchema(sv); lierSchema(sc, r);
       var nomS = (f.querySelector('#pa-nomsch') || {}).value; if (neuf && nomS && nomS.trim()) sc.nom = nomS.trim().slice(0, 80);
@@ -696,7 +695,7 @@
   /* « Pour toi, c'est… » : ce qui se répète va sur la frise ; une émotion reste une émotion */
   function blocNature() { return '<p class="pa-lab">4 · Pour toi, c’est…</p>' + puces('nature', [['repete', 'Ça se répète souvent'], ['connu', 'Un schéma que je connais bien'], ['emotion', 'Juste une émotion, sur le moment']], [], false); }
   function blocOrigine() {
-    return '<div id="pa-origine" hidden><p class="pa-def">Ce qui se répète s’inscrit sur ta frise : tu vois depuis quand ça bloque.</p><p class="pa-lab">D’où ça vient ? <small>(l’un, l’autre ou les deux, même si tu n’es pas sûr·e)</small></p>' +
+    return '<div id="pa-origine"><p class="pa-def">Ce qui se répète s’inscrit sur ta frise : tu vois depuis quand ça bloque.</p><p class="pa-lab">D’où ça vient ? <small>(l’un, l’autre ou les deux, même si tu n’es pas sûr·e)</small></p>' +
       puces('origine', [['vie', 'Un événement de ma vie'], ['lignee', 'Quelqu’un l’a vécu avant moi et me l’a transmis']], [], true) +
       '<div id="pa-or-vie" hidden><label for="pa-or-vage">Tu avais quel âge, à peu près ?</label><input id="pa-or-vage" inputmode="numeric" maxlength="12" placeholder="8 ans"><label for="pa-or-vquoi">Ce qui s’est passé</label><input id="pa-or-vquoi" maxlength="140" placeholder="Mon père est parti, on s’est moqué de moi…"></div>' +
       '<div id="pa-or-lig" hidden><label for="pa-or-qui">Qui l’a vécu ?</label><select id="pa-or-qui"><option value="">Quelqu’un de ma lignée</option>' + personnes().filter(function (q) { return !/^e:/.test(q.k); }).map(function (q) { return '<option value="' + esc(q.k) + '">' + esc(nomL(q)) + '</option>'; }).join('') + '</select>' +
@@ -984,7 +983,7 @@
     var h = '<div class="pa-bloc pa-scene-s"><h4>2 · Ma scène</h4><p class="pa-def">Qui est en jeu dans ce que tu ressens ?</p>';
     if (dans.length) h += '<ul class="pa-liste-s">' + dans.map(function (p) { var pl = S.places[p.id], d = Math.round(Math.sqrt(Math.pow(pl.x - S.moi.x, 2) + Math.pow(pl.y - S.moi.y, 2))); return '<li><b>' + esc(p.nom) + '</b> · ' + (d < 20 ? 'tout près de toi' : d < 32 ? 'pas loin' : 'loin') + (S.ressentis[p.id] ? ' · « ' + esc(S.ressentis[p.id]) + ' »' : '') + '</li>'; }).join('') + '</ul>';
     h += '<label for="pa-sit-qui">Qui ?</label><select id="pa-sit-qui"><option value="">Choisis…</option>' + T.persos.filter(function (p) { return !S || !S.places[p.id]; }).map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.nom) + '</option>'; }).join('') + '<option value="nouveau">Quelqu’un d’autre</option></select>' +
-      '<div id="pa-sit-new" hidden><label for="pa-sit-nom">Son prénom</label><input id="pa-sit-nom" maxlength="30" placeholder="Marc"><label for="pa-sit-lien">Qui est-ce pour toi ?</label><input id="pa-sit-lien" maxlength="40" placeholder="Mon ex, mon père, ma patronne…"></div>' +
+      '<div id="pa-sit-new" hidden><label for="pa-sit-nom">Son prénom</label><input id="pa-sit-nom" maxlength="30" placeholder="Marc"><label for="pa-sit-lien">Qui est-ce pour toi ?</label><input id="pa-sit-lien" maxlength="40" placeholder="Mon ex, mon père, ma patronne…"><p class="pa-lab">Sa couleur</p>' + puces('sit-coul', [['#6B2F5B', 'Prune'], ['#B0507A', 'Rose'], ['#C9A15A', 'Or'], ['#4E5D94', 'Bleu nuit'], ['#D07A4F', 'Terracotta']], ['#6B2F5B'], false) + '</div>' +
       '<label for="pa-sit-ress">Comment tu le ou la ressens, toi, depuis ta place ?</label><input id="pa-sit-ress" maxlength="160" placeholder="Froid, distant, il ne me voit pas…">' +
       '<label for="pa-sit-d">Près de toi ou loin ?</label><div class="pa-curseur"><small>Tout près</small><input type="range" id="pa-sit-d" min="0" max="100" value="50"><small>Très loin</small></div>' +
       '<div class="pa-outils"><button type="button" class="pa-bt or" data-sit-ajout>L’ajouter à ma scène</button></div><p class="pa-erreur" data-sit-err role="alert"></p>' +
@@ -994,7 +993,7 @@
   function ajouterScene(sc, z) {
     var T = theatre(), v = z.querySelector('#pa-sit-qui').value, err = z.querySelector('[data-sit-err]'), p = null;
     if (v === 'nouveau') { var nm = z.querySelector('#pa-sit-nom').value.trim(); if (!nm) { err.textContent = 'Écris son prénom.'; return false; }
-      p = { id: 'pt' + Date.now().toString(36), nom: nm.slice(0, 30), qui: 'vie', cle: '', role: '', genre: '', couleur: '#6B2F5B', symptomes: [], lienTxt: z.querySelector('#pa-sit-lien').value.trim().slice(0, 40) }; T.persos.push(p); }
+      p = { id: 'pt' + Date.now().toString(36), nom: nm.slice(0, 30), qui: 'vie', cle: '', role: '', genre: '', couleur: lirePuces(z, 'sit-coul')[0] || '#6B2F5B', symptomes: [], lienTxt: z.querySelector('#pa-sit-lien').value.trim().slice(0, 40) }; T.persos.push(p); }
     else p = persoT(v);
     if (!p) { err.textContent = 'Choisis qui est en jeu.'; return false; }
     var S = sceneDuSchema(sc.id);
