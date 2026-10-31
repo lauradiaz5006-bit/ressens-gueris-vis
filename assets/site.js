@@ -125,7 +125,7 @@ window.GenesoliaCoffre = (function () {
 })();
 
 /* ===== Repères de naissance du Cercle (table « reperes ») =====
-   Ils remplissent les livres du mois, le guide et Mon mois. Une fois enregistrés dans l'espace,
+   Ils remplissent les livres du mois, le guide et Mon mois. Modifiables dans Mon espace, Mes infos (prénoms, nom, date) ;
    la date, les prénoms et le nom de naissance ne se modifient plus (droits de la base) : seuls l'heure et le lieu
    se complètent. Une erreur : un e-mail à contact@genesolia.fr. Sans compte, tout reste sur l'appareil, comme avant.
    Les outils gratuits (thème, signe maya…) ne sont pas concernés : on peut y calculer pour un proche. */
@@ -176,11 +176,11 @@ window.GenesoliaReperes = (function () {
   function modifier(sb, user, p) {
     if (!sb || !user) return Promise.resolve(null);
     return sb.from('reperes').update({ prenoms: String(p.prenoms || '').trim().slice(0, 200), nom: String(p.nom || '').trim().slice(0, 120) || null, date_naissance: p.date, maj: new Date().toISOString() }).eq('user_id', user.id)
-      .then(function () { return lire(sb, user); }, function () { return null; });
+      .then(function (r) { return r && r.error ? null : lire(sb, user); }, function () { return null; });
   }
   function verrouille() { var x = local(); return !!(x && x.verrou); }
-  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace. Pour les modifier : <a href="pass.html#moi" target="_blank" rel="noopener">Ma spirale, Mes repères</a>.';
-  var AVANT = 'Ta date et tes prénoms seront enregistrés dans ton espace. Tu pourras les modifier dans Ma spirale, Mes repères. L’heure et le lieu pourront toujours être complétés.';
+  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace. Pour les modifier : <a href="login.html#infos" target="_blank" rel="noopener">Mon espace, Mes infos</a>.';
+  var AVANT = 'Ta date et tes prénoms seront enregistrés dans ton espace. Tu pourras les modifier dans Mon espace, Mes infos. L’heure et le lieu pourront toujours être complétés.';
   return { lire: lire, enregistrer: enregistrer, modifier: modifier, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
 })();
 

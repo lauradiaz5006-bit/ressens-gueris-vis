@@ -145,6 +145,11 @@
     .eb-lien:hover{background:var(--nacre);color:var(--prune)}
     .eb-lien[aria-current="page"]{background:linear-gradient(135deg,#FFF6EC,#FCEFF3);color:var(--prune);box-shadow:inset 3px 0 0 var(--champagne)}
     .eb-panneau[hidden]{display:none}
+    .eb-outils-liste em{font-style:normal;font-weight:700;font-size:.82rem;margin-top:.3rem;color:#F3DCC0}
+    .eb-espaces a.eb-a-decouvrir{background:#fff;border:1px dashed var(--champagne);color:var(--prune)}.eb-espaces a.eb-a-decouvrir span{color:var(--prune-doux)}.eb-espaces a.eb-a-decouvrir em{color:#8A6233}
+    .eb-compte{margin:.9rem 0 0;font-size:.88rem;color:var(--prune-doux)}.eb-compte .lien-texte{font-size:.88rem;color:var(--prune-doux)}
+    #acc-emotion{display:none!important}
+    .tb-etapes{margin:.4rem 0 .8rem 1.2rem;display:grid;gap:.35rem;color:var(--prune-doux)}
     .eb-outils-liste{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
     .eb-outils-liste a{display:grid;gap:.25rem;padding:.9rem 1rem;border:1px solid var(--rose);border-radius:14px;background:rgba(255,255,255,.8);text-decoration:none;color:var(--prune)}
     .eb-outils-liste a:hover{border-color:var(--prune-doux)}
@@ -299,23 +304,25 @@
           <button type="button" class="eb-lien" data-panneau="accueil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
           <button type="button" class="eb-lien" data-panneau="arbre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6M12 15c-4 0-6-2.5-6-5.5S8.5 4 12 4s6 2.5 6 5.5S16 15 12 15zM9 21h6"/></svg><span>Mon arbre</span></button>
           <button type="button" class="eb-lien" data-panneau="cercle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span>Le Cercle</span></button>
-          <button type="button" class="eb-lien" data-panneau="journal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2zM6 18a2 2 0 0 1 2-2h10M10 8h5"/></svg><span>Mon journal</span></button>
-          <button type="button" class="eb-lien" data-panneau="abonnement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4zM4 11h16"/></svg><span>Mon abonnement</span></button>
+          
+          <button type="button" class="eb-lien" data-panneau="abonnement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4zM4 11h16"/></svg><span>Mes abonnements</span></button>
           <button type="button" class="eb-lien" data-panneau="infos"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Mes infos</span></button>
         </nav>
         <div class="eb-panneaux">
 
       <section class="eb-panneau" data-p="accueil" aria-label="Accueil">
         <div class="tb-grille">
+          <article class="tb-carte tb-large eb-outils" id="acc-espaces" hidden>
+            <h2>Tes espaces</h2>
+            <div class="eb-outils-liste eb-espaces" id="acc-espaces-l"></div>
+            <p class="eb-compte"><button type="button" class="lien-texte" data-aller="abonnement">Mes abonnements</button> · <button type="button" class="lien-texte" data-aller="abonnement">Me désabonner</button> · <button type="button" class="lien-texte" data-deconnecter>Me déconnecter</button> · <button type="button" class="lien-texte" data-supprimer>Supprimer mon compte</button></p>
+          </article>
           <article class="tb-carte tb-large" id="acc-cercle">
             <h2>Le Cercle : un pas chaque mois</h2>
             <p class="tb-aide">Un carnet pour avancer, un suivi pour déposer ce qui se rejoue, deux séances audio par mois : tu sors pas à pas de ce qui se répète, à ton rythme.</p>
             <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="s-abonner.html">M’abonner directement</a><button type="button" class="btn btn-trait" data-aller="cercle">Découvrir le Cercle</button></div>
           </article>
-          <article class="tb-carte tb-large eb-outils" id="acc-espaces" hidden>
-            <h2>Mes espaces</h2>
-            <div class="eb-outils-liste eb-espaces" id="acc-espaces-l"></div>
-          </article>
+          
           <article class="tb-carte" id="acc-emotion">
             <h2>Mon émotion du jour</h2>
             <div id="acc-emotion-corps"><p class="tb-aide">Comment tu te sens aujourd’hui ?</p></div>
@@ -390,10 +397,10 @@
         <div id="journal-app"></div>
       </section>
 
-      <section class="eb-panneau" data-p="abonnement" aria-label="Mon abonnement" hidden>
+      <section class="eb-panneau" data-p="abonnement" aria-label="Mes abonnements" hidden>
         <div class="tb-grille">
         <section class="tb-carte" aria-labelledby="t-abo">
-          <h2 id="t-abo">Mon abonnement</h2>
+          <h2 id="t-abo">Mes abonnements</h2>
           <p class="tb-formule">Formule Découverte <span>gratuite</span></p>
           <ul class="tb-liste">
             <li>Ton arbre familial, sauvegardé dans ton espace</li>
@@ -406,11 +413,33 @@
           <p class="tb-essai" id="essai-info" hidden></p>
           <div class="tb-actions"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="s-abonner.html">M’abonner directement</a><a class="btn btn-trait" href="abonnement.html">Voir les formules</a></div>
         </section>
+        <section class="tb-carte" aria-labelledby="t-desabo" id="desabo">
+          <h2 id="t-desabo">Me désabonner</h2>
+          <p class="tb-aide">Tu peux arrêter un abonnement quand tu veux, sans frais, en trois étapes :</p>
+          <ol class="tb-etapes">
+            <li>Clique sur « Me désabonner » ci-dessous : ton espace de paiement sécurisé (Stripe) s’ouvre.</li>
+            <li>Entre l’e-mail utilisé pour payer : tu reçois un lien de connexion par e-mail.</li>
+            <li>Choisis l’abonnement, puis « Annuler l’abonnement ».</li>
+          </ol>
+          <p class="tb-aide">Ton accès reste ouvert jusqu’à la fin de la période déjà payée. Pendant un essai, rien ne sera prélevé. Un souci ? Écris à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.</p>
+          <div class="tb-actions"><a class="btn btn-trait" href="https://billing.stripe.com/p/login/7sY28k3773S1cix9qD43S00" target="_blank" rel="noopener">Me désabonner</a></div>
+        </section>
         </div>
       </section>
 
       <section class="eb-panneau" data-p="infos" aria-label="Mes infos" hidden>
         <div class="tb-grille">
+        <section class="tb-carte" aria-labelledby="t-reperes">
+          <h2 id="t-reperes">Mes repères de naissance</h2>
+          <p class="tb-aide">Ils servent de base partout dans ton espace : Le Cercle, Ma spirale, ton guide du mois. Dans les outils du site, tu peux toujours entrer une autre date, pour un·e proche par exemple.</p>
+          <form id="form-reperes" class="tb-form">
+            <div class="champ"><label for="r-prenoms">Tous tes prénoms</label><input id="r-prenoms" type="text" autocomplete="given-name" maxlength="200" placeholder="Par exemple : Léa Marie Jeanne"></div>
+            <div class="champ"><label for="r-nom">Nom de naissance</label><input id="r-nom" type="text" autocomplete="family-name" maxlength="120"></div>
+            <div class="champ"><label for="r-date">Date de naissance</label><input id="r-date" type="date" min="1900-01-01"></div>
+            <button class="btn btn-trait" type="submit">Enregistrer mes repères</button>
+            <p class="tb-aide" id="r-msg" role="status"></p>
+          </form>
+        </section>
         <section class="tb-carte" aria-labelledby="t-infos">
           <h2 id="t-infos">Mes informations</h2>
           <form id="form-prenom" class="tb-form">
@@ -759,7 +788,7 @@
       Promise.all([window.GenesoliaAcces.pass(), window.GenesoliaAcces.membre()]).then(function (r) {
         if (!r[0] || r[1]) return;
         var abo = document.querySelector('[aria-labelledby="t-abo"]'), gestion = (window.GENESOLIA_STRIPE || {}).gestion;
-        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Ma spirale <span>actif</span></p>' +
+        if (abo) abo.innerHTML = '<h2 id="t-abo">Mes abonnements</h2><p class="tb-formule">Ma spirale <span>actif</span></p>' +
           '<p class="tb-aide">Ton enquête de lignée étape par étape, l’agenda de ta lignée, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>' +
           '<div class="tb-actions"><a class="btn btn-plein" href="pass.html">Ouvrir Ma spirale</a>' + (gestion ? '<a class="btn btn-trait" href="' + gestion + '">Gérer mon abonnement</a>' : '') + '</div>';
         var acc = $('acc-cercle');
@@ -767,16 +796,33 @@
       }, function () {});
     }
     /* « Mes espaces » : chaque espace ouvert à la personne (Le Cercle, Le Pass, Genesolia Pro), pour passer de l'un à l'autre */
+
+    /* Mes repères de naissance : la base commune (table reperes) */
+    function chargerReperes() {
+      var R = window.GenesoliaReperes, f = $('form-reperes'); if (!R || !f || !sb || !user) return;
+      R.lire(sb, user).then(function (p) { if (!p) return; $('r-prenoms').value = p.prenoms || ''; $('r-nom').value = p.nom || ''; $('r-date').value = p.date || ''; });
+      f.addEventListener('submit', function (e) {
+        e.preventDefault(); var m = $('r-msg');
+        var p = { prenoms: $('r-prenoms').value.trim(), nom: $('r-nom').value.trim(), date: $('r-date').value };
+        if (!p.prenoms || !p.date) { m.textContent = 'Indique au moins ton prénom et ta date de naissance.'; return; }
+        m.textContent = 'Un instant…';
+        (R.verrouille() ? R.modifier(sb, user, p) : R.enregistrer(sb, user, p)).then(function (x) { m.textContent = x ? 'C’est enregistré. Tes espaces utiliseront ces repères.' : 'L’enregistrement n’a pas fonctionné. Réessaie dans un instant.'; });
+      });
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-deconnecter]')) { var d = $('deconnexion'); if (d) d.click(); }
+      if (e.target.closest('[data-supprimer]')) { montrer('infos'); var z = $('zone-suppr'); if (z) { z.hidden = false; z.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+    });
     function mesEspaces() {
       if (!window.GenesoliaAcces || !window.GenesoliaCompte || !window.GenesoliaCompte.actif()) return;
       var pro = sb && user ? sb.from('praticiens').select('user_id').eq('user_id', user.id).then(function (x) { return !!(x && x.data && x.data.length); }, function () { return false; }) : Promise.resolve(false);
       Promise.all([window.GenesoliaAcces.membre(), window.GenesoliaAcces.spirale ? window.GenesoliaAcces.spirale() : false, pro]).then(function (r) {
         var l = [];
-        if (r[0]) l.push(['cercle.html', 'Le Cercle', 'Ton carnet, ton suivi, tes séances']);
-        if (r[1]) l.push(['pass.html', 'Ma spirale', 'Tes ressentis, ton fil d’or, ton agenda, ton bilan']);
-        if (r[2]) l.push(['pro.html', 'Genesolia Pro', 'Ton espace praticien et tes dossiers']);
-        var z = $('acc-espaces'); if (!z || !l.length) return;
-        $('acc-espaces-l').innerHTML = l.map(function (x) { return '<a href="' + x[0] + '"><b>' + esc(x[1]) + '</b><span>' + esc(x[2]) + '</span></a>'; }).join('');
+        l.push(r[0] ? ['cercle.html', 'Le Cercle', 'Ton carnet, tes séances, ton parcours', 'Ouvrir'] : ['abonnement.html', 'Le Cercle', 'Ton parcours guidé en 12 étapes', '1er mois offert']);
+        l.push(r[1] ? ['pass.html', 'Ma spirale', 'Tes schémas, ta frise, ton théâtre', 'Ouvrir'] : ['ma-spirale.html', 'Ma spirale', 'Ton outil pour sortir de tes schémas', '7 jours offerts']);
+        if (r[2]) l.push(['pro.html', 'Genesolia Pro', 'Votre espace praticien et vos dossiers', 'Ouvrir']);
+        var z = $('acc-espaces'); if (!z) return;
+        $('acc-espaces-l').innerHTML = l.map(function (x) { return '<a href="' + x[0] + '"' + (x[3] === 'Ouvrir' ? '' : ' class="eb-a-decouvrir"') + '><b>' + esc(x[1]) + '</b><span>' + esc(x[2]) + '</span><em>' + esc(x[3]) + '</em></a>'; }).join('');
         z.hidden = false;
       }, function () {});
     }
@@ -788,7 +834,7 @@
         var gestion = (window.GENESOLIA_STRIPE || {}).gestion;
         var liens = '<a class="btn btn-plein" href="mon-carnet.html">Renaissance, mon carnet</a><a class="btn btn-trait" href="mon-suivi-mois.html">Libération, mon livret</a><a class="btn btn-trait" href="mes-seances.html">Mes séances</a><a class="btn btn-trait" href="mon-guide.html">Mon guide du mois</a>';
         var abo = document.querySelector('[aria-labelledby="t-abo"]');
-        if (abo) abo.innerHTML = '<h2 id="t-abo">Mon abonnement</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
+        if (abo) abo.innerHTML = '<h2 id="t-abo">Mes abonnements</h2><p class="tb-formule">Le Cercle <span>actif</span></p>' +
           '<p class="tb-aide">Ton parcours guidé (Renaissance et Libération), tes séances audio, ta formation « Sors de la boucle » et ton guide du mois.</p>' +
           '<p class="tb-essai" id="essai-info" hidden></p>' +
           '<div class="tb-actions"><a class="btn btn-plein" href="cercle.html">Ouvrir l’appli Le Cercle</a>' + '</div>';
@@ -817,6 +863,7 @@
         cercleMembre();
         passMembre();
         mesEspaces();
+        chargerReperes();
       }
     };
     if (window.GenesoliaEspaceAttente) { var at = window.GenesoliaEspaceAttente; window.GenesoliaEspaceAttente = null; window.GenesoliaEspaceNav.init(at[0], at[1]); }
