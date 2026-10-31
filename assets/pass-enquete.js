@@ -199,7 +199,7 @@ window.PASS_FIL = {
     coeur: [['Les actes de mariage', 'les témoins, la date à comparer avec la naissance du premier enfant'], ['Les mentions de divorce', 'en marge des actes de mariage et de naissance'], ['Les lettres et les photos', 'le dos des photos, les faire-part, les cartes gardées dans une boîte'], ['Le livret de famille', 'les enfants nés, ceux partis trop tôt, les remariages']],
     tous: [['Ceux qui sont encore là', 'une seule question, posée avec douceur'], ['Le cimetière', 'les tombes réunissent parfois ceux qu’on ne connaissait pas']]
   },
-  /* Libérer : clé 1, libérer la mémoire ; clé 2, la couche profonde, quand le thème revient */
+  /* Libérer : clé 1, libérer la mémoire ; clé 2, quand ça revient plus fort, quand le thème revient */
   LIBERER: {
     respirer: 'Inspire lentement par le nez (5 secondes), retiens (2 secondes), expire longuement par la bouche (7 secondes). Au moins trois fois. La respiration coupe le pilote automatique : ton corps voulait réagir « comme d’habitude ».',
     phrase: 'Je te vois, mémoire de {nom}. Je te reconnais, mémoire de {source}. Merci d’être là, car tu me permets de libérer les mémoires de ma lignée et d’y mettre fin.',
@@ -286,7 +286,7 @@ window.PASS_FIL = {
       etapes: ['Respire avec la sphère, trois fois, les pieds bien posés au sol.', 'Vois devant toi {qui}{quiage}, dans une lumière douce. Regarde ce qu’{elle} a traversé{quoi}.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, mémoire de {nom}. Je garde ta force. »', 'Vois un faisceau de lumière descendre en toi, puis à travers tes racines jusqu’à {lui}, et plus loin dans la lignée. Dis : « Je libère cette mémoire pour nous tous. »', 'Vois le paquet se déposer devant {lui}, puis la lumière le dissoudre. {Elle} peut se reposer ; toi, avancer.'] },
     { id: 'intention', titre: 'Poser une intention', court: 'Se centrer, l’écrire, la poser du plus profond de soi, puis lâcher.', pour: 'intention',
       etapes: ['Pose les pieds au sol, une main sur le cœur. Respire jusqu’à te sentir centré·e.', 'Écris ce que tu veux à la place de {nom}, au présent, comme si c’était déjà vrai : « {intention} »', 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi.', 'Garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume : c’est posé.', 'Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'] },
-    { id: 'profond', titre: 'La couche profonde', court: 'Quand ça revient plus fort alors que tu l’avais travaillé.', pour: '',
+    { id: 'profond', titre: 'Quand ça revient plus fort', court: 'Quand ça revient plus fort alors que tu l’avais travaillé.', pour: '',
       etapes: ['Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond.', 'Demande-toi : quelle est la situation exacte ? Qu’est-ce qu’elle révèle de ma vraie peur, sous celle que j’avais déjà travaillée ? Qui, dans ma lignée, a vécu cette peur très fort ?', 'Dis : « Je te vois, mémoire de {nom}. Je comprends maintenant que tu étais cachée sous la première couche. Merci de te révéler, je suis prêt·e à te libérer. »', 'Dans les 48 heures, pose un petit geste concret dans le sens de ta nouvelle vérité.'] },
     { id: 'corps', titre: 'La minute de sécurité du corps', court: 'Chaque jour, apprendre au corps une autre réponse que l’alerte.', pour: '',
       etapes: ['Pose les pieds au sol, une main sur le ventre.', 'Respire lentement, plus longtemps à l’expiration.', 'Dis à ton corps : « Je suis en sécurité, ici et maintenant. »', 'Il a appris l’alerte, il peut apprendre la sécurité.'] },
@@ -306,7 +306,7 @@ window.PASS_FIL = {
      cle1 et cle2 ont leur affichage complet (respiration guidée, phrase qui se compose, etc.). */
   PROTOCOLES: [
     { id: 'cle1', titre: 'Libérer la mémoire', court: 'Respirer, nommer, reconnaître, transmuter, réorienter. Quand une mémoire s’active.' },
-    { id: 'cle2', titre: 'La couche profonde', court: 'Quand le thème revient alors que tu l’avais déjà travaillé.' }
+    { id: 'cle2', titre: 'Quand ça revient plus fort', court: 'Quand le thème revient alors que tu l’avais déjà travaillé.' }
   ],
   /* Les pistes du livre à proposer dans « Enquêter », selon le cycle */
   PISTES: { racine: ['noms', 'dates', 'absents', 'ciel'], coeur: ['voix', 'repete', 'corps', 'absents'] }
