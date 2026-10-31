@@ -353,7 +353,20 @@
   @media (max-width:560px){.ms-ecrans{gap:.8rem}.ms-ecrans img{border-width:4px;border-radius:18px}.ms-trois{grid-template-columns:1fr 1fr}}
   .ms-video{margin:2.4rem auto 0;max-width:340px;text-align:center}.ms-video video{width:100%;height:auto;border-radius:28px;display:block;box-shadow:0 18px 40px rgba(59,23,71,.25);background:#2A0F33}.ms-video figcaption{margin-top:.7rem;color:var(--prune-doux);font-size:.92rem}
 .ms-carnet-img{display:block;margin:.6rem 0 1rem;text-decoration:none}.ms-carnet-img img{width:100%;height:auto;max-height:260px;object-fit:cover;object-position:top;border-radius:14px;border:1px solid var(--rose);box-shadow:0 8px 24px rgba(107,47,91,.12)}.ms-carnet-img span{display:block;font-size:.88rem;color:var(--prune-doux);margin-top:.4rem;text-align:center}
-</style>
+    .ms-hero-visuel{width:100%;height:auto;border-radius:22px;box-shadow:0 24px 60px rgba(46,19,56,.35)}
+    .ms-lien-demo{margin-top:.8rem}.ms-lien-demo a{color:inherit;text-underline-offset:3px}
+    .ms-douleurs{grid-template-columns:1fr!important;margin:1rem 0}
+    .ms-verite{margin-top:1rem;color:var(--prune)}
+    .ms-3temps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+    .ms-3temps figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:20px;overflow:hidden}
+    .ms-3temps img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+    .ms-3temps figcaption{padding:1rem 1.2rem 1.3rem;color:var(--prune-doux)}.ms-3temps b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--prune);margin-bottom:.3rem}
+    .ms-temoins{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .ms-temoins blockquote{margin:0;padding:1.5rem;border-radius:20px;background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose)}
+    .ms-temoins p{font-family:var(--display);font-size:1.15rem;color:var(--prune);line-height:1.5}.ms-temoins cite{display:block;margin-top:.8rem;font-style:normal;font-size:.92rem;color:var(--prune-doux)}
+    .ms-7j li{margin-bottom:.5rem}
+    @media (max-width:860px){.ms-3temps,.ms-temoins{grid-template-columns:1fr}}
+  </style>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -362,38 +375,64 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Ton outil du quotidien · téléphone et ordinateur</p>
-          <h1>Ma spirale : quand quelque chose remonte, tu as un endroit où aller</h1>
-          <p class="intro">Tu déposes ce que tu ressens, tu retrouves d’où ça vient dans ta vie et ta lignée, et tu le libères avec des protocoles faits pour toi.</p>
-          <a class="btn btn-plein t-cta ms-essai" href="pass.html?exemple">Essayer avec l’exemple de Léa</a>
-          <p class="ms-sous-cta">Sans inscription · rien n’est enregistré · 2 minutes</p>
-          <p style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn btn-plein" href="#offre" data-payer="passMois">S’abonner</a> <a class="btn btn-trait" href="pass.html">J’ai déjà un compte : ouvrir Ma spirale</a></p>
-          <p class="ms-prix-l"><span class="promo-noel">✦ Offre de Noël</span> Ma spirale · 7 jours offerts, puis <s>10 €</s> <b>4,99 € par mois</b>, sans engagement</p>
+          <p class="a-sur">Ma spirale · ton outil d’introspection profonde</p>
+          <h1>Ce qui se répète dans ta vie a une histoire. Vois-la, et libère-toi.</h1>
+          <p class="intro">Quand quelque chose remonte, tu as enfin un endroit où aller : tu déposes ce que tu ressens, tu vois d’où ça vient dans ta vie et ta lignée, et tu le libères, à ton rythme.</p>
+          <a class="btn btn-plein t-cta" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+          <p class="ms-sous-cta">Puis <s>10 €</s> <b>4,99 € par mois</b> · offre de Noël jusqu’au 31 décembre · sans engagement</p>
+          <p class="ms-lien-demo"><a href="pass.html?exemple">Voir d’abord la démo de Léa</a> · sans inscription, 2 minutes</p>
           <div class="ms-aime clair" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
         </div>
-        <img class="ms-tel" src="assets/pass/captures/moi.webp" width="540" height="1124" alt="Ma spirale sur téléphone : l’accueil, avec « Je dépose un ressenti » et les schémas en cours">
+        <img class="ms-hero-visuel" src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions">
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur t-split">
+        <img class="t-split-img" src="assets/pass/vente/douleur.webp" width="1000" height="750" alt="Une femme pensive près d’une fenêtre, une tasse entre les mains, au coucher du soleil" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Tu te reconnais ?</p>
+          <h2>Les visages changent. La scène, elle, revient.</h2>
+          <ul class="t-douleurs ms-douleurs">
+            <li><b>Toujours la même histoire</b>En couple, au travail, avec l’argent : d’autres personnes, la même situation.</li>
+            <li><b>Une émotion trop grande</b>Tu réagis bien plus fort que ce qui vient d’arriver, et tu ne sais pas d’où ça sort.</li>
+            <li><b>Tu as compris, et pourtant…</b>Tu sais d’où ça vient. Et ça recommence quand même.</li>
+            <li><b>Tu ne sais pas par où commencer</b>Peu de souvenirs, une famille mal connue, des mots qui ne viennent pas.</li>
+          </ul>
+          <p class="ms-verite"><b>Ce n’est pas un hasard, ni un défaut chez toi : c’est un schéma. Et un schéma, ça se libère.</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <div>
+          <p class="a-etiq">Pourquoi ça se répète</p>
+          <h2>Ce que tu vis a souvent commencé avant toi</h2>
+          <p>Une peur, une façon d’aimer, un rapport à l’argent ou au corps se transmettent d’une génération à l’autre, sans être dits. Tant qu’on ne les voit pas, on les rejoue : aux mêmes âges, dans les mêmes rôles, avec les mêmes blessures.</p>
+          <p>Ma spirale te montre ces fils. Ta frise de vie retrouve la première fois. Ta frise familiale montre qui l’a vécu avant toi. Et ce qui devient visible peut enfin se libérer.</p>
+        </div>
+        <img class="t-split-img" src="assets/pass/vente/lignee.webp" width="1000" height="750" alt="Trois générations de femmes reliées par un fil de lumière dorée, en aquarelle" loading="lazy" decoding="async">
       </div>
     </section>
 
     <section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Avant de commencer</p>
-          <h2>Tu te reconnais ?</h2>
+          <p class="a-etiq">La solution</p>
+          <h2>Trois temps, à ton rythme</h2>
+          <p>Un travail sur toi, quand tu en as besoin : le soir, après une dispute, au réveil d’un rêve.</p>
         </div>
-        <ul class="t-douleurs">
-          <li><b>Toujours la même scène</b>Les personnes changent, mais tu revis la même situation, en couple, au travail, avec l’argent.</li>
-          <li><b>Une émotion trop grande</b>Une réaction bien plus forte que ce qui vient d’arriver, et tu ne sais pas d’où elle sort.</li>
-          <li><b>Tu as compris, mais…</b>Tu sais d’où ça vient, et pourtant ça recommence.</li>
-          <li><b>Tu ne sais pas par où commencer</b>Pas de souvenirs, une famille mal connue, des mots qui ne viennent pas.</li>
-        </ul>
-        <div class="t-verite">
-          <p><b>Si oui, ce n’est pas un hasard : c’est un schéma. Et un schéma se libère.</b></p>
+        <div class="ms-3temps">
+          <figure><img src="assets/pass/vente/deposer.webp" width="1000" height="750" alt="Des mains tenant un téléphone ouvert sur « Qu’est-ce que tu ressens ? »" loading="lazy" decoding="async"><figcaption><b>1 · Déposer</b>En trois questions : ce qui s’est passé, ton émotion, où tu la sens dans ton corps. Même quand ça monte fort.</figcaption></figure>
+          <figure><img src="assets/pass/captures/ordi-fiche-600.webp" width="600" height="375" alt="La fiche d’un schéma sur ordinateur" loading="lazy" decoding="async"><figcaption><b>2 · Comprendre</b>Ta frise retrouve la première fois. Ton théâtre montre la scène : qui, dans ta vie, rejoue quelqu’un de ta lignée.</figcaption></figure>
+          <figure><img src="assets/pass/vente/liberer.webp" width="1000" height="750" alt="Une femme de dos ouvre les bras face à une fenêtre ouverte au soleil levant" loading="lazy" decoding="async"><figcaption><b>3 · Libérer</b>Des protocoles qui se remplissent avec ta fiche : tu n’as rien à inventer. Ta note sur 10 te montre le chemin.</figcaption></figure>
         </div>
+        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a></div>
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+<section class="bloc bloc-doux">
       <div class="conteneur t-split">
         <div class="ms-ecrans ms-deux">
           <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : une scène avec les personnages de la vie et de la lignée, reliés par des fils dorés" loading="lazy" decoding="async"><figcaption><b>La scène</b>Tes personnages, autour de toi</figcaption></figure>
@@ -413,10 +452,10 @@
       </div>
     </section>
 
-    <section class="bloc">
+<section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Comment ça marche</p>
+          <p class="a-etiq">La démo, en détail</p>
           <h2>Cinq étapes, à ton rythme</h2>
           <p>Chaque ressenti rejoint un schéma, ce qui se répète. Ton schéma avance tout seul dans les 9 étapes du cycle, de l’Émergence à la Renaissance.</p>
         </div>
@@ -437,7 +476,7 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+<section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Mes actions</p>
@@ -454,7 +493,7 @@
       </div>
     </section>
 
-    <section class="bloc">
+<section class="bloc">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Dans ta poche</p>
@@ -471,7 +510,7 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+<section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Sur ordinateur</p>
@@ -483,7 +522,7 @@
       </div>
     </section>
 
-    <section class="bloc">
+<section class="bloc">
       <div class="conteneur t-split">
         <img class="ms-tel" src="assets/pass/captures/reve.webp" width="540" height="1124" alt="Un rêve noté, avec la case pour le partager de façon anonyme" loading="lazy" decoding="async">
         <div>
@@ -501,41 +540,68 @@
     </section>
 
     <section class="bloc bloc-doux">
-      <div class="conteneur" style="max-width:46rem;text-align:center">
-        <p class="a-etiq">Rien que pour toi</p>
-        <h2 style="margin-bottom:1rem">Ton espace privé</h2>
-        <p style="margin-inline:auto">Tout est gardé dans ton espace Genesolia, privé, et tu le retrouves sur tous tes appareils. Ma spirale est une lecture symbolique pour avancer : elle ne remplace pas un avis médical ou psychologique.</p>
+      <div class="conteneur" style="max-width:52rem">
+        <div class="a-titre">
+          <p class="a-etiq">Pendant tes 7 jours offerts</p>
+          <h2>Ce que tu auras en une semaine</h2>
+        </div>
+        <ul class="t-coches ms-7j">
+          <li><b>Ton premier schéma nommé</b>, avec ce qui le déclenche et où tu le sens.</li>
+          <li><b>Ta frise de vie</b>, avec la première fois que c’est arrivé.</li>
+          <li><b>Ta première scène</b> dans ton théâtre : les personnes de ta vie, et celles de ta lignée qu’elles te rappellent.</li>
+          <li><b>Un protocole de libération</b> fait jusqu’au bout, et ta note sur 10 avant et après.</li>
+          <li><b>Ton intention</b>, ce que tu veux vivre à la place.</li>
+        </ul>
+        <div style="text-align:center;margin-top:1.6rem"><a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Commencer mes 7 jours offerts</a></div>
+        <p class="t-rassure" style="text-align:center">Tu arrêtes quand tu veux, en un clic, avant ou après les 7 jours.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Elles l’utilisent</p>
+          <h2>Ce qu’elles en disent</h2>
+        </div>
+        <div class="ms-temoins">
+          <blockquote><p>« Incroyablement riche et complet, je m’y retrouve complètement. »</p><cite>Aurélie, 36 ans · Vannes (56)</cite></blockquote>
+          <blockquote><p>« Fonctionnelle, utile, et elle permet de travailler seule sur soi au bon moment surtout, et quand on le veut. Même avec des montées émotionnelles, ça permet de se recentrer et de prendre de la hauteur directement. »</p><cite>Mélanie, 44 ans · Toulouse</cite></blockquote>
+          <blockquote><p>« J’adore, c’est féminin, c’est joli et c’est facile à utiliser, trop bien ! »</p><cite>Caroline, 39 ans</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur t-split ms-moi">
+        <img class="t-split-img" src="assets/pass/vente/laura.webp" width="700" height="640" alt="Laura, créatrice de Genesolia, écrit dans un carnet" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Qui a créé Ma spirale</p>
+          <h2>Je suis Laura</h2>
+          <p>Je suis la créatrice de Genesolia. J’ai conçu Ma spirale pour qu’au moment où quelque chose remonte, tu ne sois plus seule avec : un endroit à toi pour déposer, comprendre d’où ça vient, et t’en libérer, sans attendre un rendez-vous.</p>
+          <p>Tout ce que tu y trouves, la frise, le théâtre, les protocoles, je l’ai pensé pour qu’on puisse avancer seule, à son rythme, avec douceur.</p>
+        </div>
       </div>
     </section>
 
     <section class="bloc" id="offre">
       <div class="conteneur">
         <div class="a-titre">
-          <p class="a-etiq">Deux offres</p>
-          <h2>Ma spirale ou Le Cercle ?</h2>
-          <p>Ma spirale est un outil que tu utilises seul·e, quand tu en as besoin. Le Cercle est une autre offre : un parcours guidé, avec une nouvelle étape chaque mois.</p>
+          <p class="a-etiq"><span class="promo-noel">✦ Offre de Noël</span></p>
+          <h2>Commence aujourd’hui</h2>
         </div>
-        <div class="ms-compare">
-          <table>
-            <thead><tr><th></th><th>Ma spirale</th><th>Le Cercle</th></tr></thead>
-            <tbody>
-              <tr><th>C’est quoi</th><td>Un outil d’introspection, dans ta poche</td><td>Un programme accompagné en 12 étapes</td></tr>
-              <tr><th>Quand</th><td>Quand quelque chose remonte, à n’importe quel moment</td><td>Une étape par mois, à suivre dans l’ordre</td></tr>
-              <tr><th>Ce que tu fais</th><td>Tu déposes tes ressentis, tu remontes à la source, tu libères avec les protocoles, tu suis ta note sur 10</td><td>Tu suis ton carnet, tu écoutes tes séances audio, tu avances dans la formation « Sors de la boucle »</td></tr>
-              <tr><th>Pour qui</th><td>Tu veux un outil, et avancer à ta façon</td><td>Tu veux être guidé·e, avec un cadre et du contenu chaque mois</td></tr>
-              <tr><th>Prix</th><td>7 jours offerts, puis <s>10 €</s> <b>4,99 € par mois</b> (offre de Noël), sans engagement</td><td>29 € par mois, 1<sup>er</sup> mois offert</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="ms-offres" style="margin-top:2rem">
+        <div class="ms-offres">
           <div class="ms-offre mis">
             <h3>Ma spirale</h3>
-            <a href="pass.html?exemple" class="ms-carnet-img"><img src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions" loading="lazy" decoding="async"><span>Voir la démo</span></a>
-            <p><span class="promo-noel">✦ Offre de Noël</span> </p><p class="ms-prix"><s style="font-size:.6em;opacity:.7">10 €</s> 4,99 € <small>par mois, sans engagement</small></p><p class="t-rassure">7 jours offerts pour essayer.</p>
-            <p>Avec Ma spirale : ton agenda, ton mois à toi, toutes les analyses de ton arbre et tous les livrets.</p>
-            <a class="btn btn-plein" href="#offre" data-payer="passMois">S’abonner</a>
-            <a class="btn btn-trait" href="pass.html" style="margin-top:.5rem">J’ai déjà un compte : ouvrir Ma spirale</a>
-            <p class="t-rassure">Sans engagement : tu arrêtes quand tu veux.</p>
+            <p class="ms-prix"><s style="font-size:.6em;opacity:.7">10 €</s> 4,99 € <small>par mois</small></p>
+            <p class="t-rassure">7 jours offerts, puis 4,99 € par mois pour toute inscription jusqu’au 31 décembre. Ce prix te reste tant que tu restes.</p>
+            <ul class="t-coches">
+              <li>Ton théâtre, ta frise de vie et ta frise familiale</li>
+              <li>Tous les protocoles de libération, et la respiration si ça monte fort</li>
+              <li>Ton agenda, tes rêves, ta note du jour</li>
+              <li>Sur téléphone et ordinateur, dans ton espace privé</li>
+            </ul>
+            <a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+            <p class="t-rassure">Sans engagement : tu arrêtes en un clic. <a href="pass.html">J’ai déjà un compte</a></p>
           </div>
           <div class="ms-offre">
             <h3>Le Cercle</h3>
@@ -552,25 +618,25 @@
     <section class="bloc bloc-doux">
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
+        <details><summary>Que se passe-t-il après les 7 jours ?</summary><p>Ton abonnement continue à 4,99 € par mois. Tu peux l’arrêter à tout moment, en un clic, avant ou après la fin des 7 jours.</p></details>
         <details><summary>Faut-il installer quelque chose ?</summary><p>Non. Ma spirale s’ouvre dans ton navigateur. Sur ton téléphone, ajoute-la à ton écran d’accueil : elle s’ouvre alors comme une appli, avec sa barre en bas.</p></details>
         <details><summary>Je n’ai pas de souvenirs de mon enfance. Est-ce pour moi ?</summary><p>Oui. Le protocole « Trouver ma première fois » t’aide à laisser venir l’âge que tu te sens, et « avant mes souvenirs » est une vraie réponse : elle t’oriente vers ta lignée.</p></details>
         <details><summary>Je connais mal ma famille.</summary><p>Tu peux avancer quand même. L’appli te propose les questions à poser à tes proches, et si tu ne connais pas ta lignée, tu travailles avec la famille qui t’a élevé·e.</p></details>
         <details><summary>Et si ça revient après une libération ?</summary><p>Ce n’est pas un retour en arrière : c’est souvent une couche plus profonde qui se montre. Tu rouvres ton schéma, et le protocole « La couche profonde » t’accompagne.</p></details>
         <details><summary>Qui peut lire ce que j’écris ?</summary><p>Tout reste dans ton espace privé. Seuls les rêves que tu choisis de partager sortent de ton espace, sans ton nom.</p></details>
-        <details><summary>Quelle différence avec Le Cercle ?</summary><p>Ma spirale est l’outil. Le Cercle l’inclut et ajoute un parcours guidé, les séances audio et la formation.</p></details>
-        <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Si une histoire est trop lourde à porter, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
+        <details><summary>Quelle différence avec Le Cercle ?</summary><p>Ce sont deux offres différentes. Ma spirale est ton outil, à ouvrir quand tu en as besoin. Le Cercle est un parcours guidé, une étape chaque mois, avec des séances audio et la formation.</p></details>
+        <details><summary>Est-ce que ça remplace un·e professionnel·le ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Elle ne remplace pas un avis médical ou psychologique. Si une histoire est trop lourde à porter, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
       </div>
     </section>
 
     <section class="t-final">
       <img class="t-hero-fond" src="assets/images/blog-ancetres-reve-800.webp" srcset="assets/images/blog-ancetres-reve-800.webp 800w, assets/images/blog-ancetres-reve-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
       <div class="conteneur t-final-texte">
-        <h2>Essaie avant de décider.</h2>
-        <p>L’exemple de Léa est ouvert : sans inscription, rien n’est enregistré.</p>
-        <a class="btn btn-plein t-cta" href="pass.html?exemple">Essayer avec l’exemple de Léa</a>
-        <p style="text-align:center"><a class="btn btn-plein" href="#offre" data-payer="passMois">S’abonner</a> <a class="btn btn-trait" href="pass.html">J’ai déjà un compte : ouvrir Ma spirale</a></p>
+        <h2>La prochaine fois que ça remonte, tu sauras où aller.</h2>
+        <p>7 jours offerts, puis 4,99 € par mois jusqu’au 31 décembre. Sans engagement.</p>
+        <a class="btn btn-plein t-cta" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+        <p style="text-align:center"><a href="pass.html?exemple" style="color:inherit">Ou voir d’abord la démo de Léa</a></p>
         <div class="ms-aime clair centre" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
-        <p class="t-rassure"><span class="promo-noel">✦ Offre de Noël</span> Ma spirale · 7 jours offerts, puis <s>10 €</s> <b>4,99 € par mois</b></p>
       </div>
     </section>
   </main>
