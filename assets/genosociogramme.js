@@ -4061,8 +4061,12 @@
       fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (d) {
         charger(d); dessiner(); recentrer();
         var b = document.createElement('div'); b.className = 'bandeau-exemple'; b.setAttribute('role', 'status');
-        b.innerHTML = espacePro() === 'pro.html' ? 'Démo : la famille de Léa (fictive). Rien n’est enregistré. <a href="pro.html">Revenir à Genesolia Pro</a>' : 'Exemple fictif : la famille de Léa. Rien n’est enregistré. <a href="genosociogramme.html">Créer mon propre arbre</a>';
+        var qsx = new URLSearchParams(location.search), demoPro = qsx.has('pro') || qsx.get('appli') === 'pro';
+        b.innerHTML = demoPro
+          ? '<b>Démo Genesolia Pro</b> : la famille de Léa (fictive). Essayez le mode séance, les répétitions et le rapport. Rien n’est enregistré. <button type="button" class="bt-demo-seance">Mode séance</button> <a href="pro.html">Commencer mes 30 jours offerts</a>'
+          : 'Exemple fictif : la famille de Léa. Rien n’est enregistré. <a href="genosociogramme.html">Créer mon propre arbre</a>';
         document.body.appendChild(b);
+        var bds = b.querySelector('.bt-demo-seance'); if (bds) bds.addEventListener('click', function () { b.remove(); modeSeance(); });
         statut('');
         numeroSiDemande();
       });
