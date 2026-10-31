@@ -685,3 +685,21 @@
 #mc-imprimer .mc-ico-imp{display:block}
 .mc-imp-choix{left:auto;right:0}
 @media (min-width:761px){.mc-imp-zone{top:1.6rem;right:1.6rem}}
+
+/* ===== Mon corps (assets/corps-cercle.js) ===== */
+.mc-corps-sem{margin:0 0 1rem;border:1px solid var(--rose-fonce);border-radius:18px;background:#fff;padding:0 1.1rem}
+.mc-corps-sem[open]{padding-bottom:1.1rem;box-shadow:0 10px 26px rgba(107,47,91,.07)}
+.mc-corps-sem summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .7rem;padding:1rem 0}
+.mc-corps-sem summary::-webkit-details-marker{display:none}
+.mc-corps-sem summary b{font:400 1.15rem var(--display);color:var(--prune)}
+.mc-corps-sem summary em{font-style:normal;font-size:.72rem;font-weight:700;padding:.15rem .6rem;border-radius:99px;background:#F4D9A8;color:#6B2F5B}
+.mc-corps-sem .mc-sur{margin-top:1.2rem}
+.mc-magie{margin:.8rem 0;padding:.7rem 1rem;border-radius:14px;background:linear-gradient(135deg,#FFF6EC,#F7E6EE);border:1px solid #EBD2A6;font-style:italic;color:#6B2F5B}
+.mc-corps-jours{display:flex;flex-wrap:wrap;gap:.4rem;margin:.9rem 0}
+.mc-corps-jours label{display:flex;align-items:center;gap:.35rem;padding:.35rem .7rem;border:1px solid var(--rose-fonce);border-radius:99px;font-size:.85rem;cursor:pointer;background:#fff}
+.mc-corps-jours label:has(input:checked){background:#F7E6EE;border-color:#B98A55}
+.mc-trop-plein .mc-tp-deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.mc-trop-plein .mc-tp-deux>div{padding:1rem;border-radius:16px;background:#FFF8EE;border:1px solid #EBD2A6}
+@media (max-width:640px){.mc-trop-plein .mc-tp-deux{grid-template-columns:1fr}}
+.mc-tab-corps{overflow-x:auto}.mc-tab-corps table{width:100%;border-collapse:collapse;font-size:.9rem}.mc-tab-corps th,.mc-tab-corps td{padding:.45rem .5rem;border-bottom:1px solid var(--rose-fonce);text-align:center}.mc-tab-corps th[scope=row]{text-align:left}
+@media print{.mc-corps-sem{break-inside:avoid}}
