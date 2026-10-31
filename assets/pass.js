@@ -468,7 +468,10 @@
     var dt = new Date(), jp = jourPerso(dt), mp = moisPerso(dt), b = naissance(), ap = b && N ? N.anneePerso(b.j, b.m, dt.getFullYear()) : null, ch = chemin(), so = soleil();
     var SC = (D.etat.schemas || []).map(completerSchema), enCours = SC.filter(function (x) { return !x.classe; }), classes = SC.filter(function (x) { return x.classe; });
     var guideVu = false; try { guideVu = !!localStorage.getItem('genesolia-spirale-guide'); } catch (x) {}
-    var h = (!EXEMPLE && !guideVu && !(D.etat.schemas || []).length && !(D.etat.ressentis || []).length ? '<section class="pa-carte pa-guide" id="pa-guide"><p class="pa-etiq">Bienvenue dans Ma spirale</p><h2>Comment ça marche, en 3 étapes</h2><ol class="pa-guide-l">' +
+    /* Bien démarrer : le mode d'emploi mis en avant pendant les 15 premiers jours */
+    var debut = 0; try { debut = +localStorage.getItem('genesolia-spirale-debut') || 0; if (!debut) { debut = Date.now(); localStorage.setItem('genesolia-spirale-debut', String(debut)); } } catch (x) {}
+    var bienDemarrer = !EXEMPLE && debut && Date.now() - debut < 15 * 864e5 ? '<section class="pa-carte pa-demarrer"><p class="pa-etiq">Bien démarrer</p><h2>Ma spirale, pas à pas</h2><p>Chaque écran expliqué, avec l’exemple de Léa : en 10 minutes, tu sais tout.</p><a class="pa-bt or" href="mode-emploi-ma-spirale.html" target="_blank" rel="noopener">Lire le mode d’emploi</a></section>' : '';
+    var h = bienDemarrer + (!EXEMPLE && !guideVu && !(D.etat.schemas || []).length && !(D.etat.ressentis || []).length ? '<section class="pa-carte pa-guide" id="pa-guide"><p class="pa-etiq">Bienvenue dans Ma spirale</p><h2>Comment ça marche, en 3 étapes</h2><ol class="pa-guide-l">' +
       '<li><b>Tes repères</b>Ta date de naissance et tes prénoms, une seule fois : ils placent ta frise et ouvrent tes nombres.</li>' +
       '<li><b>Dépose ce que tu ressens</b>Quand quelque chose remonte : « Je dépose ce que je ressens ». Une minute. Ça rejoint un schéma, ce qui se répète.</li>' +
       '<li><b>Avance en 5 temps</b>Je dépose, je situe (quand, avec qui), je relie (tiens, comme ma grand-mère ?), je vois, je libère.</li></ol>' +
