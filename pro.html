@@ -62,6 +62,12 @@
     .pr-remise label{display:flex;gap:.6rem;align-items:flex-start;font-weight:600;font-size:.94rem;cursor:pointer;line-height:1.4}
     .pr-remise input{width:22px;height:22px;flex:none;margin:.05rem 0 0;accent-color:var(--prune)}
     .pr-remise .pr-aide{margin:.35rem 0 0 2rem;font-size:.86rem}
+    .pr-remise label{display:inline-flex}
+    .pr-info{display:inline-block;vertical-align:top;margin-left:.4rem}
+    .pr-info summary{list-style:none;cursor:pointer;width:22px;height:22px;border-radius:50%;border:1px solid var(--prune);color:var(--prune);font-weight:700;font-size:.8rem;display:inline-flex;align-items:center;justify-content:center}
+    .pr-info summary::-webkit-details-marker{display:none}
+    .pr-info[open] summary{background:var(--prune);color:#fff}
+    .pr-info .pr-aide{margin:.35rem 0 0}
     .pr-remise .pr-aide:empty{display:none}
     .pr-lien{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .88rem var(--texte);cursor:pointer;padding:.5rem}
     .pr-vide{color:var(--prune-doux);text-align:center;padding:1rem}
@@ -124,7 +130,7 @@ body.pro{padding-bottom:110px}
   <script src="assets/deux-etapes.js?v=1"></script>
   <script src="assets/annuaire-fiche.js?v=2"></script>
   <script src="assets/praticien-outils.js?v=7"></script>
-  <script src="assets/praticien.js?v=2026-10-31d"></script>
+  <script src="assets/praticien.js?v=2026-10-31e"></script>
   <script>
   /* Barre du bas de l'appli Pro : aller aux dossiers, créer un dossier, mon activité */
   (function () {
