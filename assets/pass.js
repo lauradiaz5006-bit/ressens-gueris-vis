@@ -261,13 +261,14 @@
         var p = P[id], f = p.sex === 'f', g = gen[id], lien;
         if (anc[id] === 1) lien = f ? 'Ta mère' : 'Ton père';
         else if (anc[id] === 2) lien = f ? 'Ta grand-mère' : 'Ton grand-père';
+        else if (anc[id] === 3) lien = f ? 'Ton arrière-grand-mère' : 'Ton arrière-grand-père';
         else if (anc[id]) lien = f ? 'Ton aïeule' : 'Ton aïeul';
         else if (desc[id] === 1) lien = f ? 'Ta fille' : p.sex === 'm' ? 'Ton fils' : 'Ton enfant';
         else if (desc[id]) lien = f ? 'Ta petite-fille' : 'Ton petit-fils';
         else if (freres[id]) lien = f ? 'Ta sœur' : 'Ton frère';
-        else if ((cpl[moi.id] || []).indexOf(id) >= 0) lien = 'Ton couple';
-        else lien = g >= 2 ? (f ? 'Ton aïeule' : 'Ton aïeul') : g === 1 ? (f ? 'Ta tante' : 'Ton oncle') : g === 0 ? 'Ta famille' : (f ? 'Ta nièce' : 'Ton neveu');
-        var proche = anc[id] === 1 || desc[id] === 1 || freres[id] || lien === 'Ton couple';
+        else if ((cpl[moi.id] || []).indexOf(id) >= 0) lien = f ? 'Ta conjointe' : 'Ton conjoint';
+        else lien = g >= 2 ? (f ? 'Ton aïeule' : 'Ton aïeul') : g === 1 ? (f ? 'Ta tante' : 'Ton oncle') : g === 0 ? (f ? 'Ta cousine' : 'Ton cousin') : (f ? 'Ta nièce' : 'Ton neveu');
+        var proche = anc[id] === 1 || desc[id] === 1 || freres[id] || (cpl[moi.id] || []).indexOf(id) >= 0;
         l.push({ k: 'a:' + id, id: id, prenom: prenom1(p), lien: lien, gen: g, f: f, parti: !!p.deces, anneeD: dateComplete(p.deces), anneeN: dateComplete(p.naiss), rang: proche ? 1 : (anc[id] === 2 || desc[id] === 2 || Math.abs(g) === 1) ? 2 : 3 });
       });
     } else {
@@ -443,7 +444,7 @@
   function marquerVu(k) { try { localStorage.setItem('genesolia-spirale-vu-' + k, '1'); } catch (x) {} }
   var AIDES = {
     moi: ['Ici, tu déposes ce que tu ressens, quand quelque chose remonte. Chaque ressenti rejoint un schéma, ce qui se répète dans ta vie. Touche « Reprendre » sur un schéma pour avancer : je dépose, je situe, je relie, je vois, je libère. La note du jour, en une minute, t’aide à voir ce qui revient.', ''],
-    fil: ['Le fil d’or : tu pars de ce que tu vis et ressens, et tu remontes ta lignée. Note quelques moments de ta vie : ton âge, ce qui s’est passé, ce que tu as ressenti. Fais pareil pour ta mère et ton père, même si tu en sais peu. Quand vous avez vécu la même chose au même âge, un trait doré apparaît sur la frise.', '#fil'],
+    fil: ['Le fil d’or : tu pars de ce que tu vis et ressens, et tu remontes ta lignée. Note quelques moments de ta vie : ton âge, ce qui s’est passé, ce que tu as ressenti. Commence par toi, puis ajoute ta mère, ton père ou une autre personne de ta famille, même si tu en sais peu. Quand vous avez vécu la même chose au même âge, un trait doré apparaît sur la frise.', '#fil'],
     agenda: ['Tes dates de famille, tes ressentis, tes libérations et les lunes, jour par jour. Les chiffres de 1 à 9 sont tes journées personnelles. Touche un jour pour voir ce qui s’y passe.', '#agenda'],
     bilan: ['Chaque sphère est une personne de ta famille. Touche-la pour dire le lien que tu ressens : de la paix, du mitigé, ou pas encore regardé. Au fil du temps, tu vois ce qui s’allège.', '#bilan'],
     _theatre: ['Place les personnes de ta vie et de ta lignée autour de toi, près ou loin, là où tu les sens. Tu vois enfin qui joue quel rôle, et la scène change à mesure que tu avances.', '#theatre'],
@@ -482,6 +483,11 @@
         '<button class="pa-bt" type="submit">C’est noté</button><p class="pa-erreur" role="alert"></p></form></section>';
     }
     h += blocNoteJour(dt);
+    if (b && !EXEMPLE) h += '<details class="pa-carte pa-mes-reperes"><summary class="pa-etiq">Mes repères · modifier ma date de naissance</summary>' +
+      '<form id="pa-reperes" class="pa-form" novalidate><label for="pa-pr">Tes prénoms</label><input id="pa-pr" autocomplete="given-name" maxlength="120" required value="' + esc(D.prenoms || D.prenom || '') + '">' +
+      '<label for="pa-nom">Ton nom de naissance</label><input id="pa-nom" autocomplete="family-name" maxlength="80" value="' + esc(D.nom || '') + '">' +
+      '<label for="pa-dn">Ta date de naissance</label><input id="pa-dn" type="date" required min="1900-01-01" max="' + iso(dt) + '" value="' + esc(D.naissance || '') + '">' +
+      '<button class="pa-bt" type="submit">Enregistrer</button><p class="pa-erreur" role="alert"></p></form></details>';
     if (b) {
       h += '<details class="pa-carte pa-nuit pa-ciel-pli"><summary class="pa-etiq">Plus pour moi · ton ciel et tes nombres</summary><div class="pa-chiffres">' +
         (ch ? '<span><b>' + ch + '</b>chemin de vie</span>' : '') + (ap ? '<span><b>' + ap + '</b>année</span>' : '') + (mp ? '<span><b>' + mp + '</b>mois</span>' : '') + (jp ? '<span><b>' + jp + '</b>jour</span>' : '') + '</div>' +
@@ -611,8 +617,9 @@
     e.preventDefault();
     var pr = document.getElementById('pa-pr').value.trim(), nom = document.getElementById('pa-nom').value.trim(), dn = document.getElementById('pa-dn').value, err = document.querySelector('#pa-reperes .pa-erreur');
     if (!pr || !/^\d{4}-\d{2}-\d{2}$/.test(dn)) { err.textContent = 'Il manque tes prénoms ou ta date de naissance.'; return; }
-    D.naissance = dn; D.prenoms = pr; D.nom = nom; D.prenom = pr.split(/\s+/)[0];
-    if (!EXEMPLE && sb && D.user && window.GenesoliaReperes) window.GenesoliaReperes.enregistrer(sb, D.user, { prenoms: pr, nom: nom, date: dn });
+    D.naissance = dn; D.prenoms = pr; D.nom = nom; D.prenom = pr.split(/\s+/)[0]; CACHE_P = null;
+    var R = window.GenesoliaReperes;
+    if (!EXEMPLE && sb && D.user && R) (R.verrouille() && R.modifier ? R.modifier : R.enregistrer)(sb, D.user, { prenoms: pr, nom: nom, date: dn });
     else ecrireL('genesolia-guide', { prenom: D.prenom, prenoms: pr, nom: nom, date: dn });
     vueMoi();
   }
@@ -1598,27 +1605,35 @@
     return h + '<div class="pa-outils"><button type="button" class="pa-bt clair" data-reve="new">Je note un rêve</button></div></section>';
   }
 
+  /* Les pistes de l'arbre : l'article du blog qui explique chacune (ouvert dans un nouvel onglet) */
+  var LIENS_PISTES = { anniversaire: 'syndrome-anniversaire.html', date: 'syndrome-anniversaire.html', gisant: 'syndrome-du-gisant.html', prenom: 'prenom-transmis-psychogenealogie.html', schema: 'loyaute-familiale-invisible.html' };
+
   /* ── 2. Mon fil d'or ── */
   function vueFil() {
-    var h = '<h1 class="pa-h1">Mon histoire <small class="pa-h1-s">fil d’or</small></h1><p class="pa-sous">Ta base, et chaque ressenti que tu tires, jusqu’à ce que la boucle devienne spirale.</p>';
+    var h = '<h1 class="pa-h1">Mon histoire <small class="pa-h1-s">fil d’or</small></h1><p class="pa-sous">Le fil d’or, c’est ce qui relie ce que tu vis à ce qu’ont vécu les tiens. Ta base, ce sont les moments de ta vie et ton arbre. Une boucle, c’est ce qui se répète ; elle devient spirale quand le thème revient mais que tu réagis autrement. <a class="pa-lien-s" href="fil-d-or.html" target="_blank" rel="noopener">En savoir plus</a></p>';
+    h += blocFil();
     var SCs = (D.etat.schemas || []).map(completerSchema), EC = SCs.filter(function (x) { return !x.classe; });
     if (!EC.some(function (x) { return x.id === friseSel; })) friseSel = EC.length ? EC[EC.length - 1].id : '';
     h += '<section class="pa-carte pa-frise-c"><p class="pa-etiq">Ma frise · le schéma en cours</p><p class="pa-def">Ta vie en haut, ta lignée en dessous, par âge. Touche un moment pour y noter les phrases qui tournent dans ta tête. Un trait doré : tu as vécu ça au même âge qu’elle ou lui. Quand un schéma devient spirale, ses moments rejoignent ton bilan.</p>' +
       (EC.length > 1 ? '<div class="pa-puces pa-filtre-f">' + EC.map(function (x) { return '<button type="button" data-frise="' + esc(x.id) + '" aria-pressed="' + (friseSel === x.id) + '">' + esc(cap(x.nom)) + '</button>'; }).join('') + '</div>' : '') +
       (friseSel ? frise(trouverSchema(friseSel)) : '<p class="pa-discret">Ta frise montre le schéma en cours. Dépose un ressenti pour commencer.</p>') +
       '<div class="pa-outils"><button type="button" class="pa-bt clair" data-toute-vie>Voir toute ma vie</button></div></section><div class="pa-2col"><div>';
-    h += blocFil();
     var R = reps();
     h += '<section class="pa-carte"><p class="pa-etiq">Ta base · ce qui se répète dans ton arbre</p>';
-    if (R.length) h += R.slice(0, 8).map(function (x) { return '<details class="pa-rep"><summary>' + esc(x.label) + '</summary><p>' + esc(x.desc) + '</p></details>'; }).join('') + (R.length > 8 ? '<p class="pa-discret">Et ' + (R.length - 8) + ' autres pistes dans ton arbre.</p>' : '');
+    if (R.length) {
+      var unePiste = function (x) { return '<details class="pa-rep"><summary>' + esc(x.label) + '</summary><p>' + esc(x.desc) + '</p><p><a class="pa-lien-s" href="' + (LIENS_PISTES[x.type] || 'psychogenealogie.html') + '" target="_blank" rel="noopener">Comprendre ce que ça veut dire</a></p></details>'; };
+      h += '<p class="pa-def">Ce que ton arbre montre de répété : des dates, des âges, des événements. C’est une invitation à regarder, pas une explication. Si ça remue, fais une pause : tu reviens quand tu veux.</p>' +
+        R.slice(0, 3).map(unePiste).join('') + (R.length > 3 ? '<details class="pa-plus-pistes"><summary class="pa-lien-s">Voir les ' + (R.length - 3) + ' autres pistes</summary>' + R.slice(3).map(unePiste).join('') + '</details>' : '');
+    }
     else if (nbArbre()) h += '<p>Ouvre ton arbre une fois : ce qui se répète s’affichera ici, et dans ton agenda.</p>';
     else h += '<p>Avec ton arbre, les répétitions (âges, dates, prénoms, métiers) se repèrent toutes seules et rejoignent ton agenda.</p>';
     h += '</section>';
     h += blocCiel();
     h += '</div><div>';
-    h += '<p class="pa-titre-s">Mes schémas</p><p class="pa-def">Un schéma, c’est ce qui se répète. Il relie tes ressentis qui se ressemblent, ta lignée, ton corps et tes rêves.</p>' + (EC.length ? EC.map(carteSchema).join('') : '<p class="pa-discret">' + (SCs.length ? 'Aucun schéma en cours.' : 'Ton premier schéma se crée quand tu déposes un ressenti.') + '</p>') +
+    h += '<p class="pa-titre-s">Mes schémas</p><p class="pa-def">Un schéma, c’est ce qui se répète. Il relie tes ressentis qui se ressemblent, ta lignée, ton corps et tes rêves. <a class="pa-lien-s" href="schemas-repetitifs-en-amour.html" target="_blank" rel="noopener">En savoir plus</a></p>' +
+      '<details class="pa-rep"><summary>Les 5 temps, c’est quoi ?</summary><ul class="pa-echos"><li><b>Je dépose</b> : tu écris ce que tu ressens, avec tes mots.</li><li><b>Je situe</b> : quand, où, avec qui ça arrive.</li><li><b>Je relie</b> : qui, dans ta famille, a vécu la même chose.</li><li><b>Je vois</b> : tu comprends ce qui se rejoue.</li><li><b>Je libère</b> : tu suis le protocole pour t’en défaire.</li></ul><p class="pa-discret">Pour avancer sur un schéma, touche « Reprendre ». Pour quelque chose de nouveau, dépose un nouveau ressenti.</p></details>' + (EC.length ? EC.map(carteSchema).join('') : '<p class="pa-discret">' + (SCs.length ? 'Aucun schéma en cours.' : 'Ton premier schéma se crée quand tu déposes un ressenti.') + '</p>') +
       (SCs.length > EC.length ? '<p class="pa-titre-s">Devenus spirale</p>' + SCs.filter(function (x) { return x.classe; }).map(carteSchema).join('') : '');
-    h += '<button type="button" class="pa-bt or" data-depot>Je dépose un ressenti</button>';
+    h += '<button type="button" class="pa-bt' + (EC.length ? ' clair' : ' or') + '" data-depot>' + (EC.length ? 'Je dépose un nouveau ressenti' : 'Je dépose un ressenti') + '</button>';
     h += blocReves();
     h += livre('Pour écrire ton enquête à la main, la remplir en famille et la transmettre : 166 pages, 18 thèmes expliqués.');
 
@@ -1740,7 +1755,10 @@
   function blocCiel() {
     var A2 = astroLignee();
     if (!A2.length) return '<section class="pa-carte"><p class="pa-etiq">Ta base · le ciel et les nombres de ta lignée</p><p>Avec les dates de naissance complètes dans ton arbre, tu verras ici les chemins de vie, les signes et les dates qui se répètent d’une génération à l’autre.</p></section>';
-    return '<section class="pa-carte"><p class="pa-etiq">Ta base · le ciel et les nombres de ta lignée</p><ul class="pa-echos">' + A2.slice(0, 8).map(function (x) { return '<li>' + (x.moi ? '<b>' : '') + esc(x.t) + (x.moi ? '</b>' : '') + '</li>'; }).join('') + '</ul><p class="pa-discret">En gras, ce que tu partages. Un nombre ou un signe qui revient est une invitation à regarder, pas une explication.</p></section>';
+    var aMoi = A2.filter(function (x) { return x.moi; }), autres = A2.filter(function (x) { return !x.moi; }).slice(0, 8), li = function (x) { return '<li>' + esc(x.t) + '</li>'; };
+    return '<section class="pa-carte"><p class="pa-etiq">Ta base · le ciel et les nombres de ta lignée</p><p class="pa-def">Les chemins de vie, les signes et les dates de naissance que tu partages avec ta famille. Un nombre ou un signe qui revient est une invitation à regarder, pas une explication. <a class="pa-lien-s" href="theme-numerologique.html" target="_blank" rel="noopener">C’est quoi, le chemin de vie ?</a></p>' +
+      (aMoi.length ? '<ul class="pa-echos">' + aMoi.map(li).join('') + '</ul>' : '<p class="pa-discret">Rien de partagé avec toi pour l’instant.</p>') +
+      (autres.length ? '<details class="pa-plus-pistes"><summary class="pa-lien-s">Ce qui se répète entre les autres personnes de ta famille</summary><ul class="pa-echos">' + autres.map(li).join('') + '</ul></details>' : '') + '</section>';
   }
 
   /* ── 3. Mon agenda ── */
