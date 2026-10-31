@@ -472,7 +472,7 @@
     h += '<a class="pa-carte" href="#actions"><p class="pa-etiq">Mes actions</p><p>Les protocoles pour libérer, poser une intention, et revenir au calme si ça monte fort.</p><span class="pa-plus">Ouvrir mes actions</span></a>';
     h += '</div></div>';
     h += encartSite();
-    if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret" data-donnees-msg role="status"></p></section>';
+    if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret">Pour supprimer aussi ton compte Genesolia, écris-nous à <a href="mailto:contact@genesolia.fr?subject=Supprimer%20mon%20compte">contact@genesolia.fr</a> : il est supprimé, avec toutes tes données, sous un mois.</p><p class="pa-discret" data-donnees-msg role="status"></p></section>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);
   }

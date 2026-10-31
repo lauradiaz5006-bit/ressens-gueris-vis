@@ -141,7 +141,7 @@
       .then(function (r) { return r.json(); })
       .then(function (d) {
         bouton.disabled = false;
-        if (d && d.url) { z.innerHTML = '<audio controls preload="metadata" src="' + esc(d.url) + '"></audio>'; var a = z.querySelector('audio'); if (a) a.play().catch(function () {}); return; }
+        if (d && d.url) { var au = '<audio controls preload="metadata" src="' + esc(d.url) + '"></audio>'; z.innerHTML = window.GenesoliaCadre ? window.GenesoliaCadre.html(au) : au; return; }
         z.innerHTML = '<p class="ms-note">' + (d && d.bientot ? 'Ta séance est en cours d’enregistrement : elle sera là très bientôt, au même endroit.' : 'La séance ne s’ouvre pas pour l’instant. Recharge la page.') + '</p>';
       })
       .catch(function () { bouton.disabled = false; z.innerHTML = '<p class="ms-note">La séance ne s’ouvre pas pour l’instant. Recharge la page.</p>'; });

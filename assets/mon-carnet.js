@@ -515,7 +515,8 @@
   }
   function lecteur(src, titre) {
     if (!src) return '';
-    return '<div class="mc-audio" data-audio hidden><p class="mc-q">' + esc(titre) + '</p><audio controls preload="metadata" src="' + esc(src) + '"></audio></div>';
+    var au = '<audio controls preload="metadata" src="' + esc(src) + '"></audio>';
+    return '<div class="mc-audio" data-audio hidden><p class="mc-q">' + esc(titre) + '</p>' + (window.GenesoliaCadre ? window.GenesoliaCadre.html(au) : au) + '</div>';
   }
   function citation() {
     return '<blockquote class="mc-citation"' + (DECOR.citation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.citation)) + '\')"' : '') + '><span>' + esc(C.citation) + '</span></blockquote>';
@@ -1769,8 +1770,9 @@
     document.addEventListener('keydown', clavier);
     glisser();
     racine.querySelectorAll('[data-audio] audio').forEach(function (a) {
-      a.addEventListener('loadedmetadata', function () { a.parentNode.hidden = false; });
-      a.addEventListener('error', function () { a.parentNode.remove(); });
+      var bloc = a.closest('[data-audio]') || a.parentNode;
+      a.addEventListener('loadedmetadata', function () { bloc.hidden = false; });
+      a.addEventListener('error', function () { bloc.remove(); });
     });
     window.addEventListener('resize', collant);
     window.addEventListener('hashchange', function () { var c = cible(); if (c.p !== courante) aller(c.p, { ancre: c.ancre }); });
