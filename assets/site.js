@@ -607,79 +607,57 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   } else if (pied) {
     pied.className = 'pied';
     pied.innerHTML =
+      '<div class="pied-lumiere" aria-hidden="true"></div>' +
       '<div class="conteneur">' +
-        '<div class="pied-appli">' +
-          '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
-            '<div class="pa-barre" aria-hidden="true"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
-            '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
-            (page === 'cercle.html' ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
-            '<i></i><i></i><i></i><i></i></div>' +
-          '</div></div>' +
-          (page === 'cercle.html'
-            /* L'espace des membres : c'est l'appli Le Cercle qu'on propose. Ailleurs, l'appli Genesolia ; elle est remplacée par Le Cercle plus bas si la personne est membre */
-            ? '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
-              '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Télécharge l’appli Le Cercle</a></div>'
-            : '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
-              '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
-              (ESTCERCLE ? '<a href="appli.html#installer" class="btn pa-bouton">' : '<a href="#" class="btn pa-bouton" data-installer-bandeau>') + 'Télécharge Genesolia sur ton mobile</a></div>') +   /* pages du Cercle : leur manifeste installe Le Cercle, on passe donc par l'accueil de l'appli Genesolia */
+        '<div class="pied-une">' +
+          '<img class="pied-arbre" src="/assets/images/arbre-lumiere-600.webp" width="600" height="600" alt="" loading="lazy">' +
+          '<div class="pied-une-t">' +
+            '<a class="pied-nom" href="/">Genesolia</a>' +
+            '<p class="pied-phrase">Prends ta place, honore-la, sans t’épuiser à répéter tes difficultés.</p>' +
+            '<p class="pied-court">Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale, et t’en libérer à ton rythme.</p>' +
+            '<div class="pied-actions"><a class="btn pied-btn" href="offert.html">Commencer gratuitement</a><a class="btn pied-btn2" href="abonnements.html">Les abonnements</a>' +
+            '<a class="pied-appli-l" href="#" data-installer-bandeau>Installer l’appli sur mon téléphone</a></div>' +
+          '</div>' +
         '</div>' +
         '<div class="pied-grille">' +
-          '<div><a class="marque" href="/">' + MARQUE + '</a>' +
-            '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
-          '<div><h4>Les outils</h4><ul>' +
-            '<li><a href="offert.html">Outils gratuits</a></li>' +
-            '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
-            '<li><a href="parcours.html">Parcours guidé</a></li>' +
-            '<li><a href="mon-suivi.html">Mon suivi</a></li>' +
-            '<li><a href="mon-guide.html">Mon guide du mois</a></li>' +
-            '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
-            '<li><a href="theme-astral.html">Thème astral</a></li>' +
-            '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
-            '<li><a href="ta-vie-en-reel.html">Ta vie en réel</a></li>' +
-            '<li><a href="cartes.html">Images à partager</a></li>' +
-            '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
-            '<li><a href="jeux-en-famille.html">Jeux en famille</a></li>' +
-            '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
-            '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
-            '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
-            '<li><a href="livres.html">Les livres Genesolia</a></li>' +
-            '<li><a href="boutique.html">Boutique</a></li>' +
-            '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
-            '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
-            '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
+          '<div><h4>Tes outils</h4><ul>' +
+            '<li><a href="genosociogramme.html">Ton arbre familial</a></li>' +
+            '<li><a href="theme-numerologique.html">Tes numéros</a></li>' +
+            '<li><a href="theme-astral.html">Tes astres</a></li>' +
+            '<li><a href="fil-d-or.html">Le fil d’or</a></li>' +
+            '<li><a href="arbre-de-vie.html">L’arbre de vie</a></li>' +
+            '<li><a href="parcours.html">Trouver mon cycle</a></li>' +
+            '<li><a href="offert.html">Tes cadeaux</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
-          '<div><h4>Guides</h4><ul>' +
-            '<li><a href="quest-ce-qu-un-genosociogramme.html">Qu\'est-ce qu\'un génosociogramme ?</a></li>' +
-            '<li><a href="comment-faire-son-genosociogramme.html">Comment faire son génosociogramme</a></li>' +
-            '<li><a href="exemple-genosociogramme.html">Exemple de génosociogramme</a></li>' +
-            '<li><a href="genosociogramme-vierge.html">Génosociogramme vierge (PDF)</a></li>' +
-            '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
-            '<li><a href="blog.html">Le blog</a></li>' +
+            '<li><a href="blog.html">Les articles</a></li>' +
+            '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="histoires.html">Histoires de familles</a></li>' +
             '<li><a href="le-ciel-du-mois.html">Le ciel du mois</a></li>' +
-            '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
-            '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
-            '<li><a href="syndrome-anniversaire.html">Le syndrome d\'anniversaire</a></li>' +
             '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
-            '<li><a href="/#questions">Questions fréquentes</a></li></ul></div>' +
-          '<div><h4>Informations</h4><ul>' +
-            '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
-            '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
-            '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
-            '<li><a href="login.html">Mon espace</a></li>' +
-            '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
+            '<li><a href="quest-ce-qu-un-genosociogramme.html">Le génosociogramme</a></li>' +
+            '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li></ul></div>' +
+          '<div><h4>Avancer</h4><ul>' +
             '<li><a href="ma-spirale.html">Ma spirale</a></li>' +
-            '<li><a href="tarifs.html">Tarifs</a></li>' +
-            '<li><a href="la-demarche.html">La démarche</a></li>' +
-            '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
-            '<li><a href="avis.html">Envoie-nous ton avis, on en a besoin</a></li>' +
-            '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
+            '<li><a href="abonnement.html">Le Cercle</a></li>' +
+            '<li><a href="espace-praticien.html">Espace pro</a></li>' +
+            '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
+            '<li><a href="boutique.html">Boutique</a></li>' +
+            '<li><a href="livres.html">Les livres</a></li>' +
+            '<li><a href="tarifs.html">Tarifs</a></li></ul></div>' +
+          '<div><h4>Genesolia</h4><ul>' +
+            '<li><a href="login.html">Mon espace</a></li>' +
+            '<li><a href="mailto:contact@genesolia.fr">Nous écrire</a></li>' +
+            '<li><a href="avis.html">Donner mon avis</a></li>' +
+            '<li><a href="/#questions">Questions fréquentes</a></li>' +
+            '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
+            '<li><a href="cgv.html">Conditions de vente</a></li>' +
+            '<li><a href="confidentialite.html">Confidentialité</a></li>' +
+            '<li><a href="#" data-cookies>Gérer mes cookies</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
           '<span>Ce site propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique.</span>' +
-          '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + '</span>' +
+          '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + ' · Fait avec soin, en France</span>' +
         '</div>' +
       '</div>';
   }
