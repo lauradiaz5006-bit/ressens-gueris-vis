@@ -1705,7 +1705,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     var pb = document.querySelector('.pied-bas');
     if (pb && !pb.querySelector('.devise-choix')) { var s = document.createElement('span'); s.className = 'devise-pied'; s.innerHTML = 'Prix affichés en ' + choix(); pb.appendChild(s); }
     document.querySelectorAll('[data-devise-ici]').forEach(function (z) {
-      z.innerHTML = choix() + (devise() === 'cad' ? '<span class="devise-note">Prix en dollars canadiens, conversion et frais bancaires inclus.</span>' : '<span class="devise-note">Tu es au Québec ou au Canada ? Affiche les prix en dollars canadiens.</span>');
+      z.innerHTML = choix() + (devise() === 'cad' ? '<span class="devise-note">Prix indicatifs en dollars canadiens. Le paiement se fait en euros : ta banque convertit, et le montant final peut varier légèrement selon ses frais.</span>' : '<span class="devise-note">Tu es au Québec ou au Canada ? Affiche les prix en dollars canadiens.</span>');
     });
     document.addEventListener('click', function (e) { var b = e.target.closest('[data-devise]'); if (b) window.GenesoliaDevise.choisir(b.getAttribute('data-devise')); });
     if (!actif) return;
