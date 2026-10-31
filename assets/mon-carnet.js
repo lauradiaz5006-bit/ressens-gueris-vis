@@ -1432,7 +1432,7 @@
     if (!IMG.corps) IMG.corps = 'assets/guide/guide-liberer.webp';
     return { id: 'corps', nom: 'Mon corps', g: function () {
       return gauche('corps', 'Écouter · comprendre · libérer', 'Mon corps', '<p class="mc-intro">' + esc(K.principe) + '</p>' +
-        '<p class="mc-pourquoi"><b>Ce trimestre : ' + esc(ph.nom || '') + '.</b> ' + esc(ph.texte || '') + '</p><p class="mc-note">' + esc(K.objectif) + '</p>');
+        '<p class="mc-pourquoi"><b>Ce trimestre : ' + esc(ph.nom || '') + '.</b> ' + esc(ph.texte || '') + '</p><p class="mc-note">' + esc(K.objectif) + '</p>' + (K.precaution ? '<p class="mc-note" style="font-size:.82rem">' + esc(K.precaution) + '</p>' : ''));
     }, d: function () {
       var sc = semaineEnCours();
       return W.map(function (w, i) { return semCorps(K, w, i, sc); }).join('') +
