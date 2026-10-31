@@ -61,9 +61,9 @@
     function boutons(places, essai) {
       var noel = places > 0 && S.cercleFondatrice;
       z.innerHTML = (essai ? '<p>' + essai + '</p>' : '') + '<div class="sa-choix">' +
-        (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël, sans engagement</small></a>'
+        (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël · 1<sup>er</sup> paiement aujourd’hui</small></a>'
               : '<a class="btn btn-plein" href="#" data-payer="cercleMois"><span>29 € par mois</span><small>sans engagement</small></a>') +
-        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>en une fois, environ 20,75 € par mois</small></a></div>';
+        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>renouvelé chaque année, environ 20,75 € par mois</small></a></div>';
     }
     function places() {
       return fetch(URL_SB + '/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: CLE, 'Content-Type': 'application/json' }, body: '{}' })
