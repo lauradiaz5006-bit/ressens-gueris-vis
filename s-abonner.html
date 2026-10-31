@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>M’abonner au Cercle · Genesolia</title>
-  <meta name="description" content="Abonne-toi au Cercle directement : cadeau de Noël à 17,77 € par mois au lieu de 24,90 €, sans engagement, ou 249 € l’année.">
+  <meta name="description" content="Abonne-toi au Cercle directement : cadeau de Noël à 17,77 € par mois au lieu de 24,90 €, sans engagement, ou 199 € l’année au lieu de 249 €.">
   <link rel="canonical" href="https://genesolia.fr/s-abonner.html">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="assets/site.css?v=noel4">
@@ -63,7 +63,7 @@
       z.innerHTML = (essai ? '<p>' + essai + '</p>' : '') + '<div class="sa-choix">' +
         (noel ? '<a class="btn btn-plein" href="#" data-payer="cercleFondatrice"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël · 1<sup>er</sup> paiement aujourd’hui</small></a>'
               : '<a class="btn btn-plein" href="#" data-payer="cercleMois"><span>24,90 € par mois</span><small>sans engagement</small></a>') +
-        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>renouvelé chaque année, environ 20,75 € par mois</small></a></div>';
+        '<a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span><s>249 €</s> 199 € l’année</span><small>offre de Noël, renouvelé chaque année, environ 16,58 € par mois</small></a></div>';
     }
     function places() {
       return fetch(URL_SB + '/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: CLE, 'Content-Type': 'application/json' }, body: '{}' })
