@@ -92,7 +92,7 @@
       (essaiAvant ? essai : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
       (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, grossesses interrompues).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
-      '<div class="pr-ia"><button class="btn btn-trait" type="button" disabled aria-describedby="pr-ia-t">Dessiner l’arbre à partir de mes notes</button> <small id="pr-ia-t">Option réservée aux abonné·es · bientôt</small></div>' +
+      '<div class="pr-sondage" id="pr-sondage" hidden></div>' +
       '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préfère le prénom ou les initiales.</p><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de ton activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de tes rapports et de tes liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
       (appliInstallee() ? '' : '<section class="pr-carte pr-appli"><h2>L’appli sur ton téléphone</h2><p class="pr-aide">Installe Genesolia Pro sur ton écran d’accueil : tes dossiers, le mode séance et tes notes s’ouvrent d’un geste, comme une vraie appli. Gratuit, 30 secondes.</p><button class="btn btn-plein" type="button" data-pro-installer>Installer l’appli Genesolia Pro</button></section>') +
@@ -103,6 +103,31 @@
     if (window.GenesoliaDeuxEtapes) window.GenesoliaDeuxEtapes.reglage(sb, document.getElementById('pr-deux-etapes'));
     if (window.GenesoliaAnnuaire) window.GenesoliaAnnuaire.fiche(sb, user, prat, document.getElementById('pr-annuaire'), actif());
     chargerDossiers();
+    sondage();
+  }
+  /* Petit sondage : l'arbre dessiné à partir des notes intéresserait-il ? Une seule réponse par praticien·ne (modifiable), table sondage_praticiens */
+  var SONDAGE = 'arbre-notes-ia';
+  function sondage() {
+    var z = document.getElementById('pr-sondage'); if (!z) return;
+    sb.from('sondage_praticiens').select('reponse').eq('question', SONDAGE).maybeSingle().then(function (r) {
+      if (r && r.error) return;   /* table absente ou hors ligne : on n'affiche rien */
+      if (r && r.data) { z.innerHTML = '<p class="pr-aide" style="margin:0">Merci pour ta réponse sur l’arbre dessiné à partir de tes notes.</p>'; z.hidden = false; return; }
+      z.innerHTML = '<form id="pr-sond-f"><p class="pr-sond-q"><b>Ton avis compte.</b> Une option pour dessiner l’arbre directement à partir de tes notes de séance (tu colles tes notes, l’arbre se dessine en brouillon et tu valides chaque personne) t’intéresserait-elle ?</p>' +
+        '<div class="pr-sond-choix"><label><input type="radio" name="rep" value="oui" required> Oui</label><label><input type="radio" name="rep" value="non"> Non</label></div>' +
+        '<textarea name="note" maxlength="1000" rows="2" placeholder="Ce que tu en attendrais, ou pourquoi pas (facultatif)" aria-label="Ta remarque (facultatif)"></textarea>' +
+        '<div class="pr-sond-bas"><button class="btn btn-trait" type="submit">Envoyer mon avis</button><small data-sond-msg></small></div></form>';
+      z.hidden = false;
+      document.getElementById('pr-sond-f').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var f = e.target, rep = f.querySelector('input[name=rep]:checked'), m = f.querySelector('[data-sond-msg]'), b = f.querySelector('button');
+        if (!rep) { m.textContent = 'Choisis oui ou non.'; return; }
+        b.disabled = true; m.textContent = '';
+        sb.from('sondage_praticiens').upsert({ user_id: user.id, question: SONDAGE, reponse: rep.value, note: (f.note.value || '').trim().slice(0, 1000) || null }).then(function (r) {
+          if (r && r.error) { b.disabled = false; m.textContent = 'Pas enregistré. Réessaie dans un instant.'; return; }
+          z.innerHTML = '<p class="pr-aide" style="margin:0">Merci, ta réponse est bien reçue.</p>';
+        });
+      });
+    });
   }
   function chargerDossiers() {
     sb.from('arbres_supp').select('id,nom,data,maj,remise_autorisee').eq('user_id', user.id).order('maj', { ascending: false }).then(function (r) {
