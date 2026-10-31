@@ -1408,7 +1408,61 @@
       s.textContent = m ? '· ' + cap(JOURS_C[plusJ(new Date(+m[1], +m[2] - 1, +m[3]), j - 1).getDay()]) + ' ' + jourCourt(plusJ(new Date(+m[1], +m[2] - 1, +m[3]), j - 1)) : '';
     });
   }
+
+  /* ───── Mon corps : une pratique du corps chaque semaine, sur les 12 étapes (contenu : assets/corps-cercle.js) ───── */
+  function APERCU_SANS_CORPS() { return !window.CORPS_CERCLE; }
+  function etapeCorps() { if (ET && ET.n) return ET.n; var p = String(C.mois).split('-'), n = (+p[0] - 2026) * 12 + (+p[1] - 10) + 1; return n >= 1 && n <= 12 ? n : 0; }
+  function semCorps(K, w, i, sc) {
+    var k = 'corps-s' + (i + 1), ouvert = i === sc || (sc < 0 && i === 0);
+    var jours = ''; for (var j = 1; j <= 7; j++) jours += '<label><input type="checkbox" data-k="' + k + '-j' + j + '"><span>Jour ' + j + '</span></label>';
+    return '<details class="mc-corps-sem" id="mc-corps-s' + (i + 1) + '"' + (ouvert ? ' open' : '') + '><summary><span class="mc-sem-n">Semaine ' + (i + 1) + '</span><b>' + esc(w.titre) + '</b>' + (i === sc ? '<em>cette semaine</em>' : '') + '</summary>' +
+      '<p class="mc-sur">1 · Écouter : mon petit bilan</p>' +
+      curseur(k + '-energie', 'Mon énergie', 'à plat', 'pleine') + curseur(k + '-tension', 'La tension dans mon corps', 'détendu·e', 'très tendu·e') + curseur(k + '-sommeil', 'Mon sommeil', 'agité', 'réparateur') +
+      choix(k + '-zones', 'Où je le sens', K.zones, true) + choix(k + '-emotion', 'Ce qui domine', K.emotions) +
+      '<p class="mc-sur">2 · Comprendre</p><p class="mc-pourquoi">' + md(w.pourquoi) + '</p>' +
+      '<p class="mc-sur">3 · Libérer : ta pratique, chaque jour</p><ol class="mc-etapes">' + w.pratique.map(function (e) { return '<li>' + md(e) + '</li>'; }).join('') + '</ol>' +
+      (w.magie ? '<p class="mc-magie">' + md(w.magie) + '</p>' : '') +
+      '<div class="mc-corps-jours" role="group" aria-label="Les jours où j’ai fait ma pratique">' + jours + '</div>' +
+      curseur(k + '-avant', 'La tension avant le geste', '0', '10') + curseur(k + '-apres', 'Et après le geste', '0', '10') +
+      zone(k + '-note', w.ecoute, { lignes: 2 }) + '</details>';
+  }
+  function pageCorps() {
+    var K = window.CORPS_CERCLE, n = etapeCorps(), W = K && K.etapes && K.etapes[n]; if (!W) return null;
+    var ph = K.phases.filter(function (x) { return n >= x.de && n <= x.a; })[0] || {}, T = K.tropPlein;
+    if (!IMG.corps) IMG.corps = 'assets/guide/guide-liberer.webp';
+    return { id: 'corps', nom: 'Mon corps', g: function () {
+      return gauche('corps', 'Écouter · comprendre · libérer', 'Mon corps', '<p class="mc-intro">' + esc(K.principe) + '</p>' +
+        '<p class="mc-pourquoi"><b>Ce trimestre : ' + esc(ph.nom || '') + '.</b> ' + esc(ph.texte || '') + '</p><p class="mc-note">' + esc(K.objectif) + '</p>');
+    }, d: function () {
+      var sc = semaineEnCours();
+      return W.map(function (w, i) { return semCorps(K, w, i, sc); }).join('') +
+        '<section class="mc-trop-plein" id="mc-trop-plein"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">À tout moment</p><h3 class="mc-h">' + esc(T.titre) + '</h3><p class="mc-consigne">' + esc(T.intro) + '</p>' +
+        '<div class="mc-tp-deux"><div><p class="mc-q">Demander</p><p>' + md(T.demander) + '</p></div><div><p class="mc-q">Concrètement</p><p>' + md(T.concret) + '</p></div></div>' +
+        curseur('corps-tp-avant', 'Le trop-plein avant', '0', '10') + curseur('corps-tp-apres', 'Et après', '0', '10') + zone('corps-tp-note', 'Ce que j’ai ressenti', { lignes: 2 }) + '</section>';
+    } };
+  }
+  function bilanCorps() {
+    var K = window.CORPS_CERCLE; if (!K || !pageCorpsActive) return '';
+    var lignes = '', z = {}, nb = function (x) { return typeof x === 'number' ? x : '–'; };
+    for (var i = 1; i <= 4; i++) {
+      var k = 'corps-s' + i, f = 0; for (var j = 1; j <= 7; j++) if (D.v[k + '-j' + j]) f++;
+      K.zones.forEach(function (n, q) { if (D.v[k + '-zones-' + q]) z[n] = (z[n] || 0) + 1; });
+      lignes += '<tr><th scope="row">Semaine ' + i + '</th><td>' + nb(D.v[k + '-energie']) + '</td><td>' + nb(D.v[k + '-tension']) + '</td><td>' + nb(D.v[k + '-sommeil']) + '</td><td>' + nb(D.v[k + '-avant']) + ' / ' + nb(D.v[k + '-apres']) + '</td><td>' + f + '/7</td></tr>';
+    }
+    var top = Object.keys(z).sort(function (a, b) { return z[b] - z[a]; }).slice(0, 3);
+    return '<section class="mc-etape mc-bilan-corps"><h3><span>✦</span> Mon corps ce mois-ci</h3><div class="mc-tab-corps"><table><thead><tr><th></th><th>Énergie</th><th>Tension</th><th>Sommeil</th><th>Avant / après</th><th>Pratique</th></tr></thead><tbody>' + lignes + '</tbody></table></div>' +
+      (top.length ? '<p class="mc-pourquoi">Les zones qui sont revenues le plus : <b>' + top.map(esc).join(', ') + '</b>. Une piste à relier à ton histoire et à ta lignée.</p>' : '') +
+      zone('corps-bilan', 'Qu’est-ce que ton corps t’a appris ce mois-ci ?', { lignes: 2 }) + '</section>';
+  }
+  var pageCorpsActive = false;
   if (MODULE) PAGES = modulePages();
+  if (CARNET && !APERCU_SANS_CORPS()) (function () {
+    var pc = pageCorps(); if (!pc) return; pageCorpsActive = true;
+    var ic = -1; PAGES.forEach(function (p, j) { if (p.id === 'cloture') ic = j; });
+    if (ic < 0) { PAGES.push(pc); return; }
+    PAGES.splice(ic, 0, pc);
+    var cl = PAGES[ic + 1], d0 = cl.d; cl.d = function () { return d0.apply(this, arguments) + bilanCorps(); };
+  })();
 
 
   /* ───── L'accompagnement personnalisé : profil des blessures, gestes du mois, lecture de la roue ─────
