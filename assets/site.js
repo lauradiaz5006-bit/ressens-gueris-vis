@@ -594,7 +594,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
             '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
             '<li><a href="livres.html">Les livres Genesolia</a></li>' +
-            '<li><a href="offrir.html">Offrir</a></li>' +
+            '<li><a href="boutique.html">Boutique</a></li>' +
             '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
             '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
             '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
@@ -768,12 +768,12 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     var NOEL_FIN = new Date('2027-01-06T23:59:59');
     function bandeauNoel() {
       bandeau.className = 'annonce annonce-cercle annonce-noel';
-      bandeau.querySelector('a').outerHTML = '<a href="offrir.html#noel"><span class="annonce-noel-etoile" aria-hidden="true">✦</span><span class="annonce-texte"><span class="annonce-pastille">Noël</span> Des cadeaux qui ont du sens : la carte cadeau du Cercle, les livres à remplir en famille. <span style="white-space:nowrap"><u>Voir les idées de Noël</u><svg class="annonce-chevron" viewBox="0 0 10 16" width="8" height="12" aria-hidden="true" style="display:inline-block;margin-left:.4em;vertical-align:-1px"><path d="M2 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></a>';
+      bandeau.querySelector('a').outerHTML = '<a href="boutique.html"><span class="annonce-noel-etoile" aria-hidden="true">✦</span><span class="annonce-texte"><span class="annonce-pastille">Noël</span> Des cadeaux qui ont du sens : la carte cadeau du Cercle, les livres à remplir en famille. <span style="white-space:nowrap"><u>Voir les idées de Noël</u><svg class="annonce-chevron" viewBox="0 0 10 16" width="8" height="12" aria-hidden="true" style="display:inline-block;margin-left:.4em;vertical-align:-1px"><path d="M2 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></a>';
     }
     setTimeout(function () {
       var A = window.GenesoliaAcces, C = window.GenesoliaCompte, connectee = !!(C && C.actif && C.actif());
       if (!connectee) return;
-      if (new Date() < NOEL_FIN && page !== 'offrir.html') { bandeauNoel(); return; }
+      if (new Date() < NOEL_FIN && page !== 'boutique.html') { bandeauNoel(); return; }
       if (new Date() < NOEL_FIN) { bandeau.remove(); return; }   /* déjà sur la page des idées de Noël */
       if (A && A.membre) A.membre().then(function (m) { if (m) bandeau.remove(); });
     }, 0);
@@ -1724,7 +1724,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     'mon-carnet.html', 'mon-suivi.html', 'mon-suivi-mois.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'mes-seances.html', 'point-de-depart.html',
     'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'question-du-mois.html',
     'cgv.html', 'mentions-legales.html', 'confidentialite.html', 'conditions-utilisation.html',
-    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'offrir.html', 'pass.html'];
+    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'boutique.html', 'pass.html'];
   if (SANS.indexOf(page) >= 0) return;
   var THEMES = {
     'memoire-transgenerationnelle.html': 'la mémoire transgénérationnelle', 'syndrome-anniversaire.html': 'le syndrome d’anniversaire',
@@ -1755,7 +1755,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   function deux(sur, titre, texte) {
     return '<div class="livre-encart le-deux"><div class="le-couv">' + img(L.enquete, 'Le livre L’enquête de ma lignée') + img(L.racines, 'Le livre Racines') + '</div>' +
       '<div><p class="le-sur">' + sur + '</p><h2>' + titre + '</h2><p>' + texte + '</p>' +
-      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="offrir.html">Idées à offrir</a></div></div></div>';
+      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="boutique.html">Idées à offrir</a></div></div></div>';
   }
   var html;
   if (page in THEMES) {
