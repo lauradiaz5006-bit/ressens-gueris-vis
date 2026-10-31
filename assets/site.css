@@ -737,3 +737,6 @@ input[type="checkbox"], input[type="radio"] { accent-color: #B98A55; }
 /* Bouton « Le Cercle » du menu : le texte reste blanc au survol et au clic (avant : prune sur prune, illisible) */
 .menu .btn-plein,.menu .btn-plein:hover,.menu .btn-plein:focus,.menu .btn-plein:active,.menu .btn-plein[aria-current="page"]{color:#fff}
 .menu .btn-plein:active{background:#5A2650}
+
+/* Aperçu dans un cadre (page du Cercle) */
+html.dans-cadre [data-entete],html.dans-cadre header[data-entete],html.dans-cadre [data-pied],html.dans-cadre .cookies,html.dans-cadre #crisp-chatbox{display:none!important}
