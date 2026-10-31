@@ -589,7 +589,17 @@
     var base = SUIVI ? C.semaines[i].cle : 'sem' + (i + 1), d0 = bornesSem(i)[0], auj = isoJ(new Date());
     return '<section class="mc-jours" id="mc-jours-' + (i + 1) + '"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le fil des 7 jours</p><h3 class="mc-h">Un petit rendez-vous par jour</h3>' +
       '<p class="mc-consigne">Chaque jour, une consigne de deux minutes. Coche-la quand c’est fait : mis bout à bout, ces petits gestes changent une semaine.</p><ol class="mc-jours-l">' +
-      J.map(function (t, j) { var d = plusJ(d0, j); return '<li' + (isoJ(d) === auj ? ' class="mc-auj"' : '') + '><label><input type="checkbox" data-k="' + base + '-j' + (j + 1) + '"><span class="mc-j-d">' + cap(JOURS_C[d.getDay()]) + ' ' + jourCourt(d) + (isoJ(d) === auj ? ' · aujourd’hui' : '') + '</span><span class="mc-j-t">' + md(t) + '</span></label></li>'; }).join('') + '</ol></section>';
+      J.map(function (t, j) { var d = plusJ(d0, j); return '<li' + (isoJ(d) === auj ? ' class="mc-auj"' : '') + '><label><input type="checkbox" data-k="' + base + '-j' + (j + 1) + '"><span class="mc-j-d">' + cap(JOURS_C[d.getDay()]) + ' ' + jourCourt(d) + (isoJ(d) === auj ? ' · aujourd’hui' : '') + '</span><span class="mc-j-t">' + md(t) + '</span></label></li>'; }).join('') + joursPassage(i, J.length, d0, auj) + '</ol></section>';
+  }
+  /* Les jours en plus de la dernière semaine (mois de 29 à 31 jours) : des jours de passage, tournés vers le bilan du mois */
+  function joursPassage(i, n, d0, auj) {
+    if (i !== 3) return '';
+    var fin = bornesSem(i)[1], h = '';
+    for (var d = plusJ(d0, n); d <= fin; d = plusJ(d, 1)) {
+      h += '<li class="mc-passage' + (isoJ(d) === auj ? ' mc-auj' : '') + '"><span class="mc-j-d">' + cap(JOURS_C[d.getDay()]) + ' ' + jourCourt(d) + (isoJ(d) === auj ? ' · aujourd’hui' : '') + '</span>' +
+        '<span class="mc-j-t"><b>Jour de passage</b> : prends le temps de remplir ton bilan du mois. <button type="button" class="lien-texte" data-vers-bilan>Ouvrir mon bilan</button></span></li>';
+    }
+    return h;
   }
   function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   /* Ma phrase du jour : la phrase du mois peut devenir une notification quotidienne (assets/notifs.js) */
@@ -1746,6 +1756,7 @@
       var imp = t.closest('[data-imprimer]'); if (imp) { imprimer(imp.getAttribute('data-imprimer')); return; }
       if (t.closest('#mc-imprimer')) { basculerChoix(); return; }
       if (!t.closest('.mc-imp-choix')) basculerChoix(false);
+      if (t.closest('[data-vers-bilan]')) { var ib = -1; PAGES.forEach(function (p, j) { if (p.id === 'cloture' || p.id === 'bilan') ib = j; }); if (ib >= 0) { aller(ib); return; } }
       var b = t.closest('[data-page]'); if (b) { var anc = b.getAttribute('data-ancre'); aller(+b.getAttribute('data-page'), anc ? { ancre: anc } : null); if (!anc) setTimeout(function () { defiler(document.getElementById('mc-livre'), true); }, 30); return; }
       var m = t.closest('[data-meteo]'); if (m) { enregistrerMeteo(m.getAttribute('data-meteo'), m); return; }
       var bl = t.closest('[data-bl]'); if (bl) { actionProfilBl(bl.getAttribute('data-bl')); return; }
