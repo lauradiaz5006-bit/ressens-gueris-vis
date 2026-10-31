@@ -679,3 +679,22 @@ body:has(.chemin-toast.visible) .carre-cercle{display:none}   /* un seul encart 
 
 /* Cases à cocher et ronds de choix aux couleurs du site (doré), partout */
 input[type="checkbox"], input[type="radio"] { accent-color: #B98A55; }
+
+/* Menu : « Abonnement » ouvre Ma spirale, Le Cercle, Espace pro ; « Mon espace » d'une couleur à part */
+.menu-sous{position:relative}
+.menu-sous summary{list-style:none;cursor:pointer;font-size:.95rem;color:var(--prune-doux);white-space:nowrap;display:flex;align-items:center;gap:.4rem}
+.menu-sous summary::-webkit-details-marker{display:none}
+.menu-sous summary::after{content:"";width:.38rem;height:.38rem;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.menu-sous[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.menu-sous summary:hover,.menu-sous summary.ici,.menu-sous[open] summary{color:var(--prune)}
+.menu-sous-l{position:absolute;top:calc(100% + .8rem);left:50%;transform:translateX(-50%);min-width:13.5rem;display:flex;flex-direction:column;background:#fff;border:1px solid var(--rose);border-radius:16px;box-shadow:0 18px 44px rgba(46,19,56,.16);padding:.45rem;z-index:60}
+.menu .menu-sous-l a,.menu .menu-sous-l .menu-pro{padding:.65rem .85rem;border-radius:10px;font-size:.95rem;font-weight:400;color:var(--prune-doux);background:none;border:0;margin:0}
+.menu .menu-sous-l a:hover,.menu .menu-sous-l a[aria-current="page"]{background:var(--nacre);color:var(--prune)}
+.menu .menu-espace{font-weight:600;color:#2E1338;background:linear-gradient(135deg,#F3DCC0,#E3C08F);border:1px solid var(--champagne);border-radius:999px;padding:.42rem .95rem}
+.menu .menu-espace:hover,.menu .menu-espace[aria-current="page"]{background:var(--champagne);color:#2E1338}
+@media (max-width:1240px){
+  .menu-sous summary{padding:.85rem 0;border-bottom:1px solid var(--rose);font-size:1.05rem;justify-content:space-between}
+  .menu-sous-l{position:static;transform:none;box-shadow:none;border:0;border-radius:0;padding:.2rem 0 .4rem 1rem;background:none;min-width:0}
+  .menu .menu-sous-l a,.menu .menu-sous-l .menu-pro{padding:.7rem 0;border-bottom:1px solid var(--rose);border-radius:0;font-size:1rem}
+  .menu .menu-espace{align-self:flex-start;margin-top:.8rem;padding:.6rem 1.1rem;border-bottom:1px solid var(--champagne)}
+}
