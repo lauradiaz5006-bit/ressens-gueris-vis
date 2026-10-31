@@ -79,8 +79,8 @@
     { cle: 'gpp', titre: 'Les parents de <em>ton père</em>', aide: 'Tes grands-parents du côté de ton père.', champs: [['gm', 'Prénom de ta grand-mère', 'text'], ['gp', 'Prénom de ton grand-père', 'text']], si: 'pere' }
   ];
   var QC = [
-    { cle: 'toi', titre: 'Commençons <em>par ton·ta client·e</em>', aide: 'Son prénom suffit pour démarrer. Tout se modifie ensuite.', champs: [['prenom', 'Son prénom', 'text', true], ['sexe', '', 'sexe'], ['naiss', 'Sa date de naissance (ou l’année)', 'date']] },
-    { cle: 'mere', titre: 'Sa <em>mère</em>', aide: 'Ton·ta client·e ne sait pas ? Passe : les cases vides sont aussi une information.', champs: [['prenom', 'Son prénom', 'text'], ['naiss', 'Née en… (l’année suffit)', 'date'], ['decede', 'Elle est décédée', 'case']] },
+    { cle: 'toi', titre: 'Commençons <em>par votre client·e</em>', aide: 'Son prénom suffit pour démarrer. Tout se modifie ensuite.', champs: [['prenom', 'Son prénom', 'text', true], ['sexe', '', 'sexe'], ['naiss', 'Sa date de naissance (ou l’année)', 'date']] },
+    { cle: 'mere', titre: 'Sa <em>mère</em>', aide: 'Votre client·e ne sait pas ? Passez : les cases vides sont aussi une information.', champs: [['prenom', 'Son prénom', 'text'], ['naiss', 'Née en… (l’année suffit)', 'date'], ['decede', 'Elle est décédée', 'case']] },
     { cle: 'pere', titre: 'Son <em>père</em>', aide: 'Même s’il n’a pas été présent, il fait partie de son histoire.', champs: [['prenom', 'Son prénom', 'text'], ['naiss', 'Né en… (l’année suffit)', 'date'], ['decede', 'Il est décédé', 'case']] },
     { cle: 'gpm', titre: 'Les parents de <em>sa mère</em>', aide: 'Ses grands-parents du côté de sa mère.', champs: [['gm', 'Prénom de sa grand-mère', 'text'], ['gp', 'Prénom de son grand-père', 'text']], si: 'mere' },
     { cle: 'gpp', titre: 'Les parents de <em>son père</em>', aide: 'Ses grands-parents du côté de son père.', champs: [['gm', 'Prénom de sa grand-mère', 'text'], ['gp', 'Prénom de son grand-père', 'text']], si: 'pere' }
@@ -90,8 +90,8 @@
   var FIL = new URLSearchParams(location.search).get('porte') === 'fil-d-or';
   function afficherAccueil() {
     if (CLI()) {
-      racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Dossier client·e</span><h1>L’arbre de ton·ta client·e <em>commence ici</em></h1>' +
-        '<p class="mt-aide">Ton·ta client·e, ses parents, ses grands-parents : quelques prénoms suffisent, une question à la fois.</p>' +
+      racine.innerHTML = '<div class="mt-q mt-accueil"><span class="mt-etiq">Dossier client·e</span><h1>L’arbre de votre client·e <em>commence ici</em></h1>' +
+        '<p class="mt-aide">Votre client·e, ses parents, ses grands-parents : quelques prénoms suffisent, une question à la fois.</p>' +
         '<div class="mt-portes"><button type="button" class="btn btn-plein mt-porte" data-q="commencer">Commencer l’arbre · 2 min</button></div>' +
         '<p class="mt-discret"><a href="' + (function () { try { return sessionStorage.getItem('genesolia-appli') === 'pro' ? 'pro.html' : 'praticien.html'; } catch (e) { return 'praticien.html'; } })() + '">Revenir à mon Espace praticien</a> · <a href="genosociogramme.html?dessin">Je préfère le dessin complet</a></p></div>';
       racine.querySelector('[data-q="commencer"]').addEventListener('click', function () { questionnaire.i = 0; afficherQuestion(); });
@@ -113,7 +113,7 @@
       '<h1>' + q.titre + '</h1><p class="mt-aide">' + esc(q.aide) + '</p><form class="mt-form" novalidate>';
     q.champs.forEach(function (c) {
       var v = r[c[0]] || '';
-      if (c[2] === 'sexe') h += '<div class="mt-choix" role="group" aria-label="' + (CLI() ? 'Ton·ta client·e est' : 'Tu es') + '"><button type="button" data-sexe="f" aria-pressed="' + (v === 'f') + '">Une femme</button><button type="button" data-sexe="m" aria-pressed="' + (v === 'm') + '">Un homme</button></div>';
+      if (c[2] === 'sexe') h += '<div class="mt-choix" role="group" aria-label="' + (CLI() ? 'Votre client·e est' : 'Tu es') + '"><button type="button" data-sexe="f" aria-pressed="' + (v === 'f') + '">Une femme</button><button type="button" data-sexe="m" aria-pressed="' + (v === 'm') + '">Un homme</button></div>';
       else if (c[2] === 'case') h += '<label class="mt-case"><input type="checkbox" name="' + c[0] + '"' + (v ? ' checked' : '') + '> ' + esc(c[1]) + '</label>';
       else h += '<label>' + esc(c[1]) + '<input name="' + c[0] + '" ' + (c[2] === 'date' ? 'class="date-saisie" inputmode="numeric" placeholder="14/03/1985 ou 1985"' : 'autocomplete="off" autocapitalize="words"') + ' value="' + esc(c[2] === 'date' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v.split('-').reverse().join('/') : v) + '"></label>';
     });
@@ -121,7 +121,7 @@
       '<button type="button" class="btn btn-trait" data-q="retour">Retour</button>' +
       (q.cle !== 'toi' ? '<button type="button" class="btn btn-trait" data-q="passer">Je ne sais pas</button>' : '') +
       '<button type="submit" class="btn btn-plein">' + (questionnaire.i === liste.length - 1 ? (CLI() ? 'Voir l’arbre' : 'Voir mon arbre') : 'Suivant') + '</button></div></form>' +
-      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans ton Espace praticien.' : (G.connecte && G.connecte() ? 'Ton arbre se garde dans ton espace.' : 'Sans compte, ton arbre reste dans ce navigateur jusqu’à sa fermeture.')) + '</p>' : '') + '</div>';
+      (questionnaire.i === 0 ? '<p class="mt-discret">' + (CLI() ? 'L’arbre se garde dans votre Espace praticien.' : (G.connecte && G.connecte() ? 'Ton arbre se garde dans ton espace.' : 'Sans compte, ton arbre reste dans ce navigateur jusqu’à sa fermeture.')) + '</p>' : '') + '</div>';
     racine.innerHTML = h;
     var f = racine.querySelector('form'), sexe = r.sexe || '';
     racine.querySelectorAll('[data-sexe]').forEach(function (b) { b.addEventListener('click', function () { sexe = b.getAttribute('data-sexe'); racine.querySelectorAll('[data-sexe]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); }); });
@@ -191,7 +191,7 @@
       h += '<div class="mt-info"><p><b>Garde ton arbre.</b> Sans compte, il reste seulement dans ce navigateur, jusqu’à sa fermeture. Crée ton espace gratuit pour le retrouver partout' + (essaiOn ? ', avec <b>30 jours d’analyses offerts</b>' : '') + '.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=genosociogramme.html">Créer mon espace gratuit</a></div>';
     }
     if (passerelle && !CLI()) h += '<div class="mt-passerelle"><p class="mt-etiq">Ton arbre a ' + (ids.length >= 5 ? '3 générations' : ids.length + ' personne' + (ids.length > 1 ? 's' : '')) + ' ✦</p><p>Maintenant, ajoute ce que ta lignée a vécu et ressenti.</p><a class="btn btn-plein" href="fil-d-or.html">Continuer avec le fil d’or</a><button type="button" class="mt-plus-details" data-passerelle>Plus tard</button></div>';
-    if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à ' + (CLI() ? 'ton·ta client·e' : 'toi') + '</button>';
+    if (!estMoi && m) h += '<button type="button" class="mt-retour" data-centre="' + esc(m) + '">← Revenir à ' + (CLI() ? 'votre client·e' : 'toi') + '</button>';
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Tes parents' : 'Ses parents') + '</p><div class="mt-duo">' +
       (mere ? carte(e, mere) : vide('mere', 'Ajouter ' + ton + ' mère')) + (pere ? carte(e, pere) : vide('pere', 'Ajouter ' + ton2 + ' père')) + '</div></div>';
     h += '<div class="mt-lien" aria-hidden="true"></div>';
@@ -205,7 +205,7 @@
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Tes frères et sœurs' : 'Ses frères et sœurs') + '</p><div class="mt-ligne">' + fr.map(function (x) { return carte(e, x); }).join('') + vide('fratrie', 'Ajouter un frère ou une sœur') + '</div></div>';
     var en = enfantsDe(e, centre);
     h += '<div class="mt-rang"><p class="mt-rang-t">' + (toi ? 'Tes enfants' : 'Ses enfants') + '</p><div class="mt-ligne">' + en.map(function (x) { return carte(e, x); }).join('') + vide('enfant', 'Ajouter un enfant') + '</div></div>';
-    h += '<p class="mt-discret">' + ids.length + ' personne' + (ids.length > 1 ? 's' : '') + ' dans ' + (CLI() ? 'cet arbre' : 'ton arbre') + ' · touche quelqu’un pour le mettre au centre.</p>';
+    h += '<p class="mt-discret">' + ids.length + ' personne' + (ids.length > 1 ? 's' : '') + ' dans ' + (CLI() ? 'cet arbre · touchez quelqu’un pour le mettre au centre.' : 'ton arbre · touche quelqu’un pour le mettre au centre.') + '</p>';
     return h;
   }
   function lecture() {   /* même contenu et même compte que sur ordinateur (assets/genosociogramme.js, lecture) */
@@ -223,7 +223,7 @@
   }
   function vueRapport(e) {
     var n = Object.keys(e.people).length;
-    return '<div class="mt-vide-reps"><h2>' + (CLI() ? 'Le rapport' : 'Mon rapport') + '</h2><p>' + (CLI() ? 'L’arbre de ton·ta client·e et ses chiffres clés, chaque répétition expliquée, et les questions à poser à sa famille. ' : 'Ton arbre et tes chiffres clés, chaque répétition expliquée, et les questions à poser à ta famille. ') + (n < 3 ? 'Ajoute encore quelques personnes pour qu’il soit parlant.' : '') + '</p><button type="button" class="btn btn-plein" data-clic="bt-rapport">' + (CLI() ? 'Ouvrir le rapport' : 'Ouvrir mon rapport') + '</button></div>';
+    return '<div class="mt-vide-reps"><h2>' + (CLI() ? 'Le rapport' : 'Mon rapport') + '</h2><p>' + (CLI() ? 'L’arbre de votre client·e et ses chiffres clés, chaque répétition expliquée, et les questions à poser à sa famille. ' : 'Ton arbre et tes chiffres clés, chaque répétition expliquée, et les questions à poser à ta famille. ') + (n < 3 ? (CLI() ? 'Ajoutez' : 'Ajoute') + ' encore quelques personnes pour qu’il soit parlant.' : '') + '</p><button type="button" class="btn btn-plein" data-clic="bt-rapport">' + (CLI() ? 'Ouvrir le rapport' : 'Ouvrir mon rapport') + '</button></div>';
   }
   function rendre(focusCentre) {
     if (questionnaire) { if (questionnaire.i < 0 && questionnaire.cli !== CLI()) { questionnaire.cli = CLI(); afficherAccueil(); } return; }
