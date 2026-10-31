@@ -733,3 +733,7 @@ input[type="checkbox"], input[type="radio"] { accent-color: #B98A55; }
 @media (max-width:420px){.pied-grille{grid-template-columns:1fr 1fr}.pied ul{font-size:.9rem}}
 .pied-une~.pied-grille>div:first-child{grid-column:auto}
 @media (max-width:860px){.pied-une~.pied-grille ul{gap:.2rem}}
+
+/* Bouton « Le Cercle » du menu : le texte reste blanc au survol et au clic (avant : prune sur prune, illisible) */
+.menu .btn-plein,.menu .btn-plein:hover,.menu .btn-plein:focus,.menu .btn-plein:active,.menu .btn-plein[aria-current="page"]{color:#fff}
+.menu .btn-plein:active{background:#5A2650}
