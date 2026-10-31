@@ -464,6 +464,9 @@
 .mc-j-d{font:700 .74rem/1.3 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#8A5A22}
 .mc-j-t{font-size:.97rem;line-height:1.5}
 .mc-jours-l li.mc-auj label{border-color:#B7833F;box-shadow:0 0 0 2px #F4D9A8}
+.mc-jours-l li.mc-passage{display:grid;gap:.15rem;padding:.7rem .85rem .7rem 2.75rem;border-radius:14px;background:#FFF8EE;border:1px dashed #D9B77E}
+.mc-jours-l li.mc-passage.mc-auj{border-style:solid;border-color:#B7833F;box-shadow:0 0 0 2px #F4D9A8}
+.mc-passage .lien-texte{background:none;border:0;padding:0;color:#6B2F5B;font:inherit;font-weight:700;text-decoration:underline;cursor:pointer}
 .mc-jours-l label:has(input:checked){background:#FBF6F2}
 .mc-jours-l label:has(input:checked) .mc-j-t{color:var(--encre-2)}
 .mc-seance-lib{margin:1.2rem 0}
