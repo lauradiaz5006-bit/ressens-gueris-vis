@@ -226,6 +226,45 @@
     .laura-halo::before{content:"";position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,200,.9),rgba(255,236,200,0) 70%);z-index:-1}
     .laura-carte{background:linear-gradient(135deg,#FFFDFB,#FFF3EC 50%,#FDEEF4)}
     @media (max-width:860px){.ouv-visuel{max-width:300px}.laura-halo{margin-inline:auto;width:max-content}.aimant-f input[type=text],.aimant-f input[type=email]{flex:1 1 100%}.aimant-f .btn{width:100%}}
+
+    /* Hero : l'arbre de lumière, fondu dans le fond */
+    .ouv-visuel{max-width:540px}
+    .ouv-visuel::before{inset:-6%;background:radial-gradient(closest-side,rgba(255,226,180,.75),rgba(240,190,210,.35) 60%,transparent)}
+    .ouv-visuel img{border-radius:50%;box-shadow:none;-webkit-mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);animation:ouv-respire 7s ease-in-out infinite}
+    @keyframes ouv-respire{50%{transform:scale(1.025);filter:brightness(1.05)}}
+    @media (prefers-reduced-motion:reduce){.ouv-visuel img{animation:none}}
+    /* Barre du carnet : image, flèche, champs */
+    .aimant-f{flex-wrap:nowrap;gap:1.2rem;padding:1.1rem 0}
+    .aimant-img{width:62px;height:auto;border-radius:6px;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-4deg);flex:none}
+    .aimant-t{flex:0 1 19rem}.aimant-t p{margin:0}.aimant-s{font-size:.86rem;color:#E9CFDC;margin-top:.2rem!important}
+    .aimant-fleche{width:84px;flex:none;animation:aimant-fl 2.4s ease-in-out infinite}
+    @keyframes aimant-fl{50%{transform:translateX(6px)}}
+    .aimant-champs{flex:1;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .aimant-champs input[type=text],.aimant-champs input[type=email]{flex:1 1 9rem}
+    @media (max-width:980px){.aimant-f{flex-wrap:wrap}.aimant-fleche{display:none}.aimant-champs{flex-basis:100%}}
+    /* Les trois abonnements, en couleur */
+    .abo-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem;text-align:center;margin-top:1.4rem}
+    .abo{position:relative;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:1.1rem 1.1rem 1.5rem;border-radius:28px;text-decoration:none;color:#fff;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18);transition:transform .25s,box-shadow .25s}
+    .abo:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(46,19,56,.26)}
+    .abo-spirale{background:linear-gradient(160deg,#E77FA0,#B4467A 55%,#7E2C5E)}
+    .abo-cercle{background:linear-gradient(160deg,#6B2F5B,#2E1338);box-shadow:0 0 0 2px #E3C08F,0 26px 60px rgba(46,19,56,.35);transform:translateY(-10px)}
+    .abo-cercle:hover{transform:translateY(-16px)}
+    .abo-pro{background:linear-gradient(160deg,#E9C68F,#B98A55 60%,#8A6233)}
+    .abo-img{display:block;width:100%;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#fff;margin-bottom:.8rem;box-shadow:0 12px 30px rgba(0,0,0,.2)}
+    .abo-img img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .abo-badge{font:600 .72rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:.4rem .8rem;border-radius:99px}
+    .abo-reco{position:absolute;top:.9rem;right:.9rem;z-index:2;font:700 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#2E1338;background:#F3DCC0;padding:.4rem .7rem;border-radius:99px}
+    .abo-nom{font:400 1.9rem/1.1 var(--display);margin-top:.4rem}
+    .abo-devise{font:italic 400 1.05rem var(--display);opacity:.9}
+    .abo-prix{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin:.5rem 0 .2rem}
+    .abo-prix s{font-size:1rem;opacity:.65}
+    .abo-prix b{font:400 3.1rem/1 var(--display);color:#fff;text-shadow:0 0 24px rgba(255,230,190,.55)}
+    .abo-cercle .abo-prix b{color:#F3DCC0}
+    .abo-prix small{font-size:.9rem;opacity:.85}
+    .abo-cond{font-size:.9rem;opacity:.92;margin-bottom:.9rem}
+    .abo-btn{margin-top:auto;background:#fff;color:#2E1338;pointer-events:none}
+    .abo-cercle .abo-btn{background:#F3DCC0}
+    @media (max-width:900px){.abo-grille{grid-template-columns:1fr;max-width:26rem;margin-inline:auto}.abo-cercle{transform:none}.abo-cercle:hover{transform:translateY(-6px)}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -248,7 +287,7 @@
         </div>
 
         <figure class="ouv-visuel">
-          <img src="assets/images/arbre-genesolia-1000.webp" srcset="assets/images/arbre-genesolia-560.webp 560w, assets/images/arbre-genesolia-1000.webp 1000w" sizes="(max-width:860px) 80vw, 480px" width="1000" height="1000" alt="L’arbre Genesolia : un arbre doré aux racines entrelacées" fetchpriority="high">
+          <img src="assets/images/arbre-lumiere-1000.webp" srcset="assets/images/arbre-lumiere-600.webp 600w, assets/images/arbre-lumiere-1000.webp 1000w" sizes="(max-width:860px) 85vw, 540px" width="1000" height="1000" alt="L’arbre de lumière Genesolia : ses racines dorées, ses feuilles roses et or, et le cercle des lunes" fetchpriority="high">
         </figure>
       </div>
     </section>
@@ -256,13 +295,17 @@
     <section class="aimant" aria-label="Le carnet des deux cycles offert">
       <div class="conteneur">
         <form class="aimant-f" data-aimant novalidate>
-          <p class="aimant-t"><b>Offert</b> · Ton carnet des deux cycles en PDF : 7 jours pour repérer ce qui se répète.</p>
-          <input type="text" name="prenom" placeholder="Ton prénom" autocomplete="given-name" aria-label="Ton prénom" required>
-          <input type="email" name="email" placeholder="Ton e-mail" autocomplete="email" aria-label="Ton e-mail" required>
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" hidden>
-          <button class="btn btn-plein" type="submit">Je le reçois</button>
-          <label class="aimant-ok"><input type="checkbox" name="accord"> J’accepte de recevoir des e-mails de Genesolia, désinscription en un clic.</label>
-          <p class="aimant-err" role="alert"></p>
+          <img class="aimant-img" src="assets/images/carnet-deux-cycles-couv.webp" width="240" height="339" alt="Couverture du carnet offert : Les deux cycles" loading="lazy">
+          <div class="aimant-t"><p><b>Offert</b> · Ton carnet des deux cycles</p><p class="aimant-s">7 jours pour repérer ce qui se répète, en PDF à imprimer ou à remplir en ligne.</p></div>
+          <svg class="aimant-fleche" viewBox="0 0 90 30" aria-hidden="true"><path d="M2 20 C25 4, 50 4, 80 15" fill="none" stroke="#E3C08F" stroke-width="1.6" stroke-dasharray="3 4" stroke-linecap="round"/><path d="M72 8 L82 15 L71 21" fill="none" stroke="#E3C08F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="aimant-champs">
+            <input type="text" name="prenom" placeholder="Ton prénom" autocomplete="given-name" aria-label="Ton prénom" required>
+            <input type="email" name="email" placeholder="Ton e-mail" autocomplete="email" aria-label="Ton e-mail" required>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" hidden>
+            <button class="btn btn-plein" type="submit">Je le reçois</button>
+            <label class="aimant-ok"><input type="checkbox" name="accord"> J’accepte de recevoir le carnet et les lettres de Genesolia : des pistes douces pour avancer à ton rythme. Désinscription en un clic.</label>
+            <p class="aimant-err" role="alert"></p>
+          </div>
         </form>
       </div>
     </section>
@@ -287,10 +330,35 @@
         <div class="offres-accueil">
           <p class="cercle-sur">Trois abonnements</p>
           <h2 id="abo-titre">Tout commence gratuitement. Va plus loin quand tu veux.</h2>
-          <div class="offres-grille">
-            <div class="offre-carte"><p class="offre-badge">✦ Offre de Noël</p><p class="offre-nom">Ma spirale</p><p class="offre-devise">Ton outil à toi</p><p class="offre-prix"><s>10 €</s> 4,99 € <small>par mois</small></p><p class="offre-cond">7 jours offerts, puis 4,99 € par mois jusqu’au 31 décembre. Sans engagement.</p><p>Pour toi si tu veux comprendre ce qui se répète, à ton rythme : tes schémas, ta frise, tes protocoles, ton bilan.</p><a class="btn btn-plein" href="ma-spirale.html">Découvrir Ma spirale</a></div>
-            <div class="offre-carte offre-reco"><p class="offre-badge">✦ Cadeau de Noël</p><p class="offre-nom">Le Cercle</p><p class="offre-devise">Ta place, ton choix, ta vie</p><p class="offre-prix"><s>24,90 €</s> 17,77 € <small>par mois</small></p><p class="offre-cond">1<sup>er</sup> mois offert, sans carte. Puis 17,77 € par mois pour toute inscription jusqu’au 31 décembre.</p><p>Pour toi si tu veux être guidé·e : Ma spirale incluse, un parcours en 12 étapes, deux séances audio à chaque étape et la formation « Sors de la boucle ».</p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle</a></div>
-            <div class="offre-carte offre-pro"><p class="offre-badge">Pour les praticien·nes</p><p class="offre-nom">Espace pro</p><p class="offre-devise">Votre cabinet en ligne</p><p class="offre-prix">19 € <small>par mois</small></p><p class="offre-cond">1<sup>er</sup> mois offert, sans carte bancaire. Tarif fondateur jusqu’au 31 mars 2027.</p><p>Pour vous si vous accompagnez des client·es : leur arbre prêt avant la séance, les répétitions mises en évidence, un rapport à votre nom.</p><a class="btn btn-trait" href="espace-praticien.html">Découvrir l’Espace pro</a></div>
+          <div class="abo-grille">
+            <a class="abo abo-spirale" href="ma-spirale.html">
+              <span class="abo-img"><img src="assets/pass/captures/bilan.webp" alt="" loading="lazy" style="object-position:center 18%"></span>
+              <span class="abo-badge">✦ Offre de Noël</span>
+              <span class="abo-nom">Ma spirale</span>
+              <span class="abo-devise">Ton outil à toi</span>
+              <span class="abo-prix"><s>10 €</s><b>4,99 €</b><small>par mois</small></span>
+              <span class="abo-cond">7 jours offerts · sans engagement</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+            <a class="abo abo-cercle" href="abonnement.html">
+              <span class="abo-reco">Le plus complet</span>
+              <span class="abo-img"><img src="assets/cercle/captures/mon-mois.webp" alt="" loading="lazy"></span>
+              <span class="abo-badge">✦ Cadeau de Noël</span>
+              <span class="abo-nom">Le Cercle</span>
+              <span class="abo-devise">Ta place, ton choix, ta vie</span>
+              <span class="abo-prix"><s>24,90 €</s><b>17,77 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert · Ma spirale incluse</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+            <a class="abo abo-pro" href="espace-praticien.html">
+              <span class="abo-img"><img src="assets/images/praticien/appli-pro-dossiers.webp" alt="" loading="lazy"></span>
+              <span class="abo-badge">Pour les praticien·nes</span>
+              <span class="abo-nom">Espace pro</span>
+              <span class="abo-devise">Votre cabinet en ligne</span>
+              <span class="abo-prix"><b>19 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert · tarif fondateur</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
           </div>
           <p class="offres-note">Prix en euros, TVA non applicable, art. 293 B du CGI. <a href="tarifs.html">Tous les tarifs</a></p>
         </div>

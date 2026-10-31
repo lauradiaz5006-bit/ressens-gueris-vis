@@ -698,3 +698,14 @@ input[type="checkbox"], input[type="radio"] { accent-color: #B98A55; }
   .menu .menu-sous-l a,.menu .menu-sous-l .menu-pro{padding:.7rem 0;border-bottom:1px solid var(--rose);border-radius:0;font-size:1rem}
   .menu .menu-espace{align-self:flex-start;margin-top:.8rem;padding:.6rem 1.1rem;border-bottom:1px solid var(--champagne)}
 }
+/* Page active dans le menu : un soulignement doré, féerique */
+@media (min-width:1241px){
+  .menu > a[aria-current="page"]:not(.btn):not(.menu-espace),.menu-sous summary.ici{position:relative;color:var(--prune)}
+  .menu > a[aria-current="page"]:not(.btn):not(.menu-espace)::after,.menu-sous summary.ici::before{content:"";position:absolute;left:-2px;right:-2px;bottom:-7px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,transparent,#E3C08F 20%,#FFF4D6 50%,#B98A55 80%,transparent);background-size:200% 100%;box-shadow:0 0 8px rgba(227,192,143,.9),0 0 16px rgba(227,192,143,.5);animation:menu-feerie 3s linear infinite}
+  .menu > a[aria-current="page"]:not(.btn):not(.menu-espace)::before{content:"✦";position:absolute;right:-9px;top:-7px;font-size:.6rem;color:#D9AE73;text-shadow:0 0 6px rgba(227,192,143,.9);animation:menu-etincelle 2.4s ease-in-out infinite}
+}
+@media (max-width:1240px){.menu > a[aria-current="page"]:not(.btn):not(.menu-espace){color:var(--prune);font-weight:600;border-bottom:2px solid #E3C08F;box-shadow:0 6px 10px -8px rgba(227,192,143,.9)}}
+@keyframes menu-feerie{to{background-position:-200% 0}}
+@keyframes menu-etincelle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.menu a::after,.menu a::before{animation:none!important}}
