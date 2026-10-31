@@ -303,13 +303,32 @@
   .t-livre figcaption b{color:var(--prune)}
   .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
   @media (min-width:1200px){.t-livres-note{display:none}}
+
+    /* Tunnel : images */
+    .t-hero-photo{opacity:1!important;object-position:right center}
+    .t-hero::after{background:linear-gradient(100deg,rgba(46,19,56,.96) 0%,rgba(46,19,56,.82) 42%,rgba(46,19,56,.15) 75%,rgba(46,19,56,0) 100%)!important}
+    .t-img-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:3rem;align-items:center}
+    .t-img-split>img{width:100%;height:auto;border-radius:28px;box-shadow:0 26px 60px rgba(46,19,56,.22)}
+    .t-img-split p{color:var(--prune-doux)}
+    .t-lien-or{font-weight:600;color:var(--prune);text-decoration:underline;text-decoration-color:#D9AE73;text-underline-offset:4px}
+    .t-etapes-img{display:block;width:min(420px,80%);height:auto;margin:1.4rem auto;border-radius:50%;box-shadow:0 0 0 6px rgba(243,220,192,.5),0 24px 60px rgba(107,47,91,.2)}
+    .t-recois-img{display:block;width:min(560px,100%);height:auto;margin:0 auto 1.6rem;border-radius:24px;box-shadow:0 24px 60px rgba(107,47,91,.18)}
+    .t-avap .t-img-split{grid-template-columns:minmax(0,.9fr) minmax(0,1fr)}
+    .t-avap-l{display:grid;gap:.8rem;margin:1.2rem 0 1.6rem}
+    .t-avap-l p{margin:0;padding:1rem 1.2rem;border-radius:16px;background:#F6F1F4;color:var(--prune-doux)}
+    .t-avap-l p+p{background:linear-gradient(135deg,#FFF6E6,#FCEFF3);border:1px solid #E3C08F;color:var(--prune)}
+    .t-avap-l span{display:block;font:600 .75rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A8494;margin-bottom:.4rem}.t-avap-l span.or{color:#B98A55}
+    .t-laura-carte{display:grid;grid-template-columns:auto 1fr;gap:2.6rem;align-items:center;max-width:56rem;margin-inline:auto;padding:2.2rem;border-radius:32px;background:linear-gradient(135deg,#FFFDF9,#FDEEF4);border:1px solid #F3DCC0}
+    .t-laura-carte img{width:min(220px,60vw);height:auto;border-radius:50%;box-shadow:0 18px 44px rgba(107,47,91,.2)}
+    .t-laura-carte p{color:var(--prune-doux)}
+    @media (max-width:860px){.t-img-split,.t-avap .t-img-split{grid-template-columns:1fr;gap:1.6rem}.t-laura-carte{grid-template-columns:1fr;text-align:center;justify-items:center;padding:1.6rem}.t-hero::after{background:linear-gradient(180deg,rgba(46,19,56,.7),rgba(46,19,56,.92))!important}}
 </style>
 </head>
 <body class="nouveau">
   <header data-entete></header>
   <main>
     <section class="t-hero">
-      <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
+      <img class="t-hero-fond t-hero-photo" src="assets/cercle/tunnel/lectrice.webp" width="1400" height="761" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
           <p class="a-sur">Programme en ligne · 12 étapes · à ton rythme</p>
@@ -323,10 +342,7 @@
             <p class="a-fondatrice"><span class="promo-noel">✦ Cadeau de Noël</span> <span class="promo-prix">Après ton mois offert : <s>24,90 €</s> <b>17,77 € par mois</b></span><br>Sans engagement, et ce prix te reste tant que tu restes. Pour toute inscription jusqu’au 31 décembre.</p>
           </div>
         </div>
-        <div class="t-couvs" aria-hidden="true">
-          <img class="t-couv t-couv-1" src="assets/cercle/couv-liberation.webp" width="496" height="702" alt="">
-          <img class="t-couv t-couv-2" src="assets/cercle/couv-renaissance.webp" width="496" height="702" alt="">
-        </div>
+        <div aria-hidden="true"></div>
       </div>
     </section>
 
@@ -353,6 +369,19 @@
       </div>
     </section>
 
+    <section class="bloc t-img-bloc">
+      <div class="conteneur t-img-split">
+        <img src="assets/cercle/tunnel/boucle-spirale.webp" width="1400" height="771" alt="Un fil doré emmêlé en boucle qui s’ouvre en spirale de lumière" loading="lazy">
+        <div>
+          <p class="a-etiq">Pourquoi ça recommence</p>
+          <h2>De la boucle à la spirale</h2>
+          <p>Ce qui se répète touche presque toujours à l’un de deux besoins : <b>te sentir en sécurité</b>, ou <b>aimer et être aimé·e</b>. Tant que tu ne vois pas lequel, tu tournes en rond, même avec la meilleure volonté.</p>
+          <p>Le Cercle t’aide à le voir, à comprendre d’où ça vient dans ton histoire de famille, puis à faire un pas de côté, une étape après l’autre. La boucle devient une spirale : tu repasses par les mêmes thèmes, mais chaque fois un peu plus haut.</p>
+          <a class="t-lien-or" href="methode.html">Comprendre la méthode des deux cycles</a>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
@@ -362,7 +391,7 @@
         </div>
         <div class="t-contenus t-piliers">
           <article><img src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 1 · De la peur à la paix</p><h3>Renaissance</h3><p class="t-q">Tu voudrais te sentir enfin en sécurité et en paix, sans vivre en alerte permanente ?</p><p>Ton carnet : ta roue de vie, un petit pas concret chaque semaine et ton bilan de fin d’étape. Avec ta séance audio pour sortir du mode survie (toujours en alerte, à tout tenir à bout de bras), pas à pas.</p><span class="t-valeur">Tu y gagnes : ta sécurité intérieure, ta place, ta valeur</span></div></article>
-          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 2 · Comment j’aime</p><h3>Libération</h3><p class="t-q">Tu voudrais aimer et être aimée en accord avec toi, sans rejouer les histoires de ta famille ?</p><p>Ton livret : ton arbre de vie, des racines aux fruits, une question par étape et un protocole pour libérer. Avec ta séance audio pour déposer ce qui se transmet.</p><span class="t-valeur">Tu y gagnes : des liens plus vrais, un amour choisi</span></div></article>
+          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 2 · Comment j’aime</p><h3>Libération</h3><p class="t-q">Tu voudrais aimer et être aimé·e en accord avec toi, sans rejouer les histoires de ta famille ?</p><p>Ton livret : ton arbre de vie, des racines aux fruits, une question par étape et un protocole pour libérer. Avec ta séance audio pour déposer ce qui se transmet.</p><span class="t-valeur">Tu y gagnes : des liens plus vrais, un amour choisi</span></div></article>
           <article><img src="assets/images/blog-reves-recurrents-800.webp" srcset="assets/images/blog-reves-recurrents-800.webp 800w, assets/images/blog-reves-recurrents-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Un escalier en spirale doré qui monte vers la lumière" loading="lazy" decoding="async"><div><p class="a-etiq">Incluse · la formation</p><h3>Sors de la boucle</h3><p class="t-q">Tu voudrais comprendre et arrêter tes boucles, sans t’épuiser à tout analyser seule ?</p><p>8 modules en podcast, un par étape des étapes 1 à 8, avec livret, cahier d’exercices et fiche L’essentiel. Un module ouvert le reste jusqu’au bout.</p><span class="t-valeur">Incluse dans Le Cercle</span></div></article>
         </div>
         <div class="t-audio">
@@ -437,6 +466,7 @@
         <div class="a-titre">
           <p class="a-etiq">Le sommaire</p>
           <h2>Tes 12 étapes</h2>
+          <img class="t-etapes-img" src="assets/cercle/tunnel/douze-etapes.webp" width="974" height="854" alt="Douze pierres de lumière en cercle : tes douze étapes" loading="lazy">
           <p>Ta semaine 1 commence le jour où tu entres dans Le Cercle, et chaque étape dure un mois. Ton arbre de vie se construit au fil du cycle 2 : racines, tronc, branches, puis fruits.</p>
         </div>
         <ol class="t-sommaire">
@@ -565,6 +595,7 @@
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
+          <img class="t-recois-img" src="assets/cercle/tunnel/ce-que-tu-recois.webp" width="1338" height="1158" alt="Ton Cercle sur ordinateur et téléphone, tes carnets, tes séances audio" loading="lazy">
           <p class="a-etiq">Et les petits +</p>
           <h2>Tout ce qui t’accompagne au quotidien</h2>
         </div>
@@ -622,6 +653,33 @@
             <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc t-img-bloc t-avap">
+      <div class="conteneur t-img-split">
+        <img src="assets/cercle/tunnel/avant-apres.webp" width="998" height="854" alt="À gauche, une femme dans un labyrinthe gris ; à droite, la même femme qui monte un chemin lumineux et fleuri" loading="lazy">
+        <div>
+          <p class="a-etiq">Dans quelques mois</p>
+          <h2>Tu ne tournes plus en rond, tu avances</h2>
+          <div class="t-avap-l">
+            <p><span>Avant</span>Les mêmes scénarios reviennent, tu t’épuises à comprendre, tu culpabilises de ne pas y arriver.</p>
+            <p><span class="or">Avec Le Cercle</span>Tu vois venir ce qui se rejoue, tu sais d’où ça vient, et tu choisis autrement, sans t’épuiser.</p>
+          </div>
+          <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc t-laura" id="laura">
+      <div class="conteneur t-laura-carte">
+        <img src="assets/laura-dessin.webp?v=4" width="640" height="640" alt="Laura, la créatrice du Cercle" loading="lazy">
+        <div>
+          <p class="a-etiq">Qui t’accompagne</p>
+          <h2>Je suis Laura</h2>
+          <p>Ce sont des événements de ma propre vie qui m’ont menée jusqu’ici. En cherchant à les comprendre, j’ai découvert la psychogénéalogie, et elle ne m’a plus quittée. Je m’y suis formée, puis j’ai accompagné des personnes pendant plusieurs années, avec la psychogénéalogie, l’hypnose et l’EMDR.</p>
+          <p>Le Cercle, c’est tout ce que j’aurais aimé avoir : un chemin clair, une étape à la fois, pour sortir de ce qui se répète sans t’épuiser.</p>
         </div>
       </div>
     </section>
