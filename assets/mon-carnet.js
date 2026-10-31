@@ -1755,8 +1755,6 @@
     }, d: function () {
       return '<div class="mc-ta-saison"><p class="mc-consigne">Ton étape suit ton propre rythme, depuis ton arrivée dans Le Cercle. La saison, elle, suit le calendrier : voici ce que la nature t’offre en ce moment, pour accorder ton carnet au dehors.</p>' +
         (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') +
-        encadre('Ton autel de saison', '<p>Va te promener et ramasse ce que la nature t’offre en ce moment : feuilles, branches, pierres, fleurs ou fruits secs. Avec une bougie et des couleurs qui s’accordent, crée-toi un petit autel : un espace qui protège ton énergie et te rappelle ton intention.</p>' +
-          '<p><a class="btn btn-plein" href="autel-de-saison.html?mois=' + esc(MOIS_SAISON_ISO) + '">Créer mon autel du mois</a></p>', 'mc-autel-encart') +
         (sa ? '<blockquote class="mc-citation"' + (DECOR.citation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.citation)) + '\')"' : '') + '><span>' + esc(sa.citation) + '</span></blockquote>' : '') + '</div>';
     } };
   }
