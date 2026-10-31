@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ma spirale, pas à pas : le mode d’emploi · Genesolia</title>
+  <meta name="description" content="Le mode d’emploi de Ma spirale, l’appli Genesolia : installer l’appli, tes six espaces, la fiche d’un schéma en 5 verbes avec l’exemple de Léa, et ce qui reste privé.">
+  <link rel="canonical" href="https://genesolia.fr/mode-emploi-ma-spirale.html">
+  <meta property="og:title" content="Ma spirale, pas à pas">
+  <meta property="og:description" content="Le mode d’emploi de Ma spirale : tes six espaces et la fiche d’un schéma en 5 verbes, avec l’exemple de Léa.">
+  <meta property="og:image" content="https://genesolia.fr/assets/pass/tuto/ordi-moi.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .me{width:min(52rem,100% - 2rem);margin:0 auto;padding:2rem 0 3rem}
+    .me-tete{text-align:center;margin-bottom:1.4rem}
+    .me-sur{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne,#B7833F);margin:0 0 .4rem}
+    .me-tete h1{margin:0 0 .5rem}
+    .me-tete p{max-width:none;color:var(--prune-doux,#7a5a72)}
+    .me-fil{margin:0 0 1rem;padding:1.2rem 1.3rem;border-radius:18px;background:linear-gradient(160deg,#FFF6EC,#fff 70%);border:1.5px solid var(--champagne-clair,#F3DCC0)}
+    .me-fil h2{font-size:1.3rem;margin:0 0 .5rem}
+    .me-fil p{max-width:none;margin:.35rem 0}
+    .me-sommaire{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0 0;padding:0;list-style:none}
+    .me-sommaire a{display:inline-block;padding:.35rem .8rem;border-radius:99px;background:#fff;border:1px solid var(--rose,#F1D3DC);font-size:.88rem;color:var(--prune,#6B2F5B);text-decoration:none}
+    .me-sommaire a:hover{border-color:var(--champagne,#B7833F)}
+    .me-bloc{margin:0 0 1rem;padding:1.2rem 1.3rem;border-radius:18px;background:#fff;border:1px solid var(--rose,#F1D3DC);scroll-margin-top:5rem}
+    .me-bloc h2{font-size:1.3rem;margin:0 0 .5rem;display:flex;gap:.6rem;align-items:baseline}
+    .me-bloc h2 span{display:inline-grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:#FBF0F3;font-size:.9rem;font-family:var(--texte,sans-serif);font-weight:700;color:var(--prune,#6B2F5B);flex:none}
+    .me-bloc h3{font-size:1.12rem;margin:1rem 0 .35rem;color:var(--prune,#6B2F5B)}
+    .me-bloc p,.me-bloc li{max-width:none}
+    .me-bloc p{margin:.35rem 0}
+    .me-bloc ul,.me-bloc ol{margin:.4rem 0;padding-left:1.2rem}
+    .me-bloc li{margin:.25rem 0;line-height:1.5}
+    .me-esp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.4rem;align-items:start}
+    .me-ecrans{display:flex;gap:.7rem;margin:0}
+    .me-ecrans figure{margin:0;width:190px;text-align:center}
+    .me-ecrans img{display:block;width:100%;height:auto;border-radius:22px;border:5px solid #2E1338;box-shadow:0 14px 34px rgba(46,19,56,.2);background:#2E1338}
+    .me-ecrans figcaption{margin-top:.45rem;font-size:.82rem;color:var(--prune-doux,#7a5a72)}
+    .me-ordi{margin:1rem 0 0}
+    .me-ordi img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--rose,#F1D3DC);box-shadow:0 18px 44px rgba(107,47,91,.14)}
+    .me-ordi figcaption{margin-top:.5rem;text-align:center;font-size:.85rem;color:var(--prune-doux,#7a5a72)}
+    .me-ecran-btn{display:inline-block;padding:.1rem .55rem;border-radius:99px;background:#FBF0F3;border:1px solid var(--rose,#F1D3DC);font-size:.92em;color:var(--prune,#6B2F5B);white-space:nowrap}
+    .me-verbes{list-style:none;margin:.8rem 0 0;padding:0;display:grid;gap:.9rem;counter-reset:v}
+    .me-verbes>li{counter-increment:v;padding:1rem 1.1rem;border-radius:16px;background:#FFF9F7;border:1px solid var(--rose,#F1D3DC);margin:0}
+    .me-verbes h3{margin:0 0 .35rem;display:flex;gap:.55rem;align-items:baseline}
+    .me-verbes h3::before{content:counter(v);display:inline-grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--prune,#6B2F5B);color:#fff;font:700 .82rem var(--texte,sans-serif);flex:none}
+    .me-verbes .me-ecrans figure{width:160px}
+    .me-lea{margin:.6rem 0;padding:.7rem .9rem;border-left:3px solid var(--champagne,#B7833F);background:#FFF6EC;border-radius:0 12px 12px 0;font-size:.95rem}
+    .me-lea b{color:var(--prune,#6B2F5B)}
+    .me-cle{font-family:var(--display,serif);font-size:1.15rem;color:var(--prune,#6B2F5B);text-align:center;margin:.6rem 0 .2rem}
+    .me-bloc details{border-top:1px solid var(--rose,#F1D3DC);padding:.7rem 0}
+    .me-bloc details:last-child{border-bottom:1px solid var(--rose,#F1D3DC)}
+    .me-bloc summary{cursor:pointer;font-weight:700;color:var(--prune,#6B2F5B)}
+    .me-final{margin:1.4rem 0 0;padding:1.6rem 1.4rem;border-radius:18px;text-align:center;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
+    .me-final h2{color:#fff;font-size:1.5rem;margin:0 0 .5rem}
+    .me-final p{max-width:none;margin:.4rem auto;color:#F7E6EE}
+    .me-boutons{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1rem}
+    .me-final .btn-plein{background:var(--champagne,#B7833F);border-color:var(--champagne,#B7833F);color:#2E1338}
+    .me-final .btn-trait{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.7)!important}
+    .me-note{font-size:.88rem;color:#E6CFDD!important}
+    @media (max-width:700px){
+      .me-esp{grid-template-columns:1fr}
+      .me-ecrans{justify-content:center}
+      .me-ecrans figure,.me-verbes .me-ecrans figure{width:min(46%,200px)}
+      .me-ecrans.seul figure{width:min(62%,220px)}
+    }
+    @media print{header,footer,.me-boutons,.cadeau-bas{display:none!important}.me-bloc,.me-fil{break-inside:avoid}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div class="me">
+      <div class="me-tete">
+        <p class="me-sur">Ma spirale · Mode d’emploi</p>
+        <h1>Ma spirale, pas à pas</h1>
+        <p>Tout ce qu’il faut pour bien commencer, écran par écran, avec l’exemple de Léa. Tu peux y revenir chaque fois que tu en as besoin.</p>
+      </div>
+
+      <section class="me-fil" id="a-quoi">
+        <h2>À quoi sert Ma spirale</h2>
+        <p>Quand quelque chose remonte, tu as un endroit où aller. <b>Tu déposes</b> ce que tu ressens, avec tes mots. <b>Tu vois d’où ça vient</b>, dans ta vie et dans ta lignée. <b>Tu le libères</b>, à ton rythme.</p>
+        <p>Ma spirale sert pour <b>ce qui se répète</b> : la même scène avec d’autres personnes, une émotion bien plus grande que ce qui vient d’arriver, une peur qui revient. Pour une émotion passagère, une contrariété d’un jour, tu n’as pas besoin de créer un schéma : ta note du jour suffit.</p>
+        <ul class="me-sommaire" aria-label="Sommaire">
+          <li><a href="#installer">Installer l’appli</a></li>
+          <li><a href="#moi">Moi</a></li>
+          <li><a href="#histoire">Mon histoire</a></li>
+          <li><a href="#agenda">Mon agenda</a></li>
+          <li><a href="#bilan">Mon bilan</a></li>
+          <li><a href="#theatre">Mon théâtre</a></li>
+          <li><a href="#actions">Mes actions</a></li>
+          <li><a href="#fiche">La fiche en 5 verbes</a></li>
+          <li><a href="#monte">Si ça monte fort</a></li>
+          <li><a href="#prive">Ce qui reste privé</a></li>
+          <li><a href="#questions">Questions</a></li>
+        </ul>
+      </section>
+
+      <section class="me-bloc" id="installer">
+        <h2><span>1</span>Installe Ma spirale sur ton téléphone</h2>
+        <p>Rien à télécharger dans un magasin d’applis : Ma spirale s’ouvre dans ton navigateur. Ajoute-la à ton écran d’accueil, elle s’ouvre ensuite comme une appli, avec sa barre en bas.</p>
+        <ol>
+          <li>Ouvre <a href="pass.html">Ma spirale</a> sur ton téléphone et connecte-toi.</li>
+          <li><b>Sur iPhone (Safari)</b> : touche le bouton <b>Partager</b>, puis <b>Sur l’écran d’accueil</b>, puis <b>Ajouter</b>.</li>
+          <li><b>Sur Android (Chrome)</b> : touche le menu <b>⋮</b> en haut à droite, puis <b>Installer l’application</b> (ou <b>Ajouter à l’écran d’accueil</b>).</li>
+          <li>Ouvre-la ensuite depuis son icône.</li>
+        </ol>
+        <p>Sur ordinateur, tes espaces sont à gauche. Ce que tu écris d’un côté se retrouve de l’autre.</p>
+        <figure class="me-ordi"><img src="assets/pass/tuto/ordi-moi.webp" width="900" height="562" alt="Ma spirale sur ordinateur : les espaces à gauche, l’écran Moi au centre" loading="lazy" decoding="async"><figcaption>Ma spirale sur ordinateur, avec l’exemple de Léa</figcaption></figure>
+      </section>
+
+      <p class="me-cle">Tes six espaces, dans la barre en bas : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions.</p>
+
+      <section class="me-bloc" id="moi">
+        <h2><span>2</span>Moi</h2>
+        <div class="me-esp">
+          <div>
+            <p>C’est ton accueil. En haut, <b>« Qu’est-ce que tu ressens ? »</b> : quand quelque chose remonte, touche <span class="me-ecran-btn">Je dépose ce que je ressens</span>. Tu peux aussi noter un rêve au réveil.</p>
+            <p>Dessous, <b>Mes schémas en cours</b> : chacun montre où tu en es dans ses 5 verbes. Touche <span class="me-ecran-btn">Reprendre</span> pour avancer. Quand tu réagis autrement face au même thème, le schéma rejoint <b>Devenus spirale</b>.</p>
+            <p><b>Ma note du jour</b>, en une minute : ton corps, tes pensées, ton émotion, ce que tu as fait. Au fil des jours, tu vois ce qui revient.</p>
+            <p>Le petit <b>?</b> en haut de chaque écran rouvre l’aide « Comment ça marche ».</p>
+          </div>
+          <div class="me-ecrans">
+            <figure><img src="assets/pass/tuto/moi.webp" width="780" height="1688" alt="L’écran Moi : Qu’est-ce que tu ressens ? et Mes schémas en cours" loading="lazy" decoding="async"><figcaption>Tes schémas en cours</figcaption></figure>
+            <figure><img src="assets/pass/tuto/note-du-jour.webp" width="780" height="1688" alt="Ma note du jour : le corps, les sensations, l’émotion" loading="lazy" decoding="async"><figcaption>Ta note du jour</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="histoire">
+        <h2><span>3</span>Mon histoire</h2>
+        <div class="me-esp">
+          <div>
+            <p><b>Mes personnes.</b> Au départ, trois onglets : <b>Toi</b>, <b>Ma mère</b>, <b>Mon père</b>. Pour chacun, note quelques moments de vie : l’âge, ce qui s’est passé, ce qui a été ressenti. Même si tu en sais peu, c’est utile.</p>
+            <p>Pour les autres, touche <span class="me-ecran-btn">+ Ajouter quelqu’un</span> : une grand-mère, un frère, une tante, mais aussi un·e ami·e, un·e ex, un·e patron·ne.</p>
+            <p><b>Ma frise.</b> Ta vie en haut, ta lignée en dessous, par âge. Elle montre la première fois que c’est arrivé et toutes les autres. Quand tu as vécu la même chose au même âge qu’une personne de ta lignée, un trait doré apparaît.</p>
+          </div>
+          <div class="me-ecrans">
+            <figure><img src="assets/pass/tuto/histoire-personnes.webp" width="780" height="1688" alt="Mon histoire : Mes personnes, avec Léa, sa mère et son père" loading="lazy" decoding="async"><figcaption>Mes personnes</figcaption></figure>
+            <figure><img src="assets/pass/tuto/histoire-frise.webp" width="780" height="1688" alt="Ma frise : la vie de Léa en haut, sa mère et sa grand-mère en dessous, par âge" loading="lazy" decoding="async"><figcaption>Ma frise</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="agenda">
+        <h2><span>4</span>Mon agenda</h2>
+        <div class="me-esp">
+          <div>
+            <p>Ton mois, jour par jour : les dates de ta lignée et celles qui reviennent, tes ressentis, tes libérations, tes jours personnels.</p>
+            <p>Touche un jour pour voir ce qui s’y passe. La <b>Légende</b>, sous le calendrier, explique chaque petit point de couleur.</p>
+            <p>En bas, <b>Ton chemin</b> du mois résume ce que tu as compris et libéré.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/pass/tuto/agenda.webp" width="780" height="1688" alt="Mon agenda : le calendrier du mois avec ses points de couleur" loading="lazy" decoding="async"><figcaption>Le mois de Léa</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="bilan">
+        <h2><span>5</span>Mon bilan</h2>
+        <div class="me-esp">
+          <div>
+            <p>Il s’ouvre sur <b>Ma famille et moi</b> : chaque sphère est une personne dont tu as parlé. Touche-la pour dire le lien que tu ressens aujourd’hui : <b>lien de paix</b>, <b>lien mitigé</b> (même avec de l’amour), ou <b>pas encore regardé</b>.</p>
+            <p><b>Mes mois</b> garde ton travail mois par mois. <b>Ton chemin</b> compte tes ressentis déposés, tes schémas et ceux devenus spirale.</p>
+            <p>Au fil du temps, tu vois ce qui s’allège.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/pass/tuto/bilan.webp" width="780" height="1688" alt="Mon bilan : la famille de Léa en sphères de lumière" loading="lazy" decoding="async"><figcaption>Ma famille et moi</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="theatre">
+        <h2><span>6</span>Mon théâtre</h2>
+        <div class="me-esp">
+          <div>
+            <p>Tu crées une <b>pièce</b> (Léa a appelé la sienne « Les hommes de ma vie »), puis tes <b>personnages</b> : des personnes de ta lignée et des personnes de ta vie, avec un nom et une couleur.</p>
+            <p>Fais-les glisser sur la scène, <b>plus près ou plus loin</b> de toi, là où tu les sens. Touche un personnage pour noter <b>ce que tu ressens de lui ou d’elle</b>, depuis ta place.</p>
+            <p>Un <b>lien</b> relie deux personnes que tu ressens de la même façon : « Tu ressens Tom comme tu ressens ton père : froid. » C’est là que tu vois ce qui se rejoue.</p>
+            <p>Garde une photo de ta scène : plus tard, tu verras les liens s’affiner.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/pass/tuto/theatre.webp" width="780" height="1688" alt="Mon théâtre : la scène de Léa avec ses personnages reliés" loading="lazy" decoding="async"><figcaption>La scène de Léa</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="actions">
+        <h2><span>7</span>Mes actions</h2>
+        <div class="me-esp">
+          <div>
+            <p>Les protocoles, prêts à suivre, rangés selon ce que tu vis : <b>Je veux libérer</b> (la mémoire de ma vie, la mémoire de ma lignée, quand ça revient plus fort), et <b>Ça ne va pas, maintenant</b>.</p>
+            <p>Ils <b>se remplissent avec ta fiche</b> : ton âge la première fois, la personne de ta lignée, le nom de ton schéma. Tu n’as rien à inventer.</p>
+            <p>Si ça monte fort, la <b>respiration guidée</b> avec la sphère t’aide à revenir ici et maintenant.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/pass/tuto/actions.webp" width="780" height="1688" alt="Mes actions : la liste des protocoles" loading="lazy" decoding="async"><figcaption>Les protocoles</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="fiche">
+        <h2><span>8</span>La fiche d’un schéma, en 5 verbes</h2>
+        <p>Un schéma, c’est ce qui se répète. Chaque schéma a sa fiche, qui avance en cinq temps : <b>Je dépose · Je situe · Je relie · Je vois · Je libère</b>. Tu n’as pas à tout faire le même jour : la fiche te montre ce qui manque.</p>
+        <div class="me-esp">
+          <div>
+            <h3>Tout commence par un ressenti</h3>
+            <p>Touche <span class="me-ecran-btn">Je dépose ce que je ressens</span>. Trois questions suffisent : ce qui s’est passé, ce que tu ressens, où tu le sens dans ton corps.</p>
+            <p>La première fois, l’appli te demande <b>« Comment tu l’appelles ? »</b> : c’est le nom de ton schéma, avec tes mots. Les fois suivantes, tu choisis simplement le schéma que ça rejoint.</p>
+            <p class="me-lea"><b>Léa</b> : « Mon amie a annulé notre week-end au dernier moment, je me suis sentie comme une petite fille laissée sur le quai. » Tristesse, solitude. Elle l’appelle <b>« La peur d’être quittée »</b>.</p>
+          </div>
+          <div class="me-ecrans">
+            <figure><img src="assets/pass/tuto/depot.webp" width="780" height="1688" alt="Je dépose un ressenti : Qu’est-ce qui se passe ?" loading="lazy" decoding="async"><figcaption>Les trois questions</figcaption></figure>
+            <figure><img src="assets/pass/tuto/depot-nom.webp" width="780" height="1688" alt="Comment tu l’appelles ? La peur d’être quittée" loading="lazy" decoding="async"><figcaption>« Comment tu l’appelles ? »</figcaption></figure>
+          </div>
+        </div>
+
+        <ol class="me-verbes">
+          <li>
+            <div class="me-esp">
+              <div>
+                <h3>Je dépose</h3>
+                <p>Tes ressentis, rangés par date. Tu précises ce que ça touche, la phrase que tu te dis, où tu le sens dans ton corps.</p>
+                <p class="me-lea"><b>Léa</b> choisit « On me laisse » : la phrase qui revient chaque fois.</p>
+              </div>
+              <div class="me-ecrans seul"><figure><img src="assets/pass/tuto/fiche-depose.webp" width="780" height="1688" alt="Je dépose : les ressentis de Léa et la phrase qu’elle se dit" loading="lazy" decoding="async"></figure></div>
+            </div>
+          </li>
+          <li>
+            <div class="me-esp">
+              <div>
+                <h3>Je situe</h3>
+                <p>Ta frise de vie : <b>la première fois</b> que tu as ressenti ça, puis les autres fois. Tu peux donner un nom à ce qui se joue, pour le regarder de l’extérieur.</p>
+                <p>Puis ta scène : <b>qui est en jeu ?</b> Comment tu le ou la ressens, depuis ta place ? Près de toi ou loin ?</p>
+                <p class="me-lea"><b>Léa</b> : la première fois, à 8 ans, le départ de son père (« la Petite fille »). Puis à 31 ans : « Il me quitte par message ».</p>
+              </div>
+              <div class="me-ecrans seul"><figure><img src="assets/pass/tuto/fiche-situe.webp" width="780" height="1688" alt="Je situe : la frise de vie de Léa avec la première fois à 8 ans" loading="lazy" decoding="async"></figure></div>
+            </div>
+          </li>
+          <li>
+            <div class="me-esp">
+              <div>
+                <h3>Je relie</h3>
+                <p>D’abord les liens que tu as déjà posés. Puis l’appli te propose des pistes, toujours sous forme de question : <b>« Tiens, comme… ? »</b>. Tu réponds oui, peut-être ou non. Tu peux aussi ajouter un lien toi-même.</p>
+                <p class="me-lea"><b>Léa</b> : « Tiens, comme Hélène, ta mère ? » Hélène a vécu la même solitude à 32 ans, à son divorce. Léa répond oui.</p>
+              </div>
+              <div class="me-ecrans seul"><figure><img src="assets/pass/tuto/fiche-relie.webp" width="780" height="1688" alt="Je relie : Tiens, comme… ? et le lien posé avec Hélène, sa mère" loading="lazy" decoding="async"></figure></div>
+            </div>
+          </li>
+          <li>
+            <div class="me-esp">
+              <div>
+                <h3>Je vois</h3>
+                <p>La fiche rassemble ce qui se répète, la première fois, la personne avec qui ça résonne. Tu écris ce que tu comprends maintenant, en une phrase, avec tes mots.</p>
+                <p class="me-lea"><b>Léa</b> : « Je vois que chaque fois qu’on s’éloigne, je redeviens la petite fille qui attend sur le quai. »</p>
+              </div>
+              <div class="me-ecrans seul"><figure><img src="assets/pass/tuto/fiche-vois.webp" width="780" height="1688" alt="Je vois : ce qui se répète, la première fois à 8 ans, ça résonne avec Hélène" loading="lazy" decoding="async"></figure></div>
+            </div>
+          </li>
+          <li>
+            <div class="me-esp">
+              <div>
+                <h3>Je libère</h3>
+                <p>Deux protocoles, déjà remplis avec ta fiche : <b>la mémoire de ma vie</b> (la première fois), puis <b>la mémoire de ma lignée</b> (rendre à la personne ce qui lui appartient, et garder sa force). Ensuite, un petit geste concret dans les 48 heures.</p>
+                <p class="me-lea"><b>Léa</b> libère d’abord la petite fille de 8 ans, puis rend à Hélène, sa mère, la peur d’être quittée.</p>
+                <p>Quand le thème revient mais que tu réagis autrement, ton schéma devient spirale.</p>
+              </div>
+              <div class="me-ecrans seul"><figure><img src="assets/pass/tuto/fiche-libere.webp" width="780" height="1688" alt="Je libère : Libérer la mémoire de ma lignée, Commencer le protocole" loading="lazy" decoding="async"></figure></div>
+            </div>
+          </li>
+        </ol>
+        <figure class="me-ordi"><img src="assets/pass/tuto/ordi-fiche.webp" width="900" height="562" alt="La fiche de « La peur d’être quittée » sur ordinateur, avec les 5 verbes" loading="lazy" decoding="async"><figcaption>La même fiche, sur ordinateur</figcaption></figure>
+      </section>
+
+      <section class="me-bloc" id="monte">
+        <h2><span>9</span>Si ça monte fort</h2>
+        <div class="me-esp">
+          <div>
+            <p>Le bouton <span class="me-ecran-btn">Ça monte fort</span> reste en bas de chaque écran. Quand tu déposes un ressenti très fort, l’appli te le propose aussi d’elle-même, avant tout le reste.</p>
+            <ol>
+              <li>Pose les pieds au sol.</li>
+              <li>Respire avec la sphère, trois fois, lentement.</li>
+              <li>Nomme cinq objets autour de toi, à voix haute.</li>
+              <li>Tu peux reprendre un autre jour : rien ne presse.</li>
+            </ol>
+            <p>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant : une personne de confiance, ou une ligne d’écoute gratuite, ouverte jour et nuit (<a href="tel:3114">3114</a> en France).</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/pass/tuto/monte.webp" width="780" height="1688" alt="Si ça monte fort : la sphère pour respirer et les quatre étapes" loading="lazy" decoding="async"><figcaption>Revenir ici et maintenant</figcaption></figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="me-bloc" id="je-ne-sais-pas">
+        <h2><span>10</span>« Je ne sais pas » : une aide à chaque question</h2>
+        <p>Sous chaque question où l’on peut bloquer, touche <b>Je ne sais pas</b> : une aide s’ouvre. Des débuts de phrase (« Aujourd’hui, quand… », « J’ai senti… », « J’aurais voulu… »), des mots pour tes émotions, des pistes pour écouter ton corps, les périodes de ta vie pour retrouver un âge.</p>
+        <p>Trois mots suffisent. Tu complètes plus tard.</p>
+      </section>
+
+      <section class="me-bloc" id="prive">
+        <h2><span>11</span>Ce qui reste privé</h2>
+        <ul>
+          <li><b>Personne d’autre que toi ne lit ce que tu écris.</b></li>
+          <li>Pour le retrouver sur tous tes appareils, ce que tu écris est gardé dans ton espace Genesolia, privé, seulement avec ton accord. Sans accord, tout reste sur ton appareil.</li>
+          <li>Tu peux tout télécharger ou tout effacer, en bas de l’écran Moi.</li>
+          <li>Tes rêves restent privés. Seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles du blog.</li>
+          <li>Dans la démo de Léa, rien n’est enregistré.</li>
+        </ul>
+      </section>
+
+      <section class="me-bloc" id="questions">
+        <h2><span>12</span>Questions fréquentes</h2>
+        <details><summary>Je n’ai pas de souvenirs de mon enfance.</summary><p>Tu peux avancer quand même. Laisse venir l’âge que tu te sens, même flou. « Avant mes souvenirs » est une vraie réponse : elle t’oriente vers ta lignée.</p></details>
+        <details><summary>Je connais mal ma famille.</summary><p>Note ce que tu sais, même peu. Si tu ne connais pas ta lignée, tu travailles avec la famille qui t’a élevé·e. Une case vide est aussi une information.</p></details>
+        <details><summary>Ça revient après une libération. C’est normal ?</summary><p>Oui. Ce n’est pas un retour en arrière : c’est souvent une couche plus profonde qui se montre. Rouvre ton schéma, et suis le protocole « Quand ça revient plus fort », dans Mes actions.</p></details>
+        <details><summary>Je peux l’utiliser sur mon téléphone et mon ordinateur ?</summary><p>Oui. Connecte-toi avec le même compte : une fois ton accord donné, tu retrouves tout ce que tu as écrit sur tes deux appareils.</p></details>
+        <details><summary>Est-ce que ça remplace un·e professionnel·le ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Elle ne remplace pas un avis médical ou psychologique. Si une histoire est trop lourde, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
+      </section>
+
+      <section class="me-final">
+        <h2>À toi de jouer</h2>
+        <p>Regarde d’abord comment Léa a fait, puis ouvre ton espace.</p>
+        <p class="me-boutons">
+          <a class="btn btn-plein" href="pass.html">Ouvrir Ma spirale</a>
+          <a class="btn btn-trait" href="pass.html?exemple">Essayer la démo de Léa</a>
+          <a class="btn btn-trait" href="ma-spirale.html#offre">Voir l’abonnement</a>
+        </p>
+        <p class="me-note">Pas encore abonné·e ? 7 jours offerts, puis 4,99 € par mois avec l’offre de Noël. Sans engagement.</p>
+      </section>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
