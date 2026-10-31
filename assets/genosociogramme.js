@@ -3980,10 +3980,18 @@
     function majPlein() { var b = q.querySelector('[data-s="plein"]'); if (b) b.hidden = !!document.fullscreenElement || !document.documentElement.requestFullscreen; }
     function quitter() {
       document.body.classList.remove('mode-seance', 'seance-reps'); q.remove(); var ti = document.querySelector('.pr-tiroir'); if (ti) ti.remove();
-      document.removeEventListener('fullscreenchange', majPlein);
+      document.removeEventListener('fullscreenchange', majPlein); document.removeEventListener('keydown', echap);
       try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {} setTimeout(recentrer, 60);
     }
-    majPlein(); document.addEventListener('fullscreenchange', majPlein);
+    /* Échap quitte le mode séance (en plein écran, le navigateur garde le premier Échap pour sortir du plein écran) */
+    function echap(e) {
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      var a = document.activeElement;
+      if (a && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA' || a.tagName === 'SELECT' || a.isContentEditable)) return;
+      if (document.querySelector('dialog[open], .pr-tiroir, [role="dialog"]:not([hidden])')) return;
+      quitter();
+    }
+    majPlein(); document.addEventListener('fullscreenchange', majPlein); document.addEventListener('keydown', echap);
     q.addEventListener('click', function (e) {
       var b = e.target.closest('[data-s]'); if (!b) return; var s = b.getAttribute('data-s');
       if (s === 'quitter') quitter();

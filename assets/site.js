@@ -790,7 +790,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
   var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html', 'praticien.html', 'espace-praticien.html'];
   var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
-  if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
+  if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && !/[?&]partage=/.test(location.search) &&   /* arbre partagé (souvent par une praticienne) : pas de publicité pour Le Cercle */
+      entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce annonce-cercle';
     bandeau.innerHTML =
