@@ -29,7 +29,7 @@
   function bloquer() {
     if (!etatEssai.connectee) fenetre('Crée ton compte, c’est offert', 'Pour garder ton arbre et voir ce qui se répète, crée ton espace gratuit : <b>' + C.jours + ' jours d’analyses offerts</b>, sans carte. Ton arbre reste à toi.',
       '<a class="btn btn-plein" href="login.html?inscription&amp;retour=' + encodeURIComponent(location.pathname.split('/').pop() || 'genosociogramme.html') + '">Créer mon espace gratuit</a>');
-    else fenetre('Tes ' + C.jours + ' jours d’analyses sont terminés', 'Ton arbre reste à toi : tu peux toujours le voir et le compléter. Pour retrouver ce qui se répète, la numérologie, l’astrologie et ton rapport, continue avec <b>Ma spirale</b> (10 € par mois, sans engagement), ou essaie <b>Le Cercle</b>, ton 1<sup>er</sup> mois est offert.',
+    else fenetre('Tes ' + C.jours + ' jours d’analyses sont terminés', 'Ton arbre reste à toi : tu peux toujours le voir et le compléter. Pour retrouver ce qui se répète, la numérologie, l’astrologie et ton rapport, continue avec <b>Ma spirale</b> (offre de Noël : 7 jours offerts, puis 4,99 € par mois au lieu de 10 €, sans engagement), ou essaie <b>Le Cercle</b>, ton 1<sup>er</sup> mois est offert.',
       '<a class="btn btn-plein" href="tarifs.html">Voir Ma spirale</a><a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert du Cercle</a>');
   }
   var s = session();
