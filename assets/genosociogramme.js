@@ -298,9 +298,9 @@
     if (!DOSSIER_CLIENT) return;
     var c = document.querySelector('.vide-carte'); if (!c) return;
     var h = c.querySelector('h2'), p = c.querySelector('p'), b = $('bt-commencer');
-    if (h) h.textContent = 'L’arbre commence par ton·ta client·e';
-    if (p) p.textContent = 'Place ton·ta client·e dans l’arbre, puis ajoute ses parents, ses grands-parents, ses frères et sœurs. Les répétitions apparaissent au fil de la saisie.';
-    if (b) b.textContent = 'Placer ton·ta client·e';
+    if (h) h.textContent = 'L’arbre commence par votre client·e';
+    if (p) p.textContent = 'Placez votre client·e dans l’arbre, puis ajoutez ses parents, ses grands-parents, ses frères et sœurs. Les répétitions apparaissent au fil de la saisie.';
+    if (b) b.textContent = 'Placer votre client·e';
     /* l'outil parle du dossier de la personne accompagnée, pas de la famille de la praticienne */
     var h1 = document.querySelector('.titre-arbre h1'); if (h1 && h1.firstChild && h1.firstChild.nodeType === 3) h1.firstChild.nodeValue = 'Dossier client·e';
     var lm = $('fp-moi-ligne'); if (lm && lm.lastChild && lm.lastChild.nodeType === 3) lm.lastChild.nodeValue = ' C’est mon·ma client·e';
@@ -1865,7 +1865,7 @@
     if (!Object.keys(S.people).length) { z.innerHTML = '<p class="rep-aide">Commence par te placer dans l’arbre.</p>'; return; }
     if (!n) {
       z.innerHTML = blocTrous() + '<p class="rep-aide">Rien pour l’instant. Ajoute <b>les dates</b>, <b>les métiers</b> et <b>les événements marquants</b> de chacun : les répétitions apparaissent ici toutes seules.</p>' +
-        (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
+        (idMoi() ? '' : (DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : cochez « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>'));
       return;
     }
     // Exercices « Ce que je ressens, ce qu'il ou elle a vécu » : ils s'accumulent ici, à faire quand on a le temps
@@ -1981,7 +1981,7 @@
     }
     if (horsL.length && !mots.length) h += '<details class="rep-theme-bloc rep-ailleurs"><summary>Ailleurs dans l’arbre <span>' + horsL.length + '</span></summary><p class="rep-aide">Ces pistes ne touchent pas la lignée de ' + esc(prC) + '.</p>' + horsL.map(carte).join('') + '</details>';
     if (ecartees.length) h += '<details class="rep-theme-bloc rep-ecartees"><summary>Pistes écartées <span>' + ecartees.length + '</span></summary>' + ecartees.map(carte).join('') + '</details>';
-    if (!idMoi()) h += DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : coche « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>';
+    if (!idMoi()) h += DOSSIER_CLIENT ? '<p class="rep-aide">Astuce : cochez « C’est mon·ma client·e » sur sa fiche pour repérer le syndrome anniversaire.</p>' : '<p class="rep-aide">Astuce : coche « C’est moi » sur ta fiche pour repérer le syndrome anniversaire.</p>';
     z.innerHTML = h;
     // le menu des thèmes affiche combien de pistes il y a dans chacun
     var selT = $('rep-theme');
@@ -2014,7 +2014,7 @@
   })();
   function textStatutRepos() {
     if (EXEMPLE) return '';
-    if (utilisateur) return DOSSIER_CLIENT ? 'Enregistré dans ton Espace praticien' : 'Enregistré dans ton espace';
+    if (utilisateur) return DOSSIER_CLIENT ? 'Enregistré dans votre Espace praticien' : 'Enregistré dans ton espace';
     if (ARBRE_ID) return 'Cet arbre est dans ton espace · <a href="login.html?retour=genosociogramme.html">Me connecter pour l\u2019ouvrir</a>';
     return 'Enregistré dans ce navigateur · <a href="login.html?retour=genosociogramme.html">Me connecter pour le garder en sécurité</a>';
   }
@@ -2673,7 +2673,7 @@
   function aideRaccourcis() {
     var v = document.querySelector('.aide-raccourcis'); if (v) { v.remove(); return; }
     var d = document.createElement('div'); d.className = 'aide-raccourcis'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', 'Raccourcis clavier');
-    d.innerHTML = '<b>Raccourcis clavier</b><p>Clique une personne, puis :</p><ul><li><kbd>P</kbd> ajouter un parent</li><li><kbd>E</kbd> un enfant</li><li><kbd>C</kbd> un·e conjoint·e</li><li><kbd>F</kbd> un frère ou une sœur</li><li><kbd>L</kbd> un lien relationnel</li><li><kbd>M</kbd> ou <kbd>Entrée</kbd> sa fiche</li><li><kbd>Suppr</kbd> la retirer</li></ul><ul><li><kbd>R</kbd> ce qui se répète (mode séance)</li><li><kbd>T</kbd> remonter le temps</li><li><kbd>N</kbd> notes de séance</li><li><kbd>Ctrl</kbd> + <kbd>Z</kbd> annuler</li><li><kbd>Échap</kbd> fermer</li></ul><button type="button" class="bt">Fermer</button>';
+    d.innerHTML = '<b>Raccourcis clavier</b><p>' + (DOSSIER_CLIENT || document.body.classList.contains('mode-seance') ? 'Cliquez' : 'Clique') + ' une personne, puis :</p><ul><li><kbd>P</kbd> ajouter un parent</li><li><kbd>E</kbd> un enfant</li><li><kbd>C</kbd> un·e conjoint·e</li><li><kbd>F</kbd> un frère ou une sœur</li><li><kbd>L</kbd> un lien relationnel</li><li><kbd>M</kbd> ou <kbd>Entrée</kbd> sa fiche</li><li><kbd>Suppr</kbd> la retirer</li></ul><ul><li><kbd>R</kbd> ce qui se répète (mode séance)</li><li><kbd>T</kbd> remonter le temps</li><li><kbd>N</kbd> notes de séance</li><li><kbd>Ctrl</kbd> + <kbd>Z</kbd> annuler</li><li><kbd>Échap</kbd> fermer</li></ul><button type="button" class="bt">Fermer</button>';
     document.body.appendChild(d);
     d.querySelector('button').addEventListener('click', function () { d.remove(); });
   }
@@ -3035,7 +3035,7 @@
   $('bt-effacer').addEventListener('click', function () {
     if (!Object.keys(S.people).length) { fermer('fen-sauve'); return; }
     if (DOSSIER_CLIENT && arbreNom) {
-      var tape = prompt('Vider le dossier « ' + arbreNom + ' » ? Toutes les personnes et leurs informations seront retirées.\n\nPour confirmer, tape le nom du dossier :', '');
+      var tape = prompt('Vider le dossier « ' + arbreNom + ' » ? Toutes les personnes et leurs informations seront retirées.\n\nPour confirmer, tapez le nom du dossier :', '');
       if (tape == null) return;
       if (tape.trim().toLowerCase() !== arbreNom.trim().toLowerCase()) { alert('Le nom ne correspond pas : le dossier n’a pas été vidé.'); return; }
     } else if (!confirm((ARBRE_ID ? 'Vider l’arbre « ' + arbreNom + ' » pour repartir de zéro ?' : 'Effacer tout ton arbre pour repartir de zéro ?') + '\n\nToutes les personnes et leurs informations seront retirées' + (utilisateur ? ', ici et dans ton espace' : '') + '. Pour garder une copie, télécharge-la d’abord depuis « Sauvegardes ».\n\nTu pourras revenir en arrière avec « Annuler » tant que tu restes sur cette page.')) return;
@@ -3352,12 +3352,12 @@
     verifierAcces().then(function (acces) {
       accesRapport = acces;
       if (acces) {
-        corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>' + (DOSSIER_CLIENT ? 'Le rapport est inclus dans ton Espace praticien.' : 'Ton rapport est offert.') + '</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>' : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
+        corps.innerHTML = (acces.libre ? '<p class="rap-texte"><b>' + (DOSSIER_CLIENT ? 'Le rapport est inclus dans votre Espace praticien.</b> Complétez l’arbre et régénérez-le autant de fois que vous voulez : il suit chaque ajout.</p>' : 'Ton rapport est offert.</b> Complète ton arbre et régénère-le autant de fois que tu veux : il suit chaque ajout.</p>') : '<p class="rap-texte">Ton accès au rapport est actif jusqu’au <b>' + esc(dateLongue(new Date(acces.valide_jusqu))) + '</b>. Tu peux compléter ton arbre et régénérer ton rapport autant de fois que tu veux d’ici là.</p>') +
           (PRATICIEN && ARBRE_ID ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-avec-notes" style="margin-top:.3rem"> <span>Ajouter mes notes de séance en annexe (au nom de ' + esc(PRATICIEN.cabinet) + ')</span></label>' : '') +
           (Object.keys(S.avis || {}).some(function (k) { return S.avis[k] && (S.avis[k].v === 'oui' || S.avis[k].v === 'creuser'); }) ? '<label class="rap-texte" style="display:flex;gap:.5rem;align-items:flex-start"><input type="checkbox" id="rap-retenues" style="margin-top:.3rem"> <span>Seulement les pistes marquées « Ça me parle » ou « À creuser »</span></label>' : '') +
           '<button class="bt plein rap-gros" type="button" id="bt-generer">' + (DOSSIER_CLIENT ? 'Générer le rapport' + (prenomClient() ? ' de ' + esc(prenomClient()) : '') + ' (PDF)' : 'Générer mon rapport (PDF)') + '</button>' +
           '<button class="bt rap-gros" type="button" id="bt-generer-word" style="margin-top:.5rem">Version Word, à retoucher (.docx)</button>' +
-          '<p class="rap-aide">Le PDF est prêt à envoyer ou à imprimer. La version Word s’ouvre dans Word, Pages ou Google Docs : tu peux retoucher le texte avant de le remettre.</p>';
+          '<p class="rap-aide">Le PDF est prêt à envoyer ou à imprimer. La version Word s’ouvre dans Word, Pages ou Google Docs : ' + (DOSSIER_CLIENT ? 'vous pouvez' : 'tu peux') + ' retoucher le texte avant de le remettre.</p>';
         $('bt-generer').addEventListener('click', function () { imprimerRapport(this); });
         $('bt-generer-word').addEventListener('click', function () { rapportWord(this); });
         return;

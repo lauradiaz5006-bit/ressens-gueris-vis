@@ -33,7 +33,7 @@ window.GenesoliaDeuxEtapes = (function () {
         styles();
         return new Promise(function (ok) {
           var f = document.createElement('div'); f.className = 'de-fond'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-labelledby', 'de-titre');
-          f.innerHTML = '<form class="de-carte" novalidate><h2 id="de-titre">Ton code de connexion</h2><p>Ta connexion est protégée en deux étapes. Ouvre ton appli d’authentification et tape le code à 6 chiffres de Genesolia.</p>' +
+          f.innerHTML = '<form class="de-carte" novalidate><h2 id="de-titre">Votre code de connexion</h2><p>Votre connexion est protégée en deux étapes. Ouvrez votre appli d’authentification et tapez le code à 6 chiffres de Genesolia.</p>' +
             '<input class="de-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="Code à 6 chiffres"><p class="de-err" role="alert"></p><button class="de-bt" type="submit">Valider</button><button class="de-lien" type="button" data-sortir>Me déconnecter</button></form>';
           document.body.appendChild(f);
           var i = champCode(f), err = f.querySelector('.de-err'), bt = f.querySelector('.de-bt');
@@ -43,7 +43,7 @@ window.GenesoliaDeuxEtapes = (function () {
             bt.disabled = true;
             sb.auth.mfa.challengeAndVerify({ factorId: fac.id, code: i.value }).then(function (x) {
               bt.disabled = false;
-              if (x.error) { err.textContent = 'Ce code ne correspond pas. Prends le code affiché maintenant (il change toutes les 30 secondes).'; i.value = ''; i.focus(); return; }
+              if (x.error) { err.textContent = 'Ce code ne correspond pas. Prenez le code affiché maintenant (il change toutes les 30 secondes).'; i.value = ''; i.focus(); return; }
               f.remove(); ok(true);
             });
           });
@@ -62,14 +62,14 @@ window.GenesoliaDeuxEtapes = (function () {
     function rendre() {
       totpVerifie(sb).then(function (fac) {
         z.innerHTML = fac
-          ? '<span class="de-etat">Activée</span><p class="pr-aide">À chaque nouvelle connexion, Genesolia te demande le code de ton appli d’authentification, en plus du mot de passe.</p><button class="btn btn-trait" type="button" data-de-off>Désactiver</button>'
-          : '<span class="de-etat non">Pas activée</span><p class="pr-aide">Tes dossiers contiennent des histoires de famille sensibles. Avec la double étape, ton mot de passe seul ne suffit plus pour entrer : il faut aussi le code de ton téléphone. Gratuit, avec Google Authenticator, Microsoft Authenticator ou 1Password.</p><button class="btn btn-plein" type="button" data-de-on>Activer la connexion en deux étapes</button>';
+          ? '<span class="de-etat">Activée</span><p class="pr-aide">À chaque nouvelle connexion, Genesolia vous demande le code de votre appli d’authentification, en plus du mot de passe.</p><button class="btn btn-trait" type="button" data-de-off>Désactiver</button>'
+          : '<span class="de-etat non">Pas activée</span><p class="pr-aide">Vos dossiers contiennent des histoires de famille sensibles. Avec la double étape, votre mot de passe seul ne suffit plus pour entrer : il faut aussi le code de votre téléphone. Gratuit, avec Google Authenticator, Microsoft Authenticator ou 1Password.</p><button class="btn btn-plein" type="button" data-de-on>Activer la connexion en deux étapes</button>';
         var on = z.querySelector('[data-de-on]'), off = z.querySelector('[data-de-off]');
         if (on) on.addEventListener('click', activer);
         if (off) off.addEventListener('click', function () {
-          if (!confirm('Désactiver la connexion en deux étapes ? Ton mot de passe suffira de nouveau pour entrer.')) return;
+          if (!confirm('Désactiver la connexion en deux étapes ? Votre mot de passe suffira de nouveau pour entrer.')) return;
           off.disabled = true;
-          sb.auth.mfa.unenroll({ factorId: fac.id }).then(function (x) { if (x.error) { off.disabled = false; alert('La désactivation n’a pas abouti. Reconnecte-toi avec ton code, puis réessaie.'); return; } rendre(); });
+          sb.auth.mfa.unenroll({ factorId: fac.id }).then(function (x) { if (x.error) { off.disabled = false; alert('La désactivation n’a pas abouti. Reconnectez-vous avec votre code, puis réessayez.'); return; } rendre(); });
         });
       });
     }
@@ -81,12 +81,12 @@ window.GenesoliaDeuxEtapes = (function () {
       }).then(function () {
         return sb.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'Genesolia ' + new Date().toISOString().slice(0, 10), issuer: 'Genesolia' });
       }).then(function (x) {
-        if (!x || x.error || !x.data) { alert('La connexion en deux étapes n’a pas pu démarrer. Réessaie dans un instant.'); return; }
+        if (!x || x.error || !x.data) { alert('La connexion en deux étapes n’a pas pu démarrer. Réessayez dans un instant.'); return; }
         var fac = x.data, t = fac.totp || {};
         var f = document.createElement('div'); f.className = 'de-fond'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true');
-        f.innerHTML = '<form class="de-carte" novalidate><h2>Activer la double étape</h2><p>1. Dans ton appli d’authentification, ajoute un compte et scanne ce code.</p>' +
-          '<img class="de-qr" alt="Code QR à scanner" src="' + esc(t.qr_code || '') + '"><p style="margin:0 0 .3rem">Ou tape cette clé :</p><div class="de-cle">' + esc(t.secret || '') + '</div>' +
-          '<p>2. Tape le code à 6 chiffres que l’appli affiche.</p><input class="de-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="Code à 6 chiffres"><p class="de-err" role="alert"></p>' +
+        f.innerHTML = '<form class="de-carte" novalidate><h2>Activer la double étape</h2><p>1. Dans votre appli d’authentification, ajoutez un compte et scannez ce code.</p>' +
+          '<img class="de-qr" alt="Code QR à scanner" src="' + esc(t.qr_code || '') + '"><p style="margin:0 0 .3rem">Ou tapez cette clé :</p><div class="de-cle">' + esc(t.secret || '') + '</div>' +
+          '<p>2. Tapez le code à 6 chiffres que l’appli affiche.</p><input class="de-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="Code à 6 chiffres"><p class="de-err" role="alert"></p>' +
           '<button class="de-bt" type="submit">Activer</button><button class="de-lien" type="button" data-annuler>Annuler</button></form>';
         document.body.appendChild(f);
         var i = champCode(f), err = f.querySelector('.de-err'), bt = f.querySelector('.de-bt');
@@ -97,8 +97,8 @@ window.GenesoliaDeuxEtapes = (function () {
           bt.disabled = true;
           sb.auth.mfa.challengeAndVerify({ factorId: fac.id, code: i.value }).then(function (y) {
             bt.disabled = false;
-            if (y.error) { err.textContent = 'Ce code ne correspond pas. Vérifie l’heure de ton téléphone et prends le code affiché maintenant.'; i.value = ''; i.focus(); return; }
-            f.remove(); rendre(); alert('C’est fait : ta connexion est protégée en deux étapes.');
+            if (y.error) { err.textContent = 'Ce code ne correspond pas. Vérifiez l’heure de votre téléphone et prenez le code affiché maintenant.'; i.value = ''; i.focus(); return; }
+            f.remove(); rendre(); alert('C’est fait : votre connexion est protégée en deux étapes.');
           });
         });
       });
