@@ -261,8 +261,8 @@ window.GENESOLIA_STRIPE = {
   passMois: 'https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s',   /* Ma spirale, offre de Noël 4,99 €/mois, 7 jours offerts */
   pass3Mois: '',      /* Ma spirale 27 € les 3 mois : retirée pour l'instant (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
   praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
-  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, tarif fondateur 19 €/mois (espaces ouverts jusqu'au 31 mars 2027) */
-  praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, tarif fondateur 190 € l'année */
+  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, offre de Noël 19 €/mois (abonnements pris avant le 31/12/2026) */
+  praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, offre de Noël 190 € l'année (avant le 31/12/2026) */
   praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
   carnet: 'https://buy.stripe.com/28E6oA7nn9cl82hauH43S0m',         /* un carnet du mois, 9 € */
   rapport: 'https://buy.stripe.com/aFacMYgXXcox3M18mz43S09',        /* le rapport de ton arbre, 9 € */
