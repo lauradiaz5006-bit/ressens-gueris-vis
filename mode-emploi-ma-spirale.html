@@ -69,7 +69,14 @@
       .me-ecrans.seul figure{width:min(62%,220px)}
     }
     @media print{header,footer,.me-boutons,.cadeau-bas{display:none!important}.me-bloc,.me-fil{break-inside:avoid}}
-  </style>
+      .me-volet{padding-top:0!important;padding-bottom:0!important}
+    .me-volet>summary{list-style:none;cursor:pointer;padding:1.1rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .me-volet>summary::-webkit-details-marker{display:none}
+    .me-volet>summary h2{margin:0!important}
+    .me-volet>summary::after{content:"+";flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:#F7E6EE;color:#6B2F5B;font-size:1.3rem;line-height:1}
+    .me-volet[open]>summary::after{content:"\2212"}
+    .me-volet[open]{padding-bottom:1.4rem!important}
+</style>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -100,8 +107,8 @@
         </ul>
       </section>
 
-      <section class="me-bloc" id="installer">
-        <h2><span>1</span>Installe Ma spirale sur ton téléphone</h2>
+      <details class="me-bloc me-volet" id="installer">
+        <summary><h2><span>1</span>Installe Ma spirale sur ton téléphone</h2></summary>
         <p>Rien à télécharger dans un magasin d’applis : Ma spirale s’ouvre dans ton navigateur. Ajoute-la à ton écran d’accueil, elle s’ouvre ensuite comme une appli, avec sa barre en bas.</p>
         <ol>
           <li>Ouvre <a href="pass.html">Ma spirale</a> sur ton téléphone et connecte-toi.</li>
@@ -111,12 +118,12 @@
         </ol>
         <p>Sur ordinateur, tes espaces sont à gauche. Ce que tu écris d’un côté se retrouve de l’autre.</p>
         <figure class="me-ordi"><img src="assets/pass/tuto/ordi-moi.webp" width="900" height="562" alt="Ma spirale sur ordinateur : les espaces à gauche, l’écran Moi au centre" loading="lazy" decoding="async"><figcaption>Ma spirale sur ordinateur, avec l’exemple de Léa</figcaption></figure>
-      </section>
+      </details>
 
       <p class="me-cle">Tes six espaces, dans la barre en bas : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions.</p>
 
-      <section class="me-bloc" id="moi">
-        <h2><span>2</span>Moi</h2>
+      <details class="me-bloc me-volet" id="moi">
+        <summary><h2><span>2</span>Moi</h2></summary>
         <div class="me-esp">
           <div>
             <p>C’est ton accueil. En haut, <b>« Qu’est-ce que tu ressens ? »</b> : quand quelque chose remonte, touche <span class="me-ecran-btn">Je dépose ce que je ressens</span>. Tu peux aussi noter un rêve au réveil.</p>
@@ -129,10 +136,10 @@
             <figure><img src="assets/pass/tuto/note-du-jour.webp" width="780" height="1688" alt="Ma note du jour : le corps, les sensations, l’émotion" loading="lazy" decoding="async"><figcaption>Ta note du jour</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="histoire">
-        <h2><span>3</span>Mon histoire</h2>
+      <details class="me-bloc me-volet" id="histoire">
+        <summary><h2><span>3</span>Mon histoire</h2></summary>
         <div class="me-esp">
           <div>
             <p><b>Mes personnes.</b> Au départ, trois onglets : <b>Toi</b>, <b>Ma mère</b>, <b>Mon père</b>. Pour chacun, note quelques moments de vie : l’âge, ce qui s’est passé, ce qui a été ressenti. Même si tu en sais peu, c’est utile.</p>
@@ -144,10 +151,10 @@
             <figure><img src="assets/pass/tuto/histoire-frise.webp" width="780" height="1688" alt="Ma frise : la vie de Léa en haut, sa mère et sa grand-mère en dessous, par âge" loading="lazy" decoding="async"><figcaption>Ma frise</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="agenda">
-        <h2><span>4</span>Mon agenda</h2>
+      <details class="me-bloc me-volet" id="agenda">
+        <summary><h2><span>4</span>Mon agenda</h2></summary>
         <div class="me-esp">
           <div>
             <p>Ton mois, jour par jour : les dates de ta lignée et celles qui reviennent, tes ressentis, tes libérations, tes jours personnels.</p>
@@ -158,10 +165,10 @@
             <figure><img src="assets/pass/tuto/agenda.webp" width="780" height="1688" alt="Mon agenda : le calendrier du mois avec ses points de couleur" loading="lazy" decoding="async"><figcaption>Le mois de Léa</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="bilan">
-        <h2><span>5</span>Mon bilan</h2>
+      <details class="me-bloc me-volet" id="bilan">
+        <summary><h2><span>5</span>Mon bilan</h2></summary>
         <div class="me-esp">
           <div>
             <p>Il s’ouvre sur <b>Ma famille et moi</b> : chaque sphère est une personne dont tu as parlé. Touche-la pour dire le lien que tu ressens aujourd’hui : <b>lien de paix</b>, <b>lien mitigé</b> (même avec de l’amour), ou <b>pas encore regardé</b>.</p>
@@ -172,10 +179,10 @@
             <figure><img src="assets/pass/tuto/bilan.webp" width="780" height="1688" alt="Mon bilan : la famille de Léa en sphères de lumière" loading="lazy" decoding="async"><figcaption>Ma famille et moi</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="theatre">
-        <h2><span>6</span>Mon théâtre</h2>
+      <details class="me-bloc me-volet" id="theatre">
+        <summary><h2><span>6</span>Mon théâtre</h2></summary>
         <div class="me-esp">
           <div>
             <p>Tu crées une <b>pièce</b> (Léa a appelé la sienne « Les hommes de ma vie »), puis tes <b>personnages</b> : des personnes de ta lignée et des personnes de ta vie, avec un nom et une couleur.</p>
@@ -187,10 +194,10 @@
             <figure><img src="assets/pass/tuto/theatre.webp" width="780" height="1688" alt="Mon théâtre : la scène de Léa avec ses personnages reliés" loading="lazy" decoding="async"><figcaption>La scène de Léa</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="actions">
-        <h2><span>7</span>Mes actions</h2>
+      <details class="me-bloc me-volet" id="actions">
+        <summary><h2><span>7</span>Mes actions</h2></summary>
         <div class="me-esp">
           <div>
             <p>Les protocoles, prêts à suivre, rangés selon ce que tu vis : <b>Je veux libérer</b> (la mémoire de ma vie, la mémoire de ma lignée, quand ça revient plus fort), et <b>Ça ne va pas, maintenant</b>.</p>
@@ -201,10 +208,10 @@
             <figure><img src="assets/pass/tuto/actions.webp" width="780" height="1688" alt="Mes actions : la liste des protocoles" loading="lazy" decoding="async"><figcaption>Les protocoles</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="fiche">
-        <h2><span>8</span>La fiche d’un schéma, en 5 verbes</h2>
+      <details class="me-bloc me-volet" id="fiche">
+        <summary><h2><span>8</span>La fiche d’un schéma, en 5 verbes</h2></summary>
         <p>Un schéma, c’est ce qui se répète. Chaque schéma a sa fiche, qui avance en cinq temps : <b>Je dépose · Je situe · Je relie · Je vois · Je libère</b>. Tu n’as pas à tout faire le même jour : la fiche te montre ce qui manque.</p>
         <div class="me-esp">
           <div>
@@ -274,10 +281,10 @@
           </li>
         </ol>
         <figure class="me-ordi"><img src="assets/pass/tuto/ordi-fiche.webp" width="900" height="562" alt="La fiche de « La peur d’être quittée » sur ordinateur, avec les 5 verbes" loading="lazy" decoding="async"><figcaption>La même fiche, sur ordinateur</figcaption></figure>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="monte">
-        <h2><span>9</span>Si ça monte fort</h2>
+      <details class="me-bloc me-volet" id="monte">
+        <summary><h2><span>9</span>Si ça monte fort</h2></summary>
         <div class="me-esp">
           <div>
             <p>Le bouton <span class="me-ecran-btn">Ça monte fort</span> reste en bas de chaque écran. Quand tu déposes un ressenti très fort, l’appli te le propose aussi d’elle-même, avant tout le reste.</p>
@@ -293,16 +300,16 @@
             <figure><img src="assets/pass/tuto/monte.webp" width="780" height="1688" alt="Si ça monte fort : la sphère pour respirer et les quatre étapes" loading="lazy" decoding="async"><figcaption>Revenir ici et maintenant</figcaption></figure>
           </div>
         </div>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="je-ne-sais-pas">
-        <h2><span>10</span>« Je ne sais pas » : une aide à chaque question</h2>
+      <details class="me-bloc me-volet" id="je-ne-sais-pas">
+        <summary><h2><span>10</span>« Je ne sais pas » : une aide à chaque question</h2></summary>
         <p>Sous chaque question où l’on peut bloquer, touche <b>Je ne sais pas</b> : une aide s’ouvre. Des débuts de phrase (« Aujourd’hui, quand… », « J’ai senti… », « J’aurais voulu… »), des mots pour tes émotions, des pistes pour écouter ton corps, les périodes de ta vie pour retrouver un âge.</p>
         <p>Trois mots suffisent. Tu complètes plus tard.</p>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="prive">
-        <h2><span>11</span>Ce qui reste privé</h2>
+      <details class="me-bloc me-volet" id="prive">
+        <summary><h2><span>11</span>Ce qui reste privé</h2></summary>
         <ul>
           <li><b>Personne d’autre que toi ne lit ce que tu écris.</b></li>
           <li>Pour le retrouver sur tous tes appareils, ce que tu écris est gardé dans ton espace Genesolia, privé, seulement avec ton accord. Sans accord, tout reste sur ton appareil.</li>
@@ -310,16 +317,16 @@
           <li>Tes rêves restent privés. Seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles du blog.</li>
           <li>Dans la démo de Léa, rien n’est enregistré.</li>
         </ul>
-      </section>
+      </details>
 
-      <section class="me-bloc" id="questions">
-        <h2><span>12</span>Questions fréquentes</h2>
+      <details class="me-bloc me-volet" id="questions">
+        <summary><h2><span>12</span>Questions fréquentes</h2></summary>
         <details><summary>Je n’ai pas de souvenirs de mon enfance.</summary><p>Tu peux avancer quand même. Laisse venir l’âge que tu te sens, même flou. « Avant mes souvenirs » est une vraie réponse : elle t’oriente vers ta lignée.</p></details>
         <details><summary>Je connais mal ma famille.</summary><p>Note ce que tu sais, même peu. Si tu ne connais pas ta lignée, tu travailles avec la famille qui t’a élevé·e. Une case vide est aussi une information.</p></details>
         <details><summary>Ça revient après une libération. C’est normal ?</summary><p>Oui. Ce n’est pas un retour en arrière : c’est souvent une couche plus profonde qui se montre. Rouvre ton schéma, et suis le protocole « Quand ça revient plus fort », dans Mes actions.</p></details>
         <details><summary>Je peux l’utiliser sur mon téléphone et mon ordinateur ?</summary><p>Oui. Connecte-toi avec le même compte : une fois ton accord donné, tu retrouves tout ce que tu as écrit sur tes deux appareils.</p></details>
         <details><summary>Est-ce que ça remplace un·e professionnel·le ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Elle ne remplace pas un avis médical ou psychologique. Si une histoire est trop lourde, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
-      </section>
+      </details>
 
       <section class="me-final">
         <h2>À toi de jouer</h2>
@@ -335,5 +342,12 @@
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+<script>
+  /* Les volets : un lien du sommaire ouvre le bon volet */
+  (function () {
+    function ouvrir() { var id = decodeURIComponent(location.hash.slice(1)); var d = id && document.getElementById(id); if (d && d.tagName === 'DETAILS') { d.open = true; setTimeout(function () { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); } }
+    window.addEventListener('hashchange', ouvrir); ouvrir();
+  })();
+  </script>
 </body>
 </html>
