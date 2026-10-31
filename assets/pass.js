@@ -464,7 +464,7 @@
   };
   function aideEcran(k) {
     var A = AIDES[k]; if (!A) return '';
-    return '<button type="button" class="pa-aide-q" data-aide-q="' + k + '" aria-label="Comment ça marche ?">?</button><section class="pa-carte pa-aide-e" data-aide-e="' + k + '"' + (vuEcran(k) ? ' hidden' : '') + '><p class="pa-etiq">Comment ça marche</p><p>' + esc(A[0]) + '</p><div class="pa-outils"><button type="button" class="pa-bt or" data-aide-ok="' + k + '">J’ai compris</button>' + (EXEMPLE ? '' : '<a class="pa-lien-s" href="pass.html?exemple' + A[1] + '">Voir comment Léa a fait</a>') + '<a class="pa-lien-s" href="mode-emploi-ma-spirale.html" target="_blank" rel="noopener">Le mode d’emploi complet</a></div></section>';
+    return '<button type="button" class="pa-aide-q" data-aide-q="' + k + '" aria-label="Comment ça marche ?">?</button><section class="pa-carte pa-aide-e" data-aide-e="' + k + '"' + (vuEcran(k) ? ' hidden' : '') + '><p class="pa-etiq">Comment ça marche</p><p>' + esc(A[0]) + '</p><div class="pa-outils"><button type="button" class="pa-bt or" data-aide-ok="' + k + '">J’ai compris</button>' + (EXEMPLE ? '' : '<a class="pa-lien-s" href="pass.html?exemple' + A[1] + '">Voir comment Léa a fait</a>') + '<a class="pa-lien-s" href="mode-emploi-ma-spirale.html?appli=pass">Le mode d’emploi complet</a></div></section>';
   }
   function vueMoi() {
     var dt = new Date(), jp = jourPerso(dt), mp = moisPerso(dt), b = naissance(), ap = b && N ? N.anneePerso(b.j, b.m, dt.getFullYear()) : null, ch = chemin(), so = soleil();
@@ -472,7 +472,7 @@
     var guideVu = false; try { guideVu = !!localStorage.getItem('genesolia-spirale-guide'); } catch (x) {}
     /* Bien démarrer : le mode d'emploi mis en avant pendant les 15 premiers jours */
     var debut = 0; try { debut = +localStorage.getItem('genesolia-spirale-debut') || 0; if (!debut) { debut = Date.now(); localStorage.setItem('genesolia-spirale-debut', String(debut)); } } catch (x) {}
-    var bienDemarrer = !EXEMPLE && debut && Date.now() - debut < 15 * 864e5 ? '<section class="pa-carte pa-demarrer"><p class="pa-etiq">Bien démarrer</p><h2>Ma spirale, pas à pas</h2><p>Chaque écran expliqué, avec l’exemple de Léa : en 10 minutes, tu sais tout.</p><a class="pa-bt or" href="mode-emploi-ma-spirale.html" target="_blank" rel="noopener">Lire le mode d’emploi</a></section>' : '';
+    var bienDemarrer = !EXEMPLE && debut && Date.now() - debut < 15 * 864e5 ? '<section class="pa-carte pa-demarrer"><p class="pa-etiq">Bien démarrer</p><h2>Ma spirale, pas à pas</h2><p>Chaque écran expliqué, avec l’exemple de Léa : en 10 minutes, tu sais tout.</p><a class="pa-bt or" href="mode-emploi-ma-spirale.html?appli=pass">Lire le mode d’emploi</a></section>' : '';
     var h = bienDemarrer + (!EXEMPLE && !guideVu && !(D.etat.schemas || []).length && !(D.etat.ressentis || []).length ? '<section class="pa-carte pa-guide" id="pa-guide"><p class="pa-etiq">Bienvenue dans Ma spirale</p><h2>Comment ça marche, en 3 étapes</h2><ol class="pa-guide-l">' +
       '<li><b>Tes repères</b>Ta date de naissance et tes prénoms, une seule fois : ils placent ta frise et ouvrent tes nombres.</li>' +
       '<li><b>Dépose ce que tu ressens</b>Quand quelque chose remonte : « Je dépose ce que je ressens ». Une minute. Ça rejoint un schéma, ce qui se répète.</li>' +

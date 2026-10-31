@@ -399,10 +399,27 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   if (page === 'pro.html') drapeau = 'pro';
   /* Ma spirale (pass.html) : son appli à elle, avec sa propre barre du bas. Ni la barre du site, ni celle du Cercle */
   if (page === 'pass.html') drapeau = 'pass';
+  if (/[?&]appli=pass\b/.test(location.search)) drapeau = 'pass';   /* une page ouverte depuis Ma spirale (le mode d'emploi…) reste dans Ma spirale */
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
   if (drapeau === 'pro') tunnel = true;
   var MODE = drapeau === 'pro' || drapeau === 'pass' ? '' : drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
+  /* Rester dans son appli : Ma spirale et Genesolia Pro sont des applis installées à part. Si une page du site s'ouvre
+     dedans (ou dans une nouvelle fenêtre de l'appli), un bouton ramène toujours à l'appli d'où l'on vient. */
+  (function () {
+    if (!autonome) return;
+    var derniere = ''; try { if (page === 'pass.html' || page === 'pro.html') localStorage.setItem('genesolia-derniere-appli', page === 'pass.html' ? 'pass' : 'pro'); derniere = localStorage.getItem('genesolia-derniere-appli') || ''; } catch (e) {}
+    var cible = drapeau === 'pass' || drapeau === 'pro' ? drapeau : (MODE === 'site' ? derniere : '');
+    if (!cible || page === cible + '.html' || (cible === 'pro' && page === 'genosociogramme.html')) return;
+    var lien = cible === 'pass' ? ['pass.html', 'Revenir à Ma spirale'] : ['pro.html', 'Revenir à Genesolia Pro'];
+    function poser() {
+      if (document.querySelector('.retour-appli')) return;
+      var a = document.createElement('a'); a.className = 'retour-appli'; a.href = lien[0]; a.textContent = '‹ ' + lien[1];
+      a.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 8px);z-index:9999;padding:.55rem 1.1rem;border-radius:99px;background:#6B2F5B;color:#fff;font:600 .9rem system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 22px rgba(46,19,56,.3)';
+      document.body.appendChild(a);
+    }
+    if (document.body) poser(); else document.addEventListener('DOMContentLoaded', poser);
+  })();
   if (tunnel && !MODE && page !== 'cercle.html') document.documentElement.classList.add('page-tunnel');   /* pas d'encart « appli gratuite » dans le pied de page du tunnel */
   /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */
   if (MODE === 'site' && page === 'index.html' && !/[?&]site\b/.test(location.search)) { location.replace('appli.html' + location.hash); return; }
