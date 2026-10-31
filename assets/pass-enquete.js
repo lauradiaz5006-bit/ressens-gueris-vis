@@ -179,8 +179,8 @@ window.PASS_FIL = {
     'Si ce ressenti avait un âge, quel âge aurait-il ?'
   ],
   CYCLES: {
-    racine: { nom: 'Cycle 1', court: 'le cycle 1', texte: 'Survivre, le droit d’exister, ta place, ta sécurité, ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
-    coeur: { nom: 'Cycle 2', court: 'le cycle 2', texte: 'Aimer et être aimé·e, tes liens, la peur d’être quitté·e.', signes: ['des relations qui se ressemblent', 'donner beaucoup pour être aimé·e', 'peur d’être quitté·e, ou partir avant'] }
+    racine: { nom: 'L’insécurité', court: 'l’insécurité', texte: 'Survivre, le droit d’exister, ta place, ta sécurité, ne pas manquer.', signes: ['peur de manquer, même quand tout va bien', 'difficile de prendre ta place ou de demander', 'besoin de tout contrôler, de tout prévoir'] },
+    coeur: { nom: 'Le relationnel', court: 'le relationnel', texte: 'Aimer et être aimé·e, tes liens, la peur d’être quitté·e.', signes: ['des relations qui se ressemblent', 'donner beaucoup pour être aimé·e', 'peur d’être quitté·e, ou partir avant'] }
   },
   /* Enquêter : ce que tu peux demander, et où chercher, selon le cycle */
   QUESTIONS: {
