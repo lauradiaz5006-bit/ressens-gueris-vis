@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-livre-pupitre.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-transmission.webp',
       voir: 'assets/guide/guide-arbre.webp',
       source: 'assets/guide/guide-repete.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/aimer-et-choisir-mini.jpg', 'On peut aimer sa famille et choisir autre chose.']
