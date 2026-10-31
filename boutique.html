@@ -171,7 +171,7 @@
       <h1>Je suis celle qui ose</h1>
       <p>Des phrases à garder sous les yeux, pour soi ou pour offrir : sur ce qu’on reçoit de sa lignée, et sur ce qu’on choisit d’en faire.</p>
       <ul class="bq-atouts"><li>Imprimé à la demande</li><li>Livraison offerte en France métropolitaine</li><li>Paiement sécurisé</li></ul>
-      <p class="bq-noel-date">Pour l’avoir sous le sapin : commande avant le 10 décembre</p>
+      <p class="bq-noel-date">Pour l’avoir sous le sapin : commande avant le 12 décembre</p>
     </div></section>
 
     <section class="bloc" style="padding-top:1rem"><div class="conteneur">
@@ -303,7 +303,7 @@
     document.getElementById('of-prix').innerHTML = I.formats.map(function (f) { return '<div><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></div>'; }).join('');
     var avant = I.ouverture && new Date() < new Date(I.ouverture + 'T00:00:00');
     var d = new Date((I.ouverture || '') + 'T12:00:00');
-    document.getElementById('of-livraison').textContent = (avant ? 'Commandes ouvertes à partir du ' + (d.getDate() === 1 ? '1er ' + d.toLocaleDateString('fr-FR', { month: 'long' }) : d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })) + '. ' : '') + (I.livraison || '') + '. Les grands formats sont livrés en 6 à 11 jours ouvrés. Posters livrés sans cadre (formats standards, faciles à encadrer). Familles fictives sur les images.';
+    document.getElementById('of-livraison').textContent = (avant ? 'Commandes ouvertes à partir du ' + (d.getDate() === 1 ? '1er ' + d.toLocaleDateString('fr-FR', { month: 'long' }) : d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })) + '. ' : '') + (I.livraison || '') + '. Les grands formats sont livrés en 6 à 11 jours ouvrés. Posters livrés sans cadre (formats standards, faciles à encadrer). Familles fictives sur les images.' + (new Date() < new Date(new Date().getFullYear(), 11, 13) ? ' Pour une arrivée avant Noël, commande avant le 12 décembre.' : '');
   })();
   </script>
 </body>
