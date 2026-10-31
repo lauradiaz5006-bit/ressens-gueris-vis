@@ -30,8 +30,8 @@ window.GENESOLIA_CARNET = {
       comprendre: 'assets/guide/guide-nombres.webp',
       exercices: 'assets/guide/guide-coffret.webp',
       rituel: 'assets/guide/guide-pause.webp',
-      semaines: 'assets/guide/guide-spirale-douce.webp',
-      cloture: 'assets/guide/guide-livre-lumineux.webp'
+      semaines: 'assets/guide/guide-graine.webp',
+      cloture: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/ecrire-la-mienne-mini.jpg', 'Je ne rejoue pas leur histoire. J’écris la mienne.'],

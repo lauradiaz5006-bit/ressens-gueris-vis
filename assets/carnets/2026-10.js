@@ -26,12 +26,12 @@ window.GENESOLIA_CARNET = {
     pages: {
       tonmois: 'assets/guide/guide-etoiles.webp',
       ouverture: 'assets/guide/guide-reves.webp',
-      theme: 'assets/guide/guide-arbre.webp',
+      theme: 'assets/guide/guide-roue.webp',
       comprendre: 'assets/guide/guide-nombres.webp',
       exercices: 'assets/guide/guide-livre-pupitre.webp',
       rituel: 'assets/guide/guide-pause.webp',
-      semaines: 'assets/guide/guide-spirale-douce.webp',
-      cloture: 'assets/guide/guide-livre-lumineux.webp'
+      semaines: 'assets/guide/guide-graine.webp',
+      cloture: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/prochain-pas-mini.jpg', 'Mon prochain pas compte plus que tout le chemin.'],

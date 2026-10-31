@@ -31,8 +31,8 @@ window.GENESOLIA_CARNET = {
       comprendre: 'assets/guide/guide-livre-pupitre.webp',
       exercices: 'assets/guide/guide-coffret.webp',
       rituel: 'assets/guide/guide-arbre.webp',
-      semaines: 'assets/guide/guide-cadeau.webp',
-      cloture: 'assets/guide/guide-livre-lumineux.webp'
+      semaines: 'assets/guide/guide-graine.webp',
+      cloture: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/apprendre-mini.jpg', 'Tout ce qui revient a quelque chose à m’apprendre.'],
