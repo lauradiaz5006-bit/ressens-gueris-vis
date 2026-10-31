@@ -741,7 +741,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
   }
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && page !== 'praticien.html' && page !== 'espace-praticien.html' && !document.querySelector('[data-cadeau]')) {   /* ni dans le cabinet ni sur la page pro : ce sont des outils de travail */   /* pas d'encart « carnet offert » dans le carnet lui-même */
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && page !== 'praticien.html' && page !== 'espace-praticien.html' && page !== 'mode-emploi-genesolia-pro.html' && !document.querySelector('[data-cadeau]')) {   /* ni dans le cabinet ni sur la page pro : ce sont des outils de travail */   /* pas d'encart « carnet offert » dans le carnet lui-même */
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
@@ -799,7 +799,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   /* Bandeau fin en haut des pages du site : Le Cercle, 1er mois offert (pas dans le tunnel, ni pour les membres) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
-  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html', 'praticien.html', 'espace-praticien.html'];
+  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html', 'praticien.html', 'espace-praticien.html', 'mode-emploi-genesolia-pro.html'];
   var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
   if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && !/[?&]partage=/.test(location.search) &&   /* arbre partagé (souvent par une praticienne) : pas de publicité pour Le Cercle */
       entete && (!ESTCERCLE || page === 'cercle.html')) {
@@ -1769,7 +1769,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var app = document.documentElement.classList.contains('appli'), dr = '';
   try { dr = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
   if (app || dr === 'pro') return;
-  var SANS = ['pro.html', 'praticien.html', 'praticien-partage.html', 'espace-praticien.html', 'conditions-praticien.html', 'questionnaire.html', 'login.html', 'code.html',
+  var SANS = ['pro.html', 'praticien.html', 'praticien-partage.html', 'espace-praticien.html', 'mode-emploi-genesolia-pro.html', 'conditions-praticien.html', 'questionnaire.html', 'login.html', 'code.html',
     'essai.html', 'bienvenue.html', 'merci-arbre.html', 'desinscription.html', 'offline.html', 'cercle.html', 'appli.html', 'mon-document.html',
     'mon-carnet.html', 'mon-suivi.html', 'mon-suivi-mois.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'mes-seances.html', 'point-de-depart.html',
     'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'question-du-mois.html',
