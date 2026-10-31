@@ -381,6 +381,11 @@
     @media (max-width:960px){.ms-etapes-video{grid-template-columns:1fr}.ms-etapes-video .ms-video{max-width:300px;margin:0 auto;order:-1}.ms-offres{grid-template-columns:1fr!important}}
     .ms-offres.ms-seule{grid-template-columns:minmax(0,34rem)!important;justify-content:center}
   .ms-autre{text-align:center;margin:1.6rem auto 0;color:var(--prune-doux)}.ms-autre a{color:#8A3F62;font-weight:600}
+  .cv-cadre{grid-column:1/-1;width:100%;max-width:1100px;margin:1.2rem auto 0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--rose);box-shadow:0 30px 60px rgba(46,19,56,.18)}
+  .cv-barre{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:#F7E6EE;font-size:.8rem;color:var(--prune-doux)}
+  .cv-barre i{width:10px;height:10px;border-radius:50%;background:#E2B877}.cv-barre i+i{background:#D9A5BE}.cv-barre i+i+i{background:#B98A55}.cv-barre span{margin-left:.6rem}
+  .cv-cadre iframe{display:block;width:100%;height:min(80vh,780px);border:0}
+  .cv-aide{grid-column:1/-1;text-align:center;font-size:.9rem;color:var(--prune-doux);margin:.8rem auto 0}.cv-aide a{color:#8A3F62;font-weight:600}
 </style>
 </head>
 <body class="nouveau">
@@ -514,10 +519,10 @@
         <div class="a-titre">
           <p class="a-etiq">Sur ordinateur</p>
           <h2>Ton espace en grand</h2>
-          <p>Sur ordinateur, tes espaces sont à gauche, et chaque écran s’ouvre sur deux colonnes. Tout ce que tu écris se retrouve sur ton téléphone.</p>
+          <p>Essaie-la ici, directement. Sur ordinateur, tes espaces sont à gauche ; tout ce que tu écris se retrouve sur ton téléphone.</p>
         </div>
-        <figure class="ms-ordi"><img src="assets/pass/captures/ordi.webp" srcset="assets/pass/captures/ordi-600.webp 600w, assets/pass/captures/ordi.webp 1200w" sizes="(max-width: 1000px) 92vw, 62rem" width="1200" height="750" alt="Ma spirale sur ordinateur : l’accueil en deux colonnes" loading="lazy" decoding="async"><figcaption>L’accueil : tes schémas en cours et ta journée</figcaption></figure>
-        <figure class="ms-ordi"><img src="assets/pass/captures/ordi-fiche.webp" srcset="assets/pass/captures/ordi-fiche-600.webp 600w, assets/pass/captures/ordi-fiche.webp 1200w" sizes="(max-width: 1000px) 92vw, 62rem" width="1200" height="750" alt="Ma spirale sur ordinateur : la fiche d’un schéma, onglet Libérer" loading="lazy" decoding="async"><figcaption>La fiche d’un schéma : comprendre avant de libérer</figcaption></figure>
+        <div class="cv-cadre"><div class="cv-barre"><i></i><i></i><i></i><span>genesolia.fr · Ma spirale, l’exemple de Léa</span></div><iframe src="pass.html?exemple" title="Ma spirale avec l’exemple de Léa, à essayer" loading="lazy"></iframe></div>
+        <p class="cv-aide">C’est la vraie appli, avec l’exemple de Léa : clique, ouvre ses schémas, sa frise, son théâtre. <a href="pass.html?exemple">L’ouvrir en grand</a></p>
       </div>
     </section>
 
