@@ -80,6 +80,10 @@
     .ce-fixe{margin:0;padding:.6rem .8rem;border-radius:12px;background:#F7EEF1;color:var(--prune);font-weight:600}
     .ce-erreur{color:#9B2C2C;font-size:.9rem;margin-top:.5rem}
     /* Moi */
+    .ce-replie{padding:0 1.15rem}.ce-replie summary{cursor:pointer;list-style:none;padding:1rem 0;font:400 1.08rem/1.25 var(--display);color:var(--prune)}.ce-replie summary::-webkit-details-marker{display:none}
+    .ce-replie summary span{display:block;font:400 .85rem var(--texte);color:var(--doux);margin-top:.15rem}.ce-replie summary::after{content:"+";float:right;margin-top:-1.6rem;color:#B98A55;font-size:1.3rem}.ce-replie[open] summary::after{content:"−"}
+    .ce-sous-t{margin:.6rem 0 0;font:700 .72rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:#9A6E38}.ce-liste-in{padding:0 0 .4rem}
+    .ce-pied-moi{text-align:center;margin:1.6rem 0 0;font-size:.85rem;color:var(--doux)}.ce-pied-moi a,.ce-lien{color:var(--doux);font:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
     .ce-liste{padding:.3rem 1.15rem}
     .ce-r-etat{font-weight:600;color:var(--prune)}
     [data-rappels] .ce-bt{margin-top:.7rem}
@@ -257,8 +261,9 @@
       else if (w) h += '<a class="ce-carte" href="mon-suivi-mois.html#' + esc(S.coeur ? 'semaine-' + semS : w.cle) + '"><p class="ce-etiq">Reprendre où tu en étais · semaine ' + semS + '</p><h3>Libération · ' + esc(['Voir ce qui vient', 'Ta boucle sous tes yeux', 'Libérer', 'Mon geste différent'][semS - 1] || w.titre) + '</h3><p>Ton livret t’attend à la bonne semaine.</p><span class="ce-bt">Reprendre</span></a>';
       else h += '<a class="ce-carte" href="mon-carnet.html"><p class="ce-etiq">Ton mois commence</p><h3>Ouvre Renaissance</h3><p>Ton carnet du mois t’attend.</p><span class="ce-bt">Commencer</span></a>';
       if (E.etape && E.etape.enCours >= 2) h += '<section class="ce-carte" id="ce-point" aria-labelledby="ce-point-t"></section>';   /* le point du jour arrive à partir de l'étape 2 */
+      h += '<section class="ce-carte"><p class="ce-etiq">Ton mois</p><h3>Ton énergie et tes dates du mois</h3><div class="ce-actions" style="justify-content:flex-start"><a class="ce-bt clair" href="#mois">En un coup d’œil</a><a class="ce-bt clair" href="mon-guide.html">Mon guide complet</a><a class="ce-bt clair" href="mon-mois.html">Mon calendrier</a></div></section>';
       h += '<a class="ce-carte" href="question-du-mois.html"><p class="ce-etiq">Chaque mois</p><h3>Ta question du mois</h3><p>Pose ta question, et lis les réponses publiées pour toutes les membres, sans prénom.</p><span class="ce-plus">Ouvrir</span></a>';
-      h += '<a class="ce-carte" href="#moi"><p class="ce-etiq">Mon compte</p><h3>Moi</h3><p>Tes infos, ton abonnement, tes rappels.</p><span class="ce-plus">Ouvrir</span></a>';
+      h += '<a class="ce-carte" href="#moi"><p class="ce-etiq">Mon compte</p><h3>Moi</h3><p>Ton abonnement, tes rappels, tes carnets.</p><span class="ce-plus">Ouvrir</span></a>';
       h += '<p class="ce-discret" style="text-align:center;margin-top:1rem">Ce que tu écris dans ton Cercle est gardé dans ton espace privé.</p>';
       afficher(h);
       pointDuJour();
@@ -430,36 +435,30 @@
       var h = '<h1 class="ce-h1">' + (E.prenom ? esc(E.prenom) : 'Ton espace') + '</h1><p class="ce-sous">' + (u && u.email ? esc(u.email) : 'Ton espace du Cercle') + '</p>';
       /* son abonnement : où elle en est (mois offert, étape), sans renvoyer vers la page de vente */
       h += '<p class="ce-titre-liste">Mon abonnement</p><div class="ce-carte" data-abo><p>Le Cercle' + (E.etape && E.etape.enCours ? ' · étape ' + E.etape.enCours + ' sur 12' : '') + '</p></div>';
-      h += '<p class="ce-titre-liste">Ton mois</p><div class="ce-carte ce-liste">' +
-        ligne('mon-guide.html', 'Mon guide du mois complet', 'Tes nombres, ton ciel, ton signe maya') +
-        ligne('mon-mois.html', 'Mon calendrier du mois', 'Les dates de ton mois et de ton arbre') +
-        ligne('#mois', 'Mon mois en un coup d’œil', 'Ton énergie du mois et tes dates clés') + '</div>';
-      h += '<p class="ce-titre-liste">À imprimer</p><div class="ce-carte ce-liste">' +
+      var ARCH = '<p class="ce-sous-t">À imprimer</p><div class="ce-liste ce-liste-in">' +
         (S && S.pdf ? ligne(esc(S.pdf), 'Le suivi du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
         (C && C.pdf ? ligne(esc(C.pdf), 'Le carnet du mois en PDF', 'À imprimer et remplir à la main', true) : '') +
         ((!E.etape || !E.etape.enCours || E.etape.enCours >= 2) ? ligne('assets/cercle/les-12-saisons-c4709f2dad.pdf', 'Les 12 saisons', 'Le livret de l’année', true) : '') + '</div>';   /* Les 12 saisons : dès la 2e étape, comme annoncé (abonnement.html, mon-mois.html) */
       /* les livres des mois passés */
       var passes = [], m = C ? precedent(C.mois) : '';
       while (m && m >= PREMIER && passes.length < 12) { passes.push(m); m = precedent(m); }
-      h += '<p class="ce-titre-liste">Tes livres précédents</p><div class="ce-carte ce-liste">' + (passes.length
+      ARCH += '<p class="ce-sous-t">Tes livres précédents</p><div class="ce-liste ce-liste-in">' + (passes.length
         ? passes.map(function (x) { var p = x.split('-'); return ligne('mon-carnet.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton carnet') + (E.etape ? '' : ligne('mon-suivi-mois.html?mois=' + x, cap(MOIS[+p[1] - 1]) + ' ' + p[0], 'Ton suivi')); }).join('')
         : '<p style="padding:.8rem 0">Tes livres des mois passés restent ici, avec tes réponses, mois après mois.</p>') + '</div>';
       /* par étapes : ton suivi se range par étape (les étapes déjà débloquées) */
       if (E.etape) {
         var PARTIES = ['Racines', 'Tronc', 'Branches', 'Fruits'], et = [];
         for (var n = E.etape.debloquees; n >= 1; n--) if (n !== E.etape.enCours) et.push(ligne('mon-suivi-mois.html?etape=' + n, 'Étape ' + n + ' · ' + PARTIES[Math.floor((n - 1) / 3)], 'Ton suivi'));
-        if (et.length) h += '<p class="ce-titre-liste">Tes étapes précédentes</p><div class="ce-carte ce-liste">' + et.join('') + '</div>';
+        if (et.length) ARCH += '<p class="ce-sous-t">Tes étapes précédentes</p><div class="ce-liste ce-liste-in">' + et.join('') + '</div>';
       }
+      h += '<details class="ce-carte ce-replie"><summary>Mes carnets et PDF<span>Les PDF à imprimer, tes livres et tes étapes précédentes</span></summary>' + ARCH + '</details>';
       /* la formation : dans la barre du bas (Module, Formation), plus d'encart ici */
       h += '<p class="ce-titre-liste">Mes rappels</p><div class="ce-carte" data-rappels></div>';
       h += '<div data-phrase-jour></div>';
-      h += '<p class="ce-titre-liste">Réglages</p><div class="ce-carte ce-liste">' +
+      h += '<p class="ce-titre-liste">Aide</p><div class="ce-carte ce-liste">' +
         (installee ? '' : '<a href="#" data-installer-appli><div><b>Installer l’appli Le Cercle</b><span>Une icône sur ton écran d’accueil</span></div></a>') +
-        ligne('ma-spirale.html', 'Ma spirale', 'Une offre à part : l’appli pour tes ressentis, tes schémas, tes protocoles') +
-        ligne('assets/cercle/le-cercle-mode-d-emploi.pdf', 'Le mode d’emploi du Cercle', 'PDF de 10 pages, chaque écran expliqué') +
-        ligne('confidentialite.html', 'Mes données', 'Ce que tu écris, et où c’est gardé') +
-        ligne('mentions-legales.html', 'Mentions légales', '') + '</div>' +
-        '<p style="text-align:center;margin:1.4rem 0 0"><button type="button" class="ce-bt clair" data-deconnexion>Me déconnecter</button></p>';
+        ligne('assets/cercle/le-cercle-mode-d-emploi.pdf', 'Le mode d’emploi du Cercle', 'PDF de 10 pages, chaque écran expliqué') + '</div>' +
+        '<p class="ce-pied-moi"><a href="confidentialite.html">Mes données</a> · <a href="mentions-legales.html">Mentions légales</a> · <button type="button" class="ce-lien" data-deconnexion>Me déconnecter</button></p>';
       afficher(h);
       var bd = vue.querySelector('[data-deconnexion]');
       if (bd) bd.addEventListener('click', function () { bd.disabled = true; (sb ? sb.auth.signOut() : Promise.resolve()).then(function () { location.href = 'login.html'; }, function () { location.href = 'login.html'; }); });
@@ -476,7 +475,8 @@
             (essai ? '<p>Ton mois offert court jusqu’au <b>' + fin + '</b>. Aucune carte ne t’a été demandée. Tu peux continuer quand tu veux avant la fin de ton mois offert : ton accès continue sans coupure.</p>' +
                      '<p style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem">' + (fondatrice ? bt('cercleFondatrice', '✦ Cadeau de Noël : 17,77 € par mois au lieu de 24,90 €', true) : bt('cercleMois', 'Continuer, 24,90 € par mois', true)) + bt('cercleAnnee', '249 € l’année') + '</p>'
                    : paye ? '<p>Ton abonnement est actif. Prochaine échéance autour du ' + fin + '.</p>' + (gestion ? '<p style="margin-top:.6rem"><a class="btn btn-trait" href="' + esc(gestion) + '" target="_blank" rel="noopener">Gérer mon abonnement</a></p>' : '')
-                   : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>');
+                   : '<p>Ton accès est ouvert jusqu’au ' + fin + '.</p>') +
+            '<p class="ce-discret" style="margin:.7rem 0 0"><a href="login.html#abonnement">Gérer ou me désabonner</a></p>';
           typo(za);
         }
         if (essai && Sx.cercleFondatrice) sb.rpc('places_fondatrice').then(function (r) { rendre(Number(r && r.data) || 0); }, function () { rendre(0); });
