@@ -140,6 +140,7 @@
     .tableau{max-width:1180px}
     .eb{display:grid;grid-template-columns:220px minmax(0,1fr);gap:1.6rem;align-items:start}
     .eb-menu{position:sticky;top:5.5rem;display:grid;gap:.3rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:.7rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    a.eb-lien{text-decoration:none}a.eb-lien[hidden]{display:none}
     .eb-lien{display:flex;align-items:center;gap:.7rem;width:100%;border:0;background:none;border-radius:12px;padding:.7rem .8rem;font:600 .95rem/1.2 var(--texte);color:var(--prune-doux);cursor:pointer;text-align:left}
     .eb-lien svg{width:1.3rem;height:1.3rem;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
     .eb-lien:hover{background:var(--nacre);color:var(--prune)}
@@ -304,6 +305,8 @@
           <button type="button" class="eb-lien" data-panneau="accueil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1z"/></svg><span>Accueil</span></button>
           <button type="button" class="eb-lien" data-panneau="arbre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-6M12 15c-4 0-6-2.5-6-5.5S8.5 4 12 4s6 2.5 6 5.5S16 15 12 15zM9 21h6"/></svg><span>Mon arbre</span></button>
           <button type="button" class="eb-lien" data-panneau="cercle"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span>Le Cercle</span></button>
+          <a class="eb-lien" id="nav-spirale" href="ma-spirale.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a2 2 0 1 1 2-2 4 4 0 1 1-4-4 6 6 0 1 1 6 6"/></svg><span>Ma spirale</span></a>
+          <a class="eb-lien" id="nav-pro" href="pro.html" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M9 5V3h6v2M4 11h16"/></svg><span>Genesolia Pro</span></a>
           
           <button type="button" class="eb-lien" data-panneau="abonnement"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4zM4 11h16"/></svg><span>Mes abonnements</span></button>
           <button type="button" class="eb-lien" data-panneau="infos"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Mes infos</span></button>
@@ -821,6 +824,7 @@
         l.push(r[0] ? ['cercle.html', 'Le Cercle', 'Ton carnet, tes séances, ton parcours', 'Ouvrir'] : ['abonnement.html', 'Le Cercle', 'Ton parcours guidé en 12 étapes', '1er mois offert']);
         l.push(r[1] ? ['pass.html', 'Ma spirale', 'Tes schémas, ta frise, ton théâtre', 'Ouvrir'] : ['ma-spirale.html', 'Ma spirale', 'Ton outil pour sortir de tes schémas', '7 jours offerts']);
         if (r[2]) l.push(['pro.html', 'Genesolia Pro', 'Votre espace praticien et vos dossiers', 'Ouvrir']);
+        var ns = $('nav-spirale'), np = $('nav-pro'); if (ns) ns.href = r[1] ? 'pass.html' : 'ma-spirale.html'; if (np) np.hidden = !r[2];
         var z = $('acc-espaces'); if (!z) return;
         $('acc-espaces-l').innerHTML = l.map(function (x) { return '<a href="' + x[0] + '"' + (x[3] === 'Ouvrir' ? '' : ' class="eb-a-decouvrir"') + '><b>' + esc(x[1]) + '</b><span>' + esc(x[2]) + '</span><em>' + esc(x[3]) + '</em></a>'; }).join('');
         z.hidden = false;
