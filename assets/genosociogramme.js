@@ -2979,7 +2979,8 @@
     exemple: function () { return EXEMPLE; },
     etat: function () { var e = JSON.parse(JSON.stringify(S)); e.libelles = JSON.parse(JSON.stringify(NOM_EVT)); return e; },   // lecture seule (export GEDCOM)
     ouvrir: ouvrir, fermer: fermer,
-    fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },   // vue téléphone : ouvrir la fiche d'une personne
+    fiche: function (id) { if (S.people[id]) ouvrirFiche(id); },
+    allerA: function (id) { if (S.people[id]) choisir(id); },   // recherche par nom : sélectionne la personne et l'amène à l'écran   // vue téléphone : ouvrir la fiche d'une personne
     repetitions: function () { return detecter().map(function (r) { return { type: r.type, label: r.label, desc: descComplete(r), fort: !!r.fort }; }); },
     /* vue téléphone : les mêmes cartes et le même compte que le panneau « Ce qui se répète » de l'ordinateur
        (« Ce qui part de toi » compris, sans les pistes marquées « Pas pour moi ») */
