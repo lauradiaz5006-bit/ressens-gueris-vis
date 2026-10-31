@@ -348,7 +348,8 @@
   /* ───── Affichage ───── */
   function boutonSos() {
     var b = document.querySelector('body > .pa-sos'), voir = !!(D && (D.user || EXEMPLE));
-    if (!b && voir) { b = document.createElement('button'); b.type = 'button'; b.className = 'pa-sos'; b.textContent = 'Ça monte fort'; b.addEventListener('click', function () { feuille('<p class="pa-etiq">Revenir au calme</p><h2>Ici et maintenant</h2>' + blocMonte().replace(/<p>On remplit le reste[\s\S]*?<\/p>/, '')); }); document.body.appendChild(b); }
+    if (!b && voir) { b = document.createElement('button'); b.type = 'button'; b.className = 'pa-sos'; b.textContent = 'Ça monte fort'; b.addEventListener('click', function () { feuille('<p class="pa-etiq">Revenir au calme</p><h2>Ici et maintenant</h2>' + blocMonte().replace(/<p>On remplit le reste[\s\S]*?<\/p>/, '')); }); document.body.appendChild(b);
+      var tRond = null; window.addEventListener('scroll', function () { b.classList.add('rond'); clearTimeout(tRond); tRond = setTimeout(function () { b.classList.remove('rond'); }, 900); }, { passive: true }); }
     if (b) b.hidden = !voir;
   }
   function afficher(h) { vue.innerHTML = bandeauAccord() + h; boutonSos(); aller(0); centrerFrises(vue); }
@@ -472,7 +473,7 @@
     h += '<a class="pa-carte" href="#actions"><p class="pa-etiq">Mes actions</p><p>Les protocoles pour libérer, poser une intention, et revenir au calme si ça monte fort.</p><span class="pa-plus">Ouvrir mes actions</span></a>';
     h += '</div></div>';
     h += encartSite();
-    if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret">Pour supprimer aussi ton compte Genesolia, écris-nous à <a href="mailto:contact@genesolia.fr?subject=Supprimer%20mon%20compte">contact@genesolia.fr</a> : il est supprimé, avec toutes tes données, sous un mois.</p><p class="pa-discret" data-donnees-msg role="status"></p></section>';
+    if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret">Pour supprimer aussi ton compte, écris-nous à <a href="mailto:contact@genesolia.fr?subject=Supprimer%20mon%20compte">contact@genesolia.fr</a> : il est supprimé, avec toutes tes données, sous un mois.</p><p class="pa-discret" data-donnees-msg role="status"></p></section>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);
   }
@@ -614,6 +615,8 @@
     var sb2 = e.target.closest('[data-scan]'); if (sb2) scan(sb2);
   });
   function pucesBl(nom, choisis, multi) { var P = PF.BLESSURES_P || {}; return puces(nom, (PF.BLESSURES || []).map(function (b) { return [b[0], (P[b[0]] ? '« ' + P[b[0]] + ' » · ' : '') + b[1].toLowerCase()]; }), choisis, multi); }
+  /* Le filet de sécurité : la phrase et les deux lignes d'écoute, cliquables */
+  function filet() { return '<div class="pa-danger"><p><b>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant</b> : une personne de confiance, ou une ligne d’écoute, gratuite et ouverte jour et nuit.</p><p><a href="tel:3114"><b>3114</b></a> en France · <a href="tel:18662773553"><b>1 866 APPELLE</b></a> (1 866 277-3553) au Québec</p></div>'; }
   function blocMonte() { var M = (PF.ACTIONS || []).filter(function (x) { return x.id === 'monte'; })[0] || { etapes: [] }; return '<div class="pa-fort"><p><b>C’est fort.</b> Avant tout, reviens ici et maintenant.</p>' + sphereResp() + '<ol>' + M.etapes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p>On remplit le reste plus tard : dépose juste ces quelques mots, ta fiche se complétera les jours suivants.</p>' + (M.securite ? '<p class="pa-discret">' + esc(M.securite) + '</p>' : '') + '</div>'.replace(/<\/div>$/, '<div class="pa-danger"><p><b>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant</b> : une personne de confiance, ou une ligne d’écoute, gratuite et ouverte jour et nuit.</p><p><a href="tel:3114"><b>3114</b></a> en France · <a href="tel:18662773553"><b>1 866 APPELLE</b></a> (1 866 277-3553) au Québec</p></div></div>'); }
 
   /* ── Déposer un ressenti : un mode rapide en 3 questions, le reste plus tard ── */
@@ -1166,7 +1169,7 @@
         (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<div class="pa-avant"><p class="pa-etiq">Avant de commencer</p><p>Ce protocole te fait revenir vers un moment du passé. <b>Garde-le pour plus tard</b> si :</p><ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : fais-le alors avec un·e professionnel·le de l’accompagnement.</li></ul><p>Tu peux t’arrêter à tout moment avec le bouton « J’arrête et je reviens ».</p><button type="button" class="pa-bt or" data-proto-pret>Je me sens prêt·e, je commence</button></div><div id="pa-proto-z" hidden>' : '<div>') +
         '<ol class="pa-proto">' + etapes.map(function (t) { return '<li>' + esc(remplir(t, c)) + '</li>'; }).join('') + '</ol>' +
         (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<button type="button" class="pa-bt clair pa-arret" data-arret>J’arrête et je reviens</button>' : '') + '</div>' +
-        (A0.securite ? '<p class="pa-securite">' + esc(A0.securite) + '</p>' : '<a class="pa-monte-l" href="#actions/monte">Si ça monte fort</a>') + '</section></div><div>';
+        (A0.id === 'monte' ? filet() : A0.securite ? '<p class="pa-securite">' + esc(A0.securite) + '</p>' : '<a class="pa-monte-l" href="#actions/monte">Si ça monte fort</a>') + '</section></div><div>';
       if (trouver) {
         var pf0 = sc.fois.filter(function (f) { return f.premiere; })[0] || {};
         h += '<section class="pa-carte pa-venu"><p class="pa-etiq">Ce qui est venu</p><form class="pa-form" id="pa-venu" novalidate onsubmit="return false">' +
