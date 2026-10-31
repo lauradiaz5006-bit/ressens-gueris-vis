@@ -366,6 +366,19 @@
     .ms-temoins p{font-family:var(--display);font-size:1.15rem;color:var(--prune);line-height:1.5}.ms-temoins cite{display:block;margin-top:.8rem;font-style:normal;font-size:.92rem;color:var(--prune-doux)}
     .ms-7j li{margin-bottom:.5rem}
     @media (max-width:860px){.ms-3temps,.ms-temoins{grid-template-columns:1fr}}
+    .ms-etapes-video{display:grid;grid-template-columns:1fr 340px 1fr;gap:1.4rem;align-items:center}
+    .ms-etapes-video .ms-col{grid-template-columns:1fr;gap:1rem}
+    .ms-etapes-video .ms-col-d{counter-reset:e 3}
+    .ms-etapes-video .ms-video{margin:0}
+    .ms-centre{text-align:center;margin-top:2rem}
+    .ms-offres{align-items:stretch;grid-template-columns:1.25fr 1fr!important;max-width:62rem!important}
+    .ms-offre-img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin:.2rem 0 .6rem}
+    .ms-offre.mis{box-shadow:0 24px 60px rgba(107,47,91,.18);position:relative}
+    .ms-offre.mis h3{font-size:2rem}.ms-offre.mis .ms-prix{font-size:2.6rem}
+    .ms-offre.mis .btn{align-self:stretch;text-align:center;font-size:1.05rem;padding:1rem}
+    .ms-reco{align-self:flex-start;background:var(--prune);color:#fff;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px}
+    .ms-offre:not(.mis){align-self:center}.ms-prix-petit{font-size:1.6rem!important}
+    @media (max-width:960px){.ms-etapes-video{grid-template-columns:1fr}.ms-etapes-video .ms-video{max-width:300px;margin:0 auto;order:-1}.ms-offres{grid-template-columns:1fr!important}}
   </style>
 </head>
 <body class="nouveau">
@@ -459,20 +472,18 @@
           <h2>Cinq étapes, à ton rythme</h2>
           <p>Chaque ressenti rejoint un schéma, ce qui se répète. Ton schéma avance tout seul dans les 9 étapes du cycle, de l’Émergence à la Renaissance.</p>
         </div>
-        <ol class="t-etapes">
-          <li><b>Voir</b>Tu déposes ce que tu ressens en 3 questions : ce qui s’est passé, ton émotion, où tu la sens dans ton corps.</li>
-          <li><b>Où est-elle ?</b>Ta frise de vie retrouve la première fois. Ta frise familiale montre qui l’a vécu avant toi.</li>
-          <li><b>Libérer</b>La mémoire de ta vie, puis celle de ta lignée, avec un protocole rempli à partir de ta fiche.</li>
-          <li><b>L’intention</b>Ce que tu veux à la place, posé du plus profond de toi. Il revient à chaque nouvelle lune.</li>
-          <li><b>Réapprendre</b>Ton suivi, tes gestes, ta note sur 10. À 10, ton schéma devient spirale.</li>
-        </ol>
-        <figure class="ms-video">
+        <div class="ms-etapes-video">
+          <ol class="t-etapes ms-col"><li><b>Voir</b>Tu déposes ce que tu ressens en 3 questions : ce qui s’est passé, ton émotion, où tu la sens dans ton corps.</li><li><b>Où est-elle ?</b>Ta frise de vie retrouve la première fois. Ta frise familiale montre qui l’a vécu avant toi.</li><li><b>Libérer</b>La mémoire de ta vie, puis celle de ta lignée, avec un protocole rempli à partir de ta fiche.</li></ol>
+          <figure class="ms-video">
           <video controls playsinline preload="none" poster="assets/pass/ma-spirale-video.webp" width="540" height="960">
             <source src="assets/pass/ma-spirale-video.mp4" type="video/mp4">
           </video>
           <figcaption>Ma spirale en 40 secondes</figcaption>
         </figure>
-        <p style="text-align:center;margin-top:2rem"><a class="btn btn-plein" href="pass.html?exemple&amp;schema=s1">Voir la fiche d’un schéma</a></p>
+          <ol class="t-etapes ms-col ms-col-d"><li><b>L’intention</b>Ce que tu veux à la place, posé du plus profond de toi. Il revient à chaque nouvelle lune.</li><li><b>Réapprendre</b>Ton suivi, tes gestes, ta note sur 10. À 10, ton schéma devient spirale.</li></ol>
+        </div>
+        
+        <div class="ms-centre"><a class="btn btn-plein" href="pass.html?exemple&amp;schema=s1">Voir la fiche d’un schéma</a></div>
       </div>
     </section>
 
@@ -489,7 +500,7 @@
           <li><b>Si ça monte fort</b>Revenir ici et maintenant, avec la respiration guidée. À 8 sur 10 ou plus, l’appli te le propose d’elle-même.</li>
         </ul>
         <p class="t-legende">Et à chaque question où l’on peut bloquer, un « Je ne sais pas » ouvre une aide : des débuts de phrase, le corps, les périodes de ta vie.</p>
-        <p style="text-align:center;margin-top:1.6rem"><a class="btn btn-plein" href="pass.html?exemple">Essayer avec l’exemple de Léa</a></p>
+        <div class="ms-centre"><a class="btn btn-plein" href="pass.html?exemple">Essayer avec l’exemple de Léa</a></div>
       </div>
     </section>
 
@@ -505,7 +516,7 @@
           <figure><img src="assets/pass/captures/moi.webp" width="540" height="1124" alt="L’accueil de Ma spirale" loading="lazy" decoding="async"><figcaption><b>Moi</b>Tes schémas, ta note du jour</figcaption></figure>
           <figure><img src="assets/pass/captures/agenda.webp" width="540" height="1124" alt="L’agenda avec les dates de la lignée et les lunes" loading="lazy" decoding="async"><figcaption><b>Mon agenda</b>Ta lignée, les lunes, tes gestes</figcaption></figure>
           <figure><img src="assets/pass/captures/bilan.webp" width="540" height="1124" alt="Le bilan : la lignée en sphères de lumière" loading="lazy" decoding="async"><figcaption><b>Mon bilan</b>Ta lignée en lumière</figcaption></figure>
-          <figure><img src="assets/pass/captures/reve.webp" width="540" height="1124" alt="Noter un rêve et choisir de le partager anonymement" loading="lazy" decoding="async"><figcaption><b>Mes rêves</b>Partagés seulement si tu veux</figcaption></figure>
+          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : les personnes de ta vie et de ta lignée, reliées par des fils dorés" loading="lazy" decoding="async"><figcaption><b>Mon théâtre</b>La scène de ta vie</figcaption></figure>
         </div>
       </div>
     </section>
@@ -591,6 +602,8 @@
         </div>
         <div class="ms-offres">
           <div class="ms-offre mis">
+            <span class="ms-reco">Le plus choisi · Offre de Noël</span>
+            <img class="ms-offre-img" src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone" loading="lazy" decoding="async">
             <h3>Ma spirale</h3>
             <p class="ms-prix"><s style="font-size:.6em;opacity:.7">10 €</s> 4,99 € <small>par mois</small></p>
             <p class="t-rassure">7 jours offerts, puis 4,99 € par mois pour toute inscription jusqu’au 31 décembre. Ce prix te reste tant que tu restes.</p>
@@ -605,8 +618,8 @@
           </div>
           <div class="ms-offre">
             <h3>Le Cercle</h3>
-            <a href="ta-vie-en-reel.html" class="ms-carnet-img"><img src="assets/cercle/carnet-en-ligne.webp" width="730" height="1020" alt="Une page du carnet en ligne du Cercle : une situation, ce qui se joue, ce qui se rejoue dans ta famille, un geste pour aujourd'hui" loading="lazy" decoding="async"><span>Un aperçu du carnet en ligne</span></a>
-            <p class="ms-prix">29 € <small>par mois, sans engagement</small></p>
+            <img class="ms-offre-img" src="assets/cercle/accueil-carnets.webp" width="800" height="600" alt="Les carnets du Cercle : Renaissance et Libération" loading="lazy" decoding="async">
+            <p class="ms-prix ms-prix-petit">29 € <small>par mois, sans engagement</small></p>
             <p>Si tu préfères être guidé·e : ton parcours en 12 étapes, 2 séances audio par mois et la formation « Sors de la boucle ».</p>
             <a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a>
             <p class="t-rassure">1<sup>er</sup> mois offert, aucune carte demandée.</p>
