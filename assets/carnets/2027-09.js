@@ -12,7 +12,7 @@ window.GENESOLIA_CARNET = {
   titre: 'Ma vocation',
   sousTitre: "Retrouver ce qui te fait vibrer, remettre du sens dans ton travail, et reconnaître les talents que tu portes déjà.",
   pdf: '',
-  image: 'assets/cercle/apercu-12-saisons.jpg',
+  image: 'assets/cartes/ecrire-la-mienne.jpg',
   citation: "Ta vocation n’est pas loin de toi. Elle t’attend souvent là où le temps s’arrête.",
   audio: '',
   audioCourt: '',

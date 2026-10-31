@@ -12,7 +12,7 @@ window.GENESOLIA_CARNET = {
   titre: 'Mon chez-moi, mon élan',
   sousTitre: "Te sentir vraiment chez toi, là où tu vis, et oser le mouvement qui te fait envie, un petit pas à la fois.",
   pdf: '',
-  image: 'assets/cercle/apercu-12-saisons.jpg',
+  image: 'assets/cartes/racines-appuis.jpg',
   citation: "Être chez soi, ce n’est pas un lieu parfait. C’est un endroit où l’on a le droit d’être soi.",
   audio: '',
   audioCourt: '',
