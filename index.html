@@ -180,6 +180,91 @@
     .langage span:last-child{font-size:.82rem;color:var(--prune-doux)}
     @media (max-width:860px){.langages-accueil{grid-template-columns:1fr 1fr}}
     @media (max-width:420px){.langages-accueil{grid-template-columns:1fr}}
+
+    /* Hero : grand, lumineux, aux couleurs de Genesolia */
+    .ouverture{min-height:min(90vh,860px);display:flex;align-items:center}
+    .ouverture::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+      radial-gradient(2px 2px at 12% 22%,rgba(185,138,85,.7),transparent 60%),radial-gradient(2px 2px at 38% 12%,rgba(185,138,85,.55),transparent 60%),
+      radial-gradient(1.5px 1.5px at 58% 30%,rgba(185,138,85,.6),transparent 60%),radial-gradient(2px 2px at 86% 64%,rgba(185,138,85,.5),transparent 60%),
+      radial-gradient(1.5px 1.5px at 24% 78%,rgba(185,138,85,.55),transparent 60%),radial-gradient(2px 2px at 70% 88%,rgba(185,138,85,.45),transparent 60%)}
+    .ouverture .conteneur{flex:0 1 auto;padding:4.5rem 0 4rem;gap:3rem}
+    .ouv-sur{font:600 .78rem/1.4 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:var(--champagne);margin-bottom:1.3rem}
+    .ouverture h1{font-size:clamp(2.4rem,5vw,4.3rem);line-height:1.08;letter-spacing:-.01em;color:var(--prune);margin-bottom:1.5rem;max-width:15ch}
+    .ouverture h1 em{font-style:italic;background:linear-gradient(90deg,#A8763F,#D9AE73 60%,#B98A55);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .ouverture .intro{font-size:1.18rem;max-width:34rem}
+    .btn-grand{padding:1rem 1.7rem;font-size:1.02rem}
+    .ouverture .arbre{max-width:400px;filter:drop-shadow(0 30px 60px rgba(107,47,91,.12))}
+    /* Salut, je suis Laura */
+    .laura-carte{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;max-width:62rem;margin-inline:auto;padding:2.5rem;border-radius:32px;background:linear-gradient(135deg,#FFF9F5,#FCEFF3);border:1px solid var(--champagne-clair);box-shadow:0 24px 60px rgba(107,47,91,.08)}
+    .laura-img{width:min(290px,70vw);height:auto;aspect-ratio:1;object-fit:cover;border-radius:50%;border:6px solid #fff;box-shadow:0 0 0 1px var(--champagne),0 20px 50px rgba(107,47,91,.18)}
+    .laura-txt h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin-bottom:1rem}
+    .laura-txt p{color:var(--prune-doux);margin-bottom:1rem}
+    .laura-sig{font:italic 400 1.25rem var(--display)!important;color:var(--champagne)!important;margin-bottom:1.4rem!important}
+    /* Les trois abonnements */
+    .offre-prix s{font-size:.55em;opacity:.6;margin-right:.2rem}
+    .offre-cond{font-size:.92rem;color:var(--prune)!important;font-weight:600}
+    .offre-carte .btn{margin-top:auto}
+    .duo-accueil{grid-template-columns:1fr 1fr!important;max-width:56rem;margin-inline:auto}
+    .duo-accueil img{aspect-ratio:800/420;object-fit:cover;width:100%}
+    @media (max-width:860px){.ouverture{min-height:0}.ouverture .conteneur{padding:2.5rem 0}.laura-carte{grid-template-columns:1fr;text-align:center;padding:1.8rem;gap:1.5rem}.laura-img{margin-inline:auto}.duo-accueil{grid-template-columns:1fr!important}}
+
+    .ouv-visuel{margin:0;justify-self:center;position:relative;max-width:480px;width:100%}
+    .ouv-visuel::before{content:"";position:absolute;inset:-12%;background:radial-gradient(closest-side,rgba(217,174,115,.45),rgba(236,190,210,.25) 55%,transparent);filter:blur(10px);z-index:0}
+    .ouv-visuel img{position:relative;z-index:1;width:100%;height:auto;border-radius:36px;box-shadow:0 40px 80px rgba(46,19,56,.35),0 0 0 1px rgba(185,138,85,.4)}
+    /* Barre discrète : le carnet offert */
+    .aimant{background:linear-gradient(90deg,#2E1338,#6B2F5B);color:#F7E6EE}
+    .aimant-f{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:1rem 0}
+    .aimant-t{margin:0;flex:1 1 20rem;font-size:.98rem;color:#F7E6EE}.aimant-t b{color:#F3DCC0;font-weight:600}
+    .aimant-f input[type=text],.aimant-f input[type=email]{flex:0 1 12rem;min-width:0;padding:.65rem .95rem;border-radius:999px;border:1px solid rgba(243,220,192,.5);background:rgba(255,255,255,.1);color:#fff;font:inherit}
+    .aimant-f input::placeholder{color:#E9CFDC}
+    .aimant-f .btn{background:#F3DCC0;color:#2E1338;padding:.65rem 1.3rem}
+    .aimant-ok{flex-basis:100%;font-size:.8rem;color:#E9CFDC;display:flex;gap:.45rem;align-items:center}
+    .aimant-err{flex-basis:100%;margin:0;font-size:.85rem;color:#FFD9CF}.aimant-err:empty{display:none}
+    .aimant-merci{margin:0;padding:1.1rem 0;color:#F7E6EE}.aimant-merci a{color:#F3DCC0}
+    /* Image de Laura : fond lumineux */
+    .laura-halo{display:block;position:relative;padding:14px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#FFF6E6 55%,rgba(255,240,215,.0) 100%)}
+    .laura-halo::before{content:"";position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,200,.9),rgba(255,236,200,0) 70%);z-index:-1}
+    .laura-carte{background:linear-gradient(135deg,#FFFDFB,#FFF3EC 50%,#FDEEF4)}
+    @media (max-width:860px){.ouv-visuel{max-width:300px}.laura-halo{margin-inline:auto;width:max-content}.aimant-f input[type=text],.aimant-f input[type=email]{flex:1 1 100%}.aimant-f .btn{width:100%}}
+
+    /* Hero : l'arbre de lumière, fondu dans le fond */
+    .ouv-visuel{max-width:540px}
+    .ouv-visuel::before{inset:-6%;background:radial-gradient(closest-side,rgba(255,226,180,.75),rgba(240,190,210,.35) 60%,transparent)}
+    .ouv-visuel img{border-radius:50%;box-shadow:none;-webkit-mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);animation:ouv-respire 7s ease-in-out infinite}
+    @keyframes ouv-respire{50%{transform:scale(1.025);filter:brightness(1.05)}}
+    @media (prefers-reduced-motion:reduce){.ouv-visuel img{animation:none}}
+    /* Barre du carnet : image, flèche, champs */
+    .aimant-f{flex-wrap:nowrap;gap:1.2rem;padding:1.1rem 0}
+    .aimant-img{width:62px;height:auto;border-radius:6px;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-4deg);flex:none}
+    .aimant-t{flex:0 1 19rem}.aimant-t p{margin:0}.aimant-s{font-size:.86rem;color:#E9CFDC;margin-top:.2rem!important}
+    .aimant-fleche{width:84px;flex:none;animation:aimant-fl 2.4s ease-in-out infinite}
+    @keyframes aimant-fl{50%{transform:translateX(6px)}}
+    .aimant-champs{flex:1;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .aimant-champs input[type=text],.aimant-champs input[type=email]{flex:1 1 9rem}
+    @media (max-width:980px){.aimant-f{flex-wrap:wrap}.aimant-fleche{display:none}.aimant-champs{flex-basis:100%}}
+    /* Les trois abonnements, en couleur */
+    .abo-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem;text-align:center;margin-top:1.4rem}
+    .abo{position:relative;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:1.1rem 1.1rem 1.5rem;border-radius:28px;text-decoration:none;color:#fff;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18);transition:transform .25s,box-shadow .25s}
+    .abo:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(46,19,56,.26)}
+    .abo-spirale{background:linear-gradient(160deg,#E77FA0,#B4467A 55%,#7E2C5E)}
+    .abo-cercle{background:linear-gradient(160deg,#6B2F5B,#2E1338);box-shadow:0 0 0 2px #E3C08F,0 26px 60px rgba(46,19,56,.35);transform:translateY(-10px)}
+    .abo-cercle:hover{transform:translateY(-16px)}
+    .abo-pro{background:linear-gradient(160deg,#E9C68F,#B98A55 60%,#8A6233)}
+    .abo-img{display:block;width:100%;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#fff;margin-bottom:.8rem;box-shadow:0 12px 30px rgba(0,0,0,.2)}
+    .abo-img img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .abo-badge{font:600 .72rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:.4rem .8rem;border-radius:99px}
+    .abo-reco{position:absolute;top:.9rem;right:.9rem;z-index:2;font:700 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#2E1338;background:#F3DCC0;padding:.4rem .7rem;border-radius:99px}
+    .abo-nom{font:400 1.9rem/1.1 var(--display);margin-top:.4rem}
+    .abo-devise{font:italic 400 1.05rem var(--display);opacity:.9}
+    .abo-prix{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin:.5rem 0 .2rem}
+    .abo-prix s{font-size:1rem;opacity:.65}
+    .abo-prix b{font:400 3.1rem/1 var(--display);color:#fff;text-shadow:0 0 24px rgba(255,230,190,.55)}
+    .abo-cercle .abo-prix b{color:#F3DCC0}
+    .abo-prix small{font-size:.9rem;opacity:.85}
+    .abo-cond{font-size:.9rem;opacity:.92;margin-bottom:.9rem}
+    .abo-btn{margin-top:auto;background:#fff;color:#2E1338;pointer-events:none}
+    .abo-cercle .abo-btn{background:#F3DCC0}
+    @media (max-width:900px){.abo-grille{grid-template-columns:1fr;max-width:26rem;margin-inline:auto}.abo-cercle{transform:none}.abo-cercle:hover{transform:translateY(-6px)}}
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
@@ -190,82 +275,93 @@
   <main>
     <section class="ouverture">
       <div class="conteneur">
-        <div>
-          <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
-          <p class="intro">Presque tout ce qui se répète touche à deux besoins : te sentir en sécurité, et aimer et être aimé·e. Ici, tu repères ton cycle et ta blessure, tu vois ce qui se transmet dans ta famille, et tu apprends à faire autrement.</p>
-          <div class="guide"><img src="assets/guide/guide-bienvenue.webp" width="88" height="88" alt="Illustration de bienvenue" loading="lazy"><p class="guide-bulle">Bienvenue. Commence par ce qui t'appelle : <a href="offert.html">les outils gratuits</a> sont là pour toi.</p></div>
+        <div class="ouv-texte">
+          <p class="ouv-sur">Psychogénéalogie · ton arbre · tes cycles · ta place</p>
+          <h1>Prends ta place, <em>honore-la</em>, sans t’épuiser à répéter tes difficultés.</h1>
+          <p class="intro">Ce qui se répète dans ta vie a des racines, et une direction. Ici, tu vois ce qui se transmet dans ta famille, tu comprends ton cycle et tu apprends à faire autrement, à ton rythme.</p>
           <div class="actions">
-            <a class="btn btn-plein" href="parcours.html">Trouver mon cycle (10 min)</a>
-            <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+            <a class="btn btn-plein btn-grand" href="#abonnements">Découvrir les abonnements</a>
+            <a class="btn btn-trait btn-grand" href="offert.html">Commencer gratuitement</a>
           </div>
-          <p class="hero-cercle"><strong>Prends ta place, honore-la, sans t’épuiser à répéter tes difficultés.</strong> <a href="abonnement.html">Découvrir Le Cercle</a></p>
           <p class="rassurance">Génosociogramme en ligne gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
         </div>
 
-        <figure class="arbre">
-          <svg viewBox="0 0 360 650" role="group" aria-label="L'arbre double : en haut l'arbre de vie et ses dix sphères, en bas les racines familiales sur trois générations">
-            <defs>
-              <radialGradient id="lumiere" cx="50%" cy="40%" r="50%">
-                <stop offset="0" stop-color="#FFE9DC" stop-opacity=".95"/>
-                <stop offset="1" stop-color="#FFE9DC" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="180" cy="210" rx="190" ry="230" fill="url(#lumiere)"/>
-
-            <!-- Racines : toi, tes parents, tes grands-parents, tes arrière-grands-parents -->
-            <g aria-hidden="true">
-              <path class="racine" pathLength="1" d="M180 452 C180 480 120 482 120 512"/>
-              <path class="racine" pathLength="1" d="M180 452 C180 480 240 482 240 512"/>
-              <path class="racine" pathLength="1" d="M120 520 C120 545 70 545 70 568"/>
-              <path class="racine" pathLength="1" d="M120 520 C120 545 150 545 150 568"/>
-              <path class="racine" pathLength="1" d="M240 520 C240 545 210 545 210 568"/>
-              <path class="racine" pathLength="1" d="M240 520 C240 545 290 545 290 568"/>
-              <path class="racine" pathLength="1" d="M70 574 C70 596 52 598 52 618"/>
-              <path class="racine" pathLength="1" d="M70 574 C70 596 88 598 88 618"/>
-              <path class="racine" pathLength="1" d="M150 574 C150 596 132 598 132 618"/>
-              <path class="racine" pathLength="1" d="M150 574 C150 596 168 598 168 618"/>
-              <path class="racine" pathLength="1" d="M210 574 C210 596 192 598 192 618"/>
-              <path class="racine" pathLength="1" d="M210 574 C210 596 228 598 228 618"/>
-              <path class="racine" pathLength="1" d="M290 574 C290 596 272 598 272 618"/>
-              <path class="racine" pathLength="1" d="M290 574 C290 596 308 598 308 618"/>
-              <circle class="ancetre" cx="120" cy="516" r="5"/><circle class="ancetre" cx="240" cy="516" r="5"/>
-              <circle class="ancetre" cx="70" cy="571" r="4"/><circle class="ancetre" cx="150" cy="571" r="4"/>
-              <circle class="ancetre" cx="210" cy="571" r="4"/><circle class="ancetre" cx="290" cy="571" r="4"/>
-              <circle class="ancetre" cx="52" cy="621" r="3"/><circle class="ancetre" cx="88" cy="621" r="3"/>
-              <circle class="ancetre" cx="132" cy="621" r="3"/><circle class="ancetre" cx="168" cy="621" r="3"/>
-              <circle class="ancetre" cx="192" cy="621" r="3"/><circle class="ancetre" cx="228" cy="621" r="3"/>
-              <circle class="ancetre" cx="272" cy="621" r="3"/><circle class="ancetre" cx="308" cy="621" r="3"/>
-            </g>
-
-            <!-- Les 22 chemins de l'arbre de vie -->
-            <g aria-hidden="true">
-              <path class="chemin" pathLength="1" d="M180 40 L270 95"/><path class="chemin" pathLength="1" d="M180 40 L90 95"/>
-              <path class="chemin" pathLength="1" d="M180 40 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L90 95"/>
-              <path class="chemin" pathLength="1" d="M270 95 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L270 190"/>
-              <path class="chemin" pathLength="1" d="M90 95 L180 240"/><path class="chemin" pathLength="1" d="M90 95 L90 190"/>
-              <path class="chemin" pathLength="1" d="M270 190 L90 190"/><path class="chemin" pathLength="1" d="M270 190 L180 240"/>
-              <path class="chemin" pathLength="1" d="M270 190 L270 320"/><path class="chemin" pathLength="1" d="M90 190 L180 240"/>
-              <path class="chemin" pathLength="1" d="M90 190 L90 320"/><path class="chemin" pathLength="1" d="M180 240 L270 320"/>
-              <path class="chemin" pathLength="1" d="M180 240 L180 370"/><path class="chemin" pathLength="1" d="M180 240 L90 320"/>
-              <path class="chemin" pathLength="1" d="M270 320 L90 320"/><path class="chemin" pathLength="1" d="M270 320 L180 370"/>
-              <path class="chemin" pathLength="1" d="M270 320 L180 440"/><path class="chemin" pathLength="1" d="M90 320 L180 370"/>
-              <path class="chemin" pathLength="1" d="M90 320 L180 440"/><path class="chemin" pathLength="1" d="M180 370 L180 440"/>
-            </g>
-
-            <!-- Les 10 sphères, de la base vers le sommet -->
-            <g class="sphere" data-s="malkhout" tabindex="0" role="button" aria-label="Malkhout" style="animation-delay:1.0s"><circle class="halo" cx="180" cy="440" r="22"/><circle class="coeur" cx="180" cy="440" r="13"/><circle class="moi" cx="180" cy="440" r="4"/></g>
-            <g class="sphere" data-s="yessod" tabindex="0" role="button" aria-label="Yessod" style="animation-delay:1.25s"><circle class="halo" cx="180" cy="370" r="22"/><circle class="coeur" cx="180" cy="370" r="13"/></g>
-            <g class="sphere" data-s="hod" tabindex="0" role="button" aria-label="Hod" style="animation-delay:1.5s"><circle class="halo" cx="90" cy="320" r="22"/><circle class="coeur" cx="90" cy="320" r="13"/></g>
-            <g class="sphere" data-s="netsah" tabindex="0" role="button" aria-label="Netsah" style="animation-delay:1.5s"><circle class="halo" cx="270" cy="320" r="22"/><circle class="coeur" cx="270" cy="320" r="13"/></g>
-            <g class="sphere" data-s="tiferet" tabindex="0" role="button" aria-label="Tiferet" style="animation-delay:1.75s"><circle class="halo" cx="180" cy="240" r="24"/><circle class="coeur" cx="180" cy="240" r="15"/></g>
-            <g class="sphere" data-s="guevoura" tabindex="0" role="button" aria-label="Guevoura" style="animation-delay:2.0s"><circle class="halo" cx="90" cy="190" r="22"/><circle class="coeur" cx="90" cy="190" r="13"/></g>
-            <g class="sphere" data-s="hessed" tabindex="0" role="button" aria-label="Hessed" style="animation-delay:2.0s"><circle class="halo" cx="270" cy="190" r="22"/><circle class="coeur" cx="270" cy="190" r="13"/></g>
-            <g class="sphere" data-s="bina" tabindex="0" role="button" aria-label="Bina" style="animation-delay:2.25s"><circle class="halo" cx="90" cy="95" r="22"/><circle class="coeur" cx="90" cy="95" r="13"/></g>
-            <g class="sphere" data-s="hokhma" tabindex="0" role="button" aria-label="Hokhma" style="animation-delay:2.25s"><circle class="halo" cx="270" cy="95" r="22"/><circle class="coeur" cx="270" cy="95" r="13"/></g>
-            <g class="sphere" data-s="keter" tabindex="0" role="button" aria-label="Kéter" style="animation-delay:2.5s"><circle class="halo" cx="180" cy="40" r="24"/><circle class="coeur" cx="180" cy="40" r="15"/></g>
-          </svg>
-          <figcaption class="legende" aria-live="polite"><strong>Touche une sphère</strong><span>Chacune éclaire un domaine de ta vie. La sphère du bas, c'est toi, relié·e à tes racines.</span></figcaption>
+        <figure class="ouv-visuel">
+          <img src="assets/images/arbre-lumiere-1000.webp" srcset="assets/images/arbre-lumiere-600.webp 600w, assets/images/arbre-lumiere-1000.webp 1000w" sizes="(max-width:860px) 85vw, 540px" width="1000" height="1000" alt="L’arbre de lumière Genesolia : ses racines dorées, ses feuilles roses et or, et le cercle des lunes" fetchpriority="high">
         </figure>
+      </div>
+    </section>
+
+    <section class="aimant" aria-label="Le carnet des deux cycles offert">
+      <div class="conteneur">
+        <form class="aimant-f" data-aimant novalidate>
+          <img class="aimant-img" src="assets/images/carnet-deux-cycles-couv.webp" width="240" height="339" alt="Couverture du carnet offert : Les deux cycles" loading="lazy">
+          <div class="aimant-t"><p><b>Offert</b> · Ton carnet des deux cycles</p><p class="aimant-s">7 jours pour repérer ce qui se répète, en PDF à imprimer ou à remplir en ligne.</p></div>
+          <svg class="aimant-fleche" viewBox="0 0 90 30" aria-hidden="true"><path d="M2 20 C25 4, 50 4, 80 15" fill="none" stroke="#E3C08F" stroke-width="1.6" stroke-dasharray="3 4" stroke-linecap="round"/><path d="M72 8 L82 15 L71 21" fill="none" stroke="#E3C08F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="aimant-champs">
+            <input type="text" name="prenom" placeholder="Ton prénom" autocomplete="given-name" aria-label="Ton prénom" required>
+            <input type="email" name="email" placeholder="Ton e-mail" autocomplete="email" aria-label="Ton e-mail" required>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" hidden>
+            <button class="btn btn-plein" type="submit">Je le reçois</button>
+            <label class="aimant-ok"><input type="checkbox" name="accord"> J’accepte de recevoir le carnet et les lettres de Genesolia : des pistes douces pour avancer à ton rythme. Désinscription en un clic.</label>
+            <p class="aimant-err" role="alert"></p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc laura" id="laura" aria-labelledby="laura-titre">
+      <div class="conteneur">
+        <div class="laura-carte">
+          <span class="laura-halo"><img class="laura-img" src="assets/laura-dessin.webp" width="475" height="472" alt="Laura, la créatrice de Genesolia, en dessin, qui te fait coucou" loading="lazy"></span>
+          <div class="laura-txt">
+            <h2 id="laura-titre">Salut, je suis Laura</h2>
+            <p>Ce sont des événements de ma propre vie qui m’ont menée jusqu’ici. En cherchant à les comprendre, j’ai découvert la psychogénéalogie, et elle ne m’a plus quittée. Je m’y suis formée, puis j’ai accompagné des personnes pendant plusieurs années, avec la psychogénéalogie, l’hypnose et l’EMDR.</p>
+            <p>Cette passion, je l’ai mise dans Genesolia : des outils simples pour voir ce qui se répète dans ta vie et dans ta lignée, comprendre d’où ça vient et t’en libérer, à ton rythme. Et pour les praticien·nes, un espace de travail pensé à partir de mes propres besoins, pour préparer les séances et garder le fil de chaque accompagnement.</p>
+            <p class="laura-sig">Je suis heureuse de t’accueillir ici.</p>
+            <a class="btn btn-trait" href="methode.html">Découvrir ma méthode des deux cycles</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="abonnements" aria-labelledby="abo-titre">
+      <div class="conteneur">
+        <div class="offres-accueil">
+          <p class="cercle-sur">Trois abonnements</p>
+          <h2 id="abo-titre">Tout commence gratuitement. Va plus loin quand tu veux.</h2>
+          <div class="abo-grille">
+            <a class="abo abo-spirale" href="ma-spirale.html">
+              <span class="abo-img"><img src="assets/pass/captures/bilan.webp" alt="" loading="lazy" style="object-position:center 18%"></span>
+              <span class="abo-badge">✦ Offre de Noël</span>
+              <span class="abo-nom">Ma spirale</span>
+              <span class="abo-devise">Ton outil à toi</span>
+              <span class="abo-prix"><s>10 €</s><b>4,99 €</b><small>par mois</small></span>
+              <span class="abo-cond">7 jours offerts · sans engagement</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+            <a class="abo abo-cercle" href="abonnement.html">
+              <span class="abo-reco">Le plus complet</span>
+              <span class="abo-img"><img src="assets/cercle/captures/mon-mois.webp" alt="" loading="lazy"></span>
+              <span class="abo-badge">✦ Cadeau de Noël</span>
+              <span class="abo-nom">Le Cercle</span>
+              <span class="abo-devise">Ta place, ton choix, ta vie</span>
+              <span class="abo-prix"><s>24,90 €</s><b>17,77 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert · Ma spirale incluse</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+            <a class="abo abo-pro" href="espace-praticien.html">
+              <span class="abo-img"><img src="assets/images/praticien/appli-pro-dossiers.webp" alt="" loading="lazy"></span>
+              <span class="abo-badge">Pour les praticien·nes</span>
+              <span class="abo-nom">Espace pro</span>
+              <span class="abo-devise">Votre cabinet en ligne</span>
+              <span class="abo-prix"><b>19 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert · tarif fondateur</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+          </div>
+          <p class="offres-note">Prix en euros, TVA non applicable, art. 293 B du CGI. <a href="tarifs.html">Tous les tarifs</a></p>
+        </div>
       </div>
     </section>
 
@@ -316,7 +412,7 @@
 
     <section class="bloc bloc-doux" id="commencer">
       <div class="conteneur">
-        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Par où commencer ?</h2><p>Trois portes, gratuites. Choisis celle qui te parle aujourd’hui.</p></div>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Tes cadeaux : tout commence gratuitement</h2><p>Ton arbre, tes numéros, tes astres : choisis la porte qui te parle aujourd’hui.</p></div>
         <div class="portes-accueil">
           <a class="porte-carte" href="genosociogramme.html"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">Gratuit · sans inscription</span><strong>Dessiner mon arbre familial</strong><span>Ton génosociogramme en ligne : les dates, les prénoms et les schémas qui reviennent ressortent tout seuls.</span></a>
           <a class="porte-carte" href="ta-vie-en-reel.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">3 minutes · chaque semaine</span><strong>Ta vie en réel</strong><span>Quand ça recommence : ce qui se joue, ce qui se rejoue dans ta famille, et les mots pour le dire.</span></a>
@@ -324,8 +420,8 @@
         </div>
         <h3 class="langages-titre">Et quatre langages pour voir d’où ça vient</h3>
         <div class="langages-accueil">
-          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes nombres</strong><span>Ton thème numérologique gratuit</span></a>
-          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes étoiles</strong><span>Ton thème astral gratuit</span></a>
+          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes numéros</strong><span>Ton thème numérologique gratuit</span></a>
+          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes astres</strong><span>Ton thème astral gratuit</span></a>
           <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
           <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
         </div>
@@ -335,22 +431,19 @@
 
 
 
-                    <section class="bloc">
+                    
+
+
+
+    <section class="bloc" id="decouvrir" aria-labelledby="dec-titre">
       <div class="conteneur">
-        <div class="offres-accueil">
-          <p class="cercle-sur">Trois façons d’avancer</p>
-          <h2>Commence gratuitement, va plus loin quand tu veux</h2>
-          <div class="offres-grille">
-            <div class="offre-carte"><p class="offre-nom">Gratuit</p><p class="offre-prix">0 €</p><p>Ton arbre familial, les tests et les outils, sans inscription. Le carnet des deux cycles et le module 1 de la formation, offerts.</p><a class="btn btn-trait" href="offert.html">Voir les outils gratuits</a></div>
-            <div class="offre-carte"><p class="offre-badge">Offre de Noël</p><p class="offre-nom">Ma spirale</p><p class="offre-prix"><s style="font-size:.6em;opacity:.7">10 €</s> 4,99 € <small>par mois</small></p><p>7 jours offerts, sans engagement.</p><p>Tes schémas, ta frise, ton théâtre et des protocoles faits pour toi.</p><a class="btn btn-plein" href="pass.html?exemple">Essayer l’exemple</a> <a class="btn btn-trait" href="ma-spirale.html">Découvrir Ma spirale</a></div>
-            <div class="offre-carte offre-reco"><p class="offre-badge">1<sup>er</sup> mois offert</p><p class="offre-nom">Le Cercle</p><p class="offre-devise">Ta place, ton choix, ta vie</p><p class="offre-prix">29 € <small>par mois</small></p><p>Ma spirale, plus ton parcours guidé pour sortir de tes boucles, à ton rythme, deux audios d’environ 20 minutes et la formation « Sors de la boucle ».</p><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle</a></div>
-          </div>
-          <p class="offres-note">Sans carte pour le mois offert, sans engagement. <a href="tarifs.html">Tous les tarifs</a></p>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="dec-titre">Comprendre, et faire plaisir</h2><p>Les articles pour comprendre ce qui se joue, et la boutique pour offrir quelque chose qui a du sens.</p></div>
+        <div class="portes-accueil duo-accueil">
+          <a class="porte-carte" href="blog.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><span class="porte-duree">Comprendre</span><strong>Les articles et ma méthode</strong><span>Schémas répétitifs, blessures, génosociogramme, et la méthode des deux cycles expliquée pas à pas.</span></a>
+          <a class="porte-carte" href="boutique.html"><img src="assets/noel/noel-racines-1080.webp" width="800" height="420" alt="" loading="lazy" style="object-fit:cover"><span class="porte-duree">Boutique</span><strong>Des cadeaux qui ont du sens</strong><span>Posters, vêtements, livres, ton arbre imprimé et les cartes cadeaux du Cercle.</span></a>
         </div>
       </div>
     </section>
-
-
 
     <section class="bloc" id="questions">
       <div class="conteneur">
@@ -413,6 +506,25 @@
         });
       });
     })();
+  </script>
+
+  <script>
+  (function () {
+    var f = document.querySelector('[data-aimant]'); if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = f.querySelector('.aimant-err'), b = f.querySelector('button');
+      var prenom = f.prenom.value.trim(), email = f.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      if (!f.accord.checked) { err.textContent = 'Coche la case pour recevoir ton carnet.'; return; }
+      err.textContent = ''; b.disabled = true; b.textContent = 'Envoi…';
+      var d = new FormData(f); d.append('source', 'accueil-barre');
+      (window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Carnet des deux cycles', d, '') : Promise.reject()).then(function () {
+        try { localStorage.setItem('carnet-inscrit', 'oui'); } catch (x) {}
+        f.outerHTML = '<p class="aimant-merci">Merci ' + prenom.replace(/[<>&]/g, '') + ', ton carnet est là : <a href="assets/carnet-des-deux-cycles-8a44d6c993.pdf" download="carnet-des-deux-cycles-genesolia.pdf">télécharger mon carnet</a> · <a href="carnet-des-deux-cycles.html">le remplir en ligne</a></p>';
+      }).catch(function () { b.disabled = false; b.textContent = 'Je le reçois'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+  })();
   </script>
 </body>
 </html>

@@ -666,12 +666,12 @@
         var fondatrice = places > 0 && S.cercleFondatrice;
         var continuer = !paye && (S.cercleMois || S.cercleAn || S.cercleAnnee)
           ? '<span style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem">' +
-            (fondatrice ? bouton('cercleFondatrice', '✦ Offre de Noël : 24,90 € par mois au lieu de 29 €', true) : bouton('cercleMois', 'Continuer, 29 € par mois', true)) +
+            (fondatrice ? bouton('cercleFondatrice', '✦ Cadeau de Noël : 17,77 € par mois au lieu de 24,90 €', true) : bouton('cercleMois', 'Continuer, 29 € par mois', true)) +
             bouton('cercleAnnee', '249 € l’année') + '</span>'
           : '';
         el.innerHTML = (paye ? 'Ton abonnement au Cercle est actif.'
           : enCours
-            ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée. Tu peux continuer quand tu veux avant la fin de ton mois offert : ton accès continue sans coupure.' + (fondatrice ? ' Tu fais partie des 100 premières : ton prix fondatrice est de 24,90 € par mois, sans engagement.' : '')
+            ? 'Ton mois offert : il te reste <b>' + reste + ' jour' + (reste > 1 ? 's' : '') + '</b> (jusqu\'au ' + fin.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + '). Aucune carte ne t\'a été demandée. Tu peux continuer quand tu veux avant la fin de ton mois offert : ton accès continue sans coupure.' + (fondatrice ? ' Cadeau de Noël : jusqu\'au 31 décembre, tu continues à 17,77 € par mois au lieu de 24,90 €, sans engagement.' : '')
             : 'Ton mois offert est terminé. Tu peux continuer Le Cercle quand tu veux.') +
           continuer + (gestion && paye ? '<br><a class="btn btn-trait" style="margin-top:.8rem" href="' + gestion + '" target="_blank" rel="noopener">Gérer ou arrêter mon abonnement</a>' : '');
         el.hidden = false;
