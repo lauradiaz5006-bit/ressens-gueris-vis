@@ -439,7 +439,9 @@
       '<p><span class="promo-noel">✦ Offre de Noël</span> <b>Ma spirale</b> · 7 jours offerts, puis <b>4,99 € par mois</b>, sans engagement.</p>' +
       '<div style="display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center">' + (u ? '<a class="pa-bt" href="ma-spirale.html#offre" data-payer="passMois">S’abonner</a>' : '<a class="pa-bt" href="login.html?retour=pass.html">' + (LIEN_TEST ? 'Me connecter pour tester Ma spirale' : 'Me connecter ou créer mon compte') + '</a><a class="pa-bt clair" href="ma-spirale.html">Découvrir Ma spirale</a>') +
       '<a class="pa-bt clair" href="pass.html?exemple">Voir un exemple</a></div>' +
-      (u ? '<form class="pa-code" id="pa-code" novalidate><label for="pa-code-t">Tu as un code test ?</label><div><input id="pa-code-t" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Ton code"><button type="submit" class="pa-bt">Ouvrir</button></div><p class="pa-erreur" role="alert"></p></form>' : '') + '</section>');
+      (u ? '<p class="pa-code" style="text-align:center">Tu es connecté·e avec <b>' + esc((D.user && D.user.email) || '') + '</b>. Ce n’est pas le bon compte ?</p><div style="display:flex;justify-content:center"><button type="button" class="pa-bt clair" data-autre-compte>Me connecter</button></div>' : '') + '</section>');
+    var ac = document.querySelector('[data-autre-compte]');
+    if (ac) ac.addEventListener('click', function () { ac.disabled = true; var fin = function () { location.href = 'login.html?retour=pass.html'; }; if (sb) sb.auth.signOut().then(fin, fin); else fin(); });
     var fc = document.getElementById('pa-code');
     if (fc) fc.addEventListener('submit', function (e) {
       e.preventDefault();
