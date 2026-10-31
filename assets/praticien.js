@@ -24,29 +24,29 @@
   /* ───────── Sans compte ───────── */
   var ICI = /pro\.html$/.test(location.pathname) ? 'pro.html' : 'praticien.html';   /* appli Genesolia Pro ou page du site */
   function porte() {
-    z.innerHTML = '<p class="pr-etiq">Espace praticien</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ton Espace praticien</h1>' +
-      '<div class="pr-carte"><p class="pr-aide">Crée ton espace (ou connecte-toi), puis ouvre ton Espace praticien : <b>30 jours d’essai, sans carte</b>. Autant de dossiers client·es que tu veux, des notes par séance chiffrées, et un lien pour montrer son arbre à ton·ta client·e.</p>' +
-      '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + ICI + '">Créer mon espace</a><a class="btn btn-trait" href="login.html?retour=' + ICI + '">J’ai déjà un espace</a></div></div>';
+    z.innerHTML = '<p class="pr-etiq">Espace praticien</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Votre Espace praticien</h1>' +
+      '<div class="pr-carte"><p class="pr-aide">Créez votre espace (ou connectez-vous), puis ouvrez votre Espace praticien : <b>30 jours offerts, sans carte bancaire</b>. Autant de dossiers client·es que vous voulez, des notes par séance chiffrées, et un lien pour montrer son arbre à votre client·e.</p>' +
+      '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + ICI + '">Commencer mes 30 jours offerts</a><a class="btn btn-trait" href="login.html?retour=' + ICI + '">J’ai déjà un espace</a></div><p class="pr-aide" style="margin:.9rem 0 0">30 jours offerts, sans carte bancaire · puis <b>19 € par mois</b> (offre de Noël, avant le 31 décembre)</p></div>';
   }
 
   /* ───────── Ouvrir son cabinet (essai de 30 jours) ───────── */
   function inscription() {
-    z.innerHTML = '<p class="pr-etiq">Espace praticien · 30 jours d’essai</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ouvre ton Espace praticien</h1>' +
+    z.innerHTML = '<p class="pr-etiq">Espace praticien · 30 jours offerts</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Ouvrez votre Espace praticien</h1>' +
       '<div class="pr-carte"><form class="pr-form" id="pr-ins" novalidate>' +
-      '<label>Le nom de ton activité<input type="text" name="cabinet" maxlength="80" autocomplete="organization" placeholder="Claire Martin, psychogénéalogie"></label>' +
-      '<div class="pr-deux"><label>Ta pratique <small>(facultatif)</small><select name="pratique"><option value="">Choisis…</option><option>Psychogénéalogiste</option><option>Praticien·ne en relation d’aide</option><option>Coach</option><option>Sophrologue</option><option>Hypnose</option><option>Astrologue ou numérologue</option><option>Autre</option></select></label>' +
-      '<label>Ta ville <small>(facultatif)</small><input type="text" name="ville" maxlength="80" autocomplete="address-level2"></label></div>' +
+      '<label>Le nom de votre activité<input type="text" name="cabinet" maxlength="80" autocomplete="organization" placeholder="Claire Martin, psychogénéalogie"></label>' +
+      '<div class="pr-deux"><label>Votre pratique <small>(facultatif)</small><select name="pratique"><option value="">Choisissez…</option><option>Psychogénéalogiste</option><option>Praticien·ne en relation d’aide</option><option>Coach</option><option>Sophrologue</option><option>Hypnose</option><option>Astrologue ou numérologue</option><option>Autre</option></select></label>' +
+      '<label>Votre ville <small>(facultatif)</small><input type="text" name="ville" maxlength="80" autocomplete="address-level2"></label></div>' +
       '<label class="pr-case"><input type="checkbox" name="cgu"> <span>J’accepte les <a href="conditions-praticien.html" target="_blank" rel="noopener">conditions de l’Espace praticien</a> et l’<a href="accord-sous-traitance.html" target="_blank" rel="noopener">accord de sous-traitance des données (RGPD)</a> : je l’utilise pour mon activité d’accompagnement, j’informe mes client·es et je recueille leur accord avant de créer leur dossier, et je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
       '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon Espace praticien, <b>chiffrées</b> : elles ne s’ouvrent que depuis mon compte.</span></label>' +
-      '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
-      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. <b>Offre de Noël : 19 € par mois ou 190 € l’année</b> pour tout abonnement pris avant le 31 décembre, garanti tant que ton abonnement continue. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p></form></div>';
+      '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours offerts</button></div>' +
+      '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. <b>Offre de Noël : 19 € par mois ou 190 € l’année</b> pour tout abonnement pris avant le 31 décembre, garanti tant que votre abonnement continue. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p></form></div>';
     var f = document.getElementById('pr-ins'), err = document.getElementById('pr-err');
     f.addEventListener('submit', function (e) {
       e.preventDefault(); err.textContent = '';
       var cab = f.cabinet.value.trim();
-      if (!cab) { err.textContent = 'Indique le nom de ton activité.'; f.cabinet.focus(); return; }
-      if (!f.cgu.checked) { err.textContent = 'Coche la case sur l’usage de l’Espace praticien.'; return; }
-      if (!f.coffre.checked) { err.textContent = 'Coche la case pour garder tes notes de séance, chiffrées.'; return; }
+      if (!cab) { err.textContent = 'Indiquez le nom de votre activité.'; f.cabinet.focus(); return; }
+      if (!f.cgu.checked) { err.textContent = 'Cochez la case sur l’usage de l’Espace praticien.'; return; }
+      if (!f.coffre.checked) { err.textContent = 'Cochez la case pour garder vos notes de séance, chiffrées.'; return; }
       var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
       var meta = {}; if (f.pratique.value) meta.pratique = f.pratique.value; if (f.ville.value.trim()) meta.ville = f.ville.value.trim().slice(0, 80);   /* pour l'annuaire, plus tard */
       if (!(CF && CF.accord(user))) meta.coffre_accord = new Date().toISOString();
