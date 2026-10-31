@@ -286,6 +286,27 @@
     .a-fondatrice{margin:.6rem 0 0;font-size:.88rem;color:#F6D9A2}
     .a-fondatrice b{color:#FCE9C4}
     .a-fondatrice{line-height:1.6}.a-fondatrice .promo-prix{font-size:1rem;color:#FCE9C4}.a-fondatrice s{opacity:.75}
+    .of-ruban{text-align:center;margin:0 auto 1.6rem;color:var(--prune-doux);font-size:.95rem}
+    .of-ruban span{display:inline-block;margin-right:.5rem;padding:.35rem 1rem;border-radius:99px;background:linear-gradient(135deg,#B04A7A,#6B2F5B);color:#fff;font:600 .78rem var(--texte);letter-spacing:.1em;text-transform:uppercase}
+    .a-formules.of-duo{grid-template-columns:repeat(2,minmax(0,1fr));max-width:62rem;margin:0 auto;gap:1.6rem}
+    .of-carte{padding:2.4rem 2.2rem;text-align:left;position:relative}
+    .of-carte:not(.of-or){border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,#fff 55%)}
+    .of-essai{margin:0;font:400 1.25rem var(--display);color:var(--prune)}.of-essai b{font-weight:600}
+    .of-prix{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;padding:1rem 0 .2rem;border-top:1px solid rgba(185,138,85,.35)}
+    .of-prix s{font:400 1.2rem var(--texte);opacity:.55}
+    .of-gros{font:400 3.4rem/1 var(--display);color:var(--prune)}
+    .of-per{flex-basis:100%;font-size:.95rem;color:var(--prune-doux)}
+    .of-garde,.of-cadeau{align-self:flex-start;margin:0;padding:.35rem .9rem;border-radius:99px;font-weight:600;font-size:.88rem}
+    .of-garde{background:#F7E6EE;color:#8A3F62}
+    .of-cadeau{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338}
+    .of-or{background:linear-gradient(150deg,#2E1338,#6B2F5B);color:#F7E6EE;border:0;box-shadow:0 30px 70px rgba(46,19,56,.3)}
+    .of-or h3,.of-or .of-essai,.of-or .of-gros{color:#fff}.of-or .of-per,.of-or .a-note{color:#E9CFDC}.of-or li b{color:#F3DCC0}
+    .of-or .a-badge{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338}
+    .of-or li::before{background:#E2B877}
+    .of-or .btn{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338;border:0}
+    .of-or .of-prix{border-color:rgba(243,220,192,.3)}
+    .of-carte .btn{align-self:stretch;text-align:center;justify-content:center}
+    @media (max-width:860px){.a-formules.of-duo{grid-template-columns:1fr}.of-carte{padding:1.8rem 1.4rem}}
     .a-note-noel{margin-top:.7rem}.a-note-noel s{opacity:.7}
       .t-guide{display:flex;gap:1.2rem;align-items:center;max-width:36rem;margin:2.2rem auto 0;padding:1rem 1.2rem;background:#fff;border:1px solid var(--rose,#F3E3E6);border-left:4px solid #B98A55;border-radius:16px;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(107,47,91,.08);text-align:left}
     .t-guide img{width:84px;height:auto;border-radius:6px;box-shadow:0 8px 20px rgba(107,47,91,.25);flex:none}
@@ -640,12 +661,14 @@
           <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou la tranquillité de l’année. Ton parcours guidé, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
         </div>
         <div data-devise-ici></div>
-        <div class="a-formules">
-          <article class="a-carte vedette">
-            <span class="a-badge">Tout compris</span>
+        <p class="of-ruban"><span>✦ Offres de Noël</span> pour toute inscription jusqu’au 31 décembre</p>
+        <div class="a-formules of-duo">
+          <article class="a-carte of-carte">
+            <span class="a-badge">Liberté · sans engagement</span>
             <h3>Le Cercle au mois</h3>
-            <p class="a-essai">1<sup>er</sup> mois : 0 €</p>
-            <p class="a-prix"><s style="font-size:.55em;opacity:.6">24,90 €</s> 17,77 € <small>par mois ensuite, cadeau de Noël, sans engagement</small></p>
+            <p class="of-essai">Ton 1<sup>er</sup> mois : <b>0 €</b></p>
+            <div class="of-prix"><s>24,90 €</s><span class="of-gros">17,77 €</span><span class="of-per">par mois ensuite</span></div>
+            <p class="of-garde">Ce prix te reste tant que tu restes</p>
             <ul>
               <li><b>Renaissance</b> : ton carnet du cycle 1, un petit pas chaque semaine</li>
               <li><b>Libération</b> : ton livret du cycle 2 et ton arbre de vie</li>
@@ -655,20 +678,21 @@
               <li><b>Ton appli Le Cercle</b>, ton mois personnel et tous les petits +</li>
             </ul>
             <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
-            <p class="a-note">Aucune carte demandée pour ton mois offert. Avant la fin, on t’écrit pour te proposer de continuer. </p><p class="a-note a-note-noel"><span class="promo-noel">✦ Cadeau de Noël</span> <s>24,90 €</s> <b>17,77 € par mois</b> après ton mois offert, toujours sans engagement : ce prix te reste tant que tu restes. Pour toute inscription jusqu’au 31 décembre.</p>
+            <p class="a-note">Aucune carte demandée. Avant la fin, on t’écrit pour te proposer de continuer.</p>
           </article>
-          <article class="a-carte">
-            <span class="a-badge">Tranquille toute l’année</span>
+          <article class="a-carte of-carte of-or">
+            <span class="a-badge">Le meilleur prix</span>
             <h3>Le Cercle à l’année</h3>
-            <p class="a-prix"><s style="font-size:.55em;opacity:.6">249 €</s> 199 € <small>par an, environ 16,58 € par mois, offre de Noël</small></p>
-            <p>Le même Cercle, réglé une fois par an. L’abonnement se renouvelle chaque année, et tu peux l’arrêter quand tu veux avant la date anniversaire : on te prévient avant.</p>
+            <p class="of-essai">Ton 1<sup>er</sup> mois : <b>0 €</b></p>
+            <div class="of-prix"><s>249 €</s><span class="of-gros">199 €</span><span class="of-per">par an, soit 16,58 € par mois</span></div>
+            <p class="of-cadeau">4 mois offerts par rapport au mois à 24,90 €</p>
             <ul>
-              <li>Tout ce qui est compris dans la formule au mois</li>
-              <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
-              <li>Offre de Noël : 199 € au lieu de 249 €, pour toute inscription jusqu’au 31 décembre</li>
-              <li>99,80 € d’économie par rapport au mois à 24,90 €, soit 4 mois offerts</li>
+              <li><b>Tout ce qui est compris</b> dans la formule au mois</li>
+              <li><b>Ton parcours complet</b>, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
+              <li><b>Réglé une fois</b>, tranquille toute l’année</li>
+              <li><b>Renouvelé chaque année</b>, et tu peux l’arrêter quand tu veux avant la date anniversaire : on te prévient avant</li>
             </ul>
-            <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
+            <a class="btn" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
           </article>
         </div>
