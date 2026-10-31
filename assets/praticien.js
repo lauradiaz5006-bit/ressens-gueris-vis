@@ -36,7 +36,7 @@
       '<label>Le nom de ton activité<input type="text" name="cabinet" maxlength="80" autocomplete="organization" placeholder="Claire Martin, psychogénéalogie"></label>' +
       '<div class="pr-deux"><label>Ta pratique <small>(facultatif)</small><select name="pratique"><option value="">Choisis…</option><option>Psychogénéalogiste</option><option>Praticien·ne en relation d’aide</option><option>Coach</option><option>Sophrologue</option><option>Hypnose</option><option>Astrologue ou numérologue</option><option>Autre</option></select></label>' +
       '<label>Ta ville <small>(facultatif)</small><input type="text" name="ville" maxlength="80" autocomplete="address-level2"></label></div>' +
-      '<label class="pr-case"><input type="checkbox" name="cgu"> <span>Je l’utilise dans le cadre de mon activité d’accompagnement. J’informe mes client·es et je recueille leur accord avant de créer leur dossier. Je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
+      '<label class="pr-case"><input type="checkbox" name="cgu"> <span>J’accepte les <a href="conditions-praticien.html" target="_blank" rel="noopener">conditions de l’Espace praticien</a> et l’<a href="accord-sous-traitance.html" target="_blank" rel="noopener">accord de sous-traitance des données (RGPD)</a> : je l’utilise pour mon activité d’accompagnement, j’informe mes client·es et je recueille leur accord avant de créer leur dossier, et je n’y note pas d’informations médicales (diagnostics, traitements).</span></label>' +
       '<label class="pr-case"><input type="checkbox" name="coffre"' + (CF && CF.accord(user) ? ' checked disabled' : '') + '> <span>J’accepte que mes notes de séance soient gardées dans mon Espace praticien, <b>chiffrées</b> : elles ne s’ouvrent que depuis mon compte.</span></label>' +
       '<p class="pr-err" id="pr-err" role="alert"></p><div><button class="btn btn-plein" type="submit">Commencer mes 30 jours</button></div>' +
       '<p class="pr-aide" style="margin:0">Sans carte bancaire. Ensuite : 24 € par mois sans engagement, ou 240 € l’année. Espace ouvert jusqu’au 31 mars 2027 : <b>tarif fondateur, 19 € par mois</b>, garanti tant que ton abonnement continue.</p></form></div>';
@@ -50,6 +50,7 @@
       var bt = f.querySelector('button'); bt.disabled = true; bt.textContent = 'Un instant…';
       var meta = {}; if (f.pratique.value) meta.pratique = f.pratique.value; if (f.ville.value.trim()) meta.ville = f.ville.value.trim().slice(0, 80);   /* pour l'annuaire, plus tard */
       if (!(CF && CF.accord(user))) meta.coffre_accord = new Date().toISOString();
+      meta.praticien_dpa = DPA_VERSION + ' ' + new Date().toISOString();   /* accord de sous-traitance accepté (version et date) */
       var accord = !Object.keys(meta).length ? Promise.resolve() : sb.auth.updateUser({ data: meta }).then(function (r) { if (r && r.data && r.data.user) user = r.data.user; });
       accord.then(function () { return sb.rpc('praticien_commencer', { p_cabinet: cab }); }).then(function (r) {
         if (r.error) { if (/function|does not exist|schema cache|PGRST20/i.test(r.error.message || '')) { indispo(); return; } throw r.error; }
@@ -64,11 +65,29 @@
     if (prat.formule === 'essai') return '<span class="pr-etat">Essai · encore <b>' + joursRestants() + ' jour' + (joursRestants() > 1 ? 's' : '') + '</b></span>';
     return '<span class="pr-etat">Abonnement actif jusqu’au ' + date(prat.acces_jusqu) + '</span>';
   }
+  /* Accord de sous-traitance (RGPD) : version en vigueur ; un compte qui ne l'a pas encore accepté le voit en haut de son cabinet */
+  var DPA_VERSION = '2026-10-31';
+  function dpaAccepte() { var v = user && user.user_metadata && user.user_metadata.praticien_dpa; return !!v && v.indexOf(DPA_VERSION) === 0; }
+  function carteDpa() {
+    if (dpaAccepte()) return '';
+    return '<div class="pr-carte" id="pr-dpa" style="border:2px solid #B0507A"><h2>Les données de tes client·es</h2><p class="pr-aide">Pour les dossiers de tes client·es, tu es responsable de traitement et Genesolia ton sous-traitant. Lis et accepte l’accord qui encadre cela (RGPD, article 28) : où sont hébergées les données, qui y accède, ce qui se passe en cas d’incident et à la fin de ton abonnement.</p>' +
+      '<p style="display:flex;flex-wrap:wrap;gap:.6rem;align-items:center"><a class="btn btn-trait" href="accord-sous-traitance.html" target="_blank" rel="noopener">Lire l’accord</a><button class="btn btn-plein" type="button" data-dpa-ok>J’accepte l’accord de sous-traitance</button></p><p class="pr-aide" data-dpa-msg role="status" style="margin:0"></p></div>';
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-dpa-ok]'); if (!b || !sb) return;
+    b.disabled = true;
+    sb.auth.updateUser({ data: { praticien_dpa: DPA_VERSION + ' ' + new Date().toISOString() } }).then(function (r) {
+      var m = document.querySelector('[data-dpa-msg]');
+      if (r && r.error) { b.disabled = false; if (m) m.textContent = 'Pas enregistré. Réessaie dans un instant.'; return; }
+      if (r && r.data && r.data.user) user = r.data.user;
+      var c = document.getElementById('pr-dpa'); if (c) c.outerHTML = '<p class="pr-aide" style="margin:0 0 1rem">Merci, l’accord est accepté. Tu le retrouves à tout moment en bas de ton espace.</p>';
+    });
+  });
   function cabinet() {
     /* Sur téléphone, pendant l'essai, les dossiers passent d'abord : la carte « Après ton essai » descend en bas (sauf les 5 derniers jours) */
     var essai = (actif() && prat.formule === 'essai' ? '<div class="pr-carte' + (joursRestants() <= 5 ? ' pr-fin-essai' : '') + '"><h2>' + (joursRestants() <= 5 ? 'Plus que ' + joursRestants() + ' jour' + (joursRestants() > 1 ? 's' : '') + ' d’essai' : 'Après ton essai') + '</h2><p class="pr-aide">Pour garder la création de dossiers, les partages et les rapports à ton nom : ' + (fondateur() ? '<b>ton tarif fondateur, 19 € par mois ou 190 € l’année</b> au lieu de 24 €, garanti tant que ton abonnement continue' : '24 € par mois sans engagement, ou 240 € l’année') + '. Tes dossiers restent à toi dans tous les cas. Abonne-toi quand tu veux avant la fin : ton Espace praticien continue sans coupure.</p><button class="btn btn-plein" type="button" data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">M’abonner au mois</button> <button class="btn btn-trait" type="button" data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '');
     var essaiAvant = !(window.matchMedia && window.matchMedia('(max-width: 700px)').matches && joursRestants() > 5);
-    z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">Espace praticien</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' +
+    z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">Espace praticien</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' + carteDpa() +
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (ton tarif fondateur : 19 € par mois, ou 190 € l’année)' : '') + '. Tu retrouves la création de dossiers, les partages et les rapports à ton nom.</p><button class="btn btn-plein" type="button" data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">M’abonner au mois</button> <button class="btn btn-trait" type="button" data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Tes dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       (essaiAvant ? essai : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
@@ -201,7 +220,11 @@
     var b;
     if ((b = e.target.closest('[data-notes]'))) notes(b.getAttribute('data-notes'));
     else if ((b = e.target.closest('[data-partager]'))) partager(b.getAttribute('data-partager'));
-    else if ((b = e.target.closest('[data-questionnaire]'))) { var dq = dossier(b.getAttribute('data-questionnaire')); PO.questionnaire({ sb: sb, user: user, id: dq.id, nom: dq.nom, actif: actif() }); }
+    else if ((b = e.target.closest('[data-questionnaire]'))) {
+      var dq = dossier(b.getAttribute('data-questionnaire'));
+      if (!dq || !PO || !PO.questionnaire) { alert('Le questionnaire n’a pas pu s’ouvrir. Recharge la page et réessaie.'); return; }
+      PO.questionnaire({ sb: sb, user: user, id: dq.id, nom: dq.nom, actif: actif() });
+    }
     else if ((b = e.target.closest('[data-exemple]'))) dossierExemple(b);
     else if ((b = e.target.closest('[data-debut-masquer]'))) { marquer('debut-masque'); debut(); }
     else if ((b = e.target.closest('[data-renommer]'))) {
