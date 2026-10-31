@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Logiciel de génosociogramme pour praticien·nes · Genesolia</title>
-  <meta name="description" content="Logiciel de génosociogramme (génogramme) en ligne pour praticien·nes : dossiers client·es, répétitions repérées, mode séance, rapport PDF à ton nom. 30 jours d’essai.">
+  <meta name="description" content="Logiciel de génosociogramme (génogramme) en ligne pour praticien·nes : dossiers client·es, répétitions repérées, mode séance, rapport PDF à votre nom. 30 jours d’essai.">
   <link rel="canonical" href="https://genesolia.fr/espace-praticien.html">
-  <meta property="og:title" content="Espace praticien Genesolia · le génosociogramme de tes client·es en quelques minutes">
-  <meta property="og:description" content="Un outil de travail pour les professionnel·les de l'accompagnement : arbre en ligne, pistes repérées automatiquement, dossiers client·es et rapport à ton logo.">
+  <meta property="og:title" content="Espace praticien Genesolia · le génosociogramme de vos client·es en quelques minutes">
+  <meta property="og:description" content="Un outil de travail pour les professionnel·les de l'accompagnement : arbre en ligne, pistes repérées automatiquement, dossiers client·es et rapport à votre logo.">
   <meta property="og:image" content="https://genesolia.fr/assets/images/praticien/mode-seance-1600.webp">
   <link rel="stylesheet" href="assets/site.css">
   <style>
@@ -41,7 +41,19 @@
     .p-statut{display:inline-block;margin-bottom:.6rem;font:600 .7rem var(--texte);letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:.2rem .6rem}
     .p-ok{background:var(--champagne-clair);color:var(--prune)}
     .p-prep{background:var(--champagne-clair);color:var(--prune)}
-    .p-dispo{background:var(--prune);color:#fff}
+    .p-dispo{background:linear-gradient(135deg,var(--prune),#9A4A7F);color:#fff;box-shadow:0 3px 10px rgba(107,47,91,.25)}
+    .p-dispo::before{content:"\2713";margin-right:.35rem;color:var(--champagne-clair)}
+    .p-grille li:has(.p-dispo){border-top:4px solid var(--champagne)}
+    .p-ia{max-width:46rem;margin:2rem auto 0;padding:2rem 2.2rem;border-radius:var(--rayon);background:linear-gradient(160deg,var(--rose),var(--blanc) 70%);border:1px solid var(--rose-fonce);border-left:6px solid var(--prune);box-shadow:0 16px 40px rgba(107,47,91,.08)}
+    .p-ia h3{font-size:1.45rem;margin:0 0 .8rem;color:var(--prune)}
+    .p-ia-etiq{font:600 .72rem var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin:0 0 .3rem}
+    .p-ia-liste{margin:.2rem 0 1.2rem;padding-left:1.2rem}
+    .p-ia-liste li{margin:.25rem 0}
+    .p-ia-liste li::marker{color:var(--champagne)}
+    .p-ia-sondage{margin:0;padding:1rem 1.2rem;border-radius:14px;background:var(--champagne-clair);color:var(--prune)}
+    .p-ia-sondage a{color:var(--prune);font-weight:700}
+    .p-legal{max-width:46rem;margin:1.6rem auto 0;text-align:center;font-size:.85rem;line-height:1.6;color:var(--prune-doux)}
+    .p-legal a{color:var(--prune)}
 
     .p-tarif{max-width:46rem;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:2.2rem;align-items:center;padding:2.2rem;border-radius:var(--rayon);border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);box-shadow:0 20px 50px rgba(107,47,91,.1)}
     .p-prix{font-family:var(--display);color:var(--prune);text-align:center}
@@ -177,7 +189,7 @@
       .p-colle .btn{display:flex;justify-content:center;width:100%;box-sizing:border-box;box-shadow:0 10px 28px rgba(46,19,56,.3);padding:.9rem 1rem;font-size:.95rem}
     }
   </style>
-  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Espace praticien", "item": "https://genesolia.fr/espace-praticien.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Genesolia ou un logiciel de génogramme avec IA ?", "acceptedAnswer": {"@type": "Answer", "text": "Les logiciels avec IA dessinent un premier arbre à partir de notes collées. Genesolia part d’un questionnaire que ton·ta client·e remplit chez lui·elle : l’arbre arrive pré-rempli dans son dossier, puis Genesolia repère les répétitions (dates, âges, prénoms, fratrie), propose des questions pour chaque piste, te donne un rapport à ton nom en PDF et en Word, et te présente dans l’annuaire. Tout est en français et pensé pour la psychogénéalogie."}}, {"@type": "Question", "name": "L’arbre dessiné à partir de mes notes, c’est obligatoire ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Cette option est à l’étude, et tu peux donner ton avis depuis ton Espace praticien. Si elle voit le jour, elle sera facultative : tes notes ne seraient envoyées à un service d’intelligence artificielle que si tu l’actives toi-même, et ce service serait précisé sur la page Confidentialité avant. Sans elle, rien ne sort de ton Espace praticien."}}, {"@type": "Question", "name": "Est-ce un logiciel à installer ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un logiciel en ligne : il s’ouvre dans ton navigateur, sur ordinateur, tablette ou téléphone, et peut s’ajouter à l’écran d’accueil comme une appli. Tes dossiers sont sauvegardés et se retrouvent sur tous tes appareils."}}, {"@type": "Question", "name": "Génogramme ou génosociogramme : quelle différence ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme représente la famille sur trois générations ou plus, avec ses liens. Le génosociogramme y ajoute les événements de vie (dates, deuils, unions, métiers, déménagements) pour faire ressortir ce qui se répète d’une génération à l’autre. Genesolia dessine les deux : tu commences par la famille, et chaque date ajoutée enrichit la lecture."}}, {"@type": "Question", "name": "Puis-je essayer avant d’ouvrir mon espace ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. La démo montre une famille fictive déjà remplie, sans compte. Et l’essai de 30 jours est sans carte bancaire, avec un dossier exemple pour tout tester sans toucher à tes vrais dossiers."}}, {"@type": "Question", "name": "Genesolia remplace-t-il un accompagnement ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec tes client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien."}}, {"@type": "Question", "name": "Comment fonctionne le tarif fondateur ?", "acceptedAnswer": {"@type": "Answer", "text": "Si tu ouvres ton Espace praticien d’ici le 31 mars 2027, tu paieras 19 € par mois au lieu de 24 € (ou 190 € l’année au lieu de 240 €) quand tu passeras à l’abonnement, et ce prix reste le tien tant que ton abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture de ton Espace praticien suffit."}}, {"@type": "Question", "name": "Est-ce que mes client·es voient mes notes ?", "acceptedAnswer": {"@type": "Answer", "text": "Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si l’on te demande ce que tu as noté, tu peux exporter tes notes en PDF."}}, {"@type": "Question", "name": "Comment se passe la remise de l’arbre ?", "acceptedAnswer": {"@type": "Answer", "text": "Quand le travail est terminé, tu coches « Travail terminé » dans le dossier et tu envoies le lien de partage. Sur ce lien, l’arbre peut alors être téléchargé en image ou en PDF, ou gardé dans un espace Genesolia personnel et gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste dans l’espace où il a été copié."}}, {"@type": "Question", "name": "Faut-il un compte à mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin."}}, {"@type": "Question", "name": "Que se passe-t-il à la fin de l’essai ?", "acceptedAnswer": {"@type": "Answer", "text": "Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement."}}, {"@type": "Question", "name": "Où sont hébergées les données de mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de ton·ta client·e."}}]}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Genesolia · Espace praticien", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, iOS, Android", "url": "https://genesolia.fr/espace-praticien.html", "image": "https://genesolia.fr/assets/images/praticien/mode-seance-1600.webp", "description": "Logiciel de génosociogramme (génogramme) en ligne pour les praticien·nes de l’accompagnement : dossiers client·es, répétitions repérées automatiquement, mode séance, notes chiffrées, rapport PDF et image HD à ton nom.", "inLanguage": "fr", "offers": [{"@type": "Offer", "name": "Mensuel", "price": "24", "priceCurrency": "EUR", "url": "https://genesolia.fr/espace-praticien.html#tarif"}, {"@type": "Offer", "name": "Annuel", "price": "240", "priceCurrency": "EUR", "url": "https://genesolia.fr/espace-praticien.html#tarif"}], "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}}]</script>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Espace praticien", "item": "https://genesolia.fr/espace-praticien.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Genesolia ou un logiciel de génogramme avec IA ?", "acceptedAnswer": {"@type": "Answer", "text": "Les logiciels avec IA dessinent un premier arbre à partir de notes collées. Genesolia part d’un questionnaire que votre client·e remplit chez lui·elle : l’arbre arrive pré-rempli dans son dossier, puis Genesolia repère les répétitions (dates, âges, prénoms, fratrie), propose des questions pour chaque piste, vous donne un rapport à votre nom en PDF et en Word, et vous présente dans l’annuaire. Tout est en français et pensé pour la psychogénéalogie."}}, {"@type": "Question", "name": "L’arbre dessiné à partir de mes notes, c’est obligatoire ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Cette option est à l’étude, et vous pouvez donner votre avis depuis votre Espace praticien. Si elle voit le jour, elle sera facultative : vos notes ne seraient envoyées à un service d’intelligence artificielle que si vous l’activez vous-même, et ce service serait précisé sur la page Confidentialité avant. Sans elle, rien ne sort de votre Espace praticien."}}, {"@type": "Question", "name": "Est-ce un logiciel à installer ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un logiciel en ligne : il s’ouvre dans votre navigateur, sur ordinateur, tablette ou téléphone, et peut s’ajouter à l’écran d’accueil comme une appli. Vos dossiers sont sauvegardés et se retrouvent sur tous vos appareils."}}, {"@type": "Question", "name": "Génogramme ou génosociogramme : quelle différence ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme représente la famille sur trois générations ou plus, avec ses liens. Le génosociogramme y ajoute les événements de vie (dates, deuils, unions, métiers, déménagements) pour faire ressortir ce qui se répète d’une génération à l’autre. Genesolia dessine les deux : vous commencez par la famille, et chaque date ajoutée enrichit la lecture."}}, {"@type": "Question", "name": "Puis-je essayer avant d’ouvrir mon espace ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. La démo montre une famille fictive déjà remplie, sans compte. Et l’essai de 30 jours est sans carte bancaire, avec un dossier exemple pour tout tester sans toucher à vos vrais dossiers."}}, {"@type": "Question", "name": "Genesolia remplace-t-il un accompagnement ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il vous aide à dessiner et à explorer un génosociogramme avec vos client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le vôtre."}}, {"@type": "Question", "name": "Comment fonctionne le tarif fondateur ?", "acceptedAnswer": {"@type": "Answer", "text": "Si vous ouvrez votre Espace praticien d’ici le 31 mars 2027, vous paierez 19 € par mois au lieu de 24 € (ou 190 € l’année au lieu de 240 €) quand vous passerez à l’abonnement, et ce prix reste le vôtre tant que votre abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture de votre Espace praticien suffit."}}, {"@type": "Question", "name": "Est-ce que mes client·es voient mes notes ?", "acceptedAnswer": {"@type": "Answer", "text": "Jamais. Le lien de partage montre l’arbre sans vos notes ni vos repères. Quand vous remettez l’arbre, seules les personnes et leurs liens sont copiés. Si l’on vous demande ce que vous avez noté, vous pouvez exporter vos notes en PDF."}}, {"@type": "Question", "name": "Comment se passe la remise de l’arbre ?", "acceptedAnswer": {"@type": "Answer", "text": "Quand le travail est terminé, vous cochez « Travail terminé » dans le dossier et vous envoyez le lien de partage. Sur ce lien, l’arbre peut alors être téléchargé en image ou en PDF, ou gardé dans un espace Genesolia personnel et gratuit. Vous pouvez décocher à tout moment : ce qui a déjà été gardé reste dans l’espace où il a été copié."}}, {"@type": "Question", "name": "Faut-il un compte à mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin."}}, {"@type": "Question", "name": "Que se passe-t-il à la fin de l’essai ?", "acceptedAnswer": {"@type": "Answer", "text": "Vos dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement."}}, {"@type": "Question", "name": "Où sont hébergées les données de mes client·es ?", "acceptedAnswer": {"@type": "Answer", "text": "En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de votre client·e."}}]}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Genesolia · Espace praticien", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, iOS, Android", "url": "https://genesolia.fr/espace-praticien.html", "image": "https://genesolia.fr/assets/images/praticien/mode-seance-1600.webp", "description": "Logiciel de génosociogramme (génogramme) en ligne pour les praticien·nes de l’accompagnement : dossiers client·es, répétitions repérées automatiquement, mode séance, notes chiffrées, rapport PDF et image HD à votre nom.", "inLanguage": "fr", "offers": [{"@type": "Offer", "name": "Mensuel", "price": "24", "priceCurrency": "EUR", "url": "https://genesolia.fr/espace-praticien.html#tarif"}, {"@type": "Offer", "name": "Annuel", "price": "240", "priceCurrency": "EUR", "url": "https://genesolia.fr/espace-praticien.html#tarif"}], "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}}]</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -186,13 +198,13 @@
       <div class="conteneur p-tete-grille">
         <div class="p-tete-texte">
           <p class="p-sur">Logiciel de génosociogramme en ligne · Espace praticien</p>
-          <h1>Le logiciel qui dessine le génosociogramme de tes client·es en quelques minutes</h1>
+          <h1>Le logiciel qui dessine le génosociogramme de vos client·es en quelques minutes</h1>
           <p class="intro">Un logiciel en ligne pour les professionnel·les de l’accompagnement : un dossier par client·e, l’arbre en plein écran pendant la séance, les répétitions qui ressortent toutes seules, et l’arbre remis à la fin du travail.</p>
           <div class="p-actions">
             <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien · 30 jours d’essai</a>
             <a class="btn btn-trait" href="genosociogramme.html?exemple">Voir la démo</a>
           </div>
-          <p class="p-pour">Sans carte bancaire. Tarif fondateur si tu ouvres ton espace d’ici le 31 mars 2027 : <b>19 € par mois au lieu de 24 €, ou 190 € l’année au lieu de 240 €</b>, garanti tant que ton abonnement continue. <a href="conditions-praticien.html" style="color:inherit">Conditions de l’Espace praticien</a>. TVA non applicable, art. 293 B du CGI.</p>
+          <p class="p-pour">Sans carte bancaire. Tarif fondateur si vous ouvrez votre espace d’ici le 31 mars 2027 : <b>19 € par mois au lieu de 24 €, ou 190 € l’année au lieu de 240 €</b>, garanti tant que votre abonnement continue. <a href="conditions-praticien.html" style="color:inherit">Conditions de l’Espace praticien</a>. TVA non applicable, art. 293 B du CGI.</p>
           <ul class="p-confiance"><li>Hébergé en Europe</li><li>Notes chiffrées</li><li>Accord de chaque client·e</li><li>Rien à installer</li></ul>
         </div>
         <figure class="p-ecran p-ecran-tete"><div class="p-ecran-barre" aria-hidden="true"><i></i><i></i><i></i><span>Mode séance</span></div><img class="" src="assets/images/praticien/mode-seance-1600.webp" srcset="assets/images/praticien/mode-seance-800.webp 800w, assets/images/praticien/mode-seance-1600.webp 1600w" sizes="(max-width: 960px) 100vw, 55vw" width="1600" height="1000" alt="Le mode séance : l’arbre familial en plein écran, sur quatre générations, avec ses symboles et ses répétitions" fetchpriority="high"></figure>
@@ -203,7 +215,7 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">L’outil, tel qu’il est</p>
-          <h2>Ce que tu verras dans ton Espace praticien</h2>
+          <h2>Ce que vous verrez dans votre Espace praticien</h2>
           <p>Ces images viennent de l’outil, avec une famille fictive.</p>
         </div>
         <div class="p-ligne">
@@ -212,16 +224,16 @@
             <p class="a-etiq">Ce qui se répète</p>
             <h3>Les répétitions ressortent pendant la saisie</h3>
             <p>Dates anniversaires, âges, prénoms qui reviennent, places dans la fratrie, deuils, métiers : plus de 25 pistes sont repérées automatiquement. Un clic sur une répétition la trace dans l’arbre, avec les lectures possibles et des questions pour en parler en séance.</p>
-            <p>Tu gagnes le temps du repérage, et tu gardes le tien pour l’écoute.</p>
+            <p>Vous gagnez le temps du repérage, et vous gardez le vôtre pour l’écoute.</p>
           </div>
         </div>
         <div class="p-ligne p-ligne-inverse">
-          <figure class="p-ecran p-ecran-papier"><img class="" src="assets/images/praticien/rapport-900.webp" srcset="assets/images/praticien/rapport-450.webp 450w, assets/images/praticien/rapport-900.webp 900w" sizes="(max-width: 760px) 100vw, 40vw" width="900" height="1091" alt="La couverture du rapport PDF « Préparé par » ton nom, avec le nombre de personnes, de générations et de répétitions" loading="lazy"></figure>
+          <figure class="p-ecran p-ecran-papier"><img class="" src="assets/images/praticien/rapport-900.webp" srcset="assets/images/praticien/rapport-450.webp 450w, assets/images/praticien/rapport-900.webp 900w" sizes="(max-width: 760px) 100vw, 40vw" width="900" height="1091" alt="La couverture du rapport PDF « Préparé par » votre nom, avec le nombre de personnes, de générations et de répétitions" loading="lazy"></figure>
           <div class="p-ligne-texte">
             <p class="a-etiq">Le rapport</p>
-            <h3>Un rapport PDF à ton nom</h3>
-            <p>L’arbre, les chiffres clés, chaque répétition expliquée avec ses pistes de réflexion, la lignée en nombres et en étoiles si ta pratique les utilise. La couverture porte ton nom.</p>
-            <p>Tu peux y ajouter tes notes de séance en annexe, si tu le choisis.</p>
+            <h3>Un rapport PDF à votre nom</h3>
+            <p>L’arbre, les chiffres clés, chaque répétition expliquée avec ses pistes de réflexion, la lignée en nombres et en étoiles si votre pratique les utilise. La couverture porte votre nom.</p>
+            <p>Vous pouvez y ajouter vos notes de séance en annexe, si vous le choisissez.</p>
           </div>
         </div>
         <div class="p-ligne">
@@ -230,10 +242,10 @@
             <figure class="p-tel p-tel-decale"><img class="" src="assets/images/praticien/partage-640.webp" srcset="assets/images/praticien/partage-320.webp 320w, assets/images/praticien/partage-640.webp 640w" sizes="(max-width: 760px) 45vw, 18rem" width="640" height="1385" alt="Le lien de partage reçu par un·e client·e, avec les boutons « Garder mon arbre dans mon espace » et « Télécharger mon arbre »" loading="lazy"></figure>
           </div>
           <div class="p-ligne-texte">
-            <p class="a-etiq">Sur téléphone, et pour tes client·es</p>
-            <h3>L’arbre suit tes client·es, jusque dans leur espace</h3>
+            <p class="a-etiq">Sur téléphone, et pour vos client·es</p>
+            <h3>L’arbre suit vos client·es, jusque dans leur espace</h3>
             <p>Sur téléphone, l’arbre se lit d’un coup d’œil : la personne au centre, sa famille autour, une case à toucher pour ajouter quelqu’un.</p>
-            <p>Entre deux séances, tes client·es regardent leur arbre par un lien. Quand le travail est terminé, l’arbre se télécharge ou se garde dans leur espace Genesolia.</p>
+            <p>Entre deux séances, vos client·es regardent leur arbre par un lien. Quand le travail est terminé, l’arbre se télécharge ou se garde dans leur espace Genesolia.</p>
           </div>
         </div>
       </div>
@@ -243,14 +255,14 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Exports</p>
-          <h2>Tout ce que tu fais s’exporte, à ton nom</h2>
-          <p>Ce que tu prépares dans ton Espace praticien ne reste pas enfermé dans l’outil : tu le remets, tu l’imprimes, tu l’archives.</p>
+          <h2>Tout ce que vous faites s’exporte, à votre nom</h2>
+          <p>Ce que vous préparez dans votre Espace praticien ne reste pas enfermé dans l’outil : vous le remettez, vous l’imprimez, vous l’archivez.</p>
         </div>
         <ul class="p-export">
-          <li><span class="p-format">PDF</span><b>Le rapport de l’arbre</b>Ton nom sur la couverture, l’arbre, les chiffres clés et chaque répétition expliquée. Tes notes en annexe, si tu le choisis.</li>
+          <li><span class="p-format">PDF</span><b>Le rapport de l’arbre</b>Votre nom sur la couverture, l’arbre, les chiffres clés et chaque répétition expliquée. Vos notes en annexe, si vous le choisissez.</li>
           <li><span class="p-format">Image HD</span><b>L’arbre en haute définition</b>Le génosociogramme complet en image nette, à projeter, à imprimer ou à joindre à un compte rendu.</li>
-          <li><span class="p-format">PDF</span><b>Tes notes de séance</b>Toutes les notes d’un dossier, datées et rangées, dans un document personnel à archiver.</li>
-          <li><span class="p-format">Lien</span><b>L’arbre remis à ta cliente</b>Quand le travail est terminé, elle le télécharge ou le garde dans son espace Genesolia. En cadeau : son arbre à encadrer.</li>
+          <li><span class="p-format">PDF</span><b>Vos notes de séance</b>Toutes les notes d’un dossier, datées et rangées, dans un document personnel à archiver.</li>
+          <li><span class="p-format">Lien</span><b>L’arbre remis à votre cliente</b>Quand le travail est terminé, elle le télécharge ou le garde dans son espace Genesolia. En cadeau : son arbre à encadrer.</li>
         </ul>
         <p style="text-align:center;margin-top:1.8rem"><a class="btn btn-trait" href="genosociogramme.html?exemple">Voir la démo avec une famille fictive</a></p>
       </div>
@@ -260,19 +272,18 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Confidentialité</p>
-          <h2>Les données de tes client·es, protégées</h2>
-          <p>Tu travailles avec des histoires familiales. Elles méritent un cadre clair.</p>
+          <h2>Les données de vos client·es, protégées</h2>
+          <p>Vous travaillez avec des histoires familiales. Elles méritent un cadre clair.</p>
         </div>
         <ul class="p-confi">
           <li><b>Hébergement en Europe</b> : les données sont stockées sur des serveurs situés en Irlande.</li>
-          <li><b>Notes chiffrées</b> : tes notes de séance sont chiffrées avant d’être enregistrées. Elles ne sont jamais montrées dans le lien de partage, ni copiées dans l’espace de tes client·es.</li>
-          <li><b>L’arbre remis seulement si tu le décides</b> : tant que tu n’as pas coché « Travail terminé », le lien reste en lecture seule.</li>
-          <li><b>Données sensibles, avec l’accord de tes client·es</b> : un arbre peut contenir des informations sensibles (deuils, naissances, secrets de famille). Avant de créer chaque dossier, tu confirmes que ton·ta client·e est d’accord, et tu le supprimes en un clic à sa demande.</li>
-          <li><b>Connexion en deux étapes</b> : en plus de ton mot de passe, un code à 6 chiffres de ton téléphone. Une fois activée, les dossiers ne s’ouvrent qu’avec ce code.</li>
-          <li><b>Suppression à la demande</b> : un dossier et ses notes se suppriment en un clic, dès que ton·ta client·e le demande.</li>
-          <li><b>Conservation limitée</b> : un dossier est gardé tant que ton espace est ouvert, puis effacé 12 mois après la fin de ton abonnement.</li>
+          <li><b>Notes chiffrées</b> : vos notes de séance sont chiffrées avant d’être enregistrées. Elles ne sont jamais montrées dans le lien de partage, ni copiées dans l’espace de vos client·es.</li>
+          <li><b>L’arbre remis seulement si vous le décidez</b> : tant que vous n’avez pas coché « Travail terminé », le lien reste en lecture seule.</li>
+          <li><b>Données sensibles, avec l’accord de vos client·es</b> : un arbre peut contenir des informations sensibles (deuils, naissances, secrets de famille). Avant de créer chaque dossier, vous confirmez que votre client·e est d’accord, et vous le supprimez en un clic à sa demande.</li>
+          <li><b>Connexion en deux étapes</b> : en plus de votre mot de passe, un code à 6 chiffres de votre téléphone. Une fois activée, les dossiers ne s’ouvrent qu’avec ce code.</li>
+          <li><b>Suppression à la demande</b> : un dossier et ses notes se suppriment en un clic, dès que votre client·e le demande.</li>
+          <li><b>Conservation limitée</b> : un dossier est gardé tant que votre espace est ouvert, puis effacé 12 mois après la fin de votre abonnement.</li>
         </ul>
-        <p class="p-legal" style="margin-top:1rem;font-size:.95rem">À lire avant de t’abonner : <a href="conditions-praticien.html">Conditions de l’Espace praticien (CGU/CGV)</a> · <a href="accord-sous-traitance.html">Accord de sous-traitance</a> · <a href="confidentialite.html">Confidentialité</a> · <a href="mentions-legales.html">Mentions légales</a></p>
       </div>
     </section>
 
@@ -283,35 +294,35 @@
           <h2>Du premier rendez-vous à l’arbre remis</h2>
         </div>
         <ol class="p-etapes">
-          <li><span class="p-num">1</span><b>Ouvre ton Espace praticien</b>Le nom de ton activité, et c’est parti : 30 jours pour l’utiliser avec tes vrai·es client·es. Un dossier exemple, avec une famille fictive, s’ouvre en un clic pour tout essayer.</li>
-          <li><span class="p-num">2</span><b>Crée un dossier par client·e</b>Un prénom ou des initiales suffisent. Tu dessines l’arbre en séance, ou tu importes un fichier Geneanet ou GEDCOM.</li>
-          <li><span class="p-num">3</span><b>Travaille l’arbre ensemble</b>Le mode séance affiche l’arbre en plein écran. Les répétitions ressortent, et tu notes ce que tu observes, séance après séance.</li>
-          <li><span class="p-num">4</span><b>Partage, puis remets l’arbre</b>Un lien en lecture pendant le suivi. Quand le travail est terminé, tu coches une case : tes client·es repartent avec leur arbre.</li>
+          <li><span class="p-num">1</span><b>Ouvrez votre Espace praticien</b>Le nom de votre activité, et c’est parti : 30 jours pour l’utiliser avec vos vrai·es client·es. Un dossier exemple, avec une famille fictive, s’ouvre en un clic pour tout essayer.</li>
+          <li><span class="p-num">2</span><b>Créez un dossier par client·e</b>Un prénom ou des initiales suffisent. Vous dessinez l’arbre en séance, ou vous importez un fichier Geneanet ou GEDCOM.</li>
+          <li><span class="p-num">3</span><b>Travaillez l’arbre ensemble</b>Le mode séance affiche l’arbre en plein écran. Les répétitions ressortent, et vous notez ce que vous observez, séance après séance.</li>
+          <li><span class="p-num">4</span><b>Partagez, puis remettez l’arbre</b>Un lien en lecture pendant le suivi. Quand le travail est terminé, vous cochez une case : vos client·es repartent avec leur arbre.</li>
         </ol>
         <div class="p-partage">
           <h3>Le lien de partage, en deux temps</h3>
-          <p class="p-partage-intro">Tu crées un lien depuis le dossier et tu l’envoies. C’est toi qui décides de ce que tes client·es peuvent en faire.</p>
+          <p class="p-partage-intro">Vous créez un lien depuis le dossier et vous l’envoyez. C’est vous qui décidez de ce que vos client·es peuvent en faire.</p>
           <div class="p-temps">
             <div class="p-temps-carte">
               <p class="p-temps-etiq">Pendant le suivi</p>
-              <p class="p-temps-titre">Tes client·es regardent leur arbre</p>
+              <p class="p-temps-titre">Vos client·es regardent leur arbre</p>
               <ul>
                 <li>Le lien ouvre l’arbre <b>en lecture seule</b> : on le voit, on le parcourt, on le montre à sa famille.</li>
-                <li>Pas de téléchargement ni d’impression : l’arbre reste dans ton Espace praticien.</li>
-                <li>Tu continues à le compléter en séance : le lien montre toujours la dernière version.</li>
+                <li>Pas de téléchargement ni d’impression : l’arbre reste dans votre Espace praticien.</li>
+                <li>Vous continuez à le compléter en séance : le lien montre toujours la dernière version.</li>
               </ul>
             </div>
             <div class="p-temps-carte p-temps-fin">
               <p class="p-temps-etiq">Travail terminé</p>
-              <p class="p-temps-titre">Tes client·es repartent avec leur arbre</p>
+              <p class="p-temps-titre">Vos client·es repartent avec leur arbre</p>
               <ul>
-                <li>Dans le dossier, tu coches <b>« Travail terminé »</b>.</li>
+                <li>Dans le dossier, vous cochez <b>« Travail terminé »</b>.</li>
                 <li>Sur le lien, deux boutons apparaissent : <b>télécharger</b> l’arbre (image ou PDF) et <b>le garder dans son espace</b> Genesolia, gratuit.</li>
-                <li>L’arbre gardé leur appartient, et se complète sans passer par toi.</li>
+                <li>L’arbre gardé leur appartient, et se complète sans passer par vous.</li>
               </ul>
             </div>
           </div>
-          <p class="p-partage-note"><b>Dans les deux cas, tes notes de séance ne sont jamais visibles ni copiées.</b> Un lien reste valable 14 jours, se renouvelle en un clic depuis le dossier et se désactive à tout moment. Tu choisis aussi ce qu’il montre : l’arbre seul, ou avec les répétitions, sans les pistes délicates si tu préfères. Tu peux décocher « Travail terminé » à tout moment : ce qui a déjà été gardé reste chez tes client·es.</p>
+          <p class="p-partage-note"><b>Dans les deux cas, vos notes de séance ne sont jamais visibles ni copiées.</b> Un lien reste valable 14 jours, se renouvelle en un clic depuis le dossier et se désactive à tout moment. Vous choisissez aussi ce qu’il montre : l’arbre seul, ou avec les répétitions, sans les pistes délicates si vous préférez. Vous pouvez décocher « Travail terminé » à tout moment : ce qui a déjà été gardé reste chez vos client·es.</p>
         </div>
         <p class="p-cta"><a class="btn btn-plein" href="pro.html">Commencer mes 30 jours d’essai</a></p>
       </div>
@@ -320,18 +331,18 @@
     <section class="bloc bloc-doux">
       <div class="conteneur p-appli">
         <div class="p-appli-ecrans">
-          <figure><img src="assets/images/praticien/appli-pro-dossiers.webp" width="540" height="1168" alt="L’appli Genesolia Pro : tes dossiers client·es et la barre du bas" loading="lazy" decoding="async"><figcaption>Tes dossiers</figcaption></figure>
+          <figure><img src="assets/images/praticien/appli-pro-dossiers.webp" width="540" height="1168" alt="L’appli Genesolia Pro : vos dossiers client·es et la barre du bas" loading="lazy" decoding="async"><figcaption>Vos dossiers</figcaption></figure>
           <figure><img src="assets/images/praticien/appli-pro-dossier-ouvert.webp" width="540" height="1168" alt="L’appli Genesolia Pro : un dossier ouvert sur téléphone" loading="lazy" decoding="async"><figcaption>Un dossier ouvert</figcaption></figure>
         </div>
         <div>
-          <p class="a-etiq">Ton appli Genesolia Pro</p>
-          <h2>Ton Espace praticien, dans ta poche</h2>
-          <p>Une icône sur ton écran d’accueil, et ton Espace praticien s’ouvre comme une vraie appli. Une barre en bas pour passer de l’un à l’autre :</p>
+          <p class="a-etiq">Votre appli Genesolia Pro</p>
+          <h2>Votre Espace praticien, dans votre poche</h2>
+          <p>Une icône sur votre écran d’accueil, et votre Espace praticien s’ouvre comme une vraie appli. Une barre en bas pour passer de l’un à l’autre :</p>
           <p class="p-appli-barre"><span>Dossiers</span><span>Nouveau</span><span>Démo</span><span>Mon activité</span></p>
           <ul class="p-confi">
-            <li>Le <b>mode séance</b> et tes <b>notes</b> à portée de main, même en rendez-vous.</li>
-            <li>Les mêmes dossiers sur ton téléphone, ta tablette et ton ordinateur.</li>
-            <li>Gratuit avec ton Espace praticien, sans passer par un magasin d’applis.</li>
+            <li>Le <b>mode séance</b> et vos <b>notes</b> à portée de main, même en rendez-vous.</li>
+            <li>Les mêmes dossiers sur votre téléphone, votre tablette et votre ordinateur.</li>
+            <li>Gratuit avec votre Espace praticien, sans passer par un magasin d’applis.</li>
           </ul>
           <a class="btn btn-plein" href="pro.html#installer">Installer l’appli Genesolia Pro</a>
         </div>
@@ -347,7 +358,7 @@
         <video class="p-video" controls preload="none" playsinline poster="assets/videos/demo-espace-praticien.jpg" width="1280" height="720" style="display:block;width:100%;max-width:56rem;height:auto;margin:0 auto;border-radius:18px;border:1px solid var(--rose);box-shadow:0 18px 40px rgba(46,19,56,.12);background:#2E1338">
           <source src="assets/videos/demo-espace-praticien.mp4" type="video/mp4">
         </video>
-        <p style="text-align:center;color:var(--prune-doux);font-size:.9rem;margin:.8rem 0 0">Ta cliente remplit son questionnaire, son arbre se dessine, les répétitions ressortent, tu remontes le temps, tu remets un rapport à ton nom. Famille fictive.</p>
+        <p style="text-align:center;color:var(--prune-doux);font-size:.9rem;margin:.8rem 0 0">Votre cliente remplit son questionnaire, son arbre se dessine, les répétitions ressortent, vous remontez le temps, vous remettez un rapport à votre nom. Famille fictive.</p>
       </div>
     </section>
 
@@ -359,25 +370,35 @@
         </div>
         <div class="p-compare-zone">
           <table class="p-compare">
-            <thead><tr><th scope="col"><span class="sr">Ce dont tu as besoin</span></th><th scope="col">Papier et crayon</th><th scope="col">Logiciel de dessin</th><th scope="col">Logiciel de généalogie</th><th scope="col">Logiciel de génogramme avec IA</th><th scope="col" class="p-nous">Genesolia</th></tr></thead>
+            <thead><tr><th scope="col"><span class="sr">Ce dont vous avez besoin</span></th><th scope="col">Papier et crayon</th><th scope="col">Logiciel de dessin</th><th scope="col">Logiciel de généalogie</th><th scope="col">Logiciel de génogramme avec IA</th><th scope="col" class="p-nous">Genesolia</th></tr></thead>
             <tbody>
               <tr><th scope="row">Dessiner le génosociogramme</th><td>Long</td><td>À la main</td><td>Arbre classique</td><td>Oui, à partir de notes collées</td><td class="p-nous">Oui, symboles compris</td></tr>
               <tr><th scope="row">Repérer les répétitions (dates, âges, prénoms, fratrie)</th><td>Non</td><td>Non</td><td>Rarement</td><td>Rarement</td><td class="p-nous">Automatique</td></tr>
               <tr><th scope="row">Questions à explorer en séance</th><td>Non</td><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">Pour chaque piste</td></tr>
               <tr><th scope="row">Un dossier rangé par client·e</th><td>Classeur</td><td>Fichiers</td><td>En partie</td><td>Oui</td><td class="p-nous">Oui, illimité</td></tr>
               <tr><th scope="row">Notes de séance privées</th><td>Carnet</td><td>Non</td><td>Non</td><td>Selon l’outil</td><td class="p-nous">Chiffrées</td></tr>
-              <tr><th scope="row">Rapport à ton nom</th><td>Non</td><td>Non</td><td>Non</td><td>Export du dessin</td><td class="p-nous">En PDF, et en Word à retoucher</td></tr>
-              <tr><th scope="row">Remettre l’arbre à tes client·es</th><td>Une photocopie</td><td>Une image</td><td>Non</td><td>Une image ou un PDF</td><td class="p-nous">Lien, PDF, ou leur propre espace</td></tr>
+              <tr><th scope="row">Rapport à votre nom</th><td>Non</td><td>Non</td><td>Non</td><td>Export du dessin</td><td class="p-nous">En PDF, et en Word à retoucher</td></tr>
+              <tr><th scope="row">Remettre l’arbre à vos client·es</th><td>Une photocopie</td><td>Une image</td><td>Non</td><td>Une image ou un PDF</td><td class="p-nous">Lien, PDF, ou leur propre espace</td></tr>
               <tr><th scope="row">En français, pensé pour la psychogénéalogie</th><td>Oui</td><td>Non</td><td>Non</td><td>Surtout en anglais, pensé pour le génogramme classique</td><td class="p-nous">Oui</td></tr>
-              <tr><th scope="row">L’arbre pré-rempli avant la première séance</th><td>Non</td><td>Non</td><td>Non</td><td>À partir de tes notes, par l’IA</td><td class="p-nous">Questionnaire rempli par ton·ta client·e, chez lui·elle</td></tr>
+              <tr><th scope="row">L’arbre pré-rempli avant la première séance</th><td>Non</td><td>Non</td><td>Non</td><td>À partir de vos notes, par l’IA</td><td class="p-nous">Questionnaire rempli par votre client·e, chez lui·elle</td></tr>
               <tr><th scope="row">La famille à une date donnée, reliée aux répétitions</th><td>Non</td><td>Non</td><td>Non</td><td>Rarement</td><td class="p-nous">Oui, avec les échos d’âge</td></tr>
-              <tr><th scope="row">Des client·es qui te trouvent</th><td>Non</td><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">L’annuaire Genesolia</td></tr>
+              <tr><th scope="row">Des client·es qui vous trouvent</th><td>Non</td><td>Non</td><td>Non</td><td>Non</td><td class="p-nous">L’annuaire Genesolia</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="p-ia" style="max-width:46rem;margin:1.8rem auto 0">
-          <h3 style="font-size:1.35rem;margin:0 0 .6rem">Genesolia ou un logiciel de génogramme avec IA ?</h3>
-          <p>Les logiciels avec IA transforment des notes d’entretien en un premier dessin. C’est rapide, mais le dessin n’est qu’un début : il reste à lire ce qui se répète, à préparer les questions, à remettre quelque chose à ton·ta client·e. Genesolia fait ce travail-là, en français et pour la psychogénéalogie : ton·ta client·e remplit son questionnaire chez lui·elle, l’arbre arrive pré-rempli, les répétitions ressortent toutes seules, et tu remets un rapport à ton nom. Et l’annuaire t’amène des client·es, ce que les logiciels de génogramme ne font pas.</p>
+        <div class="p-ia">
+          <p class="p-ia-etiq">Comparaison</p>
+          <h3>Genesolia ou un logiciel de génogramme avec IA ?</h3>
+          <p>Les logiciels avec IA transforment des notes d’entretien en un premier dessin. C’est rapide, mais ce dessin n’est qu’un point de départ : il reste à lire ce qui se répète, à préparer les questions et à remettre un travail à votre client·e.</p>
+          <p><b>C’est précisément ce que fait Genesolia, en français et pour la psychogénéalogie :</b></p>
+          <ul class="p-ia-liste">
+            <li>votre client·e remplit son questionnaire chez lui·elle&nbsp;;</li>
+            <li>l’arbre arrive pré-rempli dans son dossier&nbsp;;</li>
+            <li>les répétitions ressortent automatiquement&nbsp;;</li>
+            <li>vous remettez un rapport à votre nom&nbsp;;</li>
+            <li>l’annuaire vous amène de nouveaux·elles client·es, ce que les logiciels de génogramme ne font pas.</li>
+          </ul>
+          <p class="p-ia-sondage"><b>Et l’arbre dessiné par l’IA à partir de vos notes ?</b> Cette option est actuellement soumise à un sondage auprès des praticien·nes. Elle ne sera développée que si elle vous intéresse, et restera facultative. <a href="pro.html#pr-sondage">Répondre au sondage</a> (depuis votre Espace praticien).</p>
         </div>
       </div>
     </section>
@@ -386,26 +407,26 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">Tout est inclus</p>
-          <h2>Ce que tu as dans ton Espace praticien</h2>
+          <h2>Ce que vous avez dans votre Espace praticien</h2>
         </div>
         <ul class="p-grille">
-          <li><span class="p-statut p-dispo">Inclus</span><b>Dossiers client·es illimités</b>Un arbre par client·e, rangé à part de tes arbres personnels, retrouvé en un clic.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Notes de séance chiffrées</b>Tes observations par séance, chiffrées avant d’être enregistrées, exportables en PDF à ton nom.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Dossiers client·es illimités</b>Un arbre par client·e, rangé à part de vos arbres personnels, retrouvé en un clic.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Notes de séance chiffrées</b>Vos observations par séance, chiffrées avant d’être enregistrées, exportables en PDF à votre nom.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Mode séance</b>L’arbre en plein écran, sans menus, pour le regarder à deux.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de partage</b>Tes client·es voient leur arbre entre deux séances, sans tes notes. Il se renouvelle en un clic.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>L’arbre remis à la fin</b>Quand tu le décides, tes client·es le téléchargent ou le gardent dans leur espace gratuit. Tes notes restent à toi.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Rapport à ton nom</b>Le rapport de l’arbre en PDF, à ton nom, avec tes notes en annexe si tu le choisis.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de partage</b>Vos client·es voient leur arbre entre deux séances, sans vos notes. Il se renouvelle en un clic.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>L’arbre remis à la fin</b>Quand vous le décidez, vos client·es le téléchargent ou le gardent dans leur espace gratuit. Vos notes restent à vous.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Rapport à votre nom</b>Le rapport de l’arbre en PDF, à votre nom, avec vos notes en annexe si vous le choisissez.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Plus de 25 pistes repérées</b>Âges, dates, prénoms, places dans la fratrie, deuils : repérés automatiquement, avec des questions guidées.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Tes propres repères, en couleur</b>Pose tes mots sur les personnes (« s’efface », « porte la famille »…). Quand un mot revient d’une génération à l’autre, l’arbre le montre.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Import Geneanet et GEDCOM</b>Pas besoin de tout ressaisir. Numérologie et astrologie reliées à l’arbre, si ta pratique les utilise.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>L’appli Genesolia Pro</b>Ton Espace praticien sur l’écran d’accueil de ton téléphone : tes dossiers, le mode séance et tes notes d’un geste.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Questionnaire avant séance</b>Ton·ta client·e remplit sa famille chez lui·elle, sans compte. Ses réponses arrivent dans son dossier, et l’arbre se dessine en un clic.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Vos propres repères, en couleur</b>Posez vos mots sur les personnes (« s’efface », « porte la famille »…). Quand un mot revient d’une génération à l’autre, l’arbre le montre.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Import Geneanet et GEDCOM</b>Pas besoin de tout ressaisir. Numérologie et astrologie reliées à l’arbre, si votre pratique les utilise.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>L’appli Genesolia Pro</b>Votre Espace praticien sur l’écran d’accueil de votre téléphone : vos dossiers, le mode séance et vos notes d’un geste.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Questionnaire avant séance</b>Votre client·e remplit sa famille chez lui·elle, sans compte. Ses réponses arrivent dans son dossier, et l’arbre se dessine en un clic.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Remonter le temps</b>La famille l’année d’une naissance ou d’un deuil, la frise de la lignée, et les échos d’âge de cette année-là.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>11 liens relationnels</b>Fusionnel, ambivalent, coupé, alliance, secret partagé, enfant confident·e… et un lien libre avec ton propre mot.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>11 liens relationnels</b>Fusionnel, ambivalent, coupé, alliance, secret partagé, enfant confident·e… et un lien libre avec votre propre mot.</li>
           <li><span class="p-statut p-dispo">Inclus</span><b>Rapport en Word</b>À côté du PDF, une version Word pour retoucher le texte avant de le remettre.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de supervision</b>Un dossier anonymisé, sans prénoms ni dates exactes, à montrer à ta superviseure ou ta formatrice.</li>
-          <li><span class="p-statut p-dispo">Inclus</span><b>Ta fiche dans l’annuaire</b>Les personnes qui dessinent leur arbre sur Genesolia te trouvent, près de chez elles ou en visio.</li>
-          <li><span class="p-statut p-prep">À l’étude · ton avis compte</span><b>L’arbre dessiné à partir de tes notes</b>Coller tes notes de premier rendez-vous et voir l’arbre se dessiner en brouillon, en validant chaque personne : nous étudions cette option. Dis-nous si elle t’intéresse, depuis ton Espace praticien. Tout le reste de l’Espace praticien fonctionne sans.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Lien de supervision</b>Un dossier anonymisé, sans prénoms ni dates exactes, à montrer à votre superviseure ou votre formatrice.</li>
+          <li><span class="p-statut p-dispo">Inclus</span><b>Votre fiche dans l’annuaire</b>Les personnes qui dessinent leur arbre sur Genesolia vous trouvent, près de chez elles ou en visio.</li>
+          <li><span class="p-statut p-prep">À l’étude · votre avis compte</span><b>L’arbre dessiné à partir de vos notes</b>Coller vos notes de premier rendez-vous et voir l’arbre se dessiner en brouillon, en validant chaque personne : nous étudions cette option. <a href="pro.html#pr-sondage" style="color:var(--prune);font-weight:700">Répondez au sondage</a> depuis votre Espace praticien. Tout le reste de l’Espace praticien fonctionne sans.</li>
         </ul>
       </div>
     </section>
@@ -416,8 +437,8 @@
           <div>
             <p class="a-etiq">Nouveau</p>
             <h2>L’annuaire des praticien·nes Genesolia</h2>
-            <p>Des particuliers dessinent leur arbre sur Genesolia, puis cherchent quelqu’un pour les accompagner. <a href="annuaire.html" style="color:#fff">L’annuaire</a> leur présente les praticien·nes abonné·es, près de chez soi ou en visio. Ta fiche se remplit depuis ton Espace praticien. <b>Les premières fiches sont présentées en premier.</b></p>
-            <p class="p-annuaire-plus">Arrivent aussi : ton logo et tes couleurs sur le rapport, et un avantage sur Le Cercle à offrir à tes client·es.</p>
+            <p>Des particuliers dessinent leur arbre sur Genesolia, puis cherchent quelqu’un pour les accompagner. <a href="annuaire.html" style="color:#fff">L’annuaire</a> leur présente les praticien·nes abonné·es, près de chez soi ou en visio. Votre fiche se remplit depuis votre Espace praticien. <b>Les premières fiches sont présentées en premier.</b></p>
+            <p class="p-annuaire-plus">Arrivent aussi : votre logo et vos couleurs sur le rapport, et un avantage sur Le Cercle à offrir à vos client·es.</p>
           </div>
           <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a>
         </div>
@@ -434,16 +455,17 @@
           <p class="p-prix"><span class="p-devise" data-devise-ici></span><b>24 €</b><small>par mois, sans engagement</small><small>ou 240 € l’année (2 mois offerts)</small><small>TVA non applicable, art. 293 B du CGI</small></p>
           <div>
             <ul>
-              <li><b>30 jours d’essai</b>, sans carte, avec tes vrai·es client·es</li>
-              <li><b>Tarif fondateur : 19 € par mois</b> si tu ouvres ton Espace praticien d’ici le 31 mars 2027, garanti tant que ton abonnement continue</li>
-              <li><b>Autant de dossiers que tu veux</b>, avec leurs rapports et leurs exports à ton nom</li>
-              <li>Après l’essai sans abonnement, tes dossiers restent consultables</li>
+              <li><b>30 jours d’essai</b>, sans carte, avec vos vrai·es client·es</li>
+              <li><b>Tarif fondateur : 19 € par mois</b> si vous ouvrez votre Espace praticien d’ici le 31 mars 2027, garanti tant que votre abonnement continue</li>
+              <li><b>Autant de dossiers que vous voulez</b>, avec leurs rapports et leurs exports à votre nom</li>
+              <li>Après l’essai sans abonnement, vos dossiers restent consultables</li>
               <li>L’essai de 30 jours comprend tout ce qui est décrit sur cette page.</li>
             </ul>
             <a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a>
             <p class="p-note" style="margin-top:.8rem">Moins d’un tiers de séance par mois. L’outil gratuit reste réservé à un usage personnel : avec des client·es, c’est l’Espace praticien.</p>
           </div>
         </div>
+        <p class="p-legal">Avant de vous abonner, prenez connaissance des documents qui encadrent votre Espace praticien : les <a href="conditions-praticien.html">conditions d’utilisation et de vente</a>, l’<a href="accord-sous-traitance.html">accord de sous-traitance des données</a>, la <a href="confidentialite.html">politique de confidentialité</a> et les <a href="mentions-legales.html">mentions légales</a>.</p>
       </div>
     </section>
 
@@ -451,8 +473,8 @@
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="p-ecole">
-          <h2>Tu animes une formation en psychogénéalogie ?</h2>
-          <p>Tes élèves travaillent sur leur propre génosociogramme : Genesolia leur fait gagner le dessin et le repérage. Écris-nous pour un accès dédié à ta promotion.</p>
+          <h2>Vous animez une formation en psychogénéalogie ?</h2>
+          <p>Vos élèves travaillent sur leur propre génosociogramme : Genesolia leur fait gagner le dessin et le repérage. Écrivez-nous pour un accès dédié à votre promotion.</p>
           <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Genesolia%20pour%20une%20formation">Écrire à Genesolia</a>
         </div>
       </div>
@@ -461,18 +483,18 @@
     <section class="bloc">
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
-        <details><summary>Genesolia ou un logiciel de génogramme avec IA ?</summary><p>Les logiciels avec IA dessinent un premier arbre à partir de notes collées. Genesolia part d’un questionnaire que ton·ta client·e remplit chez lui·elle : l’arbre arrive pré-rempli dans son dossier, puis Genesolia repère les répétitions (dates, âges, prénoms, fratrie), propose des questions pour chaque piste, te donne un rapport à ton nom en PDF et en Word, et te présente dans l’annuaire. Tout est en français et pensé pour la psychogénéalogie.</p></details>
-        <details><summary>L’arbre dessiné à partir de mes notes, c’est obligatoire ?</summary><p>Non. Cette option est à l’étude, et tu peux donner ton avis depuis ton Espace praticien. Si elle voit le jour, elle sera facultative : tes notes ne seraient envoyées à un service d’intelligence artificielle que si tu l’actives toi-même, et ce service serait précisé sur la page Confidentialité avant. Sans elle, rien ne sort de ton Espace praticien.</p></details>
-        <details><summary>Est-ce un logiciel à installer ?</summary><p>Non. Genesolia est un logiciel en ligne : il s’ouvre dans ton navigateur, sur ordinateur, tablette ou téléphone, et peut s’ajouter à l’écran d’accueil comme une appli. Tes dossiers sont sauvegardés et se retrouvent sur tous tes appareils.</p></details>
-        <details><summary>Génogramme ou génosociogramme : quelle différence ?</summary><p>Le génogramme représente la famille sur trois générations ou plus, avec ses liens. Le génosociogramme y ajoute les événements de vie (dates, deuils, unions, métiers, déménagements) pour faire ressortir ce qui se répète d’une génération à l’autre. Genesolia dessine les deux : tu commences par la famille, et chaque date ajoutée enrichit la lecture.</p></details>
-        <details><summary>Puis-je essayer avant d’ouvrir mon espace ?</summary><p>Oui. La <a href="genosociogramme.html?exemple">démo</a> montre une famille fictive déjà remplie, sans compte. Et l’essai de 30 jours est sans carte bancaire, avec un dossier exemple pour tout tester sans toucher à tes vrais dossiers.</p></details>
-        <details><summary>Genesolia remplace-t-il un accompagnement ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il t’aide à dessiner et à explorer un génosociogramme avec tes client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le tien.</p></details>
-        <details><summary>Comment fonctionne le tarif fondateur ?</summary><p>Si tu ouvres ton Espace praticien d’ici le 31 mars 2027, tu paieras 19 € par mois au lieu de 24 € (ou 190 € l’année au lieu de 240 €) quand tu passeras à l’abonnement, et ce prix reste le tien tant que ton abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture de ton Espace praticien suffit.</p></details>
-        <details><summary>Est-ce que mes client·es voient mes notes ?</summary><p>Jamais. Le lien de partage montre l’arbre sans tes notes ni tes repères. Quand tu remets l’arbre, seules les personnes et leurs liens sont copiés. Si l’on te demande ce que tu as noté, tu peux exporter tes notes en PDF.</p></details>
-        <details><summary>Comment se passe la remise de l’arbre ?</summary><p>Quand le travail est terminé, tu coches « Travail terminé » dans le dossier et tu envoies le lien de partage. Sur ce lien, l’arbre peut alors être téléchargé en image ou en PDF, ou gardé dans un espace Genesolia personnel et gratuit. Tu peux décocher à tout moment : ce qui a déjà été gardé reste dans l’espace où il a été copié.</p></details>
+        <details><summary>Genesolia ou un logiciel de génogramme avec IA ?</summary><p>Les logiciels avec IA dessinent un premier arbre à partir de notes collées. Genesolia part d’un questionnaire que votre client·e remplit chez lui·elle : l’arbre arrive pré-rempli dans son dossier, puis Genesolia repère les répétitions (dates, âges, prénoms, fratrie), propose des questions pour chaque piste, vous donne un rapport à votre nom en PDF et en Word, et vous présente dans l’annuaire. Tout est en français et pensé pour la psychogénéalogie.</p></details>
+        <details><summary>L’arbre dessiné à partir de mes notes, c’est obligatoire ?</summary><p>Non. Cette option est à l’étude, et vous pouvez donner votre avis depuis votre Espace praticien. Si elle voit le jour, elle sera facultative : vos notes ne seraient envoyées à un service d’intelligence artificielle que si vous l’activez vous-même, et ce service serait précisé sur la page Confidentialité avant. Sans elle, rien ne sort de votre Espace praticien.</p></details>
+        <details><summary>Est-ce un logiciel à installer ?</summary><p>Non. Genesolia est un logiciel en ligne : il s’ouvre dans votre navigateur, sur ordinateur, tablette ou téléphone, et peut s’ajouter à l’écran d’accueil comme une appli. Vos dossiers sont sauvegardés et se retrouvent sur tous vos appareils.</p></details>
+        <details><summary>Génogramme ou génosociogramme : quelle différence ?</summary><p>Le génogramme représente la famille sur trois générations ou plus, avec ses liens. Le génosociogramme y ajoute les événements de vie (dates, deuils, unions, métiers, déménagements) pour faire ressortir ce qui se répète d’une génération à l’autre. Genesolia dessine les deux : vous commencez par la famille, et chaque date ajoutée enrichit la lecture.</p></details>
+        <details><summary>Puis-je essayer avant d’ouvrir mon espace ?</summary><p>Oui. La <a href="genosociogramme.html?exemple">démo</a> montre une famille fictive déjà remplie, sans compte. Et l’essai de 30 jours est sans carte bancaire, avec un dossier exemple pour tout tester sans toucher à vos vrais dossiers.</p></details>
+        <details><summary>Genesolia remplace-t-il un accompagnement ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il vous aide à dessiner et à explorer un génosociogramme avec vos client·es, mais ne pose aucun diagnostic et ne remplace pas un avis médical ou psychologique. L’accompagnement reste le vôtre.</p></details>
+        <details><summary>Comment fonctionne le tarif fondateur ?</summary><p>Si vous ouvrez votre Espace praticien d’ici le 31 mars 2027, vous paierez 19 € par mois au lieu de 24 € (ou 190 € l’année au lieu de 240 €) quand vous passerez à l’abonnement, et ce prix reste le vôtre tant que votre abonnement continue. Il n’y a rien d’autre à remplir : l’ouverture de votre Espace praticien suffit.</p></details>
+        <details><summary>Est-ce que mes client·es voient mes notes ?</summary><p>Jamais. Le lien de partage montre l’arbre sans vos notes ni vos repères. Quand vous remettez l’arbre, seules les personnes et leurs liens sont copiés. Si l’on vous demande ce que vous avez noté, vous pouvez exporter vos notes en PDF.</p></details>
+        <details><summary>Comment se passe la remise de l’arbre ?</summary><p>Quand le travail est terminé, vous cochez « Travail terminé » dans le dossier et vous envoyez le lien de partage. Sur ce lien, l’arbre peut alors être téléchargé en image ou en PDF, ou gardé dans un espace Genesolia personnel et gratuit. Vous pouvez décocher à tout moment : ce qui a déjà été gardé reste dans l’espace où il a été copié.</p></details>
         <details><summary>Faut-il un compte à mes client·es ?</summary><p>Non pour regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour le garder dans leur espace à la fin.</p></details>
-        <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Tes dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement.</p></details>
-        <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de ton·ta client·e.</p></details>
+        <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Vos dossiers restent consultables. Pour créer de nouveaux dossiers et de nouveaux liens de partage, il faut l’abonnement.</p></details>
+        <details><summary>Où sont hébergées les données de mes client·es ?</summary><p>En Europe (Irlande). Les notes de séance sont chiffrées avant d’être enregistrées, et un dossier se supprime en un clic à la demande de votre client·e.</p></details>
         <p class="p-cta" style="margin-top:1.6rem"><a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien · 30 jours d’essai</a></p>
       </div>
     </section>
