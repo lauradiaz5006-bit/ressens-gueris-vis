@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premier Noël sans toi : traverser les fêtes après un deuil</title>
+  <meta name="description" content="Premier Noël sans ta mère, ton père ou un·e proche : la place vide à table, ce que ta famille a toujours fait des deuils et des gestes pour l'honorer.">
+  <link rel="canonical" href="https://genesolia.fr/premier-noel-sans-deuil.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Premier Noël sans toi : traverser les fêtes après un deuil">
+  <meta property="og:description" content="Premier Noël sans ta mère, ton père ou un·e proche : la place vide à table, ce que ta famille a toujours fait des deuils et des gestes pour l'honorer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/blog-deuil-1600.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .article .encart{margin:2rem 0}
+
+    .facettes{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0;list-style:none}
+    .facettes li{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .facettes strong{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;margin-bottom:.2rem}
+    .facettes span{color:var(--prune-doux);font-size:.97rem}
+
+    .cocher{margin:1.8rem 0;padding:1.6rem 1.6rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose-fonce)}
+    .cocher .titre{font-family:var(--display);font-size:1.3rem;margin-bottom:.8rem}
+    .cocher ul{list-style:none;display:grid;gap:.15rem}
+    .cocher label{display:flex;gap:.8rem;align-items:flex-start;padding:.45rem 0;cursor:pointer}
+    .cocher input{flex-shrink:0;width:1.15rem;height:1.15rem;margin-top:.25rem;accent-color:var(--prune)}
+    .cocher .note{margin-top:.9rem}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+    .deux div{padding:1.3rem 1.3rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .deux .c2{background:linear-gradient(180deg,#FCEFF3,var(--blanc) 75%)}
+    .deux .c1{background:linear-gradient(180deg,#FBF1EE,var(--blanc) 75%)}
+    .deux .nom{font-family:var(--display);color:var(--champagne)}
+    .deux h3{margin:.1rem 0 .5rem}
+    .deux p{color:var(--prune-doux);font-size:.97rem}
+
+    .exercice{list-style:none;counter-reset:ex;margin:1.6rem 0;display:grid;gap:0}
+    .exercice li{counter-increment:ex;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .exercice li::before{content:counter(ex);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .exercice li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .exercice h3{margin:0;font-size:1.2rem}
+    .exercice p{color:var(--prune-doux)}
+
+    .gestes{margin:1.4rem 0;padding-left:1.2rem;display:grid;gap:.6rem}
+    .gestes li::marker{color:var(--champagne)}
+
+    .securite{display:grid;grid-template-columns:auto 1fr;gap:1.2rem;align-items:start}
+    .securite svg{width:36px;height:36px;margin-top:.15rem}
+
+    .article .actions{margin-top:1.6rem}
+
+    @media (max-width:640px){
+      .facettes,.deux{grid-template-columns:1fr}
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .securite{grid-template-columns:1fr;gap:.8rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+      <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Premier Noël sans toi : traverser les fêtes après un deuil", "description": "Premier Noël sans ta mère, ton père ou un·e proche : la place vide à table, ce que ta famille a toujours fait des deuils et des gestes pour l'honorer.", "image": "https://genesolia.fr/assets/images/blog-deuil-1600.webp", "datePublished": "2026-10-31", "dateModified": "2026-10-31", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/premier-noel-sans-deuil.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/premier-noel-sans-deuil.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Comment passer le premier Noël après un décès ?", "acceptedAnswer": {"@type": "Answer", "text": "Sans te forcer à faire « comme avant ». Choisis ce que tu gardes, ce que tu changes et ce que tu laisses de côté cette année, prévois un moment pour la personne disparue, et autorise-toi à partir plus tôt. Il n'y a pas de bonne façon de vivre ce Noël."}}, {"@type": "Question", "name": "Faut-il garder une place vide à table ?", "acceptedAnswer": {"@type": "Answer", "text": "Si cela te fait du bien, oui. Une chaise, une bougie, une photo ou son plat préféré permettent de dire « tu fais encore partie de nous ». Si c'est trop lourd, un geste plus discret suffit : une bougie sur le rebord de la fenêtre, un toast à son nom."}}, {"@type": "Question", "name": "Que dire à quelqu'un qui passe son premier Noël sans sa mère ou son père ?", "acceptedAnswer": {"@type": "Answer", "text": "Des mots simples : « Je pense à toi, et à ta maman, en ces fêtes. » Nommer la personne disparue fait souvent plus de bien que l'éviter. Propose quelque chose de concret plutôt que « si tu as besoin, dis-moi »."}}, {"@type": "Question", "name": "Comment vivre Noël après un deuil périnatal ?", "acceptedAnswer": {"@type": "Answer", "text": "En reconnaissant que cet enfant fait partie de la famille, même si peu de gens l'ont connu. Une décoration à son prénom, une bougie, un mot dans la carte de vœux peuvent lui donner sa place. Le deuil périnatal est un vrai deuil, et Noël le réveille souvent fort."}}, {"@type": "Question", "name": "Est-ce normal de ne pas avoir envie de fêter Noël après un décès ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Beaucoup de personnes endeuillées redoutent les fêtes plus que le jour anniversaire du décès. Tu as le droit de fêter à moitié, autrement, ou pas du tout cette année."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Premier Noël sans toi : traverser les fêtes après un deuil", "item": "https://genesolia.fr/premier-noel-sans-deuil.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Premier Noël sans</nav>
+        <h1>Premier Noël sans toi : traverser les fêtes après un deuil</h1>
+        <p class="intro">Les vitrines s'allument, les listes de cadeaux circulent, et toi tu comptes les jours avec une boule au ventre. C'est ton premier Noël sans ta maman, sans ton papa, sans cette personne qui faisait partie de chaque fête. Ce texte est là pour t'aider à traverser ces jours-là, à ta façon, et à garder un lien vivant avec celle ou celui qui est parti·e.</p>
+        <p class="publie">Publié le 31 octobre 2026 · lecture 10 min</p>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/blog-deuil-1600.webp" srcset="assets/images/blog-deuil-800.webp 800w, assets/images/blog-deuil-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Une bougie allumée près d'une photo ancienne, dans une lumière douce" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Pourquoi le premier Noël est si particulier</h2>
+        <p>Noël est une fête de répétition : les mêmes plats, les mêmes chansons, les mêmes places autour de la table, année après année. C'est ce qui le rend si rassurant d'habitude, et si douloureux après un décès. Chaque rituel rappelle qui n'est plus là.</p>
+        <p>Le premier Noël après un deuil est souvent redouté plus encore que la date anniversaire du décès. Toute la société fête la famille réunie au moment même où la tienne vient de perdre quelqu'un. Il est fréquent de se sentir en décalage, coupable de rire, ou au contraire en colère contre ceux qui font « comme si de rien n'était ».</p>
+        <p class="rappel"><strong>Il n'y a pas de bonne façon de vivre ce Noël.</strong> Tu peux le fêter, le fêter autrement, le fêter à moitié, ou ne pas le fêter cette année. Ce qui compte, c'est que ce soit un choix, pas une obligation.</p>
+
+        <h2>Comment fêter Noël après un décès ?</h2>
+        <p>Avant les fêtes, prends un moment pour décider, seul·e ou en famille, ce que tu veux garder, ce que tu veux changer et ce que tu veux laisser de côté.</p>
+        <ul class="pistes">
+          <li><strong>Garder un rituel qui le ou la représentait</strong><span>Sa recette de bûche, la décoration qu'elle accrochait toujours, la chanson qu'il chantait faux. Le refaire, c'est le ou la faire exister encore un peu.</span></li>
+          <li><strong>Changer de décor</strong><span>Fêter ailleurs, à une autre heure, avec un autre menu : pour certaines familles, faire différemment rend la place vide moins criante.</span></li>
+          <li><strong>Prévoir une porte de sortie</strong><span>Dire à l'avance que tu partiras peut-être plus tôt, que tu auras besoin de sortir prendre l'air. Le savoir allège déjà.</span></li>
+          <li><strong>Nommer la personne</strong><span>Un toast, un souvenir partagé, une phrase en début de repas. Le silence pèse souvent plus lourd que les larmes.</span></li>
+          <li><strong>Respecter les rythmes de chacun·e</strong><span>Dans une même famille, l'un veut parler, l'autre veut oublier un soir. Les deux sont légitimes.</span></li>
+        </ul>
+
+        <h2>La place vide : garder une chaise, une bougie, un plat</h2>
+        <p>Beaucoup de familles choisissent de matérialiser la présence de la personne disparue. Ce n'est pas morbide : c'est une façon de dire « tu fais encore partie de nous ».</p>
+        <ul class="facettes">
+          <li><strong>Une chaise</strong><span>Sa place à table, laissée libre, avec une photo ou un objet qui lui appartenait.</span></li>
+          <li><strong>Une bougie</strong><span>Allumée en début de repas, en disant son prénom. Elle brûle toute la soirée, discrète et présente.</span></li>
+          <li><strong>Un plat</strong><span>Sa recette, cuisinée par quelqu'un de la famille, en racontant d'où elle vient.</span></li>
+          <li><strong>Une boule au sapin</strong><span>Avec son prénom, ou un petit mot que chacun·e écrit et accroche. Chaque année, elle reviendra.</span></li>
+        </ul>
+        <p>Le <strong>deuil périnatal</strong> mérite aussi sa place à Noël. Un bébé parti avant ou peu après sa naissance fait partie de la famille, même si peu de personnes l'ont connu. Une décoration à son prénom, une bougie, un mot dans la carte de vœux lui donnent la place que l'entourage oublie souvent de lui faire.</p>
+
+        <h2>Ce que ta famille fait (ou tait) de ses deuils</h2>
+        <p>Chaque famille a sa manière de traverser la mort. Certaines parlent, pleurent ensemble, gardent les photos aux murs. D'autres se taisent, rangent tout, ne prononcent plus le prénom. Ces façons de faire se transmettent de génération en génération, souvent sans que personne ne les choisisse.</p>
+        <p>En psychogénéalogie, on observe que les <a href="deuil-non-fait-mort-jeune.html">deuils non faits</a> ne disparaissent pas : ils se déposent dans la lignée. Un enfant mort jeune dont on n'a jamais parlé, une grand-mère partie sans au revoir, un bébé jamais nommé. On en retrouve parfois la trace des générations plus tard : un <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a> (des événements qui reviennent aux mêmes dates ou aux mêmes âges), un <a href="enfant-de-remplacement.html">enfant de remplacement</a>, ou ce que l'on appelle le <a href="syndrome-du-gisant.html">syndrome du gisant</a>.</p>
+        <div class="cocher">
+          <p class="titre">Quelques questions à te poser pendant ces fêtes</p>
+          <ul>
+            <li><label><input type="checkbox"> Dans ma famille, a-t-on le droit de pleurer devant les autres ?</label></li>
+            <li><label><input type="checkbox"> Est-ce qu'on prononce encore le prénom de nos mort·es ?</label></li>
+            <li><label><input type="checkbox"> Un deuil ancien a-t-il été « passé sous silence » ?</label></li>
+            <li><label><input type="checkbox"> Est-ce que je reproduis la façon dont mes parents ont vécu leurs propres deuils ?</label></li>
+            <li><label><input type="checkbox"> Y a-t-il des dates, autour des fêtes, qui reviennent dans notre histoire ?</label></li>
+          </ul>
+          <p class="note">Il n'y a pas de bonne réponse. Ces questions servent à voir ce qui se transmet, pour choisir ce que tu veux garder.</p>
+        </div>
+        <p>Pour mettre ces histoires en lumière, inscris les décès de ta lignée dans <a href="genosociogramme.html">ton arbre familial</a> : l'outil repère les âges et les dates qui se répondent. Sur <a href="fil-d-or.html">ton fil d'or</a>, place la date du décès à côté des grands moments de ta vie et de celle des tiens : tu verras peut-être apparaître des correspondances que personne n'avait remarquées.</p>
+
+        <h2>Parler au défunt et l'aider à partir en paix</h2>
+        <p>Dans l'approche Genesolia, on considère que la personne disparue n'a pas cessé d'exister : elle est passée dans un monde invisible pour nous, mais le lien, lui, reste vivant. Le premier Noël est un moment privilégié pour entretenir ce lien autrement.</p>
+        <ol class="exercice">
+          <li><h3>Parle-lui</h3><p>À voix haute ou dans ta tête, devant sa photo, dans la voiture, en marchant. Dis-lui ce que tu vis, ce qui te manque, ce que tu n'as pas eu le temps de dire. Elle ou il est là, simplement d'une autre manière.</p></li>
+          <li><h3>Écris-lui une lettre de Noël</h3><p>Commence par « Ce Noël, sans toi… ». Raconte, remercie, pardonne si tu en as besoin. Tu peux la garder, la glisser sous le sapin ou la brûler doucement avec la bougie de la place vide.</p></li>
+          <li><h3>Envoie-lui de la lumière</h3><p>Assieds-toi au calme, respire lentement trois fois. Imagine une lumière douce et dorée qui naît dans ta poitrine. Laisse-la grandir, puis envoie-la vers la personne, comme un fil lumineux entre vous. Dis-lui : « Je t'envoie de la lumière. Va en paix. »</p></li>
+          <li><h3>Aide-le ou aide-la à s'élever</h3><p>On considère dans cette approche que notre peine très lourde, notre énergie basse, peuvent retenir la personne près de nous et l'empêcher de s'élever. Il ne s'agit pas d'arrêter d'être triste : il s'agit de transformer peu à peu la douleur en amour. Chaque souvenir heureux, chaque merci, chaque rire à son nom est une lumière qui l'aide à partir en paix.</p></li>
+          <li><h3>Rends-lui sa place, garde la tienne</h3><p>Dis-lui intérieurement : « Tu as ta place dans notre famille, pour toujours. Moi, je continue ma vie, et je la vis aussi pour toi. » Honorer un·e défunt·e, ce n'est pas s'arrêter de vivre avec lui ou elle.</p></li>
+        </ol>
+        <p>Tu peux aussi le ou la retrouver en rêve. Beaucoup de personnes en deuil rêvent de la personne disparue dans les semaines qui suivent, et souvent autour des fêtes. Note ces rêves au réveil : ils ont souvent quelque chose à te dire. Voir <a href="rever-des-morts-et-des-ancetres.html">rêver des morts et des ancêtres</a> et <a href="rever-de-ses-grands-parents-decedes.html">rêver de ses grands-parents décédés</a>.</p>
+        <p class="rappel"><strong>Ta tristesse n'est pas une faute.</strong> Pleurer, c'est aimer encore. L'idée n'est pas de te forcer à aller bien, mais d'ajouter, à côté de la peine, des gestes de lumière qui vous font du bien, à toi comme à elle ou à lui.</p>
+
+        <h2>Comment fêter Noël sans sa famille ?</h2>
+        <p>Après un décès, il arrive que Noël se passe seul·e : la famille s'est dispersée, les liens se sont tendus autour de la succession, ou la personne disparue était justement celle qui réunissait tout le monde. Fêter Noël sans sa famille reste possible, et peut même devenir doux.</p>
+        <ul class="gestes">
+          <li>Crée un petit rituel rien qu'à toi : un repas que tu aimes, un film, une promenade au lever du jour.</li>
+          <li>Rejoins d'autres personnes : des ami·es, un repas solidaire, une association où tu peux donner un peu de ton temps.</li>
+          <li>Appelle ou écris à une personne de la famille, même si le lien est fragile. Un message suffit.</li>
+          <li>Offre-toi un moment pour la personne disparue : une visite au cimetière, une bougie, la lettre de Noël.</li>
+          <li>Prévois le lendemain : la journée du 26 est souvent plus difficile que le soir même.</li>
+        </ul>
+
+        <h2>Que dire à un·e proche qui vit son premier Noël sans ?</h2>
+        <p>On a souvent peur de « remuer le couteau dans la plaie » en parlant du ou de la disparu·e. Pourtant, la plupart des personnes en deuil disent le contraire : ce qui fait mal, c'est que tout le monde fasse semblant d'oublier.</p>
+        <div class="deux">
+          <div class="c1"><p class="nom">Message de Noël</p><h3>Pour un deuil récent</h3><p>« Je pense fort à toi en ces fêtes, et à ta maman. Je sais que ce premier Noël sans elle sera difficile. Je suis là, et je t'appelle le 26. »</p></div>
+          <div class="c2"><p class="nom">Message de Noël</p><h3>Pour un deuil périnatal</h3><p>« Ce Noël, nous pensons à vous trois, et à [prénom du bébé]. Il ou elle fait partie de notre famille. On vous embrasse fort. »</p></div>
+        </div>
+        <ul class="pistes">
+          <li><strong>Nomme la personne disparue</strong><span>Son prénom, un souvenir avec elle. C'est souvent le plus beau cadeau.</span></li>
+          <li><strong>Propose quelque chose de concret</strong><span>« Je passe le 24 au matin t'aider à cuisiner » vaut mieux que « si tu as besoin, dis-moi ».</span></li>
+          <li><strong>Accepte la tristesse</strong><span>Pas besoin de consoler ou de trouver les bons mots. Être là, écouter, suffit.</span></li>
+          <li><strong>Évite les phrases toutes faites</strong><span>« Il faut tourner la page », « Elle est mieux là où elle est » : même bien intentionnées, elles peuvent blesser.</span></li>
+        </ul>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Comment passer le premier Noël après un décès ?</dt><dd>Sans te forcer à faire « comme avant ». Choisis ce que tu gardes, ce que tu changes et ce que tu laisses de côté cette année, prévois un moment pour la personne disparue, et autorise-toi à partir plus tôt. Il n'y a pas de bonne façon de vivre ce Noël.</dd>
+          <dt>Faut-il garder une place vide à table ?</dt><dd>Si cela te fait du bien, oui. Une chaise, une bougie, une photo ou son plat préféré permettent de dire « tu fais encore partie de nous ». Si c'est trop lourd, un geste plus discret suffit : une bougie sur le rebord de la fenêtre, un toast à son nom.</dd>
+          <dt>Que dire à quelqu'un qui passe son premier Noël sans sa mère ou son père ?</dt><dd>Des mots simples : « Je pense à toi, et à ta maman, en ces fêtes. » Nommer la personne disparue fait souvent plus de bien que l'éviter. Propose quelque chose de concret plutôt que « si tu as besoin, dis-moi ».</dd>
+          <dt>Comment vivre Noël après un deuil périnatal ?</dt><dd>En reconnaissant que cet enfant fait partie de la famille, même si peu de gens l'ont connu. Une décoration à son prénom, une bougie, un mot dans la carte de vœux peuvent lui donner sa place. Le deuil périnatal est un vrai deuil, et Noël le réveille souvent fort.</dd>
+          <dt>Est-ce normal de ne pas avoir envie de fêter Noël après un décès ?</dt><dd>Oui. Beaucoup de personnes endeuillées redoutent les fêtes plus que le jour anniversaire du décès. Tu as le droit de fêter à moitié, autrement, ou pas du tout cette année.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-plein" href="fil-d-or.html">Tracer mon fil d'or</a>
+          <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+        </div>
+
+        <p class="note-fin">Lecture symbolique, pour réfléchir. La psychogénéalogie n'est pas une science : ses interprétations sont des pistes, pas des causes. Si ton deuil te pèse au point de troubler ton quotidien, parles-en à une personne de confiance ou à un·e professionnel·le de l'accompagnement. Si tu te sens en danger : 3114 (France) · 811 (Québec).</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="toussaint-ancetres-et-deuils.html">Toussaint et lignée</a><a href="premier-noel-sans-deuil.html" aria-current="page">Premier Noël sans</a><a href="deuil-non-fait-mort-jeune.html">Deuils non faits</a><a href="rever-des-morts-et-des-ancetres.html">Rêver des morts</a><a href="rever-de-ses-grands-parents-decedes.html">Rêver de ses grands-parents</a><a href="syndrome-du-gisant.html">Syndrome du gisant</a><a href="enfant-de-remplacement.html">Enfant de remplacement</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="fil-d-or.html"><h3>Le fil d'or</h3><p>Ta vie et celle des tiens sur une même ligne, pour voir ce qui se répond.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+          <a class="outil" href="toussaint-ancetres-et-deuils.html"><h3>Toussaint, ancêtres et deuils</h3><p>Honorer celles et ceux qui sont parti·es, et ce qu'ils ont transmis.</p></a>
+          <a class="outil" href="deuil-non-fait-mort-jeune.html"><h3>Les deuils non faits</h3><p>Quand un deuil reste en suspens dans la lignée.</p></a>
+          <a class="outil" href="rever-des-morts-et-des-ancetres.html"><h3>Rêver des morts</h3><p>Ce que disent les rêves de nos défunt·es.</p></a>
+          <a class="outil" href="relation-mere-fille-toxique.html"><h3>Relation mère-fille</h3><p>Ce que ta lignée féminine rejoue, et comment retrouver ta place.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
