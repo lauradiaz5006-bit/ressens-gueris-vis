@@ -50,6 +50,43 @@ window.GenesoliaDonnees = (function () {
    Les réponses sont chiffrées dans la base (fonctions carnet_ecrire / carnet_lire, parcours_ecrire / parcours_lire) :
    l'équipe Genesolia ne les lit pas. Avant le premier enregistrement en ligne, la personne donne son accord
    (gardé dans son compte : user_metadata.coffre_accord). Sans accord, tout reste sur l'appareil. */
+/* ===== Séances audio de visualisation : « Avant de commencer », puis « J'arrête et je reviens » toujours visible =====
+   GenesoliaCadre.html(audioHtml) entoure le lecteur ; le clic « Je me sens prêt·e » montre l'audio et le lance ;
+   « J'arrête et je reviens » met en pause et ouvre un retour au calme, avec les lignes d'écoute. */
+window.GenesoliaCadre = (function () {
+  var css = '.gc-avant{background:#FFF8EA;border:1px solid #F3DCC0;border-radius:14px;padding:.9rem 1rem;margin:.6rem 0;color:#4A2142;text-align:left}.gc-avant p{margin:.3rem 0}.gc-avant ul{margin:.3rem 0 .7rem;padding-left:1.2rem}' +
+    '.gc-arret{position:sticky;bottom:14px;display:block;margin:.8rem auto 0;z-index:5;box-shadow:0 6px 18px rgba(31,11,42,.18)}' +
+    '.gc-fond{position:fixed;inset:0;z-index:4000;background:rgba(46,19,56,.55);display:flex;align-items:center;justify-content:center;padding:16px}' +
+    '.gc-boite{background:#fff;color:#4A2142;border-radius:20px;max-width:30rem;width:100%;max-height:90vh;overflow:auto;padding:1.4rem 1.3rem}.gc-boite h2{margin:.2rem 0 .6rem}.gc-boite ol{padding-left:1.2rem;display:grid;gap:.4rem}' +
+    '.gc-filet{margin-top:.9rem;padding:.7rem .9rem;border-radius:12px;background:#FCEFF3;border:1px solid #E8C9D6}.gc-filet p{margin:.2rem 0}.gc-filet a{color:inherit}';
+  var pose = false;
+  function style() { if (pose) return; pose = true; var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+  function html(audio) {
+    style();
+    return '<div class="gc-cadre"><div class="gc-avant"><p><b>Avant de commencer</b></p><p>Cette séance te fait revenir vers ton histoire, les yeux fermés. Garde-la pour plus tard si :</p>' +
+      '<ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : écoute-la alors avec un·e professionnel·le de l’accompagnement.</li></ul>' +
+      '<p>Jamais en conduisant. Tu peux t’arrêter à tout moment avec « J’arrête et je reviens ».</p>' +
+      '<button type="button" class="btn btn-plein" data-gc-pret>Je me sens prêt·e, je commence</button></div>' +
+      '<div class="gc-ecoute" hidden>' + audio + '<button type="button" class="btn btn-trait gc-arret" data-gc-arret>J’arrête et je reviens</button></div></div>';
+  }
+  function calme() {
+    var f = document.createElement('div'); f.className = 'gc-fond'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true');
+    f.innerHTML = '<div class="gc-boite"><p style="margin:0;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#9A6E38">Tu t’arrêtes, et c’est très bien</p><h2>Reviens ici et maintenant</h2><ol>' +
+      '<li>Ouvre les yeux. Pose tes deux pieds bien à plat sur le sol.</li><li>Regarde autour de toi et nomme cinq choses que tu vois.</li><li>Respire lentement : inspire en comptant jusqu’à 4, expire en comptant jusqu’à 6, cinq fois.</li><li>Bois un verre d’eau, bouge un peu, ouvre une fenêtre.</li></ol>' +
+      '<div class="gc-filet"><p><b>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant</b> : une personne de confiance, ou une ligne d’écoute, gratuite et ouverte jour et nuit.</p><p><a href="tel:3114"><b>3114</b></a> en France · <a href="tel:18662773553"><b>1 866 APPELLE</b></a> (1 866 277-3553) au Québec</p></div>' +
+      '<p style="margin:1rem 0 0;text-align:center"><button type="button" class="btn btn-plein" data-gc-fermer>Je suis revenu·e</button></p></div>';
+    document.body.appendChild(f);
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('[data-gc-fermer]')) f.remove(); });
+  }
+  document.addEventListener('click', function (e) {
+    var p = e.target.closest('[data-gc-pret]');
+    if (p) { var c = p.closest('.gc-cadre'), z = c.querySelector('.gc-ecoute'); p.closest('.gc-avant').hidden = true; z.hidden = false; var a = z.querySelector('audio'); if (a) a.play().catch(function () {}); return; }
+    var s = e.target.closest('[data-gc-arret]');
+    if (s) { var au = s.closest('.gc-cadre').querySelector('audio'); if (au) au.pause(); calme(); }
+  });
+  return { html: html, calme: calme };
+})();
+
 window.GenesoliaCoffre = (function () {
   function accord(user) { return !!(user && user.user_metadata && user.user_metadata.coffre_accord); }
   function demander(zone, sb, ok) {

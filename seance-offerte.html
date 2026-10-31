@@ -138,7 +138,7 @@
       zone.innerHTML =
         '<div class="so-ecoute"><img src="' + I.image + '" width="800" height="420" alt="">' +
         '<div><p class="so-sur" style="color:var(--champagne);margin:0">' + esc(I.cycle) + '</p><h2>' + esc(I.titre) + '</h2><p style="margin:0;color:var(--prune-doux)">' + esc(I.voyage) + '</p>' +
-        '<audio controls preload="metadata" src="' + esc(url) + '">Ton navigateur ne lit pas l’audio.</audio>' +
+        (function (au) { return window.GenesoliaCadre ? window.GenesoliaCadre.html(au) : au; })('<audio controls preload="metadata" src="' + esc(url) + '">Ton navigateur ne lit pas l’audio.</audio>') +
         '<p class="so-conseils">Installe-toi au calme, avec un casque si tu peux, assise ou allongée. Laisse-toi guider : il n’y a rien à réussir, seulement à écouter. Tu peux la réécouter autant de fois que tu veux, depuis cette page.</p>' +
         '<p style="margin:0;font-size:.92rem"><a href="#" data-autre="' + autre + '">Écouter aussi « ' + esc(INFOS[autre].titre) + ' »</a></p></div></div>' +
         '<div class="so-suite"><h2>Cette séance fait partie du Cercle</h2>' +
