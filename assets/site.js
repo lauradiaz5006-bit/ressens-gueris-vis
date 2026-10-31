@@ -363,7 +363,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     ['theme-numerologique.html', 'Tes numéros'],
     ['theme-astral.html', 'Tes astres'],
     ['offert.html', 'Tes cadeaux'],
-    ['', 'Abonnement', [['ma-spirale.html', 'Ma spirale'], ['abonnement.html', 'Le Cercle'], ['espace-praticien.html', 'Espace pro']]],
+    ['abonnements.html', 'Abonnement'],   /* une page : Ma spirale, Le Cercle, Espace pro (un sous-menu reste possible : ['', 'Nom', [[page, nom], …]]) */
     ['boutique.html', 'Boutique']
   ];
   var ESPACE = ['login.html', 'Mon espace'];   /* tout au bout, d'une couleur à part */
@@ -1833,8 +1833,8 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     avant.parentNode.insertBefore(z, avant);
     if (window.GenesoliaLivresBoutons) window.GenesoliaLivresBoutons(z);
   }
-  /* Page d'accueil : le bandeau des livres juste sous l'ouverture */
-  var ouv = page === 'index.html' && document.querySelector('main > .ouverture');
+  /* Page d'accueil : le bandeau des livres juste sous la présentation de Laura */
+  var ouv = page === 'index.html' && (document.querySelector('main > #laura') || document.querySelector('main > .ouverture'));   /* après « Salut, je suis Laura » */
   if (ouv) {
     var b = document.createElement('section'); b.className = 'livre-accueil'; b.setAttribute('aria-label', 'Les livres Genesolia');
     b.innerHTML = '<div class="conteneur">' + deux('Nouveau · les livres Genesolia', 'Ton histoire de famille, sur papier', 'À écrire seul·e ou en famille : <b>L’enquête de ma lignée</b> pour rassembler ton histoire et voir ce qui se répète, et <b>Racines</b>, les exercices du Cercle en version papier, pour sortir de l’alerte et prendre ta place. Les premières pages sont offertes.') + '</div>';

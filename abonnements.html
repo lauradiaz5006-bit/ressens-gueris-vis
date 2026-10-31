@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <title>Abonnements · Genesolia : Ma spirale, Le Cercle, Espace pro</title>
+  <meta name="description" content="Ma spirale, ton outil à toi (7 jours offerts, puis 4,99 € par mois), Le Cercle, ton parcours guidé (1er mois offert, puis 17,77 € par mois pour Noël), et l'Espace pro pour les praticien·nes.">
+  <link rel="canonical" href="https://genesolia.fr/abonnements.html">
+  <meta property="og:title" content="Les abonnements Genesolia">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
+  <style>
+    .ab-tete{text-align:center;max-width:42rem;margin:0 auto;padding:3.5rem 0 2rem}
+    .ab-tete p{color:var(--prune-doux);margin-top:.8rem;font-size:1.1rem}
+    .ab-liste{display:grid;gap:1.6rem;padding-bottom:3.5rem}
+    .ab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;gap:2.4rem;padding:2rem;border-radius:32px;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--rose);box-shadow:0 20px 50px rgba(107,47,91,.07);transition:transform .2s,box-shadow .2s}
+    .ab:hover{transform:translateY(-3px);box-shadow:0 28px 60px rgba(107,47,91,.14)}
+    .ab:nth-child(even) .ab-img{order:2}
+    .ab-img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:20px;border:1px solid var(--rose)}
+    .ab-sur{margin:0 0 .6rem}
+    .ab h2{font-size:clamp(1.9rem,3.2vw,2.5rem);margin:0 0 .3rem}
+    .ab-devise{font:italic 400 1.15rem var(--display);color:#8A3F62;margin:0 0 1rem}
+    .ab-prix{font:400 2.2rem/1 var(--display);color:var(--prune);margin:0 0 .5rem}
+    .ab-prix s{font-size:.5em;opacity:.55;margin-right:.3rem}.ab-prix small{font:400 .95rem var(--texte);color:var(--prune-doux)}
+    .ab-cond{font-weight:600;color:var(--prune);margin:0 0 1rem}
+    .ab ul{list-style:none;padding:0;margin:0 0 1.4rem;display:grid;gap:.45rem;color:var(--prune-doux)}
+    .ab li{position:relative;padding-left:1.4rem}.ab li::before{content:"✦";position:absolute;left:0;color:var(--champagne)}
+    .ab .btn{pointer-events:none}
+    .ab.cercle{background:linear-gradient(140deg,#2E1338,#6B2F5B);color:#F7E6EE;border:0}
+    .ab.cercle h2,.ab.cercle .ab-prix{color:#fff}.ab.cercle .ab-devise{color:#F3DCC0}.ab.cercle .ab-cond{color:#F3DCC0}.ab.cercle ul{color:#F7E6EE}
+    .ab.cercle .ab-prix small{color:#E9CFDC}.ab.cercle .btn{background:#F3DCC0;color:#2E1338}.ab.cercle .ab-img{border:0}
+    .ab-note{text-align:center;font-size:.88rem;color:var(--prune-doux);margin:-1.5rem 0 3rem}
+    @media (max-width:860px){.ab{grid-template-columns:1fr;padding:1.4rem;gap:1.2rem}.ab:nth-child(even) .ab-img{order:0}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div class="conteneur">
+      <div class="ab-tete">
+        <h1>Choisis ton abonnement</h1>
+        <p>Ton outil à toi, ton parcours guidé, ou ton cabinet en ligne si tu accompagnes des client·es. Clique sur celui qui te ressemble.</p>
+      </div>
+
+      <div class="ab-liste">
+        <a class="ab" href="ma-spirale.html">
+          <img class="ab-img" src="assets/pass/captures/ordi.webp" alt="Ma spirale à l’écran : ta frise, tes schémas et tes protocoles" loading="lazy">
+          <div>
+            <p class="ab-sur"><span class="promo-noel">✦ Offre de Noël</span></p>
+            <h2>Ma spirale</h2>
+            <p class="ab-devise">Ton outil à toi</p>
+            <p class="ab-prix"><s>10 €</s> 4,99 € <small>par mois</small></p>
+            <p class="ab-cond">7 jours offerts, puis 4,99 € par mois jusqu’au 31 décembre. Sans engagement.</p>
+            <ul>
+              <li>Tu déposes ce qui revient et tu le situes dans ta frise et ta famille</li>
+              <li>Tu fais le lien, tu vois d’où ça vient</li>
+              <li>Tu suis les protocoles pour t’en libérer, à ton rythme</li>
+            </ul>
+            <span class="btn btn-plein">Découvrir Ma spirale</span>
+          </div>
+        </a>
+
+        <a class="ab cercle" href="abonnement.html">
+          <img class="ab-img" src="assets/cercle/captures/mon-mois.webp" alt="Le Cercle à l’écran : ton étape du mois" loading="lazy">
+          <div>
+            <p class="ab-sur"><span class="promo-noel">✦ Cadeau de Noël</span></p>
+            <h2>Le Cercle</h2>
+            <p class="ab-devise">Ta place, ton choix, ta vie</p>
+            <p class="ab-prix"><s>24,90 €</s> 17,77 € <small>par mois</small></p>
+            <p class="ab-cond">1<sup>er</sup> mois offert, sans carte. Puis 17,77 € par mois pour toute inscription jusqu’au 31 décembre.</p>
+            <ul>
+              <li>Ma spirale incluse</li>
+              <li>Ton parcours guidé en 12 étapes, une chaque mois</li>
+              <li>Deux séances audio à chaque étape et la formation « Sors de la boucle »</li>
+            </ul>
+            <span class="btn">Découvrir Le Cercle</span>
+          </div>
+        </a>
+
+        <a class="ab" href="espace-praticien.html">
+          <img class="ab-img" src="assets/images/praticien/appli-pro-dossiers.webp" alt="L’Espace pro à l’écran : les dossiers de vos client·es" loading="lazy">
+          <div>
+            <p class="ab-sur"><span class="promo-noel" style="background:linear-gradient(135deg,#B98A55,#8A6233)">Pour les praticien·nes</span></p>
+            <h2>Espace pro</h2>
+            <p class="ab-devise">Votre cabinet en ligne</p>
+            <p class="ab-prix">19 € <small>par mois</small></p>
+            <p class="ab-cond">1<sup>er</sup> mois offert, sans carte bancaire. Tarif fondateur jusqu’au 31 mars 2027.</p>
+            <ul>
+              <li>L’arbre de vos client·es prêt avant la séance, grâce au questionnaire</li>
+              <li>Les répétitions mises en évidence, en plein écran</li>
+              <li>Notes chiffrées et rapport PDF à votre nom</li>
+            </ul>
+            <span class="btn btn-trait">Découvrir l’Espace pro</span>
+          </div>
+        </a>
+      </div>
+      <p class="ab-note">Prix en euros, TVA non applicable, art. 293 B du CGI. Tout commence gratuitement : <a href="offert.html">tes cadeaux</a>.</p>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
