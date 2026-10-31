@@ -333,7 +333,13 @@
 .mc-alire{margin:2.5rem 0 1rem;text-align:center}
 .mc-image-mois{margin:2.5rem auto 1rem;max-width:30rem;text-align:center}
 .mc-image-mois figure{margin:1rem 0}
-.mc-image-mois img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:16px;border:1.5px solid var(--champagne-clair)}
+.mc-image-mois{max-width:46rem!important}
+.mc-fonds{display:flex;justify-content:center;align-items:flex-end;gap:1.4rem;flex-wrap:wrap;margin-top:1rem}
+.mc-fond{margin:0;display:grid;gap:.7rem;justify-items:center}
+.mc-fond img{display:block;height:auto;object-fit:cover;background:#F7E6EE;box-shadow:0 18px 40px rgba(46,19,56,.22)}
+.mc-fond.tel img{width:180px;aspect-ratio:9/16;border-radius:26px;border:6px solid #2E1338}
+.mc-fond.pc img{width:min(100%,400px);aspect-ratio:16/9;border-radius:10px;border:8px solid #2E1338;border-bottom-width:16px}
+.mc-fond-aide{margin:1.2rem auto 0;max-width:32rem;text-align:left;font-size:.92rem}.mc-fond-aide summary{cursor:pointer;font-weight:700;color:var(--prune);text-align:center}
 .mc-image-actions{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;justify-content:center;align-items:center}
 .mc-insta{color:var(--prune);font-weight:600;text-decoration:underline;text-decoration-color:var(--champagne);text-underline-offset:3px}
 .mc-peu-temps{margin:0 0 1.4rem}

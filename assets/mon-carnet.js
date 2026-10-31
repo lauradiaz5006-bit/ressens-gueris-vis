@@ -729,13 +729,19 @@
         return '<a class="mc-alire-c" href="' + esc(a.lien) + '"><b>' + esc(a.titre) + '</b><span>' + esc(a.resume) + '</span><em>Lire l’article</em></a>';
       }).join('') + '</div></section>' : '') + imageMois();
   }
-  /* L'image du mois : une image citation carrée à enregistrer, et le lien vers Instagram */
+  /* Le fond d'écran du mois : assets/fonds/AAAA-MM-telephone.jpg (1080 × 1920) et AAAA-MM-ordinateur.jpg (1920 × 1080).
+     Une image absente est simplement retirée ; sans aucune des deux, la rubrique disparaît. */
   function imageMois() {
-    if (MODULE || !('image' in C)) return '';
-    if (!C.image) return APERCU ? '<section class="mc-image-mois"><p class="mc-sur">À garder ou à partager</p><h3 class="mc-h">L’image du mois</h3>' + aFournir('[IMAGE DU MOIS À FOURNIR : assets/images-mois/' + C.mois + '.jpg]') + '</section>' : '';
-    return '<section class="mc-image-mois" data-image-mois><p class="mc-sur">À garder ou à partager</p><h3 class="mc-h">L’image du mois</h3>' +
-      '<figure><img src="' + esc(C.image) + '" alt="L’image citation du mois" width="1080" height="1080" loading="lazy" data-image-mois-img></figure>' +
-      '<p class="mc-image-actions"><a class="btn btn-plein" href="' + esc(C.image) + '" download>Enregistrer l’image</a> <a class="mc-insta" href="https://www.instagram.com/genesolia.officiel/" target="_blank" rel="noopener">Voir sur Instagram</a></p></section>';
+    if (MODULE || SUIVI) return '';
+    var base = 'assets/fonds/' + C.mois;
+    function fig(suffixe, nom, cls, w, h) {
+      return '<figure class="mc-fond ' + cls + '" data-fond><img src="' + base + '-' + suffixe + '.jpg" alt="Le fond d’écran du mois pour ' + nom + '" width="' + w + '" height="' + h + '" loading="lazy" data-fond-img>' +
+        '<figcaption><a class="btn btn-trait" href="' + base + '-' + suffixe + '.jpg" download="fond-ecran-genesolia-' + C.mois + '-' + suffixe + '.jpg">Pour ' + nom + '</a></figcaption></figure>';
+    }
+    return '<section class="mc-image-mois" data-image-mois hidden><p class="mc-sur">À garder</p><h3 class="mc-h">Ton fond d’écran du mois</h3>' +
+      '<p class="mc-consigne">Une image pour garder ton mois sous les yeux. Enregistre-la, puis choisis-la comme fond d’écran.</p>' +
+      '<div class="mc-fonds">' + fig('telephone', 'mon téléphone', 'tel', 1080, 1920) + fig('ordinateur', 'mon ordinateur', 'pc', 1920, 1080) + '</div>' +
+      '<details class="mc-fond-aide"><summary>Comment l’installer ?</summary><p><b>iPhone</b> : ouvre l’image dans Photos, touche le bouton de partage, puis « Utiliser en fond d’écran ».</p><p><b>Android</b> : ouvre l’image dans ta galerie, touche les trois points, puis « Définir comme fond d’écran ».</p><p><b>Ordinateur</b> : clic droit sur l’image enregistrée, puis « Définir comme fond d’écran » (ou, sur Mac, Réglages, Fond d’écran).</p></details></section>';
   }
   function lienSuivi() {
     return '';   /* retiré : plus de lien d'un livre à l'autre dans les pages */
@@ -1788,8 +1794,12 @@
     window.addEventListener('resize', collant);
     window.addEventListener('hashchange', function () { var c = cible(); if (c.p !== courante) aller(c.p, { ancre: c.ancre }); });
     marquerSemaine(); if (!MODULE) chargerPont(); numeroterExercices();
-    var imgM = racine.querySelector('[data-image-mois-img]');
-    if (imgM) imgM.addEventListener('error', function () { var z = imgM.closest('[data-image-mois]'); if (APERCU) imgM.parentNode.outerHTML = aFournir('[IMAGE DU MOIS À FOURNIR]'); else z.remove(); });
+    var zf = racine.querySelector('[data-image-mois]');
+    if (zf) zf.querySelectorAll('[data-fond-img]').forEach(function (im) {
+      function ok() { zf.hidden = false; }
+      function ko() { var f = im.closest('[data-fond]'); if (f) f.remove(); }
+      if (im.complete && im.naturalWidth) ok(); else { im.addEventListener('load', ok); im.addEventListener('error', ko); }
+    });
     var c = cible();
     aller(c.p, { initial: true, ancre: c.ancre });
   }
