@@ -123,7 +123,9 @@
     @media (prefers-reduced-motion:reduce){.ce-feuille,.ce-voile{transition:none}}
     @media (min-width:700px){#cercle{padding-top:1rem}.ce-dom{grid-template-columns:repeat(4,1fr)}}
     @media (max-width:360px){.ce-duo,.ce-dom{grid-template-columns:1fr}}
-  </style>
+      .ce-anciennes{margin-top:.4rem}.ce-anciennes summary{cursor:pointer;font-weight:600;color:var(--prune);padding:.7rem 0;font-size:.92rem}
+    .ce-dates small{font-size:.82em;color:var(--doux)}
+</style>
   <script>window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };</script>
 </head>
 <body class="nouveau">
@@ -380,7 +382,7 @@
         ['famille', 'Famille', M.famille, ''],
         ['defi', 'Ton défi', M.defi, (M.semaines || []).length ? '<p><b>Tes quatre semaines</b></p><ol>' + M.semaines.map(function (s) { return '<li>' + esc(String(s).replace(/^Semaine \d+\s*:\s*/i, '')) + '</li>'; }).join('') + '</ol>' : '']
       ];
-      if (r.famille && r.famille.dates.length) DOM[2][3] = '<p><b>Ta famille ce mois-ci</b></p><ul>' + r.famille.dates.map(function (x) { return '<li>Le ' + jourL(x.jour) + ' : ' + esc(x.quoi) + ', il y a ' + x.il_y_a + ' ans.</li>'; }).join('') + '</ul>';
+      if (r.famille && r.famille.dates.length) DOM[2][3] = '<p><b>Ta famille ce mois-ci</b> : ' + r.famille.dates.length + ' date' + (r.famille.dates.length > 1 ? 's' : '') + ', à retrouver dans tes dates clés.</p>';
       DOM.forEach(function (o) { D[o[0]] = '<p class="ce-etiq">' + o[1] + ' · mois personnel ' + r.moisPerso + '</p><h2>' + o[1] + '</h2><p>' + esc(o[2] || '') + '</p>' + o[3]; });
       /* les dates clés, chacune avec son explication */
       var dates = [];
@@ -392,7 +394,7 @@
       r.aspects.slice(0, 3).forEach(function (a) { dates.push({ jour: a.jour, quoi: G.nomPlanete(a.planete) + ' ' + G.nomAspect(a.aspect) + ' ' + (a.cible === 'soleil' ? 'à ton Soleil' : 'à ta Lune'), txt: ((T.ASPECTS[a.planete] || {})[a.cible] || {})[a.aspect] || '' }); });
       if (r.mercure) r.mercure.stations.forEach(function (s) { dates.push({ jour: r.annee + '-' + ('0' + r.mois).slice(-2) + '-' + ('0' + s.jour).slice(-2), quoi: s.type === 'debut' ? 'Mercure commence sa marche rétrograde' : 'Mercure reprend sa marche directe', txt: T.MERCURE_RETRO }); });
       if (r.maya) r.maya.jours.forEach(function (x) { var an = x.jour === r.maya.anniversaire; dates.push({ jour: x.jour, quoi: an ? 'Ton anniversaire maya' : 'Jour de ton signe maya', sous: signeMaya ? signeMaya.kiche + ' · ' + signeMaya.image : '', txt: T.MAYA_JOUR_SIGNE + (an ? ' ' + T.MAYA_ANNIVERSAIRE : '') }); });
-      if (r.famille) r.famille.dates.forEach(function (x) { dates.push({ jour: x.jour, quoi: x.quoi, sous: 'Il y a ' + x.il_y_a + ' ans', fam: true, txt: 'Une date de ta famille revient ce mois-ci. Tu peux simplement penser à cette personne, allumer une bougie ou écrire quelques lignes. Rien d’autre n’est demandé.' }); });
+      if (r.famille) r.famille.dates.forEach(function (x) { dates.push({ jour: x.jour, quoi: x.quoi, sous: cap(x.ilya || ('il y a ' + x.il_y_a + ' ans')), fam: true, ancienne: x.il_y_a >= 100, txt: 'Une date de ta famille revient ce mois-ci. Tu peux simplement penser à cette personne, allumer une bougie ou écrire quelques lignes. Rien d’autre n’est demandé.' }); });
       dates.sort(function (a, b) { return a.jour < b.jour ? -1 : a.jour > b.jour ? 1 : 0; });
       dates.forEach(function (x, i) {
         D['date' + i] = '<p class="ce-etiq">Le ' + jourL(x.jour) + '</p><h2>' + esc(x.quoi) + '</h2>' + (x.sous ? '<p><b>' + esc(x.sous) + '</b></p>' : '') + '<p>' + esc(x.txt) + '</p>' +
@@ -404,7 +406,12 @@
         '<div class="ce-puces"><span>Mois ' + r.moisPerso + '</span><span>Année ' + r.anneePerso + '</span>' + (signeMaya ? '<span>Maya : ' + esc(signeMaya.kiche) + '</span>' : '') + (r.natal && r.natal.asc ? '<span>Ascendant ' + esc(G.nomSigne(r.natal.asc.signe)) + '</span>' : '') + '</div><span class="ce-plus">Lire en détail</span></button>' +
         '<div class="ce-dom">' + DOM.map(function (o) { return '<button type="button" class="ce-carte" data-d="' + o[0] + '"><p class="ce-etiq">' + o[1] + '</p><p>' + esc(phrase1(o[2])) + '</p><span class="ce-plus">Lire</span></button>'; }).join('') + '</div>' +
         '<section class="ce-carte"><p class="ce-etiq">Tes dates clés</p>' + (dates.length
-          ? '<ul class="ce-dates">' + dates.map(function (x, i) { return '<li' + (x.fam ? ' class="fam"' : '') + '><button type="button" data-d="date' + i + '"><b>' + jourC(x.jour) + '</b><span>' + esc(x.quoi) + '</span><em aria-hidden="true"></em></button></li>'; }).join('') + '</ul>'
+          ? (function () {
+              var li = function (x, i) { return '<li' + (x.fam ? ' class="fam"' : '') + '><button type="button" data-d="date' + i + '"><b>' + jourC(x.jour) + '</b><span>' + esc(x.quoi) + (x.fam ? ' <small>(' + esc(x.sous.toLowerCase()) + ')</small>' : '') + '</span><em aria-hidden="true"></em></button></li>'; };
+              var rec = '', anc = '', n = 0;
+              dates.forEach(function (x, i) { if (x.ancienne) { anc += li(x, i); n++; } else rec += li(x, i); });
+              return '<ul class="ce-dates">' + rec + '</ul>' + (n ? '<details class="ce-anciennes"><summary>Les dates de famille plus anciennes (' + n + ')</summary><ul class="ce-dates">' + anc + '</ul></details>' : '');
+            })()
           : '<p>Un mois sans grand rendez-vous du ciel : profite-en pour avancer à ton rythme.</p>') + '</section>' +
         (r.maisons ? '' : '<p class="ce-discret" style="margin:0 .2rem .8rem">Ajoute ton heure et ton lieu de naissance pour savoir dans quels domaines de ta vie tombe le ciel du mois.</p>') +
         '<div class="ce-actions" style="justify-content:flex-start"><a class="ce-bt clair" href="mon-guide.html">Mon guide complet</a><a class="ce-bt clair" href="mon-mois.html">Mon calendrier</a><button type="button" class="ce-bt clair" data-profil>' + (pr.verrou ? 'Compléter mon heure ou mon lieu' : 'Modifier mes repères') + '</button></div>';

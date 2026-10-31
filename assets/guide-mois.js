@@ -106,6 +106,14 @@
       (p.events || []).forEach(function (e) { if (age != null && +e.age === age) out.echos.push({ nom: nom, type: e.type, annee: e.year }); });
     });
     out.dates.sort(function (a, b) { return a.jour < b.jour ? -1 : 1; });
+    /* une seule ligne quand la même personne a deux dates le même jour ; il_y_a = la plus récente, ilya = le texte complet */
+    var vu = {}, g = [];
+    out.dates.forEach(function (x) {
+      var nom = String(x.quoi).replace(/^\S+ de /, ''), k = x.jour + '|' + nom;
+      if (vu[k]) { var y = vu[k]; y.types.push(String(x.quoi).split(' ')[0].toLowerCase()); y.ans.push(x.il_y_a); y.il_y_a = Math.min(y.il_y_a, x.il_y_a); }
+      else { vu[k] = { jour: x.jour, nom: nom, types: [String(x.quoi).split(' ')[0]], ans: [x.il_y_a], il_y_a: x.il_y_a }; g.push(vu[k]); }
+    });
+    out.dates = g.map(function (y) { return { jour: y.jour, quoi: y.types.join(' et ') + ' de ' + y.nom, il_y_a: y.il_y_a, ilya: 'il y a ' + y.ans.join(' et ') + ' ans' }; });
     return out;
   }
 
@@ -135,7 +143,7 @@
     r.aspects.slice(0, 4).forEach(function (a) { d.push({ jour: a.jour, quoi: nomPlanete(a.planete) + ' ' + nomAspect(a.aspect) + ' ' + (a.cible === 'soleil' ? 'à ton Soleil' : 'à ta Lune') }); });
     if (r.mercure) r.mercure.stations.forEach(function (s) { d.push({ jour: annee + '-' + String(mois).padStart(2, '0') + '-' + String(s.jour).padStart(2, '0'), quoi: s.type === 'debut' ? 'Mercure commence sa marche rétrograde' : 'Mercure reprend sa marche directe' }); });
     if (r.maya) { r.maya.jours.forEach(function (x) { d.push({ jour: x.jour, quoi: 'Jour de ton signe maya' + (x.jour === r.maya.anniversaire ? ' : ton anniversaire maya' : '') }); }); }
-    if (r.famille) r.famille.dates.forEach(function (x) { d.push({ jour: x.jour, quoi: x.quoi + ' (il y a ' + x.il_y_a + ' ans)', famille: true }); });
+    if (r.famille) r.famille.dates.forEach(function (x) { d.push({ jour: x.jour, quoi: x.quoi + ' (' + x.ilya + ')', famille: true }); });
     r.dates = d.sort(function (a, b) { return a.jour < b.jour ? -1 : a.jour > b.jour ? 1 : 0; });
     return r;
   }
