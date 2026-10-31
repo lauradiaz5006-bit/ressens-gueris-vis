@@ -12,7 +12,7 @@ window.GENESOLIA_CARNET = {
   titre: 'Mon premier pas',
   sousTitre: "Faire le point sur ta vie avec ta roue, choisir ce que tu veux nourrir, et avancer d'un petit pas chaque semaine.",
   pdf: '',
-  image: 'assets/cercle/apercu-2026-10.jpg',
+  image: 'assets/cartes/a-mon-rythme.jpg',
   citation: "Tu n'as pas besoin de tout changer. Un pas juste, aujourd'hui, suffit pour commencer.",
   audio: '',
   audioCourt: '',

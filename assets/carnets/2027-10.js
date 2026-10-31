@@ -13,7 +13,7 @@ window.GENESOLIA_CARNET = {
   titre: 'Mon bilan de l’année',
   sousTitre: "Une année dans Le Cercle : comparer tes roues, célébrer le chemin parcouru, relire ta lettre, et choisir la suite.",
   pdf: '',
-  image: 'assets/cercle/apercu-12-saisons.jpg',
+  image: 'assets/cartes/aujourdhui-spirale.jpg',
   citation: "Tu n’es pas revenu·e au point de départ. Tu es au même endroit, un tour plus haut.",
   audio: '',
   audioCourt: '',

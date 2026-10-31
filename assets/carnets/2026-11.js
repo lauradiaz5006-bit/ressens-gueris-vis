@@ -12,7 +12,7 @@ window.GENESOLIA_CARNET = {
   titre: 'Mes forces, mes appuis',
   sousTitre: "Reconnaître tes forces et tes ressources, savoir sur quoi t'appuyer, et dire merci à ce qui t'a été transmis de beau.",
   pdf: '',
-  image: 'assets/cercle/apercu-2026-11.jpg',
+  image: 'assets/cartes/ils-ont-traverse.jpg',
   citation: "Tu es déjà plus solide que tu ne le crois. Tes forces t'attendent, il suffit de les regarder.",
   audio: '',
   audioCourt: '',
