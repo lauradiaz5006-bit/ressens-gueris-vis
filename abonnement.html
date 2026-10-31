@@ -305,11 +305,10 @@
   @media (min-width:1200px){.t-livres-note{display:none}}
 
     /* Ce que tu ouvres chaque mois : galerie */
-    .fl-cadre{max-width:900px;margin:0 auto;padding:1rem 0}
-    .fl-livre{margin:0 auto}
-    .fl-page{background:#fff;box-shadow:inset 0 0 18px rgba(107,47,91,.06)}
-    .fl-page img{display:block;width:100%;height:100%;object-fit:cover}
-    .stf__parent{filter:drop-shadow(0 24px 40px rgba(46,19,56,.22))}
+    .cv-cadre{max-width:1000px;margin:1rem auto 0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--rose);box-shadow:0 30px 60px rgba(46,19,56,.18)}
+    .cv-barre{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:#F7E6EE;font-size:.8rem;color:var(--prune-doux)}
+    .cv-barre i{width:10px;height:10px;border-radius:50%;background:#E2B877}.cv-barre i+i{background:#D9A5BE}.cv-barre i+i+i{background:#B98A55}.cv-barre span{margin-left:.6rem}
+    .cv-cadre iframe{display:block;width:100%;height:min(78vh,760px);border:0}
     .fl-nav{display:flex;justify-content:center;align-items:center;gap:1.2rem;margin-top:1.2rem;color:var(--prune-doux)}
     .fl-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--champagne);background:#fff;color:var(--prune);font-size:1.6rem;line-height:1;cursor:pointer}
     .fl-btn:hover{background:#F7E6EE}
@@ -570,14 +569,13 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">À l’intérieur</p>
-          <h2>Feuillette ton carnet du mois</h2>
-          <p>Ton carnet du mois se remplit en ligne, sur ordinateur comme sur téléphone. Et si tu préfères écrire à la main, tu peux l’imprimer.</p>
+          <h2>Essaie ton carnet du mois</h2>
+          <p>Ton carnet se remplit directement en ligne, sur ordinateur comme sur téléphone. Et si tu préfères écrire à la main, tu peux l’imprimer.</p>
         </div>
-        <div class="fl-cadre"><div class="fl-livre" id="fl-livre"><div class="fl-page"><img src="assets/cercle/livre-nov/p01.webp" width="700" height="991" alt="Carnet du mois, page 1" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p02.webp" width="700" height="991" alt="Carnet du mois, page 2" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p03.webp" width="700" height="991" alt="Carnet du mois, page 3" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p04.webp" width="700" height="991" alt="Carnet du mois, page 4" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p05.webp" width="700" height="991" alt="Carnet du mois, page 5" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p06.webp" width="700" height="991" alt="Carnet du mois, page 6" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p07.webp" width="700" height="991" alt="Carnet du mois, page 7" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p08.webp" width="700" height="991" alt="Carnet du mois, page 8" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p09.webp" width="700" height="991" alt="Carnet du mois, page 9" loading="lazy"></div><div class="fl-page"><img src="assets/cercle/livre-nov/p10.webp" width="700" height="991" alt="Carnet du mois, page 10" loading="lazy"></div></div></div>
-        <div class="fl-nav"><button type="button" class="fl-btn" id="fl-prec" aria-label="Page précédente">‹</button><span id="fl-num">Couverture</span><button type="button" class="fl-btn" id="fl-suiv" aria-label="Page suivante">›</button></div>
-        <p class="fl-aide">Tourne les pages du carnet de novembre : clique sur un coin ou glisse du doigt.</p>
-        <div class="fl-demo"><a class="btn btn-plein" href="mon-mois.html?exemple">Voir la démo de ton mois</a><span>L’espace du Cercle, rempli avec un exemple, sans inscription.</span></div>
-        <p class="t-livres-note"><a class="t-lien-or" href="essai.html">Ouvre ton mois offert pour tout feuilleter</a></p>
+        <div class="cv-cadre"><div class="cv-barre"><i></i><i></i><i></i><span>genesolia.fr · Mon carnet du mois</span></div><iframe src="mon-carnet.html" title="Le carnet du mois du Cercle, à essayer" loading="lazy"></iframe></div>
+        <p class="fl-aide">C’est le vrai carnet, celui que tu ouvres dans ton appli : clique sur les onglets, écris, essaie.</p>
+        <div class="fl-demo"><a class="btn btn-plein" href="mon-carnet.html">Ouvrir le carnet en grand</a><a class="t-lien-or" href="mon-mois.html?exemple">ou voir la démo de ton mois</a></div>
+        <p class="t-livres-note"><a class="t-lien-or" href="essai.html">Ouvre ton mois offert pour garder tes réponses</a></p>
       </div>
     </section>
 
@@ -829,18 +827,6 @@
       new IntersectionObserver(function (e) { vuHero = e[0].isIntersecting; maj(); }).observe(hero);
       if (fin) new IntersectionObserver(function (e) { vuFin = e[0].isIntersecting; maj(); }).observe(fin);
     }
-  })();
-  </script>
-<script src="assets/vendor/page-flip-2.0.7.js"></script>
-  <script>
-  (function(){var el=document.getElementById('fl-livre');if(!el||!window.St)return;
-    var pf=new St.PageFlip(el,{width:420,height:594,size:'stretch',minWidth:260,maxWidth:450,minHeight:368,maxHeight:637,showCover:true,maxShadowOpacity:.4,mobileScrollSupport:true,usePortrait:true});
-    pf.loadFromHTML(el.querySelectorAll('.fl-page'));
-    var n=document.getElementById('fl-num'),t=10;
-    function maj(){var i=pf.getCurrentPageIndex();n.textContent=i===0?'Couverture':'Page '+(i+1)+' / '+t;}
-    pf.on('flip',maj);
-    document.getElementById('fl-prec').onclick=function(){pf.flipPrev();};
-    document.getElementById('fl-suiv').onclick=function(){pf.flipNext();};
   })();
   </script>
 </body>

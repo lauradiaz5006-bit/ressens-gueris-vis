@@ -1,5 +1,7 @@
 /* ===== Anciens iPad / Safari (iOS 13 et avant) : ils ignorent :where(), donc toute la remise à zéro de la mise en page.
    On leur redonne les mêmes règles, sans :where() et avec le même poids, pour que la page ne se décale pas. ===== */
+/* Page affichée dans un cadre (aperçu du carnet sur la page du Cercle) : sans en-tête, pied, cookies ni bulle */
+try { if (window.self !== window.top) document.documentElement.classList.add('dans-cadre'); } catch (e) { document.documentElement.classList.add('dans-cadre'); }
 (function () {
   try { document.querySelector(':where(body)'); return; } catch (e) {}
   var css = '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}' +
@@ -1197,7 +1199,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   /* Discussion en direct (Crisp) : bulle en bas à droite. Pas dans l'appli installée ni sur ses écrans à onglets du bas (elle les cacherait),
      ni sur le lien de partage reçu par les client·es d'un·e praticien·ne, ni en mode séance. */
   (function () {
-    if (MODE || drapeau === 'pro' || page === 'questionnaire.html' || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;   /* appli Pro : la bulle cachait l'onglet « Mon activité » */
+    if (document.documentElement.classList.contains('dans-cadre') || MODE || drapeau === 'pro' || page === 'questionnaire.html' || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;   /* appli Pro : la bulle cachait l'onglet « Mon activité » */
     window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
     /* sur téléphone, la bulle n'arrive qu'après un défilement ou 15 secondes : elle ne cache plus le premier écran (« Dessiner mon arbre ») */
     var charge = false;
