@@ -7,12 +7,12 @@ window.GenesoliaPratique = (function () {
   function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
   function marquer(k) { try { localStorage.setItem('pr-fait-' + k, '1'); } catch (e) {} }
 
-  var CSS = '.pr-fond{position:fixed;inset:0;z-index:200;background:rgba(74,33,66,.45);display:flex;align-items:flex-end;justify-content:center}' +
+  var CSS = '.pr-fond{position:fixed;inset:0;z-index:3000;background:rgba(74,33,66,.45);display:flex;align-items:flex-end;justify-content:center}' +
     '@media (min-width:700px){.pr-fond{align-items:center;padding:16px}}' +
     '.pr-fenetre{background:var(--blanc,#fff);color:var(--prune,#4A2142);width:100%;max-width:40rem;max-height:92vh;overflow-y:auto;border-radius:22px 22px 0 0;padding:1.4rem 1.3rem calc(1.4rem + env(safe-area-inset-bottom));box-sizing:border-box}' +
     '@media (min-width:700px){.pr-fenetre{border-radius:22px}}' +
     '.pr-fenetre h2{font-size:1.4rem;margin:0 0 .4rem}.pr-fenetre h3{font-size:1.05rem;margin:1.2rem 0 .5rem}' +
-    '.pr-tiroir{position:fixed;top:0;right:0;bottom:0;z-index:210;width:min(26rem,100vw);background:var(--blanc,#fff);color:var(--prune,#4A2142);box-shadow:-18px 0 40px rgba(74,33,66,.22);overflow-y:auto;padding:1.2rem 1.1rem calc(1.2rem + env(safe-area-inset-bottom));box-sizing:border-box}' +
+    '.pr-tiroir{position:fixed;top:0;right:0;bottom:0;z-index:3000;width:min(26rem,100vw);background:var(--blanc,#fff);color:var(--prune,#4A2142);box-shadow:-18px 0 40px rgba(74,33,66,.22);overflow-y:auto;padding:1.2rem 1.1rem calc(1.2rem + env(safe-area-inset-bottom));box-sizing:border-box}' +
     '.pr-tiroir h2{font-size:1.25rem;margin:0 0 .4rem}' +
     '.pr-o-aide{color:var(--prune-doux,#7A5570);font-size:.9rem;margin:0 0 .9rem;line-height:1.45}' +
     '.pr-o-form{display:grid;gap:.8rem}.pr-o-form label{display:grid;gap:.35rem;font-weight:600;font-size:.92rem}' +
@@ -42,6 +42,7 @@ window.GenesoliaPratique = (function () {
     var fond = document.createElement('div'); fond.className = 'pr-fond'; fond.setAttribute('role', 'dialog'); fond.setAttribute('aria-modal', 'true');
     fond.innerHTML = '<div class="pr-fenetre"><div style="text-align:right"><button class="pr-o-lien" type="button" data-fermer>Fermer</button></div>' + html + '</div>';
     document.body.appendChild(fond);
+    var bf = fond.querySelector('[data-fermer]'); if (bf) setTimeout(function () { try { bf.focus({ preventScroll: true }); } catch (x) {} }, 30);
     fond.addEventListener('click', function (e) { if (e.target === fond || e.target.closest('[data-fermer]')) fond.remove(); });
     return fond;
   }
