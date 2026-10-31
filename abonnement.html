@@ -304,6 +304,14 @@
   .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
   @media (min-width:1200px){.t-livres-note{display:none}}
 
+    /* Ce que tu ouvres chaque mois : galerie */
+    .t-galerie{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+    .t-galerie figure{margin:0;background:#fff;border:1px solid var(--rose);border-radius:22px;overflow:hidden;box-shadow:0 18px 44px rgba(107,47,91,.1);transition:transform .25s}
+    .t-galerie figure:hover{transform:translateY(-5px) rotate(-.4deg)}
+    .t-galerie img{display:block;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/4;object-fit:cover}
+    .t-galerie figcaption{padding:1rem 1.1rem 1.2rem;font-size:.9rem;color:var(--prune-doux)}
+    .t-galerie figcaption b{display:block;font:400 1.15rem var(--display);color:var(--prune);margin-bottom:.25rem}
+    @media (max-width:900px){.t-galerie{grid-template-columns:1fr 1fr}}
     /* Tunnel : images */
     .t-img-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:3rem;align-items:center}
     .t-img-split>img{width:100%;height:auto;border-radius:28px;box-shadow:0 26px 60px rgba(46,19,56,.22)}
@@ -551,15 +559,16 @@
       <div class="conteneur">
         <div class="a-titre">
           <p class="a-etiq">À l’intérieur</p>
-          <h2>Feuillette ton parcours du mois</h2>
-          <p>Ce que tu ouvres chaque mois, tel quel, sur ordinateur. Sur téléphone, les pages se tournent du doigt.</p>
+          <h2>Ce que tu ouvres chaque mois</h2>
+          <p>Des carnets beaux à tenir entre les mains, et vivants à remplir en ligne, sur ordinateur comme sur téléphone.</p>
         </div>
-        <div class="t-livres">
-          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-renaissance-semaine-p-1200.webp" srcset="assets/cercle/captures/carnet-renaissance-semaine-p-600.webp 600w, assets/cercle/captures/carnet-renaissance-semaine-p-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1144" alt="Le carnet Renaissance, semaine 1 : le thème du mois et la roue de la vie" loading="lazy" decoding="async"><figcaption><b>Renaissance</b> · Semaine 1 : le thème du mois et ta roue de la vie</figcaption></figure>
-          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-liberation-saison-p-1200.webp" srcset="assets/cercle/captures/carnet-liberation-saison-p-600.webp 600w, assets/cercle/captures/carnet-liberation-saison-p-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1144" alt="Le livret Libération en octobre : la saison du lâcher-prise, l’autel de saison et l’arbre de vie" loading="lazy" decoding="async"><figcaption><b>Libération</b> · Ta saison : le lâcher-prise, ton autel et ton arbre de vie</figcaption></figure>
-          <figure class="t-livre"><div class="t-livre-barre" aria-hidden="true"><i></i><i></i><i></i></div><img src="assets/cercle/captures/carnet-renaissance-meteo-p-1200.webp" srcset="assets/cercle/captures/carnet-renaissance-meteo-p-600.webp 600w, assets/cercle/captures/carnet-renaissance-meteo-p-1200.webp 1200w" sizes="(max-width: 760px) 88vw, 36rem" width="1200" height="1144" alt="Le carnet Renaissance : la météo du début de mois, avec des curseurs pour l’énergie, l’humeur et la confiance" loading="lazy" decoding="async"><figcaption><b>Renaissance</b> · Ta météo du début de mois, en quelques curseurs</figcaption></figure>
+        <div class="t-galerie">
+          <figure><img src="assets/cercle/accueil-carnets.webp" width="800" height="600" alt="Les carnets Renaissance et Libération" loading="lazy"><figcaption><b>Renaissance et Libération</b>Tes deux carnets de l’année, un par cycle</figcaption></figure>
+          <figure><img src="assets/cercle/apercu-2026-11.webp" width="496" height="702" alt="Couverture du carnet du mois : Ceux qui sont venus avant toi" loading="lazy"><figcaption><b>Ton carnet du mois</b>Un thème, des exercices, à imprimer ou à remplir en ligne</figcaption></figure>
+          <figure><img src="assets/cercle/captures/carnet-liberation-saison-p-1200.webp" width="1200" height="1144" alt="Une page de saison du livret Libération" loading="lazy" style="object-position:28% 20%"><figcaption><b>Ta page de saison</b>Le geste du mois, pour honorer ce qui se transforme</figcaption></figure>
+          <figure><img src="assets/cercle/apercu-12-saisons.webp" width="496" height="702" alt="Couverture du livret Les 12 saisons" loading="lazy"><figcaption><b>Les 12 saisons</b>Ton livret de l’année, l’histoire de chaque mois</figcaption></figure>
         </div>
-        <p class="t-livres-note">Glisse pour voir les pages suivantes.</p>
+        <p class="t-livres-note"><a class="t-lien-or" href="essai.html">Ouvre ton mois offert pour tout feuilleter</a></p>
       </div>
     </section>
 
@@ -621,7 +630,7 @@
         <div class="a-titre">
           <p class="a-etiq">Les formules</p>
           <h2>Le même Cercle, deux façons de continuer</h2>
-          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou l’année en une fois. Ton parcours guidé, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
+          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou la tranquillité de l’année. Ton parcours guidé, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
         </div>
         <div data-devise-ici></div>
         <div class="a-formules">
@@ -642,10 +651,10 @@
             <p class="a-note">Aucune carte demandée pour ton mois offert. Avant la fin, on t’écrit pour te proposer de continuer. </p><p class="a-note a-note-noel"><span class="promo-noel">✦ Cadeau de Noël</span> <s>24,90 €</s> <b>17,77 € par mois</b> après ton mois offert, toujours sans engagement : ce prix te reste tant que tu restes. Pour toute inscription jusqu’au 31 décembre.</p>
           </article>
           <article class="a-carte">
-            <span class="a-badge">Le plus avantageux</span>
+            <span class="a-badge">Tranquille toute l’année</span>
             <h3>Le Cercle à l’année</h3>
-            <p class="a-prix">249 € <small>pour 12 mois, en une fois</small></p>
-            <p>Le même Cercle, payé une seule fois pour toute l’année : c’est la formule la moins chère, environ 20,75 € par mois.</p>
+            <p class="a-prix">249 € <small>par an, environ 20,75 € par mois</small></p>
+            <p>Le même Cercle, réglé une fois par an. L’abonnement se renouvelle chaque année, et tu peux l’arrêter quand tu veux avant la date anniversaire : on te prévient avant.</p>
             <ul>
               <li>Tout ce qui est compris dans la formule au mois</li>
               <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
@@ -692,10 +701,10 @@
           <h2 id="acheter-titre">Rejoindre Le Cercle maintenant</h2>
           <p>Tu sais déjà que c’est pour toi, ou ton mois offert se termine ? Abonne-toi directement : ton accès s’ouvre tout de suite, ou continue sans coupure si tu es dans ton mois offert.</p>
           <div class="a-acheter-choix">
-            <a class="btn btn-plein" href="#" data-payer="cercleFondatrice" id="acheter-noel"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël, sans engagement</small></a>
-            <a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>en une fois, environ 20,75 € par mois</small></a>
+            <a class="btn btn-plein" href="#" data-payer="cercleFondatrice" id="acheter-noel"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël · 1<sup>er</sup> paiement aujourd’hui</small></a>
+            <a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span>249 € l’année</span><small>renouvelé chaque année · 1<sup>er</sup> paiement aujourd’hui</small></a>
           </div>
-          <p class="a-acheter-note">Paiement sécurisé par Stripe. Il te faut un compte Genesolia (gratuit) : on te le propose si tu n’en as pas. Le cadeau de Noël à 17,77 € vaut pour toute inscription jusqu’au 31 décembre, et ce prix te reste tant que tu restes.</p>
+          <p class="a-acheter-note">Paiement sécurisé par Stripe, prélevé dès aujourd’hui. Si tu es dans ton mois offert, tes jours offerts restants s’ajoutent à ton abonnement : tu ne perds rien. Il te faut un compte Genesolia (gratuit) : on te le propose si tu n’en as pas. Le cadeau de Noël à 17,77 € vaut pour toute inscription jusqu’au 31 décembre, et ce prix te reste tant que tu restes.</p>
           <p class="a-acheter-note">Pour offrir Le Cercle : <a href="boutique.html#carte-cadeau">la carte cadeau 3 ou 6 mois</a>.</p>
         </div>
       </div>
@@ -757,7 +766,7 @@
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
         <details><summary>Comment se passe le mois offert ?</summary><p>Tu crées ton compte, tu ouvres ton mois offert en un clic, puis tu fais ton point de départ. Aucune carte n’est demandée. Pendant 30 jours, tout ton Cercle est ouvert.</p></details>
-        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou à l’année (249 € en une fois). Jusqu’au 31 décembre, c’est le cadeau de Noël : 17,77 € par mois sans engagement, et ce prix te reste tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
+        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou à l’année (249 € par an). Jusqu’au 31 décembre, c’est le cadeau de Noël : 17,77 € par mois sans engagement, et ce prix te reste tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
         <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : ton étape du parcours, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
         <details><summary>Mes semaines suivent-elles le calendrier ?</summary><p>Non, elles suivent ton propre rythme : ta semaine 1 commence le jour où tu entres dans Le Cercle, que ce soit le 1<sup>er</sup> ou le 18 du mois.</p></details>
         <details><summary>J’ai déjà tout essayé. Pourquoi ce serait différent ?</summary><p>Parce que Le Cercle ne te demande pas de tout comprendre d’un coup. Il te fait regarder d’où vient ta boucle dans ton histoire familiale, puis poser un petit geste nouveau chaque semaine, pendant un an. C’est la régularité qui change les choses, pas une prise de conscience isolée.</p></details>
