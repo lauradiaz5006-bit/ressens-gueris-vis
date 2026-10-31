@@ -254,7 +254,7 @@ window.GenesoliaMesure = (function () {
    Abonnements : activer « essai gratuit de 30 jours » dans Stripe, et la page de confirmation
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
-  cercleMois: 'https://buy.stripe.com/aFafZa6jj2NX6Yd9qD43S0h',     /* Le Cercle 29 €/mois, essai 30 jours */
+  cercleMois: 'https://buy.stripe.com/14AdR25ff6095U90U743S0l',     /* Le Cercle 24,90 €/mois (ancien lien 29 € : aFafZa6jj2NX6Yd9qD43S0h) */
   cercleFondatrice: 'https://buy.stripe.com/8x228k0YZdsB6YdbyL43S0t', /* Cadeau de Noël 17,77 €/mois, inscriptions jusqu'au 31/12/2026 (ancien lien 24,90 € : 14AdR25ff6095U90U743S0l) · Le Cercle, prix fondatrice 24,90 €/mois (100 premières après le mois offert) */
   cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
   cercleAnnee: 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',    /* Le Cercle 249 € l'année en une fois */
@@ -295,7 +295,7 @@ window.GENESOLIA_PRODUITS = {
   mayaDuo:       { payant: false, prix: '9 €',  nom: 'votre analyse à deux', inclus: ['Vos deux signes mayas', 'Ce qui vous rapproche et ce qui frotte', 'Des pistes pour avancer ensemble'] },
   rapport:       { payant: false, prix: '9 €',  nom: 'le rapport de ton arbre', inclus: ['Ton arbre et tes chiffres clés', 'Chaque répétition expliquée', 'Les questions à poser à ta famille'] },
   arbreEncadrer: { payant: false, prix: '12 €', nom: 'ton arbre à encadrer', inclus: ['Ton arbre doré, en haute définition', 'Prêt à imprimer en A4 ou A3', 'Une belle idée de cadeau'] },
-  cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
+  cercle:        { payant: false, prix: '24,90 € par mois', nom: 'Le Cercle', inclus: [] }
 };
 
 /* ===== Essai de 30 jours des analyses de l'arbre =====

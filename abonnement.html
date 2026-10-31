@@ -354,7 +354,7 @@
             <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
             <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-petit"><a href="s-abonner.html" style="color:#F6D9A2">Ou m’abonner directement</a></p>
-            <p class="a-petit">Aucune carte demandée. Ensuite 29 € par mois, sans engagement.</p>
+            <p class="a-petit">Aucune carte demandée, sans engagement.</p>
             <p class="a-fondatrice"><span class="promo-noel">✦ Cadeau de Noël</span> <span class="promo-prix">Après ton mois offert : <s>24,90 €</s> <b>17,77 € par mois</b></span><br>Sans engagement, et ce prix te reste tant que tu restes. Pour toute inscription jusqu’au 31 décembre.</p>
           </div>
         </div>
@@ -646,7 +646,7 @@
             <span class="a-badge">Tout compris</span>
             <h3>Le Cercle au mois</h3>
             <p class="a-essai">1<sup>er</sup> mois : 0 €</p>
-            <p class="a-prix">29 € <small>par mois ensuite, sans engagement</small></p>
+            <p class="a-prix"><s style="font-size:.55em;opacity:.6">24,90 €</s> 17,77 € <small>par mois ensuite, cadeau de Noël, sans engagement</small></p>
             <ul>
               <li><b>Renaissance</b> : ton carnet du cycle 1, un petit pas chaque semaine</li>
               <li><b>Libération</b> : ton livret du cycle 2 et ton arbre de vie</li>
@@ -718,11 +718,11 @@
       </div>
     </section>
     <script>
-    /* Le cadeau de Noël (17,77 €) tant qu'il reste des places, sinon 29 € par mois */
+    /* Le cadeau de Noël (17,77 €) tant qu'il reste des places, sinon 24,90 € par mois */
     (function () {
       fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': 'application/json' }, body: '{}' })
         .then(function (r) { return r.ok ? r.json() : null; }).then(function (n) {
-          if (n === 0) { var b = document.getElementById('acheter-noel'); b.setAttribute('data-payer', 'cercleMois'); b.innerHTML = '<span>29 € par mois</span><small>sans engagement</small>'; }
+          if (n === 0) { var b = document.getElementById('acheter-noel'); b.setAttribute('data-payer', 'cercleMois'); b.innerHTML = '<span>24,90 € par mois</span><small>sans engagement</small>'; }
         }).catch(function () {});
     })();
     </script>
@@ -774,7 +774,7 @@
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
         <details><summary>Comment se passe le mois offert ?</summary><p>Tu crées ton compte, tu ouvres ton mois offert en un clic, puis tu fais ton point de départ. Aucune carte n’est demandée. Pendant 30 jours, tout ton Cercle est ouvert.</p></details>
-        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou à l’année (249 € par an). Jusqu’au 31 décembre, c’est le cadeau de Noël : 17,77 € par mois sans engagement, et ce prix te reste tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
+        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (24,90 €, sans engagement) ou à l’année (249 € par an). Jusqu’au 31 décembre, c’est le cadeau de Noël : 17,77 € par mois sans engagement, et ce prix te reste tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
         <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : ton étape du parcours, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
         <details><summary>Mes semaines suivent-elles le calendrier ?</summary><p>Non, elles suivent ton propre rythme : ta semaine 1 commence le jour où tu entres dans Le Cercle, que ce soit le 1<sup>er</sup> ou le 18 du mois.</p></details>
         <details><summary>J’ai déjà tout essayé. Pourquoi ce serait différent ?</summary><p>Parce que Le Cercle ne te demande pas de tout comprendre d’un coup. Il te fait regarder d’où vient ta boucle dans ton histoire familiale, puis poser un petit geste nouveau chaque semaine, pendant un an. C’est la régularité qui change les choses, pas une prise de conscience isolée.</p></details>
@@ -797,7 +797,7 @@
     </section>
 
   </main>
-  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Ton 1<sup>er</sup> mois : 0 €</b> <span>ensuite 29 € par mois</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Ton 1<sup>er</sup> mois : 0 €</b> <span>ensuite 17,77 € par mois</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>

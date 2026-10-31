@@ -375,7 +375,7 @@
     function blocPrix() {
       return '<div class="o-prix"><p class="s-etiq">Le Cercle · 1 mois offert pour tester</p><p class="o-gros">Ton premier mois est offert</p>' +
         '<p>Tu as accès à tout, tout de suite. Si ça ne te convient pas, tu arrêtes avant la fin du mois et tu ne paies rien.</p>' +
-        '<p class="o-apres">Ensuite : <b>29 € par mois, sans engagement</b>, ou <b>249 €</b> l’année en une fois.</p>' +
+        '<p class="o-apres">Ensuite : <b>24,90 € par mois, sans engagement</b>, ou <b>249 €</b> l’année en une fois.</p>' +
         '<div class="o-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Tout savoir sur Le Cercle</a></div></div>';
     }
     function offre() {
@@ -421,7 +421,7 @@
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
       if (!utilisateur) {
-        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés chiffrés dans ton espace, et Genesolia ne les lit jamais.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés chiffrés dans ton espace, et Genesolia ne les lit jamais.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 24,90 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
         corps.innerHTML = h + saison() + livreDuMois();

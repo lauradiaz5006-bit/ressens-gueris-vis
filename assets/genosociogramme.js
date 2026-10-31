@@ -3073,7 +3073,7 @@
   var RAPPORT = {
     offert: !PROD_R.payant,
     prix: PROD_R.prix || '9 €', duree: '7 jours',
-    abo: ((window.GENESOLIA_PRODUITS || {}).cercle || {}).prix || '29 € par mois',
+    abo: ((window.GENESOLIA_PRODUITS || {}).cercle || {}).prix || '24,90 € par mois',
     lienAchat: STRIPE.rapport || '',
     lienAbonnement: STRIPE.cercleMois || ''
   };
