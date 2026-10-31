@@ -170,10 +170,16 @@ window.GenesoliaReperes = (function () {
       heure: p.heure || null, lieu: p.lieu || null, lat: p.lat, lon: p.lon, tz: p.tz || null })
       .then(function () { return lire(sb, user); }, function () { return null; });
   }
+  /* Corriger la date, les prénoms ou le nom (depuis Ma spirale · Mes repères) */
+  function modifier(sb, user, p) {
+    if (!sb || !user) return Promise.resolve(null);
+    return sb.from('reperes').update({ prenoms: String(p.prenoms || '').trim().slice(0, 200), nom: String(p.nom || '').trim().slice(0, 120) || null, date_naissance: p.date, maj: new Date().toISOString() }).eq('user_id', user.id)
+      .then(function () { return lire(sb, user); }, function () { return null; });
+  }
   function verrouille() { var x = local(); return !!(x && x.verrou); }
-  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace et ne se modifient plus. Une erreur ? Écris à <a href="mailto:contact@genesolia.fr?subject=Erreur%20dans%20mes%20rep%C3%A8res%20de%20naissance">contact@genesolia.fr</a>.';
-  var AVANT = 'Vérifie bien : une fois enregistrés dans ton espace, ta date et tes prénoms ne pourront plus être modifiés. L’heure et le lieu pourront toujours être complétés.';
-  return { lire: lire, enregistrer: enregistrer, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
+  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace. Pour les modifier : <a href="pass.html#moi" target="_blank" rel="noopener">Ma spirale, Mes repères</a>.';
+  var AVANT = 'Ta date et tes prénoms seront enregistrés dans ton espace. Tu pourras les modifier dans Ma spirale, Mes repères. L’heure et le lieu pourront toujours être complétés.';
+  return { lire: lire, enregistrer: enregistrer, modifier: modifier, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
 })();
 
 /* Ne pas compter les visites de la propriétaire (et des tests faits dans son navigateur) :
