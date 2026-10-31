@@ -585,6 +585,7 @@
       (K.questions || []).map(function (c) { return zone(c.k, c.q, { lignes: c.lignes || 2, ph: c.ph }); }).join('') + '</section>';
   }
   function filJours(i) {
+    if (SUIVI) return '';   /* le fil des 7 jours : seulement dans Renaissance (31/10/2026), pour ne pas doubler les rendez-vous du jour */
     var J = plusSem(i).jours; if (!J || !J.length) return '';
     var base = SUIVI ? C.semaines[i].cle : 'sem' + (i + 1), d0 = bornesSem(i)[0], auj = isoJ(new Date());
     return '<section class="mc-jours" id="mc-jours-' + (i + 1) + '"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Le fil des 7 jours</p><h3 class="mc-h">Un petit rendez-vous par jour</h3>' +
@@ -1162,7 +1163,7 @@
     var cloAncienne = PAGES.filter(function (p) { return p.id === 'cloture'; })[0];
     PAGES = [ouvertureT2(), semaineT2(0), semaineT2(1), semaineT2(2), semaineT2(3), { id: 'cloture', nom: cloAncienne.nom, g: cloAncienne.g, d: function () { return cloAncienne.d().replace('<div class="mc-actions">', cibleSuiteHtml() + '<div class="mc-actions">'); } }];
   }
-  if (CARNET && ET) PAGES.splice(PAGES.map(function (p) { return p.id; }).indexOf('ouverture') + 1, 0, saisonCarnet());
+  /* « Ta saison » : seulement dans Libération (le suivi), plus dans Renaissance (31/10/2026, pour éviter le doublon) */
   if (SUIVI) PAGES = suiviPages();
   /* ───── Le suivi du cycle 2, autour de la cible du cœur (C.coeur) ─────
      La saison et l'autel, le thème, S1 Voir ce qui vient, S2 Ta boucle sous tes yeux (+ D'où vient ta boucle, Mon personnage),
