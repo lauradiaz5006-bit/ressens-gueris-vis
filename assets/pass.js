@@ -93,6 +93,11 @@
   }
   document.addEventListener('click', function (e) {
     var acb = e.target.closest('[data-accord]'); if (acb) { donnerAccord(acb); return; }
+    if (e.target.closest('[data-donnees-export]')) { exporterDonnees(); return; }
+    if (e.target.closest('[data-donnees-effacer]')) { effacerDonnees(); return; }
+    if (e.target.closest('[data-guide-vu]')) { try { localStorage.setItem('genesolia-spirale-guide', '1'); } catch (x) {} var g = document.getElementById('pa-guide'); if (g) g.remove(); return; }
+    var pret = e.target.closest('[data-proto-pret]'); if (pret) { var pz = document.getElementById('pa-proto-z'); if (pz) { pz.hidden = false; pret.closest('.pa-avant').hidden = true; pz.scrollIntoView({ behavior: 'smooth', block: 'start' }); } return; }
+    if (e.target.closest('[data-arret]')) { feuille('<p class="pa-etiq">Tu t’arrêtes, et c’est très bien</p><h2>Reviens ici et maintenant</h2>' + blocMonte(true).replace(/<p>On remplit le reste[\s\S]*?<\/p>/, '') + '<p><a class="pa-bt clair" href="#actions" data-ferme>Revenir à Mes actions</a></p>'); return; }
     var rs = e.target.closest('[data-respirer]'); if (rs) { respirer(rs.closest('.pa-resp')); return; }
   });
 
@@ -350,7 +355,7 @@
   /* Cliente connectée sans accord : un seul bandeau, en haut de chaque écran, pour garder l'enquête dans son espace */
   function bandeauAccord() {
     if (EXEMPLE || !D.user || D.accord) return '';
-    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ce que tu écris, gardé dans ton espace</p><p>Pour le retrouver sur tous tes appareils, ce que tu écris dans Ma spirale est gardé dans ton espace Genesolia, privé. Il nous faut ton accord une fois, c’est la loi pour des données aussi personnelles.</p><button type="button" class="pa-bt or" data-accord>J’accepte, garder mes notes</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
+    return '<section class="pa-carte pa-accord"><p class="pa-etiq">Ce que tu écris, gardé dans ton espace</p><p>Pour le retrouver sur tous tes appareils, ce que tu écris dans Ma spirale est gardé dans ton espace Genesolia, privé. Tes émotions, ton corps, tes rêves et l’histoire de ta famille sont des données très personnelles : la loi demande ton <b>accord explicite</b> avant de les garder. Tu pourras à tout moment les télécharger ou les effacer (en bas de l’écran Moi). <a href="confidentialite.html">Mes données</a></p><button type="button" class="pa-bt or" data-accord>J’accepte que mes notes soient gardées dans mon espace</button><p class="pa-discret">Tes rêves restent privés aussi : seuls ceux que tu choisis de partager, sans ton nom, peuvent servir à écrire des articles.</p></section>';
   }
   /* chaque frise s'ouvre cadrée sur ses points (de la première fois à aujourd'hui) ; si tout ne tient pas, elle part de la première fois */
   function centrerFrises(z) { (z || document).querySelectorAll('.pa-fr-defil[data-ici]').forEach(function (el) { var a = +el.getAttribute('data-min'), b = +el.getAttribute('data-max'), w = el.clientWidth; if (!w) return; el.scrollLeft = isNaN(a) ? Math.max(0, +el.getAttribute('data-ici') - w / 2) : b - a + 40 <= w ? Math.max(0, (a + b) / 2 - w / 2) : Math.max(0, a - 50); }); }
@@ -431,7 +436,13 @@
   function vueMoi() {
     var dt = new Date(), jp = jourPerso(dt), mp = moisPerso(dt), b = naissance(), ap = b && N ? N.anneePerso(b.j, b.m, dt.getFullYear()) : null, ch = chemin(), so = soleil();
     var SC = (D.etat.schemas || []).map(completerSchema), enCours = SC.filter(function (x) { return !x.classe; }), classes = SC.filter(function (x) { return x.classe; });
-    var h = '<h1 class="pa-h1">' + (D.prenom ? 'Bonjour ' + esc(D.prenom) : 'Bonjour') + '</h1><p class="pa-sous">' + cap(dt.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) + ' · ' + esc(phaseDuJour(dt)) + ' <span class="pa-offre">Ton offre : ' + (D.cercle ? 'Le Cercle' : 'Ma spirale') + '</span></p><div class="pa-2col"><div>';
+    var guideVu = false; try { guideVu = !!localStorage.getItem('genesolia-spirale-guide'); } catch (x) {}
+    var h = (!EXEMPLE && !guideVu && !(D.etat.schemas || []).length && !(D.etat.ressentis || []).length ? '<section class="pa-carte pa-guide" id="pa-guide"><p class="pa-etiq">Bienvenue dans Ma spirale</p><h2>Comment ça marche, en 3 étapes</h2><ol class="pa-guide-l">' +
+      '<li><b>Tes repères</b>Ta date de naissance et tes prénoms, une seule fois : ils placent ta frise et ouvrent tes nombres.</li>' +
+      '<li><b>Dépose ce que tu ressens</b>Quand quelque chose remonte, « Je dépose un ressenti » : trois questions, une minute. Il rejoint un schéma, ce qui se répète.</li>' +
+      '<li><b>Suis ton schéma</b>Il avance dans les 9 étapes : tu retrouves la première fois sur ta frise, tu libères avec Mes actions, puis tu poses ton intention.</li></ol>' +
+      '<button type="button" class="pa-bt or" data-guide-vu>C’est parti</button></section>' : '') +
+      '<h1 class="pa-h1">' + (D.prenom ? 'Bonjour ' + esc(D.prenom) : 'Bonjour') + '</h1><p class="pa-sous">' + cap(dt.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) + ' · ' + esc(phaseDuJour(dt)) + ' <span class="pa-offre">Ton offre : ' + (D.cercle ? 'Le Cercle' : 'Ma spirale') + '</span></p><div class="pa-2col"><div>';
     h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Quand quelque chose remonte</p><h2>Qu’est-ce que tu ressens ?</h2><p>Une émotion, une situation qui se répète : dépose-la ici. Elle rejoint un schéma, et on avance pas à pas : ta frise, la libération, ton intention, ton suivi.</p><div class="pa-outils"><button type="button" class="pa-bt or" data-aller-note>Je dépose un ressenti</button><button type="button" class="pa-bt clair" data-reve="new">Je note un rêve</button></div></section>';
     if (enCours.length) h += '<p class="pa-titre-s">Mes schémas en cours</p><p class="pa-def">Un schéma, c’est ce qui se répète. Chacun avance dans les 9 étapes du cycle, jusqu’à devenir spirale.</p>' + enCours.map(carteSchema).join('');
     var sv3 = enCours.filter(function (x) { return x.attenteSouvenir && !premiereDe(x) && joursDepuis(x.attenteSouvenir) >= 3; });
@@ -461,6 +472,7 @@
     h += '<a class="pa-carte" href="#actions"><p class="pa-etiq">Mes actions</p><p>Les protocoles pour libérer, poser une intention, et revenir au calme si ça monte fort.</p><span class="pa-plus">Ouvrir mes actions</span></a>';
     h += '</div></div>';
     h += encartSite();
+    if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret" data-donnees-msg role="status"></p></section>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);
   }
@@ -557,6 +569,23 @@
   }
   /* Rien ne sort de l'appli : un seul encart, qui ouvre le site à côté (l'appli reste ouverte) */
   function espacesLiens(cl) { return '<a class="' + cl + '" href="index.html" target="_blank" rel="noopener">Genesolia, le site</a>'; }
+  /* Mes données : tout télécharger (fichier JSON), ou tout effacer (espace et appareil) */
+  function exporterDonnees() {
+    var o = { exporte_le: new Date().toISOString(), compte: D.user ? D.user.email : '', ma_spirale: D.etat, fil_d_or: D.fil || null };
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(o, null, 2)], { type: 'application/json' }));
+    a.download = 'ma-spirale-mes-donnees-' + iso(new Date()) + '.json'; document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    var m = document.querySelector('[data-donnees-msg]'); if (m) m.textContent = 'Le fichier est téléchargé.';
+  }
+  function effacerDonnees() {
+    if (!confirm('Effacer toutes tes données de Ma spirale (ressentis, schémas, rêves, notes du jour, fil d’or, pièces) ? Ton compte et ton abonnement restent. C’est définitif.')) return;
+    if (!confirm('Dernière vérification : tout effacer définitivement ?')) return;
+    var m = document.querySelector('[data-donnees-msg]'); if (m) m.textContent = 'Effacement en cours…';
+    var fin = function (ok) { if (!ok) { if (m) m.textContent = 'L’effacement n’a pas abouti. Réessaie, ou écris à contact@genesolia.fr.'; return; }
+      try { ['genesolia-enquete', 'genesolia-pass-jp', 'genesolia-arbre-ressentis', 'genesolia-arbre-ressentis-maj'].forEach(function (k) { localStorage.removeItem(k); }); } catch (x) {}
+      alert('C’est effacé.'); location.reload(); };
+    if (!(sb && D.user)) { fin(true); return; }
+    sb.from('carnets').delete().eq('user_id', D.user.id).in('mois', ['enquete', 'fil-d-or']).then(function (r) { fin(!r.error); }, function () { fin(false); });
+  }
   function encartSite() { return '<section class="pa-carte pa-site"><p class="pa-etiq">Genesolia</p><p>Le site, les livres, Le Cercle : ils s’ouvrent à côté, ton appli reste ouverte ici.</p><a class="pa-bt clair" href="index.html" target="_blank" rel="noopener">Aller sur le site Genesolia</a></section>'; }
   function garderReperes(e) {
     e.preventDefault();
@@ -585,7 +614,7 @@
     var sb2 = e.target.closest('[data-scan]'); if (sb2) scan(sb2);
   });
   function pucesBl(nom, choisis, multi) { var P = PF.BLESSURES_P || {}; return puces(nom, (PF.BLESSURES || []).map(function (b) { return [b[0], (P[b[0]] ? '« ' + P[b[0]] + ' » · ' : '') + b[1].toLowerCase()]; }), choisis, multi); }
-  function blocMonte() { var M = (PF.ACTIONS || []).filter(function (x) { return x.id === 'monte'; })[0] || { etapes: [] }; return '<div class="pa-fort"><p><b>C’est fort.</b> Avant tout, reviens ici et maintenant.</p>' + sphereResp() + '<ol>' + M.etapes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p>On remplit le reste plus tard : dépose juste ces quelques mots, ta fiche se complétera les jours suivants.</p>' + (M.securite ? '<p class="pa-discret">' + esc(M.securite) + '</p>' : '') + '</div>'.replace(/<\/div>$/, '<p class="pa-discret pa-danger">Si tu te sens en danger : 3114 (France) · 811 (Québec).</p></div>'); }
+  function blocMonte() { var M = (PF.ACTIONS || []).filter(function (x) { return x.id === 'monte'; })[0] || { etapes: [] }; return '<div class="pa-fort"><p><b>C’est fort.</b> Avant tout, reviens ici et maintenant.</p>' + sphereResp() + '<ol>' + M.etapes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ol><p>On remplit le reste plus tard : dépose juste ces quelques mots, ta fiche se complétera les jours suivants.</p>' + (M.securite ? '<p class="pa-discret">' + esc(M.securite) + '</p>' : '') + '</div>'.replace(/<\/div>$/, '<div class="pa-danger"><p><b>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant</b> : une personne de confiance, ou une ligne d’écoute, gratuite et ouverte jour et nuit.</p><p><a href="tel:3114"><b>3114</b></a> en France · <a href="tel:18662773553"><b>1 866 APPELLE</b></a> (1 866 277-3553) au Québec</p></div></div>'); }
 
   /* ── Déposer un ressenti : un mode rapide en 3 questions, le reste plus tard ── */
   function ouvrirDepot(schemaId) {
@@ -1134,7 +1163,9 @@
       h = '<a class="pa-retour" href="#actions">‹ Mes actions</a><h1 class="pa-h1">' + esc(trouver ? 'Trouver ma première fois' : A0.titre) + '</h1><p class="pa-sous">' + esc(trouver ? 'Le protocole de la mémoire de ta vie, pour laisser venir l’âge que tu te sens.' : A0.court) + '</p>';
       if (A0.pour && SC.length > 1) h += '<div class="pa-puces pa-exemples pa-pour">' + SC.map(function (x) { return '<a class="pa-puce-l" href="#actions/' + A0.id + '/' + esc(x.id) + '" aria-pressed="' + (sc === x) + '">' + esc(cap(x.nom)) + '</a>'; }).join('') + '</div>';
       h += '<div class="pa-2col"><div><section class="pa-carte">' + (sc ? '<p class="pa-etiq">Pour « ' + esc(sc.nom) + ' »</p>' : '') + (A0.image ? '<p class="pa-image">' + esc(PF.IMAGE || '') + '</p>' : '') + (A0.douceur ? '<p class="pa-securite">' + esc(A0.douceur) + '</p>' : '') + sphereResp() +
+        (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<div class="pa-avant"><p class="pa-etiq">Avant de commencer</p><p>Ce protocole te fait revenir vers un moment du passé. <b>Garde-le pour plus tard</b> si :</p><ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : fais-le alors avec un·e professionnel·le de l’accompagnement.</li></ul><p>Tu peux t’arrêter à tout moment avec le bouton « J’arrête et je reviens ».</p><button type="button" class="pa-bt or" data-proto-pret>Je me sens prêt·e, je commence</button></div><div id="pa-proto-z" hidden>' : '<div>') +
         '<ol class="pa-proto">' + etapes.map(function (t) { return '<li>' + esc(remplir(t, c)) + '</li>'; }).join('') + '</ol>' +
+        (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<button type="button" class="pa-bt clair pa-arret" data-arret>J’arrête et je reviens</button>' : '') + '</div>' +
         (A0.securite ? '<p class="pa-securite">' + esc(A0.securite) + '</p>' : '<a class="pa-monte-l" href="#actions/monte">Si ça monte fort</a>') + '</section></div><div>';
       if (trouver) {
         var pf0 = sc.fois.filter(function (f) { return f.premiere; })[0] || {};
