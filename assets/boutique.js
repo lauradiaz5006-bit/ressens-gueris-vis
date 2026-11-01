@@ -91,7 +91,7 @@
   var ORDRE_S = { poster: 0, encadre: 1, baguettes: 2, toile: 3 };
   function styles(p) { if (p.famille !== 'posters') return [p]; return CAT.produits.filter(function (x) { return x.famille === 'posters' && norm(x.phrase) === norm(p.phrase) && (x.motif || '') === (p.motif || ''); })
     .sort(function (a, b) { return (ORDRE_S[a.type] - ORDRE_S[b.type]) || (/brillant/i.test(a.titre) ? 1 : 0) - (/brillant/i.test(b.titre) ? 1 : 0); }); }
-  function vitrine(p) { var st = styles(p), b = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; var bs = st.filter(function (x) { return x.type !== 'toile' && /^assets\//.test(((x.photos || [])[0] || {}).src || ''); }); return bs.filter(function (x) { return x.type === 'encadre'; })[0] || bs[0] || st.filter(function (x) { return x.type === 'encadre'; })[0] || st[0]; }
+  function vitrine(p) { var st = styles(p), b = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; var bs = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); }); return bs.filter(function (x) { return x.type === 'toile'; })[0] || bs.filter(function (x) { return x.type === 'encadre'; })[0] || bs[0] || st.filter(function (x) { return x.type === 'encadre'; })[0] || st[0]; }
   function nomStyle(x) { return { poster: 'Poster', encadre: 'Encadré', baguettes: 'Baguettes', toile: 'Toile' }[x.type] + (/brillant/i.test(x.titre) ? ' brillant' : ''); }
   /* les autres motifs du même vêtement */
   function freres(p) { return CAT.produits.filter(function (x) { return x.type === p.type && x.famille === 'vetements'; }).sort(function (a, b) { return norm(a.phrase).localeCompare(norm(b.phrase)); }); }
