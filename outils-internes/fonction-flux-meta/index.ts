@@ -17,6 +17,14 @@ const PORTE: Record<string, string[]> = {
   "0b9a43f9-be05-4b37-8b11-7d3e1a44209e": ["coque-repeter"], "ac58138b-a02c-4bba-a981-896179c59aac": ["court-meriter"],
   "f8d4cb8a-310d-49a8-97f9-ed8904ba5b18": ["capuche-celles", "capuche-celles-2", "capuche-celles-3"],
 };
+// Matière des vêtements (modèles Gelato vérifiés le 01/11/2026) : ajoutée à la description
+const MATIERE: Record<string, string> = {
+  capuche: "Gildan Heavy Blend 18500 : 50 % coton, 50 % polyester, molleton d'environ 270 g/m², capuche doublée, poche kangourou.",
+  sweat: "Gildan Heavy Blend 18000 : 50 % coton, 50 % polyester, molleton d'environ 270 g/m².",
+  hoodie: "Lane Seven LS13001 : 80 % coton peigné, 20 % polyester, French terry 250 g/m².",
+  tfemme: "Gildan Softstyle 64000L : 100 % coton peigné, 153 g/m², coupe semi-ajustée.",
+  tcourt: "Champion T453W : 100 % coton, environ 237 g/m², coupe courte, petit logo Champion sur la manche.",
+};
 const url = (s: string) => /^https?:/.test(s) ? s : /^assets\//.test(s) ? "https://genesolia.fr/" + s : PUB + s;
 const texte = (s: unknown) => String(s ?? "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
 const champ = (s: unknown) => { const t = String(s ?? ""); return /[",\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
@@ -37,7 +45,7 @@ Deno.serve(async () => {
     if (!photos.length) continue;
     const phrase = texte(p.phrase || p.titre);
     const titre = (texte(p.nomType || p.type) + (phrase ? " « " + phrase + " »" : "") + (p.motif ? " · " + texte(p.motif) : "")).slice(0, 150);
-    const desc = (texte(p.description) || (phrase ? "« " + phrase + " » · " : "") + "Genesolia, imprimé à la demande en Europe.").slice(0, 5000);
+    const desc = [texte(p.description) || (phrase ? "« " + phrase + " »." : ""), MATIERE[p.type] ?? "", "Imprimé à la demande. Livraison offerte en France métropolitaine."].filter(Boolean).join(" ").slice(0, 5000);
     lignes.push([p.id, titre, desc, "in stock", "new", Math.min(...prix).toFixed(2) + " EUR",
       "https://genesolia.fr/boutique.html#" + encodeURIComponent(p.slug || p.id), photos[0], photos.slice(1, 10).join(","), "Genesolia",
       p.famille === "vetements" ? "Apparel & Accessories > Clothing" : p.type === "coque" ? "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases" : p.type === "mug" ? "Home & Garden > Kitchen & Dining > Tableware > Drinkware > Mugs" : "Home & Garden > Decor > Artwork > Posters, Prints, & Visual Artwork",
