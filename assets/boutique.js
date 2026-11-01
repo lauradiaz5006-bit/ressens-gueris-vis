@@ -66,7 +66,7 @@
       if (p.famille === 'livres') return '<a class="bq-carte" href="' + esc(p.lien) + '" target="_blank" rel="noopener"><span class="bq-img"><img src="' + esc(p.photos[0].src) + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="bq-type">Livre papier · Amazon</span><span class="bq-phrase">' + esc(p.phrase) + '</span><span class="bq-prix">' + (p.prixTexte ? esc(p.prixTexte) + ' · ' : '') + 'Acheter sur Amazon</span></a>';
       return '<button type="button" class="bq-carte" data-p="' + esc(p.id) + '"><span class="bq-img"><img src="' + esc(photo(p)) + '" alt="" loading="lazy" decoding="async"></span>' +
-        '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span></button>';
+        '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span><span class="bq-livr-c">Livraison offerte</span></button>';
     }).join('') : '<p class="bq-vide">Rien ici pour l’instant.</p>';
   }
   /* les autres motifs du même vêtement */
@@ -110,6 +110,10 @@
       if (e.target.closest('[data-ajout]')) {
         var v = variante(); if (!v) return; var pan = lire(), l = pan.filter(function (x) { return x.v === v.id; })[0];
         if (l) l.q = Math.min(10, l.q + choix.q); else pan.push({ v: v.id, q: choix.q }); ecrire(pan);
+        /* retour visible : le bouton confirme, le bouton du panier s'anime */
+        var ba = e.target.closest('[data-ajout]'); ba.textContent = 'Ajouté au panier ✓'; ba.classList.add('bq-ajoute');
+        setTimeout(function () { ba.textContent = 'Ajouter au panier'; ba.classList.remove('bq-ajoute'); }, 2200);
+        var pb = document.getElementById('bq-panier-bt'); if (pb) { pb.classList.remove('bq-pulse'); void pb.offsetWidth; pb.classList.add('bq-pulse'); }
         var ok = d.querySelector('.bq-ok'); ok.innerHTML = 'C’est dans ton panier. <button type="button" class="bq-lien" data-voir-panier>Voir mon panier</button>'; return;
       }
       if (e.target.closest('[data-voir-panier]')) { fermer(); panier(true); }

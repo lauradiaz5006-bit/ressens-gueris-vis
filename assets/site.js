@@ -1225,6 +1225,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   (function () {
     if (document.documentElement.classList.contains('dans-cadre') || MODE || drapeau === 'pro' || page === 'questionnaire.html' || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;   /* appli Pro : la bulle cachait l'onglet « Mon activité » */
     window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
+    window.$crisp.push(['config', 'position:reverse', true]);   /* la bulle passe en bas à gauche (le panier de la boutique est en bas à droite) */
     /* sur téléphone, la bulle n'arrive qu'après un défilement ou 15 secondes : elle ne cache plus le premier écran (« Dessiner mon arbre ») */
     var charge = false;
     function charger() { if (charge) return; charge = true; window.removeEventListener('scroll', auDefile); var sc = document.createElement('script'); sc.src = 'https://client.crisp.chat/l.js'; sc.async = 1; document.head.appendChild(sc); }
