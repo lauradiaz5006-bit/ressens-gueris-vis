@@ -222,9 +222,7 @@
       '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']],
       'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']],
       'f8d4cb8a-310d-49a8-97f9-ed8904ba5b18': [['capuche-celles', 'Blanc'], ['capuche-celles-2', ''], ['capuche-celles-3', '']], // Sweat à capuche blanc · ce qui s'arrête                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir,
-      /* Posters « Mes racines sont ma force » et « Je porte mes racines sans m'y perdre » (01/11/2026) : la mise en scène, pour les tableaux en toile uniquement */
-      '1db1be1e-d51a-4872-a001-91043fbcb500': [['racines-force-mur', '']],
-      '28beb05f-82a9-4a35-9e28-8344c560ae12': [['racines-porte-mur', '']],
+      '54c46abf-9538-4e86-b250-dcb1697b8764': [['tshirt-fin-histoire', '']],              // T-shirt · je ne suis pas la fin d'une histoire
     };
     c.produits.forEach(function (p) { var x = PORTE[p.id] || (p.ids || []).map(function (i) { return PORTE[i]; }).filter(Boolean)[0]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
       p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });
