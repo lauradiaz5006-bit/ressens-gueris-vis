@@ -13,7 +13,15 @@
   function ecrire(p) { try { localStorage.setItem(CLE, JSON.stringify(p)); } catch (e) {} majCompteur(); }
   function norm(t) { return String(t || '').replace(/[’']/g, '’').replace(/\s+/g, ' ').trim(); }
   function nomType(p) { return /brillant/i.test(p.titre) ? 'Poster encadré brillant' : p.nomType; }
-  function libOption(p) { return p.type === 'encadre' ? 'Cadre' : p.type === 'baguettes' ? 'Baguettes' : p.famille === 'vetements' ? 'Couleur' : 'Option'; }
+  function libOption(p) { return p.type === 'toile' ? 'Châssis' : p.type === 'encadre' ? 'Cadre' : p.type === 'baguettes' ? 'Baguettes' : p.famille === 'vetements' ? 'Couleur' : 'Option'; }
+  /* Délais de livraison du transporteur, lus dans les devis Gelato du 01/11/2026 (France métropolitaine), après 2 à 5 jours ouvrés de fabrication */
+  function livraison(p, v) {
+    var c = v && v.cle, t = p.type;
+    if (t === 'baguettes') return c === 'a4' ? [4, 8] : c === '30x40' ? [2, 8] : [2, 4];
+    if (t === 'encadre') return c === 'a3' ? [4, 8] : [2, 4];
+    return { poster: [2, 4], toile: [3, 5], calendrier: [3, 5], mug: [3, 5], capuche: [3, 5], tfemme: [3, 5], sweat: [4, 8], hoodie: [5, 10], tcourt: [5, 10], tshirt: [5, 9], coque: [9, 12] }[t] || null;
+  }
+  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Délai</b> : fabriqué et expédié sous 2 à 5 jours ouvrés' + (l ? ', puis livré en ' + l[0] + ' à ' + l[1] + ' jours ouvrés' : '') + ' (France métropolitaine).<br><b>Retour</b> : 14 jours après réception pour changer d’avis, frais de retour à ta charge ; un défaut ou un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
   /* la photo de la variante choisie : même taille et même couleur, sinon même taille, sinon même couleur, sinon la première */
   function photo(p, opt, cle) { var l = p.photos || [], x = null;
@@ -58,6 +66,7 @@
     /* Vêtements : un seul article par modèle, le motif se choisit dans la fiche (sauf si une phrase est filtrée) */
     if (!phraseF) { var vus = {}; l = l.filter(function (p) { if (p.famille !== 'vetements') return true; if (vus[p.type]) return false; vus[p.type] = 1; return true; })
       .map(function (p) { if (p.famille !== 'vetements') return p; var fr = freres(p), b = fr.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; return b || p; }); }
+    { var vp = {}; l = l.filter(function (p) { if (p.famille !== 'posters') return true; var k = norm(p.phrase) + '|' + (p.motif || ''); if (vp[k]) return false; vp[k] = 1; return true; }).map(function (p) { return p.famille === 'posters' ? vitrine(p) : p; }); }
     /* Vue « Tout » : on mélange (un poster, un vêtement, un objet…), et les articles avec une vraie photo d'abord, pour que la page soit variée dès l'arrivée */
     if (filtre === 'tout' && !phraseF) {
       var aPhoto = function (p) { return /^assets\//.test(((p.photos || [])[0] || {}).src || '') ? 0 : 1; };
@@ -75,9 +84,15 @@
       if (p.famille === 'livres') return '<a class="bq-carte" href="' + esc(p.lien) + '" target="_blank" rel="noopener"><span class="bq-img"><img src="' + esc(p.photos[0].src) + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="bq-type">Livre papier · Amazon</span><span class="bq-phrase">' + esc(p.phrase) + '</span><span class="bq-prix">' + (p.prixTexte ? esc(p.prixTexte) + ' · ' : '') + 'Acheter sur Amazon</span></a>';
       return '<button type="button" class="bq-carte" data-p="' + esc(p.id) + '"><span class="bq-img"><img src="' + esc(photo(p)) + '" alt="" loading="lazy" decoding="async"></span>' +
-        '<span class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + (p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; }) ? 'dès ' : '') + eur(p.prixMin) + '</span><span class="bq-livr-c">Livraison offerte</span></button>';
+        '<span class="bq-type">' + (styles(p).length > 1 ? 'Affiche · ' + styles(p).map(nomStyle).join(', ') : esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '')) + '</span><span class="bq-phrase">' + (p.famille === 'vetements' && !phraseF && freres(p).length > 1 ? freres(p).length + ' motifs au choix' : '« ' + esc(norm(p.phrase)) + ' »') + '</span><span class="bq-prix">' + ((p.variantes.length > 1 && p.variantes.some(function (v) { return v.prix !== p.prixMin; })) || styles(p).length > 1 ? 'dès ' : '') + eur(Math.min.apply(null, styles(p).map(function (x) { return x.prixMin; }))) + '</span><span class="bq-livr-c">Livraison offerte</span></button>';
     }).join('') : '<p class="bq-vide">Rien ici pour l’instant.</p>';
   }
+  /* Posters : une seule carte par phrase, le style (poster, encadré, baguettes, toile) se choisit dans la fiche, comme le motif des vêtements */
+  var ORDRE_S = { poster: 0, encadre: 1, baguettes: 2, toile: 3 };
+  function styles(p) { if (p.famille !== 'posters') return [p]; return CAT.produits.filter(function (x) { return x.famille === 'posters' && norm(x.phrase) === norm(p.phrase) && (x.motif || '') === (p.motif || ''); })
+    .sort(function (a, b) { return (ORDRE_S[a.type] - ORDRE_S[b.type]) || (/brillant/i.test(a.titre) ? 1 : 0) - (/brillant/i.test(b.titre) ? 1 : 0); }); }
+  function vitrine(p) { var st = styles(p), b = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; var bs = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); }); return bs.filter(function (x) { return x.type === 'encadre'; })[0] || bs[0] || st.filter(function (x) { return x.type === 'encadre'; })[0] || st[0]; }
+  function nomStyle(x) { return { poster: 'Poster', encadre: 'Encadré', baguettes: 'Baguettes', toile: 'Toile' }[x.type] + (/brillant/i.test(x.titre) ? ' brillant' : ''); }
   /* les autres motifs du même vêtement */
   function freres(p) { return CAT.produits.filter(function (x) { return x.type === p.type && x.famille === 'vetements'; }).sort(function (a, b) { return norm(a.phrase).localeCompare(norm(b.phrase)); }); }
   function filtres() {
@@ -90,6 +105,7 @@
     var p = CAT.produits.filter(function (x) { return x.id === id; })[0]; if (!p) return;
     var tailles = [], options = []; p.variantes.forEach(function (v) { if (v.taille && tailles.indexOf(v.taille) < 0) tailles.push(v.taille); if (v.option && options.indexOf(v.option) < 0) options.push(v.option); });
     var o0 = ((p.photos || [])[0] || {}).option; /* la couleur de la première photo est choisie d'abord */
+    var touche = false; /* la mise en scène de Laura reste en grand tant qu'on n'a pas choisi une taille ou une couleur */
     var choix = { t: tailles[0] || '', o: (o0 && options.indexOf(o0) >= 0 ? o0 : options[0]) || '', q: 1 };
     if (garder) { if (tailles.indexOf(garder.t) >= 0) choix.t = garder.t; if (options.indexOf(garder.o) >= 0) choix.o = garder.o; choix.q = garder.q || 1; }
     var d = document.getElementById('bq-fiche');
@@ -97,17 +113,19 @@
     function dispo(t, o) { return p.variantes.some(function (v) { return (v.taille || '') === t && (v.option || '') === o; }); }
     function rendre() {
       if (!variante()) { var v0 = p.variantes.filter(function (v) { return (v.taille || '') === choix.t; })[0] || p.variantes[0]; choix.t = v0.taille || ''; choix.o = v0.option || ''; }
-      var v = variante(), princ = photo(p, choix.o, v && v.cle), ph = (p.photos || []).filter(function (f) { return !f.cle || !v || f.cle === v.cle; });
+      var v = variante(), f0 = (p.photos || [])[0] || {}, princ = !touche && /^assets\//.test(f0.src || '') && !f0.option && !f0.cle ? url(f0.src) : photo(p, choix.o, v && v.cle), ph = (p.photos || []).filter(function (f) { return !f.cle || !v || f.cle === v.cle; });
       d.querySelector('.bq-f-corps').innerHTML =
         '<div class="bq-f-photos"><img class="bq-f-grande" src="' + esc(princ) + '" alt="' + esc(nomType(p) + ' « ' + norm(p.phrase) + ' »') + '">' +
         (ph.length > 1 ? '<div class="bq-f-mini">' + ph.map(function (f) { return '<button type="button" data-ph="' + esc(url(f.src)) + '"><img src="' + esc(url(f.src)) + '" alt="" loading="lazy"></button>'; }).join('') + '</div>' : '') + '</div>' +
         '<div class="bq-f-info"><p class="bq-type">' + esc(nomType(p)) + (p.motif ? ' · ' + esc(p.motif) : '') + '</p><h2 id="bq-f-titre">« ' + esc(norm(p.phrase)) + ' »</h2>' +
         '<p class="bq-f-prix">' + (v ? eur(v.prix) : '') + ' <small>livraison offerte</small></p>' +
+        (styles(p).length > 1 ? '<p class="bq-lab">Style</p><div class="bq-choix">' + styles(p).map(function (x) { return '<button type="button" data-style="' + esc(x.id) + '" aria-pressed="' + (x.id === p.id) + '">' + esc(nomStyle(x)) + '</button>'; }).join('') + '</div>' : '') +
         (p.famille === 'vetements' && freres(p).length > 1 ? '<p class="bq-lab">Motif</p><select class="bq-motif" data-motif aria-label="Motif">' + freres(p).map(function (x) { return '<option value="' + esc(x.id) + '"' + (x.id === p.id ? ' selected' : '') + '>' + esc(norm(x.phrase)) + '</option>'; }).join('') + '</select>' : '') +
         (tailles.length > 1 || (tailles.length === 1 && p.famille !== 'maison') ? '<p class="bq-lab">' + libTaille(p) + '</p><div class="bq-choix" data-c="t">' + tailles.map(function (t) { return '<button type="button" data-v="' + esc(t) + '" aria-pressed="' + (t === choix.t) + '"' + (dispo(t, choix.o) || !choix.o ? '' : ' class="bq-ind"') + '>' + esc(t) + '</button>'; }).join('') + '</div>' : '') +
         (options.length ? '<p class="bq-lab">' + libOption(p) + '</p><div class="bq-choix" data-c="o">' + options.map(function (o) { return '<button type="button" data-v="' + esc(o) + '" aria-pressed="' + (o === choix.o) + '"' + (dispo(choix.t, o) ? '' : ' class="bq-ind"') + '>' + esc(o) + '</button>'; }).join('') + '</div>' : '') +
         '<div class="bq-f-achat"><label class="bq-qte">Quantité <select data-q>' + [1, 2, 3, 4, 5].map(function (n) { return '<option' + (n === choix.q ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn btn-plein" data-ajout' + (v ? '' : ' disabled') + '>Ajouter au panier</button></div><p class="bq-ok" role="status" aria-live="polite"></p>' +
+        delais(p, v) +
         '<ul class="bq-f-plus"><li>Imprimé à la demande, rien n’est produit en trop</li><li>Livraison offerte en France métropolitaine</li><li>Un défaut ou un article abîmé : réimprimé ou remboursé</li></ul>' +
         matiere(p) + (descr(p) ? '<details class="bq-desc"><summary>Description</summary><p>' + esc(descr(p)) + '</p></details>' : '') +
         (MATIERE[p.type] ? '<details class="bq-desc" open><summary>Matière et entretien</summary><p>' + esc(MATIERE[p.type]) + '</p></details>' : '') + '</div>';
@@ -115,7 +133,8 @@
     d.onclick = function (e) {
       if (e.target === d || e.target.closest('[data-f-fermer]')) { fermer(); return; }
       var m = e.target.closest('[data-ph]'); if (m) { d.querySelector('.bq-f-grande').src = m.getAttribute('data-ph'); return; }
-      var c = e.target.closest('.bq-choix button'); if (c) { choix[c.parentNode.getAttribute('data-c')] = c.getAttribute('data-v'); rendre(); return; }
+      var sy = e.target.closest('[data-style]'); if (sy) { if (sy.getAttribute('data-style') !== p.id) fiche(sy.getAttribute('data-style'), choix); return; }
+      var c = e.target.closest('.bq-choix button'); if (c) { choix[c.parentNode.getAttribute('data-c')] = c.getAttribute('data-v'); touche = true; rendre(); return; }
       if (e.target.closest('[data-ajout]')) {
         var v = variante(); if (!v) return; var pan = lire(), l = pan.filter(function (x) { return x.v === v.id; })[0];
         if (l) l.q = Math.min(10, l.q + choix.q); else pan.push({ v: v.id, q: choix.q }); ecrire(pan);
@@ -141,7 +160,7 @@
     var total = pan.reduce(function (s, x) { return s + I[x.v].v.prix * x.q; }, 0);
     p.querySelector('.bq-p-corps').innerHTML = pan.length ? '<ul class="bq-lignes">' + pan.map(function (x) { var t = I[x.v]; return '<li><img src="' + esc(photo(t.p, t.v.option)) + '" alt=""><div><b>' + esc(nomType(t.p)) + '</b><span>« ' + esc(norm(t.p.phrase)) + ' »</span><small>' + esc([t.v.taille, t.v.option].filter(Boolean).join(' · ')) + '</small>' +
         '<div class="bq-l-q"><button type="button" data-moins="' + esc(x.v) + '" aria-label="Un de moins">−</button><span>' + x.q + '</span><button type="button" data-plus="' + esc(x.v) + '" aria-label="Un de plus">+</button><button type="button" class="bq-lien" data-retirer="' + esc(x.v) + '">Retirer</button></div></div><p class="bq-l-prix">' + eur(t.v.prix * x.q) + '</p></li>'; }).join('') + '</ul>' +
-      '<p class="bq-total"><span>Total</span><b>' + eur(total) + '</b></p><p class="bq-livr">Livraison offerte en France métropolitaine. Chaque article est imprimé à la demande, puis expédié sous 2 à 5 jours ouvrés. Plusieurs articles peuvent arriver dans des colis séparés.</p>' +
+      '<p class="bq-total"><span>Total</span><b>' + eur(total) + '</b></p><p class="bq-livr">Livraison offerte en France métropolitaine. Chaque article est imprimé à la demande, puis expédié sous 2 à 5 jours ouvrés (délai de livraison indiqué sur chaque fiche). Retour possible 14 jours après réception (<a href="cgv.html#retractation">conditions</a>). Plusieurs articles peuvent arriver dans des colis séparés.</p>' +
       '<button type="button" class="btn btn-plein bq-payer" data-payer-panier>Payer en toute sécurité</button><p class="bq-err" role="alert"></p><p class="bq-cgv">En payant, tu acceptes les <a href="cgv.html#boutique">conditions de vente</a>.</p>'
       : '<p class="bq-vide">Ton panier est vide.</p><button type="button" class="btn btn-trait" data-p-fermer>Continuer mes achats</button>';
     if (ouvrir) { p.hidden = false; document.body.classList.add('bq-fige'); requestAnimationFrame(function () { p.classList.add('ouvert'); }); }
@@ -202,9 +221,25 @@
       'ace53bb4-8152-4725-b1e7-f6fccddf2307': [['tfemme-entiere', '']],                  // T-shirt femme · entière
       '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']],
       'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']],
-      'f8d4cb8a-310d-49a8-97f9-ed8904ba5b18': [['capuche-celles', 'Blanc'], ['capuche-celles-2', ''], ['capuche-celles-3', '']] // Sweat à capuche blanc · ce qui s'arrête                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir
+      'f8d4cb8a-310d-49a8-97f9-ed8904ba5b18': [['capuche-celles', 'Blanc'], ['capuche-celles-2', ''], ['capuche-celles-3', '']], // Sweat à capuche blanc · ce qui s'arrête                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir,
+      /* Posters « Mes racines sont ma force » et « Je porte mes racines sans m'y perdre » (01/11/2026) : la mise en scène encadrée en premier */
+      '851a1751-c7d1-4fa5-9f67-7f94fcdd50a3': [['racines-force-mur', '']],
+      '1db1be1e-d51a-4872-a001-91043fbcb500': [['racines-force-mur', '']],
+      '1d453a81-6f13-4da0-9101-e53262611049': [['racines-force-mur', '']],
+      'd36ef2bf-feea-47fc-8fd1-9f3d1371d08f': [['racines-force-mur', '']],
+      '606ac06d-6330-4425-9a25-1c84c06e9dc7': [['racines-force-mur', '']],
+      '3ff8f5c9-41b6-4994-914e-6254d0027a10': [['racines-force-mur', '']],
+      '9b193ec9-7d89-4fab-93f5-13ad94f1af48': [['racines-porte-mur', '']],
+      '28beb05f-82a9-4a35-9e28-8344c560ae12': [['racines-porte-mur', '']],
+      'ffdfbf05-8abd-46a2-9d42-865cc14ba918': [['racines-porte-mur', '']],
+      '63977132-f1fe-4bc4-951e-e4c8b5b32b08': [['racines-porte-mur', '']],
+      '3dc3e95a-b06e-4f20-9bf8-d372ad4cc62f': [['racines-porte-mur', '']],
+      '0b52f862-59f3-42c6-8ca7-20d2701e5241': [['racines-porte-mur', '']],
+      '91aaa146-880e-4a64-a952-161e69586ed5': [['racines-porte-mur', '']],
+      '10515158-058b-4d24-8497-7e8a2279bd0e': [['racines-porte-mur', '']],
+      '46dd65b2-f6aa-43d0-97f9-eea2aec9f917': [['racines-porte-mur', '']]
     };
-    c.produits.forEach(function (p) { var x = PORTE[p.id]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
+    c.produits.forEach(function (p) { var x = PORTE[p.id] || (p.ids || []).map(function (i) { return PORTE[i]; }).filter(Boolean)[0]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
       p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });
     /* Coques iPhone 16 : Gelato ne les livre pas encore en France, on ne les propose pas */
     c.produits.forEach(function (p) { if (p.type === 'coque') p.variantes = p.variantes.filter(function (v) { return !/iPhone 16/i.test(v.taille || ''); }); });
