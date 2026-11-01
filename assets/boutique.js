@@ -80,6 +80,9 @@
       for (var j = 0; m.length < l.length; j++) f.forEach(function (k) { if ((tas[k] || [])[j]) m.push(tas[k][j]); });
       l = m;
     }
+    /* Les affiches « visage » (Mes racines sont ma force, Je porte mes racines sans m'y perdre) en tête de la boutique */
+    var VEDETTE = ['mes racines sont ma force', 'je porte mes racines sans m\'y perdre'], rang = function (p) { var i = p.famille === 'posters' ? VEDETTE.indexOf(norm(p.phrase).toLowerCase().replace(/[’]/g, "'").replace(/[.\s]+$/, '')) : -1; return i < 0 ? 99 : i; };
+    l = l.map(function (p, i) { return [p, i]; }).sort(function (a, b) { return (rang(a[0]) - rang(b[0])) || (a[1] - b[1]); }).map(function (x) { return x[0]; });
     grille.innerHTML = l.length ? l.map(function (p) {
       if (p.famille === 'livres') return '<a class="bq-carte" href="' + esc(p.lien) + '" target="_blank" rel="noopener"><span class="bq-img"><img src="' + esc(p.photos[0].src) + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="bq-type">Livre papier · Amazon</span><span class="bq-phrase">' + esc(p.phrase) + '</span><span class="bq-prix">' + (p.prixTexte ? esc(p.prixTexte) + ' · ' : '') + 'Acheter sur Amazon</span></a>';
