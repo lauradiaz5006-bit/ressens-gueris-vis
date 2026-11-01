@@ -635,7 +635,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<a class="pied-nom" href="/">Genesolia</a>' +
             '<p class="pied-phrase">Prends ta place, honore-la, sans t’épuiser à répéter tes difficultés.</p>' +
             '<p class="pied-court">Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale, et t’en libérer à ton rythme.</p>' +
-            '<div class="pied-actions"><a class="btn pied-btn" href="offert.html">Commencer gratuitement</a><a class="btn pied-btn2" href="abonnements.html">Les abonnements</a>' +
+            '<div class="pied-actions"><a class="btn pied-btn" href="offert.html">Tes cadeaux gratuits</a><a class="btn pied-btn2" href="abonnements.html">Les abonnements</a>' +
             '<a class="pied-appli-l" href="#" data-installer-bandeau>Installer l’appli sur mon téléphone</a></div>' +
           '</div>' +
         '</div>' +
