@@ -14,14 +14,14 @@
   function norm(t) { return String(t || '').replace(/[’']/g, '’').replace(/\s+/g, ' ').trim(); }
   function nomType(p) { return /brillant/i.test(p.titre) ? 'Poster encadré brillant' : p.nomType; }
   function libOption(p) { return p.type === 'toile' ? 'Châssis' : p.type === 'encadre' ? 'Cadre' : p.type === 'baguettes' ? 'Baguettes' : p.famille === 'vetements' ? 'Couleur' : 'Option'; }
-  /* Délais de livraison du transporteur, lus dans les devis Gelato du 01/11/2026 (France métropolitaine), après 2 à 5 jours ouvrés de fabrication */
+  /* Délai de réception affiché (fabrication comprise) : 4 à 5 jours ouvrés en général (poster reçu en 4 à 5 jours par Laura, devis Gelato du 01/11/2026 : 2 à 4 jours de transport) ;
+     plus long quand Gelato annonce plus de transport : expédition depuis l'Allemagne, sweat, hoodie, t-shirt court femme, coque */
   function livraison(p, v) {
     var c = v && v.cle, t = p.type;
-    if (t === 'baguettes') return c === 'a4' ? [4, 8] : c === '30x40' ? [2, 8] : [2, 4];
-    if (t === 'encadre') return c === 'a3' ? [4, 8] : [2, 4];
-    return { poster: [2, 4], toile: [3, 5], calendrier: [3, 5], mug: [3, 5], capuche: [3, 5], tfemme: [3, 5], sweat: [4, 8], hoodie: [5, 10], tcourt: [5, 10], tshirt: [5, 9], coque: [9, 12] }[t] || null;
+    if ((t === 'baguettes' && (c === 'a4' || c === '30x40')) || (t === 'encadre' && c === 'a3')) return [5, 8];
+    return { sweat: [5, 8], hoodie: [6, 10], tcourt: [6, 10], tshirt: [6, 9], coque: [10, 12] }[t] || [4, 5];
   }
-  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Livraison offerte</b> : reçu chez toi en ' + (l ? (l[0] + 2) + ' à ' + (l[1] + 5) : '4 à 10') + ' jours ouvrés environ (fabrication comprise, France métropolitaine).<br><b>Retour</b> : 14 jours pour changer d’avis ; un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
+  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Livraison offerte</b> : reçu chez toi en ' + l[0] + ' à ' + l[1] + ' jours ouvrés environ (France métropolitaine).<br><b>Retour</b> : 14 jours pour changer d’avis ; un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
   /* la photo de la variante choisie : même taille et même couleur, sinon même taille, sinon même couleur, sinon la première */
   function photo(p, opt, cle) { var l = p.photos || [], x = null;
@@ -160,7 +160,7 @@
     var total = pan.reduce(function (s, x) { return s + I[x.v].v.prix * x.q; }, 0);
     p.querySelector('.bq-p-corps').innerHTML = pan.length ? '<ul class="bq-lignes">' + pan.map(function (x) { var t = I[x.v]; return '<li><img src="' + esc(photo(t.p, t.v.option)) + '" alt=""><div><b>' + esc(nomType(t.p)) + '</b><span>« ' + esc(norm(t.p.phrase)) + ' »</span><small>' + esc([t.v.taille, t.v.option].filter(Boolean).join(' · ')) + '</small>' +
         '<div class="bq-l-q"><button type="button" data-moins="' + esc(x.v) + '" aria-label="Un de moins">−</button><span>' + x.q + '</span><button type="button" data-plus="' + esc(x.v) + '" aria-label="Un de plus">+</button><button type="button" class="bq-lien" data-retirer="' + esc(x.v) + '">Retirer</button></div></div><p class="bq-l-prix">' + eur(t.v.prix * x.q) + '</p></li>'; }).join('') + '</ul>' +
-      '<p class="bq-total"><span>Total</span><b>' + eur(total) + '</b></p><p class="bq-livr">Livraison offerte en France métropolitaine. Chaque article est imprimé à la demande, puis expédié sous 2 à 5 jours ouvrés (délai de livraison indiqué sur chaque fiche). Retour possible 14 jours après réception (<a href="cgv.html#retractation">conditions</a>). Plusieurs articles peuvent arriver dans des colis séparés.</p>' +
+      '<p class="bq-total"><span>Total</span><b>' + eur(total) + '</b></p><p class="bq-livr">Livraison offerte en France métropolitaine. Chaque article est imprimé à la demande, reçu en général en 4 à 5 jours ouvrés (délai de chaque article sur sa fiche). Retour possible 14 jours après réception (<a href="cgv.html#retractation">conditions</a>). Plusieurs articles peuvent arriver dans des colis séparés.</p>' +
       '<button type="button" class="btn btn-plein bq-payer" data-payer-panier>Payer en toute sécurité</button><p class="bq-err" role="alert"></p><p class="bq-cgv">En payant, tu acceptes les <a href="cgv.html#boutique">conditions de vente</a>.</p>'
       : '<p class="bq-vide">Ton panier est vide.</p><button type="button" class="btn btn-trait" data-p-fermer>Continuer mes achats</button>';
     if (ouvrir) { p.hidden = false; document.body.classList.add('bq-fige'); requestAnimationFrame(function () { p.classList.add('ouvert'); }); }
