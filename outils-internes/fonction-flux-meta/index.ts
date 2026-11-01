@@ -23,6 +23,7 @@ const MATIERE: Record<string, string> = {
   sweat: "Gildan Heavy Blend 18000 : 50 % coton, 50 % polyester, molleton d'environ 270 g/m².",
   hoodie: "Lane Seven LS13001 : 80 % coton peigné, 20 % polyester, French terry 250 g/m².",
   tfemme: "Gildan Softstyle 64000L : 100 % coton peigné, 153 g/m², coupe semi-ajustée.",
+  tshirt: "T-shirt unisexe : 100 % coton peigné (ringspun), col rond classique, manches courtes.",
   tcourt: "Champion T453W : 100 % coton, environ 237 g/m², coupe courte, petit logo Champion sur la manche.",
 };
 const url = (s: string) => /^https?:/.test(s) ? s : /^assets\//.test(s) ? "https://genesolia.fr/" + s : PUB + s;
