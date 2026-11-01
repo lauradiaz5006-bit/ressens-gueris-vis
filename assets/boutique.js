@@ -39,6 +39,15 @@
     coque: 'Coque souple et transparente sur les côtés, finition satinée, impression résistante aux rayures. Accès à tous les boutons et à la recharge.'
   };
   function descr(p) { return String(p.description || '').split(/\s(?:Paper Finishing|Ready-to-hang|Paper Weight|Frame Material|Sustainable Paper|Available Sizes|Product features|Size guide)\s?:/i)[0].replace(/\s*Genesolia\s*[–-]\s*genesolia\.fr\s*$/i, '').trim(); }
+  /* Matière et détails des vêtements (modèles Gelato vérifiés le 01/11/2026 sur les fiches fabricants ; couleurs unies). T-shirt unisexe : matière non confirmée, rien d'affiché. */
+  var MATIERE = {
+    capuche: ['Gildan Heavy Blend 18500', '50 % coton, 50 % polyester, molleton d’environ 270 g/m²', 'Coupe classique, capuche doublée avec cordon assorti, poche kangourou, poignets et bas côtelés extensibles'],
+    sweat: ['Gildan Heavy Blend 18000', '50 % coton, 50 % polyester, molleton d’environ 270 g/m²', 'Col, poignets et bas côtelés extensibles, coutures doubles'],
+    hoodie: ['Lane Seven LS13001', '80 % coton peigné, 20 % polyester, French terry 250 g/m²', 'Capuche doublée en trois panneaux, finition demi-lune au dos du col'],
+    tfemme: ['Gildan Softstyle 64000L', '100 % coton peigné, prérétréci, 153 g/m² (léger)', 'Coupe semi-ajustée, col côtelé'],
+    tcourt: ['Champion T453W', '100 % coton, jersey épais d’environ 237 g/m²', 'Coupe courte, épaules tombantes, petit logo « C » Champion sur la manche gauche']
+  };
+  function matiere(p) { var m = MATIERE[p.type]; return m ? '<details class="bq-desc" open><summary>Matière et détails</summary><p><b>' + esc(m[1]) + '</b><br>' + esc(m[2]) + '.<br><small>Modèle : ' + esc(m[0]) + '. Imprimé à la demande.</small></p></details>' : ''; }
   function index() { var o = {}; (CAT.produits || []).forEach(function (p) { p.variantes.forEach(function (v) { o[v.id] = { p: p, v: v }; }); }); return o; }
 
   /* ───── La grille ───── */
@@ -100,7 +109,7 @@
         '<div class="bq-f-achat"><label class="bq-qte">Quantité <select data-q>' + [1, 2, 3, 4, 5].map(function (n) { return '<option' + (n === choix.q ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
         '<button type="button" class="btn btn-plein" data-ajout' + (v ? '' : ' disabled') + '>Ajouter au panier</button></div><p class="bq-ok" role="status" aria-live="polite"></p>' +
         '<ul class="bq-f-plus"><li>Imprimé à la demande, rien n’est produit en trop</li><li>Livraison offerte en France métropolitaine</li><li>Un défaut ou un article abîmé : réimprimé ou remboursé</li></ul>' +
-        (descr(p) ? '<details class="bq-desc"><summary>Description</summary><p>' + esc(descr(p)) + '</p></details>' : '') +
+        matiere(p) + (descr(p) ? '<details class="bq-desc"><summary>Description</summary><p>' + esc(descr(p)) + '</p></details>' : '') +
         (MATIERE[p.type] ? '<details class="bq-desc" open><summary>Matière et entretien</summary><p>' + esc(MATIERE[p.type]) + '</p></details>' : '') + '</div>';
     }
     d.onclick = function (e) {
