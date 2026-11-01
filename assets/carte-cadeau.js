@@ -2,7 +2,7 @@
    Les prix affichés ici doivent rester les mêmes que dans la fonction (outils-internes/fonction-carte-cadeau, CARTES). */
 (function () {
   var FN = 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/carte-cadeau';
-  var OFFRES = { cercle3: { mois: 3, prix: '79 €' }, cercle6: { mois: 6, prix: '149 €' } };
+  var OFFRES = { cercle3: { mois: 3, prix: '49 €' }, cercle6: { mois: 6, prix: '99 €' } };
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   /* petites étoiles et flocons dorés, toujours au même endroit pour une même carte */
   function ciel() {
