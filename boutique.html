@@ -39,7 +39,7 @@
     .bq-prix{font-weight:600;color:var(--prune);padding:0 .2rem;margin-top:auto}
     .bq-vide{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:2rem 0}
     .bq-chargement{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:3rem 0}
-    #bq-panier-bt{position:fixed;left:1rem;bottom:1rem;z-index:40;display:flex;align-items:center;gap:.5rem;background:var(--prune);color:#fff;border:0;border-radius:999px;padding:.8rem 1.2rem;font:inherit;font-weight:600;box-shadow:0 12px 30px rgba(59,23,71,.3);cursor:pointer}
+    #bq-panier-bt{position:fixed;right:1rem;bottom:1rem;z-index:40;display:flex;align-items:center;gap:.5rem;background:var(--prune);color:#fff;border:0;border-radius:999px;padding:.8rem 1.2rem;font:inherit;font-weight:600;box-shadow:0 12px 30px rgba(59,23,71,.3);cursor:pointer}
     #bq-panier-bt b{background:#fff;color:var(--prune);border-radius:999px;min-width:1.5rem;padding:0 .35rem;text-align:center}
     #bq-panier-bt[hidden]{display:none}
     dialog.bq-fiche{width:min(980px,calc(100vw - 2rem));max-height:calc(100vh - 2rem);border:0;border-radius:22px;padding:0;box-shadow:0 30px 80px rgba(46,19,56,.35);color:var(--encre,#3B1747)}
@@ -60,7 +60,12 @@
     .bq-choix button.bq-ind{opacity:.45}
     .bq-f-achat{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1.2rem 0 .4rem}
     .bq-qte{display:flex;align-items:center;gap:.4rem;font-size:.92rem}.bq-qte select{border:1px solid var(--rose);border-radius:10px;padding:.45rem .5rem;font:inherit}
-    .bq-ok{min-height:1.2em;margin:.3rem 0;color:#7A4A2E;font-size:.92rem}
+    .bq-ok{min-height:1.2em;margin:.5rem 0;color:#3E7A4E;font-size:1rem;font-weight:600}
+    .bq-ok:not(:empty){background:#EEF7F0;border:1px solid #BFDEC7;border-radius:12px;padding:.6rem .8rem}
+    .btn.bq-ajoute{background:#3E7A4E!important;border-color:#3E7A4E!important;color:#fff!important;transition:background .2s}
+    .bq-livr-c{display:block;font-size:.78rem;font-weight:600;color:#3E7A4E;margin-top:.15rem}
+    @keyframes bqPulse{0%{transform:scale(1)}30%{transform:scale(1.18)}60%{transform:scale(.96)}100%{transform:scale(1)}}
+    #bq-panier-bt.bq-pulse{animation:bqPulse .6s ease}
     .bq-lien{border:0;background:none;color:var(--prune);text-decoration:underline;font:inherit;cursor:pointer;padding:0}
     .bq-f-plus{list-style:none;padding:0;margin:.8rem 0;display:grid;gap:.3rem;font-size:.9rem;color:var(--prune-doux)}.bq-f-plus li::before{content:"✦";color:var(--champagne);margin-right:.45rem}
     .bq-desc summary{cursor:pointer;font-weight:600}.bq-desc p{font-size:.9rem;color:var(--prune-doux)}
@@ -282,7 +287,7 @@
 
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script src="assets/boutique.js?v=18"></script>
+  <script src="assets/boutique.js?v=19"></script>
   <script src="assets/carte-cadeau.js?v=2"></script>
   <script>
   /* La carte cadeau du Cercle : aperçu en direct, puis paiement Stripe (fonction carte-cadeau) */
