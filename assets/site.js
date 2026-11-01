@@ -1805,7 +1805,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   function deux(sur, titre, texte) {
     return '<div class="livre-encart le-deux"><div class="le-couv">' + img(L.enquete, 'Le livre L’enquête de ma lignée') + img(L.racines, 'Le livre Racines') + '</div>' +
       '<div><p class="le-sur">' + sur + '</p><h2>' + titre + '</h2><p>' + texte + '</p>' +
-      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="boutique.html">Idées à offrir</a></div></div></div>';
+      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" data-compte="l’extrait de L’enquête de ma lignée" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="boutique.html">Idées à offrir</a></div></div></div>';
   }
   var html;
   if (page in THEMES) {
@@ -1813,7 +1813,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     html = '<div class="livre-encart">' + img(L.enquete, 'Le livre L’enquête de ma lignée') +
       '<div><p class="le-sur">Le livre · à remplir en famille</p><h2>L’enquête de ma lignée</h2>' +
       '<p>' + (t ? 'Tout ce que tu viens de lire sur ' + t + ', expliqué pas à pas parmi 18 thèmes, ' : '18 thèmes expliqués, ') + 'avec ton arbre sur 5 générations, des entretiens guidés pour recueillir le ressenti de chacun et le fil d’or pour voir ce qui se répète.</p>' +
-      '<div class="le-bt"><a class="btn btn-plein" href="' + L.enquete.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.enquete.page + '">Acheter</a></div></div></div>';
+      '<div class="le-bt"><a class="btn btn-plein" href="' + L.enquete.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" data-compte="l’extrait de L’enquête de ma lignée" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.enquete.page + '">Acheter</a></div></div></div>';
   } else if (CERCLE.indexOf(page) >= 0) {
     html = '<div class="livre-encart">' + img(L.racines, 'Le livre Racines') +
       '<div><p class="le-sur">Le livre · Le Cercle, livre 1</p><h2>Racines, sur papier</h2>' +

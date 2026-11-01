@@ -100,7 +100,7 @@
           return '<li><figure><img src="' + dossier + c.id + '-mini.webp" width="540" height="675" loading="lazy" alt="' + esc(c.phrase) + '"></figure>' +
             '<div class="actions-carte">' +
               '<button type="button" class="principal" data-partager="' + c.id + '">Partager</button>' +
-              '<a href="' + img + '" download="genesolia-' + c.id + '.jpg">Télécharger</a>' +
+              '<a href="' + img + '" data-compte="ta carte" download="genesolia-' + c.id + '.jpg">Télécharger</a>' +
               '<a href="' + pin + '" target="_blank" rel="noopener">Pinterest</a>' +
             '</div><p class="statut-carte" aria-live="polite"></p></li>';
         }).join('');
