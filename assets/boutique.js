@@ -21,7 +21,7 @@
     if (t === 'encadre') return c === 'a3' ? [4, 8] : [2, 4];
     return { poster: [2, 4], toile: [3, 5], calendrier: [3, 5], mug: [3, 5], capuche: [3, 5], tfemme: [3, 5], sweat: [4, 8], hoodie: [5, 10], tcourt: [5, 10], tshirt: [5, 9], coque: [9, 12] }[t] || null;
   }
-  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Délai</b> : fabriqué et expédié sous 2 à 5 jours ouvrés' + (l ? ', puis livré en ' + l[0] + ' à ' + l[1] + ' jours ouvrés' : '') + ' (France métropolitaine).<br><b>Retour</b> : 14 jours après réception pour changer d’avis, frais de retour à ta charge ; un défaut ou un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
+  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Livraison offerte</b> : reçu chez toi en ' + (l ? (l[0] + 2) + ' à ' + (l[1] + 5) : '4 à 10') + ' jours ouvrés environ (fabrication comprise, France métropolitaine).<br><b>Retour</b> : 14 jours pour changer d’avis ; un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
   /* la photo de la variante choisie : même taille et même couleur, sinon même taille, sinon même couleur, sinon la première */
   function photo(p, opt, cle) { var l = p.photos || [], x = null;
@@ -91,7 +91,7 @@
   var ORDRE_S = { poster: 0, encadre: 1, baguettes: 2, toile: 3 };
   function styles(p) { if (p.famille !== 'posters') return [p]; return CAT.produits.filter(function (x) { return x.famille === 'posters' && norm(x.phrase) === norm(p.phrase) && (x.motif || '') === (p.motif || ''); })
     .sort(function (a, b) { return (ORDRE_S[a.type] - ORDRE_S[b.type]) || (/brillant/i.test(a.titre) ? 1 : 0) - (/brillant/i.test(b.titre) ? 1 : 0); }); }
-  function vitrine(p) { var st = styles(p), b = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; var bs = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); }); return bs.filter(function (x) { return x.type === 'encadre'; })[0] || bs[0] || st.filter(function (x) { return x.type === 'encadre'; })[0] || st[0]; }
+  function vitrine(p) { var st = styles(p), b = st.filter(function (x) { return /^assets\//.test(((x.photos || [])[0] || {}).src || ''); })[0]; var bs = st.filter(function (x) { return x.type !== 'toile' && /^assets\//.test(((x.photos || [])[0] || {}).src || ''); }); return bs.filter(function (x) { return x.type === 'encadre'; })[0] || bs[0] || st.filter(function (x) { return x.type === 'encadre'; })[0] || st[0]; }
   function nomStyle(x) { return { poster: 'Poster', encadre: 'Encadré', baguettes: 'Baguettes', toile: 'Toile' }[x.type] + (/brillant/i.test(x.titre) ? ' brillant' : ''); }
   /* les autres motifs du même vêtement */
   function freres(p) { return CAT.produits.filter(function (x) { return x.type === p.type && x.famille === 'vetements'; }).sort(function (a, b) { return norm(a.phrase).localeCompare(norm(b.phrase)); }); }
@@ -222,22 +222,9 @@
       '0b9a43f9-be05-4b37-8b11-7d3e1a44209e': [['coque-repeter', '']],
       'ac58138b-a02c-4bba-a981-896179c59aac': [['court-meriter', '']],
       'f8d4cb8a-310d-49a8-97f9-ed8904ba5b18': [['capuche-celles', 'Blanc'], ['capuche-celles-2', ''], ['capuche-celles-3', '']], // Sweat à capuche blanc · ce qui s'arrête                    // T-shirt court femme · mériter ma place                    // Coque · née pour choisir,
-      /* Posters « Mes racines sont ma force » et « Je porte mes racines sans m'y perdre » (01/11/2026) : la mise en scène encadrée en premier */
-      '851a1751-c7d1-4fa5-9f67-7f94fcdd50a3': [['racines-force-mur', '']],
+      /* Posters « Mes racines sont ma force » et « Je porte mes racines sans m'y perdre » (01/11/2026) : la mise en scène, pour les tableaux en toile uniquement */
       '1db1be1e-d51a-4872-a001-91043fbcb500': [['racines-force-mur', '']],
-      '1d453a81-6f13-4da0-9101-e53262611049': [['racines-force-mur', '']],
-      'd36ef2bf-feea-47fc-8fd1-9f3d1371d08f': [['racines-force-mur', '']],
-      '606ac06d-6330-4425-9a25-1c84c06e9dc7': [['racines-force-mur', '']],
-      '3ff8f5c9-41b6-4994-914e-6254d0027a10': [['racines-force-mur', '']],
-      '9b193ec9-7d89-4fab-93f5-13ad94f1af48': [['racines-porte-mur', '']],
       '28beb05f-82a9-4a35-9e28-8344c560ae12': [['racines-porte-mur', '']],
-      'ffdfbf05-8abd-46a2-9d42-865cc14ba918': [['racines-porte-mur', '']],
-      '63977132-f1fe-4bc4-951e-e4c8b5b32b08': [['racines-porte-mur', '']],
-      '3dc3e95a-b06e-4f20-9bf8-d372ad4cc62f': [['racines-porte-mur', '']],
-      '0b52f862-59f3-42c6-8ca7-20d2701e5241': [['racines-porte-mur', '']],
-      '91aaa146-880e-4a64-a952-161e69586ed5': [['racines-porte-mur', '']],
-      '10515158-058b-4d24-8497-7e8a2279bd0e': [['racines-porte-mur', '']],
-      '46dd65b2-f6aa-43d0-97f9-eea2aec9f917': [['racines-porte-mur', '']]
     };
     c.produits.forEach(function (p) { var x = PORTE[p.id] || (p.ids || []).map(function (i) { return PORTE[i]; }).filter(Boolean)[0]; if (!x) return; var cs = x.filter(function (y) { return y[1] || y[2]; }).map(function (y) { return (y[2] || '') + '|' + y[1]; });
       p.photos = x.map(function (y) { return { src: 'assets/boutique/' + y[0] + '.webp', option: y[1], cle: y[2] || '' }; }).concat((p.photos || []).filter(function (f) { return cs.indexOf((f.cle || '') + '|' + (f.option || '')) < 0 && !(f.option && !f.cle && cs.indexOf('|' + f.option) >= 0); })); });

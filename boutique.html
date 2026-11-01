@@ -33,7 +33,7 @@
     .bq-carte{display:flex;flex-direction:column;gap:.35rem;text-align:left;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:.6rem .6rem .9rem;cursor:pointer;font:inherit;color:inherit;transition:transform .2s,box-shadow .2s}
     .bq-carte:hover,.bq-carte:focus-visible{transform:translateY(-3px);box-shadow:0 14px 30px rgba(107,47,91,.12)}
     .bq-img{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#F7F1EC}
-    .bq-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .bq-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
     .bq-type{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9A6E38;padding:0 .2rem}
     .bq-phrase{font-family:var(--display,Georgia,serif);font-size:1.02rem;line-height:1.3;color:var(--prune);padding:0 .2rem}
     .bq-prix{font-weight:600;color:var(--prune);padding:0 .2rem;margin-top:auto}
@@ -47,7 +47,7 @@
     .bq-f-tete{position:sticky;top:0;display:flex;justify-content:flex-end;padding:.6rem .6rem 0;background:#fff;z-index:2}
     .bq-f-tete button{border:0;background:#F5EAEF;color:var(--prune);width:2.4rem;height:2.4rem;border-radius:50%;font-size:1.4rem;cursor:pointer}
     .bq-f-corps{display:grid;grid-template-columns:1.1fr 1fr;gap:1.6rem;padding:0 1.6rem 1.6rem}
-    .bq-f-grande{width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;background:#F7F1EC;display:block}
+    .bq-f-grande{width:100%;aspect-ratio:1;object-fit:contain;object-position:center;border-radius:16px;background:#F7F1EC;display:block}
     .bq-f-mini{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
     .bq-f-mini button{border:1px solid var(--rose);padding:0;border-radius:10px;overflow:hidden;width:64px;height:64px;background:#fff;cursor:pointer}
     .bq-f-mini img{width:100%;height:100%;object-fit:cover;display:block}
@@ -288,7 +288,7 @@
 
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
-  <script src="assets/boutique.js?v=22"></script>
+  <script src="assets/boutique.js?v=23"></script>
   <script src="assets/carte-cadeau.js?v=2"></script>
   <script>
   /* La carte cadeau du Cercle : aperçu en direct, puis paiement Stripe (fonction carte-cadeau) */
