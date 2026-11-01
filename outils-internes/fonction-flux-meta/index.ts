@@ -16,9 +16,7 @@ const PORTE: Record<string, string[]> = {
   "bc031ac8-1c75-4368-9e4a-1d658debb3ac": ["baguettes-racines-50x70"], "ace53bb4-8152-4725-b1e7-f6fccddf2307": ["tfemme-entiere"],
   "0b9a43f9-be05-4b37-8b11-7d3e1a44209e": ["coque-repeter"], "ac58138b-a02c-4bba-a981-896179c59aac": ["court-meriter"],
   "f8d4cb8a-310d-49a8-97f9-ed8904ba5b18": ["capuche-celles", "capuche-celles-2", "capuche-celles-3"],
-  // posters « Mes racines sont ma force » et « Je porte mes racines sans m'y perdre » (01/11/2026) : tableaux en toile uniquement
-  "1db1be1e-d51a-4872-a001-91043fbcb500": ["racines-force-mur"],
-  "28beb05f-82a9-4a35-9e28-8344c560ae12": ["racines-porte-mur"],
+  "54c46abf-9538-4e86-b250-dcb1697b8764": ["tshirt-fin-histoire"],
 };
 // Matière des vêtements (modèles Gelato vérifiés le 01/11/2026) : ajoutée à la description
 const MATIERE: Record<string, string> = {
