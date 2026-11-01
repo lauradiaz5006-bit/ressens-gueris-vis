@@ -21,7 +21,7 @@
     if (t === 'encadre') return c === 'a3' ? [4, 8] : [2, 4];
     return { poster: [2, 4], toile: [3, 5], calendrier: [3, 5], mug: [3, 5], capuche: [3, 5], tfemme: [3, 5], sweat: [4, 8], hoodie: [5, 10], tcourt: [5, 10], tshirt: [5, 9], coque: [9, 12] }[t] || null;
   }
-  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Délai</b> : fabriqué et expédié sous 2 à 5 jours ouvrés' + (l ? ', puis livré en ' + l[0] + ' à ' + l[1] + ' jours ouvrés' : '') + ' (France métropolitaine).<br><b>Retour</b> : 14 jours après réception pour changer d’avis, frais de retour à ta charge ; un défaut ou un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
+  function delais(p, v) { var l = livraison(p, v); return '<p class="bq-delai"><b>Livraison offerte</b> : reçu chez toi en ' + (l ? (l[0] + 2) + ' à ' + (l[1] + 5) : '4 à 10') + ' jours ouvrés environ (fabrication comprise, France métropolitaine).<br><b>Retour</b> : 14 jours pour changer d’avis ; un article abîmé est réimprimé ou remboursé. <a href="cgv.html#retractation">Conditions</a></p>'; }
   function libTaille(p) { return p.type === 'coque' ? 'Modèle' : 'Taille'; }
   /* la photo de la variante choisie : même taille et même couleur, sinon même taille, sinon même couleur, sinon la première */
   function photo(p, opt, cle) { var l = p.photos || [], x = null;
