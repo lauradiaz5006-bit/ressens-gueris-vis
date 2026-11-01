@@ -302,7 +302,7 @@
       var h = '<div class="conteneur">';
       h += '<div class="n-res-tete"><div><h2>Le thème de <span>' + esc(prenom) + '</span></h2><p>Né·e le ' + dateFr(t.date) + (t.age != null ? ' · ' + t.age + ' ans' : '') + '</p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + t.chemin + '</b></span><span>Expression <b>' + t.expression + '</b></span><span>Héréditaire <b>' + t.hereditaire + '</b></span><span>Année ' + auj.getFullYear() + ' <b>' + t.annee + '</b></span></div></div>' +
-        '<div class="actions"><button class="btn btn-plein" type="button" id="n-livret" data-compte="ton livret de numérologie" data-produit="numerologie">Télécharger mon livret PDF (plus de 30 pages)</button><button class="btn btn-trait" type="button" id="n-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
+        '<div class="actions"><button class="btn btn-plein" type="button" id="n-livret" data-compte="ton livret de numérologie" data-produit="numerologie">Télécharger mon livret PDF (plus de 30 pages)</button><button class="btn btn-trait" type="button" id="n-imprimer" data-compte="ton thème numérologique">Imprimer cette page</button><button class="btn btn-trait" type="button" id="n-refaire">Refaire un thème</button></div></div>';
       h += '<nav class="n-sommaire" aria-label="Dans ton thème"><a href="#n-nombres">Tes nombres</a><a href="#n-temps">Ton année</a><a href="#n-periodes">Tes grandes périodes</a>' + (t.dettes.length ? '<a href="#n-appr">Tes apprentissages</a>' : '') + '<a href="#n-nom">Ton nom</a><a href="#n-lignee">Ta lignée</a></nav>';
 
       h += '<h3 class="n-titre-sec" id="n-nombres">Tes nombres principaux</h3>';
