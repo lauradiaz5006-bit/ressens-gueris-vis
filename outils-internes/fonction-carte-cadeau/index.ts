@@ -19,8 +19,8 @@ const SITE = "https://genesolia.fr";
 
 /* Les cartes en vente : changer un prix ici suffit (en centimes) */
 export const CARTES: Record<string, { mois: number; prix: number; nom: string }> = {
-  cercle3: { mois: 3, prix: 7900, nom: "Carte cadeau Le Cercle · 3 mois" },
-  cercle6: { mois: 6, prix: 14900, nom: "Carte cadeau Le Cercle · 6 mois" },
+  cercle3: { mois: 3, prix: 4900, nom: "Carte cadeau Le Cercle · 3 mois" },
+  cercle6: { mois: 6, prix: 9900, nom: "Carte cadeau Le Cercle · 6 mois" },
 };
 const MEMBRE = ["cercle", "offert", "admin", "abonnement"];
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, apikey, x-client-info", "Access-Control-Allow-Methods": "POST, OPTIONS" };
