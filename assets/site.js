@@ -712,6 +712,13 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
     return Promise.all([versSB, versN]).then(function (r) { if (!r[0] && !r[1]) throw new Error('envoi'); });
   }
   window.GenesoliaEnvoyer = envoyerFormulaire;
+  /* Tes dates clés de l'année : tout élément [data-dates-cles] ouvre la fenêtre (module chargé au premier clic) */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-dates-cles]'); if (!b) return;
+    e.preventDefault();
+    if (window.GenesoliaDatesCles) { window.GenesoliaDatesCles.ouvrir(); return; }
+    var sc = document.createElement('script'); sc.src = 'assets/dates-cles.js?v=1'; sc.onload = function () { window.GenesoliaDatesCles.ouvrir(); }; document.head.appendChild(sc);
+  });
   window.GenesoliaN8NAdresse = function () { return N8N; };
   var CARNET = 'assets/carnet-des-deux-cycles-8a44d6c993.pdf';
   function telecharger() {
