@@ -842,6 +842,19 @@
   function jourMois(d) { return (d.getDate() === 1 ? '1er' : d.getDate()) + ' ' + MOIS_NOMS_S[d.getMonth()]; }
   var MOIS_NOMS_S = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
   /* Le fil rouge du cycle 2 : le mode d'emploi du suivi et l'affiche « Mon arbre de vie », visibles dès la première page */
+  /* Ton autel de saison : la photo du mois et le lien vers la fiche.
+     Présent dans les trois trames (cycle 2, livret, carnet). La figure disparaît
+     d'elle-même si assets/autels/AAAA-MM.jpg n'existe pas encore pour ce mois. */
+  function blocAutel(n) {
+    var titre = n ? '<h3><span>' + n + '</span> Ton autel de saison</h3>' : '<h3 class="mc-h">Ton autel de saison</h3>';
+    return '<section class="mc-etape mc-autel-encart">' + titre +
+      '<figure class="mc-autel-photo"><img src="assets/autels/' + MOIS_SAISON_ISO + '.jpg" alt="L\u2019autel de saison du mois" loading="lazy" ' +
+      'onerror="this.closest(\'figure\').remove()"></figure>' +
+      '<p>Ce mois-ci, va te promener et ramasse ce que la nature t\u2019offre : feuilles, branches, pierres, fruits secs. ' +
+      'Avec quelques bougies et des couleurs qui s\u2019accordent, cr\u00e9e-toi un petit autel. C\u2019est un espace qui prot\u00e8ge ' +
+      'ton \u00e9nergie int\u00e9rieure, qui c\u00e9l\u00e8bre ta beaut\u00e9 et qui honore l\u2019\u00eatre de la cr\u00e9ation que tu es.</p>' +
+      '<p><a class="btn btn-plein" href="autel-de-saison.html?mois=' + MOIS_SAISON_ISO + '">Cr\u00e9er mon autel du mois</a></p></section>';
+  }
   function arbreEncart() {
     return encadre('Mon arbre de vie, le fil rouge de ton année', '<p>Les exercices, les protocoles et les rituels proposés chaque mois t’aident à faire pousser ton arbre de vie. Comme un arbre, tu commences par les racines (ton histoire), puis le tronc (ce que tu portes), les branches (ce que tu changes) et les fruits (ce que tu choisis de vivre). Lis une fois le mode d’emploi pour savoir ce que contiennent les exercices, les protocoles et les rituels, puis imprime ton affiche et complète-la au fil des mois.</p>' +
       '<p class="mc-boutons-l"><a class="btn btn-trait" href="mode-emploi-suivi.html">Lire le mode d’emploi du suivi</a> <a class="btn btn-trait" href="arbre-de-vie-affiche.html">Imprimer mon affiche</a></p>', 'mc-encadre-or mc-arbre-encart');
@@ -872,7 +885,7 @@
       if (ET) return arbreEncart() + debut + '<section class="mc-ta-saison"><div class="mc-separe">' + ORNEMENT + '</div><p class="mc-sur">Ta saison' + (sa ? ' · ' + esc(sa.mois.toLowerCase()) : '') + '</p>' +
         (C.saisonLien && MOIS_SAISON === +String(C.mois).split('-')[1] ? '<p>' + md(C.saisonLien) + '</p>' : '') +
         (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') + cit + '</section>';
-      return (C.saisonLien ? '<p>' + md(C.saisonLien) + '</p>' : '') + arbreEncart() +
+      return (C.saisonLien ? '<p>' + md(C.saisonLien) + '</p>' : '') + blocAutel(0) + arbreEncart() +
         (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') + debut + cit;
     } });
     P.push({ id: 'theme', nom: 'Le thème', g: function () { return gauche('theme', ET ? 'Le thème de ton étape ' + ET.n : 'Le thème du mois', C.theme.titre, paras(C.theme.texte)); },
@@ -1279,8 +1292,7 @@
         (K.sansChoix ? '' : '<section class="mc-etape"><h3><span>1</span> Ton besoin de libération ce mois-ci</h3><div data-coeur-pd></div>' +
           choix('coeur-suite', 'Pour ce mois, tu choisis…', ['Je continue sur mon besoin de libération : il reste à libérer, je vais plus en profondeur', 'Je prends le sujet du mois']).replace('<span>Je prends le sujet du mois</span>', '<span>Je prends le sujet du mois' + (K.sujetCoeur ? ' : <b>« ' + esc(K.sujetCoeur) + ' »</b>' : '') + '</span>') +
           zone('coeur-nouvelle', 'Si tu en écris un autre : ton nouveau besoin de libération, en une phrase', { court: true, ph: 'Exemple : je veux oser dire ce dont j’ai besoin dans mon couple' }) + '</section>') +
-        '<section class="mc-etape mc-autel-encart"><h3><span>' + (K.sansChoix ? 1 : 2) + '</span> Ton autel de saison</h3><p>Ce mois-ci, va te promener et ramasse ce que la nature t’offre : feuilles, branches, pierres, fruits secs. Avec quelques bougies et des couleurs qui s’accordent, crée-toi un petit autel. C’est un espace qui protège ton énergie intérieure, qui célèbre ta beauté et qui honore l’être de la création que tu es.</p>' +
-          '<p><a class="btn btn-plein" href="autel-de-saison.html?mois=' + esc(MOIS_SAISON_ISO) + '">Créer mon autel du mois</a></p></section>' + arbreEncart() +
+        blocAutel(K.sansChoix ? 1 : 2) + arbreEncart() +
         (sa ? '<blockquote class="mc-citation"' + (DECOR.citation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.citation)) + '\')"' : '') + '><span>' + esc(sa.citation) + '</span></blockquote>' : '');
     } });
     P.push({ id: 'theme', nom: 'Le thème', g: function () { return gauche('theme', 'Ce mois-ci, ta lignée t’éclaire', C.theme.titre, paras(C.theme.texte)); }, d: MORCEAUX.theme.d });
@@ -1755,7 +1767,7 @@
         sa ? '<p class="mc-intro">' + esc(sa.texte) + '</p>' : '', sa ? '<p class="mc-permission"><b>Ce que ça veut dire pour toi :</b> ' + esc(sa.permission) + '</p>' : '');
     }, d: function () {
       return '<div class="mc-ta-saison"><p class="mc-consigne">Ton étape suit ton propre rythme, depuis ton arrivée dans Le Cercle. La saison, elle, suit le calendrier : voici ce que la nature t’offre en ce moment, pour accorder ton carnet au dehors.</p>' +
-        (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') +
+        (sa ? encadre('Un geste de saison', '<p>' + esc(sa.geste) + '</p>', 'mc-encadre-or') : '') + blocAutel(0) +
         (sa ? '<blockquote class="mc-citation"' + (DECOR.citation ? ' style="--fond:url(\'' + esc(fondUrl(DECOR.citation)) + '\')"' : '') + '><span>' + esc(sa.citation) + '</span></blockquote>' : '') + '</div>';
     } };
   }

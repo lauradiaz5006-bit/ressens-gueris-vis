@@ -703,3 +703,8 @@
 @media (max-width:640px){.mc-trop-plein .mc-tp-deux{grid-template-columns:1fr}}
 .mc-tab-corps{overflow-x:auto}.mc-tab-corps table{width:100%;border-collapse:collapse;font-size:.9rem}.mc-tab-corps th,.mc-tab-corps td{padding:.45rem .5rem;border-bottom:1px solid var(--rose-fonce);text-align:center}.mc-tab-corps th[scope=row]{text-align:left}
 @media print{.mc-corps-sem{break-inside:avoid}}
+
+/* Ton autel de saison : la photo du mois dans le livret */
+.mc-autel-photo{margin:1rem 0 1.2rem}
+.mc-autel-photo img{display:block;width:100%;max-width:22rem;margin-inline:auto;aspect-ratio:1/1;
+  object-fit:cover;border-radius:18px;box-shadow:0 16px 40px rgba(107,47,91,.16)}
