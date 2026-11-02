@@ -185,6 +185,41 @@
     .ep-toast.vu{opacity:1;transform:translateX(-50%) translateY(0)}
     .ep-pied{max-width:40rem;margin:0 auto;text-align:center;color:var(--doux);font-size:.78rem;padding:1rem 16px 2rem}
     .ep-pied a{color:var(--doux)}
+    /* Mes entreprises */
+    .ent-grille{display:grid;gap:1rem;align-items:start}
+    @media (min-width:760px){.ent-grille{grid-template-columns:1fr 1fr}}
+    .ent{border-top:4px solid var(--m-gen)}
+    .ent-bou{border-top-color:var(--m-bou)}.ent-str{border-top-color:var(--m-str)}.ent-sev{border-top-color:var(--m-sev)}
+    .ent-tete{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;margin-bottom:.8rem}
+    .ent-tete h3{font-size:1.5rem!important;margin:0!important}
+    .ent-tete small{color:var(--doux);font-size:.8rem}
+    .ent .ep-etiq{margin-top:.9rem}
+    .cn{list-style:none;margin:0;padding:0}
+    .cn li{padding:.55rem 0;border-top:1px solid #F4E8EC}
+    .cn li:first-child{border-top:0}
+    .cn-l1{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+    .cn-l1 b{font-size:.9rem;font-weight:700;min-width:0}
+    .cn-l2{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .6rem;margin-top:.35rem;font-size:.8rem;color:var(--doux)}
+    .cn-l2 label{display:flex;align-items:center;gap:.35rem}
+    .ep .cn-l2 input,.ep .cn-l2 select{width:auto;min-height:36px;padding:.25rem .5rem;font-size:14px;border-radius:10px}
+    .cn-note{display:block;font-size:.76rem;color:#8A5A12;margin-top:.3rem}
+    .bd{flex:0 0 auto;font:800 .64rem/1 var(--texte);letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:.32rem .55rem;white-space:nowrap}
+    .bd-v{background:#E3F2E6;color:#28683A}.bd-o{background:#FFF0D6;color:#8A5A12}.bd-r{background:#FBE3E6;color:#9B2C45}.bd-q{background:#F1ECEF;color:var(--doux)}
+    .ent-alerte{background:#FFF1F1;border:1px solid #F3C9D0;border-radius:14px;padding:.65rem .8rem;margin-bottom:.4rem;font-size:.84rem;color:#7A2338}
+    .ent-alerte p{margin:0 0 .4rem}
+    .ent-fait{display:inline-flex;align-items:center;gap:.4rem;font-weight:700;cursor:pointer}
+    .ent-der{display:flex;align-items:center;gap:.5rem}.ent-der small{color:var(--doux);font-size:.76rem;white-space:nowrap}
+    .ck-mini li{padding:.45rem 0}.ck-mini input[type=checkbox]{width:22px;height:22px}.ck-mini label{font-size:.9rem}
+    .ent-ajout{display:flex;gap:.4rem;margin-top:.4rem}.ep .ent-ajout input{min-height:38px;font-size:15px}
+    .ent-liens{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem;padding-top:.8rem;border-top:1px solid #F4E8EC}
+    .ent-liens a{font-size:.8rem;font-weight:700;text-decoration:none;background:#F7EDE6;border-radius:99px;padding:.4rem .75rem}
+    .ent-liens a:hover{background:#F0E0D6}
+    .ent-al{margin-bottom:1rem;border-left:4px solid #C9506A}
+    .al-tete{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.4rem}
+    .ent-al ul{list-style:none;margin:0;padding:0}
+    .ent-al li{font-size:.9rem;padding:.35rem 0 .35rem 1.1rem;position:relative}
+    .ent-al li::before{content:"";position:absolute;left:0;top:.8rem;width:8px;height:8px;border-radius:50%}
+    .al-r::before{background:#C9506A}.al-o::before{background:#E0A43A}
     /* Ordinateur : navigation à gauche */
     @media (min-width:1000px){
       .ep-corps{display:grid;grid-template-columns:220px 1fr;gap:1.6rem;max-width:1180px;margin:0 auto;padding:0 16px}
@@ -216,6 +251,7 @@
   <div class="ep-corps">
     <nav class="ep-nav" aria-label="Rubriques">
       <div class="ep-cadre" role="tablist">
+        <button class="ep-onglet" role="tab" data-onglet="entreprises">Mes entreprises <span class="pastille" id="p-ent" hidden></span></button>
         <button class="ep-onglet" role="tab" data-onglet="aujourdhui">Aujourd'hui</button>
         <button class="ep-onglet" role="tab" data-onglet="indexer">À indexer <span class="pastille" id="p-index" hidden></span></button>
         <button class="ep-onglet" role="tab" data-onglet="chiffres">Chiffres</button>
@@ -229,9 +265,16 @@
     <main class="ep-cadre">
       <p class="ep-alerte" id="alerte" hidden></p>
 
+      <!-- 0. Mes entreprises -->
+      <section class="ep-sec" data-sec="entreprises" hidden>
+        <div class="ep-sec-tete"><div><h2>Mes entreprises</h2><p>Où en est chaque marque : jusqu'à quand les visuels sont programmés, la prochaine prospection, ce qu'il reste à faire. Les dates se modifient directement.</p></div></div>
+        <div class="ent-grille" id="ent"></div>
+      </section>
+
       <!-- 1. Aujourd'hui -->
       <section class="ep-sec" data-sec="aujourdhui">
         <div class="ep-sec-tete"><div><h2>Aujourd'hui</h2><p>Ta routine du jour. Les cases se remettent à zéro chaque matin.</p></div></div>
+        <div class="ep-carte ent-al" id="ent-alertes" hidden></div>
         <div class="ep-grille deux">
           <div class="ep-carte"><span class="ep-etiq">Routine</span><h3 id="routine-titre">La routine du jour</h3><ul class="ck" id="routine"></ul></div>
           <div class="ep-grille">
@@ -319,6 +362,6 @@
   </div>
   <p class="ep-pied">Page privée, visible seulement par toi. Enregistrée sur ton compte : la même sur ton téléphone et ton ordinateur.</p>
   <div class="ep-toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="assets/mon-espace-pro.js?v=1"></script>
+  <script src="assets/mon-espace-pro.js?v=2"></script>
 </body>
 </html>

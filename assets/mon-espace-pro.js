@@ -125,25 +125,30 @@
   /* ---------- 1. Aujourd'hui ---------- */
   var ROUTINE = [
     { id: 'r-0900', h: '9h00', m: 10, mq: 'tout', t: 'Récupérer les vidéos TikTok du jour (2 Genesolia, 1 STRAKARA) dans ta conversation Claude.' },
-    { id: 'r-0915', h: '9h15', m: 15, mq: 'gen', t: 'Publier le réel ou le carrousel du jour sur Instagram + Facebook, puis 3 épingles Pinterest.' },
-    { id: 'r-0930', h: '9h30', m: 10, mq: 'tout', t: 'Google : demander l\'indexation des pages listées dans « À indexer » (10 max par site).', vers: 'indexer' },
+    { id: 'r-0915', h: '9h15', m: 15, mq: 'gen', t: 'Publier le réel ou le carrousel du jour sur Instagram + Facebook.' },
+    { id: 'r-0930', h: '9h30', m: 10, mq: 'tout', t: 'Référencement : dans « À indexer », demander l\'indexation de 10 pages max par site dans Search Console (Genesolia, puis STRAKARA/Sève), et cliquer « Demandée » pour chaque page faite.', vers: 'indexer' },
     { id: 'r-0940', h: '9h40', m: 15, mq: 'tout', t: 'Prospection : valider les prospects Genesolia et STRAKARA dans Airtable (cocher « OK envoyer »).' },
     { id: 'r-1230', h: '12h30', m: 5, mq: 'tout', t: 'TikTok : publier la vidéo Genesolia A et la vidéo STRAKARA, en ajoutant le son.' },
     { id: 'r-1800', h: '18h00', m: 20, mq: 'tout', t: 'Notoriété : répondre aux commentaires et messages (TikTok, Instagram, Facebook, LinkedIn), 5 commentaires utiles sur LinkedIn.' },
     { id: 'r-2030', h: '20h30', m: 5, mq: 'gen', t: 'TikTok : publier la vidéo Genesolia B.' }
   ];
+  var EN_PLUS = {
+    1: { id: 'r-0935-lun', h: '9h30', m: 5, mq: 'tout', t: 'Lundi : Search Console > Pages, vérifier qu\'il n\'y a pas de nouvelle erreur ; soumettre à nouveau le sitemap s\'il n\'a pas été lu depuis 7 jours.' },
+    3: { id: 'r-0935-mer', h: '9h30', m: 2, mq: 'gen', t: 'Mercredi : vérifier que le nouvel article est bien dans le sitemap, et le demander en premier.' }
+  };
+  function routine() { var r = ROUTINE.slice(), x = EN_PLUS[AUJ.getDay()]; if (x) r.splice(3, 0, x); return r; }
   var FOND = {
     1: { titre: 'Lundi : STRAKARA et chiffres', l: [{ mq: 'str', t: 'Publier les biens de la semaine dans le groupe LinkedIn.' }, { mq: 'tout', t: 'Noter les chiffres de la semaine (onglet Chiffres).', vers: 'chiffres' }] },
     2: { titre: 'Mardi : Sève', l: [{ mq: 'sev', t: '1 post Instagram/Facebook (avant/après ou ambiance).' }, { mq: 'sev', t: 'Le partager dans 1 groupe Facebook de commerçants locaux.' }] },
-    3: { titre: 'Mercredi : Genesolia et STRAKARA', l: [{ mq: 'gen', t: '1 nouvel article ou une nouvelle page (SEO).' }, { mq: 'gen', t: '5 épingles Pinterest.' }, { mq: 'str', t: '1 post dans 2 groupes Facebook maximum.' }] },
+    3: { titre: 'Mercredi : Genesolia et STRAKARA', l: [{ mq: 'gen', t: '1 nouvel article ou une nouvelle page (SEO).' }, { mq: 'str', t: '1 post dans 2 groupes Facebook maximum.' }] },
     4: { titre: 'Jeudi : Sève et STRAKARA', l: [{ mq: 'sev', t: 'Contacter 5 commerces locaux (instituts, restaurants, boutiques).' }, { mq: 'str', t: 'Contacter 3 hébergeurs potentiels.' }] },
-    5: { titre: 'Vendredi : Boutique et Genesolia', l: [{ mq: 'bou', t: '1 post produit (Instagram + Pinterest).' }, { mq: 'bou', t: 'Vérifier Etsy : messages, avis, statistiques.' }, { mq: 'gen', t: 'Une story ou une question à la communauté.' }] },
+    5: { titre: 'Vendredi : Boutique et Genesolia', l: [{ mq: 'bou', t: '1 post produit sur Instagram.' }, { mq: 'bou', t: 'Vérifier Etsy : messages, avis, statistiques.' }, { mq: 'gen', t: 'Une story ou une question à la communauté.' }] },
     6: { titre: 'Samedi : 20 minutes, pas plus', l: [{ mq: 'tout', t: 'Répondre aux messages.' }, { mq: 'tout', t: '1 story par marque.' }] },
     0: { titre: 'Dimanche : repos', l: [] }
   };
   function itemsDuJour() {
     var j = AUJ.getDay(), f = FOND[j], liste = [];
-    if (j >= 1 && j <= 5) liste = ROUTINE.slice();
+    if (j >= 1 && j <= 5) liste = routine();
     f.l.forEach(function (x, i) { liste.push({ id: 'f-' + j + '-' + i, mq: x.mq, t: x.t, vers: x.vers, fond: true }); });
     return liste;
   }
@@ -164,10 +169,10 @@
   function rendreAujourdhui() {
     var j = AUJ.getDay(), faits = coches(), items = itemsDuJour(), maint = AUJ.getHours() * 60 + AUJ.getMinutes();
     var prochain = null;
-    ROUTINE.forEach(function (it) { if (!prochain && j >= 1 && j <= 5 && faits.indexOf(it.id) < 0 && minutes(it.h) + it.m >= maint - 60) prochain = it; });
+    routine().forEach(function (it) { if (!prochain && j >= 1 && j <= 5 && faits.indexOf(it.id) < 0 && minutes(it.h) + it.m >= maint - 60) prochain = it; });
     if (j >= 1 && j <= 5) {
       $('#routine-titre').textContent = 'La routine du ' + JOURS[j];
-      $('#routine').innerHTML = ROUTINE.map(function (it) { return liCoche(it, faits.indexOf(it.id) >= 0, prochain === it); }).join('');
+      $('#routine').innerHTML = routine().map(function (it) { return liCoche(it, faits.indexOf(it.id) >= 0, prochain === it); }).join('');
     } else {
       $('#routine-titre').textContent = j === 6 ? 'Samedi léger' : 'Jour de repos';
       $('#routine').innerHTML = '<li class="ep-repos" style="display:block"><b>' + (j === 6 ? 'Pas de routine aujourd\'hui' : 'Repos') + '</b><span class="ep-discret">' + (j === 6 ? '20 minutes suffisent : regarde l\'action de fond à côté.' : 'Rien à publier. La semaine reprend demain à 9h.') + '</span></li>';
@@ -266,7 +271,7 @@
     ['carnets', 'Carnets remplis'], ['formation', 'Inscrites à la formation'], ['notifications', 'Appareils abonnés aux rappels'], ['praticiens', 'Praticien·nes']
   ];
   var RESEAUX_CH = [
-    ['tt_gen', 'gen', 'TikTok'], ['ig_gen', 'gen', 'Instagram'], ['fb_gen', 'gen', 'Facebook'], ['pin_gen', 'gen', 'Pinterest'],
+    ['tt_gen', 'gen', 'TikTok'], ['ig_gen', 'gen', 'Instagram'], ['fb_gen', 'gen', 'Facebook'],
     ['tt_str', 'str', 'TikTok'], ['li_laura', 'tout', 'LinkedIn Laura'], ['li_str', 'str', 'Page LinkedIn'], ['fb_str', 'str', 'Facebook'],
     ['ig_sev', 'sev', 'Instagram'], ['etsy_mois', 'bou', 'Etsy, ventes du mois'],
     ['umami_gen', 'gen', 'Umami, visiteurs semaine'], ['umami_str', 'str', 'Umami, visiteurs semaine'],
@@ -322,8 +327,8 @@
   }
 
   /* ---------- 4. Mes posts ---------- */
-  var RESEAUX = ['Instagram', 'Facebook', 'TikTok', 'Pinterest', 'LinkedIn', 'Etsy', 'YouTube', 'Google', 'Autre'];
-  var CANAUX = { gen: ['Instagram', 'Facebook', 'TikTok', 'Pinterest'], bou: ['Instagram', 'Pinterest', 'Etsy'], str: ['LinkedIn', 'Facebook', 'TikTok'], sev: ['Instagram', 'Facebook'] };
+  var RESEAUX = ['Instagram', 'Facebook', 'TikTok', 'LinkedIn', 'Etsy', 'YouTube', 'Google', 'Autre'];
+  var CANAUX = { gen: ['Instagram', 'Facebook', 'TikTok'], bou: ['Instagram', 'Etsy'], str: ['LinkedIn', 'Facebook', 'TikTok'], sev: ['Instagram', 'Facebook'] };
   var semPt = lundi(AUJ);
   function rendrePosts() {
     var fin = plusJours(semPt, 6);
@@ -404,7 +409,6 @@
   var ANGLES = [
     { id: 'a-gbp', mq: 'tout', t: 'Créer ou compléter la fiche Google Business Profile de STRAKARA et de Sève (photos, horaires, secteur, lien).' },
     { id: 'a-avis', mq: 'tout', t: 'Demander des avis clients, juste après chaque mission réussie : c\'est le moment où on dit oui.' },
-    { id: 'a-pin', mq: 'gen', t: 'Pinterest Genesolia en épingles régulières : un gros levier de visites, qui dure des mois.' },
     { id: 'a-recycle', mq: 'tout', t: 'Recycler chaque vidéo TikTok en Réel Instagram et en Short YouTube.' },
     { id: 'a-bio', mq: 'tout', t: 'Un seul lien en bio par marque, qui mène à la bonne page.' },
     { id: 'a-24h', mq: 'tout', t: 'Répondre en moins de 24 h aux messages et commentaires.' },
@@ -434,7 +438,6 @@
       ['Meta Business Suite', 'Instagram, Facebook', 'https://business.facebook.com/latest/home'],
       ['TikTok Studio', 'Vidéos', 'https://www.tiktok.com/tiktokstudio'],
       ['LinkedIn', 'Fil et messages', 'https://www.linkedin.com/feed/'],
-      ['Pinterest', 'Épingles', 'https://fr.pinterest.com/'],
       ['Mon cap', 'Ton tableau de bord Claude', 'https://claude.ai/artifact/3gBsHPK7tPfD9hqHjF4HvQ']
     ]],
     ['Ventes et chiffres', [
@@ -459,8 +462,137 @@
     }).join('');
   }
 
+
+  /* ---------- 0. Mes entreprises ---------- */
+  var FREQS = ['Quotidienne', 'Chaque lundi', 'Chaque mardi', 'Chaque mercredi', 'Chaque jeudi', 'Chaque vendredi', 'Toutes les 2 semaines', 'Mensuelle', 'Ponctuelle'];
+  var ENT = {
+    gen: { titre: 'Genesolia', sous: 'genesolia.fr · Le Cercle · Ma spirale',
+      canaux: [['ig_img', 'Instagram et Facebook, posts image', '2026-11-20'], ['reels', 'Réels et carrousels', '2026-11-23'], ['liens', 'Liens articles (Facebook)', '2026-11-29'], ['tt', 'TikTok', 'q', 'Vidéos préparées chaque matin']],
+      prosp: [['prat', 'Prospection praticien·nes', 'Quotidienne', 'Airtable Genesolia, 10 par jour']], todo: [],
+      liens: [['genesolia.fr', 'https://genesolia.fr/'], ['Airtable', 'https://airtable.com/appC1Knzj66DUEhPJ/tbl2ADJbWV0JBeXcL'], ['Meta', 'https://business.facebook.com/latest/home']] },
+    bou: { titre: 'Boutique', sous: 'Gelato · Etsy', prospTitre: 'Rendez-vous régulier',
+      canaux: [['visuels', 'Visuels produits', '']],
+      prosp: [['etsy', 'Vérifier Etsy (messages, avis, stats)', 'Chaque vendredi', '']], todo: [],
+      liens: [['Etsy', 'https://www.etsy.com/your/shops/me/dashboard'], ['Gelato', 'https://dashboard.gelato.com/'], ['Boutique du site', 'https://genesolia.fr/boutique.html']] },
+    str: { titre: 'STRAKARA', sous: 'strakara.fr · espaces pro sans bail commercial',
+      canaux: [['meta', 'Instagram et Facebook', '2026-11-17', 'Du 18/11 au 05/12 : posts prévus mais pas programmés dans Meta'], ['li', 'LinkedIn profil', '2027-01-15'], ['biens', 'Annonces des biens (groupes LinkedIn et Facebook)', '2026-11-30'], ['tt', 'TikTok', 'q', 'Vidéos préparées chaque matin']],
+      prosp: [['heb', 'Prospection hébergeurs', 'Chaque jeudi', ''], ['cli', 'Prospection clients', 'Quotidienne', 'Airtable STRAKARA']], todo: [],
+      alerte: 'Anciennes promesses à retirer : supprimer dans Meta et LinkedIn les posts programmés qui disent « STRAKARA gère le reste », « Pas de facture client à gérer », « La caution est gérée pour vous », « Hébergeurs : on s\'occupe du reste », « 1 seul interlocuteur », « Chercher seul ou être accompagné ». Ils sont remplacés par les 30 nouveaux visuels (prompt prêt le 03/11).',
+      liens: [['strakara.fr', 'https://www.strakara.fr/'], ['Airtable', 'https://airtable.com/appYz7mZAu15F7vh7'], ['LinkedIn', 'https://www.linkedin.com/feed/']] },
+    sev: { titre: 'Sève', sous: 'Études d\'aménagement et d\'ambiance',
+      canaux: [['visuels', 'Visuels Instagram et Facebook', '']],
+      prosp: [['com', 'Prospection commerces locaux', 'Chaque jeudi', 'Instituts, restaurants, boutiques']],
+      todo: ['Créer le compte Instagram Sève', 'Créer la fiche Google Business Profile Sève'],
+      liens: [['seve.html', 'https://www.strakara.fr/seve.html'], ['Google Business', 'https://business.google.com/'], ['Instagram', 'https://www.instagram.com/']] }
+  };
+  function ligneEnt(m) { return une('entreprise', function (d) { return d.m === m; }); }
+  function donneesEnt(m) {
+    var def = ENT[m], l = ligneEnt(m), d = (l && l.data) || {};
+    var canaux = {}; def.canaux.forEach(function (c) { canaux[c[0]] = c[2] === 'q' ? 'q' : c[2]; });
+    var prosp = {}; def.prosp.forEach(function (p) { prosp[p[0]] = { date: '', freq: p[2] }; });
+    var todo = def.todo.map(function (t, i) { return { id: 'd' + i, t: t, fait: false }; });
+    return { m: m, canaux: Object.assign(canaux, d.canaux || {}), prosp: Object.assign(prosp, d.prosp || {}), derniere: d.derniere || null, todo: d.todo || todo, alerteFaite: !!d.alerteFaite };
+  }
+  function majEnt(m, fn) { var l = ligneEnt(m) || { kind: 'entreprise', data: {} }; var d = donneesEnt(m); fn(d); l.data = d; enregistrer(l); }
+  var JOUR_FREQ = { 'Chaque lundi': 1, 'Chaque mardi': 2, 'Chaque mercredi': 3, 'Chaque jeudi': 4, 'Chaque vendredi': 5 };
+  function prochaine(p, apres) {   /* prochaine date : celle notée si elle est à venir, sinon calculée selon la fréquence */
+    var debut = apres ? plusJours(AUJ, 1) : AUJ, d = p.date ? deIso(p.date) : null;
+    if (d && iso(d) >= iso(debut)) return d;
+    var f = p.freq;
+    if (f === 'Quotidienne') { var x = debut; while (x.getDay() === 0 || x.getDay() === 6) x = plusJours(x, 1); return x; }
+    if (JOUR_FREQ[f] != null) { var y = debut; while (y.getDay() !== JOUR_FREQ[f]) y = plusJours(y, 1); return y; }
+    if (!d) return null;
+    var pas = f === 'Toutes les 2 semaines' ? 14 : f === 'Mensuelle' ? 30 : 0; if (!pas) return d;
+    while (iso(d) < iso(debut)) d = plusJours(d, pas);
+    return d;
+  }
+  function etatCanal(v) {
+    if (v === 'q') return { c: 'q', t: 'Quotidien' };
+    if (!v) return { c: 'r', t: 'Rien de programmé' };
+    var n = Math.round((deIso(v) - deIso(AUJ_ISO)) / 864e5);
+    if (n <= 7) return { c: 'r', t: n < 0 ? 'Dépassé, à programmer maintenant' : 'À programmer maintenant', n: n };
+    if (n <= 14) return { c: 'o', t: 'À préparer', n: n };
+    return { c: 'v', t: 'Programmé', n: n };
+  }
+  function alertesEnt() {
+    var a = [];
+    Object.keys(ENT).forEach(function (m) {
+      var d = donneesEnt(m);
+      ENT[m].canaux.forEach(function (c) {
+        var v = d.canaux[c[0]], e = etatCanal(v); if (e.c !== 'r' && e.c !== 'o') return;
+        a.push({ c: e.c, t: ENT[m].titre + ' · ' + c[1] + (v ? ' : visuels jusqu\'au ' + dateCourte(deIso(v)) + ', à préparer dès le ' + dateCourte(plusJours(deIso(v), -10)) : ' : rien de programmé') });
+      });
+      if (ENT[m].alerte && !d.alerteFaite) a.push({ c: 'r', t: ENT[m].titre + ' : anciennes promesses à retirer dans Meta et LinkedIn' });
+    });
+    return a.sort(function (x, y) { return x.c === y.c ? 0 : x.c === 'r' ? -1 : 1; });
+  }
+  function rendreAlertes() {
+    var a = alertesEnt(), box = $('#ent-alertes');
+    box.hidden = !a.length;
+    box.innerHTML = '<div class="al-tete"><span class="ep-etiq" style="margin:0">À surveiller</span><a href="#entreprises" data-aller="entreprises" class="bt clair mini">Mes entreprises</a></div><ul>' +
+      a.map(function (x) { return '<li class="al-' + x.c + '">' + esc(x.t) + '</li>'; }).join('') + '</ul>';
+    var p = $('#p-ent'), r = a.filter(function (x) { return x.c === 'r'; }).length; p.hidden = !r; p.textContent = r;
+  }
+  function rendreEntreprises() {
+    $('#ent').innerHTML = Object.keys(ENT).map(function (m) {
+      var def = ENT[m], d = donneesEnt(m);
+      var canaux = def.canaux.map(function (c) {
+        var v = d.canaux[c[0]], e = etatCanal(v);
+        var txt = v === 'q' ? esc(c[3] || '') : v ? 'Préparer dès le ' + esc(dateCourte(plusJours(deIso(v), -10))) + (e.n >= 0 ? ' · J−' + e.n : '') : 'Aucune date notée';
+        return '<li><div class="cn-l1"><b>' + esc(c[1]) + '</b><span class="bd bd-' + e.c + '">' + esc(e.t) + '</span></div>' +
+          '<div class="cn-l2">' + (v === 'q' ? '' : '<label>jusqu\'au <input type="date" data-ent="' + m + '" data-canal="' + c[0] + '" value="' + esc(v || '') + '"></label>') + '<small>' + txt + '</small></div>' +
+          (c[3] && v !== 'q' ? '<small class="cn-note">' + esc(c[3]) + '</small>' : '') + '</li>';
+      }).join('');
+      var prosp = def.prosp.map(function (p) {
+        var x = d.prosp[p[0]], pr = prochaine(x), auj = pr && iso(pr) === AUJ_ISO;
+        return '<li><div class="cn-l1"><b>' + esc(p[1]) + '</b><span class="bd ' + (auj ? 'bd-o' : 'bd-q') + '">' + (pr ? (auj ? 'Aujourd\'hui' : esc(JOURS[pr.getDay()] + ' ' + dateCourte(pr))) : 'À dater') + '</span></div>' +
+          '<div class="cn-l2"><input type="date" aria-label="Prochaine date" data-ent="' + m + '" data-prosp="' + p[0] + '" value="' + esc(pr ? iso(pr) : '') + '"><select aria-label="Fréquence" data-ent="' + m + '" data-freq="' + p[0] + '">' + FREQS.map(function (f) { return '<option' + (f === x.freq ? ' selected' : '') + '>' + f + '</option>'; }).join('') + '</select>' +
+          '<button class="bt mini" type="button" data-ent-fait="' + m + '" data-p="' + p[0] + '">Fait</button></div>' + (p[3] ? '<small class="cn-note">' + esc(p[3]) + '</small>' : '') + '</li>';
+      }).join('');
+      var todo = d.todo.map(function (t) {
+        var id = 'e-' + m + '-' + t.id;
+        return '<li class="' + (t.fait ? 'fait' : '') + '"><input type="checkbox" id="' + esc(id) + '" data-ent="' + m + '" data-todo="' + esc(t.id) + '"' + (t.fait ? ' checked' : '') + '><div class="tx"><label for="' + esc(id) + '">' + esc(t.t) + '</label></div><button class="ep-suppr" type="button" data-ent="' + m + '" data-todo-suppr="' + esc(t.id) + '" aria-label="Supprimer">&times;</button></li>';
+      }).join('');
+      return '<article class="ep-carte ent ent-' + m + '"><div class="ent-tete"><div><h3>' + esc(def.titre) + '</h3><small>' + esc(def.sous) + '</small></div>' + pastille(m) + '</div>' +
+        (def.alerte && !d.alerteFaite ? '<div class="ent-alerte"><p>' + esc(def.alerte) + '</p><label class="ent-fait"><input type="checkbox" data-ent="' + m + '" data-alerte-faite> Fait</label></div>' : '') +
+        '<span class="ep-etiq">Visuels programmés</span><ul class="cn">' + canaux + '</ul>' +
+        '<span class="ep-etiq">' + esc(def.prospTitre || 'Prochaine prospection') + '</span><ul class="cn">' + prosp + '</ul>' +
+        '<span class="ep-etiq">Dernière action</span><div class="ent-der"><input data-ent="' + m + '" data-derniere maxlength="160" placeholder="Ex. 5 hébergeurs contactés" value="' + esc(d.derniere ? d.derniere.t : '') + '">' + (d.derniere && d.derniere.le ? '<small>le ' + esc(dateCourte(deIso(d.derniere.le))) + '</small>' : '') + '</div>' +
+        '<span class="ep-etiq">À faire</span><ul class="ck ck-mini">' + (todo || '<li class="ep-vide" style="display:block;padding:.3rem 0">Rien pour le moment.</li>') + '</ul>' +
+        '<form class="ent-ajout" data-ent-form="' + m + '" autocomplete="off"><input name="t" maxlength="160" placeholder="Ajouter une tâche" aria-label="Tâche ' + esc(def.titre) + '" required><button class="bt clair mini" type="submit">Ajouter</button></form>' +
+        '<div class="ent-liens">' + def.liens.map(function (x) { return '<a href="' + esc(x[1]) + '" target="_blank" rel="noopener">' + esc(x[0]) + '</a>'; }).join('') + '</div></article>';
+    }).join('');
+  }
+  document.addEventListener('change', function (e) {
+    var t = e.target, m = t.getAttribute && t.getAttribute('data-ent'); if (!m || !ENT[m]) return;
+    if (t.hasAttribute('data-canal')) majEnt(m, function (d) { d.canaux[t.getAttribute('data-canal')] = t.value; });
+    else if (t.hasAttribute('data-prosp')) majEnt(m, function (d) { d.prosp[t.getAttribute('data-prosp')].date = t.value; });
+    else if (t.hasAttribute('data-freq')) majEnt(m, function (d) { var p = d.prosp[t.getAttribute('data-freq')]; p.freq = FREQS.indexOf(t.value) >= 0 ? t.value : 'Ponctuelle'; p.date = ''; });
+    else if (t.hasAttribute('data-derniere')) majEnt(m, function (d) { d.derniere = t.value.trim() ? { t: t.value.trim().slice(0, 160), le: AUJ_ISO } : null; });
+    else if (t.hasAttribute('data-todo')) majEnt(m, function (d) { d.todo.forEach(function (x) { if (x.id === t.getAttribute('data-todo')) x.fait = t.checked; }); });
+    else if (t.hasAttribute('data-alerte-faite')) majEnt(m, function (d) { d.alerteFaite = t.checked; });
+    else return;
+    rendreEntreprises(); rendreAlertes();
+  });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('button') : null; if (!t) return; var m = t.getAttribute('data-ent') || t.getAttribute('data-ent-fait'); if (!m || !ENT[m]) return;
+    if (t.hasAttribute('data-ent-fait')) {
+      var k = t.getAttribute('data-p'), lib = ENT[m].prosp.filter(function (p) { return p[0] === k; })[0][1];
+      majEnt(m, function (d) { var p = d.prosp[k]; p.date = ''; var n = prochaine({ date: '', freq: p.freq }, true); p.date = n ? iso(n) : ''; d.derniere = { t: lib + ' faite', le: AUJ_ISO }; });
+      toast('Noté. Prochaine date mise à jour');
+    } else if (t.hasAttribute('data-todo-suppr')) majEnt(m, function (d) { d.todo = d.todo.filter(function (x) { return x.id !== t.getAttribute('data-todo-suppr'); }); });
+    else return;
+    rendreEntreprises(); rendreAlertes();
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target, m = f.getAttribute && f.getAttribute('data-ent-form'); if (!m || !ENT[m]) return;
+    e.preventDefault(); var v = f.t.value.trim(); if (!v) return;
+    majEnt(m, function (d) { d.todo.push({ id: uuid().slice(0, 8), t: v.slice(0, 160), fait: false }); });
+    rendreEntreprises(); rendreAlertes();
+  });
+
   /* ---------- Onglets ---------- */
-  var NOMS = ['aujourdhui', 'indexer', 'chiffres', 'posts', 'plan', 'angles', 'liens'];
+  var NOMS = ['entreprises', 'aujourdhui', 'indexer', 'chiffres', 'posts', 'plan', 'angles', 'liens'];
   function ouvrir(n, garder) {
     if (NOMS.indexOf(n) < 0) n = 'aujourdhui';
     $$('[data-sec]').forEach(function (s) { s.hidden = s.getAttribute('data-sec') !== n; });
@@ -471,7 +603,7 @@
     if (n === 'chiffres' && !ouvrir.stats) { ouvrir.stats = true; chargerStats(); }
   }
 
-  function tout() { rendreAujourdhui(); rendreIndexTout(); rendreChiffres(); rendrePosts(); rendrePlan(); rendreAngles(); }
+  function tout() { rendreEntreprises(); rendreAlertes(); rendreAujourdhui(); rendreIndexTout(); rendreChiffres(); rendrePosts(); rendrePlan(); rendreAngles(); }
 
   /* ---------- Événements ---------- */
   document.addEventListener('change', function (e) {
