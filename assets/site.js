@@ -525,6 +525,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
           '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
+          '<a class="btn btn-pros" href="espace-praticien.html" style="background:#2E1338;color:#F3E3C3;border-color:#2E1338;font-weight:600">Genesolia pour les pros</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
           lien(ESPACE, 'menu-espace') +
           (MODE ? '<span class="menu-legal"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="#" data-cookies>Cookies</a></span>' : '') +
