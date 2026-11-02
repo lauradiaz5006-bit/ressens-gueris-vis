@@ -125,7 +125,6 @@
   /* ---------- 1. Aujourd'hui ---------- */
   var ROUTINE = [
     { id: 'r-0900', h: '9h00', m: 10, mq: 'tout', t: 'Récupérer les vidéos TikTok du jour (2 Genesolia, 1 STRAKARA) dans ta conversation Claude.' },
-    { id: 'r-0915', h: '9h15', m: 15, mq: 'gen', t: 'Publier le réel ou le carrousel du jour sur Instagram + Facebook.' },
     { id: 'r-0930', h: '9h30', m: 10, mq: 'tout', t: 'Référencement : dans « À indexer », demander l\'indexation de 10 pages max par site dans Search Console (Genesolia, puis STRAKARA/Sève), et cliquer « Demandée » pour chaque page faite.', vers: 'indexer' },
     { id: 'r-0940', h: '9h40', m: 15, mq: 'tout', t: 'Prospection : valider les prospects Genesolia et STRAKARA dans Airtable (cocher « OK envoyer »).' },
     { id: 'r-1230', h: '12h30', m: 5, mq: 'tout', t: 'TikTok : publier la vidéo Genesolia A et la vidéo STRAKARA, en ajoutant le son.' },
@@ -142,7 +141,7 @@
     2: { titre: 'Mardi : Sève', l: [{ mq: 'sev', t: '1 post Instagram/Facebook (avant/après ou ambiance).' }, { mq: 'sev', t: 'Le partager dans 1 groupe Facebook de commerçants locaux.' }] },
     3: { titre: 'Mercredi : Genesolia et STRAKARA', l: [{ mq: 'gen', t: '1 nouvel article ou une nouvelle page (SEO).' }, { mq: 'str', t: '1 post dans 2 groupes Facebook maximum.' }] },
     4: { titre: 'Jeudi : Sève et STRAKARA', l: [{ mq: 'sev', t: 'Contacter 5 commerces locaux (instituts, restaurants, boutiques).' }, { mq: 'str', t: 'Contacter 3 hébergeurs potentiels.' }] },
-    5: { titre: 'Vendredi : Boutique et Genesolia', l: [{ mq: 'bou', t: '1 post produit sur Instagram.' }, { mq: 'bou', t: 'Vérifier Etsy : messages, avis, statistiques.' }, { mq: 'gen', t: 'Une story ou une question à la communauté.' }] },
+    5: { titre: 'Vendredi : Boutique et Genesolia', l: [{ mq: 'bou', t: '1 post produit sur Instagram.' }, { mq: 'bou', t: 'Vérifier Etsy : messages, avis, statistiques.' }, { mq: 'gen', t: 'Une question à la communauté en vidéo TikTok.' }] },
     6: { titre: 'Samedi : 20 minutes, pas plus', l: [{ mq: 'tout', t: 'Répondre aux messages.' }, { mq: 'tout', t: '1 story par marque.' }] },
     0: { titre: 'Dimanche : repos', l: [] }
   };
@@ -467,7 +466,7 @@
   var FREQS = ['Quotidienne', 'Chaque lundi', 'Chaque mardi', 'Chaque mercredi', 'Chaque jeudi', 'Chaque vendredi', 'Toutes les 2 semaines', 'Mensuelle', 'Ponctuelle'];
   var ENT = {
     gen: { titre: 'Genesolia', sous: 'genesolia.fr · Le Cercle · Ma spirale',
-      canaux: [['ig_img', 'Instagram et Facebook, posts image', '2026-11-20'], ['reels', 'Réels et carrousels', '2026-11-23'], ['liens', 'Liens articles (Facebook)', '2026-11-29'], ['tt', 'TikTok', 'q', 'Vidéos préparées chaque matin']],
+      canaux: [['tt', 'TikTok', 'q', 'Vidéos préparées chaque matin']],
       prosp: [['prat', 'Prospection praticien·nes', 'Quotidienne', 'Airtable Genesolia, 10 par jour']], todo: [],
       liens: [['genesolia.fr', 'https://genesolia.fr/'], ['Airtable', 'https://airtable.com/appC1Knzj66DUEhPJ/tbl2ADJbWV0JBeXcL'], ['Meta', 'https://business.facebook.com/latest/home']] },
     bou: { titre: 'Boutique', sous: 'Gelato · Etsy', prospTitre: 'Rendez-vous régulier',
@@ -591,8 +590,69 @@
     rendreEntreprises(); rendreAlertes();
   });
 
+
+  /* ---------- Idées ---------- */
+  var BLOCS = [['l', 'Lives & vidéos'], ['a', 'Articles de blog à écrire'], ['v', 'Vendre plus']];
+  var IDEES = {
+    gen: { titre: 'Genesolia', mq: 'gen',
+      l: ['Tirer le premier fil de ton arbre, en direct', 'Les dates qui se répètent dans ta famille : on cherche ensemble', 'Questions-réponses psychogénéalogie (réponds aux commentaires)', 'Noël en famille : les loyautés qui reviennent à table', 'Ton prénom vient d\'où ? Je lis vos prénoms en direct', 'Rêver de ses ancêtres : ce que ça raconte', 'Ton année personnelle 2027 en direct', 'Je fais un génosociogramme en direct (famille inventée)'],
+      a: ['Syndrome d\'anniversaire : comment le repérer dans ton arbre', 'Pourquoi je répète les mêmes histoires d\'amour', 'Enfant de remplacement : porter la place d\'un autre', 'Les fêtes de fin d\'année et les tensions familiales', 'Loyauté invisible envers un parent : les signes', 'Ce que dit ta place dans la fratrie', 'Écrire une lettre à un ancêtre : comment faire', 'Faire son arbre généalogique gratuitement en ligne', 'Les 5 symboles du génosociogramme à connaître'],
+      v: ['Mettre en avant l\'offre de Noël du Cercle (17,77 €/mois jusqu\'au 31/12) dans chaque vidéo', 'Ma spirale : 7 jours offerts puis 4,99 €, lien en bio TikTok', 'Envoyer une newsletter mensuelle avec une offre', 'Proposer la carte cadeau Genesolia pour Noël', 'Espace praticien : relancer les praticien·nes avec le tarif fondateur', 'Lien unique en bio vers les offres (Cercle, Ma spirale, boutique, livres)'] },
+    bou: { titre: 'Boutique & livres', mq: 'bou',
+      l: ['Déballer un arbre imprimé / un poster en vidéo', 'Montrer les pages du livre L\'enquête de ma lignée', 'Idée cadeau de Noël en 15 secondes'],
+      a: ['Idées cadeaux pour une personne qui aime sa famille', 'Offrir son arbre généalogique encadré'],
+      v: ['Vérifier les dates limites de commande Gelato pour Noël et les afficher', 'Fiches Etsy : titres et mots-clés de Noël, 5 photos par produit', 'Demander des avis Amazon aux premiers lecteurs de Racines et L\'enquête de ma lignée', 'Mettre les livres et la boutique dans la newsletter'] },
+    str: { titre: 'STRAKARA', mq: 'str',
+      l: ['LinkedIn live : stocker sans bail commercial, questions-réponses', 'Vidéo : visite d\'un entrepôt disponible (1 par semaine)', 'Vidéo hébergeurs : rentabiliser des m² vides'],
+      a: ['Stockage temporaire avant Noël : les solutions', 'Un espace pro pour 3 mois, sans bail commercial', 'Combien de palettes dans 100 m² ?', 'Rentabiliser un entrepôt à moitié vide', 'Un atelier temporaire pour artisan', 'Une page par ville où un espace est libre'],
+      v: ['Créer et compléter la fiche Google Business Profile', 'Partenariats : experts-comptables, CCI, transporteurs', 'Relancer les hébergeurs inscrits sans espace publié', 'Répondre aux recherches clients sous 24 h', 'Demander un avis Google après chaque mise en relation'] },
+    sev: { titre: 'Sève', mq: 'sev',
+      l: ['Avant / après d\'un institut en vidéo', '3 erreurs d\'aménagement qui coûtent cher', 'Quelle ambiance pour mon commerce ? (Clairière, Canopée, Écorce)'],
+      a: ['Combien coûte l\'aménagement d\'un institut de 40 m²', 'Éclairage d\'un commerce : quel blanc choisir', 'Refaire sa boutique avec 4 000 €', 'Bois blond, noyer, béton : choisir son ambiance'],
+      v: ['Offre de lancement : les 3 premières études à prix réduit (mettre en avant)', 'Démarcher 5 instituts, restaurants ou boutiques par semaine', 'Partenariats avec des artisans locaux (peintres, menuisiers)', 'Fiche Google Business Profile Sève', 'Partager l\'exemple d\'étude PDF dans les groupes Facebook de commerçants'] }
+  };
+  /* qg_items kind 'idee' : { ref, fait } pour une idée de départ ; { m, b, t, fait } pour une idée ajoutée */
+  function rendreIdees() {
+    var lignes = de('idee'), faits = {};
+    lignes.forEach(function (l) { if (l.data.ref) faits[l.data.ref] = !!l.data.fait; });
+    $('#idees').innerHTML = Object.keys(IDEES).map(function (m) {
+      var I = IDEES[m], tot = 0, ok = 0;
+      var blocs = BLOCS.map(function (b) {
+        var items = I[b[0]].map(function (t, i) { var ref = m + '-' + b[0] + '-' + i; return { ref: ref, t: t, fait: !!faits[ref] }; })
+          .concat(lignes.filter(function (l) { return l.data.m === m && l.data.b === b[0] && !l.data.ref; }).map(function (l) { return { id: l.id, t: l.data.t, fait: !!l.data.fait }; }));
+        tot += items.length; ok += items.filter(function (x) { return x.fait; }).length;
+        return '<div class="id-bloc"><h4>' + b[1] + '</h4><ul class="ck ck-mini">' + items.map(function (x) {
+          var k = x.ref || x.id, hid = 'id-' + k;
+          return '<li class="' + (x.fait ? 'fait' : '') + '"><input type="checkbox" id="' + esc(hid) + '" ' + (x.ref ? 'data-idee-ref="' + esc(x.ref) + '"' : 'data-idee-id="' + esc(x.id) + '"') + (x.fait ? ' checked' : '') + '><div class="tx"><label for="' + esc(hid) + '">' + esc(x.t) + '</label></div>' +
+            (x.id ? '<button class="ep-suppr" type="button" data-idee-suppr="' + esc(x.id) + '" aria-label="Supprimer">&times;</button>' : '') + '</li>';
+        }).join('') + '</ul><form class="ent-ajout" data-idee-form="' + m + '-' + b[0] + '" autocomplete="off"><input name="t" maxlength="200" placeholder="Ajouter une idée" aria-label="Ajouter une idée, ' + esc(b[1]) + '" required><button class="bt clair mini" type="submit">Ajouter</button></form></div>';
+      }).join('');
+      return '<article class="ep-carte id-marque ent ent-' + m + '"><div class="ent-tete"><h3>' + esc(I.titre) + '</h3><span class="bd bd-q">' + ok + ' / ' + tot + ' faites</span></div><div class="id-blocs">' + blocs + '</div></article>';
+    }).join('');
+  }
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.hasAttribute && t.hasAttribute('data-idee-ref')) {
+      var ref = t.getAttribute('data-idee-ref'), l = une('idee', function (d) { return d.ref === ref; }) || { kind: 'idee', data: { ref: ref } };
+      l.data = { ref: ref, fait: t.checked }; enregistrer(l); rendreIdees();
+    } else if (t.hasAttribute && t.hasAttribute('data-idee-id')) {
+      var x = S.lignes.filter(function (y) { return y.id === t.getAttribute('data-idee-id'); })[0];
+      if (x) { x.data = Object.assign({}, x.data, { fait: t.checked }); enregistrer(x); rendreIdees(); }
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-idee-suppr]') : null; if (!t) return;
+    var x = S.lignes.filter(function (y) { return y.id === t.getAttribute('data-idee-suppr'); })[0];
+    if (x) { supprimer(x); rendreIdees(); }
+  });
+  document.addEventListener('submit', function (e) {
+    var f = e.target, k = f.getAttribute && f.getAttribute('data-idee-form'); if (!k) return;
+    e.preventDefault(); var p = k.split('-'), v = f.t.value.trim(); if (!v || !IDEES[p[0]] || 'lav'.indexOf(p[1]) < 0) return;
+    enregistrer({ kind: 'idee', data: { m: p[0], b: p[1], t: v.slice(0, 200), fait: false } }); rendreIdees(); toast('Idée ajoutée');
+  });
+
   /* ---------- Onglets ---------- */
-  var NOMS = ['entreprises', 'aujourdhui', 'indexer', 'chiffres', 'posts', 'plan', 'angles', 'liens'];
+  var NOMS = ['entreprises', 'aujourdhui', 'indexer', 'chiffres', 'idees', 'plan', 'angles', 'liens'];
   function ouvrir(n, garder) {
     if (NOMS.indexOf(n) < 0) n = 'aujourdhui';
     $$('[data-sec]').forEach(function (s) { s.hidden = s.getAttribute('data-sec') !== n; });
@@ -603,7 +663,7 @@
     if (n === 'chiffres' && !ouvrir.stats) { ouvrir.stats = true; chargerStats(); }
   }
 
-  function tout() { rendreEntreprises(); rendreAlertes(); rendreAujourdhui(); rendreIndexTout(); rendreChiffres(); rendrePosts(); rendrePlan(); rendreAngles(); }
+  function tout() { rendreEntreprises(); rendreAlertes(); rendreAujourdhui(); rendreIndexTout(); rendreChiffres(); rendreIdees(); rendrePlan(); rendreAngles(); }
 
   /* ---------- Événements ---------- */
   document.addEventListener('change', function (e) {
@@ -644,23 +704,13 @@
     l.data = { semaine: iso(semCh), v: v }; enregistrer(l); rendreChiffres();
     $('#ch-ok').textContent = n + ' chiffre' + (n > 1 ? 's' : '') + ' enregistré' + (n > 1 ? 's' : '') + '.'; toast('Semaine enregistrée');
   });
-  $('#f-post').addEventListener('submit', function (e) {
-    e.preventDefault(); var f = e.target;
-    var d = { date: f.date.value, marque: f.marque.value, reseau: f.reseau.value, statut: f.statut.value === 'Publié' ? 'Publié' : 'Prévu', sujet: f.sujet.value.trim().slice(0, 200), lien: lienSur(f.lien.value) };
-    if (!d.date || !d.sujet) return;
-    var l = f.id.value ? S.lignes.filter(function (x) { return x.id === f.id.value; })[0] : null;
-    if (l) { l.data = d; enregistrer(l); } else enregistrer({ kind: 'post', data: d });
-    semPt = lundi(deIso(d.date)); formPost(null); rendrePosts(); toast(l ? 'Post modifié' : 'Post ajouté');
-  });
   window.addEventListener('hashchange', function () { ouvrir(location.hash.slice(1), true); });
 
   /* ---------- Démarrage ---------- */
   $('#date-du-jour').textContent = dateLongue(AUJ).replace(/^./, function (c) { return c.toUpperCase(); });
   var hh = AUJ.getHours(); $('#bonjour').textContent = (hh >= 18 ? 'Bonsoir' : 'Bonjour') + ' Laura';
   optionsMarques($('#f-tache').marque, true);
-  optionsMarques($('#f-post').marque, false);
-  $('#f-post').reseau.innerHTML = RESEAUX.map(function (r) { return '<option>' + r + '</option>'; }).join('');
-  formPost(null); rendreLiens();
+  rendreLiens();
   var dernier = null; try { dernier = localStorage.getItem(ONGLET); } catch (e) {}
   ouvrir(location.hash.slice(1) || dernier || 'aujourdhui', true);
   tout();   /* affichage immédiat avec la copie de l'appareil */

@@ -220,6 +220,12 @@
     .ent-al li{font-size:.9rem;padding:.35rem 0 .35rem 1.1rem;position:relative}
     .ent-al li::before{content:"";position:absolute;left:0;top:.8rem;width:8px;height:8px;border-radius:50%}
     .al-r::before{background:#C9506A}.al-o::before{background:#E0A43A}
+    /* Idées */
+    .id-grille{display:grid;gap:1rem}
+    .id-blocs{display:grid;gap:1rem}
+    @media (min-width:900px){.id-blocs{grid-template-columns:repeat(3,1fr)}}
+    .id-bloc{min-width:0}
+    .id-bloc h4{margin:0 0 .3rem;font:700 .7rem/1.3 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:#A2753F}
     /* Ordinateur : navigation à gauche */
     @media (min-width:1000px){
       .ep-corps{display:grid;grid-template-columns:220px 1fr;gap:1.6rem;max-width:1180px;margin:0 auto;padding:0 16px}
@@ -255,7 +261,7 @@
         <button class="ep-onglet" role="tab" data-onglet="aujourdhui">Aujourd'hui</button>
         <button class="ep-onglet" role="tab" data-onglet="indexer">À indexer <span class="pastille" id="p-index" hidden></span></button>
         <button class="ep-onglet" role="tab" data-onglet="chiffres">Chiffres</button>
-        <button class="ep-onglet" role="tab" data-onglet="posts">Mes posts <span class="pastille" id="p-silence" hidden></span></button>
+        <button class="ep-onglet" role="tab" data-onglet="idees">Idées</button>
         <button class="ep-onglet" role="tab" data-onglet="plan">Plan du mois</button>
         <button class="ep-onglet" role="tab" data-onglet="angles">Angles morts</button>
         <button class="ep-onglet" role="tab" data-onglet="liens">Liens rapides</button>
@@ -315,27 +321,10 @@
         </div>
       </section>
 
-      <!-- 4. Mes posts -->
-      <section class="ep-sec" data-sec="posts" hidden>
-        <div class="ep-sec-tete"><div><h2>Mes posts</h2><p>Ce que tu prévois et ce que tu publies, marque par marque. Touche un post pour le modifier.</p></div>
-          <div class="sem"><button class="bt clair mini" type="button" id="pt-av" aria-label="Semaine précédente">&lsaquo;</button><b id="pt-titre"></b><button class="bt clair mini" type="button" id="pt-ap" aria-label="Semaine suivante">&rsaquo;</button></div></div>
-        <div class="ep-carte" id="silence-carte" style="margin-bottom:1rem"><span class="ep-etiq">Canaux silencieux</span><p class="ep-discret" style="margin:0 0 .5rem">Aucun post publié noté depuis 7 jours ou plus :</p><ul class="silence" id="silence"></ul></div>
-        <div class="pt-jours" id="pt-jours"></div>
-        <div class="ep-carte" style="margin-top:1rem">
-          <span class="ep-etiq" id="pt-f-etiq">Nouveau post</span>
-          <form class="ep-form" id="f-post" autocomplete="off">
-            <input type="hidden" name="id">
-            <div class="ep-ligne">
-              <label class="ep-champ">Date<input type="date" name="date" required></label>
-              <label class="ep-champ">Marque<select name="marque"></select></label>
-              <label class="ep-champ">Réseau<select name="reseau"></select></label>
-              <label class="ep-champ">Statut<select name="statut"><option>Prévu</option><option>Publié</option></select></label>
-            </div>
-            <label class="ep-champ">Sujet<input name="sujet" maxlength="200" required placeholder="Ex. carrousel loyautés invisibles"></label>
-            <label class="ep-champ">Lien (facultatif)<input name="lien" type="url" maxlength="500" placeholder="https://"></label>
-            <div class="ep-ligne" style="flex-wrap:nowrap"><button class="bt" type="submit" id="pt-ok">Ajouter</button><button class="bt clair" type="button" id="pt-annuler" hidden>Annuler</button><button class="bt clair" type="button" id="pt-suppr" hidden>Supprimer</button></div>
-          </form>
-        </div>
+      <!-- 4. Idées -->
+      <section class="ep-sec" data-sec="idees" hidden>
+        <div class="ep-sec-tete"><div><h2>Idées</h2><p>Lives, articles et pistes pour vendre plus, marque par marque. Coche ce qui est fait, ajoute tes propres idées.</p></div></div>
+        <div class="id-grille" id="idees"></div>
       </section>
 
       <!-- 5. Plan du mois -->
@@ -362,6 +351,6 @@
   </div>
   <p class="ep-pied">Page privée, visible seulement par toi. Enregistrée sur ton compte : la même sur ton téléphone et ton ordinateur.</p>
   <div class="ep-toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="assets/mon-espace-pro.js?v=2"></script>
+  <script src="assets/mon-espace-pro.js?v=3"></script>
 </body>
 </html>
