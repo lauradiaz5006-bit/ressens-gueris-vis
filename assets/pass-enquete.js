@@ -693,6 +693,7 @@ window.PASS_FIL = {
   "titre": "Si ça monte fort",
   "court": "Revenir ici et maintenant.",
   "pour": "",
+  "visuel": "11-monte",
   "etapes": [
    "Pose les pieds au sol.",
    "Respire avec la sphère, trois fois, lentement.",
