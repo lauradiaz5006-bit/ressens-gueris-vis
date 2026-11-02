@@ -50,7 +50,7 @@ window.GenesoliaDonnees = (function () {
 
 /* ===== Coffre-fort des écrits (carnets, suivi, bilan de départ) =====
    Les réponses sont chiffrées dans la base (fonctions carnet_ecrire / carnet_lire, parcours_ecrire / parcours_lire) :
-   l'équipe Genesolia ne les lit pas. Avant le premier enregistrement en ligne, la personne donne son accord
+   elles ne sont jamais consultées. Avant le premier enregistrement en ligne, la personne donne son accord
    (gardé dans son compte : user_metadata.coffre_accord). Sans accord, tout reste sur l'appareil. */
 /* ===== Séances audio de visualisation : « Avant de commencer », puis « J'arrête et je reviens » toujours visible =====
    GenesoliaCadre.html(audioHtml) entoure le lecteur ; le clic « Je me sens prêt·e » montre l'audio et le lance ;
