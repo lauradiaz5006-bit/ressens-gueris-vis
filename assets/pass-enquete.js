@@ -559,15 +559,15 @@ window.PASS_FIL = {
    },
    {
     "t": "Écris ce que tu rends",
-    "x": "Ouvre les yeux et prends ta feuille. Choisis la forme qui te parle, ou fais les deux :\n- une lettre, forte, sincère, sans retenue. Dis-lui tout ce que tu as porté pour elle, et rends-le-lui : « Cette peur t’appartient, je te la rends. » « Ce destin est le tien, pas le mien. » « Je garde ton amour et ta force, et je te rends le reste. »\n- une liste de tout ce que tu ne veux plus recevoir de cet ancêtre : « Je ne veux plus de la peur de manquer. Je ne veux plus du silence. Je ne veux plus de… »\nÉcris jusqu’à sentir que tout est dit."
+    "x": "Ouvre les yeux et prends ta feuille. Choisis la forme qui te parle, ou fais les deux :\n- une lettre, forte, sincère, sans retenue. Dis-lui tout ce que tu as porté pour elle, et rends-le-lui : « Cette peur t’appartient, je te la rends. » « Ce destin est le tien, pas le mien. » « Je garde ton amour et ta force, et je te rends le reste. »\n- une liste de tout ce que tu ne veux plus recevoir de cet ancêtre, et en face, ce que tu choisis à la place, dit en positif : « Je ne veux plus de la peur de manquer : je choisis la confiance et l’abondance. » « Je ne veux plus du silence : je choisis de dire ce que je ressens. » « Je ne veux plus de… : je choisis… »\nÉcris jusqu’à sentir que tout est dit."
    },
    {
     "t": "Libère par le feu ou par l’eau",
     "x": "Choisis ce qui te parle :\n- par le feu : brûle ta feuille à la flamme de ta bougie, en sécurité, dans un récipient résistant au feu, loin de tout objet inflammable. Regarde les mots partir en fumée ;\n- par l’eau : pose ta feuille dans un bol d’eau et laisse l’encre s’y dissoudre. Demande à l’eau : « Eau, purifie ces mémoires. » Quand tu sens que c’est fait, verse cette eau dans la terre ou laisse-la s’écouler.\nPuis demande, à voix haute ou dans ton cœur : « Je demande le nettoyage de cette mémoire, pour moi et pour toute ma lignée. »"
    },
    {
-    "t": "Remets ta lignée à sa place",
-    "x": "Referme les yeux. Vois toute ta lignée rassemblée, derrière toi ou quelque part dans un lieu lumineux : tes parents, tes grands-parents, et tous ceux qui sont venus avant. Ils sont ensemble, apaisés, heureux. Chacun est à sa juste place.\nToi, tu es devant, libre, soutenu·e par eux. Sens leur force dans ton dos."
+    "t": "Remets ton ancêtre à sa juste place",
+    "x": "Referme les yeux. Retrouve la personne de ta lignée devant toi et dis-lui :\n« Je te vois. Je reconnais ta vie, ta place et tes épreuves. Elles sont libérées. »\nPuis observe-la rejoindre toute ta lignée, réunie dans un lieu beau et saint, en sécurité : tes parents, tes grands-parents, et tous ceux qui sont venus avant. Ils sont ensemble, apaisés. Chacun est à sa juste place.\nHonore cette lignée. Redonne à chacun sa valeur et son équilibre. Puis fais-les rayonner : une grande lumière s’allume autour d’eux, de plus en plus vaste et lumineuse.\nToi, tu es devant, libre, soutenu·e par eux. Sens leur force dans ton dos."
    },
    {
     "t": "Reviens",
