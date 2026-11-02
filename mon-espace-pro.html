@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#3B1747">
+  <title>Mon Espace Pro</title>
+  <!-- Page privée de Laura : ni dans le menu, ni dans le plan du site, ni sur Google. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <script>
+    /* Visible seulement par Laura (compte connecté contact@genesolia.fr ou lauradiaz5006@gmail.com). Les autres repartent à l'accueil. */
+    (function () {
+      var ok = false;
+      try { var x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'), m = x && x.user && String(x.user.email || '').toLowerCase(); ok = m === 'contact@genesolia.fr' || m === 'lauradiaz5006@gmail.com'; } catch (e) {}
+      if (!ok) { document.documentElement.style.display = 'none'; location.replace('/'); }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    :root{--encre:#3B1747;--doux:#7E5C77;--ligne:#EFDCE3;--or:#B98A55;--or-clair:#F3DCC0;--fond:#FBF6F2;
+      --m-gen:#6B2F5B;--m-gen-f:#F5E6EF;--m-bou:#9A6A2F;--m-bou-f:#F8EEDD;--m-str:#2E4A5E;--m-str-f:#E4ECF1;--m-sev:#4F6B45;--m-sev-f:#E7EFE2}
+    html,body{background:var(--fond)}
+    body.ep{margin:0;font-family:var(--texte);color:var(--encre);font-size:1rem;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0)}
+    .ep *{box-sizing:border-box}
+    .ep [hidden]{display:none!important}
+    .ep a{color:inherit}
+    .ep button{font:inherit;color:inherit}
+    .ep-cadre{max-width:1180px;margin:0 auto;padding:0 16px}
+    /* En-tête nuit */
+    .ep-tete{background:linear-gradient(160deg,#1F0B2A,#3B1747 55%,#6E3462);color:#F7E6EE;position:relative;overflow:hidden}
+    .ep-tete::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 0%,rgba(255,226,170,.30),transparent 42%),radial-gradient(1.5px 1.5px at 18% 30%,rgba(255,255,255,.8),transparent),radial-gradient(1px 1px at 62% 64%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 40% 18%,rgba(255,255,255,.6),transparent),radial-gradient(1.5px 1.5px at 78% 44%,rgba(255,255,255,.6),transparent);pointer-events:none}
+    .ep-tete .ep-cadre{position:relative;padding-top:1.1rem;padding-bottom:1.3rem}
+    .ep-barre{display:flex;justify-content:space-between;align-items:center;gap:.8rem}
+    .ep-marque{font:700 .7rem/1 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:var(--or-clair)}
+    .ep-sync{font-size:.75rem;color:#E3C9DA;display:flex;align-items:center;gap:.4rem}
+    .ep-sync i{width:7px;height:7px;border-radius:50%;background:#8FD19E;display:inline-block}
+    .ep-sync.attente i{background:#F2C46B}.ep-sync.hors i{background:#E88A8A}
+    .ep-h1{font:400 clamp(1.9rem,7vw,2.8rem)/1.1 var(--display);color:#fff;margin:.9rem 0 .2rem}
+    .ep-date{color:#EBD3E2;font-size:.98rem;margin:0}
+    .ep-resume{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;margin-top:1.1rem;align-items:flex-end}
+    .ep-resume span{display:flex;flex-direction:column;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#E3C9DA}
+    .ep-resume b{font:400 2rem/1 var(--display);color:#FFE6B8;letter-spacing:0;text-transform:none}
+    .ep-suivant{flex:1 1 15rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,230,184,.25);border-radius:16px;padding:.6rem .85rem;font-size:.9rem;color:#F7E6EE;text-transform:none;letter-spacing:0}
+    .ep-suivant span{display:block;font-size:.9rem;text-transform:none;letter-spacing:0;color:#F7E6EE;line-height:1.45}
+    .ep-suivant small{display:block;font:700 .66rem/1.3 var(--texte);letter-spacing:.16em;text-transform:uppercase;color:var(--or-clair);margin-bottom:.15rem}
+    .ep-jauge{height:6px;border-radius:9px;background:rgba(255,255,255,.14);margin-top:1rem;overflow:hidden}
+    .ep-jauge i{display:block;height:100%;width:0;background:linear-gradient(90deg,#E2C48E,#FFE6B8);border-radius:9px;transition:width .4s}
+    /* Navigation */
+    .ep-nav{position:sticky;top:0;z-index:20;background:rgba(251,246,242,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne)}
+    .ep-nav .ep-cadre{display:flex;gap:.35rem;overflow-x:auto;scrollbar-width:none;padding-top:.55rem;padding-bottom:.55rem}
+    .ep-nav .ep-cadre::-webkit-scrollbar{display:none}
+    .ep-onglet{flex:0 0 auto;border:1px solid transparent;background:none;border-radius:99px;padding:.5rem .9rem;font-weight:700!important;font-size:.88rem!important;color:var(--doux)!important;cursor:pointer;white-space:nowrap;min-height:40px}
+    .ep-onglet[aria-selected=true]{background:var(--encre);color:#fff!important}
+    .ep-onglet:not([aria-selected=true]):hover{border-color:var(--ligne);background:#fff}
+    .ep-onglet .pastille{display:inline-block;min-width:1.25rem;padding:0 .3rem;margin-left:.3rem;border-radius:99px;background:var(--or);color:#fff;font-size:.7rem;line-height:1.25rem;text-align:center}
+    /* Contenu */
+    main.ep-cadre{padding-top:1.3rem;padding-bottom:3rem}
+    .ep-sec[hidden]{display:none}
+    .ep-sec-tete{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
+    .ep-sec h2{font:400 clamp(1.5rem,5vw,2rem)/1.15 var(--display);color:var(--encre);margin:0}
+    .ep-sec-tete p{margin:.25rem 0 0;color:var(--doux);font-size:.92rem;max-width:40rem}
+    .ep-grille{display:grid;gap:1rem;align-items:start}
+    @media (min-width:900px){.ep-grille.deux{grid-template-columns:1.25fr 1fr}.ep-grille.egal{grid-template-columns:1fr 1fr}}
+    .ep-carte{background:#fff;border:1px solid var(--ligne);border-radius:20px;padding:1.05rem 1.1rem;box-shadow:0 6px 18px rgba(107,47,91,.06);min-width:0}
+    .ep-carte h3{font:400 1.22rem/1.25 var(--display);color:var(--encre);margin:0 0 .6rem}
+    .ep-etiq{display:block;font:700 .68rem/1.3 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:#A2753F;margin:0 0 .35rem}
+    .ep-discret{font-size:.84rem;color:var(--doux);margin:.4rem 0 0}
+    .ep-vide{color:var(--doux);font-size:.92rem;padding:.6rem 0;margin:0}
+    .ep-alerte{background:#FFF4DC;border:1px dashed var(--or);border-radius:14px;padding:.7rem .9rem;font-size:.9rem;color:#6A4B1E;margin:0 0 1rem}
+    .ep-alerte[hidden]{display:none}
+    /* Pastilles de marque */
+    .mq{display:inline-flex;align-items:center;gap:.3rem;font:700 .68rem/1 var(--texte);letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:.3rem .55rem;white-space:nowrap}
+    .mq::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+    .mq-gen{background:var(--m-gen-f);color:var(--m-gen)}.mq-bou{background:var(--m-bou-f);color:var(--m-bou)}
+    .mq-str{background:var(--m-str-f);color:var(--m-str)}.mq-sev{background:var(--m-sev-f);color:var(--m-sev)}
+    .mq-tout{background:#F1ECEF;color:var(--doux)}
+    /* Liste à cocher */
+    .ck{list-style:none;margin:0;padding:0}
+    .ck li{display:flex;gap:.75rem;align-items:flex-start;padding:.7rem 0;border-top:1px solid #F4E8EC}
+    .ck li:first-child{border-top:0}
+    .ck input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:26px;height:26px;border:2px solid #DBBFCB;border-radius:8px;margin:.05rem 0 0;cursor:pointer;display:grid;place-items:center;background:#fff;transition:background .15s,border-color .15s}
+    .ck input[type=checkbox]:checked{background:var(--encre);border-color:var(--encre)}
+    .ck input[type=checkbox]:checked::after{content:"";width:7px;height:12px;border:solid #FFE6B8;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+    .ck input[type=checkbox]:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+    .ck .tx{flex:1;min-width:0}
+    .ck label{cursor:pointer;display:block;font-size:.97rem;line-height:1.45}
+    .ck .meta{display:flex;flex-wrap:wrap;gap:.35rem .5rem;align-items:center;margin-bottom:.2rem}
+    .ck .h{font:700 .78rem/1 var(--texte);color:var(--encre);background:var(--or-clair);border-radius:6px;padding:.25rem .4rem}
+    .ck .duree{font-size:.76rem;color:var(--doux)}
+    .ck li.fait label{color:#A88FA0;text-decoration:line-through;text-decoration-color:rgba(168,143,160,.6)}
+    .ck li.maintenant{background:linear-gradient(90deg,#FFF6E6,transparent);margin:0 -1.1rem;padding-left:1.1rem;padding-right:1.1rem}
+    .ck li.maintenant .h{background:var(--or);color:#fff}
+    .ep-suppr{flex:0 0 auto;border:0;background:none;color:#B79AAD;cursor:pointer;font-size:1.25rem;line-height:1;padding:.2rem .35rem;border-radius:8px}
+    .ep-suppr:hover{color:#8E2F4F;background:#FBEFF2}
+    /* Formulaires */
+    .ep-form{display:grid;gap:.6rem}
+    .ep-ligne{display:flex;gap:.5rem;flex-wrap:wrap}
+    .ep-ligne>*{flex:1 1 9rem;min-width:0}
+    .ep-champ{display:flex;flex-direction:column;gap:.25rem;font-size:.8rem;font-weight:700;color:var(--doux)}
+    .ep input:not([type=checkbox]),.ep select,.ep textarea{width:100%;min-height:44px;padding:.55rem .75rem;border:1.5px solid #EBCFD5;border-radius:12px;font:inherit;font-size:16px;background:#fff;color:var(--encre)}
+    .ep input:focus,.ep select:focus,.ep textarea:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(185,138,85,.18)}
+    .bt{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:42px;padding:.5rem 1rem;border-radius:99px;background:var(--encre);color:#fff!important;font:700 .88rem/1 var(--texte)!important;border:0;text-decoration:none;cursor:pointer;white-space:nowrap}
+    .bt:hover{background:#55235F}
+    .bt.clair{background:#F7EDE6;color:var(--encre)!important}.bt.clair:hover{background:#F0E0D6}
+    .bt.or{background:linear-gradient(135deg,#E2C48E,#B98A55);color:#2B1035!important}
+    .bt.mini{min-height:34px;padding:.35rem .75rem;font-size:.8rem!important}
+    .bt[disabled]{opacity:.45;cursor:default}
+    /* Action de fond */
+    .ep-fond{background:linear-gradient(150deg,#FFF6EC,#FCEFF3);border-color:#F1D3DC}
+    .ep-repos{text-align:center;padding:2rem 1rem}
+    .ep-repos b{display:block;font:400 1.7rem/1.2 var(--display);color:var(--encre);margin-bottom:.3rem}
+    /* Indexation */
+    .ix-tete{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.5rem}
+    .ix-compte{display:flex;gap:1rem;flex-wrap:wrap;margin:.2rem 0 .7rem}
+    .ix-compte span{font-size:.75rem;color:var(--doux);display:flex;flex-direction:column}
+    .ix-compte b{font:400 1.6rem/1.1 var(--display);color:var(--encre)}
+    .ix-quota{height:6px;border-radius:9px;background:#F2E5EA;overflow:hidden;margin:.1rem 0 .8rem}
+    .ix-quota i{display:block;height:100%;background:var(--or);border-radius:9px}
+    .ix li{display:flex;gap:.6rem;align-items:center;padding:.6rem 0;border-top:1px solid #F4E8EC}
+    .ix{list-style:none;margin:0;padding:0}
+    .ix li:first-child{border-top:0}
+    .ix .u{flex:1;min-width:0}
+    .ix .u a{display:block;font-size:.88rem;font-weight:600;color:var(--encre);text-decoration:none;word-break:break-all;line-height:1.35}
+    .ix .u small{color:var(--doux);font-size:.74rem}
+    .ix .nouv{color:#2F7A45;font-weight:700}
+    .ix .act{display:flex;gap:.3rem;flex:0 0 auto}
+    /* Chiffres */
+    .st-grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem}
+    .st{background:#fff;border:1px solid var(--ligne);border-radius:16px;padding:.8rem .85rem}
+    .st small{display:block;font-size:.74rem;color:var(--doux);line-height:1.3;min-height:2em}
+    .st b{display:block;font:400 2rem/1.1 var(--display);color:var(--encre);margin:.15rem 0}
+    .st em{font-style:normal;font-size:.74rem;color:var(--doux)}
+    .st em.plus{color:#2F7A45;font-weight:700}
+    .ch-liste{display:grid;gap:.1rem}
+    .ch{display:grid;grid-template-columns:1fr auto auto;gap:.4rem .8rem;align-items:center;padding:.55rem 0;border-top:1px solid #F4E8EC}
+    .ch:first-child{border-top:0}
+    .ch .nom{font-size:.9rem;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .4rem}
+    .ch .nom .mq{margin-right:.35rem}
+    .ch .val{font:400 1.35rem/1 var(--display);text-align:right;min-width:3.5rem}
+    .ch .ev{font-size:.78rem;font-weight:700;text-align:right;min-width:3.2rem}
+    .ev.p{color:#2F7A45}.ev.m{color:#B0455C}.ev.z{color:var(--doux);font-weight:400}
+    .ch svg{grid-column:1/-1;width:100%;height:26px;display:block}
+    @media (min-width:600px){.ch{grid-template-columns:1fr 120px auto auto}.ch svg{grid-column:auto;height:28px}}
+    .ch-form{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+    @media (min-width:600px){.ch-form{grid-template-columns:repeat(3,1fr)}}
+    .ch-form .ep-champ{font-weight:600;font-size:.76rem}
+    .sem{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+    .sem b{font:400 1.1rem/1.2 var(--display);min-width:9rem;text-align:center}
+    /* Posts */
+    .pt-jours{display:grid;gap:.6rem}
+    @media (min-width:900px){.pt-jours{grid-template-columns:repeat(7,1fr)}}
+    .pt-jour{background:#fff;border:1px solid var(--ligne);border-radius:16px;padding:.65rem;min-height:4rem;min-width:0}
+    .pt-jour.auj{border-color:var(--or);box-shadow:0 0 0 2px rgba(185,138,85,.18)}
+    .pt-jour h4{margin:0 0 .45rem;font:700 .74rem/1.2 var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--doux)}
+    .pt{border-radius:12px;background:#FBF6F2;padding:.5rem .55rem;margin-top:.4rem;font-size:.84rem;cursor:pointer;border:1px solid transparent;text-align:left;width:100%;display:block}
+    .pt:hover{border-color:var(--ligne)}
+    .pt .l1{display:flex;justify-content:space-between;gap:.3rem;align-items:center;margin-bottom:.25rem}
+    .pt .rs{font-size:.72rem;color:var(--doux);font-weight:700}
+    .pt .sj{display:block;line-height:1.35;word-break:break-word}
+    .pt.publie{background:#EEF6EF}
+    .pt .stt{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#8A5A12}
+    .pt.publie .stt{color:#2F7A45}
+    .silence{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.4rem}
+    .silence li{font-size:.8rem;background:#FFF1F1;color:#8E2F4F;border-radius:99px;padding:.35rem .7rem}
+    /* Plan */
+    .cal{display:grid;gap:.7rem}
+    @media (min-width:700px){.cal{grid-template-columns:repeat(2,1fr)}}
+    .cal div{border-radius:16px;padding:.85rem 1rem;background:#fff;border:1px solid var(--ligne)}
+    .cal div.actuel{background:linear-gradient(150deg,#FFF6EC,#FCEFF3);border-color:#EBCFA8}
+    .cal b{display:block;font:400 1.15rem/1.25 var(--display);color:var(--encre)}
+    .cal span{display:block;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#A2753F;margin:.1rem 0 .35rem}
+    .cal ul{margin:0;padding-left:1.1rem;font-size:.9rem}
+    .cal li{margin:.2rem 0}
+    /* Liens */
+    .ln-groupe{margin-bottom:1.2rem}
+    .ln-groupe h3{font:700 .72rem/1.3 var(--texte);letter-spacing:.15em;text-transform:uppercase;color:#A2753F;margin:0 0 .5rem}
+    .ln{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.55rem}
+    .ln a{display:flex;flex-direction:column;gap:.15rem;padding:.75rem .85rem;border-radius:16px;background:#fff;border:1px solid var(--ligne);text-decoration:none;color:var(--encre);min-height:64px;transition:transform .15s,box-shadow .15s}
+    .ln a:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(107,47,91,.10)}
+    .ln a b{font-size:.92rem}
+    .ln a small{font-size:.74rem;color:var(--doux);line-height:1.3}
+    .ep-toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(30px);opacity:0;background:var(--encre);color:#fff;border-radius:99px;padding:.6rem 1.1rem;font-size:.88rem;transition:all .25s;pointer-events:none;z-index:50;max-width:calc(100% - 32px);text-align:center}
+    .ep-toast.vu{opacity:1;transform:translateX(-50%) translateY(0)}
+    .ep-pied{max-width:40rem;margin:0 auto;text-align:center;color:var(--doux);font-size:.78rem;padding:1rem 16px 2rem}
+    .ep-pied a{color:var(--doux)}
+    /* Ordinateur : navigation à gauche */
+    @media (min-width:1000px){
+      .ep-corps{display:grid;grid-template-columns:220px 1fr;gap:1.6rem;max-width:1180px;margin:0 auto;padding:0 16px}
+      .ep-nav{position:sticky;top:1rem;align-self:start;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;margin-top:1.3rem}
+      .ep-nav .ep-cadre{flex-direction:column;padding:0;overflow:visible}
+      .ep-onglet{text-align:left;width:100%;border-radius:12px;display:flex;justify-content:space-between;align-items:center}
+      main.ep-cadre{padding-left:0;padding-right:0;max-width:none;margin:0}
+    }
+  </style>
+</head>
+<body class="nouveau ep">
+  <header class="ep-tete">
+    <div class="ep-cadre">
+      <div class="ep-barre">
+        <span class="ep-marque">Mon Espace Pro</span>
+        <span class="ep-sync" id="sync"><i></i><span>Connexion…</span></span>
+      </div>
+      <h1 class="ep-h1" id="bonjour">Bonjour Laura</h1>
+      <p class="ep-date" id="date-du-jour"></p>
+      <div class="ep-resume">
+        <span><b id="r-fait">0/0</b>faits aujourd'hui</span>
+        <span><b id="r-index">–</b>pages à indexer</span>
+        <div class="ep-suivant" id="r-suivant"><small>Ensuite</small><span>…</span></div>
+      </div>
+      <div class="ep-jauge"><i id="r-jauge"></i></div>
+    </div>
+  </header>
+
+  <div class="ep-corps">
+    <nav class="ep-nav" aria-label="Rubriques">
+      <div class="ep-cadre" role="tablist">
+        <button class="ep-onglet" role="tab" data-onglet="aujourdhui">Aujourd'hui</button>
+        <button class="ep-onglet" role="tab" data-onglet="indexer">À indexer <span class="pastille" id="p-index" hidden></span></button>
+        <button class="ep-onglet" role="tab" data-onglet="chiffres">Chiffres</button>
+        <button class="ep-onglet" role="tab" data-onglet="posts">Mes posts <span class="pastille" id="p-silence" hidden></span></button>
+        <button class="ep-onglet" role="tab" data-onglet="plan">Plan du mois</button>
+        <button class="ep-onglet" role="tab" data-onglet="angles">Angles morts</button>
+        <button class="ep-onglet" role="tab" data-onglet="liens">Liens rapides</button>
+      </div>
+    </nav>
+
+    <main class="ep-cadre">
+      <p class="ep-alerte" id="alerte" hidden></p>
+
+      <!-- 1. Aujourd'hui -->
+      <section class="ep-sec" data-sec="aujourdhui">
+        <div class="ep-sec-tete"><div><h2>Aujourd'hui</h2><p>Ta routine du jour. Les cases se remettent à zéro chaque matin.</p></div></div>
+        <div class="ep-grille deux">
+          <div class="ep-carte"><span class="ep-etiq">Routine</span><h3 id="routine-titre">La routine du jour</h3><ul class="ck" id="routine"></ul></div>
+          <div class="ep-grille">
+            <div class="ep-carte ep-fond"><span class="ep-etiq">Action de fond</span><h3 id="fond-titre"></h3><ul class="ck" id="fond"></ul></div>
+            <div class="ep-carte">
+              <span class="ep-etiq">En plus aujourd'hui</span><h3>Mes tâches du jour</h3>
+              <ul class="ck" id="taches"></ul>
+              <form class="ep-form" id="f-tache" autocomplete="off" style="margin-top:.6rem">
+                <input name="texte" placeholder="Ajouter une tâche pour aujourd'hui" maxlength="200" required aria-label="Tâche">
+                <div class="ep-ligne"><select name="marque" aria-label="Marque"></select><button class="bt" type="submit">Ajouter</button></div>
+              </form>
+              <p class="ep-discret" id="taches-hier"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. À indexer -->
+      <section class="ep-sec" data-sec="indexer" hidden>
+        <div class="ep-sec-tete"><div><h2>À indexer</h2><p>Les pages récentes ou jamais demandées. Copie l'adresse, colle-la dans Search Console (Inspection de l'URL, puis « Demander l'indexation »), puis touche « Demandée » : elle disparaît pendant 30 jours. 10 demandes maximum par site et par jour.</p></div></div>
+        <div class="ep-grille egal">
+          <div class="ep-carte" id="ix-gen"></div>
+          <div class="ep-carte" id="ix-str"></div>
+        </div>
+      </section>
+
+      <!-- 3. Chiffres -->
+      <section class="ep-sec" data-sec="chiffres" hidden>
+        <div class="ep-sec-tete"><div><h2>Chiffres</h2><p>En direct depuis le site Genesolia, puis tes chiffres de la semaine, à noter chaque lundi.</p></div><button class="bt clair mini" id="st-maj" type="button">Actualiser</button></div>
+        <div class="ep-carte" style="margin-bottom:1rem"><span class="ep-etiq">Genesolia, en direct</span><h3>Le site</h3><div class="st-grille" id="stats"></div><p class="ep-discret" id="stats-info"></p></div>
+        <div class="ep-grille egal">
+          <div class="ep-carte"><span class="ep-etiq">Évolution</span><h3>Mes réseaux et ventes</h3><div class="ch-liste" id="ch-liste"></div></div>
+          <div class="ep-carte">
+            <span class="ep-etiq">Saisie de la semaine</span>
+            <div class="sem" style="margin-bottom:.8rem"><button class="bt clair mini" type="button" id="sem-av" aria-label="Semaine précédente">&lsaquo;</button><b id="sem-titre"></b><button class="bt clair mini" type="button" id="sem-ap" aria-label="Semaine suivante">&rsaquo;</button></div>
+            <form id="f-chiffres" autocomplete="off"><div class="ch-form" id="ch-form"></div><div style="margin-top:.9rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap"><button class="bt" type="submit">Enregistrer la semaine</button><span class="ep-discret" id="ch-ok" style="margin:0"></span></div></form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Mes posts -->
+      <section class="ep-sec" data-sec="posts" hidden>
+        <div class="ep-sec-tete"><div><h2>Mes posts</h2><p>Ce que tu prévois et ce que tu publies, marque par marque. Touche un post pour le modifier.</p></div>
+          <div class="sem"><button class="bt clair mini" type="button" id="pt-av" aria-label="Semaine précédente">&lsaquo;</button><b id="pt-titre"></b><button class="bt clair mini" type="button" id="pt-ap" aria-label="Semaine suivante">&rsaquo;</button></div></div>
+        <div class="ep-carte" id="silence-carte" style="margin-bottom:1rem"><span class="ep-etiq">Canaux silencieux</span><p class="ep-discret" style="margin:0 0 .5rem">Aucun post publié noté depuis 7 jours ou plus :</p><ul class="silence" id="silence"></ul></div>
+        <div class="pt-jours" id="pt-jours"></div>
+        <div class="ep-carte" style="margin-top:1rem">
+          <span class="ep-etiq" id="pt-f-etiq">Nouveau post</span>
+          <form class="ep-form" id="f-post" autocomplete="off">
+            <input type="hidden" name="id">
+            <div class="ep-ligne">
+              <label class="ep-champ">Date<input type="date" name="date" required></label>
+              <label class="ep-champ">Marque<select name="marque"></select></label>
+              <label class="ep-champ">Réseau<select name="reseau"></select></label>
+              <label class="ep-champ">Statut<select name="statut"><option>Prévu</option><option>Publié</option></select></label>
+            </div>
+            <label class="ep-champ">Sujet<input name="sujet" maxlength="200" required placeholder="Ex. carrousel loyautés invisibles"></label>
+            <label class="ep-champ">Lien (facultatif)<input name="lien" type="url" maxlength="500" placeholder="https://"></label>
+            <div class="ep-ligne" style="flex-wrap:nowrap"><button class="bt" type="submit" id="pt-ok">Ajouter</button><button class="bt clair" type="button" id="pt-annuler" hidden>Annuler</button><button class="bt clair" type="button" id="pt-suppr" hidden>Supprimer</button></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- 5. Plan du mois -->
+      <section class="ep-sec" data-sec="plan" hidden>
+        <div class="ep-sec-tete"><div><h2>Plan du mois &amp; rendez-vous</h2><p>Les gestes du mois, cochés mois par mois, et les temps forts de l'année.</p></div></div>
+        <div class="ep-grille deux">
+          <div class="ep-carte"><span class="ep-etiq" id="mois-etiq">Ce mois-ci</span><h3>Chaque mois</h3><ul class="ck" id="mois"></ul></div>
+          <div class="ep-carte"><span class="ep-etiq">Calendrier</span><h3>Les temps forts</h3><div class="cal" id="cal"></div></div>
+        </div>
+      </section>
+
+      <!-- 6. Angles morts -->
+      <section class="ep-sec" data-sec="angles" hidden>
+        <div class="ep-sec-tete"><div><h2>Ce que tu ne vois peut-être pas</h2><p>Des leviers simples, souvent oubliés. Coche-les une fois en place.</p></div></div>
+        <div class="ep-carte"><ul class="ck" id="angles"></ul><p class="ep-discret" id="angles-bilan"></p></div>
+      </section>
+
+      <!-- 7. Liens rapides -->
+      <section class="ep-sec" data-sec="liens" hidden>
+        <div class="ep-sec-tete"><div><h2>Liens rapides</h2><p>Tout ce que tu ouvres dans la journée, au même endroit.</p></div></div>
+        <div id="liens"></div>
+      </section>
+    </main>
+  </div>
+  <p class="ep-pied">Page privée, visible seulement par toi. Enregistrée sur ton compte : la même sur ton téléphone et ton ordinateur.</p>
+  <div class="ep-toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="assets/mon-espace-pro.js?v=1"></script>
+</body>
+</html>
