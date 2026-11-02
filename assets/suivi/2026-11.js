@@ -244,6 +244,23 @@ window.GENESOLIA_CARNET = {
     ]
   },
 
+  autel: {
+    intention: "Ce mois-ci, ton autel accompagne ta question : qu’est-ce que j’ai reçu ? Il met en lumière les dons de ta lignée que tu veux garder et faire vivre, et il te laisse rendre, avec respect, un poids qui n’est pas le tien.",
+    cueillette: ['Une petite racine, ou une branche aux ramifications bien visibles', 'Trois noix, noisettes ou châtaignes', 'Un peu de terre, de mousse ou d’écorce', 'Une graine, de n’importe quelle sorte'],
+    couleurs: "Des tons de fin d’automne : brun profond, ocre, gris perle, blanc cassé. Deux bougies blanches, et une bougie dorée au centre pour ce que tu gardes.",
+    elements: [
+      { nom: 'La terre', texte: 'La poignée de terre, la mousse ou l’écorce : ce sur quoi tu tiens debout.' },
+      { nom: 'L’eau', texte: 'Une petite coupelle d’eau claire, ou une poire posée à côté.' },
+      { nom: 'Le feu', texte: 'Les deux bougies blanches, et la dorée au centre.' },
+      { nom: 'L’air', texte: 'La branche aux ramifications, posée à plat : les lignes de celles et ceux qui t’ont précédé·e.' },
+      { nom: 'Ce que tu as reçu', texte: 'Trois noix, ou trois mots écrits sur trois papiers : un don par personne de ta lignée que tu veux honorer.' },
+      { nom: 'Ce que tu rends', texte: 'Une pierre sombre, posée un peu à l’écart. Elle porte ce que tu rends, sans reproche.' }
+    ],
+    ouverture: "« J’ouvre cet espace pour moi. Je reconnais ce que j’ai reçu de beau, je le garde et je le fais vivre. Ce qui n’est pas à moi, je le rends avec respect. »",
+    entretien: ['Chaque semaine, allume la bougie dorée quelques minutes et nomme à voix haute un don que tu as reçu.', 'Quand un poids se présente, écris-le sur un papier et glisse-le sous la pierre sombre.', 'Ajoute une noix ou une graine chaque fois que tu reconnais une qualité qui te vient de ta lignée.'],
+    cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose la racine, la terre et les fruits au pied d’un arbre. Déchire les papiers glissés sous la pierre sombre, puis laisse la pierre dehors. Garde la graine : tu la planteras."
+  },
+
   lectures: [
     { lien: 'heriter.html', titre: "Ce que tu portes commence parfois avant toi", resume: "L’héritage visible et l’héritage invisible : ce qui se transmet dans une famille, et comment choisir ce que tu gardes." },
     { lien: 'loyaute-familiale-invisible.html', titre: "La loyauté familiale invisible", resume: "Ces fidélités discrètes envers la lignée : des exemples concrets pour les reconnaître, garder le lien et choisir ta vie." },
