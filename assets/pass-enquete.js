@@ -584,12 +584,12 @@ window.PASS_FIL = {
   "visuel": "08-profond",
   "intro": [
    "Avant tout, sache ceci",
-   "Ce n’est pas un échec, et tu ne recules pas. Quand un schéma revient plus fort, c’est souvent qu’une couche plus profonde se présente, maintenant que tu es prêt·e à la voir. Tu creuses au même endroit, mais plus loin."
+   "Ce n’est pas un échec, et tu ne recules pas. Quand un schéma revient plus fort, c’est souvent qu’une couche plus profonde se présente, maintenant que tu es prêt·e à la voir. Tu creuses au même endroit, mais plus loin.\nEt souviens-toi : comprendre ne suffit pas. Ta tête a compris, mais ton corps, lui, a gardé l’ancienne habitude : il s’aligne encore sur cette vieille fréquence, par réflexe. Si c’est revenu, c’est d’abord ton corps qui a besoin d’être apaisé, pas ta tête d’en savoir plus."
   ],
   "etapes": [
    {
-    "t": "Respire et pose-toi",
-    "x": "Arrête-toi. Respire lentement, les pieds au sol, une main sur le cœur. Rappelle-toi : tu as déjà fait une partie du chemin."
+    "t": "Calme ton corps",
+    "x": "Avant de chercher à comprendre, apaise ton corps. Arrête-toi, pose tes pieds bien à plat sur le sol, une main sur le cœur, l’autre sur le ventre.\nRespire lentement, en expirant plus longtemps que tu n’inspires, jusqu’à sentir ton corps se poser. Relâche tes épaules, ta mâchoire, ton ventre.\nDis-lui : « Je suis en sécurité, ici et maintenant. Tu peux te calmer. Cette alerte n’est plus nécessaire. »\nReste ainsi le temps qu’il faut. Rappelle-toi : tu as déjà fait une partie du chemin."
    },
    {
     "t": "Regarde la situation exacte",
