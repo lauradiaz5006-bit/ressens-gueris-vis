@@ -1308,13 +1308,22 @@
     c.quiage = l && l.age ? ', à ' + ageNum(l.age) + ' ans' : ''; c.quoi = l && l.quoi ? ' : « ' + tuMoi(l.quoi).toLowerCase() + ' »' : '';
     return c;
   }
+  /* Texte d'un protocole : \n = paragraphe, « - » en début de ligne = puce */
+  function texteProto(x) {
+    var h = '', ul = false;
+    String(x || '').split('\n').forEach(function (l) {
+      if (/^- /.test(l)) { if (!ul) { h += '<ul>'; ul = true; } h += '<li>' + esc(l.slice(2)) + '</li>'; }
+      else { if (ul) { h += '</ul>'; ul = false; } if (l.trim()) h += '<p>' + esc(l) + '</p>'; }
+    });
+    return h + (ul ? '</ul>' : '');
+  }
   function remplir(t, c) { return String(t).replace(/\{(\w+)\}/g, function (m, k) { return c[k] != null ? c[k] : m; }); }
   function vueActions(id, sid, mode) {
     var L = PF.ACTIONS || [], A0 = null; L.forEach(function (x) { if (x.id === id) A0 = x; });
     var h;
     if (!A0) {
-      var FAM = [['Je veux libérer', ['vie', 'lignee', 'profond', 'cle1', 'cle2']], ['Je veux poser une intention', ['intention', 'corps']], ['Ça ne va pas, maintenant', ['monte']]], pris = [];
-      var carteA = function (x) { pris.push(x.id); return '<a class="pa-carte pa-action" href="#actions/' + x.id + '"><h3>' + esc(x.titre) + '</h3><p>' + esc(x.court) + '</p></a>'; };
+      var FAM = [['Je veux libérer', ['vie', 'energies', 'lignee', 'lien', 'image', 'profond']], ['Je veux me recentrer', ['intention', 'corps', 'amour']], ['Ça ne va pas, maintenant', ['emotion', 'monte']]], pris = [];
+      var carteA = function (x) { pris.push(x.id); return '<a class="pa-carte pa-action" href="#actions/' + x.id + '">' + (x.visuel ? '<img class="pa-action-img" src="/assets/images/protocoles/' + x.visuel + '.webp" alt="" loading="lazy" width="1200" height="800">' : '') + '<h3>' + esc(x.titre) + '</h3><p>' + esc(x.court) + '</p>' + (x.duree ? '<p class="pa-discret">' + esc(x.duree) + '</p>' : '') + '</a>'; };
       h = '<h1 class="pa-h1">Mes actions</h1><p class="pa-sous">Les protocoles, prêts à suivre. Choisis selon ce que tu vis.</p>' +
         FAM.map(function (f) { var l = L.filter(function (x) { return f[1].indexOf(x.id) >= 0; }); return l.length ? '<p class="pa-titre-s">' + esc(f[0]) + '</p><div class="pa-grille-a">' + l.map(carteA).join('') + '</div>' : ''; }).join('');
       var reste = L.filter(function (x) { return pris.indexOf(x.id) < 0; }); if (reste.length) h += '<p class="pa-titre-s">Pour avancer</p><div class="pa-grille-a">' + reste.map(carteA).join('') + '</div>';
@@ -1327,10 +1336,13 @@
       var trouver = A0.trouver && sc && (mode === 'age' || !premiereOk(sc)), etapes = trouver ? A0.trouver : A0.etapes, c = ctxProto(sc);
       h = '<a class="pa-retour" href="#actions">‹ Mes actions</a><h1 class="pa-h1">' + esc(trouver ? 'Trouver ma première fois' : A0.titre) + '</h1><p class="pa-sous">' + esc(trouver ? 'Le protocole de la mémoire de ta vie, pour laisser venir l’âge que tu te sens.' : A0.court) + '</p>';
       if (A0.pour && SC.length > 1) h += '<div class="pa-puces pa-exemples pa-pour">' + SC.map(function (x) { return '<a class="pa-puce-l" href="#actions/' + A0.id + '/' + esc(x.id) + '" aria-pressed="' + (sc === x) + '">' + esc(cap(x.nom)) + '</a>'; }).join('') + '</div>';
-      h += '<div class="pa-2col"><div><section class="pa-carte">' + (sc ? '<p class="pa-etiq">Pour « ' + esc(sc.nom) + ' »</p>' : '') + (A0.image ? '<p class="pa-image">' + esc(PF.IMAGE || '') + '</p>' : '') + (A0.douceur ? '<p class="pa-securite">' + esc(A0.douceur) + '</p>' : '') + sphereResp() +
-        (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<div class="pa-avant"><p class="pa-etiq">Avant de commencer</p><p>Ce protocole te fait revenir vers un moment du passé. <b>Garde-le pour plus tard</b> si :</p><ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : fais-le alors avec un·e professionnel·le de l’accompagnement.</li></ul><p>Tu peux t’arrêter à tout moment avec le bouton « J’arrête et je reviens ».</p><button type="button" class="pa-bt or" data-proto-pret>Je me sens prêt·e, je commence</button></div><div id="pa-proto-z" hidden>' : '<div>') +
-        '<ol class="pa-proto">' + etapes.map(function (t) { return '<li>' + esc(remplir(t, c)) + '</li>'; }).join('') + '</ol>' +
-        (A0.pour === 'vie' || A0.pour === 'lignee' || trouver ? '<button type="button" class="pa-bt clair pa-arret" data-arret>J’arrête et je reviens</button>' : '') + '</div>' +
+      h += '<div class="pa-2col"><div><section class="pa-carte">' + (sc ? '<p class="pa-etiq">Pour « ' + esc(sc.nom) + ' »</p>' : '') + (A0.visuel && !trouver ? '<img class="pa-proto-img" src="/assets/images/protocoles/' + A0.visuel + '.webp" alt="" width="1200" height="800">' : '') + (A0.duree && !trouver ? '<p class="pa-discret">' + esc(A0.duree) + '</p>' : '') + (A0.image ? '<p class="pa-image">' + esc(PF.IMAGE || '') + '</p>' : '') + (A0.douceur ? '<p class="pa-securite">' + esc(A0.douceur) + '</p>' : '') + sphereResp() +
+        ((A0.avertissement && !trouver) ? '<div class="pa-avant"><p class="pa-etiq">Avant de commencer</p><p>' + esc(A0.avertissement) + '</p><p>Tu peux t’arrêter à tout moment avec le bouton « J’arrête et je reviens ».</p><button type="button" class="pa-bt or" data-proto-pret>Je me sens prêt·e, je commence</button></div><div id="pa-proto-z" hidden>' : trouver ? '<div class="pa-avant"><p class="pa-etiq">Avant de commencer</p><p>Ce protocole te fait revenir vers un moment du passé. <b>Garde-le pour plus tard</b> si :</p><ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : fais-le alors avec un·e professionnel·le de l’accompagnement.</li></ul><p>Tu peux t’arrêter à tout moment avec le bouton « J’arrête et je reviens ».</p><button type="button" class="pa-bt or" data-proto-pret>Je me sens prêt·e, je commence</button></div><div id="pa-proto-z" hidden>' : '<div>') +
+        (!trouver && A0.intro ? '<div class="pa-proto-bloc"><p class="pa-etiq">' + esc(A0.intro[0]) + '</p>' + texteProto(A0.intro[1]) + '</div>' : '') +
+        (!trouver && (A0.prepare || A0.materiel) ? '<div class="pa-proto-bloc"><p class="pa-etiq">Prépare ton moment</p>' + (A0.materiel ? '<p><b>Il te faut :</b> ' + esc(A0.materiel) + '</p>' : '') + (A0.prepare ? texteProto(A0.prepare) : '') + '</div>' : '') +
+        '<ol class="pa-proto">' + etapes.map(function (t) { return typeof t === 'object' ? '<li><b class="pa-proto-t">' + esc(t.t) + '</b>' + texteProto(t.x) + '</li>' : '<li>' + esc(remplir(t, c)) + '</li>'; }).join('') + '</ol>' +
+        (!trouver && A0.fin ? '<p class="pa-discret"><i>' + esc(A0.fin) + '</i></p>' : '') + (!trouver && A0.apres ? '<p class="pa-discret">' + esc(A0.apres) + '</p>' : '') +
+        (A0.avertissement || trouver ? '<button type="button" class="pa-bt clair pa-arret" data-arret>J’arrête et je reviens</button>' : '') + '</div>' +
         (A0.id === 'monte' ? filet() : A0.securite ? '<p class="pa-securite">' + esc(A0.securite) + '</p>' : '<a class="pa-monte-l" href="#actions/monte">Si ça monte fort</a>') + '</section></div><div>';
       if (trouver) {
         var pf0 = sc.fois.filter(function (f) { return f.premiere; })[0] || {};
@@ -2481,8 +2493,8 @@
     var th = /^theatre/.test(h) ? h.split('/')[1] || '' : null; if (th === null || !sceneT(th)) choixT = '';
     if (!/^actions\/lignee/.test(h)) protoPerso = null;
     /* Dans l'exemple, Mes actions reste fermé tant que les protocoles ne sont pas en ligne (1er novembre) */
-    if (EXEMPLE) { var la = document.querySelector('.pa-barre [data-onglet="actions"]'); if (la && !la.classList.contains('pa-ferme')) { la.classList.add('pa-ferme'); la.setAttribute('aria-disabled', 'true'); la.insertAdjacentHTML('beforeend', '<em>1er nov.</em>'); } }
-    var fn = th != null ? function () { vueTheatre(th); } : ac != null ? (EXEMPLE ? vueActionsFermee : function () { vueActions(ac, acS, acM); }) : h === 'fil' ? vueFil : h === 'agenda' ? vueAgenda : h === 'bilan' ? vueBilan : vueMoi;
+    /* Mes actions est ouvert aussi dans l'exemple depuis le 2 novembre */
+    var fn = th != null ? function () { vueTheatre(th); } : ac != null ? function () { vueActions(ac, acS, acM); } : h === 'fil' ? vueFil : h === 'agenda' ? vueAgenda : h === 'bilan' ? vueBilan : vueMoi;
     rafraichir = function () { var y = window.scrollY; fn(); aller(y); };
     fn();
   }

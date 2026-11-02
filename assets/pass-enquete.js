@@ -274,26 +274,434 @@ window.PASS_FIL = {
     roles: [['victime', 'Victime'], ['sauveur', 'Sauveur·euse'], ['bourreau', 'Persécuteur·rice'], ['controle', 'Je contrôle tout'], ['effacee', 'Je m’efface']],
     neuf: [['Émergence', 'Quelque chose attire ton attention. Tu sens qu’un même schéma est à l’œuvre.'], ['Initiation', 'Tu commences à observer. Tu repères ce qui déclenche la répétition.'], ['Rencontre avec l’ombre', 'Ce que tu évitais de regarder apparaît clairement.'], ['Épreuves', 'La situation se rejoue, parfois plus fort, comme pour être enfin vue.'], ['Lâcher l’ancien', 'L’ancienne façon de réagir n’a plus de sens. Tu la laisses partir.'], ['Transformation', 'Ce que tu as vécu devient une compréhension, et non plus un poids.'], ['Élévation', 'Tu agis autrement, naturellement, sans avoir à te forcer.'], ['Transmission', 'Ce que tu as compris profite à ceux qui t’entourent et à ceux qui viennent après toi.'], ['Renaissance', 'Le thème n’est plus une question. Le cycle est complet.']]
   },
-  /* Mes actions : les protocoles et les fiches, sur une page à part (comme les audios du Cercle).
-     Pour en ajouter une : { id, titre, court, pour: 'vie' | 'lignee' | 'intention' | '', etapes: ['…'] }. Laura enverra les versions définitives. */
+  /* Mes actions : les 10 protocoles de Laura (validés le 02/11/2026) + « Si ça monte fort ». Étapes : { t: titre, x: texte } (\n = retour à la ligne, « - » = puce). */
   ACTIONS: [
-    { id: 'vie', titre: 'Libérer la mémoire de ma vie', court: 'Retrouver la partie de toi restée figée à l’âge de la première fois.', pour: 'vie', image: true,
-      etapes: ['Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.', 'Vois-toi {age}{avec}{scene}. Regarde-toi avec douceur.', 'Dis-lui : « Je te vois. Tu as fait de ton mieux. Tu n’as plus besoin de rester là : je suis grand·e maintenant, je m’occupe de nous. »', 'Nomme la mémoire : « Je te vois, mémoire de {nom}. Je te reconnais. Merci d’être là, car tu me permets de m’en libérer. »', 'Depuis ton cœur, envoie une lumière douce vers la scène. Dis : « Stop, je te reconnais. Je t’aime. Maintenant, retourne au soleil. » Regarde-la se dissoudre.', 'Tends la main à la partie de toi, et laisse-la revenir dans ton cœur. L’énergie restée figée circule de nouveau en toi.'],
-      /* quand l'âge de la première fois n'est pas encore trouvé : le protocole aide à le laisser venir */
-      trouver: ['Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.', 'Repense à ce que tu as déposé : {nom}. Laisse la sensation revenir dans ton corps, là où tu la sens.', 'Demande-toi doucement : « Quand je ressens ça, je me sens quel âge ? » Ne cherche pas, laisse venir le premier âge, même flou.', 'Laisse venir une scène, même floue : un lieu, une lumière, quelqu’un qui est là. Tu n’as pas besoin de la date exacte : un âge à peu près, une scène floue, c’est déjà assez.', 'Regarde l’enfant que tu étais avec douceur. Dis-lui : « Je te vois. Tu as fait de ton mieux. Je suis grand·e maintenant, je m’occupe de nous. »', 'Tends-lui la main, et laisse-la revenir dans ton cœur. Puis note l’âge et la scène qui sont venus.'] },
-    { id: 'lignee', titre: 'Libérer la mémoire de ma lignée', court: 'Rendre à la personne de ta lignée ce qui lui appartient, et garder sa force.', pour: 'lignee', image: true,
-      douceur: 'Tu n’as pas à pardonner ni à aimer pour rendre. Avec respect, ou simplement « je te rends ce qui est à toi », c’est suffisant.',
-      etapes: ['Respire avec la sphère, trois fois, les pieds bien posés au sol.', 'Vois devant toi {qui}{quiage}, dans une lumière douce. Regarde ce qu’{elle} a traversé{quoi}.', 'Dis-lui : « Je te vois. Ce que tu as porté était lourd. Je te rends ce qui t’appartient, mémoire de {nom}. Je garde ta force. »', 'Vois un faisceau de lumière descendre en toi, puis à travers tes racines jusqu’à {lui}, et plus loin dans la lignée. Dis : « Je libère cette mémoire pour nous tous. »', 'Vois le paquet se déposer devant {lui}, puis la lumière le dissoudre. {Elle} peut se reposer ; toi, avancer.'] },
-    { id: 'intention', titre: 'Poser une intention', court: 'Se centrer, l’écrire, la poser du plus profond de soi, puis lâcher.', pour: 'intention',
-      etapes: ['Pose les pieds au sol, une main sur le cœur. Respire jusqu’à te sentir centré·e.', 'Écris ce que tu veux à la place de {nom}, au présent, comme si c’était déjà vrai : « {intention} »', 'Lis-la à voix haute, la main sur le cœur, du plus profond de toi.', 'Garde le doigt appuyé sur la sphère jusqu’à ce qu’elle s’allume : c’est posé.', 'Maintenant tu lâches : tu n’as plus à y penser ni à vérifier. Tu fais confiance, avec une foi tranquille. Elle reviendra à la nouvelle lune.'] },
-    { id: 'profond', titre: 'Quand ça revient plus fort', court: 'Quand ça revient plus fort alors que tu l’avais travaillé.', pour: '',
-      etapes: ['Ce n’est pas un retour en arrière : tu creuses le même trou, plus profond.', 'Demande-toi : quelle est la situation exacte ? Qu’est-ce qu’elle révèle de ma vraie peur, sous celle que j’avais déjà travaillée ? Qui, dans ma lignée, a vécu cette peur très fort ?', 'Dis : « Je te vois, mémoire de {nom}. Je comprends maintenant que tu étais cachée sous la première couche. Merci de te révéler, je suis prêt·e à te libérer. »', 'Dans les 48 heures, pose un petit geste concret dans le sens de ta nouvelle vérité.'] },
-    { id: 'corps', titre: 'La minute de sécurité du corps', court: 'Chaque jour, apprendre au corps une autre réponse que l’alerte.', pour: '',
-      etapes: ['Pose les pieds au sol, une main sur le ventre.', 'Respire lentement, plus longtemps à l’expiration.', 'Dis à ton corps : « Je suis en sécurité, ici et maintenant. »', 'Il a appris l’alerte, il peut apprendre la sécurité.'] },
-    { id: 'monte', titre: 'Si ça monte fort', court: 'Revenir ici et maintenant.', pour: '',
-      etapes: ['Pose les pieds au sol.', 'Respire avec la sphère, trois fois, lentement.', 'Nomme cinq objets autour de toi, à voix haute.', 'Tu peux reprendre un autre jour : rien ne presse.'],
-      securite: 'Si ça dure plusieurs jours, ou si c’est trop lourd à porter seul·e, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.' }
+ {
+  "id": "vie",
+  "titre": "Reviens à la première fois",
+  "court": "Pour libérer un schéma qui se répète dans ta vie, dans tes pensées, tes actes ou des cycles qui reviennent toujours.",
+  "duree": "15 à 20 minutes · au calme",
+  "pour": "vie",
+  "visuel": "01-vie",
+  "avertissement": "Si tu portes des événements très lourds (violences, abus, perte brutale…), ne fais pas ce chemin seul·e. Fais-toi accompagner par un·e psychologue ou un·e professionnel·le en qui tu as confiance.",
+  "prepare": "Offre-toi un espace rien qu’à toi. Baisse la lumière, allume une bougie (de préférence en cire d’abeille) si tu en as envie, éteins ce qui pourrait te déranger. Ce temps t’appartient.\nSi tu en ressens le besoin, appelle à tes côtés une présence qui t’accompagne : ton guide, un être de lumière, ou une force plus grande, comme ton toi du futur, celui ou celle que tu deviens, plus sage et apaisé·e. Sens cette présence s’installer près de toi. Tu n’es pas seul·e.",
+  "trouver": [
+   "Respire avec la sphère : 5 secondes pour inspirer, 2 pour retenir, 7 pour expirer, trois fois.",
+   "Repense à ce que tu as déposé : {nom}. Laisse la sensation revenir dans ton corps, là où tu la sens.",
+   "Demande-toi doucement : « Quand je ressens ça, je me sens quel âge ? » Ne cherche pas, laisse venir le premier âge, même flou.",
+   "Laisse venir une scène, même floue : un lieu, une lumière, quelqu’un qui est là. Tu n’as pas besoin de la date exacte : un âge à peu près, une scène floue, c’est déjà assez.",
+   "Regarde l’enfant que tu étais avec douceur. Dis-lui : « Je te vois. Tu as fait de ton mieux. Je suis grand·e maintenant, je m’occupe de nous. »",
+   "Tends-lui la main, et laisse-la revenir dans ton cœur. Puis note l’âge et la scène qui sont venus."
   ],
+  "fin": "Si une émotion devient trop forte, ouvre les yeux, pose tes pieds bien à plat sur le sol et respire. Tu pourras reprendre plus tard.",
+  "apres": "Un autre jour, si tu le sens, continue ton chemin avec « Le retour de mes énergies ».",
+  "etapes": [
+   {
+    "t": "Descends en toi",
+    "x": "Ferme les yeux. Laisse ta respiration ralentir, doucement, jusqu’à ce que le dehors s’éloigne.\nPuis tourne ton attention vers l’intérieur. Ce schéma qui revient, où le ressens-tu dans ton corps ? Une gorge serrée, un poids sur la poitrine, un vide au creux du ventre… Ne cherche pas à le chasser. Écoute-le simplement : il a quelque chose à te montrer."
+   },
+   {
+    "t": "Remonte le fil du temps",
+    "x": "Demande-toi tout bas : « Quand ai-je ressenti cela pour la toute première fois ? »\nLaisse venir un souvenir, même récent : il y a quinze jours, il y a cinq ans. Puis descends encore, d’un souvenir à l’autre, comme on descend les marches de sa propre histoire. (Ta présence guide marche à tes côtés.)\nContinue jusqu’à la toute première fois. Bien souvent, c’est là, dans l’enfance ou à l’adolescence, que tout a commencé."
+   },
+   {
+    "t": "Retrouve l’enfant que tu étais",
+    "x": "Le voici. L’enfant que tu étais, dans ce lieu, à ce moment-là. Regarde son visage, sa posture, ce qu’il ou elle porte de trop lourd pour son âge.\nApproche-toi doucement et tends-lui la main. L’adulte que tu es aujourd’hui est enfin venu·e le chercher."
+   },
+   {
+    "t": "Dis-lui la vérité",
+    "x": "Penche-toi vers l’enfant que tu étais et dis-lui tout ce qui n’était pas normal, tout ce qui était injuste pour lui ou pour elle à ce moment-là. Mets des mots sur ce que personne n’a dit.\nPuis rassure l’enfant que tu étais. Prends-le dans tes bras, longuement. Laisse-lui sentir qu’il ou elle compte, enfin."
+   },
+   {
+    "t": "Rends ce qui ne t’appartient pas",
+    "x": "Tourne-toi maintenant vers l’adulte en face de vous, souvent un parent. (Si c’est difficile, ta présence guide se tient juste derrière toi et te prête sa force.)\nDepuis la place de l’enfant, à voix haute ou dans le silence de ton cœur, dis ce que tu ressens et là où tu n’es pas d’accord :\n« Maman, ce n’est pas normal, ce qui vient de se passer. »\n« Je ressens de la… et je te la rends. Elle n’est plus à moi. »\n« Nos rôles ont été inversés. Je reprends ma place d’enfant. »\n« Cette violence, je n’en veux plus. »\nTu as le droit de dire stop. Fais de même avec chaque adulte présent."
+   },
+   {
+    "t": "Libère le lien",
+    "x": "Observe ce qui te relie à cette personne. Peut-être une liane, une corde, un fil d’énergie, une ombre… Laisse ta visualisation faire le travail, à sa manière :\n- tu peux le couper, avec un objet tranchant que tu imagines ;\n- tu peux le transformer, le nettoyer, le laisser se dissoudre dans la lumière ;\n- tu peux le couper, puis laisser naître à sa place un lien doré, fait seulement d’amour et de paix.\nChaque personne est différente : fais ce que tu ressens, toi. (Ta présence guide peut t’aider si tu en as besoin.)"
+   },
+   {
+    "t": "Referme la porte",
+    "x": "Prends l’enfant que tu étais par la main. Ensemble, quittez cette pièce. (Ta présence guide vous ouvre le chemin.)\nEn sortant, dis-lui : « Tu es avec moi maintenant. Tu es en sécurité. Tu as le droit d’être qui tu es. »\nPuis referme la porte derrière vous. Écoute-la se fermer. Ce souvenir a fini de te retenir."
+   },
+   {
+    "t": "Accueille l’enfant que tu étais en toi",
+    "x": "Ouvre ton cœur et accueille l’enfant que tu étais à l’intérieur de toi. Sens son énergie reprendre sa place, au chaud, en sécurité. Vous ne faites plus qu’un.\nRespire ce sentiment d’unité. Remercie ta présence guide, puis reviens doucement, à ton rythme, et ouvre les yeux."
+   }
+  ]
+ },
+ {
+  "id": "energies",
+  "titre": "Le retour de mes énergies",
+  "court": "Quand des souvenirs parasites reviennent, que certaines situations t’enferment et te font répéter les mêmes choses.",
+  "duree": "15 à 30 minutes · au calme",
+  "pour": "",
+  "visuel": "02-energies",
+  "avertissement": "Si tu portes des événements très lourds (violences, abus, perte brutale…), ne fais pas ce chemin seul·e. Fais-toi accompagner par un·e psychologue ou un·e professionnel·le en qui tu as confiance.",
+  "prepare": "Offre-toi un espace rien qu’à toi. Baisse la lumière, allume une bougie (de préférence en cire d’abeille) si tu en as envie, éteins ce qui pourrait te déranger. Ce temps t’appartient.\nSi tu en ressens le besoin, appelle à tes côtés une présence qui t’accompagne : ton guide, un être de lumière, ou une force plus grande, comme ton toi du futur, celui ou celle que tu deviens, plus sage et apaisé·e. Sens cette présence s’installer près de toi. Tu n’es pas seul·e.",
+  "fin": "Si une émotion devient trop forte, ouvre les yeux, pose tes pieds bien à plat sur le sol et respire. Tu pourras reprendre plus tard.",
+  "etapes": [
+   {
+    "t": "Déroule ta frise",
+    "x": "Ferme les yeux et laisse ta respiration s’apaiser.\nDevant toi, imagine ta frise du temps qui se déroule : ton passé d’un côté, ton présent de l’autre. (Ta présence guide se tient à tes côtés, face à elle.)\nÉcoute ce que tu ressens. Ce problème qui revient sans cesse, toujours de la même manière : sens-le, sans le juger."
+   },
+   {
+    "t": "Pose le premier souvenir",
+    "x": "Laisse venir un souvenir lié à ce ressenti. Pose-le délicatement sur ta frise, à sa place dans le temps. Observe-le un instant, comme une scène que tu regardes de loin."
+   },
+   {
+    "t": "Entre dans la pièce",
+    "x": "Quand tu te sens prêt·e, avance vers ce souvenir et entre dedans. (Ta présence guide t’accompagne.)\nRetrouve le lieu, l’atmosphère, les personnes présentes. Et regarde ton toi du passé : la personne que tu étais, là, à ce moment-là."
+   },
+   {
+    "t": "Rejoins ton toi du passé",
+    "x": "Approche-toi de ton toi du passé et parle-lui avec douceur. Dis-lui que cette situation n’est pas confortable, que tu le vois, et que maintenant tu es là : il n’est plus seul.\nPrends ton toi du passé par la main."
+   },
+   {
+    "t": "Libère ton toi du passé de cet endroit",
+    "x": "Ensemble, quittez cette pièce et laissez derrière vous les personnes présentes. En sortant, dis :\n« Je libère mon âme de cet endroit et de cette énergie. Je coupe tous les liens avec cet espace. »\nSi tu vois des liens, des fils ou quoi que ce soit qui vous retient, libère-les à ta manière : coupe, nettoie, dissous dans la lumière. Fais ce que tu ressens. (Ta présence guide peut t’aider.)"
+   },
+   {
+    "t": "Referme la porte",
+    "x": "Referme la porte derrière vous. S’il n’y en a pas, crée-en une, belle et solide, puis referme-la. Ce lieu n’a plus de prise sur toi."
+   },
+   {
+    "t": "Mets ton toi du passé en sécurité",
+    "x": "Emmène ton toi du passé dans un endroit doux et lumineux, un lieu où il fait bon être. (Ta présence guide veille sur vous.)\nRassure ton toi du passé. Dis-lui que tu l’aimes, que tout va bien maintenant. Puis dis-lui :\n« Maintenant, tu es avec moi. Ton énergie est de retour en moi. Nous sommes ensemble. »\nSens cette énergie revenir en toi comme un·e partenaire retrouvé·e, une force qui te rend plus entier·e et plus puissant·e."
+   },
+   {
+    "t": "Poursuis le long de ta frise",
+    "x": "D’autres souvenirs attendent peut-être sur ta frise. Pour chacun, reprends le même chemin, de l’étape 2 à l’étape 7, à ton rythme.\nQuand tu as terminé, remercie ta présence guide, respire profondément, et reviens doucement à l’instant présent."
+   }
+  ]
+ },
+ {
+  "id": "intention",
+  "titre": "De la tête au cœur avec intention",
+  "court": "Pour redescendre en toi, te recentrer, t’ancrer et te reconnecter à ta source.",
+  "duree": "15 à 20 minutes · au calme",
+  "pour": "intention",
+  "visuel": "03-intention",
+  "prepare": "Choisis un endroit propre et calme, où personne ne viendra te déranger. Si tu le souhaites, allume une bougie, de préférence en cire d’abeille. Installe-toi confortablement, le dos droit, les pieds posés au sol.",
+  "etapes": [
+   {
+    "t": "Respire et laisse partir",
+    "x": "Ferme les yeux. Pendant deux minutes, respire lentement et profondément.\nÀ chaque expiration, imagine que tu laisses sortir tout ce qui ne te convient plus, comme une fumée sombre qui quitte ton corps et se dissout dans l’air.\nÀ chaque inspiration, accueille le prana, cette énergie pure et vivante. Sens-la entrer en toi, claire et lumineuse.\nCrois-y pleinement, comme si c’était réel, là, maintenant, dans cet instant. Parce que ça l’est."
+   },
+   {
+    "t": "Redescends au cœur",
+    "x": "Des pensées passent peut-être dans ta tête. Laisse-les passer comme des nuages, sans les retenir.\nLes yeux fermés, tu vois devant toi, même si tout est noir. Maintenant, imagine que ce regard descend doucement, jusqu’à ton cœur. Tu ne regardes plus depuis ta tête : tu regardes depuis ton cœur.\nÀ cet endroit, laisse naître une petite sphère de lumière. Garde ton attention posée là, tranquillement, et sens l’équilibre qui s’installe pendant que ta sphère brille d’elle-même."
+   },
+   {
+    "t": "Plonge tes racines dans la terre",
+    "x": "Quand tu te sens prêt·e, imagine des racines lumineuses qui naissent sous tes pieds. Ne les regarde pas seulement : accompagne-les par l’esprit.\nDescends avec elles, loin, très loin dans la terre, jusqu’en son centre. Là, laisse apparaître ce qui te ressource : des cristaux, un soleil intérieur, une lumière chaude… ce qui te parle.\nBranche tes racines à cette source. Puis remonte avec toute cette puissance, le long de tes racines, jusque dans ton corps. Sens ton corps s’emplir de lumière, tranquillement, à son rythme.\nLaisse ce mouvement continuer tout seul. Comme ton cœur qui brille avec sa sphère. Comme ta respiration qui continue avec le prana."
+   },
+   {
+    "t": "Accueille la lumière d’en haut",
+    "x": "Porte maintenant ton attention au-dessus de ta tête, assez haut. Une énergie source est déjà là. Il te suffit d’y poser ton intention pour la voir : une grande sphère de lumière.\nFais-la descendre doucement en toi :\n- dans ta tête, ton visage, ta gorge ;\n- tes épaules, tes bras, jusqu’au bout de tes doigts ;\n- ta poitrine, ton dos et ta colonne vertébrale, vertèbre après vertèbre ;\n- ton ventre, ton bassin ;\n- tes jambes, tes genoux, tes chevilles, tes pieds.\nElle nourrit ton cœur et ta sphère de lumière, elle rejoint tes racines, puis elle ressort par tes pieds et remonte jusqu’au-dessus de ta tête.\nElle forme une boucle de lumière qui circule autour de toi, comme un tore, de plus en plus grande, jusqu’à devenir une grande bulle qui t’enveloppe et te protège.\nReste ainsi quelques instants. Laisse toute cette énergie circuler en toi et autour de toi."
+   },
+   {
+    "t": "Élève-toi",
+    "x": "Quand ton corps est bien enveloppé de cette lumière, laisse ton regard monter vers la source, au-dessus de toi. Laisse-toi porter plus haut encore, toujours plus haut, jusqu’au-dessus de la planète.\nTu es enveloppé·e de lumière. Ici, tu te connectes à un autre flux d’énergie.\nTu vois une colonne de lumière qui te relie à ton corps, resté en bas. Tu n’es plus seulement ton corps : tu es là-haut, avec toi-même."
+   },
+   {
+    "t": "Pose ton intention",
+    "x": "Depuis ton cœur, choisis une intention : un vrai besoin, une envie sincère, quelque chose de positif pour toi.\nFais-la résonner autour de toi, avec amour. Puis inscris-la dans la source, dans cette colonne de lumière, comme on écrit des mots qui restent.\nSache qu’elle est entendue.\nSi aucune intention ne vient, ce n’est pas grave. Ressens simplement l’harmonie parfaite en toi, ou envoie de l’amour à la planète, à celles et ceux que tu aimes, à ce qui compte pour toi.\nPuis dis merci."
+   },
+   {
+    "t": "Reviens dans ton corps",
+    "x": "Quand tu es prêt·e, redescends doucement le long de la colonne de lumière, jusque dans ton corps, avec toute cette énergie et cette connexion.\nSens ton corps. Sens le poids de tes pieds sur le sol, l’air autour de toi, la pièce où tu te trouves. Bouge doucement les doigts.\nReviens pleinement ici. Ouvre les yeux quand tu le souhaites, et savoure cette sensation de te sentir plus léger·ère, plus aligné·e."
+   }
+  ]
+ },
+ {
+  "id": "emotion",
+  "titre": "Libérer une émotion",
+  "court": "Quand une émotion lourde arrive, envahit ton corps et prend toute la place.",
+  "duree": "5 à 10 minutes · partout où tu peux te poser",
+  "pour": "",
+  "visuel": "04-emotion",
+  "intro": [
+   "Avant tout, comprends ce qui se passe",
+   "Tes émotions sont des messages de ton inconscient. Tant qu’un schéma n’est pas encore libéré, elles peuvent surgir au mauvais moment, là où il n’y a aucun danger.\nImagine : tu rencontres enfin quelqu’un qui te fait du bien, mais dans ta lignée l’amour s’est souvent mal fini. Alors ton inconscient, fidèle, sonne l’alarme : attention, danger !\nCes messages méritent d’être compris. C’est ainsi que tu apprends à écouter ceux qui te servent, et à dire à ton corps que les anciennes alertes ne sont plus nécessaires."
+  ],
+  "apres": "Si une image continue de revenir et de te bloquer, poursuis avec « Transmuter une image mentale ».",
+  "etapes": [
+   {
+    "t": "Pose-toi et respire",
+    "x": "Arrête-toi un instant. Une émotion arrive : quelque chose d’inconfortable, qui serre, qui pèse. Plus elle est forte, plus elle a attendu d’être écoutée.\nRespire lentement, plusieurs fois. Laisse ton souffle calmer ton corps, doucement."
+   },
+   {
+    "t": "Trouve où elle se loge",
+    "x": "Où est cette sensation dans ton corps ? Ta gorge, ta poitrine, ton plexus, ton ventre… Cherche, sans te presser. Elle est là, quelque part, et elle attend que tu la trouves."
+   },
+   {
+    "t": "Nomme-la",
+    "x": "Observe ce qui se passe réellement, sans en rajouter. Puis mets un mot dessus : la peur, la colère, la tristesse, le rejet… ou la situation qui l’a réveillée.\nSi tu en as envie, écris-le. Nommer, c’est déjà desserrer."
+   },
+   {
+    "t": "Donne-lui une forme",
+    "x": "Visualise cette émotion à l’endroit où tu la sens, comme une petite boule d’énergie brillante, de la couleur qui te vient.\nRegarde-la. Elle n’est pas ton ennemie : c’est un message."
+   },
+   {
+    "t": "Parle-lui",
+    "x": "Respire, et parle intérieurement à cette boule de lumière :\n« Je te vois. Je t’entends. Ton message appartient au passé. Tu peux calmer ton intensité, maintenant. Je vais te libérer. »\nImportant : à ce moment-là, tu parles à ton inconscient. Il te prend au mot. Si tu lui promets de libérer, de pardonner ou de changer quelque chose, fais-le vraiment. Sinon, il reviendra frapper à la porte dans une autre situation semblable.\nQuand le message vient de plus loin, d’une vieille histoire ou de ta lignée, tu pourras ensuite le libérer en profondeur avec « Reviens à la première fois » ou « Le retour de mes énergies ». Le but : que ce message ne corresponde plus à qui tu es, ni à qui tu choisis de devenir."
+   },
+   {
+    "t": "Laisse-la partir",
+    "x": "Maintenant, laisse sortir cette boule de lumière, par le chemin qui te parle :\n- par ton souffle : à chaque expiration, elle sort de toi et s’envole ;\n- par tes pieds : surtout si ce message vient de ta famille, elle descend à travers ton corps et retourne à la terre.\nRegarde-la s’éloigner… et partir."
+   },
+   {
+    "t": "Bravo",
+    "x": "Elle est sortie. Continue de respirer tranquillement. Sens l’espace qu’elle laisse en toi, plus léger, plus calme. Tu as écouté ton message, et tu l’as laissé partir."
+   }
+  ]
+ },
+ {
+  "id": "image",
+  "titre": "Transmuter une image mentale",
+  "court": "Quand une image mentale revient sans cesse et t’apporte un malaise : un visage, une relation, une lettre des impôts… ce que tu veux.",
+  "duree": "5 minutes",
+  "pour": "",
+  "visuel": "05-image",
+  "etapes": [
+   {
+    "t": "Installe-toi",
+    "x": "Pose-toi au calme, ferme les yeux et respire."
+   },
+   {
+    "t": "Regarde l’image",
+    "x": "Laisse venir cette image qui revient sans arrêt et qui t’apporte quelque chose d’inconfortable.\nPlace-la sur un écran ou sur une affiche. Quelle taille a-t-elle ? À quelle distance est-elle de toi : tout près, loin ?"
+   },
+   {
+    "t": "Dis-lui adieu",
+    "x": "Regarde-la bien en face et dis-lui clairement : « Je ne veux plus de toi. C’est fini. Je passe à autre chose. »"
+   },
+   {
+    "t": "Éloigne-la et rétrécis-la",
+    "x": "Maintenant, éloigne cet écran. Puis rétrécis l’image. Encore. Et encore.\nChange ses couleurs : passe-la en noir et blanc, ou au contraire en arc-en-ciel, comme tu préfères.\nRétrécis-la encore. Tu la vois déjà beaucoup moins, n’est-ce pas ?"
+   },
+   {
+    "t": "Joue avec le son",
+    "x": "Ajoute une musique qui te fait du bien, ou coupe complètement le son. Fais ce qui t’arrange, ce qui affaiblit ton lien avec cette image qui ne t’appartient plus."
+   },
+   {
+    "t": "Brouille-la",
+    "x": "Envoie-la encore plus loin, encore plus petite. Ajoute de la neige dessus, comme une vieille télé mal réglée : l’image grésille, elle se brouille."
+   },
+   {
+    "t": "Clap de fin",
+    "x": "Quand tu es prêt·e, frappe dans tes mains. Clap ! L’image disparaît complètement.\nTu ne la vois plus. Elle était devenue si petite et si lointaine qu’elle s’est effacée."
+   }
+  ]
+ },
+ {
+  "id": "amour",
+  "titre": "Diffuser de l’amour dans un lieu",
+  "court": "Pour offrir ton amour et ta paix à ta maison, à un lieu qui compte pour toi, à ta ville, à ton pays ou au monde entier.",
+  "duree": "10 à 20 minutes · au calme",
+  "pour": "",
+  "visuel": "06-amour",
+  "intro": [
+   "Avant de commencer",
+   "Fais d’abord le protocole « De la tête au cœur avec intention ». Tu commences ainsi ancré·e, le cœur ouvert et lumineux, enveloppé·e de ta bulle de lumière."
+  ],
+  "etapes": [
+   {
+    "t": "Laisse ton aura grandir",
+    "x": "Ressens ta sphère de lumière qui brille au cœur. À chaque respiration, laisse ton aura s’agrandir : elle dépasse ton corps, puis la pièce, et s’étend sur plusieurs mètres autour de toi.\nTu es immense, lumineux·se, et tu rayonnes."
+   },
+   {
+    "t": "Élève-toi au-dessus des villes",
+    "x": "Laisse-toi porter au-dessus du sol, doucement, puis plus haut. Sous toi apparaît un pays : la France, ou celui que tu choisis.\nSurvole une première ville. Regarde ses toits, ses rues, ses lumières."
+   },
+   {
+    "t": "Dépose ta vague d’amour",
+    "x": "Depuis ton cœur et toute ta présence, laisse jaillir ta lumière sur cette ville. Elle descend comme une immense vague d’amour, qui roule et entre partout : dans chaque rue, chaque maison, chaque recoin, chaque cœur.\nCette énergie est lumineuse et pénétrante, comme un soleil. Rien ne lui échappe. Elle enveloppe tout, avec douceur et puissance."
+   },
+   {
+    "t": "Continue ton voyage",
+    "x": "Passe à la ville suivante, puis à une autre. Laisse ta vague d’amour se déposer partout où tu passes : villes, campagnes, régions, pays entiers… le monde, si tu le souhaites.\nPrends ton temps. Il n’y a pas de limite."
+   },
+   {
+    "t": "À toutes les échelles",
+    "x": "Tu peux aussi offrir ta vague d’amour à une échelle plus petite, tout aussi précieuse : ta maison, pièce après pièce ; ton lieu de travail ; l’école de tes enfants ; un hôpital, un quartier, un lieu qui compte pour toi ; ou une personne que tu portes dans ton cœur.\nLe geste est le même : ta lumière jaillit de ton cœur et enveloppe chaque recoin, avec douceur et puissance."
+   },
+   {
+    "t": "Reviens",
+    "x": "Quand tu sens que c’est complet, dis merci. Puis reviens doucement dans ton corps, avec ta lumière en toi. Sens tes pieds sur le sol, la pièce autour de toi, et ouvre les yeux quand tu le souhaites."
+   }
+  ]
+ },
+ {
+  "id": "lignee",
+  "titre": "Remercier et rendre à ma lignée",
+  "court": "Pour libérer un schéma hérité d’un parent ou d’un ancêtre, en lui rendant ce qui lui appartient avec amour.",
+  "duree": "20 à 30 minutes · au calme",
+  "materiel": "Une feuille, un stylo, une bougie (de préférence en cire d’abeille), et si tu le souhaites un bol d’eau.",
+  "pour": "lignee",
+  "visuel": "07-lignee",
+  "avertissement": "Si tu portes des événements très lourds (violences, abus, perte brutale…), ne fais pas ce chemin seul·e. Fais-toi accompagner par un·e psychologue ou un·e professionnel·le en qui tu as confiance.",
+  "prepare": "Offre-toi un espace rien qu’à toi. Baisse la lumière, allume une bougie (de préférence en cire d’abeille) si tu en as envie, éteins ce qui pourrait te déranger. Ce temps t’appartient.\nSi tu en ressens le besoin, appelle à tes côtés une présence qui t’accompagne : ton guide, un être de lumière, ou une force plus grande, comme ton toi du futur, celui ou celle que tu deviens, plus sage et apaisé·e. Sens cette présence s’installer près de toi. Tu n’es pas seul·e.",
+  "fin": "Si une émotion devient trop forte, ouvre les yeux, pose tes pieds bien à plat sur le sol et respire. Tu pourras reprendre plus tard.",
+  "etapes": [
+   {
+    "t": "Fais venir la personne de ta lignée",
+    "x": "Ferme les yeux et respire. Laisse apparaître devant toi la personne de ta lignée qui porte ce schéma : un parent, une grand-mère, un ancêtre que tu as connu ou non. Vois-la dans une lumière douce, à la bonne distance pour toi. (Ta présence guide se tient à tes côtés.)"
+   },
+   {
+    "t": "Envoie-lui de l’amour et remercie-la",
+    "x": "Depuis ton cœur, envoie-lui de l’amour. Remercie-la pour tout ce qu’elle a traversé, pour la vie qu’elle a transmise, pour la force qui coule aussi en toi grâce à elle.\n« Merci pour tout ce que tu as vécu. Merci pour la vie. Je reconnais ton chemin. »"
+   },
+   {
+    "t": "Écoute le message",
+    "x": "Reste avec elle un moment et écoute ce que tu ressens. Quel message as-tu reçu d’elle sans le savoir ? Une peur, une croyance, une façon d’aimer ou de se protéger… Laisse venir les mots, les images, les sensations. Tu comprends maintenant d’où vient ce que tu portais."
+   },
+   {
+    "t": "Écris ce que tu rends",
+    "x": "Ouvre les yeux et prends ta feuille. Choisis la forme qui te parle, ou fais les deux :\n- une lettre, forte, sincère, sans retenue. Dis-lui tout ce que tu as porté pour elle, et rends-le-lui : « Cette peur t’appartient, je te la rends. » « Ce destin est le tien, pas le mien. » « Je garde ton amour et ta force, et je te rends le reste. »\n- une liste de tout ce que tu ne veux plus recevoir de cet ancêtre : « Je ne veux plus de la peur de manquer. Je ne veux plus du silence. Je ne veux plus de… »\nÉcris jusqu’à sentir que tout est dit."
+   },
+   {
+    "t": "Libère par le feu ou par l’eau",
+    "x": "Choisis ce qui te parle :\n- par le feu : brûle ta feuille à la flamme de ta bougie, en sécurité, dans un récipient résistant au feu, loin de tout objet inflammable. Regarde les mots partir en fumée ;\n- par l’eau : pose ta feuille dans un bol d’eau et laisse l’encre s’y dissoudre. Demande à l’eau : « Eau, purifie ces mémoires. » Quand tu sens que c’est fait, verse cette eau dans la terre ou laisse-la s’écouler.\nPuis demande, à voix haute ou dans ton cœur : « Je demande le nettoyage de cette mémoire, pour moi et pour toute ma lignée. »"
+   },
+   {
+    "t": "Remets ta lignée à sa place",
+    "x": "Referme les yeux. Vois toute ta lignée rassemblée, derrière toi ou quelque part dans un lieu lumineux : tes parents, tes grands-parents, et tous ceux qui sont venus avant. Ils sont ensemble, apaisés, heureux. Chacun est à sa juste place.\nToi, tu es devant, libre, soutenu·e par eux. Sens leur force dans ton dos."
+   },
+   {
+    "t": "Reviens",
+    "x": "Remercie-les une dernière fois, remercie ta présence guide, puis reviens doucement, à ton rythme, et ouvre les yeux. Éteins ta bougie toi-même, en restant près d’elle jusqu’au bout."
+   }
+  ]
+ },
+ {
+  "id": "profond",
+  "titre": "Quand ça revient plus fort",
+  "court": "Quand ton schéma revient, parfois plus intense, alors que tu l’avais déjà travaillé.",
+  "duree": "10 minutes · partout où tu peux te poser",
+  "pour": "",
+  "visuel": "08-profond",
+  "intro": [
+   "Avant tout, sache ceci",
+   "Ce n’est pas un échec, et tu ne recules pas. Quand un schéma revient plus fort, c’est souvent qu’une couche plus profonde se présente, maintenant que tu es prêt·e à la voir. Tu creuses au même endroit, mais plus loin."
+  ],
+  "etapes": [
+   {
+    "t": "Respire et pose-toi",
+    "x": "Arrête-toi. Respire lentement, les pieds au sol, une main sur le cœur. Rappelle-toi : tu as déjà fait une partie du chemin."
+   },
+   {
+    "t": "Regarde la situation exacte",
+    "x": "Qu’est-ce qui s’est passé, précisément ? Qui, où, quels mots, quel geste ? Écris-le simplement, sans juger."
+   },
+   {
+    "t": "Cherche ce qu’il y a dessous",
+    "x": "Demande-toi : « Qu’est-ce que cette situation réveille de plus profond ? Quelle est ma vraie peur, sous celle que je connais déjà ? »\nPeut-être une peur plus ancienne, une autre personne de ta lignée, un âge plus jeune."
+   },
+   {
+    "t": "Reconnais ton chemin",
+    "x": "Compare avec avant : tu l’as peut-être vu venir plus tôt, tu as peut-être respiré au lieu de réagir, tu es peut-être en train de lire ces lignes au lieu de t’y perdre. Tout cela, c’est du chemin parcouru. Note-le."
+   },
+   {
+    "t": "Choisis ton protocole",
+    "x": "Selon ce que tu as trouvé :\n- une émotion forte, là maintenant : « Libérer une émotion » ;\n- une image qui revient sans cesse : « Transmuter une image mentale » ;\n- un souvenir plus ancien : « Reviens à la première fois » ;\n- plusieurs souvenirs qui t’enferment : « Le retour de mes énergies » ;\n- une relation qui te retient : « Couper un lien et reprendre mon énergie » ;\n- une mémoire de ta lignée : « Remercier et rendre à ma lignée »."
+   },
+   {
+    "t": "Sois doux·ce avec toi",
+    "x": "Dis-toi : « Je suis en chemin. Chaque fois que ça revient, je vais plus loin. »"
+   }
+  ]
+ },
+ {
+  "id": "corps",
+  "titre": "Ancrer le nouveau, chaque jour",
+  "court": "Après une libération, pour apprendre à ton corps et à tes pensées une nouvelle réponse. À faire chaque jour, pendant au moins 21 jours.",
+  "duree": "3 à 5 minutes · le matin ou le soir",
+  "pour": "",
+  "visuel": "09-corps",
+  "etapes": [
+   {
+    "t": "Pose-toi",
+    "x": "Assieds-toi, les pieds bien à plat sur le sol, une main sur le ventre, l’autre sur le cœur. Ferme les yeux."
+   },
+   {
+    "t": "Respire en sécurité",
+    "x": "Respire lentement, en expirant plus longtemps que tu n’inspires. Dis à ton corps :\n« Je suis en sécurité, ici et maintenant. »\nIl a appris l’ancienne alerte. Aujourd’hui, tu lui apprends le calme."
+   },
+   {
+    "t": "Rappelle ta nouvelle vérité",
+    "x": "Dis la phrase qui remplace ton ancien schéma, au présent, comme si elle était déjà vraie :\n« J’ai le droit d’être aimé·e tel·le que je suis. »\n« Je suis en sécurité dans l’amour. »\n« J’ai le droit de prendre ma place. »\nChoisis la tienne et répète-la trois fois."
+   },
+   {
+    "t": "Vois-toi vivre le nouveau",
+    "x": "Imagine une situation de ta journée où l’ancien schéma aurait pu se déclencher. Vois-toi y répondre autrement : calme, aligné·e, à ta place. Sens ce que ça fait dans ton corps."
+   },
+   {
+    "t": "Ancre-le",
+    "x": "Pose un geste simple pour le garder en toi : presse ton pouce et ton index, ou garde ta main sur le cœur pendant trois respirations. Ce geste devient ton rappel : chaque fois que tu le refais dans la journée, ton corps se souvient de ta nouvelle réponse."
+   },
+   {
+    "t": "Ouvre les yeux",
+    "x": "Respire une dernière fois, profondément, et ouvre les yeux. Ta journée peut commencer, ou se terminer, avec cette nouvelle réponse en toi."
+   }
+  ]
+ },
+ {
+  "id": "lien",
+  "titre": "Couper un lien et reprendre mon énergie",
+  "court": "Quand une relation d’aujourd’hui ou d’hier te retient encore : un ex, une emprise, une relation qui t’épuise.",
+  "duree": "15 à 25 minutes · au calme",
+  "pour": "",
+  "visuel": "10-lien",
+  "avertissement": "Si tu portes des événements très lourds (violences, abus, perte brutale…), ne fais pas ce chemin seul·e. Fais-toi accompagner par un·e psychologue ou un·e professionnel·le en qui tu as confiance.",
+  "prepare": "Offre-toi un espace rien qu’à toi. Baisse la lumière, allume une bougie (de préférence en cire d’abeille) si tu en as envie, éteins ce qui pourrait te déranger. Ce temps t’appartient.\nSi tu en ressens le besoin, appelle à tes côtés une présence qui t’accompagne : ton guide, un être de lumière, ou une force plus grande, comme ton toi du futur, celui ou celle que tu deviens, plus sage et apaisé·e. Sens cette présence s’installer près de toi. Tu n’es pas seul·e.",
+  "fin": "Si une émotion devient trop forte, ouvre les yeux, pose tes pieds bien à plat sur le sol et respire. Tu pourras reprendre plus tard.",
+  "etapes": [
+   {
+    "t": "Déroule ta frise",
+    "x": "Ferme les yeux et laisse ta respiration s’apaiser. Devant toi, déroule ta frise du temps. Laisse venir les moments de cette relation qui te retiennent encore. (Ta présence guide se tient à tes côtés.)"
+   },
+   {
+    "t": "Entre dans chaque souvenir",
+    "x": "Pour chaque souvenir, avance et entre dedans. Retrouve le lieu, l’atmosphère, et regarde ton toi du passé, la personne que tu étais à ce moment-là. Approche-toi, dis-lui que tu es là et qu’il n’est plus seul, et prends ton toi du passé par la main.\nEnsemble, quittez cette pièce en disant : « Je libère mon âme de cet endroit et de cette énergie. Je coupe tous les liens avec cet espace. » Referme la porte derrière vous, et emmène ton toi du passé dans un endroit doux et lumineux. Dis-lui : « Maintenant, tu es avec moi. Ton énergie est de retour en moi. Nous sommes ensemble. »\nFais de même pour chaque souvenir de cette relation."
+   },
+   {
+    "t": "Regarde le lien",
+    "x": "Maintenant, regarde la personne de cette relation, à distance. Vois le lien qui part de toi vers elle. Est-il fin comme un fil, ou épais comme une corde ? Où s’accroche-t-il sur ton corps ? Sa taille te montre combien d’énergie tu as laissée dans cette relation."
+   },
+   {
+    "t": "Libère le lien",
+    "x": "Libère-le à ta manière : coupe-le, dissous-le dans la lumière, nettoie-le. Fais ce que tu ressens. (Ta présence guide peut t’aider.)\n« Je me libère de ce lien. Je reprends ma liberté. »"
+   },
+   {
+    "t": "Récupère ton énergie",
+    "x": "Rappelle maintenant à toi toute l’énergie que tu as laissée dans cette relation. Vois-la revenir vers toi, comme une lumière qui retrouve sa maison.\nAccueille-la dans ta sphère de lumière, au cœur. Sens-la te remplir, te renforcer, te rendre entier·e.\n« Je reprends toute mon énergie. Elle m’appartient. »"
+   },
+   {
+    "t": "Renforce ta bulle de lumière",
+    "x": "Ta sphère grandit et forme autour de toi une bulle de lumière, solide et lumineuse.\nSur toute sa surface, imagine des miroirs tournés vers l’extérieur. Si un lien négatif essaie encore de t’atteindre, il est renvoyé à sa source, sans haine et sans retour possible vers toi.\n« Ce qui ne m’appartient pas retourne à sa source. »"
+   },
+   {
+    "t": "Reviens",
+    "x": "Respire dans ta bulle, entier·e et protégé·e. Remercie ta présence guide, puis reviens doucement, à ton rythme, et ouvre les yeux."
+   }
+  ]
+ },
+ {
+  "id": "monte",
+  "titre": "Si ça monte fort",
+  "court": "Revenir ici et maintenant.",
+  "pour": "",
+  "etapes": [
+   "Pose les pieds au sol.",
+   "Respire avec la sphère, trois fois, lentement.",
+   "Nomme cinq objets autour de toi, à voix haute.",
+   "Tu peux reprendre un autre jour : rien ne presse."
+  ],
+  "securite": "Si ça dure plusieurs jours, ou si c’est trop lourd à porter seul·e, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement."
+ }
+],
   /* Les repères de la note sur 10 */
   NOTE: [[0, 'ça me prend comme avant'], [5, 'je le vois venir et je respire'], [10, 'la situation arrive et je reste calme']],
   IMAGE: 'Si tu ne vois pas d’image, sens-le, ou dis-le simplement : ça marche aussi.',
