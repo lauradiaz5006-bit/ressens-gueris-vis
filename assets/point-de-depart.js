@@ -261,7 +261,7 @@
     if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
-      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: true })).then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard.' : 'Enregistré et chiffré dans ton espace : l’équipe Genesolia ne le lit pas.'); }, function () { etat('Pas enregistré, réessaie plus tard.'); });
+      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: true })).then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard.' : 'Enregistré et chiffré dans ton espace privé.'); }, function () { etat('Pas enregistré, réessaie plus tard.'); });
     }, 900);
   }
   function garderResumeSilencieux() { var r = resume(), a = D.v.resume || {}; D.v.resume = { date: a.date || D.v.fait, mode: r.mode, modes: r.modes, domaine: r.domaine, domaineCle: r.domaineCle, blessures: r.blessures, cible1: D.v['c1-cible-1'] || '', cible2: D.v['c2-cible-1'] || '' }; }
