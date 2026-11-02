@@ -175,7 +175,7 @@ window.GENESOLIA_CARNET = {
           pourquoi: "Un écho reconnu perd beaucoup de sa force. Un écho que l’on transforme en moment choisi devient une ressource. Chaque date vécue à ta façon dit à ton corps que l’avenir n’est pas écrit d’avance.",
           gestes: ["Fêter un anniversaire que tu évitais", "Faire une promenade le jour d’une date de mémoire", "Cuisiner le plat préféré d’un·e ancêtre", "T’offrir une journée rien qu’à toi à une saison difficile", "Écrire une carte à une personne de ta famille le jour de sa fête", "Fêter ton année de Cercle avec quelqu’un que tu aimes"],
           q: "Ton geste : « La prochaine fois que cette date ou cet âge arrive, au lieu de…, je vais… »",
-          ph: "Exemple : au lieu de passer le 2 novembre enfermé·e chez moi, je vais marcher en forêt et allumer une bougie pour mon grand-père en rentrant.",
+          ph: "Exemple : au lieu de passer le 2 novembre enfermé·e chez moi, je vais marcher en forêt et allumer une bougie (de préférence en cire d’abeille) pour mon grand-père en rentrant.",
           journal: { k: 'ex3-celebre', n: 6, q: "Chaque fois que tu l’as fait : quand, et qu’est-ce qui a changé ?", ph: "Exemple : samedi, j’ai fêté mon année de Cercle avec ma sœur au restaurant. Je me suis senti·e fier·e, et léger·ère." } }
       ],
       conseil: "Si une date reste difficile malgré tout, ce n’est pas raté : certaines dates demandent plusieurs tours de spirale pour s’adoucir. Chaque année, tu la vivras un peu plus à ta façon. Et souviens-toi : tu as bouclé une année entière. C’est immense." }

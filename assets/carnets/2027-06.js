@@ -152,7 +152,7 @@ window.GENESOLIA_CARNET = {
     titre: 'La flamme de mon engagement',
     intro: "Imagine la lumière à son sommet, comme au jour le plus long de l'année. Ce petit rituel symbolique t'invite à puiser dans cette pleine lumière pour poser un engagement envers toi, et à remercier pour l'élan déjà là. Il se fait en quinze minutes, au coucher du soleil si tu peux.",
     materiel: "Une bougie, un papier et un crayon, et un endroit d’où tu vois le ciel : un jardin, un balcon, une fenêtre, un banc dans un parc.",
-    quand: "Un soir calme de ton étape, dès que tu te sens prêt·e. Tu peux rallumer ta bougie chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
+    quand: "Un soir calme de ton étape, dès que tu te sens prêt·e. Tu peux rallumer ta bougie (de préférence en cire d’abeille) chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
     etapes: [
       "Installe-toi face au ciel, un peu avant le coucher du soleil. Allume la bougie et respire trois fois profondément.",
       "Pense à tout ce que les mois passés t’ont déjà apporté. Dis intérieurement trois mercis, pour trois choses que tu as vécues ou osées depuis le début de ton parcours.",

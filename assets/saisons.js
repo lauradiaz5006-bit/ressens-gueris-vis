@@ -14,7 +14,7 @@ window.GENESOLIA_SAISONS = {
   "titre": "La lumière revient, discrète, au cœur de l'hiver",
   "texte": "En février, l'hiver tient encore la terre, mais quelque chose change. Les jours s'allongent de façon plus visible, les perce-neige traversent le sol gelé, certains bourgeons commencent à gonfler. Les oiseaux reprennent leurs chants au petit matin. C'est une saison de l'entre-deux, où le froid côtoie déjà une promesse. Intérieurement, février peut sembler long. Tu attends peut-être le printemps avec un mélange d'envie et de lassitude. Il arrive que l'énergie soit plus basse, que l'on se sente un peu engourdi·e. C'est aussi un moment propice au tri, au grand ménage intérieur, comme le suggère l'origine même du mot. Ce qui n'a plus sa place peut être déposé doucement, pour faire de l'espace à ce qui veut naître.",
   "permission": "C'est normal d'avoir encore besoin de chaleur et de repos. La lumière revient sans bruit : ton élan aussi, à son rythme.",
-  "geste": "Chaque soir, allume une bougie et note une petite lumière de ta journée.",
+  "geste": "Chaque soir, allume une bougie (de préférence en cire d’abeille) et note une petite lumière de ta journée.",
   "citation": "Même au cœur du froid, la lumière fait déjà son chemin."
  },
  "3": {
@@ -86,7 +86,7 @@ window.GENESOLIA_SAISONS = {
   "titre": "Le silence fertile où l'on honore les absent·es",
   "texte": "Novembre dépouille les arbres. Les dernières feuilles tombent, les branches se dessinent nues sur un ciel souvent gris, et la nature semble se taire. Sous terre pourtant, rien n'est mort : les graines attendent, les racines se renforcent. Il arrive parfois une douceur inattendue, ce que l'on appelle l'été de la Saint-Martin. Intérieurement, novembre peut sembler lourd : moins de lumière, plus de fatigue, une humeur plus grave. C'est aussi un mois propice à l'intériorité, au silence, aux bilans. Tu n'as pas à garder le rythme de l'été : le tien peut suivre celui de la saison. Novembre t'invite à te recueillir, à honorer ce qui a été, et à faire confiance à ce qui germe sans se voir.",
   "permission": "C'est normal d'avoir envie de calme, de rentrer, de penser à celles et ceux qui ne sont plus là. Le silence de novembre est fertile : rien n'est perdu.",
-  "geste": "Allume une bougie pour une personne de ta lignée et dis son prénom à voix haute.",
+  "geste": "Allume une bougie (de préférence en cire d’abeille) pour une personne de ta lignée et dis son prénom à voix haute.",
   "citation": "Nommer les absent·es, c'est leur rendre leur place."
  },
  "12": {
