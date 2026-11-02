@@ -252,6 +252,23 @@ window.GENESOLIA_CARNET = {
     ]
   },
 
+  autel: {
+    intention: "Ce mois-ci, ton autel accompagne ta question : quelle est ma place ? Le plateau rond en est le cœur. Tu traces un bord, tu décides de ce qui entre et de ce qui reste dehors. C'est un petit exercice de place, à l'échelle d'une table.",
+    cueillette: ['Quelques branches de sapin tombées au sol', 'Une pierre lisse, bien ronde', 'Une plume', 'Des pétales séchés, si tu en as gardé'],
+    couleurs: "Des tons doux de plein hiver : ivoire, blanc crème, rose poudré, gris perle, or ancien. Trois bougies ivoire de hauteurs différentes, une pour chaque génération qui te précède.",
+    elements: [
+      { nom: 'Le plateau', texte: 'Un plateau rond ou une assiette large, posé sur un tissu. C’est ta place : rien n’y entre que tu n’aies choisi.' },
+      { nom: 'La terre', texte: 'La pierre ronde et, si tu en as une, une pierre claire ou rose à côté. Ce qui tient sans bouger.' },
+      { nom: 'L’eau', texte: 'Une coupelle d’eau claire avec quelques pétales à la surface. La part qui reçoit, et qui reste souple.' },
+      { nom: 'Le feu', texte: 'Les trois bougies, de hauteurs différentes. Chacune à sa hauteur, aucune à la place d’une autre.' },
+      { nom: 'L’air', texte: 'La plume posée à plat, et les branches de sapin dans un vase : le parfum fait le reste.' },
+      { nom: 'Ce qui pèse', texte: 'Un objet un peu lourd, posé en dehors du plateau. Ce que tu portes pour quelqu’un d’autre, et qui n’a pas sa place dedans.' }
+    ],
+    ouverture: "« J’ouvre cet espace pour moi. Je prends ma place, toute ma place, et rien que ma place. Ce qui revient à d’autres, je le laisse à d’autres. »",
+    entretien: ['Chaque semaine, allume les bougies quelques minutes et regarde ce qui est posé en dehors du plateau. Demande-toi à qui cela revient.', 'Change l’eau et renouvelle les pétales quand ils ont fini.', 'Après un repas de famille où un ancien rôle est revenu, pose un objet sur le plateau pour marquer que tu as repris ta place.'],
+    cloture: "À la fin du mois, remercie ton autel. Rends à la nature les branches, la pierre et les pétales. Range le plateau : la nuit la plus longue est passée, la lumière revient déjà. Garde la plume pour le mois suivant."
+  },
+
   lectures: [
     { lien: 'place-dans-la-fratrie.html', titre: "La place dans la fratrie", resume: "Aîné·e, enfant du milieu, benjamin·e, enfant unique : ce que ton rang peut éclairer, et la juste mesure de ces repères." },
     { lien: 'filles-garcons-fratrie.html', titre: "Fille ou garçon attendu", resume: "Ce que racontent les fratries d’une famille, et comment une attente ancienne peut colorer une place." },
