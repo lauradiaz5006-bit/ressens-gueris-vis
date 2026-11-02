@@ -11,7 +11,10 @@
   function liste(l) { return '<ul>' + (l || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; }
   function bloc(n, t, c) { return '<section class="au-bloc"><h2><span>' + n + '</span>' + esc(t) + '</h2>' + c + '</section>'; }
   function afficher() {
-    var C = window.GENESOLIA_CARNET, A = C && C.coeur && C.coeur.autel;
+    /* L'autel se lit d'abord dans coeur.autel (trame du cycle 2, octobre), sinon
+       en clé de premier niveau : ajouter un coeur à un mois qui n'en a pas
+       basculerait tout le livret sur la mise en page du cycle 2. */
+    var C = window.GENESOLIA_CARNET, A = C && ((C.coeur && C.coeur.autel) || C.autel);
     var nm = MOIS[+m.split('-')[1] - 1];
     if (!A) { z.innerHTML = '<div class="au-tete"><p class="au-sur">Le Cercle · ' + esc(nm) + '</p><h1>Ton autel de saison</h1><p>L’autel de ce mois arrive bientôt. En attendant, retrouve ton suivi du mois.</p></div><p class="au-boutons"><a class="btn btn-plein" href="mon-suivi-mois.html">Mon suivi du mois</a></p>'; return; }
     z.innerHTML = '<div class="au-tete"><p class="au-sur">Le Cercle · ' + esc(nm) + ' ' + esc(m.split('-')[0]) + '</p><h1>Ton autel de saison</h1><p>Un petit espace qui protège ton énergie intérieure, célèbre ta beauté et honore l’être de la création que tu es.</p></div>' +
