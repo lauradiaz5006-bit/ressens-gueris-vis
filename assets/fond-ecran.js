@@ -94,7 +94,7 @@
       '<p class="mc-q">2. Tes mots et ta phrase</p><div class="gf-champs">' + [0, 1, 2].map(function (i) { return '<input type="text" maxlength="24" data-gf-mot="' + i + '" placeholder="Mot ' + (i + 1) + '" value="' + esc((o.mots || [])[i] || '') + '">'; }).join('') +
       '<input type="text" maxlength="110" data-gf-phrase placeholder="Ta phrase, par exemple : J’ai le droit de prendre ma place." value="' + esc(o.phrase || '') + '"></div>' +
       '<p class="mc-q">3. Ton ambiance</p><div class="gf-styles">' + Object.keys(STYLES).map(function (k) { return '<button type="button" data-gf-style="' + k + '" aria-pressed="' + (k === style) + '">' + STYLES[k].nom + '</button>'; }).join('') + '</div>' +
-      '<div data-gf-apercu></div><div class="gf-act"><button type="button" class="btn btn-plein" data-gf-telecharger>Télécharger mon fond d’écran</button></div>' +
+      '<div data-gf-apercu></div><div class="gf-act"><button type="button" class="btn btn-plein" data-gf-telecharger data-compte="ton fond d’écran">Télécharger mon fond d’écran</button></div>' +
       '<p class="gf-note">Sur iPhone : ouvre l’image, touche Partager, puis « Utiliser comme fond d’écran ». Sur Android : ouvre l’image, puis « Définir comme fond d’écran ».</p></div>';
     z.querySelector('[data-gf-apercu]').appendChild(cv);
     var cache = {};

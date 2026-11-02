@@ -165,10 +165,12 @@
           '<label class="dc-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir mon résultat et quelques e-mails de Genesolia pour continuer. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
           '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">' +
           '<button class="btn btn-plein" type="submit">Recevoir mon résultat</button><p class="dc-erreur" role="alert"></p></form>') +
-        '<div class="dc-actions"><button type="button" class="btn btn-trait" id="dc-imprimer">Imprimer mon carnet rempli</button><a class="btn btn-trait" href="' + PDF + '" download="carnet-des-deux-cycles-genesolia.pdf">Le carnet vierge (PDF)</a></div></div>' +
+        (lireInscrite() ? actionsCarnet() : '') + '</div>' +
         '<p class="dc-note" style="margin-top:1rem;background:#fff">Ce carnet propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique. Si tu traverses une période très difficile, parles-en à un professionnel ou à une personne de confiance.</p>';
     } }
   ];
+  /* Imprimer / PDF vierge : seulement une fois l'e-mail donné */
+  function actionsCarnet() { return '<div class="dc-actions"><button type="button" class="btn btn-trait" id="dc-imprimer">Imprimer mon carnet rempli</button><a class="btn btn-trait" href="' + PDF + '" download="carnet-des-deux-cycles-genesolia.pdf">Le carnet vierge (PDF)</a></div>'; }
   function lireInscrite() { try { return localStorage.getItem('deux-cycles-envoye') === 'oui'; } catch (e) { return false; } }
 
   /* ───── Affichage ───── */
@@ -264,7 +266,8 @@
     (window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Carnet des deux cycles en ligne', data, 'genesolia-deux-cycles') : Promise.reject())
       .then(function () {
         try { localStorage.setItem('deux-cycles-envoye', 'oui'); localStorage.setItem('carnet-inscrit', 'oui'); } catch (x) {}
-        f.outerHTML = '<p class="dc-merci">Merci' + (prenom() ? ' ' + esc(prenom()) : '') + '. Ton résultat part dans ta boîte mail, avec le lien de ton carnet.</p>';
+        f.outerHTML = '<p class="dc-merci">Merci' + (prenom() ? ' ' + esc(prenom()) : '') + '. Ton résultat part dans ta boîte mail, avec le lien de ton carnet.</p>' + actionsCarnet();
+        var imp = document.getElementById('dc-imprimer'); if (imp) { imp.setAttribute('data-branche', '1'); imp.addEventListener('click', function () { window.print(); }); }
         if (window.umami) try { window.umami.track('deux-cycles-resultat'); } catch (x) {}
       })
       .catch(function () { bt.disabled = false; bt.textContent = 'Recevoir mon résultat'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
