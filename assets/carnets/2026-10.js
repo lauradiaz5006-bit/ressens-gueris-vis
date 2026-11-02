@@ -236,7 +236,7 @@ window.GENESOLIA_CARNET = {
         titre: "Jour 2 · Ancrer (20 minutes)",
         etapes: [
           "**Laisser partir (5 minutes).** Brûle le dessin des bulles en sécurité, dans un récipient adapté, ou déchire-le en petits morceaux, ou enterre-le au pied d’un arbre. Garde précieusement le dessin de ton cercle.",
-          "**L’intention (5 minutes).** Allume une bougie, ton dessin devant toi, et dis calmement : « Je laisse la vie m’apporter des solutions adaptées à ma situation. Je choisis de vivre mes solutions (nomme-les), pleinement, dans cette vie. Tout évolue, chaque chose est à sa juste place, et tout est mouvement. À ce mouvement, je donne un sens, et ce sens, je l’accueille dans ma vie, maintenant. » Remercie, selon ta spiritualité.",
+          "**L’intention (5 minutes).** Allume une bougie (de préférence en cire d’abeille), ton dessin devant toi, et dis calmement : « Je laisse la vie m’apporter des solutions adaptées à ma situation. Je choisis de vivre mes solutions (nomme-les), pleinement, dans cette vie. Tout évolue, chaque chose est à sa juste place, et tout est mouvement. À ce mouvement, je donne un sens, et ce sens, je l’accueille dans ma vie, maintenant. » Remercie, selon ta spiritualité.",
           "**Le protocole (10 minutes).** Enchaîne avec le protocole ci-dessous."
         ]
       },

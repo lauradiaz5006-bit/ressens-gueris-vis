@@ -154,7 +154,7 @@ window.GENESOLIA_CARNET = {
     materiel: "Un petit pot avec de la terre, quelques graines faciles (lentilles, blé, cresson, ou un bulbe de jacinthe), un petit papier, un crayon, et une bougie si tu le souhaites.",
     quand: "Fais-le dans les premiers jours de ton étape, ou à la nouvelle lune, après ton exercice des trois valeurs. Arrose ta graine chaque fois que tu relis ton intention : vous pousserez ensemble.",
     etapes: [
-      "Installe-toi près d’une fenêtre, à la lumière du jour. Si tu le souhaites, allume une bougie. Respire trois fois profondément.",
+      "Installe-toi près d’une fenêtre, à la lumière du jour. Si tu le souhaites, allume une bougie (de préférence en cire d’abeille). Respire trois fois profondément.",
       "Écris ton intention de l’année sur le petit papier, en une phrase ou en un mot. Relis-la à voix basse.",
       "Plie le papier et glisse-le au fond du pot, sous la terre. C’est la racine de ton année.",
       "Prends les graines dans ta main. Pense à tes trois valeurs, une par une, et dis : « Je choisis ce qui compte pour moi. »",

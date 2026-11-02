@@ -245,7 +245,7 @@
     function piste(r) {
       var L = N.MOIS_LONG[r.t.mois], fam = r.dates.filter(function (x) { return !x.toi; })[0], e = r.echos[0], txt;
       if (e) txt = 'Ce mois-ci, tu as l\'âge auquel ' + prenomDe(e.p) + ' a vécu ' + e.quoi + '. Prends dix minutes pour lui écrire quelques lignes : ce que tu sais de ce moment de sa vie, ce que tu ressens, et ce que toi, tu choisis de vivre à cet âge.';
-      else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie, regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
+      else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie (de préférence en cire d’abeille), regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
       else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
       return '<div class="m-piste"><p class="m-etiq">Ta piste ' + de(nomMois) + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
     }

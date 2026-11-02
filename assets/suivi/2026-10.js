@@ -336,7 +336,7 @@ window.GENESOLIA_CARNET = {
         { nom: 'L’amour que tu te portes', texte: 'Un objet qui te représente avec tendresse : une photo de toi enfant, un bijou que tu aimes, un mot doux écrit pour toi.' }
       ],
       ouverture: "« J’ouvre cet espace pour moi. J’honore l’être de la création que je suis, et je laisse l’amour que je mérite venir jusqu’à moi. »",
-      entretien: ['Chaque semaine, allume une bougie quelques minutes et relis ton besoin de libération.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
+      entretien: ['Chaque semaine, allume une bougie (de préférence en cire d’abeille) quelques minutes et relis ton besoin de libération.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
       cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose les feuilles, les glands et la branche au pied d’un arbre. Garde la pierre en forme de cœur si tu le souhaites, ou offre-la à la terre."
     },
     autelPrompt: "Illustration peinte douce, entre aquarelle et peinture numérique, format carré : un petit autel d’automne posé sur une table en bois, feuilles rousses et dorées, glands, bâtons de cannelle, une pomme rouge, trois bougies ambre allumées, une petite pierre en forme de cœur ; lumière chaude de fin d’après-midi, palette prune, vieux rose, or champagne et crème ; aucun texte, aucune personne."

@@ -162,7 +162,7 @@ window.GUIDE_TEXTES = {
 "conjonction": "Neptune en conjonction à ta Lune : ta sensibilité s'affine, parfois jusqu'à absorber les émotions de ton entourage. Ce passage invite à la douceur, à la musique, aux rêves. Tu peux remarquer des souvenirs familiaux flous qui reviennent. Protège ton espace : un moment seul·e chaque jour t'aide à distinguer ce qui est à toi.",
 "carre": "Neptune en carré à ta Lune : il arrive que les humeurs soient confuses, que tu te sentes dans le flou, ou que tu idéalises un lien familial. Ce passage invite à une vigilance douce. Tu peux limiter ce qui t'embrume, écrans, agenda trop chargé, et poser des questions claires plutôt que supposer.",
 "opposition": "Neptune en opposition à ta Lune : un proche peut avoir besoin de toi, et la tentation de le sauver est forte. Ce passage invite à aider sans te dissoudre. Tu peux te demander si ce rôle de soutien se répète dans ta lignée. Offre ta présence, mais garde des limites qui te protègent.",
-"trigone": "Neptune en trigone à ta Lune : un passage favorable à l'intuition et à la tendresse. Tes rêves peuvent être parlants, tes liens familiaux plus apaisés. C'est un bon moment pour un rituel de mémoire : allumer une bougie pour un ancêtre, regarder de vieilles photos, écrire une lettre jamais envoyée. La douceur te guide."
+"trigone": "Neptune en trigone à ta Lune : un passage favorable à l'intuition et à la tendresse. Tes rêves peuvent être parlants, tes liens familiaux plus apaisés. C'est un bon moment pour un rituel de mémoire : allumer une bougie (de préférence en cire d’abeille) pour un ancêtre, regarder de vieilles photos, écrire une lettre jamais envoyée. La douceur te guide."
 }
 },
 "pluton": {
@@ -202,7 +202,7 @@ window.GUIDE_TEXTES = {
 "Semaine 1 : sur une feuille, écris en une phrase ce que tu veux commencer ce mois-ci, au présent, comme si c'était déjà en cours. Affiche-la sur le frigo ou en fond d'écran. Chaque matin, relis-la à voix haute et note un mot qui décrit ton humeur du jour.",
 "Semaine 2 : réalise le premier geste concret lié à ton intention, même minuscule : un appel, une inscription, un achat de matériel, un brouillon. Chronomètre-toi quinze minutes et arrête-toi là. Le soir, note ce que tu as ressenti au moment de te lancer.",
 "Semaine 3 : choisis une chose que tu fais toujours de la même façon et change-la volontairement : ton trajet, ta place à table, ton premier café. Observe ce que ce petit décalage déclenche. Écris trois situations où tu as osé dire « je » plutôt que « on ».",
-"Semaine 4 : fais le bilan de ton mois en cinq lignes : ce que tu as lancé, ce qui a résisté, ce que tu as appris de toi. Puis offre-toi un petit rituel de début : allumer une bougie, planter une graine, et nommer ce que tu veux voir grandir."
+"Semaine 4 : fais le bilan de ton mois en cinq lignes : ce que tu as lancé, ce qui a résisté, ce que tu as appris de toi. Puis offre-toi un petit rituel de début : allumer une bougie (de préférence en cire d’abeille), planter une graine, et nommer ce que tu veux voir grandir."
 ]
 },
 "2": {

@@ -154,7 +154,7 @@ window.GENESOLIA_CARNET = {
     materiel: "Une bougie, quelques petits cailloux, des feuilles ou des branches ramassées dehors (ou une ficelle si tu n’en as pas), deux petits papiers et un crayon.",
     quand: "Fais-le un soir calme, ou quelques jours avant un moment chargé. Tu peux garder le cercle en place quelques jours, et rallumer la bougie chaque fois que tu sens que tu t'éparpilles.",
     etapes: [
-      "Éteins les lumières, et allume ta bougie. Regarde la flamme trois respirations : c’est ta lumière, celle qui tient au cœur de la nuit.",
+      "Éteins les lumières, et allume ta bougie (de préférence en cire d’abeille). Regarde la flamme trois respirations : c’est ta lumière, celle qui tient au cœur de la nuit.",
       "Avec les cailloux, les feuilles ou les branches, trace un cercle autour de la bougie. Ce cercle, c’est ton espace, ton énergie, ta juste place.",
       "Sur un premier papier, écris ce que tu protèges dans ce cercle dans les semaines qui viennent : un moment, un besoin, une personne, ton repos. Pose-le à l’intérieur, près de la flamme.",
       "Sur un deuxième papier, écris ce que tu laisses à l’extérieur : une obligation, une attente qui n’est pas la tienne, un oui de trop. Pose-le hors du cercle.",

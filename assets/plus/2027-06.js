@@ -50,7 +50,7 @@ window.GENESOLIA_PLUS = {
       },
       jours: [
       "Commence la liste de tout ce que tu as osé ce mois-ci, même les essais ratés. Écris au moins cinq lignes, et ajoutes-en une chaque jour de la semaine.",
-      "Rallume ta bougie d’engagement, ou regarde le ciel un soir. Relis ton engagement écrit et dis trois mercis pour ce qui a déjà avancé.",
+      "Rallume ta bougie (de préférence en cire d’abeille) d’engagement, ou regarde le ciel un soir. Relis ton engagement écrit et dis trois mercis pour ce qui a déjà avancé.",
       "Ferme les yeux deux minutes et imagine ton projet un peu plus loin, déjà en route. Regarde derrière toi tous les petits pas faits ce mois-ci.",
       "Choisis la croyance qui accompagne ton intention, par exemple « je peux compter sur moi ». Écris-la et garde-la près de ton espace de travail.",
       "Trouve trois mots pour ton tableau de vision, comme « élan, clarté, confiance ». Note-les sur un papier avec la prochaine étape de ton projet.",

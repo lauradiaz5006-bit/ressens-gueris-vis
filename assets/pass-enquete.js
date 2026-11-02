@@ -28,7 +28,7 @@ window.PASS_ENQUETE = [
     souffle: 'Ceux qui sont encore là gardent des souvenirs que personne n’a écrits. Ce qui compte n’est pas seulement ce qui s’est passé, mais ce qu’ils ont ressenti. Une question posée avec douceur peut ouvrir une porte fermée depuis cinquante ans.',
     enquete: ['Choisis une personne vivante de ta famille : ta mère, une tante, un grand-père, un cousin plus âgé.', 'Pose-lui une seule question cette semaine, par exemple : « Qu’as-tu ressenti quand tu as quitté ta maison d’enfance ? »', 'Note ses mots exacts, même ceux qui semblent anodins.'],
     ressens: ['Qu’as-tu ressenti dans ton corps pendant qu’elle ou il te répondait ?', 'Qu’est-ce qui n’a pas été dit, et que tu as quand même entendu ?'],
-    geste: 'Avant l’échange, allume une bougie ou ouvre une fenêtre, et pose l’intention d’écouter sans juger. Après, remercie à voix haute, même si la personne n’est plus en face de toi.',
+    geste: 'Avant l’échange, allume une bougie (de préférence en cire d’abeille) ou ouvre une fenêtre, et pose l’intention d’écouter sans juger. Après, remercie à voix haute, même si la personne n’est plus en face de toi.',
     livre: 'Le livre propose des entretiens complets, une page par personne qui raconte : ta mère, ton père, tes quatre grands-parents, et d’autres voix.',
     outils: [['Les questions à poser à sa famille', 'questions-a-poser-a-sa-famille.html']]
   },

@@ -78,7 +78,7 @@ window.CARNET_ACCOMP = {
     { id: "rassure-moi", t: "Me rassurer moi-même quand j’ai peur : la main sur le cœur, « Je suis là pour toi »", b: ["abandon"], d: ["connexion"], m: ["bas"] },
     { id: "enfant-int", t: "Écrire trois lignes tendres à l’enfant que j’étais", b: ["rejet", "abandon", "humiliation"], d: ["evolution", "connexion"] },
     { id: "photo-enfant", t: "Regarder une photo de moi enfant et lui sourire", b: ["rejet", "abandon"], d: ["connexion"] },
-    { id: "ancetre", t: "Allumer une bougie pour un·e ancêtre et lui dire merci pour une force reçue", d: ["famille", "connexion"] },
+    { id: "ancetre", t: "Allumer une bougie (de préférence en cire d’abeille) pour un·e ancêtre et lui dire merci pour une force reçue", d: ["famille", "connexion"] },
     { id: "appel-famille", t: "Appeler une personne de ma famille juste pour prendre des nouvelles", b: ["abandon"], d: ["famille"] },
     { id: "question-famille", t: "Poser à un parent une question sur son histoire, à mon âge", d: ["famille", "evolution"] },
     { id: "message-ami", t: "Envoyer un message gentil à une personne que j’aime, sans raison", b: ["abandon", "rejet"], d: ["amis", "amour"] },
