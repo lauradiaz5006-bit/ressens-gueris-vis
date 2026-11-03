@@ -229,8 +229,12 @@
         /* avec le conjoint : il se place juste à droite de toi, les frères et sœurs passent à gauche */
         var rang0 = [moi];
         if (CJ) { fsPlein.forEach(function (f) { rang0.unshift(f); }); rang0.push(CJ); }
-        else if (UN.length) {   /* 1re union à droite, 2e à gauche, 3e à droite après la 1re ; frères et sœurs tout à gauche */
-          if (UN[1]) rang0.unshift(UN[1]); fsPlein.forEach(function (f) { rang0.unshift(f); }); rang0.push(UN[0]); if (UN[2]) rang0.push(UN[2]);
+        else if (UN.length) {
+          if (fsPlein.length) {   /* des frères et sœurs existent : tous les conjoints du même côté (à droite), pour qu'aucun ne se retrouve entre toi et ta fratrie */
+            fsPlein.forEach(function (f) { rang0.unshift(f); }); rang0.push(UN[0]); if (UN[1]) rang0.push(UN[1]); if (UN[2]) rang0.push(UN[2]);
+          } else {   /* pas de fratrie : 1re union à droite, 2e à gauche, 3e à droite après la 1re */
+            if (UN[1]) rang0.unshift(UN[1]); rang0.push(UN[0]); if (UN[2]) rang0.push(UN[2]);
+          }
         }
         else fsPlein.forEach(function (f, i) { if (i % 2) rang0.push(f); else rang0.unshift(f); });
         fsDemiP.forEach(function (f) { rang0.unshift(f); }); fsDemiM.forEach(function (f) { rang0.push(f); });   /* les demis au bout, côté de leur parent */
