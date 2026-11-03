@@ -292,7 +292,7 @@
       var un = ap ? rels.filter(function (r) { return r.type === 'couple' && ((r.from === ap && r.to === com[0]) || (r.to === ap && r.from === com[0])); })[0] : null;
       var autre = ap && P[ap] ? { _id: ap, prenom: P[ap].prenom || '', nom: P[ap].nom || '', sexe: P[ap].sex === 'f' ? 'f' : 'm', naissance: annee(P[ap].naiss), deces: annee(P[ap].deces) || null, separe: !!(un && (un.statut === 'separe' || un.statut === 'divorce')) } : null;
       return { prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null, demi: demi, cote: cote, autre: autre };
-    }).sort(function (a, b) { return (a.demi ? 1 : 0) - (b.demi ? 1 : 0); });
+    }).sort(function (a, b) { return (a.demi ? 1 : 0) - (b.demi ? 1 : 0) || (a.naissance || 9999) - (b.naissance || 9999); });
     freres.forEach(function (f) { if (f.naissance && f.naissance > (plusJeune || 0)) plusJeune = f.naissance; if (!f.deces && f.naissance && f.naissance > new Date().getFullYear() - 105) vivant = true; });
     /* ses enfants, du plus âgé au plus jeune (option « avec mes enfants », au pied de l'arbre) */
     var enfants = enfantsDe(moi).filter(function (id, i, t) { return t.indexOf(id) === i; }).map(function (id) { var p = P[id]; return { _id: id, prenom: p.prenom || '', nom: p.nom || '', sexe: p.sex === 'f' ? 'f' : 'm', naissance: annee(p.naiss), deces: annee(p.deces) || null }; })
