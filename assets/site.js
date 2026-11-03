@@ -612,6 +612,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
           '<li><a href="mes-seances.html">Mes séances</a></li>' +
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
+          '<li><a href="pourquoi-genesolia.html">Pourquoi Genesolia</a></li>' +
           '<li><a href="la-demarche.html">La démarche</a></li>' +
           '<li><a href="tarifs.html">Tarifs</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
