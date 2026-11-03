@@ -325,10 +325,13 @@
     /* Frères et sœurs : de part et d'autre du tronc, au niveau des petits buissons (si la cliente les inclut) */
     var fs = (donnees.freresSoeurs || []).slice(0, 4), nM = fs.filter(function (f) { return f.demi && f.cote === 'mere'; }).length, nP = fs.filter(function (f) { return f.demi && f.cote === 'pere'; }).length;
     var FS_X = [[.29, .71], [.29, .71, .12, .88]][fs.length > 2 || nM > 1 || nP > 1 ? 1 : 0];
-    /* places : à gauche côté père, à droite côté mère ; les demi-frères et demi-sœurs vont du côté de leur parent commun */
-    var gauche = FS_X.filter(function (v) { return v < .5; }), droite = FS_X.filter(function (v) { return v > .5; }), libres = [];
+    /* places : à gauche côté père, à droite côté mère ; les demi-frères et demi-sœurs vont du côté de leur parent commun.
+       gauche et droite triées de l'intérieur vers l'extérieur, pour garder l'ordre de naissance (déjà trié) de part et d'autre. */
+    var gauche = FS_X.filter(function (v) { return v < .5; }).sort(function (a, b) { return a - b; }), droite = FS_X.filter(function (v) { return v > .5; }).sort(function (a, b) { return a - b; }), libres = [];
     fs.forEach(function (f) { if (f.demi && f.cote === 'mere' && droite.length) f._px = droite.shift(); else if (f.demi && f.cote === 'pere' && gauche.length) f._px = gauche.shift(); });
-    fs.forEach(function (f) { if (f._px == null) f._px = (gauche.length >= droite.length ? gauche : droite).shift(); });
+    /* les frères et sœurs pleins, déjà triés par naissance : la première moitié à gauche (de la plus proche du tronc vers l'extérieur), la seconde à droite */
+    var reste = fs.filter(function (f) { return f._px == null; }), moitie = Math.ceil(reste.length / 2);
+    reste.forEach(function (f, i) { f._px = (i < moitie ? gauche : droite).shift(); });
     fs.forEach(function (f) { f._fg = 1; h += medaillon(f, Math.round(f._px * W), 2820, 150, 120, 1, max, false); delete f._px; });
     /* « Avec mes enfants » : au pied de l'arbre, sur les racines, du plus âgé au plus jeune */
     var enfF = (donnees.enfants || []).slice(0, 6), pasF = enfF.length > 4 ? 320 : 360;

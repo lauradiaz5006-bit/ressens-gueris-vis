@@ -16,6 +16,15 @@
   var R = [163, 150, 130, 108, 76];   /* rayon du médaillon ; on écrit dans 80 % de ce rayon */
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  /* Trait d'union : pointillé pour une union libre (statut « union »), plein avec une barre perpendiculaire pour « separe », deux pour « divorce » — comme dans l'outil */
+  function traitUnion(statut) { return statut === 'union' ? ' stroke-dasharray="16 12"' : ''; }
+  function marqueUnion(statut, x1, y1, x2, y2, coul) {
+    if (statut !== 'separe' && statut !== 'divorce') return '';
+    var dx = x2 - x1, dy = y2 - y1, len = Math.sqrt(dx * dx + dy * dy) || 1, ux = dx / len, uy = dy / len, nx = -uy * 9, ny = ux * 9, mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    var h = '<path d="M' + f1(mx - nx) + ' ' + f1(my - ny) + 'L' + f1(mx + nx) + ' ' + f1(my + ny) + '" stroke="' + coul + '" stroke-width="8"/>';
+    if (statut === 'divorce') h += '<path d="M' + f1(mx - nx + ux * 12) + ' ' + f1(my - ny + uy * 12) + 'L' + f1(mx + nx + ux * 12) + ' ' + f1(my + ny + uy * 12) + '" stroke="' + coul + '" stroke-width="8"/>';
+    return h;
+  }
   var ctx = null;
   function larg(t, taille, police, gras) {
     try { if (!ctx && typeof document !== 'undefined') ctx = document.createElement('canvas').getContext('2d'); if (ctx) { ctx.font = (gras ? '700 ' : '400 ') + taille + 'px ' + police; return ctx.measureText(t).width; } } catch (e) {}
@@ -107,7 +116,7 @@
     /* le conjoint : un médaillon peint à droite de toi, relié par un trait doré (pointillé s'ils sont séparés) */
     if (CJ) {
       var RC = 128, xc = X[0][0] + R[0] + RC + 75, yc = Y[0][0] - 10, scc = RC / 152;
-      eH += '<path d="M' + (X[0][0] + R[0] - 4) + ' ' + Y[0][0] + 'L' + f1(xc - RC + 6) + ' ' + yc + '" stroke="#B08048" stroke-width="8" fill="none" stroke-linecap="round"' + (CJ.separe ? ' stroke-dasharray="16 12"' : '') + '/>';
+      eH += '<path d="M' + (X[0][0] + R[0] - 4) + ' ' + Y[0][0] + 'L' + f1(xc - RC + 6) + ' ' + yc + '" stroke="#B08048" stroke-width="8" fill="none" stroke-linecap="round"' + traitUnion(CJ.statut) + '/>' + marqueUnion(CJ.statut, X[0][0] + R[0] - 4, Y[0][0], xc - RC + 6, yc, '#B08048');
       eH += '<circle cx="' + f1(xc) + '" cy="' + yc + '" r="' + f1(RC * .95) + '" fill="#FDF8EF"/>';
       eH += o.medaillon ? '<image href="' + esc(o.medaillon) + '" x="' + f1(xc - 360 * scc) + '" y="' + f1(yc - 279 * scc) + '" width="' + f1(780 * scc) + '" height="' + f1(540 * scc) + '"/>' : '<circle cx="' + f1(xc) + '" cy="' + yc + '" r="' + RC + '" fill="none" stroke="url(#gr-or)" stroke-width="11"/>';
       eH += medaillon(CJ, Math.round(xc), yc, RC * .78);

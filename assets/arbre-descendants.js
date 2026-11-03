@@ -16,6 +16,14 @@
   function theme(t) { THEME = t === 'medaillons' || t === 'dore' ? t : ''; BAS = THEME === 'dore' ? BAS0 - 150 : BAS0; }
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  /* Trait d'union : pointillé pour une union libre (statut « union »), plein avec une barre pour « separe », deux barres pour « divorce » — comme dans l'outil */
+  function traitUnion(statut) { return statut === 'union' ? ' stroke-dasharray="14 10"' : ''; }
+  function marqueUnion(statut, m, y, coul) {
+    if (statut !== 'separe' && statut !== 'divorce') return '';
+    var h = '<path d="M' + f1(m - 5) + ' ' + f1(y + 10) + 'L' + f1(m + 5) + ' ' + f1(y - 10) + '" stroke="' + coul + '" stroke-width="6"/>';
+    if (statut === 'divorce') h += '<path d="M' + f1(m + 6) + ' ' + f1(y + 10) + 'L' + f1(m + 16) + ' ' + f1(y - 10) + '" stroke="' + coul + '" stroke-width="6"/>';
+    return h;
+  }
   var ctx = null;
   var MEMO = {};
   function larg(t, taille, police, gras) {
@@ -156,7 +164,8 @@
     var xr = R.x, xc = null;
     if (R.ec) { xr = R.x - 60 - R.e.w / 2; xc = R.x + 60 + R.ec.w / 2; }   /* le milieu du trait du couple pile au-dessus des enfants */
     /* plusieurs unions : la 1re à droite, la 2e à gauche ; chacune a son trait d'union, ses enfants partent de son milieu */
-    var UNI = (R.ecs || []).map(function (e, k) { var s0 = k ? -1 : 1, x = xr + s0 * (R.e.w / 2 + 120 + e.w / 2); return { e: e, p: UNS[k], x: x, xm: xr + s0 * (R.e.w / 2 + 60) }; });
+    /* la 1re union (la plus ancienne, par l'aîné de ses enfants) à gauche, la plus récente à droite — même ordre que les enfants groupés par union */
+    var UNI = (R.ecs || []).map(function (e, k) { var s0 = k ? 1 : -1, x = xr + s0 * (R.e.w / 2 + 120 + e.w / 2); return { e: e, p: UNS[k], x: x, xm: xr + s0 * (R.e.w / 2 + 60) }; });
     function depart0(c) { var u = c && c.p && c.p._u >= 0 ? UNI[c.p._u] : null; return u ? u.xm : R.ec ? (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2 : xr; }
     R.xd = xr;
 
@@ -236,12 +245,13 @@
       cartes += carte(n.p, n.e, x, yt, n.g === 0);
       if (n.g === 0 && R.ec) {
         var ytc = yTop[0] + (hRang[0] - R.ec.h) / 2, yc = yTop[0] + hRang[0] / 2;
-        traits += '<path d="M' + f1(xr + R.e.w / 2) + ' ' + f1(yc) + 'H' + f1(xc - R.ec.w / 2) + '" stroke="#B08048" stroke-width="6" fill="none"' + (cj.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
+        var mcj = (xr + R.e.w / 2 + xc - R.ec.w / 2) / 2;
+        traits += '<path d="M' + f1(xr + R.e.w / 2) + ' ' + f1(yc) + 'H' + f1(xc - R.ec.w / 2) + '" stroke="#B08048" stroke-width="6" fill="none"' + traitUnion(cj.statut) + '/>' + marqueUnion(cj.statut, mcj, yc, '#B08048');
         cartes += carte(cj, R.ec, xc, ytc, false);
       }
       if (n.g === 0) UNI.forEach(function (u, k) {
         var ycu = yTop[0] + hRang[0] / 2, s0 = k ? -1 : 1, xa = xr + s0 * R.e.w / 2, xb = u.x - s0 * u.e.w / 2;
-        traits += '<path d="M' + f1(Math.min(xa, xb)) + ' ' + f1(ycu) + 'H' + f1(Math.max(xa, xb)) + '" stroke="#B08048" stroke-width="6" fill="none"' + (u.p.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
+        traits += '<path d="M' + f1(Math.min(xa, xb)) + ' ' + f1(ycu) + 'H' + f1(Math.max(xa, xb)) + '" stroke="#B08048" stroke-width="6" fill="none"' + traitUnion(u.p.statut) + '/>' + marqueUnion(u.p.statut, (xa + xb) / 2, ycu, '#B08048');
         cartes += carte(u.p, u.e, u.x, yTop[0] + (hRang[0] - u.e.h) / 2, false);
       });
       if (!n.enf.length) { if (DORE && n.g > 0) traits += pousses(x, yt + 4, yt - HAUT - 30, aj.fz); return; }

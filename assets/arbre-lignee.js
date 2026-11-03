@@ -15,6 +15,15 @@
      Le texte doit faire au moins 8 points imprimés : 34 px en A4, moins en plus grand (la page est plus grande). */
   function ech(a3) { return typeof a3 === 'number' ? a3 : a3 ? 1.414 : 1; }
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  /* Trait d'union : pointillé pour une union libre (statut « union »), plein avec une barre pour « separe », deux pour « divorce » — comme dans l'outil */
+  function traitUnion(statut) { return statut === 'union' ? ' stroke-dasharray="14 10"' : ''; }
+  function marqueUnion(statut, x1, y1, x2, y2, coul) {
+    if (statut !== 'separe' && statut !== 'divorce') return '';
+    var mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    var h = '<path d="M' + f1(mx - 5) + ' ' + f1(my + 10) + 'L' + f1(mx + 5) + ' ' + f1(my - 10) + '" stroke="' + coul + '" stroke-width="6"/>';
+    if (statut === 'divorce') h += '<path d="M' + f1(mx + 6) + ' ' + f1(my + 10) + 'L' + f1(mx + 16) + ' ' + f1(my - 10) + '" stroke="' + coul + '" stroke-width="6"/>';
+    return h;
+  }
   var ctx = null;
   var MEMO = {};   /* les mêmes noms sont mesurés des centaines de fois pendant la mise en page : on garde chaque mesure */
   function larg(t, taille, police, gras) {
@@ -342,14 +351,14 @@
     if (UN.length) {   /* chaque union : un trait (pointillé si séparés) ; ses enfants dessous, à partir du milieu du trait */
       var bord = function (q, cote) { return q._x + cote * (q._e.rr ? q._e.rr : q._e.w / 2); };
       UN.forEach(function (u, k) {
-        var d = u.separe ? ' stroke-dasharray="14 10"' : '', gauche = u._x < moi._x;
+        var d = traitUnion(u.statut), gauche = u._x < moi._x;
         if (k < 2) {
           var xa1 = gauche ? bord(u, 1) : bord(moi, 1), xb1 = gauche ? bord(moi, -1) : bord(u, -1);
-          traits += '<path d="M' + f1(xa1) + ' ' + f1(yCm) + 'H' + f1(xb1) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>';
+          traits += '<path d="M' + f1(xa1) + ' ' + f1(yCm) + 'H' + f1(xb1) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>' + marqueUnion(u.statut, xa1, yCm, xb1, yCm, '#B08048');
           u._xm = (xa1 + xb1) / 2; u._ym = yCm;
         } else {   /* 3e union : le trait passe au-dessus de la 1re */
           var yh = Math.min(moi._yb - moi._e.h, UN[0]._yb - UN[0]._e.h, u._yb - u._e.h) - 26;
-          traits += '<path d="M' + f1(moi._x + moi._e.w * .3) + ' ' + f1(moi._yb - moi._e.h) + 'V' + f1(yh) + 'H' + f1(u._x - u._e.w * .3) + 'V' + f1(u._yb - u._e.h) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>';
+          traits += '<path d="M' + f1(moi._x + moi._e.w * .3) + ' ' + f1(moi._yb - moi._e.h) + 'V' + f1(yh) + 'H' + f1(u._x - u._e.w * .3) + 'V' + f1(u._yb - u._e.h) + '" stroke="#B08048" stroke-width="6" fill="none"' + d + '/>' + marqueUnion(u.statut, moi._x + moi._e.w * .3, yh, u._x - u._e.w * .3, yh, '#B08048');
           u._xm = (bord(UN[0], 1) + bord(u, -1)) / 2; u._ym = yh;
         }
       });
@@ -384,7 +393,7 @@
     }
     if (CJ) {   /* le couple : un trait doré entre toi et ton conjoint (en pointillé s'ils sont séparés) */
       var yC = moi._e.cy != null ? moi._yb - moi._e.h + moi._e.cy : moi._yb - moi._e.h / 2, xa0 = moi._x + (moi._e.rr ? moi._e.rr : moi._e.w / 2), xb0 = CJ._x - (CJ._e.rr ? CJ._e.rr : CJ._e.w / 2);
-      traits += '<path d="M' + f1(xa0) + ' ' + f1(yC) + 'H' + f1(xb0) + '" stroke="#B08048" stroke-width="6" fill="none"' + (CJ.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
+      traits += '<path d="M' + f1(xa0) + ' ' + f1(yC) + 'H' + f1(xb0) + '" stroke="#B08048" stroke-width="6" fill="none"' + traitUnion(CJ.statut) + '/>' + marqueUnion(CJ.statut, xa0, yC, xb0, yC, '#B08048');
     }
     if (fsPlein.length) {   /* frères et sœurs : un trait commun au-dessus de la rangée */
       var tous = [moi].concat(fsPlein), yf = moi._yb - moi._e.h - 30, xa = Math.min.apply(null, tous.map(function (q) { return q._x; })), xb = Math.max.apply(null, tous.map(function (q) { return q._x; }));
@@ -396,7 +405,7 @@
     var cy0 = function (q) { return q._e.cy != null ? q._yb - q._e.h + q._e.cy : q._yb - q._e.h / 2; };
     AUTRES.forEach(function (a) {
       var par = a._par, yu = cy0(par), xa = par._x + a._sens * Math.max(par._e.rr || 0, par._e.w / 2), xb = a._x - a._sens * Math.max(a._e.rr || 0, a._e.w / 2), xm = (xa + xb) / 2;
-      traits += '<path d="M' + f1(xa) + ' ' + f1(yu) + 'H' + f1(xb) + '" stroke="#B08048" stroke-width="5" fill="none"' + (a.separe ? ' stroke-dasharray="14 10"' : '') + '/>';
+      traits += '<path d="M' + f1(xa) + ' ' + f1(yu) + 'H' + f1(xb) + '" stroke="#B08048" stroke-width="5" fill="none"' + traitUnion(a.statut) + '/>' + marqueUnion(a.statut, xa, yu, xb, yu, '#B08048');
       var l = a._l, yd = Math.max.apply(null, l.map(function (f) { return f._yb - f._e.h; })) - 46, xs = l.map(function (f) { return f._x; }).concat([xm]);
       traits += '<path d="M' + f1(xm) + ' ' + f1(yu) + 'V' + f1(yd) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".85"/>';
       traits += '<path d="M' + f1(Math.min.apply(null, xs)) + ' ' + f1(yd) + 'H' + f1(Math.max.apply(null, xs)) + '" stroke="' + OR_FONCE + '" stroke-width="4" fill="none" opacity=".85"/>';
