@@ -1,4 +1,4 @@
-/* Mon Espace Pro : tableau de bord privé de Laura (mon-espace-pro.html).
+/* Mon Espace Pro : tableau de bord privé de Laura (mon-bureau.html).
    Aucune IA : la page lit elle-même ses données à l'ouverture.
    Stockage : table Supabase public.qg_items (une ligne = { kind, data }), lisible seulement par les deux comptes de Laura.
    Copie sur l'appareil (localStorage) pour un affichage immédiat et pour garder ce qui n'a pas pu partir sans réseau. */
