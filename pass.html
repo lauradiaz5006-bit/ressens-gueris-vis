@@ -377,8 +377,11 @@
     body.pa-fige{position:fixed;left:0;right:0;width:100%;overflow:hidden}
     .pa-2col>div{min-width:0}
     body.pa-app #crisp-chatbox,body.pa-app .crisp-client{display:none!important}
-    /* Le pied de chaque fenêtre : Enregistrer, toujours visible */
-    .pa-f-pied{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .7rem;padding:.65rem 1.1rem calc(.65rem + env(safe-area-inset-bottom,0px));border-top:1px solid #EFDCE3;background:#FFF9F4;border-radius:0 0 26px 26px}
+    /* Le pied de chaque fenêtre : Enregistrer, toujours visible ; une ombre vers le haut montre qu'il reste du contenu à faire défiler au-dessus */
+    .pa-f-pied{flex:none;position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .7rem;padding:.65rem 1.1rem calc(.65rem + env(safe-area-inset-bottom,0px));border-top:1px solid #EFDCE3;background:#FFF9F4;border-radius:0 0 26px 26px;box-shadow:0 -10px 14px -8px rgba(59,23,71,.14)}
+    .pa-f-perso-tete{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem}
+    .pa-f-perso-tete h2{margin:0}
+    .pa-f-perso-tete .pa-lien-s{flex:none;white-space:nowrap}
     .pa-f-pied .pa-bt{margin:0;min-height:44px;padding:.5rem 1rem}
     .pa-f-bts{display:flex;gap:.5rem;margin-left:auto}
     .pa-f-msg{flex:1 1 9rem;margin:0;font-size:.84rem;line-height:1.35;color:#7E5C77}

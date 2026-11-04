@@ -2307,18 +2307,19 @@
     var T = theatre(), p = id === 'new' ? null : persoT(id), neuf = !p;
     if (neuf) p = { id: 'pt' + Date.now().toString(36), nom: '', qui: 'vie', role: '', genre: '', couleur: '#4E5D94', symptomes: pre ? [pre] : [] };
     var RS = ressensProposes(p), PH = phrasesFamille().concat((p.symptomes || []).filter(function (t) { return RS.indexOf(t) < 0 && phrasesFamille().indexOf(t) < 0; }));
-    var h = '<p class="pa-etiq">' + (neuf ? 'Nouveau personnage' : 'Mon personnage') + '</p><h2>' + (neuf ? 'Qui est-ce ?' : esc(p.nom) + ' · ' + esc(lienPerso(p))) + '</h2><form class="pa-form" novalidate onsubmit="return false">' +
+    var h = '<p class="pa-etiq">' + (neuf ? 'Nouveau personnage' : 'Mon personnage') + '</p><div class="pa-f-perso-tete"><h2>' + (neuf ? 'Qui est-ce ?' : esc(p.nom) + ' · ' + esc(lienPerso(p))) + '</h2>' + (neuf ? '' : '<button type="button" class="pa-lien-s" data-t-suppr>Supprimer</button>') + '</div><form class="pa-form" novalidate onsubmit="return false">' +
       '<p class="pa-lab">De ma lignée, ou de ma vie ?</p>' + puces('t-qui', [['vie', 'De ma vie'], ['lignee', 'De ma lignée']], [p.qui], false) +
       '<div id="pa-t-lignee"' + (p.qui === 'lignee' ? '' : ' hidden') + '><label for="pa-t-cle">Qui, dans ta lignée</label><select id="pa-t-cle"><option value="">Quelqu’un de ma lignée</option>' + personnes().map(function (q) { return '<option value="' + esc(q.k) + '"' + (p.cle === q.k ? ' selected' : '') + '>' + esc(nomL(q)) + '</option>'; }).join('') + '</select></div>' +
       '<div id="pa-t-vie"' + (p.qui === 'vie' ? '' : ' hidden') + '><p class="pa-lab">Qui est-ce pour toi ?</p>' + puces('t-role', ROLES_VIE, [p.role], false) + puces('t-genre', [['m', 'Il'], ['f', 'Elle']], [p.genre], false) + '</div>' +
       '<label for="pa-t-nom">Le nom que tu lui donnes</label><input id="pa-t-nom" maxlength="30" value="' + esc(p.nom) + '" placeholder="Marc, le Chef, le Froid…">' +
       '<p class="pa-lab">Sa couleur</p><div class="pa-couleurs">' + COULEURS_T.map(function (c) { return '<button type="button" data-t-coul="' + c[0] + '" aria-pressed="' + (p.couleur === c[0]) + '" style="background:' + c[0] + '" aria-label="' + c[1] + '"></button>'; }).join('') + '</div>' +
       '<h3 class="pa-h3" style="margin-top:1rem">Ce que je ressens de lui ou d’elle</h3><p class="pa-discret" style="margin-top:0">C’est ta vision, avec ton vécu. Lui ou elle aurait sûrement un autre point de vue, et c’est normal : ici, on regarde ce qui se rejoue en toi.</p>' +
+      '<label for="pa-t-sym">Écris-le avec tes mots</label><div class="pa-note"><input type="text" id="pa-t-sym" maxlength="80" placeholder="Je le sens froid et absent, j’ai l’impression qu’il va partir…" aria-label="Ajouter ce que tu ressens de lui ou d’elle"><button type="button" class="pa-bt" style="margin:0" data-t-sym-ajout>Ajouter</button></div>' +
+      '<p class="pa-discret" style="margin-top:0">Ou choisis parmi ces mots. Choisis le même mot si tu sens que c’est la même chose : c’est ce qui permet au miroir de faire le lien.</p>' +
       '<p class="pa-lab">Comment je le ou la ressens</p>' + puces('t-sym', RS, p.symptomes, true) +
       '<p class="pa-lab">La phrase de famille que je retrouve chez lui ou elle</p>' + puces('t-phr', PH, p.symptomes, true) +
-      '<div class="pa-note"><input type="text" id="pa-t-sym" maxlength="80" placeholder="Je le sens froid et absent, j’ai l’impression qu’il va partir…" aria-label="Ajouter ce que tu ressens de lui ou d’elle"><button type="button" class="pa-bt" style="margin:0" data-t-sym-ajout>Ajouter</button></div>' +
-      '<p class="pa-discret">Choisis le même mot si tu sens que c’est la même chose : c’est ce qui permet au miroir de faire le lien.</p><div id="pa-tiens" aria-live="polite"></div>' +
-      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ok>' + (neuf ? (pourScene ? 'Créer et placer sur la scène' : 'Créer') : 'C’est noté') + '</button>' + (neuf ? '' : '<button type="button" class="pa-lien-s" data-t-suppr>Supprimer ce personnage</button>') + '</div><p class="pa-erreur" role="alert"></p></form>';
+      '<div id="pa-tiens" aria-live="polite"></div>' +
+      '<div class="pa-outils"><button type="button" class="pa-bt or" data-t-ok>' + (neuf ? (pourScene ? 'Créer et placer sur la scène' : 'Créer') : 'C’est noté') + '</button></div><p class="pa-erreur" role="alert"></p></form>';
     var z = feuille(h, { enregistrer: function () { return lire(); } });
     function syms() { return lirePuces(z, 't-sym').concat(lirePuces(z, 't-phr')); }
     function lire() {
