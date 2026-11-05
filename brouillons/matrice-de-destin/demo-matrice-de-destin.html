@@ -1,1 +1,312 @@
-PLACEHOLDER
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matrice de destin — démonstration interne (brouillon) · Genesolia</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --prune:#6B2F5B; --prune-doux:#8E6383; --champagne:#B98A55; --champagne-clair:#F3DCC0;
+    --rose:#F6E2E8; --rose-fonce:#EBCFD5; --nacre:#FFF9F7; --blanc:#FFFFFF; --rayon:22px;
+    --texte: Georgia, 'Times New Roman', serif; --display: Georgia, 'Times New Roman', serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:400 16px/1.6 var(--texte);color:var(--prune);background:var(--nacre)}
+  .conteneur{max-width:1080px;margin:0 auto;padding:0 1.2rem}
+  .banniere{background:#3B1747;color:#FFF4F6;text-align:center;padding:.8rem 1rem;font-size:.92rem;letter-spacing:.02em}
+  .banniere b{color:var(--champagne-clair)}
+  header.page{padding:2.4rem 0 1.6rem;border-bottom:1px solid var(--rose-fonce)}
+  h1{font-size:2rem;margin:.2rem 0 .5rem;font-weight:400}
+  h2{font-size:1.5rem;margin:2.2rem 0 .8rem;font-weight:400;color:var(--prune)}
+  h3{font-size:1.15rem;margin:0 0 .4rem;font-weight:600}
+  p.intro{color:var(--prune-doux);max-width:46rem}
+  section.bloc{padding:1.6rem 0}
+  .carte{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.4rem 1.6rem;margin-bottom:1rem}
+  .form-ligne{display:flex;flex-wrap:wrap;gap:.8rem;align-items:flex-end;margin-bottom:1rem}
+  .champ{display:grid;gap:.25rem}
+  .champ label{font-size:.78rem;font-weight:600;letter-spacing:.03em}
+  .champ input{font:inherit;font-size:1rem;padding:.55rem .7rem;border:1.5px solid var(--rose-fonce);border-radius:10px;background:var(--nacre);color:var(--prune)}
+  .btn{display:inline-block;font:600 .92rem var(--texte);padding:.6rem 1.1rem;border-radius:999px;border:1.5px solid var(--prune);background:var(--prune);color:#fff;cursor:pointer}
+  .btn.trait{background:transparent;color:var(--prune)}
+  .grille8{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+  .point{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:16px;padding:1rem;text-align:center}
+  .point .n{font-family:var(--display);font-size:2rem;color:var(--champagne);line-height:1}
+  .point .label{font-size:.78rem;color:var(--prune-doux);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+  .point .arcane{font-weight:600;margin-top:.3rem}
+  .point .texte{font-size:.85rem;color:var(--prune-doux);margin-top:.4rem}
+  .personne{border:1px solid var(--rose-fonce);border-radius:16px;padding:1.1rem 1.3rem;margin-bottom:.8rem;background:var(--blanc)}
+  .personne.echo{border-color:var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 70%)}
+  .puce{display:inline-block;background:var(--rose);border-radius:999px;padding:.2rem .7rem;font-size:.8rem;margin:.15rem .25rem .15rem 0}
+  .puce.fort{background:var(--champagne-clair);font-weight:600}
+  .echo-liste{margin-top:1rem;padding:1rem 1.2rem;border-radius:16px;background:#FFF6EC;border:1px dashed var(--champagne)}
+  .echo-liste p{margin:.3rem 0}
+  .note{font-size:.84rem;color:var(--prune-doux)}
+  .ascendants{display:grid;gap:.6rem;margin-top:.6rem}
+  .ligne-asc{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+  .ligne-asc select,.ligne-asc input{font:inherit;padding:.5rem .6rem;border:1.5px solid var(--rose-fonce);border-radius:10px}
+  footer.page{padding:2rem 0 3rem;text-align:center;color:var(--prune-doux);font-size:.85rem}
+  @media(max-width:860px){.grille8{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.grille8{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="banniere">Brouillon interne — <b>non publié, ne pas partager</b> — préparé pour validation par Laura avant toute mise en ligne</div>
+  <header class="page">
+    <div class="conteneur">
+      <h1>Matrice de destin — démonstration</h1>
+      <p class="intro">Démonstration statique des deux niveaux envisagés : la grille gratuite calculée à partir de la date de naissance, et la lecture approfondie (prénom et lien avec la lignée). Tout le calcul se fait sur cette page, rien n'est envoyé nulle part.</p>
+    </div>
+  </header>
+
+  <section class="bloc">
+    <div class="conteneur">
+      <h2>Niveau 1 — gratuit : la grille à partir de la date de naissance</h2>
+      <div class="carte">
+        <div class="form-ligne">
+          <div class="champ">
+            <label for="date">Date de naissance</label>
+            <input type="date" id="date" value="1985-03-14">
+          </div>
+          <button class="btn" id="calculer-grille">Calculer la grille</button>
+        </div>
+        <div id="grille-resultat"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc">
+    <div class="conteneur">
+      <h2>Niveau 2 — approfondi : prénom et lien avec la lignée</h2>
+      <div class="carte">
+        <div class="form-ligne">
+          <div class="champ">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" value="Léa">
+          </div>
+          <div class="champ">
+            <label for="naissance2">Date de naissance</label>
+            <input type="date" id="naissance2" value="1985-03-14">
+          </div>
+        </div>
+        <h3>Ascendants (exemples fictifs, modifiables)</h3>
+        <div class="ascendants" id="liste-ascendants"></div>
+        <div class="form-ligne" style="margin-top:.6rem">
+          <button class="btn trait" id="ajouter-ascendant" type="button">Ajouter un ascendant</button>
+          <button class="btn" id="calculer-approfondi" type="button">Calculer la lecture approfondie</button>
+        </div>
+        <div id="approfondi-resultat"></div>
+      </div>
+      <p class="note">Le calcul détaillé (correspondance des sons du prénom à des valeurs) reste en coulisse : seuls le nombre final, le domaine et la tendance sont affichés. Lecture symbolique, pour réfléchir : elle ne prédit rien et ne remplace pas un avis professionnel.</p>
+    </div>
+  </section>
+
+  <footer class="page">Genesolia — document de travail, non destiné à la publication en l'état.</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- Arcanes (niveau 1) ---------- */
+  var ARCANES = {
+    1:{nom:"Le Magicien", texte:"L'initiative et l'action : une idée qui devient concrète dès qu'une décision est prise."},
+    2:{nom:"La Grande Prêtresse", texte:"L'intuition et la réceptivité : un savoir intérieur qui ne s'explique pas toujours par la logique."},
+    3:{nom:"L'Impératrice", texte:"L'abondance et la capacité à faire naître, à nourrir un projet ou une relation avec patience."},
+    4:{nom:"L'Empereur", texte:"Le sens de la structure et de l'autorité : des bases solides et un cadre clair pour avancer."},
+    5:{nom:"Le Guide", texte:"La transmission et les repères reçus en héritage, à garder ou à redéfinir soi-même."},
+    6:{nom:"L'Amoureux", texte:"Le choix du cœur : un tiraillement possible entre deux désirs ou deux loyautés."},
+    7:{nom:"Le Chariot", texte:"L'avancée et la détermination : garder le cap même quand les directions semblent contradictoires."},
+    8:{nom:"La Justice", texte:"L'équilibre et le sens de ce qui est juste : un besoin de rééquilibrer une situation ou une part de l'histoire."},
+    9:{nom:"L'Ermite", texte:"Le retrait et la recherche de sens : regarder vers l'intérieur plutôt que vers l'extérieur."},
+    10:{nom:"La Roue", texte:"Les cycles et les changements : une alternance entre périodes montantes et périodes plus basses."},
+    11:{nom:"La Force", texte:"Une maîtrise douce : le courage tranquille de rester posé face à une situation intense."},
+    12:{nom:"Le Pendu", texte:"L'attente et le lâcher-prise : une situation qui invite à être regardée autrement."},
+    13:{nom:"La Mutation", texte:"Un passage marquant, la fin d'un cycle qui ouvre sur un autre, plus que sur une perte."},
+    14:{nom:"La Mesure", texte:"L'art de doser, de relier deux besoins ou deux rythmes qui semblaient opposés."},
+    15:{nom:"Le Lien tenace", texte:"Un attachement fort à une habitude ou à un schéma, entre désir réel et contrainte qui pèse."},
+    16:{nom:"La Rupture", texte:"Une remise en question soudaine d'une base que l'on croyait solide."},
+    17:{nom:"L'Étoile", texte:"L'espoir et l'inspiration retrouvée, une confiance qui revient doucement."},
+    18:{nom:"La Lune", texte:"La sensibilité et l'imagination : une intuition qui demande à être écoutée."},
+    19:{nom:"Le Soleil", texte:"La clarté et la vitalité : un moment où les efforts portent leurs fruits de façon visible."},
+    20:{nom:"Le Renouveau", texte:"Un bilan et une prise de conscience qui appellent à se relever et à se réaligner."},
+    21:{nom:"Le Monde", texte:"L'accomplissement : une boucle qui se referme, avec le sentiment d'être à sa place."},
+    22:{nom:"Le Voyageur", texte:"La liberté et le nouveau départ : avancer sans tout calculer d'avance."}
+  };
+  var POINTS = [
+    {cle:'A', label:'Mission'},
+    {cle:'B', label:'Talents'},
+    {cle:'C', label:'Lignée paternelle'},
+    {cle:'D', label:'Lignée maternelle'},
+    {cle:'E', label:'Cœur'},
+    {cle:'F', label:'Terrain concret'},
+    {cle:'G', label:'Défi'},
+    {cle:'H', label:'Équilibre'}
+  ];
+
+  function sommeChiffres(n){
+    return String(Math.abs(n)).split('').reduce(function(s,c){ return s + (+c); }, 0);
+  }
+  function reduire22(n){
+    var v = n;
+    while (v > 22) v = sommeChiffres(v);
+    if (v === 0) v = 22;
+    return v;
+  }
+  function reduireSiDeuxChiffres(n){
+    if (n <= 9) return n;
+    var v = sommeChiffres(n);
+    return v === 0 ? 22 : v;
+  }
+
+  function calculerGrille(dateStr){
+    var p = dateStr.split('-'); // AAAA-MM-JJ
+    var an = p[0], mo = p[1], jo = p[2];
+    var chiffresAn = an.split('').map(Number), chiffresMo = mo.split('').map(Number), chiffresJo = jo.split('').map(Number);
+    var A = reduire22(chiffresJo.concat(chiffresMo, chiffresAn).reduce(function(s,c){return s+c;},0));
+    var B = reduireSiDeuxChiffres(A);
+    var C = reduire22(chiffresMo.concat(chiffresAn).reduce(function(s,c){return s+c;},0));
+    var D = reduire22(chiffresJo.concat(chiffresAn).reduce(function(s,c){return s+c;},0));
+    var E = reduire22(chiffresJo.concat(chiffresMo).reduce(function(s,c){return s+c;},0));
+    var F = reduire22(chiffresAn.reduce(function(s,c){return s+c;},0));
+    var G = Math.abs(A-B); if (G === 0) G = 22; else G = reduire22(G);
+    var H = reduire22(A+B+C+D+E+F+G);
+    return {A:A,B:B,C:C,D:D,E:E,F:F,G:G,H:H};
+  }
+
+  function afficherGrille(dateStr){
+    var r = calculerGrille(dateStr);
+    var html = '<div class="grille8">' + POINTS.map(function(pt){
+      var n = r[pt.cle], a = ARCANES[n];
+      return '<div class="point"><p class="label">'+pt.label+'</p><p class="n">'+n+'</p><p class="arcane">'+a.nom+'</p><p class="texte">'+a.texte+'</p></div>';
+    }).join('') + '</div>';
+    document.getElementById('grille-resultat').innerHTML = html;
+  }
+
+  document.getElementById('calculer-grille').addEventListener('click', function(){
+    afficherGrille(document.getElementById('date').value);
+  });
+  afficherGrille(document.getElementById('date').value);
+
+  /* ---------- Niveau 2 : prénom + lignée (calcul en coulisse) ---------- */
+  var TABLE = { // son -> valeur (table interne, jamais affichée)
+    'CH':8,'SH':300,'PH':80,'OU':6,'EAU':6,
+    A:1,B:2,C:20,D:4,E:10,F:80,G:3,H:5,I:10,J:10,K:20,L:30,M:40,N:50,O:6,P:80,Q:100,R:200,S:60,T:400,U:6,V:6,W:6,X:60,Y:10,Z:7
+  };
+  function normaliser(nom){
+    return nom.toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Z]/g,'');
+  }
+  function valeurBrute(nomBrut){
+    var n = normaliser(nomBrut), total = 0, i = 0;
+    while (i < n.length){
+      var trois = n.substr(i,3), deux = n.substr(i,2);
+      if (TABLE[trois] !== undefined && trois.length===3){ total += TABLE[trois]; i+=3; continue; }
+      if (TABLE[deux] !== undefined && deux.length===2){ total += TABLE[deux]; i+=2; continue; }
+      var lettre = n[i];
+      var derniere = (i === n.length-1);
+      if (derniere && (lettre==='A' || lettre==='E')) { total += 5; } // finale douce -> valeur 5
+      else if (TABLE[lettre] !== undefined) { total += TABLE[lettre]; }
+      i += 1;
+    }
+    return total;
+  }
+  function reduire10(n){
+    var v = n;
+    while (v > 10) v = sommeChiffres(v);
+    if (v === 0) v = 10;
+    return v;
+  }
+  var DOMAINES = {
+    1:"Le sens, ce qui met en mouvement", 2:"L'intuition, les idées qui jaillissent", 3:"La compréhension, la structure",
+    4:"La générosité, ce qui se donne", 5:"Les limites, la capacité à dire non", 6:"L'équilibre, le cœur",
+    7:"La persévérance, le désir", 8:"La pensée, les mots, la communication", 9:"Les émotions et les liens",
+    10:"La vie matérielle, l'ancrage, la place"
+  };
+  var TENDANCES = {1:"Rejet",2:"Abandon",3:"Trahison",4:"Humiliation",5:"Injustice"};
+  function tendance(brut){
+    var reste = brut % 5; if (reste === 0) reste = 5;
+    return TENDANCES[reste];
+  }
+  function periodeDeVie(age){
+    if (age <= 28) return "0 à 28 ans — construire ses bases, trouver sa sécurité et sa place";
+    if (age <= 42) return "29 à 42 ans — les choix de cœur, les relations, se construire par soi-même";
+    return "43 ans et plus — la transmission, le sens, les bilans et un second élan";
+  }
+  function age(dateStr){
+    if (!dateStr) return null;
+    var n = new Date(dateStr), auj = new Date();
+    var a = auj.getFullYear() - n.getFullYear();
+    if (auj.getMonth() < n.getMonth() || (auj.getMonth()===n.getMonth() && auj.getDate()<n.getDate())) a--;
+    return a;
+  }
+  function lecturePersonne(prenom, dateStr){
+    var brut = valeurBrute(prenom), dom = reduire10(brut);
+    return { prenom: prenom, brut: brut, domaine: dom, domaineTexte: DOMAINES[dom], tendance: tendance(brut), date: dateStr, age: age(dateStr) };
+  }
+
+  var LIENS = ['Mère','Père','Grand-mère maternelle','Grand-père maternel','Grand-mère paternelle','Grand-père paternel','Sœur','Frère','Autre'];
+  function ligneAscendant(lien, prenom, date){
+    var d = document.createElement('div'); d.className='ligne-asc';
+    d.innerHTML = '<select class="asc-lien">'+LIENS.map(function(l){return '<option'+(l===lien?' selected':'')+'>'+l+'</option>';}).join('')+
+      '</select><input class="asc-prenom" type="text" placeholder="Prénom" value="'+(prenom||'')+'">'+
+      '<input class="asc-date" type="date" value="'+(date||'')+'">'+
+      '<button type="button" class="btn trait" style="padding:.35rem .7rem">Retirer</button>';
+    d.querySelector('button').addEventListener('click', function(){ d.remove(); });
+    return d;
+  }
+  var zoneAsc = document.getElementById('liste-ascendants');
+  [
+    {lien:'Grand-mère maternelle', prenom:'Madeleine', date:'1932-06-02'},
+    {lien:'Mère', prenom:'Hélène', date:'1958-09-21'},
+    {lien:'Grand-père paternel', prenom:'Antoine', date:'1927-11-30'}
+  ].forEach(function(v){ zoneAsc.appendChild(ligneAscendant(v.lien, v.prenom, v.date)); });
+  document.getElementById('ajouter-ascendant').addEventListener('click', function(){ zoneAsc.appendChild(ligneAscendant('Autre','','')); });
+
+  function listerAscendants(){
+    return [].map.call(zoneAsc.querySelectorAll('.ligne-asc'), function(d){
+      return { lien: d.querySelector('.asc-lien').value, prenom: d.querySelector('.asc-prenom').value.trim(), date: d.querySelector('.asc-date').value };
+    }).filter(function(x){ return x.prenom; });
+  }
+
+  document.getElementById('calculer-approfondi').addEventListener('click', function(){
+    var prenom = document.getElementById('prenom').value.trim();
+    var dateP = document.getElementById('naissance2').value;
+    if (!prenom) return;
+    var moi = lecturePersonne(prenom, dateP);
+    var ascendants = listerAscendants().map(function(a){ return Object.assign({lien:a.lien}, lecturePersonne(a.prenom, a.date)); });
+
+    var html = '<div class="personne"><h3>'+moi.prenom+'</h3>' +
+      '<span class="puce fort">Domaine '+moi.domaine+' — '+moi.domaineTexte+'</span>' +
+      '<span class="puce fort">Tendance : '+moi.tendance+'</span>' +
+      (moi.age!=null ? '<span class="puce">'+moi.age+' ans</span>' : '') +
+      (moi.age!=null ? '<p class="note" style="margin-top:.5rem">Période actuelle : '+periodeDeVie(moi.age)+'</p>' : '') +
+      '</div>';
+
+    html += '<h3 style="margin-top:1.4rem">Les ascendants</h3>' + '<div class="ascendants">' + ascendants.map(function(a){
+      var echoDomaine = a.domaine === moi.domaine, echoTendance = a.tendance === moi.tendance;
+      return '<div class="personne'+((echoDomaine||echoTendance)?' echo':'')+'"><h3>'+a.prenom+' <span class="note">('+a.lien+')</span></h3>' +
+        '<span class="puce'+(echoDomaine?' fort':'')+'">Domaine '+a.domaine+' — '+a.domaineTexte+(echoDomaine?' · écho avec '+moi.prenom:'')+'</span>' +
+        '<span class="puce'+(echoTendance?' fort':'')+'">Tendance : '+a.tendance+(echoTendance?' · écho avec '+moi.prenom:'')+'</span>' +
+        '</div>';
+    }).join('') + '</div>';
+
+    var echosTendance = ascendants.filter(function(a){ return a.tendance===moi.tendance; });
+    var echosDomaine = ascendants.filter(function(a){ return a.domaine===moi.domaine; });
+    html += '<div class="echo-liste"><h3>Lecture du lien transgénérationnel</h3>';
+    if (echosTendance.length){
+      html += '<p>La tendance « '+moi.tendance+' » se retrouve aussi chez '+echosTendance.map(function(a){return a.prenom+' ('+a.lien+')';}).join(', ')+'. Ce n\'est pas une fatalité transmise : c\'est un fil qui s\'est répété, et qui peut être regardé consciemment plutôt que rejoué sans le savoir.</p>';
+    }
+    if (echosDomaine.length){
+      html += '<p>Le domaine « '+moi.domaineTexte.toLowerCase()+' » revient aussi chez '+echosDomaine.map(function(a){return a.prenom+' ('+a.lien+')';}).join(', ')+'.</p>';
+    }
+    if (!echosTendance.length && !echosDomaine.length){
+      html += '<p>Aucun écho net entre ces prénoms et ces dates pour l\'instant. Les nombres donnent une direction, pas une explication complète : ce qui se répète dans une famille compte autant que ce que disent les chiffres.</p>';
+    }
+    html += '<p class="note">Les nombres donnent une direction, pas une explication complète. Ce qui se répète dans une famille compte autant que ce que disent les chiffres.</p></div>';
+
+    document.getElementById('approfondi-resultat').innerHTML = html;
+  });
+  document.getElementById('calculer-approfondi').click();
+})();
+</script>
+</body>
+</html>
