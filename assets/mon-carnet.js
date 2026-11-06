@@ -18,7 +18,8 @@
      window.GENESOLIA_ETAPE vient de mon-suivi-mois.html ou de mon-carnet.html (assets/site.js, GenesoliaAcces.ouvrirParEtapes ; membre du Cercle, ou &apercu) : { n, enCours, debloquees, debut }.
      Le carnet et le suivi d'une même personne sont toujours à la même étape ; les liens de l'un à l'autre passent par ?etape=N (vers()).
      Le parcours suit le mois d'abonnement : étape 1 = le fichier 2026-10 … étape 12 = 2027-09. La clé des réponses reste celle du fichier (C.cle).
-     Ce qui reste au calendrier (la saison, son geste, sa citation, l'autel) utilise le vrai mois : SAISON_REELLE.
+     Ce qui reste au calendrier (la saison, son geste, sa citation, l'autel) utilise le vrai mois sur l'étape en cours : SAISON_REELLE.
+     Sur une étape passée, tout suit le mois du fichier relu (C.mois).
      debut : les semaines partent du début de l'étape (sinon, comme avant, du 1er du mois du fichier). */
   var ET = (SUIVI || CARNET) && window.GENESOLIA_ETAPE && window.GENESOLIA_ETAPE.n ? window.GENESOLIA_ETAPE : null;
   var ARBRE_ETAPES = ['Qui sont les miens ?', 'Qu’est-ce que j’ai reçu ?', 'Quelle est ma place ?', 'Quelle peur je porte, et pour qui ?', 'Quel projet a-t-on posé sur moi ?', 'Quelles émotions avaient le droit d’exister ?',
@@ -30,7 +31,9 @@
   function vers(page) { return page + (ET ? '?etape=' + ET.n : '?mois=' + C.mois); }
   function partieArbre(n) { return ['Racines', 'Tronc', 'Branches', 'Fruits'][Math.floor((n - 1) / 3)] || ''; }
   var DEBUT_ET = ET && /^\d{4}-\d\d-\d\d$/.test(ET.debut || '') ? new Date(+ET.debut.slice(0, 4), +ET.debut.slice(5, 7) - 1, +ET.debut.slice(8, 10)) : null;
-  var SAISON_REELLE = !!ET && !new URLSearchParams(location.search).get('mois');
+  /* La saison, son geste, sa citation et l'autel ne suivent le vrai mois que sur l'étape en cours ;
+     sur une étape passée qu'on relit, tout suit le mois du fichier (C.mois). */
+  var SAISON_REELLE = !!ET && ET.n === ET.enCours && !new URLSearchParams(location.search).get('mois');
   var MOIS_SAISON = SAISON_REELLE ? new Date().getMonth() + 1 : +String(C.mois).split('-')[1];
   var MOIS_SAISON_ISO = SAISON_REELLE ? new Date().getFullYear() + '-' + ('0' + MOIS_SAISON).slice(-2) : C.mois;
   var sb = null, user = null, prenom = '', D = { v: {} }, minuteur = null, historique = [];
