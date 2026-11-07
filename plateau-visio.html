@@ -47,7 +47,7 @@
     .pv-champ-case{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune-doux);margin-bottom:1rem}
     .pv-champ-case input{accent-color:var(--champagne);width:1.1rem;height:1.1rem}
     .pv-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-    .pv-svg .pv-lien-trait{cursor:pointer}
+    .pv-svg .pv-lien-trait,.pv-svg .pv-trace-trait{pointer-events:visiblePainted;cursor:pointer}
     .pv-corps{position:relative;display:inline-block}
     .pv-orientation{position:absolute;inset:-11px;pointer-events:none}
     .pv-orientation-pointe{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:11px solid var(--prune)}
@@ -101,7 +101,7 @@
             <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un trait pour le supprimer. Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
@@ -285,12 +285,17 @@
       var rect = plateau.getBoundingClientRect();
       svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
 
-      // Traces de déplacement : un pointillé léger du chemin parcouru, sous les pions.
+      // Traces de déplacement : un pointillé léger du chemin parcouru, sous les pions. Touchez la trace pour l'effacer.
       pions.forEach(function (p) {
         if (!p.trace || !p.trace.length) return;
         var pts = p.trace.map(function (pt) { return (pt.x / 100 * rect.width) + ',' + (pt.y / 100 * rect.height); });
         var actuel = centrePion(p);
         pts.push(actuel.x + ',' + actuel.y);
+
+        var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupe.setAttribute('class', 'pv-trace-trait');
+        groupe.addEventListener('click', function () { p.trace = []; redessinerSvg(); });
+
         var chemin = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
         chemin.setAttribute('points', pts.join(' '));
         chemin.setAttribute('fill', 'none');
@@ -298,16 +303,26 @@
         chemin.setAttribute('stroke-width', '1.5');
         chemin.setAttribute('stroke-dasharray', '3,5');
         chemin.setAttribute('opacity', '.35');
-        svg.appendChild(chemin);
+        groupe.appendChild(chemin);
+
+        var zone = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        zone.setAttribute('points', pts.join(' '));
+        zone.setAttribute('fill', 'none');
+        zone.setAttribute('stroke', 'transparent');
+        zone.setAttribute('stroke-width', '16');
+        zone.setAttribute('pointer-events', 'stroke');
+        groupe.appendChild(zone);
+
         p.trace.forEach(function (pt, i) {
           var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
           c.setAttribute('cx', (pt.x / 100 * rect.width));
           c.setAttribute('cy', (pt.y / 100 * rect.height));
           c.setAttribute('r', Math.max(3, p.taille * 0.12));
           c.setAttribute('fill', p.couleur);
-          c.setAttribute('opacity', (0.12 + i * 0.08).toFixed(2));
-          svg.appendChild(c);
+          c.setAttribute('opacity', (0.15 + i * 0.12).toFixed(2));
+          groupe.appendChild(c);
         });
+        svg.appendChild(groupe);
       });
 
       // Liens entre pions
@@ -343,6 +358,7 @@
         zone.setAttribute('x2', cb.x); zone.setAttribute('y2', cb.y);
         zone.setAttribute('stroke', 'transparent');
         zone.setAttribute('stroke-width', '16');
+        zone.setAttribute('pointer-events', 'stroke');
         groupe.appendChild(zone);
         svg.appendChild(groupe);
       });
@@ -454,7 +470,7 @@
           } else if (etat.bouge && !etat.pince && etat.depart) {
             p.trace = p.trace || [];
             p.trace.push(etat.depart);
-            if (p.trace.length > 5) p.trace.shift();
+            if (p.trace.length > 3) p.trace.shift();
             redessinerSvg();
           }
           etat.pince = false;
