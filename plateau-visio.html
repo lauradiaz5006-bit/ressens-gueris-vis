@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>[BROUILLON] Plateau symbolique en visio · Genesolia</title>
+  <meta name="description" content="Brouillon non publié — un plateau libre pour poser des pions (personnes, objets symboliques) et les déplacer en direct pendant une séance en visio.">
+  <link rel="canonical" href="https://genesolia.fr/plateau-visio.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .pv-tete{text-align:center;max-width:42rem;margin:0 auto 1.6rem}
+    .pv-tete p{color:var(--prune-doux);margin-top:.5rem}
+    .pv-barre{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.4rem}
+    .pv-barre button{font:600 .9rem var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;transition:background .15s,border-color .15s}
+    .pv-barre button:hover{background:var(--rose);border-color:var(--prune)}
+    .pv-barre button.pv-danger{color:#A33A4A;border-color:#E3B8BE}
+    .pv-plateau-zone{position:relative;max-width:64rem;margin:0 auto}
+    .pv-plateau{position:relative;width:100%;height:min(70vh,640px);min-height:380px;border-radius:var(--rayon);background:
+      radial-gradient(circle at 50% 50%, rgba(243,220,192,.18), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(107,47,91,.05) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(107,47,91,.05) 0 1px, transparent 1px 48px),
+      var(--nacre);
+      border:1.5px dashed var(--rose-fonce);overflow:hidden;touch-action:none}
+    .pv-vide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--prune-doux);font-size:.95rem;padding:2rem;pointer-events:none}
+    .pv-vide strong{display:block;color:var(--prune);font:400 1.1rem var(--display);margin-bottom:.3rem}
+    .pv-pion{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:grab;user-select:none;touch-action:none;transform:translate(-50%,-50%)}
+    .pv-pion.pv-drag{cursor:grabbing;z-index:50}
+    .pv-forme{box-shadow:0 8px 18px rgba(46,19,56,.22),0 0 0 2px rgba(255,255,255,.8) inset;display:grid;place-items:center;color:#fff;font:700 .75rem var(--texte);flex-shrink:0}
+    .pv-forme.pv-cercle{border-radius:50%}
+    .pv-forme.pv-carre{border-radius:8px}
+    .pv-forme.pv-triangle{background:none!important;box-shadow:none;width:0!important;height:0!important;border-left:var(--tri-g) solid transparent;border-right:var(--tri-g) solid transparent;border-bottom:var(--tri-h) solid var(--tri-c)}
+    .pv-etiquette{max-width:6.5rem;text-align:center;font-size:.78rem;color:var(--prune);background:rgba(255,255,255,.9);padding:.1rem .45rem;border-radius:99px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pv-pion.pv-selectionne .pv-forme{outline:3px solid var(--champagne);outline-offset:2px}
+
+    .pv-panneau{position:fixed;inset:0;background:rgba(46,19,56,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem}
+    .pv-panneau.pv-ouvert{display:flex}
+    .pv-carte{background:var(--blanc);border-radius:var(--rayon);padding:1.6rem;max-width:24rem;width:100%;box-shadow:0 30px 70px rgba(46,19,56,.3)}
+    .pv-carte h3{margin:0 0 1rem;font:400 1.3rem var(--display);color:var(--prune)}
+    .pv-champ{display:grid;gap:.35rem;margin-bottom:1rem}
+    .pv-champ label{font-size:.85rem;font-weight:600;color:var(--prune)}
+    .pv-champ input[type=text]{font:400 1rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box}
+    .pv-ligne2{display:flex;gap:1rem;align-items:center}
+    .pv-ligne2 label{display:flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:400;color:var(--prune-doux)}
+    .pv-formes-choix{display:flex;gap:.5rem}
+    .pv-formes-choix button{width:2.4rem;height:2.4rem;border-radius:10px;border:1.5px solid var(--rose-fonce);background:var(--rose);cursor:pointer;display:grid;place-items:center}
+    .pv-formes-choix button.pv-actif{border-color:var(--prune);background:var(--champagne-clair)}
+    .pv-actions-carte{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem}
+    .pv-actions-carte button{font:600 .9rem var(--texte);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune)}
+    .pv-actions-carte button.pv-valider{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .pv-actions-carte button.pv-supprimer{color:#A33A4A;border-color:#E3B8BE}
+
+    .pv-note{text-align:center;color:var(--prune-doux);font-size:.88rem;max-width:40rem;margin:1.4rem auto 0}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="pv-tete">
+          <p class="a-etiq" style="color:var(--champagne)">Brouillon · pas encore public</p>
+          <h1>Le plateau symbolique, à partager en visio</h1>
+          <p>Posez des pions — des personnes ou des objets symboliques (un secret, un événement, un lieu, une émotion…) — et déplacez-les librement pendant votre séance. Chaque pion est choisi par votre cliente : sa forme, sa couleur, sa taille, son nom.</p>
+        </div>
+
+        <div class="pv-barre">
+          <button type="button" onclick="pvOuvrirPanneau('personne')">+ Une personne</button>
+          <button type="button" onclick="pvOuvrirPanneau('objet')">+ Un objet symbolique</button>
+          <button type="button" onclick="pvExporter()">Exporter en image</button>
+          <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
+        </div>
+
+        <div class="pv-plateau-zone">
+          <div class="pv-plateau" id="pvPlateau">
+            <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
+          </div>
+        </div>
+        <p class="pv-note">Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+
+  <div class="pv-panneau" id="pvPanneau" role="dialog" aria-modal="true" aria-labelledby="pvPanneauTitre">
+    <div class="pv-carte">
+      <h3 id="pvPanneauTitre">Ajouter un pion</h3>
+      <div class="pv-champ">
+        <label for="pvNom">Nom</label>
+        <input type="text" id="pvNom" placeholder="Ex. : ma mère, le secret, le départ en 1998…" maxlength="40">
+      </div>
+      <div class="pv-champ">
+        <label>Forme</label>
+        <div class="pv-formes-choix" id="pvFormesChoix">
+          <button type="button" data-forme="cercle" class="pv-actif" title="Cercle" onclick="pvChoisirForme('cercle')">●</button>
+          <button type="button" data-forme="carre" title="Carré" onclick="pvChoisirForme('carre')">■</button>
+          <button type="button" data-forme="triangle" title="Triangle" onclick="pvChoisirForme('triangle')">▲</button>
+        </div>
+      </div>
+      <div class="pv-ligne2">
+        <div class="pv-champ" style="flex:1">
+          <label for="pvCouleur">Couleur</label>
+          <input type="color" id="pvCouleur" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+        </div>
+        <div class="pv-champ" style="flex:1">
+          <label for="pvTaille">Taille</label>
+          <input type="range" id="pvTaille" min="36" max="100" value="60" style="width:100%">
+        </div>
+      </div>
+      <div class="pv-actions-carte">
+        <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
+        <button type="button" onclick="pvFermerPanneau()">Annuler</button>
+        <button type="button" class="pv-valider" onclick="pvValiderPanneau()">Ajouter au plateau</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var plateau = document.getElementById('pvPlateau');
+    var vide = document.getElementById('pvVide');
+    var panneau = document.getElementById('pvPanneau');
+    var pions = [];          // {id, nom, forme, couleur, taille, x, y} — x/y en % du plateau
+    var formeChoisie = 'cercle';
+    var idEnEdition = null;  // null = création, sinon id du pion édité
+
+    function maj() {
+      vide.style.display = pions.length ? 'none' : '';
+    }
+
+    function dessinerPion(p) {
+      var el = document.createElement('div');
+      el.className = 'pv-pion';
+      el.dataset.id = p.id;
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+
+      var forme = document.createElement('div');
+      forme.className = 'pv-forme pv-' + p.forme;
+      if (p.forme === 'triangle') {
+        forme.style.setProperty('--tri-g', (p.taille / 2) + 'px');
+        forme.style.setProperty('--tri-h', p.taille + 'px');
+        forme.style.setProperty('--tri-c', p.couleur);
+      } else {
+        forme.style.width = p.taille + 'px';
+        forme.style.height = p.taille + 'px';
+        forme.style.background = p.couleur;
+      }
+
+      var etiq = document.createElement('span');
+      etiq.className = 'pv-etiquette';
+      etiq.textContent = p.nom || '(sans nom)';
+
+      el.appendChild(forme);
+      el.appendChild(etiq);
+      el.addEventListener('pointerdown', function (ev) { pvDemarrerGlisser(ev, el, p.id); });
+      el.addEventListener('dblclick', function () { pvOuvrirPanneau(null, p.id); });
+      plateau.appendChild(el);
+    }
+
+    function redessiner() {
+      Array.prototype.slice.call(plateau.querySelectorAll('.pv-pion')).forEach(function (n) { n.remove(); });
+      pions.forEach(dessinerPion);
+      maj();
+    }
+
+    var glisse = null;
+    function pvDemarrerGlisser(ev, el, id) {
+      ev.preventDefault();
+      el.classList.add('pv-drag');
+      el.setPointerCapture && el.setPointerCapture(ev.pointerId);
+      glisse = { id: id, el: el };
+      el.addEventListener('pointermove', bouger);
+      el.addEventListener('pointerup', relacher);
+      el.addEventListener('pointercancel', relacher);
+    }
+    function bouger(ev) {
+      if (!glisse) return;
+      var rect = plateau.getBoundingClientRect();
+      var x = ((ev.clientX - rect.left) / rect.width) * 100;
+      var y = ((ev.clientY - rect.top) / rect.height) * 100;
+      x = Math.max(2, Math.min(98, x));
+      y = Math.max(2, Math.min(98, y));
+      glisse.el.style.left = x + '%';
+      glisse.el.style.top = y + '%';
+      var p = pions.find(function (p) { return p.id === glisse.id; });
+      if (p) { p.x = x; p.y = y; }
+    }
+    function relacher() {
+      if (!glisse) return;
+      glisse.el.classList.remove('pv-drag');
+      glisse.el.removeEventListener('pointermove', bouger);
+      glisse.el.removeEventListener('pointerup', relacher);
+      glisse.el.removeEventListener('pointercancel', relacher);
+      glisse = null;
+    }
+
+    window.pvChoisirForme = function (forme) {
+      formeChoisie = forme;
+      Array.prototype.slice.call(document.querySelectorAll('#pvFormesChoix button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.forme === forme);
+      });
+    };
+
+    window.pvOuvrirPanneau = function (type, idExistant) {
+      idEnEdition = idExistant || null;
+      var titre = document.getElementById('pvPanneauTitre');
+      var boutonSupprimer = document.getElementById('pvBoutonSupprimer');
+      if (idEnEdition) {
+        var p = pions.find(function (p) { return p.id === idEnEdition; });
+        titre.textContent = 'Modifier ce pion';
+        document.getElementById('pvNom').value = p.nom;
+        document.getElementById('pvCouleur').value = p.couleur;
+        document.getElementById('pvTaille').value = p.taille;
+        pvChoisirForme(p.forme);
+        boutonSupprimer.style.display = '';
+      } else {
+        titre.textContent = type === 'objet' ? 'Ajouter un objet symbolique' : 'Ajouter une personne';
+        document.getElementById('pvNom').value = '';
+        document.getElementById('pvCouleur').value = '#6B2F5B';
+        document.getElementById('pvTaille').value = 60;
+        pvChoisirForme(type === 'objet' ? 'carre' : 'cercle');
+        boutonSupprimer.style.display = 'none';
+      }
+      panneau.classList.add('pv-ouvert');
+      setTimeout(function () { document.getElementById('pvNom').focus(); }, 30);
+    };
+
+    window.pvFermerPanneau = function () { panneau.classList.remove('pv-ouvert'); };
+
+    window.pvValiderPanneau = function () {
+      var nom = document.getElementById('pvNom').value.trim();
+      var couleur = document.getElementById('pvCouleur').value;
+      var taille = parseInt(document.getElementById('pvTaille').value, 10);
+      if (idEnEdition) {
+        var p = pions.find(function (p) { return p.id === idEnEdition; });
+        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie;
+      } else {
+        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, x: 50, y: 50 });
+      }
+      redessiner();
+      pvFermerPanneau();
+    };
+
+    window.pvSupprimerPion = function () {
+      pions = pions.filter(function (p) { return p.id !== idEnEdition; });
+      redessiner();
+      pvFermerPanneau();
+    };
+
+    window.pvToutEffacer = function () {
+      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; redessiner(); }
+    };
+
+    window.pvExporter = function () {
+      if (!pions.length) { alert('Le plateau est vide pour le moment.'); return; }
+      var script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      script.onload = function () {
+        html2canvas(plateau, { backgroundColor: '#FFF9F7' }).then(function (canvas) {
+          var lien = document.createElement('a');
+          lien.download = 'plateau-symbolique.png';
+          lien.href = canvas.toDataURL('image/png');
+          lien.click();
+        });
+      };
+      document.body.appendChild(script);
+    };
+
+    maj();
+  })();
+  </script>
+</body>
+</html>
