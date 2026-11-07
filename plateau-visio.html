@@ -20,7 +20,16 @@
     .pv-barre button{font:600 .9rem var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;transition:background .15s,border-color .15s}
     .pv-barre button:hover{background:var(--rose);border-color:var(--prune)}
     .pv-barre button.pv-danger{color:#A33A4A;border-color:#E3B8BE}
-    .pv-plateau-zone{position:relative;max-width:64rem;margin:0 auto}
+    .pv-disposition{display:flex;gap:1.4rem;align-items:flex-start;max-width:72rem;margin:0 auto}
+    .pv-plateau-zone{position:relative;flex:1;min-width:0}
+    .pv-liste-zone{width:14rem;flex-shrink:0}
+    .pv-liste-zone h2{font:600 .78rem var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--prune-doux);margin:0 0 .6rem}
+    .pv-liste{list-style:none;margin:0;padding:0;display:grid;gap:.4rem;max-height:min(70vh,640px);overflow:auto}
+    .pv-liste li{display:flex;align-items:center;gap:.55rem;padding:.5rem .7rem;border-radius:12px;border:1px solid var(--rose-fonce);background:var(--blanc);cursor:pointer;font-size:.86rem;color:var(--prune)}
+    .pv-liste li:hover{background:var(--rose)}
+    .pv-liste-puce{width:.85rem;height:.85rem;border-radius:50%;flex-shrink:0}
+    .pv-liste-vide{color:var(--prune-doux);font-size:.85rem}
+    @media (max-width:860px){.pv-disposition{flex-direction:column}.pv-liste-zone{width:100%}.pv-liste{max-height:12rem}}
     .pv-plateau{position:relative;width:100%;height:min(70vh,640px);min-height:380px;border-radius:var(--rayon);background:
       radial-gradient(circle at 50% 50%, rgba(243,220,192,.18), transparent 60%),
       repeating-linear-gradient(0deg, rgba(107,47,91,.05) 0 1px, transparent 1px 48px),
@@ -95,13 +104,19 @@
         </div>
         <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
 
-        <div class="pv-plateau-zone">
-          <div class="pv-plateau" id="pvPlateau">
-            <svg class="pv-svg" id="pvSvg"></svg>
-            <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
+        <div class="pv-disposition">
+          <div class="pv-plateau-zone">
+            <div class="pv-plateau" id="pvPlateau">
+              <svg class="pv-svg" id="pvSvg"></svg>
+              <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
+            </div>
+          </div>
+          <div class="pv-liste-zone">
+            <h2>Sur le plateau</h2>
+            <ul class="pv-liste" id="pvListe"></ul>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Rien n’est envoyé à Genesolia : ce plateau reste dans votre navigateur et se retrouve tel quel si vous revenez sur cette page. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
@@ -154,6 +169,7 @@
       <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
       <div class="pv-actions-carte">
         <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
+        <button type="button" id="pvBoutonDupliquer" style="display:none" onclick="pvDupliquerPion()">Dupliquer</button>
         <button type="button" onclick="pvFermerPanneau()">Annuler</button>
         <button type="button" class="pv-valider" onclick="pvValiderPanneau()">Ajouter au plateau</button>
       </div>
@@ -272,6 +288,8 @@
       pions.forEach(dessinerPion);
       maj();
       redessinerSvg();
+      redessinerListe();
+      pvSauvegarder();
     }
 
     // Les positions sont en % du plateau : on les convertit en pixels pour tracer les traits et les traces.
@@ -294,7 +312,7 @@
 
         var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
         groupe.setAttribute('class', 'pv-trace-trait');
-        groupe.addEventListener('click', function () { p.trace = []; redessinerSvg(); });
+        groupe.addEventListener('click', function () { p.trace = []; redessinerSvg(); pvSauvegarder(); });
 
         var chemin = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
         chemin.setAttribute('points', pts.join(' '));
@@ -391,7 +409,7 @@
     }
 
     window.pvSupprimerLien = function (id) {
-      if (confirm('Supprimer ce lien ?')) { liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); }
+      if (confirm('Supprimer ce lien ?')) { liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); pvSauvegarder(); }
     };
 
     window.addEventListener('resize', redessinerSvg);
@@ -474,6 +492,7 @@
             redessinerSvg();
           }
           etat.pince = false;
+          pvSauvegarder();
         } else if (etat.pointeurs.size === 1) {
           // on relâche un des deux doigts du pincement : on repart d'un déplacement simple, sans rouvrir la fiche
           etat.pince = false;
@@ -548,6 +567,7 @@
       premierPionLien = null;
       deuxiemePionLien = null;
       redessinerSvg();
+      pvSauvegarder();
     };
 
     function pvRemplirIconesChoix() {
@@ -581,6 +601,8 @@
         pvChoisirRotation(p.rotation === undefined ? null : p.rotation);
         if (typeActuel === 'objet') { pvChoisirIcone(p.forme); } else { pvChoisirForme(p.forme); }
         boutonSupprimer.style.display = '';
+        document.getElementById('pvBoutonDupliquer').style.display = '';
+        document.querySelector('#pvPanneau .pv-valider').textContent = 'Enregistrer';
       } else {
         typeActuel = type;
         titre.textContent = type === 'objet' ? 'Ajouter un objet symbolique' : 'Ajouter une personne';
@@ -591,6 +613,8 @@
         pvChoisirRotation(null);
         if (type === 'objet') { pvChoisirIcone('cle'); } else { pvChoisirForme('cercle'); }
         boutonSupprimer.style.display = 'none';
+        document.getElementById('pvBoutonDupliquer').style.display = 'none';
+        document.querySelector('#pvPanneau .pv-valider').textContent = 'Ajouter au plateau';
       }
       champForme.style.display = typeActuel === 'objet' ? 'none' : '';
       champIcone.style.display = typeActuel === 'objet' ? '' : 'none';
@@ -622,9 +646,68 @@
       pvFermerPanneau();
     };
 
+    window.pvDupliquerPion = function () {
+      var p = pions.find(function (p) { return p.id === idEnEdition; });
+      if (!p) return;
+      var copie = JSON.parse(JSON.stringify(p));
+      copie.id = 'p' + Date.now() + Math.random().toString(36).slice(2, 6);
+      copie.x = Math.min(96, p.x + 6);
+      copie.y = Math.min(96, p.y + 6);
+      copie.trace = [];
+      pions.push(copie);
+      redessiner();
+      pvFermerPanneau();
+    };
+
     window.pvToutEffacer = function () {
       if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
     };
+
+    // --- Liste des pions, à côté du plateau ---
+    function redessinerListe() {
+      var ul = document.getElementById('pvListe');
+      ul.innerHTML = '';
+      if (!pions.length) {
+        ul.innerHTML = '<li class="pv-liste-vide" style="cursor:default;border:none;background:none;padding:0">Rien pour l’instant.</li>';
+        return;
+      }
+      pions.forEach(function (p) {
+        var li = document.createElement('li');
+        var puce = document.createElement('span');
+        puce.className = 'pv-liste-puce';
+        puce.style.background = p.couleur;
+        if (p.type === 'objet') { puce.style.borderRadius = '4px'; }
+        var texte = document.createElement('span');
+        texte.textContent = (p.nom || '(sans nom)') + (p.actif ? ' ●' : '');
+        li.appendChild(puce);
+        li.appendChild(texte);
+        li.addEventListener('click', function () { pvOuvrirPanneau(null, p.id); });
+        ul.appendChild(li);
+      });
+    }
+
+    // --- Sauvegarde automatique dans ce navigateur ---
+    function pvSauvegarder() {
+      try {
+        localStorage.setItem('genesolia-plateau-visio', JSON.stringify({ pions: pions, liens: liens }));
+      } catch (e) { /* stockage indisponible : on continue sans sauvegarder */ }
+    }
+
+    function pvRestaurer() {
+      try {
+        var brut = localStorage.getItem('genesolia-plateau-visio');
+        if (!brut) return;
+        var donnees = JSON.parse(brut);
+        if (donnees && Array.isArray(donnees.pions)) { pions = donnees.pions; liens = Array.isArray(donnees.liens) ? donnees.liens : []; }
+      } catch (e) { /* rien à restaurer */ }
+    }
+
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') {
+        if (panneauLien.classList.contains('pv-ouvert')) { pvAnnulerLien(); }
+        else if (panneau.classList.contains('pv-ouvert')) { pvFermerPanneau(); }
+      }
+    });
 
     window.pvExporter = function () {
       if (!pions.length) { alert('Le plateau est vide pour le moment.'); return; }
@@ -641,7 +724,8 @@
       document.body.appendChild(script);
     };
 
-    maj();
+    pvRestaurer();
+    redessiner();
   })();
   </script>
 </body>
