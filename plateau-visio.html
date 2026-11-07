@@ -49,6 +49,8 @@
     .pv-icones-choix{flex-wrap:wrap;max-width:15rem}
     .pv-icones-choix button svg{width:1.3rem;height:1.3rem;stroke:var(--prune)}
     .pv-etiquette{max-width:6.5rem;text-align:center;font-size:.78rem;color:var(--prune);background:rgba(255,255,255,.9);padding:.1rem .45rem;border-radius:99px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pv-etiquette.pv-a-note::after{content:"";display:inline-block;width:.4rem;height:.4rem;border-radius:50%;background:var(--champagne);margin-left:.35rem;vertical-align:middle}
+    .pv-liste-note{width:.5rem;height:.5rem;border-radius:50%;background:var(--champagne);flex-shrink:0}
     .pv-pion.pv-selectionne .pv-forme{outline:3px solid var(--champagne);outline-offset:2px}
     .pv-pion.pv-actif-pion .pv-forme{box-shadow:0 0 0 4px var(--champagne),0 0 22px 2px rgba(185,138,85,.55),0 10px 24px rgba(46,19,56,.25)!important;animation:pvPulse 1.8s ease-in-out infinite}
     .pv-pion.pv-actif-pion .pv-triangle{filter:drop-shadow(0 0 3px var(--champagne)) drop-shadow(0 0 9px rgba(185,138,85,.6));animation:pvPulse 1.8s ease-in-out infinite}
@@ -166,6 +168,10 @@
           <button type="button" data-rot="aucune" title="Aucune orientation" onclick="pvChoisirRotation(null)" style="font-size:.68rem">Aucune</button>
         </div>
       </div>
+      <div class="pv-champ">
+        <label for="pvNote">Note (ce que vous savez sur cette personne ou cet objet)</label>
+        <textarea id="pvNote" rows="3" maxlength="500" placeholder="Dates, répétitions, ce qui a été dit en séance…" style="font:400 .92rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box;resize:vertical"></textarea>
+      </div>
       <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
       <div class="pv-actions-carte">
         <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
@@ -276,8 +282,9 @@
       el.appendChild(corps);
 
       var etiq = document.createElement('span');
-      etiq.className = 'pv-etiquette';
+      etiq.className = 'pv-etiquette' + (p.note && p.note.trim() ? ' pv-a-note' : '');
       etiq.textContent = p.nom || '(sans nom)';
+      etiq.title = p.note && p.note.trim() ? p.note.trim() : '';
       el.appendChild(etiq);
       attacherGestes(el, p);
       plateau.appendChild(el);
@@ -597,6 +604,7 @@
         document.getElementById('pvNom').value = p.nom;
         document.getElementById('pvCouleur').value = p.couleur;
         document.getElementById('pvTaille').value = p.taille;
+        document.getElementById('pvNote').value = p.note || '';
         document.getElementById('pvActif').checked = !!p.actif;
         pvChoisirRotation(p.rotation === undefined ? null : p.rotation);
         if (typeActuel === 'objet') { pvChoisirIcone(p.forme); } else { pvChoisirForme(p.forme); }
@@ -609,6 +617,7 @@
         document.getElementById('pvNom').value = '';
         document.getElementById('pvCouleur').value = type === 'objet' ? '#B98A55' : '#6B2F5B';
         document.getElementById('pvTaille').value = 60;
+        document.getElementById('pvNote').value = '';
         document.getElementById('pvActif').checked = false;
         pvChoisirRotation(null);
         if (type === 'objet') { pvChoisirIcone('cle'); } else { pvChoisirForme('cercle'); }
@@ -629,11 +638,12 @@
       var couleur = document.getElementById('pvCouleur').value;
       var taille = parseInt(document.getElementById('pvTaille').value, 10);
       var actif = document.getElementById('pvActif').checked;
+      var note = document.getElementById('pvNote').value;
       if (idEnEdition) {
         var p = pions.find(function (p) { return p.id === idEnEdition; });
-        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif; p.rotation = rotationChoisie;
+        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif; p.rotation = rotationChoisie; p.note = note;
       } else {
-        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), type: typeActuel, nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, actif: actif, rotation: rotationChoisie, trace: [], x: 50, y: 50 });
+        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), type: typeActuel, nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, actif: actif, rotation: rotationChoisie, note: note, trace: [], x: 50, y: 50 });
       }
       redessiner();
       pvFermerPanneau();
@@ -681,6 +691,7 @@
         texte.textContent = (p.nom || '(sans nom)') + (p.actif ? ' ●' : '');
         li.appendChild(puce);
         li.appendChild(texte);
+        if (p.note && p.note.trim()) { var pn = document.createElement('span'); pn.className = 'pv-liste-note'; pn.title = 'A une note'; li.appendChild(pn); }
         li.addEventListener('click', function () { pvOuvrirPanneau(null, p.id); });
         ul.appendChild(li);
       });
