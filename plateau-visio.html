@@ -46,6 +46,14 @@
     @keyframes pvPulse{0%,100%{opacity:1}50%{opacity:.82}}
     .pv-champ-case{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune-doux);margin-bottom:1rem}
     .pv-champ-case input{accent-color:var(--champagne);width:1.1rem;height:1.1rem}
+    .pv-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    .pv-svg .pv-lien-trait{cursor:pointer}
+    .pv-corps{position:relative;display:inline-block}
+    .pv-orientation{position:absolute;inset:-11px;pointer-events:none}
+    .pv-orientation-pointe{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:11px solid var(--prune)}
+    .pv-barre button.pv-mode-actif{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .pv-boussole button span{display:block;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid var(--prune)}
+    .pv-hint-lien{text-align:center;color:var(--prune);font-size:.88rem;font-weight:600;margin:0 0 1rem}
 
     .pv-panneau{position:fixed;inset:0;background:rgba(46,19,56,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem}
     .pv-panneau.pv-ouvert{display:flex}
@@ -81,16 +89,19 @@
         <div class="pv-barre">
           <button type="button" onclick="pvOuvrirPanneau('personne')">+ Une personne</button>
           <button type="button" onclick="pvOuvrirPanneau('objet')">+ Un objet symbolique</button>
+          <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
         </div>
+        <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
 
         <div class="pv-plateau-zone">
           <div class="pv-plateau" id="pvPlateau">
+            <svg class="pv-svg" id="pvSvg"></svg>
             <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un trait pour le supprimer. Rien n’est envoyé ni enregistré : ce plateau vit dans votre navigateur, pendant votre séance. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
@@ -126,6 +137,20 @@
           <input type="range" id="pvTaille" min="36" max="100" value="60" style="width:100%">
         </div>
       </div>
+      <div class="pv-champ">
+        <label>Orientation (vers qui ce pion est tourné)</label>
+        <div class="pv-formes-choix pv-boussole" id="pvBoussole" style="flex-wrap:wrap;max-width:16rem">
+          <button type="button" data-rot="0" title="Haut" onclick="pvChoisirRotation(0)"><span></span></button>
+          <button type="button" data-rot="45" title="Haut-droite" onclick="pvChoisirRotation(45)"><span style="transform:rotate(45deg)"></span></button>
+          <button type="button" data-rot="90" title="Droite" onclick="pvChoisirRotation(90)"><span style="transform:rotate(90deg)"></span></button>
+          <button type="button" data-rot="135" title="Bas-droite" onclick="pvChoisirRotation(135)"><span style="transform:rotate(135deg)"></span></button>
+          <button type="button" data-rot="180" title="Bas" onclick="pvChoisirRotation(180)"><span style="transform:rotate(180deg)"></span></button>
+          <button type="button" data-rot="225" title="Bas-gauche" onclick="pvChoisirRotation(225)"><span style="transform:rotate(225deg)"></span></button>
+          <button type="button" data-rot="270" title="Gauche" onclick="pvChoisirRotation(270)"><span style="transform:rotate(270deg)"></span></button>
+          <button type="button" data-rot="315" title="Haut-gauche" onclick="pvChoisirRotation(315)"><span style="transform:rotate(315deg)"></span></button>
+          <button type="button" data-rot="aucune" title="Aucune orientation" onclick="pvChoisirRotation(null)" style="font-size:.68rem">Aucune</button>
+        </div>
+      </div>
       <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
       <div class="pv-actions-carte">
         <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
@@ -135,15 +160,45 @@
     </div>
   </div>
 
+  <div class="pv-panneau" id="pvPanneauLien" role="dialog" aria-modal="true" aria-labelledby="pvPanneauLienTitre">
+    <div class="pv-carte">
+      <h3 id="pvPanneauLienTitre">Le lien entre ces deux pions</h3>
+      <div class="pv-champ">
+        <label>Type de lien</label>
+        <div class="pv-formes-choix" id="pvStylesLien" style="flex-wrap:wrap">
+          <button type="button" data-style="plein" class="pv-actif" title="Lien fort" onclick="pvChoisirStyleLien('plein')">Plein</button>
+          <button type="button" data-style="pointille" title="Lien distendu" onclick="pvChoisirStyleLien('pointille')">Pointillé</button>
+          <button type="button" data-style="coupe" title="Lien coupé" onclick="pvChoisirStyleLien('coupe')">Coupé</button>
+        </div>
+      </div>
+      <div class="pv-champ">
+        <label for="pvCouleurLien">Couleur</label>
+        <input type="color" id="pvCouleurLien" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+      </div>
+      <div class="pv-actions-carte">
+        <button type="button" onclick="pvAnnulerLien()">Annuler</button>
+        <button type="button" class="pv-valider" onclick="pvValiderLien()">Créer le lien</button>
+      </div>
+    </div>
+  </div>
+
   <script>
   (function () {
     var plateau = document.getElementById('pvPlateau');
     var vide = document.getElementById('pvVide');
     var panneau = document.getElementById('pvPanneau');
-    var pions = [];          // {id, type, nom, forme, couleur, taille, x, y} — x/y en % du plateau ; type: 'personne' ou 'objet'
+    var svg = document.getElementById('pvSvg');
+    var panneauLien = document.getElementById('pvPanneauLien');
+    var pions = [];          // {id, type, nom, forme, couleur, taille, x, y, rotation, trace} — x/y en % du plateau ; type: 'personne' ou 'objet'
+    var liens = [];          // {id, a, b, style, couleur} — style: 'plein' | 'pointille' | 'coupe'
     var formeChoisie = 'cercle';
+    var rotationChoisie = null;
     var idEnEdition = null;  // null = création, sinon id du pion édité
     var typeActuel = 'personne';
+    var modeLien = false;
+    var premierPionLien = null;
+    var deuxiemePionLien = null;
+    var styleLienChoisi = 'plein';
 
     var ICONES = {
       cle: { label: 'Clé (secret)', chemin: '<circle cx="8" cy="8" r="3.4"/><path d="M10.4 10.4L20 20m-5-5l2-2m-6 6l2-2"/>' },
@@ -167,6 +222,9 @@
       el.style.left = p.x + '%';
       el.style.top = p.y + '%';
 
+      var corps = document.createElement('div');
+      corps.className = 'pv-corps';
+
       if (p.type === 'objet') {
         var fond = document.createElement('div');
         fond.className = 'pv-forme pv-icone-fond';
@@ -175,7 +233,7 @@
         var tailleIcone = Math.round(p.taille * 0.55);
         var icone = ICONES[p.forme] || ICONES.cle;
         fond.innerHTML = '<div class="pv-icone-svg" style="color:' + p.couleur + '"><svg viewBox="0 0 24 24" width="' + tailleIcone + '" height="' + tailleIcone + '" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + icone.chemin + '</svg></div>';
-        el.appendChild(fond);
+        corps.appendChild(fond);
       } else {
         var forme = document.createElement('div');
         forme.className = 'pv-forme pv-' + p.forme;
@@ -188,8 +246,18 @@
           forme.style.height = p.taille + 'px';
           forme.style.background = p.couleur;
         }
-        el.appendChild(forme);
+        corps.appendChild(forme);
       }
+
+      if (p.rotation !== null && p.rotation !== undefined) {
+        var orient = document.createElement('div');
+        orient.className = 'pv-orientation';
+        orient.style.transform = 'rotate(' + p.rotation + 'deg)';
+        orient.innerHTML = '<div class="pv-orientation-pointe" style="border-bottom-color:' + p.couleur + '"></div>';
+        corps.appendChild(orient);
+      }
+
+      el.appendChild(corps);
 
       var etiq = document.createElement('span');
       etiq.className = 'pv-etiquette';
@@ -203,7 +271,114 @@
       Array.prototype.slice.call(plateau.querySelectorAll('.pv-pion')).forEach(function (n) { n.remove(); });
       pions.forEach(dessinerPion);
       maj();
+      redessinerSvg();
     }
+
+    // Les positions sont en % du plateau : on les convertit en pixels pour tracer les traits et les traces.
+    function centrePion(p) {
+      var rect = plateau.getBoundingClientRect();
+      return { x: (p.x / 100) * rect.width, y: (p.y / 100) * rect.height };
+    }
+
+    function redessinerSvg() {
+      svg.innerHTML = '';
+      var rect = plateau.getBoundingClientRect();
+      svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
+
+      // Traces de déplacement : un pointillé léger du chemin parcouru, sous les pions.
+      pions.forEach(function (p) {
+        if (!p.trace || !p.trace.length) return;
+        var pts = p.trace.map(function (pt) { return (pt.x / 100 * rect.width) + ',' + (pt.y / 100 * rect.height); });
+        var actuel = centrePion(p);
+        pts.push(actuel.x + ',' + actuel.y);
+        var chemin = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        chemin.setAttribute('points', pts.join(' '));
+        chemin.setAttribute('fill', 'none');
+        chemin.setAttribute('stroke', p.couleur);
+        chemin.setAttribute('stroke-width', '1.5');
+        chemin.setAttribute('stroke-dasharray', '3,5');
+        chemin.setAttribute('opacity', '.35');
+        svg.appendChild(chemin);
+        p.trace.forEach(function (pt, i) {
+          var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          c.setAttribute('cx', (pt.x / 100 * rect.width));
+          c.setAttribute('cy', (pt.y / 100 * rect.height));
+          c.setAttribute('r', Math.max(3, p.taille * 0.12));
+          c.setAttribute('fill', p.couleur);
+          c.setAttribute('opacity', (0.12 + i * 0.08).toFixed(2));
+          svg.appendChild(c);
+        });
+      });
+
+      // Liens entre pions
+      liens.forEach(function (l) {
+        var a = pions.find(function (p) { return p.id === l.a; });
+        var b = pions.find(function (p) { return p.id === l.b; });
+        if (!a || !b) return;
+        var ca = centrePion(a), cb = centrePion(b);
+        var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupe.setAttribute('class', 'pv-lien-trait');
+        groupe.addEventListener('click', function () { pvSupprimerLien(l.id); });
+
+        if (l.style === 'coupe') {
+          var mx = (ca.x + cb.x) / 2, my = (ca.y + cb.y) / 2;
+          var dx = cb.x - ca.x, dy = cb.y - ca.y;
+          var len = Math.hypot(dx, dy) || 1;
+          var ux = dx / len, uy = dy / len;
+          var gap = 10;
+          var m1 = { x: mx - ux * gap, y: my - uy * gap };
+          var m2 = { x: mx + ux * gap, y: my + uy * gap };
+          groupe.appendChild(ligneSvg(ca.x, ca.y, m1.x, m1.y, l.couleur, false));
+          groupe.appendChild(ligneSvg(m2.x, m2.y, cb.x, cb.y, l.couleur, false));
+          // deux petits traits perpendiculaires, pour marquer la coupure
+          var px = -uy * 7, py = ux * 7;
+          groupe.appendChild(ligneSvg(m1.x + px, m1.y + py, m1.x - px, m1.y - py, l.couleur, false));
+          groupe.appendChild(ligneSvg(m2.x + px, m2.y + py, m2.x - px, m2.y - py, l.couleur, false));
+        } else {
+          groupe.appendChild(ligneSvg(ca.x, ca.y, cb.x, cb.y, l.couleur, l.style === 'pointille'));
+        }
+        // zone invisible plus large, pour toucher/cliquer facilement
+        var zone = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        zone.setAttribute('x1', ca.x); zone.setAttribute('y1', ca.y);
+        zone.setAttribute('x2', cb.x); zone.setAttribute('y2', cb.y);
+        zone.setAttribute('stroke', 'transparent');
+        zone.setAttribute('stroke-width', '16');
+        groupe.appendChild(zone);
+        svg.appendChild(groupe);
+      });
+
+      // Pion en attente de lien : petit halo de sélection
+      if (premierPionLien) {
+        var p0 = pions.find(function (p) { return p.id === premierPionLien; });
+        if (p0) {
+          var c0 = centrePion(p0);
+          var cercle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          cercle.setAttribute('cx', c0.x); cercle.setAttribute('cy', c0.y);
+          cercle.setAttribute('r', p0.taille * 0.75);
+          cercle.setAttribute('fill', 'none');
+          cercle.setAttribute('stroke', '#B98A55');
+          cercle.setAttribute('stroke-width', '2.5');
+          cercle.setAttribute('stroke-dasharray', '4,4');
+          svg.appendChild(cercle);
+        }
+      }
+    }
+
+    function ligneSvg(x1, y1, x2, y2, couleur, pointille) {
+      var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1', x1); l.setAttribute('y1', y1); l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+      l.setAttribute('stroke', couleur);
+      l.setAttribute('stroke-width', '2.5');
+      l.setAttribute('stroke-linecap', 'round');
+      if (pointille) l.setAttribute('stroke-dasharray', '7,6');
+      return l;
+    }
+
+    window.pvSupprimerLien = function (id) {
+      if (confirm('Supprimer ce lien ?')) { liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); }
+    };
+
+    window.addEventListener('resize', redessinerSvg);
 
     function appliquerTaille(el, p) {
       if (p.type === 'objet') {
@@ -227,7 +402,7 @@
     // Un seul doigt (ou la souris) : on déplace le pion, et s'il n'a pas bougé, un tap ouvre la modification.
     // Deux doigts sur le même pion : on pince pour l'agrandir ou le réduire.
     function attacherGestes(el, p) {
-      var etat = { pointeurs: new Map(), bouge: false, pince: false, distInit: 0, tailleInit: 0, startX: 0, startY: 0 };
+      var etat = { pointeurs: new Map(), bouge: false, pince: false, distInit: 0, tailleInit: 0, startX: 0, startY: 0, depart: null };
 
       el.addEventListener('pointerdown', function (ev) {
         ev.preventDefault();
@@ -236,6 +411,7 @@
         if (etat.pointeurs.size === 1) {
           etat.bouge = false;
           etat.startX = ev.clientX; etat.startY = ev.clientY;
+          etat.depart = { x: p.x, y: p.y };
           el.classList.add('pv-drag');
         } else if (etat.pointeurs.size === 2) {
           etat.pince = true;
@@ -253,6 +429,7 @@
           var dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
           p.taille = Math.max(30, Math.min(140, Math.round(etat.tailleInit * (dist / etat.distInit))));
           appliquerTaille(el, p);
+          redessinerSvg();
         } else if (etat.pointeurs.size === 1) {
           var dx = ev.clientX - etat.startX, dy = ev.clientY - etat.startY;
           if (Math.abs(dx) + Math.abs(dy) > 6) etat.bouge = true;
@@ -264,6 +441,7 @@
           el.style.left = x + '%';
           el.style.top = y + '%';
           p.x = x; p.y = y;
+          redessinerSvg();
         }
       });
 
@@ -271,7 +449,14 @@
         etat.pointeurs.delete(ev.pointerId);
         if (etat.pointeurs.size === 0) {
           el.classList.remove('pv-drag');
-          if (!etat.pince && !etat.bouge) { pvOuvrirPanneau(null, p.id); }
+          if (!etat.pince && !etat.bouge) {
+            if (modeLien) { pvClicPionPourLien(p.id); } else { pvOuvrirPanneau(null, p.id); }
+          } else if (etat.bouge && !etat.pince && etat.depart) {
+            p.trace = p.trace || [];
+            p.trace.push(etat.depart);
+            if (p.trace.length > 5) p.trace.shift();
+            redessinerSvg();
+          }
           etat.pince = false;
         } else if (etat.pointeurs.size === 1) {
           // on relâche un des deux doigts du pincement : on repart d'un déplacement simple, sans rouvrir la fiche
@@ -297,6 +482,56 @@
       Array.prototype.slice.call(document.querySelectorAll('#pvIconesChoix button')).forEach(function (b) {
         b.classList.toggle('pv-actif', b.dataset.icone === cle);
       });
+    };
+
+    window.pvChoisirRotation = function (rot) {
+      rotationChoisie = rot;
+      var valeur = rot === null ? 'aucune' : String(rot);
+      Array.prototype.slice.call(document.querySelectorAll('#pvBoussole button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.rot === valeur);
+      });
+    };
+
+    // --- Liens entre deux pions ---
+    window.pvBasculerModeLien = function () {
+      modeLien = !modeLien;
+      premierPionLien = null;
+      document.getElementById('pvBoutonLien').classList.toggle('pv-mode-actif', modeLien);
+      document.getElementById('pvHintLien').hidden = !modeLien;
+      redessinerSvg();
+    };
+
+    window.pvClicPionPourLien = function (id) {
+      if (!premierPionLien) { premierPionLien = id; redessinerSvg(); return; }
+      if (premierPionLien === id) { premierPionLien = null; redessinerSvg(); return; }
+      var dejaExiste = liens.some(function (l) { return (l.a === premierPionLien && l.b === id) || (l.a === id && l.b === premierPionLien); });
+      if (dejaExiste) { alert('Ces deux pions sont déjà reliés.'); premierPionLien = null; redessinerSvg(); return; }
+      deuxiemePionLien = id;
+      document.getElementById('pvCouleurLien').value = '#6B2F5B';
+      pvChoisirStyleLien('plein');
+      panneauLien.classList.add('pv-ouvert');
+    };
+
+    window.pvChoisirStyleLien = function (style) {
+      styleLienChoisi = style;
+      Array.prototype.slice.call(document.querySelectorAll('#pvStylesLien button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.style === style);
+      });
+    };
+
+    window.pvAnnulerLien = function () {
+      panneauLien.classList.remove('pv-ouvert');
+      premierPionLien = null;
+      redessinerSvg();
+    };
+
+    window.pvValiderLien = function () {
+      var couleur = document.getElementById('pvCouleurLien').value;
+      liens.push({ id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6), a: premierPionLien, b: deuxiemePionLien, style: styleLienChoisi, couleur: couleur });
+      panneauLien.classList.remove('pv-ouvert');
+      premierPionLien = null;
+      deuxiemePionLien = null;
+      redessinerSvg();
     };
 
     function pvRemplirIconesChoix() {
@@ -327,6 +562,7 @@
         document.getElementById('pvCouleur').value = p.couleur;
         document.getElementById('pvTaille').value = p.taille;
         document.getElementById('pvActif').checked = !!p.actif;
+        pvChoisirRotation(p.rotation === undefined ? null : p.rotation);
         if (typeActuel === 'objet') { pvChoisirIcone(p.forme); } else { pvChoisirForme(p.forme); }
         boutonSupprimer.style.display = '';
       } else {
@@ -336,6 +572,7 @@
         document.getElementById('pvCouleur').value = type === 'objet' ? '#B98A55' : '#6B2F5B';
         document.getElementById('pvTaille').value = 60;
         document.getElementById('pvActif').checked = false;
+        pvChoisirRotation(null);
         if (type === 'objet') { pvChoisirIcone('cle'); } else { pvChoisirForme('cercle'); }
         boutonSupprimer.style.display = 'none';
       }
@@ -354,9 +591,9 @@
       var actif = document.getElementById('pvActif').checked;
       if (idEnEdition) {
         var p = pions.find(function (p) { return p.id === idEnEdition; });
-        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif;
+        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif; p.rotation = rotationChoisie;
       } else {
-        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), type: typeActuel, nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, actif: actif, x: 50, y: 50 });
+        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), type: typeActuel, nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, actif: actif, rotation: rotationChoisie, trace: [], x: 50, y: 50 });
       }
       redessiner();
       pvFermerPanneau();
@@ -364,12 +601,13 @@
 
     window.pvSupprimerPion = function () {
       pions = pions.filter(function (p) { return p.id !== idEnEdition; });
+      liens = liens.filter(function (l) { return l.a !== idEnEdition && l.b !== idEnEdition; });
       redessiner();
       pvFermerPanneau();
     };
 
     window.pvToutEffacer = function () {
-      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; redessiner(); }
+      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
     };
 
     window.pvExporter = function () {
