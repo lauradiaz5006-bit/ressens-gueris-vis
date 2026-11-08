@@ -63,6 +63,8 @@
     .md-compare-grilles .md-case9 b{font-size:1rem}
     .md-compare-grilles .md-case9 span{font-size:.5rem}
     .md-compare-out{margin-top:1rem}
+    .md-compare-plus{margin-top:1.4rem;padding:1.2rem;border-radius:16px;background:var(--champagne-clair)}
+    .md-compare-plus h4{font-family:var(--display);font-weight:400;margin-bottom:.4rem}
 
     .md-cles{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin-bottom:1.4rem}
     .md-cle{display:flex;flex-direction:column;padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
@@ -368,6 +370,20 @@
       ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
       ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
     }
+    function dessinerGrilleCanvas(ctx, g, startX, startY, cellSize, gap) {
+      ORDRE_GRILLE.forEach(function (k, i) {
+        var col = i % 3, row = Math.floor(i / 3);
+        var x = startX + col * (cellSize + gap), y = startY + row * (cellSize + gap);
+        var n = g[k];
+        ctx.fillStyle = n === 0 ? '#FCEFF3' : (n >= 3 ? '#FFF6EC' : '#FFF9F7');
+        ctx.strokeStyle = n === 0 ? '#E3B8C4' : '#EBCFD5'; ctx.lineWidth = 2;
+        roundRect(ctx, x, y, cellSize, cellSize, 20); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#6B2F5B'; ctx.font = '400 ' + Math.round(cellSize * 0.29) + 'px Georgia, serif';
+        ctx.fillText(String(k), x + cellSize / 2, y + cellSize / 2 - 5);
+        ctx.fillStyle = '#8E6383'; ctx.font = '400 ' + Math.round(cellSize * 0.1) + 'px Georgia, serif';
+        ctx.fillText(n ? (n + '×') : 'absent', x + cellSize / 2, y + cellSize / 2 + cellSize * 0.18);
+      });
+    }
     function genererImageGrille(p, cdv, g) {
       var taille = 1080;
       var cvs = document.createElement('canvas');
@@ -381,21 +397,33 @@
       ctx.fillText('Chemin de vie ' + cdv, taille / 2, 175);
 
       var cellSize = 220, gap = 20, startX = (taille - (3 * cellSize + 2 * gap)) / 2, startY = 260;
-      ORDRE_GRILLE.forEach(function (k, i) {
-        var col = i % 3, row = Math.floor(i / 3);
-        var x = startX + col * (cellSize + gap), y = startY + row * (cellSize + gap);
-        var n = g[k];
-        ctx.fillStyle = n === 0 ? '#FCEFF3' : (n >= 3 ? '#FFF6EC' : '#FFF9F7');
-        ctx.strokeStyle = n === 0 ? '#E3B8C4' : '#EBCFD5'; ctx.lineWidth = 2;
-        roundRect(ctx, x, y, cellSize, cellSize, 20); ctx.fill(); ctx.stroke();
-        ctx.fillStyle = '#6B2F5B'; ctx.font = '400 64px Georgia, serif';
-        ctx.fillText(String(k), x + cellSize / 2, y + cellSize / 2 - 5);
-        ctx.fillStyle = '#8E6383'; ctx.font = '400 22px Georgia, serif';
-        ctx.fillText(n ? (n + '×') : 'absent', x + cellSize / 2, y + cellSize / 2 + 40);
-      });
+      dessinerGrilleCanvas(ctx, g, startX, startY, cellSize, gap);
 
       ctx.fillStyle = '#B98A55'; ctx.font = '400 26px Georgia, serif';
       ctx.fillText('genesolia.fr', taille / 2, startY + 3 * cellSize + 2 * gap + 70);
+      return cvs.toDataURL('image/png');
+    }
+    function genererImageDuo(p, cdv, g, p2, cdv2, g2) {
+      var w = 1600, h = 1080;
+      var cvs = document.createElement('canvas');
+      cvs.width = w; cvs.height = h;
+      var ctx = cvs.getContext('2d');
+      ctx.fillStyle = '#FFF9F7'; ctx.fillRect(0, 0, w, h);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6B2F5B'; ctx.font = '600 50px Georgia, serif';
+      ctx.fillText('La matrice de ' + p + ' & ' + p2, w / 2, 110);
+
+      var cellSize = 170, gap = 16, gridW = 3 * cellSize + 2 * gap, decalage = 40;
+      var startY = 220;
+      var startX1 = w / 2 - gridW - decalage, startX2 = w / 2 + decalage;
+      ctx.fillStyle = '#8E6383'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText(p + ' · chemin de vie ' + cdv, startX1 + gridW / 2, startY - 30);
+      ctx.fillText(p2 + ' · chemin de vie ' + cdv2, startX2 + gridW / 2, startY - 30);
+      dessinerGrilleCanvas(ctx, g, startX1, startY, cellSize, gap);
+      dessinerGrilleCanvas(ctx, g2, startX2, startY, cellSize, gap);
+
+      ctx.fillStyle = '#B98A55'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText('genesolia.fr', w / 2, startY + 3 * cellSize + 2 * gap + 70);
       return cvs.toDataURL('image/png');
     }
 
@@ -518,7 +546,35 @@
           '<p><b>Vos chemins de vie :</b> ' + compat + '</p>' +
           '<p><b>Ce que vous partagez :</b> ' + (communes.length ? communes.map(function (k) { return CLES[k].titre; }).join(', ') : 'Aucune clé dominante commune : vos profils se croisent plus qu\'ils ne se ressemblent.') + '</p>' +
           '<p><b>Ce qui vous complète :</b> ' + (complementaires.length ? complementaires.map(function (k) { return CLES[k].titre; }).join(', ') + ' — là où l\'un·e est discret·e, l\'autre est marqué·e.' : 'Vos deux grilles se ressemblent, sans grand écart entre vous.') + '</p>' +
-          '<p class="note">Lecture symbolique, pas un verdict sur votre relation : à prendre comme un point de départ pour en parler ensemble.</p></div>';
+          '<p class="note">Lecture symbolique, pas un verdict sur votre relation : à prendre comme un point de départ pour en parler ensemble.</p>' +
+          '<div class="md-compare-plus"><h4>Aller plus loin</h4><p>Comparez aussi vos points complémentaires, votre lignée à deux, et téléchargez l\'image de votre duo — gratuit avec un compte Genesolia.</p>' +
+          '<button class="btn btn-trait" type="button" id="md-compare-debloquer" data-compte="ta comparaison complète">Débloquer la comparaison complète</button>' +
+          '<div id="md-compare-plus-zone"></div></div></div>';
+
+        document.getElementById('md-compare-debloquer').addEventListener('click', function () {
+          var res2 = null;
+          var pts2 = pointsComplementaires(jj2, mm2, aaaa2, cdv2, res2);
+          var profils2 = profilsLignee(g2);
+          var axes = Object.keys(POINTS).map(function (id) {
+            var n1 = pts[id], n2 = pts2[id], meme = tierPoint(n1) === tierPoint(n2), info = POINTS[id];
+            return '<article class="md-cle"><h3>' + info.titre + '</h3><p>' + esc(p) + ' : <b>' + n1 + '</b> · ' + esc(p2) + ' : <b>' + n2 + '</b></p>' +
+              '<p>' + (meme ? 'Vous vivez cet axe de façon assez proche.' : 'Vos rapports à cet axe diffèrent : une bonne occasion d\'en parler ensemble.') + '</p></article>';
+          }).join('');
+          var communsLignee = profils.filter(function (pr) { return profils2.some(function (pr2) { return pr2.id === pr.id; }); });
+          var lignee = communsLignee.length
+            ? '<p>Vous partagez ce profil de lignée : <b>' + communsLignee.map(function (pr) { return pr.titre; }).join(', ') + '</b>. Ce qui se répète d\'un côté peut parfois éclairer l\'autre.</p>'
+            : '<p>Vos lignées suivent des chemins différents : aucun profil transgénérationnel commun identifié ici.</p>';
+          document.getElementById('md-compare-plus-zone').innerHTML =
+            '<h3 class="n-titre-sec">Vos points complémentaires, à deux</h3><div class="md-cles">' + axes + '</div>' +
+            '<h3 class="n-titre-sec">Vos lignées, côte à côte</h3>' + lignee +
+            '<button class="btn btn-plein" type="button" id="md-compare-image">Télécharger l\'image de notre duo</button>';
+          document.getElementById('md-compare-image').addEventListener('click', function () {
+            var url = genererImageDuo(p, cdv, g, p2, cdv2, g2);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'matrice-duo-' + prenom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '-' + p2nom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.png';
+            document.body.appendChild(a); a.click(); a.remove();
+          });
+        });
       });
     }
 
