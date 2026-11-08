@@ -135,7 +135,8 @@
     {"@type": "Question", "name": "Comment est calculée la Matrice de destin ?", "acceptedAnswer": {"@type": "Answer", "text": "Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée."}},
     {"@type": "Question", "name": "Quelle est la différence entre la Matrice de destin et un thème numérologique ?", "acceptedAnswer": {"@type": "Answer", "text": "Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide."}},
     {"@type": "Question", "name": "La Matrice de destin est-elle fiable ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel."}},
-    {"@type": "Question", "name": "Pourquoi la Matrice de destin parle-t-elle de ma lignée ?", "acceptedAnswer": {"@type": "Answer", "text": "La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne."}}
+    {"@type": "Question", "name": "Pourquoi la Matrice de destin parle-t-elle de ma lignée ?", "acceptedAnswer": {"@type": "Answer", "text": "La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne."}},
+    {"@type": "Question", "name": "Que se passe-t-il si mon chemin de vie est un nombre maître (11, 22, 33) ?", "acceptedAnswer": {"@type": "Answer", "text": "Il est gardé tel quel plutôt que réduit une seconde fois, comme le veut la règle classique en numérologie. Ses deux chiffres rejoignent quand même la grille, un par un."}}
   ]}</script>
 </head>
 <body class="nouveau">
@@ -164,6 +165,7 @@
           <button class="btn btn-plein" type="submit">Découvrir ma matrice</button>
           <p class="n-erreur" role="alert" id="md-erreur"></p>
           <p class="mini">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+          <p class="mini">Tu peux aussi calculer la matrice d'un proche (enfant, parent, conjoint·e) : indique simplement son prénom et sa date de naissance à la place des tiens.</p>
           <p class="md-exemple"><a href="?exemple">Voir un exemple avant de donner ma date</a></p>
         </form>
       </div>
@@ -174,13 +176,18 @@
     <section class="bloc bloc-doux">
       <div class="conteneur n-texte">
         <h2>Comment est calculée ta grille</h2>
-        <p>Les chiffres de ta date de naissance (jour, mois, année) sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases, et c'est la fréquence de chaque chiffre qui colore la clé qui lui est associée : absente, discrète, bien installée, ou très marquée.</p>
+        <ol class="etapes">
+          <li><p><b>On extrait tous les chiffres de ta date de naissance</b> (jour, mois, année). Les zéros sont ignorés : ils ne remplissent aucune case. Pour le 12/05/1990, ça donne : 1, 2, 5, 1, 9, 9.</p></li>
+          <li><p><b>On calcule ton chemin de vie</b> en additionnant tous ces chiffres, puis en réduisant le total à un seul chiffre (1+2+0+5+1+9+9+0 = 27, soit 2+7 = 9). Ses chiffres rejoignent eux aussi le compte.</p></li>
+          <li><p><b>Chaque chiffre de 1 à 9 remplit une case</b> d'une grille à neuf cases : plus un chiffre revient souvent, plus sa case est « marquée ». Une case vide n'est pas un manque, juste une clé à apprivoiser plutôt qu'à exploiter.</p></li>
+        </ol>
+        <p><b>Et les nombres maîtres (11, 22, 33) ?</b> Si l'addition du chemin de vie donne 11, 22 ou 33 avant toute autre réduction, on le garde tel quel plutôt que de le réduire une fois de plus (11 ne devient pas 2). C'est la règle classique en numérologie, et c'est celle que Genesolia applique ici. Ses deux chiffres (1 et 1, par exemple) rejoignent quand même la grille un par un.</p>
         <p>C'est une version que Genesolia a adaptée à sa façon, dans l'esprit du carré pythagoricien utilisé par plusieurs méthodes de matrice de destin, mais pensée pour se relier ensuite à ta lignée plutôt qu'à toi seul·e.</p>
         <p class="note">Lecture symbolique, pour t'aider à réfléchir. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
       </div>
     </section>
 
-    <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment est calculée la Matrice de destin ?</summary><p>Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée.</p></details><details><summary>Quelle est la différence entre la Matrice de destin et un thème numérologique ?</summary><p>Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide.</p></details><details><summary>La Matrice de destin est-elle fiable ?</summary><p>C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p></details><details><summary>Pourquoi la Matrice de destin parle-t-elle de ma lignée ?</summary><p>La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne.</p></details></div></section>
+    <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment est calculée la Matrice de destin ?</summary><p>Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée.</p></details><details><summary>Quelle est la différence entre la Matrice de destin et un thème numérologique ?</summary><p>Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide.</p></details><details><summary>La Matrice de destin est-elle fiable ?</summary><p>C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p></details><details><summary>Pourquoi la Matrice de destin parle-t-elle de ma lignée ?</summary><p>La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne.</p></details><details><summary>Que se passe-t-il si mon chemin de vie est un nombre maître (11, 22, 33) ?</summary><p>Il est gardé tel quel plutôt que réduit une seconde fois, comme le veut la règle classique en numérologie. Ses deux chiffres rejoignent quand même la grille, un par un.</p></details></div></section>
 
     <section class="bloc">
       <div class="conteneur">
@@ -215,10 +222,30 @@
 
     // Points complémentaires : une version que Genesolia a adaptée à sa façon, dans l'esprit de la méthode complète (lignes parentales, tâche de vie, rapport à l'abondance).
     var POINTS = {
-      paternelle: { titre: 'Ligne paternelle', bas: 'La ligne paternelle est discrète dans ta matrice : un sujet que tu abordes par toi-même, plus que par héritage direct.', moyen: 'Une influence paternelle présente mais pas envahissante : un point d\'appui parmi d\'autres.', haut: 'La ligne paternelle pèse fort dans ta matrice : la figure du père, ou ce qu\'elle représente, structure une bonne partie de ton histoire.' },
-      maternelle: { titre: 'Ligne maternelle', bas: 'La ligne maternelle est discrète ici : un sujet que tu traverses sans qu\'il domine ton histoire.', moyen: 'Une influence maternelle bien présente, ni envahissante ni absente.', haut: 'La ligne maternelle est très marquée : la figure de la mère, ou ce qu\'elle représente, imprime fort ta manière d\'être au monde.' },
-      mission: { titre: 'Ta tâche de vie', bas: 'Ta tâche de vie se cherche encore, et c\'est normal : rien ne t\'oblige à déjà tout savoir.', moyen: 'Une direction se dessine, sans être encore totalement claire ; tu avances par tâtonnements.', haut: 'Une mission se fait sentir fortement chez toi, presque comme une évidence qui revient sans cesse.' },
-      argent: { titre: 'Ton rapport à l\'abondance', bas: 'Le rapport à l\'abondance est léger dans ta matrice : ni blocage marqué, ni rapport affiché à l\'argent.', moyen: 'Un rapport à l\'abondance plutôt stable, ni en manque ni en excès.', haut: 'Le rapport à l\'argent ou à la matière est un thème fort chez toi, en bien comme en difficile selon les périodes.' }
+      paternelle: {
+        titre: 'Ligne paternelle',
+        bas: { texte: 'La ligne paternelle est discrète dans ta matrice : un sujet que tu abordes par toi-même, plus que par héritage direct.', force: 'Tu n\'es pas enfermé·e dans un rôle hérité du côté paternel : ta marge de manœuvre y est large.', defi: 'Ce qui vient de ce côté peut rester flou, faute d\'avoir été assez nommé.' },
+        moyen: { texte: 'Une influence paternelle présente mais pas envahissante : un point d\'appui parmi d\'autres.', force: 'Tu peux t\'appuyer sur ce qui vient de ce côté sans qu\'il décide de tout à ta place.', defi: 'L\'équilibre reste à ajuster selon les périodes de ta vie.' },
+        haut: { texte: 'La ligne paternelle pèse fort dans ta matrice : la figure du père, ou ce qu\'elle représente, structure une bonne partie de ton histoire.', force: 'Une transmission forte, qui peut devenir un socle une fois consciente.', defi: 'Ce poids peut aussi brouiller ce qui t\'appartient en propre, à démêler avec le temps.' }
+      },
+      maternelle: {
+        titre: 'Ligne maternelle',
+        bas: { texte: 'La ligne maternelle est discrète ici : un sujet que tu traverses sans qu\'il domine ton histoire.', force: 'Tu avances sans être porté·e ni freiné·e par ce qui vient de ce côté.', defi: 'Ce qui vient de ce côté peut manquer de repères pour être bien compris.' },
+        moyen: { texte: 'Une influence maternelle bien présente, ni envahissante ni absente.', force: 'Un appui disponible du côté maternel, sans qu\'il t\'enferme.', defi: 'Savoir quand s\'appuyer dessus et quand t\'en détacher demande de l\'attention.' },
+        haut: { texte: 'La ligne maternelle est très marquée : la figure de la mère, ou ce qu\'elle représente, imprime fort ta manière d\'être au monde.', force: 'Une transmission dense, qui peut devenir une vraie ressource une fois identifiée.', defi: 'Elle peut aussi peser au point de se confondre avec qui tu es vraiment.' }
+      },
+      mission: {
+        titre: 'Ta tâche de vie',
+        bas: { texte: 'Ta tâche de vie se cherche encore, et c\'est normal : rien ne t\'oblige à déjà tout savoir.', force: 'Tu restes libre d\'explorer, sans direction imposée trop tôt.', defi: 'L\'absence de cap clair peut donner une impression de flottement.' },
+        moyen: { texte: 'Une direction se dessine, sans être encore totalement claire ; tu avances par tâtonnements.', force: 'Chaque tâtonnement t\'apprend quelque chose de précis sur ce que tu cherches.', defi: 'Le doute revient régulièrement, même quand la direction est la bonne.' },
+        haut: { texte: 'Une mission se fait sentir fortement chez toi, presque comme une évidence qui revient sans cesse.', force: 'Un sens à ce que tu fais, qui peut porter longtemps même dans les périodes difficiles.', defi: 'Cette évidence peut aussi devenir une pression, si elle ne laisse pas de place au doute.' }
+      },
+      argent: {
+        titre: 'Ton rapport à l\'abondance',
+        bas: { texte: 'Le rapport à l\'abondance est léger dans ta matrice : ni blocage marqué, ni rapport affiché à l\'argent.', force: 'L\'argent ne pèse pas particulièrement sur tes décisions.', defi: 'Ce sujet peut rester sous-pensé, jusqu\'à ce qu\'un imprévu le mette en avant.' },
+        moyen: { texte: 'Un rapport à l\'abondance plutôt stable, ni en manque ni en excès.', force: 'Une gestion plutôt posée, qui te permet d\'avancer sans trop t\'en inquiéter.', defi: 'La stabilité peut aussi masquer un sujet que tu évites d\'approfondir.' },
+        haut: { texte: 'Le rapport à l\'argent ou à la matière est un thème fort chez toi, en bien comme en difficile selon les périodes.', force: 'Une sensibilité forte à ce sujet, qui peut devenir un vrai moteur une fois apaisée.', defi: 'Les à-coups (trop ou pas assez) peuvent se répéter tant que le sujet reste tabou.' }
+      }
     };
     function tierPoint(n) { return n <= 3 ? 'bas' : (n <= 6 ? 'moyen' : 'haut'); }
     // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
@@ -290,6 +317,42 @@
 
     function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+    }
+    function genererImageGrille(p, cdv, g) {
+      var taille = 1080;
+      var cvs = document.createElement('canvas');
+      cvs.width = taille; cvs.height = taille;
+      var ctx = cvs.getContext('2d');
+      ctx.fillStyle = '#FFF9F7'; ctx.fillRect(0, 0, taille, taille);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6B2F5B'; ctx.font = '600 54px Georgia, serif';
+      ctx.fillText('La matrice de ' + p, taille / 2, 130);
+      ctx.fillStyle = '#8E6383'; ctx.font = '400 28px Georgia, serif';
+      ctx.fillText('Chemin de vie ' + cdv, taille / 2, 175);
+
+      var cellSize = 220, gap = 20, startX = (taille - (3 * cellSize + 2 * gap)) / 2, startY = 260;
+      ORDRE_GRILLE.forEach(function (k, i) {
+        var col = i % 3, row = Math.floor(i / 3);
+        var x = startX + col * (cellSize + gap), y = startY + row * (cellSize + gap);
+        var n = g[k];
+        ctx.fillStyle = n === 0 ? '#FCEFF3' : (n >= 3 ? '#FFF6EC' : '#FFF9F7');
+        ctx.strokeStyle = n === 0 ? '#E3B8C4' : '#EBCFD5'; ctx.lineWidth = 2;
+        roundRect(ctx, x, y, cellSize, cellSize, 20); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#6B2F5B'; ctx.font = '400 64px Georgia, serif';
+        ctx.fillText(String(k), x + cellSize / 2, y + cellSize / 2 - 5);
+        ctx.fillStyle = '#8E6383'; ctx.font = '400 22px Georgia, serif';
+        ctx.fillText(n ? (n + '×') : 'absent', x + cellSize / 2, y + cellSize / 2 + 40);
+      });
+
+      ctx.fillStyle = '#B98A55'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText('genesolia.fr', taille / 2, startY + 3 * cellSize + 2 * gap + 70);
+      return cvs.toDataURL('image/png');
+    }
+
     function afficher(prenom, date) {
       var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
       var aaaa = +m[1], mm = +m[2], jj = +m[3];
@@ -318,7 +381,7 @@
       var h = '<div class="conteneur">';
       h += '<div class="n-res-tete"><div><h2>La matrice de ' + esc(p) + '</h2><p>Chemin de vie <b>' + cdv + '</b></p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + cdv + '</b></span>' + (res ? '<span>Résonance du prénom <b>' + res + '</b></span>' : '') + '</div></div>' +
-        '<div class="actions"><button class="btn btn-plein" type="button" id="md-livret" data-compte="ton livret de ta Matrice de destin" data-produit="matrice">Télécharger mon livret PDF</button><button class="btn btn-trait" type="button" id="md-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
+        '<div class="actions"><button class="btn btn-plein" type="button" id="md-livret" data-compte="ton livret de ta Matrice de destin" data-produit="matrice">Télécharger mon livret PDF</button><button class="btn btn-trait" type="button" id="md-image">Télécharger l\'image de ma grille</button><button class="btn btn-trait" type="button" id="md-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
 
       h += '<div class="md-grille-zone"><div class="md-case9" role="img" aria-label="Grille de ta matrice">' + cases + '</div>' +
         '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
@@ -334,8 +397,9 @@
       h += '<h3 class="n-titre-sec">Quatre points complémentaires</h3>' +
         '<p class="n-sec-intro">Au-delà des neuf clés, quatre axes de plus, dans l\'esprit de la méthode complète : la version que Genesolia en a adaptée.</p>' +
         '<div class="md-cles">' + Object.keys(POINTS).map(function (id) {
-          var n = pts[id], t = tierPoint(n), info = POINTS[id];
-          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + info[t] + '</p></article>';
+          var n = pts[id], t = tierPoint(n), info = POINTS[id], v = info[t];
+          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + v.texte + '</p>' +
+            '<div class="md-fd"><div class="md-force"><b>Ta force</b>' + v.force + '</div><div class="md-defi"><b>Ton défi</b>' + v.defi + '</div></div></article>';
         }).join('') + '</div>';
 
       if (res) {
@@ -372,6 +436,12 @@
       document.getElementById('md-refaire').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('md-prenom').focus(); });
       document.getElementById('md-imprimer').addEventListener('click', function () { window.print(); });
       document.getElementById('md-livret').addEventListener('click', function () { window.print(); });
+      document.getElementById('md-image').addEventListener('click', function () {
+        var url = genererImageGrille(p, cdv, g);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'matrice-de-' + prenom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.png';
+        document.body.appendChild(a); a.click(); a.remove();
+      });
     }
 
     f.addEventListener('submit', function (e) {
