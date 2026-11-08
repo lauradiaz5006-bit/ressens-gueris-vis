@@ -88,6 +88,11 @@
     .md-profil h3{color:#fff;font-size:1.25rem;margin-bottom:.4rem}
     .md-profil .piste{margin-top:.6rem;padding-top:.6rem;border-top:1px dashed rgba(243,220,192,.3);font-size:.93rem}
     .md-profil .piste b{color:var(--champagne-clair)}
+    .md-niveaux{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(243,220,192,.3)}
+    .md-niveaux h3{color:#fff;font-size:1.1rem;margin-bottom:.8rem}
+    .md-niveaux ul{list-style:none;display:grid;gap:.7rem}
+    .md-niveaux li{font-size:.93rem}
+    .md-niveaux li b{display:block;color:var(--champagne-clair);margin-bottom:.15rem}
 
     .md-prenom{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);margin-bottom:1.4rem}
     .md-prenom .md-cle-n{width:3.6rem;height:3.6rem;font-size:1.6rem}
@@ -313,6 +318,11 @@
       h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span>' + profils.map(function (profil) {
         return '<div class="md-profil"><h3>' + profil.titre + '</h3><p>' + profil.texte + '</p><p class="piste"><b>Une piste :</b> ' + profil.piste + '</p></div>';
       }).join('') +
+        '<div class="md-niveaux"><h3>Où ça peut se loger</h3><ul>' +
+          '<li><b>Dans le corps</b>Une fatigue qui ne s\'explique pas, une tension qui revient toujours au même endroit.</li>' +
+          '<li><b>Dans le cœur</b>Un trop-plein qui ne semble pas t\'appartenir en entier, des émotions mélangées à celles qu\'on a portées avant toi.</li>' +
+          '<li><b>Dans l\'élan</b>Une fatigue à avancer, un projet qui n\'aboutit jamais, comme si quelque chose freinait de l\'intérieur.</li>' +
+        '</ul><p style="margin-top:.8rem;font-size:.9rem">Les trois peuvent se combiner. Ce n\'est pas à toi de tout résoudre d\'un coup : juste de repérer, doucement, par où ça passe chez toi.</p></div>' +
         '<a class="btn btn-plein" style="margin-top:1.2rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
 
       h += '<div class="md-outils">' +
