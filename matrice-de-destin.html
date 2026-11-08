@@ -202,16 +202,25 @@
     var f = document.getElementById('md-form'), err = document.getElementById('md-erreur'), zone = document.getElementById('resultat');
 
     var CLES = {
-      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde.', force: 'Tu sais te faire reconnaître, on te repère dans un groupe.', defi: 'Tu peux en faire trop, par peur de disparaître ou de ne pas compter.' },
-      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement, ou au contraire ce qui te freine.', force: 'Tu sais te relancer, même après un coup dur.', defi: 'L\'énergie peut partir par à-coups, avec des creux difficiles à anticiper.' },
-      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser.', force: 'Tu apprends vite ce qui t\'intéresse vraiment.', defi: 'Tu peux douter de la valeur de ce qui te vient trop facilement.' },
-      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien.', force: 'Tu sens assez tôt quand quelque chose ne va pas.', defi: 'Le corps peut porter ce que les mots ne disent pas.' },
-      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive.', force: 'Tu vois souvent juste, parfois avant les autres.', defi: 'Trop réfléchir peut retarder le moment d\'agir.' },
-      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire.', force: 'On peut compter sur toi, et ça se sait.', defi: 'Le devoir peut prendre toute la place, jusqu\'à t\'oublier toi.' },
-      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché.', force: 'Une facilité qui t\'ouvre des portes sans effort apparent.', defi: 'Ce qui vient trop facilement peut rester mis de côté, jamais vraiment utilisé.' },
-      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter.', force: 'Tu sais dire non quand il le faut vraiment.', defi: 'Dire non peut coûter cher, au point de l\'éviter.' },
-      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, sans mot parfois.', force: 'Tu es sensible à ce qui se transmet, et ça peut éclairer beaucoup.', defi: 'Cette mémoire peut peser plus qu\'elle n\'informe, tant qu\'elle reste silencieuse.' }
+      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde dès les premières minutes d\'une rencontre. C\'est souvent la toute première impression que tu laisses, avant même d\'avoir parlé.', exemple: 'Dans un groupe nouveau, c\'est souvent toi qu\'on remarque ou qu\'on interroge en premier, sans que tu aies rien fait de spécial pour ça.', force: 'Tu sais te faire reconnaître, on te repère dans un groupe.', defi: 'Tu peux en faire trop, par peur de disparaître ou de ne pas compter.' },
+      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement au quotidien, ou au contraire ce qui te freine quand il faut t\'y mettre. C\'est ton carburant : sa régularité, ou ses à-coups.', exemple: 'Tu peux tenir plusieurs semaines à plein régime, puis t\'effondrer d\'un coup, toi la première surprise.', force: 'Tu sais te relancer, même après un coup dur.', defi: 'L\'énergie peut partir par à-coups, avec des creux difficiles à anticiper.' },
+      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser, au point de ne pas toujours le voir comme une qualité.', exemple: 'Quelqu\'un te félicite pour quelque chose que tu trouves « normal », et tu es surpris·e que ça compte autant pour les autres.', force: 'Tu apprends vite ce qui t\'intéresse vraiment.', defi: 'Tu peux douter de la valeur de ce qui te vient trop facilement.' },
+      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien, et ce qu\'il exprime quand les mots ne suivent pas.', exemple: 'Une tension revient toujours au même endroit les jours où quelque chose ne va pas, bien avant que tu n\'aies mis des mots dessus.', force: 'Tu sens assez tôt quand quelque chose ne va pas.', defi: 'Le corps peut porter ce que les mots ne disent pas.' },
+      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive, surtout quand la situation est confuse pour les autres.', exemple: 'Tu vois souvent la suite d\'une situation avant qu\'elle n\'arrive, et tu te demandes pourquoi personne d\'autre ne la voit encore.', force: 'Tu vois souvent juste, parfois avant les autres.', defi: 'Trop réfléchir peut retarder le moment d\'agir.' },
+      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire, même quand personne ne te le demande vraiment.', exemple: 'Tu termines ce que tu as commencé, même épuisé·e, même quand plus personne n\'attend que tu ailles jusqu\'au bout.', force: 'On peut compter sur toi, et ça se sait.', defi: 'Le devoir peut prendre toute la place, jusqu\'à t\'oublier toi.' },
+      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché ni mérité au sens classique du terme.', exemple: 'Une porte s\'ouvre facilement là où d\'autres ont dû batailler longtemps, et tu culpabilises presque de ne pas avoir forcé.', force: 'Une facilité qui t\'ouvre des portes sans effort apparent.', defi: 'Ce qui vient trop facilement peut rester mis de côté, jamais vraiment utilisé.' },
+      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter pour tout le monde en même temps.', exemple: 'Tu acceptes une demande de trop, en sentant déjà que tu vas le regretter, parce que refuser te coûte plus cher que céder.', force: 'Tu sais dire non quand il le faut vraiment.', defi: 'Dire non peut coûter cher, au point de l\'éviter.' },
+      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, parfois sans un mot, à travers des gestes ou des silences.', exemple: 'Une peur ou une habitude qui ne vient pas de ton histoire à toi, mais que tu reconnais chez un parent ou un grand-parent.', force: 'Tu es sensible à ce qui se transmet, et ça peut éclairer beaucoup.', defi: 'Cette mémoire peut peser plus qu\'elle n\'informe, tant qu\'elle reste silencieuse.' }
     };
+
+    // Points complémentaires : une version que Genesolia a adaptée à sa façon, dans l'esprit de la méthode complète (lignes parentales, tâche de vie, rapport à l'abondance).
+    var POINTS = {
+      paternelle: { titre: 'Ligne paternelle', bas: 'La ligne paternelle est discrète dans ta matrice : un sujet que tu abordes par toi-même, plus que par héritage direct.', moyen: 'Une influence paternelle présente mais pas envahissante : un point d\'appui parmi d\'autres.', haut: 'La ligne paternelle pèse fort dans ta matrice : la figure du père, ou ce qu\'elle représente, structure une bonne partie de ton histoire.' },
+      maternelle: { titre: 'Ligne maternelle', bas: 'La ligne maternelle est discrète ici : un sujet que tu traverses sans qu\'il domine ton histoire.', moyen: 'Une influence maternelle bien présente, ni envahissante ni absente.', haut: 'La ligne maternelle est très marquée : la figure de la mère, ou ce qu\'elle représente, imprime fort ta manière d\'être au monde.' },
+      mission: { titre: 'Ta tâche de vie', bas: 'Ta tâche de vie se cherche encore, et c\'est normal : rien ne t\'oblige à déjà tout savoir.', moyen: 'Une direction se dessine, sans être encore totalement claire ; tu avances par tâtonnements.', haut: 'Une mission se fait sentir fortement chez toi, presque comme une évidence qui revient sans cesse.' },
+      argent: { titre: 'Ton rapport à l\'abondance', bas: 'Le rapport à l\'abondance est léger dans ta matrice : ni blocage marqué, ni rapport affiché à l\'argent.', moyen: 'Un rapport à l\'abondance plutôt stable, ni en manque ni en excès.', haut: 'Le rapport à l\'argent ou à la matière est un thème fort chez toi, en bien comme en difficile selon les périodes.' }
+    };
+    function tierPoint(n) { return n <= 3 ? 'bas' : (n <= 6 ? 'moyen' : 'haut'); }
     // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
     var ORDRE_GRILLE = [3, 6, 9, 2, 5, 8, 1, 4, 7];
 
@@ -242,6 +251,15 @@
       if (!lettres.length) return null;
       var total = lettres.reduce(function (a, l) { return a + (TABLE[l] || 0); }, 0);
       return reduire(total, true);
+    }
+    function sommeChiffres(n) { return chiffres(n).reduce(function (a, c) { return a + c; }, 0); }
+    function pointsComplementaires(jj, mm, aaaa, cdv, res) {
+      return {
+        paternelle: reduire(jj + mm, true),
+        maternelle: reduire(mm + sommeChiffres(aaaa), true),
+        mission: reduire(cdv + (res || sommeChiffres(jj)), true),
+        argent: reduire(jj + sommeChiffres(aaaa), true)
+      };
     }
     function niveau(n) { return n === 0 ? 'vide' : (n >= 3 ? 'fort' : ''); }
     function mentionNiveau(n) {
@@ -278,6 +296,7 @@
       var cdv = cheminDeVie(jj, mm, aaaa);
       var g = grilleDepuisDate(jj, mm, aaaa);
       var res = resonancePrenom(prenom);
+      var pts = pointsComplementaires(jj, mm, aaaa, cdv, res);
       var profils = profilsLignee(g);
       var p = prenom.charAt(0).toUpperCase() + prenom.slice(1);
 
@@ -292,6 +311,7 @@
       var cles = cles9.map(function (k) {
         return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div>' +
           '<p class="md-niveau">' + mentionNiveau(g[k]) + '</p><p>' + CLES[k].texte + '</p>' +
+          '<p class="md-exemple"><b>Concrètement :</b> ' + CLES[k].exemple + '</p>' +
           '<div class="md-fd"><div class="md-force"><b>Ta force</b>' + CLES[k].force + '</div><div class="md-defi"><b>Ton défi</b>' + CLES[k].defi + '</div></div></article>';
       }).join('');
 
@@ -310,6 +330,13 @@
         (absentes.length ? '<h3>' + absentes.map(function (k) { return CLES[k].titre; }).join(' · ') + '</h3><p>Absente de ta date : un apprentissage plutôt qu\'un manque.</p>' : '<p>Les neuf clés sont présentes dans ta date : un signe d\'équilibre entre tes différentes facettes.</p>') + '</div></div>';
 
       h += '<h3 class="n-titre-sec">Tes neuf clés, en détail</h3><div class="md-cles">' + cles + '</div>';
+
+      h += '<h3 class="n-titre-sec">Quatre points complémentaires</h3>' +
+        '<p class="n-sec-intro">Au-delà des neuf clés, quatre axes de plus, dans l\'esprit de la méthode complète : la version que Genesolia en a adaptée.</p>' +
+        '<div class="md-cles">' + Object.keys(POINTS).map(function (id) {
+          var n = pts[id], t = tierPoint(n), info = POINTS[id];
+          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + info[t] + '</p></article>';
+        }).join('') + '</div>';
 
       if (res) {
         h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>La résonance de ton prénom</h3><p>Chaque lettre de ton prénom porte aussi un nombre. Celui de ' + esc(p) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille : elle colore la façon dont tu te présentes, plus que ce que tu es en profondeur.</p></div></div>';
