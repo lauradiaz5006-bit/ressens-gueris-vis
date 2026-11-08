@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>[BROUILLON] Ta Matrice de destin · Genesolia</title>
+  <meta name="description" content="Calcule gratuitement ta Matrice de destin à partir de ta date de naissance, et découvre ce que ta lignée y laisse voir.">
+  <link rel="canonical" href="https://genesolia.fr/matrice-de-destin.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .n-tete{position:relative;overflow:hidden;padding:3.2rem 0 3.4rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .n-tete .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+    .n-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .n-tete h1{margin-bottom:1rem}
+    .n-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
+    .n-origine{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);font-size:.9rem;font-weight:600}
+    .n-origine:hover{border-color:var(--prune)}
+    .n-form{position:relative;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .n-form h2{font-size:1.5rem;margin-bottom:.3rem}
+    .n-form>p{font-size:.92rem;color:var(--prune-doux);margin-bottom:1.1rem}
+    .n-champ{display:grid;gap:.3rem;margin-bottom:.9rem}
+    .n-champ label{font:600 .82rem/1.2 var(--texte)}
+    .n-champ small{font-size:.78rem;color:var(--prune-doux)}
+    .n-champ input{width:100%;font:400 1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.7rem .8rem}
+    .n-champ input:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .n-form .btn{width:100%;margin-top:.4rem}
+    .n-erreur{color:#A23B4C;font-size:.86rem;min-height:1.2em;margin-top:.5rem}
+    .n-form .mini{font-size:.78rem;color:var(--prune-doux);margin-top:.6rem;max-width:none}
+
+    .n-res{scroll-margin-top:5rem}
+    .n-res[hidden]{display:none}
+    .n-res-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem}
+    .n-res-tete p{color:var(--prune-doux)}
+    .n-puces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+    .n-puces span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem .8rem;font-size:.86rem}
+    .n-puces b{color:var(--prune);font-weight:600}
+
+    .md-grille-zone{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;margin-bottom:1.6rem}
+    .md-case9{display:grid;grid-template-columns:repeat(3,5.4rem);grid-template-rows:repeat(3,5.4rem);gap:.5rem}
+    .md-case9 div{border-radius:14px;display:grid;place-items:center;align-content:center;background:var(--nacre);border:1px solid var(--rose-fonce);text-align:center;padding:.3rem}
+    .md-case9 b{font-family:var(--display);font-size:1.5rem;font-weight:400;line-height:1}
+    .md-case9 span{font-size:.62rem;color:var(--prune-doux);line-height:1.2;margin-top:.15rem}
+    .md-case9 .vide{background:#FCEFF3;border-style:dashed;border-color:#E3B8C4}
+    .md-case9 .fort{background:#FFF6EC;border-color:var(--champagne)}
+    .md-legende{color:var(--prune-doux);font-size:.9rem}
+
+    .md-cles{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin-bottom:1.4rem}
+    .md-cle{padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .md-cle-haut{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem}
+    .md-cle-n{width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;color:var(--prune);background:var(--rose);flex-shrink:0}
+    .md-cle h3{font-size:1.1rem;line-height:1.2}
+    .md-cle p{font-size:.92rem;color:var(--prune-doux);line-height:1.5}
+
+    .md-lignee{position:relative;overflow:hidden;border-radius:var(--rayon);padding:2.2rem 2.2rem;background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#FFF4F6;margin-bottom:1.4rem}
+    .md-lignee .n-etiq{display:block;font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:.5rem}
+    .md-lignee h2{color:#fff;margin-bottom:.6rem}
+    .md-lignee p{color:#F7E6EE}
+
+    .md-prenom{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);margin-bottom:1.4rem}
+    .md-prenom .md-cle-n{width:3.6rem;height:3.6rem;font-size:1.6rem}
+
+    .n-texte h2{margin-bottom:.8rem}
+    .n-texte h3{margin:1.6rem 0 .5rem}
+    .n-texte p{margin-bottom:.8rem}
+
+    @media (max-width:900px){.n-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
+    @media (max-width:620px){
+      .n-form{padding:1.4rem}
+      .md-grille-zone{grid-template-columns:1fr}
+      .md-case9{grid-template-columns:repeat(3,1fr);width:100%}
+      .md-case9 div{aspect-ratio:1}
+      .md-cles{grid-template-columns:1fr}
+      .md-prenom{flex-direction:column;text-align:center}
+    }
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tes numéros", "item": "https://genesolia.fr/theme-numerologique.html"}, {"@type": "ListItem", "position": 3, "name": "Ta Matrice de destin", "item": "https://genesolia.fr/matrice-de-destin.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="n-tete">
+      <div class="conteneur">
+        <div>
+          <p class="n-sur">Gratuit · sans inscription</p>
+          <h1>Ta Matrice de destin</h1>
+          <p class="intro">Ta date de naissance dessine une grille de neuf nombres, chacun lié à une facette de toi. Et parce que rien de ce qui te compose ne vient de nulle part, Genesolia va plus loin : ce que cette grille laisse voir de ta lignée.</p>
+          <a class="n-origine" href="d-ou-vient-la-matrice-du-destin.html">D'où vient cette méthode ?</a>
+        </div>
+        <form class="n-form" id="md-form" novalidate>
+          <h2>Calcule ta matrice</h2>
+          <p>Ton prénom et ta date de naissance, comme sur ton acte de naissance.</p>
+          <div class="n-champ">
+            <label for="md-prenom">Ton prénom</label>
+            <input id="md-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa" required>
+          </div>
+          <div class="n-champ">
+            <label for="md-date">Ta date de naissance</label>
+            <input id="md-date" name="date" type="date" min="1900-01-01" max="2030-12-31" required>
+          </div>
+          <button class="btn btn-plein" type="submit">Découvrir ma matrice</button>
+          <p class="n-erreur" role="alert" id="md-erreur"></p>
+          <p class="mini">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc n-res" id="resultat" hidden aria-live="polite"></section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur n-texte">
+        <h2>Comment est calculée ta grille</h2>
+        <p>Les chiffres de ta date de naissance (jour, mois, année) sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases, et c'est la fréquence de chaque chiffre qui colore la clé qui lui est associée : absente, discrète, bien installée, ou très marquée.</p>
+        <p>C'est une version que Genesolia a adaptée à sa façon, dans l'esprit du carré pythagoricien utilisé par plusieurs méthodes de matrice de destin, mais pensée pour se relier ensuite à ta lignée plutôt qu'à toi seul·e.</p>
+        <p class="note">Lecture symbolique, pour t'aider à réfléchir. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, cycles et défis : l'autre lecture par les nombres.</p></a>
+          <a class="outil" href="d-ou-vient-la-matrice-du-destin.html"><h3>D'où vient la Matrice de destin ?</h3><p>Une méthode récente, son histoire, et son lien avec la méthode des deux cycles.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Dessiner mon arbre familial</h3><p>Pour voir, page après page, ce qui se répète dans ta lignée.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var f = document.getElementById('md-form'), err = document.getElementById('md-erreur'), zone = document.getElementById('resultat');
+
+    var CLES = {
+      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde.' },
+      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement, ou au contraire ce qui te freine.' },
+      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser.' },
+      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien.' },
+      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive.' },
+      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire.' },
+      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché.' },
+      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter.' },
+      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, sans mot parfois.' }
+    };
+    // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
+    var ORDRE_GRILLE = [3, 6, 9, 2, 5, 8, 1, 4, 7];
+
+    function chiffres(s) { return String(s).replace(/\D/g, '').split('').map(Number); }
+    function reduire(n, garderMaitre) {
+      while (n > 9 && !(garderMaitre && (n === 11 || n === 22 || n === 33))) {
+        n = String(n).split('').reduce(function (a, c) { return a + +c; }, 0);
+      }
+      return n;
+    }
+    function cheminDeVie(jj, mm, aaaa) {
+      var total = chiffres('' + jj + mm + aaaa).reduce(function (a, c) { return a + c; }, 0);
+      return reduire(total, true);
+    }
+    function grilleDepuisDate(jj, mm, aaaa) {
+      var tous = chiffres('' + jj + mm + aaaa);
+      var cdv = cheminDeVie(jj, mm, aaaa);
+      tous = tous.concat(chiffres('' + cdv));
+      var g = {};
+      for (var k = 1; k <= 9; k++) g[k] = 0;
+      tous.forEach(function (d) { if (d >= 1 && d <= 9) g[d]++; });
+      return g;
+    }
+    // Résonance du prénom : table pythagoricienne classique (A J S=1 ... I R=9)
+    var TABLE = { A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4, E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8, I:9,R:9 };
+    function resonancePrenom(prenom) {
+      var lettres = String(prenom).toUpperCase().normalize('NFD').replace(/[^A-Z]/g, '').split('');
+      if (!lettres.length) return null;
+      var total = lettres.reduce(function (a, l) { return a + (TABLE[l] || 0); }, 0);
+      return reduire(total, true);
+    }
+    function niveau(n) { return n === 0 ? 'vide' : (n >= 3 ? 'fort' : ''); }
+    function mentionNiveau(n) {
+      if (n === 0) return 'Absente de ta date : une clé à apprivoiser plutôt qu\'un manque.';
+      if (n === 1) return 'Présente, discrète.';
+      if (n === 2) return 'Bien installée, stable.';
+      return 'Très marquée chez toi, parfois jusqu\'à l\'excès.';
+    }
+
+    var PROFILS_LIGNEE = [
+      { id: 'repete', titre: 'Ce qui se répète', test: function (g) { return g[9] >= 3; },
+        texte: 'Les mêmes types de situations reviennent dans ta lignée, parfois d\'une génération à l\'autre. Ce n\'est pas une fatalité : c\'est un fil visible, et ce qui se voit peut commencer à se dénouer.' },
+      { id: 'porte', titre: 'Ce que tu portes pour quelqu\'un d\'autre', test: function (g) { return g[9] >= 1 && g[6] >= 3; },
+        texte: 'Il arrive de porter, sans l\'avoir choisi, un poids qui appartenait d\'abord à quelqu\'un d\'autre dans ta famille. Le reconnaître est déjà une façon de se l\'autoriser à déposer.' },
+      { id: 'silencieuse', titre: 'Une mémoire silencieuse', test: function (g) { return g[9] === 0; },
+        texte: 'Rien dans ta date ne met ta mémoire de lignée en avant, et pourtant elle existe : parfois faite de silences, d\'histoires jamais racontées. Ce qui n\'est pas dit se transmet quand même, autrement.' },
+      { id: 'a-part', titre: 'Une place à trouver', test: function (g) { return g[9] >= 1 && g[9] < 3; },
+        texte: 'Ta lignée est présente sans être envahissante. C\'est une base sur laquelle t\'appuyer, à ton rythme, sans qu\'elle décide de tout à ta place.' }
+    ];
+    function profilLignee(g) {
+      for (var i = 0; i < PROFILS_LIGNEE.length; i++) if (PROFILS_LIGNEE[i].test(g)) return PROFILS_LIGNEE[i];
+      return PROFILS_LIGNEE[PROFILS_LIGNEE.length - 1];
+    }
+
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    function afficher(prenom, date) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+      var aaaa = +m[1], mm = +m[2], jj = +m[3];
+      var cdv = cheminDeVie(jj, mm, aaaa);
+      var g = grilleDepuisDate(jj, mm, aaaa);
+      var res = resonancePrenom(prenom);
+      var profil = profilLignee(g);
+      var p = prenom.charAt(0).toUpperCase() + prenom.slice(1);
+
+      var cases = ORDRE_GRILLE.map(function (k) {
+        return '<div class="' + niveau(g[k]) + '"><b>' + k + '</b><span>' + (g[k] || 'absent') + (g[k] ? '×' : '') + '</span></div>';
+      }).join('');
+
+      var cles = Object.keys(CLES).map(function (k) {
+        k = +k;
+        return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div><p>' + CLES[k].texte + ' ' + mentionNiveau(g[k]) + '</p></article>';
+      }).join('');
+
+      var h = '<div class="conteneur">';
+      h += '<div class="n-res-tete"><div><h2>La matrice de ' + esc(p) + '</h2><p>Chemin de vie <b>' + cdv + '</b></p>' +
+        '<div class="n-puces"><span>Chemin de vie <b>' + cdv + '</b></span>' + (res ? '<span>Résonance du prénom <b>' + res + '</b></span>' : '') + '</div></div>' +
+        '<div class="actions"><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
+
+      h += '<div class="md-grille-zone"><div class="md-case9" role="img" aria-label="Grille de ta matrice">' + cases + '</div>' +
+        '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
+
+      h += '<div class="md-cles">' + cles + '</div>';
+
+      if (res) {
+        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>La résonance de ton prénom</h3><p>Chaque lettre de ton prénom porte aussi un nombre. Celui de ' + esc(p) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille.</p></div></div>';
+      }
+
+      h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span><h2>' + profil.titre + '</h2><p>' + profil.texte + '</p>' +
+        '<a class="btn btn-plein" style="margin-top:1rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
+
+      h += '<p class="note">Lecture symbolique, pour t\'aider à réfléchir. Elle ne prédit pas l\'avenir.</p></div>';
+      zone.innerHTML = h; zone.hidden = false;
+      document.getElementById('md-refaire').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('md-prenom').focus(); });
+    }
+
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var prenom = f.prenom.value.trim(), date = f.date.value;
+      if (!prenom) { err.textContent = 'Écris ton prénom.'; f.prenom.focus(); return; }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || +date.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+      err.textContent = '';
+      afficher(prenom, date);
+      try { localStorage.setItem('genesolia-matrice-destin', JSON.stringify({ prenom: prenom, date: date })); } catch (x) {}
+      if (window.umami) try { window.umami.track('matrice-de-destin'); } catch (x) {}
+      zone.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    try {
+      var s = JSON.parse(localStorage.getItem('genesolia-matrice-destin') || 'null');
+      if (s && s.prenom) { f.prenom.value = s.prenom; f.date.value = s.date; afficher(s.prenom, s.date); }
+    } catch (x) {}
+  })();
+  </script>
+</body>
+</html>
