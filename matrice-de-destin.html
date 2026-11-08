@@ -22,6 +22,13 @@
     .n-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
     .n-origine{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);font-size:.9rem;font-weight:600}
     .n-origine:hover{border-color:var(--prune)}
+    .md-exemple{display:inline-block;margin-top:.8rem;font-size:.86rem}
+    .md-exemple a{color:var(--prune-doux);text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .md-2027{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;padding:1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);max-width:34rem}
+    .md-2027:hover{border-color:var(--prune)}
+    .md-2027 b{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;color:var(--champagne)}
+    .md-2027 span{display:block;font-size:.95rem;line-height:1.4}
+    .md-2027 strong{display:block;font-weight:600}
     .n-form{position:relative;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
     .n-form h2{font-size:1.5rem;margin-bottom:.3rem}
     .n-form>p{font-size:.92rem;color:var(--prune-doux);margin-bottom:1.1rem}
@@ -109,9 +116,22 @@
       .md-case9 div{aspect-ratio:1}
       .md-cles{grid-template-columns:1fr}
       .md-prenom{flex-direction:column;text-align:center}
+      .md-resume{grid-template-columns:1fr}
+      .md-2027{flex-direction:column;text-align:center}
+    }
+    @media print{
+      header,footer,.n-tete,.md-outils,.n-origine,.n-sommaire,.actions{display:none!important}
+      body.nouveau{background:#fff}
+      .md-cle,.md-resume div,.md-case9 div{break-inside:avoid}
     }
   </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tes numéros", "item": "https://genesolia.fr/theme-numerologique.html"}, {"@type": "ListItem", "position": 3, "name": "Ta Matrice de destin", "item": "https://genesolia.fr/matrice-de-destin.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": "Comment est calculée la Matrice de destin ?", "acceptedAnswer": {"@type": "Answer", "text": "Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée."}},
+    {"@type": "Question", "name": "Quelle est la différence entre la Matrice de destin et un thème numérologique ?", "acceptedAnswer": {"@type": "Answer", "text": "Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide."}},
+    {"@type": "Question", "name": "La Matrice de destin est-elle fiable ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel."}},
+    {"@type": "Question", "name": "Pourquoi la Matrice de destin parle-t-elle de ma lignée ?", "acceptedAnswer": {"@type": "Answer", "text": "La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne."}}
+  ]}</script>
 </head>
 <body class="nouveau">
   <header data-entete></header>
@@ -123,6 +143,7 @@
           <h1>Ta Matrice de destin</h1>
           <p class="intro">Ta date de naissance dessine une grille de neuf nombres, chacun lié à une facette de toi. Et parce que rien de ce qui te compose ne vient de nulle part, Genesolia va plus loin : ce que cette grille laisse voir de ta lignée.</p>
           <a class="n-origine" href="d-ou-vient-la-matrice-du-destin.html">D'où vient cette méthode ?</a>
+          <div class="guide"><img src="assets/guide/guide-nombres.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Ton prénom et ta date : en quelques secondes, je te montre ta grille, et ce qu'elle laisse deviner de ta lignée.</p></div>
         </div>
         <form class="n-form" id="md-form" novalidate>
           <h2>Calcule ta matrice</h2>
@@ -138,6 +159,7 @@
           <button class="btn btn-plein" type="submit">Découvrir ma matrice</button>
           <p class="n-erreur" role="alert" id="md-erreur"></p>
           <p class="mini">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+          <p class="md-exemple"><a href="?exemple">Voir un exemple avant de donner ma date</a></p>
         </form>
       </div>
     </section>
@@ -153,6 +175,8 @@
       </div>
     </section>
 
+    <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment est calculée la Matrice de destin ?</summary><p>Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée.</p></details><details><summary>Quelle est la différence entre la Matrice de destin et un thème numérologique ?</summary><p>Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide.</p></details><details><summary>La Matrice de destin est-elle fiable ?</summary><p>C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p></details><details><summary>Pourquoi la Matrice de destin parle-t-elle de ma lignée ?</summary><p>La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne.</p></details></div></section>
+
     <section class="bloc">
       <div class="conteneur">
         <div class="bloc-tete"><h2>À lire aussi</h2></div>
@@ -163,6 +187,7 @@
         </div>
       </div>
     </section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
@@ -268,7 +293,7 @@
       var h = '<div class="conteneur">';
       h += '<div class="n-res-tete"><div><h2>La matrice de ' + esc(p) + '</h2><p>Chemin de vie <b>' + cdv + '</b></p>' +
         '<div class="n-puces"><span>Chemin de vie <b>' + cdv + '</b></span>' + (res ? '<span>Résonance du prénom <b>' + res + '</b></span>' : '') + '</div></div>' +
-        '<div class="actions"><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
+        '<div class="actions"><button class="btn btn-plein" type="button" id="md-livret" data-compte="ton livret de ta Matrice de destin" data-produit="matrice">Télécharger mon livret PDF</button><button class="btn btn-trait" type="button" id="md-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
 
       h += '<div class="md-grille-zone"><div class="md-case9" role="img" aria-label="Grille de ta matrice">' + cases + '</div>' +
         '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
@@ -300,9 +325,16 @@
           '<a class="md-outil" href="cercle.html"><span class="n-etiq">1er mois offert</span><h3>Le Cercle</h3><p>Un carnet mensuel et un suivi de libération, pour avancer avec ta lignée mois après mois.</p><span class="prix">17,77 €/mois (offre de Noël)</span></a>' +
         '</div></div>';
 
+      var dm = /^\d{4}-(\d{2})-(\d{2})$/.exec(date || '');
+      if (dm) {
+        h += '<a class="md-2027" href="annee-personnelle-2027.html#calcul"><b>2027</b><span><strong>Et l\'an prochain ?</strong>Découvre en quelques secondes ce que ton année personnelle 2027 t\'invite à vivre, mois par mois.</span></a>';
+      }
+
       h += '<p class="note">Lecture symbolique, pour t\'aider à réfléchir. Elle ne prédit pas l\'avenir.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
       document.getElementById('md-refaire').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('md-prenom').focus(); });
+      document.getElementById('md-imprimer').addEventListener('click', function () { window.print(); });
+      document.getElementById('md-livret').addEventListener('click', function () { window.print(); });
     }
 
     f.addEventListener('submit', function (e) {
@@ -317,10 +349,16 @@
       zone.scrollIntoView({ behavior: 'smooth' });
     });
 
-    try {
-      var s = JSON.parse(localStorage.getItem('genesolia-matrice-destin') || 'null');
-      if (s && s.prenom) { f.prenom.value = s.prenom; f.date.value = s.date; afficher(s.prenom, s.date); }
-    } catch (x) {}
+    if (/[?&]exemple\b/.test(window.location.search)) {
+      f.prenom.value = 'Camille'; f.date.value = '1990-05-12';
+      afficher('Camille', '1990-05-12');
+      zone.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      try {
+        var s = JSON.parse(localStorage.getItem('genesolia-matrice-destin') || 'null');
+        if (s && s.prenom) { f.prenom.value = s.prenom; f.date.value = s.date; afficher(s.prenom, s.date); }
+      } catch (x) {}
+    }
   })();
   </script>
 </body>
