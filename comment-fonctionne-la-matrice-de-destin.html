@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>[INTERNE] Comment fonctionne la Matrice de destin Genesolia · Genesolia</title>
+  <meta name="description" content="Documentation interne : comment chaque élément de l'outil Matrice de destin est calculé et pourquoi, point par point.">
+  <link rel="canonical" href="https://genesolia.fr/comment-fonctionne-la-matrice-de-destin.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .article{padding:2.5rem 0 1rem}
+    .article h2{margin:3rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+    .article p+p{margin-top:.9rem}
+    .article ul,.article ol{margin:.8rem 0 .8rem 1.3rem}
+    .article li+li{margin-top:.4rem}
+    .article code{background:var(--nacre);border:1px solid var(--rose-fonce);border-radius:6px;padding:.1rem .4rem;font-size:.92em}
+    .exemple{margin:1.2rem 0;padding:1.1rem 1.3rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .exemple p{margin:0}
+    .exemple p+p{margin-top:.5rem}
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--prune);background:#FCEFF3;border-radius:0 16px 16px 0}
+    .deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0}
+    .deux div{padding:1.1rem 1.2rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    @media (max-width:640px){.deux{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="blog.html">Blog</a><span aria-hidden="true">/</span>Documentation interne</nav>
+        <h1>Comment fonctionne la Matrice de destin Genesolia</h1>
+        <p class="intro">Page interne, non publiée : le détail de chaque calcul et chaque choix éditorial de l'outil <a href="matrice-de-destin.html">matrice-de-destin.html</a>, pour que tu puisses t'y retrouver et vérifier que tout correspond à ce que tu veux.</p>
+        <p class="publie">Page interne · non indexée · non liée depuis le site public</p>
+      </div>
+    </section>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>1. Le chemin de vie</h2>
+        <p>On extrait tous les chiffres de la date de naissance (jour, mois, année) et on les additionne, puis on réduit le total à un seul chiffre en répétant l'addition de ses propres chiffres — sauf si on tombe sur 11, 22 ou 33 (les <strong>nombres maîtres</strong>), qu'on garde tels quels plutôt que de les réduire une dernière fois.</p>
+        <div class="exemple">
+          <p><b>Exemple avec ta date, 07/11/1988 :</b></p>
+          <p>Chiffres : 0, 7, 1, 1, 1, 9, 8, 8 → somme = 35 → 3 + 5 = <b>8</b>. Ton chemin de vie est 8.</p>
+        </div>
+        <p>Si la somme était tombée sur 29 par exemple, on aurait réduit une fois (2+9=11), puis gardé 11 tel quel au lieu de le réduire encore en 2, parce que 11 fait partie des trois nombres maîtres.</p>
+
+        <h2>2. La grille à neuf cases</h2>
+        <p>C'est la base visuelle de l'outil, inspirée du « carré pythagoricien » utilisé par plusieurs méthodes de matrice de destin (dont celle de Natalia Ladini, voir <a href="d-ou-vient-la-matrice-du-destin.html">l'article sur son origine</a>). On reprend les mêmes chiffres que pour le chemin de vie (ceux de la date, plus ceux du chemin de vie lui-même), et on compte combien de fois chaque chiffre de 1 à 9 apparaît. Les zéros ne comptent pour rien : ce n'est pas un chiffre de la grille.</p>
+        <p>Chaque chiffre remplit une case : 0 fois = <code>vide</code> (absente), 1 à 2 fois = normal, 3 fois ou plus = <code>fort</code> (marquée). C'est une fréquence, pas une note — une case vide n'est pas « moins bien » qu'une case pleine, juste une clé différente à regarder.</p>
+
+        <h2>3. Les neuf clés</h2>
+        <p>Chacune des neuf cases (1 à 9) est associée à un thème de vie — c'est la version que Genesolia a adaptée à sa façon, pensée pour rester universelle (identité, énergie, talents, corps, clarté, engagement, don, limites) et se terminer sur la case 9, qu'on a choisi de relier à la <strong>mémoire de lignée</strong> plutôt qu'à un thème individuel classique — c'est le pont vers le reste de la méthode Genesolia.</p>
+        <p>Chaque clé a maintenant trois niveaux de texte : une explication (ce que ça représente), un exemple concret du quotidien, et un couple force/défi.</p>
+
+        <h2>4. La résonance du prénom (et du nom)</h2>
+        <p>Table pythagoricienne classique : chaque lettre correspond à un chiffre de 1 à 9 (A, J, S = 1 ; B, K, T = 2 ; etc.). On additionne les lettres du prénom (et du nom de famille si la personne le renseigne — champ optionnel) et on réduit le total de la même façon que le chemin de vie, nombres maîtres compris. C'est une « couleur » de surface qui s'ajoute à la grille, pas un deuxième chemin de vie.</p>
+
+        <h2>5. Les quatre points complémentaires</h2>
+        <p>Ligne paternelle, ligne maternelle, tâche de vie, rapport à l'abondance. Chacun est un chiffre calculé différemment à partir de la date :</p>
+        <ul>
+          <li><b>Ligne paternelle</b> = jour + mois, réduit</li>
+          <li><b>Ligne maternelle</b> = mois + somme des chiffres de l'année, réduit</li>
+          <li><b>Tâche de vie</b> = chemin de vie + résonance du prénom (ou, à défaut, somme des chiffres du jour), réduit</li>
+          <li><b>Rapport à l'abondance</b> = jour + somme des chiffres de l'année, réduit</li>
+        </ul>
+        <p>Ce ne sont pas des formules de la méthode originale de Ladini (qu'on ne peut pas vérifier précisément) : c'est une construction Genesolia, dans le même esprit — chaque axe donne un chiffre de 1 à 9 (ou un nombre maître), et <strong>chaque chiffre a son propre sens</strong>, comme pour les neuf clés. On a corrigé une première version qui classait les chiffres en trois paliers « bas / moyen / haut » selon leur valeur — ce qui n'avait aucune justification réelle (1 n'est pas « moins » que 9). Maintenant chaque chiffre, pour chaque axe, a son texte propre (36 textes en tout). Les nombres maîtres reprennent le sens de leur chiffre de base (11→2, 22→4, 33→6) avec une mention « intensifié ».</p>
+
+        <h2>6. La lignée (profils transgénérationnels)</h2>
+        <p>Cette partie vient directement de ton espace de travail personnel (dossier « Sephirot » sur Notion), adaptée pour rester universelle : <strong>aucune mention de Kabbale, de Séphirot, de lettres hébraïques ou de rituel</strong> — uniquement les concepts de résonance et de mémoire, secularisés.</p>
+        <p>Quatre profils, basés sur la fréquence du chiffre 9 (et du 6) dans la grille :</p>
+        <ul>
+          <li><b>Ce qui se répète</b> — si le 9 apparaît 3 fois ou plus</li>
+          <li><b>Ce que tu portes pour quelqu'un d'autre</b> — si le 9 apparaît au moins 1 fois et le 6 au moins 3 fois</li>
+          <li><b>Une mémoire silencieuse</b> — si le 9 n'apparaît jamais</li>
+          <li><b>Une place à trouver</b> — si le 9 apparaît 1 ou 2 fois (cas « par défaut »)</li>
+        </ul>
+        <p>Plus un bloc « Où ça peut se loger » (corps / cœur / élan), adapté des « trois niveaux d'âme » de tes notes (Nefesh / Rouah / Neshama dans l'original), mais <strong>sans aucun protocole</strong> — pas de rituel du type « écrire et brûler », explicitement exclu à ta demande.</p>
+
+        <h2>7. L'image partageable</h2>
+        <p>Un bouton génère une image carrée (1080×1080 px) directement dans le navigateur, via un <code>&lt;canvas&gt;</code> — pas de service externe, pas d'envoi de données. Elle reprend la grille, le prénom et le chemin de vie, aux couleurs du site, pensée pour Instagram/Stories.</p>
+
+        <h2>8. La comparaison à deux</h2>
+        <p>Niveau gratuit, sans compte :</p>
+        <ul>
+          <li>Les deux grilles affichées côte à côte</li>
+          <li>Une lecture de compatibilité des chemins de vie, basée sur les trois familles classiques en numérologie : <b>1-5-7</b>, <b>2-4-8</b>, <b>3-6-9</b> (les nombres maîtres reprennent leur chiffre de base pour ce classement). Même chemin de vie = « identique » ; même famille = « harmonieux » ; familles différentes = « complémentaire ». Le texte s'adapte aussi selon le lien choisi (couple / parent-enfant / fratrie / autre)</li>
+          <li>Les clés dominantes communes, et les clés où l'un·e est marqué·e pendant que l'autre est absent (complémentaires)</li>
+        </ul>
+        <p>Niveau « Aller plus loin », réservé à un compte Genesolia (gratuit pour l'instant, via le même mécanisme que le livret PDF) :</p>
+        <ul>
+          <li>Les quatre points complémentaires comparés, avec le texte propre à chaque personne</li>
+          <li>Les profils de lignée communs aux deux grilles</li>
+          <li>Le téléchargement d'une image du duo (1600×1080 px, mêmes grilles côte à côte)</li>
+        </ul>
+
+        <h2>9. Compte gratuit aujourd'hui, palier payant possible</h2>
+        <p>Le site a déjà un mécanisme prêt à l'emploi dans <code>assets/site.js</code> : tout élément avec <code>data-compte</code> demande un compte gratuit avant de s'activer ; si on ajoute en plus <code>data-produit="matrice"</code> et qu'on déclare ce produit <code>payant: true</code> dans <code>GENESOLIA_PRODUITS</code> (avec un lien Stripe), le même bouton affiche automatiquement « Débloquer pour X € » au lieu de la création de compte — sauf pour les membres de Ma spirale ou du Cercle, qui y ont accès inclus sans payer en plus (déjà géré par le système existant).</p>
+        <p>Le bouton « Débloquer la comparaison complète » a déjà <code>data-produit="matrice"</code> posé : il suffit d'ajouter l'entrée <code>matrice</code> dans <code>GENESOLIA_PRODUITS</code> avec un prix et un lien Stripe pour activer le palier payant, le jour où tu le décides.</p>
+
+        <div class="deux">
+          <div><b>Reste gratuit</b><p>Grille, 9 clés, résonance, 4 points, lignée (fiche individuelle), comparaison de base (grilles + compatibilité + clés communes).</p></div>
+          <div><b>Devient payant si tu actives Stripe</b><p>Livret PDF, niveau « Aller plus loin » de la comparaison (points complémentaires + lignée + image du duo).</p></div>
+        </div>
+
+        <p class="rappel"><strong>Pour toi :</strong> si tu veux activer le palier payant, dis-moi le prix et donne-moi le lien de paiement Stripe — le code est déjà prêt à le recevoir.</p>
+      </div>
+    </article>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
