@@ -57,6 +57,12 @@
     .md-case9 .vide{background:#FCEFF3;border-style:dashed;border-color:#E3B8C4}
     .md-case9 .fort{background:#FFF6EC;border-color:var(--champagne)}
     .md-legende{color:var(--prune-doux);font-size:.9rem}
+    .md-compare-grilles{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1rem 0}
+    .md-compare-grilles h4{font-family:var(--display);font-weight:400;margin-bottom:.6rem}
+    .md-compare-grilles .md-case9{grid-template-columns:repeat(3,3.4rem);grid-template-rows:repeat(3,3.4rem);gap:.35rem}
+    .md-compare-grilles .md-case9 b{font-size:1rem}
+    .md-compare-grilles .md-case9 span{font-size:.5rem}
+    .md-compare-out{margin-top:1rem}
 
     .md-cles{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin-bottom:1.4rem}
     .md-cle{display:flex;flex-direction:column;padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
@@ -293,6 +299,42 @@
       };
     }
     function niveau(n) { return n === 0 ? 'vide' : (n >= 3 ? 'fort' : ''); }
+    function casesHTML(grille) {
+      return ORDRE_GRILLE.map(function (k) {
+        return '<div class="' + niveau(grille[k]) + '"><b>' + k + '</b><span>' + (grille[k] || 'absent') + (grille[k] ? '×' : '') + '</span></div>';
+      }).join('');
+    }
+    // Compatibilité des chemins de vie : regroupement classique en 3 familles (1-5-7, 2-4-8, 3-6-9)
+    function groupeNombre(n) {
+      var r = n === 11 ? 2 : (n === 22 ? 4 : (n === 33 ? 6 : n));
+      if ([1, 5, 7].indexOf(r) !== -1) return 'A';
+      if ([2, 4, 8].indexOf(r) !== -1) return 'B';
+      return 'C';
+    }
+    function tierCompat(cdv1, cdv2) {
+      if (cdv1 === cdv2) return 'identique';
+      return groupeNombre(cdv1) === groupeNombre(cdv2) ? 'harmonieux' : 'complementaire';
+    }
+    var COMPAT_TEXTES = {
+      identique: {
+        'couple': 'Même chemin de vie : une évidence qui peut rapprocher vite, parfois au point de se reconnaître trop pour se voir vraiment différent·es.',
+        'parent-enfant': 'Même chemin de vie : un miroir fort entre vous, qui peut autant rapprocher qu\'amener à se confondre l\'un dans l\'autre.',
+        'fratrie': 'Même chemin de vie : une proximité rare entre vous, qui explique peut-être pourquoi vous vous comprenez si vite, parfois sans un mot.',
+        'autre': 'Même chemin de vie : une proximité qui facilite souvent la compréhension mutuelle, presque instinctivement.'
+      },
+      harmonieux: {
+        'couple': 'Des chemins différents mais du même esprit : assez proches pour se comprendre, assez différents pour s\'apporter mutuellement quelque chose de nouveau.',
+        'parent-enfant': 'Des chemins différents mais compatibles : une bonne base pour se comprendre, sans que l\'un efface l\'autre.',
+        'fratrie': 'Des chemins différents mais dans le même esprit : de quoi se compléter sans trop se heurter.',
+        'autre': 'Des chemins différents mais du même esprit : une entente qui se construit assez naturellement.'
+      },
+      complementaire: {
+        'couple': 'Deux chemins bien distincts : la rencontre demande sans doute plus d\'ajustements, mais c\'est souvent là que se trouve le plus à apprendre l\'un de l\'autre.',
+        'parent-enfant': 'Deux chemins bien distincts : il peut falloir plus de patience pour se comprendre, mais c\'est aussi l\'occasion de grandir chacun·e à sa façon.',
+        'fratrie': 'Deux chemins bien distincts : vous ne fonctionnez sans doute pas pareil, et c\'est justement ce qui peut vous être utile l\'un à l\'autre.',
+        'autre': 'Deux chemins bien distincts : la relation demande un peu plus d\'effort pour se comprendre, mais elle peut aussi beaucoup vous apprendre.'
+      }
+    };
     function mentionNiveau(n) {
       if (n === 0) return 'Absente de ta date : une clé à apprivoiser plutôt qu\'un manque.';
       if (n === 1) return 'Présente, discrète.';
@@ -371,9 +413,7 @@
       var dominantes = cles9.filter(function (k) { return g[k] === Math.max.apply(null, cles9.map(function (x) { return g[x]; })); });
       var absentes = cles9.filter(function (k) { return g[k] === 0; });
 
-      var cases = ORDRE_GRILLE.map(function (k) {
-        return '<div class="' + niveau(g[k]) + '"><b>' + k + '</b><span>' + (g[k] || 'absent') + (g[k] ? '×' : '') + '</span></div>';
-      }).join('');
+      var cases = casesHTML(g);
 
       var cles = cles9.map(function (k) {
         return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div>' +
@@ -425,6 +465,7 @@
         '<p class="n-sec-intro">Calcule la matrice d\'un proche (conjoint·e, enfant, parent) et vois en un coup d\'œil ce que vous partagez, et ce qui vous complète.</p>' +
         '<form id="md-compare-form" class="n-form" novalidate><div class="n-champ"><label for="md-c-prenom">Son prénom</label><input id="md-c-prenom" required></div>' +
         '<div class="n-champ"><label for="md-c-date">Sa date de naissance</label><input id="md-c-date" type="date" min="1900-01-01" max="2030-12-31" required></div>' +
+        '<div class="n-champ"><label for="md-c-lien">Votre lien</label><select id="md-c-lien"><option value="couple">En couple</option><option value="parent-enfant">Parent / enfant</option><option value="fratrie">Fratrie</option><option value="autre">Autre (ami·e, collègue…)</option></select></div>' +
         '<button class="btn btn-trait" type="submit">Comparer nos matrices</button></form>' +
         '<div id="md-compare-resultat"></div></div>';
 
@@ -461,15 +502,23 @@
         var m2 = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d2);
         if (!p2nom || !m2) { out.innerHTML = '<p class="n-erreur" role="alert">Indique son prénom et sa date de naissance complète.</p>'; return; }
         var aaaa2 = +m2[1], mm2 = +m2[2], jj2 = +m2[3];
+        var cdv2 = cheminDeVie(jj2, mm2, aaaa2);
         var g2 = grilleDepuisDate(jj2, mm2, aaaa2);
         var p2 = p2nom.charAt(0).toUpperCase() + p2nom.slice(1);
+        var lien = document.getElementById('md-c-lien').value;
         var dominantes2 = cles9.filter(function (k) { return g2[k] === Math.max.apply(null, cles9.map(function (x) { return g2[x]; })); });
         var communes = dominantes.filter(function (k) { return dominantes2.indexOf(k) !== -1; });
         var complementaires = cles9.filter(function (k) { return (g[k] === 0 && g2[k] >= 2) || (g2[k] === 0 && g[k] >= 2); });
+        var compat = COMPAT_TEXTES[tierCompat(cdv, cdv2)][lien];
         out.innerHTML = '<div class="md-compare-out">' +
+          '<div class="md-compare-grilles">' +
+            '<div><h4>' + esc(p) + ' · chemin de vie ' + cdv + '</h4><div class="md-case9" role="img" aria-label="Grille de ' + esc(p) + '">' + casesHTML(g) + '</div></div>' +
+            '<div><h4>' + esc(p2) + ' · chemin de vie ' + cdv2 + '</h4><div class="md-case9" role="img" aria-label="Grille de ' + esc(p2) + '">' + casesHTML(g2) + '</div></div>' +
+          '</div>' +
+          '<p><b>Vos chemins de vie :</b> ' + compat + '</p>' +
           '<p><b>Ce que vous partagez :</b> ' + (communes.length ? communes.map(function (k) { return CLES[k].titre; }).join(', ') : 'Aucune clé dominante commune : vos profils se croisent plus qu\'ils ne se ressemblent.') + '</p>' +
           '<p><b>Ce qui vous complète :</b> ' + (complementaires.length ? complementaires.map(function (k) { return CLES[k].titre; }).join(', ') + ' — là où l\'un·e est discret·e, l\'autre est marqué·e.' : 'Vos deux grilles se ressemblent, sans grand écart entre vous.') + '</p>' +
-          '<p class="note">Comparaison entre ' + esc(p) + ' et ' + esc(p2) + ', à partir des clés dominantes et absentes de chaque grille.</p></div>';
+          '<p class="note">Lecture symbolique, pas un verdict sur votre relation : à prendre comme un point de départ pour en parler ensemble.</p></div>';
       });
     }
 
