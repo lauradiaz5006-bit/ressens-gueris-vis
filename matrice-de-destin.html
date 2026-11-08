@@ -52,23 +52,54 @@
     .md-legende{color:var(--prune-doux);font-size:.9rem}
 
     .md-cles{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin-bottom:1.4rem}
-    .md-cle{padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .md-cle{display:flex;flex-direction:column;padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
     .md-cle-haut{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem}
     .md-cle-n{width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;color:var(--prune);background:var(--rose);flex-shrink:0}
     .md-cle h3{font-size:1.1rem;line-height:1.2}
     .md-cle p{font-size:.92rem;color:var(--prune-doux);line-height:1.5}
+    .md-cle .md-niveau{font-size:.88rem;font-weight:600;color:var(--prune);margin:.3rem 0 .6rem}
+    .md-fd{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:auto;padding-top:.8rem}
+    .md-fd div{border-radius:12px;padding:.6rem .7rem;font-size:.85rem;line-height:1.45}
+    .md-fd b{display:block;font:600 .68rem/1 var(--texte);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+    .md-force{background:#FFF6EC;border:1px solid var(--champagne-clair)}
+    .md-force b{color:var(--champagne)}
+    .md-defi{background:#FCEFF3;border:1px solid #F1D3DC}
+    .md-defi b{color:#B5485C}
+
+    .md-resume{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem}
+    .md-resume div{padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .md-resume .n-etiq{display:block;font:600 .72rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .md-resume h3{font-size:1.2rem;margin-bottom:.2rem}
+    .md-resume p{font-size:.9rem;color:var(--prune-doux)}
 
     .md-lignee{position:relative;overflow:hidden;border-radius:var(--rayon);padding:2.2rem 2.2rem;background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#FFF4F6;margin-bottom:1.4rem}
     .md-lignee .n-etiq{display:block;font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:.5rem}
     .md-lignee h2{color:#fff;margin-bottom:.6rem}
     .md-lignee p{color:#F7E6EE}
+    .md-profil{padding:1.2rem 0;border-top:1px solid rgba(243,220,192,.3)}
+    .md-profil:first-of-type{border-top:none;padding-top:0}
+    .md-profil h3{color:#fff;font-size:1.25rem;margin-bottom:.4rem}
+    .md-profil .piste{margin-top:.6rem;padding-top:.6rem;border-top:1px dashed rgba(243,220,192,.3);font-size:.93rem}
+    .md-profil .piste b{color:var(--champagne-clair)}
 
     .md-prenom{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);margin-bottom:1.4rem}
     .md-prenom .md-cle-n{width:3.6rem;height:3.6rem;font-size:1.6rem}
 
+    .md-outils{margin-top:1.6rem}
+    .md-outils-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin-top:1rem}
+    .md-outil{display:flex;flex-direction:column;padding:1.4rem 1.5rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;color:var(--prune)}
+    .md-outil .n-etiq{display:block;font:600 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .md-outil h3{font-size:1.15rem;margin-bottom:.4rem}
+    .md-outil p{font-size:.88rem;color:var(--prune-doux);margin-bottom:.8rem}
+    .md-outil span.prix{margin-top:auto;font-weight:600;color:var(--prune)}
+    .md-outil:hover{border-color:var(--prune)}
+
     .n-texte h2{margin-bottom:.8rem}
     .n-texte h3{margin:1.6rem 0 .5rem}
     .n-texte p{margin-bottom:.8rem}
+
+    .n-titre-sec{font-size:1.75rem;margin:2.4rem 0 1rem;scroll-margin-top:5rem}
+    .n-sec-intro{color:var(--prune-doux);margin:-.4rem 0 1.2rem;max-width:44rem}
 
     @media (max-width:900px){.n-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
     @media (max-width:620px){
@@ -141,15 +172,15 @@
     var f = document.getElementById('md-form'), err = document.getElementById('md-erreur'), zone = document.getElementById('resultat');
 
     var CLES = {
-      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde.' },
-      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement, ou au contraire ce qui te freine.' },
-      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser.' },
-      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien.' },
-      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive.' },
-      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire.' },
-      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché.' },
-      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter.' },
-      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, sans mot parfois.' }
+      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde.', force: 'Tu sais te faire reconnaître, on te repère dans un groupe.', defi: 'Tu peux en faire trop, par peur de disparaître ou de ne pas compter.' },
+      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement, ou au contraire ce qui te freine.', force: 'Tu sais te relancer, même après un coup dur.', defi: 'L\'énergie peut partir par à-coups, avec des creux difficiles à anticiper.' },
+      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser.', force: 'Tu apprends vite ce qui t\'intéresse vraiment.', defi: 'Tu peux douter de la valeur de ce qui te vient trop facilement.' },
+      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien.', force: 'Tu sens assez tôt quand quelque chose ne va pas.', defi: 'Le corps peut porter ce que les mots ne disent pas.' },
+      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive.', force: 'Tu vois souvent juste, parfois avant les autres.', defi: 'Trop réfléchir peut retarder le moment d\'agir.' },
+      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire.', force: 'On peut compter sur toi, et ça se sait.', defi: 'Le devoir peut prendre toute la place, jusqu\'à t\'oublier toi.' },
+      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché.', force: 'Une facilité qui t\'ouvre des portes sans effort apparent.', defi: 'Ce qui vient trop facilement peut rester mis de côté, jamais vraiment utilisé.' },
+      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter.', force: 'Tu sais dire non quand il le faut vraiment.', defi: 'Dire non peut coûter cher, au point de l\'éviter.' },
+      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, sans mot parfois.', force: 'Tu es sensible à ce qui se transmet, et ça peut éclairer beaucoup.', defi: 'Cette mémoire peut peser plus qu\'elle n\'informe, tant qu\'elle reste silencieuse.' }
     };
     // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
     var ORDRE_GRILLE = [3, 6, 9, 2, 5, 8, 1, 4, 7];
@@ -192,17 +223,21 @@
 
     var PROFILS_LIGNEE = [
       { id: 'repete', titre: 'Ce qui se répète', test: function (g) { return g[9] >= 3; },
-        texte: 'Les mêmes types de situations reviennent dans ta lignée, parfois d\'une génération à l\'autre. Ce n\'est pas une fatalité : c\'est un fil visible, et ce qui se voit peut commencer à se dénouer.' },
+        texte: 'Les mêmes types de situations reviennent dans ta lignée, parfois d\'une génération à l\'autre. Ce n\'est pas une fatalité : c\'est un fil visible, et ce qui se voit peut commencer à se dénouer.',
+        piste: 'Note, dans ton arbre, à quel âge chaque génération a vécu une situation semblable. Le simple fait de la voir écrite commence déjà à la désamorcer.' },
       { id: 'porte', titre: 'Ce que tu portes pour quelqu\'un d\'autre', test: function (g) { return g[9] >= 1 && g[6] >= 3; },
-        texte: 'Il arrive de porter, sans l\'avoir choisi, un poids qui appartenait d\'abord à quelqu\'un d\'autre dans ta famille. Le reconnaître est déjà une façon de se l\'autoriser à déposer.' },
+        texte: 'Il arrive de porter, sans l\'avoir choisi, un poids qui appartenait d\'abord à quelqu\'un d\'autre dans ta famille. Le reconnaître est déjà une façon de se l\'autoriser à déposer.',
+        piste: 'Demande-toi, devant ce poids, à qui il appartenait avant toi. Tu peux choisir de le lui laisser, symboliquement : l\'écrire, puis le refermer.' },
       { id: 'silencieuse', titre: 'Une mémoire silencieuse', test: function (g) { return g[9] === 0; },
-        texte: 'Rien dans ta date ne met ta mémoire de lignée en avant, et pourtant elle existe : parfois faite de silences, d\'histoires jamais racontées. Ce qui n\'est pas dit se transmet quand même, autrement.' },
+        texte: 'Rien dans ta date ne met ta mémoire de lignée en avant, et pourtant elle existe : parfois faite de silences, d\'histoires jamais racontées. Ce qui n\'est pas dit se transmet quand même, autrement.',
+        piste: 'Pose une question simple à un·e aîné·e de ta famille, sur un sujet jamais abordé. Une seule question suffit pour commencer à ouvrir la porte.' },
       { id: 'a-part', titre: 'Une place à trouver', test: function (g) { return g[9] >= 1 && g[9] < 3; },
-        texte: 'Ta lignée est présente sans être envahissante. C\'est une base sur laquelle t\'appuyer, à ton rythme, sans qu\'elle décide de tout à ta place.' }
+        texte: 'Ta lignée est présente sans être envahissante. C\'est une base sur laquelle t\'appuyer, à ton rythme, sans qu\'elle décide de tout à ta place.',
+        piste: 'Regarde ton arbre comme un appui, pas comme un programme à suivre. Tu peux garder ce qui te sert et laisser le reste où il est.' }
     ];
-    function profilLignee(g) {
-      for (var i = 0; i < PROFILS_LIGNEE.length; i++) if (PROFILS_LIGNEE[i].test(g)) return PROFILS_LIGNEE[i];
-      return PROFILS_LIGNEE[PROFILS_LIGNEE.length - 1];
+    function profilsLignee(g) {
+      var trouves = PROFILS_LIGNEE.filter(function (p) { return p.test(g); });
+      return trouves.length ? trouves : [PROFILS_LIGNEE[PROFILS_LIGNEE.length - 1]];
     }
 
     function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -213,16 +248,21 @@
       var cdv = cheminDeVie(jj, mm, aaaa);
       var g = grilleDepuisDate(jj, mm, aaaa);
       var res = resonancePrenom(prenom);
-      var profil = profilLignee(g);
+      var profils = profilsLignee(g);
       var p = prenom.charAt(0).toUpperCase() + prenom.slice(1);
+
+      var cles9 = Object.keys(CLES).map(Number);
+      var dominantes = cles9.filter(function (k) { return g[k] === Math.max.apply(null, cles9.map(function (x) { return g[x]; })); });
+      var absentes = cles9.filter(function (k) { return g[k] === 0; });
 
       var cases = ORDRE_GRILLE.map(function (k) {
         return '<div class="' + niveau(g[k]) + '"><b>' + k + '</b><span>' + (g[k] || 'absent') + (g[k] ? '×' : '') + '</span></div>';
       }).join('');
 
-      var cles = Object.keys(CLES).map(function (k) {
-        k = +k;
-        return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div><p>' + CLES[k].texte + ' ' + mentionNiveau(g[k]) + '</p></article>';
+      var cles = cles9.map(function (k) {
+        return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div>' +
+          '<p class="md-niveau">' + mentionNiveau(g[k]) + '</p><p>' + CLES[k].texte + '</p>' +
+          '<div class="md-fd"><div class="md-force"><b>Ta force</b>' + CLES[k].force + '</div><div class="md-defi"><b>Ton défi</b>' + CLES[k].defi + '</div></div></article>';
       }).join('');
 
       var h = '<div class="conteneur">';
@@ -233,14 +273,32 @@
       h += '<div class="md-grille-zone"><div class="md-case9" role="img" aria-label="Grille de ta matrice">' + cases + '</div>' +
         '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
 
-      h += '<div class="md-cles">' + cles + '</div>';
+      h += '<div class="md-resume"><div><span class="n-etiq">Ta clé la plus marquée</span>' +
+        dominantes.map(function (k) { return '<h3>' + CLES[k].titre + '</h3>'; }).join(' · ') +
+        '<p>Ce qui domine chez toi en ce moment, souvent au premier regard.</p></div>' +
+        '<div><span class="n-etiq">' + (absentes.length ? 'Ta ou tes clés à apprivoiser' : 'Un thème équilibré') + '</span>' +
+        (absentes.length ? absentes.map(function (k) { return '<h3>' + CLES[k].titre + '</h3>'; }).join(' · ') + '<p>Absente de ta date : un apprentissage plutôt qu\'un manque.</p>' : '<p>Les neuf clés sont présentes dans ta date : un signe d\'équilibre entre tes différentes facettes.</p>') + '</div></div>';
+
+      h += '<h3 class="n-titre-sec">Tes neuf clés, en détail</h3><div class="md-cles">' + cles + '</div>';
 
       if (res) {
-        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>La résonance de ton prénom</h3><p>Chaque lettre de ton prénom porte aussi un nombre. Celui de ' + esc(p) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille.</p></div></div>';
+        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>La résonance de ton prénom</h3><p>Chaque lettre de ton prénom porte aussi un nombre. Celui de ' + esc(p) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille : elle colore la façon dont tu te présentes, plus que ce que tu es en profondeur.</p></div></div>';
       }
 
-      h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span><h2>' + profil.titre + '</h2><p>' + profil.texte + '</p>' +
-        '<a class="btn btn-plein" style="margin-top:1rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
+      h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span>' + profils.map(function (profil) {
+        return '<div class="md-profil"><h3>' + profil.titre + '</h3><p>' + profil.texte + '</p><p class="piste"><b>Une piste :</b> ' + profil.piste + '</p></div>';
+      }).join('') +
+        '<a class="btn btn-plein" style="margin-top:1.2rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
+
+      h += '<div class="md-outils">' +
+        '<h3 class="n-titre-sec" style="margin-top:0">Pour continuer, à ton rythme</h3>' +
+        '<p class="n-sec-intro">Une matrice se lit une fois, mais ta lignée continue de parler. Voici où poursuivre, selon ce que tu as envie d\'explorer.</p>' +
+        '<div class="md-outils-grille">' +
+          '<a class="md-outil" href="genosociogramme.html"><span class="n-etiq">Gratuit</span><h3>Dessiner mon arbre familial</h3><p>Pour voir, génération après génération, ce qui se répète vraiment chez toi.</p><span class="prix">Commencer mon arbre</span></a>' +
+          '<a class="md-outil" href="theme-numerologique.html"><span class="n-etiq">Gratuit</span><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, cycles, défis : l\'autre lecture par les nombres, en profondeur.</p><span class="prix">Découvrir mon thème</span></a>' +
+          '<a class="md-outil" href="pass.html"><span class="n-etiq">7 jours offerts</span><h3>Ma spirale</h3><p>Numérologie, astrologie et lignée réunies chaque mois, dans un espace à toi, avec ton agenda.</p><span class="prix">4,99 €/mois après l\'essai</span></a>' +
+          '<a class="md-outil" href="cercle.html"><span class="n-etiq">1er mois offert</span><h3>Le Cercle</h3><p>Un carnet mensuel et un suivi de libération, pour avancer avec ta lignée mois après mois.</p><span class="prix">17,77 €/mois (offre de Noël)</span></a>' +
+        '</div></div>';
 
       h += '<p class="note">Lecture symbolique, pour t\'aider à réfléchir. Elle ne prédit pas l\'avenir.</p></div>';
       zone.innerHTML = h; zone.hidden = false;
