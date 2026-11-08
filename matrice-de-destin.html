@@ -233,33 +233,72 @@
     };
 
     // Points complémentaires : une version que Genesolia a adaptée à sa façon, dans l'esprit de la méthode complète (lignes parentales, tâche de vie, rapport à l'abondance).
+    // Chaque chiffre de 1 à 9 a son propre sens (comme en numérologie classique), pas une échelle d'intensité du faible au fort.
     var POINTS = {
       paternelle: {
         titre: 'Ligne paternelle',
-        bas: { texte: 'La ligne paternelle est discrète dans ta matrice : un sujet que tu abordes par toi-même, plus que par héritage direct.', force: 'Tu n\'es pas enfermé·e dans un rôle hérité du côté paternel : ta marge de manœuvre y est large.', defi: 'Ce qui vient de ce côté peut rester flou, faute d\'avoir été assez nommé.' },
-        moyen: { texte: 'Une influence paternelle présente mais pas envahissante : un point d\'appui parmi d\'autres.', force: 'Tu peux t\'appuyer sur ce qui vient de ce côté sans qu\'il décide de tout à ta place.', defi: 'L\'équilibre reste à ajuster selon les périodes de ta vie.' },
-        haut: { texte: 'La ligne paternelle pèse fort dans ta matrice : la figure du père, ou ce qu\'elle représente, structure une bonne partie de ton histoire.', force: 'Une transmission forte, qui peut devenir un socle une fois consciente.', defi: 'Ce poids peut aussi brouiller ce qui t\'appartient en propre, à démêler avec le temps.' }
+        digits: {
+          1: 'Une ligne paternelle tournée vers l\'initiative : le père, ou ce qu\'il représente, incarne souvent celui qui montre la voie ou qui pousse à agir.',
+          2: 'Une ligne paternelle plus douce, tournée vers l\'écoute : le père, ou ce qu\'il représente, se vit plus dans la relation que dans l\'autorité.',
+          3: 'Une ligne paternelle expressive : le père, ou ce qu\'il représente, se transmet par les mots, l\'humour, ou la créativité.',
+          4: 'Une ligne paternelle structurante : le père, ou ce qu\'il représente, pose un cadre, une rigueur, parfois un poids du devoir.',
+          5: 'Une ligne paternelle mouvante : le père, ou ce qu\'il représente, est lié au changement, à l\'absence, ou à une liberté difficile à cerner.',
+          6: 'Une ligne paternelle centrée sur la responsabilité : le père, ou ce qu\'il représente, porte le souci de la famille, parfois jusqu\'à s\'oublier.',
+          7: 'Une ligne paternelle discrète, intérieure : le père, ou ce qu\'il représente, se vit plus dans le silence que dans les mots.',
+          8: 'Une ligne paternelle liée au pouvoir ou à la réussite : le père, ou ce qu\'il représente, pose des questions d\'ambition et de reconnaissance.',
+          9: 'Une ligne paternelle tournée vers la transmission : le père, ou ce qu\'il représente, relie à quelque chose de plus grand que lui, une histoire de famille.'
+        }
       },
       maternelle: {
         titre: 'Ligne maternelle',
-        bas: { texte: 'La ligne maternelle est discrète ici : un sujet que tu traverses sans qu\'il domine ton histoire.', force: 'Tu avances sans être porté·e ni freiné·e par ce qui vient de ce côté.', defi: 'Ce qui vient de ce côté peut manquer de repères pour être bien compris.' },
-        moyen: { texte: 'Une influence maternelle bien présente, ni envahissante ni absente.', force: 'Un appui disponible du côté maternel, sans qu\'il t\'enferme.', defi: 'Savoir quand s\'appuyer dessus et quand t\'en détacher demande de l\'attention.' },
-        haut: { texte: 'La ligne maternelle est très marquée : la figure de la mère, ou ce qu\'elle représente, imprime fort ta manière d\'être au monde.', force: 'Une transmission dense, qui peut devenir une vraie ressource une fois identifiée.', defi: 'Elle peut aussi peser au point de se confondre avec qui tu es vraiment.' }
+        digits: {
+          1: 'Une ligne maternelle tournée vers l\'indépendance : la mère, ou ce qu\'elle représente, incarne la force d\'avancer seule.',
+          2: 'Une ligne maternelle de lien et de douceur : la mère, ou ce qu\'elle représente, se vit dans l\'attention et la proximité.',
+          3: 'Une ligne maternelle expressive : la mère, ou ce qu\'elle représente, transmet par la parole, l\'émotion ou la créativité.',
+          4: 'Une ligne maternelle stable et exigeante : la mère, ou ce qu\'elle représente, pose un cadre, parfois strict.',
+          5: 'Une ligne maternelle changeante : la mère, ou ce qu\'elle représente, est liée au mouvement, à l\'imprévisible, ou à l\'absence.',
+          6: 'Une ligne maternelle tournée vers le soin : la mère, ou ce qu\'elle représente, porte beaucoup pour les autres, parfois trop.',
+          7: 'Une ligne maternelle réservée : la mère, ou ce qu\'elle représente, se vit dans la retenue plus que dans les mots.',
+          8: 'Une ligne maternelle liée à la force ou à la gestion : la mère, ou ce qu\'elle représente, pose des questions de pouvoir ou de charge.',
+          9: 'Une ligne maternelle tournée vers la transmission : la mère, ou ce qu\'elle représente, relie à une histoire familiale plus large.'
+        }
       },
       mission: {
         titre: 'Ta tâche de vie',
-        bas: { texte: 'Ta tâche de vie se cherche encore, et c\'est normal : rien ne t\'oblige à déjà tout savoir.', force: 'Tu restes libre d\'explorer, sans direction imposée trop tôt.', defi: 'L\'absence de cap clair peut donner une impression de flottement.' },
-        moyen: { texte: 'Une direction se dessine, sans être encore totalement claire ; tu avances par tâtonnements.', force: 'Chaque tâtonnement t\'apprend quelque chose de précis sur ce que tu cherches.', defi: 'Le doute revient régulièrement, même quand la direction est la bonne.' },
-        haut: { texte: 'Une mission se fait sentir fortement chez toi, presque comme une évidence qui revient sans cesse.', force: 'Un sens à ce que tu fais, qui peut porter longtemps même dans les périodes difficiles.', defi: 'Cette évidence peut aussi devenir une pression, si elle ne laisse pas de place au doute.' }
+        digits: {
+          1: 'Une tâche de vie tournée vers l\'initiative : ouvrir une voie, être le ou la premier·e à oser.',
+          2: 'Une tâche de vie tournée vers le lien : rapprocher, écouter, faire équipe.',
+          3: 'Une tâche de vie tournée vers l\'expression : dire, créer, transmettre par les mots ou l\'art.',
+          4: 'Une tâche de vie tournée vers la construction : bâtir du solide, du durable, étape par étape.',
+          5: 'Une tâche de vie tournée vers le mouvement : explorer, s\'adapter, ne pas rester enfermé·e.',
+          6: 'Une tâche de vie tournée vers la responsabilité : prendre soin, porter un cadre, souvent pour les autres.',
+          7: 'Une tâche de vie tournée vers la compréhension : chercher, analyser, aller au fond des choses.',
+          8: 'Une tâche de vie tournée vers l\'accomplissement concret : construire quelque chose de solide, matériellement visible.',
+          9: 'Une tâche de vie tournée vers la transmission : donner, conclure un cycle, ouvrir la voie aux autres.'
+        }
       },
       argent: {
         titre: 'Ton rapport à l\'abondance',
-        bas: { texte: 'Le rapport à l\'abondance est léger dans ta matrice : ni blocage marqué, ni rapport affiché à l\'argent.', force: 'L\'argent ne pèse pas particulièrement sur tes décisions.', defi: 'Ce sujet peut rester sous-pensé, jusqu\'à ce qu\'un imprévu le mette en avant.' },
-        moyen: { texte: 'Un rapport à l\'abondance plutôt stable, ni en manque ni en excès.', force: 'Une gestion plutôt posée, qui te permet d\'avancer sans trop t\'en inquiéter.', defi: 'La stabilité peut aussi masquer un sujet que tu évites d\'approfondir.' },
-        haut: { texte: 'Le rapport à l\'argent ou à la matière est un thème fort chez toi, en bien comme en difficile selon les périodes.', force: 'Une sensibilité forte à ce sujet, qui peut devenir un vrai moteur une fois apaisée.', defi: 'Les à-coups (trop ou pas assez) peuvent se répéter tant que le sujet reste tabou.' }
+        digits: {
+          1: 'Un rapport à l\'abondance tourné vers l\'indépendance : gagner par toi-même, sans devoir à personne.',
+          2: 'Un rapport à l\'abondance lié au partage : l\'argent se vit à plusieurs, en couple ou en famille, plus que seul·e.',
+          3: 'Un rapport à l\'abondance lié à la créativité : l\'argent arrive souvent par un talent ou une expression personnelle.',
+          4: 'Un rapport à l\'abondance basé sur l\'effort : la stabilité matérielle se construit lentement, par le travail.',
+          5: 'Un rapport à l\'abondance irrégulier : des hauts et des bas, rarement une ligne stable.',
+          6: 'Un rapport à l\'abondance lié à la famille : l\'argent se mêle souvent aux responsabilités envers les proches.',
+          7: 'Un rapport à l\'abondance discret : la matière n\'est pas la priorité, parfois jusqu\'à la négliger.',
+          8: 'Un rapport à l\'abondance marqué : une vraie sensibilité à la réussite matérielle, en bien comme en difficile.',
+          9: 'Un rapport à l\'abondance tourné vers le don : l\'argent circule, se transmet, se partage plus qu\'il ne se garde.'
+        }
       }
     };
-    function tierPoint(n) { return n <= 3 ? 'bas' : (n <= 6 ? 'moyen' : 'haut'); }
+    // Les nombres maîtres (11, 22, 33) reprennent le sens de leur chiffre de base (2, 4, 6), en version intensifiée.
+    function digitBase(n) { return n === 11 ? 2 : (n === 22 ? 4 : (n === 33 ? 6 : n)); }
+    function texteAxe(id, n) {
+      var txt = POINTS[id].digits[digitBase(n)] || '';
+      if (n === 11 || n === 22 || n === 33) txt += ' C\'est un nombre maître : cette dimension se vit de façon intensifiée chez toi.';
+      return txt;
+    }
     // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
     var ORDRE_GRILLE = [3, 6, 9, 2, 5, 8, 1, 4, 7];
 
@@ -469,9 +508,8 @@
       h += '<h3 class="n-titre-sec">Quatre points complémentaires</h3>' +
         '<p class="n-sec-intro">Au-delà des neuf clés, quatre axes de plus, dans l\'esprit de la méthode complète : la version que Genesolia en a adaptée.</p>' +
         '<div class="md-cles">' + Object.keys(POINTS).map(function (id) {
-          var n = pts[id], t = tierPoint(n), info = POINTS[id], v = info[t];
-          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + v.texte + '</p>' +
-            '<div class="md-fd"><div class="md-force"><b>Ta force</b>' + v.force + '</div><div class="md-defi"><b>Ton défi</b>' + v.defi + '</div></div></article>';
+          var n = pts[id], info = POINTS[id];
+          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + texteAxe(id, n) + '</p></article>';
         }).join('') + '</div>';
 
       if (res) {
@@ -556,9 +594,11 @@
           var pts2 = pointsComplementaires(jj2, mm2, aaaa2, cdv2, res2);
           var profils2 = profilsLignee(g2);
           var axes = Object.keys(POINTS).map(function (id) {
-            var n1 = pts[id], n2 = pts2[id], meme = tierPoint(n1) === tierPoint(n2), info = POINTS[id];
-            return '<article class="md-cle"><h3>' + info.titre + '</h3><p>' + esc(p) + ' : <b>' + n1 + '</b> · ' + esc(p2) + ' : <b>' + n2 + '</b></p>' +
-              '<p>' + (meme ? 'Vous vivez cet axe de façon assez proche.' : 'Vos rapports à cet axe diffèrent : une bonne occasion d\'en parler ensemble.') + '</p></article>';
+            var n1 = pts[id], n2 = pts2[id], meme = digitBase(n1) === digitBase(n2), info = POINTS[id];
+            return '<article class="md-cle"><h3>' + info.titre + '</h3>' +
+              '<p><b>' + esc(p) + ' (' + n1 + ')</b> ' + texteAxe(id, n1) + '</p>' +
+              '<p><b>' + esc(p2) + ' (' + n2 + ')</b> ' + texteAxe(id, n2) + '</p>' +
+              '<p class="note">' + (meme ? 'Vous vivez cet axe de façon assez proche.' : 'Vos rapports à cet axe diffèrent : une bonne occasion d\'en parler ensemble.') + '</p></article>';
           }).join('');
           var communsLignee = profils.filter(function (pr) { return profils2.some(function (pr2) { return pr2.id === pr.id; }); });
           var lignee = communsLignee.length
