@@ -202,13 +202,94 @@
     gen: { nom: 'Genesolia', plan: '/sitemap.xml', console: 'https://search.google.com/search-console?resource_id=sc-domain%3Agenesolia.fr', propriete: 'sc-domain:genesolia.fr' },
     str: { nom: 'STRAKARA', plan: 'https://www.strakara.fr/sitemap.xml', console: 'https://search.google.com/search-console?resource_id=sc-domain%3Astrakara.fr', propriete: 'sc-domain:strakara.fr' }
   };
-  /* Pages à demander en premier (dans cet ordre), par site. */
-  var PRIORITE = { gen: [], str: [
-    'stocker-palettes-valence-a7-vallee-du-rhone', 'palettes-valeur-valence-bunker-securise',
-    'stockage-palettes-lyon-est-aeroport-saint-exupery', 'dimensionner-stockage-palettes-racks-10-a-500',
-    'stockage-palettes-bordeaux-nord-est-a89-a10', 'entrepot-isole-chauffe-quelles-marchandises-bordeaux',
-    'stockage-palettes-centre-bretagne-moreac-pontivy', 'choisir-formule-stockage-palettes-entrepot-racke-moreac'
-  ].map(function (s) { return 'https://www.strakara.fr/blog/' + s + '.html'; }) };
+  /* Pages à demander, dans cet ordre, par site (tri fait à partir des rapports Search Console du 8 nov. 2026 : on a retiré
+     les actualités, les mentions légales, les prénoms, les anciennes adresses sans .html et les fiches espace dynamiques).
+     Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
+  var PRIORITE = {
+    gen: [
+      'https://genesolia.fr/annee-personnelle-2027.html',
+      'https://genesolia.fr/annee-personnelle-1-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-2-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-3-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-4-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-5-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-6-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-7-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-8-en-2027.html',
+      'https://genesolia.fr/annee-personnelle-9-en-2027.html',
+      'https://genesolia.fr/arbre-de-vie-arbre-genealogique-genosociogramme.html',
+      'https://genesolia.fr/conflits-avec-ses-parents.html',
+      'https://genesolia.fr/enfant-de-remplacement.html',
+      'https://genesolia.fr/loyaute-familiale-invisible.html',
+      'https://genesolia.fr/grands-symboles-des-reves.html',
+      'https://genesolia.fr/jung-reves-archetypes.html',
+      'https://genesolia.fr/informations-avant-genosociogramme.html',
+      'https://genesolia.fr/cartes.html',
+      'https://genesolia.fr/lettre-du-mois.html',
+      'https://genesolia.fr/lettre-dans-un-an.html',
+      'https://genesolia.fr/ciel-janvier-2027.html',
+      'https://genesolia.fr/ciel-fevrier-2027.html'
+    ],
+    str: [
+      'https://www.strakara.fr/blog/stocker-palettes-valence-a7-vallee-du-rhone.html',
+      'https://www.strakara.fr/blog/palettes-valeur-valence-bunker-securise.html',
+      'https://www.strakara.fr/blog/stockage-palettes-lyon-est-aeroport-saint-exupery.html',
+      'https://www.strakara.fr/blog/dimensionner-stockage-palettes-racks-10-a-500.html',
+      'https://www.strakara.fr/blog/stockage-palettes-bordeaux-nord-est-a89-a10.html',
+      'https://www.strakara.fr/blog/entrepot-isole-chauffe-quelles-marchandises-bordeaux.html',
+      'https://www.strakara.fr/blog/stockage-palettes-centre-bretagne-moreac-pontivy.html',
+      'https://www.strakara.fr/blog/choisir-formule-stockage-palettes-entrepot-racke-moreac.html',
+      'https://www.strakara.fr/espaces/stockage-palette-bourg-les-valence.html',
+      'https://www.strakara.fr/espaces/stockage-palettes-saint-laurent-de-mure.html',
+      'https://www.strakara.fr/espaces/stockage-palettes-saint-sulpice-et-cameyrac-33.html',
+      'https://www.strakara.fr/espaces/stockage-palettes-moreac.html',
+      'https://www.strakara.fr/espaces/stockage-palette-tours.html',
+      'https://www.strakara.fr/blog/combien-de-palettes-entrepot-300-m2-tours.html',
+      'https://www.strakara.fr/blog/choisir-entrepot-stockage-palettes-tours-criteres.html',
+      'https://www.strakara.fr/blog/stocker-palettes-indre-et-loire-cas-concrets.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-tours-entrepot-flexible-palettes.html',
+      'https://www.strakara.fr/espaces/cellules-activite-tours-37.html',
+      'https://www.strakara.fr/espaces/cellules-activite-tours-chartres.html',
+      'https://www.strakara.fr/espaces/cellules-activite-chartres-perche-28.html',
+      'https://www.strakara.fr/blog/rentabiliser-espace-professionnel-inutilise.html',
+      'https://www.strakara.fr/blog/espace-stockage-champigny-sur-marne.html',
+      'https://www.strakara.fr/blog/securite-vol-entrepot-espace-partage-camera.html',
+      'https://www.strakara.fr/blog/strakara-coordination-facturation-etat-lieux-caution.html',
+      'https://www.strakara.fr/blog/grand-compte-deploiement-regional-espace-professionnel.html',
+      'https://www.strakara.fr/blog/co-stockage-paris-ile-de-france.html',
+      'https://www.strakara.fr/blog/guide-stockage-professionnel-morangis-essonne.html',
+      'https://www.strakara.fr/blog/bureau-entrepot-partage-professionnel.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-rennes.html',
+      'https://www.strakara.fr/blog/espace-flexible-stockage-activite-valence.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-bordeaux-guide-2026.html',
+      'https://www.strakara.fr/blog/choisir-entrepot-stockage.html',
+      'https://www.strakara.fr/blog/cout-espace-stockage-professionnel-france.html',
+      'https://www.strakara.fr/blog/prix-location-entrepot-2026.html',
+      'https://www.strakara.fr/blog/stockage-sans-caution-empreinte-bancaire-swikly.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-sans-bail-commercial.html',
+      'https://www.strakara.fr/blog/louer-hangar-sans-bail-commercial.html',
+      'https://www.strakara.fr/blog/rentabiliser-hangar-entrepot.html',
+      'https://www.strakara.fr/blog/rentabiliser-entrepot-partiellement-vide.html',
+      'https://www.strakara.fr/blog/location-entrepot-seine-et-marne-77-stockage-professionnel-flexible.html',
+      'https://www.strakara.fr/blog/self-stockage-vs-espace-pro-strakara.html',
+      'https://www.strakara.fr/blog/stockage-saisonnier-professionnel-france.html',
+      'https://www.strakara.fr/blog/transition-locaux-stockage-temporaire-pme.html',
+      'https://www.strakara.fr/blog/atelier-professionnel-brest-flexible.html',
+      'https://www.strakara.fr/blog/charges-fixes-espace-professionnel-sous-utilise.html',
+      'https://www.strakara.fr/blog/chef-projet-base-operationnelle-temporaire.html',
+      'https://www.strakara.fr/blog/co-stockage-entrepot-partage-professionnel.html',
+      'https://www.strakara.fr/blog/diviser-espace-professionnel-500m2-hebergeur.html',
+      'https://www.strakara.fr/blog/immobilier-professionnel-flexible.html',
+      'https://www.strakara.fr/blog/locaux-professionnels-trop-petits-entreprise.html',
+      'https://www.strakara.fr/blog/photos-espace-stockage-professionnel-annonce.html',
+      'https://www.strakara.fr/blog/prestataire-itinerant-depot-professionnel.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-emerainville.html',
+      'https://www.strakara.fr/blog/stockage-professionnel-lissieu.html',
+      'https://www.strakara.fr/caution-swikly.html',
+      'https://www.strakara.fr/checklist-stockage-professionnel.html',
+      'https://www.strakara.fr/devenir-partenaire-affaires.html'
+    ]
+  };
   function rangPrio(cle, url) { return (PRIORITE[cle] || []).indexOf(url); }
   var IX = { gen: { etat: 'charge', urls: [], voir: 10 }, str: { etat: 'charge', urls: [], voir: 10 } };
   function lirePlan(cle) {
@@ -226,8 +307,12 @@
   function marques() { var m = {}; de('indexe').forEach(function (l) { var d = l.data; if (!m[d.url] || m[d.url].le < d.le) m[d.url] = { le: d.le, ligne: l }; }); return m; }
   function aIndexer(cle) {
     var m = marques(), limite14 = iso(plusJours(AUJ, -14)), limite30 = iso(plusJours(AUJ, -30));
-    return IX[cle].urls.filter(function (u) {
-      var k = m[u.url];
+    var vus = {}, tous = IX[cle].urls.slice();
+    tous.forEach(function (u) { vus[u.url] = 1; });
+    (PRIORITE[cle] || []).forEach(function (url, i) { if (!vus[url]) tous.push({ url: url, lastmod: '', ordre: 9000 + i }); });   /* page choisie mais absente du plan : on la garde */
+    return tous.filter(function (u) {
+      var k = m[u.url], choisie = rangPrio(cle, u.url) >= 0, recente = u.lastmod && u.lastmod >= limite14 && u.lastmod <= AUJ_ISO;
+      if (!choisie && !recente) return false;               /* ni choisie, ni nouvelle : on n'en parle pas */
       if (!k) return true;                                   /* jamais demandée */
       if (k.le >= limite30) return false;                   /* demandée il y a moins de 30 jours */
       return u.lastmod && u.lastmod >= limite14 && u.lastmod > k.le;   /* modifiée récemment depuis la dernière demande */
@@ -253,7 +338,7 @@
         var court = u.url.replace(/^https?:\/\/[^\/]+/, '') || '/';
         var neuf = u.lastmod && u.lastmod >= lim14;
         var insp = 'https://search.google.com/search-console/inspect?resource_id=' + encodeURIComponent(site.propriete) + '&id=' + encodeURIComponent(u.url);
-        return '<li><div class="u">' + (rangPrio(cle, u.url) >= 0 ? '<span class="nouv">Priorité</span> ' : '') + '<a href="' + esc(insp) + '" target="_blank" rel="noopener" title="Inspecter dans Search Console">' + esc(court) + '</a><small>' + (u.lastmod ? (neuf ? '<span class="nouv">Modifiée le ' + esc(dateCourte(deIso(u.lastmod))) + '</span>' : 'Modifiée le ' + esc(dateCourte(deIso(u.lastmod)))) : 'Sans date') + (m[u.url] ? ' · demandée le ' + esc(dateCourte(deIso(m[u.url].le))) : ' · jamais demandée') + '</small></div>' +
+        return '<li><div class="u">' + (rangPrio(cle, u.url) >= 0 && rangPrio(cle, u.url) < ({ gen: 10, str: 8 })[cle] ? '<span class="nouv">Priorité</span> ' : '') + '<a href="' + esc(insp) + '" target="_blank" rel="noopener" title="Inspecter dans Search Console">' + esc(court) + '</a><small>' + (u.lastmod ? (neuf ? '<span class="nouv">Modifiée le ' + esc(dateCourte(deIso(u.lastmod))) + '</span>' : 'Modifiée le ' + esc(dateCourte(deIso(u.lastmod)))) : 'Sans date') + (m[u.url] ? ' · demandée le ' + esc(dateCourte(deIso(m[u.url].le))) : ' · jamais demandée') + '</small></div>' +
           '<div class="act"><button class="bt clair mini" type="button" data-copier="' + esc(u.url) + '">Copier</button><button class="bt mini" type="button" data-demandee="' + esc(u.url) + '"' + (duJour >= 10 ? ' title="10 déjà demandées aujourd\'hui"' : '') + '>Demandée</button></div></li>';
       }).join('') + '</ul>';
       if (liste.length > st.voir) html += '<p style="text-align:center;margin:.6rem 0 0"><button class="bt clair mini" type="button" data-plus="' + cle + '">Voir plus (' + (liste.length - st.voir) + ')</button></p>';
