@@ -304,10 +304,10 @@
         '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
 
       h += '<div class="md-resume"><div><span class="n-etiq">Ta clé la plus marquée</span>' +
-        dominantes.map(function (k) { return '<h3>' + CLES[k].titre + '</h3>'; }).join(' · ') +
+        '<h3>' + dominantes.map(function (k) { return CLES[k].titre; }).join(' · ') + '</h3>' +
         '<p>Ce qui domine chez toi en ce moment, souvent au premier regard.</p></div>' +
         '<div><span class="n-etiq">' + (absentes.length ? 'Ta ou tes clés à apprivoiser' : 'Un thème équilibré') + '</span>' +
-        (absentes.length ? absentes.map(function (k) { return '<h3>' + CLES[k].titre + '</h3>'; }).join(' · ') + '<p>Absente de ta date : un apprentissage plutôt qu\'un manque.</p>' : '<p>Les neuf clés sont présentes dans ta date : un signe d\'équilibre entre tes différentes facettes.</p>') + '</div></div>';
+        (absentes.length ? '<h3>' + absentes.map(function (k) { return CLES[k].titre; }).join(' · ') + '</h3><p>Absente de ta date : un apprentissage plutôt qu\'un manque.</p>' : '<p>Les neuf clés sont présentes dans ta date : un signe d\'équilibre entre tes différentes facettes.</p>') + '</div></div>';
 
       h += '<h3 class="n-titre-sec">Tes neuf clés, en détail</h3><div class="md-cles">' + cles + '</div>';
 
