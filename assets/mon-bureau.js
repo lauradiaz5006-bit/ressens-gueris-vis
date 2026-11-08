@@ -202,6 +202,14 @@
     gen: { nom: 'Genesolia', plan: '/sitemap.xml', console: 'https://search.google.com/search-console?resource_id=sc-domain%3Agenesolia.fr', propriete: 'sc-domain:genesolia.fr' },
     str: { nom: 'STRAKARA', plan: 'https://www.strakara.fr/sitemap.xml', console: 'https://search.google.com/search-console?resource_id=sc-domain%3Astrakara.fr', propriete: 'sc-domain:strakara.fr' }
   };
+  /* Pages à demander en premier (dans cet ordre), par site. */
+  var PRIORITE = { gen: [], str: [
+    'stocker-palettes-valence-a7-vallee-du-rhone', 'palettes-valeur-valence-bunker-securise',
+    'stockage-palettes-lyon-est-aeroport-saint-exupery', 'dimensionner-stockage-palettes-racks-10-a-500',
+    'stockage-palettes-bordeaux-nord-est-a89-a10', 'entrepot-isole-chauffe-quelles-marchandises-bordeaux',
+    'stockage-palettes-centre-bretagne-moreac-pontivy', 'choisir-formule-stockage-palettes-entrepot-racke-moreac'
+  ].map(function (s) { return 'https://www.strakara.fr/blog/' + s + '.html'; }) };
+  function rangPrio(cle, url) { return (PRIORITE[cle] || []).indexOf(url); }
   var IX = { gen: { etat: 'charge', urls: [], voir: 10 }, str: { etat: 'charge', urls: [], voir: 10 } };
   function lirePlan(cle) {
     var site = SITES[cle];
@@ -223,7 +231,11 @@
       if (!k) return true;                                   /* jamais demandée */
       if (k.le >= limite30) return false;                   /* demandée il y a moins de 30 jours */
       return u.lastmod && u.lastmod >= limite14 && u.lastmod > k.le;   /* modifiée récemment depuis la dernière demande */
-    }).sort(function (a, b) { return (b.lastmod || '').localeCompare(a.lastmod || '') || a.ordre - b.ordre; });
+    }).sort(function (a, b) {
+      var ra = rangPrio(cle, a.url), rb = rangPrio(cle, b.url);
+      if (ra >= 0 || rb >= 0) return (ra < 0 ? 999 : ra) - (rb < 0 ? 999 : rb);
+      return (b.lastmod || '').localeCompare(a.lastmod || '') || a.ordre - b.ordre;
+    });
   }
   function rendreIndex(cle) {
     var box = $('#ix-' + cle), site = SITES[cle], st = IX[cle];
@@ -241,7 +253,7 @@
         var court = u.url.replace(/^https?:\/\/[^\/]+/, '') || '/';
         var neuf = u.lastmod && u.lastmod >= lim14;
         var insp = 'https://search.google.com/search-console/inspect?resource_id=' + encodeURIComponent(site.propriete) + '&id=' + encodeURIComponent(u.url);
-        return '<li><div class="u"><a href="' + esc(insp) + '" target="_blank" rel="noopener" title="Inspecter dans Search Console">' + esc(court) + '</a><small>' + (u.lastmod ? (neuf ? '<span class="nouv">Modifiée le ' + esc(dateCourte(deIso(u.lastmod))) + '</span>' : 'Modifiée le ' + esc(dateCourte(deIso(u.lastmod)))) : 'Sans date') + (m[u.url] ? ' · demandée le ' + esc(dateCourte(deIso(m[u.url].le))) : ' · jamais demandée') + '</small></div>' +
+        return '<li><div class="u">' + (rangPrio(cle, u.url) >= 0 ? '<span class="nouv">Priorité</span> ' : '') + '<a href="' + esc(insp) + '" target="_blank" rel="noopener" title="Inspecter dans Search Console">' + esc(court) + '</a><small>' + (u.lastmod ? (neuf ? '<span class="nouv">Modifiée le ' + esc(dateCourte(deIso(u.lastmod))) + '</span>' : 'Modifiée le ' + esc(dateCourte(deIso(u.lastmod)))) : 'Sans date') + (m[u.url] ? ' · demandée le ' + esc(dateCourte(deIso(m[u.url].le))) : ' · jamais demandée') + '</small></div>' +
           '<div class="act"><button class="bt clair mini" type="button" data-copier="' + esc(u.url) + '">Copier</button><button class="bt mini" type="button" data-demandee="' + esc(u.url) + '"' + (duJour >= 10 ? ' title="10 déjà demandées aujourd\'hui"' : '') + '>Demandée</button></div></li>';
       }).join('') + '</ul>';
       if (liste.length > st.voir) html += '<p style="text-align:center;margin:.6rem 0 0"><button class="bt clair mini" type="button" data-plus="' + cle + '">Voir plus (' + (liste.length - st.voir) + ')</button></p>';
