@@ -159,6 +159,10 @@
             <input id="md-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa" required>
           </div>
           <div class="n-champ">
+            <label for="md-nom">Ton nom de famille <span class="mini">(optionnel, affine la résonance)</span></label>
+            <input id="md-nom" name="nom" autocomplete="family-name" placeholder="Par exemple : Martin">
+          </div>
+          <div class="n-champ">
             <label for="md-date">Ta date de naissance</label>
             <input id="md-date" name="date" type="date" min="1900-01-01" max="2030-12-31" required>
           </div>
@@ -271,10 +275,10 @@
       tous.forEach(function (d) { if (d >= 1 && d <= 9) g[d]++; });
       return g;
     }
-    // Résonance du prénom : table pythagoricienne classique (A J S=1 ... I R=9)
+    // Résonance du prénom (et du nom complet si renseigné) : table pythagoricienne classique (A J S=1 ... I R=9)
     var TABLE = { A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4, E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8, I:9,R:9 };
-    function resonancePrenom(prenom) {
-      var lettres = String(prenom).toUpperCase().normalize('NFD').replace(/[^A-Z]/g, '').split('');
+    function resonanceTexte(texte) {
+      var lettres = String(texte).toUpperCase().normalize('NFD').replace(/[^A-Z]/g, '').split('');
       if (!lettres.length) return null;
       var total = lettres.reduce(function (a, l) { return a + (TABLE[l] || 0); }, 0);
       return reduire(total, true);
@@ -353,12 +357,12 @@
       return cvs.toDataURL('image/png');
     }
 
-    function afficher(prenom, date) {
+    function afficher(prenom, date, nom) {
       var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
       var aaaa = +m[1], mm = +m[2], jj = +m[3];
       var cdv = cheminDeVie(jj, mm, aaaa);
       var g = grilleDepuisDate(jj, mm, aaaa);
-      var res = resonancePrenom(prenom);
+      var res = resonanceTexte(nom ? prenom + ' ' + nom : prenom);
       var pts = pointsComplementaires(jj, mm, aaaa, cdv, res);
       var profils = profilsLignee(g);
       var p = prenom.charAt(0).toUpperCase() + prenom.slice(1);
@@ -403,7 +407,7 @@
         }).join('') + '</div>';
 
       if (res) {
-        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>La résonance de ton prénom</h3><p>Chaque lettre de ton prénom porte aussi un nombre. Celui de ' + esc(p) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille : elle colore la façon dont tu te présentes, plus que ce que tu es en profondeur.</p></div></div>';
+        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>' + (nom ? 'La résonance de ton nom complet' : 'La résonance de ton prénom') + '</h3><p>Chaque lettre ' + (nom ? 'de ton prénom et de ton nom porte' : 'de ton prénom porte') + ' aussi un nombre. ' + (nom ? 'Celui de ' + esc(p) + ' ' + esc(nom) : 'Celui de ' + esc(p)) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille : elle colore la façon dont tu te présentes, plus que ce que tu es en profondeur.</p></div></div>';
       }
 
       h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span>' + profils.map(function (profil) {
@@ -415,6 +419,14 @@
           '<li><b>Dans l\'élan</b>Une fatigue à avancer, un projet qui n\'aboutit jamais, comme si quelque chose freinait de l\'intérieur.</li>' +
         '</ul><p style="margin-top:.8rem;font-size:.9rem">Les trois peuvent se combiner. Ce n\'est pas à toi de tout résoudre d\'un coup : juste de repérer, doucement, par où ça passe chez toi.</p></div>' +
         '<a class="btn btn-plein" style="margin-top:1.2rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
+
+      h += '<div class="md-compare">' +
+        '<h3 class="n-titre-sec">Comparer avec quelqu\'un</h3>' +
+        '<p class="n-sec-intro">Calcule la matrice d\'un proche (conjoint·e, enfant, parent) et vois en un coup d\'œil ce que vous partagez, et ce qui vous complète.</p>' +
+        '<form id="md-compare-form" class="n-form" novalidate><div class="n-champ"><label for="md-c-prenom">Son prénom</label><input id="md-c-prenom" required></div>' +
+        '<div class="n-champ"><label for="md-c-date">Sa date de naissance</label><input id="md-c-date" type="date" min="1900-01-01" max="2030-12-31" required></div>' +
+        '<button class="btn btn-trait" type="submit">Comparer nos matrices</button></form>' +
+        '<div id="md-compare-resultat"></div></div>';
 
       h += '<div class="md-outils">' +
         '<h3 class="n-titre-sec" style="margin-top:0">Pour continuer, à ton rythme</h3>' +
@@ -442,28 +454,45 @@
         a.href = url; a.download = 'matrice-de-' + prenom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.png';
         document.body.appendChild(a); a.click(); a.remove();
       });
+      document.getElementById('md-compare-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var p2nom = document.getElementById('md-c-prenom').value.trim(), d2 = document.getElementById('md-c-date').value;
+        var out = document.getElementById('md-compare-resultat');
+        var m2 = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d2);
+        if (!p2nom || !m2) { out.innerHTML = '<p class="n-erreur" role="alert">Indique son prénom et sa date de naissance complète.</p>'; return; }
+        var aaaa2 = +m2[1], mm2 = +m2[2], jj2 = +m2[3];
+        var g2 = grilleDepuisDate(jj2, mm2, aaaa2);
+        var p2 = p2nom.charAt(0).toUpperCase() + p2nom.slice(1);
+        var dominantes2 = cles9.filter(function (k) { return g2[k] === Math.max.apply(null, cles9.map(function (x) { return g2[x]; })); });
+        var communes = dominantes.filter(function (k) { return dominantes2.indexOf(k) !== -1; });
+        var complementaires = cles9.filter(function (k) { return (g[k] === 0 && g2[k] >= 2) || (g2[k] === 0 && g[k] >= 2); });
+        out.innerHTML = '<div class="md-compare-out">' +
+          '<p><b>Ce que vous partagez :</b> ' + (communes.length ? communes.map(function (k) { return CLES[k].titre; }).join(', ') : 'Aucune clé dominante commune : vos profils se croisent plus qu\'ils ne se ressemblent.') + '</p>' +
+          '<p><b>Ce qui vous complète :</b> ' + (complementaires.length ? complementaires.map(function (k) { return CLES[k].titre; }).join(', ') + ' — là où l\'un·e est discret·e, l\'autre est marqué·e.' : 'Vos deux grilles se ressemblent, sans grand écart entre vous.') + '</p>' +
+          '<p class="note">Comparaison entre ' + esc(p) + ' et ' + esc(p2) + ', à partir des clés dominantes et absentes de chaque grille.</p></div>';
+      });
     }
 
     f.addEventListener('submit', function (e) {
       e.preventDefault();
-      var prenom = f.prenom.value.trim(), date = f.date.value;
+      var prenom = f.prenom.value.trim(), nom = f.nom.value.trim(), date = f.date.value;
       if (!prenom) { err.textContent = 'Écris ton prénom.'; f.prenom.focus(); return; }
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || +date.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
       err.textContent = '';
-      afficher(prenom, date);
-      try { localStorage.setItem('genesolia-matrice-destin', JSON.stringify({ prenom: prenom, date: date })); } catch (x) {}
+      afficher(prenom, date, nom);
+      try { localStorage.setItem('genesolia-matrice-destin', JSON.stringify({ prenom: prenom, nom: nom, date: date })); } catch (x) {}
       if (window.umami) try { window.umami.track('matrice-de-destin'); } catch (x) {}
       zone.scrollIntoView({ behavior: 'smooth' });
     });
 
     if (/[?&]exemple\b/.test(window.location.search)) {
       f.prenom.value = 'Camille'; f.date.value = '1990-05-12';
-      afficher('Camille', '1990-05-12');
+      afficher('Camille', '1990-05-12', '');
       zone.scrollIntoView({ behavior: 'smooth' });
     } else {
       try {
         var s = JSON.parse(localStorage.getItem('genesolia-matrice-destin') || 'null');
-        if (s && s.prenom) { f.prenom.value = s.prenom; f.date.value = s.date; afficher(s.prenom, s.date); }
+        if (s && s.prenom) { f.prenom.value = s.prenom; f.nom.value = s.nom || ''; f.date.value = s.date; afficher(s.prenom, s.date, s.nom || ''); }
       } catch (x) {}
     }
   })();
