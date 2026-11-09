@@ -91,9 +91,9 @@
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (offre de Noël avant le 31 décembre : 19 € par mois, ou 190 € l’année)' : '') + '. Vous retrouvez la création de dossiers, les partages et les rapports à votre nom. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p><label class="pr-case pr-cgv" style="font-size:.9rem;margin:.6rem 0"><input type="checkbox" data-cgv> <span>J’accepte les <a href="conditions-praticien.html" target="_blank">conditions de l’Espace praticien (CGV)</a> et l’<a href="accord-sous-traitance.html" target="_blank">accord de sous-traitance</a>.</span></label><button class="btn btn-plein" type="button" disabled data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (fondateur() ? '19 € par mois' : '24 € par mois') + '</button> <button class="btn btn-trait" type="button" disabled data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       (essaiAvant ? essai : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
-      (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
+      (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><select name="type" aria-label="Type de dossier"><option value="arbre">Dossier arbre</option><option value="constellation">Dossier constellation familiale</option></select><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
       '<div class="pr-sondage" id="pr-sondage" hidden></div>' +
-      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préférez le prénom ou les initiales.</p><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
+      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préférez le prénom ou les initiales.</p><div class="pr-onglets" id="pr-onglets" role="tablist" aria-label="Filtrer les dossiers par type"><button type="button" class="pr-onglet actif" data-type-filtre="tous">Tous</button><button type="button" class="pr-onglet" data-type-filtre="arbre">Arbre</button><button type="button" class="pr-onglet" data-type-filtre="constellation">Constellation familiale</button></div><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
       '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de votre activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de vos rapports et de vos liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
       (appliInstallee() ? '' : '<section class="pr-carte pr-appli"><h2>L’appli sur votre téléphone</h2><p class="pr-aide">Installez Genesolia Pro sur votre écran d’accueil : vos dossiers, le mode séance et vos notes s’ouvrent d’un geste, comme une vraie appli. Gratuit, 30 secondes.</p><button class="btn btn-plein" type="button" data-pro-installer>Installer l’appli Genesolia Pro</button></section>') +
       '<section class="pr-carte" id="pr-annuaire-carte"><h2>Ma fiche dans l’annuaire</h2><div id="pr-annuaire"><p class="pr-aide">Chargement…</p></div></section>' +
@@ -146,18 +146,20 @@
     });
   }
   /* La liste des dossiers, avec la recherche et le tri (dès 4 dossiers) */
-  var FILTRE = { q: '', tri: 'maj' };
+  var FILTRE = { q: '', tri: 'maj', type: 'tous' };
   function rendreDossiers() {
     var l = document.getElementById('pr-liste'); if (!l) return;
     var zf = document.getElementById('pr-filtre'); if (zf) zf.hidden = dossiers.length < 4;
     var q = FILTRE.q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    var vus = dossiers.filter(function (d) { return !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; });
+    var vus = dossiers.filter(function (d) { var okQ = !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre'; var okType = FILTRE.type === 'tous' || FILTRE.type === tipo; return okQ && okType; });
     vus.sort(function (a, b) { return FILTRE.tri === 'nom' ? String(a.nom || '').localeCompare(String(b.nom || ''), 'fr') : FILTRE.tri === 'ancien' ? (a.maj < b.maj ? -1 : 1) : (a.maj < b.maj ? 1 : -1); });
     var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
     l.innerHTML = (vus.length ? '' : '<p class="pr-vide">Aucun dossier ne correspond à « ' + esc(FILTRE.q) + ' ».</p>') + vus.map(function (d) {
       var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
-      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
+      var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre';
+      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (tipo === 'constellation' ? ' · Constellation familiale' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
         '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
+        (tipo === 'constellation' ? '<a class="btn btn-trait" href="plateau-visio.html">Ouvrir le plateau pour la séance</a>' : '') +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
         '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
@@ -218,6 +220,7 @@
   });
 
   document.addEventListener('input', function (e) { if (e.target.id === 'pr-cherche') { FILTRE.q = e.target.value; rendreDossiers(); } });
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-type-filtre]'); if (!b) return; FILTRE.type = b.getAttribute('data-type-filtre'); document.querySelectorAll('.pr-onglet').forEach(function (x) { x.classList.toggle('actif', x === b); }); rendreDossiers(); });
   document.addEventListener('change', function (e) { if (e.target.id === 'pr-tri') { FILTRE.tri = e.target.value; rendreDossiers(); } });
 
   function appliInstallee() { try { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; } catch (e) { return false; } }
@@ -230,7 +233,8 @@
       if (!e.target.accord.checked) { if (er) er.textContent = 'Cochez la case : l’accord de votre client·e est nécessaire pour créer son dossier.'; return; }
       if (er) er.textContent = '';
       var bt = e.target.querySelector('button'); bt.disabled = true;
-      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
+      var typeDossier = (e.target.type && e.target.type.value === 'constellation') ? 'constellation' : 'arbre';
+      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', type: typeDossier, accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
         bt.disabled = false;
         if (r.error) { alert('Le dossier n’a pas pu être créé. Réessayez dans un instant.'); return; }
         location.href = 'genosociogramme.html?arbre=' + r.data.id;
