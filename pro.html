@@ -51,8 +51,9 @@
     .pr-sondage{background:var(--rose);border:1px solid var(--rose-fonce);border-radius:16px;padding:.9rem 1rem;margin:0 0 1rem}.pr-sond-q{margin:0 0 .6rem;font-size:.95rem}.pr-sond-choix{display:flex;gap:1.2rem;margin:0 0 .6rem}.pr-sond-choix label{display:flex;gap:.35rem;align-items:center;cursor:pointer}.pr-sondage textarea{width:100%;box-sizing:border-box;border:1px solid var(--rose-fonce);border-radius:12px;padding:.5rem .7rem;font:inherit;font-size:.92rem;color:var(--prune);background:#fff;resize:vertical}.pr-sond-bas{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-top:.6rem}.pr-sond-bas small{color:var(--prune-doux);font-size:.84rem}
     .pr-form select{font:inherit;font-weight:400;padding:.7rem;border:1px solid #E5C6CF;border-radius:12px;background:#fff;color:var(--prune);width:100%}
     .pr-liste{display:grid;gap:.6rem}
-    .pr-dossier{display:grid;grid-template-columns:1fr;gap:.6rem 1rem;align-items:center;border:1.5px solid var(--rose-fonce,#D9A7B6);border-radius:16px;padding:.9rem 1rem;background:#FFF3F6}
-    .pr-dossier-neuf{border-color:#C9A46A;background:linear-gradient(135deg,#FFF6E2,#FFFBF3);box-shadow:0 0 0 2px rgba(201,164,106,.4)}
+    .pr-dossier{display:grid;grid-template-columns:1fr;gap:.6rem 1rem;align-items:center;border:1.5px solid #D9A46A;border-radius:16px;padding:.9rem 1rem;background:linear-gradient(135deg,#FFEFC9,#FFF8E6)}
+    .pr-dossier-neuf{border-color:#B9842A;background:linear-gradient(135deg,#FFDE94,#FFF0C8);box-shadow:0 0 0 2px rgba(185,132,42,.45)}
+    .pr-badge-neuf{display:inline-block;margin-left:.4rem;padding:.15rem .55rem;border-radius:999px;font-size:.7rem;font-weight:700;background:#8A5A1B;color:#fff;vertical-align:middle}
     .pr-dossier b{font-weight:600;font-size:1.02rem;overflow-wrap:anywhere}
     .pr-dossier small{display:block;color:var(--prune-doux);font-size:.84rem;margin-top:.15rem}
     .pr-actions{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-start}
@@ -106,11 +107,11 @@
     .pro-haut small{display:block;font:600 .66rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair,#F3DCC0)}
     .pro-haut .pro-inst{margin-left:auto;border:1px solid rgba(243,220,192,.6);background:transparent;color:#FFF4F6;border-radius:99px;padding:.45rem .85rem;font:600 .82rem var(--texte);cursor:pointer}
     .pro-test{max-width:none;margin:0;padding:.45rem 16px;background:#FFF0E0;color:#7A4E2F;font-size:.8rem;text-align:center}
-    .pro-bas{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--rose);padding:.35rem 4px calc(.35rem + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(46,19,56,.08)}
+    .pro-bas{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--rose);padding:.35rem 4px calc(.35rem + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(46,19,56,.08)}
     .pro-bas a{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.35rem 2px;color:var(--prune-doux);text-decoration:none;font:600 .72rem var(--texte);border-radius:12px}
     .pro-bas a.actif,.pro-bas a:hover{color:var(--prune);background:#FCEFF3}
     .pro-bas svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-    @media (min-width:900px){.pro-bas{left:50%;right:auto;transform:translateX(-50%);bottom:14px;width:30rem;border:1px solid var(--rose);border-radius:20px;padding:.35rem}body.pro{padding-bottom:100px}}
+    @media (min-width:900px){.pro-bas{left:50%;right:auto;transform:translateX(-50%);bottom:14px;width:36rem;border:1px solid var(--rose);border-radius:20px;padding:.35rem}body.pro{padding-bottom:100px}}
 /* Barre du bas Pro : même style que Le Cercle */
 .pro-bas{gap:.25rem;padding:.55rem .5rem calc(.6rem + env(safe-area-inset-bottom,0px));border-top:0;border-radius:24px 24px 0 0;box-shadow:0 -10px 34px rgba(46,16,41,.28);
  background:radial-gradient(2px 2px at 6% 28%,#FFE7B0,transparent 70%),radial-gradient(1.6px 1.6px at 14% 78%,#FFF1CF,transparent 70%),radial-gradient(2.4px 2.4px at 27% 18%,#F2CF86,transparent 70%),radial-gradient(1.5px 1.5px at 33% 60%,#FFF1CF,transparent 70%),radial-gradient(2px 2px at 46% 84%,#FFE7B0,transparent 70%),radial-gradient(1.7px 1.7px at 52% 14%,#F2CF86,transparent 70%),radial-gradient(2.2px 2.2px at 64% 66%,#FFE7B0,transparent 70%),radial-gradient(1.5px 1.5px at 71% 24%,#FFF1CF,transparent 70%),radial-gradient(2.4px 2.4px at 83% 80%,#F2CF86,transparent 70%),radial-gradient(1.7px 1.7px at 90% 30%,#FFE7B0,transparent 70%),radial-gradient(1.4px 1.4px at 97% 62%,#FFF1CF,transparent 70%),linear-gradient(160deg,#5A2650,#3E1A3A)}
@@ -132,10 +133,11 @@ body.pro{padding-bottom:110px}
   <h1 class="sr-only">Genesolia Pro · Mon Espace praticien</h1>
   <main id="pr" aria-live="polite"><p class="pr-aide">Votre Espace praticien s’ouvre…</p></main>
   <nav class="pro-bas" aria-label="Genesolia Pro">
-    <a href="#pr-dos-t" data-pro="dossiers" class="actif"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>
-    <a href="#pr-nouv" data-pro="nouveau"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Nouveau</a>
-    <a href="genosociogramme.html?exemple&amp;appli=pro" data-pro="demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>
-    <a href="#pr-cab" data-pro="activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>
+    <a href="#" data-pro="dossiers" class="actif"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>
+    <a href="#" data-pro="arbre"><svg viewBox="0 0 24 24"><path d="M12 3v7M12 10c-3 0-5 2-5 5M12 10c3 0 5 2 5 5M7 15v6M17 15v6"/><circle cx="12" cy="4" r="2"/><circle cx="7" cy="16" r="2"/><circle cx="17" cy="16" r="2"/></svg>Arbre</a>
+    <a href="#" data-pro="constellation"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="16" r="2"/><circle cx="18" cy="16" r="2"/><path d="M12 8v4M8 15l2-2M16 15l-2-2"/></svg>Constellation</a>
+    <a href="#" data-pro="demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>
+    <a href="#" data-pro="activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>
   </nav>
   <script>window.GENESOLIA_APPLI = { nom: 'Genesolia Pro', icone: '/assets/icones/pro-apple-180.png' };</script>
   <script src="assets/site.js"></script>
@@ -145,24 +147,17 @@ body.pro{padding-bottom:110px}
   <script src="assets/praticien-outils.js?v=8"></script>
   <script src="assets/praticien.js?v=2026-10-31i"></script>
   <script>
-  /* Barre du bas de l'appli Pro : aller aux dossiers, créer un dossier, mon activité */
+  /* Barre du bas de l'appli Pro : Dossiers / Arbre / Constellation / Démo / Mon activité */
   (function () {
     var bas = document.querySelector('.pro-bas');
-    function aller(sel, focus) {
-      var el = document.querySelector(sel); if (!el) return false;
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (focus) { var i = el.querySelector('input[type=text]'); if (i) setTimeout(function () { i.focus(); }, 350); }
-      return true;
-    }
     bas.addEventListener('click', function (e) {
       var a = e.target.closest('a[data-pro]'); if (!a) return;
-      var k = a.getAttribute('data-pro');
-      if (k === 'demo') { if (window.GenesoliaPro) { e.preventDefault(); window.GenesoliaPro.demo(); } return; }
       e.preventDefault();
-      bas.querySelectorAll('a').forEach(function (x) { x.classList.toggle('actif', x === a); });
-      if (k === 'dossiers') aller('#pr-liste') || window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (k === 'nouveau') { if (!aller('#pr-nouv', true)) aller('#pr-dos-t'); }
-      if (k === 'activite') { var cab = document.getElementById('pr-cab'); if (cab && cab.closest('section')) { cab.closest('section').id = cab.closest('section').id || 'pr-cab-carte'; aller('#' + cab.closest('section').id); } else aller('#pr-cab'); }
+      var k = a.getAttribute('data-pro');
+      if (k === 'arbre') { if (window.GenesoliaPro) window.GenesoliaPro.arbre(); return; }
+      if (k === 'constellation') { if (window.GenesoliaPro) window.GenesoliaPro.constellation(); return; }
+      if (k === 'demo') { if (window.GenesoliaPro) window.GenesoliaPro.demo(); return; }
+      if (k === 'dossiers' || k === 'activite') { if (window.GenesoliaProPanneau) window.GenesoliaProPanneau(k); window.scrollTo({ top: 0, behavior: 'smooth' }); }
     });
   })();
   </script>
