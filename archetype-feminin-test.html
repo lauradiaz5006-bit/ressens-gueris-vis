@@ -12,6 +12,13 @@
   <title>[BROUILLON] Quel est ton archétype féminin ? · Genesolia</title>
   <meta name="description" content="Un test gratuit à partir des sept déesses grecques qui ont inspiré Jung : découvre ton archétype féminin dominant, son ombre, et ce qu'il raconte de ta lignée.">
   <link rel="canonical" href="https://genesolia.fr/archetype-feminin-test.html">
+  <meta property="og:title" content="Quel est ton archétype féminin ? · Test gratuit Genesolia">
+  <meta property="og:description" content="Un test gratuit à partir des sept déesses grecques qui ont inspiré Jung : découvre ton archétype féminin dominant, son ombre, et ce qu'il raconte de ta lignée.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/archetype-feminin-hero.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Objets symboliques dorés des sept déesses grecques sur un tissu satiné">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     .at-tete{position:relative;overflow:hidden;padding:3.2rem 0 2.6rem;border-bottom:1px solid var(--rose);
@@ -36,6 +43,7 @@
     .at-resultat{display:none}
     .at-resultat.actif{display:block}
     .at-fiche{margin:2rem 0;padding:2rem 2rem 1.8rem;border-radius:20px;border:1px solid var(--rose);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 70%)}
+    .at-img{width:100%;height:auto;max-height:22rem;object-fit:cover;border-radius:14px;margin-bottom:1.4rem}
     .at-fiche .nom{font-family:var(--display);font-size:2rem;color:var(--prune);display:block;margin-bottom:.3rem}
     .at-fiche .sous{color:var(--prune-doux);margin-bottom:1.2rem}
     .at-fiche h3{margin:1.4rem 0 .5rem;font-size:1.05rem}
@@ -66,6 +74,8 @@
         <p class="publie">[Brouillon, non publié]</p>
       </div>
     </section>
+
+    <figure class="bandeau-photo"><img src="assets/images/archetype-feminin-hero-1600.webp" srcset="assets/images/archetype-feminin-hero-800.webp 800w, assets/images/archetype-feminin-hero-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="840" alt="Objets symboliques dorés des sept déesses grecques — plume de paon, croissant de lune, grenade, épis de blé, coquillage — sur un tissu satiné" loading="lazy" decoding="async"></figure>
 
     <section class="at-bloc">
       <div class="colonne">
@@ -198,6 +208,7 @@
   (function () {
     var ARCHETYPES = {
       artemis: {
+        img: 'assets/images/archetype-feminin-artemis-1600.webp', imgAlt: 'Une archère vêtue de voiles roses courant dans une forêt en fleurs sous un croissant de lune, un cerf à ses côtés',
         nom: 'Artémis', sous: 'La chasseresse indépendante',
         texte: [
           'Déesse de la chasse et de la lune, sœur jumelle d’Apollon, Artémis n’a jamais appartenu à personne : elle a obtenu de son père Zeus, encore enfant, le vœu de rester éternellement vierge, au sens ancien du mot — entière, non divisée, n’appartenant qu’à elle-même. Dans le mythe d’Actéon, le chasseur qui la surprend nue au bain est transformé en cerf et dévoré par ses propres chiens : personne ne s’approprie son regard impunément.',
@@ -207,6 +218,7 @@
         ]
       },
       athena: {
+        img: 'assets/images/archetype-feminin-athena-1600.webp', imgAlt: "Un casque grec doré, une chouette perchée sur une branche d'olivier, un astrolabe et un rouleau de parchemin",
         nom: 'Athéna', sous: 'La stratège',
         texte: [
           'Née directement de la tête de Zeus, déjà armée, Athéna n’a pas de mère dans le mythe le plus connu : Métis, enceinte d’elle, a été avalée par Zeus. Déesse de la stratégie et de l’intelligence pratique, elle se tient toujours aux côtés des héros — Persée, Ulysse — jamais en retrait, toujours du côté du pouvoir et de la raison.',
@@ -216,6 +228,7 @@
         ]
       },
       hestia: {
+        img: 'assets/images/archetype-feminin-hestia-1600.webp', imgAlt: "Une coupelle d'argile avec une flamme allumée, nichée dans une niche de pierre, vue sur la mer au coucher du soleil",
         nom: 'Hestia', sous: 'Le foyer intérieur',
         texte: [
           'Déesse du feu sacré, Hestia est la seule des douze Olympiens à n’avoir presque jamais été représentée sous forme humaine dans l’art antique tardif — seulement comme une flamme. Elle a refusé tous les prétendants, Apollon et Poséidon compris, pour garder la flamme du foyer commun. On ne la trouve dans aucune intrigue, aucune dispute : elle est la présence silencieuse qui tient tout le reste debout.',
@@ -225,6 +238,7 @@
         ]
       },
       hera: {
+        img: 'assets/images/archetype-feminin-hera-1600.webp', imgAlt: "Une plume de paon dorée et une bague ornée d'un diamant posées sur un tissu de soie au bord de l'eau",
         nom: 'Héra', sous: 'La gardienne de l’engagement',
         texte: [
           'Épouse de Zeus, déesse du mariage, Héra incarne la fidélité à la parole donnée dans un monde où son propre mari la trahit sans relâche. Sa colère, restée célèbre, se tourne pourtant le plus souvent contre les rivales — Léto, Io, Sémélé — plutôt que contre Zeus lui-même : la colère d’Héra proctège l’institution du mariage plus qu’elle ne punit son auteur.',
@@ -234,6 +248,7 @@
         ]
       },
       demeter: {
+        img: 'assets/images/archetype-feminin-demeter-1600.webp', imgAlt: "Une grenade ouverte à côté d'un bouquet d'épis de blé noué d'un ruban, dans un champ au coucher du soleil",
         nom: 'Déméter', sous: 'Celle qui nourrit',
         texte: [
           'Déesse des moissons, Déméter est la mère de Perséphone, enlevée par Hadès. Son deuil et sa colère rendent la terre entière stérile, jusqu’à ce que sa fille lui soit rendue — en partie seulement : six mois par an. C’est le premier grand récit occidental d’une mère qui refuse d’accepter la perte de son enfant, quitte à arrêter le monde.',
@@ -243,6 +258,7 @@
         ]
       },
       persephone: {
+        img: 'assets/images/archetype-feminin-persephone-1600.webp', imgAlt: "Une grenade ouverte au seuil d'une porte ancienne ouvragée, des jonquilles et des pétales au sol, lumière dorée",
         nom: 'Perséphone', sous: 'Celle qui traverse',
         texte: [
           'Fille de Déméter, enlevée par Hadès pour régner avec lui sur les enfers, Perséphone devient reine d’un monde qu’elle n’a pas choisi d’abord — puis, dans les versions plus tardives du mythe, elle apprend à habiter pleinement les deux mondes : celui de la lumière avec sa mère, celui de l’ombre avec Hadès.',
@@ -252,6 +268,7 @@
         ]
       },
       aphrodite: {
+        img: 'assets/images/archetype-feminin-aphrodite-1600.webp', imgAlt: 'Un coquillage nacré échoué sur le sable au bord de la mer au coucher du soleil, entouré de fleurs roses',
         nom: 'Aphrodite', sous: 'Celle qui transforme',
         texte: [
           'Dans la version la plus ancienne du mythe (chez Hésiode), Aphrodite naît de l’écume de mer, après la castration d’Ouranos par son fils Cronos — elle est ainsi la seule déesse olympienne à ne pas être définie d’abord par un père ou un mari, mais par un événement cosmique. Déesse du désir, elle ne se limite pas à la séduction : son pouvoir est de transformer ce qu’elle touche, à commencer par ceux qui l’approchent.',
@@ -283,7 +300,7 @@
       Object.keys(rep).forEach(function (q) { score[rep[q]]++; });
       var tries = NOMS_O.slice().sort(function (a, b) { return score[b] - score[a]; });
       var top = ARCHETYPES[tries[0]], second = ARCHETYPES[tries[1]];
-      document.getElementById('at-fiche').innerHTML = '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      document.getElementById('at-fiche').innerHTML = '<img class="at-img" src="' + top.img + '" alt="' + top.imgAlt + '" loading="lazy" decoding="async">' + '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
       document.getElementById('at-second').innerHTML = '<p class="at-second">Ton archétype complémentaire, presque à égalité : <b>' + second.nom + '</b> (' + second.sous.toLowerCase() + '). Personne n’est une seule déesse : regarde aussi de ce côté-là.</p>';
       form.hidden = true;
       document.getElementById('at-resultat').classList.add('actif');
