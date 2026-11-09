@@ -480,6 +480,9 @@
       '<button type="button" class="pa-bt or" data-guide-vu>C’est parti</button></section>' : '') +
       '<h1 class="pa-h1">' + (D.prenom ? 'Bonjour ' + esc(D.prenom) : 'Bonjour') + '</h1><p class="pa-sous">' + cap(dt.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) + ' · ' + esc(phaseDuJour(dt)) + ' <span class="pa-offre">Ton offre : ' + (D.cercle ? 'Le Cercle' : 'Ma spirale') + '</span></p><div class="pa-2col"><div>';
     h += '<section class="pa-carte pa-depot"><p class="pa-etiq">Quand quelque chose remonte</p><h2>Qu’est-ce que tu ressens ?</h2><p>Une émotion, une situation qui revient : dépose-la ici, avec tes mots.</p><div class="pa-outils"><button type="button" class="pa-bt or pa-bt-grand" data-depot>Je dépose ce que je ressens</button></div></section>';
+    var dReve = iso(dt), reveAuj = (D.etat.reves || []).some(function (v) { return v.date === dReve; }), reveIgn = false;
+    try { reveIgn = localStorage.getItem('genesolia-spirale-reve-ignore') === dReve; } catch (x) {}
+    if (!EXEMPLE && !reveAuj && !reveIgn) h += '<section class="pa-carte pa-intentions"><p class="pa-etiq">☾ Au réveil</p><p class="pa-int-t">Tu as rêvé cette nuit ?</p><div class="pa-outils"><button type="button" class="pa-bt or" data-reve="new">Je le note</button><button type="button" class="pa-lien-s" data-reve-ignore>Pas cette fois</button></div></section>';
     h += blocReves();
     if (enCours.length) h += '<p class="pa-titre-s">Mes schémas en cours</p><p class="pa-def">Un schéma, c’est ce qui se répète. Chacun avance en 5 temps : je dépose, je situe, je relie, je vois, je libère.</p>' + enCours.map(carteSchema).join('');
     var sv3 = enCours.filter(function (x) { return x.attenteSouvenir && !premiereDe(x) && joursDepuis(x.attenteSouvenir) >= 3; });
@@ -1629,7 +1632,7 @@
   }
   function blocReves() {
     var R = (D.etat.reves || []).slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
-    var h = '<section class="pa-carte"><p class="pa-etiq">Mes rêves</p>';
+    var h = '<section class="pa-carte"><p class="pa-etiq">☾ Mes rêves</p>';
     if (!R.length) h += '<p>Tes rêves sont remplis d’indices. Note-les ici : l’appli relie leurs symboles et les personnes qui y viennent à ta lignée.</p>';
     else {
       var sy = {}; R.forEach(function (v) { (v.symboles || []).forEach(function (x) { sy[x] = (sy[x] || 0) + 1; }); });
@@ -2526,6 +2529,7 @@
     var fr = e.target.closest('[data-frise]'); if (fr) { friseSel = fr.getAttribute('data-frise'); rafraichir(); return; }
     var vn = e.target.closest('[data-venu]'); if (vn) { noterVenu(vn); return; }
     var af = e.target.closest('[data-action-fait]'); if (af) { var sx = trouverSchema(af.getAttribute('data-action-fait')), ck = af.getAttribute('data-cle'); if (sx) { sx[ck] = sx[ck] ? '' : iso(new Date()); sauver(); rafraichir(); } return; }
+    if (e.target.closest('[data-reve-ignore]')) { try { localStorage.setItem('genesolia-spirale-reve-ignore', iso(new Date())); } catch (x) {} rafraichir(); return; }
     var rv = e.target.closest('[data-reve]'); if (rv) { ouvrirReve(rv.getAttribute('data-reve')); return; }
     var f = e.target.closest('[data-fil]'); if (f && trouver(f.getAttribute('data-fil')) && trouver(f.getAttribute('data-fil')).schema) { ouvrirSchema(trouver(f.getAttribute('data-fil')).schema); return; }
     if (f) { ouvrirFil(f.getAttribute('data-fil'), f.hasAttribute('data-etape') ? +f.getAttribute('data-etape') : null); return; }
