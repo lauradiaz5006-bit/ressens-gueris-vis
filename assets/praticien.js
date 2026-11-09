@@ -157,7 +157,7 @@
     l.innerHTML = (vus.length ? '' : '<p class="pr-vide">Aucun dossier ne correspond à « ' + esc(FILTRE.q) + ' ».</p>') + vus.map(function (d) {
       var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
       var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre';
-      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (tipo === 'constellation' ? ' · Constellation familiale' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
+      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (tipo === 'constellation' ? ' <span class="pr-badge">Constellation familiale</span>' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
         (tipo === 'constellation'
           ? '<a class="btn btn-plein" href="plateau-visio.html">Ouvrir le plateau pour la séance</a><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>'
           : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>') +
