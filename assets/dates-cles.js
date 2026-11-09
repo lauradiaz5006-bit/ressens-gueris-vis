@@ -13,6 +13,7 @@
   var P_PL = { jupiter: 5, saturne: 5, pluton: 3, uranus: 3, neptune: 2 }, P_PT = { soleil: 5, venus: 5, asc: 4, mc: 4, lune: 4, mars: 3, mercure: 2 };
   var ASPECTS = [[0, 'conj', 3], [60, 'harm', 1], [90, 'tens', 2], [120, 'harm', 2], [180, 'tens', 2]];
   var TEXTES = null, VILLES = null, VTZ = {};
+  var REG = { '11': 'Île-de-France', '24': 'Centre-Val de Loire', '27': 'Bourgogne-Franche-Comté', '28': 'Normandie', '32': 'Hauts-de-France', '44': 'Grand Est', '52': 'Pays de la Loire', '53': 'Bretagne', '75': 'Nouvelle-Aquitaine', '76': 'Occitanie', '84': 'Auvergne-Rhône-Alpes', '93': "Provence-Alpes-Côte d'Azur", '94': 'Corse' };
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function script(src) { return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
@@ -158,7 +159,7 @@
     fo.ville.addEventListener('focus', function () { villes().catch(function () {}); }, { once: true });
     fo.ville.addEventListener('input', function () {
       if (!VILLES) return; var q = cle(this.value); if (q.length < 2) return;
-      dl.innerHTML = VILLES.filter(function (v) { return v.k.indexOf(q) === 0; }).slice(0, 8).map(function (v) { return '<option value="' + esc(v.n + (v.adm ? ' (' + v.adm + ')' : '') + ' · ' + v.cc) + '">'; }).join('');
+      dl.innerHTML = VILLES.filter(function (v) { return v.k.indexOf(q) === 0; }).slice(0, 8).map(function (v) { var zone = v.cc === 'FR' ? (REG[v.adm] || '') : ''; return '<option value="' + esc(v.n + (zone ? ' (' + zone + ')' : '') + ' · ' + v.cc) + '">'; }).join('');
     });
     prets().catch(function () {});
     fo.prenom.focus();
@@ -172,7 +173,7 @@
       if (!fo.accord.checked) { err.textContent = 'Coche la case pour recevoir tes dates.'; return; }
       if (heure && ville && VILLES) {
         var m = ville.match(/^(.*?)(?: \((.*)\))? · ([A-Z]{2})$/), k = cle(m ? m[1] : ville);
-        lieu = VILLES.filter(function (v) { return v.k === k && (!m || v.cc === m[3]) && (!m || !m[2] || v.adm === m[2]); })[0] || VILLES.filter(function (v) { return v.k === k; })[0] || null;
+        lieu = VILLES.filter(function (v) { return v.k === k && (!m || v.cc === m[3]) && (!m || !m[2] || (REG[v.adm] || '') === m[2]); })[0] || VILLES.filter(function (v) { return v.k === k; })[0] || null;
       }
       err.textContent = ''; var bt = fo.querySelector('button'); bt.disabled = true; bt.textContent = 'Calcul de tes dates…';
       prets().then(function () {
