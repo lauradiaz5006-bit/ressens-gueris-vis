@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>[BROUILLON] Quel est ton archétype féminin ? · Genesolia</title>
+  <meta name="description" content="Un test gratuit à partir des sept déesses grecques qui ont inspiré Jung : découvre ton archétype féminin dominant, son ombre, et ce qu'il raconte de ta lignée.">
+  <link rel="canonical" href="https://genesolia.fr/archetype-feminin-test.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .at-tete{position:relative;overflow:hidden;padding:3.2rem 0 2.6rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .at-tete .conteneur{max-width:46rem}
+    .at-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .colonne{width:min(46rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+
+    .at-bloc{padding:2.6rem 0}
+    .at-q{margin:0 0 2.4rem;padding:1.6rem 1.6rem 1.4rem;border-radius:18px;border:1px solid var(--rose);background:var(--blanc)}
+    .at-q p.at-num{font:600 .8rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .at-q h2{font-size:1.2rem;margin:0 0 1rem}
+    .at-opts{display:grid;gap:.6rem}
+    .at-opt{display:block;text-align:left;width:100%;padding:.85rem 1.1rem;border-radius:12px;border:1px solid var(--rose);background:var(--nacre);cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+    .at-opt:hover{border-color:var(--champagne)}
+    .at-opt[aria-pressed="true"]{border-color:var(--prune);background:#FCEFF3}
+
+    .at-valider{margin-top:1rem}
+    .at-valider .btn{width:100%}
+
+    .at-resultat{display:none}
+    .at-resultat.actif{display:block}
+    .at-fiche{margin:2rem 0;padding:2rem 2rem 1.8rem;border-radius:20px;border:1px solid var(--rose);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 70%)}
+    .at-fiche .nom{font-family:var(--display);font-size:2rem;color:var(--prune);display:block;margin-bottom:.3rem}
+    .at-fiche .sous{color:var(--prune-doux);margin-bottom:1.2rem}
+    .at-fiche h3{margin:1.4rem 0 .5rem;font-size:1.05rem}
+    .at-fiche p+p{margin-top:.7rem}
+
+    .at-deux{margin:2rem 0}
+    .at-second{padding:1rem 1.2rem;border-radius:14px;border:1px solid var(--rose);background:var(--nacre);font-size:.95rem;color:var(--prune-doux)}
+
+    .at-reco{margin:1.6rem 0;padding:1.3rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .at-actions{margin-top:1.6rem}
+    .at-recommencer{margin-top:1rem}
+
+    @media (max-width:640px){
+      .at-bloc{padding-top:1.8rem}
+      .at-fiche{padding:1.6rem 1.4rem}
+      .at-actions .btn{width:100%}
+    }
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="at-tete">
+      <div class="conteneur colonne">
+        <span class="at-sur">Test gratuit</span>
+        <h1>Quel est ton archétype féminin ?</h1>
+        <p class="intro">Bien avant Jung, les Grecs avaient déjà cartographié sept façons d'être une femme, incarnées par sept déesses : Artémis, Athéna, Hestia, Héra, Déméter, Perséphone, Aphrodite. Aucune n'est meilleure qu'une autre — chacune a sa force, et son ombre. Réponds en pensant à ta façon spontanée de réagir, pas à celle que tu voudrais avoir.</p>
+        <p class="publie">[Brouillon, non publié]</p>
+      </div>
+    </section>
+
+    <section class="at-bloc">
+      <div class="colonne">
+        <form id="at-form">
+          <div class="at-q"><p class="at-num">Question 1 / 7</p><h2>On te propose un projet de groupe important. Ta première réaction ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 1">
+              <button type="button" class="at-opt" data-q="1" data-a="artemis">Je préfère savoir d'abord si je garde ma liberté de mener ma partie seule.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="athena">Je veux comprendre la stratégie globale avant de dire oui.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="hestia">Je me demande si ça va empiéter sur mon espace tranquille.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="hera">Je regarde d'abord qui s'engage vraiment, et jusqu'où.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="demeter">Je pense tout de suite à qui, dans le groupe, va avoir besoin de soutien.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="persephone">Je me laisse porter par l'énergie du groupe, je verrai bien.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="aphrodite">Je regarde si le projet me fait vibrer, sinon ça ne m'intéresse pas.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 2 / 7</p><h2>Quelqu'un te déçoit profondément. Ce qui se passe en toi, d'instinct ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 2">
+              <button type="button" class="at-opt" data-q="2" data-a="artemis">Je prends mes distances, nettement et sans explication longue.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="athena">J'analyse ce qui a dérapé pour que ça ne se reproduise plus.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="hestia">Je me retire en moi-même, en silence, le temps de digérer.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="hera">Une colère nette monte, surtout si une promesse a été trahie.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="demeter">Je suis triste pour cette personne autant que pour moi.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="persephone">Je doute de moi avant de douter de l'autre.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="aphrodite">Je ressens ça très physiquement, comme une blessure vive.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 3 / 7</p><h2>Ton endroit préféré pour te ressourcer vraiment ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 3">
+              <button type="button" class="at-opt" data-q="3" data-a="artemis">Dehors, seule, en mouvement, loin du monde habité.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="athena">N'importe où, du moment que je peux réfléchir sans être dérangée.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="hestia">Chez moi, dans mon coin, avec mes objets familiers.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="hera">Dans un lieu que je partage avec les personnes qui comptent pour moi.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="demeter">Là où je peux cuisiner, offrir, prendre soin de quelqu'un.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="persephone">Entre deux mondes : ni tout à fait dehors, ni tout à fait dedans.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="aphrodite">Un endroit beau, sensoriel, qui me donne envie de créer.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 4 / 7</p><h2>Dans une relation (amitié, couple, famille), ce qui compte le plus pour toi ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 4">
+              <button type="button" class="at-opt" data-q="4" data-a="artemis">Que personne ne cherche à me retenir ou à me posséder.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="athena">Le respect mutuel et l'intelligence de l'échange.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="hestia">Une présence calme, sans grand drame ni grand éclat.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="hera">L'engagement tenu dans la durée, même quand c'est difficile.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="demeter">Pouvoir donner, nourrir, être utile à l'autre.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="persephone">Me sentir vraiment vue, au-delà du rôle qu'on m'attribue.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="aphrodite">L'intensité, la vérité de ce qui se passe entre nous.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 5 / 7</p><h2>Ce qu'on t'a le plus souvent reproché ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 5">
+              <button type="button" class="at-opt" data-q="5" data-a="artemis">D'être trop indépendante, trop difficile à retenir.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="athena">D'être trop dans la tête, pas assez dans le ressenti.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="hestia">D'être trop effacée, de ne pas assez me faire entendre.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="hera">D'être trop exigeante, ou d'en vouloir trop longtemps à l'autre.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="demeter">De trop en faire pour les autres, au point de m'oublier.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="persephone">De trop me laisser faire, de ne pas assez m'affirmer.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="aphrodite">D'être trop intense, trop entière dans ce que je ressens.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 6 / 7</p><h2>Face à une épreuve difficile, ta façon d'avancer ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 6">
+              <button type="button" class="at-opt" data-q="6" data-a="artemis">Je fonce, seule s'il le faut, sans attendre qu'on me sauve.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="athena">Je cherche la méthode, le plan, ce qui marche concrètement.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="hestia">Je m'ancre dans une routine simple qui me tient debout.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="hera">Je tiens bon, par devoir, même si ça me coûte.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="demeter">Je continue de m'occuper des autres, ça m'aide à tenir.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="persephone">Je traverse en plusieurs temps, je ne suis plus tout à fait la même ensuite.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="aphrodite">Je transforme ce que je vis en quelque chose de créatif.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 7 / 7</p><h2>Ce que tu voudrais qu'on dise de toi, vraiment ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 7">
+              <button type="button" class="at-opt" data-q="7" data-a="artemis">Elle n'a jamais dépendu de personne pour exister.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="athena">On pouvait toujours compter sur son jugement.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="hestia">Sa présence suffisait à apaiser une pièce.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="hera">Elle a tenu ses engagements jusqu'au bout.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="demeter">Elle a toujours su prendre soin des siens.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="persephone">Elle a su traverser, et en revenir transformée.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="aphrodite">Elle a vécu pleinement, sans se couper d'elle-même.</button>
+            </div>
+          </div>
+
+          <div class="at-valider"><button type="submit" class="btn btn-plein" id="at-btn-valider" disabled>Découvrir mon archétype (0/7)</button></div>
+        </form>
+
+        <div class="at-resultat" id="at-resultat">
+          <div class="at-fiche" id="at-fiche"></div>
+          <div class="at-deux" id="at-second"></div>
+          <p class="at-reco"><strong>Aucun archétype n'est fixe.</strong> Tu en portes probablement plusieurs, à des degrés différents, et ils ont pu changer selon les périodes de ta vie. Ce test donne une photo d'aujourd'hui, pas une étiquette pour toujours.</p>
+          <div class="at-actions">
+            <a class="btn btn-plein" href="ma-spirale.html">Explorer cet archétype dans Ma spirale</a>
+            <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          </div>
+          <p class="at-recommencer"><button type="button" class="btn btn-trait" id="at-recommencer">Refaire le test</button></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>D'où viennent ces sept figures</h2></div>
+        <div class="colonne" style="max-width:46rem">
+          <p>Ces sept déesses ne sont pas un outil marketing récent : elles viennent de la mythologie grecque, vieille de plus de deux mille cinq cents ans. Chacune avait son temple, son culte, ses rites propres, et aucune n'était « supérieure » aux autres dans le panthéon — elles coexistaient, parfois en tension les unes avec les autres, exactement comme leurs traits coexistent en toi.</p>
+          <p>Carl Jung, au 20<sup>e</sup> siècle, a donné un nom à ce que ces mythes avaient déjà compris intuitivement : des figures intérieures récurrentes, qu'il a appelées archétypes, partagées par l'humanité au-delà des cultures. Il n'a pas inventé ces figures, il a proposé une façon de comprendre pourquoi elles nous parlent encore. Pour aller plus loin sur ce concept, l'article <a href="jung-reves-archetypes.html">Jung et les rêves : archétypes, ombre et inconscient collectif</a> explique sa théorie en détail.</p>
+          <p>Ce que ce test ajoute à la lecture mythologique classique, c'est la question de la lignée : un archétype qui domine chez toi peut aussi s'être transmis, ou au contraire s'être construit en réaction à ce que tu as vu chez ta mère, ta grand-mère, les femmes de ta famille. C'est ce que tu peux explorer ensuite dans <a href="ma-spirale.html">Ma spirale</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="jung-reves-archetypes.html"><h3>Jung et les rêves : archétypes, ombre et inconscient collectif</h3><p>Sa rupture avec Freud, l'inconscient collectif, la fonction compensatrice.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Le génosociogramme</h3><p>Dessine ton arbre et vois ce qui s'est répété avant toi.</p></a>
+          <a class="outil" href="ma-spirale.html"><h3>Ma spirale</h3><p>L'appli pour sortir de tes boucles, étape par étape.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var ARCHETYPES = {
+      artemis: {
+        nom: 'Artémis', sous: 'La chasseresse indépendante',
+        texte: [
+          'Déesse de la chasse et de la lune, sœur jumelle d’Apollon, Artémis n’a jamais appartenu à personne : elle a obtenu de son père Zeus, encore enfant, le vœu de rester éternellement vierge, au sens ancien du mot — entière, non divisée, n’appartenant qu’à elle-même. Dans le mythe d’Actéon, le chasseur qui la surprend nue au bain est transformé en cerf et dévoré par ses propres chiens : personne ne s’approprie son regard impunément.',
+          'Chez toi, cet archétype se reconnaît à un besoin réel, presque vital, d’autonomie. Tu avances seule quand il le faut, tu n’attends pas qu’on te sauve, et les liens de solidarité entre femmes (les « nymphes » qui l’accompagnent dans le mythe) comptent souvent plus pour toi que les liens de couple.',
+          '<b>L’ombre :</b> cette indépendance farouche peut se retourner en isolement choisi — une dureté envers ta propre vulnérabilité, ou celle des autres, par peur de jamais dépendre de personne.',
+          '<b>La question pour ta lignée :</b> qui, parmi les femmes de ta famille, a dû apprendre très tôt à ne compter que sur elle-même — et qu’est-ce que ça lui a coûté ?'
+        ]
+      },
+      athena: {
+        nom: 'Athéna', sous: 'La stratège',
+        texte: [
+          'Née directement de la tête de Zeus, déjà armée, Athéna n’a pas de mère dans le mythe le plus connu : Métis, enceinte d’elle, a été avalée par Zeus. Déesse de la stratégie et de l’intelligence pratique, elle se tient toujours aux côtés des héros — Persée, Ulysse — jamais en retrait, toujours du côté du pouvoir et de la raison.',
+          'Chez toi, cet archétype se reconnaît à une pensée claire sous pression, une capacité à garder la tête froide, et souvent une grande aisance dans des environnements où il faut convaincre par la logique plutôt que par l’émotion.',
+          '<b>L’ombre :</b> une coupure d’avec le corps et le ressenti, et parfois un besoin de validation venu d’une figure d’autorité — souvent paternelle — au détriment de ta propre légitimité intérieure.',
+          '<b>La question pour ta lignée :</b> laquelle de tes aïeules a dû gagner sa place en jouant selon les règles des hommes de sa génération, plutôt qu’en suivant les siennes ?'
+        ]
+      },
+      hestia: {
+        nom: 'Hestia', sous: 'Le foyer intérieur',
+        texte: [
+          'Déesse du feu sacré, Hestia est la seule des douze Olympiens à n’avoir presque jamais été représentée sous forme humaine dans l’art antique tardif — seulement comme une flamme. Elle a refusé tous les prétendants, Apollon et Poséidon compris, pour garder la flamme du foyer commun. On ne la trouve dans aucune intrigue, aucune dispute : elle est la présence silencieuse qui tient tout le reste debout.',
+          'Chez toi, cet archétype se reconnaît à un besoin réel d’intériorité, un calme qui ne dépend pas du regard des autres, et une forme de sacré dans les gestes simples du quotidien — une maison tenue, un rituel discret, une présence qui apaise sans faire de bruit.',
+          '<b>L’ombre :</b> cette discrétion choisie peut glisser vers l’effacement complet — une difficulté à te faire voir ou entendre dans le monde extérieur, au point de disparaître dans le rôle que tu tiens.',
+          '<b>La question pour ta lignée :</b> qui a tenu la maison, en retrait, sans qu’on parle jamais vraiment d’elle — et que sait-on, en réalité, de ce qu’elle pensait ?'
+        ]
+      },
+      hera: {
+        nom: 'Héra', sous: 'La gardienne de l’engagement',
+        texte: [
+          'Épouse de Zeus, déesse du mariage, Héra incarne la fidélité à la parole donnée dans un monde où son propre mari la trahit sans relâche. Sa colère, restée célèbre, se tourne pourtant le plus souvent contre les rivales — Léto, Io, Sémélé — plutôt que contre Zeus lui-même : la colère d’Héra proctège l’institution du mariage plus qu’elle ne punit son auteur.',
+          'Chez toi, cet archétype se reconnaît à un sens aigu de l’engagement, une fidélité à ce qui a été promis, et une identité souvent très liée à un partenariat — un couple, une mission, une cause à laquelle tu te tiens.',
+          '<b>L’ombre :</b> une rage qui se déplace sur la mauvaise cible, et une difficulté à exister pleinement en dehors du statut d’épouse, de partenaire ou d’associée.',
+          '<b>La question pour ta lignée :</b> l’engagement ou le mariage a-t-il souvent été vécu, chez les femmes de ta famille, comme un sacrifice tenu coûte que coûte ?'
+        ]
+      },
+      demeter: {
+        nom: 'Déméter', sous: 'Celle qui nourrit',
+        texte: [
+          'Déesse des moissons, Déméter est la mère de Perséphone, enlevée par Hadès. Son deuil et sa colère rendent la terre entière stérile, jusqu’à ce que sa fille lui soit rendue — en partie seulement : six mois par an. C’est le premier grand récit occidental d’une mère qui refuse d’accepter la perte de son enfant, quitte à arrêter le monde.',
+          'Chez toi, cet archétype se reconnaît à une vraie capacité de don — nourrir, porter, soutenir les autres — et une ténacité remarquable face à l’épreuve, en particulier la perte.',
+          '<b>L’ombre :</b> ce don peut devenir une emprise, un contrôle affectif, une difficulté à laisser l’autre (un enfant, un proche, n’importe qui) grandir et partir hors de ta portée.',
+          '<b>La question pour ta lignée :</b> quelle mère, chez toi, a eu du mal à laisser partir ses enfants — ou a dû, comme Déméter, continuer à vivre avec une perte qu’elle ne pouvait pas empêcher ?'
+        ]
+      },
+      persephone: {
+        nom: 'Perséphone', sous: 'Celle qui traverse',
+        texte: [
+          'Fille de Déméter, enlevée par Hadès pour régner avec lui sur les enfers, Perséphone devient reine d’un monde qu’elle n’a pas choisi d’abord — puis, dans les versions plus tardives du mythe, elle apprend à habiter pleinement les deux mondes : celui de la lumière avec sa mère, celui de l’ombre avec Hadès.',
+          'Chez toi, cet archétype se reconnaît à une grande sensibilité aux états intérieurs des autres, une capacité d’adaptation, et souvent le sentiment d’appartenir à deux mondes à la fois sans être tout à fait chez toi dans aucun des deux.',
+          '<b>L’ombre :</b> dans le mythe d’origine, Perséphone est prise, pas choisissante — l’ombre de cet archétype est une difficulté à affirmer une volonté propre, une tendance à rester définie par les autres (fille de, épouse de) plutôt que par toi-même.',
+          '<b>La question pour ta lignée :</b> qui, chez toi, est resté « la fille de » toute sa vie, sans jamais devenir pleinement elle-même aux yeux de la famille ?'
+        ]
+      },
+      aphrodite: {
+        nom: 'Aphrodite', sous: 'Celle qui transforme',
+        texte: [
+          'Dans la version la plus ancienne du mythe (chez Hésiode), Aphrodite naît de l’écume de mer, après la castration d’Ouranos par son fils Cronos — elle est ainsi la seule déesse olympienne à ne pas être définie d’abord par un père ou un mari, mais par un événement cosmique. Déesse du désir, elle ne se limite pas à la séduction : son pouvoir est de transformer ce qu’elle touche, à commencer par ceux qui l’approchent.',
+          'Chez toi, cet archétype se reconnaît à une intensité relationnelle réelle, une vitalité créatrice, et une capacité à faire naître quelque chose de nouveau chez les personnes que tu côtoies — une idée, un désir, une envie de vivre plus pleinement.',
+          '<b>L’ombre :</b> des relations qui consument plus qu’elles ne nourrissent, une difficulté à distinguer une vraie attirance d’une direction de vie, et parfois une réduction, par les autres, de toute ta valeur à ton seul pouvoir de séduire.',
+          '<b>La question pour ta lignée :</b> le désir, la sensualité ou la création ont-ils été vécus avec honte ou en silence chez les femmes de ta famille ?'
+        ]
+      }
+    };
+    var NOMS_O = ['artemis', 'athena', 'hestia', 'hera', 'demeter', 'persephone', 'aphrodite'];
+    var rep = {}, form = document.getElementById('at-form'), btn = document.getElementById('at-btn-valider');
+    function maj() {
+      var n = Object.keys(rep).length;
+      btn.disabled = n < 7;
+      btn.textContent = n < 7 ? 'Découvrir mon archétype (' + n + '/7)' : 'Découvrir mon archétype';
+    }
+    form.addEventListener('click', function (e) {
+      var b = e.target.closest('.at-opt'); if (!b) return;
+      var q = b.getAttribute('data-q');
+      form.querySelectorAll('.at-opt[data-q="' + q + '"]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      rep[q] = b.getAttribute('data-a');
+      maj();
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (Object.keys(rep).length < 7) return;
+      var score = {}; NOMS_O.forEach(function (k) { score[k] = 0; });
+      Object.keys(rep).forEach(function (q) { score[rep[q]]++; });
+      var tries = NOMS_O.slice().sort(function (a, b) { return score[b] - score[a]; });
+      var top = ARCHETYPES[tries[0]], second = ARCHETYPES[tries[1]];
+      document.getElementById('at-fiche').innerHTML = '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      document.getElementById('at-second').innerHTML = '<p class="at-second">Ton archétype complémentaire, presque à égalité : <b>' + second.nom + '</b> (' + second.sous.toLowerCase() + '). Personne n’est une seule déesse : regarde aussi de ce côté-là.</p>';
+      form.hidden = true;
+      document.getElementById('at-resultat').classList.add('actif');
+      window.scrollTo({ top: document.getElementById('at-resultat').offsetTop - 80, behavior: 'smooth' });
+    });
+    document.getElementById('at-recommencer').addEventListener('click', function () {
+      rep = {}; form.reset(); form.querySelectorAll('.at-opt').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      maj(); form.hidden = false;
+      document.getElementById('at-resultat').classList.remove('actif');
+      window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
+    });
+    maj();
+  })();
+  </script>
+</body>
+</html>
