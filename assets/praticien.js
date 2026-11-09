@@ -20,11 +20,13 @@
   function cleAn() { return fondateur() && (window.GENESOLIA_STRIPE || {}).praticienFondateurAn ? 'praticienFondateurAn' : 'praticienAn'; }
   function joursRestants() { return prat ? Math.max(0, Math.ceil((new Date(prat.acces_jusqu) - Date.now()) / 864e5)) : 0; }
   function indispo() { z.innerHTML = '<div class="pr-carte"><h2>L’Espace praticien ouvre très bientôt</h2><p class="pr-aide">Il est en cours de mise en place. Revenez dans quelques jours.</p><a class="btn btn-plein" href="espace-praticien.html">Découvrir l’Espace praticien</a></div>'; }
+  function etiq() { return (user && user.user_metadata && user.user_metadata.etiquette_app) || 'Espace praticien'; }
+  function majEtiquetteEcran() { var h = document.querySelector('.pro-haut small'); if (h) h.textContent = etiq(); }
 
   /* ───────── Sans compte ───────── */
   var ICI = /pro\.html$/.test(location.pathname) ? 'pro.html' : 'praticien.html';   /* appli Genesolia Pro ou page du site */
   function porte() {
-    z.innerHTML = '<p class="pr-etiq">Espace praticien</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Votre Espace praticien</h1>' +
+    z.innerHTML = '<p class="pr-etiq">' + esc(etiq()) + '</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Votre ' + esc(etiq()) + '</h1>' +
       '<div class="pr-carte"><p class="pr-aide">Créez votre espace (ou connectez-vous), puis ouvrez votre Espace praticien : <b>30 jours offerts, sans carte bancaire</b>. Autant de dossiers client·es que vous voulez, des notes par séance chiffrées, et un lien pour montrer son arbre à votre client·e.</p>' +
       '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + ICI + '">Commencer mes 30 jours offerts</a><a class="btn btn-trait" href="login.html?retour=' + ICI + '">J’ai déjà un espace</a></div><p class="pr-aide" style="margin:.9rem 0 0">30 jours offerts, sans carte bancaire · puis <b>19 € par mois</b> (offre de Noël, avant le 31 décembre)</p></div>';
   }
@@ -87,14 +89,15 @@
     /* Sur téléphone, pendant l'essai, les dossiers passent d'abord : la carte « Après ton essai » descend en bas (sauf les 5 derniers jours) */
     var essai = (actif() && prat.formule === 'essai' ? '<div class="pr-carte' + (joursRestants() <= 5 ? ' pr-fin-essai' : '') + '"><h2>' + (joursRestants() <= 5 ? 'Plus que ' + joursRestants() + ' jour' + (joursRestants() > 1 ? 's' : '') + ' d’essai' : 'Après votre essai') + '</h2><p class="pr-aide">Pour garder la création de dossiers, les partages et les rapports à votre nom : ' + (fondateur() ? '<b>votre offre de Noël : 19 € par mois au lieu de 24 €, ou 190 € l’année au lieu de 240 €</b>, garanti tant que votre abonnement continue' : '24 € par mois sans engagement, ou 240 € l’année') + '. Vos dossiers restent à vous dans tous les cas. Abonnez-vous quand vous voulez avant la fin : votre Espace praticien continue sans coupure. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p><label class="pr-case pr-cgv" style="font-size:.9rem;margin:.6rem 0"><input type="checkbox" data-cgv> <span>J’accepte les <a href="conditions-praticien.html" target="_blank">conditions de l’Espace praticien (CGV)</a> et l’<a href="accord-sous-traitance.html" target="_blank">accord de sous-traitance</a>.</span></label><button class="btn btn-plein" type="button" disabled data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (fondateur() ? '19 € par mois' : '24 € par mois') + '</button> <button class="btn btn-trait" type="button" disabled data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '');
     var essaiAvant = !(window.matchMedia && window.matchMedia('(max-width: 700px)').matches && joursRestants() > 5);
-    z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">Espace praticien</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' + carteDpa() +
+    majEtiquetteEcran();
+    z.innerHTML = '<div class="pr-tete"><div><p class="pr-etiq">' + esc(etiq()) + '</p><h1>' + esc(prat.cabinet) + '</h1></div>' + etat() + '</div>' + carteDpa() +
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (offre de Noël avant le 31 décembre : 19 € par mois, ou 190 € l’année)' : '') + '. Vous retrouvez la création de dossiers, les partages et les rapports à votre nom. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p><label class="pr-case pr-cgv" style="font-size:.9rem;margin:.6rem 0"><input type="checkbox" data-cgv> <span>J’accepte les <a href="conditions-praticien.html" target="_blank">conditions de l’Espace praticien (CGV)</a> et l’<a href="accord-sous-traitance.html" target="_blank">accord de sous-traitance</a>.</span></label><button class="btn btn-plein" type="button" disabled data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (fondateur() ? '19 € par mois' : '24 € par mois') + '</button> <button class="btn btn-trait" type="button" disabled data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       (essaiAvant ? essai : '') +
       '<div class="pr-grille"><section class="pr-carte" aria-labelledby="pr-dos-t"><h2 id="pr-dos-t">Mes dossiers client·es</h2>' +
-      (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><select name="type" aria-label="Type de dossier"><option value="arbre">Dossier arbre</option><option value="constellation">Dossier constellation familiale</option></select><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
+      (actif() ? '<form class="pr-nouveau" id="pr-nouv" style="flex-direction:column;flex-wrap:nowrap;align-items:stretch"><div style="display:flex;flex-wrap:wrap;gap:.6rem"><input type="text" name="nom" maxlength="60" placeholder="Prénom ou initiales du·de la client·e" aria-label="Prénom ou initiales du client"><button class="btn btn-plein" type="submit">Nouveau dossier</button></div><label class="pr-case" style="font-size:.9rem"><input type="checkbox" name="accord"> <span>Mon·ma client·e est d’accord pour que je crée son dossier et que j’y note son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille).</span></label><p class="pr-err" id="pr-nouv-err" role="alert"></p></form>' : '') +
       '<div class="pr-sondage" id="pr-sondage" hidden></div>' +
-      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préférez le prénom ou les initiales.</p><div class="pr-onglets" id="pr-onglets" role="tablist" aria-label="Filtrer les dossiers par type"><button type="button" class="pr-onglet actif" data-type-filtre="tous">Tous</button><button type="button" class="pr-onglet" data-type-filtre="arbre">Arbre</button><button type="button" class="pr-onglet" data-type-filtre="constellation">Constellation familiale</button></div><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
-      '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de votre activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de vos rapports et de vos liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
+      '<p class="pr-aide">Un dossier = un arbre. Pour la confidentialité, préférez le prénom ou les initiales.</p><div class="pr-onglets" id="pr-onglets" role="tablist" aria-label="Filtrer les dossiers"><button type="button" class="pr-onglet actif" data-type-filtre="tous">Tous</button><button type="button" class="pr-onglet" data-type-filtre="constellation">Avec plateau constellation</button></div><div class="pr-filtre" id="pr-filtre" hidden><input type="search" id="pr-cherche" placeholder="Rechercher un dossier" aria-label="Rechercher un dossier" autocomplete="off"><select id="pr-tri" aria-label="Trier les dossiers"><option value="maj">Modifiés récemment</option><option value="nom">Nom, de A à Z</option><option value="ancien">Les moins récents</option></select></div><div class="pr-liste" id="pr-liste"><p class="pr-vide">Chargement…</p></div><div id="pr-perso" style="margin-top:1rem"></div></section>' +
+      '<aside><div id="pr-debut"></div><section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de votre activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><label>Nom affiché en haut de l’appli <small>(remplace « Espace praticien »)</small><input type="text" name="etiquette" maxlength="40" autocomplete="off" placeholder="Espace praticien" value="' + esc(user.user_metadata && user.user_metadata.etiquette_app || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de vos rapports et de vos liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
       (appliInstallee() ? '' : '<section class="pr-carte pr-appli"><h2>L’appli sur votre téléphone</h2><p class="pr-aide">Installez Genesolia Pro sur votre écran d’accueil : vos dossiers, le mode séance et vos notes s’ouvrent d’un geste, comme une vraie appli. Gratuit, 30 secondes.</p><button class="btn btn-plein" type="button" data-pro-installer>Installer l’appli Genesolia Pro</button></section>') +
       '<section class="pr-carte" id="pr-annuaire-carte"><h2>Ma fiche dans l’annuaire</h2><div id="pr-annuaire"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Connexion en deux étapes</h2><div id="pr-deux-etapes"><p class="pr-aide">Chargement…</p></div></section>' +
@@ -147,20 +150,22 @@
   }
   /* La liste des dossiers, avec la recherche et le tri (dès 4 dossiers) */
   var FILTRE = { q: '', tri: 'maj', type: 'tous' };
+  var DERNIER_CREE = null;   /* id du dossier qu'on vient de créer : surligné en doré jusqu'à l'ouverture d'un autre dossier */
   function rendreDossiers() {
     var l = document.getElementById('pr-liste'); if (!l) return;
     var zf = document.getElementById('pr-filtre'); if (zf) zf.hidden = dossiers.length < 4;
     var q = FILTRE.q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    var vus = dossiers.filter(function (d) { var okQ = !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre'; var okType = FILTRE.type === 'tous' || FILTRE.type === tipo; return okQ && okType; });
+    var vus = dossiers.filter(function (d) { var okQ = !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; var okType = FILTRE.type === 'tous' || !!(d.data && d.data.constellation); return okQ && okType; });
     vus.sort(function (a, b) { return FILTRE.tri === 'nom' ? String(a.nom || '').localeCompare(String(b.nom || ''), 'fr') : FILTRE.tri === 'ancien' ? (a.maj < b.maj ? -1 : 1) : (a.maj < b.maj ? 1 : -1); });
     var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
     l.innerHTML = (vus.length ? '' : '<p class="pr-vide">Aucun dossier ne correspond à « ' + esc(FILTRE.q) + ' ».</p>') + vus.map(function (d) {
       var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
-      var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre';
-      return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (tipo === 'constellation' ? ' <span class="pr-badge">Constellation familiale</span>' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
-        (tipo === 'constellation'
-          ? '<a class="btn btn-plein" href="plateau-visio.html">Ouvrir le plateau pour la séance</a><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>'
-          : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>') +
+      var constel = !!(d.data && d.data.constellation);
+      var neuf = d.id === DERNIER_CREE;
+      return '<div class="pr-dossier' + (neuf ? ' pr-dossier-neuf' : '') + '"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (constel ? ' <span class="pr-badge">Constellation familiale</span>' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
+        (constel
+          ? '<a class="btn btn-plein" href="plateau-visio.html?arbre=' + esc(d.id) + '">Ouvrir le plateau pour la séance</a><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>'
+          : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a><button class="btn btn-trait" type="button" data-activer-plateau="' + esc(d.id) + '" title="Activer le plateau constellation pour ce dossier">+ Constellation</button>') +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
         '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
@@ -222,6 +227,15 @@
 
   document.addEventListener('input', function (e) { if (e.target.id === 'pr-cherche') { FILTRE.q = e.target.value; rendreDossiers(); } });
   document.addEventListener('click', function (e) { var b = e.target.closest('[data-type-filtre]'); if (!b) return; FILTRE.type = b.getAttribute('data-type-filtre'); document.querySelectorAll('.pr-onglet').forEach(function (x) { x.classList.toggle('actif', x === b); }); rendreDossiers(); });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-activer-plateau]'); if (!b) return;
+    var id = b.getAttribute('data-activer-plateau'), d = dossier(id); if (!d) return;
+    b.disabled = true;
+    sb.from('arbres_supp').update({ data: Object.assign({}, d.data || {}, { constellation: true }) }).eq('id', id).then(function (r) {
+      if (r && r.error) { b.disabled = false; alert('Ça n’a pas abouti. Réessayez.'); return; }
+      location.href = 'plateau-visio.html?arbre=' + encodeURIComponent(id);
+    });
+  });
   document.addEventListener('change', function (e) { if (e.target.id === 'pr-tri') { FILTRE.tri = e.target.value; rendreDossiers(); } });
 
   function appliInstallee() { try { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; } catch (e) { return false; } }
@@ -234,16 +248,22 @@
       if (!e.target.accord.checked) { if (er) er.textContent = 'Cochez la case : l’accord de votre client·e est nécessaire pour créer son dossier.'; return; }
       if (er) er.textContent = '';
       var bt = e.target.querySelector('button'); bt.disabled = true;
-      var typeDossier = (e.target.type && e.target.type.value === 'constellation') ? 'constellation' : 'arbre';
-      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', type: typeDossier, accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
+      sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
         bt.disabled = false;
         if (r.error) { alert('Le dossier n’a pas pu être créé. Réessayez dans un instant.'); return; }
-        location.href = typeDossier === 'constellation' ? 'plateau-visio.html' : 'genosociogramme.html?arbre=' + r.data.id;
+        DERNIER_CREE = r.data.id;
+        e.target.reset();
+        chargerDossiers();
       });
     }
     if (e.target.id === 'pr-cab') {
-      e.preventDefault(); var c = e.target.cabinet.value.trim(), m = document.getElementById('pr-cab-msg'); if (!c) return;
-      sb.from('praticiens').update({ cabinet: c.slice(0, 80) }).eq('user_id', user.id).then(function (r) { if (r.error) { m.textContent = 'Pas enregistré. Réessayez.'; return; } prat.cabinet = c; m.textContent = 'Enregistré.'; var h = z.querySelector('.pr-tete h1'); if (h) h.textContent = c; });
+      e.preventDefault(); var c = e.target.cabinet.value.trim(), etq = (e.target.etiquette ? e.target.etiquette.value.trim() : '').slice(0, 40), m = document.getElementById('pr-cab-msg'); if (!c) return;
+      sb.from('praticiens').update({ cabinet: c.slice(0, 80) }).eq('user_id', user.id).then(function (r) {
+        if (r.error) { m.textContent = 'Pas enregistré. Réessayez.'; return; }
+        prat.cabinet = c;
+        var maj = etq ? sb.auth.updateUser({ data: { etiquette_app: etq } }) : Promise.resolve();
+        maj.then(function (ur) { if (ur && ur.data && ur.data.user) user = ur.data.user; cabinet(); });
+      });
     }
   });
   document.addEventListener('click', function (e) {

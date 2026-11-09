@@ -84,6 +84,14 @@
     .pv-actions-carte button.pv-supprimer{color:#A33A4A;border-color:#E3B8BE}
 
     .pv-note{text-align:center;color:var(--prune-doux);font-size:.88rem;max-width:40rem;margin:1.4rem auto 0}
+    .pv-prive{margin-top:1.1rem;border:1.5px dashed var(--rose-fonce);border-radius:14px;padding:.8rem .9rem;background:#FFFBFC}
+    .pv-prive summary{cursor:pointer;font:600 .88rem var(--texte);color:var(--prune)}
+    .pv-prive[open] summary{margin-bottom:.6rem}
+    .pv-prive-aide{color:#A3324B;font-size:.82rem;margin:.3rem 0 .7rem;font-weight:600}
+    .pv-gens-liste{list-style:none;margin:0 0 .8rem;padding:0;display:grid;gap:.3rem;max-height:10rem;overflow:auto}
+    .pv-gens-liste li{font-size:.86rem;color:var(--prune);padding:.3rem .5rem;border-radius:8px;background:var(--rose)}
+    .pv-prive textarea{width:100%;box-sizing:border-box;min-height:5rem;font:inherit;font-size:.88rem;padding:.6rem .7rem;border:1.5px solid var(--rose-fonce);border-radius:12px;resize:vertical}
+    .pv-dossier-nom{text-align:center;color:var(--champagne);font:600 .8rem var(--texte);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem}
   </style>
 </head>
 <body class="nouveau">
@@ -93,6 +101,7 @@
       <div class="conteneur">
         <div class="pv-tete">
           <p class="a-etiq" style="color:var(--champagne)">Espace praticien · en visio</p>
+          <p class="pv-dossier-nom" id="pvDossierNom" hidden></p>
           <h1>Le plateau symbolique, à partager en visio</h1>
           <p>Posez des pions — des personnes ou des objets symboliques (un secret, un événement, un lieu, une émotion…) — et déplacez-les librement pendant votre séance. Chaque pion est choisi par votre cliente : sa forme, sa couleur, sa taille, son nom.</p>
         </div>
@@ -116,14 +125,23 @@
           <div class="pv-liste-zone">
             <h2>Sur le plateau</h2>
             <ul class="pv-liste" id="pvListe"></ul>
+            <details class="pv-prive" id="pvPrive" hidden>
+              <summary>Infos de l’arbre (privé)</summary>
+              <p class="pv-prive-aide">Ne partagez pas cette zone à l’écran : gardez-la fermée ou hors du cadrage de votre partage d’écran.</p>
+              <ul class="pv-gens-liste" id="pvGensListe"></ul>
+              <label for="pvNotesLiens" style="font:600 .82rem var(--texte);color:var(--prune);display:block;margin-bottom:.35rem">Notes de liens à reporter sur l’arbre</label>
+              <textarea id="pvNotesLiens" maxlength="2000" placeholder="Ce qui vient en séance et que vous voudrez reporter sur l’arbre ensuite…"></textarea>
+              <p class="pv-prive-aide" style="color:var(--prune-doux);font-weight:400;margin-top:.5rem">Rien n’est ajouté automatiquement à l’arbre : c’est un brouillon que vous reportez vous-même si besoin.</p>
+            </details>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Rien n’est envoyé à Genesolia : ce plateau reste dans votre navigateur et se retrouve tel quel si vous revenez sur cette page. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
 
   <div class="pv-panneau" id="pvPanneau" role="dialog" aria-modal="true" aria-labelledby="pvPanneauTitre">
     <div class="pv-carte">
@@ -697,20 +715,66 @@
       });
     }
 
-    // --- Sauvegarde automatique dans ce navigateur ---
-    function pvSauvegarder() {
-      try {
-        localStorage.setItem('genesolia-plateau-visio', JSON.stringify({ pions: pions, liens: liens }));
-      } catch (e) { /* stockage indisponible : on continue sans sauvegarder */ }
+    // --- Sauvegarde : liée au dossier (Supabase) si ouvert depuis un dossier, sinon dans ce navigateur seulement ---
+    var ARBRE_ID = new URLSearchParams(location.search).get('arbre') || null;
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var pvSb = null, pvUser = null, pvDossier = null;
+    try { pvSb = ARBRE_ID && window.supabase ? window.supabase.createClient(SB_URL, SB_KEY) : null; } catch (e) {}
+    var pvCleLocale = 'genesolia-plateau-visio' + (ARBRE_ID ? '-' + ARBRE_ID : '');
+    var pvSauveATemp = null;
+
+    function pvSauvegarderLocal() {
+      try { localStorage.setItem(pvCleLocale, JSON.stringify({ pions: pions, liens: liens })); } catch (e) { /* stockage indisponible */ }
     }
+    function pvSauvegarderDistant() {
+      if (!pvSb || !pvUser || !pvDossier) return;
+      clearTimeout(pvSauveATemp);
+      pvSauveATemp = setTimeout(function () {
+        var notes = (document.getElementById('pvNotesLiens') || {}).value || '';
+        var data = Object.assign({}, pvDossier.data || {}, { plateau: { pions: pions, liens: liens, notesLiens: notes } });
+        pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function () {});
+        pvDossier.data = data;
+      }, 700);
+    }
+    function pvSauvegarder() { pvSauvegarderLocal(); pvSauvegarderDistant(); }
 
     function pvRestaurer() {
       try {
-        var brut = localStorage.getItem('genesolia-plateau-visio');
+        var brut = localStorage.getItem(pvCleLocale);
         if (!brut) return;
         var donnees = JSON.parse(brut);
         if (donnees && Array.isArray(donnees.pions)) { pions = donnees.pions; liens = Array.isArray(donnees.liens) ? donnees.liens : []; }
       } catch (e) { /* rien à restaurer */ }
+    }
+
+    function pvAfficherInfosArbre(d) {
+      var zn = document.getElementById('pvDossierNom'); if (zn) { zn.textContent = 'Dossier · ' + (d.nom || 'sans nom'); zn.hidden = false; }
+      var zp = document.getElementById('pvPrive'); if (zp) zp.hidden = false;
+      var personnes = (d.data && d.data.people) || {};
+      var zg = document.getElementById('pvGensListe');
+      var noms = Object.keys(personnes).map(function (k) { return personnes[k] && personnes[k].nom; }).filter(Boolean);
+      if (zg) zg.innerHTML = noms.length ? noms.map(function (n) { return '<li>' + n.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }) + '</li>'; }).join('') : '<li style="background:none;color:var(--prune-doux)">Aucune personne dans l’arbre pour l’instant.</li>';
+      var zt = document.getElementById('pvNotesLiens');
+      if (zt && d.data && d.data.plateau && d.data.plateau.notesLiens) zt.value = d.data.plateau.notesLiens;
+      if (zt) zt.addEventListener('input', pvSauvegarder);
+    }
+
+    function pvChargerDossier() {
+      if (!pvSb) { pvRestaurer(); redessiner(); return; }
+      pvSb.auth.getSession().then(function (r) {
+        var sess = r && r.data && r.data.session;
+        if (!sess) { pvRestaurer(); redessiner(); return; }
+        pvUser = sess.user;
+        pvSb.from('arbres_supp').select('id,nom,data').eq('id', ARBRE_ID).eq('user_id', pvUser.id).maybeSingle().then(function (x) {
+          if (x.error || !x.data) { pvRestaurer(); redessiner(); return; }
+          pvDossier = x.data;
+          if (pvDossier.data && pvDossier.data.plateau && Array.isArray(pvDossier.data.plateau.pions)) {
+            pions = pvDossier.data.plateau.pions; liens = Array.isArray(pvDossier.data.plateau.liens) ? pvDossier.data.plateau.liens : [];
+          } else { pvRestaurer(); }
+          pvAfficherInfosArbre(pvDossier);
+          redessiner();
+        });
+      });
     }
 
     document.addEventListener('keydown', function (ev) {
@@ -735,8 +799,7 @@
       document.body.appendChild(script);
     };
 
-    pvRestaurer();
-    redessiner();
+    pvChargerDossier();
   })();
   </script>
 </body>
