@@ -649,6 +649,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="fil-d-or.html">Le fil d’or</a></li>' +
             '<li><a href="arbre-de-vie.html">L’arbre de vie</a></li>' +
             '<li><a href="parcours.html">Trouver mon cycle</a></li>' +
+            '<li><a href="archetype-feminin-test.html">Ton archétype féminin</a></li>' +
             '<li><a href="offert.html">Tes cadeaux</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
