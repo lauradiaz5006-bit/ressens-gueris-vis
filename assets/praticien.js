@@ -238,7 +238,7 @@
       sb.from('arbres_supp').insert({ user_id: user.id, nom: nom.slice(0, 60), data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', type: typeDossier, accord_client: new Date().toISOString() } }).select('id').single().then(function (r) {
         bt.disabled = false;
         if (r.error) { alert('Le dossier n’a pas pu être créé. Réessayez dans un instant.'); return; }
-        location.href = 'genosociogramme.html?arbre=' + r.data.id;
+        location.href = typeDossier === 'constellation' ? 'plateau-visio.html' : 'genosociogramme.html?arbre=' + r.data.id;
       });
     }
     if (e.target.id === 'pr-cab') {
