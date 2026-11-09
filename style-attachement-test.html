@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quel est mon style d'attachement ? Test gratuit · Genesolia</title>
+  <meta name="description" content="Sécure, anxieux, évitant ou désorganisé : un test gratuit pour découvrir ton style d'attachement amoureux, et ce qu'il raconte de ta lignée familiale.">
+  <link rel="canonical" href="https://genesolia.fr/style-attachement-test.html">
+  <meta property="og:title" content="Quel est mon style d'attachement ? · Test gratuit Genesolia">
+  <meta property="og:description" content="Sécure, anxieux, évitant ou désorganisé : un test gratuit pour découvrir ton style d'attachement amoureux, et ce qu'il raconte de ta lignée familiale.">
+  <meta name="twitter:card" content="summary">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .at-tete{position:relative;overflow:hidden;padding:3.2rem 0 2.6rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .at-tete .conteneur{max-width:46rem}
+    .at-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .colonne{width:min(46rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+
+    .at-bloc{padding:2.6rem 0}
+    .at-q{margin:0 0 2.4rem;padding:1.6rem 1.6rem 1.4rem;border-radius:18px;border:1px solid var(--rose);background:var(--blanc)}
+    .at-q p.at-num{font:600 .8rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.5rem}
+    .at-q h2{font-size:1.2rem;margin:0 0 1rem}
+    .at-opts{display:grid;gap:.6rem}
+    .at-opt{display:block;text-align:left;width:100%;padding:.85rem 1.1rem;border-radius:12px;border:1px solid var(--rose);background:var(--nacre);cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+    .at-opt:hover{border-color:var(--champagne)}
+    .at-opt[aria-pressed="true"]{border-color:var(--prune);background:#FCEFF3}
+
+    .at-valider{margin-top:1rem}
+    .at-valider .btn{width:100%}
+
+    .at-resultat{display:none}
+    .at-resultat.actif{display:block}
+    .at-fiche{margin:2rem 0;padding:2rem 2rem 1.8rem;border-radius:20px;border:1px solid var(--rose);background:linear-gradient(180deg,#FCEFF3,var(--blanc) 70%)}
+    .at-fiche .nom{font-family:var(--display);font-size:2rem;color:var(--prune);display:block;margin-bottom:.3rem}
+    .at-fiche .sous{color:var(--prune-doux);margin-bottom:1.2rem}
+    .at-fiche h3{margin:1.4rem 0 .5rem;font-size:1.05rem}
+    .at-fiche p+p{margin-top:.7rem}
+
+    .at-deux{margin:2rem 0}
+    .at-second{padding:1rem 1.2rem;border-radius:14px;border:1px solid var(--rose);background:var(--nacre);font-size:.95rem;color:var(--prune-doux)}
+
+    .at-reco{margin:1.6rem 0;padding:1.3rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .at-actions{margin-top:1.6rem}
+    .at-recommencer{margin-top:1rem}
+
+    @media (max-width:640px){
+      .at-bloc{padding-top:1.8rem}
+      .at-fiche{padding:1.6rem 1.4rem}
+      .at-actions .btn{width:100%}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "about": {"@type": "Thing", "name": "Style d'attachement amoureux"},
+    "name": "Quel est mon style d'attachement ?",
+    "url": "https://genesolia.fr/style-attachement-test.html"
+  }
+  </script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="at-tete">
+      <div class="conteneur colonne">
+        <span class="at-sur">Test gratuit</span>
+        <h1>Quel est mon style d'attachement ?</h1>
+        <p class="intro">Sécure, anxieux, évitant ou désorganisé : la façon dont tu t'attaches aujourd'hui s'est construite tôt, dans tes tout premiers liens. Réponds en pensant à ta façon spontanée de réagir en amour, pas à celle que tu voudrais avoir.</p>
+      </div>
+    </section>
+
+    <section class="at-bloc">
+      <div class="colonne">
+        <form id="at-form">
+          <div class="at-q"><p class="at-num">Question 1 / 7</p><h2>Ton ou ta partenaire met plus de temps que d'habitude à répondre à un message. Ta première pensée ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 1">
+              <button type="button" class="at-opt" data-q="1" data-a="secure">Iel doit être occupé·e, ça n'a sûrement rien à voir avec nous.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="anxieux">J'ai dû dire quelque chose de travers, ou iel s'éloigne de moi.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="evitant">Je n'y pense pas vraiment, j'ai ma propre vie en attendant.</button>
+              <button type="button" class="at-opt" data-q="1" data-a="desorganise">Je guette le téléphone, mais une part de moi espère presque ne pas avoir de réponse.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 2 / 7</p><h2>Au tout début d'une relation qui s'annonce sérieuse, tu ressens surtout...</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 2">
+              <button type="button" class="at-opt" data-q="2" data-a="secure">De la curiosité tranquille : on verra où ça mène.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="anxieux">Un grand désir de savoir vite où j'en suis avec cette personne.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="evitant">Une envie de garder mes distances encore un peu, le temps de voir.</button>
+              <button type="button" class="at-opt" data-q="2" data-a="desorganise">Un mélange d'envie forte et d'une alarme intérieure qui me dit de me méfier.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 3 / 7</p><h2>Pendant une dispute avec quelqu'un que tu aimes, tu as tendance à...</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 3">
+              <button type="button" class="at-opt" data-q="3" data-a="secure">Rester dans l'échange, même inconfortable, jusqu'à ce qu'on se comprenne.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="anxieux">Avoir peur que ça remette toute la relation en cause.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="evitant">Avoir besoin de prendre de la distance avant de pouvoir en reparler calmement.</button>
+              <button type="button" class="at-opt" data-q="3" data-a="desorganise">Alterner entre vouloir tout régler immédiatement et vouloir fuir la pièce.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 4 / 7</p><h2>Ce dont tu as le plus besoin pour te sentir en sécurité avec quelqu'un ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 4">
+              <button type="button" class="at-opt" data-q="4" data-a="secure">Que la relation reste ouverte et honnête, sans drame inutile.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="anxieux">Des preuves régulières que je compte, qu'on pense à moi.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="evitant">Qu'on ne me demande pas plus que ce que je peux donner facilement.</button>
+              <button type="button" class="at-opt" data-q="4" data-a="desorganise">Difficile à dire : ce qui me rassure un jour peut m'étouffer le lendemain.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 5 / 7</p><h2>Face à l'intimité émotionnelle — parler de tes peurs, de tes failles —, tu es plutôt à l'aise ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 5">
+              <button type="button" class="at-opt" data-q="5" data-a="secure">Oui, je peux me montrer vulnérable sans que ça me coûte trop.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="anxieux">Je m'y abandonne vite, parfois trop, par peur de perdre le lien.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="evitant">Je préfère garder certaines choses pour moi, même avec quelqu'un de proche.</button>
+              <button type="button" class="at-opt" data-q="5" data-a="desorganise">J'en ai très envie, et ça me terrifie en même temps.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 6 / 7</p><h2>Après une rupture ou un éloignement important...</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 6">
+              <button type="button" class="at-opt" data-q="6" data-a="secure">J'ai de la peine, mais je sais que je vais retrouver un équilibre.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="anxieux">Je rumine longtemps, j'ai du mal à lâcher, même quand c'est terminé.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="evitant">Je tourne vite la page, parfois presque trop vite, en apparence.</button>
+              <button type="button" class="at-opt" data-q="6" data-a="desorganise">Ça me submerge par vagues, avec des moments où je n'y pense plus du tout.</button>
+            </div>
+          </div>
+
+          <div class="at-q"><p class="at-num">Question 7 / 7</p><h2>Si tu devais résumer ta plus grande peur en amour ?</h2>
+            <div class="at-opts" role="radiogroup" aria-label="Question 7">
+              <button type="button" class="at-opt" data-q="7" data-a="secure">Rien de vertigineux : je sais que des hauts et des bas, ça fait partie du chemin.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="anxieux">Qu'on m'abandonne, ou qu'on cesse de m'aimer autant qu'avant.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="evitant">Qu'on m'enferme, qu'on attende de moi plus que ce que je peux offrir.</button>
+              <button type="button" class="at-opt" data-q="7" data-a="desorganise">Que la personne que j'aime devienne, d'une façon ou d'une autre, dangereuse pour moi — comme ça a déjà pu être le cas.</button>
+            </div>
+          </div>
+
+          <div class="at-valider"><button type="submit" class="btn btn-plein" id="at-btn-valider" disabled>Découvrir mon style d'attachement (0/7)</button></div>
+        </form>
+
+        <div class="at-resultat" id="at-resultat">
+          <div class="at-fiche" id="at-fiche"></div>
+          <div class="at-deux" id="at-second"></div>
+          <p class="at-reco"><strong>Ton style n'est pas une sentence.</strong> C'est une stratégie que tu as apprise, très tôt, pour te sentir en sécurité avec les premières personnes qui ont compté. Ce qui s'apprend peut évoluer — surtout quand on comprend d'où ça vient.</p>
+          <div class="at-actions">
+            <a class="btn btn-plein" href="ma-spirale.html">Explorer ce schéma dans Ma spirale</a>
+            <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+          </div>
+          <p class="at-recommencer"><button type="button" class="btn btn-trait" id="at-recommencer">Refaire le test</button></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>D'où vient cette grille de lecture</h2></div>
+        <div class="colonne" style="max-width:46rem">
+          <p>Les quatre styles d'attachement ne sont pas un test de personnalité comme un autre : ils viennent d'une théorie scientifique construite sur plusieurs décennies, à partir d'observations directes du lien entre un bébé et la personne qui s'occupe de lui. Le détail de cette histoire — qui l'a découverte, comment, et pourquoi elle concerne autant tes relations amoureuses d'aujourd'hui que ton histoire familiale — est raconté dans <a href="d-ou-vient-la-theorie-de-l-attachement.html">D'où vient la théorie de l'attachement ?</a></p>
+          <p>Ce que ce test ajoute à la lecture psychologique classique, c'est la question de la lignée : ton style d'attachement s'est construit dans tes tout premiers liens, souvent en écho avec la façon dont tes propres parents, eux, avaient appris à aimer. C'est ce fil que tu peux tirer ensuite dans <a href="ma-spirale.html">Ma spirale</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>Pour aller plus loin</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="d-ou-vient-la-theorie-de-l-attachement.html"><h3>D'où vient la théorie de l'attachement ?</h3><p>Bowlby, Ainsworth, et ce qui se transmet d'une génération à l'autre.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Le génosociogramme</h3><p>Dessine ton arbre et vois ce qui s'est répété avant toi.</p></a>
+          <a class="outil" href="ma-spirale.html"><h3>Ma spirale</h3><p>L'appli pour sortir de tes boucles, étape par étape.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    var STYLES = {
+      secure: {
+        nom: 'Sécure', sous: 'La base stable',
+        texte: [
+          'Dans les années 1970, la psychologue Mary Ainsworth a observé des bébés face à une courte séparation d\'avec leur mère, puis à ses retrouvailles : environ six sur dix exploraient librement la pièce en sa présence, protestaient un peu à son départ, puis se laissaient calmer rapidement à son retour. Ce schéma — explorer sans angoisse excessive, se laisser rassurer facilement — est devenu la définition même de l\'attachement sécure.',
+          'Chez toi, ce style se reconnaît à une vraie aisance avec la proximité et l\'indépendance à la fois : tu peux demander de l\'aide sans honte, dire non sans culpabilité écrasante, et faire confiance sans naïveté.',
+          '<b>L\'ombre :</b> une sécurité réelle peut parfois manquer de mots pour comprendre ce que vit un·e partenaire plus anxieux·se ou plus évitant·e — avec le risque de minimiser une détresse qui, pour toi, semblerait disproportionnée.',
+          '<b>La question pour ta lignée :</b> qui, dans ta famille, a su t\'offrir une présence stable et prévisible — et qu\'est-ce qui, chez cette personne, avait rendu ça possible pour elle ?'
+        ]
+      },
+      anxieux: {
+        nom: 'Anxieux', sous: 'Celui qui guette le lien',
+        texte: [
+          'Dans les mêmes observations d\'Ainsworth, une partie des bébés réagissait très différemment à la séparation : une détresse intense, puis, au retour de la mère, une difficulté à se laisser consoler — un mélange de recherche de contact et de colère ou de résistance. Cette alternance venait souvent d\'une disponibilité imprévisible chez l\'adulte : parfois très présent, parfois non, sans que l\'enfant puisse prévoir lequel des deux il allait rencontrer.',
+          'Chez toi, ce style se reconnaît à un besoin réel de preuves d\'amour régulières, une hypervigilance aux signaux (un message qui tarde, un ton qui change), et une peine sincère à te rassurer toi-même sans l\'autre.',
+          '<b>L\'ombre :</b> ce besoin de réassurance peut, sans le vouloir, submerger un·e partenaire — ou pousser à interpréter un silence neutre comme un rejet, ce qui crée parfois exactement la distance que tu redoutais.',
+          '<b>La question pour ta lignée :</b> qui, chez toi, a dû apprendre à deviner l\'humeur d\'un parent pour savoir si l\'amour allait être disponible ce jour-là ?'
+        ]
+      },
+      evitant: {
+        nom: 'Évitant', sous: 'Celui qui apprend à ne pas demander',
+        texte: [
+          'Une troisième partie des bébés observés par Ainsworth semblait, en surface, indifférente : peu de réaction visible à la séparation, peu d\'empressement à retrouver la mère. Mais des mesures physiologiques (rythme cardiaque, cortisol) ont montré que ces enfants étaient, en réalité, tout aussi stressés que les autres — ils avaient seulement appris à ne plus montrer ce stress, probablement parce que l\'exprimer n\'avait pas été accueilli par le passé.',
+          'Chez toi, ce style se reconnaît à une vraie valorisation de l\'autonomie, un inconfort face à une proximité trop demandée, et une difficulté sincère à nommer tes propres besoins — y compris pour toi-même.',
+          '<b>L\'ombre :</b> ce qui ressemble à de l\'indépendance peut parfois être une façon de couper le lien juste avant qu\'il ne devienne trop proche — comme pour garder le contrôle sur une douleur déjà connue.',
+          '<b>La question pour ta lignée :</b> qui, dans ta famille, était « fort·e », ne se plaignait jamais — et qu\'est-il arrivé à celles et ceux qui, eux, avaient osé montrer un besoin ?'
+        ]
+      },
+      desorganise: {
+        nom: 'Désorganisé', sous: 'Celui qui veut et craint à la fois',
+        texte: [
+          'Ce quatrième style a été identifié plus tard, au milieu des années 1980, par les chercheuses Mary Main et Judith Solomon, pour des enfants dont le comportement ne rentrait dans aucune des trois premières cases : approcher puis se figer, tendre les bras puis se détourner. Leurs travaux ont montré que ce schéma apparaissait le plus souvent quand la personne censée rassurer était, elle-même, source de peur — parfois à cause d\'un deuil ou d\'un traumatisme non résolu chez cet adulte, transmis sans un mot.',
+          'Chez toi, ce style se reconnaît à un désir réel de proximité qui s\'accompagne, presque simultanément, d\'une alarme intérieure — un mouvement de balancier entre te rapprocher et te protéger, parfois les deux dans la même journée.',
+          '<b>L\'ombre :</b> ce tiraillement peut recréer, sans le vouloir, le climat imprévisible qu\'il redoute — la sécurité et le danger restent associés à l\'amour, ce qui rend la confiance plus lente à construire.',
+          '<b>La question pour ta lignée :</b> quelle rupture, quel deuil ou quel événement violent, non résolu dans ta famille, pourrait expliquer que l\'amour y ait été, à la fois, un refuge et un danger ?'
+        ]
+      }
+    };
+    var NOMS_O = ['secure', 'anxieux', 'evitant', 'desorganise'];
+    var rep = {}, form = document.getElementById('at-form'), btn = document.getElementById('at-btn-valider');
+    function maj() {
+      var n = Object.keys(rep).length;
+      btn.disabled = n < 7;
+      btn.textContent = n < 7 ? 'Découvrir mon style d\'attachement (' + n + '/7)' : 'Découvrir mon style d\'attachement';
+    }
+    form.addEventListener('click', function (e) {
+      var b = e.target.closest('.at-opt'); if (!b) return;
+      var q = b.getAttribute('data-q');
+      form.querySelectorAll('.at-opt[data-q="' + q + '"]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      b.setAttribute('aria-pressed', 'true');
+      rep[q] = b.getAttribute('data-a');
+      maj();
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (Object.keys(rep).length < 7) return;
+      var score = {}; NOMS_O.forEach(function (k) { score[k] = 0; });
+      Object.keys(rep).forEach(function (q) { score[rep[q]]++; });
+      var tries = NOMS_O.slice().sort(function (a, b) { return score[b] - score[a]; });
+      var top = STYLES[tries[0]], second = STYLES[tries[1]];
+      document.getElementById('at-fiche').innerHTML = '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      document.getElementById('at-second').innerHTML = '<p class="at-second">Ta tendance secondaire, presque à égalité : <b>' + second.nom + '</b> (' + second.sous.toLowerCase() + '). Personne n\'a un style unique et figé : regarde aussi de ce côté-là.</p>';
+      form.hidden = true;
+      document.getElementById('at-resultat').classList.add('actif');
+      window.scrollTo({ top: document.getElementById('at-resultat').offsetTop - 80, behavior: 'smooth' });
+    });
+    document.getElementById('at-recommencer').addEventListener('click', function () {
+      rep = {}; form.reset(); form.querySelectorAll('.at-opt').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+      maj(); form.hidden = false;
+      document.getElementById('at-resultat').classList.remove('actif');
+      window.scrollTo({ top: form.offsetTop - 80, behavior: 'smooth' });
+    });
+    maj();
+  })();
+  </script>
+</body>
+</html>
