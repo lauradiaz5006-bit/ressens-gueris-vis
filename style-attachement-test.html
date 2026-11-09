@@ -13,7 +13,11 @@
   <link rel="canonical" href="https://genesolia.fr/style-attachement-test.html">
   <meta property="og:title" content="Quel est mon style d'attachement ? · Test gratuit Genesolia">
   <meta property="og:description" content="Sécure, anxieux, évitant ou désorganisé : un test gratuit pour découvrir ton style d'attachement amoureux, et ce qu'il raconte de ta lignée familiale.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/style-attachement-hero.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chambre baignée de lumière de lune, symbole du test de style d'attachement Genesolia">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="assets/site.css">
   <style>
     .at-tete{position:relative;overflow:hidden;padding:3.2rem 0 2.6rem;border-bottom:1px solid var(--rose);
@@ -42,6 +46,7 @@
     .at-fiche .sous{color:var(--prune-doux);margin-bottom:1.2rem}
     .at-fiche h3{margin:1.4rem 0 .5rem;font-size:1.05rem}
     .at-fiche p+p{margin-top:.7rem}
+    .at-img{width:100%;height:auto;max-height:22rem;object-fit:cover;border-radius:14px;margin-bottom:1.4rem}
 
     .at-deux{margin:2rem 0}
     .at-second{padding:1rem 1.2rem;border-radius:14px;border:1px solid var(--rose);background:var(--nacre);font-size:.95rem;color:var(--prune-doux)}
@@ -76,6 +81,10 @@
         <p class="intro">Sécure, anxieux, évitant ou désorganisé : la façon dont tu t'attaches aujourd'hui s'est construite tôt, dans tes tout premiers liens. Réponds en pensant à ta façon spontanée de réagir en amour, pas à celle que tu voudrais avoir.</p>
       </div>
     </section>
+
+    <figure class="bandeau-photo">
+      <img src="assets/images/style-attachement-hero-1600.webp" srcset="assets/images/style-attachement-hero-800.webp 800w, assets/images/style-attachement-hero-1600.webp 1600w" sizes="(max-width:700px) 100vw, 1100px" alt="Chambre baignée de lumière de lune, symbole de l'attachement et du lien" loading="eager" decoding="async">
+    </figure>
 
     <section class="at-bloc">
       <div class="colonne">
@@ -186,6 +195,8 @@
   (function () {
     var STYLES = {
       secure: {
+        img: 'assets/images/style-attachement-secure-1600.webp',
+        imgAlt: 'Une femme franchit une porte ouverte vers un lever de soleil, posture confiante et ouverte',
         nom: 'Sécure', sous: 'La base stable',
         texte: [
           'Dans les années 1970, la psychologue Mary Ainsworth a observé des bébés face à une courte séparation d\'avec leur mère, puis à ses retrouvailles : environ six sur dix exploraient librement la pièce en sa présence, protestaient un peu à son départ, puis se laissaient calmer rapidement à son retour. Ce schéma — explorer sans angoisse excessive, se laisser rassurer facilement — est devenu la définition même de l\'attachement sécure.',
@@ -195,6 +206,8 @@
         ]
       },
       anxieux: {
+        img: 'assets/images/style-attachement-anxieux-1600.webp',
+        imgAlt: 'Coin lecture cocooning au lever du jour, carnet, thé et fleurs, ambiance qui cherche le réconfort',
         nom: 'Anxieux', sous: 'Celui qui guette le lien',
         texte: [
           'Dans les mêmes observations d\'Ainsworth, une partie des bébés réagissait très différemment à la séparation : une détresse intense, puis, au retour de la mère, une difficulté à se laisser consoler — un mélange de recherche de contact et de colère ou de résistance. Cette alternance venait souvent d\'une disponibilité imprévisible chez l\'adulte : parfois très présent, parfois non, sans que l\'enfant puisse prévoir lequel des deux il allait rencontrer.',
@@ -204,6 +217,8 @@
         ]
       },
       evitant: {
+        img: 'assets/images/style-attachement-evitant-1600.webp',
+        imgAlt: 'Attrape-rêves solitaire face à un désert immense au crépuscule, distance et horizon',
         nom: 'Évitant', sous: 'Celui qui apprend à ne pas demander',
         texte: [
           'Une troisième partie des bébés observés par Ainsworth semblait, en surface, indifférente : peu de réaction visible à la séparation, peu d\'empressement à retrouver la mère. Mais des mesures physiologiques (rythme cardiaque, cortisol) ont montré que ces enfants étaient, en réalité, tout aussi stressés que les autres — ils avaient seulement appris à ne plus montrer ce stress, probablement parce que l\'exprimer n\'avait pas été accueilli par le passé.',
@@ -213,6 +228,8 @@
         ]
       },
       desorganise: {
+        img: 'assets/images/style-attachement-desorganise-1600.webp',
+        imgAlt: 'Ciel nocturne tourmenté avec plusieurs lunes et planètes au-dessus de l\'océan, mouvement contradictoire',
         nom: 'Désorganisé', sous: 'Celui qui veut et craint à la fois',
         texte: [
           'Ce quatrième style a été identifié plus tard, au milieu des années 1980, par les chercheuses Mary Main et Judith Solomon, pour des enfants dont le comportement ne rentrait dans aucune des trois premières cases : approcher puis se figer, tendre les bras puis se détourner. Leurs travaux ont montré que ce schéma apparaissait le plus souvent quand la personne censée rassurer était, elle-même, source de peur — parfois à cause d\'un deuil ou d\'un traumatisme non résolu chez cet adulte, transmis sans un mot.',
@@ -244,7 +261,7 @@
       Object.keys(rep).forEach(function (q) { score[rep[q]]++; });
       var tries = NOMS_O.slice().sort(function (a, b) { return score[b] - score[a]; });
       var top = STYLES[tries[0]], second = STYLES[tries[1]];
-      document.getElementById('at-fiche').innerHTML = '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
+      document.getElementById('at-fiche').innerHTML = '<img class="at-img" src="' + top.img + '" alt="' + top.imgAlt + '" loading="lazy" decoding="async">' + '<span class="nom">' + top.nom + '</span><p class="sous">' + top.sous + '</p>' + top.texte.map(function (p) { return '<p>' + p + '</p>'; }).join('');
       document.getElementById('at-second').innerHTML = '<p class="at-second">Ta tendance secondaire, presque à égalité : <b>' + second.nom + '</b> (' + second.sous.toLowerCase() + '). Personne n\'a un style unique et figé : regarde aussi de ce côté-là.</p>';
       form.hidden = true;
       document.getElementById('at-resultat').classList.add('actif');
