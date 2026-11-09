@@ -75,12 +75,12 @@ window.GenesoliaPratique = (function () {
   /* o : { sb, user, id, nom, cabinet, tiroir } */
   function notes(o) {
     var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [];
-    var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans votre Espace praticien. Elles ne sont jamais montrées sur le lien de partage ni copiées dans l’espace de votre client·e.</p>' +
-      '<form class="pr-o-form" data-note-form><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que vous observez<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><p class="pr-o-msg" data-note-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Ajouter cette note</button><button class="btn btn-trait bt" type="button" data-export-notes>Exporter en PDF</button></div></form>' +
+    var f = fenetre('<h2>Notes de séance · ' + esc(o.nom || '') + '</h2><p class="pr-o-aide">Chiffrées dans votre Espace praticien. Par défaut, elles ne sont jamais montrées à votre client·e. Cochez « visible » sur une note précise si vous voulez la lui faire lire pendant une séance en ligne.</p>' +
+      '<form class="pr-o-form" data-note-form><label>Date de la séance<input type="date" name="jour" value="' + new Date().toISOString().slice(0, 10) + '"></label><label>Ce que vous observez<textarea name="texte" maxlength="5000" placeholder="Ce qui est apparu, les pistes à explorer, la prochaine étape…"></textarea></label><label class="pr-o-case"><input type="checkbox" name="visible"> <span>Visible par mon·ma client·e</span></label><p class="pr-o-msg" data-note-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Ajouter cette note</button><button class="btn btn-trait bt" type="button" data-export-notes>Exporter en PDF</button></div></form>' +
       '<div data-seances><p class="pr-o-aide">Chargement…</p></div>', o.tiroir);
     function dessiner() {
       var zs = f.querySelector('[data-seances]');
-      zs.innerHTML = liste.length ? liste.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }).map(function (s) { return '<div class="pr-o-seance"><small>' + date(s.jour) + '</small><p>' + esc(s.texte) + '</p><button class="pr-o-lien" type="button" data-suppr-note="' + esc(s.id) + '">Supprimer</button></div>'; }).join('') : '<p class="pr-o-aide">Aucune note pour ce dossier.</p>';
+      zs.innerHTML = liste.length ? liste.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }).map(function (s) { return '<div class="pr-o-seance"><small>' + date(s.jour) + (s.visible ? ' · <b style="color:#6B2F5B">visible par le·la client·e</b>' : '') + '</small><p>' + esc(s.texte) + '</p><label class="pr-o-case" style="font-size:.85rem;margin:.3rem 0"><input type="checkbox" data-note-visible="' + esc(s.id) + '"' + (s.visible ? ' checked' : '') + '> <span>Visible par mon·ma client·e</span></label><button class="pr-o-lien" type="button" data-suppr-note="' + esc(s.id) + '">Supprimer</button></div>'; }).join('') : '<p class="pr-o-aide">Aucune note pour ce dossier.</p>';
     }
     function sauver() { return CF.ecrire(o.sb, o.user, cle, { seances: liste }).then(function (r) { if (r && r.error) throw r.error; }); }
     if (!CF) { f.querySelector('[data-seances]').innerHTML = '<p class="pr-o-aide">Les notes ne sont pas disponibles ici.</p>'; return f; }
@@ -88,8 +88,8 @@ window.GenesoliaPratique = (function () {
     var form = f.querySelector('[data-note-form]'), m = f.querySelector('[data-note-msg]');
     form.addEventListener('submit', function (e) {
       e.preventDefault(); var t = form.texte.value.trim(); if (!t) { m.textContent = 'Écrivez votre note.'; return; }
-      liste.push({ id: 's' + Date.now(), jour: form.jour.value || new Date().toISOString().slice(0, 10), texte: t });
-      sauver().then(function () { form.texte.value = ''; m.textContent = 'Note ajoutée, chiffrée.'; dessiner(); }, function () { liste.pop(); m.textContent = 'La note n’a pas pu être enregistrée. Réessayez.'; });
+      liste.push({ id: 's' + Date.now(), jour: form.jour.value || new Date().toISOString().slice(0, 10), texte: t, visible: !!form.visible.checked });
+      sauver().then(function () { form.texte.value = ''; form.visible.checked = false; m.textContent = 'Note ajoutée, chiffrée.'; dessiner(); }, function () { liste.pop(); m.textContent = 'La note n’a pas pu être enregistrée. Réessayez.'; });
     });
     f.querySelector('[data-export-notes]').addEventListener('click', function () {
       var bt = this; if (!liste.length) { m.textContent = 'Aucune note à exporter pour ce dossier.'; return; }
@@ -97,6 +97,12 @@ window.GenesoliaPratique = (function () {
       exporterNotes(o.cabinet, o.nom, liste).then(function () { bt.disabled = false; }, function () { bt.disabled = false; m.textContent = 'Le PDF n’a pas pu être créé. Réessayez.'; });
     });
     f.addEventListener('click', function (e) { var b = e.target.closest('[data-suppr-note]'); if (!b || !confirm('Supprimer cette note ?')) return; var avant = liste; liste = liste.filter(function (s) { return s.id !== b.getAttribute('data-suppr-note'); }); sauver().then(dessiner, function () { liste = avant; dessiner(); }); });
+    f.addEventListener('change', function (e) {
+      var c = e.target.closest && e.target.closest('[data-note-visible]'); if (!c) return;
+      var s2 = liste.filter(function (s) { return s.id === c.getAttribute('data-note-visible'); })[0]; if (!s2) return;
+      var avant = s2.visible; s2.visible = c.checked;
+      sauver().catch(function () { s2.visible = avant; dessiner(); });
+    });
     return f;
   }
 
