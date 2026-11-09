@@ -158,8 +158,9 @@
       var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
       var tipo = (d.data && d.data.type === 'constellation') ? 'constellation' : 'arbre';
       return '<div class="pr-dossier"><div><b>' + esc(d.nom || 'Sans nom') + '</b><small>' + n + ' personne' + (n > 1 ? 's' : '') + (tipo === 'constellation' ? ' · Constellation familiale' : '') + (d.maj ? ' · modifié le ' + date(d.maj) : '') + '</small></div><div class="pr-actions">' +
-        '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>' +
-        (tipo === 'constellation' ? '<a class="btn btn-trait" href="plateau-visio.html">Ouvrir le plateau pour la séance</a>' : '') +
+        (tipo === 'constellation'
+          ? '<a class="btn btn-plein" href="plateau-visio.html">Ouvrir le plateau pour la séance</a><a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>'
+          : '<a class="btn btn-plein" href="genosociogramme.html?arbre=' + esc(d.id) + '">Ouvrir</a>') +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
         '<button class="btn btn-trait" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
