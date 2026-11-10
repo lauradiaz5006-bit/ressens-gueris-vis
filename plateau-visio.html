@@ -161,7 +161,7 @@
             </details>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire, ou touchez-le deux fois (double-clic) pour le mettre en avant d’un halo — pratique pour montrer « à ton tour » pendant la visio. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
@@ -294,6 +294,16 @@
       pions = etat.pions; liens = etat.liens;
       redessiner();
       pvMajBoutonAnnuler();
+    };
+
+    // « À ton tour » : un double-clic (ou double-tap) sur un pion le met en avant (halo lumineux), sans ouvrir sa fiche —
+    // utile en visio pour montrer qui représente la personne qui parle, sans quitter le partage d'écran.
+    window.pvBasculerActif = function (id) {
+      var p = pions.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+      pvMemoriser();
+      p.actif = !p.actif;
+      redessiner();
+      pvSauvegarder();
     };
 
     function maj() {
@@ -556,7 +566,14 @@
         if (etat.pointeurs.size === 0) {
           el.classList.remove('pv-drag');
           if (!etat.pince && !etat.bouge) {
-            if (modeLien) { pvClicPionPourLien(p.id); } else { pvOuvrirPanneau(null, p.id); }
+            if (modeLien) {
+              pvClicPionPourLien(p.id);
+            } else if (el._pvTapEnAttente) {
+              clearTimeout(el._pvTapEnAttente); el._pvTapEnAttente = null;
+              pvBasculerActif(p.id);
+            } else {
+              el._pvTapEnAttente = setTimeout(function () { el._pvTapEnAttente = null; pvOuvrirPanneau(null, p.id); }, 280);
+            }
           } else if (etat.bouge && !etat.pince && etat.depart) {
             p.trace = p.trace || [];
             p.trace.push(etat.depart);

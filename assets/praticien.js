@@ -98,13 +98,11 @@
       (!actif() ? '<div class="pr-carte"><h2>Continuer avec l’Espace praticien</h2><p class="pr-aide">24 € par mois sans engagement, ou 240 € l’année' + (fondateur() ? ' (offre de Noël avant le 31 décembre : 19 € par mois, ou 190 € l’année)' : '') + '. Vous retrouvez la création de dossiers, les partages et les rapports à votre nom. <span style="white-space:nowrap">TVA non applicable, art. 293 B du CGI.</span></p><label class="pr-case pr-cgv" style="font-size:.9rem;margin:.6rem 0"><input type="checkbox" data-cgv> <span>J’accepte les <a href="conditions-praticien.html" target="_blank">conditions de l’Espace praticien (CGV)</a> et l’<a href="accord-sous-traitance.html" target="_blank">accord de sous-traitance</a>.</span></label><button class="btn btn-plein" type="button" disabled data-payer="' + (fondateur() ? 'praticienFondateur' : 'praticienMois') + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (fondateur() ? '19 € par mois' : '24 € par mois') + '</button> <button class="btn btn-trait" type="button" disabled data-payer="' + cleAn() + '" data-bientot-texte="Bientôt disponible. Vos dossiers restent consultables en attendant.">' + (cleAn() === 'praticienFondateurAn' ? '190 € l’année' : '240 € l’année') + '</button><p class="pr-aide" data-bientot-msg style="margin-top:.6rem"></p></div>' : '') +
       essai +
       '<section class="pr-carte"><h2>Mon activité</h2><form class="pr-form" id="pr-cab"><label>Nom de votre activité<input type="text" name="cabinet" maxlength="80" autocomplete="off" value="' + esc(prat.cabinet || '') + '"></label><label>Nom affiché en haut de l’appli <small>(remplace « Espace praticien »)</small><input type="text" name="etiquette" maxlength="40" autocomplete="off" placeholder="Espace praticien" value="' + esc(user.user_metadata && user.user_metadata.etiquette_app || '') + '"></label><p class="pr-aide" style="margin:0">C’est le nom qui apparaît en haut de vos rapports et de vos liens de partage.</p><p class="pr-err" id="pr-cab-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer</button></div></form></section>' +
-      '<section class="pr-carte"><h2>Mes questions pour le questionnaire</h2><p class="pr-aide" style="margin:0 0 .6rem">Vos propres questions, en texte libre : elles s’affichent à la fin du questionnaire envoyé à vos client·es, en plus de l’arbre familial. Elles s’appliquent à tous les liens que vous enverrez ensuite.</p><form class="pr-form" id="pr-questions"><div id="pr-questions-liste"></div><button class="btn btn-trait" type="button" id="pr-questions-ajouter" style="margin:.2rem 0 .8rem">+ Ajouter une question</button><p class="pr-err" id="pr-questions-msg" role="status"></p><div><button class="btn btn-trait" type="submit">Enregistrer mes questions</button></div></form></section>' +
       (appliInstallee() ? '' : '<section class="pr-carte pr-appli"><h2>L’appli sur votre téléphone</h2><p class="pr-aide">Installez Genesolia Pro sur votre écran d’accueil : vos dossiers, le mode séance et vos notes s’ouvrent d’un geste, comme une vraie appli. Gratuit, 30 secondes.</p><button class="btn btn-plein" type="button" data-pro-installer>Installer l’appli Genesolia Pro</button></section>') +
       '<section class="pr-carte" id="pr-annuaire-carte"><h2>Ma fiche dans l’annuaire</h2><div id="pr-annuaire"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Connexion en deux étapes</h2><div id="pr-deux-etapes"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Vos notes de séance sont chiffrées dans votre Espace praticien. Le lien de partage montre l’arbre à votre client·e, <b>sans vos notes</b>. Il reste valable 14 jours, vous choisissez ce qu’il montre et vous pouvez le désactiver à tout moment.</p><p class="pr-aide">Vos notes de séance vous appartiennent : elles ne sont jamais copiées dans l’espace de votre client·e. S’il ou elle vous demande ce que vous avez noté, vous pouvez les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e vous demande d’effacer son dossier ? Utilisez le bouton « Supprimer » de ce dossier, dans la liste.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier ouvert, vous pouvez aussi commander l’arbre imprimé de votre client·e : un poster livré chez lui ou chez elle, ' + ((window.GENESOLIA_IMPRESSION && GENESOLIA_IMPRESSION.formats && GENESOLIA_IMPRESSION.formats[0]) ? 'dès ' + GENESOLIA_IMPRESSION.formats[0].prix + ', livraison comprise' : 'livraison comprise') + '. Un beau cadeau de fin d’accompagnement à glisser dans votre offre. <a href="boutique.html">Voir les formats et les prix</a></p><p class="pr-aide" style="margin:.8rem 0 0">Une question sur un écran ? <a href="mode-emploi-genesolia-pro.html?appli=pro">Mode d’emploi</a>, pas à pas.</p></section></div>';
     var ic = document.querySelector('#pr-cab input[name=cabinet]'); if (ic && !ic.value) ic.value = prat.cabinet || '';   /* certains navigateurs vident le champ en restaurant la page */
-    rendreQuestionsPerso();
     if (window.GenesoliaDeuxEtapes) window.GenesoliaDeuxEtapes.reglage(sb, document.getElementById('pr-deux-etapes'));
     if (window.GenesoliaAnnuaire) window.GenesoliaAnnuaire.fiche(sb, user, prat, document.getElementById('pr-annuaire'), actif());
     /* Arrivée depuis la barre du bas d'un dossier (plateau, arbre) via #demo ou #activite : ouvrir directement le bon écran */
@@ -234,39 +232,6 @@
     }).catch(function () { bt.disabled = false; bt.textContent = 'Ouvrir un dossier exemple'; alert('Le dossier exemple n’a pas pu être créé. Réessayez dans un instant.'); });
   }
   function dossier(id) { return dossiers.filter(function (d) { return d.id === id; })[0]; }
-
-  /* ───────── Mes questions pour le questionnaire : texte libre, modifiable, utilisé pour tous les prochains liens envoyés ───────── */
-  function rendreQuestionsPerso() {
-    var zq = document.getElementById('pr-questions-liste'); if (!zq || !prat) return;
-    var qs = prat.questions_perso || [];
-    zq.innerHTML = qs.length ? qs.map(function (q, i) {
-      return '<div style="display:flex;gap:.5rem;margin:0 0 .5rem;align-items:flex-start"><input type="text" maxlength="200" value="' + esc(q) + '" style="flex:1" placeholder="Votre question" data-q-perso aria-label="Question ' + (i + 1) + '"><button class="btn btn-trait" type="button" data-q-perso-suppr="' + i + '" style="padding:.3rem .7rem;font-size:.85rem;flex:none">Supprimer</button></div>';
-    }).join('') : '<p class="pr-aide" style="margin:0 0 .5rem">Aucune question pour l’instant.</p>';
-  }
-  document.addEventListener('click', function (e) {
-    if (e.target.id === 'pr-questions-ajouter') {
-      if (!prat || (prat.questions_perso || []).length >= 12) return;
-      prat.questions_perso = (prat.questions_perso || []).concat(['']);
-      rendreQuestionsPerso();
-      var ins = document.querySelectorAll('#pr-questions-liste input[data-q-perso]');
-      if (ins.length) ins[ins.length - 1].focus();
-      return;
-    }
-    var bs = e.target.closest && e.target.closest('[data-q-perso-suppr]');
-    if (bs) { var qs = (prat.questions_perso || []).slice(); qs.splice(+bs.getAttribute('data-q-perso-suppr'), 1); prat.questions_perso = qs; rendreQuestionsPerso(); }
-  });
-  document.addEventListener('submit', function (e) {
-    if (e.target.id !== 'pr-questions') return;
-    e.preventDefault();
-    var vals = [].map.call(document.querySelectorAll('#pr-questions-liste input[data-q-perso]'), function (i) { return i.value.trim(); }).filter(Boolean).slice(0, 12);
-    var m = document.getElementById('pr-questions-msg'), bt = e.target.querySelector('button[type=submit]');
-    bt.disabled = true;
-    sb.from('praticiens').update({ questions_perso: vals }).eq('user_id', user.id).then(function (r) {
-      bt.disabled = false;
-      if (r.error) { m.textContent = 'Pas enregistré. Réessayez.'; return; }
-      prat.questions_perso = vals; rendreQuestionsPerso(); m.textContent = 'Enregistré.';
-    });
-  });
 
   /* ───────── Notes par séance et partage : assets/praticien-outils.js (mêmes outils que dans le dossier ouvert) ───────── */
   var PO = window.GenesoliaPratique;
