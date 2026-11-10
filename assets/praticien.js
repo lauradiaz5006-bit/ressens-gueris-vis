@@ -190,8 +190,8 @@
         '<a class="btn btn-trait" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;seance">Mode séance</a>' +
         '<button class="btn btn-trait" type="button" data-partager="' + esc(d.id) + '">Partager</button>' +
         '<details class="pr-menu"><summary aria-label="Plus d’actions pour ce dossier" title="Plus d’actions">⋯</summary><div class="pr-menu-panel">' +
-        (constel ? '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '">Voir les informations récoltées</a>' : '<button class="pr-lien" type="button" data-activer-plateau="' + esc(d.id) + '">+ Constellation</button>') +
-        '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport</a>' +
+        (constel ? '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '">Génosociogramme</a>' : '<button class="pr-lien" type="button" data-activer-plateau="' + esc(d.id) + '">+ Constellation</button>') +
+        '<a class="pr-lien" href="genosociogramme.html?arbre=' + esc(d.id) + '&amp;rapport">Rapport PDF</a>' +
         '<button class="pr-lien" type="button" data-notes="' + esc(d.id) + '">Notes de séance</button>' +
         '<button class="pr-lien" type="button" data-bilan="' + esc(d.id) + '">Bilan de suivi</button>' +
         '<button class="pr-lien" type="button" data-questionnaire="' + esc(d.id) + '">Questionnaire</button>' +
