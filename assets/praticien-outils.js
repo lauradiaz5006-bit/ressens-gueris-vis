@@ -175,7 +175,7 @@ window.GenesoliaPratique = (function () {
   /* o : { sb, user, id, nom, actif, dansArbre } */
   function questionnaire(o) {
     var f = fenetre('<h2>Questionnaire avant séance' + (o.nom ? ' · ' + esc(o.nom) : '') + '</h2>' +
-      '<p class="pr-o-aide">Envoyez ce lien à votre client·e : il·elle remplit chez lui·elle, sans compte, sa famille proche, les dates, les moments marquants et ce qu’il·elle en ressent. Ses réponses arrivent ici, et vous les ajoutez à son arbre en un clic avant la séance.</p>' +
+      '<p class="pr-o-aide">Envoyez ce lien à votre client·e : il·elle remplit chez lui·elle, sans compte, sa famille proche, les dates, les moments marquants et ce qu’il·elle en ressent. Ses réponses arrivent ici, et s’ajoutent automatiquement à son arbre dès que vous ouvrez le dossier. Les personnes déjà présentes sont seulement complétées : rien n’est effacé.</p>' +
       '<div data-q-liste><p class="pr-o-aide">Chargement…</p></div>' +
       (o.actif ? '<div class="pr-o-boutons" style="margin-top:.6rem"><button class="btn btn-plein bt plein" type="button" data-q-creer>Créer un lien (valable 21 jours)</button></div><p class="pr-o-msg" data-q-msg role="status"></p>'
         : '<p class="pr-o-aide">Pour envoyer un nouveau questionnaire, il faut l’abonnement. Les réponses déjà reçues restent ici.</p>'));
@@ -195,7 +195,8 @@ window.GenesoliaPratique = (function () {
               var rep = reps[i], g = (rep && rep.general) || {}, n = rep && rep.people ? Object.keys(rep.people).length : 0;
               return '<div class="pr-o-actif"><div><b>Réponses reçues le ' + date(q.rempli_le) + '</b> · ' + n + ' personne' + (n > 1 ? 's' : '') + '<br><small>' + (q.importe_le ? 'Ajoutées à l’arbre le ' + date(q.importe_le) : 'Pas encore ajoutées à l’arbre') + '</small></div>' +
                 Object.keys(LIB_G).filter(function (k) { return g[k]; }).map(function (k) { return '<div><small>' + LIB_G[k] + '</small><p style="margin:.15rem 0 0;white-space:pre-wrap">' + esc(g[k]) + '</p></div>'; }).join('') +
-                '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-plein bt plein" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ajouter à l’arbre</a>') +
+                ((rep && rep.perso) || []).map(function (x) { return '<div><small>' + esc(x.q) + '</small><p style="margin:.15rem 0 0;white-space:pre-wrap">' + esc(x.a) + '</p></div>'; }).join('') +
+                '<div class="pr-o-boutons">' + (q.importe_le ? '' : '<a class="btn btn-trait bt" href="genosociogramme.html?arbre=' + encodeURIComponent(o.id) + '&amp;questionnaire=' + esc(q.jeton) + '">Ouvrir le dossier (ajout automatique)</a>') +
                 '<button class="pr-o-lien pr-o-desact" type="button" data-q-suppr="' + esc(q.jeton) + '">Supprimer ces réponses</button></div></div>';
             }
             return '<div class="pr-o-actif"><div><b>Créé le ' + date(q.cree_le) + '</b> · en attente des réponses<br><small>Lien valable jusqu’au ' + date(q.expire_le) + '</small></div>' +

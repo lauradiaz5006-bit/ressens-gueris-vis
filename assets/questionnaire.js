@@ -20,7 +20,8 @@
 
   /* Les personnes : clés comprises par l'arbre (toi, m = ta mère, p = ton père, mm = la mère de ta mère…) */
   var GP = [['mm', 'La mère de ta mère', 'f'], ['mp', 'Le père de ta mère', 'm'], ['pm', 'La mère de ton père', 'f'], ['pp', 'Le père de ton père', 'm']];
-  var etat = { people: {}, fratrie: 1, enfants: 0, conjoint: false, couple: '', general: {} };
+  var etat = { people: {}, fratrie: 1, enfants: 0, conjoint: false, couple: '', general: {}, perso: {} };
+  var QP = [];   /* questions personnalisées du·de la praticien·ne, chargées depuis questionnaire_ouvrir */
 
   function lire() { try { var d = JSON.parse(localStorage.getItem(CLE) || 'null'); if (d && d.people) etat = d; } catch (e) {} }
   var minut = null;
@@ -94,6 +95,11 @@
       '<label>Ce qui te semble se répéter dans ta famille<textarea data-g="repete" maxlength="2000">' + esc(G.repete || '') + '</textarea></label>' +
       '<label>Ce qui t’amène à cet accompagnement, aujourd’hui<textarea data-g="attente" maxlength="2000">' + esc(G.attente || '') + '</textarea></label>' +
       '<label><span>Ce dont on ne parle pas dans ta famille <small>(si tu veux en dire un mot)</small></span><textarea data-g="silences" maxlength="2000">' + esc(G.silences || '') + '</textarea></label></div></section>';
+    if (QP.length) {
+      var PP = etat.perso || (etat.perso = {});
+      h += '<section class="gq-carte"><h2>' + (cabinet ? esc(cabinet) + ' te demande aussi' : 'Quelques questions en plus') + '</h2><div style="display:grid;gap:.8rem">' +
+        QP.map(function (q, i) { return '<label>' + esc(q) + '<textarea data-qp="' + i + '" maxlength="2000">' + esc(PP[i] || '') + '</textarea></label>'; }).join('') + '</div></section>';
+    }
     h += '<div class="gq-fin"><p class="gq-confid"><b>Qui lit tes réponses ?</b> Seulement ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ', dans son espace protégé. Elles sont chiffrées, hébergées en Europe (Irlande), ne sont ni revendues ni partagées, et ' + (cabinet ? esc(cabinet) : 'ton·ta praticien·ne') + ' peut les supprimer à ta demande. <a href="confidentialite.html" target="_blank" rel="noopener">Confidentialité</a></p>' +
       '<label class="gq-accord"><input type="checkbox" data-accord> <span>J’accepte de transmettre ces informations, y compris sensibles (deuils, moments marquants), à ' + (cabinet ? esc(cabinet) : 'mon·ma praticien·ne') + ', pour préparer mon accompagnement.</span></label>' +
       '<button class="btn btn-plein" type="button" data-envoyer style="width:100%">Envoyer mes réponses' + (cabinet ? ' à ' + esc(cabinet) : '') + '</button><p class="gq-err" role="alert"></p><p class="gq-sauve"></p>' +
@@ -132,7 +138,8 @@
     Object.keys(people).filter(function (k) { return /^e\d+$/.test(k); }).forEach(function (k) { rels.push({ from: 'toi', to: k, type: 'parent' }); if (people.c1) rels.push({ from: 'c1', to: k, type: 'parent' }); });
     var G = etat.general || {}, gen = {};
     ['repete', 'attente', 'silences'].forEach(function (c) { var v = String(G[c] || '').trim(); if (v) gen[c] = v.slice(0, 2000); });
-    return { v: 1, people: people, rels: rels, general: gen };
+    var PP = etat.perso || {}, perso = QP.map(function (q, i) { return { q: q, a: String(PP[i] || '').trim().slice(0, 2000) }; }).filter(function (x) { return x.a; });
+    return { v: 1, people: people, rels: rels, general: gen, perso: perso };
   }
 
   function erreurs() {
@@ -155,6 +162,7 @@
       } else if ((k = t.getAttribute('data-e'))) {
         var l = etat.people[k].events, i = +t.getAttribute('data-i'); if (l[i]) l[i][t.getAttribute('data-k')] = t.value;
       } else if ((k = t.getAttribute('data-g'))) { etat.general = etat.general || {}; etat.general[k] = t.value; }
+      else if ((k = t.getAttribute('data-qp'))) { etat.perso = etat.perso || {}; etat.perso[k] = t.value; }
       else if (t.hasAttribute('data-couple')) etat.couple = t.value;
       garder();
     });
@@ -215,6 +223,7 @@
     var d = x && x.data;
     if (x.error || !d || d.erreur) { z.innerHTML = '<div class="gq-carte"><h1>Ce lien n’est plus valable</h1><p class="gq-intro" style="margin:0">Il a expiré ou a été désactivé. Demande un nouveau lien à ton·ta praticien·ne.</p></div>'; return; }
     CAB = d.cabinet || '';
+    QP = Array.isArray(d.questions_perso) ? d.questions_perso.slice(0, 12) : [];
     if (d.rempli) { merci(false); return; }
     lire(); formulaire(CAB); evenements();
   }, function () { z.innerHTML = '<div class="gq-carte"><h1>Le questionnaire n’a pas pu s’ouvrir</h1><p class="gq-intro" style="margin:0">Vérifie ta connexion et recharge la page.</p></div>'; });
