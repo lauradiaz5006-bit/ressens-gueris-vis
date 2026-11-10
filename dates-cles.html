@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mes dates clés de l’année · Genesolia</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://genesolia.fr/dates-cles.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>.dk-page{padding:3rem 0}.dk-page .d-carte{max-width:40rem;margin:0 auto;padding:2.2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose)}.dk-page h1{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:.6rem}</style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="conteneur dk-page">
+    <div class="d-carte">
+      <h1>Tes dates clés de l’année</h1>
+      <p>Ajoute-les à ton agenda en un clic : chaque période apparaît avec sa phrase clé.</p>
+      <div id="dk-zone" aria-live="polite"><p>Calcul de tes dates…</p></div>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/dates-cles.js?v=1"></script>
+  <script>window.GenesoliaDatesCles.depuisLien(document.getElementById('dk-zone'));</script>
+</body>
+</html>

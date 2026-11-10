@@ -9,12 +9,14 @@
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Le Cercle Genesolia : 1 mois offert pour sortir de ta boucle</title>
-  <meta name="description" content="Le Cercle : 12 étapes pour passer de survivre à vivre. Deux livres, Renaissance et Libération, des séances audio guidées et la formation « Sors de la boucle », dans ton appli. 1er mois offert, sans carte.">
+  <meta name="description" content="Le Cercle : 12 étapes pour sortir d'un schéma transgénérationnel et passer de survivre à vivre. Un parcours guidé (Renaissance et Libération), des séances audio et la formation « Sors de la boucle », dans ton appli. 1er mois offert, sans carte.">
   <link rel="canonical" href="https://genesolia.fr/abonnement.html">
   <meta property="og:title" content="Le Cercle Genesolia · 1er mois offert, sans carte">
-  <meta property="og:description" content="Deux livres, des séances audio guidées et la formation « Sors de la boucle », dans ton appli Le Cercle. 1er mois offert, sans carte.">
-  <meta property="og:image" content="https://genesolia.fr/assets/cercle/couv-renaissance.jpg">
-  <link rel="stylesheet" href="assets/site.css">
+  <meta property="og:description" content="Ta place, ton choix, ta vie : un parcours guidé en 12 étapes, des séances audio et la formation « Sors de la boucle », dans ton appli Le Cercle. 1er mois offert, sans carte.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/le-cercle.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
   <style>
     .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
     .a-tete .conteneur{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center;padding:4rem 0}
@@ -31,6 +33,12 @@
     .a-offre .a-petit{margin:.7rem 0 0;font-size:.86rem;color:#E6CFDD}
     .a-essai{margin:0;font-family:var(--display);font-size:1.7rem;line-height:1.15;color:var(--prune)}
     .a-essai s{font:400 1.1rem var(--texte);color:var(--prune-doux);margin-right:.4rem}
+    .pm-bloc{padding-top:2.5rem;padding-bottom:2.5rem}
+    .pm-carte{max-width:30rem;margin:0 auto;padding:1.8rem 1.6rem;text-align:center;background:#fff;border:1px solid rgba(185,138,85,.35);border-radius:22px;box-shadow:0 12px 30px rgba(107,47,91,.06)}
+    .pm-etoile{margin:0 0 .3rem;color:#B98A55;font-size:1.1rem}
+    .pm-carte h2{font-size:1.45rem;margin:0 0 .5rem}
+    .pm-carte p{margin:0 auto .9rem;color:var(--prune-doux);font-size:.95rem;max-width:24rem}
+    .pm-lien{color:#8A3F62;font-weight:600;font-size:.92rem;text-decoration:underline;text-decoration-color:#E2B877;text-underline-offset:.3em}
     .a-lancement{max-width:44rem;margin:0 auto;text-align:center}
     .a-lancement h2{font-size:1.8rem;margin-bottom:.8rem}
     .a-lancement p{color:var(--prune-doux);margin-bottom:1rem}
@@ -49,7 +57,17 @@
     .a-titre p{color:var(--prune-doux);margin-top:.7rem}
     .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
 
-    .a-formules{display:grid;grid-template-columns:1.25fr 1fr;gap:1.4rem;align-items:stretch}
+    .a-formules{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1.2rem;align-items:stretch}
+    .a-acheter-boite{max-width:44rem;margin:0 auto;text-align:center;padding:2.2rem 1.8rem;border-radius:var(--rayon);background:radial-gradient(120% 90% at 85% 0%,#8C3F74,rgba(140,63,116,0) 60%),linear-gradient(150deg,#5A2350,#3A1535);color:#F6E7C8;box-shadow:0 24px 50px rgba(58,21,53,.25),inset 0 0 0 1px rgba(233,201,138,.45)}
+    .a-acheter-boite h2{color:#FFF3DC;margin:.8rem 0 .5rem}
+    .a-acheter-boite p{margin:0 auto .8rem;color:#EBD5E2}
+    .a-acheter-choix{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin:1.2rem 0}
+    .a-acheter-choix .btn{flex-direction:column;align-items:center;gap:.15rem;min-width:15rem;padding:.9rem 1.4rem;line-height:1.2}
+    .a-acheter-choix .btn span{font-size:1.15rem;font-weight:700}.a-acheter-choix .btn s{opacity:.6;font-weight:400;margin-right:.3rem}
+    .a-acheter-choix .btn small{font-size:.8rem;font-weight:400;opacity:.85}
+    .a-acheter-choix .btn-plein{background:linear-gradient(90deg,#F3DCA5,#D4A24C,#F3DCA5);color:#3A1535;border-color:transparent}
+    .a-acheter-choix .btn-trait{color:#FFF3DC;border-color:rgba(243,220,165,.7);background:transparent}
+    .a-acheter-note{font-size:.86rem}.a-acheter-note a{color:#F6D9A2}
     .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
     .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
     .a-carte h3{font-size:1.6rem}
@@ -173,6 +191,7 @@
     .t-barre .btn{padding:.65rem 1.3rem}
     .appli .t-barre{bottom:calc(4.6rem + env(safe-area-inset-bottom,0px))}
     body.avec-barre{padding-bottom:4.5rem}
+    body.avec-barre .crisp-client [role="button"][data-maximized]{bottom:82px!important;transition:bottom .2s}   /* la bulle de discussion remonte au-dessus de la barre « Ouvrir mon mois offert » */
     @media (max-width:960px){.t-douleurs{grid-template-columns:1fr 1fr}.t-contenus{grid-template-columns:1fr 1fr}}
     @media (max-width:860px){
       .t-hero-grille{grid-template-columns:1fr;padding:3.5rem 0}
@@ -193,6 +212,22 @@
     .t-parcours li::before{content:"";position:absolute;left:0;top:.6em;width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne)}
     .t-apres{margin-top:auto;padding-top:.8rem;border-top:1px dashed var(--rose-fonce);font-family:var(--display);font-size:1.1rem!important;color:var(--prune)}
     .t-mention{max-width:none;text-align:center;margin-top:1.2rem;font-size:.85rem;color:var(--prune-doux)}
+    .t-mois{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem;list-style:none;margin:0;padding:0}
+    .t-mois li{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-mois img{width:100%;height:auto;aspect-ratio:540/640;object-fit:cover;object-position:top;display:block;background:var(--rose)}
+    .t-mois li>div{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.4rem}
+    .t-mois .t-sem{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .t-mois b{font:400 1.2rem var(--display);color:var(--prune)}
+    .t-mois p{max-width:none;font-size:.93rem;line-height:1.5;color:var(--prune-doux)}
+    .t-mois .t-duree{font-size:.85rem;color:var(--prune)}
+    .t-moyenne{text-align:center;max-width:40rem;margin:1.6rem auto 0;color:var(--prune);font-size:.98rem}
+    .t-temps{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1.6rem 0 0}
+    .t-temps span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.92rem;color:var(--prune)}
+    .t-fin{margin-top:2.4rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 2rem;max-width:46rem;margin-left:auto;margin-right:auto}
+    .t-fin h3{font-size:1.45rem;margin-bottom:.8rem}
+    .t-fin ul{margin:0;padding-left:1.2rem;display:grid;gap:.45rem;color:var(--prune)}
+    @media (max-width:960px){.t-mois{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:560px){.t-mois{grid-template-columns:1fr}.t-mois img{aspect-ratio:540/520}.t-fin{padding:1.4rem}}
     .t-avis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
     .t-avis figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem}
     .t-avis blockquote{margin:0 0 1rem;font-family:var(--display);font-size:1.15rem;line-height:1.5;color:var(--prune)}
@@ -258,6 +293,29 @@
     @media (max-width:560px){.t-semaine1{padding:1.4rem}}
     .a-fondatrice{margin:.6rem 0 0;font-size:.88rem;color:#F6D9A2}
     .a-fondatrice b{color:#FCE9C4}
+    .a-fondatrice{line-height:1.6}.a-fondatrice .promo-prix{font-size:1rem;color:#FCE9C4}.a-fondatrice s{opacity:.75}
+    .of-ruban{text-align:center;margin:0 auto 1.6rem;color:var(--prune-doux);font-size:.95rem}
+    .of-ruban span{display:inline-block;margin-right:.5rem;padding:.35rem 1rem;border-radius:99px;background:linear-gradient(135deg,#B04A7A,#6B2F5B);color:#fff;font:600 .78rem var(--texte);letter-spacing:.1em;text-transform:uppercase}
+    .a-formules.of-duo{grid-template-columns:repeat(2,minmax(0,1fr));max-width:62rem;margin:0 auto;gap:1.6rem}
+    .of-carte{padding:2.4rem 2.2rem;text-align:left;position:relative}
+    .of-carte:not(.of-or){border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,#fff 55%)}
+    .of-essai{margin:0;font:400 1.25rem var(--display);color:var(--prune)}.of-essai b{font-weight:600}
+    .of-prix{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;padding:1rem 0 .2rem;border-top:1px solid rgba(185,138,85,.35)}
+    .of-prix s{font:400 1.2rem var(--texte);opacity:.55}
+    .of-gros{font:400 3.4rem/1 var(--display);color:var(--prune)}
+    .of-per{flex-basis:100%;font-size:.95rem;color:var(--prune-doux)}
+    .of-garde,.of-cadeau{align-self:flex-start;margin:0;padding:.35rem .9rem;border-radius:99px;font-weight:600;font-size:.88rem}
+    .of-garde{background:#F7E6EE;color:#8A3F62}
+    .of-cadeau{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338}
+    .of-or{background:linear-gradient(150deg,#2E1338,#6B2F5B);color:#F7E6EE;border:0;box-shadow:0 30px 70px rgba(46,19,56,.3)}
+    .of-or h3,.of-or .of-essai,.of-or .of-gros{color:#fff}.of-or .of-per,.of-or .a-note{color:#E9CFDC}.of-or li b{color:#F3DCC0}
+    .of-or .a-badge{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338}
+    .of-or li::before{background:#E2B877}
+    .of-or .btn{background:linear-gradient(135deg,#F3DCC0,#E2B877);color:#2E1338;border:0}
+    .of-or .of-prix{border-color:rgba(243,220,192,.3)}
+    .of-carte .btn{align-self:stretch;text-align:center;justify-content:center}
+    @media (max-width:860px){.a-formules.of-duo{grid-template-columns:1fr}.of-carte{padding:1.8rem 1.4rem}}
+    .a-note-noel{margin-top:.7rem}.a-note-noel s{opacity:.7}
       .t-guide{display:flex;gap:1.2rem;align-items:center;max-width:36rem;margin:2.2rem auto 0;padding:1rem 1.2rem;background:#fff;border:1px solid var(--rose,#F3E3E6);border-left:4px solid #B98A55;border-radius:16px;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(107,47,91,.08);text-align:left}
     .t-guide img{width:84px;height:auto;border-radius:6px;box-shadow:0 8px 20px rgba(107,47,91,.25);flex:none}
     .t-guide b{display:block;font-family:var(--display,serif);font-weight:400;font-size:1.25rem;color:var(--prune,#6B2F5B);margin:.15rem 0 .25rem}
@@ -265,6 +323,51 @@
     .t-guide-k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;font-weight:700}
     .t-guide u{display:inline-block;margin-top:.45rem;font-weight:700;color:var(--prune,#6B2F5B)}
     .t-guide:hover{border-color:#B98A55;box-shadow:0 14px 34px rgba(107,47,91,.14)}
+  .t-livres{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.4rem;-webkit-overflow-scrolling:touch}
+  .t-livre{flex:0 0 min(36rem,88vw);margin:0;scroll-snap-align:center;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18),0 0 0 1px rgba(107,47,91,.1)}
+  .t-livre-barre{display:flex;gap:.35rem;padding:.5rem .75rem;background:#F6EEF1;border-bottom:1px solid var(--rose)}
+  .t-livre-barre i{width:.55rem;height:.55rem;border-radius:50%;background:var(--rose-fonce)}
+  .t-livre img{display:block;width:100%;height:auto}
+  .t-livre figcaption{padding:.8rem 1rem;font-size:.9rem;color:var(--prune-doux)}
+  .t-livre figcaption b{color:var(--prune)}
+  .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
+  @media (min-width:1200px){.t-livres-note{display:none}}
+
+    /* Ce que tu ouvres chaque mois : galerie */
+    .cv-cadre{max-width:1000px;margin:1rem auto 0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--rose);box-shadow:0 30px 60px rgba(46,19,56,.18)}
+    .cv-barre{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:#F7E6EE;font-size:.8rem;color:var(--prune-doux)}
+    .cv-barre i{width:10px;height:10px;border-radius:50%;background:#E2B877}.cv-barre i+i{background:#D9A5BE}.cv-barre i+i+i{background:#B98A55}.cv-barre span{margin-left:.6rem}
+    .cv-cadre iframe{display:block;width:100%;height:min(78vh,760px);border:0}
+    .fl-nav{display:flex;justify-content:center;align-items:center;gap:1.2rem;margin-top:1.2rem;color:var(--prune-doux)}
+    .fl-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--champagne);background:#fff;color:var(--prune);font-size:1.6rem;line-height:1;cursor:pointer}
+    .fl-btn:hover{background:#F7E6EE}
+    .fl-aide{text-align:center;max-width:none;font-size:.88rem;color:var(--prune-doux);margin:.6rem auto 1.6rem}
+    .fl-demo{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;font-size:.92rem;color:var(--prune-doux);margin-bottom:1rem}
+    .t-galerie{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+    .t-galerie figure{margin:0;background:#fff;border:1px solid var(--rose);border-radius:22px;overflow:hidden;box-shadow:0 18px 44px rgba(107,47,91,.1);transition:transform .25s}
+    .t-galerie figure:hover{transform:translateY(-5px) rotate(-.4deg)}
+    .t-galerie img{display:block;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/4;object-fit:cover}
+    .t-galerie figcaption{padding:1rem 1.1rem 1.2rem;font-size:.9rem;color:var(--prune-doux)}
+    .t-galerie figcaption b{display:block;font:400 1.15rem var(--display);color:var(--prune);margin-bottom:.25rem}
+    @media (max-width:900px){.t-galerie{grid-template-columns:1fr 1fr}}
+    /* Tunnel : images */
+    .t-img-split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:3rem;align-items:center}
+    .t-img-split>img{width:100%;height:auto;border-radius:28px;box-shadow:0 26px 60px rgba(46,19,56,.22)}
+    .t-img-split p{color:var(--prune-doux)}
+    .t-lien-or{font-weight:600;color:var(--prune);text-decoration:underline;text-decoration-color:#D9AE73;text-underline-offset:4px}
+    .t-etapes-img{display:block;width:min(420px,80%);height:auto;margin:1.4rem auto;border-radius:50%;box-shadow:0 0 0 6px rgba(243,220,192,.5),0 24px 60px rgba(107,47,91,.2)}
+    .t-recois-img{display:block;width:min(560px,100%);height:auto;margin:0 auto 1.6rem;border-radius:24px;box-shadow:0 24px 60px rgba(107,47,91,.18)}
+    .t-avap .t-img-split{grid-template-columns:minmax(0,.9fr) minmax(0,1fr)}
+    .t-avap-l{display:grid;gap:.8rem;margin:1.2rem 0 1.6rem}
+    .t-avap-l p{margin:0;padding:1rem 1.2rem;border-radius:16px;background:#F6F1F4;color:var(--prune-doux)}
+    .t-avap-l p+p{background:linear-gradient(135deg,#FFF6E6,#FCEFF3);border:1px solid #E3C08F;color:var(--prune)}
+    .t-avap-l span{display:block;font:600 .75rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A8494;margin-bottom:.4rem}.t-avap-l span.or{color:#B98A55}
+    .t-laura-carte{display:grid;grid-template-columns:auto 1fr;gap:2.6rem;align-items:center;max-width:56rem;margin-inline:auto;padding:2.2rem;border-radius:32px;background:linear-gradient(135deg,#FFFDF9,#FDEEF4);border:1px solid #F3DCC0}
+    .t-laura-carte img{width:min(260px,70vw);height:auto;border-radius:24px;box-shadow:0 18px 44px rgba(107,47,91,.2)}
+    .t-laura-carte p{color:var(--prune-doux)}
+    @media (max-width:860px){.t-img-split,.t-avap .t-img-split{grid-template-columns:1fr;gap:1.6rem}.t-laura-carte{grid-template-columns:1fr;text-align:center;justify-items:center;padding:1.6rem}}
+.t-hero h1 .h1-or{display:block;margin:.7rem 0 3.2rem;font-size:.58em;line-height:1.3;font-weight:700;color:#E2B877;-webkit-text-stroke:.6px #E2B877;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.25em}
+    .t-demo{padding-top:2rem;padding-bottom:0}.t-demo-v{display:block;width:100%;max-width:960px;height:auto;margin:0 auto;border-radius:18px;box-shadow:0 20px 50px rgba(46,19,56,.2);background:#2E1338}
 </style>
 </head>
 <body class="nouveau">
@@ -274,14 +377,15 @@
       <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
       <div class="conteneur t-hero-grille">
         <div>
-          <p class="a-sur">Programme en ligne · 12 étapes · 15 minutes par semaine</p>
-          <h1>Tu voudrais enfin sortir de ce qui se répète dans ta vie, sans y passer des années ni alourdir ta charge mentale ?</h1>
-          <p class="intro">En 12 étapes, tu repères d’où vient ce qui se rejoue (ton histoire de famille, tes croyances héritées), tu le vois arriver avant qu’il se rejoue, et tu choisis autre chose. 15 minutes par semaine, des audios à écouter quand tu veux, tout dans ton appli.</p>
+          <p class="a-sur">Programme en ligne · 12 étapes · à ton rythme</p>
+          <h1>Tu sais déjà tout sur toi. Et pourtant, rien ne change.<span class="h1-or">Chaque mois, une étape pour te libérer.</span></h1>
+          
           <div class="a-offre">
             <p class="a-gros">Ton 1<sup>er</sup> mois : 0 €</p>
             <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
-            <p class="a-petit">Aucune carte demandée. Ensuite 29 € par mois, sans engagement.</p>
-            <p class="a-fondatrice"><b>Prix fondatrice</b> : 24,90 € par mois sans engagement pour les 100 premières.</p>
+            <p class="a-petit"><a href="s-abonner.html" style="color:#F6D9A2">Ou m’abonner directement</a></p>
+            <p class="a-petit">Aucune carte demandée, sans engagement.</p>
+            <p class="a-fondatrice"><span class="promo-noel">✦ Cadeau de Noël</span> <span class="promo-prix">Après ton mois offert : <s>24,90 €</s> <b>17,77 € par mois</b></span><br>Sans engagement, et ce prix te reste tant que tu restes. Pour toute inscription jusqu’au 31 décembre.</p>
           </div>
         </div>
         <div class="t-couvs" aria-hidden="true">
@@ -292,6 +396,12 @@
     </section>
 
     <div class="t-bandeau"><div class="conteneur"><span><b>30 jours</b> offerts</span><span><b>Aucune carte</b> demandée</span><span><b>Sans</b> engagement</span><span><b>Tes réponses</b> restent à toi</span></div></div>
+
+    <section class="bloc t-demo" aria-label="Le Cercle en vidéo">
+      <div class="conteneur">
+        <video class="t-demo-v" src="assets/videos/le-cercle-demo.mp4" poster="assets/videos/le-cercle-demo.jpg" width="1920" height="1080" autoplay muted loop playsinline preload="metadata" aria-label="Démonstration du Cercle : le carnet, la roue de la vie, les séances audio et la formation"></video>
+      </div>
+    </section>
 
     <section class="bloc">
       <div class="conteneur">
@@ -314,6 +424,19 @@
       </div>
     </section>
 
+    <section class="bloc t-img-bloc">
+      <div class="conteneur t-img-split">
+        <img src="assets/cercle/tunnel/boucle-spirale.webp" width="1400" height="771" alt="Un fil doré emmêlé en boucle qui s’ouvre en spirale de lumière" loading="lazy">
+        <div>
+          <p class="a-etiq">Pourquoi ça recommence</p>
+          <h2>De la boucle à la spirale</h2>
+          <p>Ce qui se répète touche presque toujours à l’un de deux besoins : <b>te sentir en sécurité</b>, ou <b>aimer et être aimé·e</b>. Tant que tu ne vois pas lequel, tu tournes en rond, même avec la meilleure volonté.</p>
+          <p>Le Cercle t’aide à le voir, à comprendre d’où ça vient dans ton histoire de famille, puis à faire un pas de côté, une étape après l’autre. La boucle devient une spirale : tu repasses par les mêmes thèmes, mais chaque fois un peu plus haut.</p>
+          <a class="t-lien-or" href="methode.html">Comprendre la méthode des deux cycles</a>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
@@ -322,9 +445,9 @@
           <p>À chaque étape, tout est prêt : tu ouvres ton appli, et tu avances. Rien à organiser, rien à chercher.</p>
         </div>
         <div class="t-contenus t-piliers">
-          <article><img src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 1 · De la peur à la paix</p><h3>Renaissance</h3><p class="t-q">Tu voudrais te sentir enfin en sécurité et en paix, sans vivre en alerte permanente ?</p><p>Ton carnet : ta roue de vie, un petit pas concret chaque semaine et ton bilan de fin d’étape. Avec ta séance audio pour sortir du mode survie, pas à pas.</p><span class="t-valeur">Tu y gagnes : ta sécurité intérieure, ta place, ta valeur</span></div></article>
-          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 2 · Comment j’aime</p><h3>Libération</h3><p class="t-q">Tu voudrais aimer et être aimée en accord avec toi, sans rejouer les histoires de ta famille ?</p><p>Ton livret : ton arbre de vie, des racines aux fruits, une question par étape et un protocole pour libérer. Avec ta séance audio pour déposer ce qui se transmet.</p><span class="t-valeur">Tu y gagnes : des liens plus vrais, un amour choisi</span></div></article>
-          <article><img src="assets/images/blog-reves-recurrents-800.webp" srcset="assets/images/blog-reves-recurrents-800.webp 800w, assets/images/blog-reves-recurrents-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Un escalier en spirale doré qui monte vers la lumière" loading="lazy" decoding="async"><div><p class="a-etiq">Incluse · la formation</p><h3>Sors de la boucle</h3><p class="t-q">Tu voudrais comprendre et arrêter tes boucles, sans t’épuiser à tout analyser seule ?</p><p>8 modules en podcast, un par étape des étapes 1 à 8, avec livret, cahier d’exercices et fiche L’essentiel. Un module ouvert le reste jusqu’au bout.</p><span class="t-valeur">Incluse dans Le Cercle</span></div></article>
+          <article><img src="assets/images/suivi-800.webp" srcset="assets/images/suivi-800.webp 800w, assets/images/suivi-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Une femme assise face à la fenêtre au soleil couchant" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 1 · Sortir du pilote automatique</p><h3>Renaissance</h3><p class="t-q">Apprends à lâcher tes peurs et l’insécurité pour découvrir qui tu es.</p><p>Ton carnet : ta roue de vie, un petit pas concret chaque semaine et ton bilan de fin d’étape. Avec ta séance audio pour sortir du mode survie (toujours en alerte, à tout tenir à bout de bras), pas à pas.</p><span class="t-valeur">Tu y gagnes : ta sécurité intérieure, ta place, ta valeur</span></div></article>
+          <article><img src="assets/images/relations-800.webp" srcset="assets/images/relations-800.webp 800w, assets/images/relations-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Deux personnes face au coucher de soleil, reliées par un fil doré" loading="lazy" decoding="async"><div><p class="a-etiq">Cycle 2 · Libère-toi de tes chaînes</p><h3>Libération</h3><p class="t-q">Fais de ton amour une force, sans répéter les blessures familiales.</p><p>Ton livret : ton arbre de vie, des racines aux fruits, une question par étape et un protocole pour libérer. Avec ta séance audio pour déposer ce qui se transmet.</p><span class="t-valeur">Tu y gagnes : des liens plus vrais, un amour choisi</span></div></article>
+          <article><img src="assets/images/blog-reves-recurrents-800.webp" srcset="assets/images/blog-reves-recurrents-800.webp 800w, assets/images/blog-reves-recurrents-1600.webp 1600w" sizes="(max-width: 860px) 100vw, 400px" width="800" height="420" alt="Un escalier en spirale doré qui monte vers la lumière" loading="lazy" decoding="async"><div><p class="a-etiq">Incluse · la formation</p><h3>Sors de la boucle</h3><p class="t-q">Tu as envie de vivre autrement, d’être vraiment heureux·se ? Apprends à regarder autrement à l’intérieur de toi : le secret sera là.</p><p>8 modules en podcast, un par étape des étapes 1 à 8, avec livret, cahier d’exercices et fiche L’essentiel. Un module ouvert le reste jusqu’au bout.</p><span class="t-valeur">Incluse dans Le Cercle</span></div></article>
         </div>
         <div class="t-audio">
           <p class="a-etiq">2 séances audio guidées à chaque étape</p>
@@ -366,11 +489,23 @@
     </section>
 
     <section class="bloc">
+      <div class="conteneur" style="display:flex;flex-wrap:wrap;gap:1.6rem;align-items:center;max-width:52rem">
+        <a href="racines.html"><img src="assets/livres/racines-3d.webp?v=4" width="543" height="900" alt="Le livre Racines, Le Cercle livre 1" loading="lazy" style="width:150px;height:auto;filter:drop-shadow(0 16px 24px rgba(74,33,66,.22))"></a>
+        <div style="flex:1 1 18rem">
+          <p class="a-etiq">En plus, si tu aimes le papier</p>
+          <h2 style="margin:.2rem 0 .5rem">Racines, le livre du Cercle</h2>
+          <p>Racines est un livre à part, vendu sur Amazon, il n’est pas compris dans l’abonnement. Il reprend les trois premiers mois du Cercle dans un livre à écrire, tout en couleur : ton point de départ, Renaissance et Libération, un petit rendez-vous chaque jour.</p>
+          <p style="margin:0"><a class="btn btn-trait" href="racines.html">Découvrir Racines</a> <a class="btn btn-trait" href="livres.html">Les livres Genesolia</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc">
       <div class="conteneur">
         <div class="t-semaine1">
           <p class="a-etiq">Ta première semaine, concrètement</p>
           <ol>
-            <li><b>Jour 1</b> : ton point de départ, 15 minutes. Ta roue de la vie, ton mode survie, tes cibles.</li>
+            <li><b>Jour 1</b> : ton point de départ, 15 minutes. Ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes cibles.</li>
             <li><b>Dans la semaine</b> : ta première séance audio, à écouter quand tu veux.</li>
             <li><b>Chaque jour</b> : ton point du jour, deux minutes à l’ouverture de l’appli.</li>
             <li><b>À la fin de la semaine</b> : ton premier petit pas, et tu vois déjà où ça coince.</li>
@@ -386,6 +521,7 @@
         <div class="a-titre">
           <p class="a-etiq">Le sommaire</p>
           <h2>Tes 12 étapes</h2>
+          <img class="t-etapes-img" src="assets/cercle/tunnel/douze-etapes.webp" width="974" height="854" alt="Douze pierres de lumière en cercle : tes douze étapes" loading="lazy">
           <p>Ta semaine 1 commence le jour où tu entres dans Le Cercle, et chaque étape dure un mois. Ton arbre de vie se construit au fil du cycle 2 : racines, tronc, branches, puis fruits.</p>
         </div>
         <ol class="t-sommaire">
@@ -465,9 +601,54 @@
       </div>
     </section>
 
+    <section class="bloc" id="feuilleter">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">À l’intérieur</p>
+          <h2>Essaie ton carnet du mois</h2>
+          <p>Ton carnet se remplit directement en ligne, sur ordinateur comme sur téléphone. Et si tu préfères écrire à la main, tu peux l’imprimer.</p>
+        </div>
+        <div class="cv-cadre"><div class="cv-barre"><i></i><i></i><i></i><span>genesolia.fr · Mon carnet du mois</span></div><iframe src="mon-carnet.html" title="Le carnet du mois du Cercle, à essayer" loading="lazy"></iframe></div>
+        <p class="fl-aide">C’est le vrai carnet, celui que tu ouvres dans ton appli : clique sur les onglets, écris, essaie.</p>
+        <div class="fl-demo"><a class="btn btn-plein" href="mon-carnet.html">Ouvrir le carnet en grand</a><a class="t-lien-or" href="mon-mois.html?exemple">ou voir la démo de ton mois</a></div>
+        <p class="t-livres-note"><a class="t-lien-or" href="essai.html">Ouvre ton mois offert pour garder tes réponses</a></p>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="mois-type">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Concrètement</p>
+          <h2>Un mois type dans Le Cercle</h2>
+          <p>Chaque étape dure un mois. Voici ce que tu fais, semaine après semaine, à ton rythme.</p>
+        </div>
+        <ol class="t-mois">
+          <li><img src="assets/cercle/captures/renaissance-roue.webp" width="540" height="1126" alt="Capture du carnet Renaissance : la roue de la vie" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 1</span><b>Tu ouvres ton étape</b><p>Ton carnet du mois, ta roue de la vie et la question de ton livret Libération.</p></div></li>
+          <li><img src="assets/cercle/captures/audio-seance.webp" width="540" height="1126" alt="Capture d’une séance audio du Cercle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 2</span><b>Tu écoutes</b><p>Tes deux séances audio du mois, une pour le cycle 1 et une pour le cycle 2. Tu peux les réécouter autant de fois que tu veux.</p></div></li>
+          <li><img src="assets/cercle/captures/module.webp" width="540" height="1126" alt="Capture d’un module de la formation Sors de la boucle" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 3</span><b>Tu comprends et tu essaies</b><p>Ton module de formation, en podcast avec diapos, puis tes exercices et ton petit pas de la semaine.</p></div></li>
+          <li><img src="assets/cercle/captures/mon-mois.webp" width="540" height="1126" alt="Capture de la page Mon mois : mois personnel et signe maya" loading="lazy" decoding="async"><div><span class="t-sem">Semaine 4</span><b>Tu fais le point</b><p>Ton bilan de fin d’étape et ton suivi : ce qui a bougé, ce que tu gardes pour le mois suivant.</p></div></li>
+        </ol>
+        <p class="t-moyenne">En moyenne chaque mois : 2 séances audio d’environ 20 minutes, un module de formation d’environ 30 minutes (étapes 1 à 8), et tes exercices à ton rythme.</p>
+        <div class="t-temps" aria-label="À ton rythme">
+          <span>Sur ton téléphone, à ton rythme</span><span>Une semaine ratée ? Tu reprends où tu en étais</span>
+        </div>
+        <div class="t-fin">
+          <h3>À la fin de tes 12 étapes, tu as</h3>
+          <ul>
+            <li>ton arbre de vie complet, des racines aux fruits ;</li>
+            <li>tes 12 carnets et tes 12 bilans, à relire quand tu veux ;</li>
+            <li>les 8 modules de la formation « Sors de la boucle », avec leurs livrets et cahiers d’exercices ;</li>
+            <li>ta roue de la vie du premier jour, à comparer avec celle d’aujourd’hui ;</li>
+            <li>et surtout, des gestes à toi pour voir venir tes boucles et faire autrement.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="bloc bloc-doux">
       <div class="conteneur">
         <div class="a-titre">
+          <img class="t-recois-img" src="assets/cercle/tunnel/ce-que-tu-recois.webp" width="1338" height="1158" alt="Ton Cercle sur ordinateur et téléphone, tes carnets, tes séances audio" loading="lazy">
           <p class="a-etiq">Et les petits +</p>
           <h2>Tout ce qui t’accompagne au quotidien</h2>
         </div>
@@ -492,40 +673,98 @@
         <div class="a-titre">
           <p class="a-etiq">Les formules</p>
           <h2>Le même Cercle, deux façons de continuer</h2>
-          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou le prix doux sur 12 mois. Deux livres, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
+          <p>Ton premier mois est offert, sans carte. À la fin, tu choisis la liberté du mois ou la tranquillité de l’année. Ton parcours guidé, 24 séances audio, la formation et ton appli : moins d’1 € par jour.</p>
         </div>
-        <div class="a-formules">
-          <article class="a-carte vedette">
-            <span class="a-badge">Tout compris</span>
+        <div data-devise-ici></div>
+        <p class="of-ruban"><span>✦ Offres de Noël</span> pour toute inscription jusqu’au 31 décembre</p>
+        <div class="a-formules of-duo">
+          <article class="a-carte of-carte">
+            <span class="a-badge">Liberté · sans engagement</span>
             <h3>Le Cercle au mois</h3>
-            <p class="a-essai"><s>29 €</s>1<sup>er</sup> mois offert</p>
-            <p class="a-prix">29 € <small>par mois ensuite, sans engagement</small></p>
+            <p class="of-essai">Ton 1<sup>er</sup> mois : <b>0 €</b></p>
+            <div class="of-prix"><s>24,90 €</s><span class="of-gros">17,77 €</span><span class="of-per">par mois ensuite</span></div>
+            <p class="of-garde">Ce prix te reste tant que tu restes</p>
             <ul>
               <li><b>Renaissance</b> : ton carnet du cycle 1, un petit pas chaque semaine</li>
               <li><b>Libération</b> : ton livret du cycle 2 et ton arbre de vie</li>
               <li><b>2 séances audio guidées</b> à chaque étape</li>
               <li><b>La formation « Sors de la boucle »</b> : 8 modules en podcast</li>
+              <li><b>Ta question du mois</b>, et les réponses publiées chaque mois, sans prénom</li>
               <li><b>Ton appli Le Cercle</b>, ton mois personnel et tous les petits +</li>
             </ul>
             <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
-            <p class="a-note">Aucune carte demandée pour ton mois offert. Avant la fin, on t’écrit pour te proposer de continuer. Prix fondatrice : 24,90 € par mois, toujours sans engagement, pour les 100 premières.</p>
+            <p class="a-note">Aucune carte demandée. Avant la fin, on t’écrit pour te proposer de continuer.</p>
           </article>
-          <article class="a-carte">
-            <span class="a-badge">Tout compris</span>
-            <h3>Le Cercle sur 12 mois</h3>
-            <p class="a-prix">24,90 € <small>par mois, engagement 12 mois</small></p>
-            <p>Exactement le même contenu, à un prix plus doux, pour faire le chemin complet des 12 étapes. <b>Tu fais partie des 100 premières ?</b> Tu as déjà ce prix, sans engagement : cette formule ne te concerne pas.</p>
+          <article class="a-carte of-carte of-or">
+            <span class="a-badge">Le meilleur prix</span>
+            <h3>Le Cercle à l’année</h3>
+            <p class="of-essai">Ton 1<sup>er</sup> mois : <b>0 €</b></p>
+            <div class="of-prix"><s>249 €</s><span class="of-gros">199 €</span><span class="of-per">par an, soit 16,58 € par mois</span></div>
+            <p class="of-cadeau">4 mois offerts par rapport au mois à 24,90 €</p>
             <ul>
-              <li>Tout ce qui est compris dans la formule au mois</li>
-              <li>Ton parcours complet, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
-              <li>Près de 50 € d’économie sur l’année</li>
+              <li><b>Tout ce qui est compris</b> dans la formule au mois</li>
+              <li><b>Ton parcours complet</b>, de la 1<sup>re</sup> à la 12<sup>e</sup> étape</li>
+              <li><b>Réglé une fois</b>, tranquille toute l’année</li>
+              <li><b>Renouvelé chaque année</b>, et tu peux l’arrêter quand tu veux avant la date anniversaire : on te prévient avant</li>
             </ul>
-            <a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert</a>
+            <a class="btn" href="essai.html">Ouvrir mon mois offert</a>
             <p class="a-note">Même mois offert, sans carte. Tu choisis cette formule à la fin, si tu continues.</p>
           </article>
         </div>
       </div>
     </section>
+
+    <section class="bloc t-img-bloc t-avap">
+      <div class="conteneur t-img-split">
+        <img src="assets/cercle/tunnel/avant-apres.webp" width="998" height="854" alt="À gauche, une femme dans un labyrinthe gris ; à droite, la même femme qui monte un chemin lumineux et fleuri" loading="lazy">
+        <div>
+          <p class="a-etiq">Dans quelques mois</p>
+          <h2>Tu ne tournes plus en rond, tu avances</h2>
+          <div class="t-avap-l">
+            <p><span>Avant</span>Les mêmes scénarios reviennent, tu t’épuises à comprendre, tu culpabilises de ne pas y arriver.</p>
+            <p><span class="or">Avec Le Cercle</span>Tu vois venir ce qui se rejoue, tu sais d’où ça vient, et tu choisis autrement, sans t’épuiser.</p>
+          </div>
+          <a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc t-laura" id="laura">
+      <div class="conteneur t-laura-carte">
+        <img src="assets/cercle/tunnel/laura-carnet.webp" width="720" height="720" alt="Laura, la créatrice du Cercle, qui écrit dans son carnet" loading="lazy">
+        <div>
+          <p class="a-etiq">Qui t’accompagne</p>
+          <h2>Je suis Laura</h2>
+          <p>Ce sont des événements de ma propre vie qui m’ont menée jusqu’ici. En cherchant à les comprendre, j’ai découvert la psychogénéalogie, et elle ne m’a plus quittée. Je m’y suis formée, puis j’ai accompagné des personnes pendant plusieurs années, avec la psychogénéalogie, l’hypnose et l’EMDR.</p>
+          <p>Le Cercle, c’est tout ce que j’aurais aimé avoir : un chemin clair, une étape à la fois, pour sortir de ce qui se répète sans t’épuiser.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc a-acheter" id="acheter" aria-labelledby="acheter-titre">
+      <div class="conteneur">
+        <div class="a-acheter-boite">
+          <span class="promo-noel">✦ Offre de Noël</span>
+          <h2 id="acheter-titre">Rejoindre Le Cercle maintenant</h2>
+          <p>Tu sais déjà que c’est pour toi, ou ton mois offert se termine ? Abonne-toi directement : ton accès s’ouvre tout de suite, ou continue sans coupure si tu es dans ton mois offert.</p>
+          <div class="a-acheter-choix">
+            <a class="btn btn-plein" href="#" data-payer="cercleFondatrice" id="acheter-noel"><span><s>24,90 €</s> 17,77 € par mois</span><small>Cadeau de Noël · 1<sup>er</sup> paiement aujourd’hui</small></a>
+            <a class="btn btn-trait" href="#" data-payer="cercleAnnee"><span><s>249 €</s> 199 € l’année</span><small>offre de Noël · renouvelé chaque année · 1<sup>er</sup> paiement aujourd’hui</small></a>
+          </div>
+          <p class="a-acheter-note">Paiement sécurisé par Stripe, prélevé dès aujourd’hui. Si tu es dans ton mois offert, tes jours offerts restants s’ajoutent à ton abonnement : tu ne perds rien. Il te faut un compte Genesolia (gratuit) : on te le propose si tu n’en as pas. Le cadeau de Noël à 17,77 € vaut pour toute inscription jusqu’au 31 décembre, et ce prix te reste tant que tu restes.</p>
+          <p class="a-acheter-note">Pour offrir Le Cercle : <a href="boutique.html#carte-cadeau">la carte cadeau 3 ou 6 mois</a>.</p>
+        </div>
+      </div>
+    </section>
+    <script>
+    /* Le cadeau de Noël (17,77 €) tant qu'il reste des places, sinon 24,90 € par mois */
+    (function () {
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/rpc/places_fondatrice', { method: 'POST', headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.ok ? r.json() : null; }).then(function (n) {
+          if (n === 0) { var b = document.getElementById('acheter-noel'); b.setAttribute('data-payer', 'cercleMois'); b.innerHTML = '<span>24,90 € par mois</span><small>sans engagement</small>'; }
+        }).catch(function () {});
+    })();
+    </script>
 
     <section class="bloc bloc-doux">
       <div class="conteneur">
@@ -536,10 +775,10 @@
         <ol class="t-etapes">
           <li><b>Crée ton compte</b>Ton prénom, ton e-mail, un mot de passe. Ton espace est prêt.</li>
           <li><b>Ouvre ton mois offert</b>Un clic, aucune carte. Ton accès arrive aussi par e-mail.</li>
-          <li><b>Fais ton point de départ</b>15 minutes : ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles. Tout ton Cercle s’oriente dessus.</li>
+          <li><b>Fais ton point de départ</b>15 minutes : ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes blessures du cœur et tes cibles. Tout ton Cercle s’oriente dessus.</li>
         </ol>
         <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein t-cta" href="essai.html">Ouvrir mon mois offert</a></div>
-        <a class="t-guide" href="assets/cercle/le-cercle-mode-d-emploi.pdf" target="_blank" rel="noopener"><img src="assets/cercle/mode-d-emploi-couv.webp" width="120" height="170" alt="" loading="lazy"><span><span class="t-guide-k">Le mode d’emploi · PDF · 10 pages</span><b>Le Cercle, pas à pas</b><span>De l’inscription à ta formation, chaque écran expliqué avec de vraies captures de l’appli.</span><u>Télécharger le mode d’emploi</u></span></a>
+        <a class="t-guide" href="assets/cercle/le-cercle-mode-d-emploi.pdf" data-compte="le mode d’emploi du Cercle" target="_blank" rel="noopener"><img src="assets/cercle/mode-d-emploi-couv.webp" width="120" height="170" alt="" loading="lazy"><span><span class="t-guide-k">Le mode d’emploi · PDF · 10 pages</span><b>Le Cercle, pas à pas</b><span>De l’inscription à ta formation, chaque écran expliqué avec de vraies captures de l’appli.</span><u>Télécharger le mode d’emploi</u></span></a>
       </div>
     </section>
 
@@ -550,7 +789,7 @@
           <div>
             <h2>Zéro risque pour toi</h2>
             <ul class="t-coches">
-              <li><b>30 jours offerts</b> pour tout découvrir : tes deux livres, tes séances audio, ta formation et ton appli.</li>
+              <li><b>30 jours offerts</b> pour tout découvrir : ton parcours guidé, tes séances audio, ta formation et ton appli.</li>
               <li><b>Aucune carte demandée</b> : rien ne peut être prélevé.</li>
               <li><b>On t’écrit avant la fin</b> pour te proposer de continuer. Sans réponse, ton mois offert s’arrête simplement.</li>
               <li><b>Tes réponses restent à toi</b>, dans ton espace.</li>
@@ -561,12 +800,12 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
-      <div class="conteneur a-lancement">
-        <p class="a-etiq">Un petit mot</p>
-        <h2>Tu arrives au tout début</h2>
-        <p><b>Les 100 premières qui continuent après leur mois offert gardent le prix de 24,90 € par mois, sans engagement, tant qu’elles restent.</b> Et chaque avis compte : il façonne Le Cercle. Écris-nous, tout est lu.</p>
-        <a class="btn btn-trait" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Le%20Cercle">Donner mon avis</a>
+    <section class="bloc pm-bloc">
+      <div class="pm-carte">
+        <p class="pm-etoile" aria-hidden="true">✦</p>
+        <h2>Tu arrives parmi les premières</h2>
+        <p>Chaque avis compte : il façonne Le Cercle. Écris-moi, tout est lu.</p>
+        <a class="pm-lien" href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Le%20Cercle">Donner mon avis</a>
       </div>
     </section>
 
@@ -574,12 +813,12 @@
       <div class="conteneur questions" style="max-width:48rem">
         <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
         <details><summary>Comment se passe le mois offert ?</summary><p>Tu crées ton compte, tu ouvres ton mois offert en un clic, puis tu fais ton point de départ. Aucune carte n’est demandée. Pendant 30 jours, tout ton Cercle est ouvert.</p></details>
-        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (29 €, sans engagement) ou sur 12 mois (24,90 € par mois). Si tu fais partie des 100 premières, tu gardes 24,90 € par mois sans engagement, tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
-        <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : tes deux livres, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
+        <details><summary>Et à la fin du mois offert ?</summary><p>Quelques jours avant la fin, on t’écrit pour te proposer de continuer, au mois (24,90 €, sans engagement) ou à l’année (199 € par an au lieu de 249 €, pour toute inscription jusqu’au 31 décembre). Jusqu’au 31 décembre, c’est le cadeau de Noël : 17,77 € par mois sans engagement, et ce prix te reste tant que tu restes. Si tu ne réponds pas, ton mois offert s’arrête simplement, sans rien te facturer.</p></details>
+        <details><summary>Est-ce que je reçois tout d’un coup ?</summary><p>Non, et c’est voulu. Chaque étape dure un mois et s’ouvre à son moment : ton étape du parcours, tes séances audio et un nouveau module de formation. Ce rythme permet d’avancer vraiment, sans te disperser. Ce qui est ouvert le reste.</p></details>
         <details><summary>Mes semaines suivent-elles le calendrier ?</summary><p>Non, elles suivent ton propre rythme : ta semaine 1 commence le jour où tu entres dans Le Cercle, que ce soit le 1<sup>er</sup> ou le 18 du mois.</p></details>
         <details><summary>J’ai déjà tout essayé. Pourquoi ce serait différent ?</summary><p>Parce que Le Cercle ne te demande pas de tout comprendre d’un coup. Il te fait regarder d’où vient ta boucle dans ton histoire familiale, puis poser un petit geste nouveau chaque semaine, pendant un an. C’est la régularité qui change les choses, pas une prise de conscience isolée.</p></details>
         <details><summary>Et si j’arrête en cours de route ?</summary><p>La formule au mois est sans engagement : tu arrêtes quand tu veux. Tes réponses restent dans ton espace, et ce que tu as imprimé reste à toi.</p></details>
-        <details><summary>Je n’ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Compte une quinzaine de minutes par semaine, et les séances audio s’écoutent quand tu veux. Tout reste dans ton appli : tu reprends où tu t’étais arrêtée.</p></details>
+        <details><summary>Je n’ai pas beaucoup de temps, est-ce pour moi ?</summary><p>Oui. Tu avances à ton rythme : en moyenne, 2 séances audio d’environ 20 minutes et un module d’environ 30 minutes par mois, à écouter quand tu veux. Tout reste dans ton appli : tu reprends où tu t’étais arrêtée.</p></details>
         <details><summary>Je connais mal mon histoire familiale. Est-ce grave ?</summary><p>Non. Trois générations suffisent pour commencer, et les cases vides sont aussi une information. Tes livres t’aident à poser les bonnes questions à ta famille.</p></details>
         <details><summary>Est-ce un accompagnement thérapeutique ?</summary><p>Non. Le Cercle propose une lecture symbolique de ton histoire familiale et des exercices de développement personnel, à faire seule, à ton rythme. Il ne remplace pas un avis médical ou psychologique.</p></details>
         <details><summary>Je ne veux pas écrire mes réponses sur internet. C’est possible ?</summary><p>Oui. Chaque livre s’imprime : tu remplis à la main si tu préfères. Et si tu écris en ligne, tes réponses restent dans ton espace privé, et l’équipe Genesolia ne les lit jamais.</p></details>
@@ -597,7 +836,7 @@
     </section>
 
   </main>
-  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Ton 1<sup>er</sup> mois : 0 €</b> <span>ensuite 29 € par mois</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
+  <div class="t-barre" id="t-barre" hidden><div class="conteneur"><p><b>Ton 1<sup>er</sup> mois : 0 €</b> <span>ensuite 17,77 € par mois</span></p><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a></div></div>
   <footer data-pied></footer>
   <script src="assets/site.js"></script>
   <script>
@@ -606,13 +845,20 @@
        { texte: "Ce que la personne a écrit.", qui: "Sophie, 38 ans", depuis: "membre depuis 3 étapes" },
        Tant que la liste est vide, la section reste cachée. */
     var AVIS = [
+      { texte: "Le Cercle est très complet, beau et féminin. Il est agréable à parcourir, et les exercices sont écrits avec justesse.", qui: "Céline, 46 ans" },
+      { texte: "J’adore ! C’est très précis pour toutes mes infos personnelles, en numérologie, en astrologie et même le signe maya, chaque semaine. Les audios sont puissants et vraiment agréables, et les exercices accompagnent très bien l’ensemble.", qui: "Mia, 35 ans" },
+      { texte: "Un beau travail : des audios de libération avec un vrai travail de fond derrière, des étapes pour aller loin dans l’introspection, et la formation pour approfondir. C’est vraiment appréciable.", qui: "Marie, 41 ans" }
     ];
     var zoneAvis = document.getElementById('t-avis');
-    if (AVIS.length && zoneAvis) {
-      var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-      zoneAvis.innerHTML = AVIS.map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.depuis ? ' · ' + esc(a.depuis) : '') + '</figcaption></figure>'; }).join('');
+    var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    var montrerAvis = function (liste) {
+      if (!liste.length || !zoneAvis) return;
+      zoneAvis.innerHTML = liste.slice(0, 6).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + (a.depuis ? ' · ' + esc(a.depuis) : '') + '</figcaption></figure>'; }).join('');
       document.getElementById('avis').hidden = false;
-    }
+    };
+    montrerAvis(AVIS);
+    /* Avis envoyés depuis avis.html et validés dans Supabase (table avis, case « publie ») */
+    if (window.GenesoliaAvis) window.GenesoliaAvis(function (liste) { montrerAvis(AVIS.concat(liste)); });
     var barre = document.getElementById('t-barre'), hero = document.querySelector('.t-hero'), fin = document.querySelector('.t-final');
     if (barre && hero && 'IntersectionObserver' in window) {
       var vuHero = true, vuFin = false;

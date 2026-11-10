@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de janvier 2027 : « Quelle peur je porte, et pour qui ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de janvier 2027 : « Quelle peur je porte, et pour qui ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-etoiles.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-transmission.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-arbre.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/apprendre-mini.jpg', 'Tout ce qui revient a quelque chose à m’apprendre.']
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'confiance-jan', titre: "Mon geste de confiance", type: 'texte',
-          consigne: "Choisis un petit geste de confiance pour cette semaine, à l’opposé de ta vieille peur : dépenser un peu pour un plaisir, partir en balade en laissant une part d’imprévu, accepter une invitation de dernière minute. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste nourrit aussi ton intention dans ton carnet « J’avance ».",
+          consigne: "Choisis un petit geste de confiance pour cette semaine, à l’opposé de ta vieille peur : dépenser un peu pour un plaisir, partir en balade en laissant une part d’imprévu, accepter une invitation de dernière minute. Écris-le, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce geste nourrit aussi ton intention dans ton carnet « Renaissance ».",
           pourquoi: "La confiance se construit par petits gestes répétés. Chaque geste montre à ton corps que tu es en sécurité aujourd’hui, et ta racine apaisée prend vie dans ton quotidien.",
           gestes: ["Noter mes périodes sensibles dans mon agenda, avec ma phrase", "Prévoir un rendez-vous doux pendant une période sensible", "M’offrir un petit plaisir, ici et maintenant", "Partir en balade en laissant une part d’imprévu", "Appeler une personne de confiance quand la peur arrive", "Garder mon ancre dans ma poche les jours délicats"],
           q: "Ton geste : « Quand ma vieille peur se présente, au lieu de…, je vais… »",

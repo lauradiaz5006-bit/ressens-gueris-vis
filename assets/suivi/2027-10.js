@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2027 : « Les âges qui se répondent »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'octobre 2027 : « Les âges qui se répondent »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Dernier mois de l'année du Cercle : il boucle la spirale ouverte en octobre 2026 avec « Ce qui revient ».
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
@@ -26,14 +26,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-arbre.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-spirale-or.webp',
       voir: 'assets/guide/guide-nombres.webp',
       source: 'assets/guide/guide-transmission.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-douce.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/aujourdhui-spirale-mini.jpg', 'Aujourd’hui, je choisis la spirale.']
@@ -171,11 +171,11 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste qui célèbre', type: 'texte',
-          consigne: "Choisis ton geste pour vivre une date ou un âge à ta façon, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ajoute aussi la façon dont tu as fêté ton année de Cercle. Ce geste devient un appui dans ton carnet « J’avance », pour ton bilan de l’année.",
+          consigne: "Choisis ton geste pour vivre une date ou un âge à ta façon, écris-le, puis note chaque fois que tu l’as fait, et ce qui a changé. Ajoute aussi la façon dont tu as fêté ton année de Cercle. Ce geste devient un appui dans ton carnet « Renaissance », pour ton bilan de l’année.",
           pourquoi: "Un écho reconnu perd beaucoup de sa force. Un écho que l’on transforme en moment choisi devient une ressource. Chaque date vécue à ta façon dit à ton corps que l’avenir n’est pas écrit d’avance.",
           gestes: ["Fêter un anniversaire que tu évitais", "Faire une promenade le jour d’une date de mémoire", "Cuisiner le plat préféré d’un·e ancêtre", "T’offrir une journée rien qu’à toi à une saison difficile", "Écrire une carte à une personne de ta famille le jour de sa fête", "Fêter ton année de Cercle avec quelqu’un que tu aimes"],
           q: "Ton geste : « La prochaine fois que cette date ou cet âge arrive, au lieu de…, je vais… »",
-          ph: "Exemple : au lieu de passer le 2 novembre enfermé·e chez moi, je vais marcher en forêt et allumer une bougie pour mon grand-père en rentrant.",
+          ph: "Exemple : au lieu de passer le 2 novembre enfermé·e chez moi, je vais marcher en forêt et allumer une bougie (de préférence en cire d’abeille) pour mon grand-père en rentrant.",
           journal: { k: 'ex3-celebre', n: 6, q: "Chaque fois que tu l’as fait : quand, et qu’est-ce qui a changé ?", ph: "Exemple : samedi, j’ai fêté mon année de Cercle avec ma sœur au restaurant. Je me suis senti·e fier·e, et léger·ère." } }
       ],
       conseil: "Si une date reste difficile malgré tout, ce n’est pas raté : certaines dates demandent plusieurs tours de spirale pour s’adoucir. Chaque année, tu la vivras un peu plus à ta façon. Et souviens-toi : tu as bouclé une année entière. C’est immense." }

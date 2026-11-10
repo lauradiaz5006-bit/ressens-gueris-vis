@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de juin 2027 : « Ai-je le droit d’aller plus loin ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de juin 2027 : « Ai-je le droit d’aller plus loin ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/montagne.jpg',
     pages: {
-      saison: 'assets/guide/guide-etoiles.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-arbre.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-transmission.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/deux-parents-mini.jpg', 'J’ai le droit d’aimer mes deux parents sans choisir.']
@@ -169,7 +169,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'La qualité que je reçois', type: 'texte',
-          consigne: "Choisis une qualité reçue du côté paternel, ou d'un homme qui a compté pour toi. Écris comment tu vas la faire vivre cette semaine, puis note chaque fois que tu l'as utilisée consciemment, et ce que ça t'a fait. Elle rejoint ton carnet « J’avance » : elle peut devenir un appui pour oser agir.",
+          consigne: "Choisis une qualité reçue du côté paternel, ou d'un homme qui a compté pour toi. Écris comment tu vas la faire vivre cette semaine, puis note chaque fois que tu l'as utilisée consciemment, et ce que ça t'a fait. Elle rejoint ton carnet « Renaissance » : elle peut devenir un appui pour oser agir.",
           pourquoi: "Quand on regarde une lignée, on voit d’abord ce qui pèse. Choisir consciemment ce qui porte, c’est rééquilibrer le regard, et sentir que l’on peut s’appuyer sur ceux qui sont venus avant.",
           gestes: ["Réparer moi-même un objet, en pensant à lui", "Tenir une parole donnée, comme il savait le faire", "Garder mon calme dans une situation tendue", "Dire « je suis fier·e de moi » à voix haute", "Partager une histoire de mon grand-père avec un proche", "Dire une émotion au lieu de la taire, là où lui ne pouvait pas"],
           q: "Ta qualité : « De mon père (ou de…), je reçois…, et cette semaine je vais la faire vivre en… »",

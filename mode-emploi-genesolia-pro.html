@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#2E1338">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Genesolia Pro, pas à pas : le mode d’emploi de l’Espace praticien · Genesolia</title>
+  <meta name="description" content="Le mode d’emploi de Genesolia Pro, l’Espace praticien : dossiers client·es, questionnaire avant séance, répétitions repérées, mode séance, notes chiffrées, rapport à votre nom et lien de partage.">
+  <link rel="canonical" href="https://genesolia.fr/mode-emploi-genesolia-pro.html">
+  <meta property="og:title" content="Genesolia Pro, pas à pas">
+  <meta property="og:description" content="Le mode d’emploi de l’Espace praticien Genesolia, écran par écran, avec la famille fictive de Léa.">
+  <meta property="og:image" content="https://genesolia.fr/assets/images/praticien/mode-seance-1600.webp">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .me{width:min(52rem,100% - 2rem);margin:0 auto;padding:2rem 0 3rem}
+    .me-tete{text-align:center;margin-bottom:1.4rem}
+    .me-sur{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne,#B7833F);margin:0 0 .4rem}
+    .me-tete h1{margin:0 0 .5rem}
+    .me-tete p{max-width:none;color:var(--prune-doux,#7a5a72)}
+    .me-fil{margin:0 0 1rem;padding:1.2rem 1.3rem;border-radius:18px;background:linear-gradient(160deg,#FFF6EC,#fff 70%);border:1.5px solid var(--champagne-clair,#F3DCC0)}
+    .me-fil h2{font-size:1.3rem;margin:0 0 .5rem}
+    .me-fil p{max-width:none;margin:.35rem 0}
+    .me-sommaire{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0 0;padding:0;list-style:none}
+    .me-sommaire a{display:inline-block;padding:.35rem .8rem;border-radius:99px;background:#fff;border:1px solid var(--champagne-clair,#F3DCC0);font-size:.88rem;color:var(--prune,#6B2F5B);text-decoration:none}
+    .me-sommaire a:hover{border-color:var(--champagne,#B7833F)}
+    .me-bloc{margin:0 0 1rem;padding:1.2rem 1.3rem;border-radius:18px;background:#fff;border:1px solid var(--rose,#F1D3DC);scroll-margin-top:5rem}
+    .me-bloc h2{font-size:1.3rem;margin:0 0 .5rem;display:flex;gap:.6rem;align-items:baseline}
+    .me-bloc h2 span{display:inline-grid;place-items:center;width:1.8rem;height:1.8rem;border-radius:50%;background:linear-gradient(135deg,#F3DCC0,#D9AE73);font-size:.9rem;font-family:var(--texte,sans-serif);font-weight:700;color:#2E1338;flex:none}
+    .me-bloc h3{font-size:1.12rem;margin:1rem 0 .35rem;color:var(--prune,#6B2F5B)}
+    .me-bloc p,.me-bloc li{max-width:none}
+    .me-bloc p{margin:.35rem 0}
+    .me-bloc ul,.me-bloc ol{margin:.4rem 0;padding-left:1.2rem}
+    .me-bloc li{margin:.25rem 0;line-height:1.5}
+    .me-esp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.4rem;align-items:start}
+    .me-ecrans{display:flex;gap:.7rem;margin:0}
+    .me-ecrans figure{margin:0;width:190px;text-align:center}
+    .me-ecrans img{display:block;width:100%;height:auto;border-radius:22px;border:5px solid #2E1338;box-shadow:0 14px 34px rgba(46,19,56,.2);background:#2E1338}
+    .me-ecrans figcaption{margin-top:.45rem;font-size:.82rem;color:var(--prune-doux,#7a5a72)}
+    .me-ordi{margin:1rem 0 0}
+    .me-ordi img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--rose,#F1D3DC);box-shadow:0 18px 44px rgba(107,47,91,.14)}
+    .me-ordi figcaption{margin-top:.5rem;text-align:center;font-size:.85rem;color:var(--prune-doux,#7a5a72)}
+    .me-ordi.papier{max-width:22rem;margin-inline:auto}
+    .me-ecran-btn{display:inline-block;padding:.1rem .55rem;border-radius:99px;background:#FFF6EC;border:1px solid var(--champagne-clair,#F3DCC0);font-size:.92em;color:var(--prune,#6B2F5B);white-space:nowrap}
+    .me-bloc kbd{display:inline-block;min-width:1.3em;padding:.05rem .4rem;border-radius:6px;border:1px solid var(--rose,#F1D3DC);background:#FFF9F7;font:600 .85em var(--texte,sans-serif);text-align:center;color:var(--prune,#6B2F5B)}
+    .me-lea{margin:.6rem 0;padding:.7rem .9rem;border-left:3px solid var(--champagne,#B7833F);background:#FFF6EC;border-radius:0 12px 12px 0;font-size:.95rem}
+    .me-lea b{color:var(--prune,#6B2F5B)}
+    .me-cle{font-family:var(--display,serif);font-size:1.15rem;color:var(--prune,#6B2F5B);text-align:center;margin:.6rem 0 .2rem}
+    .me-bloc details{border-top:1px solid var(--rose,#F1D3DC);padding:.7rem 0}
+    .me-bloc details:last-child{border-bottom:1px solid var(--rose,#F1D3DC)}
+    .me-bloc summary{cursor:pointer;font-weight:700;color:var(--prune,#6B2F5B)}
+    .me-demo{margin:0 0 1rem;padding:1.4rem 1.3rem;border-radius:22px;background:linear-gradient(135deg,#FFFDF9,#FFF4EA);border:2px solid #E3C08F;box-shadow:0 0 0 5px rgba(243,220,192,.35)}
+    .me-demo h2{font-size:1.3rem;margin:0 0 .5rem}
+    .me-demo p{max-width:none;margin:.35rem 0}
+    .me-demo video{display:block;width:100%;height:auto;margin:1rem 0 .4rem;border-radius:14px;border:1px solid var(--rose,#F1D3DC);background:#2E1338}
+    .me-demo .me-boutons{justify-content:flex-start;margin-top:.8rem}
+    .me-final{margin:1.4rem 0 0;padding:1.6rem 1.4rem;border-radius:18px;text-align:center;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
+    .me-final h2{color:#fff;font-size:1.5rem;margin:0 0 .5rem}
+    .me-final p{max-width:none;margin:.4rem auto;color:#F7E6EE}
+    .me-boutons{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1rem}
+    .me-final .btn-plein{background:var(--champagne,#B7833F);border-color:var(--champagne,#B7833F);color:#2E1338}
+    .me-final .btn-trait{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.7)!important}
+    .me-note{font-size:.88rem;color:#E6CFDD!important}
+    @media (max-width:700px){
+      .me-esp{grid-template-columns:1fr}
+      .me-ecrans{justify-content:center}
+      .me-ecrans figure{width:min(46%,200px)}
+      .me-ecrans.seul figure{width:min(62%,220px)}
+    }
+    @media print{header,footer,.me-boutons,.cadeau-bas{display:none!important}.me-bloc,.me-fil{break-inside:avoid}}
+      .me-volet{padding-top:0!important;padding-bottom:0!important}
+    .me-volet>summary{list-style:none;cursor:pointer;padding:1.1rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .me-volet>summary::-webkit-details-marker{display:none}
+    .me-volet>summary h2{margin:0!important}
+    .me-volet>summary::after{content:"+";flex:none;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:#F7E6EE;color:#6B2F5B;font-size:1.3rem;line-height:1}
+    .me-volet[open]>summary::after{content:"\2212"}
+    .me-volet[open]{padding-bottom:1.4rem!important}
+</style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <div class="me">
+      <div class="me-tete">
+        <p class="me-sur">Genesolia Pro · Mode d’emploi</p>
+        <h1>Genesolia Pro, pas à pas</h1>
+        <p>Tout ce qu’il faut pour bien commencer avec votre Espace praticien, écran par écran, avec la famille fictive de Léa. Vous pouvez y revenir chaque fois que vous en avez besoin.</p>
+      </div>
+
+      <section class="me-fil" id="a-quoi">
+        <h2>À quoi sert Genesolia Pro</h2>
+        <p>C’est votre cabinet en ligne pour la psychogénéalogie. <b>Un dossier par client·e</b>, avec son arbre. <b>Les répétitions repérées</b> pendant la saisie : âges, dates, prénoms, places dans la fratrie, deuils. <b>Le mode séance</b> pour regarder l’arbre à deux, en plein écran. <b>Vos notes de séance</b>, chiffrées. Et à la fin, <b>un rapport à votre nom</b> et l’arbre remis à votre client·e.</p>
+        <p>Tout s’ouvre dans votre navigateur, sur ordinateur, tablette ou téléphone. Vos dossiers vous suivent d’un appareil à l’autre.</p>
+        <ul class="me-sommaire" aria-label="Sommaire">
+          <li><a href="#installer">Installer l’appli</a></li>
+          <li><a href="#ouvrir">Vos 30 jours offerts</a></li>
+          <li><a href="#dossier">Créer un dossier</a></li>
+          <li><a href="#questionnaire">Le questionnaire</a></li>
+          <li><a href="#arbre">L’arbre</a></li>
+          <li><a href="#repetitions">Les répétitions</a></li>
+          <li><a href="#seance">Le mode séance</a></li>
+          <li><a href="#notes">Les notes de séance</a></li>
+          <li><a href="#rapport">Le rapport</a></li>
+          <li><a href="#partage">Le lien de partage</a></li>
+          <li><a href="#import">Importer un arbre</a></li>
+          <li><a href="#annuaire">L’annuaire</a></li>
+          <li><a href="#deux-etapes">Deux étapes</a></li>
+          <li><a href="#donnees">Vos données</a></li>
+          <li><a href="#abonnement">Votre abonnement</a></li>
+          <li><a href="#demo">La démo et la vidéo</a></li>
+          <li><a href="#questions">Questions</a></li>
+        </ul>
+      </section>
+
+      <details class="me-bloc me-volet" id="installer">
+        <summary><h2><span>1</span>Installez Genesolia Pro sur votre téléphone ou votre ordinateur</h2></summary>
+        <p>Rien à télécharger dans un magasin d’applis : Genesolia Pro s’ouvre dans votre navigateur. Ajoutez-la à votre écran d’accueil, elle s’ouvre ensuite comme une appli, avec sa barre en bas.</p>
+        <ol>
+          <li>Ouvrez <a href="pro.html">Genesolia Pro</a> et connectez-vous.</li>
+          <li><b>Sur iPhone (Safari)</b> : touchez le bouton <b>Partager</b>, puis <b>Sur l’écran d’accueil</b>, puis <b>Ajouter</b>.</li>
+          <li><b>Sur Android (Chrome)</b> : touchez le menu <b>⋮</b> en haut à droite, puis <b>Installer l’application</b> (ou <b>Ajouter à l’écran d’accueil</b>).</li>
+          <li><b>Sur ordinateur (Chrome ou Edge)</b> : cliquez sur l’icône d’installation dans la barre d’adresse, ou sur <span class="me-ecran-btn">Installer l’appli</span> en haut de votre espace.</li>
+        </ol>
+        <p>Dans votre espace, la carte <b>L’appli sur votre téléphone</b> et son bouton <span class="me-ecran-btn">Installer l’appli Genesolia Pro</span> vous guident aussi. Une fois l’appli installée, la carte disparaît.</p>
+        <p class="me-cle">Quatre onglets, dans la barre en bas : Dossiers, Nouveau, Démo, Mon activité.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="ouvrir">
+        <summary><h2><span>2</span>Ouvrir votre espace et vos 30 jours offerts</h2></summary>
+        <div class="me-esp">
+          <div>
+            <p>Sur <a href="pro.html">Genesolia Pro</a>, touchez <span class="me-ecran-btn">Commencer mes 30 jours offerts</span> pour créer votre compte, ou <span class="me-ecran-btn">J’ai déjà un espace</span> pour vous connecter. <b>Sans carte bancaire.</b></p>
+            <p>Puis ouvrez votre Espace praticien :</p>
+            <ul>
+              <li><b>Le nom de votre activité</b> : c’est lui qui apparaît sur vos rapports et vos liens de partage. Vous pouvez le changer plus tard, dans <b>Mon activité</b>.</li>
+              <li>Votre pratique et votre ville, si vous le souhaitez.</li>
+              <li>Deux cases à cocher : les conditions de l’Espace praticien et l’accord de sous-traitance des données, puis l’accord pour garder vos notes de séance <b>chiffrées</b>.</li>
+            </ul>
+            <p>En haut de votre espace, vous voyez où en est votre essai : « Essai · encore 27 jours ». La carte <b>Pour bien commencer</b> coche vos premiers pas au fil de l’usage : créer un premier dossier, ouvrir le mode séance, générer un rapport, envoyer un lien de partage.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="me-bloc me-volet" id="dossier">
+        <summary><h2><span>3</span>Créer un dossier client·e</h2></summary>
+        <div class="me-esp">
+          <div>
+            <p>Dans <b>Mes dossiers client·es</b> (onglet <b>Nouveau</b>), tapez le prénom ou les initiales de votre client·e. Pour la confidentialité, les initiales suffisent.</p>
+            <p>Cochez la case : votre client·e est d’accord pour que vous créiez son dossier et que vous y notiez son histoire familiale, y compris des informations sensibles (deuils, naissances, secrets de famille). Touchez <span class="me-ecran-btn">Nouveau dossier</span> : l’arbre s’ouvre, prêt à être dessiné.</p>
+            <p><b>Un dossier = un arbre.</b> Chaque dossier de la liste a ses boutons : <span class="me-ecran-btn">Ouvrir</span>, <span class="me-ecran-btn">Mode séance</span>, <span class="me-ecran-btn">Rapport</span>, <span class="me-ecran-btn">Notes de séance</span>, <span class="me-ecran-btn">Questionnaire</span>, <span class="me-ecran-btn">Partager</span>, et plus discrets, <b>Renommer</b> et <b>Supprimer</b>.</p>
+            <p>Dès 4 dossiers, une recherche et un tri apparaissent au-dessus de la liste. Vos arbres personnels restent à part, dans <b>Mes arbres personnels</b>.</p>
+            <p class="me-lea"><b>Envie d’essayer d’abord ?</b> Touchez <span class="me-ecran-btn">Ouvrir le dossier exemple</span> : la famille fictive de Léa, déjà remplie, pour voir les répétitions, le mode séance et le rapport sans toucher à vos vrais dossiers.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/images/praticien/tuto/appli-nouveau-dossier.webp" width="540" height="625" alt="Genesolia Pro pendant l’essai : Mes dossiers client·es, le champ Prénom ou initiales et le bouton Nouveau dossier" loading="lazy" decoding="async"><figcaption>Un nouveau dossier</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="me-bloc me-volet" id="questionnaire">
+        <summary><h2><span>4</span>Le questionnaire à envoyer avant la séance</h2></summary>
+        <p>Pour ne pas passer la première séance à noter des dates, envoyez le questionnaire. Votre client·e le remplit chez lui ou chez elle, <b>sans compte</b> : sa famille proche, les dates, les moments marquants et ce qu’il ou elle en ressent.</p>
+        <ol>
+          <li>Sur le dossier, touchez <span class="me-ecran-btn">Questionnaire</span>, puis <span class="me-ecran-btn">Créer un lien (valable 21 jours)</span>.</li>
+          <li>Touchez <span class="me-ecran-btn">Copier le lien</span> et collez-le dans votre message.</li>
+          <li>Quand les réponses arrivent, le bouton du dossier devient <span class="me-ecran-btn">Réponses reçues</span>. Vous lisez d’abord ce qui l’amène, ce qui lui semble se répéter et ce dont on ne parle pas.</li>
+          <li>Touchez <span class="me-ecran-btn">Ajouter à l’arbre</span> : la famille se dessine. Les personnes déjà dans l’arbre sont seulement complétées, rien n’est effacé.</li>
+        </ol>
+        <p>Vous pouvez désactiver un lien en attente, ou supprimer des réponses : ce qui est déjà dans l’arbre y reste.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="arbre">
+        <summary><h2><span>5</span>Dessiner et compléter l’arbre</h2></summary>
+        <div class="me-esp">
+          <div>
+            <p><b>Sur téléphone</b>, l’arbre se lit autour d’une personne : ses parents au-dessus, son couple, ses frères et sœurs, ses enfants. Touchez <span class="me-ecran-btn">Compléter sa fiche</span> pour les dates et les événements, ou une case <b>Ajouter</b> pour ajouter quelqu’un. Touchez une autre personne pour la mettre au centre.</p>
+            <p><b>Sur ordinateur</b>, l’arbre entier se dessine. Cliquez une personne pour ouvrir sa fiche ou ajouter un parent, un enfant, un·e conjoint·e, un frère ou une sœur. Les raccourcis clavier vont plus vite (voir le <a href="#seance">mode séance</a>).</p>
+            <p>Plus l’arbre a de dates (naissances, décès, unions, départs, métiers), plus les répétitions ressortent. Vous pouvez aussi :</p>
+            <ul>
+              <li>poser <b>11 liens relationnels</b> (fusionnel, ambivalent, coupé, secret partagé…) et un lien libre avec votre propre mot ;</li>
+              <li><b>Remonter le temps</b> : la famille l’année d’une naissance ou d’un deuil, et les échos d’âge de cette année-là ;</li>
+              <li>ouvrir la <b>Numérologie</b> et l’<b>Astrologie</b> de la lignée, si votre pratique les utilise.</li>
+            </ul>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/images/praticien/appli-pro-dossier-ouvert.webp" width="540" height="1168" alt="Un dossier ouvert sur téléphone : Léa au centre, ses parents au-dessus, et les cases pour ajouter son conjoint, un frère ou une sœur, un enfant" loading="lazy" decoding="async"><figcaption>Un dossier ouvert</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="me-bloc me-volet" id="repetitions">
+        <summary><h2><span>6</span>Les répétitions repérées</h2></summary>
+        <p>Le panneau <span class="me-ecran-btn">Ce qui se répète</span> se remplit pendant la saisie : plus de 25 pistes repérées automatiquement. Dates anniversaires, mêmes âges, prénoms qui reviennent, places dans la fratrie, deuils, métiers.</p>
+        <ul>
+          <li>Cliquez une répétition : elle se trace dans l’arbre, avec ses <b>lectures possibles</b> et des <b>questions à explorer</b> en séance.</li>
+          <li>Pour chaque piste, trois boutons : <b>Ça me parle</b>, <b>À creuser</b>, <b>Pas pour moi</b>. Une piste marquée « Pas pour moi » n’est jamais montrée sur le lien de partage.</li>
+          <li>Les filtres <b>Vu depuis</b> et <b>Côté</b> changent la personne de référence et la branche regardée.</li>
+        </ul>
+        <p class="me-lea"><b>Dans la démo</b> : Léa a 32 ans, et Hélène, sa mère, a vécu une séparation au même âge. La carte « Syndrome anniversaire » propose : « Que se passe-t-il dans ta vie en ce moment ? »</p>
+        <figure class="me-ordi"><img src="assets/images/praticien/repetitions-1600.webp" srcset="assets/images/praticien/repetitions-800.webp 800w, assets/images/praticien/repetitions-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 800px" width="1600" height="859" alt="Une répétition sélectionnée : le lien entre Léa et sa mère Hélène tracé en pointillés dans l’arbre, et la liste Ce qui se répète à droite" loading="lazy" decoding="async"><figcaption>Une répétition tracée dans l’arbre</figcaption></figure>
+      </details>
+
+      <details class="me-bloc me-volet" id="seance">
+        <summary><h2><span>7</span>Le mode séance : l’arbre en plein écran</h2></summary>
+        <p>Depuis la liste des dossiers ou la barre du dossier ouvert, touchez <span class="me-ecran-btn">Mode séance</span>. Les menus disparaissent, l’arbre passe en plein écran : au cabinet comme en visio, vous le regardez à deux.</p>
+        <p>En haut, une petite barre : <span class="me-ecran-btn">Ce qui se répète</span> ouvre les répétitions à côté de l’arbre, <span class="me-ecran-btn">Notes</span> ouvre vos notes de séance, <span class="me-ecran-btn">Raccourcis ?</span> rappelle les touches, <span class="me-ecran-btn">Quitter le mode séance</span> (ou <kbd>Échap</kbd>) vous ramène au dossier.</p>
+        <h3>Les raccourcis clavier</h3>
+        <p>Cliquez une personne, puis : <kbd>P</kbd> un parent, <kbd>E</kbd> un enfant, <kbd>C</kbd> un·e conjoint·e, <kbd>F</kbd> un frère ou une sœur, <kbd>L</kbd> un lien relationnel, <kbd>M</kbd> ou <kbd>Entrée</kbd> sa fiche, <kbd>Suppr</kbd> la retirer.</p>
+        <p>Et à tout moment : <kbd>R</kbd> ce qui se répète, <kbd>T</kbd> remonter le temps, <kbd>N</kbd> les notes de séance, <kbd>Ctrl</kbd> + <kbd>Z</kbd> annuler, <kbd>?</kbd> l’aide des raccourcis.</p>
+        <figure class="me-ordi"><img src="assets/images/praticien/tuto/seance-repetitions.webp" width="1000" height="625" alt="Le mode séance : l’arbre de Léa en plein écran, la barre du mode séance en haut et Ce qui se répète ouvert à droite" loading="lazy" decoding="async"><figcaption>Le mode séance, avec « Ce qui se répète »</figcaption></figure>
+        <figure class="me-ordi"><img src="assets/images/praticien/tuto/seance-raccourcis.webp" width="1000" height="625" alt="L’aide des raccourcis clavier ouverte en mode séance" loading="lazy" decoding="async"><figcaption>L’aide des raccourcis clavier</figcaption></figure>
+      </details>
+
+      <details class="me-bloc me-volet" id="notes">
+        <summary><h2><span>8</span>Les notes de séance, chiffrées</h2></summary>
+        <p>Touchez <span class="me-ecran-btn">Notes de séance</span> sur le dossier, ou <span class="me-ecran-btn">Notes</span> en mode séance : elles s’ouvrent à côté de l’arbre.</p>
+        <ol>
+          <li>Choisissez la <b>date de la séance</b>.</li>
+          <li>Écrivez <b>ce que vous observez</b> : ce qui est apparu, les pistes à explorer, la prochaine étape.</li>
+          <li>Touchez <span class="me-ecran-btn">Ajouter cette note</span>. Elle est chiffrée avant d’être enregistrée.</li>
+        </ol>
+        <p>Vos notes sont rangées par date. <span class="me-ecran-btn">Exporter en PDF</span> les rassemble dans un document à votre nom, à archiver, ou à remettre si votre client·e vous demande ce que vous avez noté.</p>
+        <p>Elles ne s’ouvrent que depuis votre compte. Elles ne sont <b>jamais montrées</b> sur le lien de partage, ni copiées dans l’espace de votre client·e.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="rapport">
+        <summary><h2><span>9</span>Le rapport PDF et la version Word, à votre nom</h2></summary>
+        <div class="me-esp">
+          <div>
+            <p>Touchez <span class="me-ecran-btn">Rapport</span> sur le dossier, ou <span class="me-ecran-btn">Mon rapport</span> dans le dossier ouvert. Le rapport est inclus dans votre Espace praticien : régénérez-le autant de fois que vous voulez, il suit chaque ajout.</p>
+            <ul>
+              <li><b>La couverture porte le nom de votre activité</b>, celui de <b>Mon activité</b>.</li>
+              <li>Dedans : l’arbre, les chiffres clés, chaque répétition expliquée avec ses pistes de réflexion, la lignée en nombres et dans les étoiles.</li>
+              <li>Cochez <b>Ajouter mes notes de séance en annexe</b> si vous le souhaitez.</li>
+              <li>Si vous avez trié les pistes, cochez <b>Seulement les pistes marquées « Ça me parle » ou « À creuser »</b>.</li>
+            </ul>
+            <p><span class="me-ecran-btn">Générer le rapport (PDF)</span>, au prénom de votre client·e, donne un document prêt à envoyer ou à imprimer. <span class="me-ecran-btn">Version Word, à retoucher (.docx)</span> s’ouvre dans Word, Pages ou Google Docs : vous retouchez le texte avant de le remettre.</p>
+          </div>
+          <div>
+            <figure class="me-ordi papier" style="width:220px;margin-top:0"><img src="assets/images/praticien/rapport-450.webp" srcset="assets/images/praticien/rapport-450.webp 450w, assets/images/praticien/rapport-900.webp 900w" sizes="220px" width="450" height="545" alt="La couverture du rapport : Préparé par le nom de l’activité, avec le nombre de personnes, de générations et de répétitions" loading="lazy" decoding="async"><figcaption>La couverture, à votre nom</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="me-bloc me-volet" id="partage">
+        <summary><h2><span>10</span>Le lien de partage remis à votre client·e</h2></summary>
+        <div class="me-esp">
+          <div>
+            <p>Entre deux séances, votre client·e regarde son arbre par un lien, <b>sans vos notes</b>. Touchez <span class="me-ecran-btn">Partager</span>, choisissez ce qu’il montre, puis <span class="me-ecran-btn">Créer le lien (valable 14 jours)</span> et <span class="me-ecran-btn">Copier le lien</span>.</p>
+            <ul>
+              <li><b>Montrer « Ce qui se répète »</b>, ou l’arbre seul.</li>
+              <li><b>Cacher les pistes délicates</b> : deuils, pertes de grossesse, IVG, départs précoces.</li>
+              <li><b>Lien de supervision</b>, pour votre superviseure ou votre formatrice : le dossier est anonymisé, sans prénoms, ni lieux, ni dates exactes, ni notes.</li>
+            </ul>
+            <p>Les liens actifs restent listés : <b>Désactiver ce lien</b> le coupe tout de suite.</p>
+            <h3>Quand le travail est terminé</h3>
+            <p>Sous le dossier, cochez <b>Travail terminé : mon·ma client·e peut télécharger et garder son arbre</b>, puis envoyez un lien. Votre client·e peut alors télécharger son arbre ou le garder dans son espace Genesolia, gratuit. Avant, rien ne peut être téléchargé ni imprimé.</p>
+            <p>Depuis un dossier ouvert, vous pouvez aussi commander l’arbre imprimé de votre client·e, livré chez lui ou chez elle.</p>
+          </div>
+          <div class="me-ecrans seul">
+            <figure><img src="assets/images/praticien/partage-640.webp" srcset="assets/images/praticien/partage-320.webp 320w, assets/images/praticien/partage-640.webp 640w" sizes="220px" width="640" height="1385" alt="Le lien de partage reçu : l’arbre en lecture, avec les boutons Garder mon arbre dans mon espace et Télécharger mon arbre" loading="lazy" decoding="async"><figcaption>Ce que voit votre client·e</figcaption></figure>
+          </div>
+        </div>
+      </details>
+
+      <details class="me-bloc me-volet" id="import">
+        <summary><h2><span>11</span>Importer un arbre Geneanet ou GEDCOM</h2></summary>
+        <p>Votre client·e a déjà fait son arbre sur Geneanet, Heredis, MyHeritage ou Ancestry ? Pas besoin de tout ressaisir.</p>
+        <ol>
+          <li>Demandez-lui un export au format <b>GEDCOM (.ged)</b> : c’est le plus fiable. Un PDF avec du texte fonctionne aussi.</li>
+          <li>Dans le dossier ouvert, touchez le menu <span class="me-ecran-btn">•••</span>, puis <span class="me-ecran-btn">Importer un arbre</span>, et choisissez le fichier.</li>
+          <li>Vérifiez ce qui a été lu, puis validez : les personnes entrent dans l’arbre.</li>
+        </ol>
+        <p>Dans l’autre sens, <b>Sauvegardes</b> permet d’exporter l’arbre en GEDCOM.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="annuaire">
+        <summary><h2><span>12</span>Votre fiche dans l’annuaire</h2></summary>
+        <p>Des personnes dessinent leur arbre sur Genesolia, puis cherchent quelqu’un pour les accompagner. <a href="annuaire.html">L’annuaire</a> les mène à vous.</p>
+        <p>Dans <b>Mon activité</b>, la carte <b>Ma fiche dans l’annuaire</b> : votre nom, votre activité, votre pratique, votre ville, en présentiel ou en visio, une présentation (700 caractères au plus), et si vous le souhaitez votre site, votre lien de prise de rendez-vous, votre téléphone ou votre e-mail.</p>
+        <p>Cochez <b>Je publie ma fiche dans l’annuaire Genesolia</b>, puis <span class="me-ecran-btn">Enregistrer ma fiche</span>. Chaque fiche est relue par Genesolia avant sa mise en ligne, sous 48 h. Elle est visible tant que votre Espace praticien est actif, et vous la retirez en décochant la case.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="deux-etapes">
+        <summary><h2><span>13</span>La connexion en deux étapes</h2></summary>
+        <p>Vos dossiers contiennent des histoires de famille sensibles. Avec la double étape, votre mot de passe seul ne suffit plus : il faut aussi un code à 6 chiffres de votre téléphone.</p>
+        <ol>
+          <li>Dans <b>Mon activité</b>, carte <b>Connexion en deux étapes</b>, touchez <span class="me-ecran-btn">Activer la connexion en deux étapes</span>.</li>
+          <li>Dans votre appli d’authentification (Google Authenticator, Microsoft Authenticator ou 1Password, gratuites), ajoutez un compte et scannez le code affiché.</li>
+          <li>Tapez le code à 6 chiffres, puis <span class="me-ecran-btn">Activer</span>.</li>
+        </ol>
+        <p>À chaque nouvelle connexion, Genesolia vous demande ce code. Il change toutes les 30 secondes.</p>
+      </details>
+
+      <details class="me-bloc me-volet" id="donnees">
+        <summary><h2><span>14</span>Vos données et la sous-traitance (RGPD)</h2></summary>
+        <p>Pour les dossiers de vos client·es, vous êtes responsable des données, et Genesolia votre sous-traitant. L’<a href="accord-sous-traitance.html">accord de sous-traitance</a> (RGPD, article 28) le précise : où sont hébergées les données, qui y accède, ce qui se passe en cas d’incident et à la fin de votre abonnement.</p>
+        <p>Si vous ne l’avez pas encore accepté, une carte <b>Les données de vos client·es</b> s’affiche en haut de votre espace : <span class="me-ecran-btn">Lire l’accord</span>, puis <span class="me-ecran-btn">J’accepte l’accord de sous-traitance</span>.</p>
+        <ul>
+          <li>Les données sont hébergées en Europe (Irlande).</li>
+          <li>Les notes de séance sont chiffrées avant d’être enregistrées.</li>
+          <li>Avant chaque dossier, vous confirmez l’accord de votre client·e.</li>
+          <li>Pas d’informations médicales dans les dossiers.</li>
+          <li>Un·e client·e vous demande d’effacer son dossier ? Le bouton <b>Supprimer</b> du dossier efface l’arbre et ses notes.</li>
+          <li>Un dossier est gardé tant que votre espace est ouvert, puis effacé 12 mois après la fin de votre abonnement.</li>
+        </ul>
+      </details>
+
+      <details class="me-bloc me-volet" id="abonnement">
+        <summary><h2><span>15</span>Votre abonnement</h2></summary>
+        <p>Vos <b>30 jours offerts</b> comprennent tout, sans carte bancaire. Ensuite : <b>24 € par mois</b> sans engagement, ou <b>240 € l’année</b>.</p>
+        <p class="me-lea"><b>Offre de Noël</b> : pour tout abonnement pris avant le 31 décembre, <b>19 € par mois au lieu de 24 €, ou 190 € l’année au lieu de 240 €</b>, garanti tant que votre abonnement continue.</p>
+        <p>Pendant l’essai, la carte <b>Après votre essai</b> vous attend dans votre espace. Cochez la case des conditions de l’Espace praticien et de l’accord de sous-traitance, puis choisissez la formule au mois ou à l’année. Abonnez-vous quand vous voulez avant la fin : votre Espace praticien continue sans coupure.</p>
+        <p>Sans abonnement, après l’essai, <b>vos dossiers restent consultables</b>. Pour créer de nouveaux dossiers, de nouveaux liens de partage ou de nouveaux questionnaires, il faut l’abonnement.</p>
+        <p>TVA non applicable, art. 293 B du CGI. Voir les <a href="conditions-praticien.html">conditions de l’Espace praticien</a>.</p>
+      </details>
+
+      <section class="me-demo" id="demo">
+        <h2>La démo et la vidéo</h2>
+        <p>La démo ouvre l’arbre de Léa, une famille fictive déjà remplie : essayez les répétitions, le mode séance et le rapport. Sans compte, rien n’est enregistré.</p>
+        <p class="me-boutons"><a class="btn btn-plein" href="genosociogramme.html?exemple&amp;pro">Ouvrir la démo, sans compte</a></p>
+        <video controls playsinline preload="none" poster="assets/videos/demo-espace-praticien.jpg" width="1280" height="720">
+          <source src="assets/videos/demo-espace-praticien.mp4" type="video/mp4">
+        </video>
+        <p style="font-size:.9rem;color:var(--prune-doux,#7a5a72)">En 45 secondes : votre cliente remplit son questionnaire, son arbre se dessine, les répétitions ressortent, vous remontez le temps, vous remettez un rapport à votre nom. Famille fictive.</p>
+      </section>
+
+      <details class="me-bloc me-volet" id="questions">
+        <summary><h2><span>16</span>Questions fréquentes</h2></summary>
+        <details><summary>Mes client·es voient-ils ou elles mes notes ?</summary><p>Jamais. Le lien de partage montre l’arbre sans vos notes ni vos repères. Quand vous remettez l’arbre, seules les personnes et leurs liens sont copiés.</p></details>
+        <details><summary>Faut-il un compte à mes client·es ?</summary><p>Non pour remplir le questionnaire ou regarder leur arbre : le lien suffit. Oui, gratuit, seulement pour garder leur arbre dans leur espace à la fin.</p></details>
+        <details><summary>Je peux travailler sur mon téléphone et mon ordinateur ?</summary><p>Oui. Connectez-vous avec le même compte : vous retrouvez vos dossiers, vos notes et vos liens sur tous vos appareils.</p></details>
+        <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Vos dossiers restent consultables. Pour en créer de nouveaux et envoyer de nouveaux liens, il faut l’abonnement.</p></details>
+        <details><summary>Genesolia remplace-t-il un accompagnement ?</summary><p>Non. Genesolia est un outil de travail et une grille de lecture symbolique de l’histoire familiale. Il ne remplace pas un avis médical ou psychologique. L’accompagnement reste le vôtre.</p></details>
+      </details>
+
+      <section class="me-final">
+        <h2>À vous de jouer</h2>
+        <p>Ouvrez votre Espace praticien, créez un premier dossier, et laissez les répétitions ressortir.</p>
+        <p class="me-boutons">
+          <a class="btn btn-plein" href="pro.html">Commencer mes 30 jours offerts</a>
+          <a class="btn btn-trait" href="espace-praticien.html">Découvrir l’Espace praticien</a>
+        </p>
+        <p class="me-note">Sans carte bancaire. Puis 19 € par mois avec l’offre de Noël, sans engagement. TVA non applicable, art. 293 B du CGI.</p>
+      </section>
+    </div>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+<script>
+  /* Les volets : un lien du sommaire ouvre le bon volet */
+  (function () {
+    function ouvrir() { var id = decodeURIComponent(location.hash.slice(1)); var d = id && document.getElementById(id); if (d && d.tagName === 'DETAILS') { d.open = true; setTimeout(function () { d.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); } }
+    window.addEventListener('hashchange', ouvrir); ouvrir();
+  })();
+  </script>
+</body>
+</html>

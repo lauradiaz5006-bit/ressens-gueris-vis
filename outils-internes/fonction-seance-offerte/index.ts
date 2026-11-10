@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
       const avantages = "deux nouvelles séances guidées à chaque étape, ton carnet Renaissance pour sortir de la peur et du mode survie, ton livret Libération pour comprendre comment tu aimes et aimer plus grand, la formation « Sors de la boucle » en 8 modules à écouter en podcast, et ton appli avec ton point du jour et ton mois personnel";
       const { data: suite } = await sb.from("mails").select("id").eq("contact_id", c.id).in("type", ["seance_offerte_suite", "offert_suite"]).limit(1);
       const envois: Record<string, unknown>[] = [PD ? {
-        contact_id: c.id, email, prenom: prenom || null, type: "seance_offerte_" + seance, ok_envoyer: true,
+        contact_id: c.id, email, prenom: prenom || null, type: "seance_offerte_" + seance, ok_envoyer: true, a_envoyer_le: new Date().toISOString(),
         objet: "Ton point de départ t’attend", surtitre: "Le Cercle · offert", titre: "Ton point de départ, en 15 minutes",
         texte: "Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi.\n\nPrends un moment au calme. Il n’y a rien de juste ou de faux, seulement tes réponses, avec tes mots.\n\nTes résultats sont gardés, et repris tels quels si tu ouvres ton mois offert du Cercle.",
         bouton_texte: "Faire mon point de départ", bouton_lien: "https://genesolia.fr/point-de-depart.html",
@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
         encadre_titre: "Ton mois offert dans Le Cercle",
         encadre_texte: "Après ton point de départ, Le Cercle t’accompagne : " + avantages + ". [Ouvre ton mois offert, sans carte](https://genesolia.fr/essai.html).",
       } : {
-        contact_id: c.id, email, prenom: prenom || null, type: "seance_offerte_" + seance, ok_envoyer: true,
+        contact_id: c.id, email, prenom: prenom || null, type: "seance_offerte_" + seance, ok_envoyer: true, a_envoyer_le: new Date().toISOString(),
         objet: "Ta séance offerte : " + S.titre, surtitre: S.cycle, titre: "Ta séance « " + S.titre + " »",
         texte: "La voici, en entier, à écouter autant de fois que tu veux.\n\nInstalle-toi au calme, avec un casque si tu peux, assise ou allongée. Laisse-toi guider : il n’y a rien à réussir, seulement à écouter.\n\nÉcoute-la au calme, jamais en conduisant.",
         bouton_texte: "Écouter ma séance", bouton_lien: "https://genesolia.fr/seance-offerte.html?s=" + seance + "&j=" + jeton,
@@ -69,7 +69,9 @@ Deno.serve(async (req) => {
         encadre_titre: "Tu as déjà fait ton point de départ ?",
         encadre_texte: "Il est repris tel quel dans ton Cercle : tu n’as rien à refaire. Sinon, [fais-le en 15 minutes](https://genesolia.fr/point-de-depart.html), il oriente tout ton parcours.",
       });
-      await sb.from("mails").insert(envois);
+      // toutes les lignes ont les mêmes colonnes : sinon a_envoyer_le part vide et l’insertion entière est refusée
+      const { error: eM } = await sb.from("mails").insert(envois);
+      if (eM) console.error("mails", eM.message);
     }
   }
 

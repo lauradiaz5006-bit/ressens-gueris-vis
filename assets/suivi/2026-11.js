@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de novembre 2026 : « Qu’est-ce que j’ai reçu ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de novembre 2026 : « Qu’est-ce que j’ai reçu ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-arbre.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-transmission.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-arbre.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/ils-ont-traverse-mini.jpg', 'Ils ont traversé tant de choses pour que je puisse vivre la mienne.']
@@ -170,7 +170,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3-nov', titre: "Le don que je fais vivre", type: 'texte',
-          consigne: "Choisis un don de ton inventaire et fais-le vivre en conscience cette semaine. Écris ton engagement, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce don devient aussi un appui dans ton carnet « J’avance ».",
+          consigne: "Choisis un don de ton inventaire et fais-le vivre en conscience cette semaine. Écris ton engagement, puis note chaque fois que tu l’as fait, même maladroitement, et ce que tu as ressenti. Ce don devient aussi un appui dans ton carnet « Renaissance ».",
           pourquoi: "Ce que l’on reçoit en conscience devient un choix. Chaque fois que tu fais vivre un don de ta lignée, ta feuille dorée prend racine dans ta vie de tous les jours.",
           gestes: ["Cuisiner une recette de famille et raconter son histoire", "Oser une chose courageuse, comme cette personne l’aurait fait", "Transmettre un savoir-faire à un proche", "Reprendre un geste hérité : coudre, jardiner, bricoler", "Accepter une aide, là où l’ancêtre portait tout seul·e", "Rire de bon cœur, comme ton grand-père savait le faire"],
           q: "Ton geste : « Cette semaine, pour faire vivre le don de…, je vais… »",
@@ -242,6 +242,23 @@ window.GENESOLIA_CARNET = {
         ph: "Exemple : quatre feuilles dorées : le rire de ma grand-mère, la tarte aux pommes, le courage de mon père, le goût des livres."
       }
     ]
+  },
+
+  autel: {
+    intention: "Ce mois-ci, ton autel accompagne ta question : qu’est-ce que j’ai reçu ? Il met en lumière les dons de ta lignée que tu veux garder et faire vivre, et il te laisse rendre, avec respect, un poids qui n’est pas le tien.",
+    cueillette: ['Une petite racine, ou une branche aux ramifications bien visibles', 'Trois noix, noisettes ou châtaignes', 'Un peu de terre, de mousse ou d’écorce', 'Une graine, de n’importe quelle sorte'],
+    couleurs: "Des tons de fin d’automne : brun profond, ocre, gris perle, blanc cassé. Deux bougies blanches, et une bougie dorée au centre pour ce que tu gardes.",
+    elements: [
+      { nom: 'La terre', texte: 'La poignée de terre, la mousse ou l’écorce : ce sur quoi tu tiens debout.' },
+      { nom: 'L’eau', texte: 'Une petite coupelle d’eau claire, ou une poire posée à côté.' },
+      { nom: 'Le feu', texte: 'Les deux bougies blanches, et la dorée au centre.' },
+      { nom: 'L’air', texte: 'La branche aux ramifications, posée à plat : les lignes de celles et ceux qui t’ont précédé·e.' },
+      { nom: 'Ce que tu as reçu', texte: 'Trois noix, ou trois mots écrits sur trois papiers : un don par personne de ta lignée que tu veux honorer.' },
+      { nom: 'Ce que tu rends', texte: 'Une pierre sombre, posée un peu à l’écart. Elle porte ce que tu rends, sans reproche.' }
+    ],
+    ouverture: "« J’ouvre cet espace pour moi. Je reconnais ce que j’ai reçu de beau, je le garde et je le fais vivre. Ce qui n’est pas à moi, je le rends avec respect. »",
+    entretien: ['Chaque semaine, allume la bougie dorée quelques minutes et nomme à voix haute un don que tu as reçu.', 'Quand un poids se présente, écris-le sur un papier et glisse-le sous la pierre sombre.', 'Ajoute une noix ou une graine chaque fois que tu reconnais une qualité qui te vient de ta lignée.'],
+    cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose la racine, la terre et les fruits au pied d’un arbre. Déchire les papiers glissés sous la pierre sombre, puis laisse la pierre dehors. Garde la graine : tu la planteras."
   },
 
   lectures: [

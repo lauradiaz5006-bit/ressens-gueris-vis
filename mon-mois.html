@@ -127,7 +127,7 @@
     'use strict';
     var CERCLE = {
       libre: !((window.GENESOLIA_PRODUITS || {}).cercle || {}).payant, /* réglage dans assets/site.js : GENESOLIA_PRODUITS.cercle */
-      prix: '29 € par mois',
+      prix: '24,90 € par mois',
       offert: '2026-10',               /* le carnet offert contre un e-mail */
       lienAbonnement: (window.GENESOLIA_STRIPE || {}).cercleMois || '' /* réglage dans assets/site.js : GENESOLIA_STRIPE.cercleMois */
     };
@@ -169,6 +169,9 @@
       var people = data.people || {}, ids = Object.keys(people);
       var moiId = ids.filter(function (id) { return people[id].role === 'moi'; })[0];
       var moi = moiId ? people[moiId] : null;
+      /* tes repères de naissance (ceux du guide et du carnet) passent en premier : mêmes nombres sur toutes les pages ; l'arbre seulement s'ils manquent */
+      var rep = null; try { rep = JSON.parse(localStorage.getItem('genesolia-guide') || 'null'); } catch (e) {}
+      if (rep && parse(rep.date) && !rep.aConfirmer) moi = Object.assign({}, moi || {}, { prenom: rep.prenom || (moi && moi.prenom) || '', nom: rep.nom || (moi && moi.nom) || '', naiss: rep.date, role: 'moi' });
       var r = { moi: moi, dates: [], echos: [], ronds: [] };
       if (!moi || !parse(moi.naiss)) return r;
       r.t = N.theme(moi.prenom || '', moi.nom || '', moi.naiss, auj);
@@ -242,7 +245,7 @@
     function piste(r) {
       var L = N.MOIS_LONG[r.t.mois], fam = r.dates.filter(function (x) { return !x.toi; })[0], e = r.echos[0], txt;
       if (e) txt = 'Ce mois-ci, tu as l\'âge auquel ' + prenomDe(e.p) + ' a vécu ' + e.quoi + '. Prends dix minutes pour lui écrire quelques lignes : ce que tu sais de ce moment de sa vie, ce que tu ressens, et ce que toi, tu choisis de vivre à cet âge.';
-      else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie, regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
+      else if (fam) txt = 'Le ' + fam.j + ' ' + nomMois + ', pense à ' + prenomDe(fam.p) + '. Allume une bougie (de préférence en cire d’abeille), regarde une photo ou note un souvenir. Puis demande-toi : qu\'as-tu reçu de cette personne, et que veux-tu en garder ?';
       else txt = L.question + ' Note ta réponse aujourd\'hui, et relis-la à la fin du mois.';
       return '<div class="m-piste"><p class="m-etiq">Ta piste ' + de(nomMois) + '</p><h3>Un geste pour ce mois</h3><p>' + esc(txt) + '</p></div>';
     }
@@ -284,7 +287,7 @@
       /* L'offert : le point de départ (interactif, gardé dans son espace, repris dans Le Cercle) ; rien si c'est déjà fait */
       try { var pd = JSON.parse(localStorage.getItem('genesolia-carnet-point-de-depart') || 'null'); if (pd && pd.v && pd.v.fait) return ''; } catch (e) {}
       return '<div class="m-cadeau" id="offert"><img src="assets/cercle/couv-point-depart.webp" alt="Couverture : Mon point de départ" width="150" height="212" loading="lazy">' +
-        '<div><p class="m-etiq">Offert · 15 minutes</p><h2>Ton point de départ</h2><p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : vois d’où tu pars et ce qui se rejoue pour toi. Tes résultats sont gardés dans ton espace, et repris tels quels si tu ouvres ton mois offert du Cercle.</p>' +
+        '<div><p class="m-etiq">Offert · 15 minutes</p><h2>Ton point de départ</h2><p>Ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes blessures du cœur et tes cibles : vois d’où tu pars et ce qui se rejoue pour toi. Tes résultats sont gardés dans ton espace, et repris tels quels si tu ouvres ton mois offert du Cercle.</p>' +
         '<p style="margin-top:.8rem"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p></div></div>';
     }
     function brancherOffert() {
@@ -310,7 +313,7 @@
     function apercu(r) {
       var h = blocOffert() + blocNumero(r).replace(/<ul class="m-gestes">[\s\S]*?<\/ul><div class="m-question">[\s\S]*?<\/div>/, '') + blocArbre(r, 1);
       h += '<div class="m-flou"><div class="m-cache" aria-hidden="true">' + calendrier(r) + '<h2 class="m-titre">Les âges en écho</h2><div class="m-echos"><div><b>Une personne de ta famille</b> a vécu un événement à ton âge.</div><div><b>Une autre date</b> de ton arbre tombe ce mois-ci.</div></div></div>' +
-        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2>' + '<p class="prix"><s style="font-size:.6em;opacity:.7">29 €</s> 1 mois gratuit</p><p>Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p>' + '<ul>' +
+        '<div class="m-offre"><p class="m-etiq">Le Cercle</p><h2>Ton mois complet, chaque mois</h2>' + '<p class="prix"><s style="font-size:.6em;opacity:.7">24,90 €</s> 1 mois gratuit</p><p>Après ton essai : 24,90 € par mois, sans engagement. Tu arrêtes en 1 clic.</p>' + '<ul>' +
         '<li>Ton mois personnel en détail, avec deux gestes et une question</li><li>Ton calendrier du mois, jour par jour</li><li>Toutes les dates de ton arbre qui tombent ce mois-ci</li><li>Ce que ta famille a vécu à l\'âge que tu as</li><li>Un nouveau carnet chaque mois, à remplir en ligne ou à imprimer</li><li>Ton suivi complet, semaine après semaine</li><li>En bonus : le livret « Les 12 saisons », dès ton 2<sup>e</sup> mois</li></ul>' +
         boutonOffre() + '<p class="petit">' + (r.dates.length > 1 ? r.dates.length + ' dates de ton arbre tombent en ' + nomMois + '. ' : '') + '<a href="mon-mois.html?exemple">Voir un exemple complet</a></p><div id="m-prevenir"></div></div></div>';
       corps.innerHTML = h;
@@ -356,6 +359,7 @@
     function verifierAcces() {
       if (!sb || !utilisateur) return Promise.resolve(false);
       if (CERCLE.libre) return Promise.resolve(true);
+      if (window.GenesoliaAcces && window.GenesoliaAcces.pass) return window.GenesoliaAcces.pass().catch(function () { return false; });   /* le Pass ouvre Mon mois (Le Cercle aussi) */
       if (window.GenesoliaAcces && window.GenesoliaAcces.membre) return window.GenesoliaAcces.membre().catch(function () { return false; });   /* même règle que tout le site (offre « cercle » comprise) */
       return sb.from('acces_premium').select('offre,valide_jusqu').eq('user_id', utilisateur.id).maybeSingle()
         .then(function (r) { var d = r && r.data; return !!(d && (d.offre === 'abonnement' || d.offre === 'offert') && new Date(d.valide_jusqu) > new Date()); }, function () { return false; });

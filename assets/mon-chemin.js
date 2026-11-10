@@ -28,6 +28,9 @@
     return obtenirClient().then(function (sb) {
       return sb.auth.getSession().then(function (r) {
         if (!r.data || !r.data.session) return { connecte: false };
+        /* comme les carnets : rien ne part dans l'espace avant l'accord (GenesoliaCoffre) */
+        var CF = window.GenesoliaCoffre;
+        if (CF && !CF.accord(r.data.session.user)) return { connecte: true, accord: false, sb: sb };
         return sb.from('resultats').insert(lignes).then(function (x) { return { connecte: true, erreur: x.error }; });
       });
     });
@@ -54,14 +57,28 @@
     if (!aUneSession()) { var a = lireAttente(); a.push(Object.assign({ quand: new Date().toISOString() }, l)); ecrireAttente(a); inviter(l); return Promise.resolve(false); }
     return inserer([l]).then(function (x) {
       if (!x.connecte) { var a = lireAttente(); a.push(l); ecrireAttente(a); inviter(l); return false; }
+      if (x.accord === false) { var a2 = lireAttente(); a2.push(Object.assign({ quand: new Date().toISOString() }, l)); ecrireAttente(a2); demanderAccord(x.sb); return false; }
       if (x.erreur) return false;
       toast('<p class="ct-titre">Enregistré dans ton espace</p><p>Retrouve ce résultat et ton évolution dans <a href="login.html#mon-chemin">Mon chemin</a>.</p>', 6000);
       return true;
     }).catch(function () { return false; });
   }
-  /* Après la connexion : on enregistre ce qui attendait */
+  function demanderAccord(sb) {
+    toast('<div id="ct-accord"></div>');
+    var z = document.getElementById('ct-accord'), CF = window.GenesoliaCoffre; if (!z || !CF) return;
+    CF.demander(z, sb, function () { sb.auth.refreshSession().then(function () { return viderAttente(sb); }).then(function (n) { toast('<p class="ct-titre">Enregistré dans ton espace</p><p>' + (n > 1 ? n + ' résultats ont été gardés. ' : '') + 'Retrouve-les dans <a href="login.html#mon-chemin">Mon chemin</a>.</p>', 6000); }); });
+  }
+  /* Après la connexion : on enregistre ce qui attendait (seulement avec l'accord) */
   function viderAttente(sb) {
     var a = lireAttente(); if (!a.length) return Promise.resolve(0);
+    var CF = window.GenesoliaCoffre;
+    return sb.auth.getSession().then(function (r) {
+      var u = r && r.data && r.data.session && r.data.session.user;
+      if (!u || (CF && !CF.accord(u))) return 0;
+      return envoyerAttente(sb, a);
+    });
+  }
+  function envoyerAttente(sb, a) {
     var lignes = a.map(function (x) { var l = propre(x); if (x.quand) l.cree_le = x.quand; return l; });
     return sb.from('resultats').insert(lignes).then(function (r) { if (!r.error) { ecrireAttente([]); return lignes.length; } return 0; });
   }

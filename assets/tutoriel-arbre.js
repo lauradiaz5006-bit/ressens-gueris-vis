@@ -149,7 +149,7 @@
   /* Première visite avec un arbre vide : ouverture automatique (une seule fois) */
   window.addEventListener('load', function () {
     var vu = false; try { vu = localStorage.getItem(CLE) === '1'; } catch (e) { vu = true; }
-    if (vu || /[?&](exemple|apercu)\b/.test(location.search)) return;
+    if (vu || /[?&](exemple|apercu)\b/.test(location.search) || document.body.classList.contains('mobile-arbre')) return;   /* téléphone : questionnaire guidé à la place */
     setTimeout(function () {
       var vide = document.getElementById('vide');
       if (vide && getComputedStyle(vide).display !== 'none' && !document.querySelector('.fenetre-fond.ouverte')) ouvrir();

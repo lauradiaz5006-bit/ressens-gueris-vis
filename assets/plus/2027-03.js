@@ -109,7 +109,7 @@ window.GENESOLIA_PLUS = {
         "Quand une émotion monte aujourd’hui, fais la respiration 5, 2, 7 trois fois. Puis dis-toi : « Je te reconnais. Tu as le droit d’être là. »",
         "Pose ton geste une fois : nommer à voix haute ce que tu ressens, souffler fort, laisser couler des larmes, marcher dix minutes. Note ce qui a changé.",
         "Partage une émotion avec une personne de confiance, en une phrase simple : « Aujourd’hui, je me suis senti·e… ». Remarque ce que tu ressens en étant entendu·e.",
-        "Relis ta phrase de permission à voix haute, debout, et ajuste un mot si besoin pour qu’elle sonne vraiment comme toi. Recopie-la dans ton carnet « J’avance ».",
+        "Relis ta phrase de permission à voix haute, debout, et ajuste un mot si besoin pour qu’elle sonne vraiment comme toi. Recopie-la dans ton carnet « Renaissance ».",
         "Regarde ta semaine : combien de fois as-tu laissé passer une émotion, et comment les personnes autour de toi ont-elles réagi ? Note le moment où ta voix t’a semblé la plus libre."
       ] }
   ]

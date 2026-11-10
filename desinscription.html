@@ -39,11 +39,8 @@
     function fin(titre, texte) { zone.innerHTML = '<h1>' + titre + '</h1><p>' + texte + '</p><div class="actions"><a class="btn btn-plein" href="/">Revenir au site</a></div>'; }
     if (!c || !j) { fin('Lien incomplet', 'Ce lien de désinscription est incomplet. Utilise le lien « Me désinscrire » en bas d\'un de nos e-mails, ou écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.'); return; }
     bt.addEventListener('click', function () {
-      var adresse = window.GenesoliaN8NAdresse && window.GenesoliaN8NAdresse();
-      if (!adresse) { err.innerHTML = 'La désinscription en ligne n\'est pas encore disponible. Écris-nous à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a> : on s\'en occupe.'; return; }
       bt.disabled = true; bt.textContent = 'Un instant…';
-      var d = new FormData(); d.append('c', c); d.append('j', j);
-      fetch(adresse + 'genesolia-desinscription', { method: 'POST', body: d })
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/desinscription', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ c: c, j: j }) })
         .then(function (r) { return r.json(); })
         .then(function (r) {
           if (r && r.ok) fin('C\'est fait', 'Tu es désinscrit·e : tu ne recevras plus d\'e-mails de Genesolia. Les outils du site restent à ta disposition quand tu le souhaites.');

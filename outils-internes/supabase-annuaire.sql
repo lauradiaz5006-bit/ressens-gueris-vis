@@ -1,0 +1,6 @@
+-- Annuaire des praticien·nes (appliqué le 24 octobre 2026, migrations « annuaire_praticiens » et « annuaire_colonne_valide_reservee »)
+-- Une fiche par praticien·ne (annuaire_praticiens). Visible sur annuaire.html si : publie = true, accord_public rempli,
+-- valide = true (coché par Genesolia dans le Table Editor) et Espace praticien actif.
+-- La colonne « valide » ne peut pas être modifiée par la praticienne ; une modification du nom, de la présentation
+-- ou des liens la remet à false (relecture).
+-- Pour valider une fiche : Supabase > Table Editor > annuaire_praticiens > cocher « valide ».

@@ -43,7 +43,13 @@
     .ma-message{font-size:.84rem;line-height:1.5;color:var(--prune);background:#FFF6EC;border:1px solid var(--champagne-clair,#EAD7BC);border-radius:10px;padding:.6rem .7rem;margin-top:.3rem;display:grid;gap:.35rem}
     .ma-message a{color:var(--prune);font-weight:600}
     .sr-seul{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .barre .groupe{display:flex;gap:.35rem;align-items:center}
+    .barre .groupe{display:flex;gap:.35rem;align-items:center;flex-wrap:wrap;min-width:0}
+    .barre{max-width:100vw;box-sizing:border-box}
+    .plus-menu{position:relative}
+    .menu-plus{position:absolute;top:calc(100% + .4rem);right:0;z-index:45;min-width:14rem;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:14px;box-shadow:0 16px 40px rgba(107,47,91,.16);padding:.4rem;display:grid;gap:.2rem}
+    .menu-plus[hidden]{display:none}
+    .menu-plus .bt{width:100%;justify-content:flex-start;text-align:left;border-color:transparent}
+    .menu-plus #bt-nouveau-barre{color:#A3324B}
     .barre .sep{width:1px;height:22px;background:var(--rose-fonce);margin:0 .25rem}
     .bt{font:600 .82rem/1 var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:999px;padding:.5rem .85rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;text-decoration:none;white-space:nowrap}
     .bt:hover{border-color:var(--prune)}
@@ -88,9 +94,22 @@
     .vide-carte small{display:block;margin-top:1.1rem;color:var(--prune-doux);font-size:.82rem}
 
     /* Panneau des répétitions */
-    .panneau{width:300px;flex-shrink:0;border-left:1px solid var(--rose);background:var(--blanc);display:flex;flex-direction:column;min-height:0}
-    .panneau-tete{display:flex;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
+    .panneau{position:relative;width:var(--pl,300px);max-width:72vw;flex-shrink:0;border-left:1px solid var(--rose);background:var(--blanc);display:flex;flex-direction:column;min-height:0}
+    .panneau-tete{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:.9rem 1rem;border-bottom:1px solid var(--rose)}
     .panneau-tete h2{font-size:1.15rem;margin-right:auto}
+    /* Agrandir le panneau : bouton (300 px ↔ 45 %) et poignée à la souris ; en grand, les cartes passent sur deux colonnes */
+    body.panneau-large .panneau{width:var(--pl,45vw)}
+    .bt-agrandir{font:600 .74rem/1 var(--texte);padding:.4rem .6rem;border:1px solid var(--rose);border-radius:99px;background:var(--blanc);color:var(--prune);cursor:pointer;white-space:nowrap}.bt-agrandir:hover{border-color:var(--prune)}
+    .panneau-poignee{position:absolute;left:-5px;top:0;bottom:0;width:10px;cursor:col-resize;z-index:3}
+    .panneau-poignee::after{content:"";position:absolute;left:4px;top:50%;width:2px;height:44px;margin-top:-22px;border-radius:2px;background:var(--rose-fonce);opacity:.5;transition:opacity .15s}
+    .panneau-poignee:hover::after,body.panneau-tire .panneau-poignee::after{opacity:1;background:var(--prune)}
+    body.panneau-tire{cursor:col-resize;user-select:none}
+    .rep-bloc{display:grid;gap:.15rem}
+    /* panneau large : les cartes en deux colonnes (grille), les menus et les titres sur toute la largeur */
+    .panneau.deux-colonnes .reps-groupe,.panneau.deux-colonnes .rep-theme-bloc[open],.panneau.deux-colonnes .exos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;align-items:start}
+    .panneau.deux-colonnes .reps-groupe > .exos-titre,.panneau.deux-colonnes .reps-groupe > .rep-aide,.panneau.deux-colonnes .rep-theme-bloc > summary,.panneau.deux-colonnes .rep-theme-bloc > .rep-aide,.panneau.deux-colonnes .exos > .exos-titre,.panneau.deux-colonnes .exos > .rep-aide{grid-column:1/-1}
+    .panneau.deux-colonnes .reps-enfants{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .bt-reps-pdf{font:600 .74rem/1 var(--texte);padding:.4rem .7rem;border:1px solid var(--rose);border-radius:99px;background:var(--blanc);color:var(--prune);cursor:pointer}.bt-reps-pdf:hover{border-color:var(--prune)}.bt-reps-pdf[hidden]{display:none}
     .compte{background:var(--prune);color:var(--blanc);font:600 .75rem/1 var(--texte);border-radius:999px;padding:.3rem .55rem}
     .panneau-corps{overflow-y:auto;padding:.8rem;display:grid;gap:.55rem;align-content:start;flex:1}
     .rep{border:1px solid var(--rose);border-left:4px solid var(--c);border-radius:12px;padding:.7rem .8rem;background:var(--blanc);text-align:left;cursor:pointer;font:inherit;color:inherit;width:100%}
@@ -99,8 +118,12 @@
     .rep strong{display:block;font:600 .8rem/1.3 var(--texte);color:var(--c);margin-bottom:.2rem}
     .rep span{display:block;font-size:.84rem;line-height:1.45;color:var(--prune)}
     .rep .rep-q{display:block;margin-top:.45rem;padding-top:.4rem;border-top:1px dashed var(--rose);font-size:.78rem;line-height:1.45;color:var(--prune-doux)}
+    .trous{border:1px dashed var(--rose-fonce,#D9A7B6);border-radius:14px;padding:.55rem .75rem;margin-bottom:.9rem;background:#fff;font-size:.88rem}
+    .trous summary{cursor:pointer;font-weight:600;color:var(--prune)}.trous summary span{display:inline-block;min-width:1.4em;margin-left:.3rem;padding:0 .4rem;border-radius:99px;background:#FCEFF3;text-align:center;font-size:.8rem}
+    .trous ul{list-style:none;margin:.3rem 0 0;padding:0;display:grid;gap:.15rem;max-height:14rem;overflow:auto}
+    .trous button{background:none;border:0;padding:.2rem 0;text-align:left;color:var(--prune-doux);font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:#E5C6CF}
     .exos{border:1px solid var(--rose-fonce);border-radius:14px;padding:.7rem .7rem .5rem;margin-bottom:.9rem;background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%)}
-    .exos-titre{font:600 .82rem/1.3 var(--texte);color:var(--prune);display:flex;justify-content:space-between;gap:.5rem;margin-bottom:.2rem}
+    .exos-titre{font:600 .82rem/1.3 var(--texte);color:var(--prune);display:flex;justify-content:flex-start;align-items:baseline;gap:.45rem;margin-bottom:.2rem}
     .exos-titre span{font-weight:400;color:var(--prune-doux)}
     .exo{display:grid;grid-template-columns:1fr auto;gap:.1rem .5rem;align-items:center;padding:.5rem .55rem;margin-top:.35rem;border-radius:10px;border-left:3px solid var(--c);background:var(--blanc);text-decoration:none;color:var(--prune)}
     .exo b{font-weight:600;font-size:.86rem}
@@ -160,6 +183,50 @@
     .puces input{border:none;background:transparent;padding:.25rem;flex:1;min-width:9rem;font:400 .95rem/1.3 var(--texte);color:var(--prune);outline:none}
     .puce{display:inline-flex;align-items:center;gap:.3rem;background:var(--rose);border-radius:999px;padding:.25rem .3rem .25rem .65rem;font-size:.82rem;color:var(--prune)}
     .puce button{border:none;background:none;color:var(--prune);cursor:pointer;font-size:1rem;line-height:1;padding:0 .2rem}
+    .aide-reperes{font-size:.8rem;line-height:1.45;color:var(--prune-doux);margin:-.15rem 0 .45rem}
+    .reperes-liste{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.45rem}
+    .reperes-liste[hidden],.reperes-dispo[hidden]{display:none}
+    .puce-repere{background:var(--blanc);border:1.5px solid var(--rc)}
+    .puce-repere::before{content:"";width:.6rem;height:.6rem;border-radius:3px;background:var(--rc);margin-left:-.25rem}
+    .repere-ajout{display:flex;gap:.4rem}
+    .repere-ajout input{flex:1;min-width:0;font:400 .95rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.55rem .7rem}
+    .reperes-dispo{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.5rem}
+    .etiq-dispo{font-size:.76rem;color:var(--prune-doux);margin-right:.15rem}
+    .puce-dispo{border:1px dashed var(--rc);background:transparent;border-radius:999px;padding:.22rem .65rem;font:400 .8rem/1.3 var(--texte);color:var(--prune);cursor:pointer}
+    .puce-dispo:hover,.puce-dispo:focus-visible{background:var(--nacre)}
+    .rep .rep-lect{display:block;margin-top:.45rem;padding-top:.4rem;border-top:1px dashed var(--rose);font-size:.78rem;line-height:1.45;color:var(--prune)}
+    .rep .rep-lect b{display:block;font-weight:600;font-size:.74rem;color:var(--c);margin-bottom:.15rem}
+    .rep .rep-lect span{display:block;font-size:.78rem;margin-top:.15rem}
+    .rep-vue{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem}
+    .rep-vue label{flex:1 1 9rem;display:flex;flex-direction:column;gap:.15rem;font:600 .72rem var(--texte);color:var(--prune-doux);text-transform:uppercase;letter-spacing:.06em}
+    .rep-vue select{font:600 .85rem var(--texte);text-transform:none;letter-spacing:0;color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:12px;padding:.45rem .6rem;cursor:pointer}
+    .rep-centre{font-size:.85rem;background:var(--rose);border-radius:12px;padding:.55rem .7rem;margin:0 0 .6rem;color:var(--prune)}
+    .rep-centre .lien-texte{display:inline;font:inherit;font-weight:600;color:var(--prune);background:none;border:0;padding:0;text-decoration:underline;cursor:pointer}
+    .rep-manque{font-size:.82rem;border:1px dashed var(--champagne);border-radius:12px;padding:.55rem .7rem;margin:0 0 .7rem;color:var(--prune);line-height:1.45}
+    .rep-petit{font:600 .74rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.25rem .6rem;cursor:pointer;margin:.25rem .25rem 0 0}
+    .rep-petit:hover{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .rep-bloc{display:flex;flex-direction:column;gap:.25rem}
+    .rep-bloc.avis-non .rep{opacity:.6}
+    .rep-bloc.avis-oui .rep{box-shadow:0 0 0 2px var(--c)}
+    .rep-avis{display:flex;gap:.3rem;flex-wrap:wrap;margin:0 0 .15rem .2rem}
+    .rep-avis button{font:600 .7rem var(--texte);color:var(--prune-doux);background:transparent;border:1px solid var(--rose-fonce);border-radius:99px;padding:.2rem .55rem;cursor:pointer}
+    .rep-avis button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .rep-note{font:400 .8rem var(--texte);color:var(--prune);border:1px solid var(--rose-fonce);border-radius:10px;padding:.35rem .55rem;margin:0 0 .3rem .2rem;background:var(--nacre)}
+    .rep-completer{margin:0 0 0 .2rem}
+    .rep-vu-btn{display:flex;justify-content:space-between;align-items:center;width:100%;font:600 .85rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:12px;padding:.55rem .75rem;margin:0 0 .35rem;cursor:pointer;text-align:left}
+    .rep-vu-btn span{font-weight:400;color:var(--prune-doux);font-size:.78rem}
+    .rep-vu-btn:hover{border-color:var(--prune)}
+    .reps-top{padding:.6rem;border-radius:14px;background:linear-gradient(180deg,var(--rose),transparent);margin-bottom:.4rem}
+    .rep-theme-bloc{border:1px solid var(--rose);border-radius:12px;padding:.45rem .6rem;margin:.35rem 0;background:var(--blanc)}
+    .rep-theme-bloc summary{cursor:pointer;font:600 .85rem var(--texte);color:var(--prune);display:flex;justify-content:space-between;list-style-position:inside}
+    .rep-theme-bloc summary span{font-weight:400;color:var(--prune-doux)}
+    .rep-theme-bloc[open]{display:flex;flex-direction:column;gap:.5rem}
+    .rep-ecartees summary,.rep-ailleurs summary{color:var(--prune-doux)}
+    .rep-lire{overflow-wrap:anywhere;padding-right:.4rem}
+    .rep .rep-cote{display:inline-block;margin:.2rem 0 .1rem;font:600 .68rem var(--texte);letter-spacing:.04em;color:var(--prune-doux);background:var(--rose);border-radius:99px;padding:.12rem .5rem}
+    .reps-portrait{padding:.6rem;border-radius:14px;border:1px solid var(--rose-fonce);margin-bottom:.4rem}
+    .reps-visibles{display:grid;gap:.5rem;margin-bottom:.6rem}
+    .reps-titre-auto{margin-top:.2rem}
     .evts{display:grid;gap:.45rem;margin-bottom:.5rem}
     .evt,.evt-entete{display:grid;grid-template-columns:1fr 4.6rem 5.4rem 2rem;gap:.4rem;align-items:center}
     .evt select,.evt input{font:400 .88rem/1.2 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:9px;padding:.5rem .5rem;width:100%;min-width:0}
@@ -190,6 +257,9 @@
     .fi-ligne.off{opacity:.5}
     .fi-dates{color:var(--prune-doux);font-size:.84rem;margin-left:.4rem}
     .fi-info{display:block;font-size:.8rem;color:var(--prune-doux);line-height:1.45}
+    .fi-reconnu{display:inline-block;font-size:.76rem;color:#6B2F5B;background:#F3E3C2;border-radius:999px;padding:.05rem .55rem;margin-top:.2rem}
+    .fi-reconnu[hidden]{display:none}
+    .fi-rec{max-height:14rem;overflow:auto}
     .fi-doute{display:block;font-size:.8rem;color:#9A5A1E;line-height:1.45;margin-top:.15rem}
     .lien-import{display:block;margin:.8rem auto 0;background:none;border:none;color:var(--prune);font:600 .86rem/1.3 var(--texte);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
     .liste-versions{display:grid;gap:.35rem;max-height:260px;overflow-y:auto}
@@ -198,6 +268,31 @@
     /* Exemple */
     .bandeau-exemple{position:fixed;left:50%;top:136px;transform:translateX(-50%);z-index:40;background:var(--prune);color:var(--blanc);border-radius:999px;padding:.65rem 1.2rem;font:600 .86rem/1.4 var(--texte);box-shadow:0 12px 30px rgba(107,47,91,.3);text-align:center;max-width:calc(100% - 24px)}
     .bandeau-exemple a{color:var(--champagne-clair)}
+    .bandeau-exemple .bt-demo-seance{margin:0 .3rem;padding:.3rem .8rem;border-radius:99px;border:0;background:var(--champagne-clair,#F3DCC0);color:#2E1338;font:600 .85rem var(--texte);cursor:pointer}
+    .temps{position:absolute;left:16px;right:16px;bottom:16px;z-index:30;max-width:52rem;margin:0 auto;background:rgba(255,255,255,.97);border:1px solid var(--rose);border-radius:18px;box-shadow:0 14px 34px rgba(74,33,66,.18);padding:.7rem 1rem .8rem;font-size:.88rem;color:var(--prune)}
+    .temps[hidden]{display:none}
+    .aide-raccourcis{position:fixed;right:16px;bottom:16px;z-index:220;width:min(22rem,calc(100vw - 32px));background:#fff;border:1px solid var(--rose);border-radius:16px;box-shadow:0 14px 34px rgba(74,33,66,.2);padding:1rem 1.1rem;font-size:.88rem;color:var(--prune)}
+    .aide-raccourcis p{margin:.2rem 0 .4rem;color:var(--prune-doux)}.aide-raccourcis ul{list-style:none;margin:0 0 .6rem;padding:0;display:grid;gap:.25rem}
+    kbd{display:inline-block;min-width:1.3em;padding:.05rem .35rem;border:1px solid #E5C6CF;border-bottom-width:2px;border-radius:6px;background:#FFF9F7;font:600 .78rem var(--texte);text-align:center;color:var(--prune)}
+    .temps-tete{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+    .temps-tete p{margin:0;font:400 1.15rem var(--display)}.temps-tete b{font-weight:400;color:#C0573F}
+    .temps-tete select{margin-left:auto;font:inherit;font-size:.82rem;max-width:15rem;padding:.35rem .5rem;border:1px solid #E5C6CF;border-radius:10px;background:#fff;color:inherit}
+    #temps-curseur{width:100%;accent-color:#C0573F;margin:.5rem 0 0}
+    #temps-frise{display:block;width:100%;height:46px}
+    .temps-liste p{margin:.25rem 0 0;line-height:1.45}.temps-echos{color:#8A4A2E}
+    body.temps-ouvert .legende-symb{display:none}
+    #bt-temps[aria-pressed=true],body.temps-ouvert #bt-temps{background:#FCEFF3;border-color:#C0573F}
+    @media (max-width:760px){.bandeau-exemple{top:auto;left:12px;right:84px;transform:none;max-width:none;bottom:calc(14px + env(safe-area-inset-bottom,0px));font-size:.82rem;padding:.55rem 1rem;border-radius:16px}}
+    .remise-partage{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:41;width:min(560px,calc(100% - 24px));box-sizing:border-box;background:#fff;border:1px solid var(--rose);border-radius:20px;padding:1rem 1.1rem;box-shadow:0 14px 36px rgba(107,47,91,.22);font:400 .92rem/1.5 var(--texte);color:var(--prune)}
+    .remise-partage p{margin:0 0 .7rem}
+    .remise-boutons,.remise-formats{display:flex;flex-wrap:wrap;gap:.5rem}
+    .remise-formats{margin-top:.5rem}
+    .remise-formats[hidden]{display:none}
+    .remise-partage .bt{min-height:46px;justify-content:center;flex:1 1 200px}
+    .remise-partage .remise-msg{margin:.6rem 0 0;font-size:.88rem}
+    .remise-partage .remise-msg:empty{display:none}
+    .remise-partage a{color:var(--prune);font-weight:600}
+    @media (max-width:560px){.remise-boutons .bt,.remise-formats .bt{flex:1 1 100%}}
 
     /* Téléphone */
     .porte{display:none;padding:2.2rem 16px 3rem}
@@ -218,6 +313,126 @@
     .porte-continuer{background:none;border:none;color:var(--prune-doux);text-decoration:underline;font:400 .85rem var(--texte);cursor:pointer}
 
 
+    /* ── Téléphone : une personne au centre (assets/arbre-telephone.js) ── */
+    #mt{display:none}
+    body.mobile-arbre.mt-pret #mt{display:block}
+    body.mobile-arbre.mt-pret:not(.mt-dessin){height:auto;min-height:100vh;overflow:auto}   /* téléphone : la page défile jusqu'en bas pendant les questions */
+    body.mobile-arbre.mt-pret .barre,body.mobile-arbre.mt-pret .zone,body.mobile-arbre.mt-pret .porte{display:none}
+    body.mobile-arbre.mt-pret.mt-dessin #mt{display:none}
+    body.mobile-arbre.mt-pret.mt-dessin .zone{display:flex}
+    body.mobile-arbre.mt-pret.mt-dessin header[data-entete],body.mobile-arbre.mt-pret.mt-dessin .annonce,body.mobile-arbre.mt-pret.mt-dessin footer,body.mobile-arbre.mt-pret.mt-dessin .es-bandeau{display:none!important}
+    .mt-revenir{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;box-shadow:0 10px 30px rgba(107,47,91,.35)}
+    #mt{padding:1rem 16px 6.5rem;max-width:34rem;margin:0 auto;color:var(--prune)}
+    .mt-haut{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+    .mt-titre{font-size:1.5rem;margin:0}
+    .mt-menu-bt{background:#fff;border:1px solid var(--rose);border-radius:999px;width:44px;height:44px;font-size:1rem;letter-spacing:.05em;color:var(--prune);cursor:pointer}
+    .mt-menu{position:absolute;right:16px;top:7.4rem;z-index:70;background:#fff;border:1px solid var(--rose);border-radius:16px;box-shadow:0 20px 50px rgba(74,33,66,.2);padding:.4rem;display:grid;min-width:15rem}
+    .mt-menu button{background:none;border:0;text-align:left;padding:.75rem .9rem;font:500 .95rem var(--texte);color:var(--prune);border-radius:10px;cursor:pointer}
+    .mt-menu button:hover,.mt-menu button:focus-visible{background:#FCEFF3}
+    #mt{position:relative}
+    .mt-retour{background:none;border:0;color:var(--prune-doux);font:600 .9rem var(--texte);padding:.2rem 0 .8rem;cursor:pointer}
+    .mt-rang{margin:0 0 1rem}
+    .mt-rang-t{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .45rem}
+    .mt-duo{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    .mt-ligne{display:grid;gap:.5rem}
+    .mt-carte{display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;background:#fff;border:1px solid var(--rose);border-radius:16px;padding:.7rem .8rem;font:inherit;color:var(--prune);cursor:pointer;min-height:58px;box-shadow:0 4px 14px rgba(107,47,91,.06)}
+    .mt-carte .mt-txt{display:grid;min-width:0}
+    .mt-carte b{font-weight:600;font-size:.98rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .mt-carte small{font-size:.8rem;color:var(--prune-doux)}
+    .mt-vide{border:1.5px dashed #D9B7C1;background:#FFFBFC;box-shadow:none}
+    .mt-vide b{font-weight:600;color:var(--prune-doux);white-space:normal}
+    .mt-plus{flex:none;width:30px;height:30px;border-radius:50%;background:#FCEFF3;color:var(--prune);display:flex;align-items:center;justify-content:center;font-size:1.2rem;line-height:1}
+    .mt-lien{width:2px;height:18px;background:#D9B7C1;margin:-.4rem auto .2rem}
+    .mt-coeur{background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 55%,#4A1F42 100%);border-radius:22px;padding:1rem;margin:0 0 1.3rem;box-shadow:0 16px 40px rgba(107,47,91,.25)}
+    .mt-coeur .mt-carte.mt-centre{background:transparent;border:0;box-shadow:none;color:#fff;padding:.3rem .2rem .8rem}
+    .mt-centre b{font:400 1.45rem var(--display);white-space:normal}
+    .mt-centre small{color:#F3DCC0;font-size:.88rem}
+    .mt-fiche{width:100%;background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;border:0}
+    .mt-sym{flex:none;width:26px;height:26px;border:2px solid var(--prune);background:#fff;box-sizing:border-box;position:relative}
+    .mt-sym.mt-f{border-radius:50%}.mt-sym.mt-m{border-radius:4px}.mt-sym.mt-u{border-radius:6px;transform:rotate(45deg) scale(.85)}
+    .mt-sym.mt-moi{background:var(--prune)}
+    .mt-sym.mt-dcd::after,.mt-sym.mt-dcd::before{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:2px;background:var(--prune);transform:rotate(-45deg)}.mt-sym.mt-dcd::before{transform:rotate(45deg)}
+    .mt-centre .mt-sym{width:40px;height:40px;border-color:#F3DCC0;background:transparent}
+    .mt-centre .mt-sym.mt-moi{background:#F3DCC0}
+    .mt-centre .mt-sym.mt-dcd::after,.mt-centre .mt-sym.mt-dcd::before{background:#F3DCC0}
+    .mt-discret{font-size:.84rem;color:var(--prune-doux);text-align:center;margin-top:1rem}
+    .mt-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,.97);border-top:1px solid var(--rose);padding:.35rem .4rem calc(.35rem + env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
+    .mt-nav button{background:none;border:0;padding:.65rem .2rem;font:600 .82rem var(--texte);color:var(--prune-doux);border-radius:12px;cursor:pointer}
+    .mt-nav button[aria-current="true"]{color:var(--prune);background:#FCEFF3}
+    .mt-nav i{font-style:normal;display:inline-block;min-width:1.3em;padding:0 .3em;border-radius:999px;background:var(--prune);color:#fff;font-size:.72rem;margin-left:.2rem}
+    .mt-h2{font-size:1.4rem;margin:0 0 .8rem}.mt-h2 span{font-size:.9rem;color:var(--champagne)}
+    .mt-groupe{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--prune);margin:1.1rem 0 .55rem}.mt-h2+.mt-groupe{margin-top:.2rem}
+    .mt-rep{background:#fff;border:1px solid var(--rose);border-left:4px solid var(--champagne);border-radius:14px;padding:.85rem 1rem;margin:0 0 .65rem}
+    .mt-rep.mt-fort{border-left-color:#C62F3A}
+    .mt-rep h3{font-size:1.02rem;margin:0 0 .3rem}
+    .mt-rep p{font-size:.9rem;color:var(--prune-doux);margin:0}
+    .mt-vide-reps{background:#fff;border:1px solid var(--rose);border-radius:20px;padding:1.4rem 1.2rem;text-align:center}
+    .mt-vide-reps h2{font-size:1.4rem;margin:0 0 .6rem}
+    .mt-vide-reps p{color:var(--prune-doux);margin:0 0 1rem}
+    /* Questionnaire */
+    .mt-q{padding-top:.4rem}
+    .mt-etiq{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .mt-barre{height:6px;border-radius:999px;background:#F6E3E8;margin:.5rem 0 1.4rem;overflow:hidden}
+    .mt-barre i{display:block;height:100%;background:linear-gradient(90deg,#B98A55,#6B2F5B);border-radius:999px;transition:width .3s}
+    .mt-q h1{font-size:2rem;line-height:1.15;margin:0 0 .5rem}
+    .mt-q h1 em{font-style:normal;color:var(--champagne)}
+    .mt-aide{color:var(--prune-doux);margin:0 0 1.3rem}
+    .mt-form{display:grid;gap:.9rem}
+    .mt-form label,.mt-feuille label{display:grid;gap:.35rem;font-weight:600;font-size:.93rem}
+    .mt-form label small,.mt-feuille label small{font-weight:400;color:var(--prune-doux)}
+    .mt-form input,.mt-feuille input{font:inherit;font-weight:400;font-size:1.05rem;padding:.8rem .9rem;border:1px solid #E5C6CF;border-radius:14px;background:#fff;color:var(--prune);width:100%;box-sizing:border-box}
+    .mt-form .mt-case,.mt-feuille .mt-case{display:flex;align-items:center;gap:.6rem;font-weight:500}
+    .mt-case input{width:22px;height:22px;flex:none}
+    .mt-choix{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+    .mt-choix button{padding:.8rem;border:1.5px solid #E5C6CF;border-radius:14px;background:#fff;font:600 .95rem var(--texte);color:var(--prune);cursor:pointer}
+    .mt-choix button[aria-pressed="true"]{border-color:var(--prune);background:#FCEFF3}
+    .mt-err{color:#A3324B;font-size:.9rem;min-height:1.1em;margin:0}
+    .mt-q-actions{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}
+    .mt-q-actions .btn-plein{flex:1 1 9rem}
+    /* Fiche courte, ouverte par le bas */
+    .mt-fond{position:fixed;inset:0;z-index:120;background:rgba(74,33,66,.42);display:flex;align-items:flex-end}
+    .mt-feuille{width:100%;max-height:92vh;overflow-y:auto;background:#FFFBFA;border-radius:24px 24px 0 0;padding:.6rem 18px calc(1.2rem + env(safe-area-inset-bottom));display:grid;gap:.85rem;box-shadow:0 -20px 50px rgba(74,33,66,.25);animation:mtMonte .25s ease-out}
+    @keyframes mtMonte{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+    .mt-poignee{width:44px;height:5px;border-radius:999px;background:#E5C6CF;margin:0 auto .3rem}
+    .mt-feuille h2{font-size:1.4rem;margin:0}
+    .mt-plus-details{background:none;border:0;color:var(--prune-doux);text-decoration:underline;font:500 .9rem var(--texte);cursor:pointer;padding:.2rem}
+    body.mobile-arbre .fenetre-fond{align-items:flex-end;padding:0}
+    body.mobile-arbre .fenetre-fond .fenetre{border-radius:24px 24px 0 0;max-height:92vh;overflow-y:auto;margin:0}
+    /* téléphone : le titre de la fenêtre reste en haut quand on fait défiler (il n'est plus coupé à moitié) */
+    body.mobile-arbre .fenetre-fond .fen-tete{position:sticky;top:0;z-index:5;background:var(--blanc);border-radius:24px 24px 0 0;padding:1rem 1.2rem .7rem;box-shadow:0 8px 14px -12px rgba(74,33,66,.35)}
+    body.mobile-arbre .fenetre-fond .fen-tete h2{font-size:1.35rem}
+    body.mobile-arbre #fen-encadrer .fen-tete p{display:none}
+    .mt-accueil h1{font-size:2.1rem}
+    .mt-portes{display:grid;gap:.8rem;margin:1.4rem 0 .4rem}
+    .mt-porte{width:100%;text-align:center;padding:1rem}
+    .mt-lien-fil{display:block;text-align:center;color:var(--prune);padding:.6rem;font-size:.98rem}
+    .mt-lien-fil b{color:var(--champagne);text-decoration:underline}
+    .mt-passerelle{background:linear-gradient(135deg,#FFF6EA,#FCEFF3);border:1px solid #EBD3B4;border-radius:20px;padding:1.1rem 1.2rem;margin:0 0 1.2rem;display:grid;gap:.6rem;text-align:center}
+    .mt-passerelle p{margin:0;color:var(--prune)}
+    .mt-info{background:#FFF6EA;border:1px solid #EBD3B4;border-radius:16px;padding:.9rem 1rem;margin:0 0 1rem;display:grid;gap:.6rem}
+    .mt-info p{margin:0;font-size:.92rem}
+    @media (prefers-reduced-motion:reduce){.mt-feuille{animation:none}.mt-barre i{transition:none}}
+
+
+    /* Espace praticien : mode séance, arbre partagé */
+    body.mode-seance header[data-entete],body.mode-seance .barre,body.mode-seance .panneau,body.mode-seance footer,body.mode-seance .annonce,body.mode-seance .note-donnees,body.mode-seance .legende-symb,body.mode-seance .es-bandeau{display:none!important}
+    body.mode-seance .zone{position:fixed;inset:0;z-index:80;height:100vh!important;background:var(--fond,#FFF9F7)}
+    .quitter-seance{position:fixed;right:18px;top:18px;z-index:90;box-shadow:0 10px 30px rgba(107,47,91,.3)}
+    body.mode-seance .pr-tiroir{padding-top:4.4rem}
+    .barre-seance{position:fixed;right:18px;top:18px;z-index:220;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end;max-width:calc(100vw - 36px)}
+    .barre-seance .bt{box-shadow:0 10px 30px rgba(107,47,91,.22);background:var(--blanc)}.barre-seance .bt.plein{background:var(--prune);color:#fff}
+    .barre-seance .bt[aria-pressed=true]{background:var(--prune);color:#fff;border-color:var(--prune)}.barre-seance [hidden]{display:none}
+    body.mode-seance.seance-reps .panneau{display:flex!important;position:fixed;top:0;right:0;bottom:0;width:min(28rem,100vw);max-width:100vw;z-index:85;box-shadow:-18px 0 40px rgba(74,33,66,.22);padding-top:3.6rem}
+    body.mode-seance.seance-reps .panneau-poignee,body.mode-seance.seance-reps #bt-agrandir,body.mode-seance.seance-reps #bt-replier{display:none!important}
+    .groupe-cabinet .bt.plein{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .menu-plus #bt-nouveau-barre{margin-top:.35rem;border-top:1px solid var(--rose)!important;border-radius:0 0 10px 10px}
+    .panneau-tete h2{white-space:nowrap}
+    body.partage-verrou #bt-reps-pdf,body.arbre-partage .exos,body.arbre-partage .rep-exo{display:none!important}
+    body.partage-verrou #dessin,body.partage-verrou .panneau{-webkit-user-select:none;user-select:none}
+    body.partage-sans-reps .panneau,body.partage-sans-reps #bt-panneau{display:none!important}
+    @media print{body.partage-verrou>*{display:none!important}body.partage-verrou::after{content:"Cet arbre est partagé en lecture seule.";display:block;padding:2cm;font:16pt sans-serif;color:#6B2F5B}}
+    body.arbre-partage .barre .groupe,body.arbre-partage .barre .sep,body.arbre-partage .choix-arbre,body.arbre-partage #actions-perso,body.arbre-partage #vide,body.arbre-partage .note-donnees{display:none!important}
+    #lien-cabinet{margin-right:.4rem}
     /* Rapport */
     #bt-rapport{background:var(--champagne-clair);border-color:var(--champagne);color:var(--prune)}
     #bt-rapport:hover{border-color:var(--prune)}
@@ -276,6 +491,17 @@
     }
     @media (min-width:1101px){ .bt-panneau{display:none} }
     @media (max-width:760px){ .deux-col{grid-template-columns:1fr} .barre h1{font-size:1rem} .legende-symb{display:none} }
+    /* Téléphone, arbre complet (dossier praticien, ?dessin) : barre d'outils sur une seule ligne qui défile de côté, le menu « … » s'ouvre en bas de l'écran */
+    @media (max-width:760px){
+      .barre{gap:.4rem;padding:.45rem 16px}
+      .barre .titre-arbre{width:100%}
+      .barre .groupe{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:100%}
+      .barre .groupe::-webkit-scrollbar{display:none}
+      .barre .groupe .bt{flex-shrink:0;white-space:nowrap}
+      .barre .sep{display:none}
+      .barre .statut{white-space:normal;max-width:100%;font-size:.8rem}
+      .menu-plus{position:fixed;left:12px;right:12px;bottom:12px;top:auto;min-width:0}
+    }
     /* Style « arbre doré » */
     body.arbre-dore #dessin{background:transparent}
     body.arbre-dore #dessin [stroke="#6B2F5B"]{stroke:#A87A3D}
@@ -284,14 +510,60 @@
     body.arbre-dore #dessin path[fill="none"],body.arbre-dore #dessin line{stroke:#C49A5B}
     body.arbre-dore #dessin .personne > circle:not(.halo),body.arbre-dore #dessin .personne > rect:not(.zone-clic),body.arbre-dore #dessin .personne > path:not(.halo){filter:drop-shadow(0 3px 6px rgba(168,122,61,.28))}
     body.arbre-dore #dessin text[fill="#6B2F5B"]{fill:#5A3A16}
-    .bt-encadrer{background:linear-gradient(135deg,#F3DCC0,#E2C48E);border-color:#B98A55;color:#3A2410;font-weight:700}
+    .bt-encadrer{background:linear-gradient(135deg,#6B2F5B,#8E2F5E);border-color:#6B2F5B;color:#fff;font-weight:700;box-shadow:0 6px 16px rgba(107,47,91,.28);display:inline-flex;align-items:center;gap:.45rem}
+    .bt-encadrer:hover{filter:brightness(1.08)}
+    .bt-encadrer svg{width:18px;height:18px;flex:none}
+    .bt-encadrer small{font-weight:600;font-size:.74rem;padding:.12rem .45rem;border-radius:999px;background:#F3DCC0;color:#4A0F36}
+    .fe-apercu-z{position:relative}
+    .fe-badge{display:inline-block;margin-left:.3rem;padding:.08rem .45rem;border-radius:999px;background:#8E2F5E;color:#fff;font:700 .68rem var(--texte);vertical-align:middle}
+    .fe-apercu{cursor:zoom-in;touch-action:pan-y}
+    .fe-loupe{position:static;display:flex;margin:.55rem auto 0;align-items:center;gap:.35rem;padding:.4rem .85rem;border-radius:999px;border:1px solid var(--champagne);background:#fff;color:var(--prune);font:600 .82rem var(--texte);cursor:pointer}.fe-loupe:hover{border-color:var(--prune)}
+    .fe-loupe svg{width:18px;height:18px}
+    .fe-zoom{position:fixed;inset:0;z-index:2000;background:rgba(36,14,32,.92);display:flex;flex-direction:column}
+    .fe-zoom-barre{display:flex;gap:.5rem;justify-content:center;padding:.7rem;flex:none}
+    .fe-zoom-barre button{min-width:44px;padding:.5rem .9rem;border-radius:999px;border:0;background:#fff;color:#4A0F36;font:700 1rem var(--texte);cursor:pointer}
+    .fe-zoom-barre .fe-zoom-x{background:#E8C899}
+    .fe-zoom-vue{flex:1;overflow:hidden;touch-action:none;cursor:grab;position:relative}
+    .fe-zoom-vue:active{cursor:grabbing}
+    .fe-zoom-img{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+    .fe-zoom-img>svg{display:block;width:100%;height:auto}
+    .fe-commander{width:100%;font-size:1.05rem}
+    .fe-sous-t{margin:.9rem 0 0;font-weight:700;color:var(--prune)}
+    .fe-vierge{display:flex;gap:.8rem;align-items:center;margin-top:.4rem;padding:.7rem .8rem;border:1px solid var(--champagne-clair);border-left:4px solid #B98A55;border-radius:14px;background:#fff;color:inherit;text-decoration:none}
+    .fe-vierge img{width:96px;height:auto;border-radius:6px;box-shadow:0 4px 12px rgba(107,47,91,.18);flex:none}
+    .fe-vierge b{display:block;color:var(--prune)}
+    .fe-vierge span span{display:block;font-size:.85rem;color:var(--prune-doux,#7a5570)}
+    .fe-vierge u{display:inline-block;margin-top:.25rem;font-weight:700;color:var(--prune)}
+    .mt-encadre{display:grid;grid-template-columns:84px 1fr;gap:.8rem;align-items:center;background:linear-gradient(135deg,#FFF6EA,#FCEFF3);border:1px solid #EBD3B4;border-radius:18px;padding:.9rem 1rem;margin:1.2rem 0}
+    .mt-encadre img{width:84px;height:auto;border-radius:8px;box-shadow:0 6px 16px rgba(107,47,91,.2)}
+    .mt-encadre p{margin:0 0 .5rem;font-size:.92rem;color:var(--prune)}
+    .mt-encadre b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem}
+    .mt-encadre .btn{width:100%}
     .fe-fenetre{max-width:960px;width:100%}
+    /* Combien de générations : des boutons bien visibles */
+    .fe-gens{display:flex;flex-wrap:wrap;gap:.5rem}
+    .fe-gen-c{position:relative;cursor:pointer}
+    .fe-recap{margin:.6rem 0;padding:.7rem .9rem;border-radius:12px;background:#FBF1E1;border:1px solid #E9C98A;color:var(--prune);font-size:.86rem;line-height:1.5}.fe-recap[hidden]{display:none}
+    .fe-gen-c .fe-plein{display:block;margin-top:.15rem;color:#9A5A1E;font-size:.72rem}.fe-gen-c .fe-plein.ok{color:var(--prune)}
+    .fe-gen-c input{position:absolute;opacity:0;pointer-events:none}
+    .fe-gen-c span{display:flex;flex-direction:column;align-items:center;min-width:5.6rem;padding:.55rem .8rem;border:1.5px solid var(--champagne-clair);border-radius:14px;background:#fff;color:var(--prune);font-size:.85rem;line-height:1.2;text-align:center}
+    .fe-gen-c span b{font:400 1.6rem/1 var(--display)}
+    .fe-gen-c span small{font-size:.72rem;color:var(--prune-doux);margin-top:.2rem}
+    .fe-gen-c input:checked+span{border-color:var(--prune);background:#FCEFF3;box-shadow:0 0 0 3px rgba(107,47,91,.12)}
+    .fe-gen-c input:focus-visible+span{outline:2px solid var(--champagne);outline-offset:2px}
+    /* Téléphone : l'aperçu reste petit, pour qu'on voie tout de suite qu'il y a des choix à faire en dessous */
+    @media (max-width:760px){
+      .fe-apercu>svg{max-height:34vh;width:auto;max-width:100%;margin:0 auto}
+      .fe-gauche .fe-vues button{padding-top:.35rem;padding-bottom:.35rem;font-size:.85rem}
+    }
+    .fe-suite{display:none;margin:.7rem 0 0;padding:.6rem .8rem;border-radius:12px;background:#FCEFF3;color:var(--prune);font-size:.88rem;font-weight:600;text-align:center}
+    @media (max-width:760px){.fe-suite{display:block}}
     .fe-grille{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.4rem;align-items:start}
-    .fe-apercu svg{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 10px 30px rgba(74,33,66,.18)}
+    .fe-apercu>svg{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 10px 30px rgba(74,33,66,.18)}
     .fe-reglages{display:flex;flex-direction:column;gap:.7rem}
     .fe-champ{display:flex;flex-direction:column;gap:.25rem;font-size:.85rem;font-weight:600;color:var(--prune)}
-    .fe-champ input{font:inherit;font-weight:400;padding:.6rem .8rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff}
-    .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}
+    .fe-champ input,.fe-champ select{font:inherit;font-weight:400;padding:.6rem .8rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff}
+    .fe-aide{font-size:.85rem;color:var(--prune-doux);margin:0}.fe-style-aide{margin:.45rem 0 0;line-height:1.45}
     .fe-imp{margin-top:.6rem;padding:1rem 1.1rem;border-radius:14px;background:#FFF6EC;border:1px solid var(--champagne-clair);display:flex;flex-direction:column;gap:.6rem}
     .fe-imp-titre{font-family:var(--display);font-size:1.2rem;margin:0;color:var(--prune)}
     .fe-imp-form{display:flex;flex-direction:column;gap:.6rem;position:relative}
@@ -300,6 +572,48 @@
     .fe-formats legend{font-size:.85rem;font-weight:600;margin-bottom:.3rem}
     .fe-format{display:flex;align-items:center;gap:.6rem;padding:.55rem .75rem;border:1px solid var(--champagne-clair);border-radius:10px;background:#fff;cursor:pointer;font-size:.9rem}
     .fe-format span{margin-right:auto}
+    .fe-format b{white-space:nowrap}
+    .fe-format.fe-off{opacity:.45;cursor:not-allowed}
+    .fe-format[hidden],.fe-grands-aide[hidden]{display:none}
+    .fe-saison{font-size:.84rem;line-height:1.5;color:var(--prune);background:linear-gradient(135deg,#FFF3E2,#FCE9EF);border:1px solid #EBC9B4;border-radius:12px;padding:.65rem .8rem;margin:0 0 .8rem}.fe-saison-t{display:inline-block;font-weight:700;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#8E2F5E;border-radius:99px;padding:.18rem .55rem;margin-right:.25rem}.fe-saison-bt{font:600 .78rem var(--texte);color:#8E2F5E;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0}
+    .fe-titres{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin:-.35rem 0 .8rem}.fe-titre-bt{font:600 .76rem var(--texte);color:var(--prune);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.3rem .65rem;cursor:pointer}.fe-titre-bt[aria-pressed=true]{background:var(--prune);border-color:var(--prune);color:#fff}.fe-titres-aide{font-size:.76rem;color:var(--prune-doux)}
+    .fe-coupes{font-size:.8rem;line-height:1.45;color:#8A4B2E;background:#FFF4E6;border:1px solid #F0D2AE;border-radius:10px;padding:.55rem .75rem;margin:.6rem 0 0}.fe-coupes[hidden]{display:none}
+    .fe-legende{font-size:.82rem;color:var(--prune-doux);text-align:center;margin:.5rem 0 0;line-height:1.45}
+    .fe-vues button[hidden]{display:none}
+    .fe-recu{border:1px solid var(--champagne-clair);border-radius:12px;background:#fff;padding:.6rem .8rem;margin:.6rem 0;font-size:.85rem;color:var(--prune)}
+    .fe-recu summary{cursor:pointer;font-weight:700}.fe-recu ul{margin:.5rem 0 .3rem;padding-left:1.1rem;display:grid;gap:.35rem;line-height:1.5}.fe-recu p{margin:.2rem 0 0}
+    .fe-case{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune)}.fe-case[hidden]{display:none}.fe-case input{width:18px;height:18px;accent-color:var(--prune)}
+    /* Mon arbre en poster : pour qui, quel arbre, le style, les détails, le poster */
+    .fe-etape{display:flex;flex-direction:column;gap:.55rem;padding:0 0 .9rem;border-bottom:1px solid #F1E3D3}
+    .fe-etape:last-of-type{border-bottom:0}
+    .fe-etape-t{display:flex;align-items:center;gap:.55rem;margin:0;font-family:var(--display);font-size:1.15rem;color:var(--prune)}
+    .fe-etape-t span{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#C9A06A,#9A6E38);color:#fff;font:700 .8rem var(--texte)}
+    .fe-cache{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+    .fe-types{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+    .fe-type{position:relative;display:flex;flex-direction:column;align-items:center;gap:.3rem;text-align:center;padding:.65rem .45rem .6rem;border:1px solid var(--champagne-clair);border-radius:14px;background:#fff;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+    .fe-type input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+    .fe-type-ic svg{width:34px;height:34px;fill:#C9A06A;color:#B08048}
+    .fe-type b{display:block;font-size:.9rem;color:var(--prune)}.fe-type small{display:block;font-size:.74rem;line-height:1.3;color:var(--prune-doux);margin-top:.1rem}
+    .fe-type:has(input:checked){border-color:var(--prune);box-shadow:0 0 0 1px var(--prune);background:#FFF8F3}
+    .fe-type:has(input:checked) .fe-type-ic svg{fill:#8E2F5E;color:#8E2F5E}
+    .fe-type:has(input:focus-visible){outline:2px solid var(--prune);outline-offset:2px}
+    .fe-type.fe-off{opacity:.5;cursor:default}.fe-type.fe-off input{cursor:default}
+    .fe-styles{display:grid;grid-template-columns:repeat(auto-fill,minmax(7.2rem,1fr));gap:.5rem}
+    .fe-style-c{position:relative;display:flex;flex-direction:column;gap:.35rem;padding:.4rem .4rem .5rem;border:1px solid var(--champagne-clair);border-radius:14px;background:#fff;cursor:pointer;text-align:center;transition:border-color .15s,box-shadow .15s}
+    .fe-style-c input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;z-index:1}
+    .fe-vign{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border-radius:9px;background:linear-gradient(135deg,#FBF4EA,#F3E6D8);overflow:hidden}
+    .fe-vign:empty::after{content:"";width:28px;height:28px;border-radius:50%;border:3px solid #EBD3BC;border-top-color:#B08048;animation:fe-tourne 1s linear infinite}
+    @keyframes fe-tourne{to{transform:rotate(360deg)}}
+    .fe-vign svg{display:block;max-width:100%;max-height:100%;width:auto;height:auto;box-shadow:0 2px 6px rgba(74,33,66,.18)}
+    .fe-style-c b{font-size:.84rem;color:var(--prune);line-height:1.2}
+    .fe-style-c .fe-badge{display:block;margin:.2rem auto 0;width:max-content}
+    .fe-style-c:has(input:checked){border-color:var(--prune);box-shadow:0 0 0 1px var(--prune);background:#FFF8F3}
+    .fe-style-c:has(input:focus-visible){outline:2px solid var(--prune);outline-offset:2px}
+    .fe-style-c.fe-off{opacity:.45;cursor:default}
+    @media (max-width:480px){.fe-types{gap:.35rem}.fe-type{padding:.55rem .3rem}.fe-type small{font-size:.7rem}.fe-styles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .fe-vues{display:flex;gap:.3rem;margin-bottom:.5rem}.fe-vues[hidden]{display:none}.fe-vues button{flex:1;min-width:0;white-space:nowrap;padding:.45rem .6rem;border:1px solid var(--champagne-clair);border-radius:999px;background:#fff;color:var(--prune);font:600 .82rem/1 var(--texte);cursor:pointer}
+    @media (max-width:480px){.fe-vues button{font-size:.74rem;padding:.45rem .25rem}}
+    .fe-vues button[aria-selected=true]{background:var(--prune);color:#fff;border-color:var(--prune)}
     .fe-format:has(input:checked){border-color:var(--prune);box-shadow:0 0 0 1px var(--prune)}
     .fe-deux{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
     .fe-accord{display:flex;gap:.5rem;align-items:flex-start;font-size:.8rem;color:var(--prune-doux)}
@@ -307,7 +621,11 @@
     @media (max-width:760px){.fe-grille{grid-template-columns:1fr}.fe-deux{grid-template-columns:1fr}}
     .bt-dore[aria-pressed="true"]{background:linear-gradient(135deg,#E8C899,#B98A55);border-color:#B98A55;color:#3A2410}
   </style>
-  <meta property="og:image" content="https://genesolia.fr/assets/partage/genosociogramme.jpg">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/et-toi-arbre-familial.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://genesolia.fr/assets/partage/et-toi-arbre-familial.jpg">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Mon arbre familial : génosociogramme en ligne gratuit", "item": "https://genesolia.fr/genosociogramme.html"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quelle est la différence entre un génogramme et un génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme représente la structure de la famille : qui est né de qui, qui s'est uni à qui. Le génosociogramme y ajoute le contexte de vie : métiers, lieux, deuils, ruptures, exils, accidents, dates marquantes. C'est cette couche supplémentaire qui permet de repérer les répétitions entre les générations."}}, {"@type": "Question", "name": "Combien de générations faut-il pour faire un génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Trois générations sont un bon point de départ : toi, tes parents et tes grands-parents. Les répétitions deviennent souvent plus visibles à partir de quatre générations, avec les arrière-grands-parents. Si tu ne connais pas tout, commence quand même : les cases vides sont aussi une information sur ce qui s'est transmis ou ce qui a été tu dans ta famille."}}, {"@type": "Question", "name": "Peut-on faire son génosociogramme seul·e ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Tu peux construire ton arbre seul·e, à ton rythme, puis le compléter en interrogeant tes proches. L'essentiel est de rester dans l'observation : noter les faits, repérer ce qui revient, et te poser des questions plutôt que tirer des conclusions. Si l'histoire réveille des souvenirs lourds, en parler avec une personne de confiance aide beaucoup."}}]}</script>
 </head>
@@ -317,10 +635,11 @@
   <section class="porte" id="porte" aria-labelledby="porte-titre">
     <div class="porte-carte">
       <div class="porte-icone"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="6" y="9" width="40" height="26" rx="3" stroke="#6B2F5B" stroke-width="2"/><path d="M18 43h16M26 35v8" stroke="#6B2F5B" stroke-width="2" stroke-linecap="round"/><circle cx="26" cy="16" r="3" fill="#B98A55"/><path d="M26 19v4M26 23l-6 5M26 23l6 5" stroke="#B98A55" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-      <h2 id="porte-titre">Ton arbre se dessine sur ordinateur</h2>
-      <p>Pour créer ton génosociogramme, connecte-toi depuis un ordinateur (ou une tablette à l'horizontale). L'arbre y est bien plus lisible et plus simple à remplir.</p>
+      <h2 id="porte-titre">Tu peux commencer ton arbre ici</h2>
+      <p>Ton génosociogramme se remplit aussi sur téléphone : commence par toi, tes parents et tes grands-parents. Pour le voir en grand et le compléter confortablement, tu le retrouveras ensuite sur un ordinateur.</p>
       <div class="actions">
-        <button class="btn btn-plein" type="button" id="porte-envoyer">M'envoyer le lien</button>
+        <button class="btn btn-plein" type="button" id="porte-continuer">Commencer sur ce téléphone</button>
+        <button class="btn btn-trait" type="button" id="porte-envoyer">M'envoyer le lien pour l'ordinateur</button>
         <button class="btn btn-trait" type="button" id="porte-copier">Copier le lien</button>
       </div>
       <p class="porte-info" id="porte-info" aria-live="polite"></p>
@@ -333,7 +652,6 @@
           <li><a href="arbre-de-vie.html">Faire le test de l'arbre de vie</a></li>
         </ul>
       </div>
-      <button class="porte-continuer" type="button" id="porte-continuer">Continuer quand même sur ce téléphone</button>
     </div>
   </section>
 
@@ -348,21 +666,27 @@
     <div class="groupe">
       <button class="bt" type="button" id="bt-annuler" disabled title="Annuler (Ctrl+Z)"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5 3L2 6l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.5 6H10a4 4 0 010 8H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Annuler</button>
       <button class="bt" type="button" id="bt-centrer">Recentrer</button>
+      <button class="bt" type="button" id="bt-temps" aria-controls="temps" title="Voir la famille à une année donnée">Remonter le temps</button>
       <button class="bt bt-tuto" type="button" id="bt-tuto" aria-haspopup="dialog">Comment ça marche ?</button>
     </div>
     <span class="sep" aria-hidden="true"></span>
     <div class="groupe">
+      <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
       <button class="bt" type="button" id="bt-numero" aria-haspopup="dialog">Numérologie</button>
       <button class="bt" type="button" id="bt-astro" aria-haspopup="dialog">Astrologie</button>
       <button class="bt" type="button" id="bt-rapport" aria-haspopup="dialog">Mon rapport</button>
       <button class="bt" type="button" id="bt-image" data-compte="l’image de ton arbre">Télécharger l'image</button>
-      <button class="bt" type="button" id="bt-imprimer" data-compte="ton arbre à imprimer">Imprimer</button>
-      <button class="bt" type="button" id="bt-importer-barre">Importer un arbre</button>
-      <button class="bt" type="button" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
-      <button class="bt" type="button" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
       <button class="bt bt-dore" type="button" id="bt-dore" aria-pressed="false" title="Changer l'apparence de l'arbre">Arbre doré</button>
-      <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog">Mon arbre à encadrer</button>
-      <button class="bt bt-panneau" type="button" id="bt-panneau">Ce qui se répète <span class="compte" id="compte-bouton">0</span></button>
+      <button class="bt bt-encadrer" type="button" id="bt-encadrer" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 16l3-4 2.5 3 2-2.5L17 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Mon arbre en poster <small>dès 45 €</small></button>
+      <div class="plus-menu">
+        <button class="bt" type="button" id="bt-plus" aria-haspopup="true" aria-expanded="false" aria-controls="menu-plus" title="Imprimer, importer, sauvegardes…">•••<span class="sr-seul"> Plus d'options</span></button>
+        <div class="menu-plus" id="menu-plus" role="menu" hidden>
+          <button class="bt" type="button" role="menuitem" id="bt-imprimer" data-compte="ton arbre à imprimer">Imprimer</button>
+          <button class="bt" type="button" role="menuitem" id="bt-importer-barre">Importer un arbre</button>
+          <button class="bt" type="button" role="menuitem" id="bt-sauve" aria-haspopup="dialog">Sauvegardes</button>
+          <button class="bt" type="button" role="menuitem" id="bt-nouveau-barre" title="Effacer toutes les personnes de l'arbre ouvert">Vider l'arbre</button>
+        </div>
+      </div>
     </div>
     <span class="sep" aria-hidden="true"></span>
     <span class="statut" id="statut" aria-live="polite"></span>
@@ -384,7 +708,7 @@
           </div>
           <button class="lien-import" type="button" id="bt-importer-vide">J'ai déjà un arbre en PDF ou GEDCOM : l'importer</button>
           <button class="lien-import" type="button" data-tuto>Première fois ? Voir comment ça marche</button>
-          <small>Ton arbre reste dans ton navigateur. Connecte-toi pour le retrouver sur un autre ordinateur.</small>
+          <small id="vide-note">Ton arbre reste dans ce navigateur. <a href="login.html?retour=genosociogramme.html">Connecte-toi</a> pour le retrouver sur un autre ordinateur.</small>
         </div>
       </div>
 
@@ -408,6 +732,14 @@
         <a href="symboles-genosociogramme.html" target="_blank" rel="noopener">Tous les symboles</a> <a href="#apropos" id="lien-apropos">À propos de cet outil</a>
       </div>
 
+      <section class="temps" id="temps" hidden aria-label="Remonter le temps">
+        <div class="temps-tete"><button type="button" class="bt" id="temps-moins" aria-label="Année précédente">‹</button><p>La famille en <b id="temps-annee"></b></p><button type="button" class="bt" id="temps-plus" aria-label="Année suivante">›</button>
+          <select id="temps-cles" aria-label="Aller à un moment"></select><button type="button" class="bt" id="temps-fermer">Revenir à aujourd’hui</button></div>
+        <input type="range" id="temps-curseur" aria-label="Choisir l’année">
+        <svg id="temps-frise" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-label="Frise de la famille"></svg>
+        <div id="temps-liste" class="temps-liste"></div>
+      </section>
+
       <div class="zoom">
         <button type="button" id="bt-zplus" aria-label="Zoomer">+</button>
         <button type="button" id="bt-zmoins" aria-label="Dézoomer">−</button>
@@ -415,9 +747,12 @@
     </div>
 
     <aside class="panneau" aria-labelledby="titre-panneau">
+      <div class="panneau-poignee" id="panneau-poignee" role="separator" aria-orientation="vertical" aria-label="Élargir le panneau" tabindex="0"></div>
       <div class="panneau-tete">
         <h2 id="titre-panneau">Ce qui se répète</h2>
         <span class="compte" id="compte">0</span>
+        <button class="bt-agrandir" type="button" id="bt-agrandir" aria-pressed="false" title="Agrandir le panneau à côté de l’arbre">Agrandir</button>
+        <button class="bt-reps-pdf" type="button" id="bt-reps-pdf" data-compte="la liste de ce qui se répète" hidden title="Enregistrer toute la liste en PDF">PDF</button>
         <button class="fermer replier" type="button" id="bt-replier" aria-label="Fermer le panneau">×</button>
       </div>
       <div class="panneau-recherche">
@@ -450,8 +785,8 @@
           <div class="champ"><label for="fp-nom">Nom de famille</label><input type="text" id="fp-nom" autocomplete="off"></div>
         </div>
         <div class="deux-col">
-          <div class="champ"><label for="fp-naiss">Naissance</label><input type="text" id="fp-naiss" inputmode="numeric" placeholder="1952 ou 14/03/1952" autocomplete="off"><span class="aide">L'année suffit.</span></div>
-          <div class="champ"><label for="fp-deces">Décès</label><input type="text" id="fp-deces" inputmode="numeric" placeholder="Vide si en vie" autocomplete="off"></div>
+          <div class="champ"><label for="fp-naiss">Naissance</label><input type="text" id="fp-naiss" class="date-saisie" inputmode="numeric" placeholder="1952 ou 14/03/1952" autocomplete="off"><span class="aide">L'année suffit.</span></div>
+          <div class="champ"><label for="fp-deces">Décès</label><input type="text" id="fp-deces" class="date-saisie" inputmode="numeric" placeholder="Vide si en vie" autocomplete="off"></div>
         </div>
         <label class="case"><input type="checkbox" id="fp-decede"> Décédé·e, date inconnue</label>
         <div class="deux-col">
@@ -472,6 +807,12 @@
         <h3 class="sous-titre">Traits de caractère</h3>
         <div class="puces" id="fp-traits"><input type="text" id="fp-trait" placeholder="Écris un trait, puis Entrée" aria-label="Ajouter un trait de caractère"></div>
 
+        <h3 class="sous-titre" id="fp-reperes-titre">Ce que je repère</h3>
+        <p class="aide-reperes" id="fp-reperes-aide">Tes propres mots : un trait, une habitude, un métier, une façon d’aimer… Ils restent dans ton arbre.</p>
+        <div class="reperes-liste" id="fp-reperes" hidden></div>
+        <div class="repere-ajout"><input type="text" id="fp-repere" maxlength="40" autocomplete="off" aria-labelledby="fp-reperes-titre" aria-describedby="fp-reperes-aide"><button class="bt" type="button" id="fp-repere-ajout">Ajouter</button></div>
+        <div class="reperes-dispo" id="fp-reperes-dispo" hidden></div>
+
         <h3 class="sous-titre">Événements marquants</h3>
         <div class="evt-entete" aria-hidden="true"><span>Événement</span><span>Âge</span><span>Année</span><span></span></div>
         <div class="evts" id="fp-evts"></div>
@@ -488,11 +829,19 @@
               <option value="couple">En couple avec</option>
               <option value="parent">Parent de</option>
               <option value="enfant">Enfant de</option>
+              <option value="fratrie">Frère ou sœur de</option>
               <optgroup label="Lien relationnel">
-                <option value="rel-proche">Proximité, fusion avec</option>
+                <option value="rel-proche">Proximité avec</option>
+                <option value="rel-fusion">Fusionnel avec</option>
                 <option value="rel-conflit">Conflit avec</option>
+                <option value="rel-ambivalent">Ambivalent avec (proche et conflictuel)</option>
                 <option value="rel-rupture">Rupture avec</option>
+                <option value="rel-coupe">Coupé, sans conflit, avec</option>
                 <option value="rel-distance">Distance avec</option>
+                <option value="rel-alliance">Alliance avec</option>
+                <option value="rel-secret">Secret partagé avec</option>
+                <option value="rel-confident">Confident·e de (porte cet adulte)</option>
+                <option value="rel-libre">Lien libre (ton mot) avec</option>
               </optgroup>
             </select>
             <select id="fp-lier-qui" aria-label="Personne à lier"></select>
@@ -600,10 +949,25 @@
   <div class="fenetre-fond" id="fen-encadrer">
     <div class="fenetre fe-fenetre" role="dialog" aria-modal="true" aria-labelledby="fe-titre-fen">
       <div class="fen-tete">
-        <div><h2 id="fe-titre-fen">Mon arbre à encadrer</h2><p>Ta lignée sur un grand arbre doré, en A4 haute définition : à imprimer, encadrer ou offrir.</p></div>
+        <div><h2 id="fe-titre-fen">Mon arbre en poster</h2><p>Ton arbre de famille, imprimé sur un beau papier d’art : à accrocher ou à offrir.</p></div>
         <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
       </div>
       <div class="fen-corps" id="fe-corps"></div>
+    </div>
+  </div>
+
+  <div class="fenetre-fond" id="fen-telecharger">
+    <div class="fenetre" role="dialog" aria-modal="true" aria-labelledby="ft-titre" style="max-width:460px">
+      <div class="fen-tete">
+        <div><h2 id="ft-titre">Télécharger ton arbre</h2><p>Que veux-tu garder ?</p></div>
+        <button class="fermer" type="button" data-fermer aria-label="Fermer">×</button>
+      </div>
+      <div class="fen-corps" style="display:grid;gap:.7rem">
+        <button class="bt" type="button" id="ft-image" style="justify-content:center;padding:.8rem">L’arbre seul · image</button>
+        <button class="bt" type="button" id="ft-arbre-pdf" style="justify-content:center;padding:.8rem">L’arbre seul · PDF</button>
+        <button class="bt plein" type="button" id="ft-pdf" style="justify-content:center;padding:.8rem">L’arbre + ce qui se répète · PDF</button>
+        <p style="margin:0;font-size:.82rem;color:var(--prune-doux)">Pour le PDF, une fenêtre d’impression s’ouvre : choisis « Enregistrer au format PDF ».</p>
+      </div>
     </div>
   </div>
 
@@ -618,13 +982,17 @@
   </div>
 
   <script src="assets/site.js"></script>
+  <script src="assets/essai.js?v=noel499b"></script>
   <script src="assets/supabase.js"></script>
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/genosociogramme.js?v=2026-10-10a"></script>
-  <script src="assets/import-arbre.js?v=2026-10-10a"></script>
-  <script src="assets/tutoriel-arbre.js?v=2026-10-09"></script>
+  <script src="assets/praticien-outils.js?v=8"></script>
+  <script src="assets/genosociogramme.js?v=2026-10-31e"></script>
+  <script src="assets/import-arbre.js?v=2026-10-26"></script>
+  <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>
+  <script src="assets/date-deroulante.js?v=1"></script>
+  <script src="assets/arbre-telephone.js?v=2026-10-31a"></script>
   <script>
   /* Le bouton de la barre déclenche le même import que celui de « Sauvegardes » */
   document.getElementById('bt-importer-barre').addEventListener('click', function () { document.getElementById('bt-importer').click(); });
@@ -638,9 +1006,14 @@
       <div class="fen-tete"><div><h2 id="fa2-titre">À propos de cet outil</h2></div><button class="fermer" type="button" data-fermer aria-label="Fermer">×</button></div>
       <div class="fen-corps" style="max-height:70vh;overflow:auto"><h2>Comment faire un génosociogramme en ligne gratuit ?</h2>
 <p>Un génosociogramme est un arbre familial enrichi : en plus des noms et des dates, il montre les liens, les ruptures, les métiers, les départs, les deuils et les événements marquants. Le génogramme se limite souvent à la structure de la famille ; le génosociogramme, lui, ajoute le contexte de vie de chacun·e. C'est ce contexte qui permet de voir ce qui se répète d'une génération à l'autre.</p>
-<h3>Par où commencer ton arbre</h3>
-<p>Commence par toi, puis remonte : tes parents, tes quatre grands-parents, et si possible tes arrière-grands-parents. Trois générations suffisent pour voir apparaître les premières coïncidences. Ajoute ensuite les frères et sœurs de chaque génération, y compris les enfants morts jeunes, les fausses couches connues et les unions qui n'ont pas duré : ce sont souvent eux qu'on oublie, et ils comptent dans l'histoire. Une année approximative vaut mieux qu'une case vide.</p>
+<h3>Par où commencer ton arbre : mode d'emploi</h3>
 <p>Avant de te lancer, rassemble ce que tu as sous la main : livret de famille, faire-part, photos annotées, souvenirs d'un repas où l'on a raconté une histoire de guerre ou d'exil. Si tu manques d'informations, <a href="questions-a-poser-a-sa-famille.html">les questions à poser à ta famille</a> t'aident à ouvrir la conversation sans brusquer personne.</p>
+<ol>
+<li><strong>Place-toi dans l'arbre.</strong> Ajoute tes parents, puis tes quatre grands-parents et, si possible, tes arrière-grands-parents : trois générations suffisent pour voir apparaître les premières coïncidences.</li>
+<li><strong>Complète la fratrie de chaque génération.</strong> Ajoute aussi les enfants morts jeunes, les fausses couches connues et les unions qui n'ont pas duré : ce sont souvent eux qu'on oublie, et ils comptent dans l'histoire.</li>
+<li><strong>Note une année approximative plutôt qu'une case vide</strong>, et ajoute au fil de ta mémoire les métiers, les lieux, les départs et les événements marquants que tu connais de chacun·e.</li>
+<li><strong>Reviens le compléter plus tard</strong>, après une discussion en famille ou la découverte d'un papier ancien : l'arbre se construit rarement en une seule fois.</li>
+</ol>
 <h3>Ce qu'il est utile de regarder</h3>
 <p>Une fois l'arbre rempli, observe les âges auxquels les grands événements se sont produits : une séparation, un départ, un décès, une faillite. Regarde aussi les dates qui tombent à la même période de l'année, les prénoms repris d'une génération à l'autre, les métiers qui se transmettent ou qu'on refuse, les places dans la fratrie qui portent les mêmes rôles. Quand un événement revient au même âge chez deux personnes, on parle parfois de <a href="syndrome-anniversaire.html">syndrome d'anniversaire</a>.</p>
 <p>L'outil repère ces échos à mesure que tu saisis tes données, mais c'est toi qui leur donnes un sens. Une coïncidence n'est pas une explication : elle t'invite à poser une question, à toi ou à ta famille. Tu peux reconnaître, par exemple, que trois femmes de ta lignée ont quitté leur région natale vers vingt-cinq ans, et te demander ce que ce départ a permis ou empêché.</p>
@@ -658,8 +1031,14 @@
   })();
   </script>
   <script src="assets/export-gedcom.js?v=2026-10-09"></script>
-  <script src="assets/arbre-encadrer.js?v=1"></script>
-  <script src="assets/arbre-encadrer-page.js?v=1"></script>
+  <script src="assets/arbre-lignee.js?v=17"></script>
+  <script src="assets/arbre-descendants.js?v=7"></script>
+  <script src="assets/arbre-eventail.js?v=4"></script>
+  <script src="assets/arbre-grand.js?v=8"></script>
+  <script src="assets/arbre-lumiere.js?v=8"></script>
+  <script src="assets/arbre-encadrer.js?v=27"></script>
+  <script src="assets/arbre-encadrer-page.js?v=54"></script>
+  <script src="assets/recherche-arbre.js?v=1"></script>
 
   <script>
   (function () {

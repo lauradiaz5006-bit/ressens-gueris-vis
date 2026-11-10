@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de décembre 2026 : « Quelle est ma place ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de décembre 2026 : « Quelle est ma place ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-etoiles.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-cadeau.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-transmission.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/aimer-et-choisir-mini.jpg', 'On peut aimer sa famille et choisir autre chose.']
@@ -172,7 +172,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'deplacement-dec', titre: "Le déplacement", type: 'texte',
-          consigne: "Choisis ton déplacement pour cette semaine : une place, un rôle, un geste différent, en famille, avec tes proches ou avec toi-même, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « J’avance ».",
+          consigne: "Choisis ton déplacement pour cette semaine : une place, un rôle, un geste différent, en famille, avec tes proches ou avec toi-même, qui va avec ta phrase « Ma juste place, c’est… ». Écris-le, puis note chaque fois que tu l’as essayé, même maladroitement, et ce qui a changé. Ce déplacement devient aussi une limite posée dans ton carnet « Renaissance ».",
           pourquoi: "Une famille est un équilibre : quand une personne bouge, même un peu, les autres s’ajustent. Ton petit déplacement ouvre une possibilité pour toi, et parfois pour tout ton entourage.",
           gestes: ["M’asseoir à une autre place", "Rester assis·e pendant le plat principal", "Confier le service à quelqu’un d’autre", "Prononcer le prénom d’un·e absent·e, à voix haute ou en silence", "Laisser une tension se dérouler entre les personnes qu’elle concerne", "Partir à l’heure que j’ai choisie"],
           q: "Ton déplacement : « Dans ce lien, au lieu de…, je vais… »",
@@ -250,6 +250,23 @@ window.GENESOLIA_CARNET = {
         ph: "Exemple : mon prénom sur le tronc, avec « Ma juste place, c’est à côté de ma sœur, à égalité »."
       }
     ]
+  },
+
+  autel: {
+    intention: "Ce mois-ci, ton autel accompagne ta question : quelle est ma place ? Le plateau rond en est le cœur. Tu traces un bord, tu décides de ce qui entre et de ce qui reste dehors. C'est un petit exercice de place, à l'échelle d'une table.",
+    cueillette: ['Quelques branches de sapin tombées au sol', 'Une pierre lisse, bien ronde', 'Une plume', 'Des pétales séchés, si tu en as gardé'],
+    couleurs: "Des tons doux de plein hiver : ivoire, blanc crème, rose poudré, gris perle, or ancien. Trois bougies ivoire de hauteurs différentes, une pour chaque génération qui te précède.",
+    elements: [
+      { nom: 'Le plateau', texte: 'Un plateau rond ou une assiette large, posé sur un tissu. C’est ta place : rien n’y entre que tu n’aies choisi.' },
+      { nom: 'La terre', texte: 'La pierre ronde et, si tu en as une, une pierre claire ou rose à côté. Ce qui tient sans bouger.' },
+      { nom: 'L’eau', texte: 'Une coupelle d’eau claire avec quelques pétales à la surface. La part qui reçoit, et qui reste souple.' },
+      { nom: 'Le feu', texte: 'Les trois bougies, de hauteurs différentes. Chacune à sa hauteur, aucune à la place d’une autre.' },
+      { nom: 'L’air', texte: 'La plume posée à plat, et les branches de sapin dans un vase : le parfum fait le reste.' },
+      { nom: 'Ce qui pèse', texte: 'Un objet un peu lourd, posé en dehors du plateau. Ce que tu portes pour quelqu’un d’autre, et qui n’a pas sa place dedans.' }
+    ],
+    ouverture: "« J’ouvre cet espace pour moi. Je prends ma place, toute ma place, et rien que ma place. Ce qui revient à d’autres, je le laisse à d’autres. »",
+    entretien: ['Chaque semaine, allume les bougies quelques minutes et regarde ce qui est posé en dehors du plateau. Demande-toi à qui cela revient.', 'Change l’eau et renouvelle les pétales quand ils ont fini.', 'Après un repas de famille où un ancien rôle est revenu, pose un objet sur le plateau pour marquer que tu as repris ta place.'],
+    cloture: "À la fin du mois, remercie ton autel. Rends à la nature les branches, la pierre et les pétales. Range le plateau : la nuit la plus longue est passée, la lumière revient déjà. Garde la plume pour le mois suivant."
   },
 
   lectures: [

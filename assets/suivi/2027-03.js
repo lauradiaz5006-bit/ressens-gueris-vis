@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » de mars 2027 : « Quelles émotions avaient le droit d’exister ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » de mars 2027 : « Quelles émotions avaient le droit d’exister ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-arbre.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-boucle.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-transmission.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/faire-semblant-mini.jpg', "Toutes mes émotions ont le droit d’exister."]
@@ -172,7 +172,7 @@ window.GENESOLIA_CARNET = {
             { k: 'permission-texte-emo', q: "Ta phrase de permission, au présent, avec tes mots", ph: "Exemple : « J’ai le droit d’être triste, et de le dire à quelqu’un qui m’aime. Ma tristesse ne dérange personne : elle me montre ce qui compte. »", lignes: 3 }
           ] },
         { k: 'ex3-emo', titre: "Je laisse passer une émotion", type: 'texte',
-          consigne: "Choisis un geste simple pour laisser passer une émotion quand elle monte, et pose-le au moins une fois par jour cette semaine. Écris-le, puis note chaque essai, même maladroit, et ce qui a changé. Ce geste rejoint ton carnet « J’avance » : quand tes émotions ont le droit de passer, ta voix retrouve sa confiance.",
+          consigne: "Choisis un geste simple pour laisser passer une émotion quand elle monte, et pose-le au moins une fois par jour cette semaine. Écris-le, puis note chaque essai, même maladroit, et ce qui a changé. Ce geste rejoint ton carnet « Renaissance » : quand tes émotions ont le droit de passer, ta voix retrouve sa confiance.",
           pourquoi: "Une émotion qu’on laisse passer redescend souvent d’elle-même, en quelques minutes. Chaque essai montre à ton corps qu’il peut ressentir sans danger, et à tes proches qu’une autre façon de vivre les émotions est possible.",
           gestes: ["Nommer à voix haute ce que je ressens : « Là, je suis fâchée »", "Souffler fort trois fois, ou secouer les mains", "Laisser couler des larmes, sans m’excuser", "Dire « ça me rend triste » au lieu de « ce n’est rien »", "Marcher dix minutes quand la colère monte", "Partager une joie avec quelqu’un, tout de suite, sans la minimiser"],
           q: "Ton geste : « La prochaine fois qu’une émotion monte, au lieu de…, je vais… »",

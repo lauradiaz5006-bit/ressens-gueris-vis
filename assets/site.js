@@ -1,3 +1,18 @@
+/* ===== Anciens iPad / Safari (iOS 13 et avant) : ils ignorent :where(), donc toute la remise à zéro de la mise en page.
+   On leur redonne les mêmes règles, sans :where() et avec le même poids, pour que la page ne se décale pas. ===== */
+/* Page affichée dans un cadre (aperçu du carnet sur la page du Cercle) : sans en-tête, pied, cookies ni bulle */
+try { if (window.self !== window.top) document.documentElement.classList.add('dans-cadre'); } catch (e) { document.documentElement.classList.add('dans-cadre'); }
+(function () {
+  try { document.querySelector(':where(body)'); return; } catch (e) {}
+  var css = '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}' +
+    'img,svg{display:block;max-width:100%}a{color:inherit}' +
+    'h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;letter-spacing:.005em}' +
+    'h1{font-size:2.6rem}h2{font-size:1.9rem}h3{font-size:1.35rem}p{max-width:var(--mesure)}' +
+    '.pied h4,.pied ul,.pied li,.pied p,.pied span{margin:0;padding:0}';
+  var st = document.createElement('style'); st.textContent = css;
+  (document.head || document.documentElement).insertBefore(st, (document.head || document.documentElement).firstChild);
+  document.documentElement.className += ' vieux-navigateur';
+})();
 /* Genesolia — éléments communs à toutes les pages.
    Le nom de la marque, le menu et le pied de page se modifient ICI, une seule fois. */
 /* ===== Données gardées dans le navigateur, comme sur les autres sites =====
@@ -8,7 +23,7 @@
    Ne sont jamais effacés : les choix de cookies et quelques repères techniques sans donnée personnelle. */
 window.GenesoliaDonnees = (function () {
   var JETON = 'sb-qsvzzkjtjsznfntahvvh-auth-token', MARQUE_COMPTE = 'genesolia-donnees-compte', REGLE = 'genesolia-regle-v2';
-  var GARDER = /^(umami\.disabled|genesolia-ne-pas-compter|consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*)$/;
+  var GARDER = /^(umami\.disabled|genesolia-ne-pas-compter|consentement-mesure(-date)?|info-cookies|carnet-inscrit|liste-formation|genesolia-regle-v2|genesolia-retour|retour-apres-connexion|genesolia-tuto-arbre-vu|vingt-ans-vues|jaime-.*|sb-.*|genesolia-rappels-.*|genesolia-phrase-du-jour)$/;   /* rappels : réglages de l'appareil, jamais effacés (sinon l'appli redemande les notifications à chaque ouverture) */
   function connectee() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return !!(x && x.refresh_token); } catch (e) { return false; } }
   function idCompte() { try { var x = JSON.parse(localStorage.getItem(JETON) || 'null'); return (x && x.user && x.user.id) || '1'; } catch (e) { return '1'; } }
   function effacer() {
@@ -35,21 +50,58 @@ window.GenesoliaDonnees = (function () {
 
 /* ===== Coffre-fort des écrits (carnets, suivi, bilan de départ) =====
    Les réponses sont chiffrées dans la base (fonctions carnet_ecrire / carnet_lire, parcours_ecrire / parcours_lire) :
-   l'équipe Genesolia ne les lit pas. Avant le premier enregistrement en ligne, la personne donne son accord
+   elles ne sont jamais consultées. Avant le premier enregistrement en ligne, la personne donne son accord
    (gardé dans son compte : user_metadata.coffre_accord). Sans accord, tout reste sur l'appareil. */
+/* ===== Séances audio de visualisation : « Avant de commencer », puis « J'arrête et je reviens » toujours visible =====
+   GenesoliaCadre.html(audioHtml) entoure le lecteur ; le clic « Je me sens prêt·e » montre l'audio et le lance ;
+   « J'arrête et je reviens » met en pause et ouvre un retour au calme, avec les lignes d'écoute. */
+window.GenesoliaCadre = (function () {
+  var css = '.gc-avant{background:#FFF8EA;border:1px solid #F3DCC0;border-radius:14px;padding:.9rem 1rem;margin:.6rem 0;color:#4A2142;text-align:left}.gc-avant p{margin:.3rem 0}.gc-avant ul{margin:.3rem 0 .7rem;padding-left:1.2rem}' +
+    '.gc-arret{position:sticky;bottom:14px;display:block;margin:.8rem auto 0;z-index:5;box-shadow:0 6px 18px rgba(31,11,42,.18)}' +
+    '.gc-fond{position:fixed;inset:0;z-index:4000;background:rgba(46,19,56,.55);display:flex;align-items:center;justify-content:center;padding:16px}' +
+    '.gc-boite{background:#fff;color:#4A2142;border-radius:20px;max-width:30rem;width:100%;max-height:90vh;overflow:auto;padding:1.4rem 1.3rem}.gc-boite h2{margin:.2rem 0 .6rem}.gc-boite ol{padding-left:1.2rem;display:grid;gap:.4rem}' +
+    '.gc-filet{margin-top:.9rem;padding:.7rem .9rem;border-radius:12px;background:#FCEFF3;border:1px solid #E8C9D6}.gc-filet p{margin:.2rem 0}.gc-filet a{color:inherit}';
+  var pose = false;
+  function style() { if (pose) return; pose = true; var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st); }
+  function html(audio) {
+    style();
+    return '<div class="gc-cadre"><div class="gc-avant"><p><b>Avant de commencer</b></p><p>Cette séance te fait revenir vers ton histoire, les yeux fermés. Garde-la pour plus tard si :</p>' +
+      '<ul><li>ce que tu as vécu a été très violent ;</li><li>tu traverses une période très fragile en ce moment (un deuil récent, une grande fatigue, des idées très sombres) ;</li><li>tu sens qu’il vaudrait mieux être accompagné·e : écoute-la alors avec un·e professionnel·le de l’accompagnement.</li></ul>' +
+      '<p>Jamais en conduisant. Tu peux t’arrêter à tout moment avec « J’arrête et je reviens ».</p>' +
+      '<button type="button" class="btn btn-plein" data-gc-pret>Je me sens prêt·e, je commence</button></div>' +
+      '<div class="gc-ecoute" hidden>' + audio + '<button type="button" class="btn btn-trait gc-arret" data-gc-arret>J’arrête et je reviens</button></div></div>';
+  }
+  function calme() {
+    var f = document.createElement('div'); f.className = 'gc-fond'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true');
+    f.innerHTML = '<div class="gc-boite"><p style="margin:0;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#9A6E38">Tu t’arrêtes, et c’est très bien</p><h2>Reviens ici et maintenant</h2><ol>' +
+      '<li>Ouvre les yeux. Pose tes deux pieds bien à plat sur le sol.</li><li>Regarde autour de toi et nomme cinq choses que tu vois.</li><li>Respire lentement : inspire en comptant jusqu’à 4, expire en comptant jusqu’à 6, cinq fois.</li><li>Bois un verre d’eau, bouge un peu, ouvre une fenêtre.</li></ol>' +
+      '<div class="gc-filet"><p><b>Si c’est trop lourd à porter seul·e, parles-en à quelqu’un maintenant</b> : une personne de confiance, ou une ligne d’écoute, gratuite et ouverte jour et nuit.</p><p><a href="tel:3114"><b>3114</b></a> en France · <a href="tel:18662773553"><b>1 866 APPELLE</b></a> (1 866 277-3553) au Québec</p></div>' +
+      '<p style="margin:1rem 0 0;text-align:center"><button type="button" class="btn btn-plein" data-gc-fermer>Je suis revenu·e</button></p></div>';
+    document.body.appendChild(f);
+    f.addEventListener('click', function (e) { if (e.target === f || e.target.closest('[data-gc-fermer]')) f.remove(); });
+  }
+  document.addEventListener('click', function (e) {
+    var p = e.target.closest('[data-gc-pret]');
+    if (p) { var c = p.closest('.gc-cadre'), z = c.querySelector('.gc-ecoute'); p.closest('.gc-avant').hidden = true; z.hidden = false; var a = z.querySelector('audio'); if (a) a.play().catch(function () {}); return; }
+    var s = e.target.closest('[data-gc-arret]');
+    if (s) { var au = s.closest('.gc-cadre').querySelector('audio'); if (au) au.pause(); calme(); }
+  });
+  return { html: html, calme: calme };
+})();
+
 window.GenesoliaCoffre = (function () {
   function accord(user) { return !!(user && user.user_metadata && user.user_metadata.coffre_accord); }
   function demander(zone, sb, ok) {
     if (!zone) return;
     zone.hidden = false;
-    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ton espace privé, chiffré</p><p>Pour retrouver tes réponses sur tous tes appareils, elles sont gardées dans ton espace, <b>chiffrées</b>, et l’équipe Genesolia ne les lit jamais. Tu peux tout effacer quand tu veux depuis Mon espace.</p>' +
-      '<p><button type="button" class="btn btn-plein" data-coffre-oui>J’accepte que mes réponses soient gardées</button> <button type="button" class="btn btn-trait" data-coffre-non>Pas maintenant</button></p>' +
-      '<p class="coffre-note">Sans ton accord, tes réponses restent seulement sur cet appareil. <a href="confidentialite.html">Mes données</a></p></div>';
+    zone.innerHTML = '<div class="coffre-accord"><p class="coffre-t">Ce que tu écris reste à toi</p><p><b>Genesolia n’a accès à rien de ce que tu écris.</b> Tes réponses sont enregistrées sur ton appareil.</p><p>Tu veux aussi les retrouver sur ton téléphone, ta tablette ou ton ordinateur ? Elles peuvent être gardées dans ton espace sous forme de <b>texte codé</b> : personne chez Genesolia ne peut le lire.</p>' +
+      '<p><button type="button" class="btn btn-plein" data-coffre-oui>Oui, je veux les retrouver partout</button> <button type="button" class="btn btn-trait" data-coffre-non>Seulement sur cet appareil</button></p>' +
+      '<p class="coffre-note">Tu peux changer d’avis et tout effacer quand tu veux, depuis Mon espace. <a href="confidentialite.html">Mes données</a></p></div>';
     zone.querySelector('[data-coffre-oui]').onclick = function (e) {
       e.target.disabled = true;
       sb.auth.updateUser({ data: { coffre_accord: new Date().toISOString() } }).then(function (r) {
         if (r && r.error) { e.target.disabled = false; return; }
-        zone.innerHTML = '<p class="coffre-merci">Merci. Tes réponses sont maintenant gardées, chiffrées, dans ton espace.</p>';
+        zone.innerHTML = '<p class="coffre-merci">C’est fait : tu retrouves tes réponses sur tous tes appareils, en texte codé. Genesolia ne peut pas les lire.</p>';
         setTimeout(function () { zone.hidden = true; }, 4000);
         ok && ok();
       });
@@ -65,19 +117,15 @@ window.GenesoliaCoffre = (function () {
       return q.maybeSingle().then(function (x) { return x && x.data ? x.data.data : null; });
     });
   }
+  /* Écriture TOUJOURS chiffrée : plus de repli en clair (les fonctions sont installées). En cas d'erreur, rien n'est écrit en clair : l'appelant réessaie. */
   function ecrire(sb, user, mois, data) {
-    var rpc = mois === null ? sb.rpc('parcours_ecrire', { p_data: data }) : sb.rpc('carnet_ecrire', { p_mois: mois, p_data: data });
-    return rpc.then(function (r) {
-      if (!r.error) return r;
-      return mois === null ? sb.from('parcours').upsert({ user_id: user.id, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id' })
-        : sb.from('carnets').upsert({ user_id: user.id, mois: mois, data: data, maj: new Date().toISOString() }, { onConflict: 'user_id,mois' });
-    });
+    return mois === null ? sb.rpc('parcours_ecrire', { p_data: data }) : sb.rpc('carnet_ecrire', { p_mois: mois, p_data: data });
   }
   return { accord: accord, demander: demander, lire: lire, ecrire: ecrire };
 })();
 
 /* ===== Repères de naissance du Cercle (table « reperes ») =====
-   Ils remplissent les livres du mois, le guide et Mon mois. Une fois enregistrés dans l'espace,
+   Ils remplissent les livres du mois, le guide et Mon mois. Modifiables dans Mon espace, Mes infos (prénoms, nom, date) ;
    la date, les prénoms et le nom de naissance ne se modifient plus (droits de la base) : seuls l'heure et le lieu
    se complètent. Une erreur : un e-mail à contact@genesolia.fr. Sans compte, tout reste sur l'appareil, comme avant.
    Les outils gratuits (thème, signe maya…) ne sont pas concernés : on peut y calculer pour un proche. */
@@ -124,10 +172,16 @@ window.GenesoliaReperes = (function () {
       heure: p.heure || null, lieu: p.lieu || null, lat: p.lat, lon: p.lon, tz: p.tz || null })
       .then(function () { return lire(sb, user); }, function () { return null; });
   }
+  /* Corriger la date, les prénoms ou le nom (depuis Ma spirale · Mes repères) */
+  function modifier(sb, user, p) {
+    if (!sb || !user) return Promise.resolve(null);
+    return sb.from('reperes').update({ prenoms: String(p.prenoms || '').trim().slice(0, 200), nom: String(p.nom || '').trim().slice(0, 120) || null, date_naissance: p.date, maj: new Date().toISOString() }).eq('user_id', user.id)
+      .then(function (r) { return r && r.error ? null : lire(sb, user); }, function () { return null; });
+  }
   function verrouille() { var x = local(); return !!(x && x.verrou); }
-  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace et ne se modifient plus. Une erreur ? Écris à <a href="mailto:contact@genesolia.fr?subject=Erreur%20dans%20mes%20rep%C3%A8res%20de%20naissance">contact@genesolia.fr</a>.';
-  var AVANT = 'Vérifie bien : une fois enregistrés dans ton espace, ta date et tes prénoms ne pourront plus être modifiés. L’heure et le lieu pourront toujours être complétés.';
-  return { lire: lire, enregistrer: enregistrer, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
+  var NOTE = 'Ta date et tes prénoms sont enregistrés dans ton espace. Pour les modifier : <a href="login.html#infos" target="_blank" rel="noopener">Mon espace, Mes infos</a>.';
+  var AVANT = 'Ta date et tes prénoms seront enregistrés dans ton espace. Tu pourras les modifier dans Mon espace, Mes infos. L’heure et le lieu pourront toujours être complétés.';
+  return { lire: lire, enregistrer: enregistrer, modifier: modifier, verrouille: verrouille, local: local, NOTE: NOTE, AVANT: AVANT };
 })();
 
 /* Ne pas compter les visites de la propriétaire (et des tests faits dans son navigateur) :
@@ -158,8 +212,10 @@ window.GENESOLIA_GA = 'G-CL135D3MXM';
 window.GenesoliaMesure = (function () {
   var CLE = 'consentement-mesure', id = window.GENESOLIA_GA, charge = false;
   function choix() { try { return localStorage.getItem(CLE); } catch (e) { return null; } }
+  /* Appli Genesolia Pro : jamais de Google Analytics (Umami seul, sans cookie), donc pas de bandeau à faire accepter */
+  function pro() { try { return /\/(pro|questionnaire)\.html$/.test(location.pathname) || sessionStorage.getItem('genesolia-appli') === 'pro'; } catch (e) { return false; } }   /* questionnaire.html : la page qu'un·e client·e remplit pour sa praticienne, sans mesure Google */
   function charger() {
-    if (charge || !id || genesoliaPasCompter()) return;
+    if (charge || !id || genesoliaPasCompter() || pro()) return;
     charge = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { dataLayer.push(arguments); };
@@ -193,30 +249,41 @@ window.GenesoliaMesure = (function () {
   var c = choix();
   if (c && expire()) { try { localStorage.removeItem(CLE); } catch (e) {} c = null; }
   if (c === 'oui') charger();
-  return { choix: choix, enregistrer: enregistrer };
+  return { choix: choix, enregistrer: enregistrer, pro: pro };
 })();
 
 /* ===== Paiements Stripe : coller ici chaque lien de paiement (Stripe > Liens de paiement) =====
    Abonnements : activer « essai gratuit de 30 jours » dans Stripe, et la page de confirmation
    https://genesolia.fr/bienvenue.html. Tant qu'un lien est vide, le bouton propose d'être prévenu·e. */
 window.GENESOLIA_STRIPE = {
-  cercleMois: '',     /* Le Cercle 29 €/mois, essai 30 jours */
-  cercleAn: '',       /* Le Cercle 24,90 €/mois avec engagement 12 mois, essai 30 jours */
-  carnet: '',         /* un carnet du mois, 9 € */
-  rapport: '',        /* le rapport de ton arbre, 9 € */
-  numerologie: '',    /* ton livret de numérologie, 12 € */
-  saisons: '',        /* Les 12 saisons, 15 € */
-  packLignee: '',     /* Pack Lignée, 35 € */
-  packAnnee: '',      /* Pack L'année complète, 79 € */
-  astral: '',         /* ton livret du thème astral */
-  arbreDeVie: '',     /* ton livret de l'arbre de vie */
-  mayaDuo: '',        /* votre analyse maya à deux */
-  arbreEncadrer: '',  /* ton arbre à encadrer (fichier HD) */
-  impressionA4: '',   /* arbre imprimé, poster A4 */
-  impressionA3: '',   /* arbre imprimé, poster A3 */
-  impressionA4Cadre: '', /* arbre imprimé, A4 encadré */
-  impressionA3Cadre: '', /* arbre imprimé, A3 encadré */
-  gestion: ''         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
+  cercleMois: 'https://buy.stripe.com/14AdR25ff6095U90U743S0l',     /* Le Cercle 24,90 €/mois (ancien lien 29 € : aFafZa6jj2NX6Yd9qD43S0h) */
+  cercleFondatrice: 'https://buy.stripe.com/8x228k0YZdsB6YdbyL43S0t', /* Cadeau de Noël 17,77 €/mois, inscriptions jusqu'au 31/12/2026 (ancien lien 24,90 € : 14AdR25ff6095U90U743S0l) · Le Cercle, prix fondatrice 24,90 €/mois (100 premières après le mois offert) */
+  cercleAn: 'https://buy.stripe.com/dRmbIU9vv3S16Yd6er43S0g',       /* Le Cercle 24 €/mois sur 12 mois : plus proposé (le prix fondatrice 24,90 € le remplace) ; gardé pour les abonnements déjà pris */
+  /* Le Cercle à l'année : offre de Noël 199 € jusqu'au 31/12/2026, puis 249 € (eVq7sE2336096Yd1Yb43S0f) */
+  cercleAnnee: new Date() < new Date('2027-01-01T00:00:00+01:00') ? 'https://buy.stripe.com/28E4gsfTTcox3M10U743S0u' : 'https://buy.stripe.com/eVq7sE2336096Yd1Yb43S0f',
+  passMois: 'https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s',   /* Ma spirale, offre de Noël 4,99 €/mois, 7 jours offerts */
+  pass3Mois: '',      /* Ma spirale 27 € les 3 mois : retirée pour l'instant (lien Stripe : https://buy.stripe.com/14AdR28rragp1DT8mz43S0k) */
+  praticienMois: 'https://buy.stripe.com/00w8wIdLLcoxcixauH43S0e',      /* Espace praticien 24 €/mois */
+  praticienFondateur: 'https://buy.stripe.com/fZueV64bb4W5cixcCP43S0b', /* Espace praticien, offre de Noël 19 €/mois (abonnements pris avant le 31/12/2026) */
+  praticienFondateurAn: 'https://buy.stripe.com/3cI7sE0YZ1JTeqF9qD43S0p', /* Espace praticien, offre de Noël 190 € l'année (avant le 31/12/2026) */
+  praticienAn: 'https://buy.stripe.com/14A4gs0YZ88hgyN6er43S0a',        /* Espace praticien 240 € l'année */
+  carnet: 'https://buy.stripe.com/28E6oA7nn9cl82hauH43S0m',         /* un carnet du mois, 9 € */
+  rapport: 'https://buy.stripe.com/aFacMYgXXcox3M18mz43S09',        /* le rapport de ton arbre, 9 € */
+  numerologie: 'https://buy.stripe.com/8x228kfTT0FP4Q546j43S06',    /* ton livret de numérologie, 12 € */
+  saisons: 'https://buy.stripe.com/8x228k4bb9cl96l0U743S03',        /* Les 12 saisons, 15 € */
+  astral: 'https://buy.stripe.com/eVq4gsgXX0FP5U96er43S07',         /* ton livret du thème astral */
+  arbreDeVie: 'https://buy.stripe.com/9B6cMY4bb4W582hcCP43S05',     /* ton livret de l'arbre de vie */
+  mayaDuo: 'https://buy.stripe.com/aFa3co6jjdsB5U9fP143S04',        /* votre analyse maya à deux */
+  arbreEncadrer: 'https://buy.stripe.com/bJebIU6jj1JT4Q546j43S0n',  /* ton arbre à encadrer (fichier HD) */
+  impressionA4: 'https://buy.stripe.com/3cIfZacHHagpcix32f43S0o',   /* arbre imprimé, poster A4 */
+  impressionA3: 'https://buy.stripe.com/9B600cbDD9cl5U96er43S02',   /* arbre imprimé, poster A3 */
+  impressionA4Cadre: 'https://buy.stripe.com/8x25kw7nn0FP2HXeKX43S01', /* arbre imprimé, A4 encadré */
+  impressionA3Cadre: 'https://buy.stripe.com/7sY28k3773S1cix9qD43S00', /* arbre imprimé, A3 encadré */
+  impressionG50: 'https://buy.stripe.com/8x2fZacHHewFeqF5an43S0r',   /* arbre imprimé, grand poster 50 × 70 cm, 69 € */
+  impressionG70: 'https://buy.stripe.com/28EfZa4bbcoxgyNdGT43S0q',   /* arbre imprimé, très grand poster 70 × 100 cm, 89 € */
+  impressionG50Cadre: '',   /* arbre imprimé, 50 × 70 cm encadré (lien Stripe à coller) */
+  impressionG70Cadre: '',   /* arbre imprimé, 70 × 100 cm encadré (lien Stripe à coller) */
+  gestion: 'https://billing.stripe.com/p/login/7sY28k3773S1cix9qD43S00'         /* lien du portail client Stripe (gérer ou arrêter son abonnement) */
 };
 
 /* ===== Produits : gratuit ou payant, UN SEUL réglage par produit =====
@@ -231,23 +298,56 @@ window.GENESOLIA_PRODUITS = {
   mayaDuo:       { payant: false, prix: '9 €',  nom: 'votre analyse à deux', inclus: ['Vos deux signes mayas', 'Ce qui vous rapproche et ce qui frotte', 'Des pistes pour avancer ensemble'] },
   rapport:       { payant: false, prix: '9 €',  nom: 'le rapport de ton arbre', inclus: ['Ton arbre et tes chiffres clés', 'Chaque répétition expliquée', 'Les questions à poser à ta famille'] },
   arbreEncadrer: { payant: false, prix: '12 €', nom: 'ton arbre à encadrer', inclus: ['Ton arbre doré, en haute définition', 'Prêt à imprimer en A4 ou A3', 'Une belle idée de cadeau'] },
-  cercle:        { payant: false, prix: '29 € par mois', nom: 'Le Cercle', inclus: [] }
+  cercle:        { payant: false, prix: '24,90 € par mois', nom: 'Le Cercle', inclus: [] }
 };
+
+/* ===== Essai de 30 jours des analyses de l'arbre =====
+   Gratuit pour toujours : dessiner son arbre (1 arbre). Les analyses (ce qui se répète, le fil d'or en arbre et ce qui se répète,
+   la numérologie et l'astrologie reliées à l'arbre, le rapport) : 30 jours offerts dès la création du compte, puis avec le Pass,
+   Le Cercle ou l'Espace praticien (table acces_premium, offre « pass », « cercle », « praticien »…).
+   actif: false tant que le Pass n'est pas payable : rien n'est bloqué. depuis : début des 30 jours pour les comptes créés avant. */
+window.GENESOLIA_ESSAI = { actif: false, jours: 30, depuis: '2026-11-01' };
 
 /* ===== Arbre imprimé et envoyé (Mon arbre à encadrer) : prix TTC affichés, livraison comprise =====
    actif: false cache l'offre. Chaque format a son lien Stripe dans GENESOLIA_STRIPE (même nom que « stripe »).
-   Prix à ajuster après ta commande test : prix TTC = coût livré TTC + au moins 30 € (25 € HT de marge). */
+   Prix à ajuster après ta commande test : prix TTC = coût livré TTC + au moins 30 € (25 € HT de marge).
+   Fichier pour l'imprimeur (normes Gelato) : PDF avec 4 mm de fond perdu (mm = taille du PDF), largeur en pixels :
+   A4 en 300 dpi, A3 en 250 dpi (au-delà, les iPhone ne savent pas fabriquer l'image). */
 window.GENESOLIA_IMPRESSION = {
   actif: true,
   ouverture: '2026-11-01',   /* avant cette date : « Bientôt disponible », sans commande (test possible avec ?test-impression dans l'adresse) */
-  livraison: 'Livraison comprise en France métropolitaine, en 3 à 7 jours ouvrés',
+  livraison: 'Livré en 3 à 7 jours ouvrés, livraison comprise, en France métropolitaine',
   formats: [
-    { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2480 },
-    { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3508 },
-    { id: 'a4cadre', nom: 'A4 encadré, cadre bois naturel',    prix: '59 €', stripe: 'impressionA4Cadre', largeur: 2480 },
-    { id: 'a3cadre', nom: 'A3 encadré, cadre bois naturel',    prix: '69 €', stripe: 'impressionA3Cadre', largeur: 3508 }
+    { id: 'a4',      nom: 'Poster A4 (21 × 29,7 cm)',          prix: '45 €', stripe: 'impressionA4',      largeur: 2575, mm: [218, 305] },
+    { id: 'a3',      nom: 'Poster A3 (29,7 × 42 cm)',          prix: '49 €', stripe: 'impressionA3',      largeur: 3002, mm: [305, 428] },
+    /* grands formats (Lignée, Médaillons, Notre famille, Descendants, Éventail) : imprimés en Europe, livrés en 6 à 11 jours ouvrés.
+       Tant que son lien Stripe (plus haut) est vide, la commande arrive quand même, sans paiement : il faut alors envoyer le lien de paiement à la main.
+       largeur : réglée au moment du fichier (le plus net possible). */
+    { id: 'g50',      nom: 'Grand poster 50 × 70 cm',                 prix: '69 €',  stripe: 'impressionG50',      largeur: 3300, mm: [508, 708], grand: true },
+    { id: 'g70',      nom: 'Très grand poster 70 × 100 cm',           prix: '89 €',  stripe: 'impressionG70',      largeur: 3300, mm: [708, 1008], grand: true }
+    /* posters seuls (plus d'encadrés depuis le 24/10/2026) : papier d'art mat 200 g/m² non couché chez Gelato */
   ]
 };
+
+/* ===== Les livres Genesolia (Amazon) =====
+   Colle ici le lien Amazon de chaque livre dès qu'il est en ligne, et son prix. Tant que « amazon » est vide,
+   les boutons affichent « Bientôt sur Amazon » partout sur le site (pages des livres, page Offrir, encarts des articles). */
+window.GENESOLIA_LIVRES = {
+  enquete: { titre: 'L’enquête de ma lignée', page: 'enquete-de-ma-lignee.html', image: 'assets/livres/enquete-scene.webp',
+    amazon: 'https://www.amazon.fr/dp/B0HPBM5BQ7', prix: '', extrait: 'assets/livres/extrait-enquete-de-ma-lignee.pdf' },
+  racines: { titre: 'Racines', page: 'racines.html', image: 'assets/livres/racines-scene.webp',
+    amazon: 'https://www.amazon.fr/dp/B0HP7WPZQD', prix: '18,99 €', extrait: '' }
+};
+/* <a data-livre-acheter="enquete"> devient « Acheter sur Amazon · prix » quand le lien existe, sinon « Bientôt sur Amazon » (sans lien) */
+window.GenesoliaLivresBoutons = function (racine) {
+  var L = window.GENESOLIA_LIVRES || {};
+  [].forEach.call((racine || document).querySelectorAll('[data-livre-acheter]'), function (a) {
+    var l = L[a.getAttribute('data-livre-acheter')]; if (!l) return;
+    if (l.amazon) { a.href = l.amazon; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Acheter sur Amazon' + (l.prix ? ' · ' + l.prix : ''); a.removeAttribute('aria-disabled'); a.classList.remove('livre-bientot'); }
+    else { a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); a.classList.add('livre-bientot'); a.textContent = 'Bientôt sur Amazon'; }
+  });
+};
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.GenesoliaLivresBoutons(); }); else window.GenesoliaLivresBoutons();
 
 /* Liens des e-mails de connexion : si Supabase renvoie sur une autre page que Mon espace, on y redirige avec le jeton */
 (function () {
@@ -261,24 +361,23 @@ window.GENESOLIA_IMPRESSION = {
 (function () {
   var MARQUE = 'Genesolia';
   var MENU = [
-    ['methode.html', 'Les deux cycles'],
-    ['blessures-de-l-ame.html', 'Tes blessures'],
-    ['genosociogramme.html', 'Ta famille'],
-    ['theme-numerologique.html', 'Tes nombres'],
-    ['theme-astral.html', 'Tes étoiles'],
-    ['offert.html', 'Tout est offert'],
-    ['mon-suivi.html', 'Mon suivi'],
-    ['blog.html', 'Blog'],
-    ['login.html', 'Mon espace']
+    ['blog.html', 'Comprendre'],
+    ['genosociogramme.html', 'Ton arbre familial'],
+    ['theme-numerologique.html', 'Tes numéros'],
+    ['theme-astral.html', 'Tes astres'],
+    ['offert.html', 'Tes cadeaux'],
+    ['abonnements.html', 'Abonnement'],   /* une page : Ma spirale, Le Cercle, Espace pro (un sous-menu reste possible : ['', 'Nom', [[page, nom], …]]) */
+    ['boutique.html', 'Boutique']
   ];
+  var ESPACE = ['login.html', 'Mon espace'];   /* tout au bout, d'une couleur à part */
   var BOUTON = ['abonnement.html', 'Le Cercle'];
-  var BOUTON_JEUNES = ['tes-20-ans.html', 'Jeune femme'];  /* espace 18-25 ans et images pour les réseaux */
+  var BOUTON_JEUNES = ['ta-vie-en-reel.html', 'Ta vie en réel'];  /* situations du quotidien, une par semaine (ex-espace « Jeune femme ») */
 
   var logo = '<svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><circle cx="13" cy="5" r="3" fill="#B98A55"/><circle cx="7" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="19" cy="11" r="2.2" stroke="#6B2F5B" stroke-width="1.3"/><circle cx="13" cy="15" r="2.4" fill="#6B2F5B"/><path d="M13 17.5v4M13 21.5l-4 3M13 21.5l4 3" stroke="#6B2F5B" stroke-width="1.3" stroke-linecap="round"/></svg>';
   var page = location.pathname.split('/').pop() || 'index.html';
   /* Pages du tunnel d'essai : ni bandeau, ni encart, ni petit carré pour ne pas distraire */
-  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'cercle.html'   /* cercle.html : l'appli des membres, sans publicité */
-    || page === 'abonnement.html'                                                            /* la page de vente : une seule décision, pas d'autre encart */
+  var tunnel = page === 'essai.html' || page === 'bienvenue.html' || page === 'questionnaire.html' || page === 'cercle.html' || page === 'pass.html'   /* cercle.html, pass.html : les applis des membres, sans publicité */
+    || page === 'abonnement.html' || page === 'ma-spirale.html'                              /* les pages de vente : une seule décision, pas d'autre encart */
     || (page === 'login.html' && /[?&]retour=essai\.html/.test(location.search));          /* création du compte depuis l'essai : on reste sur les rails */
 
   /* ===== Mode appli =====
@@ -286,7 +385,7 @@ window.GENESOLIA_IMPRESSION = {
      l'allure d'appli (en-tête court, barre d'onglets en bas, sans pied de page). Installée, tout s'ouvre ainsi.
      « site » : l'appli Genesolia installée sur l'écran d'accueil (barre d'onglets du site, sans pied de page).
      Sinon : le site normal, rien ne change. */
-  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html'];
+  var PAGES_CERCLE = ['mon-carnet.html', 'mon-suivi-mois.html', 'mon-suivi.html', 'mon-module.html', 'point-de-depart.html', 'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'mes-seances.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'question-du-mois.html'];
   var ESTCERCLE = PAGES_CERCLE.indexOf(page) >= 0;
   /* Pages du Cercle : l'appli proposée à l'installation est Le Cercle (nom, icône ; manifeste cercle.webmanifest dans chaque page) */
   if (ESTCERCLE && !window.GENESOLIA_APPLI) window.GENESOLIA_APPLI = { nom: 'Le Cercle', icone: '/assets/icones/cercle-apple-180.png' };
@@ -294,10 +393,33 @@ window.GENESOLIA_IMPRESSION = {
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
   /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
   if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search) || (ESTCERCLE && aUnCompte())) drapeau = 'cercle';
+  else if (/[?&]appli=pro\b/.test(location.search) || (drapeau === 'pro' && (page === 'genosociogramme.html' || page === 'plateau-visio.html' || page === 'login.html'))) drapeau = 'pro';   /* un dossier ouvert depuis l'appli Pro reste dans l'appli Pro */
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
+  /* Appli Genesolia Pro (pro.html) : l'Espace praticien en appli. Ni barre du bas du site, ni encarts, sur toutes ses pages */
+  if (page === 'pro.html') drapeau = 'pro';
+  /* Ma spirale (pass.html) : son appli à elle, avec sa propre barre du bas. Ni la barre du site, ni celle du Cercle */
+  if (page === 'pass.html') drapeau = 'pass';
+  if (/[?&]appli=pass\b/.test(location.search)) drapeau = 'pass';   /* une page ouverte depuis Ma spirale (le mode d'emploi…) reste dans Ma spirale */
   try { if (drapeau) sessionStorage.setItem('genesolia-appli', drapeau); else sessionStorage.removeItem('genesolia-appli'); } catch (e) {}
-  var MODE = drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
+  if (drapeau === 'pro') tunnel = true;
+  var MODE = drapeau === 'pro' || drapeau === 'pass' ? '' : drapeau === 'cercle' && (autonome || ESTCERCLE) ? 'cercle' : (autonome ? 'site' : '');
   if (MODE) { tunnel = true; document.documentElement.classList.add('appli', 'appli-' + MODE); }
+  /* Rester dans son appli : Ma spirale et Genesolia Pro sont des applis installées à part. Si une page du site s'ouvre
+     dedans (ou dans une nouvelle fenêtre de l'appli), un bouton ramène toujours à l'appli d'où l'on vient. */
+  (function () {
+    if (!autonome) return;
+    var derniere = ''; try { if (page === 'pass.html' || page === 'pro.html') localStorage.setItem('genesolia-derniere-appli', page === 'pass.html' ? 'pass' : 'pro'); derniere = localStorage.getItem('genesolia-derniere-appli') || ''; } catch (e) {}
+    var cible = drapeau === 'pass' || drapeau === 'pro' ? drapeau : (MODE === 'site' ? derniere : '');
+    if (!cible || page === cible + '.html' || (cible === 'pro' && page === 'genosociogramme.html')) return;
+    var lien = cible === 'pass' ? ['pass.html', 'Revenir à Ma spirale'] : ['pro.html', 'Revenir à Genesolia Pro'];
+    function poser() {
+      if (document.querySelector('.retour-appli')) return;
+      var a = document.createElement('a'); a.className = 'retour-appli'; a.href = lien[0]; a.textContent = '‹ ' + lien[1];
+      a.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 8px);z-index:9999;padding:.55rem 1.1rem;border-radius:99px;background:#6B2F5B;color:#fff;font:600 .9rem system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 22px rgba(46,19,56,.3)';
+      document.body.appendChild(a);
+    }
+    if (document.body) poser(); else document.addEventListener('DOMContentLoaded', poser);
+  })();
   if (tunnel && !MODE && page !== 'cercle.html') document.documentElement.classList.add('page-tunnel');   /* pas d'encart « appli gratuite » dans le pied de page du tunnel */
   /* Appli Genesolia : elle s'ouvre sur son propre accueil (appli.html), pas sur la page d'accueil du site */
   if (MODE === 'site' && page === 'index.html' && !/[?&]site\b/.test(location.search)) { location.replace('appli.html' + location.hash); return; }
@@ -358,7 +480,7 @@ window.GENESOLIA_IMPRESSION = {
       var cible = a.getAttribute('href').split('#'), ok = cible[0] === page;
       if (ok && page === 'cercle.html') ok = (cible[1] || '') === (h === 'mois' || h === 'moi' ? h : '');
       if (MODE === 'cercle' && page === 'mon-suivi.html' && cible[0] === 'mon-suivi-mois.html') ok = true;
-      if (MODE === 'cercle' && (page === 'mon-mois.html' || page === 'point-de-depart.html') && cible[0] === 'mon-carnet.html') ok = true;
+      if (MODE === 'cercle' && page === 'mon-mois.html' && cible[0] === 'mon-carnet.html') ok = true;
       if (ok) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
   }
@@ -375,13 +497,40 @@ window.GENESOLIA_IMPRESSION = {
     var jeton = null; try { jeton = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
     var nomU = String((jeton && jeton.user && jeton.user.user_metadata && (jeton.user.user_metadata.full_name || jeton.user.user_metadata.prenom)) || '').trim();
     entete.className = 'entete entete-appli';
-    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="cercle.html"><img src="/assets/icones/cercle-192.png" alt="" width="30" height="30">Le Cercle</a>' +
+    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="cercle.html"><img src="/assets/icones/cercle-192.png" alt="Logo du Cercle Genesolia" width="30" height="30">Le Cercle</a>' +
       '<a class="ea-moi" href="cercle.html#moi" aria-label="Moi : mon espace du Cercle">' + (nomU ? nomU.charAt(0).toUpperCase().replace(/[<>&"]/g, '') : '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICO.moi + '</svg>') + '</a></div>';
     entete = null;
   }
+  /* Dans l'appli Genesolia Pro, un dossier ouvert garde l'en-tête de l'appli : le retour aux dossiers, sans le menu du site */
+  if (entete && drapeau === 'pro' && page !== 'pro.html') {
+    entete.className = 'entete entete-appli entete-pro';
+    entete.innerHTML = '<div class="conteneur"><a class="ea-marque" href="pro.html"><img src="/assets/icones/pro-192.png" alt="" width="30" height="30">Genesolia Pro</a>' +
+      '<a class="ea-retour" href="pro.html" style="margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--rose);border-radius:99px;padding:.45rem .9rem;font:600 .86rem var(--texte);color:var(--prune);text-decoration:none;background:#fff">‹ Mes dossiers</a></div>';
+    entete = null;
+  }
+  /* Dans l'appli Genesolia Pro, un dossier ouvert (arbre ou plateau) garde la même barre du bas que pro.html, sur le dossier en cours */
+  if (drapeau === 'pro' && page !== 'pro.html' && (page === 'genosociogramme.html' || page === 'plateau-visio.html')) {
+    var piedPro = document.querySelector('[data-pied]'); if (piedPro) piedPro.remove();
+    document.body.classList.add('pro-page');
+    var arbreId = ''; try { arbreId = new URLSearchParams(location.search).get('arbre') || ''; } catch (e) {}
+    var qArbre = arbreId ? '?arbre=' + encodeURIComponent(arbreId) : '';
+    var basPro = document.createElement('nav');
+    basPro.className = 'pro-bas'; basPro.setAttribute('aria-label', 'Genesolia Pro');
+    basPro.innerHTML =
+      '<a href="pro.html"' + (page === 'pro.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>' +
+      '<a href="genosociogramme.html' + qArbre + '"' + (page === 'genosociogramme.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><path d="M12 3v7M12 10c-3 0-5 2-5 5M12 10c3 0 5 2 5 5M7 15v6M17 15v6"/><circle cx="12" cy="4" r="2"/><circle cx="7" cy="16" r="2"/><circle cx="17" cy="16" r="2"/></svg>Arbre</a>' +
+      '<a href="plateau-visio.html' + qArbre + '"' + (page === 'plateau-visio.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="16" r="2"/><circle cx="18" cy="16" r="2"/><path d="M12 8v4M8 15l2-2M16 15l-2-2"/></svg>Constellation</a>' +
+      '<a href="pro.html#demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>' +
+      '<a href="pro.html#activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>';
+    document.body.appendChild(basPro);
+  }
   if (entete) {
+    var lien = function (l, cls) { return '<a' + (cls ? ' class="' + cls + '"' : '') + ' href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + '</a>'; };
     var liens = MENU.map(function (l) {
-      return '<a href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
+      if (!l[2]) return lien(l);
+      var ici = l[2].some(function (s) { return s[0] === page; });
+      return '<details class="menu-sous"><summary' + (ici ? ' class="ici"' : '') + '>' + l[1] + '</summary><div class="menu-sous-l">' +
+        l[2].map(function (s) { return lien(s, s[0] === 'espace-praticien.html' ? 'menu-pro' : ''); }).join('') + '</div></details>';
     }).join('');
     entete.className = 'entete';
     entete.innerHTML =
@@ -392,8 +541,9 @@ window.GENESOLIA_IMPRESSION = {
         '</button>' +
         '<nav class="menu" id="menu" aria-label="Menu principal">' + liens +
           '<a href="#" class="menu-appli" data-installer hidden>Installer l\'appli</a>' +
-          '<a class="btn btn-jeunes"' + (BOUTON_JEUNES[0] === page ? ' aria-current="page"' : '') + ' href="' + BOUTON_JEUNES[0] + '">' + BOUTON_JEUNES[1] + '</a>' +
+          '<a class="btn btn-pros" href="espace-praticien.html" style="background:#2E1338;color:#F3E3C3;border-color:#2E1338;font-weight:600">Genesolia pour les pros</a>' +
           '<a class="btn btn-plein" href="' + BOUTON[0] + '">' + BOUTON[1] + '</a>' +
+          lien(ESPACE, 'menu-espace') +
           (MODE ? '<span class="menu-legal"><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a><a href="#" data-cookies>Cookies</a></span>' : '') +
         '</nav>' +
       '</div>';
@@ -408,10 +558,29 @@ window.GENESOLIA_IMPRESSION = {
     };
     majEspace();
     window.GenesoliaMajEntete = majEspace;
+    /* Le sous-menu « Abonnement » se ferme quand on clique ailleurs */
+    document.addEventListener('click', function (e) { entete.querySelectorAll('.menu-sous[open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); }); });
+    /* Praticien·ne connecté·e : « Tu es praticien·ne ? » devient « Mon espace praticien » (et plus la page de vente) */
+    (function () {
+      var lien = entete.querySelector('.menu-pro'); if (!lien) return;
+      function marquer(oui) { if (!oui) return; lien.href = 'pro.html'; lien.textContent = 'Mon espace pro'; lien.removeAttribute('aria-current'); }
+      var x = null; try { x = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null'); } catch (e) {}
+      if (!x || !x.access_token || !x.user) { try { localStorage.removeItem('genesolia-est-praticien'); } catch (e) {} return; }
+      var cle = 'genesolia-est-praticien', memo = null; try { memo = localStorage.getItem(cle); } catch (e) {}
+      if (memo === x.user.id) marquer(true);
+      fetch('https://qsvzzkjtjsznfntahvvh.supabase.co/rest/v1/praticiens?select=user_id&user_id=eq.' + encodeURIComponent(x.user.id), {
+        headers: { apikey: 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg', Authorization: 'Bearer ' + x.access_token }
+      }).then(function (r) { return r.ok ? r.json() : null; }).then(function (l) {
+        if (!l) return;
+        var oui = l.length > 0;
+        try { if (oui) localStorage.setItem(cle, x.user.id); else localStorage.removeItem(cle); } catch (e) {}
+        marquer(oui);
+      }).catch(function () {});
+    })();
     /* Sans compte, sur les outils : rappel discret que le travail s'efface à la fermeture du navigateur */
     var OUTILS = ['genosociogramme.html', 'theme-numerologique.html', 'theme-astral.html', 'arbre-de-vie.html', 'ton-signe-maya.html', 'ton-prenom.html', 'blessures-de-l-ame.html', 'parcours.html', 'mon-suivi.html', 'exercice-ressenti-ancetre.html', 'calcul-syndrome-anniversaire.html', 'roue-des-emotions.html', 'fil-d-or.html'];
     var vuNote = false; try { vuNote = sessionStorage.getItem('note-donnees') === 'vue'; } catch (e) {}
-    if (OUTILS.indexOf(page) >= 0 && !vuNote && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
+    if (OUTILS.indexOf(page) >= 0 && !vuNote && drapeau !== 'pro' && !/[?&]exemple\b/.test(location.search) && !(window.GenesoliaDonnees && window.GenesoliaDonnees.connectee())) {
       var note = document.createElement('div');
       note.className = 'note-donnees'; note.setAttribute('role', 'note');
       note.innerHTML = '<div class="conteneur"><p>Sans compte, ton travail est gardé jusqu’à la fermeture de ton navigateur. <a href="login.html?inscription&amp;retour=' + page + '">Crée ton espace gratuit</a> pour le retrouver plus tard.</p><button type="button" aria-label="Fermer">×</button></div>';
@@ -436,14 +605,14 @@ window.GENESOLIA_IMPRESSION = {
   function piedAppliCercle() {
     return '<div class="pied-appli">' +
       '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
-        '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
+        '<div class="pa-barre" aria-hidden="true"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
         '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
         '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' +
         '<i></i><i></i><i></i><i></i></div>' +
       '</div></div>' +
       '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
         '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-        '<a href="cercle.html#installer" class="btn pa-bouton">Télécharger l’appli Le Cercle</a></div>' +
+        '<a href="cercle.html#installer" class="btn pa-bouton">Télécharge l’appli Le Cercle</a></div>' +
     '</div>';
   }
   /* Carnet et suivi du mois, dans le navigateur : un pied de page léger, réservé aux membres */
@@ -459,11 +628,14 @@ window.GENESOLIA_IMPRESSION = {
           '<li><a href="mes-seances.html">Mes séances</a></li>' +
           '<li><a href="mon-mois.html">Mes carnets précédents</a></li>' +
           '<li><a href="blog.html">Blog</a></li>' +
-          '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
+          '<li><a href="pourquoi-genesolia.html">Pourquoi Genesolia</a></li>' +
+          '<li><a href="la-demarche.html">La démarche</a></li>' +
+          '<li><a href="tarifs.html">Tarifs</a></li>' +
+          '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
           '<li><a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a></li>' +
-          '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
+          '<li><a href="avis.html">Envoie-nous ton avis, on en a besoin</a></li></ul>' +
         (cercleInstalle ? '' : piedAppliCercle()) +
         '<div class="pied-bas">' +
           '<span>Genesolia propose un travail symbolique de connaissance de soi et de sa lignée, en complément de tout suivi médical.</span>' +
@@ -473,73 +645,59 @@ window.GENESOLIA_IMPRESSION = {
   } else if (pied) {
     pied.className = 'pied';
     pied.innerHTML =
+      '<div class="pied-lumiere" aria-hidden="true"></div>' +
       '<div class="conteneur">' +
-        '<div class="pied-appli">' +
-          '<div class="pa-tel" aria-hidden="true"><div class="pa-ecran">' +
-            '<div class="pa-barre"><span>9:41</span><span class="pa-encoche"></span><span>●●●</span></div>' +
-            '<div class="pa-grille"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>' +
-            (ESTCERCLE ? '<b><img src="/assets/icones/cercle-192.png" alt="" width="64" height="64" loading="lazy"><em>Le Cercle</em></b>' : '<b><img src="/assets/icones/icone-192.png" alt="" width="64" height="64" loading="lazy"><em>Genesolia</em></b>') +
-            '<i></i><i></i><i></i><i></i></div>' +
-          '</div></div>' +
-          (ESTCERCLE
-            /* Pages du Cercle : c'est l'appli Le Cercle qu'on propose (installée depuis cercle.html, qui porte son icône) */
-            ? '<div class="pa-texte"><p class="pa-sur">L’appli des membres</p><p class="pa-titre">LE CERCLE<br><span>dans ta poche</span></p>' +
-              '<ul><li>Renaissance, Libération, ton module et tes audios</li><li>Une barre en bas pour passer de l’un à l’autre</li><li>Sans store, en plein écran</li></ul>' +
-              '<a href="cercle.html#installer" class="btn pa-bouton"' + (page === 'cercle.html' ? ' data-installer-bandeau' : '') + '>Télécharger l’appli Le Cercle</a></div>'
-            : '<div class="pa-texte"><p class="pa-sur">L\'appli gratuite</p><p class="pa-titre">GENESOLIA<br><span>dans ta poche</span></p>' +
-              '<ul><li>Ton arbre, tes nombres, tes étoiles en un geste</li><li>Plein écran, comme une vraie appli</li><li>Sans store, sans compte obligatoire</li></ul>' +
-              '<a href="#" class="btn pa-bouton" data-installer-bandeau>Installer l\'appli</a></div>') +
+        '<div class="pied-une">' +
+          '<img class="pied-arbre" src="/assets/images/arbre-lumiere-600.webp" width="600" height="600" alt="" loading="lazy">' +
+          '<div class="pied-une-t">' +
+            '<a class="pied-nom" href="/">Genesolia</a>' +
+            '<p class="pied-phrase">Prends ta place, honore-la, sans t’épuiser à répéter tes difficultés.</p>' +
+            '<p class="pied-court">Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale, et t’en libérer à ton rythme.</p>' +
+            '<div class="pied-actions"><a class="btn pied-btn" href="offert.html">Tes cadeaux gratuits</a><a class="btn pied-btn2" href="abonnements.html">Les abonnements</a>' +
+            '<a class="pied-appli-l" href="#" data-installer-bandeau>Installer l’appli sur mon téléphone</a></div>' +
+          '</div>' +
         '</div>' +
         '<div class="pied-grille">' +
-          '<div><a class="marque" href="/">' + MARQUE + '</a>' +
-            '<p>Des outils pour comprendre ce qui se répète dans ta vie, à partir de ton histoire familiale et de l\'arbre de vie.</p></div>' +
-          '<div><h4>Les outils</h4><ul>' +
-            '<li><a href="offert.html">Tout est offert</a></li>' +
-            '<li><a href="arbre-de-vie.html">Test de l\'arbre de vie</a></li>' +
-            '<li><a href="parcours.html">Parcours guidé</a></li>' +
-            '<li><a href="mon-suivi.html">Mon suivi</a></li>' +
-            '<li><a href="mon-guide.html">Mon guide du mois</a></li>' +
-            '<li><a href="theme-numerologique.html">Thème numérologique</a></li>' +
-            '<li><a href="theme-astral.html">Thème astral</a></li>' +
-            '<li><a href="ton-prenom.html">Ton prénom</a></li>' +
-            '<li><a href="tes-20-ans.html">Jeune femme</a></li>' +
-            '<li><a href="cartes.html">Images à partager</a></li>' +
-            '<li><a href="jeux.html">Jeux pour se rapprocher</a></li>' +
-            '<li><a href="jeux-en-famille.html">Jeux en famille</a></li>' +
-            '<li><a href="genosociogramme.html">Mon arbre familial</a></li>' +
-            '<li><a href="roue-des-emotions.html">La roue des émotions</a></li>' +
-            '<li><a href="fil-d-or.html">Le fil d\'or</a></li>' +
-            '<li><a href="espace-praticien.html">Espace praticien</a></li>' +
-            '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li>' +
+          '<div><h4>Tes outils</h4><ul>' +
+            '<li><a href="genosociogramme.html">Ton arbre familial</a></li>' +
+            '<li><a href="theme-numerologique.html">Tes numéros</a></li>' +
+            '<li><a href="theme-astral.html">Tes astres</a></li>' +
+            '<li><a href="fil-d-or.html">Le fil d’or</a></li>' +
+            '<li><a href="arbre-de-vie.html">L’arbre de vie</a></li>' +
+            '<li><a href="parcours.html">Trouver mon cycle</a></li>' +
+            '<li><a href="archetype-feminin-test.html">Ton archétype féminin</a></li>' +
+            '<li><a href="style-attachement-test.html">Ton style d’attachement</a></li>' +
+            '<li><a href="offert.html">Tes cadeaux</a></li>' +
             '<li><a href="outils.html">Tous les outils</a></li></ul></div>' +
-          '<div><h4>Guides</h4><ul>' +
-            '<li><a href="quest-ce-qu-un-genosociogramme.html">Qu\'est-ce qu\'un génosociogramme ?</a></li>' +
-            '<li><a href="comment-faire-son-genosociogramme.html">Comment faire son génosociogramme</a></li>' +
-            '<li><a href="exemple-genosociogramme.html">Exemple de génosociogramme</a></li>' +
-            '<li><a href="genosociogramme-vierge.html">Génosociogramme vierge (PDF)</a></li>' +
-            '<li><a href="symboles-genosociogramme.html">Les symboles</a></li></ul></div>' +
           '<div><h4>Comprendre</h4><ul>' +
-            '<li><a href="blog.html">Le blog</a></li>' +
+            '<li><a href="blog.html">Les articles</a></li>' +
+            '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
             '<li><a href="histoires.html">Histoires de familles</a></li>' +
             '<li><a href="le-ciel-du-mois.html">Le ciel du mois</a></li>' +
-            '<li><a href="methode.html">La méthode des deux cycles</a></li>' +
-            '<li><a href="heriter.html">Le transgénérationnel</a></li>' +
-            '<li><a href="syndrome-anniversaire.html">Le syndrome d\'anniversaire</a></li>' +
             '<li><a href="psychogenealogie.html">La psychogénéalogie</a></li>' +
-            '<li><a href="/#questions">Questions fréquentes</a></li></ul></div>' +
-          '<div><h4>Informations</h4><ul>' +
-            '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
-            '<li><a href="confidentialite.html">Confidentialité et cookies</a></li>' +
-            '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
+            '<li><a href="quest-ce-qu-un-genosociogramme.html">Le génosociogramme</a></li>' +
+            '<li><a href="blessures-de-l-ame.html">Les blessures du cœur</a></li></ul></div>' +
+          '<div><h4>Avancer</h4><ul>' +
+            '<li><a href="ma-spirale.html">Ma spirale</a></li>' +
+            '<li><a href="abonnement.html">Le Cercle</a></li>' +
+            '<li><a href="espace-praticien.html">Espace pro</a></li>' +
+            '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
+            '<li><a href="boutique.html">Boutique</a></li>' +
+            '<li><a href="livres.html">Les livres</a></li>' +
+            '<li><a href="tarifs.html">Tarifs</a></li></ul></div>' +
+          '<div><h4>Genesolia</h4><ul>' +
             '<li><a href="login.html">Mon espace</a></li>' +
-            '<li><a href="abonnement.html">Le Cercle · abonnement</a></li>' +
-            '<li><a href="mailto:contact@genesolia.fr">Nous écrire : contact@genesolia.fr</a></li>' +
-            '<li><a href="mailto:contact@genesolia.fr?subject=Mon%20avis%20sur%20Genesolia">Envoie-nous ton avis, on en a besoin</a></li>' +
-            '<li><a href="#" data-installer hidden>Installer l\'appli sur mon téléphone</a></li></ul></div>' +
+            '<li><a href="mailto:contact@genesolia.fr">Nous écrire</a></li>' +
+            '<li><a href="avis.html">Donner mon avis</a></li>' +
+            '<li><a href="/#questions">Questions fréquentes</a></li>' +
+            '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
+            '<li><a href="cgv.html">Conditions de vente</a></li>' +
+            '<li><a href="confidentialite.html">Confidentialité</a></li>' +
+            '<li><a href="#" data-cookies>Gérer mes cookies</a></li></ul></div>' +
         '</div>' +
         '<div class="pied-bas">' +
           '<span>Ce site propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique.</span>' +
-          '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + '</span>' +
+          '<span>© ' + MARQUE + ' ' + new Date().getFullYear() + ' · Fait avec soin, en France</span>' +
         '</div>' +
       '</div>';
   }
@@ -574,6 +732,13 @@ window.GENESOLIA_IMPRESSION = {
     return Promise.all([versSB, versN]).then(function (r) { if (!r[0] && !r[1]) throw new Error('envoi'); });
   }
   window.GenesoliaEnvoyer = envoyerFormulaire;
+  /* Tes dates clés de l'année : tout élément [data-dates-cles] ouvre la fenêtre (module chargé au premier clic) */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-dates-cles]'); if (!b) return;
+    e.preventDefault();
+    if (window.GenesoliaDatesCles) { window.GenesoliaDatesCles.ouvrir(); return; }
+    var sc = document.createElement('script'); sc.src = 'assets/dates-cles.js?v=1'; sc.onload = function () { window.GenesoliaDatesCles.ouvrir(); }; document.head.appendChild(sc);
+  });
   window.GenesoliaN8NAdresse = function () { return N8N; };
   var CARNET = 'assets/carnet-des-deux-cycles-8a44d6c993.pdf';
   function telecharger() {
@@ -603,7 +768,7 @@ window.GENESOLIA_IMPRESSION = {
       '<p><a class="btn btn-plein" href="formation.html">Découvrir la formation</a></p></div></div></div>';
     piedPage.parentNode.insertBefore(zoneForm, piedPage);
   }
-  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && !document.querySelector('[data-cadeau]')) {   /* pas d'encart « carnet offert » dans le carnet lui-même */
+  if (piedPage && !tunnel && PAGES_CERCLE.indexOf(page) < 0 && page !== 'carnet-des-deux-cycles.html' && page !== 'praticien.html' && page !== 'espace-praticien.html' && page !== 'mode-emploi-genesolia-pro.html' && !document.querySelector('[data-cadeau]')) {   /* ni dans le cabinet ni sur la page pro : ce sont des outils de travail */   /* pas d'encart « carnet offert » dans le carnet lui-même */
     var zoneCadeau = document.createElement('section');
     zoneCadeau.className = 'bloc cadeau-bas';
     zoneCadeau.innerHTML = '<div class="conteneur"><div data-cadeau></div></div>';
@@ -619,7 +784,7 @@ window.GENESOLIA_IMPRESSION = {
       '<div class="cadeau-texte">' +
         '<p class="ef-sur">Offert · 15 minutes</p>' +
         '<h2>Ton point de départ</h2>' +
-        '<p>Ta roue de la vie, ton mode survie, tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi. Tu découvres aussi si Le Cercle est fait pour toi.</p>' +
+        '<p>Ta roue de la vie, ton mode survie (quand tu es toujours en alerte), tes blessures du cœur et tes cibles : en quinze minutes, tu vois d’où tu pars et ce qui se rejoue pour toi. Tu découvres aussi si Le Cercle est fait pour toi.</p>' +
         '<ul class="ef-liste"><li>Interactif, sur ton téléphone ou ton ordinateur</li><li>Tes résultats gardés dans ton espace</li><li>Repris tels quels si tu ouvres ton mois offert du Cercle : rien à refaire</li></ul>' +
         '<p class="cadeau-ligne"><a class="btn btn-plein" href="point-de-depart.html">Faire mon point de départ</a></p>' +
       '</div>';
@@ -661,23 +826,32 @@ window.GENESOLIA_IMPRESSION = {
   /* Bandeau fin en haut des pages du site : Le Cercle, 1er mois offert (pas dans le tunnel, ni pour les membres) */
   var fermee = false;
   try { fermee = sessionStorage.getItem('annonce-cercle') === 'fermee'; } catch (e) {}
-  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html'];
+  var PAGES_SANS_BANDEAU = ['abonnement.html', 'essai.html', 'bienvenue.html', 'login.html', 'seance-offerte.html', 'point-de-depart.html', 'praticien.html', 'espace-praticien.html', 'mode-emploi-genesolia-pro.html'];
   var noteAffichee = !!document.querySelector('.note-donnees') && window.innerWidth < 600;   /* téléphone : pas deux bandeaux empilés avant le contenu */
-  if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && entete && (!ESTCERCLE || page === 'cercle.html')) {
+  if (!fermee && !tunnel && !noteAffichee && PAGES_SANS_BANDEAU.indexOf(page) < 0 && !/[?&]partage=/.test(location.search) &&   /* arbre partagé (souvent par une praticienne) : pas de publicité pour Le Cercle */
+      entete && (!ESTCERCLE || page === 'cercle.html')) {
     var bandeau = document.createElement('div');
     bandeau.className = 'annonce annonce-cercle';
     bandeau.innerHTML =
-      '<a href="abonnement.html"><img class="annonce-livret" src="/assets/cercle/couv-renaissance-petite.webp" width="62" height="88" alt=""><span class="annonce-texte"><span class="annonce-pastille">Le Cercle</span> Et si ce qui se répète dans ta vie s’arrêtait enfin ? <u>Ton 1<sup>er</sup> mois est offert, sans carte</u> →</span></a>' +
+      '<a href="abonnement.html"><img class="annonce-livret" src="/assets/cercle/couv-renaissance-petite.webp" width="62" height="88" alt=""><span class="annonce-texte"><span class="annonce-pastille">Le Cercle</span> Et si ce qui se répète dans ta vie s’arrêtait enfin ? <u>Ton 1<sup>er</sup> mois est offert, sans </u><span style="white-space:nowrap"><u>carte</u><svg class="annonce-chevron" viewBox="0 0 10 16" width="8" height="12" aria-hidden="true" style="display:inline-block;margin-left:.4em;vertical-align:-1px"><path d="M2 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></a>' +
       '<button type="button" aria-label="Fermer l\'annonce">×</button>';
     bandeau.querySelector('button').addEventListener('click', function () {
       bandeau.remove();
       try { sessionStorage.setItem('annonce-cercle', 'fermee'); } catch (e) {}
     });
     entete.parentNode.insertBefore(bandeau, entete);
-    /* Déjà membre du Cercle : le bandeau ne sert à rien, on le retire */
+    /* Cliente connectée : à la place du Cercle, le bandeau de Noël (jusqu'au 6 janvier) ; après, membre du Cercle : plus de bandeau */
+    var NOEL_FIN = new Date('2027-01-06T23:59:59');
+    function bandeauNoel() {
+      bandeau.className = 'annonce annonce-cercle annonce-noel';
+      bandeau.querySelector('a').outerHTML = '<a href="boutique.html"><span class="annonce-noel-etoile" aria-hidden="true">✦</span><span class="annonce-texte"><span class="annonce-pastille">Noël</span> Des cadeaux qui ont du sens : la carte cadeau du Cercle, les livres à remplir en famille. <span style="white-space:nowrap"><u>Voir les idées de Noël</u><svg class="annonce-chevron" viewBox="0 0 10 16" width="8" height="12" aria-hidden="true" style="display:inline-block;margin-left:.4em;vertical-align:-1px"><path d="M2 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span></a>';
+    }
     setTimeout(function () {
-      var A = window.GenesoliaAcces;
-      if (A && A.membre && window.GenesoliaCompte && window.GenesoliaCompte.actif && window.GenesoliaCompte.actif()) A.membre().then(function (m) { if (m) bandeau.remove(); });
+      var A = window.GenesoliaAcces, C = window.GenesoliaCompte, connectee = !!(C && C.actif && C.actif());
+      if (!connectee) return;
+      if (new Date() < NOEL_FIN && page !== 'boutique.html') { bandeauNoel(); return; }
+      if (new Date() < NOEL_FIN) { bandeau.remove(); return; }   /* déjà sur la page des idées de Noël */
+      if (A && A.membre) A.membre().then(function (m) { if (m) bandeau.remove(); });
     }, 0);
   }
 
@@ -697,7 +871,7 @@ window.GENESOLIA_IMPRESSION = {
         '<a class="btn btn-plein" href="' + FORMATION.page + '">Découvrir la formation</a>' +
         '<p class="ef-note">Gratuit et sans engagement.</p>' +
       '</div>' +
-      '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="" width="580" height="820" loading="lazy"></div>';
+      '<div class="ef-visuel" aria-hidden="true"><img src="assets/formation/module-1-apercu.jpg" alt="Aperçu du module 1 de la formation Sors de la boucle" width="580" height="820" loading="lazy"></div>';
   });
 
   /* Formulaire de liste d'attente : <div data-liste-formation></div> */
@@ -785,7 +959,7 @@ window.GENESOLIA_IMPRESSION = {
     });
     document.body.appendChild(b);
   }
-  if (!vu) bandeauCookies(true);
+  if (!vu && !window.GenesoliaMesure.pro()) bandeauCookies(true);
   document.addEventListener('click', function (e) {
     var l = e.target.closest && e.target.closest('[data-cookies]');
     if (!l) return;
@@ -818,7 +992,7 @@ window.GENESOLIA_IMPRESSION = {
      window.GenesoliaDemandeMail({ offre: 'point-de-depart' | 'c1-10' | 'c2-10', fermable: true, apres: function (jeton) {} }) */
   var OFFERTS = {
     'point-de-depart': { sur: 'Offert · 15 minutes', titre: 'Ton point de départ', image: 'assets/cercle/couv-point-depart-petite.webp',
-      liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : comment tu réagis quand tu as peur', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
+      liste: ['Ta roue de la vie : où tu en es dans les grands domaines de ta vie', 'Ton mode survie : quand tu es toujours en alerte, à tout tenir à bout de bras, comment tu réagis', 'Tes blessures du cœur : ce qui se rejoue dans tes liens', 'Tes cibles et ta synthèse, gardées dans ton espace'], bouton: 'Commencer mon point de départ' },
     'c1-10': { sur: 'Offert · séance complète', titre: 'Ta séance « Sortir de l’alerte »', image: 'assets/cercle/couv-renaissance-petite.webp',
       liste: ['Cycle 1 · De la peur à la paix', 'L’alarme qui sonne en toi baisse, cran par cran, jusqu’au silence', 'À écouter autant de fois que tu veux'], bouton: 'Écouter ma séance' },
     'c2-10': { sur: 'Offert · séance complète', titre: 'Ta séance « L’arbre des liens »', image: 'assets/cercle/couv-liberation-petite.webp',
@@ -833,7 +1007,7 @@ window.GENESOLIA_IMPRESSION = {
     f.innerHTML = '<form class="appli-carte offert-carte" novalidate>' + (o.fermable === false ? '' : '<button type="button" class="appli-fermer" aria-label="Fermer">×</button>') +
       '<img class="offert-couv" src="' + O.image + '" alt="" width="62" height="88"><p class="offert-sur">' + O.sur + '</p><h2>' + O.titre + '</h2>' +
       '<ul class="compte-liste">' + O.liste.map(function (t) { return '<li>' + escO(t) + '</li>'; }).join('') + '</ul>' +
-      '<p class="offert-cercle"><b>En plus : ton accès gratuit au Cercle pendant 1 mois</b>, sans carte. Tes deux livres Renaissance et Libération, tes séances audio, la formation « Sors de la boucle » et ton appli.</p>' +
+      '<p class="offert-cercle"><b>En plus : ton accès gratuit au Cercle pendant 1 mois</b>, sans carte. Ton parcours guidé (Renaissance et Libération), tes séances audio, la formation « Sors de la boucle » et ton appli.</p>' +
       '<label class="offert-champ">Prénom<input name="prenom" autocomplete="given-name"></label>' +
       '<label class="offert-champ">E-mail<input name="email" type="email" autocomplete="email" required></label>' +
       '<label class="offert-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir mon offert et les nouvelles de Genesolia par e-mail. Je peux me désinscrire à tout moment. <a href="confidentialite.html" target="_blank">Mes données</a></span></label>' +
@@ -883,7 +1057,7 @@ window.GENESOLIA_IMPRESSION = {
   };
   function carreSeance(cible) {
     if (TELEPHONE || window.GenesoliaMembre || seanceRecue() || page === 'seance-offerte.html' || page === 'point-de-depart.html') return;
-    if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || page === 'praticien.html' || document.querySelector('.carre-cercle')) return;
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
     try { if (sessionStorage.getItem('carre-seance-ferme') === '1') return; } catch (e) {}
     var c = document.createElement('aside');
@@ -929,7 +1103,7 @@ window.GENESOLIA_IMPRESSION = {
       return;
     }
     if (document.querySelector('.appli-fenetre, .chemin-toast.visible, .cookies.visible')) return;
-    if (tunnel || page === 'mon-mois.html' || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || document.querySelector('.carre-cercle')) return;
+    if (tunnel || page === 'mon-mois.html' || page === 'mon-carnet.html' || page === 'genosociogramme.html' || page === 'abonnement.html' || page === 'offert.html' || page === 'praticien.html' || document.querySelector('.carre-cercle')) return;
     try {
       if (sessionStorage.getItem('carre-cercle-ferme') === '1') return;
     } catch (e) {}
@@ -941,7 +1115,7 @@ window.GENESOLIA_IMPRESSION = {
       '<img src="' + CARRE.image + '" alt="" width="60" height="85">' +
       '<div><p class="cc-sur">Offert · 15 minutes</p>' +
         '<p class="cc-titre">' + CARRE.titre + '</p>' +
-        '<p class="cc-texte">Ta roue de la vie, ton mode survie et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
+        '<p class="cc-texte">Ta roue de la vie, ton mode survie (quand tu es toujours en alerte) et tes blessures du cœur : vois d’où tu pars, et si Le Cercle est fait pour toi.</p>' +
         '<a class="cc-bouton" href="' + CARRE.lien + '" data-offre="point-de-depart">Je commence</a></div>';
     c.querySelector('.cc-fermer').addEventListener('click', function () {
       c.remove();
@@ -1066,6 +1240,29 @@ window.GENESOLIA_IMPRESSION = {
   });
   window.GenesoliaInstaller = { ouvrir: installer, aide: aideInstall, installee: function () { return installee; } };
 
+  /* Discussion en direct (Crisp) : bulle en bas à droite. Pas dans l'appli installée ni sur ses écrans à onglets du bas (elle les cacherait),
+     ni sur le lien de partage reçu par les client·es d'un·e praticien·ne, ni en mode séance. */
+  (function () {
+    if (document.documentElement.classList.contains('dans-cadre') || MODE || drapeau === 'pro' || page === 'questionnaire.html' || /[?&]partage=/.test(location.search) || page === 'praticien-partage.html') return;   /* appli Pro : la bulle cachait l'onglet « Mon activité » */
+    window.$crisp = window.$crisp || []; window.CRISP_WEBSITE_ID = '72330f82-5507-42cc-a376-22083dd99abe';
+    window.$crisp.push(['config', 'position:reverse', true]);   /* la bulle passe en bas à gauche (le panier de la boutique est en bas à droite) */
+    /* sur téléphone, la bulle n'arrive qu'après un défilement ou 15 secondes : elle ne cache plus le premier écran (« Dessiner mon arbre ») */
+    var charge = false;
+    function charger() { if (charge) return; charge = true; window.removeEventListener('scroll', auDefile); var sc = document.createElement('script'); sc.src = 'https://client.crisp.chat/l.js'; sc.async = 1; document.head.appendChild(sc); }
+    function auDefile() { if ((window.scrollY || 0) > 400) charger(); }
+    if (window.matchMedia && matchMedia('(max-width: 760px)').matches) { window.addEventListener('scroll', auDefile, { passive: true }); setTimeout(charger, 15000); }
+    else charger();
+    var cache = null;
+    function maj() {
+      var c = document.body && (document.body.classList.contains('mode-seance') || document.body.classList.contains('mobile-arbre'));
+      if (c === cache) return; cache = c;
+      window.$crisp.push(['do', c ? 'chat:hide' : 'chat:show']);
+    }
+    if (document.body) { maj(); new MutationObserver(maj).observe(document.body, { attributes: true, attributeFilter: ['class'] }); }
+  })();
+  /* #installer (bouton « Télécharge Genesolia sur ton mobile » depuis une page du Cercle) : les instructions s'ouvrent ; cercle.html gère le sien */
+  if (location.hash === '#installer' && page !== 'cercle.html') { history.replaceState(null, '', location.pathname + location.search); setTimeout(aideInstall, 300); }
+
   /* Partage depuis le téléphone, avec l'image de la page quand c'est possible (Instagram, WhatsApp, Messenger…) */
   function partagerAvecImage(titre, adresse, image) {
     var simple = function () { return navigator.share({ title: titre, text: titre, url: adresse }); };
@@ -1184,7 +1381,7 @@ window.GENESOLIA_IMPRESSION = {
     f.className = 'appli-fenetre'; f.setAttribute('role', 'dialog'); f.setAttribute('aria-modal', 'true'); f.setAttribute('aria-label', 'Crée ton espace pour télécharger');
     f.innerHTML = '<div class="appli-carte compte-carte"><button type="button" class="appli-fermer" aria-label="Fermer">×</button>' +
       '<img src="/assets/icones/icone-192.png" alt="" width="64" height="64"><h2>' + (quoi ? esc(quoi.charAt(0).toUpperCase() + quoi.slice(1)) : 'Ton document') + ' t\'attend</h2>' +
-      '<p>Pour le télécharger, crée ton espace Genesolia : c\'est gratuit et ça prend une minute.</p>' +
+      (quoi === 'ton abonnement' ? '<p>Pour t\'abonner, connecte-toi à ton espace Genesolia (ou crée-le, c\'est gratuit) : ton accès s\'ouvrira dessus dès le paiement.</p>' : '<p>Pour le télécharger, crée ton espace Genesolia : c\'est gratuit et ça prend une minute.</p>') +
       '<ul class="compte-liste"><li>Tous tes livrets et tes tests gardés au même endroit, avec leur date</li><li>Ton évolution, test après test</li><li>Ton arbre familial sauvegardé</li></ul>' +
       '<div class="compte-actions"><a class="btn btn-plein" href="login.html?inscription&retour=' + encodeURIComponent(ici) + '">Créer mon espace gratuit</a><a class="compte-lien" href="login.html?retour=' + encodeURIComponent(ici) + '">J\'ai déjà un compte</a></div></div>';
     function fermer() { f.remove(); }
@@ -1234,7 +1431,9 @@ window.GENESOLIA_IMPRESSION = {
       ]).then(function (r) {
         var produits = {}; (r[0] || []).forEach(function (a) { produits[a.produit] = true; });
         var tout = (r[1] || []).some(function (a) { return (a.offre === 'abonnement' || a.offre === 'offert' || a.offre === 'cercle' || a.offre === 'admin') && new Date(a.valide_jusqu) > new Date(); });   /* 'admin' : la propriétaire (relecture), membre comme 'offert' */
-        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout };
+        var pass = (r[1] || []).some(function (a) { return a.offre === 'pass' && new Date(a.valide_jusqu) > new Date(); });   /* le Pass : livrets et analyses, sans le parcours du Cercle */
+        var admin = (r[1] || []).some(function (a) { return a.offre === 'admin' && new Date(a.valide_jusqu) > new Date(); });
+        return { uid: uid, email: x.user && x.user.email, produits: produits, tout: tout, pass: pass, admin: admin };
       });
     });
     mesAcces.then(function (a) { if (!a) mesAcces = null; });
@@ -1243,7 +1442,7 @@ window.GENESOLIA_IMPRESSION = {
   /* Promise<boolean> : true si la personne peut utiliser ce produit (gratuit, acheté, ou membre du Cercle) */
   function aAcces(cle) {
     if (!estPayant(cle)) return Promise.resolve(true);
-    return chargerAcces().then(function (a) { return !!(a && (a.tout || a.produits[cle])); });
+    return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass || a.produits[cle])); });
   }
   function lienPaiement(cle, a) {
     var base = (window.GENESOLIA_STRIPE || {})[cle]; if (!base || !a || !a.uid) return '';
@@ -1275,6 +1474,10 @@ window.GENESOLIA_IMPRESSION = {
   }
   /* Membre du Cercle (abonnement, essai en cours ou accès offert) */
   function membre() { return chargerAcces().then(function (a) { return !!(a && a.tout); }, function () { return false; }); }
+  /* le Pass (ou Le Cercle, qui le contient) : l'appli « Ma spirale », Mon mois, l'agenda */
+  function pass() { return chargerAcces().then(function (a) { return !!(a && (a.tout || a.pass)); }, function () { return false; }); }
+  /* Ma spirale (pass.html) : seulement avec le Pass. Le Cercle est une autre offre et ne l'inclut pas (décision du 25 octobre 2026). La propriétaire (admin) y a accès pour relire. */
+  function spirale() { return chargerAcces().then(function (a) { return !!(a && (a.pass || a.admin)); }, function () { return false; }); }
   /* Le suivi par étapes (cycle 2) : le parcours suit le mois d'abonnement, pas le mois du calendrier.
      Mois d'abonnement compté depuis acces_premium.cree_le, mois 1 le premier mois (même calcul que v_mois dans
      outils-internes/supabase-seances.sql et que moisDepuis() dans mes-seances.js). Étape en cours = min(mois, 12).
@@ -1349,7 +1552,27 @@ window.GENESOLIA_IMPRESSION = {
     setTimeout(function () { une(null); }, 6000);   /* filet : la page s'ouvre quoi qu'il arrive */
     ((window.GenesoliaAcces && window.GenesoliaAcces.etape) || etape)().then(une, function () { une(null); });
   }
-  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes };
+  /* Boutons de paiement [data-payer="clé"] : lien Stripe de GENESOLIA_STRIPE, avec l'id du compte (client_reference_id) pour que
+     la fonction Supabase « stripe-webhook » ouvre le bon accès. Sans compte : création du compte d'abord. Lien vide : « Bientôt disponible ». */
+  function payer(cle, el) {
+    if (!(window.GENESOLIA_STRIPE || {})[cle]) {
+      var txt = (el && el.getAttribute('data-bientot-texte')) || 'Bientôt disponible.';
+      var zoneMsg = el && el.closest('div,section,form') && el.closest('div,section,form').querySelector('[data-bientot-msg]');
+      if (zoneMsg) zoneMsg.textContent = txt;
+      else if (el && !(el.nextElementSibling && el.nextElementSibling.classList.contains('tf-note'))) { var n = document.createElement('p'); n.className = 'tf-note'; n.setAttribute('role', 'status'); n.textContent = txt; el.after(n); }
+      return;
+    }
+    if (!aUnCompte()) { demanderCompte('ton abonnement'); return; }
+    chargerAcces().then(function (a) {
+      var l = lienPaiement(cle, a);
+      if (l) location.href = l; else demanderCompte('ton abonnement');
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-payer]'); if (!el) return;
+    e.preventDefault(); payer(el.getAttribute('data-payer'), el);
+  });
+  window.GenesoliaAcces = { payant: estPayant, verifier: aAcces, proposer: proposerAchat, produit: produit, membre: membre, pass: pass, spirale: spirale, etape: etape, etapesSuivi: ETAPES_SUIVI, ouvrirParEtapes: ouvrirParEtapes, payer: payer };
   /* Membres du Cercle : plus d'encart « carnet offert » ni de petit carré ; à la place, le lien vers leurs deux livres du mois */
   /* Membre qui arrive sur la page de vente (lien « Le Cercle » resté de sa visite avant connexion) : direct dans son espace. ?voir=1 pour relire la page. */
   if (page === 'abonnement.html' && aUnCompte() && !/[?&]voir=1\b/.test(location.search)) membre().then(function (m) { if (m) location.replace('cercle.html'); });
@@ -1366,14 +1589,14 @@ window.GENESOLIA_IMPRESSION = {
     /* Membre : dans le menu du site, « Le Cercle » (la page de vente) devient « Mon Cercle », son espace (cercle.html : même barre que l'appli). Invisible pour les autres. */
     document.querySelectorAll('.entete .menu a.btn-plein[href="abonnement.html"]').forEach(function (b) { b.href = 'cercle.html'; b.textContent = 'Mon Cercle'; b.classList.add('btn-mon-cercle'); });
     /* Membre : en bas de chaque page du site, c'est l'appli Le Cercle qu'on propose (sauf si elle est déjà installée) */
-    if (!cercleInstalle) document.querySelectorAll('.pied .pied-appli').forEach(function (b) { b.outerHTML = piedAppliCercle(); });
+    document.querySelectorAll('.pied .pied-appli').forEach(function (b) { if (cercleInstalle) b.remove(); else b.outerHTML = piedAppliCercle(); });   /* appli Le Cercle déjà installée : plus rien à proposer */
     document.querySelectorAll('.carre-cercle').forEach(function (c) { c.remove(); });
     document.querySelectorAll('.cadeau:not(.encart-formation):not(.encart-livres)').forEach(function (bloc, n) {
       if (n > 0) { bloc.remove(); return; }
       bloc.classList.add('encart-livres');
-      bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Tes deux livres du mois t’attendent</h2>' +
-        '<p>Ton carnet « J’avance » pour construire ce que tu veux, ton suivi « Je me libère » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
-        '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « J’avance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon suivi « Je me libère »</a></p></div>';
+      bloc.innerHTML = '<div class="cadeau-texte"><p class="ef-sur">Le Cercle · ton mois</p><h2>Ton étape du mois t’attend</h2>' +
+        '<p>Ton carnet « Renaissance » pour construire ce que tu veux, ton livret « Libération » pour déposer ce qui se rejoue. Ils avancent ensemble, semaine après semaine.</p>' +
+        '<p class="el-boutons"><a class="btn btn-plein" href="mon-carnet.html">Mon carnet « Renaissance »</a> <a class="btn btn-trait" href="mon-suivi-mois.html">Mon livret « Libération »</a></p></div>';
     });
   });
 
@@ -1466,5 +1689,182 @@ window.GENESOLIA_IMPRESSION = {
         return cheminCharge.then(function () { return window.GenesoliaChemin !== stub ? window.GenesoliaChemin.enregistrer(r) : false; });
       }
     };
+  }
+})();
+
+/* Avis publiés (Supabase, fonction « avis ») : window.GenesoliaAvis(cb) et blocs [data-avis-publies] */
+(function () {
+  var URL_AVIS = 'https://qsvzzkjtjsznfntahvvh.supabase.co/functions/v1/avis', attente = null;
+  window.GenesoliaAvis = function (cb) {
+    if (!attente) attente = fetch(URL_AVIS).then(function (r) { return r.ok ? r.json() : { avis: [] }; }).catch(function () { return { avis: [] }; })
+      .then(function (r) { return (r && r.avis || []).map(function (a) { return { texte: a.texte, qui: a.prenom + (a.age ? ', ' + a.age + ' ans' : '') + (a.ville ? ' · ' + a.ville : '') }; }); });
+    attente.then(cb);
+  };
+  var blocs = document.querySelectorAll('[data-avis-publies]');
+  if (!blocs.length) return;
+  var esc = function (s) { return String(s || '').replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  window.GenesoliaAvis(function (liste) {
+    if (!liste.length) return;
+    blocs.forEach(function (b) {
+      var n = +b.getAttribute('data-avis-publies') || 3, zone = b.querySelector('[data-avis-liste]') || b;
+      zone.innerHTML = liste.slice(0, n).map(function (a) { return '<figure><blockquote>« ' + esc(a.texte) + ' »</blockquote><figcaption>' + esc(a.qui) + '</figcaption></figure>'; }).join('');
+      b.hidden = false;
+    });
+  });
+})();
+
+/* ===== Prix en dollars canadiens (Québec, Canada) =====
+   Par défaut en euros ; en dollars canadiens si le fuseau horaire de l'appareil est au Canada, ou si la personne le choisit
+   (choix gardé sur l'appareil). Aucune localisation par adresse IP.
+   Montants calculés pour que le net reçu soit le même qu'avec une carte européenne : frais Stripe cartes internationales
+   (3,15 % + 0,25 €) et conversion (2 %) inclus, au taux du 21/10/2026 (1 € = 1,58 $ CA), arrondis vers le haut. À revoir tous les 3 mois.
+   Seules les pages qui parlent des offres sont converties ; l'arbre imprimé reste en euros (livraison en France). */
+(function () {
+  var PAGES = ['espace-praticien.html', 'praticien.html', 'abonnement.html', 'tarifs.html', 'essai.html', 'login.html', 'mon-suivi.html', 'index.html', '', 'la-demarche.html', 'mon-mois.html', 'mon-guide.html', 'cercle.html', 'seance-offerte.html', 'genosociogramme.html', 'parcours.html'];
+  var CAD = { '4,99': '8,49', '17,77': '30', '9': '16', '12': '21', '15': '26', '29': '49', '24': '40', '249': '419', '199': '335', '16,58': '28', '10': '17', '27': '45', '24,90': '41', '60': '108', '99': '169', '20,75': '34,92', '19': '32', '240': '400', '190': '320', '0': '0' };   /* 19 et 240 : Espace praticien */
+  var CLE = 'genesolia-devise';
+  var page = location.pathname.split('/').pop();
+  function auCanada() { try { return /^America\/(Toronto|Montreal|Vancouver|Edmonton|Winnipeg|Regina|Halifax|St_Johns|Moncton|Glace_Bay|Goose_Bay|Whitehorse|Dawson|Dawson_Creek|Yellowknife|Iqaluit|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Swift_Current|Fort_Nelson|Creston|Atikokan|Blanc-Sablon|Nipigon|Thunder_Bay|Rainy_River|Pangnirtung)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { return false; } }
+  function devise() { var d = null; try { d = localStorage.getItem(CLE); } catch (e) {} return d === 'cad' || d === 'eur' ? d : (auCanada() ? 'cad' : 'eur'); }
+  window.GenesoliaDevise = { actuelle: devise, choisir: function (d) { try { localStorage.setItem(CLE, d); } catch (e) {} location.reload(); } };
+  var actif = devise() === 'cad' && PAGES.indexOf(page) >= 0;
+  function convertir(n) {
+    var t = n.nodeValue; if (!/€/.test(t)) return;
+    var u = t.replace(/moins d[’']\s?1[\s  ]?€/g, 'moins de 2 $ CA')
+      .replace(/(\d+(?:,\d+)?)[\s  ]?€/g, function (m, x) { return CAD[x] ? CAD[x] + ' $ CA' : m; });
+    if (u !== t) n.nodeValue = u;
+  }
+  function parcourir(r) {
+    if (!r) return;
+    if (r.nodeType === 3) { convertir(r); return; }
+    if (r.nodeType !== 1 || /^(SCRIPT|STYLE|TEXTAREA|INPUT)$/.test(r.nodeName) || (r.closest && r.closest('[data-garder-euros]'))) return;
+    var w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())) { if (n.parentNode && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(n.parentNode.nodeName) && !(n.parentNode.closest && n.parentNode.closest('[data-garder-euros]'))) convertir(n); }
+  }
+  function choix() {
+    var d = devise();
+    return '<span class="devise-choix" role="group" aria-label="Devise des prix"><button type="button" data-devise="eur" aria-pressed="' + (d === 'eur') + '">€</button><button type="button" data-devise="cad" aria-pressed="' + (d === 'cad') + '">$ CA</button></span>';
+  }
+  function demarrer() {
+    /* le choix de devise, en bas de chaque page et en haut des tarifs */
+    var pb = document.querySelector('.pied-bas');
+    if (pb && !pb.querySelector('.devise-choix')) { var s = document.createElement('span'); s.className = 'devise-pied'; s.innerHTML = 'Prix affichés en ' + choix(); pb.appendChild(s); }
+    document.querySelectorAll('[data-devise-ici]').forEach(function (z) {
+      var vous = z.hasAttribute('data-vous');
+      z.innerHTML = choix() + (devise() === 'cad' ? '<span class="devise-note">Prix indicatifs en dollars canadiens. Le paiement se fait en euros : ' + (vous ? 'votre' : 'ta') + ' banque convertit, et le montant final peut varier légèrement selon ses frais.</span>' : '<span class="devise-note">' + (vous ? 'Vous êtes au Québec ou au Canada ? Affichez' : 'Tu es au Québec ou au Canada ? Affiche') + ' les prix en dollars canadiens.</span>');
+    });
+    document.addEventListener('click', function (e) { var b = e.target.closest('[data-devise]'); if (b) window.GenesoliaDevise.choisir(b.getAttribute('data-devise')); });
+    if (!actif) return;
+    document.documentElement.classList.add('prix-cad');
+    parcourir(document.body);
+    if ('MutationObserver' in window) new MutationObserver(function (l) { l.forEach(function (m) { if (m.type === 'characterData') convertir(m.target); else m.addedNodes.forEach(parcourir); }); }).observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else setTimeout(demarrer, 0);
+})();
+
+/* Connexion en deux étapes : un compte qui l'a activée et dont la session n'est pas encore confirmée (aal1) doit taper son code.
+   Vérification locale (le jeton de session), sans appel réseau ; la fenêtre du code ne s'ouvre que si c'est nécessaire. */
+(function () {
+  function aVerifier() {
+    try {
+      var s = JSON.parse(localStorage.getItem('sb-qsvzzkjtjsznfntahvvh-auth-token') || 'null');
+      if (!s || !s.access_token || !s.user) return false;
+      var f = (s.user.factors || []).some(function (x) { return x.status === 'verified'; }); if (!f) return false;
+      var p = JSON.parse(decodeURIComponent(escape(atob(s.access_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))));
+      return p.aal !== 'aal2';
+    } catch (e) { return false; }
+  }
+  function lancer() {
+    if (!aVerifier() || !window.supabase) return;
+    function go() {
+      var sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg');
+      window.GenesoliaDeuxEtapes.verifier(sb).then(function () { setTimeout(function () { if (!aVerifier()) location.reload(); }, 400); });   /* jamais de boucle : on ne recharge que si la session est bien confirmée */
+    }
+    if (window.GenesoliaDeuxEtapes) go();
+    else { var sc = document.createElement('script'); sc.src = 'assets/deux-etapes.js?v=1'; sc.onload = go; document.head.appendChild(sc); }
+  }
+  if (document.readyState === 'complete') lancer(); else window.addEventListener('load', lancer);
+})();
+
+/* Les livres Genesolia partout sur le site :
+   - en bas de chaque page (avant l'encart offert), un encart publicitaire : « L'enquête de ma lignée » sur les articles de la lignée,
+     « Racines » sur les pages du Cercle, les deux livres ailleurs ;
+   - sur la page d'accueil, un bandeau juste sous l'ouverture.
+   Jamais dans les applis (Le Cercle, Pro), le questionnaire, la connexion, l'espace membre, les pages légales ni sur les pages des livres. */
+(function () {
+  var page = location.pathname.split('/').pop() || 'index.html';
+  var L = window.GENESOLIA_LIVRES || {}; if (!L.enquete || !L.racines) return;
+  var app = document.documentElement.classList.contains('appli'), dr = '';
+  try { dr = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
+  if (app || dr === 'pro') return;
+  var SANS = ['pro.html', 'praticien.html', 'praticien-partage.html', 'espace-praticien.html', 'mode-emploi-genesolia-pro.html', 'conditions-praticien.html', 'questionnaire.html', 'login.html', 'code.html',
+    'essai.html', 'bienvenue.html', 'merci-arbre.html', 'desinscription.html', 'offline.html', 'cercle.html', 'appli.html', 'mon-document.html',
+    'mon-carnet.html', 'mon-suivi.html', 'mon-suivi-mois.html', 'mon-module.html', 'mon-mois.html', 'mon-guide.html', 'mes-seances.html', 'point-de-depart.html',
+    'autel-de-saison.html', 'mode-emploi-suivi.html', 'arbre-de-vie-affiche.html', 'question-du-mois.html',
+    'cgv.html', 'mentions-legales.html', 'confidentialite.html', 'conditions-utilisation.html',
+    'livres.html', 'racines.html', 'enquete-de-ma-lignee.html', 'boutique.html', 'pass.html'];
+  if (SANS.indexOf(page) >= 0) return;
+  var THEMES = {
+    'memoire-transgenerationnelle.html': 'la mémoire transgénérationnelle', 'syndrome-anniversaire.html': 'le syndrome d’anniversaire',
+    'deuil-non-fait-mort-jeune.html': 'les deuils non faits', 'enfant-de-remplacement.html': 'l’enfant de remplacement',
+    'projet-sens-conception-deuil.html': 'le projet-sens', 'jumeau-perdu.html': 'le jumeau perdu', 'secret-de-famille.html': 'les secrets de famille',
+    'loyaute-familiale-invisible.html': 'les loyautés invisibles', 'prenom-transmis-psychogenealogie.html': 'le prénom transmis',
+    'place-dans-la-fratrie.html': 'la place dans la fratrie', 'filles-garcons-fratrie.html': 'la place dans la fratrie', 'implexe-mariage-entre-cousins.html': 'les ancêtres communs',
+    'guerre-et-memoire-familiale.html': 'la guerre et l’exil', 'argent-et-lignee.html': 'l’argent dans la lignée', 'peur-de-manquer-d-argent.html': 'la peur de manquer',
+    'metiers-transmis-genealogie.html': 'les métiers transmis', 'schemas-repetitifs-en-amour.html': 'les schémas en amour', 'blessures-de-l-ame.html': 'les cinq blessures de l’âme',
+    'masques-des-5-blessures.html': 'les cinq blessures de l’âme', 'reves-recurrents-et-memoire-familiale.html': 'les rêves qui reviennent', 'toussaint-ancetres-et-deuils.html': 'honorer ses ancêtres',
+    'fil-d-or.html': '', 'comment-faire-son-genosociogramme.html': '', 'questions-a-poser-a-sa-famille.html': '', 'psychogenealogie.html': '', 'heriter.html': '',
+    'symboles-genosociogramme.html': '', 'exemple-genosociogramme.html': '', 'genosociogramme-vierge.html': '', 'annuaire.html': ''
+  };
+  var CERCLE = ['abonnement.html', 'tarifs.html', 'formation.html', 'parcours.html', 'methode.html', 'la-demarche.html', 'seance-offerte.html', 'dependance-affective.html', 'relation-floue.html'];
+  if (!document.getElementById('livre-encart-css')) {
+    var st = document.createElement('style'); st.id = 'livre-encart-css';
+    st.textContent = '.livre-encart{display:grid;grid-template-columns:150px 1fr;gap:1.6rem;align-items:center;padding:1.6rem;border-radius:var(--rayon,22px);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;box-shadow:0 12px 34px rgba(107,47,91,.08)}' +
+      '.livre-encart.le-deux{grid-template-columns:300px 1fr}.le-couv{display:flex;justify-content:center;align-items:flex-end}.le-couv a{display:block}' +
+      '.livre-encart img{width:150px;height:auto;display:block;filter:drop-shadow(0 14px 22px rgba(74,33,66,.22))}.le-deux .le-couv{gap:18px}.le-deux .le-couv img{width:135px}' +
+      '.livre-encart .le-sur{font:700 .75rem var(--texte);letter-spacing:.14em;text-transform:uppercase;color:#9A6E38;margin:0 0 .3rem}' +
+      '.livre-encart h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:0 0 .5rem}.livre-encart p{margin:0 0 .9rem}.livre-encart .le-bt{display:flex;flex-wrap:wrap;gap:.5rem}' +
+      '.livre-accueil{padding:1.6rem 0 .4rem}.livre-accueil .livre-encart{padding:1.3rem 1.6rem}' +
+      '.livre-bientot{opacity:.7;cursor:default;pointer-events:none}' +
+      '@media (max-width:680px){.livre-encart,.livre-encart.le-deux{grid-template-columns:1fr;text-align:center;padding:1.3rem}.livre-encart img{margin:0 auto;width:120px}.le-deux .le-couv img{width:110px}.livre-encart .le-bt{justify-content:center}.livre-encart .le-bt .btn{flex:1 1 100%;min-height:46px}}';
+    document.head.appendChild(st);
+  }
+  function img(l, alt, cl) { return '<a href="' + l.page + '"><img src="' + l.image + '" width="543" height="900" alt="' + alt + '" loading="lazy"></a>'; }
+  function deux(sur, titre, texte) {
+    return '<div class="livre-encart le-deux"><div class="le-couv">' + img(L.enquete, 'Le livre L’enquête de ma lignée') + img(L.racines, 'Le livre Racines') + '</div>' +
+      '<div><p class="le-sur">' + sur + '</p><h2>' + titre + '</h2><p>' + texte + '</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="livres.html">Découvrir les livres</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" data-compte="l’extrait de L’enquête de ma lignée" download>Lire les premières pages offertes</a><a class="btn btn-trait" href="boutique.html">Idées à offrir</a></div></div></div>';
+  }
+  var html;
+  if (page in THEMES) {
+    var t = THEMES[page];
+    html = '<div class="livre-encart">' + img(L.enquete, 'Le livre L’enquête de ma lignée') +
+      '<div><p class="le-sur">Le livre · à remplir en famille</p><h2>L’enquête de ma lignée</h2>' +
+      '<p>' + (t ? 'Tout ce que tu viens de lire sur ' + t + ', expliqué pas à pas parmi 18 thèmes, ' : '18 thèmes expliqués, ') + 'avec ton arbre sur 5 générations, des entretiens guidés pour recueillir le ressenti de chacun et le fil d’or pour voir ce qui se répète.</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="' + L.enquete.page + '">Découvrir le livre</a><a class="btn btn-trait" href="' + L.enquete.extrait + '" data-compte="l’extrait de L’enquête de ma lignée" download>Lire les premières pages</a><a class="btn btn-trait" data-livre-acheter="enquete" href="' + L.enquete.page + '">Acheter</a></div></div></div>';
+  } else if (CERCLE.indexOf(page) >= 0) {
+    html = '<div class="livre-encart">' + img(L.racines, 'Le livre Racines') +
+      '<div><p class="le-sur">Le livre · Le Cercle, livre 1</p><h2>Racines, sur papier</h2>' +
+      '<p>Les exercices du Cercle en version papier. Trois mois pour sortir de l’alerte, déposer l’armure et prendre toute ta place : un cahier à écrire, un petit rendez-vous chaque jour, avec exercices, rituels et méditations.</p>' +
+      '<div class="le-bt"><a class="btn btn-plein" href="' + L.racines.page + '">Découvrir Racines</a><a class="btn btn-trait" href="' + L.racines.page + '#feuilleter">Feuilleter quelques pages</a><a class="btn btn-trait" data-livre-acheter="racines" href="' + L.racines.page + '">Acheter</a></div></div></div>';
+  } else if (page === 'index.html') {
+    html = '';
+  } else {
+    html = deux('Les livres Genesolia', 'Ton histoire, sur papier', 'Deux livres à écrire, à ton rythme : <b>L’enquête de ma lignée</b>, à remplir en famille pour comprendre ce qui se transmet, et <b>Racines</b>, les exercices du Cercle en version papier, trois mois pour sortir de l’alerte et prendre ta place.');
+  }
+  var pied = document.querySelector('[data-pied]');
+  if (html && pied) {
+    var z = document.createElement('section'); z.className = 'bloc'; z.setAttribute('aria-label', 'Les livres Genesolia');
+    z.innerHTML = '<div class="conteneur">' + html + '</div>';
+    var avant = document.querySelector('.cadeau-bas') || pied;
+    avant.parentNode.insertBefore(z, avant);
+    if (window.GenesoliaLivresBoutons) window.GenesoliaLivresBoutons(z);
+  }
+  /* Page d'accueil : le bandeau des livres juste sous la présentation de Laura */
+  var ouv = page === 'index.html' && (document.querySelector('main > .premiers-pas') || document.querySelector('main > #laura') || document.querySelector('main > .ouverture'));   /* après « Salut, je suis Laura » */
+  if (ouv) {
+    var b = document.createElement('section'); b.className = 'livre-accueil'; b.setAttribute('aria-label', 'Les livres Genesolia');
+    b.innerHTML = '<div class="conteneur">' + deux('Nouveau · les livres Genesolia', 'Ton histoire de famille, sur papier', 'À écrire seul·e ou en famille : <b>L’enquête de ma lignée</b> pour rassembler ton histoire et voir ce qui se répète, et <b>Racines</b>, les exercices du Cercle en version papier, pour sortir de l’alerte et prendre ta place. Les premières pages sont offertes.') + '</div>';
+    ouv.parentNode.insertBefore(b, ouv.nextSibling);
   }
 })();

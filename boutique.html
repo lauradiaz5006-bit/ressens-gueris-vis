@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La boutique Genesolia : posters, vêtements et mugs « Je suis celle qui ose »</title>
+  <meta name="description" content="La collection « Je suis celle qui ose » : posters, posters encadrés, t-shirts, sweats, mugs et coques avec des phrases sur ta lignée, ce qui s'y transmet (transgénérationnel) et la liberté de choisir sa vie. Imprimé à la demande, livraison offerte en France métropolitaine.">
+  <link rel="canonical" href="https://genesolia.fr/boutique.html">
+  <meta property="og:title" content="La boutique Genesolia · Je suis celle qui ose">
+  <meta property="og:description" content="Des phrases à garder sous les yeux : posters, vêtements et mugs. Imprimé à la demande, livraison offerte.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/boutique.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .bq-tete{text-align:center;padding:2.8rem 0 1.2rem}
+    .bq-sur{font-size:.8rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9A6E38;margin:0 0 .6rem}
+    .bq-tete h1{font-size:clamp(2.1rem,5vw,3.1rem);margin:0 0 .7rem}
+    .bq-tete p{color:var(--prune-doux);max-width:40rem;margin:0 auto;font-size:1.05rem}
+    .bq-atouts{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.4rem;margin:1.2rem 0 0;padding:0;list-style:none;font-size:.9rem;color:var(--prune)}
+    .bq-atouts li::before{content:"✦";color:var(--champagne);margin-right:.4rem}
+    .bq-merci{max-width:44rem;margin:0 auto 1.4rem;padding:1.2rem 1.4rem;border-radius:var(--rayon);background:linear-gradient(140deg,#FBF4EA,#F3E4D6);border:1px solid #EBD3BC;text-align:center}
+    .bq-merci h2{margin:0 0 .4rem}.bq-merci p{margin:0;color:var(--prune-doux)}
+    .bq-barre{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between;margin:0 0 1.2rem}
+    .bq-onglets{display:flex;flex-wrap:wrap;gap:.4rem}
+    .bq-onglets button{border:1px solid var(--rose);background:var(--blanc);color:var(--prune);border-radius:999px;padding:.5rem 1rem;font:inherit;font-size:.92rem;cursor:pointer}
+    .bq-onglets button[aria-pressed="true"]{background:var(--prune);border-color:var(--prune);color:#fff}
+    .bq-barre select{border:1px solid var(--rose);border-radius:999px;padding:.5rem .9rem;font:inherit;font-size:.9rem;color:var(--prune);background:var(--blanc);max-width:100%}
+    .bq-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
+    .bq-carte{display:flex;flex-direction:column;gap:.35rem;text-align:left;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:.6rem .6rem .9rem;cursor:pointer;font:inherit;color:inherit;transition:transform .2s,box-shadow .2s}
+    .bq-carte:hover,.bq-carte:focus-visible{transform:translateY(-3px);box-shadow:0 14px 30px rgba(107,47,91,.12)}
+    .bq-img{display:block;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#F7F1EC}
+    .bq-img img{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
+    .bq-type{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9A6E38;padding:0 .2rem}
+    .bq-phrase{font-family:var(--display,Georgia,serif);font-size:1.02rem;line-height:1.3;color:var(--prune);padding:0 .2rem}
+    .bq-prix{font-weight:600;color:var(--prune);padding:0 .2rem;margin-top:auto}
+    .bq-vide{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:2rem 0}
+    .bq-chargement{grid-column:1/-1;text-align:center;color:var(--prune-doux);padding:3rem 0}
+    #bq-panier-bt{position:fixed;right:1rem;bottom:1rem;z-index:40;display:flex;align-items:center;gap:.5rem;background:var(--prune);color:#fff;border:0;border-radius:999px;padding:.8rem 1.2rem;font:inherit;font-weight:600;box-shadow:0 12px 30px rgba(59,23,71,.3);cursor:pointer}
+    #bq-panier-bt b{background:#fff;color:var(--prune);border-radius:999px;min-width:1.5rem;padding:0 .35rem;text-align:center}
+    #bq-panier-bt[hidden]{display:none}
+    dialog.bq-fiche{width:min(980px,calc(100vw - 2rem));max-height:calc(100vh - 2rem);border:0;border-radius:22px;padding:0;box-shadow:0 30px 80px rgba(46,19,56,.35);color:var(--encre,#3B1747)}
+    dialog.bq-fiche::backdrop{background:rgba(46,19,56,.45)}
+    .bq-f-tete{position:sticky;top:0;display:flex;justify-content:flex-end;padding:.6rem .6rem 0;background:#fff;z-index:2}
+    .bq-f-tete button{border:0;background:#F5EAEF;color:var(--prune);width:2.4rem;height:2.4rem;border-radius:50%;font-size:1.4rem;cursor:pointer}
+    .bq-f-corps{display:grid;grid-template-columns:1.1fr 1fr;gap:1.6rem;padding:0 1.6rem 1.6rem}
+    .bq-f-grande{width:100%;aspect-ratio:1;object-fit:contain;object-position:center;border-radius:16px;background:#F7F1EC;display:block}
+    .bq-f-mini{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
+    .bq-f-mini button{border:1px solid var(--rose);padding:0;border-radius:10px;overflow:hidden;width:64px;height:64px;background:#fff;cursor:pointer}
+    .bq-f-mini img{width:100%;height:100%;object-fit:cover;display:block}
+    .bq-f-info h2{font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.25;margin:.3rem 0 .6rem}
+    .bq-f-prix{font-size:1.5rem;font-weight:600;color:var(--prune);margin:0 0 .8rem}.bq-f-prix small{font-size:.85rem;font-weight:400;color:var(--prune-doux)}
+    .bq-lab{font-weight:600;margin:.8rem 0 .4rem;font-size:.92rem}
+    .bq-choix{display:flex;flex-wrap:wrap;gap:.4rem}
+    .bq-choix button{border:1.5px solid var(--rose);background:#fff;color:var(--prune);border-radius:12px;padding:.5rem .8rem;font:inherit;font-size:.9rem;cursor:pointer}
+    .bq-choix button[aria-pressed="true"]{border-color:var(--prune);background:#F8EEF3;font-weight:600}
+    .bq-choix button.bq-ind{opacity:.45}
+    .bq-f-achat{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin:1.2rem 0 .4rem}
+    .bq-qte{display:flex;align-items:center;gap:.4rem;font-size:.92rem}.bq-qte select{border:1px solid var(--rose);border-radius:10px;padding:.45rem .5rem;font:inherit}
+    .bq-ok{min-height:1.2em;margin:.5rem 0;color:#3E7A4E;font-size:1rem;font-weight:600}
+.bq-delai{font-size:.95rem;line-height:1.5;background:#FFF4F1;border:1px solid #EBCFD5;border-radius:12px;padding:.7rem .9rem;margin:.6rem 0}.bq-delai a{color:inherit}.bq-livr a{color:inherit}
+    .bq-ok:not(:empty){background:#EEF7F0;border:1px solid #BFDEC7;border-radius:12px;padding:.6rem .8rem}
+    .btn.bq-ajoute{background:#3E7A4E!important;border-color:#3E7A4E!important;color:#fff!important;transition:background .2s}
+    .bq-livr-c{display:block;font-size:.78rem;font-weight:600;color:#3E7A4E;margin-top:.15rem}
+    @keyframes bqPulse{0%{transform:scale(1)}30%{transform:scale(1.18)}60%{transform:scale(.96)}100%{transform:scale(1)}}
+    #bq-panier-bt.bq-pulse{animation:bqPulse .6s ease}
+    .bq-lien{border:0;background:none;color:var(--prune);text-decoration:underline;font:inherit;cursor:pointer;padding:0}
+    .bq-f-plus{list-style:none;padding:0;margin:.8rem 0;display:grid;gap:.3rem;font-size:.9rem;color:var(--prune-doux)}.bq-f-plus li::before{content:"✦";color:var(--champagne);margin-right:.45rem}
+    .bq-desc summary{cursor:pointer;font-weight:600}.bq-desc p{font-size:.9rem;color:var(--prune-doux)}
+    .bq-panier{position:fixed;inset:0;z-index:60;background:rgba(46,19,56,0);transition:background .25s}
+    .bq-panier.ouvert{background:rgba(46,19,56,.45)}
+    .bq-p-boite{position:absolute;top:0;right:0;bottom:0;width:min(440px,100vw);background:#FFFBF8;box-shadow:-20px 0 60px rgba(46,19,56,.25);transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column}
+    .bq-panier.ouvert .bq-p-boite{transform:none}
+    .bq-p-tete{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;border-bottom:1px solid var(--rose)}
+    .bq-p-tete h2{margin:0;font-size:1.4rem}
+    .bq-p-tete button{border:0;background:#F5EAEF;color:var(--prune);width:2.3rem;height:2.3rem;border-radius:50%;font-size:1.3rem;cursor:pointer}
+    .bq-p-corps{padding:1rem 1.2rem 2rem;overflow:auto;flex:1}
+    .bq-lignes{list-style:none;padding:0;margin:0 0 1rem;display:grid;gap:.9rem}
+    .bq-lignes li{display:grid;grid-template-columns:64px 1fr auto;gap:.7rem;align-items:start}
+    .bq-lignes img{width:64px;height:64px;object-fit:cover;border-radius:10px;background:#F7F1EC}
+    .bq-lignes b{display:block;font-size:.88rem}.bq-lignes span{display:block;font-size:.88rem;color:var(--prune)}.bq-lignes small{display:block;color:var(--prune-doux);font-size:.8rem}
+    .bq-l-q{display:flex;align-items:center;gap:.4rem;margin-top:.35rem}
+    .bq-l-q button:not(.bq-lien){width:1.8rem;height:1.8rem;border:1px solid var(--rose);background:#fff;border-radius:50%;cursor:pointer;color:var(--prune)}
+    .bq-l-prix{margin:0;font-weight:600}
+    .bq-total{display:flex;justify-content:space-between;font-size:1.15rem;border-top:1px solid var(--rose);padding-top:.8rem;margin:0 0 .5rem}
+    .bq-livr{font-size:.85rem;color:var(--prune-doux);margin:0 0 1rem}
+    .bq-payer{width:100%}
+    .bq-err{color:#9B2C2C;font-size:.9rem;min-height:1em}.bq-cgv{font-size:.8rem;color:var(--prune-doux);text-align:center;margin:.3rem 0 0}
+    body.bq-fige{overflow:hidden}
+    @media (max-width:1000px){.bq-grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (max-width:760px){.bq-grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}.bq-f-corps{grid-template-columns:1fr;padding:0 1rem 1.2rem}.bq-phrase{font-size:.95rem}.bq-barre{flex-direction:column;align-items:stretch}}
+      .bq-motif{width:100%;max-width:26rem;padding:.6rem .8rem;border-radius:12px;border:1px solid var(--rose,#E8C9D6);font:inherit;background:#fff;margin-bottom:.4rem}
+      /* Noël */
+    .bq-tete{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#5A2453 0%,#3B1747 55%,#2A0F33 100%);color:#FFF3DC;border-radius:0 0 28px 28px;padding:3.2rem 0 2.4rem}
+    .bq-tete h1{color:#FFE6B8}.bq-tete p{color:#F3DCE6}.bq-tete .bq-sur{color:#E2C48E}
+    .bq-tete .bq-atouts li{color:#FFF3DC}
+    .bq-neige{position:absolute;inset:0;pointer-events:none}
+    .bq-neige i{position:absolute;color:#E2C48E;opacity:.7;font-style:normal;animation:bqbrille 3.5s ease-in-out infinite}
+    @keyframes bqbrille{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
+    @media (prefers-reduced-motion:reduce){.bq-neige i{animation:none}}
+    .bq-noel-date{display:inline-block;margin-top:1.1rem;padding:.5rem 1.1rem;border-radius:99px;background:rgba(255,230,184,.12);border:1px solid rgba(226,196,142,.5);color:#FFE6B8;font-weight:600;font-size:.92rem}
+    .bq-idees{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:2rem 0 2rem}
+    .bq-idee{display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;text-align:left;border:1px solid #F0DCE5;border-radius:18px;padding:1.1rem 1.1rem 1.2rem;background:linear-gradient(160deg,#FFF8F2,#FBEDF3);color:var(--prune);text-decoration:none;font:inherit;cursor:pointer;transition:transform .2s,box-shadow .2s}
+    .bq-idee:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(59,23,71,.12)}
+    .bq-idee span{display:block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#B0507A;margin-bottom:.35rem}
+    .bq-idee b{display:block;font:400 1.25rem/1.25 var(--display);margin-bottom:.35rem}
+    .bq-idee small{display:block;color:var(--prune-doux);font-size:.88rem;line-height:1.45}
+    .bq-idees-t{text-align:center;margin:2.2rem 0 0}.bq-idees-t .bq-sur{text-align:center}.bq-idees-t h2{margin:.2rem 0 0}
+    @media (max-width:860px){.bq-idees{grid-template-columns:1fr 1fr}}
+    .bq-mur{margin:0 0 2.2rem;text-align:center}
+    .bq-mur-g{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.2rem 0 1rem}
+        .bq-mur-g img{width:100%;height:auto;border-radius:18px;display:block;box-shadow:0 10px 26px rgba(59,23,71,.12)}
+    .bq-mur p{color:var(--prune-doux);max-width:40rem;margin:.4rem auto 0}
+    @media (max-width:760px){.bq-mur-g{grid-template-columns:1fr}}
+
+    .of-sec{margin:0 0 3rem}
+    .of-sec h2{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:0 0 .4rem}
+    .of-intro{color:var(--prune-doux);max-width:44rem;margin:0 0 1.4rem}
+    .of-styles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin:0 0 1.2rem}
+    .of-style{background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:.6rem .6rem .8rem;text-align:center}
+    .of-style img{width:100%;height:200px;object-fit:contain;display:block;border-radius:10px;background:#F6EFE8}
+    .of-style b{display:block;margin-top:.55rem;color:var(--prune);font-size:.98rem}
+    .of-style small{display:block;color:var(--prune-doux);font-size:.82rem;line-height:1.35;margin-top:.2rem}
+    .of-prix{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.6rem;margin:0 0 1.2rem}
+    .of-prix div{background:#FCEFF3;border-radius:12px;padding:.65rem .9rem;display:flex;justify-content:space-between;gap:.6rem;font-size:.93rem}
+    .of-prix b{white-space:nowrap}
+    .of-note{font-size:.9rem;color:#8A5A12;background:#FFF8EA;border:1px solid #F3DCC0;border-radius:12px;padding:.6rem .9rem;margin:0 0 1rem}
+    .of-livres{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .of-livre{display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:center;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem}
+    .of-livre img{width:120px;height:auto;filter:drop-shadow(0 14px 22px rgba(74,33,66,.2))}
+    .of-livre h3{font:400 1.4rem var(--display);color:var(--prune);margin:0 0 .3rem}
+    .of-livre p{margin:0 0 .8rem;color:var(--prune-doux);font-size:.95rem}
+    .of-bt{display:flex;flex-wrap:wrap;gap:.5rem}
+    .of-moments{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:1.2rem 0 0}
+    .of-moments span{padding:.35rem .9rem;border-radius:99px;background:#FCEFF3;color:var(--prune);font-size:.88rem;font-weight:600}
+    /* la carte cadeau du Cercle */
+    .cg-visuel{width:100%;height:auto;border-radius:var(--rayon);margin:0 0 1.6rem;box-shadow:0 18px 40px rgba(107,47,91,.12)}
+    .cg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:2rem;align-items:start;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem;box-shadow:0 18px 40px rgba(107,47,91,.08)}
+    .cg-apercu{position:sticky;top:6rem}
+    .cg-apercu small{display:block;text-align:center;color:var(--prune-doux);font-size:.85rem;margin-top:.8rem}
+    .cg-choix{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:0 0 1rem}
+    .cg-choix label{position:relative;display:block;border:1.5px solid var(--rose-fonce);border-radius:16px;padding:.8rem 1rem;cursor:pointer;background:#FFFCFA}
+    .cg-choix input{position:absolute;opacity:0;pointer-events:none}
+    .cg-choix b{display:block;font:400 1.3rem var(--display);color:var(--prune)}
+    .cg-choix span{display:block;font-size:.9rem;color:var(--prune-doux)}
+    .cg-choix em{position:absolute;top:.7rem;right:.9rem;font-style:normal;font-weight:700;color:#9A6E38}
+    .cg-choix label:has(input:checked){border-color:var(--prune);background:#FCEFF3;box-shadow:0 0 0 3px rgba(107,47,91,.12)}
+    .cg-choix label:has(input:focus-visible){outline:2px solid var(--champagne);outline-offset:2px}
+    .cg-form label.cg-l{display:block;font-weight:700;font-size:.92rem;margin:.8rem 0 .3rem}
+    .cg-form input[type=text],.cg-form input[type=email],.cg-form input[type=date],.cg-form textarea{width:100%;font:inherit;font-size:1rem;padding:.65rem .8rem;border:1px solid var(--rose-fonce);border-radius:12px;background:#FFFCFA;color:var(--prune)}
+    .cg-form textarea{min-height:4.6rem;resize:vertical}
+    .cg-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .cg-envoi{display:grid;gap:.5rem;margin:.3rem 0 0}
+    .cg-envoi label{display:flex;gap:.6rem;align-items:flex-start;padding:.6rem .8rem;border:1px solid var(--rose-fonce);border-radius:12px;cursor:pointer;font-size:.95rem;background:#FFFCFA}
+    .cg-envoi label:has(input:checked){border-color:var(--prune);background:#FCEFF3}
+    .cg-envoi input{margin-top:.3rem;accent-color:#6B2F5B}
+    .cg-pied{margin-top:1.2rem}
+    .cg-pied .btn{width:100%;justify-content:center}
+    .cg-pied p{font-size:.86rem;color:var(--prune-doux);margin:.6rem 0 0;max-width:none}
+    .cg-err{color:#A23A3A;font-weight:600;font-size:.92rem;margin:.6rem 0 0}
+    .cg-recu{text-align:center;margin:1.2rem auto 0!important;font-size:.95rem;color:var(--prune-doux)}
+    @media (max-width:860px){.cg{grid-template-columns:1fr;padding:1.1rem}.cg-apercu{position:static}}
+    @media (max-width:420px){.cg-2{grid-template-columns:1fr}}
+    .livre-bientot{opacity:.7;cursor:default;pointer-events:none}
+    @media (max-width:900px){.of-livres{grid-template-columns:1fr}}
+    @media (max-width:520px){.of-livre{grid-template-columns:1fr;text-align:center}.of-livre img{margin:0 auto}.of-bt{justify-content:center}}
+      .bq-tete{padding:5rem 0 4rem!important}
+    .bq-tete .bq-sur{margin:0 auto 1.4rem;display:flex;justify-content:center;align-items:center;gap:.7rem}
+    .bq-tete h1{margin:0 0 1.4rem!important;line-height:1.1}
+    .bq-tete p{line-height:1.7}
+    .bq-tete .bq-atouts{margin:2.2rem auto 0;gap:.6rem 2rem}
+    .bq-noel-date{margin-top:2rem!important;padding:.7rem 1.5rem!important}
+    .bq-vitrine{display:flex;justify-content:center;align-items:flex-end;gap:1.4rem;margin:3rem auto 0;max-width:46rem;padding:0 1rem}
+    .bq-vitrine img{width:min(30%,190px);height:auto;aspect-ratio:1;object-fit:cover;border-radius:22px;border:3px solid rgba(255,230,184,.55);box-shadow:0 22px 50px rgba(0,0,0,.35);background:#fff}
+    .bq-vitrine img:nth-child(1){transform:rotate(-5deg) translateY(8px)}.bq-vitrine img:nth-child(2){transform:translateY(-10px);width:min(34%,220px)}.bq-vitrine img:nth-child(3){transform:rotate(5deg) translateY(8px)}
+    .bq-idees-t{margin:3.5rem 0 1.8rem!important}.bq-idees-t .bq-sur{margin-left:auto;margin-right:auto}
+    @media (max-width:560px){.bq-tete{padding:3.4rem 0 2.8rem!important}.bq-vitrine{gap:.6rem;margin-top:2.2rem}}
+</style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main id="bq">
+    <section class="bq-tete"><div class="bq-neige" aria-hidden="true"><i style="top:12%;left:6%;font-size:1.1rem;animation-delay:0.0s">✦</i><i style="top:28%;left:16%;font-size:0.7rem;animation-delay:1.2s">✦</i><i style="top:70%;left:9%;font-size:0.9rem;animation-delay:0.6s">✦</i><i style="top:18%;left:84%;font-size:1.0rem;animation-delay:1.8s">✦</i><i style="top:60%;left:90%;font-size:0.7rem;animation-delay:0.3s">✦</i><i style="top:80%;left:76%;font-size:1.2rem;animation-delay:2.4s">✦</i><i style="top:40%;left:94%;font-size:0.6rem;animation-delay:1.0s">✦</i><i style="top:85%;left:30%;font-size:0.6rem;animation-delay:2.0s">✦</i></div><div class="conteneur" style="position:relative">
+      <p class="bq-sur"><span class="promo-noel">Noël</span> La boutique Genesolia</p>
+      <h1>Je suis celle qui ose</h1>
+      <p>Des phrases à garder sous les yeux, pour soi ou pour offrir : sur ce qu’on reçoit de sa lignée, et sur ce qu’on choisit d’en faire.</p>
+      <ul class="bq-atouts"><li>Imprimé à la demande</li><li>Livraison offerte en France métropolitaine</li><li>Paiement sécurisé</li></ul>
+      <p class="bq-noel-date">Pour l’avoir sous le sapin : commande avant le 12 décembre</p>
+      <div class="bq-vitrine" aria-hidden="true"><img src="assets/boutique/mug-entiere.webp" alt="" width="400" height="400"><img src="assets/boutique/calendrier.webp" alt="" width="400" height="400"><img src="assets/boutique/sweat-excuse-rose.webp" alt="" width="400" height="400"></div>
+    </div></section>
+
+    <section class="bloc" style="padding-top:1rem"><div class="conteneur">
+      <div class="bq-merci" id="bq-merci" hidden><h2>Merci pour ta commande</h2><p>Ton paiement est bien reçu. Tu vas recevoir un e-mail de confirmation, puis un autre avec le suivi dès que ton colis part.</p></div>
+      <div class="bq-idees-t"><p class="bq-sur">Idées cadeaux de Noël</p><h2>Un cadeau qui a du sens</h2></div>
+      <div class="bq-idees">
+        <button type="button" class="bq-idee" data-aller-type="calendrier"><span>Pour toute l’année</span><b>Le calendrier 2027</b><small>12 mois, 12 phrases à poser sur le mur.</small></button>
+        <button type="button" class="bq-idee" data-aller-famille="vetements"><span>Douceur d’hiver</span><b>Un sweat ou un t-shirt</b><small>Sa phrase préférée, portée tous les jours.</small></button>
+        <a class="bq-idee" href="#arbre-poster"><span>Unique</span><b>Son arbre de famille en poster</b><small>Ta lignée imprimée et encadrée, prête à offrir.</small></a>
+        <a class="bq-idee" href="#carte-cadeau"><span>Le cadeau qui dure</span><b>Une carte cadeau du Cercle</b><small>3 ou 6 mois de parcours guidé, à glisser sous le sapin.</small></a>
+      </div>
+      <div class="bq-mur">
+        <div class="bq-idees-t"><p class="bq-sur">Idée déco</p><h2>Compose ton mur de phrases</h2></div>
+        <p>Mélange les formats A4 et A3, et les phrases qui te parlent : un mur qui te rappelle chaque jour qui tu choisis d’être.</p>
+        <div class="bq-mur-g"><img src="assets/boutique/mur-salon-grands.webp" width="1536" height="1024" alt="Deux grandes affiches Genesolia, « Je porte mes racines sans m’y perdre » et « Mes racines sont ma force », dans un salon lumineux" loading="lazy" decoding="async"><img src="assets/boutique/mur-bureau.webp" width="1400" height="933" alt="Un mur de posters Genesolia dans un bureau chaleureux" loading="lazy" decoding="async"></div>
+        <button type="button" class="btn btn-plein" data-aller-famille="posters">Voir les posters</button>
+      </div>
+      <div class="bq-barre" id="bq-barre">
+        <div class="bq-onglets" role="group" aria-label="Filtrer la boutique">
+          <button type="button" data-famille="tout" aria-pressed="true">Tout</button>
+          <button type="button" data-famille="posters" aria-pressed="false">Posters</button>
+          <button type="button" data-famille="vetements" aria-pressed="false">Vêtements</button>
+          <button type="button" data-famille="maison" aria-pressed="false">Mugs, coques et calendrier</button>
+          <button type="button" data-famille="livres" aria-pressed="false">Livres</button>
+        </div>
+        <select id="bq-phrases" aria-label="Choisir une phrase"><option value="">Toutes les phrases</option></select>
+      </div>
+      <div class="bq-grille" id="bq-grille"><p class="bq-chargement">La boutique se prépare…</p></div>
+    </div></section>
+    <section class="bloc" id="carte-cadeau" style="padding-top:0"><div class="conteneur">
+      <div class="of-sec">
+        <img class="cg-visuel" src="assets/noel/carte-cadeau-cercle-768.webp?v=3" srcset="assets/noel/carte-cadeau-cercle-768.webp?v=3 768w, assets/noel/carte-cadeau-cercle-1536.webp?v=3 1536w" sizes="(max-width:1200px) 100vw, 1150px" width="1536" height="1024" alt="Offre Le Cercle : la carte cadeau, 3 mois à 49 €, 6 mois à 99 €, sans abonnement, valable 1 an">
+        <h2>La carte cadeau du Cercle</h2>
+        <p class="of-intro">Offre quelques mois du Cercle : un parcours guidé, mois par mois, pour comprendre ce qui se répète dans sa vie et dans sa lignée. Un carnet chaque mois, deux séances audio guidées, la formation « Sors de la boucle ». Pas d’abonnement : la personne active sa carte quand elle le souhaite dans l’année, Le Cercle s’ouvre une étape chaque mois, et rien n’est prélevé ensuite.</p>
+        <div class="cg">
+          <div class="cg-apercu"><div id="cg-carte"></div><small>La carte, telle qu’elle la recevra</small></div>
+          <form class="cg-form" id="cg-form" novalidate>
+            <div class="cg-choix" role="radiogroup" aria-label="Durée">
+              <label><input type="radio" name="offre" value="cercle3" checked><b>3 mois</b><span>pour commencer en douceur</span><em>49 €</em></label>
+              <label><input type="radio" name="offre" value="cercle6"><b>6 mois</b><span>le temps d’aller au fond</span><em>99 €</em></label>
+            </div>
+            <div class="cg-2">
+              <div><label class="cg-l" for="cg-pour">Pour</label><input type="text" id="cg-pour" maxlength="40" placeholder="Son prénom" autocomplete="off"></div>
+              <div><label class="cg-l" for="cg-de">De la part de</label><input type="text" id="cg-de" maxlength="40" placeholder="Ton prénom" autocomplete="given-name"></div>
+            </div>
+            <label class="cg-l" for="cg-mot">Ton petit mot <small>(facultatif)</small></label>
+            <textarea id="cg-mot" maxlength="160" placeholder="Joyeux Noël ! Pour prendre du temps pour toi…"></textarea>
+            <label class="cg-l" for="cg-email">Ton e-mail <small>(pour recevoir la carte et le reçu)</small></label>
+            <input type="email" id="cg-email" maxlength="200" autocomplete="email" placeholder="toi@exemple.fr">
+            <p class="cg-l" style="font-weight:700;font-size:.92rem;margin:.9rem 0 .3rem">Comment la carte arrive</p>
+            <div class="cg-envoi">
+              <label><input type="radio" name="envoi" value="moi" checked><span><b>Je la reçois et je l’offre moi-même</b><br>À imprimer, à glisser sous le sapin ou à transférer.</span></label>
+              <label><input type="radio" name="envoi" value="mail"><span><b>On l’envoie par e-mail à la personne</b><br>Le jour que tu choisis, à 8 h, avec ton petit mot.</span></label>
+            </div>
+            <div id="cg-dest" hidden>
+              <div class="cg-2">
+                <div><label class="cg-l" for="cg-email-dest">Son e-mail</label><input type="email" id="cg-email-dest" maxlength="200" placeholder="elle@exemple.fr"></div>
+                <div><label class="cg-l" for="cg-date">Le jour de l’envoi</label><input type="date" id="cg-date"></div>
+              </div>
+            </div>
+            <div class="cg-pied">
+              <button type="submit" class="btn btn-plein" id="cg-payer">Offrir 3 mois · 49 €</button>
+              <p>Paiement sécurisé par Stripe, en une fois. Tu reçois la carte par e-mail dès le paiement.</p>
+              <p class="cg-err" id="cg-err" role="alert" hidden></p>
+            </div>
+          </form>
+        </div>
+        <p class="cg-recu">Tu as reçu une carte ? <a href="carte-cadeau.html">Active-la ici</a>.</p>
+      </div>
+    </div></section>
+
+    <section class="bloc" id="arbre-poster" style="padding-top:0"><div class="conteneur">
+      <div class="of-sec">
+        <h2>L’arbre de la famille, en poster</h2>
+        <p class="of-intro">Tu remplis l’arbre en ligne (gratuit), tu choisis pour qui (tes ancêtres, tes descendants ou votre couple) et son style, et on l’imprime en poster sur un papier d’art mat de 200 g/m², livré chez toi ou chez la personne à qui tu l’offres.</p>
+        <div class="of-styles">
+          <div class="of-style"><img src="assets/cadeaux/arbre-lignee.webp" width="476" height="640" alt="Poster Lignée" loading="lazy"><b>Lignée</b><small>Toutes les générations, jusqu’aux plus anciennes</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-medaillons.webp" width="476" height="640" alt="Poster Médaillons" loading="lazy"><b>Médaillons</b><small>Chaque ancêtre dans un médaillon doré</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-eventail.webp" width="640" height="535" alt="Poster Éventail" loading="lazy"><b>Éventail</b><small>Côté paternel, côté maternel, en demi-cercle</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-famille.webp" width="640" height="535" alt="Poster Notre famille" loading="lazy"><b>Notre famille</b><small>Le couple, ses deux lignées et ses enfants</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-grand.webp" width="640" height="535" alt="Grand arbre peint" loading="lazy"><b>Grand arbre</b><small>L’arbre peint, cinq générations</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-figuier.webp" width="476" height="640" alt="Figuier peint" loading="lazy"><b>Figuier</b><small>Un figuier peint, tout en douceur</small></div>
+          <div class="of-style"><img src="assets/cadeaux/arbre-dore.webp" width="476" height="640" alt="Arbre doré" loading="lazy"><b>Arbre doré</b><small>Un arbre doré sur papier crème</small></div>
+        </div>
+        <div class="of-prix" id="of-prix"></div>
+        <p class="of-note" id="of-livraison">Livraison comprise en France métropolitaine. Posters livrés sans cadre (formats standards, faciles à encadrer). Familles fictives sur les images.</p>
+        <p><a class="btn btn-plein" href="genosociogramme.html#encadrer">Créer et commander mon arbre</a> <a class="btn btn-trait" href="genosociogramme.html">Remplir l’arbre d’abord</a></p>
+      </div>
+
+    </div></section>
+  </main>
+
+  <button type="button" id="bq-panier-bt" hidden>Mon panier <b>0</b></button>
+  <dialog class="bq-fiche" id="bq-fiche" aria-labelledby="bq-f-titre"><div class="bq-f-tete"><button type="button" data-f-fermer aria-label="Fermer">×</button></div><div class="bq-f-corps"></div></dialog>
+  <div class="bq-panier" id="bq-panier" hidden><div class="bq-p-boite" role="dialog" aria-modal="true" aria-label="Mon panier"><div class="bq-p-tete"><h2>Mon panier</h2><button type="button" data-p-fermer aria-label="Fermer">×</button></div><div class="bq-p-corps"></div></div></div>
+
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/boutique.js?v=27"></script>
+  <script src="assets/carte-cadeau.js?v=2"></script>
+  <script>
+  /* La carte cadeau du Cercle : aperçu en direct, puis paiement Stripe (fonction carte-cadeau) */
+  (function () {
+    var f = document.getElementById('cg-form'); if (!f || !window.GenesoliaCarte) return;
+    var C = window.GenesoliaCarte, $ = function (id) { return document.getElementById(id); };
+    var j = new Date(), noel = new Date(j.getFullYear(), 11, 25), iso = function (d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); };
+    $('cg-date').min = iso(j); $('cg-date').value = iso(j <= noel ? noel : j);
+    function lire() { return { offre: f.querySelector('[name=offre]:checked').value, pour: $('cg-pour').value.trim(), de: $('cg-de').value.trim(), message: $('cg-mot').value.trim(), email: $('cg-email').value.trim(), envoi: f.querySelector('[name=envoi]:checked').value, email_dest: $('cg-email-dest').value.trim(), date: $('cg-date').value }; }
+    function maj() { var d = lire(), o = C.offres[d.offre]; $('cg-carte').innerHTML = C.html(d); $('cg-payer').textContent = 'Offrir ' + o.mois + ' mois · ' + o.prix; $('cg-dest').hidden = d.envoi !== 'mail'; }
+    f.addEventListener('input', maj); f.addEventListener('change', maj); maj();
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); var d = lire(), err = $('cg-err'), b = $('cg-payer'), ok = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+      err.hidden = true;
+      var pb = !ok.test(d.email) ? 'Indique ton e-mail : c’est là que tu recevras la carte.' : d.envoi === 'mail' && !ok.test(d.email_dest) ? 'Indique l’e-mail de la personne qui reçoit la carte.' : '';
+      if (pb) { err.textContent = pb; err.hidden = false; return; }
+      b.disabled = true; var t = b.textContent; b.textContent = 'Un instant…';
+      C.appeler('acheter', d).then(function (r) {
+        if (r.url) { location.href = r.url; return; }
+        err.textContent = r.erreur || 'Le paiement n’a pas pu s’ouvrir. Réessaie dans un instant.'; err.hidden = false; b.disabled = false; b.textContent = t;
+      });
+    });
+  })();
+  </script>
+  <script>
+  /* Les formats et les prix viennent du réglage de l'impression (assets/site.js, GENESOLIA_IMPRESSION) */
+  (function () {
+    var I = window.GENESOLIA_IMPRESSION; if (!I || !I.actif) { var s = document.getElementById('of-prix'); if (s) s.closest('.of-sec').hidden = true; return; }
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    document.getElementById('of-prix').innerHTML = I.formats.map(function (f) { return '<div><span>' + esc(f.nom) + '</span><b>' + esc(f.prix) + '</b></div>'; }).join('');
+    var avant = I.ouverture && new Date() < new Date(I.ouverture + 'T00:00:00');
+    var d = new Date((I.ouverture || '') + 'T12:00:00');
+    document.getElementById('of-livraison').textContent = (avant ? 'Commandes ouvertes à partir du ' + (d.getDate() === 1 ? '1er ' + d.toLocaleDateString('fr-FR', { month: 'long' }) : d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })) + '. ' : '') + (I.livraison || '') + '. Les grands formats sont livrés en 6 à 11 jours ouvrés. Posters livrés sans cadre (formats standards, faciles à encadrer). Familles fictives sur les images.' + (new Date() < new Date(new Date().getFullYear(), 11, 13) ? ' Pour une arrivée avant Noël, commande avant le 12 décembre.' : '');
+  })();
+  </script>
+</body>
+</html>

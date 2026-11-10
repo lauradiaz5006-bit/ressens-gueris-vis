@@ -44,7 +44,7 @@ window.GENESOLIA_PLUS = {
           "En un mois, tu as entendu ta petite voix, nommé tes besoins, offert des gestes de tendresse à la personne qu’on oublie si souvent : toi. Récolter, cette semaine, c’est rassembler ces preuves. Elles semblent minuscules prises une par une, une phrase douce au miroir, un café bu au calme, un « merci » accepté. Mises ensemble, elles racontent une nouvelle façon de te regarder.",
           "La gratitude envers soi est souvent la plus difficile. On remercie volontiers les autres, et on trouve presque gênant de se dire « bravo ». Pourtant, c’est elle qui transforme un essai en habitude. Quand tu reconnais ce que tu as fait pour toi, ton esprit enregistre que tu es quelqu’un sur qui tu peux compter. C’est le cœur de l’estime de soi, et cela se construit geste après geste.",
           "Par exemple, Inès relit son carnet de tendresse et compte dix-neuf gestes en un mois. Elle les relit à voix basse, puis demande à trois amies une qualité qu’elles voient en elle. L’une écrit « ta douceur ». Inès l’ajoute à sa liste, et choisit une croyance pour la suite : « Je mérite la tendresse que je donne. »",
-          "Cette semaine, tu donnes une image à ton intention. Tu imagines la personne que tu deviens quand tu t’aimes d’abord : sa façon de se lever, de se parler, de dire non avec calme, de recevoir un compliment. Tu choisis une croyance qui la soutient, et trois mots pour ton tableau de vision. Puis, un soir tranquille, tu allumes ta bougie et tu dis ce que tu aimes chez toi. La lumière revient doucement, et la tienne aussi."
+          "Cette semaine, tu donnes une image à ton intention. Tu imagines la personne que tu deviens quand tu t’aimes d’abord : sa façon de se lever, de se parler, de dire non avec calme, de recevoir un compliment. Tu choisis une croyance qui la soutient, et trois mots pour ton tableau de vision. Puis, un soir tranquille, tu allumes ta bougie (de préférence en cire d’abeille) et tu dis ce que tu aimes chez toi. La lumière revient doucement, et la tienne aussi."
         ]
       },
       jours: [
@@ -96,7 +96,7 @@ window.GENESOLIA_PLUS = {
       exercices: [
         { k: "plus3-feb", titre: "Ce que l’enfant attendait d’entendre", type: "questions",
           consigne: "Pendant ton protocole, tu as accueilli l’enfant que tu étais. Réponds à ces trois questions pour prolonger cet accueil, et voir ce que tu peux t’offrir aujourd’hui.",
-          pourquoi: "L’enfant que tu étais attendait parfois des mots simples : « tu as ta place », « tu es aimé·e tel·le que tu es ». Te les offrir aujourd’hui, comme t’y invite ton carnet « J’avance » ce mois-ci, rend ton contrat avec la vie plus solide.",
+          pourquoi: "L’enfant que tu étais attendait parfois des mots simples : « tu as ta place », « tu es aimé·e tel·le que tu es ». Te les offrir aujourd’hui, comme t’y invite ton carnet « Renaissance » ce mois-ci, rend ton contrat avec la vie plus solide.",
           questions: [
             { k: "plus3-feb-a", q: "Qu’avait besoin d’entendre l’enfant que tu étais ?", ph: "Exemple : « Tu peux être toi, même si tu es différente de ta grand-mère. »", lignes: 2 },
             { k: "plus3-feb-b", q: "Qu’as-tu ressenti en lui disant « Bienvenue, tu as ta place » ?", ph: "Exemple : une grande douceur dans la poitrine, et l’envie de prendre la photo dans mes mains.", lignes: 2 },

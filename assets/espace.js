@@ -106,8 +106,29 @@
         + ((d.parcours_historique || []).length ? '<p class="tb-aide">Tes parcours précédents : ' + d.parcours_historique.slice().reverse().map(function (x) { return esc(THEMES[x.theme] || x.theme) + (x.updatedAt ? ' (' + esc(dateFr(x.updatedAt)) + ')' : ''); }).join(' · ') + '</p>' : '');
       else zp.innerHTML = '<p class="tb-aide">Tu n’as pas encore fait le parcours guidé. Quelques questions pour nommer ce qui se répète dans ta vie, dix minutes environ.</p>';
       chargerArbresSupp();
+      chargerFilDor();
     });
   }
+
+  /* ── Le fil d'or (table carnets, ligne « fil-d-or », chiffrée) ── */
+  function chargerFilDor() {
+    var z = $('fil-d-or-resume'), bt = $('bt-effacer-fil'), CF = window.GenesoliaCoffre; if (!z || !CF) return;
+    CF.lire(sb, user, 'fil-d-or').then(function (d) {
+      if (!d || !d.etat || !d.etat.personnes) { z.innerHTML = '<p class="tb-aide">Ton fil d’or n’est pas gardé dans ton espace. Pars de ce que tu ressens : ta vie, puis ta lignée. Choisis « Garder mon fil d’or » pour le retrouver ici.</p>'; if (bt) bt.hidden = true; return; }
+      var n = Object.keys(d.etat.personnes).length;
+      z.innerHTML = '<p class="tb-aide">Gardé dans ton espace, chiffré : <b>' + n + ' personne' + (n > 1 ? 's' : '') + '</b>' + (d.maj ? ', modifié le ' + esc(new Date(d.maj).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })) : '') + '.</p>';
+      if (bt) bt.hidden = false;
+    }, function () { z.innerHTML = '<p class="tb-aide">Ton fil d’or n’a pas pu être chargé pour l’instant.</p>'; });
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('#bt-effacer-fil')) return;
+    if (!confirm('Effacer ton fil d’or dans ton espace et sur cet appareil ? Ce n’est pas réversible.')) return;
+    sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'fil-d-or').then(function (r) {
+      if (r && r.error) { alert('L’effacement n’a pas abouti. Réessaie dans un instant.'); return; }
+      try { localStorage.removeItem('genesolia-arbre-ressentis'); localStorage.removeItem('genesolia-arbre-ressentis-maj'); } catch (x) {}
+      chargerFilDor();
+    });
+  });
 
   /* ── Plusieurs arbres (table arbres_supp) ── */
   var arbresSupp = [];
@@ -124,11 +145,14 @@
   function limite(t) { var z = $('arbres-limite'); z.innerHTML = t || ''; z.hidden = !t; }
   function chargerArbresSupp() {
     sb.from('arbres_supp').select('id,nom,data,maj').eq('user_id', user.id).order('cree_le', { ascending: true }).then(function (r) {
-      arbresSupp = r.error ? [] : (r.data || []);
+      var tousSupp = r.error ? [] : (r.data || []);
+      arbresSupp = tousSupp.filter(function (a) { return !(a.data && a.data.dossier === 'client'); });   /* les dossiers client·es sont dans Mon cabinet */
+      var nbClients = tousSupp.length - arbresSupp.length;
       var d = (ligne && ligne.data) || {};
       $('liste-arbres').innerHTML = ligneArbre('genosociogramme.html', 'Mon arbre (principal)', nbPers(d), ligne && ligne.updated_at) +
         arbresSupp.map(function (a) { return ligneArbre('genosociogramme.html?arbre=' + encodeURIComponent(a.id), a.nom || 'Autre arbre', nbPers(a.data), a.maj); }).join('') +
-        (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '');
+        (r.error ? '<p class="tb-aide">Tes autres arbres n’ont pas pu être chargés pour l’instant.</p>' : '') +
+        (nbClients ? '<p class="tb-aide">Tes ' + nbClients + ' dossier' + (nbClients > 1 ? 's' : '') + ' client·es sont dans <a href="pro.html">Mon Espace praticien</a>.</p>' : '');
       $('mes-arbres').hidden = false;
     });
   }
@@ -163,7 +187,7 @@
     $('form-mdp').addEventListener('submit', function (e) {
       e.preventDefault();
       var v = $('p-mdp').value;
-      if (v.length < 8) { info('Le mot de passe doit faire au moins 8 caractères.', true); return; }
+      if (v.length < 10) { info('Le mot de passe doit faire au moins 10 caractères.', true); return; }
       sb.auth.updateUser({ password: v }).then(function (r) {
         if (r.error) {
           var t = String(r.error.message || '').toLowerCase();
@@ -382,6 +406,18 @@
       majEntete();
       chargerArbre();
       chargerChemin();
+      carteCabinet();
     }
   };
+  /* Praticien·ne : une carte « Mon cabinet » en tête de l'accueil */
+  function carteCabinet() {
+    if (document.getElementById('acc-cabinet')) return;
+    sb.from('praticiens').select('cabinet').eq('user_id', user.id).maybeSingle().then(function (r) {
+      if (!r || r.error || !r.data || document.getElementById('acc-cabinet')) return;
+      var g = document.querySelector('[data-p="accueil"] .tb-grille'); if (!g) return;
+      var c = document.createElement('article'); c.className = 'tb-carte tb-large'; c.id = 'acc-cabinet';
+      c.innerHTML = '<h2>Mon Espace praticien · ' + esc(r.data.cabinet || 'Espace praticien') + '</h2><p class="tb-aide">Tes dossiers client·es, tes notes de séance, le mode séance, les rapports et les liens de partage.</p><div class="tb-actions"><a class="btn btn-plein" href="pro.html">Ouvrir mon Espace praticien</a></div>';
+      g.insertBefore(c, g.firstChild);
+    }, function () {});
+  }
 })();

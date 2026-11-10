@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>J’ai un code d’accès · Genesolia</title>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .cd-tete{color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B);padding:3rem 0 2.6rem}
+    .cd-tete h1{color:#fff;margin:0 0 .6rem}
+    .cd-tete p{color:#F7E6EE;margin:0;max-width:36rem}
+    .cd-carte{max-width:32rem;margin:0 auto;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 18px 40px rgba(107,47,91,.10)}
+    .cd-carte h2{font-size:1.4rem;margin:0 0 .5rem}
+    .cd-etapes{margin:0 0 1.2rem;padding-left:1.2rem;color:var(--prune-doux)}
+    .cd-etapes li{margin:.3rem 0}
+    .cd-boutons{display:flex;gap:.6rem;flex-wrap:wrap}
+    .cd-champ{width:100%;box-sizing:border-box;border:1px solid var(--rose-fonce);border-radius:14px;padding:.9rem 1rem;font:600 1.2rem var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--prune);background:var(--nacre);margin:.4rem 0 .9rem}
+    .cd-msg{margin:.8rem 0 0;font-weight:600}
+    .cd-ok{text-align:center}
+    .cd-ok h2{font-size:1.6rem}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="cd-tete">
+      <div class="conteneur">
+        <h1>J’ai un code d’accès</h1>
+        <p>Tu as reçu un code avec ton achat ? Il ouvre ton accès au Cercle sur Genesolia : séances audio guidées, ton carnet et ton livret chaque mois, ton arbre familial et ton guide du mois.</p>
+      </div>
+    </section>
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="cd-carte" id="cd-sans-compte" hidden>
+          <h2>D’abord, ton compte</h2>
+          <ol class="cd-etapes">
+            <li>Crée ton compte Genesolia (ou connecte-toi si tu en as déjà un).</li>
+            <li>Tu reviens ici automatiquement.</li>
+            <li>Tu tapes ton code, et ton accès s’ouvre.</li>
+          </ol>
+          <div class="cd-boutons">
+            <a class="btn btn-plein" href="login.html?retour=code.html&amp;inscription">Créer mon compte</a>
+            <a class="btn btn-trait" href="login.html?retour=code.html">Me connecter</a>
+          </div>
+        </div>
+        <form class="cd-carte" id="cd-form" hidden novalidate>
+          <h2>Ton code</h2>
+          <p class="discret" id="cd-qui"></p>
+          <label for="cd-code" class="discret">Il commence par GEN, par exemple GEN-ABCD-1234</label>
+          <input class="cd-champ" id="cd-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" required>
+          <button class="btn btn-plein" type="submit">Ouvrir mon accès</button>
+          <p class="cd-msg" role="alert" aria-live="polite"></p>
+        </form>
+        <div class="cd-carte cd-ok" id="cd-ok" hidden>
+          <h2>Ton accès est ouvert</h2>
+          <p id="cd-fin"></p>
+          <p><a class="btn btn-plein" href="cercle.html">Entrer dans le Cercle</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/supabase.js"></script>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var sb = window.supabase.createClient('https://qsvzzkjtjsznfntahvvh.supabase.co', 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg');
+    var $ = function (id) { return document.getElementById(id); };
+    /* Le code peut arriver dans l'adresse (?c=…) : on le garde pendant la création du compte */
+    var c = new URLSearchParams(location.search).get('c');
+    try { if (c) localStorage.setItem('genesolia-code', c); else c = localStorage.getItem('genesolia-code'); } catch (e) {}
+    if (c) $('cd-code').value = c;
+    var MSG = { inconnu: 'Ce code n’existe pas. Vérifie chaque caractère (pas de O ni de I, seulement des chiffres et des lettres).', utilise: 'Ce code a déjà été utilisé avec un autre compte. Écris-nous à contact@genesolia.fr avec ton numéro de commande.', connexion: 'Ta connexion a expiré : reconnecte-toi, puis tape ton code.' };
+    sb.auth.getSession().then(function (r) {
+      var s = r.data && r.data.session;
+      if (!s) { $('cd-sans-compte').hidden = false; return; }
+      $('cd-qui').textContent = 'Connecté·e avec ' + (s.user.email || 'ton compte') + '.';
+      $('cd-form').hidden = false;
+    });
+    $('cd-form').addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var code = $('cd-code').value.trim(), msg = document.querySelector('.cd-msg'), bt = ev.target.querySelector('button');
+      if (code.replace(/[^a-z0-9]/gi, '').length < 8) { msg.textContent = 'Tape ton code en entier.'; return; }
+      bt.disabled = true; msg.textContent = '';
+      sb.rpc('utiliser_code', { p_code: code }).then(function (r) {
+        bt.disabled = false;
+        if (r.error || !r.data) { msg.textContent = 'Un souci est survenu, réessaie dans un instant.'; return; }
+        if (!r.data.ok) { msg.textContent = MSG[r.data.raison] || MSG.inconnu; return; }
+        try { localStorage.removeItem('genesolia-code'); } catch (e) {}
+        $('cd-form').hidden = true; $('cd-ok').hidden = false;
+        $('cd-fin').textContent = r.data.jusqu ? 'Ton accès au Cercle est ouvert jusqu’au ' + new Date(r.data.jusqu).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '.' : 'Ce code est déjà activé sur ton compte.';
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

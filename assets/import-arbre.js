@@ -51,7 +51,7 @@
 
   /* Prénoms courants (dont anciens) pour deviner homme ou femme. Sinon : « né » / « née », puis le conjoint. */
   var PRENOMS_M = 'adolphe alain albert alexandre alexis alfred alphonse amedee anatole andre ange antoine armand arthur auguste augustin baptiste benjamin benoit bernard bertrand blaise bruno camille charles christian christophe claude clement cyrille damien daniel david denis didier dominique edmond edouard emile emmanuel eric ernest etienne eugene fabien felix fernand florent francis francois frederic gabriel gaston georges gerard gilbert gilles gregoire guillaume gustave guy henri herve hippolyte honore hugo hugues ignace jacques jacquot jean jeremy jerome joachim joel joseph jules julien kevin laurent leon leonard lionel louis luc lucas lucien marc marcel marius martin mathieu mathurin matthieu maurice maxime michel nicolas noel olivier pascal patrice patrick paul philippe pierre raoul raphael raymond remi rene robert roger roland romain sebastien serge simon stephane sylvain theo theodore thierry thomas tristan valentin victor vincent xavier yann yannick yves'.split(' ');
-  var PRENOMS_F = 'adele adrienne agathe agnes albertine alexandrine alice aline amelie anais anastasie angele angelique anne annette annick antoinette augustine aurelie berthe blanche brigitte camille caroline catherine cecile celine celestine chantal charlotte christine claire claudine clemence colette danielle delphine denise eleonore elisabeth elise elodie emilie emma estelle eugenie eva eveline florence francine francoise gabrielle genevieve germaine ginette guillemette helene henriette huguette irene isabelle jacqueline jacquette jeanne jeannine josephine josette josiane joelle julie julienne juliette laura laure lea leonie leontine lise louise lucie lucienne lydie madeleine magdeleine marcelle marguerite maria marianne marie marine marthe martine mathilde mathurine maud melanie micheline michele monique nathalie nicole noemie odette olive pascale paule paulette pauline perrine philomene rachel raymonde reine renee rose sandrine simone solange sophie stephanie suzanne sylvie sylviane therese ursule valerie veronique victoire victorine virginie yvette yvonne zoe'.split(' ');
+  var PRENOMS_F = 'adele adrienne amelia agathe agnes albertine alexandrine alice aline amelie anais anastasie angele angelique anne annette annick antoinette augustine aurelie berthe blanche brigitte camille caroline catherine cecile celine celestine chantal charlotte christine claire claudine clemence colette danielle delphine denise eleonore elisabeth elise elodie emilie emma estelle eugenie eva eveline florence francine francoise gabrielle genevieve germaine ginette guillemette helene henriette huguette irene isabelle jacqueline jacquette jeanne jeannine josephine josette josiane joelle julie julienne juliette laura laure lea leonie leontine lise louise lucie lucienne lydie madeleine magdeleine marcelle marguerite maria marianne marie marine marthe martine mathilde mathurine maud melanie micheline michele monique nathalie nicole noemie odette olive pascale paule paulette pauline perrine philomene rachel raymonde reine renee rose sandrine simone solange sophie stephanie suzanne sylvie sylviane therese ursule valerie veronique victoire victorine virginie yvette yvonne zoe'.split(' ');
   function sexePrenom(prenom) {
     var p = cle(String(prenom || '').split(/[\s-]+/)[0]);
     if (!p) return '';
@@ -424,7 +424,198 @@
   }
   function affDate(d) { var m = String(d || '').match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? (+m[3]) + ' ' + Object.keys(MOIS)[+m[2] - 1].replace('fevrier', 'février').replace('aout', 'août').replace('decembre', 'décembre') + ' ' + m[1] : (d || ''); }
 
-  var Lecteur = { lireLignes: lireLignes, lireGedcom: lireGedcom };
+  /* ───────── Arbre dessiné avec des traits (Geneanet « Arbre généalogique de … », ascendants et descendants) ─────────
+     Chaque personne est un bloc de texte ; les liens viennent des traits dessinés entre les blocs :
+     un trait qui part du bas d'un bloc et monte vers lui = un parent ; un trait qui arrive au-dessus d'un bloc = un enfant.
+     Deux parents sur le même trait forment un couple (le père à gauche). Un bloc encadré accroché au trait = le conjoint. */
+
+  // Traits (segments) et cadres tracés, à partir de la liste d'opérations de pdf.js
+  function traitsDepuisOps(ops, O) {
+    var ctm = [1, 0, 0, 1, 0, 0], pile = [], chemin = [], segments = [], cadres = [];
+    function mul(m, n) { return [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]]; }
+    function pt(x, y) { return [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]]; }
+    for (var i = 0; i < ops.fnArray.length; i++) {
+      var f = ops.fnArray[i], a = ops.argsArray[i];
+      if (f === O.save) pile.push(ctm.slice());
+      else if (f === O.restore) ctm = pile.pop() || ctm;
+      else if (f === O.transform) ctm = mul(ctm, a);
+      else if (f === O.constructPath) {
+        var cmds = a[0], args = a[1], k = 0, cur = null, debut = null; chemin = [];
+        for (var j = 0; j < cmds.length; j++) {
+          var c = cmds[j], p;
+          if (c === O.moveTo) { cur = debut = pt(args[k], args[k + 1]); k += 2; }
+          else if (c === O.lineTo) { p = pt(args[k], args[k + 1]); if (cur) chemin.push([cur[0], cur[1], p[0], p[1]]); cur = p; k += 2; }
+          else if (c === O.curveTo) { cur = pt(args[k + 4], args[k + 5]); k += 6; }
+          else if (c === O.curveTo2 || c === O.curveTo3) { cur = pt(args[k + 2], args[k + 3]); k += 4; }
+          else if (c === O.closePath) { if (cur && debut) chemin.push([cur[0], cur[1], debut[0], debut[1]]); cur = debut; }
+          else if (c === O.rectangle) {
+            var q = [pt(args[k], args[k + 1]), pt(args[k] + args[k + 2], args[k + 1]), pt(args[k] + args[k + 2], args[k + 1] + args[k + 3]), pt(args[k], args[k + 1] + args[k + 3])];
+            for (var m2 = 0; m2 < 4; m2++) chemin.push([q[m2][0], q[m2][1], q[(m2 + 1) % 4][0], q[(m2 + 1) % 4][1]]);
+            k += 4;
+          }
+        }
+      }
+      else if (f === O.stroke || f === O.closeStroke) {
+        var droits = chemin.filter(function (s) { return Math.hypot(s[2] - s[0], s[3] - s[1]) >= 1.5 && (Math.abs(s[0] - s[2]) < 0.5 || Math.abs(s[1] - s[3]) < 0.5); });
+        droits.forEach(function (s) { segments.push(s); });
+        // un cadre : 4 côtés droits fermés, assez grand pour contenir une personne
+        if (droits.length === 4) {
+          var xs = [], ys = [];
+          droits.forEach(function (s) { xs.push(s[0], s[2]); ys.push(s[1], s[3]); });
+          var r = { x0: Math.min.apply(null, xs), x1: Math.max.apply(null, xs), y0: Math.min.apply(null, ys), y1: Math.max.apply(null, ys) };
+          if (r.x1 - r.x0 > 40 && r.y1 - r.y0 > 30) { r.segs = droits; cadres.push(r); }
+        }
+        chemin = [];
+      }
+    }
+    return { segments: segments, cadres: cadres };
+  }
+
+  // Blocs de texte : une personne = des lignes alignées à gauche, l'une sous l'autre (ou des colonnes, si le texte est vertical)
+  function blocsTexte(textes) {
+    var t = textes.filter(function (x) { return x.taille < 12 && !/^[×x]\s*[~<>]?\s*\d/.test(x.s) && !/^geneanet/i.test(x.s); });
+    var blocs = [];
+    t.filter(function (x) { return !x.rot; }).sort(function (a, b) { return (a.x - b.x) || (b.y - a.y); }).forEach(function (x) {
+      var b = blocs.find(function (b) { return !b.rot && Math.abs(b.x0 - x.x) < 1 && b.yBas - x.y > 0 && b.yBas - x.y <= 12; });
+      if (!b) { b = { rot: false, x0: x.x, x1: x.x, yHaut: x.y + x.taille, yBas: x.y, larg: 0, lignes: [] }; blocs.push(b); }
+      b.lignes.push(x); b.yBas = x.y; b.larg = Math.max(b.larg, x.larg || 0);
+    });
+    t.filter(function (x) { return x.rot; }).sort(function (a, b) { return (b.y - a.y) || (a.x - b.x); }).forEach(function (x) {
+      var b = blocs.find(function (b) { return b.rot && Math.abs(b.yBas - x.y) < 1 && x.x - b.x1 > 0 && x.x - b.x1 <= 11; });
+      if (!b) { b = { rot: true, x0: x.x, x1: x.x, yHaut: x.y + (x.larg || 60), yBas: x.y, larg: 0, lignes: [] }; blocs.push(b); }
+      b.lignes.push(x); b.x1 = x.x; b.yHaut = Math.max(b.yHaut, x.y + (x.larg || 60));
+    });
+    blocs.forEach(function (b) {
+      b.cx = b.rot ? (b.x0 + b.x1) / 2 - 3 : b.x0 + Math.max(b.larg, 80) / 2;
+      b.tol = b.rot ? 30 : 62;
+    });
+    return blocs.filter(function (b) { return b.lignes.some(function (l) { return /\p{L}{2}/u.test(l.s); }); });
+  }
+
+  // « Jean GAULTIER ou GAUTHIER ou GAUTIER », « Pascal ou Pasquier MÉNAGER ou MESNAGER »
+  function nomGeneanet(txt) {
+    var mots = txt.replace(/\s+/g, ' ').trim().split(' '), i = mots.findIndex(function (w) { return w.length >= 2 && RE_NOM.test(w.replace(/,$/, '')); });
+    if (i < 0) return { prenom: txt.trim(), nom: '', autres: '' };
+    var pre = mots.slice(0, i).join(' ').split(/\s+ou\s+/i), nom = mots.slice(i).join(' ').split(/\s+ou\s+/i);
+    var autres = [];
+    if (pre.length > 1) autres.push(pre.slice(1).join(', '));
+    if (nom.length > 1) autres.push(nom.slice(1).join(', '));
+    return { prenom: pre[0], nom: nom[0].toUpperCase(), autres: autres.join(' · ') };
+  }
+  // « 16/12/1853 – 27/01/1929 », « ~ 1613 – 03/12/1679 », « – ~ 14/07/1670 », « < 11/1658 »
+  function dateGeneanet(s) {
+    s = String(s || '').trim(); if (!s) return null;
+    var pre = s.charAt(0) === '~' ? 'vers ' : s.charAt(0) === '<' ? 'avant ' : s.charAt(0) === '>' ? 'après ' : '';
+    var v = s.replace(/^[~<>]\s*/, ''), m;
+    if ((m = v.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/))) return { date: pre ? m[3] : dateIso(m[3], m[2], m[1]), note: pre ? pre + v : '' };
+    if ((m = v.match(/^(\d{1,2})\/(\d{4})$/))) return { date: m[2], note: pre ? pre + v : '' };
+    if ((m = v.match(/^(\d{4})$/))) return { date: m[1], note: pre ? pre + v : '' };
+    return null;
+  }
+  function personneDuBloc(b) {
+    // le nom : les premières lignes, jusqu'aux dates ou à un texte plus petit
+    var lignes = b.lignes, RE_DATES = /^[~<>–-]?\s*[\d\/]*\d{4}|^[–-]\s*[~<>]?\s*\d/, nbNom = 0;
+    while (nbNom < lignes.length && !RE_DATES.test(lignes[nbNom].s.trim()) && lignes[nbNom].taille >= lignes[0].taille - 0.3) nbNom++;
+    nbNom = Math.max(nbNom, 1);
+    var nomTxt = lignes.slice(0, nbNom).map(function (l) { return l.s; }).join(' ');
+    var nm = nomGeneanet(nomTxt);
+    var p = { prenom: titre(nm.prenom), nom: nm.nom, sex: '', naiss: '', deces: '', decede: false, lieu: '', metier: '', notes: [], doutes: [], ne: '', events: [] };
+    if (nm.autres) p.notes.push('Autre graphie : ' + nm.autres);
+    var metier = [];
+    lignes.slice(nbNom).forEach(function (l) {
+      var s = l.s.trim(), md = s.match(/^([~<>]?\s*[\d\/]*\d)?\s*[–-]\s*([~<>]?\s*[\d\/]*\d)?$/);
+      if (md && (md[1] || md[2]) && /\d{4}/.test(s)) {
+        var dn = dateGeneanet(md[1]), dd = dateGeneanet(md[2]);
+        if (dn) { p.naiss = dn.date; if (dn.note) p.notes.push('Naissance : ' + dn.note); }
+        if (dd) { p.deces = dd.date; if (dd.note) p.notes.push('Décès : ' + dd.note); }
+        p.decede = true;
+      } else if (/^[~<>]?\s*[\d\/]*\d{4}$/.test(s)) {
+        var d1 = dateGeneanet(s); if (d1) { p.naiss = d1.date; if (d1.note) p.notes.push('Naissance : ' + d1.note); }
+      } else metier.push(s);   // le métier peut tenir sur plusieurs lignes
+    });
+    if (metier.length) p.metier = majuscule(metier.join(' ').replace(/\s+/g, ' ').replace(/,(?=\S)/g, ', '));
+    if (p.naiss && +String(p.naiss).slice(0, 4) < new Date().getFullYear() - 110) p.decede = true;
+    return p;
+  }
+
+  function lireTraits(geo) {
+    var segs = geo.segments || [], blocs = blocsTexte(geo.textes || []);
+    if (segs.length < 4 || blocs.length < 3) return null;
+    var T = 0.7;
+    function surSeg(px, py, s) {
+      var x0 = Math.min(s[0], s[2]) - T, x1 = Math.max(s[0], s[2]) + T, y0 = Math.min(s[1], s[3]) - T, y1 = Math.max(s[1], s[3]) + T;
+      return px >= x0 && px <= x1 && py >= y0 && py <= y1;
+    }
+    // Traits qui se touchent = un même lien (union-find)
+    var uf = segs.map(function (s, i) { return i; });
+    function rac(i) { while (uf[i] !== i) { uf[i] = uf[uf[i]]; i = uf[i]; } return i; }
+    for (var i = 0; i < segs.length; i++) for (var j = i + 1; j < segs.length; j++) {
+      var a = segs[i], b = segs[j];
+      if (surSeg(a[0], a[1], b) || surSeg(a[2], a[3], b) || surSeg(b[0], b[1], a) || surSeg(b[2], b[3], a)) uf[rac(i)] = rac(j);
+    }
+    var comps = {};
+    segs.forEach(function (s, i) {
+      var k = rac(i), c = comps[k] = comps[k] || { haut: [], bas: [], conjoints: [] };
+      if (Math.abs(s[0] - s[2]) >= 0.5) return;   // seuls les traits verticaux ont des bouts libres utiles
+      var hautY = Math.max(s[1], s[3]), basY = Math.min(s[1], s[3]);
+      [[s[0], hautY, 'haut'], [s[0], basY, 'bas']].forEach(function (e) {
+        var libre = !segs.some(function (o, j) { return j !== i && surSeg(e[0], e[1], o); });
+        if (libre) c[e[2]].push(e);
+      });
+    });
+    function proche(e, sens) {
+      var mieux = null, score = Infinity;
+      blocs.forEach(function (b) {
+        var dx = Math.abs(e[0] - b.cx); if (dx > b.tol) return;
+        var dy = sens === 'haut' ? b.yBas - e[1] : e[1] - b.yHaut;
+        if (dy < -2 || dy > (sens === 'haut' ? 70 : 30)) return;
+        var sc = Math.max(dy, 0) + dx * 0.3;
+        if (sc < score) { score = sc; mieux = b; }
+      });
+      return mieux;
+    }
+    // Conjoint encadré : son cadre fait partie du lien
+    (geo.cadres || []).forEach(function (r) {
+      var i0 = segs.findIndex(function (s) { return s[0] === r.segs[0][0] && s[1] === r.segs[0][1] && s[2] === r.segs[0][2] && s[3] === r.segs[0][3]; });
+      if (i0 < 0) return;
+      var b = blocs.find(function (b) { return b.x0 >= r.x0 - 1 && b.x0 <= r.x1 && b.yHaut <= r.y1 + 1 && b.yBas >= r.y0 - 1; });
+      if (b) comps[rac(i0)].conjoints.push(b);
+    });
+
+    var pers = new Map(), personnes = [], parCle = {}, rels = [], n = 0;
+    function idDe(b, sexe) {
+      if (pers.has(b)) { var q = pers.get(b); if (sexe && !q.sex) q.sex = sexe; return q.id; }
+      var p = personneDuBloc(b);
+      var cleP = cle(p.prenom) + '|' + cle(p.nom) + '|' + p.naiss + '|' + p.deces;
+      var ex = (p.naiss || p.deces) && parCle[cleP];   // un ancêtre présent dans deux branches : une seule fiche
+      if (ex) { pers.set(b, ex); return ex.id; }
+      p.id = 't' + (++n); if (sexe) p.sex = sexe;
+      personnes.push(p); pers.set(b, p); parCle[cleP] = p;
+      return p.id;
+    }
+    Object.keys(comps).forEach(function (k) {
+      var c = comps[k], vus = new Set();
+      function blocsDe(liste, sens) { var r = []; liste.forEach(function (e) { var b = proche(e, sens); if (b && !vus.has(b) && c.conjoints.indexOf(b) < 0) { vus.add(b); r.push(b); } }); return r; }
+      var haut = blocsDe(c.haut, 'haut').sort(function (a, b) { return a.cx - b.cx; }), bas = blocsDe(c.bas, 'bas'), conj = c.conjoints;
+      var parents = [];
+      if (conj.length && haut.length) {
+        var u = idDe(haut[0]), s2 = idDe(conj[0]);
+        rels.push({ type: 'couple', from: u, to: s2, statut: 'marie' }); parents = [u, s2];
+      } else if (haut.length >= 2) {
+        var pere = idDe(haut[0], 'm'), mere = idDe(haut[1], 'f');
+        rels.push({ type: 'couple', from: pere, to: mere, statut: 'marie' }); parents = [pere, mere];
+      } else if (haut.length === 1) parents = [idDe(haut[0])];
+      if (!parents.length) return;
+      bas.forEach(function (b) { var e = idDe(b); parents.forEach(function (p) { if (p !== e) rels.push({ type: 'parent', from: p, to: e }); }); });
+    });
+    if (personnes.length < 3 || rels.filter(function (r) { return r.type === 'parent'; }).length < 2) return null;
+    // personnes du dessin sans aucun trait : gardées quand même
+    blocs.forEach(function (b) { if (!pers.has(b) && b.lignes.some(function (l) { return l.taille >= 7; })) idDe(b); });
+    var r = finir(personnes, rels); r.ascendant = true;
+    return r;
+  }
+
+  var Lecteur = { lireLignes: lireLignes, lireGedcom: lireGedcom, lireTraits: lireTraits, traitsDepuisOps: traitsDepuisOps };
   if (typeof module !== 'undefined' && module.exports) { module.exports = Lecteur; return; }
 
   /* ───────── Dans la page ───────── */
@@ -489,9 +680,10 @@
         }
       }
       var textes = tc.items.filter(function (t) { return t.str && t.str.trim(); }).map(function (t) {
-        return { s: t.str.trim(), x: t.transform[4], y: t.transform[5], taille: Math.round(Math.hypot(t.transform[0], t.transform[1]) * 10) / 10, rot: Math.abs(t.transform[1]) > Math.abs(t.transform[0]) };
+        return { s: t.str.trim(), x: t.transform[4], y: t.transform[5], taille: Math.round(Math.hypot(t.transform[0], t.transform[1]) * 10) / 10, rot: Math.abs(t.transform[1]) > Math.abs(t.transform[0]), larg: t.width || 0 };
       });
-      return { rects: rects, textes: textes };
+      var tr = traitsDepuisOps(ops, O);
+      return { rects: rects, textes: textes, segments: tr.segments, cadres: tr.cadres };
     });
   }
   function puissance2(n) { return n > 0 && (n & (n - 1)) === 0; }
@@ -561,7 +753,7 @@
   function lirePdf(buf) {
     var copie = buf.slice(0); // pdf.js garde le tampon pour lui : une copie pour la lecture ligne par ligne
     return chargerPdfJs().then(function (lib) { return lib.getDocument({ data: buf }).promise; }).then(function (doc) {
-      var essai = doc.numPages === 1 ? doc.getPage(1).then(geometriePdf).then(lireAscendant).catch(function () { return null; }) : Promise.resolve(null);
+      var essai = doc.numPages === 1 ? doc.getPage(1).then(geometriePdf).then(function (geo) { return lireTraits(geo) || lireAscendant(geo); }).catch(function () { return null; }) : Promise.resolve(null);
       return essai.then(function (r) { return r || lignesPdf(copie); });
     });
   }
@@ -621,16 +813,100 @@
     var b = annee(p.naiss), d = annee(p.deces);
     return b && d ? b + ' – ' + d : b ? (p.sex === 'f' ? 'née en ' : p.sex === 'm' ? 'né en ' : 'naissance ') + b : d ? '† ' + d : (p.decede ? 'décédé·e' : '');
   }
+  /* ── Reconnaître les personnes du fichier déjà présentes dans l'arbre ──
+     1. même prénom (le premier, ou l'un des prénoms), même nom, sexe et années compatibles ;
+     2. puis, de proche en proche : les parents, enfants et conjoint·es d'une personne reconnue
+        sont cherché·es parmi les siens dans l'arbre (le prénom suffit, le nom peut différer : nom de naissance, d'épouse). */
+  function sansAccent(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z]+/g, ' ').trim(); }
+  function prenomsDe(s) { return sansAccent(s).split(' ').filter(Boolean); }
+  function prenomOk(a, b, souple) {
+    var A = prenomsDe(a), B = prenomsDe(b);
+    if (!A.length || !B.length) return false;
+    if (souple) return A.some(function (x) { return B.indexOf(x) >= 0; });
+    return B.indexOf(A[0]) >= 0 || A.indexOf(B[0]) >= 0;
+  }
+  function nomOk(a, b) {
+    var A = sansAccent(a).replace(/^(de|du|des|le|la) /, ''), B = sansAccent(b).replace(/^(de|du|des|le|la) /, '');
+    if (!A || !B) return false;
+    return A === B || (' ' + A + ' ').indexOf(' ' + B + ' ') >= 0 || (' ' + B + ' ').indexOf(' ' + A + ' ') >= 0;
+  }
+  function sexeOk(a, b) { return !(/^[mf]$/.test(a || '') && /^[mf]$/.test(b || '') && a !== b); }
+  /* 0 : incompatible ; 1 : rien à comparer ; 2 : même année */
+  function anOk(x, y) { var a = annee(x), b = annee(y); return a && b ? (Math.abs(a - b) <= 1 ? 2 : 0) : 1; }
+  function compatible(f, t) {
+    var n = anOk(f.naiss, t.naiss), d = anOk(f.deces, t.deces);
+    if (!n || !d || !sexeOk(f.sex, t.sex)) return 0;
+    return 1 + (n === 2 ? 2 : 0) + (d === 2 ? 2 : 0);
+  }
+  function reconnaitre(r) {
+    var E = G.etat ? G.etat() : { people: {}, rels: [] }, T = E.people || {}, TR = E.rels || [], memes = {}, pris = {}, pourquoi = {};
+    var tIds = Object.keys(T);
+    if (!tIds.length) return { memes: memes, pourquoi: pourquoi, arbre: T };
+    function proches(rels, id, sens) {
+      return rels.filter(function (x) {
+        if (sens === 'parent') return x.type === 'parent' && x.to === id;
+        if (sens === 'enfant') return x.type === 'parent' && x.from === id;
+        return x.type === 'couple' && (x.from === id || x.to === id);
+      }).map(function (x) { return sens === 'parent' ? x.from : sens === 'enfant' ? x.to : (x.from === id ? x.to : x.from); });
+    }
+    function lier(f, t, raison) { memes[f] = t; pris[t] = 1; pourquoi[f] = raison; }
+    // 1. par le nom complet
+    var cand = {};
+    r.personnes.forEach(function (f) {
+      cand[f.id] = tIds.map(function (t) {
+        var p = T[t]; if (!prenomOk(f.prenom, p.prenom) || !nomOk(f.nom, p.nom)) return null;
+        var s = compatible(f, p); return s ? { t: t, s: s } : null;
+      }).filter(Boolean).sort(function (a, b) { return b.s - a.s; });
+    });
+    var parT = {};   // combien de personnes du fichier visent chaque personne de l'arbre
+    r.personnes.forEach(function (f) { if (cand[f.id][0]) parT[cand[f.id][0].t] = (parT[cand[f.id][0].t] || 0) + 1; });
+    r.personnes.forEach(function (f) {
+      var c = cand[f.id]; if (!c.length) return;
+      var net = c.length === 1 || c[0].s > c[1].s;           // un seul choix, ou un choix clairement meilleur
+      if (net && parT[c[0].t] === 1 && !pris[c[0].t]) lier(f.id, c[0].t, c[0].s >= 3 ? 'par son nom et ses dates' : 'par son nom');
+    });
+    // 2. de proche en proche
+    var encore = true, tours = 0;
+    while (encore && tours++ < 30) {
+      encore = false;
+      Object.keys(memes).forEach(function (f) {
+        ['parent', 'enfant', 'couple'].forEach(function (sens) {
+          var cotesT = proches(TR, memes[f], sens).filter(function (t) { return T[t] && !pris[t]; });
+          proches(r.rels, f, sens).forEach(function (fr) {
+            if (memes[fr]) return;
+            var pf = r.personnes.filter(function (x) { return x.id === fr; })[0]; if (!pf) return;
+            var ok = cotesT.filter(function (t) {
+              var p = T[t];
+              return !pris[t] && compatible(pf, p) && (prenomOk(pf.prenom, p.prenom, true) || (!prenomsDe(pf.prenom).length && nomOk(pf.nom, p.nom)));
+            });
+            if (ok.length === 1) { lier(fr, ok[0], sens === 'parent' ? 'comme parent de ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0]) : sens === 'enfant' ? 'comme enfant de ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0]) : 'en couple avec ' + nomP(r.personnes.filter(function (x) { return x.id === f; })[0])); encore = true; }
+          });
+        });
+      });
+    }
+    return { memes: memes, pourquoi: pourquoi, arbre: T };
+  }
   function afficher() {
     var r = resultat, par = {};
     r.personnes.forEach(function (p) { par[p.id] = p; });
     var arbre = G.personnes(), moiArbre = arbre.some(function (p) { return p.moi; });
     var opts = r.personnes.map(function (p) { return '<option value="' + p.id + '">' + esc(nomP(p)) + (datesP(p) ? ' (' + esc(datesP(p)) + ')' : '') + '</option>'; }).join('');
     var h = '<p class="fi-aide">' + (r.ascendant ? 'Arbre ascendant reconnu : les parents de chaque personne viennent de la place des boîtes dans le document. Un ancêtre présent dans deux branches n’apparaît qu’une fois.' : 'Les liens entre parents et enfants sont déduits de l’ordre du document.') + ' Décoche ce qui ne va pas : tu pourras tout compléter et corriger ensuite dans ton arbre.</p>';
+    var REC = arbre.length ? reconnaitre(r) : { memes: {}, pourquoi: {}, arbre: {} }, nRec = Object.keys(REC.memes).length;
+    r.memes = REC.memes;
     if (arbre.length) {
       h += '<div class="champ"><span class="etiq">Ton arbre contient déjà ' + arbre.length + ' personne' + (arbre.length > 1 ? 's' : '') + '</span>' +
-        '<div class="choix"><label><input type="radio" name="fi-mode" value="ajouter" checked><span>Ajouter à mon arbre</span></label><label><input type="radio" name="fi-mode" value="remplacer"><span>Remplacer mon arbre</span></label></div></div>' +
-        '<div class="champ" id="fi-bloc-meme"><label for="fi-meme-doc">Quelqu’un du document est déjà dans ton arbre ?</label>' +
+        '<div class="choix"><label><input type="radio" name="fi-mode" value="ajouter" checked><span>Compléter mon arbre</span></label><label><input type="radio" name="fi-mode" value="remplacer"><span>Remplacer mon arbre</span></label></div></div>';
+      h += '<div class="champ" id="fi-bloc-rec">' + (nRec
+        ? '<span class="etiq">Déjà dans ton arbre : ' + nRec + ' personne' + (nRec > 1 ? 's' : '') + ' reconnue' + (nRec > 1 ? 's' : '') + '</span>' +
+          '<span class="aide">Elles ne seront pas ajoutées une deuxième fois : leurs fiches seront seulement complétées, et les nouvelles personnes viendront s’y rattacher. Décoche si ce n’est pas la même personne.</span><div class="fi-liste fi-rec">' +
+          r.personnes.filter(function (p) { return REC.memes[p.id]; }).map(function (p) {
+            var t = REC.arbre[REC.memes[p.id]] || {};
+            return '<label class="fi-ligne"><input type="checkbox" data-rec="' + esc(p.id) + '" checked><span><b>' + esc(nomP(p)) + '</b>' + (datesP(p) ? '<span class="fi-dates">' + esc(datesP(p)) + '</span>' : '') +
+              '<span class="fi-info">est ' + esc(nomP(t)) + (datesP(t) ? ' (' + esc(datesP(t)) + ')' : '') + ' de ton arbre · reconnu·e ' + esc(REC.pourquoi[p.id]) + '</span></span></label>';
+          }).join('') + '</div>'
+        : '<span class="etiq">Personne du document n’a été reconnue dans ton arbre</span><span class="aide">Sans personne en commun, la partie importée se place à côté de ton arbre. Si quelqu’un est pourtant le ou la même (écrit autrement), indique-le juste en dessous : tout se rattachera à elle ou lui.</span>') + '</div>';
+      h += '<div class="champ" id="fi-bloc-meme"><label for="fi-meme-doc">' + (nRec ? 'Quelqu’un d’autre du document est déjà dans ton arbre ?' : 'Quelqu’un du document est déjà dans ton arbre ?') + '</label>' +
         '<div class="deux-col"><select id="fi-meme-doc" aria-label="Personne du document"><option value="">Non</option>' + opts + '</select>' +
         '<select id="fi-meme-arbre" aria-label="Personne de ton arbre">' + arbre.map(function (p) { return '<option value="' + esc(p.id) + '">' + esc(p.nom) + '</option>'; }).join('') + '</select></div>' +
         '<span class="aide">Les deux fiches seront réunies en une seule, ce qui relie le document à ton arbre.</span></div>';
@@ -648,6 +924,7 @@
       h += '<label class="fi-ligne"><input type="checkbox" data-fi="' + p.id + '" checked><span><b>' + esc(nomP(p)) + '</b><span class="fi-dates">' + esc(datesP(p)) + '</span>' +
         (infos ? '<span class="fi-info">' + esc(infos) + '</span>' : '') +
         (liens.length ? '<span class="fi-info">' + esc(liens.join(' · ')) + '</span>' : '') +
+        (REC.memes[p.id] ? '<span class="fi-reconnu" data-rec-note="' + esc(p.id) + '">Déjà dans ton arbre : sa fiche sera complétée</span>' : '') +
         p.doutes.map(function (d) { return '<span class="fi-doute">À vérifier : ' + esc(d) + '</span>'; }).join('') + '</span></label>';
     });
     h += '</div><p class="fi-aide" id="fi-limite" hidden></p><p class="erreur" id="fi-erreur" role="alert"></p>';
@@ -658,10 +935,16 @@
     function maj() {
       var mode = document.querySelector('input[name="fi-mode"]:checked'), remplacer = !mode || mode.value === 'remplacer';
       if ($('fi-bloc-meme')) $('fi-bloc-meme').hidden = remplacer;
+      if ($('fi-bloc-rec')) $('fi-bloc-rec').hidden = remplacer;
       $('fi-bloc-moi').hidden = !remplacer && moiArbre;
-      var n = document.querySelectorAll('[data-fi]:checked').length;
-      $('fi-ok').textContent = 'Importer ' + n + ' personne' + (n > 1 ? 's' : '');
-      $('fi-ok').disabled = !n;
+      var n = 0, c = 0, man = !remplacer && $('fi-meme-doc') ? $('fi-meme-doc').value : '';
+      document.querySelectorAll('[data-fi]').forEach(function (x) {
+        var id = x.getAttribute('data-fi'), rc = document.querySelector('[data-rec="' + id + '"]'), deja = !remplacer && (id === man || (rc && rc.checked));
+        var note = document.querySelector('[data-rec-note="' + id + '"]'); if (note) note.hidden = !deja;
+        if (!x.checked) return; if (deja) c++; else n++;
+      });
+      $('fi-ok').textContent = remplacer || !c ? 'Importer ' + n + ' personne' + (n > 1 ? 's' : '') : (n ? 'Ajouter ' + n + ' nouvelle' + (n > 1 ? 's' : '') + ' personne' + (n > 1 ? 's' : '') + ' et compléter ' + c + ' fiche' + (c > 1 ? 's' : '') : 'Compléter ' + c + ' fiche' + (c > 1 ? 's' : ''));
+      $('fi-ok').disabled = !(n + c);
     }
     // Distance à toi, pour informer (on n'enlève plus personne)
     function limiter(moiId) {
@@ -685,7 +968,7 @@
         (horsLien ? '<b>' + horsLien + ' personne' + (horsLien > 1 ? 's' : '') + '</b> sans lien trouvé avec toi : elles sont importées aussi, tu pourras les relier dans l’arbre. Décoche celles que tu ne veux pas.' : '');
     }
     $('fi-corps').onchange = function (e) {
-      if (e.target.matches('[data-fi]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
+      if (e.target.matches('[data-fi], [data-rec]')) e.target.closest('.fi-ligne').classList.toggle('off', !e.target.checked);
       if (e.target.id === 'fi-moi') limiter(e.target.value === '-' ? '' : e.target.value);
       maj();
     };
@@ -713,7 +996,10 @@
       people[p.id] = { prenom: p.prenom, nom: p.nom, sex: p.sex, naiss: p.naiss, deces: p.deces, decede: !!(p.deces || p.decede), metier: p.metier, lieu: p.lieu, notes: p.notes, events: p.events };
     });
     var rels = resultat.rels.filter(function (x) { return garder[x.from] && garder[x.to]; });
-    G.importer({ people: people, rels: rels }, { remplacer: remplacer, moi: moi && moi !== '-' ? moi : '', meme: meme });
+    var memes = {};
+    if (!remplacer) document.querySelectorAll('[data-rec]:checked').forEach(function (c) { var k = c.getAttribute('data-rec'); if (garder[k] && resultat.memes && resultat.memes[k]) memes[k] = resultat.memes[k]; });
+    if (meme) { Object.keys(memes).forEach(function (k) { if (memes[k] === meme.arbre) delete memes[k]; }); delete memes[meme.fichier]; }
+    G.importer({ people: people, rels: rels }, { remplacer: remplacer, moi: moi && moi !== '-' ? moi : '', meme: meme, memes: memes });
     resultat = null;
     G.fermer('fen-import');
   });

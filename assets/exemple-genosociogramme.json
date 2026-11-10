@@ -23,7 +23,7 @@
   "p2": {
    "id": "p2",
    "prenom": "Hélène",
-   "nom": "Martin",
+   "nom": "Durand",
    "sex": "f",
    "naiss": "1963-05-02",
    "deces": "",
@@ -37,7 +37,7 @@
      "year": "1995"
     }
    ],
-   "notes": "Divorce à 32 ans, Léa a un an.",
+   "notes": "Divorce à 32 ans, Léa a un an. Nom d'épouse : Martin.",
    "role": "mère"
   },
   "p3": {
@@ -63,11 +63,11 @@
   "p4": {
    "id": "p4",
    "prenom": "Jeanne",
-   "nom": "Durand",
+   "nom": "Moreau",
    "sex": "f",
    "naiss": "1938-01-25",
    "deces": "2015-11-03",
-   "metier": "enseignante",
+   "metier": "institutrice",
    "lieu": "Saint-Étienne",
    "traits": [
     "sacrifiée"
@@ -84,7 +84,7 @@
      "year": "1970"
     }
    ],
-   "notes": "Veuve à 32 ans, a élevé seule ses trois enfants.",
+   "notes": "Veuve à 32 ans, a élevé seule ses trois enfants. Nom d'épouse : Durand.",
    "role": "grand-mère"
   },
   "p5": {
@@ -161,16 +161,16 @@
    "events": [
     {
      "type": "deuil",
-     "age": "28",
+     "age": "27",
      "year": "1940"
     },
     {
      "type": "sacrifice",
-     "age": "28",
+     "age": "27",
      "year": "1940"
     }
    ],
-   "notes": "Veuve de guerre à 28 ans, ne s'est jamais remariée.",
+   "notes": "Veuve de guerre à 27 ans, ne s'est jamais remariée.",
    "role": "arrière-grand-mère"
   },
   "p9": {

@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de décembre 2026, « J'avance » : « Ma place, mes limites »
-   Le carnet du mois est le côté « J'avance » du Cercle : dire oui, dire non, protéger son énergie, trouver sa juste place.
+/* Genesolia · Le Cercle · Carnet de décembre 2026, « Renaissance » : « Ma place, mes limites »
+   Le carnet du mois est le côté « Renaissance » du Cercle : dire oui, dire non, protéger son énergie, trouver sa juste place.
    Le côté libération (« Quelle est ma place ? ») est dans Mon suivi (assets/suivi/2026-12.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -30,8 +30,8 @@ window.GENESOLIA_CARNET = {
       comprendre: 'assets/guide/guide-boucle.webp',
       exercices: 'assets/guide/guide-livre-pupitre.webp',
       rituel: 'assets/guide/guide-pause.webp',
-      semaines: 'assets/guide/guide-spirale-douce.webp',
-      cloture: 'assets/guide/guide-livre-lumineux.webp'
+      semaines: 'assets/guide/guide-graine.webp',
+      cloture: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/ma-place-mini.jpg', 'Ma place existe. Je n’ai pas à la mériter.'],
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "Une limite, c'est l'endroit où tu t'arrêtes et où l'autre commence. C'est ce que tu acceptes, et ce que tu n'acceptes pas : dans ton temps, ton énergie, ton argent, ton corps, tes émotions. Quand nos limites sont claires, les relations deviennent plus simples, parce que chacun·e sait où il ou elle en est.",
       "Beaucoup d'entre nous ont appris qu'être gentil·le, c'était dire oui. Alors on dit oui au repas qu'on n'a pas envie d'organiser, au cadeau trop cher, à la conversation qui nous blesse. Puis on en veut aux autres, et surtout à soi. Un oui qui pense non finit toujours par se payer : en fatigue, en rancœur, ou en distance.",
-      "Ce mois-ci, tu vas **repérer** tes oui automatiques, **oser** quelques non doux, et **choisir** ta place, dans les moments de rassemblement comme dans ta vie. En parallèle, ton suivi « Je me libère » t’invite à regarder ta place dans ta famille et ta fratrie : les deux avancent ensemble."
+      "Ce mois-ci, tu vas **repérer** tes oui automatiques, **oser** quelques non doux, et **choisir** ta place, dans les moments de rassemblement comme dans ta vie. En parallèle, ton livret « Libération » t’invite à regarder ta place dans ta famille et ta fratrie : les deux avancent ensemble."
     ],
     exemplesTitre: 'À quoi ressemble une limite floue, au quotidien',
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['place-dans-la-fratrie.html', 'Ta place dans la fratrie', 'Aîné·e, cadet·te, benjamin·e : ce que ton rang t’a appris sur ta place.'],
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour savoir où mettre ton énergie.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'À cette étape : ta place dans ta famille et ta fratrie, et les absent·es qui comptent.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'À cette étape : ta place dans ta famille et ta fratrie, et les absent·es qui comptent.']
     ]
   },
 
@@ -154,7 +154,7 @@ window.GENESOLIA_CARNET = {
     materiel: "Une bougie, quelques petits cailloux, des feuilles ou des branches ramassées dehors (ou une ficelle si tu n’en as pas), deux petits papiers et un crayon.",
     quand: "Fais-le un soir calme, ou quelques jours avant un moment chargé. Tu peux garder le cercle en place quelques jours, et rallumer la bougie chaque fois que tu sens que tu t'éparpilles.",
     etapes: [
-      "Éteins les lumières, et allume ta bougie. Regarde la flamme trois respirations : c’est ta lumière, celle qui tient au cœur de la nuit.",
+      "Éteins les lumières, et allume ta bougie (de préférence en cire d’abeille). Regarde la flamme trois respirations : c’est ta lumière, celle qui tient au cœur de la nuit.",
       "Avec les cailloux, les feuilles ou les branches, trace un cercle autour de la bougie. Ce cercle, c’est ton espace, ton énergie, ta juste place.",
       "Sur un premier papier, écris ce que tu protèges dans ce cercle dans les semaines qui viennent : un moment, un besoin, une personne, ton repos. Pose-le à l’intérieur, près de la flamme.",
       "Sur un deuxième papier, écris ce que tu laisses à l’extérieur : une obligation, une attente qui n’est pas la tienne, un oui de trop. Pose-le hors du cercle.",

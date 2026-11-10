@@ -1,4 +1,4 @@
-/* Genesolia · Le Cercle · Mon suivi « Je me libère » d'octobre 2026 : « Qui sont les miens ? »
+/* Genesolia · Le Cercle · Mon livret « Libération » d'octobre 2026 : « Qui sont les miens ? »
    Le suivi est le côté libération du Cercle : voir ce qui se rejoue, remonter à la source, libérer, remplacer.
    Il utilise le même livre que le carnet (assets/mon-carnet.js, type 'suivi'). La saison vient de assets/saisons.js.
    Chaque question : { k: clé d'enregistrement (ne jamais la changer une fois le mois ouvert), q: la question en phrase complète, ph: l'exemple }.
@@ -25,14 +25,14 @@ window.GENESOLIA_CARNET = {
     citation: 'assets/formation/montagne.jpg',
     meditation: 'assets/formation/spirale.jpg',
     pages: {
-      saison: 'assets/guide/guide-arbre.webp',
+      saison: 'assets/guide/guide-saisons.webp',
       theme: 'assets/guide/guide-boucle.webp',
       voir: 'assets/guide/guide-repete.webp',
       source: 'assets/guide/guide-transmission.webp',
-      liberer: 'assets/guide/guide-pause.webp',
-      remplacer: 'assets/guide/guide-spirale-or.webp',
+      liberer: 'assets/guide/guide-liberer.webp',
+      remplacer: 'assets/guide/guide-graine.webp',
       meditation: 'assets/guide/guide-reves.webp',
-      bilan: 'assets/guide/guide-livre-lumineux.webp'
+      bilan: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/boucle-spirale-mini.jpg', 'La boucle devient spirale le jour où je la regarde.']
@@ -160,7 +160,7 @@ window.GENESOLIA_CARNET = {
       ],
       exercices: [
         { k: 'ex3', titre: 'Le geste différent', type: 'texte',
-          consigne: "Choisis ton geste, écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « J’avance ».",
+          consigne: "Choisis ton geste, écris-le, puis note chaque fois que tu l'as essayé, même maladroitement, et ce qui a changé. Ce geste devient aussi un appui dans ton carnet « Renaissance ».",
           pourquoi: "On ne change pas une boucle en une fois, on la change en y glissant un grain de sable. Chaque essai, même raté, affaiblit le pilote automatique.",
           gestes: ["Respirer trois fois avant de répondre", "Dire « je te réponds demain »", "Demander au lieu d’attendre qu’on devine", "Sortir marcher dix minutes", "Écrire ce que tu ressens avant d’envoyer un message", "Dire « non, pas cette fois », sans te justifier"],
           q: "Ton geste différent : « La prochaine fois que ma boucle démarre, au lieu de…, je vais… »",
@@ -336,7 +336,7 @@ window.GENESOLIA_CARNET = {
         { nom: 'L’amour que tu te portes', texte: 'Un objet qui te représente avec tendresse : une photo de toi enfant, un bijou que tu aimes, un mot doux écrit pour toi.' }
       ],
       ouverture: "« J’ouvre cet espace pour moi. J’honore l’être de la création que je suis, et je laisse l’amour que je mérite venir jusqu’à moi. »",
-      entretien: ['Chaque semaine, allume une bougie quelques minutes et relis ton besoin de libération.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
+      entretien: ['Chaque semaine, allume une bougie (de préférence en cire d’abeille) quelques minutes et relis ton besoin de libération.', 'Change l’eau ou ajoute une feuille quand tu sens que c’est le moment.', 'Si tu reçois un signe, une réponse, une belle nouvelle, pose un petit objet sur l’autel pour le célébrer.'],
       cloture: "À la fin du mois, remercie ton autel. Rends à la nature ce qui vient d’elle : dépose les feuilles, les glands et la branche au pied d’un arbre. Garde la pierre en forme de cœur si tu le souhaites, ou offre-la à la terre."
     },
     autelPrompt: "Illustration peinte douce, entre aquarelle et peinture numérique, format carré : un petit autel d’automne posé sur une table en bois, feuilles rousses et dorées, glands, bâtons de cannelle, une pomme rouge, trois bougies ambre allumées, une petite pierre en forme de cœur ; lumière chaude de fin d’après-midi, palette prune, vieux rose, or champagne et crème ; aucun texte, aucune personne."

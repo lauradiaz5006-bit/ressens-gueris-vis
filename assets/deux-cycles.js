@@ -152,11 +152,11 @@
       return '<p class="dc-sur">Pour continuer</p><h2>' + (p ? esc(p) + ', ta' : 'Ta') + ' prochaine étape est déjà prête</h2>' +
         '<p>Tu as regardé ta boucle en face. C’est le premier pas, et souvent le plus difficile. La suite se fait semaine après semaine.</p>' +
         champ('retiens', 'Ce que je retiens de ce carnet') + champ('geste', 'Un petit geste que je choisis pour cette semaine') +
-        '<div class="dc-offre"><p class="dc-sur">Ton suivi « Je me libère »</p><h3>Il commence exactement là où tu t’es arrêté·e</h3>' +
+        '<div class="dc-offre"><p class="dc-sur">Ton livret « Libération »</p><h3>Il commence exactement là où tu t’es arrêté·e</h3>' +
         '<div class="dc-sem"><div class="on">Sem. 1<b>Voir</b></div><div>Sem. 2<b>Source</b></div><div>Sem. 3<b>Libérer</b></div><div>Sem. 4<b>Remplacer</b></div></div>' +
         '<p>' + (r ? 'Ton bilan de départ reprend ton prénom et ton résultat (' + r.R.court + (e ? ', étape ' + e + ' : ' + ETAPES[e - 1][0].toLowerCase() : '') + '). ' : '') + 'Ensuite, chaque semaine, un exercice d’un quart d’heure pour voir ta boucle à l’œuvre, remonter à sa source, la libérer et la remplacer par un geste nouveau.</p>' +
         '<p><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a></p>' +
-        '<p class="dc-petit">Le suivi fait partie du Cercle : 1\u00a0mois gratuit, rien n’est prélevé pendant 30\u00a0jours. Ensuite 29\u00a0€ par mois sans engagement, ou 24,90\u00a0€ par mois sur 12 mois. Ton carnet « J’avance », deux séances audio par mois dès novembre (visualisation et libération), ton guide du mois et l’appli Le Cercle sont compris. <a href="abonnement.html" style="color:#F3DCC0">Tout savoir sur Le Cercle</a></p></div>' +
+        '<p class="dc-petit">Le suivi fait partie du Cercle : 1\u00a0mois gratuit, rien n’est prélevé pendant 30\u00a0jours. Ensuite 17,77\u00a0€ par mois sans engagement (cadeau de Noël, au lieu de 24,90\u00a0€), ou 199\u00a0€ l’année au lieu de 249\u00a0€. Ton carnet « Renaissance », deux séances audio par mois dès novembre (visualisation et libération), ton guide du mois et l’appli Le Cercle sont compris. <a href="abonnement.html" style="color:#F3DCC0">Tout savoir sur Le Cercle</a></p></div>' +
         '<div class="dc-garder" id="dc-garder"><h3>Garder ton carnet</h3>' +
         '<p>Reçois ton résultat par e-mail, avec le lien de ton carnet et sa version à imprimer. Tes réponses écrites restent sur ton appareil : elles ne sont pas envoyées.</p>' +
         (lireInscrite() ? '<p class="dc-merci">C’est noté, ton résultat t’attend dans ta boîte mail.</p>' :
@@ -165,10 +165,12 @@
           '<label class="dc-accord"><input type="checkbox" name="accord" required><span>J’accepte de recevoir mon résultat et quelques e-mails de Genesolia pour continuer. Je peux me désinscrire à tout moment. <a href="confidentialite.html">Mes données</a></span></label>' +
           '<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">' +
           '<button class="btn btn-plein" type="submit">Recevoir mon résultat</button><p class="dc-erreur" role="alert"></p></form>') +
-        '<div class="dc-actions"><button type="button" class="btn btn-trait" id="dc-imprimer">Imprimer mon carnet rempli</button><a class="btn btn-trait" href="' + PDF + '" download="carnet-des-deux-cycles-genesolia.pdf">Le carnet vierge (PDF)</a></div></div>' +
+        (lireInscrite() ? actionsCarnet() : '') + '</div>' +
         '<p class="dc-note" style="margin-top:1rem;background:#fff">Ce carnet propose une lecture symbolique de ton histoire. Il ne remplace pas un avis médical ou psychologique. Si tu traverses une période très difficile, parles-en à un professionnel ou à une personne de confiance.</p>';
     } }
   ];
+  /* Imprimer / PDF vierge : seulement une fois l'e-mail donné */
+  function actionsCarnet() { return '<div class="dc-actions"><button type="button" class="btn btn-trait" id="dc-imprimer">Imprimer mon carnet rempli</button><a class="btn btn-trait" href="' + PDF + '" download="carnet-des-deux-cycles-genesolia.pdf">Le carnet vierge (PDF)</a></div>'; }
   function lireInscrite() { try { return localStorage.getItem('deux-cycles-envoye') === 'oui'; } catch (e) { return false; } }
 
   /* ───── Affichage ───── */
@@ -264,7 +266,8 @@
     (window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Carnet des deux cycles en ligne', data, 'genesolia-deux-cycles') : Promise.reject())
       .then(function () {
         try { localStorage.setItem('deux-cycles-envoye', 'oui'); localStorage.setItem('carnet-inscrit', 'oui'); } catch (x) {}
-        f.outerHTML = '<p class="dc-merci">Merci' + (prenom() ? ' ' + esc(prenom()) : '') + '. Ton résultat part dans ta boîte mail, avec le lien de ton carnet.</p>';
+        f.outerHTML = '<p class="dc-merci">Merci' + (prenom() ? ' ' + esc(prenom()) : '') + '. Ton résultat part dans ta boîte mail, avec le lien de ton carnet.</p>' + actionsCarnet();
+        var imp = document.getElementById('dc-imprimer'); if (imp) { imp.setAttribute('data-branche', '1'); imp.addEventListener('click', function () { window.print(); }); }
         if (window.umami) try { window.umami.track('deux-cycles-resultat'); } catch (x) {}
       })
       .catch(function () { bt.disabled = false; bt.textContent = 'Recevoir mon résultat'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });

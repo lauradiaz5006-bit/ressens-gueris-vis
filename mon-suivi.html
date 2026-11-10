@@ -201,7 +201,7 @@
       minuteurSave = setTimeout(function () {
         var CF = window.GenesoliaCoffre;
         if (CF && !CF.accord(utilisateur)) return;   /* sans accord, le suivi reste sur l'appareil */
-        (CF ? CF.ecrire(sb, utilisateur, null, D) : sb.from('parcours').upsert({ user_id: utilisateur.id, data: D, maj: new Date().toISOString() }, { onConflict: 'user_id' })).then(function () {
+        (CF ? CF.ecrire(sb, utilisateur, null, D) : Promise.resolve({ error: 'coffre absent' })).then(function () {
           var o = document.querySelectorAll('.s-ok'); o.forEach(function (x) { x.textContent = 'Enregistré'; setTimeout(function () { x.textContent = ''; }, 1500); });
         }, function () {});
       }, immediat ? 0 : 800);
@@ -340,7 +340,7 @@
     /* Le suivi du mois se vit dans le livre (mon-suivi-mois.html) : la saison, le thème, quatre semaines, la séance et le bilan */
     function livreDuMois() {
       var n = new Date(), nm = MOIS[n.getMonth()];
-      return '<div class="s-bloc s-livre"><img src="assets/guide/guide-spirale-or.webp" alt="" width="120" height="120" loading="lazy"><div><p class="s-etiq">Ton suivi ' + (/^[aeiou]/.test(nm) ? 'd\'' : 'de ') + nm + ' · Je me libère</p><h2>Ce qui revient</h2><p>Quatre semaines pour voir ce qui se rejoue dans ta vie, remonter à sa source, libérer ce qui ne t\'appartient pas et poser un geste nouveau. Avec une séance guidée et ton bilan. La semaine 1 est offerte.</p>' +
+      return '<div class="s-bloc s-livre"><img src="assets/guide/guide-spirale-or.webp" alt="" width="120" height="120" loading="lazy"><div><p class="s-etiq">Ton suivi ' + (/^[aeiou]/.test(nm) ? 'd\'' : 'de ') + nm + ' · Libération</p><h2>Ce qui revient</h2><p>Quatre semaines pour voir ce qui se rejoue dans ta vie, remonter à sa source, libérer ce qui ne t\'appartient pas et poser un geste nouveau. Avec une séance guidée et ton bilan. La semaine 1 est offerte.</p>' +
         '<p><a class="btn btn-plein" href="mon-suivi-mois.html">Ouvrir mon suivi du mois</a> <a class="btn btn-trait" href="mon-carnet.html">Mon carnet « J\'avance »</a></p></div></div>';
     }
     function mois1() {
@@ -375,14 +375,14 @@
     function blocPrix() {
       return '<div class="o-prix"><p class="s-etiq">Le Cercle · 1 mois offert pour tester</p><p class="o-gros">Ton premier mois est offert</p>' +
         '<p>Tu as accès à tout, tout de suite. Si ça ne te convient pas, tu arrêtes avant la fin du mois et tu ne paies rien.</p>' +
-        '<p class="o-apres">Ensuite, c’est un abonnement mensuel : <b>29 € par mois, sans engagement</b>, ou <b>24,90 € par mois</b> avec un engagement de 12 mois.</p>' +
+        '<p class="o-apres">Ensuite : <b>24,90 € par mois, sans engagement</b>, ou <b>199 €</b> l’année en une fois (offre de Noël, au lieu de 249 €).</p>' +
         '<div class="o-boutons"><a class="btn btn-plein" href="essai.html">Commencer mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Tout savoir sur Le Cercle</a></div></div>';
     }
     function offre() {
       return blocPrix() +
         '<h2 class="o-titre">Ce que tu reçois chaque mois</h2><ul class="o-liste">' +
-        '<li>' + ico('suivi') + '<div><b>Ton suivi « Je me libère »</b><span>Quatre semaines pour sortir de ta boucle, avec ton bilan de départ, tes exercices et ton journal.</span></div></li>' +
-        '<li>' + ico('carnet') + '<div><b>Ton carnet « J’avance »</b><span>Ta météo intérieure, ta roue de la vie, ton objectif du mois et un petit pas chaque semaine. En ligne ou à imprimer, comme tu préfères.</span></div></li>' +
+        '<li>' + ico('suivi') + '<div><b>Ton livret « Libération »</b><span>Quatre semaines pour sortir de ta boucle, avec ton bilan de départ, tes exercices et ton journal.</span></div></li>' +
+        '<li>' + ico('carnet') + '<div><b>Ton carnet « Renaissance »</b><span>Ta météo intérieure, ta roue de la vie, ton objectif du mois et un petit pas chaque semaine. En ligne ou à imprimer, comme tu préfères.</span></div></li>' +
         '<li>' + ico('audio') + '<div><b>Deux séances audio par mois</b><span>Sur le thème du mois, plus de 20 minutes chacune : une de visualisation pour te projeter, une de libération pour déposer ce qui se rejoue. Les premières arrivent en novembre.</span></div></li>' +
         '<li>' + ico('mois') + '<div><b>Ton guide du mois complet</b><span>Tes nombres, ton ciel, ton signe maya et les dates de ton arbre qui tombent ce mois-ci.</span></div></li>' +
         '<li>' + ico('appli') + '<div><b>L’appli Le Cercle</b><span>Tout au même endroit sur ton téléphone, avec ton point du jour en une minute.</span></div></li>' +
@@ -421,7 +421,7 @@
       if (!D.bilan) { formBilan(); return; }
       var h = carteDepart();
       if (!utilisateur) {
-        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés chiffrés dans ton espace, et Genesolia ne les lit jamais.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 29 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
+        h += '<div class="s-bloc doux" style="text-align:center"><p class="s-etiq">Ta semaine 1 est offerte</p><h2>Commence ton mois 1 : voir ta boucle</h2><p>Crée ton espace gratuit pour garder ton bilan et faire ta première semaine. Tes exercices et ton journal sont enregistrés chiffrés dans ton espace, et Genesolia ne les lit jamais.</p><a class="btn btn-plein" href="login.html?inscription&amp;retour=mon-suivi.html">Créer mon espace gratuit</a><p class="note" style="margin-top:.6rem">Après ton essai : 24,90 € par mois, sans engagement. Tu arrêtes en 1 clic.</p><p class="note" style="margin-top:.8rem"><a href="#" id="s-refaire">Refaire mon bilan</a></p></div>';
         corps.innerHTML = h;
       } else {
         corps.innerHTML = h + saison() + livreDuMois();

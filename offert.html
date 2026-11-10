@@ -65,7 +65,10 @@
     .o-vingt p{color:#FFF4F6;max-width:36rem}
     .o-vingt .btn{background:#fff;color:var(--prune);border-color:#fff}
     .o-cercle{display:grid;grid-template-columns:auto 1fr;gap:2.4rem;align-items:center;padding:2.6rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:1px solid var(--champagne-clair)}
-    .o-cercle img{width:170px;height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(46,19,56,.25);transform:rotate(-3deg)}
+    .o-couvs{position:relative;width:230px;height:250px}
+    .o-couvs img{position:absolute;width:150px;height:auto;border-radius:8px;box-shadow:0 20px 50px rgba(46,19,56,.28)}
+    .o-couv-1{right:0;top:0;transform:rotate(5deg)}
+    .o-couv-2{left:0;top:30px;transform:rotate(-4deg)}
     .o-cercle h2{margin-bottom:.8rem}
     .o-cercle p{max-width:none;margin-bottom:1rem}
     .o-cercle .o-plus{display:grid;grid-template-columns:1fr 1fr;gap:.4rem 1.4rem;list-style:none;margin:0 0 1.4rem;padding:0}
@@ -74,8 +77,15 @@
     .o-cercle .actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}
     .o-cercle small{color:var(--prune-doux)}
     @media (max-width:960px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr 1fr}}
-    @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-cercle img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
+    @media (max-width:760px){.o-vedette,.o-vingt,.o-cercle{grid-template-columns:1fr}.o-vedette img{min-height:200px;max-height:240px}.o-couvs{width:200px;height:215px;margin-inline:auto}.o-couvs img{width:130px}.o-cercle .o-plus{grid-template-columns:1fr}}
     @media (max-width:560px){.o-grille,.o-grille.quatre,.o-mini{grid-template-columns:1fr}.o-tete .conteneur{padding:3rem 0}}
+    .o-vie{display:grid;gap:.5rem;padding:1.8rem;border-radius:var(--rayon);text-decoration:none;color:var(--prune);background:linear-gradient(125deg,#FCE4E8 0%,#F9E6D2 60%,#F3DCC0 100%);border:1px solid #EBC9A6;box-shadow:0 16px 40px rgba(185,138,85,.18);transition:transform .2s}
+    .o-vie:hover{transform:translateY(-2px)}
+    .o-vie-badge{justify-self:start;font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--prune);border-radius:99px;padding:.3rem .75rem}
+    .o-vie strong{font:400 clamp(1.8rem,5vw,2.5rem)/1.1 var(--display);color:var(--prune)}
+    .o-vie-promesse{font:400 clamp(1.1rem,3.4vw,1.35rem)/1.35 var(--display);color:#8A3F62}
+    .o-vie span:not([class]){color:var(--prune-doux);max-width:40rem;line-height:1.55}
+    .o-vie-bt{justify-self:start;margin-top:.4rem;background:var(--prune);color:#fff;border-radius:99px;padding:.75rem 1.3rem;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
     .o-jeux{display:grid;gap:.4rem;margin-top:1rem;padding:1.6rem 1.8rem;border-radius:var(--rayon);text-decoration:none;color:#fff;background:linear-gradient(130deg,#3A1745,#6B2F5B 55%,#C96F63);box-shadow:0 18px 44px rgba(107,47,91,.2);transition:transform .2s}
     .o-jeux:hover{transform:translateY(-3px)}
     .o-jeux-famille{background:linear-gradient(130deg,#8C4A3F,#B9735F 50%,#D9A06A)}
@@ -102,9 +112,16 @@
         </div>
       </div>
     </section>
+    <section class="bloc dk-encart-bloc" aria-label="Tes dates clés offertes">
+      <div class="conteneur"><div class="dk-encart">
+        <img src="assets/images/dates-cles-agenda.webp" width="620" height="680" alt="Un agenda avec trois dates clés de l’année et leurs phrases" loading="lazy">
+        <div><p class="dk-encart-sur">Nouveau · offert</p><h2>Tes dates clés 2027</h2><p>Tes périodes de l’année, calculées pour toi à partir de ta date de naissance, chacune avec sa phrase clé. Directement dans ton agenda, et dans ta boîte mail.</p>
+        <button class="btn btn-plein" type="button" data-dates-cles>Recevoir mes dates clés</button></div>
+      </div></div>
+    </section>
 
     <nav class="o-nav" aria-label="Aller à une rubrique"><div class="conteneur">
-      <a href="#minute">En 1 minute</a><a href="#cinq">En 5 minutes</a><a href="#arbre">Ton arbre</a><a href="#compte">Avec ton compte</a><a href="#telecharger">À télécharger</a><a href="#comprendre">Pour comprendre</a><a href="#formation">La formation</a><a href="#cercle">Aller plus loin</a>
+      <a href="#minute">En 1 minute</a><a href="#cinq">En 5 minutes</a><a href="#vie-en-reel">Ta vie en réel</a><a href="#arbre">Ton arbre</a><a href="#compte">Avec ton compte</a><a href="#telecharger">À télécharger</a><a href="#comprendre">Pour comprendre</a><a href="#formation">La formation</a><a href="#cercle">Aller plus loin</a>
     </div></nav>
 
     <section class="bloc o-section" id="minute">
@@ -130,6 +147,18 @@
           <a class="o-carte" href="parcours.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Le parcours guidé</h3><p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes liens et ta vie.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>10 min</span></div></div></a>
           <a class="o-carte" href="calcul-syndrome-anniversaire.html"><img src="assets/images/psychogenealogie-800.webp" width="800" height="420" alt="" loading="lazy"><div class="o-corps"><h3>Les dates qui reviennent</h3><p>Le calculateur du syndrome d'anniversaire : les âges et les dates qui se répondent.</p><div class="o-pastilles"><span class="o-gratuit">Gratuit</span><span>3 min</span></div></div></a>
         </div>
+      </div>
+    </section>
+
+    <section class="bloc o-section" id="vie-en-reel">
+      <div class="conteneur">
+        <a class="o-vie" href="ta-vie-en-reel.html">
+          <span class="o-vie-badge">Nouveau · une situation chaque semaine</span>
+          <strong>Ta vie en réel</strong>
+          <span class="o-vie-promesse">Quand ça recommence, comprends ce qui se rejoue en 3 minutes.</span>
+          <span>Amour, parents, argent, travail, amitié, enfants : une situation vraie, ce qui se joue, ce qui se rejoue peut-être dans ta famille, et les mots pour le dire.</span>
+          <span class="o-vie-bt">Voir la situation de la semaine</span>
+        </a>
       </div>
     </section>
 
@@ -221,13 +250,6 @@
 
     <section class="bloc">
       <div class="conteneur">
-        <div class="o-vingt">
-          <div>
-            <h2>Tu as entre 18 et 25 ans ?</h2>
-            <p>Il ne répond plus, tes parents, l'argent, ta place : choisis ta situation et repars avec ce qui se joue, un geste pour aujourd'hui et les mots pour le dire.</p>
-          </div>
-          <a class="btn" href="tes-20-ans.html">Découvrir l'espace Jeune femme</a>
-        </div>
         <a class="o-jeux" href="jeux.html">
           <span class="o-jeux-sur">Nouveau · à jouer à plusieurs</span>
           <strong>Des jeux pour se rapprocher</strong>
@@ -246,16 +268,16 @@
     <section class="bloc o-section" id="cercle">
       <div class="conteneur">
         <div class="o-cercle">
-          <img src="assets/cercle/apercu-2026-10.webp" width="496" height="702" alt="Couverture du carnet d'octobre du Cercle" loading="lazy">
+          <div class="o-couvs"><img class="o-couv-1" src="assets/cercle/couv-liberation.webp" width="496" height="702" alt="Couverture de Libération, cycle 2 du Cercle" loading="lazy"><img class="o-couv-2" src="assets/cercle/couv-renaissance.webp" width="496" height="702" alt="Couverture de Renaissance, cycle 1 du Cercle" loading="lazy"></div>
           <div>
             <p class="a-etiq" style="font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem">Et si tu veux aller plus loin</p>
-            <h2>Le Cercle : un rendez-vous chaque mois</h2>
-            <p>Tout ce qui est sur cette page reste gratuit. Le Cercle ajoute ce qui aide vraiment à avancer : le rythme.</p>
+            <h2>Le Cercle · Ta place, ton choix, ta vie</h2>
+            <p>Tout ce qui est sur cette page reste gratuit. Le Cercle t’accompagne chaque mois pour sortir de ce qui se répète, à ton rythme.</p>
             <ul class="o-plus">
-              <li>Un nouveau carnet à imprimer chaque mois</li>
-              <li>Ton suivi semaine après semaine</li>
-              <li>Ton mois personnel et la lettre du ciel</li>
-              <li>Tous les livrets, débloqués au fil des mois</li>
+              <li>Ton parcours guidé en 12 étapes : Renaissance et Libération</li>
+              <li>Deux séances audio par mois, d’environ 20 minutes</li>
+              <li>La formation « Sors de la boucle »</li>
+              <li>Ton mois personnel : tes nombres, ton ciel, ton signe maya</li>
             </ul>
             <div class="actions"><a class="btn btn-plein" href="abonnement.html">Découvrir Le Cercle · 1 mois offert</a><small>Sans engagement, arrêt en 1 clic</small></div>
           </div>

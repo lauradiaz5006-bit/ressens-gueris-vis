@@ -9,16 +9,39 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#6B2F5B">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Genesolia · Arbre familial, numérologie, thème astral et rêves</title>
-  <meta name="description" content="Ton arbre familial, tes nombres, ton thème astral et tes rêves : des outils gratuits pour comprendre ce qui t&#x27;a été transmis et sortir de tes schémas.">
-  <meta property="og:title" content="Genesolia · Comprendre ce qui se répète dans ta vie">
-  <meta property="og:description" content="Tes racines familiales et l'arbre de vie, réunis dans des outils simples et gratuits.">
+  <title>Transgénérationnel : comprendre ce qui se répète dans ta famille · Genesolia</title>
+  <meta name="description" content="Qu'est-ce que le transgénérationnel ? Dessine ton arbre familial (génosociogramme) en ligne gratuit, repère ce qui se répète d’une génération à l’autre et comprends tes schémas.">
+  <meta property="og:title" content="Genesolia · Prends ta place, honore-la, sans t’épuiser à répéter tes difficultés">
+  <meta property="og:description" content="Psychogénéalogie en ligne : ton arbre familial, tes cycles, ta place. Des outils gratuits pour comprendre ce qui se répète dans ta famille, et t’en libérer.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://genesolia.fr/assets/reseaux/ton-silence.jpg">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia-accueil.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://genesolia.fr/assets/partage/genesolia-accueil.jpg">
   <link rel="canonical" href="https://genesolia.fr/">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
   <style>
     /* ACCUEIL */
+    .explorer-ciel{position:relative;overflow:hidden;border-radius:28px;padding:2.4rem 1.6rem 2.2rem;text-align:center;
+      background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%);color:#fff;box-shadow:0 24px 60px rgba(107,47,91,.25)}
+    .explorer-ciel::before,.explorer-ciel::after{content:"";position:absolute;inset:0;pointer-events:none;
+      background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 72%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 35% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 48% 85%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 14%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 74% 58%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 26%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 93% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 15% 50%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 56% 45%,#F3DCC0 50%,transparent 51%);
+      animation:scintille 4s ease-in-out infinite}
+    .explorer-ciel::after{transform:translate(3%,6%) scale(1.1);animation-delay:2s;opacity:.7}
+    @keyframes scintille{0%,100%{opacity:.35}50%{opacity:1}}
+    .explorer-ciel .bloc-tete{position:relative;margin:0 auto 1.6rem;max-width:40rem;text-align:center;display:block}
+    .explorer-ciel .etoile{position:absolute;color:#F3DCC0;text-shadow:0 0 10px rgba(243,220,192,.9);pointer-events:none;animation:scintille 3s ease-in-out infinite;line-height:1}
+    .explorer-ciel h2{color:#fff}
+    .explorer-ciel .bloc-tete p{color:#F7E6EE;margin-inline:auto}
+    .explorer{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem}
+    .explorer a{position:relative;display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.25rem;border-radius:999px;text-decoration:none;font-size:.98rem;color:var(--prune);
+      background:linear-gradient(180deg,#FFFFFF,#FCEFF3);border:1px solid rgba(243,220,192,.9);
+      box-shadow:0 0 0 3px rgba(243,220,192,.18),0 8px 22px rgba(30,8,28,.35),0 0 18px rgba(243,220,192,.35);transition:transform .25s,box-shadow .25s}
+    .explorer a::before{content:"✦";color:var(--champagne);font-size:.85em}
+    .explorer a:hover,.explorer a:focus-visible{transform:translateY(-3px);box-shadow:0 0 0 3px rgba(243,220,192,.45),0 12px 28px rgba(30,8,28,.45),0 0 30px rgba(243,220,192,.7)}
+    @media (prefers-reduced-motion:reduce){.explorer-ciel::before,.explorer-ciel::after{animation:none}.explorer a{transition:none}}
+    @media (max-width:640px){.explorer-ciel{padding:2rem .8rem 1.8rem;border-radius:22px}.explorer{gap:.55rem}.explorer a{font-size:.86rem;padding:.55rem .85rem;gap:.35rem}}
     .cy-q{font-family:var(--display);font-size:1.15rem;color:var(--champagne);margin:-.2rem 0 .5rem}
     .cy-bl{margin-top:.8rem;font-size:.93rem}
     .blessures{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem}
@@ -47,6 +70,7 @@
     .cercle-accueil h2{color:#fff;margin-bottom:.7rem}.cercle-accueil p{color:#F7E6EE;margin-bottom:1.2rem}
     .cercle-sur{font:600 .78rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne-clair)!important}
     .cercle-accueil .btn-plein{background:var(--champagne-clair);color:var(--prune)}.cercle-accueil .btn-trait{background:transparent;color:#fff;border-color:rgba(243,220,192,.6)}
+    .cercle-accueil .cercle-prix{margin:1rem 0 0;font-size:.92rem;color:#F3DCC0}
     .cercle-accueil img{width:150px;height:auto;border-radius:6px;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:rotate(3deg)}
     @media (max-width:1000px){.portes{grid-template-columns:1fr 1fr}}
     @media (max-width:640px){.portes{grid-template-columns:1fr}.relie,.cercle-accueil{grid-template-columns:1fr}.cercle-accueil{padding:1.6rem}.cercle-accueil img{width:110px}}
@@ -58,7 +82,8 @@
     .ouverture .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center;padding:3rem 0 2.5rem}
     .ouverture h1{margin-bottom:1.3rem}
     .ouverture .intro{font-size:1.15rem;color:var(--prune-doux);margin-bottom:2rem}
-    .rassurance{margin-top:1.6rem;font-size:.92rem;color:var(--prune-doux)}
+    .hero-cercle{margin-top:1.3rem;font-size:1.05rem;color:var(--prune)}.hero-cercle strong{font-family:var(--serif,inherit);font-weight:600}.hero-cercle a{color:var(--prune);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+    .rassurance{margin-top:.7rem;font-size:.92rem;color:var(--prune-doux)}
 
     /* L'arbre double */
     .arbre{position:relative;max-width:330px;margin-inline:auto;width:100%}
@@ -125,7 +150,134 @@
       .deux{grid-template-columns:1fr}
       .croisement{grid-template-columns:1fr}
     }
-  </style>
+      .offres-accueil{text-align:center}
+    .offres-accueil h2{margin:.3rem auto 1.6rem;max-width:36rem}
+    .offres-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;text-align:left}
+    .offre-carte{position:relative;display:flex;flex-direction:column;gap:.5rem;background:var(--blanc);border:1px solid var(--rose);border-radius:20px;padding:1.4rem}
+    .offre-carte p{margin:0;color:var(--prune-doux);line-height:1.55}
+    .offre-carte .btn{margin-top:auto;align-self:flex-start}
+    .offre-nom{font:400 1.4rem var(--display)!important;color:var(--prune)!important}
+    .offre-prix{font:400 1.8rem var(--display)!important;color:var(--prune)!important}
+    .offre-prix small{font:400 .85rem var(--texte);color:var(--prune-doux)}
+    .offre-devise{font:italic 400 1.05rem var(--display)!important;color:#8A3F62!important;margin-top:-.3rem!important}
+    .offre-reco{border:2px solid var(--champagne);background:linear-gradient(170deg,#FFF6EC,var(--blanc) 55%)}
+    .offre-badge-bientot{background:var(--champagne)!important}
+    .offre-badge{position:absolute;top:-.8rem;left:1.2rem;background:var(--prune);color:#fff!important;font:600 .72rem var(--texte);letter-spacing:.06em;text-transform:uppercase;padding:.3rem .7rem;border-radius:99px}
+    .offres-note{margin:1.2rem 0 0;font-size:.9rem;color:var(--prune-doux)}
+    @media (max-width:860px){.offres-grille{grid-template-columns:1fr}}
+    .portes-accueil{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+    .porte-carte{display:flex;flex-direction:column;gap:.45rem;text-decoration:none;color:var(--prune);background:var(--blanc);border:1px solid var(--rose);border-radius:20px;overflow:hidden;padding-bottom:1.2rem;transition:transform .2s}
+    .porte-carte:hover{transform:translateY(-2px)}
+    .porte-carte img{width:100%;height:150px;object-fit:cover;margin-bottom:.4rem}
+    .porte-carte > span,.porte-carte strong{padding:0 1.2rem}
+    .porte-duree{font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--champagne)}
+    .porte-carte strong{font:400 1.35rem/1.2 var(--display)}
+    .porte-carte span:last-child{color:var(--prune-doux);line-height:1.55}
+    .portes-plus{text-align:center;margin:1.4rem auto 0;max-width:none;color:var(--prune-doux)}
+    @media (max-width:860px){.portes-accueil{grid-template-columns:1fr}}
+    .langages-titre{text-align:center;font:400 1.3rem var(--display);color:var(--prune);margin:2.2rem 0 1rem}
+    .langages-accueil{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.8rem}
+    .langage{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:.8rem;align-items:center;text-decoration:none;color:var(--prune);background:linear-gradient(140deg,#FBEFF2,#FFF6EC);border:1px solid var(--rose);border-radius:16px;padding:.9rem 1rem;min-height:64px}
+    .langage-ico{grid-row:1/3;width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center}
+    .langage-ico svg{width:22px;height:22px;fill:none;stroke:var(--prune);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .langage strong{font:400 1.12rem var(--display)}
+    .langage span:last-child{font-size:.82rem;color:var(--prune-doux)}
+    @media (max-width:860px){.langages-accueil{grid-template-columns:1fr 1fr}}
+    @media (max-width:420px){.langages-accueil{grid-template-columns:1fr}}
+
+    /* Hero : grand, lumineux, aux couleurs de Genesolia */
+    .ouverture{min-height:min(90vh,860px);display:flex;align-items:center}
+    .ouverture::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+      radial-gradient(2px 2px at 12% 22%,rgba(185,138,85,.7),transparent 60%),radial-gradient(2px 2px at 38% 12%,rgba(185,138,85,.55),transparent 60%),
+      radial-gradient(1.5px 1.5px at 58% 30%,rgba(185,138,85,.6),transparent 60%),radial-gradient(2px 2px at 86% 64%,rgba(185,138,85,.5),transparent 60%),
+      radial-gradient(1.5px 1.5px at 24% 78%,rgba(185,138,85,.55),transparent 60%),radial-gradient(2px 2px at 70% 88%,rgba(185,138,85,.45),transparent 60%)}
+    .ouverture .conteneur{flex:0 1 auto;padding:4.5rem 0 4rem;gap:3rem}
+    .ouv-sur{font:600 .78rem/1.4 var(--texte);letter-spacing:.2em;text-transform:uppercase;color:var(--champagne);margin-bottom:1.3rem}
+    .ouverture h1{font-size:clamp(2.4rem,5vw,4.3rem);line-height:1.08;letter-spacing:-.01em;color:var(--prune);margin-bottom:1.5rem;max-width:15ch}
+    .ouverture h1 em{font-style:italic;background:linear-gradient(90deg,#A8763F,#D9AE73 60%,#B98A55);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .ouverture .intro{font-size:1.18rem;max-width:34rem}
+    .btn-grand{padding:1rem 1.7rem;font-size:1.02rem}
+    .ouverture .arbre{max-width:400px;filter:drop-shadow(0 30px 60px rgba(107,47,91,.12))}
+    /* Salut, je suis Laura */
+    .laura-carte{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center;max-width:62rem;margin-inline:auto;padding:2.5rem;border-radius:32px;background:linear-gradient(135deg,#FFF9F5,#FCEFF3);border:1px solid var(--champagne-clair);box-shadow:0 24px 60px rgba(107,47,91,.08)}
+    .laura-img{width:min(320px,72vw);height:auto;aspect-ratio:1;object-fit:cover;border-radius:50%;box-shadow:0 22px 50px rgba(107,47,91,.2)}
+    .laura-txt h2{font-size:clamp(1.9rem,3.4vw,2.6rem);margin-bottom:1rem}
+    .laura-txt p{color:var(--prune-doux);margin-bottom:1rem}
+    .laura-sig{font:italic 400 1.25rem var(--display)!important;color:var(--champagne)!important;margin-bottom:1.4rem!important}
+    /* Les trois abonnements */
+    .offre-prix s{font-size:.55em;opacity:.6;margin-right:.2rem}
+    .offre-cond{font-size:.92rem;color:var(--prune)!important;font-weight:600}
+    .offre-carte .btn{margin-top:auto}
+    .duo-accueil{grid-template-columns:1fr 1fr!important;max-width:56rem;margin-inline:auto}
+    .duo-accueil img{aspect-ratio:800/420;object-fit:cover;width:100%}
+    @media (max-width:860px){.ouverture{min-height:0}.ouverture .conteneur{padding:2.5rem 0}.laura-carte{grid-template-columns:1fr;text-align:center;padding:1.8rem;gap:1.5rem}.laura-img{margin-inline:auto}.duo-accueil{grid-template-columns:1fr!important}}
+
+    .ouv-visuel{margin:0;justify-self:center;position:relative;max-width:480px;width:100%}
+    .ouv-visuel::before{content:"";position:absolute;inset:-12%;background:radial-gradient(closest-side,rgba(217,174,115,.45),rgba(236,190,210,.25) 55%,transparent);filter:blur(10px);z-index:0}
+    .ouv-visuel img{position:relative;z-index:1;width:100%;height:auto;border-radius:36px;box-shadow:0 40px 80px rgba(46,19,56,.35),0 0 0 1px rgba(185,138,85,.4)}
+    /* Barre discrète : le carnet offert */
+    .aimant{background:linear-gradient(90deg,#2E1338,#6B2F5B);color:#F7E6EE}
+    .aimant-f{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:1rem 0}
+    .aimant-t{margin:0;flex:1 1 20rem;font-size:.98rem;color:#F7E6EE}.aimant-t b{color:#F3DCC0;font-weight:600}
+    .aimant-f input[type=text],.aimant-f input[type=email]{flex:0 1 12rem;min-width:0;padding:.65rem .95rem;border-radius:999px;border:1px solid rgba(243,220,192,.5);background:rgba(255,255,255,.1);color:#fff;font:inherit}
+    .aimant-f input::placeholder{color:#E9CFDC}
+    .aimant-f .btn{background:#F3DCC0;color:#2E1338;padding:.65rem 1.3rem}
+    .aimant-ok{flex-basis:100%;font-size:.8rem;color:#E9CFDC;display:flex;gap:.45rem;align-items:center}
+    .aimant-err{flex-basis:100%;margin:0;font-size:.85rem;color:#FFD9CF}.aimant-err:empty{display:none}
+    .dk-b{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:2.4rem;align-items:center;padding:2.6rem 0}
+    .dk-b img{width:100%;max-width:340px;height:auto;justify-self:center;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+    .dk-b h2{color:#fff;font-size:clamp(2rem,4.5vw,2.8rem);margin:.2rem 0 .7rem}.dk-b p{color:#F7E6EE;max-width:34rem}
+    .dk-sur{letter-spacing:.16em;text-transform:uppercase;font-size:.82rem;font-weight:600;color:#F3DCC0!important;margin:0}
+    .dk-points{list-style:none;padding:0;margin:1rem 0 1.4rem;display:grid;gap:.4rem;color:#F7E6EE}.dk-points li::before{content:"✦ ";color:#F3DCC0}
+    .dk-b .btn{background:#F3DCC0;color:#2E1338;padding:.8rem 1.6rem}
+    @media (max-width:860px){.dk-b{grid-template-columns:1fr;gap:1.4rem;padding:2rem 0}.dk-b img{max-width:240px}}
+    .aimant-merci{margin:0;padding:1.1rem 0;color:#F7E6EE}.aimant-merci a{color:#F3DCC0}
+    /* Image de Laura : fond lumineux */
+    .laura-halo{display:block;position:relative;padding:6px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#FFF6E6 55%,rgba(255,240,215,.0) 100%)}
+    .laura-halo::before{content:"";position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,rgba(255,236,200,.9),rgba(255,236,200,0) 70%);z-index:-1}
+    .laura-carte{background:linear-gradient(135deg,#FFFDFB,#FFF3EC 50%,#FDEEF4)}
+    @media (max-width:860px){.ouv-visuel{max-width:300px}.laura-halo{margin-inline:auto;width:max-content}.aimant-f input[type=text],.aimant-f input[type=email]{flex:1 1 100%}.aimant-f .btn{width:100%}}
+
+    /* Hero : l'arbre de lumière, fondu dans le fond */
+    .ouv-visuel{max-width:540px}
+    .ouv-visuel::before{inset:-6%;background:radial-gradient(closest-side,rgba(255,226,180,.75),rgba(240,190,210,.35) 60%,transparent)}
+    .ouv-visuel img{border-radius:50%;box-shadow:none;-webkit-mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);mask-image:radial-gradient(circle at 50% 48%,#000 58%,transparent 71%);animation:ouv-respire 7s ease-in-out infinite}
+    @keyframes ouv-respire{50%{transform:scale(1.025);filter:brightness(1.05)}}
+    @media (prefers-reduced-motion:reduce){.ouv-visuel img{animation:none}}
+    /* Barre du carnet : image, flèche, champs */
+    .aimant-f{flex-wrap:nowrap;gap:1.2rem;padding:1.1rem 0}
+    .aimant-img{width:62px;height:auto;border-radius:6px;box-shadow:0 10px 24px rgba(0,0,0,.35);transform:rotate(-4deg);flex:none}
+    .aimant-t{flex:0 1 19rem}.aimant-t p{margin:0}.aimant-s{font-size:.86rem;color:#E9CFDC;margin-top:.2rem!important}
+    .aimant-fleche{width:84px;flex:none;animation:aimant-fl 2.4s ease-in-out infinite}
+    @keyframes aimant-fl{50%{transform:translateX(6px)}}
+    .aimant-champs{flex:1;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+    .aimant-champs input[type=text],.aimant-champs input[type=email]{flex:1 1 9rem}
+    @media (max-width:980px){.aimant-f{flex-wrap:wrap}.aimant-fleche{display:none}.aimant-champs{flex-basis:100%}}
+    /* Les trois abonnements, en couleur */
+    .abo-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem;text-align:center;margin-top:1.4rem}
+    .abo{position:relative;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:1.1rem 1.1rem 1.5rem;border-radius:28px;text-decoration:none;color:#fff;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18);transition:transform .25s,box-shadow .25s}
+    .abo:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(46,19,56,.26)}
+    .abo-spirale{background:linear-gradient(160deg,#E77FA0,#B4467A 55%,#7E2C5E)}
+    .abo-cercle{background:linear-gradient(160deg,#6B2F5B,#2E1338);box-shadow:0 0 0 2px #E3C08F,0 26px 60px rgba(46,19,56,.35);transform:translateY(-10px)}
+    .abo-cercle:hover{transform:translateY(-16px)}
+    .abo-pro{background:linear-gradient(160deg,#E9C68F,#B98A55 60%,#8A6233)}
+    .abo-img{display:block;width:100%;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#fff;margin-bottom:.8rem;box-shadow:0 12px 30px rgba(0,0,0,.2)}
+    .abo-texte{display:block;font-size:.95rem;line-height:1.5;opacity:.92;margin:.5rem .4rem .9rem;text-align:center}
+    .abo-img img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .abo-badge{font:600 .72rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:.4rem .8rem;border-radius:99px}
+    .abo-reco{position:absolute;top:.9rem;right:.9rem;z-index:2;font:700 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:#2E1338;background:#F3DCC0;padding:.4rem .7rem;border-radius:99px}
+    .abo-nom{font:400 1.9rem/1.1 var(--display);margin-top:.4rem}
+    .abo-devise{font:italic 400 1.05rem var(--display);opacity:.9}
+    .abo-prix{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin:.5rem 0 .2rem}
+    .abo-prix s{font-size:1rem;opacity:.65}
+    .abo-prix b{font:400 3.1rem/1 var(--display);color:#fff;text-shadow:0 0 24px rgba(255,230,190,.55)}
+    .abo-cercle .abo-prix b{color:#F3DCC0}
+    .abo-prix small{font-size:.9rem;opacity:.85}
+    .abo-cond{font-size:.9rem;opacity:.92;margin-bottom:.9rem}
+    .abo-btn{margin-top:auto;background:#fff;color:#2E1338;pointer-events:none}
+    .abo-cercle .abo-btn{background:#F3DCC0}
+    @media (max-width:900px){.abo-grille{grid-template-columns:1fr;max-width:26rem;margin-inline:auto}.abo-cercle{transform:none}.abo-cercle:hover{transform:translateY(-6px)}}
+</style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Genesolia", "url": "https://genesolia.fr/", "inLanguage": "fr", "description": "Des outils gratuits pour comprendre ce qui se répète dans ta famille : arbre familial, méthode des deux cycles, numérologie, thème astral, signe maya et rêves."}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/", "logo": "https://genesolia.fr/apple-touch-icon.png", "email": "contact@genesolia.fr", "sameAs": ["https://www.instagram.com/genesolia.officiel/"]}</script>
 </head>
@@ -135,85 +287,131 @@
   <main>
     <section class="ouverture">
       <div class="conteneur">
-        <div>
-          <h1>Ce qui se répète dans ta vie a des racines. Et une direction.</h1>
-          <p class="intro">Presque tout ce qui se répète touche à deux besoins : te sentir en sécurité, et aimer et être aimé·e. Ici, tu repères ton cycle et ta blessure, tu vois ce qui se transmet dans ta famille, et tu apprends à faire autrement.</p>
-          <div class="guide"><img src="assets/guide/guide-bienvenue.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Bienvenue, moi c'est Laura. Commence par ce qui t'appelle : <a href="offert.html">tout ce qui est ici est offert</a>.</p></div>
+        <div class="ouv-texte">
+          <p class="ouv-sur">Psychogénéalogie · ton arbre · tes cycles · ta place</p>
+          <h1>Prends ta place, <em>honore-la</em>, sans t’épuiser à répéter tes difficultés.</h1>
+          <p class="intro">Ce qui se répète dans ta vie a des racines, et une direction. Ici, tu vois ce qui se transmet dans ta famille, tu comprends ton cycle et tu apprends à faire autrement, à ton rythme.</p>
           <div class="actions">
-            <a class="btn btn-plein" href="#cycles">Découvrir les deux cycles</a>
-            <a class="btn btn-trait" href="genosociogramme.html">Dessiner mon arbre familial</a>
+            <a class="btn btn-plein btn-grand" href="#abonnements">Découvrir les abonnements</a>
+            <a class="btn btn-trait btn-grand" href="offert.html">Tes cadeaux gratuits</a>
           </div>
-          <p class="rassurance">Gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
+          <p class="rassurance">Génosociogramme en ligne gratuit, sans inscription pour commencer. Les calculs se font sur ton appareil.</p>
         </div>
 
-        <figure class="arbre">
-          <svg viewBox="0 0 360 650" role="group" aria-label="L'arbre double : en haut l'arbre de vie et ses dix sphères, en bas les racines familiales sur trois générations">
-            <defs>
-              <radialGradient id="lumiere" cx="50%" cy="40%" r="50%">
-                <stop offset="0" stop-color="#FFE9DC" stop-opacity=".95"/>
-                <stop offset="1" stop-color="#FFE9DC" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <ellipse cx="180" cy="210" rx="190" ry="230" fill="url(#lumiere)"/>
-
-            <!-- Racines : toi, tes parents, tes grands-parents, tes arrière-grands-parents -->
-            <g aria-hidden="true">
-              <path class="racine" pathLength="1" d="M180 452 C180 480 120 482 120 512"/>
-              <path class="racine" pathLength="1" d="M180 452 C180 480 240 482 240 512"/>
-              <path class="racine" pathLength="1" d="M120 520 C120 545 70 545 70 568"/>
-              <path class="racine" pathLength="1" d="M120 520 C120 545 150 545 150 568"/>
-              <path class="racine" pathLength="1" d="M240 520 C240 545 210 545 210 568"/>
-              <path class="racine" pathLength="1" d="M240 520 C240 545 290 545 290 568"/>
-              <path class="racine" pathLength="1" d="M70 574 C70 596 52 598 52 618"/>
-              <path class="racine" pathLength="1" d="M70 574 C70 596 88 598 88 618"/>
-              <path class="racine" pathLength="1" d="M150 574 C150 596 132 598 132 618"/>
-              <path class="racine" pathLength="1" d="M150 574 C150 596 168 598 168 618"/>
-              <path class="racine" pathLength="1" d="M210 574 C210 596 192 598 192 618"/>
-              <path class="racine" pathLength="1" d="M210 574 C210 596 228 598 228 618"/>
-              <path class="racine" pathLength="1" d="M290 574 C290 596 272 598 272 618"/>
-              <path class="racine" pathLength="1" d="M290 574 C290 596 308 598 308 618"/>
-              <circle class="ancetre" cx="120" cy="516" r="5"/><circle class="ancetre" cx="240" cy="516" r="5"/>
-              <circle class="ancetre" cx="70" cy="571" r="4"/><circle class="ancetre" cx="150" cy="571" r="4"/>
-              <circle class="ancetre" cx="210" cy="571" r="4"/><circle class="ancetre" cx="290" cy="571" r="4"/>
-              <circle class="ancetre" cx="52" cy="621" r="3"/><circle class="ancetre" cx="88" cy="621" r="3"/>
-              <circle class="ancetre" cx="132" cy="621" r="3"/><circle class="ancetre" cx="168" cy="621" r="3"/>
-              <circle class="ancetre" cx="192" cy="621" r="3"/><circle class="ancetre" cx="228" cy="621" r="3"/>
-              <circle class="ancetre" cx="272" cy="621" r="3"/><circle class="ancetre" cx="308" cy="621" r="3"/>
-            </g>
-
-            <!-- Les 22 chemins de l'arbre de vie -->
-            <g aria-hidden="true">
-              <path class="chemin" pathLength="1" d="M180 40 L270 95"/><path class="chemin" pathLength="1" d="M180 40 L90 95"/>
-              <path class="chemin" pathLength="1" d="M180 40 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L90 95"/>
-              <path class="chemin" pathLength="1" d="M270 95 L180 240"/><path class="chemin" pathLength="1" d="M270 95 L270 190"/>
-              <path class="chemin" pathLength="1" d="M90 95 L180 240"/><path class="chemin" pathLength="1" d="M90 95 L90 190"/>
-              <path class="chemin" pathLength="1" d="M270 190 L90 190"/><path class="chemin" pathLength="1" d="M270 190 L180 240"/>
-              <path class="chemin" pathLength="1" d="M270 190 L270 320"/><path class="chemin" pathLength="1" d="M90 190 L180 240"/>
-              <path class="chemin" pathLength="1" d="M90 190 L90 320"/><path class="chemin" pathLength="1" d="M180 240 L270 320"/>
-              <path class="chemin" pathLength="1" d="M180 240 L180 370"/><path class="chemin" pathLength="1" d="M180 240 L90 320"/>
-              <path class="chemin" pathLength="1" d="M270 320 L90 320"/><path class="chemin" pathLength="1" d="M270 320 L180 370"/>
-              <path class="chemin" pathLength="1" d="M270 320 L180 440"/><path class="chemin" pathLength="1" d="M90 320 L180 370"/>
-              <path class="chemin" pathLength="1" d="M90 320 L180 440"/><path class="chemin" pathLength="1" d="M180 370 L180 440"/>
-            </g>
-
-            <!-- Les 10 sphères, de la base vers le sommet -->
-            <g class="sphere" data-s="malkhout" tabindex="0" role="button" aria-label="Malkhout" style="animation-delay:1.0s"><circle class="halo" cx="180" cy="440" r="22"/><circle class="coeur" cx="180" cy="440" r="13"/><circle class="moi" cx="180" cy="440" r="4"/></g>
-            <g class="sphere" data-s="yessod" tabindex="0" role="button" aria-label="Yessod" style="animation-delay:1.25s"><circle class="halo" cx="180" cy="370" r="22"/><circle class="coeur" cx="180" cy="370" r="13"/></g>
-            <g class="sphere" data-s="hod" tabindex="0" role="button" aria-label="Hod" style="animation-delay:1.5s"><circle class="halo" cx="90" cy="320" r="22"/><circle class="coeur" cx="90" cy="320" r="13"/></g>
-            <g class="sphere" data-s="netsah" tabindex="0" role="button" aria-label="Netsah" style="animation-delay:1.5s"><circle class="halo" cx="270" cy="320" r="22"/><circle class="coeur" cx="270" cy="320" r="13"/></g>
-            <g class="sphere" data-s="tiferet" tabindex="0" role="button" aria-label="Tiferet" style="animation-delay:1.75s"><circle class="halo" cx="180" cy="240" r="24"/><circle class="coeur" cx="180" cy="240" r="15"/></g>
-            <g class="sphere" data-s="guevoura" tabindex="0" role="button" aria-label="Guevoura" style="animation-delay:2.0s"><circle class="halo" cx="90" cy="190" r="22"/><circle class="coeur" cx="90" cy="190" r="13"/></g>
-            <g class="sphere" data-s="hessed" tabindex="0" role="button" aria-label="Hessed" style="animation-delay:2.0s"><circle class="halo" cx="270" cy="190" r="22"/><circle class="coeur" cx="270" cy="190" r="13"/></g>
-            <g class="sphere" data-s="bina" tabindex="0" role="button" aria-label="Bina" style="animation-delay:2.25s"><circle class="halo" cx="90" cy="95" r="22"/><circle class="coeur" cx="90" cy="95" r="13"/></g>
-            <g class="sphere" data-s="hokhma" tabindex="0" role="button" aria-label="Hokhma" style="animation-delay:2.25s"><circle class="halo" cx="270" cy="95" r="22"/><circle class="coeur" cx="270" cy="95" r="13"/></g>
-            <g class="sphere" data-s="keter" tabindex="0" role="button" aria-label="Kéter" style="animation-delay:2.5s"><circle class="halo" cx="180" cy="40" r="24"/><circle class="coeur" cx="180" cy="40" r="15"/></g>
-          </svg>
-          <figcaption class="legende" aria-live="polite"><strong>Touche une sphère</strong><span>Chacune éclaire un domaine de ta vie. La sphère du bas, c'est toi, relié·e à tes racines.</span></figcaption>
+        <figure class="ouv-visuel">
+          <img src="assets/images/arbre-lumiere-1000.webp" srcset="assets/images/arbre-lumiere-600.webp 600w, assets/images/arbre-lumiere-1000.webp 1000w" sizes="(max-width:860px) 85vw, 540px" width="1000" height="1000" alt="L’arbre de lumière Genesolia : ses racines dorées, ses feuilles roses et or, et le cercle des lunes" fetchpriority="high">
         </figure>
       </div>
     </section>
 
-    <section class="bloc" style="padding-bottom:0"><div class="conteneur"><div data-formation></div></div></section>
+    <section class="bloc laura" id="laura" aria-labelledby="laura-titre">
+      <div class="conteneur">
+        <div class="laura-carte">
+          <span class="laura-halo"><img class="laura-img" src="assets/laura-photo.webp?v=1" width="640" height="640" alt="Laura, la créatrice de Genesolia" loading="lazy"></span>
+          <div class="laura-txt">
+            <h2 id="laura-titre">Salut, je suis Laura</h2>
+            <p>Ce sont des événements de ma propre vie qui m’ont menée jusqu’ici. En cherchant à les comprendre, j’ai découvert la psychogénéalogie, et elle ne m’a plus quittée. Je m’y suis formée, puis j’ai accompagné des personnes pendant plusieurs années, avec la psychogénéalogie, l’hypnose et l’EMDR.</p>
+            <p>Cette passion, je l’ai mise dans Genesolia : des outils simples pour voir ce qui se répète dans ta vie et dans ta lignée, comprendre d’où ça vient et t’en libérer, à ton rythme. Et pour les praticien·nes, un espace de travail pensé à partir de mes propres besoins, pour construire l’arbre ensemble, en séance, et garder le fil de chaque accompagnement.</p>
+            <p class="laura-sig">Je suis heureuse de t’accueillir ici.</p>
+            <a class="btn btn-trait" href="pourquoi-genesolia.html">Pourquoi Genesolia</a> <a class="btn btn-trait" href="methode.html">Découvrir ma méthode des deux cycles</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="premiers-pas" aria-labelledby="pp-titre" style="padding:2.6rem 0 1rem">
+      <div class="conteneur">
+        <p style="text-align:center;margin:0 auto;max-width:none;width:100%;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--prune);font-weight:600">Par où commencer&nbsp;?</p>
+        <h2 id="pp-titre" style="text-align:center;margin:.3rem auto 1.6rem;max-width:none">Tes trois premiers pas</h2>
+        <ol style="list-style:none;padding:0;margin:0 auto;max-width:62rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem">
+          <li><a href="genosociogramme.html" style="display:block;height:100%;padding:1.4rem 1.5rem;border-radius:22px;background:#FFF9F5;border:1px solid var(--champagne-clair);text-decoration:none;color:inherit"><span style="display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--prune);color:#fff;font-weight:600">1</span><h3 style="margin:.8rem 0 .3rem">Dessine ton arbre</h3><p style="margin:0">Gratuit, sans inscription. Les dates et les prénoms qui reviennent ressortent tout seuls.</p></a></li>
+          <li><a href="ma-spirale.html" style="display:block;height:100%;padding:1.4rem 1.5rem;border-radius:22px;background:#FFF9F5;border:1px solid var(--champagne-clair);text-decoration:none;color:inherit"><span style="display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--prune);color:#fff;font-weight:600">2</span><h3 style="margin:.8rem 0 .3rem">Découvre Ma spirale</h3><p style="margin:0">Pour te libérer de tes répétitions, en autonomie, à ton rythme.</p></a></li>
+          <li><a href="abonnement.html" style="display:block;height:100%;padding:1.4rem 1.5rem;border-radius:22px;background:#FFF9F5;border:1px solid var(--champagne-clair);text-decoration:none;color:inherit"><span style="display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--prune);color:#fff;font-weight:600">3</span><h3 style="margin:.8rem 0 .3rem">Ouvre ton carnet</h3><p style="margin:0">Dans Le Cercle : ton carnet, tes séances audio et un parcours guidé. Ton 1<sup>er</sup> mois est offert.</p></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section aria-label="Genesolia pour les pros" style="padding:1.4rem 0">
+      <div class="conteneur" style="text-align:center">
+        <a href="espace-praticien.html" style="display:inline-block;background:#2E1338;color:#F3E3C3;padding:1.1rem 2.4rem;border-radius:999px;font-size:1.2rem;font-weight:600;text-decoration:none;letter-spacing:.02em">Genesolia pour les pros</a>
+        <p style="margin:.7rem auto 0;max-width:40rem;text-align:center;font-size:.95rem;color:var(--prune)">Praticiennes et praticiens : le logiciel de génosociogramme, construire l’arbre ensemble en séance, vos dossiers. 30 jours offerts.</p>
+      </div>
+    </section>
+
+    <section class="aimant dk-bande" aria-label="Tes dates clés offertes">
+      <div class="conteneur dk-b">
+        <img src="assets/images/dates-cles-agenda.webp" width="620" height="680" alt="Un agenda avec trois dates clés de l’année et leurs phrases" loading="lazy">
+        <div>
+          <p class="dk-sur">Offert · ton année</p>
+          <h2>Tes dates clés 2027</h2>
+          <p>Tes périodes de l’année, calculées à partir de ta date de naissance, chacune avec sa phrase clé. Tu les mets dans ton agenda en un clic, et tu les reçois aussi par e-mail.</p>
+          <ul class="dk-points"><li>Tes périodes d’ouverture, d’amour, de changement</li><li>Un petit rappel juste avant chacune</li><li>Un lien pour aller plus loin, à chaque date</li></ul>
+          <button class="btn" type="button" data-dates-cles>Recevoir mes dates clés</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux" id="abonnements" aria-labelledby="abo-titre">
+      <div class="conteneur">
+        <div class="offres-accueil">
+          <p class="cercle-sur">Trois abonnements</p>
+          <h2 id="abo-titre">Tout commence gratuitement. Va plus loin quand tu veux.</h2>
+          <div class="abo-grille">
+            <a class="abo abo-spirale" href="ma-spirale.html">
+              <span class="abo-img"><img src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions" loading="lazy"></span>
+              <span class="abo-badge">✦ Offre de Noël</span>
+              <span class="abo-nom">Ma spirale</span>
+              <span class="abo-devise">Ton outil à toi</span>
+              <span class="abo-texte">Un outil d’introspection profonde : comprends tes répétitions, dépose-les sur une frise de ta vie et dans un théâtre pour voir la scène. Un travail sur toi, à ton rythme.</span>
+              <span class="abo-prix"><b>4,99 €</b><small>par mois</small></span>
+              <span class="abo-cond">7 jours offerts · sans engagement</span>
+              <span class="btn abo-btn">Découvrir la démo</span>
+            </a>
+            <a class="abo abo-cercle" href="abonnement.html">
+              <span class="abo-reco">Le plus complet</span>
+              <span class="abo-img"><img src="assets/cercle/accueil-carnets.webp" width="800" height="600" alt="Les carnets du Cercle : Renaissance et Libération" loading="lazy"></span>
+              <span class="abo-badge">✦ Cadeau de Noël</span>
+              <span class="abo-nom">Le Cercle</span>
+              <span class="abo-devise">Ta place, ton choix, ta vie</span>
+              <span class="abo-texte">Un auto-accompagnement pour te libérer et avancer chaque mois, un peu plus alignée avec qui tu veux devenir : des exercices, des lectures ciblées avec ta numérologie et ton astrologie, et des audios issus de séances de libération, pour un vrai travail de fond.</span>
+              <span class="abo-prix"><s>24,90 €</s><b>17,77 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert</span>
+              <span class="btn abo-btn">Découvrir Le Cercle</span>
+            </a>
+            <a class="abo abo-pro" href="espace-praticien.html">
+              <span class="abo-img"><img src="assets/images/praticien/genesolia-pro-affiche.webp" width="900" height="1125" alt="Genesolia Pro : vos génosociogrammes, vos dossiers, vos séances. 30 jours d’essai offerts, sans carte bancaire" loading="lazy" style="object-position:top"></span>
+              <span class="abo-badge">Pour les praticien·nes</span>
+              <span class="abo-nom">Espace pro</span>
+              <span class="abo-devise">Votre cabinet en ligne</span>
+              <span class="abo-texte">Le logiciel qui dessine le génosociogramme de vos client·es en quelques minutes : un dossier par personne, l’arbre en plein écran pendant la séance, les répétitions qui ressortent toutes seules.</span>
+              <span class="abo-prix"><b>19 €</b><small>par mois</small></span>
+              <span class="abo-cond">1<sup>er</sup> mois offert · offre de Noël</span>
+              <span class="btn abo-btn">Découvrir</span>
+            </a>
+          </div>
+          <p class="offres-note">Prix en euros, TVA non applicable, art. 293 B du CGI. <a href="tarifs.html">Tous les tarifs</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="noel" id="noel" aria-labelledby="noel-titre"><div class="conteneur">
+      <div class="noel-tete"><p>Noël</p><h2 id="noel-titre">Des cadeaux qui ont du sens</h2><p>Un livre à remplir en famille, quelques mois du Cercle à offrir, ou Ma spirale pour soi.</p></div>
+      <div class="noel-grille">
+        <a href="https://www.amazon.fr/dp/B0HP7WPZQD" target="_blank" rel="noopener"><img src="assets/noel/noel-racines-540.webp" srcset="assets/noel/noel-racines-540.webp 540w, assets/noel/noel-racines-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : le livre Racines, à offrir, sur Amazon"></a>
+        <a href="enquete-de-ma-lignee.html"><img src="assets/noel/noel-enquete-540.webp" srcset="assets/noel/noel-enquete-540.webp 540w, assets/noel/noel-enquete-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : le livre L’enquête de ma lignée, à remplir en famille"></a>
+        <a href="boutique.html#carte-cadeau"><img src="assets/noel/noel-cercle-540.webp?v=3" srcset="assets/noel/noel-cercle-540.webp?v=3 540w, assets/noel/noel-cercle-1080.webp?v=3 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Offre Le Cercle : carte cadeau 3 mois à 49 €, 6 mois à 99 €"></a>
+        <a href="ma-spirale.html"><img src="assets/pass/ma-spirale-visuel-540.webp" srcset="assets/pass/ma-spirale-visuel-540.webp 540w, assets/pass/ma-spirale-visuel-1080.webp 1080w" sizes="(max-width:900px) 50vw, 25vw" width="540" height="675" loading="lazy" alt="Noël : Ma spirale, l’appli pour ton enquête de lignée"></a>
+      </div>
+    </div></section>
+    <script>(function () { if (new Date() > new Date('2027-01-06T23:59:59')) { var n = document.getElementById('noel'); if (n) n.hidden = true; } })();</script>
+    <section class="bloc avis-publies" data-avis-publies="3" hidden aria-labelledby="avis-titre">
+      <div class="conteneur">
+        <h2 id="avis-titre">Elles ont essayé</h2>
+        <div class="avis-liste" data-avis-liste></div>
+        <p class="avis-lien"><a href="avis.html">Toi aussi, laisse ton avis</a></p>
+      </div>
+    </section>
+
 
     <section class="bloc" id="cycles">
       <div class="conteneur">
@@ -223,14 +421,14 @@
         </div>
         <div class="deux">
           <article>
-            <img class="illu" src="assets/accueil/racine.webp" width="960" height="540" alt="" loading="lazy">
+            <img class="illu" src="assets/accueil/racine.webp?v=2" width="960" height="540" alt="Le cycle des racines : des racines d'arbre dans la terre, symbole de la sécurité et de l'histoire familiale" loading="lazy">
             <h3>Cycle 1 · La racine</h3>
             <p class="cy-q">Survivre, être en sécurité, avoir sa place.</p>
             <p>Tu le reconnais à la peur de manquer, à l'insécurité qui revient même quand tout va bien, au besoin de tout contrôler, à la difficulté de demander ou de prendre ta place.</p>
             <p class="cy-bl">Blessures souvent liées : <a href="blessure-de-rejet.html">le rejet</a>, <a href="blessure-d-humiliation.html">l'humiliation</a>, <a href="blessure-d-injustice.html">l'injustice</a>.</p>
           </article>
           <article class="haut">
-            <img class="illu" src="assets/accueil/coeur.webp" width="960" height="540" alt="" loading="lazy">
+            <img class="illu" src="assets/accueil/coeur.webp?v=2" width="960" height="540" alt="Le cycle du cœur : une lumière en forme de cœur, symbole du besoin d'aimer et d'être aimé·e" loading="lazy">
             <h3>Cycle 2 · Le cœur</h3>
             <p class="cy-q">Aimer, être aimé·e, la façon dont tu aimes.</p>
             <p>Tu le reconnais aux relations qui se ressemblent, à la peur d'être quitté·e, au besoin de tout donner pour être choisi·e, à la confiance qui se brise toujours au même endroit.</p>
@@ -241,134 +439,52 @@
       </div>
     </section>
 
-    <section class="bloc bloc-doux">
+    <section class="bloc bloc-doux" id="commencer">
       <div class="conteneur">
-        <div class="bloc-tete"><h2>Les blessures qui se rejouent</h2><p>Rejet, abandon, humiliation, trahison, injustice : ce qui t'a blessé·e enfant revient souvent sous d'autres visages. Reconnaître ta blessure, c'est voir d'où vient la boucle.</p></div>
-        <div class="blessures">
-          <a href="blessure-de-rejet.html"><b>Le rejet</b><span>Ai-je le droit d'exister ?</span><em>Racine</em></a>
-          <a href="blessure-d-humiliation.html"><b>L'humiliation</b><span>Ai-je le droit d'avoir des besoins ?</span><em>Racine</em></a>
-          <a href="blessure-d-injustice.html"><b>L'injustice</b><span>Ai-je le droit d'être imparfait·e ?</span><em>Racine</em></a>
-          <a href="blessure-d-abandon.html"><b>L'abandon</b><span>Vais-je rester seul·e ?</span><em>Cœur</em></a>
-          <a href="blessure-de-trahison.html"><b>La trahison</b><span>Puis-je faire confiance ?</span><em>Cœur</em></a>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Tes cadeaux : tout commence gratuitement</h2><p>Ton arbre, tes numéros, tes astres : choisis la porte qui te parle aujourd’hui.</p></div>
+        <div class="portes-accueil">
+          <a class="porte-carte" href="genosociogramme.html"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="Génosociogramme en ligne gratuit : dessiner son arbre familial" loading="lazy"><span class="porte-duree">Gratuit · sans inscription</span><strong>Dessiner mon arbre familial</strong><span>Ton génosociogramme en ligne : les dates, les prénoms et les schémas qui reviennent ressortent tout seuls.</span></a>
+          <a class="porte-carte" href="ta-vie-en-reel.html"><img src="assets/images/relations-800.webp" width="800" height="420" alt="Schémas répétitifs dans les relations familiales" loading="lazy"><span class="porte-duree">3 minutes · chaque semaine</span><strong>Ta vie en réel</strong><span>Quand ça recommence : ce qui se joue, ce qui se rejoue dans ta famille, et les mots pour le dire.</span></a>
+          <a class="porte-carte" href="parcours.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="La méthode des deux cycles : trouver son cycle et sa blessure de l'âme" loading="lazy"><span class="porte-duree">10 minutes</span><strong>Trouver mon cycle</strong><span>Sécurité ou amour : repère ton cycle et ta blessure, et repars avec ton point de départ.</span></a>
         </div>
-        <div class="actions" style="margin-top:1.4rem"><a class="btn btn-trait" href="blessures-de-l-ame.html">Reconnaître ma blessure</a></div>
-      </div>
-    </section>
-
-    <section class="bloc" id="quatre">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Autour : quatre langages pour voir d'où ça vient</h2>
-          <p>Ta famille, tes nombres, tes étoiles et tes rêves éclairent chacun une part de ton histoire. Ensemble, ils se répondent, et tout se relie dans ton arbre familial.</p>
+        <h3 class="langages-titre">Et quatre langages pour voir d’où ça vient</h3>
+        <div class="langages-accueil">
+          <a class="langage" href="theme-numerologique.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 4L7 20M17 4l-2 16M4.5 9h16M3.5 15h16"/></svg></span><strong>Tes numéros</strong><span>Ton thème numérologique gratuit</span></a>
+          <a class="langage" href="theme-astral.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><path d="M12 8l1.2 2.8 3 .2-2.3 2 .7 3L12 14.4 9.4 16l.7-3-2.3-2 3-.2z"/></svg></span><strong>Tes astres</strong><span>Ton thème astral gratuit</span></a>
+          <a class="langage" href="ton-prenom.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19l3.5-12h1L13 19M6.3 15h5.4"/><path d="M15 9.5c1.5-1.4 4.5-1 4.5 1.5V19M19.5 13.5c-3-.4-5 .4-5 2.6 0 1.6 1.2 2.4 2.5 2.4s2.5-1 2.5-2"/></svg></span><strong>Ton prénom</strong><span>Sa signification et ses nombres</span></a>
+          <a class="langage" href="symbolique-des-reves.html"><span class="langage-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 13A7 7 0 0 1 15 4z"/></svg></span><strong>Tes rêves</strong><span>Leur symbolique, ce qui revient</span></a>
         </div>
-        <div class="portes">
-          <a class="porte-l" href="genosociogramme.html"><img class="porte-photo" src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">1</span><h3>Ta famille</h3><p class="porte-q">D'où je viens ?</p><p>Ton arbre familial sur plusieurs générations : l'outil fait apparaître les âges, les dates, les prénoms et les épreuves qui se répètent.</p><span class="porte-liens">Dessiner mon arbre</span></a>
-          <a class="porte-l" href="theme-numerologique.html"><img class="porte-photo" src="assets/images/blog-nombres-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">2</span><h3>Tes nombres</h3><p class="porte-q">Qu'ai-je reçu en naissant ?</p><p>Ton nom porte ta lignée, ta date ton chemin. Ton thème numérologique complet, et la lecture de <span class="lien-inline">ton prénom</span> sur l'arbre de vie.</p><span class="porte-liens">Mon thème numérologique</span></a>
-          <a class="porte-l" href="theme-astral.html"><img class="porte-photo" src="assets/images/blog-ciel-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">3</span><h3>Tes étoiles</h3><p class="porte-q">Quel ciel m'a vu naître ?</p><p>Ton thème astral précis, ta Lune et ton Soleil reliés à ta mère et à ton père, et le ciel de chaque mois.</p><span class="porte-liens">Mon thème astral</span></a>
-          <a class="porte-l" href="symbolique-des-reves.html"><img class="porte-photo" src="assets/images/blog-reves-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"><span class="porte-n">4</span><h3>Tes rêves</h3><p class="porte-q">Que me dit la nuit ?</p><p>De Jung aux peuples anciens : comprendre la langue des rêves, et ce qu'ils racontent parfois de tes ancêtres.</p><span class="porte-liens">Lire la série sur les rêves</span></a>
-        </div>
-        <div class="relie">
-          <p><strong>Tout se relie dans ton arbre.</strong> Ajoute ta famille : l'outil compare les nombres, les signes et les prénoms de chacun·e, et fait apparaître les échos entre les générations. Le rapport de ton arbre les explique, avec des pistes pour sortir de la boucle.</p>
-          <div class="actions"><a class="btn btn-plein" href="genosociogramme.html">Ouvrir mon arbre familial</a><a class="btn btn-trait" href="genosociogramme.html?exemple">Voir un exemple</a></div>
-        </div>
+        <p class="portes-plus">Signe maya, ciel du mois, jeux en famille… <a href="outils.html">Voir tous les outils</a></p>
       </div>
     </section>
 
 
-    <section class="bloc bloc-doux">
+
+                    
+
+
+
+    <section class="bloc" id="decouvrir" aria-labelledby="dec-titre">
       <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Des outils pour avancer concrètement</h2>
-          <p>Chacun se fait seul, à ton rythme. Tu peux t'arrêter et reprendre plus tard.</p>
-        </div>
-        <div class="liste-outils">
-          <a class="outil" href="blessures-de-l-ame.html"><h3>Les blessures de l'âme</h3><span class="duree">5 minutes</span><p>Rejet, abandon, humiliation, trahison, injustice : reconnaître celle qui se rejoue.</p></a>
-          <a class="outil" href="ton-prenom.html"><h3>Ton prénom</h3><span class="duree">1 minute</span><p>Son origine, son histoire, son nombre et sa place sur l'arbre de vie.</p></a>
-          <a class="outil" href="theme-astral.html"><h3>Ton thème astral</h3><span class="duree">2 minutes</span><p>Soleil, Lune, ascendant, planètes et maisons, reliés à ton histoire familiale.</p></a>
-          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique</h3><span class="duree">2 minutes</span><p>Chemin de vie, nombres du nom, cycles et grandes périodes de ta vie.</p></a>
-          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><span class="duree">30 minutes</span><p>Ton génosociogramme : les répétitions, les nombres et les signes de toute ta lignée.</p></a>
-          <a class="outil" href="arbre-de-vie.html"><h3>Le test de l'arbre de vie</h3><span class="duree">5 minutes</span><p>Vingt affirmations pour voir quelles sphères sont lumineuses chez toi, et lesquelles demandent à être nourries.</p></a>
-          <a class="outil" href="parcours.html"><h3>Le parcours guidé</h3><span class="duree">10 minutes</span><p>Quelques questions pour nommer ce qui se répète dans ta sécurité, tes émotions et ta vie.</p></a>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2 id="dec-titre">Comprendre, et faire plaisir</h2><p>Les articles pour comprendre ce qui se joue, et la boutique pour offrir quelque chose qui a du sens.</p></div>
+        <div class="portes-accueil duo-accueil">
+          <a class="porte-carte" href="blog.html"><img src="assets/images/deux-cycles-800.webp" width="800" height="420" alt="Articles sur la psychogénéalogie, les schémas répétitifs et les blessures de l'âme" loading="lazy"><span class="porte-duree">Comprendre</span><strong>Les articles et ma méthode</strong><span>Schémas répétitifs, blessures, génosociogramme, et la méthode des deux cycles expliquée pas à pas.</span></a>
+          <a class="porte-carte" href="boutique.html"><img src="assets/noel/noel-racines-1080.webp" width="800" height="420" alt="Boutique Genesolia : posters, livres et cartes cadeaux sur la psychogénéalogie" loading="lazy" style="object-fit:cover"><span class="porte-duree">Boutique</span><strong>Des cadeaux qui ont du sens</strong><span>Posters, vêtements, livres, ton arbre imprimé et les cartes cadeaux du Cercle.</span></a>
         </div>
       </div>
     </section>
 
-    <section class="bloc">
+    <section class="bloc" id="psychogenealogie-texte">
       <div class="conteneur">
-        <div class="bloc-tete">
-          <h2>Par où commencer</h2>
-        </div>
-        <ol class="etapes">
-          <li><h3>Nomme ce qui revient</h3><p>Le parcours guidé t'aide à mettre des mots sur une situation, une émotion ou une relation qui se répète.</p><a href="parcours.html">Faire le parcours</a></li>
-          <li><h3>Dessine tes racines</h3><p>Note ce que tu sais de ta famille. Les dates et les événements comptent plus qu'un arbre complet.</p><a href="genosociogramme.html">Ouvrir mon arbre</a></li>
-          <li><h3>Relie et observe</h3><p>Repère les échos entre ta vie et celle de tes ancêtres : un âge, une place, un événement.</p><a href="heriter.html">Lire comment faire</a></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="bloc portes-entree" aria-labelledby="portes-titre">
-      <div class="conteneur">
-        <div class="bloc-tete">
-          <h2 id="portes-titre">Une question, une porte d'entrée</h2>
-          <p>Choisis la phrase qui te parle aujourd'hui. Chaque image t'emmène vers l'outil qui y répond.</p>
-        </div>
-        <ul class="portes-grille"><li><a href="genosociogramme.html"><img src="assets/portes/genosociogramme.webp" width="640" height="640" alt="Ton histoire a des racines. Explore ton arbre familial." loading="lazy"></a></li><li><a href="genosociogramme-vierge.html"><img src="assets/portes/genosociogramme-vierge.webp" width="640" height="640" alt="Une première page suffit. Commence ton génosociogramme." loading="lazy"></a></li><li><a href="arbre-de-vie.html"><img src="assets/portes/arbre-de-vie.webp" width="640" height="640" alt="Et toi, comment vas-tu vraiment ? Découvre le test de l'arbre de vie." loading="lazy"></a></li><li><a href="methode.html"><img src="assets/portes/deux-cycles.webp" width="640" height="640" alt="Pourquoi cette situation revient-elle ? Explore le parcours des deux cycles." loading="lazy"></a></li><li><a href="psychogenealogie.html"><img src="assets/portes/psychogenealogie.webp" width="640" height="640" alt="Chaque famille a une histoire. Ouvre la conversation." loading="lazy"></a></li><li><a href="schemas-repetitifs-en-amour.html"><img src="assets/portes/relations.webp" width="640" height="640" alt="Et si tu écoutais tes besoins ? Explore tes schémas relationnels." loading="lazy"></a></li><li><a href="theme-numerologique.html"><img src="assets/portes/etat-interieur.webp" width="640" height="640" alt="Un rendez-vous avec toi-même. Découvre ton thème numérologique." loading="lazy"></a></li><li><a href="theme-astral.html"><img src="assets/portes/genesolia.webp" width="640" height="640" alt="Un ciel de naissance à explorer. Découvre ton thème astral." loading="lazy"></a></li></ul>
-        <p class="portes-insta">Ces images sont aussi sur <a href="https://www.instagram.com/genesolia.officiel/" target="_blank" rel="noopener">notre Instagram</a> : partage celle qui pourrait parler à quelqu'un.</p>
-      </div>
-    </section>
-
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="vingt">
-          <h2>Tu as entre 18 et 25 ans ?</h2>
-          <p>Un espace rien que pour toi : choisis ta situation (il ne répond plus, tes parents, l'argent, ta place) et repars avec ce qui se joue, un geste pour aujourd'hui et les mots pour le dire.</p>
-          <div><a class="btn" style="background:#fff;color:var(--prune)" href="tes-20-ans.html">Découvrir l'espace Jeune femme</a></div>
+        <div class="bloc-tete" style="text-align:center;margin-inline:auto"><h2>Qu'est-ce que la psychogénéalogie ?</h2></div>
+        <div style="max-width:46rem;margin:0 auto;color:var(--prune-doux)">
+          <p>La psychogénéalogie, parfois appelée transmission transgénérationnelle, part d'une idée simple&nbsp;: certains schémas — une façon d'aimer, de fuir, de réussir ou de se mettre en échec — reviennent d'une génération à l'autre sans qu'on les ait choisis. Pas par fatalité, mais parce qu'une histoire non dite, un deuil non fait ou un secret de famille continue, sans bruit, à orienter les choix de celles et ceux qui viennent après.</p>
+          <p style="margin-top:1rem">Cette approche s'adresse à toute personne qui sent qu'elle répète quelque chose — dans ses relations, son rapport à l'argent, à la maladie ou à la réussite — sans comprendre pourquoi. Pas besoin d'être praticien·ne ni de connaître toute son histoire familiale pour commencer&nbsp;: on part de ce que l'on sait, même fragmentaire.</p>
+          <p style="margin-top:1rem">Concrètement, ça commence par le génosociogramme&nbsp;: un arbre familial enrichi des dates, des événements et des liens, qui fait apparaître les répétitions de façon visuelle plutôt qu'abstraite. Les mêmes âges qui reviennent, les mêmes ruptures, les mêmes métiers&nbsp;: ce que l'œil ne voit pas sur une liste devient évident sur un arbre. <a href="ma-spirale.html">Ma spirale</a> prend ensuite le relais pour relier ce qui est observé à ce qui est ressenti, au fil des semaines, sans rendez-vous ni jargon thérapeutique.</p>
+          <p style="margin-top:1rem">Genesolia propose une lecture symbolique de cette mémoire transgénérationnelle, à faire à ton rythme, seul·e ou accompagné·e.</p>
         </div>
       </div>
     </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Des images à partager</h2><p>Des phrases pour t'affirmer, poser tes limites ou faire passer un message. Gratuites, prêtes pour ton post ou ta story.</p></div>
-        <ul class="partage">
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/ton-silence-mini.webp" width="540" height="675" alt="Ton silence ne m'atteint plus." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/limites-mini.webp" width="540" height="675" alt="Mes limites ne sont pas négociables." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/je-me-choisis-mini.webp" width="540" height="675" alt="Je me choisis." loading="lazy"></a></li>
-          <li><a href="cartes.html#reseaux"><img src="assets/reseaux/vu-mini.webp" width="540" height="675" alt="Vu. Et je n'ai rien à répondre." loading="lazy"></a></li>
-        </ul>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="cartes.html">Voir toutes les images</a></div>
-      </div>
-    </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="cercle-accueil">
-          <div>
-            <p class="cercle-sur">Le Cercle · ton rendez-vous du mois</p>
-            <h2>Chaque mois, ce que disent tes nombres, ton arbre et le ciel</h2>
-            <p>Ton mois personnel, ton calendrier jour par jour, les dates de ta famille qui tombent ce mois-ci, un carnet de dix pages à imprimer et le livret des 12 saisons. Le premier carnet est offert.</p>
-            <div class="actions"><a class="btn btn-plein" href="mon-mois.html#offert">Recevoir le carnet offert</a><a class="btn btn-trait" href="le-ciel-du-mois.html">Le ciel de ce mois</a></div>
-          </div>
-          <img src="assets/cercle/apercu-2026-10.webp" width="150" height="212" alt="Couverture du carnet du mois" loading="lazy">
-        </div>
-      </div>
-    </section>
-
-    <section class="bloc">
-      <div class="conteneur">
-        <div class="bloc-tete"><h2>Sur le blog</h2><p>Des articles concrets pour avancer pas à pas.</p></div>
-        <div class="blog-cartes">
-          <a href="schemas-repetitifs-en-amour.html"><img src="assets/accueil/blog-amour.webp" width="720" height="405" alt="" loading="lazy"><div><span>7 min</span><h3>Schémas répétitifs en amour</h3><p>Toujours le même type de personne, la même fin ? Ce que ton histoire familiale peut éclairer.</p></div></a>
-          <a href="questions-a-poser-a-sa-famille.html"><img src="assets/accueil/blog-famille.webp" width="720" height="405" alt="" loading="lazy"><div><span>8 min</span><h3>Les questions à poser à sa famille</h3><p>Une trentaine de questions pour tes parents et grands-parents, et quoi faire des réponses.</p></div></a>
-          <a href="symbolique-des-reves.html"><img src="assets/images/blog-reves-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>La symbolique des rêves</h3><p>Une langue que l'humanité parle depuis toujours, de Jung aux peuples anciens.</p></div></a>
-          <a href="rever-des-morts-et-des-ancetres.html"><img src="assets/images/blog-ancetres-reve-800.webp" width="720" height="405" alt="" loading="lazy" style="object-fit:cover"><div><span>9 min</span><h3>Rêver des morts et des ancêtres</h3><p>Ce que disent les traditions, et ce que ces rêves racontent de ta famille.</p></div></a>
-        </div>
-        <div class="actions" style="margin-top:1.6rem"><a class="btn btn-trait" href="blog.html">Tous les articles</a></div>
-      </div>
-    </section>
-
-    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
 
     <section class="bloc" id="questions">
       <div class="conteneur">
@@ -384,7 +500,7 @@
       </div>
     </section>
   
-    <section class="bloc" data-liens-outils><div class="conteneur"><h2 style="font-size:1.4rem;margin-bottom:1rem">Tous les outils Genesolia</h2><ul style="list-style:none;columns:3 14rem;gap:1.5rem;margin:0"><li style="margin-bottom:.5rem"><a href="genosociogramme.html">Génosociogramme en ligne gratuit</a></li><li style="margin-bottom:.5rem"><a href="genosociogramme-vierge.html">Génosociogramme vierge à imprimer</a></li><li style="margin-bottom:.5rem"><a href="methode.html">La méthode des deux cycles</a></li><li style="margin-bottom:.5rem"><a href="blessures-de-l-ame.html">Les blessures de l'âme</a></li><li style="margin-bottom:.5rem"><a href="mon-suivi.html">Mon suivi</a></li><li style="margin-bottom:.5rem"><a href="calcul-syndrome-anniversaire.html">Syndrome d'anniversaire</a></li><li style="margin-bottom:.5rem"><a href="theme-numerologique.html">Thème numérologique</a></li><li style="margin-bottom:.5rem"><a href="ton-prenom.html">Signification de ton prénom</a></li><li style="margin-bottom:.5rem"><a href="prenoms.html">Les prénoms de A à Z</a></li><li style="margin-bottom:.5rem"><a href="theme-astral.html">Thème astral gratuit</a></li><li style="margin-bottom:.5rem"><a href="ton-signe-maya.html">Ton signe maya</a></li><li style="margin-bottom:.5rem"><a href="mon-guide.html">Ton guide du mois</a></li><li style="margin-bottom:.5rem"><a href="le-ciel-du-mois.html">Le ciel du mois</a></li><li style="margin-bottom:.5rem"><a href="symbolique-des-reves.html">La symbolique des rêves</a></li><li style="margin-bottom:.5rem"><a href="blog.html">Le blog</a></li></ul></div></section>
+
   </main>
 
   <footer data-pied></footer>
@@ -431,6 +547,25 @@
         });
       });
     })();
+  </script>
+
+  <script>
+  (function () {
+    var f = document.querySelector('[data-aimant]'); if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = f.querySelector('.aimant-err'), b = f.querySelector('button');
+      var prenom = f.prenom.value.trim(), email = f.email.value.trim();
+      if (!prenom || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Indique ton prénom et une adresse e-mail valide.'; return; }
+      if (!f.accord.checked) { err.textContent = 'Coche la case pour recevoir ton carnet.'; return; }
+      err.textContent = ''; b.disabled = true; b.textContent = 'Envoi…';
+      var d = new FormData(f); d.append('source', 'accueil-barre');
+      (window.GenesoliaEnvoyer ? window.GenesoliaEnvoyer('Carnet des deux cycles', d, '') : Promise.reject()).then(function () {
+        try { localStorage.setItem('carnet-inscrit', 'oui'); } catch (x) {}
+        f.outerHTML = '<p class="aimant-merci">Merci ' + prenom.replace(/[<>&]/g, '') + ', ton carnet est là : <a href="assets/carnet-des-deux-cycles-8a44d6c993.pdf" download="carnet-des-deux-cycles-genesolia.pdf">télécharger mon carnet</a> · <a href="carnet-des-deux-cycles.html">le remplir en ligne</a></p>';
+      }).catch(function () { b.disabled = false; b.textContent = 'Je le reçois'; err.textContent = 'L’envoi n’a pas fonctionné. Réessaie dans un instant.'; });
+    });
+  })();
   </script>
 </body>
 </html>

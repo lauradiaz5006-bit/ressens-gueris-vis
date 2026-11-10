@@ -82,7 +82,7 @@
       '<p class="pd-mention">Tu pourras refaire ce point de départ tous les trois mois, depuis ton Cercle, pour voir le chemin parcouru.</p></div>' +
       /* Pas encore membre : le point de départ est l'offert du site ; la suite naturelle, c'est le mois offert du Cercle */
       '<div data-fin-visiteuse hidden><h3>Et maintenant ?</h3>' +
-      '<p>Tu sais d’où tu pars. Le Cercle t’accompagne à partir de là, une étape après l’autre : Renaissance pour sortir du mode survie, Libération pour aimer en accord avec toi, tes séances audio et la formation « Sors de la boucle ».</p>' +
+      '<p>Tu sais d’où tu pars. Le Cercle t’accompagne à partir de là, une étape après l’autre : Renaissance pour sortir du mode survie (toujours en alerte, à tout tenir à bout de bras), Libération pour aimer en accord avec toi, tes séances audio et la formation « Sors de la boucle ».</p>' +
       '<p><b>Ton point de départ est repris tel quel dans ton Cercle : tu n’as rien à refaire.</b></p>' +
       '<p class="pd-boutons"><a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a><a class="btn btn-trait" href="abonnement.html">Découvrir Le Cercle</a></p>' +
       '<p class="pd-mention">30 jours offerts · aucune carte demandée · sans engagement</p></div>';
@@ -220,7 +220,7 @@
     if (r.blessures.length || pese.length) {
       h += '<section class="pd-synth"><p class="pd-res-t">3 · Dans tes liens</p>' +
         (r.blessures.length ? '<p>Ce qui te parle le plus : <b>' + r.blessures.map(function (k) { return NOMS_BL[k].toLowerCase(); }).join(' et ') + '</b>. Ce n’est pas une étiquette : un repère pour savoir où regarder avec douceur.</p>' : '') +
-        (pese.length ? '<p>Ce qui pèse sur ton cœur en ce moment : ' + pese.map(esc).join(', ') + '. Tu n’as rien à régler d’un coup : le reconnaître, c’est déjà lui faire de la place.</p>' : '') + '</section>';
+        (pese.length ? '<p>Ce qui pèse sur ton cœur en ce moment : ' + pese.map(function (x) { return esc(String(x).replace(/\.$/, '').replace(/^\w/, function (c) { return c.toLowerCase(); }).replace(/\bma vie\b/g, 'ta vie').replace(/\bma famille\b/g, 'ta famille').replace(/\bque je porte\b/g, 'que tu portes').replace(/\bme touche\b/g, 'te touche')); }).join(', ') + '. Tu n’as rien à régler d’un coup : le reconnaître, c’est déjà lui faire de la place.</p>' : '') + '</section>';
     }
     var c1 = D.v['c1-cible-1'], c2 = D.v['c2-cible-1'];
     h += '<section class="pd-synth"><p class="pd-res-t">4 · Comment tu vas avancer</p><ul>' +
@@ -258,10 +258,10 @@
     clearTimeout(minuteur);
     if (!user || !sb) { etat('Gardé dans ce navigateur jusqu’à sa fermeture. Crée ton espace pour le garder.'); return; }
     var CF = window.GenesoliaCoffre;
-    if (CF && !CF.accord(user)) { etat('Gardé sur cet appareil, en attente de ton accord.'); return; }
+    if (CF && !CF.accord(user)) { etat('Enregistré sur cet appareil. Genesolia n’y a pas accès.'); return; }
     etat('Enregistrement…');
     minuteur = setTimeout(function () {
-      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: true })).then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard.' : 'Enregistré et chiffré dans ton espace.'); }, function () { etat('Pas enregistré, réessaie plus tard.'); });
+      (CF ? CF.ecrire(sb, user, CLE, D) : Promise.resolve({ error: true })).then(function (r) { etat(r && r.error ? 'Pas enregistré, réessaie plus tard.' : 'Enregistré et chiffré dans ton espace privé.'); }, function () { etat('Pas enregistré, réessaie plus tard.'); });
     }, 900);
   }
   function garderResumeSilencieux() { var r = resume(), a = D.v.resume || {}; D.v.resume = { date: a.date || D.v.fait, mode: r.mode, modes: r.modes, domaine: r.domaine, domaineCle: r.domaineCle, blessures: r.blessures, cible1: D.v['c1-cible-1'] || '', cible2: D.v['c2-cible-1'] || '' }; }

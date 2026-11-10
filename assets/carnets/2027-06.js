@@ -1,5 +1,5 @@
-/* Genesolia · Le Cercle · Carnet de juin 2027, « J'avance » : « Oser agir »
-   Le carnet du mois est le côté « J'avance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
+/* Genesolia · Le Cercle · Carnet de juin 2027, « Renaissance » : « Oser agir »
+   Le carnet du mois est le côté « Renaissance » du Cercle : décider, structurer, passer à l'action, tenir ses engagements envers soi.
    Le côté libération (« Ai-je le droit d’aller plus loin ? », la lignée paternelle) est dans Mon suivi (assets/suivi/2027-06.js).
    Tout ce qui est propre au mois est ici. Le moteur (assets/mon-carnet.js) ne contient que ce qui sert tous les mois.
    Le texte accepte **gras** et [lien](page.html).
@@ -30,8 +30,8 @@ window.GENESOLIA_CARNET = {
       comprendre: 'assets/guide/guide-nombres.webp',
       exercices: 'assets/guide/guide-livre-pupitre.webp',
       rituel: 'assets/guide/guide-pause.webp',
-      semaines: 'assets/guide/guide-spirale-douce.webp',
-      cloture: 'assets/guide/guide-livre-lumineux.webp'
+      semaines: 'assets/guide/guide-graine.webp',
+      cloture: 'assets/guide/guide-recolte.webp'
     },
     cartes: {
       theme: ['assets/cartes/prochain-pas-mini.jpg', 'Je n’ai pas besoin de tout savoir. Seulement du prochain pas.'],
@@ -60,7 +60,7 @@ window.GENESOLIA_CARNET = {
     texte2: [
       "On ne remet presque jamais à plus tard par paresse. On repousse parce que la tâche paraît trop grosse, parce qu'on a peur de mal faire, de déranger, d'échouer, ou au contraire de réussir et de devoir changer. Parfois aussi, on attend un feu vert de quelqu'un qui ne viendra jamais.",
       "On sait qu'une envie devient une action quand elle passe par trois étapes : **décider** clairement ce que l'on veut, **structurer** le chemin en petites étapes concrètes, et **s'engager** envers soi avec une date, une heure, un lieu. Ce n'est pas la motivation qui fait avancer, c'est la clarté du prochain pas.",
-      "Ce mois-ci, tu vas **repérer** ce que tu repousses, **découper** ton projet en étapes faciles, et **tenir** chaque semaine une promesse envers toi. En parallèle, ton suivi « Je me libère » t'invite à regarder le côté de ton père et des hommes de ta lignée : ce que tu as reçu d'eux éclaire souvent ta façon d'oser, ou de te retenir."
+      "Ce mois-ci, tu vas **repérer** ce que tu repousses, **découper** ton projet en étapes faciles, et **tenir** chaque semaine une promesse envers toi. En parallèle, ton livret « Libération » t'invite à regarder le côté de ton père et des hommes de ta lignée : ce que tu as reçu d'eux éclaire souvent ta façon d'oser, ou de te retenir."
     ],
     exemplesTitre: 'À quoi ressemble ce qu’on repousse, au quotidien',
     exemples: [
@@ -110,7 +110,7 @@ window.GENESOLIA_CARNET = {
     outils: [
       ['mon-guide.html', 'Mon guide du mois', 'Ton nombre du mois, ton ciel et tes dates clés, pour choisir les meilleurs jours pour agir.'],
       ['arbre-de-vie.html', 'Faire le test de l’arbre de vie', 'Cinq minutes pour voir quelle sphère de ta vie a le plus besoin d’élan en ce moment.'],
-      ['mon-suivi.html', 'Mon suivi « Je me libère »', 'Ce mois-ci : du côté des pères, ce que tu as reçu de la lignée des hommes.']
+      ['mon-suivi.html', 'Mon livret « Libération »', 'Ce mois-ci : du côté des pères, ce que tu as reçu de la lignée des hommes.']
     ]
   },
 
@@ -152,7 +152,7 @@ window.GENESOLIA_CARNET = {
     titre: 'La flamme de mon engagement',
     intro: "Imagine la lumière à son sommet, comme au jour le plus long de l'année. Ce petit rituel symbolique t'invite à puiser dans cette pleine lumière pour poser un engagement envers toi, et à remercier pour l'élan déjà là. Il se fait en quinze minutes, au coucher du soleil si tu peux.",
     materiel: "Une bougie, un papier et un crayon, et un endroit d’où tu vois le ciel : un jardin, un balcon, une fenêtre, un banc dans un parc.",
-    quand: "Un soir calme de ton étape, dès que tu te sens prêt·e. Tu peux rallumer ta bougie chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
+    quand: "Un soir calme de ton étape, dès que tu te sens prêt·e. Tu peux rallumer ta bougie (de préférence en cire d’abeille) chaque fois que tu doutes de ton engagement, pour te rappeler ce que tu as choisi ce soir-là.",
     etapes: [
       "Installe-toi face au ciel, un peu avant le coucher du soleil. Allume la bougie et respire trois fois profondément.",
       "Pense à tout ce que les mois passés t’ont déjà apporté. Dis intérieurement trois mercis, pour trois choses que tu as vécues ou osées depuis le début de ton parcours.",

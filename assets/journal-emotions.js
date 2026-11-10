@@ -42,8 +42,16 @@
   }
 
   /* ---------- Stockage ---------- */
+  /* Accord : comme les carnets, rien ne part dans l'espace avant « J'accepte que mes réponses soient gardées » (GenesoliaCoffre) */
+  var enLigneSansAccord = 0;
+  function accordDonne() { var CF = window.GenesoliaCoffre; return !!(CF && user && CF.accord(user)); }
   function charger() {
     if (!sb || !user) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null); return Promise.resolve(); }
+    if (!accordDonne()) {
+      mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null);
+      /* journal déjà gardé en ligne avant cette règle : on le signale pour qu'elle confirme ou l'efface */
+      return sb.from('journal_emotions').select('id', { count: 'exact', head: true }).then(function (r) { enLigneSansAccord = (r && r.count) || 0; }, function () {});
+    }
     return sb.from('journal_emotions').select('id,jour,cree_le,emotion,intensite,zones,note,besoin').order('jour', { ascending: false }).order('cree_le', { ascending: false }).limit(500).then(function (r) {
       if (r.error) { if (absente(r.error)) { mode = 'local'; E = lireL(CLE_L, []); C = lireL(CLE_C(), null); return; } throw r.error; }
       mode = 'compte'; E = r.data || []; C = lireL(CLE_C(), null);
@@ -80,7 +88,10 @@
     var aujE = E.filter(function (x) { return x.jour === auj(); });
     var h = '<div class="jo-tete"><div><h2>Mon journal des émotions</h2><p class="tb-aide">Note ce que tu ressens, jour après jour. Au fil des semaines, tu vois ce qui revient, et ce dont tu as le plus souvent besoin.</p></div>' +
       (sa ? '<div class="jo-saison" style="--c:' + sa[2] + '"><b>Jour ' + ic.jour + ' de ton cycle</b><span>' + esc(sa[0]) + '</span></div>' : '') + '</div>' +
-      (mode === 'local' ? '<p class="jo-local">' + (user ? 'Ton journal est gardé sur cet appareil pour le moment. Il passera dans ton espace dès sa mise en service.' : 'Sans compte, ton journal reste sur cet appareil.') + '</p>' : '') +
+      (mode === 'local' ? (user && !accordDonne()
+        ? '<div class="jo-local"><p>' + (enLigneSansAccord ? 'Ton espace contient déjà ' + enLigneSansAccord + ' émotion' + (enLigneSansAccord > 1 ? 's' : '') + ' notée' + (enLigneSansAccord > 1 ? 's' : '') + '. Confirme que tu acceptes qu’elles y soient gardées, ou efface-les.' : 'Ton journal est gardé sur cet appareil. Pour le retrouver sur tous tes appareils, accepte qu’il soit gardé dans ton espace.') + '</p><div id="jo-accord-zone"></div>' + (enLigneSansAccord ? '<p><button type="button" class="btn btn-trait" id="jo-effacer-ligne">Effacer mon journal en ligne</button></p>' : '') + '</div>'
+        : '<p class="jo-local">Sans compte, ton journal reste sur cet appareil.</p>')
+      : '<p class="jo-local">Ton journal est gardé dans ton espace. Il n’est jamais partagé, et l’équipe Genesolia ne le consulte pas.</p>') +
       '<p class="jo-msg" role="status" aria-live="polite"></p>' +
       '<div class="jo-grille">' +
       '<form class="tb-carte jo-form" id="jo-form"><h3>Aujourd’hui' + (aujE.length ? ' <small>(' + aujE.length + ' déjà notée' + (aujE.length > 1 ? 's' : '') + ')</small>' : '') + '</h3>' +
@@ -99,6 +110,19 @@
       '</div>';
     racine.innerHTML = h;
     dessinerCal(); dessinerRevient(); dessinerCycle(); dessinerListe();
+    var z = racine.querySelector('#jo-accord-zone'), CF = window.GenesoliaCoffre;
+    if (z && CF && sb && user) CF.demander(z, sb, function () {
+      /* accord donné : les émotions notées sur cet appareil passent dans l'espace, puis on recharge */
+      sb.auth.getUser().then(function (r) { if (r && r.data && r.data.user) user = r.data.user; }).then(function () {
+        var locales = lireL(CLE_L, []).map(function (x) { return { jour: x.jour, emotion: x.emotion, intensite: x.intensite, zones: x.zones, note: x.note, besoin: x.besoin }; });
+        return locales.length ? sb.from('journal_emotions').insert(locales).then(function (r) { if (!r.error) { try { localStorage.removeItem(CLE_L); } catch (e) {} } }) : null;
+      }).then(function () { return charger(); }).then(dessiner, dessiner);
+    });
+    var ef = racine.querySelector('#jo-effacer-ligne');
+    if (ef) ef.onclick = function () {
+      if (!confirm('Effacer toutes les émotions gardées dans ton espace ? Ce n’est pas réversible.')) return;
+      sb.from('journal_emotions').delete().eq('user_id', user.id).then(function (r) { if (r && r.error) { message('L’effacement n’a pas abouti. Réessaie dans un instant.', true); return; } enLigneSansAccord = 0; dessiner(); });
+    };
   }
   function couleurJour(liste) {
     if (!liste.length) return null;

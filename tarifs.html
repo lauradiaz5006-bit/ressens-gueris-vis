@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <title>Tarifs · Genesolia : gratuit, Ma spirale et Le Cercle</title>
+  <meta name="description" content="Les outils de Genesolia sont gratuits. Ma spirale à 4,99 € par mois (offre de Noël, 7 jours offerts), sans engagement, et Le Cercle à 24,90 € par mois pour être accompagnée sur 12 étapes. 1er mois du Cercle offert.">
+  <link rel="canonical" href="https://genesolia.fr/tarifs.html">
+  <meta property="og:title" content="Tarifs Genesolia">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <link rel="stylesheet" href="assets/site.css?v=noel4">
+  <style>
+    .tarifs{padding:3.5rem 0 2rem}
+    .tf-tete{text-align:center;max-width:40rem;margin:0 auto 2.4rem}
+    .tf-tete p{color:var(--prune-doux);margin-top:.7rem}
+    .tf-grille{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;align-items:stretch}
+    .tf-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 1.6rem;display:flex;flex-direction:column;gap:.9rem;position:relative}
+    .tf-carte.tf-mis{border:2px solid var(--prune);box-shadow:0 18px 40px rgba(107,47,91,.12)}
+    .tf-badge{position:absolute;top:-.8rem;left:50%;transform:translateX(-50%);background:var(--prune);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .9rem;border-radius:999px;white-space:nowrap}
+    .tf-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .tf-carte h2{font-size:1.7rem;margin:0}
+    .tf-role{color:var(--prune-doux);font-size:.95rem;margin:0}
+    .tf-prix{font:400 2.4rem/1 var(--display);color:var(--prune);margin:.3rem 0 0}
+    .tf-prix small{font:400 .95rem var(--texte,inherit);color:var(--prune-doux)}
+    .tf-autres{list-style:none;padding:0;margin:0;display:grid;gap:.3rem;font-size:.92rem;color:var(--prune)}
+    .tf-carte ul.tf-liste{list-style:none;padding:0;margin:.4rem 0 0;display:grid;gap:.5rem;font-size:.95rem;color:var(--prune)}
+    .tf-liste li{position:relative;padding-left:1.3rem}
+    .tf-liste li::before{content:"✦";position:absolute;left:0;color:var(--champagne)}
+    .tf-liste li.tf-plus{font-weight:600}
+    .tf-carte .btn{margin-top:auto;text-align:center}
+    .tf-note{font-size:.85rem;color:var(--prune-doux);text-align:center;margin:0}
+    .tf-ligne{max-width:46rem;margin:2.4rem auto 0;text-align:center;font-family:var(--display);font-size:1.25rem;color:var(--prune)}
+    .tf-cadeau{max-width:46rem;margin:2rem auto 0;display:flex;gap:1.2rem;align-items:center;background:var(--blanc);border:1px dashed var(--rose-fonce);border-radius:var(--rayon);padding:1.3rem 1.5rem}
+    .tf-cadeau b{font:400 1.2rem var(--display);color:var(--prune)}
+    .tf-cadeau p{margin:.2rem 0 0;font-size:.93rem;color:var(--prune-doux)}
+    .tf-cadeau .btn{margin-left:auto;white-space:nowrap}
+    .tf-confiance{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:2.2rem 0 0}
+    .tf-confiance span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.9rem;color:var(--prune)}
+    .tf-faq{max-width:46rem;margin:3rem auto 0}
+    .tf-faq h2{font-size:1.6rem;margin-bottom:1rem;text-align:center}
+    .tf-faq details{border-bottom:1px solid var(--rose);padding:.9rem 0}
+    .tf-faq summary{cursor:pointer;font-weight:600;color:var(--prune)}
+    .tf-faq details p{margin:.6rem 0 0;color:var(--prune-doux)}
+    .tf-legal{text-align:center;font-size:.82rem;color:var(--prune-doux);margin-top:2rem}
+    @keyframes scintille{0%,100%{opacity:.35}50%{opacity:1}}
+    .etoiles::before,.etoiles::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(1.5px 1.5px at 8% 18%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 22% 72%,#F3DCC0 50%,transparent 51%),radial-gradient(2px 2px at 35% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 48% 85%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 62% 14%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 74% 58%,#fff 50%,transparent 51%),radial-gradient(2px 2px at 88% 26%,#F3DCC0 50%,transparent 51%),radial-gradient(1px 1px at 93% 80%,#fff 50%,transparent 51%),radial-gradient(1.5px 1.5px at 15% 50%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 56% 45%,#F3DCC0 50%,transparent 51%);
+      animation:scintille 4s ease-in-out infinite}
+    .etoiles::after{transform:translate(3%,6%) scale(1.1);animation-delay:2s;opacity:.7}
+    .etoile{position:absolute;color:#F3DCC0;text-shadow:0 0 10px rgba(243,220,192,.9);pointer-events:none;animation:scintille 3s ease-in-out infinite;line-height:1;z-index:1}
+    .tf-hero{position:relative;overflow:hidden;border-radius:28px;padding:3rem 1.6rem 2.8rem;text-align:center;margin-bottom:2.6rem;
+      background:radial-gradient(120% 90% at 50% 0%,#8A4677 0%,#6B2F5B 45%,#3E1B38 100%);color:#fff;box-shadow:0 24px 60px rgba(107,47,91,.25)}
+    .tf-hero>*{position:relative;z-index:1}
+    .tf-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.2rem)}
+    .tf-hero h1 em{font-style:normal;background:linear-gradient(100deg,#fff3d6,#e9b871 45%,#fff3d6 70%,#d9a35a);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .tf-hero p{color:#F7E6EE;max-width:38rem;margin:.8rem auto 0}
+    .tf-photo{margin:-1.8rem -1.6rem .4rem;height:150px;overflow:hidden;border-radius:var(--rayon) var(--rayon) 0 0;position:relative}
+    .tf-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .tf-photo::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.9))}
+    .tf-carte{overflow:visible}
+    .tf-carte.tf-pass{background:linear-gradient(180deg,#fff,#FCEFF3)}
+    .tf-carte.tf-mis{background:radial-gradient(120% 70% at 50% 0%,#8A4677 0%,#6B2F5B 50%,#3E1B38 100%);color:#fff;border:1px solid rgba(243,220,192,.7);box-shadow:0 0 0 4px rgba(243,220,192,.18),0 24px 60px rgba(107,47,91,.35)}
+    .tf-carte.tf-mis>*{position:relative;z-index:1}
+    .tf-carte.tf-mis>.tf-badge,.tf-carte.tf-mis>.tf-cielwrap,.tf-carte.tf-mis>.etoile{position:absolute}
+    .tf-carte.tf-mis>.tf-cielwrap{z-index:0}
+    .tf-carte.tf-mis>.tf-badge{z-index:3}
+    .tf-carte.tf-mis .tf-photo::after{background:linear-gradient(180deg,transparent,rgba(107,47,91,.95))}
+    .tf-carte.tf-mis h2,.tf-carte.tf-mis .tf-prix,.tf-carte.tf-mis .tf-liste,.tf-carte.tf-mis .tf-autres{color:#fff}
+    .tf-carte.tf-mis .tf-role,.tf-carte.tf-mis .tf-prix small,.tf-carte.tf-mis .tf-note{color:#F7E6EE}
+    .tf-carte.tf-mis .tf-etiq{color:#F3DCC0}
+    .tf-carte.tf-mis .tf-liste li::before{color:#F3DCC0;text-shadow:0 0 8px rgba(243,220,192,.8)}
+    .tf-carte.tf-mis .btn-plein{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;border:0;box-shadow:0 10px 30px rgba(233,184,113,.45)}
+    .tf-badge{background:linear-gradient(100deg,#e9b871,#f6dca8 50%,#d9a35a);color:#3a1530;z-index:3}
+    .tf-cielwrap{position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0}
+    .tf-cadeau img{width:84px;height:84px;object-fit:cover;border-radius:14px;flex:none;box-shadow:0 8px 20px rgba(107,47,91,.2)}
+    .tf-ligne::before,.tf-ligne::after{content:" ✦ ";color:var(--champagne)}
+    @media (prefers-reduced-motion:reduce){.etoiles::before,.etoiles::after,.etoile{animation:none}}
+    @media (max-width:960px){.tf-grille{grid-template-columns:1fr;max-width:30rem;margin:0 auto}.tf-carte.tf-mis{order:-1}.tf-carte:first-child{order:1}}
+    @media (max-width:560px){.tf-cadeau{flex-direction:column;align-items:flex-start}.tf-cadeau .btn{margin-left:0}}
+    .tf-badge-bientot{background:var(--champagne)}
+    .tf-indispo{margin-top:auto;text-align:center;opacity:.6;cursor:default;pointer-events:none}
+    .tf-bientot{max-width:60rem;margin:2.6rem auto 0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem 1.8rem;scroll-margin-top:6rem}
+    .tf-bientot h2{margin:.3rem 0 .8rem}
+    .tf-bi-intro{color:var(--prune-doux);margin:0 0 .8rem;max-width:46rem}
+    .tf-bi-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.2rem 0}
+    .tf-bi-grille div{border:1px solid var(--rose);border-radius:16px;padding:1.1rem 1.2rem}
+    .tf-bi-grille h3{font-size:1.15rem;margin:0 0 .4rem;color:var(--prune)}
+    .tf-bi-grille p{margin:0;font-size:.93rem;color:var(--prune-doux)}
+    .tf-bi-note{margin:.5rem 0 0;font-size:.95rem;color:var(--prune)}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main class="conteneur tarifs">
+    <div class="tf-hero etoiles">
+      <span class="etoile" style="top:18%;left:9%;font-size:1.4rem" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:62%;left:16%;font-size:.9rem;animation-delay:1s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:22%;right:11%;font-size:1.1rem;animation-delay:.5s" aria-hidden="true">✦</span>
+      <span class="etoile" style="top:70%;right:8%;font-size:1.5rem;animation-delay:1.6s" aria-hidden="true">✦</span>
+      <h1>Choisis <em>ton chemin</em></h1>
+      <p>Les outils restent gratuits. Pour aller plus loin, deux formules : Ma spirale pour comprendre et libérer à ton rythme, Le Cercle pour être accompagnée et avancer.</p>
+    </div>
+
+    <div data-devise-ici></div>
+    <div class="tf-grille">
+      <section class="tf-carte" aria-labelledby="t-gratuit">
+        <div class="tf-photo"><img src="assets/images/genosociogramme-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Découvrir</span>
+        <h2 id="t-gratuit">Gratuit</h2>
+        <p class="tf-role">Pour commencer, sans compte et sans carte.</p>
+        <p class="tf-prix">0 €</p>
+        <ul class="tf-liste">
+          <li>Ton arbre familial, à dessiner et à garder</li>
+          <li>Les analyses de ton arbre (ce qui se répète, numérologie, astrologie) : offertes pendant le lancement, puis 30 jours offerts avec ton compte</li>
+          <li><a href="parcours.html">Le test du cycle</a> (10 minutes)</li>
+          <li>Numérologie, thème astral, arbre de vie, rêves : les versions courtes</li>
+          <li>Le ciel du mois et ton guide du mois</li>
+        </ul>
+        <a class="btn btn-trait" href="offert.html">Voir les outils gratuits</a>
+      </section>
+
+      <section class="tf-carte tf-pass" aria-labelledby="t-pass">
+        <div class="tf-photo"><img src="assets/pass/ma-spirale-appareils-large.webp" width="800" height="420" alt="Ma spirale sur ordinateur et téléphone : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Comprendre</span>
+        <h2 id="t-pass">Ma spirale</h2>
+        <p class="tf-role">Ton outil au quotidien, en autonomie : tu l’ouvres quand quelque chose remonte.</p>
+        <p class="tf-prix">4,99 € <small>par mois, sans engagement</small></p>
+        <p class="tf-noel"><span class="promo-noel">✦ Offre de Noël</span> 7 jours offerts, puis 4,99 € par mois</p>
+        <ul class="tf-liste">
+          <li><b>L’appli Ma spirale</b>, pour sortir de tes boucles : tes ressentis, ta frise, tes protocoles, ton suivi</li>
+          <li><b>Ton mois à toi</b>, chaque mois : ton mois personnel et le ciel du mois appliqué à ton thème</li>
+          <li><b>Ton agenda</b> : ta semaine, les lunes et les dates de ton arbre</li>
+          <li><b>Des rappels sur ton téléphone</b>, que tu choisis un par un</li>
+          <li><b>Toutes les analyses de ton arbre</b> : ce qui se répète, le fil d’or en arbre, la numérologie et l’astrologie reliées, ton rapport</li>
+          <li><b>Tous les livrets complets</b>, pour toi et pour tes proches</li>
+          <li>Les 12 saisons, le livret de l'année</li>
+        </ul>
+        <a class="btn btn-trait" href="ma-spirale.html#offre" data-payer="passMois">M’abonner</a>
+        <a class="tf-lien-3mois" href="pass.html">J’ai déjà un compte : ouvrir Ma spirale</a>
+        <a class="tf-lien-3mois" href="ma-spirale.html">Découvrir Ma spirale</a>
+      </section>
+
+      <section class="tf-carte tf-mis" aria-labelledby="t-cercle">
+        <span class="tf-badge">1<sup>er</sup> mois offert</span>
+        <div class="tf-cielwrap etoiles" aria-hidden="true"></div>
+        <span class="etoile" style="top:46%;right:7%;font-size:1.1rem" aria-hidden="true">✦</span>
+        <span class="etoile" style="bottom:22%;left:6%;font-size:.8rem;animation-delay:1.2s" aria-hidden="true">✦</span>
+        <div class="tf-photo"><img src="assets/images/relations-800.webp" width="800" height="420" alt="" loading="lazy" decoding="async"></div>
+        <span class="tf-etiq">Avancer</span>
+        <h2 id="t-cercle">Le Cercle</h2>
+        <p class="tf-role">Pour être accompagnée sur 12 étapes et sortir de tes boucles.</p>
+        <p class="tf-prix">24,90 € <small>par mois, sans engagement</small></p>
+        <p class="tf-noel"><span class="promo-noel">✦ Cadeau de Noël</span> après ton mois offert : <s>24,90 €</s> <b>17,77 € par mois</b>, pour toute inscription jusqu’au 31 décembre</p>
+        <ul class="tf-autres"><li>ou 199 € par an au lieu de 249 €, offre de Noël jusqu’au 31 décembre (renouvelé chaque année)</li><li>à offrir : <a href="boutique.html#carte-cadeau">carte cadeau 3 mois (49 €) ou 6 mois (99 €)</a></li></ul>
+        <ul class="tf-liste">
+          <li>Ton parcours en 12 étapes : carnet Renaissance et livret Libération</li>
+          <li>2 séances audio par mois, une pour chaque cycle</li>
+          <li>La formation « Sors de la boucle » : 8 modules, livrets et exercices</li>
+          <li>Ta question du mois, et les réponses publiées chaque mois, sans prénom</li>
+          <li>Ton livre de lignée, au bout de l'année</li>
+        </ul>
+        <a class="btn btn-plein" href="essai.html">Ouvrir mon mois offert</a>
+        <p class="tf-note">Aucune carte demandée pour ton mois offert. <a href="s-abonner.html">Ou m’abonner directement</a>.</p>
+      </section>
+    </div>
+
+    <p class="tf-ligne">Ma spirale est l’outil. Le Cercle l’inclut et t’accompagne en plus, étape par étape.</p>
+
+    <section class="tf-bientot" id="pass-bientot" aria-labelledby="t-bientot">
+      <p class="tf-etiq">L’appli</p>
+      <h2 id="t-bientot">Ma spirale</h2>
+      <p class="tf-bi-intro">Ma spirale, c’est un espace d’introspection pour regarder ce qui se répète dans ta vie, comprendre d’où ça vient, le libérer et avancer. Sur ton téléphone comme une appli, ou sur ordinateur.</p>
+      <div class="tf-bi-grille">
+        <div><h3>Moi</h3><p>Déposer un ressenti en 3 questions, noter un rêve, ta note du jour, tes schémas en cours.</p></div>
+        <div><h3>Mon fil d’or</h3><p>Ta frise de vie et celle de ta lignée, pour voir ce qui se répond d’une génération à l’autre.</p></div>
+        <div><h3>Mon agenda</h3><p>Les dates de ta lignée, les lunes, tes libérations, tes gestes et tes suivis.</p></div>
+        <div><h3>Mon bilan</h3><p>Ta lignée en sphères de lumière, tes liens, et tes schémas devenus spirale.</p></div>
+        <div><h3>Mes actions</h3><p>Tous les protocoles prêts à suivre : trouver la première fois, libérer ta vie et ta lignée, poser une intention.</p></div>
+      </div>
+      <p class="tf-bi-note">7 jours offerts, puis 4,99 € par mois (offre de Noël), sans engagement, et incluse dans Le Cercle. <a href="ma-spirale.html">Découvrir Ma spirale</a></p>
+    </section>
+
+    <div class="tf-cadeau" data-garder-euros>
+      <img src="assets/images/arbre-de-vie-800.webp" alt="" loading="lazy" decoding="async">
+      <div><b>Ton arbre imprimé et envoyé</b><p>Ton arbre en poster, livré chez toi. De 45 à 89 €, livraison comprise en France métropolitaine.</p></div>
+      <a class="btn btn-trait" href="genosociogramme.html">Créer mon arbre</a>
+    </div>
+
+    <div class="tf-confiance" aria-label="Nos engagements">
+      <span>Sans engagement au mois</span><span>Tu arrêtes en un clic, depuis ton espace</span><span>Paiement sécurisé</span><span>Tes données restent privées</span>
+    </div>
+
+    <section class="tf-faq" aria-labelledby="t-faq">
+      <h2 id="t-faq">Questions fréquentes</h2>
+      <details><summary>Mon arbre reste-t-il gratuit ?</summary><p>Oui. Dessiner et garder ton arbre familial est gratuit, pour toujours. Les analyses (ce qui se répète, la numérologie et l’astrologie reliées à l’arbre, le rapport) sont offertes pendant le lancement, puis 30 jours avec ton compte. Ensuite, elles font partie de Ma spirale. Ton arbre, lui, reste à toi.</p></details>
+      <details><summary>Je suis praticien·ne : quelle formule ?</summary><p>L’outil gratuit est réservé à un usage personnel. Pour tes client·es, l’<a href="espace-praticien.html">Espace praticien</a> te donne autant d’arbres que tu veux, avec les rapports et les exports à ton nom : 24 € par mois, ou 240 € l’année.</p></details>
+      <details><summary>Quelle différence entre Ma spirale et Le Cercle ?</summary><p>Ma spirale est un outil que tu ouvres seul·e, quand quelque chose remonte, pour comprendre d'où ça vient, le libérer et suivre ton avancée. Pas de programme, pas de rendez-vous. Le Cercle est une autre offre, un parcours guidé mois par mois : une étape, un carnet, des séances audio et une formation.</p></details>
+      <details><summary>Je peux arrêter quand je veux ?</summary><p>Oui, pour Ma spirale et pour Le Cercle au mois : tu arrêtes depuis ton espace, en un clic, et tu gardes l'accès jusqu'à la fin du mois payé. Les formules sur 3 mois, sur 12 mois ou à l'année vont jusqu'au bout de la période choisie.</p></details>
+      <details><summary>Les livrets pour mes proches, comment ça marche ?</summary><p>Tu indiques la date de naissance de la personne et tu obtiens son livret. Fais-le avec son accord, et pour un enfant, en tant que parent.</p></details>
+      <details><summary>J'ai le cadeau de Noël à 17,77 €. Il change ?</summary><p>Non. Si tu continues Le Cercle après ton mois offert avant le 31 décembre, tu gardes 17,77 € par mois, sans engagement, tant que tu restes.</p></details>
+    </section>
+
+    <p class="tf-legal"><span class="tf-legal-eur">Prix en euros, toutes taxes comprises.</span> <a href="confidentialite.html">Confidentialité</a></p>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

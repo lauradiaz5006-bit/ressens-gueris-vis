@@ -6,7 +6,7 @@
    image : l'illustration de la carte (cycle 1 : images provisoires, à remplacer par celles du dossier Drive des séances). */
 window.GENESOLIA_SEANCES = {
   cycles: {
-    1: { titre: 'Cycle 1 · De la peur à la paix', sousTitre: 'Libérer le mode survie, pour vivre en alignement et en paix avec soi' },
+    1: { titre: 'Cycle 1 · De la peur à la paix', sousTitre: 'Libérer le mode survie (toujours en alerte, à tout tenir à bout de bras), pour vivre en alignement et en paix avec soi' },
     2: { titre: 'Cycle 2 · Comment j’aime', sousTitre: 'Libérer ce qui pèse dans ta façon d’aimer, pour aimer plus grand, en accord avec toi' }
   },
   liste: [

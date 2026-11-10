@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ma spirale : l’appli pour sortir de tes boucles · Genesolia</title>
+  <meta name="description" content="Ma spirale, l’appli Genesolia : dépose ce que tu ressens, retrouve d’où ça vient dans ta vie et ta lignée, libère-le avec des protocoles prêts à suivre, et avance. Sur téléphone comme une appli, ou sur ordinateur.">
+  <link rel="canonical" href="https://genesolia.fr/ma-spirale.html">
+  <meta property="og:title" content="Ma spirale · l’appli pour sortir de tes boucles">
+  <meta property="og:description" content="Ce qui se répète dans ta vie a une source. Ma spirale t’aide à la trouver, à la libérer et à avancer.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/ma-spirale.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .a-tete{position:relative;overflow:hidden;color:#FFF4F6;background:linear-gradient(120deg,#2E1338,#6B2F5B)}
+    .a-tete .conteneur{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center;padding:4rem 0}
+    .a-sur{font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:1rem}
+    .a-tete h1{color:#fff;margin-bottom:1.1rem}
+    .a-tete .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.6rem;max-width:36rem}
+    .a-date{display:inline-block;padding:.55rem 1.1rem;border-radius:99px;background:rgba(255,255,255,.12);border:1px solid rgba(243,220,192,.4);font-weight:600}
+    .a-date b{color:var(--champagne-clair)}
+    .a-offre{display:inline-block;padding:1.1rem 1.4rem;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(243,220,192,.4)}
+    .a-offre .a-barre{margin:0;font-size:1.05rem;color:#E6CFDD}
+    .a-offre .a-barre s{opacity:.8}
+    .a-offre .a-gros{margin:.2rem 0 .8rem;font-family:var(--display);font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.1;color:#fff}
+    .a-offre .btn{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .a-offre .a-petit{margin:.7rem 0 0;font-size:.86rem;color:#E6CFDD}
+    .a-essai{margin:0;font-family:var(--display);font-size:1.7rem;line-height:1.15;color:var(--prune)}
+    .a-essai s{font:400 1.1rem var(--texte);color:var(--prune-doux);margin-right:.4rem}
+    .a-lancement{max-width:44rem;margin:0 auto;text-align:center}
+    .a-lancement h2{font-size:1.8rem;margin-bottom:.8rem}
+    .a-lancement p{color:var(--prune-doux);margin-bottom:1rem}
+    .a-laura{display:block;width:150px;height:150px;margin:0 auto 1.2rem;border-radius:50%;object-fit:cover;box-shadow:0 16px 40px rgba(107,47,91,.18)}
+    .a-signe{font:400 1.6rem var(--display);color:var(--prune)!important;margin:.2rem 0 1.2rem!important}
+    .a-acheter{margin-top:.6rem;align-self:flex-start;font-size:.88rem;padding:.45rem .95rem}
+    .a-rythme{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;counter-reset:r}
+    .a-rythme li{counter-increment:r;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:3rem 1.1rem 1.2rem;font-size:.92rem;color:var(--prune-doux);line-height:1.5}
+    .a-rythme li::before{content:counter(r);position:absolute;top:1rem;left:1.1rem;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;background:var(--champagne-clair);color:var(--prune);font:600 .85rem var(--texte)}
+    .a-rythme b{display:block;font-family:var(--display);font-weight:400;font-size:1.15rem;color:var(--prune);margin-bottom:.35rem}
+    @media (max-width:960px){.a-rythme{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.a-rythme{grid-template-columns:1fr}}
+    .a-couv{justify-self:center;width:min(240px,70%);height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.45);transform:rotate(3deg)}
+
+    .a-titre{text-align:center;max-width:42rem;margin:0 auto 2.4rem}
+    .a-titre p{color:var(--prune-doux);margin-top:.7rem}
+    .a-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+
+    .a-formules{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1.2rem;align-items:stretch}
+    .a-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06);display:flex;flex-direction:column;gap:.9rem}
+    .a-carte.vedette{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 55%)}
+    .a-carte h3{font-size:1.6rem}
+    .a-prix{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--prune)}
+    .a-prix small{font:400 1rem var(--texte);color:var(--prune-doux)}
+    .a-carte ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem}
+    .a-carte li{position:relative;padding-left:1.5rem;line-height:1.5}
+    .a-carte li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    .a-carte .btn{margin-top:auto;align-self:flex-start}
+    .a-note{font-size:.88rem;color:var(--prune-doux)}
+    .a-badge{align-self:flex-start;font:600 .72rem var(--texte);letter-spacing:.08em;text-transform:uppercase;background:var(--prune);color:#fff;border-radius:99px;padding:.25rem .7rem}
+
+    .a-grille{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem}
+    .a-produit{background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .a-produit h3{font-size:1.2rem}
+    .a-produit p{font-size:.93rem;color:var(--prune-doux)}
+    .a-produit .a-p{margin-top:auto;font-family:var(--display);font-size:1.5rem;color:var(--prune)}
+    .a-produit .a-inclus{font:600 .78rem var(--texte);color:var(--champagne)}
+
+    .a-packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+    .a-pack{border-radius:var(--rayon);padding:1.8rem;background:var(--rose);display:flex;flex-direction:column;gap:.7rem}
+    .a-pack h3{font-size:1.4rem}
+    .a-pack .a-p{font-family:var(--display);font-size:1.8rem}
+    .a-pack .a-p s{font:400 1rem var(--texte);color:var(--prune-doux);margin-left:.4rem}
+
+    .a-autres{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+
+    .a-liste{max-width:40rem;margin:0 auto;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:2rem;box-shadow:0 14px 40px rgba(107,47,91,.06)}
+    .a-liste h2{font-size:1.7rem;margin-bottom:.4rem}
+    .a-liste > p{color:var(--prune-doux);margin-bottom:1.2rem}
+    .a-champs{display:grid;grid-template-columns:1fr 1.4fr;gap:.8rem;margin-bottom:.9rem}
+    .a-liste label{display:grid;gap:.3rem;font-size:.9rem;font-weight:600}
+    .a-liste input[type=text],.a-liste input[type=email]{font:400 1rem var(--texte);color:var(--prune);padding:.75rem .9rem;border:1.5px solid var(--rose-fonce);border-radius:14px;background:var(--blanc);width:100%;box-sizing:border-box}
+    .a-choix{border:0;padding:0;margin:0 0 1rem;display:grid;gap:.4rem}
+    .a-choix legend{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+    .a-choix label{display:flex;gap:.55rem;align-items:center;font-weight:400}
+    .a-choix input,.a-accord input{accent-color:var(--prune);width:1.05rem;height:1.05rem;flex-shrink:0}
+    .a-liste .a-accord{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;font-size:.86rem;color:var(--prune-doux);margin-bottom:1rem;line-height:1.45}
+    .a-accord input{margin-top:.2rem}
+    .a-erreur{margin:.7rem 0 0;font-size:.9rem;color:#A33A4A;min-height:1.2em}
+    .a-merci{font-family:var(--display);font-size:1.3rem}
+
+    @media (max-width:960px){.a-grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:860px){
+      .a-tete .conteneur{grid-template-columns:1fr;padding:3rem 0}
+      .a-couv{width:160px}
+      .a-formules,.a-packs,.a-autres{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){.a-grille{grid-template-columns:1fr}.a-champs{grid-template-columns:1fr}.a-carte,.a-liste{padding:1.5rem}}
+
+    /* Tunnel de vente */
+    .t-hero{position:relative;overflow:hidden;color:#FFF4F6;background:#2E1338}
+    .t-hero-fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+    .t-hero::after,.t-urgence::after,.t-final::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(46,19,56,.95) 0%,rgba(46,19,56,.78) 45%,rgba(107,47,91,.25) 100%)}
+    .t-hero-grille{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:3rem;align-items:center;padding:5rem 0 4.5rem}
+    .t-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.08;margin-bottom:1.2rem}
+    .t-hero .intro{font-size:1.15rem;color:#F7E6EE;margin-bottom:1.8rem;max-width:36rem}
+    .t-couvs{position:relative;height:420px}
+    .t-couv{position:absolute;width:230px;height:auto;border-radius:10px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+    .t-couv-1{top:0;right:0;transform:rotate(8deg)}
+    .t-couv-2{top:50px;right:40%;transform:rotate(-5deg)}
+    .t-cta{font-size:1.05rem;padding:1rem 1.7rem;box-shadow:0 12px 30px rgba(107,47,91,.28)}
+    .a-offre .t-cta{box-shadow:0 12px 30px rgba(0,0,0,.3)}
+    .t-rassure{margin:.8rem 0 0;font-size:.88rem;color:var(--prune-doux)}
+    .t-bandeau{background:var(--prune);color:#F7E6EE;font-size:.95rem}
+    .t-bandeau .conteneur{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem 1.5rem;padding:1rem 0}
+    .t-bandeau b{color:var(--champagne-clair)}
+    .t-douleurs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+    .t-douleurs li{background:var(--blanc);border:1px solid var(--rose);border-top:4px solid var(--corail);border-radius:18px;padding:1.4rem;color:var(--prune-doux);line-height:1.55;font-size:.95rem}
+    .t-douleurs b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.4rem}
+    .t-verite{max-width:44rem;margin:2.4rem auto 0;text-align:center}
+    .t-verite p{font-size:1.12rem;margin-bottom:1.4rem;max-width:none}
+    .t-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .t-split-img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:var(--rayon);box-shadow:0 24px 60px rgba(107,47,91,.16)}
+    .t-split h2{margin-bottom:1rem}
+    .t-split p{margin-bottom:1rem}
+    .t-coches{list-style:none;margin:0 0 1.5rem;padding:0;display:grid;gap:.6rem}
+    .t-coches li{position:relative;padding-left:2rem;line-height:1.5}
+    .t-coches li::before{content:"";position:absolute;left:0;top:.15em;width:1.25rem;height:1.25rem;border-radius:50%;background:var(--champagne) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat}
+    .t-contenus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}
+    .t-contenus article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-contenus article>img{width:100%;height:190px;object-fit:cover;display:block}
+    .t-contenus article>img.t-portrait{object-fit:contain;background:linear-gradient(135deg,#FCEFF3,#FFF6EC);padding:1rem 0}
+    .t-contenus article>div{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+    .t-contenus h3{font-size:1.3rem}
+    .t-contenus p{font-size:.94rem;color:var(--prune-doux)}
+    .t-valeur{margin-top:auto;align-self:flex-start;font:600 .8rem var(--texte);letter-spacing:.04em;color:var(--prune);background:var(--champagne-clair);border-radius:99px;padding:.3rem .8rem}
+    .t-pile{margin-top:3rem;display:grid;grid-template-columns:1.3fr .7fr;gap:2rem;align-items:center;padding:2.4rem;border-radius:var(--rayon);border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);box-shadow:0 20px 50px rgba(107,47,91,.1)}
+    .t-pile h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:1.2rem}
+    .t-pile ul{list-style:none;margin:0;padding:0}
+    .t-pile li,.t-total,.t-toi{display:flex;justify-content:space-between;gap:1rem;padding:.6rem 0;border-bottom:1px dashed var(--rose-fonce)}
+    .t-total{margin:0;border-bottom:0;font-weight:600}
+    .t-total s{color:var(--prune-doux)}
+    .t-toi{margin:0;border:0;padding-top:.2rem;font-family:var(--display);font-size:1.6rem;color:var(--prune)}
+    .t-toi b{font-weight:400;font-size:2.4rem;line-height:1}
+    .t-pile-cta{text-align:center}
+    .t-pile p,.t-risque p,.t-contenus p,.t-douleurs li,.t-hero .a-offre p{max-width:none}
+    .t-etapes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;counter-reset:e}
+    .t-etapes li{counter-increment:e;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:18px;padding:3.6rem 1.4rem 1.4rem;color:var(--prune-doux);line-height:1.55}
+    .t-etapes li::before{content:counter(e);position:absolute;top:1.1rem;left:1.4rem;width:2rem;height:2rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 1rem var(--texte)}
+    .t-etapes b{display:block;font:400 1.3rem var(--display);color:var(--prune);margin-bottom:.35rem}
+    .t-urgence,.t-final{position:relative;overflow:hidden;background:#2E1338;color:#FFF4F6}
+    .t-urgence-texte,.t-final-texte{position:relative;z-index:1;padding:5rem 0;max-width:40rem}
+    .t-urgence h2,.t-final h2{color:#fff;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+    .t-urgence p,.t-final p{color:#F7E6EE;font-size:1.1rem;margin-bottom:1.6rem}
+    .t-urgence .btn-plein,.t-final .btn-plein{background:var(--champagne);border-color:var(--champagne);color:#2E1338}
+    .t-final .t-rassure{color:#E6CFDD;margin-top:.9rem}
+    .t-final-texte{margin-inline:auto;text-align:center}
+    .t-risque{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;max-width:52rem;margin:0 auto;padding:2.4rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-risque h2{margin-bottom:1rem}
+    .t-sceau{width:150px;height:150px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at 30% 25%,#fff,var(--champagne-clair));border:3px double var(--champagne);color:var(--prune)}
+    .t-sceau span{font:400 2.6rem var(--display);line-height:1}
+    .t-sceau small{font-size:.8rem;font-weight:600}
+    .t-barre{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,249,247,.97);border-top:1px solid var(--rose-fonce);box-shadow:0 -10px 30px rgba(107,47,91,.1);backdrop-filter:blur(6px)}
+    .t-barre .conteneur{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.7rem 0}
+    .t-barre p{margin:0;font-size:.95rem}
+    .t-barre s{color:var(--prune-doux)}
+    .t-barre b{font-family:var(--display);font-weight:400;font-size:1.2rem;white-space:nowrap}
+    .t-barre .btn{white-space:nowrap;flex:none}
+    .t-barre span{color:var(--prune-doux);font-size:.85rem}
+    .t-barre .btn{padding:.65rem 1.3rem}
+    .appli .t-barre{bottom:calc(4.6rem + env(safe-area-inset-bottom,0px))}
+    body.avec-barre{padding-bottom:4.5rem}
+    body.avec-barre .crisp-client [role="button"][data-maximized]{bottom:82px!important;transition:bottom .2s}   /* la bulle de discussion remonte au-dessus de la barre « Ouvrir mon mois offert » */
+    @media (max-width:960px){.t-douleurs{grid-template-columns:1fr 1fr}.t-contenus{grid-template-columns:1fr 1fr}}
+    @media (max-width:860px){
+      .t-hero-grille{grid-template-columns:1fr;padding:3.5rem 0}
+      .t-couvs{display:none}
+      .t-split,.t-pile,.t-etapes{grid-template-columns:1fr}
+      .t-risque{grid-template-columns:1fr;justify-items:center;text-align:left}
+      .t-pile{padding:1.6rem}
+    }
+    @media (max-width:560px){.t-douleurs,.t-contenus{grid-template-columns:1fr}.t-barre span{display:none}.t-bandeau .conteneur{display:grid;grid-template-columns:1fr 1fr}}
+    .t-parcours{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}
+    .t-parcours article{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-parcours img{width:100%;height:170px;object-fit:cover;display:block}
+    .t-parcours article>div{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+    .t-parcours p,.t-parcours li{max-width:none;font-size:.95rem;line-height:1.55}
+    .t-qui{font:400 1.25rem var(--display);color:var(--prune);line-height:1.25!important;font-size:1.25rem!important}
+    .t-parcours ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;color:var(--prune-doux)}
+    .t-parcours li{position:relative;padding-left:1.1rem}
+    .t-parcours li::before{content:"";position:absolute;left:0;top:.6em;width:.45rem;height:.45rem;border-radius:50%;background:var(--champagne)}
+    .t-apres{margin-top:auto;padding-top:.8rem;border-top:1px dashed var(--rose-fonce);font-family:var(--display);font-size:1.1rem!important;color:var(--prune)}
+    .t-mention{max-width:none;text-align:center;margin-top:1.2rem;font-size:.85rem;color:var(--prune-doux)}
+    .t-mois{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1rem;list-style:none;margin:0;padding:0}
+    .t-mois li{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;display:flex;flex-direction:column}
+    .t-mois img{width:100%;height:auto;aspect-ratio:540/640;object-fit:cover;object-position:top;display:block;background:var(--rose)}
+    .t-mois li>div{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.4rem}
+    .t-mois .t-sem{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne)}
+    .t-mois b{font:400 1.2rem var(--display);color:var(--prune)}
+    .t-mois p{max-width:none;font-size:.93rem;line-height:1.5;color:var(--prune-doux)}
+    .t-mois .t-duree{font-size:.85rem;color:var(--prune)}
+    .t-moyenne{text-align:center;max-width:40rem;margin:1.6rem auto 0;color:var(--prune);font-size:.98rem}
+    .t-temps{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin:1.6rem 0 0}
+    .t-temps span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.5rem 1rem;font-size:.92rem;color:var(--prune)}
+    .t-fin{margin-top:2.4rem;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem 2rem;max-width:46rem;margin-left:auto;margin-right:auto}
+    .t-fin h3{font-size:1.45rem;margin-bottom:.8rem}
+    .t-fin ul{margin:0;padding-left:1.2rem;display:grid;gap:.45rem;color:var(--prune)}
+    @media (max-width:960px){.t-mois{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:560px){.t-mois{grid-template-columns:1fr}.t-mois img{aspect-ratio:540/520}.t-fin{padding:1.4rem}}
+    .t-avis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+    .t-avis figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.6rem}
+    .t-avis blockquote{margin:0 0 1rem;font-family:var(--display);font-size:1.15rem;line-height:1.5;color:var(--prune)}
+    .t-avis figcaption{font-size:.88rem;color:var(--prune-doux)}
+    @media (max-width:960px){.t-parcours,.t-avis{grid-template-columns:1fr}}
+    /* Téléphone : la page reste complète mais se lit plus vite (cartes compactes, exemples à faire glisser) */
+    @media (max-width:560px){
+      .t-contenus{gap:.7rem}
+      .t-contenus article{display:grid;grid-template-columns:84px 1fr;align-items:start}
+      .t-contenus article>img,.t-contenus article>img.t-portrait{width:84px;height:100%;min-height:112px;padding:0}
+      .t-contenus article>img.t-portrait{object-fit:cover}
+      .t-contenus article>div{padding:.9rem 1rem;gap:.3rem}
+      .t-contenus h3{font-size:1.1rem}
+      .t-contenus p{font-size:.88rem;line-height:1.5}
+      .t-parcours{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}
+      .t-parcours::-webkit-scrollbar{display:none}
+      .t-parcours article{flex:0 0 86%;scroll-snap-align:center}
+      .t-parcours img{height:120px}
+      .t-parcours article>div{padding:1.1rem 1.15rem 1.2rem;gap:.6rem}
+      .t-glisser{display:block!important}
+    }
+    .t-glisser{display:none;text-align:center;font-size:.85rem;color:var(--prune-doux);margin:.4rem 0 0}
+    /* Refonte : six questions, piliers, chiffres, appli, sommaire, petits + */
+    .t-six{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-q{font-family:var(--display);font-size:1.08rem!important;line-height:1.4;color:var(--prune)!important}
+    .t-piliers{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .t-piliers .t-valeur{white-space:normal}
+    .t-audio{margin:1.6rem auto 0;max-width:44rem;text-align:center;padding:1.4rem 1.6rem;border-radius:var(--rayon);background:var(--blanc);border:2px solid var(--champagne)}
+    .t-audio p{max-width:none;margin:0}
+    .t-chiffres{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;text-align:center}
+    .t-chiffres li{color:var(--prune-doux);font-size:.92rem;line-height:1.4}
+    .t-chiffres b{display:block;font:400 2.6rem var(--display);color:var(--prune);line-height:1.1}
+    .t-barre-appli{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1.2rem;max-width:none}
+    .t-barre-appli span{padding:.4rem .8rem;border-radius:99px;background:linear-gradient(135deg,#F3DCC0,#E8C48F);color:#2E1338;font-weight:600;font-size:.86rem}
+    .t-sommaire{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;counter-reset:s}
+    .t-sommaire li{counter-increment:s;position:relative;background:var(--blanc);border:1px solid var(--rose);border-radius:16px;padding:1rem 1rem 1rem 3.4rem;display:flex;flex-direction:column;gap:.2rem;font-size:.9rem;color:var(--prune-doux);line-height:1.4}
+    .t-sommaire li::before{content:counter(s);position:absolute;left:1rem;top:1rem;width:1.7rem;height:1.7rem;border-radius:50%;display:grid;place-items:center;background:var(--prune);color:#fff;font:600 .85rem var(--texte)}
+    .t-sommaire b{font:400 1.12rem var(--display);color:var(--prune)}
+    .t-sommaire i{color:var(--champagne);font-weight:600}
+    .t-legende{text-align:center;margin:1.2rem auto 0;font-size:.85rem;color:var(--prune-doux);max-width:none}
+    .t-chips{list-style:none;margin:0 auto;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:52rem}
+    .t-chips li{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.05rem;font-size:.93rem;color:var(--prune)}
+    .t-chips li::before{content:"+ ";color:var(--champagne);font-weight:700}
+    @media (max-width:960px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr 1fr}.t-chiffres{grid-template-columns:1fr 1fr}}
+    @media (max-width:560px){.t-six,.t-piliers,.t-sommaire{grid-template-columns:1fr}.t-six{gap:.6rem}.t-six li{padding:.9rem 1.1rem}.t-six b{font-size:1.15rem;margin-bottom:.2rem}}
+    .t-avant-apres{max-width:40rem;margin:2.2rem auto 0;text-align:center;padding:1.8rem;border-radius:var(--rayon);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%);border:2px solid var(--champagne)}
+    .t-avant-apres p{max-width:none;margin:0 0 .7rem}
+    .t-avant-apres .btn{margin-top:.6rem}
+    @media (max-width:560px){.t-hero-grille{padding:2.2rem 0 2.4rem}.t-hero h1{font-size:1.85rem;margin-bottom:.8rem}.t-hero .intro{font-size:1rem;margin-bottom:1.1rem}}
+    .t-ecrans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .t-ecrans figure{margin:0;text-align:center}
+    .t-ecrans img{width:100%;height:auto;aspect-ratio:540/760;object-fit:cover;object-position:top;border-radius:24px;border:6px solid #2E1338;box-shadow:0 20px 45px rgba(46,19,56,.25)}
+    .t-ecrans figcaption{margin-top:.5rem;font:600 .85rem var(--texte);color:var(--prune)}
+    @media (max-width:860px){.t-ecrans{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.8rem;margin:0 -16px;padding:0 16px .6rem;scrollbar-width:none}.t-ecrans::-webkit-scrollbar{display:none}.t-ecrans figure{flex:0 0 58%;scroll-snap-align:center}}
+    .t-ecoute{margin-top:1.1rem;padding-top:1.1rem;border-top:1px dashed var(--rose-fonce)}
+    .t-ecoute p{font-size:.95rem;color:var(--prune-doux);margin:0 0 .7rem!important}
+    .t-ecoute b{color:var(--prune)}
+    .t-ecoute audio{width:100%;max-width:26rem;height:44px;border-radius:99px}
+    .t-semaine1{max-width:42rem;margin:0 auto;text-align:center;padding:2rem;border-radius:var(--rayon);background:var(--blanc);border:1px solid var(--rose);box-shadow:0 14px 40px rgba(107,47,91,.07)}
+    .t-semaine1 ol{list-style:none;margin:1rem 0 1.4rem;padding:0;display:grid;gap:.7rem;text-align:left}
+    .t-semaine1 li{padding-left:1.5rem;position:relative;line-height:1.5}
+    .t-semaine1 li::before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:50%;background:var(--champagne)}
+    @media (max-width:560px){.t-semaine1{padding:1.4rem}}
+    .a-fondatrice{margin:.6rem 0 0;font-size:.88rem;color:#F6D9A2}
+    .a-fondatrice b{color:#FCE9C4}
+      .t-guide{display:flex;gap:1.2rem;align-items:center;max-width:36rem;margin:2.2rem auto 0;padding:1rem 1.2rem;background:#fff;border:1px solid var(--rose,#F3E3E6);border-left:4px solid #B98A55;border-radius:16px;color:inherit;text-decoration:none;box-shadow:0 10px 30px rgba(107,47,91,.08);text-align:left}
+    .t-guide img{width:84px;height:auto;border-radius:6px;box-shadow:0 8px 20px rgba(107,47,91,.25);flex:none}
+    .t-guide b{display:block;font-family:var(--display,serif);font-weight:400;font-size:1.25rem;color:var(--prune,#6B2F5B);margin:.15rem 0 .25rem}
+    .t-guide span span,.t-guide>span>span:not(.t-guide-k){display:block;font-size:.92rem;color:var(--prune-doux,#7a5570)}
+    .t-guide-k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#B98A55;font-weight:700}
+    .t-guide u{display:inline-block;margin-top:.45rem;font-weight:700;color:var(--prune,#6B2F5B)}
+    .t-guide:hover{border-color:#B98A55;box-shadow:0 14px 34px rgba(107,47,91,.14)}
+  .t-livres{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.4rem .2rem 1.4rem;-webkit-overflow-scrolling:touch}
+  .t-livre{flex:0 0 min(36rem,88vw);margin:0;scroll-snap-align:center;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 22px 50px rgba(46,19,56,.18),0 0 0 1px rgba(107,47,91,.1)}
+  .t-livre-barre{display:flex;gap:.35rem;padding:.5rem .75rem;background:#F6EEF1;border-bottom:1px solid var(--rose)}
+  .t-livre-barre i{width:.55rem;height:.55rem;border-radius:50%;background:var(--rose-fonce)}
+  .t-livre img{display:block;width:100%;height:auto}
+  .t-livre figcaption{padding:.8rem 1rem;font-size:.9rem;color:var(--prune-doux)}
+  .t-livre figcaption b{color:var(--prune)}
+  .t-livres-note{text-align:center;font-size:.85rem;color:var(--prune-doux);margin:0}
+  @media (min-width:1200px){.t-livres-note{display:none}}
+
+  /* Ma spirale */
+  .ms-ecrans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem;margin:0}
+  .ms-ecrans figure{margin:0;text-align:center}
+  .ms-ecrans img{width:100%;height:auto;border-radius:26px;border:6px solid #2E1338;box-shadow:0 20px 44px rgba(46,19,56,.22);background:#2E1338}
+  .ms-ecrans figcaption{margin-top:.7rem;font-size:.9rem;color:var(--prune-doux)}
+  .ms-ecrans figcaption b{display:block;font:400 1.15rem var(--display);color:var(--prune)}
+  .ms-trois{grid-template-columns:repeat(3,minmax(0,1fr));max-width:56rem;margin:0 auto}
+  .ms-tel{width:100%;max-width:300px;height:auto;justify-self:center;border-radius:30px;border:7px solid #1F0B2A;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+  .ms-ordi{margin:0 auto;max-width:62rem}
+  .ms-ordi img{width:100%;height:auto;border-radius:14px;border:1px solid var(--rose);box-shadow:0 24px 60px rgba(107,47,91,.18)}
+  .ms-ordi figcaption{text-align:center;margin-top:.8rem;font-size:.9rem;color:var(--prune-doux)}
+  .ms-ordi + .ms-ordi{margin-top:2rem}
+  .ms-actions{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .ms-actions li{background:var(--blanc);border:1px solid var(--rose);border-left:4px solid var(--champagne);border-radius:16px;padding:1.1rem 1.3rem;color:var(--prune-doux);line-height:1.5}
+  .ms-actions b{display:block;font:400 1.2rem var(--display);color:var(--prune);margin-bottom:.25rem}
+  .ms-bientot{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 1.5rem;border-radius:99px;border:2px dashed var(--champagne);color:#FFE6B8;font-weight:700;font-size:1.05rem}
+  .ms-offres{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;max-width:56rem;margin:0 auto}
+  .ms-offre{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.8rem;display:flex;flex-direction:column;gap:.6rem}
+  .ms-offre.mis{border:2px solid var(--champagne);background:linear-gradient(160deg,#FFF6EC,var(--blanc) 60%)}
+  .ms-offre h3{font-size:1.6rem;margin:0}
+  .ms-offre .ms-prix{font:400 2rem var(--display);color:var(--prune);margin:0}
+  .ms-offre .ms-prix small{font:400 .95rem var(--texte);color:var(--prune-doux)}
+  .ms-offre .ms-gris{display:inline-block;align-self:flex-start;padding:.85rem 1.4rem;border-radius:99px;background:#EFE6EC;color:#7E5C77;font-weight:700}
+  .ms-offre .btn{align-self:flex-start}
+  .ms-offre p{margin:0;max-width:none}
+  .ms-compare{max-width:56rem;margin:0 auto;overflow-x:auto}
+  .ms-compare table{width:100%;border-collapse:separate;border-spacing:0;background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);overflow:hidden;font-size:.95rem}
+  .ms-compare th,.ms-compare td{padding:.85rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--rose);line-height:1.45}
+  .ms-compare tr:last-child th,.ms-compare tr:last-child td{border-bottom:0}
+  .ms-compare thead th{font:400 1.15rem var(--display);color:var(--prune);background:#FFF6EC}
+  .ms-compare tbody th{color:var(--prune);font-weight:700;width:22%}
+  .ms-compare td{color:var(--prune-doux)}
+  @media (max-width:560px){.ms-compare table{font-size:.86rem}.ms-compare th,.ms-compare td{padding:.65rem .6rem}}
+  .ms-deux{grid-template-columns:1fr 1fr;max-width:30rem}
+  .ms-aime{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:1rem}
+  .ms-aime.centre{justify-content:center}
+  .ms-aime-b{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.1rem;border-radius:99px;border:1.5px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff;font:600 .95rem var(--texte);cursor:pointer}
+  .ms-aime-b svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ms-aime-b[aria-pressed="true"] svg{fill:#F08DB0;stroke:#F08DB0}
+  .ms-aime-msg{flex-basis:100%;margin:.3rem 0 0;color:#FFE6B8;font-size:.95rem}
+  .ms-aime-msg:empty{display:none}
+  .ms-essai{margin-top:.2rem;background:var(--champagne)!important;border-color:var(--champagne)!important;color:#2E1338!important}
+  .ms-sous-cta{margin:.6rem 0 1rem;font-size:.9rem;color:#E6CFDD;max-width:none}
+  .ms-prix-l{margin:.9rem 0 0;font-size:.9rem;color:#E6CFDD;max-width:none}
+  .ms-prevenir{margin-top:.2rem}
+  .ms-prevenir.centre{display:flex;flex-direction:column;align-items:center;margin-top:1rem}
+  .ms-prev-b{background:transparent!important;color:#fff!important;border-color:rgba(255,255,255,.7)!important}
+  .ms-prev-f{margin-top:.6rem;max-width:26rem}
+  .ms-prev-f label{display:block;font-size:.9rem;color:#F7E6EE;margin-bottom:.35rem}
+  .ms-prev-f div{display:flex;gap:.5rem;flex-wrap:wrap}
+  .ms-prev-f input{flex:1 1 12rem;min-height:46px;padding:.6rem .9rem;border-radius:99px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.95);font:inherit;color:#2E1338}
+  .ms-prev-note{font-size:.8rem;color:#E6CFDD;margin:.4rem 0 0;max-width:none}
+  .ms-prev-msg{margin:.5rem 0 0;color:#FFE6B8;font-weight:600;max-width:none}.ms-prev-msg:empty{display:none}
+  .ms-actions-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:860px){.ms-actions-3{grid-template-columns:1fr}}
+  .ms-etiq-b{align-self:flex-start;padding:.3rem .8rem;border-radius:99px;background:#F6E3E8;color:var(--prune);font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  @media (max-width:960px){.ms-ecrans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:860px){.ms-offres,.ms-actions{grid-template-columns:1fr}.ms-trois{grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.ms-tel{max-width:240px}}
+  @media (max-width:560px){.ms-ecrans{gap:.8rem}.ms-ecrans img{border-width:4px;border-radius:18px}.ms-trois{grid-template-columns:1fr 1fr}}
+  .ms-video{margin:2.4rem auto 0;max-width:340px;text-align:center}.ms-video video{width:100%;height:auto;border-radius:28px;display:block;box-shadow:0 18px 40px rgba(59,23,71,.25);background:#2A0F33}.ms-video figcaption{margin-top:.7rem;color:var(--prune-doux);font-size:.92rem}
+.ms-carnet-img{display:block;margin:.6rem 0 1rem;text-decoration:none}.ms-carnet-img img{width:100%;height:auto;max-height:260px;object-fit:cover;object-position:top;border-radius:14px;border:1px solid var(--rose);box-shadow:0 8px 24px rgba(107,47,91,.12)}.ms-carnet-img span{display:block;font-size:.88rem;color:var(--prune-doux);margin-top:.4rem;text-align:center}
+    .ms-hero-visuel{width:100%;height:auto;border-radius:22px;box-shadow:0 24px 60px rgba(46,19,56,.35)}
+    .ms-lien-demo{margin-top:.8rem}.ms-lien-demo a{color:inherit;text-underline-offset:3px}
+    .ms-douleurs{grid-template-columns:1fr!important;margin:1rem 0}
+    .ms-verite{margin-top:1rem;color:var(--prune)}
+    .ms-3temps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+    .ms-3temps figure{margin:0;background:var(--blanc);border:1px solid var(--rose);border-radius:20px;overflow:hidden}
+    .ms-3temps img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+    .ms-3temps figcaption{padding:1rem 1.2rem 1.3rem;color:var(--prune-doux)}.ms-3temps b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--prune);margin-bottom:.3rem}
+    .ms-temoins{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+    .ms-temoins blockquote{margin:0;padding:1.5rem;border-radius:20px;background:linear-gradient(180deg,#FCEFF3,var(--blanc) 80%);border:1px solid var(--rose)}
+    .ms-temoins p{font-family:var(--display);font-size:1.15rem;color:var(--prune);line-height:1.5}.ms-temoins cite{display:block;margin-top:.8rem;font-style:normal;font-size:.92rem;color:var(--prune-doux)}
+    .ms-7j li{margin-bottom:.5rem}
+    @media (max-width:860px){.ms-3temps,.ms-temoins{grid-template-columns:1fr}}
+    .ms-etapes-video{display:grid;grid-template-columns:1fr 340px 1fr;gap:1.4rem;align-items:center}
+    .ms-etapes-video .ms-col{grid-template-columns:1fr;gap:1rem}
+    .ms-etapes-video .ms-col-d{counter-reset:e 3}
+    .ms-etapes-video .ms-video{margin:0}
+    .ms-centre{text-align:center;margin-top:2rem}
+    .ms-offres{align-items:stretch;grid-template-columns:1.25fr 1fr!important;max-width:62rem!important}
+    .ms-offre-img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:16px;margin:.2rem 0 .6rem}
+    .ms-offre.mis{box-shadow:0 24px 60px rgba(107,47,91,.18);position:relative}
+    .ms-offre.mis h3{font-size:2rem}.ms-offre.mis .ms-prix{font-size:2.6rem}
+    .ms-offre.mis .btn{align-self:stretch;text-align:center;font-size:1.05rem;padding:1rem}
+    .ms-reco{align-self:flex-start;background:var(--prune);color:#fff;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:99px}
+    .ms-offre:not(.mis){align-self:center}.ms-prix-petit{font-size:1.6rem!important}
+    @media (max-width:960px){.ms-etapes-video{grid-template-columns:1fr}.ms-etapes-video .ms-video{max-width:300px;margin:0 auto;order:-1}.ms-offres{grid-template-columns:1fr!important}}
+    .ms-offres.ms-seule{grid-template-columns:minmax(0,34rem)!important;justify-content:center}
+  .ms-autre{text-align:center;margin:1.6rem auto 0;color:var(--prune-doux)}.ms-autre a{color:#8A3F62;font-weight:600}
+  .cv-cadre{grid-column:1/-1;width:100%;max-width:1100px;margin:1.2rem auto 0;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--rose);box-shadow:0 30px 60px rgba(46,19,56,.18)}
+  .cv-barre{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:#F7E6EE;font-size:.8rem;color:var(--prune-doux)}
+  .cv-barre i{width:10px;height:10px;border-radius:50%;background:#E2B877}.cv-barre i+i{background:#D9A5BE}.cv-barre i+i+i{background:#B98A55}.cv-barre span{margin-left:.6rem}
+  .cv-cadre iframe{display:block;width:100%;height:min(80vh,780px);border:0}
+  .cv-aide{grid-column:1/-1;text-align:center;font-size:.9rem;color:var(--prune-doux);margin:.8rem auto 0}.cv-aide a{color:#8A3F62;font-weight:600}
+</style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="t-hero">
+      <img class="t-hero-fond" src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="100vw" width="1600" height="841" alt="" fetchpriority="high">
+      <div class="conteneur t-hero-grille">
+        <div>
+          <p class="a-sur">Ma spirale · ton outil d’introspection profonde</p>
+          <h1>Ce qui se répète dans ta vie a une histoire. Vois-la, et libère-toi.</h1>
+          <p class="intro">Quand quelque chose remonte, tu as enfin un endroit où aller : tu déposes ce que tu ressens, tu vois d’où ça vient dans ta vie et ta lignée, et tu le libères, à ton rythme.</p>
+          <a class="btn btn-plein t-cta" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+          <p class="ms-sous-cta">7 jours offerts : carte demandée, rien n’est prélevé avant la fin de l’essai. Puis <b>4,99 € par mois</b>, offre de Noël · sans engagement</p>
+          <p class="ms-lien-demo"><a href="pass.html?exemple">Voir d’abord la démo de Léa</a> · sans inscription, 2 minutes · <a href="mode-emploi-ma-spirale.html">Le mode d’emploi pas à pas</a></p>
+          
+        </div>
+        <img class="ms-hero-visuel" src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone : Moi, Mon histoire, Mon agenda, Mon bilan, Mon théâtre, Mes actions">
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur t-split">
+        <img class="t-split-img" src="assets/pass/vente/douleur.webp" width="1000" height="750" alt="Une femme pensive près d’une fenêtre, une tasse entre les mains, au coucher du soleil" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Tu te reconnais ?</p>
+          <h2>Les visages changent. La scène, elle, revient.</h2>
+          <ul class="t-douleurs ms-douleurs">
+            <li><b>Toujours la même histoire</b>En couple, au travail, avec l’argent : d’autres personnes, la même situation.</li>
+            <li><b>Une émotion trop grande</b>Tu réagis bien plus fort que ce qui vient d’arriver, et tu ne sais pas d’où ça sort.</li>
+            <li><b>Tu as compris, et pourtant…</b>Tu sais d’où ça vient. Et ça recommence quand même.</li>
+            <li><b>Tu ne sais pas par où commencer</b>Peu de souvenirs, une famille mal connue, des mots qui ne viennent pas.</li>
+          </ul>
+          <p class="ms-verite"><b>Ce n’est pas un hasard, ni un défaut chez toi : c’est un schéma. Et un schéma, ça se libère.</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <div>
+          <p class="a-etiq">Pourquoi ça se répète</p>
+          <h2>Ce que tu vis a souvent commencé avant toi</h2>
+          <p>Une peur, une façon d’aimer, un rapport à l’argent ou au corps se transmettent d’une génération à l’autre, sans être dits. Tant qu’on ne les voit pas, on les rejoue : aux mêmes âges, dans les mêmes rôles, avec les mêmes blessures.</p>
+          <p>Ma spirale te montre ces fils. Ta frise de vie retrouve la première fois. Ta frise familiale montre qui l’a vécu avant toi. Et ce qui devient visible peut enfin se libérer.</p>
+        </div>
+        <img class="t-split-img" src="assets/pass/vente/lignee.webp" width="1000" height="750" alt="Trois générations de femmes reliées par un fil de lumière dorée, en aquarelle" loading="lazy" decoding="async">
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">La solution</p>
+          <h2>Trois temps, à ton rythme</h2>
+          <p>Un travail sur toi, quand tu en as besoin : le soir, après une dispute, au réveil d’un rêve.</p>
+        </div>
+        <div class="ms-3temps">
+          <figure><img src="assets/pass/vente/deposer.webp" width="1000" height="750" alt="Des mains tenant un téléphone ouvert sur « Qu’est-ce que tu ressens ? »" loading="lazy" decoding="async"><figcaption><b>1 · Déposer</b>En trois questions : ce qui s’est passé, ton émotion, où tu la sens dans ton corps. Même quand ça monte fort.</figcaption></figure>
+          <figure><img src="assets/pass/captures/ordi-fiche-600.webp" width="600" height="375" alt="La fiche d’un schéma sur ordinateur" loading="lazy" decoding="async"><figcaption><b>2 · Comprendre</b>Ta frise retrouve la première fois. Ton théâtre montre la scène : qui, dans ta vie, rejoue quelqu’un de ta lignée.</figcaption></figure>
+          <figure><img src="assets/pass/vente/liberer.webp" width="1000" height="750" alt="Une femme de dos ouvre les bras face à une fenêtre ouverte au soleil levant" loading="lazy" decoding="async"><figcaption><b>3 · Libérer</b>Des protocoles qui se remplissent avec ta fiche : tu n’as rien à inventer.</figcaption></figure>
+        </div>
+        <figure class="ms-video">
+          <video controls playsinline preload="none" poster="assets/pass/ma-spirale-video.webp" width="540" height="960">
+            <source src="assets/pass/ma-spirale-video.mp4" type="video/mp4">
+          </video>
+          <figcaption>Ma spirale en 40 secondes</figcaption>
+        </figure>
+        <div style="text-align:center;margin-top:2rem"><a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a></div>
+      </div>
+    </section>
+
+<section class="bloc bloc-doux">
+      <div class="conteneur t-split">
+        <div class="ms-ecrans ms-deux">
+          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : une scène avec les personnages de la vie et de la lignée, reliés par des fils dorés" loading="lazy" decoding="async"><figcaption><b>La scène</b>Tes personnages, autour de toi</figcaption></figure>
+          <figure><img src="assets/pass/captures/theatre-face.webp" width="540" height="1124" alt="Face à un personnage : ce que le lien pèse, ce que tu ressens, ce que tu deviens" loading="lazy" decoding="async"><figcaption><b>Face à lui</b>Ce que le lien pèse</figcaption></figure>
+        </div>
+        <div>
+          <p class="a-etiq">Mon théâtre</p>
+          <h2>Tu le sens froid… tiens, comme ton père.</h2>
+          <p>Place les personnes de ta vie et de ta lignée autour de toi, plus près ou plus loin. Note ce que tu ressens de chacun. Un lien relie ceux qui se ressemblent : tu vois enfin ce qui se rejoue.</p>
+          <ul class="t-coches">
+            <li>C’est <b>ta vision</b>, avec ton vécu : ici, on regarde ce qui se rejoue en toi.</li>
+            <li>Un <b>lien</b> relie ceux de ta vie que tu ressens comme quelqu’un de ta lignée : « Tu ressens Tom comme tu ressens ton père : froid. »</li>
+            <li>Des <b>photos datées</b> de ta scène, pour voir les liens s’affiner, libération après libération.</li>
+          </ul>
+          <a class="btn btn-plein" href="pass.html?exemple#theatre/sn1">Ouvrir la scène de Léa</a>
+        </div>
+      </div>
+    </section>
+
+
+
+<section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Mes actions</p>
+          <h2>Quand tu ne sais pas, tout est prêt</h2>
+          <p>Chaque protocole se remplit avec ta fiche : ton âge la première fois, la personne de ta lignée, le nom de ton schéma. Tu n’as rien à inventer.</p>
+        </div>
+        <ul class="ms-actions ms-actions-3">
+          <li><b>Trouver ma première fois</b>Retrouver un ressenti à sa source : l’âge que tu te sens, une scène, même floue.</li>
+          <li><b>Libérer la mémoire de ma vie, puis de ma lignée</b>Retrouver la partie de toi restée figée, et rendre ce qui ne t’appartient pas, en gardant la force des tiens.</li>
+          <li><b>Si ça monte fort</b>Revenir ici et maintenant, avec la respiration guidée. Quand ça monte trop fort, l’appli te le propose d’elle-même.</li>
+        </ul>
+        <p class="t-legende">Et à chaque question où l’on peut bloquer, un « Je ne sais pas » ouvre une aide : des débuts de phrase, le corps, les périodes de ta vie.</p>
+        <div class="ms-centre"><a class="btn btn-plein" href="pass.html?exemple">Essayer avec l’exemple de Léa</a></div>
+      </div>
+    </section>
+
+<section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Dans ta poche</p>
+          <h2>Ton chemin se voit</h2>
+          <p>Ta frise, ton bilan, tes schémas libérés : ton chemin se voit. Un lien qui s’affine ne veut pas dire que tu aimes moins. Ça veut dire que tu portes moins.</p>
+          <p class="t-barre-appli" style="justify-content:center"><span>Moi</span><span>Mon histoire</span><span>Mon agenda</span><span>Mon bilan</span><span>Mon théâtre</span><span>Mes actions</span></p>
+        </div>
+        <div class="ms-ecrans">
+          <figure><img src="assets/pass/captures/moi.webp" width="540" height="1124" alt="L’accueil de Ma spirale" loading="lazy" decoding="async"><figcaption><b>Moi</b>Tes schémas, ta note du jour</figcaption></figure>
+          <figure><img src="assets/pass/captures/agenda.webp" width="540" height="1124" alt="L’agenda avec les dates de la lignée" loading="lazy" decoding="async"><figcaption><b>Mon agenda</b>Ta lignée, tes dates, tes gestes</figcaption></figure>
+          <figure><img src="assets/pass/captures/bilan.webp" width="540" height="1124" alt="Le bilan : la lignée en sphères de lumière" loading="lazy" decoding="async"><figcaption><b>Mon bilan</b>Ta lignée en lumière</figcaption></figure>
+          <figure><img src="assets/pass/captures/theatre.webp" width="540" height="1124" alt="Mon théâtre : les personnes de ta vie et de ta lignée, reliées par des fils dorés" loading="lazy" decoding="async"><figcaption><b>Mon théâtre</b>La scène de ta vie</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+<section class="bloc bloc-doux">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Sur ordinateur</p>
+          <h2>Ton espace en grand</h2>
+          <p>Essaie-la ici, directement. Sur ordinateur, tes espaces sont à gauche ; tout ce que tu écris se retrouve sur ton téléphone.</p>
+        </div>
+        <div class="cv-cadre"><div class="cv-barre"><i></i><i></i><i></i><span>genesolia.fr · Ma spirale, l’exemple de Léa</span></div><iframe src="pass.html?exemple" title="Ma spirale avec l’exemple de Léa, à essayer" loading="lazy"></iframe></div>
+        <p class="cv-aide">C’est la vraie appli, avec l’exemple de Léa : clique, ouvre ses schémas, sa frise, son théâtre. <a href="pass.html?exemple">L’ouvrir en grand</a></p>
+      </div>
+    </section>
+
+
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur" style="max-width:52rem">
+        <div class="a-titre">
+          <p class="a-etiq">Pendant tes 7 jours offerts</p>
+          <h2>Ce que tu auras en une semaine</h2>
+        </div>
+        <ul class="t-coches ms-7j">
+          <li><b>Ton premier schéma nommé</b>, avec ce qui le déclenche et où tu le sens.</li>
+          <li><b>Ta frise de vie</b>, avec la première fois que c’est arrivé.</li>
+          <li><b>Ta première scène</b> dans ton théâtre : les personnes de ta vie, et celles de ta lignée qu’elles te rappellent.</li>
+          <li><b>Un protocole de libération</b> fait jusqu’au bout.</li>
+        </ul>
+        <div style="text-align:center;margin-top:1.6rem"><a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Commencer mes 7 jours offerts</a></div>
+        <p class="t-rassure" style="text-align:center">Tu arrêtes quand tu veux, en un clic, avant ou après les 7 jours.</p>
+      </div>
+    </section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq">Premiers avis</p>
+          <h2>Ce qu’on en dit</h2>
+        </div>
+        <div class="ms-temoins">
+          <blockquote><p>« Incroyablement riche et complet, je m’y retrouve complètement. »</p><cite>Aurélie, 36 ans · Vannes (56)</cite></blockquote>
+          <blockquote><p>« Fonctionnelle, utile, et elle permet de travailler seule sur soi au bon moment surtout, et quand on le veut. Même avec des montées émotionnelles, ça permet de se recentrer et de prendre de la hauteur directement. »</p><cite>Mélanie, 44 ans · Toulouse</cite></blockquote>
+          <blockquote><p>« J’adore, c’est féminin, c’est joli et c’est facile à utiliser, trop bien ! »</p><cite>Caroline, 39 ans</cite></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur t-split ms-moi">
+        <img class="t-split-img" src="assets/pass/vente/laura.webp" width="700" height="640" alt="Laura, créatrice de Genesolia, écrit dans un carnet" loading="lazy" decoding="async">
+        <div>
+          <p class="a-etiq">Qui a créé Ma spirale</p>
+          <h2>Je suis Laura</h2>
+          <p>Je suis la créatrice de Genesolia. J’ai créé Ma spirale pour qu’on puisse travailler sur soi de partout, et à tout moment : pour ne plus rester avec un sentiment désagréable sur le cœur, et se sentir un peu plus alignée, jour après jour.</p>
+          <p>Formée à la psychogénéalogie et à l’hypnose ericksonienne, j’ai accompagné des personnes pendant plusieurs années, et j’ai travaillé longtemps sur cet outil pour t’aider à sortir de tes schémas.</p>
+          <p>Pas seulement comprendre, mais avancer vraiment.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bloc" id="offre">
+      <div class="conteneur">
+        <div class="a-titre">
+          <p class="a-etiq"><span class="promo-noel">✦ Offre de Noël</span></p>
+          <h2>Commence aujourd’hui</h2>
+        </div>
+        <div class="ms-offres ms-seule">
+          <div class="ms-offre mis">
+            <span class="ms-reco">Le plus choisi · Offre de Noël</span>
+            <img class="ms-offre-img" src="assets/pass/ma-spirale-appareils.webp" width="800" height="600" alt="Ma spirale sur ordinateur et téléphone" loading="lazy" decoding="async">
+            <h3>Ma spirale</h3>
+            <p class="ms-prix">4,99 € <small>par mois</small></p>
+            <p class="t-rassure">7 jours offerts (carte demandée, rien n’est prélevé avant la fin de l’essai), puis 4,99 € par mois pour toute inscription jusqu’au 31 décembre. Ce prix te reste tant que tu restes.</p>
+            <ul class="t-coches">
+              <li>Ton théâtre, ta frise de vie et ta frise familiale</li>
+              <li>Tous les protocoles de libération, et la respiration si ça monte fort</li>
+              <li>Ton agenda et ton bilan</li>
+              <li>Sur téléphone et ordinateur, dans ton espace privé</li>
+            </ul>
+            <a class="btn btn-plein" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+            <p class="t-rassure">Sans engagement : tu arrêtes en un clic. <a href="pass.html">J’ai déjà un compte</a></p>
+          </div>
+        <p class="ms-autre">Tu préfères être guidé·e pas à pas, une étape chaque mois ? <a href="abonnement.html">Découvre Le Cercle</a></p>
+      </div>
+      </div>
+    </section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur questions" style="max-width:48rem">
+        <h2 style="margin-bottom:1.4rem">Questions fréquentes</h2>
+        <details><summary>Que se passe-t-il après les 7 jours ?</summary><p>Ta carte est demandée au début, mais rien n’est prélevé pendant les 7 jours. Ensuite, ton abonnement continue à 4,99 € par mois. Tu peux l’arrêter à tout moment, en un clic, avant ou après la fin des 7 jours.</p></details>
+        <details><summary>Faut-il installer quelque chose ?</summary><p>Non. Ma spirale s’ouvre dans ton navigateur. Sur ton téléphone, ajoute-la à ton écran d’accueil : elle s’ouvre alors comme une appli, avec sa barre en bas.</p></details>
+        <details><summary>Y a-t-il un mode d’emploi ?</summary><p>Oui : <a href="mode-emploi-ma-spirale.html">le mode d’emploi pas à pas</a>, écran par écran, avec l’exemple de Léa.</p></details>
+        <details><summary>Je n’ai pas de souvenirs de mon enfance. Est-ce pour moi ?</summary><p>Oui. Le protocole « Trouver ma première fois » t’aide à laisser venir l’âge que tu te sens, et « avant mes souvenirs » est une vraie réponse : elle t’oriente vers ta lignée.</p></details>
+        <details><summary>Je connais mal ma famille.</summary><p>Tu peux avancer quand même. L’appli te propose les questions à poser à tes proches, et si tu ne connais pas ta lignée, tu travailles avec la famille qui t’a élevé·e.</p></details>
+        <details><summary>Et si ça revient après une libération ?</summary><p>Ce n’est pas un retour en arrière : c’est souvent une couche plus profonde qui se montre. Tu rouvres ton schéma, et le protocole « Quand ça revient plus fort » t’accompagne.</p></details>
+        <details><summary>Et mes rêves ?</summary><p>Tu peux noter tes rêves au réveil : l’appli propose des pistes, jamais des certitudes. Ils restent privés. Si tu le souhaites, une case te permet d’en partager un avec Genesolia, sans ton nom, pour nourrir les articles du blog : tu vois exactement le texte qui part, et les prénoms sont retirés tout seuls.</p></details>
+        <details><summary>Qui peut lire ce que j’écris ?</summary><p>Tout reste dans ton espace privé. Seuls les rêves que tu choisis de partager sortent de ton espace, sans ton nom.</p></details>
+        <details><summary>Quelle différence avec Le Cercle ?</summary><p>Ce sont deux offres différentes. Ma spirale est ton outil, à ouvrir quand tu en as besoin. Le Cercle est un parcours guidé, une étape chaque mois, avec des séances audio et la formation.</p></details>
+        <details><summary>Est-ce que ça remplace un·e professionnel·le ?</summary><p>Non. Ma spirale propose une lecture symbolique et des exercices d’introspection, à faire seul·e, à ton rythme. Elle ne remplace pas un avis médical ou psychologique. Si une histoire est trop lourde à porter, parles-en à une personne de confiance ou à un·e professionnel·le de l’accompagnement.</p></details>
+      </div>
+    </section>
+
+    <section class="t-final">
+      <img class="t-hero-fond" src="assets/images/blog-ancetres-reve-800.webp" srcset="assets/images/blog-ancetres-reve-800.webp 800w, assets/images/blog-ancetres-reve-1600.webp 1600w" sizes="100vw" width="1600" height="840" alt="" loading="lazy">
+      <div class="conteneur t-final-texte">
+        <h2>La prochaine fois que ça remonte, tu sauras où aller.</h2>
+        <p>7 jours offerts, puis 4,99 € par mois jusqu’au 31 décembre. Sans engagement.</p>
+        <a class="btn btn-plein t-cta" href="https://buy.stripe.com/9B600cbDD0FPeqFgT543S0s" data-payer="passMois">Essayer 7 jours offerts</a>
+        <p style="text-align:center"><a href="pass.html?exemple" style="color:inherit">Ou voir d’abord la démo de Léa</a></p>
+        <div class="ms-aime clair centre" data-aime-zone><button type="button" class="ms-aime-b" data-aime aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>J’aime</button><button type="button" class="ms-aime-b" data-partager><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4M8.2 13.2l7.6 4"/></svg>Partager</button><p class="ms-aime-msg" data-aime-msg aria-live="polite"></p></div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/spirale-aime.js"></script>
+</body>
+</html>

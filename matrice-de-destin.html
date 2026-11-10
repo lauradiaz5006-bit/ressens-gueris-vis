@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ta Matrice de destin · Genesolia</title>
+  <meta name="description" content="Calcule gratuitement ta Matrice de destin à partir de ta date de naissance, et découvre ce que ta lignée y laisse voir.">
+  <link rel="canonical" href="https://genesolia.fr/matrice-de-destin.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .n-tete{position:relative;overflow:hidden;padding:3.2rem 0 3.4rem;border-bottom:1px solid var(--rose);
+      background:radial-gradient(40rem 26rem at 88% 0%,rgba(243,220,192,.7),transparent 62%),radial-gradient(34rem 24rem at 0% 100%,rgba(236,190,210,.4),transparent 60%),linear-gradient(180deg,#FFFCFB,var(--nacre))}
+    .n-tete .conteneur{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+    .n-sur{display:inline-block;font:600 .8rem/1 var(--texte);letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin-bottom:1rem}
+    .n-tete h1{margin-bottom:1rem}
+    .n-tete .intro{font-size:1.12rem;color:var(--prune-doux)}
+    .n-origine{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.2rem;padding:.7rem 1.1rem;border-radius:999px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);font-size:.9rem;font-weight:600}
+    .n-origine:hover{border-color:var(--prune)}
+    .md-exemple{display:inline-block;margin-top:.8rem;font-size:.86rem}
+    .md-exemple a{color:var(--prune-doux);text-decoration-color:var(--champagne);text-underline-offset:3px}
+    .md-2027{display:flex;align-items:center;gap:1rem;margin:1.2rem 0;padding:1rem 1.2rem;border-radius:16px;background:var(--blanc);border:1px solid var(--champagne);text-decoration:none;color:var(--prune);max-width:34rem}
+    .md-2027:hover{border-color:var(--prune)}
+    .md-2027 b{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;color:var(--champagne)}
+    .md-2027 span{display:block;font-size:.95rem;line-height:1.4}
+    .md-2027 strong{display:block;font-weight:600}
+    .n-form{position:relative;background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 24px 60px rgba(107,47,91,.10)}
+    .n-form h2{font-size:1.5rem;margin-bottom:.3rem}
+    .n-form>p{font-size:.92rem;color:var(--prune-doux);margin-bottom:1.1rem}
+    .n-champ{display:grid;gap:.3rem;margin-bottom:.9rem}
+    .n-champ label{font:600 .82rem/1.2 var(--texte)}
+    .n-champ small{font-size:.78rem;color:var(--prune-doux)}
+    .n-champ input{width:100%;font:400 1rem/1.3 var(--texte);color:var(--prune);background:var(--nacre);border:1.5px solid var(--rose-fonce);border-radius:12px;padding:.7rem .8rem}
+    .n-champ input:focus{outline:none;border-color:var(--prune);background:var(--blanc)}
+    .n-form .btn{width:100%;margin-top:.4rem}
+    .n-erreur{color:#A23B4C;font-size:.86rem;min-height:1.2em;margin-top:.5rem}
+    .n-form .mini{font-size:.78rem;color:var(--prune-doux);margin-top:.6rem;max-width:none}
+
+    .n-res{scroll-margin-top:5rem}
+    .n-res[hidden]{display:none}
+    .n-res-tete{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1.8rem}
+    .n-res-tete p{color:var(--prune-doux)}
+    .n-puces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
+    .n-puces span{background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem .8rem;font-size:.86rem}
+    .n-puces b{color:var(--prune);font-weight:600}
+
+    .md-grille-zone{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;margin-bottom:1.6rem}
+    .md-case9{display:grid;grid-template-columns:repeat(3,5.4rem);grid-template-rows:repeat(3,5.4rem);gap:.5rem}
+    .md-case9 div{border-radius:14px;display:grid;place-items:center;align-content:center;background:var(--nacre);border:1px solid var(--rose-fonce);text-align:center;padding:.3rem}
+    .md-case9 b{font-family:var(--display);font-size:1.5rem;font-weight:400;line-height:1}
+    .md-case9 span{font-size:.62rem;color:var(--prune-doux);line-height:1.2;margin-top:.15rem}
+    .md-case9 .vide{background:#FCEFF3;border-style:dashed;border-color:#E3B8C4}
+    .md-case9 .fort{background:#FFF6EC;border-color:var(--champagne)}
+    .md-legende{color:var(--prune-doux);font-size:.9rem}
+    .md-compare-grilles{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1rem 0}
+    .md-compare-grilles h4{font-family:var(--display);font-weight:400;margin-bottom:.6rem}
+    .md-compare-grilles .md-case9{grid-template-columns:repeat(3,3.4rem);grid-template-rows:repeat(3,3.4rem);gap:.35rem}
+    .md-compare-grilles .md-case9 b{font-size:1rem}
+    .md-compare-grilles .md-case9 span{font-size:.5rem}
+    .md-compare-out{margin-top:1rem}
+    .md-compare-plus{margin-top:1.4rem;padding:1.2rem;border-radius:16px;background:var(--champagne-clair)}
+    .md-compare-plus h4{font-family:var(--display);font-weight:400;margin-bottom:.4rem}
+
+    .md-cles{display:grid;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));gap:1rem;margin-bottom:1.4rem}
+    .md-cle{display:flex;flex-direction:column;padding:1.3rem 1.4rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose)}
+    .md-cle-haut{display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem}
+    .md-cle-n{width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.3rem;color:var(--prune);background:var(--rose);flex-shrink:0}
+    .md-cle h3{font-size:1.1rem;line-height:1.2}
+    .md-cle p{font-size:.92rem;color:var(--prune-doux);line-height:1.5}
+    .md-cle .md-niveau{font-size:.88rem;font-weight:600;color:var(--prune);margin:.3rem 0 .6rem}
+    .md-fd{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:auto;padding-top:.8rem}
+    .md-fd div{border-radius:12px;padding:.6rem .7rem;font-size:.85rem;line-height:1.45}
+    .md-fd b{display:block;font:600 .68rem/1 var(--texte);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+    .md-force{background:#FFF6EC;border:1px solid var(--champagne-clair)}
+    .md-force b{color:var(--champagne)}
+    .md-defi{background:#FCEFF3;border:1px solid #F1D3DC}
+    .md-defi b{color:#B5485C}
+
+    .md-resume{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.4rem}
+    .md-resume div{padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:var(--blanc)}
+    .md-resume .n-etiq{display:block;font:600 .72rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .md-resume h3{font-size:1.2rem;margin-bottom:.2rem}
+    .md-resume p{font-size:.9rem;color:var(--prune-doux)}
+
+    .md-lignee{position:relative;overflow:hidden;border-radius:var(--rayon);padding:2.2rem 2.2rem;background:linear-gradient(150deg,#3B1747,#6B2F5B);color:#FFF4F6;margin-bottom:1.4rem}
+    .md-lignee .n-etiq{display:block;font:600 .74rem/1 var(--texte);letter-spacing:.12em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:.5rem}
+    .md-lignee h2{color:#fff;margin-bottom:.6rem}
+    .md-lignee p{color:#F7E6EE}
+    .md-profil{padding:1.2rem 0;border-top:1px solid rgba(243,220,192,.3)}
+    .md-profil:first-of-type{border-top:none;padding-top:0}
+    .md-profil h3{color:#fff;font-size:1.25rem;margin-bottom:.4rem}
+    .md-profil .piste{margin-top:.6rem;padding-top:.6rem;border-top:1px dashed rgba(243,220,192,.3);font-size:.93rem}
+    .md-profil .piste b{color:var(--champagne-clair)}
+    .md-niveaux{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid rgba(243,220,192,.3)}
+    .md-niveaux h3{color:#fff;font-size:1.1rem;margin-bottom:.8rem}
+    .md-niveaux ul{list-style:none;display:grid;gap:.7rem}
+    .md-niveaux li{font-size:.93rem}
+    .md-niveaux li b{display:block;color:var(--champagne-clair);margin-bottom:.15rem}
+
+    .md-prenom{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.6rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);margin-bottom:1.4rem}
+    .md-prenom .md-cle-n{width:3.6rem;height:3.6rem;font-size:1.6rem}
+
+    .md-outils{margin-top:1.6rem}
+    .md-outils-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:1rem;margin-top:1rem}
+    .md-outil{display:flex;flex-direction:column;padding:1.4rem 1.5rem;border-radius:18px;background:var(--blanc);border:1px solid var(--rose);text-decoration:none;color:var(--prune)}
+    .md-outil .n-etiq{display:block;font:600 .7rem/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--champagne);margin-bottom:.4rem}
+    .md-outil h3{font-size:1.15rem;margin-bottom:.4rem}
+    .md-outil p{font-size:.88rem;color:var(--prune-doux);margin-bottom:.8rem}
+    .md-outil span.prix{margin-top:auto;font-weight:600;color:var(--prune)}
+    .md-outil:hover{border-color:var(--prune)}
+
+    .n-texte h2{margin-bottom:.8rem}
+    .n-texte h3{margin:1.6rem 0 .5rem}
+    .n-texte p{margin-bottom:.8rem}
+
+    .n-titre-sec{font-size:1.75rem;margin:2.4rem 0 1rem;scroll-margin-top:5rem}
+    .n-sec-intro{color:var(--prune-doux);margin:-.4rem 0 1.2rem;max-width:44rem}
+
+    @media (max-width:900px){.n-tete .conteneur{grid-template-columns:1fr;gap:2rem}}
+    @media (max-width:620px){
+      .n-form{padding:1.4rem}
+      .md-grille-zone{grid-template-columns:1fr}
+      .md-case9{grid-template-columns:repeat(3,1fr);width:100%}
+      .md-case9 div{aspect-ratio:1}
+      .md-cles{grid-template-columns:1fr}
+      .md-prenom{flex-direction:column;text-align:center}
+      .md-resume{grid-template-columns:1fr}
+      .md-2027{flex-direction:column;text-align:center}
+    }
+    @media print{
+      header,footer,.n-tete,.md-outils,.n-origine,.n-sommaire,.actions{display:none!important}
+      body.nouveau{background:#fff}
+      .md-cle,.md-resume div,.md-case9 div{break-inside:avoid}
+    }
+  </style>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Tes numéros", "item": "https://genesolia.fr/theme-numerologique.html"}, {"@type": "ListItem", "position": 3, "name": "Ta Matrice de destin", "item": "https://genesolia.fr/matrice-de-destin.html"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": "Comment est calculée la Matrice de destin ?", "acceptedAnswer": {"@type": "Answer", "text": "Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée."}},
+    {"@type": "Question", "name": "Quelle est la différence entre la Matrice de destin et un thème numérologique ?", "acceptedAnswer": {"@type": "Answer", "text": "Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide."}},
+    {"@type": "Question", "name": "La Matrice de destin est-elle fiable ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel."}},
+    {"@type": "Question", "name": "Pourquoi la Matrice de destin parle-t-elle de ma lignée ?", "acceptedAnswer": {"@type": "Answer", "text": "La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne."}},
+    {"@type": "Question", "name": "Que se passe-t-il si mon chemin de vie est un nombre maître (11, 22, 33) ?", "acceptedAnswer": {"@type": "Answer", "text": "Il est gardé tel quel plutôt que réduit une seconde fois, comme le veut la règle classique en numérologie. Ses deux chiffres rejoignent quand même la grille, un par un."}}
+  ]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="n-tete">
+      <div class="conteneur">
+        <div>
+          <p class="n-sur">Gratuit · sans inscription</p>
+          <h1>Ta Matrice de destin</h1>
+          <p class="intro">Ta date de naissance dessine une grille de neuf nombres, chacun lié à une facette de toi. Et parce que rien de ce qui te compose ne vient de nulle part, Genesolia va plus loin : ce que cette grille laisse voir de ta lignée.</p>
+          <a class="n-origine" href="d-ou-vient-la-matrice-du-destin.html">D'où vient cette méthode ?</a>
+          <div class="guide"><img src="assets/guide/guide-nombres.webp" width="88" height="88" alt="" loading="lazy"><p class="guide-bulle">Ton prénom et ta date : en quelques secondes, je te montre ta grille, et ce qu'elle laisse deviner de ta lignée.</p></div>
+        </div>
+        <form class="n-form" id="md-form" novalidate>
+          <h2>Calcule ta matrice</h2>
+          <p>Ton prénom et ta date de naissance, comme sur ton acte de naissance.</p>
+          <div class="n-champ">
+            <label for="md-prenom">Ton prénom</label>
+            <input id="md-prenom" name="prenom" autocomplete="given-name" placeholder="Par exemple : Léa" required>
+          </div>
+          <div class="n-champ">
+            <label for="md-nom">Ton nom de famille <span class="mini">(optionnel, affine la résonance)</span></label>
+            <input id="md-nom" name="nom" autocomplete="family-name" placeholder="Par exemple : Martin">
+          </div>
+          <div class="n-champ">
+            <label for="md-date">Ta date de naissance</label>
+            <input id="md-date" name="date" type="date" min="1900-01-01" max="2030-12-31" required>
+          </div>
+          <button class="btn btn-plein" type="submit">Découvrir ma matrice</button>
+          <p class="n-erreur" role="alert" id="md-erreur"></p>
+          <p class="mini">Rien n'est envoyé : le calcul se fait sur ton appareil.</p>
+          <p class="mini">Tu peux aussi calculer la matrice d'un proche (enfant, parent, conjoint·e) : indique simplement son prénom et sa date de naissance à la place des tiens.</p>
+          <p class="md-exemple"><a href="?exemple">Voir un exemple avant de donner ma date</a></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="bloc n-res" id="resultat" hidden aria-live="polite"></section>
+
+    <section class="bloc bloc-doux">
+      <div class="conteneur n-texte">
+        <h2>Comment est calculée ta grille</h2>
+        <ol class="etapes">
+          <li><p><b>On extrait tous les chiffres de ta date de naissance</b> (jour, mois, année). Les zéros sont ignorés : ils ne remplissent aucune case. Pour le 12/05/1990, ça donne : 1, 2, 5, 1, 9, 9.</p></li>
+          <li><p><b>On calcule ton chemin de vie</b> en additionnant tous ces chiffres, puis en réduisant le total à un seul chiffre (1+2+0+5+1+9+9+0 = 27, soit 2+7 = 9). Ses chiffres rejoignent eux aussi le compte.</p></li>
+          <li><p><b>Chaque chiffre de 1 à 9 remplit une case</b> d'une grille à neuf cases : plus un chiffre revient souvent, plus sa case est « marquée ». Une case vide n'est pas un manque, juste une clé à apprivoiser plutôt qu'à exploiter.</p></li>
+        </ol>
+        <p><b>Et les nombres maîtres (11, 22, 33) ?</b> Si l'addition du chemin de vie donne 11, 22 ou 33 avant toute autre réduction, on le garde tel quel plutôt que de le réduire une fois de plus (11 ne devient pas 2). C'est la règle classique en numérologie, et c'est celle que Genesolia applique ici. Ses deux chiffres (1 et 1, par exemple) rejoignent quand même la grille un par un.</p>
+        <p>C'est une version que Genesolia a adaptée à sa façon, dans l'esprit du carré pythagoricien utilisé par plusieurs méthodes de matrice de destin, mais pensée pour se relier ensuite à ta lignée plutôt qu'à toi seul·e.</p>
+        <p class="note">Lecture symbolique, pour t'aider à réfléchir. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p>
+      </div>
+    </section>
+
+    <section class="bloc" data-faq><div class="conteneur questions"><h2>Questions fréquentes</h2><details><summary>Comment est calculée la Matrice de destin ?</summary><p>Les chiffres de ta date de naissance sont comptés un par un, puis ton chemin de vie vient s'ajouter à ce compte. Chaque chiffre de 1 à 9 remplit une case d'une grille à neuf cases : sa fréquence colore la clé qui lui est associée.</p></details><details><summary>Quelle est la différence entre la Matrice de destin et un thème numérologique ?</summary><p>Le thème numérologique détaille des nombres précis (chemin de vie, expression, cycles). La Matrice de destin les réunit dans une grille visuelle à neuf cases, pour une lecture d'ensemble plus rapide.</p></details><details><summary>La Matrice de destin est-elle fiable ?</summary><p>C'est une lecture symbolique, pensée pour t'aider à réfléchir sur toi et sur ta lignée. Elle ne prédit pas l'avenir et ne remplace pas un avis médical, psychologique ou professionnel.</p></details><details><summary>Pourquoi la Matrice de destin parle-t-elle de ma lignée ?</summary><p>La case 9 de la grille classique correspond à la mémoire : Genesolia a choisi de la relier à ce qui se transmet dans une famille, pour prolonger la lecture au-delà de la seule personne.</p></details><details><summary>Que se passe-t-il si mon chemin de vie est un nombre maître (11, 22, 33) ?</summary><p>Il est gardé tel quel plutôt que réduit une seconde fois, comme le veut la règle classique en numérologie. Ses deux chiffres rejoignent quand même la grille, un par un.</p></details></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="theme-numerologique.html"><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, cycles et défis : l'autre lecture par les nombres.</p></a>
+          <a class="outil" href="d-ou-vient-la-matrice-du-destin.html"><h3>D'où vient la Matrice de destin ?</h3><p>Une méthode récente, son histoire, et son lien avec la méthode des deux cycles.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Dessiner mon arbre familial</h3><p>Pour voir, page après page, ce qui se répète dans ta lignée.</p></a>
+        </div>
+      </div>
+    </section>
+    <section class="bloc serre"><div class="conteneur" style="max-width:52rem"><div data-partage></div></div></section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var f = document.getElementById('md-form'), err = document.getElementById('md-erreur'), zone = document.getElementById('resultat');
+
+    var CLES = {
+      1: { titre: 'Qui tu es', texte: 'Ton tempérament, la façon dont tu te présentes au monde dès les premières minutes d\'une rencontre. C\'est souvent la toute première impression que tu laisses, avant même d\'avoir parlé.', exemple: 'Dans un groupe nouveau, c\'est souvent toi qu\'on remarque ou qu\'on interroge en premier, sans que tu aies rien fait de spécial pour ça.', force: 'Tu sais te faire reconnaître, on te repère dans un groupe.', defi: 'Tu peux en faire trop, par peur de disparaître ou de ne pas compter.' },
+      2: { titre: 'Ton énergie', texte: 'Ce qui te met en mouvement au quotidien, ou au contraire ce qui te freine quand il faut t\'y mettre. C\'est ton carburant : sa régularité, ou ses à-coups.', exemple: 'Tu peux tenir plusieurs semaines à plein régime, puis t\'effondrer d\'un coup, toi la première surprise.', force: 'Tu sais te relancer, même après un coup dur.', defi: 'L\'énergie peut partir par à-coups, avec des creux difficiles à anticiper.' },
+      3: { titre: 'Tes talents', texte: 'Ce que tu fais naturellement bien, sans même y penser, au point de ne pas toujours le voir comme une qualité.', exemple: 'Quelqu\'un te félicite pour quelque chose que tu trouves « normal », et tu es surpris·e que ça compte autant pour les autres.', force: 'Tu apprends vite ce qui t\'intéresse vraiment.', defi: 'Tu peux douter de la valeur de ce qui te vient trop facilement.' },
+      4: { titre: 'Ton corps', texte: 'Ton terrain, ta façon d\'habiter ton corps au quotidien, et ce qu\'il exprime quand les mots ne suivent pas.', exemple: 'Une tension revient toujours au même endroit les jours où quelque chose ne va pas, bien avant que tu n\'aies mis des mots dessus.', force: 'Tu sens assez tôt quand quelque chose ne va pas.', defi: 'Le corps peut porter ce que les mots ne disent pas.' },
+      5: { titre: 'Ta clarté', texte: 'Ta façon de penser, de choisir, de faire le tri dans ce qui t\'arrive, surtout quand la situation est confuse pour les autres.', exemple: 'Tu vois souvent la suite d\'une situation avant qu\'elle n\'arrive, et tu te demandes pourquoi personne d\'autre ne la voit encore.', force: 'Tu vois souvent juste, parfois avant les autres.', defi: 'Trop réfléchir peut retarder le moment d\'agir.' },
+      6: { titre: 'Ton engagement', texte: 'Ton rapport à l\'effort, au devoir, à ce que tu te sens tenu·e de faire, même quand personne ne te le demande vraiment.', exemple: 'Tu termines ce que tu as commencé, même épuisé·e, même quand plus personne n\'attend que tu ailles jusqu\'au bout.', force: 'On peut compter sur toi, et ça se sait.', defi: 'Le devoir peut prendre toute la place, jusqu\'à t\'oublier toi.' },
+      7: { titre: 'Ton don', texte: 'Une facilité, une chance, quelque chose qui te porte sans que tu l\'aies cherché ni mérité au sens classique du terme.', exemple: 'Une porte s\'ouvre facilement là où d\'autres ont dû batailler longtemps, et tu culpabilises presque de ne pas avoir forcé.', force: 'Une facilité qui t\'ouvre des portes sans effort apparent.', defi: 'Ce qui vient trop facilement peut rester mis de côté, jamais vraiment utilisé.' },
+      8: { titre: 'Tes limites', texte: 'Ta capacité à dire non, à te tenir debout, à ne pas tout porter pour tout le monde en même temps.', exemple: 'Tu acceptes une demande de trop, en sentant déjà que tu vas le regretter, parce que refuser te coûte plus cher que céder.', force: 'Tu sais dire non quand il le faut vraiment.', defi: 'Dire non peut coûter cher, au point de l\'éviter.' },
+      9: { titre: 'Ta mémoire de lignée', texte: 'Ce qui vient de plus loin que toi : ce que ta famille t\'a transmis, parfois sans un mot, à travers des gestes ou des silences.', exemple: 'Une peur ou une habitude qui ne vient pas de ton histoire à toi, mais que tu reconnais chez un parent ou un grand-parent.', force: 'Tu es sensible à ce qui se transmet, et ça peut éclairer beaucoup.', defi: 'Cette mémoire peut peser plus qu\'elle n\'informe, tant qu\'elle reste silencieuse.' }
+    };
+
+    // Points complémentaires : une version que Genesolia a adaptée à sa façon, dans l'esprit de la méthode complète (lignes parentales, tâche de vie, rapport à l'abondance).
+    // Chaque chiffre de 1 à 9 a son propre sens (comme en numérologie classique), pas une échelle d'intensité du faible au fort.
+    var POINTS = {
+      paternelle: {
+        titre: 'Ligne paternelle',
+        digits: {
+          1: 'Une ligne paternelle tournée vers l\'initiative : le père, ou ce qu\'il représente, incarne souvent celui qui montre la voie ou qui pousse à agir.',
+          2: 'Une ligne paternelle plus douce, tournée vers l\'écoute : le père, ou ce qu\'il représente, se vit plus dans la relation que dans l\'autorité.',
+          3: 'Une ligne paternelle expressive : le père, ou ce qu\'il représente, se transmet par les mots, l\'humour, ou la créativité.',
+          4: 'Une ligne paternelle structurante : le père, ou ce qu\'il représente, pose un cadre, une rigueur, parfois un poids du devoir.',
+          5: 'Une ligne paternelle mouvante : le père, ou ce qu\'il représente, est lié au changement, à l\'absence, ou à une liberté difficile à cerner.',
+          6: 'Une ligne paternelle centrée sur la responsabilité : le père, ou ce qu\'il représente, porte le souci de la famille, parfois jusqu\'à s\'oublier.',
+          7: 'Une ligne paternelle discrète, intérieure : le père, ou ce qu\'il représente, se vit plus dans le silence que dans les mots.',
+          8: 'Une ligne paternelle liée au pouvoir ou à la réussite : le père, ou ce qu\'il représente, pose des questions d\'ambition et de reconnaissance.',
+          9: 'Une ligne paternelle tournée vers la transmission : le père, ou ce qu\'il représente, relie à quelque chose de plus grand que lui, une histoire de famille.'
+        }
+      },
+      maternelle: {
+        titre: 'Ligne maternelle',
+        digits: {
+          1: 'Une ligne maternelle tournée vers l\'indépendance : la mère, ou ce qu\'elle représente, incarne la force d\'avancer seule.',
+          2: 'Une ligne maternelle de lien et de douceur : la mère, ou ce qu\'elle représente, se vit dans l\'attention et la proximité.',
+          3: 'Une ligne maternelle expressive : la mère, ou ce qu\'elle représente, transmet par la parole, l\'émotion ou la créativité.',
+          4: 'Une ligne maternelle stable et exigeante : la mère, ou ce qu\'elle représente, pose un cadre, parfois strict.',
+          5: 'Une ligne maternelle changeante : la mère, ou ce qu\'elle représente, est liée au mouvement, à l\'imprévisible, ou à l\'absence.',
+          6: 'Une ligne maternelle tournée vers le soin : la mère, ou ce qu\'elle représente, porte beaucoup pour les autres, parfois trop.',
+          7: 'Une ligne maternelle réservée : la mère, ou ce qu\'elle représente, se vit dans la retenue plus que dans les mots.',
+          8: 'Une ligne maternelle liée à la force ou à la gestion : la mère, ou ce qu\'elle représente, pose des questions de pouvoir ou de charge.',
+          9: 'Une ligne maternelle tournée vers la transmission : la mère, ou ce qu\'elle représente, relie à une histoire familiale plus large.'
+        }
+      },
+      mission: {
+        titre: 'Ta tâche de vie',
+        digits: {
+          1: 'Une tâche de vie tournée vers l\'initiative : ouvrir une voie, être le ou la premier·e à oser.',
+          2: 'Une tâche de vie tournée vers le lien : rapprocher, écouter, faire équipe.',
+          3: 'Une tâche de vie tournée vers l\'expression : dire, créer, transmettre par les mots ou l\'art.',
+          4: 'Une tâche de vie tournée vers la construction : bâtir du solide, du durable, étape par étape.',
+          5: 'Une tâche de vie tournée vers le mouvement : explorer, s\'adapter, ne pas rester enfermé·e.',
+          6: 'Une tâche de vie tournée vers la responsabilité : prendre soin, porter un cadre, souvent pour les autres.',
+          7: 'Une tâche de vie tournée vers la compréhension : chercher, analyser, aller au fond des choses.',
+          8: 'Une tâche de vie tournée vers l\'accomplissement concret : construire quelque chose de solide, matériellement visible.',
+          9: 'Une tâche de vie tournée vers la transmission : donner, conclure un cycle, ouvrir la voie aux autres.'
+        }
+      },
+      argent: {
+        titre: 'Ton rapport à l\'abondance',
+        digits: {
+          1: 'Un rapport à l\'abondance tourné vers l\'indépendance : gagner par toi-même, sans devoir à personne.',
+          2: 'Un rapport à l\'abondance lié au partage : l\'argent se vit à plusieurs, en couple ou en famille, plus que seul·e.',
+          3: 'Un rapport à l\'abondance lié à la créativité : l\'argent arrive souvent par un talent ou une expression personnelle.',
+          4: 'Un rapport à l\'abondance basé sur l\'effort : la stabilité matérielle se construit lentement, par le travail.',
+          5: 'Un rapport à l\'abondance irrégulier : des hauts et des bas, rarement une ligne stable.',
+          6: 'Un rapport à l\'abondance lié à la famille : l\'argent se mêle souvent aux responsabilités envers les proches.',
+          7: 'Un rapport à l\'abondance discret : la matière n\'est pas la priorité, parfois jusqu\'à la négliger.',
+          8: 'Un rapport à l\'abondance marqué : une vraie sensibilité à la réussite matérielle, en bien comme en difficile.',
+          9: 'Un rapport à l\'abondance tourné vers le don : l\'argent circule, se transmet, se partage plus qu\'il ne se garde.'
+        }
+      }
+    };
+    // Les nombres maîtres (11, 22, 33) reprennent le sens de leur chiffre de base (2, 4, 6), en version intensifiée.
+    function digitBase(n) { return n === 11 ? 2 : (n === 22 ? 4 : (n === 33 ? 6 : n)); }
+    function texteAxe(id, n) {
+      var txt = POINTS[id].digits[digitBase(n)] || '';
+      if (n === 11 || n === 22 || n === 33) txt += ' C\'est un nombre maître : cette dimension se vit de façon intensifiée chez toi.';
+      return txt;
+    }
+    // Disposition visuelle façon grille de destin (1 à 9, lecture habituelle de bas en haut)
+    var ORDRE_GRILLE = [3, 6, 9, 2, 5, 8, 1, 4, 7];
+
+    function chiffres(s) { return String(s).replace(/\D/g, '').split('').map(Number); }
+    function reduire(n, garderMaitre) {
+      while (n > 9 && !(garderMaitre && (n === 11 || n === 22 || n === 33))) {
+        n = String(n).split('').reduce(function (a, c) { return a + +c; }, 0);
+      }
+      return n;
+    }
+    function cheminDeVie(jj, mm, aaaa) {
+      var total = chiffres('' + jj + mm + aaaa).reduce(function (a, c) { return a + c; }, 0);
+      return reduire(total, true);
+    }
+    function grilleDepuisDate(jj, mm, aaaa) {
+      var tous = chiffres('' + jj + mm + aaaa);
+      var cdv = cheminDeVie(jj, mm, aaaa);
+      tous = tous.concat(chiffres('' + cdv));
+      var g = {};
+      for (var k = 1; k <= 9; k++) g[k] = 0;
+      tous.forEach(function (d) { if (d >= 1 && d <= 9) g[d]++; });
+      return g;
+    }
+    // Résonance du prénom (et du nom complet si renseigné) : table pythagoricienne classique (A J S=1 ... I R=9)
+    var TABLE = { A:1,J:1,S:1, B:2,K:2,T:2, C:3,L:3,U:3, D:4,M:4,V:4, E:5,N:5,W:5, F:6,O:6,X:6, G:7,P:7,Y:7, H:8,Q:8,Z:8, I:9,R:9 };
+    function resonanceTexte(texte) {
+      var lettres = String(texte).toUpperCase().normalize('NFD').replace(/[^A-Z]/g, '').split('');
+      if (!lettres.length) return null;
+      var total = lettres.reduce(function (a, l) { return a + (TABLE[l] || 0); }, 0);
+      return reduire(total, true);
+    }
+    function sommeChiffres(n) { return chiffres(n).reduce(function (a, c) { return a + c; }, 0); }
+    function pointsComplementaires(jj, mm, aaaa, cdv, res) {
+      return {
+        paternelle: reduire(jj + mm, true),
+        maternelle: reduire(mm + sommeChiffres(aaaa), true),
+        mission: reduire(cdv + (res || sommeChiffres(jj)), true),
+        argent: reduire(jj + sommeChiffres(aaaa), true)
+      };
+    }
+    function niveau(n) { return n === 0 ? 'vide' : (n >= 3 ? 'fort' : ''); }
+    function casesHTML(grille) {
+      return ORDRE_GRILLE.map(function (k) {
+        return '<div class="' + niveau(grille[k]) + '"><b>' + k + '</b><span>' + (grille[k] || 'absent') + (grille[k] ? '×' : '') + '</span></div>';
+      }).join('');
+    }
+    // Compatibilité des chemins de vie : regroupement classique en 3 familles (1-5-7, 2-4-8, 3-6-9)
+    function groupeNombre(n) {
+      var r = n === 11 ? 2 : (n === 22 ? 4 : (n === 33 ? 6 : n));
+      if ([1, 5, 7].indexOf(r) !== -1) return 'A';
+      if ([2, 4, 8].indexOf(r) !== -1) return 'B';
+      return 'C';
+    }
+    function tierCompat(cdv1, cdv2) {
+      if (cdv1 === cdv2) return 'identique';
+      return groupeNombre(cdv1) === groupeNombre(cdv2) ? 'harmonieux' : 'complementaire';
+    }
+    var COMPAT_TEXTES = {
+      identique: {
+        'couple': 'Même chemin de vie : une évidence qui peut rapprocher vite, parfois au point de se reconnaître trop pour se voir vraiment différent·es.',
+        'parent-enfant': 'Même chemin de vie : un miroir fort entre vous, qui peut autant rapprocher qu\'amener à se confondre l\'un dans l\'autre.',
+        'fratrie': 'Même chemin de vie : une proximité rare entre vous, qui explique peut-être pourquoi vous vous comprenez si vite, parfois sans un mot.',
+        'autre': 'Même chemin de vie : une proximité qui facilite souvent la compréhension mutuelle, presque instinctivement.'
+      },
+      harmonieux: {
+        'couple': 'Des chemins différents mais du même esprit : assez proches pour se comprendre, assez différents pour s\'apporter mutuellement quelque chose de nouveau.',
+        'parent-enfant': 'Des chemins différents mais compatibles : une bonne base pour se comprendre, sans que l\'un efface l\'autre.',
+        'fratrie': 'Des chemins différents mais dans le même esprit : de quoi se compléter sans trop se heurter.',
+        'autre': 'Des chemins différents mais du même esprit : une entente qui se construit assez naturellement.'
+      },
+      complementaire: {
+        'couple': 'Deux chemins bien distincts : la rencontre demande sans doute plus d\'ajustements, mais c\'est souvent là que se trouve le plus à apprendre l\'un de l\'autre.',
+        'parent-enfant': 'Deux chemins bien distincts : il peut falloir plus de patience pour se comprendre, mais c\'est aussi l\'occasion de grandir chacun·e à sa façon.',
+        'fratrie': 'Deux chemins bien distincts : vous ne fonctionnez sans doute pas pareil, et c\'est justement ce qui peut vous être utile l\'un à l\'autre.',
+        'autre': 'Deux chemins bien distincts : la relation demande un peu plus d\'effort pour se comprendre, mais elle peut aussi beaucoup vous apprendre.'
+      }
+    };
+    function mentionNiveau(n) {
+      if (n === 0) return 'Absente de ta date : une clé à apprivoiser plutôt qu\'un manque.';
+      if (n === 1) return 'Présente, discrète.';
+      if (n === 2) return 'Bien installée, stable.';
+      return 'Très marquée chez toi, parfois jusqu\'à l\'excès.';
+    }
+
+    var PROFILS_LIGNEE = [
+      { id: 'repete', titre: 'Ce qui se répète', test: function (g) { return g[9] >= 3; },
+        texte: 'Les mêmes types de situations reviennent dans ta lignée, parfois d\'une génération à l\'autre. Ce n\'est pas une fatalité : c\'est un fil visible, et ce qui se voit peut commencer à se dénouer.',
+        piste: 'Note, dans ton arbre, à quel âge chaque génération a vécu une situation semblable. Le simple fait de la voir écrite commence déjà à la désamorcer.' },
+      { id: 'porte', titre: 'Ce que tu portes pour quelqu\'un d\'autre', test: function (g) { return g[9] >= 1 && g[6] >= 3; },
+        texte: 'Il arrive de porter, sans l\'avoir choisi, un poids qui appartenait d\'abord à quelqu\'un d\'autre dans ta famille. Le reconnaître est déjà une façon de se l\'autoriser à déposer.',
+        piste: 'Demande-toi, devant ce poids, à qui il appartenait avant toi. Tu peux choisir de le lui laisser, symboliquement : l\'écrire, puis le refermer.' },
+      { id: 'silencieuse', titre: 'Une mémoire silencieuse', test: function (g) { return g[9] === 0; },
+        texte: 'Rien dans ta date ne met ta mémoire de lignée en avant, et pourtant elle existe : parfois faite de silences, d\'histoires jamais racontées. Ce qui n\'est pas dit se transmet quand même, autrement.',
+        piste: 'Pose une question simple à un·e aîné·e de ta famille, sur un sujet jamais abordé. Une seule question suffit pour commencer à ouvrir la porte.' },
+      { id: 'a-part', titre: 'Une place à trouver', test: function (g) { return g[9] >= 1 && g[9] < 3; },
+        texte: 'Ta lignée est présente sans être envahissante. C\'est une base sur laquelle t\'appuyer, à ton rythme, sans qu\'elle décide de tout à ta place.',
+        piste: 'Regarde ton arbre comme un appui, pas comme un programme à suivre. Tu peux garder ce qui te sert et laisser le reste où il est.' }
+    ];
+    function profilsLignee(g) {
+      var trouves = PROFILS_LIGNEE.filter(function (p) { return p.test(g); });
+      return trouves.length ? trouves : [PROFILS_LIGNEE[PROFILS_LIGNEE.length - 1]];
+    }
+
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+    }
+    function dessinerGrilleCanvas(ctx, g, startX, startY, cellSize, gap) {
+      ORDRE_GRILLE.forEach(function (k, i) {
+        var col = i % 3, row = Math.floor(i / 3);
+        var x = startX + col * (cellSize + gap), y = startY + row * (cellSize + gap);
+        var n = g[k];
+        ctx.fillStyle = n === 0 ? '#FCEFF3' : (n >= 3 ? '#FFF6EC' : '#FFF9F7');
+        ctx.strokeStyle = n === 0 ? '#E3B8C4' : '#EBCFD5'; ctx.lineWidth = 2;
+        roundRect(ctx, x, y, cellSize, cellSize, 20); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#6B2F5B'; ctx.font = '400 ' + Math.round(cellSize * 0.29) + 'px Georgia, serif';
+        ctx.fillText(String(k), x + cellSize / 2, y + cellSize / 2 - 5);
+        ctx.fillStyle = '#8E6383'; ctx.font = '400 ' + Math.round(cellSize * 0.1) + 'px Georgia, serif';
+        ctx.fillText(n ? (n + '×') : 'absent', x + cellSize / 2, y + cellSize / 2 + cellSize * 0.18);
+      });
+    }
+    function genererImageGrille(p, cdv, g) {
+      var taille = 1080;
+      var cvs = document.createElement('canvas');
+      cvs.width = taille; cvs.height = taille;
+      var ctx = cvs.getContext('2d');
+      ctx.fillStyle = '#FFF9F7'; ctx.fillRect(0, 0, taille, taille);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6B2F5B'; ctx.font = '600 54px Georgia, serif';
+      ctx.fillText('La matrice de ' + p, taille / 2, 130);
+      ctx.fillStyle = '#8E6383'; ctx.font = '400 28px Georgia, serif';
+      ctx.fillText('Chemin de vie ' + cdv, taille / 2, 175);
+
+      var cellSize = 220, gap = 20, startX = (taille - (3 * cellSize + 2 * gap)) / 2, startY = 260;
+      dessinerGrilleCanvas(ctx, g, startX, startY, cellSize, gap);
+
+      ctx.fillStyle = '#B98A55'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText('genesolia.fr', taille / 2, startY + 3 * cellSize + 2 * gap + 70);
+      return cvs.toDataURL('image/png');
+    }
+    function genererImageDuo(p, cdv, g, p2, cdv2, g2) {
+      var w = 1600, h = 1080;
+      var cvs = document.createElement('canvas');
+      cvs.width = w; cvs.height = h;
+      var ctx = cvs.getContext('2d');
+      ctx.fillStyle = '#FFF9F7'; ctx.fillRect(0, 0, w, h);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6B2F5B'; ctx.font = '600 50px Georgia, serif';
+      ctx.fillText('La matrice de ' + p + ' & ' + p2, w / 2, 110);
+
+      var cellSize = 170, gap = 16, gridW = 3 * cellSize + 2 * gap, decalage = 40;
+      var startY = 220;
+      var startX1 = w / 2 - gridW - decalage, startX2 = w / 2 + decalage;
+      ctx.fillStyle = '#8E6383'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText(p + ' · chemin de vie ' + cdv, startX1 + gridW / 2, startY - 30);
+      ctx.fillText(p2 + ' · chemin de vie ' + cdv2, startX2 + gridW / 2, startY - 30);
+      dessinerGrilleCanvas(ctx, g, startX1, startY, cellSize, gap);
+      dessinerGrilleCanvas(ctx, g2, startX2, startY, cellSize, gap);
+
+      ctx.fillStyle = '#B98A55'; ctx.font = '400 26px Georgia, serif';
+      ctx.fillText('genesolia.fr', w / 2, startY + 3 * cellSize + 2 * gap + 70);
+      return cvs.toDataURL('image/png');
+    }
+
+    function afficher(prenom, date, nom) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
+      var aaaa = +m[1], mm = +m[2], jj = +m[3];
+      var cdv = cheminDeVie(jj, mm, aaaa);
+      var g = grilleDepuisDate(jj, mm, aaaa);
+      var res = resonanceTexte(nom ? prenom + ' ' + nom : prenom);
+      var pts = pointsComplementaires(jj, mm, aaaa, cdv, res);
+      var profils = profilsLignee(g);
+      var p = prenom.charAt(0).toUpperCase() + prenom.slice(1);
+
+      var cles9 = Object.keys(CLES).map(Number);
+      var dominantes = cles9.filter(function (k) { return g[k] === Math.max.apply(null, cles9.map(function (x) { return g[x]; })); });
+      var absentes = cles9.filter(function (k) { return g[k] === 0; });
+
+      var cases = casesHTML(g);
+
+      var cles = cles9.map(function (k) {
+        return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + k + '</div><h3>' + CLES[k].titre + '</h3></div>' +
+          '<p class="md-niveau">' + mentionNiveau(g[k]) + '</p><p>' + CLES[k].texte + '</p>' +
+          '<p class="md-exemple"><b>Concrètement :</b> ' + CLES[k].exemple + '</p>' +
+          '<div class="md-fd"><div class="md-force"><b>Ta force</b>' + CLES[k].force + '</div><div class="md-defi"><b>Ton défi</b>' + CLES[k].defi + '</div></div></article>';
+      }).join('');
+
+      var h = '<div class="conteneur">';
+      h += '<div class="n-res-tete"><div><h2>La matrice de ' + esc(p) + '</h2>' +
+        '<div class="n-puces"><span>Chemin de vie <b>' + cdv + '</b></span>' + (res ? '<span>Résonance du prénom <b>' + res + '</b></span>' : '') + '</div></div>' +
+        '<div class="actions"><button class="btn btn-plein" type="button" id="md-livret" data-compte="ton livret de ta Matrice de destin" data-produit="matrice">Télécharger mon livret PDF</button><button class="btn btn-trait" type="button" id="md-image">Télécharger l\'image de ma grille</button><button class="btn btn-trait" type="button" id="md-imprimer">Imprimer cette page</button><button class="btn btn-trait" type="button" id="md-refaire">Refaire une matrice</button></div></div>';
+
+      h += '<div class="md-grille-zone"><div class="md-case9" role="img" aria-label="Grille de ta matrice">' + cases + '</div>' +
+        '<p class="md-legende">Chaque case compte combien de fois son chiffre apparaît dans ta date de naissance et ton chemin de vie. Une case pleine n\'est pas meilleure qu\'une case vide : les deux se lisent, autrement.</p></div>';
+
+      h += '<div class="md-resume"><div><span class="n-etiq">Ta clé la plus marquée</span>' +
+        '<h3>' + dominantes.map(function (k) { return CLES[k].titre; }).join(' · ') + '</h3>' +
+        '<p>Ce qui domine chez toi en ce moment, souvent au premier regard.</p></div>' +
+        '<div><span class="n-etiq">' + (absentes.length ? 'Ta ou tes clés à apprivoiser' : 'Un thème équilibré') + '</span>' +
+        (absentes.length ? '<h3>' + absentes.map(function (k) { return CLES[k].titre; }).join(' · ') + '</h3><p>Absente de ta date : un apprentissage plutôt qu\'un manque.</p>' : '<p>Les neuf clés sont présentes dans ta date : un signe d\'équilibre entre tes différentes facettes.</p>') + '</div></div>';
+
+      h += '<h3 class="n-titre-sec">Tes neuf clés, en détail</h3><div class="md-cles">' + cles + '</div>';
+
+      h += '<h3 class="n-titre-sec">Quatre points complémentaires</h3>' +
+        '<p class="n-sec-intro">Au-delà des neuf clés, quatre axes de plus, dans l\'esprit de la méthode complète : la version que Genesolia en a adaptée.</p>' +
+        '<div class="md-cles">' + Object.keys(POINTS).map(function (id) {
+          var n = pts[id], info = POINTS[id];
+          return '<article class="md-cle"><div class="md-cle-haut"><div class="md-cle-n">' + n + '</div><h3>' + info.titre + '</h3></div><p>' + texteAxe(id, n) + '</p></article>';
+        }).join('') + '</div>';
+
+      if (res) {
+        h += '<div class="md-prenom"><div class="md-cle-n">' + res + '</div><div><h3>' + (nom ? 'La résonance de ton nom complet' : 'La résonance de ton prénom') + '</h3><p>Chaque lettre ' + (nom ? 'de ton prénom et de ton nom porte' : 'de ton prénom porte') + ' aussi un nombre. ' + (nom ? 'Celui de ' + esc(p) + ' ' + esc(nom) : 'Celui de ' + esc(p)) + ' se réduit à ' + res + ', une couleur de plus qui s\'ajoute à ta grille : elle colore la façon dont tu te présentes, plus que ce que tu es en profondeur.</p></div></div>';
+      }
+
+      h += '<div class="md-lignee"><span class="n-etiq">Et dans ta lignée ?</span>' + profils.map(function (profil) {
+        return '<div class="md-profil"><h3>' + profil.titre + '</h3><p>' + profil.texte + '</p><p class="piste"><b>Une piste :</b> ' + profil.piste + '</p></div>';
+      }).join('') +
+        '<div class="md-niveaux"><h3>Où ça peut se loger</h3><ul>' +
+          '<li><b>Dans le corps</b>Une fatigue qui ne s\'explique pas, une tension qui revient toujours au même endroit.</li>' +
+          '<li><b>Dans le cœur</b>Un trop-plein qui ne semble pas t\'appartenir en entier, des émotions mélangées à celles qu\'on a portées avant toi.</li>' +
+          '<li><b>Dans l\'élan</b>Une fatigue à avancer, un projet qui n\'aboutit jamais, comme si quelque chose freinait de l\'intérieur.</li>' +
+        '</ul><p style="margin-top:.8rem;font-size:.9rem">Les trois peuvent se combiner. Ce n\'est pas à toi de tout résoudre d\'un coup : juste de repérer, doucement, par où ça passe chez toi.</p></div>' +
+        '<a class="btn btn-plein" style="margin-top:1.2rem;background:var(--champagne-clair);color:var(--prune)" href="genosociogramme.html">Voir ça dans mon arbre familial</a></div>';
+
+      h += '<div class="md-compare">' +
+        '<h3 class="n-titre-sec">Comparer avec quelqu\'un</h3>' +
+        '<p class="n-sec-intro">Calcule la matrice d\'un proche (conjoint·e, enfant, parent) et vois en un coup d\'œil ce que vous partagez, et ce qui vous complète.</p>' +
+        '<form id="md-compare-form" class="n-form" novalidate><div class="n-champ"><label for="md-c-prenom">Son prénom</label><input id="md-c-prenom" required></div>' +
+        '<div class="n-champ"><label for="md-c-date">Sa date de naissance</label><input id="md-c-date" type="date" min="1900-01-01" max="2030-12-31" required></div>' +
+        '<div class="n-champ"><label for="md-c-lien">Votre lien</label><select id="md-c-lien"><option value="couple">En couple</option><option value="parent-enfant">Parent / enfant</option><option value="fratrie">Fratrie</option><option value="autre">Autre (ami·e, collègue…)</option></select></div>' +
+        '<button class="btn btn-trait" type="submit">Comparer nos matrices</button></form>' +
+        '<div id="md-compare-resultat"></div></div>';
+
+      h += '<div class="md-outils">' +
+        '<h3 class="n-titre-sec" style="margin-top:0">Pour continuer, à ton rythme</h3>' +
+        '<p class="n-sec-intro">Une matrice se lit une fois, mais ta lignée continue de parler. Voici où poursuivre, selon ce que tu as envie d\'explorer.</p>' +
+        '<div class="md-outils-grille">' +
+          '<a class="md-outil" href="genosociogramme.html"><span class="n-etiq">Gratuit</span><h3>Dessiner mon arbre familial</h3><p>Pour voir, génération après génération, ce qui se répète vraiment chez toi.</p><span class="prix">Commencer mon arbre</span></a>' +
+          '<a class="md-outil" href="theme-numerologique.html"><span class="n-etiq">Gratuit</span><h3>Ton thème numérologique complet</h3><p>Chemin de vie, expression, cycles, défis : l\'autre lecture par les nombres, en profondeur.</p><span class="prix">Découvrir mon thème</span></a>' +
+          '<a class="md-outil" href="pass.html"><span class="n-etiq">7 jours offerts</span><h3>Ma spirale</h3><p>Numérologie, astrologie et lignée réunies chaque mois, dans un espace à toi, avec ton agenda.</p><span class="prix">4,99 €/mois après l\'essai</span></a>' +
+          '<a class="md-outil" href="cercle.html"><span class="n-etiq">1er mois offert</span><h3>Le Cercle</h3><p>Un carnet mensuel et un suivi de libération, pour avancer avec ta lignée mois après mois.</p><span class="prix">17,77 €/mois (offre de Noël)</span></a>' +
+        '</div></div>';
+
+      var dm = /^\d{4}-(\d{2})-(\d{2})$/.exec(date || '');
+      if (dm) {
+        h += '<a class="md-2027" href="annee-personnelle-2027.html#calcul"><b>2027</b><span><strong>Et l\'an prochain ?</strong>Découvre en quelques secondes ce que ton année personnelle 2027 t\'invite à vivre, mois par mois.</span></a>';
+      }
+
+      h += '<p class="note">Lecture symbolique, pour t\'aider à réfléchir. Elle ne prédit pas l\'avenir.</p></div>';
+      zone.innerHTML = h; zone.hidden = false;
+      document.getElementById('md-refaire').addEventListener('click', function () { f.reset(); f.scrollIntoView({ behavior: 'smooth' }); document.getElementById('md-prenom').focus(); });
+      document.getElementById('md-imprimer').addEventListener('click', function () { window.print(); });
+      document.getElementById('md-livret').addEventListener('click', function () { window.print(); });
+      document.getElementById('md-image').addEventListener('click', function () {
+        var url = genererImageGrille(p, cdv, g);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'matrice-de-' + prenom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.png';
+        document.body.appendChild(a); a.click(); a.remove();
+      });
+      document.getElementById('md-compare-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var p2nom = document.getElementById('md-c-prenom').value.trim(), d2 = document.getElementById('md-c-date').value;
+        var out = document.getElementById('md-compare-resultat');
+        var m2 = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d2);
+        if (!p2nom || !m2) { out.innerHTML = '<p class="n-erreur" role="alert">Indique son prénom et sa date de naissance complète.</p>'; return; }
+        var aaaa2 = +m2[1], mm2 = +m2[2], jj2 = +m2[3];
+        var cdv2 = cheminDeVie(jj2, mm2, aaaa2);
+        var g2 = grilleDepuisDate(jj2, mm2, aaaa2);
+        var p2 = p2nom.charAt(0).toUpperCase() + p2nom.slice(1);
+        var lien = document.getElementById('md-c-lien').value;
+        var dominantes2 = cles9.filter(function (k) { return g2[k] === Math.max.apply(null, cles9.map(function (x) { return g2[x]; })); });
+        var communes = dominantes.filter(function (k) { return dominantes2.indexOf(k) !== -1; });
+        var complementaires = cles9.filter(function (k) { return (g[k] === 0 && g2[k] >= 2) || (g2[k] === 0 && g[k] >= 2); });
+        var compat = COMPAT_TEXTES[tierCompat(cdv, cdv2)][lien];
+        out.innerHTML = '<div class="md-compare-out">' +
+          '<div class="md-compare-grilles">' +
+            '<div><h4>' + esc(p) + ' · chemin de vie ' + cdv + '</h4><div class="md-case9" role="img" aria-label="Grille de ' + esc(p) + '">' + casesHTML(g) + '</div></div>' +
+            '<div><h4>' + esc(p2) + ' · chemin de vie ' + cdv2 + '</h4><div class="md-case9" role="img" aria-label="Grille de ' + esc(p2) + '">' + casesHTML(g2) + '</div></div>' +
+          '</div>' +
+          '<p><b>Vos chemins de vie :</b> ' + compat + '</p>' +
+          '<p><b>Ce que vous partagez :</b> ' + (communes.length ? communes.map(function (k) { return CLES[k].titre; }).join(', ') : 'Aucune clé dominante commune : vos profils se croisent plus qu\'ils ne se ressemblent.') + '</p>' +
+          '<p><b>Ce qui vous complète :</b> ' + (complementaires.length ? complementaires.map(function (k) { return CLES[k].titre; }).join(', ') + ' — là où l\'un·e est discret·e, l\'autre est marqué·e.' : 'Vos deux grilles se ressemblent, sans grand écart entre vous.') + '</p>' +
+          '<p class="note">Lecture symbolique, pas un verdict sur votre relation : à prendre comme un point de départ pour en parler ensemble.</p>' +
+          '<div class="md-compare-plus"><h4>Aller plus loin</h4><p>Comparez aussi vos points complémentaires, votre lignée à deux, et téléchargez l\'image de votre duo — gratuit avec un compte Genesolia.</p>' +
+          '<button class="btn btn-trait" type="button" id="md-compare-debloquer" data-compte="ta comparaison complète">Débloquer la comparaison complète</button>' +
+          '<div id="md-compare-plus-zone"></div></div></div>';
+
+        document.getElementById('md-compare-debloquer').addEventListener('click', function () {
+          var res2 = null;
+          var pts2 = pointsComplementaires(jj2, mm2, aaaa2, cdv2, res2);
+          var profils2 = profilsLignee(g2);
+          var axes = Object.keys(POINTS).map(function (id) {
+            var n1 = pts[id], n2 = pts2[id], meme = digitBase(n1) === digitBase(n2), info = POINTS[id];
+            return '<article class="md-cle"><h3>' + info.titre + '</h3>' +
+              '<p><b>' + esc(p) + ' (' + n1 + ')</b> ' + texteAxe(id, n1) + '</p>' +
+              '<p><b>' + esc(p2) + ' (' + n2 + ')</b> ' + texteAxe(id, n2) + '</p>' +
+              '<p class="note">' + (meme ? 'Vous vivez cet axe de façon assez proche.' : 'Vos rapports à cet axe diffèrent : une bonne occasion d\'en parler ensemble.') + '</p></article>';
+          }).join('');
+          var communsLignee = profils.filter(function (pr) { return profils2.some(function (pr2) { return pr2.id === pr.id; }); });
+          var lignee = communsLignee.length
+            ? '<p>Vous partagez ce profil de lignée : <b>' + communsLignee.map(function (pr) { return pr.titre; }).join(', ') + '</b>. Ce qui se répète d\'un côté peut parfois éclairer l\'autre.</p>'
+            : '<p>Vos lignées suivent des chemins différents : aucun profil transgénérationnel commun identifié ici.</p>';
+          document.getElementById('md-compare-plus-zone').innerHTML =
+            '<h3 class="n-titre-sec">Vos points complémentaires, à deux</h3><div class="md-cles">' + axes + '</div>' +
+            '<h3 class="n-titre-sec">Vos lignées, côte à côte</h3>' + lignee +
+            '<button class="btn btn-plein" type="button" id="md-compare-image">Télécharger l\'image de notre duo</button>';
+          document.getElementById('md-compare-image').addEventListener('click', function () {
+            var url = genererImageDuo(p, cdv, g, p2, cdv2, g2);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'matrice-duo-' + prenom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '-' + p2nom.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') + '.png';
+            document.body.appendChild(a); a.click(); a.remove();
+          });
+        });
+      });
+    }
+
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var prenom = f.prenom.value.trim(), nom = f.nom.value.trim(), date = f.date.value;
+      if (!prenom) { err.textContent = 'Écris ton prénom.'; f.prenom.focus(); return; }
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || +date.slice(0, 4) < 1900) { err.textContent = 'Indique ta date de naissance complète.'; f.date.focus(); return; }
+      err.textContent = '';
+      afficher(prenom, date, nom);
+      try { localStorage.setItem('genesolia-matrice-destin', JSON.stringify({ prenom: prenom, nom: nom, date: date })); } catch (x) {}
+      if (window.umami) try { window.umami.track('matrice-de-destin'); } catch (x) {}
+      zone.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    if (/[?&]exemple\b/.test(window.location.search)) {
+      f.prenom.value = 'Camille'; f.date.value = '1990-05-12';
+      afficher('Camille', '1990-05-12', '');
+      zone.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      try {
+        var s = JSON.parse(localStorage.getItem('genesolia-matrice-destin') || 'null');
+        if (s && s.prenom) { f.prenom.value = s.prenom; f.nom.value = s.nom || ''; f.date.value = s.date; afficher(s.prenom, s.date, s.nom || ''); }
+      } catch (x) {}
+    }
+  })();
+  </script>
+</body>
+</html>

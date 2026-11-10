@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Plateau symbolique en visio · Genesolia</title>
+  <meta name="description" content="Un plateau libre pour poser des pions (personnes, objets symboliques) et les déplacer en direct pendant une séance en visio.">
+  <link rel="canonical" href="https://genesolia.fr/plateau-visio.html">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .pv-tete{text-align:center;max-width:42rem;margin:0 auto 1.6rem}
+    .pv-tete p{color:var(--prune-doux);margin-top:.5rem}
+    .pv-ecran-conseil{font-weight:600;color:var(--prune)!important}
+    .pv-barre{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.4rem}
+    .pv-barre button{font:600 .9rem var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;transition:background .15s,border-color .15s}
+    .pv-barre button:hover{background:var(--rose);border-color:var(--prune)}
+    .pv-barre button.pv-danger{color:#A33A4A;border-color:#E3B8BE}
+    .pv-disposition{display:flex;gap:1.4rem;align-items:flex-start;max-width:72rem;margin:0 auto}
+    .pv-plateau-zone{position:relative;flex:1;min-width:0}
+    .pv-liste-zone{width:14rem;flex-shrink:0}
+    .pv-liste-zone h2{font:600 .78rem var(--texte);letter-spacing:.06em;text-transform:uppercase;color:var(--prune-doux);margin:0 0 .6rem}
+    .pv-liste{list-style:none;margin:0;padding:0;display:grid;gap:.4rem;max-height:min(70vh,640px);overflow:auto}
+    .pv-liste li{display:flex;align-items:center;gap:.55rem;padding:.5rem .7rem;border-radius:12px;border:1px solid var(--rose-fonce);background:var(--blanc);cursor:pointer;font-size:.86rem;color:var(--prune)}
+    .pv-liste li:hover{background:var(--rose)}
+    .pv-liste-puce{width:.85rem;height:.85rem;border-radius:50%;flex-shrink:0}
+    .pv-liste-vide{color:var(--prune-doux);font-size:.85rem}
+    @media (max-width:860px){.pv-disposition{flex-direction:column}.pv-liste-zone{width:100%}.pv-liste{max-height:12rem}}
+    .pv-plateau{position:relative;width:100%;height:min(70vh,640px);min-height:380px;border-radius:var(--rayon);background:
+      radial-gradient(circle at 50% 50%, rgba(243,220,192,.18), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(107,47,91,.05) 0 1px, transparent 1px 48px),
+      repeating-linear-gradient(90deg, rgba(107,47,91,.05) 0 1px, transparent 1px 48px),
+      var(--nacre);
+      border:1.5px dashed var(--rose-fonce);overflow:hidden}
+    .pv-vide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--prune-doux);font-size:.95rem;padding:2rem;pointer-events:none}
+    .pv-vide strong{display:block;color:var(--prune);font:400 1.1rem var(--display);margin-bottom:.3rem}
+    .pv-pion{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:grab;user-select:none;touch-action:none;transform:translate(-50%,-50%)}
+    .pv-pion.pv-drag{cursor:grabbing;z-index:50}
+    .pv-forme{box-shadow:0 8px 18px rgba(46,19,56,.22),0 0 0 2px rgba(255,255,255,.8) inset;display:grid;place-items:center;color:#fff;font:700 .75rem var(--texte);flex-shrink:0}
+    .pv-forme.pv-cercle{border-radius:50%}
+    .pv-forme.pv-carre{border-radius:8px}
+    .pv-forme.pv-triangle{background:none!important;box-shadow:none;width:0!important;height:0!important;border-left:var(--tri-g) solid transparent;border-right:var(--tri-g) solid transparent;border-bottom:var(--tri-h) solid var(--tri-c)}
+    .pv-forme.pv-icone-fond{background:#fff;border-radius:50%}
+    .pv-icone-svg{display:grid;place-items:center}
+    .pv-icones-choix{flex-wrap:wrap;max-width:15rem}
+    .pv-icones-choix button svg{width:1.3rem;height:1.3rem;stroke:var(--prune)}
+    .pv-etiquette{max-width:6.5rem;text-align:center;font-size:.78rem;color:var(--prune);background:rgba(255,255,255,.9);padding:.1rem .45rem;border-radius:99px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pv-etiquette.pv-a-note::after{content:"";display:inline-block;width:.4rem;height:.4rem;border-radius:50%;background:var(--champagne);margin-left:.35rem;vertical-align:middle}
+    .pv-liste-note{width:.5rem;height:.5rem;border-radius:50%;background:var(--champagne);flex-shrink:0}
+    .pv-pion.pv-selectionne .pv-forme{outline:3px solid var(--champagne);outline-offset:2px}
+    .pv-pion.pv-actif-pion .pv-forme{box-shadow:0 0 0 4px var(--champagne),0 0 22px 2px rgba(185,138,85,.55),0 10px 24px rgba(46,19,56,.25)!important;animation:pvPulse 1.8s ease-in-out infinite}
+    .pv-pion.pv-actif-pion .pv-triangle{filter:drop-shadow(0 0 3px var(--champagne)) drop-shadow(0 0 9px rgba(185,138,85,.6));animation:pvPulse 1.8s ease-in-out infinite}
+    @keyframes pvPulse{0%,100%{opacity:1}50%{opacity:.82}}
+    .pv-champ-case{display:flex;align-items:center;gap:.5rem;font-size:.88rem;color:var(--prune-doux);margin-bottom:1rem}
+    .pv-champ-case input{accent-color:var(--champagne);width:1.1rem;height:1.1rem}
+    .pv-plus{margin-bottom:1rem}
+    .pv-plus summary{cursor:pointer;font-size:.88rem;font-weight:600;color:var(--prune-doux);list-style:none;padding:.5rem 0;display:flex;align-items:center;gap:.4rem}
+    .pv-plus summary::before{content:'▸';font-size:.7rem;transition:transform .15s}
+    .pv-plus[open] summary::before{transform:rotate(90deg)}
+    .pv-plus summary::-webkit-details-marker{display:none}
+    .pv-plus-indice{font-weight:400;color:var(--rose-fonce)}
+    .pv-plus[open] summary{margin-bottom:.4rem}
+    .pv-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    .pv-svg .pv-lien-trait,.pv-svg .pv-trace-trait{pointer-events:visiblePainted;cursor:pointer}
+    .pv-corps{position:relative;display:inline-block}
+    .pv-orientation{position:absolute;inset:-11px;pointer-events:none}
+    .pv-orientation-pointe{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:11px solid var(--prune)}
+    .pv-barre button.pv-mode-actif{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .pv-boussole button span{display:block;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid var(--prune)}
+    .pv-hint-lien{text-align:center;color:var(--prune);font-size:.88rem;font-weight:600;margin:0 0 1rem}
+
+    .pv-panneau{position:fixed;inset:0;background:rgba(46,19,56,.45);display:none;align-items:center;justify-content:center;z-index:100;padding:1rem}
+    .pv-panneau.pv-ouvert{display:flex}
+    .pv-carte{background:var(--blanc);border-radius:var(--rayon);padding:1.6rem;max-width:24rem;width:100%;box-shadow:0 30px 70px rgba(46,19,56,.3)}
+    .pv-carte h3{margin:0 0 1rem;font:400 1.3rem var(--display);color:var(--prune)}
+    .pv-champ{display:grid;gap:.35rem;margin-bottom:1rem}
+    .pv-champ label{font-size:.85rem;font-weight:600;color:var(--prune)}
+    .pv-champ input[type=text]{font:400 1rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box}
+    .pv-ligne2{display:flex;gap:1rem;align-items:center}
+    .pv-ligne2 label{display:flex;align-items:center;gap:.4rem;font-size:.85rem;font-weight:400;color:var(--prune-doux)}
+    .pv-formes-choix{display:flex;gap:.5rem}
+    .pv-formes-choix button{width:2.4rem;height:2.4rem;border-radius:10px;border:1.5px solid var(--rose-fonce);background:var(--rose);cursor:pointer;display:grid;place-items:center}
+    .pv-formes-choix button.pv-actif{border-color:var(--prune);background:var(--champagne-clair)}
+    .pv-actions-carte{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem}
+    .pv-actions-carte button{font:600 .9rem var(--texte);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;border:1.5px solid var(--rose-fonce);background:var(--blanc);color:var(--prune)}
+    .pv-actions-carte button.pv-valider{background:var(--prune);color:#fff;border-color:var(--prune)}
+    .pv-actions-carte button.pv-supprimer{color:#A33A4A;border-color:#E3B8BE}
+
+    .pv-note{text-align:center;color:var(--prune-doux);font-size:.88rem;max-width:40rem;margin:1.4rem auto 0}
+    .pv-prive{margin-top:1.1rem;border:1.5px dashed var(--rose-fonce);border-radius:14px;padding:.8rem .9rem;background:#FFFBFC}
+    .pv-prive summary{cursor:pointer;font:600 .88rem var(--texte);color:var(--prune)}
+    .pv-prive[open] summary{margin-bottom:.6rem}
+    .pv-prive-aide{color:#A3324B;font-size:.82rem;margin:.3rem 0 .7rem;font-weight:600}
+    .pv-gens-liste{list-style:none;margin:0 0 .8rem;padding:0;display:grid;gap:.3rem;max-height:10rem;overflow:auto}
+    .pv-gens-liste li{font-size:.86rem;color:var(--prune);padding:.3rem .5rem;border-radius:8px;background:var(--rose)}
+    .pv-prive textarea{width:100%;box-sizing:border-box;min-height:5rem;font:inherit;font-size:.88rem;padding:.6rem .7rem;border:1.5px solid var(--rose-fonce);border-radius:12px;resize:vertical}
+    .pv-dossier-nom{text-align:center;color:var(--champagne);font:600 .8rem var(--texte);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .3rem}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="pv-tete">
+          <p class="a-etiq" style="color:var(--champagne)">Espace praticien · en visio</p>
+          <p class="pv-dossier-nom" id="pvDossierNom" hidden></p>
+          <h1>Le plateau symbolique, à partager en visio</h1>
+          <p>Posez des pions — des personnes ou des objets symboliques (un secret, un événement, un lieu, une émotion…) — et déplacez-les librement pendant votre séance. Chaque pion est choisi par votre cliente : sa forme, sa couleur, sa taille, son nom.</p>
+          <p class="pv-ecran-conseil">Partagez cet écran pendant votre appel (Zoom, Google Meet, Whereby…) : c'est vous qui déplacez les pions selon ce que votre cliente exprime, le plateau ne remplace pas l'appel.</p>
+        </div>
+
+        <div class="pv-barre">
+          <button type="button" onclick="pvOuvrirPanneau('personne')">+ Une personne</button>
+          <button type="button" onclick="pvOuvrirPanneau('objet')">+ Un objet symbolique</button>
+          <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
+          <button type="button" onclick="pvExporter()">Exporter en image</button>
+          <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
+        </div>
+        <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
+
+        <div class="pv-disposition">
+          <div class="pv-plateau-zone">
+            <div class="pv-plateau" id="pvPlateau">
+              <svg class="pv-svg" id="pvSvg"></svg>
+              <p class="pv-vide" id="pvVide"><span><strong>Le plateau est vide</strong>Ajoutez une personne ou un objet symbolique pour commencer.</span></p>
+            </div>
+          </div>
+          <div class="pv-liste-zone">
+            <h2>Sur le plateau</h2>
+            <ul class="pv-liste" id="pvListe"></ul>
+            <details class="pv-prive" id="pvPrive" hidden>
+              <summary>Infos de l’arbre (privé)</summary>
+              <p class="pv-prive-aide">Ne partagez pas cette zone à l’écran : gardez-la fermée ou hors du cadrage de votre partage d’écran.</p>
+              <ul class="pv-gens-liste" id="pvGensListe"></ul>
+              <label for="pvNotesLiens" style="font:600 .82rem var(--texte);color:var(--prune);display:block;margin-bottom:.35rem">Notes de liens à reporter sur l’arbre</label>
+              <textarea id="pvNotesLiens" maxlength="2000" placeholder="Ce qui vient en séance et que vous voudrez reporter sur l’arbre ensuite…"></textarea>
+              <p class="pv-prive-aide" style="color:var(--prune-doux);font-weight:400;margin-top:.5rem">Rien n’est ajouté automatiquement à l’arbre : c’est un brouillon que vous reportez vous-même si besoin.</p>
+            </details>
+          </div>
+        </div>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/supabase.js"></script>
+
+  <div class="pv-panneau" id="pvPanneau" role="dialog" aria-modal="true" aria-labelledby="pvPanneauTitre">
+    <div class="pv-carte">
+      <h3 id="pvPanneauTitre">Ajouter un pion</h3>
+      <div class="pv-champ">
+        <label for="pvNom">Nom</label>
+        <input type="text" id="pvNom" placeholder="Ex. : ma mère, le secret, le départ en 1998…" maxlength="40">
+      </div>
+      <details class="pv-plus" id="pvPlus">
+        <summary>Plus d'options <span class="pv-plus-indice">(forme, couleur, taille, orientation, note…)</span></summary>
+        <div class="pv-champ" id="pvChampForme">
+          <label>Forme</label>
+          <div class="pv-formes-choix" id="pvFormesChoix">
+            <button type="button" data-forme="cercle" class="pv-actif" title="Cercle" onclick="pvChoisirForme('cercle')">●</button>
+            <button type="button" data-forme="carre" title="Carré" onclick="pvChoisirForme('carre')">■</button>
+            <button type="button" data-forme="triangle" title="Triangle" onclick="pvChoisirForme('triangle')">▲</button>
+          </div>
+        </div>
+        <div class="pv-champ" id="pvChampIcone" style="display:none">
+          <label>Symbole</label>
+          <div class="pv-formes-choix pv-icones-choix" id="pvIconesChoix"></div>
+        </div>
+        <div class="pv-ligne2">
+          <div class="pv-champ" style="flex:1">
+            <label for="pvCouleur">Couleur</label>
+            <input type="color" id="pvCouleur" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+          </div>
+          <div class="pv-champ" style="flex:1">
+            <label for="pvTaille">Taille</label>
+            <input type="range" id="pvTaille" min="36" max="100" value="60" style="width:100%">
+          </div>
+        </div>
+        <div class="pv-champ">
+          <label>Orientation (vers qui ce pion est tourné)</label>
+          <div class="pv-formes-choix pv-boussole" id="pvBoussole" style="flex-wrap:wrap;max-width:16rem">
+            <button type="button" data-rot="0" title="Haut" onclick="pvChoisirRotation(0)"><span></span></button>
+            <button type="button" data-rot="45" title="Haut-droite" onclick="pvChoisirRotation(45)"><span style="transform:rotate(45deg)"></span></button>
+            <button type="button" data-rot="90" title="Droite" onclick="pvChoisirRotation(90)"><span style="transform:rotate(90deg)"></span></button>
+            <button type="button" data-rot="135" title="Bas-droite" onclick="pvChoisirRotation(135)"><span style="transform:rotate(135deg)"></span></button>
+            <button type="button" data-rot="180" title="Bas" onclick="pvChoisirRotation(180)"><span style="transform:rotate(180deg)"></span></button>
+            <button type="button" data-rot="225" title="Bas-gauche" onclick="pvChoisirRotation(225)"><span style="transform:rotate(225deg)"></span></button>
+            <button type="button" data-rot="270" title="Gauche" onclick="pvChoisirRotation(270)"><span style="transform:rotate(270deg)"></span></button>
+            <button type="button" data-rot="315" title="Haut-gauche" onclick="pvChoisirRotation(315)"><span style="transform:rotate(315deg)"></span></button>
+            <button type="button" data-rot="aucune" title="Aucune orientation" onclick="pvChoisirRotation(null)" style="font-size:.68rem">Aucune</button>
+          </div>
+        </div>
+        <div class="pv-champ">
+          <label for="pvNote">Note (ce que vous savez sur cette personne ou cet objet)</label>
+          <textarea id="pvNote" rows="3" maxlength="500" placeholder="Dates, répétitions, ce qui a été dit en séance…" style="font:400 .92rem var(--texte);padding:.6rem .8rem;border:1.5px solid var(--rose-fonce);border-radius:12px;width:100%;box-sizing:border-box;resize:vertical"></textarea>
+        </div>
+        <label class="pv-champ-case"><input type="checkbox" id="pvActif"> Entouré d’un halo (c’est son tour, elle parle)</label>
+      </details>
+      <div class="pv-actions-carte">
+        <button type="button" class="pv-supprimer" id="pvBoutonSupprimer" style="display:none" onclick="pvSupprimerPion()">Supprimer</button>
+        <button type="button" id="pvBoutonDupliquer" style="display:none" onclick="pvDupliquerPion()">Dupliquer</button>
+        <button type="button" onclick="pvFermerPanneau()">Annuler</button>
+        <button type="button" class="pv-valider" onclick="pvValiderPanneau()">Ajouter au plateau</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pv-panneau" id="pvPanneauLien" role="dialog" aria-modal="true" aria-labelledby="pvPanneauLienTitre">
+    <div class="pv-carte">
+      <h3 id="pvPanneauLienTitre">Le lien entre ces deux pions</h3>
+      <div class="pv-champ">
+        <label>Type de lien</label>
+        <div class="pv-formes-choix" id="pvStylesLien" style="flex-wrap:wrap">
+          <button type="button" data-style="plein" class="pv-actif" title="Lien fort" onclick="pvChoisirStyleLien('plein')">Plein</button>
+          <button type="button" data-style="pointille" title="Lien distendu" onclick="pvChoisirStyleLien('pointille')">Pointillé</button>
+          <button type="button" data-style="coupe" title="Lien coupé" onclick="pvChoisirStyleLien('coupe')">Coupé</button>
+        </div>
+      </div>
+      <div class="pv-champ">
+        <label for="pvCouleurLien">Couleur</label>
+        <input type="color" id="pvCouleurLien" value="#6B2F5B" style="width:100%;height:2.4rem;border:1.5px solid var(--rose-fonce);border-radius:10px;padding:.2rem">
+      </div>
+      <div class="pv-actions-carte">
+        <button type="button" onclick="pvAnnulerLien()">Annuler</button>
+        <button type="button" class="pv-valider" onclick="pvValiderLien()">Créer le lien</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    var plateau = document.getElementById('pvPlateau');
+    var vide = document.getElementById('pvVide');
+    var panneau = document.getElementById('pvPanneau');
+    var svg = document.getElementById('pvSvg');
+    var panneauLien = document.getElementById('pvPanneauLien');
+    var pions = [];          // {id, type, nom, forme, couleur, taille, x, y, rotation, trace} — x/y en % du plateau ; type: 'personne' ou 'objet'
+    var liens = [];          // {id, a, b, style, couleur} — style: 'plein' | 'pointille' | 'coupe'
+    var formeChoisie = 'cercle';
+    var rotationChoisie = null;
+    var idEnEdition = null;  // null = création, sinon id du pion édité
+    var typeActuel = 'personne';
+    var modeLien = false;
+    var premierPionLien = null;
+    var deuxiemePionLien = null;
+    var styleLienChoisi = 'plein';
+
+    var ICONES = {
+      cle: { label: 'Clé (secret)', chemin: '<circle cx="8" cy="8" r="3.4"/><path d="M10.4 10.4L20 20m-5-5l2-2m-6 6l2-2"/>' },
+      coeur: { label: 'Cœur (pardon, amour)', chemin: '<path d="M12 20s-6.5-4-9-8c-2-3.2 0-7 3.3-7 2 0 3.7 1.3 4.7 3 1-1.7 2.7-3 4.7-3 3.3 0 5.3 3.8 3.3 7-2.5 4-9 8-9 8z"/>' },
+      oeil: { label: 'Œil (peur, vigilance)', chemin: '<path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/>' },
+      poing: { label: 'Poing (violence, colère)', chemin: '<path d="M7 10V7a2 2 0 0 1 4 0M11 10V6a2 2 0 0 1 4 0M15 10V7a2 2 0 0 1 4 0M19 10v4a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5v-2a2 2 0 0 1 4 0"/>' },
+      chaine: { label: 'Chaîne brisée (libération)', chemin: '<ellipse cx="7" cy="12" rx="3.2" ry="4.2"/><ellipse cx="17" cy="12" rx="3.2" ry="4.2"/>' },
+      maison: { label: 'Maison (foyer)', chemin: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>' },
+      etoile: { label: 'Étoile (espoir)', chemin: '<path d="M12 3l2.6 5.9 6.4.6-4.9 4.2 1.5 6.3L12 16.9 6.4 20l1.5-6.3L3 9.5l6.4-.6z"/>' },
+      question: { label: 'Point d’interrogation (inconnu)', chemin: '<path d="M9 9a3 3 0 1 1 4.6 2.6c-1.2.8-1.6 1.4-1.6 2.9"/><circle cx="12" cy="17.2" r=".4" fill="currentColor" stroke="none"/>' }
+    };
+
+    function maj() {
+      vide.style.display = pions.length ? 'none' : '';
+    }
+
+    function dessinerPion(p) {
+      var el = document.createElement('div');
+      el.className = 'pv-pion' + (p.actif ? ' pv-actif-pion' : '');
+      el.dataset.id = p.id;
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+
+      var corps = document.createElement('div');
+      corps.className = 'pv-corps';
+
+      if (p.type === 'objet') {
+        var fond = document.createElement('div');
+        fond.className = 'pv-forme pv-icone-fond';
+        fond.style.width = p.taille + 'px';
+        fond.style.height = p.taille + 'px';
+        var tailleIcone = Math.round(p.taille * 0.55);
+        var icone = ICONES[p.forme] || ICONES.cle;
+        fond.innerHTML = '<div class="pv-icone-svg" style="color:' + p.couleur + '"><svg viewBox="0 0 24 24" width="' + tailleIcone + '" height="' + tailleIcone + '" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + icone.chemin + '</svg></div>';
+        corps.appendChild(fond);
+      } else {
+        var forme = document.createElement('div');
+        forme.className = 'pv-forme pv-' + p.forme;
+        if (p.forme === 'triangle') {
+          forme.style.setProperty('--tri-g', (p.taille / 2) + 'px');
+          forme.style.setProperty('--tri-h', p.taille + 'px');
+          forme.style.setProperty('--tri-c', p.couleur);
+        } else {
+          forme.style.width = p.taille + 'px';
+          forme.style.height = p.taille + 'px';
+          forme.style.background = p.couleur;
+        }
+        corps.appendChild(forme);
+      }
+
+      if (p.rotation !== null && p.rotation !== undefined) {
+        var orient = document.createElement('div');
+        orient.className = 'pv-orientation';
+        orient.style.transform = 'rotate(' + p.rotation + 'deg)';
+        orient.innerHTML = '<div class="pv-orientation-pointe" style="border-bottom-color:' + p.couleur + '"></div>';
+        corps.appendChild(orient);
+      }
+
+      el.appendChild(corps);
+
+      var etiq = document.createElement('span');
+      etiq.className = 'pv-etiquette' + (p.note && p.note.trim() ? ' pv-a-note' : '');
+      etiq.textContent = p.nom || '(sans nom)';
+      etiq.title = p.note && p.note.trim() ? p.note.trim() : '';
+      el.appendChild(etiq);
+      attacherGestes(el, p);
+      plateau.appendChild(el);
+    }
+
+    function redessiner() {
+      Array.prototype.slice.call(plateau.querySelectorAll('.pv-pion')).forEach(function (n) { n.remove(); });
+      pions.forEach(dessinerPion);
+      maj();
+      redessinerSvg();
+      redessinerListe();
+      pvSauvegarder();
+    }
+
+    // Les positions sont en % du plateau : on les convertit en pixels pour tracer les traits et les traces.
+    function centrePion(p) {
+      var rect = plateau.getBoundingClientRect();
+      return { x: (p.x / 100) * rect.width, y: (p.y / 100) * rect.height };
+    }
+
+    function redessinerSvg() {
+      svg.innerHTML = '';
+      var rect = plateau.getBoundingClientRect();
+      svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
+
+      // Traces de déplacement : un pointillé léger du chemin parcouru, sous les pions. Touchez la trace pour l'effacer.
+      pions.forEach(function (p) {
+        if (!p.trace || !p.trace.length) return;
+        var pts = p.trace.map(function (pt) { return (pt.x / 100 * rect.width) + ',' + (pt.y / 100 * rect.height); });
+        var actuel = centrePion(p);
+        pts.push(actuel.x + ',' + actuel.y);
+
+        var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupe.setAttribute('class', 'pv-trace-trait');
+        groupe.addEventListener('click', function () { p.trace = []; redessinerSvg(); pvSauvegarder(); });
+
+        var chemin = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        chemin.setAttribute('points', pts.join(' '));
+        chemin.setAttribute('fill', 'none');
+        chemin.setAttribute('stroke', p.couleur);
+        chemin.setAttribute('stroke-width', '1.5');
+        chemin.setAttribute('stroke-dasharray', '3,5');
+        chemin.setAttribute('opacity', '.35');
+        groupe.appendChild(chemin);
+
+        var zone = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        zone.setAttribute('points', pts.join(' '));
+        zone.setAttribute('fill', 'none');
+        zone.setAttribute('stroke', 'transparent');
+        zone.setAttribute('stroke-width', '16');
+        zone.setAttribute('pointer-events', 'stroke');
+        groupe.appendChild(zone);
+
+        p.trace.forEach(function (pt, i) {
+          var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          c.setAttribute('cx', (pt.x / 100 * rect.width));
+          c.setAttribute('cy', (pt.y / 100 * rect.height));
+          c.setAttribute('r', Math.max(3, p.taille * 0.12));
+          c.setAttribute('fill', p.couleur);
+          c.setAttribute('opacity', (0.15 + i * 0.12).toFixed(2));
+          groupe.appendChild(c);
+        });
+        svg.appendChild(groupe);
+      });
+
+      // Liens entre pions
+      liens.forEach(function (l) {
+        var a = pions.find(function (p) { return p.id === l.a; });
+        var b = pions.find(function (p) { return p.id === l.b; });
+        if (!a || !b) return;
+        var ca = centrePion(a), cb = centrePion(b);
+        var groupe = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        groupe.setAttribute('class', 'pv-lien-trait');
+        groupe.addEventListener('click', function () { pvSupprimerLien(l.id); });
+
+        if (l.style === 'coupe') {
+          var mx = (ca.x + cb.x) / 2, my = (ca.y + cb.y) / 2;
+          var dx = cb.x - ca.x, dy = cb.y - ca.y;
+          var len = Math.hypot(dx, dy) || 1;
+          var ux = dx / len, uy = dy / len;
+          var gap = 10;
+          var m1 = { x: mx - ux * gap, y: my - uy * gap };
+          var m2 = { x: mx + ux * gap, y: my + uy * gap };
+          groupe.appendChild(ligneSvg(ca.x, ca.y, m1.x, m1.y, l.couleur, false));
+          groupe.appendChild(ligneSvg(m2.x, m2.y, cb.x, cb.y, l.couleur, false));
+          // deux petits traits perpendiculaires, pour marquer la coupure
+          var px = -uy * 7, py = ux * 7;
+          groupe.appendChild(ligneSvg(m1.x + px, m1.y + py, m1.x - px, m1.y - py, l.couleur, false));
+          groupe.appendChild(ligneSvg(m2.x + px, m2.y + py, m2.x - px, m2.y - py, l.couleur, false));
+        } else {
+          groupe.appendChild(ligneSvg(ca.x, ca.y, cb.x, cb.y, l.couleur, l.style === 'pointille'));
+        }
+        // zone invisible plus large, pour toucher/cliquer facilement
+        var zone = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        zone.setAttribute('x1', ca.x); zone.setAttribute('y1', ca.y);
+        zone.setAttribute('x2', cb.x); zone.setAttribute('y2', cb.y);
+        zone.setAttribute('stroke', 'transparent');
+        zone.setAttribute('stroke-width', '16');
+        zone.setAttribute('pointer-events', 'stroke');
+        groupe.appendChild(zone);
+        svg.appendChild(groupe);
+      });
+
+      // Pion en attente de lien : petit halo de sélection
+      if (premierPionLien) {
+        var p0 = pions.find(function (p) { return p.id === premierPionLien; });
+        if (p0) {
+          var c0 = centrePion(p0);
+          var cercle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          cercle.setAttribute('cx', c0.x); cercle.setAttribute('cy', c0.y);
+          cercle.setAttribute('r', p0.taille * 0.75);
+          cercle.setAttribute('fill', 'none');
+          cercle.setAttribute('stroke', '#B98A55');
+          cercle.setAttribute('stroke-width', '2.5');
+          cercle.setAttribute('stroke-dasharray', '4,4');
+          svg.appendChild(cercle);
+        }
+      }
+    }
+
+    function ligneSvg(x1, y1, x2, y2, couleur, pointille) {
+      var l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1', x1); l.setAttribute('y1', y1); l.setAttribute('x2', x2); l.setAttribute('y2', y2);
+      l.setAttribute('stroke', couleur);
+      l.setAttribute('stroke-width', '2.5');
+      l.setAttribute('stroke-linecap', 'round');
+      if (pointille) l.setAttribute('stroke-dasharray', '7,6');
+      return l;
+    }
+
+    window.pvSupprimerLien = function (id) {
+      if (confirm('Supprimer ce lien ?')) { liens = liens.filter(function (l) { return l.id !== id; }); redessinerSvg(); pvSauvegarder(); }
+    };
+
+    window.addEventListener('resize', redessinerSvg);
+
+    function appliquerTaille(el, p) {
+      if (p.type === 'objet') {
+        var fond = el.querySelector('.pv-icone-fond');
+        var svg = el.querySelector('.pv-icone-svg svg');
+        var t = Math.round(p.taille * 0.55);
+        if (fond) { fond.style.width = p.taille + 'px'; fond.style.height = p.taille + 'px'; }
+        if (svg) { svg.setAttribute('width', t); svg.setAttribute('height', t); }
+        return;
+      }
+      var forme = el.querySelector('.pv-forme');
+      if (p.forme === 'triangle') {
+        forme.style.setProperty('--tri-g', (p.taille / 2) + 'px');
+        forme.style.setProperty('--tri-h', p.taille + 'px');
+      } else {
+        forme.style.width = p.taille + 'px';
+        forme.style.height = p.taille + 'px';
+      }
+    }
+
+    // Un seul doigt (ou la souris) : on déplace le pion, et s'il n'a pas bougé, un tap ouvre la modification.
+    // Deux doigts sur le même pion : on pince pour l'agrandir ou le réduire.
+    function attacherGestes(el, p) {
+      var etat = { pointeurs: new Map(), bouge: false, pince: false, distInit: 0, tailleInit: 0, startX: 0, startY: 0, depart: null };
+
+      el.addEventListener('pointerdown', function (ev) {
+        ev.preventDefault();
+        el.setPointerCapture && el.setPointerCapture(ev.pointerId);
+        etat.pointeurs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+        if (etat.pointeurs.size === 1) {
+          etat.bouge = false;
+          etat.startX = ev.clientX; etat.startY = ev.clientY;
+          etat.depart = { x: p.x, y: p.y };
+          el.classList.add('pv-drag');
+        } else if (etat.pointeurs.size === 2) {
+          etat.pince = true;
+          var pts = Array.from(etat.pointeurs.values());
+          etat.distInit = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y) || 1;
+          etat.tailleInit = p.taille;
+        }
+      });
+
+      el.addEventListener('pointermove', function (ev) {
+        if (!etat.pointeurs.has(ev.pointerId)) return;
+        etat.pointeurs.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+        if (etat.pince && etat.pointeurs.size === 2) {
+          var pts = Array.from(etat.pointeurs.values());
+          var dist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+          p.taille = Math.max(30, Math.min(140, Math.round(etat.tailleInit * (dist / etat.distInit))));
+          appliquerTaille(el, p);
+          redessinerSvg();
+        } else if (etat.pointeurs.size === 1) {
+          var dx = ev.clientX - etat.startX, dy = ev.clientY - etat.startY;
+          if (Math.abs(dx) + Math.abs(dy) > 6) etat.bouge = true;
+          var rect = plateau.getBoundingClientRect();
+          var x = ((ev.clientX - rect.left) / rect.width) * 100;
+          var y = ((ev.clientY - rect.top) / rect.height) * 100;
+          x = Math.max(2, Math.min(98, x));
+          y = Math.max(2, Math.min(98, y));
+          el.style.left = x + '%';
+          el.style.top = y + '%';
+          p.x = x; p.y = y;
+          redessinerSvg();
+        }
+      });
+
+      function fin(ev) {
+        etat.pointeurs.delete(ev.pointerId);
+        if (etat.pointeurs.size === 0) {
+          el.classList.remove('pv-drag');
+          if (!etat.pince && !etat.bouge) {
+            if (modeLien) { pvClicPionPourLien(p.id); } else { pvOuvrirPanneau(null, p.id); }
+          } else if (etat.bouge && !etat.pince && etat.depart) {
+            p.trace = p.trace || [];
+            p.trace.push(etat.depart);
+            if (p.trace.length > 3) p.trace.shift();
+            redessinerSvg();
+          }
+          etat.pince = false;
+          pvSauvegarder();
+        } else if (etat.pointeurs.size === 1) {
+          // on relâche un des deux doigts du pincement : on repart d'un déplacement simple, sans rouvrir la fiche
+          etat.pince = false;
+          etat.bouge = true;
+          var pt = Array.from(etat.pointeurs.values())[0];
+          etat.startX = pt.x; etat.startY = pt.y;
+        }
+      }
+      el.addEventListener('pointerup', fin);
+      el.addEventListener('pointercancel', fin);
+    }
+
+    window.pvChoisirForme = function (forme) {
+      formeChoisie = forme;
+      Array.prototype.slice.call(document.querySelectorAll('#pvFormesChoix button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.forme === forme);
+      });
+    };
+
+    window.pvChoisirIcone = function (cle) {
+      formeChoisie = cle;
+      Array.prototype.slice.call(document.querySelectorAll('#pvIconesChoix button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.icone === cle);
+      });
+    };
+
+    window.pvChoisirRotation = function (rot) {
+      rotationChoisie = rot;
+      var valeur = rot === null ? 'aucune' : String(rot);
+      Array.prototype.slice.call(document.querySelectorAll('#pvBoussole button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.rot === valeur);
+      });
+    };
+
+    // --- Liens entre deux pions ---
+    window.pvBasculerModeLien = function () {
+      modeLien = !modeLien;
+      premierPionLien = null;
+      document.getElementById('pvBoutonLien').classList.toggle('pv-mode-actif', modeLien);
+      document.getElementById('pvHintLien').hidden = !modeLien;
+      redessinerSvg();
+    };
+
+    window.pvClicPionPourLien = function (id) {
+      if (!premierPionLien) { premierPionLien = id; redessinerSvg(); return; }
+      if (premierPionLien === id) { premierPionLien = null; redessinerSvg(); return; }
+      var dejaExiste = liens.some(function (l) { return (l.a === premierPionLien && l.b === id) || (l.a === id && l.b === premierPionLien); });
+      if (dejaExiste) { alert('Ces deux pions sont déjà reliés.'); premierPionLien = null; redessinerSvg(); return; }
+      deuxiemePionLien = id;
+      document.getElementById('pvCouleurLien').value = '#6B2F5B';
+      pvChoisirStyleLien('plein');
+      panneauLien.classList.add('pv-ouvert');
+    };
+
+    window.pvChoisirStyleLien = function (style) {
+      styleLienChoisi = style;
+      Array.prototype.slice.call(document.querySelectorAll('#pvStylesLien button')).forEach(function (b) {
+        b.classList.toggle('pv-actif', b.dataset.style === style);
+      });
+    };
+
+    window.pvAnnulerLien = function () {
+      panneauLien.classList.remove('pv-ouvert');
+      premierPionLien = null;
+      redessinerSvg();
+    };
+
+    window.pvValiderLien = function () {
+      var couleur = document.getElementById('pvCouleurLien').value;
+      liens.push({ id: 'l' + Date.now() + Math.random().toString(36).slice(2, 6), a: premierPionLien, b: deuxiemePionLien, style: styleLienChoisi, couleur: couleur });
+      panneauLien.classList.remove('pv-ouvert');
+      premierPionLien = null;
+      deuxiemePionLien = null;
+      redessinerSvg();
+      pvSauvegarder();
+    };
+
+    function pvRemplirIconesChoix() {
+      var zone = document.getElementById('pvIconesChoix');
+      if (zone.childElementCount) return;
+      Object.keys(ICONES).forEach(function (cle) {
+        var ic = ICONES[cle];
+        var b = document.createElement('button');
+        b.type = 'button'; b.dataset.icone = cle; b.title = ic.label;
+        b.onclick = function () { pvChoisirIcone(cle); };
+        b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + ic.chemin + '</svg>';
+        zone.appendChild(b);
+      });
+    }
+
+    window.pvOuvrirPanneau = function (type, idExistant) {
+      idEnEdition = idExistant || null;
+      pvRemplirIconesChoix();
+      var titre = document.getElementById('pvPanneauTitre');
+      var boutonSupprimer = document.getElementById('pvBoutonSupprimer');
+      var champForme = document.getElementById('pvChampForme');
+      var champIcone = document.getElementById('pvChampIcone');
+      if (idEnEdition) {
+        var p = pions.find(function (p) { return p.id === idEnEdition; });
+        typeActuel = p.type;
+        titre.textContent = 'Modifier ce pion';
+        document.getElementById('pvNom').value = p.nom;
+        document.getElementById('pvCouleur').value = p.couleur;
+        document.getElementById('pvTaille').value = p.taille;
+        document.getElementById('pvNote').value = p.note || '';
+        document.getElementById('pvActif').checked = !!p.actif;
+        pvChoisirRotation(p.rotation === undefined ? null : p.rotation);
+        if (typeActuel === 'objet') { pvChoisirIcone(p.forme); } else { pvChoisirForme(p.forme); }
+        boutonSupprimer.style.display = '';
+        document.getElementById('pvBoutonDupliquer').style.display = '';
+        document.querySelector('#pvPanneau .pv-valider').textContent = 'Enregistrer';
+        document.getElementById('pvPlus').open = true;
+      } else {
+        typeActuel = type;
+        titre.textContent = type === 'objet' ? 'Ajouter un objet symbolique' : 'Ajouter une personne';
+        document.getElementById('pvNom').value = '';
+        document.getElementById('pvCouleur').value = type === 'objet' ? '#B98A55' : '#6B2F5B';
+        document.getElementById('pvTaille').value = 60;
+        document.getElementById('pvNote').value = '';
+        document.getElementById('pvActif').checked = false;
+        pvChoisirRotation(null);
+        if (type === 'objet') { pvChoisirIcone('cle'); } else { pvChoisirForme('cercle'); }
+        boutonSupprimer.style.display = 'none';
+        document.getElementById('pvBoutonDupliquer').style.display = 'none';
+        document.querySelector('#pvPanneau .pv-valider').textContent = 'Ajouter au plateau';
+        document.getElementById('pvPlus').open = false;
+      }
+      champForme.style.display = typeActuel === 'objet' ? 'none' : '';
+      champIcone.style.display = typeActuel === 'objet' ? '' : 'none';
+      panneau.classList.add('pv-ouvert');
+      setTimeout(function () { document.getElementById('pvNom').focus(); }, 30);
+    };
+
+    window.pvFermerPanneau = function () { panneau.classList.remove('pv-ouvert'); };
+
+    document.getElementById('pvNom').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); pvValiderPanneau(); }
+    });
+
+    window.pvValiderPanneau = function () {
+      var nom = document.getElementById('pvNom').value.trim();
+      var couleur = document.getElementById('pvCouleur').value;
+      var taille = parseInt(document.getElementById('pvTaille').value, 10);
+      var actif = document.getElementById('pvActif').checked;
+      var note = document.getElementById('pvNote').value;
+      if (idEnEdition) {
+        var p = pions.find(function (p) { return p.id === idEnEdition; });
+        p.nom = nom; p.couleur = couleur; p.taille = taille; p.forme = formeChoisie; p.actif = actif; p.rotation = rotationChoisie; p.note = note;
+      } else {
+        pions.push({ id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6), type: typeActuel, nom: nom, forme: formeChoisie, couleur: couleur, taille: taille, actif: actif, rotation: rotationChoisie, note: note, trace: [], x: 50, y: 50 });
+      }
+      redessiner();
+      pvFermerPanneau();
+    };
+
+    window.pvSupprimerPion = function () {
+      pions = pions.filter(function (p) { return p.id !== idEnEdition; });
+      liens = liens.filter(function (l) { return l.a !== idEnEdition && l.b !== idEnEdition; });
+      redessiner();
+      pvFermerPanneau();
+    };
+
+    window.pvDupliquerPion = function () {
+      var p = pions.find(function (p) { return p.id === idEnEdition; });
+      if (!p) return;
+      var copie = JSON.parse(JSON.stringify(p));
+      copie.id = 'p' + Date.now() + Math.random().toString(36).slice(2, 6);
+      copie.x = Math.min(96, p.x + 6);
+      copie.y = Math.min(96, p.y + 6);
+      copie.trace = [];
+      pions.push(copie);
+      redessiner();
+      pvFermerPanneau();
+    };
+
+    window.pvToutEffacer = function () {
+      if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pions = []; liens = []; redessiner(); }
+    };
+
+    // --- Liste des pions, à côté du plateau ---
+    function redessinerListe() {
+      var ul = document.getElementById('pvListe');
+      ul.innerHTML = '';
+      if (!pions.length) {
+        ul.innerHTML = '<li class="pv-liste-vide" style="cursor:default;border:none;background:none;padding:0">Rien pour l’instant.</li>';
+        return;
+      }
+      pions.forEach(function (p) {
+        var li = document.createElement('li');
+        var puce = document.createElement('span');
+        puce.className = 'pv-liste-puce';
+        puce.style.background = p.couleur;
+        if (p.type === 'objet') { puce.style.borderRadius = '4px'; }
+        var texte = document.createElement('span');
+        texte.textContent = (p.nom || '(sans nom)') + (p.actif ? ' ●' : '');
+        li.appendChild(puce);
+        li.appendChild(texte);
+        if (p.note && p.note.trim()) { var pn = document.createElement('span'); pn.className = 'pv-liste-note'; pn.title = 'A une note'; li.appendChild(pn); }
+        li.addEventListener('click', function () { pvOuvrirPanneau(null, p.id); });
+        ul.appendChild(li);
+      });
+    }
+
+    // --- Sauvegarde : liée au dossier (Supabase) si ouvert depuis un dossier, sinon dans ce navigateur seulement ---
+    var ARBRE_ID = new URLSearchParams(location.search).get('arbre') || null;
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var pvSb = null, pvUser = null, pvDossier = null;
+    try { pvSb = ARBRE_ID && window.supabase ? window.supabase.createClient(SB_URL, SB_KEY) : null; } catch (e) {}
+    var pvCleLocale = 'genesolia-plateau-visio' + (ARBRE_ID ? '-' + ARBRE_ID : '');
+    var pvSauveATemp = null;
+
+    function pvSauvegarderLocal() {
+      try { localStorage.setItem(pvCleLocale, JSON.stringify({ pions: pions, liens: liens })); } catch (e) { /* stockage indisponible */ }
+    }
+    function pvSauvegarderDistant() {
+      if (!pvSb || !pvUser || !pvDossier) return;
+      clearTimeout(pvSauveATemp);
+      pvSauveATemp = setTimeout(function () {
+        var notes = (document.getElementById('pvNotesLiens') || {}).value || '';
+        var data = Object.assign({}, pvDossier.data || {}, { plateau: { pions: pions, liens: liens, notesLiens: notes } });
+        pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function () {});
+        pvDossier.data = data;
+      }, 700);
+    }
+    function pvSauvegarder() { pvSauvegarderLocal(); pvSauvegarderDistant(); }
+
+    function pvRestaurer() {
+      try {
+        var brut = localStorage.getItem(pvCleLocale);
+        if (!brut) return;
+        var donnees = JSON.parse(brut);
+        if (donnees && Array.isArray(donnees.pions)) { pions = donnees.pions; liens = Array.isArray(donnees.liens) ? donnees.liens : []; }
+      } catch (e) { /* rien à restaurer */ }
+    }
+
+    function pvAfficherInfosArbre(d) {
+      var zn = document.getElementById('pvDossierNom'); if (zn) { zn.textContent = 'Dossier · ' + (d.nom || 'sans nom'); zn.hidden = false; }
+      var zp = document.getElementById('pvPrive'); if (zp) zp.hidden = false;
+      var personnes = (d.data && d.data.people) || {};
+      var zg = document.getElementById('pvGensListe');
+      var noms = Object.keys(personnes).map(function (k) { return personnes[k] && personnes[k].nom; }).filter(Boolean);
+      if (zg) zg.innerHTML = noms.length ? noms.map(function (n) { return '<li>' + n.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }) + '</li>'; }).join('') : '<li style="background:none;color:var(--prune-doux)">Aucune personne dans l’arbre pour l’instant.</li>';
+      var zt = document.getElementById('pvNotesLiens');
+      if (zt && d.data && d.data.plateau && d.data.plateau.notesLiens) zt.value = d.data.plateau.notesLiens;
+      if (zt) zt.addEventListener('input', pvSauvegarder);
+    }
+
+    function pvChargerDossier() {
+      if (!pvSb) { pvRestaurer(); redessiner(); return; }
+      pvSb.auth.getSession().then(function (r) {
+        var sess = r && r.data && r.data.session;
+        if (!sess) { pvRestaurer(); redessiner(); return; }
+        pvUser = sess.user;
+        pvSb.from('arbres_supp').select('id,nom,data').eq('id', ARBRE_ID).eq('user_id', pvUser.id).maybeSingle().then(function (x) {
+          if (x.error || !x.data) { pvRestaurer(); redessiner(); return; }
+          pvDossier = x.data;
+          if (pvDossier.data && pvDossier.data.plateau && Array.isArray(pvDossier.data.plateau.pions)) {
+            pions = pvDossier.data.plateau.pions; liens = Array.isArray(pvDossier.data.plateau.liens) ? pvDossier.data.plateau.liens : [];
+          } else { pvRestaurer(); }
+          pvAfficherInfosArbre(pvDossier);
+          redessiner();
+        });
+      });
+    }
+
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') {
+        if (panneauLien.classList.contains('pv-ouvert')) { pvAnnulerLien(); }
+        else if (panneau.classList.contains('pv-ouvert')) { pvFermerPanneau(); }
+      }
+    });
+
+    window.pvExporter = function () {
+      if (!pions.length) { alert('Le plateau est vide pour le moment.'); return; }
+      var script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+      script.onload = function () {
+        html2canvas(plateau, { backgroundColor: '#FFF9F7' }).then(function (canvas) {
+          var lien = document.createElement('a');
+          lien.download = 'plateau-symbolique.png';
+          lien.href = canvas.toDataURL('image/png');
+          lien.click();
+        });
+      };
+      document.body.appendChild(script);
+    };
+
+    pvChargerDossier();
+  })();
+  </script>
+</body>
+</html>
