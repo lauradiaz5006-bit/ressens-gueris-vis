@@ -3917,6 +3917,7 @@
     var t = document.querySelector('.titre-arbre'); if (!t) return;
     OUTILS_FAITS = true; document.body.classList.add('dossier-cabinet');
     autoImporterQuestionnaires();
+    majIndicateurPartage();
     var g = document.createElement('div'); g.className = 'groupe groupe-cabinet';
     g.innerHTML = '<button class="bt plein" type="button" id="bt-seance">Mode séance</button><button class="bt" type="button" id="bt-notes-dossier" aria-haspopup="dialog">Notes de séance</button><button class="bt" type="button" id="bt-partager-dossier" aria-haspopup="dialog">Partager</button><button class="bt" type="button" id="bt-questionnaire-dossier" aria-haspopup="dialog">Questionnaire</button>';
     t.parentNode.insertBefore(g, t.nextSibling);
@@ -3984,10 +3985,18 @@
     var br = document.querySelector('.barre-seance [data-s="reps"]'); if (br) br.setAttribute('aria-pressed', 'false');
     GP.notes({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, cabinet: PRATICIEN.cabinet, tiroir: true });
   }
+  /* Un lien de partage actif est visible directement sur le bouton, pas seulement en rouvrant la fenêtre « Partager » */
+  function majIndicateurPartage() {
+    var b = $('bt-partager-dossier'); if (!b || !ARBRE_ID) return;
+    sb.from('partages_arbre').select('jeton').eq('arbre_id', ARBRE_ID).gt('expire_le', new Date().toISOString()).limit(1).then(function (r) {
+      if (r && r.data && r.data.length) b.textContent = 'Partager (lien actif)';
+    });
+  }
   function partagerDossier() {
     var GP = window.GenesoliaPratique; if (!GP || !PRATICIEN) return;
     sb.from('arbres_supp').select('remise_autorisee').eq('id', ARBRE_ID).maybeSingle().then(function (r) {
-      GP.partager({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date(), remise: !!(r && r.data && r.data.remise_autorisee) });
+      var f = GP.partager({ sb: sb, user: utilisateur, id: ARBRE_ID, nom: arbreNom, actif: new Date(PRATICIEN.acces_jusqu) > new Date(), remise: !!(r && r.data && r.data.remise_autorisee) });
+      if (f) f.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-fermer]')) setTimeout(majIndicateurPartage, 50); });
     });
   }
   function modeSeance() {
