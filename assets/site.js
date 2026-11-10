@@ -393,7 +393,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
   var drapeau = ''; try { drapeau = sessionStorage.getItem('genesolia-appli') || ''; } catch (e) {}
   /* Une page du Cercle ouverte par une personne connectée reste toujours cadrée dans son espace (en-tête Le Cercle et barre du bas), même ouverte directement */
   if (page === 'cercle.html' || /[?&]appli=cercle\b/.test(location.search) || (ESTCERCLE && aUnCompte())) drapeau = 'cercle';
-  else if (/[?&]appli=pro\b/.test(location.search) || (drapeau === 'pro' && (page === 'genosociogramme.html' || page === 'login.html'))) drapeau = 'pro';   /* un dossier ouvert depuis l'appli Pro reste dans l'appli Pro */
+  else if (/[?&]appli=pro\b/.test(location.search) || (drapeau === 'pro' && (page === 'genosociogramme.html' || page === 'plateau-visio.html' || page === 'login.html'))) drapeau = 'pro';   /* un dossier ouvert depuis l'appli Pro reste dans l'appli Pro */
   else if (/[?&]appli=site\b/.test(location.search) || (!autonome && !ESTCERCLE)) drapeau = '';   /* dans le navigateur, une page du site ramène au site normal */
   /* Appli Genesolia Pro (pro.html) : l'Espace praticien en appli. Ni barre du bas du site, ni encarts, sur toutes ses pages */
   if (page === 'pro.html') drapeau = 'pro';
