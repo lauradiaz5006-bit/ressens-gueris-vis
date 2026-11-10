@@ -518,8 +518,28 @@
     h += '</div></div>';
     h += encartSite();
     if (D.user && !EXEMPLE) h += '<section class="pa-carte pa-donnees"><p class="pa-etiq">Mes données</p><p>Tout ce que tu as écrit dans Ma spirale t’appartient.</p><div class="pa-outils"><button type="button" class="pa-bt clair" data-donnees-export>Télécharger mes données</button><button type="button" class="pa-bt clair" data-donnees-effacer>Effacer toutes mes données de Ma spirale</button></div><p class="pa-discret">Pour supprimer aussi ton compte, écris-nous à <a href="mailto:contact@genesolia.fr?subject=Supprimer%20mon%20compte">contact@genesolia.fr</a> : il est supprimé, avec toutes tes données, sous un mois.</p><p class="pa-discret" data-donnees-msg role="status"></p></section>';
+    if (!EXEMPLE) h += '<section class="pa-carte pa-avis"><p class="pa-etiq">Ton avis compte</p><h2>Dis-nous ce qui t’aide, ou ce qui manque</h2><p>Chaque message est lu, et ça aide Ma spirale à grandir.</p>' +
+      '<form id="pa-avis" class="pa-form" novalidate><label for="pa-av-msg">Ton message</label><textarea id="pa-av-msg" maxlength="1500" required placeholder="Exemple : la carte des schémas m’aide beaucoup, mais je ne retrouve pas…"></textarea>' +
+      '<label for="pa-av-mail">Ton e-mail <small>(pour te répondre si besoin)</small></label><input id="pa-av-mail" type="email" maxlength="254" required value="' + esc((D.user && D.user.email) || '') + '">' +
+      '<button class="pa-bt" type="submit">Envoyer</button><p class="pa-erreur" role="alert"></p><p class="pa-discret" data-avis-msg role="status"></p></form></section>';
     afficher(h);
     var f = document.getElementById('pa-reperes'); if (f) f.addEventListener('submit', garderReperes);
+    var fa = document.getElementById('pa-avis'); if (fa) fa.addEventListener('submit', envoyerAvisSpirale);
+  }
+  /* Avis depuis Ma spirale : un formulaire rangé dans la table « demandes » de Supabase (formulaire « Avis de Ma spirale ») ; Laura reçoit un mail et les lit dans son tableau */
+  function envoyerAvisSpirale(e) {
+    e.preventDefault();
+    var f = e.target, msg = f.querySelector('#pa-av-msg').value.trim(), mail = f.querySelector('#pa-av-mail').value.trim(), err = f.querySelector('.pa-erreur'), etat = f.querySelector('[data-avis-msg]'), bt = f.querySelector('button[type=submit]');
+    err.textContent = ''; etat.textContent = '';
+    if (msg.length < 3) { err.textContent = 'Écris ton message avant d’envoyer.'; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { err.textContent = 'Ajoute ton e-mail, pour que l’on puisse te répondre.'; return; }
+    bt.disabled = true; etat.textContent = 'Envoi…';
+    fetch(SB_URL + '/rest/v1/demandes', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ formulaire: 'Avis de Ma spirale', email: mail.slice(0, 254), prenom: D.prenom || null, page: location.pathname.slice(0, 120), details: { type: 'avis', message: msg.slice(0, 1500) } }) })
+      .then(function (r) { if (!r.ok) throw new Error('envoi'); })
+      .then(function () { f.innerHTML = '<p class="pa-etiq">Merci, c’est bien reçu.</p>'; }, function () {
+        bt.disabled = false; etat.innerHTML = 'L’envoi n’a pas marché. Tu peux écrire directement à <a href="mailto:contact@genesolia.fr">contact@genesolia.fr</a>.';
+      });
   }
   /* Les intentions posées : la nouvelle lune qui revient, et le corps qui réapprend chaque jour */
   function blocIntentions() {
