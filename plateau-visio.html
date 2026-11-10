@@ -973,15 +973,27 @@
         { id: 'l3', a: 'd2', b: 'd4', style: 'plein', couleur: '#6B2F5B' }
       ];
     }
+    var PV_DEMO_JETON = '9436eec3-6340-4cec-9e67-4c6b6b6303f4';   /* jeton public fixe utilisé par le bouton « Voir la démo » de la page pub */
     function pvChargerPartage() {
+      var estDemoPublique = PV_PARTAGE === PV_DEMO_JETON;
       fetch(SB_URL + '/rest/v1/rpc/partage_plateau_lire', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_jeton: PV_PARTAGE }) })
         .then(function (r) { return r.json(); })
         .then(function (d) {
-          if (d && Array.isArray(d.pions) && d.pions.length) { pions = d.pions; liens = Array.isArray(d.liens) ? d.liens : []; }
-          else { pvChargerDemo(); }
-          pvAvertir('Démo publique : vous pouvez essayer de déplacer les pions, rien n’est enregistré sur un compte.');
+          if (d && Array.isArray(d.pions) && d.pions.length) {
+            pions = d.pions; liens = Array.isArray(d.liens) ? d.liens : [];
+            pvAvertir(estDemoPublique ? 'Démo publique : vous pouvez essayer de déplacer les pions, rien n’est enregistré sur un compte.' : 'Le plateau de vos séances, partagé par votre praticien·ne. Rien de ce que vous déplacez ici n’est enregistré.');
+          } else if (estDemoPublique) {
+            pvChargerDemo();
+            pvAvertir('Démo publique : vous pouvez essayer de déplacer les pions, rien n’est enregistré sur un compte.');
+          } else {
+            pvAvertir('Votre praticien·ne n’a pas encore enregistré de plateau pour cette séance.');
+          }
           redessiner();
-        }, function () { pvChargerDemo(); redessiner(); });
+        }, function () {
+          if (estDemoPublique) pvChargerDemo();
+          pvAvertir('Ce plateau n’a pas pu être chargé pour l’instant.');
+          redessiner();
+        });
     }
     function pvChargerDossier() {
       if (PV_PARTAGE) { pvChargerPartage(); return; }

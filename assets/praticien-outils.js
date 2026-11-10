@@ -276,5 +276,54 @@ window.GenesoliaPratique = (function () {
     return f;
   }
 
-  return { fenetre: fenetre, notes: notes, partager: partager, questionnaire: questionnaire, esc: esc, date: date };
+  /* ───────── Bilan de suivi : sur le lien de partage déjà envoyé, en plus de l'arbre, le plateau en direct et les notes cochées « visible » ───────── */
+  /* o : { sb, user, id, nom, cabinet } */
+  function bilan(o) {
+    var CF = window.GenesoliaCoffre, cle = 'seances-' + o.id, liste = [], jeton = null, nbPions = 0;
+    var f = fenetre('<h2>Bilan de suivi · ' + esc(o.nom || '') + '</h2>' +
+      '<p class="pr-o-aide">Ajoute, sur le lien de partage déjà envoyé à votre client·e : le plateau symbolique de ses séances (en direct, tel qu’il est aujourd’hui) et les notes que vous avez cochées « Visible par mon·ma client·e ». Votre client·e peut tout garder en PDF depuis ce lien, et continuer son arbre dans son propre espace Genesolia.</p>' +
+      '<div data-bilan-lien><p class="pr-o-aide">Chargement…</p></div>' +
+      '<h3>Le plateau</h3><p class="pr-o-aide" data-bilan-plateau>Chargement…</p>' +
+      '<h3>Notes incluses</h3><div data-bilan-notes><p class="pr-o-aide">Chargement…</p></div>' +
+      '<p class="pr-o-aide" style="margin:.3rem 0 0">Pour changer quelles notes sont incluses, cochez ou décochez « Visible par mon·ma client·e » dans <button class="pr-o-lien" type="button" data-ouvrir-notes style="padding:0;font-size:inherit">Notes de séance</button>.</p>' +
+      '<div class="pr-o-boutons" style="margin-top:1rem"><button class="btn btn-plein bt plein" type="button" data-bilan-publier disabled>Mettre à jour le bilan</button></div>' +
+      '<p class="pr-o-msg" data-bilan-msg role="status"></p>');
+    var zl = f.querySelector('[data-bilan-lien]'), zp = f.querySelector('[data-bilan-plateau]'), zn = f.querySelector('[data-bilan-notes]'), bp = f.querySelector('[data-bilan-publier]'), msg = f.querySelector('[data-bilan-msg]');
+    function dessinerNotes() {
+      var vis = liste.filter(function (s) { return s.visible; });
+      zn.innerHTML = vis.length ? vis.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }).map(function (s) { return '<div class="pr-o-seance"><small>' + date(s.jour) + '</small><p>' + esc(s.texte) + '</p></div>'; }).join('') : '<p class="pr-o-aide">Aucune note cochée « visible » pour l’instant : seul l’arbre et le plateau apparaîtront sur le lien.</p>';
+    }
+    function dessinerLien() {
+      if (!jeton) { zl.innerHTML = '<p class="pr-o-aide">Il faut d’abord créer un lien de partage (bouton « Partager ») : le bilan s’ajoute sur ce même lien.</p>'; bp.disabled = true; return; }
+      zl.innerHTML = '<input class="pr-o-url" type="text" readonly value="' + esc(url(jeton)) + '" aria-label="Adresse du lien">' +
+        '<div class="pr-o-boutons"><button class="btn btn-trait bt" type="button" data-bilan-copier>Copier le lien</button></div>';
+      bp.disabled = false;
+    }
+    o.sb.from('partages_arbre').select('jeton').eq('arbre_id', o.id).gt('expire_le', new Date().toISOString()).order('cree_le', { ascending: false }).limit(1).then(function (r) {
+      jeton = (r && r.data && r.data[0] && r.data[0].jeton) || null;
+      dessinerLien();
+    }, function () { zl.innerHTML = '<p class="pr-o-aide">Les liens n’ont pas pu être chargés.</p>'; });
+    o.sb.from('arbres_supp').select('data').eq('id', o.id).maybeSingle().then(function (r) {
+      nbPions = (r && r.data && r.data.data && r.data.data.plateau && Array.isArray(r.data.data.plateau.pions)) ? r.data.data.plateau.pions.length : 0;
+      zp.textContent = nbPions ? 'Il contient ' + nbPions + ' pion' + (nbPions > 1 ? 's' : '') + ', et suit automatiquement ce que vous y posez : rien à faire de plus.' : 'Aucun plateau pour ce dossier pour l’instant : ouvrez « Mode séance » pour en poser un.';
+    }, function () { zp.textContent = 'Le plateau n’a pas pu être vérifié.'; });
+    if (!CF) { zn.innerHTML = '<p class="pr-o-aide">Les notes ne sont pas disponibles ici.</p>'; }
+    else CF.lire(o.sb, o.user, cle).then(function (x) { liste = (x && x.seances) || []; dessinerNotes(); }, function () { zn.innerHTML = '<p class="pr-o-aide">Les notes n’ont pas pu être chargées.</p>'; });
+    f.addEventListener('click', function (e) {
+      if (e.target.closest('[data-ouvrir-notes]')) { f.remove(); notes(o); return; }
+      if (e.target.closest('[data-bilan-copier]')) { var i = zl.querySelector('input'); if (i) i.select(); copier(url(jeton), msg); return; }
+      if (e.target.closest('[data-bilan-publier]')) {
+        var bt = f.querySelector('[data-bilan-publier]'); bt.disabled = true; msg.textContent = '';
+        var notesArr = liste.filter(function (s) { return s.visible; }).map(function (s) { return { jour: s.jour, texte: s.texte }; });
+        o.sb.from('partages_arbre').update({ bilan: { maj: new Date().toISOString(), notes: notesArr } }).eq('jeton', jeton).then(function (r) {
+          bt.disabled = false;
+          if (r && r.error) { msg.textContent = 'Le bilan n’a pas pu être mis à jour. Réessayez.'; return; }
+          msg.textContent = 'Bilan à jour sur le lien déjà envoyé. Pas besoin de renvoyer un nouveau lien à votre client·e.';
+        });
+      }
+    });
+    return f;
+  }
+
+  return { fenetre: fenetre, notes: notes, partager: partager, bilan: bilan, questionnaire: questionnaire, esc: esc, date: date };
 })();
