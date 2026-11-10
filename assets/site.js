@@ -508,6 +508,22 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
       '<a class="ea-retour" href="pro.html" style="margin-left:auto;display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--rose);border-radius:99px;padding:.45rem .9rem;font:600 .86rem var(--texte);color:var(--prune);text-decoration:none;background:#fff">‹ Mes dossiers</a></div>';
     entete = null;
   }
+  /* Dans l'appli Genesolia Pro, un dossier ouvert (arbre ou plateau) garde la même barre du bas que pro.html, sur le dossier en cours */
+  if (drapeau === 'pro' && page !== 'pro.html' && (page === 'genosociogramme.html' || page === 'plateau-visio.html')) {
+    var piedPro = document.querySelector('[data-pied]'); if (piedPro) piedPro.remove();
+    document.body.classList.add('pro-page');
+    var arbreId = ''; try { arbreId = new URLSearchParams(location.search).get('arbre') || ''; } catch (e) {}
+    var qArbre = arbreId ? '?arbre=' + encodeURIComponent(arbreId) : '';
+    var basPro = document.createElement('nav');
+    basPro.className = 'pro-bas'; basPro.setAttribute('aria-label', 'Genesolia Pro');
+    basPro.innerHTML =
+      '<a href="pro.html"' + (page === 'pro.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dossiers</a>' +
+      '<a href="genosociogramme.html' + qArbre + '"' + (page === 'genosociogramme.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><path d="M12 3v7M12 10c-3 0-5 2-5 5M12 10c3 0 5 2 5 5M7 15v6M17 15v6"/><circle cx="12" cy="4" r="2"/><circle cx="7" cy="16" r="2"/><circle cx="17" cy="16" r="2"/></svg>Arbre</a>' +
+      '<a href="plateau-visio.html' + qArbre + '"' + (page === 'plateau-visio.html' ? ' class="actif"' : '') + '><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="2"/><circle cx="6" cy="16" r="2"/><circle cx="18" cy="16" r="2"/><path d="M12 8v4M8 15l2-2M16 15l-2-2"/></svg>Constellation</a>' +
+      '<a href="pro.html#demo"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="6" height="6" rx="1"/><circle cx="18" cy="7" r="3"/><path d="M9 7h6M12 7v6M6 13h12M6 13v4M18 13v4"/><circle cx="6" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/></svg>Démo</a>' +
+      '<a href="pro.html#activite"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Mon activité</a>';
+    document.body.appendChild(basPro);
+  }
   if (entete) {
     var lien = function (l, cls) { return '<a' + (cls ? ' class="' + cls + '"' : '') + ' href="' + l[0] + '"' + (l[0] === page ? ' aria-current="page"' : '') + '>' + l[1] + '</a>'; };
     var liens = MENU.map(function (l) {

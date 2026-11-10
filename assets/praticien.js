@@ -105,7 +105,9 @@
     var ic = document.querySelector('#pr-cab input[name=cabinet]'); if (ic && !ic.value) ic.value = prat.cabinet || '';   /* certains navigateurs vident le champ en restaurant la page */
     if (window.GenesoliaDeuxEtapes) window.GenesoliaDeuxEtapes.reglage(sb, document.getElementById('pr-deux-etapes'));
     if (window.GenesoliaAnnuaire) window.GenesoliaAnnuaire.fiche(sb, user, prat, document.getElementById('pr-annuaire'), actif());
-    panneau(PANNEAU_ACTUEL);
+    /* Arrivée depuis la barre du bas d'un dossier (plateau, arbre) via #demo ou #activite : ouvrir directement le bon écran */
+    if (location.hash === '#activite') { panneau('activite'); history.replaceState(null, '', location.pathname + location.search); }
+    else { panneau(PANNEAU_ACTUEL); if (location.hash === '#demo') { history.replaceState(null, '', location.pathname + location.search); window.GenesoliaPro.demo(); } }
     chargerDossiers();
     sondage();
   }
