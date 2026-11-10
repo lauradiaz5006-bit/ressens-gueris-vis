@@ -104,7 +104,7 @@
       '<section class="pr-carte" id="pr-annuaire-carte"><h2>Ma fiche dans l’annuaire</h2><div id="pr-annuaire"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Connexion en deux étapes</h2><div id="pr-deux-etapes"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Vos notes de séance sont chiffrées dans votre Espace praticien. Le lien de partage montre l’arbre à votre client·e, <b>sans vos notes</b>. Il reste valable 14 jours, vous choisissez ce qu’il montre et vous pouvez le désactiver à tout moment.</p><p class="pr-aide">Vos notes de séance vous appartiennent : elles ne sont jamais copiées dans l’espace de votre client·e. S’il ou elle vous demande ce que vous avez noté, vous pouvez les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e vous demande d’effacer son dossier ? Utilisez le bouton « Supprimer » de ce dossier, dans la liste.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier ouvert, vous pouvez aussi commander l’arbre imprimé de votre client·e : un poster livré chez lui ou chez elle, ' + ((window.GENESOLIA_IMPRESSION && GENESOLIA_IMPRESSION.formats && GENESOLIA_IMPRESSION.formats[0]) ? 'dès ' + GENESOLIA_IMPRESSION.formats[0].prix + ', livraison comprise' : 'livraison comprise') + '. Un beau cadeau de fin d’accompagnement à glisser dans votre offre. <a href="boutique.html">Voir les formats et les prix</a></p><p class="pr-aide" style="margin:.8rem 0 0">Une question sur un écran ? <a href="mode-emploi-genesolia-pro.html?appli=pro">Mode d’emploi</a>, pas à pas.</p></section>' +
-      '<section class="pr-carte"><h2>Votre espace</h2><p class="pr-aide" style="margin:0 0 .6rem">Vous avez aussi un espace Genesolia personnel, avec le même compte : vos propres protocoles et exercices, séparés de votre activité de praticien·ne.</p><div style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn btn-trait" href="login.html">Aller à mon espace Genesolia</a><button class="btn btn-trait" type="button" data-pr-fermer>Fermer mon espace</button></div></section></div>';
+      '<section class="pr-carte"><h2>Votre espace</h2><p class="pr-aide" style="margin:0 0 .6rem">Vous avez aussi un espace Genesolia personnel, avec le même compte : vos propres protocoles et exercices, séparés de votre activité de praticien·ne.</p><div style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn btn-trait" href="login.html">Aller à mon espace Genesolia</a><button class="btn btn-trait" type="button" data-pr-fermer>Me déconnecter</button></div></section></div>';
     var ic = document.querySelector('#pr-cab input[name=cabinet]'); if (ic && !ic.value) ic.value = prat.cabinet || '';   /* certains navigateurs vident le champ en restaurant la page */
     if (window.GenesoliaDeuxEtapes) window.GenesoliaDeuxEtapes.reglage(sb, document.getElementById('pr-deux-etapes'));
     if (window.GenesoliaAnnuaire) window.GenesoliaAnnuaire.fiche(sb, user, prat, document.getElementById('pr-annuaire'), actif());
@@ -271,7 +271,7 @@
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-pro-installer]') && window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
   document.addEventListener('click', function (e) {
     if (!e.target.closest || !e.target.closest('[data-pr-fermer]')) return;
-    if (!confirm('Fermer votre Espace praticien et revenir au site Genesolia ?')) return;
+    if (!confirm('Vous déconnecter et revenir au site Genesolia ?')) return;
     var fin = function () { location.href = 'index.html'; };
     sb.auth.signOut().then(fin, fin);
   });
@@ -366,7 +366,7 @@
       });
       return;
     }
-    if (!(user && actif())) { location.href = 'plateau-visio.html'; return; }
+    if (!(user && actif())) { location.href = 'plateau-visio.html?demo=1'; return; }
     sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Démo · famille de Léa (fictive)', data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', constellation: true } }).select('id').single().then(function (r) {
       if (r.error) { alert('Le dossier exemple n’a pas pu être créé. Réessayez.'); return; }
       location.href = 'plateau-visio.html?arbre=' + encodeURIComponent(r.data.id);

@@ -956,8 +956,24 @@
     function pvAvertirIntrouvable() {
       pvAvertir('Ce dossier n’a pas pu être trouvé (lien incorrect, dossier supprimé, ou lié à un autre compte). Ce plateau n’est pas relié à votre Espace praticien et restera uniquement dans ce navigateur.');
     }
+    // Démo publique (pas de compte, pas de dossier) : un plateau déjà posé, pour montrer le principe sans rien configurer.
+    var PV_DEMO = new URLSearchParams(location.search).get('demo') === '1';
+    function pvChargerDemo() {
+      if (pions.length || liens.length) return;
+      pions = [
+        { id: 'd1', type: 'personne', nom: 'Léa', forme: 'cercle', couleur: '#B0507A', taille: 70, x: 50, y: 26, rotation: null, trace: [], actif: true },
+        { id: 'd2', type: 'personne', nom: 'Sa mère', forme: 'cercle', couleur: '#6B2F5B', taille: 60, x: 28, y: 54, rotation: null, trace: [] },
+        { id: 'd3', type: 'personne', nom: 'Son père', forme: 'carre', couleur: '#2E1338', taille: 60, x: 72, y: 54, rotation: null, trace: [] },
+        { id: 'd4', type: 'personne', nom: 'Grand-mère maternelle', forme: 'cercle', couleur: '#B98A55', taille: 46, x: 16, y: 82, rotation: null, trace: [] }
+      ];
+      liens = [
+        { id: 'l1', a: 'd1', b: 'd2', style: 'plein', couleur: '#6B2F5B' },
+        { id: 'l2', a: 'd1', b: 'd3', style: 'pointille', couleur: '#6B2F5B' },
+        { id: 'l3', a: 'd2', b: 'd4', style: 'plein', couleur: '#6B2F5B' }
+      ];
+    }
     function pvChargerDossier() {
-      if (!pvSb) { pvRestaurer(); redessiner(); return; }
+      if (!pvSb) { pvRestaurer(); if (PV_DEMO) pvChargerDemo(); redessiner(); return; }
       pvSb.auth.getSession().then(function (r) {
         var sess = r && r.data && r.data.session;
         if (!sess) { if (ARBRE_ID) pvAvertirSession(); pvRestaurer(); redessiner(); return; }
