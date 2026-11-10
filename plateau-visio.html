@@ -123,6 +123,7 @@
           <button type="button" onclick="pvOuvrirPanneau('objet')">+ Un objet symbolique</button>
           <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
+          <button type="button" onclick="pvEnregistrerMain()">Enregistrer</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
           <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Démarrer la séance (plein écran)</button>
         </div>
@@ -812,6 +813,19 @@
       }, 700);
     }
     function pvSauvegarder() { pvSauvegarderLocal(); pvSauvegarderDistant(); }
+    /* Bouton « Enregistrer » : l'enregistrement est déjà automatique après chaque geste, ce bouton force juste un enregistrement immédiat, pour rassurer visuellement */
+    window.pvEnregistrerMain = function () {
+      pvSauvegarderLocal();
+      if (!pvSb || !pvUser || !pvDossier) { pvStatut('Gardé dans ce navigateur (pas relié à un dossier).'); return; }
+      clearTimeout(pvSauveATemp);
+      pvStatut('Enregistrement…');
+      var notes = (document.getElementById('pvNotesLiens') || {}).value || '';
+      var data = Object.assign({}, pvDossier.data || {}, { plateau: { pions: pions, liens: liens, notesLiens: notes } });
+      pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function (r) {
+        pvStatut(r && r.error ? 'Pas encore enregistré (connexion ?). Réessayez.' : 'Enregistré dans le dossier.');
+      });
+      pvDossier.data = data;
+    };
 
     function pvRestaurer() {
       try {
