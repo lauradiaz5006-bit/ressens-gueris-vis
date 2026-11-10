@@ -17,6 +17,8 @@
     .pv-tete{text-align:center;max-width:42rem;margin:0 auto 1.6rem}
     .pv-tete p{color:var(--prune-doux);margin-top:.5rem}
     .pv-ecran-conseil{font-weight:600;color:var(--prune)!important}
+    .pv-alerte-session{background:#FFF0E0;color:#7A4E2F;border:1px solid #E8C27A;border-radius:12px;padding:.7rem .9rem;font-size:.9rem;margin-top:1rem}
+    .pv-alerte-session a{color:#7A4E2F;font-weight:700}
     .pv-barre{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-bottom:1.4rem}
     .pv-barre button{font:600 .9rem var(--texte);color:var(--prune);background:var(--blanc);border:1.5px solid var(--rose-fonce);border-radius:99px;padding:.55rem 1.1rem;cursor:pointer;transition:background .15s,border-color .15s}
     .pv-barre button:hover{background:var(--rose);border-color:var(--prune)}
@@ -777,14 +779,22 @@
       if (zt) zt.addEventListener('input', pvSauvegarder);
     }
 
+    function pvAvertirSession() {
+      if (document.getElementById('pvAlerteSession')) return;
+      var tete = document.querySelector('.pv-tete'); if (!tete) return;
+      var p = document.createElement('p');
+      p.id = 'pvAlerteSession'; p.className = 'pv-alerte-session';
+      p.innerHTML = 'Reconnectez-vous pour retrouver ce dossier : sans connexion, ce plateau n’est pas relié à votre Espace praticien et restera uniquement dans ce navigateur. <a href="login.html?retour=' + encodeURIComponent(location.pathname + location.search) + '">Me reconnecter</a>';
+      tete.appendChild(p);
+    }
     function pvChargerDossier() {
       if (!pvSb) { pvRestaurer(); redessiner(); return; }
       pvSb.auth.getSession().then(function (r) {
         var sess = r && r.data && r.data.session;
-        if (!sess) { pvRestaurer(); redessiner(); return; }
+        if (!sess) { if (ARBRE_ID) pvAvertirSession(); pvRestaurer(); redessiner(); return; }
         pvUser = sess.user;
         pvSb.from('arbres_supp').select('id,nom,data').eq('id', ARBRE_ID).eq('user_id', pvUser.id).maybeSingle().then(function (x) {
-          if (x.error || !x.data) { pvRestaurer(); redessiner(); return; }
+          if (x.error || !x.data) { pvAvertirSession(); pvRestaurer(); redessiner(); return; }
           pvDossier = x.data;
           if (pvDossier.data && pvDossier.data.plateau && Array.isArray(pvDossier.data.plateau.pions)) {
             pions = pvDossier.data.plateau.pions; liens = Array.isArray(pvDossier.data.plateau.liens) ? pvDossier.data.plateau.liens : [];
