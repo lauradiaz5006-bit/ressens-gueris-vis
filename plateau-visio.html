@@ -125,6 +125,7 @@
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
         </div>
         <p class="pv-hint-lien" id="pvHintLien" hidden>Touchez un premier pion, puis un second pour les relier. Touchez le bouton « Lien » pour arrêter.</p>
+        <p class="pv-statut" id="pvStatut" role="status" style="text-align:center;color:var(--prune-doux);font-size:.84rem;margin:.3rem 0 0"></p>
 
         <div class="pv-disposition">
           <div class="pv-plateau-zone">
@@ -743,16 +744,20 @@
     var pvCleLocale = 'genesolia-plateau-visio' + (ARBRE_ID ? '-' + ARBRE_ID : '');
     var pvSauveATemp = null;
 
+    function pvStatut(texte) { var z = document.getElementById('pvStatut'); if (z) z.textContent = texte || ''; }
     function pvSauvegarderLocal() {
       try { localStorage.setItem(pvCleLocale, JSON.stringify({ pions: pions, liens: liens })); } catch (e) { /* stockage indisponible */ }
     }
     function pvSauvegarderDistant() {
-      if (!pvSb || !pvUser || !pvDossier) return;
+      if (!pvSb || !pvUser || !pvDossier) { pvStatut('Gardé dans ce navigateur (pas relié à un dossier).'); return; }
       clearTimeout(pvSauveATemp);
+      pvStatut('Enregistrement…');
       pvSauveATemp = setTimeout(function () {
         var notes = (document.getElementById('pvNotesLiens') || {}).value || '';
         var data = Object.assign({}, pvDossier.data || {}, { plateau: { pions: pions, liens: liens, notesLiens: notes } });
-        pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function () {});
+        pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function (r) {
+          pvStatut(r && r.error ? 'Pas encore enregistré (connexion ?). Nouvel essai au prochain geste.' : 'Enregistré dans le dossier.');
+        });
         pvDossier.data = data;
       }, 700);
     }
