@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Origines de la numérologie (4/5) : la gématrie hébraïque</title>
+  <meta name="description" content="La gématrie : comment les lettres hébraïques sont devenues des nombres, des premiers rabbins à la Kabbale médiévale, avec des exemples précis et leurs sources.">
+  <link rel="canonical" href="https://genesolia.fr/origine-numerologie-gematrie-hebraique.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Aux origines de la numérologie (4/5) : la gématrie hébraïque">
+  <meta property="og:description" content="La gématrie : comment les lettres hébraïques sont devenues des nombres, des premiers rabbins à la Kabbale médiévale, avec des exemples précis et leurs sources.">
+  <meta property="og:image" content="https://genesolia.fr/assets/partage/genesolia.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Un arbre lumineux aux racines dorées">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .colonne{width:min(52rem,100% - 2.5rem);margin-inline:auto}
+    .colonne p{max-width:none}
+    .fil{font-size:.9rem;color:var(--prune-doux);margin-bottom:1.2rem}
+    .fil a{color:var(--prune-doux);text-decoration-color:var(--rose-fonce);text-underline-offset:3px}
+    .fil a:hover{color:var(--prune)}
+    .fil span{margin:0 .4rem;color:var(--champagne)}
+    .page-tete .publie{margin-top:1.4rem;font-size:.9rem;color:var(--prune-doux)}
+
+    .serie{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0}
+    .serie a,.serie span{border:1px solid var(--rose-fonce);border-radius:999px;padding:.35rem 1rem;font-size:.9rem;text-decoration:none;background:var(--blanc);color:var(--prune-doux)}
+    .serie .ici{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .serie .avenir{opacity:.55;border-style:dashed}
+
+    .article{padding:3.5rem 0 1rem}
+    .article h2{margin:3.2rem 0 1rem}
+    .article h2:first-child{margin-top:0}
+    .article h3{font-size:1.25rem;margin:1.8rem 0 .4rem}
+    .article p+p{margin-top:1rem}
+    .article a{text-decoration-color:var(--champagne);text-underline-offset:3px}
+
+    .pistes{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .pistes li{padding:1.1rem 0 1.1rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .pistes li:last-child{border-bottom:1px solid var(--rose)}
+    .pistes li::before{content:'';position:absolute;left:0;top:1.55rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+    .pistes strong{font-weight:600}
+    .pistes span{display:block;color:var(--prune-doux);margin-top:.2rem}
+
+    .rappel{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--champagne);background:#FFF6EC;border-radius:0 16px 16px 0}
+    .prudence{margin:1.6rem 0;padding:1.2rem 1.4rem;border-left:4px solid var(--rose-fonce);background:#FCEFF3;border-radius:0 16px 16px 0;font-size:.95rem}
+    .prudence strong{display:block;margin-bottom:.3rem}
+
+    .chrono{list-style:none;counter-reset:ch;margin:1.6rem 0;display:grid;gap:0}
+    .chrono li{counter-increment:ch;display:grid;grid-template-columns:2.6rem 1fr;gap:.2rem 1rem;padding:1.2rem 0;border-top:1px solid var(--rose)}
+    .chrono li::before{content:counter(ch);grid-row:span 2;width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:1.15rem;background:var(--champagne-clair)}
+    .chrono li:last-child::before{background:var(--prune);color:var(--blanc)}
+    .chrono h3{margin:0;font-size:1.15rem}
+    .chrono p{color:var(--prune-doux)}
+
+    .sources{margin:1.6rem 0;padding:1.3rem 1.4rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.92rem}
+    .sources .titre{font-family:var(--display);font-size:1.1rem;margin-bottom:.5rem}
+    .sources ul{margin:0;padding-left:1.2rem}
+    .sources li{margin:.3rem 0}
+
+    @media (max-width:640px){
+      .article{padding-top:2.5rem}
+      .article h2{margin-top:2.6rem}
+      .article .actions .btn{width:100%}
+    }
+    .voisins{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+    .voisins a{border:1px solid var(--rose-fonce);border-radius:999px;padding:.3rem .9rem;text-decoration:none;font-size:.95rem;background:var(--blanc)}
+    .voisins a[aria-current]{background:var(--prune);color:var(--blanc);border-color:var(--prune)}
+    .faq dt{font-weight:600;margin-top:1.4rem}
+    .faq dd{margin:.4rem 0 0;color:var(--prune-doux)}
+    .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
+    .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
+  </style>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Aux origines de la numérologie (4/5) : la gématrie hébraïque", "description": "La gématrie : comment les lettres hébraïques sont devenues des nombres, des premiers rabbins à la Kabbale médiévale, avec des exemples précis et leurs sources.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/origine-numerologie-gematrie-hebraique.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/origine-numerologie-gematrie-hebraique.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce que la gématrie ?", "acceptedAnswer": {"@type": "Answer", "text": "C'est une méthode qui attribue une valeur numérique à chaque lettre hébraïque, pour calculer la valeur totale d'un mot et la comparer à celle d'autres mots. Le terme vient du grec geometria."}}, {"@type": "Question", "name": "Quelle est la plus ancienne attestation connue de ce type de calcul ?", "acceptedAnswer": {"@type": "Answer", "text": "Une inscription du roi assyrien Sargon II (727-707 avant notre ère), qui donne au mur de Khorsabad une longueur de 16 283 coudées pour faire correspondre ce nombre à la valeur de son propre nom. Ce n'est pas hébreu, mais le même principe de base."}}, {"@type": "Question", "name": "Quel est le lien entre la gématrie et la Kabbale ?", "acceptedAnswer": {"@type": "Answer", "text": "La gématrie existait dans les textes rabbiniques bien avant la Kabbale, mais elle n'était qu'un procédé mineur, une aide mnémotechnique. Ce sont les kabbalistes médiévaux, en particulier les Hassidei Ashkenaz aux 12e et 13e siècles puis des figures comme Abraham Aboulafia, qui en ont fait un outil central de lecture mystique des textes."}}, {"@type": "Question", "name": "La gématrie est-elle acceptée par tous les courants juifs ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Des figures comme Nahmanide ont mis en garde contre son usage excessif, et des penseurs comme Abraham ibn Ezra ou Joseph Salomon Delmedigo l'ont critiquée. Dans la loi juive (halakha), elle reste un procédé mineur, jamais une base de décision."}}]}]</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Origine de la numérologie : la gématrie hébraïque", "item": "https://genesolia.fr/origine-numerologie-gematrie-hebraique.html"}]}</script>
+</head>
+<body class="nouveau">
+  <header data-entete></header>
+  <main>
+    <section class="page-tete">
+      <div class="colonne">
+        <nav class="fil" aria-label="Fil d'Ariane"><a href="theme-numerologique.html">Numérologie</a><span aria-hidden="true">/</span>Origines · Gématrie</nav>
+        <h1>Aux origines de la numérologie : la gématrie hébraïque</h1>
+        <p class="intro">Quatrième épisode de la série. La gématrie, cette pratique qui transforme un mot hébreu en nombre, n'est ni née avec la Kabbale, ni même née en Israël. Son histoire traverse l'Assyrie, la Grèce, les premiers rabbins, puis seulement, bien plus tard, les kabbalistes.</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 10 min</p>
+        <nav class="serie" aria-label="La série">
+          <a href="origine-numerologie-mesopotamie.html">1 · Mésopotamie</a>
+          <a href="origine-numerologie-egypte-chine.html">2 · Égypte et Chine</a>
+          <a href="origine-numerologie-pythagore-grece.html">3 · Pythagore et la Grèce</a>
+          <span class="ici">4 · La gématrie hébraïque</span>
+          <span class="avenir">5 · La numérologie moderne</span>
+        </nav>
+      </div>
+    </section>
+    <figure class="bandeau-photo"><img src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Un arbre lumineux aux racines dorées" loading="lazy" decoding="async"></figure>
+
+    <article class="article">
+      <div class="colonne">
+        <h2>Définition</h2>
+        <p>La gématrie attribue à chaque lettre de l'alphabet hébreu une valeur numérique précise, puis additionne ces valeurs pour obtenir le nombre total d'un mot. Deux mots dont les lettres totalisent le même nombre sont alors considérés comme liés par le sens, même si rien dans leur orthographe ne les rapproche. Le terme lui-même viendrait du grec <em>geometria</em>.</p>
+
+        <h2>Une pratique plus vieille que l'hébreu lui-même</h2>
+        <p>C'est l'un des faits les plus surprenants de cette histoire : la plus ancienne attestation connue d'un calcul de ce type n'est pas hébraïque, mais assyrienne. Une inscription du roi Sargon II, qui a régné de 727 à 707 avant notre ère, donne au mur de la ville de Khorsabad une longueur de 16 283 coudées — un chiffre choisi pour correspondre à la valeur numérique du nom du roi lui-même. L'<em>Encyclopaedia Judaica</em> confirme que l'attribution de valeurs numériques aux lettres était connue à la fois des Babyloniens et des Grecs, bien avant son adoption par les scribes hébreux.</p>
+        <p>Un autre exemple, venu cette fois du monde gréco-romain : les gnostiques assimilaient les noms Abraxas et Mithra, tous deux valant 365 — le nombre de jours de l'année solaire.</p>
+
+        <h2>Comment les lettres hébraïques ont reçu leur valeur</h2>
+        <p>Le système le plus courant, appelé <em>mispar hekhrechi</em> (valeur absolue), suit l'ordre alphabétique : aleph vaut 1, bet 2, jusqu'à yod qui vaut 10 ; puis les dizaines, de kaf (20) à qof (100) ; puis les centaines, jusqu'à tav (400). Les lettres finales peuvent reprendre la valeur de leur forme standard, ou aller de 500 à 900 selon une variante appelée <em>mispar gadol</em>.</p>
+        <p>Il existe aussi d'autres méthodes : la valeur ordinale (1 à 22, une par lettre), la valeur réduite (ramenée à un seul chiffre), ou la réduction intégrale, qui additionne les chiffres d'un total jusqu'à obtenir un nombre unique — par exemple, le mot <em>hessed</em> (bonté) totalise 72, qui se réduit à 9.</p>
+
+        <h2>Chez les premiers rabbins : un procédé mineur</h2>
+        <p>La gématrie numérique apparaît d'abord dans des textes de maîtres du 2e siècle de notre ère (les tannaïm). Quelques exemples bien documentés :</p>
+        <ul class="pistes">
+          <li><strong>Les 39 travaux interdits du shabbat</strong><span>Rabbi Nathan relie l'expression « Voici les paroles » (Exode 35:1) à ce nombre précis de règles (Shabbat 70a).</span></li>
+          <li><strong>Les 318 hommes d'Abraham</strong><span>Un texte ancien (la baraïta des 32 règles) remarque que le nom d'Éliézer, le serviteur d'Abraham, vaut lui aussi 318 — suggérant que lui seul, parmi les hommes mentionnés, était réellement lié à Abraham. Un chiffre qui répondait peut-être, déjà à l'époque, à une lecture chrétienne concurrente du même nombre dans l'Épître de Barnabé.</span></li>
+          <li><strong>Le vœu de naziréat</strong><span>Sa durée, non précisée dans le texte biblique, est fixée à 30 jours en s'appuyant sur la valeur du mot « sera » (Nombres 6:5).</span></li>
+        </ul>
+        <p class="rappel"><strong>Un point essentiel</strong> : dans la loi juive (halakha), la gématrie n'a jamais eu qu'un rôle mineur — un indice ou un moyen mnémotechnique, jamais une preuve ou un fondement de décision à elle seule.</p>
+
+        <h2>Comment on arrive à la Kabbale</h2>
+        <p>La gématrie met des siècles à devenir un outil central. Voici les étapes principales, telles que les rapportent les sources spécialisées :</p>
+        <ol class="chrono">
+          <li><h3>Le Sefer Yetsirah</h3><p>Le plus ancien texte kabbalistique à utiliser la gématrie, surtout pour une lecture mystique de la création et des noms divins. Sa datation précise reste débattue parmi les spécialistes.</p></li>
+          <li><h3>12e-13e siècle : les Hassidei Ashkenaz</h3><p>Ce courant de piété mystique d'Allemagne médiévale, en particulier Éléazar de Worms, développe systématiquement la gématrie dans ses écrits sur les noms de Dieu.</p></li>
+          <li><h3>Diffusion vers l'Espagne</h3><p>Ces idées atteignent la Castille, où elles influencent deux figures majeures : Abraham Aboulafia, qui en fait un usage intensif, et Joseph Gikatilla, qui en fait l'un des fondements de la Kabbale.</p></li>
+          <li><h3>Prudence et critiques</h3><p>Toutes les grandes figures ne l'adoptent pas sans réserve : Moïse Cordovero l'utilise peu, Nahmanide met en garde contre ses excès, et des penseurs comme Abraham ibn Ezra la critiquent ouvertement.</p></li>
+          <li><h3>17e siècle et au-delà</h3><p>Le <em>Megalleh Amukkot</em> de Nathan Nata Spira devient un classique du genre. Plus tard, les disciples de Shabbetaï Tsevi s'en serviront pour justifier ses prétentions messianiques — et leurs opposants répondront par des calculs tout aussi habiles, dans l'autre sens.</p></li>
+        </ol>
+
+        <div class="prudence">
+          <strong>Ce qui reste débattu</strong>
+          Certaines sources évoquent des traces de techniques proches de la gématrie dès l'âge du bronze au Proche-Orient, et des recherches (notamment de l'assyriologue Stephen Lieberman) relèvent des procédés similaires en Mésopotamie. Ce sont des pistes de recherche actives, pas des certitudes établies : la prudence est de mise, comme pour chaque étape de cette série.
+        </div>
+
+        <div class="sources">
+          <p class="titre">Sources de cet article</p>
+          <ul>
+            <li><a href="https://www.encyclopedia.com/philosophy-and-religion/bible/bible-general/gematria" target="_blank" rel="noopener">Encyclopedia.com — Gematria (d'après l'Encyclopaedia Judaica)</a></li>
+            <li><a href="https://aish.com/what-is-gematria/" target="_blank" rel="noopener">Aish.com — Gematria: Meaning, Code & Use</a></li>
+          </ul>
+        </div>
+
+        <h2>Questions fréquentes</h2>
+        <dl class="faq">
+          <dt>Qu'est-ce que la gématrie ?</dt><dd>C'est une méthode qui attribue une valeur numérique à chaque lettre hébraïque, pour calculer la valeur totale d'un mot et la comparer à celle d'autres mots. Le terme vient du grec geometria.</dd>
+          <dt>Quelle est la plus ancienne attestation connue de ce type de calcul ?</dt><dd>Une inscription du roi assyrien Sargon II (727-707 avant notre ère), qui donne au mur de Khorsabad une longueur de 16 283 coudées pour faire correspondre ce nombre à la valeur de son propre nom. Ce n'est pas hébreu, mais le même principe de base.</dd>
+          <dt>Quel est le lien entre la gématrie et la Kabbale ?</dt><dd>La gématrie existait dans les textes rabbiniques bien avant la Kabbale, mais elle n'était qu'un procédé mineur, une aide mnémotechnique. Ce sont les kabbalistes médiévaux, en particulier les Hassidei Ashkenaz aux 12e et 13e siècles puis des figures comme Abraham Aboulafia, qui en ont fait un outil central de lecture mystique des textes.</dd>
+          <dt>La gématrie est-elle acceptée par tous les courants juifs ?</dt><dd>Non. Des figures comme Nahmanide ont mis en garde contre son usage excessif, et des penseurs comme Abraham ibn Ezra ou Joseph Salomon Delmedigo l'ont critiquée. Dans la loi juive (halakha), elle reste un procédé mineur, jamais une base de décision.</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-trait" href="origine-numerologie-pythagore-grece.html">← Épisode 3 : Pythagore et la Grèce</a>
+          <a class="btn btn-plein" href="theme-numerologique.html">Calculer mon thème numérologique</a>
+        </div>
+
+        <p class="note-fin">Lecture historique. Cet article décrit la gématrie comme un fait culturel et religieux documenté, sans intention de promouvoir une pratique rituelle ni d'en faire une méthode de divination. La numérologie n'est pas une science : ses interprétations sont des pistes, pas des causes.</p>
+        <nav class="voisins" aria-label="Dans la même série"><a href="origine-numerologie-mesopotamie.html">1 · Mésopotamie</a><a href="origine-numerologie-egypte-chine.html">2 · Égypte et Chine</a><a href="origine-numerologie-pythagore-grece.html">3 · Pythagore et la Grèce</a><a href="origine-numerologie-gematrie-hebraique.html" aria-current="page">4 · La gématrie hébraïque</a><a href="theme-numerologique.html">Mon thème numérologique</a></nav>
+      </div>
+    </article>
+
+    <section class="bloc"><div class="conteneur"><div data-cadeau></div></div></section>
+
+    <section class="bloc">
+      <div class="conteneur">
+        <div class="bloc-tete"><h2>À lire aussi</h2></div>
+        <div class="liste-outils">
+          <a class="outil" href="origine-numerologie-pythagore-grece.html"><h3>Pythagore et la Grèce antique</h3><p>Ce qu'on sait vraiment de lui, la Tétractys, et le mythe pythagoricien.</p></a>
+          <a class="outil" href="origine-numerologie-mesopotamie.html"><h3>Les nombres sacrés de Mésopotamie</h3><p>Sumer, l'écriture cunéiforme, le système en base 60.</p></a>
+          <a class="outil" href="theme-numerologique.html"><h3>Mon thème numérologique</h3><span class="duree">Gratuit</span><p>Chemin de vie, nombre d'expression, cycles et année personnelle.</p></a>
+          <a class="outil" href="genosociogramme.html"><h3>Mon arbre familial</h3><p>Dessine ton génosociogramme : les répétitions sont repérées automatiquement.</p></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
