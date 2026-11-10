@@ -630,7 +630,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
           '<li><a href="blog.html">Blog</a></li>' +
           '<li><a href="pourquoi-genesolia.html">Pourquoi Genesolia</a></li>' +
           '<li><a href="la-demarche.html">La démarche</a></li>' +
-          '<li><a href="tarifs.html">Tarifs</a></li>' +
+          '<li><a href="abonnements.html">Tarifs</a></li>' +
           '<li><a href="mentions-legales.html">Mentions légales</a></li>' + '<li><a href="cgv.html">Conditions de vente</a></li>' +
           '<li><a href="confidentialite.html">Confidentialité</a></li>' +
           '<li><a href="#" data-cookies>Gérer mes cookies</a></li>' +
@@ -684,7 +684,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="annuaire.html">Trouver un·e praticien·ne</a></li>' +
             '<li><a href="boutique.html">Boutique</a></li>' +
             '<li><a href="livres.html">Les livres</a></li>' +
-            '<li><a href="tarifs.html">Tarifs</a></li></ul></div>' +
+            '<li><a href="abonnements.html">Tarifs</a></li></ul></div>' +
           '<div><h4>Genesolia</h4><ul>' +
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire</a></li>' +

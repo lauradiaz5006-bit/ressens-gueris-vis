@@ -30,7 +30,7 @@
     if (!etatEssai.connectee) fenetre('Crée ton compte, c’est offert', 'Pour garder ton arbre et voir ce qui se répète, crée ton espace gratuit : <b>' + C.jours + ' jours d’analyses offerts</b>, sans carte. Ton arbre reste à toi.',
       '<a class="btn btn-plein" href="login.html?inscription&amp;retour=' + encodeURIComponent(location.pathname.split('/').pop() || 'genosociogramme.html') + '">Créer mon espace gratuit</a>');
     else fenetre('Tes ' + C.jours + ' jours d’analyses sont terminés', 'Ton arbre reste à toi : tu peux toujours le voir et le compléter. Pour retrouver ce qui se répète, la numérologie, l’astrologie et ton rapport, continue avec <b>Ma spirale</b> (offre de Noël : 7 jours offerts, puis 4,99 € par mois, sans engagement), ou essaie <b>Le Cercle</b>, ton 1<sup>er</sup> mois est offert.',
-      '<a class="btn btn-plein" href="tarifs.html">Voir Ma spirale</a><a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert du Cercle</a>');
+      '<a class="btn btn-plein" href="abonnements.html">Voir Ma spirale</a><a class="btn btn-trait" href="essai.html">Ouvrir mon mois offert du Cercle</a>');
   }
   var s = session();
   (s ? abonnee(s) : Promise.resolve(false)).then(function (ok) {
@@ -41,7 +41,7 @@
       etatEssai = { ouvert: ok || reste > 0, connectee: true, reste: ok ? null : Math.max(0, reste), abonnee: ok };
     }
     if (etatEssai.ouvert) {
-      if (etatEssai.reste != null && etatEssai.reste > 0) { var b = document.createElement('p'); b.className = 'es-bandeau'; b.innerHTML = 'Analyses offertes : encore <b>' + etatEssai.reste + ' jour' + (etatEssai.reste > 1 ? 's' : '') + '</b>. <a href="tarifs.html">Continuer avec le Pass</a>'; document.body.appendChild(b); }
+      if (etatEssai.reste != null && etatEssai.reste > 0) { var b = document.createElement('p'); b.className = 'es-bandeau'; b.innerHTML = 'Analyses offertes : encore <b>' + etatEssai.reste + ' jour' + (etatEssai.reste > 1 ? 's' : '') + '</b>. <a href="abonnements.html">Continuer avec le Pass</a>'; document.body.appendChild(b); }
       return;
     }
     document.documentElement.classList.add('essai-fini');
