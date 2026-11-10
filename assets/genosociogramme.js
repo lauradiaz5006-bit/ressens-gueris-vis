@@ -4081,24 +4081,12 @@
           if (d.remise !== true) document.body.classList.add('partage-verrou');
           if (op.reps === false) document.body.classList.add('partage-sans-reps');
           charger(d); dessiner(); recentrer();
-          var notesBilan = (!op.supervision && d.bilan && Array.isArray(d.bilan.notes)) ? d.bilan.notes : [];
+          var bilanDisponible = !op.supervision && d.bilan && d.bilan.maj;
           b.innerHTML = (op.supervision ? 'Dossier anonymisé pour la supervision' + (d.cabinet ? ', partagé par ' + esc(d.cabinet) : '') + ' · en lecture' : 'Ton arbre, partagé' + (d.cabinet ? ' par ' + esc(d.cabinet) : '') + ' · en lecture')
-            + (op.supervision ? '' : ' <button type="button" class="bt-demo-seance" data-voir-bilan>Le bilan de vos séances</button>');
+            + (bilanDisponible ? ' <a class="bt-demo-seance" href="bilan.html?b=' + encodeURIComponent(qs.get('partage')) + '">Voir mon bilan de suivi</a>' : '');
 
           document.body.appendChild(b); statut('');
           if (d.remise === true) remiseCliente(qs.get('partage'), d.cabinet, qs.has('garder'));
-          var bvb = b.querySelector('[data-voir-bilan]');
-          if (bvb) bvb.addEventListener('click', function () {
-            var GP = window.GenesoliaPratique; if (!GP) return;
-            var html = '<h2>Le bilan de vos séances</h2>' +
-              '<p class="pr-o-aide"><a class="btn btn-trait bt" href="plateau-visio.html?partage=' + encodeURIComponent(qs.get('partage')) + '">Voir le plateau symbolique de vos séances</a></p>' +
-              (notesBilan.length
-                ? '<h3>Notes de ' + (d.cabinet ? esc(d.cabinet) : 'votre praticien·ne') + '</h3>' + notesBilan.slice().sort(function (x, y) { return y.jour < x.jour ? -1 : 1; }).map(function (n) {
-                  return '<div class="pr-o-seance"><small>' + (n.jour ? new Date(n.jour).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '') + '</small><p>' + esc(n.texte || '') + '</p></div>';
-                }).join('')
-                : '<p class="pr-o-aide">' + (d.cabinet ? esc(d.cabinet) : 'Votre praticien·ne') + ' n’a pas encore partagé de note pour ce dossier.</p>');
-            GP.fenetre(html);
-          });
         });
       return;
     }

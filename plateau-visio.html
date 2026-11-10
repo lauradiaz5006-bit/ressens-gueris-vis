@@ -123,6 +123,7 @@
           <button type="button" onclick="pvOuvrirPanneau('objet')">+ Un objet symbolique</button>
           <button type="button" id="pvBoutonLien" onclick="pvBasculerModeLien()">+ Lien entre deux pions</button>
           <button type="button" onclick="pvExporter()">Exporter en image</button>
+          <button type="button" id="pvBoutonBilan" onclick="pvMettreAJourBilan()" hidden>Mettre à jour le bilan avec cette photo</button>
           <button type="button" onclick="pvEnregistrerMain()">Enregistrer</button>
           <button type="button" id="pvBoutonAnnuler" onclick="pvAnnulerDernier()" disabled>Annuler</button>
           <button type="button" onclick="pvNouvelleSeance()">Nouvelle séance</button>
@@ -1010,6 +1011,7 @@
           } else { pvRestaurer(); }
           pvAfficherInfosArbre(pvDossier);
           pvAfficherSeancesArchivees();
+          var bb = document.getElementById('pvBoutonBilan'); if (bb) bb.hidden = false;
           redessiner();
         });
       });
@@ -1035,6 +1037,32 @@
         });
       };
       document.body.appendChild(script);
+    };
+
+    /* Capture une photo du plateau et la pose dans le bilan de suivi (partages_arbre.bilan.constellation) de ce dossier,
+       en créant le lien de partage s'il n'existe pas encore (l'arbre est toujours partagé dès qu'un bilan existe). */
+    window.pvMettreAJourBilan = function () {
+      if (!pions.length) { alert('Le plateau est vide pour le moment : rien à inclure dans le bilan.'); return; }
+      if (!pvSb || !pvUser || !ARBRE_ID) { alert('Ouvrez ce plateau depuis un dossier pour mettre à jour son bilan.'); return; }
+      var bt = document.getElementById('pvBoutonBilan'); bt.disabled = true; pvStatut('Capture de la photo…');
+      function h2c() {
+        if (window.html2canvas) return Promise.resolve();
+        return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = 'assets/html2canvas.min.js'; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
+      }
+      h2c().then(function () { return html2canvas(plateau, { backgroundColor: '#FFF9F7' }); }).then(function (canvas) {
+        var photo = canvas.toDataURL('image/jpeg', 0.85);
+        return pvSb.from('partages_arbre').select('jeton,bilan').eq('arbre_id', ARBRE_ID).gt('expire_le', new Date().toISOString()).order('cree_le', { ascending: false }).limit(1).then(function (r) {
+          var ligne = r && r.data && r.data[0];
+          var bilanObj = Object.assign({}, (ligne && ligne.bilan) || {}, { maj: new Date().toISOString(), constellation: photo });
+          if (ligne) return pvSb.from('partages_arbre').update({ bilan: bilanObj }).eq('jeton', ligne.jeton).then(function (rr) { return rr; }).then(function () { return ligne.jeton; });
+          return pvSb.from('partages_arbre').insert({ user_id: pvUser.id, arbre_id: ARBRE_ID, expire_le: new Date(Date.now() + 14 * 864e5).toISOString(), options: { reps: true }, bilan: bilanObj }).select('jeton').single().then(function (rr) { return rr.data && rr.data.jeton; });
+        });
+      }).then(function (jeton) {
+        bt.disabled = false;
+        pvStatut(jeton ? 'Photo ajoutée au bilan. Page à envoyer : https://genesolia.fr/bilan.html?b=' + jeton : 'La photo a été prise mais n’a pas pu être enregistrée. Réessayez.');
+      }, function () {
+        bt.disabled = false; pvStatut('La photo n’a pas pu être créée. Réessayez.');
+      });
     };
 
     pvChargerDossier();
