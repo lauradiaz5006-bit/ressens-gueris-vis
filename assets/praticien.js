@@ -305,6 +305,7 @@
     else if ((b = e.target.closest('[data-debut-masquer]'))) { marquer('debut-masque'); debut(); }
     else if ((b = e.target.closest('[data-renommer]'))) {
       var d = dossier(b.getAttribute('data-renommer')); if (!d || !window.GenesoliaPratique) return;
+      var menuR = b.closest('.pr-menu'); if (menuR) menuR.open = false;
       var fr = window.GenesoliaPratique.fenetre('<h2>Renommer le dossier</h2><form class="pr-o-form" data-renommer-form><label>Nom du dossier<input type="text" name="nom" maxlength="60" value="' + esc(d.nom || '') + '"></label><p class="pr-o-msg" data-renommer-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Enregistrer</button></div></form>');
       var frm = fr.querySelector('[data-renommer-form]'); setTimeout(function () { frm.nom.focus(); frm.nom.select(); }, 30);
       frm.addEventListener('submit', function (ev) {
@@ -316,6 +317,7 @@
       });
     } else if ((b = e.target.closest('[data-supprimer]'))) {
       var d2 = dossier(b.getAttribute('data-supprimer')); if (!d2 || !window.GenesoliaPratique) return;
+      var menuS = b.closest('.pr-menu'); if (menuS) menuS.open = false;
       var fs = window.GenesoliaPratique.fenetre('<h2>Supprimer le dossier</h2><p class="pr-o-aide">Supprimer « ' + esc(d2.nom || '') + ' » et son arbre ? Ce n’est pas réversible.</p><p class="pr-o-msg" data-suppr-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein pr-danger" type="button" data-suppr-confirmer style="background:#A3324A;border-color:#A3324A">Supprimer définitivement</button></div>');
       fs.querySelector('[data-suppr-confirmer]').addEventListener('click', function () {
         sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'seances-' + d2.id).then(function () { return sb.from('arbres_supp').delete().eq('id', d2.id); }).then(function (r) {
@@ -324,10 +326,15 @@
         });
       });
     } else if ((b = e.target.closest('[data-vers-client]'))) {
-      var pd = (window.__persoPr || []).filter(function (x) { return x.id === b.getAttribute('data-vers-client'); })[0]; if (!pd) return;
-      if (!confirm('Classer « ' + (pd.nom || '') + ' » dans vos dossiers client·es ?')) return;
-      var nd = Object.assign({}, pd.data || {}, { dossier: 'client' });
-      sb.from('arbres_supp').update({ data: nd }).eq('id', pd.id).then(function (r) { if (!r.error) chargerDossiers(); });
+      var pd = (window.__persoPr || []).filter(function (x) { return x.id === b.getAttribute('data-vers-client'); })[0]; if (!pd || !window.GenesoliaPratique) return;
+      var fc = window.GenesoliaPratique.fenetre('<h2>Dossier client·e</h2><p class="pr-o-aide">Classer « ' + esc(pd.nom || '') + ' » dans vos dossiers client·es ?</p><p class="pr-o-msg" data-vers-client-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="button" data-vers-client-confirmer">Classer en dossier client·e</button></div>');
+      fc.querySelector('[data-vers-client-confirmer]').addEventListener('click', function () {
+        var nd = Object.assign({}, pd.data || {}, { dossier: 'client' });
+        sb.from('arbres_supp').update({ data: nd }).eq('id', pd.id).then(function (r) {
+          if (r.error) { fc.querySelector('[data-vers-client-msg]').textContent = 'Pas enregistré. Réessayez.'; return; }
+          fc.remove(); chargerDossiers();
+        });
+      });
     }
   });
 

@@ -74,6 +74,9 @@
     .legende-symb span{display:inline-flex;align-items:center;gap:.35rem}
     .legende-symb svg{width:16px;height:16px}
     .legende-symb a{color:var(--prune);font-weight:600}
+    /* Barre du bas de l'Espace praticien (.pro-bas, posée par site.js) : légende et zoom remontés pour ne pas passer dessous */
+    body.pro-page .legende-symb,body.pro-page .zoom{bottom:calc(14px + 92px + env(safe-area-inset-bottom,0px))}
+    @media (min-width:900px){body.pro-page .legende-symb,body.pro-page .zoom{bottom:104px}}
 
     /* Barre d'actions sur la personne choisie */
     .actions-perso{position:absolute;z-index:8;display:none;transform:translate(-50%,-100%);background:var(--blanc);border:1px solid var(--rose-fonce);border-radius:16px;box-shadow:0 14px 34px rgba(107,47,91,.16);padding:.4rem;gap:.3rem;flex-wrap:nowrap}
@@ -987,7 +990,7 @@
   <script src="assets/numerologie.js"></script>
   <script src="assets/guematrie.js"></script>
   <script src="assets/prenoms-echos.js?v=1"></script>
-  <script src="assets/praticien-outils.js?v=8"></script>
+  <script src="assets/praticien-outils.js?v=9"></script>
   <script src="assets/genosociogramme.js?v=2026-10-31e"></script>
   <script src="assets/import-arbre.js?v=2026-10-26"></script>
   <script src="assets/tutoriel-arbre.js?v=2026-10-21"></script>

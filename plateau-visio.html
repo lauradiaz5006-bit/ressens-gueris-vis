@@ -779,13 +779,19 @@
       if (zt) zt.addEventListener('input', pvSauvegarder);
     }
 
-    function pvAvertirSession() {
-      if (document.getElementById('pvAlerteSession')) return;
+    function pvAvertir(html) {
+      if (document.getElementById('pvAlerteSession')) document.getElementById('pvAlerteSession').remove();
       var tete = document.querySelector('.pv-tete'); if (!tete) return;
       var p = document.createElement('p');
       p.id = 'pvAlerteSession'; p.className = 'pv-alerte-session';
-      p.innerHTML = 'Reconnectez-vous pour retrouver ce dossier : sans connexion, ce plateau n’est pas relié à votre Espace praticien et restera uniquement dans ce navigateur. <a href="login.html?retour=' + encodeURIComponent(location.pathname + location.search) + '">Me reconnecter</a>';
+      p.innerHTML = html;
       tete.appendChild(p);
+    }
+    function pvAvertirSession() {
+      pvAvertir('Reconnectez-vous pour retrouver ce dossier : sans connexion, ce plateau n’est pas relié à votre Espace praticien et restera uniquement dans ce navigateur. <a href="login.html?retour=' + encodeURIComponent(location.pathname + location.search) + '">Me reconnecter</a>');
+    }
+    function pvAvertirIntrouvable() {
+      pvAvertir('Ce dossier n’a pas pu être trouvé (lien incorrect, dossier supprimé, ou lié à un autre compte). Ce plateau n’est pas relié à votre Espace praticien et restera uniquement dans ce navigateur.');
     }
     function pvChargerDossier() {
       if (!pvSb) { pvRestaurer(); redessiner(); return; }
@@ -794,7 +800,7 @@
         if (!sess) { if (ARBRE_ID) pvAvertirSession(); pvRestaurer(); redessiner(); return; }
         pvUser = sess.user;
         pvSb.from('arbres_supp').select('id,nom,data').eq('id', ARBRE_ID).eq('user_id', pvUser.id).maybeSingle().then(function (x) {
-          if (x.error || !x.data) { pvAvertirSession(); pvRestaurer(); redessiner(); return; }
+          if (x.error || !x.data) { pvAvertirIntrouvable(); pvRestaurer(); redessiner(); return; }
           pvDossier = x.data;
           if (pvDossier.data && pvDossier.data.plateau && Array.isArray(pvDossier.data.plateau.pions)) {
             pions = pvDossier.data.plateau.pions; liens = Array.isArray(pvDossier.data.plateau.liens) ? pvDossier.data.plateau.liens : [];
