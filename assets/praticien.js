@@ -29,6 +29,8 @@
     z.innerHTML = '<p class="pr-etiq">' + esc(etiq()) + '</p><h1 style="font-size:clamp(1.8rem,4vw,2.4rem)">Votre ' + esc(etiq()) + '</h1>' +
       '<div class="pr-carte"><p class="pr-aide">Créez votre espace (ou connectez-vous), puis ouvrez votre Espace praticien : <b>30 jours offerts, sans carte bancaire</b>. Autant de dossiers client·es que vous voulez, des notes par séance chiffrées, et un lien pour montrer son arbre à votre client·e.</p>' +
       '<div class="pr-nouveau"><a class="btn btn-plein" href="login.html?inscription&amp;retour=' + ICI + '">Commencer mes 30 jours offerts</a><a class="btn btn-trait" href="login.html?retour=' + ICI + '">J’ai déjà un espace</a></div><p class="pr-aide" style="margin:.9rem 0 0">30 jours offerts, sans carte bancaire · puis <b>19 € par mois</b> (offre de Noël, avant le 31 décembre)</p></div>';
+    /* Arrivée depuis la page « pub » (lien « Voir la démo ») sans compte : on propose tout de suite le choix arbre/constellation */
+    if (location.hash === '#demo') { history.replaceState(null, '', location.pathname + location.search); window.GenesoliaPro.demo(); }
   }
 
   /* ───────── Ouvrir son cabinet (essai de 30 jours) ───────── */
@@ -101,7 +103,8 @@
       (appliInstallee() ? '' : '<section class="pr-carte pr-appli"><h2>L’appli sur votre téléphone</h2><p class="pr-aide">Installez Genesolia Pro sur votre écran d’accueil : vos dossiers, le mode séance et vos notes s’ouvrent d’un geste, comme une vraie appli. Gratuit, 30 secondes.</p><button class="btn btn-plein" type="button" data-pro-installer>Installer l’appli Genesolia Pro</button></section>') +
       '<section class="pr-carte" id="pr-annuaire-carte"><h2>Ma fiche dans l’annuaire</h2><div id="pr-annuaire"><p class="pr-aide">Chargement…</p></div></section>' +
       '<section class="pr-carte"><h2>Connexion en deux étapes</h2><div id="pr-deux-etapes"><p class="pr-aide">Chargement…</p></div></section>' +
-      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Vos notes de séance sont chiffrées dans votre Espace praticien. Le lien de partage montre l’arbre à votre client·e, <b>sans vos notes</b>. Il reste valable 14 jours, vous choisissez ce qu’il montre et vous pouvez le désactiver à tout moment.</p><p class="pr-aide">Vos notes de séance vous appartiennent : elles ne sont jamais copiées dans l’espace de votre client·e. S’il ou elle vous demande ce que vous avez noté, vous pouvez les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e vous demande d’effacer son dossier ? Utilisez le bouton « Supprimer » de ce dossier, dans la liste.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier ouvert, vous pouvez aussi commander l’arbre imprimé de votre client·e : un poster livré chez lui ou chez elle, ' + ((window.GENESOLIA_IMPRESSION && GENESOLIA_IMPRESSION.formats && GENESOLIA_IMPRESSION.formats[0]) ? 'dès ' + GENESOLIA_IMPRESSION.formats[0].prix + ', livraison comprise' : 'livraison comprise') + '. Un beau cadeau de fin d’accompagnement à glisser dans votre offre. <a href="boutique.html">Voir les formats et les prix</a></p><p class="pr-aide" style="margin:.8rem 0 0">Une question sur un écran ? <a href="mode-emploi-genesolia-pro.html?appli=pro">Mode d’emploi</a>, pas à pas.</p></section></div>';
+      '<section class="pr-carte"><h2>Bon à savoir</h2><p class="pr-aide">Vos notes de séance sont chiffrées dans votre Espace praticien. Le lien de partage montre l’arbre à votre client·e, <b>sans vos notes</b>. Il reste valable 14 jours, vous choisissez ce qu’il montre et vous pouvez le désactiver à tout moment.</p><p class="pr-aide">Vos notes de séance vous appartiennent : elles ne sont jamais copiées dans l’espace de votre client·e. S’il ou elle vous demande ce que vous avez noté, vous pouvez les exporter en PDF depuis « Notes de séance ».</p><p class="pr-aide" style="margin:0">Pas de diagnostics ni de traitements dans les dossiers. Un·e client·e vous demande d’effacer son dossier ? Utilisez le bouton « Supprimer » de ce dossier, dans la liste.</p><p class="pr-aide" style="margin:.8rem 0 0">Depuis chaque dossier ouvert, vous pouvez aussi commander l’arbre imprimé de votre client·e : un poster livré chez lui ou chez elle, ' + ((window.GENESOLIA_IMPRESSION && GENESOLIA_IMPRESSION.formats && GENESOLIA_IMPRESSION.formats[0]) ? 'dès ' + GENESOLIA_IMPRESSION.formats[0].prix + ', livraison comprise' : 'livraison comprise') + '. Un beau cadeau de fin d’accompagnement à glisser dans votre offre. <a href="boutique.html">Voir les formats et les prix</a></p><p class="pr-aide" style="margin:.8rem 0 0">Une question sur un écran ? <a href="mode-emploi-genesolia-pro.html?appli=pro">Mode d’emploi</a>, pas à pas.</p></section>' +
+      '<section class="pr-carte"><h2>Votre espace</h2><p class="pr-aide" style="margin:0 0 .6rem">Vous avez aussi un espace Genesolia personnel, avec le même compte : vos propres protocoles et exercices, séparés de votre activité de praticien·ne.</p><div style="display:flex;flex-wrap:wrap;gap:.6rem"><a class="btn btn-trait" href="login.html">Aller à mon espace Genesolia</a><button class="btn btn-trait" type="button" data-pr-fermer>Fermer mon espace</button></div></section></div>';
     var ic = document.querySelector('#pr-cab input[name=cabinet]'); if (ic && !ic.value) ic.value = prat.cabinet || '';   /* certains navigateurs vident le champ en restaurant la page */
     if (window.GenesoliaDeuxEtapes) window.GenesoliaDeuxEtapes.reglage(sb, document.getElementById('pr-deux-etapes'));
     if (window.GenesoliaAnnuaire) window.GenesoliaAnnuaire.fiche(sb, user, prat, document.getElementById('pr-annuaire'), actif());
@@ -175,7 +178,7 @@
     var q = FILTRE.q.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     var vus = dossiers.filter(function (d) { var okQ = !q || String(d.nom || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').indexOf(q) >= 0; var okType = FILTRE.type === 'tous' || !!(d.data && d.data.constellation); return okQ && okType; });
     vus.sort(function (a, b) { return FILTRE.tri === 'nom' ? String(a.nom || '').localeCompare(String(b.nom || ''), 'fr') : FILTRE.tri === 'ancien' ? (a.maj < b.maj ? -1 : 1) : (a.maj < b.maj ? 1 : -1); });
-    var aExemple = dossiers.some(function (d) { return /^Exemple/.test(d.nom || ''); });
+    var aExemple = dossiers.some(function (d) { return /^(Exemple|Démo)/.test(d.nom || ''); });
     l.innerHTML = (vus.length ? '' : '<p class="pr-vide">Aucun dossier ne correspond à « ' + esc(FILTRE.q) + ' ».</p>') + vus.map(function (d) {
       var n = d.data && d.data.people ? Object.keys(d.data.people).length : 0;
       var constel = !!(d.data && d.data.constellation);
@@ -225,7 +228,7 @@
     bt.disabled = true; bt.textContent = 'Un instant…';
     fetch('assets/exemple-genosociogramme.json').then(function (r) { return r.json(); }).then(function (ex) {
       ex.dossier = 'client';
-      return sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Exemple · famille de Léa (fictive)', data: ex }).select('id').single();
+      return sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Démo · famille de Léa (fictive)', data: ex }).select('id').single();
     }).then(function (r) {
       if (r.error) throw r.error;
       location.href = 'genosociogramme.html?arbre=' + encodeURIComponent(r.data.id);
@@ -266,6 +269,12 @@
 
   function appliInstallee() { try { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; } catch (e) { return false; } }
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('[data-pro-installer]') && window.GenesoliaInstaller) window.GenesoliaInstaller.ouvrir(); });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest || !e.target.closest('[data-pr-fermer]')) return;
+    if (!confirm('Fermer votre Espace praticien et revenir au site Genesolia ?')) return;
+    var fin = function () { location.href = 'index.html'; };
+    sb.auth.signOut().then(fin, fin);
+  });
 
   /* ───────── Événements ───────── */
   document.addEventListener('submit', function (e) {
@@ -339,7 +348,7 @@
   });
 
   /* ───────── Accès directs de la barre du bas : Arbre, Constellation, Démo (choix arbre ou constellation) ───────── */
-  function exempleExistant() { return dossiers.filter(function (d) { return /^Exemple/.test(d.nom || ''); })[0]; }
+  function exempleExistant() { return dossiers.filter(function (d) { return /^(Exemple|Démo)/.test(d.nom || ''); })[0]; }
   function demoArbre() {
     var ex = exempleExistant();
     if (ex) { location.href = 'genosociogramme.html?arbre=' + encodeURIComponent(ex.id); return; }
@@ -358,7 +367,7 @@
       return;
     }
     if (!(user && actif())) { location.href = 'plateau-visio.html'; return; }
-    sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Exemple · famille de Léa (fictive)', data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', constellation: true } }).select('id').single().then(function (r) {
+    sb.from('arbres_supp').insert({ user_id: user.id, nom: 'Démo · famille de Léa (fictive)', data: { people: {}, rels: [], nid: 1, v: 2, dossier: 'client', constellation: true } }).select('id').single().then(function (r) {
       if (r.error) { alert('Le dossier exemple n’a pas pu être créé. Réessayez.'); return; }
       location.href = 'plateau-visio.html?arbre=' + encodeURIComponent(r.data.id);
     });
@@ -366,7 +375,7 @@
   window.GenesoliaPro = {
     demo: function () {
       if (!window.GenesoliaPratique) { demoArbre(); return; }
-      var f = window.GenesoliaPratique.fenetre('<h2>Démo</h2><p class="pr-o-aide">Laquelle voir ?</p><div class="pr-liste" style="gap:.5rem"><button type="button" class="btn btn-plein" style="width:100%" data-demo="arbre">Démo arbre</button><button type="button" class="btn btn-trait" style="width:100%" data-demo="constellation">Démo constellation familiale</button></div>');
+      var f = window.GenesoliaPratique.fenetre('<h2>Démo</h2><p class="pr-o-aide">Laquelle voir ?</p><div class="pr-liste" style="gap:.5rem"><button type="button" class="btn btn-plein" style="width:100%" data-demo="arbre">Ouvrir arbre</button><button type="button" class="btn btn-trait" style="width:100%" data-demo="constellation">Ouvrir constellation</button></div>');
       f.addEventListener('click', function (e) { var b = e.target.closest('[data-demo]'); if (!b) return; f.remove(); if (b.getAttribute('data-demo') === 'constellation') demoConstellation(); else demoArbre(); });
     },
     arbre: function () { choisirDossier('Ouvrir un arbre', function (d) { location.href = 'genosociogramme.html?arbre=' + encodeURIComponent(d.id); }); },
