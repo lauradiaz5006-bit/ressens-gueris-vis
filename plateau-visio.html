@@ -770,7 +770,7 @@
       var zp = document.getElementById('pvPrive'); if (zp) zp.hidden = false;
       var personnes = (d.data && d.data.people) || {};
       var zg = document.getElementById('pvGensListe');
-      var noms = Object.keys(personnes).map(function (k) { return personnes[k] && personnes[k].nom; }).filter(Boolean);
+      var noms = Object.keys(personnes).map(function (k) { var p = personnes[k]; return p && ((p.prenom || '') + ' ' + (p.nom || '')).trim(); }).filter(Boolean);
       if (zg) zg.innerHTML = noms.length ? noms.map(function (n) { return '<li>' + n.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }) + '</li>'; }).join('') : '<li style="background:none;color:var(--prune-doux)">Aucune personne dans l’arbre pour l’instant.</li>';
       var zt = document.getElementById('pvNotesLiens');
       if (zt && d.data && d.data.plateau && d.data.plateau.notesLiens) zt.value = d.data.plateau.notesLiens;
