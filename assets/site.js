@@ -689,6 +689,7 @@ if (document.readyState === 'loading') document.addEventListener('DOMContentLoad
             '<li><a href="login.html">Mon espace</a></li>' +
             '<li><a href="mailto:contact@genesolia.fr">Nous écrire</a></li>' +
             '<li><a href="avis.html">Donner mon avis</a></li>' +
+            '<li><a href="pourquoi-genesolia.html#titre-diplomes">Mes certifications</a></li>' +
             '<li><a href="/#questions">Questions fréquentes</a></li>' +
             '<li><a href="mentions-legales.html">Mentions légales</a></li>' +
             '<li><a href="cgv.html">Conditions de vente</a></li>' +
