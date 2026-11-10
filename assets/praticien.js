@@ -304,12 +304,25 @@
     else if ((b = e.target.closest('[data-exemple]'))) dossierExemple(b);
     else if ((b = e.target.closest('[data-debut-masquer]'))) { marquer('debut-masque'); debut(); }
     else if ((b = e.target.closest('[data-renommer]'))) {
-      var d = dossier(b.getAttribute('data-renommer')), n = prompt('Nouveau nom du dossier', d ? d.nom : ''); if (!n || !n.trim()) return;
-      sb.from('arbres_supp').update({ nom: n.trim().slice(0, 60) }).eq('id', d.id).then(function (r) { if (!r.error) chargerDossiers(); });
+      var d = dossier(b.getAttribute('data-renommer')); if (!d || !window.GenesoliaPratique) return;
+      var fr = window.GenesoliaPratique.fenetre('<h2>Renommer le dossier</h2><form class="pr-o-form" data-renommer-form><label>Nom du dossier<input type="text" name="nom" maxlength="60" value="' + esc(d.nom || '') + '"></label><p class="pr-o-msg" data-renommer-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein" type="submit">Enregistrer</button></div></form>');
+      var frm = fr.querySelector('[data-renommer-form]'); setTimeout(function () { frm.nom.focus(); frm.nom.select(); }, 30);
+      frm.addEventListener('submit', function (ev) {
+        ev.preventDefault(); var n = frm.nom.value.trim(); if (!n) return;
+        sb.from('arbres_supp').update({ nom: n.slice(0, 60) }).eq('id', d.id).then(function (r) {
+          if (r.error) { fr.querySelector('[data-renommer-msg]').textContent = 'Pas enregistré. Réessayez.'; return; }
+          fr.remove(); chargerDossiers();
+        });
+      });
     } else if ((b = e.target.closest('[data-supprimer]'))) {
-      var d2 = dossier(b.getAttribute('data-supprimer'));
-      if (!confirm('Supprimer le dossier « ' + (d2 ? d2.nom : '') + ' » et son arbre ? Ce n’est pas réversible.')) return;
-      sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'seances-' + d2.id).then(function () { return sb.from('arbres_supp').delete().eq('id', d2.id); }).then(function (r) { if (r && r.error) { alert('La suppression n’a pas abouti.'); return; } chargerDossiers(); });
+      var d2 = dossier(b.getAttribute('data-supprimer')); if (!d2 || !window.GenesoliaPratique) return;
+      var fs = window.GenesoliaPratique.fenetre('<h2>Supprimer le dossier</h2><p class="pr-o-aide">Supprimer « ' + esc(d2.nom || '') + ' » et son arbre ? Ce n’est pas réversible.</p><p class="pr-o-msg" data-suppr-msg role="status"></p><div class="pr-o-boutons"><button class="btn btn-plein bt plein pr-danger" type="button" data-suppr-confirmer style="background:#A3324A;border-color:#A3324A">Supprimer définitivement</button></div>');
+      fs.querySelector('[data-suppr-confirmer]').addEventListener('click', function () {
+        sb.from('carnets').delete().eq('user_id', user.id).eq('mois', 'seances-' + d2.id).then(function () { return sb.from('arbres_supp').delete().eq('id', d2.id); }).then(function (r) {
+          if (r && r.error) { fs.querySelector('[data-suppr-msg]').textContent = 'La suppression n’a pas abouti. Réessayez.'; return; }
+          fs.remove(); chargerDossiers();
+        });
+      });
     } else if ((b = e.target.closest('[data-vers-client]'))) {
       var pd = (window.__persoPr || []).filter(function (x) { return x.id === b.getAttribute('data-vers-client'); })[0]; if (!pd) return;
       if (!confirm('Classer « ' + (pd.nom || '') + ' » dans vos dossiers client·es ?')) return;
