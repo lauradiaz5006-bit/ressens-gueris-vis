@@ -156,7 +156,10 @@ window.GenesoliaPratique = (function () {
     var fn = f.querySelector('[data-nouveau-lien]');
     if (fn) fn.addEventListener('submit', function (e) {
       e.preventDefault();
-      var bt = fn.querySelector('button[type=submit]'), op = { reps: fn.reps.checked, delicat: fn.reps.checked && fn.delicat.checked, supervision: fn.supervision.checked }, exp = new Date(Date.now() + 14 * 864e5).toISOString();
+      var op = { reps: fn.reps.checked, delicat: fn.reps.checked && fn.delicat.checked, supervision: fn.supervision.checked }, exp = new Date(Date.now() + 14 * 864e5).toISOString();
+      var rap = 'Créer ce lien ? Il montrera l’arbre' + (op.supervision ? ' anonymisé (sans prénoms ni dates exactes)' : '') + (op.delicat ? ', sans les pistes délicates' : '') + (!op.reps ? ', sans « Ce qui se répète »' : '') + '.\n\nVos notes de séance ne sont JAMAIS incluses dans ce lien, quelle que soit l’option choisie.\n\nRappel : toute personne qui reçoit ce lien peut le transmettre à son tour, et il reste valable 14 jours.';
+      if (!confirm(rap)) return;
+      var bt = fn.querySelector('button[type=submit]');
       bt.disabled = true;
       o.sb.from('partages_arbre').insert({ user_id: o.user.id, arbre_id: o.id, expire_le: exp, options: op }).select('jeton').single().then(function (r) {
         bt.disabled = false;
