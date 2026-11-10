@@ -207,6 +207,11 @@
      Le plan du site ne sert plus qu'à repérer les pages NOUVELLES ou modifiées depuis moins de 14 jours. */
   var PRIORITE = {
     gen: [
+      'https://genesolia.fr/synchronicite-jung-psychologie.html',
+      'https://genesolia.fr/chiffres-prenoms-dates-qui-reviennent.html',
+      'https://genesolia.fr/synchronicite-ou-coincidence-difference.html',
+      'https://genesolia.fr/synchronicites-familiales-generations.html',
+      'https://genesolia.fr/carnet-synchronicites-methode.html',
       'https://genesolia.fr/annee-personnelle-2027.html',
       'https://genesolia.fr/annee-personnelle-1-en-2027.html',
       'https://genesolia.fr/annee-personnelle-2-en-2027.html',
