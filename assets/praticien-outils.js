@@ -180,17 +180,18 @@ window.GenesoliaPratique = (function () {
     var f = fenetre('<h2>Questionnaire avant séance' + (o.nom ? ' · ' + esc(o.nom) : '') + '</h2>' +
       '<p class="pr-o-aide">Envoyez ce lien à votre client·e : il·elle remplit chez lui·elle, sans compte, sa famille proche, les dates, les moments marquants et ce qu’il·elle en ressent. Ses réponses arrivent ici, et s’ajoutent automatiquement à son arbre dès que vous ouvrez le dossier. Les personnes déjà présentes sont seulement complétées : rien n’est effacé.</p>' +
       '<h3 style="margin-top:1rem">Vos questions personnalisées</h3><p class="pr-o-aide" style="margin:0 0 .5rem">Affichées à la fin du questionnaire, en plus de l’arbre familial. Elles s’appliquent à tous les liens envoyés ensuite, pas seulement à ce dossier.</p>' +
-      '<form class="pr-o-form" data-q-perso-form><div data-q-perso-liste><p class="pr-o-aide">Chargement…</p></div><button class="btn btn-trait bt" type="button" data-q-perso-ajouter style="margin:.2rem 0">+ Ajouter une question</button><p class="pr-o-msg" data-q-perso-msg role="status"></p><div><button class="btn btn-trait bt" type="submit">Enregistrer ces questions</button></div></form>' +
+      '<form class="pr-o-form" data-q-perso-form><div data-q-perso-liste><p class="pr-o-aide">Chargement…</p></div><button class="btn btn-trait bt" type="button" data-q-perso-ajouter style="margin:.2rem 0">+ Ajouter une question</button><button class="btn btn-trait bt" type="button" data-q-apercu style="margin:.2rem 0 .2rem .5rem">Voir le questionnaire complet (aperçu)</button><p class="pr-o-msg" data-q-perso-msg role="status"></p><div><button class="btn btn-trait bt" type="submit">Enregistrer ces questions</button></div></form>' +
       '<div data-q-liste style="margin-top:1rem"><p class="pr-o-aide">Chargement…</p></div>' +
       (o.actif ? '<div class="pr-o-boutons" style="margin-top:.6rem"><button class="btn btn-plein bt plein" type="button" data-q-creer>Créer un lien (valable 21 jours)</button></div><p class="pr-o-msg" data-q-msg role="status"></p>'
         : '<p class="pr-o-aide">Pour envoyer un nouveau questionnaire, il faut l’abonnement. Les réponses déjà reçues restent ici.</p>'));
-    var zq = f.querySelector('[data-q-perso-liste]'), qPerso = [];
+    var zq = f.querySelector('[data-q-perso-liste]'), qPerso = [], cabNom = '';
     function rendreQPerso() {
       zq.innerHTML = qPerso.length ? qPerso.map(function (q, i) {
         return '<div style="display:flex;gap:.5rem;margin:0 0 .5rem;align-items:flex-start"><input type="text" maxlength="200" value="' + esc(q) + '" style="flex:1" placeholder="Votre question" data-q-perso-texte aria-label="Question ' + (i + 1) + '"><button class="btn btn-trait bt" type="button" data-q-perso-suppr="' + i + '" style="padding:.3rem .7rem;font-size:.85rem;flex:none">Supprimer</button></div>';
       }).join('') : '<p class="pr-o-aide">Aucune question pour l’instant.</p>';
     }
-    o.sb.from('praticiens').select('questions_perso').eq('user_id', o.user.id).maybeSingle().then(function (r) {
+    o.sb.from('praticiens').select('cabinet,questions_perso').eq('user_id', o.user.id).maybeSingle().then(function (r) {
+      cabNom = (r && r.data && r.data.cabinet) || '';
       qPerso = (r && r.data && r.data.questions_perso) || []; rendreQPerso();
     });
     f.addEventListener('click', function (e) {
@@ -201,7 +202,12 @@ window.GenesoliaPratique = (function () {
         return;
       }
       var bs = e.target.closest('[data-q-perso-suppr]');
-      if (bs) { qPerso = qPerso.slice(); qPerso.splice(+bs.getAttribute('data-q-perso-suppr'), 1); rendreQPerso(); }
+      if (bs) { qPerso = qPerso.slice(); qPerso.splice(+bs.getAttribute('data-q-perso-suppr'), 1); rendreQPerso(); return; }
+      if (e.target.closest('[data-q-apercu]')) {
+        var vals = [].map.call(zq.querySelectorAll('input[data-q-perso-texte]'), function (i) { return i.value.trim(); }).filter(Boolean).slice(0, 12);
+        var u = 'questionnaire.html?apercu=1&perso=' + encodeURIComponent(JSON.stringify(vals)) + (cabNom ? '&cabinet=' + encodeURIComponent(cabNom) : '');
+        window.open(u, '_blank');
+      }
     });
     var fq = f.querySelector('[data-q-perso-form]');
     fq.addEventListener('submit', function (e) {

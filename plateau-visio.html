@@ -125,6 +125,7 @@
           <button type="button" onclick="pvExporter()">Exporter en image</button>
           <button type="button" onclick="pvEnregistrerMain()">Enregistrer</button>
           <button type="button" id="pvBoutonAnnuler" onclick="pvAnnulerDernier()" disabled>Annuler</button>
+          <button type="button" onclick="pvNouvelleSeance()">Nouvelle séance</button>
           <button type="button" class="pv-danger" onclick="pvToutEffacer()">Tout effacer</button>
           <button type="button" id="pvBoutonPlein" onclick="pvBasculerPlein()">Démarrer la séance (plein écran)</button>
         </div>
@@ -143,6 +144,7 @@
               <li style="display:flex;align-items:center;gap:.35rem"><svg width="22" height="12" aria-hidden="true"><line x1="1" y1="6" x2="21" y2="6" stroke="#6B2F5B" stroke-width="2"/><line x1="9" y1="1" x2="13" y2="11" stroke="#A3324B" stroke-width="2"/></svg>Coupé : lien rompu</li>
               <li style="display:flex;align-items:center;gap:.35rem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B2F5B" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6" stroke-dasharray="2.4 2.4"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2" stroke-dasharray="2.4 2.4"/></svg>Pointillé fin (objet « Place vide ») : quelqu’un d’absent</li>
             </ul>
+            <details id="pvSeancesArchivees" hidden style="margin-top:.8rem"><summary>Séances précédentes</summary><ul class="pv-seances-liste" id="pvSeancesListe" style="list-style:none;padding:0;margin:.5rem 0 0;font-size:.84rem"></ul></details>
           </div>
           <div class="pv-liste-zone">
             <h2>Sur le plateau</h2>
@@ -161,7 +163,7 @@
             </details>
           </div>
         </div>
-        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
+        <p class="pv-note">Touchez un pion pour le modifier, pincez-le à deux doigts pour l’agrandir ou le réduire, ou touchez-le deux fois (double-clic) pour le mettre en avant d’un halo — pratique pour montrer « à ton tour » pendant la visio. Touchez un lien ou une trace pour l’effacer. Ouvert depuis un dossier, le plateau est gardé dans votre Espace praticien et se retrouve identique sur tous vos appareils ; ouvert seul, il reste uniquement dans ce navigateur. Partagez votre écran pour que votre cliente le voie en visio ; c’est vous qui déplacez les pions selon ce qu’elle exprime.</p>
       </div>
     </section>
   </main>
@@ -294,6 +296,16 @@
       pions = etat.pions; liens = etat.liens;
       redessiner();
       pvMajBoutonAnnuler();
+    };
+
+    // « À ton tour » : un double-clic (ou double-tap) sur un pion le met en avant (halo lumineux), sans ouvrir sa fiche —
+    // utile en visio pour montrer qui représente la personne qui parle, sans quitter le partage d'écran.
+    window.pvBasculerActif = function (id) {
+      var p = pions.filter(function (x) { return x.id === id; })[0]; if (!p) return;
+      pvMemoriser();
+      p.actif = !p.actif;
+      redessiner();
+      pvSauvegarder();
     };
 
     function maj() {
@@ -556,7 +568,14 @@
         if (etat.pointeurs.size === 0) {
           el.classList.remove('pv-drag');
           if (!etat.pince && !etat.bouge) {
-            if (modeLien) { pvClicPionPourLien(p.id); } else { pvOuvrirPanneau(null, p.id); }
+            if (modeLien) {
+              pvClicPionPourLien(p.id);
+            } else if (el._pvTapEnAttente) {
+              clearTimeout(el._pvTapEnAttente); el._pvTapEnAttente = null;
+              pvBasculerActif(p.id);
+            } else {
+              el._pvTapEnAttente = setTimeout(function () { el._pvTapEnAttente = null; pvOuvrirPanneau(null, p.id); }, 280);
+            }
           } else if (etat.bouge && !etat.pince && etat.depart) {
             p.trace = p.trace || [];
             p.trace.push(etat.depart);
@@ -748,6 +767,52 @@
       if (!pions.length || confirm('Effacer tous les pions du plateau ?')) { pvMemoriser(); pions = []; liens = []; redessiner(); }
     };
 
+    // --- Nouvelle séance : garde le plateau actuel dans l'historique (rien n'est effacé) et repart d'un plateau vierge ---
+    window.pvNouvelleSeance = function () {
+      if (!pions.length && !liens.length) { alert('Le plateau est déjà vide : pas besoin de nouvelle séance.'); return; }
+      if (!confirm('Démarrer une nouvelle séance ? Le plateau actuel est gardé dans l’historique (rien n’est effacé), et un plateau vierge s’ouvre pour cette séance.')) return;
+      var zt = document.getElementById('pvNotesLiens');
+      var archive = { date: new Date().toISOString(), pions: pions, liens: liens, notesLiens: zt ? zt.value : '' };
+      pions = []; liens = []; pvHistorique = [];
+      if (zt) zt.value = '';
+      redessiner();
+      pvMajBoutonAnnuler();
+      if (pvSb && pvUser && pvDossier) {
+        var seances = ((pvDossier.data && pvDossier.data.plateauSeances) || []).concat([archive]).slice(-15);
+        var data = Object.assign({}, pvDossier.data || {}, { plateau: { pions: pions, liens: liens, notesLiens: '' }, plateauSeances: seances });
+        pvDossier.data = data;
+        pvStatut('Enregistrement…');
+        pvSb.from('arbres_supp').update({ data: data }).eq('id', ARBRE_ID).then(function (r) {
+          pvStatut(r && r.error ? 'Pas encore enregistré (connexion ?). Réessayez.' : 'Nouvelle séance : plateau vierge enregistré.');
+        });
+        pvAfficherSeancesArchivees();
+      } else {
+        pvSauvegarderLocal();
+        pvStatut('Nouveau plateau (gardé dans ce navigateur, pas relié à un dossier).');
+      }
+    };
+    function pvAfficherSeancesArchivees() {
+      var seances = (pvDossier && pvDossier.data && pvDossier.data.plateauSeances) || [];
+      var zone = document.getElementById('pvSeancesArchivees'), liste = document.getElementById('pvSeancesListe');
+      if (!zone || !liste) return;
+      zone.hidden = !seances.length;
+      liste.innerHTML = seances.slice().reverse().map(function (s, i) {
+        var vraiI = seances.length - 1 - i, d = new Date(s.date), n = (s.pions || []).length;
+        return '<li style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.35rem 0;border-top:1px solid var(--rose)"><span>' + d.toLocaleDateString('fr-FR') + ' · ' + n + ' pion' + (n > 1 ? 's' : '') + '</span><button type="button" class="btn btn-trait" style="font-size:.78rem;padding:.3rem .6rem" onclick="pvRestaurerSeance(' + vraiI + ')">Restaurer ce plateau</button></li>';
+      }).join('');
+    }
+    window.pvRestaurerSeance = function (i) {
+      var seances = (pvDossier && pvDossier.data && pvDossier.data.plateauSeances) || [];
+      var s = seances[i]; if (!s) return;
+      if (!confirm('Remettre ce plateau archivé sur l’écran ? Le plateau actuel sera gardé dans l’historique à son tour (« Annuler » reste possible juste après).')) return;
+      pvMemoriser();
+      pions = JSON.parse(JSON.stringify(s.pions || []));
+      liens = JSON.parse(JSON.stringify(s.liens || []));
+      var zt = document.getElementById('pvNotesLiens'); if (zt) zt.value = s.notesLiens || '';
+      redessiner();
+      pvSauvegarder();
+    };
+
     // --- Séance / plein écran : masque le menu du site ET les infos privées pendant le partage d'écran,
     //     pour qu'un clic involontaire ne puisse jamais les montrer à la cliente. À la fin, les infos privées
     //     redeviennent visibles tout de suite, prêtes pour la note d'après-séance. ---
@@ -904,6 +969,7 @@
             pions = pvDossier.data.plateau.pions; liens = Array.isArray(pvDossier.data.plateau.liens) ? pvDossier.data.plateau.liens : [];
           } else { pvRestaurer(); }
           pvAfficherInfosArbre(pvDossier);
+          pvAfficherSeancesArchivees();
           redessiner();
         });
       });
