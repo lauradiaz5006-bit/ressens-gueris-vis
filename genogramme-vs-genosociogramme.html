@@ -53,6 +53,27 @@
     .encadre-discret{margin:2rem 0;padding:1.2rem 1.3rem;border-radius:16px;border:1px solid var(--rose);background:#FBF8F6;font-size:.95rem}
     .encadre-discret p{color:var(--prune-doux)}
 
+    .symb-icone{width:38px;height:22px;flex-shrink:0}
+    .symb-icone .t{stroke:var(--prune);stroke-width:1.7;fill:none}
+    .symb-icone .f{fill:var(--blanc);stroke:var(--prune);stroke-width:1.7}
+    .facettes li{display:flex;align-items:center;gap:.8rem}
+    .facettes .txt strong{display:block;font-family:var(--display);font-weight:400;font-size:1.1rem}
+    .facettes .txt span{color:var(--prune-doux);font-size:.92rem}
+
+    .planche-defile{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .planche svg{width:100%;min-width:400px;max-width:480px;height:auto;margin:1.4rem auto;display:block}
+    .arbre .t{stroke:var(--prune);stroke-width:1.7;fill:none}
+    .arbre .f{fill:var(--blanc);stroke:var(--prune);stroke-width:1.7}
+    .arbre .moi{fill:var(--champagne-clair);stroke:var(--prune);stroke-width:1.7}
+    .arbre .nom{font:400 13px var(--display);fill:var(--prune)}
+    .arbre .gen{font:600 11px var(--texte);fill:#C7A6BC}
+    .legende-mini{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.2rem;margin-top:.2rem;font-size:.88rem;color:var(--prune-doux);text-align:center}
+
+    .lire{list-style:none;margin:1.4rem 0;display:grid;gap:0}
+    .lire li{padding:.9rem 0 .9rem 1.6rem;border-top:1px solid var(--rose);position:relative}
+    .lire li:last-child{border-bottom:1px solid var(--rose)}
+    .lire li::before{content:'';position:absolute;left:0;top:1.3rem;width:.6rem;height:.6rem;border-radius:50%;background:var(--corail)}
+
     @media (max-width:640px){
       .deux,.facettes{grid-template-columns:1fr}
       .article{padding-top:2.5rem}
@@ -67,7 +88,7 @@
     .note-fin{font-size:.93rem;color:var(--prune-doux);margin-top:2.4rem}
     .article .actions{display:flex;flex-wrap:wrap;gap:.6rem}
   </style>
-  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Génogramme vs génosociogramme : quelle différence ?", "description": "Génogramme : définition, origine en travail social et thérapie familiale, symboles utilisés, et ce qui le distingue du génosociogramme en psychogénéalogie.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/genogramme-vs-genosociogramme.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/genogramme-vs-genosociogramme.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce qu'un génogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Un génogramme est une représentation graphique d'une famille sur plusieurs générations, utilisant des symboles normalisés (carrés, cercles, traits de couple ou de rupture) pour montrer sa structure, ses liens et parfois ses relations. Il est très utilisé en travail social, en soins infirmiers et en thérapie familiale."}}, {"@type": "Question", "name": "Quelle différence entre génogramme et génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme est l'outil clinique de base : structure familiale et symboles normalisés. Le génosociogramme, popularisé par Anne Ancelin Schützenberger en psychogénéalogie, l'enrichit des dates clés, des métiers, des événements marquants et des répétitions, pour une lecture émotionnelle et transgénérationnelle."}}, {"@type": "Question", "name": "Quels symboles utilise-t-on dans un génogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Un carré pour un homme, un cercle pour une femme, un trait plein pour un mariage, un trait barré pour une séparation ou un divorce, des traits verticaux vers les enfants, et souvent une croix ou un remplissage pour signaler un décès."}}, {"@type": "Question", "name": "Peut-on faire un génogramme en ligne gratuitement ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. L'outil génosociogramme de Genesolia reprend les mêmes symboles de base et y ajoute la lecture des répétitions familiales ; il est gratuit pour dessiner son arbre."}}]}]</script>
+  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Génogramme vs génosociogramme : quelle différence ?", "description": "Génogramme : définition, origine en travail social et thérapie familiale, symboles utilisés, et ce qui le distingue du génosociogramme en psychogénéalogie.", "datePublished": "2026-11-10", "dateModified": "2026-11-10", "inLanguage": "fr", "author": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "publisher": {"@type": "Organization", "name": "Genesolia", "url": "https://genesolia.fr/"}, "url": "https://genesolia.fr/genogramme-vs-genosociogramme.html", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://genesolia.fr/genogramme-vs-genosociogramme.html"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Qu'est-ce qu'un génogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Un génogramme est une représentation graphique d'une famille sur plusieurs générations, utilisant des symboles normalisés (carrés, cercles, traits de couple ou de rupture) pour montrer sa structure, ses liens et parfois ses relations. Il est très utilisé en travail social, en soins infirmiers et en thérapie familiale."}}, {"@type": "Question", "name": "Quelle différence entre génogramme et génosociogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Le génogramme est l'outil clinique de base : structure familiale et symboles normalisés. Le génosociogramme, popularisé par Anne Ancelin Schützenberger en psychogénéalogie, l'enrichit des dates clés, des métiers, des événements marquants et des répétitions, pour une lecture émotionnelle et transgénérationnelle."}}, {"@type": "Question", "name": "Quels symboles utilise-t-on dans un génogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Un carré pour un homme, un cercle pour une femme, un trait plein pour un mariage, un trait barré pour une séparation ou un divorce, des traits verticaux vers les enfants, et souvent une croix ou un remplissage pour signaler un décès."}}, {"@type": "Question", "name": "Peut-on faire un génogramme en ligne gratuitement ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. L'outil génosociogramme de Genesolia reprend les mêmes symboles de base et y ajoute la lecture des répétitions familiales ; il est gratuit pour dessiner son arbre."}}, {"@type": "Question", "name": "Comment faire un génogramme à la main ?", "acceptedAnswer": {"@type": "Answer", "text": "Place-toi en bas de la feuille avec un double contour, puis remonte génération par génération : parents sur une ligne, grands-parents sur la suivante. Relie les couples par un trait horizontal, les enfants par un trait vertical, et utilise les symboles de base (carré, cercle, croix) pour chaque personne."}}, {"@type": "Question", "name": "Combien de générations dans un génogramme ?", "acceptedAnswer": {"@type": "Answer", "text": "Trois générations suffisent déjà à voir la structure d'une famille. Pour repérer des répétitions, comme en psychogénéalogie, on vise plutôt quatre générations, dans la mesure de ce qu'on connaît."}}]}]</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://genesolia.fr/"}, {"@type": "ListItem", "position": 2, "name": "Génogramme vs génosociogramme", "item": "https://genesolia.fr/genogramme-vs-genosociogramme.html"}]}</script>
 </head>
 <body class="nouveau">
@@ -78,7 +99,7 @@
         <nav class="fil" aria-label="Fil d'Ariane"><a href="psychogenealogie.html">Psychogénéalogie</a><span aria-hidden="true">/</span>Génogramme</nav>
         <h1>Génogramme vs génosociogramme : quelle différence ?</h1>
         <p class="intro">Les deux mots se ressemblent, et beaucoup les confondent. Voici ce qu'est un génogramme, d'où il vient, et ce qui le distingue du génosociogramme utilisé en psychogénéalogie.</p>
-        <p class="publie">Publié le 10 novembre 2026 · lecture 6 min</p>
+        <p class="publie">Publié le 10 novembre 2026 · lecture 9 min</p>
       </div>
     </section>
     <figure class="bandeau-photo"><img src="assets/images/genesolia-1600.webp" srcset="assets/images/genesolia-800.webp 800w, assets/images/genesolia-1600.webp 1600w" sizes="(max-width: 1140px) 100vw, 1100px" width="1600" height="841" alt="Un arbre lumineux aux racines dorées" loading="lazy" decoding="async"></figure>
@@ -91,14 +112,68 @@
 
         <h2>Les symboles de base</h2>
         <ul class="facettes">
-          <li><strong>□ Homme</strong><span>Un carré</span></li>
-          <li><strong>○ Femme</strong><span>Un cercle</span></li>
-          <li><strong>— Union</strong><span>Un trait plein entre les deux</span></li>
-          <li><strong>⫽ Séparation</strong><span>Un trait barré sur le trait d'union</span></li>
-          <li><strong>↓ Filiation</strong><span>Un trait vertical vers les enfants</span></li>
-          <li><strong>✕ Décès</strong><span>Une croix sur le symbole, ou un remplissage</span></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Carré"><rect class="f" x="14" y="4" width="16" height="16" rx="2"/></svg><div class="txt"><strong>Homme</strong><span>Un carré</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Cercle"><circle class="f" cx="20" cy="12" r="9"/></svg><div class="txt"><strong>Femme</strong><span>Un cercle</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Trait plein entre deux personnes"><rect class="f" x="2" y="5" width="14" height="14" rx="1.5"/><circle class="f" cx="33" cy="12" r="7"/><path class="t" d="M16 12H26"/></svg><div class="txt"><strong>Union</strong><span>Un trait plein entre les deux</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Trait d'union barré d'une oblique"><rect class="f" x="2" y="5" width="14" height="14" rx="1.5"/><circle class="f" cx="33" cy="12" r="7"/><path class="t" d="M16 12H26M18 19L24 5"/></svg><div class="txt"><strong>Séparation</strong><span>Un trait barré sur le trait d'union</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Trait vertical vers un enfant"><path class="t" d="M20 2V14"/><rect class="f" x="12" y="15" width="16" height="7" rx="1.5"/></svg><div class="txt"><strong>Filiation</strong><span>Un trait vertical vers les enfants</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Carré barré d'une croix"><rect class="f" x="12" y="4" width="16" height="16" rx="2"/><path class="t" d="M12 4L28 20M28 4L12 20"/></svg><div class="txt"><strong>Décès</strong><span>Une croix sur le symbole</span></div></li>
         </ul>
-        <p>Ces symboles sont une base commune : la plupart des outils de génogramme, y compris le génosociogramme, les reprennent tels quels.</p>
+        <p>Ces symboles sont une base commune : la plupart des outils de génogramme, y compris le <a href="symboles-genosociogramme.html">génosociogramme</a>, les reprennent tels quels.</p>
+
+        <h2>Symboles avancés</h2>
+        <p>La vie d'une famille ne tient pas toujours dans six symboles. Voici quelques cas fréquents, avec leur convention la plus répandue :</p>
+        <ul class="facettes">
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Deux traits partant d'un même point"><path class="t" d="M20 2V10L12 20M20 10L28 20"/><circle class="f" cx="12" cy="21" r="4"/><circle class="f" cx="28" cy="21" r="4"/></svg><div class="txt"><strong>Jumeaux</strong><span>Deux traits partant d'un même point</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Trait pointillé vers un enfant"><path class="t" d="M20 2V13" stroke-dasharray="3 3"/><rect class="f" x="12" y="14" width="16" height="8" rx="1.5"/></svg><div class="txt"><strong>Adoption</strong><span>Un trait pointillé vers l'enfant</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Petit rond plein"><path class="t" d="M20 2V13"/><circle cx="20" cy="18" r="5" fill="var(--prune)"/></svg><div class="txt"><strong>Fausse couche</strong><span>Un petit rond plein, à sa place dans la fratrie</span></div></li>
+          <li><svg class="symb-icone" viewBox="0 0 40 24" role="img" aria-label="Petite croix"><path class="t" d="M20 2V12"/><path class="t" d="M14 16L26 22M26 16L14 22" stroke-linecap="round"/></svg><div class="txt"><strong>IVG</strong><span>Une petite croix, à sa place dans la fratrie</span></div></li>
+        </ul>
+        <p>Pour une <strong>famille recomposée</strong>, on ajoute simplement une seconde ligne d'union pour le parent qui refait sa vie, avec ses propres enfants rattachés ; pour un enfant <strong>conçu avec don ou par PMA</strong>, il n'existe pas de symbole universel, on l'indique en général par une note écrite à côté de son nom. Tous les autres cas (grossesse en cours, enfant mort-né, enfant placé, qualité des relations) sont détaillés sur la page <a href="symboles-genosociogramme.html">tous les symboles du génosociogramme</a>.</p>
+
+        <h2>Un exemple simple</h2>
+        <p>Trois générations suffisent à voir comment les symboles s'assemblent : un couple de grands-parents, leurs enfants, puis toi.</p>
+        <div class="planche-defile">
+          <svg class="arbre planche" viewBox="0 0 400 300" role="img" aria-label="Exemple de génogramme sur trois générations : grands-parents, parents, et soi-même avec un frère ou une sœur">
+            <text class="gen" x="8" y="20">1</text>
+            <text class="gen" x="8" y="120">2</text>
+            <text class="gen" x="8" y="220">3</text>
+            <path class="t" d="M106 40H214M160 40V94"/>
+            <path class="t" d="M176 150H254M215 150V190"/>
+            <path class="t" d="M215 190H160V218M215 190H260V218"/>
+            <rect class="f" x="90" y="24" width="32" height="32" rx="2"/>
+            <text class="nom" x="106" y="72" text-anchor="middle">Grand-père</text>
+            <circle class="f" cx="214" cy="40" r="16"/>
+            <text class="nom" x="214" y="72" text-anchor="middle">Grand-mère</text>
+            <rect class="f" x="144" y="94" width="32" height="32" rx="2"/>
+            <text class="nom" x="160" y="142" text-anchor="middle">Papa</text>
+            <circle class="f" cx="270" cy="150" r="16"/>
+            <text class="nom" x="270" y="186" text-anchor="middle">Maman</text>
+            <circle class="moi" cx="160" cy="236" r="17"/>
+            <circle class="t" cx="160" cy="236" r="11"/>
+            <text class="nom" x="160" y="270" text-anchor="middle">Toi</text>
+            <rect class="f" x="244" y="219" width="32" height="32" rx="2"/>
+            <text class="nom" x="260" y="270" text-anchor="middle">Frère ou sœur</text>
+          </svg>
+          <p class="legende-mini">Carré = homme · Cercle = femme · Double contour = la personne qui dessine l'arbre · Trait plein = union · Trait vertical = filiation</p>
+        </div>
+        <p>Ce n'est qu'un squelette. Pour voir un génogramme complet, avec dates, métiers et répétitions sur quatre générations, la page <a href="exemple-genosociogramme.html">un exemple lu pas à pas</a> détaille celui d'une famille fictive.</p>
+
+        <h2>Comment lire un génogramme</h2>
+        <ul class="lire">
+          <li><strong>On commence par soi, en bas.</strong> La personne qui dessine l'arbre se place en bas du schéma, souvent avec un double contour.</li>
+          <li><strong>On remonte les générations.</strong> Parents, puis grands-parents, puis arrière-grands-parents si on les connaît : chaque génération occupe une ligne horizontale.</li>
+          <li><strong>On lit les traits autant que les cases.</strong> Un trait plein, pointillé ou barré en dit souvent plus sur une famille que les prénoms eux-mêmes.</li>
+          <li><strong>On repère ce qui se répète.</strong> Un âge, un métier, un prénom ou un type de rupture qui revient d'une génération à l'autre : c'est ce que cherche spécifiquement le génosociogramme.</li>
+        </ul>
+
+        <h2>Qui l'utilise, et pourquoi</h2>
+        <ul class="lire">
+          <li><strong>Une sage-femme</strong> le dessine pour repérer en quelques minutes la structure familiale autour d'une naissance à venir.</li>
+          <li><strong>Un médecin généraliste</strong> s'en sert pour visualiser une situation familiale complexe lors d'un suivi.</li>
+          <li><strong>Une assistante sociale</strong> l'utilise pour comprendre rapidement qui entoure une personne suivie, et qui peut être ressource.</li>
+          <li><strong>Un·e thérapeute familial·e</strong> s'appuie dessus en séance, pour que chacun·e visualise la même structure familiale.</li>
+        </ul>
 
         <h2>Génogramme et génosociogramme</h2>
         <div class="deux">
@@ -121,6 +196,8 @@
           <dt>Quelle différence entre génogramme et génosociogramme ?</dt><dd>Le génogramme est l'outil clinique de base : structure familiale et symboles normalisés. Le génosociogramme, popularisé par Anne Ancelin Schützenberger en psychogénéalogie, l'enrichit des dates clés, des métiers, des événements marquants et des répétitions, pour une lecture émotionnelle et transgénérationnelle.</dd>
           <dt>Quels symboles utilise-t-on dans un génogramme ?</dt><dd>Un carré pour un homme, un cercle pour une femme, un trait plein pour un mariage, un trait barré pour une séparation ou un divorce, des traits verticaux vers les enfants, et souvent une croix ou un remplissage pour signaler un décès.</dd>
           <dt>Peut-on faire un génogramme en ligne gratuitement ?</dt><dd>Oui. L'outil génosociogramme de Genesolia reprend les mêmes symboles de base et y ajoute la lecture des répétitions familiales ; il est gratuit pour dessiner son arbre.</dd>
+          <dt>Comment faire un génogramme à la main ?</dt><dd>Place-toi en bas de la feuille avec un double contour, puis remonte génération par génération : parents sur une ligne, grands-parents sur la suivante. Relie les couples par un trait horizontal, les enfants par un trait vertical, et utilise les symboles de base (carré, cercle, croix) pour chaque personne.</dd>
+          <dt>Combien de générations dans un génogramme ?</dt><dd>Trois générations suffisent déjà à voir la structure d'une famille. Pour repérer des répétitions, comme en psychogénéalogie, on vise plutôt quatre générations, dans la mesure de ce qu'on connaît.</dd>
         </dl>
         <div class="actions">
           <a class="btn btn-plein" href="genosociogramme.html">Dessiner mon arbre familial</a>
