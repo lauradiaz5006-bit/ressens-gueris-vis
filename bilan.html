@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#6B2F5B">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Bilan de suivi · Genesolia</title>
+  <meta name="description" content="Le bilan de fin d'accompagnement envoyé par votre praticien·ne : votre arbre, votre constellation et les notes partagées.">
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    #bl{max-width:40rem;margin:0 auto;padding:2rem 16px 4rem;color:var(--prune)}
+    #bl h1{font-size:clamp(1.8rem,5vw,2.3rem);margin:0 0 .3rem;line-height:1.14}
+    .bl-etiq{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--champagne);margin:0 0 .4rem}
+    .bl-intro{color:var(--prune-doux);margin:0 0 1.5rem}
+    .bl-carte{background:var(--blanc);border:1px solid var(--rose);border-radius:var(--rayon);padding:1.3rem 1.3rem 1.4rem;margin:0 0 1.2rem;box-shadow:0 8px 24px rgba(107,47,91,.05)}
+    .bl-carte h2{font-size:1.3rem;margin:0 0 .5rem}
+    .bl-carte p{margin:0 0 .6rem}
+    .bl-photo{width:100%;border-radius:14px;border:1px solid var(--rose);display:block}
+    .bl-note{border-top:1px solid var(--rose,#F2D6DE);padding:.7rem 0}
+    .bl-note:first-child{border-top:0;padding-top:0}
+    .bl-note small{color:var(--prune-doux)}
+    .bl-note p{margin:.3rem 0 0;white-space:pre-wrap}
+    .bl-boutons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}
+    .bl-vide{color:var(--prune-doux);font-size:.9rem;margin:0}
+    .bl-suite{background:#FFF6EC;border:1px solid #F3DCC0;border-radius:14px;padding:1rem 1.1rem;text-align:center;margin-top:1.4rem}
+    .bl-msg{text-align:center;color:var(--prune-doux);padding:2.2rem 1rem}
+    header[data-entete=simple] .menu,header[data-entete=simple] .burger,header[data-entete=simple] .entete-actions{display:none!important}
+    header[data-entete=simple] .marque{pointer-events:none}
+  </style>
+</head>
+<body class="nouveau">
+  <header data-entete="simple"></header>
+  <main id="bl" aria-live="polite"><p class="bl-vide">Chargement de votre bilan…</p></main>
+  <footer data-pied></footer>
+  <script src="assets/site.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var SB_URL = 'https://qsvzzkjtjsznfntahvvh.supabase.co', SB_KEY = 'sb_publishable_6iEVxXmtB_u1hJ6mPS9fNg_CJhLjYkg';
+    var JETON = new URLSearchParams(location.search).get('b') || '';
+    var zone = document.getElementById('bl');
+    function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function date(d) { return d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : ''; }
+    function urlArbre() { return 'https://genesolia.fr/genosociogramme.html?partage=' + encodeURIComponent(JETON); }
+    function message(txt) { zone.innerHTML = '<div class="bl-msg"><p>' + txt + '</p></div>'; }
+
+    function afficher(d) {
+      var cabinet = d.cabinet || 'Votre praticien·ne';
+      var bilan = (!((d.options || {}).supervision) && d.bilan) ? d.bilan : null;
+      var notes = (bilan && Array.isArray(bilan.notes)) ? bilan.notes.slice().sort(function (a, b) { return b.jour < a.jour ? -1 : 1; }) : [];
+      var html = '<p class="bl-etiq">' + esc(cabinet) + '</p>' +
+        '<h1>Votre bilan de suivi</h1>' +
+        '<p class="bl-intro">' + (bilan && bilan.maj ? 'Préparé pour vous le ' + date(bilan.maj) + '.' : 'Votre arbre, tel qu’il est aujourd’hui.') + '</p>' +
+        '<div class="bl-carte"><h2>Votre arbre</h2><p>Votre génosociogramme complet, avec ce que ' + esc(cabinet) + ' a choisi de vous montrer.</p>' +
+        '<div class="bl-boutons"><a class="btn btn-plein bt plein" href="' + urlArbre() + '">Voir mon arbre</a></div></div>';
+      if (bilan && bilan.constellation) {
+        html += '<div class="bl-carte" id="blConstellation"><h2>Votre constellation</h2><p>Une photo du plateau symbolique de vos séances.</p><img class="bl-photo" src="' + bilan.constellation + '" alt="Photo de votre constellation familiale"></div>';
+      }
+      html += '<div class="bl-carte" id="blNotes"><h2>Notes de ' + esc(cabinet) + '</h2>' +
+        (notes.length ? notes.map(function (n) { return '<div class="bl-note"><small>' + esc(date(n.jour) || 'Sans date') + '</small><p>' + esc(n.texte || '') + '</p></div>'; }).join('')
+          : '<p class="bl-vide">' + esc(cabinet) + ' n’a pas partagé de note pour l’instant.</p>') + '</div>' +
+        '<div class="bl-boutons"><button class="btn btn-trait bt" type="button" id="blPdf">Télécharger en PDF</button></div>' +
+        '<p class="bl-msg" id="blPdfMsg" role="status" style="padding:0;text-align:left;font-size:.85rem"></p>' +
+        '<div class="bl-suite"><p style="margin:0 0 .6rem">Vous pouvez garder votre arbre et continuer à l’explorer, gratuitement, dans votre propre espace Genesolia.</p>' +
+        '<a class="btn btn-plein bt plein" href="' + urlArbre() + '">Continuer mon arbre sur genesolia.fr</a></div>';
+      zone.innerHTML = html;
+      var bp = document.getElementById('blPdf'); if (bp) bp.addEventListener('click', function () { exporterPdf(cabinet, bilan, notes); });
+    }
+
+    function script(src) { return new Promise(function (ok, ko) { var s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); }); }
+    function exporterPdf(cabinet, bilan, notes) {
+      var bt = document.getElementById('blPdf'), msg = document.getElementById('blPdfMsg');
+      bt.disabled = true; msg.textContent = 'Préparation du PDF…';
+      script('assets/jspdf.umd.min.js').then(function () {
+        var J = window.jspdf.jsPDF, doc = new J({ unit: 'mm', format: 'a4' }), pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight(), m = 18, y = m, lw = pw - 2 * m;
+        function place(h) { if (y + h > ph - m) { doc.addPage(); y = m; } }
+        doc.setTextColor(107, 47, 91);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.text(cabinet || 'Votre Espace Genesolia', m, y); y += 9;
+        doc.setFontSize(19); doc.text('Bilan de suivi', m, y); y += 8;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
+        doc.text(bilan && bilan.maj ? 'Préparé le ' + date(bilan.maj) : 'Préparé pour vous', m, y); y += 7;
+        doc.setTextColor(150, 70, 110); doc.textWithLink('Voir mon arbre en ligne : ' + urlArbre(), m, y, { url: urlArbre() }); y += 9;
+        doc.setTextColor(107, 47, 91);
+        if (bilan && bilan.constellation) {
+          place(12); doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Votre constellation', m, y); y += 6;
+          var iw = lw, ih = iw * 0.62; place(ih + 4);
+          try { doc.addImage(bilan.constellation, 'JPEG', m, y, iw, ih); y += ih + 8; } catch (e) { y += 2; }
+        }
+        place(10); doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Notes de ' + (cabinet || 'votre praticien·ne'), m, y); y += 7;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10.5);
+        if (!notes.length) { place(6); doc.text('Aucune note partagée pour l’instant.', m, y); y += 6; }
+        notes.forEach(function (n) {
+          place(11); doc.setFont('helvetica', 'bold'); doc.setFontSize(10.5); doc.text(date(n.jour) || 'Sans date', m, y); y += 5.6;
+          doc.setFont('helvetica', 'normal');
+          var lignes = doc.splitTextToSize(String(n.texte || ''), lw);
+          lignes.forEach(function (l) { place(5.4); doc.text(l, m, y); y += 5.4; });
+          y += 4;
+        });
+        place(14); doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(150, 120, 140);
+        doc.text('Continuez votre arbre, gratuitement, sur genesolia.fr : ' + urlArbre(), m, y, { maxWidth: lw });
+        var n2 = doc.getNumberOfPages();
+        for (var i = 1; i <= n2; i++) { doc.setPage(i); doc.setFontSize(8); doc.setTextColor(150, 120, 140); doc.text('Bilan de suivi · page ' + i + ' sur ' + n2, m, ph - 8); }
+        doc.save('bilan-de-suivi.pdf');
+        bt.disabled = false; msg.textContent = '';
+      }, function () { bt.disabled = false; msg.textContent = 'Le PDF n’a pas pu être créé. Réessayez.'; });
+    }
+
+    if (!/^[0-9a-f-]{36}$/i.test(JETON)) { message('Ce lien n’est pas valable. Demandez un nouveau lien à votre praticien·ne.'); return; }
+    fetch(SB_URL + '/rest/v1/rpc/partage_lire', { method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ p_jeton: JETON }) })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.people) { message('Ce lien n’est plus valable. Demandez un nouveau lien à votre praticien·ne.'); return; }
+        afficher(d);
+      }, function () { message('Votre bilan n’a pas pu être chargé pour l’instant. Réessayez dans un instant.'); });
+  })();
+  </script>
+</body>
+</html>
